@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kr:schemas:entry:v1.0",
+  "title": "KR Entry Record",
+  "description": "Schema for an encyclopedic entry — the terminal product of the synthesizing engine (محرك التوليف), stored in the library. An entry is a synthesized encyclopedic article at a leaf (or school-group within a leaf), generated from placed, verified excerpts. Entries are a primary knowledge product per §1.6 and §6. This schema is PROVISIONAL: the analytical layer boundary (§6.4 OPEN QUESTION) is unresolved.",
+  "type": "object",
+  "required": [
+    "record_type",
+    "entry_id",
+    "leaf_path",
+    "science_id",
+    "generated_utc",
+    "generator_model",
+    "source_excerpt_ids",
+    "factual_layer",
+    "staleness_hash",
+    "version"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "record_type": {
+      "const": "entry",
+      "description": "Record type discriminator. Always 'entry'."
+    },
+    "entry_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Globally unique identifier for this entry. Format determined by implementation."
+    },
+    "leaf_path": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Full path from root to the leaf this entry covers, using the science::segment/segment notation per §2.3."
+    },
+    "science_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Science tree this entry belongs to."
+    },
+    "school_group": {
+      "type": ["string", "null"],
+      "description": "Which scholarly school (مذهب) this entry covers, per §6.2 entry cardinality. null if the science has no schools or schools are not relevant to this leaf's topic. When non-null, this entry is generated exclusively from this school's verified excerpts."
+    },
+    "generated_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp of when this entry was generated."
+    },
+    "generator_model": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identifier of the LLM model used to generate this entry. Enables regression testing per §8.3 when models are updated."
+    },
+    "source_excerpt_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Array of placed excerpt IDs used as the factual foundation for this entry. Every factual claim in the entry must be traceable to these excerpts per §6.4."
+    },
+    "factual_layer": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The main entry text — the factual layer per §6.1. Faithfully represents all positions, attributions, and evidence present in the verified excerpts. Every factual claim is traceable to source_excerpt_ids. Generated exclusively from verified excerpts."
+    },
+    "analytical_layer": {
+      "type": ["string", "null"],
+      "x-provisional": true,
+      "description": "PROVISIONAL (§6.4 OPEN QUESTION unresolved). The synthesizing engine's intellectual contribution per §6.1: drawing connections between positions, explaining disagreements, contextualizing opinions, structuring for comprehension. May vary across regenerations. Must not contradict the factual layer. Must be clearly distinguishable from the factual layer. Null if the entry does not include analytical content."
+    },
+    "critical_analysis": {
+      "type": ["string", "null"],
+      "x-provisional": true,
+      "description": "PROVISIONAL (§6.4 OPEN QUESTION unresolved). Separate section addressing flagged excerpts at this leaf, per §6.2. Structurally separate from the primary entry and clearly marked. Generated only when flagged excerpts exist. Null otherwise."
+    },
+    "flagged_excerpt_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Placed excerpt IDs of flagged excerpts referenced in critical_analysis. Empty if no critical analysis.",
+      "default": []
+    },
+    "staleness_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 hash of the source excerpt IDs concatenated with a hash of their content. Used to detect when the underlying excerpt collection has changed and regeneration is needed per §6.3."
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Entry regeneration version. Starts at 1 for initial generation, increments with each regeneration. Enables tracking entry evolution over time."
+    },
+    "is_stale": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this entry is known to be stale per §6.3 — the underlying excerpt collection has changed since generation. Stale entries are clearly marked when displayed."
+    },
+    "taxonomy_version": {
+      "type": "string",
+      "description": "Version of the science tree at the time of generation. Enables detecting structural changes that may affect the entry."
+    },
+    "entry_metadata": {
+      "type": "object",
+      "description": "Additional metadata about the entry.",
+      "properties": {
+        "total_source_excerpts": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of verified excerpts used."
+        },
+        "unique_authors": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of distinct authors represented in the source excerpts."
+        },
+        "unique_sources": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of distinct sources represented."
+        },
+        "generation_duration_seconds": {
+          "type": ["number", "null"],
+          "description": "Time taken to generate this entry. Null if not tracked."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

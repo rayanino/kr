@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kr:schemas:atoms:v1.0",
+  "title": "KR Atom Record",
+  "description": "Schema for a single atom record — the output of the atomization engine (محرك التذرير) consumed by the excerpting engine (محرك الاقتطاف). An atom is the smallest indivisible unit of text within a passage, typed and precisely located by character offsets. Source-agnostic: operates below the normalization boundary.",
+  "type": "object",
+  "required": [
+    "record_type",
+    "atom_id",
+    "passage_id",
+    "book_id",
+    "science_id",
+    "atom_type",
+    "source_layer",
+    "atom_text",
+    "anchor_span"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "record_type": {
+      "const": "atom",
+      "description": "Record type discriminator. Always 'atom'."
+    },
+    "atom_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+:[a-z0-9_]+:[0-9]{6}$",
+      "description": "Globally unique identifier: {book_id}:{layer}:{six_digit_sequence}. Sequence numbers are assigned in reading order within each layer, globally sequential within a source — never reset between passages. Immutable once assigned."
+    },
+    "passage_id": {
+      "type": "string",
+      "pattern": "^P[0-9]{3,}$",
+      "description": "ID of the passage this atom belongs to. Links atom to its parent passage for pipeline traceability."
+    },
+    "book_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Canonical source identifier. Must be consistent across all records from the same source. Added for pipeline traceability."
+    },
+    "science_id": {
+      "type": ["string", "null"],
+      "description": "Science classification inherited from the passage. Carries science identity through the pipeline per §7.3. Added for pipeline traceability."
+    },
+    "atom_type": {
+      "type": "string",
+      "enum": [
+        "heading",
+        "prose_sentence",
+        "bonded_cluster",
+        "verse_evidence",
+        "quran_quote_standalone",
+        "list_item"
+      ],
+      "description": "Structural type determining behavior in excerpting. heading: section/chapter heading (excluded from excerpts, used in heading_path). prose_sentence: single complete Arabic sentence (most common). bonded_cluster: semantically inseparable multi-sentence unit (requires bonded_cluster_trigger). verse_evidence: poetry cited as evidence. quran_quote_standalone: standalone Quran text. list_item: numbered/bulleted item in an enumeration."
+    },
+    "source_layer": {
+      "type": "string",
+      "enum": ["matn", "footnote", "sharh", "hashiya", "tahqiq_3ilmi"],
+      "description": "Source layer. matn: main text. footnote: editor footnotes. tahqiq_3ilmi: substantive editorial commentary. sharh/hashiya: classical multi-layer commentary."
+    },
+    "atom_text": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Verbatim text of this atom, copied exactly from the source passage. Never edited, rewritten, or normalized after atomization. Footnote markers are stripped but recorded in footnote_refs. This is the ground truth for all downstream processing."
+    },
+    "anchor_span": {
+      "type": "object",
+      "description": "Character-level position of this atom within its passage's text (passage_text field). The invariant atom_text == passage_text[start:end] must hold.",
+      "required": ["start", "end"],
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Start character offset (inclusive) in Unicode codepoints."
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "End character offset (exclusive) in Unicode codepoints."
+        }
+      }
+    },
+    "page_hint": {
+      "type": "string",
+      "default": "",
+      "description": "Approximate page reference in the printed edition (e.g., 'ص:٢١'). Informational only — helps human reviewers locate atoms in physical sources."
+    },
+    "context_role": {
+      "type": ["string", "null"],
+      "description": "When this atom serves as context in an excerpt, its functional role (e.g., 'evidence', 'classification_frame', 'prerequisite'). Null when not yet assigned a context role.",
+      "default": null
+    },
+    "bonded_cluster_trigger": {
+      "type": ["object", "null"],
+      "description": "REQUIRED non-null when atom_type='bonded_cluster'. Explains why multiple sentences were merged. Null otherwise.",
+      "properties": {
+        "trigger_id": {
+          "type": "string",
+          "description": "Identifier for the bonding trigger type."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Explanation of why the sentences are bonded."
+        }
+      },
+      "default": null
+    },
+    "atomization_notes": {
+      "type": ["string", "null"],
+      "description": "Free-text for non-trigger decisions (heading recognition, verse identification, page-span notes). Null for straightforward atoms.",
+      "default": null
+    },
+    "internal_tags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "An embedded content marker or anomaly flag within the atom's text.",
+        "properties": {
+          "tag_type": {
+            "type": "string",
+            "description": "Type of embedded content (e.g., 'quran_fragment', 'hadith_fragment', 'verse_fragment', 'source_inconsistency')."
+          },
+          "span_start": {
+            "type": "integer",
+            "description": "Start offset within atom_text."
+          },
+          "span_end": {
+            "type": "integer",
+            "description": "End offset within atom_text."
+          },
+          "note": {
+            "type": ["string", "null"],
+            "description": "Optional note about this tag."
+          }
+        }
+      },
+      "default": [],
+      "description": "List of embedded content markers within this atom's text. Used to identify Quran/hadith/verse fragments embedded in prose and to document source inconsistencies."
+    },
+    "footnote_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "A footnote reference linking this atom to a footnote.",
+        "properties": {
+          "ref_number": {
+            "type": ["string", "integer"],
+            "description": "Footnote reference number or marker."
+          },
+          "footnote_atom_id": {
+            "type": ["string", "null"],
+            "description": "atom_id of the corresponding footnote-layer atom, if resolved."
+          }
+        }
+      },
+      "default": [],
+      "description": "Matn-to-footnote linkage. Empty for footnote-layer atoms."
+    },
+    "relation": {
+      "type": ["object", "null"],
+      "description": "Optional typed relation to another atom (e.g., answer relationship for exercises). Null for atoms with no relations.",
+      "properties": {
+        "relation_type": {
+          "type": "string",
+          "description": "Type of relation."
+        },
+        "target_atom_id": {
+          "type": "string",
+          "description": "atom_id of the related atom."
+        }
+      },
+      "default": null
+    }
+  }
+}

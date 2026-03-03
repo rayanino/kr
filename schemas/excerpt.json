@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kr:schemas:excerpt:v1.0",
+  "title": "KR Draft Excerpt Record",
+  "description": "Schema for a draft excerpt record — the output of the excerpting engine (محرك الاقتطاف) consumed by the taxonomy engine (محرك التصنيف). An excerpt is a self-contained unit of knowledge: independently understandable, attributed, and classified to a proposed taxonomy leaf. This schema defines the 'draft' lifecycle stage per §2.4. Source-agnostic: operates below the normalization boundary.",
+  "type": "object",
+  "required": [
+    "record_type",
+    "excerpt_id",
+    "passage_id",
+    "book_id",
+    "science_id",
+    "excerpt_kind",
+    "atom_ids",
+    "excerpt_title",
+    "excerpt_title_reason",
+    "proposed_leaf",
+    "self_containment_score",
+    "review_flags",
+    "lifecycle_stage",
+    "primary_text"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "record_type": {
+      "const": "excerpt",
+      "description": "Record type discriminator. Always 'excerpt'."
+    },
+    "excerpt_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+:exc:[0-9]{6}$",
+      "description": "Globally unique identifier: {book_id}:exc:{six_digit_sequence}. Immutable once assigned."
+    },
+    "passage_id": {
+      "type": "string",
+      "pattern": "^P[0-9]{3,}$",
+      "description": "ID of the passage this excerpt was extracted from."
+    },
+    "book_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Canonical source identifier."
+    },
+    "science_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Which science tree this excerpt is destined for. Inherited from passage science_id or determined by the excerpting engine for multi-science sources. Required per §7.3."
+    },
+    "source_layer": {
+      "type": "string",
+      "enum": ["matn", "footnote", "sharh", "hashiya", "tahqiq_3ilmi"],
+      "description": "Source layer. All atoms in an excerpt must share the same source_layer."
+    },
+    "excerpt_kind": {
+      "type": "string",
+      "enum": ["teaching", "exercise", "apparatus"],
+      "description": "Primary classification. teaching: scholarly content. exercise: practice material. apparatus: editorial/structural content."
+    },
+    "atom_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Ordered list of atom IDs that compose this excerpt. Includes both core and context atoms."
+    },
+    "core_atom_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Atom IDs that substantively address the excerpt's taxonomy topic."
+    },
+    "context_atom_ids": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["atom_id", "role"],
+        "properties": {
+          "atom_id": {
+            "type": "string",
+            "description": "ID of the context atom."
+          },
+          "role": {
+            "type": "string",
+            "description": "Functional role of the context atom (e.g., 'evidence', 'classification_frame', 'prerequisite')."
+          }
+        }
+      },
+      "description": "Atoms providing essential framing but not part of the core teaching. Each has a typed role.",
+      "default": []
+    },
+    "excerpt_title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable title for this excerpt. Must be unique among excerpts under the same proposed_leaf within a source."
+    },
+    "excerpt_title_reason": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Short justification of how excerpt_title was formed. Training signal for future automation."
+    },
+    "proposed_leaf": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The taxonomy leaf where this excerpt is proposed to be placed. PROPOSED at draft stage — the taxonomy engine may adjust during placement."
+    },
+    "taxonomy_version": {
+      "type": ["string", "null"],
+      "description": "Version identifier of the taxonomy tree at excerpt creation time. Enables migration tracking when the taxonomy evolves."
+    },
+    "taxonomy_path": {
+      "type": ["string", "null"],
+      "description": "Human-readable breadcrumb trail from taxonomy root to proposed_leaf. Informational — authoritative placement is proposed_leaf."
+    },
+    "school": {
+      "type": ["string", "null"],
+      "description": "Scholarly school (مذهب) represented in this excerpt, if applicable. null if the science has no schools or school is not determinable for this excerpt. Per §2.4, school affiliation is per-excerpt, not per-author."
+    },
+    "self_containment_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Score indicating how independently understandable this excerpt is, per §5.1's self-containment requirement. 1.0 = fully self-contained. Lower scores indicate dependency on external context."
+    },
+    "review_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Flags for human review (e.g., 'low_self_containment', 'uncertain_placement', 'school_ambiguous', 'cross_science')."
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": ["draft"],
+      "description": "Excerpt lifecycle stage. Always 'draft' at this schema boundary — becomes 'reviewed' after human gate, 'placed' after taxonomy writes to library, per §2.4."
+    },
+    "primary_text": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The complete verbatim text of the excerpt — concatenation of constituent atoms' text. This is the text integrity invariant target per §5.1: excerpt primary text is never modified after creation."
+    },
+    "heading_path": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ordered heading atom IDs forming the navigational path. Heading atoms are structural metadata, not teaching content.",
+      "default": []
+    },
+    "boundary_reasoning": {
+      "type": "string",
+      "description": "Explanation of why this excerpt starts and ends where it does. Audit trail for human reviewers and training signal.",
+      "default": ""
+    },
+    "case_types": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Pattern annotations documenting which excerpting patterns appear (e.g., 'A1_pure_definition', 'B1_clean_boundary'). Training labels for the extraction system.",
+      "default": []
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "relation_type": {
+            "type": "string",
+            "description": "Type of relation (e.g., 'footnote_supports', 'has_overview', 'continues_discussion')."
+          },
+          "target_excerpt_id": {
+            "type": "string",
+            "description": "excerpt_id of the related excerpt."
+          },
+          "note": {
+            "type": ["string", "null"],
+            "description": "Optional explanation of the relation."
+          }
+        }
+      },
+      "description": "Typed directional links to other excerpts.",
+      "default": []
+    },
+    "cross_science_context": {
+      "type": "boolean",
+      "default": false,
+      "description": "True when excerpt content relies on concepts from another science."
+    },
+    "related_science": {
+      "type": ["string", "null"],
+      "default": null,
+      "description": "Which other science is involved when cross_science_context is true. Null otherwise."
+    },
+    "interwoven_group_id": {
+      "type": ["string", "null"],
+      "default": null,
+      "description": "Non-null when multiple excerpts share inseparable text covering multiple taxonomy topics. All excerpts in the group share this UUID."
+    },
+    "metadata_extensions": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Open object for science-specific metadata per §5.4. Schema is open because extensions are defined per-science in Level 3 documentation. Examples: exercise-specific fields (exercise_role, tests_nodes), split_discussion tracking.",
+      "default": {}
+    }
+  }
+}

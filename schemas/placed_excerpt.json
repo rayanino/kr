@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kr:schemas:placed_excerpt:v1.0",
+  "title": "KR Placed Excerpt Record",
+  "description": "Schema for a placed excerpt — stored in the library and read by the synthesizing engine (محرك التوليف) for entry generation. Extends the draft excerpt schema with confirmed placement data and human gate review metadata. Produced by the taxonomy engine (محرك التصنيف) after human gate approval, per §2.4 and §13.4.2.",
+  "allOf": [
+    { "$ref": "excerpt.json" },
+    {
+      "type": "object",
+      "required": [
+        "lifecycle_stage",
+        "confirmed_leaf",
+        "placement_confidence",
+        "placed_utc",
+        "review_metadata"
+      ],
+      "properties": {
+        "lifecycle_stage": {
+          "const": "placed",
+          "description": "Excerpt lifecycle stage. Always 'placed' for placed excerpts — the terminal production stage per §2.4."
+        },
+        "confirmed_leaf": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The actual leaf path where this excerpt is placed in the library. Replaces proposed_leaf from the draft stage — the taxonomy engine may have adjusted the placement during review and classification."
+        },
+        "placement_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Confidence score for the taxonomy placement. 1.0 = high confidence. Lower scores indicate less certain placement that may benefit from future review."
+        },
+        "placed_utc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC timestamp of when the excerpt was placed into the library."
+        },
+        "review_metadata": {
+          "type": "object",
+          "description": "Captures the human gate review outcome per §9. Documents who reviewed, when, and their assessment.",
+          "required": ["review_outcome"],
+          "properties": {
+            "review_outcome": {
+              "type": "string",
+              "enum": ["approved", "approved_with_modifications", "auto_approved"],
+              "description": "Outcome of the human gate review. approved: owner approved as-is. approved_with_modifications: owner approved with changes. auto_approved: approved via pre-configured policy per §9.1."
+            },
+            "reviewer_notes": {
+              "type": ["string", "null"],
+              "description": "Free-text notes from the reviewer. Null if no notes."
+            },
+            "review_utc": {
+              "type": "string",
+              "format": "date-time",
+              "description": "UTC timestamp of the review."
+            },
+            "modifications_made": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "field": {
+                    "type": "string",
+                    "description": "Which field was modified."
+                  },
+                  "old_value": {
+                    "description": "Previous value."
+                  },
+                  "new_value": {
+                    "description": "New value after modification."
+                  },
+                  "reason": {
+                    "type": ["string", "null"],
+                    "description": "Why the modification was made."
+                  }
+                }
+              },
+              "description": "List of modifications made during review. Null if review_outcome is 'approved' or 'auto_approved'."
+            },
+            "pre_approval_policy_id": {
+              "type": ["string", "null"],
+              "description": "ID of the pre-approval policy that auto-approved this excerpt. Null unless review_outcome is 'auto_approved'."
+            }
+          },
+          "additionalProperties": false
+        },
+        "verified_flagged_status": {
+          "type": "string",
+          "enum": ["verified", "flagged"],
+          "description": "Content classification per §2.4 and §3.2. Determines whether this excerpt participates in primary entry generation (verified) or is structurally isolated (flagged)."
+        },
+        "flag_reason": {
+          "type": ["string", "null"],
+          "description": "Explanation of why this excerpt is flagged. Required when verified_flagged_status is 'flagged'. Null for verified excerpts."
+        },
+        "taxonomy_version_at_placement": {
+          "type": "string",
+          "description": "Version of the science tree at the time of placement. Enables migration tracking when the taxonomy evolves."
+        }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

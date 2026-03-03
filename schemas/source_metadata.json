@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kr:schemas:source_metadata:v1.0",
+  "title": "KR Source Metadata",
+  "description": "Schema for source metadata — the output of the source engine (محرك المصادر) consumed by the normalization engine (محرك التطبيع). One record per acquired source. Defines the source-agnostic metadata fields that cross the source→normalization boundary within Phase 1. Source-type-specific extensions (e.g., Shamela fields) may be present as additional properties but are not part of this contract.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "book_id",
+    "title",
+    "author",
+    "source_type",
+    "science_scope",
+    "book_category",
+    "volume_count",
+    "total_actual_pages",
+    "source_files",
+    "frozen_source_hash",
+    "language",
+    "intake_utc"
+  ],
+  "additionalProperties": true,
+  "x-additional-properties-note": "Normalizer-specific extensions (e.g., x-shamela-extension fields like shamela_book_id, shamela_author_short, shamela_page_count, shamela_edition, shamela_volume_count, shamela_pub_date, html_qism_field) may be present but are not part of this contract. They are consumed only by their respective normalizers in Phase 1.",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^source_metadata_v[0-9]+\\.[0-9]+$",
+      "description": "Schema version identifier. Enables forward-compatible parsing when the schema evolves."
+    },
+    "book_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*[a-z0-9]$",
+      "minLength": 3,
+      "maxLength": 40,
+      "description": "User-assigned short ASCII identifier for the source. Convention: transliterated distinctive word(s) from the title, optionally with author keyword."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Primary title of the source. For books, the title as found in the source metadata. Required — intake aborts if missing."
+    },
+    "title_formal": {
+      "type": ["string", "null"],
+      "description": "Formal title when available and more accurate than the primary title. Null if absent. Downstream stages should prefer this over title when available."
+    },
+    "author": {
+      "type": ["string", "null"],
+      "description": "Full author name. Null if not determinable."
+    },
+    "muhaqiq": {
+      "type": ["string", "null"],
+      "description": "Editor/muhaqiq (المحقق) name, if applicable. Null if absent."
+    },
+    "publisher": {
+      "type": ["string", "null"],
+      "description": "Publisher name. Null if absent."
+    },
+    "publication_year": {
+      "type": ["string", "null"],
+      "description": "Publication year. String because format varies (Hijri, Gregorian, combined). Null if absent."
+    },
+    "source_type": {
+      "type": "string",
+      "enum": ["shamela", "pdf", "manual_input", "ketab_online", "web_article", "audio_transcript", "other"],
+      "description": "Source type identifier per §2.5 and §7.5. Determines which normalizer in the normalization engine processes this source. Each enum value corresponds to a specific combination of source format, repository, and acquisition method."
+    },
+    "science_scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "description": "Array of science identifiers that this source is relevant to, per §7.3. A single source may produce excerpts destined for multiple science trees. Science scope flows through the pipeline to Phase 2 engines for placement and science-specific metadata. May be refined during processing."
+    },
+    "book_category": {
+      "type": "string",
+      "enum": ["single_science", "multi_science", "adjacent_field", "tangentially_relevant"],
+      "description": "Category derived from science declaration. single_science: one primary science. multi_science: covers multiple sciences. adjacent_field: related but not a primary science. tangentially_relevant: minimal relevance."
+    },
+    "science_parts": {
+      "type": ["array", "null"],
+      "description": "For multi_science sources: mapping of source sections to sciences. Null for single_science and tangentially_relevant sources.",
+      "items": {
+        "type": "object",
+        "required": ["section", "science_id", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "section": {
+            "type": "string",
+            "description": "Section name or label in the source."
+          },
+          "science_id": {
+            "type": "string",
+            "description": "Science this section primarily covers."
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of the section's scope."
+          }
+        }
+      }
+    },
+    "scholarly_context": {
+      "type": ["object", "null"],
+      "description": "Structured scholarly metadata about the author and source. Living record — initially populated at intake, enriched over time per §7.3. Null if no data available.",
+      "properties": {
+        "author_death_hijri": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "Author's death year in Hijri calendar."
+        },
+        "author_birth_hijri": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "Author's birth year in Hijri calendar."
+        },
+        "fiqh_madhab": {
+          "type": ["string", "null"],
+          "enum": ["shafii", "hanafi", "maliki", "hanbali", "other", null],
+          "description": "Author's fiqh madhab."
+        },
+        "grammatical_school": {
+          "type": ["string", "null"],
+          "enum": ["basri", "kufi", "baghdadi", "andalusi", "misri", "shami", "other", null],
+          "description": "Author's grammatical school alignment. Critical for nahw/sarf disputes."
+        },
+        "geographic_origin": {
+          "type": ["string", "null"],
+          "description": "Geographic nisba from author metadata. Raw Arabic string."
+        },
+        "book_type": {
+          "type": ["string", "null"],
+          "enum": ["matn", "sharh", "hashiya", "mukhtasar", "nazm", "other", null],
+          "description": "Source genre/type. matn: base text, sharh: commentary, hashiya: marginal commentary, mukhtasar: abridgment, nazm: versified treatise."
+        },
+        "extraction_source": {
+          "type": "string",
+          "enum": ["auto", "user_provided", "enriched"],
+          "description": "How this context was obtained. auto: automated extraction. user_provided: owner input. enriched: post-intake enrichment."
+        }
+      },
+      "additionalProperties": false
+    },
+    "volume_count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of volumes. 1 for single-volume sources."
+    },
+    "total_actual_pages": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Total content pages across all source files."
+    },
+    "source_files": {
+      "type": "array",
+      "minItems": 1,
+      "description": "List of frozen source files with integrity hashes and page counts.",
+      "items": {
+        "type": "object",
+        "required": ["relpath", "sha256", "size_bytes", "role", "actual_page_count"],
+        "additionalProperties": false,
+        "properties": {
+          "relpath": {
+            "type": "string",
+            "description": "Path relative to the source storage root for the frozen source file."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "description": "SHA-256 hex digest of the file."
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "File size in bytes."
+          },
+          "role": {
+            "type": "string",
+            "enum": ["primary_export", "volume", "supplementary"],
+            "description": "primary_export: single-volume main file. volume: one file in a multi-volume set. supplementary: additional non-volume file."
+          },
+          "volume_number": {
+            "type": ["integer", "null"],
+            "minimum": 1,
+            "description": "Volume number. Required when role is 'volume', null otherwise."
+          },
+          "actual_page_count": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of content pages found in this file."
+          },
+          "file_note": {
+            "type": ["string", "null"],
+            "description": "Optional annotation describing purpose (especially for supplementary files). Null if not applicable."
+          }
+        }
+      }
+    },
+    "frozen_source_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 of the frozen source file(s) as a whole, for integrity verification per §7.2. For multi-file sources, this is a hash of the concatenated individual file hashes in canonical order."
+    },
+    "edition_notes": {
+      "type": ["string", "null"],
+      "description": "Free-text about the edition, genre, or relevant context provided by the owner. Null if not provided."
+    },
+    "language": {
+      "type": "string",
+      "default": "ar",
+      "description": "Language code (ISO 639-1). 'ar' for Arabic, 'en' for English per §1.2 language scope."
+    },
+    "intake_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp of when source intake was performed."
+    },
+    "taxonomy_at_intake": {
+      "type": ["object", "null"],
+      "description": "Snapshot of all active taxonomy versions at intake time. Keys are science_ids, values are taxonomy version strings. Null if not captured.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "unrecognized_metadata_lines": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Metadata segments whose labels did not match any known field pattern. Ensures zero data loss at the metadata level."
+    }
+  }
+}

@@ -1,0 +1,348 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kr:schemas:normalized_package:v1.0",
+  "title": "KR Normalized Package",
+  "description": "Schema for the normalized package — the output of the normalization engine (محرك التطبيع) consumed by the passaging engine (محرك التقطيع). This is the NORMALIZATION BOUNDARY (حد التطبيع) schema: the single most important architectural contract in the application. Everything above this boundary is source-format-specific; everything below is source-agnostic. The normalized package is a COMPOSITE of two artifacts: a manifest (single JSON document) and a pages stream (JSONL, one page record per line).",
+  "x-normalization-boundary": true,
+  "type": "object",
+  "$defs": {
+    "manifest": {
+      "type": "object",
+      "title": "Normalized Package Manifest",
+      "description": "Single JSON document containing metadata, structural divisions, and normalization provenance. Stored as normalized_package_manifest.json alongside the pages JSONL.",
+      "required": [
+        "schema_version",
+        "book_id",
+        "metadata",
+        "divisions",
+        "structure_confidence",
+        "total_pages",
+        "normalization_tool",
+        "normalization_utc"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "pattern": "^normalized_package_v[0-9]+\\.[0-9]+$",
+          "description": "Schema version identifier for the normalized package format."
+        },
+        "book_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical source identifier, matching the source_metadata book_id."
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Source metadata reference — carries the source-agnostic identity and science scope information needed by Phase 2 engines without requiring them to access source_metadata directly.",
+          "required": ["book_id", "title", "author", "science_scope", "book_category"],
+          "additionalProperties": true,
+          "properties": {
+            "book_id": {
+              "type": "string",
+              "description": "Canonical source identifier."
+            },
+            "title": {
+              "type": "string",
+              "description": "Source title."
+            },
+            "title_formal": {
+              "type": ["string", "null"],
+              "description": "Formal title if available."
+            },
+            "author": {
+              "type": ["string", "null"],
+              "description": "Author name."
+            },
+            "muhaqiq": {
+              "type": ["string", "null"],
+              "description": "Editor/muhaqiq name."
+            },
+            "science_scope": {
+              "type": "array",
+              "items": { "type": "string" },
+              "minItems": 1,
+              "description": "Science identifiers this source is relevant to. Flows through the pipeline per §7.3."
+            },
+            "book_category": {
+              "type": "string",
+              "enum": ["single_science", "multi_science", "adjacent_field", "tangentially_relevant"],
+              "description": "Source science category."
+            },
+            "science_parts": {
+              "type": ["array", "null"],
+              "description": "For multi_science sources: section-to-science mapping.",
+              "items": {
+                "type": "object",
+                "required": ["section", "science_id", "description"],
+                "properties": {
+                  "section": { "type": "string" },
+                  "science_id": { "type": "string" },
+                  "description": { "type": "string" }
+                }
+              }
+            },
+            "scholarly_context": {
+              "type": ["object", "null"],
+              "description": "Author scholarly context for attribution. Passed through for downstream enrichment."
+            },
+            "language": {
+              "type": "string",
+              "description": "Language code."
+            },
+            "volume_count": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Number of volumes."
+            }
+          }
+        },
+        "divisions": {
+          "type": "array",
+          "description": "Flat list of structural division nodes discovered during normalization. Hierarchy expressed via parent_id references, ordered by start_seq_index (document order). Adapted from ABD divisions_schema_v0.1.",
+          "items": { "$ref": "#/$defs/division_node" }
+        },
+        "structure_confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low", "minimal"],
+          "description": "Overall confidence in the discovered structure. high: most divisions are reliably detected. medium: mix of reliable and uncertain. low: mostly uncertain. minimal: near-zero structure found."
+        },
+        "total_pages": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Total number of page records in the accompanying JSONL file."
+        },
+        "normalization_tool": {
+          "type": "string",
+          "description": "Identifier of the normalizer that produced this package (e.g., 'kr.normalization.shamela_normalizer')."
+        },
+        "normalization_utc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC timestamp of when normalization was performed."
+        },
+        "toc_detected": {
+          "type": "boolean",
+          "description": "Whether a table of contents was detected in the source."
+        },
+        "total_divisions": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of division nodes in the tree (excluding root)."
+        },
+        "notes": {
+          "type": ["string", "null"],
+          "description": "Optional free-text notes about the normalization run."
+        }
+      }
+    },
+    "division_node": {
+      "type": "object",
+      "title": "Division Node",
+      "description": "A structural division in the source — a named section as intended by the author or editor. Source-agnostic representation of the source's internal organizational hierarchy.",
+      "required": [
+        "id",
+        "type",
+        "title",
+        "level",
+        "detection_method",
+        "confidence",
+        "digestible",
+        "start_seq_index",
+        "end_seq_index",
+        "page_hint_start",
+        "page_hint_end",
+        "parent_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^div_[0-9]{4,}$",
+          "description": "Auto-generated unique identifier within this package. Format: div_NNNN."
+        },
+        "type": {
+          "type": "string",
+          "description": "Structural keyword type (e.g., باب, فصل, مبحث) or 'implicit' for divisions with no keyword, 'volume' for volume markers, 'root' for the book root node.",
+          "examples": ["باب", "فصل", "مبحث", "تقسيم", "تنبيه", "خاتمة", "فائدة", "قاعدة", "مقدمة", "implicit", "volume", "root"]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Full heading text as it appears in the source. For implicit divisions, a descriptive title."
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Hierarchy depth. 0 = root, 1 = top-level division, etc."
+        },
+        "detection_method": {
+          "type": "string",
+          "enum": ["html_tagged", "keyword_heuristic", "llm_discovered", "toc_inferred", "human_override"],
+          "description": "How this division was discovered during normalization."
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["confirmed", "high", "medium", "low"],
+          "description": "Confidence level of the division detection."
+        },
+        "digestible": {
+          "type": "string",
+          "enum": ["true", "false", "uncertain"],
+          "description": "Whether this division contains content suitable for extraction. 'true' = teaching/exercise content. 'false' = non-content (TOC, endorsements). 'uncertain' = needs human decision."
+        },
+        "content_type": {
+          "type": ["string", "null"],
+          "enum": ["teaching", "exercise", "mixed", "non_content", null],
+          "description": "Content classification. null if not yet classified."
+        },
+        "start_seq_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "seq_index of the first page (inclusive). Authoritative page reference."
+        },
+        "end_seq_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "seq_index of the last page (inclusive)."
+        },
+        "page_hint_start": {
+          "type": "string",
+          "description": "Human-readable start page reference (e.g., 'ص:١٩'). Display only — Phase 2 engines MUST use seq_index."
+        },
+        "page_hint_end": {
+          "type": "string",
+          "description": "Human-readable end page reference. Display only."
+        },
+        "parent_id": {
+          "type": ["string", "null"],
+          "description": "ID of the enclosing division. null for top-level divisions."
+        },
+        "child_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "IDs of direct children in document order. Empty for leaf divisions."
+        },
+        "page_count": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of pages spanned (end_seq_index - start_seq_index + 1)."
+        },
+        "ordinal": {
+          "type": ["integer", "null"],
+          "description": "Ordinal number if heading contains one (الأول=1, etc.). null if none."
+        },
+        "editor_inserted": {
+          "type": "boolean",
+          "default": false,
+          "description": "True if this heading was inserted by an editor, not the original author."
+        },
+        "review_flags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Flags for human review (e.g., 'low_confidence', 'uncertain_digestibility')."
+        },
+        "detection_notes": {
+          "type": ["string", "null"],
+          "description": "Free-text notes from the detection pass. Null for straightforward detections."
+        }
+      }
+    },
+    "page_record": {
+      "type": "object",
+      "title": "Normalized Page Record",
+      "description": "A single normalized page in the JSONL stream. One record per line in normalized_pages.jsonl. All source-format-specific fields have been stripped by the normalizer — only source-agnostic content remains.",
+      "required": [
+        "schema_version",
+        "record_type",
+        "book_id",
+        "seq_index",
+        "content_type",
+        "matn_text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "description": "Schema version of this page record format."
+        },
+        "record_type": {
+          "const": "normalized_page",
+          "description": "Record type discriminator. Always 'normalized_page'."
+        },
+        "book_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Canonical source identifier."
+        },
+        "seq_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Zero-based sequential page index. THE authoritative page positioning identifier — Phase 2 engines MUST use seq_index for all page references, never page_number_int or page_number_arabic."
+        },
+        "volume": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "Volume number for multi-volume sources. null for single-volume."
+        },
+        "page_number_arabic": {
+          "type": ["string", "null"],
+          "description": "Arabic-numeral page number from the printed edition. Optional, display-only. Phase 2 engines MUST NOT use this for positioning — use seq_index instead."
+        },
+        "page_number_int": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Integer page number from the printed edition. Optional, display-only. Phase 2 engines MUST NOT use this for positioning — use seq_index instead."
+        },
+        "content_type": {
+          "type": "string",
+          "description": "Content classification for this page (e.g., 'text', 'toc', 'index')."
+        },
+        "matn_text": {
+          "type": "string",
+          "description": "The main text content of this page, cleaned of all source-format-specific markup. This is the primary content that downstream engines process."
+        },
+        "footnotes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ref_number": {
+                "type": ["string", "integer"],
+                "description": "Footnote reference number or marker."
+              },
+              "text": {
+                "type": "string",
+                "description": "Footnote text content."
+              }
+            },
+            "description": "A single footnote entry."
+          },
+          "description": "Array of footnotes on this page, separated from main text by the normalizer."
+        },
+        "footnote_ref_numbers": {
+          "type": "array",
+          "items": { "type": ["string", "integer"] },
+          "description": "Footnote reference markers found in the main text of this page."
+        },
+        "footnote_preamble": {
+          "type": "string",
+          "description": "Any preamble text before the footnotes section. Empty string if none."
+        },
+        "has_verse": {
+          "type": "boolean",
+          "description": "Whether this page contains poetry verse (شعر)."
+        },
+        "has_table": {
+          "type": "boolean",
+          "description": "Whether this page contains tabular content."
+        },
+        "warnings": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Normalization warnings for this page (e.g., encoding issues, unusual formatting). Empty if clean."
+        }
+      }
+    }
+  }
+}
