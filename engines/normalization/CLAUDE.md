@@ -11,8 +11,8 @@
 5. Output schema: `schemas/normalized_package` (the normalization boundary expressed as data)
 
 ## Current State
-Status: Not started. ABD codebase has Shamela normalizer (`tools/normalize_shamela.py`) and structure discovery (`tools/discover_structure.py`) to be restructured into `engines/normalization/src/normalizers/` per §12.2.
-Tests: 0 passing, 0 failing.
+Status: Migrated from ABD. Code in `engines/normalization/src/` (normalizers/normalize_shamela.py, discover_structure.py, validate_structure.py).
+Tests: 292 tests in `engines/normalization/tests/` (test_normalization.py, test_structure_discovery.py).
 Known issues: Only Shamela source type supported. Per-source-type normalizer subdirectory structure not yet created.
 
 ## Commands

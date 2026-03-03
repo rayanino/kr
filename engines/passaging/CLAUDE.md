@@ -10,8 +10,8 @@
 4. Output schema: `schemas/passage`
 
 ## Current State
-Status: Not started. No dedicated passaging code exists in ABD; passaging was embedded in the monolithic extraction logic.
-Tests: 0 passing, 0 failing.
+Status: Scaffold migrated from ABD. Code in `engines/passaging/src/scaffold_passage.py`.
+Tests: 0 (no dedicated passaging tests yet; passaging logic was embedded in extraction).
 Known issues: Passaging logic must be separated from extraction logic during restructure.
 
 ## Commands

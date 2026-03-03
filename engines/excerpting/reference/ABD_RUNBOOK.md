@@ -1,0 +1,232 @@
+# Extraction Runbook — قواعد الإملاء End-to-End
+
+## What This Is
+
+A complete pipeline from Shamela HTML → structured excerpts for one book (قواعد الإملاء, 77 pages, إملاء science). The tool (`tools/extract_passages.py`, 1389 lines) handles atomization, excerpting, taxonomy placement, post-processing, validation (17 checks), and correction retries in a single automated pass per passage.
+
+The excerpts produced here are intended to be distributed into a taxonomy folder tree (science root → nested topic folders → excerpt files at leaf folders), where they accumulate alongside excerpts from other إملاء books. An external synthesis LLM (outside this repo) then reads all excerpt files at each leaf folder to produce a single encyclopedia article for Arabic-language students. Quality of excerpt boundaries, metadata richness, and relation chains directly affects synthesis quality.
+
+**Note:** The folder distribution step (taxonomy YAML → directory tree → excerpt files placed at leaves) is not yet built. Currently extraction saves flat per-passage JSON files in the output directory.
+
+## Pipeline Status
+
+| Stage | Status | Output |
+|-------|--------|--------|
+| Stage 0: Intake | ✅ Complete | Book registered, metadata frozen |
+| Stage 1: Normalization | ✅ Complete | `books/imla/stage1_output/pages.jsonl` (77 pages, matn+footnotes separated) |
+| Stage 2: Structure Discovery | ✅ Complete | `books/imla/stage2_output/passages.jsonl` (46 passages) |
+| Stage 3+4: Extraction | 🟡 Single-model, إملاء only | Tool built, tested (80 tests), verified on 5 إملاء passages. Multi-model consensus not yet implemented. |
+| Stage 5: Taxonomy Trees | 🟡 إملاء done | `taxonomy/imlaa_v0.1.yaml` (44 leaves); صرف/نحو/بلاغة trees still needed |
+
+Synthesis is handled by an external LLM (outside this repo) that reads excerpt files from each taxonomy leaf folder.
+
+## End-to-End Verification Results (إملاء only)
+
+Tested on 5 passages from قواعد الإملاء with single-model Claude API calls. **Other sciences (صرف, نحو, بلاغة) are untested** — their taxonomy trees don't exist yet.
+
+| Passage | Pages | Atoms | Excerpts | Fn Excerpts | Validation | Retries | Cost |
+|---------|-------|-------|----------|-------------|------------|---------|------|
+| P004 | 1p | 5 | 2 | 1 | pass | 0 | $0.07 |
+| P005 | 2p | 9 | 3 | 2 | pass | 0 | $0.12 |
+| P006 | 3p | 17 | 5 | 1 | pass | 0 | $0.16 |
+| P010 | 5p | 23 | 9 | 0 | pass | 0 | $0.23 |
+| P020 | 1p | 5 | 2 | 1 | pass | 0 | $0.07 |
+
+All pass with 0 errors, 0 warnings, 0 retries.
+
+## What You Need
+
+1. **Virtual environment** (to avoid polluting the project):
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+   pip install PyYAML httpx
+   ```
+
+2. **API key** with credits (Anthropic). Set it:
+   ```bash
+   export ANTHROPIC_API_KEY="sk-ant-..."
+   ```
+
+3. **Stage 2 outputs** in `books/imla/`:
+   - `books/imla/stage1_output/pages.jsonl` — normalized pages (77 pages)
+   - `books/imla/stage2_output/passages.jsonl` — passage boundaries (46 passages)
+   - `books/imla/stage2_output/divisions.json` — structural divisions
+
+## How to Run
+
+### Option 1: Single passage test (~$0.07–0.23)
+
+```bash
+python tools/extract_passages.py \
+  --passages books/imla/stage2_output/passages.jsonl \
+  --pages books/imla/stage1_output/pages.jsonl \
+  --taxonomy taxonomy/imlaa_v0.1.yaml \
+  --book-id qimlaa \
+  --book-title "قواعد الإملاء" \
+  --science imlaa \
+  --gold 3_extraction/gold/P004_gold_excerpt.json \
+  --output-dir output/imlaa_extraction \
+  --passage-ids P004
+```
+
+### Option 2: Multiple specific passages
+
+```bash
+python tools/extract_passages.py \
+  --passages books/imla/stage2_output/passages.jsonl \
+  --pages books/imla/stage1_output/pages.jsonl \
+  --taxonomy taxonomy/imlaa_v0.1.yaml \
+  --book-id qimlaa \
+  --book-title "قواعد الإملاء" \
+  --science imlaa \
+  --gold 3_extraction/gold/P004_gold_excerpt.json \
+  --output-dir output/imlaa_extraction \
+  --passage-ids P004,P005,P006
+```
+
+### Option 3: Full book (~$3–5)
+
+```bash
+python tools/extract_passages.py \
+  --passages books/imla/stage2_output/passages.jsonl \
+  --pages books/imla/stage1_output/pages.jsonl \
+  --taxonomy taxonomy/imlaa_v0.1.yaml \
+  --book-id qimlaa \
+  --book-title "قواعد الإملاء" \
+  --science imlaa \
+  --gold 3_extraction/gold/P004_gold_excerpt.json \
+  --output-dir output/imlaa_extraction
+```
+
+### Option 4: Dry run (inspect prompts, $0)
+
+Add `--dry-run` to any command. Saves the full system+user prompt to the output dir for inspection.
+
+### Additional flags
+
+- `--max-retries N` — number of correction retries on validation failure (default 2)
+- `--model MODEL` — Claude model to use (default: `claude-sonnet-4-5-20250929`)
+- `--passage-ids P004,P010` — comma-separated passage IDs to process
+
+## What You Get
+
+### Current output (flat, per-passage)
+
+The extraction tool currently saves all results flat in the output directory:
+
+```
+output/imlaa_extraction/
+├── P001_extraction.json     # Atoms + excerpts + footnote_excerpts + exclusions
+├── P001_review.md           # Human-reviewable report with validation status
+├── P002_extraction.json
+├── P002_review.md
+├── ...
+└── extraction_summary.json  # Totals, costs, issue counts, retry counts
+```
+
+### Intended final output (taxonomy folder tree — not yet built)
+
+A future distribution step will convert the flat output into a folder tree matching the taxonomy YAML. Each excerpt file is placed in its taxonomy leaf folder:
+
+```
+imlaa/                                    # Root = science name
+├── muqaddimat/
+│   ├── ta3rif_al_imlaa/                  # Leaf folder
+│   │   ├── qimlaa_exc_000001.json        # Excerpt from قواعد الإملاء
+│   │   └── {other_book}_exc_000042.json  # Excerpt from another book
+│   └── ahamiyyat_al_imlaa/
+│       └── ...
+├── al_hamza/
+│   ├── ta3rif_al_hamza/
+│   │   └── ...
+│   └── al_hamza_awwal_al_kalima/
+│       ├── al_hamza_awwal_al_kalima__overview/
+│       │   └── ...
+│       ├── hamzat_al_wasl/
+│       │   ├── ta3rif_hamzat_al_wasl/
+│       │   └── mawadi3_hamzat_al_wasl/
+│       └── ...
+└── ...
+```
+
+### Extraction JSON structure
+
+Each `_extraction.json` contains:
+- `atoms[]` — with `atom_type`, `text`, `is_prose_tail`, `bonded_cluster_trigger`, `source_layer`, `record_type`, `book_id`
+- `excerpts[]` — with `core_atoms[{atom_id, role}]`, `context_atoms[{atom_id, role}]`, `taxonomy_node_id`, `case_types[]`, `boundary_reasoning`, `relations[]`
+- `footnote_excerpts[]` — lighter-weight excerpts for footnote content
+- `exclusions[]` — records for headings and prose_tails excluded from excerpts
+- `notes` — LLM's passage-level commentary
+
+### Validation (17 Checks, 3 Severity Levels)
+
+**Errors** (block acceptance, trigger retry):
+1. Atom required fields (atom_id, atom_type, text)
+2. Excerpt reference integrity (no dangling atom IDs)
+3. Atom coverage (every non-heading, non-tail, non-footnote atom in exactly one excerpt as core)
+4. No multi-core assignment
+5. Missing required excerpt fields
+6. Empty atom text
+
+**Warnings** (trigger retry):
+7. Bonding trigger presence on bonded_cluster atoms
+8. Core atom role validation
+9. Context atom role validation
+10. case_types valid and non-empty
+11. Layer isolation (all atoms in an excerpt share source_layer)
+12. Leaf-only taxonomy placement
+13. Heading never in excerpt core/context
+
+**Info** (log only):
+14. Atom ID format
+15. Excerpt ID format
+16. Relation type validation
+17. Title uniqueness
+
+## What to Look For in Review
+
+When skimming the review reports:
+
+1. **Atom boundaries**: Did the LLM correctly identify sentence breaks? Are bonded clusters justified with proper T1-T6 triggers?
+2. **Taxonomy placement**: Is each excerpt at the right leaf node?
+3. **Continuation tails**: Did the LLM correctly identify text that belongs to the previous passage?
+4. **Coverage**: Every teaching sentence should appear in an excerpt. The validator catches gaps.
+5. **Overview vs detail**: Framing sentences (like "للهمزة خمس حالات") should go to `__overview` nodes, not to specific case nodes.
+6. **case_types**: Are the A1-E2 labels accurate for the content pattern?
+7. **Relations**: Do split_continues_in / split_continued_from chains connect properly across passages?
+
+## Known Limitations
+
+1. **Single-model only**: Currently one LLM pass per passage (with correction retries). Multi-model consensus (Claude + GPT-4o) is planned but not built.
+2. **إملاء only**: Verified only on قواعد الإملاء. Other sciences lack taxonomy trees.
+3. **No taxonomy evolution**: If the LLM maps to `_unmapped`, it just flags it. The intelligent evolution engine (detect need, propose sub-nodes, redistribute) is not yet built.
+4. **No self-contained assembly**: Output is raw per-passage JSON with atom ID references. The assembly step (inline text, embed metadata) is not built.
+5. **No human gate**: No feedback persistence or correction learning yet.
+6. **Cross-page content**: `prose_tail` detection handles most cases, edge cases may need manual correction.
+
+## Next Steps
+
+See `CLAUDE.md` for the full priority list. Key items for extraction:
+
+1. **Build taxonomy trees** for صرف, نحو, بلاغة (base outlines to be provided)
+2. **Add multi-model consensus** (Claude + GPT-4o independent extraction, consensus engine)
+3. **Build taxonomy evolution engine** (detect, propose, validate, redistribute, human gate)
+4. **Build self-contained assembly + folder distribution**
+5. **Run full إملاء extraction** (46 passages) as first complete test
+6. **Test on شذا العرف** (صرف science) to validate cross-science generalization
+
+## Files
+
+```
+taxonomy/
+└── imlaa_v0.1.yaml              # إملاء taxonomy (44 leaves)
+3_extraction/
+├── RUNBOOK.md                    # This file
+└── gold/
+    └── P004_gold_excerpt.json    # Gold sample (schema v0.3.3 format)
+tools/
+└── extract_passages.py           # Extraction CLI tool (1389 lines)
+tests/
+└── test_extraction.py            # 80 unit tests (879 lines)
+```

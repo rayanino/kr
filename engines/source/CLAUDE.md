@@ -10,8 +10,8 @@
 4. Output boundary: Phase 1 internal (frozen source + source metadata → normalization engine)
 
 ## Current State
-Status: Not started. ABD codebase has partial implementation (`tools/intake.py`, `tools/enrich.py`) to be restructured into `engines/source/src/` per §12.2.
-Tests: 0 passing, 0 failing.
+Status: Migrated from ABD. Code in `engines/source/src/` (intake.py, enrich.py, corpus_audit.py).
+Tests: 112 tests in `engines/source/tests/` (test_intake.py, test_enrich.py).
 Known issues: Only manual/single-source intake exists in ABD. Autonomous discovery (§7.2) not yet built. Science scope metadata field (§7.3) not yet implemented.
 
 ## Commands

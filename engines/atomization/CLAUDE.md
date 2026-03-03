@@ -10,9 +10,10 @@
 4. Output schema: `schemas/atoms`
 
 ## Current State
-Status: Not started. ABD codebase has atomization logic embedded in `tools/extract_passages.py` (~2100 lines spanning both atomization and excerpting); to be separated and restructured per §12.2.
-Tests: 0 passing, 0 failing (ABD has tests covering the combined extraction logic).
+Status: Not started. ABD codebase has atomization logic embedded in `engines/excerpting/src/extract_passages.py` (~2100 lines spanning both atomization and excerpting); to be separated and restructured per §12.2.
+Tests: 0 passing, 0 failing (ABD has tests covering the combined extraction logic in `engines/excerpting/tests/`).
 Known issues: Separation of atomization from excerpting logic is the primary restructuring task.
+**Note:** Atomization logic currently lives in `engines/excerpting/src/extract_passages.py` (placed there during migration per §12.2: "separation into distinct engine directories occurs during restructuring").
 
 ## Commands
 ```

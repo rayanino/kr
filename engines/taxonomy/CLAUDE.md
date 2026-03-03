@@ -12,8 +12,8 @@
 6. Output: placed excerpts written to `library/sciences/*/content/`; placed excerpt schema: `schemas/placed_excerpt`
 
 ## Current State
-Status: Not started. ABD has taxonomy trees for 4 Arabic language sciences (~892 leaves total) in `taxonomy/`; to be moved to `library/sciences/` per §12.2. No placement or evolution code exists yet.
-Tests: 0 passing, 0 failing.
+Status: Migrated from ABD. Code in `engines/taxonomy/src/evolve_taxonomy.py`. Taxonomy trees in `library/sciences/` (5 sciences).
+Tests: 109 tests in `engines/taxonomy/tests/test_evolution.py` (1 requires API key).
 Known issues: Evolution (§4.4) and coverage tracking not yet implemented. Placement logic not yet built.
 
 ## Commands

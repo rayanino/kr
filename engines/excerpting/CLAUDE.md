@@ -11,8 +11,8 @@
 5. Output schema: `schemas/excerpt` (draft excerpts with proposed leaf)
 
 ## Current State
-Status: Not started. ABD codebase has excerpting logic embedded in `tools/extract_passages.py`; to be separated and restructured per §12.2.
-Tests: 0 passing, 0 failing (ABD has tests covering the combined extraction logic).
+Status: Migrated from ABD. Code in `engines/excerpting/src/` (extract_passages.py, assemble_excerpts.py).
+Tests: 258 tests in `engines/excerpting/tests/` (test_extraction.py, test_assembly.py).
 Known issues: Separation from atomization logic. Science-specific metadata enrichment (§5.4) depends on science scope flowing through pipeline (§7.3).
 
 ## Commands
