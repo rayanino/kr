@@ -50,10 +50,18 @@ Phase 2 — Knowledge Understanding (source-agnostic):
 - **Multi-model consensus.** Content decisions use independent LLM agreement. (VISION.md §2.2)
 - **Human gates.** No irreversible library change without owner approval or pre-approval policy. (VISION.md §9)
 - **Accuracy > Protection > Intelligence.** Core property priority. (VISION.md §1.5)
-- **No monolith agents.** Name the specific engine — never "the engine" or "the system" when one engine is responsible.
+- **No monolith agents.** Name the specific engine — never "the engine" or "the system" when one engine is responsible. (VISION.md §1.1, §2.2)
 - **Entries are co-primary with excerpts.** Never downgrade entries. (VISION.md §1.6, §6)
 - **Text integrity.** Excerpt primary text is never modified. (VISION.md §5.1)
 
+## Run All Tests
+```
+python -m pytest engines/*/tests/ shared/*/tests/
+```
+
 ## Current Priorities
 
-1. Validate Phase 2 engines end-to-end on the إملاء book (Milestone 1 — VISION.md §10.2).
+1. Complete VISION.md section-by-section correction (currently at §5).
+2. Write engine SPEC.md files (starting with excerpting and taxonomy engines).
+3. Restructure ABD codebase into this repository layout (§12.2, §12.3).
+4. Validate Phase 2 engines end-to-end on the إملاء book (Milestone 1 — VISION.md §10.2).
