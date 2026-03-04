@@ -61,7 +61,15 @@ python -m pytest engines/*/tests/ shared/*/tests/
 
 ## Current Priorities
 
-1. Complete VISION.md section-by-section correction (currently at §5).
-2. Write engine SPEC.md files (starting with excerpting and taxonomy engines).
-3. Restructure ABD codebase into this repository layout (§12.2, §12.3).
-4. Validate Phase 2 engines end-to-end on the إملاء book (Milestone 1 — VISION.md §10.2).
+Following the binding project roadmap (kr_definitive_roadmap_v2.md):
+
+**Phase 2 — Engine SPEC Writing + VISION Correction (active)**
+1. Round 1: Source engine — write SPEC.md, correct VISION.md §7.1–§7.4.
+2. Round 2: Normalization engine — write SPEC.md, correct VISION.md §7.5–§7.6.
+3. Rounds 3–9: Remaining engines per roadmap order (passaging, atomization, excerpting, taxonomy, synthesizing, shared components, cross-cutting corrections).
+
+**Queued**
+- Phase 3: Cross-SPEC consistency verification.
+- Phase 4: Owner review.
+- Phase 5: Build infrastructure planning.
+- Phase 6+: Engine building (Milestone 1 — prove end-to-end on إملاء, VISION.md §10.2).

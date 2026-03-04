@@ -1,48 +1,62 @@
-registry_version: 0.1
-notes: Canonical registry of taxonomy trees per science and version. Baseline passage packages may include a local taxonomy
-  snapshot file for reproducibility. The production pipeline MUST resolve taxonomy trees through this registry.
+registry_version: 0.2
+notes: >
+  Canonical registry of taxonomy trees per science and version.
+  Active version is the current tree; historical versions are retained for rollback and audit.
+  Relpaths are relative to this file's directory (library/sciences/).
+  Production pipeline MUST resolve taxonomy trees through this registry.
 sciences:
 - science_id: balagha
   display_name_ar: البلاغة
   versions:
   - taxonomy_version: balagha_v0_2
-    relpath: taxonomy/balagha/balagha_v0_2.yaml
+    relpath: balagha/tree_history/balagha_v0_2.yaml
     status: historical
     notes: Introduced during Passage 1 (TC-001..TC-003).
   - taxonomy_version: balagha_v0_3
-    relpath: taxonomy/balagha/balagha_v0_3.yaml
+    relpath: balagha/tree_history/balagha_v0_3.yaml
     status: historical
     notes: Introduced during Passage 2 (TC-004..TC-007).
   - taxonomy_version: balagha_v0_4
-    relpath: taxonomy/balagha/balagha_v0_4.yaml
+    relpath: balagha/tree_history/balagha_v0_4.yaml
     status: historical
     notes: Passage-shaped balagha taxonomy used during early gold baselines.
   - taxonomy_version: balagha_v1_0
-    relpath: taxonomy/balagha/balagha_v1_0.yaml
+    relpath: balagha/tree.yaml
     status: active
     notes: Base superset taxonomy for balagha (granular, placement-safe).
 - science_id: nahw
   display_name_ar: النحو
   versions:
   - taxonomy_version: nahw_v1_0
-    relpath: taxonomy/nahw/nahw_v1_0.yaml
+    relpath: nahw/tree.yaml
     status: active
     notes: Base superset taxonomy for nahw (granular, placement-safe).
 - science_id: sarf
   display_name_ar: الصرف
   versions:
   - taxonomy_version: sarf_v1_0
-    relpath: taxonomy/sarf/sarf_v1_0.yaml
+    relpath: sarf/tree.yaml
     status: active
     notes: Base superset taxonomy for sarf (granular, placement-safe).
 - science_id: imlaa
   display_name_ar: الإملاء
   versions:
   - taxonomy_version: imlaa_v0_1
-    relpath: taxonomy/imlaa_v0.1.yaml
+    relpath: imlaa/tree_history/imlaa_v0_1.yaml
     status: historical
-    notes: Early starter taxonomy for imlaa.
+    notes: Early starter taxonomy for imlaa (renamed from imlaa_v0.1.yaml for naming consistency).
   - taxonomy_version: imlaa_v1_0
-    relpath: taxonomy/imlaa/imlaa_v1_0.yaml
+    relpath: imlaa/tree.yaml
     status: active
     notes: Base superset taxonomy for imlaa (granular, placement-safe).
+- science_id: aqidah
+  display_name_ar: العقيدة
+  versions:
+  - taxonomy_version: aqidah_v0_1
+    relpath: aqidah/tree_history/aqidah_v0_1.yaml
+    status: historical
+    notes: Initial aqidah taxonomy with 21 leaves.
+  - taxonomy_version: aqidah_v0_2
+    relpath: aqidah/tree.yaml
+    status: active
+    notes: Evolved from v0_1 based on الواسطية extraction; 28 leaves.

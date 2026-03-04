@@ -1121,7 +1121,8 @@ class TestValidateRelationTypes:
 
 class TestGoldP004Validates:
     def test_gold_passes_validation(self):
-        gold_path = Path(__file__).resolve().parent.parent / "reference" / "gold" / "P004_gold_excerpt.json"
+        _repo_root = Path(__file__).resolve().parents[3]
+        gold_path = _repo_root / "gold" / "extraction_samples" / "P004_gold_excerpt.json"
         if not gold_path.exists():
             pytest.skip("Gold P004 file not found")
 
@@ -1129,7 +1130,7 @@ class TestGoldP004Validates:
             gold = json.load(f)
 
         # Get taxonomy leaves (BUG-001: use path-based call)
-        tax_path = Path(__file__).resolve().parent.parent / "reference" / "taxonomy" / "imlaa_v0.1.yaml"
+        tax_path = _repo_root / "library" / "sciences" / "imlaa" / "tree_history" / "imlaa_v0_1.yaml"
         if not tax_path.exists():
             pytest.skip("Taxonomy file not found")
         leaves = extract_taxonomy_leaves(str(tax_path), "imlaa")
@@ -1371,7 +1372,7 @@ class TestExtractTaxonomyLeavesV1:
     def test_real_v1_taxonomy_file(self):
         """BUG-001: Test against the actual imlaa v1 taxonomy file via path-based parsing."""
         import os
-        path = os.path.join("taxonomy", "imlaa", "imlaa_v1_0.yaml")
+        path = os.path.join("library", "sciences", "imlaa", "tree.yaml")
         if not os.path.exists(path):
             import pytest
             pytest.skip("v1 taxonomy file not found")
@@ -1385,7 +1386,7 @@ class TestExtractTaxonomyLeavesV1:
     def test_real_v1_balagha_taxonomy(self):
         """BUG-001: balagha v1 taxonomy must return 335 leaves (the main bug scenario)."""
         import os
-        path = os.path.join("taxonomy", "balagha", "balagha_v1_0.yaml")
+        path = os.path.join("library", "sciences", "balagha", "tree.yaml")
         if not os.path.exists(path):
             import pytest
             pytest.skip("balagha v1 taxonomy file not found")
@@ -1395,7 +1396,7 @@ class TestExtractTaxonomyLeavesV1:
     def test_real_v0_taxonomy_file(self):
         """BUG-001: v0 format taxonomy via path-based parsing should also work."""
         import os
-        path = os.path.join("taxonomy", "imlaa_v0.1.yaml")
+        path = os.path.join("library", "sciences", "imlaa", "tree_history", "imlaa_v0_1.yaml")
         if not os.path.exists(path):
             import pytest
             pytest.skip("v0 taxonomy file not found")
@@ -1405,7 +1406,7 @@ class TestExtractTaxonomyLeavesV1:
     def test_real_v1_sarf_taxonomy(self):
         """BUG-001: sarf v1 taxonomy must return 226 leaves."""
         import os
-        path = os.path.join("taxonomy", "sarf", "sarf_v1_0.yaml")
+        path = os.path.join("library", "sciences", "sarf", "tree.yaml")
         if not os.path.exists(path):
             import pytest
             pytest.skip("sarf v1 taxonomy file not found")
@@ -1415,7 +1416,7 @@ class TestExtractTaxonomyLeavesV1:
     def test_real_v1_nahw_taxonomy(self):
         """BUG-001: nahw v1 taxonomy must return 226 leaves."""
         import os
-        path = os.path.join("taxonomy", "nahw", "nahw_v1_0.yaml")
+        path = os.path.join("library", "sciences", "nahw", "tree.yaml")
         if not os.path.exists(path):
             import pytest
             pytest.skip("nahw v1 taxonomy file not found")
@@ -1425,7 +1426,7 @@ class TestExtractTaxonomyLeavesV1:
     def test_real_v0_aqidah_v01_taxonomy(self):
         """BUG-001: aqidah v0.1 taxonomy must return 21 leaves."""
         import os
-        path = os.path.join("taxonomy", "aqidah", "aqidah_v0_1.yaml")
+        path = os.path.join("library", "sciences", "aqidah", "tree_history", "aqidah_v0_1.yaml")
         if not os.path.exists(path):
             import pytest
             pytest.skip("aqidah v0.1 taxonomy file not found")
@@ -1435,7 +1436,7 @@ class TestExtractTaxonomyLeavesV1:
     def test_real_v0_aqidah_v02_taxonomy(self):
         """BUG-001: aqidah v0.2 taxonomy must return 28 leaves."""
         import os
-        path = os.path.join("taxonomy", "aqidah", "aqidah_v0_2.yaml")
+        path = os.path.join("library", "sciences", "aqidah", "tree_history", "aqidah_v0_2.yaml")
         if not os.path.exists(path):
             import pytest
             pytest.skip("aqidah v0.2 taxonomy file not found")
@@ -1447,13 +1448,13 @@ class TestExtractTaxonomyLeavesV1:
         import os
         import pytest
         expected = {
-            ("library/sciences/imlaa/imlaa_v1_0.yaml", "imlaa"): 105,
-            ("library/sciences/sarf/sarf_v1_0.yaml", "sarf"): 226,
-            ("library/sciences/nahw/nahw_v1_0.yaml", "nahw"): 226,
-            ("library/sciences/balagha/balagha_v1_0.yaml", "balagha"): 335,
-            ("library/sciences/aqidah/aqidah_v0_1.yaml", "aqidah"): 21,
-            ("library/sciences/aqidah/aqidah_v0_2.yaml", "aqidah"): 28,
-            ("library/sciences/imlaa_v0.1.yaml", "imlaa"): 44,
+            ("library/sciences/imlaa/tree.yaml", "imlaa"): 105,
+            ("library/sciences/sarf/tree.yaml", "sarf"): 226,
+            ("library/sciences/nahw/tree.yaml", "nahw"): 226,
+            ("library/sciences/balagha/tree.yaml", "balagha"): 335,
+            ("library/sciences/aqidah/tree_history/aqidah_v0_1.yaml", "aqidah"): 21,
+            ("library/sciences/aqidah/tree_history/aqidah_v0_2.yaml", "aqidah"): 28,
+            ("library/sciences/imlaa/tree_history/imlaa_v0_1.yaml", "imlaa"): 44,
         }
         missing = []
         wrong = []
