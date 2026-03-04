@@ -106,3 +106,17 @@
 - Context management guidance made realistic (behavior-based, not rigid threshold)
 - Deprecated bundle system removed (322L of dead code)
 - Full startup simulation: clone→read→write→commit→push verified end-to-end
+
+### Session 2026-03-04 (continued-3) — Claude Chat with Owner
+**Focus:** Owner input on acquisition realities, core frustrations, and book briefing requirements.
+**Decisions:** D-020 (pipeline priority), D-021 (owner frustration: interconnection + explanations), D-022 (book briefing)
+**Key deliverables:**
+- Owner frustrations captured: no interconnection/storyline, no science-level map, poor explanations with logical jumps, no prerequisite mapping
+- Pipeline priority: source acquisition expandable later; critical path is normalization→synthesis
+- Scan types: iPhone camera photos + professionally scanned PDFs
+- Book briefing (D-022): 8 categories of pre-reading information, maps to source metadata + downstream engine knowledge + scholar interface product
+- Metadata section restructured: 5 categories with WHEN each is captured (intake vs enriched vs computed)
+- Taxonomy engine implications: science visualization, prerequisite tracking, per-leaf landscape
+- Synthesizing engine implications: ground-up explanations, situate topics, map theory completely
+- "What Doesn't Exist Yet" restructured around owner frustrations (4 categories)
+- All owner-answerable PENDING fields now filled (only daily workflow deferred until KR in use)

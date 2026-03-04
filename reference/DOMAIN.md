@@ -61,13 +61,11 @@ Implications that govern every design decision:
   - **Comparative:** how other editions/prints differ content-wise (variant readings, missing sections, additional commentary), which edition is considered best
 - **Sources known to exist but not accessible digitally:** Some books only exist in physical form (e.g., editions from bookstores like صفة الصفوة with no digital counterpart). Others are behind login walls. Two manual acquisition realities: (1) physical books → owner provides high-quality iPhone camera photos of pages, (2) login-gated digital sources → owner provides manually downloaded files. Additionally, many "digital" books online are professionally scanned PDFs (scanned through printers/flatbed scanners) — these are a major source format alongside structured text exports.
 
-### Critical Design Implication
+### Critical Design Implications
 
 **Pipeline priority: the critical path starts AFTER a source is received.** The source acquisition phase (autonomous discovery, adding new source types, expanding file format support) can be expanded later. The most important work — what makes KR transformative — begins when a source enters the pipeline: normalization, passaging, atomization, excerpting, taxonomy placement, and synthesis. The source engine's first version should provide a minimum viable acquisition path that gets sources INTO the pipeline quickly. Don't over-engineer sourcing at the expense of the downstream engines that create the actual knowledge products.
 
-### Critical Design Implication
-
-KR is not supplementing an existing study practice. It IS the study practice. This means:
+**KR is not supplementing an existing study practice. It IS the study practice.** This means:
 
 1. **The scholar interface is not optional or secondary — it is the primary product.** The engines exist to feed the interface. If the engines work perfectly but the interface doesn't guide study, KR has failed.
 
