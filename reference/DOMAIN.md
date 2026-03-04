@@ -45,7 +45,7 @@ Implications that govern every design decision:
 - **Current daily study workflow:** None yet — pending KR. **[PENDING: revisit once KR is in use to refine the interaction model]**
 - **Frustrations with Shamela and existing digital tools:** **[PENDING — owner to fill]**
 - **What information about a book matters before starting to read it:** **[PENDING — owner to fill]**
-- **Sources known to exist but not accessible digitally:** **[PENDING — owner to fill]**
+- **Sources known to exist but not accessible digitally:** Some books are simply not available online — bookstores like صفة الصفوة carry physical editions with no digital counterpart. These must be manually acquired (purchased) and input into KR via scans or photographs of pages. Additionally, some digital repositories require authentication (login walls) — the owner must manually download from these and feed the files to KR. **Two manual acquisition realities the source engine must handle:** (1) physical-only books → owner provides scans/images of pages, (2) login-gated digital sources → owner provides manually downloaded files (PDF, HTML, etc.).
 
 ### Critical Design Implication
 
@@ -218,11 +218,13 @@ When the architect designs any engine, these domain facts create concrete requir
 - Track work-to-work relationships (sharh→matn, mukhtasar→original, hashiyah→sharh) as a graph
 - Maintain a scholar authority model: canonical identities, variant name mappings, disambiguation by death date and nisba
 - Handle acquisition from ANY source type and repository, not just Shamela
+- Handle manual acquisition paths as first-class citizens: (1) owner-provided scans/photographs of physical books that have no digital version, (2) owner-provided files manually downloaded from login-gated repositories. These are not edge cases — they are a primary acquisition method for sources that cannot be crawled.
 
 **Normalization engine must:**
 - Preserve scholarly apparatus (footnotes, variant readings, hadith references)
 - Handle Arabic-specific challenges: unvocalized text, hamza variants, taa marbuta
 - Not destroy metadata during format conversion
+- Handle scanned/photographed pages: OCR pipeline for Arabic text extraction from images. This is a core normalizer, not a future capability — physical-only books are a known reality from day one.
 
 **Excerpting engine must:**
 - Tag excerpts with evidence type (Quran, hadith, scholarly reasoning, ijma)

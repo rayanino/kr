@@ -42,12 +42,34 @@ These are all ABD-era artifacts. ABD was a narrow Shamela-only tool; its decisio
 
 **CRITICAL: After Phase 1 and before Phase 3, pause and think.** Write down (in your working memory, not a file) what the source engine SHOULD be if you could design it from scratch for the goal of making Rayane an unprecedented scholar. THEN read the existing code and see how it compares. Don't let the existing code shrink your vision.
 
+## Known VISION §7 Gaps (for SPEC → VISION correction step)
+
+VISION §7 explicitly defers 8 topics to "Level 2" (the SPEC). The SPEC must resolve all of them:
+- Deduplication criteria and registry structure
+- Repository-specific interface logic
+- Relevance evaluation criteria
+- Metadata fields, data types, and validation rules
+- Enrichment write-back mechanism
+- Trustworthiness evaluation criteria and threshold
+- Normalized package contents and schema
+- Discovery strategies
+
+VISION §7 is SILENT on topics DOMAIN.md requires:
+- Work-to-work relationships (sharh→matn chains) — not mentioned at all
+- Author disambiguation — not mentioned at all
+- Tahqiq quality criteria — mentioned only as "editor (محقق)" in metadata
+- Edition variant tracking — mentioned only as "edition information"
+
+These are gaps the SPEC fills, not contradictions the SPEC corrects.
+
 ## Decisions Needed
 
 - Source identity model: what is a "source"? Does `book_id` → `source_id`? Multi-volume works?
+  **Known tension:** VISION §2.5 defines "Work" (مؤلَّف) narrowly as linking volumes of a multi-volume work. DOMAIN.md defines it broadly as the abstract intellectual creation (grouping different tahqiq editions). Both concepts are real — the architect must resolve whether `work_id` covers both or whether two levels of grouping are needed.
 - Source engine output: just `source_metadata.json` + frozen file, or other artifacts?
 - Source registry: how does `library/sources/registry.yaml` work?
 - What metadata model does KR need? (The current schema has Shamela-specific fields from ABD — design from first principles for ALL source types, not from the existing schema.)
+- Manual acquisition workflow: owner provides scans/photos of physical books (no digital version exists), or files manually downloaded from login-gated sites. How does the source engine ingest these? What metadata can be auto-extracted vs. what must the owner provide?
 - What transformative capabilities does this engine provide? (§4.B — your ideas)
 - What does the source engine produce that the scholar interface (interface/scholar/) will need? Design with that consumer in mind.
 

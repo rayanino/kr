@@ -1,32 +1,3 @@
-# Human Gate Specification
+# Human Gate — بوابة الإنسان — Specification
 
-## Input
-
-Pending decision from consensus engine with required approval level.
-
-## Output
-
-Approved/rejected decision with approval timestamp and approver ID.
-
-## Process
-
-1. Fetch pending decision
-2. Check pre-approval policy
-3. If pre-approved, process automatically
-4. Otherwise, queue for human review
-5. Return decision with approval metadata
-
-## Approval Levels
-
-- Minor corrections (pre-approved for specific policies)
-- Major content changes (requires explicit approval)
-- Structural changes (requires technical approval)
-- New sources (requires source validation approval)
-
-## Error Handling
-
-Appeals process for rejected decisions.
-
-## Status
-
-Implementation stub - see tools/human_gate.py in ABD repo.
+This component's specification is to be written. See VISION.md §9 for the human gate architecture and §8.1 (Layer 3: Judgment) for its role in the quality architecture.

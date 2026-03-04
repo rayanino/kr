@@ -49,6 +49,36 @@ This file maps known external tools, libraries, and services to KR engines. Ever
 
 ---
 
+## OCR / Image-to-Text (for scanned/photographed books)
+
+Owner confirmed: some books exist only in physical form (e.g., editions from bookstores like صفة الصفوة). Scans/photographs of pages are a primary acquisition path from day one. Arabic OCR is critical infrastructure for the normalization engine.
+
+### Tesseract (Google, open source)
+- **URL:** https://github.com/tesseract-ocr/tesseract
+- **What it does:** General-purpose OCR engine. Arabic support via trained data (ara.traineddata). Works on printed text; struggles with manuscripts, poor scans, and mixed diacritics.
+- **Relevant engines:** Normalization engine (image→text for scan-based sources)
+- **How to use:** `apt install tesseract-ocr tesseract-ocr-ara`. Good baseline but likely insufficient alone for scholarly Arabic texts.
+- **License:** Apache 2.0
+
+### Kraken (open source)
+- **URL:** https://github.com/mittagessen/kraken
+- **What it does:** OCR engine specifically designed for historical and non-Latin scripts. Better than Tesseract for Arabic manuscripts and older prints. Trainable on custom datasets.
+- **Relevant engines:** Normalization engine (higher-quality Arabic OCR)
+- **How to use:** `pip install kraken`. May need custom training on scholarly Arabic fonts.
+- **License:** Apache 2.0
+
+### Google Document AI / Cloud Vision
+- **URL:** https://cloud.google.com/document-ai
+- **What it does:** Commercial OCR with strong Arabic support. Layout understanding, table detection. Likely best out-of-box quality for modern Arabic prints.
+- **Relevant engines:** Normalization engine (premium OCR option)
+- **How to use:** API key required. Cost per page. Owner has stated infinite tool/API budget.
+- **License:** Commercial (pay per use)
+
+### Docling (IBM, noted above)
+- Also handles images→text with Arabic OCR via its VLM model. May be sufficient as a single tool for both PDF and image normalization.
+
+---
+
 ## LLM Orchestration
 
 ### DSPy (Stanford / Databricks)
