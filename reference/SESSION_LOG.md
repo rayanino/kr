@@ -56,3 +56,8 @@
 **Focus:** Design the application-level intelligence layer — the missing component between the processing pipeline and the user.
 **Decisions:** D-016 (Scholar Interface as user-facing intelligence layer), D-017 (User Model as shared component)
 **Deliverables:** Created interface/scholar/ directory + CLAUDE.md (5 capability domains: Answering, Teaching, Discovering, Assisting, Navigating). Created shared/user_model/ directory + CLAUDE.md (study history, demonstrated knowledge, gaps, focus, preferences). Updated CLAUDE.md repo map and pipeline description. Updated STATUS.md (tracking tables, definition of done). Updated DOMAIN.md (design implications for new components). Updated design philosophy (engines must design for scholar interface consumption). Updated NEXT.md (awareness of new components).
+
+### Session 2026-03-04-k — Claude Chat
+**Focus:** Fill user study profile. Critical discovery: KR is not supplementing existing study — it IS the study infrastructure. User has no teacher, no current practice, starts from zero with Arabic language sciences. Goal: complete scholar (encyclopedic + production + teaching).
+**Decisions:** None (profile data, not architecture — but the implications reshape the scholar interface)
+**Deliverables:** DOMAIN.md study profile filled (sciences: Arabic language first; goal: complete scholar; method: self-directed, KR provides guidance). Added "Critical Design Implication" section explaining KR-as-primary-infrastructure consequences. Scholar interface CLAUDE.md rewritten: added Guiding capability domain (curriculum design) as FIRST capability, added Three Modes (learning/research/teaching), noted beginner→advanced scaling requirement. User model: added curriculum state and scholarly level tracking.

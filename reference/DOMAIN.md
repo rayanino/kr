@@ -15,15 +15,32 @@ This document gives the architect domain grounding for design decisions. Read it
 
 **Interaction model:** Living scholarly partner. Not a passive library — the application should be proactive: suggest what to study, challenge understanding, detect gaps, alert when new sources arrive. It should feel like having a tireless, infinitely knowledgeable study companion.
 
-### Study Profile (GAPS — owner to fill)
+### Study Profile
 
-- Sciences currently studying and priority order: **[PENDING]**
-- What "highest level of scholarship" means concretely: **[PENDING]** (producing original works? teaching? encyclopedic knowledge? tarjih?)
-- Study method: with a teacher/shaykh, self-directed, or both: **[PENDING]**
-- Current daily study workflow: **[PENDING]**
-- Frustrations with Shamela and existing digital tools: **[PENDING]**
-- What information about a book matters before starting to read it: **[PENDING]**
-- Sources known to exist but not accessible digitally: **[PENDING]**
+- **Sciences currently studying:** None yet. The application IS the enabler — Rayane is waiting for KR to begin his scholarly journey. First sciences once KR is operational: Arabic language sciences (Nahw, Sarf, Balagha). Other sciences follow once the Arabic foundation is solid.
+- **What "highest level of scholarship" means:** The complete scholar — encyclopedic knowledge across all schools AND original scholarly production (tarjih, tahrir, research) AND teaching mastery (ability to explain and transmit). All three, not a choice between them.
+- **Study method:** Primarily self-directed but wants structured guidance from KR. No current teacher/shaykh. **KR must fill the role of both the library and the guide.** This is not optional — without structured guidance from the application, there is no structure at all.
+- **Current daily study workflow:** None yet — pending KR. **[PENDING: revisit once KR is in use to refine the interaction model]**
+- **Frustrations with Shamela and existing digital tools:** **[PENDING — owner to fill]**
+- **What information about a book matters before starting to read it:** **[PENDING — owner to fill]**
+- **Sources known to exist but not accessible digitally:** **[PENDING — owner to fill]**
+
+### Critical Design Implication
+
+KR is not supplementing an existing study practice. It IS the study practice. This means:
+
+1. **The scholar interface is not optional or secondary — it is the primary product.** The engines exist to feed the interface. If the engines work perfectly but the interface doesn't guide study, KR has failed.
+
+2. **Curriculum design is a core capability.** KR must be able to generate a complete study curriculum from zero: "You want to study Arabic language sciences. Here is the sequence. Start with Nahw. Within Nahw, start with [this matn]. Here is the first excerpt. Let me test your understanding before we move to the next concept."
+
+3. **The application must know pedagogical sequencing for Islamic sciences.** Which book do you read first in Nahw? What are the classical learning progressions (mutun → shuruh → hawashi)? This is domain knowledge the architect must research and encode.
+
+4. **Progress tracking is essential from day one.** Since KR is the only structure, Rayane needs to see: where he is in the curriculum, what he's mastered, what's next, how far he's come. The user model must support this.
+
+5. **The "complete scholar" goal means KR must eventually support all three modes:**
+   - Learning mode: absorb and understand positions (encyclopedic)
+   - Research mode: compare, analyze, produce original tarjih (scholarly production)
+   - Teaching mode: practice explaining positions, generate lesson outlines (teaching mastery)
 
 ---
 

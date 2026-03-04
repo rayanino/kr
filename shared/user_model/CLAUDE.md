@@ -4,12 +4,14 @@
 
 ## Data Tracked
 
-- **Study history:** Which entries viewed, which excerpts engaged with, timestamps, duration
-- **Demonstrated knowledge:** Results of Socratic dialogue sessions, comprehension assessments
-- **Knowledge gaps:** Topics with low or zero engagement, schools not represented in study history
+- **Curriculum state:** Active curricula per science, current position in each, completion percentage, recommended next steps
+- **Study history:** Which entries viewed, which excerpts engaged with, timestamps, duration, depth of engagement
+- **Demonstrated knowledge:** Results of Socratic dialogue sessions, comprehension assessments, per-topic mastery estimates
+- **Knowledge gaps:** Topics with low or zero engagement, schools not represented in study history, sciences not yet started
 - **Current focus:** Active study areas, recent query patterns, declared interests
-- **Preferences:** Depth vs. breadth, preferred interaction style, language preferences, study schedule
+- **Preferences:** Depth vs. breadth, preferred interaction style, language preferences, study schedule, learning pace
 - **Bookmarks and annotations:** User-created markers and notes on excerpts/entries
+- **Scholarly level:** Per-science estimate of current level (beginner → intermediate → advanced → researcher), updated by assessment
 
 ## Integration Points
 
