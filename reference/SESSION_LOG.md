@@ -66,3 +66,27 @@
 **Focus:** Deep quality hardening for autonomous sessions. Six failure modes identified and fixed.
 **Decisions:** None (all changes are process improvements, not architectural decisions)
 **Deliverables:** NEXT.md rewritten with 4-phase vision-first reading order. Protocol gains §4.A calibration example (source identification + Shamela metadata extraction). SPEC template §5-§10 expanded with detailed guidance. Multi-session SPEC handling added to context management. Feasibility verification required for §4.B. Self-review expanded to 17 items. CLAUDE.md alignment step added to workflow. Web search availability check. Decision revision protocol. Project files cleaned up.
+
+### Session 2026-03-04 (extended) — Claude Chat with Owner
+**Focus:** Complete autonomous environment — design philosophy, domain primer, user profile, intelligence layer, quality hardening, dry run, and cross-document consistency audit.
+**Decisions:** D-016 (Scholar Interface), D-017 (User Model), D-018 (Core Identity: KR IS Rayane's knowledge)
+**Key realizations:**
+- Claude's role is creative intelligence, not documenter. Claude designs the application; owner provides domain knowledge.
+- KR is not a library Rayane uses — KR IS Rayane's knowledge. Errors in KR are errors in his understanding. Quality is existential.
+- The scholar interface is the PRIMARY product. The 7 engines exist to feed it.
+- KR is the study infrastructure itself — no teacher, no existing practice, no curriculum. KR must provide all of it.
+- First sciences to study: Arabic language (Nahw, Sarf, Balagha). Arabic reading level: strong.
+**Deliverables:**
+- Design philosophy in PROJECT_INSTRUCTIONS.md (creative mind, not documenter)
+- reference/DOMAIN.md (core identity, scholarly domain grounding, user profile, design implications)
+- reference/USER_SCENARIOS.md (5 scenarios: Day 1 through Year 3)
+- interface/scholar/ (6 capability domains: Guiding, Answering, Teaching, Discovering, Assisting, Navigating)
+- shared/user_model/ (curriculum state, demonstrated knowledge, gaps, scholarly level)
+- Roadmap archived from project files to reference/archive/
+- 6 failure modes identified and fixed (conservative anchoring, hand-waving §4.B, VISION timidity, decision tracking, RESOURCES.md neglect, web search check)
+- Cross-document consistency audit: kr_decisions.md TOC rebuilt (was completely out of sync with body)
+- HOW_TO_START.md rewritten as foolproof setup guide for non-technical owner
+- Dry run simulation caught: stale project file references, missing web search check
+- Protocol examples clarified as format calibration, not pre-decided designs
+- Self-review expanded to 17 items across 4 checklists
+- Token budget: 4% always-on (down from ~7% with roadmap)

@@ -201,6 +201,8 @@ When correcting VISION.md sections, produce a defect ledger like this:
 
 §4.A rules are precise enough for Claude Code to implement without clarifying questions, but they specify BEHAVIOR, not code structure. Here is a calibration example showing the right level of detail:
 
+**Important:** This example shows the level of precision to AIM FOR, not design decisions to copy. The specific field names, formats, and behaviors shown below are illustrative — the architect decides the actual design based on their own analysis of what's best.
+
 <example name="good_core_processing_rules">
 ### §4.A — Core Processing
 
@@ -247,3 +249,5 @@ The citation relationship (citing_excerpt_id → discovered_source_id) is record
 </example>
 
 Notice: the capability is novel (no Islamic studies tool auto-discovers sources from citation networks), but it is specified with the same precision as any §4.A rule — inputs, outputs, thresholds, edge cases, dependencies. This is what Criterion #20 (Transformative Ambition) requires.
+
+**Do not copy this example into a SPEC.** It exists to calibrate the level of detail and ambition expected. Every §4.B capability in an actual SPEC must be architect-originated for that specific engine. If you find yourself reproducing this example, stop — think about what THIS engine specifically enables that was previously impossible.

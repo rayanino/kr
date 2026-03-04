@@ -1,34 +1,61 @@
-# How to Start
+# How to Start — خزانة ريان Autonomous Sessions
 
-## One-Time Setup (5 minutes)
+## One-Time Setup
 
-In Claude Chat, create a project called "KR" and configure:
+Create a new Claude Chat project. Name it whatever you want (e.g., "KR Autonomous").
 
-**1. Enable "Code Execution and File Creation"** in the project's feature settings. This is required — Claude works directly in the repo using bash commands. Without it, nothing works.
+### 1. Enable features (two toggles)
 
-**2. Enable "Web Search"** in the project's feature settings. Claude needs web search for mandatory research during SPEC writing. Without it, research steps will block.
+In the project's feature settings, enable:
+- **Code Execution and File Creation** — required, Claude works in the repo directly
+- **Web Search** — required, Claude does mandatory research during SPEC writing
 
-**3. Custom Instructions:**
-Go to https://github.com/rayanino/kr and open `reference/PROJECT_INSTRUCTIONS.md`. Copy everything from line 5 onward (starting with "You are the architect"). Paste into the project's Custom Instructions field.
+### 2. Custom Instructions
 
-Then replace `$KR_REPO_URL` with:
+Go to this URL in your browser:
+```
+https://github.com/rayanino/kr/blob/master/reference/PROJECT_INSTRUCTIONS.md
+```
+
+Click the "Raw" button (top right of the file). Select all text from line 5 (starting with "You are the architect") to the end. Copy it.
+
+In the project's Custom Instructions field, paste the copied text.
+
+Then find `$KR_REPO_URL` in the pasted text (use Ctrl+F) and replace it with:
 ```
 https://rayanino:YOUR_TOKEN_HERE@github.com/rayanino/kr.git
 ```
-(The token is in the project file `Github_key`.)
+Replace `YOUR_TOKEN_HERE` with the token from your `Github_key` project file (the long string starting with `ghp_`).
 
-**4. Project Knowledge Files:** From the same GitHub repo, download `reference/DEEP_REASONING_PROTOCOL.md` and add it as a project knowledge file.
+### 3. Project Knowledge Files
 
-**5. Project Files:** The following should be attached as project files:
-- `Github_key`
+Download this file and add it as a project knowledge file:
+```
+https://github.com/rayanino/kr/blob/master/reference/DEEP_REASONING_PROTOCOL.md
+```
+(Click "Raw" → Save As → upload to the project as a knowledge file)
 
-Remove any other project files (including the roadmap, ABD repo link, KR repo link if they were previously attached). The repo contains everything Claude needs.
+### 4. Project Files
 
-That's it. Claude clones the repo and reads everything else directly.
+Add one project file:
+- A text file containing your GitHub token (the same `Github_key` file from the current project, or create a new text file with the token)
+
+Name it `Github_key`.
+
+Do NOT add any other project files. No roadmap, no repo links. The repo contains everything Claude needs.
+
+### Verification
+
+Your project should have:
+- Custom Instructions: ~190 lines starting with "You are the architect"
+- 1 knowledge file: `DEEP_REASONING_PROTOCOL.md`
+- 1 project file: `Github_key`
+- Code Execution: enabled
+- Web Search: enabled
 
 ## Every Session
 
-Open a new conversation in the KR project. Send:
+Open a new conversation in the project. Send:
 
 ```
 Continue the project.
@@ -46,20 +73,12 @@ I have feedback on your last session: [describe your concern].
 
 Claude will pull the repo, find the relevant decision, and address your concern.
 
-## Recommended: Peer Review After Major SPECs
+## If Something Breaks
 
-After each engine SPEC is completed, consider opening a SEPARATE new conversation and saying:
+If Claude says it can't clone or push, check:
+1. Is the GitHub token still valid? (Tokens can expire)
+2. Is the repo URL correct in the Custom Instructions?
+3. Is Code Execution enabled?
 
-```
-Review the source engine SPEC (engines/source/SPEC.md) against the Perfection Standard. Be a hostile auditor — find every defect.
-```
-
-A fresh Claude with no authorship bias will catch things the writing session missed. This is optional but strongly recommended for the first 2-3 SPECs (which set the quality bar for everything after).
-
-## When All SPECs Are Done
-
-NEXT.md will guide the session to do cross-SPEC consistency verification and full coherence review. But you can also trigger this manually:
-
-```
-All engine and component SPECs are complete. Do a full coherence review of the entire documentation stack.
-```
+If Claude says it can't search the web, check:
+1. Is Web Search enabled in the project settings?

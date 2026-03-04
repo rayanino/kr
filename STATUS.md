@@ -24,7 +24,7 @@
 | Engine | Source lines | Tests | Reference docs |
 |--------|-------------|-------|----------------|
 | source | 2,284L (intake.py, enrich.py, corpus_audit.py) | 112 | 2 files |
-| normalization | 4,352L (normalize_shamela.py, discover_structure.py, validate_structure.py) | 292 | 10 files |
+| normalization | 4,352L (normalize_shamela.py, discover_structure.py, validate_structure.py) | 292 | 15 files |
 | passaging | 279L (scaffold only) | 0 | 0 |
 | atomization | 0L (logic lives in excerpting/extract_passages.py) | 0 | 2 files |
 | excerpting | 3,309L (extract_passages.py, assemble_excerpts.py) | 258 | 9 files |
