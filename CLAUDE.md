@@ -10,7 +10,7 @@ A personal intelligent Islamic scholarly library. See `VISION.md` for the full s
 - `schemas/` — inter-engine data contracts (one per boundary).
 - `engines/` — seven processing engines. Each has `CLAUDE.md`, `SPEC.md` (when written), `src/`, `tests/`, `reference/`.
 - `interface/` — user-facing intelligence layer. The scholar interface consumes all knowledge products and provides Q&A, teaching, discovery, assistance, and navigation.
-- `shared/` — cross-engine infrastructure (consensus, human_gate, validation, feedback, user_model).
+- `shared/` — cross-engine infrastructure (consensus, human_gate, validation, feedback, user_model, scholar_authority).
 - `library/` — the knowledge product: science trees, excerpts, entries, source registry.
 - `gold/` — validation baselines (hand-crafted, never auto-generated).
 - `scripts/` — utility scripts (`extract_vision_sections.py` for VISION section extraction).

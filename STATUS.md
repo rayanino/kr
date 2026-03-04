@@ -1,7 +1,7 @@
 # خزانة ريان — Project Status
 
 **Last updated:** 2026-03-04
-**Repo commit:** 04f01dc on master
+**Repo commit:** 5c3fe83 on master
 **Tests:** 903 pass, 37 skip, 1 fail (API key)
 
 ---
@@ -16,9 +16,14 @@
 | 4 shared SPECs | 3 stubs + partial | human_gate has 32L partial. Others are 3-line stubs. |
 | 7 schemas | Exist from ABD era | ABD-era designs for Shamela-only pipeline. Need redesign for KR's multi-format scope. |
 | root CLAUDE.md | Exists | Mostly accurate. |
-| 7 engine CLAUDE.md | Exist | Reasonable quality. Need update after SPECs. |
-| kr_decisions.md | 15 decisions | D-001 to D-015. |
-| SCHEMA_ANALYSIS.md | Exists | ABD-era pipeline overview. Useful for understanding current schema structure, not as KR target. |
+| 7 engine CLAUDE.md | Exist | Enriched with domain knowledge, D-023 metadata pass-through, scholarly integrity constraints. |
+| kr_decisions.md | 23 decisions | D-001 to D-023. |
+| SCHEMA_ANALYSIS.md | Exists | ABD-era pipeline overview + D-019/D-023 warnings. |
+| DOMAIN.md | Complete (~470L) | Core identity, scholarly domain knowledge, evidence hierarchy, integrity risks, design implications. |
+| USER_SCENARIOS.md | Complete (8 scenarios) | Day 1 through Year 3 + book briefing + science map + error correction. |
+| ENTRY_EXAMPLE.md | Complete (~130L) | Calibration target for synthesis quality + metadata-to-synthesis mapping. |
+| PIPELINE_TRACE.md | Complete (~165L) | Full 7-stage trace showing metadata accumulation. |
+| RESOURCES.md | Partial (~230L) | Arabic NLP, OCR, and related tool catalog. |
 
 ### Code (legacy from ABD — functional but not designed for KR)
 
@@ -38,6 +43,7 @@ ABD (Arabic Book Digester) was a narrow Shamela-only tool. Its code works but it
 | shared/validation | 779L | passing | — |
 | shared/feedback | 0L | 0 | — |
 | shared/user_model | 0L | 0 | — |
+| shared/scholar_authority | 0L | 0 | — |
 | interface/scholar | 0L | 0 | — |
 
 ### Infrastructure

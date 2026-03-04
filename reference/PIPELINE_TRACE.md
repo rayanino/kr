@@ -38,7 +38,7 @@ This document traces a SINGLE passage through the entire KR pipeline, showing wh
 
 **Output (normalized package):** Clean text + division tree + footnote layer + structure metadata. Source-format-specific markup is GONE. A PDF normalizer or a camera-photo normalizer would produce the same schema from different input.
 
-**What metadata is NEW here:** Structure discovery (division tree, heading hierarchy), text quality assessment, footnote classification (author-original vs. editor-added). ALL source metadata passes through unchanged.
+**What metadata is NEW here:** Structure discovery (division tree, heading hierarchy), text quality assessment, footnote classification (author-original vs. editor-added), **text fidelity signal** (Shamela structured text → high; scanned PDF → medium with known OCR error patterns; iPhone photo → variable). ALL source metadata passes through unchanged.
 
 ---
 
@@ -69,6 +69,8 @@ This document traces a SINGLE passage through the entire KR pipeline, showing wh
   4. **Example 2**: "نحو: أقائمٌ الزيدان" — atom type: `example`
   5. **Cross-reference**: "وقد ذهب سيبويه إلى أن المبتدأ..." — atom type: `scholarly_reference`
   6. **Footnote**: tahqiq note on manuscript variants — atom type: `editorial_note`
+- Detects scholarly text patterns: atom 5 uses opinion marker "ذهب ... إلى" (so-and-so held that...) — flags this as a reported position (the author is citing Sibawayhi's view, not stating his own)
+- If the passage contained a hadith citation (e.g., "لقول النبي ﷺ..."), the engine would detect the evidence marker and, if an isnad chain were present ("حدثنا فلان عن فلان"), classify it as `isnad` type — transmission metadata distinct from the author's words
 
 **Output (atoms):** Each atom with precise character offsets, type, and content.
 
@@ -84,6 +86,8 @@ This document traces a SINGLE passage through the entire KR pipeline, showing wh
 - Groups atoms 1-5 into one excerpt (they form a coherent teaching unit: "Ibn Aqil's definition of المبتدأ with examples and a reference to Sibawayhi")
 - Atom 6 (editorial note) is attached as metadata, not part of the excerpt's core text
 - Determines: this excerpt is self-contained (a reader can understand the definition without needing other excerpts)
+- **Contextual attribution:** Atom 5 reports Sibawayhi's position (using "ذهب سيبويه إلى"). The engine captures this as "author=Ibn Aqil, quoting=Sibawayhi" — NOT as "author=Sibawayhi". The atomization engine flagged the opinion marker pattern; the excerpting engine uses it for correct attribution.
+- If a hadith were cited in this passage, the engine would tag it with identification and grading status (e.g., "hadith: رواه البخاري ومسلم, grade: متفق عليه/sahih")
 - Enriches metadata:
   - Topic: تعريف المبتدأ
   - Content type: definition with examples
@@ -129,11 +133,13 @@ This document traces a SINGLE passage through the entire KR pipeline, showing wh
 - Arranges positions chronologically using author death dates from source metadata
 - Discovers teacher-student chain: سيبويه → الأخفش → الجرمي → المبرد → ابن السراج (from scholar authority model)
 - Identifies 2 major positions: Basran (meaning-based) and Kufan (form-based)
-- Classifies the disagreement: خلاف حقيقي (substantive, not verbal) — the definitions genuinely produce different results in edge cases
+- **تحرير المسألة (precise issue formulation):** Before listing positions, the synthesizer verifies that all scholars are answering the SAME question. In this case, all are defining المبتدأ — but through different analytical frameworks. This is a substantive disagreement (خلاف حقيقي), not a verbal one (خلاف لفظي), because the definitions genuinely produce different results in edge cases like المبتدأ المؤخر.
 - Identifies the post-classical consensus (Ibn Malik's merged definition)
+- **Checks for abrogation applicability** — not relevant for grammar definitions, but the engine always checks (critical for fiqh entries where abrogated rulings must be marked)
 - Generates edge cases and common misunderstandings
 - Produces prerequisite list from taxonomy tree structure
 - Produces "what to read next" from narrative ordering
+- **Weights source reliability:** all 5 contributing sources are high text fidelity (structured digital text); if one were from a low-fidelity OCR scan, the synthesizer would note this when citing it
 - Writes the entry (see `reference/ENTRY_EXAMPLE.md` for what this looks like)
 
 **Output (entry):** A complete encyclopedic article at the quality level shown in ENTRY_EXAMPLE.md.
@@ -152,13 +158,13 @@ This document traces a SINGLE passage through the entire KR pipeline, showing wh
 
 | Stage | Metadata Added | Cumulative |
 |---|---|---|
-| Source | Author identity, work classification, genre, trust, relationships | Foundation |
-| Normalization | Structure, text quality, footnote classification | + structural |
+| Source | Author identity (canonical ID), work classification, genre chain, trust, relationships, scholar authority records | Foundation |
+| Normalization | Structure, text fidelity signal, footnote classification (author vs. editor) | + structural + quality |
 | Passaging | Boundaries, division path | + positional |
-| Atomization | Atom types, offsets | + content-type |
-| Excerpting | Topic, school, quoted scholars, self-containment | + scholarly |
-| Taxonomy | Final leaf, coverage, gaps | + organizational |
-| Synthesizing | Temporal narrative, cross-source patterns, LLM research | → ENTRY |
+| Atomization | Atom types, offsets, scholarly pattern flags (opinion markers, isnad, evidence citations) | + content-type + patterns |
+| Excerpting | Topic, school, quoted scholars (with correct attribution), content type, self-containment, hadith references + grading | + scholarly |
+| Taxonomy | Final leaf, coverage, gaps, prerequisite links, narrative position | + organizational |
+| Synthesizing | Temporal narrative, khilaf classification, cross-source patterns, LLM research, source reliability weighting | → ENTRY |
 
 **No stage removes metadata.** Every stage adds. The synthesizer receives the FULL accumulation.
 

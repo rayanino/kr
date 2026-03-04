@@ -84,7 +84,7 @@ These are gaps the SPEC fills, not contradictions the SPEC corrects.
 
 **Pipeline priority (owner directive):** Don't over-engineer the source engine. The critical path starts AFTER a source is received — normalization through synthesis is where KR becomes transformative. The source engine's first version should provide a minimum viable acquisition path (accept files the owner provides + basic metadata). Autonomous discovery, multi-repository crawling, and expanded format support are expansion features for later. Spend your design energy on getting the source identity model and metadata architecture RIGHT (these affect every downstream engine), not on elaborate acquisition workflows.
 
-**Note:** The scholar interface and user model (shared/user_model/) were added as D-016 and D-017. The roadmap doesn't cover them — they're extensions beyond the original 7+4 architecture. Their SPECs should be written after the 7 engine SPECs and 4 shared component SPECs, or when the architect judges it's the right time.
+**Note:** The scholar interface (interface/scholar/), user model (shared/user_model/), and scholar authority model (shared/scholar_authority/) were added as extensions beyond the original 7+4 architecture. The scholar authority model is especially relevant to the source engine — it is the centralized registry where every scholar encountered across ALL sources is mapped to a canonical identity. The source engine is the PRIMARY CREATOR of scholar authority records (when processing a new source, it creates/updates the author's canonical record). See DOMAIN.md "Scholar Identity" section. Their SPECs should be written after the 7 engine SPECs and 4 shared component SPECs, or when the architect judges it's the right time.
 
 ## Pending Owner Questions
 

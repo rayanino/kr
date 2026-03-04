@@ -19,3 +19,6 @@ Tests: 0.
 1. **Source-agnostic** (§7.6): operates on normalized packages only. No format-specific logic.
 2. **Passage boundaries must be deterministic** (§2.2): given the same normalized package, the same passages result.
 3. **Passages are the unit of downstream processing** (§2.2): atomization and excerpting operate within passage boundaries.
+4. **Passage quality affects everything downstream.** A bad passage boundary (splitting a topic in the middle of a sentence, combining unrelated topics) forces the excerpting engine to either produce a defective excerpt or span boundaries — which §5.3 forbids. Passage construction is the FOUNDATION for excerpt quality.
+5. **Metadata pass-through (D-023).** Passages must carry all source and normalization metadata. The passage adds its own positional metadata (division path, sequence number) but must preserve everything upstream.
+6. **Islamic text structural awareness.** Arabic scholarly texts have conventions: بسملة opens books, باب/فصل/مسألة mark structural divisions, قال المصنف signals return to the main text author after commentary. The passaging engine (or normalization — the boundary question D-010) must use these conventions for intelligent boundary placement.

@@ -128,6 +128,29 @@ Islamic scholars have complex multi-part names that create real engineering chal
 - **Disambiguation:** Scholars are conventionally distinguished by death date (hijri), nisba, or their most famous work. "al-Nawawi" is unique enough. "Ibn al-Qayyim" is uniquely Ibn Qayyim al-Jawziyyah. But "al-Razi" could be multiple scholars across centuries.
 - **Name normalization:** Classical texts spell names inconsistently (hamza placement, taa marbuta, defective spelling). The source engine needs a scholar authority model that maps variant spellings to canonical identities.
 
+### The Scholar Authority Model
+
+This is a system-wide concept, not owned by a single engine. A **scholar authority model** is a centralized registry where every scholar encountered across ALL sources is mapped to a canonical identity. This model is critical because:
+
+- **Synthesis requires it.** The synthesizer must know that "Sibawayhi" in source A, "سيبويه" in source B, and "عمرو بن عثمان بن قنبر" in source C are the same person. Without canonical identity, the synthesizer cannot build cross-source narratives.
+- **Teacher-student graph.** When the authority model records that al-Akhfash studied under Sibawayhi, and al-Jarmi studied under al-Akhfash, the synthesizer can reconstruct intellectual genealogy (see `reference/ENTRY_EXAMPLE.md`). This graph is a KNOWLEDGE PRODUCT — it enables the scholar interface to show the transmission of ideas across generations.
+- **Temporal ordering.** Death dates enable chronological sorting of scholarly positions. The authority model is the single source of truth for scholar dates.
+- **School tracking.** A scholar's school affiliation(s) — which may differ by science (a scholar can be Hanbali in fiqh and Ash'ari in aqidah) — live in the authority model, not duplicated per source.
+
+**How it grows:** The source engine creates initial scholar records when processing a new source. When the excerpting engine encounters a quoted scholar within text, it links to or creates an authority record. Over time, the model becomes increasingly rich — the 100th source mentioning al-Nawawi adds details the first source didn't have.
+
+**Where it lives architecturally:** This is a shared resource (like the taxonomy trees) that multiple engines read and write. The source engine is the primary writer. The excerpting engine adds quoted-scholar references. The synthesizing engine is the primary reader. The architect must decide: is this a separate shared component, part of the source engine, or a registry that engines access via a common interface?
+
+### Multi-Science Sources
+
+Many scholarly works span multiple sciences. Examples:
+- **المحلى by ابن حزم** — primarily fiqh, but contains extensive usul al-fiqh methodology and hadith analysis
+- **الكتاب by سيبويه** — primarily nahw, but touches on sarf and Arabic balagha
+- **إحياء علوم الدين by الغزالي** — covers fiqh, aqidah, tasawwuf, and ethics simultaneously
+- **المقدمة by ابن خلدون** — covers history, sociology, economics, and Islamic sciences
+
+The source engine must tag a source with ALL sciences it covers (a list, not a single value). The excerpting engine then assigns individual excerpts to their specific science. A single source might produce excerpts placed in 5 different science trees. The metadata model must support this: `science: ["fiqh", "usul_al_fiqh", "ilm_al_hadith"]` at the source level, with per-excerpt science narrowing.
+
 ### What Makes a Source Trustworthy
 
 For printed editions (most of what's digitally available):
@@ -243,17 +266,16 @@ The synthesizing engine must distinguish these types. Treating a verbal disagree
 
 **الترجيح (tarjih — scholarly preference/weighing).** When multiple positions exist, scholars evaluate which is strongest based on evidence quality, methodological soundness, and other criteria. The synthesizing engine must eventually support this: presenting which position is strongest and why, according to which methodology. The owner's own tarjih (scholarly conclusions) are also valid entries in the library (D-018: the owner's voice belongs in the library).
 
-### Evidence Hierarchy and Hadith Methodology
+**المعتمد (mu'tamad — the relied-upon position).** Within each madhhab, there is usually one position that the school officially adopts on each مسألة. This is the mu'tamad — the position that fatwa is given upon, the one students are taught, the one referenced works codify. Example: in Hanbali fiqh on a given issue, there may be 3 positions (from Ahmad, his students, and later scholars), but the mu'tamad is one specific position identified by authoritative reference works. The synthesizer must identify the mu'tamad when it exists, and distinguish it from minority positions within the same school. This is NOT the same as "majority position across all schools" — it's the authoritative position WITHIN a school.
 
-The synthesizing engine CANNOT produce correct entries without understanding how Islamic scholars reason. This section provides the minimum scholarly methodology concepts the architect must know.
+**اجتهاد vs تقليد (ijtihad vs taqlid).** This distinction affects how the synthesizer treats sources:
+- **اجتهاد** (independent scholarly reasoning) — when a scholar examines evidence directly and reaches their own conclusion. Mujtahid scholars (like the four school founders) have positions that carry independent weight.
+- **تقليد** (following a school's established methodology) — when a later scholar applies the school's principles to reach a conclusion consistent with the school's framework. Most later scholars in a madhhab are muqallids.
+The synthesizer should know whether a position represents original ijtihad or is derived through taqlid, because this affects how the position is weighted and presented. A mujtahid's direct evidence-based position has different scholarly character than a later muqallid's application of school methodology.
 
-**مراتب الأدلة (evidence hierarchy).** Islamic scholars derive rulings from evidence sources ranked in order:
-1. **القرآن** (Quran) — the highest authority, but verses may need interpretation
-2. **السنة** (Prophetic tradition / Hadith) — second authority, but hadith vary in authenticity
-3. **الإجماع** (scholarly consensus) — when all qualified scholars agree, the matter is settled
-4. **القياس** (analogical reasoning) — extending a known ruling to a new case by shared cause
+**تراجع العالم (scholar's retraction / changed position).** Some scholars changed their views over their lifetime. الشافعي had an "old" (قديم) and "new" (جديد) position on many issues after moving from Iraq to Egypt. الأشعري changed theological positions dramatically. When the library has sources from different periods of a scholar's career, the synthesizer must present the FINAL position as primary and the earlier position as historical context, not as a live alternative. The source metadata (composition date) and scholar authority model enable this.
 
-Different schools weigh these differently. Hanafis accept more types of قياس; Zahiris reject it entirely. The synthesizing engine must know which evidence each position relies on, because evidence TYPE affects how strong a position is within its own methodology.
+### Hadith Methodology and Additional Scholarly Concepts
 
 **تصحيح الأحاديث (hadith authentication).** Hadith have a grading system the synthesizer must understand:
 - **صحيح** (sahih — authentic): meets all criteria of authenticity. Strongest evidence.
@@ -268,6 +290,8 @@ When an excerpt cites a hadith, the excerpt metadata should ideally carry the ha
 **الناسخ والمنسوخ (abrogation).** Some Quranic verses and hadith abrogate (cancel) earlier ones. A synthesizer that presents an abrogated ruling as current is producing a dangerous error. The synthesizing engine must track which rulings have been abrogated and by what evidence. This is a critical scholarly integrity requirement — not an edge case.
 
 **الإجماع (consensus).** When qualified scholars unanimously agree on a ruling, most schools consider it binding. The synthesizer must know when consensus exists on a topic because: (1) it changes how the entry is structured (consensus topic = the entry should state the consensus and note any dissent, not present it as an open question), (2) it affects quality validation (an entry that implies scholarly disagreement on a consensus topic is wrong).
+
+Note: the evidence type hierarchy (Quran → Hadith → Ijma → Qiyas) and school-specific weighting differences are covered in "Evidence types" above. Different schools weigh these differently — Hanafis accept more types of قياس; Zahiris reject it entirely. The synthesizing engine must know which evidence each position relies on, because evidence TYPE affects how strong a position is within its own methodology.
 
 ### The Owner's Voice in the Library
 
@@ -373,6 +397,9 @@ When the architect designs any engine, these domain facts create concrete requir
 - Handle acquisition from ANY source type and repository, not just Shamela
 - Handle manual acquisition paths as first-class citizens: (1) owner-provided scans/photographs of physical books that have no digital version, (2) owner-provided files manually downloaded from login-gated repositories. These are not edge cases — they are a primary acquisition method for sources that cannot be crawled.
 - Capture enough metadata to power a **book briefing** (D-022): author biography/standing, work type and relationships, scope/level, edition quality, comparative edition data. Some of this is captured at intake; some is enriched later by downstream engines or the owner.
+- **ACTIVELY infer metadata, not just record it.** Use LLM capabilities to infer metadata not explicitly stated in the source. Example: from a title page saying "شرح الآجرومية للكفراوي", infer: this is a شرح, the matn is الآجرومية by ابن آجروم (d. 723 AH), the science is nahw, the level is beginner, and الكفراوي's approximate period. Not all metadata comes from the source file — much comes from the engine's scholarly intelligence.
+- **Support progressive enrichment.** When the 50th source mentioning a scholar is processed, update the scholar authority record with new information (a teacher, a work, a corrected date). Metadata is never final — it accumulates and self-corrects as the library grows.
+- **Detect work relationships automatically.** When a source is identified as a sharh, record WHAT it comments on. When a source cites another work, create a relationship record. Over time, these build a citation and commentary graph across the entire library.
 
 **Normalization engine must:**
 - Preserve scholarly apparatus (footnotes, variant readings, hadith references)
@@ -406,6 +433,9 @@ When the architect designs any engine, these domain facts create concrete requir
 - **Use three input sources (D-023):** (1) excerpt content from placed excerpts — the primary textual evidence, (2) metadata chain from all upstream engines — author bios, dates, school affiliations, work genres, teacher-student chains, (3) LLM research capability — the synthesizer actively adds context, connections, and scholarly analysis that goes beyond what any individual source explicitly says (historical context, institutional dynamics, cross-source patterns). The metadata and LLM research are what transform a flat compilation into a scholarly narrative with temporal depth and intellectual genealogy. See `reference/ENTRY_EXAMPLE.md` for the difference.
 - **Distinguish خلاف types** (see "Core Scholarly Methodology Concepts" above): verbal vs. substantive, respected vs. aberrant. Don't treat all disagreements equally.
 - **تحرير المسألة first**: before presenting positions, precisely formulate what question each scholar is answering. If their questions differ, they don't disagree — they're addressing different مسائل.
+- **Identify المعتمد (mu'tamad)** within each school when it exists. In fiqh entries, the mu'tamad position is the one the school officially adopts — it should be clearly distinguished from minority positions within the same school. Not all topics have a mu'tamad; where they do, the entry must say so.
+- **Handle تراجع (scholar retraction).** When a scholar changed positions (e.g., الشافعي's قديم vs جديد), present the final position as primary. The earlier position is historical context, not a live alternative — unless a subsequent scholar adopted the earlier position independently.
+- **Distinguish اجتهاد from تقليد** in how positions are weighted. A mujtahid's direct evidence-based conclusion has different scholarly character than a later muqallid's school-derived application.
 
 **Scholar authority model (shared component — used by source, excerpting, taxonomy, synthesizing engines):**
 - **Canonical scholar identities** — one record per historical scholar, with a stable canonical_id that all engines reference
@@ -462,5 +492,9 @@ These are errors that would undermine KR's scholarly credibility. Every engine d
 **Hadith grading ignorance.** Using a weak (ضعيف) hadith as primary evidence for a ruling without noting its weakness, or failing to mention that scholars disagree on a hadith's authenticity. The metadata should carry hadith grading; the synthesizer must incorporate it.
 
 **Silent majority.** Many scholarly positions are held by the overwhelming majority but rarely stated explicitly — because everyone agreed and there was nothing to debate. If the library only captures EXPLICIT position statements, it misses the silent consensus. The synthesizer's research capability must identify when a position is implicitly held by default.
+
+**Retraction blindness.** Presenting a scholar's early position as current when they later retracted it. الشافعي's "old" positions (القول القديم) are explicitly superseded by his "new" positions (القول الجديد) after moving to Egypt. The source engine must track composition dates; the synthesizer must check for known retractions before citing a position.
+
+**Mu'tamad misidentification.** Within a madhhab, incorrectly identifying which position is the mu'tamad (relied-upon). In Hanbali fiqh, the mu'tamad on many issues shifted between early period (Ahmad's direct statements) and later codification (المرداوي's الإنصاف). Presenting a non-mu'tamad position as if it's the school's official stance is misleading. The synthesizer must cross-check its mu'tamad identification against known authoritative reference works for each school.
 
 These risks are not theoretical — they are the EXACT errors that existing Islamic studies tools and LLMs routinely make. KR's value proposition is that it DOESN'T make them.

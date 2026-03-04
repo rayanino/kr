@@ -120,3 +120,26 @@
 - Synthesizing engine implications: ground-up explanations, situate topics, map theory completely
 - "What Doesn't Exist Yet" restructured around owner frustrations (4 categories)
 - All owner-answerable PENDING fields now filled (only daily workflow deferred until KR in use)
+
+### Session 2026-03-04 (continued-4) — Claude Chat with Owner
+
+**Task:** Final hardening — metadata as synthesis fuel + scholarly methodology + integrity risks
+
+**Key decisions:**
+- D-023: Metadata is synthesis fuel, not just source documentation
+
+**Owner input:**
+- Clarified that "what matters to me about a book" ≠ "what the system needs as metadata." Metadata serves the synthesizer's ability to produce scholarly narratives with temporal depth and intellectual genealogy. This reframes the entire metadata architecture.
+
+**Deliverables:**
+- ENTRY_EXAMPLE.md expanded: added concrete metadata-to-synthesis appendix showing how each source_metadata field feeds the entry
+- DOMAIN.md expanded (466→501L): evidence hierarchy, hadith grading, isnad awareness, abrogation, scholarly consensus, owner's voice, text fidelity dimension, corpus scale, scholarly methodology concepts, 10 scholarly integrity risks, active metadata inference, progressive enrichment
+- Protocol expanded: metadata pass-through in output contract template, synthesis-readiness checklist (13a-13c), per-engine transformation directions, conservative architect anti-pattern
+- Instructions expanded: document precedence rules, synthesizer three-source model, synthesis-readiness checklist
+- All 7 engine CLAUDE.md files enriched with domain-specific constraints
+- shared/scholar_authority/ created with CLAUDE.md (new shared component)
+- Shared CLAUDE.md and root CLAUDE.md updated
+- SCHEMA_ANALYSIS.md: D-023 metadata pass-through principle added
+- NEXT.md: reading phases → steps (disambiguation), PIPELINE_TRACE.md added to reading order, comprehension check, scholar authority awareness
+- STATUS.md updated to current state
+- HOW_TO_START.md line count updated
