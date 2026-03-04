@@ -8,7 +8,7 @@ The human gate controls irreversible library changes. All modifications that cou
 
 ## State
 
-- **Status**: Stub (implementation from ABD tools/human_gate.py)
+- **Status**: Legacy code from ABD. ABD design decisions have zero authority in KR (D-019).
 - **Parent**: See shared/CLAUDE.md
 - **Tests**: shared/human_gate/tests/test_human_gate.py
 

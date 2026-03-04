@@ -4,6 +4,8 @@
 **Source codebase analyzed:** ABD (`abd_post_stage0_v1.5`)
 **Target:** KR `schemas/` directory — inter-engine data contracts per VISION.md §13.4
 
+**⚠ ABD Legacy (D-019):** These schemas were designed for ABD's Shamela-only pipeline. They use `book_id` (KR may use `source_id`), have Shamela-specific enums, and lack fields for multi-format source types. Each schema will be redesigned when the corresponding engine SPEC is written. Until then, they describe what currently exists, not what KR needs.
+
 ---
 
 ## 1. Complete Data Flow

@@ -77,6 +77,41 @@ Islamic scholarship has a well-defined source hierarchy that the application mus
 3. **Athar** — statements of the Companions (sahabah) and Successors (tabi'in). Authority varies by school.
 4. **Scholarly works** — the vast corpus. Authority depends on the scholar's stature, the work's genre, and whether it represents the scholar's final position (some scholars changed views over their lifetime).
 
+### Works vs. Sources
+
+This distinction is fundamental to the source engine's identity model:
+
+A **work** (مُؤلَّف) is the abstract intellectual creation — the book as a scholarly contribution. "al-Mughni by Ibn Qudamah" is a work. It has one author, one original date, one place in scholarly history.
+
+A **source** (مَصدر) is a specific physical or digital manifestation of a work. The same work can exist as multiple sources: Shu'ayb al-Arna'ut's tahqiq of al-Mughni (Dar al-Risalah, 1997) is one source. Abdullah al-Turki's tahqiq of the same text (Dar 'Alam al-Kutub, 1997) is a different source. A Shamela HTML export of al-Turki's edition is yet another source (a digital manifestation of that edition).
+
+**Same work ≠ duplicate.** Two different tahqiq editions of the same work are NOT duplicates — they differ in footnote apparatus, variant reading choices, textual corrections, and scholarly commentary. The source engine must group sources by work but never conflate distinct editions.
+
+**Preferred edition.** The owner may designate one edition as preferred per work (typically the one with the best tahqiq). Excerpts come from the preferred edition; others serve as cross-references for variant readings.
+
+### Work Genre Chains
+
+Islamic scholarly works exist in genre relationships that form chains (sometimes 4-5 levels deep):
+
+- **Matn** (متن) — core text. Dense, often terse, meant to be memorized. Example: al-Ajurrumiyyah in Nahw.
+- **Sharh** (شرح) — commentary on a matn. Expands and explains. Example: Sharh Ibn 'Aqil on Alfiyyat Ibn Malik.
+- **Hashiyah** (حاشية) — marginal note on a sharh. Comments on the commentary. Example: Hashiyat al-Sabban on Sharh al-Ashmuny.
+- **Ta'liqat** (تعليقات) — notes on a hashiyah, or free-standing scholarly notes.
+- **Mukhtasar** (مختصر) — abridgment of a larger work. Shorter but same content.
+- **Nazm** (نظم) — versified summary. The content of a prose work rendered in poetry for memorization.
+- **Taqrirat** (تقريرات) — lecture notes by students capturing a teacher's oral explanations.
+
+These chains form a tree: Ajurrumiyyah (matn) → Sharh al-Kafrawi (sharh) → Hashiyat al-'Adawi (hashiyah). The source engine must track these derivative-work relationships. When a commentary cites "the author said," it means the matn author — tracking the chain tells you exactly which work is being referenced.
+
+### Author Identity in Islamic Scholarship
+
+Islamic scholars have complex multi-part names that create real engineering challenges:
+
+- **Components:** ism (given name), nasab (patronymic chain — "ibn X ibn Y"), laqab (title — "al-Imam"), kunya (teknonym — "Abu Hanifah"), nisba (attribution — geographic, tribal, or school-based — "al-Baghdadi," "al-Hanafi")
+- **Multiple names:** The same scholar is known by different names in different contexts. "Ibn Hajar" in hadith scholarship usually means Ibn Hajar al-Asqalani (d. 852 AH). "Ibn Hajar" in Shafi'i fiqh might mean Ibn Hajar al-Haytami (d. 974 AH). These are two completely different scholars separated by 122 years.
+- **Disambiguation:** Scholars are conventionally distinguished by death date (hijri), nisba, or their most famous work. "al-Nawawi" is unique enough. "Ibn al-Qayyim" is uniquely Ibn Qayyim al-Jawziyyah. But "al-Razi" could be multiple scholars across centuries.
+- **Name normalization:** Classical texts spell names inconsistently (hamza placement, taa marbuta, defective spelling). The source engine needs a scholar authority model that maps variant spellings to canonical identities.
+
 ### What Makes a Source Trustworthy
 
 For printed editions (most of what's digitally available):
@@ -175,11 +210,14 @@ These gaps are KR's competitive advantage. Every one of them should be a designe
 When the architect designs any engine, these domain facts create concrete requirements:
 
 **Source engine must:**
+- Distinguish works from sources: group sources by work, track edition provenance
 - Track tahqiq quality, not just title/author
 - Know which publishers are reliable
 - Understand multi-volume works and edition variants
-- Detect duplicate sources (same book, different tahqiq = NOT a duplicate)
-- Track book-to-book relationships (sharh→matn, mukhtasar→original)
+- Detect duplicate sources (same book, different tahqiq = NOT a duplicate; same tahqiq from two repositories = duplicate)
+- Track work-to-work relationships (sharh→matn, mukhtasar→original, hashiyah→sharh) as a graph
+- Maintain a scholar authority model: canonical identities, variant name mappings, disambiguation by death date and nisba
+- Handle acquisition from ANY source type and repository, not just Shamela
 
 **Normalization engine must:**
 - Preserve scholarly apparatus (footnotes, variant readings, hadith references)
