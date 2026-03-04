@@ -11,7 +11,7 @@ This document gives the architect domain grounding for design decisions. Read it
 **Background:** Islamic studies student, non-technical. The application is built entirely for him.
 **Primary madhhab:** None — studies all schools equally.
 **School coverage mandate:** Equal coverage of all four Sunni madhahib plus non-madhhab scholars (Ibn Hazm, Zahiri school, contemporary salafi scholars, etc.). No school is primary or secondary. The application must never assume a default madhhab.
-**Languages:** Arabic (reading scholarly texts), Dutch, French, English. The application's scholarly content is Arabic; the interface and generated analysis may use any of the owner's languages.
+**Languages:** Arabic (strong — reads classical scholarly texts comfortably), Dutch, French, English. The application's scholarly content is Arabic; the interface and generated analysis may use any of the owner's languages. No Arabic language scaffolding needed — the interface focuses on scholarly substance, not language support.
 
 **Interaction model:** Living scholarly partner. Not a passive library — the application should be proactive: suggest what to study, challenge understanding, detect gaps, alert when new sources arrive. It should feel like having a tireless, infinitely knowledgeable study companion.
 
