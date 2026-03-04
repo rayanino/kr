@@ -222,6 +222,15 @@ Claude documents these decisions with brief justification but does NOT ask for p
 
 ## Practical Constraints
 
+### Session Strategy
+Each session should produce at least one committable deliverable. Don't spread across too many topics — depth-first is better than breadth-first. A typical productive session either:
+- Completes a light SPEC (passaging, synthesis) start to finish
+- Makes major progress on a heavy SPEC (source, normalization, excerpting) — at least §1–§5 drafted
+- Completes a VISION correction pass for a section group
+- Resolves a cross-cutting issue (schema reconciliation, naming consistency)
+
+If you realize mid-session that a different priority would be more impactful, pivot — but finish the current section cleanly first. Note the pivot in the session log.
+
 ### Output Length
 Write in chunks of 2–4 SPEC sections per response. Complete each section fully before moving to the next. If nearing your output limit, stop at a clean section boundary and continue in the next response.
 
@@ -229,7 +238,40 @@ Write in chunks of 2–4 SPEC sections per response. Complete each section fully
 Present work in 2–3 large chunks, not section-by-section. For a 10-section SPEC: §1–§4, then §5–§7, then §8–§10. This keeps conversation turns under 10–12, which maintains attention quality.
 
 ### Context Budget
-The context window is 200K tokens. Project files use ~6K. Attachments vary by work item (STATUS.md lists the estimate). Leave at least 50K tokens for conversation. If context is tight, prioritize: code files > reference docs > VISION sections.
+The context window is 200K tokens. Project files use ~10K. Session bundles vary (check the bundle script output). Leave at least 60K tokens for conversation. If context is tight, prioritize: code files > reference docs > VISION sections.
+
+### Requesting Additional Files
+If you need a file that wasn't in the session bundle, tell the owner:
+```
+I need this file for [reason]. Please attach:
+  [exact path from repo root]
+Or run: make bundle ENGINE=[name]
+```
+The owner can find files in the repo but doesn't know which ones matter — be specific about the path.
+
+---
+
+## Output Format
+
+The owner is not technical. Make it trivially easy to save your outputs. Follow these conventions:
+
+**Every deliverable** must be in a clearly marked block with the exact file path:
+
+```
+===== FILE: engines/source/SPEC.md =====
+[complete file content here]
+===== END FILE =====
+```
+
+**At the end of every session,** produce these blocks in order:
+1. All deliverable files (SPECs, VISION corrections, schema updates)
+2. New decisions — formatted exactly as they should appear in kr_decisions.md
+3. Updated STATUS.md — the complete replacement file
+4. SESSION_LOG.md entry — the single line to append
+
+**The owner's job** is: copy each block to the right file, commit, update project knowledge. No interpretation needed.
+
+**If a deliverable spans multiple messages** (e.g., a long SPEC), clearly label "Part 1 of 3" etc. At the end of the last part, provide the complete concatenated file as a single block.
 
 ---
 

@@ -118,14 +118,10 @@ No engine SPECs have been written yet. No VISION corrections since the earlier Â
 
 ## Files to Attach Next Session
 
-Based on pipeline-order starting point (source engine SPEC first):
-1. `engines/source/src/intake.py`
-2. `engines/source/src/enrich.py`
-3. `engines/source/src/corpus_audit.py`
-4. `engines/source/reference/ABD_INTAKE_SPEC.md`
-5. `engines/source/reference/edge_cases.md`
-6. `schemas/source_metadata.json`
-7. `schemas/SCHEMA_ANALYSIS.md`
-8. VISION excerpt â€” run: `python3 scripts/extract_vision_sections.py 7.1 7.4 2 > /tmp/vision_excerpt.md`
+Run one command to get one file:
+```
+make bundle ENGINE=source
+```
+This creates `session_bundle.md` (~60K tokens) containing all source engine code, reference docs, schemas, and relevant VISION sections. Attach this single file.
 
-If you (the next Claude) determine a different starting point is better, say so and tell the owner what to attach instead.
+If the architect (next Claude) decides on a different starting point, it will tell you which engine to bundle instead.

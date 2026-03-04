@@ -4,7 +4,7 @@ VENV    := .venv
 PYTHON  := $(VENV)/bin/python
 PIP     := $(VENV)/bin/pip
 
-.PHONY: install test test-verbose clean help
+.PHONY: install test test-verbose clean help vision bundle
 
 help:          ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-14s %s\n", $$1, $$2}'
@@ -24,8 +24,12 @@ test-verbose:  ## Run tests with full output
 
 vision:        ## Extract VISION.md sections for a session. Usage: make vision SECTIONS="2 7"
 	@if [ -z "$(SECTIONS)" ]; then echo "Usage: make vision SECTIONS=\"2 7\""; exit 1; fi
-	@python3 tools/extract_vision_sections.py $(SECTIONS) > vision_excerpt.md
+	@python3 scripts/extract_vision_sections.py $(SECTIONS) > vision_excerpt.md
 	@echo "✓ vision_excerpt.md ready — attach this instead of full VISION.md"
+
+bundle:        ## Bundle session files. Usage: make bundle ENGINE=source
+	@if [ -z "$(ENGINE)" ]; then echo "Engines: source normalization passaging atomization excerpting taxonomy synthesis shared crosscutting"; echo "Usage: make bundle ENGINE=source  (or ENGINE=normalization/1 for session splits)"; exit 1; fi
+	@python3 scripts/bundle_session.py $(ENGINE)
 
 clean:         ## Remove venv and Python artifacts
 	rm -rf $(VENV)

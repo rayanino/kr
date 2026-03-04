@@ -26,19 +26,20 @@ Think as long as needed. Depth over speed. Always.
 
 ## Step 2: Every Session (2 minutes + answering questions)
 
+**Prepare the session bundle** — STATUS.md tells you which command to run. Usually:
+```
+cd /path/to/kr
+make bundle ENGINE=source
+```
+This creates `session_bundle.md` — one file with everything Claude needs.
+
 **Start a new conversation** (never continue old ones). Send:
 ```
 Continue the project.
 ```
+Attach `session_bundle.md`. That's it.
 
-Attach the files listed in STATUS.md under "Files to Attach Next Session."
-
-If STATUS.md says to run the VISION extraction script first:
-```
-cd /path/to/kr
-python3 scripts/extract_vision_sections.py [sections] > /tmp/vision_excerpt.md
-```
-Then attach `/tmp/vision_excerpt.md` instead of full VISION.md.
+For multi-session items (like normalization), STATUS.md may say to also attach the previous session's draft output.
 
 **During the session:** Answer domain questions if Claude asks. Otherwise let it work.
 
