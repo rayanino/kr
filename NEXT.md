@@ -22,15 +22,16 @@ The roadmap (always in your context as a project file) has detailed guidance for
 
 ## Files to Read
 
-1. `VISION.md` §7.1–§7.4 and §2 → run `python3 scripts/extract_vision_sections.py 7 2`
-2. `engines/source/src/intake.py` (1476L) — current source ingestion code
-3. `engines/source/src/enrich.py` (580L) — metadata enrichment
-4. `engines/source/src/corpus_audit.py` (228L) — corpus validation
-5. `engines/source/reference/ABD_INTAKE_SPEC.md` (795L) — ABD-era spec
-6. `engines/source/reference/edge_cases.md` (127L) — known edge cases
-7. `schemas/source_metadata.json` (234L) — current output schema
-8. `schemas/SCHEMA_ANALYSIS.md` (329L) — pipeline schema overview
-9. `reference/RESOURCES.md` — cataloged tools (Docling, shamela2epub, etc.)
+1. `reference/DOMAIN.md` — domain primer. Read this FIRST. It gives you scholarly intuition for design decisions.
+2. `VISION.md` §7.1–§7.4 and §2 → run `python3 scripts/extract_vision_sections.py 7 2`
+3. `engines/source/src/intake.py` (1476L) — current source ingestion code
+4. `engines/source/src/enrich.py` (580L) — metadata enrichment
+5. `engines/source/src/corpus_audit.py` (228L) — corpus validation
+6. `engines/source/reference/ABD_INTAKE_SPEC.md` (795L) — ABD-era spec
+7. `engines/source/reference/edge_cases.md` (127L) — known edge cases
+8. `schemas/source_metadata.json` (234L) — current output schema
+9. `schemas/SCHEMA_ANALYSIS.md` (329L) — pipeline schema overview
+10. `reference/RESOURCES.md` — cataloged tools (Docling, shamela2epub, etc.)
 
 After reading, do resource survey + possibility research per the workflow.
 

@@ -104,8 +104,9 @@ If a domain question blocks progress on the current section, put it in NEXT.md u
 <session_workflow>
 1. Clone/pull repo, read NEXT.md and kr_decisions.md, check git log
 2. If the task is starting a NEW engine SPEC:
-   a. Resource survey: search for tools, libraries, APIs (minimum 3-5 searches)
-   b. Vision expansion: before writing any SPEC section, spend time thinking about what capabilities would make this engine transformative. What has never been possible in Islamic scholarship that this engine could enable? Write these ideas into §4 alongside the baseline processing rules.
+   a. Read `reference/DOMAIN.md` — the domain primer. This gives you the scholarly intuition you need to design well. Without it, you'll build technically impressive features that miss what a real scholar needs.
+   b. Resource survey: search for tools, libraries, APIs (minimum 3-5 searches)
+   c. Vision expansion: before writing any SPEC section, spend time thinking about what capabilities would make this engine transformative. What has never been possible in Islamic scholarship that this engine could enable? Write these ideas into §4.B alongside the baseline processing rules in §4.A.
 3. If the task is continuing work: pick up where the previous session stopped
 4. Do the work — write directly to repo files
 5. Self-review (see below)
