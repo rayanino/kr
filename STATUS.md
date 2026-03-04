@@ -34,6 +34,8 @@
 | shared/human_gate | 881L | 28 | — |
 | shared/validation | 779L | passing | — |
 | shared/feedback | 0L | 0 | — |
+| shared/user_model | 0L | 0 | — |
+| interface/scholar | 0L | 0 | — |
 
 ### Infrastructure
 | Component | State |
@@ -50,9 +52,10 @@
 ## What Must Be Done (Definition of Done)
 
 The preparatory phase is complete when:
-- VISION.md has zero defects (§6–§12 corrected, all sections pass Perfection Standard)
+- VISION.md has zero defects (§6–§12 corrected, all sections pass Perfection Standard), plus any new sections added for concepts VISION.md currently lacks
 - All 7 engine SPECs are complete and pass Tier 1+2
-- All 4 shared component SPECs are complete
+- All 5 shared component SPECs are complete (consensus, human_gate, validation, feedback, user_model)
+- Scholar interface SPEC is complete (interface/scholar)
 - All schemas verified (producing SPEC output = schema = consuming SPEC input)
 - All CLAUDE.md files accurate
 - All architectural decisions documented in kr_decisions.md

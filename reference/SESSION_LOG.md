@@ -51,3 +51,8 @@
 **Focus:** Design philosophy — transform Claude from documenter to creative intelligence. The application's goal is unprecedented scholarship through technology; Claude must conceive transformative capabilities, not just document existing ones.
 **Decisions:** None (meta-process, but fundamentally changes the nature of all future SPEC work)
 **Deliverables:** Rewrote <design_philosophy> block (Claude is creative mind, not documenter; can extend VISION.md, create new components, reshape architecture). Updated SPEC template §4 split into §4.A (core processing) and §4.B (transformative capabilities). Added Criterion #20 (Transformative Ambition) to Perfection Standard. Added §4.B example to protocol. Updated scope to allow architectural extension. Added possibility research section to RESOURCES.md. Seeded NEXT.md with creative mandate for first real session.
+
+### Session 2026-03-04-j — Claude Chat
+**Focus:** Design the application-level intelligence layer — the missing component between the processing pipeline and the user.
+**Decisions:** D-016 (Scholar Interface as user-facing intelligence layer), D-017 (User Model as shared component)
+**Deliverables:** Created interface/scholar/ directory + CLAUDE.md (5 capability domains: Answering, Teaching, Discovering, Assisting, Navigating). Created shared/user_model/ directory + CLAUDE.md (study history, demonstrated knowledge, gaps, focus, preferences). Updated CLAUDE.md repo map and pipeline description. Updated STATUS.md (tracking tables, definition of done). Updated DOMAIN.md (design implications for new components). Updated design philosophy (engines must design for scholar interface consumption). Updated NEXT.md (awareness of new components).

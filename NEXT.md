@@ -42,6 +42,9 @@ After reading, do resource survey + possibility research per the workflow.
 - Source registry: how does `library/sources/registry.yaml` work?
 - Shamela-specific fields: what evolves from current `intake_metadata.json` for KR?
 - What transformative capabilities does this engine provide? (§4.B — your ideas)
+- What does the source engine produce that the scholar interface (interface/scholar/) will need? Design with that consumer in mind.
+
+**Note:** The scholar interface and user model (shared/user_model/) were added as D-016 and D-017. The roadmap doesn't cover them — they're extensions beyond the original 7+4 architecture. Their SPECs should be written after the 7 engine SPECs and 4 shared component SPECs, or when the architect judges it's the right time.
 
 ## Pending Owner Questions
 

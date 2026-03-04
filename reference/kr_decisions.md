@@ -101,3 +101,17 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 **Context:** Authority relationship between VISION.md and engine SPECs
 **Decision:** Within an engine's scope, its SPEC is the most authoritative document. VISION.md governs only cross-cutting rules (glossary, documentation contract, engine boundaries). The SPEC is the densest, most precise documentation and is the sole governing entity for its engine.
 **Documents updated:** reference/DEEP_REASONING_PROTOCOL.md
+
+### D-016: Scholar Interface — user-facing intelligence layer
+**Decided:** 2026-03-04
+**Context:** The 7 processing engines build the library but VISION.md has no concept for how the user actually interacts with it. The owner's mandate is a "living scholarly partner" — proactive, teaching, challenging, discovering. This requires a dedicated component.
+**Decision:** Create `interface/scholar/` as a new top-level component (not an engine, not shared infrastructure). It sits on top of all engine outputs and provides five capability domains: Answering (Q&A grounded in library knowledge), Teaching (Socratic dialogue, study paths, spaced repetition, gap detection), Discovering (proactive alerts, contradiction detection, coverage gaps, scholarly briefings), Assisting (writing support, footnote generation, research questions), Navigating (taxonomy browsing, scholar networks, temporal views, coverage maps). Gets its own SPEC following the standard template.
+**Alternatives considered:** (a) Adding interaction features to the synthesizing engine → rejected (the synthesizing engine produces entries; the interface consumes them — different responsibilities). (b) Multiple separate components (Scholar, Sentinel, Navigator, Scribe) → rejected (they all share the same knowledge products and user model; splitting them would fragment context). (c) Deferring entirely to "later" → rejected (if the architect doesn't design for user interaction now, the engines will be optimized for data processing rather than scholarly experience).
+**Documents updated:** CLAUDE.md (repo map + pipeline), interface/scholar/CLAUDE.md created, shared/user_model/CLAUDE.md created.
+
+### D-017: User Model — persistent user state as shared component
+**Decided:** 2026-03-04
+**Context:** The scholar interface needs to personalize every interaction based on what the user has studied, knows, and needs. This state is also useful to processing engines (e.g., alerting when new excerpts match the user's focus). It belongs in shared/ because multiple components read and write it.
+**Decision:** Create `shared/user_model/` as a shared component. Tracks: study history, demonstrated knowledge, knowledge gaps, current focus, preferences, bookmarks/annotations. Read by scholar interface for personalization. Written to by scholar interface (interactions) and processing engines (new content alerts). Gets its own SPEC.
+**Alternatives considered:** (a) Embedding user state in the scholar interface → rejected (processing engines also need to write to it). (b) Using external tool (mem0) as sole user model → rejected (user model must be KR-native with well-defined schema; external tools may supplement but not replace).
+**Documents updated:** CLAUDE.md (repo map), shared/user_model/CLAUDE.md created.

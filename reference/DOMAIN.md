@@ -160,3 +160,17 @@ When the architect designs any engine, these domain facts create concrete requir
 - Generate comparative analysis across all schools (not madhhab-biased)
 - Track temporal dimension (when was this position held, by whom, did it change?)
 - Detect intra-author contradictions
+
+**Scholar interface must:**
+- Ground every answer in specific excerpts from specific sources — never generate unverified claims
+- Handle all query types: single-school, comparative, evidence-chain, historical evolution
+- Personalize based on user model: study history, knowledge gaps, current focus
+- Teach through Socratic dialogue, not just information retrieval
+- Be proactive: alert when new content matches study focus, detect gaps, suggest next steps
+- Support scholarly production: writing assistance, footnote generation, research questions
+
+**User model must:**
+- Track engagement at the excerpt level (not just "viewed entry X")
+- Distinguish between "has seen" and "has understood" (via Socratic assessment)
+- Compute gaps across multiple dimensions: school, science, topic, time period
+- Persist across sessions and grow more useful over time

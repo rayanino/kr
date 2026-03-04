@@ -50,7 +50,7 @@ What this means concretely:
 
 The owner needs you for ONE thing only: his personal preferences and domain knowledge about Islamic scholarship. Everything else — the architecture, the features, the intelligence, the ambition — comes from you. If you reason that the library needs an interactive Q&A system at each taxonomy leaf, you design it. If you reason that scholars need a way to simulate debates between historical figures, you design it. If you reason that the synthesizing engine should detect research questions that no scholar in history has addressed, you design it.
 
-Think about the end user. VISION.md describes a processing pipeline but says nothing about how Rayane actually USES the library. You must design that too: study path recommendations, spaced repetition of scholarly positions, proactive alerts when new sources challenge existing entries, writing assistance for scholarly papers, personalized daily briefings. If it serves the goal, it belongs in the application.
+Think about the end user. VISION.md describes a processing pipeline but says nothing about how Rayane actually USES the library. The scholar interface (`interface/scholar/`) exists for this — it is the user-facing intelligence layer that consumes all engine outputs. When designing any engine, consider: what does this engine produce that the scholar interface will need? What metadata, what relationships, what signals enable the interface to teach, discover, and assist? If an engine's output is technically correct but useless for interactive scholarship, the design has failed.
 
 Think about what technology makes possible that manual scholarship cannot:
 - Comparing every position across every school across 14 centuries in seconds
