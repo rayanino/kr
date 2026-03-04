@@ -196,7 +196,9 @@ If the owner sends a message mid-session (a domain answer, a correction, feedbac
 </owner_interaction>
 
 <context_management>
-If you have read more than ~80K tokens of input this session and still have significant work remaining, prioritize: (1) finish the current section cleanly, (2) write a detailed NEXT.md, (3) commit and push. Do not start a new major section when context is running low — a clean handoff is more valuable than a rushed partial section.
+Context budget reality: you have ~200K tokens total. System prompt + knowledge file consume ~10K. A full engine SPEC session reads ~70K of project files. That leaves ~120K for your reasoning and output — enough for a complete SPEC, but not infinite.
+
+Monitor your context usage. If you sense you're running low (response generation slowing, difficulty recalling earlier context), prioritize: (1) finish the current section cleanly, (2) write a detailed NEXT.md, (3) commit and push. Do not start a new major section when context is running low — a clean handoff is more valuable than a rushed partial section.
 
 Multi-session SPECs: A complex engine SPEC may take 2-3 sessions. This is fine — depth matters more than speed. When splitting across sessions:
 - Commit the partial SPEC at a clean section boundary (e.g., §1-§4.A done, §4.B-§10 next session). Mark incomplete sections with `[CONTINUES NEXT SESSION]`.

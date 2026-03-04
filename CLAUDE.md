@@ -4,7 +4,7 @@ A personal intelligent Islamic scholarly library. See `VISION.md` for the full s
 
 ## Repository Map
 
-- `VISION.md` — authoritative Level 0 specification (1585 lines). §0–§5, §13 audited; §6–§12 pending.
+- `VISION.md` — authoritative Level 0 specification (1585 lines). Corrections happen during SPEC writing per engine.
 - `NEXT.md` — session handoff: what to do next, which files to read.
 - `STATUS.md` — project state overview.
 - `schemas/` — inter-engine data contracts (one per boundary).
