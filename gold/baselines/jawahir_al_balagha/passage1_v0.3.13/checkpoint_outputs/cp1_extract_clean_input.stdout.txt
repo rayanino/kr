@@ -1,3 +1,0 @@
-Wrote: passage1_clean_matn_input.txt
-Wrote: passage1_clean_fn_input.txt (empty)
-Wrote: passage1_source_slice.json

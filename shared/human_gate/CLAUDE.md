@@ -31,7 +31,6 @@ The human gate controls irreversible library changes. All modifications that cou
 
 ## Reference
 
-- See ABD TRANSITION_BRIEF.md for context on approval workflow evolution
 ## Current State
 
 Tests: 45 items collected

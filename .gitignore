@@ -1,11 +1,10 @@
 .cowork/
 
 # ─── Frozen source files ─────────────────────────────────────────────
-# Source HTML files are large (Shamela exports, typically 0.3–1.7MB each)
-# and are frozen at intake time. They are stored locally but not tracked
-# in version control. Each book's intake_metadata.json contains SHA-256
-# hashes for integrity verification.
-library/sources/*/source/
+# Source files are large and frozen at intake time. They are stored locally
+# but not tracked in version control. Each source's source_metadata.json
+# contains SHA-256 hashes for integrity verification.
+library/sources/frozen/
 
 # ─── Pipeline outputs (regeneratable) ────────────────────────────────
 output/
@@ -16,11 +15,6 @@ __pycache__/
 *.pyo
 .pytest_cache/
 .venv/
-
-# ─── Overnight automation runtime artifacts ──────────────────────────
-.overnight_state.json
-OVERNIGHT_REPORT.md
-overnight-*.log
 
 # ─── OS / Editor ─────────────────────────────────────────────────────
 .DS_Store

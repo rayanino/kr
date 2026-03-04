@@ -56,7 +56,11 @@ Phase 2 — Knowledge Understanding (source-agnostic):
 
 ## Run All Tests
 ```
-python -m pytest engines/*/tests/ shared/*/tests/
+# Direct (from repo root, with _paths.py on sys.path):
+python -m pytest engines/*/tests/ shared/*/tests/ -q
+
+# Via Makefile (uses .venv, run `make install` first):
+make test
 ```
 
 ## Current Priorities
