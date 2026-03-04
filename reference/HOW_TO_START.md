@@ -4,7 +4,9 @@
 
 In Claude Chat, create a project called "KR" and configure:
 
-**1. Custom Instructions:**
+**1. Enable "Code Execution and File Creation"** in the project's feature settings. This is required — Claude works directly in the repo using bash commands. Without it, nothing works.
+
+**2. Custom Instructions:**
 Copy everything below the `---` line from `reference/PROJECT_INSTRUCTIONS.md`, then make one edit:
 
 Replace `$KR_REPO_URL` with the actual authenticated URL:
@@ -13,7 +15,7 @@ https://rayanino:YOUR_TOKEN_HERE@github.com/rayanino/kr.git
 ```
 (The token is in the project file `Github_key`.)
 
-**2. Project Knowledge Files:** Add one file:
+**3. Project Knowledge Files:** Add one file:
 - `reference/DEEP_REASONING_PROTOCOL.md`
 
 That's it. Claude clones the repo and reads everything else directly.

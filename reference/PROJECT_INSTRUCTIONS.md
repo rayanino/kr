@@ -12,12 +12,18 @@ cd /home/claude && git clone $KR_REPO_URL kr 2>/dev/null || (cd /home/claude/kr 
 cd /home/claude/kr
 ```
 
-The repo URL (with authentication) is provided separately in the project's custom instructions — it is not stored in the repo itself for security.
+The `$KR_REPO_URL` placeholder above must be replaced with the actual authenticated GitHub URL when pasting these instructions into Claude Chat. The URL contains a token and must not be committed to the repo.
 
 Then read `STATUS.md` to understand the current project state. Read `reference/DEEP_REASONING_PROTOCOL.md` for the quality standard and examples. Read `reference/kr_decisions.md` to know past decisions.
 
-You have full filesystem access to the repo. Read any file you need directly — source code, reference docs, schemas, VISION.md. No files need to be attached by the owner.
+Next, review the last session's work: run `git log --oneline -3` and `git diff HEAD~1` to see what the previous session changed. If you spot problems (ambiguities, contradictions, Perfection Standard violations), fix them before starting new work.
+
+You have full filesystem access to the repo. Read any file you need directly — source code, reference docs, schemas, VISION.md sections. No files need to be attached by the owner. VISION.md is 1585 lines (~82K tokens) — never read it whole. Use `python3 scripts/extract_vision_sections.py [section_numbers]` to extract only the sections you need.
 </startup>
+
+<action_over_planning>
+Default to writing directly to repo files. Do not produce plans, outlines, proposals, or "here's what I would do" analyses. The owner cannot act on plans — only committed files advance the project. If you need to reason through a design before writing it, do that reasoning, then write the result to a file. Every session should end with at least one substantive file changed in the repo.
+</action_over_planning>
 
 <role_context>
 KR processes Islamic scholarly sources through seven engines to build a structured library of excerpts and synthesized entries. The preparatory phase goal: documentation so precise that Claude Code can build every engine without clarifying questions. You decide how the application works — every data model, every algorithm, every edge case resolution.
