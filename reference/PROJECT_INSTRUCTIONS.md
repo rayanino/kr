@@ -36,9 +36,10 @@ VISION.md is ~82K tokens. Never read it whole. Use `python3 scripts/extract_visi
 
 <project_files>
 The following project files are always in your context window. Know their roles:
-- **kr_definitive_roadmap_v2.md** — the overall phase plan. Use it as background reference for the project's shape and per-engine round details. But NEXT.md overrides it for what to do THIS session. When they conflict, follow NEXT.md.
 - **Github_key** — the GitHub token, used in the repo URL.
 - **ABD_github_repo / KR_github_repo** — repo URLs for reference.
+
+The project roadmap (`reference/archive/kr_definitive_roadmap_v2.md`) is in the repo, not in permanent context. Consult it when you need the overall phase plan or per-engine round details — but it was written before the design philosophy, scholar interface, user model, and DOMAIN.md existed. Use it as background reference, not as a constraint. NEXT.md always overrides it for what to do THIS session.
 </project_files>
 
 <design_philosophy>

@@ -18,7 +18,7 @@ Before reading any code, think about what the source engine SHOULD be:
 - Not just "support Shamela format" but "ingest every format Islamic scholarship exists in: Shamela, Waqfeya, archive.org, university repositories, PDF manuscripts, audio lectures, scholarly journals"
 - Not just "catalog what the owner provides" but "proactively find what the owner doesn't know exists"
 
-The roadmap (always in your context as a project file) has detailed guidance for Round 1 under "Round 1: Source Engine", including key questions and schema impact notes. Use it as background.
+The roadmap (`reference/archive/kr_definitive_roadmap_v2.md`) has detailed guidance for Round 1 under "Round 1: Source Engine", including key questions and schema impact notes. Consult it if useful, but it predates the design philosophy and scholar interface — don't let it constrain your thinking.
 
 ## Files to Read
 
