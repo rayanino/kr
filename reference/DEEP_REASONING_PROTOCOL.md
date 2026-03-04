@@ -216,6 +216,8 @@ If the system cannot determine a unique `source_id` because essential metadata i
 
 #### §4.A.2 — Metadata Extraction: Shamela Format
 
+**Note:** This example shows ONE source format's extraction rules. The actual SPEC must define extraction rules for every supported source type, not just Shamela. Shamela is used here because it's the only format with existing code.
+
 For Shamela-format sources, the source engine extracts metadata from two locations: the `info.html` file (title, author, category, description) and the `content.html` structure (volume/page organization, footnote presence, section headers).
 
 Extraction rules for `info.html`:

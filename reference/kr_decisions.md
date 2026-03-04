@@ -30,6 +30,7 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 | D-016 | Scholar Interface — user-facing intelligence layer | 2026-03-04 |
 | D-017 | User Model — persistent user state as shared component | 2026-03-04 |
 | D-018 | Core Identity — KR is Rayane's knowledge, not a library he uses | 2026-03-04 |
+| D-019 | ABD legacy code has zero design authority | 2026-03-04 |
 
 ---
 
@@ -147,3 +148,10 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 **Decision:** This is the foundational architectural principle. All design decisions must serve it. Specific consequences: (1) Quality is existential — every knowledge product must meet publishable scholarship standards because errors corrupt the user's understanding. (2) Completeness is meaningful — gaps are personal. (3) The library grows with the user. (4) Rayane's own scholarly output (tarjih, notes, research) feeds back into the library as first-class content alongside classical sources. (5) Encyclopedic completeness is the endgame.
 **Alternatives considered:** Treating KR as a research tool with library-quality aspirations → rejected (undersells the application's identity and leads to designs that treat quality as a nice-to-have rather than existential).
 **Documents updated:** DOMAIN.md (new "Core Identity" section), PROJECT_INSTRUCTIONS.md (design philosophy + scholarly integrity self-review), interface/scholar/CLAUDE.md (quality mandate, feedback loop), DEEP_REASONING_PROTOCOL.md (Criterion #21: Scholarly Integrity).
+
+### D-019: ABD legacy code has zero design authority
+**Decided:** 2026-03-04
+**Context:** The ABD (Arabic Book Digester) codebase was migrated to the KR repo. ABD was built for a narrow purpose (processing Shamela HTML exports into excerpts) before KR was conceived. Its code works but its design decisions, scope limitations (Shamela-only), field names, architecture choices, and assumptions carry no authority in KR.
+**Decision:** ABD-era code, reference docs, schemas, and decisions are treated as LEGACY — useful as implementation hints for what currently exists, but never as design constraints for what KR should be. Specifically: (1) No ABD decision is binding in KR. Any ABD-era choice can be overridden without justification. (2) KR is not limited to Shamela or any single source format. The source engine must design for ALL scholarly source types from the start. (3) ABD reference docs (ABD_INTAKE_SPEC.md, ABD_EXCERPTING_SPEC.md, etc.) describe what WAS built, not what SHOULD be built. (4) Field names, schema structures, and architectural patterns from ABD may be adopted if they're the best choice for KR, but "that's how ABD did it" is never a justification.
+**Alternatives considered:** Treating ABD decisions as defaults that need explicit override → rejected (creates anchoring bias; the architect should design from first principles, not from ABD's starting point).
+**Documents updated:** All engine CLAUDE.md files, PROJECT_INSTRUCTIONS.md, NEXT.md, DOMAIN.md, STATUS.md, DEEP_REASONING_PROTOCOL.md.

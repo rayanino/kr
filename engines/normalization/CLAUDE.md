@@ -1,19 +1,21 @@
 # Normalization Engine — محرك التطبيع
 
-**Responsibility:** Transforming raw sources from their native format into the universal normalized format (§2.2).
-**Phase:** 1 (source-format-specific, above the normalization boundary). This engine's output crosses the boundary.
+**Responsibility:** Transforming frozen sources from their native format into the universal normalized format (§2.2). One normalizer per source type.
+**Phase:** 1 (source-format-specific, above the normalization boundary).
 
 ## Required Reading
 1. This engine's SPEC.md
-2. VISION.md §7.5 (source normalization), §7.6 (the normalization boundary)
-3. VISION.md §2.2 (engine definition, normalization boundary)
-4. Input: frozen source + source metadata (from source engine, Phase 1 internal)
-5. Output schema: `schemas/normalized_package` (the normalization boundary expressed as data)
+2. VISION.md §7.5–§7.6 (normalization, boundary)
+3. VISION.md §2.2 (engine definition), §2.5 (normalized package)
+4. Input boundary: frozen source + source metadata from source engine
+5. Output boundary: normalized package → passaging engine (crosses the normalization boundary)
 
 ## Current State
-Status: Migrated from ABD. Code in `engines/normalization/src/` (normalizers/normalize_shamela.py, discover_structure.py, validate_structure.py).
-Tests: 292 tests in `engines/normalization/tests/` (test_normalization.py, test_structure_discovery.py).
-Known issues: Only Shamela source type supported. Per-source-type normalizer subdirectory structure not yet created.
+Legacy code migrated from ABD. Only a Shamela normalizer exists — ABD was Shamela-only. ABD design decisions have zero authority in KR (D-019). The SPEC defines what this engine SHOULD be, including normalizers for source types that don't exist yet.
+
+Code: `engines/normalization/src/` (normalizers/normalize_shamela.py 1123L, discover_structure.py 2896L, validate_structure.py 333L).
+Tests: 292 tests in `engines/normalization/tests/`.
+Reference: 15 ABD-era docs in `engines/normalization/reference/` — describe what WAS built.
 
 ## Commands
 ```
@@ -21,6 +23,6 @@ cd engines/normalization && python -m pytest tests/
 ```
 
 ## Key Constraints
-1. **One normalizer per source type** (§7.5): each supported format gets its own module in `src/normalizers/`. Normalizer complexity is unlimited as long as output conforms to the universal schema.
-2. **Structure discovery is part of normalization** (§7.5): structural signals exist in format-specific markup available only before stripping.
-3. **Output uniformity is absolute** (§7.5): all normalizers produce identical schema output. Phase 2 engines cannot distinguish between normalizers' output.
+1. **One normalizer per source type** (§7.5): complexity is unlimited within a normalizer, but output must conform to universal schema.
+2. **Structure discovery is normalization's job** (§7.5): structural signals exist in format-specific markup.
+3. **Nothing format-specific crosses the boundary** (§7.6): the normalized package must be fully source-agnostic.

@@ -14,13 +14,16 @@
 | VISION.md | Partially audited | §0–§5, §13 correct. §6–§12 NOT yet corrected. 1585 lines. |
 | 7 engine SPECs | All stubs | 3 lines each. None written. |
 | 4 shared SPECs | 3 stubs + partial | human_gate has 32L partial. Others are 3-line stubs. |
-| 7 schemas | Exist from ABD era | Plausible but unverified against VISION. Need reconciliation. |
+| 7 schemas | Exist from ABD era | ABD-era designs for Shamela-only pipeline. Need redesign for KR's multi-format scope. |
 | root CLAUDE.md | Exists | Mostly accurate. |
 | 7 engine CLAUDE.md | Exist | Reasonable quality. Need update after SPECs. |
 | kr_decisions.md | 15 decisions | D-001 to D-015. |
-| SCHEMA_ANALYSIS.md | Exists | Good pipeline overview. ABD era, needs verification. |
+| SCHEMA_ANALYSIS.md | Exists | ABD-era pipeline overview. Useful for understanding current schema structure, not as KR target. |
 
-### Code (migrated from ABD — works but not matched to KR specs)
+### Code (legacy from ABD — functional but not designed for KR)
+
+ABD (Arabic Book Digester) was a narrow Shamela-only tool. Its code works but its design decisions have zero authority in KR (D-019). Line counts below describe what EXISTS, not what KR needs.
+
 | Engine | Source lines | Tests | Reference docs |
 |--------|-------------|-------|----------------|
 | source | 2,284L (intake.py, enrich.py, corpus_audit.py) | 112 | 2 files |

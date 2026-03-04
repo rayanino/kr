@@ -27,10 +27,13 @@ The order matters. Think about what the engine SHOULD be before seeing what it c
 5. `schemas/SCHEMA_ANALYSIS.md` (329L) — pipeline schema overview
 
 **Phase 3 — Now look at existing code and reference (after you've formed your own vision):**
-6. `engines/source/reference/ABD_INTAKE_SPEC.md` (795L) — ABD-era spec. This describes the OLD system. Use it to understand what exists, NOT as a template for what to build.
-7. `engines/source/reference/edge_cases.md` (127L) — known edge cases
-8. `engines/source/src/intake.py` (1476L) — current source ingestion code
-9. `engines/source/src/enrich.py` (580L) — metadata enrichment
+
+These are all ABD-era artifacts. ABD was a narrow Shamela-only tool; its decisions have zero authority (D-019). Read them to understand what code exists, NOT as a template for what to build. If your vision from Phase 1-2 conflicts with what ABD does, your vision wins.
+
+6. `engines/source/reference/ABD_INTAKE_SPEC.md` (795L) — ABD-era spec for Shamela intake only
+7. `engines/source/reference/edge_cases.md` (127L) — known edge cases (Shamela-specific)
+8. `engines/source/src/intake.py` (1476L) — current source ingestion code (Shamela only)
+9. `engines/source/src/enrich.py` (580L) — metadata enrichment (Shamela only)
 10. `engines/source/src/corpus_audit.py` (228L) — corpus validation
 
 **Phase 4 — Research:**
@@ -44,9 +47,11 @@ The order matters. Think about what the engine SHOULD be before seeing what it c
 - Source identity model: what is a "source"? Does `book_id` → `source_id`? Multi-volume works?
 - Source engine output: just `source_metadata.json` + frozen file, or other artifacts?
 - Source registry: how does `library/sources/registry.yaml` work?
-- Shamela-specific fields: what evolves from current `intake_metadata.json` for KR?
+- What metadata model does KR need? (The current schema has Shamela-specific fields from ABD — design from first principles for ALL source types, not from the existing schema.)
 - What transformative capabilities does this engine provide? (§4.B — your ideas)
 - What does the source engine produce that the scholar interface (interface/scholar/) will need? Design with that consumer in mind.
+
+**ABD legacy rule (D-019):** The existing code and reference docs are from ABD, a narrow Shamela-only tool. ABD design decisions have ZERO authority in KR. Read the code and reference docs to understand what currently exists, but design the SPEC from first principles for a system that acquires sources from ANY scholarly repository in ANY format.
 
 **Note:** The scholar interface and user model (shared/user_model/) were added as D-016 and D-017. The roadmap doesn't cover them — they're extensions beyond the original 7+4 architecture. Their SPECs should be written after the 7 engine SPECs and 4 shared component SPECs, or when the architect judges it's the right time.
 
@@ -56,7 +61,7 @@ None currently. The SPEC process will likely surface domain questions about Isla
 
 ## New Decisions Since Last SPEC Session
 
-No previous SPEC sessions — this is the first. Read all of kr_decisions.md (D-001 through D-018).
+No previous SPEC sessions — this is the first. Read all of kr_decisions.md (D-001 through D-019). Pay special attention to D-018 (core identity) and D-019 (ABD legacy rule).
 
 ## What the Last Session Did
 
