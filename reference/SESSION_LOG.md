@@ -35,3 +35,9 @@
 **Decisions:** None (process clarity)
 **Deliverables:** PROJECT_INSTRUCTIONS.md rewritten with explicit <scope> (what Chat produces vs doesn't), <claude_code_environment> (agent definitions, hooks, commands as deliverables), strengthened <resource_awareness> with "WEB SEARCH IS MANDATORY" language.
 **Next:** Owner sets up project, architect starts source engine SPEC
+
+### Session 2026-03-04-g — Claude Chat
+**Focus:** Session-to-session handoff — add NEXT.md as the primary continuity mechanism
+**Decisions:** None (process improvement)
+**Deliverables:** NEXT.md (structured handoff file with immediate task, files to read, decisions needed, pending owner questions). Updated PROJECT_INSTRUCTIONS.md startup to read NEXT.md first. Updated STATUS.md session end checklist with NEXT.md format specification. Replaced static "Suggested Starting Point" with pointer to NEXT.md.
+**Next:** Owner sets up project, architect starts source engine SPEC

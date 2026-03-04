@@ -83,19 +83,9 @@ No SPECs written yet. No VISION corrections since the §0–§5/§13 audit.
 
 ---
 
-## Suggested Starting Point
+## Session Handoff
 
-The advisory workplan (`reference/PREPARATORY_WORKPLAN.md`) suggests pipeline order starting with the source engine. You may override this.
-
-**For the source engine SPEC, read these files from the repo:**
-- `VISION.md` §7.1–§7.4 and §2 (use `python3 scripts/extract_vision_sections.py 7 2` or read directly)
-- `engines/source/src/intake.py` (1476L)
-- `engines/source/src/enrich.py` (580L)
-- `engines/source/src/corpus_audit.py` (228L)
-- `engines/source/reference/ABD_INTAKE_SPEC.md` (795L)
-- `engines/source/reference/edge_cases.md` (127L)
-- `schemas/source_metadata.json` (234L)
-- `schemas/SCHEMA_ANALYSIS.md` (329L)
+The next session's task, context, and file list are in `NEXT.md` at the repo root. That file is the primary handoff mechanism — it is overwritten at the end of every session.
 
 **Context budget note:** VISION.md is 1585 lines (~82K tokens). Do not read the whole file at once. Read only the sections relevant to the engine you're working on. Use the extraction script or read line ranges.
 
@@ -103,10 +93,17 @@ The advisory workplan (`reference/PREPARATORY_WORKPLAN.md`) suggests pipeline or
 
 ## Session End Checklist
 
-At session end:
+At session end, in this order:
+- [ ] **Write `NEXT.md`** — this is the most important handoff artifact. Overwrite the entire file with:
+  - **Immediate Task:** What the next session should do first (be specific: "Continue source engine SPEC from §4" not "work on source engine")
+  - **Context for This Task:** Why this task, what decisions led here, any constraints
+  - **Files to Read First:** Exact file paths the next session needs, in reading order
+  - **Key Decisions Needed:** Unresolved questions the next session must address
+  - **Pending Owner Questions:** Questions asked to the owner that haven't been answered yet, or answers the owner gave this session that the next session needs
+  - **What This Session Did:** 2-3 sentence summary of concrete deliverables
 - [ ] All deliverables written to repo files
 - [ ] New decisions appended to `reference/kr_decisions.md`
-- [ ] `STATUS.md` updated (state tables, "Previous Sessions", suggested next starting point)
+- [ ] `STATUS.md` state tables updated if anything changed (new SPECs, schema updates, etc.)
 - [ ] Session log entry appended to `reference/SESSION_LOG.md`
 - [ ] All changes committed and pushed to master
 - [ ] Tell the owner: what was done, what decisions were made, any domain questions for next session

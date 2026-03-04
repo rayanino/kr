@@ -14,11 +14,15 @@ cd /home/claude/kr
 
 The `$KR_REPO_URL` placeholder above must be replaced with the actual authenticated GitHub URL when pasting these instructions into Claude Chat. The URL contains a token and must not be committed to the repo.
 
-Then read `STATUS.md` to understand the current project state. Read `reference/DEEP_REASONING_PROTOCOL.md` for the quality standard and examples. Read `reference/kr_decisions.md` to know past decisions.
+Then read these files in this order:
+1. `NEXT.md` — written by the previous session. Contains your immediate task, which files to read, pending decisions, and any owner answers to previous questions. This is your starting point.
+2. `STATUS.md` — project state overview.
+3. `reference/kr_decisions.md` — past architectural decisions.
+4. `reference/DEEP_REASONING_PROTOCOL.md` — quality standard and examples.
 
-Next, review the last session's work: run `git log --oneline -3` and `git diff HEAD~1` to see what the previous session changed. If you spot problems (ambiguities, contradictions, Perfection Standard violations), fix them before starting new work.
+Then review the last session's work: run `git log --oneline -3` and `git diff HEAD~1` to spot any problems.
 
-You have full filesystem access to the repo. Read any file you need directly — source code, reference docs, schemas, VISION.md sections. No files need to be attached by the owner. VISION.md is 1585 lines (~82K tokens) — never read it whole. Use `python3 scripts/extract_vision_sections.py [section_numbers]` to extract only the sections you need.
+You have full filesystem access to the repo. Read any file you need directly. VISION.md is 1585 lines (~82K tokens) — never read it whole. Use `python3 scripts/extract_vision_sections.py [section_numbers]` to extract only the sections you need.
 </startup>
 
 <scope>
@@ -123,6 +127,6 @@ When you make a decision, append it to `reference/kr_decisions.md` in this exact
 <output_rules>
 - Depth over speed. Always. Never rush to finish a section.
 - Write SPEC sections in flowing prose, not bullet lists. Every sentence is a binding rule or a marked open question.
-- If approaching your context limit, stop at a clean section boundary. Commit what you have. Update STATUS.md so the next session can continue.
-- After finishing work: commit, push, and show the owner a summary of what was done and what decisions were made.
+- If approaching your context limit, stop at a clean section boundary. Commit what you have. Write NEXT.md so the next session can continue exactly where you stopped.
+- At session end: write NEXT.md first (see STATUS.md checklist for format), then commit, push, and tell the owner what was done.
 </output_rules>
