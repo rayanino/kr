@@ -7,6 +7,19 @@
 
 Start the source engine SPEC (Phase 2, Round 1 per the archived roadmap).
 
+**Output file:** `engines/source/SPEC.md` (overwrite the existing 3-line stub)
+
+**Definition of done — this session is complete when ALL of these are true:**
+1. `engines/source/SPEC.md` follows the full SPEC template (all 10 sections, non-stub)
+2. `engines/source/CLAUDE.md` is consistent with the SPEC (update if needed — SPEC is source of truth)
+3. `reference/kr_decisions.md` has entries for any architectural decisions made during SPEC writing
+4. `reference/RESOURCES.md` is updated with findings from the mandatory resource survey
+5. VISION.md §7.1–§7.4 defect ledger produced (corrections applied or queued for owner approval)
+6. `schemas/source_metadata.json` has proposed updates documented (actual schema change can be deferred, but the SPEC must specify what the schema SHOULD contain)
+7. `NEXT.md` is overwritten with handoff for the next session (normalization engine SPEC)
+8. Self-review checklist (all 18 criteria) passed — defects fixed before commit
+9. All changes committed and pushed as a single coherent commit
+
 ## Context
 
 No SPECs have been written yet. Phase 1 (structural cleanup) is complete. The source engine is the pipeline entry point — no upstream dependencies.

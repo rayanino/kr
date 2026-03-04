@@ -143,3 +143,31 @@
 - NEXT.md: reading phases → steps (disambiguation), PIPELINE_TRACE.md added to reading order, comprehension check, scholar authority awareness
 - STATUS.md updated to current state
 - HOW_TO_START.md line count updated
+
+### Session 2026-03-04 (continued-5) — Claude Chat with Owner
+
+**Task:** Deep adversarial hardening — uncovered 7+ major conceptual gaps
+
+**Key additions to DOMAIN.md (511→747L, +236 lines):**
+- Arabic as a Processing Language (unvocalized text, morphological density, ellipsis/حذف, terminology variation, implicit context)
+- The Multi-Layer Text Problem (matn/sharh/hashiyah/tahqiq as 4 layers)
+- Per-Science Behavioral Differences (fiqh vs nahw vs tajwid vs tafsir)
+- Versified Texts (المنظومات — بيت as atomic unit, verse numbering)
+- LLM Extraction Confidence (per-decision confidence as pipeline metadata)
+- التخريج (hadith source tracing from tahqiq footnotes)
+- Primary vs. Secondary Source Distinction (مصادر أصلية vs مراجع vs معاصر)
+- Special Source Types: Quran and hadith collections
+- Book Structures Beyond Prose (Q&A, tabular, dictionary, commentary)
+- Cross-Science Topic Overlap with cross-science links
+- What Happens When Library Grows (add/correct/remove cascades)
+- Physical Reference Preservation (page/volume citation as mandatory metadata)
+- Traceability Boundary: library-grounded vs LLM-contributed content
+- Uncertainty Handling: proceed-and-flag vs stop-for-gate
+- 4 new integrity risks: layer misattribution, verse destruction, confidence laundering, intra-source contradiction
+
+**Process hardening:**
+- NEXT.md: added SPEC output path, 9-point definition of done, commit format
+- NEXT.md: entry language as pending owner question
+- ENTRY_EXAMPLE.md: expanded metadata appendix with ALL new fields (source_authority, multi_layer, structural_format, canonical_id) + added second example showing multi-layer source (شرح ابن عقيل on الألفية)
+- All 7 engine CLAUDE.md files updated with new concepts
+- PIPELINE_TRACE.md: page boundaries and text layers in metadata table

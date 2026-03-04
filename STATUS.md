@@ -19,9 +19,9 @@
 | 7 engine CLAUDE.md | Exist | Enriched with domain knowledge, D-023 metadata pass-through, scholarly integrity constraints. |
 | kr_decisions.md | 23 decisions | D-001 to D-023. |
 | SCHEMA_ANALYSIS.md | Exists | ABD-era pipeline overview + D-019/D-023 warnings. |
-| DOMAIN.md | Complete (~470L) | Core identity, scholarly domain knowledge, evidence hierarchy, integrity risks, design implications. |
+| DOMAIN.md | Complete (~750L) | Core identity, scholarly domain knowledge, evidence hierarchy, integrity risks, design implications. |
 | USER_SCENARIOS.md | Complete (8 scenarios) | Day 1 through Year 3 + book briefing + science map + error correction. |
-| ENTRY_EXAMPLE.md | Complete (~130L) | Calibration target for synthesis quality + metadata-to-synthesis mapping. |
+| ENTRY_EXAMPLE.md | Complete (~170L) | Calibration target for synthesis quality + metadata-to-synthesis mapping. |
 | PIPELINE_TRACE.md | Complete (~165L) | Full 7-stage trace showing metadata accumulation. |
 | RESOURCES.md | Partial (~230L) | Arabic NLP, OCR, and related tool catalog. |
 

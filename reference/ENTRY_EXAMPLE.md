@@ -94,11 +94,12 @@ work_id: "kitab-sibawayhi"
 
 # Author profile — USED BY SYNTHESIZER for biographical context
 author:
+  canonical_id: "sch_00001"  # → links to scholar authority model
   canonical_name: "عمرو بن عثمان بن قنبر"
   known_as: "سيبويه"
   death_date_hijri: 180
   death_date_miladi: 796
-  school: "بصري"  # → synthesizer: "Basran school"
+  school_nahw: "بصري"  # → per-science school (not global)
   teachers: ["الخليل بن أحمد الفراهيدي"]  # → synthesizer: teacher-student chain
   students: ["الأخفش الأوسط"]  # → synthesizer: intellectual genealogy
   scholarly_standing: "founder of systematic Arabic grammar"
@@ -110,13 +111,18 @@ work:
   science: ["nahw"]
   composition_context: "first systematic grammar; composed during formative period"
   level: "specialist"
+  structural_format: "prose"  # → downstream engines: standard prose processing
+  multi_layer: false  # → this is a single-author text, no layer separation needed
+  source_authority: "primary"  # → مصدر أصلي — synthesizer cites directly, not as secondary
   
 # Edition — USED BY SYNTHESIZER for citation and reliability
 edition:
   tahqiq: "عبد السلام محمد هارون"
   publisher: "مكتبة الخانجي"
+  city: "القاهرة"
   volumes: 4
   text_fidelity: "high"  # → synthesizer weights this source more heavily
+  trusted: true  # → verified tier, not flagged
 
 # Relationships — USED BY SYNTHESIZER for cross-reference narrative
 relationships:
@@ -124,6 +130,45 @@ relationships:
     target_work: "usul-ibn-sarraj"
     note: "Ibn al-Sarraj builds on and refines Sibawayhi's definitions"
 ```
+
+**Compare with a multi-layer source — شرح ابن عقيل على ألفية ابن مالك:**
+```
+source_id: "sharh-ibn-aqil-dar-turath-2001"
+work_id: "sharh-ibn-aqil"
+
+author:
+  canonical_id: "sch_00312"
+  canonical_name: "بهاء الدين عبد الله بن عقيل الهمداني"
+  known_as: "ابن عقيل"
+  death_date_hijri: 769
+
+work:
+  title: "شرح ابن عقيل"
+  genre: "sharh"  # → commentary
+  sharh_of: "wrk_00023"  # → الألفية by ابن مالك — work relationship!
+  science: ["nahw", "sarf"]
+  level: "intermediate"
+  structural_format: "commentary"  # → requires layer-aware processing
+  multi_layer: true
+  layers:  # → normalization engine identifies these; atomization preserves them
+    - layer: 1
+      type: "matn"
+      author_id: "sch_00198"  # ابن مالك (d. 672 AH) — the VERSE author
+      format: "verse"  # → الألفية is versified text!
+    - layer: 2
+      type: "sharh"
+      author_id: "sch_00312"  # ابن عقيل — the commentator
+      format: "prose"
+  source_authority: "primary"  # → original scholarly commentary
+  
+edition:
+  tahqiq: "محمد محيي الدين عبد الحميد"
+  publisher: "دار التراث"
+  volumes: 2
+  text_fidelity: "high"
+```
+
+**Why the multi-layer example matters:** When the atomization engine processes a page of this source, it encounters BOTH ابن مالك's verses (Layer 1, verse format) and ابن عقيل's prose commentary (Layer 2). The excerpt "المبتدأ هو الاسم..." from Layer 1 must be attributed to ابن مالك (d. 672 AH), not ابن عقيل (d. 769 AH). The metadata record tells every downstream engine exactly how to handle this.
 
 **The synthesizer uses this to produce:** "سيبويه (d. 180 AH) in الكتاب — the first systematic Arabic grammar, composed during the formative period when grammatical terminology was still being established — defines المبتدأ as..."
 
