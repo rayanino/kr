@@ -65,6 +65,8 @@ Every engine and shared component SPEC follows this structure. Each section has 
 ## 1. Purpose and Scope
 What this engine does. What is NOT this engine's responsibility.
 Phase classification. Normalization boundary relationship.
+Which user scenarios (reference/USER_SCENARIOS.md) this engine serves,
+and what it must produce for each scenario to work.
 
 ## 2. Input Contract
 Reference to input schema. What the engine expects from upstream.
