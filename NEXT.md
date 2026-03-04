@@ -36,4 +36,4 @@ None currently. The SPEC process will likely surface domain questions about Isla
 
 ## What the Last Session Did
 
-Coordination audit: found and fixed 14 defects in the project setup. Rewrote PROJECT_INSTRUCTIONS.md, CLAUDE.md (pure repo map), HOW_TO_START.md. Removed behavioral instructions from STATUS.md. Archived PREPARATORY_WORKPLAN.md. Added roadmap acknowledgment, git error handling, context management, owner interaction guidance.
+Coordination audit: found and fixed 21 defects across the project setup in two audit passes. Rewrote PROJECT_INSTRUCTIONS.md (git config, error handling, roadmap acknowledgment, SPEC file locations, context management, blocking question guidance, multi-session continuity). Rewrote CLAUDE.md (pure repo map). Rewrote HOW_TO_START.md. Cleaned STATUS.md. Archived PREPARATORY_WORKPLAN.md. Created missing content/ dirs.
