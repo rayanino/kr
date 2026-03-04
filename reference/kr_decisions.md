@@ -33,6 +33,7 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 | D-019 | ABD legacy code has zero design authority | 2026-03-04 |
 | D-020 | Pipeline priority — critical path starts after source reception | 2026-03-04 |
 | D-021 | Owner's core frustration — lack of interconnection and poor explanations | 2026-03-04 |
+| D-022 | Book briefing — what the owner needs before reading any source | 2026-03-04 |
 
 ---
 
@@ -169,3 +170,9 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 **Context:** Owner identified the fundamental problems with existing Islamic scholarly tools and teaching: (1) topics explained in isolation without interconnection, no "storyline," no structural overview of a science; (2) no per-topic scholarly landscape (significance, opinions, schools); (3) poor explanations with big logical jumps, no ground-up building, no edge cases addressed, no prerequisite mapping.
 **Decision:** These frustrations define the success criteria for two engines: the **taxonomy engine** must make a science's internal logic visible (topic correlation map, prerequisite dependencies, per-leaf scholarly landscape), and the **synthesizing engine** must generate entries that explain from the ground up (step-by-step, no jumps, edge cases covered, prerequisites explicit, theory mapped completely, topic situated in context). The bar is: every entry reads like the best teacher you've ever had explaining the topic.
 **Documents updated:** DOMAIN.md (frustrations, taxonomy implications, synthesizing implications).
+
+### D-022: Book briefing — what the owner needs before reading any source
+**Decided:** 2026-03-04
+**Context:** Owner listed everything they want to know before starting to read a book. This is not just metadata — it's the scholar interface's primary pre-reading product, assembled from source metadata + library knowledge + generated analysis.
+**Decision:** The system must be able to produce a **book briefing** for any source in the library, covering: (1) author profile (biography, standing, madhhab, teachers/students, time period, other works), (2) work classification (type, science, relationship to other works), (3) scope (topics covered/not covered, theory vs practice, level), (4) physical details (pages, volumes, completeness), (5) reputation (scholarly standing, citation frequency, mu'tamad status), (6) this edition's quality (tahqiq, publisher, trustworthiness, corruption assessment), (7) study context (prerequisites, what to read next, position in learning progression), (8) comparative (how other editions differ content-wise, which is best). This requires: source engine metadata (items 1-6), taxonomy engine knowledge (item 3 scope, item 7 prerequisites), cross-source analysis (item 8), and synthesizing engine generation (assembling it all into a coherent briefing). The book briefing is a key scholar interface deliverable.
+**Documents updated:** DOMAIN.md.

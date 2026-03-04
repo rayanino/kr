@@ -50,7 +50,15 @@ Implications that govern every design decision:
   - **Poor explanations.** Existing texts don't explain topics from the ground up. There are big logical jumps. Edge cases and common misunderstandings aren't addressed. The ideal: "explain like I'm 5" clarity — every concept built step by step, with explicit prerequisites, covering edge cases, mapping out the theory logically and completely. Not dumbed down, but maximally clear. **This is what the synthesizing engine aims to solve.**
   - **No prerequisite mapping.** Books assume knowledge without telling you what you need to know first. There's no "before reading this, make sure you understand X and Y."
 
-- **What information about a book matters before starting to read it:** **[PENDING — owner to fill]**
+- **What information about a book matters before starting to read it:**
+  - **Author profile:** full biography, scholarly standing, madhhab, teachers, students, time period (hijri + miladi), other major works, known positions and methodology
+  - **Work classification:** type (matn, sharh, hashiyah, mukhtasar, nazm, risalah, etc.), science and subject, relationship to other works (sharh of what? mukhtasar of what?)
+  - **Scope and coverage:** what topics it handles, what it does NOT handle, theory vs. practice proportion, level (beginner / intermediate / advanced / specialist)
+  - **Physical details:** page count, volume count, completeness (all volumes available?)
+  - **Reputation and credibility:** scholarly reputation of this work, how widely cited, whether it's considered a reference work (mu'tamad) in its school/science
+  - **This specific edition:** tahqiq quality, publisher credibility, is this print trustworthy/credible/uncorrupted, how does this edition compare content-wise to other prints or other digital sources where the same book is found
+  - **Study context:** what to know before reading this (prerequisite knowledge and prerequisite books), what to read next after finishing, where this book fits in the classical learning progression for its science
+  - **Comparative:** how other editions/prints differ content-wise (variant readings, missing sections, additional commentary), which edition is considered best
 - **Sources known to exist but not accessible digitally:** Some books only exist in physical form (e.g., editions from bookstores like صفة الصفوة with no digital counterpart). Others are behind login walls. Two manual acquisition realities: (1) physical books → owner provides high-quality iPhone camera photos of pages, (2) login-gated digital sources → owner provides manually downloaded files. Additionally, many "digital" books online are professionally scanned PDFs (scanned through printers/flatbed scanners) — these are a major source format alongside structured text exports.
 
 ### Critical Design Implication
@@ -245,6 +253,7 @@ When the architect designs any engine, these domain facts create concrete requir
 - Maintain a scholar authority model: canonical identities, variant name mappings, disambiguation by death date and nisba
 - Handle acquisition from ANY source type and repository, not just Shamela
 - Handle manual acquisition paths as first-class citizens: (1) owner-provided scans/photographs of physical books that have no digital version, (2) owner-provided files manually downloaded from login-gated repositories. These are not edge cases — they are a primary acquisition method for sources that cannot be crawled.
+- Capture enough metadata to power a **book briefing** (D-022): author biography/standing, work type and relationships, scope/level, edition quality, comparative edition data. Some of this is captured at intake; some is enriched later by downstream engines or the owner.
 
 **Normalization engine must:**
 - Preserve scholarly apparatus (footnotes, variant readings, hadith references)
@@ -279,6 +288,7 @@ When the architect designs any engine, these domain facts create concrete requir
 - Teach through Socratic dialogue, not just information retrieval
 - Be proactive: alert when new content matches study focus, detect gaps, suggest next steps
 - Support scholarly production: writing assistance, footnote generation, research questions
+- Generate a **book briefing** (D-022) for any source before the owner reads it: author profile, work classification, scope, reputation, edition quality, prerequisites, what to read next, comparative edition analysis. This is the primary pre-reading product.
 
 **User model must:**
 - Track engagement at the excerpt level (not just "viewed entry X")

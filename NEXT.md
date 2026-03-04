@@ -85,7 +85,7 @@ None currently. The SPEC process will likely surface domain questions about Isla
 
 ## New Decisions Since Last SPEC Session
 
-No previous SPEC sessions — this is the first. Read all of kr_decisions.md (D-001 through D-021). Pay special attention to D-018 (core identity), D-019 (ABD legacy rule), D-020 (pipeline priority), and D-021 (owner's core frustration).
+No previous SPEC sessions — this is the first. Read all of kr_decisions.md (D-001 through D-022). Pay special attention to D-018 (core identity), D-019 (ABD legacy rule), D-020 (pipeline priority), D-021 (owner's core frustration), and D-022 (book briefing).
 
 ## What the Last Session Did
 
