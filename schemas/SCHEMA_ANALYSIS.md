@@ -6,6 +6,8 @@
 
 **⚠ ABD Legacy (D-019):** These schemas were designed for ABD's Shamela-only pipeline. They use `book_id` (KR may use `source_id`), have Shamela-specific enums, and lack fields for multi-format source types. Each schema will be redesigned when the corresponding engine SPEC is written. Until then, they describe what currently exists, not what KR needs.
 
+**⚠ Metadata Pass-Through (D-023):** Metadata is synthesis fuel. Every schema in the chain must carry ALL metadata from upstream engines plus anything the current engine adds. The synthesizing engine is the ultimate consumer — it uses author biography, dates, school affiliations, teacher-student chains, work genres, and historical context to produce scholarly narratives (not flat compilations). When redesigning any schema, the question is not "what does this engine need?" but "what must flow through this engine to the synthesizer?" No metadata may be stripped because an intermediate engine doesn't use it.
+
 ---
 
 ## 1. Complete Data Flow

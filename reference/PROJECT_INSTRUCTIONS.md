@@ -114,6 +114,13 @@ Ask the owner ONLY for:
 Everything else — the architecture, the features, the intelligence, the ambition — comes from you.
 
 If a domain question blocks progress on the current section, put it in NEXT.md under "Pending Owner Questions," work on non-blocked sections or a different deliverable, and continue. Never waste a session waiting.
+
+**Document precedence when sources disagree:**
+- `kr_decisions.md` > everything (explicit owner-approved decisions are final)
+- `reference/DOMAIN.md` > VISION.md for domain knowledge (DOMAIN.md reflects the owner's latest input; VISION.md was written earlier and may have less precise domain claims)
+- `VISION.md` > DOMAIN.md for architectural definitions (VISION.md defines the normalization boundary, engine responsibilities, glossary terms)
+- Your SPEC > VISION.md for engine-specific detail (the SPEC is the detailed truth; VISION.md summarizes it — if they disagree, update VISION.md to match your SPEC)
+- `reference/ENTRY_EXAMPLE.md` defines the quality target for synthesis — every engine's design must serve producing entries at that level
 </authority>
 
 <session_workflow>

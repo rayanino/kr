@@ -175,6 +175,7 @@ Some are captured at source intake, some enriched later by downstream engines or
 - Trustworthiness assessment: is this specific print/edition credible and uncorrupted?
 - Comparison to other editions: how does this edition differ content-wise from other known prints?
 - Preferred edition status: is this the owner's preferred edition for this work?
+- **Text fidelity signal:** How reliable is the actual text data? This is SEPARATE from scholarly trustworthiness — a perfectly trustworthy source may have low text fidelity if the OCR was poor. Structured digital text (Shamela exports, text-embedded PDFs) → high fidelity. Professional scans → medium fidelity (OCR errors especially with diacritics, ب/ت/ث/ن confusions, marginalia). iPhone photos → variable fidelity. This signal must flow downstream (D-023) because: the excerpting engine should flag low-fidelity excerpts for human review, the synthesizer should weight high-fidelity sources more heavily, and the scholar interface should warn when claims rest on low-fidelity text.
 
 **Library tracking metadata (computed/updated throughout pipeline):**
 - Ingestion status (acquired, normalized, passaged, excerpted, placed)
@@ -219,6 +220,17 @@ These concepts are essential for designing the taxonomy and synthesizing engines
 
 **المسألة (mas'ala — the scholarly question/issue).** This is the fundamental unit of scholarly discourse. A مسألة is a specific question on which scholars have taken positions: "Is بسملة a verse of الفاتحة?" or "Does touching a woman break wudu?" Each taxonomy leaf often corresponds to one مسألة or a cluster of tightly related ones. Understanding what constitutes a مسألة — how scholars formulate, scope, and distinguish one question from another — is essential for designing taxonomy structure.
 
+**Evidence types (أدلة).** Islamic scholars support positions with specific types of evidence, in a recognized hierarchy. The excerpting engine must detect and tag which type of evidence an excerpt contains:
+- **القرآن (Quran)** — Quranic verses, often cited by surah and ayah number
+- **الحديث (Hadith)** — prophetic narrations, typically with an إسناد (chain of narrators) followed by the متن (text). The isnad is scholarly apparatus, not the position itself.
+- **الإجماع (Ijma — consensus)** — claims that all scholars agree on a point. Important to detect because consensus claims are either true (and settle the issue) or contested (and the disagreement is about whether consensus actually exists).
+- **القياس (Qiyas — analogy)** — reasoning by analogy from a known ruling to a new case. The excerpt will contain the أصل (base case), the فرع (new case), and the علة (shared cause).
+- **قول الصحابي (companion statement)** — statement of a companion of the Prophet, which has special evidentiary weight in some methodologies.
+- **عقل (rational argument)** — purely logical reasoning, especially in aqidah and usul al-fiqh.
+- **استصحاب (presumption of continuity)** — the legal presumption that the status quo continues until evidence changes it.
+
+The synthesizing engine uses evidence type tags to construct richer entries: "The Hanafi position is supported by Quranic evidence (2:228) and analogy, while the Shafi'i position relies on hadith evidence and companion statements."
+
 **الخلاف (khilaf — scholarly disagreement).** Not all disagreements are the same. Islamic scholarly tradition distinguishes:
 - **خلاف لفظي** (verbal disagreement) — scholars use different words but mean the same thing. Not a real disagreement.
 - **خلاف حقيقي** (substantive disagreement) — scholars genuinely hold different positions on the same question.
@@ -230,6 +242,41 @@ The synthesizing engine must distinguish these types. Treating a verbal disagree
 **تحرير المسألة (tahrir al-mas'ala — precisely formulating the issue).** Before listing positions, scholars first precisely define WHAT the disagreement is about. Two scholars who appear to disagree may actually be answering different questions. The synthesizing engine must do this: before presenting positions, precisely formulate what question each scholar is answering. If their questions differ, they don't disagree — they're addressing different مسائل.
 
 **الترجيح (tarjih — scholarly preference/weighing).** When multiple positions exist, scholars evaluate which is strongest based on evidence quality, methodological soundness, and other criteria. The synthesizing engine must eventually support this: presenting which position is strongest and why, according to which methodology. The owner's own tarjih (scholarly conclusions) are also valid entries in the library (D-018: the owner's voice belongs in the library).
+
+### Evidence Hierarchy and Hadith Methodology
+
+The synthesizing engine CANNOT produce correct entries without understanding how Islamic scholars reason. This section provides the minimum scholarly methodology concepts the architect must know.
+
+**مراتب الأدلة (evidence hierarchy).** Islamic scholars derive rulings from evidence sources ranked in order:
+1. **القرآن** (Quran) — the highest authority, but verses may need interpretation
+2. **السنة** (Prophetic tradition / Hadith) — second authority, but hadith vary in authenticity
+3. **الإجماع** (scholarly consensus) — when all qualified scholars agree, the matter is settled
+4. **القياس** (analogical reasoning) — extending a known ruling to a new case by shared cause
+
+Different schools weigh these differently. Hanafis accept more types of قياس; Zahiris reject it entirely. The synthesizing engine must know which evidence each position relies on, because evidence TYPE affects how strong a position is within its own methodology.
+
+**تصحيح الأحاديث (hadith authentication).** Hadith have a grading system the synthesizer must understand:
+- **صحيح** (sahih — authentic): meets all criteria of authenticity. Strongest evidence.
+- **حسن** (hasan — good): minor weakness but still acceptable as evidence.
+- **ضعيف** (da'if — weak): has a weakness in its chain or text. Scholars disagree on whether weak hadith can be used for secondary matters.
+- **موضوع** (mawdu' — fabricated): not a real hadith. Must never be cited as evidence.
+
+When an excerpt cites a hadith, the excerpt metadata should ideally carry the hadith's grading. This affects how the synthesizer weighs the position: a ruling based on a sahih hadith is stronger than one based on a weak hadith (within the same methodology). The source engine should capture hadith references; the excerpting engine should tag them; the synthesizer should use grading in its analysis.
+
+**إسناد (isnad — chain of narration).** Every hadith has a chain: "A told me that B told him that C told him that the Prophet ﷺ said..." The chain's integrity determines the hadith's grade. The excerpting engine will encounter isnad chains in source texts — they are NOT the author's words, they are transmission metadata. The atomization engine must recognize isnad as a distinct atom type so it's handled correctly.
+
+**الناسخ والمنسوخ (abrogation).** Some Quranic verses and hadith abrogate (cancel) earlier ones. A synthesizer that presents an abrogated ruling as current is producing a dangerous error. The synthesizing engine must track which rulings have been abrogated and by what evidence. This is a critical scholarly integrity requirement — not an edge case.
+
+**الإجماع (consensus).** When qualified scholars unanimously agree on a ruling, most schools consider it binding. The synthesizer must know when consensus exists on a topic because: (1) it changes how the entry is structured (consensus topic = the entry should state the consensus and note any dissent, not present it as an open question), (2) it affects quality validation (an entry that implies scholarly disagreement on a consensus topic is wrong).
+
+### The Owner's Voice in the Library
+
+KR is a PERSONAL library (D-018). The owner is not just a consumer — he is a participant in the scholarly tradition. The system must support:
+
+- **Owner tarjih:** When Rayane studies a topic and forms his own scholarly preference, that conclusion becomes part of the library (see Scenario 4 in USER_SCENARIOS.md). The owner's tarjih is stored at the relevant taxonomy leaf alongside the classical positions.
+- **Owner notes:** Corrections, observations, and insights the owner adds during study. These are persistent — they survive entry regeneration and inform future synthesis.
+- **Owner-originated content:** Study journal entries, research papers, and teaching materials the owner creates. These are knowledge products that belong in the library alongside extracted content.
+- **Progressive expertise:** The library should reflect that the owner's understanding deepens over time. An early note might say "I don't understand this." A later note might say "Now I see why this position is stronger." Both are valuable. The timeline of the owner's scholarly development is itself a knowledge product.
 
 ---
 
@@ -334,9 +381,11 @@ When the architect designs any engine, these domain facts create concrete requir
 - Handle two image-based source types: (1) iPhone camera photos of physical book pages (high quality, but variable lighting/angle), (2) professionally scanned PDFs (printer/flatbed scanned — many "digital" books online are this format). Arabic OCR pipeline needed for both.
 
 **Excerpting engine must:**
-- Tag excerpts with evidence type (Quran, hadith, scholarly reasoning, ijma)
-- Detect and preserve isnad chains within excerpts
-- Resolve implicit references when possible, flag when not
+- Tag excerpts with evidence type (see "Evidence types" in Scholarly Methodology above: Quran, hadith, ijma, qiyas, companion statement, rational argument, istishab). An excerpt may contain multiple evidence types. This tagging feeds the synthesizer's ability to say "the Hanafi position rests on Quranic evidence and analogy, while the Shafi'i position relies on hadith."
+- Detect and preserve isnad chains within excerpts — the إسناد is scholarly apparatus that proves the hadith's authenticity, not just text. It must be tagged as such so the synthesizer can distinguish "the narration" from "the chain that authenticates it."
+- Detect when an author is citing, responding to, or disagreeing with another scholar — even when the other scholar is referenced indirectly ("قال بعض أصحابنا" = "some of our companions said" — this is a school-internal reference that should be flagged for resolution)
+- Resolve implicit references when possible, flag when not (the scholar authority model helps: "الإمام" in a Shafi'i text usually means al-Shafi'i himself)
+- Tag the excerpt's rhetorical function: is this a definition, a proof, a refutation, an exception, an example, a clarification, a condition? This shapes how the synthesizer uses it.
 
 **Taxonomy engine must:**
 - Handle cross-science placement (one excerpt relevant to multiple sciences)
@@ -389,3 +438,29 @@ When the owner identifies an error (see Scenario 8 in USER_SCENARIOS.md), correc
 - Distinguish between "has seen" and "has understood" (via Socratic assessment)
 - Compute gaps across multiple dimensions: school, science, topic, time period
 - Persist across sessions and grow more useful over time
+
+---
+
+## Scholarly Integrity Risks — Design Against These
+
+These are errors that would undermine KR's scholarly credibility. Every engine design must actively prevent them.
+
+**Library composition bias.** If the library has 30 Hanbali sources and 5 Maliki sources, the synthesizer might present Hanbali positions as dominant simply because they appear more often. This is a CORPUS BIAS, not a scholarly reality. The synthesizer must distinguish "this position appears in 12 sources in our library" from "this is the majority scholarly position." The synthesizer's LLM research capability (D-023) must fill gaps in library coverage when generating entries — noting when the library's representation of a school is thin.
+
+**Modern-first bias.** Later scholars are more accessible (more digital editions, more commentary) but earlier scholars are often more foundational. If the library skews toward later works, entries might overrepresent late-period refinements and underrepresent the foundational positions they refined. The temporal dimension in metadata (author death dates) helps: the synthesizer should ensure entries cover the earliest known position on a topic, not just the most recent.
+
+**Editor-author conflation.** Tahqiq editions have editor footnotes, variant readings, and commentary that are NOT the original author's words. If the normalization engine fails to separate editor additions from primary text, the excerpting engine will attribute the editor's analysis to the original author. This is a scholarly integrity violation — it literally puts words in a scholar's mouth. The normalization engine's structure discovery must identify and tag editorial apparatus.
+
+**Abrogation blindness.** Presenting an abrogated ruling as current is dangerous, especially in fiqh. The synthesizer must track ناسخ ومنسوخ (abrogation) and clearly mark abrogated content. This requires either metadata tagging at the excerpt level or synthesizer-level awareness of known abrogation instances.
+
+**Consensus misrepresentation.** Presenting a consensus (إجماع) topic as if it has live scholarly disagreement undermines the scholarly tradition. Conversely, claiming consensus when legitimate disagreement exists suppresses valid positions. The synthesizer must be careful with إجماع claims — they should be sourced and qualified ("consensus according to the four Sunni schools" vs. "including all schools").
+
+**Decontextualized quotation.** Extracting a scholar's statement from a context where they're presenting an opponent's view (for the purpose of refuting it) and attributing it as the scholar's own position. This is a common error in superficial scholarship. The excerpting engine must capture enough context to distinguish "Scholar A says X" from "Scholar A reports that Scholar B says X, but Scholar A disagrees."
+
+**Level conflation.** Mixing beginner-level explanations (simplified, sometimes imprecise) with specialist-level precision without marking the level. متن الآجرومية deliberately simplifies grammatical definitions for beginners — citing it alongside سيبويه's الكتاب as if they make equally precise claims is misleading. The metadata (work level) enables the synthesizer to flag when a simplified source is being used for precise definition.
+
+**Hadith grading ignorance.** Using a weak (ضعيف) hadith as primary evidence for a ruling without noting its weakness, or failing to mention that scholars disagree on a hadith's authenticity. The metadata should carry hadith grading; the synthesizer must incorporate it.
+
+**Silent majority.** Many scholarly positions are held by the overwhelming majority but rarely stated explicitly — because everyone agreed and there was nothing to debate. If the library only captures EXPLICIT position statements, it misses the silent consensus. The synthesizer's research capability must identify when a position is implicitly held by default.
+
+These risks are not theoretical — they are the EXACT errors that existing Islamic studies tools and LLMs routinely make. KR's value proposition is that it DOESN'T make them.
