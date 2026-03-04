@@ -9,8 +9,27 @@
 3. VISION.md §2.2 (engine definition), §2.5 (source vocabulary)
 4. Output boundary: Phase 1 internal (frozen source + source metadata → normalization engine)
 
+## SPEC Summary (see SPEC.md for full detail)
+
+**Three-tier identity model:**
+- `source_id` (`src_{8_char_hash}`): per acquired file/set, derived from frozen SHA-256
+- `work_id` (`wrk_{author_slug}_{title_slug}`): groups all editions of same abstract work
+- `canonical_id` (`sch_{5_digit_sequence}`): scholar authority, centralized registry
+
+**Primary outputs:** Frozen source files + source metadata record (JSON) + updates to three registries (sources, works, scholars).
+
+**Key architectural decisions (SPEC §4):**
+- Multi-model consensus for author identification and work matching (highest cascade risk)
+- Trust evaluation: 5-factor weighted scoring → verified/flagged tiers
+- Text fidelity tracked separately from scholarly trustworthiness
+- Work relationship graph (sharh_of, hashiyah_on, mukhtasar_of, etc.)
+- OpenITI corpus enrichment for scholar authority bootstrapping (§4.B.1)
+- Bibliographic intelligence from minimal input (§4.B.2)
+- Citation network discovery [NOT YET IMPLEMENTED] (§4.B.3)
+- Acquisition gap analysis [NOT YET IMPLEMENTED] (§4.B.4)
+
 ## Current State
-Legacy code migrated from ABD (Arabic Book Digester). ABD was a narrow Shamela-only tool — its design decisions have zero authority in KR (D-019). The code works for Shamela intake but the SPEC defines what this engine SHOULD be, which is much broader.
+Legacy code migrated from ABD (Arabic Book Digester). ABD was a narrow Shamela-only tool — its design decisions have zero authority in KR (D-019). The code works for Shamela intake but the SPEC defines what this engine SHOULD be, which is much broader. 12 known gaps between current code and SPEC — see SPEC §9.
 
 Code: `engines/source/src/` (intake.py 1476L, enrich.py 580L, corpus_audit.py 228L).
 Tests: 112 tests in `engines/source/tests/` (test_intake.py, test_enrich.py).

@@ -35,6 +35,10 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 | D-021 | Owner's core frustration — lack of interconnection and poor explanations | 2026-03-04 |
 | D-022 | Book briefing — what the owner needs before reading any source | 2026-03-04 |
 | D-023 | Metadata is synthesis fuel, not just source documentation | 2026-03-04 |
+| D-024 | Three-tier source identity model (source, work, scholar) | 2026-03-04 |
+| D-025 | Source engine as primary creator of scholar authority records | 2026-03-04 |
+| D-026 | Text fidelity separate from scholarly trustworthiness | 2026-03-04 |
+| D-027 | Work relationship graph with placeholder records for unacquired works | 2026-03-04 |
 
 ---
 
@@ -184,3 +188,31 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 **Decision:** Every engine that captures or enriches metadata must design its metadata model with the synthesizer as the primary consumer. The question is not "what do we know about this source?" but "what does the synthesizer need to produce an entry with full scholarly depth?" This includes: (1) author biographical context (dates, school, teachers, students, methodology, other works), (2) work contextual data (genre, why written, relationship to other works, period), (3) historical context (what scholarly debates were active, what school dynamics existed), (4) cross-source intelligence (who cites whom, who disagrees with whom, intellectual genealogy). The synthesizer also does its own research beyond what's in the library — it adds context, connections, and analysis that no single source contains.
 **Architectural consequence:** Metadata flows DOWNSTREAM through the pipeline to the synthesizer, not just UPWARD to the scholar interface. Source metadata → normalized package → passage metadata → excerpt metadata → placed excerpt metadata → ALL available to the synthesizer when generating an entry. No engine should strip or lose metadata that the synthesizer could use.
 **Documents updated:** DOMAIN.md, DEEP_REASONING_PROTOCOL.md, PROJECT_INSTRUCTIONS.md.
+
+### D-024: Three-tier source identity model (source, work, scholar)
+**Decided:** 2026-03-04
+**Context:** The ABD-era code uses `book_id` (owner-assigned ASCII slug) as the sole identifier. KR needs to distinguish between: a specific acquired file (source), the abstract intellectual work (work), and the scholar who created it (scholar). These three tiers serve different purposes — source_id for file integrity and deduplication, work_id for grouping editions and tracking relationships, canonical_id for scholar authority.
+**Decision:** Three-tier identity model: (1) `source_id` (`src_{8_char_hash}` from frozen SHA-256) — per acquired file/set, permanent, globally unique. (2) `work_id` (`wrk_{author_slug}_{title_slug}`) — groups all editions of the same abstract work. The same work may have multiple sources. (3) `canonical_id` (`sch_{5_digit_sequence}`) — scholar identity in the centralized authority registry. The ABD-era `book_id` is preserved as `human_label` — a non-primary-key shorthand. Multi-volume works get ONE work_id; each volume may be a separate source_id if acquired separately.
+**Alternatives considered:** (a) Single flat ID like ABD's book_id → rejected (can't group editions, can't track scholarly identity). (b) Two-tier (source + scholar, no work) → rejected (can't express "this is a different edition of the same work"). (c) work_id as primary key → rejected (source_id must be primary because multiple sources of the same work have different frozen files and metadata).
+**Documents updated:** engines/source/SPEC.md §4.A.1, engines/source/CLAUDE.md.
+
+### D-025: Source engine as primary creator of scholar authority records
+**Decided:** 2026-03-04
+**Context:** The scholar authority registry (`library/registries/scholars.json`) is a shared knowledge graph consumed by multiple engines. The source engine encounters scholars first (as authors and editors during intake). Other engines encounter scholars later (as quoted figures in text). Someone needs to own record creation.
+**Decision:** The source engine is the primary creator of scholar authority records. When it identifies an author or muhaqiq during intake, it creates or enriches the record with biographical data from: source metadata extraction, LLM inference, and OpenITI enrichment. Other engines (especially excerpting) may write enrichments back. Progressive enrichment: records grow richer as more sources are processed. Scholar records include: canonical name, name variants, kunya, laqab, nisba, birth/death dates (hijri + CE), geographic data, school affiliations (per science), teachers, students, known works, scholarly standing, disambiguation notes.
+**Alternatives considered:** (a) Separate scholar authority component owns all record creation → rejected (the source engine has the metadata at intake time; adding a middleman creates unnecessary coupling). (b) Each engine creates its own records → rejected (leads to fragmentation and duplicate records).
+**Documents updated:** engines/source/SPEC.md §4.A.5, engines/source/CLAUDE.md.
+
+### D-026: Text fidelity separate from scholarly trustworthiness
+**Decided:** 2026-03-04
+**Context:** A source's reliability has two independent dimensions. A perfectly trustworthy scholarly work (e.g., al-Mughni by a recognized muhaqiq) may have low text fidelity if acquired as iPhone photos with poor OCR. Conversely, a low-trust modern compilation may have high text fidelity because it's structured digital text. Conflating these leads to wrong trust decisions.
+**Decision:** Source metadata tracks two independent signals: `text_fidelity` (quality of the text data itself — high/medium/low/unknown, determined by source type) and `trust_tier` (reliability of the scholarly content — determined by multi-factor evaluation of author standing, tahqiq quality, publisher reputation, source authority level, AND text fidelity as one input). Text fidelity affects downstream OCR confidence and normalization strategy. Trust tier affects whether excerpts default to verified or flagged knowledge.
+**Alternatives considered:** Single combined "quality" score → rejected (masks important distinctions; a flagged source with high text fidelity should be processed differently from a verified source with low text fidelity).
+**Documents updated:** engines/source/SPEC.md §4.A.4, §4.A.8.
+
+### D-027: Work relationship graph with placeholder records for unacquired works
+**Decided:** 2026-03-04
+**Context:** Islamic scholarly works form dense relationship networks (sharh→matn, hashiyah→sharh, mukhtasar→original). These relationships are critical for the synthesizer's scholarly narratives and the scholar interface's book briefings. Many relationships point to works not yet in the library.
+**Decision:** The source engine maintains a work relationship graph with 7 relationship types (sharh_of, hashiyah_on, mukhtasar_of, nazm_of, taqrirat_on, cites, responds_to). When a relationship target is not in the library, a placeholder work record is created with `status: "referenced_not_acquired"`. Placeholders exist in the work registry as known works without sources — they can accumulate citation counts, be targets of relationship edges, and serve as acquisition candidates. This enables the citation network to grow even before all referenced works are acquired.
+**Alternatives considered:** (a) Only track relationships to acquired works → rejected (loses the vast majority of the scholarly network; most works reference more works than any library contains). (b) Track relationships but without placeholder records → rejected (no way to accumulate citation counts or priority-rank unacquired works).
+**Documents updated:** engines/source/SPEC.md §4.A.9, §4.B.3, §4.B.4.

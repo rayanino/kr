@@ -136,6 +136,36 @@ Owner confirmed: some books exist only in physical form (e.g., editions from boo
 
 ---
 
+## Islamic Scholarly Corpora & APIs
+
+### OpenITI — Open Islamicate Texts Initiative
+- **URL:** https://github.com/OpenITI
+- **What it does:** The largest machine-actionable corpus of premodern Islamicate texts. 10,000+ texts organized using CTS-compliant URIs encoding author death date and author/work slugs (e.g., `0505Ghazali.IhyaCulumDin`). Metadata CSV available (~50MB) with author death dates, work titles, and corpus statistics. Texts organized by 25-year AH periods.
+- **Relevant engines:** Source engine (§4.B.1 — scholar authority bootstrapping via metadata CSV lookup), Normalization engine (potential secondary text source for comparison)
+- **How to use:** Download metadata CSV from GitHub releases. Query locally during intake to enrich scholar authority records with confirmed death dates, known works lists, and CTS URIs. No API — purely offline after initial download. Update quarterly to match OpenITI's release cycle.
+- **License:** Various (primarily open access scholarly corpus)
+
+### KITAB Project (Aga Khan University)
+- **URL:** https://kitab-project.org
+- **What it does:** Text reuse detection in Arabic literary tradition using passim algorithm (300-word chunks, Smith-Waterman alignment). Discovers how texts borrow from, cite, or plagiarize each other across the OpenITI corpus.
+- **Relevant engines:** Source engine (edition comparison — detecting how different editions of the same work differ), Excerpting engine (implicit reference detection — finding when an author quotes another without attribution)
+- **How to use:** KITAB's methodology and published data on text reuse pairs could inform citation network discovery. Their passim algorithm parameters are calibrated for Arabic scholarly text.
+- **License:** Open research project
+
+### sunnah.com API
+- **URL:** https://sunnah.com/api (requires API key from sunnah.com)
+- **What it does:** Structured hadith data from all major collections (Bukhari, Muslim, Abu Dawud, etc.) with English/Arabic text, hadith grading, chapter organization, and standard numbering.
+- **Relevant engines:** Source engine (special source type: hadith collections — standard numbering capture), Excerpting engine (hadith reference resolution)
+- **How to use:** Request API key. Query by collection + hadith number. Use as canonical hadith text source rather than OCR.
+- **License:** Check sunnah.com terms
+
+### hadith-json (GitHub community)
+- **URL:** https://github.com/topics/hadith (multiple repos)
+- **What it does:** 50K+ hadiths from 17 books in structured JSON format. Multiple implementations available.
+- **Relevant engines:** Source engine (bulk hadith data for special source type handling)
+- **How to use:** Static JSON files, no API needed. Use as fallback if sunnah.com API is unavailable.
+- **License:** Various
+
 ## Resources to Survey (search before building each engine)
 
 When writing each engine SPEC, the architect must search the web for existing tools. Minimum 3-5 searches per engine. Here are starting points:

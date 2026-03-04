@@ -8,6 +8,8 @@
 
 **⚠ Metadata Pass-Through (D-023):** Metadata is synthesis fuel. Every schema in the chain must carry ALL metadata from upstream engines plus anything the current engine adds. The synthesizing engine is the ultimate consumer — it uses author biography, dates, school affiliations, teacher-student chains, work genres, and historical context to produce scholarly narratives (not flat compilations). When redesigning any schema, the question is not "what does this engine need?" but "what must flow through this engine to the synthesizer?" No metadata may be stripped because an intermediate engine doesn't use it.
 
+**⚠ Source Engine SPEC complete (2026-03-04).** The source engine SPEC §4.A defines the complete metadata architecture superseding ABD-era `source_metadata.json`. Key changes: three-tier identity model (`source_id`/`work_id`/`canonical_id`), scholar authority registry, work relationship graph, genre/genre_chain/structural_format/multi_layer/source_authority fields, per-field confidence scoring, text fidelity separate from trust tier, format-specific metadata isolation. Three new registry schemas needed: `sources.json`, `works.json`, `scholars.json`. See SPEC §3 and §4.A for full details. Actual schema file rewrite deferred to implementation.
+
 ---
 
 ## 1. Complete Data Flow
