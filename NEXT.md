@@ -21,6 +21,7 @@ The order matters. Think about what the engine SHOULD be before seeing what it c
 1. `reference/DOMAIN.md` — the core identity ("KR IS Rayane's knowledge") and scholarly domain grounding. This shapes every design decision. Pay special attention to "Design Implications" — these are concrete requirements for the source engine.
 2. `reference/USER_SCENARIOS.md` — 5 concrete scenarios showing what Rayane actually experiences. These are your acceptance tests. Every feature in your SPEC must serve at least one scenario. List which scenarios in §1.
 3. `reference/ENTRY_EXAMPLE.md` — what a finished KR entry looks like. This is the END PRODUCT the entire pipeline serves. Notice what makes it transformative vs. flat — especially how metadata (author dates, teacher-student chains, school affiliations) enables the scholarly narrative. Your source engine's metadata model must eventually support entries at this quality level.
+4. `reference/PIPELINE_TRACE.md` — traces one passage through ALL seven engines, showing what each stage receives, produces, and what metadata accumulates. Critical for understanding why metadata must flow through without loss (D-023).
 
 **Phase 2 — Understand the architecture:**
 3. `VISION.md` §7.1–§7.4 and §2 → run `python3 scripts/extract_vision_sections.py 7 2`
@@ -30,6 +31,8 @@ The order matters. Think about what the engine SHOULD be before seeing what it c
 **Phase 3 — Now look at existing code and reference (after you've formed your own vision):**
 
 These are all ABD-era artifacts. ABD was a narrow Shamela-only tool; its decisions have zero authority (D-019). Read them to understand what code exists, NOT as a template for what to build. If your vision from Phase 1-2 conflicts with what ABD does, your vision wins.
+
+**Context note:** Phase 3 is ~37K tokens — the largest single chunk. If you've already formed a strong vision from Phases 1-2 and context is getting tight, you can skim Phase 3 selectively: read `ABD_INTAKE_SPEC.md` for the metadata model outline, skim `intake.py` for the flow, and skip `enrich.py` and `corpus_audit.py`. The SPEC you write should be driven by your Phase 1-2 vision, not by ABD's implementation.
 
 6. `engines/source/reference/ABD_INTAKE_SPEC.md` (795L) — ABD-era spec for Shamela intake only
 7. `engines/source/reference/edge_cases.md` (127L) — known edge cases (Shamela-specific)
@@ -86,7 +89,7 @@ None currently. The SPEC process will likely surface domain questions about Isla
 
 ## New Decisions Since Last SPEC Session
 
-No previous SPEC sessions — this is the first. Read all of kr_decisions.md (D-001 through D-022). Pay special attention to D-018 (core identity), D-019 (ABD legacy rule), D-020 (pipeline priority), D-021 (owner's core frustration), and D-022 (book briefing).
+No previous SPEC sessions — this is the first. Read all of kr_decisions.md (D-001 through D-023). Pay special attention to D-018 (core identity), D-019 (ABD legacy rule), D-020 (pipeline priority), D-021 (owner's core frustration), D-022 (book briefing), and D-023 (metadata as synthesis fuel).
 
 ## What the Last Session Did
 

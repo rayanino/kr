@@ -109,6 +109,89 @@ Rayane: "I need to teach someone about أحكام النون الساكنة وا
 
 ---
 
+---
+
+## Scenario 6: New Book Briefing
+
+Rayane just purchased حاشية ابن عابدين (a 12-volume Hanafi fiqh hashiyah) from a bookstore. He photographs the title page, table of contents, and introduction with his iPhone and uploads them to KR.
+
+**KR** (source engine): "Processing 3 photographs... OCR complete. I've identified this as:
+
+**رد المحتار على الدر المختار** — commonly known as حاشية ابن عابدين
+- **Author:** محمد أمين بن عمر بن عبد العزيز عابدين (ابن عابدين) — d. 1252 AH / 1836 CE
+- **Type:** حاشية (marginal commentary) on الدر المختار by الحصكفي, which is itself a شرح of تنوير الأبصار by التمرتاشي
+- **Genre chain:** تنوير الأبصار (matn) → الدر المختار (sharh) → رد المحتار (hashiyah)
+- **Science:** Fiqh — Hanafi school
+- **Level:** Advanced specialist. This is the primary reference work (المرجع الأساسي) of the Hanafi school for fatwa purposes.
+- **Reputation:** Considered the most authoritative late Hanafi fiqh reference. When Hanafi scholars say 'the mu'tamad position,' they often mean Ibn Abidin's conclusion here.
+
+**Before reading this, you should know:**
+- Prerequisites: at least intermediate Hanafi fiqh (you're currently at: beginner+). I recommend finishing متن القدوري first (you're 40% through).
+- This is NOT an introductory text. It presumes familiarity with Hanafi terminology, usul methodology, and the positions of earlier Hanafi scholars (Abu Hanifa, Abu Yusuf, Muhammad al-Shaybani).
+- 12 volumes, ~6000 pages. Most scholars study it chapter by chapter alongside their area of research, not cover to cover.
+
+**This edition:** Publisher appears to be دار الفكر, Beirut. This is the standard scholarly edition. I found 2 other editions in Shamela — comparing tables of contents to check for content differences...
+
+**Recommended approach:** Don't read sequentially. Use this as a reference alongside your study of القدوري. When you encounter a fiqh topic in القدوري, I'll pull the relevant section from ابن عابدين to show you how the position was refined over the centuries.
+
+Shall I acquire the full text (I'll need you to photograph or scan the remaining pages), or would you like to use the Shamela digital version for the text and keep your physical copy as the verified edition?"
+
+---
+
+## Scenario 7: "Show Me the Whole Science"
+
+Rayane has been studying Nahw for 6 months. He feels lost — he knows individual topics but can't see how they connect.
+
+Rayane: "Draw me a map of Nahw. I want to see the whole science — every topic, how they connect, what I've studied, what's left."
+
+**KR** (taxonomy engine + scholar interface): Generates an interactive visualization:
+
+**The Nahw Map** — 247 topics across 12 major chapters (أبواب)
+
+[Visual: a structured tree/graph where:]
+- **Green nodes** = topics Rayane has studied and passed Socratic checks on (87 topics)
+- **Yellow nodes** = topics Rayane has seen but not mastered (23 topics)
+- **Gray nodes** = topics not yet studied (137 topics)
+- **Solid arrows** = prerequisite dependencies ("you must understand X before Y")
+- **Dashed arrows** = conceptual connections ("X is related to Y but neither requires the other")
+- **Node size** = topic significance (how many other topics depend on it)
+- **Red highlights** = coverage gaps ("no Kufan source for this topic in your library")
+
+Rayane taps on باب الحال (the chapter on circumstantial expressions). The map zooms in:
+
+"**باب الحال** — 15 topics. You've studied 3.
+
+**This chapter depends on:** المفعول به (direct object), النعت (adjective), الفاعل (subject) — all green ✓
+
+**Current topic:** تعريف الحال. Here's where it sits: الحال is one of the five منصوبات (accusative constructions). It answers the question 'in what state/condition?' about the subject or object. It connects to النعت (both describe nouns, but النعت is permanent while الحال is temporary) and to التمييز (both are منصوب, but التمييز specifies kind while الحال specifies state).
+
+**Scholarly landscape:** 4 schools of thought on whether الحال can precede what it describes. 11 excerpts from 7 sources in your library cover this topic."
+
+---
+
+## Scenario 8: KR Gets It Wrong
+
+Rayane is reading an entry on المفعول المطلق (absolute object) and notices an error.
+
+Rayane: "This entry says that Ibn Malik considers المصدر and المفعول المطلق to be the same thing. That's wrong — he distinguishes them in the Alfiyyah, line 199."
+
+**KR** (correction mode): "Let me check. Pulling the excerpt this claim came from...
+
+You're right. The excerpt from شرح ابن عقيل says 'وهو المصدر المنتصب' — which means the المفعول المطلق IS a مصدر (verbal noun), but not that every مصدر is a مفعول مطلق. The entry incorrectly generalized this as equivalence.
+
+**What went wrong:** The excerpting engine captured the correct text, but the synthesizing engine misinterpreted the relationship as bidirectional equivalence when it's actually a subset relationship (every مفعول مطلق is a مصدر, but not every مصدر is a مفعول مطلق).
+
+**Corrections applied:**
+1. ✓ Entry regenerated with corrected relationship
+2. ✓ Your correction saved as an owner note at this leaf — future synthesis will check against it
+3. ✓ Pattern flagged: the synthesizer will now be more careful about subset vs. equivalence relationships across ALL entries, not just this one
+
+**Verification:** Here's the corrected passage — does this match your understanding?
+
+'ابن مالك defines المفعول المطلق as a subset of المصدر: specifically, the مصدر that appears in the accusative case to confirm, specify, or quantify the verb's action. The المصدر is a broader concept that includes non-accusative uses (e.g., المصدر المضاف إليه).'"
+
+---
+
 ## What These Scenarios Require
 
 | Capability | Scenarios that need it |
@@ -117,17 +200,23 @@ Rayane: "I need to teach someone about أحكام النون الساكنة وا
 | Excerpt retrieval with citation | All |
 | Socratic dialogue | 1, 5 |
 | Spaced repetition | 2 |
-| Autonomous source discovery | 2, 4 |
+| Autonomous source discovery | 2, 4, 6 |
 | Cross-source comparison | 2, 3, 4 |
 | Cross-science linking | 3 |
 | Proactive alerts | 2, 3 |
-| Gap detection | 4 |
+| Gap detection | 4, 7 |
 | Temporal analysis | 3 |
 | Writing assistance | 4 |
 | Footnote generation | 4 |
-| Claim verification | 4 |
+| Claim verification | 4, 8 |
 | Lesson plan generation | 5 |
 | Research question generation | 4 |
 | School-comparative analysis | 2, 4 |
-| Source acquisition on demand | 2, 4 |
-| Owner-originated content (feedback loop) | 4 |
+| Source acquisition on demand | 2, 4, 6 |
+| Owner-originated content (feedback loop) | 4, 8 |
+| Book briefing (pre-reading intelligence) | 6 |
+| Science map / structural visualization | 7 |
+| Prerequisite tracking and display | 6, 7 |
+| OCR / image-to-text pipeline | 6 |
+| Error correction and system learning | 8 |
+| Pattern-level error propagation | 8 |

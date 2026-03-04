@@ -288,6 +288,28 @@ These gaps are KR's reason for existing. Every one of them should be a designed 
 
 ---
 
+## What Failure Looks Like
+
+The architect must design validation for each engine. Understanding failure modes is essential:
+
+**Source engine failure:** Misidentified author (attributed a work to the wrong scholar). Wrong genre classification (called a hashiyah a sharh). Duplicate not detected (two copies of the same tahqiq processed separately). Wrong work relationship (said Book A is a sharh of Book B when it's not). Every downstream engine inherits and amplifies these errors.
+
+**Normalization failure:** Footnotes mixed into main text (editor's tahqiq notes treated as author's words). Structure discovery wrong (chapter boundary placed in the middle of a paragraph). OCR corruption (Arabic characters misread, especially ب/ت/ث/ن confusions). Diacritics stripped when they were semantically significant.
+
+**Passaging failure:** Passage boundary splits a logical unit (half the definition in one passage, half in another). Passage too large (contains 5 unrelated topics). Passage too small (a single sentence fragment that can't be meaningfully extracted).
+
+**Atomization failure:** Wrong atom type (classified a definition as an example). Missed atom boundary (two distinct scholarly positions merged into one atom). Isnad chain not detected (evidence chain treated as regular text).
+
+**Excerpting failure:** NOT self-contained (excerpt references "the previous ruling" without including it). Wrong author attribution (quoted scholar attributed as the author's own position). Misclassified school. Missing metadata that makes the excerpt usable (no topic, no source reference). This is the most consequential failure — bad excerpts produce bad entries.
+
+**Taxonomy failure:** Wrong leaf placement (excerpt about المبتدأ placed under الفاعل). Missing coverage gap detection (no flag when a school has zero representation at a leaf). Bad prerequisite chain (says topic A requires B when it doesn't, or misses a real prerequisite).
+
+**Synthesizing failure:** Flat compilation instead of narrative (lists positions without context, dates, or intellectual genealogy). Wrong disagreement type (treats verbal disagreement as substantive). Misrepresents a position (scholar X actually held view A, not view B). Big logical jumps (assumes knowledge the reader doesn't have). Missing edge cases. **This is the ultimate failure — the entry is what the owner reads and learns from. A bad entry teaches wrong information.**
+
+**Error propagation:** Errors cascade. A misidentified author in the source engine → wrong school attribution in excerpting → wrong school grouping in taxonomy → wrong comparative analysis in the entry. The further upstream the error, the more damage it causes and the harder it is to detect. This is why every engine must validate its output AND why the correction loop (Scenario 8) must propagate corrections back to the source of the error.
+
+---
+
 ## Design Implications
 
 When the architect designs any engine, these domain facts create concrete requirements:
@@ -335,6 +357,23 @@ When the architect designs any engine, these domain facts create concrete requir
 - **Use three input sources (D-023):** (1) excerpt content from placed excerpts — the primary textual evidence, (2) metadata chain from all upstream engines — author bios, dates, school affiliations, work genres, teacher-student chains, (3) LLM research capability — the synthesizer actively adds context, connections, and scholarly analysis that goes beyond what any individual source explicitly says (historical context, institutional dynamics, cross-source patterns). The metadata and LLM research are what transform a flat compilation into a scholarly narrative with temporal depth and intellectual genealogy. See `reference/ENTRY_EXAMPLE.md` for the difference.
 - **Distinguish خلاف types** (see "Core Scholarly Methodology Concepts" above): verbal vs. substantive, respected vs. aberrant. Don't treat all disagreements equally.
 - **تحرير المسألة first**: before presenting positions, precisely formulate what question each scholar is answering. If their questions differ, they don't disagree — they're addressing different مسائل.
+
+**Scholar authority model (shared component — used by source, excerpting, taxonomy, synthesizing engines):**
+- **Canonical scholar identities** — one record per historical scholar, with a stable canonical_id that all engines reference
+- **Variant name mappings** — "ابن حجر" maps to TWO different scholars (al-Asqalani d.852 AH vs al-Haytami d.974 AH); context determines which. The model must handle this ambiguity.
+- **Biographical data** — birth/death dates (hijri + miladi), locations, schools, teachers, students, major works, methodology
+- **Teacher-student graph** — directed graph of who studied with whom. This is what enables the synthesizer to produce intellectual genealogy narratives (e.g., "Sibawayhi → al-Akhfash → al-Jarmi → al-Mubarrad → Ibn al-Sarraj" in the pipeline trace). Without this graph, the synthesizer can only list positions without showing how they're historically connected.
+- **School affiliations** — per-science (a scholar can be Hanbali in fiqh and Ash'ari in aqidah and Basran in grammar)
+- Initially seeded during source intake; grows automatically as more sources are processed and more scholars are encountered
+- This is a SHARED knowledge graph, not per-source data. When the source engine identifies "ابن عقيل" as the author of شرح ابن عقيل, it links to the same canonical_id that the excerpting engine uses when it detects "قال ابن عقيل" in an excerpt from a different source.
+
+**Correction and feedback loop (cross-cutting — all engines participate):**
+When the owner identifies an error (see Scenario 8 in USER_SCENARIOS.md), corrections must flow through the system at the right level:
+- **Entry-level:** owner flags error in a generated entry → entry regenerated with owner's note as a permanent constraint → note survives regeneration, preventing recurrence
+- **Excerpt-level:** owner flags misattribution or misclassification → excerpt metadata corrected → all entries using that excerpt marked stale → entries regenerated
+- **Taxonomy-level:** owner moves an excerpt to a different leaf → coverage metrics update → entries at both old and new leaves regenerated
+- **Pattern-level:** if a correction reveals a SYSTEMATIC error (e.g., synthesizer consistently confuses subset/equivalence relationships), the correction becomes a RULE that applies to ALL future synthesis, not just the corrected entry
+- Each correction is an investment — it improves not just one entry but the system's future behavior. Over years, these accumulated corrections make KR increasingly accurate.
 
 **Scholar interface must:**
 - Ground every answer in specific excerpts from specific sources — never generate unverified claims
