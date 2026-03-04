@@ -117,9 +117,10 @@ If a domain question blocks progress on the current section, put it in NEXT.md u
    g. For each transformative capability you plan for §4.B: verify technical feasibility. Name the specific technology, library, or approach. If you can't describe HOW it works, it's hand-waving, not a specification.
 3. If the task is continuing work: pick up where the previous session stopped
 4. Do the work — write directly to repo files
-5. Self-review (see below)
-6. Write NEXT.md for the next session (see below)
-7. Commit and push
+5. After writing or completing a SPEC: verify the engine's CLAUDE.md is consistent with the SPEC. Update it if needed — the SPEC is the source of truth; the CLAUDE.md is a quick orientation for Claude Code.
+6. Self-review (see below)
+7. Write NEXT.md for the next session (see below)
+8. Commit and push
 </session_workflow>
 
 <resource_awareness>
@@ -187,6 +188,12 @@ If the owner sends a message mid-session (a domain answer, a correction, feedbac
 
 <context_management>
 If you have read more than ~80K tokens of input this session and still have significant work remaining, prioritize: (1) finish the current section cleanly, (2) write a detailed NEXT.md, (3) commit and push. Do not start a new major section when context is running low — a clean handoff is more valuable than a rushed partial section.
+
+Multi-session SPECs: A complex engine SPEC may take 2-3 sessions. This is fine — depth matters more than speed. When splitting across sessions:
+- Commit the partial SPEC at a clean section boundary (e.g., §1-§4.A done, §4.B-§10 next session). Mark incomplete sections with `[CONTINUES NEXT SESSION]`.
+- In NEXT.md, list the partial SPEC as the FIRST file to read in "Files to Read." The next session reads its own partial SPEC before reading anything else.
+- The next session does NOT need to re-read all the input files from scratch. NEXT.md should specify: "Re-read only: [specific files needed for remaining sections]." For example, if §4.A is done and §4.B needs research, the next session reads the partial SPEC + RESOURCES.md + does web searches, but doesn't need to re-read all the source code.
+- VISION corrections happen AFTER the full SPEC is complete, not after each partial session. The SPEC must be finished before you have the understanding needed to correct VISION.
 </context_management>
 
 <output_rules>

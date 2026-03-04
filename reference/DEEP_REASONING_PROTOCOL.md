@@ -93,32 +93,48 @@ the owner's requests). Design them fully here even if unbuilt.
 Subsections as needed for both parts.
 
 ## 5. Validation and Quality
-Self-validation the engine performs on its own output (§8 Layer 1).
+How this engine ensures its output meets publishable scholarship standards.
+Self-validation the engine performs on its own output (§8 Layer 1) — be specific:
+what checks, what thresholds, what happens on failure.
 Automated checks available (§8 Layer 2).
-Human gate integration (§9), if applicable.
+Human gate integration (§9), if applicable — what triggers human review,
+what the human reviews, what happens after review.
+Remember: an error in this engine's output is an error in Rayane's knowledge.
+What prevents that?
 
 ## 6. Consensus Integration
 Which decisions in this engine use multi-model consensus.
 Consensus configuration (number of models, agreement threshold).
+If this engine does NOT use consensus, say so explicitly and explain why.
+Not every engine needs consensus — but the decision must be conscious.
 
 ## 7. Error Handling
 Malformed input. Partial failures. Consensus disagreement.
-Every error: error code, severity, recovery action.
+Every error: error code, severity (fatal/warning/info), recovery action.
+The principle: never lose data silently. An unhandled error that corrupts
+the library is worse than a visible failure that stops processing.
+Include: what gets logged, what triggers alerts, what blocks the pipeline.
 
 ## 8. Configuration
-Parameters controlling engine behavior.
+Parameters controlling engine behavior (with defaults and valid ranges).
 Per-science configuration hooks (Level 3 / SCIENCE.md).
+What is configurable vs. what is hardcoded and why.
 
 ## 9. Current Implementation State
 Existing files with line counts. What works today.
-Known gaps between current code and this spec.
+Known gaps between current code and this spec — be brutally honest.
 Everything unbuilt marked [NOT YET IMPLEMENTED].
 External tools and libraries this engine depends on (from reference/RESOURCES.md).
 What each external tool handles vs. what is custom code.
+This section is a snapshot. Claude Code reads it to know what to build.
+If it says "works" and the code is broken, Claude Code wastes sessions.
 
 ## 10. Test Requirements
-Test coverage requirements. Gold baseline usage.
-Regression testing strategy.
+Test coverage requirements — what MUST be tested, not just "everything."
+Gold baseline usage: what baselines exist, what new ones this SPEC demands.
+Regression testing strategy: what must not break when code changes.
+Integration test requirements: what must this engine verify with its
+upstream producer and downstream consumer?
 ```
 
 ---
@@ -178,6 +194,37 @@ When correcting VISION.md sections, produce a defect ledger like this:
 **Problem:** "Configuration decision" is vague — Criterion #2 (binary sentences). This sentence is neither a binding rule nor a marked open question.
 **Correction:** "Adding a new repository requires: (1) implementing a repository module conforming to the repository interface defined in the source engine SPEC, and (2) registering the repository in the application's configuration. No source engine core logic changes are required."
 </example>
+
+---
+
+## Example: What Good §4.A Rules Look Like
+
+§4.A rules are precise enough for Claude Code to implement without clarifying questions, but they specify BEHAVIOR, not code structure. Here is a calibration example showing the right level of detail:
+
+<example name="good_core_processing_rules">
+### §4.A — Core Processing
+
+#### §4.A.1 — Source Identification
+
+Every source receives a `source_id` at registration time, formatted as `{science}_{author_slug}_{title_slug}_{edition_hash}` (e.g., `nahw_ibnhisham_qatralnada_a3f2`). The `edition_hash` is a 4-character hash of the edition-distinguishing metadata (tahqiq editor + publisher + edition number), ensuring that the same book with different tahqiq receives a different `source_id`.
+
+The same logical work (e.g., "al-Mughni by Ibn Qudamah") may appear multiple times in the registry with different `source_id` values if different editions exist. These share a `work_id` (format: `{author_slug}_{title_slug}`) that groups all editions of the same work. The source registry tracks the owner's preferred edition per `work_id` (default: the edition with the highest tahqiq quality score).
+
+If the system cannot determine a unique `source_id` because essential metadata is missing (no author identified, no title identified), the source is registered as `unidentified_{intake_timestamp}` and a human gate checkpoint is created. The source is available for normalization but cannot proceed to excerpting until identification is resolved.
+
+#### §4.A.2 — Metadata Extraction: Shamela Format
+
+For Shamela-format sources, the source engine extracts metadata from two locations: the `info.html` file (title, author, category, description) and the `content.html` structure (volume/page organization, footnote presence, section headers).
+
+Extraction rules for `info.html`:
+- `title`: The first `<h1>` content, stripped of HTML tags. If absent, use the directory name.
+- `author`: Extracted from the "المؤلف" field. If the field contains multiple names separated by "و", each is recorded as a contributor with role `author`. If absent, flag as `author_unknown` and create a human gate checkpoint.
+- `category`: Mapped to the nearest KR science classification. If no mapping exists, recorded as `unclassified` with the original Shamela category preserved in `raw_category`.
+
+If `info.html` is malformed (not valid HTML, missing expected fields), the engine logs a structured warning and extracts what it can. Extraction never fails entirely on a malformed `info.html` — partial metadata is always better than no metadata.
+</example>
+
+Notice: these rules specify WHAT the engine does in precise detail, including edge cases and failure handling, but they do NOT specify HOW the code should be organized (no function names, no class hierarchies, no specific libraries). That's Claude Code's domain.
 
 ---
 

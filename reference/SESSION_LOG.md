@@ -61,3 +61,8 @@
 **Focus:** Fill user study profile. Critical discovery: KR is not supplementing existing study — it IS the study infrastructure. User has no teacher, no current practice, starts from zero with Arabic language sciences. Goal: complete scholar (encyclopedic + production + teaching).
 **Decisions:** None (profile data, not architecture — but the implications reshape the scholar interface)
 **Deliverables:** DOMAIN.md study profile filled (sciences: Arabic language first; goal: complete scholar; method: self-directed, KR provides guidance). Added "Critical Design Implication" section explaining KR-as-primary-infrastructure consequences. Scholar interface CLAUDE.md rewritten: added Guiding capability domain (curriculum design) as FIRST capability, added Three Modes (learning/research/teaching), noted beginner→advanced scaling requirement. User model: added curriculum state and scholarly level tracking.
+
+### Session 2026-03-04-l — Claude Chat
+**Focus:** Deep quality hardening for autonomous sessions. Six failure modes identified and fixed.
+**Decisions:** None (all changes are process improvements, not architectural decisions)
+**Deliverables:** NEXT.md rewritten with 4-phase vision-first reading order. Protocol gains §4.A calibration example (source identification + Shamela metadata extraction). SPEC template §5-§10 expanded with detailed guidance. Multi-session SPEC handling added to context management. Feasibility verification required for §4.B. Self-review expanded to 17 items. CLAUDE.md alignment step added to workflow. Web search availability check. Decision revision protocol. Project files cleaned up.
