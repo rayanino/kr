@@ -18,11 +18,10 @@ https://rayanino:YOUR_TOKEN_HERE@github.com/rayanino/kr.git
 **3. Project Knowledge Files:** Add one file:
 - `reference/DEEP_REASONING_PROTOCOL.md`
 
-**4. Project Files:** The following should already be attached as project files:
-- `kr_definitive_roadmap_v2.md` (the overall project roadmap — reference only)
+**4. Project Files:** The following should be attached as project files:
 - `Github_key`
 
-Remove any other project files. The roadmap is the only large reference needed in permanent context.
+Remove any other project files (including the roadmap if it was previously attached — it's now archived in the repo at `reference/archive/`). The repo contains everything Claude needs.
 
 That's it. Claude clones the repo and reads everything else directly.
 
