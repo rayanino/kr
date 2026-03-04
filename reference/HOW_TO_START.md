@@ -7,9 +7,9 @@ In Claude Chat, create a project called "KR" and configure:
 **1. Enable "Code Execution and File Creation"** in the project's feature settings. This is required — Claude works directly in the repo using bash commands. Without it, nothing works.
 
 **2. Custom Instructions:**
-Copy everything below the `---` line from `reference/PROJECT_INSTRUCTIONS.md`, then make one edit:
+Open `reference/PROJECT_INSTRUCTIONS.md`. Copy everything from line 5 onward (starting with "You are the architect"). Paste into the project's Custom Instructions field.
 
-Replace `$KR_REPO_URL` with the actual authenticated URL:
+Then replace `$KR_REPO_URL` with:
 ```
 https://rayanino:YOUR_TOKEN_HERE@github.com/rayanino/kr.git
 ```
@@ -17,6 +17,12 @@ https://rayanino:YOUR_TOKEN_HERE@github.com/rayanino/kr.git
 
 **3. Project Knowledge Files:** Add one file:
 - `reference/DEEP_REASONING_PROTOCOL.md`
+
+**4. Project Files:** The following should already be attached as project files:
+- `kr_definitive_roadmap_v2.md` (the overall project roadmap — reference only)
+- `Github_key`
+
+Remove any other project files. The roadmap is the only large reference needed in permanent context.
 
 That's it. Claude clones the repo and reads everything else directly.
 
@@ -28,7 +34,7 @@ Open a new conversation in the KR project. Send:
 Continue the project.
 ```
 
-Claude will clone the repo, read the current state, decide what to work on, do the work, commit, and push. You may be asked domain questions about Islamic scholarship — answer from your experience.
+Claude will clone the repo, read NEXT.md for its task, do the work, commit, and push. You may be asked domain questions about Islamic scholarship — answer from your experience.
 
 ## If You Disagree With a Decision
 

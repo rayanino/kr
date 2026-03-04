@@ -77,7 +77,7 @@ The preparatory phase is complete when:
 
 1. **Phase 1** (Claude Code): Directory restructure, taxonomy registry fix, test path fixes → 903 tests pass.
 2. **Phase 1.5** (Claude Code): Repo cleanup, Makefile, .gitignore.
-3. **Coordination setup** (Claude Chat, 5 sub-sessions): Decision log (15 decisions), protocol with examples, workplan, repo-direct workflow, resource catalog, Anthropic best practices optimization.
+3. **Coordination setup** (Claude Chat, 8 sub-sessions): Decision log (15 decisions), protocol with examples, repo-direct workflow, resource catalog, session handoff system, hostile coordination audit.
 
 No SPECs written yet. No VISION corrections since the §0–§5/§13 audit.
 
@@ -85,25 +85,4 @@ No SPECs written yet. No VISION corrections since the §0–§5/§13 audit.
 
 ## Session Handoff
 
-The next session's task, context, and file list are in `NEXT.md` at the repo root. That file is the primary handoff mechanism — it is overwritten at the end of every session.
-
-**Context budget note:** VISION.md is 1585 lines (~82K tokens). Do not read the whole file at once. Read only the sections relevant to the engine you're working on. Use the extraction script or read line ranges.
-
----
-
-## Session End Checklist
-
-At session end, in this order:
-- [ ] **Write `NEXT.md`** — this is the most important handoff artifact. Overwrite the entire file with:
-  - **Immediate Task:** What the next session should do first (be specific: "Continue source engine SPEC from §4" not "work on source engine")
-  - **Context for This Task:** Why this task, what decisions led here, any constraints
-  - **Files to Read First:** Exact file paths the next session needs, in reading order
-  - **Key Decisions Needed:** Unresolved questions the next session must address
-  - **Pending Owner Questions:** Questions asked to the owner that haven't been answered yet, or answers the owner gave this session that the next session needs
-  - **What This Session Did:** 2-3 sentence summary of concrete deliverables
-- [ ] All deliverables written to repo files
-- [ ] New decisions appended to `reference/kr_decisions.md`
-- [ ] `STATUS.md` state tables updated if anything changed (new SPECs, schema updates, etc.)
-- [ ] Session log entry appended to `reference/SESSION_LOG.md`
-- [ ] All changes committed and pushed to master
-- [ ] Tell the owner: what was done, what decisions were made, any domain questions for next session
+The next session's task, context, and file list are in `NEXT.md` at the repo root. Session-end procedures are defined in the project instructions (the system prompt).

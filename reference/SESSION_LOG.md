@@ -41,3 +41,8 @@
 **Decisions:** None (process improvement)
 **Deliverables:** NEXT.md (structured handoff file with immediate task, files to read, decisions needed, pending owner questions). Updated PROJECT_INSTRUCTIONS.md startup to read NEXT.md first. Updated STATUS.md session end checklist with NEXT.md format specification. Replaced static "Suggested Starting Point" with pointer to NEXT.md.
 **Next:** Owner sets up project, architect starts source engine SPEC
+
+### Session 2026-03-04-h — Claude Chat
+**Focus:** Hostile audit of coordination system — found and fixed 14 defects across 4 severity levels.
+**Decisions:** None (process corrections only)
+**Deliverables:** Rewrote PROJECT_INSTRUCTIONS.md (added git error handling, roadmap acknowledgment, context management, owner interaction, fixed decision format, removed self-review pollution). Rewrote CLAUDE.md (pure repo map, zero behavioral instructions). Rewrote HOW_TO_START.md (correct copy instructions). Cleaned STATUS.md (removed behavioral checklist). Archived PREPARATORY_WORKPLAN.md. Created missing content/ dirs. Fixed NEXT.md session ID.

@@ -1,17 +1,17 @@
 # NEXT SESSION
 
-**Written by:** Session 2026-03-04-f
+**Written by:** Session 2026-03-04-h (coordination audit)
 **Date:** 2026-03-04
 
 ## Immediate Task
 
-Start the source engine SPEC (Round 1 per the roadmap).
+Start the source engine SPEC (Phase 2, Round 1 per the roadmap). Resource survey needed first.
 
-## Context for This Task
+## Context
 
-No SPECs have been written yet. The source engine is the pipeline entry point — it's the natural first SPEC because it has no upstream dependencies. The advisory workplan and roadmap both recommend starting here.
+No SPECs have been written yet. Phase 1 (structural cleanup) is complete. The source engine is the pipeline entry point — no upstream dependencies. The roadmap (always in your context as a project file) has detailed guidance for Round 1 under "Round 1: Source Engine", including key questions and schema impact notes.
 
-## Files to Read First
+## Files to Read
 
 1. `VISION.md` §7.1–§7.4 and §2 → run `python3 scripts/extract_vision_sections.py 7 2`
 2. `engines/source/src/intake.py` (1476L) — current source ingestion code
@@ -23,7 +23,7 @@ No SPECs have been written yet. The source engine is the pipeline entry point �
 8. `schemas/SCHEMA_ANALYSIS.md` (329L) — pipeline schema overview
 9. `reference/RESOURCES.md` — check for source-engine-relevant tools before designing
 
-## Key Decisions Needed This Session
+## Decisions Needed
 
 - Source identity model: what is a "source"? Does `book_id` → `source_id`? Multi-volume works?
 - Source engine output: just `source_metadata.json` + frozen file, or other artifacts?
@@ -32,8 +32,8 @@ No SPECs have been written yet. The source engine is the pipeline entry point �
 
 ## Pending Owner Questions
 
-None currently. But the SPEC process will likely surface domain questions about Islamic scholarly source types.
+None currently. The SPEC process will likely surface domain questions about Islamic scholarly source types.
 
 ## What the Last Session Did
 
-Established the scope boundary (Chat=architect, Code=builder), added mandatory web search requirement, created external resource catalog. No application architecture work was done — this was all coordination infrastructure.
+Coordination audit: found and fixed 14 defects in the project setup. Rewrote PROJECT_INSTRUCTIONS.md, CLAUDE.md (pure repo map), HOW_TO_START.md. Removed behavioral instructions from STATUS.md. Archived PREPARATORY_WORKPLAN.md. Added roadmap acknowledgment, git error handling, context management, owner interaction guidance.

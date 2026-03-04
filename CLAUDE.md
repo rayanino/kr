@@ -5,14 +5,15 @@ A personal intelligent Islamic scholarly library. See `VISION.md` for the full s
 ## Repository Map
 
 - `VISION.md` — authoritative Level 0 specification (1585 lines). §0–§5, §13 audited; §6–§12 pending.
-- `STATUS.md` — current project state. **Read this first in every session.**
+- `NEXT.md` — session handoff: what to do next, which files to read.
+- `STATUS.md` — project state overview.
 - `schemas/` — inter-engine data contracts (one per boundary).
-- `engines/` — seven processing engines. Each has `CLAUDE.md`, `SPEC.md`, `src/`, `tests/`, `reference/`.
+- `engines/` — seven processing engines. Each has `CLAUDE.md`, `SPEC.md` (when written), `src/`, `tests/`, `reference/`.
 - `shared/` — cross-engine infrastructure (consensus, human_gate, validation, feedback).
 - `library/` — the knowledge product: science trees, excerpts, entries, source registry.
 - `gold/` — validation baselines (hand-crafted, never auto-generated).
-- `scripts/` — utility scripts (`extract_vision_sections.py` for session prep).
-- `reference/` — coordination: decisions log, reasoning protocol, workplan, session log.
+- `scripts/` — utility scripts (`extract_vision_sections.py` for VISION section extraction).
+- `reference/` — coordination: decisions log (`kr_decisions.md`), reasoning protocol, resources, session log.
 
 ## Processing Pipeline
 
@@ -29,10 +30,6 @@ Phase 2 — Knowledge Understanding (source-agnostic):
 6. **Taxonomy engine** (محرك التصنيف) — place excerpts at correct leaves; manage evolution.
 7. **Synthesizing engine** (محرك التوليف) — generate encyclopedic entries from excerpts.
 
-## Session Protocol
-
-Read `STATUS.md` first. It shows project state, what exists, what's missing, and suggested next work. You decide what to work on. After each session: produce deliverables, decisions, and an updated STATUS.md.
-
 ## Architectural Constraints
 
 - **Normalization boundary.** No source-format-specific logic below the boundary. (§7.6)
@@ -47,7 +44,3 @@ Read `STATUS.md` first. It shows project state, what exists, what's missing, and
 ```
 python -m pytest engines/*/tests/ shared/*/tests/ -q
 ```
-
-## Current Priorities
-
-Read `STATUS.md`. The preparatory phase goal: complete SPECs, perfect VISION.md, verify schemas, populate `.claude/` — so Claude Code can build from clear specifications.
