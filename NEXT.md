@@ -20,6 +20,7 @@ The order matters. Think about what the engine SHOULD be before seeing what it c
 **Phase 1 — Understand the vision and the user (read these FIRST):**
 1. `reference/DOMAIN.md` — the core identity ("KR IS Rayane's knowledge") and scholarly domain grounding. This shapes every design decision. Pay special attention to "Design Implications" — these are concrete requirements for the source engine.
 2. `reference/USER_SCENARIOS.md` — 5 concrete scenarios showing what Rayane actually experiences. These are your acceptance tests. Every feature in your SPEC must serve at least one scenario. List which scenarios in §1.
+3. `reference/ENTRY_EXAMPLE.md` — what a finished KR entry looks like. This is the END PRODUCT the entire pipeline serves. Notice what makes it transformative vs. flat — especially how metadata (author dates, teacher-student chains, school affiliations) enables the scholarly narrative. Your source engine's metadata model must eventually support entries at this quality level.
 
 **Phase 2 — Understand the architecture:**
 3. `VISION.md` §7.1–§7.4 and §2 → run `python3 scripts/extract_vision_sections.py 7 2`

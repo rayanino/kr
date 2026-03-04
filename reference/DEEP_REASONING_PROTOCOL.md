@@ -75,6 +75,11 @@ Validation performed on input. What triggers rejection vs. warning.
 ## 3. Output Contract
 Reference to output schema. What the engine produces for downstream.
 Guarantees about output (completeness, ordering, uniqueness).
+**Metadata pass-through (D-023):** Explicitly list what metadata from upstream
+this engine preserves in its output, and what NEW metadata this engine adds.
+The synthesizer is the ultimate consumer — no metadata should be lost between
+source engine and synthesizer. If this engine doesn't need a metadata field,
+pass it through anyway.
 
 ## 4. Processing Specification
 The behavioral rules governing input→output transformation.
@@ -253,3 +258,28 @@ The citation relationship (citing_excerpt_id → discovered_source_id) is record
 Notice: the capability is novel (no Islamic studies tool auto-discovers sources from citation networks), but it is specified with the same precision as any §4.A rule — inputs, outputs, thresholds, edge cases, dependencies. This is what Criterion #20 (Transformative Ambition) requires.
 
 **Do not copy this example into a SPEC.** It exists to calibrate the level of detail and ambition expected. Every §4.B capability in an actual SPEC must be architect-originated for that specific engine. If you find yourself reproducing this example, stop — think about what THIS engine specifically enables that was previously impossible.
+
+## Per-Engine Transformation Directions
+
+These are NOT solutions — they are thinking directions. The architect must design original capabilities for each engine.
+
+- **Source engine:** What can you know about a source BEFORE reading it? What relationships between sources can you discover automatically? What makes one edition better than another, and can that be detected?
+- **Normalization engine:** What structural intelligence can you extract from format-specific markup that would be lost after normalization? What can you infer about text quality during normalization?
+- **Passaging engine:** What makes a "good" passage boundary? Can passage quality predict downstream extraction quality?
+- **Atomization engine:** What atom-level patterns reveal scholarly conventions (isnad chains, evidence citations, opinion markers)? What can atom type distributions tell you about a source?
+- **Excerpting engine:** What makes an excerpt self-contained? Can you detect when an author is responding to another scholar's argument without naming them? Can you infer cross-references that aren't explicit?
+- **Taxonomy engine:** Can the tree structure itself encode knowledge (prerequisite chains, topic significance, coverage gaps)? Can you detect when the tree needs to evolve BEFORE a misplacement occurs?
+- **Synthesizing engine:** Read `reference/ENTRY_EXAMPLE.md`. The entry there uses metadata (author dates, teacher-student chains, school affiliations) to produce a scholarly NARRATIVE, not a flat compilation. What other metadata could transform synthesis? Can the synthesizer detect contradictions between sources? Can it identify when a scholarly consensus shifted and why?
+
+## The Conservative Architect Anti-Pattern
+
+The biggest risk is NOT a bad design — it's a safe, conventional one. A pipeline that extracts text, tags it, and compiles summaries is useful but not transformative. The owner's frustration (D-021) is with EXACTLY this kind of flat, disconnected, poorly-explained content.
+
+Signs you've fallen into this pattern:
+- §4.B capabilities are vague ("could potentially detect X") instead of specified
+- The synthesizer is described as "compiling excerpts into entries" rather than "producing scholarly narratives"
+- Metadata is treated as documentation rather than synthesis fuel (D-023)
+- No engine adds intelligence that wasn't in its input
+- The entry your design would produce looks like the FLAT example in `reference/ENTRY_EXAMPLE.md`, not the target example
+
+If you recognize these signs: stop, reread DOMAIN.md's "What Doesn't Exist Yet" section and the entry example, and ask yourself what capabilities would produce the target entry from raw source material.

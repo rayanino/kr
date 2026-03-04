@@ -145,7 +145,11 @@ For manuscripts (future capability):
 
 ### Metadata the Application Must Track Per Source
 
-These categories map to the book briefing (D-022). Some are captured at source intake, some enriched later by downstream engines or the owner.
+These categories map to the book briefing (D-022) AND serve as synthesis fuel (D-023). The synthesizing engine consumes metadata alongside excerpt content to produce entries with scholarly depth no single source contains. Every engine that touches metadata must preserve and enrich it with the synthesizer as the primary downstream consumer.
+
+**The key insight:** an entry about a topic is not just "what the excerpts say." It's "what the excerpts say, contextualized by who said it, when, in what scholarly tradition, in response to what debate, building on whose earlier work, and how the position evolved." This contextualization comes from METADATA, not excerpt text. Without rich metadata, the synthesizer produces flat compilations. With it, the synthesizer produces scholarly narratives with temporal depth, intellectual genealogy, and historiographical awareness.
+
+Some are captured at source intake, some enriched later by downstream engines or the owner.
 
 **Minimum viable metadata (every source — captured at intake):**
 - Title (Arabic + transliterated)
@@ -209,9 +213,40 @@ Islamic sciences are deeply interconnected. The application must understand thes
 
 When the taxonomy engine places excerpts, these inter-science links matter. An excerpt about a grammatical point in Sibawayhi's al-Kitab may be relevant to a fiqh ruling that hinges on Arabic syntax.
 
+### Core Scholarly Methodology Concepts
+
+These concepts are essential for designing the taxonomy and synthesizing engines:
+
+**المسألة (mas'ala — the scholarly question/issue).** This is the fundamental unit of scholarly discourse. A مسألة is a specific question on which scholars have taken positions: "Is بسملة a verse of الفاتحة?" or "Does touching a woman break wudu?" Each taxonomy leaf often corresponds to one مسألة or a cluster of tightly related ones. Understanding what constitutes a مسألة — how scholars formulate, scope, and distinguish one question from another — is essential for designing taxonomy structure.
+
+**الخلاف (khilaf — scholarly disagreement).** Not all disagreements are the same. Islamic scholarly tradition distinguishes:
+- **خلاف لفظي** (verbal disagreement) — scholars use different words but mean the same thing. Not a real disagreement.
+- **خلاف حقيقي** (substantive disagreement) — scholars genuinely hold different positions on the same question.
+- **خلاف معتبر** (respected disagreement) — a real disagreement where each side has valid evidence.
+- **خلاف شاذ** (aberrant disagreement) — a position held by a scholar but rejected by the overwhelming majority.
+
+The synthesizing engine must distinguish these types. Treating a verbal disagreement as substantive inflates the appearance of scholarly discord. Treating an aberrant position as equal to the consensus distorts the scholarly landscape.
+
+**تحرير المسألة (tahrir al-mas'ala — precisely formulating the issue).** Before listing positions, scholars first precisely define WHAT the disagreement is about. Two scholars who appear to disagree may actually be answering different questions. The synthesizing engine must do this: before presenting positions, precisely formulate what question each scholar is answering. If their questions differ, they don't disagree — they're addressing different مسائل.
+
+**الترجيح (tarjih — scholarly preference/weighing).** When multiple positions exist, scholars evaluate which is strongest based on evidence quality, methodological soundness, and other criteria. The synthesizing engine must eventually support this: presenting which position is strongest and why, according to which methodology. The owner's own tarjih (scholarly conclusions) are also valid entries in the library (D-018: the owner's voice belongs in the library).
+
 ---
 
 ## The Scholarly Landscape
+
+### Scale of the Islamic Scholarly Corpus
+
+The architect must understand the MAGNITUDE of what KR aims to process:
+
+- **Number of extant works:** Estimated 500,000+ unique titles across all Islamic sciences. Many are multi-volume (المغني is 15 volumes, المبسوط is 30 volumes).
+- **Digitally available:** ~40,000-50,000 works (Shamela alone has ~17,000). Growing rapidly.
+- **Sciences:** 30+ recognized disciplines (see VISION §1.2), deeply interconnected.
+- **Scholars:** Tens of thousands across 14 centuries. Major figures have 50+ works each.
+- **Schools:** 4 Sunni madhahib in fiqh, 3+ major aqidah schools, 2 major grammar schools (Basra/Kufa), plus non-school-aligned scholars.
+- **Time span:** From the 1st century AH (~7th century CE) to the present. 1400 years of continuous scholarly production.
+
+This means: the source identity model must handle hundreds of thousands of entries. The taxonomy trees will have thousands of leaves per science. The scholar authority model will have tens of thousands of scholars. Design for scale from the start — what works for 10 books must work for 10,000.
 
 ### Major Digital Repositories
 
@@ -286,6 +321,7 @@ When the architect designs any engine, these domain facts create concrete requir
 - Track coverage per school per topic per science
 - Enable a **visual map of an entire science**: every topic, how topics correlate, which are foundational vs. derived, what depends on what. The tree IS this map — its structure must make the science's internal logic visible.
 - Track **prerequisite relationships** between topics: "understanding X requires first understanding Y." These are edges in the tree that aren't parent→child but rather dependency→dependent.
+- Encode **narrative ordering** within each level of the tree: topics have a "storyline" — a logical sequence for study. This is not just alphabetical or arbitrary ordering. It's the pedagogical sequence: "after understanding المبتدأ, you study الخبر, then نواسخ المبتدأ والخبر." This ordering must be explicit in the tree structure so the synthesizer and scholar interface can present topics as a connected narrative, not isolated entries.
 - Surface the **scholarly landscape per leaf**: which schools have positions here, how many sources cover this topic, what's the significance of this topic within the science
 
 **Synthesizing engine must:**
@@ -293,8 +329,12 @@ When the architect designs any engine, these domain facts create concrete requir
 - Track temporal dimension (when was this position held, by whom, did it change?)
 - Detect intra-author contradictions
 - **Explain from the ground up.** Every entry must build the concept step by step — not dumbed down, but maximally clear. No big logical jumps. Explicit prerequisites stated. Edge cases and common misunderstandings addressed. The standard is: a reader who meets the prerequisites should be able to fully understand the topic from the entry alone.
+- **"Explain like I'm 5" means maximum CLARITY, not simplification.** Don't remove complexity — make complexity navigable. A difficult concept should be explained so clearly that a reader says "now I understand why it's complex." Break compound ideas into atomic steps. Name each step. Show how each step connects to the next. This is what the best teachers do.
 - **Situate every topic.** Each entry must explain WHERE this topic sits: what it connects to, why it matters, what comes before and after it in the science's logical structure. The "storyline" — the narrative thread connecting topics — must be visible.
 - **Map the theory completely.** For each topic: the core rule/definition, the evidence, the different scholarly positions, the reasoning behind each position, the edge cases, and the practical implications. Nothing left implicit.
+- **Use three input sources (D-023):** (1) excerpt content from placed excerpts — the primary textual evidence, (2) metadata chain from all upstream engines — author bios, dates, school affiliations, work genres, teacher-student chains, (3) LLM research capability — the synthesizer actively adds context, connections, and scholarly analysis that goes beyond what any individual source explicitly says (historical context, institutional dynamics, cross-source patterns). The metadata and LLM research are what transform a flat compilation into a scholarly narrative with temporal depth and intellectual genealogy. See `reference/ENTRY_EXAMPLE.md` for the difference.
+- **Distinguish خلاف types** (see "Core Scholarly Methodology Concepts" above): verbal vs. substantive, respected vs. aberrant. Don't treat all disagreements equally.
+- **تحرير المسألة first**: before presenting positions, precisely formulate what question each scholar is answering. If their questions differ, they don't disagree — they're addressing different مسائل.
 
 **Scholar interface must:**
 - Ground every answer in specific excerpts from specific sources — never generate unverified claims
