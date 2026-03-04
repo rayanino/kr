@@ -407,6 +407,17 @@ When the architect designs any engine, these domain facts create concrete requir
 - Not destroy metadata during format conversion
 - Handle two image-based source types: (1) iPhone camera photos of physical book pages (high quality, but variable lighting/angle), (2) professionally scanned PDFs (printer/flatbed scanned — many "digital" books online are this format). Arabic OCR pipeline needed for both.
 
+
+**Passaging engine must:**
+- Produce passage boundaries that respect the logical structure of Islamic scholarly texts: باب, فصل, مسألة, and paragraph-level divisions. A passage that splits a definition, a evidence chain, or a scholarly argument in half is defective — it forces the excerpting engine to either produce broken excerpts or violate the passage containment rule (§5.3).
+- Use normalization metadata (division tree, heading hierarchy) to make informed boundary decisions. A heading like "فصل في أحكام المبتدأ" (chapter on rulings of the subject) is a strong boundary signal.
+
+**Atomization engine must:**
+- Recognize Islamic scholarly text patterns at the atom level: isnad chains (حدثنا فلان عن فلان), evidence markers (لقوله تعالى، لقول النبي ﷺ), opinion markers (وذهب الحنفية إلى), refutation patterns (ورُدّ بأن), example markers (نحو), and definitional statements (هو/هي + definition).
+- Distinguish primary text from embedded quotations. In a sharh (commentary), "قال المصنف" introduces the matn author's words, not the commentator's. Atom type must reflect whose words these are.
+- Feed the excerpting engine with enough type information to build contextually correct excerpts — the atom type IS metadata that flows to synthesis (D-023).
+
+
 **Excerpting engine must:**
 - Tag excerpts with evidence type (see "Evidence types" in Scholarly Methodology above: Quran, hadith, ijma, qiyas, companion statement, rational argument, istishab). An excerpt may contain multiple evidence types. This tagging feeds the synthesizer's ability to say "the Hanafi position rests on Quranic evidence and analogy, while the Shafi'i position relies on hadith."
 - Detect and preserve isnad chains within excerpts — the إسناد is scholarly apparatus that proves the hadith's authenticity, not just text. It must be tagged as such so the synthesizer can distinguish "the narration" from "the chain that authenticates it."

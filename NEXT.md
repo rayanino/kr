@@ -77,6 +77,7 @@ These are gaps the SPEC fills, not contradictions the SPEC corrects.
 - Source registry: how does `library/sources/registry.yaml` work?
 - What metadata model does KR need? (The current schema has Shamela-specific fields from ABD — design from first principles for ALL source types, not from the existing schema.)
 - Manual acquisition workflow: owner provides scans/photos of physical books (no digital version exists), or files manually downloaded from login-gated sites. How does the source engine ingest these? What metadata can be auto-extracted vs. what must the owner provide?
+- Scholar authority interface: the source engine creates/updates scholar records in the scholar authority model. Define: what data does the source engine write? What happens when a record already exists (merge? skip? overwrite?). How does the source engine handle ambiguous authors (e.g., "ابن حجر" = two different scholars)?
 - What transformative capabilities does this engine provide? (§4.B — your ideas)
 - What does the source engine produce that the scholar interface (interface/scholar/) will need? Design with that consumer in mind.
 
