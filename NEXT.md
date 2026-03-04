@@ -11,6 +11,8 @@ Start the source engine SPEC (Phase 2, Round 1 per the roadmap). Resource survey
 
 No SPECs have been written yet. Phase 1 (structural cleanup) is complete. The source engine is the pipeline entry point — no upstream dependencies. The roadmap (always in your context as a project file) has detailed guidance for Round 1 under "Round 1: Source Engine", including key questions and schema impact notes.
 
+Read the `<design_philosophy>` block in your instructions carefully. The source engine is the first opportunity to design something transformative. Don't just document how Shamela files get ingested — design an engine that autonomously discovers and acquires Islamic scholarly sources across the entire web, tracks new publications, follows citation networks, and monitors manuscript repositories. The owner's explicit mandate: no limiting factors other than the extent you can think and reason to.
+
 ## Files to Read
 
 1. `VISION.md` §7.1–§7.4 and §2 → run `python3 scripts/extract_vision_sections.py 7 2`
