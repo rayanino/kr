@@ -5,7 +5,9 @@ A personal intelligent Islamic scholarly library. See `VISION.md` for the full s
 ## Repository Map
 
 - `VISION.md` — authoritative design specification. Read before any other document.
+- `STATUS.md` — current project state. **Read this first in every session.**
 - `CLAUDE.md` — this file.
+- `reference/` — coordination files: decisions log, reasoning protocol, workplan, session log.
 - `schemas/` — inter-engine data contracts (one per engine-to-engine boundary).
 - `engines/` — the seven processing engines. Each has `CLAUDE.md`, `SPEC.md`, `src/`, `tests/`.
 - `shared/` — cross-engine infrastructure (consensus, validation, feedback).
@@ -28,7 +30,20 @@ Phase 2 — Knowledge Understanding (source-agnostic):
 6. **Taxonomy engine** (محرك التصنيف) — place excerpts at correct leaves; manage evolution.
 7. **Synthesizing engine** (محرك التوليف) — generate encyclopedic entries from excerpts.
 
-## Pre-Work Protocol
+## Session Protocol
+
+**Before any work, read `STATUS.md` in the repo root.** It tells you: what phase the project is in, what the current work item is, what files to read, what decisions are already made.
+
+**Coordination files in `reference/`:**
+- `reference/kr_decisions.md` — all architectural decisions, numbered and permanent.
+- `reference/DEEP_REASONING_PROTOCOL.md` — the Perfection Standard (23 criteria) and reasoning methodology for all documentation work.
+- `reference/PREPARATORY_WORKPLAN.md` — master workplan for the preparatory phase.
+- `reference/SESSION_LOG.md` — running log of sessions.
+- `reference/HOW_TO_START.md` — activation guide for the owner.
+
+**After every session:** update `STATUS.md` with what was done and what's next.
+
+## Pre-Work Protocol (Engine Work)
 
 1. Enter the engine directory (its `CLAUDE.md` loads automatically).
 2. Read the engine's `SPEC.md`.
