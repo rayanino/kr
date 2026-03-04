@@ -2,41 +2,38 @@
 
 ## One-Time Setup (5 minutes)
 
-In your Claude Chat KR project settings:
+In Claude Chat, create a project called "KR" and configure:
 
-1. **Custom Instructions:** Copy everything below the `---` line from `reference/PROJECT_INSTRUCTIONS.md` into the project's custom instructions field.
+**1. Custom Instructions:**
+Copy everything below the `---` line from `reference/PROJECT_INSTRUCTIONS.md`, then make one edit:
 
-2. **Project Knowledge Files:** Add exactly three files:
-   - `STATUS.md`
-   - `reference/DEEP_REASONING_PROTOCOL.md`
-   - `reference/kr_decisions.md`
+Replace `$KR_REPO_URL` with the actual authenticated URL:
+```
+https://rayanino:YOUR_TOKEN_HERE@github.com/rayanino/kr.git
+```
+(The token is in the project file `Github_key`.)
 
-## Every Session (2 minutes + answering questions)
+**2. Project Knowledge Files:** Add one file:
+- `reference/DEEP_REASONING_PROTOCOL.md`
 
-**Start a new conversation** (never continue old ones). Send:
+That's it. Claude clones the repo and reads everything else directly.
+
+## Every Session
+
+Open a new conversation in the KR project. Send:
 
 ```
 Continue the project.
 ```
 
-Attach the files listed in STATUS.md under "Files to Attach." If it says to run the VISION extraction script first:
-
-```
-cd /path/to/kr
-python3 scripts/extract_vision_sections.py [sections] > /tmp/vision_excerpt.md
-```
-
-Then attach `/tmp/vision_excerpt.md` instead of the full VISION.md.
-
-## After Each Session (5 minutes)
-
-1. Save Claude's deliverables to the repo at the paths it specifies
-2. Replace `STATUS.md` with Claude's updated version
-3. Append new decisions to `reference/kr_decisions.md`
-4. Add the session log entry to `reference/SESSION_LOG.md`
-5. `git add -A && git commit -m "descriptive message"`
-6. Update the 3 project knowledge files in Claude Chat settings (new STATUS.md and kr_decisions.md; protocol only changes rarely)
+Claude will clone the repo, read the current state, decide what to work on, do the work, commit, and push. You may be asked domain questions about Islamic scholarship — answer from your experience.
 
 ## If You Disagree With a Decision
 
-Add your concern to STATUS.md under a new "Owner Feedback" section. The next session will read it and either explain the reasoning or revise.
+Open a new conversation and say:
+
+```
+I have feedback on your last session: [describe your concern].
+```
+
+Claude will pull the repo, find the relevant decision, and address your concern.

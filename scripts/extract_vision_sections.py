@@ -55,7 +55,7 @@ def extract(text, nums):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python tools/extract_vision_sections.py 2 7 > vision_excerpt.md")
+        print("Usage: python scripts/extract_vision_sections.py 2 7 > vision_excerpt.md")
         sys.exit(1)
 
     try:

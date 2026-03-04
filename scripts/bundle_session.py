@@ -35,6 +35,8 @@ def vision_extract(sections):
 
 # Define what each engine session needs
 # Format: { 'engine_name': { 'files': [...], 'vision_sections': [...], 'notes': '...' } }
+# IMPORTANT: Every bundle MUST include '2' (full glossary) for self-review glossary compliance.
+# Additional VISION sections are engine-specific.
 ENGINE_BUNDLES = {
     'source': {
         'files': [
@@ -94,7 +96,7 @@ ENGINE_BUNDLES = {
             'schemas/passage.json',
             'schemas/normalized_package.json',
         ],
-        'vision_sections': ['2.2'],
+        'vision_sections': ['2.2', '2'],
         'notes': 'Light engine. Scope depends on normalization/passaging boundary decision. Also attach normalization SPEC.',
     },
     'atomization': {
@@ -106,7 +108,7 @@ ENGINE_BUNDLES = {
             'schemas/atoms.json',
             'schemas/passage.json',
         ],
-        'vision_sections': ['2.4', '2.2'],
+        'vision_sections': ['2'],
         'notes': 'No dedicated code — logic is in excerpting/extract_passages.py. Key decision: atomization/excerpting boundary. Also attach passaging SPEC.',
     },
     'excerpting': {
@@ -160,7 +162,7 @@ ENGINE_BUNDLES = {
             'schemas/placed_excerpt.json',
             'schemas/excerpt.json',
         ],
-        'vision_sections': ['4', '2.3'],
+        'vision_sections': ['4', '2'],
         'notes': 'Also attach excerpting SPEC. Key topics: placement, evolution, human gates.',
     },
     'synthesis': {
@@ -168,7 +170,7 @@ ENGINE_BUNDLES = {
             'engines/synthesis/CLAUDE.md',
             'schemas/placed_excerpt.json',
         ],
-        'vision_sections': ['6', '2.4'],
+        'vision_sections': ['6', '2'],
         'notes': 'No code exists. SPEC is pure design. Also attach taxonomy SPEC. Needs إملاء SCIENCE.md if it exists.',
     },
     'shared': {
@@ -181,14 +183,14 @@ ENGINE_BUNDLES = {
             'shared/validation/SPEC.md',
             'shared/feedback/SPEC.md',
         ],
-        'vision_sections': ['8', '9', '2.2'],
+        'vision_sections': ['8', '9', '2'],
         'notes': '4 shared components in one session. consensus and human_gate have real code; feedback has none.',
     },
     'crosscutting': {
         'files': [
             'schemas/SCHEMA_ANALYSIS.md',
         ],
-        'vision_sections': ['8', '9', '10', '11', '12'],
+        'vision_sections': ['8', '9', '10', '11', '12', '2'],
         'notes': 'VISION sections not owned by any single engine. Do after all engine SPECs. Also: verify §0-§5, §13 with engine expertise.',
     },
 }

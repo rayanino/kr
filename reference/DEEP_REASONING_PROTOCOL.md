@@ -55,21 +55,53 @@ A document passes when ALL applicable criteria are met. Use this as a checklist 
 
 ## SPEC Template
 
-Every engine and shared component SPEC follows this structure:
+Every engine and shared component SPEC follows this structure. Each section has a specific purpose — do not mix content between sections.
 
 ```
 # {Engine Name} — {Arabic Name} — Specification
 
 ## 1. Purpose and Scope
+What this engine does. What is NOT this engine's responsibility.
+Phase classification. Normalization boundary relationship.
+
 ## 2. Input Contract
+Reference to input schema. What the engine expects from upstream.
+Validation performed on input. What triggers rejection vs. warning.
+
 ## 3. Output Contract
+Reference to output schema. What the engine produces for downstream.
+Guarantees about output (completeness, ordering, uniqueness).
+
 ## 4. Processing Specification
+The behavioral rules governing input→output transformation.
+This is the core section — every processing decision lives here.
+Edge cases with explicit resolution rules.
+
 ## 5. Validation and Quality
+Self-validation the engine performs on its own output (§8 Layer 1).
+Automated checks available (§8 Layer 2).
+Human gate integration (§9), if applicable.
+
 ## 6. Consensus Integration
+Which decisions in this engine use multi-model consensus.
+Consensus configuration (number of models, agreement threshold).
+
 ## 7. Error Handling
+Malformed input. Partial failures. Consensus disagreement.
+Every error: error code, severity, recovery action.
+
 ## 8. Configuration
+Parameters controlling engine behavior.
+Per-science configuration hooks (Level 3 / SCIENCE.md).
+
 ## 9. Current Implementation State
+Existing files with line counts. What works today.
+Known gaps between current code and this spec.
+Everything unbuilt marked [NOT YET IMPLEMENTED].
+
 ## 10. Test Requirements
+Test coverage requirements. Gold baseline usage.
+Regression testing strategy.
 ```
 
 ---

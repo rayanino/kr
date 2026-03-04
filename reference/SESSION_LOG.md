@@ -13,9 +13,9 @@
 **Next:** Source engine SPEC (suggested)
 
 ### Session 2026-03-04-c — Claude Chat
-**Focus:** Coordination system redesign — from task-execution to autonomous architect model
-**Decisions:** None (meta-process change, not application architecture)
-**Deliverables:** Rewrote STATUS.md (full project state + autonomous role), protocol (architectural ownership), HOW_TO_START.md (simplified), CLAUDE.md (autonomous framing)
+**Focus:** Coordination system redesign — autonomous architect + repo-direct access + Anthropic best practices
+**Decisions:** None (meta-process changes)
+**Deliverables:** Rebuilt all coordination files: PROJECT_INSTRUCTIONS.md (with git clone startup), STATUS.md (data-first layout), DEEP_REASONING_PROTOCOL.md (pruned 56%, added 3 examples), HOW_TO_START.md (32 lines — owner just says "Continue the project"). Fixed tools/ → scripts/ path inconsistency. Removed empty tools/ dir.
 **Next:** Architect decides based on project state
 
 ### Session 2026-03-04-d — Claude Chat
