@@ -89,7 +89,9 @@ These are gaps the SPEC fills, not contradictions the SPEC corrects.
 
 ## Pending Owner Questions
 
-None currently. The SPEC process will likely surface domain questions about Islamic scholarly source types and the owner's acquisition preferences.
+- **Entry language:** Should entries be in Arabic, English, or bilingual? Arabic preserves scholarly precision (technical terms have exact meanings in Arabic that English translations approximate). English may be clearer for explanatory content. The SPEC needs to know: what language does the owner want to READ entries in? This affects the synthesizing engine's output format and the scholar interface's presentation.
+
+The SPEC process will likely surface additional domain questions about Islamic scholarly source types and the owner's acquisition preferences.
 
 ## New Decisions Since Last SPEC Session
 

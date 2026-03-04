@@ -193,12 +193,19 @@ Some are captured at source intake, some enriched later by downstream engines or
 - Work reputation: mu'tamad status in its school/science, citation frequency, scholarly consensus on its value
 - Work level: beginner / intermediate / advanced / specialist (may be subjective — owner can override)
 - Work scope: what topics it covers, what it explicitly does NOT cover, theory vs. practice proportion
+- **Source authority level:** primary source (مصدر أصلي — original scholarly content), reference work (مرجع — compiles/organizes others' work), or modern compilation (معاصر — explains classical content for modern readers). The synthesizer weights these differently — primary sources are cited directly, reference works confirm and contextualize, modern compilations fill gaps. See "Primary vs. Secondary Source Distinction" section.
+- **Multi-layer composition:** does this source contain text from multiple authors? (matn/sharh/hashiyah structure) If so, which layers are present and who is the author of each layer? See "The Multi-Layer Text Problem" section.
 
 **Edition-specific metadata (per source, not per work):**
 - Trustworthiness assessment: is this specific print/edition credible and uncorrupted?
 - Comparison to other editions: how does this edition differ content-wise from other known prints?
 - Preferred edition status: is this the owner's preferred edition for this work?
 - **Text fidelity signal:** How reliable is the actual text data? This is SEPARATE from scholarly trustworthiness — a perfectly trustworthy source may have low text fidelity if the OCR was poor. Structured digital text (Shamela exports, text-embedded PDFs) → high fidelity. Professional scans → medium fidelity (OCR errors especially with diacritics, ب/ت/ث/ن confusions, marginalia). iPhone photos → variable fidelity. This signal must flow downstream (D-023) because: the excerpting engine should flag low-fidelity excerpts for human review, the synthesizer should weight high-fidelity sources more heavily, and the scholar interface should warn when claims rest on low-fidelity text.
+
+**Pipeline-generated metadata (added by engines during processing, flows downstream via D-023):**
+- **LLM extraction confidence:** each engine that makes a content decision (atomization type, excerpt topic, school attribution, taxonomy placement) must output a confidence score alongside the decision. This is NOT text fidelity (input quality) — it's the engine's certainty about its OWN output. Low-confidence decisions get flagged for human review; the synthesizer notes uncertainty rather than stating low-confidence claims as fact.
+- **Takhrij data (التخريج):** when the excerpting engine encounters hadith source tracing in tahqiq footnotes (which collection, book/chapter/number, grading), it captures this as structured metadata. The synthesizer uses it to produce evidence-aware entries.
+- **Layer attribution:** which layer (matn/sharh/hashiyah/editor) each excerpt originates from. Determines which author the excerpt is attributed to.
 
 **Library tracking metadata (computed/updated throughout pipeline):**
 - Ingestion status (acquired, normalized, passaged, excerpted, placed)
@@ -223,6 +230,97 @@ In classical Arabic scholarly texts, references take many forms:
 - Genre-based: "في المختصر" (in the Mukhtasar) — assumes the reader knows which abridgment is meant in that scholarly tradition
 
 The application must handle ALL of these. Resolving implicit references is a transformative capability — no existing tool does this well.
+
+### Arabic as a Processing Language
+
+The architect must understand WHY Arabic text processing is harder than English. These aren't edge cases — they affect EVERY passage in EVERY source.
+
+**Unvocalized text (الكتابة بدون تشكيل).** Most Arabic text is written without diacritical marks (tashkil/harakat). The word "علم" without diacritics could be: عِلْم (knowledge), عَلِمَ (he knew), عَلَّمَ (he taught), عُلِمَ (it was known), or عَلَم (flag). Context disambiguates — but an LLM processing a passage must handle this ambiguity. Classical scholarly texts sometimes ADD diacritics on ambiguous words, and tahqiq editors add them more systematically. The normalization engine must PRESERVE diacritics when present — they carry semantic weight. Stripping them is information destruction.
+
+**Morphological density.** Arabic words encode more information than English words. A single Arabic word can be an entire sentence: "أفلم يستخرجوها" = "did they then not extract it?" (question particle + conjunction + negation + verb + subject pronoun + object pronoun). This morphological richness means that "word count" is a poor measure of content density. A 200-word Arabic passage may contain as much information as a 500-word English one. The passaging engine must calibrate passage size by semantic density, not word count.
+
+**Ellipsis (الحذف والإضمار).** Arabic commonly omits words that are "understood from context." Classical texts are especially terse — scholars wrote for an audience that could fill in the gaps. Example: "باب الفاعل" could mean "chapter on [the definition and rules of] the [grammatical] subject" — four implicit words. This is critical for self-containment: an excerpt that is "self-contained" to a scholar who knows the conventions may NOT be self-contained to a beginner. The excerpting engine's self-containment test must consider the target audience (the owner's current level, from the user model). The synthesizing engine must EXPAND elliptical passages when generating entries for lower-level understanding.
+
+**Technical terms (المصطلحات) vary across schools and periods.** The SAME concept often has DIFFERENT names in different schools, periods, or regions. Example: what Basran grammarians call "المفعول له" (adverbial of cause), some Kufan grammarians call "المفعول من أجله." What early hadith scholars call "الخبر" (report), later scholars distinguish into hadith (from the Prophet ﷺ) and athar (from Companions). The taxonomy engine must handle synonym mapping — different names for the same leaf. The synthesizer must note when scholars use different terminology for the same concept, so the entry doesn't present a verbal disagreement as a substantive one.
+
+**Implicit scholarly context.** Arabic scholarly texts assume the reader knows the tradition. "قال الإمام" (the Imam said) means different scholars in different contexts: in Shafi'i fiqh, "الإمام" = al-Shafi'i. In Hanbali fiqh, "الإمام" = Ahmad ibn Hanbal. In nahw, it could mean Sibawayhi. The excerpting engine cannot resolve these references without knowing the source's school and science context — which comes from source metadata. The scholar authority model helps: given the source's school context, "الإمام" maps to a specific canonical scholar.
+
+### Special Source Types: Quran and Hadith Collections
+
+The Quran and the major hadith collections are NOT regular books. They have special properties that affect how every engine handles them.
+
+**The Quran:**
+- **Fixed canonical text.** There is NO textual variation in the Quran (unlike scholarly works with manuscript differences). A standard digital text exists (the Uthmani script, mushaf al-madinah). The source engine does NOT need OCR for Quran text — it should use a canonical digital source.
+- **Cited everywhere.** Quran verses appear as evidence in EVERY science. When the excerpting engine encounters "قال تعالى: {وَأَقِيمُوا الصَّلَاةَ}" in a fiqh text, it must recognize this as a Quran citation and tag it with the surah/ayah reference (2:43). This enables the synthesizer to cross-reference all excerpts that cite the same verse.
+- **Variant recitations (القراءات).** The Quran has 10+ accepted recitation variants that occasionally differ in ways that affect meaning (e.g., whether a word is read as active or passive voice). These variants are ALL considered valid — they're not "errors." When a fiqh ruling depends on a specific recitation variant, the synthesizer must note this.
+- **Tafsir sources cite it verse by verse.** Tafsir (Quran exegesis) books are organized by verse. The passaging engine must handle this: each verse's commentary is a natural passage unit.
+
+**Major hadith collections (الكتب الستة and others):**
+- **Standard numbering.** Each hadith in the major collections (Bukhari, Muslim, Abu Dawud, Tirmidhi, Nasa'i, Ibn Majah) has a standard number. "Bukhari #6018" is a precise reference that any scholar can locate. The source metadata must capture this numbering.
+- **Cross-collection identity.** The SAME hadith (same text, same meaning) appears in multiple collections with different chains. "Agreed upon" (متفق عليه) means it's in both Bukhari and Muslim. The excerpting engine will generate separate excerpts from each collection — but the synthesizer must recognize they're the SAME hadith and not present them as independent evidence. This is a form of excerpt deduplication specific to hadith.
+- **Hadith = chain + text.** Every hadith has two parts: the isnad (chain of narrators) and the matn (actual text). When processing hadith collections, the atomization engine must separate these — they're fundamentally different types of content.
+
+### Book Structures Beyond Prose
+
+Islamic scholarly books come in several structural formats that each require different processing:
+
+**Prose treatise (الرسالة / المتن المنثور).** Standard continuous text. Most common. Standard processing pipeline works.
+
+**Versified text (المنظومات).** Covered in "Versified Texts" section above. Requires verse-aware processing.
+
+**Q&A format (المسائل / الفتاوى).** Some books are structured as questions and answers: "سُئل عن رجل..." (he was asked about a man who...) followed by the answer. Each Q&A pair is a natural self-contained unit. The passaging engine must recognize this structure. The atomization engine should type the question and answer as distinct atoms. Fatwa collections (مجموع الفتاوى) are organized this way.
+
+**Tabular/list format (الاختلاف books).** Some works catalog disagreements in a structured format: "المسألة: ... القول الأول: ... القول الثاني: ... الراجح: ..." (The issue: ... First position: ... Second position: ... Preferred: ...). These map almost directly to taxonomy entries. The excerpting engine should recognize this as pre-structured scholarly content.
+
+**Dictionary format (المعاجم).** Lexicographic works (لسان العرب, القاموس المحيط) are organized alphabetically by root. Each entry is a self-contained unit about one word/root. The passaging engine should recognize dictionary structure and make each entry a passage.
+
+**Commentary format (الشرح).** Covered in "Multi-Layer Text Problem" above. Requires layer-aware processing throughout.
+
+The source engine must classify each source's structural format so downstream engines can apply format-appropriate processing strategies.
+
+### Cross-Science Topic Overlap
+
+A single concept can appear in MULTIPLE sciences with DIFFERENT meanings and treatments:
+
+**Example: الاستثناء (exception/exclusion):**
+- In **Nahw** (grammar): a grammatical construction with specific rules about إعراب (case marking)
+- In **Usul al-fiqh** (legal theory): a legal principle for narrowing general statements — "all foods are halal EXCEPT..."  
+- In **Fiqh** (applied law): specific rulings about exceptions in contracts, oaths, divorce formulas
+
+These are NOT the same topic. The grammatical rules of الاستثناء are different from the legal rules. But they're RELATED — the grammatical analysis affects how legal exceptions are interpreted (this is exactly what Scenario 3 in USER_SCENARIOS.md describes).
+
+**Architectural consequence:** Each science has its own taxonomy tree. الاستثناء appears as a leaf in the Nahw tree AND as a leaf in the Usul tree AND potentially in the Fiqh tree. These are SEPARATE leaves with SEPARATE excerpts. The taxonomy engine must support **cross-science links** — not merging the leaves, but recording that "nahw/الاستثناء is conceptually related to usul/الاستثناء." The synthesizer can then produce cross-science entries when requested (Scenario 3), drawing from excerpts at both leaves.
+
+The scholar interface must understand these connections. When the owner studies الاستثناء in Nahw, KR should note: "This grammatical concept also has implications in Usul al-fiqh — would you like to see the connection?"
+
+### What Happens When the Library Grows
+
+The architect must design for a library that CHANGES over time. Adding, correcting, and removing content triggers cascading effects:
+
+**Adding a new source triggers:**
+1. Source engine creates source metadata + freezes file → new record in source registry
+2. Normalization → passaging → atomization → excerpting produces NEW excerpts
+3. Taxonomy engine places new excerpts at leaves → may trigger tree evolution proposals if no suitable leaf exists
+4. At every leaf that received a new excerpt, the existing entry is now STALE (it doesn't incorporate the new evidence)
+5. Synthesizing engine must regenerate entries at affected leaves
+6. If the new source adds a new SCHOOL'S perspective at a leaf, entirely new per-school entries may be created
+
+**A single 12-volume fiqh encyclopedia could add thousands of excerpts across hundreds of leaves, triggering hundreds of entry regenerations.** The architecture must handle this gracefully: batch processing, priority ordering (regenerate the owner's current study topics first), and incremental updates (regenerate only what changed, not everything).
+
+**Correcting an excerpt triggers:**
+1. Excerpt metadata updated (e.g., school attribution fixed)
+2. Entry at the excerpt's leaf marked stale → regenerated
+3. If the correction changes the excerpt's leaf placement, TWO leaves are affected (old and new)
+4. If the correction reveals a pattern (Scenario 8), the pattern becomes a rule → ALL entries that might be affected by the pattern are marked stale
+
+**Removing a source triggers:**
+1. All excerpts from that source are removed
+2. Every leaf that had excerpts from that source needs entry regeneration
+3. Coverage metrics update (a leaf might drop below minimum coverage)
+
+**Knowledge product versioning:** Entries are regenerated. The owner may have studied the OLD version. The system should track entry versions so the scholar interface can say: "This entry was updated since you last studied it. The new version includes evidence from [new source]. Key changes: [diff summary]." This is not just nice-to-have — it's how the owner keeps their knowledge current as the library grows.
+
+**Excerpt deduplication.** Five sources may all quote the same hadith, or all paraphrase the same definition from the same original scholar. The excerpting engine will produce 5 separate excerpts. The taxonomy engine places them all at the same leaf. The synthesizer must recognize that these are REDUNDANT — it should present the content once (citing the strongest source) rather than 5 times. This requires semantic similarity detection across excerpts at the same leaf: "these 5 excerpts all say the same thing in different words."
 
 ### Science Relationships
 
@@ -293,6 +391,102 @@ When an excerpt cites a hadith, the excerpt metadata should ideally carry the ha
 
 Note: the evidence type hierarchy (Quran → Hadith → Ijma → Qiyas) and school-specific weighting differences are covered in "Evidence types" above. Different schools weigh these differently — Hanafis accept more types of قياس; Zahiris reject it entirely. The synthesizing engine must know which evidence each position relies on, because evidence TYPE affects how strong a position is within its own methodology.
 
+### The Multi-Layer Text Problem
+
+This is one of the most critical engineering challenges in Islamic text processing. Many works in the library are NOT single-author texts — they are multi-layer compositions where different authors' words appear on the same page:
+
+**In a hashiyah on a sharh of a matn, a SINGLE PAGE contains up to 4 layers of text:**
+- **Layer 1 — Matn text** (often bold, bracketed, or preceded by "قال المصنف"): the original author's terse core text, e.g., al-Ajurrumiyyah by Ibn Ajurrum (d. 723 AH)
+- **Layer 2 — Sharh text** (the main body): the commentator's explanation, e.g., al-Kafrawi's commentary (d. 1202 AH)
+- **Layer 3 — Hashiyah text** (marginal notes, sometimes typeset inline): notes on the commentary, e.g., al-Adawi's marginal notes
+- **Layer 4 — Tahqiq notes** (modern footnotes): the editor's scholarly apparatus, variant readings, hadith verification
+
+**Each layer has a different author, different time period, different authority level.** When the normalization engine encounters "قال المصنف: المبتدأ هو الاسم المرفوع" — those are Ibn Ajurrum's words (Layer 1), quoted by al-Kafrawi (Layer 2). If the atomization engine doesn't recognize the layer shift, the excerpting engine will attribute Ibn Ajurrum's definition to al-Kafrawi. This is a scholarly integrity violation.
+
+**The signals that mark layer transitions:**
+- "قال المصنف" (the [matn] author said) — Layer 2 → Layer 1 transition
+- "قال الشارح" (the commentator said) — Layer 3 → Layer 2 transition (in a hashiyah)
+- "قوله" (his saying) — usually Layer 2 or 3 quoting the layer above
+- Typographic conventions: bold, brackets, indentation, font size — format-specific but consistent within a source
+- Footnote markers — Layer 4 transitions
+
+**The normalization engine must identify these layers** using format-specific markup signals. The atomization engine must tag each atom with its layer. The excerpting engine must attribute correctly: an excerpt from Layer 1 text belongs to the matn author, even though it appears in the sharh source. The source metadata must record the full layer chain so the synthesizer knows: "this definition comes from al-Ajurrumiyyah (Layer 1), as quoted in al-Kafrawi's commentary (Layer 2), from the edition with al-Adawi's notes (Layer 3), tahqiq by so-and-so (Layer 4)."
+
+### Per-Science Behavioral Differences
+
+The architect must understand that different Islamic sciences have FUNDAMENTALLY different characteristics that affect how every engine processes them. This is why SCIENCE.md (Level 3) exists — it customizes engine behavior per science.
+
+**Sciences with active schools (مذاهب):**
+- **Fiqh** — 4 Sunni schools (Hanafi, Maliki, Shafi'i, Hanbali) + Zahiri + others. School identity is THE primary organizer. Entries are per-school. Every excerpt needs school attribution. The mu'tamad concept applies.
+- **Aqidah** — 3+ schools (Ash'ari, Maturidi, Athari/Hanbali). School attribution critical. Some topics have consensus across schools; others are deeply divided.
+- **Usul al-fiqh** — Schools exist but blur: Hanafis and Shafi'is have distinct usuli frameworks, but individual scholars may cross school lines.
+
+**Sciences with historical (not active) schools:**
+- **Nahw** — Basran and Kufan schools were real but extinct by the 5th century AH. Modern grammar follows a merged tradition (dominated by Basran foundations). School attribution matters for historical analysis but doesn't organize modern study.
+- **Sarf** — Similar to Nahw. Historical Basran/Kufan distinctions exist but are not actively maintained.
+
+**Sciences with NO scholarly disagreement:**
+- **Tajwid** — The rules of Quran recitation are fixed by oral transmission. There is virtually no خلاف (disagreement). The entry structure for a Tajwid topic is: "the rule is X. Period." Different recitation modes (qira'at) exist but are considered equally valid, not competing positions.
+
+**Sciences where evidence type dominates:**
+- **Ilm al-hadith** — The science of hadith methodology. Entries here are about METHODS of authentication, not about specific rulings. The evidence hierarchy is meta-level: "how do we evaluate evidence?" rather than "what does the evidence say?"
+- **Tafsir** — Quran exegesis. Entries must handle multiple dimensions: linguistic analysis, reason for revelation (سبب النزول), legal implications, theological implications. A single verse may have excerpts from grammar, fiqh, aqidah, and history.
+
+**Why this matters for the architect:** A one-size-fits-all pipeline that treats all sciences identically will fail. The excerpting engine must know whether school attribution is mandatory (fiqh) or optional (tajwid). The taxonomy engine must know whether to create per-school branches (fiqh) or not (nahw). The synthesizing engine must know whether to present positions as competing schools (fiqh) or as historical evolution (nahw). SCIENCE.md (Level 3) encodes these differences — but the architect must design the HOOKS in each engine that Level 3 can customize.
+
+### Versified Texts (المنظومات)
+
+A significant portion of the Islamic scholarly corpus is in VERSE form (نظم). These are not poetry in the literary sense — they are technical content deliberately composed in meter and rhyme for memorization:
+
+- **ألفية ابن مالك** — 1002 verses encoding all of Arabic grammar
+- **تحفة الأطفال** — 61 verses on Tajwid rules
+- **الجزرية** — 107 verses on Tajwid
+- **لامية الأفعال** — 120 verses on Arabic morphology
+- **منظومة البيقونية** — 34 verses on hadith terminology
+- **الرحبية** — 175 verses on Islamic inheritance law
+
+**These have completely different structure than prose.** Each بيت (verse/couplet) is a self-contained unit. A بيت has two hemistichs (شطر). The passaging engine must recognize verse structure and NOT split a بيت across passage boundaries. The atomization engine must treat each بيت as an atom (or pair of atoms for the two hemistichs). The excerpting engine must understand that a verse often encodes a RULE — the self-containment test is different (a single بيت may be self-contained even if it's only 10 words, because the verse IS the complete statement of the rule).
+
+**Verse numbering matters.** Scholars reference الألفية by line number: "ألفية line 75" is a precise scholarly reference. The source metadata must capture verse numbering. The excerpting engine must preserve it.
+
+**Commentaries ON versified texts** are prose. A single بيت may have pages of commentary. The multi-layer text problem (above) applies: the verse text (Layer 1) sits inside the prose commentary (Layer 2).
+
+### LLM Extraction Confidence
+
+Every content decision made by an LLM (atomization, excerpting, classification, placement) has an associated confidence level. This is SEPARATE from text fidelity (which measures how reliable the input text is). LLM confidence measures how sure the engine is about its OWN decision.
+
+**Example:** The excerpting engine classifies an excerpt's topic as "تعريف المبتدأ" with 95% confidence. But it classifies the school attribution as "بصري" with only 60% confidence (because the text doesn't explicitly name the school — the engine inferred it from the definition style).
+
+**This confidence signal must flow downstream as metadata (D-023):**
+- Low-confidence excerpts should be flagged for human review at the taxonomy gate
+- The synthesizer should weight high-confidence excerpts more heavily, or note uncertainty: "this excerpt is tentatively attributed to the Basran school based on definitional style"
+- The scholar interface should distinguish "KR is confident about this" from "KR thinks this but isn't sure"
+- Quality metrics should track confidence distributions: "80% of excerpts in this science are high-confidence" vs "only 40% are"
+
+**Each engine should output a structured confidence object** alongside its primary output: what decision was made, what confidence level, and what evidence supports it. This is not optional instrumentation — it's a core metadata field that enables downstream quality control.
+
+### التخريج (Takhrij — Hadith Source Tracing)
+
+When a scholar cites a hadith in their work, they may cite it loosely ("the Prophet ﷺ said...") or precisely ("narrated by al-Bukhari and Muslim"). The tahqiq editor typically adds a footnote with the FULL reference: which hadith collections contain it, the book/chapter/number within each collection, and often a grading.
+
+**This takhrij information is enormously valuable for synthesis:**
+- It links a hadith citation to its original collection(s), enabling cross-source verification
+- It carries grading information that affects how the synthesizer weighs evidence
+- It reveals the evidence base: "the Hanafi position rests on a hadith found in Abu Dawud (graded hasan), while the Shafi'i position cites a hadith in Bukhari (sahih)"
+
+**The excerpting engine must capture takhrij data** when it exists in the tahqiq footnotes. The source of this data is Layer 4 text (editor's notes), so the normalization engine must preserve it and the atomization engine must tag it correctly. The synthesizer consumes it to produce evidence-aware entries.
+
+### Primary vs. Secondary Source Distinction
+
+Not all sources in the library carry equal scholarly weight. The Islamic tradition distinguishes:
+
+- **مصادر أصلية (primary sources)** — works where the author presents original scholarly content: their own analysis, their own positions, their own evidence evaluation. Example: الكتاب by سيبويه, المغني by ابن قدامة.
+- **مراجع (reference works / secondary sources)** — works that primarily compile, organize, or summarize other scholars' work. Example: الموسوعة الفقهية (Fiqh Encyclopedia), الإنصاف by المرداوي (which catalogs Hanbali positions).
+- **معاصر (modern compilations)** — contemporary works that explain classical content for modern readers. Useful for understanding but not primary scholarly evidence.
+
+**The synthesizer must weight these differently.** A definition from سيبويه's الكتاب (primary, foundational) carries more scholarly weight than the same definition as paraphrased in a modern grammar textbook (secondary). The source metadata should classify each source's authority level. The synthesizer should cite primary sources directly and use secondary sources to confirm, contextualize, or fill gaps — not as primary evidence.
+
+
 ### The Owner's Voice in the Library
 
 KR is a PERSONAL library (D-018). The owner is not just a consumer — he is a participant in the scholarly tradition. The system must support:
@@ -329,6 +523,40 @@ This means: the source identity model must handle hundreds of thousands of entri
 | **archive.org** | Massive. Rare manuscripts. Public domain. | Unstructured, OCR quality varies wildly. | Medium — rare sources |
 | **King Saud University Digital Library** | Academic quality. Manuscripts. | Limited scope. | Low initially |
 | **Qatar Digital Library** | Rare manuscripts with high-quality scans. | Limited API access. | Low initially |
+
+### Physical Reference Preservation
+
+Scholars cite by page, volume, and edition: "see المغني vol.3 p.245 (tahqiq al-Turki)." This is how the owner will verify KR's claims against physical books. If the pipeline strips page numbers, the owner cannot find the original text.
+
+**Every excerpt must carry a physical citation:** the source title, author, edition (tahqiq + publisher), volume number, and page number(s). This citation is metadata that flows through the entire pipeline (D-023). The synthesizer uses it to generate proper academic citations in entries. The scholar interface uses it to tell the owner: "open your copy to volume 3, page 245."
+
+The normalization engine must preserve page boundaries from the source. Shamela HTML usually includes page markers. PDFs have inherent pagination. iPhone photos are individual pages. The page number must survive normalization → passaging → excerpting as metadata, even though the text itself is de-paginated.
+
+### The Traceability Boundary: Library vs. LLM Knowledge
+
+The synthesizing engine uses three input sources (D-023): excerpts, metadata, and its own LLM research. This creates a critical distinction:
+
+**Library-grounded claims** are statements traceable to specific excerpts from specific sources. "سيبويه defines المبتدأ as..." is grounded — it traces to excerpt X from source Y.
+
+**LLM-contributed context** is information the synthesizer adds from its own training knowledge. "The Basran-Kufan rivalry was an institutional competition between the scholarly circles of Basra and Kufa..." is context the synthesizer provides to frame the library's excerpts.
+
+**These must be CLEARLY DISTINGUISHED in the entry.** The factual layer (§6.4) must contain only library-grounded claims. LLM-contributed context belongs in the analytical layer or in clearly marked contextual sections. If the entry says "Scholar X held position Y," the reader (and the owner) must be able to determine: did the library tell us this (traceable to an excerpt), or did the synthesizer infer it from its training data?
+
+This is not just about honesty — it's about reliability. LLM training data contains errors. Library excerpts, while they may have extraction errors that can be caught and corrected, come from actual scholarly texts. Mixing the two without marking the boundary means errors from either source are indistinguishable.
+
+**The confidence hierarchy:** Library excerpt (high) > Library metadata enriched by LLM inference (medium) > Pure LLM research (lower). The entry's citations must make this hierarchy visible.
+
+### Uncertainty Handling: When to Proceed vs. When to Stop
+
+Not all uncertainty is equal. The architect must design engines with clear threshold rules:
+
+**Always proceed (with flag):** Low-confidence school attribution, uncertain content type classification, ambiguous author reference that has a most-likely resolution. These produce flagged metadata that downstream engines and human reviewers can correct. Processing continues.
+
+**Always stop (for human gate):** Potential text corruption detected, source trustworthiness uncertain (flag vs. verify), taxonomy evolution that would affect existing excerpts. These require owner input before proceeding. Content goes into a review queue.
+
+**Context-dependent:** An unresolvable author ambiguity in a non-critical metadata field → proceed with "unknown." The same ambiguity in the primary author attribution → stop. The criticality of the decision determines whether to proceed or stop.
+
+**The default is: proceed and flag, not stop and wait.** The owner should not be blocked from using the library because one excerpt has an uncertain school attribution. The system continues processing with the best-guess answer and a flag. The owner reviews flags at the human gate when convenient. Only irreversible decisions (taxonomy changes, source trustworthiness rulings) require stopping.
 
 ### What Doesn't Exist Yet (Opportunity for KR)
 
@@ -507,5 +735,13 @@ These are errors that would undermine KR's scholarly credibility. Every engine d
 **Retraction blindness.** Presenting a scholar's early position as current when they later retracted it. الشافعي's "old" positions (القول القديم) are explicitly superseded by his "new" positions (القول الجديد) after moving to Egypt. The source engine must track composition dates; the synthesizer must check for known retractions before citing a position.
 
 **Mu'tamad misidentification.** Within a madhhab, incorrectly identifying which position is the mu'tamad (relied-upon). In Hanbali fiqh, the mu'tamad on many issues shifted between early period (Ahmad's direct statements) and later codification (المرداوي's الإنصاف). Presenting a non-mu'tamad position as if it's the school's official stance is misleading. The synthesizer must cross-check its mu'tamad identification against known authoritative reference works for each school.
+
+**Layer misattribution.** In a multi-layer text (matn/sharh/hashiyah), attributing Layer 1 text to the Layer 2 author (or vice versa). If a sharh contains "قال المصنف: المبتدأ اسم ابتداء" — those are the MATN author's words, not the sharh author's. Misattributing them means putting words in the wrong scholar's mouth, across the wrong century. The normalization and atomization engines must correctly identify layers; the excerpting engine must attribute to the layer's author, not the source's author.
+
+**Verse destruction.** Processing a versified text (نظم) with prose-oriented rules destroys the verse structure. A بيت split across two passages, or two hemistichs merged into a single atom, loses the verse numbering that scholars use for reference ("ألفية line 75") and breaks the self-contained unit structure. The passaging and atomization engines must detect verse structure and handle it differently.
+
+**Confidence laundering.** Presenting a low-confidence extraction decision as established fact because the confidence signal was dropped somewhere in the pipeline. If the excerpting engine is only 60% sure about a school attribution, but the confidence signal doesn't flow to the synthesizer, the entry will state the attribution with the same confidence as a 99% one. Every engine must propagate confidence scores (D-023).
+
+**Intra-source contradiction blindness.** A scholar may say one thing on page 50 and something slightly different on page 300 of the same book. This is common — scholars sometimes refine their views within a work, or address a topic differently in different contexts. The excerpting engine will capture both statements as separate excerpts. The synthesizer must detect when two excerpts from the SAME author appear to contradict and handle this: perhaps the later statement supersedes the earlier, or the apparent contradiction resolves when context is considered. Presenting both without noting the tension is misleading.
 
 These risks are not theoretical — they are the EXACT errors that existing Islamic studies tools and LLMs routinely make. KR's value proposition is that it DOESN'T make them.

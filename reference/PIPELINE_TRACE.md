@@ -159,8 +159,8 @@ This document traces a SINGLE passage through the entire KR pipeline, showing wh
 | Stage | Metadata Added | Cumulative |
 |---|---|---|
 | Source | Author identity (canonical ID), work classification, genre chain, trust, relationships, scholar authority records | Foundation |
-| Normalization | Structure, text fidelity signal, footnote classification (author vs. editor) | + structural + quality |
-| Passaging | Boundaries, division path | + positional |
+| Normalization | Structure, text fidelity signal, footnote classification (author vs. editor), page boundaries, text layer identification (matn/sharh/hashiyah/editor) | + structural + quality |
+| Passaging | Boundaries, division path, page range (e.g., vol.2 pp.145-146) | + positional |
 | Atomization | Atom types, offsets, scholarly pattern flags (opinion markers, isnad, evidence citations) | + content-type + patterns |
 | Excerpting | Topic, school, quoted scholars (with correct attribution), content type, self-containment, hadith references + grading | + scholarly |
 | Taxonomy | Final leaf, coverage, gaps, prerequisite links, narrative position | + organizational |
