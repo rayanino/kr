@@ -59,6 +59,49 @@ A documentation section passes when ALL applicable criteria below are met.
 
 ---
 
+## SPEC Template
+
+Every engine and shared component SPEC follows this exact structure:
+
+```
+# {Engine Name} — {Arabic Name} — Specification
+
+## 1. Purpose and Scope
+What this engine does. What is NOT its responsibility. Phase classification.
+Normalization boundary relationship.
+
+## 2. Input Contract
+Reference to input schema. What the engine expects. Validation on input.
+
+## 3. Output Contract
+Reference to output schema. What the engine produces. Guarantees about output.
+
+## 4. Processing Specification
+Behavioral rules for input→output transformation. Edge cases with resolution.
+
+## 5. Validation and Quality
+Self-validation (§8 Layer 1). Automated checks (§8 Layer 2).
+Human gate integration (§9), if applicable.
+
+## 6. Consensus Integration
+Which decisions use multi-model consensus. Configuration for this engine.
+
+## 7. Error Handling
+Malformed input. Partial failures. Consensus disagreement.
+
+## 8. Configuration
+Parameters controlling behavior. Per-science hooks (Level 3).
+
+## 9. Current Implementation State
+Files, line counts, what works, what needs building.
+Known gaps between current code and this spec.
+
+## 10. Test Requirements
+Coverage requirements. Gold baseline usage. Regression strategy.
+```
+
+---
+
 ## The Reasoning Protocol
 
 This protocol has two modes. Choose based on the work:
@@ -85,19 +128,28 @@ Use when the target document is a stub or doesn't exist yet.
 7. Testability scan — find behavioral rules that can't become test cases
 8. Earned-existence scan — find elements that could be removed without loss
 
-**Self-audit enforcement rule:** Phase 4 must produce a visible deliverable: a numbered list of defects found. If the audit finds fewer than 3 defects, the audit was insufficiently hostile. Repeat with more aggressive scrutiny. No first draft is clean enough to have fewer than 3 defects.
+**Self-audit enforcement rule:** Phase 4 must produce a visible deliverable: a numbered list of defects found. Requirements: at least 3 defects total, of which at least 1 must be structural or semantic (not formatting, not typos). Structural defects include: contradictions, ambiguities, missing edge cases, premature constraints, missing input coverage, untestable rules. If all defects found are cosmetic, the audit was superficial — repeat with focus on contradictions, ambiguities, and missing edge cases.
 
 **Phase 5 — Revision.** Fix every defect from Phase 4. Check whether fixes introduced new defects (second-order regression).
 
 **Phase 6 — Final Verification.** Quick pass against Tier 1 only. If clean, proceed. If any Tier 1 failure, back to Phase 5.
 
-**Phase 7 — Presentation.** Present to owner:
-1. The document
-2. Summary of significant design decisions (meaning-affecting only, not every comma)
-3. Decisions made autonomously, with one-line justifications
+**Phase 7 — Presentation and Session Close.** Present to owner:
+1. The document (SPEC, VISION corrections, etc.)
+2. Summary of significant design decisions (meaning-affecting only)
+3. Decisions made autonomously, formatted for kr_decisions.md (numbered, with context + decision + alternatives + updated docs)
 4. Domain questions for the owner (if any)
 5. Any remaining open items
-6. The Phase 4 self-audit results (so the owner can see the audit was thorough)
+6. The Phase 4 self-audit results (visible deliverable)
+7. **Updated STATUS.md** — complete replacement for the current STATUS.md, containing:
+   - What was just completed (this session)
+   - Next work item ID and name
+   - Files to attach for the next session (exact paths, based on your knowledge of the next engine)
+   - Decisions the next session will make
+   - Protocol reminders (copy from current STATUS.md, adjust mode if needed)
+   - Session notes for next Claude (anything the next session needs to know)
+   - Reference `PREPARATORY_WORKPLAN.md` for the definitive file list — the owner cross-checks your list against the workplan
+8. **SESSION_LOG.md entry** — date, focus, decisions made (by number), deliverables, next item
 
 ### Review Mode
 
@@ -142,6 +194,25 @@ Claude documents these decisions with brief justification but does NOT ask for p
 "Does this decision change what the end user sees or experiences?"
 - Yes → ask owner
 - No → Claude decides
+
+### Domain Question Protocol
+- Ask domain questions as they arise during work. Do not batch them.
+- Before asking, exhaust your own research. Never ask a question the provided materials answer.
+- If the owner's answer is unclear, restate your understanding and ask for confirmation.
+- If the owner's answer contradicts a prior decision in kr_decisions.md, note the conflict explicitly and ask which should prevail.
+
+---
+
+## Practical Constraints
+
+### Output Length
+Write in chunks of 2–4 SPEC sections per response. Complete each section fully before moving to the next. If nearing your output limit, stop at a clean section boundary and continue in the next response.
+
+### Presentation Chunks
+Present work in 2–3 large chunks, not section-by-section. For a 10-section SPEC: §1–§4, then §5–§7, then §8–§10. This keeps conversation turns under 10–12, which maintains attention quality.
+
+### Context Budget
+The context window is 200K tokens. Project files use ~6K. Attachments vary by work item (STATUS.md lists the estimate). Leave at least 50K tokens for conversation. If context is tight, prioritize: code files > reference docs > VISION sections.
 
 ---
 

@@ -5,66 +5,84 @@
 **Current work item:** W-001 (Source Engine SPEC)
 
 ## What Was Just Completed
-- Phase 1 (Structural Cleanup) and Phase 1.5 (Repository Cleanup): COMPLETE
-- KR repo at commit e8010ca on master. 903 tests pass, 37 skip, 1 fail (API key).
-- Coordination infrastructure added: STATUS.md, kr_decisions.md, DEEP_REASONING_PROTOCOL.md, PREPARATORY_WORKPLAN.md, SESSION_LOG.md
+- Phase 1 + Phase 1.5 complete. 903 tests pass, 37 skip, 1 fail (API key).
+- Coordination infrastructure committed (b251810): STATUS.md, reference/ directory.
 
 ## Current Work Item: W-001 — Source Engine SPEC
 
 ### Objective
-Produce `engines/source/SPEC.md` — the first real Level 2 specification. Then produce a VISION.md §7.1–§7.4 defect ledger with corrections.
-
-This is the first SPEC. It establishes the quality bar and patterns all subsequent SPECs follow.
+Write `engines/source/SPEC.md` — the first Level 2 specification. Then correct VISION.md §7.1–§7.4.
 
 ### Files to Attach This Session
-1. `engines/source/src/intake.py` (1476L)
-2. `engines/source/src/enrich.py` (580L)
-3. `engines/source/src/corpus_audit.py` (228L)
-4. `engines/source/reference/ABD_INTAKE_SPEC.md` (795L)
-5. `engines/source/reference/edge_cases.md` (127L)
-6. `schemas/source_metadata.json` (234L)
-7. `VISION.md` — focus on §7.1–§7.4 (source engine architecture) and §2 (glossary for term compliance)
 
-### Decisions Claude Makes This Round (Research, Decide, Document)
+**Prepare the VISION excerpt first** (saves 76% context):
+```
+make vision SECTIONS="2 7"
+```
+This creates `vision_excerpt.md` (~58KB instead of 244KB). Attach it instead of full VISION.md.
+
+**Session 1 attachments** (~60K tokens total — well within budget):
+1. `vision_excerpt.md` — §2 (glossary) and §7 (source pipeline)
+2. `engines/source/src/intake.py` — main intake logic (1476L)
+3. `engines/source/src/enrich.py` — metadata enrichment (580L)
+4. `engines/source/src/corpus_audit.py` — audit tool (228L)
+5. `engines/source/reference/ABD_INTAKE_SPEC.md` — ABD-era spec (795L)
+6. `engines/source/reference/edge_cases.md` — known edge cases (127L)
+7. `schemas/source_metadata.json` — current output schema
+8. `schemas/SCHEMA_ANALYSIS.md` — pipeline data flow context
+
+**Session 2 attachments** (add to above):
+- The SPEC draft from session 1
+
+### Protocol Mode
+**Creation mode** — writing a new document. Skip Phase 1 (gap analysis). Follow: Intake → Research → Draft → Self-Audit → Revise → Present.
+
+### Decisions Claude Makes This Round
 - Source identity model: what is a "source"? Does `book_id` become `source_id`?
-- Multi-volume representation: one source or many?
-- Manual input representation: how does it fit the source model?
-- Source registry format: what goes in `library/sources/registry.yaml`?
-- Source engine output: just `source_metadata.json` + frozen file, or more?
-- ABD intake metadata evolution: what changes for KR?
-- `book_id` → `source_id` rename: do it now or defer?
+- Multi-volume representation: one source entity or many?
+- Manual input representation within the source model
+- Source registry format (`library/sources/registry.yaml`)
+- Source engine output scope: what crosses the source→normalization boundary?
+- ABD intake metadata evolution for KR
+- `book_id` → `source_id` rename: now or deferred?
 
 ### Domain Questions to Ask Owner (Only If Needed)
-- How do multi-volume works appear in the Shamela library and in the owner's study practice?
-- What does manual input look like in practice — notes during a lesson, typed passages, something else?
+- How do multi-volume works appear in the Shamela library?
+- What does manual input look like in practice?
 
 ### Session Plan
-- **Session 1:** Deep study of all source engine materials. Draft SPEC §1–§5. Make and document all decisions. Pause for owner review if domain questions arise.
-- **Session 2:** Draft SPEC §6–§10. Hostile self-audit of complete SPEC (produce audit as visible deliverable). Revise.
-- **Session 3 (if needed):** VISION §7.1–§7.4 defect ledger and corrected text.
+**Session 1:** Read all materials. Build internal model. Make all architectural decisions. Draft SPEC §1–§5. If the response gets long, continue in next message (tell the owner "I'll continue in my next message").
+
+**Session 2:** Draft SPEC §6–§10. Hostile self-audit (produce as visible deliverable — must find ≥3 defects). Revise. If time allows, begin VISION §7.1–§7.4 defect ledger.
+
+**Session 3 (if needed):** Complete VISION §7.1–§7.4 defect ledger and corrected text.
 
 ### Completion Criteria
-- [ ] SPEC.md follows template exactly (all 10 sections present and substantive)
-- [ ] Every decision logged in kr_decisions.md format
-- [ ] Passes Tier 1 + Tier 2 of Perfection Standard
+- [ ] SPEC.md complete (all 10 template sections, substantive)
+- [ ] Every decision logged in kr_decisions.md format (D-016+)
+- [ ] Perfection Standard Tier 1 + Tier 2 pass
 - [ ] §9 (Current Implementation State) has accurate file paths and line counts
-- [ ] Phase 4 hostile self-audit produced as visible deliverable with ≥3 defects found and resolved
+- [ ] Phase 4 self-audit visible deliverable with ≥3 defects found and resolved
 - [ ] VISION §7.1–§7.4 defect ledger produced
+- [ ] Corrected VISION §7.1–§7.4 text produced
 - [ ] STATUS.md updated to point to W-002
 
 ### Schema Impact
-`source_metadata.json` will likely be updated. Any field renames documented but only applied to this schema; downstream schemas note the pending rename.
+`schemas/source_metadata.json` likely updated. Downstream renames documented but deferred.
+
+## Context Budget Guide
+Claude Chat works best with ≤80K tokens of input. Heavy sessions (W-002, W-005) MUST be split so each session stays under this budget. STATUS.md for those items will specify the split explicitly.
 
 ## Blocked Items
 None
 
 ## Session Notes for Next Claude
-- This is the first SPEC being written. No upstream SPECs exist to reference.
-- The Deep Reasoning Protocol is in creation mode for this work item (writing a new document, not reviewing existing). Skip Phase 1 (gap analysis). Go: Intake → Research → Draft → Self-Audit → Revise → Present.
-- The authority model: Claude makes ALL technical/architectural decisions autonomously. Ask the owner ONLY for domain/usage questions. The owner has no technical background.
-- SCHEMA_ANALYSIS.md in `schemas/` has useful context about the data flow between engines — read it if you need orientation on the pipeline.
+- This is the first SPEC. No upstream SPECs exist. This establishes the quality bar.
+- The authority model: Claude decides ALL technical/architectural matters. Ask owner ONLY for domain/usage questions (the owner has no technical background).
+- If your response is getting long, split across multiple messages — tell the owner you're continuing.
+- SCHEMA_ANALYSIS.md has the full pipeline data flow diagram — useful for orientation.
 
 ## Active Document Versions
-- VISION.md: §0–§5, §13 previously audited. §6–§12 pending correction.
-- Source SPEC: stub (3 lines) — this session writes it
-- All other SPECs: stubs
+- VISION.md: §0–§5, §13 previously audited. §6–§12 pending.
+- Source SPEC: stub (3 lines) — this session writes it.
+- All other SPECs: stubs.

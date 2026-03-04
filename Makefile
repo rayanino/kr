@@ -22,6 +22,11 @@ test:          ## Run the full test suite
 test-verbose:  ## Run tests with full output
 	$(PYTHON) -m pytest engines/*/tests/ shared/*/tests/ -v
 
+vision:        ## Extract VISION.md sections for a session. Usage: make vision SECTIONS="2 7"
+	@if [ -z "$(SECTIONS)" ]; then echo "Usage: make vision SECTIONS=\"2 7\""; exit 1; fi
+	python3 scripts/extract_vision_sections.py $(SECTIONS) > vision_excerpt.md
+	@echo "✓ vision_excerpt.md ready — attach this instead of full VISION.md"
+
 clean:         ## Remove venv and Python artifacts
 	rm -rf $(VENV)
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true

@@ -20,9 +20,9 @@
 | W-006 | Taxonomy engine SPEC | W-005 | Claude Chat | 2–3 |
 | W-007 | Synthesizing engine SPEC | W-006, W-010 | Claude Chat | 2 |
 | W-008 | Shared components SPECs | W-006 | Claude Chat | 2–3 |
-| W-009 | Cross-cutting VISION corrections | W-001–W-008 | Claude Chat | 1–2 |
+| W-009 | Cross-cutting VISION corrections | W-001–W-008 | Claude Chat | 2–3 |
 | W-010 | Minimal إملاء SCIENCE.md | W-005 | Claude Chat | 1 |
-| W-011 | Cross-SPEC consistency verification | W-009 | Claude Chat | 1 |
+| W-011 | Cross-SPEC consistency verification | W-009 | Claude Chat | 2 |
 | W-012 | Schema reconciliation | W-011 | Claude Chat | 1–2 |
 | W-013 | Python packaging decision | W-001 | Claude Chat | 1 partial |
 | W-014 | CI/CD design | W-012 | Claude Chat | 1 |
@@ -42,16 +42,30 @@
 **Executor:** Claude Chat (2–3 sessions, creation mode)
 
 ### Files to Attach
+
+**MUST ATTACH:**
 ```
-engines/source/src/intake.py
-engines/source/src/enrich.py
-engines/source/src/corpus_audit.py
-engines/source/reference/ABD_INTAKE_SPEC.md
-engines/source/reference/edge_cases.md
-schemas/source_metadata.json
-VISION.md
+engines/source/src/intake.py                     (~20K tokens)
+engines/source/src/enrich.py                     (~8K tokens)
+engines/source/src/corpus_audit.py               (~3K tokens)
+engines/source/reference/ABD_INTAKE_SPEC.md      (~16K tokens)
+engines/source/reference/edge_cases.md           (~2K tokens)
+schemas/source_metadata.json                     (~3.5K tokens)
+```
+VISION extracted sections — run and attach output:
+```
+python3 scripts/extract_vision_sections.py 7.1 7.4 2 > /tmp/vision_w001.md
+```
+(~17K tokens instead of ~82K for full file)
+
+**HAVE AVAILABLE (only if Claude asks):**
+```
+schemas/SCHEMA_ANALYSIS.md
+engines/source/tests/test_intake.py
 ```
 For session 2+: also attach the SPEC draft from the previous session.
+
+**Estimated context: ~77K tokens (budget: 200K)**
 
 ### Decisions Claude Makes (Research, Decide, Document)
 - Source identity model: what is a "source"? Does `book_id` become `source_id`?
@@ -88,17 +102,45 @@ For session 2+: also attach the SPEC draft from the previous session.
 **Executor:** Claude Chat (3–4 sessions, creation mode — heaviest round)
 
 ### Files to Attach
+
+**Context budget warning:** The normalization engine has ~39K tokens of code in discover_structure.py alone. Sessions must be carefully structured to fit within 200K token limit.
+
+**Session 1 — Code + boundary decision (focus: understand what the code does):**
 ```
-engines/source/SPEC.md                          (upstream, now real)
-engines/normalization/src/normalizers/normalize_shamela.py
-engines/normalization/src/discover_structure.py
-engines/normalization/src/validate_structure.py
-engines/normalization/reference/                 (all 10 files)
+engines/source/SPEC.md                                        (upstream, ~10K tokens)
+engines/normalization/src/discover_structure.py                (~39K tokens — the key file)
+engines/normalization/src/normalizers/normalize_shamela.py     (~15K tokens)
+engines/normalization/src/validate_structure.py                (~4K tokens)
+engines/normalization/reference/ABD_NORMALIZATION_SPEC.md      (~8.5K tokens — most important reference)
+engines/normalization/reference/ABD_STRUCTURE_SPEC.md          (~7.3K tokens)
+schemas/normalized_package.json                                (~5K tokens)
+schemas/source_metadata.json                                   (~3.5K tokens)
+```
+VISION extracted:
+```
+python3 scripts/extract_vision_sections.py 7.5 7.6 2 > /tmp/vision_w002.md
+```
+(~20K tokens)
+
+**Estimated session 1 context: ~112K tokens — fits with ~80K for conversation.**
+
+**Session 2 — SPEC drafting (focus: write the spec, reference docs as needed):**
+```
+Session 1's SPEC draft so far
+engines/source/SPEC.md
+engines/normalization/reference/SHAMELA_HTML_REFERENCE.md      (~16K tokens — only if Shamela-specific details needed)
+engines/normalization/reference/structure_edge_cases.md         (~2.6K tokens)
 schemas/normalized_package.json
-schemas/source_metadata.json
-VISION.md
 ```
-For session 2+: also attach the SPEC draft from the previous session.
+Plus VISION extracted (same as session 1).
+
+**HAVE AVAILABLE (only if Claude asks):**
+```
+engines/normalization/reference/STRUCTURE_SPEC.md
+engines/normalization/reference/STAGE2_GUIDELINES.md
+engines/normalization/reference/prompts/pass3a_macro_v0.1.md
+engines/normalization/reference/prompts/pass3b_deep_v0.1.md
+```
 
 ### Critical Decision: Normalization/Passaging Boundary
 Does `discover_structure.py`'s `build_passages()` stay in normalization or move to passaging? Claude must read the code deeply, evaluate both options, and decide. This cascades into W-003.
@@ -129,13 +171,23 @@ Does `discover_structure.py`'s `build_passages()` stay in normalization or move 
 
 ### Files to Attach
 ```
-engines/source/SPEC.md
-engines/normalization/SPEC.md                   (determines this engine's scope)
-engines/passaging/src/scaffold_passage.py
-schemas/passage.json
-schemas/normalized_package.json
-VISION.md
+engines/normalization/SPEC.md                    (immediate upstream — determines this engine's scope, ~10K tokens)
+engines/passaging/src/scaffold_passage.py        (~3.5K tokens)
+schemas/passage.json                             (~2.5K tokens)
+schemas/normalized_package.json                  (~5K tokens)
 ```
+VISION extracted:
+```
+python scripts/extract_vision_sections.py 2.2 > /tmp/vision_w003.md
+```
+(~3K tokens — only the passaging definition)
+
+**HAVE AVAILABLE (only if Claude asks):**
+```
+engines/source/SPEC.md
+```
+
+**Estimated context: ~30K tokens — very light session**
 
 ### Decisions Claude Makes
 - Given W-002's boundary decision: what does passaging actually do?
@@ -153,16 +205,26 @@ VISION.md
 
 ### Files to Attach
 ```
-engines/source/SPEC.md
-engines/normalization/SPEC.md
-engines/passaging/SPEC.md
-engines/atomization/reference/ABD_ATOMIZATION_SPEC.md
-engines/atomization/reference/ABD_ZOOM_BRIEF.md
-engines/excerpting/src/extract_passages.py      (atomization logic lives here)
-schemas/atoms.json
-schemas/passage.json
-VISION.md
+engines/passaging/SPEC.md                        (immediate upstream, ~10K tokens)
+engines/atomization/reference/ABD_ATOMIZATION_SPEC.md  (~4K tokens)
+engines/atomization/reference/ABD_ZOOM_BRIEF.md        (~1.5K tokens)
+engines/excerpting/src/extract_passages.py       (~31K tokens — atomization logic lives here)
+schemas/atoms.json                               (~2.5K tokens)
+schemas/passage.json                             (~2.5K tokens)
 ```
+VISION extracted:
+```
+python scripts/extract_vision_sections.py 2.4 2.2 > /tmp/vision_w004.md
+```
+(~8K tokens — atom definition + engine definitions)
+
+**HAVE AVAILABLE (only if Claude asks):**
+```
+engines/normalization/SPEC.md
+engines/source/SPEC.md
+```
+
+**Estimated context: ~66K tokens — comfortable**
 
 ### Critical Decision: Atomization/Excerpting Separation
 Current code combines both. This SPEC defines where atomization ends and excerpting begins.
@@ -182,14 +244,47 @@ Current code combines both. This SPEC defines where atomization ends and excerpt
 **Executor:** Claude Chat (3–4 sessions, creation mode — most complex round)
 
 ### Files to Attach
+
+**Context budget warning:** ABD_EXCERPT_DEFINITION.md is 34K tokens alone. It CANNOT be loaded with all other files. The distilled knowledge is in BINDING_DECISIONS and EXCERPTING_SPEC.
+
+**Session 1 — Code study + initial SPEC draft:**
 ```
-All upstream SPECs (source, normalization, passaging, atomization)
-engines/excerpting/reference/                    (all 9 files — ABD specs, binding decisions, runbook, edge cases)
-engines/excerpting/src/extract_passages.py
-engines/excerpting/src/assemble_excerpts.py
-schemas/excerpt.json
-schemas/atoms.json
-VISION.md
+engines/atomization/SPEC.md                                    (immediate upstream, ~10K tokens)
+engines/excerpting/src/extract_passages.py                     (~31K tokens)
+engines/excerpting/src/assemble_excerpts.py                    (~12K tokens)
+engines/excerpting/reference/ABD_BINDING_DECISIONS.md          (~7.6K tokens — critical: distilled decisions)
+engines/excerpting/reference/ABD_EXCERPTING_SPEC.md            (~4.3K tokens — critical: spec structure)
+engines/excerpting/reference/edge_cases.md                     (~3K tokens)
+schemas/excerpt.json                                           (~2.8K tokens)
+schemas/atoms.json                                             (~2.5K tokens)
+```
+VISION extracted:
+```
+python3 scripts/extract_vision_sections.py 5 2 > /tmp/vision_w005.md
+```
+(~19K tokens)
+
+**Estimated session 1 context: ~92K tokens — fits with ~100K for conversation.**
+
+**Session 2 — Deep reference review + SPEC refinement:**
+```
+Session 1's SPEC draft
+engines/excerpting/reference/ABD_EXTRACTION_PROTOCOL.md        (~6K tokens)
+engines/excerpting/reference/ABD_RUNBOOK.md                    (~3.5K tokens)
+engines/excerpting/reference/ABD_CHECKLISTS.md                 (~7.8K tokens)
+```
+Plus VISION extracted (same).
+
+**Session 3 — If deeper context needed:**
+```
+engines/excerpting/reference/ABD_EXCERPT_DEFINITION.md         (~34K tokens — only load for this dedicated session)
+Session 2's SPEC draft
+```
+
+**HAVE AVAILABLE (only if Claude asks):**
+```
+engines/excerpting/reference/ABD_ZOOM_BRIEF.md
+engines/excerpting/reference/ABD_ATOMS_README.md
 ```
 
 ### Decisions Claude Makes
@@ -213,13 +308,25 @@ VISION.md
 
 ### Files to Attach
 ```
-All upstream SPECs
-engines/taxonomy/src/evolve_taxonomy.py
-engines/taxonomy/reference/ABD_TAXONOMY_SPEC.md
-schemas/excerpt.json
-schemas/placed_excerpt.json
-VISION.md
+engines/excerpting/SPEC.md                       (immediate upstream, ~10K tokens)
+engines/taxonomy/src/evolve_taxonomy.py           (~28K tokens)
+engines/taxonomy/reference/ABD_TAXONOMY_SPEC.md   (~3K tokens)
+schemas/excerpt.json                              (~2.8K tokens)
+schemas/placed_excerpt.json                       (~2K tokens)
 ```
+VISION extracted:
+```
+python scripts/extract_vision_sections.py 4 5.5 9.3 2 > /tmp/vision_w006.md
+```
+(~17K tokens — tree structure, one-per-source diagnostic, human gate locations, glossary)
+
+**HAVE AVAILABLE (only if Claude asks):**
+```
+engines/atomization/SPEC.md
+engines/passaging/SPEC.md
+```
+
+**Estimated context: ~69K tokens — comfortable**
 
 ### Decisions Claude Makes
 - Placement algorithm design
@@ -243,12 +350,23 @@ VISION.md
 
 ### Files to Attach
 ```
-All upstream SPECs
-library/sciences/imlaa/SCIENCE.md               (from W-010)
-schemas/placed_excerpt.json
-schemas/entry.json
-VISION.md
+engines/taxonomy/SPEC.md                          (immediate upstream, ~10K tokens)
+library/sciences/imlaa/SCIENCE.md                 (from W-010, small)
+schemas/placed_excerpt.json                       (~2K tokens)
+schemas/entry.json                                (~2K tokens)
 ```
+VISION extracted:
+```
+python scripts/extract_vision_sections.py 6 2 1.6 > /tmp/vision_w007.md
+```
+(~18K tokens — entry definition, glossary, entry as primary knowledge product)
+
+**HAVE AVAILABLE (only if Claude asks):**
+```
+engines/excerpting/SPEC.md
+```
+
+**Estimated context: ~38K tokens — very comfortable. Deep conversation possible.**
 
 ### Decisions Claude Makes
 - Entry structure and generation algorithm
@@ -270,15 +388,51 @@ VISION.md
 
 **Executor:** Claude Chat (2–3 sessions, creation mode)
 
-### Components and Files
-| Component | Code | Files to attach |
-|-----------|------|----------------|
-| shared/consensus | `shared/consensus/src/consensus.py` (1749L) | + its tests |
-| shared/human_gate | `shared/human_gate/src/human_gate.py` (881L) | + its tests + existing 32L SPEC |
-| shared/validation | `shared/validation/src/cross_validate.py` (779L) | + its tests |
-| shared/feedback | No code | Interface definition only |
+### Session Structure (split by component — too large for one session)
 
-Also attach: All engine SPECs (they reference shared components)
+**Session 1: Consensus component**
+```
+shared/consensus/src/consensus.py                (~22K tokens)
+shared/consensus/tests/test_consensus.py          (~43K tokens)
+```
+VISION extracted:
+```
+python scripts/extract_vision_sections.py 8 2.2 > /tmp/vision_w008a.md
+```
+(~17K tokens)
+
+**Estimated: ~88K tokens — fits.**
+
+**Session 2: Human gate + validation components**
+```
+shared/human_gate/src/human_gate.py               (~10K tokens)
+shared/human_gate/tests/test_human_gate.py         (~10K tokens)
+shared/human_gate/SPEC.md                          (existing 32L stub)
+shared/validation/src/cross_validate.py            (~9K tokens)
+shared/validation/tests/test_cross_validate.py      (~10K tokens)
+Session 1's consensus SPEC draft                   (~10K tokens)
+```
+VISION extracted:
+```
+python scripts/extract_vision_sections.py 8 9 > /tmp/vision_w008b.md
+```
+(~17K tokens)
+
+**Estimated: ~76K tokens — comfortable.**
+
+**Session 3: Feedback interface (no code) + self-audit all shared SPECs**
+```
+Session 1's consensus SPEC
+Session 2's human_gate + validation SPECs
+```
+VISION extracted (same as session 2).
+
+**HAVE AVAILABLE (only if Claude asks):**
+```
+Any engine SPEC that Claude needs to verify integration points
+```
+
+Do NOT attach all engine SPECs — Claude should request specific ones if needed.
 
 ### Decisions Claude Makes
 - LLM provider strategy (models, configuration, fallback)
@@ -297,10 +451,40 @@ Also attach: All engine SPECs (they reference shared components)
 
 ## W-009: Cross-Cutting VISION Corrections
 
-**Executor:** Claude Chat (1–2 sessions, review mode)
+**Executor:** Claude Chat (2–3 sessions, review mode)
+**Depends on:** W-001 through W-008
 
-### Files to Attach
-All engine SPECs, all shared SPECs, VISION.md (full)
+### Context
+Cannot load all 11 SPECs + full VISION simultaneously (~192K tokens = over limit). Sessions focus on specific VISION section groups with only the relevant SPECs.
+
+### Session 1: §8 (Quality Architecture) + §9 (Human Gates)
+```
+shared/consensus/SPEC.md
+shared/human_gate/SPEC.md
+shared/validation/SPEC.md
+shared/feedback/SPEC.md
+engines/taxonomy/SPEC.md                         (primary human gate site)
+engines/excerpting/SPEC.md                       (extraction review gate)
+```
+VISION extracted: `python scripts/extract_vision_sections.py 8 9 > /tmp/vision_w009a.md`
+**Estimated: ~80K tokens.**
+
+### Session 2: §10 + §11 + §12
+```
+engines/source/SPEC.md                           (for §10 codebase inventory)
+engines/normalization/SPEC.md
+Session 1's corrections
+```
+VISION extracted: `python scripts/extract_vision_sections.py 10 11 12 > /tmp/vision_w009b.md`
+**Estimated: ~60K tokens.**
+
+### Session 3 (if needed): Re-check §0–§4, §13
+```
+Session 1 + 2 corrections
+Any SPECs Claude specifically requests
+```
+VISION extracted: `python scripts/extract_vision_sections.py 1 3 4 13 > /tmp/vision_w009c.md`
+Targeted re-check, not full re-audit.
 
 ### Sections to Examine
 | Section | What to do |
@@ -320,12 +504,15 @@ All engine SPECs, all shared SPECs, VISION.md (full)
 
 ### Files to Attach
 ```
-engines/excerpting/SPEC.md
-engines/synthesis/CLAUDE.md
-library/sciences/imlaa/tree.yaml
-library/sciences/imlaa/SCIENCE.md               (current stub)
-VISION.md
+engines/excerpting/SPEC.md                        (~10K tokens)
+engines/synthesis/CLAUDE.md                        (~1K tokens)
+library/sciences/imlaa/tree.yaml                   (small)
+library/sciences/imlaa/SCIENCE.md                  (current stub, small)
 ```
+VISION extracted: `python scripts/extract_vision_sections.py 4 5.4 2 > /tmp/vision_w010.md`
+(~22K tokens — science trees, metadata extensions, glossary)
+
+**Estimated context: ~40K tokens — very light. Deep domain conversation possible.**
 
 ### Domain Questions (Ask Owner — this round is primarily domain)
 - What are إملاء's scholarly conventions?
@@ -337,13 +524,43 @@ VISION.md
 
 ## W-011: Cross-SPEC Consistency Verification
 
-**Executor:** Claude Chat (1 session, review mode)
+**Executor:** Claude Chat (2 sessions, review mode)
 
-### Files to Attach
-All 7 engine SPECs, all 4 shared component SPECs, all schemas, VISION.md
+### Context
+Loading all 11 SPECs + all schemas + VISION simultaneously (~210K tokens) exceeds the context window. Instead, verify boundary pairs in focused sessions. VISION is NOT needed — this is SPEC-to-SPEC and SPEC-to-schema verification.
+
+### Session 1: Pipeline boundary pairs (source → … → taxonomy)
+```
+engines/source/SPEC.md
+engines/normalization/SPEC.md
+engines/passaging/SPEC.md
+engines/atomization/SPEC.md
+engines/excerpting/SPEC.md
+engines/taxonomy/SPEC.md
+All schemas (source_metadata.json through placed_excerpt.json)
+```
+For each consecutive pair: verify SPEC §3 (output) matches next SPEC §2 (input) matches shared schema.
+
+**Estimated: ~80K tokens (6 SPECs × ~10K + 7 schemas × ~3K). Fits.**
+
+### Session 2: Synthesizing + shared component integration
+```
+engines/taxonomy/SPEC.md                          (feeds synthesizing)
+engines/synthesis/SPEC.md
+shared/consensus/SPEC.md
+shared/human_gate/SPEC.md
+shared/validation/SPEC.md
+shared/feedback/SPEC.md
+schemas/placed_excerpt.json
+schemas/entry.json
+Session 1's boundary verification notes
+```
+Verify: synthesizing input contract, shared component integration points across all engine SPECs (Claude checks which engines reference each shared component).
+
+**Estimated: ~80K tokens. Fits.**
 
 ### Task
-For each engine boundary: verify producing SPEC §3, consuming SPEC §2, and shared schema all agree. Verify shared component integration from both sides. Spot-check 5 key concepts across all SPECs.
+For each boundary pair: does producing SPEC §3 match consuming SPEC §2 match shared schema? Spot-check 5 key concepts: self-containment, normalization boundary, content type, school, source-agnostic.
 
 ### Deliverable
 `reference/spec_consistency_report.md`
@@ -355,7 +572,16 @@ For each engine boundary: verify producing SPEC §3, consuming SPEC §2, and sha
 **Executor:** Claude Chat (1–2 sessions, review mode)
 
 ### Files to Attach
-All schemas, all SPECs, `schemas/SCHEMA_ANALYSIS.md`
+
+**Session 1: Schema-by-schema review against producing/consuming SPECs**
+```
+All 7 schema files from schemas/                  (~20K tokens total)
+schemas/SCHEMA_ANALYSIS.md                        (~5K tokens)
+reference/spec_consistency_report.md               (from W-011)
+```
+Load producing + consuming SPECs per schema as needed. Claude requests specific SPECs.
+
+**Estimated: ~30K tokens base + SPECs on demand. Very comfortable.**
 
 ### Decisions Claude Makes
 - Final field names across all schemas

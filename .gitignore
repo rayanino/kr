@@ -16,6 +16,9 @@ __pycache__/
 .pytest_cache/
 .venv/
 
+# ─── Session prep (generated, not tracked) ───────────────────────────
+vision_excerpt.md
+
 # ─── OS / Editor ─────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
