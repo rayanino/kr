@@ -31,6 +31,8 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 | D-017 | User Model — persistent user state as shared component | 2026-03-04 |
 | D-018 | Core Identity — KR is Rayane's knowledge, not a library he uses | 2026-03-04 |
 | D-019 | ABD legacy code has zero design authority | 2026-03-04 |
+| D-020 | Pipeline priority — critical path starts after source reception | 2026-03-04 |
+| D-021 | Owner's core frustration — lack of interconnection and poor explanations | 2026-03-04 |
 
 ---
 
@@ -155,3 +157,15 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 **Decision:** ABD-era code, reference docs, schemas, and decisions are treated as LEGACY — useful as implementation hints for what currently exists, but never as design constraints for what KR should be. Specifically: (1) No ABD decision is binding in KR. Any ABD-era choice can be overridden without justification. (2) KR is not limited to Shamela or any single source format. The source engine must design for ALL scholarly source types from the start. (3) ABD reference docs (ABD_INTAKE_SPEC.md, ABD_EXCERPTING_SPEC.md, etc.) describe what WAS built, not what SHOULD be built. (4) Field names, schema structures, and architectural patterns from ABD may be adopted if they're the best choice for KR, but "that's how ABD did it" is never a justification.
 **Alternatives considered:** Treating ABD decisions as defaults that need explicit override → rejected (creates anchoring bias; the architect should design from first principles, not from ABD's starting point).
 **Documents updated:** All engine CLAUDE.md files, PROJECT_INSTRUCTIONS.md, NEXT.md, DOMAIN.md, STATUS.md, DEEP_REASONING_PROTOCOL.md.
+
+### D-020: Pipeline priority — critical path starts after source reception
+**Decided:** 2026-03-04
+**Context:** Owner clarified that the source acquisition phase (autonomous discovery, multiple file types, login-gated sources) can be expanded later. The most critical work starts when a source enters the pipeline: normalization → passaging → atomization → excerpting → taxonomy placement → synthesis. The downstream engines are what make KR transformative.
+**Decision:** The source engine SPEC should define the complete source identity model and metadata architecture (these affect all downstream engines) but keep acquisition workflows minimal for v1. First version: accept files the owner provides (Shamela exports, PDFs, iPhone camera photos) + collect metadata. Autonomous discovery, multi-repository crawling, and expanded format support are documented as future capabilities (§4.B or marked [NOT YET IMPLEMENTED]) but not the design focus.
+**Documents updated:** NEXT.md, DOMAIN.md.
+
+### D-021: Owner's core frustration — lack of interconnection and poor explanations
+**Decided:** 2026-03-04
+**Context:** Owner identified the fundamental problems with existing Islamic scholarly tools and teaching: (1) topics explained in isolation without interconnection, no "storyline," no structural overview of a science; (2) no per-topic scholarly landscape (significance, opinions, schools); (3) poor explanations with big logical jumps, no ground-up building, no edge cases addressed, no prerequisite mapping.
+**Decision:** These frustrations define the success criteria for two engines: the **taxonomy engine** must make a science's internal logic visible (topic correlation map, prerequisite dependencies, per-leaf scholarly landscape), and the **synthesizing engine** must generate entries that explain from the ground up (step-by-step, no jumps, edge cases covered, prerequisites explicit, theory mapped completely, topic situated in context). The bar is: every entry reads like the best teacher you've ever had explaining the topic.
+**Documents updated:** DOMAIN.md (frustrations, taxonomy implications, synthesizing implications).

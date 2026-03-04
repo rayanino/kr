@@ -43,9 +43,19 @@ Implications that govern every design decision:
 - **What "highest level of scholarship" means:** The complete scholar — encyclopedic knowledge across all schools AND original scholarly production (tarjih, tahrir, research) AND teaching mastery (ability to explain and transmit). All three, not a choice between them.
 - **Study method:** Primarily self-directed but wants structured guidance from KR. No current teacher/shaykh. **KR must fill the role of both the library and the guide.** This is not optional — without structured guidance from the application, there is no structure at all.
 - **Current daily study workflow:** None yet — pending KR. **[PENDING: revisit once KR is in use to refine the interaction model]**
-- **Frustrations with Shamela and existing digital tools:** **[PENDING — owner to fill]**
+- **Frustrations with existing books and teaching methodologies:**
+  - **No interconnection.** Topics are explained in isolation. They're not linked to related topics, not situated within the science, not situated within the chapter. There's no "storyline" — no narrative thread connecting why this topic follows the previous one and leads to the next.
+  - **No structural overview.** There's no way to see an entire science drawn out — all its topics, how they correlate, which topics are foundational vs. derived, what depends on what. Ideally: a visual map of the entire science showing every topic and its relationships. **This is what the taxonomy tree aims to solve.**
+  - **No per-topic scholarly landscape.** For a given topic, you can't easily see: its significance, the different opinions held by different schools, who holds each opinion, what evidence supports each position, and how positions evolved over time.
+  - **Poor explanations.** Existing texts don't explain topics from the ground up. There are big logical jumps. Edge cases and common misunderstandings aren't addressed. The ideal: "explain like I'm 5" clarity — every concept built step by step, with explicit prerequisites, covering edge cases, mapping out the theory logically and completely. Not dumbed down, but maximally clear. **This is what the synthesizing engine aims to solve.**
+  - **No prerequisite mapping.** Books assume knowledge without telling you what you need to know first. There's no "before reading this, make sure you understand X and Y."
+
 - **What information about a book matters before starting to read it:** **[PENDING — owner to fill]**
-- **Sources known to exist but not accessible digitally:** Some books are simply not available online — bookstores like صفة الصفوة carry physical editions with no digital counterpart. These must be manually acquired (purchased) and input into KR via scans or photographs of pages. Additionally, some digital repositories require authentication (login walls) — the owner must manually download from these and feed the files to KR. **Two manual acquisition realities the source engine must handle:** (1) physical-only books → owner provides scans/images of pages, (2) login-gated digital sources → owner provides manually downloaded files (PDF, HTML, etc.).
+- **Sources known to exist but not accessible digitally:** Some books only exist in physical form (e.g., editions from bookstores like صفة الصفوة with no digital counterpart). Others are behind login walls. Two manual acquisition realities: (1) physical books → owner provides high-quality iPhone camera photos of pages, (2) login-gated digital sources → owner provides manually downloaded files. Additionally, many "digital" books online are professionally scanned PDFs (scanned through printers/flatbed scanners) — these are a major source format alongside structured text exports.
+
+### Critical Design Implication
+
+**Pipeline priority: the critical path starts AFTER a source is received.** The source acquisition phase (autonomous discovery, adding new source types, expanding file format support) can be expanded later. The most important work — what makes KR transformative — begins when a source enters the pipeline: normalization, passaging, atomization, excerpting, taxonomy placement, and synthesis. The source engine's first version should provide a minimum viable acquisition path that gets sources INTO the pipeline quickly. Don't over-engineer sourcing at the expense of the downstream engines that create the actual knowledge products.
 
 ### Critical Design Implication
 
@@ -193,15 +203,30 @@ When the taxonomy engine places excerpts, these inter-science links matter. An e
 
 ### What Doesn't Exist Yet (Opportunity for KR)
 
-- **No tool cross-references between books** — if al-Ghazali cites al-Juwayni, no tool links them
-- **No comparative school analysis** — existing tools show books from all schools but don't compare positions
+**Structural / interconnection gaps (owner's primary frustration):**
+- **No topic interconnection** — topics are taught in isolation; no tool shows how topic A relates to topic B within the same science, or across sciences
+- **No science-level structural map** — no way to see an entire science visualized: all topics, their correlations, prerequisite chains, foundational vs. derived concepts
+- **No prerequisite tracking** — no tool tells you "before studying X, you need to understand Y and Z"
+- **No narrative thread** — no "storyline" connecting topics within a chapter or science; why this topic follows the previous one
+
+**Scholarly landscape gaps:**
+- **No comparative school analysis** — existing tools show books from all schools but don't compare positions on the same topic
+- **No per-topic significance** — no tool tells you whether a topic is central or peripheral, controversial or settled
 - **No gap detection** — nobody can tell you "topic X has no Maliki source in your library"
+- **No temporal evolution** — how a position changed over centuries is invisible
+
+**Explanation quality gaps (owner's secondary frustration):**
+- **No ground-up explanations** — existing texts make big logical jumps; no tool generates step-by-step, edge-case-covering, "explain like I'm 5" level clarity
+- **No misconception mapping** — common misunderstandings aren't addressed
+- **No theory mapping** — for a given topic, no tool gives you: core rule, evidence, positions, reasoning, edge cases, practical implications — all in one place
+
+**Cross-source intelligence gaps:**
+- **No tool cross-references between books** — if al-Ghazali cites al-Juwayni, no tool links them
 - **No scholarly genealogy** — teacher→student chains exist in tabaqat books but aren't digitized as a network
 - **No metadata quality scoring** — all editions treated equally regardless of tahqiq quality
 - **No contradiction detection** — if a scholar says X in one book and Y in another, nobody flags it
-- **No temporal evolution** — how a position changed over centuries is invisible
 
-These gaps are KR's competitive advantage. Every one of them should be a designed capability in one or more engine SPECs.
+These gaps are KR's reason for existing. Every one of them should be a designed capability in one or more engine SPECs.
 
 ---
 
@@ -210,6 +235,7 @@ These gaps are KR's competitive advantage. Every one of them should be a designe
 When the architect designs any engine, these domain facts create concrete requirements:
 
 **Source engine must:**
+- **(Priority: get the identity model and metadata architecture right — these cascade to all downstream engines. Keep acquisition workflows minimal for v1.)**
 - Distinguish works from sources: group sources by work, track edition provenance
 - Track tahqiq quality, not just title/author
 - Know which publishers are reliable
@@ -224,7 +250,7 @@ When the architect designs any engine, these domain facts create concrete requir
 - Preserve scholarly apparatus (footnotes, variant readings, hadith references)
 - Handle Arabic-specific challenges: unvocalized text, hamza variants, taa marbuta
 - Not destroy metadata during format conversion
-- Handle scanned/photographed pages: OCR pipeline for Arabic text extraction from images. This is a core normalizer, not a future capability — physical-only books are a known reality from day one.
+- Handle two image-based source types: (1) iPhone camera photos of physical book pages (high quality, but variable lighting/angle), (2) professionally scanned PDFs (printer/flatbed scanned — many "digital" books online are this format). Arabic OCR pipeline needed for both.
 
 **Excerpting engine must:**
 - Tag excerpts with evidence type (Quran, hadith, scholarly reasoning, ijma)
@@ -234,11 +260,17 @@ When the architect designs any engine, these domain facts create concrete requir
 **Taxonomy engine must:**
 - Handle cross-science placement (one excerpt relevant to multiple sciences)
 - Track coverage per school per topic per science
+- Enable a **visual map of an entire science**: every topic, how topics correlate, which are foundational vs. derived, what depends on what. The tree IS this map — its structure must make the science's internal logic visible.
+- Track **prerequisite relationships** between topics: "understanding X requires first understanding Y." These are edges in the tree that aren't parent→child but rather dependency→dependent.
+- Surface the **scholarly landscape per leaf**: which schools have positions here, how many sources cover this topic, what's the significance of this topic within the science
 
 **Synthesizing engine must:**
 - Generate comparative analysis across all schools (not madhhab-biased)
 - Track temporal dimension (when was this position held, by whom, did it change?)
 - Detect intra-author contradictions
+- **Explain from the ground up.** Every entry must build the concept step by step — not dumbed down, but maximally clear. No big logical jumps. Explicit prerequisites stated. Edge cases and common misunderstandings addressed. The standard is: a reader who meets the prerequisites should be able to fully understand the topic from the entry alone.
+- **Situate every topic.** Each entry must explain WHERE this topic sits: what it connects to, why it matters, what comes before and after it in the science's logical structure. The "storyline" — the narrative thread connecting topics — must be visible.
+- **Map the theory completely.** For each topic: the core rule/definition, the evidence, the different scholarly positions, the reasoning behind each position, the edge cases, and the practical implications. Nothing left implicit.
 
 **Scholar interface must:**
 - Ground every answer in specific excerpts from specific sources — never generate unverified claims

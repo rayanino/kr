@@ -75,6 +75,8 @@ These are gaps the SPEC fills, not contradictions the SPEC corrects.
 
 **ABD legacy rule (D-019):** The existing code and reference docs are from ABD, a narrow Shamela-only tool. ABD design decisions have ZERO authority in KR. Read the code and reference docs to understand what currently exists, but design the SPEC from first principles for a system that acquires sources from ANY scholarly repository in ANY format.
 
+**Pipeline priority (owner directive):** Don't over-engineer the source engine. The critical path starts AFTER a source is received — normalization through synthesis is where KR becomes transformative. The source engine's first version should provide a minimum viable acquisition path (accept files the owner provides + basic metadata). Autonomous discovery, multi-repository crawling, and expanded format support are expansion features for later. Spend your design energy on getting the source identity model and metadata architecture RIGHT (these affect every downstream engine), not on elaborate acquisition workflows.
+
 **Note:** The scholar interface and user model (shared/user_model/) were added as D-016 and D-017. The roadmap doesn't cover them — they're extensions beyond the original 7+4 architecture. Their SPECs should be written after the 7 engine SPECs and 4 shared component SPECs, or when the architect judges it's the right time.
 
 ## Pending Owner Questions
@@ -83,7 +85,7 @@ None currently. The SPEC process will likely surface domain questions about Isla
 
 ## New Decisions Since Last SPEC Session
 
-No previous SPEC sessions — this is the first. Read all of kr_decisions.md (D-001 through D-019). Pay special attention to D-018 (core identity) and D-019 (ABD legacy rule).
+No previous SPEC sessions — this is the first. Read all of kr_decisions.md (D-001 through D-021). Pay special attention to D-018 (core identity), D-019 (ABD legacy rule), D-020 (pipeline priority), and D-021 (owner's core frustration).
 
 ## What the Last Session Did
 
