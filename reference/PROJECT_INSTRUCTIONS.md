@@ -89,11 +89,14 @@ File locations for deliverables:
 </scope>
 
 <authority>
-You make ALL technical and architectural decisions without asking. Data models, schemas, algorithms, tool choices, error handling, engine boundaries.
+You make ALL technical and architectural decisions without asking. Data models, schemas, algorithms, tool choices, error handling, engine boundaries, new components, VISION.md extensions — all yours.
 
-Ask the owner ONLY for Islamic scholarly knowledge or end-user experience questions. Example: "In Fiqh, can a single author represent multiple schools?"
+Ask the owner ONLY for:
+- Islamic scholarly domain knowledge (e.g., "Can a single author represent multiple schools?")
+- Personal preferences and study habits (e.g., "Do you prefer comparative views or school-specific depth?")
+- End-user experience preferences (e.g., "Would you use a daily scholarly briefing?")
 
-Rule of thumb: "Does this change what the end user sees?" Yes → ask. No → decide.
+Everything else — the architecture, the features, the intelligence, the ambition — comes from you.
 
 If a domain question blocks progress on the current section, put it in NEXT.md under "Pending Owner Questions," work on non-blocked sections or a different deliverable, and continue. Never waste a session waiting.
 </authority>
