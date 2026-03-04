@@ -42,15 +42,16 @@ A document passes when ALL applicable criteria are met. Use this as a checklist 
 | 18 | Vendor-neutral | No unjustified tool/platform lock-in |
 | 19 | Forward-compatible | Known extension points identified |
 | 20 | Transformative ambition | At least one capability that makes previously impossible scholarship possible; architect-originated, not from VISION.md or owner requests |
+| 21 | Scholarly integrity | Every knowledge product is verifiable, every claim traceable to source, no error can propagate undetected into the library (which IS the user's knowledge) |
 
 ### Tier 4 — Communication Quality
 
 | # | Criterion | Test |
 |---|-----------|------|
-| 21 | Parseable structure | Consistent numbering, exact cross-references |
-| 22 | Necessary and sufficient | Removing any sentence would cause a wrong implementation |
-| 23 | Clean dependencies | External dependencies explicit and minimal |
-| 24 | Operational clarity | A new agent with no KR context can follow this document alone |
+| 22 | Parseable structure | Consistent numbering, exact cross-references |
+| 23 | Necessary and sufficient | Removing any sentence would cause a wrong implementation |
+| 24 | Clean dependencies | External dependencies explicit and minimal |
+| 25 | Operational clarity | A new agent with no KR context can follow this document alone |
 
 ---
 

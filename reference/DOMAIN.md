@@ -4,6 +4,28 @@ This document gives the architect domain grounding for design decisions. Read it
 
 ---
 
+## The Core Identity
+
+**KR is not a library Rayane uses. KR IS Rayane's knowledge.**
+
+The library's contents are what Rayane knows. The library's gaps are what he doesn't know. An error in the library is an error in his understanding. Growing the library is growing as a scholar. This is the foundational principle from which everything else follows.
+
+Implications that govern every design decision:
+
+1. **Quality is existential.** A wrong attribution means Rayane "knows" something false. A misrepresented position corrupts his understanding. Verification isn't good engineering — it's the difference between scholarship and misinformation. Every excerpt must meet the standard a scholar would hold himself to. Every entry must be something Rayane could cite in his own published work.
+
+2. **Completeness is meaningful.** A gap in the library isn't a data issue — it's a gap in Rayane's scholarship. Gap detection is personal: "Your scholarship has no coverage of the Hanafi position on this topic."
+
+3. **The library grows as Rayane grows.** When he studies → excerpts get placed, entries generated. When he masters a topic → entries deepen, cross-references multiply. When he produces original research → his conclusions feed back into the library alongside the classical scholars. The library is alive.
+
+4. **Scholarly standards are the foundation, not a feature.** Every attribution must be verified. Every claim must be sourced. Every position must be correctly attributed to its holder. The bar is publishable scholarship, not useful summaries.
+
+5. **Encyclopedic completeness is the endgame.** The library should eventually represent comprehensive knowledge of every science it covers — not highlights or key points, but the complete scholarly landscape that a scholar could rely on as their sole reference.
+
+6. **Rayane's own voice belongs in the library.** His tarjih, his notes, his research papers, his conclusions — these are knowledge too. The library is not just "what scholars said" but "what scholars said + what Rayane concludes." His scholarly voice grows alongside the classical voices.
+
+---
+
 ## The User
 
 **Name:** Rayane

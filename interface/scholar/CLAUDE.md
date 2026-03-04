@@ -1,8 +1,10 @@
 # Scholar Interface — واجهة العالم
 
-**Responsibility:** The primary product of KR. Everything else exists to feed this. Consumes all knowledge products (excerpts, entries, knowledge graph) and provides Rayane with the complete scholarly experience: structured curriculum, conversational Q&A, active teaching, proactive discovery, scholarly production assistance, and knowledge navigation.
+**Responsibility:** The primary product of KR. Everything else exists to feed this. KR IS Rayane's knowledge — the library represents what he knows, and the scholar interface is how he interacts with, grows, and expresses that knowledge. It provides the complete scholarly experience: structured curriculum, conversational Q&A, active teaching, proactive discovery, scholarly production assistance, and knowledge navigation.
 
 This is not an add-on. The owner has no teacher, no existing study practice, no curriculum. KR IS the study infrastructure. If the engines work perfectly but this interface doesn't guide study from zero to mastery, the application has failed.
+
+Because the library IS his knowledge, quality is existential: every answer must be verifiable, every citation traceable, every claim sourced. An error in an interface response is an error planted in Rayane's understanding.
 
 ## Capability Domains
 
@@ -23,6 +25,14 @@ This is not an add-on. The owner has no teacher, no existing study practice, no 
 1. **Learning mode** — absorb and understand positions (encyclopedic knowledge). Curriculum-guided reading, Socratic testing, spaced repetition.
 2. **Research mode** — compare, analyze, produce original work (scholarly production). Evidence compilation, contradiction detection, tarjih scaffolding, writing assistance.
 3. **Teaching mode** — practice explaining positions (teaching mastery). Generate lesson outlines, simulate student questions, assess explanation clarity.
+
+## The Feedback Loop
+
+Rayane's own scholarly output feeds back into the library. When he writes a tarjih (comparative analysis), a research paper, personal notes, or conclusions — these become part of KR alongside the classical sources. His voice grows alongside the classical voices. This means:
+- The library has two classes of content: **source-derived** (from processed books) and **owner-originated** (from Rayane's own scholarship)
+- Owner-originated content is clearly marked but treated as first-class knowledge
+- Over time, the library becomes not just "what scholars said" but "what scholars said AND what Rayane concluded"
+- The interface can cite Rayane's own previous conclusions: "You wrote in your analysis of topic X that..."
 
 ## Dependencies
 

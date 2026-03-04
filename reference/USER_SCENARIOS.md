@@ -83,6 +83,8 @@ Rayane writes the paper. KR assists with:
 - Verifying every claim against the library: "You wrote 'the majority hold X' — I count 6 sources for X and 4 for Y. 'Majority' is accurate but you may want to be more precise."
 - Flagging unsourced claims: "This sentence makes a claim I cannot find in any library source."
 
+When the paper is complete, **KR absorbs it back into the library.** Rayane's tarjih on Quran 2:228 becomes an owner-originated entry at the relevant taxonomy leaf, alongside the classical scholarly entries. Future queries on this topic now include Rayane's own conclusion: "You previously concluded that the Basran grammatical interpretation is stronger because..."
+
 ---
 
 ## Scenario 5: Year 3 — Teaching Mode
@@ -128,3 +130,4 @@ Rayane: "I need to teach someone about أحكام النون الساكنة وا
 | Research question generation | 4 |
 | School-comparative analysis | 2, 4 |
 | Source acquisition on demand | 2, 4 |
+| Owner-originated content (feedback loop) | 4 |
