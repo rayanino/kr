@@ -41,8 +41,8 @@ The order matters. Think about what the engine SHOULD be before seeing what it c
 
 **Step 2 — Understand the architecture:**
 5. `VISION.md` §7.1–§7.4 and §2 → run `python3 scripts/extract_vision_sections.py 7 2`
-6. `schemas/source_metadata.json` (234L) — current output schema
-7. `schemas/SCHEMA_ANALYSIS.md` (329L) — pipeline schema overview
+6. `schemas/source_metadata.json` (234L) — current output schema **(ABD-era — treat as "what exists," not "what to build")**
+7. `schemas/SCHEMA_ANALYSIS.md` (329L) — pipeline schema overview **(has D-019 and D-023 warnings at top)**
 
 **Step 3 — Now look at existing code and reference (after you've formed your own vision):**
 
