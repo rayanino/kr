@@ -6,7 +6,9 @@ In Claude Chat, create a project called "KR" and configure:
 
 **1. Enable "Code Execution and File Creation"** in the project's feature settings. This is required — Claude works directly in the repo using bash commands. Without it, nothing works.
 
-**2. Custom Instructions:**
+**2. Enable "Web Search"** in the project's feature settings. Claude needs web search for mandatory research during SPEC writing. Without it, research steps will block.
+
+**3. Custom Instructions:**
 Open `reference/PROJECT_INSTRUCTIONS.md`. Copy everything from line 5 onward (starting with "You are the architect"). Paste into the project's Custom Instructions field.
 
 Then replace `$KR_REPO_URL` with:
@@ -15,13 +17,13 @@ https://rayanino:YOUR_TOKEN_HERE@github.com/rayanino/kr.git
 ```
 (The token is in the project file `Github_key`.)
 
-**3. Project Knowledge Files:** Add one file:
+**4. Project Knowledge Files:** Add one file:
 - `reference/DEEP_REASONING_PROTOCOL.md`
 
-**4. Project Files:** The following should be attached as project files:
+**5. Project Files:** The following should be attached as project files:
 - `Github_key`
 
-Remove any other project files (including the roadmap if it was previously attached — it's now archived in the repo at `reference/archive/`). The repo contains everything Claude needs.
+Remove any other project files (including the roadmap, ABD repo link, KR repo link if they were previously attached). The repo contains everything Claude needs.
 
 That's it. Claude clones the repo and reads everything else directly.
 

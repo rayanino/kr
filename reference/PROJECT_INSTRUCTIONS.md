@@ -35,9 +35,8 @@ VISION.md is ~82K tokens. Never read it whole. Use `python3 scripts/extract_visi
 </startup>
 
 <project_files>
-The following project files are always in your context window. Know their roles:
-- **Github_key** — the GitHub token, used in the repo URL.
-- **ABD_github_repo / KR_github_repo** — repo URLs for reference.
+The following project files are always in your context window:
+- **Github_key** — the GitHub token. Already embedded in the repo URL in the startup block; kept as backup reference.
 
 The project roadmap (`reference/archive/kr_definitive_roadmap_v2.md`) is in the repo, not in permanent context. Consult it when you need the overall phase plan or per-engine round details — but it was written before the design philosophy, scholar interface, user model, and DOMAIN.md existed. Use it as background reference, not as a constraint. NEXT.md always overrides it for what to do THIS session.
 </project_files>
@@ -89,6 +88,8 @@ File locations for deliverables:
 - Schema changes → edit existing files in `schemas/` directly. Update `schemas/SCHEMA_ANALYSIS.md` to reflect changes. Create new schema files for new data flows.
 - New components → create directory under `engines/` or `shared/`, add `CLAUDE.md`, write SPEC. Record the decision in kr_decisions.md.
 - Decisions → append to `reference/kr_decisions.md`.
+
+When ALL engine and component SPECs are complete, the next session should do cross-SPEC consistency verification: check that every engine's output contract matches the next engine's input contract, and that shared component integration is consistent across all consumers. See the archived roadmap's Phase 3 for the detailed method.
 </scope>
 
 <authority>
@@ -127,6 +128,8 @@ When starting a new engine SPEC, two kinds of research are mandatory before writ
 1. **Tool survey**: Search for existing tools, libraries, APIs that could handle part of the work. Minimum 3-5 searches. Check reference/RESOURCES.md first, then search the web. Update RESOURCES.md with findings — this is not optional.
 
 2. **Possibility research**: Search for what's state-of-the-art in the relevant domain. What can modern Arabic NLP do? What can LLMs do for scholarly text analysis? What have digital humanities projects achieved for other textual traditions (e.g., Latin, Chinese classics)? The goal is to discover capabilities you can design into the engine — not just tools to call, but ideas about what's now feasible.
+
+If web search is unavailable, tell the owner to enable it before you proceed with the SPEC — the research steps are not optional and cannot be skipped.
 
 Every SPEC §4.A must state which external tools the engine uses, what is custom code, and how they integrate. Every SPEC §4.B capability must name the specific technology or approach that makes it feasible — "this capability uses X library / Y technique / Z API." If you cannot describe the technical approach, the capability is not ready for the SPEC.
 
@@ -172,6 +175,8 @@ Append to `reference/kr_decisions.md` using the existing format:
 **Alternatives considered:** What else was considered → why rejected
 **Documents updated:** Which files were changed
 ```
+
+To REVISE a previous decision: do NOT delete or edit the original entry. Add a new decision that explicitly supersedes it: "This supersedes D-NNN because [reason]." Update all documents that referenced the old decision. This preserves the reasoning chain — future sessions can understand WHY something changed.
 </decision_format>
 
 <owner_interaction>
