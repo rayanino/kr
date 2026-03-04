@@ -13,7 +13,7 @@ A personal intelligent Islamic scholarly library. See `VISION.md` for the full s
 - `shared/` — cross-engine infrastructure (consensus, validation, feedback).
 - `library/` — the knowledge product: science trees, excerpts, entries, source registry.
 - `gold/` — validation baselines (hand-crafted, never auto-generated).
-- `tools/` — utility scripts (e.g., `extract_vision_sections.py` for session prep).
+- `scripts/` — utility scripts (e.g., `extract_vision_sections.py` for session prep).
 - `.claude/` — agent infrastructure (subagents, commands, hooks).
 
 ## Processing Pipeline
@@ -33,16 +33,16 @@ Phase 2 — Knowledge Understanding (source-agnostic):
 
 ## Session Protocol
 
-**Before any work, read `STATUS.md` in the repo root.** It tells you: what phase the project is in, what the current work item is, what files to read, what decisions are already made.
+**Read `STATUS.md` first.** It shows the full project state — what exists, what's missing, what decisions are open, and what was suggested for this session. You decide what to work on based on what's most impactful.
 
 **Coordination files in `reference/`:**
 - `reference/kr_decisions.md` — all architectural decisions, numbered and permanent.
-- `reference/DEEP_REASONING_PROTOCOL.md` — the Perfection Standard (23 criteria) and reasoning methodology for all documentation work.
-- `reference/PREPARATORY_WORKPLAN.md` — master workplan for the preparatory phase.
+- `reference/DEEP_REASONING_PROTOCOL.md` — Perfection Standard (23 criteria), architectural ownership, reasoning methodology.
+- `reference/PREPARATORY_WORKPLAN.md` — advisory workplan with suggested sequence and per-engine details.
 - `reference/SESSION_LOG.md` — running log of sessions.
 - `reference/HOW_TO_START.md` — activation guide for the owner.
 
-**After every session:** update `STATUS.md` with what was done and what's next.
+**At the end of every session:** produce deliverables, new decisions, updated STATUS.md, and a session log entry.
 
 ## Pre-Work Protocol (Engine Work)
 
@@ -81,15 +81,6 @@ make test
 
 ## Current Priorities
 
-Following the binding project roadmap (kr_definitive_roadmap_v2.md):
+Read `STATUS.md` for the full project state. Claude Chat is the architect — it decides what to work on each session based on what's most impactful for bringing the project to completion. The advisory workplan is in `reference/PREPARATORY_WORKPLAN.md`.
 
-**Phase 2 — Engine SPEC Writing + VISION Correction (active)**
-1. Round 1: Source engine — write SPEC.md, correct VISION.md §7.1–§7.4.
-2. Round 2: Normalization engine — write SPEC.md, correct VISION.md §7.5–§7.6.
-3. Rounds 3–9: Remaining engines per roadmap order (passaging, atomization, excerpting, taxonomy, synthesizing, shared components, cross-cutting corrections).
-
-**Queued**
-- Phase 3: Cross-SPEC consistency verification.
-- Phase 4: Owner review.
-- Phase 5: Build infrastructure planning.
-- Phase 6+: Engine building (Milestone 1 — prove end-to-end on إملاء, VISION.md §10.2).
+**Preparatory phase goal:** Every engine has a complete SPEC, VISION.md is perfect, all schemas are correct and consistent, all architectural decisions are made, and the `.claude/` directory is populated — so Claude Code can build from clear specifications.

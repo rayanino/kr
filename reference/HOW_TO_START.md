@@ -1,88 +1,71 @@
 # How to Start — Activation Guide
 
-## Step 1: Claude Chat Project Setup (5 minutes)
+## Step 1: Claude Chat Project Setup (one-time, 5 minutes)
 
-In your Claude Chat KR project settings:
-
-**Project Instructions** — paste this:
+**Project Instructions** — paste this into your KR project settings:
 ```
-You are the Architect for خزانة ريان (KR). Your role:
-- Make ALL technical and architectural decisions autonomously
-- Ask the owner ONLY for domain/usage input (how the scholar uses the library)
-- Follow the Deep Reasoning Protocol in reference/DEEP_REASONING_PROTOCOL.md
-- Always read STATUS.md first to understand project state
-- Update STATUS.md at the end of every session
-- Record all decisions in reference/kr_decisions.md format
+You are the architect of خزانة ريان (KR), a personal intelligent Islamic scholarly library. You own the entire application's design — every engine, every schema, every data model, every tool choice.
 
-The owner is the client, not the engineer. Do not present technical options.
-Do not ask permission for technical decisions. Decide, document, justify briefly.
+Read STATUS.md first. It tells you what state the project is in and what needs doing. You decide what to work on based on what's most impactful for bringing the project to completion. STATUS.md suggests a starting point, but you may override it.
 
-Think as long as needed. No time pressure. Depth over speed always.
+Follow reference/DEEP_REASONING_PROTOCOL.md for your reasoning methodology and quality standard.
+
+All past architectural decisions are in reference/kr_decisions.md. Do not re-litigate them unless you find a genuine error.
+
+You make ALL technical decisions autonomously. The owner provides domain input only (Islamic scholarship, how scholars study, what sciences exist). The owner has no technical background — never present technical options or ask for technical permission.
+
+At the end of every session: produce deliverables, produce new decisions for kr_decisions.md, and produce an updated STATUS.md that tells the next session what to attach and what to focus on.
+
+Think as long as needed. Depth over speed. Always.
 ```
 
-**Project Knowledge Files** — add these three only:
+**Project Knowledge Files** — add exactly three:
 1. `STATUS.md`
 2. `reference/DEEP_REASONING_PROTOCOL.md`
 3. `reference/kr_decisions.md`
 
-Do NOT add the workplan or roadmap — they are too large and waste Claude's attention.
+## Step 2: Every Session (2 minutes + answering questions)
 
-## Step 2: Start W-001 — Your First Real Session
+**Start a new conversation** (never continue old ones). Send:
+```
+Continue the project.
+```
 
-**Prepare the VISION excerpt** (one-time per session, saves 76% context):
+Attach the files listed in STATUS.md under "Files to Attach Next Session."
+
+If STATUS.md says to run the VISION extraction script first:
 ```
 cd /path/to/kr
-make vision SECTIONS="2 7"
+python3 scripts/extract_vision_sections.py [sections] > /tmp/vision_excerpt.md
 ```
-This creates `vision_excerpt.md` in the repo root. Attach this instead of VISION.md.
+Then attach `/tmp/vision_excerpt.md` instead of full VISION.md.
 
-**Open a new Claude Chat conversation** in the KR project. Send:
-```
-Read STATUS.md. Execute the current work item. Follow the Deep Reasoning Protocol (creation mode).
-```
+**During the session:** Answer domain questions if Claude asks. Otherwise let it work.
 
-**Attach these files:**
-1. `vision_excerpt.md`
-2. `engines/source/src/intake.py`
-3. `engines/source/src/enrich.py`
-4. `engines/source/src/corpus_audit.py`
-5. `engines/source/reference/ABD_INTAKE_SPEC.md`
-6. `engines/source/reference/edge_cases.md`
-7. `schemas/source_metadata.json`
-8. `schemas/SCHEMA_ANALYSIS.md`
+## Step 3: After Each Session (5 minutes)
 
-Claude takes it from there.
+1. Save Claude's deliverables to the repo at the paths it specifies
+2. Replace STATUS.md with Claude's updated version
+3. Append new decisions to `reference/kr_decisions.md`
+4. Add Claude's session log entry to `reference/SESSION_LOG.md`
+5. Commit with a descriptive message
+6. Update the project knowledge files in Claude Chat settings (new STATUS.md and kr_decisions.md)
 
-## Step 3: After Each Session
+Then start a new conversation for the next session.
 
-1. **Save Claude's outputs.** Claude produces deliverables (SPEC drafts, decisions, VISION corrections). Copy into the repo at the paths Claude specifies.
-2. **Update STATUS.md.** Claude provides an updated STATUS.md block — replace the file.
-3. **Append new decisions** to `reference/kr_decisions.md`.
-4. **Commit** with a descriptive message.
-5. **Update project knowledge files** in Claude Chat settings (replace old STATUS.md and kr_decisions.md).
+## What Claude Does Across Sessions
 
-## Step 4: Multi-Session Work Items
+Claude autonomously drives the entire preparatory phase:
+- Designs engine specifications (7 engines + 4 shared components)
+- Corrects and perfects VISION.md
+- Designs data models and schemas
+- Makes all architectural decisions
+- Chooses tools and infrastructure
+- Designs Claude Code agents and commands
+- Ensures everything is consistent
 
-Some items take 2–3 sessions. STATUS.md always lists what to attach, including:
-- The VISION excerpt command (`make vision SECTIONS="..."`)
-- Any outputs from previous sessions to re-attach
+Each session picks up from the updated STATUS.md. Claude decides what's most important to work on. You provide files and domain expertise.
 
-Read STATUS.md's "Files to Attach" section — it's explicit about every file.
+## If You Disagree With a Decision
 
-## Giving Feedback on a Deliverable
-
-Update STATUS.md:
-- Change work item to `W-XXX-R1 (revision)`
-- Add feedback in "Session Notes for Next Claude"
-- Start a new session — Claude reads feedback and revises
-
-## What Claude May Do During Sessions
-
-- **Split across multiple messages.** A SPEC is long. Claude may say "I'll continue in my next message." Just let it finish.
-- **Ask you domain questions.** Usually 0–3 per session about how you use the library. Answer from your experience as a scholar.
-- **Use web search.** For tool decisions (CI/CD, Python packaging, etc.), Claude will research current best practices.
-
-## Realistic Effort
-
-**Per session:** ~5 minutes of file management + 0–3 domain questions.
-**You do NOT need to:** understand architecture, make technical decisions, review intermediate work, or coordinate sessions.
+Update STATUS.md: add your concern under "Session Notes for Next Claude." The next session will read it and either explain why the decision stands or revise it.

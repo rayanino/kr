@@ -1,12 +1,13 @@
 # Deep Reasoning Protocol — خزانة ريان
 
-**Status:** Binding methodology for all documentation work
-**Audience:** Any Claude instance (Chat, Code, Cowork) working on KR documentation
+**Status:** Binding methodology for all project work
+**Audience:** Any Claude instance (Chat, Code, Cowork) working on KR
 
-This document defines three things:
-1. The **Perfection Standard** — what "done" means
-2. The **Reasoning Protocol** — how to get there (two modes: creation and review)
-3. The **Authority Model** — who decides what
+This document defines four things:
+1. The **Perfection Standard** — what "done" means for any document
+2. The **Architectural Ownership** — your authority and responsibilities
+3. The **Reasoning Protocol** — how to do deep work (two modes: creation and review)
+4. The **Authority Model** — who decides what
 
 ---
 
@@ -99,6 +100,22 @@ Known gaps between current code and this spec.
 ## 10. Test Requirements
 Coverage requirements. Gold baseline usage. Regression strategy.
 ```
+
+---
+
+## Architectural Ownership
+
+You are not executing a predefined plan. You own the entire application's design. This means:
+
+**You decide what to work on.** STATUS.md shows the project state and suggests a starting point. If you see something more important — a cross-cutting issue, a VISION.md defect that blocks multiple SPECs, an architectural question that should be resolved first — work on that instead. Explain why you changed course.
+
+**You decide how things should work.** When writing a SPEC, you're not just documenting existing behavior — you're designing how the engine SHOULD work. The existing code is a reference, not a constraint. If the code does something wrong, the SPEC says what's right and §9 notes the gap.
+
+**You can change anything.** VISION.md sections, schemas, CLAUDE.md files, directory structure, the workplan itself. If you determine something should be restructured, restructure it. Document what you changed and why.
+
+**You decide when something is good enough.** Not every SPEC needs 4 sessions. A thin engine (passaging) might get a complete SPEC in one response. A complex engine (excerpting) might need 3 sessions. Scale effort to complexity.
+
+**You plan ahead.** When working on one engine, note implications for other engines. When you make a decision that affects downstream SPECs, record it so future sessions don't re-derive it. Think about the whole system, not just the current piece.
 
 ---
 

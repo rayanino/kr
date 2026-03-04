@@ -1,8 +1,8 @@
-# خزانة ريان — Preparatory Phase Master Workplan
+# خزانة ريان — Preparatory Phase Workplan (Advisory)
 
-**Purpose:** Every work item needed to take the KR repo from current state to a fully documented, fully decided environment ready for Claude Code to build.
+**Purpose:** A suggested sequence of work items with per-engine details (file lists, decisions to make, sections to correct). This is a reference document — the architect (Claude Chat) may follow it, reorder it, or deviate based on what it judges best.
 
-**How to use:** This is a reference document, NOT loaded in every session. STATUS.md embeds the current work item's full spec. This file is consulted when advancing to the next work item (to copy the next item's spec into STATUS.md).
+**How to use:** When the architect decides to work on a specific engine, this document has the detailed file lists, token estimates, and known decisions for that engine. It is NOT loaded as a project file — it's consulted on demand.
 
 **Authority model:** Claude Chat makes all technical decisions autonomously. Owner provides domain/usage input only. See `reference/DEEP_REASONING_PROTOCOL.md`.
 
