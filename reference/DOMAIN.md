@@ -147,28 +147,45 @@ For manuscripts (future capability):
 
 ### Metadata the Application Must Track Per Source
 
-**Minimum viable metadata (every source):**
+These categories map to the book briefing (D-022). Some are captured at source intake, some enriched later by downstream engines or the owner.
+
+**Minimum viable metadata (every source — captured at intake):**
 - Title (Arabic + transliterated)
 - Author (full name, nisba, birth/death dates hijri + miladi)
 - Science classification (may be multiple: a book on usul al-fiqh also touches mantiq)
-- Source format (Shamela, PDF, EPUB, manuscript scan, etc.)
+- Source format (Shamela HTML, PDF scan, PDF text, EPUB, iPhone photo, etc.)
 - Acquisition date and provenance (where did the digital file come from?)
+- Work type / genre: matn, sharh, hashiyah, mukhtasar, nazm, risalah, taqrirat, etc.
 
-**Scholarly metadata (when available):**
+**Scholarly metadata (when available — captured at intake or enriched later):**
 - Tahqiq editor(s) and their credentials
 - Publisher, city, edition number, print year
 - Manuscript base (which manuscripts, their library identifiers)
 - Volume/part structure (many works are multi-volume; some have different numberings across editions)
 - Original composition date (hijri) and context (why the author wrote it)
-- The work's genre: sharh (commentary), mukhtasar (abridgment), hashiyah (marginal note), matn (core text), nazm (versified), risalah (treatise)
 - Relationships to other works: "this is a sharh of [other book]", "this is a mukhtasar of [other book]"
+- Author profile: scholarly standing, madhhab, known teachers, known students, other major works, methodology
+- Work reputation: mu'tamad status in its school/science, citation frequency, scholarly consensus on its value
+- Work level: beginner / intermediate / advanced / specialist (may be subjective — owner can override)
+- Work scope: what topics it covers, what it explicitly does NOT cover, theory vs. practice proportion
 
-**Library tracking metadata:**
+**Edition-specific metadata (per source, not per work):**
+- Trustworthiness assessment: is this specific print/edition credible and uncorrupted?
+- Comparison to other editions: how does this edition differ content-wise from other known prints?
+- Preferred edition status: is this the owner's preferred edition for this work?
+
+**Library tracking metadata (computed/updated throughout pipeline):**
 - Ingestion status (acquired, normalized, passaged, excerpted, placed)
 - Completeness (full text or partial? which volumes?)
 - Known text quality issues (OCR errors, missing pages, corrupted sections)
 - Alternative editions available (and which is preferred)
 - Cross-references to other sources in the library (the citation network)
+
+**Study context metadata (computed by taxonomy/synthesizing engines, consumed by scholar interface):**
+- Prerequisite knowledge: what should be understood before reading this source
+- Prerequisite books: what specific works should be read first
+- Recommended next: what to read after finishing this source
+- Position in classical learning progression for its science
 
 ### How Scholars Reference Other Works
 
