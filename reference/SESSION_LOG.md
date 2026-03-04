@@ -29,3 +29,9 @@
 **Decisions:** None (process improvement)
 **Deliverables:** reference/RESOURCES.md (external resource catalog mapping tools to engines), .env.template, .gitignore update for .env, PROJECT_INSTRUCTIONS.md updated with <resource_awareness> block and resource survey step in workflow, STATUS.md infrastructure table updated. Researched and cataloged: Docling, shamela2epub, ragaeeb/shamela, mem0, OpenRouter, CAMeL Tools, DSPy, awesome-arabic-nlp, plus per-engine survey starting points.
 **Next:** Architect decides based on project state
+
+### Session 2026-03-04-f — Claude Chat
+**Focus:** Scope boundary + research mandate — make crystal clear that Claude Chat does NOT build application code, only SPECs/docs/Claude Code environment. Strengthen web search as mandatory.
+**Decisions:** None (process clarity)
+**Deliverables:** PROJECT_INSTRUCTIONS.md rewritten with explicit <scope> (what Chat produces vs doesn't), <claude_code_environment> (agent definitions, hooks, commands as deliverables), strengthened <resource_awareness> with "WEB SEARCH IS MANDATORY" language.
+**Next:** Owner sets up project, architect starts source engine SPEC
