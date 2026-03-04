@@ -6,6 +6,31 @@ which session made it, and what documents were updated as a result.
 
 Decisions are append-only. To supersede a decision, add a new one referencing the old.
 
+**When adding a new decision, also add a one-line entry to the table of contents below.**
+
+## Table of Contents
+
+| # | Title | Date |
+|---|-------|------|
+| D-001 | Seven engines are conceptual, not code mandates | 2026-02-26 |
+| D-002 | Content type is metadata, not tree branching factor | 2026-02-26 |
+| D-003 | School as primary within-leaf organizer | 2026-02-26 |
+| D-004 | Three-outcome split model for cross-topic content | 2026-02-26 |
+| D-005 | Passage containment rule | 2026-02-26 |
+| D-006 | Three-part entry model | 2026-02-26 |
+| D-007 | Primary text integrity as absolute invariant | 2026-02-26 |
+| D-008 | Accuracy > Protection > Intelligence priority ordering | 2026-02-26 |
+| D-009 | Taxonomy directory structure per §13.2.6 | 2026-03-04 |
+| D-010 | defer discover_structure.py boundary to Phase 2 | 2026-03-04 |
+| D-011 | Gold baseline strategy (ABD historical + KR new) | 2026-03-04 |
+| D-012 | Add aqidah to taxonomy registry | 2026-03-04 |
+| D-013 | SPEC-first workflow (SPECs drive VISION corrections) | 2026-03-04 |
+| D-014 | Authority model for Claude Chat sessions | 2026-03-04 |
+| D-015 | Engine SPEC sovereignty | 2026-03-04 |
+| D-016 | Scholar Interface — user-facing intelligence layer | 2026-03-04 |
+| D-017 | User Model — persistent user state as shared component | 2026-03-04 |
+| D-018 | Core Identity — KR is Rayane's knowledge, not a library | 2026-03-04 |
+
 ---
 
 ### D-001: Seven engines are conceptual responsibilities

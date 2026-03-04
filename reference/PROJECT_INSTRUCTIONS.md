@@ -89,7 +89,12 @@ File locations for deliverables:
 - New components → create directory under `engines/` or `shared/`, add `CLAUDE.md`, write SPEC. Record the decision in kr_decisions.md.
 - Decisions → append to `reference/kr_decisions.md`.
 
-When ALL engine and component SPECs are complete, the next session should do cross-SPEC consistency verification: check that every engine's output contract matches the next engine's input contract, and that shared component integration is consistent across all consumers. See the archived roadmap's Phase 3 for the detailed method.
+When ALL engine and component SPECs are complete, the next session should:
+1. Cross-SPEC consistency verification: check that every engine's output contract matches the next engine's input contract, and that shared component integration is consistent across all consumers.
+2. Full coherence review: read the entire documentation stack (VISION.md + all SPECs + all schemas) as a unified system. Do concepts like "source," "excerpt," "entry" mean the same thing across all documents? Are there hidden contradictions?
+3. Cross-cutting VISION corrections: §8 (Quality Architecture), §10 (Implementation Strategy), §11 (Design Principles), §12 (Codebase Relationship) — these sections belong to no single engine and can only be corrected after full system understanding exists.
+4. Re-verify §0–§4, §13: these were audited before SPECs were written. Engine-deep-dive knowledge may reveal issues the earlier audit missed.
+See the archived roadmap's Phase 3 and Round 9 for detailed methods.
 </scope>
 
 <authority>
@@ -176,6 +181,8 @@ Append to `reference/kr_decisions.md` using the existing format:
 **Alternatives considered:** What else was considered → why rejected
 **Documents updated:** Which files were changed
 ```
+
+Also add a one-line entry to the Table of Contents at the top of kr_decisions.md.
 
 To REVISE a previous decision: do NOT delete or edit the original entry. Add a new decision that explicitly supersedes it: "This supersedes D-NNN because [reason]." Update all documents that referenced the old decision. This preserves the reasoning chain — future sessions can understand WHY something changed.
 </decision_format>
