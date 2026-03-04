@@ -1,29 +1,22 @@
 # Deep Reasoning Protocol — خزانة ريان
 
-**Status:** Binding methodology for all project work
-**Audience:** Any Claude instance (Chat, Code, Cowork) working on KR
-
-This document defines four things:
-1. The **Perfection Standard** — what "done" means for any document
-2. The **Architectural Ownership** — your authority and responsibilities
-3. The **Reasoning Protocol** — how to do deep work (two modes: creation and review)
-4. The **Authority Model** — who decides what
+This document defines two things: the quality standard every document must meet, and the SPEC template every engine follows. The authority model and session workflow are in the project instructions.
 
 ---
 
 ## The Perfection Standard
 
-A documentation section passes when ALL applicable criteria below are met.
+A document passes when ALL applicable criteria are met. Use this as a checklist during self-review.
 
-### Tier 1 — Structural Soundness (Non-negotiable)
+### Tier 1 — Structural Soundness (non-negotiable)
 
 | # | Criterion | Test |
 |---|-----------|------|
-| 1 | Zero ambiguity | An AI agent can implement the described behavior with zero clarifying questions |
+| 1 | Zero ambiguity | An AI agent implements described behavior with zero clarifying questions |
 | 2 | Binary sentences | Every sentence is a binding rule OR a marked open question — nothing else |
 | 3 | No contradictions | No sentence contradicts anything in any KR document |
 | 4 | No premature constraints | Nothing constrains an undecided matter |
-| 5 | No unbounded universals | Every "always/never/all" is scoped to what can be guaranteed |
+| 5 | No unbounded universals | Every "always/never/all" scoped to what can be guaranteed |
 | 6 | Glossary compliance | Every term matches VISION.md §2 exactly — no synonyms, no collisions |
 | 7 | No duplication | Only unique content; external rules referenced, not restated |
 | 8 | Accurate state | Current code described accurately; unbuilt features marked [NOT YET IMPLEMENTED] |
@@ -43,259 +36,96 @@ A documentation section passes when ALL applicable criteria below are met.
 
 | # | Criterion | Test |
 |---|-----------|------|
-| 15 | Best-known design | Alternatives were considered; this is the best, with documented reasoning |
-| 16 | Earned complexity | Every element justifies its existence; removable elements are removed |
+| 15 | Best-known design | Alternatives considered; this is the best, with reasoning |
+| 16 | Earned complexity | Every element justifies its existence |
 | 17 | Scale-graceful | Works at 1x and 1000x; limitations stated if not |
-| 18 | Vendor-neutral | No unjustified tool/platform lock-in; migration path noted for any specific choice |
-| 19 | Forward-compatible | Known extension points identified; likely future needs accommodated |
+| 18 | Vendor-neutral | No unjustified tool/platform lock-in |
+| 19 | Forward-compatible | Known extension points identified |
 
 ### Tier 4 — Communication Quality
 
 | # | Criterion | Test |
 |---|-----------|------|
-| 20 | Parseable structure | Consistent numbering, exact cross-references, single purpose per section |
-| 21 | Necessary and sufficient | Removing any sentence would cause a wrong implementation decision |
-| 22 | Clean dependencies | External dependencies explicit and minimal; no circular references |
+| 20 | Parseable structure | Consistent numbering, exact cross-references |
+| 21 | Necessary and sufficient | Removing any sentence would cause a wrong implementation |
+| 22 | Clean dependencies | External dependencies explicit and minimal |
 | 23 | Operational clarity | A new agent with no KR context can follow this document alone |
 
 ---
 
 ## SPEC Template
 
-Every engine and shared component SPEC follows this exact structure:
+Every engine and shared component SPEC follows this structure:
 
 ```
 # {Engine Name} — {Arabic Name} — Specification
 
 ## 1. Purpose and Scope
-What this engine does. What is NOT its responsibility. Phase classification.
-Normalization boundary relationship.
-
 ## 2. Input Contract
-Reference to input schema. What the engine expects. Validation on input.
-
 ## 3. Output Contract
-Reference to output schema. What the engine produces. Guarantees about output.
-
 ## 4. Processing Specification
-Behavioral rules for input→output transformation. Edge cases with resolution.
-
 ## 5. Validation and Quality
-Self-validation (§8 Layer 1). Automated checks (§8 Layer 2).
-Human gate integration (§9), if applicable.
-
 ## 6. Consensus Integration
-Which decisions use multi-model consensus. Configuration for this engine.
-
 ## 7. Error Handling
-Malformed input. Partial failures. Consensus disagreement.
-
 ## 8. Configuration
-Parameters controlling behavior. Per-science hooks (Level 3).
-
 ## 9. Current Implementation State
-Files, line counts, what works, what needs building.
-Known gaps between current code and this spec.
-
 ## 10. Test Requirements
-Coverage requirements. Gold baseline usage. Regression strategy.
 ```
 
 ---
 
-## Architectural Ownership
+## Example: What a Good SPEC Section Looks Like
 
-You are not executing a predefined plan. You own the entire application's design. This means:
+This is an illustrative example of SPEC quality — not the actual source engine SPEC, which must be written from the real code and reference docs.
 
-**You decide what to work on.** STATUS.md shows the project state and suggests a starting point. If you see something more important — a cross-cutting issue, a VISION.md defect that blocks multiple SPECs, an architectural question that should be resolved first — work on that instead. Explain why you changed course.
+<example name="good_spec_section">
+## 2. Input Contract
 
-**You decide how things should work.** When writing a SPEC, you're not just documenting existing behavior — you're designing how the engine SHOULD work. The existing code is a reference, not a constraint. If the code does something wrong, the SPEC says what's right and §9 notes the gap.
+The source engine is the pipeline entry point. It receives input from two paths:
 
-**You can change anything.** VISION.md sections, schemas, CLAUDE.md files, directory structure, the workplan itself. If you determine something should be restructured, restructure it. Document what you changed and why.
+**Autonomous discovery.** The source engine queries configured source repositories (§2.5) using repository-specific interface modules. Each repository module returns candidate sources as structured metadata: title, author (if available), repository identifier, and a download handle. The source engine does not access repositories directly — it delegates to repository modules that encapsulate connection, authentication, and rate-limiting logic. Adding a new repository requires only a new repository module; no source engine core logic changes.
 
-**You decide when something is good enough.** Not every SPEC needs 4 sessions. A thin engine (passaging) might get a complete SPEC in one response. A complex engine (excerpting) might need 3 sessions. Scale effort to complexity.
+**Manual input.** The owner provides content through a manual input interface. Manual input arrives as: a text payload (the content itself), an input type identifier (one of: `typed_passage`, `lesson_transcription`, `study_note`, `external_reference`), and optional metadata hints (author name, science scope, source title). The source engine validates that the text payload is non-empty and the input type is recognized. Unrecognized input types are rejected with error `SOURCE_INVALID_INPUT_TYPE`.
 
-**You plan ahead.** When working on one engine, note implications for other engines. When you make a decision that affects downstream SPECs, record it so future sessions don't re-derive it. Think about the whole system, not just the current piece.
+**Validation on input.** For autonomous sources: the repository module must return a non-empty title and a valid download handle. Sources with empty titles are logged and skipped (not errors — some repositories have incomplete metadata). For manual input: text payload must be non-empty; input type must be one of the four recognized types. Failed validation produces a structured error with the source identifier (if known) and the validation failure reason.
+</example>
 
----
-
-## The Reasoning Protocol
-
-This protocol has two modes. Choose based on the work:
-- **Creation mode** — writing a new document (SPEC from scratch, new SCIENCE.md)
-- **Review mode** — improving an existing document (VISION correction, SPEC revision)
-
-### Creation Mode
-
-Use when the target document is a stub or doesn't exist yet.
-
-**Phase 0 — Intake.** Read every provided document completely. Build an internal model of: what the engine does (from code and reference docs), what it's supposed to do (from VISION.md), what's already decided (from kr_decisions.md).
-
-**Phase 2 — Research.** For any design decision: research alternatives before choosing. Use web search for best practices, tool comparisons, established patterns. Consider 2–3 approaches with trade-off analysis. Make the decision. Document reasoning.
-
-**Phase 3 — Drafting.** Produce the document following its template. Apply Perfection Standard criteria as live constraints while writing. Present section by section for owner review (not all at once).
-
-**Phase 4 — Hostile Self-Audit.** Re-read own draft as an adversarial auditor. Perform these specific attacks:
-1. Contradiction scan against all governing documents
-2. Ambiguity scan — find second readings of any sentence
-3. Completeness scan — find unaddressed inputs, scenarios, or edge cases
-4. Constraint scan — find accidental premature constraints
-5. Duplication scan — find restated content from other documents
-6. Consistency scan — find glossary term violations
-7. Testability scan — find behavioral rules that can't become test cases
-8. Earned-existence scan — find elements that could be removed without loss
-
-**Self-audit enforcement rule:** Phase 4 must produce a visible deliverable: a numbered list of defects found. Requirements: at least 3 defects total, of which at least 1 must be structural or semantic (not formatting, not typos). Structural defects include: contradictions, ambiguities, missing edge cases, premature constraints, missing input coverage, untestable rules. If all defects found are cosmetic, the audit was superficial — repeat with focus on contradictions, ambiguities, and missing edge cases.
-
-**Phase 5 — Revision.** Fix every defect from Phase 4. Check whether fixes introduced new defects (second-order regression).
-
-**Phase 6 — Final Verification.** Quick pass against Tier 1 only. If clean, proceed. If any Tier 1 failure, back to Phase 5.
-
-**Phase 7 — Presentation and Session Close.** Present to owner:
-1. The document (SPEC, VISION corrections, etc.)
-2. Summary of significant design decisions (meaning-affecting only)
-3. Decisions made autonomously, formatted for kr_decisions.md (numbered, with context + decision + alternatives + updated docs)
-4. Domain questions for the owner (if any)
-5. Any remaining open items
-6. The Phase 4 self-audit results (visible deliverable)
-7. **Updated STATUS.md** — complete replacement for the current STATUS.md, containing:
-   - What was just completed (this session)
-   - Next work item ID and name
-   - Files to attach for the next session (exact paths, based on your knowledge of the next engine)
-   - Decisions the next session will make
-   - Protocol reminders (copy from current STATUS.md, adjust mode if needed)
-   - Session notes for next Claude (anything the next session needs to know)
-   - Reference `PREPARATORY_WORKPLAN.md` for the definitive file list — the owner cross-checks your list against the workplan
-8. **SESSION_LOG.md entry** — date, focus, decisions made (by number), deliverables, next item
-
-### Review Mode
-
-Use when improving an existing document that already has substantial content.
-
-**Phase 0 — Intake.** Same as creation mode.
-
-**Phase 1 — Gap Analysis.** Walk through ALL 23 Perfection Standard criteria against the existing text. For each criterion, produce one of:
-- ✅ PASSES — with brief evidence
-- ❌ FAILS — with exact quote of failing text and explanation
-- ⚠️ UNCLEAR — cannot determine without more information (specify what)
-
-Present the gap analysis to the owner before proceeding. This shows what work needs to be done.
-
-**Phase 2 through Phase 7 — Same as creation mode,** but the drafting phase is targeted revision rather than from-scratch writing.
+Notice: every sentence is either a binding rule ("Unrecognized input types are rejected with error SOURCE_INVALID_INPUT_TYPE") or a design decision with rationale ("The source engine does not access repositories directly — it delegates to repository modules that encapsulate connection, authentication, and rate-limiting logic"). No filler. No aspirational language. A developer reading this section knows exactly what to build.
 
 ---
 
-## Authority Model
+## Example: What a Good Self-Audit Looks Like
 
-### Claude Decides (all technical/architectural matters — no asking)
-- Structural and architectural decisions within engine scope
-- Technology choices, tool selections, API designs
-- Schema design, error handling, validation layers
-- How to resolve documentation ambiguities
-- Edge case enumeration and resolution
-- Best-practice selections after research
-- Documentation structure and organization
-- Processing algorithm design
+After completing a SPEC draft, perform the structured self-review defined in the project instructions. Here is an example of what the visible deliverable should look like:
 
-Claude documents these decisions with brief justification but does NOT ask for permission.
+<example name="good_self_audit">
+### Self-Audit Results (Source Engine SPEC Draft 1)
 
-### Owner Decides (domain/usage — Claude must ask)
-- How the end product is used by the scholar
-- What makes an entry, excerpt, or tree useful in practice
-- Priority between competing end-user goals
-- Islamic scholarly practice, methodology, tradition questions
-- Approval workflows and review process preferences
-- Which sciences to include and how they relate
+**Defect 1 (Structural — Criterion #1 Zero Ambiguity):** §4.2 says "the source engine evaluates relevance using content analysis." This is ambiguous — what does "content analysis" mean concretely? An implementing agent would have to guess. **Fix:** Replace with: "The source engine evaluates relevance by extracting the source's table of contents (or first 2000 characters if no TOC), sending it to the LLM with the library's science inventory, and classifying the match as `relevant`, `partially_relevant`, or `not_relevant`."
 
-### Escalation Test
-"Does this decision change what the end user sees or experiences?"
-- Yes → ask owner
-- No → Claude decides
+**Defect 2 (Completeness — Criterion #10 Full Input Coverage):** §2 defines manual input types but never addresses what happens when the owner provides a file (PDF, audio) rather than text. The input contract silently ignores this case. **Fix:** Add to §2: "File-based manual input (PDF, audio, image) is not processed by the source engine directly. The owner is informed that file-based input requires a normalizer for that file type. If no normalizer exists, the input is rejected with error `SOURCE_UNSUPPORTED_FORMAT` and a suggestion to provide the content as typed text."
 
-### Domain Question Protocol
-- Ask domain questions as they arise during work. Do not batch them.
-- Before asking, exhaust your own research. Never ask a question the provided materials answer.
-- If the owner's answer is unclear, restate your understanding and ask for confirmation.
-- If the owner's answer contradicts a prior decision in kr_decisions.md, note the conflict explicitly and ask which should prevail.
+**Defect 3 (Design — Criterion #16 Earned Complexity):** §8 defines 12 configuration parameters, but 4 of them (`max_concurrent_downloads`, `retry_backoff_base`, `retry_max_attempts`, `connection_pool_size`) are implementation details that belong in code, not in a SPEC. A SPEC should define behavioral rules, not HTTP client tuning. **Fix:** Remove the 4 parameters. Add a note: "Network behavior (concurrency, retries, connection management) is an implementation concern configured in code, not specified here."
+
+**Defect 4 (Communication — Criterion #9 Adversarial-Proof):** §3 says "the source engine outputs a frozen source and source metadata." Under hostile reading, "outputs" could mean "writes to disk" or "returns as a data structure" or "publishes to a message queue." **Fix:** Replace with: "The source engine writes two artifacts to disk: the frozen source file at `library/sources/{source_id}/frozen/{filename}` and the source metadata record at `library/sources/{source_id}/metadata.json`."
+</example>
+
+Notice: each defect quotes the exact failing text, names the specific Perfection Standard criterion it violates, and provides a concrete fix. Cosmetic-only audits (typos, formatting) indicate the audit was superficial — at least one defect must be structural or semantic.
 
 ---
 
-## Practical Constraints
+## Example: What a Good VISION Correction Looks Like
 
-### Session Strategy
-Each session should produce at least one committable deliverable. Don't spread across too many topics — depth-first is better than breadth-first. A typical productive session either:
-- Completes a light SPEC (passaging, synthesis) start to finish
-- Makes major progress on a heavy SPEC (source, normalization, excerpting) — at least §1–§5 drafted
-- Completes a VISION correction pass for a section group
-- Resolves a cross-cutting issue (schema reconciliation, naming consistency)
+When correcting VISION.md sections, produce a defect ledger like this:
 
-If you realize mid-session that a different priority would be more impactful, pivot — but finish the current section cleanly first. Note the pivot in the session log.
+<example name="good_vision_correction">
+### VISION.md §7.2 Defect Ledger
 
-### Output Length
-Write in chunks of 2–4 SPEC sections per response. Complete each section fully before moving to the next. If nearing your output limit, stop at a clean section boundary and continue in the next response.
+**Defect 1 (Severity: HIGH).** Line 769: "The source engine maintains a source registry that tracks all acquired sources with sufficient identifying information to detect duplicates."
+**Problem:** "Sufficient identifying information" is unbounded — Criterion #1 (zero ambiguity). What fields are sufficient? Title alone? Title + author? Hash?
+**Correction:** "The source engine maintains a source registry that tracks all acquired sources. Deduplication uses a composite key of: author name (normalized), work title (normalized), and edition identifier (if available). Sources with identical composite keys are flagged as potential duplicates for human review rather than silently rejected, because different editions of the same work may contain meaningful textual differences."
 
-### Presentation Chunks
-Present work in 2–3 large chunks, not section-by-section. For a 10-section SPEC: §1–§4, then §5–§7, then §8–§10. This keeps conversation turns under 10–12, which maintains attention quality.
-
-### Context Budget
-The context window is 200K tokens. Project files use ~10K. Session bundles vary (check the bundle script output). Leave at least 60K tokens for conversation. If context is tight, prioritize: code files > reference docs > VISION sections.
-
-### Requesting Additional Files
-If you need a file that wasn't in the session bundle, tell the owner:
-```
-I need this file for [reason]. Please attach:
-  [exact path from repo root]
-Or run: make bundle ENGINE=[name]
-```
-The owner can find files in the repo but doesn't know which ones matter — be specific about the path.
-
----
-
-## Output Format
-
-The owner is not technical. Make it trivially easy to save your outputs. Follow these conventions:
-
-**Every deliverable** must be in a clearly marked block with the exact file path:
-
-```
-===== FILE: engines/source/SPEC.md =====
-[complete file content here]
-===== END FILE =====
-```
-
-**At the end of every session,** produce these blocks in order:
-1. All deliverable files (SPECs, VISION corrections, schema updates)
-2. New decisions — formatted exactly as they should appear in kr_decisions.md
-3. Updated STATUS.md — the complete replacement file
-4. SESSION_LOG.md entry — the single line to append
-
-**The owner's job** is: copy each block to the right file, commit, update project knowledge. No interpretation needed.
-
-**If a deliverable spans multiple messages** (e.g., a long SPEC), clearly label "Part 1 of 3" etc. At the end of the last part, provide the complete concatenated file as a single block.
-
----
-
-## Revision Protocol
-
-After any work item, the owner may request revision by updating STATUS.md:
-- Change the current work item to `W-XXX-R1 (revision)` 
-- Add the owner's feedback in "Session Notes for Next Claude"
-- The revision session re-reads the deliverable + feedback + protocol
-- The revision session produces a revised version, then updates STATUS.md to the next work item
-- Multiple revision rounds are allowed (R1, R2, ...) — quality is more important than speed
-
----
-
-## Practical Execution Notes
-
-These are operational constraints. Follow them.
-
-**Context budget.** Keep input under ~80K tokens (~320KB text). Beyond this, your attention degrades and you miss details in code. If STATUS.md says "context-split required," follow the session split exactly. Do NOT try to load everything at once.
-
-**Multi-message output.** A complete SPEC is 20–30K tokens. You cannot always produce this in one response. If your output is getting long, say "I'll continue in my next message" and continue. The owner will not interrupt.
-
-**Self-audit blind spots.** You have a known tendency to see what you intended to write, not what you actually wrote. Counter this by re-reading your draft literally — character by character for critical definitions. If your Phase 4 audit feels easy, you're not being hostile enough.
-
-**Web search for tool decisions.** For any decision about specific tools, libraries, or frameworks (W-013 through W-016), use web search to verify current best practices. Your training data may be outdated.
-
-**Upstream SPEC references.** By W-006, there are 5 upstream SPECs totaling ~75KB. Do NOT load all of them. Instead: load only the immediate upstream SPEC + reference prior decisions by their D-number in kr_decisions.md. The decisions log is designed to carry forward exactly the information downstream SPECs need.
+**Defect 2 (Severity: MEDIUM).** Line 774: "Adding a new repository to this registry is a configuration decision."
+**Problem:** "Configuration decision" is vague — Criterion #2 (binary sentences). This sentence is neither a binding rule nor a marked open question.
+**Correction:** "Adding a new repository requires: (1) implementing a repository module conforming to the repository interface defined in the source engine SPEC, and (2) registering the repository in the application's configuration. No source engine core logic changes are required."
+</example>

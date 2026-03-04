@@ -1,127 +1,115 @@
 # خزانة ريان — Project Status
 
-**Last updated:** 2026-03-04 by Claude Chat (coordination system redesign)
-**Repo:** `github.com/rayanino/kr` at commit 79edbab
+**Last updated:** 2026-03-04
+**Repo commit:** 79edbab on master
 **Tests:** 903 pass, 37 skip, 1 fail (API key)
 
 ---
 
-## Your Role
-
-You are the architect and designer of this entire application. You own every technical decision — the data models, the engine designs, the schemas, the documentation, the tooling, the infrastructure. The owner is an Islamic studies student with no technical background. He provides domain input (how scholars study, what makes excerpts useful, what sciences exist) when you ask. Everything else is yours.
-
-Your goal: bring this project to a state where Claude Code can build every engine from clear, complete, consistent specifications. That means VISION.md is perfect, every SPEC.md is real, every schema is correct, every CLAUDE.md is accurate, every architectural decision is made and documented, and every tool choice is finalized.
-
-You have full authority to modify, add, discard, or restructure anything in this project. The workplan in `reference/PREPARATORY_WORKPLAN.md` is advisory — follow it, deviate from it, or replace it based on what you judge best.
-
----
-
-## Definition of Done (Preparatory Phase)
-
-The project is ready for Claude Code when ALL of these are true:
-
-- [ ] **VISION.md** — Zero defects. Every sentence correct, unambiguous, consistent. §0–§5, §13 were previously audited; §6–§12 pending. All sections must pass the Perfection Standard.
-- [ ] **Engine SPECs** (7) — Each complete, follows template, passes Perfection Standard Tier 1+2. An AI agent can implement each engine from its SPEC alone.
-- [ ] **Shared component SPECs** (4) — Same standard. consensus, human_gate, validation, feedback.
-- [ ] **Schemas** (7) — Every field justified. Producing SPEC output contract = schema = consuming SPEC input contract. All cross-references consistent (e.g., source_id naming).
-- [ ] **CLAUDE.md files** (root + 7 engines + shared + 4 components) — Accurate current state. Correct file paths and line counts.
-- [ ] **Decisions** — Every architectural decision documented in `reference/kr_decisions.md`.
-- [ ] **Data models** — All data structures designed and documented (schemas + SPEC contracts).
-- [ ] **Tool choices** — CI/CD, Python packaging, API key management, testing strategy — all decided and documented.
-- [ ] **`.claude/` directory** — Agents, commands, hooks designed for Claude Code.
-- [ ] **إملاء SCIENCE.md** — Minimal Level 3 doc so synthesis engine has a concrete example.
-- [ ] **Cross-consistency** — All documents agree. No SPEC contradicts VISION. No schema contradicts its SPEC.
-
----
-
-## Current State: What Exists
+## What Exists (current state of every component)
 
 ### Documents
-| Document | Status | Notes |
-|----------|--------|-------|
-| VISION.md (1585L) | §0–§5, §13 audited in earlier sessions. §6–§12 NOT yet corrected. | Authoritative but partially stale |
-| Engine SPECs (7) | ALL stubs (3 lines each) | None written yet |
-| Shared SPECs (4) | 3 stubs + human_gate has 32L partial | None complete |
-| Schemas (7) | All exist from ABD era. Plausible but unverified against VISION. | Need reconciliation with SPECs |
-| CLAUDE.md (root) | Exists, mostly accurate | Needs update after SPECs written |
-| Engine CLAUDE.md (7) | All exist, reasonable quality | Need update after SPECs written |
-| kr_decisions.md | 15 decisions (D-001 to D-015) | Healthy |
-| SCHEMA_ANALYSIS.md | Exists, good pipeline overview | From ABD era, needs verification |
+| Document | State | Detail |
+|----------|-------|--------|
+| VISION.md | Partially audited | §0–§5, §13 correct. §6–§12 NOT yet corrected. 1585 lines. |
+| 7 engine SPECs | All stubs | 3 lines each. None written. |
+| 4 shared SPECs | 3 stubs + partial | human_gate has 32L partial. Others are 3-line stubs. |
+| 7 schemas | Exist from ABD era | Plausible but unverified against VISION. Need reconciliation. |
+| root CLAUDE.md | Exists | Mostly accurate. Needs update after SPECs. |
+| 7 engine CLAUDE.md | Exist | Reasonable quality. Need update after SPECs. |
+| kr_decisions.md | 15 decisions | D-001 to D-015. Healthy. |
+| SCHEMA_ANALYSIS.md | Exists | Good pipeline overview. ABD era, needs verification. |
 
-### Code (all migrated from ABD — works but not yet matched to KR specs)
-| Engine | Source lines | Test count | Reference docs |
-|--------|-------------|------------|----------------|
-| source | 2,284L (intake, enrich, audit) | 112 | 2 files |
-| normalization | 4,352L (shamela, discover, validate) | 292 | 10 files (largest set) |
+### Code (migrated from ABD — works but not matched to KR specs)
+| Engine | Source lines | Tests | Reference docs |
+|--------|-------------|-------|----------------|
+| source | 2,284L (intake.py, enrich.py, corpus_audit.py) | 112 | 2 files |
+| normalization | 4,352L (normalize_shamela.py, discover_structure.py, validate_structure.py) | 292 | 10 files |
 | passaging | 279L (scaffold only) | 0 | 0 |
-| atomization | 0L (logic in excerpting/) | 0 | 2 files |
-| excerpting | 3,309L (extract, assemble) | 258 | 9 files (critical knowledge) |
-| taxonomy | 2,377L (evolve) | 109 | 1 file |
-| synthesis | 0L (not started) | 0 | 0 |
-| **shared/consensus** | 1,749L | passing | — |
-| **shared/human_gate** | 881L | 28 | — |
-| **shared/validation** | 779L | passing | — |
-| **shared/feedback** | 0L | 0 | — |
+| atomization | 0L (logic lives in excerpting/extract_passages.py) | 0 | 2 files |
+| excerpting | 3,309L (extract_passages.py, assemble_excerpts.py) | 258 | 9 files |
+| taxonomy | 2,377L (evolve_taxonomy.py) | 109 | 1 file |
+| synthesis | 0L | 0 | 0 |
+| shared/consensus | 1,749L | passing | — |
+| shared/human_gate | 881L | 28 | — |
+| shared/validation | 779L | passing | — |
+| shared/feedback | 0L | 0 | — |
 
 ### Infrastructure
-| Component | Status |
-|-----------|--------|
-| `.claude/` directory | Exists but empty (no agents, no commands, empty settings.json) |
-| CI/CD | None (no GitHub Actions, no pre-commit) |
-| Python packaging | `_paths.py` only (no pyproject.toml) |
-| Testing | pytest works. No integration tests. 1 test needs API key. |
-
-### Key Unresolved Decisions
-These are the major architectural decisions that must be made (during or before SPEC writing):
-
-1. **Source identity model** — What is a "source"? Does `book_id` become `source_id`? How are multi-volume works modeled?
-2. **Normalization/passaging boundary** — Does `discover_structure.py`'s `build_passages()` stay in normalization or move to passaging? (~2900 lines of code depend on this answer)
-3. **Atomization/excerpting separation** — The logic is combined in `extract_passages.py`. Where does one end and the other begin?
-4. **LLM provider strategy** — Which models, what fallback, how to configure consensus
-5. **Entry structure** — How entries are generated, what makes a good one, staleness model
+| Component | State |
+|-----------|-------|
+| `.claude/` | Exists but empty |
+| CI/CD | None |
+| Python packaging | `_paths.py` only |
+| Integration tests | None |
 
 ---
 
-## Suggested Work Order
+## What Must Be Done (Definition of Done)
 
-The workplan in `reference/PREPARATORY_WORKPLAN.md` suggests pipeline order: source → normalization → passaging → atomization → excerpting → taxonomy → synthesis → shared → cross-cutting. This makes sense because each engine's output is the next engine's input. But you decide the actual order.
-
-**VISION extraction script:** `scripts/extract_vision_sections.py` lets you tell the owner which sections to extract. Usage: `python3 scripts/extract_vision_sections.py 7.1 7.4 2` extracts §7.1–§7.4 and §2. Or: `make vision SECTIONS="7.1 7.4 2"` produces `vision_excerpt.md`.
-
----
-
-## What Happened in Previous Sessions
-
-1. **Phase 1** (Claude Code): Structural cleanup — directory restructure, taxonomy registry fix, test path fixes. Exit: 903 tests pass.
-2. **Phase 1.5** (Claude Code): Repo cleanup — removed ABD-era artifacts, added Makefile, fixed .gitignore.
-3. **Coordination setup** (Claude Chat): Built coordination system, decision log (15 decisions), reasoning protocol, workplan. Commits b251810 + 79edbab.
-
-No engine SPECs have been written yet. No VISION corrections since the earlier §0–§5/§13 audit.
+The preparatory phase is complete when:
+- VISION.md has zero defects (§6–§12 corrected, all sections pass Perfection Standard)
+- All 7 engine SPECs are complete and pass Tier 1+2
+- All 4 shared component SPECs are complete
+- All schemas verified (producing SPEC output = schema = consuming SPEC input)
+- All CLAUDE.md files accurate
+- All architectural decisions documented in kr_decisions.md
+- Tool choices made (CI/CD, packaging, API keys, testing strategy)
+- `.claude/` directory populated for Claude Code
+- إملاء SCIENCE.md exists (minimal, for synthesis engine example)
+- Cross-document consistency verified
 
 ---
 
-## Session Mechanics
+## Key Unresolved Decisions
 
-**At the end of every session, produce:**
-1. Your deliverables (SPEC drafts, VISION corrections, schema changes, design decisions, etc.)
-2. New decisions formatted for kr_decisions.md (D-016+)
-3. An updated STATUS.md — update state tables, record what was done, specify what to attach next session
-4. A SESSION_LOG.md entry (date, focus, decisions, deliverables, next focus)
-
-**The owner will:** save your outputs to the repo, commit, update project knowledge files, start a new conversation.
-
-**Context management:** Tell the owner exactly what files to attach. Use the extraction script for VISION.md sections. If you need something not listed, ask.
-
-**Output length:** Write in chunks. If continuing, say "I'll continue in my next message."
+1. **Source identity model** — What is a "source"? `book_id` → `source_id`? Multi-volume works?
+2. **Normalization/passaging boundary** — Does `discover_structure.py`'s `build_passages()` stay in normalization? (~2900L of code depend on this)
+3. **Atomization/excerpting separation** — Logic is combined in `extract_passages.py`. Where's the boundary?
+4. **LLM provider strategy** — Which models for consensus, fallback behavior, configuration
+5. **Entry generation** — How entries are structured, staleness model, what makes a good entry
 
 ---
 
-## Files to Attach Next Session
+## Previous Sessions
 
-Run one command to get one file:
+1. **Phase 1** (Claude Code): Directory restructure, taxonomy registry fix, test path fixes → 903 tests pass.
+2. **Phase 1.5** (Claude Code): Repo cleanup, Makefile, .gitignore.
+3. **Coordination setup** (Claude Chat): Decision log (15 decisions), protocol, workplan. Commits b251810, 79edbab.
+
+No SPECs written yet. No VISION corrections since the §0–§5/§13 audit.
+
+---
+
+## Suggested Starting Point and Files to Attach
+
+The advisory workplan (`reference/PREPARATORY_WORKPLAN.md`) suggests pipeline order starting with the source engine. You may override this if you judge something else is more impactful.
+
+**For the source engine SPEC (suggested first session):**
+
+Prepare VISION excerpt first (saves 76% context):
 ```
-make bundle ENGINE=source
+python3 scripts/extract_vision_sections.py 7.1 7.4 2 > /tmp/vision_excerpt.md
 ```
-This creates `session_bundle.md` (~60K tokens) containing all source engine code, reference docs, schemas, and relevant VISION sections. Attach this single file.
 
-If the architect (next Claude) decides on a different starting point, it will tell you which engine to bundle instead.
+Attach these files:
+1. `/tmp/vision_excerpt.md` (~17K tokens — §7.1-§7.4 + §2 glossary)
+2. `engines/source/src/intake.py` (~20K tokens)
+3. `engines/source/src/enrich.py` (~8K tokens)
+4. `engines/source/src/corpus_audit.py` (~3K tokens)
+5. `engines/source/reference/ABD_INTAKE_SPEC.md` (~16K tokens)
+6. `engines/source/reference/edge_cases.md` (~2K tokens)
+7. `schemas/source_metadata.json` (~3.5K tokens)
+8. `schemas/SCHEMA_ANALYSIS.md` (~4K tokens)
+
+Estimated total with project files: ~84K tokens. Leaves ~116K for conversation.
+
+---
+
+## Session End Checklist
+
+At session end, produce:
+- [ ] Deliverables (SPEC sections, VISION corrections, schema changes)
+- [ ] New decisions formatted for kr_decisions.md
+- [ ] Updated STATUS.md (update state tables, add to "Previous Sessions", set next file list)
+- [ ] One-line SESSION_LOG.md entry
