@@ -81,3 +81,52 @@ Notice what makes this entry transformative:
 7. **The narrative thread.** The entry tells a STORY: here's where it started, here's how it evolved, here's where it settled. This is what the owner means by "storyline."
 
 **None of this is possible without rich metadata flowing to the synthesizer.** The excerpt text alone gives you definitions. The metadata gives you the scholarly narrative.
+
+---
+
+## Appendix: How Metadata Feeds This Entry
+
+Here is what the source metadata for ONE contributing source (الكتاب by سيبويه) would look like, and how the synthesizer USES each field:
+
+```
+source_id: "kitab-sibawayhi-bulaq-1898"
+work_id: "kitab-sibawayhi"
+
+# Author profile — USED BY SYNTHESIZER for biographical context
+author:
+  canonical_name: "عمرو بن عثمان بن قنبر"
+  known_as: "سيبويه"
+  death_date_hijri: 180
+  death_date_miladi: 796
+  school: "بصري"  # → synthesizer: "Basran school"
+  teachers: ["الخليل بن أحمد الفراهيدي"]  # → synthesizer: teacher-student chain
+  students: ["الأخفش الأوسط"]  # → synthesizer: intellectual genealogy
+  scholarly_standing: "founder of systematic Arabic grammar"
+  
+# Work classification — USED BY SYNTHESIZER for contextualization
+work:
+  title: "الكتاب"
+  genre: "matn"  # → synthesizer: "core text" (not commentary)
+  science: ["nahw"]
+  composition_context: "first systematic grammar; composed during formative period"
+  level: "specialist"
+  
+# Edition — USED BY SYNTHESIZER for citation and reliability
+edition:
+  tahqiq: "عبد السلام محمد هارون"
+  publisher: "مكتبة الخانجي"
+  volumes: 4
+  text_fidelity: "high"  # → synthesizer weights this source more heavily
+
+# Relationships — USED BY SYNTHESIZER for cross-reference narrative
+relationships:
+  - type: "cited_by"
+    target_work: "usul-ibn-sarraj"
+    note: "Ibn al-Sarraj builds on and refines Sibawayhi's definitions"
+```
+
+**The synthesizer uses this to produce:** "سيبويه (d. 180 AH) in الكتاب — the first systematic Arabic grammar, composed during the formative period when grammatical terminology was still being established — defines المبتدأ as..."
+
+**Without this metadata, the synthesizer can only say:** "In الكتاب, المبتدأ is defined as..."
+
+The difference between these two sentences is the difference between flat information retrieval and scholarly narrative. Every field in the metadata model earns its place by what it enables in synthesis.

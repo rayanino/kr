@@ -17,34 +17,37 @@ The roadmap (`reference/archive/kr_definitive_roadmap_v2.md`) has detailed guida
 
 The order matters. Think about what the engine SHOULD be before seeing what it currently IS.
 
-**Phase 1 — Understand the vision and the user (read these FIRST):**
+**Step 1 — Understand the vision and the user (read these FIRST):**
 1. `reference/DOMAIN.md` — the core identity ("KR IS Rayane's knowledge") and scholarly domain grounding. This shapes every design decision. Pay special attention to "Design Implications" — these are concrete requirements for the source engine.
-2. `reference/USER_SCENARIOS.md` — 5 concrete scenarios showing what Rayane actually experiences. These are your acceptance tests. Every feature in your SPEC must serve at least one scenario. List which scenarios in §1.
-3. `reference/ENTRY_EXAMPLE.md` — what a finished KR entry looks like. This is the END PRODUCT the entire pipeline serves. Notice what makes it transformative vs. flat — especially how metadata (author dates, teacher-student chains, school affiliations) enables the scholarly narrative. Your source engine's metadata model must eventually support entries at this quality level.
-4. `reference/PIPELINE_TRACE.md` — traces one passage through ALL seven engines, showing what each stage receives, produces, and what metadata accumulates. Critical for understanding why metadata must flow through without loss (D-023).
+2. `reference/USER_SCENARIOS.md` — 8 concrete scenarios showing what Rayane actually experiences. These are your acceptance tests. Every feature in your SPEC must serve at least one scenario. List which scenarios in §1.
+3. `reference/ENTRY_EXAMPLE.md` — what a finished KR entry looks like. This is the END PRODUCT the entire pipeline serves. Notice what makes it transformative vs. flat — especially how metadata (author dates, teacher-student chains, school affiliations) enables the scholarly narrative.
 
-**Phase 2 — Understand the architecture:**
-3. `VISION.md` §7.1–§7.4 and §2 → run `python3 scripts/extract_vision_sections.py 7 2`
-4. `schemas/source_metadata.json` (234L) — current output schema
-5. `schemas/SCHEMA_ANALYSIS.md` (329L) — pipeline schema overview
+   **Comprehension check after reading:** Can you list 5 things in the target entry that came from METADATA (not from the excerpt text itself)? If you can't, reread it. Those 5 things define what your source engine's metadata architecture must capture.
 
-**Phase 3 — Now look at existing code and reference (after you've formed your own vision):**
+4. `reference/PIPELINE_TRACE.md` — traces one passage through ALL seven engines, showing what each stage receives, produces, and what metadata accumulates. Critical for understanding why metadata must flow through without loss (D-023). Together with the entry example, this shows the complete picture: raw source → metadata-rich entry.
 
-These are all ABD-era artifacts. ABD was a narrow Shamela-only tool; its decisions have zero authority (D-019). Read them to understand what code exists, NOT as a template for what to build. If your vision from Phase 1-2 conflicts with what ABD does, your vision wins.
+**Step 2 — Understand the architecture:**
+5. `VISION.md` §7.1–§7.4 and §2 → run `python3 scripts/extract_vision_sections.py 7 2`
+6. `schemas/source_metadata.json` (234L) — current output schema
+7. `schemas/SCHEMA_ANALYSIS.md` (329L) — pipeline schema overview
 
-**Context note:** Phase 3 is ~37K tokens — the largest single chunk. If you've already formed a strong vision from Phases 1-2 and context is getting tight, you can skim Phase 3 selectively: read `ABD_INTAKE_SPEC.md` for the metadata model outline, skim `intake.py` for the flow, and skip `enrich.py` and `corpus_audit.py`. The SPEC you write should be driven by your Phase 1-2 vision, not by ABD's implementation.
+**Step 3 — Now look at existing code and reference (after you've formed your own vision):**
 
-6. `engines/source/reference/ABD_INTAKE_SPEC.md` (795L) — ABD-era spec for Shamela intake only
-7. `engines/source/reference/edge_cases.md` (127L) — known edge cases (Shamela-specific)
-8. `engines/source/src/intake.py` (1476L) — current source ingestion code (Shamela only)
-9. `engines/source/src/enrich.py` (580L) — metadata enrichment (Shamela only)
-10. `engines/source/src/corpus_audit.py` (228L) — corpus validation
+These are all ABD-era artifacts. ABD was a narrow Shamela-only tool; its decisions have zero authority (D-019). Read them to understand what code exists, NOT as a template for what to build. If your vision from Steps 1-2 conflicts with what ABD does, your vision wins.
 
-**Phase 4 — Research:**
-11. `reference/RESOURCES.md` — cataloged tools and possibility research starting points
-12. Then do web searches: resource survey + possibility research per the workflow
+**Context note:** Step 3 is ~37K tokens — the largest single chunk. If you've already formed a strong vision from Steps 1-2 and context is getting tight, you can skim Step 3 selectively: read `ABD_INTAKE_SPEC.md` for the metadata model outline, skim `intake.py` for the flow, and skip `enrich.py` and `corpus_audit.py`. The SPEC you write should be driven by your Steps 1-2 vision, not by ABD's implementation.
 
-**CRITICAL: After Phase 1 and before Phase 3, pause and think.** Write down (in your working memory, not a file) what the source engine SHOULD be if you could design it from scratch for the goal of making Rayane an unprecedented scholar. THEN read the existing code and see how it compares. Don't let the existing code shrink your vision.
+8. `engines/source/reference/ABD_INTAKE_SPEC.md` (795L) — ABD-era spec for Shamela intake only
+9. `engines/source/reference/edge_cases.md` (127L) — known edge cases (Shamela-specific)
+10. `engines/source/src/intake.py` (1476L) — current source ingestion code (Shamela only)
+11. `engines/source/src/enrich.py` (580L) — metadata enrichment (Shamela only)
+12. `engines/source/src/corpus_audit.py` (228L) — corpus validation
+
+**Step 4 — Research:**
+13. `reference/RESOURCES.md` — cataloged tools and possibility research starting points
+14. Then do web searches: resource survey + possibility research per the workflow
+
+**CRITICAL: After Step 1 and before Step 3, pause and think.** Write down (in your working memory, not a file) what the source engine SHOULD be if you could design it from scratch for the goal of making Rayane an unprecedented scholar. THEN read the existing code and see how it compares. Don't let the existing code shrink your vision.
 
 ## Known VISION §7 Gaps (for SPEC → VISION correction step)
 
