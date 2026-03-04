@@ -23,3 +23,9 @@
 **Decisions:** None (tooling, not architecture)
 **Deliverables:** scripts/bundle_session.py, updated Makefile (bundle + fixed vision target), output format section in protocol, session strategy section, updated STATUS.md + HOW_TO_START.md
 **Next:** Architect decides based on project state
+
+### Session 2026-03-04-e — Claude Chat
+**Focus:** Resource awareness — address blind spot where Claude works in isolation without surveying external tools, APIs, and open-source projects
+**Decisions:** None (process improvement)
+**Deliverables:** reference/RESOURCES.md (external resource catalog mapping tools to engines), .env.template, .gitignore update for .env, PROJECT_INSTRUCTIONS.md updated with <resource_awareness> block and resource survey step in workflow, STATUS.md infrastructure table updated. Researched and cataloged: Docling, shamela2epub, ragaeeb/shamela, mem0, OpenRouter, CAMeL Tools, DSPy, awesome-arabic-nlp, plus per-engine survey starting points.
+**Next:** Architect decides based on project state

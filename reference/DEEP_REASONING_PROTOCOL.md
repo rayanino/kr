@@ -98,6 +98,8 @@ Per-science configuration hooks (Level 3 / SCIENCE.md).
 Existing files with line counts. What works today.
 Known gaps between current code and this spec.
 Everything unbuilt marked [NOT YET IMPLEMENTED].
+External tools and libraries this engine depends on (from reference/RESOURCES.md).
+What each external tool handles vs. what is custom code.
 
 ## 10. Test Requirements
 Test coverage requirements. Gold baseline usage.

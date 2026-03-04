@@ -42,6 +42,8 @@
 | CI/CD | None |
 | Python packaging | `_paths.py` only |
 | Integration tests | None |
+| External resources catalog | `reference/RESOURCES.md` — maps tools to engines |
+| API keys | `.env.template` exists. Owner provides keys on request. |
 
 ---
 
@@ -75,7 +77,7 @@ The preparatory phase is complete when:
 
 1. **Phase 1** (Claude Code): Directory restructure, taxonomy registry fix, test path fixes → 903 tests pass.
 2. **Phase 1.5** (Claude Code): Repo cleanup, Makefile, .gitignore.
-3. **Coordination setup** (Claude Chat, 3 sub-sessions): Decision log (15 decisions), protocol with examples, workplan, repo-direct workflow.
+3. **Coordination setup** (Claude Chat, 5 sub-sessions): Decision log (15 decisions), protocol with examples, workplan, repo-direct workflow, resource catalog, Anthropic best practices optimization.
 
 No SPECs written yet. No VISION corrections since the §0–§5/§13 audit.
 

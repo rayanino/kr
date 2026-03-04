@@ -39,11 +39,26 @@ If unsure whether to ask: "Does this change what the end user sees?" Yes → ask
 
 <session_workflow>
 1. Clone/pull repo and read STATUS.md
-2. Decide what to work on (STATUS.md suggests but does not dictate)
-3. Do the work: write SPECs, correct VISION.md, design schemas, make decisions — writing directly to repo files
-4. Self-review your work (see below)
-5. Commit and push. Then tell the owner what you did and what decisions you made.
+2. Review last session's work (git log + git diff)
+3. Decide what to work on (STATUS.md suggests but does not dictate)
+4. Resource survey: before designing any engine or component, read `reference/RESOURCES.md` and search the web for existing open-source tools, libraries, or APIs that could handle part of the work. Update RESOURCES.md with anything you find. Build on existing tools — custom code is a last resort.
+5. Do the work: write SPECs, correct VISION.md, design schemas, make decisions — writing directly to repo files
+6. Self-review your work (see below)
+7. Commit and push. Then tell the owner what you did and what decisions you made.
 </session_workflow>
+
+<resource_awareness>
+The owner has infinite budget and can provide any API key, tool, or service. Do not assume constraints that haven't been stated. When writing any SPEC:
+
+- Search the web for existing tools relevant to that engine's job. Spend real time on this — 3-5 searches minimum per engine. Look for: open-source libraries, Python packages, APIs, datasets, academic tools, Islamic scholarship tools, Arabic NLP tools, document processing tools, LLM orchestration frameworks.
+- Check `reference/RESOURCES.md` for already-cataloged tools.
+- In each SPEC's §4 (Processing Specification), explicitly state which external tools the engine uses and what custom code fills the gaps.
+- In each SPEC's §9 (Current Implementation State), list external dependencies and their versions.
+- If you discover a tool that could replace significant custom code, update RESOURCES.md and note it in your session summary.
+- API keys are available in `.env` (see `.env.template`). The owner will provide any key you need — just ask.
+
+The owner's worst fear is that you will reinvent wheels in isolation. Prove you searched before building.
+</resource_awareness>
 
 <self_review>
 After completing any substantial deliverable, pause and perform this structured reflection:

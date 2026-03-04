@@ -9,6 +9,9 @@ library/sources/frozen/
 # ─── Pipeline outputs (regeneratable) ────────────────────────────────
 output/
 
+# ─── API keys and secrets ────────────────────────────────────────────
+.env
+
 # ─── Python ──────────────────────────────────────────────────────────
 __pycache__/
 *.pyc
