@@ -24,7 +24,7 @@ test-verbose:  ## Run tests with full output
 
 vision:        ## Extract VISION.md sections for a session. Usage: make vision SECTIONS="2 7"
 	@if [ -z "$(SECTIONS)" ]; then echo "Usage: make vision SECTIONS=\"2 7\""; exit 1; fi
-	python3 scripts/extract_vision_sections.py $(SECTIONS) > vision_excerpt.md
+	@python3 tools/extract_vision_sections.py $(SECTIONS) > vision_excerpt.md
 	@echo "✓ vision_excerpt.md ready — attach this instead of full VISION.md"
 
 clean:         ## Remove venv and Python artifacts

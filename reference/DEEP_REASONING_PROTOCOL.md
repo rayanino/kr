@@ -224,3 +224,19 @@ After any work item, the owner may request revision by updating STATUS.md:
 - The revision session re-reads the deliverable + feedback + protocol
 - The revision session produces a revised version, then updates STATUS.md to the next work item
 - Multiple revision rounds are allowed (R1, R2, ...) — quality is more important than speed
+
+---
+
+## Practical Execution Notes
+
+These are operational constraints. Follow them.
+
+**Context budget.** Keep input under ~80K tokens (~320KB text). Beyond this, your attention degrades and you miss details in code. If STATUS.md says "context-split required," follow the session split exactly. Do NOT try to load everything at once.
+
+**Multi-message output.** A complete SPEC is 20–30K tokens. You cannot always produce this in one response. If your output is getting long, say "I'll continue in my next message" and continue. The owner will not interrupt.
+
+**Self-audit blind spots.** You have a known tendency to see what you intended to write, not what you actually wrote. Counter this by re-reading your draft literally — character by character for critical definitions. If your Phase 4 audit feels easy, you're not being hostile enough.
+
+**Web search for tool decisions.** For any decision about specific tools, libraries, or frameworks (W-013 through W-016), use web search to verify current best practices. Your training data may be outdated.
+
+**Upstream SPEC references.** By W-006, there are 5 upstream SPECs totaling ~75KB. Do NOT load all of them. Instead: load only the immediate upstream SPEC + reference prior decisions by their D-number in kr_decisions.md. The decisions log is designed to carry forward exactly the information downstream SPECs need.

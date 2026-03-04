@@ -25,71 +25,64 @@ Think as long as needed. No time pressure. Depth over speed always.
 2. `reference/DEEP_REASONING_PROTOCOL.md`
 3. `reference/kr_decisions.md`
 
-Do NOT add the workplan or roadmap as project files — they are too large and would waste Claude's attention on irrelevant work items.
+Do NOT add the workplan or roadmap — they are too large and waste Claude's attention.
 
-## Step 2: The VISION.md Extraction Script
+## Step 2: Start W-001 — Your First Real Session
 
-VISION.md is 1585 lines. Claude only needs specific sections each session. Loading the full file wastes 80% of Claude's attention budget.
-
-A script in `scripts/extract_vision_sections.py` extracts just the sections Claude needs. STATUS.md tells you which command to run. Example for W-001:
-
+**Prepare the VISION excerpt** (one-time per session, saves 76% context):
 ```
-python3 scripts/extract_vision_sections.py 7.1 7.4 2 > /tmp/vision_w001.md
+cd /path/to/kr
+make vision SECTIONS="2 7"
 ```
+This creates `vision_excerpt.md` in the repo root. Attach this instead of VISION.md.
 
-Then attach `/tmp/vision_w001.md` instead of the full VISION.md. If the script doesn't work for any reason, attaching the full VISION.md will still work — it's just less efficient.
-
-## Step 3: Start W-001 — Your First Real Session
-
-**Every session is a new conversation.** Do not continue old conversations — they accumulate stale context and degrade Claude's attention. Start fresh each time.
-
-Open a new Claude Chat conversation in the KR project. Send:
-
+**Open a new Claude Chat conversation** in the KR project. Send:
 ```
-Read STATUS.md. Execute the current work item. Follow the Deep Reasoning Protocol.
+Read STATUS.md. Execute the current work item. Follow the Deep Reasoning Protocol (creation mode).
 ```
 
-Then attach the files listed in STATUS.md under "Files to Attach This Session." For W-001, that's:
-```
-engines/source/src/intake.py
-engines/source/src/enrich.py
-engines/source/src/corpus_audit.py
-engines/source/reference/ABD_INTAKE_SPEC.md
-engines/source/reference/edge_cases.md
-schemas/source_metadata.json
-/tmp/vision_w001.md                    (from the extraction script above)
-```
+**Attach these files:**
+1. `vision_excerpt.md`
+2. `engines/source/src/intake.py`
+3. `engines/source/src/enrich.py`
+4. `engines/source/src/corpus_audit.py`
+5. `engines/source/reference/ABD_INTAKE_SPEC.md`
+6. `engines/source/reference/edge_cases.md`
+7. `schemas/source_metadata.json`
+8. `schemas/SCHEMA_ANALYSIS.md`
 
-Claude takes it from there. It reads STATUS.md (which contains the full W-001 specification), loads your attachments, and begins working.
+Claude takes it from there.
 
-## Step 4: After Each Session
+## Step 3: After Each Session
 
-1. **Save Claude's outputs.** Claude will produce deliverables (SPEC drafts, VISION corrections, decisions). Copy these into the repo at the paths Claude specifies.
-2. **Update STATUS.md.** Claude will provide an updated STATUS.md block. Replace the current STATUS.md with it.
-3. **Update kr_decisions.md.** Append any new decisions Claude produced.
+1. **Save Claude's outputs.** Claude produces deliverables (SPEC drafts, decisions, VISION corrections). Copy into the repo at the paths Claude specifies.
+2. **Update STATUS.md.** Claude provides an updated STATUS.md block — replace the file.
+3. **Append new decisions** to `reference/kr_decisions.md`.
 4. **Commit** with a descriptive message.
-5. **Update the project knowledge files** in Claude Chat project settings (replace the old STATUS.md and kr_decisions.md with the new versions).
-6. **Start a new conversation** with the same prompt. Do NOT continue the old conversation. STATUS.md tells Claude what to do.
+5. **Update project knowledge files** in Claude Chat settings (replace old STATUS.md and kr_decisions.md).
 
-## Multi-Session Work Items
+## Step 4: Multi-Session Work Items
 
-Some work items take 2–3 sessions (like W-001). When continuing:
-- **Start a new conversation** (always — never continue old conversations)
-- Attach everything STATUS.md lists under "Files to Attach This Session"
-- STATUS.md will explicitly include "attach the SPEC draft from the previous session" — do this
-- Use the same prompt: `Read STATUS.md. Execute the current work item. Follow the Deep Reasoning Protocol.`
+Some items take 2–3 sessions. STATUS.md always lists what to attach, including:
+- The VISION excerpt command (`make vision SECTIONS="..."`)
+- Any outputs from previous sessions to re-attach
 
-## If You Want to Give Feedback on a Deliverable
+Read STATUS.md's "Files to Attach" section — it's explicit about every file.
+
+## Giving Feedback on a Deliverable
 
 Update STATUS.md:
-- Change the work item to `W-XXX-R1 (revision)`
-- Add your feedback in "Session Notes for Next Claude"
-- Start a new session — Claude reads the feedback and revises
+- Change work item to `W-XXX-R1 (revision)`
+- Add feedback in "Session Notes for Next Claude"
+- Start a new session — Claude reads feedback and revises
 
-## Realistic Effort Per Session
+## What Claude May Do During Sessions
 
-**Your effort per session:** ~5 minutes of file management (finding and attaching files, committing outputs) + answering domain questions when Claude asks (usually 0–3 questions per session about how you use the library).
+- **Split across multiple messages.** A SPEC is long. Claude may say "I'll continue in my next message." Just let it finish.
+- **Ask you domain questions.** Usually 0–3 per session about how you use the library. Answer from your experience as a scholar.
+- **Use web search.** For tool decisions (CI/CD, Python packaging, etc.), Claude will research current best practices.
 
-**Claude's effort:** The actual deep work — reading code, researching best practices, making design decisions, writing documentation, self-auditing. This is the bulk of each session.
+## Realistic Effort
 
-**You do NOT need to:** understand the architecture, make technical decisions, review intermediate work, coordinate what happens next, or read the SPECs during the process (that's what W-018 is for).
+**Per session:** ~5 minutes of file management + 0–3 domain questions.
+**You do NOT need to:** understand architecture, make technical decisions, review intermediate work, or coordinate sessions.

@@ -13,6 +13,7 @@ A personal intelligent Islamic scholarly library. See `VISION.md` for the full s
 - `shared/` — cross-engine infrastructure (consensus, validation, feedback).
 - `library/` — the knowledge product: science trees, excerpts, entries, source registry.
 - `gold/` — validation baselines (hand-crafted, never auto-generated).
+- `tools/` — utility scripts (e.g., `extract_vision_sections.py` for session prep).
 - `.claude/` — agent infrastructure (subagents, commands, hooks).
 
 ## Processing Pipeline
