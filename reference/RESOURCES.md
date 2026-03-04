@@ -154,6 +154,40 @@ When writing each engine SPEC, the architect must search the web for existing to
 
 ---
 
+## Possibility Research Starting Points
+
+These are NOT tools to use — they are projects and domains to study for inspiration about what's technologically feasible. The goal is to discover capabilities that can be designed into KR's engines.
+
+**Digital Humanities / Textual Traditions:**
+- Perseus Digital Library (Tufts) — Greek/Latin corpus with morphological analysis, citation linking
+- CBDB (China Biographical Database, Harvard) — prosopographical database linking 470K historical figures
+- OpenITI (Open Islamicate Texts Initiative) — 10K+ Islamicate texts with computational analysis
+- Kitab Project (Aga Khan University) — text reuse detection in Arabic literary tradition
+- al-Maqrizi (French CNRS) — semantic annotation of medieval Arabic texts
+- Search "computational islamicate studies" for latest academic work
+
+**Arabic AI/ML State of the Art:**
+- AceGPT, Jais, ALLaM — Arabic-specific LLMs (what can they do that general LLMs can't?)
+- Arabic BERT variants (AraBERT, MARBERT, CAMeLBERT) — what NLU tasks are solved?
+- Arabic OCR: Tesseract Arabic, Google Document AI, Kraken — where are the limits?
+- Arabic handwriting recognition — can medieval manuscripts be digitized?
+- Arabic speech-to-text — can scholarly lectures be transcribed and ingested?
+
+**Knowledge Graph / Semantic Web:**
+- Wikidata's approach to scholarly/biographical data
+- Neo4j, ArangoDB for scholarly network graphs
+- RDF/SPARQL for Islamic scholarly ontologies
+- How do citation analysis tools (Semantic Scholar, OpenAlex) work?
+
+**Proactive / Intelligent Systems:**
+- Recommendation systems for scholarly literature
+- Research gap detection in academic literature
+- Contradiction detection in large corpora
+- Spaced repetition algorithms (Anki/SuperMemo) for scholarly memorization
+- How does Elicit/Consensus/ScholarAI approach research questions?
+
+---
+
 ## API Keys
 
 API keys are stored in `.env` (gitignored, never committed). The owner provides them.

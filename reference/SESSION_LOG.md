@@ -46,3 +46,8 @@
 **Focus:** Hostile audit of coordination system — found and fixed 21 defects across two audit passes (4 critical, 5 high, 5 medium in pass 1; 7 additional in pass 2).
 **Decisions:** None (process corrections only)
 **Deliverables:** Rewrote PROJECT_INSTRUCTIONS.md (git config, git error handling, roadmap acknowledgment, SPEC file locations, VISION/schema modification workflow, blocking question guidance, context management, owner interaction, multi-session SPEC continuity). Rewrote CLAUDE.md (pure repo map, zero behavioral instructions). Rewrote HOW_TO_START.md (correct copy instructions). Cleaned STATUS.md (removed behavioral checklist — sole behavioral authority is system prompt). Archived PREPARATORY_WORKPLAN.md. Created missing content/ dirs for all 5 sciences.
+
+### Session 2026-03-04-i — Claude Chat
+**Focus:** Design philosophy — transform Claude from documenter to creative intelligence. The application's goal is unprecedented scholarship through technology; Claude must conceive transformative capabilities, not just document existing ones.
+**Decisions:** None (meta-process, but fundamentally changes the nature of all future SPEC work)
+**Deliverables:** Rewrote <design_philosophy> block (Claude is creative mind, not documenter; can extend VISION.md, create new components, reshape architecture). Updated SPEC template §4 split into §4.A (core processing) and §4.B (transformative capabilities). Added Criterion #20 (Transformative Ambition) to Perfection Standard. Added §4.B example to protocol. Updated scope to allow architectural extension. Added possibility research section to RESOURCES.md. Seeded NEXT.md with creative mandate for first real session.

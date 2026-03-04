@@ -41,15 +41,16 @@ A document passes when ALL applicable criteria are met. Use this as a checklist 
 | 17 | Scale-graceful | Works at 1x and 1000x; limitations stated if not |
 | 18 | Vendor-neutral | No unjustified tool/platform lock-in |
 | 19 | Forward-compatible | Known extension points identified |
+| 20 | Transformative ambition | At least one capability that makes previously impossible scholarship possible; architect-originated, not from VISION.md or owner requests |
 
 ### Tier 4 — Communication Quality
 
 | # | Criterion | Test |
 |---|-----------|------|
-| 20 | Parseable structure | Consistent numbering, exact cross-references |
-| 21 | Necessary and sufficient | Removing any sentence would cause a wrong implementation |
-| 22 | Clean dependencies | External dependencies explicit and minimal |
-| 23 | Operational clarity | A new agent with no KR context can follow this document alone |
+| 21 | Parseable structure | Consistent numbering, exact cross-references |
+| 22 | Necessary and sufficient | Removing any sentence would cause a wrong implementation |
+| 23 | Clean dependencies | External dependencies explicit and minimal |
+| 24 | Operational clarity | A new agent with no KR context can follow this document alone |
 
 ---
 
@@ -76,6 +77,17 @@ Guarantees about output (completeness, ordering, uniqueness).
 The behavioral rules governing input→output transformation.
 This is the core section — every processing decision lives here.
 Edge cases with explicit resolution rules.
+
+This section has two parts:
+§4.A — Core Processing: the baseline rules for transforming input to output.
+§4.B — Transformative Capabilities: features this engine provides that go
+beyond basic processing — capabilities that make previously impossible
+scholarship possible. These are not nice-to-haves; they are the reason
+this application exists. Every engine must have at least one capability
+in §4.B that the architect originated (not from VISION.md, not from
+the owner's requests). Design them fully here even if unbuilt.
+
+Subsections as needed for both parts.
 
 ## 5. Validation and Quality
 Self-validation the engine performs on its own output (§8 Layer 1).
@@ -163,3 +175,25 @@ When correcting VISION.md sections, produce a defect ledger like this:
 **Problem:** "Configuration decision" is vague — Criterion #2 (binary sentences). This sentence is neither a binding rule nor a marked open question.
 **Correction:** "Adding a new repository requires: (1) implementing a repository module conforming to the repository interface defined in the source engine SPEC, and (2) registering the repository in the application's configuration. No source engine core logic changes are required."
 </example>
+
+---
+
+## Example: What a Transformative §4.B Section Looks Like
+
+SPEC §4.B should not be a wish list. It should be fully specified capabilities — with inputs, outputs, triggers, and behavioral rules — that happen to be unprecedented. Here is a calibration example:
+
+<example name="good_transformative_section">
+### §4.B — Transformative Capabilities
+
+#### §4.B.1 — Citation Network Discovery
+
+When the source engine processes a new source and the excerpting engine identifies a textual reference to another work (e.g., "as Ibn Qudamah states in al-Mughni" or "ذكر في المغني"), the source engine receives a discovery request containing: the referenced author name (normalized), the referenced work title (normalized), and the citing excerpt ID.
+
+The source engine queries all registered repositories for candidate matches using the normalized author+title pair. If exactly one candidate is found with confidence ≥0.85, the source engine creates an acquisition request with priority `citation_discovered` (higher than periodic crawl, lower than owner-requested). If multiple candidates are found, the engine creates a human gate checkpoint presenting the candidates with their provenance metadata for owner selection.
+
+The citation relationship (citing_excerpt_id → discovered_source_id) is recorded in the source registry regardless of whether the discovered source is ultimately acquired. This builds a citation graph over time that reveals scholarly influence networks even before all referenced works are in the library.
+
+[NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: excerpting engine's implicit reference detection (§4.B.2 in excerpting SPEC) and repository search interface (§4.A.3).
+</example>
+
+Notice: the capability is novel (no Islamic studies tool auto-discovers sources from citation networks), but it is specified with the same precision as any §4.A rule — inputs, outputs, thresholds, edge cases, dependencies. This is what Criterion #20 (Transformative Ambition) requires.
