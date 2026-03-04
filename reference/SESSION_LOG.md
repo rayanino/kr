@@ -90,3 +90,19 @@
 - Protocol examples clarified as format calibration, not pre-decided designs
 - Self-review expanded to 17 items across 4 checklists
 - Token budget: 4% always-on (down from ~7% with roadmap)
+
+### Session 2026-03-04 (continued-2) — Claude Chat with Owner
+**Focus:** Cross-document consistency audit, ABD legacy rule, domain deepening, manual acquisition, startup simulation.
+**Decisions:** D-019 (ABD legacy code has zero design authority)
+**Key deliverables:**
+- D-019 propagated to all 7 engine CLAUDE.md files + instructions + NEXT.md + STATUS.md + protocol
+- Domain knowledge: works vs sources, genre chains (matn→sharh→hashiyah), author identity challenges
+- Manual acquisition paths: physical-only books (scans/photos), login-gated sources
+- OCR resources cataloged: Tesseract, Kraken, Google Document AI, Docling
+- kr_decisions.md TOC rebuilt (D-001–D-012 all had wrong titles)
+- HOW_TO_START.md rewritten with direct GitHub URLs and step-by-step for non-technical owner
+- Protocol examples clarified as format calibration, not pre-decided designs
+- SCHEMA_ANALYSIS.md ABD legacy header added
+- Context management guidance made realistic (behavior-based, not rigid threshold)
+- Deprecated bundle system removed (322L of dead code)
+- Full startup simulation: clone→read→write→commit→push verified end-to-end
