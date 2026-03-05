@@ -75,7 +75,7 @@ D-028 (OCR strategy), D-029 (normalized package schema), D-030 (conservative lay
 
 ## Pending Owner Questions
 
-- **Entry language:** Should entries be in Arabic, English, or bilingual? (Carried forward — still unanswered. Does not block passaging SPEC.)
+- **Entry language:** Resolved (D-032). Entries must be in Arabic. Interface/guidance may use any of the owner's languages.
 
 ## What This Session Did
 
