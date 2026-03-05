@@ -1,72 +1,71 @@
 # NEXT SESSION
 
-**Written by:** Session 2026-03-05 (taxonomy engine SPEC)
+**Written by:** Session 2026-03-05 (synthesizing engine SPEC)
 **Date:** 2026-03-05
 
 ## Immediate Task
 
-Write the synthesizing engine SPEC (Phase 2, Round 7 — the final engine SPEC).
-
-**Output file:** `engines/synthesizing/SPEC.md` (overwrite the existing stub)
+Cross-SPEC consistency verification + VISION.md corrections. This is the final SPEC-phase session before moving to implementation.
 
 **Definition of done — this session is complete when ALL of these are true:**
-1. `engines/synthesizing/SPEC.md` follows the full SPEC template (all 10 sections, non-stub)
-2. `engines/synthesizing/CLAUDE.md` is consistent with the SPEC (update if needed — SPEC is source of truth)
-3. `reference/kr_decisions.md` has entries for any architectural decisions made during SPEC writing
-4. `reference/RESOURCES.md` is updated with findings from the mandatory resource survey
-5. `NEXT.md` is overwritten with handoff for the next session (cross-SPEC consistency verification + VISION corrections)
-6. Self-review checklist passed — defects fixed before commit
-7. All changes committed and pushed
+1. Every engine's output contract matches the next engine's input contract (verified across all 7 engines)
+2. Shared component integration is consistent across all consumers (scholar authority model, user model)
+3. VISION.md cross-cutting sections corrected: §8 (Quality Architecture), §10 (Implementation Strategy), §11 (Design Principles), §12 (Codebase Relationship)
+4. VISION.md §6.4 OPEN QUESTION resolved with D-040 decision text
+5. VISION.md §0-§4, §13 re-verified with engine-deep-dive knowledge
+6. All concepts (source, excerpt, entry, atom, passage) mean the same thing across all documents
+7. STATUS.md updated to reflect all SPECs complete
+8. All changes committed and pushed
 
 ## Context
 
-The taxonomy engine SPEC is complete (562 lines). It defines:
-- Two-stage placement algorithm: candidate generation (3 sources: excerpting proposal + LLM search + embedding similarity) → candidate ranking (D-038, §4.A.1)
-- Limited multi-model consensus for ambiguous placements only (D-039, §6)
-- Four-phase tree construction workflow: Research → Draft → Validation → Commitment (§4.A.3)
-- Five evolution signal types with accumulation threshold and all four §4.4 invariant checks (§4.A.5)
-- Six coverage gap types: school, source diversity, temporal, evidence, prerequisite, empty (§4.A.6)
-- Atomic evolution application with full rollback (§4.A.7)
-- Semantic deduplication detection via embeddings (§4.A.8)
-- Cross-science link management (§4.A.9) and terminology synonym management (§4.A.10)
-- Three transformative capabilities: topic significance scoring, difficulty estimation, corpus-driven tree construction (§4.B)
+All 7 engine SPECs are now complete:
+- Source engine: 582L (D-024 through D-027)
+- Normalization engine: 664L (D-028 through D-031)
+- Passaging engine: 502L
+- Atomization engine: 580L (D-034, D-035)
+- Excerpting engine: 559L (D-036, D-037)
+- Taxonomy engine: 562L (D-038, D-039)
+- Synthesizing engine: 582L (D-040)
 
-The synthesizing engine is the FINAL Phase 2 engine — it receives ALL placed excerpts at a leaf plus ALL their metadata chains plus the taxonomy tree context, and produces encyclopedic entries. This is where all upstream work culminates. The synthesizer also does its own research (D-023) — it adds context, connections, and analysis beyond what sources explicitly say.
+The synthesizing engine SPEC resolves the VISION.md §6.4 OPEN QUESTION about analytical layer boundary via D-040 (structured traceability with grounding_type field). This decision needs to be integrated into VISION.md.
 
-**Why this engine matters:** The synthesizing engine produces the primary knowledge product (D-005). The entry at each leaf IS what Rayane knows about that topic. Entry quality directly determines KR's value. The target quality is defined by `reference/ENTRY_EXAMPLE.md`. Every design decision in this SPEC must serve producing entries at that level.
+This session should verify the entire documentation stack for internal consistency before Claude Code implementation begins.
 
 ## Files to Read — IN THIS ORDER
 
-**Step 1 — Domain and user context:**
-1. `reference/DOMAIN.md` — "Synthesizing engine must:" section in Design Implications
-2. `reference/ENTRY_EXAMPLE.md` — THE quality target. Read this FIRST and keep it in mind throughout.
-3. `reference/PIPELINE_TRACE.md` — Stage 7 (synthesizing) inputs and outputs
-4. `reference/USER_SCENARIOS.md` — Scenarios 1-6 all culminate in synthesis
+**Step 1 — All SPECs (focused read: §2 Input Contract and §3 Output Contract of each):**
+1. `engines/source/SPEC.md` §2-§3
+2. `engines/normalization/SPEC.md` §2-§3
+3. `engines/passaging/SPEC.md` §2-§3
+4. `engines/atomization/SPEC.md` §2-§3
+5. `engines/excerpting/SPEC.md` §2-§3
+6. `engines/taxonomy/SPEC.md` §2-§3
+7. `engines/synthesis/SPEC.md` §2-§3
 
-**Step 2 — Architecture:**
-5. `VISION.md` §6 (entry generation — if it exists as a section) → `python3 scripts/extract_vision_sections.py 6`
-6. `VISION.md` §2.4 (knowledge content vocabulary — entry, school-group, verified/flagged)
-7. `engines/taxonomy/SPEC.md` — the COMPLETE taxonomy SPEC. §3 (output contract) defines exactly what the synthesizer receives. Read §3 carefully — it's your input contract.
-8. `schemas/entry.json` — current ABD-era entry schema
-9. `schemas/SCHEMA_ANALYSIS.md` — pipeline schema overview
+**Step 2 — Cross-cutting VISION sections:**
+8. `python3 scripts/extract_vision_sections.py 8` (Quality Architecture)
+9. `python3 scripts/extract_vision_sections.py 10` (Implementation Strategy)
+10. `python3 scripts/extract_vision_sections.py 11` (Design Principles)
+11. `python3 scripts/extract_vision_sections.py 12` (Codebase Relationship)
+12. `python3 scripts/extract_vision_sections.py 13` (Documentation Hierarchy)
 
-**Step 3 — Existing code:**
-10. `engines/synthesizing/CLAUDE.md` — current state overview
-11. Any existing synthesizing code (check `engines/synthesizing/src/`)
+**Step 3 — Verify core vocabulary consistency:**
+13. `python3 scripts/extract_vision_sections.py 2` (Glossary — focused check on terms used across SPECs)
 
-**Step 4 — Research:**
-12. `reference/RESOURCES.md` — tools already cataloged (especially RAG frameworks, multi-document summarization)
-13. Web searches: multi-document scholarly summarization, Arabic text generation quality, LLM-based encyclopedic article generation, citation-grounded synthesis, contradiction detection in text corpora
+**Step 4 — Schemas:**
+14. `schemas/SCHEMA_ANALYSIS.md` — verify all schema notes are current
 
-## Key Design Questions
+## Key Verification Checks
 
-- **Entry structure:** What does an entry look like structurally? Reference/ENTRY_EXAMPLE.md shows the target, but the SPEC must define the schema precisely.
-- **Factual vs. analytical layer:** §2.4 defines two layers. How does the engine generate each? How are they distinguished in the output?
-- **Three input sources (D-023):** (1) excerpt content, (2) metadata chain, (3) LLM research. How does the engine orchestrate these three sources?
-- **School-group entries:** When a science has schools, each school-group gets its own entry. What's the generation workflow?
-- **Staleness and regeneration:** When should entries be regenerated? What triggers staleness?
-- **Library composition bias:** How does the synthesizer avoid presenting corpus bias as scholarly consensus?
-- **Entry versioning:** Are entries versioned? What happens when an entry is regenerated?
+- **Source → Normalization boundary:** Does the normalization engine's input contract match what the source engine produces?
+- **Normalization → Passaging (THE normalization boundary):** Does the normalized package schema match both sides?
+- **Passaging → Atomization → Excerpting chain:** Do passage and atom schemas flow correctly?
+- **Excerpting → Taxonomy:** Does the draft excerpt format match the taxonomy engine's input contract?
+- **Taxonomy → Synthesizing:** Does the placed excerpt format match what the synthesizing engine reads? (This was the focus of the synthesizing SPEC §2.1.)
+- **Scholar authority model:** Is the shared model consistently referenced across source, excerpting, taxonomy, and synthesizing engines?
+- **User model:** Is it consistently referenced by the synthesizing engine and scholar interface?
+- **Metadata pass-through (D-023):** Does metadata accumulate correctly from source to synthesis without loss at any boundary?
 
 ## Pending Owner Questions
 
@@ -74,9 +73,8 @@ None currently pending.
 
 ## What This Session Did
 
-Completed the taxonomy engine SPEC (562 lines, all 10 sections). Key design: two-stage placement algorithm (D-038), limited consensus for ambiguous placements only (D-039), four-phase tree construction with validation, five evolution signal types with invariant enforcement, six coverage gap types, semantic deduplication, cross-science links, terminology synonyms. Three transformative capabilities: topic significance scoring, difficulty estimation, corpus-driven tree construction. Updated CLAUDE.md, RESOURCES.md (NetworkX, hierarchical text classification research, nxontology).
+Completed the synthesizing engine SPEC (582 lines, all 10 sections). Key design: five-phase generation pipeline (collection → scholarly analysis → narrative construction → integrity verification → finalization). Resolves §6.4 OPEN QUESTION via D-040 (grounding_type traceability boundary). Eight integrity checks in Phase 4. Per-science customization via 6 SCIENCE.md hooks. Prioritized regeneration with batch mode for large source processing. Diagnostic entries for failed generation. Four transformative capabilities: scholarly consensus mapping, intellectual genealogy reconstruction, predictive gap synthesis, entry quality self-assessment. Updated RESOURCES.md with synthesis-relevant tools (Attr-First, FRONT, ContraDoc, multi-LLM summarization research). Updated CLAUDE.md.
 
 ## New Decisions
 
-D-038 (Two-stage placement algorithm with three candidate sources).
-D-039 (Limited multi-model consensus for taxonomy — placement only, ambiguous range).
+D-040 (Analytical layer boundary — structured traceability via grounding_type).

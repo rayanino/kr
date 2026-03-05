@@ -219,9 +219,17 @@ When writing each engine SPEC, the architect must search the web for existing to
 - Wikidata SPARQL for Islamic science classification
 
 **Synthesis engine:**
-- Multi-document summarization tools
-- RAG frameworks (LlamaIndex, LangChain)
-- Citation generation tools
+- Instructor (structured LLM output, Pydantic-based schema enforcement — already cataloged)
+- DSPy (pipeline orchestration, prompt optimization against gold baselines — already cataloged)
+- LiteLLM (multi-provider routing for consensus — already cataloged)
+- NetworkX (graph traversal for teacher-student chain discovery — already cataloged for taxonomy)
+- Multi-LLM Text Summarization (Fang et al., 2025 RANLP): centralized and decentralized multi-LLM strategies for synthesis; 3x improvement over single-LLM baselines. Relevant for consensus-based entry generation.
+- Attr-First (Slobodkin et al., 2024): decomposed generation — content selection → attribution → generation. Relevant for factual layer construction where claims must be traced to specific excerpts before generation.
+- FRONT framework (fine-grained grounded citations): trains LLMs to anchor in supporting quotes before generating attributed answers. 14.21% improvement over baselines on ALCE benchmark. Architecture relevant for KR's citation-grounded factual layer.
+- ContraDoc (Li et al., 2024 NAACL): self-contradiction detection in long documents. GPT-4 struggles with subtle internal inconsistencies. Relevant for intra-author contradiction detection in synthesis.
+- ContraGen/LegalWiz (2025): multi-agent contradiction detection framework with hybrid NLI + LLM approach and confidence-weighted scoring. Architecture applicable to KR's cross-excerpt contradiction detection.
+- DiverseSumm (Huang et al., 2024 NAACL): benchmark showing GPT-4 covers only ~40% of diverse information in multi-document summarization. Validates KR's need for explicit position tracking rather than relying on LLM to implicitly capture all positions.
+- Hallucination in MDS (Belem et al., 2025): up to 75% of LLM-generated multi-document summary content is hallucinated; hallucinations increase toward end of summaries. Validates KR's citation-completeness integrity check and anti-hallucination verification approach.
 
 **Consensus engine:**
 - OpenRouter (already cataloged — multi-model gateway)
