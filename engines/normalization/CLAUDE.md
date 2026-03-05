@@ -1,36 +1,43 @@
 # Normalization Engine — محرك التطبيع
 
-**Responsibility:** Transforming frozen sources from their native format into the universal normalized format (§2.2). One normalizer per source type.
+**Responsibility:** Transforming frozen sources from their native format into the universal normalized format (§2.2). One normalizer per source type. Guardian of the normalization boundary.
 **Phase:** 1 (source-format-specific, above the normalization boundary).
+**SPEC:** `engines/normalization/SPEC.md` (664 lines, complete §1-§10)
 
 ## Required Reading
-1. This engine's SPEC.md
+1. This engine's SPEC.md — the authoritative specification
 2. VISION.md §7.5–§7.6 (normalization, boundary)
 3. VISION.md §2.2 (engine definition), §2.5 (normalized package)
-4. Input boundary: frozen source + source metadata from source engine
+4. Input boundary: frozen source + source metadata from source engine (see source engine SPEC §3)
 5. Output boundary: normalized package → passaging engine (crosses the normalization boundary)
 
-## Current State
-Legacy code migrated from ABD. Only a Shamela normalizer exists — ABD was Shamela-only. ABD design decisions have zero authority in KR (D-019). The SPEC defines what this engine SHOULD be, including normalizers for source types that don't exist yet.
+## Architecture Summary
+- Dispatcher-normalizer pattern: dispatcher reads `source_type`, selects normalizer
+- 7 normalizer types defined: shamela_html (existing), pdf_text, pdf_scanned, image_scan, epub, plain_text, owner_authored
+- Output: normalized package = manifest.json + content.jsonl at `library/sources/{source_id}/normalized/`
+- OCR: Mistral OCR 3 (primary) + Qari-OCR (Arabic diacritics specialist) + dual-OCR comparison mode (D-028)
+- Schema: source_id reference model — no metadata duplication (D-029)
 
-Code: `engines/normalization/src/` (normalizers/normalize_shamela.py 1123L, discover_structure.py 2896L, validate_structure.py 333L).
-Tests: 292 tests in `engines/normalization/tests/`.
-Reference: 15 ABD-era docs in `engines/normalization/reference/` — describe what WAS built.
+## Key Constraints
+1. **Nothing format-specific crosses the boundary** (§7.6). The normalized package is fully source-agnostic.
+2. **Multi-layer text identification (CRITICAL).** Matn/sharh/hashiyah/tahqiq layers identified with character-level segments and confidence scores. Conservative default: attribute uncertain text to commentary author, not matn author (D-030).
+3. **Diacritics preservation is ABSOLUTE.** No Unicode normalization of tashkeel.
+4. **Footnote separation and classification.** Footnotes typed as tahqiq_editor/author_original + fine-grained taxonomy (variant_reading, hadith_takhrij, cross_reference, biographical_note, linguistic_note, correction_note).
+5. **Page boundary preservation.** `unit_index` is the ONLY positional identifier for Phase 2 engines. Physical page numbers are display metadata only.
+6. **Text fidelity per page.** Every content unit carries its own fidelity score, not just source-level.
+7. **Metadata pass-through (D-023).** source_id reference model — Phase 2 engines access source metadata via reference, not duplication.
+8. **Universal footnote markers.** `⌜N⌝` format in primary_text (D-031).
+
+## Current State
+Legacy code migrated from ABD. Only Shamela normalizer exists (1123L). Structure discovery exists (2896L). 292 tests pass. Major gaps: no multi-layer detection, no footnote classification, no non-Shamela normalizers, no OCR pipeline, no KR output schema.
 
 ## Commands
 ```
 cd engines/normalization && python -m pytest tests/
 ```
 
-## Key Constraints
-1. **One normalizer per source type** (§7.5): complexity is unlimited within a normalizer, but output must conform to universal schema.
-2. **Structure discovery is normalization's job** (§7.5): structural signals exist in format-specific markup.
-3. **Nothing format-specific crosses the boundary** (§7.6): the normalized package must be fully source-agnostic.
-4. **Editor-author separation is critical.** Tahqiq editions contain editor footnotes, variant readings, manuscript notes, and commentary that are NOT the original author's words. If the normalization engine fails to separate these, the excerpting engine will attribute the editor's analysis to the original author — a scholarly integrity violation. The normalized package must clearly distinguish primary text from editorial apparatus.
-5. **Text fidelity signal.** Different source types produce different quality text. The normalization engine must produce a confidence signal alongside text: structured digital text → high fidelity, professional scans → medium (OCR error patterns), iPhone photos → variable. This signal flows downstream to affect excerpt flagging, synthesis weighting, and scholar interface warnings.
-6. **Metadata pass-through (D-023).** The normalized package must carry ALL source metadata through to downstream engines. The synthesizer is the ultimate consumer.
-7. **Multi-layer text identification (CRITICAL).** Many sources are multi-layer compositions: matn (Layer 1) + sharh (Layer 2) + hashiyah (Layer 3) + tahqiq notes (Layer 4). Each layer has a different author and time period. The normalization engine must identify these layers using format-specific markup (bold, brackets, font size, "قال المصنف" markers). If layers aren't identified here, the excerpting engine will misattribute text — a scholarly integrity violation. See DOMAIN.md "The Multi-Layer Text Problem."
-8. **Versified text structure.** Some sources are in verse form (منظومات like الألفية). Each بيت (couplet) is a self-contained unit with two hemistichs. The normalization engine must detect verse structure and preserve verse numbering. See DOMAIN.md "Versified Texts."
-9. **Diacritics (tashkil) preservation is MANDATORY.** Arabic diacritical marks carry semantic weight — "عِلْم" (knowledge) vs. "عَلَم" (flag) are the same word without diacritics. Many scholarly texts include diacritics on ambiguous words; tahqiq editors add them systematically. The normalization engine must PRESERVE all diacritics — stripping them is information destruction that makes downstream processing harder. See DOMAIN.md "Arabic as a Processing Language."
-10. **Book structural format detection.** Sources come in multiple formats: prose, verse, Q&A (مسائل), tabular disagreement catalogs, dictionary format. The normalization output should tag the structural format so downstream engines can apply format-appropriate processing. See DOMAIN.md "Book Structures Beyond Prose."
-11. **Page boundary preservation (CRITICAL).** Scholars cite by volume and page number: "المغني vol.3 p.245." Every excerpt must carry a physical citation the owner can verify. The normalization engine must preserve page boundaries from the source format (Shamela HTML page markers, PDF pages, individual photo pages). Page numbers must survive as metadata through passaging and excerpting. See DOMAIN.md "Physical Reference Preservation."
+## Key Decisions
+- D-028: OCR strategy (Mistral OCR 3 + Qari-OCR)
+- D-029: source_id reference model for normalized packages
+- D-030: Conservative layer default (commentary author)
+- D-031: Universal footnote reference marker format

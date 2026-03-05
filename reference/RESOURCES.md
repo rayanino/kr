@@ -67,15 +67,31 @@ Owner confirmed: some books exist only in physical form (e.g., editions from boo
 - **How to use:** `pip install kraken`. May need custom training on scholarly Arabic fonts.
 - **License:** Apache 2.0
 
+### Mistral OCR 3 (Mistral AI, commercial API)
+- **URL:** https://mistral.ai/solutions/document-ai / https://docs.mistral.ai/capabilities/document_ai
+- **What it does:** State-of-the-art document understanding API. Extracts text + embedded images from PDFs and images into Markdown with HTML table reconstruction. Multilingual with strong Arabic support. Processes up to 2000 pages/minute. Handles complex layouts, handwriting, forms, scanned docs. Cost: $2/1000 pages ($1/1000 with batch).
+- **Relevant engines:** Normalization engine (PRIMARY OCR for scanned PDFs and images)
+- **How to use:** `pip install mistralai`. API endpoint: `client.ocr.process(model="mistral-ocr-latest", ...)`. Supports document_url (public URL), base64, or uploaded files. Returns per-page text in Markdown + extracted images.
+- **License:** Commercial API (pay per page). Owner has infinite budget.
+- **Arabic quality:** Outperforms most alternatives including Google Document AI on multilingual benchmarks. Arabic is explicitly supported with 99%+ fuzzy match scores in benchmark testing.
+
+### Qari-OCR (open-source, Arabic-specialized)
+- **URL:** https://arxiv.org/abs/2506.02295 / HuggingFace models
+- **What it does:** Vision-language model (based on Qwen2-VL-2B) specifically fine-tuned for Arabic OCR. New open-source SOTA: CER 0.061, WER 0.160 on diacritically-rich texts. Superior handling of tashkeel, diverse fonts, and document layouts. v0.3 shows potential for structural document understanding and handwritten text.
+- **Relevant engines:** Normalization engine (specialized Arabic OCR, especially for diacritics-heavy scholarly texts)
+- **How to use:** Download from HuggingFace. Runs locally on GPU (NVIDIA A6000-class). Smaller model (2B params) so can run alongside other processes.
+- **License:** Open-source (check repo)
+- **Key advantage:** Specifically trained on synthetic data rich in diacritics and typographic variations — exactly what KR's scholarly Arabic sources contain. Best open-source option for diacritics preservation.
+
 ### Google Document AI / Cloud Vision
 - **URL:** https://cloud.google.com/document-ai
-- **What it does:** Commercial OCR with strong Arabic support. Layout understanding, table detection. Likely best out-of-box quality for modern Arabic prints.
-- **Relevant engines:** Normalization engine (premium OCR option)
+- **What it does:** Commercial OCR with strong Arabic support. Layout understanding, table detection.
+- **Relevant engines:** Normalization engine (fallback OCR option)
 - **How to use:** API key required. Cost per page. Owner has stated infinite tool/API budget.
 - **License:** Commercial (pay per use)
 
 ### Docling (IBM, noted above)
-- Also handles images→text with Arabic OCR via its VLM model. May be sufficient as a single tool for both PDF and image normalization.
+- Also handles images→text with Arabic OCR via its VLM model (Granite-Docling-258M). Early-stage Arabic support. Better suited as PDF structure extraction tool than as primary OCR for Arabic scholarly texts. Layout analysis (DocLayNet) and table structure (TableFormer) are mature. MCP server available for agent integration.
 
 ---
 

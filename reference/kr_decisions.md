@@ -39,6 +39,10 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 | D-025 | Source engine as primary creator of scholar authority records | 2026-03-04 |
 | D-026 | Text fidelity separate from scholarly trustworthiness | 2026-03-04 |
 | D-027 | Work relationship graph with placeholder records for unacquired works | 2026-03-04 |
+| D-028 | OCR strategy — Mistral OCR 3 primary, Qari-OCR for diacritics | 2026-03-05 |
+| D-029 | Normalized package schema — source_id reference model | 2026-03-05 |
+| D-030 | Multi-layer detection — conservative default to commentary author | 2026-03-05 |
+| D-031 | Universal footnote reference marker format | 2026-03-05 |
 
 ---
 
@@ -216,3 +220,31 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 **Decision:** The source engine maintains a work relationship graph with 7 relationship types (sharh_of, hashiyah_on, mukhtasar_of, nazm_of, taqrirat_on, cites, responds_to). When a relationship target is not in the library, a placeholder work record is created with `status: "referenced_not_acquired"`. Placeholders exist in the work registry as known works without sources — they can accumulate citation counts, be targets of relationship edges, and serve as acquisition candidates. This enables the citation network to grow even before all referenced works are acquired.
 **Alternatives considered:** (a) Only track relationships to acquired works → rejected (loses the vast majority of the scholarly network; most works reference more works than any library contains). (b) Track relationships but without placeholder records → rejected (no way to accumulate citation counts or priority-rank unacquired works).
 **Documents updated:** engines/source/SPEC.md §4.A.9, §4.B.3, §4.B.4.
+
+### D-028: OCR strategy — Mistral OCR 3 primary, Qari-OCR for Arabic diacritics
+**Decided:** 2026-03-05
+**Context:** The normalization engine needs OCR for scanned PDFs and iPhone photos. Arabic OCR with diacritics preservation is critical for scholarly texts.
+**Decision:** Three-tier OCR strategy: (1) Mistral OCR 3 as primary engine — best multilingual document understanding, strong Arabic support, $1-2/1000 pages, 2000 pages/minute. (2) Qari-OCR v0.2 as specialized fallback for diacritically-heavy text — open-source, fine-tuned specifically for Arabic tashkeel (CER 0.061, WER 0.160 on diacritically-rich texts). (3) Dual-OCR comparison mode for low-fidelity sources — both engines process the same page, character-level alignment produces merged output with per-character confidence.
+**Alternatives considered:** (a) Google Document AI only → rejected (Mistral OCR 3 outperforms on multilingual benchmarks and is cheaper). (b) Qari-OCR only → rejected (runs locally on GPU, slower for batch processing, less layout understanding than Mistral). (c) Tesseract → rejected (inadequate Arabic quality, especially for diacritics). (d) Docling OCR → rejected (Arabic support is experimental/early-stage).
+**Documents updated:** engines/normalization/SPEC.md §4.A.4, reference/RESOURCES.md
+
+### D-029: Normalized package schema redesign — source_id reference model
+**Decided:** 2026-03-05
+**Context:** The ABD-era normalized package schema uses `book_id` and duplicates source metadata into the manifest. The KR design uses `source_id` as the primary link and references source metadata rather than duplicating it, preventing metadata staleness.
+**Decision:** The normalized package carries `source_id` as its primary link to upstream metadata. Phase 2 engines access the full source metadata record via this reference. The normalization engine does NOT duplicate source metadata into the normalized package. The manifest contains only normalization-produced metadata (division tree, layer map, fidelity summary, structural format). Content units contain only per-page processing results (text, layers, footnotes, flags, fidelity). This means enrichments to source metadata after normalization are automatically visible to Phase 2 engines without reprocessing.
+**Alternatives considered:** Embedding full source metadata in the manifest → rejected (creates a staleness problem: if the source engine enriches metadata after normalization, the normalized package has stale data, and Phase 2 engines see the stale version).
+**Documents updated:** engines/normalization/SPEC.md §3
+
+### D-030: Multi-layer text detection — conservative default to commentary author
+**Decided:** 2026-03-05
+**Context:** When the normalization engine cannot determine which text layer a region belongs to (no typographic signals, no transition phrases), it must assign a default. The question is: default to the matn author (Layer 1) or the commentary author (Layer 2)?
+**Decision:** Default to the commentary author (Layer 2). Rationale: misattributing matn text to the commentator is less harmful than the reverse. The commentator is typically explaining the matn author's position, so their words are contextually related. Misattributing commentary text to the matn author would put elaborate explanations in the mouth of an author known for terseness — a more detectable and more harmful scholarly integrity violation.
+**Alternatives considered:** (a) Default to Layer 1 (matn) → rejected (more harmful error: puts verbose commentary in the mouth of terse matn authors). (b) Default to "uncertain" → rejected for regions that are clearly within the commentary body; used only for genuinely ambiguous regions.
+**Documents updated:** engines/normalization/SPEC.md §4.A.5
+
+### D-031: Universal footnote reference marker format
+**Decided:** 2026-03-05
+**Context:** Different source formats use different footnote reference conventions: Shamela uses `(N)`, PDFs may use superscript numbers, images may use various markers. Phase 2 engines need a single format to parse.
+**Decision:** Footnote references in normalized `primary_text` use Unicode half-brackets: `⌜N⌝` (U+231C, U+231D). This is visually distinct from any source-format convention and parseable by Phase 2 engines without ambiguity. The original format-specific markers are not preserved — they are source-specific and would violate the normalization boundary.
+**Alternatives considered:** (a) Strip all markers, rely on position → rejected (loses the reference-footnote link). (b) Use `[N]` → rejected (conflicts with bracket markers used for matn text in some sources). (c) Use `{{N}}` → rejected (conflicts with template syntax in some tools).
+**Documents updated:** engines/normalization/SPEC.md §3
