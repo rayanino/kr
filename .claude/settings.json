@@ -1,4 +1,52 @@
 {
-  "hooks": {},
-  "permissions": {}
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd $CLAUDE_PROJECT_DIR && python -m pytest engines/*/tests/ shared/*/tests/ -q --tb=short 2>&1 | tail -5; test ${PIPESTATUS[0]} -eq 0 || (echo 'ERROR: Tests must pass before committing. Run tests and fix failures first.' && exit 2)"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(git push*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd $CLAUDE_PROJECT_DIR && python -m pytest engines/*/tests/ shared/*/tests/ -q --tb=short 2>&1 | tail -5; test ${PIPESTATUS[0]} -eq 0 || (echo 'ERROR: Tests must pass before pushing.' && exit 2)"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // .tool_input.path // empty' | { read file_path; if echo \"$file_path\" | grep -q 'engines/.*/src/'; then engine=$(echo \"$file_path\" | sed 's|.*/engines/\\([^/]*\\)/.*|\\1|'); echo \"REMINDER: You modified engine code in $engine. If behavior changed, update engines/$engine/SPEC.md. If state changed, update engines/$engine/CLAUDE.md.\"; fi; }"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest *)",
+      "Bash(cd *)",
+      "Bash(cat *)",
+      "Bash(ls *)",
+      "Bash(grep *)",
+      "Bash(find *)",
+      "Bash(wc *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git status *)",
+      "Bash(python3 scripts/*)"
+    ]
+  }
 }

@@ -1,50 +1,59 @@
-# خزانة ريان (KR)
+# خزانة ريان (KR) — Personal Intelligent Islamic Scholarly Library
 
-A personal intelligent Islamic scholarly library. See `VISION.md` for the full specification.
+Full specification: `VISION.md`. Decisions log: `reference/kr_decisions.md`.
 
 ## Repository Map
 
-- `VISION.md` — authoritative Level 0 specification (1585 lines). Corrections happen during SPEC writing per engine.
-- `NEXT.md` — session handoff: what to do next, which files to read.
-- `STATUS.md` — project state overview.
-- `schemas/` — inter-engine data contracts (one per boundary).
-- `engines/` — seven processing engines. Each has `CLAUDE.md`, `SPEC.md` (when written), `src/`, `tests/`, `reference/`.
-- `interface/` — user-facing intelligence layer. The scholar interface consumes all knowledge products and provides Q&A, teaching, discovery, assistance, and navigation.
-- `shared/` — cross-engine infrastructure (consensus, human_gate, validation, feedback, user_model, scholar_authority).
-- `library/` — the knowledge product: science trees, excerpts, entries, source registry.
-- `gold/` — validation baselines (hand-crafted, never auto-generated).
-- `scripts/` — utility scripts (`extract_vision_sections.py` for VISION section extraction).
-- `reference/` — coordination: decisions log (`kr_decisions.md`), reasoning protocol, resources, session log.
+- `engines/` — Seven processing engines (source, normalization, passaging, atomization, excerpting, taxonomy, synthesis). Each has `CLAUDE.md`, `SPEC.md`, `src/`, `tests/`.
+- `shared/` — Cross-engine infrastructure: consensus, validation, feedback.
+- `schemas/` — Inter-engine data contracts (one per boundary).
+- `library/` — Knowledge product: sciences, sources, registries.
+- `interface/` — Scholar interface (user-facing intelligence layer).
+- `gold/` — Hand-crafted validation baselines. Never auto-generated.
+- `scripts/` — Utilities. `extract_vision_sections.py` for partial VISION reads.
+- `reference/` — Decisions, domain primer, resources, session log.
 
-## Processing Pipeline
+## Pipeline
 
-Phase 1 — Knowledge Acquisition (source-format-specific):
-1. **Source engine** (محرك المصادر) — discover, acquire, freeze, document sources.
-2. **Normalization engine** (محرك التطبيع) — transform to universal normalized format.
+Phase 1 (source-format-specific):
+1. Source (محرك المصادر) → 2. Normalization (محرك التطبيع)
+--- Normalization boundary (حد التطبيع) — nothing source-specific below ---
+Phase 2 (source-agnostic):
+3. Passaging (محرك التقطيع) → 4. Atomization (محرك التذرير) → 5. Excerpting (محرك الاقتطاف) → 6. Taxonomy (محرك التصنيف) → 7. Synthesis (محرك التوليف)
+Layer 3: Scholar Interface (واجهة العالم) — consumes all knowledge products.
 
---- Normalization boundary (حد التطبيع) — nothing source-format-specific below ---
+## Pre-Work Protocol
 
-Phase 2 — Knowledge Understanding (source-agnostic):
-3. **Passaging engine** (محرك التقطيع) — segment normalized content into passages.
-4. **Atomization engine** (محرك التذرير) — break passages into typed atoms.
-5. **Excerpting engine** (محرك الاقتطاف) — group atoms into self-contained excerpts.
-6. **Taxonomy engine** (محرك التصنيف) — place excerpts at correct leaves; manage evolution.
-7. **Synthesizing engine** (محرك التوليف) — generate encyclopedic entries from excerpts.
+1. Enter the engine directory (its CLAUDE.md loads automatically).
+2. Read the engine's SPEC.md — the authoritative behavioral specification.
+3. Read input/output schemas referenced in the SPEC.
+4. Run existing tests to verify stated CLAUDE.md test counts match reality. Update if stale.
 
-Layer 3 — Scholar Interface (user-facing):
-8. **Scholar interface** (واجهة العالم) — conversational Q&A, active teaching, proactive discovery, scholarly assistance, knowledge navigation. Consumes all knowledge products. Reads/writes the user model.
+## Post-Work Protocol
+
+1. Run the engine's tests: `cd engines/<name> && python -m pytest tests/ -q`
+2. If behavior changed → update SPEC.md in the same session.
+3. If state changed (test counts, known issues) → update engine CLAUDE.md.
+4. If vocabulary changed → flag for VISION.md §2 review.
 
 ## Architectural Constraints
 
-- **Normalization boundary.** No source-format-specific logic below the boundary. (§7.6)
-- **Self-containment.** Every excerpt is independently understandable. (§5.1)
-- **Multi-model consensus.** Content decisions use independent LLM agreement. (§2.2)
-- **Human gates.** No irreversible library change without owner approval. (§9)
-- **Accuracy > Protection > Intelligence.** Core property priority. (§1.5)
-- **Entries are co-primary with excerpts.** Never downgrade entries. (§1.6, §6)
-- **Text integrity.** Excerpt primary text is never modified. (§5.1)
+- **Normalization boundary (§7.6).** No source-format-specific logic in Phase 2 engines.
+- **Self-containment (§5.1).** Every excerpt is independently understandable.
+- **Multi-model consensus (§2.2).** Content decisions use independent LLM agreement.
+- **Human gates (§9).** No irreversible library change without owner approval.
+- **Accuracy > Protection > Intelligence (§1.5).** Priority when properties conflict.
+- **Text integrity (§5.1).** Excerpt primary_text is never modified.
+- **Metadata is synthesis fuel (D-023).** Never strip metadata; the synthesizer needs all of it.
+- **Fail-loud (D-033).** Low-confidence decisions get flags, not silent defaults.
 
-## Run Tests
+## Run All Tests
+
 ```
 python -m pytest engines/*/tests/ shared/*/tests/ -q
 ```
+
+## Current Priorities
+
+Milestone 1: Source engine + normalization engine (Shamela format) end-to-end.
+See `NEXT.md` for the specific current task.
