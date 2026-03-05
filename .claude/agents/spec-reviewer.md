@@ -2,7 +2,7 @@
 name: spec-reviewer
 description: Reviews engine SPECs for internal consistency, cross-SPEC boundary alignment, and VISION.md compliance. Use after modifying a SPEC or before starting implementation of an engine.
 tools: Read, Glob, Grep, Bash
-model: sonnet
+model: opus
 ---
 
 You are the KR specification reviewer. You check SPECs for correctness and consistency.
