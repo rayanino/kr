@@ -4,23 +4,52 @@
 **Phase:** 2 (source-agnostic, below the normalization boundary).
 
 ## Required Reading
-1. This engine's SPEC.md
-2. VISION.md §2.2 (passaging definition)
-3. Input boundary: normalized package from normalization engine
+1. This engine's SPEC.md (502 lines, all 10 sections)
+2. VISION.md §2.2 (passaging definition), §2.5 (passage definition)
+3. Input boundary: normalized package from normalization engine (see normalization SPEC §3)
 4. Output boundary: passages → atomization engine
 
 ## Current State
-Scaffold only, migrated from ABD. The boundary question (D-010) — whether `discover_structure.py`'s `build_passages()` belongs here or in normalization — is deferred to the normalization/passaging SPEC sessions. ABD design decisions have zero authority in KR (D-019).
+No automated passaging logic exists. ABD-era `scaffold_passage.py` (279L) creates manual baselines — has zero relevance to KR's automated pipeline and should be replaced entirely. ABD-era `schemas/passage.json` must be rewritten to match SPEC §3.
 
-Code: `engines/passaging/src/scaffold_passage.py` (279L).
-Tests: 0.
+## Architecture Summary
+
+**Input:** Normalized package (manifest.json + content.jsonl) at `library/sources/{source_id}/normalized/`.
+
+**Output:** Passage stream (passages.jsonl) at `library/sources/{source_id}/passages/`.
+
+**Processing flow:**
+1. Load + validate input (§2)
+2. Cross-page text assembly — join per-page content units into continuous text (§4.A.2)
+3. Strategy selection based on `structural_format` (§4.A.3)
+4. Create passages using format-specific strategy (§4.A.4–§4.A.9)
+5. Emit + self-validate (§4.A.10)
+
+**Six format-specific strategies:**
+- Prose: division-guided with semantic splitting (§4.A.4) — default, most common
+- Verse: verse-group passaging for منظومات (§4.A.5) — never splits a بيت
+- Q&A: question-answer pair passaging for فتاوى/مسائل (§4.A.6)
+- Tabular khilaf: مسألة-block passaging for disagreement catalogs (§4.A.7)
+- Dictionary: root/entry-boundary passaging for معاجم (§4.A.8)
+- Commentary: commentary-unit passaging keeping matn+sharh together (§4.A.9)
+
+**Size targets (prose):** 200–800 Arabic words target, 50 min (merge below), 2000 hard max (force split above).
 
 ## Key Constraints
 1. **Source-agnostic** (§7.6): operates on normalized packages only. No format-specific logic.
-2. **Passage boundaries must be deterministic** (§2.2): given the same normalized package, the same passages result.
-3. **Passages are the unit of downstream processing** (§2.2): atomization and excerpting operate within passage boundaries.
-4. **Passage quality affects everything downstream.** A bad passage boundary (splitting a topic in the middle of a sentence, combining unrelated topics) forces the excerpting engine to either produce a defective excerpt or span boundaries — which §5.3 forbids. Passage construction is the FOUNDATION for excerpt quality.
-5. **Metadata pass-through (D-023).** Passages must carry all source and normalization metadata. The passage adds its own positional metadata (division path, sequence number) but must preserve everything upstream.
-6. **Islamic text structural awareness.** Arabic scholarly texts have conventions: بسملة opens books, باب/فصل/مسألة mark structural divisions, قال المصنف signals return to the main text author after commentary. The passaging engine (or normalization — the boundary question D-010) must use these conventions for intelligent boundary placement.
-7. **Verse structure.** Versified texts (منظومات like الألفية) have completely different structure than prose. Each بيت (couplet) is a self-contained unit. The passaging engine must NEVER split a بيت across passage boundaries. Verse numbering must be preserved. Commentary ON versified texts is prose interspersed with quoted verses — the passage must keep the verse and its commentary together.
-8. **Format-specific passage strategies.** Different book structures need different boundary strategies: in Q&A format (مسائل/فتاوى), each Q&A pair is a natural passage. In dictionary format (معاجم), each root entry is a passage. In tabular disagreement catalogs, each مسألة block is a passage. The source engine classifies the structural format; the passaging engine uses it.
+2. **Passage containment rule (D-011):** Excerpts cannot span passage boundaries. Bad passage boundaries = bad excerpts.
+3. **Sentence integrity:** No passage boundary falls mid-sentence.
+4. **Verse integrity:** A بيت is never split across passage boundaries.
+5. **Metadata pass-through (D-023):** Passages carry all upstream metadata via `source_id` reference + add division path, physical pages, assembled text, text layers, content flags, fidelity.
+6. **Complete coverage:** Every digestible content unit appears in exactly one passage. No text lost, no overlaps.
+
+## Transformative Capabilities (§4.B)
+1. **Passage quality prediction** — scores coherence, boundary quality, extractability per passage [NOT YET IMPLEMENTED]
+2. **Implicit structure discovery** — detects topic boundaries in headingless texts [NOT YET IMPLEMENTED]
+3. **Commentary-matn precision alignment** — maps matn segments to their commentary spans [NOT YET IMPLEMENTED]
+4. **Cross-edition passage correspondence** — aligns passages between editions of the same work [NOT YET IMPLEMENTED]
+
+## External Dependencies
+- Sentence embedding model (multilingual-e5-large or similar) — for quality prediction + implicit structure
+- LLM API via OpenRouter — for semantic splitting + implicit structure
+- CAMeL Tools — for Arabic word tokenization

@@ -276,3 +276,25 @@ Required keys:
 Optional keys (add as needed):
 - `MEM0_API_KEY` — if using mem0's managed platform instead of self-hosted
 - `SHAMELA_API_KEY` — if using ragaeeb/shamela's API features
+
+---
+
+## Text Chunking / Passage Segmentation
+
+### Semantic Text Chunking (general approaches)
+- **LangChain RecursiveCharacterTextSplitter** — hierarchical splitting using separators. Good default for structured text. Available via `langchain` Python package.
+- **LlamaIndex SemanticSplitterNodeParser** — splits by analyzing consecutive sentence embeddings for coherence. Available via `llama-index`.
+- **Agentic chunking** — LLM determines chunk boundaries dynamically. Experimental, high computational cost. IBM watsonx tutorial demonstrates approach. Not suitable for bulk processing but applicable to high-value sources.
+- **Adaptive chunking** — aligns to section/sentence boundaries with variable window sizes. Clinical decision support study (MDPI Bioengineering, Nov 2025) showed 87% accuracy vs 13% for fixed-size baselines on structured documents.
+- **Relevant to:** Passaging engine (§4.A.4 semantic splitting, §4.B.2 implicit structure discovery)
+
+### Arabic-Specific Text Segmentation
+- **AraWiki50k** — first large-scale Arabic dataset for semantic text chunking (MDPI, June 2025). Uses fine-tuned BERT embeddings from STS task. Demonstrates that Arabic semantic chunking is an active research area with limited but growing tool support.
+- **Arabic sentence boundary detection** — research shows CRF-based methods achieve ~84% F-measure. DNN approaches achieve better results on MSA. PDTS (punctuation detection approach) uses multilingual BERT for segmenting unpunctuated Arabic text.
+- **Key finding:** Arabic semantic chunking research is still early-stage. No production-ready Arabic-specific chunking library exists. KR's approach of using division tree structure as primary boundary guidance (supplemented by LLM-assisted splitting for oversized divisions) is more robust than purely embedding-based methods for structured scholarly texts.
+- **Relevant to:** Passaging engine
+
+### Multilingual Sentence Embedding Models
+- **intfloat/multilingual-e5-large** — strong multilingual sentence embeddings. Arabic support via multilingual training. Suitable for computing sentence-level semantic similarity for topic coherence and boundary quality scoring.
+- **sentence-transformers/paraphrase-multilingual-mpnet-base-v2** — alternative multilingual model with good Arabic performance. Smaller than e5-large.
+- **Relevant to:** Passaging engine (§4.B.1 quality prediction, §4.B.2 implicit structure discovery)
