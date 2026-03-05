@@ -1,48 +1,40 @@
 # NEXT SESSION
 
-**Written by:** Session 2026-03-05 (cross-SPEC verification + VISION corrections)
+**Written by:** Session 2026-03-05 (Claude Code environment setup)
 **Date:** 2026-03-05
 
 ## Immediate Task
 
-Prepare the Claude Code implementation environment: populate the `.claude/` directory and rewrite the root CLAUDE.md for implementation phase.
+Begin shared/consensus SPEC — the highest-priority shared component. The consensus mechanism is used by excerpting (D-036), taxonomy (D-039), and potentially source and atomization engines.
 
-**Definition of done — this session is complete when ALL of these are true:**
-1. Root CLAUDE.md rewritten per §13.3.2 requirements (≤100 lines, implementation-focused)
-2. `.claude/settings.json` created with hook configurations
-3. `.claude/commands/` populated with slash commands for common workflows
-4. `.claude/agents/` populated with subagent definitions (at minimum: a test-runner agent, a review agent)
-5. All engine CLAUDE.md files verified consistent with their SPECs (spot check — update if stale)
-6. All changes committed and pushed
-
-**Optional if time permits:**
-- Begin shared/consensus SPEC (highest-priority shared component — used by excerpting and taxonomy engines)
-- Begin إملاء SCIENCE.md (first Level 3 doc, needed for Milestone 1)
+**Definition of done — this session is complete when:**
+1. shared/consensus/SPEC.md written with all 10 sections per SPEC template
+2. RESOURCES.md updated with any new tools discovered during research
+3. Any new decisions recorded in kr_decisions.md
+4. Changes committed and pushed
 
 ## Context
 
-All 7 engine SPECs are complete. Cross-SPEC consistency verified. VISION.md corrected to v1.1.0. The preparatory phase's SPEC work is done. The next logical step is setting up the implementation environment so Claude Code can begin building.
+All 7 engine SPECs are complete. Cross-SPEC verification done. VISION.md corrected to v1.1.0. Claude Code environment (.claude/) is now populated with agents, commands, hooks, and settings. The preparatory phase's remaining work is shared component SPECs (consensus, validation, feedback) and the first SCIENCE.md (إملاء for Milestone 1).
 
-The `.claude/` directory is currently empty. Per §13.2.2 and §13.5, it needs:
-- Agent definitions for specialized tasks
-- Slash commands for common operations
-- Hook configurations for mechanical rule enforcement
-- settings.json for permissions
-
-The root CLAUDE.md needs to be rewritten from its current state (ABD-era) to conform to §13.3.2's strict requirements: ≤100 lines, identity + repo map + pipeline summary + pre/post-work protocols + architectural constraints + current priorities. No engine-specific content.
+The consensus mechanism is referenced by multiple engine SPECs but has no standalone specification yet. Each engine SPEC describes how IT uses consensus, but the consensus component's own behavior — model selection, agreement thresholds, disagreement handling, configuration, error recovery — needs its own SPEC.
 
 ## Files to Read — IN THIS ORDER
 
-1. `VISION.md` §13.2.2, §13.3.2, §13.3.3, §13.5 (use extract_vision_sections.py 13)
-2. `CLAUDE.md` (current root CLAUDE.md — to understand what exists before rewriting)
-3. `engines/source/CLAUDE.md` (example of current engine CLAUDE.md format)
-4. Any one other engine CLAUDE.md (for consistency check)
+1. `reference/DOMAIN.md` — domain context (if not recently read)
+2. `shared/consensus/` — whatever exists (CLAUDE.md, any src/)
+3. `engines/excerpting/SPEC.md` §6 — how excerpting uses consensus (D-036)
+4. `engines/taxonomy/SPEC.md` §6 — how taxonomy uses consensus (D-039)
+5. `engines/source/SPEC.md` §6 — how source uses consensus
+6. `engines/atomization/SPEC.md` §6 — atomization's conscious decision NOT to use consensus
+7. `VISION.md` §2.2 (consensus definition), §8 (quality architecture) — use extract_vision_sections.py
+8. `reference/RESOURCES.md` — existing tool research
 
 ## Decisions Needed
 
-- What specific hooks are most valuable for Milestone 1? (pre-commit test runner? schema validator?)
-- What slash commands would save the most time? (run-all-tests? validate-schema? lint-spec?)
-- What subagents are needed for Milestone 1 vs. later milestones?
+- What LLM providers should the consensus mechanism support? (OpenRouter routing vs. direct provider APIs)
+- Should consensus support async parallel calls or sequential with early termination?
+- What's the minimum viable consensus configuration for Milestone 1?
 
 ## Pending Owner Questions
 
@@ -50,8 +42,12 @@ None.
 
 ## What This Session Did
 
-Cross-SPEC consistency verification across all 7 engines. Found and fixed one inconsistency: excerpting SPEC listed `primary` as a `source_layer` value not produced by atomization. VISION.md corrections: resolved §6.4 OPEN QUESTION with D-040 text. Rewrote §10.3 and §12 to align with D-019 (ABD legacy zero authority). Updated §13.2.6 library directory structure and repo layout tree to match source engine SPEC's per-source directory model and `library/registries/` structure. Updated §2 glossary: "Atom" (now reflects persistence), "Work" (now reflects three-tier identity model with work relationships). Updated SCHEMA_ANALYSIS.md. Updated STATUS.md to reflect all SPECs complete.
+Prepared the Claude Code implementation environment:
+- Rewrote root CLAUDE.md per §13.3.2 (59 lines, pre/post work protocols, current priorities)
+- Created .claude/settings.json with hooks (test-before-commit, test-before-push, SPEC-update reminder)
+- Created 2 subagents (test-runner, spec-reviewer) and 4 slash commands (run-tests, check-spec, read-vision, start-engine)
+- Trimmed 4 engine CLAUDE.md files to ≤50 lines per §13.3.3
 
 ## New Decisions
 
-None this session (corrections only, no new architectural decisions).
+None this session (infrastructure setup only, no architectural decisions).
