@@ -171,3 +171,5 @@
 - ENTRY_EXAMPLE.md: expanded metadata appendix with ALL new fields (source_authority, multi_layer, structural_format, canonical_id) + added second example showing multi-layer source (شرح ابن عقيل on الألفية)
 - All 7 engine CLAUDE.md files updated with new concepts
 - PIPELINE_TRACE.md: page boundaries and text layers in metadata table
+---
+2026-03-05: Cross-SPEC verification complete. VISION.md v1.1.0 (§6.4 resolved, §10/§12 rewritten, §2/§13 updated). All 7 engine SPECs verified consistent. Preparatory phase SPEC work complete.
