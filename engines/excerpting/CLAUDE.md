@@ -1,31 +1,59 @@
 # Excerpting Engine — محرك الاقتطاف
 
-**Responsibility:** Grouping atoms into self-contained excerpts (§5).
+**Responsibility:** Grouping atoms into self-contained excerpts (§5), enriching with metadata for synthesis.
 **Phase:** 2 (source-agnostic, below the normalization boundary).
 
 ## Required Reading
-1. This engine's SPEC.md
-2. VISION.md §5 (the excerpt definition — the core intellectual specification)
-3. VISION.md §2.3 (excerpt vocabulary)
-4. Input boundary: atoms from atomization engine
+1. This engine's SPEC.md (the authoritative document)
+2. VISION.md §5 (excerpt definition, self-containment, architectural rules)
+3. VISION.md §2.4 (excerpt vocabulary, lifecycle stages)
+4. Input boundary: atom stream from atomization engine (atomization SPEC §3)
 5. Output boundary: draft excerpts → taxonomy engine
 
-## Current State
-Legacy code migrated from ABD. The excerpting engine is the intellectual core of the pipeline — ABD's reference docs encode months of extraction experience. However, ABD design decisions have zero authority in KR (D-019). Read ABD reference docs for domain knowledge, not as binding rules.
+## What This Engine Does
+- Receives atom records from the atomization engine
+- Groups atoms into candidate excerpts using LLM boundary detection
+- Evaluates self-containment against §5.1 standard (with multi-model consensus)
+- Enriches each excerpt with metadata: author, school, topic, evidence refs, takhrij, quoted scholars
+- Prevents decontextualized quotation (§4.A.2) — the most dangerous excerpt error
+- Produces draft excerpts consumed by the taxonomy engine
 
-Code: `engines/excerpting/src/` (extract_passages.py 2288L, assemble_excerpts.py 1021L).
-Tests: 258 tests in `engines/excerpting/tests/`.
-Reference: 10 ABD-era docs (including binding decisions, runbook, edge cases — treat as historical reference).
+## Architecture: Three-Phase Per-Passage Processing
+1. **Boundary Detection** (LLM-driven): group atoms into coherent teaching units. Bonded atoms are hard constraints. Division structure and atom relations provide hints.
+2. **Self-Containment Evaluation** (LLM + consensus): evaluate each candidate against §5.1 standard. Score ≥ 0.7 → accept. 0.5–0.7 → enrich with context atoms. < 0.5 → merge with adjacent.
+3. **Metadata Enrichment** (deterministic + LLM): populate all attribution, classification, and reference fields.
+
+## Key Design Decisions
+- **Multi-model consensus (D-036)** for self-containment and school attribution. Two independent models, conservative scoring on disagreement.
+- **Decontextualization prevention** (§4.A.2): explicit detection of reported positions. Reported + response must stay in same excerpt.
+- **Three excerpt kinds:** teaching (scholarly content), exercise (practice material), apparatus (editorial).
+- **Passage containment rule (D-011):** all atoms in an excerpt must share the same passage_id.
+- **Taxonomy-independence rule (§5.2):** excerpts are grouped by content coherence, NEVER by taxonomy fit.
+
+## Transformative Capabilities (§4.B)
+1. **Cross-excerpt scholarly dialogue detection** — detect intellectual engagement between excerpts from different sources at the same leaf
+2. **Self-containment repair suggestions** — actionable fix recommendations for incomplete excerpts
+3. **Scholarly argument completeness analysis** — detect when evidence is missing from an argument
+
+## Current State
+ABD code: extract_passages.py (2288L combined atomization+excerpting), assemble_excerpts.py (1021L).
+Must be separated from atomization and redesigned per SPEC.
+10 ABD-era reference docs — historical reference only (D-019).
+
+## External Dependencies
+- **Instructor** (Python): structured LLM output for all phases
+- **OpenRouter** (API): LLM routing for primary + consensus models
+- **DSPy** (Python): prompt optimization against gold baselines
+- **CAMeL Tools** (Python): Arabic text normalization
+- **Sentence-transformers** (Python): embedding models for duplicate detection
 
 ## Key Constraints
-1. **Self-containment is the defining property** (§5.1): every excerpt must be independently understandable. An excerpt that requires another excerpt to make sense is defective.
-2. **Taxonomy-independent creation** (§5.2): excerpts are created without reference to any taxonomy tree. Placement happens later.
-3. **Content integrity over taxonomic precision** (§5.3 Rule 3): never break an excerpt's self-containment to achieve cleaner taxonomy placement.
-4. **Decontextualization risk:** When a scholar says "Scholar X holds that..." before refuting it, the excerpt must capture BOTH the reported position AND the refutation. Extracting only the reported position would misattribute it. The excerpting engine must detect "reporting another's view" patterns common in Islamic scholarly texts (قال فلان، وذهب فلان إلى، حُكي عن).
-5. **Metadata enrichment (D-023):** The excerpting engine adds critical metadata that the synthesizer needs — author identification, school attribution, content type, hadith references with grading status where applicable. The excerpt is not just text; it's text + metadata that enables scholarly narrative synthesis.
-6. **Editor vs. author text:** If the normalization engine has marked editorial apparatus, the excerpting engine must attribute correctly — editor's footnote analysis is NOT the original author's position.
-7. **LLM extraction confidence.** Every content decision (topic classification, school attribution, content type) has an associated confidence level. This confidence is metadata that flows downstream — low-confidence excerpts get flagged for human review, and the synthesizer weights high-confidence excerpts more heavily. See DOMAIN.md "LLM Extraction Confidence."
-8. **التخريج (takhrij) capture.** When tahqiq footnotes contain hadith source tracing (which collection, book/chapter/number, grading), the excerpting engine must capture this as structured metadata. The synthesizer uses takhrij to produce evidence-aware entries.
-9. **Multi-layer attribution.** In multi-layer texts, the excerpting engine must attribute each excerpt to the correct AUTHOR based on the layer tags from atomization. An excerpt from Layer 1 atoms belongs to the matn author, even though the source is a sharh.
-10. **Ellipsis and implicit context (حذف).** Arabic scholarly texts omit words "understood from context." Self-containment is harder when the text relies on implicit knowledge. The excerpting engine must evaluate self-containment from the perspective of the target reader — what's "understood" to a specialist may be opaque to a beginner. When in doubt, include more context to ensure the excerpt is independently comprehensible.
-11. **Terminology normalization.** The same concept may appear under different names across sources (e.g., "المفعول له" vs "المفعول من أجله"). The excerpting engine should tag terminology variants so the taxonomy engine can map them to the correct leaf and the synthesizer can note the variation.
+1. **Self-containment is existential** (§5.1): every excerpt must be independently understandable
+2. **Taxonomy-independent creation** (§5.2): group by content, place by taxonomy — never mix
+3. **Content integrity > taxonomic precision** (§5.3 Rule 3): never break self-containment for taxonomy fit
+4. **Metadata is synthesis fuel (D-023):** every field serves the synthesizer's ability to produce scholarly narratives
+5. **Fail-loud (D-033):** low-confidence decisions get flags, not silent defaults
+6. **Text integrity absolute (D-004):** primary_text is never modified
+7. **Multi-layer attribution (§4.A.3):** excerpts attributed to correct layer author
+8. **Evidence grading captured (§4.A.4):** hadith evidence carries authenticity status
+9. **Decontextualization prevented (§4.A.2):** reported positions include the response/refutation

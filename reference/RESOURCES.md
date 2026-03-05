@@ -339,3 +339,25 @@ Optional keys (add as needed):
 - **Key finding:** Rule-based Arabic discourse segmentation using punctuation marks + lexical cues achieves reasonable accuracy (Keskes et al., LREC 2012). 97 unambiguous lexical cues identified for Arabic clause boundaries. However, classical Arabic scholarly texts are significantly different from modern Arabic news text — these tools are useful as reference but not directly applicable.
 - **Key finding:** PDTS (Punctuation Detector for Text Segmentation) using multilingual BERT achieves ~75% F-measure on Arabic text segmentation. Not designed for scholarly text but demonstrates that transformer-based segmentation is feasible.
 - **Implication for KR:** The atomization engine's LLM-driven approach is the right choice. Rule-based Arabic segmentation tools are insufficient for scholarly text pattern detection (they don't understand definitions, evidence, opinions). The LLM handles the semantic understanding; rule-based methods handle the mechanical detections (Quran, hadith markers).
+
+## Excerpting Engine Resources (added 2026-03-05)
+
+### ContextGem (Shcherbak AI, open source)
+- **URL:** https://github.com/shcherbak-ai/contextgem
+- **What it does:** LLM extraction from documents with structured output. Designed for document-level information extraction with context preservation.
+- **Relevant engines:** Excerpting engine (document-level extraction patterns), potentially all LLM-driven engines
+- **Status:** Reference for extraction patterns. KR uses Instructor as its primary structured output tool, but ContextGem's approach to context preservation during extraction is informative for the excerpting engine's self-containment evaluation.
+- **License:** Check repo
+
+### LLM4IE Papers (curated list)
+- **URL:** https://github.com/quqxui/Awesome-LLM4IE-Papers
+- **What it does:** Curated collection of papers on LLM-based information extraction. Covers NER, relation extraction, event extraction, and unified extraction approaches.
+- **Relevant engines:** All LLM-driven engines. Particularly useful for: (1) few-shot extraction techniques applicable to excerpting, (2) structured output strategies for complex nested schemas, (3) multi-task extraction combining NER + relation extraction (analogous to KR's combined scholar identification + school attribution).
+- **Key finding:** State-of-the-art in LLM IE uses Instructor/Pydantic-style schema enforcement with few-shot examples. Fine-tuning is used when training data exists; zero/few-shot works well for domain-specific extraction when good examples are provided. This validates KR's approach of Instructor + gold baselines + DSPy optimization.
+
+### Sentence-Transformers (Reimers & Gurevych)
+- **URL:** https://www.sbert.net / https://github.com/UKPLab/sentence-transformers
+- **What it does:** Framework for computing sentence and text embeddings. State-of-the-art multilingual models available. Used for semantic similarity, clustering, and search.
+- **Relevant engines:** Excerpting engine (duplicate excerpt detection via embedding similarity), Taxonomy engine (topic similarity for placement), Scholar interface (semantic search over excerpts)
+- **How to use:** `pip install sentence-transformers`. Use `paraphrase-multilingual-mpnet-base-v2` or `intfloat/multilingual-e5-large` for Arabic text embeddings. Compute cosine similarity between excerpt embeddings for duplicate detection.
+- **License:** Apache 2.0

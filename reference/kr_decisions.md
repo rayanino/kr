@@ -45,6 +45,8 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 | D-031 | Universal footnote reference marker format | 2026-03-05 |
 | D-032 | Synthesized entries must be in Arabic | 2026-03-05 |
 | D-033 | Secure by design — error prevention over error correction | 2026-03-05 |
+| D-036 | Multi-model consensus for excerpting | 2026-03-05 |
+| D-037 | Three-phase excerpting pipeline | 2026-03-05 |
 | D-034 | Two-tier atom type system (structural type + scholarly function) | 2026-03-05 |
 | D-035 | No multi-model consensus for atomization | 2026-03-05 |
 
@@ -296,3 +298,17 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 **Decision:** Atomization does NOT use multi-model consensus. Instead, it uses a single primary model with escalation to a stronger model on failure. Rationale: atom boundary placement is an annotation-like task where consistency matters more than agreement. Different models may place valid boundaries at different positions (e.g., one splits a long sentence into 3 atoms, another into 4 — both can be correct). Averaging or voting on such decisions produces worse results than letting one skilled model work consistently. Consensus IS valuable for higher-stakes decisions (excerpt grouping, taxonomy placement) where the question is binary (correct/incorrect) rather than a matter of annotation granularity.
 **Alternatives considered:** (a) Full consensus on every passage → rejected (doubles/triples LLM cost for a task where consistency matters more than agreement). (b) Consensus only for multi-layer passages → considered but deferred (may revisit if layer attribution accuracy is a problem in practice).
 **Documents updated:** engines/atomization/SPEC.md §6.
+
+### D-036: Multi-model consensus for excerpting self-containment and school attribution
+**Decided:** 2026-03-05
+**Context:** The excerpting engine makes high-stakes decisions that directly affect library quality. Unlike atomization (where individual atom misclassification has low impact, D-035), excerpting errors propagate: a bad self-containment judgment means an incomplete excerpt enters the library; a bad school attribution means the synthesizer misrepresents a scholarly tradition. These are exactly the precision-critical content decisions that multi-model consensus (§2.2) is designed for.
+**Decision:** Multi-model consensus is used for two specific excerpting decisions: (1) self-containment evaluation — two models independently score self-containment; disagreement > 0.2 triggers conservative (lower) score + review flag, (2) school attribution — two models independently determine school; disagreement triggers lower confidence + review flag. Topic classification, author identification, and evidence extraction do NOT use consensus because they have independent downstream validation (taxonomy engine validates topics; author ID is primarily deterministic from layer metadata; evidence is validated by structured reference matching).
+**Alternatives considered:** (a) No consensus for excerpting → rejected (excerpting is the highest-stakes Phase 2 engine; D-035's rationale for no atomization consensus does not apply here). (b) Consensus for ALL excerpting decisions → rejected (too expensive; topic classification and author ID have independent validation paths). (c) Three-model consensus → rejected (diminishing returns; two independent models from different providers provide sufficient confidence).
+**Documents updated:** engines/excerpting/SPEC.md §6, engines/excerpting/CLAUDE.md
+
+### D-037: Three-phase excerpting pipeline (boundary → self-containment → enrichment)
+**Decided:** 2026-03-05
+**Context:** The excerpting engine must perform three distinct tasks: decide which atoms group together, evaluate whether each group is self-contained, and enrich each excerpt with metadata. These tasks have different inputs, different quality requirements, and different failure modes. Combining them into a single LLM pass (as ABD did) creates a monolithic operation that's hard to debug, hard to validate, and hard to optimize.
+**Decision:** Three-phase pipeline: (1) Boundary Detection — LLM determines atom groups, respecting bonded constraints. (2) Self-Containment Evaluation — LLM evaluates each candidate, with consensus for verified sources. Candidates can be enriched (add context atoms) or merged if insufficient. (3) Metadata Enrichment — deterministic + LLM enrichment of all fields. Each phase can be independently validated, retried, and optimized. Phase failures are isolated: a metadata enrichment failure doesn't invalidate the boundary detection.
+**Alternatives considered:** (a) Single-pass extraction (ABD approach) → rejected (monolithic, hard to debug, no independent validation per phase). (b) Two-phase (boundary+self-containment combined, then enrichment) → rejected (boundary detection and self-containment evaluation have different prompt requirements; separating them allows self-containment to trigger boundary adjustments like enrichment and merging).
+**Documents updated:** engines/excerpting/SPEC.md §4.A.1, engines/excerpting/CLAUDE.md
