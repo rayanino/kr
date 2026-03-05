@@ -1,8 +1,8 @@
 # خزانة ريان — Vision and Architecture Specification
 
-**Version:** 1.0.1
+**Version:** 1.1.0
 **Status:** Active — this is the single authoritative specification for خزانة ريان.
-**Date:** 2026-03-03
+**Date:** 2026-03-05
 
 ---
 
@@ -288,7 +288,7 @@ The seven engines, in processing order:
 
 ### 2.4 Knowledge Content
 
-**Atom** (ذرة, plural: ذرات) — the smallest indivisible unit of text within a passage, typed and located by character offsets. Atoms are the building blocks from which excerpts are composed. Each atom has a type indicating what kind of content it represents and precise character offsets locating it within its passage. Atoms are intermediate processing units — they exist during extraction but are not stored in the library as independent entities. **Atomization** is the process by which the atomization engine breaks a passage into its constituent atoms. Not to be confused with excerpts, which are composed of multiple atoms grouped into self-contained teaching units. The type taxonomy for atoms and the rules governing atomization are specified in the atomization engine's per-component documentation.
+**Atom** (ذرة, plural: ذرات) — the smallest indivisible unit of text within a passage, typed and located by character offsets. Atoms are the building blocks from which excerpts are composed. Each atom has a type indicating what kind of content it represents and precise character offsets locating it within its passage. Atoms are persisted in the atom stream (`library/sources/{source_id}/atoms/`) for provenance and reprocessing, but they are not independent knowledge products — they are consumed by the excerpting engine to create excerpts. **Atomization** is the process by which the atomization engine breaks a passage into its constituent atoms. Not to be confused with excerpts, which are composed of multiple atoms grouped into self-contained teaching units. The type taxonomy for atoms and the rules governing atomization are specified in the atomization engine's per-component documentation.
 
 **Excerpt** (مقتطف, plural: مقتطفات) — a self-contained unit of knowledge extracted from a source, attributed to a specific author or scholar, and classified to a specific leaf in a science tree. Self-containment is the defining property: an excerpt carries everything needed for both a human reader and the synthesizing engine to fully understand what it teaches, who said it, from which scholarly tradition, and where it fits in the structure of the science. An excerpt that requires another excerpt to be understood, or that lacks attribution, is not self-contained and must be enriched before it can enter the library.
 
@@ -326,7 +326,7 @@ Entries become stale when their underlying excerpt collection changes (new excer
 
 **Frozen source** (مصدر مجمد) — a source whose content has been cryptographically hashed at acquisition time and whose original file is never modified by any component of the application. Freezing is an integrity guarantee: all processing operates on copies or derived representations, never on the frozen original. Integrity is verifiable by hash comparison. Every source is frozen immediately upon acquisition, before any documentation or processing begins. Not to be confused with the raw source as it exists in the outside world; the frozen source is the application's immutable copy.
 
-**Work** (مؤلَّف) — a shared identifier linking multiple sources that are volumes of the same multi-volume scholarly work. Each volume is a separate source with its own metadata, processing pipeline, and frozen copy, but all volumes of the same work share a work identifier so that the application can track them as a coherent whole. *[Non-normative: classical Islamic works are frequently multi-volume — كتاب الأم is 8 volumes, المغني is 15 volumes. Modeling each volume as a separate source keeps processing granular (volume 3 can be processed independently of volumes 1 and 2) and aligns with how repositories organize them.]*
+**Work** (مؤلَّف) — the abstract scholarly creation, independent of any specific edition, print, or digital manifestation. A work is identified by a `work_id` (format: `{author_slug}_{title_slug}`) and groups all sources that are manifestations of the same scholarly creation — different editions, different tahqiq, different volumes. Each manifestation is a separate source with its own `source_id`, metadata, processing pipeline, and frozen copy, but all share the `work_id`. The work registry tracks the owner's preferred source per work. Works also carry relationship metadata (D-027): a work may be a sharh (commentary) of another work, a mukhtasar (abridgement) of another, a hashiyah (super-commentary) on another, or a nazm (versification) of another. These relationships are recorded as typed links between `work_id` values and enable the synthesizing engine to produce entries with intellectual genealogy context. The three-tier identity model — source (a specific file), work (the abstract creation), and scholar (the author's canonical identity) — is fully specified in the source engine's per-component documentation (D-024).
 
 **Source format** (صيغة المصدر) — the file or data format of a raw source: HTML, JSON, PDF, plain text, audio, video. Source format describes the technical encoding of the material. Not to be confused with source type.
 
@@ -721,7 +721,7 @@ _Preponderant opinion handling._ Where specific scholars declare a position to b
 
 **Analytical-layer requirements.** The analytical layer is the synthesizing engine's intellectual contribution — it is expected to add scholarly value beyond what any individual excerpt states. The analytical layer is subject to less rigid constraints than the factual layer because it represents generated reasoning, not source-traceable facts. The analytical layer must not contradict the factual layer. The analytical layer must not present generated reasoning as if it were a scholar's stated position. The analytical layer must be clearly distinguishable from the factual layer in the entry's structure, so the owner always knows what is source-traceable and what is synthesized reasoning.
 
-[OPEN QUESTION: To what extent may the synthesizing engine's analytical layer include knowledge or connections not directly stated in the source excerpts? The owner has expressed interest in the synthesizing engine adding its own scholarly connections and further clarification. The boundary between "intelligent synthesis that adds genuine value" and "unverifiable addition that the owner might mistake for source-based knowledge" needs precise specification in the synthesizing engine's per-component documentation (Level 2). This is a design question with implications for the accuracy core property.]
+**Analytical-layer traceability boundary (D-040).** The analytical layer MAY include LLM-contributed knowledge and connections not directly stated in source excerpts, subject to three structural constraints enforced by the entry schema. First, every claim in the entry carries an explicit `grounding_type` field — one of `library_excerpt` (traced to a specific excerpt), `library_metadata` (derived from upstream metadata such as author dates or teacher-student links), or `llm_research` (from the synthesizing engine's LLM training knowledge). Second, the factual sections of the entry (`core_treatment`, `scholarly_positions`, `edge_cases`) must contain ONLY `library_excerpt` and `library_metadata` grounded claims — never `llm_research`. Third, the `analytical_layer` section is structurally separate and may contain all three grounding types, with `llm_research` claims explicitly marked. This makes the factual/analytical boundary a structural property of the output schema, not a vague guideline: the owner and the scholar interface always know which claims are excerpt-backed and which are engine-contributed. Full specification in the synthesizing engine's per-component documentation (Level 2).
 
 **Readability.** The entry must be written in clear, well-organized Arabic that a student of the science can follow. Readability is a quality requirement on the synthesizing engine's output, not a structural specification. The specific formatting, section ordering, and presentation style of entries are specified in the synthesizing engine's per-component documentation (Level 2).
 
@@ -985,7 +985,7 @@ Three principles govern the order and approach of implementation. These principl
 
 **Principle: Incremental value.** Each milestone produces a usable library. The library is usable — for the sciences and sources covered so far — at the end of every milestone, not only at the eventual completion of all milestones. No milestone depends on future milestones for its value. This means every design decision must ensure the application works well at its current scale, not only at its eventual full scale.
 
-**Principle: Preserve proven work.** The existing codebase (§10.3) contains significant validated work: extraction logic, consensus mechanisms, test suites, gold baselines, and taxonomy trees for four Arabic language sciences. This work carries forward into خزانة ريان. Proven, working code is restructured to fit the target architecture — it is not rewritten from scratch. Restructuring means placing existing code in its correct architectural home (per §13.2) and adapting interfaces to conform to the schema contracts (§13.4). It does not mean reimplementing functionality that already works.
+**Principle: Pragmatic reuse.** The existing codebase (§10.3) contains artifacts from the ABD project — extraction logic, consensus mechanisms, test suites, gold baselines, and taxonomy trees. Per D-019, ABD-era code carries zero design authority: the engine SPECs, not existing code, determine what to build. However, existing code that happens to implement what a SPEC requires may be adapted rather than rewritten from scratch. Gold baselines and taxonomy trees carry forward on their own merits. The implementing agent reads the SPEC first, then examines existing code for reusable patterns — never the reverse.
 
 ---
 
@@ -1065,37 +1065,25 @@ _Success criteria:_ All science tree leaves have multi-source, multi-author cove
 
 ---
 
-### 10.3 The Existing Codebase
+### 10.3 Relationship to ABD-Era Code
 
-خزانة ريان builds on the existing ABD codebase (repository: `abd_post_stage0_v1.5`). The repository continues as the codebase, with its structure reorganized to match the architecture defined in this specification (§13.2). The preserve-proven-work principle (§10.1) governs the transition: working code is restructured, not rewritten.
+The خزانة ريان repository (`kr`) contains code and artifacts inherited from the ABD (Arabic Book Digester) project. Per D-019, ABD-era code carries zero design authority in KR — it describes what WAS built, not what SHOULD be built. The engine SPECs were designed from first principles for KR's broader scope (all source types, all Islamic sciences), not constrained by ABD's Shamela-only assumptions.
 
-**What carries forward (restructured to fit the target architecture):**
+**What exists in the repo from ABD:**
 
-The extraction logic (currently in `tools/extract_passages.py`, approximately 2100 lines) — the core of the atomization and excerpting engines' processing. Proven on إملاء content, with multi-model support.
+Extraction logic, consensus mechanisms, Shamela normalization tools, intake/enrichment tools, test suites, gold baselines, taxonomy trees for four Arabic language sciences, and inter-engine schemas. These artifacts are implementation reference material that Claude Code may examine for useful patterns, but none constrains KR's architecture.
 
-The consensus mechanism (currently in `tools/consensus.py`, approximately 1700 lines) — the multi-model consensus infrastructure (§2.2). Proven with multiple LLM providers.
+**What carries forward on its own merits:**
 
-The test suite (approximately 1036 tests across multiple test files) — validation of existing pipeline stages.
+Gold baselines — hand-crafted ground truth for بلاغة and إملاء extraction. These are precious regardless of their ABD origin and serve as regression testing foundations.
 
-The gold baselines (in `gold_baselines/` and `3_extraction/gold/`) — hand-crafted ground truth (§2.2) for بلاغة and إملاء extraction. These represent extensive precision work and are carried forward as the foundation of regression testing (§8.3).
+Taxonomy trees — science trees for four Arabic language sciences (approximately 892 leaves total). These represent substantial scholarly structuring work and become the first science trees in the library, subject to review and correction as the taxonomy engine is implemented.
 
-The taxonomy trees (in `taxonomy/`) — science trees for four Arabic language sciences (approximately 892 leaves total). These become the first science trees in the library (§13.2.6).
+**What is replaced:**
 
-The Shamela normalization tools (currently in `tools/normalize_shamela.py` and related files) — the source pipeline's first normalizer.
+The ABD schemas in `schemas/` are superseded by the schemas defined in the seven engine SPECs. The numbered-stage directory layout is superseded by the engine-based architecture in §13.2. ABD-era documentation (ARCHITECTURE.md, stage-specific docs, audit reports) is superseded by this specification and the engine SPECs. ABD's Shamela-only scope is superseded by KR's multi-format, multi-source-type architecture.
 
-The intake and enrichment tools (currently in `tools/intake.py` and `tools/enrich.py`) — source acquisition and metadata enrichment logic for the source engine.
-
-The schemas (in `schemas/`) — structural validation definitions that become the foundation of the schema contracts (§13.4).
-
-The extraction precision rules (in `2_atoms_and_excerpts/`) — binding decisions and checklists governing extraction quality.
-
-**What is restructured:**
-
-The numbered-stage directory layout (`0_intake/`, `1_normalization/`, etc.) is reorganized into the engine-based architecture defined in §13.2. This is a structural reorganization, not a functional rewrite. Each existing component is placed in its correct engine directory. The prior `ARCHITECTURE.md` from the reformation branch introduced the normalization boundary concept; this specification supersedes that document as the authoritative design reference.
-
-**What is not carried forward:**
-
-Superseded normalization specification versions. Archive contents (`archive/`) containing retired documentation. Stale audit reports and analysis documents from early development iterations. These are retired to prevent confusion with current authoritative documentation.
+**The principle:** When Claude Code implements an engine, it reads the engine's SPEC.md as the authoritative specification. It may examine existing ABD code for useful implementation patterns, but the SPEC — not the existing code — determines what to build. If the SPEC and existing code disagree, the SPEC governs.
 
 ---
 
@@ -1161,53 +1149,31 @@ Once the Phase 2 engines are proven (Milestone 1, §10.2), the choice of what to
 
 ---
 
-## §12 — Relationship to Current Codebase
+## §12 — Relationship to ABD-Era Code
 
-This section specifies the relationship between خزانة ريان and the existing ABD codebase from which it evolves. It defines repository continuity, what components are preserved and how they map to the target architecture, and what changes in the transition. This section describes factual references to existing code and files; it is not a migration guide — the specific steps for restructuring are operational decisions made during Milestone 1 (§10.2).
-
----
-
-### 12.1 Repository Continuity
-
-خزانة ريان is built on top of the existing ABD codebase, not from scratch. The repository (`abd_post_stage0_v1.5`) continues as the codebase, with its structure reorganized to match the architecture defined in this specification — specifically the repository layout in §13.2 and the seven-engine processing architecture in §2.2. A new branch is created for the خزانة ريان work, preserving the current master as a reference point.
-
-Repository continuity means: the git history is preserved, the existing tests continue to run (relocated but not deleted), and validated components continue to function during and after the restructuring. Continuity does not mean the directory layout is unchanged — it is reorganized substantially (§12.3).
+This section clarifies the relationship between خزانة ريان and the ABD (Arabic Book Digester) code that exists in the repository. Per D-019, ABD-era code has zero design authority in KR.
 
 ---
 
-### 12.2 What Is Preserved
+### 12.1 Repository Identity
 
-The following components from the existing codebase are preserved and restructured into the target architecture. The preserve-proven-work principle (§10.1) governs: these components work, and working code is more valuable than rewritten code.
-
-**Extraction logic** (currently in `tools/extract_passages.py`) — maps to the atomization engine (محرك التذرير) and excerpting engine (محرك الاقتطاف) under `engines/atomization/` and `engines/excerpting/` per §13.2.4. The existing code currently implements responsibilities that span both engines; separation into distinct engine directories occurs during restructuring, guided by the conceptual boundaries defined in §2.2.
-
-**Consensus mechanism** (currently in `tools/consensus.py`) — maps to the shared consensus infrastructure under `shared/consensus/` per §13.2.5. The consensus mechanism serves multiple engines and is therefore shared infrastructure, not owned by any single engine.
-
-**Shamela normalizer** (currently in `tools/normalize_shamela.py`) — maps to the normalization engine (محرك التطبيع) under `engines/normalization/src/normalizers/` per §13.2.4. This becomes the first normalizer in the normalization engine.
-
-**Structure discovery** (currently in `tools/discover_structure.py`) — integrates into the normalization engine per the normalization boundary requirement (§7.6). Structure discovery is part of normalization because structural signals exist in format-specific markup that is available only before format stripping (§7.5).
-
-**Intake and enrichment tools** (currently in `tools/intake.py` and `tools/enrich.py`) — map to the source engine (محرك المصادر) under `engines/source/` per §13.2.4. These handle source acquisition and metadata enrichment responsibilities defined in §7.2 and §7.3.
-
-**Test suite** (all existing test files) — reorganized to co-locate with their respective engine directories under each engine's `tests/` directory per §13.2.4. Test co-location is a binding architectural constraint (§13.2.4), not a suggestion.
-
-**Gold baselines** (in `gold_baselines/` and `3_extraction/gold/`) — map to the `gold/` directory at the repository root per §13.2.7. Gold baselines are precious project-level assets (§2.2) that serve multiple engines for regression testing.
-
-**Schemas** (in `schemas/`) — become the foundation of the schema contracts (§13.4) in the `schemas/` directory at the repository root per §13.2.3.
-
-**Taxonomy trees** (in `taxonomy/`) — map to `library/sciences/` per §13.2.6. The four Arabic language science trees (approximately 892 leaves total) become the first science trees in the library.
-
-**Extraction precision rules** (in `2_atoms_and_excerpts/`) — the binding decisions and checklists governing extraction quality. These inform the SPEC.md files for the atomization and excerpting engines.
+The خزانة ريان repository is `kr` on GitHub. It contains ABD-era code inherited from the earlier project. The git history is preserved for reference. The repository's target structure is the engine-based architecture defined in §13.2; ABD-era directory organization will be replaced during implementation.
 
 ---
 
-### 12.3 What Changes
+### 12.2 ABD Legacy Rule (D-019)
 
-**Directory structure.** The numbered-stage layout (`0_intake/`, `1_normalization/`, etc.) is reorganized into the engine-based architecture defined in §13.2: `engines/` for the seven processing engines, `shared/` for cross-engine infrastructure, `library/` for the knowledge product, `schemas/` for inter-engine contracts, and `gold/` for gold baselines. The restructure plan from the reformation branch provides guidance for the physical reorganization of files.
+ABD was a narrow tool for processing Shamela HTML exports. KR is designed for all scholarly source types from the start. The seven engine SPECs were designed from first principles — they define what to build. ABD-era code, schemas, and design patterns describe what WAS built, not what SHOULD be built.
 
-**Documentation.** All documentation is updated to reflect the خزانة ريان architecture. This specification (VISION.md) becomes the Level 0 design authority (§13.1). The existing `CLAUDE.md`, `REPO_MAP.md`, and `ARCHITECTURE.md` are replaced. A new root CLAUDE.md is created per the requirements in §13.3.2. Per-engine CLAUDE.md and SPEC.md files (§13.3.3, §13.1) are created for each engine.
+The implementing agent reads the engine SPEC as the authoritative specification. It may examine ABD code for useful implementation patterns (the extraction logic, consensus mechanism, and Shamela normalizer contain valuable work). But the SPEC — not existing code — determines the architecture, data models, and processing logic. If the SPEC and existing code disagree, the SPEC governs without exception.
 
-**Scope expansion.** The four Arabic language science trees are now part of a larger collection that will eventually include all Islamic and supporting sciences per §4.3. The source pipeline is extended to support multiple source types (§7.5) and autonomous discovery (§7.2). The synthesizing engine (§6) is built to generate entries — a capability not present in the existing codebase.
+---
+
+### 12.3 What Carries Forward on Its Own Merits
+
+**Gold baselines** — hand-crafted ground truth for بلاغة and إملاء extraction. These are precious regression testing assets regardless of their ABD origin. They move to `gold/` per §13.2.7.
+
+**Taxonomy trees** — science trees for four Arabic language sciences (approximately 892 leaves total). These represent substantial scholarly structuring work and become the first science trees in the library at `library/sciences/` per §13.2.6, subject to review as the taxonomy engine is implemented.
 
 **Application identity.** All references to "ABD," "Ilm Digest," or "ID" in code, documentation, and configuration are updated to خزانة ريان / KR.
 
@@ -1317,10 +1283,20 @@ kr/
 │   │       ├── SCIENCE.md
 │   │       ├── tree.yaml
 │   │       ├── tree_history/
-│   │       └── content/
-│   └── sources/
-│       ├── registry.yaml
-│       └── frozen/
+│   │       ├── content/
+│   │       └── entries/
+│   ├── sources/
+│   │   └── [per source_id]/
+│   │       ├── frozen/
+│   │       ├── metadata.json
+│   │       ├── normalized/
+│   │       ├── passages/
+│   │       ├── atoms/
+│   │       └── excerpts/
+│   └── registries/
+│       ├── sources.json
+│       ├── works.json
+│       └── scholars.json
 │
 └── gold/
 ```
@@ -1393,7 +1369,9 @@ The `library/` directory contains the library itself — the persistent, structu
 
 **`library/sciences/`** contains one subdirectory per science that the library covers. Each science's subdirectory contains: SCIENCE.md (Level 3 per-science documentation per §13.1), `tree.yaml` (the current science tree definition per §4), `tree_history/` (previous tree versions, retained for rollback and audit per §2.3 and §4.4), and `content/` (placed excerpts and generated entries). The internal structure of `content/` — how excerpts are organized by leaf, how entries are stored, how the verified/flagged separation (§3.2) is maintained in storage — is specified in the taxonomy engine's SPEC.md (for excerpt placement) and the synthesizing engine's SPEC.md (for entry storage). VISION.md does not specify this internal structure because it is implementation detail that may evolve as the engines are built.
 
-**`library/sources/`** contains source metadata and frozen source files. `registry.yaml` is the source deduplication registry maintained by the source engine (§7.2). `frozen/` contains immutable copies of acquired sources (per the frozen source definition in §2.5). The internal organization of `frozen/` and the schema of `registry.yaml` are specified in the source engine's SPEC.md.
+**`library/sources/`** contains per-source directories, each at `library/sources/{source_id}/`. Each source directory holds: `frozen/` (immutable copies of the raw source, per the frozen source definition in §2.5), `metadata.json` (the source metadata record), and processing artifacts created by downstream engines (`normalized/`, `passages/`, `atoms/`, `excerpts/`). This per-source organization keeps all artifacts for a source co-located and traceable.
+
+**`library/registries/`** contains three shared registries maintained primarily by the source engine: `sources.json` (catalog of all acquired sources for deduplication and status tracking), `works.json` (catalog of all known works linking sources to abstract scholarly works), and `scholars.json` (the scholar authority registry with biographical data, school affiliations, and teacher-student relationships). These registries are read by multiple engines — the synthesizing engine is the primary downstream consumer of scholar authority data.
 
 Multiple engines write to `library/`: the taxonomy engine places excerpts and manages tree evolution, the synthesizing engine generates and stores entries, the source engine stores frozen sources and metadata. This is by design — the library is the shared output of the processing pipeline. Write access conventions (which engine writes to which part of `library/`) are specified in the respective engine SPEC.md files.
 
@@ -1581,5 +1559,6 @@ Additionally, each engine's CLAUDE.md contains a "current state" section that is
 
 ## Changelog
 
+- 1.1.0 (2026-03-05): Post-SPEC cross-cutting corrections. Resolved §6.4 OPEN QUESTION with D-040 (grounding_type traceability boundary). Rewrote §10.3 and §12 to align with D-019 (ABD legacy has zero design authority); renamed "Preserve proven work" principle to "Pragmatic reuse" (§10.1). Updated §13.2.6 library directory structure and repo layout tree to match source engine SPEC (per-source directories, `library/registries/` with sources.json/works.json/scholars.json). Updated §2 "Atom" glossary to reflect that atoms are persisted on disk. Updated §2 "Work" glossary to reflect three-tier identity model (D-024) with work relationships (D-027).
 - 1.0.1 (2026-03-03): Audit corrections. Fixed Phase 2 engine count (§1.1). Removed editorial markers (§1.6, §6.2). Collapsed §1.6 entry/flagged restatement into §6.2 reference (SSoT fix). Fixed five dangling "extraction engine" forward-references in §2.2 and §2.4 to point to correct engines. Fixed §1.3 entry description to reflect school-group cardinality (§6.2). Replaced "coverage subsystem" references with taxonomy engine (§2.4, §3.5). Fixed taxonomy engine §8 cross-reference label. Expanded science-agnostic definition to cover all Phase 2 engines (§2.2). Added science scope to source metadata (§7.3). Added multi-science source handling (§1.2). Specified reviewed→placed lifecycle transition agent (§2.4). Added placed excerpt schema to contract inventory (§13.4.2). Moved data portability from §1.8 to §1.9. Collapsed redundant primary text paragraph (§5.1). Fixed "extraction engines" grouping label (§1.1, §2.2). Updated stale test count (§10.3). Rewrote §1 header cross-reference claim (§1).
 - 1.0.0 (2026-03-02): Initial unified specification for خزانة ريان. Assembled from phased drafts (§1–§5 from Phase 1, §6–§9 from Phase 2, §10–§13 from Phase 3). Harmonized cross-references, resolved known inconsistencies between corrected sections, and verified term consistency with §2 definitions throughout.

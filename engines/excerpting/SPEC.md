@@ -48,7 +48,7 @@ Each atom record conforms to the atom schema (`atom_v2.0`) as defined in the ato
 - `structural_type`: string enum. From the 7 structural types.
 - `scholarly_function`: string enum or null. From the 16 scholarly functions.
 - `function_confidence`: float. Classification confidence.
-- `source_layer`: string. Authorial layer (`matn`, `sharh`, `hashiyah`, `tahqiq`, `footnote`, `primary`).
+- `source_layer`: string. Authorial layer (`matn`, `sharh`, `hashiyah`, `tahqiq`, `footnote`). For single-layer sources, always `matn`.
 - `layer_author_id`: string or null. Author's `canonical_id` for this layer.
 - `embedded_refs`: array. Detected Quran, hadith, poetry, scholarly quote references with spans.
 - `atom_relations`: array. Typed relationships between atoms (illustrates, evidences, conditions, refutes, etc.).

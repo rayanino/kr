@@ -1,14 +1,13 @@
 # KR Inter-Engine Schema Analysis
 
-**Date:** 2026-03-03
-**Source codebase analyzed:** ABD (`abd_post_stage0_v1.5`)
-**Target:** KR `schemas/` directory — inter-engine data contracts per VISION.md §13.4
+**Date:** 2026-03-05
+**Status:** ALL ENGINE SPECs COMPLETE — schemas are now authoritatively defined in each engine's SPEC.md §2 (Input Contract) and §3 (Output Contract). The JSON schema files in this directory are ABD-era artifacts that will be regenerated from the SPECs during implementation.
 
-**⚠ ABD Legacy (D-019):** These schemas were designed for ABD's Shamela-only pipeline. They use `book_id` (KR may use `source_id`), have Shamela-specific enums, and lack fields for multi-format source types. Each schema will be redesigned when the corresponding engine SPEC is written. Until then, they describe what currently exists, not what KR needs.
+**⚠ ABD Legacy (D-019):** The `.json` schema files in this directory were designed for ABD's Shamela-only pipeline. They are superseded by the schema definitions in the engine SPECs. Do NOT use these files as the authoritative schema reference — read the SPECs instead.
 
-**⚠ Metadata Pass-Through (D-023):** Metadata is synthesis fuel. Every schema in the chain must carry ALL metadata from upstream engines plus anything the current engine adds. The synthesizing engine is the ultimate consumer — it uses author biography, dates, school affiliations, teacher-student chains, work genres, and historical context to produce scholarly narratives (not flat compilations). When redesigning any schema, the question is not "what does this engine need?" but "what must flow through this engine to the synthesizer?" No metadata may be stripped because an intermediate engine doesn't use it.
+**Schema authority chain:** Each engine's SPEC §3 (Output Contract) is the authoritative definition of what that engine produces. The consuming engine's SPEC §2 (Input Contract) specifies what it reads from upstream. Cross-SPEC consistency was verified on 2026-03-05. During implementation, the `.json` files in this directory will be regenerated from the SPECs to provide machine-validatable schemas.
 
-**⚠ Source Engine SPEC complete (2026-03-04).** The source engine SPEC §4.A defines the complete metadata architecture superseding ABD-era `source_metadata.json`. Key changes: three-tier identity model (`source_id`/`work_id`/`canonical_id`), scholar authority registry, work relationship graph, genre/genre_chain/structural_format/multi_layer/source_authority fields, per-field confidence scoring, text fidelity separate from trust tier, format-specific metadata isolation. Three new registry schemas needed: `sources.json`, `works.json`, `scholars.json`. See SPEC §3 and §4.A for full details. Actual schema file rewrite deferred to implementation.
+**⚠ Metadata Pass-Through (D-023):** Metadata is synthesis fuel. Every engine in the chain preserves all upstream metadata by reference (`source_id`, `passage_id`, `atom_ids`) and adds its own metadata contributions. The synthesizing engine is the terminal consumer. Cross-SPEC verification confirmed no metadata loss at any boundary.
 
 ---
 
