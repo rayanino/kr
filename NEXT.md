@@ -72,8 +72,8 @@ None currently pending.
 
 ## What This Session Did
 
-Completed the passaging engine SPEC (502 lines, all 10 sections). Updated CLAUDE.md to match SPEC. Updated RESOURCES.md with semantic text chunking research, Arabic segmentation findings, and multilingual embedding models. No new kr_decisions.md entries needed (passaging SPEC follows existing decisions without introducing cross-engine architectural changes). VISION defect ledger deferred to atomization session (accumulating from source+normalization+passaging).
+Completed the passaging engine SPEC (502 lines, all 10 sections). Updated CLAUDE.md to match SPEC. Updated RESOURCES.md with semantic text chunking research, Arabic segmentation findings, and multilingual embedding models. Recorded D-033 (secure by design) from owner input — propagated to DOMAIN.md Core Identity. VISION defect ledger deferred to atomization session (accumulating from source+normalization+passaging).
 
 ## New Decisions
 
-None this session. Passaging engine design decisions are engine-internal and specified in the SPEC itself (size targets, strategy selection, splitting logic) without requiring cross-engine architectural decisions.
+D-033 (Secure by design — error prevention over error correction). Owner-initiated foundational principle: every engine must be designed so errors are structurally prevented, not just detected. Immutable artifacts, explicit decisions, fail-loud behavior, verification at every boundary, mandatory provenance, continuous corruption detection, bounded blast radius. Read full entry in kr_decisions.md.

@@ -44,6 +44,7 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 | D-030 | Multi-layer detection — conservative default to commentary author | 2026-03-05 |
 | D-031 | Universal footnote reference marker format | 2026-03-05 |
 | D-032 | Synthesized entries must be in Arabic | 2026-03-05 |
+| D-033 | Secure by design — error prevention over error correction | 2026-03-05 |
 
 ---
 
@@ -256,3 +257,26 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 **Decision:** Entries must be in Arabic. The owner reads classical scholarly texts in Arabic, the source material is Arabic, the scholarly terminology is Arabic, and translating would lose precision. The interface and generated analysis (e.g., scholar interface explanations, study guidance) may use any of the owner's languages, but the scholarly content itself — entries, excerpts, citations — is Arabic.
 **Alternatives considered:** (a) English entries → rejected (loses terminological precision, the owner reads Arabic natively). (b) Bilingual → rejected (unnecessary overhead; the scholarly substance is Arabic). (c) Per-entry language choice → rejected (adds complexity without benefit; the content is inherently Arabic).
 **Documents updated:** reference/kr_decisions.md, NEXT.md (pending question resolved)
+
+### D-033: Secure by design — error prevention over error correction
+**Decided:** 2026-03-05
+**Context:** The owner identified a foundational principle: KR handles sensitive information — scholarly knowledge whose corruption can change the entire understanding of a science. A single misattribution, a silent data loss, or an undetected layer confusion doesn't just produce a wrong answer — it can systematically distort how Rayane understands an entire field. Existing scholarly integrity measures (D-018, Criterion #21) address this partially, but the owner wants error PREVENTION elevated to a core architectural principle, not just error detection and correction.
+**Decision:** "Secure by design" is a core architectural principle. Every engine, every data transformation, every metadata flow must be designed so that errors are structurally prevented — not just detected after the fact. Specific consequences:
+
+1. **Immutability over mutability.** Frozen sources are never modified (already established). But this principle extends: intermediate artifacts (normalized packages, passage streams) are also write-once. Reprocessing creates new artifacts; it does not modify existing ones. This creates an audit trail and prevents silent corruption.
+
+2. **Explicit over implicit.** Every decision the pipeline makes must be recorded with its confidence and reasoning. No engine may silently drop data, silently merge records, silently resolve an ambiguity, or silently choose a default. If a decision is made, it is logged. If data is excluded, the exclusion is recorded with a reason. The owner must be able to trace any piece of knowledge in the library back to its source through an unbroken chain of explicit, auditable decisions.
+
+3. **Fail-loud over fail-silent.** When an engine encounters something it cannot handle correctly, it must fail visibly — flagging, warning, or stopping — rather than producing a plausible-looking but wrong result. A visible failure that stops processing is always preferable to an invisible error that enters the library. Every engine's error handling must be designed around this principle.
+
+4. **Verification at every boundary.** Every time data crosses an engine boundary (source→normalization, normalization→passaging, etc.), the receiving engine validates what it receives against the sending engine's output contract. Schema validation is the minimum; semantic validation (does this data make sense?) is the goal. No engine trusts its input blindly.
+
+5. **Provenance is mandatory.** Every knowledge product (excerpt, entry) must carry a complete provenance chain: which source, which page, which passage, which atoms, which engine version, which LLM model, what confidence. If provenance is broken at any point, the knowledge product is flagged as unverifiable.
+
+6. **Corruption detection is continuous.** The system must be able to detect, at any time, whether the library's contents are consistent and uncorrupted. Hash chains from frozen sources through to placed excerpts enable integrity verification. If a hash doesn't match, something changed that shouldn't have.
+
+7. **The blast radius of any single error must be bounded.** No single engine failure, misclassification, or data corruption should be able to cascade undetected across the entire library. Each engine's output is independently verifiable. The passage containment rule (D-011) is one instance of this principle; it extends to all engine boundaries.
+
+**Relationship to existing decisions:** This strengthens D-018 (KR is Rayane's knowledge — corruption is personal), D-006 (Accuracy > Protection > Intelligence — accuracy is non-negotiable), D-004 (primary text integrity is absolute), and Criterion #21 (scholarly integrity). Those decisions address specific aspects; D-033 establishes the overarching principle that ALL design must serve.
+**Alternatives considered:** Treating error handling as an implementation concern rather than an architectural principle → rejected (the owner correctly identifies that this must be foundational, not bolted on).
+**Documents updated:** reference/kr_decisions.md, reference/DOMAIN.md (Core Identity section extended), DEEP_REASONING_PROTOCOL.md Criterion #21 note.

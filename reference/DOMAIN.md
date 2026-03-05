@@ -24,6 +24,8 @@ Implications that govern every design decision:
 
 6. **Rayane's own voice belongs in the library.** His tarjih, his notes, his research papers, his conclusions — these are knowledge too. The library is not just "what scholars said" but "what scholars said + what Rayane concludes." His scholarly voice grows alongside the classical voices.
 
+7. **Secure by design (D-033).** Errors don't just produce wrong answers — they corrupt understanding. A misattribution in one engine can distort how an entire science is understood if it propagates undetected. Every component must be designed to PREVENT errors structurally, not just detect them after the fact. Immutable artifacts, explicit decisions, fail-loud behavior, verification at every boundary, mandatory provenance, continuous corruption detection, and bounded blast radius for any single failure. This is not a quality feature — it is an architectural principle on par with the normalization boundary.
+
 ---
 
 ## The User
