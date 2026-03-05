@@ -48,7 +48,8 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 | D-036 | Multi-model consensus for excerpting | 2026-03-05 |
 | D-037 | Three-phase excerpting pipeline | 2026-03-05 |
 | D-034 | Two-tier atom type system (structural type + scholarly function) | 2026-03-05 |
-| D-035 | No multi-model consensus for atomization | 2026-03-05 |
+| D-038 | Two-stage placement algorithm with three candidate sources | 2026-03-05 |
+| D-039 | Limited multi-model consensus for taxonomy (placement only, ambiguous range) | 2026-03-05 |
 
 ---
 
@@ -312,3 +313,17 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 **Decision:** Three-phase pipeline: (1) Boundary Detection — LLM determines atom groups, respecting bonded constraints. (2) Self-Containment Evaluation — LLM evaluates each candidate, with consensus for verified sources. Candidates can be enriched (add context atoms) or merged if insufficient. (3) Metadata Enrichment — deterministic + LLM enrichment of all fields. Each phase can be independently validated, retried, and optimized. Phase failures are isolated: a metadata enrichment failure doesn't invalidate the boundary detection.
 **Alternatives considered:** (a) Single-pass extraction (ABD approach) → rejected (monolithic, hard to debug, no independent validation per phase). (b) Two-phase (boundary+self-containment combined, then enrichment) → rejected (boundary detection and self-containment evaluation have different prompt requirements; separating them allows self-containment to trigger boundary adjustments like enrichment and merging).
 **Documents updated:** engines/excerpting/SPEC.md §4.A.1, engines/excerpting/CLAUDE.md
+
+### D-038: Two-stage placement algorithm with three candidate sources
+**Decided:** 2026-03-05
+**Context:** The taxonomy engine must determine which leaf an excerpt belongs at. The excerpting engine proposes a leaf, but this proposal may be wrong (the excerpting engine doesn't have the full tree context). The question is: how does the taxonomy engine make its own placement decision?
+**Decision:** Two-stage algorithm. Stage 1 (candidate generation) draws from three sources: (a) the excerpting engine's proposed leaf, (b) LLM-driven topic search against the tree structure (hierarchical for trees >200 leaves), (c) embedding similarity against precomputed leaf title embeddings. Stage 2 (candidate ranking) has the LLM score each candidate 0–1 considering topic match, specificity, and overlap with existing excerpts. The multi-source approach ensures robustness: LLM search handles semantic understanding, embedding similarity catches terminology mismatches, and the excerpting engine's proposal leverages upstream context. The three-threshold system (≥0.8 auto-approve, 0.5–0.8 human gate, <0.5 unplaceable) balances automation with safety.
+**Alternatives considered:** (a) Trust the excerpting engine's proposal entirely → rejected (the excerpting engine lacks full tree context; it proposes a leaf based on the excerpt's content, but the tree's actual structure may have a better fit). (b) Embedding-only approach → rejected (Arabic scholarly topic titles have complex semantic relationships that embedding similarity alone cannot capture — e.g., المبتدأ and الخبر are closely related topics with very different leaves). (c) LLM-only without embedding fallback → rejected (LLMs can miss leaves when terminology differs between the excerpt and the tree node title — embeddings catch these cases).
+**Documents updated:** engines/taxonomy/SPEC.md §4.A.1, engines/taxonomy/CLAUDE.md.
+
+### D-039: Limited multi-model consensus for taxonomy (placement only, ambiguous range)
+**Decided:** 2026-03-05
+**Context:** The taxonomy engine must decide whether to use multi-model consensus (§2.2) and for which decisions. Unlike excerpting (D-036, where self-containment and school attribution have high stakes), the taxonomy engine's decisions have different risk profiles: most placements are clearly correct, evolution is always human-gated, and coverage is deterministic.
+**Decision:** Multi-model consensus is used only for placement decisions in the ambiguous confidence range (0.5–0.8). Two models from different providers. Agreement increases confidence; disagreement triggers human gate escalation. Consensus is NOT used for tree construction, evolution proposals, or high-confidence placements. Rationale: placement decisions in the 0.5–0.8 range are the sweet spot where a second opinion is most valuable. Below 0.5, the case is genuinely unplaceable (needs human judgment, not model averaging). Above 0.8, single-model accuracy is sufficient. Tree construction and evolution require coherent architectural vision, not averaging — consensus would produce muddled compromises.
+**Alternatives considered:** (a) Consensus for all placements → rejected (doubles LLM cost for decisions where single-model confidence is high). (b) No consensus at all → rejected (the 0.5–0.8 range has genuine ambiguity where a second model can resolve tiebreakers). (c) Consensus for evolution proposals → rejected (evolution is always human-gated anyway; consensus adds cost without changing the workflow since the owner makes the final decision).
+**Documents updated:** engines/taxonomy/SPEC.md §6, engines/taxonomy/CLAUDE.md.

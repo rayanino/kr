@@ -340,6 +340,27 @@ Optional keys (add as needed):
 - **Key finding:** PDTS (Punctuation Detector for Text Segmentation) using multilingual BERT achieves ~75% F-measure on Arabic text segmentation. Not designed for scholarly text but demonstrates that transformer-based segmentation is feasible.
 - **Implication for KR:** The atomization engine's LLM-driven approach is the right choice. Rule-based Arabic segmentation tools are insufficient for scholarly text pattern detection (they don't understand definitions, evidence, opinions). The LLM handles the semantic understanding; rule-based methods handle the mechanical detections (Quran, hadith markers).
 
+## Taxonomy Engine Resources (added 2026-03-05)
+
+### NetworkX (Python, BSD license)
+- **URL:** https://networkx.org
+- **What it does:** Python library for creating, manipulating, and studying complex networks and graphs. Supports directed acyclic graphs (DAGs), tree operations, topological sorting, path algorithms, connectivity checks.
+- **Relevant engines:** Taxonomy engine (PRIMARY — tree structure representation, prerequisite DAG management, tree integrity validation, significance scoring via out-degree computation), Scholar interface (graph traversal for prerequisite chains)
+- **How to use:** `pip install networkx`. Load science tree into DiGraph. Use `nx.is_arborescence()` for tree validation, `nx.descendants()`/`nx.ancestors()` for subtree operations, `nx.dag_longest_path_length()` for prerequisite depth, topological sort for study ordering.
+- **License:** BSD 3-Clause
+
+### Hierarchical Text Classification with LLMs (research)
+- **Key finding (2024–2026):** Multiple papers demonstrate that LLMs can perform hierarchical text classification effectively when using a top-down multi-step strategy: first classify at the highest level, then narrow to the correct leaf. For large taxonomies (200+ labels), hierarchical prompting significantly outperforms flat classification. The TELEClass approach (Zhang et al., 2024) enriches taxonomy labels with corpus-mined terms to improve LLM classification accuracy. Sonnet-3.5 can restructure large taxonomies (500+ nodes) with zero invalid paths.
+- **Relevance:** Validates the taxonomy engine's hierarchical placement approach (§4.A.1) — for trees with >200 leaves, first identify the branch, then the leaf within the branch. Also validates the corpus-driven tree construction approach (§4.B.3) — LLMs can reliably reorganize and refine large hierarchical structures.
+- **References:** "Hierarchical Text Classification with LLM-Refined Taxonomies" (arxiv 2601.18375), TELEClass (arxiv 2403.00165), "Single-pass Hierarchical Text Classification with LLMs" (2024).
+
+### nxontology (Python, Apache 2.0)
+- **URL:** https://github.com/related-sciences/nxontology
+- **What it does:** NetworkX-based library for representing ontologies. Provides semantic similarity measures between ontology nodes, information content computation, and ontology analysis utilities.
+- **Relevant engines:** Taxonomy engine (potential — semantic similarity between tree nodes for evolution sibling coherence testing)
+- **Status:** Reference. The taxonomy engine's core tree operations use NetworkX directly; nxontology may be useful if more sophisticated ontology operations are needed later.
+- **License:** Apache 2.0
+
 ## Excerpting Engine Resources (added 2026-03-05)
 
 ### ContextGem (Shcherbak AI, open source)

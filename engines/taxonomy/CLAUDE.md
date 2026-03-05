@@ -1,32 +1,49 @@
 # Taxonomy Engine — محرك التصنيف
 
-**Responsibility:** Placing excerpts at correct taxonomy leaves and managing tree evolution (§4, §5.5).
+**Responsibility:** Placing excerpts at taxonomy leaves, managing tree lifecycle (construction, evolution, rollback), computing coverage analytics, and maintaining the structural knowledge graph (prerequisite edges, cross-science links, terminology synonyms).
 **Phase:** 2 (source-agnostic, below the normalization boundary).
 
 ## Required Reading
-1. This engine's SPEC.md
-2. VISION.md §4 (science trees), §5.5 (one-per-source diagnostic)
-3. VISION.md §9 (human gates — taxonomy is the primary gate site)
-4. Input boundary: draft excerpts from excerpting engine
-5. Output boundary: placed excerpts → synthesizing engine
+1. This engine's SPEC.md (source of truth — 562 lines, all 10 sections)
+2. VISION.md §4 (science trees), §5.3 (cross-topic content), §5.5 (one-per-source diagnostic)
+3. VISION.md §9 (human gates — taxonomy is a primary gate site)
+4. Input boundary: draft excerpts from excerpting engine (see excerpting SPEC §3)
+5. Output boundary: placed excerpts + coverage data + tree structure → synthesizing engine
 
 ## Current State
-Legacy code migrated from ABD. ABD design decisions have zero authority in KR (D-019).
+Legacy evolution code migrated from ABD. ABD design decisions have zero authority in KR (D-019).
 
-Code: `engines/taxonomy/src/evolve_taxonomy.py` (2377L).
+Code: `engines/taxonomy/src/evolve_taxonomy.py` (2377L) — evolution signal detection, proposal generation, YAML modification.
 Tests: 109 tests in `engines/taxonomy/tests/`.
-Reference: 1 ABD-era doc.
-Taxonomy trees: `library/sciences/` (5 sciences with tree.yaml files).
+Reference: 1 ABD-era doc (reference only).
+Taxonomy trees: `library/sciences/` (5 sciences with tree.yaml files — nahw, sarf, imlaa, aqidah, balagha).
+
+## Key Architecture
+
+### Placement (§4.A.1)
+Two-stage: candidate generation (3 sources: excerpting proposal + LLM topic search + embedding similarity) → candidate ranking (LLM scoring 0–1). Thresholds: ≥0.8 auto-approve with policy, 0.5–0.8 human gate, <0.5 unplaceable + evolution signal. Multi-model consensus for ambiguous range.
+
+### Tree Construction (§4.A.3)
+Four-phase: Research (analyze TOCs of authoritative works) → Draft (generate tree with narrative ordering + prerequisites) → Validation (test against real content) → Commitment (version and activate).
+
+### Evolution (§4.A.5–§4.A.7)
+Five signal types → accumulation threshold → proposal generation → four §4.4 invariant checks → human gate → application with atomic redistribution. Full rollback capability.
+
+### Coverage (§4.A.6)
+Six gap types: school, source diversity, temporal, evidence, prerequisite, empty leaf. Per-leaf scholarly landscape data. Duplicate cluster detection via embeddings.
+
+### Transformative Capabilities (§4.B)
+1. **Topic significance scoring** — structural importance within a science (prerequisite dependency + cross-reference frequency + source breadth + LLM assessment). [NOT YET IMPLEMENTED]
+2. **Difficulty estimation** — cognitive load per topic for study path optimization. [NOT YET IMPLEMENTED]
+3. **Corpus-driven tree construction** — generate draft trees from computational analysis of multiple works' TOCs. [NOT YET IMPLEMENTED]
 
 ## Key Constraints
-1. **Zero orphans** (§4.4): after any evolution, every pre-existing excerpt must have a valid leaf. Invalid proposals must not reach the human gate.
-2. **Sibling coherence** (§4.4): no excerpt should plausibly belong to more than one sibling after evolution. Overlap = invalid proposal.
-3. **Human gate required for evolution** (§9): tree evolution proposals require owner approval.
-4. **The tree IS the science map (D-021).** The taxonomy tree is not just an organizational tool — it is the owner's visualization of the entire science: every topic, how topics correlate, which are foundational vs. derived, what depends on what. The tree structure must make the science's internal logic visible to the scholar interface.
-5. **Prerequisite edges.** The tree must track dependency relationships between topics beyond parent→child: "understanding X requires understanding Y." These are study-order dependencies used by the scholar interface for curriculum design and by the synthesizer for "prerequisites" sections in entries.
-6. **Narrative ordering.** Topics at the same level have a pedagogical sequence: after المبتدأ comes الخبر, then نواسخ المبتدأ والخبر. This ordering must be explicit — it's the "storyline" the owner wants (D-021).
-7. **Per-leaf scholarly landscape.** The taxonomy engine must track: which schools have positions at this leaf, how many sources cover it, what's the significance of this topic within the science. This data feeds both the synthesizer and the scholar interface.
-8. **Cross-science topic links.** The same concept (e.g., الاستثناء) appears in multiple sciences with different treatments. Each science has its own leaf — these are NOT merged. But the taxonomy engine must record cross-science links ("nahw/الاستثناء is conceptually related to usul/الاستثناء") so the synthesizer can produce cross-science entries and the scholar interface can suggest connections (Scenario 3). See DOMAIN.md "Cross-Science Topic Overlap."
-9. **Terminology synonym mapping.** The same concept may have different names across schools or periods (e.g., "المفعول له" vs. "المفعول من أجله"). The taxonomy must handle this — different names mapping to the same leaf. The synthesizer must note when scholars use different terminology for the same concept.
-10. **Excerpt deduplication signal.** When 5 sources at the same leaf all say the same thing (common with hadith citations or well-known definitions), the taxonomy engine should detect semantic overlap and signal it to the synthesizer, so entries present the content ONCE (citing the strongest source) rather than redundantly.
-11. **Evolution → entry cascade.** When a leaf SPLITS (one leaf becomes two children), existing excerpts must be re-placed at one of the children, and the parent's entry is replaced by two new entries at the children. When a leaf MERGES (rare — two siblings collapse), excerpts from both move to the merged leaf and the entry must be regenerated from the combined set. The taxonomy engine must produce a structured migration plan that the synthesizing engine consumes.
+1. Excerpts placed only at leaves (§2.3).
+2. Trees branch by topic, never by school (§4.5).
+3. Evolution always human-gated (§9.3).
+4. All upstream metadata preserved on placed excerpts (D-023).
+5. Every error logged, never silently swallowed (D-033).
+6. Tree version history never pruned.
+
+## External Dependencies
+NetworkX (tree/DAG operations), sentence-transformers (embeddings), Instructor (structured LLM output), CAMeL Tools (Arabic normalization), OpenRouter/Anthropic/OpenAI APIs, PyYAML.

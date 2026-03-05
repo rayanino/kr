@@ -1,72 +1,72 @@
 # NEXT SESSION
 
-**Written by:** Session 2026-03-05 (excerpting engine SPEC)
+**Written by:** Session 2026-03-05 (taxonomy engine SPEC)
 **Date:** 2026-03-05
 
 ## Immediate Task
 
-Write the taxonomy engine SPEC (Phase 2, Round 6).
+Write the synthesizing engine SPEC (Phase 2, Round 7 — the final engine SPEC).
 
-**Output file:** `engines/taxonomy/SPEC.md` (overwrite the existing stub)
+**Output file:** `engines/synthesizing/SPEC.md` (overwrite the existing stub)
 
 **Definition of done — this session is complete when ALL of these are true:**
-1. `engines/taxonomy/SPEC.md` follows the full SPEC template (all 10 sections, non-stub)
-2. `engines/taxonomy/CLAUDE.md` is consistent with the SPEC (update if needed — SPEC is source of truth)
+1. `engines/synthesizing/SPEC.md` follows the full SPEC template (all 10 sections, non-stub)
+2. `engines/synthesizing/CLAUDE.md` is consistent with the SPEC (update if needed — SPEC is source of truth)
 3. `reference/kr_decisions.md` has entries for any architectural decisions made during SPEC writing
 4. `reference/RESOURCES.md` is updated with findings from the mandatory resource survey
-5. VISION.md defect ledger for §7.5–§7.8 produced (accumulated from source, normalization, passaging, atomization, excerpting SPEC work) — OR defer to synthesizing session if context is tight
-6. `NEXT.md` is overwritten with handoff for the next session (synthesizing engine SPEC)
-7. Self-review checklist passed — defects fixed before commit
-8. All changes committed and pushed
+5. `NEXT.md` is overwritten with handoff for the next session (cross-SPEC consistency verification + VISION corrections)
+6. Self-review checklist passed — defects fixed before commit
+7. All changes committed and pushed
 
 ## Context
 
-The excerpting engine SPEC is complete (559 lines). It defines:
-- Three-phase per-passage processing: boundary detection → self-containment evaluation → metadata enrichment (D-037, §4.A.1)
-- Multi-model consensus for self-containment and school attribution (D-036, §6)
-- Decontextualization prevention (§4.A.2) — detecting reported positions that could be misattributed
-- Multi-layer excerpt handling with correct author attribution (§4.A.3)
-- Evidence and hadith handling with grading capture and takhrij extraction (§4.A.4)
-- Implicit reference resolution using scholar authority registry (§4.A.5)
-- Cross-topic handling implementing §5.3 rules (§4.A.6)
-- Three transformative capabilities: cross-excerpt scholarly dialogue detection, self-containment repair suggestions, scholarly argument completeness analysis (§4.B)
+The taxonomy engine SPEC is complete (562 lines). It defines:
+- Two-stage placement algorithm: candidate generation (3 sources: excerpting proposal + LLM search + embedding similarity) → candidate ranking (D-038, §4.A.1)
+- Limited multi-model consensus for ambiguous placements only (D-039, §6)
+- Four-phase tree construction workflow: Research → Draft → Validation → Commitment (§4.A.3)
+- Five evolution signal types with accumulation threshold and all four §4.4 invariant checks (§4.A.5)
+- Six coverage gap types: school, source diversity, temporal, evidence, prerequisite, empty (§4.A.6)
+- Atomic evolution application with full rollback (§4.A.7)
+- Semantic deduplication detection via embeddings (§4.A.8)
+- Cross-science link management (§4.A.9) and terminology synonym management (§4.A.10)
+- Three transformative capabilities: topic significance scoring, difficulty estimation, corpus-driven tree construction (§4.B)
 
-The taxonomy engine is the FOURTH Phase 2 engine — it receives draft excerpts and places them at leaves in science trees. It also manages tree evolution (when the tree needs to grow more granular) and tracks coverage. This is where excerpts become library content.
+The synthesizing engine is the FINAL Phase 2 engine — it receives ALL placed excerpts at a leaf plus ALL their metadata chains plus the taxonomy tree context, and produces encyclopedic entries. This is where all upstream work culminates. The synthesizer also does its own research (D-023) — it adds context, connections, and analysis beyond what sources explicitly say.
 
-**Why this engine matters:** The taxonomy engine determines the structure of Rayane's knowledge. The tree IS the map of each science — its structure makes the science's internal logic visible (D-021). Placement decisions determine which excerpts appear together, which shapes entry generation. Evolution decisions determine whether the tree grows to capture finer distinctions. Coverage tracking reveals what Rayane knows and doesn't know.
+**Why this engine matters:** The synthesizing engine produces the primary knowledge product (D-005). The entry at each leaf IS what Rayane knows about that topic. Entry quality directly determines KR's value. The target quality is defined by `reference/ENTRY_EXAMPLE.md`. Every design decision in this SPEC must serve producing entries at that level.
 
 ## Files to Read — IN THIS ORDER
 
-**Step 1 — Domain and user context (refresh only what's needed):**
-1. `reference/DOMAIN.md` — "Taxonomy engine must:" section in Design Implications
-2. `reference/PIPELINE_TRACE.md` — Stage 6 (taxonomy) inputs and outputs
-3. `reference/USER_SCENARIOS.md` — Scenario 7 ("Show Me the Whole Science")
+**Step 1 — Domain and user context:**
+1. `reference/DOMAIN.md` — "Synthesizing engine must:" section in Design Implications
+2. `reference/ENTRY_EXAMPLE.md` — THE quality target. Read this FIRST and keep it in mind throughout.
+3. `reference/PIPELINE_TRACE.md` — Stage 7 (synthesizing) inputs and outputs
+4. `reference/USER_SCENARIOS.md` — Scenarios 1-6 all culminate in synthesis
 
 **Step 2 — Architecture:**
-4. `VISION.md` §4 (science trees — the core specification) → `python3 scripts/extract_vision_sections.py 4`
-5. `VISION.md` §2.3 (science tree vocabulary) — already included in §2 extraction
-6. `engines/excerpting/SPEC.md` — the COMPLETE excerpting SPEC. §3 (output contract) defines exactly what the taxonomy engine receives. Read §3 carefully — it's your input contract.
-7. `schemas/placed_excerpt.json` — current ABD-era placed excerpt schema (if it exists)
-8. `schemas/SCHEMA_ANALYSIS.md` — pipeline schema overview
+5. `VISION.md` §6 (entry generation — if it exists as a section) → `python3 scripts/extract_vision_sections.py 6`
+6. `VISION.md` §2.4 (knowledge content vocabulary — entry, school-group, verified/flagged)
+7. `engines/taxonomy/SPEC.md` — the COMPLETE taxonomy SPEC. §3 (output contract) defines exactly what the synthesizer receives. Read §3 carefully — it's your input contract.
+8. `schemas/entry.json` — current ABD-era entry schema
+9. `schemas/SCHEMA_ANALYSIS.md` — pipeline schema overview
 
 **Step 3 — Existing code:**
-9. `engines/taxonomy/CLAUDE.md` — current state overview
-10. Any existing taxonomy code (check `engines/taxonomy/src/`)
+10. `engines/synthesizing/CLAUDE.md` — current state overview
+11. Any existing synthesizing code (check `engines/synthesizing/src/`)
 
 **Step 4 — Research:**
-11. `reference/RESOURCES.md` — tools already cataloged
-12. Web searches: taxonomy management algorithms, knowledge graph tools for hierarchical classification, topic modeling for Arabic text, tree evolution/restructuring algorithms, coverage analytics
-
-**Note:** The taxonomy engine has both classification (placing excerpts) and structural (evolving the tree) responsibilities. The resource survey should cover: (1) hierarchical classification approaches, (2) tree/ontology management libraries, (3) coverage analytics and gap detection.
+12. `reference/RESOURCES.md` — tools already cataloged (especially RAG frameworks, multi-document summarization)
+13. Web searches: multi-document scholarly summarization, Arabic text generation quality, LLM-based encyclopedic article generation, citation-grounded synthesis, contradiction detection in text corpora
 
 ## Key Design Questions
 
-- **Placement algorithm:** How does the engine decide which leaf an excerpt belongs at? The excerpting engine proposes a leaf — does the taxonomy engine verify or re-classify?
-- **Evolution triggers:** When does a leaf need to split? The §2.3 evolution signal concept. How many excerpts at a leaf before considering evolution?
-- **Human gate for evolution:** Tree evolution is structural change — it affects all excerpts at the affected node. Must be human-gated. What does the evolution proposal look like?
-- **Coverage metrics:** What dimensions? Per-school, per-source, per-evidence-type? What defines a "gap"?
-- **Initial tree creation:** Where do the initial science trees come from? Are they manually created or seeded from a standard reference?
-- **Narrative ordering:** §5.3 in DOMAIN.md mentions topics having a "storyline" — logical study order. How is this encoded in the tree?
+- **Entry structure:** What does an entry look like structurally? Reference/ENTRY_EXAMPLE.md shows the target, but the SPEC must define the schema precisely.
+- **Factual vs. analytical layer:** §2.4 defines two layers. How does the engine generate each? How are they distinguished in the output?
+- **Three input sources (D-023):** (1) excerpt content, (2) metadata chain, (3) LLM research. How does the engine orchestrate these three sources?
+- **School-group entries:** When a science has schools, each school-group gets its own entry. What's the generation workflow?
+- **Staleness and regeneration:** When should entries be regenerated? What triggers staleness?
+- **Library composition bias:** How does the synthesizer avoid presenting corpus bias as scholarly consensus?
+- **Entry versioning:** Are entries versioned? What happens when an entry is regenerated?
 
 ## Pending Owner Questions
 
@@ -74,9 +74,9 @@ None currently pending.
 
 ## What This Session Did
 
-Completed the excerpting engine SPEC (559 lines, all 10 sections). Key design: three-phase pipeline (D-037), multi-model consensus for self-containment and school attribution (D-036), decontextualization prevention, multi-layer handling, evidence/hadith grading capture with takhrij extraction, implicit reference resolution, cross-topic handling per §5.3. Updated CLAUDE.md, RESOURCES.md (ContextGem, LLM4IE papers, sentence-transformers). 
+Completed the taxonomy engine SPEC (562 lines, all 10 sections). Key design: two-stage placement algorithm (D-038), limited consensus for ambiguous placements only (D-039), four-phase tree construction with validation, five evolution signal types with invariant enforcement, six coverage gap types, semantic deduplication, cross-science links, terminology synonyms. Three transformative capabilities: topic significance scoring, difficulty estimation, corpus-driven tree construction. Updated CLAUDE.md, RESOURCES.md (NetworkX, hierarchical text classification research, nxontology).
 
 ## New Decisions
 
-D-036 (Multi-model consensus for excerpting — self-containment + school attribution). Two models from different providers; conservative scoring on disagreement.
-D-037 (Three-phase excerpting pipeline — boundary → self-containment → enrichment). Separates concerns for independent validation and optimization.
+D-038 (Two-stage placement algorithm with three candidate sources).
+D-039 (Limited multi-model consensus for taxonomy — placement only, ambiguous range).
