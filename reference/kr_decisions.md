@@ -45,6 +45,8 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 | D-031 | Universal footnote reference marker format | 2026-03-05 |
 | D-032 | Synthesized entries must be in Arabic | 2026-03-05 |
 | D-033 | Secure by design — error prevention over error correction | 2026-03-05 |
+| D-034 | Two-tier atom type system (structural type + scholarly function) | 2026-03-05 |
+| D-035 | No multi-model consensus for atomization | 2026-03-05 |
 
 ---
 
@@ -280,3 +282,17 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 **Relationship to existing decisions:** This strengthens D-018 (KR is Rayane's knowledge — corruption is personal), D-006 (Accuracy > Protection > Intelligence — accuracy is non-negotiable), D-004 (primary text integrity is absolute), and Criterion #21 (scholarly integrity). Those decisions address specific aspects; D-033 establishes the overarching principle that ALL design must serve.
 **Alternatives considered:** Treating error handling as an implementation concern rather than an architectural principle → rejected (the owner correctly identifies that this must be foundational, not bolted on).
 **Documents updated:** reference/kr_decisions.md, reference/DOMAIN.md (Core Identity section extended), DEEP_REASONING_PROTOCOL.md Criterion #21 note.
+
+### D-034: Two-tier atom type system (structural type + scholarly function)
+**Decided:** 2026-03-05
+**Context:** The ABD-era atom schema has 6 structural types (heading, prose_sentence, bonded_cluster, verse_evidence, quran_quote_standalone, list_item) with no scholarly function classification. This means the excerpting engine receives atoms that tell it WHAT the text looks like but not WHAT ROLE the text plays in scholarly discourse. A prose_sentence could be a definition, an evidence citation, a refutation, or an example — and the excerpting engine has no way to distinguish them without re-analyzing the text.
+**Decision:** Atoms are classified on two independent dimensions: structural type (7 types describing physical text shape) and scholarly function (16 types describing the text's role in scholarly discourse). The two dimensions are independent: a verse_line can have function "definition" (a versified definition) or "example" (a verse cited as evidence). This separation ensures the excerpting engine receives both structural and semantic information, enabling it to build contextually correct excerpts. Each scholarly function carries a confidence score to prevent confidence laundering (D-033).
+**Alternatives considered:** (a) Single combined type enum (like ABD) → rejected (too many combinations needed — 7×16 = 112 types; and it conflates two independent dimensions). (b) No scholarly function classification at atomization, deferring entirely to excerpting → rejected (the atomization engine already has the text in context during LLM analysis; deferring would require the excerpting engine to re-analyze every atom, doubling LLM costs and losing the atomization context). (c) Hierarchical type system (structural → scholarly subtypes) → rejected (the dimensions are genuinely independent, not hierarchical).
+**Documents updated:** engines/atomization/SPEC.md §4.A.3, engines/atomization/CLAUDE.md, schemas/atoms.json (to be rewritten).
+
+### D-035: No multi-model consensus for atomization
+**Decided:** 2026-03-05
+**Context:** Multi-model consensus (VISION.md §8) is the mechanism for increasing confidence by having multiple LLMs independently process the same input. The question was whether atomization should use consensus for atom boundary and type decisions.
+**Decision:** Atomization does NOT use multi-model consensus. Instead, it uses a single primary model with escalation to a stronger model on failure. Rationale: atom boundary placement is an annotation-like task where consistency matters more than agreement. Different models may place valid boundaries at different positions (e.g., one splits a long sentence into 3 atoms, another into 4 — both can be correct). Averaging or voting on such decisions produces worse results than letting one skilled model work consistently. Consensus IS valuable for higher-stakes decisions (excerpt grouping, taxonomy placement) where the question is binary (correct/incorrect) rather than a matter of annotation granularity.
+**Alternatives considered:** (a) Full consensus on every passage → rejected (doubles/triples LLM cost for a task where consistency matters more than agreement). (b) Consensus only for multi-layer passages → considered but deferred (may revisit if layer attribution accuracy is a problem in practice).
+**Documents updated:** engines/atomization/SPEC.md §6.

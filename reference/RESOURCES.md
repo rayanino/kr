@@ -298,3 +298,44 @@ Optional keys (add as needed):
 - **intfloat/multilingual-e5-large** — strong multilingual sentence embeddings. Arabic support via multilingual training. Suitable for computing sentence-level semantic similarity for topic coherence and boundary quality scoring.
 - **sentence-transformers/paraphrase-multilingual-mpnet-base-v2** — alternative multilingual model with good Arabic performance. Smaller than e5-large.
 - **Relevant to:** Passaging engine (§4.B.1 quality prediction, §4.B.2 implicit structure discovery)
+
+---
+
+## Atomization Engine Resources (added 2026-03-05)
+
+### Quran_Detector (Python, open source)
+- **URL:** https://github.com/SElBeltagy/Quran_Detector
+- **What it does:** Identifies Quranic verse or verse fragment (≥3 words) in any piece of Arabic text. Handles minor typos and missing words. Returns surah/ayah identification.
+- **Relevant engines:** Atomization engine (§4.A.4 — rule-based Quran detection in passage text)
+- **How to use:** Python library. Feed passage_text, receive detected Quran spans with surah/ayah numbers and confidence scores. Needs canonical Quran text database (from Quranic Arabic Corpus).
+- **License:** Check repo
+
+### Quranic Arabic Corpus
+- **URL:** https://corpus.quran.com
+- **What it does:** Complete word-by-word morphological annotation, syntactic treebank, and semantic ontology for the entire Quran. Machine-readable data available.
+- **Relevant engines:** Atomization engine (canonical Quran text database for detection), Excerpting engine (Quran reference resolution)
+- **How to use:** Download corpus data. Use as the canonical Quran text source for the Quran_Detector and for embedded_refs verification.
+- **License:** Academic/open access
+
+### Hadith Segmenter (Altammami 2023, University of Leeds)
+- **What it does:** Segments hadith text into isnad (chain of narrators) and matn (content) with 92.5% accuracy. Based on classical Arabic NLP and machine learning.
+- **Relevant engines:** Atomization engine (isnad chain boundary detection), Excerpting engine (isnad preservation)
+- **Status:** Academic research (PhD thesis). Implementation may need to be reproduced from paper. The key insight — that isnad/matn segmentation can be automated at >90% accuracy — validates the atomization engine's approach of detecting isnad chains as a bonded cluster type.
+- **Reference:** Altammami, S.H. (2023). "Artificial Intelligence for Understanding the Hadith." PhD thesis, University of Leeds.
+
+### CANERCorpus (Classical Arabic NER)
+- **What it does:** Classical Arabic named entity recognition corpus annotated with Islamic topic-specific NE classes from 7000+ hadiths.
+- **Relevant engines:** Atomization engine (scholar name detection in isnad chains), Excerpting engine (scholar identification)
+- **Status:** Research corpus. Useful for training/evaluating NER on classical Arabic scholarly text.
+
+### Instructor (Python, MIT)
+- **URL:** https://python.useinstructor.com
+- **What it does:** Structured LLM output extraction with Pydantic schema enforcement, automatic retries on validation failure, streaming support. 3M+ monthly downloads. Works with OpenAI, Anthropic, Google, Ollama, and 15+ providers.
+- **Relevant engines:** Atomization engine (primary LLM interaction tool), Excerpting engine, all LLM-driven engines
+- **How to use:** `pip install instructor`. Define Pydantic model for atom output schema. Use `instructor.from_provider()` to create typed LLM client. Schema violations automatically trigger retries with error feedback.
+- **License:** MIT
+
+### Arabic Discourse Segmentation Research
+- **Key finding:** Rule-based Arabic discourse segmentation using punctuation marks + lexical cues achieves reasonable accuracy (Keskes et al., LREC 2012). 97 unambiguous lexical cues identified for Arabic clause boundaries. However, classical Arabic scholarly texts are significantly different from modern Arabic news text — these tools are useful as reference but not directly applicable.
+- **Key finding:** PDTS (Punctuation Detector for Text Segmentation) using multilingual BERT achieves ~75% F-measure on Arabic text segmentation. Not designed for scholarly text but demonstrates that transformer-based segmentation is feasible.
+- **Implication for KR:** The atomization engine's LLM-driven approach is the right choice. Rule-based Arabic segmentation tools are insufficient for scholarly text pattern detection (they don't understand definitions, evidence, opinions). The LLM handles the semantic understanding; rule-based methods handle the mechanical detections (Quran, hadith markers).
