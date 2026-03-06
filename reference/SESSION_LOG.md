@@ -394,3 +394,40 @@ foundation (intake, freeze, metadata) for PDF format using waraqat_usul fixture.
 - QARI-OCR: New open-source SOTA for Arabic OCR with diacritics. CER 0.061, WER 0.160. Based on Qwen2-VL-2B. HuggingFace: riotu-lab/QARI-OCR. Critical for KR's scholarly text processing.
 - Swan-Large: Confirmed SOTA Arabic embeddings (NAACL 2025). ArMistral-7B base, 94-dataset benchmark.
 - OpenITI: v0.1.6 Nov 2025, active. Converters for Shamela, HTML, TEI XML. Metadata CSV for scholar bootstrapping.
+
+
+### Session 2026-03-06 — Claude Chat: Deep Hardening Round 2 (Research-Driven)
+
+**Type:** META (system improvement, research-driven)
+
+**Research conducted:**
+1. Claude Code best practices (code.claude.com, HumanLayer blog, Trail of Bits config, builder.io)
+2. Claude Chat context management (support.claude.com, context windows docs)
+3. Agent/command/skill design patterns (producttalk.org, dev.to, bearblog)
+
+**Key research findings applied:**
+- CLAUDE.md should be <200 lines (ours: 62L ✓)
+- "If you have a long list of complex custom commands, you've created an anti-pattern" → consolidated 14→7 commands
+- Subagents get their own context window → designed researcher and spec-writer agents for context-heavy tasks
+- Performance degrades after ~40 turns / ~150K tokens → added context management strategy to instructions
+- "Include tests so Claude can check itself" → built session_quality_gate.py and creative_verification.py
+- Writer/Reviewer pattern → our NEXT.md handoff already does this by design
+- Claude ignores CLAUDE.md content it deems irrelevant → kept CLAUDE.md focused and universal
+
+**Tools built:**
+- `scripts/session_quality_gate.py`: Pre-commit objective quality check. Catches: thin changes, missing NEXT.md, missing SESSION_LOG, no creative output, untested processing changes, threshold modifications.
+- `scripts/creative_verification.py`: Structural enforcement of Creative Mandate. Analyzes §4.B substance (capabilities, named technologies, examples, vague phrases) and git diff for invention vs correction ratio. Detects "secretary sessions."
+
+**Claude Code environment restructured:**
+- Commands: 14 → 7 (removed redundant: impl-status, milestone-status, run-tests, validate-output, start-engine, generate-test-plan, plan-implementation)
+- Agents: 7 → 4 (removed generic: design-critic, spec-reviewer, implementation-planner, integration-tester, test-runner). Added: researcher (context-heavy web research with own context window), spec-writer (precision SPEC writing)
+- Hooks: Pre-commit now runs session_quality_gate.py + check_spec_quality.py + creative_verification.py. Pre-push runs quality gate. Post-edit simplified. Compaction injection streamlined.
+
+**PROJECT_INSTRUCTIONS.md updates:**
+- Identity: Rewritten to emphasize creative driving over review. "Your primary job is INVENTION."
+- Session protocol: Added pre-commit quality gate and creative verification as structural requirements.
+- Context management: Added research-based insight about performance degradation after ~150K tokens. Strategy: do creative work FIRST when context is fresh.
+- Output rules: Anti-sycophancy and machine-readability already added in previous round.
+
+**Creative verification baselines for all 14 SPECs:**
+Best: excerpting (90/100). Lowest: consensus, validation (40/100). Most engines: 75/100. These baselines will be used during refinement to ensure scores increase.

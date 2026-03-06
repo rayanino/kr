@@ -32,6 +32,9 @@ python -m pytest engines/*/tests/ shared/*/tests/ -q
 python -m pytest engines/<n>/tests/ -v --tb=short
 python3 scripts/verify_metadata_flow.py
 python3 scripts/check_compliance.py --all
+python3 scripts/check_spec_quality.py --all
+python3 scripts/creative_verification.py engines/<n>/SPEC.md
+python3 scripts/session_quality_gate.py
 python3 scripts/refinement_status.py
 python3 scripts/extract_vision_sections.py --search keyword
 ```

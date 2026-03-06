@@ -61,7 +61,8 @@ ABD-era schemas archived to `schemas/archive/`. New schemas will be generated fr
 ### Infrastructure
 | Component | State |
 |-----------|-------|
-| `.claude/` | Populated — settings.json (permissions + hooks), 7 commands, 3 agents |
+| `.claude/` | Populated — settings.json, 7 commands, 4 agents (researcher, spec-writer, integrity-checker, code-reviewer), 5 skills |
+| Scripts | orient.py, check_compliance.py, check_spec_quality.py, creative_verification.py, session_quality_gate.py, verify_metadata_flow.py, refinement_status.py, extract_vision_sections.py, decompose_spec.py |
 | CI/CD | None |
 | Python packaging | `_paths.py` only |
 | Integration tests | None |

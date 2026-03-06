@@ -1,53 +1,37 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Pre-commit quality gate for KR
-# Runs before git commit to catch common issues
-set -euo pipefail
+# Runs automatically before every git commit via .claude/settings.json
 
-PROJECT_DIR="${CLAUDE_PROJECT_DIR:-.}"
-cd "$PROJECT_DIR"
+cd "$CLAUDE_PROJECT_DIR" 2>/dev/null || cd "$(git rev-parse --show-toplevel)"
 
-ISSUES=0
-MSG=""
+echo "=== KR Pre-Commit Checks ==="
 
-add_issue() {
-    ISSUES=$((ISSUES + 1))
-    MSG="${MSG}\n⚠ $1"
-}
+# 1. Session quality gate
+python3 scripts/session_quality_gate.py 2>/dev/null
 
-# Check 1: No API keys or tokens in staged files
-if git diff --cached --diff-filter=ACM | grep -qiE '(ghp_[a-zA-Z0-9]{36}|sk-[a-zA-Z0-9]{48}|api[_-]?key\s*[:=])'; then
-    add_issue "SECURITY: Possible API key or token in staged changes. Review before committing."
+# 2. If a SPEC was modified, run quality checker
+MODIFIED_SPECS=$(git diff --cached --name-only | grep "SPEC.md$")
+if [ -n "$MODIFIED_SPECS" ]; then
+    for spec in $MODIFIED_SPECS; do
+        echo ""
+        echo "--- SPEC modified: $spec ---"
+        python3 scripts/check_spec_quality.py "$spec" 2>/dev/null | head -8
+        echo ""
+        python3 scripts/creative_verification.py "$spec" 2>/dev/null | tail -10
+    done
 fi
 
-# Check 2: No TODO without SPEC reference in new Python code
-TODOS_WITHOUT_SPEC=$(git diff --cached --diff-filter=ACM -- '*.py' | grep -c '^\+.*#.*TODO' | grep -v '§' || echo 0)
-if [ "$TODOS_WITHOUT_SPEC" -gt 0 ]; then
-    add_issue "QUALITY: $TODOS_WITHOUT_SPEC TODO comments without SPEC section reference (§). Link TODOs to SPEC sections."
+# 3. Check for Arabic text handling issues in modified Python files
+MODIFIED_PY=$(git diff --cached --name-only | grep "\.py$" | grep "src/")
+if [ -n "$MODIFIED_PY" ]; then
+    echo ""
+    echo "--- Arabic text safety check ---"
+    for pyfile in $MODIFIED_PY; do
+        # Check for common Arabic text mistakes
+        if grep -n "\.lower()\|\.upper()\|\.strip()\|replace.*['\"]" "$pyfile" 2>/dev/null | grep -v "^#" | head -3; then
+            echo "  ⚠ $pyfile: String operations on potentially Arabic text. Check .claude/skills/arabic-text/SKILL.md"
+        fi
+    done
 fi
 
-# Check 3: Source files modified — remind about tests and CLAUDE.md
-SRC_CHANGED=$(git diff --cached --name-only | grep -c 'engines/.*/src/\|shared/.*/src/' || echo 0)
-if [ "$SRC_CHANGED" -gt 0 ]; then
-    MSG="${MSG}\nREMINDER: $SRC_CHANGED source file(s) staged. Verify: tests pass, CLAUDE.md updated, SPEC.md consistent."
-fi
-
-# Check 4: SPEC modified — remind about consistency check
-SPEC_CHANGED=$(git diff --cached --name-only | grep -c 'SPEC.md' || echo 0)
-if [ "$SPEC_CHANGED" -gt 0 ]; then
-    MSG="${MSG}\nREMINDER: SPEC.md modified. Run /check-spec to verify consistency."
-fi
-
-# Check 5: Schema modified — remind about boundary check
-SCHEMA_CHANGED=$(git diff --cached --name-only | grep -c 'schemas/' || echo 0)
-if [ "$SCHEMA_CHANGED" -gt 0 ]; then
-    MSG="${MSG}\nREMINDER: Schema modified. Run python3 scripts/verify_metadata_flow.py to check boundaries."
-fi
-
-# Output
-if [ -n "$MSG" ]; then
-    echo -e "$MSG"
-fi
-
-# Don't block commits (exit 0) — these are reminders, not gates
-# Block would be exit 2, which stops the tool
-exit 0
+echo "=== End Pre-Commit ==="

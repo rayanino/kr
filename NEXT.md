@@ -42,10 +42,13 @@ Session 9 completed Stream 2 (source + normalization contracts.py) and Stream 3 
 
 The autonomous system hardening round added:
 - `scripts/check_spec_quality.py` — automated SPEC defect detector (526 defects across 14 SPECs; source SPEC has 35 high-severity)
+- `scripts/session_quality_gate.py` — pre-commit objective quality check (catches thin/secretary sessions)
+- `scripts/creative_verification.py` — structural enforcement of Creative Mandate (source SPEC: 75/100)
 - Three new steps to SPEC_REFINEMENT.md (1.5, 2.5, 3.5)
 - Anti-sycophancy gate in Step 7
 - Quality verification gate in Step 10
 - QARI-OCR discovery — new open-source SOTA for Arabic OCR with diacritics (evaluate for source engine)
+- Context management insight: do creative work FIRST when context is fresh, review work SECOND
 
 ## Files to Read — IN THIS ORDER
 
@@ -69,16 +72,11 @@ VISION.md, DOMAIN.md, kr_decisions.md, STATUS.md, ORCHESTRATOR.md, other engine 
 
 ## What Last Session Did
 
-Autonomous system hardening round:
-- Created `scripts/check_spec_quality.py` — automated SPEC quality checker detecting vague language, missing examples, hand-waving tech, unvalidated writes, missing thresholds (526 defects found across 14 SPECs)
-- Added 3 new steps to SPEC_REFINEMENT.md: automated quality scan (1.5), corruption risk assessment (2.5), machine-readability test (3.5)
-- Added anti-sycophancy gate to Step 7 and quality verification gate to Step 10
-- Fixed PROJECT_INSTRUCTIONS.md: GitHub token from knowledge file, "continue the project" trigger, SESSION_LOG.md in commit checklist
-- Fixed STATUS.md: corrected misleading "preparatory phase complete" language
-- Rewrote HOW_TO_START.md for clean setup
-- Discovered QARI-OCR — new open-source Arabic OCR SOTA (CER 0.061 on diacritized text)
-- Confirmed Swan-Large as Arabic embedding SOTA (NAACL 2025)
-- Confirmed OpenITI v0.1.6 active (Nov 2025)
+Two hardening rounds on the autonomous system:
+
+**Round 1:** Created check_spec_quality.py (526 defects across 14 SPECs). Added 3 new SPEC_REFINEMENT steps (1.5, 2.5, 3.5). Anti-sycophancy gate. QARI-OCR discovery.
+
+**Round 2 (research-driven):** Researched Claude Code best practices (code.claude.com, HumanLayer, Trail of Bits). Created session_quality_gate.py and creative_verification.py. Consolidated Claude Code environment (14→7 commands, 7→4 agents). Added researcher and spec-writer subagents. Rewritten PROJECT_INSTRUCTIONS.md to emphasize creative driving. Context management strategy based on research.
 
 ## Decisions Made
 

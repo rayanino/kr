@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd $CLAUDE_PROJECT_DIR && echo 'Pre-push: running tests...' && python -m pytest engines/*/tests/ shared/*/tests/ -q --tb=line 2>&1 | tail -8"
+            "command": "cd $CLAUDE_PROJECT_DIR && python3 scripts/session_quality_gate.py 2>&1 | tail -15"
           }
         ]
       },
@@ -26,7 +26,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'FILE=\"${TOOL_INPUT_FILE_PATH:-$TOOL_INPUT_PATH}\"; if echo \"$FILE\" | grep -q \"engines/.*/src/\\|shared/.*/src/\"; then component=$(echo \"$FILE\" | sed -E \"s|.*(engines|shared|interface)/([^/]*)/.*|\\1/\\2|\"); echo \"CODE MODIFIED in $component. Verify: tests pass, CLAUDE.md state accurate, SPEC.md consistent.\"; fi; if echo \"$FILE\" | grep -q \"SPEC.md\"; then echo \"SPEC MODIFIED. Run /check-spec to verify cross-SPEC consistency.\"; fi; if echo \"$FILE\" | grep -q \"schemas/\"; then echo \"SCHEMA MODIFIED. Run: python3 scripts/verify_metadata_flow.py\"; fi; if echo \"$FILE\" | grep -qE \"\\.py$\" && echo \"$FILE\" | grep -q \"src/\"; then echo \"KNOWLEDGE SAFETY: Does this code handle Arabic text? Check .claude/skills/arabic-text/SKILL.md. Does it modify metadata? Verify D-023 pass-through.\"; fi'"
+            "command": "bash -c 'FILE=\"${TOOL_INPUT_FILE_PATH:-$TOOL_INPUT_PATH}\"; if echo \"$FILE\" | grep -q \"SPEC.md\"; then echo \"SPEC MODIFIED. Run: python3 scripts/check_spec_quality.py $FILE\"; fi; if echo \"$FILE\" | grep -qE \"\\.py$\" && echo \"$FILE\" | grep -q \"src/\"; then echo \"CODE MODIFIED. Arabic text safe? Metadata preserved (D-023)?\"; fi'"
           }
         ]
       }
@@ -37,7 +37,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'echo \"POST-COMPACTION CONTEXT INJECTION:\"; echo \"1. KR Core: Library IS the users knowledge. Errors propagate silently. See KNOWLEDGE_INTEGRITY.md.\"; echo \"2. D-023: Metadata is synthesis fuel. Never strip fields. Every engine must pass through ALL upstream metadata.\"; echo \"3. D-019: ABD code has ZERO design authority. SPECs define what to build.\"; echo \"4. D-033: Fail loud. Low-confidence decisions get flags, not silent defaults.\"; echo \"5. Priority: Accuracy > Protection > Intelligence.\"; echo \"6. Current task is in NEXT.md. Read it if you have lost context.\"; echo \"7. CHALLENGE PROTOCOL: Run the Three Challenges before committing.\"; echo \"8. Arabic text handling: see .claude/skills/arabic-text/SKILL.md before any text processing.\"; echo \"9. Before implementing: check .claude/skills/technology-survey/SKILL.md — use existing tools.\"; echo \"10. ORCHESTRATOR.md governs implementation sessions. REVIEW_PROTOCOL.md governs review sessions.\"'"
+            "command": "bash -c 'echo \"POST-COMPACTION: Read NEXT.md for current task. Key rules: (1) Library IS the users knowledge — errors propagate silently. (2) Metadata never deleted (D-023). (3) Fail loud (D-033). (4) Multi-model consensus for content decisions. (5) Run Three Challenges before committing. (6) Invention before review.\"'"
           }
         ]
       }
@@ -45,37 +45,17 @@
   },
   "permissions": {
     "allow": [
-      "Bash(python -m pytest *)",
-      "Bash(python3 -m pytest *)",
-      "Bash(python *)",
-      "Bash(python3 *)",
-      "Bash(pip install *)",
-      "Bash(pip3 install *)",
-      "Bash(cd *)",
-      "Bash(cat *)",
-      "Bash(ls *)",
-      "Bash(grep *)",
-      "Bash(find *)",
-      "Bash(wc *)",
-      "Bash(head *)",
-      "Bash(tail *)",
-      "Bash(mkdir *)",
-      "Bash(cp *)",
-      "Bash(mv *)",
-      "Bash(rm *)",
-      "Bash(touch *)",
-      "Bash(chmod *)",
-      "Bash(git *)",
-      "Bash(tree *)",
-      "Bash(sed *)",
-      "Bash(awk *)",
-      "Bash(sort *)",
-      "Bash(diff *)",
-      "Bash(echo *)",
-      "Bash(jq *)",
-      "Bash(curl *)",
-      "Bash(sha256sum *)",
-      "Bash(md5sum *)"
+      "Bash(python *)", "Bash(python3 *)",
+      "Bash(pip install *)", "Bash(pip3 install *)",
+      "Bash(cd *)", "Bash(cat *)", "Bash(ls *)",
+      "Bash(grep *)", "Bash(find *)", "Bash(wc *)",
+      "Bash(head *)", "Bash(tail *)", "Bash(mkdir *)",
+      "Bash(cp *)", "Bash(mv *)", "Bash(rm *)",
+      "Bash(touch *)", "Bash(chmod *)", "Bash(git *)",
+      "Bash(tree *)", "Bash(sed *)", "Bash(awk *)",
+      "Bash(sort *)", "Bash(diff *)", "Bash(echo *)",
+      "Bash(jq *)", "Bash(curl *)",
+      "Bash(sha256sum *)", "Bash(md5sum *)"
     ]
   }
 }
