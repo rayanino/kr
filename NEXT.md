@@ -1,59 +1,65 @@
 # NEXT SESSION
 
-**Written by:** Session 2026-03-06 (Scholar Interface SPEC §1–§4.A)
+**Written by:** Session 2026-03-06 (Scholar Interface SPEC enhancements + research)
 **Date:** 2026-03-06
 
 ## Immediate Task
 
-Continue the scholar interface SPEC (interface/scholar/SPEC.md) from §4.B (Transformative Capabilities) through §10. The core processing rules (§4.A) are complete — §4.B through §10 remain.
+Continue the scholar interface SPEC from §4.B (Transformative Capabilities). Complete §4.B through §10. Also integrate the retrieval pipeline architecture into §4.A.2 (see "Architecture Additions" below).
 
 **Definition of done — this session is complete when:**
 1. Scholar interface SPEC completed (all 10 sections)
-2. VISION.md corrections based on scholar interface design insights (if any discovered during §4.B–§10 writing)
-3. Any new decisions recorded in kr_decisions.md
-4. Changes committed and pushed
+2. Retrieval pipeline architecture integrated into §4.A.2 (Qdrant vector store, embedding model, cross-encoder re-ranking, grounding enforcement thresholds)
+3. VISION.md corrections for scholar interface
+4. Any new decisions recorded in kr_decisions.md
+5. Changes committed and pushed
 
 ## Context
 
-The scholar interface SPEC §1–§4.A is complete (~450 lines). The seven §4.A subsections cover:
-- §4.A.1 — Guiding: curriculum generation, daily session orchestration
-- §4.A.2 — Answering: query classification, retrieval strategy, response generation, stale entries, multi-turn conversation, book briefing
-- §4.A.3 — Teaching: Socratic assessment design, evaluation, spaced repetition orchestration, gap detection from assessments
-- §4.A.4 — Discovering: new content alerts, cross-science connections, coverage gap alerting, scholarly briefings, contradiction surfacing
-- §4.A.5 — Assisting: evidence compilation, writing assistance, tarjih scaffolding, lesson plan generation
-- §4.A.6 — Navigating: science map, taxonomy browsing, scholar network exploration, temporal exploration
-- §4.A.7 — Correction and feedback integration: error identification, correction routing, pattern detection
+§1–§4.A are complete (520 lines). All six capability domains are specified. The SPEC uses a simpler retrieval approach (keyword + semantic similarity against leaf titles) that needs to be upgraded with the full hybrid retrieval pipeline researched this session.
 
-Remaining sections:
-- **§4.B — Transformative Capabilities.** This is the most important remaining section. Think deeply: what capabilities can the scholar interface provide that would make a world-class Islamic scholar say "I didn't know that was possible"? Some directions to explore:
-  - Scholarly debate simulation (simulate historical debates between scholars)
-  - Research gap cartography (map what hasn't been studied)
-  - Adaptive explanation engine (explanations calibrated to exact prerequisite mastery)
-  - Position evolution visualization (how a scholarly position mutated through centuries)
-  - Intellectual influence propagation analysis
-  - Question generation that reveals unstudied angles
-- **§5 — Validation and Quality.** How to validate that responses are correctly grounded, citations are accurate, assessments are fair.
-- **§6 — Consensus Integration.** Which interface operations use multi-model consensus.
-- **§7 — Error Handling.** All error codes and recovery for the interface.
-- **§8 — Configuration.** Parameters controlling interface behavior.
-- **§9 — Current Implementation State.** Nothing exists — document that.
-- **§10 — Test Requirements.** What must be tested.
+## Architecture Additions to Integrate
+
+The current §4.A.2.2 describes a basic retrieval strategy (topic identification → content retrieval → scholar enrichment → user context). This should be enhanced with:
+
+**1. Qdrant vector store (self-hosted).** Two collections:
+- **Excerpt embeddings:** One vector per placed excerpt (embedded from `primary_text`). Payload: excerpt_id, leaf_path, science_id, school, primary_author_id, evidence_types, content_types, death_hijri, source_id, placement_confidence, self_containment_score. Enables filtered vector search without joins.
+- **Entry-section embeddings:** One vector per entry section (core_treatment, each scholarly_position, each edge_case). Payload: entry_id, leaf_path, science_id, school_group, section_type. Section-level embedding for precise retrieval.
+
+**2. Embedding model.** Arabic Matryoshka model — evaluate AraGemma-Embedding-300m vs Swan-Large on KR's corpus. See RESOURCES.md for details.
+
+**3. Cross-encoder re-ranking.** After initial retrieval (top-K=20), re-rank with cross-encoder for precision. Adds ~100-200ms, acceptable for personal use.
+
+**4. Grounding enforcement thresholds.**
+- Every citation carries `grounding_type`: `library_excerpt`, `library_metadata`, or `llm_research`.
+- >30% LLM-contributed claims → `confidence_assessment: "low"` + visible notice to Rayane.
+- >50% LLM-contributed → recommend acquiring additional sources.
+
+**5. Four retrieval strategies:**
+- **Targeted:** Exact match → leaf titles + synonyms. For specific topic queries.
+- **Semantic:** Qdrant ANN search. For broad/exploratory queries.
+- **Filtered:** Metadata constraints (school, period, evidence type, author). Combinable with targeted/semantic.
+- **Cross-science:** From cross_science_links.json for multi-science queries.
 
 ## Files to Read — IN THIS ORDER
 
-1. `interface/scholar/SPEC.md` — the partial SPEC. Read it first to continue seamlessly.
-2. `reference/ENTRY_EXAMPLE.md` — refresh the quality target. Think about what §4.B capabilities would produce entries at that level or enable interactions beyond entries.
-3. `engines/synthesis/SPEC.md` §4.B — the synthesis engine's transformative capabilities. The scholar interface should complement these, not duplicate them.
-4. `shared/consensus/SPEC.md` §4.A — for §6 (Consensus Integration) of the scholar interface.
-5. `shared/feedback/SPEC.md` §4 — for the correction integration details.
+1. `interface/scholar/SPEC.md` — the partial SPEC. Read FIRST.
+2. `reference/RESOURCES.md` — Scholar Interface Resources section for tool references.
+3. `reference/DOMAIN.md` §"What Doesn't Exist Yet" — for §4.B inspiration.
+4. `reference/ENTRY_EXAMPLE.md` — to calibrate what §4.B should enable.
 
-**Re-read only these files.** Do NOT re-read DOMAIN.md, USER_SCENARIOS.md, user_model SPEC, taxonomy SPEC, scholar_authority SPEC — their relevant content is already captured in the partial SPEC's design decisions.
+**Do NOT re-read:** USER_SCENARIOS.md, upstream SPEC output contracts, or DOMAIN.md in full.
 
 ## Decisions Needed
 
-- **Curriculum knowledge base format.** The SPEC references a "curriculum knowledge base" (§4.A.1.1) — a structured data file per science encoding classical text progressions. What format? YAML? Where does it live? Who populates it (the architect hardcodes initial progressions, or the owner provides them, or the interface infers them)?
-- **Arabic embedding model selection.** §4.A.2.2 references semantic similarity for query-to-topic matching. Which model? This needs research.
-- **Session context persistence.** §4.A.2.5 says session context is in-memory. Should any cross-session context be persisted beyond what the user model captures?
+- **§4.B transformative capabilities.** Directions to explore:
+  - **Debate simulation:** Simulate scholarly debates between historical figures based on documented positions.
+  - **Optimal source prediction:** Which SOURCE would most accelerate Rayane's learning given current state?
+  - **Full lesson generation:** Not just sequencing but content: "Generate a 30-minute lesson on X."
+  - **Knowledge graph Q&A:** Scholar network queries: "Who disagreed with Sibawayhi on any topic?"
+  - **Scholarly fingerprinting:** What makes each scholar's approach distinctive? Can the interface characterize a scholar's methodology from their positions across topics?
+
+- **§6 Consensus.** Should the interface use multi-model consensus? The current SPEC uses it for assessment evaluation of ambiguous responses. Consider whether grounding verification also needs it.
 
 ## Pending Owner Questions
 
@@ -61,8 +67,8 @@ None.
 
 ## What This Session Did
 
-Started the scholar interface SPEC — the most important SPEC in the project. Completed §1 through §4.A (~450 lines) covering all six capability domains (Guiding, Answering, Teaching, Discovering, Assisting, Navigating), the correction feedback loop, and the input/output contracts. Researched Socratic AI tutoring systems, knowledge graph RAG architectures, and classical Islamic pedagogical progressions. Updated RESOURCES.md with findings.
+Updated RESOURCES.md with detailed research: Qdrant vector database (with comparison to pgvector, ChromaDB, Pinecone), Arabic embedding models (AraGemma-Embedding, Swan-Large, Arabic-Matryoshka-V2, E5-ML-Large), and cross-encoder re-ranking options. The previous session wrote §1-§4.A (520L). This session's key addition is the retrieval pipeline architecture specification (documented above) that needs integration.
 
 ## New Decisions
 
-None (no new architectural decisions were needed — the scholar interface design follows from D-016, D-017, D-018, D-021, D-022, D-023, D-032, D-033, D-042).
+None.

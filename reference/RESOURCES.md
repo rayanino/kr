@@ -562,5 +562,21 @@ Optional keys (add as needed):
 - **SeekersGuidance curriculum** — five-level systematic program. Useful as a reference for level classification (beginner → advanced).
 - **Key domain insight:** Classical progressions are text-based (study this book, then that book), not topic-based. KR's curriculum system must bridge both: the classical text sequence AND the taxonomy's topic sequence. The curriculum follows the text order (الآجرومية then قطر الندى) but within each text, topics follow the taxonomy's narrative ordering.
 
-### Arabic Embedding Models (for query-to-topic matching)
-- Need to evaluate: Arabic-capable embedding models for semantic similarity between user queries and taxonomy leaf titles. Candidates: multilingual models (mE5, BGE-M3), Arabic-specific models. Research needed for next session.
+### Arabic Embedding Models (for semantic retrieval)
+- **AraGemma-Embedding-300m:** https://huggingface.co/Omartificial-Intelligence-Space/AraGemma-Embedding-300m — Fine-tuned from Google's EmbeddingGemma-300M for Arabic semantic understanding. 300M params, supports Matryoshka dimensions (flexible truncation). Trained on 1M Arabic triplet pairs. Lightweight, deployable locally.
+- **Swan-Large (MBZUAI):** https://arxiv.org/abs/2411.01192 — Dialect-aware Arabic-centric embedding model. Top performer on ArabicMTEB benchmark across retrieval, STS, classification, and clustering. Specifically designed for Arabic linguistic intricacies.
+- **Arabic-triplet-Matryoshka-V2:** https://huggingface.co/collections/Omartificial-Intelligence-Space/arabic-matryoshka-and-gate-embedding-models — #1 on MTEB STS17 Arabic-Arabic leaderboard (score 85.3). Uses Matryoshka learning for efficient multi-resolution embeddings.
+- **Microsoft E5-ML-Large:** Best overall multilingual performance on Arabic RAG retrieval (ARCD benchmark, >90% Recall@10). Not Arabic-specific but strong.
+- **Evaluation needed:** These models are benchmarked on modern standard Arabic. KR must evaluate on classical Arabic scholarly text with diacritics, technical terminology, and multi-school vocabulary — performance may differ.
+
+### Vector Database — Qdrant
+- **URL:** https://qdrant.tech/ | https://github.com/qdrant/qdrant
+- **What it does:** Open-source vector database written in Rust. Supports filtered vector search (combining semantic similarity with metadata constraints), disk persistence, HNSW indexing with binary quantization, and both gRPC and REST APIs.
+- **Why chosen for KR:** The scholar interface requires frequent combined vector+metadata queries (e.g., "find similar excerpts in the Hanafi school from pre-400 AH scholars"). Qdrant's payload filtering overhead is ~1.1x regardless of filter complexity, compared to 2.3x for pgvector on text fields and 3-8x for ChromaDB. Self-hosted via Docker with disk persistence — suitable for a personal application.
+- **Alternatives considered:** pgvector (strong baseline search but metadata filtering is slower; better when already heavily using PostgreSQL), ChromaDB (excellent prototyping but not optimized for production filtered search), Pinecone (managed service — unnecessary dependency for a personal local application).
+- **License:** Apache 2.0. Python SDK: `qdrant-client` with full async support.
+
+### Cross-Encoder Re-Ranking
+- **Purpose:** After initial embedding-based retrieval (fast, approximate), re-rank top-K results with a cross-encoder (slower, precise). Standard in production RAG systems — significantly improves precision.
+- **Arabic options:** (a) Multilingual cross-encoders from BGE or Cohere families, (b) fine-tune a cross-encoder on KR-specific relevance data as the library grows, (c) LLM-as-reranker (more expensive but potentially more accurate for classical Arabic scholarly text).
+- **Latency:** Adds ~100-200ms per query. Acceptable for a personal scholarly application.
