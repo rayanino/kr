@@ -94,7 +94,8 @@ These are INVIOLABLE. No protocol document, no optimization, no shortcut may ove
 7. Multi-model consensus for content decisions — never a single LLM call for attribution or classification.
 8. Arabic text is fragile — read `.claude/skills/arabic-text/SKILL.md` before any text processing.
 9. Technology first — check `.claude/skills/technology-survey/SKILL.md` before building custom code.
-10. Invention before review — creative exploration precedes critical analysis (`CREATIVE_MANDATE.md`).
+10. Invention before review — creative exploration precedes critical analysis.
+11. No format bias — KR supports ALL scholarly source formats equally (D-019). Shamela is ONE format, not THE format. Build format-agnostic infrastructure first; format-specific normalizers are pluggable modules. Never reference ABD code as a starting point.
 </core_rules>
 
 <context_management>

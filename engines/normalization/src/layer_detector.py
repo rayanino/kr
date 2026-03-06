@@ -1,39 +1,41 @@
-"""Multi-layer text detection — SPEC §4.A.5.
+"""Text layer detection — SPEC §4.A.2 Pass 5 (format-agnostic interface).
 
-For sources where is_multi_layer is true (or where layer signals are detected),
-identifies which portions of each page belong to which text layer.
+Detects text layers (matn, sharh, hashiyah, tahqiq notes) in normalized content.
+Each source format provides its own detection signals through a pluggable backend.
 
-Shamela-specific layer signals (SPEC §4.A.2 Pass 5):
-  - Bold text (<b> tags): ~75% of Shamela commentary exports use bold for matn
-  - Bracket markers: matn enclosed in [ ]
-  - Transition phrases: "قال المصنف", "قوله", "قال الشارح"
-  - Font size differences: minority of exports use <font size> tags
+Format-specific signals:
+  - Shamela HTML: bold tags (~75% of commentary exports use bold for matn), font size, brackets
+  - PDF: font size differences, indentation patterns, column positions
+  - Image/OCR: spatial analysis of text blocks, font weight detection
 
-Output: per-page text_layers array with layer types, author IDs, offsets, confidence.
+The interface is format-agnostic. Normalizers register their format-specific
+detection backend at initialization time.
 
-Implementation order: Step 4 in IMPL_BRIEF.md.
+SPEC reference: §4.A.2 Pass 5 (layer detection), §4.A.4 (multi-layer detection)
 """
 
-from __future__ import annotations
-
-from engines.normalization.contracts import TextLayerSegment
+from typing import Protocol
 
 
-def detect_layers_shamela(
-    primary_text: str,
-    html_before_stripping: str,
-    source_layer_spec: list | None = None,
-) -> list[TextLayerSegment]:
-    """Detect text layers in a single Shamela page.
-
-    Args:
-        primary_text: The cleaned text (Pass 3 output).
-        html_before_stripping: Raw HTML for this page (for bold/font detection).
-        source_layer_spec: Source metadata text_layers (expected layers + authors).
-
-    Returns:
-        Ordered list of TextLayerSegment covering every character in primary_text.
-        For single-layer sources, returns one segment covering the full text.
+class LayerDetectionBackend(Protocol):
+    """Format-specific layer detection strategy.
+    
+    Each normalizer provides an implementation of this protocol
+    that knows how to extract layer signals from its specific format.
     """
-    # TODO (Claude Code): Implement. See SPEC §4.A.5 and §4.A.2 Pass 5.
-    raise NotImplementedError("detect_layers_shamela")
+
+    def detect_layers(self, page_content: str, format_hints: dict) -> list:
+        """Detect text layers in a single page.
+        
+        Args:
+            page_content: The text content of one page/unit.
+            format_hints: Format-specific signals (e.g., bold spans, font sizes).
+        
+        Returns:
+            List of TextLayerSegment (from contracts.py).
+        """
+        ...
+
+
+# Normalizers register their backends here.
+# Claude Code implements the actual detection logic per format.

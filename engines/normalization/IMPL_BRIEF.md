@@ -3,236 +3,116 @@
 **Audience:** Claude Code. This document tells you what to build, in what order, with what constraints.
 
 **Read before coding:**
-- `engines/normalization/SPEC.md` §4.A.2 (Shamela normalizer — the full behavioral spec)
-- `engines/normalization/contracts.py` (Pydantic models — your output schema)
-- `engines/normalization/src/errors.py` (error codes — already implemented)
-- `engines/normalization/src/normalizers/base.py` (normalizer interface — already implemented)
-- `reference/archive/abd_code/normalization/normalize_shamela.py` (ABD code to adapt)
-- `reference/archive/abd_code/normalization/discover_structure.py` (structure discovery to integrate)
-- `engines/normalization/reference/ABD_NORMALIZATION_SPEC.md` (ABD processing rules)
-- `engines/normalization/reference/SHAMELA_HTML_REFERENCE.md` (HTML format documentation)
+- `engines/normalization/SPEC.md` — the behavioral authority (full SPEC)
+- `engines/normalization/contracts.py` — the schema authority (Pydantic models)
+- `engines/normalization/src/errors.py` — error codes (already defined)
+- `engines/normalization/src/normalizers/base.py` — normalizer interface (already defined)
+
+**Do NOT use ABD code as a reference or starting point.** ABD code (D-019) has zero design authority. Build from the SPEC. The SPEC describes what each normalizer does; Claude Code implements it fresh.
+
+---
+
+## Architecture
+
+The normalization engine is format-agnostic by design:
+
+```
+Source (any format) → Dispatcher → Format-specific Normalizer → Normalized Package (uniform schema)
+```
+
+- The **dispatcher** routes sources to normalizers by `source_format` field
+- Each **normalizer** implements the `BaseNormalizer` interface
+- All normalizers produce the same output schema (`NormalizedPackage` in contracts.py)
+- **Validation** and **writing** are shared — they work on any normalized package regardless of which normalizer produced it
+
+Adding a new format means adding ONE normalizer module and registering it. No other code changes.
 
 ---
 
 ## What Exists Today
 
-| File | Lines | Status |
-|------|-------|--------|
-| `contracts.py` | 475 | Complete — do not modify unless SPEC changes |
-| `src/errors.py` | ~100 | Complete — all error codes defined |
-| `src/normalizers/base.py` | ~55 | Complete — normalizer interface |
-| `src/dispatcher.py` | ~70 | Stub — register ShamelaNormalizer after building it |
-| `src/normalizers/shamela.py` | ~85 | Stub — implement the 6-pass pipeline |
-| `src/validation.py` | ~100 | Stub — implement 8 validation checks |
-| `src/writer.py` | ~45 | Stub — implement atomic write |
-| `src/layer_detector.py` | ~40 | Stub — implement layer detection |
-| `src/content_flagger.py` | ~30 | Stub — implement content flagging |
-| `src/content_census.py` | ~40 | Stub — implement statistical profiling |
-| ABD `normalize_shamela.py` | 1123 | Working ABD code — adapt, don't rewrite from scratch |
-| ABD `discover_structure.py` | 2896 | Working ABD code — integrate for Pass 4 |
-| ABD tests | ~2600 | Working tests — preserve and extend |
+| File | Status |
+|------|--------|
+| `contracts.py` | Complete — output schema, all enums, all models |
+| `src/errors.py` | Complete — all error codes defined |
+| `src/normalizers/base.py` | Complete — normalizer interface |
+| `src/dispatcher.py` | Stub — register normalizers after building them |
+| `src/normalizers/shamela.py` | Stub — ONE of the format normalizers |
+| `src/validation.py` | Stub — validate any normalized package |
+| `src/writer.py` | Stub — atomic write of any normalized package |
+| `src/layer_detector.py` | Stub — detect text layers (format-agnostic interface, format-specific backends) |
+| `src/content_flagger.py` | Stub — flag content types |
+| `src/content_census.py` | Stub — statistical profiling |
 
 ## Implementation Order
 
-Build these steps sequentially. Each step must pass its tests before proceeding.
+**Build format-agnostic infrastructure FIRST. Then add normalizers one at a time.**
 
-### Step 1: Output Schema Upgrade + Atomic Writer
+### Phase 1: Format-Agnostic Foundation (no format-specific code)
 
-**Goal:** Make the Shamela normalizer produce KR normalized packages instead of ABD JSONL.
+**Step 1: Output schema + atomic writer**
+- Implement `writer.py`: takes a `NormalizedManifest` + stream of `ContentUnit`, writes to disk atomically
+- Test: write a manually-constructed NormalizedPackage, verify JSON schema compliance
 
-**What to do:**
-1. Copy ABD `normalize_shamela.py` into `src/normalizers/shamela.py` as the starting point.
-2. Refactor the ABD output assembly (currently writes flat JSONL records with `book_id`, `matn_text`, `footnotes`) to produce `ContentUnit` objects (from `contracts.py`).
-3. Assemble a `NormalizedManifest` with: source_id, normalizer_id (`kr.normalization.shamela_v2`), schema_version, total_content_units, structural_format, text_fidelity_summary, quality_report.
-4. Implement `src/writer.py` — the atomic write procedure.
-5. Register `ShamelaNormalizer` in `src/dispatcher.py`.
+**Step 2: Validation**
+- Implement `validation.py`: 8 checks from SPEC §5 that apply to ANY normalized package
+- Test: valid package passes, packages with missing fields / broken references / empty content fail
 
-**Field mapping (ABD → KR):**
+**Step 3: Dispatcher**
+- Implement `dispatcher.py`: registry pattern, routes `source_format` → normalizer instance
+- Test: known formats route correctly, unknown format raises `NORM_UNKNOWN_SOURCE_FORMAT`
 
-| ABD field | KR ContentUnit field | Notes |
-|-----------|---------------------|-------|
-| `page_num` | `physical_page.page_number_int` | Also compute `page_number_display` as Arabic numerals |
-| `volume` | `physical_page.volume` | From filename stem |
-| `matn_text` | `primary_text` | Rename only — content identical |
-| `footnotes` (list) | `footnotes` (list of Footnote) | Add `footnote_type=UNKNOWN`, `confidence=0.0` initially |
-| `unit_index` | `unit_index` | Already computed in ABD |
-| (not in ABD) | `text_layers` | Empty list initially (Step 4 adds this) |
-| (not in ABD) | `structural_markers` | Empty initially (Pass 4 integration fills this) |
-| (not in ABD) | `verse_info` | ABD has verse detection — convert to VerseLine objects |
-| (not in ABD) | `content_flags` | ABD has `has_verse`, `has_table` — extend in Step 5 |
-| (not in ABD) | `text_fidelity` | Set to `high`/`1.0` for all Shamela pages (digital text) |
+**Step 4: Layer detector interface**
+- Implement `layer_detector.py` with format-agnostic interface: `detect_layers(page_content, format_hints) → List[TextLayerSegment]`
+- Format-specific detection backends are plugged in per-format (each normalizer registers its layer detection strategy)
+- Test: interface contract verified with mock backends
 
-**Source metadata layer_type mapping:**
-- Source engine uses string `"tahqiq"` in TextLayer.layer_type
-- Normalization engine uses `LayerType.TAHQIQ_NOTE` (value: `"tahqiq_note"`)
-- Map `"tahqiq"` → `LayerType.TAHQIQ_NOTE` during Pass 5 initialization
+**Step 5: Content flagger + census**
+- Implement `content_flagger.py` and `content_census.py` — both operate on ANY normalized content stream
+- Test: flag detection and census statistics on synthetic content units
 
-**Test:** Run on `tests/fixtures/shamela_ibn_aqil.htm`. Output must validate against `NormalizedPackage` schema. Every content unit must have valid `unit_index`, `physical_page`, non-empty `primary_text`.
+### Phase 2: First Normalizer (proves the architecture)
 
-### Step 2: Self-Validation Framework (§5 Checks 1–9)
+Build whichever normalizer has the best test data available. Currently the Shamela fixture exists (`tests/fixtures/shamela_ibn_aqil.htm`), so Shamela is a reasonable first choice — but the architecture does not depend on this choice.
 
-**Goal:** Implement all 8 automated validation checks (check 9 is already in validate_input).
+**Step 6: Shamela normalizer (or whichever format has test data)**
+- Implement `src/normalizers/shamela.py` following SPEC §4.A.2
+- Register in dispatcher
+- Test: end-to-end from fixture → validated normalized package
 
-**What to do:**
-1. Implement each `_check_*` function in `src/validation.py`.
-2. Wire `validate_package()` to call all checks and aggregate results.
-3. Call `validate_package()` in Pass 6 BEFORE the atomic write.
-4. Any fatal check failure → abort normalization with `NORM_SCHEMA_VIOLATION`.
+### Phase 3: Additional Normalizers (one at a time)
 
-**Check thresholds (from SPEC §5):**
-- Coverage: ±10% tolerance (or exact match for deterministic sources like Shamela)
-- Arabic character ratio: >70% (excluding whitespace and punctuation)
-- Garbage run: >20 identical consecutive characters
-- Layer transitions per page: ≤20 (>20 suggests misdetection)
-- Matn ratio in sharh: <40%
-- Unit index: contiguous 0-based, no gaps, no duplicates
+Each new normalizer follows the same pattern: implement the `BaseNormalizer` interface, register in dispatcher, test end-to-end.
 
-**Test:** Construct invalid packages programmatically (missing pages, bad unit_index, non-Arabic text) and verify each check catches the violation.
-
-### Step 3: Footnote Type Classification (Pass 2 Upgrade)
-
-**Goal:** Classify footnotes as `tahqiq_editor`, `author_original`, or `unknown_footnote_type`.
-
-**What to do:**
-1. In the ABD footnote parsing code (Pass 2), after separating footnotes, add classification logic.
-2. Classification rules (SPEC §4.A.2 Pass 2):
-   - **tahqiq_editor:** Contains tahqiq markers — hadith grading terms, manuscript variant notation ("في نسخة:"), bibliographic collection references.
-   - **author_original:** Matches main text writing style, no tahqiq markers.
-   - **unknown_footnote_type:** Uncertain — assign with confidence score.
-3. Use pattern matching as primary classifier. LLM fallback is §4.B.4 (later step, not this one).
-4. Set `confidence` score: 0.9 for clear pattern matches, 0.5 for heuristic matches, 0.0 for unknown.
-
-**Patterns for tahqiq detection:**
-- Hadith grading: `صحيح`, `ضعيف`, `حسن`, `موضوع`, `أخرجه`, `رواه`
-- Manuscript variants: `في نسخة`, `في الأصل`, `كذا في`, `والصواب`
-- Bibliographic: `انظر:`, `راجع:`, `ذكره في`, `أشار إليه`
-- Editor voice: `قلت:` (when preceded by editorial context), `المحقق`
-
-**Test:** Fixture page with footnote `"انظر: التسهيل لابن مالك ص ٤٥. وقد أخرج البخاري (٢٣٤٥) نحوه."` → classified as `tahqiq_editor` with confidence ≥0.8. Fixture page with footnote containing variant reading `"في نسخة أ: «فإن كل واحد من هذه» وفي نسخة ب: «فإن كلاً من هذه»"` → classified as `tahqiq_editor` (specifically `variant_reading` pattern).
-
-### Step 4: Multi-Layer Detection (Pass 5)
-
-**Goal:** Identify matn vs sharh text boundaries on each page.
-
-**What to do:**
-1. Implement `src/layer_detector.py` with Shamela-specific signals.
-2. In Pass 1, BEFORE HTML stripping, record bold spans (`<b>` tag positions) and font size tags.
-3. In Pass 5, use recorded signals + transition phrases to segment each page.
-4. Produce `text_layers` array per content unit.
-
-**Signal priority (SPEC §4.A.2 Pass 5):**
-1. Bold text (`<b>` tags) — highest confidence for Shamela commentaries (~75% use this)
-2. Bracket markers `[ matn text ]` — high confidence
-3. Transition phrases (`قال المصنف`, `قوله`, `قال الشارح`) — medium confidence
-4. Font size differences (`<font size>`) — minority of exports
-
-**Single-layer handling:** If `is_multi_layer` is false in source metadata AND no layer signals detected, produce a single `TextLayerSegment` covering the full text with `layer_type=SHARH` (or whatever the source's primary layer is) and `confidence=1.0`.
-
-**Test:** Fixture page 2 (has `<b>` matn): matn layer detected for bold text, sharh for the rest. Full character coverage verified. Fixture page 5 (no multi-layer signals): single segment covering entire text.
-
-### Step 5: Content Flagging Expansion (§4.A.9)
-
-**Goal:** Detect Quran citations, hadith citations, TOC pages, index pages, blank pages.
-
-**What to do:**
-1. Implement `src/content_flagger.py`.
-2. Extend ABD's existing `has_verse` and `has_table` detection.
-3. Add new detections:
-   - **has_quran_citation:** Look for `﴿...﴾` brackets, `قال الله تعالى`, surah names + verse numbers.
-   - **has_hadith_citation:** Look for collection names (البخاري, مسلم, أبو داود, الترمذي, النسائي, ابن ماجه, أحمد) + numbers.
-   - **is_toc_page:** Detect فهرس/محتويات headers, dot-leader patterns, page-number-only columns.
-   - **is_index_page:** Similar to TOC but at end of book; detect فهرس الموضوعات, فهرس الأعلام.
-   - **is_blank:** Page with <10 non-whitespace characters after cleaning.
-
-**Test:** Fixture page 4 (has `﴿إِنَّا أَنْزَلْنَاهُ﴾`) → `has_quran_citation=true`. Fixture page 2 (footnote mentions البخاري) → `has_hadith_citation=true`. Fixture page 2 (has verse with `*`) → `has_verse=true`.
-
-### Step 6: Content Census (§4.B.5)
-
-**Goal:** Compute statistical profile after all content units are generated.
-
-**What to do:**
-1. Implement `src/content_census.py`.
-2. Compute all metrics defined in `ContentCensus` contract.
-3. Call after Pass 6 assembles all content units, before writing manifest.
-4. Store result in manifest's `content_census` field.
-
-**Metrics to compute:**
-- `text_density_profile`: chars per page statistics (mean, median, std_dev, sparse/dense counts)
-- `verse_ratio`, `table_ratio`, `quran_citation_ratio`, `hadith_citation_ratio`: proportion of pages with each flag
-- `layer_complexity`: layer count, transition density, matn ratio (multi-layer sources only)
-- `structural_depth`: division count, max depth, mean pages per leaf division
-- `footnote_density`: mean footnotes per page, max on single page, text ratio
-- `vocabulary_profile`: estimated unique terms (HyperLogLog), technical term density, diacritics density
-- `fidelity_distribution`: percentage of pages at each fidelity level
-
-**Test:** Census computed for fixture source. Verify `total_pages` matches, verse_ratio > 0 (fixture has verse pages), hadith_citation_ratio > 0.
+Priority order (based on likely source availability):
+1. PDF (text-embedded) — using Docling
+2. Plain text — simplest normalizer
+3. Image scan — using QARI-OCR / Mistral OCR
+4. Word document — using Docling
+5. EPUB
+6. Owner-authored content
 
 ---
 
-## Integration with Structure Discovery
+## Test Strategy
 
-Pass 4 integrates the ABD `discover_structure.py`. This code is 2896 lines and already works.
+Tests are organized in two layers:
 
-**Integration approach:**
-1. Copy `discover_structure.py` to `src/structure_discovery.py`.
-2. Adapt its input: instead of reading HTML files directly, receive parsed page data from Pass 1.
-3. Adapt its output: instead of ABD division format, produce `DivisionNode` objects from `contracts.py`.
-4. The 4-tier confidence architecture (HTML-tagged, TOC, keyword heuristics, LLM) stays the same.
-5. The structural_patterns.yaml file is already in `reference/`.
+**Layer 1: Format-agnostic tests** (test_validation.py, test_writer.py, test_dispatcher.py)
+- These test the shared infrastructure with synthetic data
+- They pass regardless of which normalizers are implemented
 
-**Do NOT rewrite structure discovery.** Adapt the interface, preserve the logic.
+**Layer 2: Per-normalizer tests** (test_shamela.py, test_pdf.py, etc.)
+- These test specific normalizers with format-specific fixtures
+- Each normalizer's tests verify: input validation, content extraction, layer detection, structure discovery, output schema compliance
+
+Gold baselines are created per fixture: run the normalizer, verify output manually, save as expected output.
 
 ---
 
 ## Constraints
 
-1. **Never modify primary text.** No spelling correction, no diacritic changes, no cleanup. SPEC core rule.
-2. **Arabic text is fragile.** Read `.claude/skills/arabic-text/SKILL.md` before any text processing. Watch for Unicode normalization, ZWNJ handling, diacritics stripping by Python libraries.
-3. **Pydantic models are the contract.** Output must validate against `contracts.py` models. Do not add fields or change types.
-4. **Errors fail loudly.** Use `NormalizationError` from `src/errors.py`. Never silently skip a page or drop data.
-5. **ABD tests must pass.** After adapting ABD code, the existing test logic (adapted for new output format) must still pass. Create equivalent tests in `tests/test_kr_output.py`.
-6. **Atomic writes only.** Never write partial output. Use `src/writer.py`.
-
----
-
-## Dependencies
-
-All in `requirements.txt`:
-- `beautifulsoup4` + `lxml` — HTML parsing (existing ABD dependency)
-- `pydantic` — schema validation
-- `PyYAML` — structural_patterns.yaml loading
-- `pyarabic` — Arabic text utilities (diacritics detection, character classification)
-
-No new dependencies needed for Shamela normalizer. OCR dependencies (Mistral, Qari) are only for future PDF/image normalizers.
-
----
-
-## File Layout After Implementation
-
-```
-engines/normalization/
-├── SPEC.md                          # Behavioral authority (read-only for Claude Code)
-├── IMPL_BRIEF.md                    # This file
-├── contracts.py                     # Pydantic schemas (read-only unless SPEC changes)
-├── src/
-│   ├── __init__.py
-│   ├── dispatcher.py                # Routes to correct normalizer
-│   ├── errors.py                    # Error codes (complete)
-│   ├── writer.py                    # Atomic write procedure
-│   ├── validation.py                # §5 self-validation checks
-│   ├── layer_detector.py            # Multi-layer detection
-│   ├── content_flagger.py           # Content type flagging
-│   ├── content_census.py            # Statistical profiling
-│   ├── structure_discovery.py       # Adapted from ABD discover_structure.py
-│   └── normalizers/
-│       ├── __init__.py
-│       ├── base.py                  # Normalizer interface (complete)
-│       └── shamela.py               # Shamela normalizer (6-pass pipeline)
-└── tests/
-    ├── __init__.py
-    ├── test_kr_output.py            # Output format tests (stubs ready)
-    ├── fixtures/
-    │   └── shamela_ibn_aqil.htm     # Shamela-format test fixture
-    └── gold_baselines/
-        └── README.md                # Gold baseline requirements
-```
+- **D-019:** ABD code has zero design authority. Do not copy or adapt ABD code. Build from the SPEC.
+- **D-023:** All upstream metadata passes through. The normalized package includes ALL source metadata fields.
+- **Normalization boundary:** No format-specific logic exists below this engine. The normalized package is the contract.
+- **Text integrity:** Primary text bytes are never modified after extraction. Normalization transforms format, not content.
