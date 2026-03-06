@@ -34,6 +34,7 @@ Milestone 1 target (from VISION.md §10.2): Source engine + normalization engine
 
 ## Decisions Needed
 
+- **Pre-commit/push hooks:** Currently warn-only (not blocking) because there's 1 known failing test (API key). Once that test is marked `@pytest.mark.xfail` or the API key is configured, make the pre-push hook blocking again. No pre-commit test hook (commits should be fast).
 - **Python packaging:** The current `_paths.py` approach works but won't scale. Decide whether to introduce `pyproject.toml` with package structure now or defer. (Recommendation: defer — get engines working first, refactor packaging after Milestone 1.)
 - **Test data:** ABD tests reference Shamela data. Verify the test corpus is accessible. If not, the owner needs to provide sample Shamela directories or the test data needs to be committed (or use Git LFS).
 - **API keys for LLM calls:** Source engine metadata enrichment uses LLM. Verify `.env` setup works. If not, ask the owner to configure keys.
@@ -51,6 +52,7 @@ Populated Claude Code environment for implementation phase:
 - 3 subagents: spec-reviewer (opus), test-runner (sonnet), integrity-checker (sonnet, new).
 - Updated `_paths.py` to include user_model, scholar_authority, interface/scholar.
 - Created missing src/ and tests/ directories for newer components.
+- Pre-push hook set to warn-only (known API key test failure would block all pushes otherwise).
 
 ## New Decisions
 
