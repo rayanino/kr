@@ -34,7 +34,7 @@ CHANGELOG (IMPLEMENTATION_PREP session, 2026-03-06):
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any, Optional
+from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -688,3 +688,100 @@ class GapAnalysisItem(BaseModel):
     recommended_work: Optional[str] = None
     recommended_author: Optional[str] = None
     source_of_recommendation: str
+
+
+# --- §4.B.8: Cross-Validated Scholar Authority Bootstrapping ---
+
+class DeathDateAgreement(BaseModel):
+    """Cross-validation result for scholar death date across multiple sources."""
+    openiti: Optional[int] = None
+    usul_data: Optional[int] = None
+    wikidata: Optional[int] = None
+    status: str = Field(description="unanimous | majority | disagreement | insufficient_data")
+    confidence_boost: float = Field(ge=0.0, le=0.20, default=0.0)
+
+
+class KnownWorksUnion(BaseModel):
+    """Union of known works across enrichment sources."""
+    openiti_only: List[str] = Field(default_factory=list)
+    usul_data_only: List[str] = Field(default_factory=list)
+    wikidata_only: List[str] = Field(default_factory=list)
+    all_three: List[str] = Field(default_factory=list)
+    total_unique_works: int = Field(ge=0)
+
+
+class WikidataTeacherStudentLinks(BaseModel):
+    """Teacher-student links discovered from Wikidata."""
+    teachers_from_wikidata: List[str] = Field(default_factory=list)
+    students_from_wikidata: List[str] = Field(default_factory=list)
+    novel_links: int = Field(ge=0, description="Links not found in OpenITI or LLM inference")
+
+
+class CrossValidationDiscrepancy(BaseModel):
+    """A discrepancy found during cross-validation."""
+    field: str
+    openiti_value: Optional[str] = None
+    usul_data_value: Optional[str] = None
+    wikidata_value: Optional[str] = None
+    resolution: str = Field(description="majority | human_gate | pending")
+
+
+class CrossValidationResult(BaseModel):
+    """Cross-validation results for scholar authority bootstrapping (SPEC §4.B.8). [NOT YET IMPLEMENTED]"""
+    death_date_agreement: DeathDateAgreement
+    known_works_union: KnownWorksUnion
+    teacher_student_wikidata: WikidataTeacherStudentLinks
+    discrepancies: List[CrossValidationDiscrepancy] = Field(default_factory=list)
+
+
+# --- §4.B.9: Source Difficulty Prediction ---
+
+class DifficultySignal(BaseModel):
+    """A single signal contributing to difficulty prediction."""
+    score: float = Field(ge=0.0, le=1.0)
+    reason: str
+
+
+class DifficultyPrediction(BaseModel):
+    """Source difficulty prediction computed before pipeline processing (SPEC §4.B.9). [NOT YET IMPLEMENTED]"""
+    overall_score: float = Field(ge=0.0, le=1.0)
+    difficulty_tier: str = Field(description="easy | moderate | hard | very_hard")
+    signals: Dict[str, DifficultySignal] = Field(
+        description="Keys: format_complexity, genre_processing_depth, multi_layer_complexity, "
+                    "science_scope_breadth, text_fidelity, source_size, author_disambiguation"
+    )
+    expected_human_gates: int = Field(ge=0)
+    expected_processing_hours: Optional[float] = None
+    priority_recommendation: str = Field(description="critical | high | medium | low")
+    priority_reason: str
+
+
+# --- §4.B.10: Tahqiq Apparatus Fingerprinting ---
+
+class TahqiqFingerprint(BaseModel):
+    """Tahqiq apparatus quality analysis (SPEC §4.B.10). [NOT YET IMPLEMENTED]"""
+    apparatus_present: bool
+    manuscript_reference_density: float = Field(
+        ge=0.0, description="Count of manuscript references per 1000 footnote words"
+    )
+    variant_reading_density: float = Field(
+        ge=0.0, description="Count of variant reading notations per 1000 footnote words"
+    )
+    hadith_takhrij_present: bool = False
+    footnote_entropy: Optional[float] = Field(
+        default=None, ge=0.0, le=1.0,
+        description="Shannon entropy of footnote word unigrams, normalized to 0-1"
+    )
+    formulaic_ratio: Optional[float] = Field(
+        default=None, ge=0.0, le=1.0,
+        description="Proportion of footnotes detected as formulaic/repetitive"
+    )
+    muhaqiq_reputation: str = Field(
+        description="recognized | unknown | watchlisted"
+    )
+    tahqiq_quality_classification: str = Field(
+        description="genuine_critical | scholarly_reprint | commercial_reprint | "
+                    "claimed_but_absent | insufficient_data"
+    )
+    classification_confidence: float = Field(ge=0.0, le=1.0)
+    classification_evidence: str

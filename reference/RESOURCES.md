@@ -574,7 +574,7 @@ Optional keys (add as needed):
 ### Usul.ai Data (seemorg/usul-data) (JSON, MIT license)
 - **URL:** https://github.com/seemorg/usul-data
 - **What it does:** Structured JSON dataset of Islamic scholars with multilingual names (14 languages including Arabic, English, Persian, Urdu), death dates (Hijri year), biographical descriptions, and linked book metadata. Built on OpenITI and Shamela/Turath data. MIT-licensed, freely redistributable.
-- **Relevant components:** Scholar authority (§4.B.1 bootstrapping, §4.A.5 external enrichment). Provides confirmed death dates, multilingual name variants, and author-book relationships. Complements OpenITI by adding richer multilingual biographical metadata. Can be bundled directly with KR.
+- **Relevant components:** Scholar authority (§4.B.8 cross-validated bootstrapping, §4.B.1 bootstrapping, §4.A.5 external enrichment). Provides confirmed death dates, multilingual name variants, and author-book relationships. Complements OpenITI by adding richer multilingual biographical metadata. Cross-validated with OpenITI and Wikidata in §4.B.8 for higher-confidence scholar records. Can be bundled directly with KR.
 - **How to use:** Download `authors.json` from the repo. Each author record: `id`, `primaryNameTranslations` (multilingual), `year` (Hijri death year), `bio` (multilingual descriptions). Books link via `authorId`.
 - **License:** MIT.
 

@@ -722,6 +722,206 @@ Gap analysis output (ranked by priority):
 
 [NOT YET IMPLEMENTED] — Full specification provided. No code exists. Depends on: §4.B.1's OpenITI matching, §4.A.5's scholar authority model, NetworkX library. Builds progressively — quality improves with each new source processed.
 
+#### §4.B.8 — Cross-Validated Scholar Authority Bootstrapping via Usul-Data and Wikidata
+
+**Capability:** When the source engine creates or enriches a scholar authority record, it queries not only OpenITI (§4.B.1) but also two additional structured datasets — Usul-Data (seemorg/usul-data, MIT license) and Wikidata (CC0) — and cross-validates across all three to produce scholar records with higher confidence than any single source can provide. Disagreements between sources are surfaced as research signals rather than discarded.
+
+**Technology:** Usul-Data (`authors.json`, MIT license, ~50MB) provides: multilingual scholar names in 14 languages (Arabic, English, Persian, Urdu, etc.), death dates (Hijri year), biographical descriptions, and author-book relationships linking to the Usul.ai book catalog. Wikidata provides: structured biographical data queryable via SPARQL endpoint (`query.wikidata.org`), including properties P1066 (student of), P802 (student), P569/P570 (birth/death dates), P140 (religion), school affiliations, and geographic data. Wikidata items for Islamic scholars are identifiable via occupation Q13200659 (Islamic scholar) or related classes.
+
+**Input:** A scholar `canonical_id` — newly created or being enriched. The engine extracts the scholar's Arabic name, any known aliases, and death date (if available) from the scholar authority record.
+
+**Output:** An enriched scholar authority record with `record_sources` including `"usul_data"` and/or `"wikidata"` alongside existing sources. For each field populated from these sources, the origin is recorded in `record_sources`. Cross-validation results are stored in a `cross_validation` field:
+
+```json
+{
+  "canonical_id": "sch_00042",
+  "cross_validation": {
+    "death_date_agreement": {
+      "openiti": 620,
+      "usul_data": 620,
+      "wikidata": 620,
+      "status": "unanimous",
+      "confidence_boost": 0.15
+    },
+    "known_works_union": {
+      "openiti_only": ["wrk_ibn_qudamah_rawda"],
+      "usul_data_only": ["wrk_ibn_qudamah_umda"],
+      "wikidata_only": [],
+      "all_three": ["wrk_ibn_qudamah_mughni", "wrk_ibn_qudamah_kafi", "wrk_ibn_qudamah_muqni"],
+      "total_unique_works": 12
+    },
+    "teacher_student_wikidata": {
+      "teachers_from_wikidata": ["sch_00089"],
+      "students_from_wikidata": ["sch_00123"],
+      "novel_links": 2
+    },
+    "discrepancies": []
+  }
+}
+```
+
+**Cross-validation logic:**
+
+1. **Death date triangulation.** If all three sources agree on death date (within ±2 years for Hijri), confidence is boosted by 0.15 (capped at 0.99). If two agree and one disagrees, the majority value is used and the discrepancy is logged. If all three disagree, a human gate checkpoint is created with all three values and their sources.
+
+2. **Known works union.** The engine takes the UNION of all works attributed to this scholar across all three sources. Works found in all three sources receive the highest confidence. Works found in only one source receive lower confidence and are marked `needs_verification`. This union directly feeds the gap analysis (§4.B.4) — a work attributed to a scholar in KR's registry but not yet in the library is a candidate for acquisition.
+
+3. **Teacher-student links from Wikidata.** Wikidata's P1066/P802 properties provide teacher-student relationships that may not be in OpenITI metadata or LLM inference. These are added to the scholar authority record with `source: "wikidata"`. Links found in both Wikidata AND LLM inference receive higher confidence than either alone.
+
+4. **Multilingual name variants from Usul-Data.** The 14-language transliterations in Usul-Data provide name variants that improve future scholar matching — when the excerpting engine encounters a scholar name in a non-Arabic context (e.g., an Ottoman Turkish commentary), the multilingual variants help resolve the reference.
+
+**Concrete example with Arabic text:** When the source engine processes المغني by ابن قدامة and creates scholar record `sch_00042`:
+- OpenITI returns: death date 620, 7 known works, CTS URI `0620IbnQudworka`.
+- Usul-Data returns: `{"year": 620, "primaryNameTranslations": [{"locale": "ar", "text": "ابن قدامة المقدسي"}, {"locale": "en", "text": "Ibn Qudama al-Maqdisi"}, ...], "id": "0620IbnQudworka"}`, plus 9 linked books in the Usul catalog.
+- Wikidata SPARQL returns: Q315581, death date 1223 CE (= 620 AH confirmed), P1066 (student of) → Q6840279 (Abu al-Fath ibn al-Manni), P802 (student) → Q19863061 (Ibn Taymiyyah's grandfather), geographic_origin: نابلس.
+- Cross-validation: death date unanimous (620 AH), 12 unique known works from union, 2 novel teacher-student links from Wikidata not in LLM inference, Arabic/English/Persian name variants from Usul-Data.
+
+**Scholar impact:** The scholar authority record for Ibn Qudamah is now richer than what any single source provides. The synthesizer can produce: "ابن قدامة المقدسي (d. 620 AH), originally from Nablus, studied under أبو الفتح ابن المنّي in Baghdad..." — biographical detail confirmed across three independent sources, not inferred from a single LLM call.
+
+**Implementation sketch:**
+1. Usul-Data: download `authors.json` from GitHub (`https://raw.githubusercontent.com/seemorg/usul-data/main/authors.json`). Cache locally at `library/external/usul_data/authors.json`. Matching uses: normalized Arabic name comparison (using the same CAMeL Tools normalization applied in §4.A.5 scholar matching — strip diacritics, normalize hamza/taa marbuta, normalize alef variants) against `primaryNameTranslations[locale=ar].text` + death year comparison against `year` field. If the usul-data ID follows the OpenITI URI pattern (e.g., `0620IbnQudworka`), use exact URI match (highest confidence).
+2. Wikidata: SPARQL query via HTTP GET to `query.wikidata.org/sparql`. Query template: find items with label matching the scholar's Arabic name AND death date within ±10 years of the known Hijri date (converted to CE). For matched items, fetch: P569, P570, P1066, P802, P27 (country of citizenship), sitelinks. Rate limit: max 5 queries per second (Wikidata policy). If rate-limited (HTTP 429), back off exponentially starting at 2 seconds, up to 3 retries. Cache query results for 30 days.
+3. Cross-validation runs after all three sources return. Results stored atomically with the scholar record update.
+
+**Failure handling:** If Usul-Data file is missing → log `SRC_USUL_DATA_MISSING` (info), skip this enrichment. If Wikidata query times out or returns no results → log `SRC_WIKIDATA_TIMEOUT` (info), proceed without Wikidata data. If Wikidata returns multiple candidate matches → present all candidates in a human gate checkpoint. Cross-validation disagreements on death date trigger human gate. This enrichment is additive and never blocks intake.
+
+**Dependencies:** Usul-Data JSON (~50MB, MIT license). Wikidata SPARQL endpoint (free, CC0). Update frequency: Usul-Data quarterly (follow their releases), Wikidata cache refreshed monthly. Depends on: §4.B.1's OpenITI matching (shared URI format), §4.A.5's scholar authority model.
+
+[NOT YET IMPLEMENTED] — Full specification provided. No code exists.
+
+#### §4.B.9 — Source Difficulty Prediction
+
+**Capability:** Before the normalization engine processes a source, the source engine analyzes the source's metadata and a sample of its content to predict how difficult the source will be to process through the entire pipeline, what the expected knowledge yield will be, and where human intervention will likely be needed. This prediction enables intelligent queue prioritization: easy, high-yield sources are processed first, producing immediate library value, while difficult sources are queued with appropriate resource allocation and human gate expectations.
+
+**Technology:** The prediction model uses a weighted combination of seven difficulty signals, each scored 0.0 (trivial) to 1.0 (maximum difficulty). The signals are computed from metadata already available at intake time (Steps 1-4 of §4.A.2) — no additional processing is required.
+
+**Input:** A source_id with completed metadata extraction and inference (post-Step 4 of §4.A.2, pre-freezing). The prediction is computed before the source enters the pipeline.
+
+**Difficulty signals:**
+
+1. **Format complexity** (weight 0.20). Shamela structured HTML → 0.1. Text-embedded PDF → 0.2. Mixed-format Word docs → 0.4. Scanned PDF → 0.6. iPhone photos → 0.8. Multi-format directory → 0.7. Score derived from `source_format` field.
+
+2. **Genre processing depth** (weight 0.20). `matn` or `risalah` (single-author, single-layer) → 0.1. `sharh` (two layers: matn + commentary) → 0.4. `hashiyah` (three layers) → 0.7. `taqrirat` (informal structure, often unpunctuated) → 0.6. `mawsuah` or `fatawa` (encyclopedic, many topics) → 0.5. `nazm` (verse — requires verse-aware processing) → 0.8. Score derived from `genre` field.
+
+3. **Multi-layer complexity** (weight 0.15). `multi_layer: false` → 0.0. Two layers → 0.4. Three or more layers → 0.8. Each additional layer increases the difficulty of attributing text to the correct author — the normalization and excerpting engines must track which words belong to which scholar. Score derived from `multi_layer` and `layers` fields.
+
+4. **Science scope breadth** (weight 0.10). Single science → 0.1. Two sciences → 0.3. Three or more → 0.6. Multi-science sources require excerpts to be placed across multiple taxonomy trees, multiplying the classification and placement work. Score derived from `science_scope` array length.
+
+5. **Text fidelity** (weight 0.15). `high` → 0.0. `medium` → 0.3. `low` → 0.7. `unknown` → 0.5. Low-fidelity text produces more OCR errors, more low-confidence atoms, and more human gate checkpoints downstream. Score derived from `text_fidelity` field.
+
+6. **Source size** (weight 0.10). < 100 pages → 0.0. 100-500 pages → 0.2. 500-2000 pages → 0.5. > 2000 pages → 0.8. Multi-volume works (>5 volumes) → 0.9. Larger sources consume more LLM tokens, produce more passages, and have higher probability of containing processing edge cases. Score derived from `page_count` and `volume_count`.
+
+7. **Author disambiguation confidence** (weight 0.10). Author canonical_id confidence ≥ 0.90 → 0.0. 0.70-0.90 → 0.3. < 0.70 → 0.7. A weakly identified author means all downstream attribution is uncertain, cascading through every engine. Score derived from `author.canonical_id` confidence in metadata inference results.
+
+**Output:** A `difficulty_prediction` record appended to the source metadata:
+
+```json
+{
+  "source_id": "src_a7c3e91f",
+  "difficulty_prediction": {
+    "overall_score": 0.42,
+    "difficulty_tier": "moderate",
+    "signals": {
+      "format_complexity": {"score": 0.1, "reason": "Shamela structured HTML"},
+      "genre_processing_depth": {"score": 0.4, "reason": "sharh — two-layer text"},
+      "multi_layer_complexity": {"score": 0.4, "reason": "matn + sharh layers"},
+      "science_scope_breadth": {"score": 0.1, "reason": "single science: nahw"},
+      "text_fidelity": {"score": 0.0, "reason": "high fidelity structured text"},
+      "source_size": {"score": 0.5, "reason": "648 pages, 2 volumes"},
+      "author_disambiguation": {"score": 0.0, "reason": "author confidence 0.96"}
+    },
+    "expected_human_gates": 2,
+    "expected_processing_hours": 4.5,
+    "priority_recommendation": "high",
+    "priority_reason": "Moderate difficulty but high knowledge yield (sharh of major nahw text, well-identified author, high fidelity text)"
+  }
+}
+```
+
+**Difficulty tiers:** `easy` (0.0–0.25): single-layer, single-science, high-fidelity, small, well-identified. `moderate` (0.25–0.50): some complexity in one or two dimensions. `hard` (0.50–0.75): multi-layer, multi-science, or low-fidelity. `very_hard` (0.75–1.0): multiple compounding difficulties.
+
+**Priority recommendation logic:** Priority is NOT simply inverse difficulty. Priority considers: (1) difficulty (lower is better), (2) expected knowledge yield (how many taxonomy leaves this source will populate, estimated from science scope + source size + genre), (3) owner's current study focus (a source in the active study science is prioritized), (4) gap-fill potential (does this source fill a coverage gap identified by §4.B.4?). A hard source that fills a critical gap is higher priority than an easy source covering already-saturated topics.
+
+**Concrete example contrasting two sources:**
+
+Source A: شرح ابن عقيل على ألفية ابن مالك (Shamela HTML, nahw sharh, 2 volumes, well-known author) → overall 0.42, tier `moderate`, priority `high` (fills intermediate nahw gap).
+
+Source B: حاشية الصبان على شرح الأشموني على ألفية ابن مالك (iPhone photos, nahw hashiyah, 3 layers, 4 volumes, low text fidelity) → overall 0.78, tier `very_hard`, priority `low` (advanced specialist content, low fidelity requires extensive human review, library already has intermediate nahw coverage).
+
+**Scholar impact:** Rayane sees a dashboard: "12 sources ready to process. Recommended order: (1) قطر الندى — easy, fills your intermediate nahw gap. (2) شرح ابن عقيل — moderate, builds on الألفية. (3) حاشية الصبان — hard, needs 15+ human reviews, process after basics are covered." This strategic sequencing means the library grows in curricular order — beginner content first, specialist content later — matching how a student should actually study.
+
+**Implementation sketch:** All signals are computed from fields already present in the source metadata record after Step 4 of §4.A.2. The computation is a simple weighted sum — no LLM call needed. The difficulty prediction is appended to the metadata record before freezing (Step 6). No external dependencies. `expected_human_gates` is computed as: 1 (baseline — every source gets at least one review) + 1 if author confidence < 0.80 + 1 if any critical field confidence < 0.70 + 1 if text_fidelity is `low` or `unknown` + 1 per additional layer beyond 1 (multi-layer sources need per-layer attribution review). Expected processing hours: before 10 sources have been processed, the engine uses a fixed estimate of 0.5 hours per 100 pages for easy sources, scaling up to 2.0 hours per 100 pages for very_hard sources. After 10 sources, the engine calibrates its time estimates against actual processing durations recorded in the processing status log.
+
+**Failure handling:** If any signal's input field is missing (e.g., `genre` not yet inferred), that signal defaults to 0.5 (uncertain). The prediction is recomputed after metadata enrichment if any signal-relevant fields change. The prediction is advisory only — it does not block processing.
+
+[NOT YET IMPLEMENTED] — Full specification provided. No code exists. No external dependencies — uses only metadata fields already available at intake.
+
+#### §4.B.10 — Tahqiq Apparatus Fingerprinting
+
+**Capability:** When a source claims to be a critical edition (tahqiq), the source engine analyzes the structure and content of its editorial apparatus — footnotes, variant reading notes, manuscript references, hadith takhrij — to produce a "tahqiq fingerprint" that distinguishes genuine critical editions from commercial reprints masquerading as tahqiq. This addresses a documented problem in Islamic publishing: many editions claim tahqiq on their cover but contain no actual critical apparatus, or contain formulaic apparatus copied from other editions.
+
+**Technology:** Pattern analysis of the first 5,000 characters of footnote content (extracted during format-specific metadata extraction in Step 3 of §4.A.2), combined with LLM classification of apparatus quality. No external dependencies beyond the standard LLM inference already used in Step 4.
+
+**Input:** A source_id where the metadata extraction step has identified footnotes or endnotes in the source material. Triggered only for sources where `muhaqiq` is non-null (i.e., the source claims to have a tahqiq editor).
+
+**Apparatus analysis signals:**
+
+1. **Manuscript reference density.** Genuine tahqiq references specific manuscripts by their library, collection number, and folio. The engine counts occurrences of patterns indicating manuscript references: "نسخة" (copy), "مخطوط" (manuscript), library names from a configurable list (initial entries: دار الكتب المصرية, المكتبة الأزهرية, مكتبة تشستر بيتي, المتحف البريطاني, مكتبة الأوقاف — stored in `library/config/manuscript_libraries.json`, extensible by the owner), folio references (ورقة, ق). Density = count per 1,000 words of footnote text. Genuine critical editions typically have density > 5.0. Commercial reprints have density < 1.0.
+
+2. **Variant reading notation.** Genuine tahqiq notes where manuscripts disagree: "في نسخة أخرى" (in another copy), "وفي رواية" (in another reading), "والصواب" (the correct reading is). The engine counts these patterns. Genuine editions have variant readings density > 3.0 per 1,000 footnote words.
+
+3. **Hadith takhrij presence.** For fiqh and hadith sources, genuine tahqiq includes hadith source tracing in footnotes: references to hadith collections by name (أخرجه البخاري, رواه مسلم), hadith numbers, grading terms (صحيح, حسن, ضعيف). Presence of takhrij is a strong signal of editorial rigor.
+
+4. **Formulaic apparatus detection.** Commercial publishers often use templated footnotes: identical phrasing repeated across pages, generic biographical notes copied from reference works without original analysis. The engine checks for: (a) footnote text entropy — genuine apparatus has high entropy (diverse content), formulaic apparatus has low entropy (repetitive patterns), (b) proportion of footnotes that are purely biographical (> 80% biographical footnotes with no textual commentary suggests a commercial biographical compilation, not genuine tahqiq).
+
+5. **Muhaqiq reputation cross-reference.** The engine checks the `muhaqiq` name against the recognized muhaqiqs list (§4.A.8 configuration) and also against a configurable watchlist of editors known for commercial, non-scholarly editions. The watchlist is informed by domain knowledge (e.g., the practices documented by Mufti Kadodia and other scholars regarding specific editors and publishers).
+
+**Output:** A `tahqiq_fingerprint` record appended to the source metadata:
+
+```json
+{
+  "source_id": "src_d7e8f9a0",
+  "tahqiq_fingerprint": {
+    "apparatus_present": true,
+    "manuscript_reference_density": 8.3,
+    "variant_reading_density": 5.1,
+    "hadith_takhrij_present": true,
+    "footnote_entropy": 0.87,
+    "formulaic_ratio": 0.12,
+    "muhaqiq_reputation": "recognized",
+    "tahqiq_quality_classification": "genuine_critical",
+    "classification_confidence": 0.91,
+    "classification_evidence": "High manuscript reference density (8.3), variant readings present (5.1), muhaqiq محمد فؤاد عبد الباقي is on recognized list, high footnote entropy (0.87 — diverse editorial content)"
+  }
+}
+```
+
+**Tahqiq quality classifications:**
+
+- `genuine_critical`: manuscript references present, variant readings noted, muhaqiq recognized or apparatus demonstrates scholarly rigor. This edition's text can be trusted as carefully verified against manuscripts.
+- `scholarly_reprint`: no original manuscript work, but the edition is based on a recognized earlier tahqiq (the editor cites the earlier edition). The text is reliable but the apparatus is derivative.
+- `commercial_reprint`: no manuscript references, no variant readings, or formulaic apparatus. The text may contain uncorrected errors. Trust tier impact: the source's tahqiq quality factor (§4.A.8, weight 0.25) is reduced from 0.90 to 0.30.
+- `claimed_but_absent`: the source claims tahqiq on the cover but contains no footnotes or apparatus at all. Trust tier impact: tahqiq quality factor reduced to 0.20.
+- `insufficient_data`: fewer than 500 words of footnote text available for analysis. Classification deferred pending normalization.
+
+**Concrete example with Arabic text:** Rayane acquires two copies of صحيح البخاري:
+
+Edition A (تحقيق محمد فؤاد عبد الباقي): Footnotes contain: "كذا في نسخة اليونينية ونسخة أبي ذر الهروي، وفي نسخة الأصيلي: بزيادة..." (manuscript-specific variant readings), hadith numbering cross-referenced with Fath al-Bari. Manuscript reference density: 12.4. Variant density: 8.7. Classification: `genuine_critical` (0.95).
+
+Edition B (publisher: دار الكتب العلمية, muhaqiq: محمد حسن الشافعي): Footnotes contain generic biographical entries for narrators copied from Tahdhib al-Kamal, no variant readings, no manuscript references despite the cover claiming "تحقيق ومراجعة." Manuscript reference density: 0.2. Variant density: 0.0. Formulaic ratio: 0.91. Classification: `commercial_reprint` (0.88).
+
+The source engine automatically adjusts the trust evaluation for Edition B: tahqiq quality factor drops from 0.90 (recognized muhaqiq) to 0.30 (commercial reprint), which may push the combined trust score below the verified threshold. The owner is notified: "Edition B of صحيح البخاري claims tahqiq but the apparatus analysis found no manuscript references and no variant readings. This appears to be a commercial reprint. Recommend using Edition A as the preferred source."
+
+**Scholar impact:** Rayane no longer needs to manually evaluate whether a claimed tahqiq is genuine — a task that requires years of experience and comparing multiple editions. The source engine does this automatically, protecting the library from unreliable text that masquerades as critically edited. For a student who cannot yet distinguish good editions from bad ones, this is a scholarly mentor's judgment automated.
+
+**Implementation sketch:** During metadata extraction (Step 3), format-specific extractors already parse footnotes for Shamela HTML (footnote divs) and PDFs (Docling footnote detection). The engine extracts up to 5,000 characters of footnote text. Pattern matching for manuscript references and variant readings uses regex patterns on Arabic text (library names, folio notation, variant reading formulae). Footnote entropy is computed as Shannon entropy of word unigrams in the footnote text. The LLM classifies the overall apparatus quality using a prompt that includes: the footnote sample, the pattern analysis scores, and the muhaqiq name. Multi-model consensus is NOT required because the classification is non-destructive (it adjusts a trust factor, not content or attribution). The classification is stored in the source metadata and feeds into the trustworthiness evaluation (§4.A.8).
+
+**Failure handling:** If no footnotes are detected and the source claims a muhaqiq, the classification is `claimed_but_absent` with confidence 0.85. If footnote text is too short (< 500 words), classification is `insufficient_data` and the analysis is deferred until the normalization engine extracts more text. If pattern analysis and LLM classification disagree (e.g., patterns indicate genuine but LLM classifies as commercial), the higher-quality classification (the one with more evidence) is used and the disagreement is logged for human review.
+
+**Configuration:** The recognized muhaqiqs list (§4.A.8) and the watchlist of commercial editors are both configurable. Initial watchlist entries are derived from domain knowledge sources. The owner can add or remove entries. Both lists are stored in `library/config/muhaqiq_lists.json`.
+
+[NOT YET IMPLEMENTED] — Full specification provided. No code exists. Depends on: format-specific extractors (§4.A.3) for footnote text extraction, trustworthiness evaluation (§4.A.8) for trust factor integration.
+
 ---
 
 ## 5. Validation and Quality

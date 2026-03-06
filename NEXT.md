@@ -1,51 +1,43 @@
 # NEXT SESSION
 
 ## Session Type
-CREATIVE (see SESSION_TYPES.md for full framework)
+PRECISION (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Source engine CREATIVE session.** The synthesis engine SPEC is now hardened (CREATIVE + PRECISION + HARDENING complete). Following the refinement priority order (upstream first), the source engine is next. The source engine is the pipeline entry point — it defines what enters the library, and all downstream quality depends on its decisions.
+**Source engine PRECISION session.** The source engine SPEC has completed its CREATIVE session — three new §4.B capabilities were added (§4.B.8 Cross-Validated Scholar Authority Bootstrapping, §4.B.9 Source Difficulty Prediction, §4.B.10 Tahqiq Apparatus Fingerprinting), and the total capabilities now stand at 10. The SPEC is 1140+ lines.
 
-The source engine SPEC exists (933 lines) but was written during the preparatory phase, before KNOWLEDGE_INTEGRITY.md, before the research on attribution-first generation, and before the synthesis engine's threat model revealed how critical upstream metadata quality is. This CREATIVE session should: research state-of-the-art in digital Islamic library management, invent transformative capabilities, and ensure the §4.B section contains architect-originated capabilities that match the ambition level of the synthesis engine's §4.B.
+This PRECISION session should: make every rule in §4.A and §4.B machine-implementable (Claude Code can build with zero clarifying questions), fix all HIGH-severity defects from `check_spec_quality.py`, ensure all error codes from the new capabilities are in §7, and verify contracts.py matches the SPEC exactly.
 
 ## What to Read
 
-1. `engines/source/SPEC.md` — The full SPEC. This is a CREATIVE session — read the whole thing to understand what exists before inventing.
-2. `KNOWLEDGE_INTEGRITY.md` — Refresh on threats T-1 (silent text corruption), T-6 (metadata poisoning), T-7 (duplication). These originate at the source engine.
-3. `engines/synthesis/SPEC.md` §2.1 — What the synthesis engine expects from upstream. The source engine's output quality directly determines entry quality.
-4. `CREATIVE_MANDATE.md` — The invention protocol. Follow it.
-5. `reference/RESOURCES.md` — Check what tools/libraries exist for source acquisition and processing.
-6. `DOMAIN.md` §3 (Islamic scholarly text structure) — Essential for understanding source types.
+1. `engines/source/SPEC.md` — Full SPEC. This is a PRECISION session — read methodically, rule by rule.
+2. `engines/source/contracts.py` — Verify every model matches the SPEC output descriptions.
+3. Run `python3 scripts/check_spec_quality.py engines/source/SPEC.md` — Fix all HIGH defects.
+4. `KNOWLEDGE_INTEGRITY.md` §Invariants — Verify no new capability violates invariants.
 
-**Do NOT read:** VISION.md (use extract script if needed). Do NOT read other engine SPECs beyond §2 input contracts.
+**Do NOT read:** VISION.md, other engine SPECs, CREATIVE_MANDATE.md. This is precision work, not creative work.
 
 ## Definition of Done
 
-1. At least 8 web searches (3 problem space, 3 possibility, 2 validation)
-2. Invention notes with ≥ 3 new §4.B capabilities, each with named technology and concrete output example
-3. §4.A rules reviewed for precision — every rule implementable by Claude Code with zero clarifying questions
-4. §4.B capabilities fully specified (inputs, outputs, triggers, behavioral rules)
-5. contracts.py updated to match any SPEC changes
-6. SPEC quality check run, defect baseline established
-7. Self-audit: ≥ 3 structural/semantic defects found and fixed
-8. NEXT.md written (for source engine PRECISION session)
-9. SESSION_LOG.md updated
-10. Committed and pushed
+1. All HIGH-severity defects from `check_spec_quality.py` resolved
+2. Every §4.A rule has: input, output, edge case, failure handling
+3. Every §4.B capability has: input, output, trigger, behavioral rules, error codes
+4. All new error codes (from §4.B.8-10) added to §7 error taxonomy
+5. contracts.py has models for every SPEC output — no SPEC field without a corresponding Pydantic field
+6. SPEC quality check run: 0 HIGH defects
+7. Self-audit: ≥3 structural/semantic defects found and fixed
+8. §9 (Current Implementation State) updated to reference new capabilities as [NOT YET IMPLEMENTED]
+9. NEXT.md written (for source engine HARDENING session)
+10. SESSION_LOG.md updated
+11. Committed and pushed
 
-## Research Directions (Starting Points)
+## Key Defects to Fix (from CREATIVE session quality check)
 
-- How do digital Islamic libraries (Shamela, Waqfeya, Turath.io) organize and validate sources?
-- What source-level metadata can predict downstream extraction quality?
-- Can source fingerprinting detect editions automatically?
-- What makes one edition better than another (tahqiq quality signals)?
-- Can the source engine pre-analyze a source's table of contents to predict what the library will learn from it?
-
-## Key Context from Synthesis HARDENING
-
-The synthesis engine's cascade analysis revealed two critical upstream dependencies:
-1. **Scholar authority registry completeness** — metadata resolution failures cause position loss. The source engine should ensure scholar records are created during source registration.
-2. **Duplicate cluster accuracy** — the synthesis engine now verifies clusters but depends on the taxonomy engine's deduplication, which depends on the source engine's work-level matching. The source engine's edition detection quality is a root cause.
+The `check_spec_quality.py` run found 15 HIGH-severity defects, concentrated in:
+- Vague quantifiers ("multiple", "many", "some") — replace with specific numbers or "configurable" references
+- Unbounded "etc." — enumerate or reference configuration
+- Unvalidated writes — add explicit validation steps before writes in §4.B.5, §4.B.7
 
 ## Pending Owner Questions
 

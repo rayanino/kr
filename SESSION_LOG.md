@@ -672,3 +672,35 @@ None this session.
 
 ### Owner Questions
 - None new (API keys still pending, not blocking)
+
+---
+
+## Session 12 — Source Engine CREATIVE
+**Date:** 2026-03-06
+**Type:** CREATIVE
+**Focus:** Source engine §4.B transformative capabilities
+
+### What Was Done
+1. **Research phase** (7 web searches): Investigated digital Islamic library management, usul-data structured scholar dataset, CBDB prosopographical database model, Wikidata SPARQL for Islamic scholars, tahqiq quality assessment challenges.
+2. **Three new §4.B capabilities invented:**
+   - **§4.B.8 — Cross-Validated Scholar Authority Bootstrapping:** Uses Usul-Data (MIT) + Wikidata SPARQL + OpenITI to cross-validate scholar records across three independent sources. Disagreements surfaced as research signals. Death date triangulation, known works union, novel teacher-student links from Wikidata.
+   - **§4.B.9 — Source Difficulty Prediction:** Seven-signal weighted model predicts processing difficulty BEFORE normalization. Enables strategic queue prioritization — easy/high-yield sources first, matching curricular study order. No LLM call needed.
+   - **§4.B.10 — Tahqiq Apparatus Fingerprinting:** Automated detection of genuine vs. commercial tahqiq through analysis of footnote manuscript references, variant readings, hadith takhrij, and editorial entropy. Addresses documented problem of fake tahqiq editions.
+3. **contracts.py updated:** Added 8 new Pydantic models (CrossValidationResult, DifficultyPrediction, TahqiqFingerprint, and supporting models).
+4. **Self-audit:** 4 defects found and fixed (Wikidata rate limit retry, expected_human_gates formula, unbounded library names list, Usul-Data name normalization specification).
+5. **RESOURCES.md updated:** Usul-Data entry cross-referenced to §4.B.8.
+
+### Decisions
+- Usul-Data (seemorg/usul-data, MIT license) adopted as a scholar authority enrichment source alongside OpenITI
+- Wikidata SPARQL adopted as a third enrichment source for teacher-student links and cross-validation
+- Difficulty prediction does NOT use LLM — pure metadata computation for speed
+- Tahqiq fingerprinting uses single-model LLM (not consensus) because it's non-destructive (adjusts trust factor only)
+
+### Quality Metrics
+- SPEC: 933 → 1140+ lines (+200 lines of new capabilities)
+- §4.B capabilities: 7 → 10
+- check_spec_quality.py: 26 defects (15 HIGH) — to be resolved in PRECISION session
+- creative_verification.py: §4.B score 90/100, 15 named technologies
+
+### Owner Questions
+- None new (API keys still pending, not blocking)
