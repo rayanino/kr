@@ -2,13 +2,13 @@
 
 ## One-Time Setup
 
-Create a new Claude Chat project. Name it whatever you want (e.g., "KR Autonomous").
+Create a new Claude Chat project. Name it whatever you want (e.g., "KR").
 
-### 1. Enable features (two toggles)
+### 1. Enable features
 
 In the project's feature settings, enable:
 - **Code Execution and File Creation** — required, Claude works in the repo directly
-- **Web Search** — required, Claude does mandatory research during SPEC writing
+- **Web Search** — required, Claude does mandatory research during SPEC refinement
 
 ### 2. Custom Instructions
 
@@ -21,39 +21,26 @@ Click the "Raw" button (top right of the file). Select all text from line 5 (sta
 
 In the project's Custom Instructions field, paste the copied text.
 
-Then find `$KR_REPO_URL` in the pasted text (use Ctrl+F) and replace it with:
-```
-https://rayanino:YOUR_TOKEN_HERE@github.com/rayanino/kr.git
-```
-Replace `YOUR_TOKEN_HERE` with the token from your `Github_key` project file (the long string starting with `ghp_`).
+No variables to replace — Claude reads the GitHub token from the `Github_key` project knowledge file automatically.
 
 ### 3. Project Knowledge Files
 
-Download this file and add it as a project knowledge file:
-```
-https://github.com/rayanino/kr/blob/master/reference/DEEP_REASONING_PROTOCOL.md
-```
-(Click "Raw" → Save As → upload to the project as a knowledge file)
+Add TWO project knowledge files:
 
-### 4. Project Files
+**File 1: `DEEP_REASONING_PROTOCOL.md`**
+Download from: `https://github.com/rayanino/kr/blob/master/reference/DEEP_REASONING_PROTOCOL.md`
+(Click "Raw" → Save As → upload as project knowledge)
 
-Add one project file:
-- A text file containing your GitHub token (the same `Github_key` file from the current project, or create a new text file with the token)
-
-Name it `Github_key`.
-
-Do NOT add any other project files. No roadmap, no repo links. The repo contains everything Claude needs.
+**File 2: `Github_key`**
+Create a plain text file containing only your GitHub personal access token (the string starting with `ghp_`). Name it `Github_key`.
 
 ### Verification
 
 Your project should have:
-- Custom Instructions: ~100 lines starting with "You are the architect"
-- 1 knowledge file: `DEEP_REASONING_PROTOCOL.md`
-- 1 project file: `Github_key`
+- Custom Instructions: ~110 lines starting with "You are the architect"
+- 2 knowledge files: `DEEP_REASONING_PROTOCOL.md` and `Github_key`
 - Code Execution: enabled
 - Web Search: enabled
-
-**Note:** The Custom Instructions reference `$KR_REPO_URL` which you must replace with the authenticated GitHub URL. Every session after setup is just "Continue the project." — the repo's `NEXT.md` file drives all work.
 
 ## Every Session
 
@@ -65,42 +52,17 @@ Continue the project.
 
 Claude will clone the repo, read NEXT.md for its task, do the work, commit, and push. You may be asked domain questions about Islamic scholarship — answer from your experience.
 
-### Design Review Sessions
+### If You Want a Specific Type of Session
 
-To trigger a design critique or review, send:
-
-```
-Run a design review on [component or "the full system"].
-```
-
-or
-
-```
-Review the scholarly value of the current design.
-```
-
-Claude will follow the structured review protocol in `REVIEW_PROTOCOL.md` and produce concrete improvement recommendations.
-
-### Implementation Sessions
-
-Implementation sessions work the same way — just send "Continue the project." The NEXT.md file will direct Claude to the right task. Claude follows `ORCHESTRATOR.md` for implementation work and `MILESTONES.md` for task decomposition.
-
-## If You Disagree With a Decision
-
-Open a new conversation and say:
-
-```
-I have feedback on your last session: [describe your concern].
-```
-
-Claude will pull the repo, find the relevant decision, and address your concern.
+- **Design review:** "Run a design review on [component or 'the full system']."
+- **Feedback:** "I have feedback on your last session: [describe your concern]."
+- **Normal work:** "Continue the project." — NEXT.md directs Claude to the right task.
 
 ## If Something Breaks
 
-If Claude says it can't clone or push, check:
-1. Is the GitHub token still valid? (Tokens can expire)
-2. Is the repo URL correct in the Custom Instructions?
-3. Is Code Execution enabled?
+If Claude says it can't clone or push:
+1. Is the GitHub token still valid? (Tokens expire — generate a new one and update the `Github_key` knowledge file)
+2. Is Code Execution enabled in project settings?
 
-If Claude says it can't search the web, check:
-1. Is Web Search enabled in the project settings?
+If Claude says it can't search the web:
+1. Is Web Search enabled in project settings?

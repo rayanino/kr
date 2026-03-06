@@ -1,8 +1,8 @@
 # خزانة ريان — Project Status
 
 **Last updated:** 2026-03-06
-**Phase:** SPEC Refinement (Sub-phase A). All 14 SPECs drafted. Iterative refinement in progress — source engine SPEC first, then pipeline order. Implementation (Sub-phase B) begins after SPECs pass refinement.
-**Tests:** ABD-era tests archived to `reference/archive/abd_code/`. No KR-specific tests yet — they will be written during implementation (Sub-phase B).
+**Phase:** Preparatory — SPEC refinement in progress (0/14 refined). All 14 SPECs drafted. Implementation begins after SPECs pass refinement.
+**Tests:** ABD-era tests archived. No KR-specific tests yet — written during implementation.
 
 ---
 
@@ -71,19 +71,24 @@ ABD-era schemas archived to `schemas/archive/`. New schemas will be generated fr
 
 ## What Remains Before Implementation
 
-The preparatory phase SPEC writing is **complete**. All 14 SPECs are written (7 engines + 6 shared components + 1 interface = ~7,700 total lines). Cross-SPEC consistency verification and VISION corrections are **complete** (v1.2.0).
+**SPEC drafting** is complete. All 14 SPECs written (~7,700 lines). Cross-SPEC consistency and VISION corrections done (v1.2.0).
 
-Remaining preparatory work:
+**SPEC refinement** is the current focus. 0/14 SPECs have passed refinement (see `SPEC_REFINEMENT.md` for the 11-step process). Refinement goes in pipeline order: source → normalization → shared → passaging → atomization → excerpting → taxonomy → synthesis → scholar interface.
 
-1. ~~Cross-SPEC consistency verification~~ — **DONE** (2026-03-06). All 14 boundaries verified.
-2. ~~Full coherence review~~ — **DONE** (2026-03-06). Terminology consistent across all documents.
-3. ~~Cross-cutting VISION corrections~~ — **DONE** (2026-03-06). §8, §9, §11, §13.2 updated. Principles 13–15 added.
-4. ~~Re-verify §0–§4, §13~~ — **DONE** (2026-03-06). §0–§4 consistent with SPEC-derived knowledge. §13 updated.
-5. ~~Claude Code environment~~ — **DONE** (2026-03-06). `.claude/` populated: settings.json, 7 commands, 3 agents. Root CLAUDE.md rewritten (62L, §13.3.2 compliant).
-6. ~~Root CLAUDE.md rewrite~~ — **DONE** (2026-03-06). 62 lines, implementation-focused.
-7. **إملاء SCIENCE.md** — minimal Level 3 doc for first science. Can be done during Milestone 1 when needed.
+Completed preparatory tasks:
+- ~~Cross-SPEC consistency verification~~ — **DONE** (2026-03-06). All 14 boundaries verified.
+- ~~Full coherence review~~ — **DONE** (2026-03-06). Terminology consistent across all documents.
+- ~~Cross-cutting VISION corrections~~ — **DONE** (2026-03-06). §8, §9, §11, §13.2 updated. Principles 13–15 added.
+- ~~Claude Code environment~~ — **DONE** (2026-03-06). `.claude/` populated.
+- ~~Root CLAUDE.md rewrite~~ — **DONE** (2026-03-06). 62 lines, implementation-focused.
 
-**The preparatory phase is complete.** Next: Milestone 1 implementation (source + normalization engines, any format).
+Remaining preparatory tasks (from `PREPARATORY_ROADMAP.md`):
+1. **SPEC refinement** — 0/14 SPECs refined. Source engine SPEC is next.
+2. **Machine-readable contracts** — 2/7 engines have contracts.py (source, normalization). Others needed before their implementation.
+3. **Test data** — 7 fixture sets exist. Gold baselines not yet created.
+4. **GUI skeleton** — FastAPI app.py and base template not yet created (see `interface/GUI.md`).
+5. **SCIENCE.md** — minimal Level 3 doc for first science. Can be done during Milestone 1.
+6. **API keys** — .env file not yet created from .env.template.
 
 ---
 

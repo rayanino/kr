@@ -8,8 +8,9 @@ Claude Chat (the architect) has ~200K tokens total. This document provides concr
 
 | Item | Tokens (approx) | Notes |
 |------|-----------------|-------|
-| System prompt (PROJECT_INSTRUCTIONS.md content) | ~5,000 | ~100 lines, loaded by Claude Chat as custom instructions |
-| Knowledge file (DEEP_REASONING_PROTOCOL.md) | ~8,000 | Loaded automatically |
+| System prompt (PROJECT_INSTRUCTIONS.md content) | ~5,000 | Loaded as project custom instructions |
+| Knowledge file (DEEP_REASONING_PROTOCOL.md) | ~8,000 | Loaded automatically as project knowledge |
+| Knowledge file (Github_key) | ~50 | GitHub access token |
 | Startup (clone, NEXT.md, git log) | ~2,000 | Commands + output |
 | Claude's reasoning overhead | ~30,000 | Internal chain-of-thought per session |
 

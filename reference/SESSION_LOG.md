@@ -361,3 +361,24 @@ to an IMPLEMENTATION session.
 **NEXT.md: Pivoted from SPEC_REFINEMENT to IMPLEMENTATION.** First build task: source engine
 foundation (intake, freeze, metadata) for PDF format using waraqat_usul fixture. Definition of done:
 5+ passing tests, valid SourceMetadata output, duplicate detection working.
+
+
+### Session 2026-03-06 — Claude Chat: Autonomous System Gap Analysis and Fixes
+
+**Type:** META (system improvement)
+
+**Gap analysis findings:**
+- CRITICAL: `$KR_REPO_URL` undefined in PROJECT_INSTRUCTIONS.md — every session's startup failed without hardcoding
+- CRITICAL: No explicit "continue the project" trigger in custom instructions
+- MODERATE: STATUS.md falsely claimed "preparatory phase is complete" while 0/14 SPECs refined
+- MODERATE: .claude/ hooks/commands/agents are Claude Code-only; Claude Chat sessions must self-enforce protocols
+- MINOR: HOW_TO_START.md referenced stale $KR_REPO_URL pattern
+
+**Fixes applied:**
+1. PROJECT_INSTRUCTIONS.md: Replaced `$KR_REPO_URL` with Github_key knowledge file reference. Added explicit "continue the project" trigger. Added SESSION_LOG.md to commit checklist. Clarified .claude/ automation is Claude Code-only.
+2. STATUS.md: Fixed misleading "preparatory phase is complete" language. Now clearly states 0/14 SPECs refined and lists remaining preparatory tasks.
+3. HOW_TO_START.md: Rewritten for cleaner setup — no variable replacement needed, 2 knowledge files, verification checklist.
+4. CONTEXT_BUDGET.md: Fixed knowledge file reference (added Github_key, clarified DEEP_REASONING_PROTOCOL.md).
+5. DEEP_REASONING_PROTOCOL.md: Copied from archive to reference/ for consistent download link.
+
+**No new decisions.** All changes are operational fixes, not architectural.
