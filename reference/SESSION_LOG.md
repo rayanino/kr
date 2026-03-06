@@ -320,3 +320,44 @@ All removed detail is already in repo files loaded on-demand via NEXT.md. The cu
 - Updated .env.template with OCR, vector search, and application config
 - orient.py checks: SPEC refinement status, code files, test data, API keys, GUI components, and produces actionable "what is needed next" list
 
+
+
+### Session 2026-03-06 — Claude Chat: Session 9 — Technology Survey + Implementation Pivot
+
+**Key insight:** After 8 sessions producing 24K lines of governance and 0 lines of engine code, the project
+was trapped in a planning loop. The source SPEC is comprehensive enough to build from. This session
+broke the cycle by: verifying external tools, fixing real contract mismatches, and pivoting NEXT.md
+to an IMPLEMENTATION session.
+
+**Technology survey (web research):**
+- Docling: Production-stable v2.66+ (Jan 2026), MIT license, Arabic experimental. PDF/DOCX/images.
+- CAMeL Tools: v1.5.2, active, Python 3.8-3.12. Morphological analysis, dediacritization, NER.
+- Arabic Embeddings: Swan-Large (NYUAD) now SOTA for Arabic, outperforms Multilingual-E5-large.
+- OpenITI: Latest release Dec 2025. Python v0.1.6. Metadata CSV available for scholar bootstrapping.
+
+**contracts.py fixes (source engine):**
+- Added WORD_DOC to SourceFormat enum (mughni_comparative fixture is Word docs)
+- Added WorkLevel enum (beginner/intermediate/advanced/specialist) — was in SPEC but missing from contracts
+- Expanded GenreRelationType with taqrirat, responds_to, cites (matching SPEC §4.A.9)
+- Added ScholarAuthorityRecord (27 fields) — full scholar model from SPEC §4.A.5
+- Added WorkRegistryEntry (10 fields) — work registry schema from SPEC §3
+- Added SourceRegistryEntry (10 fields) — source registry schema from SPEC §3
+
+**New: normalization engine contracts.py:**
+- ContentUnit (11 fields) — the per-page schema that crosses the normalization boundary
+- NormalizedManifest (13 fields) — package metadata including division tree, layer map, quality report
+- NormalizedPackage — convenience wrapper for manifest + content stream
+- Supporting models: TextLayerSegment, Footnote, StructuralMarkers, DivisionNode, etc.
+- All enums: TextFidelityLevel, LayerType, HeadingConfidence, FootnoteType, StructuralFormat
+
+**SPEC fixes:**
+- Source SPEC §2: Added Word document (.doc/.docx) to supported formats
+- Source SPEC §4.A.3: Added Word document extractor section
+- Normalization SPEC: `source_type` → `source_format` (4 occurrences, matching contracts.py canonical name)
+- Normalization SPEC: Added word_doc normalizer to normalizer table
+
+**Updated: RESOURCES.md** with 2026 survey findings at top of file. Swan-Large as recommended Arabic embedding.
+
+**NEXT.md: Pivoted from SPEC_REFINEMENT to IMPLEMENTATION.** First build task: source engine
+foundation (intake, freeze, metadata) for PDF format using waraqat_usul fixture. Definition of done:
+5+ passing tests, valid SourceMetadata output, duplicate detection working.

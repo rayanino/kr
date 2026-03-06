@@ -42,7 +42,7 @@ The source engine receives input from two paths.
 
 **Manual acquisition.** The owner provides source material through the manual input interface. Manual input arrives as one of:
 
-1. **Structured digital files.** A file or directory the owner places in the intake staging area. Supported file types: Shamela HTML export (single `.htm` file or numbered directory of `.htm` files), PDF (text-embedded or scanned), EPUB, plain text. The owner provides: the file(s), and optionally: a suggested book ID, edition notes, science scope hint, and any metadata hints (author name, work title, genre). Unrecognized file types are rejected with error `SRC_UNSUPPORTED_FORMAT` and a suggestion to convert or provide in a supported format.
+1. **Structured digital files.** A file or directory the owner places in the intake staging area. Supported file types: Shamela HTML export (single `.htm` file or numbered directory of `.htm` files), PDF (text-embedded or scanned), Word document (`.doc` or `.docx`), EPUB, plain text. The owner provides: the file(s), and optionally: a suggested book ID, edition notes, science scope hint, and any metadata hints (author name, work title, genre). Unrecognized file types are rejected with error `SRC_UNSUPPORTED_FORMAT` and a suggestion to convert or provide in a supported format.
 
 2. **Photographic scans.** iPhone camera photos or other image files (JPEG, PNG, TIFF, HEIC) of physical book pages. These arrive as a directory of images representing sequential pages. The owner provides: the images, and required: the work title and author name (these cannot be reliably auto-extracted from photos alone). Optional: page number range, volume number, edition notes.
 
@@ -155,6 +155,8 @@ Each source type has a metadata extractor — a module that knows how to pull me
 **Image extractor.** For photographic scans: performs OCR on the first image (assumed to be title page or cover) to extract title and author. Uses Google Document AI or Docling for Arabic OCR. If OCR confidence is below 0.70 on critical fields (title, author), creates a human gate checkpoint requesting manual entry. Image count serves as page count.
 
 **Plain text / EPUB extractor.** Minimal extraction: title from filename or first line, page count from character/word count estimation. Most metadata will come from LLM inference and owner input.
+
+**Word document extractor.** For `.doc` and `.docx` files: uses Docling (see RESOURCES.md) to extract text and metadata. Document properties (title, author, creation date) are extracted from Word metadata fields. For collections of Word files in a directory (e.g., one file per chapter), the source engine treats the directory as a single multi-part source, ordering files by filename. Encoding detection is critical: Arabic filenames in ZIP archives often use CP1256 encoding (as seen in the mughni_comparative fixture). The extractor normalizes filenames to UTF-8 and preserves the original filename in metadata.
 
 **Owner-authored content extractor.** No format-specific extraction needed — the owner provides the metadata directly through the input interface. The extractor validates the input type and captures any metadata hints.
 

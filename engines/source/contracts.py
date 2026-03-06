@@ -33,6 +33,7 @@ class SourceFormat(str, Enum):
     IMAGE_SCAN = "image_scan"
     PLAIN_TEXT = "plain_text"
     EPUB = "epub"
+    WORD_DOC = "word_doc"       # .doc/.docx files (e.g., mughni_comparative fixture)
     OWNER_AUTHORED = "owner_authored"
 
 class OwnerAuthoredType(str, Enum):
@@ -70,6 +71,16 @@ class GenreRelationType(str, Enum):
     MUKHTASAR = "mukhtasar"   # Abridgment of a larger work
     NAZM = "nazm"             # Versification of a prose work
     TAKHREEJ = "takhreej"     # Hadith verification/tracing
+    TAQRIRAT = "taqrirat"     # Lecture notes on a work
+    RESPONDS_TO = "responds_to"  # Written in response to or refutation of
+    CITES = "cites"           # References another work (discovered during processing)
+
+class WorkLevel(str, Enum):
+    """Scholarly level of a work (SPEC §4.A.4)."""
+    BEGINNER = "beginner"
+    INTERMEDIATE = "intermediate"
+    ADVANCED = "advanced"
+    SPECIALIST = "specialist"
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -110,6 +121,81 @@ class MetadataHistoryEntry(BaseModel):
     changed_by: str = Field(description="Engine or component that made the change")
     timestamp: str = Field(description="ISO 8601 timestamp")
 
+
+class ScholarAuthorityRecord(BaseModel):
+    """Full scholar record in the scholar authority registry (SPEC §4.A.5).
+
+    Written to: library/registries/scholars.json (keyed by canonical_id).
+    Created by the source engine, enriched by downstream engines.
+    """
+    canonical_id: str = Field(description="sch_{5_digit_sequence}, e.g. sch_00042")
+    canonical_name_ar: str = Field(description="Full Arabic name")
+    known_as: list[str] = Field(default_factory=list, description="Common short names, e.g. ['سيبويه']")
+    name_variants: list[str] = Field(default_factory=list, description="All known name forms")
+    kunya: Optional[str] = None
+    laqab: list[str] = Field(default_factory=list)
+    nisba: list[str] = Field(default_factory=list)
+    birth_date_hijri: Optional[int] = None
+    birth_date_ce: Optional[int] = None
+    death_date_hijri: Optional[int] = None
+    death_date_ce: Optional[int] = None
+    death_date_approximate: bool = False
+    era_century_hijri: Optional[int] = None
+    geographic_origin: Optional[str] = None
+    geographic_active: list[str] = Field(default_factory=list)
+    school_affiliations: dict[str, Optional[str]] = Field(
+        default_factory=dict,
+        description="Science → school mapping, e.g. {'nahw': 'بصري', 'fiqh': 'حنبلي'}"
+    )
+    teachers: list[str] = Field(default_factory=list, description="List of canonical_ids")
+    students: list[str] = Field(default_factory=list, description="List of canonical_ids")
+    known_works: list[str] = Field(default_factory=list, description="List of work_ids")
+    scholarly_standing: Optional[str] = Field(None, description="Brief assessment of scholarly importance")
+    methodology_notes: Optional[str] = None
+    disambiguation_notes: Optional[str] = Field(
+        None,
+        description="Notes for disambiguating this scholar from others with similar names"
+    )
+    sources_encountered_in: list[str] = Field(default_factory=list, description="List of source_ids")
+    record_completeness: float = Field(0.0, ge=0.0, le=1.0, description="Fraction of fields filled")
+    record_sources: list[str] = Field(default_factory=list, description="e.g. ['auto_inference', 'openiti_metadata', 'owner_input']")
+    revision_history: list[MetadataHistoryEntry] = Field(default_factory=list)
+    last_updated: str = Field(description="ISO 8601 timestamp")
+
+
+class WorkRegistryEntry(BaseModel):
+    """A work record in the work registry (SPEC §3, §4.A.1).
+
+    Written to: library/registries/works.json (keyed by work_id).
+    """
+    work_id: str = Field(description="wrk_{author_slug}_{title_slug}")
+    canonical_title: str = Field(description="Canonical Arabic title")
+    author_canonical_id: str = Field(description="Reference to scholar authority registry")
+    genre: Optional[str] = None
+    science_scope: list[str] = Field(default_factory=list)
+    source_ids: list[str] = Field(default_factory=list, description="All sources for this work")
+    preferred_source_id: Optional[str] = Field(None, description="Owner's preferred edition")
+    relationships: list[GenreChain] = Field(default_factory=list, description="Edges in the work graph")
+    status: str = Field(description="active | referenced_not_acquired")
+    citation_count: int = Field(0, description="Times cited by excerpts from other works")
+
+
+class SourceRegistryEntry(BaseModel):
+    """A source record in the source registry (SPEC §3).
+
+    Written to: library/registries/sources.json (keyed by source_id).
+    """
+    source_id: str
+    work_id: str
+    title_arabic: str
+    author_canonical_id: str
+    trust_tier: TrustTier
+    processing_status: str = Field(description="staging|acquired|normalizing|normalized|processing|complete|error|withdrawn")
+    frozen_hash: str
+    intake_timestamp: str
+    acquisition_path: str = Field(description="manual | autonomous")
+    error_detail: Optional[str] = None
+
 class VolumeInfo(BaseModel):
     """Volume mapping for multi-volume works (SPEC §4.A.1)."""
     volume_number: int
@@ -141,6 +227,7 @@ class SourceMetadata(BaseModel):
     science_scope: list[str] = Field(description="Sciences this source covers, e.g. ['fiqh', 'usul_al_fiqh']")
     genre: str = Field(description="Primary genre classification")
     genre_chain: Optional[GenreChain] = Field(None, description="If this work is a sharh/hashiyah/mukhtasar/nazm of another work")
+    level: Optional[WorkLevel] = Field(None, description="Scholarly level: beginner/intermediate/advanced/specialist")
 
     # ── Source characteristics (SPEC §4.A.4) ──
     source_format: SourceFormat
@@ -181,7 +268,7 @@ class SourceMetadata(BaseModel):
     work_relationships: list[GenreChain] = Field(default_factory=list, description="All known relationships to other works")
 
     # ── Processing state (SPEC §4.A.2) ──
-    status: str = Field(description="acquired | processing | error")
+    status: str = Field(description="staging|acquired|normalizing|normalized|processing|complete|error|withdrawn")
     intake_timestamp: str = Field(description="ISO 8601 timestamp of acquisition")
     acquisition_path: str = Field(description="manual | autonomous")
 

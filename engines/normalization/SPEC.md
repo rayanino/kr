@@ -45,7 +45,7 @@ The normalization engine receives two inputs per source.
 **Source metadata record.** Located at `library/sources/{source_id}/metadata.json`. The normalization engine reads the following fields from the source metadata:
 
 - `source_id`: the canonical identifier for this source. Becomes the primary key linking the normalized package to its source.
-- `source_type`: determines which normalizer processes this source. Values: `shamela_html`, `pdf_text`, `pdf_scanned`, `image_scan`, `epub`, `plain_text`, `owner_authored`. The source engine detects the source type during intake (§4.A.2 of source SPEC). If `source_type` is unrecognized, the normalization engine rejects with `NORM_UNKNOWN_SOURCE_TYPE`.
+- `source_format`: determines which normalizer processes this source. Values: `shamela_html`, `pdf_text`, `pdf_scanned`, `image_scan`, `epub`, `plain_text`, `owner_authored`. The source engine detects the source type during intake (§4.A.2 of source SPEC). If `source_format` is unrecognized, the normalization engine rejects with `NORM_UNKNOWN_SOURCE_FORMAT`.
 - `work_id`: used for output file naming and cross-referencing.
 - `text_fidelity`: the source-level fidelity signal from the source engine. The normalization engine uses this as a baseline and may refine it to page-level granularity based on actual processing quality (e.g., OCR confidence scores per page).
 - `structural_format`: the source engine's initial classification (prose, verse, commentary, etc.). The normalization engine may override this if content analysis reveals a different format.
@@ -58,7 +58,7 @@ The normalization engine does NOT read: scholarly_context, trust_tier, genre_cha
 **Validation on input.** The normalization engine validates before processing:
 1. The frozen directory exists and contains at least one file.
 2. The source metadata record exists and contains the required fields listed above.
-3. The `source_type` is one of the recognized values.
+3. The `source_format` is one of the recognized values.
 4. For multi-volume sources: the volume files are present as described in the metadata.
 
 If validation fails, the source is rejected with the appropriate error code (§7) and its processing status is set to `error`. The normalization engine never proceeds with a source that fails input validation — partial normalization is worse than no normalization because downstream engines would process corrupt data.
@@ -143,7 +143,7 @@ These discoveries are written back to the source metadata record through the enr
 
 #### §4.A.1 — Normalizer Architecture
 
-The normalization engine follows a dispatcher-normalizer pattern. A central dispatcher reads the `source_type` from the source metadata, selects the appropriate normalizer module, and invokes it. Each normalizer encapsulates ALL format-specific logic for one source type. The dispatcher knows nothing about any format.
+The normalization engine follows a dispatcher-normalizer pattern. A central dispatcher reads the `source_format` from the source metadata, selects the appropriate normalizer module, and invokes it. Each normalizer encapsulates ALL format-specific logic for one source type. The dispatcher knows nothing about any format.
 
 **Normalizer interface.** Every normalizer implements the same interface:
 
@@ -162,6 +162,7 @@ The normalizer may be arbitrarily complex internally — thousands of lines, mul
 | `pdf_scanned` | Scanned PDF normalizer | [NOT YET IMPLEMENTED] | For scanned PDFs requiring OCR |
 | `image_scan` | Image normalizer | [NOT YET IMPLEMENTED] | For iPhone photos and other image-based sources |
 | `epub` | EPUB normalizer | [NOT YET IMPLEMENTED] | For EPUB format sources |
+| `word_doc` | Word document normalizer | [NOT YET IMPLEMENTED] | For .doc/.docx files; uses Docling for extraction |
 | `plain_text` | Plain text normalizer | [NOT YET IMPLEMENTED] | For raw text files with minimal structure |
 | `owner_authored` | Owner content normalizer | [NOT YET IMPLEMENTED] | For owner's study notes, tarjih, research drafts |
 
@@ -519,7 +520,7 @@ If future experience shows that LLM-assisted operations in this engine have unac
 
 | Code | Severity | Trigger | Recovery |
 |------|----------|---------|----------|
-| `NORM_UNKNOWN_SOURCE_TYPE` | Fatal | `source_type` not recognized | Reject. Owner or source engine must correct the metadata. |
+| `NORM_UNKNOWN_SOURCE_FORMAT` | Fatal | `source_format` not recognized | Reject. Owner or source engine must correct the metadata. |
 | `NORM_MISSING_FROZEN` | Fatal | Frozen directory empty or missing | Reject. Source engine must re-freeze. |
 | `NORM_MISSING_METADATA` | Fatal | Source metadata record missing or invalid | Reject. Source engine must recreate metadata. |
 | `NORM_SCHEMA_VIOLATION` | Fatal | Output fails schema validation | Abort normalization. Log the violation. This is a normalizer bug. |
@@ -645,7 +646,7 @@ Each science may customize:
 
 8. **Content flag correctness.** Verify that `has_verse` is true for known verse pages, `has_table` for known table pages, `has_quran_citation` for pages with Quran citations, etc.
 
-9. **Error handling.** Test every error code: provide unsupported format → `NORM_UNKNOWN_SOURCE_TYPE`. Provide empty source → `NORM_MISSING_FROZEN`. Etc.
+9. **Error handling.** Test every error code: provide unsupported format → `NORM_UNKNOWN_SOURCE_FORMAT`. Provide empty source → `NORM_MISSING_FROZEN`. Etc.
 
 10. **OCR quality (when implemented).** For scanned sources: compare OCR output against manually transcribed gold baselines. Measure CER and WER per page. Verify that dual-OCR comparison produces higher-confidence output than single-OCR.
 

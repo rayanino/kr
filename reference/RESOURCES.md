@@ -1,8 +1,22 @@
 # خزانة ريان — External Resources Catalog
 
+**Last surveyed:** 2026-03-06 (Session 9)
+
 This file maps known external tools, libraries, and services to KR engines. Every engine SPEC should consider whether existing tools can handle part of the work before designing custom solutions.
 
 **Principle:** Build on existing tools wherever possible. Custom code is a last resort. If a library handles 80% of the job, use it and write custom code for the remaining 20%.
+
+## Technology Survey Update (2026-03-06)
+
+Key findings from web research:
+
+**Docling** — Production-stable v2.66+ (Jan 2026). Now under LF AI & Data Foundation (MIT license). Handles PDF, DOCX, PPTX, XLSX, HTML, images, audio/video. Granite-Docling-258M VLM model adds end-to-end document understanding. Arabic support is **experimental** — English is primary target. The Heron layout model (Dec 2025) improves PDF parsing speed. MCP server integration available. `pip install docling` — Python 3.10+.
+
+**CAMeL Tools** — v1.5.2, actively maintained. Python 3.8-3.12. Widely used in ArabicNLP 2025 conference papers. Provides morphological analysis, dediacritization, tokenization, NER, dialect ID. Requires Rust compiler and CMake for installation.
+
+**Arabic Embeddings** — Swan models (NYUAD/Omartificial) now outperform Multilingual-E5-large for Arabic tasks. Swan-Large achieves SOTA on ArabicMTEB. For KR: recommend **Swan-Large** for semantic search, or **Arabic-STS-Matryoshka** (score 83.16 on STS17) for efficient retrieval with Matryoshka dimensionality reduction. The SPEC's "arabic-e5-base or GTE-multilingual-base" are reasonable fallbacks.
+
+**OpenITI** — Latest release Dec 2025 on Zenodo. Python package v0.1.6 (Nov 2025, `pip install openiti`). The metadata CSV at kitab-corpus-metadata.azurewebsites.net is the key resource for scholar authority bootstrapping (§4.B.1). CTS-compliant URIs encode author death dates (e.g., `0505Ghazali.IhyaCulumDin`). Over 7,000 texts integrated, 40,000+ raw texts available.
 
 ---
 
@@ -563,6 +577,12 @@ Optional keys (add as needed):
 - **Key domain insight:** Classical progressions are text-based (study this book, then that book), not topic-based. KR's curriculum system must bridge both: the classical text sequence AND the taxonomy's topic sequence. The curriculum follows the text order (الآجرومية then قطر الندى) but within each text, topics follow the taxonomy's narrative ordering.
 
 ### Arabic Embedding Models (for semantic retrieval)
+- **Swan-Large** (NYUAD): SOTA for Arabic tasks on ArabicMTEB benchmark (2024). Outperforms Multilingual-E5-large in most Arabic tasks. Dialectally and culturally aware.
+- **Arabic-STS-Matryoshka** (Omartificial-Intelligence-Space): Score 83.16 on STS17. Supports Matryoshka dimensionality reduction for efficient retrieval.
+- **Multilingual-E5-base/large** (Microsoft): Strong multilingual baseline, good Arabic support.
+- **GTE-multilingual-base** (Alibaba): Good Arabic support, efficient.
+- **Relevant engines:** Scholar interface (semantic search), excerpting (similarity detection)
+- **Recommendation:** Swan-Large for quality, Arabic-STS-Matryoshka for efficiency. Benchmark on KR's actual Arabic scholarly text before committing.
 - **AraGemma-Embedding-300m:** https://huggingface.co/Omartificial-Intelligence-Space/AraGemma-Embedding-300m — Fine-tuned from Google's EmbeddingGemma-300M for Arabic semantic understanding. 300M params, supports Matryoshka dimensions (flexible truncation). Trained on 1M Arabic triplet pairs. Lightweight, deployable locally.
 - **Swan-Large (MBZUAI):** https://arxiv.org/abs/2411.01192 — Dialect-aware Arabic-centric embedding model. Top performer on ArabicMTEB benchmark across retrieval, STS, classification, and clustering. Specifically designed for Arabic linguistic intricacies.
 - **Arabic-triplet-Matryoshka-V2:** https://huggingface.co/collections/Omartificial-Intelligence-Space/arabic-matryoshka-and-gate-embedding-models — #1 on MTEB STS17 Arabic-Arabic leaderboard (score 85.3). Uses Matryoshka learning for efficient multi-resolution embeddings.
