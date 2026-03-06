@@ -1,81 +1,80 @@
 # NEXT SESSION
 
 ## Session Type
-PRECISION (see SESSION_TYPES.md for full framework)
+HARDENING (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Make the source engine SPEC implementation-ready.**
+**Verify no knowledge corruption paths exist in the source engine SPEC.**
 
-This is NOT a creative session. Do NOT invent new capabilities. This session exists for ONE purpose: eliminate every defect that would cause Claude Code to ask a clarifying question.
+This is NOT a creative session. Do NOT invent new capabilities. This session exists for ONE purpose: ensure that no path exists where bad data can silently enter the library through the source engine.
 
 ## What to Read
 
-1. `engines/source/SPEC.md` — **ALL sections.** You are cleaning this.
-2. `engines/source/contracts.py` — verify contracts match SPEC after your edits
-3. `reference/ENTRY_EXAMPLE.md` — the quality target (refresh your understanding of what metadata the synthesizer needs)
+1. `engines/source/SPEC.md` — **Focus on §4.A (processing rules), §5 (validation), §7 (error handling).** These are the corruption-relevant sections.
+2. `KNOWLEDGE_INTEGRITY.md` — the full threat model. Read this FIRST to know what threats to look for.
+3. `reference/ENTRY_EXAMPLE.md` — understand what metadata the synthesizer needs (a metadata error in the source engine → a wrong claim in an entry).
 
-**Do NOT read:** CREATIVE_MANDATE.md, other engine SPECs, VISION.md sections unrelated to source engine. Stay focused.
+**Do NOT read:** CREATIVE_MANDATE.md, other engine SPECs, VISION.md sections unrelated to source engine.
 
-**Budget:** ~10K tokens on reading. ~60K tokens on precision edits. ~20K tokens on validation. ~10K tokens on handoff.
+**Budget:** ~15K tokens on reading (including KNOWLEDGE_INTEGRITY.md). ~50K tokens on hardening analysis. ~15K tokens on fixes. ~10K tokens on handoff.
 
-## The Precision Work (follow this sequence)
+## The Hardening Work (follow this sequence)
 
-### Step 1: Run quality baseline
+### Step 1: Threat analysis
+For each §4.A processing step, identify:
+- What data enters (from where? trusted or untrusted?)
+- What transformation occurs
+- What data exits (to where? does downstream engine trust it?)
+- What could go wrong (corrupted input, LLM hallucination, race condition, silent default)
+- What prevents each failure mode (validation, consensus, human gate, logging)
+
+Focus especially on:
+- **Author identification** (§4.A.4, §4.A.5): Wrong author ID cascades to every excerpt and entry.
+- **Work matching** (§4.A.1, §4.A.7): Wrong work_id means excerpts from different works are mixed.
+- **Trust evaluation** (§4.A.8): Wrong trust tier means unreliable content enters as verified.
+- **Enrichment write-back** (§2): A downstream engine could write corrupt data back.
+
+### Step 2: Identify gaps
+For each threat identified, check: does the SPEC specify a mitigation? Is the mitigation sufficient? Could an implementer accidentally skip it?
+
+### Step 3: Fix gaps
+Write concrete SPEC additions for any unmitigated threats. Use the precision style: exact rules, exact error codes, exact recovery actions.
+
+### Step 4: Verify
 ```
 python3 scripts/check_spec_quality.py engines/source/SPEC.md --verbose
 ```
-Record: "Baseline: X high-severity defects."
-
-### Step 2: Fix all HIGH severity defects
-
-The creative session (2026-03-06) left 41 high-severity defects. Most are in §4.A (the creative session did not touch §4.A). Categories:
-
-- **MISSING_EXAMPLE (14 instances):** Every §4 subsection needs a worked example with real Arabic text. This is the biggest gap. Write concrete input→output examples for: §4.A.1 (identity model), §4.A.2 (acquisition workflow), §4.A.3 (metadata extraction), §4.A.6 (relevance evaluation), §4.A.7 (deduplication), §4.A.8 (trustworthiness), §4.A.9 (work relationships), §4.A.10 (status tracking).
-- **VAGUE_QUANTIFIER (7 instances):** Replace "multiple", "many", "some" with specific numbers or bounded ranges.
-- **UNBOUNDED_ETC (6 instances):** Replace "etc." with exhaustive lists or explicit scope.
-- **UNVALIDATED (8 instances):** Ensure every write to disk has validation specified.
-- **VAGUE_APPROPRIATE (2 instances):** Replace "appropriate" with specific criteria.
-
-### Step 3: Verify contracts.py alignment
-
-After editing the SPEC, check that `contracts.py` still matches:
-- Any new fields added to §3 or §4.A must appear in the Pydantic models
-- Any new enums must be defined
-- The `compositional_profile` from §4.B.5 needs a Pydantic model
-- The `edition_comparison` from §4.B.6 needs a Pydantic model
-- The `genealogy_metadata` from §4.B.7 needs a Pydantic model
-
-### Step 4: Run quality verification
-```
-python3 scripts/check_spec_quality.py engines/source/SPEC.md --verbose
-python3 scripts/creative_verification.py engines/source/SPEC.md
-```
-Target: ≤10 high-severity defects (down from 41). §4.B score remains ≥85.
+Target: ≤4 high-severity defects (maintaining baseline from PRECISION session).
 
 ## Definition of Done
 
-1. All MISSING_EXAMPLE defects resolved — every §4 subsection has a worked example
-2. All VAGUE_QUANTIFIER defects resolved — no unbounded "many", "some", "multiple"
-3. All UNBOUNDED_ETC defects resolved — no "etc." remains
-4. `contracts.py` updated with new models for §4.B.5, §4.B.6, §4.B.7 output schemas
-5. `check_spec_quality.py` reports ≤10 high-severity defects
-6. `creative_verification.py` score remains ≥85
-7. NEXT.md written for the next session (HARDENING for source engine)
-8. SESSION_LOG.md updated
-9. Committed and pushed
+1. Threat analysis documented (can be inline in SPEC or a separate section)
+2. All identified corruption paths have explicit mitigations in the SPEC
+3. No new SPEC defects introduced
+4. `check_spec_quality.py` ≤4 high-severity defects
+5. NEXT.md written for next session (IMPLEMENTATION_PREP for source engine)
+6. SESSION_LOG.md updated
+7. Committed and pushed
 
 ## What the Previous Session Did
 
-CREATIVE session (2026-03-06): Added 3 new transformative §4.B capabilities to the source engine SPEC:
-- §4.B.5: KITAB Text Reuse Integration for Source Compositional Profiling (uses KITAB passim dataset to show a source's place in the classical Arabic intertextual network)
-- §4.B.6: Edition Comparison Intelligence (automated comparison of multiple editions of the same work, classifying divergences)
-- §4.B.7: Scholarly Genealogy Auto-Construction (builds teacher-student chains using OpenITI + LLM inference + NetworkX graph analysis)
+PRECISION session (2026-03-06): Made the source engine SPEC implementation-ready.
 
-Updated RESOURCES.md with: KITAB text reuse statistics, passim algorithm, eScriptorium/Kraken, NetworkX.
+Changes:
+- Added 12 worked examples with Arabic text to §4.A and §4.B subsections
+- Replaced all "etc." (6 instances) with exhaustive lists
+- Replaced all vague quantifiers ("multiple", "many", "some") with specific numbers (7 instances)
+- Replaced "appropriate" with specific criteria (2 instances)
+- Added explicit validation references at all write points
+- Expanded genre list to 18 exhaustive entries
+- Added Genre enum, CompositionalProfile, EditionComparison, GenealogyMetadata Pydantic models to contracts.py
+- Added MIXED structural format to contracts.py
 
-§4.B score went from 75/100 → 90/100. 4 → 7 capabilities. 2 → 7 named technologies. Examples added (was none).
+Quality results:
+- check_spec_quality: 41 HIGH → 4 HIGH (all false positives in §4.B narrative and §9 gaps)
+- creative_verification: §4.B score 90/100 (maintained from creative session)
 
 ## Pending Owner Questions
 
-- **API keys:** Will be needed for the IMPLEMENTATION_PREP session (after PRECISION + HARDENING). Not needed yet.
+- **API keys:** Will be needed for the IMPLEMENTATION_PREP session (after HARDENING). Not needed yet.

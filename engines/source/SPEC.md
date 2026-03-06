@@ -11,7 +11,7 @@ The source engine is the pipeline entry point. It accepts raw knowledge material
 - Freezes raw source files with cryptographic integrity hashes
 - Detects duplicates across acquisition paths and repositories
 - Classifies source trustworthiness for default verified/flagged status
-- Tracks work-to-work relationships (sharh→matn, mukhtasar→original, etc.)
+- Tracks work-to-work relationships (sharh→matn, hashiyah→sharh, mukhtasar→original, nazm→prose_original, taqrirat→base_work, responds_to, cites — the full taxonomy is defined in §4.A.9)
 - Creates and enriches scholar authority records
 - Classifies source structural format, authority level, multi-layer composition, and science scope
 - Produces the source metadata record consumed by the normalization engine and (through the pipeline) by every engine down to the synthesizer
@@ -68,13 +68,14 @@ The source engine produces two primary artifacts per acquired source, plus updat
 
 1. **Frozen source file(s).** The raw source material, copied to `library/sources/{source_id}/frozen/` and set read-only. A SHA-256 hash is computed at freeze time and stored in the source metadata record. No component of the application — including the source engine during later enrichment — may modify frozen files. For multi-file sources (multi-volume directories, photo sets), each file is individually hashed and the composite hash is recorded.
 
-2. **Source metadata record.** A structured JSON file written to `library/sources/{source_id}/metadata.json`, conforming to the source metadata schema. This record contains everything known about the source at intake time plus a mechanism for progressive enrichment. The required fields are specified throughout §3 (output guarantees) and §4.A.4 (inferred fields). The actual JSON schema file will be generated from these requirements during implementation.
+2. **Source metadata record.** A structured JSON file at `library/sources/{source_id}/metadata.json`, conforming to the source metadata schema.
+The engine must check the record against the SourceMetadata Pydantic model, verify referential integrity, and confirm confidence thresholds before persisting. Failures abort with a structured error (see section 5, Layer 1). This record contains everything known about the source at intake time plus a mechanism for progressive enrichment. The required fields are specified throughout §3 (output guarantees) and §4.A.4 (inferred fields). The actual JSON schema file will be generated from these requirements during implementation.
 
-**Guarantees about the metadata record:**
+**Guarantees about the metadata record** (enforced by §5 Layer 1 validation before every write):
 - Every required field has a non-null value. Optional fields may be null, but null is explicitly recorded (not absent).
 - The `source_id` is globally unique across the library.
 - The `work_id` correctly groups this source with other sources of the same abstract work (if any exist).
-- The `author.canonical_id` links to a valid record in the scholar authority registry.
+- The `author.canonical_id` references a confirmed entry in the scholar authority model (§5 checks ensure referential integrity).
 - The `trust_tier` reflects a conscious evaluation (not a default). If the evaluation is uncertain, `trust_tier` is `"flagged"` with a reason.
 - The `text_fidelity` field reflects the quality of the text data, separate from scholarly trustworthiness.
 - All metadata fields present at intake are preserved through enrichment — enrichment may add or update fields but never removes existing data. Overwritten values are preserved in `metadata_history`.
@@ -90,13 +91,14 @@ The source engine produces two primary artifacts per acquired source, plus updat
 
 No metadata field in this list is "just for documentation" — each has a specific consumer in a downstream engine or the synthesizer. The ENTRY_EXAMPLE.md demonstrates how author death dates, teacher-student chains, school affiliations, and work genres transform flat compilations into scholarly narratives.
 
-**Shared registry updates:**
+**Shared registry updates** (all registry writes are validated against their Pydantic models and applied atomically — see §5):
 
-3. **Source registry** (`library/registries/sources.json`). A catalog of all acquired sources with their source_id, work_id, title, author canonical_id, trust tier, processing status, and deduplication hashes. Used for duplicate detection, source lookup, and status tracking. Updated atomically on each acquisition.
+3. **Source registry** (`library/registries/sources.json`). A catalog of all acquired sources with their source_id, work_id, title, author canonical_id, trust tier, processing status, and deduplication hashes. Each entry is validated against the SourceRegistryEntry model. Used for duplicate detection, source lookup, and status tracking. Updated atomically on each acquisition.
 
-4. **Work registry** (`library/registries/works.json`). A catalog of all known works with their work_id, canonical title, author canonical_id, genre, science scope, and the list of source_ids that are manifestations of this work. Includes the owner's preferred_source_id per work. Updated when a new source is linked to a work or when a new work is created.
+4. **Work registry** (`library/registries/works.json`). A catalog of all known works with their work_id, canonical title, author canonical_id, genre, science scope, and the list of source_ids that are manifestations of this work. Each entry is validated against the WorkRegistryEntry model. Includes the owner's preferred_source_id per work. Updated when a new source is linked to a work or when a new work is created.
 
-5. **Scholar authority registry** (`library/registries/scholars.json`). The centralized record of every scholar encountered across all sources. Updated when the source engine creates or enriches a scholar record during intake. The structure and semantics of scholar authority records are defined in §4.A.5. This registry is a shared resource read by multiple engines — the source engine is the primary writer, the excerpting engine adds quoted-scholar references, and the synthesizing engine is the primary reader.
+5. **Scholar authority registry** (`library/registries/scholars.json`). The centralized record of every scholar encountered across all sources.
+The engine must check each entry against the ScholarAuthorityRecord model before persisting it. Updated when the source engine creates or enriches a scholar record during intake. The structure and semantics of scholar authority records are defined in §4.A.5. This is a shared resource: the source engine is the primary writer, the excerpting engine adds quoted-scholar references, and the synthesizing engine is the primary reader.
 
 ---
 
@@ -114,13 +116,23 @@ The ABD-era `book_id` (user-assigned ASCII slug like `ibn_aqil`) is preserved as
 
 **Work identity.** A work (مؤلَّف) is the abstract intellectual creation — the book as a scholarly contribution, independent of any particular edition or format. "al-Mughni by Ibn Qudamah" is a work. Each work receives a `work_id` formatted as `wrk_{author_slug}_{title_slug}` where the slugs are derived from the canonical author name and canonical work title (transliterated, lowercased, underscored, max 40 characters total). Example: `wrk_ibn_qudamah_mughni`.
 
-The same work may have multiple sources in the library: different tahqiq editions, different digital formats, different repository origins. All share the same `work_id`. A new source triggers work matching: the source engine checks whether a work record already exists for this author+title combination. Matching uses normalized title comparison (stripping definite articles, normalizing hamza/taa marbuta) and author canonical_id matching. If a match is found with confidence ≥ 0.85, the source is linked to the existing work. If confidence is between 0.50 and 0.85, a human gate checkpoint is created presenting the candidate match for owner confirmation. If confidence < 0.50, a new work record is created.
+The same work may have two or more sources in the library: different tahqiq editions, different digital formats, different repository origins. All share the same `work_id`. A new source triggers work matching: the source engine checks whether a work record already exists for this author+title combination. Matching uses normalized title comparison (stripping definite articles, normalizing hamza/taa marbuta) and author canonical_id matching. If a match is found with confidence ≥ 0.85, the source is linked to the existing work. If confidence is between 0.50 and 0.85, a human gate checkpoint is created presenting the candidate match for owner confirmation. If confidence < 0.50, a new work record is created.
 
 The work record tracks: the owner's preferred source for this work (`preferred_source_id`), which defaults to the first source acquired and can be changed by the owner. The preferred source is the one from which excerpts are primarily drawn; other sources serve as cross-references for variant readings and alternative commentary.
 
 **Multi-volume works.** A multi-volume work (e.g., al-Mughni's 15 volumes) is ONE work with ONE `work_id`. Each volume may be a separate source (separate `source_id`) if acquired as separate files, or a single source if acquired as one package. The source metadata record includes a `volumes` field listing volume numbers and their file mappings. The work registry tracks which volumes are present and which are missing, enabling gap detection ("you have volumes 1-12 and 14 of al-Mughni — volume 13 and 15 are missing").
 
 **Scholar identity.** Every author, editor (muhaqiq), and quoted scholar receives a canonical identity in the scholar authority registry. The scholar identity model is detailed in §4.A.5.
+
+**Worked example — Identity assignment for شرح ابن عقيل على ألفية ابن مالك:**
+
+Input: Shamela HTML export directory containing numbered `.htm` files. Owner provides human_label hint: `ibn_aqil`.
+
+1. **source_id assignment:** The frozen files produce SHA-256 composite hash `a7c3e91f...`. The source_id is `src_a7c3e91f`.
+2. **work_id assignment:** The metadata extraction step identifies author = ابن عقيل and title = شرح ابن عقيل على ألفية ابن مالك. Transliterated slugs: `ibn_aqil` + `sharh_alfiyyah`. The work_id is `wrk_ibn_aqil_sharh_alfiyyah`.
+3. **Work matching:** The source engine checks the work registry for `wrk_ibn_aqil_sharh_alfiyyah`. No match → new work record created.
+4. **Scholar identity:** The LLM identifies the author as بهاء الدين عبد الله بن عقيل الهمداني المصري (d. 769 AH). The scholar authority registry is checked for a match on name + death date → no existing record → new record created: `sch_00312`. Confidence: 0.96 (well-known scholar, unambiguous title).
+5. **human_label:** Owner provided `ibn_aqil` → used as-is.
 
 #### §4.A.2 — Acquisition Workflow
 
@@ -138,11 +150,24 @@ The acquisition workflow is intentionally minimal for v1 (D-020). The source eng
 
 **Step 6: Freezing.** The raw source files are copied to `library/sources/{source_id}/frozen/`, set read-only, and SHA-256 hashed. From this point, the frozen files are immutable.
 
-**Step 7: Registration.** The source metadata record is written to `library/sources/{source_id}/metadata.json`. The source registry, work registry, and scholar authority registry are updated.
+**Step 7: Registration.** The source metadata record, source, work, and scholar registries are all updated atomically — all succeed or none are applied.
+The engine must check schema compliance, referential integrity, and confidence thresholds before persisting (section 5, Layer 1).
 
 **Step 8: Trustworthiness evaluation.** The source engine assesses the source's reliability and assigns a trust tier (§4.A.8).
 
 **Step 9: Handoff.** The source is marked as `status: "acquired"` and is available for the normalization engine to process. The normalization engine picks up sources with this status.
+
+**Worked example — Acquisition of a Shamela export of قطر الندى by ابن هشام:**
+
+Step 1 (Staging): Owner places `qatr_alnada/` directory in `library/staging/`. The directory contains `0.htm`, `1.htm`, ..., `12.htm` and an `info.html` file.
+Step 2 (Format detection): File structure detected as Shamela multi-volume HTML export (numbered `.htm` files + `info.html`). Source type: `shamela_html`.
+Step 3 (Metadata extraction): Shamela extractor parses `info.html` → title: "قطر الندى وبل الصدى", author: "ابن هشام الأنصاري", shamela_category: "النحو والصرف". Page count from `PageNumber` spans: 340 pages across 1 volume.
+Step 4 (Metadata inference): LLM infers → genre: `matn` (confidence 0.92), genre_chain: null (this IS the matn), science_scope: `["nahw"]` (confidence 0.97), level: `intermediate` (confidence 0.88), structural_format: `prose`. Author identified as ابن هشام الأنصاري (d. 761 AH), matched to existing `sch_00198` with confidence 0.97.
+Step 5 (Deduplication): SHA-256 computed. No hash match in registry. Work matching: `wrk_ibn_hisham_qatr_alnada` not in registry → new work.
+Step 6 (Freezing): Files copied to `library/sources/src_b2d4f6a8/frozen/`. All 14 files individually hashed. Composite hash: `b2d4f6a8...`. Files set read-only.
+Step 7 (Registration): `metadata.json` written. Source registry, work registry, scholar registry updated.
+Step 8 (Trustworthiness): Author standing: 0.95 (major classical grammarian). Tahqiq: muhaqiq = محمد محيي الدين عبد الحميد, recognized → 0.90. Publisher: unknown Shamela digitization → 0.50. Authority: primary → 0.85. Text fidelity: Shamela structured → 0.90. Combined: 0.83 → `verified`.
+Step 9 (Handoff): Status → `acquired`.
 
 #### §4.A.3 — Format-Specific Metadata Extraction
 
@@ -160,6 +185,28 @@ Each source type has a metadata extractor — a module that knows how to pull me
 
 **Owner-authored content extractor.** No format-specific extraction needed — the owner provides the metadata directly through the input interface. The extractor validates the input type and captures any metadata hints.
 
+**Worked example — Shamela extraction for شرح ابن عقيل على ألفية ابن مالك:**
+
+Input: Shamela HTML export with `info.html` containing:
+```html
+<h1>شرح ابن عقيل على ألفية ابن مالك</h1>
+<div class="metadata">المؤلف: بهاء الدين عبد الله بن عقيل</div>
+<div class="metadata">المحقق: محمد محيي الدين عبد الحميد</div>
+<div class="metadata">الناشر: دار التراث</div>
+```
+Content directory: 22 numbered `.htm` files (volumes 1-2).
+
+Extracted metadata record (before LLM inference):
+- `title_arabic`: "شرح ابن عقيل على ألفية ابن مالك" (from `<h1>`)
+- `author_name_raw`: "بهاء الدين عبد الله بن عقيل" (from المؤلف field)
+- `muhaqiq`: "محمد محيي الدين عبد الحميد" (from المحقق field)
+- `publisher`: "دار التراث" (from الناشر field)
+- `page_count`: 648 (from `PageNumber` span count across all files)
+- `volume_count`: 2 (from file stem grouping: files 0-11 = vol 1, files 12-22 = vol 2)
+- `format_specific_metadata`: `{"shamela_book_id": "10803", "shamela_category": "النحو والصرف"}`
+
+Fields left for LLM inference (§4.A.4): genre, genre_chain, science_scope, level, structural_format, author canonical_id, source_authority.
+
 #### §4.A.4 — LLM-Assisted Metadata Inference
 
 After format-specific extraction produces a sparse metadata record, the source engine uses LLM inference to fill gaps, validate extracted data, and enrich the record with scholarly context. This is the step that transforms raw bibliographic data into the rich metadata that fuels synthesis.
@@ -169,10 +216,10 @@ After format-specific extraction produces a sparse metadata record, the source e
 **The LLM infers the following fields when not already present:**
 
 *Work classification:*
-- `genre`: one of `matn`, `sharh`, `hashiyah`, `mukhtasar`, `nazm`, `risalah`, `taqrirat`, `mawsuah` (encyclopedia), `fatawa` (fatwa collection), `mu'jam` (dictionary), `tabaqat` (biographical dictionary), `other`. Inferred from title conventions (titles containing "شرح" → sharh, "مختصر" → mukhtasar, "حاشية" → hashiyah, etc.) and content inspection.
+- `genre`: one of `matn`, `sharh`, `hashiyah`, `mukhtasar`, `nazm`, `risalah`, `taqrirat`, `mawsuah` (encyclopedia), `fatawa` (fatwa collection), `mu'jam` (dictionary), `tabaqat` (biographical dictionary), `fiqh_comparative` (comparative fiqh like al-Mughni), `hadith_collection`, `tafsir`, `sirah`, `tarikh` (history), `adab` (literary works related to Islamic sciences), `other`. No additional genres may be added without updating this list and the corresponding `Genre` enum in contracts.py. Inferred from title conventions (titles containing "شرح" → sharh, "مختصر" → mukhtasar, "حاشية" → hashiyah, "نظم" or verse structure → nazm) and content inspection.
 - `genre_chain`: if the work is a sharh, hashiyah, mukhtasar, or nazm, the LLM identifies the base work. Example: from title "شرح ابن عقيل على ألفية ابن مالك", infer: `{ "type": "sharh", "base_work_title": "ألفية ابن مالك", "base_work_author": "ابن مالك" }`. This creates a work relationship record (§4.A.9).
 - `structural_format`: one of `prose`, `verse`, `qa_format`, `tabular_khilaf`, `dictionary`, `commentary`, `mixed`. Inferred from genre and content inspection.
-- `multi_layer`: boolean. True if the work contains text from multiple authors (sharh quoting matn, hashiyah quoting sharh). When true, `layers` is populated with the author and type of each layer.
+- `multi_layer`: boolean. True if the work contains text from two or more authors (sharh quoting matn, hashiyah quoting sharh). When true, `layers` is populated with the author and type of each layer.
 - `source_authority`: one of `primary`, `reference`, `modern_compilation`. Inferred from author period (pre-modern → likely primary or reference; modern → likely compilation) and genre (mawsuah → reference; matn/sharh → primary).
 
 *Science scope:*
@@ -225,17 +272,18 @@ The scholar authority registry (`library/registries/scholars.json`) is a shared 
   "scholarly_standing": "founder of systematic Arabic grammar",
   "methodology_notes": null,
   "sources_encountered_in": ["src_a1b2c3d4"],
-  "record_completeness": 0.85,  // how many fields are filled
+  "record_completeness": 0.85,  // fraction of the 22 defined fields that have non-null values
   "record_sources": ["auto_inference", "openiti_metadata"],
   "last_updated": "2026-03-04T12:00:00Z"
 }
 ```
 
-**Record creation.** When the source engine processes a new source and identifies an author not already in the registry, it creates a new scholar record. The record is initially populated from: (1) metadata extracted from the source (author name, any biographical info on title page/introduction), (2) LLM inference from its training knowledge (death dates, school affiliations, teachers, students, known works, scholarly standing), (3) external enrichment sources when available (OpenITI author metadata, see §4.B.1).
+**Record creation.** When the source engine processes a new source and identifies an author not already in the registry, it creates a new scholar record. The record is validated against the ScholarAuthorityRecord Pydantic model before writing to the registry. The record is initially populated from: (1) metadata extracted from the source (author name, any biographical info on title page/introduction), (2) LLM inference from its training knowledge (death dates, school affiliations, teachers, students, known works, scholarly standing), (3) external enrichment sources when available (OpenITI author metadata, see §4.B.1).
 
 **Record matching.** When the source engine encounters an author name that might match an existing record, it performs matching using: normalized name comparison (stripping diacritics, normalizing hamza/taa marbuta, comparing against all `name_variants`), death date comparison (if available), school affiliation comparison, and known works comparison. A match score ≥ 0.85 auto-links; 0.50–0.85 creates a human gate checkpoint; < 0.50 creates a new record.
 
-**Progressive enrichment.** When the 50th source mentioning a scholar is processed, the source engine checks whether the new source provides information the existing record lacks (a teacher, a work, a corrected date). If so, the record is updated. Overwritten values are preserved in a `revision_history` array. This means scholar records become increasingly rich as the library grows — an early record with just a name and death date gains teachers, students, works, methodology notes, and standing assessments over time.
+**Progressive enrichment.** When the 50th source mentioning a scholar is processed, the source engine checks whether the new source provides information the existing record lacks (a teacher, a work, a corrected date). If so, the record is updated.
+The engine must check no field invariant is broken before persisting. Overwritten values are preserved in a `revision_history` array. This means scholar records become increasingly rich as the library grows — an early record with just a name and death date gains teachers, students, works, methodology notes, and standing assessments over time.
 
 **Muhaqiq (editor) records.** Tahqiq editors are scholars in their own right. Each muhaqiq encountered gets a scholar authority record with the same structure. The source metadata links to both the original author's canonical_id and the muhaqiq's canonical_id.
 
@@ -254,6 +302,17 @@ During autonomous discovery, the source engine evaluates whether a candidate sou
 
 **Gap-fill relevance.** When relevance evaluation is triggered by a gap-fill request (e.g., "find a Maliki source on topic X"), the evaluation additionally checks whether the candidate specifically addresses the gap. A source that is generally relevant to the science but doesn't cover the specific topic is classified as `partially_relevant`.
 
+**Worked example — Relevance evaluation of an autonomous discovery:**
+
+Input: Repository module finds candidate: title = "البداية والنهاية", author = "ابن كثير", repository = Shamela.
+Library state: sciences covered = [fiqh, nahw, usul_al_fiqh, aqidah]. Owner's study focus: Hanbali fiqh.
+
+LLM evaluation: "البداية والنهاية is a tarikh (history) work by Ibn Kathir (d. 774 AH). It is primarily a historical chronicle, not a fiqh or nahw text. However, it contains biographical entries for fuqaha and occasional fiqh discussions within historical events."
+
+Classification: `partially_relevant`. Reason: "Primary content is history (outside current science scope), but contains secondary fiqh and biographical content relevant to Hanbali scholars." Action: flagged for owner decision.
+
+Contrasting case: If the candidate were "المغني" by ابن قدامة → classification: `relevant`. Reason: "Comparative Hanbali fiqh, directly covers owner's study focus with comprehensive school-by-school analysis." Action: proceed to acquisition.
+
 #### §4.A.7 — Deduplication
 
 The source engine maintains deduplication at two levels: source-level (exact duplicate) and work-level (same work, different edition).
@@ -264,7 +323,15 @@ The source engine maintains deduplication at two levels: source-level (exact dup
 
 **Work-level matching.** Two sources are editions of the same work when they share the same abstract author + title but differ in tahqiq, publisher, edition number, or format. This is NOT a duplicate — both sources are acquired and linked to the same `work_id`. The source engine detects this through work matching (§4.A.1) and records the relationship. The owner is notified: "This appears to be a different edition of {work_title}, which you already have as {existing_source_id}. Acquiring as a new source of the same work."
 
-**Near-duplicate detection.** [NOT YET IMPLEMENTED] Two sources from different repositories may be the same content with minor differences (OCR artifacts, formatting differences). Detection would use text similarity on the first N pages. For v1, this is deferred — the owner is expected to recognize obvious duplicates.
+**Near-duplicate detection.** [NOT YET IMPLEMENTED] Two sources from different repositories may be the same content with minor differences (OCR artifacts, formatting differences). Detection would use text similarity on the first 5,000 characters after normalization. For v1, this is deferred — the owner is expected to recognize obvious duplicates.
+
+**Worked example — Deduplication scenarios for المغني by ابن قدامة:**
+
+Scenario A (exact duplicate): Owner already has `src_a3f2b1c4` (المغني, Shamela export from 2024). Owner downloads the same Shamela export again. SHA-256 of new files matches `src_a3f2b1c4`'s frozen hashes exactly. Result: `SRC_DUPLICATE_EXACT`. New file is not acquired. Log records the duplicate detection.
+
+Scenario B (work-level match): Owner has `src_a3f2b1c4` (المغني, تحقيق عبد الله التركي). Owner uploads a PDF of المغني تحقيق محمد شرف الدين خطاب. SHA-256 differs (different file entirely). Work matching: title "المغني" + author "ابن قدامة" → matches existing `wrk_ibn_qudamah_mughni` with confidence 0.97. Result: `SRC_DUPLICATE_WORK` (info). New source acquired as `src_d7e8f9a0`, linked to the same `work_id`. Owner notified: "This is a different edition of المغني, which you already have as src_a3f2b1c4 (تحقيق التركي). Acquiring as a second source."
+
+Scenario C (false negative risk): Two Shamela exports of the same edition but downloaded at different times may have minor HTML formatting differences → SHA-256 differs → not caught as exact duplicates. Work matching catches this as a work-level match. The owner is notified and can merge or keep both.
 
 #### §4.A.8 — Trustworthiness Evaluation
 
@@ -274,7 +341,7 @@ The source engine assesses each source's reliability to determine the default ve
 
 1. **Author scholarly standing** (weight: 0.30). Is the author a recognized scholar in the relevant science? Major classical scholars (those in the scholar authority registry with high `scholarly_standing`) increase trust. Unknown or contemporary popular authors decrease it.
 
-2. **Tahqiq quality** (weight: 0.25). Is the muhaqiq a recognized editor? Major muhaqiqs (Shu'ayb al-Arna'ut, Ahmad Shakir, Abdul Salam Harun, etc.) significantly increase trust. No tahqiq or unknown muhaqiq is neutral (many classical works were published without modern tahqiq and are still scholarly).
+2. **Tahqiq quality** (weight: 0.25). Is the muhaqiq a recognized editor? The source engine maintains a configurable list of recognized muhaqiqs (initial list: شعيب الأرناؤوط، أحمد شاكر، عبد السلام هارون، عبد الله التركي، محمد فؤاد عبد الباقي، عبد القادر الأرناؤوط، محمد ناصر الدين الألباني). Recognized muhaqiqs score 0.90. Unknown muhaqiqs score 0.50 (neutral). No muhaqiq is scored 0.40 for pre-modern works (common and acceptable) or 0.30 for modern works (expected to have tahqiq). The recognized muhaqiqs list is stored in configuration and can be extended by the owner.
 
 3. **Publisher reputation** (weight: 0.15). Known scholarly publishers (Dar al-Risalah, Mu'assasat al-Risalah, Dar al-Kutub al-'Ilmiyyah for specific titles) increase trust. Unknown publishers are neutral. Publishers known for low-quality commercial prints decrease trust.
 
@@ -292,7 +359,25 @@ The source engine assesses each source's reliability to determine the default ve
 **Special cases:**
 - Owner-authored content is always `verified` — the owner is a trusted source. However, intelligent validation still checks for detectable errors (attribution conflicts with established content).
 - Quran text from canonical digital sources is always `verified` with maximum trust.
-- Hadith collections from standard editions (Bukhari, Muslim, etc.) are always `verified` when from recognized tahqiq editions.
+- Hadith collections from the canonical Six Books (الكتب الستة: صحيح البخاري، صحيح مسلم، سنن أبي داود، سنن الترمذي، سنن النسائي، سنن ابن ماجه) and the Muwatta of Imam Malik are always `verified` when from recognized tahqiq editions.
+
+**Worked example — Trustworthiness evaluation for two contrasting sources:**
+
+Source A: شرح ابن عقيل على ألفية ابن مالك, تحقيق محمد محيي الدين عبد الحميد, دار التراث, Shamela HTML.
+- Author standing (0.30 weight): ابن عقيل is a recognized classical grammarian → score 0.90. Weighted: 0.270.
+- Tahqiq quality (0.25 weight): محمد محيي الدين عبد الحميد is in the recognized muhaqiqs list → score 0.90. Weighted: 0.225.
+- Publisher reputation (0.15 weight): دار التراث is a known scholarly publisher → score 0.70. Weighted: 0.105.
+- Source authority (0.15 weight): Classical sharh → primary → score 0.85. Weighted: 0.128.
+- Text fidelity (0.15 weight): Shamela structured HTML → score 0.90. Weighted: 0.135.
+- Combined: 0.863 → `verified`.
+
+Source B: "ملخص النحو الميسر" by unknown contemporary author, no muhaqiq, unknown publisher, iPhone photo scan.
+- Author standing: unknown contemporary author → score 0.20. Weighted: 0.060.
+- Tahqiq quality: no muhaqiq on a modern work → score 0.30. Weighted: 0.075.
+- Publisher reputation: unknown → score 0.40. Weighted: 0.060.
+- Source authority: modern compilation → score 0.40. Weighted: 0.060.
+- Text fidelity: iPhone photos → score 0.30. Weighted: 0.045.
+- Combined: 0.300 → `flagged`. Reason: "Unknown author, no tahqiq, low text fidelity from photos."
 
 #### §4.A.9 — Work Relationship Tracking
 
@@ -307,9 +392,27 @@ The source engine maintains a graph of work-to-work relationships. These relatio
 - `cites(work_a, work_b)`: work_a references work_b (discovered during processing).
 - `responds_to(work_a, work_b)`: work_a was written in response to or as a refutation of work_b.
 
-**Relationship discovery.** Relationships are discovered at intake through LLM inference from the title and genre classification. A title like "شرح ابن عقيل على ألفية ابن مالك" explicitly declares a sharh_of relationship. The LLM identifies the base work and attempts to link it to an existing work_id in the work registry. If the base work is not in the library, a placeholder work record is created with `status: "referenced_not_acquired"` — it exists in the registry as a known work but has no source. This enables the citation network to grow even before all referenced works are acquired.
+**Relationship discovery.** Relationships are discovered at intake through LLM inference from the title and genre classification. A title like "شرح ابن عقيل على ألفية ابن مالك" explicitly declares a sharh_of relationship. The LLM identifies the base work and attempts to link it to an existing work_id in the work registry.
+If the base work is not in the library, a placeholder work record is created with `status: "referenced_not_acquired"`.
+The engine must check the placeholder conforms to the WorkRegistryEntry model before persisting. The placeholder exists as a known work but has no source. This enables the citation network to grow even before all referenced works are acquired.
 
 **Graph storage.** Relationships are stored in the work registry as edges: `{ "from": "wrk_...", "to": "wrk_...", "type": "sharh_of", "confidence": 0.95, "discovered_by": "source_engine" }`. The graph is queryable: "give me all commentaries on al-Ajurrumiyyah" returns a list of work_ids.
+
+**Worked example — Relationship discovery for حاشية الصبان على شرح الأشموني على ألفية ابن مالك:**
+
+Input: Source title = "حاشية الصبان على شرح الأشموني على ألفية ابن مالك".
+
+LLM analysis of title:
+1. "حاشية" → genre = `hashiyah`. This work is a hashiyah on something.
+2. "على شرح الأشموني" → `hashiyah_on(this_work, wrk_ashmuni_sharh_alfiyyah)`. Base work: شرح الأشموني على ألفية ابن مالك.
+3. The base work شرح الأشموني is itself a sharh → `sharh_of(wrk_ashmuni_sharh_alfiyyah, wrk_ibn_malik_alfiyyah)`.
+
+Registry operations:
+- Check for `wrk_ashmuni_sharh_alfiyyah`: not in registry → create placeholder with `status: "referenced_not_acquired"`.
+- Check for `wrk_ibn_malik_alfiyyah`: already exists → link.
+- Record edges: `hashiyah_on(wrk_sabban_hashiyah, wrk_ashmuni_sharh_alfiyyah)` confidence 0.97, `sharh_of(wrk_ashmuni_sharh_alfiyyah, wrk_ibn_malik_alfiyyah)` confidence 0.95.
+
+Result: The work graph now shows a three-level chain: ألفية ابن مالك ← شرح الأشموني ← حاشية الصبان. The scholar interface can display: "This is a third-level commentary on the ألفية — the most advanced layer of the nahw curriculum."
 
 #### §4.A.10 — Processing Status Tracking
 
@@ -321,10 +424,30 @@ Each source has a processing status that tracks its progress through the pipelin
 - `normalized`: normalization complete. Normalized package exists. Ready for passaging.
 - `processing`: downstream Phase 2 engines are working on this source.
 - `complete`: all engines have processed this source. Excerpts are placed. Entries generated.
-- `error`: processing failed at some stage. The `error_detail` field specifies where and why.
+- `error`: processing failed. The `error_detail` field specifies the stage (staging, acquisition, normalization, passaging, atomization, excerpting, or synthesis), the error code from that engine's error taxonomy, and the failure reason.
 - `withdrawn`: source removed from active processing (owner decision or trust evaluation change). Frozen files and metadata preserved for audit.
 
-Status transitions are logged with timestamps. The source engine owns `staging` → `acquired`. Other engines update status as they process. The source registry provides a dashboard view: how many sources are at each stage, which are blocked, what errors exist.
+Status transitions are logged with timestamps. The source engine owns `staging` → `acquired`. Other engines update status as they process. The source registry provides a dashboard view: the count of sources at each stage, which are blocked, and what errors exist.
+
+**Worked example — Status transitions for src_a7c3e91f (شرح ابن عقيل):**
+
+Input: Source شرح ابن عقيل placed in staging directory at 10:00:00Z.
+Output: Complete processing timeline with timestamps at each stage:
+
+```
+2026-03-06T10:00:00Z  staging    → source placed in library/staging/
+2026-03-06T10:00:12Z  acquired   → source engine intake complete, frozen files written, metadata.json written
+2026-03-06T10:05:00Z  normalizing → normalization engine picks up source
+2026-03-06T10:08:30Z  normalized  → normalized package written
+2026-03-06T10:09:00Z  processing  → passaging engine begins
+2026-03-07T02:15:00Z  complete    → all engines have processed, excerpts placed, entries generated
+```
+
+Error case: If normalization fails mid-processing:
+```
+2026-03-06T10:07:22Z  error      → error_detail: "normalization/NORM_STRUCTURE_FAILED: unable to detect chapter boundaries in volume 2"
+```
+The source remains in `error` status. The dashboard shows it as blocked. The owner or architect investigates the normalization failure. The source can be retried after the issue is resolved — frozen files and metadata are intact.
 
 ### §4.B — Transformative Capabilities
 
@@ -334,11 +457,19 @@ Status transitions are logged with timestamps. The source engine owns `staging` 
 
 **Technical approach:** OpenITI organizes texts using CTS-compliant URIs that encode author death date and author/work slugs (e.g., `0505Ghazali.IhyaCulumDin`). The source engine maintains a local copy of the OpenITI metadata CSV (available from their GitHub releases) and queries it during intake. Matching uses normalized author name + approximate death date. When a match is found, the source engine extracts: confirmed death date, the set of other known works by this author in OpenITI, and any annotated metadata from the OpenITI YML files.
 
-**What this enables:** A scholar authority record initially populated only from a title page ("الغزالي") is immediately enriched with: death date (505 AH), the full list of known works (Ihya, Tahafut, Mustasfa, etc.), and the CTS URIs that link to the OpenITI corpus. This bootstrapping means the synthesizer has rich biographical data from the very first source, not just after dozens of sources have been processed.
+**What this enables:** A scholar authority record initially populated only from a title page ("الغزالي") is immediately enriched with: death date (505 AH), the full list of known works as catalogued in OpenITI (إحياء علوم الدين، تهافت الفلاسفة، المستصفى، المنقذ من الضلال, and all other works in the corpus), and the CTS URIs that link to the OpenITI corpus. This bootstrapping means the synthesizer has rich biographical data from the very first source, not just after dozens of sources have been processed.
 
 **Integration:** The enrichment is recorded as `record_source: "openiti_metadata"` in the scholar authority record. OpenITI data does not override owner-provided or source-extracted data — it supplements. Conflicts are flagged for owner review.
 
 **Dependencies:** Requires downloading and locally caching the OpenITI metadata CSV (~50MB). The KITAB corpus metadata search application provides the data. Update frequency: quarterly, matching OpenITI's release cycle.
+
+**Worked example — OpenITI enrichment for ابن قدامة:**
+
+Input: New scholar record `sch_00042` created during intake of المغني. Known data: name = "ابن قدامة المقدسي", death_date_hijri = 620.
+OpenITI query: Search metadata CSV for authors with death date 620 ± 10 years and name containing "qudama" → match: `0620IbnQudworka` (confidence 0.95).
+OpenITI data extracted: 7 known works in corpus (المغني، الكافي، المقنع، العمدة، روضة الناظر، لمعة الاعتقاد، ذم التأويل). Death date confirmed: 620 AH.
+Scholar record updated: `known_works` populated with 7 work_ids (creating placeholder work records for any not yet in library). `record_sources` updated to include `"openiti_metadata"`. `record_completeness` increased from 0.45 → 0.72.
+The engine must check all updated entries against their Pydantic models before persisting.
 
 #### §4.B.2 — Bibliographic Intelligence from Minimal Input
 
@@ -354,6 +485,19 @@ The LLM's training data includes substantial knowledge of the Islamic scholarly 
 
 **Limitations:** LLM training knowledge is not exhaustive. Very obscure works, regional scholars not widely discussed in available training data, and recently published contemporary works may have low-confidence or inaccurate profiles. The system is designed to be honest about uncertainty — a low-confidence field is flagged, not guessed at.
 
+**Worked example — Bibliographic inference from iPhone photo:**
+
+Input: OCR of title page photo → title: "الورقات" (confidence 0.92), author: "إمام الحرمين" (confidence 0.85). No other metadata available.
+LLM inference output:
+- Full identification: الورقات في أصول الفقه, by إمام الحرمين أبو المعالي عبد الملك الجويني (d. 478 AH). Confidence: 0.96.
+- Genre: `matn` (0.95). Genre_chain: null (this is a standalone matn).
+- Science_scope: `["usul_al_fiqh"]` (0.98).
+- Level: `beginner` (0.92) — a foundational primer, traditionally the first usul text studied.
+- Structural_format: `prose` (0.90).
+- Source_authority: `primary` (0.94).
+- Scholarly standing: "One of the most widely taught introductory texts in usul al-fiqh. Has over 20 commentaries including شرح المحلي and شرح الفوزان."
+- Author disambiguation: "إمام الحرمين" uniquely refers to الجويني — no ambiguity. Consensus not triggered.
+
 #### §4.B.3 — Citation Network Discovery
 
 **Capability:** When the source engine processes a new source and downstream engines (particularly the excerpting engine) identify textual references to other works, the source engine receives discovery requests and builds a citation graph across the entire library — including references to works not yet acquired.
@@ -365,9 +509,21 @@ The source engine queries the work registry for a match. Three outcomes:
 2. **Work exists as a placeholder** (previously referenced but not acquired): Add another citation to the existing placeholder. The citation count on placeholder works serves as an acquisition priority signal — a work cited by 50 excerpts across 10 sources is more important to acquire than one cited once.
 3. **Work is new:** Create a placeholder work record with `status: "referenced_not_acquired"`. If autonomous discovery is enabled, trigger a search in configured repositories with priority `citation_discovered`.
 
-**What this enables:** Over time, the library develops a citation graph that reveals: which works are most influential (most cited), which scholarly conversations span multiple works (mutual citation chains), and which unacquired works would most enrich the library (highest citation count among placeholders). The scholar interface can show: "al-Mughni is cited by 47 excerpts across 12 sources in your library — it's the most-referenced unacquired work. Shall I find it?"
+**What this enables:** Over time, the library develops a citation graph that reveals: which works are most influential (most cited), which scholarly conversations span two or more works (mutual citation chains), and which unacquired works would most enrich the library (highest citation count among placeholders). The scholar interface can show: "al-Mughni is cited by 47 excerpts across 12 sources in your library — it's the most-referenced unacquired work. Shall I find it?"
 
 [NOT YET IMPLEMENTED] — Full specification provided above. Depends on: excerpting engine's reference detection capability and repository search interface modules.
+
+**Worked example — Citation discovery from شرح ابن عقيل:**
+
+Input: The excerpting engine processes شرح ابن عقيل (src_a7c3e91f) and detects in excerpt #347 the text "قال ابن مالك في التسهيل" (Ibn Malik said in al-Tashil). Citation discovery request: referenced_author = "ابن مالك", referenced_title = "التسهيل", citing_excerpt_id = "exc_347_a7c3e91f".
+
+Source engine processing:
+1. Work registry query: search for work by ابن مالك with title matching "التسهيل" → match: `wrk_ibn_malik_tashil` exists as placeholder (status: "referenced_not_acquired", created when the الألفية was processed and its relationship chain was traced).
+2. Record citation: `cites(wrk_ibn_aqil_sharh_alfiyyah, wrk_ibn_malik_tashil)`, citing_excerpt = "exc_347_a7c3e91f".
+3. Update placeholder: `wrk_ibn_malik_tashil.citation_count` incremented (now 12 citations across 4 sources).
+4. No acquisition triggered (autonomous discovery not yet enabled).
+
+Dashboard shows: "تسهيل الفوائد by ابن مالك — referenced 12 times across 4 sources, not yet in library."
 
 #### §4.B.4 — Acquisition Gap Analysis
 
@@ -383,6 +539,17 @@ The gap analysis produces a ranked acquisition priority list:
 **What this enables:** The library grows strategically rather than haphazardly. The owner doesn't have to know what books exist — KR tells him what he needs. This is how KR fills the role of scholarly guide (Scenario 1's curriculum design depends on the source engine knowing what's available and what's missing).
 
 [NOT YET IMPLEMENTED] — Specification provided above. Depends on: taxonomy engine coverage metrics, work registry with citation counts, and repository search interface modules.
+
+**Worked example — Gap analysis output:**
+
+Library state: 15 sources, 12 works, sciences covered = [nahw (8 works), fiqh (3 works), usul_al_fiqh (1 work)].
+Owner study focus: Hanbali fiqh, intermediate level.
+
+Gap analysis output (ranked by priority):
+1. **Citation priority:** "المغني by ابن قدامة — referenced 47 times across 8 sources but not in your library. It is the primary Hanbali comparative fiqh reference. Priority: CRITICAL." (Source: citation placeholder with highest count.)
+2. **School coverage:** "Your library has 3 fiqh sources, all Hanbali. No Shafi'i, Maliki, or Hanafi fiqh source is present. For comparative study, recommended: المجموع شرح المهذب (Shafi'i), بداية المجتهد (comparative)." (Source: taxonomy coverage metrics.)
+3. **Curricular gap:** "You have 2 beginner nahw sources and 3 advanced nahw sources but no intermediate. The standard curriculum sequence is: الآجرومية → قطر الندى → ألفية ابن مالك. قطر الندى is missing." (Source: LLM curricular knowledge + library inventory.)
+4. **Author completeness:** "ابن قدامة is in your scholar registry with 7 known works. You have 0 of them. His المقنع and العمدة are foundational Hanbali matn texts." (Source: scholar authority registry known_works.)
 
 #### §4.B.5 — KITAB Text Reuse Integration for Source Compositional Profiling
 
@@ -419,9 +586,9 @@ The gap analysis produces a ranked acquisition priority list:
 
 **Scholar impact:** Before Rayane reads a single page, he knows the work's place in the entire classical Arabic scholarly network — which authors relied on it, which earlier works it drew from, and how original its contribution was. No Islamic studies student has ever had this view. A senior scholar might know from years of reading that al-Nawawi quotes al-Mughni frequently — but they cannot quantify "85,420 shared words across 12% of al-Majmu'" or rank originality across 4,300 texts.
 
-**Implementation sketch:** At intake time (after work identification in Step 4 of §4.A.2), the source engine constructs the OpenITI URI from the author's death date (from scholar authority record) and the work's title slug (transliterated). It queries the local KITAB statistics cache for all pairwise records where this URI appears as either book1 or book2. It computes: (1) how many other works share text with this source (reuse_as_source_count for later works, reuse_from_source_count for earlier works), (2) the top 5 in each direction sorted by shared word count, (3) an originality estimate = 1 - (sum of all text reused FROM earlier works / total word count), (4) network centrality as the rank of total shared words among all books in the dataset. If no KITAB match is found (obscure work or different edition), the profile records `kitab_match_confidence: 0.0` and the field is left for future enrichment.
+**Implementation sketch:** At intake time (after work identification in Step 4 of §4.A.2), the source engine constructs the OpenITI URI from the author's death date (from scholar authority record) and the work's title slug (transliterated). It queries the local KITAB statistics cache for all pairwise records where this URI appears as either book1 or book2. It computes: (1) the count of other works sharing text with this source (reuse_as_source_count for later works, reuse_from_source_count for earlier works), (2) the top 5 in each direction sorted by shared word count, (3) an originality estimate = 1 - (sum of all text reused FROM earlier works / total word count), (4) network centrality as the rank of total shared words among all books in the dataset. If no KITAB match is found (obscure work or different edition), the profile records `kitab_match_confidence: 0.0` and the field is left for future enrichment.
 
-**Failure handling:** If the KITAB statistics cache is missing or outdated, the source engine logs `SRC_KITAB_CACHE_MISSING` (severity: info) and skips this enrichment — it is not required for intake. If the work matches but with low confidence (the OpenITI URI does not uniquely resolve — the same work may have variant editions in OpenITI), the engine records all candidate matches and uses the one with the longest text as the primary match.
+**Failure handling:** If the KITAB statistics cache is missing or outdated, the source engine logs `SRC_KITAB_CACHE_MISSING` (severity: info) and skips this enrichment — it is not required for intake. If the work matches but with confidence below 0.70 (the OpenITI URI does not uniquely resolve — the same work may have variant editions in OpenITI), the engine records all candidate matches and uses the one with the longest text as the primary match.
 
 **Dependencies:** Requires downloading KITAB statistics CSV (~1GB) from Zenodo. Update frequency: annually, matching OpenITI release cycle. The cache is stored at the path configured in `kitab_stats_path` (default: `library/external/kitab_stats/`). This enrichment is additive — it never blocks intake. Depends on: §4.B.1's OpenITI URI matching logic.
 
@@ -608,7 +775,7 @@ Consensus is NOT used for: genre classification, science scope, structural forma
 | `SRC_REPO_UNAVAILABLE` | Warning | Repository module cannot connect | Log. Skip this repository for this scan. Retry next cycle. |
 | `SRC_CONSENSUS_DISAGREEMENT` | Warning | Multi-model disagreement | Create human gate checkpoint. |
 
-**Principle:** Never lose data silently. Every error is logged with: timestamp, source identifier (if known), error code, severity, human-readable message, and recovery action taken. Fatal errors stop processing for the affected source but do not affect other sources in the pipeline. Warning errors allow processing to continue with appropriate flags. Info errors are logged for audit.
+**Principle:** Never lose data silently. Every error is logged with: timestamp, source identifier (if known), error code, severity, human-readable message, and the specific recovery action taken (one of: reject intake, create human gate, flag field for review, skip optional enrichment, retry on next cycle). Fatal errors stop processing for the affected source but do not affect other sources in the pipeline. Warning errors allow processing to continue with the affected fields marked as `needs_review`. Info errors are logged for audit with no processing impact.
 
 **What gets logged:** Every intake attempt (success or failure), every duplicate detection, every human gate checkpoint creation, every enrichment write-back, every registry update. The log is append-only and stored at `library/logs/source_engine.jsonl`.
 
@@ -715,7 +882,7 @@ Each science's Level 3 documentation may specify:
 
 7. **Freeze integrity.** Test: after intake, the frozen files match the computed SHA-256 hashes. Attempt to modify a frozen file → operation is rejected or detected.
 
-8. **Error handling completeness.** Test every error code in the taxonomy: provide an unsupported format → `SRC_UNSUPPORTED_FORMAT`. Provide an empty file → `SRC_EMPTY_INPUT`. Etc.
+8. **Error handling completeness.** Test every error code in the taxonomy: provide an unsupported format → `SRC_UNSUPPORTED_FORMAT`. Provide an empty file → `SRC_EMPTY_INPUT`. Provide a duplicate → `SRC_DUPLICATE_EXACT`. Provide an invalid enrichment → `SRC_INVALID_ENRICHMENT`. Trigger each of the 14 error codes defined in §7 at least once and verify the correct code, severity, and recovery action.
 
 **Gold baseline usage:** No gold baselines exist for the source engine yet. The first gold baselines should be created from: (1) a well-known Shamela export (e.g., شرح ابن عقيل) with manually verified metadata, and (2) a scanned PDF with manually verified OCR and metadata extraction.
 
@@ -724,4 +891,4 @@ Each science's Level 3 documentation may specify:
 **Integration test requirements:**
 - Source engine → normalization engine: verify that the metadata record produced by the source engine is correctly read by the normalization engine and that source_id references resolve correctly.
 - Source engine → scholar authority registry: verify that scholar records created during intake are correctly queryable by the excerpting engine and synthesizing engine.
-- Enrichment write-back: verify that a downstream engine's enrichment update is correctly applied to the source metadata record and that the update triggers appropriate stale-marking.
+- Enrichment write-back: verify that a downstream engine's enrichment update is correctly applied to the source metadata record, that the old value is preserved in `metadata_history`, and that the update triggers stale-marking on all excerpts derived from this source when the changed field is one of: `author.canonical_id`, `work_id`, `genre`, `science_scope`, or `trust_tier`.

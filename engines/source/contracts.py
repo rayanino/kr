@@ -63,6 +63,28 @@ class StructuralFormat(str, Enum):
     TABULAR = "tabular"
     DICTIONARY = "dictionary"
     COMMENTARY = "commentary" # Multi-layer text (sharh, hashiyah)
+    MIXED = "mixed"           # Multiple structural formats in one work
+
+class Genre(str, Enum):
+    """Primary genre classification (SPEC §4.A.4). Exhaustive list — no additions without SPEC update."""
+    MATN = "matn"
+    SHARH = "sharh"
+    HASHIYAH = "hashiyah"
+    MUKHTASAR = "mukhtasar"
+    NAZM = "nazm"
+    RISALAH = "risalah"
+    TAQRIRAT = "taqrirat"
+    MAWSUAH = "mawsuah"                   # Encyclopedia
+    FATAWA = "fatawa"                     # Fatwa collection
+    MUJAM = "mu'jam"                      # Dictionary
+    TABAQAT = "tabaqat"                   # Biographical dictionary
+    FIQH_COMPARATIVE = "fiqh_comparative" # Comparative fiqh (e.g., al-Mughni)
+    HADITH_COLLECTION = "hadith_collection"
+    TAFSIR = "tafsir"
+    SIRAH = "sirah"
+    TARIKH = "tarikh"                     # History
+    ADAB = "adab"                         # Literary works related to Islamic sciences
+    OTHER = "other"
 
 class GenreRelationType(str, Enum):
     """Types of work-to-work relationships (SPEC §4.A.9)."""
@@ -204,6 +226,76 @@ class VolumeInfo(BaseModel):
 
 
 # ──────────────────────────────────────────────────────────────────
+# §4.B Transformative Capability Output Models
+# ──────────────────────────────────────────────────────────────────
+
+class TextReuseEntry(BaseModel):
+    """A single text-reuse relationship from KITAB data (SPEC §4.B.5)."""
+    work: str = Field(description="OpenITI URI of the related work, e.g. '0676Nawawi.MajmucSharh'")
+    shared_words: int = Field(ge=0, description="Number of shared words between the two works")
+    pct_of_target: float = Field(ge=0.0, le=1.0, description="Shared words as fraction of the target work")
+
+class IntertextualMetrics(BaseModel):
+    """Aggregated text-reuse metrics from KITAB (SPEC §4.B.5)."""
+    reuse_as_source_count: int = Field(ge=0, description="Number of later works that reuse text from this work")
+    reuse_as_source_top_5: list[TextReuseEntry] = Field(description="Top 5 later works by shared word count")
+    reuse_from_source_count: int = Field(ge=0, description="Number of earlier works this work borrows from")
+    reuse_from_source_top_5: list[TextReuseEntry] = Field(description="Top 5 earlier works by shared word count")
+    originality_estimate: float = Field(ge=0.0, le=1.0, description="1 - (sum of text reused FROM earlier works / total word count)")
+    network_centrality_rank: int = Field(ge=1, description="Rank by total shared words among all KITAB books")
+
+class CompositionalProfile(BaseModel):
+    """KITAB text reuse profile for a source (SPEC §4.B.5). [NOT YET IMPLEMENTED]
+
+    Appended to source metadata after KITAB cache lookup.
+    """
+    kitab_uri_match: str = Field(description="OpenITI URI matched, e.g. '0620IbnQudworka.Mughni.Shamela0010803-ara1'")
+    kitab_match_confidence: float = Field(ge=0.0, le=1.0)
+    intertextual_metrics: IntertextualMetrics
+
+class EditionDivergence(BaseModel):
+    """A single divergence region between two editions (SPEC §4.B.6)."""
+    location: dict = Field(description="{'volume': int, 'page_approx': int}")
+    edition_a_text: str = Field(description="Text from edition A at this location")
+    edition_b_text: str = Field(description="Text from edition B at this location")
+    divergence_type: str = Field(description="One of: tahqiq_correction, variant_reading, ocr_artifact, editorial_addition, structural_difference")
+    analysis: str = Field(description="LLM-produced explanation of the divergence")
+
+class EditionComparisonSummary(BaseModel):
+    """Summary statistics for an edition comparison (SPEC §4.B.6)."""
+    total_divergence_regions: int = Field(ge=0)
+    by_type: dict[str, int] = Field(description="Divergence type → count")
+    preferred_edition_recommendation: str = Field(description="source_id of the recommended edition")
+    preference_reason: str
+
+class EditionComparison(BaseModel):
+    """Full edition comparison record (SPEC §4.B.6). [NOT YET IMPLEMENTED]
+
+    Written to: library/sources/{work_id}/edition_comparison.json
+    """
+    work_id: str
+    editions_compared: list[str] = Field(min_length=2, description="List of source_ids compared")
+    comparison_timestamp: str = Field(description="ISO 8601 timestamp")
+    summary: EditionComparisonSummary
+    sample_divergences: list[EditionDivergence] = Field(description="Representative divergence examples")
+
+class GenealogyMetadata(BaseModel):
+    """Scholarly genealogy record for a scholar (SPEC §4.B.7). [NOT YET IMPLEMENTED]
+
+    Stored within the scholar authority record, populated by genealogy auto-construction.
+    """
+    canonical_id: str = Field(description="sch_{5_digit_sequence}")
+    genealogy_chain_upward: list[str] = Field(description="List of teacher canonical_ids, ordered by generation")
+    genealogy_chain_upward_names: list[str] = Field(description="Arabic names of teachers, matching order above")
+    chain_confidence: float = Field(ge=0.0, le=1.0)
+    chain_sources: list[str] = Field(description="e.g. ['llm_inference:siyar_alam', 'openiti_metadata', 'source_text:src_...']")
+    scholarly_generation: int = Field(ge=1, description="Shortest path length to earliest scholar in registry")
+    genealogy_community: str = Field(description="Detected scholarly cluster, e.g. 'basri_nahw_late'")
+    centrality_score: float = Field(ge=0.0, le=1.0, description="Betweenness centrality in the genealogy graph")
+    bridges_to_communities: list[str] = Field(default_factory=list, description="Other scholarly clusters this scholar bridges to")
+
+
+# ──────────────────────────────────────────────────────────────────
 # Primary Output: Source Metadata Record
 # ──────────────────────────────────────────────────────────────────
 
@@ -225,7 +317,7 @@ class SourceMetadata(BaseModel):
     author: ScholarReference = Field(description="Primary author identification")
     additional_authors: list[ScholarReference] = Field(default_factory=list, description="Co-authors, editors, etc.")
     science_scope: list[str] = Field(description="Sciences this source covers, e.g. ['fiqh', 'usul_al_fiqh']")
-    genre: str = Field(description="Primary genre classification")
+    genre: Genre = Field(description="Primary genre classification")
     genre_chain: Optional[GenreChain] = Field(None, description="If this work is a sharh/hashiyah/mukhtasar/nazm of another work")
     level: Optional[WorkLevel] = Field(None, description="Scholarly level: beginner/intermediate/advanced/specialist")
 
@@ -278,6 +370,10 @@ class SourceMetadata(BaseModel):
 
     # ── Owner-authored specific (SPEC §2) ──
     owner_authored_type: Optional[OwnerAuthoredType] = Field(None, description="Non-null only for owner-authored content")
+
+    # ── §4.B Transformative capability outputs (all optional, populated when available) ──
+    compositional_profile: Optional[CompositionalProfile] = Field(None, description="KITAB text reuse profile (§4.B.5). [NOT YET IMPLEMENTED]")
+    genealogy_metadata: Optional[GenealogyMetadata] = Field(None, description="Scholarly genealogy data (§4.B.7). [NOT YET IMPLEMENTED]")
 
     class Config:
         json_schema_extra = {
