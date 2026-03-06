@@ -1,7 +1,7 @@
 # خزانة ريان — Project Status
 
 **Last updated:** 2026-03-06
-**Phase:** Preparatory phase — shared component SPECs in progress
+**Phase:** Preparatory phase — shared component SPECs in progress (human gate complete, feedback next)
 **Tests:** 903 pass, 37 skip, 1 fail (API key) — all ABD-era; no KR-specific tests yet
 
 ---
@@ -20,6 +20,8 @@
 | Taxonomy engine SPEC | Complete | 562L. D-038, D-039. |
 | Synthesizing engine SPEC | Complete | 582L. D-040. |
 | Consensus SPEC | Complete | 405L. D-041. LiteLLM + Instructor, parallel independent comparison, three comparison strategies. |
+| Validation SPEC | Complete | 406L. Four validation categories, background sweep, two transformative capabilities. |
+| Human Gate SPEC | Complete | 413L. Checkpoint lifecycle, pre-approval policies, bidirectional validation, confidence calibration, gate learning. |
 | 7 schemas in schemas/ | ABD-era, superseded | Schemas now authoritatively defined in engine SPECs §2/§3. JSON files to be regenerated during implementation. |
 | root CLAUDE.md | Exists | Needs update for implementation phase. |
 | 7 engine CLAUDE.md | Exist | Updated alongside each SPEC. |

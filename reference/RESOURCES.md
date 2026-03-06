@@ -435,3 +435,10 @@ Optional keys (add as needed):
 - **Relevant component:** Validation (file hash verification, provenance chain integrity)
 - **How to use:** Python stdlib, no installation. `hashlib.sha256()` with 64KB chunk reads.
 - **License:** Python Software Foundation License
+
+## Human Gate Component Resources (added 2026-03-06)
+
+### Design Decision: No External HITL Framework
+- **Context:** Surveyed LangGraph HITL middleware, Temporal workflow approval, HumanLayer SDK, and various Python task queues (Celery, RQ, persist-queue).
+- **Decision:** None applicable. KR's human gate is a persistent review queue for a single user reviewing batched decisions, not a real-time agent interrupt system. The complexity is in the gate type registry, bidirectional validation, and policy management — not in the queue infrastructure itself.
+- **Implementation:** Python stdlib file operations (JSON read/write with atomic rename), Pydantic v2 for models, shared/validation for integrity checks. No additional dependencies required.
