@@ -837,7 +837,7 @@ The normalization boundary (حد التطبيع) is the architectural dividing l
 
 §1.5 establishes accuracy as the highest-priority core property and protection from error as the second. §1.9 names the application's non-negotiables: zero tolerance for silent corruption, defense at every decision point, and mutual verification between human and autonomous systems. §2.2 defines the architectural mechanisms that serve these properties: multi-model consensus (إجماع متعدد النماذج), human gates (بوابة بشرية), feedback loops (حلقة التغذية الراجعة), gold baselines (خط أساس ذهبي), and regression testing (اختبار الانحدار). §2.4 defines the verified/flagged separation as the content-level defense. This section specifies the quality architecture that binds these mechanisms into a coherent, layered defense: the architectural strategy for preventing, detecting, correcting, isolating, and auditing errors across the entire application.
 
-This section defines _what_ the quality architecture must achieve and _what layers of defense_ it comprises. It does not define the internal logic of any specific validation algorithm, consensus protocol, or gate procedure. Those details are in the per-component documentation (Level 2) for each engine and in §9 (Human Gates) for gate-specific specifications.
+This section defines _what_ the quality architecture must achieve and _what layers of defense_ it comprises. It does not define the internal logic of any specific validation algorithm, consensus protocol, or gate procedure. Those details are in the dedicated shared component SPECs: `shared/consensus/SPEC.md` for the consensus protocol (D-041), `shared/validation/SPEC.md` for algorithmic validation and background sweeps, `shared/human_gate/SPEC.md` for gate management and auto-approval policies, and `shared/feedback/SPEC.md` for correction storage, pattern analysis, and DSPy-based rule improvement. The overarching principle governing all quality mechanisms is Secure by Design (D-033, Principle 14): every engine must be designed so that errors are structurally prevented, not just detected after the fact.
 
 ---
 
@@ -889,7 +889,7 @@ _Multi-model consensus_ (§2.2) catches errors by comparing independent LLM outp
 
 **Model change regression.** §1.9 identifies silent behavioral drift in AI models as a risk. When an underlying LLM model used by any engine is updated (new version, changed behavior), regression tests against gold baselines must run before the updated model is used in production. This is a mandatory gate — not a best practice.
 
-**Bounded scope of improvement.** The application's processing rules improve through feedback loops. Processing rules include: prompt templates, extraction definitions, classification heuristics, validation thresholds, and other configurable parameters that engines use to make content decisions. Feedback loops do not involve LLM fine-tuning, autonomous architectural changes, modifications to this specification, or changes to the library's persistent data (science trees, placed excerpts, entries). The application gets better at processing; it does not autonomously redesign itself.
+**Bounded scope of improvement.** The application's processing rules improve through feedback loops. Processing rules include: prompt templates, DSPy program configurations and few-shot examples, extraction definitions, classification heuristics, validation thresholds, and other configurable parameters that engines use to make content decisions. The feedback component (`shared/feedback/SPEC.md`) exports correction data as structured, DSPy-compatible training sets per engine, enabling systematic prompt optimization. Feedback loops do not involve LLM fine-tuning, autonomous architectural changes, modifications to this specification, or changes to the library's persistent data (science trees, placed excerpts, entries). The application gets better at processing; it does not autonomously redesign itself.
 
 ---
 
@@ -909,7 +909,7 @@ _Multi-model consensus_ (§2.2) catches errors by comparing independent LLM outp
 
 §2.2 defines a human gate (بوابة بشرية) as "a checkpoint where the application pauses and requires the owner's explicit approval before proceeding with a high-impact action — one that, if incorrect, would introduce errors into the library that may be difficult to detect after the fact." §2.2 also establishes that human gates are bidirectional: the owner reviews the application's proposed actions, and the application intelligently validates the owner's inputs and decisions. §1.9 establishes mutual verification between human and autonomous systems as a non-negotiable. §2.5 defines the owner confidence level (مستوى ثقة المالك) as a calibration mechanism for human gate behavior. §8 positions human gates within the quality architecture as one of five defense layers. This section specifies the human gate architecture: what human gates are, why they exist, where they occur, and how they adapt to the owner's expertise.
 
-This section defines _what_ human gates must achieve and _what categories of decisions_ they govern. It does not define the specific gate procedures, UI presentation, approval workflows, or decision logic for any individual gate. Those details are in the per-component documentation (Level 2) for each engine that implements a human gate.
+This section defines _what_ human gates must achieve and _what categories of decisions_ they govern. It does not define the specific gate procedures, UI presentation, approval workflows, or decision logic for any individual gate. Those details are in `shared/human_gate/SPEC.md` (the human gate component) and in the per-engine SPECs for each engine that creates human gate checkpoints.
 
 ---
 
@@ -1093,7 +1093,7 @@ The ABD schemas in `schemas/` are superseded by the schemas defined in the seven
 
 This section states the design principles that govern every decision in خزانة ريان's architecture and implementation. These principles are distilled from the architectural decisions established in §1–§9. When trade-offs arise, these principles are the tiebreaker. They are listed in strict priority order: when two principles conflict, the lower-numbered principle governs.
 
-Each principle is stated as a rule that an implementing agent can apply directly — not as an aspiration. Each principle includes a brief explanation and a reference to the architectural decision it derives from. The complete set of principles is below; no principle exists outside this list.
+Each principle is stated as a rule that an implementing agent can apply directly — not as an aspiration. Each principle includes a brief explanation and a reference to the architectural decision it derives from. Principles 1–12 are in strict priority order: when two of these principles conflict, the lower-numbered principle governs. Principles 13–15 were established during the SPEC-writing phase (D-018, D-033, D-023) and are cross-cutting — they apply alongside and strengthen the priority-ordered principles.
 
 ---
 
@@ -1144,6 +1144,18 @@ No new source type, science, automation level, or architectural capability is bu
 ### Principle 12: Coverage-Driven Prioritization
 
 Once the Phase 2 engines are proven (Milestone 1, §10.2), the choice of what to process next is driven by which taxonomy leaves need more coverage (§3.5), not by what material is easiest to acquire or what source type is most convenient to implement. The library's value comes from comprehensive, exhaustive coverage of the scholarly tradition's diversity (§1.7); coverage gaps are the application's primary concern after engine correctness is established. Coverage is natural and quality-preserving — it does not trigger quality-lowering gap-filling.
+
+### Principle 13: The Library Is the Owner's Knowledge
+
+KR is not a library Rayane uses — it IS Rayane's knowledge (D-018). The library's contents are what he knows; the gaps are what he doesn't know; an error in the library is an error in his mind. This foundational identity shapes every design decision: quality is existential (not a nice-to-have), completeness is personal (gaps are Rayane's blind spots), and the library grows with the owner (his own scholarly output feeds back as first-class content). Every engine must design with the understanding that its output becomes part of a person's understanding of their religion and scholarly tradition.
+
+### Principle 14: Secure by Design — Error Prevention over Error Correction
+
+Every engine, every data transformation, every metadata flow must be designed so that errors are structurally prevented — not just detected after the fact (D-033). This means: immutability over mutability (intermediate artifacts are write-once), explicit over implicit (every decision is recorded with its confidence and reasoning), fail-loud over fail-silent (visible failures are always preferable to invisible errors), verification at every boundary (receiving engines validate against sending engines' contracts), provenance is mandatory (every knowledge product carries a complete chain back to its frozen source), corruption detection is continuous (hash chains enable integrity verification at any time), and the blast radius of any single error must be bounded (no cascade can propagate undetected across the library). This principle strengthens Principles 1 and 2 by making error prevention architectural rather than procedural.
+
+### Principle 15: Metadata Is Synthesis Fuel
+
+Every engine that captures or enriches metadata must design with the synthesizer as the primary downstream consumer (D-023). Metadata doesn't just document sources — it enables the synthesizer to produce entries with temporal depth, intellectual genealogy, school context, and historical narrative that no single source contains. Author dates, teacher-student chains, school affiliations, work genres, cross-references — all of this transforms flat compilations into scholarly narratives. No engine may strip metadata it doesn't need, because the synthesizer needs ALL of it. The metadata chain flows downstream through the entire pipeline: source metadata → normalized package → passage metadata → excerpt metadata → placed excerpt metadata → all available to the synthesizer when generating an entry.
 
 ---
 
@@ -1266,13 +1278,39 @@ kr/
 ├── shared/
 │   ├── CLAUDE.md
 │   ├── consensus/
+│   │   ├── CLAUDE.md
 │   │   ├── SPEC.md
 │   │   ├── src/
 │   │   └── tests/
 │   ├── validation/
+│   │   ├── CLAUDE.md
+│   │   ├── SPEC.md
 │   │   ├── src/
 │   │   └── tests/
-│   └── feedback/
+│   ├── human_gate/
+│   │   ├── CLAUDE.md
+│   │   ├── SPEC.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── feedback/
+│   │   ├── CLAUDE.md
+│   │   ├── SPEC.md
+│   │   ├── src/
+│   │   └── tests/
+│   ├── user_model/
+│   │   ├── CLAUDE.md
+│   │   ├── SPEC.md
+│   │   ├── src/
+│   │   └── tests/
+│   └── scholar_authority/
+│       ├── CLAUDE.md
+│       ├── SPEC.md
+│       ├── src/
+│       └── tests/
+│
+├── interface/
+│   └── scholar/
+│       ├── CLAUDE.md
 │       ├── SPEC.md
 │       ├── src/
 │       └── tests/
@@ -1341,7 +1379,7 @@ The seven engine directories under `engines/` correspond exactly to the seven en
 
 **The directory structure represents the target architecture.** §2.2 states that the seven engines are "conceptual processing responsibilities" and that "a single codebase module may currently implement multiple engines' responsibilities." An engine directory may exist before its code is fully separated from another engine's code. When this is the case, the engine's CLAUDE.md states the current implementation state explicitly — for example: "Status: shares implementation with the excerpting engine. Primary code is in `engines/excerpting/src/`." The directory exists as the engine's conceptual home and the location for its SPEC.md and CLAUDE.md even when dedicated source code has not yet been separated.
 
-No engine directory is created for a component that is not one of the seven engines in §2.2. If the application's architecture evolves to add, remove, or merge engines, that change is first made in VISION.md §2.2 (which requires the owner's approval), and then the directory structure is updated to match.
+No engine directory is created for a component that is not one of the seven engines in §2.2. If the application's architecture evolves to add, remove, or merge engines, that change is first made in VISION.md §2.2 (which requires the owner's approval), and then the directory structure is updated to match. Components that are not engines but have their own processing logic live in `shared/` (cross-engine infrastructure) or `interface/` (user-facing intelligence layer). The `interface/` directory was created for the scholar interface (D-016) — the user-facing intelligence layer that consumes all engine outputs and provides the owner's interaction with the library. It is not an engine (it does not process sources through the pipeline) but is a substantial component with its own SPEC.md.
 
 **Test co-location and aggregate discovery.** Each engine's tests live in its own `tests/` directory, not in a centralized test directory. This ensures that tests are immediately visible when working on the engine they validate. A single command must be able to discover and run all tests across all engines — the root CLAUDE.md documents this command. The test runner's configuration (which discovers tests across `engines/*/tests/` and `shared/*/tests/`) is an implementation detail.
 
@@ -1353,15 +1391,25 @@ The `shared/` directory contains infrastructure that serves multiple engines but
 
 The `shared/` directory has its own CLAUDE.md that states this inclusion criterion and describes the contents of each subdirectory. Substantial shared components (those with their own processing logic and validation requirements) have their own SPEC.md.
 
-The currently planned contents of `shared/` are:
+The contents of `shared/` are:
 
-`shared/consensus/` — the multi-model consensus mechanism defined in §2.2. This is cross-engine infrastructure called by multiple Phase 2 engines (atomization, excerpting, taxonomy) and potentially by the source engine during trustworthiness evaluation (§7.4). The consensus mechanism has its own SPEC.md because it is a substantial component with its own processing logic, configuration, and testing requirements.
+`shared/consensus/` — the multi-model consensus mechanism (D-041). Cross-engine infrastructure called by the excerpting engine (self-containment, school attribution) and the taxonomy engine (ambiguous placements). Uses parallel-independent comparison with LiteLLM + Instructor. Has its own SPEC.md.
 
-`shared/validation/` — algorithmic validation tools used across engines: schema validation, structural integrity checks, reference verification, and other deterministic checks described in §8.1 (Layer 2: Detection). These are the mechanical validation counterparts to the LLM-driven intelligent validation that each engine performs internally.
+`shared/validation/` — algorithmic validation tools used across engines: schema validation, structural integrity checks (offset coverage, passage containment, hash chains), referential integrity verification, and background library sweeps described in §8.1 (Layer 2: Detection). Has its own SPEC.md.
 
-`shared/feedback/` — the feedback loop infrastructure defined in §2.2 and §8.3: correction storage, pattern analysis, rule improvement proposals, and regression testing coordination. The feedback system spans all engines that have human gates (§9), making it inherently cross-engine. The feedback system has its own SPEC.md because it is a substantial component.
+`shared/human_gate/` — the human gate checkpoint management system (§9). Provides checkpoint creation, resolution, auto-approval policies, and bidirectional validation for all engines that require owner review. The human gate reads owner expertise levels from the user model (D-042). Has its own SPEC.md.
 
-Additional shared components may be added as the project develops, provided they meet the inclusion criterion.
+`shared/feedback/` — the feedback loop infrastructure defined in §2.2 and §8.3: correction storage, pattern analysis, DSPy-compatible training data exports, regression testing coordination, and model change management. The feedback system spans all engines that have human gates, making it inherently cross-engine. Has its own SPEC.md.
+
+`shared/user_model/` — persistent user state tracking (D-017). Stores Rayane's engagement history, knowledge estimates (per-leaf mastery via FSRS spaced repetition), gap analysis, curriculum state, scholarly profile, and study preferences. Written by the scholar interface (primary), processing engines (alerts), and human gate (expertise signals). Read by the scholar interface for all personalization. Has its own SPEC.md.
+
+`shared/scholar_authority/` — the centralized scholar identity registry (D-025). Maintains canonical scholar records with biographical data, school affiliations, teacher-student relationships, work lists, and disambiguation rules. Created primarily by the source engine during intake, enriched by all engines that encounter scholars. The scholar authority graph is a primary input to the synthesizing engine for intellectual genealogy narratives. Has its own SPEC.md.
+
+#### The `interface/` Directory
+
+The `interface/` directory contains user-facing intelligence layers that consume engine outputs and provide the owner's interaction with the library. Unlike `engines/` (which process sources through the pipeline) and `shared/` (which provide cross-engine infrastructure), `interface/` components are the owner's point of contact with the library's knowledge.
+
+`interface/scholar/` — the scholar interface (D-016). The owner's primary interaction layer with the library. Provides five capability domains: answering (Q&A grounded in library knowledge), teaching (Socratic dialogue, curricula, spaced repetition), discovering (proactive alerts, contradiction detection, coverage gaps), assisting (writing support, footnote generation), and navigating (taxonomy browsing, scholar networks, temporal views). Reads from all engine outputs and shared components; writes to the user model and feedback component. Has its own SPEC.md following the standard template. The scholar interface is the component that makes the library's knowledge accessible — without it, the engines produce artifacts that no one reads.
 
 #### 13.2.6 The `library/` Directory
 
@@ -1559,6 +1607,7 @@ Additionally, each engine's CLAUDE.md contains a "current state" section that is
 
 ## Changelog
 
+- 1.2.0 (2026-03-06): Cross-SPEC consistency verification and cross-cutting corrections after all 14 SPECs complete. §8: Updated intro to reference actual shared component SPECs (consensus, validation, human_gate, feedback) instead of generic "per-component documentation"; added D-033 (Secure by Design) reference; updated §8.3 to mention DSPy-based optimization in feedback loop scope. §9: Updated intro to reference human_gate SPEC. §11: Added Principles 13 (Library Is Owner's Knowledge, D-018), 14 (Secure by Design, D-033), 15 (Metadata Is Synthesis Fuel, D-023); updated intro to explain priority-ordered vs cross-cutting principles. §13.2: Updated repo layout tree to include all 6 shared components (consensus, validation, human_gate, feedback, user_model, scholar_authority) and interface/scholar/ directory. Updated §13.2.4 to acknowledge interface/ directory. Rewrote §13.2.5 with full shared component descriptions. Added interface/ directory section before §13.2.6. Taxonomy SPEC: added `school_confidence` to provenance preservation list.
 - 1.1.0 (2026-03-05): Post-SPEC cross-cutting corrections. Resolved §6.4 OPEN QUESTION with D-040 (grounding_type traceability boundary). Rewrote §10.3 and §12 to align with D-019 (ABD legacy has zero design authority); renamed "Preserve proven work" principle to "Pragmatic reuse" (§10.1). Updated §13.2.6 library directory structure and repo layout tree to match source engine SPEC (per-source directories, `library/registries/` with sources.json/works.json/scholars.json). Updated §2 "Atom" glossary to reflect that atoms are persisted on disk. Updated §2 "Work" glossary to reflect three-tier identity model (D-024) with work relationships (D-027).
 - 1.0.1 (2026-03-03): Audit corrections. Fixed Phase 2 engine count (§1.1). Removed editorial markers (§1.6, §6.2). Collapsed §1.6 entry/flagged restatement into §6.2 reference (SSoT fix). Fixed five dangling "extraction engine" forward-references in §2.2 and §2.4 to point to correct engines. Fixed §1.3 entry description to reflect school-group cardinality (§6.2). Replaced "coverage subsystem" references with taxonomy engine (§2.4, §3.5). Fixed taxonomy engine §8 cross-reference label. Expanded science-agnostic definition to cover all Phase 2 engines (§2.2). Added science scope to source metadata (§7.3). Added multi-science source handling (§1.2). Specified reviewed→placed lifecycle transition agent (§2.4). Added placed excerpt schema to contract inventory (§13.4.2). Moved data portability from §1.8 to §1.9. Collapsed redundant primary text paragraph (§5.1). Fixed "extraction engines" grouping label (§1.1, §2.2). Updated stale test count (§10.3). Rewrote §1 header cross-reference claim (§1).
 - 1.0.0 (2026-03-02): Initial unified specification for خزانة ريان. Assembled from phased drafts (§1–§5 from Phase 1, §6–§9 from Phase 2, §10–§13 from Phase 3). Harmonized cross-references, resolved known inconsistencies between corrected sections, and verified term consistency with §2 definitions throughout.

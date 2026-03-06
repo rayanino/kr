@@ -69,7 +69,7 @@ Written to `library/sciences/{science_id}/content/{leaf_path}/excerpts/{excerpt_
 
 - **Leaf validity.** `confirmed_leaf` always resolves to a leaf in the tree version recorded in `taxonomy_version_at_placement`. If the tree evolves after placement, the excerpt's `confirmed_leaf` may reference a path that no longer exists in the current tree — the migration system (§4.A.7) handles this.
 - **Uniqueness.** No two placed excerpt files share the same `excerpt_id`.
-- **Provenance preservation (D-023).** All upstream metadata is preserved by reference: `source_id`, `passage_id`, `atom_ids`, `physical_pages`, `division_path`, `primary_author_id`, `quoted_scholars`, `evidence_refs`, `takhrij_data`, `content_types`, `school`, `self_containment_score`, `review_flags`, `processing_metadata`. The taxonomy engine adds placement data; it never strips upstream fields.
+- **Provenance preservation (D-023).** All upstream metadata is preserved by reference: `source_id`, `passage_id`, `atom_ids`, `physical_pages`, `division_path`, `primary_author_id`, `quoted_scholars`, `evidence_refs`, `takhrij_data`, `content_types`, `school`, `school_confidence`, `self_containment_score`, `review_flags`, `processing_metadata`. The taxonomy engine adds placement data; it never strips upstream fields.
 
 ### 3.2 Science Tree Files
 
