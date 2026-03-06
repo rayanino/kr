@@ -472,3 +472,25 @@ Optional keys (add as needed):
 - **KR usage:** Optional — engines may use DeepEval for regression testing, or implement their own simpler test harness. The feedback component coordinates the triggering and result tracking regardless of which testing framework the engine uses.
 - **License:** Apache 2.0
 - **How to use:** `pip install deepeval`. Define test cases with input/expected_output/actual_output. Run with pytest integration. Supports LLM-as-a-judge for nuanced evaluation.
+
+## User Model Component Resources (added 2026-03-06)
+
+### py-fsrs (Python, MIT license)
+- **URL:** https://github.com/open-spaced-repetition/py-fsrs
+- **Version:** 5.1+ (FSRS v6 model)
+- **What it does:** Implements the Free Spaced Repetition Scheduler (FSRS) algorithm — state-of-the-art open-source spaced repetition scheduling backed by KDD 2022 research. Handles card state management, review scheduling (next due date computation), retrievability estimation, and JSON serialization. Uses a DSR (Difficulty-Stability-Retrievability) memory model with 21 trainable parameters.
+- **How to use:** `pip install fsrs`. Card and Scheduler objects are JSON-serializable via `to_json()`/`from_json()`. Supports custom `desired_retention` (0.70–0.99), configurable learning/relearning steps, and parameter personalization.
+- **KR usage:** Core spaced repetition engine in user model §4.A.3. Handles all scheduling logic — the user model wraps it but does not reimplement scheduling.
+- **API key:** None required. Runs entirely locally.
+
+### fsrs-optimizer (Python, MIT license)
+- **URL:** https://github.com/open-spaced-repetition/fsrs-optimizer
+- **What it does:** Personalizes FSRS parameters from a user's actual review history. Trains the 21-parameter model on the user's review logs to produce scheduling that matches their personal forgetting curve. Requires PyTorch.
+- **How to use:** `pip install fsrs-optimizer`. Input: review log in standard format (card_id, review_datetime, rating). Output: optimized 21-parameter tuple.
+- **KR usage:** Optional optimization in user model §4.A.3. Triggered after 200+ reviews to personalize scheduling.
+- **API key:** None required. Runs entirely locally. PyTorch dependency is heavy — consider using `fsrs-rs-python` (Rust-based, lighter) as an alternative if PyTorch is not already in the stack.
+
+### pyBKT (Python, MIT license)
+- **URL:** https://github.com/CAHLR/pyBKT
+- **What it does:** Bayesian Knowledge Tracing — estimates learner mastery from interaction sequences using a Hidden Markov Model. Models four probabilities per skill: P(know), P(learn), P(guess), P(slip). Primarily designed for ITS with binary correct/incorrect responses.
+- **Evaluated and NOT adopted for KR.** BKT requires high-volume binary response data (correct/incorrect answers to specific questions). KR's assessment model is richer (LLM-evaluated Socratic dialogue) and lower-frequency (assessments happen periodically, not after every interaction). KR uses a weighted confidence score (§4.A.2) instead, combining engagement depth, assessment performance, recency, and prerequisite strength. BKT may be reconsidered if KR adds high-frequency quiz-style interactions.
