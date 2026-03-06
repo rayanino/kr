@@ -2,7 +2,7 @@
 
 **Core axiom: The library IS the user's knowledge. An error here is an error in his mind. The knowledge cannot defend itself.**
 
-Full specification: `VISION.md`. Decisions: `reference/kr_decisions.md`.
+Full specification: `VISION.md`. Concise context: `STEERING.md`. Decisions: `reference/kr_decisions.md`.
 Domain knowledge: `reference/DOMAIN.md`. Quality target: `reference/ENTRY_EXAMPLE.md`.
 
 ## Critical Rules (always active, never violate)
@@ -48,6 +48,7 @@ Layer 3: Scholar Interface — consumes all outputs.
 - `SPEC_REFINEMENT.md` — 11-step SPEC improvement cycle (Steps 0-10).
 - `SILENT_FAILURES.md` — 7 patterns of output that looks right but is wrong.
 - `SESSION_CONTINUITY.md` — bulletproof session handoff rules.
+- `PREPARATORY_ROADMAP.md` — 7 work streams for the full preparatory phase.
 - `ORCHESTRATOR.md` — implementation session lifecycle (after SPEC refinement).
 - `MILESTONES.md` — task decomposition with dependencies.
 - `REVIEW_PROTOCOL.md` — design review procedures.

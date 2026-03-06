@@ -284,3 +284,17 @@ All removed detail is already in repo files loaded on-demand via NEXT.md. The cu
 
 **System assessment: The autonomous system is now as robust as it can be.** Further meta-layer additions would consume more context than they save. The next step is to USE the system — start SPEC refinement — not add more governance documents.
 
+
+### Session 2026-03-06 — Claude Chat: Autonomous System Hardening (Sixth Pass — Broadening)
+
+**Key insight:** The system was narrowly focused on SPEC refinement. The preparatory phase has 7 work streams, not one. Added steering document, preparatory roadmap, and the first machine-readable contract.
+
+**New documents:**
+- STEERING.md: Concise project context for Claude Code (~80 lines vs VISION.md 5000+ lines). Architecture, data flow, key decisions, technology stack, quality standard, constraints — all in one read.
+- PREPARATORY_ROADMAP.md: 7 work streams (SPEC refinement, machine-readable contracts, resource survey, Claude Code environment, VISION.md optimization, test data, architectural validation) with session sequencing and completion criteria.
+- engines/source/contracts.py: Machine-readable Pydantic models for source engine output contract. 20+ models covering all SPEC §3 fields. Serves as implementation reference, runtime validation, and test data generation.
+
+**PROJECT_INSTRUCTIONS.md: Already compressed to 101 lines.**
+
+**System state:** 14 governance docs, 7 agents, 14 commands, 5 skills, 5 scripts, 1 hook. Machine-readable contract for source engine. Preparatory roadmap with 7 work streams. Ready for actual preparatory work.
+

@@ -4,7 +4,8 @@
 **Phase:** 1 (source-format-specific, above the normalization boundary).
 
 ## Required Reading
-1. This engine's SPEC.md (the authoritative document)
+1. This engine's SPEC.md (the authoritative behavioral specification)
+2. This engine's contracts.py (machine-readable Pydantic models for input/output schemas)
 2. VISION.md §7 (source pipeline architecture), §2.2, §2.5
 3. Output boundary: frozen source + metadata → normalization engine
 
