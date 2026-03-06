@@ -100,6 +100,42 @@ def check_creative_output(diff_text: str) -> list:
     return issues
 
 
+def check_implementation_drift(diff_text: str) -> list:
+    """Detect if Claude Chat is writing application code instead of preparatory work."""
+    issues = []
+    
+    # Check for function bodies in engine src/ files (not just stubs)
+    additions = [l for l in diff_text.split('\n') if l.startswith('+') and not l.startswith('+++')]
+    
+    implementation_signals = 0
+    for line in additions:
+        # Real code: function bodies with logic, not just docstrings or pass
+        if re.search(r'\+\s+(if |for |while |return |try:|except |raise |await |yield )', line):
+            # Check if this is in an engine src/ file
+            implementation_signals += 1
+    
+    # Check if the changes are in engine src/ files (not scripts/, not contracts.py)
+    file_list = subprocess.run(
+        ['git', 'diff', '--cached', '--name-only'],
+        capture_output=True, text=True
+    ).stdout
+    
+    engine_src_changes = [f for f in file_list.strip().split('\n') 
+                         if re.match(r'engines/.*/src/.*\.py$', f)
+                         and 'contracts.py' not in f
+                         and '__init__' not in f]
+    
+    if engine_src_changes and implementation_signals > 10:
+        issues.append(
+            f"IMPLEMENTATION_DRIFT: {len(engine_src_changes)} engine src/ files modified with "
+            f"{implementation_signals} lines of application logic. Claude Chat does preparatory "
+            f"work only — application code is Claude Code's job. Module stubs with docstrings "
+            f"are fine, but function bodies with processing logic are not."
+        )
+    
+    return issues
+
+
 def check_spec_quality_improvement(spec_path: str = None) -> list:
     """If a SPEC was modified, check that quality improved."""
     issues = []
@@ -173,6 +209,7 @@ def main():
         ("Session log", check_session_log()),
         ("Creative output", check_creative_output(diff_full)),
         ("Knowledge safety", check_knowledge_corruption_risk(diff_full)),
+        ("Implementation boundary", check_implementation_drift(diff_full)),
     ]
     
     if args.spec:

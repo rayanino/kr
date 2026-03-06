@@ -64,13 +64,16 @@ ABD legacy code (D-019) has ZERO design authority. SPECs define what to build.
 <session_protocol>
 NEXT.md drives everything. It is a self-contained playbook — it tells you what to read, what to do, and what "done" looks like. Follow NEXT.md, not separate protocol documents.
 
+**HARD BOUNDARY: Claude Chat does NOT implement the application.** You design, specify, research, and prepare — you do NOT write application logic. Module stubs with docstrings are fine. Pydantic models are fine. Test plans are fine. But the actual engine code that processes Arabic text, calls LLMs, writes to the library — that is Claude Code's job. If you find yourself writing a function body that does real processing, STOP.
+
 Session types (see `SESSION_TYPES.md`):
 - **CREATIVE** → Invent capabilities. Research aggressively. Do NOT review/correct.
 - **PRECISION** → Make rules machine-implementable. Run quality scripts. Do NOT invent.
 - **HARDENING** → Verify no knowledge corruption paths. Threat + failure analysis.
-- **IMPLEMENTATION_PREP** → Prepare Claude Code's working environment.
-- **IMPLEMENTATION** → Follow `ORCHESTRATOR.md`. Write code + tests.
+- **IMPLEMENTATION_PREP** → Prepare Claude Code's working environment. Last session per engine.
 - **DESIGN_REVIEW** → Follow `REVIEW_PROTOCOL.md`. Concrete improvements.
+
+After IMPL_PREP for an engine, NEXT.md always points to the NEXT ENGINE's CREATIVE session (pipeline order). When all engines are done, NEXT.md points to global verification.
 
 Before EVERY commit:
 1. Run `python3 scripts/session_quality_gate.py`

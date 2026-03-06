@@ -174,7 +174,7 @@ For every tool, library, or dataset discovered during research.
 
 ## Type I: IMPLEMENTATION_PREP Session
 
-**Goal:** Prepare everything Claude Code needs to build this engine.
+**Goal:** Prepare everything Claude Code needs to build this engine. This is the LAST Claude Chat session for each engine.
 
 **When:** After the SPEC passes CREATIVE + PRECISION (+ optional HARDENING).
 
@@ -183,25 +183,33 @@ For every tool, library, or dataset discovered during research.
 2. Verify test fixtures exist in `tests/fixtures/`
 3. Write the engine's CLAUDE.md with accurate implementation state
 4. Update MILESTONES.md task decomposition for this engine
-5. Write NEXT.md targeting Claude Code's first implementation task
-6. Verify all dependencies in requirements.txt
+5. Create module stubs with SPEC-referencing docstrings (directory skeleton for Claude Code)
+6. Write `IMPLEMENTATION_ORDER.md` — the build plan Claude Code follows
+7. Write `TEST_PLAN.md` — test cases mapped to fixtures
+8. Verify all dependencies in requirements.txt
 
-**Output:** Engine directory ready for Claude Code to build in.
+**Output:** Engine directory fully ready for Claude Code.
+
+**NEXT.md must point to the NEXT ENGINE's CREATIVE session** (or, if all engines are done, to a global verification session). Claude Chat does NOT do implementation — that is Claude Code's job. The preparatory phase ends when all engines have completed IMPL_PREP.
 
 ---
 
 ## Session Sequencing (per SPEC, pipeline order)
 
+Each engine's IMPL_PREP session writes NEXT.md pointing to the NEXT engine's CREATIVE session. Claude Chat never does implementation — that's Claude Code's job.
+
 ```
-Source engine:     C → P → H → I   (critical engine, needs hardening)
-Normalization:     C → P → H → I   (critical engine, needs hardening)
-Passaging:         C → P → I       (simpler engine)
-Atomization:       C → P → I
-Excerpting:        C → P → H → I   (critical — self-containment judgment)
-Taxonomy:          C → P → I
-Synthesis:         C → P → H → I   (critical — produces user-facing content)
-Shared components: P → I            (already have §4.B; need precision + prep)
-Scholar interface: C → P → H → I   (critical — user-facing)
+Source engine:     C → P → H → I → [next engine]
+Normalization:     C → P → H → I → [next engine]
+Passaging:         C → P → I → [next engine]
+Atomization:       C → P → I → [next engine]
+Excerpting:        C → P → H → I → [next engine]
+Taxonomy:          C → P → I → [next engine]
+Synthesis:         C → P → H → I → [next engine]
+Shared components: P → I each → [next component]
+Scholar interface: C → P → H → I → [global verification]
 ```
 
-Estimated total: ~35-40 sessions. At 1-2 sessions per day, this is 3-5 weeks of preparatory work before implementation begins.
+After the LAST component's IMPL_PREP, NEXT.md points to a GLOBAL_VERIFICATION session (cross-SPEC coherence, implementation gate check, Claude Code environment final setup).
+
+Estimated total: ~35-40 sessions. At 1-2 sessions per day, this is 3-5 weeks of preparatory work. After that, the repo is 100% ready for Claude Code to take over implementation.

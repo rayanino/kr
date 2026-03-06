@@ -1,5 +1,7 @@
 # KR Implementation Orchestrator
 
+**THIS DOCUMENT IS FOR CLAUDE CODE ONLY.** Claude Chat does not do implementation. If you are Claude Chat reading this: STOP — your session types are in SESSION_TYPES.md, your task is in NEXT.md.
+
 This document governs how Claude Code sessions execute implementation work autonomously.
 It replaces the SPEC-writing workflow with an implementation-phase workflow.
 
