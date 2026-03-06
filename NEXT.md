@@ -1,80 +1,81 @@
 # NEXT SESSION
 
-**Written by:** Session 2026-03-06 (Autonomous system hardening — Claude Chat)
-**Date:** 2026-03-06
+## Session Type
+SPEC_REFINEMENT
 
 ## Immediate Task
 
-Begin Milestone 1 implementation: source engine + normalization engine (Shamela format) end-to-end.
+Execute refinement cycle 1 on the **source engine SPEC** (`engines/source/SPEC.md`), following `SPEC_REFINEMENT.md` Steps 1-9 exactly.
 
-Start with **M1.1 — Source Engine: Data Models and Identity** (see MILESTONES.md for detailed task breakdown).
+The source engine is the pipeline entry point. Its SPEC must be airtight before any implementation begins.
 
-**Definition of done — this session is complete when:**
-1. Source metadata dataclass defined matching SPEC §3 output contract
-2. Three-tier identity model implemented: `source_id`, `work_id`, `canonical_id` (D-024)
-3. Registry structures created: `sources.json`, `works.json`, `scholars.json`
-4. Tests written and passing for identity generation and registry operations
-5. Tests include Arabic text handling verification (real Arabic, not placeholders)
-6. Engine CLAUDE.md updated with accurate state
-7. Three Challenges completed before commit (CHALLENGE_PROTOCOL.md)
+## Definition of Done
+
+1. Defect ledger produced with exact quotes and fixes for every defect found
+2. All §4.A subsections have at least one concrete I/O example with real Arabic text
+3. All 7 knowledge integrity threats explicitly addressed in the SPEC
+4. Technology references verified with at least 3 web searches; RESOURCES.md updated
+5. Upstream/downstream boundary verified with `python3 scripts/verify_metadata_flow.py`
+6. Two self-review rounds completed; Three Challenges passed
+7. Second research round completed (3+ additional web searches)
+8. Refined SPEC committed with defect count in commit message
+9. `engines/source/CLAUDE.md` updated with refinement status
 
 ## Context
 
-The preparatory phase is **complete**. All 14 SPECs written, cross-SPEC consistency verified, VISION.md at v1.2.0, Claude Code environment populated.
+All 14 SPECs are written but were drafted BEFORE `KNOWLEDGE_INTEGRITY.md`, `CHALLENGE_PROTOCOL.md`, and the skills were created. They need refinement against these new standards before implementation can begin.
 
-**CRITICAL: New protocols added this session — read these FIRST:**
-- `KNOWLEDGE_INTEGRITY.md` — 7-threat model for knowledge safety. EVERY implementation session must check against these threats.
-- `CHALLENGE_PROTOCOL.md` — Three Challenges (Hostile Implementer, Skeptical Scholar, Technology Maximalist) + quality gates + anti-pattern detection. Run before EVERY commit.
-- `.claude/skills/arabic-text/SKILL.md` — Arabic text handling rules. Read before ANY code that touches Arabic text.
-- `.claude/skills/knowledge-safety/SKILL.md` — Knowledge safety review checklist. Use when implementing processing logic.
-- `.claude/skills/technology-survey/SKILL.md` — Technology survey protocol. Check BEFORE building custom code.
-- `.claude/skills/scholarly-design/SKILL.md` — Transformative feature evaluation. Use for §4.B capabilities.
+**This is the first SPEC refinement session.** The source engine goes first because it's the pipeline entry point — all downstream engines depend on its output contract.
 
-**Additional infrastructure (from previous enhancement session):**
-- `ORCHESTRATOR.md` — Implementation session lifecycle (Orient → Plan → Build → Verify → Handoff)
-- `MILESTONES.md` — Detailed task decomposition with dependencies and acceptance criteria
-- `REVIEW_PROTOCOL.md` — 5 structured review types for design critique sessions
-- 7 agents total: spec-reviewer, test-runner, integrity-checker, implementation-planner, code-reviewer, integration-tester, design-critic
-- 12 commands total including: challenge, plan-implementation, verify-boundaries, design-review, milestone-status, generate-test-plan
-- 3 scripts: decompose_spec.py, verify_metadata_flow.py, check_compliance.py
-- Enhanced hooks: SessionStart (post-compaction context injection), PreToolUse (commit checks), PostToolUse (knowledge safety reminders)
-
-**Follow `ORCHESTRATOR.md` for the implementation session lifecycle.**
+The autonomous system now includes:
+- `SPEC_REFINEMENT.md` — 9-step iterative refinement cycle
+- `SESSION_CONTINUITY.md` — bulletproof session handoff protocol
+- `KNOWLEDGE_INTEGRITY.md` — 7-threat model for knowledge safety
+- `CHALLENGE_PROTOCOL.md` — Three Challenges + quality gates + anti-patterns
+- 5 skills: knowledge-safety, arabic-text, technology-survey, scholarly-design, spec-examples
+- 7 agents, 14 commands, 4 scripts
 
 ## Files to Read — IN THIS ORDER
 
-1. `ORCHESTRATOR.md` — implementation session protocol
-2. `KNOWLEDGE_INTEGRITY.md` — threat model (NEW — critical)
-3. `CHALLENGE_PROTOCOL.md` — quality gates (NEW — critical)
-4. `.claude/skills/arabic-text/SKILL.md` — Arabic text handling (NEW)
-5. `MILESTONES.md` §M1.1 — the specific task decomposition
-6. `engines/source/CLAUDE.md` — orientation
-7. `engines/source/SPEC.md` §1-§4.A.1 — identity model specification
-8. `engines/source/SPEC.md` §3 — output contract (for dataclass design)
+1. `SPEC_REFINEMENT.md` — the refinement protocol (follow this step by step)
+2. `KNOWLEDGE_INTEGRITY.md` — threat model (needed for Step 2)
+3. `.claude/skills/spec-examples/SKILL.md` — example generation guide (needed for Step 3)
+4. `engines/source/SPEC.md` — the SPEC being refined (THE deliverable)
+5. `engines/normalization/SPEC.md` §2 only — downstream boundary check (needed for Step 5)
+6. `reference/ENTRY_EXAMPLE.md` — quality target (needed for Step 6)
+7. `reference/USER_SCENARIOS.md` — user scenarios (needed for Step 6)
 
-**Do NOT read:** VISION.md, DOMAIN.md, other engine SPECs, kr_decisions.md (not needed for M1.1).
+## Files to NOT Read
 
-## Implementation Notes
+- VISION.md (too large, not needed for SPEC refinement)
+- DOMAIN.md (already incorporated into the SPEC)
+- Other engine SPECs (not needed except normalization §2)
+- kr_decisions.md (decisions already in the SPEC)
+- STATUS.md (not needed)
+- ORCHESTRATOR.md (that's for implementation sessions, not refinement)
 
-- ABD-era code in `engines/source/src/` has zero design authority (D-019). Read for implementation knowledge but implement from the SPEC.
-- Existing tests in `engines/source/tests/` are ABD-era. New KR tests in new files (e.g., `test_identity.py`, `test_registry.py`).
-- Python packaging is `_paths.py` for now. Defer pyproject.toml.
-- ALL test data must use real Arabic text — see .claude/skills/arabic-text/SKILL.md.
-- Source ID generation uses SHA-256 of frozen source. Ensure correct encoding handling.
+## Known Issues
 
-## Blocked Items
+- `vision_defects_s7.md` (now in archive) noted that VISION.md §7.2 still says "sufficient identifying information" which is vague. Check whether the source SPEC resolves this.
+- The source SPEC was written before multi-layer detection details were added to DOMAIN.md. Verify §4.A.3 covers the full multi-layer model.
 
-- **Test data:** Verify sample Shamela directories are accessible. If not, ask owner to provide.
-- **API keys:** Needed for M1.3 (metadata enrichment). Not needed for M1.1 or M1.2.
+## Progress Metrics
+
+SPEC Refinement:
+- Source engine: Cycle 0 (not yet started)
+- All other engines: Cycle 0 (not yet started)
+- Implementation: blocked until source + normalization SPECs pass refinement
+
+Milestone 1: 0/5 tasks complete (blocked by SPEC refinement)
+
+## What Last Session Did
+
+Hardened the autonomous system with SPEC refinement protocol, session continuity protocol, spec-examples skill, refine-spec command, repo cleanup (archived vision_defects_s7.md), rewrote CLAUDE.md for maximum effectiveness, and redirected NEXT.md from premature implementation to SPEC refinement.
+
+## Decisions Made
+
+None. Infrastructure hardening, not architectural decisions.
 
 ## Pending Owner Questions
 
-None currently.
-
-## What This Session Did
-
-Hardened the autonomous system with knowledge integrity protocol (7-threat model), challenge protocol (Three Challenges + quality gates + anti-patterns), 4 Claude Code skills (knowledge-safety, arabic-text, technology-survey, scholarly-design), enhanced hooks (SessionStart compaction context, pre-commit checks), challenge command, and significantly strengthened self-review and session workflow in PROJECT_INSTRUCTIONS.md.
-
-## New Decisions
-
-None. This session was infrastructure hardening, not architectural design.
+None currently. SPEC refinement may surface domain questions.

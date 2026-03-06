@@ -47,3 +47,7 @@ Six gap types: school, source diversity, temporal, evidence, prerequisite, empty
 
 ## External Dependencies
 NetworkX (tree/DAG operations), sentence-transformers (embeddings), Instructor (structured LLM output), CAMeL Tools (Arabic normalization), OpenRouter/Anthropic/OpenAI APIs, PyYAML.
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

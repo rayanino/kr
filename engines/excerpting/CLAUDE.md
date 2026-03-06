@@ -43,3 +43,7 @@ cd engines/excerpting && python -m pytest tests/ -q
 5. **Metadata is synthesis fuel (D-023):** every field serves the synthesizer
 6. **Text integrity absolute (D-004):** primary_text never modified
 7. **Fail-loud (D-033):** low-confidence decisions get flags, not silent defaults
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

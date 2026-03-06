@@ -1,7 +1,7 @@
 # خزانة ريان — Project Status
 
 **Last updated:** 2026-03-06
-**Phase:** Preparatory phase **COMPLETE**. All SPECs written, verified, VISION v1.2.0, .claude/ populated. Ready for Milestone 1 implementation.
+**Phase:** SPEC Refinement (Sub-phase A). All 14 SPECs drafted. Iterative refinement in progress — source engine SPEC first, then pipeline order. Implementation (Sub-phase B) begins after SPECs pass refinement.
 **Tests:** 903 pass, 37 skip, 1 fail (API key) — all ABD-era; no KR-specific tests yet
 
 ---

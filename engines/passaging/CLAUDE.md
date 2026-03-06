@@ -44,3 +44,7 @@ cd engines/passaging && python -m pytest tests/ -q
 4. **Complete coverage:** every content unit in exactly one passage, no gaps, no overlaps
 5. **Metadata pass-through (D-023):** passages carry all upstream metadata for synthesis
 6. **Fail-loud (D-033):** uncertain boundaries get review flags, not silent defaults
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

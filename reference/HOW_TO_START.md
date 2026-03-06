@@ -47,11 +47,13 @@ Do NOT add any other project files. No roadmap, no repo links. The repo contains
 ### Verification
 
 Your project should have:
-- Custom Instructions: ~220 lines starting with "You are the architect"
+- Custom Instructions: ~290 lines starting with "You are the architect"
 - 1 knowledge file: `DEEP_REASONING_PROTOCOL.md`
 - 1 project file: `Github_key`
 - Code Execution: enabled
 - Web Search: enabled
+
+**Note:** The Custom Instructions reference `$KR_REPO_URL` which you must replace with the authenticated GitHub URL. Every session after setup is just "Continue the project." — the repo's `NEXT.md` file drives all work.
 
 ## Every Session
 

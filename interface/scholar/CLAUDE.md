@@ -59,3 +59,7 @@ Pattern detection after each correction.
 ## SPEC Status
 
 **Complete** — all 10 sections (872 lines). No code exists; entirely [NOT YET IMPLEMENTED].
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

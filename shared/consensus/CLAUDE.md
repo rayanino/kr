@@ -27,3 +27,7 @@ ABD-era code (1749L consensus.py) — to be replaced entirely. Arabic text utils
 
 ## Config
 `config/consensus.yaml` — model roster, per-decision-type overrides, per-science hooks.
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

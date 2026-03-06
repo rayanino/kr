@@ -35,3 +35,7 @@
 - Processing engines write ONLY alerts
 - Taxonomy engine changes trigger curriculum validity checks
 - Synthesizing engine may use study depth to adjust analytical layer
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

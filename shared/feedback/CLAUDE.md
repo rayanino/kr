@@ -56,3 +56,7 @@ library/feedback/
 1. **Correction cascade intelligence** — one correction triggers review of related artifacts (5 cascade rules)
 2. **Cross-engine root cause analysis** — detects when downstream corrections trace to upstream causes
 3. **Learning velocity tracking** — identifies stagnant error patterns where prompt optimization has plateaued
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

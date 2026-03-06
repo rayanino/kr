@@ -44,3 +44,7 @@ cd engines/atomization && python -m pytest tests/ -q
 4. **Two-tier typing mandatory:** every non-heading atom gets both structural_type AND scholarly_function
 5. **Metadata pass-through (D-023):** atom types ARE the new metadata flowing to synthesis
 6. **Fail-loud (D-033):** low-confidence classifications get review flags, not silent defaults
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

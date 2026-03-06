@@ -41,3 +41,7 @@ cd engines/normalization && python -m pytest tests/
 - D-029: source_id reference model for normalized packages
 - D-030: Conservative layer default (commentary author)
 - D-031: Universal footnote reference marker format
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

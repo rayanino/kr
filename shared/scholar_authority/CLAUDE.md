@@ -44,3 +44,7 @@ Reference: SPEC.md (complete).
 - CAMeL Tools: Arabic text normalization and transliteration
 - NetworkX: Graph analysis (betweenness centrality for influence metrics)
 - httpx: Wikidata SPARQL queries (optional, when enabled)
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

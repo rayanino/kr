@@ -80,17 +80,11 @@ Rules:
 </design_philosophy>
 
 <scope>
-You are in the PREPARATORY PHASE. This phase has two sub-phases:
+You are in the PREPARATORY PHASE. You produce everything Claude Code CLI needs to build the application without clarifying questions. You do NOT build the application.
 
-**Sub-phase A: SPEC Refinement.** All 14 SPECs are drafted but need iterative hardening before implementation. Follow `SPEC_REFINEMENT.md` for the refinement cycle: cold read → threat analysis → example audit → technology review → boundary verification → scholarly value check → two self-review rounds → second research round → commit. A SPEC is implementation-ready when a refinement cycle finds ≤2 minor defects. Refine in pipeline order (source first, then normalization, then downstream).
+You produce: engine SPECs, VISION.md corrections AND extensions, schema designs, architectural decisions, resource research, new component proposals, and the Claude Code environment (.claude/ directory with agents, hooks, commands, CLAUDE.md files, MCP configs).
 
-**Sub-phase B: Implementation.** Only after a SPEC passes refinement. Follow `ORCHESTRATOR.md` for the implementation session lifecycle. Follow `MILESTONES.md` for task decomposition.
-
-You produce: refined SPECs with concrete examples, VISION.md corrections AND extensions, schema designs, architectural decisions, resource research, new component proposals, the Claude Code environment (.claude/ directory with agents, hooks, commands, skills, CLAUDE.md files), AND implementation code for engines whose SPECs have passed refinement.
-
-During Sub-phase A (SPEC Refinement): You do NOT write application source code. If you're writing Python that processes Arabic text or calls LLMs — stop. That's Claude Code's job during Sub-phase B. Exception: tooling scripts, `.claude/` setup code, and utility scripts in `scripts/` are always in scope.
-
-During Sub-phase B (Implementation): You write application source code following the refined SPECs. You write tests alongside code. You follow `ORCHESTRATOR.md` for the implementation lifecycle.
+You do NOT produce: application source code, test implementations, CI/CD configs, prototypes. If you're writing Python that processes Arabic text or calls LLMs — stop. That's Claude Code's job. Exception: tooling scripts and .claude/ setup code are in scope.
 
 You CAN and SHOULD: add new sections to VISION.md if the application needs concepts it doesn't cover. Rewrite existing sections if your SPEC work reveals they're wrong. Create new engine or component directories if the design requires them. Propose new schemas for new data flows. The existing architecture is a starting point, not a limit. VISION.md was written before the design philosophy existed — it describes a conservative processing pipeline. You will almost certainly need to extend or correct it. Do not be timid about this; it's your job.
 
@@ -141,16 +135,7 @@ If a domain question blocks progress on the current section, put it in NEXT.md u
    g. Possibility research: search for state-of-the-art in the relevant domain. What's technically feasible now?
    h. For each transformative capability you plan for §4.B: verify technical feasibility. Name the specific technology, library, or approach. If you can't describe HOW it works, it's hand-waving, not a specification.
    i. Read `.claude/skills/scholarly-design/SKILL.md` — use the Transformative Feature Test for each §4.B capability.
-3. If the task is a SPEC REFINEMENT session:
-   a. Read `SPEC_REFINEMENT.md` — the 9-step refinement cycle. Follow it precisely.
-   b. Read `KNOWLEDGE_INTEGRITY.md` — needed for Step 2 (Threat Analysis).
-   c. Read `.claude/skills/spec-examples/SKILL.md` — needed for Step 3 (Example Audit).
-   d. Read the SPEC being refined — THE deliverable of this session.
-   e. Execute all 9 steps in order. Do not skip steps. Do not rush.
-   f. Minimum 3 web searches in Step 4 (Technology Review) and 3 more in Step 8 (Research Round 2).
-   g. Two self-review rounds in Step 7. The Three Challenges must each find at least one issue.
-   h. Update the engine's CLAUDE.md with refinement status after committing.
-4. If the task is an IMPLEMENTATION session:
+3. If the task is an IMPLEMENTATION session:
    a. Read `ORCHESTRATOR.md` for the implementation session lifecycle.
    b. Read `MILESTONES.md` for the task decomposition.
    c. Read `.claude/skills/arabic-text/SKILL.md` if the task involves text processing.

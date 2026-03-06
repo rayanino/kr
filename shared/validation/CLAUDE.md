@@ -39,3 +39,7 @@ A Python library with four modules: schema validators, structural validators, re
 ## Current Status
 
 See SPEC.md for complete specification. ABD-era code (`cross_validate.py`, `run_all_validations.py`) is legacy — useful as implementation hints only.
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

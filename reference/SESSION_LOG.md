@@ -223,3 +223,28 @@
 - Enhanced PROJECT_INSTRUCTIONS.md session_workflow with skill references for each session type
 - Enhanced CLAUDE.md architectural constraints with knowledge integrity and skill references
 
+
+### Session 2026-03-06 — Claude Chat: Autonomous System Hardening (Third Pass — SPEC Refinement Phase)
+
+**Task:** Establish SPEC refinement cycle, bulletproof session continuity, clean up repo, add examples skill, redirect from premature implementation to SPEC refinement.
+
+**Key insight:** The 14 SPECs were drafted before KNOWLEDGE_INTEGRITY.md and CHALLENGE_PROTOCOL.md existed. They need iterative refinement (not just implementation) before any code is written. The owner wants: read spec → critically analyze → research → self review → second research → commit.
+
+**New documents:**
+- SPEC_REFINEMENT.md: 9-step iterative refinement cycle (cold read → threat analysis → example audit → technology review → boundary verification → scholarly value check → 2 self-review rounds → second research round → commit)
+- SESSION_CONTINUITY.md: Bulletproof session handoff protocol covering 4 session types, mandatory NEXT.md structure, compaction recovery, crash recovery, parallel session prevention, owner intervention handling
+
+**New .claude/ additions:**
+- commands/refine-spec.md: Execute one full refinement cycle on a SPEC
+- skills/spec-examples/SKILL.md: Generate concrete I/O examples for SPEC behavioral rules with real Arabic text
+- scripts/refinement_status.py: Check refinement status across all 14 components
+
+**Updated files:**
+- CLAUDE.md: Rewritten for maximum effectiveness (53L). Critical rules front and center, concise, action-oriented.
+- NEXT.md: Redirected from implementation to SPEC refinement. Source engine SPEC refinement cycle 1 is the first task.
+- STATUS.md: Phase updated from "implementation ready" to "SPEC refinement in progress"
+- PROJECT_INSTRUCTIONS.md: Scope updated with Sub-phase A (refinement) and Sub-phase B (implementation). Session workflow now has explicit SPEC refinement step. Scope contradiction fixed.
+- reference/HOW_TO_START.md: Line count updated.
+- All 14 engine/component CLAUDE.md files: Added "SPEC Refinement Status: Cycle 0, NOT implementation-ready"
+- reference/vision_defects_s7.md: Moved to archive (obsolete — defects from VISION corrections)
+

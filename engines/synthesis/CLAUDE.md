@@ -48,3 +48,7 @@
 - LiteLLM (multi-provider routing for consensus)
 - NetworkX (teacher-student graph traversal)
 - Sentence-transformers (deduplication, contradiction detection)
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

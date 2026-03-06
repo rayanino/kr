@@ -40,3 +40,7 @@ cd engines/source && python -m pytest tests/ -q
 5. **Multi-layer detection (D-030):** identify matn+sharh composition, attribute each layer's author
 6. **Work vs. source distinction (D-024):** same work, different tahqiq = different sources
 7. **Fail-loud (D-033):** uncertain identification → human gate, not silent default
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

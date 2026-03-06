@@ -45,3 +45,7 @@ The human gate manages checkpoint lifecycle for irreversible library changes. It
 
 - SPEC: shared/human_gate/SPEC.md
 - VISION.md §9 (Human Gates), §8.1 (Layer 3: Judgment)
+
+## SPEC Refinement Status
+- Cycle 0 (not yet started)
+- Implementation-ready: NO — refinement required before implementation

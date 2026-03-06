@@ -1,73 +1,56 @@
 # خزانة ريان (KR) — Personal Intelligent Islamic Scholarly Library
 
-Full specification: `VISION.md`. Decisions log: `reference/kr_decisions.md`.
+**Core axiom: The library IS the user's knowledge. An error here is an error in his mind. The knowledge cannot defend itself.**
+
+Full specification: `VISION.md`. Decisions: `reference/kr_decisions.md`.
 Domain knowledge: `reference/DOMAIN.md`. Quality target: `reference/ENTRY_EXAMPLE.md`.
 
-## Repository Map
+## Critical Rules (always active, never violate)
 
-- `engines/` — Seven processing engines, each with `CLAUDE.md`, `SPEC.md`, `src/`, `tests/`.
-- `shared/` — Cross-engine infrastructure (consensus, validation, human_gate, feedback, user_model, scholar_authority).
-- `interface/scholar/` — Scholar interface: user-facing intelligence layer consuming all engine outputs.
-- `schemas/` — Inter-engine data contracts (one per pipeline boundary).
-- `library/` — Knowledge product: sciences, sources, registries. This IS the user's knowledge.
-- `gold/` — Hand-crafted validation baselines. Never auto-generated or auto-modified.
-- `scripts/` — Utilities: `extract_vision_sections.py`, `decompose_spec.py`, `verify_metadata_flow.py`, `check_compliance.py`.
-- `tests/integration/` — Cross-engine integration tests (created during implementation).
-- `reference/` — Decisions, domain primer, resources, user scenarios, session log.
-- `ORCHESTRATOR.md` — Implementation session protocol for Claude Code.
-- `MILESTONES.md` — Task decomposition with dependencies and acceptance criteria.
-- `REVIEW_PROTOCOL.md` — Structured review templates for design critique sessions.
+1. **Knowledge safety first.** Read `KNOWLEDGE_INTEGRITY.md` — 7 threats, 5 verification layers, 6 invariants.
+2. **Frozen sources are immutable.** Once frozen, the bytes never change.
+3. **Primary text is never modified.** No correction, no cleanup, no normalization beyond what the SPEC explicitly allows.
+4. **Every claim is traceable.** Every statement in an entry traces to a source excerpt or an explicit analytical tag.
+5. **Errors fail loudly.** Never silently drop data or default on uncertain decisions. Flag everything.
+6. **Human gates are not optional.** No irreversible library change without owner approval.
+7. **Metadata flows forward, never deleted.** Every engine passes through ALL upstream metadata (D-023).
+8. **Multi-model consensus for content decisions.** Never rely on a single LLM call for attribution, classification, or extraction.
+9. **ABD legacy has zero design authority (D-019).** SPECs define what to build. Old code is reference only.
+10. **Arabic text is fragile.** Read `.claude/skills/arabic-text/SKILL.md` before ANY text processing code.
+
+## Before You Build Anything
+
+1. Check `.claude/skills/technology-survey/SKILL.md` — search for existing tools first.
+2. Read the engine's SPEC.md — it is the authoritative specification.
+3. Run the Three Challenges from `CHALLENGE_PROTOCOL.md` before every commit.
 
 ## Pipeline
 
-Phase 1 (source-format-specific):
-  Source (محرك المصادر) → Normalization (محرك التطبيع)
-  ─── Normalization boundary (حد التطبيع) — nothing source-specific below ───
-Phase 2 (source-agnostic):
-  Passaging (محرك التقطيع) → Atomization (محرك التذرير) → Excerpting (محرك الاقتطاف) → Taxonomy (محرك التصنيف) → Synthesis (محرك التوليف)
-Layer 3:
-  Scholar Interface (واجهة العالم) — consumes all engine and shared component outputs.
+Phase 1: Source → Normalization ─── normalization boundary (حد التطبيع) ───
+Phase 2: Passaging → Atomization → Excerpting → Taxonomy → Synthesis
+Layer 3: Scholar Interface — consumes all outputs.
 
-## Pre-Work Protocol
+## Repository Map
 
-1. Read the engine's CLAUDE.md (auto-loaded on directory entry).
-2. Read the engine's SPEC.md — the authoritative behavioral specification.
-3. Read input/output schemas referenced in the SPEC (from `schemas/`).
-4. Run existing tests. Compare counts to CLAUDE.md — update if stale.
+- `engines/` — 7 engines, each with `CLAUDE.md`, `SPEC.md`, `src/`, `tests/`
+- `shared/` — 6 components: consensus, validation, human_gate, feedback, user_model, scholar_authority
+- `interface/scholar/` — User-facing intelligence layer
+- `schemas/` — Inter-engine data contracts
+- `library/` — Knowledge product. This IS the user's knowledge.
+- `scripts/` — `extract_vision_sections.py`, `decompose_spec.py`, `verify_metadata_flow.py`, `check_compliance.py`
+- `tests/integration/` — Cross-engine integration tests
 
-## Post-Work Protocol
+## Session Protocol
 
-1. Run the engine's tests: `cd engines/<n> && python -m pytest tests/ -q`
-2. If behavior changed → update SPEC.md in the same session.
-3. If state changed (test counts, known issues) → update engine CLAUDE.md.
-4. If vocabulary changed → flag for VISION.md §2 review.
-
-## Architectural Constraints (always active)
-
-- **Normalization boundary (§7.6).** No source-format-specific logic in Phase 2 engines.
-- **Self-containment (§5.1).** Every excerpt is independently understandable.
-- **Multi-model consensus (§2.2).** Content decisions use independent LLM agreement.
-- **Human gates (§9).** No irreversible library change without owner approval.
-- **Priority: Accuracy > Protection > Intelligence (§1.5).**
-- **Text integrity (§5.1).** Excerpt primary_text is never modified by any engine.
-- **Metadata is synthesis fuel (D-023).** Never strip metadata; the synthesizer needs all of it.
-- **Fail-loud (D-033).** Low-confidence decisions get flags, not silent defaults.
-- **ABD legacy has zero design authority (D-019).** SPECs define what to build.
-- **Knowledge cannot defend itself.** See `KNOWLEDGE_INTEGRITY.md` for the 7-threat model.
-- **Three Challenges before every commit.** See `CHALLENGE_PROTOCOL.md`.
-- **Arabic text safety.** See `.claude/skills/arabic-text/SKILL.md` before any text processing.
-- **Technology first.** See `.claude/skills/technology-survey/SKILL.md` before building custom code.
+- `NEXT.md` — your task. Read it first. Follow `SESSION_CONTINUITY.md` for handoff rules.
+- `ORCHESTRATOR.md` — implementation session lifecycle.
+- `SPEC_REFINEMENT.md` — SPEC improvement cycle (must complete before implementation).
+- `MILESTONES.md` — task decomposition with dependencies.
+- `REVIEW_PROTOCOL.md` — design review procedures.
+- `CHALLENGE_PROTOCOL.md` — Three Challenges before every commit.
 
 ## Run All Tests
 
 ```
 python -m pytest engines/*/tests/ shared/*/tests/ -q
 ```
-
-## Current Priorities
-
-Milestone 1: Source engine + normalization engine (Shamela format) end-to-end.
-See `NEXT.md` for the specific current task.
-See `MILESTONES.md` for detailed task decomposition.
-See `ORCHESTRATOR.md` for implementation session protocol.
-See `REVIEW_PROTOCOL.md` for design review procedures.
