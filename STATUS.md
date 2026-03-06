@@ -1,7 +1,7 @@
 # خزانة ريان — Project Status
 
 **Last updated:** 2026-03-06
-**Phase:** Preparatory phase — shared component SPECs in progress (human gate complete, feedback complete, user_model complete, scholar_authority next)
+**Phase:** Preparatory phase — all shared component SPECs complete. Scholar interface SPEC next.
 **Tests:** 903 pass, 37 skip, 1 fail (API key) — all ABD-era; no KR-specific tests yet
 
 ---
@@ -75,7 +75,7 @@ ABD code has zero design authority (D-019). SPECs define what to build. ABD code
 
 The preparatory phase deliverables are substantially complete. Remaining items:
 
-1. **Shared component SPECs** — human_gate SPEC complete, feedback SPEC complete, consensus SPEC complete (D-041), validation SPEC complete, user_model SPEC complete (D-042). Remaining: scholar_authority. These are lower priority than engine SPECs but needed before implementation.
+1. **Shared component SPECs** — ALL COMPLETE: human_gate, feedback, consensus (D-041), validation, user_model (D-042), scholar_authority. Next: scholar interface SPEC (interface/scholar/).
 2. **Scholar interface SPEC** — the user-facing intelligence layer has no SPEC yet.
 3. **User model SPEC** — shared component for persistent user state.
 4. **`.claude/` directory** — needs population with agents, commands, hooks, settings for Claude Code.

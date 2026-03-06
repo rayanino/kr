@@ -494,3 +494,45 @@ Optional keys (add as needed):
 - **URL:** https://github.com/CAHLR/pyBKT
 - **What it does:** Bayesian Knowledge Tracing — estimates learner mastery from interaction sequences using a Hidden Markov Model. Models four probabilities per skill: P(know), P(learn), P(guess), P(slip). Primarily designed for ITS with binary correct/incorrect responses.
 - **Evaluated and NOT adopted for KR.** BKT requires high-volume binary response data (correct/incorrect answers to specific questions). KR's assessment model is richer (LLM-evaluated Socratic dialogue) and lower-frequency (assessments happen periodically, not after every interaction). KR uses a weighted confidence score (§4.A.2) instead, combining engagement depth, assessment performance, recency, and prerequisite strength. BKT may be reconsidered if KR adds high-frequency quiz-style interactions.
+
+---
+
+## Scholar Authority Component Resources
+
+### Entity Resolution / Record Linkage
+
+### Python Record Linkage Toolkit
+- **URL:** https://recordlinkage.readthedocs.io/
+- **What it does:** Pandas-based toolkit for prototyping record linkage systems. Supports blocking, comparison (Jaro-Winkler, Levenshtein, etc.), and classification (supervised + unsupervised). Extensible framework.
+- **Relevant components:** Scholar authority (§4.A.2 matching algorithm). The comparison methods (Jaro-Winkler for Arabic name similarity) are directly applicable. However, KR's matching needs are domain-specific enough (Arabic onomastic conventions, death date signals, school affiliation) that a custom implementation per the SPEC is more appropriate than using this as a framework.
+- **License:** BSD-3
+
+### Dedupe (Python, MIT license)
+- **URL:** https://github.com/dedupeio/dedupe
+- **What it does:** ML-based entity resolution using active learning. Engages user in labeling pairs, then predicts duplicates at scale. Supports deduplication within a dataset and record linkage across datasets.
+- **Evaluated and NOT adopted for KR.** Dedupe's strength is learning matching rules from user feedback on large datasets with many field types. KR's scholar matching has a well-defined set of signals (name, date, school, works, teachers) where a custom weighted algorithm (SPEC §4.A.2) is more transparent and auditable than an ML model. The active learning approach is also misaligned — the owner should only see genuinely ambiguous cases, not training pairs. However, Dedupe's blocking strategies (especially sorted neighborhood indexing) may inform the candidate selection step.
+
+### Splink (Python, MIT license)
+- **URL:** https://moj-analytical-services.github.io/splink/
+- **What it does:** Probabilistic record linkage using Fellegi-Sunter model. Scales to millions of records. Built for government/institutional use (NHS, MOJ).
+- **Evaluated and NOT adopted for KR.** Splink is optimized for large-scale probabilistic matching where ground truth is unavailable. KR's scholar registry will likely contain tens of thousands of records (not millions) and the matching signals are domain-specific. The custom five-signal algorithm in the SPEC is more appropriate.
+
+### Islamic Scholar Databases
+
+### Muslim Scholars Database (muslimscholars.info)
+- **URL:** https://muslimscholars.info/
+- **What it does:** Comprehensive database of Muslim scholars from Companions era to present. Contains biographical data extracted from classical sources: Tahzeeb al-Tahzeeb, Taqrib al-Tahzeeb, at-Thiqat, Tarikh al-Kabir, Tabaqat ibn Sa'd, Siyar A'lam al-Nubala, Lisan al-Mizan, Tahzeeb al-Kamal. Records include: famous name (Arabic/English), lineage, kunya, laqab, generation, tabqa, birth/death dates+places, places of stay, hadith narration grade, teacher list, student list, brief biography. ~40,000+ records with teacher-student links.
+- **Relevant components:** Scholar authority (§4.A.5 external enrichment). This database contains exactly the teacher-student graph data KR needs. However, it has no public API — data would need to be scraped or requested from the maintainers. The ~5% error/duplication rate they acknowledge is within acceptable limits for enrichment data (KR's own validation catches conflicts). Priority: HIGH if data access can be obtained.
+- **License:** Not specified. Contact maintainers.
+
+### İSAM Ulema Database (Turkey)
+- **URL:** Centre for Islamic Studies (İSAM), Istanbul
+- **What it does:** Repository of 10,000+ Muslim scholars and Sufis with biographical data from classical texts integrated with modern historiography. Searchable by name, era, and madhhab.
+- **Relevant components:** Scholar authority enrichment. Similar data to muslimscholars.info but with different coverage (stronger on Ottoman-era and Turkish scholars). Access restrictions unknown.
+- **License:** Institutional.
+
+### Wikidata Islamic Scholar Coverage
+- **URL:** https://www.wikidata.org/ (Q13200659 = Islamic scholar occupation)
+- **What it does:** Structured biographical data for scholars with Wikipedia articles. Properties: P569/P570 (birth/death dates), P1066 (student of), P802 (student), P106 (occupation), P140 (religion), plus Arabic labels and aliases.
+- **Relevant components:** Scholar authority (§4.A.5 Wikidata enrichment). Coverage is incomplete for premodern scholars but useful when available. SPARQL endpoint enables programmatic queries. Main value: confirmed dates and teacher-student links with Wikidata QIDs for cross-referencing.
+- **License:** CC0 (public domain)

@@ -159,7 +159,7 @@ VISION.md §9.4 specifies that the owner's declared confidence level per science
 - `beginner`: The owner is new to this science. Gate behavior: confidence thresholds for auto-approval are raised by a configurable amount (default: +0.10). This means more decisions are escalated to the gate. Pre-approval policies still apply but with tightened conditions. Checkpoints include an additional `expertise_note` in the payload: a brief explanation from the creating engine of why this decision matters, to help the owner make an informed choice.
 - `none`: The owner has no knowledge of this science. Gate behavior: all pre-approval policies for this science are suspended. Every gated decision requires explicit review. The `expertise_note` is mandatory in the payload — the engine must explain the decision in accessible terms. The scholar interface should present these checkpoints with additional context and guidance.
 
-**Calibration storage.** Confidence declarations are stored in `library/gates/confidence.json` as a mapping from science identifier to confidence level. The default confidence level for undeclared sciences is `beginner` — the component errs on the side of caution for sciences the owner hasn't explicitly assessed.
+**Calibration data source (D-042).** The user model (shared/user_model) is the canonical owner of per-science expertise data. The human gate reads expertise levels from the user model's `expertise_levels` instead of maintaining a separate `confidence.json`. The mapping from user model's five-level scale to the human gate's behavioral rules: `researcher` or `advanced` → `expert` behavior, `intermediate` → `intermediate` behavior, `beginner` → `beginner` behavior, `none` → `none` behavior. The default expertise level for sciences not yet tracked by the user model is `beginner` — the component errs on the side of caution for sciences the owner hasn't explicitly assessed. The `library/gates/confidence.json` file is no longer maintained by this component.
 
 **Calibration at checkpoint creation.** When an engine creates a checkpoint with a `science` field, the component looks up the owner's confidence level for that science and records it in the checkpoint's `confidence_context`. If the confidence level is `beginner` or `none`, the component adjusts the effective thresholds: a pre-approval policy with `min_confidence: 0.85` effectively becomes `min_confidence: 0.95` for `beginner` sciences and is suspended entirely for `none` sciences.
 
@@ -196,7 +196,7 @@ Checkpoints are stored as JSON files in the `library/gates/` directory structure
 ```
 library/gates/
 ├── gate_types.json           # Gate type registry
-├── confidence.json           # Owner confidence declarations
+├── # confidence.json removed (D-042) — expertise data now in user model
 ├── policies/                 # Pre-approval policies
 │   ├── pol_tax_placement_review_001.json
 │   └── ...
@@ -354,7 +354,7 @@ The engines that CREATE checkpoints may have used consensus as part of their dec
 | `validation_timeout_ms` | 500 | 100–2000 | Maximum time for a single bidirectional validation check |
 | `batch_resolution_max` | 50 | 10–200 | Maximum checkpoints in a single batch resolution |
 
-**Per-science configuration.** The `confidence.json` file stores owner-declared confidence levels per science. These are not engine-level configuration — they are user preferences managed through the scholar interface.
+**Per-science configuration (D-042).** Per-science expertise levels are stored and managed by the user model (shared/user_model). The human gate reads them on demand. These are user preferences managed through the scholar interface.
 
 **What is configurable vs. hardcoded.** Alert thresholds, suggestion thresholds, and validation timeouts are configurable because optimal values depend on usage patterns that cannot be predicted at design time. The restricted gate types (§4.A.5) are hardcoded because they represent fundamental safety constraints — taxonomy evolution and trust evaluation must always be human-gated regardless of the owner's preferences.
 

@@ -5,41 +5,42 @@
 **Type:** Shared component — used by source, excerpting, taxonomy, and synthesizing engines.
 
 ## Required Reading
-1. This component's SPEC.md
+1. This component's SPEC.md — the authoritative specification
 2. `reference/DOMAIN.md` — "Scholar Identity" and "Scholar Authority Model" sections
 3. `reference/ENTRY_EXAMPLE.md` — see how biographical metadata enables scholarly narrative
-4. `reference/PIPELINE_TRACE.md` — see how the authority model feeds the synthesizer
+4. `engines/source/SPEC.md` §4.A.5 — the source engine creates scholar records during intake
 
 ## Current State
-No code exists. No ABD equivalent. This is a new shared component identified during the KR design phase. DOMAIN.md (lines 127-140) describes the concept; the SPEC will define the implementation.
+No code exists. SPEC complete (all 10 sections). New shared component identified during KR design phase.
 
 Code: 0L.
 Tests: 0.
-Reference: 0 docs.
+Reference: SPEC.md (complete).
 
-## Why This Component Is Critical
+## Architecture Summary
 
-Without it, the synthesizer cannot:
-- Know that "سيبويه" in source A and "عمرو بن عثمان بن قنبر" in source B are the same person
-- Reconstruct teacher-student chains across sources
-- Order scholarly positions chronologically (requires death dates)
-- Attribute positions to the correct school (requires school affiliation)
-- Detect when a scholar changed positions over their career (requires career timeline)
+**Five capabilities:** registry CRUD, record matching/disambiguation, progressive enrichment, teacher-student graph, external enrichment (OpenITI + Wikidata + LLM).
 
-Without it, the source engine cannot:
-- Deduplicate authors across different name spellings
-- Link works to their correct authors when names are ambiguous
-- Build the "author profile" portion of book briefings (D-022)
+**Record matching** uses a five-signal weighted composite: name similarity (0.35), death date proximity (0.25), school overlap (0.15), works overlap (0.15), teacher-student overlap (0.10). Conservative bias: prefers creating duplicates over false merges. Name alone capped at 0.65 — always below auto-match threshold.
 
-Without it, the excerpting engine cannot:
-- Resolve implicit references ("الإمام" in a Shafi'i text = al-Shafi'i himself)
-- Distinguish "Scholar A reports Scholar B's view" from "Scholar A's own view"
+**Three threshold ranges:** ≥0.85 auto-match, 0.50–0.85 human gate, <0.50 new record.
+
+**Teacher-student graph** is a first-class data structure (not just metadata arrays). Stored separately at `scholar_graph.json`. Supports chain discovery, connection queries, and subgraph extraction. Cycle detection on every edge addition.
+
+**Progressive enrichment:** array fields accumulate, empty scalars fill, occupied scalar conflicts trigger human gate for high-impact fields. Every field has provenance tracking.
+
+**External sources:** OpenITI metadata (primary, offline), LLM inference (secondary, for bootstrapping), Wikidata SPARQL (tertiary, opportunistic).
+
+**Career phases** model scholars who changed positions (e.g., al-Shafi'i's qadim/jadid). Enables the synthesizer to handle retractions correctly.
 
 ## Key Constraints
-1. **Canonical identity with variant mappings.** Each scholar has ONE canonical record with multiple name variants. "ابن حجر" maps to TWO canonical records (al-Asqalani d.852 AH vs al-Haytami d.974 AH) — disambiguation requires context (science, time period, nisba).
-2. **Incremental enrichment.** The model grows richer with every source processed. The 100th source mentioning al-Nawawi may add details the first 99 didn't have. Records are never finalized — they accumulate.
-3. **Per-science school tracking.** A scholar can be Hanbali in fiqh, Ash'ari in aqidah, and Basran in nahw. School affiliation is per-science, not global.
-4. **Teacher-student graph.** This is a directed graph that enables intellectual genealogy reconstruction. The synthesizer uses it to explain WHY positions are related.
-5. **Career timeline.** Some scholars changed positions (الشافعي had قديم and جديد positions). The model must support temporal career phases so the synthesizer presents the FINAL position as primary.
-6. **Scale.** Tens of thousands of scholars across 14 centuries. Must work at scale from the start.
-7. **Metadata is synthesis fuel (D-023).** Everything in the authority model exists to enable richer synthesis. Every field earns its place by what it enables in the entry.
+1. `canonical_id` format: `sch_{5_digit_sequence}`. Never reused, even after merge.
+2. Per-science school tracking — a scholar can be Hanbali in fiqh and Ash'ari in aqidah.
+3. Metadata is synthesis fuel (D-023) — every field exists for what it enables in entries.
+4. Conservative matching bias — false merge is worse than false duplicate.
+5. Secure by design (D-033) — every conflict recorded, every enrichment provenanced, every merge audited.
+
+## Dependencies
+- CAMeL Tools: Arabic text normalization and transliteration
+- NetworkX: Graph analysis (betweenness centrality for influence metrics)
+- httpx: Wikidata SPARQL queries (optional, when enabled)
