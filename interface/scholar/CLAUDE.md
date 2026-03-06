@@ -1,49 +1,49 @@
 # Scholar Interface — واجهة العالم
 
-**Responsibility:** The primary product of KR. Everything else exists to feed this. KR IS Rayane's knowledge — the library represents what he knows, and the scholar interface is how he interacts with, grows, and expresses that knowledge. It provides the complete scholarly experience: structured curriculum, conversational Q&A, active teaching, proactive discovery, scholarly production assistance, and knowledge navigation.
+**Responsibility:** The primary product of KR. Everything else exists to feed this. The scholar interface is a conversational and structured intelligence layer that sits on top of all engine outputs and shared component state. KR IS Rayane's knowledge (D-018), and the scholar interface is how he interacts with, grows, questions, produces, and navigates that knowledge.
 
-This is not an add-on. The owner has no teacher, no existing study practice, no curriculum. KR IS the study infrastructure. If the engines work perfectly but this interface doesn't guide study from zero to mastery, the application has failed.
+## Six Capability Domains
 
-Because the library IS his knowledge, quality is existential: every answer must be verifiable, every citation traceable, every claim sourced. An error in an interface response is an error planted in Rayane's understanding.
+1. **Guiding (§4.A.1)** — Curriculum design and structured learning from zero to mastery. Generates curricula based on classical pedagogical progressions (mutun → shuruh → hawashi), taxonomy narrative ordering, and available library content. Orchestrates daily study sessions: review backlog → new material → source alerts → cross-science connections.
 
-## Capability Domains
+2. **Answering (§4.A.2)** — Library-grounded conversational Q&A. Classifies queries (single-topic, comparative, evidence-chain, historical evolution, scholar-specific, cross-science, meta-library, ungrounded). Multi-stage retrieval: topic identification → content retrieval → scholar context enrichment → user context overlay. Every factual claim cited to source. LLM-contributed context explicitly marked. Includes book briefing generation (D-022).
 
-**Guiding** — Curriculum design and structured learning. Generate complete study sequences for any science: which books to read, in what order, starting from which level. Follow classical Islamic pedagogical progressions (mutun → shuruh → hawashi). Track progress through the curriculum. Adapt pacing based on demonstrated understanding. This is the first capability the user will need — before Q&A, before research, before anything else.
+3. **Teaching (§4.A.3)** — Socratic assessment with four question types: recall, recognition, application, comparison. Assessment evaluation uses multi-model consensus for ambiguous responses. Spaced repetition orchestration via FSRS (user_model §4.A.3). Knowledge gap detection from assessment patterns.
 
-**Answering** — Conversational Q&A grounded in the library's verified knowledge. Every claim cites specific excerpts from specific sources. Handles: single-school queries, comparative queries, evidence-chain queries, historical evolution queries. Never generates unverified claims — if the library doesn't have the answer, says so and suggests which sources to acquire.
+4. **Discovering (§4.A.4)** — Proactive intelligence. New content alerts with relevance scoring. Cross-science connection surfacing. Coverage gap alerting (school, temporal, source gaps). Periodic scholarly briefings. Contradiction detection surfacing.
 
-**Teaching** — Active learning support. Socratic dialogue that tests and deepens understanding. Spaced repetition of scholarly positions. Knowledge gap detection: "You have engaged with 3 schools on topic X but not the Hanafi position." Adapts teaching style based on user model: beginner gets simplified explanations, advanced gets nuanced comparative analysis.
+5. **Assisting (§4.A.5)** — Scholarly production support. Evidence compilation, writing assistance (footnote generation, claim verification, citation completeness), tarjih scaffolding, lesson plan generation.
 
-**Discovering** — Proactive intelligence that surfaces what the user doesn't know to look for. New source alerts relevant to current study focus. Contradiction detection between sources. Coverage gap alerts. Daily/weekly personalized scholarly briefings. Research question generation.
+6. **Navigating (§4.A.6)** — Knowledge exploration. Science map visualization data, taxonomy browsing, scholar network exploration (teacher-student chains, influence graphs), temporal exploration (position evolution, century views).
 
-**Assisting** — Scholarly production support. Writing assistance with full source citation. Footnote generation from library knowledge. Tahqiq comparison across editions. Evidence compilation for research topics. Tarjih scaffolding: "Here are all positions on X with their evidence — here's the framework for weighing them."
+## Three Modes
 
-**Navigating** — Knowledge exploration. Taxonomy browsing. Scholar network visualization. Temporal evolution of positions. Coverage maps across sciences, schools, and centuries. Personal progress visualization.
+1. **Learning mode** — Guiding + Teaching + Answering. Absorb and understand.
+2. **Research mode** — Answering + Assisting + Discovering. Compare, analyze, produce.
+3. **Teaching mode** — Answering + Teaching + Navigating. Practice explaining, generate lessons.
 
-## Three Modes (maps to user's "complete scholar" goal)
+## Data Flow
 
-1. **Learning mode** — absorb and understand positions (encyclopedic knowledge). Curriculum-guided reading, Socratic testing, spaced repetition.
-2. **Research mode** — compare, analyze, produce original work (scholarly production). Evidence compilation, contradiction detection, tarjih scaffolding, writing assistance.
-3. **Teaching mode** — practice explaining positions (teaching mastery). Generate lesson outlines, simulate student questions, assess explanation clarity.
+**Reads from:** placed excerpts (taxonomy engine), entries (synthesis engine), taxonomy trees + coverage analytics (taxonomy engine), scholar records + graph data (scholar_authority), user model state (user_model), source metadata (via provenance chains), feedback state (feedback component).
 
-## The Feedback Loop
+**Writes to:** user_model (engagement events, assessment results, curriculum actions, review results, bookmarks, annotations, focus declarations, scholarly production events, alert actions), feedback component (corrections).
 
-Rayane's own scholarly output feeds back into the library. When he writes a tarjih (comparative analysis), a research paper, personal notes, or conclusions — these become part of KR alongside the classical sources. His voice grows alongside the classical voices. This means:
-- The library has two classes of content: **source-derived** (from processed books) and **owner-originated** (from Rayane's own scholarship)
-- Owner-originated content is clearly marked but treated as first-class knowledge
-- Over time, the library becomes not just "what scholars said" but "what scholars said AND what Rayane concluded"
-- The interface can cite Rayane's own previous conclusions: "You wrote in your analysis of topic X that..."
+## Correction Handling (§4.A.7)
 
-## Dependencies
+Entry-level → owner constraint at leaf, entry marked stale.
+Excerpt-level → metadata correction via feedback component.
+Taxonomy-level → relocation request via human gate.
+Metadata-level → routed to source engine or scholar_authority.
+Pattern detection after each correction.
 
-Reads from: placed excerpts, entries, source registry, taxonomy trees, knowledge graph.
-Reads and writes: user model (shared/user_model).
-Uses: consensus engine (for complex queries requiring multi-model verification).
+## Key Design Principles
 
-## Architectural Notes
+- **Grounding non-negotiable.** Every factual claim traced to source or explicitly marked as LLM-contributed. No fabricated citations — worse than admitting ignorance.
+- **Assessment integrity.** Never false positive assessments. Uncertainty scores 0.5 (partial), not 1.0.
+- **Gaps as opportunities.** Coverage gaps presented constructively, not as deficiencies.
+- **Progressive adaptation.** Response depth adapts to owner's expertise level from user model.
+- **Session context.** Multi-turn conversation maintained within sessions. Cross-session via user model history.
 
-The scholar interface reads the user model to personalize every interaction. The user model tracks: study history, demonstrated knowledge (from Socratic dialogue), identified gaps, current focus areas, preferences, curriculum progress.
+## SPEC Status
 
-The interface may use multiple LLM calls per interaction — e.g., a comparative query might retrieve excerpts from 4 schools, synthesize them, then generate a follow-up question. This is by design; quality of scholarly interaction outweighs latency.
-
-Since the user starts from zero with Arabic language sciences, the interface must support a complete beginner in its first deployment while scaling to support advanced scholarly research as the user progresses. The user model's assessment of current level drives this adaptation.
+§1–§4.A complete. §4.B (Transformative Capabilities) through §10 pending next session.

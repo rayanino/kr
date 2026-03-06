@@ -543,3 +543,24 @@ Optional keys (add as needed):
 - **What it does:** Structured biographical data for scholars with Wikipedia articles. Properties: P569/P570 (birth/death dates), P1066 (student of), P802 (student), P106 (occupation), P140 (religion), plus Arabic labels and aliases.
 - **Relevant components:** Scholar authority (§4.A.5 Wikidata enrichment). Coverage is incomplete for premodern scholars but useful when available. SPARQL endpoint enables programmatic queries. Main value: confirmed dates and teacher-student links with Wikidata QIDs for cross-referencing.
 - **License:** CC0 (public domain)
+
+## Scholar Interface Resources
+
+### Socratic AI Tutoring Systems
+- **SocraticAI** (arXiv 2512.03501) — scaffolded AI tutoring using LLMs with structured constraints. Key insight: enforcing well-formulated questions and reflective engagement produces better learning than unrestricted AI access. 75% of students produce substantive reflections within 2-3 weeks. Relevant for §4.A.3 assessment design.
+- **KELE Framework** (EMNLP 2025 Findings) — multi-agent Socratic teaching with "consultant-teacher" collaboration. Uses structured rules (SocRule) to govern dialogue. Relevant for multi-turn Socratic assessment architecture.
+- **S-ICA** (ScienceDirect, 2025) — Socratic Intelligent Conversational Agent combining LLM with structured questioning. Research shows significant improvement in reflective thinking and research design skills. Validates the Socratic approach for scholarly learning.
+- **Key design insight from research:** The most effective Socratic systems combine AI questioning with structured scaffolds and feedback loops. Pure open-ended questioning is less effective than constrained, progressive questioning (recall → recognition → application → comparison).
+
+### Knowledge Graph RAG Systems
+- **GraphRAG** (Microsoft Research, 2024) — graph-based RAG that constructs knowledge graphs from documents for multi-hop reasoning. KR's approach is analogous but with pre-built domain-specific graphs (taxonomy trees, scholar authority, work relationships) rather than auto-constructed graphs.
+- **StructRAG** (ACM WWW 2025) — structure-aware RAG using Deep Document Model to preserve hierarchical structure. Relevant for KR's use of taxonomy tree hierarchy in retrieval.
+- **KG-RAG with Chain of Explorations** — uses LLM reasoning to explore knowledge graph nodes sequentially. Relevant for scholar network exploration and intellectual genealogy queries.
+
+### Classical Islamic Pedagogical Progressions
+- **islamclass.wordpress.com** — detailed madhab-specific study progressions for Hanafi, Shafi'i, and Hadith sciences. Key resource for curriculum knowledge base (§4.A.1.1). Documents the traditional mutun → shuruh → hawashi progression with specific text recommendations per level.
+- **SeekersGuidance curriculum** — five-level systematic program. Useful as a reference for level classification (beginner → advanced).
+- **Key domain insight:** Classical progressions are text-based (study this book, then that book), not topic-based. KR's curriculum system must bridge both: the classical text sequence AND the taxonomy's topic sequence. The curriculum follows the text order (الآجرومية then قطر الندى) but within each text, topics follow the taxonomy's narrative ordering.
+
+### Arabic Embedding Models (for query-to-topic matching)
+- Need to evaluate: Arabic-capable embedding models for semantic similarity between user queries and taxonomy leaf titles. Candidates: multilingual models (mE5, BGE-M3), Arabic-specific models. Research needed for next session.
