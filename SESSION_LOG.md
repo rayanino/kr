@@ -134,3 +134,57 @@ Prepared the normalization engine directory for Claude Code implementation. This
 
 ### No Domain Questions This Session
 
+
+## Session 10: Passaging Engine PRECISION
+**Date:** 2026-03-06
+**Type:** PRECISION
+**Duration:** ~1 session
+
+### What Was Done
+Systematic self-audit of the passaging SPEC against the Perfection Standard. Found and fixed 16 defects:
+
+**Contract alignment (3 fixes):**
+- §2 `division_tree` field names mismatched contracts.py (`title`→`heading_text`, `level`→`heading_level`, flat `parent_div_id/child_div_ids`→nested `children`). Added synthetic `div_id` generation rule.
+- `digestible` field (not in contracts) replaced with content_flags-based digestibility test throughout.
+- §9 CAMeL Tools described as "word counting" but §4.A.4 explicitly uses whitespace tokenization. Fixed §9 to match.
+
+**Ambiguity fixes (5 fixes):**
+- LLM boundary confidence: vague "0.6–0.8 range" → fixed 0.7.
+- Mixed-format classification: vague "matches Q&A patterns" → explicit priority cascade with thresholds (≥80% verse pages, ≥2 marker detections).
+- `quality_report.overall_confidence`: vague "lowers expectations" → concrete per-level behavior (confirmed/high = trust, medium = flag, low = cross-validate with LLM).
+- Keyword split selection: no criteria for choosing among multiple candidates → balance + type priority + argument exclusion rules.
+- Empty division tree: undefined behavior → flat passaging with synthetic division, §4.B.2 integration.
+
+**Formula verification (3 fixes):**
+- §4.B.5 structural depth boundaries: made inclusivity explicit ([2.0, 10.0]).
+- §4.B.5 footnote formula: specified which targets affected (`target_high` only), stacking order (multiplicative: term density → footnote), out-of-range clamping.
+- §4.B.5 example: footnote density 4.3 was below 5.0 threshold → fixed to 6.2.
+
+**State machine formalization (1 fix):**
+- §4.B.6 argument detection: prose description → formal state transition table with 4 states, 14 transitions, nested argument handling (depth tracking, cap at 3).
+
+**Schema completeness (3 fixes):**
+- §3 missing fields: added `quality_prediction`, `commentary_alignment`, `adaptive_params`, `argument_structure`, `heading_source`.
+- §3 `division_path` referenced undefined `type` field → fixed to `heading_text`/`heading_level`.
+- §4.A.8 dictionary entry detection: vague signals → priority cascade with fallback.
+
+**Cross-page joining (1 fix):**
+- Rule 1 false positives: word-final forms (`ة`, `ى`, `ا` after letter, `ء`) prevent mid-word join.
+
+### Artifacts Created
+- `engines/passaging/contracts.py` — 25 Pydantic models, 285 lines. Validated with Python import + instantiation test.
+
+### Decisions Made
+- Passaging engine generates synthetic `div_id` values (not stored in normalization output).
+- Whitespace tokenization confirmed as sole word counting method (not CAMeL Tools).
+- Argument nesting capped at depth 3.
+- Commentary sensitivity now has concrete behavioral definitions (fine/normal/coarse).
+- Adaptation stacking order: technical_term_density first, then footnote_factor (multiplicative).
+
+### Quality Metrics
+- check_spec_quality.py: 50 flagged items (35 HIGH), mostly false-positive "multiple/many" quantifiers in descriptive context.
+- creative_verification.py: 80/100 (6 §4.B capabilities, 3 named technologies). "SECRETARY" flag expected for PRECISION session.
+- contracts.py validates successfully with Pydantic.
+
+### Next
+Passaging HARDENING session: threat model failure modes, validate error handling completeness, verify state machine has no deadlock states.
