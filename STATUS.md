@@ -73,7 +73,7 @@ ABD code has zero design authority (D-019). SPECs define what to build. ABD code
 
 The preparatory phase deliverables are substantially complete. Remaining items:
 
-1. **Shared component SPECs** — human_gate, validation, feedback SPECs not yet written. Consensus SPEC complete (D-041). These are lower priority than engine SPECs but needed before implementation.
+1. **Shared component SPECs** — human_gate, feedback SPECs not yet written. Consensus SPEC complete (D-041), validation SPEC complete. These are lower priority than engine SPECs but needed before implementation.
 2. **Scholar interface SPEC** — the user-facing intelligence layer has no SPEC yet.
 3. **User model SPEC** — shared component for persistent user state.
 4. **`.claude/` directory** — needs population with agents, commands, hooks, settings for Claude Code.

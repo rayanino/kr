@@ -407,3 +407,31 @@ Optional keys (add as needed):
 - **Relevant engines:** Excerpting engine (duplicate excerpt detection via embedding similarity), Taxonomy engine (topic similarity for placement), Scholar interface (semantic search over excerpts)
 - **How to use:** `pip install sentence-transformers`. Use `paraphrase-multilingual-mpnet-base-v2` or `intfloat/multilingual-e5-large` for Arabic text embeddings. Compute cosine similarity between excerpt embeddings for duplicate detection.
 - **License:** Apache 2.0
+
+---
+
+## Validation Component Resources
+
+### jsonschema (Python JSON Schema validation)
+- **URL:** https://github.com/python-jsonschema/jsonschema / https://pypi.org/project/jsonschema/
+- **What it does:** JSON Schema validation for Python. Full support for Draft 2020-12, Draft 2019-09, Draft 7, Draft 6, Draft 4, Draft 3. Lazy validation via `iter_errors` reports all violations, not just the first. Format checking with optional dependencies.
+- **Relevant component:** Validation (PRIMARY — schema validation for all engine artifacts)
+- **How to use:** `pip install jsonschema[format]`. Use `Draft202012Validator` with `iter_errors` for comprehensive validation. Register custom format checkers for KR-specific formats.
+- **Version:** v4.26+ (latest as of March 2026)
+- **License:** MIT
+- **Note:** jsonschema-rs (Rust-based, 43-240x faster) exists but is Beta and adds a native dependency. Use standard jsonschema for correctness guarantees; consider jsonschema-rs only if schema validation becomes a performance bottleneck.
+
+### Pydantic v2 (Runtime validation for component outputs)
+- **URL:** https://docs.pydantic.dev/
+- **What it does:** Runtime data validation using Python type hints. Rust-powered core for performance. Used for ValidationResult, ValidationReport, and configuration models.
+- **Relevant component:** Validation (output models, configuration), Consensus (already a dependency via Instructor)
+- **How to use:** Already a project dependency. Define ValidationResult and ValidationReport as Pydantic v2 BaseModel classes.
+- **Version:** v2.12+ (latest as of March 2026)
+- **License:** MIT
+
+### hashlib (Python stdlib — integrity hashing)
+- **URL:** https://docs.python.org/3/library/hashlib.html
+- **What it does:** Secure hash computation. SHA-256 for file integrity verification. Chunked reading for large files.
+- **Relevant component:** Validation (file hash verification, provenance chain integrity)
+- **How to use:** Python stdlib, no installation. `hashlib.sha256()` with 64KB chunk reads.
+- **License:** Python Software Foundation License
