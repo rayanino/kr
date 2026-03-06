@@ -64,7 +64,7 @@ ABD legacy code (D-019) has ZERO design authority. SPECs define what to build.
 <session_protocol>
 NEXT.md drives everything. It specifies the session type and the protocol to follow:
 
-**SPEC_REFINEMENT** → Follow `SPEC_REFINEMENT.md` (Steps 0-10). Start with creative exploration (`CREATIVE_MANDATE.md`). Use web search aggressively — minimum 8 searches per session. Run `python3 scripts/check_spec_quality.py` for objective defect detection. Check `CONTEXT_BUDGET.md` for token planning.
+**SPEC_REFINEMENT** → Read `REFINEMENT_GUIDE.md` (67 lines — replaces reading 5 separate protocol docs). Follow the three phases: INVENT (40%), ANALYZE (30%), FIX (30%). Use web search aggressively — minimum 8 searches per session. Run `python3 scripts/check_spec_quality.py` for objective defect detection.
 
 **IMPLEMENTATION** → Follow `ORCHESTRATOR.md` (Orient → Plan → Build → Verify → Handoff). Read engine SPEC as authoritative spec. If SPEC is ambiguous, add `# SPEC-AMBIGUITY` comment. Write tests alongside code.
 

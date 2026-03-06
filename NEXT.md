@@ -52,23 +52,21 @@ The autonomous system hardening round added:
 
 ## Files to Read — IN THIS ORDER
 
-1. `CONTEXT_BUDGET.md` (~1,200 tokens)
-2. `CREATIVE_MANDATE.md` (~1,200 tokens)
-3. `SPEC_REFINEMENT.md` (~2,200 tokens — updated with 3 new steps)
-4. `SILENT_FAILURES.md` (~1,500 tokens)
-5. `KNOWLEDGE_INTEGRITY.md` (~1,600 tokens)
-6. `engines/source/contracts.py` (~3,500 tokens) — updated Session 9
-7. `engines/source/SPEC.md` (~5,500 tokens)
-8. `engines/normalization/contracts.py` (~2,500 tokens) — new in Session 9
-9. `engines/normalization/SPEC.md` §2 only (~1,000 tokens)
-10. `reference/ENTRY_EXAMPLE.md` (~1,600 tokens)
-11. `reference/USER_SCENARIOS.md` (~2,700 tokens)
+1. `REFINEMENT_GUIDE.md` (~700 tokens) — compressed session protocol, replaces 5 separate docs
+2. `engines/source/contracts.py` (~3,500 tokens)
+3. `engines/source/SPEC.md` (~5,500 tokens) — the actual work target
+4. `engines/normalization/contracts.py` (~2,500 tokens) — downstream boundary
+5. `engines/normalization/SPEC.md` §2 only (~1,000 tokens) — downstream input contract
+6. `reference/ENTRY_EXAMPLE.md` (~1,600 tokens) — quality calibration target
+7. `reference/USER_SCENARIOS.md` (~2,700 tokens)
 
-**Total: ~24,500 tokens. Budget remaining: ~130,000 tokens.**
+**Total: ~17,500 tokens. Budget remaining: ~137,000 tokens.**
+(Previous plan was ~24,500 tokens — saved ~7,000 tokens for creative work)
 
 ## Files to NOT Read
 
-VISION.md, DOMAIN.md, kr_decisions.md, STATUS.md, ORCHESTRATOR.md, other engine SPECs
+VISION.md, DOMAIN.md, kr_decisions.md, STATUS.md, ORCHESTRATOR.md, other engine SPECs.
+Also: SPEC_REFINEMENT.md, CREATIVE_MANDATE.md, SILENT_FAILURES.md, KNOWLEDGE_INTEGRITY.md, CONTEXT_BUDGET.md — their essentials are compressed into REFINEMENT_GUIDE.md. Only read the originals if you need deep detail on a specific protocol.
 
 ## What Last Session Did
 

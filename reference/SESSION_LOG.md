@@ -431,3 +431,10 @@ foundation (intake, freeze, metadata) for PDF format using waraqat_usul fixture.
 
 **Creative verification baselines for all 14 SPECs:**
 Best: excerpting (90/100). Lowest: consensus, validation (40/100). Most engines: 75/100. These baselines will be used during refinement to ensure scores increase.
+
+**Additional in this session:**
+- Created REFINEMENT_GUIDE.md (67L) — compressed 5 governance docs (~11K tokens) into one reference (~700 tokens). Saves ~10K tokens per session for creative work.
+- Created IMPLEMENTATION_GUIDE.md (158L) — comprehensive Claude Code reference: full tool stack with install commands, API keys needed, architecture pattern, agent teams setup, quality gates.
+- Enabled agent teams in settings.json (CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1)
+- Updated NEXT.md: files-to-read reduced from ~24.5K to ~17.5K tokens (7K tokens saved for creative work)
+- Updated PROJECT_INSTRUCTIONS.md: SPEC_REFINEMENT now references compressed REFINEMENT_GUIDE.md
