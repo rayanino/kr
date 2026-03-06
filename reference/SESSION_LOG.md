@@ -572,3 +572,37 @@ Added 10 new error codes to §7.
 - Write-ahead log pattern chosen over SQLite for atomicity (simpler, no new dependency, fits JSON-file architecture)
 
 **Domain questions for owner:** None this session.
+
+---
+
+## Session 13 — 2026-03-06
+
+**Type:** IMPLEMENTATION_PREP
+**Focus:** Prepare the source engine for Claude Code implementation.
+
+**What was done:**
+
+Bridged the gap between the hardened SPEC and buildable code. Five deliverables:
+
+1. **contracts.py fully rewritten.** Found and fixed 20+ misalignments between the Pydantic models and the SPEC. Key changes: added 7 new enums (TextFidelity, ProcessingStatus, AcquisitionPath, ErrorCode with all 23 SRC_* codes, ErrorSeverity, HumanGateTrigger), added OWNER_OVERRIDE to TrustTier, changed muhaqiq from flat string to ScholarReference, added InferredFieldConfidence model for per-field confidence tracking, added 9 workflow models (EnrichmentRequest, HumanGateCheckpoint, WorkRelationshipEdge, SourceError, RegistryPendingWrite, etc.), fixed StructuralFormat values to match SPEC exactly, added format_specific_metadata and page_count to SourceMetadata. All models load and validate.
+
+2. **Directory skeleton created.** 15 source engine module stubs with docstrings referencing specific SPEC sections. Organized into: src/ (core modules), src/extractors/ (one per format), src/registries/ (one per registry). Library directories created: staging/, sources/, registries/, logs/, external/.
+
+3. **TEST_PLAN.md written.** 15 test sections with 90+ individual test cases. Each maps: SPEC section → test case → fixture → expected outcome. Covers: format detection, all 6 extractors, metadata inference, identity model, scholar authority (5 consistency checks), deduplication, freezing (TOCTOU, hash verification), trust evaluation, work relationships, registration atomicity, processing status, enrichment invariants, consensus, and all 23 error codes.
+
+4. **DEPENDENCIES.md written.** Verified all external dependencies: pydantic 2.12.5 installed, networkx 3.6.1 installed, docling/camel-tools/openiti installable. All 7 fixtures confirmed present and readable. API keys inventory for next session.
+
+5. **IMPLEMENTATION_ORDER.md written.** 20 tasks in strict dependency order, grouped into 8 phases. Tasks 1-7 (Foundation + Shamela) have zero LLM dependency. Each task specifies: what to build, which SPEC section, dependencies, and test criteria. Phase 1 foundation (config, logger, freezer, registries, format detector, dedup) can be built and tested entirely locally.
+
+**Quality results:**
+- check_spec_quality: 4 HIGH (maintained baseline — all §4.B/§9 false positives)
+- contracts.py: 46 fields in SourceMetadata, 23 error codes, 18 genres, 8 processing statuses — all load cleanly
+
+**Decisions made:**
+- Confidence tracking uses InferredFieldConfidence model (parallel fields per inferred field) rather than a generic dict — explicit is better for validation
+- GenreRelationType values use SPEC §4.A.9 naming (sharh_of, hashiyah_on, etc.) not the old contracts naming
+- StructuralFormat uses SPEC-exact values (verse not versified, qa_format not qa, tabular_khilaf not tabular)
+- Implementation starts with Tasks 1-7 (no LLM dependency) — enables end-to-end testing before API keys are available
+- contracts.py is read-only for Claude Code — schema changes require architect session
+
+**Domain questions for owner:** None. API keys reminder: Anthropic + OpenAI keys needed for Tasks 8+ (LLM integration).
