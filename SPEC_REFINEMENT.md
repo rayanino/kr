@@ -1,5 +1,8 @@
 # SPEC Refinement Protocol — بروتوكول تنقيح المواصفات
 
+> **NOTE:** This document contains the detailed reference material. The session workflow is now driven by `SESSION_TYPES.md` and self-contained `NEXT.md` playbooks. Read this file only if NEXT.md explicitly tells you to.
+
+
 This protocol defines the iterative cycle for hardening each engine SPEC before implementation begins. No engine should be implemented until its SPEC has passed through at least ONE full refinement cycle.
 
 The 14 SPECs were written in the preparatory phase. They are drafts — competent drafts, but they were written before `KNOWLEDGE_INTEGRITY.md`, `CHALLENGE_PROTOCOL.md`, and the skills existed. Every SPEC must be reviewed against these new standards.

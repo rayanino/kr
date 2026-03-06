@@ -72,24 +72,27 @@ ABD-era schemas archived to `schemas/archive/`. New schemas will be generated fr
 
 ## What Remains Before Implementation
 
-**SPEC drafting** is complete. All 14 SPECs written (~7,700 lines). Cross-SPEC consistency and VISION corrections done (v1.2.0).
+Remaining preparatory tasks (tracked by `SESSION_TYPES.md` and `IMPLEMENTATION_GATE.md`):
 
-**SPEC refinement** is the current focus. 0/14 SPECs have passed refinement (see `SPEC_REFINEMENT.md` for the 11-step process). Refinement goes in pipeline order: source → normalization → shared → passaging → atomization → excerpting → taxonomy → synthesis → scholar interface.
+**SPEC refinement (CREATIVE → PRECISION → optional HARDENING per engine):**
+| Engine | CREATIVE | PRECISION | HARDENING | Ready? |
+|--------|----------|-----------|-----------|--------|
+| source | pending | - | - | No |
+| normalization | pending | - | - | No |
+| passaging | pending | - | - | No |
+| atomization | pending | - | - | No |
+| excerpting | pending | - | - | No |
+| taxonomy | pending | - | - | No |
+| synthesis | pending | - | - | No |
+| shared (6) | skip (have §4.B) | pending | - | No |
+| scholar interface | pending | - | - | No |
 
-Completed preparatory tasks:
-- ~~Cross-SPEC consistency verification~~ — **DONE** (2026-03-06). All 14 boundaries verified.
-- ~~Full coherence review~~ — **DONE** (2026-03-06). Terminology consistent across all documents.
-- ~~Cross-cutting VISION corrections~~ — **DONE** (2026-03-06). §8, §9, §11, §13.2 updated. Principles 13–15 added.
-- ~~Claude Code environment~~ — **DONE** (2026-03-06). `.claude/` populated.
-- ~~Root CLAUDE.md rewrite~~ — **DONE** (2026-03-06). 62 lines, implementation-focused.
-
-Remaining preparatory tasks (from `PREPARATORY_ROADMAP.md`):
-1. **SPEC refinement** — 0/14 SPECs refined. Source engine SPEC is next.
-2. **Machine-readable contracts** — 2/7 engines have contracts.py (source, normalization). Others needed before their implementation.
-3. **Test data** — 7 fixture sets exist. Gold baselines not yet created.
-4. **GUI skeleton** — FastAPI app.py and base template not yet created (see `interface/GUI.md`).
-5. **SCIENCE.md** — minimal Level 3 doc for first science. Can be done during Milestone 1.
-6. **API keys** — .env file not yet created from .env.template.
+**Other preparatory tasks:**
+1. Machine-readable contracts — 2/7 engines have contracts.py (source, normalization)
+2. Test data — 7 fixture sets exist. Gold baselines not yet created.
+3. GUI skeleton — not yet created (see `interface/GUI.md`)
+4. API keys — .env file not yet created from .env.template
+5. Claude Code environment verification — `.claude/` populated but not tested with Claude Code
 
 ---
 

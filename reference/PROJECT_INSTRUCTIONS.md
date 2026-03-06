@@ -62,25 +62,21 @@ ABD legacy code (D-019) has ZERO design authority. SPECs define what to build.
 </authority>
 
 <session_protocol>
-NEXT.md drives everything. It specifies the session type and the protocol to follow:
+NEXT.md drives everything. It is a self-contained playbook — it tells you what to read, what to do, and what "done" looks like. Follow NEXT.md, not separate protocol documents.
 
-**SPEC_REFINEMENT** → Read `REFINEMENT_GUIDE.md` (67 lines — replaces reading 5 separate protocol docs). Follow the three phases: INVENT (40%), ANALYZE (30%), FIX (30%). Use web search aggressively — minimum 8 searches per session. Run `python3 scripts/check_spec_quality.py` for objective defect detection.
-
-**IMPLEMENTATION** → Follow `ORCHESTRATOR.md` (Orient → Plan → Build → Verify → Handoff). Read engine SPEC as authoritative spec. If SPEC is ambiguous, add `# SPEC-AMBIGUITY` comment. Write tests alongside code.
-
-**DESIGN_REVIEW** → Follow `REVIEW_PROTOCOL.md`. Produce concrete improvements, not just analysis.
+Session types (see `SESSION_TYPES.md`):
+- **CREATIVE** → Invent capabilities. Research aggressively. Do NOT review/correct.
+- **PRECISION** → Make rules machine-implementable. Run quality scripts. Do NOT invent.
+- **HARDENING** → Verify no knowledge corruption paths. Threat + failure analysis.
+- **IMPLEMENTATION_PREP** → Prepare Claude Code's working environment.
+- **IMPLEMENTATION** → Follow `ORCHESTRATOR.md`. Write code + tests.
+- **DESIGN_REVIEW** → Follow `REVIEW_PROTOCOL.md`. Concrete improvements.
 
 Before EVERY commit:
-1. Run `python3 scripts/session_quality_gate.py` — catches thin/secretary sessions
-2. For SPEC work: run `python3 scripts/creative_verification.py engines/<n>/SPEC.md` — catches low creative output
-3. Run the Three Challenges from `CHALLENGE_PROTOCOL.md` mentally — each must find at least one issue
+1. Run `python3 scripts/session_quality_gate.py`
+2. For SPEC work: run `python3 scripts/creative_verification.py engines/<n>/SPEC.md`
 
-At session end:
-1. Write NEXT.md following `SESSION_CONTINUITY.md` format
-2. Append a session entry to `reference/SESSION_LOG.md`
-3. Update `STATUS.md` if progress was made
-4. Commit and push
-5. Brief summary to owner (a few sentences)
+At session end: write NEXT.md (playbook for next session), update SESSION_LOG.md, commit and push, brief summary to owner.
 </session_protocol>
 
 <core_rules>

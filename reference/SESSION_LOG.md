@@ -438,3 +438,29 @@ Best: excerpting (90/100). Lowest: consensus, validation (40/100). Most engines:
 - Enabled agent teams in settings.json (CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1)
 - Updated NEXT.md: files-to-read reduced from ~24.5K to ~17.5K tokens (7K tokens saved for creative work)
 - Updated PROJECT_INSTRUCTIONS.md: SPEC_REFINEMENT now references compressed REFINEMENT_GUIDE.md
+
+
+### Session 2026-03-06 — Claude Chat: Deep Hardening Round 3 (Structural Redesign)
+
+**Type:** META (system structural redesign)
+
+**Core insight:** The system spent 23% of context budget reading protocol documents before any creative work began. 9 protocol docs (1,652 lines) competed for attention. The monolithic "do 10 steps in one session" approach produced mediocre work on all steps instead of excellent work on any.
+
+**Structural changes:**
+1. Created `SESSION_TYPES.md` — splits SPEC refinement into focused session types: CREATIVE (invention only), PRECISION (machine-readability only), HARDENING (threat analysis only), IMPLEMENTATION_PREP (Claude Code readiness). Each session reads 2-3 files, not 11.
+
+2. Created `IMPLEMENTATION_GATE.md` — definitive exit criteria with 9 gate conditions (SPEC quality, contracts, test infra, dependencies, task decomposition, cross-SPEC coherence, Claude Code env, external tools, owner readiness). No implementation starts until gates pass.
+
+3. Rewrote NEXT.md as self-contained creative playbook — everything the session needs is inline (research questions, invention framework, thinking directions). Zero protocol file reads required. Estimated context savings: ~15K tokens freed for creative work.
+
+4. Updated PROJECT_INSTRUCTIONS.md session_protocol to reference SESSION_TYPES.md.
+
+5. Updated STATUS.md with SPEC refinement tracking table per session type.
+
+6. Added deprecation notices to SPEC_REFINEMENT.md and CREATIVE_MANDATE.md (content preserved as reference, but workflow driven by SESSION_TYPES.md).
+
+**Estimated impact:**
+- Context available for creative work: increased from ~77% to ~88% of budget
+- Number of files to read before working: reduced from 11 to 3
+- Session focus: from "do everything" to "do ONE thing excellently"
+- Estimated sessions to complete preparatory phase: ~35-40 (3-5 weeks at 1-2/day)
