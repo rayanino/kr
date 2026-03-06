@@ -78,7 +78,7 @@ class ArgumentRole(str, Enum):
 
 
 class DialogueType(str, Enum):
-    """Type of scholarly dialogue between excerpts (SPEC §4.B.4)."""
+    """Type of scholarly dialogue between excerpts (SPEC §4.B.6)."""
     AGREES = "agrees"
     DISAGREES = "disagrees"
     REFINES = "refines"
@@ -96,12 +96,80 @@ class SemanticDuplicateRelation(str, Enum):
 
 
 class RepairSuggestionType(str, Enum):
-    """Type of self-containment repair suggestion (SPEC §4.B.5)."""
+    """Type of self-containment repair suggestion (SPEC §4.B.7)."""
     ADD_CONTEXT_ATOM = "add_context_atom"
     MERGE_WITH_ADJACENT = "merge_with_adjacent"
     FLAG_PASSAGING_ERROR = "flag_passaging_error"
     FLAG_MISSING_SOURCE_CONTEXT = "flag_missing_source_context"
     GENERATE_CONTEXT_NOTE = "generate_context_note"
+
+
+class MasalaExcerptType(str, Enum):
+    """Mas'ala detection classification (SPEC §4.B.4)."""
+    MASALA_BEARING = "masala_bearing"
+    DEFINITIONAL = "definitional"
+    EVIDENTIAL = "evidential"
+    NARRATIVE = "narrative"
+    STRUCTURAL = "structural"
+
+
+class MasalaScope(str, Enum):
+    """Scope of the mas'ala question (SPEC §4.B.4)."""
+    DEFINITIONAL = "definitional"
+    RULING = "ruling"
+    INTERPRETIVE = "interpretive"
+    METHODOLOGICAL = "methodological"
+    SCOPE = "scope"
+
+
+class EvidenceLinkType(str, Enum):
+    """How evidence relates to a claim (SPEC §4.B.5)."""
+    SUPPORTS = "supports"
+    REFUTES = "refutes"
+    QUALIFIES = "qualifies"
+    ILLUSTRATES = "illustrates"
+
+
+class LogicalStructure(str, Enum):
+    """Logical structure of an evidence chain (SPEC §4.B.5)."""
+    CONJUNCTIVE = "conjunctive"
+    DISJUNCTIVE = "disjunctive"
+    SEQUENTIAL = "sequential"
+    CONCESSIVE = "concessive"
+    MIXED = "mixed"
+
+
+class IslamicArgumentType(str, Enum):
+    """Type of Islamic legal/scholarly argument (SPEC §4.B.5)."""
+    TEXTUAL = "textual"
+    ANALOGICAL = "analogical"
+    CONSENSUS_BASED = "consensus_based"
+    RATIONAL = "rational"
+    PRESUMPTIVE = "presumptive"
+
+
+class ResonanceTier(str, Enum):
+    """Detection tier for cross-source resonance (SPEC §4.B.8)."""
+    TEXTUAL = "textual"
+    TERMINOLOGICAL = "terminological"
+    STRUCTURAL = "structural"
+
+
+class ResonanceType(str, Enum):
+    """Type of cross-source textual resonance (SPEC §4.B.8)."""
+    BORROWS_FROM = "borrows_from"
+    RESPONDS_TO = "responds_to"
+    MIRRORS_STRUCTURE = "mirrors_structure"
+    SHARES_EVIDENCE = "shares_evidence"
+    USES_COUNTER_ARGUMENT = "uses_counter_argument"
+
+
+class ChronologicalDirection(str, Enum):
+    """Temporal direction of scholarly influence (SPEC §4.B.8)."""
+    EARLIER_TO_LATER = "earlier_to_later"
+    LATER_TO_EARLIER = "later_to_earlier"
+    CONTEMPORANEOUS = "contemporaneous"
+    UNKNOWN = "unknown"
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -224,12 +292,12 @@ class ArgumentCompleteness(BaseModel):
 
 
 # ──────────────────────────────────────────────────────────────────
-# §4.B.4 — Dialogue link
+# §4.B.6 — Dialogue link
 # ──────────────────────────────────────────────────────────────────
 
 
 class DialogueLink(BaseModel):
-    """Link to another excerpt in a scholarly dialogue (SPEC §4.B.4)."""
+    """Link to another excerpt in a scholarly dialogue (SPEC §4.B.6)."""
     target_excerpt_id: str
     dialogue_type: DialogueType
     confidence: float = Field(ge=0.0, le=1.0)
@@ -237,12 +305,12 @@ class DialogueLink(BaseModel):
 
 
 # ──────────────────────────────────────────────────────────────────
-# §4.B.5 — Repair suggestion
+# §4.B.7 — Repair suggestion
 # ──────────────────────────────────────────────────────────────────
 
 
 class RepairSuggestion(BaseModel):
-    """Self-containment repair suggestion (SPEC §4.B.5)."""
+    """Self-containment repair suggestion (SPEC §4.B.7)."""
     suggestion_type: RepairSuggestionType
     detail: str
     target_atom_id: Optional[str] = None
@@ -252,6 +320,84 @@ class RepairSuggestion(BaseModel):
         "grounding_type: analytical. NEVER presented as source text."
     )
 
+
+# ──────────────────────────────────────────────────────────────────
+# §3 — Verse numbers (for verse-format excerpts)
+# ──────────────────────────────────────────────────────────────────
+
+
+class VerseNumbers(BaseModel):
+    """Verse line numbers for verse-format excerpts (SPEC §3, §4.A.7)."""
+    start_line: int = Field(ge=1)
+    end_line: int = Field(ge=1)
+
+
+# ──────────────────────────────────────────────────────────────────
+# §4.B.4 — Mas'ala analysis
+# ──────────────────────────────────────────────────────────────────
+
+
+class MasalaAnalysis(BaseModel):
+    """Mas'ala detection and issue formulation (SPEC §4.B.4)."""
+    excerpt_type: MasalaExcerptType
+    masala_question: Optional[str] = Field(
+        default=None,
+        description="The مسألة as a precise Arabic question. "
+        "Non-null only for masala_bearing excerpts."
+    )
+    masala_scope: Optional[MasalaScope] = None
+    disagreement_axis: Optional[str] = None
+    masala_id: Optional[str] = Field(
+        default=None,
+        description="Normalized identifier for deduplication across sources"
+    )
+    confidence: float = Field(ge=0.0, le=1.0)
+
+
+# ──────────────────────────────────────────────────────────────────
+# §4.B.5 — Evidence chain reconstruction
+# ──────────────────────────────────────────────────────────────────
+
+
+class EvidenceChainClaim(BaseModel):
+    """A claim within an evidence chain (SPEC §4.B.5)."""
+    atom_id: str
+    claim_text: str
+
+
+class EvidenceLink(BaseModel):
+    """A link between a claim and its evidence (SPEC §4.B.5)."""
+    claim_atom_id: str
+    evidence_atom_id: str
+    evidence_type: str
+    link_type: EvidenceLinkType
+    link_confidence: float = Field(ge=0.0, le=1.0)
+
+
+class EvidenceChain(BaseModel):
+    """Reconstructed argumentative structure within an excerpt (SPEC §4.B.5)."""
+    claims: list[EvidenceChainClaim] = Field(default_factory=list)
+    evidence_links: list[EvidenceLink] = Field(default_factory=list)
+    logical_structure: LogicalStructure
+    has_conclusion: bool
+    conclusion_atom_id: Optional[str] = None
+    argument_type: Optional[IslamicArgumentType] = None
+    completeness: float = Field(ge=0.0, le=1.0)
+
+
+# ──────────────────────────────────────────────────────────────────
+# §4.B.8 — Cross-source textual resonance
+# ──────────────────────────────────────────────────────────────────
+
+
+class ResonanceLink(BaseModel):
+    """Cross-source textual resonance link (SPEC §4.B.8)."""
+    target_excerpt_id: str
+    resonance_tier: ResonanceTier
+    resonance_type: ResonanceType
+    resonance_score: float = Field(ge=0.0, le=1.0)
+    evidence: str = Field(description="Brief explanation of the resonance signal")
+    chronological_direction: ChronologicalDirection
 
 # ──────────────────────────────────────────────────────────────────
 # Main excerpt record
@@ -331,6 +477,10 @@ class ExcerptRecord(BaseModel):
 
     # Source reference
     physical_pages: PhysicalPages = Field(default_factory=PhysicalPages)
+    verse_numbers: Optional[VerseNumbers] = Field(
+        default=None,
+        description="For verse-format excerpts only (§4.A.7). Null for prose."
+    )
     division_path: list[str] = Field(default_factory=list)
 
     # Review flags
@@ -359,16 +509,34 @@ class ExcerptRecord(BaseModel):
     # §4.B.3 — Argument completeness
     argument_completeness: Optional[ArgumentCompleteness] = None
 
-    # §4.B.4 — Scholarly dialogue links
+    # §4.B.6 — Scholarly dialogue links
     dialogue_links: Optional[list[DialogueLink]] = Field(
         default=None,
         description="Null during bulk loading. Populated during incremental processing."
     )
 
-    # §4.B.5 — Self-containment repair suggestions
+    # §4.B.7 — Self-containment repair suggestions
     repair_suggestions: Optional[list[RepairSuggestion]] = Field(
         default=None,
         description="Non-null only when self_containment_score < 0.7"
+    )
+
+    # §4.B.4 — Mas'ala detection and issue formulation
+    masala_analysis: Optional[MasalaAnalysis] = Field(
+        default=None,
+        description="Null when §4.B.4 is disabled"
+    )
+
+    # §4.B.5 — Evidence chain reconstruction
+    evidence_chain: Optional[EvidenceChain] = Field(
+        default=None,
+        description="Null when §4.B.5 is disabled or excerpt has no evidential content"
+    )
+
+    # §4.B.8 — Cross-source textual resonance
+    resonance_links: Optional[list[ResonanceLink]] = Field(
+        default=None,
+        description="Null during bulk loading. Populated during incremental processing."
     )
 
 

@@ -381,3 +381,40 @@ None this session.
 
 ### Owner Questions
 - None new
+
+---
+
+## Session 2026-03-06 (B)
+
+**Type:** PRECISION
+**Engine:** Excerpting (محرك الاقتطاف)
+
+### What Was Done
+- Resolved all 28 check_spec_quality.py defects → 0 remaining
+  - 21 vague quantifiers: "multiple" → "two or more", "some" → specific language, "etc." → explicit enumeration
+  - 6 missing examples: added worked examples with Arabic text to §4.A.2–§4.A.7
+  - 1 unbounded: "sufficient" → explicit field list
+- Fixed duplicate §4.B numbering (CREATIVE session created two §4.B.4 and two §4.B.5):
+  - Dialogue Detection: §4.B.4 → §4.B.6
+  - Repair Suggestions: §4.B.5 → §4.B.7
+  - Resonance Detection: §4.B.6 → §4.B.8
+  - All cross-references updated in both SPEC.md and contracts.py
+- Synced contracts.py with §3:
+  - Added 4 missing fields: verse_numbers, masala_analysis, evidence_chain, resonance_links
+  - Added 8 new enums: MasalaExcerptType, MasalaScope, EvidenceLinkType, LogicalStructure, IslamicArgumentType, ResonanceTier, ResonanceType, ChronologicalDirection
+  - Added 6 new sub-models: VerseNumbers, MasalaAnalysis, EvidenceChainClaim, EvidenceLink, EvidenceChain, ResonanceLink
+  - Field count: 43 in both SPEC and contracts (exact match)
+- Self-audit: 4 structural defects found and fixed:
+  1. "Optionally" in derived_normalized_text → always strip diacritics
+  2. Consensus "for verified sources" contradicted §6 → removed qualifier
+  3. Single-atom/heading-only passages unhandled → added explicit edge case rules + EXCERPT_HEADING_ONLY_PASSAGE error code
+  4. Dialogue links not bidirectional → added reciprocal update rule
+
+### Decisions Made
+- §4.B numbering is now §4.B.1–§4.B.8 (non-contiguous in file, but unique)
+- Diacritics are ALWAYS stripped in derived_normalized_text (not optional)
+- Consensus is used for ALL self-containment evaluations (no source quality restriction)
+- Heading-only passages produce 0 excerpts (not an error)
+
+### Owner Questions
+- None new
