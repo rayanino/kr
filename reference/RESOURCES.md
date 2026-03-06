@@ -442,3 +442,33 @@ Optional keys (add as needed):
 - **Context:** Surveyed LangGraph HITL middleware, Temporal workflow approval, HumanLayer SDK, and various Python task queues (Celery, RQ, persist-queue).
 - **Decision:** None applicable. KR's human gate is a persistent review queue for a single user reviewing batched decisions, not a real-time agent interrupt system. The complexity is in the gate type registry, bidirectional validation, and policy management — not in the queue infrastructure itself.
 - **Implementation:** Python stdlib file operations (JSON read/write with atomic rename), Pydantic v2 for models, shared/validation for integrity checks. No additional dependencies required.
+
+---
+
+## Feedback Component Resources
+
+### DSPy Optimizers (Prompt Optimization — used by individual engines, coordinated by feedback component)
+
+**MIPROv2** (already cataloged above): Creates few-shot examples and instructions for each predictor, searches combinations via Bayesian Optimization. Best for: when you have 200+ training examples and want joint instruction + few-shot optimization. Cost: ~$2 USD / ~20 min per run. KR usage: engines run MIPROv2 against correction-derived training data when the feedback component detects enough new corrections.
+
+**SIMBA** (Stochastic Introspective Mini-Batch Ascent):
+- **URL:** https://dspy.ai/api/optimizers/SIMBA/
+- **What it does:** Uses stochastic mini-batch sampling to identify challenging examples with high output variability, then applies the LLM to introspectively analyze failures and generate self-reflective improvement rules. Two strategies: `append_a_rule` (LLM reflects on failures and derives improvement rules) or `add_successful_demo` (adds working examples). More sample-efficient than MIPROv2.
+- **Relevant for:** Engines with few corrections but clear failure patterns. SIMBA's self-reflective rules map directly to the feedback component's "systemic pattern → engine rule update" cycle.
+- **KR usage:** Preferred optimizer for engines with <100 training examples. SIMBA generates explicit improvement rules from corrections, which are more interpretable than MIPROv2's Bayesian-optimized prompt variations.
+- **License:** MIT (part of DSPy)
+
+**GEPA** (Reflective Prompt Evolution):
+- **URL:** https://dspy.ai/learn/optimization/optimizers/ (DSPy >= 3.1.0)
+- **What it does:** Uses rich textual feedback (not just scalar rewards) and Pareto frontiers to evolve prompts. Analyzes what worked, what didn't, and proposes targeted prompt improvements. Up to 11% better than MIPROv2 on complex tasks.
+- **Relevant for:** Complex reasoning tasks where the feedback component's correction `reason` field provides rich textual signal.
+- **KR usage:** Potential future optimizer for synthesis engine (which receives the most detailed owner corrections). Requires DSPy >= 3.1.0.
+- **License:** MIT (via dspy-gepa package)
+
+### DeepEval (LLM Evaluation Framework)
+- **URL:** https://deepeval.com
+- **What it does:** Python framework for LLM testing and evaluation. Provides metrics (GEval, correctness, bias, toxicity), regression testing with side-by-side comparison, and test case management. Integrates with pytest.
+- **Relevant for:** The feedback component's regression test coordination — DeepEval provides the regression testing infrastructure that engines can use for gold baseline evaluation.
+- **KR usage:** Optional — engines may use DeepEval for regression testing, or implement their own simpler test harness. The feedback component coordinates the triggering and result tracking regardless of which testing framework the engine uses.
+- **License:** Apache 2.0
+- **How to use:** `pip install deepeval`. Define test cases with input/expected_output/actual_output. Run with pytest integration. Supports LLM-as-a-judge for nuanced evaluation.

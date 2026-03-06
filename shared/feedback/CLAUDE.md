@@ -1,28 +1,58 @@
-# feedback — Engine Feedback Loop Subsystem
+# Feedback Loop Infrastructure — حلقة التغذية الراجعة
 
-Implements iterative refinement through structured feedback between engines.
+The feedback component is KR's learning infrastructure. It transforms individual owner corrections into systemic engine improvements through structured correction recording, pattern analysis, DSPy training data management, and regression test coordination.
 
-## Purpose
+## Core Architecture
 
-Feedback enables engines to signal problems upstream (e.g., an engine detects a passaging error and re-routes for normalization review). Supports the "human gates" (VISION.md §9) by flagging items for owner review.
+The feedback component is a **data management and statistical analysis** layer — it does NOT optimize prompts or run LLM calls. Each engine owns its own DSPy optimization; the feedback component provides the correction data and regression coordination.
 
-## Key Responsibilities
+**Five capabilities:**
+1. Correction recording — unified storage of corrections from human gate resolutions and direct owner corrections
+2. Pattern analysis — statistical detection of systemic error patterns (7 pattern types)
+3. Training data management — DSPy-compatible training example generation per engine
+4. Regression test coordination — gold baseline management and update gating
+5. Model change monitoring — silent drift detection and mandatory regression triggers
 
-1. **Issue Logging** — Record problems detected by any engine
-2. **Priority Assignment** — Classify by severity and impact
-3. **Routing** — Direct feedback to appropriate handler
-4. **Follow-up Tracking** — Ensure issues are resolved before library release
+## Key Design Decisions
 
-## Input/Output
+- **Pull model for human gate corrections**: periodically scans resolved archive, not pushed by the gate
+- **Engine registration for training data**: engines register DSPy task signatures so the feedback component can format corrections as training examples
+- **Cooperative regression blocking**: no technical locks — engines check results before applying updates
+- **Correction immutability**: records never modified/deleted; supersession creates new records
+- **Purely statistical pattern analysis**: no LLM calls, no ML models — deterministic and auditable
 
-- **Input**: Issue report from any engine (exception, validation failure, consensus disagreement)
-- **Output**: Feedback record with routing decision and resolution status
+## Dependencies
 
-## Current Status
+- **Upstream**: shared/human_gate (resolved checkpoint archive), scholar interface (direct corrections)
+- **Downstream**: all engines (training data, regression coordination), scholar interface (pattern reports, cascade signals)
+- **External**: Pydantic v2, DSPy (Example format only), Python standard library
 
-See SPEC.md for feedback taxonomy. Tests in `tests/` directory.
+## Files
 
-## Notes
+- `SPEC.md` — full specification (461 lines, all 10 sections)
+- `src/` — implementation (empty — all [NOT YET IMPLEMENTED])
+- `tests/` — tests (empty)
 
-No source-format-specific logic here (normalization boundary already passed).
+## Storage Layout
 
+```
+library/feedback/
+├── corrections/{year-month}/     # Correction records (append-only)
+├── indexes/                      # Secondary indexes (by_engine, by_science, etc.)
+├── training/{engine_id}/         # DSPy training data exports per engine
+├── patterns/                     # Detected systemic patterns
+├── baselines/registry.json       # Gold baseline registry
+├── regression_runs/              # Regression test results
+├── models/                       # Engine model manifests
+├── cascades/pending/             # Cascade review signals
+├── engine_registry.json          # Engine task signature registrations
+├── processed_checkpoints.jsonl   # Processed checkpoint ledger
+├── stats.json                    # Aggregate statistics
+└── config/science_overrides.json # Per-science threshold overrides
+```
+
+## Transformative Capabilities (§4.B)
+
+1. **Correction cascade intelligence** — one correction triggers review of related artifacts (5 cascade rules)
+2. **Cross-engine root cause analysis** — detects when downstream corrections trace to upstream causes
+3. **Learning velocity tracking** — identifies stagnant error patterns where prompt optimization has plateaued

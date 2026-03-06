@@ -1,25 +1,24 @@
 # NEXT SESSION
 
-**Written by:** Session 2026-03-06 (Human Gate SPEC)
+**Written by:** Session 2026-03-06 (Feedback SPEC)
 **Date:** 2026-03-06
 
 ## Immediate Task
 
-Begin shared/feedback SPEC — the feedback loop infrastructure component (VISION.md §8.3). This is the next shared component in dependency order: feedback depends on human_gate (which is now complete), and the scholar interface depends on feedback.
+Begin shared/user_model SPEC — the persistent user state component (D-017). This is the next shared component in dependency order: the scholar interface depends heavily on the user model for personalization.
 
 **Definition of done — this session is complete when:**
-1. shared/feedback SPEC written with all 10 sections per SPEC template
+1. shared/user_model SPEC written with all 10 sections per SPEC template
 2. RESOURCES.md updated with any new tools discovered
 3. Any new decisions recorded in kr_decisions.md
 4. Changes committed and pushed
 
 ## Context
 
-The human gate SPEC is complete (413 lines). It defines: checkpoint lifecycle management (create/query/resolve/expire), 18 gate types across all engines, pre-approval policy management with restricted types, bidirectional validation (structural + consistency + cross-reference), owner confidence calibration per science with 4 levels, and three transformative capabilities (gate learning/policy suggestion, review efficiency intelligence, library consistency checking).
+The feedback SPEC is complete (461+ lines). It defines: correction recording from human gate resolutions and direct owner corrections, pattern analysis with 7 systemic pattern types (type_concentration, science_concentration, source_concentration, model_concentration, confidence_miscalibration, recurring_pair, correction_cascade_needed), DSPy-compatible training data management with engine registration, regression test coordination with gold baseline management and model change monitoring, and three transformative capabilities (correction cascade intelligence, cross-engine root cause analysis, learning velocity tracking). Key design decision: the feedback component provides structured correction data; each engine owns its own DSPy prompt optimization.
 
 Remaining shared component SPECs needed before implementation:
-- **shared/feedback** — feedback loop infrastructure: correction storage, pattern analysis, regression testing coordination (VISION.md §8.3). The human gate SPEC §3 guarantees a complete audit trail. The feedback component consumes this trail plus the owner's corrections to detect systematic patterns and trigger engine rule updates. No existing code.
-- **shared/user_model** — persistent user state (D-017). No existing code.
+- **shared/user_model** — persistent user state (D-017). Tracks: study history, demonstrated knowledge, knowledge gaps, current focus, preferences, bookmarks/annotations. Read by scholar interface for personalization. Written to by scholar interface (interactions) and processing engines (new content alerts). No existing code.
 - **shared/scholar_authority** — canonical scholar identities (D-025). No existing code beyond what the source engine references.
 - **interface/scholar/** — user-facing intelligence layer (D-016). No existing code.
 
@@ -27,17 +26,19 @@ After all shared component SPECs: the first SCIENCE.md (إملاء for Milestone
 
 ## Files to Read — IN THIS ORDER
 
-1. `VISION.md` §8.3 (Feedback Loops and Self-Improvement) — use `python3 scripts/extract_vision_sections.py 8` (already extracted above, §8.3 is the relevant subsection)
-2. Engine SPECs that reference feedback: grep for "feedback" or "correction" or "DSPy" or "prompt optimization" in all engine SPECs. Key sections: each engine's §5 (quality), §8 (configuration for DSPy baselines).
-3. `shared/human_gate/SPEC.md` — just completed; reference for how the audit trail feeds into feedback analysis
-4. `shared/human_gate/src/human_gate.py` lines 400-600 — the ABD-era pattern detection code (reference for feedback component's pattern analysis approach)
-5. `reference/RESOURCES.md` — existing tool research, particularly DSPy
-6. `reference/DOMAIN.md` — correction cascade section (~lines 690-700)
+1. `reference/DOMAIN.md` — particularly the "User model must" section (~line 710+) and the "Core Identity" section for how KR IS the user's knowledge
+2. `reference/USER_SCENARIOS.md` — all scenarios involve user state (study history, knowledge gaps, current focus). The user model serves ALL scenarios.
+3. `VISION.md` — search for user model references. Use `python3 scripts/extract_vision_sections.py 6` for synthesis (entries track what user has studied), and `python3 scripts/extract_vision_sections.py 9` for human gates (confidence calibration is user state). Also grep for "user model", "study history", "knowledge gap", "spaced repetition".
+4. `shared/user_model/CLAUDE.md` — existing orientation file
+5. `engines/synthesis/SPEC.md` — the synthesis engine produces entries that the user model tracks consumption of
+6. `shared/human_gate/SPEC.md` §4.A.4 — owner confidence calibration per science, which IS user model state that the human gate currently stores independently (should it be part of the user_model instead?)
+7. `reference/RESOURCES.md` — check for spaced repetition, knowledge graph, and personalization tools
 
 ## Decisions Needed
 
-- Should the feedback component own DSPy prompt optimization, or should each engine own its own prompt optimization with the feedback component providing correction data? Likely answer: the feedback component provides structured correction data and pattern analysis; each engine owns its own DSPy optimization using that data. The feedback component does not know what prompts look like.
-- What constitutes a "systemic pattern" (VISION.md §8.3)? What threshold of occurrences? The feedback component SPEC must define this precisely.
+- Should owner confidence calibration (currently in human gate as confidence.json) be moved to the user model? Argument for: it's user state, and the user model is the canonical place for user state. Argument against: it's gate-specific behavior, and keeping it in the human gate avoids coupling. Likely answer: the user model owns the data; the human gate reads it. This may require a minor update to the human gate SPEC.
+- What constitutes "demonstrated knowledge" vs. "has seen"? The domain requires distinguishing between "Rayane has read about topic X" and "Rayane can demonstrate understanding of topic X." Socratic assessment is part of the scholar interface, but the state lives in the user model.
+- How does the user model interact with spaced repetition? Is spaced repetition a scholar interface feature using user model data, or a user model responsibility?
 
 ## Pending Owner Questions
 
@@ -45,8 +46,8 @@ None.
 
 ## What This Session Did
 
-Completed shared/human_gate SPEC (413 lines, all 10 sections). Key design decisions: the human gate manages checkpoint state while the scholar interface manages presentation (clean separation of concerns); checkpoints stored as JSON files with pending/resolved separation; 18 gate types registered across all engines; 4 gate types restricted from pre-approval (tax_evolution_proposal, tax_rollback, source_trust_evaluation, gate_policy_suggestion); bidirectional validation with three categories (structural, consistency, cross-reference) that warn but never block; owner confidence calibration with 4 levels affecting policy thresholds. Three transformative capabilities: gate learning suggests policies from approval patterns, review efficiency intelligence produces behavioral metadata for the scholar interface, and library consistency checking performs deep semantic validation of owner decisions. Updated CLAUDE.md, RESOURCES.md, STATUS.md.
+Completed shared/feedback SPEC (461+ lines, all 10 sections). Key design: the feedback component owns correction storage, pattern analysis, training data management, and regression test coordination. Each engine owns its own DSPy prompt optimization using data the feedback component provides. Three transformative capabilities: correction cascade intelligence (one correction triggers review of related artifacts via 5 cascade rules), cross-engine root cause analysis (detects when downstream corrections trace to upstream causes), and learning velocity tracking (identifies stagnant error patterns where prompt optimization has plateaued). Updated CLAUDE.md, RESOURCES.md (added SIMBA, GEPA, DeepEval), STATUS.md.
 
 ## New Decisions
 
-None — the human gate SPEC does not introduce new architectural decisions beyond what VISION.md §9 and existing engine SPECs already established. The design choices (state management vs. presentation, file-based storage, restricted gate types, non-blocking validation) are component-internal specifications, not project-level architectural decisions.
+None — the feedback SPEC resolves the NEXT.md decision about DSPy ownership (each engine owns its own optimization; feedback provides data) but this was an internal design choice, not a project-level architectural decision requiring a kr_decisions.md entry.
