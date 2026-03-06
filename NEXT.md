@@ -5,77 +5,87 @@ SPEC_REFINEMENT
 
 ## Immediate Task
 
-Execute refinement cycle 1 on the **source engine SPEC** (`engines/source/SPEC.md`), following `SPEC_REFINEMENT.md` Steps 1-9 exactly.
+Execute refinement cycle 1 on the **source engine SPEC** (`engines/source/SPEC.md`).
+
+Follow `SPEC_REFINEMENT.md` Steps 0-10 exactly. Step 0 (Creative Exploration) comes FIRST — before any review or correction. Use `CONTEXT_BUDGET.md` to plan your reads.
 
 The source engine is the pipeline entry point. Its SPEC must be airtight before any implementation begins.
 
 ## Definition of Done
 
-1. Defect ledger produced with exact quotes and fixes for every defect found
-2. All §4.A subsections have at least one concrete I/O example with real Arabic text
-3. All 7 knowledge integrity threats explicitly addressed in the SPEC
-4. Technology references verified with at least 3 web searches; RESOURCES.md updated
-5. Upstream/downstream boundary verified with `python3 scripts/verify_metadata_flow.py`
-6. Two self-review rounds completed; Three Challenges passed
-7. Second research round completed (3+ additional web searches)
-8. Refined SPEC committed with defect count in commit message
-9. `engines/source/CLAUDE.md` updated with refinement status
+**Creative (from Step 0):**
+1. At least 3 new capabilities invented for §4.B, each with named technology AND concrete output example
+2. Minimum 8 web searches conducted during creative exploration
+3. Invention Notes written and incorporated into the SPEC
+
+**Correctness (from Steps 1-8):**
+4. Defect ledger produced with exact quotes and specific fixes for every defect
+5. All 7 silent failure patterns checked against §4 rules (SILENT_FAILURES.md)
+6. All 7 knowledge integrity threats explicitly addressed in the SPEC
+7. All §4.A subsections have at least one concrete I/O example with real Arabic text
+8. Technology references verified with web searches; RESOURCES.md updated
+9. Upstream/downstream boundary verified with `python3 scripts/verify_metadata_flow.py`
+10. Two self-review rounds completed; Three Challenges each found at least one issue
+
+**Final (from Steps 9-10):**
+11. Silent failure check passed (no hollow examples, circular definitions, etc.)
+12. Refined SPEC committed with defect count AND capability count in message
+13. `engines/source/CLAUDE.md` updated with refinement status
 
 ## Context
 
-All 14 SPECs are written but were drafted BEFORE `KNOWLEDGE_INTEGRITY.md`, `CHALLENGE_PROTOCOL.md`, and the skills were created. They need refinement against these new standards before implementation can begin.
+All 14 SPECs are drafted but need iterative refinement before implementation. This is the first refinement session. The source engine goes first because all downstream engines depend on its output.
 
-**This is the first SPEC refinement session.** The source engine goes first because it's the pipeline entry point — all downstream engines depend on its output contract.
-
-The autonomous system now includes:
-- `SPEC_REFINEMENT.md` — 9-step iterative refinement cycle
-- `SESSION_CONTINUITY.md` — bulletproof session handoff protocol
-- `KNOWLEDGE_INTEGRITY.md` — 7-threat model for knowledge safety
-- `CHALLENGE_PROTOCOL.md` — Three Challenges + quality gates + anti-patterns
-- 5 skills: knowledge-safety, arabic-text, technology-survey, scholarly-design, spec-examples
-- 7 agents, 14 commands, 4 scripts
+The autonomous system includes governance documents, skills, agents, commands, scripts, and hooks. Key documents for THIS session are listed in "Files to Read" below.
 
 ## Files to Read — IN THIS ORDER
 
-1. `SPEC_REFINEMENT.md` — the refinement protocol (follow this step by step)
-2. `KNOWLEDGE_INTEGRITY.md` — threat model (needed for Step 2)
-3. `.claude/skills/spec-examples/SKILL.md` — example generation guide (needed for Step 3)
-4. `engines/source/SPEC.md` — the SPEC being refined (THE deliverable)
-5. `engines/normalization/SPEC.md` §2 only — downstream boundary check (needed for Step 5)
-6. `reference/ENTRY_EXAMPLE.md` — quality target (needed for Step 6)
-7. `reference/USER_SCENARIOS.md` — user scenarios (needed for Step 6)
+**First (budget and creative protocol):**
+1. `CONTEXT_BUDGET.md` — know your token budget before reading anything else (~1,200 tokens)
+2. `CREATIVE_MANDATE.md` — invention protocol; creative exploration comes FIRST (~1,200 tokens)
+
+**Then (refinement protocol and detection tools):**
+3. `SPEC_REFINEMENT.md` — the 11-step cycle, follow precisely (~1,800 tokens)
+4. `SILENT_FAILURES.md` — 7 patterns of "looks right but isn't" (~1,500 tokens)
+5. `KNOWLEDGE_INTEGRITY.md` — threat model for Step 2 (~1,600 tokens)
+6. `.claude/skills/spec-examples/SKILL.md` — example generation for Step 3 (~950 tokens)
+
+**Then (the deliverable and reference material):**
+7. `engines/source/SPEC.md` — THE deliverable (~5,500 tokens)
+8. `engines/normalization/SPEC.md` §2 only — downstream boundary for Step 5 (~1,000 tokens)
+9. `reference/ENTRY_EXAMPLE.md` — quality target for Step 6 (~1,600 tokens)
+10. `reference/USER_SCENARIOS.md` — user scenarios for Step 6 (~2,700 tokens)
+
+**Total reading cost: ~19,050 tokens. Budget remaining for work: ~129,000 tokens. Comfortable.**
 
 ## Files to NOT Read
 
-- VISION.md (too large, not needed for SPEC refinement)
-- DOMAIN.md (already incorporated into the SPEC)
-- Other engine SPECs (not needed except normalization §2)
-- kr_decisions.md (decisions already in the SPEC)
-- STATUS.md (not needed)
-- ORCHESTRATOR.md (that's for implementation sessions, not refinement)
+- VISION.md (47K tokens — never read whole; use extract_vision_sections.py if needed)
+- DOMAIN.md (7K tokens — already incorporated into the SPEC)
+- kr_decisions.md (9.5K tokens — decisions already in the SPEC)
+- STATUS.md, ORCHESTRATOR.md, MILESTONES.md (not needed for refinement)
+- Other engine SPECs except normalization §2
 
 ## Known Issues
 
-- `vision_defects_s7.md` (now in archive) noted that VISION.md §7.2 still says "sufficient identifying information" which is vague. Check whether the source SPEC resolves this.
-- The source SPEC was written before multi-layer detection details were added to DOMAIN.md. Verify §4.A.3 covers the full multi-layer model.
+- VISION.md §7.2 still says "sufficient identifying information" (vague). Check if source SPEC resolves this.
+- Source SPEC was written before full multi-layer detection was added to DOMAIN.md. Verify coverage.
+- Source SPEC's §4.B capabilities may need refresh — they were written before KNOWLEDGE_INTEGRITY.md existed.
 
 ## Progress Metrics
 
-SPEC Refinement:
-- Source engine: Cycle 0 (not yet started)
-- All other engines: Cycle 0 (not yet started)
-- Implementation: blocked until source + normalization SPECs pass refinement
-
-Milestone 1: 0/5 tasks complete (blocked by SPEC refinement)
+SPEC Refinement: 0/14 engines started. Source engine Cycle 0 (this session starts Cycle 1).
+Implementation: blocked until source + normalization SPECs pass refinement.
+Milestone 1: 0/5 tasks complete.
 
 ## What Last Session Did
 
-Hardened the autonomous system with SPEC refinement protocol, session continuity protocol, spec-examples skill, refine-spec command, repo cleanup (archived vision_defects_s7.md), rewrote CLAUDE.md for maximum effectiveness, and redirected NEXT.md from premature implementation to SPEC refinement.
+Fourth hardening pass: Created CREATIVE_MANDATE.md (invention-first protocol with Creative Exploration Protocol and Anti-Secretary Test), CONTEXT_BUDGET.md (concrete token costs for every file), SILENT_FAILURES.md (7 detection patterns for output that looks right but isn't). Updated SPEC_REFINEMENT.md with Step 0 (Creative Exploration), Step 9 (Silent Failure Check), context budget reference, and creative success criteria. Updated PROJECT_INSTRUCTIONS.md self-review with anti-sycophancy checks, creative mandate, and silent failure detection. Updated session workflow with 12-point SPEC refinement step.
 
 ## Decisions Made
 
-None. Infrastructure hardening, not architectural decisions.
+None. Infrastructure hardening.
 
 ## Pending Owner Questions
 
-None currently. SPEC refinement may surface domain questions.
+None currently. Creative exploration and SPEC refinement may surface domain questions.

@@ -37,17 +37,22 @@ Layer 3: Scholar Interface — consumes all outputs.
 - `interface/scholar/` — User-facing intelligence layer
 - `schemas/` — Inter-engine data contracts
 - `library/` — Knowledge product. This IS the user's knowledge.
-- `scripts/` — `extract_vision_sections.py`, `decompose_spec.py`, `verify_metadata_flow.py`, `check_compliance.py`
+- `scripts/` — `extract_vision_sections.py`, `decompose_spec.py`, `verify_metadata_flow.py`, `check_compliance.py`, `refinement_status.py`
 - `tests/integration/` — Cross-engine integration tests
 
 ## Session Protocol
 
-- `NEXT.md` — your task. Read it first. Follow `SESSION_CONTINUITY.md` for handoff rules.
-- `ORCHESTRATOR.md` — implementation session lifecycle.
-- `SPEC_REFINEMENT.md` — SPEC improvement cycle (must complete before implementation).
+- `NEXT.md` — your task. Read it first. It tells you what to read next.
+- `CONTEXT_BUDGET.md` — token costs for every file. Plan your reads.
+- `CREATIVE_MANDATE.md` — invention comes before review. Creative Exploration Protocol.
+- `SPEC_REFINEMENT.md` — 11-step SPEC improvement cycle (Steps 0-10).
+- `SILENT_FAILURES.md` — 7 patterns of output that looks right but is wrong.
+- `SESSION_CONTINUITY.md` — bulletproof session handoff rules.
+- `ORCHESTRATOR.md` — implementation session lifecycle (after SPEC refinement).
 - `MILESTONES.md` — task decomposition with dependencies.
 - `REVIEW_PROTOCOL.md` — design review procedures.
 - `CHALLENGE_PROTOCOL.md` — Three Challenges before every commit.
+- `KNOWLEDGE_INTEGRITY.md` — 7-threat model for knowledge safety.
 
 ## Run All Tests
 

@@ -248,3 +248,18 @@
 - All 14 engine/component CLAUDE.md files: Added "SPEC Refinement Status: Cycle 0, NOT implementation-ready"
 - reference/vision_defects_s7.md: Moved to archive (obsolete — defects from VISION corrections)
 
+
+### Session 2026-03-06 — Claude Chat: Autonomous System Hardening (Fourth Pass — Creative Intelligence)
+
+**Insight:** The system was optimizing for CHECKING (review, verification, correction) but not for CREATING (invention, exploration, original thinking). Claude is the architect, not a QA engineer. Added creative mandate, context budget, and silent failure detection.
+
+**New documents:**
+- CREATIVE_MANDATE.md: Invention-First Rule, Creative Exploration Protocol (5 structured exercises), Anti-Secretary Test (4 criteria), Creative Research Methodology (3-phase, 8-13 searches minimum)
+- CONTEXT_BUDGET.md: Concrete token costs for every file in the repo. Session budgets by type. 6 rules for context management.
+- SILENT_FAILURES.md: 7 patterns of output that looks correct but is subtly wrong: hollow examples, circular definitions, hand-waving technology, phantom metadata, untestable rules, missing error paths, scope creep disguise. Each with detection test and concrete KR example.
+
+**Updated documents:**
+- SPEC_REFINEMENT.md: Added Step 0 (Creative Exploration from CREATIVE_MANDATE.md before any review), Step 9 (Silent Failure Check), context budget reference, creative success criteria in commit requirements
+- PROJECT_INSTRUCTIONS.md: Self-review now includes: creative mandate check, silent failure check, anti-sycophancy self-check (3 concrete techniques to counter the tendency to validate own output). SPEC refinement session step expanded from 8 to 12 points with creative mandate, context budget, and silent failure references.
+- NEXT.md: Complete rewrite with token budgets for every listed file, creative mandate in definition of done, explicit creative success criteria.
+

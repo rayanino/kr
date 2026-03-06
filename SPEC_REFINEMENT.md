@@ -8,11 +8,19 @@ The 14 SPECs were written in the preparatory phase. They are drafts — competen
 
 ## The Refinement Cycle
 
-Each SPEC goes through this cycle. One cycle per session. A SPEC may need 1-3 cycles depending on how many issues are found.
+Each SPEC goes through this cycle. One cycle per session (refer to `CONTEXT_BUDGET.md` for token planning). A SPEC may need 1-3 cycles depending on how many issues are found.
+
+### Step 0: Creative Exploration (BEFORE any review)
+
+Follow the Creative Exploration Protocol in `CREATIVE_MANDATE.md`. This step comes FIRST — before reading the SPEC critically, before finding defects, before fixing anything. The goal is to INVENT capabilities, not just review existing ones.
+
+Deliverable: Invention Notes with at least 3 new capabilities, each with named technology and concrete output example.
+
+Minimum research: 8 web searches (3 for problem space mapping, 3 for possibility exploration, 2 for validation).
 
 ### Step 1: Cold Read (no code, no other docs)
 
-Read the SPEC as if you have never seen it before. You are a new Claude Code instance that must implement this engine from this document alone.
+Read the SPEC as if you have never seen it before. Also read `SILENT_FAILURES.md` — the 7 patterns of "looks right but isn't." Check each §4 rule against these patterns. You are a new Claude Code instance that must implement this engine from this document alone.
 
 Questions to ask during cold read:
 - Can I implement this without asking a single clarifying question?
@@ -108,15 +116,20 @@ After fixing all defects, do a second research pass:
 
 This second research round often reveals opportunities that the first round missed, because you now understand the SPEC deeply enough to know what to search for.
 
-### Step 9: Commit and Document
+### Step 9: Silent Failure Check
+
+Read `SILENT_FAILURES.md`. For each of the 7 patterns, check: does any rule in the refined SPEC exhibit this pattern? This is the LAST check before committing — it catches things that the other steps miss because they LOOK correct.
+
+### Step 10: Commit and Document
 
 Commit the refined SPEC with a message describing:
-- How many defects were found
-- How many were fixed
-- What research was conducted
+- How many defects were found and fixed
+- How many new capabilities were invented (from Step 0)
+- What research was conducted (search count and key findings)
 - Whether another refinement cycle is needed
 
 If >5 structural defects were found, another cycle is needed. Schedule it in NEXT.md.
+If 0 new capabilities were invented, the session failed the Creative Mandate — schedule a creative-focused session.
 
 ---
 

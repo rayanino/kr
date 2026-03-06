@@ -142,14 +142,18 @@ If a domain question blocks progress on the current section, put it in NEXT.md u
    h. For each transformative capability you plan for §4.B: verify technical feasibility. Name the specific technology, library, or approach. If you can't describe HOW it works, it's hand-waving, not a specification.
    i. Read `.claude/skills/scholarly-design/SKILL.md` — use the Transformative Feature Test for each §4.B capability.
 3. If the task is a SPEC REFINEMENT session:
-   a. Read `SPEC_REFINEMENT.md` — the 9-step refinement cycle. Follow it precisely.
-   b. Read `KNOWLEDGE_INTEGRITY.md` — needed for Step 2 (Threat Analysis).
-   c. Read `.claude/skills/spec-examples/SKILL.md` — needed for Step 3 (Example Audit).
-   d. Read the SPEC being refined — THE deliverable of this session.
-   e. Execute all 9 steps in order. Do not skip steps. Do not rush.
-   f. Minimum 3 web searches in Step 4 (Technology Review) and 3 more in Step 8 (Research Round 2).
-   g. Two self-review rounds in Step 7. The Three Challenges must each find at least one issue.
-   h. Update the engine's CLAUDE.md with refinement status after committing.
+   a. Read `CONTEXT_BUDGET.md` — know your token budget BEFORE reading anything else.
+   b. Read `CREATIVE_MANDATE.md` — the invention protocol. Creative exploration comes FIRST.
+   c. Read `SPEC_REFINEMENT.md` — the 11-step refinement cycle (Step 0 through Step 10). Follow it precisely.
+   d. Read `SILENT_FAILURES.md` — the 7 patterns of "looks right but isn't." Use during Steps 1 and 9.
+   e. Read `KNOWLEDGE_INTEGRITY.md` — needed for Step 2 (Threat Analysis).
+   f. Read `.claude/skills/spec-examples/SKILL.md` — needed for Step 3 (Example Audit).
+   g. Read the SPEC being refined — THE deliverable of this session.
+   h. Execute Step 0 (Creative Exploration) FIRST — minimum 8 web searches, produce Invention Notes.
+   i. Then Steps 1-10 in order. Do not skip. Do not rush.
+   j. Two self-review rounds in Step 7. The Three Challenges must each find at least one issue.
+   k. If the session invents 0 new capabilities, it has FAILED the Creative Mandate.
+   l. Update the engine's CLAUDE.md with refinement status after committing.
 4. If the task is an IMPLEMENTATION session:
    a. Read `ORCHESTRATOR.md` for the implementation session lifecycle.
    b. Read `MILESTONES.md` for the task decomposition.
@@ -186,6 +190,12 @@ The owner has infinite budget for tools and API keys. If you need something purc
 
 <self_review>
 After completing a substantial deliverable, reread it as a hostile auditor before committing. Do NOT commit review artifacts — fix the problems you find, then commit the clean result. The review itself is ephemeral process, not a deliverable.
+
+**MANDATORY: Follow the Creative Mandate.** Before any review or correction, spend time on CREATIVE EXPLORATION (see `CREATIVE_MANDATE.md`). Invention comes before review. If a session only corrects and cleans but doesn't ADD capabilities, it has failed. Ask: "Did I originate at least one capability this session that wasn't in the SPEC before?"
+
+**MANDATORY: Check for Silent Failures.** Read `SILENT_FAILURES.md` — the 7 patterns of output that looks correct but isn't (hollow examples, circular definitions, hand-waving technology references, phantom metadata, untestable rules, missing error paths, scope creep disguise). Check your output against each pattern. This is how you catch the things that "pass review" but produce wrong implementations.
+
+**MANDATORY: Anti-sycophancy self-check.** Before approving your own work, actively search for what's WRONG with it. Claude has a tendency to validate its own output. Counter this by: (1) Re-reading your output as if someone ELSE wrote it and you're looking for flaws. (2) For every "this looks good" reaction, asking "what specifically makes it good? Could it be BETTER?" (3) Checking: if I removed this entire section, would anything break? If not, the section might be hollow.
 
 **MANDATORY: Run the Three Challenges from `CHALLENGE_PROTOCOL.md` before every commit.** This is not optional. The Three Challenges are: (1) The Hostile Implementer — find ambiguities a bad-faith reader could exploit, (2) The Skeptical Scholar — find anything a scholar would distrust, (3) The Technology Maximalist — find missed opportunities for existing tools or transformative features. Each challenge must find at least one issue or you haven't looked hard enough.
 
