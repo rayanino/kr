@@ -28,6 +28,18 @@
 
 **Writes to:** user_model (engagement events, assessment results, curriculum actions, review results, bookmarks, annotations, focus declarations, scholarly production events, alert actions), feedback component (corrections).
 
+## Retrieval Architecture (§4.A.2.2)
+
+Hybrid retrieval pipeline: Qdrant vector store (two collections: excerpt embeddings + entry-section embeddings) → Arabic embedding model (AraGemma-Embedding-300m or Swan-Large) → cross-encoder re-ranking. Four strategies: targeted (exact leaf match), semantic (ANN search), filtered (metadata constraints), cross-science (linked leaves). Grounding enforcement: >30% LLM-contributed → low-confidence notice; >50% → acquisition recommendation.
+
+## Transformative Capabilities (§4.B)
+
+1. **Debate Simulation (§4.B.1)** — Generate structured scholarly debates between historical figures grounded in documented positions and methodological commitments. Rounds: opening → evidence → rebuttals → moderator analysis. Every statement carries grounding marker.
+2. **Scholarly Fingerprinting (§4.B.2)** — Compute quantitative methodological profiles for scholars from excerpt metadata: evidence preferences, agreement patterns, scope, temporal positioning, reasoning markers. Enables understanding WHY a scholar holds a position.
+3. **Unanswered Question Discovery (§4.B.3)** — Detect research opportunities at three levels: coverage-based gaps, structural inference gaps (missing cross-science connections), contradiction-implied gaps. Present as actionable research seeds.
+4. **Optimal Source Prediction (§4.B.4)** — Rank source acquisition recommendations by: coverage impact, curriculum alignment, classical progression fit, citation density, scholarly authority.
+5. **Knowledge Decay Prediction (§4.B.5)** — Structurally-aware spaced repetition: predict cascade vulnerability from prerequisite graph, promote strategically fragile topics to proactive review before they cross threshold.
+
 ## Correction Handling (§4.A.7)
 
 Entry-level → owner constraint at leaf, entry marked stale.
@@ -46,4 +58,4 @@ Pattern detection after each correction.
 
 ## SPEC Status
 
-§1–§4.A complete. §4.B (Transformative Capabilities) through §10 pending next session.
+**Complete** — all 10 sections (872 lines). No code exists; entirely [NOT YET IMPLEMENTED].

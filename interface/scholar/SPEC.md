@@ -240,17 +240,37 @@ Query types:
 
 - **Ungrounded.** The query asks about something the library doesn't cover. The interface detects this (no relevant excerpts or entries found) and responds honestly: "The library does not have verified content on this topic. Based on my training knowledge: [response, clearly marked]. To add verified content, consider acquiring: [source suggestion based on source registry knowledge or LLM research]."
 
-**§4.A.2.2 — Retrieval strategy.**
+**§4.A.2.2 — Retrieval architecture.**
 
-For each query, the interface retrieves relevant content using a multi-stage strategy:
+The scholar interface retrieves library content through a hybrid retrieval pipeline backed by a Qdrant vector store, Arabic-optimized embeddings, and cross-encoder re-ranking. The pipeline has four stages.
 
-*Stage 1: Topic identification.* Map the query to taxonomy leaf_ids. This uses: keyword matching against leaf titles and terminology synonyms, semantic similarity between the query and leaf titles (using an Arabic-capable embedding model), and conversation context (if the query references "this topic" or "the previous position," resolve from the current session's context). If the mapping is ambiguous (multiple candidate leaves), the interface either asks for clarification ("Do you mean الاستثناء in Nahw or in Usul?") or retrieves from all candidates if the query is broad enough to warrant it.
+**Vector store design.** Qdrant (self-hosted via Docker, disk-persisted) maintains two collections:
 
-*Stage 2: Content retrieval.* At each identified leaf, retrieve: the synthesized entry (if it exists and is not stale), the placed excerpts (always — even when an entry exists, because the interface may need specific excerpts for citations), and coverage analytics (for context: how well-covered is this topic?).
+*Excerpt embeddings collection.* One vector per placed excerpt, embedded from the excerpt's `primary_text` field using the selected Arabic embedding model. Each vector carries a structured payload: `excerpt_id`, `leaf_path`, `science_id`, `school`, `primary_author_id`, `evidence_types` (list), `content_types` (list), `death_hijri` (integer, author death date for temporal filtering), `source_id`, `placement_confidence`, `self_containment_score`. This payload enables filtered vector search — queries like "find similar content in the Hanafi school from before 400 AH" execute as a single Qdrant request combining ANN search with payload filters, with negligible filtering overhead (~1.1x).
 
-*Stage 3: Scholar context enrichment.* For each scholar mentioned in the retrieved content, query the scholar_authority component for biographical data, school affiliations, and teacher-student relationships. This enrichment enables the interface to contextualize positions with scholarly metadata: "سيبويه (d. 180 AH), founder of systematic Basran grammar, student of الخليل بن أحمد..."
+*Entry-section embeddings collection.* One vector per entry section (one each for `core_treatment`, each `scholarly_position`, each `edge_case`, and the `analytical_layer`). Payload: `entry_id`, `leaf_path`, `science_id`, `school_group` (for school-specific positions), `section_type`. Section-level granularity enables precise retrieval — a query about edge cases retrieves edge-case sections directly rather than whole entries.
 
-*Stage 4: User context overlay.* Query the user model for the owner's engagement with the retrieved content: has he seen this entry before? What is his mastery level on this topic? What are his prerequisites' confidence scores? This overlay determines response depth: a first-time viewer gets the full entry with context; someone revisiting gets a focused response addressing their specific question.
+**Embedding model.** The system uses an Arabic Matryoshka embedding model — either AraGemma-Embedding-300m or Swan-Large, selected after benchmarking on KR's own corpus during initial deployment (see §8 for evaluation configuration). Matryoshka dimensionality allows trading precision for speed: full-dimension embeddings for high-stakes queries, truncated embeddings for exploratory browsing. Embeddings are generated at excerpt placement time (for placed excerpts) and at entry generation time (for entry sections). Re-embedding is triggered when an excerpt's metadata changes significantly (school attribution corrected, author reattributed) or when an entry is regenerated.
+
+**Four retrieval strategies.** The interface selects a retrieval strategy based on query classification (§4.A.2.1):
+
+*Targeted retrieval.* For single-topic factual queries where the topic can be identified with high confidence. Matches the query against leaf titles and terminology synonyms from the taxonomy tree's synonym index. If a leaf match confidence exceeds 0.9, retrieval proceeds directly to that leaf's content without vector search. This is the fastest path — a known topic needs no approximation.
+
+*Semantic retrieval.* For broad, exploratory, or ambiguous queries where the topic mapping is uncertain. Executes an ANN search against the excerpt embeddings collection (top-K=20), then re-ranks with a cross-encoder. The cross-encoder receives the query and each candidate excerpt's `primary_text`, producing a relevance score. After re-ranking, the top-5 results (or all results above a relevance threshold of 0.65) are used. Cross-encoder re-ranking adds ~100-200ms latency, acceptable for personal use. Arabic cross-encoder options: multilingual models from the BGE or Cohere families initially, with potential fine-tuning on KR relevance judgments as the library grows.
+
+*Filtered retrieval.* For queries with explicit metadata constraints: school, time period, evidence type, author, source. Combines Qdrant's payload filtering with either targeted or semantic retrieval. Example: "What do Hanafi scholars before 500 AH say about المبتدأ?" → targeted retrieval on المبتدأ leaf + payload filter `school == "hanafi" AND death_hijri < 500`. Filters are combinable — multiple constraints are ANDed.
+
+*Cross-science retrieval.* For queries that span multiple sciences. Reads the taxonomy engine's `cross_science_links.json` to identify linked leaves across sciences, then retrieves content from all linked leaves. This strategy is triggered when the query mentions multiple sciences, or when the identified leaf has cross-science links and the query is broad enough to warrant cross-science exploration.
+
+**Stage 1: Topic identification and strategy selection.** The query is analyzed to determine: the most likely taxonomy leaf_ids (using keyword matching against leaf titles + synonyms, semantic similarity between the query embedding and precomputed leaf title embeddings, and conversation context for anaphoric references like "this topic"). If the leaf match is high-confidence (≥0.9), targeted retrieval is used. If the query contains metadata constraints, filtered retrieval is added. If the query mentions multiple sciences or cross-science terms, cross-science retrieval is activated. Otherwise, semantic retrieval is the default. If the mapping is genuinely ambiguous (multiple candidate leaves with confidence 0.5-0.9), the interface either asks for clarification ("Do you mean الاستثناء in Nahw or in Usul?") or retrieves from all candidates if the query warrants breadth.
+
+**Stage 2: Content retrieval.** Using the selected strategy, retrieve: the synthesized entry at each identified leaf (if it exists and is not stale), the placed excerpts (always — the interface needs specific excerpts for citations even when an entry exists), and coverage analytics (for context on how well-covered this topic is). For semantic retrieval, the retrieval pulls from both the excerpt and entry-section collections, merging results by leaf_path.
+
+**Stage 3: Scholar context enrichment.** For each scholar mentioned in the retrieved content, query the scholar_authority component for biographical data, school affiliations, and teacher-student relationships. This enrichment enables the interface to contextualize positions with scholarly metadata: "سيبويه (d. 180 AH), founder of systematic Basran grammar, student of الخليل بن أحمد..." Enrichment queries are batched — all scholar IDs are collected from retrieved content and resolved in a single batch query rather than per-excerpt.
+
+**Stage 4: User context overlay.** Query the user model for the owner's engagement with the retrieved content: has he seen this entry before? What is his mastery level on this topic? What are his prerequisites' confidence scores? This overlay determines response depth: a first-time viewer gets the full entry with context; someone revisiting gets a focused response addressing their specific question.
+
+**Grounding enforcement.** Every claim in the generated response carries a `grounding_type`: `library_excerpt` (traced to a specific excerpt_id), `library_metadata` (derived from source/scholar metadata in the system), or `llm_research` (from the LLM's training knowledge, not verifiable against the library). The interface enforces two thresholds: if more than 30% of factual claims in a response are `llm_research`, the response receives `confidence_assessment: "low"` and the owner sees a visible notice: "This answer draws significantly on unverified knowledge — the library's coverage of this topic is limited." If more than 50% are `llm_research`, the response additionally recommends source acquisition: "Consider acquiring [suggested source] to strengthen the library's coverage here." These thresholds ensure the owner always knows how much of what he reads is library-verified versus LLM-contributed.
 
 **§4.A.2.3 — Response generation.**
 
@@ -517,4 +537,336 @@ After each correction, the interface queries the feedback component for patterns
 
 Pattern corrections are the highest-value corrections — they improve all future outputs. The interface highlights this: "Your single correction improved 47 entries across 3 sciences."
 
-[CONTINUES NEXT SESSION — §4.B (Transformative Capabilities) through §10 remaining]
+### §4.B — Transformative Capabilities
+
+The capabilities in this section are architect-originated — none appear in VISION.md or in the owner's requests. Each is fully specified with inputs, outputs, triggers, and behavioral rules. These are not aspirations; they are features that make previously impossible scholarship possible through the scholar interface.
+
+#### §4.B.1 — Scholarly Debate Simulation
+
+**What this enables.** A scholar studying a disputed topic today reads each school's position in isolation, then mentally reconstructs the argument. No tool lets you witness the argument itself — hearing each side's response to the other's evidence, each scholar's counter to the other's reasoning, in a structured back-and-forth grounded entirely in documented positions. Debate simulation makes this possible: the interface generates a structured scholarly debate between historical figures on any topic where the library holds multiple positions, using only their documented arguments and methodological commitments.
+
+**Trigger.** The owner requests a debate explicitly ("Simulate a debate between Sibawayhi and al-Kisa'i on المبتدأ") or the interface suggests one when presenting a topic with rich khilaf (disagreement involving ≥3 distinct positions from ≥2 schools with documented evidence chains). The interface only offers debate simulation when sufficient grounding exists — it never simulates debates on topics where the library has fewer than 4 relevant excerpts across at least 2 positions.
+
+**Inputs to the simulation LLM call:**
+- All placed excerpts at the relevant leaf, grouped by school and scholar.
+- Each scholar's documented methodology (from scholar_authority records: school affiliation, known methodological commitments, evidence hierarchy preferences).
+- Each scholar's documented positions on the specific topic, with their stated evidence and reasoning (from excerpts' content and metadata).
+- The historical context: when each scholar lived, what scholarly debates were active in their period, what intellectual tradition they inherited (from scholar_authority biographical data + entry temporal_narrative).
+- A strict grounding constraint: every argument attributed to a scholar must be traceable to a specific excerpt or to documented methodological commitments in the scholar_authority record. No fabricated arguments.
+
+**Simulation structure.** The debate proceeds in rounds:
+1. **Opening statements.** Each participant states their position in their own documented words (direct excerpt quotation where available, paraphrase from excerpt content otherwise). Each statement carries a citation.
+2. **Evidence presentation.** Each participant presents their evidence chain: Quranic evidence, hadith evidence (with grading), analogical reasoning, consensus claims. All evidence is from excerpts.
+3. **Rebuttals.** Each participant responds to the other's evidence using their documented counter-arguments. Where a direct rebuttal exists in the library (an excerpt where Scholar A explicitly responds to Scholar B), it is quoted. Where no direct rebuttal exists but the scholar's methodology implies a response (e.g., a Basran scholar would reject a Kufan argument from analogy because Basrans privileged سماع over قياس), the response is generated and marked as `llm_research` with the reasoning: "This response is inferred from [scholar]'s documented methodology (evidence: [excerpt_id]), not from a direct rebuttal in the library."
+4. **Moderator analysis.** The interface provides a post-debate analysis: what were the strongest arguments, where did each side concede ground (explicitly or implicitly), what evidence was left unanswered, and where the later scholarly tradition settled.
+
+**Grounding enforcement in debates.** Every statement in the simulation carries an inline grounding marker: `[library: excerpt_id]` for directly sourced statements, `[methodology: scholar_authority_id + methodological_principle]` for methodology-inferred responses, `[llm: reasoning]` for synthesized connections. The overall grounding ratio is computed and displayed. If more than 40% of the debate content is `llm`-grounded (meaning the library doesn't have enough documented positions to sustain a rich debate), the interface warns: "This debate is largely reconstructed from general scholarly knowledge rather than your library's specific excerpts. Acquiring [suggested sources] would strengthen it."
+
+**What makes this transformative.** No Islamic studies tool, digital or physical, lets a student witness a structured scholarly debate between figures from different centuries, grounded in their actual documented positions. This makes the intellectual dynamics of khilaf tangible in a way that reading positions in isolation never can.
+
+#### §4.B.2 — Scholarly Fingerprinting
+
+**What this enables.** Every scholar has a distinctive intellectual signature — a pattern of methodological commitments, evidence preferences, reasoning styles, and topic priorities that makes their approach recognizable across their corpus. Today, perceiving this signature requires reading dozens of books by the same author. KR can compute it from the library's metadata.
+
+**Trigger.** The owner asks about a scholar's methodology ("What characterizes Ibn Qudamah's approach?"), or the interface surfaces a fingerprint comparison when presenting positions from multiple scholars ("Note: al-Nawawi and Ibn Qudamah reach the same conclusion here but through characteristically different reasoning — see their fingerprints").
+
+**Computation.** A scholar's fingerprint is computed from all excerpts in the library attributed to that scholar (primary_author_id match). The fingerprint has five dimensions:
+
+*Evidence preference profile.* Distribution of evidence types across the scholar's excerpts: what percentage cite Quranic evidence, hadith evidence, qiyas (analogy), ijma' (consensus), aql (rational argument), linguistic analysis. Computed from excerpts' `evidence_types` metadata. A scholar who cites hadith in 80% of positions and qiyas in 15% has a different fingerprint from one who cites qiyas in 60% and hadith in 30%.
+
+*Agreement profile.* Across all topics where this scholar has a documented position, what percentage align with the majority position of their own school, what percentage deviate from their school, and what percentage create novel positions not held by any prior scholar. Computed by comparing the scholar's positions (from excerpts' `school` and content) against the leaf's coverage analytics.
+
+*Scope profile.* Which sciences and branches the scholar addresses, weighted by depth. A scholar with 200 excerpts across 3 sciences has a different scope signature from one with 200 excerpts concentrated in a single branch of a single science.
+
+*Temporal positioning.* Whether the scholar typically follows established consensus, revises earlier positions, or originates new analysis. Computed by comparing the scholar's positions against earlier positions at the same leaves (using death_hijri ordering).
+
+*Methodological markers.* Characteristic reasoning patterns detected across the scholar's excerpts: does the scholar typically define terms before ruling? Cite counter-evidence before refuting? Build from edge cases? These patterns are extracted by an LLM analysis of the scholar's excerpts, scored by frequency, and reported with confidence levels. This dimension uses `llm_research` grounding and is clearly marked as analytical rather than factual.
+
+**Output.** A scholar fingerprint document: a structured, human-readable profile that characterizes the scholar's intellectual signature with concrete statistics and examples. Each dimension includes: the computed score with confidence interval, the excerpts that most strongly exemplify the pattern, and comparison to other scholars in the library from the same science and period.
+
+**Comparison mode.** When two or more scholars are being compared (either by owner request or because they hold opposing positions on a topic), the interface presents a side-by-side fingerprint comparison highlighting where their approaches diverge most. This reveals not just WHAT they disagree on, but WHY — their underlying methodological differences that predict future disagreements.
+
+**What makes this transformative.** Understanding a scholar's methodology traditionally requires years of reading their works. KR computes a quantitative methodological profile from metadata that accumulates naturally as the library grows. This enables a student to understand WHY a scholar holds a position before even reading their argument — and to predict what position they would likely hold on a topic where they haven't been consulted.
+
+#### §4.B.3 — Unanswered Question Discovery
+
+**What this enables.** Every science has questions that no scholar has addressed, or questions where the scholarly record has gaps that represent original research opportunities. These are invisible in traditional study — you have to already know the entire field to notice what's missing. KR can detect these gaps computationally.
+
+**Computation.** Unanswered question discovery operates at three levels:
+
+*Level 1: Coverage-based gaps.* From taxonomy coverage analytics, identify leaves where: (a) no excerpts exist from any school (unexplored topic — the tree says this topic should exist but no source in the library addresses it), (b) excerpts exist from some schools but not others (partial coverage — a position gap, not an unexplored topic), (c) no excerpts exist from before a certain century (temporal blind spot — the topic may have been addressed but the library lacks early sources). These are factual gaps in the library, not necessarily gaps in the scholarly record — the distinction is presented clearly.
+
+*Level 2: Structural inference gaps.* From the taxonomy tree's prerequisite graph and cross-science links, identify topic combinations that SHOULD interact but DON'T have any linking content in the library. Example: if leaf A in Nahw and leaf B in Usul share a cross-science link, but no excerpt at either leaf references the other science, this is a potential gap in cross-science analysis that could be an original research opportunity. Structural gaps are ranked by: the significance scores of both topics (high-significance topics with missing connections are more valuable), the number of schools represented at both topics (more schools = richer potential analysis), and the owner's expertise in both sciences (gaps in sciences the owner has studied are more actionable).
+
+*Level 3: Contradiction-implied gaps.* When the synthesis engine detects a contradiction (§4.A.4.5), this may imply an unresolved scholarly question. If two sources disagree and no third source in the library resolves the disagreement, the question of which position is stronger — and whether a synthesis is possible — is an unanswered research question. The interface presents these as: "This contradiction between [Source A] and [Source B] on [topic] has not been resolved by any scholar in your library. This could be an original research opportunity."
+
+**Trigger.** The interface computes unanswered questions periodically (whenever taxonomy coverage analytics are updated) and presents them through three channels: (a) the scholarly briefing (§4.A.4.4) includes a "research opportunities" section, (b) when the owner enters research mode, the interface proactively suggests relevant unanswered questions based on the owner's current focus, (c) when the owner requests evidence compilation for a research topic (§4.A.5.1), the interface checks whether the topic intersects with any discovered unanswered questions.
+
+**Output.** Each unanswered question is presented as a structured research seed: the question formulation, the gap type (coverage, structural, contradiction-implied), the existing evidence on each side (if any), the suggested sources that might address it, and an assessment of the question's significance (based on topic significance, school impact, and novelty). Research seeds are stored in the user model as bookmarkable items — the owner can save them for later investigation.
+
+**What makes this transformative.** Original research in Islamic sciences today requires a scholar to have internalized the entire field well enough to notice what's missing. KR can detect structural gaps in the scholarly record computationally — turning gap detection from a lifetime of reading into a systematic process. A student using KR could identify original research opportunities in their first year of study.
+
+#### §4.B.4 — Optimal Source Prediction
+
+**What this enables.** The question "what should I read next?" is one of the most consequential in a student's career. The wrong choice wastes months. The right choice fills the exact gaps that accelerate understanding. Today, this question is answered by teachers who know both the student and the field. KR can answer it computationally by combining library state, user model, and the work relationship graph.
+
+**Computation.** Given the current library state (what sources exist, what coverage they provide) and the user model state (what the owner has studied, what gaps exist, what curricula are active), the interface computes a ranked list of source acquisition recommendations. The ranking function considers:
+
+*Coverage impact.* For each candidate source (from the work registry's `referenced_not_acquired` records and from LLM-suggested sources for detected gaps): how many taxonomy leaves would gain new excerpts if this source were acquired? How many school gaps would be filled? How many temporal gaps would be narrowed? Coverage impact is estimated from the source's known scope (from its work record metadata, if available) or from LLM knowledge of the work's contents (marked as `llm_research`).
+
+*Curriculum alignment.* Does the candidate source cover topics in the owner's active curricula? Sources aligned with current study are prioritized — they provide immediate benefit rather than deferred value.
+
+*Classical progression fit.* Where does the candidate source sit in the classical learning progression for its science (from the curriculum knowledge base, §4.A.1.1)? A source that is the logical next text in the owner's progression is more valuable than a reference work he won't consult for years.
+
+*Citation density.* How many times is the candidate source cited by sources already in the library? (From the work relationship graph's citation counts.) A heavily-cited work that the library doesn't yet contain represents a systematic blind spot — every time the library cites it without having its content, the synthesizer must rely on `llm_research` grounding.
+
+*Scholarly authority.* What is the candidate source's scholarly standing? (From its work record's authority_level, if known, or from LLM assessment.) Primary sources by foundational scholars (e.g., الكتاب by Sibawayhi, المغني by Ibn Qudamah) are prioritized over modern compilations.
+
+**Trigger.** The interface proactively computes acquisition recommendations: (a) when gap analysis detects significant coverage deficiencies (§4.A.4.3), (b) when the owner completes a curriculum level and needs the next text, (c) when the owner explicitly asks "what should I read next?" or "what source should I acquire?", (d) in the periodic scholarly briefing's "library growth" section.
+
+**Output.** A ranked list of recommended acquisitions, each with: source identification (title, author, known editions), the predicted coverage impact (how many leaves, schools, and temporal gaps it addresses), the reasoning for the recommendation, the acquisition difficulty (is it available in known repositories? does it require manual acquisition?), and the estimated processing effort (page count, format complexity). The top recommendation includes a one-sentence summary: "Acquiring المغني by Ibn Qudamah would fill Hanbali coverage gaps across 34 fiqh leaves and provide the most-cited reference for 12 topics currently relying on LLM-contributed knowledge."
+
+**What makes this transformative.** Source selection in traditional scholarship is guided by teachers who know a student's level and by scholarly consensus about what texts are important. Both are valuable but neither accounts for the SPECIFIC gaps in a SPECIFIC student's knowledge. KR makes source selection a personalized, data-driven recommendation that considers the entire state of the library and the student's learning trajectory simultaneously.
+
+#### §4.B.5 — Knowledge Decay Prediction and Proactive Reinforcement
+
+**What this enables.** Spaced repetition systems react to forgotten knowledge — they schedule a review AFTER you've failed to recall something. KR can predict decay BEFORE it happens by analyzing the owner's engagement patterns, assessment history, and the structural relationships between topics. If topic A is decaying and topic B depends on it, the owner should reinforce A before B becomes incomprehensible.
+
+**Computation.** The decay prediction model operates on two signals:
+
+*Individual topic decay.* From the user model's FSRS scheduling data (§4.A.3 of user_model SPEC), each reviewed topic has a predicted retention probability at any given time. Standard FSRS computes this already. The enhancement is: instead of waiting for the retention probability to drop below the review threshold (default: 0.85), the interface identifies topics approaching the threshold (retention 0.85-0.90) that are prerequisites for topics the owner is about to study in their curriculum. These "strategically fragile" topics are promoted to immediate review even though they haven't technically crossed the threshold.
+
+*Cascade vulnerability.* From the taxonomy tree's prerequisite graph, identify clusters of topics where decay in one topic threatens comprehension of many others. A foundational topic like "العامل" (grammatical operator theory) that is a prerequisite for 15 other topics is a cascade vulnerability — if it decays, the owner's understanding of all 15 dependents degrades silently. The interface assigns a cascade vulnerability score to each topic: the number of downstream topics in the prerequisite graph weighted by their significance scores. High-cascade-vulnerability topics receive tighter retention thresholds (0.90 instead of 0.85).
+
+**Trigger.** The decay prediction runs at the start of each study session (§4.A.1.2). If strategically fragile or cascade-vulnerable topics are detected, they are inserted into the session plan ahead of new material: "Before proceeding with today's topic, let's reinforce العامل theory — it's foundational to the next 3 topics in your curriculum and your retention is at 87%."
+
+**Output.** The daily session plan is augmented with: a "strategic reinforcement" section listing topics recommended for proactive review (with the reason: cascade vulnerability, curriculum alignment, or approaching threshold), and a "knowledge health" summary showing the owner's overall retention trajectory: "Your Nahw retention is strong (94% average) but Usul al-Fiqh is declining (82% average, 3 topics below threshold). Consider shifting study time to Usul this week."
+
+**What makes this transformative.** Traditional spaced repetition is topic-level and reactive. KR's decay prediction is structurally aware — it understands that forgetting a foundational topic silently undermines everything built on it. This transforms review from a mechanical chore into a strategic reinforcement that preserves the integrity of the owner's knowledge network.
+
+## 5. Validation and Quality
+
+The scholar interface is the final presentation layer — errors here are errors the owner sees and absorbs. Validation operates at three layers.
+
+### §5.1 — Self-Validation (Layer 1)
+
+The interface performs automated checks on every response before presenting it to the owner.
+
+**Citation verification.** Every `library_grounded` claim must reference an excerpt_id or entry_id that exists in the retrieved content for this response. The interface verifies: (a) the cited excerpt_id exists in the current retrieval set, (b) the cited excerpt's content supports the claim being made (a lightweight semantic similarity check between the claim text and the excerpt's `primary_text` — threshold: 0.50 cosine similarity with the Arabic embedding model). Citations that fail check (a) are stripped entirely (this catches hallucinated excerpt_ids). Citations that fail check (b) are flagged with a warning log but presented with reduced confidence — the claim may still be correct but the citation link is weak.
+
+**Grounding ratio enforcement.** The grounding thresholds (§4.A.2.2) are verified: >30% `llm_research` → low confidence notice added; >50% `llm_research` → acquisition recommendation added. These thresholds are checked programmatically on every response.
+
+**Factual consistency check.** When the response contains a claim that references a previously presented claim in the same session (multi-turn consistency), the interface verifies the two claims are consistent. If the current response contradicts something stated earlier in the session, the interface flags the contradiction to the owner rather than silently presenting inconsistent information.
+
+**Arabic text integrity.** When the response includes quoted Arabic text from excerpts, the interface verifies the quoted text matches the excerpt's `primary_text` field exactly (byte-level comparison). Any mismatch — even a single diacritical mark — triggers a warning log and the quote is replaced with the canonical excerpt text. The LLM may attempt to "correct" or paraphrase primary text during response generation; this check prevents that.
+
+**Assessment evaluation safeguard.** For Socratic assessment evaluations (§4.A.3.2), the interface checks that the evaluation's grading is internally consistent: a response scored 1.0 (correct) must not contain feedback saying "you missed X" — that would be a partial (0.5) score. Inconsistent evaluations are re-evaluated with a second LLM call.
+
+### §5.2 — Automated Checks (Layer 2)
+
+**Response quality monitoring.** Aggregate statistics computed over rolling windows: average grounding ratio (what percentage of responses are well-grounded), citation accuracy (what percentage of citations pass verification), assessment strictness distribution (the distribution of 0.0/0.5/1.0 scores — too many 1.0 scores suggest the evaluation is too lenient, too many 0.0 scores suggest questions are too hard). These statistics are logged and available for owner review.
+
+**Retrieval quality monitoring.** Per-query: the number of relevant results returned (out of top-K), the re-ranking delta (how much cross-encoder re-ranking changed the initial ranking — large deltas suggest the embedding model is poorly calibrated), and retrieval latency. Persistent low retrieval quality triggers a recommendation to fine-tune the embedding model or re-evaluate the embedding choice.
+
+**User model consistency audit.** Periodically (daily), verify that the user model's knowledge estimates are consistent with assessment results: if the user model says mastery ≥ 0.8 on a topic but the most recent assessment scored 0.3, the knowledge estimate is stale or wrong. Inconsistencies are flagged for recalibration.
+
+### §5.3 — Human Gate Integration (Layer 3)
+
+The scholar interface does not have its own human gate checkpoints — it is the human-facing surface, so every response IS human-reviewed by virtue of the owner reading it. However, the interface integrates with the human gate in two ways:
+
+**Presenting gate decisions.** When the human gate queues a decision for owner review (a taxonomy placement question, a source ambiguity, a low-confidence excerpt), the interface presents it contextually — not as an abstract queue, but as a natural part of the owner's current activity. If the owner is studying a topic and a related gate decision exists, the interface surfaces it: "While you're on this topic — the system placed an excerpt here with moderate confidence (0.62). Does this excerpt belong at this leaf? [excerpt preview + placement rationale]."
+
+**Triggering escalation.** If the interface's self-validation (§5.1) detects a systematic issue — citation accuracy drops below 90% over 20 responses, or assessment evaluations show persistent inconsistency — it creates an alert for the owner: "I'm detecting potential quality issues in my responses about [science/branch]. My citation accuracy has dropped to [X%]. This may indicate a problem with the underlying entries or with my retrieval. Would you like to investigate?"
+
+## 6. Consensus Integration
+
+The scholar interface uses multi-model consensus for one specific decision: evaluation of ambiguous assessment responses (§4.A.3.2). When the primary model's confidence in evaluating an owner's Socratic assessment answer is below 0.70, a second model evaluates independently. Agreement accepts the evaluation; disagreement triggers the more generous score with a refined follow-up question.
+
+**Why only assessment evaluation uses consensus.** Response generation does not use consensus because: (a) response quality is governed by grounding enforcement, which is a deterministic check, not a judgment call, (b) the owner reads every response, making it a human-reviewed output, and (c) generating two full responses and merging them would double latency without improving grounding quality. Retrieval does not use consensus because it is a mechanical process (embedding similarity + re-ranking) with no judgment component. Curriculum generation does not use consensus because curricula are reviewed by the owner before use, and the generation logic is primarily rule-based (classical progression + prerequisite ordering) rather than open-ended.
+
+Assessment evaluation is the exception because: a wrong evaluation directly corrupts the user model's knowledge estimates (DOMAIN.md: the library IS Rayane's knowledge — a false positive assessment means the system thinks he knows something he doesn't). The stakes are high enough to justify the cost of a second model, and the input is small enough (one question + one answer) that the latency impact is minimal.
+
+**Consensus configuration.** Two models from different providers (provider diversity ensures independent failure modes). Primary: the main KR inference model. Secondary: a model from a different provider family. Agreement threshold: both models assign the same score category (0.0 vs 0.5 vs 1.0). If they disagree on category (e.g., one says 0.5 and the other says 1.0), the more generous score is presented but the confidence in the evaluation is lowered: the owner sees "Your answer was evaluated as correct, though my confidence in this evaluation is moderate. Let me ask a follow-up to verify."
+
+## 7. Error Handling
+
+### §7.1 — Input Errors
+
+| Error | Code | Severity | Recovery |
+|-------|------|----------|----------|
+| Empty message | SI_EMPTY_INPUT | info | Ignored, no response generated |
+| Message exceeds 10,000 chars | SI_INPUT_TRUNCATED | warning | Truncated with notice to owner |
+| Unrecognized structured action | SI_UNKNOWN_ACTION | warning | Owner informed of valid actions |
+| Unsupported file type | SI_UNSUPPORTED_FILE_TYPE | warning | Owner informed of supported types |
+| File exceeds size limit (100MB) | SI_FILE_TOO_LARGE | warning | Owner informed of limit |
+
+### §7.2 — Retrieval Errors
+
+| Error | Code | Severity | Recovery |
+|-------|------|----------|----------|
+| Qdrant unavailable | SI_VECTOR_STORE_DOWN | fatal | Fallback to targeted-only retrieval (leaf title matching without vector search). If targeted also fails, inform owner: "Knowledge retrieval is temporarily unavailable." Log for system alert. |
+| No results for query | SI_NO_RESULTS | info | Inform owner: "The library has no content matching this query." Offer LLM-only response clearly marked. |
+| Embedding model unavailable | SI_EMBEDDING_DOWN | fatal | Fallback to keyword-based retrieval against leaf titles. Degraded quality but functional. Log for system alert. |
+| Cross-encoder timeout | SI_RERANKER_TIMEOUT | warning | Skip re-ranking, use initial embedding-based ranking. Degraded precision but functional. |
+| Scholar authority query fails | SI_AUTHORITY_DOWN | warning | Proceed without scholar enrichment. Responses lack biographical context but core content is unaffected. |
+
+### §7.3 — Generation Errors
+
+| Error | Code | Severity | Recovery |
+|-------|------|----------|----------|
+| LLM call fails (timeout/error) | SI_GENERATION_FAILED | fatal | Retry once with same input. If retry fails, inform owner: "I couldn't generate a response. Please try again." Log full error for debugging. |
+| Citation verification fails (>50% citations invalid) | SI_CITATION_INTEGRITY | warning | Strip invalid citations. If remaining grounded claims < 30%, downgrade to "low confidence" response with notice. Log for quality monitoring. |
+| Response contradicts session context | SI_CONSISTENCY_VIOLATION | warning | Present the response with a notice: "Note: this may differ from what I said earlier about [topic]. Let me clarify the distinction." Log for investigation. |
+| Assessment evaluation inconsistency | SI_EVALUATION_INCONSISTENT | warning | Re-evaluate with second LLM call. If still inconsistent, present partial score (0.5) with explanation that evaluation was uncertain. |
+
+### §7.4 — System State Errors
+
+| Error | Code | Severity | Recovery |
+|-------|------|----------|----------|
+| User model unavailable | SI_USER_MODEL_DOWN | fatal | Operate in "anonymous" mode: no personalization, no engagement tracking, no spaced repetition. Inform owner: "Personalization is temporarily unavailable — responses won't reflect your study history." |
+| Taxonomy tree unavailable | SI_TAXONOMY_DOWN | fatal | Cannot perform topic identification or navigation. Inform owner. Offer direct excerpt search as fallback. |
+| Synthesis engine output missing for leaf | SI_NO_ENTRY | info | Generate response directly from placed excerpts (§4.A.2.4). Normal operation for leaves without entries. |
+| Feedback component unavailable | SI_FEEDBACK_DOWN | warning | Accept corrections but queue them locally until the component recovers. Inform owner: "Your correction has been recorded and will be processed when the system is fully available." |
+
+### §7.5 — Error Principles
+
+Every error follows three principles from D-033 (secure by design):
+
+**Fail-loud.** No error is silently swallowed. Every error produces either a user-visible notice (for errors that affect the owner's experience) or a system log entry (for errors that are transparent to the owner but need investigation).
+
+**Degrade gracefully.** The interface always attempts to provide some value even when components fail. Full retrieval pipeline down → fall back to keyword matching. User model down → operate without personalization. Entry missing → generate from raw excerpts. Total LLM failure → inform the owner and suggest retrying.
+
+**Never present uncertain content as certain.** When degraded operation produces lower-quality responses (e.g., missing scholar enrichment, no re-ranking, keyword-only retrieval), the response's confidence signals reflect this. The owner always knows when they're getting a degraded response.
+
+## 8. Configuration
+
+### §8.1 — Retrieval Configuration
+
+| Parameter | Default | Range | Purpose |
+|-----------|---------|-------|---------|
+| `embedding_model` | `AraGemma-Embedding-300m` | Any HuggingFace model | Arabic embedding model for vector search. Evaluate against Swan-Large on KR corpus before deployment. |
+| `embedding_dimensions` | 768 | 64–768 | Matryoshka dimension for retrieval. Full (768) for answering, reduced (256) for exploratory browsing. |
+| `retrieval_top_k` | 20 | 5–50 | Number of candidates from initial vector search before re-ranking. |
+| `reranker_top_n` | 5 | 1–10 | Number of results after cross-encoder re-ranking. |
+| `reranker_relevance_threshold` | 0.65 | 0.0–1.0 | Minimum cross-encoder relevance score for a result to be included. |
+| `targeted_confidence_threshold` | 0.90 | 0.5–1.0 | Minimum leaf-match confidence for targeted retrieval (skipping vector search). |
+| `llm_research_warning_threshold` | 0.30 | 0.0–1.0 | Proportion of LLM-contributed claims that triggers low-confidence notice. |
+| `llm_research_acquisition_threshold` | 0.50 | 0.0–1.0 | Proportion of LLM-contributed claims that triggers acquisition recommendation. |
+
+### §8.2 — Assessment Configuration
+
+| Parameter | Default | Range | Purpose |
+|-----------|---------|-------|---------|
+| `assessment_questions_per_session` | 3 | 2–6 | Number of Socratic questions per assessment session. |
+| `consensus_confidence_threshold` | 0.70 | 0.5–0.9 | Below this confidence, assessment evaluation triggers multi-model consensus. |
+| `review_retention_threshold` | 0.85 | 0.7–0.95 | FSRS retention probability below which a review is scheduled. |
+| `cascade_retention_threshold` | 0.90 | 0.8–0.95 | Elevated retention threshold for cascade-vulnerable topics. |
+| `cascade_vulnerability_weight` | 1.0 | 0.0–5.0 | Weight of downstream topic count in cascade vulnerability score. |
+
+### §8.3 — Presentation Configuration
+
+| Parameter | Default | Range | Purpose |
+|-----------|---------|-------|---------|
+| `response_language` | `auto` | `auto`, `ar`, `nl`, `fr`, `en` | Language for interface text. `auto` matches the owner's input language. Scholarly content always Arabic (D-032). |
+| `scholarly_briefing_frequency` | `weekly` | `daily`, `weekly`, `on_demand` | How often periodic scholarly briefings are generated. |
+| `debate_simulation_grounding_threshold` | 0.60 | 0.3–0.9 | Minimum library-grounded proportion for debate simulation. Below this, simulation is warned as heavily reconstructed. |
+| `expert_level_threshold` | `advanced` | user_model expertise levels | Owner expertise level at which responses omit basic definitions and assume familiarity. |
+
+### §8.4 — Per-Science Configuration
+
+Some parameters may be overridden per science to reflect different scholarly characteristics:
+
+- `curriculum_knowledge_base`: the structured data file defining classical text progressions for each science. Separate files per science.
+- `assessment_question_distribution`: the proportion of recall/recognition/application/comparison questions may vary by science (e.g., Fiqh may weight application higher than Nahw).
+- `debate_simulation_availability`: some sciences may have insufficient khilaf tradition for meaningful debate simulation (e.g., Tajwid has minimal scholarly disagreement). This flag disables the suggestion for those sciences.
+
+### §8.5 — Hardcoded Decisions
+
+The following are NOT configurable:
+
+- **Grounding is mandatory.** Every factual response must carry grounding markers. This cannot be disabled — it is the scholarly integrity baseline.
+- **Citation verification runs on every response.** This cannot be skipped for performance. An unverified citation is worse than no citation.
+- **Arabic text from excerpts is presented exactly.** No option to allow paraphrasing of primary source text.
+- **Assessment evaluation errs on the side of caution.** No option to make evaluation more lenient — false positives in knowledge assessment are more harmful than false negatives.
+
+## 9. Current Implementation State
+
+**No code exists.** The scholar interface is entirely [NOT YET IMPLEMENTED]. No files, no code, no prototypes.
+
+**Dependencies on upstream components:**
+
+| Component | Status | Impact on Scholar Interface |
+|-----------|--------|---------------------------|
+| Source engine | SPEC complete, code partially exists (ABD-era Shamela intake) | Scholar interface needs source metadata API — not yet available |
+| Normalization engine | SPEC complete, code partially exists (ABD-era Shamela normalizer) | Scholar interface has no direct dependency |
+| Passaging engine | SPEC complete, no code | Scholar interface has no direct dependency |
+| Atomization engine | SPEC complete, no code | Scholar interface has no direct dependency |
+| Excerpting engine | SPEC complete, code partially exists (ABD-era excerpting) | Scholar interface needs placed excerpts — available only after taxonomy engine runs |
+| Taxonomy engine | SPEC complete, no code | Scholar interface needs taxonomy trees, placed excerpts, coverage analytics — none available |
+| Synthesis engine | SPEC complete, no code | Scholar interface needs synthesized entries — none available |
+| Consensus component | SPEC complete, no code | Scholar interface needs consensus for assessment evaluation |
+| Human gate | SPEC complete, no code | Scholar interface presents gate decisions |
+| Validation component | SPEC complete, no code | Scholar interface uses validation for citation checks |
+| Feedback component | SPEC complete, no code | Scholar interface routes corrections to feedback |
+| User model | SPEC complete, no code | Scholar interface depends heavily on user model for all personalization |
+| Scholar authority | SPEC complete, no code | Scholar interface needs scholar records for enrichment |
+
+**External tools and libraries:**
+
+| Tool | Purpose | Status |
+|------|---------|--------|
+| Qdrant | Vector store for excerpt and entry-section embeddings | Not yet deployed. Docker image available. |
+| Arabic embedding model (AraGemma or Swan-Large) | Embedding generation for semantic retrieval | Not yet evaluated on KR corpus. Models available on HuggingFace. |
+| Cross-encoder (BGE/Cohere multilingual) | Re-ranking after initial retrieval | Not yet selected. Candidates identified in RESOURCES.md. |
+| LiteLLM | LLM provider abstraction for response generation and assessment | Available (shared with consensus component). |
+| Instructor | Structured output extraction from LLM responses | Available (shared with consensus component). |
+| FSRS algorithm | Spaced repetition scheduling | Open-source Python library available (py-fsrs). |
+
+**Known gaps between this SPEC and buildability:**
+
+1. The curriculum knowledge base (§4.A.1.1) — the structured data files defining classical text progressions per science — does not exist. These must be created from domain research before curriculum generation can work. This is a data creation task, not a code task.
+2. The scholar fingerprinting computation (§4.B.2) depends on having a significant number of excerpts attributed to individual scholars. With the current library (minimal ABD-era processed content), fingerprints would be meaningless. This feature becomes valuable as the library grows.
+3. The debate simulation (§4.B.1) similarly requires rich multi-school coverage at disputed leaves. Early library state will limit debate quality.
+4. Frontend rendering is entirely out of scope for this SPEC. The interface produces structured data (science maps, debate transcripts, comparative analyses); a frontend must render them. No frontend exists.
+
+## 10. Test Requirements
+
+### §10.1 — Critical Test Coverage
+
+**Grounding enforcement tests.** Verify that: (a) every response carries grounding markers, (b) the >30% LLM threshold triggers a low-confidence notice, (c) the >50% threshold triggers an acquisition recommendation, (d) a response with 0% `llm_research` carries no warnings, (e) a response generated when the library has no relevant content is entirely marked as `llm_research` with the appropriate notice.
+
+**Citation verification tests.** Verify that: (a) a response with a valid excerpt_id citation passes verification, (b) a response with a fabricated excerpt_id has the citation stripped, (c) a response with a valid excerpt_id but semantically unrelated claim text triggers a weak-citation warning, (d) Arabic text quoted from an excerpt matches the source exactly (byte-level).
+
+**Assessment evaluation tests.** Verify that: (a) a clearly correct answer scores 1.0, (b) a clearly incorrect answer scores 0.0, (c) a partial answer scores 0.5, (d) multi-model consensus is triggered when primary model confidence < 0.70, (e) consensus disagreement produces the more generous score with a follow-up question, (f) an evaluation marked 1.0 with "you missed X" feedback is caught by the inconsistency check.
+
+**Retrieval tests.** Verify that: (a) targeted retrieval correctly maps a known topic query to the right leaf, (b) semantic retrieval returns relevant excerpts for a broad query, (c) filtered retrieval correctly applies school and temporal constraints, (d) cross-science retrieval activates when appropriate, (e) the system degrades gracefully when Qdrant is unavailable (falls back to keyword matching).
+
+### §10.2 — Gold Baseline Usage
+
+**Response quality baselines.** Create a set of 20 test queries spanning all query types (§4.A.2.1) with known expected responses. After each significant change to retrieval or generation logic, run all 20 queries and verify that response quality (grounding ratio, citation accuracy, relevance) does not regress.
+
+**Assessment evaluation baselines.** Create a set of 15 test answer-pairs (question + owner answer) with known correct evaluations. Include: 5 clearly correct, 5 clearly incorrect, 5 ambiguous (the hard cases where consensus matters). Use these to verify assessment evaluation consistency.
+
+**Curriculum generation baselines.** For at least one science (Nahw), create a reference curriculum based on domain research. Verify that the system's generated curriculum matches the expected topic sequence and assessment checkpoint placement.
+
+### §10.3 — Regression Testing
+
+**No-regression rules:**
+- Grounding enforcement must never be weaker than the configured thresholds. A code change that allows an ungrounded factual claim to pass without a marker is a critical regression.
+- Citation verification must never be disabled or weakened. A code change that allows a fabricated citation to reach the owner is a critical regression.
+- Assessment evaluation must never produce false positives that go undetected. A code change that loosens evaluation criteria without updating the consistency check is a regression.
+- Arabic text integrity must never allow modification of primary source quotes. A code change that permits LLM paraphrasing of excerpt text is a critical regression.
+
+### §10.4 — Integration Tests
+
+**With taxonomy engine.** Verify that: the interface can read a taxonomy tree and navigate it, placed excerpts at a leaf are retrievable with full metadata, coverage analytics are correctly consumed and presented.
+
+**With synthesis engine.** Verify that: entries are retrievable by leaf_path, entry staleness is correctly detected, entry sections are individually retrievable for the entry-section embeddings collection.
+
+**With user model.** Verify that: engagement events are written correctly, knowledge state is readable and consistent with assessment results, curriculum state is readable and writable, spaced repetition scheduling integrates with FSRS correctly.
+
+**With scholar_authority.** Verify that: scholar records are retrievable by canonical_id, graph queries (teacher-student chains, subgraphs) return correct results, name resolution returns appropriate candidates for ambiguous queries.
+
+**With feedback component.** Verify that: corrections are routed correctly (entry-level vs. excerpt-level vs. taxonomy-level vs. metadata), pattern detection results are consumable, correction acknowledgments are generated correctly.
+
+**End-to-end scenario tests.** Implement at least one automated test per user scenario (USER_SCENARIOS.md). These tests verify the complete flow from user input to response, crossing all component boundaries. Start with Scenario 1 (Day 1) and Scenario 2 (Active Study) as the highest-priority integration tests.

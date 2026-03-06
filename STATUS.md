@@ -1,7 +1,7 @@
 # خزانة ريان — Project Status
 
 **Last updated:** 2026-03-06
-**Phase:** Preparatory phase — all shared component SPECs complete. Scholar interface SPEC next.
+**Phase:** Preparatory phase — ALL SPECs complete (7 engines + 6 shared components + 1 interface). Next: cross-SPEC consistency verification and VISION corrections.
 **Tests:** 903 pass, 37 skip, 1 fail (API key) — all ABD-era; no KR-specific tests yet
 
 ---
@@ -22,6 +22,10 @@
 | Consensus SPEC | Complete | 405L. D-041. LiteLLM + Instructor, parallel independent comparison, three comparison strategies. |
 | Validation SPEC | Complete | 406L. Four validation categories, background sweep, two transformative capabilities. |
 | Human Gate SPEC | Complete | 413L. Checkpoint lifecycle, pre-approval policies, bidirectional validation, confidence calibration, gate learning. |
+| Feedback SPEC | Complete | 461L. |
+| User Model SPEC | Complete | 368L. D-042. |
+| Scholar Authority SPEC | Complete | 462L. |
+| Scholar Interface SPEC | Complete | 872L. Hybrid retrieval pipeline (Qdrant + Arabic embeddings + cross-encoder). 5 transformative capabilities: debate simulation, scholarly fingerprinting, unanswered question discovery, optimal source prediction, knowledge decay prediction. |
 | 7 schemas in schemas/ | ABD-era, superseded | Schemas now authoritatively defined in engine SPECs §2/§3. JSON files to be regenerated during implementation. |
 | root CLAUDE.md | Exists | Needs update for implementation phase. |
 | 7 engine CLAUDE.md | Exist | Updated alongside each SPEC. |
@@ -73,11 +77,13 @@ ABD code has zero design authority (D-019). SPECs define what to build. ABD code
 
 ## What Remains Before Implementation
 
-The preparatory phase deliverables are substantially complete. Remaining items:
+The preparatory phase SPEC writing is **complete**. All 14 SPECs are written (7 engines + 6 shared components + 1 interface = 7,698 total lines). Remaining preparatory work:
 
-1. **Shared component SPECs** — ALL COMPLETE: human_gate, feedback, consensus (D-041), validation, user_model (D-042), scholar_authority. Next: scholar interface SPEC (interface/scholar/).
-2. **Scholar interface SPEC** — the user-facing intelligence layer has no SPEC yet.
-3. **User model SPEC** — shared component for persistent user state.
+1. **Cross-SPEC consistency verification** — verify that every engine's output contract matches the next engine's input contract, and that shared component integration (especially scholar interface reads from all upstream) is consistent.
+2. **Full coherence review** — read the entire documentation stack as a unified system. Do concepts mean the same thing across all documents?
+3. **Cross-cutting VISION corrections** — §8 (Quality Architecture), §10 (Implementation Strategy), §11 (Design Principles), §12 (Codebase Relationship) need correction based on full system understanding.
+4. **Re-verify §0–§4, §13** — engine-deep-dive knowledge may reveal issues missed in earlier audit.
+5. **Claude Code environment** — populate `.claude/` directory with agents, hooks, commands, CLAUDE.md files, MCP configs for implementation phase.
 4. **`.claude/` directory** — needs population with agents, commands, hooks, settings for Claude Code.
 5. **Root CLAUDE.md rewrite** — needs to conform to §13.3.2 requirements for implementation phase.
 6. **إملاء SCIENCE.md** — minimal Level 3 doc for first science.
