@@ -128,17 +128,29 @@ If a domain question blocks progress on the current section, put it in NEXT.md u
 2. If the task is starting a NEW engine SPEC:
    a. Read `reference/DOMAIN.md` — the domain primer and core identity.
    b. Read `reference/USER_SCENARIOS.md` — what the user actually experiences.
-   c. THINK before reading code: what should this engine be if designed from scratch for the goal of making Rayane an unprecedented scholar? Form your vision FIRST.
-   d. Then read existing code, reference docs, and schemas — to understand what exists, not to constrain what to build.
-   e. Resource survey: search for tools, libraries, APIs (minimum 3-5 searches). Update RESOURCES.md.
-   f. Possibility research: search for state-of-the-art in the relevant domain. What's technically feasible now?
-   g. For each transformative capability you plan for §4.B: verify technical feasibility. Name the specific technology, library, or approach. If you can't describe HOW it works, it's hand-waving, not a specification.
-3. If the task is continuing work: pick up where the previous session stopped
-4. Do the work — write directly to repo files
-5. After writing or completing a SPEC: verify the engine's CLAUDE.md is consistent with the SPEC. Update it if needed — the SPEC is the source of truth; the CLAUDE.md is a quick orientation for Claude Code.
-6. Self-review (see below)
-7. Write NEXT.md for the next session (see below)
-8. Commit and push
+   c. Read `KNOWLEDGE_INTEGRITY.md` — understand the threat model. Design mitigations into the SPEC.
+   d. THINK before reading code: what should this engine be if designed from scratch for the goal of making Rayane an unprecedented scholar? Form your vision FIRST.
+   e. Then read existing code, reference docs, and schemas — to understand what exists, not to constrain what to build.
+   f. Resource survey: search for tools, libraries, APIs (minimum 3-5 searches). Use `.claude/skills/technology-survey/SKILL.md` as a guide. Update RESOURCES.md.
+   g. Possibility research: search for state-of-the-art in the relevant domain. What's technically feasible now?
+   h. For each transformative capability you plan for §4.B: verify technical feasibility. Name the specific technology, library, or approach. If you can't describe HOW it works, it's hand-waving, not a specification.
+   i. Read `.claude/skills/scholarly-design/SKILL.md` — use the Transformative Feature Test for each §4.B capability.
+3. If the task is an IMPLEMENTATION session:
+   a. Read `ORCHESTRATOR.md` for the implementation session lifecycle.
+   b. Read `MILESTONES.md` for the task decomposition.
+   c. Read `.claude/skills/arabic-text/SKILL.md` if the task involves text processing.
+   d. Read `.claude/skills/knowledge-safety/SKILL.md` if the task involves data processing logic.
+   e. Follow Orient → Plan → Build → Verify → Handoff from ORCHESTRATOR.md.
+4. If the task is a DESIGN REVIEW session:
+   a. Read `REVIEW_PROTOCOL.md` for the appropriate review type.
+   b. Read `CHALLENGE_PROTOCOL.md` for the Three Challenges and anti-patterns.
+   c. Follow the review procedure, produce concrete improvements.
+5. If the task is continuing work: pick up where the previous session stopped
+6. Do the work — write directly to repo files
+7. After writing or completing a SPEC: verify the engine's CLAUDE.md is consistent with the SPEC. Update it if needed — the SPEC is the source of truth; the CLAUDE.md is a quick orientation for Claude Code.
+8. Self-review including the Three Challenges (see below)
+9. Write NEXT.md for the next session (see below)
+10. Commit and push
 </session_workflow>
 
 <resource_awareness>
@@ -160,15 +172,23 @@ The owner has infinite budget for tools and API keys. If you need something purc
 <self_review>
 After completing a substantial deliverable, reread it as a hostile auditor before committing. Do NOT commit review artifacts — fix the problems you find, then commit the clean result. The review itself is ephemeral process, not a deliverable.
 
+**MANDATORY: Run the Three Challenges from `CHALLENGE_PROTOCOL.md` before every commit.** This is not optional. The Three Challenges are: (1) The Hostile Implementer — find ambiguities a bad-faith reader could exploit, (2) The Skeptical Scholar — find anything a scholar would distrust, (3) The Technology Maximalist — find missed opportunities for existing tools or transformative features. Each challenge must find at least one issue or you haven't looked hard enough.
+
+**Knowledge integrity checklist (from KNOWLEDGE_INTEGRITY.md):** For every deliverable, trace through the seven threats: (a) T-1 Silent text corruption — does anything touch Arabic text unsafely? (b) T-2 Attribution error — are attributions consensus-based with confidence scores? (c) T-3 Taxonomic misplacement — are placements verified? (d) T-4 Context loss — are extracted units self-contained? (e) T-5 Synthesis hallucination — is every claim traceable? (f) T-6 Metadata poisoning — are metadata decisions validated? (g) T-7 Duplication — are duplicates detected?
+
 Correctness checklist: (1) Any sentence with two valid interpretations? (2) Every rule yields a clear pass/fail test? (3) Terms match VISION.md §2 glossary? (4) Would a different Claude instance implement the same system? (5) Fix defects. Check fixes didn't introduce new problems.
 
 Scholarly integrity checklist: (6) Does this design ensure every knowledge product (excerpt, entry) meets the standard of publishable scholarship? (7) Could an error propagate into the library undetected — and if so, what verification layer catches it? (8) Does the design track provenance so every claim can be traced to its source?
 
 Ambition checklist: (9) Does this SPEC's §4.B contain at least one capability I originated — something not in VISION.md or the owner's requests? (10) Is each §4.B capability specified with the same precision as §4.A rules (inputs, outputs, triggers, edge cases), not just a vague idea? (11) For each §4.B capability, did I name the specific technology/approach that makes it feasible? If I can't explain HOW, it's not a specification. (12) Would a world-class Islamic scholar look at this design and say "I didn't know that was possible"? If any answer is no, go back and think harder.
 
-Synthesis-readiness checklist: (13a) Does this engine's output carry ALL metadata the synthesizing engine could use to produce richer entries? (D-023: metadata is synthesis fuel.) (13b) Does metadata flow through this engine without loss — does the output contain everything the input had, plus anything this engine discovered? (13c) Read `reference/ENTRY_EXAMPLE.md` — would this engine's design contribute to producing entries at that quality level?
+Technology checklist: (13) Did I check `.claude/skills/technology-survey/SKILL.md` before building custom code? (14) Did I search for existing tools that handle part of this? (15) Did I update RESOURCES.md with findings? (16) Am I using the best available tool for each sub-task, or defaulting to custom code out of habit?
 
-Completeness checklist: (14) If I did a resource survey, did I update RESOURCES.md with findings? (15) Did I record every architectural decision in kr_decisions.md? (16) If I modified VISION.md, does the change integrate cleanly with surrounding sections? (17) Does my SPEC address every requirement listed for this engine in DOMAIN.md's "Design Implications" section? (18) Does my SPEC serve at least one user scenario from USER_SCENARIOS.md, and did I list which scenarios in §1?
+Synthesis-readiness checklist: (17a) Does this engine's output carry ALL metadata the synthesizing engine could use to produce richer entries? (D-023: metadata is synthesis fuel.) (17b) Does metadata flow through this engine without loss? (17c) Read `reference/ENTRY_EXAMPLE.md` — would this engine's design contribute to producing entries at that quality level?
+
+Anti-pattern checklist: (18) Am I falling into any anti-pattern from CHALLENGE_PROTOCOL.md? Cosmetic self-review? Conservative design? Technology ignorance? Metadata neglect? Safety theater? Infinite planning?
+
+Completeness checklist: (19) Did I record every architectural decision in kr_decisions.md? (20) If I modified VISION.md, does the change integrate cleanly? (21) Does my SPEC serve at least one user scenario from USER_SCENARIOS.md? (22) Did I verify Arabic text handling against `.claude/skills/arabic-text/SKILL.md`?
 </self_review>
 
 <next_md>

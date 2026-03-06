@@ -47,6 +47,17 @@ Execute the plan. For each task:
 3. If a test fails, fix it before moving to the next task.
 4. If the SPEC is ambiguous about a behavior, check SPEC.md again. If still ambiguous, implement the most conservative interpretation and add a `# SPEC-AMBIGUITY: [description]` comment.
 
+**Before writing any code that processes Arabic text:** Read `.claude/skills/arabic-text/SKILL.md`. Arabic text handling has critical pitfalls that can silently corrupt the library.
+
+**Before building custom code for any capability:** Check `.claude/skills/technology-survey/SKILL.md`. Search for existing tools first. The owner has infinite budget for tools.
+
+**Knowledge integrity rules (from KNOWLEDGE_INTEGRITY.md):**
+- Every engine output must pass Layer 1 self-validation before writing to disk.
+- Primary text is NEVER modified. No corrections, no cleanup, no normalization beyond what the SPEC explicitly allows.
+- Every attribution decision (author, school, date) must use multi-model consensus.
+- Every low-confidence decision creates a human gate checkpoint.
+- Metadata flows forward, never backward-deleted.
+
 Code standards (from SPEC §4 behavioral rules, not style preferences):
 - Every function that can fail returns structured errors, never bare exceptions.
 - Every LLM call goes through the consensus module (shared/consensus).
@@ -62,6 +73,16 @@ After all tasks complete:
 2. If this engine has upstream/downstream engines with tests, run boundary tests.
 3. Run `/check-spec <engine>` to verify implementation matches SPEC.
 4. Verify no `# TODO` or `# FIXME` without a linked SPEC section reference.
+5. **Run the Three Challenges from CHALLENGE_PROTOCOL.md:**
+   - Hostile Implementer: find ambiguities or shortcuts in the code
+   - Skeptical Scholar: could any output mislead a scholar?
+   - Technology Maximalist: am I using the best available tools?
+6. **Knowledge integrity spot-check (KNOWLEDGE_INTEGRITY.md):**
+   - Arabic text preserved byte-for-byte where required?
+   - Attribution decisions consensus-based?
+   - Errors fail loudly? Metadata passed through without loss?
+7. Run `python3 scripts/verify_metadata_flow.py` if data models were touched.
+8. Run `python3 scripts/check_compliance.py engines/<n>` for compliance overview.
 
 ### Phase 5: Handoff (commit and prepare next session)
 

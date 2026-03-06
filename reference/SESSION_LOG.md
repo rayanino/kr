@@ -199,3 +199,27 @@
 - reference/HOW_TO_START.md: Added design review and implementation session instructions
 - NEXT.md: Updated for M1.1 implementation task with ORCHESTRATOR.md workflow
 
+
+### Session 2026-03-06 — Claude Chat: Autonomous System Hardening (Second Pass)
+
+**Task:** Harden the autonomous system to the highest standards. Force genuine critical thinking, maximize technology usage, enforce knowledge safety.
+
+**New critical documents:**
+- KNOWLEDGE_INTEGRITY.md: 7-threat model (silent text corruption, attribution error, taxonomic misplacement, context loss, synthesis hallucination, metadata poisoning, duplication/contradiction). 5 verification layers. 6 invariants. Implementation rules.
+- CHALLENGE_PROTOCOL.md: Three Challenges (Hostile Implementer, Skeptical Scholar, Technology Maximalist). Session-level quality gates. Periodic deep reviews. 6 anti-patterns to detect and avoid.
+
+**New skills (.claude/skills/):**
+- knowledge-safety/SKILL.md: 7-threat audit checklist for any code or design
+- arabic-text/SKILL.md: Encoding, diacritics, normalization hazards, code patterns, common pitfalls, testing requirements
+- technology-survey/SKILL.md: Survey protocol with domain-specific search directions (Arabic NLP, OCR, scholarly text, vector search, knowledge graphs)
+- scholarly-design/SKILL.md: Transformative Feature Test, design directions per engine, Entry as North Star, when to propose structural changes
+
+**New infrastructure:**
+- .claude/hooks/pre-commit-check.sh: Security (API key detection), quality (TODO without SPEC ref), reminders
+- .claude/commands/challenge.md: Mandatory Three Challenges before commit
+- Enhanced settings.json: SessionStart hook injects 10 critical context items after compaction; PostToolUse knowledge safety reminders on source file edits
+- Enhanced ORCHESTRATOR.md Phase 3 (Build) with knowledge integrity rules, Arabic text safety, technology-first mandate; Phase 4 (Verify) with Three Challenges, knowledge integrity spot-check, automation scripts
+- Enhanced PROJECT_INSTRUCTIONS.md self_review with 22-point checklist including knowledge integrity threats, Three Challenges, technology checks, anti-pattern detection
+- Enhanced PROJECT_INSTRUCTIONS.md session_workflow with skill references for each session type
+- Enhanced CLAUDE.md architectural constraints with knowledge integrity and skill references
+

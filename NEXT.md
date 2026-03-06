@@ -1,6 +1,6 @@
 # NEXT SESSION
 
-**Written by:** Session 2026-03-06 (Autonomous system enhancement — Claude Chat)
+**Written by:** Session 2026-03-06 (Autonomous system hardening — Claude Chat)
 **Date:** 2026-03-06
 
 ## Immediate Task
@@ -14,43 +14,53 @@ Start with **M1.1 — Source Engine: Data Models and Identity** (see MILESTONES.
 2. Three-tier identity model implemented: `source_id`, `work_id`, `canonical_id` (D-024)
 3. Registry structures created: `sources.json`, `works.json`, `scholars.json`
 4. Tests written and passing for identity generation and registry operations
-5. Engine CLAUDE.md updated with accurate state
+5. Tests include Arabic text handling verification (real Arabic, not placeholders)
+6. Engine CLAUDE.md updated with accurate state
+7. Three Challenges completed before commit (CHALLENGE_PROTOCOL.md)
 
 ## Context
 
 The preparatory phase is **complete**. All 14 SPECs written, cross-SPEC consistency verified, VISION.md at v1.2.0, Claude Code environment populated.
 
-**New this session:** The autonomous system has been significantly enhanced:
-- `ORCHESTRATOR.md` — Implementation session lifecycle protocol (Orient → Plan → Build → Verify → Handoff)
-- `MILESTONES.md` — Detailed task decomposition for all milestones with dependencies and acceptance criteria
+**CRITICAL: New protocols added this session — read these FIRST:**
+- `KNOWLEDGE_INTEGRITY.md` — 7-threat model for knowledge safety. EVERY implementation session must check against these threats.
+- `CHALLENGE_PROTOCOL.md` — Three Challenges (Hostile Implementer, Skeptical Scholar, Technology Maximalist) + quality gates + anti-pattern detection. Run before EVERY commit.
+- `.claude/skills/arabic-text/SKILL.md` — Arabic text handling rules. Read before ANY code that touches Arabic text.
+- `.claude/skills/knowledge-safety/SKILL.md` — Knowledge safety review checklist. Use when implementing processing logic.
+- `.claude/skills/technology-survey/SKILL.md` — Technology survey protocol. Check BEFORE building custom code.
+- `.claude/skills/scholarly-design/SKILL.md` — Transformative feature evaluation. Use for §4.B capabilities.
+
+**Additional infrastructure (from previous enhancement session):**
+- `ORCHESTRATOR.md` — Implementation session lifecycle (Orient → Plan → Build → Verify → Handoff)
+- `MILESTONES.md` — Detailed task decomposition with dependencies and acceptance criteria
 - `REVIEW_PROTOCOL.md` — 5 structured review types for design critique sessions
-- 4 new agents: `implementation-planner`, `code-reviewer`, `integration-tester`, `design-critic`
-- 4 new commands: `plan-implementation`, `verify-boundaries`, `design-review`, `milestone-status`, `generate-test-plan`
-- 3 new scripts: `decompose_spec.py`, `verify_metadata_flow.py`, `check_compliance.py`
-- Enhanced hooks: pre-commit reminder for source file changes, SPEC/schema modification alerts
-- `tests/integration/` directory created for cross-engine integration tests
-- Updated `PROJECT_INSTRUCTIONS.md` with implementation and review phase protocols
-- Updated `CLAUDE.md` repo map and priorities
+- 7 agents total: spec-reviewer, test-runner, integrity-checker, implementation-planner, code-reviewer, integration-tester, design-critic
+- 12 commands total including: challenge, plan-implementation, verify-boundaries, design-review, milestone-status, generate-test-plan
+- 3 scripts: decompose_spec.py, verify_metadata_flow.py, check_compliance.py
+- Enhanced hooks: SessionStart (post-compaction context injection), PreToolUse (commit checks), PostToolUse (knowledge safety reminders)
 
 **Follow `ORCHESTRATOR.md` for the implementation session lifecycle.**
 
 ## Files to Read — IN THIS ORDER
 
-1. `ORCHESTRATOR.md` — implementation session protocol (NEW — read this first)
-2. `MILESTONES.md` §M1.1 — the specific task decomposition for this session
-3. `engines/source/CLAUDE.md` — orientation
-4. `engines/source/SPEC.md` §1-§4.A.1 — identity model specification
-5. `engines/source/SPEC.md` §3 — output contract (for dataclass design)
-6. `schemas/source_metadata.json` — current (ABD-era) schema for reference
+1. `ORCHESTRATOR.md` — implementation session protocol
+2. `KNOWLEDGE_INTEGRITY.md` — threat model (NEW — critical)
+3. `CHALLENGE_PROTOCOL.md` — quality gates (NEW — critical)
+4. `.claude/skills/arabic-text/SKILL.md` — Arabic text handling (NEW)
+5. `MILESTONES.md` §M1.1 — the specific task decomposition
+6. `engines/source/CLAUDE.md` — orientation
+7. `engines/source/SPEC.md` §1-§4.A.1 — identity model specification
+8. `engines/source/SPEC.md` §3 — output contract (for dataclass design)
 
-**Do NOT read:** VISION.md, DOMAIN.md, other engine SPECs, kr_decisions.md (not needed for this task).
+**Do NOT read:** VISION.md, DOMAIN.md, other engine SPECs, kr_decisions.md (not needed for M1.1).
 
 ## Implementation Notes
 
-- ABD-era code in `engines/source/src/` has zero design authority (D-019). Read it for implementation knowledge but implement from the SPEC.
-- The existing tests in `engines/source/tests/` are ABD-era. New KR tests should be in new files (e.g., `test_identity.py`, `test_registry.py`).
-- Python packaging is `_paths.py` for now. Use it for imports. Defer pyproject.toml.
-- For LLM calls needed in later tasks (M1.3), `.env` must have API keys. If missing, note as blocked.
+- ABD-era code in `engines/source/src/` has zero design authority (D-019). Read for implementation knowledge but implement from the SPEC.
+- Existing tests in `engines/source/tests/` are ABD-era. New KR tests in new files (e.g., `test_identity.py`, `test_registry.py`).
+- Python packaging is `_paths.py` for now. Defer pyproject.toml.
+- ALL test data must use real Arabic text — see .claude/skills/arabic-text/SKILL.md.
+- Source ID generation uses SHA-256 of frozen source. Ensure correct encoding handling.
 
 ## Blocked Items
 
@@ -63,8 +73,8 @@ None currently.
 
 ## What This Session Did
 
-Enhanced the autonomous system with implementation orchestration (ORCHESTRATOR.md, MILESTONES.md), design review protocol (REVIEW_PROTOCOL.md), 4 new agents, 4 new commands, 3 automation scripts, enhanced hooks, and updated project instructions. Created the infrastructure for Claude Code to work autonomously through the implementation phase and for Claude Chat to run structured design reviews.
+Hardened the autonomous system with knowledge integrity protocol (7-threat model), challenge protocol (Three Challenges + quality gates + anti-patterns), 4 Claude Code skills (knowledge-safety, arabic-text, technology-survey, scholarly-design), enhanced hooks (SessionStart compaction context, pre-commit checks), challenge command, and significantly strengthened self-review and session workflow in PROJECT_INSTRUCTIONS.md.
 
 ## New Decisions
 
-None. This session was infrastructure enhancement, not architectural design.
+None. This session was infrastructure hardening, not architectural design.

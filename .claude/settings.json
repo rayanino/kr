@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd $CLAUDE_PROJECT_DIR && echo 'Running tests before push...' && python -m pytest engines/*/tests/ shared/*/tests/ -q --tb=line 2>&1 | tail -8; echo 'NOTE: 1 known failure (API key). If you see ONLY that failure, push is safe.'"
+            "command": "cd $CLAUDE_PROJECT_DIR && echo 'Pre-push: running tests...' && python -m pytest engines/*/tests/ shared/*/tests/ -q --tb=line 2>&1 | tail -8"
           }
         ]
       },
@@ -15,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd $CLAUDE_PROJECT_DIR && changed=$(git diff --cached --name-only 2>/dev/null | grep -c 'engines/.*/src/\\|shared/.*/src/' || true); if [ \"$changed\" -gt 0 ]; then echo \"REMINDER: $changed source file(s) staged. Did you run tests? Did you update CLAUDE.md?\"; fi"
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-commit-check.sh"
           }
         ]
       }
@@ -26,7 +26,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "file_path=\"$TOOL_INPUT_FILE_PATH\"; if [ -z \"$file_path\" ]; then file_path=\"$TOOL_INPUT_PATH\"; fi; if echo \"$file_path\" | grep -q 'engines/.*/src/\\|shared/.*/src/\\|interface/.*/src/'; then component=$(echo \"$file_path\" | sed -E 's|.*(engines|shared|interface)/([^/]*)/.*|\\1/\\2|'); echo \"REMINDER: Code modified in $component. Update SPEC.md if behavior changed. Update CLAUDE.md if state changed.\"; fi; if echo \"$file_path\" | grep -q 'SPEC.md'; then echo 'SPEC MODIFIED: Run /check-spec to verify consistency.'; fi; if echo \"$file_path\" | grep -q 'schemas/'; then echo 'SCHEMA MODIFIED: Run /verify-boundaries all to check pipeline consistency.'; fi"
+            "command": "bash -c 'FILE=\"${TOOL_INPUT_FILE_PATH:-$TOOL_INPUT_PATH}\"; if echo \"$FILE\" | grep -q \"engines/.*/src/\\|shared/.*/src/\"; then component=$(echo \"$FILE\" | sed -E \"s|.*(engines|shared|interface)/([^/]*)/.*|\\1/\\2|\"); echo \"CODE MODIFIED in $component. Verify: tests pass, CLAUDE.md state accurate, SPEC.md consistent.\"; fi; if echo \"$FILE\" | grep -q \"SPEC.md\"; then echo \"SPEC MODIFIED. Run /check-spec to verify cross-SPEC consistency.\"; fi; if echo \"$FILE\" | grep -q \"schemas/\"; then echo \"SCHEMA MODIFIED. Run: python3 scripts/verify_metadata_flow.py\"; fi; if echo \"$FILE\" | grep -qE \"\\.py$\" && echo \"$FILE\" | grep -q \"src/\"; then echo \"KNOWLEDGE SAFETY: Does this code handle Arabic text? Check .claude/skills/arabic-text/SKILL.md. Does it modify metadata? Verify D-023 pass-through.\"; fi'"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'echo \"POST-COMPACTION CONTEXT INJECTION:\"; echo \"1. KR Core: Library IS the users knowledge. Errors propagate silently. See KNOWLEDGE_INTEGRITY.md.\"; echo \"2. D-023: Metadata is synthesis fuel. Never strip fields. Every engine must pass through ALL upstream metadata.\"; echo \"3. D-019: ABD code has ZERO design authority. SPECs define what to build.\"; echo \"4. D-033: Fail loud. Low-confidence decisions get flags, not silent defaults.\"; echo \"5. Priority: Accuracy > Protection > Intelligence.\"; echo \"6. Current task is in NEXT.md. Read it if you have lost context.\"; echo \"7. CHALLENGE PROTOCOL: Run the Three Challenges before committing.\"; echo \"8. Arabic text handling: see .claude/skills/arabic-text/SKILL.md before any text processing.\"; echo \"9. Before implementing: check .claude/skills/technology-survey/SKILL.md — use existing tools.\"; echo \"10. ORCHESTRATOR.md governs implementation sessions. REVIEW_PROTOCOL.md governs review sessions.\"'"
           }
         ]
       }
@@ -53,22 +64,18 @@
       "Bash(mv *)",
       "Bash(rm *)",
       "Bash(touch *)",
-      "Bash(git log *)",
-      "Bash(git diff *)",
-      "Bash(git status*)",
-      "Bash(git add *)",
-      "Bash(git commit *)",
-      "Bash(git push*)",
-      "Bash(git checkout *)",
-      "Bash(git branch *)",
-      "Bash(git stash *)",
+      "Bash(chmod *)",
+      "Bash(git *)",
       "Bash(tree *)",
       "Bash(sed *)",
       "Bash(awk *)",
       "Bash(sort *)",
       "Bash(diff *)",
       "Bash(echo *)",
-      "Bash(jq *)"
+      "Bash(jq *)",
+      "Bash(curl *)",
+      "Bash(sha256sum *)",
+      "Bash(md5sum *)"
     ]
   }
 }

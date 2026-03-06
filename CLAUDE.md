@@ -53,6 +53,10 @@ Layer 3:
 - **Metadata is synthesis fuel (D-023).** Never strip metadata; the synthesizer needs all of it.
 - **Fail-loud (D-033).** Low-confidence decisions get flags, not silent defaults.
 - **ABD legacy has zero design authority (D-019).** SPECs define what to build.
+- **Knowledge cannot defend itself.** See `KNOWLEDGE_INTEGRITY.md` for the 7-threat model.
+- **Three Challenges before every commit.** See `CHALLENGE_PROTOCOL.md`.
+- **Arabic text safety.** See `.claude/skills/arabic-text/SKILL.md` before any text processing.
+- **Technology first.** See `.claude/skills/technology-survey/SKILL.md` before building custom code.
 
 ## Run All Tests
 
