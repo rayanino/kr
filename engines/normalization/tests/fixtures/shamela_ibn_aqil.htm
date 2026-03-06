@@ -1,0 +1,67 @@
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<body>
+<!-- Test fixture: Shamela desktop export format for Ibn Aqil's Sharh al-Alfiyyah.
+     This fixture uses the REAL Shamela export format: PageText divs, PageHead headers,
+     PageNumber spans, <hr width='95'> footnote separators.
+     Covers: multi-page, footnotes (numbered_parens), bold matn (commentary layer signal),
+     headings (HTML-tagged via PageHead), verse detection, diacritics preservation. -->
+
+<!-- Page 1: Metadata page (should be skipped by normalizer) -->
+<div class='PageText'>
+<span class='PageNumber'>(ص: ١)</span>
+<div class='PageHead'><span class='title'>شرح ابن عقيل على ألفية ابن مالك</span><hr/></div>
+المؤلف: بهاء الدين عبد الله بن عقيل العقيلي الهمداني المصري (ت ٧٦٩ هـ)
+المحقق: محمد محيي الدين عبد الحميد
+</div>
+
+<!-- Page 2: Normal page with heading, bold matn, sharh, and footnote -->
+<div class='PageText'>
+<span class='PageNumber'>(ص: ١٥)</span>
+<div class='PageHead'><span class='title'>باب الكلام وما يتألف منه</span><hr/></div>
+<b>كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ * وَاسْمٌ وَفِعْلٌ ثُمَّ حَرْفٌ الْكَلِمْ</b>
+أي: الكلام في اصطلاح النحويين هو اللفظ المفيد فائدة يحسن السكوت عليها. فقولنا «اللفظ» جنس يشمل المفيد وغير المفيد، و«المفيد» فصل أخرج غير المفيد.
+(1) وقد بيّن ابن مالك في التسهيل هذا المعنى.
+<hr width='95'>
+(1) انظر: التسهيل لابن مالك ص ٤٥. وقد أخرج البخاري (٢٣٤٥) نحوه.
+</div>
+
+<!-- Page 3: Page with multiple footnotes and no heading -->
+<div class='PageText'>
+<span class='PageNumber'>(ص: ١٦)</span>
+واحترز بقوله «لفظ» عن الإشارة والكتابة والعقد؛ فإن كل واحد من هذه قد يفيد ما يفيده اللفظ ولكنه لا يسمى كلاماً عند النحاة.
+(1) وقال سيبويه في كتابه: اعلم أن من كلامهم اختلاف اللفظين لاختلاف المعنيين.
+(2) وقد ذكر المبرد في المقتضب تفصيلاً لهذا.
+<hr width='95'>
+(1) انظر: الكتاب لسيبويه ١/٢٣. في نسخة أ: «فإن كل واحد من هذه» وفي نسخة ب: «فإن كلاً من هذه».
+(2) المقتضب للمبرد ١/٨.
+</div>
+
+<!-- Page 4: Page with verse (alfiyyah line) and Quran citation -->
+<div class='PageText'>
+<span class='PageNumber'>(ص: ١٧)</span>
+<div class='PageHead'><span class='title'>المعرب والمبني</span><hr/></div>
+<b>وَالاسْمُ مِنْهُ مُعْرَبٌ وَمَبْنِيّ * لِشَبَهٍ مِنَ الْحُرُوفِ مُدْنِي</b>
+المعرب: هو ما يتغير آخره بسبب العوامل الداخلة عليه. والمبني: ما لا يتغير آخره. ومن المبنيات: الضمائر، وأسماء الإشارة، والموصولات.
+قال الله تعالى: ﴿إِنَّا أَنْزَلْنَاهُ قُرْآنًا عَرَبِيًّا لَعَلَّكُمْ تَعْقِلُونَ﴾
+</div>
+
+<!-- Page 5: Page with no footnote separator (tests NORM_FOOTNOTE_SEPARATOR_ABSENT) -->
+<div class='PageText'>
+<span class='PageNumber'>(ص: ١٨)</span>
+ومعنى قوله «لشبه من الحروف مدني» أي: لأجل شبه بالحروف مقرّب له من الحروف. والشبه يكون من وجوه: الشبه الوضعي، والشبه المعنوي، والشبه الاستعمالي، والشبه الافتقاري.
+</div>
+
+<!-- Page 6: Page with ZWNJ heading signal and table-like content -->
+<div class='PageText'>
+<span class='PageNumber'>(ص: ١٩)</span>
+‌‌فائدة
+أقسام المبني:
+المبني على الضم: حيثُ، منذُ، نحنُ
+المبني على الفتح: أينَ، كيفَ، هؤلاءِ
+المبني على الكسر: هؤلاءِ، أمسِ
+المبني على السكون: مَنْ، كَمْ، هَلْ
+</div>
+
+</body>
+</html>
