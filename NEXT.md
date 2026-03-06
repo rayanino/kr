@@ -9,17 +9,44 @@ CREATIVE (see SESSION_TYPES.md for full framework)
 
 This is NOT a review session. Do NOT fix defects, correct prose, or align contracts. Those are for the PRECISION session (next). This session exists for ONE purpose: make the source engine do things no Islamic studies tool has ever done.
 
-## What to Read (ONLY these — nothing else)
+## What to Read
 
-1. `engines/source/SPEC.md` — but ONLY §1 (Purpose) and §4.B (Transformative). Skip everything else.
-2. `reference/ENTRY_EXAMPLE.md` — the quality target. What does a great entry look like?
-3. `reference/USER_SCENARIOS.md` — who is Rayane and what does he need?
+1. `engines/source/SPEC.md` — **ALL sections.** You are building on this foundation — you must know it.
+2. `engines/source/contracts.py` — machine-readable truth for §2/§3 fields
+3. `reference/ENTRY_EXAMPLE.md` — the quality target. What does a great entry look like?
+4. `reference/USER_SCENARIOS.md` — who is Rayane and what does he need?
 
-**Do NOT read:** SPEC_REFINEMENT.md, CREATIVE_MANDATE.md, SILENT_FAILURES.md, KNOWLEDGE_INTEGRITY.md, contracts.py, CONTEXT_BUDGET.md, CHALLENGE_PROTOCOL.md. Those are for other session types.
+**Do NOT read:** SPEC_REFINEMENT.md, CREATIVE_MANDATE.md, SILENT_FAILURES.md, KNOWLEDGE_INTEGRITY.md, CONTEXT_BUDGET.md, CHALLENGE_PROTOCOL.md, other engine SPECs. Those are for other session types.
 
-**Budget:** ~15K tokens on reading. ~50K tokens on web search results. ~80K tokens on thinking and writing. ~10K tokens on NEXT.md and commit.
+**Budget:** ~15K tokens on reading. ~50K tokens on web search + creative thinking. ~30K tokens on writing. ~10K tokens on handoff.
 
 ## The Creative Work (follow this sequence)
+
+### Phase 0: GROUND (before any creative work — ~10% of budget)
+
+You cannot build on a foundation you haven't inspected.
+
+1. **Read the full SPEC.** As you read, note:
+   - What does this engine ACTUALLY do? (What do the §4.A rules specify concretely?)
+   - What feels vague or under-specified? (Don't fix now — just note it)
+   - What §4.B capabilities already exist? Are they well-specified or hollow?
+   - What metadata does this engine produce (§3) that downstream engines consume?
+
+2. **Run quality baseline:**
+   ```
+   python3 scripts/check_spec_quality.py engines/source/SPEC.md --verbose
+   python3 scripts/creative_verification.py engines/source/SPEC.md
+   ```
+   Record: "Baseline: X high-severity defects. §4.B score: Y/100."
+
+3. **Write a 5-line assessment** (for your own reference):
+   - Core processing (§4.A) is [solid/adequate/weak] because [reason]
+   - Main quality gaps: [top 3]
+   - Existing §4.B: [list them, real or hollow?]
+   - This engine's unique data advantage: [what does it know that nothing else does?]
+   - Biggest opportunity: [what's missing that would be transformative?]
+
+This assessment FEEDS the creative phases. A vague §4.A rule is an opportunity to replace it with something transformative. A missing capability is a design space to explore.
 
 ### Phase 1: Research the Problem Space (3-5 web searches)
 
@@ -70,15 +97,17 @@ For every tool, library, or dataset discovered, add it to `reference/RESOURCES.m
 
 ## Definition of Done
 
-1. §4.B has ≥3 new fully-specified capabilities (beyond what's already there)
-2. Each capability names specific technology with version
-3. Each capability has a concrete output example with real Arabic text
-4. ≥8 web searches conducted (with findings noted)
-5. RESOURCES.md updated with every discovery
-6. `python3 scripts/creative_verification.py engines/source/SPEC.md` scores ≥85/100
-7. NEXT.md written for the PRECISION session (source engine)
-8. SESSION_LOG.md updated
-9. Committed and pushed
+1. Phase 0 completed: quality baseline recorded, 5-line assessment written
+2. §4.B has ≥3 new fully-specified capabilities (beyond what's already there)
+3. Each capability names specific technology with version
+4. Each capability has a concrete output example with real Arabic text
+5. ≥8 web searches conducted (with findings noted)
+6. RESOURCES.md updated with every discovery
+7. `python3 scripts/creative_verification.py engines/source/SPEC.md` scores ≥85/100
+8. If any §4.A rules were replaced with transformative alternatives, they are precise (not cosmetic rewording)
+9. NEXT.md written for the PRECISION session (source engine)
+10. SESSION_LOG.md updated
+11. Committed and pushed
 
 ## What the Previous Sessions Did
 

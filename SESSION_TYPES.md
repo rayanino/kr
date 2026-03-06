@@ -8,52 +8,90 @@ Each SPEC refinement is split into 2-3 focused sessions. Each session type has a
 
 ## Type C: CREATIVE Session (First session for each SPEC)
 
-**Goal:** Invent transformative capabilities. This is the session that makes the application extraordinary.
+**Goal:** Understand what exists, evaluate its soundness, then invent transformative capabilities that build on a verified foundation.
 
-**Context budget:** ~60% of tokens go to web search results and creative thinking. Only ~15% on reading existing content.
+**Context budget:** ~10% on grounding (reading + quality check), ~50% on research and creative thinking, ~30% on writing, ~10% on handoff.
 
-**Reads ONLY:**
-1. The SPEC itself (§4.B and §1 only — skip §2-§3, §5-§10)
+**Reads:**
+1. The SPEC itself — **ALL sections** (this is the foundation you're building on — you must know it)
 2. `reference/ENTRY_EXAMPLE.md` (quality target)
 3. `reference/USER_SCENARIOS.md` (who benefits and how)
+4. `engines/<n>/contracts.py` if it exists (the machine-readable truth)
 
-**Does NOT read:** Protocol documents, contracts.py, other SPECs, KNOWLEDGE_INTEGRITY.md, SILENT_FAILURES.md. These are for later sessions.
+**Does NOT read:** Other SPECs, protocol documents, KNOWLEDGE_INTEGRITY.md, SILENT_FAILURES.md. Those are for the PRECISION/HARDENING sessions.
 
 **Work (in this order):**
 
-1. **Research the problem space** (3-5 web searches)
-   - What tools exist for this engine's domain?
-   - What do scholars wish they could do but can't?
-   - What have digital humanities projects built for similar languages?
+### Phase 0: GROUND (before any creative work)
+
+You cannot build on a foundation you haven't inspected.
+
+1. **Read the full SPEC.** As you read, note:
+   - What does this engine ACTUALLY do today? (Not aspirationally — what do the §4.A rules specify?)
+   - What feels vague, hand-wavy, or under-specified? (Don't fix it now — just note it)
+   - What §4.B capabilities already exist? Are they well-specified or hollow?
+   - What metadata does this engine produce (§3) that downstream engines consume?
+
+2. **Run the quality checker:** `python3 scripts/check_spec_quality.py engines/<n>/SPEC.md --verbose`
+   Record the baseline: "X high, Y medium defects. Categories: ..."
    
-2. **Research the possibilities** (3-5 web searches)
-   - What can LLMs do NOW for Arabic text analysis that they couldn't 2 years ago?
-   - What techniques from Latin/Chinese/Hebrew DH could be adapted?
-   - What open-source tools handle part of this engine's job?
+3. **Run creative verification:** `python3 scripts/creative_verification.py engines/<n>/SPEC.md`
+   Record: "§4.B score: X/100. Capabilities: N."
 
-3. **Invent capabilities** (the core creative work)
-   For each capability: name it, name the technology, give a concrete output example with real Arabic text, explain why a scholar would weep with joy.
-   
-   Minimum: 3 new capabilities per engine. Aim for 5.
-   
-   Ask yourself:
-   - After this engine processes 500 sources, what does it KNOW that didn't exist before?
-   - What question can a scholar now answer that was literally impossible before?
-   - What would take a human scholar 6 months that this engine does in 6 seconds?
+4. **Write a 5-line assessment** (for your own reference, not committed):
+   - "Core processing (§4.A) is [solid/adequate/weak] because [reason]"
+   - "Main quality gaps: [list top 3]"
+   - "Existing §4.B capabilities: [list them, are they real or hollow?]"
+   - "This engine's unique data advantage: [what does it know that nothing else does?]"
+   - "Biggest opportunity: [what's missing that would be transformative?]"
 
-4. **Write §4.B** — Full specification of each capability. Not vague aspirations. Inputs, outputs, triggers, algorithms, edge cases. Every capability specified precisely enough for Claude Code to implement.
+This assessment FEEDS the creative work. A vague §4.A rule isn't just a defect — it's an opportunity to replace it with something transformative. A missing §4.B capability isn't just a gap — it's a design space to explore.
 
-5. **Update RESOURCES.md** with every tool discovered.
+### Phase 1: Research the Problem Space (3-5 web searches)
 
-**Output:** Updated SPEC §4.B (scored ≥80/100 by creative_verification.py), updated RESOURCES.md.
+NOW that you understand what the engine does and where it's weak:
+- What tools exist for this engine's specific domain?
+- What do scholars wish they could do but can't?
+- What have digital humanities projects built for similar languages?
 
-**Anti-pattern to watch for:** Starting to review/correct §4.A rules. STOP. That's the next session's job. This session is for INVENTION only.
+### Phase 2: Research the Possibilities (3-5 web searches)
+
+- What can LLMs do NOW for Arabic text analysis that they couldn't 2 years ago?
+- What techniques from Latin/Chinese/Hebrew DH could be adapted?
+- What open-source tools handle part of this engine's job?
+- For any VAGUE §4.A rules you noted: is there a specific tool that could make them precise?
+
+### Phase 3: Invent Capabilities (the core creative work)
+
+For each capability: name it, name the technology, give a concrete output example with real Arabic text, explain why a scholar would weep with joy.
+
+Minimum: 3 new capabilities per engine. Aim for 5.
+
+Ask yourself:
+- After this engine processes 500 sources, what does it KNOW that didn't exist before?
+- What question can a scholar now answer that was literally impossible before?
+- What would take a human scholar 6 months that this engine does in 6 seconds?
+- Which vague §4.A rules could be REPLACED by something transformative?
+
+### Phase 4: Write §4.B
+
+Full specification of each capability. Not vague aspirations. Inputs, outputs, triggers, algorithms, edge cases. Every capability specified precisely enough for Claude Code to implement.
+
+### Phase 5: Update RESOURCES.md
+
+For every tool, library, or dataset discovered during research.
+
+**Output:** Updated SPEC (§4.B at minimum, and optionally §4.A where vague rules can be replaced with precise transformative ones), updated RESOURCES.md, quality baseline recorded.
+
+**Anti-pattern to watch for:** Doing cosmetic corrections to §4.A without adding substance. If you touch §4.A, it should be to REPLACE something vague with something transformative — not to reword it slightly.
 
 ---
 
 ## Type P: PRECISION Session (Second session for each SPEC)
 
 **Goal:** Make every rule machine-implementable. Claude Code should build from this with zero questions.
+
+**Prerequisite:** CREATIVE session completed. The NEXT.md written by that session includes the assessment (quality baseline, gaps identified, capabilities added). Read it carefully — it tells you what the CREATIVE session found and what needs precision work.
 
 **Context budget:** ~70% on the SPEC text and examples. ~20% on verification. ~10% on searching for better approaches.
 
