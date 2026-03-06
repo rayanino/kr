@@ -151,6 +151,9 @@ Written to `library/sources/{source_id}/excerpts/excerpts.jsonl`. One JSONL reco
   - `llm_enrichment_failed`: LLM metadata enrichment failed; defaults applied.
   - `low_fidelity_atoms`: inherited from atom-level `low_fidelity_source` flags.
   - `duplicate_candidate`: another excerpt from the same source has very similar topic (one-excerpt-per-source-per-leaf diagnostic, §5.5).
+  - `cross_source_duplicate`: semantic deduplication (§4.B.2) detected a near-duplicate in another source.
+  - `argument_incomplete`: argument completeness analysis (§4.B.3) score < 0.7.
+  - `passaging_boundary_suspect`: argument completeness analysis detected continuation in next passage — potential passaging error.
 
 **Provenance fields:**
 
@@ -314,30 +317,143 @@ When the LLM detects that a candidate excerpt covers multiple distinguishable to
 
 ### §4.B — Transformative Capabilities
 
-#### §4.B.1 — Cross-Excerpt Scholarly Dialogue Detection
+#### §4.B.1 — Argumentative Discourse Mapping
 
 [NOT YET IMPLEMENTED]
 
-**What this capability does:** Detects when two excerpts from different sources are part of the same scholarly dialogue — one scholar responding to another, or two scholars addressing the same question from different perspectives — even when the excerpts don't explicitly reference each other. This goes beyond simple topic matching: it identifies intellectual engagement (agreement, disagreement, refinement, supersession).
+**What this capability does:** Detects the argumentative structure pattern within each excerpt and tags where the excerpt sits in the classical Islamic scholarly argumentation sequence: مسألة (question formulation) → أقوال (position statements) → أدلة (evidence presentation) → مناقشة (discussion/refutation) → ترجيح (weighing/preference) → خلاصة (conclusion). Each excerpt receives an `argument_role` classification, and multi-atom excerpts receive an internal argument map showing which atoms play which role in the argument.
 
-**Why this is transformative:** Islamic scholarly literature is a 14-century conversation. When al-Nawawi writes about المبتدأ, he is responding to positions established by Sibawayhi 500 years earlier. When Ibn Qudamah discusses صلاة الجماعة, he is engaging with al-Shafi'i's arguments. Currently, identifying these dialogue threads requires a scholar to read multiple sources and mentally connect them. KR can detect these connections automatically, enabling the synthesizer to produce entries that read as scholarly dialogues rather than flat position lists.
+**Why this is transformative:** No existing Islamic studies tool detects argumentative structure. Shamela, Turath, and Usul.ai treat text as flat searchable content. But the synthesizer needs to know MORE than what an excerpt says — it needs to know what ROLE the excerpt plays in the scholarly discourse. An excerpt that formulates a question (مسألة) must be placed differently in the entry than an excerpt that weighs competing positions (ترجيح). The IslamicLegalBench benchmark (Elmahjub et al., Feb 2026) found that even GPT-4o achieves only 68% correctness on Islamic legal reasoning with 21% hallucination — precisely because LLMs lack awareness of argumentative structure. By providing the synthesizer with argument role metadata, KR prevents the synthesizer from confusing a scholar's presentation of an opponent's view with their own position (the decontextualization risk, but at a structural level).
 
-**Input:** A completed excerpt (with topic, school, author, and evidence references) plus the library's existing excerpt inventory at the proposed leaf.
+**Research basis:** Legal argument mining (Habernal et al. 2024, ECHR corpus of 373 decisions with 15K annotated spans) demonstrates that domain-specific argument typologies outperform generic claim/premise models. The Sefaria project shows that biblical citation mapping across Talmudic contexts reveals whether passages serve "similar argumentative purposes or vary by tractate" (Brand 2025). Arabic scholarly texts have an even more regular argumentative structure than European legal texts — Islamic fiqh follows the mas'ala format so consistently that it is taught as a method (تحرير المسألة).
 
-**Processing:** When a new excerpt is placed at a leaf, the engine compares it against all existing excerpts at that leaf:
+**Input:** A completed excerpt (from Phase 3, with all metadata), plus the source metadata (science, work genre, work level).
 
-1. **Position comparison.** Do the excerpts state the same position or different positions on the same question? If different, is one responding to the other (evidenced by chronological order + similar argumentation structure)?
-2. **Evidence comparison.** Do the excerpts cite the same evidence? If so, do they interpret it the same way? Different interpretations of the same evidence are a strong signal of scholarly dialogue.
-3. **Terminology comparison.** Do the excerpts use the same technical vocabulary? Shared vocabulary suggests engagement with the same scholarly tradition; divergent vocabulary may indicate different schools.
-4. **Chronological ordering.** Using author death dates from the scholar authority registry, order the excerpts temporally. Later scholars who address the same question are more likely to be responding to earlier positions.
+**Processing:**
 
-**Output:** A `dialogue_links` field on the excerpt (array of objects): `{ target_excerpt_id: string, dialogue_type: enum(agrees, disagrees, refines, supersedes, cites), confidence: float, evidence: string }`.
+1. **Argument role classification.** The LLM receives the excerpt text, its content types from §4.A, and the source's science/genre context. It classifies the excerpt into one of these argument roles:
+   - `masala_formulation`: The text poses a scholarly question or defines the issue under discussion. Markers: "مسألة", "هل", "ما حكم", "اختلف العلماء في".
+   - `position_statement`: The text states a scholarly position (one or more). Markers: "قال", "ذهب ... إلى", "مذهب ... أن", "القول الأول".
+   - `evidence_presentation`: The text presents evidence for a position. Markers: "لقوله تعالى", "لما روى", "واحتجوا بأن", "والدليل".
+   - `discussion_refutation`: The text discusses, critiques, or refutes a position. Markers: "ورُدّ بأن", "ونوقش", "ويُعترض عليه", "والجواب عن ذلك".
+   - `weighing_preference`: The text evaluates positions and states a preference. Markers: "والراجح", "والصحيح", "والمعتمد", "وأقوى القولين".
+   - `conclusion_summary`: The text summarizes findings or states a final rule. Markers: "والحاصل", "فتلخص", "فالقاعدة", "والخلاصة".
+   - `definition_exposition`: The text defines or explains a concept (common in grammar, usul). Markers: "هو/هي", "يُعرَّف بأنه", "المراد به", "اصطلاحاً".
+   - `example_application`: The text provides examples or applies a rule. Markers: "نحو", "مثاله", "كقولك", "ومن ذلك".
+   - `mixed`: The text contains multiple argument roles that cannot be cleanly separated.
 
-**Technical approach:** LLM-based comparison using Instructor for structured output. The LLM receives the new excerpt and each existing excerpt at the leaf, with author/date context, and identifies dialogue relationships. This is computationally expensive (O(n) per new excerpt at a leaf with n existing excerpts) but executes only at placement time, not during bulk processing.
+2. **Internal argument map (for multi-atom excerpts).** For excerpts with ≥5 core atoms, the LLM produces an internal map: which atom ranges serve which argument role. This is a list of `{atom_id_start, atom_id_end, role}` segments. For excerpts with <5 core atoms, the whole excerpt receives a single role.
 
-**Dependency:** Requires the taxonomy engine to have placed previous excerpts. Only active during incremental processing (new source added to existing library), not during initial bulk loading.
+3. **Per-science calibration.** The argument role vocabulary is calibrated per science:
+   - **Fiqh:** Full mas'ala→tarjih sequence. All 8 roles are expected. `weighing_preference` is especially important.
+   - **Nahw:** `definition_exposition` and `example_application` dominate. `position_statement` maps to grammatical school disagreements.
+   - **Aqidah:** Similar to fiqh but `evidence_presentation` includes more rational (`عقلي`) arguments.
+   - **Ilm al-hadith:** `position_statement` maps to hadith grading conclusions. Evidence is meta-level (evaluation of narrators).
+   - **Tajwid:** Almost exclusively `definition_exposition` and `example_application` — minimal disagreement.
 
-#### §4.B.2 — Self-Containment Repair Suggestions
+**Output:** Two new fields on the excerpt record:
+
+- `argument_role`: string enum (one of the 9 values above). The excerpt's dominant argumentative function.
+- `argument_role_confidence`: float, 0.0–1.0.
+- `argument_map`: array of objects or null. Non-null for excerpts with ≥5 core atoms. Each object: `{ start_atom_id: string, end_atom_id: string, role: string }`. The segments cover all core atoms without overlap.
+
+**How the synthesizer uses this:** When assembling an entry at a taxonomy leaf, the synthesizer can structure the entry as: formulation → positions → evidence → discussion → conclusion — mirroring the classical tahrir al-mas'ala format. Without this metadata, the synthesizer must infer structure from raw text, which IslamicLegalBench shows LLMs do unreliably.
+
+**Technical approach:** LLM classification using Instructor for structured output. The prompt includes 3 few-shot examples per science (from gold baselines). The Arabic marker detection is a pre-filter: if explicit markers are present, they boost confidence; if absent, the LLM infers from content. Single-model (not consensus) — the taxonomy engine and synthesizer provide downstream validation.
+
+#### §4.B.2 — Cross-Source Semantic Deduplication
+
+[NOT YET IMPLEMENTED]
+
+**What this capability does:** Detects when two excerpts from DIFFERENT sources express substantially the same scholarly content — the same definition, the same hadith, the same ruling stated in nearly identical words. Produces a `semantic_duplicates` field linking near-duplicate excerpts across sources, enabling the synthesizer to present content once (from the strongest source) rather than redundantly.
+
+**Why this is transformative:** The KITAB project's passim algorithm detects verbatim text reuse across the OpenITI corpus of 2 billion words (splitting texts into 300-word chunks and looking for shared n-grams). But passim operates at the corpus level for digital humanities research — it doesn't produce actionable metadata for a knowledge pipeline. KR's excerpting engine needs excerpt-level semantic deduplication that catches not just verbatim copying but paraphrase and shared quotation. When 5 sources all quote "الأعمال بالنيات" in the context of wudu rules, the synthesizer should present the hadith once and cite all 5 sources, not produce 5 redundant paragraphs.
+
+**Why this is critical for scholarly integrity:** DOMAIN.md's "Scholarly Integrity Risks" section identifies "Library composition bias" — if the library has 30 Hanbali sources and 5 Maliki sources, the synthesizer might present Hanbali positions as dominant simply because they appear more often. Deduplication metadata directly addresses this: the synthesizer knows "these 12 excerpts are 4 unique positions, each appearing in multiple sources" rather than treating 12 excerpts as 12 independent data points.
+
+**Input:** A completed excerpt plus the fingerprint manifest from the atomization engine (§4.B.5 in atomization SPEC) for the current source and for all previously processed sources at the proposed leaf.
+
+**Processing:**
+
+1. **Fast pre-filter.** Using `fingerprint_text_hash` from the atomization engine's semantic fingerprint, identify atom-level text hash collisions across sources. Excerpts sharing ≥2 atom text hashes with another excerpt at the same leaf are candidate duplicates. This is O(1) lookup per hash.
+
+2. **Semantic similarity check.** For candidates passing the pre-filter, compute embedding similarity between the excerpts' `derived_normalized_text` fields using the same embedding model as duplicate detection in §5. Threshold: cosine similarity ≥ 0.82 triggers detailed analysis.
+
+3. **LLM deduplication judgment.** For pairs exceeding the embedding threshold, the LLM receives both excerpts with their source metadata and classifies the relationship:
+   - `verbatim_duplicate`: Same text, copied from one source to another (common in Shamela where the same text may appear in multiple collections).
+   - `shared_quotation`: Both sources quote the same earlier scholar or hadith. The primary content is the same but the framing differs.
+   - `paraphrase`: Same scholarly content expressed differently. The underlying position, evidence, or definition is the same.
+   - `related_not_duplicate`: Similar topic and some shared content, but substantively different arguments or conclusions.
+
+4. **Primary source identification.** For `verbatim_duplicate` and `shared_quotation` pairs, the engine identifies which excerpt is from the "primary" source (the original author, the earlier chronological source, the higher-authority source based on `source_authority` metadata). The synthesizer will cite the primary source and reference the others.
+
+**Output:** `semantic_duplicates` field on the excerpt (array of objects): `{ target_excerpt_id: string, target_source_id: string, relationship: enum(verbatim_duplicate, shared_quotation, paraphrase, related_not_duplicate), confidence: float, primary_source: string|null }`.
+
+**Scale management:** During initial bulk loading (many sources processed at once), deduplication runs as a batch job AFTER all sources are excerpted, comparing excerpts at the same proposed leaf. During incremental processing (new source added), deduplication runs per-excerpt against the existing library. The pre-filter keeps this tractable: only excerpts sharing fingerprint hashes or at the same leaf are compared.
+
+**Technical approach:** Atomization fingerprints (hash-based) for pre-filter. Sentence-transformers for embedding similarity. LLM with Instructor for relationship classification. The atomization engine's `fingerprint_key_terms` field is used as an additional matching signal: excerpts sharing ≥3 key terms are candidate duplicates even without hash collisions.
+
+#### §4.B.3 — Scholarly Argument Completeness Analysis
+
+[NOT YET IMPLEMENTED]
+
+**What this capability does:** For excerpts that contain a scholarly argument (position + evidence), evaluates whether the argument is COMPLETE as extracted — whether all the evidence the author cited for the position is included, or whether some was left in another excerpt or lost at a passage boundary. This is a deeper analysis than self-containment: an excerpt can be self-contained (understandable) but argumentatively incomplete (missing evidence the author used).
+
+**Why this is transformative:** The synthesizer's entry quality depends on having complete arguments. If an excerpt captures a position but only two of three pieces of evidence the author cited, the entry will present a weaker version of the argument than the author intended. Argumentative completeness analysis detects this gap before the excerpt reaches the synthesizer.
+
+**Research basis:** Argument mining research (ArgMining 2024-2025 workshops) demonstrates that argument completeness can be detected through rhetorical markers. Arabic scholarly texts are remarkably explicit about argument structure: "ومن الأدلة أيضاً" (and among the evidence also), "الدليل الثالث" (the third evidence), "والجواب من وجوه" (the response from several angles) — these markers signal how many elements the author intends. A numbered evidence list ("الدليل الأول... الدليل الثاني...") where the excerpt ends after the second but the passage continues with the third is a detectable completeness failure.
+
+**Input:** An excerpt with evidential content types (from §4.A.4), plus the passage context (all atoms in the passage, not just the excerpt's atoms).
+
+**Processing:**
+
+1. **Argument structure detection.** Using the argument role from §4.B.1 (if available), identify excerpts that are `evidence_presentation`, `discussion_refutation`, or `position_statement` — these are the argument-bearing excerpts.
+
+2. **Completeness signal detection.** The LLM examines the excerpt and its surrounding context for:
+   - **Enumeration markers:** "الوجه الأول... الوجه الثاني..." — if only some are in the excerpt, the argument is incomplete.
+   - **Continuation markers:** "ومنها أيضاً" at the end of an excerpt suggests more follows.
+   - **Conclusion absence:** A position + evidence sequence without a conclusion marker ("فثبت", "فدل على") may be incomplete.
+   - **Cross-passage split:** If the argument continues in atoms from the NEXT passage (detected by checking whether the next passage's first atoms are continuation-type atoms), this signals a passaging boundary error.
+
+3. **Completeness scoring.** Produces a score 0.0–1.0 where:
+   - 1.0 = the argument has all its elements (position, evidence, conclusion) and no continuation markers.
+   - 0.7–0.99 = the argument is substantially complete but may be missing a minor element.
+   - 0.5–0.69 = the argument is detectably incomplete (explicit evidence count mismatch or missing conclusion).
+   - <0.5 = the argument is severely incomplete (mid-argument truncation).
+
+**Output:** `argument_completeness` field on the excerpt: `{ score: float, missing_elements: array of string, continuation_detected: bool, continuation_passage_id: string|null, notes: string }`.
+
+If `continuation_detected` is true, this is also a signal to the passaging engine (via a feedback record) that the passage boundary may need adjustment.
+
+**Technical approach:** LLM analysis with Instructor structured output. The Arabic enumeration and continuation markers are provided as a reference list in the prompt. The cross-passage check is deterministic: if the next passage's first atom has `scholarly_function` that logically continues the current excerpt's argument pattern, flag it.
+
+#### §4.B.4 — Cross-Excerpt Scholarly Dialogue Detection
+
+[NOT YET IMPLEMENTED]
+
+**What this capability does:** Detects when two excerpts from different sources are part of the same scholarly dialogue — one scholar responding to another, or two scholars addressing the same mas'ala from different perspectives — even when the excerpts don't explicitly reference each other. Produces typed dialogue links: agreement, disagreement, refinement, supersession, or citation.
+
+**Why this is transformative:** Islamic scholarly literature is a 14-century conversation. When al-Nawawi writes about المبتدأ, he is responding to positions established by Sibawayhi 500 years earlier. Currently, identifying these dialogue threads requires a scholar to read multiple sources and mentally connect them across centuries. The Sefaria project demonstrates that cross-text citation mapping at the Talmudic level reveals whether passages "consistently serve similar argumentative purposes or whether their interpretive applications vary" (Brand 2025). KR can detect these connections automatically, enabling the synthesizer to produce entries that read as scholarly dialogues rather than flat position lists — exactly the "storyline" and "narrative thread" the owner identified as missing from existing resources (DOMAIN.md, "What Doesn't Exist Yet").
+
+**Input:** A completed excerpt (with topic, school, author, argument role from §4.B.1, and evidence references) plus the library's existing excerpt inventory at the proposed leaf.
+
+**Processing:** When a new excerpt is placed at a leaf, the engine compares it against all existing excerpts at that leaf. The comparison uses 4 signals:
+
+1. **Position comparison.** Using argument role metadata, identify excerpts that state positions on the same mas'ala. Do they reach the same conclusion or different ones? If different, is one responding to the other (evidenced by chronological order + similar evidence base)?
+
+2. **Evidence comparison.** Do the excerpts cite the same evidence (same Quran verse, same hadith)? If so, do they interpret it the same way? Different interpretations of the same evidence are a strong signal of scholarly dialogue. The `evidence_refs` field enables this comparison deterministically for Quran verses (surah/ayah match) and hadith (collection/number match).
+
+3. **Chronological ordering.** Using author death dates from the scholar authority registry, order the excerpts temporally. A later scholar who addresses the same question with the same evidence but reaches a different conclusion is almost certainly responding to the earlier position.
+
+4. **Explicit citation check.** Does either excerpt's `quoted_scholars` reference the other excerpt's author? An explicit reference is the strongest signal.
+
+**Output:** `dialogue_links` field on the excerpt (array of objects): `{ target_excerpt_id: string, dialogue_type: enum(agrees, disagrees, refines, supersedes, cites, shared_evidence), confidence: float, evidence: string }`.
+
+**Scale management:** Computationally O(n) per new excerpt at a leaf with n existing excerpts. For leaves with >50 existing excerpts, the engine pre-filters by argument role and evidence overlap (deterministic) before running LLM comparison. Only active during incremental processing (new source added to existing library), not during initial bulk loading (run as batch post-processing).
+
+**Technical approach:** Deterministic pre-filtering (evidence match, chronological window) + LLM comparison using Instructor for structured output. The LLM receives the new excerpt, its metadata, and each candidate dialogue partner with their metadata.
+
+#### §4.B.5 — Self-Containment Repair Suggestions
 
 [NOT YET IMPLEMENTED]
 
@@ -348,32 +464,17 @@ When the LLM detects that a candidate excerpt covers multiple distinguishable to
 **Input:** An excerpt that failed self-containment evaluation, plus the full atom context from its passage and adjacent passages.
 
 **Processing:** The LLM analyzes what makes the excerpt non-self-contained:
-- **Missing prerequisite:** A term is used without definition, but the definition appears earlier in the same passage.
-- **Incomplete argument:** The argument trails off (evidence cited but conclusion missing), and the continuation is in the next passage — suggesting a passaging boundary error.
-- **Missing attribution:** A position is stated without saying who holds it, but the attribution appears in the preceding context.
 
-**Output:** `repair_suggestions` field on the excerpt (array of objects): `{ suggestion_type: enum(add_context_atom, merge_with_adjacent, flag_passaging_error, flag_missing_source_context), detail: string, target_atom_id: string|null }`.
+- **Missing prerequisite:** A term is used without definition, but the definition appears earlier in the same passage. Repair: add the definition atom as a context atom with role `prerequisite`.
+- **Incomplete argument:** The argument trails off (evidence cited but conclusion missing), and the continuation is in the next passage — suggesting a passaging boundary error. Repair: flag passaging error and suggest boundary adjustment.
+- **Missing attribution:** A position is stated without saying who holds it, but the attribution appears in the preceding context. Repair: add the attribution atom as a context atom with role `classification_frame`.
+- **Unresolved pronoun/reference:** The excerpt contains "هذا" (this), "ما تقدم" (what was previously mentioned), or similar deictic references that cannot be resolved from the excerpt alone. Repair: either add the referenced content as context, or generate a `self_containment_context` text field that paraphrases the missing referent.
 
-**Technical approach:** LLM analysis using the same model as self-containment evaluation, with an additional prompt asking for specific repair recommendations.
+**Output:** `repair_suggestions` field on the excerpt (array of objects): `{ suggestion_type: enum(add_context_atom, merge_with_adjacent, flag_passaging_error, flag_missing_source_context, generate_context_note), detail: string, target_atom_id: string|null, generated_context: string|null }`.
 
-#### §4.B.3 — Scholarly Argument Completeness Analysis
+When `suggestion_type` is `generate_context_note`, the `generated_context` field contains a brief Arabic sentence (≤50 words) that the synthesizer may include as a contextual preface when presenting the excerpt. This generated context is ALWAYS marked as `grounding_type: analytical` (not source-grounded) — it is the engine's interpolation, not the author's words.
 
-[NOT YET IMPLEMENTED]
-
-**What this capability does:** For excerpts that contain a scholarly argument (position + evidence), evaluates whether the argument is COMPLETE as extracted — whether all the evidence the author cited for the position is included, or whether some was left in another excerpt or lost at a passage boundary. This is a deeper analysis than self-containment: an excerpt can be self-contained (understandable) but argumentatively incomplete (missing evidence the author used).
-
-**Why this is transformative:** The synthesizer's entry quality depends on having complete arguments. If an excerpt captures a position but only two of three pieces of evidence the author cited, the entry will present a weaker version of the argument than the author intended. Argumentative completeness analysis detects this gap, enabling either excerpt expansion or a note to the synthesizer that the argument may be incomplete.
-
-**Input:** An excerpt with evidential content types, plus the surrounding passage context.
-
-**Processing:** The LLM examines the rhetorical structure (if §4.B.1 from the atomization engine's rhetorical structure analysis is available) and identifies:
-- How many evidence atoms support each position atom?
-- Are there markers suggesting additional evidence exists (e.g., "ومن الأدلة أيضاً" — "and among the evidence also" — at the end of an excerpt, suggesting more evidence follows)?
-- Does the argument have a conclusion, or does it trail off?
-
-**Output:** `argument_completeness` field on the excerpt: `{ score: float, missing_elements: array of string, notes: string }`.
-
-**Technical approach:** LLM analysis with Instructor structured output. Depends on rhetorical structure analysis from atomization (§4.B.1) when available.
+**Technical approach:** LLM analysis using the same model as self-containment evaluation, with an additional prompt asking for specific repair recommendations. The adjacent passage atoms are included in the context window to enable cross-passage suggestions.
 
 ---
 

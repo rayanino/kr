@@ -304,3 +304,57 @@ None this session.
 
 ### Domain Questions for Owner
 None this session.
+
+## Session: Excerpting CREATIVE — 2026-03-06
+
+**Type:** CREATIVE
+**Engine:** Excerpting (محرك الاقتطاف)
+**Duration:** Single session
+
+### What Was Done
+
+1. **Deep web research** (8 searches across 5 topic areas):
+   - Islamic text extraction tools: Shamela, Turath, Usul.ai, OpenITI/KITAB passim text reuse detection
+   - LLM accuracy: IslamicLegalBench (Feb 2026) — best model 68% correct, 21% hallucination
+   - Cross-tradition tools: Sefaria (Talmud cross-reference mapping), ChavrutAI
+   - Argument mining: Legal argument mining (ECHR 15K spans), ArgMining 2024-2025 workshops
+   - Arabic NLP: FiqhQA school-specific evaluation, Aftina RAG system
+
+2. **Enhanced §4.B with 5 transformative capabilities** (replacing 3 earlier capabilities):
+   - §4.B.1 — **Argumentative Discourse Mapping**: Detects the مسألة→أقوال→أدلة→ترجيح pattern. No existing tool does this for Islamic texts. Informed by legal argument mining research.
+   - §4.B.2 — **Cross-Source Semantic Deduplication**: Excerpt-level dedup using atomization fingerprints + embeddings. Inspired by KITAB's passim but semantic, not just verbatim.
+   - §4.B.3 — **Scholarly Argument Completeness Analysis**: Detects incomplete arguments via Arabic enumeration/continuation markers. Enhanced with passaging error feedback.
+   - §4.B.4 — **Cross-Excerpt Scholarly Dialogue Detection**: Detects dialogue across sources using evidence comparison + chronological ordering + explicit citation check.
+   - §4.B.5 — **Self-Containment Repair Suggestions**: Generates actionable repair paths including generated context notes (marked analytical).
+
+3. **Created `contracts.py`** (389 lines): Complete Pydantic models for the excerpt stream, including all §4.B output types.
+
+4. **Added 3 new review flags** for §4.B capabilities: `cross_source_duplicate`, `argument_incomplete`, `passaging_boundary_suspect`.
+
+### Self-Audit Results
+
+**Defect 1 (Completeness — Criterion #10):** §3 review_flags list did not include flags for new §4.B capabilities. An implementer would not know to add these flags when implementing §4.B.2, §4.B.3. **Fixed:** Added `cross_source_duplicate`, `argument_incomplete`, `passaging_boundary_suspect` to the review_flags enumeration.
+
+**Defect 2 (Structural — Criterion #1):** §4.B.1 lists 9 argument roles but does not specify what happens when the LLM classifies as `mixed`. The implementer needs to know: does `mixed` trigger splitting? Is `mixed` acceptable? **Fix needed in PRECISION:** Add explicit handling rule for `mixed` argument_role.
+
+**Defect 3 (Design — Criterion #16):** §4.B.2 defines a 3-stage deduplication pipeline (hash pre-filter → embedding → LLM judgment) but does not specify the embedding model. The atomization SPEC references sentence-transformers but doesn't specify which model or dimension. **Fix needed in PRECISION:** Coordinate embedding model choice with atomization §4.B.5.
+
+**Defect 4 (Completeness — Criterion #11):** §4.B.4 says "Only active during incremental processing, not during initial bulk loading" but does not specify what happens to the `dialogue_links` field during bulk loading — is it null? Empty array? This matters for downstream consumers. **Fix needed in PRECISION:** Specify explicitly.
+
+### Decisions Made
+
+- **D-041: Argumentative discourse roles are per-science.** The argument role vocabulary is the same across all sciences but the expected distribution differs (fiqh uses full mas'ala sequence; tajwid uses almost exclusively definition+example). Per-science calibration is a configuration hook, not a separate code path.
+- **D-042: Cross-source deduplication runs post-excerpt, not inline.** During bulk loading, dedup runs as batch after all sources are excerpted. During incremental processing, dedup runs per-excerpt at placement time.
+- **D-043: Argument completeness feeds back to passaging engine.** When §4.B.3 detects an argument continuation across a passage boundary, it produces a feedback record for the passaging engine. This is a new inter-engine communication channel.
+
+### Metrics
+
+- SPEC: 559 → 660 lines (+101 lines, all in §4.B)
+- contracts.py: 0 → 389 lines (new file)
+- §4.B capabilities: 3 → 5
+- check_spec_quality.py: ~25 VAGUE_QUANTIFIER warnings (expected, to be fixed in PRECISION)
+- creative_verification.py: §4.B score 90/100
+
+### Domain Questions for Owner
+
+None this session.
