@@ -74,6 +74,17 @@ Update `reference/RESOURCES.md` with any new findings.
 
 **Write down every missing or outdated technology reference.** These are defects.
 
+### Step 4.5: Machine-Readable Contract Verification
+
+If the engine has a `contracts.py` file (machine-readable Pydantic models):
+- Compare every field in the Pydantic model against the SPEC §3 prose. Mismatches are defects.
+- Check: does the Pydantic model have fields the SPEC doesn't mention? (Model is wrong.)
+- Check: does the SPEC mention fields the Pydantic model doesn't have? (Model is incomplete.)
+- Update the model if the SPEC is authoritative and the model is wrong.
+- Update the SPEC if the model reveals a field that should be documented.
+
+If no `contracts.py` exists yet, note this as a gap. Stream 2 of `PREPARATORY_ROADMAP.md` addresses it.
+
 ### Step 5: Cross-SPEC Boundary Verification
 
 Read the upstream engine's §3 (Output Contract) and the downstream engine's §2 (Input Contract):

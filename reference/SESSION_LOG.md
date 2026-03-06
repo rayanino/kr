@@ -298,3 +298,10 @@ All removed detail is already in repo files loaded on-demand via NEXT.md. The cu
 
 **System state:** 14 governance docs, 7 agents, 14 commands, 5 skills, 5 scripts, 1 hook. Machine-readable contract for source engine. Preparatory roadmap with 7 work streams. Ready for actual preparatory work.
 
+
+### Session 2026-03-06 — Claude Chat: Autonomous System Hardening (Seventh Pass — Tooling)
+
+- CLAUDE.md trimmed to 46 lines (from 63). Removed session protocol listing that referenced architect-only documents. Lean, builder-focused.
+- extract_vision_sections.py: Added --search keyword mode. Now supports both `--search "normalization boundary"` and numeric section extraction.
+- SPEC_REFINEMENT.md: Added Step 4.5 (Machine-Readable Contract Verification) for cross-checking SPEC prose against contracts.py Pydantic models.
+

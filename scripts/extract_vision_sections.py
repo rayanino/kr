@@ -53,10 +53,59 @@ def extract(text, nums):
     return header + "\n\n---\n\n".join(parts) + "\n"
 
 
+def search_keyword(text, keyword):
+    """Search VISION.md for sections containing a keyword."""
+    pattern = re.compile(r'^(## §(\d+).*)$', re.MULTILINE)
+    matches = list(pattern.finditer(text))
+    
+    sections = {}
+    for i, m in enumerate(matches):
+        n = int(m.group(2))
+        title = m.group(1)
+        start = m.start()
+        end = matches[i+1].start() if i+1 < len(matches) else len(text)
+        body = text[start:end]
+        sections[n] = (title, body)
+    
+    hits = []
+    kw_lower = keyword.lower()
+    for n, (title, body) in sorted(sections.items()):
+        if kw_lower in body.lower():
+            # Count occurrences
+            count = body.lower().count(kw_lower)
+            # Get first match context (100 chars around it)
+            idx = body.lower().index(kw_lower)
+            context_start = max(0, idx - 50)
+            context_end = min(len(body), idx + len(keyword) + 50)
+            context = body[context_start:context_end].replace("\n", " ").strip()
+            hits.append((n, title.strip(), count, context))
+    
+    return hits
+
+
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python scripts/extract_vision_sections.py 2 7 > vision_excerpt.md")
+        print("Usage:")
+        print("  python scripts/extract_vision_sections.py 2 7          # Extract sections 2 and 7")
+        print("  python scripts/extract_vision_sections.py --search keyword  # Find sections containing keyword")
         sys.exit(1)
+
+    # Keyword search mode
+    if sys.argv[1] == "--search":
+        if len(sys.argv) < 3:
+            print("Usage: python scripts/extract_vision_sections.py --search keyword", file=sys.stderr)
+            sys.exit(1)
+        keyword = " ".join(sys.argv[2:])
+        text = find_vision().read_text(encoding="utf-8")
+        hits = search_keyword(text, keyword)
+        if not hits:
+            print(f"No sections contain \"{keyword}\"", file=sys.stderr)
+        else:
+            print(f"Sections containing \"{keyword}\":", file=sys.stderr)
+            for n, title, count, context in hits:
+                print(f"  §{n} ({count}x): {title}", file=sys.stderr)
+                print(f"        ...{context}...", file=sys.stderr)
+        sys.exit(0)
 
     try:
         nums = [int(x) for x in sys.argv[1:]]
