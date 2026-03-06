@@ -1,68 +1,70 @@
 # How to Start — خزانة ريان Autonomous Sessions
 
-## One-Time Setup
+## Create a New Project
 
-Create a new Claude Chat project. Name it whatever you want (e.g., "KR").
+1. Go to claude.ai → Projects → Create new project
+2. Name it anything (e.g., "KR" or "خزانة ريان")
 
-### 1. Enable features
+## Configure (4 things)
 
-In the project's feature settings, enable:
-- **Code Execution and File Creation** — required, Claude works in the repo directly
-- **Web Search** — required, Claude does mandatory research during SPEC refinement
+### 1. Custom Instructions
 
-### 2. Custom Instructions
+Go to: `https://github.com/rayanino/kr/blob/master/reference/PROJECT_INSTRUCTIONS.md`
 
-Go to this URL in your browser:
+Click "Raw." Copy everything from line 5 ("You are the architect...") to the end. Paste into the project's Custom Instructions field.
+
+### 2. Knowledge File: DEEP_REASONING_PROTOCOL.md
+
+Download from: `https://github.com/rayanino/kr/raw/master/reference/DEEP_REASONING_PROTOCOL.md`
+
+Upload as a project knowledge file.
+
+### 3. Knowledge File: Github_key
+
+Create a plain text file named `Github_key` containing only:
 ```
-https://github.com/rayanino/kr/blob/master/reference/PROJECT_INSTRUCTIONS.md
+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
 ```
+Upload as a project knowledge file.
 
-Click the "Raw" button (top right of the file). Select all text from line 5 (starting with "You are the architect") to the end. Copy it.
+### 4. Enable Features
 
-In the project's Custom Instructions field, paste the copied text.
+In project settings, enable:
+- **Code Execution and File Creation** (required)
+- **Web Search** (required)
 
-No variables to replace — Claude reads the GitHub token from the `Github_key` project knowledge file automatically.
+## Verify
 
-### 3. Project Knowledge Files
-
-Add TWO project knowledge files:
-
-**File 1: `DEEP_REASONING_PROTOCOL.md`**
-Download from: `https://github.com/rayanino/kr/blob/master/reference/DEEP_REASONING_PROTOCOL.md`
-(Click "Raw" → Save As → upload as project knowledge)
-
-**File 2: `Github_key`**
-Create a plain text file containing only your GitHub personal access token (the string starting with `ghp_`). Name it `Github_key`.
-
-### Verification
-
-Your project should have:
-- Custom Instructions: ~110 lines starting with "You are the architect"
-- 2 knowledge files: `DEEP_REASONING_PROTOCOL.md` and `Github_key`
+Your project has:
+- Custom Instructions: ~120 lines starting with "You are the architect"
+- 2 knowledge files: DEEP_REASONING_PROTOCOL.md, Github_key
 - Code Execution: enabled
 - Web Search: enabled
 
-## Every Session
+## Start Working
 
-Open a new conversation in the project. Send:
+Open a new conversation. Type:
 
 ```
 Continue the project.
 ```
 
-Claude will clone the repo, read NEXT.md for its task, do the work, commit, and push. You may be asked domain questions about Islamic scholarship — answer from your experience.
+Claude will clone the repo, read NEXT.md, and begin the current task (source engine creative session). It will research, invent capabilities, write them into the SPEC, commit, and push — all autonomously.
 
-### If You Want a Specific Type of Session
+## Session Flow
 
-- **Design review:** "Run a design review on [component or 'the full system']."
-- **Feedback:** "I have feedback on your last session: [describe your concern]."
-- **Normal work:** "Continue the project." — NEXT.md directs Claude to the right task.
+Each "Continue the project" triggers one focused session. The repo's NEXT.md file tells Claude exactly what to do. At the end of each session, Claude writes a new NEXT.md for the next session.
 
-## If Something Breaks
+Expected workflow for the preparatory phase:
+- ~35-40 sessions over 3-5 weeks
+- Each session: 1 focused task (creative OR precision OR hardening)
+- Progress tracked in STATUS.md
+- All work committed to the repo
 
-If Claude says it can't clone or push:
-1. Is the GitHub token still valid? (Tokens expire — generate a new one and update the `Github_key` knowledge file)
-2. Is Code Execution enabled in project settings?
+## If Something Goes Wrong
 
-If Claude says it can't search the web:
-1. Is Web Search enabled in project settings?
+- **Can't clone:** GitHub token expired → regenerate and update Github_key
+- **Can't search:** Web Search not enabled in project settings
+- **Session seems unfocused:** NEXT.md may be stale → Claude will run orient.py to recover
+- **Want to give feedback:** Start a conversation with "I have feedback on your last session: [concern]"
+- **Want a design review:** "Run a design review on [component]"
