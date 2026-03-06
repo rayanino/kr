@@ -31,6 +31,9 @@ The passaging engine receives a single input artifact: a normalized package at `
 - `verse_detection` — whether versified text was found and the numbering scheme.
 - `total_content_units` — expected number of records in the content stream.
 - `text_fidelity_summary` — aggregate fidelity metrics.
+- `content_census` — (§4.B.5 of normalization SPEC) statistical profile of source content. If present, the passaging engine uses it for adaptive strategy selection (§4.B.5 of this SPEC). Fields used: `text_density_profile` (for passage size calibration), `layer_complexity` (for commentary strategy adaptation), `structural_depth` (for division-tree reliability estimation), `footnote_density` (for assembly complexity prediction), `vocabulary_profile.technical_term_density` (for semantic splitting threshold adjustment). If absent, the passaging engine uses default configuration values.
+- `tahqiq_topology` — (§4.B.7 of normalization SPEC) manuscript witness network. If present and `has_tahqiq_apparatus` is true, the passaging engine records the variant reading density per division in passage metadata, enabling the excerpting engine to flag passages from high-variant regions for additional scrutiny. If absent, this metadata is simply not emitted.
+- `quality_report` — normalization quality summary. The passaging engine uses `overall_confidence` to adjust boundary placement confidence thresholds: when normalization confidence is `low`, the engine lowers its expectations for division tree reliability and more aggressively applies implicit structure discovery (§4.B.2).
 
 **Content stream (`content.jsonl`).** One record per physical page, ordered by `unit_index`. The passaging engine reads all fields defined in the normalization engine SPEC §3.
 
@@ -141,6 +144,22 @@ The normalization engine outputs per-page content units with text that ends at p
 
 **Handling non-digestible content units.** Content units flagged as `is_toc_page`, `is_index_page`, or `is_blank` within a division marked `digestible: false` are skipped entirely — they produce no passage text. If such units appear WITHIN a digestible division (e.g., a blank page in the middle of a chapter), they are skipped during assembly but their `unit_index` is recorded so the page range remains accurate for citation.
 
+**Arabic-specific joining example.** Consider two adjacent content units at a page boundary:
+
+Unit 47 ends with: `...وقد ذهب الإمام أحمد بن حنبل رحمه الله إلى أن الم`
+Unit 48 begins with: `بتدأ هو الاسم المرفوع العاري عن العوامل اللفظية`
+
+The last character of unit 47 is `م` (a letter) and the first character of unit 48 is `ب` (a letter) — this is a mid-word page break splitting `المبتدأ`. Rule 1 applies: join without separator, producing `...الم` + `بتدأ` → `...المبتدأ هو الاسم المرفوع العاري عن العوامل اللفظية`.
+
+Another example — sentence-boundary page break:
+
+Unit 47 ends with: `...والدليل على ذلك قوله تعالى: ﴿وَأَقِيمُوا الصَّلَاةَ﴾.`
+Unit 48 begins with: `وأما المسألة الثانية فقد اختلف العلماء فيها`
+
+The last character of unit 47 is `.` (sentence-terminal punctuation). Rule 4 applies: preserve the original whitespace pattern (newline), producing the two sentences on separate lines.
+
+**Taa marbuta / hamza at page boundaries.** Arabic letters that change form at word boundaries require special attention during cross-page joining. When unit N ends with a standalone `ة` (taa marbuta) or `ء` (hamza) and unit N+1 begins with a space, the word is complete — these are word-final forms. The engine does NOT join them to the next word. This distinguishes mid-word breaks (Rule 1) from word-final characters that merely coincide with page boundaries.
+
 #### §4.A.3 — Strategy Selection
 
 The passaging engine selects a strategy based on the manifest's `structural_format` field. Each strategy implements the same interface (input: assembled text blocks + division tree; output: passage boundary decisions) but uses different logic for boundary placement.
@@ -163,6 +182,8 @@ This is the default and most common strategy. It handles standard scholarly pros
 
 **Passage size targets.** Arabic text is morphologically denser than English. A single Arabic word may encode a full clause. Empirical calibration: a passage of 200–800 Arabic words (measured by whitespace tokenization) is the target range. This yields passages that typically contain one or two complete scholarly arguments, with enough context for self-contained excerpts but not so much that the excerpting engine must pick through unrelated material.
 
+**Arabic word count method.** Word counting uses whitespace tokenization on the assembled passage text after stripping footnote reference markers (`⌜N⌝`). Specifically: split the text on Unicode whitespace (`\s+`), filter out empty tokens and tokens that consist entirely of punctuation, count the remaining tokens. This is deliberately simple — Arabic morphological tokenization (via CAMeL Tools or similar) would give a different count (splitting clitics), but whitespace tokenization is standard in the Islamic studies literature (KITAB's passim uses 300-word milestones counted by whitespace) and matches how scholars estimate text length. The passage size parameters are calibrated against whitespace word counts.
+
 - **Minimum passage size:** 50 Arabic words. Passages below this threshold are merged with an adjacent sibling or, if no sibling exists, with the nearest preceding passage.
 - **Target passage size:** 200–800 Arabic words. Divisions in this range become passages directly with `sizing.action: "direct"`.
 - **Maximum passage size (soft):** 800 Arabic words. Divisions exceeding this are candidates for splitting but are not automatically split — the engine first checks whether the content is a single coherent argument that should not be divided.
@@ -180,13 +201,41 @@ This is the default and most common strategy. It handles standard scholarly pros
 **Step 3: Semantic splitting for oversized divisions.** When a division must be split, the engine identifies natural sub-topic boundaries within the text:
 
 1. **Paragraph boundary scan.** Identify paragraph breaks (double newline patterns). These are the preferred split points because they typically align with topic shifts in scholarly prose.
-2. **Scholarly keyword scan.** Within paragraphs, search for topic-transition indicators: ordinal markers (أولاً، ثانياً، ثالثاً), contrastive markers (وأما، ولكن), new-topic markers (ومن ذلك، وأما مسألة), evidence markers (والدليل على ذلك، لقوله تعالى). These indicate sub-topic boundaries within a larger division.
-3. **LLM-assisted splitting.** For divisions >1000 words where paragraph and keyword scans produce no satisfactory split point, the engine sends the text to an LLM with the prompt: "Identify the natural sub-topic boundaries in this Arabic scholarly text. Return the character offsets where one topic ends and another begins." The LLM response provides candidate split points. Each LLM-identified boundary gets `confidence: 0.6–0.8` and generates a `review_flag: "implicit_boundary"`.
+2. **Scholarly keyword scan.** Within paragraphs, search for topic-transition indicators organized by type:
+
+   - **Ordinal markers (ترقيم):** `أولاً` (firstly), `ثانياً` (secondly), `ثالثاً` (thirdly), `الأول` / `الثاني` / `الثالث` (the first / second / third), `الوجه الأول` (the first aspect).
+   - **New-topic markers (انتقال):** `وأما` (as for...), `ومن ذلك` (and among that...), `وأما مسألة` (as for the question of...), `فصل:` (section:) when appearing inline without heading formatting, `ثم إن` (then verily).
+   - **Contrastive markers (مقابلة):** `ولكن` (but), `وخالف` (and [he] differed), `واعترض` (and [it was] objected), `ورُدّ بأن` (and it was refuted by...).
+   - **Evidence markers (استدلال):** `والدليل على ذلك` (and the evidence for that is), `لقوله تعالى` (due to His — the Exalted's — saying), `لقول النبي ﷺ` (due to the Prophet's ﷺ saying), `واحتج بـ` (and he argued with...), `واستدل بـ` (and he adduced evidence with...).
+   - **Position markers (مذاهب):** `وذهب الحنفية إلى` (and the Hanafis held that), `وقال المالكية` (and the Malikis said), `القول الأول` / `القول الثاني` (the first position / the second position), `والراجح` (and the preponderant [view]).
+
+   **Example.** In a prose division of 1,200 words from al-Mughni by Ibn Qudamah, the text might read:
+   ```
+   ...وقد اختلف العلماء في هذه المسألة على ثلاثة أقوال.
+   القول الأول: ذهب الحنابلة والشافعية إلى أن... والدليل على ذلك قوله تعالى...
+   القول الثاني: وذهب الحنفية إلى أن... واستدلوا بحديث...
+   القول الثالث: وقال المالكية... واحتجوا بأن...
+   والراجح: هو القول الأول لقوة دليله...
+   ```
+   The scholarly keyword scan identifies `القول الأول`, `القول الثاني`, `القول الثالث`, and `والراجح` as sub-topic boundaries. The engine splits between `القول الأول` and `القول الثاني` (approximately 400 words each) if the full division exceeds the hard maximum.
+
+   **Boundary placement rule for keywords.** When a keyword marker is identified as a split point, the boundary is placed BEFORE the keyword (the keyword starts the new passage). The preceding passage ends at the last sentence boundary before the keyword.
+
+3. **LLM-assisted splitting.** For divisions >1000 words where paragraph and keyword scans produce no satisfactory split point, the engine sends the text to an LLM with the prompt: "Identify the natural sub-topic boundaries in this Arabic scholarly text. Return the character offsets where one topic ends and another begins. Do NOT split within an evidence chain (دليل + استدلال), a narration chain (إسناد + متن), or a definition with its explanation." The LLM response provides candidate split points. Each LLM-identified boundary gets `confidence: 0.6–0.8` and generates a `review_flag: "implicit_boundary"`.
 4. **Fallback: fixed-interval splitting.** If all else fails (no paragraphs, no keywords, LLM unavailable), split at sentence boundaries (`.` or `؟` or `!` followed by space, at approximately 500-word intervals). `sizing.action: "split"`, `review_flag: "low_confidence_boundary"`.
+
+**Arabic sentence detection specification.** Sentence boundaries in Arabic are identified by the following markers, in priority order:
+
+1. **Terminal punctuation followed by whitespace:** `.` (period), `؟` (Arabic question mark), `!` (exclamation), `؛` (Arabic semicolon when followed by a topic-shift keyword from the scholarly keyword list above). The `،` (Arabic comma) is NOT a sentence terminal — it is a clause separator.
+2. **Paragraph breaks:** Double newline patterns are always sentence boundaries.
+3. **Quran citation boundaries:** The closing bracket `﴾` of a Quran citation followed by a non-citation sentence is a sentence boundary (the engine does not split within `﴿...﴾` pairs).
+4. **Heuristic: long comma-separated spans.** In classical Arabic texts with minimal punctuation, spans exceeding 200 characters between periods may contain multiple logical sentences separated only by `و` (wa/and). The engine does NOT attempt to split these — Arabic scholarly prose is characteristically paratactic (joined by `و`), and splitting at `و` would break more arguments than it preserves. These spans are treated as single long sentences.
+
+**Isnad chain integrity.** In hadith and fiqh texts, isnad chains (narration chains) follow the pattern `حدثنا X عن Y عن Z قال: [matn]` or `أخبرنا X حدثنا Y عن Z أنه قال: [matn]`. An isnad chain plus its matn (narrated text) form an atomic unit. The passaging engine detects isnad openings (`حدثنا`, `أخبرنا`, `أنبأنا`, `عن`, `قال`) and does NOT place a passage boundary between an isnad chain and its matn. If a passage boundary candidate falls within an isnad-matn unit, the boundary is moved to the end of the matn (the next sentence boundary after the matn).
 
 **Split passage identity.** When a division is split into N passages, each passage carries: `division_ids: [original_div_id]`, `heading_text: null` (except the first piece, which carries the original heading), and `sizing: { action: "split", notes: "Split N of M from division {div_id}" }`.
 
-**Sentence integrity rule.** No passage boundary falls mid-sentence. When a boundary calculation lands within a sentence, the boundary moves to the nearest sentence end (`.`, `؟`, `!`, or paragraph break). Sentence detection in Arabic uses: terminal punctuation marks, paragraph breaks, and a set of Arabic sentence-terminal patterns (subject to refinement against gold baselines).
+**Sentence integrity rule.** No passage boundary falls mid-sentence. When a boundary calculation lands within a sentence, the boundary moves to the nearest sentence end, using the Arabic sentence detection specification defined above. Sentence detection uses the four-tier priority system: terminal punctuation, paragraph breaks, Quran citation boundaries, and the heuristic for long comma-separated spans. The engine does NOT split within isnad-matn units (see isnad chain integrity rule above).
 
 #### §4.A.5 — Verse Strategy
 
@@ -216,9 +265,17 @@ Q&A-format sources (fatwa collections like مجموع الفتاوى, مسائل
 
 **Q&A boundary detection.** The engine detects Q&A pairs using these signals:
 
-1. **Explicit markers:** "سُئل عن" (he was asked about), "مسألة:" (question:), "سؤال:" (question:), "جواب:" (answer:). The question marker starts a new Q&A pair.
+1. **Explicit markers:** `سُئل عن` (he was asked about), `مسألة:` (question:), `سؤال:` (question:), `جواب:` (answer:), `فأجاب` (and he answered), `الجواب:` (the answer:), `قيل له:` (it was said to him:), `فقال:` (and he said:), `وسأله` (and [someone] asked him). The question marker starts a new Q&A pair.
 2. **Typographic signals:** If the normalization engine preserved bold or indented formatting (via structural markers), questions may be visually distinguished from answers.
-3. **Pattern-based:** A new question marker after an answer section signals a new Q&A pair.
+3. **Pattern-based:** A new question marker after an answer section signals a new Q&A pair. Specifically: the sequence `جواب/فأجاب → [answer text] → سُئل/سؤال/مسألة` indicates a pair boundary between the answer text and the next question.
+
+   **Example.** In مجموع الفتاوى by Ibn Taymiyyah:
+   ```
+   وسُئل رحمه الله تعالى عن رجل يصلي ولا يزكي هل تصح صلاته أم لا؟
+   فأجاب: الحمد لله. أما الزكاة فهي أحد أركان الإسلام... [400 words of answer]
+   وسُئل أيضاً عن رجل حلف بالطلاق ثلاثاً ثم ندم...
+   ```
+   The engine detects `وسُئل رحمه الله تعالى عن` as the first Q&A pair opening, `فأجاب:` as the start of the answer, and `وسُئل أيضاً` as the start of the next Q&A pair. The first pair (question + 400-word answer) becomes one passage.
 
 **Passage formation.** Each Q&A pair forms one passage. The passage includes: the question text, the answer text, and any footnotes within the pair.
 
@@ -319,7 +376,7 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 
 1. **مسألة boundary detection.** Islamic scholarly texts, even without headings, are organized around مسائل (scholarly questions). The engine detects implicit مسألة boundaries by looking for patterns: "وأما" (as for...) introducing a new sub-topic, "ومنها" (and among them...) listing items, "واختلفوا في" (they disagreed about...) introducing a new point of disagreement, "والمسألة الثانية" (the second question) with ordinal numbering even without heading formatting.
 
-2. **Topic shift detection via embeddings.** Using a multilingual sentence embedding model, the engine computes a sliding-window topic coherence score across the text. Significant drops in coherence (measured as cosine distance between adjacent sentence windows exceeding a threshold) indicate topic shifts. The threshold is calibrated per genre: sharh texts have more internal coherence variation than matn texts.
+2. **Topic shift detection via embeddings.** Using Sentence Transformers (specifically `intfloat/multilingual-e5-large` or `sentence-transformers/paraphrase-multilingual-mpnet-base-v2`), the engine computes a sliding-window topic coherence score across the text. Significant drops in coherence (measured as cosine distance between adjacent sentence windows exceeding a threshold) indicate topic shifts. The threshold is calibrated per genre: sharh texts have more internal coherence variation than matn texts.
 
 3. **LLM-based structural analysis.** For texts where signal 1 and 2 disagree or are ambiguous, the engine sends a 2000-word window to an LLM with the prompt: "This Arabic scholarly text has no headings. Identify where one scholarly topic ends and another begins. For each boundary, provide: the character offset and a brief title describing the new topic." The LLM response produces candidate divisions with generated titles. These generated titles are stored as `heading_text` on the passage with `heading_source: "llm_inferred"`, clearly distinguished from author-original headings.
 
@@ -349,7 +406,7 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 
 **Capability:** When the library contains multiple editions of the same work (different tahqiq editions with different pagination, footnotes, and sometimes different text variants), the passaging engine establishes passage-level correspondence between them. Passage N in edition A corresponds to passage M in edition B — they cover the same content from the same author, even though page numbers differ.
 
-**Technical approach.** When the source engine's work registry indicates that multiple sources share the same `work_id`, the passaging engine can run a correspondence analysis:
+**Technical approach.** When the source engine's work registry indicates that multiple sources share the same `work_id`, the passaging engine can run a correspondence analysis using Smith-Waterman alignment (the same algorithm used by KITAB's passim tool):
 
 1. **Text similarity matching.** For each passage in the new edition, compute its similarity to all passages in existing editions (using character n-gram overlap, not semantic similarity, because the text SHOULD be nearly identical). Matches with >80% character overlap are considered correspondences.
 2. **Division tree alignment.** If both editions have division trees, align them by heading text similarity. Matching headings confirm passage correspondence.
@@ -360,6 +417,77 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 **Why this is transformative.** Edition comparison is a core activity in Islamic textual criticism (تحقيق). Scholars spend hours comparing different prints of the same work to identify variants, corrections, and editorial additions. KR automates the first step: aligning the editions at passage level so that the comparison can be done systematically. The KITAB project's passim algorithm (see RESOURCES.md) demonstrates that text reuse detection in Arabic is feasible at this scale.
 
 [NOT YET IMPLEMENTED] — Full specification provided. Depends on: multiple editions of the same work in the library (requires the source engine's work registry to track `work_id` relationships). Technical approach: character n-gram matching is straightforward; the KITAB project uses Smith-Waterman alignment on 300-word chunks of Arabic text.
+
+#### §4.B.5 — Content Census-Driven Adaptive Passaging
+
+**Capability:** The normalization engine's content census (§4.B.5 of normalization SPEC) provides a statistical profile of each source: text density distribution, footnote density, layer complexity, structural depth, vocabulary profile, verse ratio, and fidelity distribution. The passaging engine uses this profile to AUTOMATICALLY adapt its strategy and parameters per-source, instead of relying on static configuration defaults. This means two sources with the same `structural_format` may receive different passage size targets, different splitting thresholds, and different quality expectations — because their content profiles are different.
+
+**Technical approach.** When the normalization manifest includes a `content_census`, the passaging engine computes adapted parameters before processing begins:
+
+1. **Passage size calibration from text density.** The content census reports `text_density_profile.mean_chars_per_page` and `vocabulary_profile.technical_term_density`. Sources with high technical term density (>0.15) contain more information per word — their passages should be smaller so each passage is topically focused. Adapted formula:
+   - `adapted_target_high = config.target_passage_words_high × (1.0 - technical_term_density × 0.3)`
+   - Example: a dense usul al-fiqh text with `technical_term_density: 0.22` gets `adapted_target_high = 800 × (1.0 - 0.22 × 0.3) = 800 × 0.934 = 747 words`, tighter than the default 800.
+   - A narrative sira text with `technical_term_density: 0.05` gets `adapted_target_high = 800 × (1.0 - 0.05 × 0.3) = 800 × 0.985 = 788 words`, essentially unchanged.
+
+2. **Splitting threshold from structural depth.** Sources with deep, well-structured division trees (high `structural_depth.division_count`, high `structural_depth.max_depth`) rarely need semantic splitting — their divisions are fine-grained enough. Sources with shallow trees need more aggressive splitting. Adapted formula:
+   - If `structural_depth.mean_pages_per_leaf_division > 10`: lower `llm_splitting_threshold` by 20% (these divisions are large and likely need splitting)
+   - If `structural_depth.mean_pages_per_leaf_division < 2`: raise `merge_threshold` by 30% (these divisions are small and likely need merging)
+
+3. **Commentary strategy adaptation from layer complexity.** For commentary sources, the content census reports `layer_complexity.transition_density` (layer transitions per page) and `layer_complexity.matn_ratio`. Sources with frequent layer transitions (>3 per page) have fine-grained interleaving — the commentary-unit detection needs tighter sensitivity. Sources with rare transitions (<0.5 per page) have large blocks per layer — the engine can use broader boundary detection.
+   - `adapted_commentary_sensitivity = "fine"` if `transition_density > 3.0`, `"normal"` if 0.5–3.0, `"coarse"` if `transition_density < 0.5`
+
+4. **Footnote-aware passage assembly.** The content census reports `footnote_density.mean_footnotes_per_page`. Sources with high footnote density (>5 per page, common in well-edited tahqiq editions) produce passages with many footnotes. The engine adjusts: in high-footnote sources, passage size targets are reduced by 15% to prevent passages from becoming too complex for downstream processing. In low-footnote sources (<1 per page), this adjustment does not apply.
+
+**Output.** Each passage record receives an `adaptive_params` field recording which parameters were adapted and why: `{ text_density_adjustment: float, structural_depth_adjustment: string, commentary_sensitivity: string, footnote_adjustment: float, adaptation_rationale: string }`. This transparency allows debugging and gold baseline calibration.
+
+**Example.** شرح ابن عقيل على الألفية has: `technical_term_density: 0.18`, `structural_depth.mean_pages_per_leaf_division: 3.2`, `layer_complexity.transition_density: 2.1`, `footnote_density.mean_footnotes_per_page: 4.3`. The engine computes: passage size target reduced to ~757 words (from 800), structural splitting at normal thresholds, commentary sensitivity "normal", footnote adjustment -15% → effective target ~643 words. This smaller target produces more focused passages from this dense grammatical commentary — each passage covers one or two verse explanations rather than three or four.
+
+**Why this is transformative.** No existing text segmentation tool adapts its chunking parameters based on statistical analysis of the document being processed. RAG systems use fixed chunk sizes (256, 512, 1024 tokens) regardless of content density. KITAB's passim uses a flat 300-word milestone regardless of text complexity. KR's passaging engine becomes the first system that READS the content profile and ADAPTS its strategy to match — producing optimally-sized passages for every source, from dense fiqh reference works to flowing sira narratives.
+
+[NOT YET IMPLEMENTED] — Full specification provided. Depends on: content census data from the normalization engine (already designed in normalization SPEC §4.B.5). Computation uses NumPy for statistical parameter adaptation. No additional external tools required — adaptation logic is pure computation on census statistics.
+
+#### §4.B.6 — Scholarly Argument Boundary Detection (حفظ حدود الحجج)
+
+**Capability:** Islamic scholarly texts are organized around ARGUMENTS, not just topics. A scholarly argument has a recognizable structure: claim (مسألة/دعوى) → supporting evidence (دليل/حجة) → counter-evidence (اعتراض/نقض) → refutation (جواب/رد) → conclusion (ترجيح/خلاصة). The passaging engine detects these argument structures and ensures that passage boundaries NEVER split a complete argument in half. A passage that contains the claim and evidence but splits before the refutation forces the excerpting engine to produce an incomplete excerpt — the reader learns a position but not its defense.
+
+**Technical approach.** The engine detects argument boundaries using a pattern-based state machine:
+
+1. **Argument opening detection.** An argument begins when the text matches one of:
+   - Explicit مسألة markers: `مسألة:`, `فرع:`, `تنبيه:`, `واختلفوا في`, `وقد اختلف العلماء في`
+   - Position introduction: `ذهب ... إلى أن`, `القول الأول:`, `وقال ...:`
+   - Question formulation: `هل ... أم ...؟`, `ما حكم ...؟`
+
+2. **Argument body tracking.** Once an argument is open, the engine tracks the argumentative flow by detecting:
+   - Evidence markers: `والدليل`, `واستدل بـ`, `لقوله تعالى`, `لقول النبي ﷺ`, `لما روى`
+   - Counter-evidence markers: `واعتُرض`, `ونوقش`, `وأُجيب عن هذا`, `ولا يصح هذا لأن`
+   - Response markers: `والجواب:`, `ورُدّ بأن`, `وأُجيب بأن`
+   - Conclusion markers: `والراجح`, `والصحيح`, `والمعتمد`, `فتبين أن`, `فالحاصل`
+
+3. **Argument closure detection.** An argument closes when:
+   - A conclusion marker is found (ترجيح/خلاصة), followed by a sentence boundary
+   - A new argument opening marker appears (new مسألة after the current one)
+   - A structural division boundary is reached
+
+**Boundary protection rule.** When the passaging engine's size-based boundary calculation (§4.A.4 Step 2) would place a boundary inside a detected argument, the engine adjusts:
+- If the argument is ≤150% of the hard max: keep the argument intact as one passage, even though it exceeds the normal size target. Flag with `argument_preserved` review flag. The rationale: a slightly oversized passage with a complete argument is better for excerpting than two passages with a split argument.
+- If the argument is >150% of the hard max: split at an internal sub-argument boundary (between `القول الأول` block and `القول الثاني` block, or between the evidence section and the response section). Each sub-argument still carries the parent argument's مسألة text in its `heading_text` field, so the excerpting engine knows they belong together.
+
+**Example.** In المغني by Ibn Qudamah, a typical مسألة block reads:
+```
+مسألة: إذا نوى المسافر الإقامة أربعة أيام أتم.
+وهذا قول أكثر أهل العلم. وبه قال مالك والشافعي وأبو حنيفة.
+والدليل على ذلك: أن النبي ﷺ أقام بمكة أربعة أيام يقصر الصلاة.
+واحتج من قال بخلاف ذلك بحديث: صلاة المسافر ركعتان...
+والجواب عن هذا: أن الحديث محمول على من لم ينو الإقامة...
+والراجح: قول الجمهور لقوة دليلهم.
+```
+This is a single argument (~180 words). The engine detects `مسألة:` as the opening, tracks through `والدليل`, `واحتج من قال بخلاف ذلك`, `والجواب عن هذا`, and `والراجح` as the closure. Even if surrounding passages are 400 words and this block would be below the merge threshold, the engine does NOT merge it with the next مسألة — it respects the argument boundary because merging two separate مسائل in one passage would confuse the excerpting engine.
+
+**Output.** Each passage receives an `argument_structure` field when argument detection is active: `{ detected: bool, argument_markers_found: [string], completeness: "complete" | "partial_opening" | "partial_closing", protected_from_split: bool }`. The `completeness` field tells the excerpting engine whether this passage contains a complete argument or whether it was unavoidably split.
+
+**Why this is transformative.** Topic segmentation systems (including all existing RAG chunking tools and KITAB's milestones) segment text by TOPIC shifts — they detect when the subject changes. Argument boundary detection goes deeper: it understands the RHETORICAL structure of scholarly discourse. Two passages might discuss the same topic (e.g., traveler's prayer ruling) but contain different arguments. The passaging engine ensures each argument is self-contained, producing passages that map directly to scholarly reasoning units rather than arbitrary text chunks. This is what enables the excerpting engine to produce excerpts that faithfully represent complete scholarly positions with their evidence — the fundamental building block of the KR entry format (see ENTRY_EXAMPLE.md).
+
+[NOT YET IMPLEMENTED] — Full specification provided. The pattern-based state machine is implemented using Python regex matching on the keyword lists, with optional enhancement via OpenAI or Anthropic LLM APIs for ambiguous cases. Depends on: the scholarly keyword patterns defined in §4.A.4 Step 2 (shared resource).
 
 ---
 
@@ -412,6 +540,9 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 | `PSG_SIZE_DISTRIBUTION_SKEWED` | Warning | >20% of passages outside target range | Log. Flag source for structural review. |
 | `PSG_LOW_COHERENCE` | Warning | Mean coherence below threshold | Log. Flag source. |
 | `PSG_WEAK_BOUNDARIES` | Warning | >30% of boundaries have low semantic distance | Log. Flag source. |
+| `PSG_ARGUMENT_OVERSIZED` | Warning | Argument preservation produced passage >150% of hard max | Log. Flag passage with `argument_preserved`. |
+| `PSG_ADAPTATION_FAILED` | Info | Content census-driven adaptation computed but produced out-of-range values | Fall back to default parameters. Log adapted values. |
+| `PSG_ISNAD_SPLIT` | Warning | An isnad-matn unit was split because it exceeded 3x hard max | Log. Flag both passages. This indicates an unusually long narration chain. |
 
 **Error logging.** All errors are logged with: error code, severity, source_id, timestamp, affected passage_ids (if applicable), and a human-readable description. Warning-level and above are included in the source's processing status record.
 
@@ -436,6 +567,9 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 | `enable_quality_prediction` | false | true/false | Whether to run §4.B.1 quality prediction |
 | `enable_implicit_structure` | true | true/false | Whether to run §4.B.2 for minimal-structure sources |
 | `enable_commentary_alignment` | true | true/false | Whether to run §4.B.3 for commentary sources |
+| `enable_adaptive_passaging` | true | true/false | Whether to run §4.B.5 content census adaptation |
+| `enable_argument_detection` | true | true/false | Whether to run §4.B.6 argument boundary detection |
+| `argument_max_expansion` | 1.5 | 1.1–2.0 | Maximum factor by which argument preservation can exceed hard_max |
 
 **Per-science configuration hooks (Level 3).** SCIENCE.md files may override:
 - Passage size parameters (some sciences have characteristically shorter or longer scholarly arguments).
@@ -460,7 +594,7 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 - The entire processing pipeline (§4.A.1–§4.A.10) is [NOT YET IMPLEMENTED].
 - All format-specific strategies (§4.A.4–§4.A.9) are [NOT YET IMPLEMENTED].
 - Cross-page text assembly (§4.A.2) is [NOT YET IMPLEMENTED].
-- All transformative capabilities (§4.B.1–§4.B.4) are [NOT YET IMPLEMENTED].
+- All transformative capabilities (§4.B.1–§4.B.6) are [NOT YET IMPLEMENTED].
 - The passage schema (§3) needs to be created as a new JSON Schema file.
 
 **External tools and libraries:**
@@ -487,11 +621,18 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 
 6. **Sentence integrity.** Verify that no passage boundary falls mid-sentence in Arabic text. Test cases: text with only Arabic punctuation, text with mixed Arabic/Latin punctuation, text with no punctuation (requires heuristic sentence detection). Minimum 5 test cases.
 
+7. **Isnad chain preservation.** Verify that isnad-matn units are never split across passage boundaries. Test cases: a hadith text with short isnad chains (3 narrators + matn), long isnad chains (7+ narrators), nested isnad chains (`حدثنا X قال حدثنا Y` within a larger chain), and isnad that spans a page boundary. Minimum 4 test cases.
+
+8. **Content census-driven adaptation (§4.B.5).** Verify that when content census is present, passage size targets are correctly adapted. Test cases: high technical term density source (should produce smaller passages), low structural depth source (should lower splitting threshold), high footnote density commentary (should reduce targets). Minimum 4 test cases.
+
+9. **Argument boundary detection (§4.B.6).** Verify that scholarly arguments are correctly detected and preserved. Test cases: a standard مسألة block with claim/evidence/counter/response/conclusion; an oversized argument that needs internal splitting at position boundaries; two adjacent مسائل that should NOT be merged even if both are small. Minimum 5 test cases.
+
 **Gold baseline usage.** Gold baselines should be created for:
 - One prose source (شرح ابن عقيل or similar intermediate sharh): hand-verified passage boundaries.
 - One verse source (ألفية ابن مالك or المنظومة البيقونية): hand-verified verse groupings.
 - One Q&A source (from a fatwa collection): hand-verified Q&A pair boundaries.
 - One minimal-structure source (a headingless text): hand-verified implicit topic boundaries.
+- One masala-block source (المغني or similar): hand-verified argument boundaries showing مسألة opening, evidence chains, and conclusions.
 
 Each gold baseline: the normalized package input, the expected passage stream output, and annotations explaining why each boundary was placed where it is.
 

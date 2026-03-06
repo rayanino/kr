@@ -88,3 +88,49 @@ Prepared the normalization engine directory for Claude Code implementation. This
 - IMPL_BRIEF uses 6-step incremental build rather than big-bang — each step is independently testable.
 
 ### No Domain Questions This Session
+
+---
+
+## Session 9: Passaging Engine CREATIVE
+**Date:** 2026-03-06
+**Type:** CREATIVE
+**Engine:** Passaging (محرك التقطيع)
+
+### What Was Done
+
+**Research phase:**
+- Surveyed Arabic NLP text segmentation landscape (ArabicNLP 2024-2025, KITAB project, OpenITI mARkdown)
+- Studied KITAB's passim algorithm: 300-word milestones, Smith-Waterman alignment for text reuse detection
+- Researched RAG chunking strategies (2024-2025): semantic chunking, adaptive chunking (87% vs 13% accuracy over fixed-size), late chunking, proposition-based chunking
+- Examined OpenITI mARkdown structural tagging: `### |` for chapters, `### ||` for sections, paragraph tags, milestone markers
+
+**Key research insight:** Adaptive chunking that respects document structure dramatically outperforms fixed-size and even semantic-only approaches. This validates KR's division-guided approach AND motivates the new content census-driven adaptation capability.
+
+**Creative output — SPEC rewrite (502 → 643 lines):**
+
+1. **§2 input contract updated:** Added content_census and tahqiq_topology from normalization manifest, quality_report for boundary confidence adjustment
+2. **§4.A.2 Arabic cross-page joining examples:** Two concrete Arabic examples (mid-word break on المبتدأ, sentence-boundary break), taa marbuta/hamza page boundary handling
+3. **§4.A.4 scholarly keyword scan expansion:** Organized 25+ Arabic keywords into 5 categories (ordinal, new-topic, contrastive, evidence, position), with concrete مغني example showing splitting at position boundaries
+4. **§4.A.4 Arabic sentence detection specification:** Four-tier priority system (terminal punctuation, paragraph breaks, Quran citation boundaries, long comma-span heuristic), explicit rule that Arabic comma is NOT sentence-terminal
+5. **§4.A.4 isnad chain integrity rule:** Pattern-based detection of حدثنا/أخبرنا/أنبأنا chains, never split isnad+matn across passages
+6. **§4.A.6 Q&A markers expanded:** Added فأجاب, الجواب:, قيل له:, وسأله; concrete example from مجموع الفتاوى
+7. **Arabic word count method specified:** Whitespace tokenization (matching KITAB convention), not morphological tokenization
+8. **NEW §4.B.5 — Content Census-Driven Adaptive Passaging:** Uses normalization content census to adapt passage size, splitting thresholds, commentary sensitivity, and footnote adjustment per-source. Concrete formulas with worked examples (شرح ابن عقيل → 643 effective target)
+9. **NEW §4.B.6 — Scholarly Argument Boundary Detection:** Pattern-based state machine detecting مسألة → evidence → counter → refutation → conclusion structure. Boundary protection rule (arguments up to 150% hard max preserved intact). Concrete example from المغني
+10. **New error codes:** PSG_ARGUMENT_OVERSIZED, PSG_ADAPTATION_FAILED, PSG_ISNAD_SPLIT
+11. **New test requirements:** Isnad chain preservation (4 tests), adaptation formulas (4 tests), argument detection (5 tests)
+12. **New gold baseline:** Masala-block source for argument boundary verification
+
+### Quality Metrics
+- Creative verification score: 90/100 (6 capabilities, 3 named technologies, examples, 0 vague phrases)
+- Invention ratio: 89% (32 invention signals, 4 correction signals)
+- Assessment: CREATIVE
+
+### Decisions
+- Arabic word counting uses whitespace tokenization (not morphological) — matches KITAB/OpenITI convention and how scholars estimate text length
+- Isnad chains treated as atomic units — splitting a narration chain is worse than an oversized passage
+- Argument preservation can expand passages up to 150% of hard max — a complete argument in one passage is more valuable than two broken halves
+- Content census adaptation formulas use conservative multipliers (0.3, 15-20-30%) — aggressive adaptation risks unexpected behavior on edge cases
+
+### No Domain Questions This Session
+

@@ -1,60 +1,63 @@
 # NEXT SESSION
 
 ## Session Type
-CREATIVE (see SESSION_TYPES.md for full framework)
+PRECISION (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Passaging engine CREATIVE session.** The passaging engine has an initial SPEC draft (502 lines) written during the ABD era. It needs the full creative treatment: research what makes good passage boundaries in Arabic scholarly texts, invent transformative §4.B capabilities, and bring the SPEC to the same quality standard as the source and normalization SPECs.
+**Passaging engine PRECISION session.** The passaging SPEC has been creatively rewritten with research-informed design, 6 §4.B capabilities (4 existing refined + 2 new architect-originated), Arabic examples, and comprehensive keyword/argument detection patterns. Now bring it to machine-implementable precision: run defect detection, fix ambiguities, verify all rules are implementable by Claude Code with zero clarifying questions.
 
 ## What to Read
 
-1. `engines/passaging/SPEC.md` — the current draft. Read critically: it was written before the normalization engine SPEC was refined, so its input contract may reference outdated field names or miss new normalization output fields (content_census, tahqiq_topology, content_flags expansion).
-2. `engines/normalization/contracts.py` — the upstream contract. The passaging engine consumes NormalizedPackage. Understand every field it provides.
-3. `reference/DOMAIN.md` — scholarly context for what makes good passage boundaries.
-4. `reference/ENTRY_EXAMPLE.md` — the quality target. Work backwards: what passage quality produces entries this good?
-5. `reference/USER_SCENARIOS.md` — which scenarios depend on passage quality.
+1. `engines/passaging/SPEC.md` — the creative output from this session (643 lines). Read critically for:
+   - Ambiguous rules that would require clarifying questions
+   - Missing edge cases in the new capabilities (§4.B.5, §4.B.6)
+   - Inconsistencies between §4.A rules and §3 output schema
+   - Arabic keyword patterns that might be incomplete or overlapping
+2. `engines/normalization/contracts.py` — verify that every normalization field the passaging SPEC references actually exists in the contract
+3. `reference/DOMAIN.md` lines 238–277 (Arabic text challenges + format types) — verify the SPEC addresses all challenges mentioned
 
-**Do NOT read:** VISION.md (use extract script if needed), normalization SPEC (you already know the output contract from contracts.py), kr_decisions.md (unless passage-related decisions exist).
+**Do NOT read:** VISION.md, kr_decisions.md, source engine SPEC, SESSION_LOG.md (unless you need prior session context).
 
-## The CREATIVE Work
+## The PRECISION Work
 
-### Research Phase (use web search aggressively)
-1. How do existing Arabic text processing tools handle passage segmentation?
-2. What is the state of the art in topic segmentation for Arabic?
-3. How do Islamic studies databases (Shamela, al-Maktaba al-Shamilah, Turath) segment texts?
-4. What NLP techniques work for Arabic text boundary detection?
-5. How do versified texts (nazm) need different passaging than prose?
+### Defect Detection Phase
+1. Run `python3 scripts/check_spec_quality.py engines/passaging/SPEC.md` (if available)
+2. Systematic self-audit against the Perfection Standard (DEEP_REASONING_PROTOCOL.md):
+   - Criterion #1 (Zero ambiguity): Every rule in §4.A must be implementable without clarifying questions
+   - Criterion #9 (Adversarial-proof): Check the new argument detection patterns for false positives
+   - Criterion #10 (Full input coverage): Verify every `structural_format` type has complete handling
+   - Criterion #12 (Enumerated edge cases): Check §4.B.5 adaptation formulas for edge values
+   - Criterion #13 (Testable rules): Every behavioral rule should have a clear pass/fail test
 
-### Invention Phase
-The passaging engine's §4.B needs at least one capability the architect originated. Directions from DEEP_REASONING_PROTOCOL.md:
-- What makes a "good" passage boundary? Can passage quality predict downstream extraction quality?
-- Can the passaging engine use the normalization engine's content census to ADAPT its strategy per-source?
-- Can passage boundaries be informed by the division tree structure in intelligent ways?
-- Can the engine detect when a scholarly argument spans multiple pages and keep it together?
+### Specific Areas to Verify
+- **§4.A.4 scholarly keyword patterns:** Are the Arabic patterns complete? Do any overlap or conflict? Would the same text trigger multiple patterns incorrectly?
+- **§4.A.4 isnad chain detection:** Are the isnad opening patterns comprehensive? What about `رواه` (he narrated it) without a full isnad chain?
+- **§4.B.5 adaptation formulas:** Test the formulas with extreme values (technical_term_density = 0.0 and 1.0, transition_density = 0.0 and 100.0). Do they produce reasonable results?
+- **§4.B.6 argument state machine:** Is the state machine deterministic? What happens when argument markers are nested (a مسألة within a larger مسألة)?
+- **§2 input contract:** Verify content_census and tahqiq_topology field references match normalization contracts.py exactly
+- **§3 output schema:** Do the new output fields (adaptive_params, argument_structure) need to be added to the schema?
+- **§7 error handling:** Are the new error codes complete? Do all new failure modes have defined recovery?
 
-### Specification Phase
-Bring the SPEC to the same quality level as normalization SPEC:
-- §4.A rules precise enough for Claude Code with zero clarifying questions
-- Arabic text examples for key behaviors
-- Edge cases enumerated (cross-page continuity, empty pages, verse blocks)
-- Every validation check specified with thresholds
+### Defect Fixing Phase
+Fix all HIGH-severity defects in the SPEC. Document each fix with the defect, the criterion violated, and the correction.
 
 ## Definition of Done
 
-1. Passaging SPEC fully rewritten with research-informed design
-2. At least 2 transformative §4.B capabilities designed
-3. At least 3 Arabic examples in §4.A
-4. Creative verification score ≥85
-5. NEXT.md written (for passaging PRECISION session)
-6. SESSION_LOG.md updated
-7. Committed and pushed
+1. Self-audit completed with ≥5 defects found and fixed (if fewer found, the audit was superficial)
+2. All §4.A rules pass the mental pseudocode test (can you write a function signature + pseudocode?)
+3. §4.B.5 adaptation formulas tested with boundary values
+4. §4.B.6 argument state machine specified as a formal state transition table
+5. Passaging engine contracts.py created (Pydantic models for §3 output)
+6. NEXT.md written (for passaging HARDENING session)
+7. SESSION_LOG.md updated
+8. Committed and pushed
 
 ## What the Previous Sessions Did
 
 Source engine: CREATIVE → PRECISION → HARDENING → IMPL_PREP (complete).
 Normalization engine: CREATIVE → PRECISION → HARDENING → IMPL_PREP (complete).
-Passaging engine: Initial SPEC draft exists (502 lines, ABD era). Needs full creative treatment.
+Passaging engine: Initial SPEC draft (502 lines, ABD era) → **CREATIVE session (this session)**: research-informed rewrite, 2 new §4.B capabilities (content census-driven adaptive passaging, scholarly argument boundary detection), 3+ Arabic examples, isnad chain integrity rule, Arabic sentence detection specification, expanded Q&A markers, content census integration. Score: 90/100.
 
 ## Pending Owner Questions
 
