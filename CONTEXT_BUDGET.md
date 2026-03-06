@@ -8,13 +8,13 @@ Claude Chat (the architect) has ~200K tokens total. This document provides concr
 
 | Item | Tokens (approx) | Notes |
 |------|-----------------|-------|
-| System prompt (PROJECT_INSTRUCTIONS.md content) | ~12,000 | ~290 lines, loaded by Claude Chat as custom instructions |
+| System prompt (PROJECT_INSTRUCTIONS.md content) | ~5,000 | ~100 lines, loaded by Claude Chat as custom instructions |
 | Knowledge file (DEEP_REASONING_PROTOCOL.md) | ~8,000 | Loaded automatically |
 | Startup (clone, NEXT.md, git log) | ~2,000 | Commands + output |
 | Claude's reasoning overhead | ~30,000 | Internal chain-of-thought per session |
 
-**Total fixed cost: ~52,000 tokens**
-**Remaining for work: ~148,000 tokens**
+**Total fixed cost: ~45,000 tokens**
+**Remaining for work: ~155,000 tokens**
 
 ---
 
@@ -69,7 +69,7 @@ Measured by line count × ~1.3 tokens/line average for technical English/Arabic.
 
 ## Session Budgets by Type
 
-### SPEC Refinement Session (~148K available)
+### SPEC Refinement Session (~155K available)
 
 Must read:
 - SPEC_REFINEMENT.md: 1,500
@@ -89,7 +89,7 @@ Budget for web searches (8-13 searches × ~2K per search result): ~26,000
 
 **Optimization:** Do NOT read kr_decisions.md (9,500 tokens) — the SPEC already incorporates decisions. Do NOT read DOMAIN.md — the SPEC already incorporates domain knowledge. Do NOT read CHALLENGE_PROTOCOL.md — the refinement protocol already includes the challenges.
 
-### Implementation Session (~148K available)
+### Implementation Session (~155K available)
 
 Must read:
 - ORCHESTRATOR.md: 2,200
@@ -105,7 +105,7 @@ Budget for test execution output: ~10,000
 
 **Remaining buffer: ~52,000** — very comfortable.
 
-### Design Review Session (~148K available)
+### Design Review Session (~155K available)
 
 Must read:
 - REVIEW_PROTOCOL.md: 1,500

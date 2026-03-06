@@ -56,7 +56,7 @@ The autonomous system includes governance documents, skills, agents, commands, s
 9. `reference/ENTRY_EXAMPLE.md` — quality target for Step 6 (~1,600 tokens)
 10. `reference/USER_SCENARIOS.md` — user scenarios for Step 6 (~2,700 tokens)
 
-**Total reading cost: ~19,050 tokens. Budget remaining for work: ~129,000 tokens. Comfortable.**
+**Total reading cost: ~19,050 tokens. Budget remaining for work: ~136,000 tokens. Comfortable.**
 
 ## Files to NOT Read
 

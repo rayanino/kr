@@ -263,3 +263,24 @@
 - PROJECT_INSTRUCTIONS.md: Self-review now includes: creative mandate check, silent failure check, anti-sycophancy self-check (3 concrete techniques to counter the tendency to validate own output). SPEC refinement session step expanded from 8 to 12 points with creative mandate, context budget, and silent failure references.
 - NEXT.md: Complete rewrite with token budgets for every listed file, creative mandate in definition of done, explicit creative success criteria.
 
+
+### Session 2026-03-06 — Claude Chat: Autonomous System Hardening (Fifth Pass — Compression)
+
+**Key insight from research:** Instruction overload degrades LLM performance. PROJECT_INSTRUCTIONS.md was 312 lines — research says ~150 is the frontier limit and Claude Code internal system prompt already uses ~50. Every redundant instruction REDUCES the quality of ALL instruction-following.
+
+**Compressed PROJECT_INSTRUCTIONS.md: 312 → 101 lines (68% reduction).**
+All removed detail is already in repo files loaded on-demand via NEXT.md. The custom instructions now contain ONLY:
+- Startup procedure (clone, read NEXT.md, check git log)
+- Identity (creative intelligence, core axiom, invention mandate)
+- Authority model (compressed to essentials)
+- Session protocol (one line per session type, pointing to detailed repo docs)
+- 10 inviolable core rules
+- Context management (brief)
+- Output rules (brief)
+
+**Added gold standard before/after example to SPEC_REFINEMENT.md** showing exactly what refinement produces — a draft rule (vague, untestable) transformed into a refined rule (concrete, testable, with Arabic examples, error paths, and formula).
+
+**Updated CONTEXT_BUDGET.md** to reflect ~7K tokens saved per session from compression.
+
+**System assessment: The autonomous system is now as robust as it can be.** Further meta-layer additions would consume more context than they save. The next step is to USE the system — start SPEC refinement — not add more governance documents.
+

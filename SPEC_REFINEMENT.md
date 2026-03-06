@@ -133,6 +133,51 @@ If 0 new capabilities were invented, the session failed the Creative Mandate —
 
 ---
 
+
+
+---
+
+## Gold Standard: Before and After Refinement
+
+This shows what refinement ACTUALLY produces — not just cleaner prose, but fundamentally more implementable rules.
+
+### BEFORE (draft SPEC rule — looks fine, silently fails Pattern #5: Untestable Rule):
+
+> The source engine evaluates the source's trustworthiness using multiple factors including edition quality, author reputation, and publisher reliability, and assigns a trust score.
+
+Problems: "multiple factors" is vague. "Including" means the list is incomplete. "Edition quality" and "author reputation" have no definition. An implementer would guess.
+
+### AFTER (refined rule — concrete, testable, every path defined):
+
+> The source engine computes a trustworthiness score as a weighted sum of five factors, each scored 0.0–1.0:
+>
+> (1) `author_verified` (weight 0.30): 1.0 if the author's `canonical_id` matches a verified record in the scholar authority registry; 0.5 if matched with confidence ≥0.80 but unverified; 0.0 if unmatched. Example: ابن قدامة المقدسي matches `sch_00042` → 1.0.
+>
+> (2) `muhaqiq_present` (weight 0.25): 1.0 if a tahqiq editor is named in the source metadata; 0.0 if absent. Example: تحقيق: عبد الله التركي → 1.0.
+>
+> (3) `publisher_known` (weight 0.20): 1.0 if the publisher appears in the known-publishers list (`reference/known_publishers.json`); 0.5 if the publisher field is present but not in the list; 0.0 if absent.
+>
+> (4) `edition_indicator` (weight 0.15): 1.0 if edition number ≥2 (reprints indicate demand); 0.5 if edition 1; 0.0 if unknown.
+>
+> (5) `text_completeness` (weight 0.10): 1.0 if all expected volumes are present; proportional if partial (e.g., 12/15 volumes → 0.8); 0.0 if unknown.
+>
+> Combined score = Σ(weight × factor). Sources scoring ≥0.65 are `verified` (excerpts default to trusted). Sources scoring <0.65 are `flagged` (excerpts default to flagged, requiring human review). If ANY individual factor is 0.0, the source is `flagged` regardless of combined score — a single missing critical signal overrides the aggregate.
+>
+> Error: if factor computation fails (e.g., scholar authority lookup timeout), that factor defaults to 0.0 and a warning `SRC_TRUST_FACTOR_FAILED` is logged with the factor name. The remaining factors are still computed.
+
+Notice: every factor has a name, weight, range, and concrete example. The aggregation formula is explicit. The error path is defined. The threshold is a number, not "low" or "high." An implementer can write this function and its test suite without asking a single question.
+
+### What Changed
+
+| Aspect | Before | After |
+|--------|--------|-------|
+| Factors | "multiple" (unknown count) | 5 named factors with weights |
+| Scoring | "assigns a trust score" | Weighted sum formula with range |
+| Thresholds | Absent | ≥0.65 verified, <0.65 flagged |
+| Examples | None | Arabic text examples for each factor |
+| Error handling | Absent | Factor failure → 0.0 + warning |
+| Testability | Untestable | Write test in 5 minutes |
+
 ## Refinement Tracking
 
 Track refinement status in each engine's CLAUDE.md:

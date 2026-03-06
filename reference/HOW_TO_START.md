@@ -47,7 +47,7 @@ Do NOT add any other project files. No roadmap, no repo links. The repo contains
 ### Verification
 
 Your project should have:
-- Custom Instructions: ~290 lines starting with "You are the architect"
+- Custom Instructions: ~100 lines starting with "You are the architect"
 - 1 knowledge file: `DEEP_REASONING_PROTOCOL.md`
 - 1 project file: `Github_key`
 - Code Execution: enabled
