@@ -11,8 +11,12 @@ Domain knowledge: `reference/DOMAIN.md`. Quality target: `reference/ENTRY_EXAMPL
 - `schemas/` — Inter-engine data contracts (one per pipeline boundary).
 - `library/` — Knowledge product: sciences, sources, registries. This IS the user's knowledge.
 - `gold/` — Hand-crafted validation baselines. Never auto-generated or auto-modified.
-- `scripts/` — Utilities. `extract_vision_sections.py` for partial VISION reads.
+- `scripts/` — Utilities: `extract_vision_sections.py`, `decompose_spec.py`, `verify_metadata_flow.py`, `check_compliance.py`.
+- `tests/integration/` — Cross-engine integration tests (created during implementation).
 - `reference/` — Decisions, domain primer, resources, user scenarios, session log.
+- `ORCHESTRATOR.md` — Implementation session protocol for Claude Code.
+- `MILESTONES.md` — Task decomposition with dependencies and acceptance criteria.
+- `REVIEW_PROTOCOL.md` — Structured review templates for design critique sessions.
 
 ## Pipeline
 
@@ -60,3 +64,6 @@ python -m pytest engines/*/tests/ shared/*/tests/ -q
 
 Milestone 1: Source engine + normalization engine (Shamela format) end-to-end.
 See `NEXT.md` for the specific current task.
+See `MILESTONES.md` for detailed task decomposition.
+See `ORCHESTRATOR.md` for implementation session protocol.
+See `REVIEW_PROTOCOL.md` for design review procedures.

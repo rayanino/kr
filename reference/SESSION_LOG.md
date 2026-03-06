@@ -173,3 +173,29 @@
 - PIPELINE_TRACE.md: page boundaries and text layers in metadata table
 ---
 2026-03-05: Cross-SPEC verification complete. VISION.md v1.1.0 (§6.4 resolved, §10/§12 rewritten, §2/§13 updated). All 7 engine SPECs verified consistent. Preparatory phase SPEC work complete.
+
+### Session 2026-03-06 — Claude Chat: Autonomous System Enhancement
+
+**Task:** Evolve the repo autonomous system from SPEC-writing phase to implementation + design review phase.
+
+**New files created:**
+- ORCHESTRATOR.md: Implementation session lifecycle (Orient → Plan → Build → Verify → Handoff)
+- MILESTONES.md: Detailed task decomposition for Milestones 1-5 with dependencies and acceptance criteria
+- REVIEW_PROTOCOL.md: 5 structured review types (SPEC integrity, boundary, transformative capability, scholarly value, architecture health)
+- scripts/decompose_spec.py: Extract implementable tasks from SPEC behavioral rules
+- scripts/verify_metadata_flow.py: Check D-023 metadata pass-through across pipeline
+- scripts/check_compliance.py: SPEC compliance overview across all components
+- .claude/agents/implementation-planner.md: Task decomposition from SPEC sections (opus)
+- .claude/agents/code-reviewer.md: SPEC-fidelity code review (opus)
+- .claude/agents/integration-tester.md: Cross-engine boundary verification (sonnet)
+- .claude/agents/design-critic.md: Design challenge and improvement proposals (opus)
+- .claude/commands/plan-implementation.md, verify-boundaries.md, design-review.md, milestone-status.md, generate-test-plan.md
+- tests/integration/ directory for cross-engine tests
+
+**Files updated:**
+- .claude/settings.json: Enhanced hooks (pre-commit source file reminder, SPEC/schema modification alerts)
+- CLAUDE.md: Updated repo map, added orchestrator/milestones/review references
+- reference/PROJECT_INSTRUCTIONS.md: Added implementation_phase and review_sessions sections
+- reference/HOW_TO_START.md: Added design review and implementation session instructions
+- NEXT.md: Updated for M1.1 implementation task with ORCHESTRATOR.md workflow
+

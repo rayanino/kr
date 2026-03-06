@@ -1,59 +1,70 @@
 # NEXT SESSION
 
-**Written by:** Session 2026-03-06 (Claude Code environment setup)
+**Written by:** Session 2026-03-06 (Autonomous system enhancement — Claude Chat)
 **Date:** 2026-03-06
 
 ## Immediate Task
 
 Begin Milestone 1 implementation: source engine + normalization engine (Shamela format) end-to-end.
 
-Start with the **source engine** — specifically the Shamela intake path, since that's the format with existing ABD code and test data. The SPEC defines what to build; the ABD code is reference material only (D-019).
+Start with **M1.1 — Source Engine: Data Models and Identity** (see MILESTONES.md for detailed task breakdown).
 
 **Definition of done — this session is complete when:**
-1. Source engine core module exists with Shamela intake: accepts a Shamela directory, freezes the raw files, extracts metadata, assigns source_id/work_id/canonical_id (D-024)
-2. Three registries initialized: sources.json, works.json, scholars.json
-3. Tests written and passing for Shamela intake path
-4. Engine CLAUDE.md updated with accurate state
+1. Source metadata dataclass defined matching SPEC §3 output contract
+2. Three-tier identity model implemented: `source_id`, `work_id`, `canonical_id` (D-024)
+3. Registry structures created: `sources.json`, `works.json`, `scholars.json`
+4. Tests written and passing for identity generation and registry operations
+5. Engine CLAUDE.md updated with accurate state
 
 ## Context
 
-The preparatory phase is **complete**. All 14 SPECs written, cross-SPEC consistency verified, VISION.md at v1.2.0, Claude Code environment (.claude/) populated with settings, 7 commands, 3 agents. This is the first implementation session.
+The preparatory phase is **complete**. All 14 SPECs written, cross-SPEC consistency verified, VISION.md at v1.2.0, Claude Code environment populated.
 
-Milestone 1 target (from VISION.md §10.2): Source engine + normalization engine working end-to-end for Shamela format. One source in, normalized package out. This proves the Phase 1 pipeline.
+**New this session:** The autonomous system has been significantly enhanced:
+- `ORCHESTRATOR.md` — Implementation session lifecycle protocol (Orient → Plan → Build → Verify → Handoff)
+- `MILESTONES.md` — Detailed task decomposition for all milestones with dependencies and acceptance criteria
+- `REVIEW_PROTOCOL.md` — 5 structured review types for design critique sessions
+- 4 new agents: `implementation-planner`, `code-reviewer`, `integration-tester`, `design-critic`
+- 4 new commands: `plan-implementation`, `verify-boundaries`, `design-review`, `milestone-status`, `generate-test-plan`
+- 3 new scripts: `decompose_spec.py`, `verify_metadata_flow.py`, `check_compliance.py`
+- Enhanced hooks: pre-commit reminder for source file changes, SPEC/schema modification alerts
+- `tests/integration/` directory created for cross-engine integration tests
+- Updated `PROJECT_INSTRUCTIONS.md` with implementation and review phase protocols
+- Updated `CLAUDE.md` repo map and priorities
+
+**Follow `ORCHESTRATOR.md` for the implementation session lifecycle.**
 
 ## Files to Read — IN THIS ORDER
 
-1. `engines/source/CLAUDE.md` — orientation (auto-loaded on directory entry).
-2. `engines/source/SPEC.md` — the authoritative specification. READ FULLY before writing any code.
-3. `reference/DOMAIN.md` — domain knowledge context (if not recently read).
-4. ABD code for reference only: `engines/source/src/intake.py`, `engines/source/src/enrich.py`.
-5. Existing tests: `engines/source/tests/` — understand what's tested today.
-6. `schemas/SCHEMA_ANALYSIS.md` — notes on schema state.
+1. `ORCHESTRATOR.md` — implementation session protocol (NEW — read this first)
+2. `MILESTONES.md` §M1.1 — the specific task decomposition for this session
+3. `engines/source/CLAUDE.md` — orientation
+4. `engines/source/SPEC.md` §1-§4.A.1 — identity model specification
+5. `engines/source/SPEC.md` §3 — output contract (for dataclass design)
+6. `schemas/source_metadata.json` — current (ABD-era) schema for reference
 
-**Do NOT read all 14 SPECs.** Only the source engine SPEC is needed for this session.
+**Do NOT read:** VISION.md, DOMAIN.md, other engine SPECs, kr_decisions.md (not needed for this task).
 
-## Decisions Needed
+## Implementation Notes
 
-- **Pre-commit/push hooks:** Currently warn-only (not blocking) because there's 1 known failing test (API key). Once that test is marked `@pytest.mark.xfail` or the API key is configured, make the pre-push hook blocking again. No pre-commit test hook (commits should be fast).
-- **Python packaging:** The current `_paths.py` approach works but won't scale. Decide whether to introduce `pyproject.toml` with package structure now or defer. (Recommendation: defer — get engines working first, refactor packaging after Milestone 1.)
-- **Test data:** ABD tests reference Shamela data. Verify the test corpus is accessible. If not, the owner needs to provide sample Shamela directories or the test data needs to be committed (or use Git LFS).
-- **API keys for LLM calls:** Source engine metadata enrichment uses LLM. Verify `.env` setup works. If not, ask the owner to configure keys.
+- ABD-era code in `engines/source/src/` has zero design authority (D-019). Read it for implementation knowledge but implement from the SPEC.
+- The existing tests in `engines/source/tests/` are ABD-era. New KR tests should be in new files (e.g., `test_identity.py`, `test_registry.py`).
+- Python packaging is `_paths.py` for now. Use it for imports. Defer pyproject.toml.
+- For LLM calls needed in later tasks (M1.3), `.env` must have API keys. If missing, note as blocked.
+
+## Blocked Items
+
+- **Test data:** Verify sample Shamela directories are accessible. If not, ask owner to provide.
+- **API keys:** Needed for M1.3 (metadata enrichment). Not needed for M1.1 or M1.2.
 
 ## Pending Owner Questions
 
-None currently. Implementation may surface domain questions about Shamela metadata fields.
+None currently.
 
 ## What This Session Did
 
-Populated Claude Code environment for implementation phase:
-- Rewrote root CLAUDE.md (62 lines, ≤100 limit, all §13.3.2 content categories).
-- Refined `.claude/settings.json`: expanded permissions for implementation work, improved hooks.
-- 7 slash commands: start-engine, run-tests, check-spec, read-vision (refined), validate-output, trace-pipeline, impl-status (new).
-- 3 subagents: spec-reviewer (opus), test-runner (sonnet), integrity-checker (sonnet, new).
-- Updated `_paths.py` to include user_model, scholar_authority, interface/scholar.
-- Created missing src/ and tests/ directories for newer components.
-- Pre-push hook set to warn-only (known API key test failure would block all pushes otherwise).
+Enhanced the autonomous system with implementation orchestration (ORCHESTRATOR.md, MILESTONES.md), design review protocol (REVIEW_PROTOCOL.md), 4 new agents, 4 new commands, 3 automation scripts, enhanced hooks, and updated project instructions. Created the infrastructure for Claude Code to work autonomously through the implementation phase and for Claude Chat to run structured design reviews.
 
 ## New Decisions
 
-None. This session was infrastructure setup, not architectural design.
+None. This session was infrastructure enhancement, not architectural design.

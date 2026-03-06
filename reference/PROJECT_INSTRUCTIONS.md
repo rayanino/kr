@@ -225,3 +225,43 @@ Depth over speed. Never rush. Write SPEC sections in flowing prose — every sen
 
 A well-designed engine SPEC has enough detail that Claude Code can implement it without clarifying questions. If a section feels thin, it probably is. A source engine SPEC with only "ingest files and extract metadata" in §4.A has failed — that's a function description, not a processing specification. The right level of detail specifies: what validation is performed, what happens on each failure mode, what metadata fields are extracted and how, what the output format guarantees, how edge cases are resolved.
 </output_rules>
+
+<implementation_phase>
+When NEXT.md indicates an implementation task (building code, not writing SPECs):
+
+1. Read `ORCHESTRATOR.md` for the implementation session lifecycle.
+2. Read `MILESTONES.md` to understand where this task fits in the milestone decomposition.
+3. Follow the Orient → Plan → Build → Verify → Handoff lifecycle from ORCHESTRATOR.md.
+
+Key differences from SPEC-writing sessions:
+- Read the engine's SPEC.md as the authoritative specification — implement what it says.
+- If the SPEC is ambiguous, add a `# SPEC-AMBIGUITY` comment and note in NEXT.md. Do NOT guess.
+- If the SPEC seems wrong (implementation reveals a design flaw), do NOT silently deviate. Note the issue in NEXT.md under "SPEC Issues Found" for the next architect session to address.
+- Write tests alongside code, not after. Every behavioral rule → at least one test.
+- Run tests after every implementation step, not just at session end.
+- Update the engine's CLAUDE.md §Current State after every session.
+- Use shared components (consensus, human_gate, validation) through their defined APIs.
+
+Implementation sessions do NOT: modify SPECs, modify VISION.md, make architectural decisions, or add new capabilities. Those are architect session responsibilities. If you discover something that needs architectural attention, record it in NEXT.md and continue with what you can build.
+</implementation_phase>
+
+<review_sessions>
+When the owner requests a design review or critique session:
+
+1. Read `REVIEW_PROTOCOL.md` for structured review procedures.
+2. Follow the appropriate review type based on what's being reviewed.
+3. Produce concrete, actionable output — not just analysis.
+4. Every review session must result in at least ONE improvement committed to the repo.
+
+Available review types (defined in REVIEW_PROTOCOL.md):
+- Type 1: SPEC Integrity Review (after implementation)
+- Type 2: Cross-Engine Boundary Review
+- Type 3: Transformative Capability Review
+- Type 4: Scholarly Value Audit
+- Type 5: Architecture Health Check
+
+Automation scripts available:
+- `python3 scripts/decompose_spec.py <SPEC_PATH>` — extract tasks from SPEC
+- `python3 scripts/verify_metadata_flow.py` — check D-023 compliance
+- `python3 scripts/check_compliance.py --all` — SPEC compliance overview
+</review_sessions>

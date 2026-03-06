@@ -63,6 +63,26 @@ Continue the project.
 
 Claude will clone the repo, read NEXT.md for its task, do the work, commit, and push. You may be asked domain questions about Islamic scholarship — answer from your experience.
 
+### Design Review Sessions
+
+To trigger a design critique or review, send:
+
+```
+Run a design review on [component or "the full system"].
+```
+
+or
+
+```
+Review the scholarly value of the current design.
+```
+
+Claude will follow the structured review protocol in `REVIEW_PROTOCOL.md` and produce concrete improvement recommendations.
+
+### Implementation Sessions
+
+Implementation sessions work the same way — just send "Continue the project." The NEXT.md file will direct Claude to the right task. Claude follows `ORCHESTRATOR.md` for implementation work and `MILESTONES.md` for task decomposition.
+
 ## If You Disagree With a Decision
 
 Open a new conversation and say:

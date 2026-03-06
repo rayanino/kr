@@ -9,6 +9,15 @@
             "command": "cd $CLAUDE_PROJECT_DIR && echo 'Running tests before push...' && python -m pytest engines/*/tests/ shared/*/tests/ -q --tb=line 2>&1 | tail -8; echo 'NOTE: 1 known failure (API key). If you see ONLY that failure, push is safe.'"
           }
         ]
+      },
+      {
+        "matcher": "Bash(git commit*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd $CLAUDE_PROJECT_DIR && changed=$(git diff --cached --name-only 2>/dev/null | grep -c 'engines/.*/src/\\|shared/.*/src/' || true); if [ \"$changed\" -gt 0 ]; then echo \"REMINDER: $changed source file(s) staged. Did you run tests? Did you update CLAUDE.md?\"; fi"
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -17,7 +26,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "file_path=\"$TOOL_INPUT_FILE_PATH\"; if [ -z \"$file_path\" ]; then file_path=\"$TOOL_INPUT_PATH\"; fi; if echo \"$file_path\" | grep -q 'engines/.*/src/\\|shared/.*/src/\\|interface/.*/src/'; then component=$(echo \"$file_path\" | sed -E 's|.*(engines|shared|interface)/([^/]*)/.*|\\1/\\2|'); echo \"REMINDER: Code modified in $component. Update SPEC.md if behavior changed. Update CLAUDE.md if state changed.\"; fi"
+            "command": "file_path=\"$TOOL_INPUT_FILE_PATH\"; if [ -z \"$file_path\" ]; then file_path=\"$TOOL_INPUT_PATH\"; fi; if echo \"$file_path\" | grep -q 'engines/.*/src/\\|shared/.*/src/\\|interface/.*/src/'; then component=$(echo \"$file_path\" | sed -E 's|.*(engines|shared|interface)/([^/]*)/.*|\\1/\\2|'); echo \"REMINDER: Code modified in $component. Update SPEC.md if behavior changed. Update CLAUDE.md if state changed.\"; fi; if echo \"$file_path\" | grep -q 'SPEC.md'; then echo 'SPEC MODIFIED: Run /check-spec to verify consistency.'; fi; if echo \"$file_path\" | grep -q 'schemas/'; then echo 'SCHEMA MODIFIED: Run /verify-boundaries all to check pipeline consistency.'; fi"
           }
         ]
       }
