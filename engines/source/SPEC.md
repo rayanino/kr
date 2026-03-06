@@ -56,7 +56,20 @@ Autonomous discovery is triggered by: (1) periodic scheduled scans of configured
 
 **Validation on input.** For manual structured files: the file must exist, be non-empty, and have a recognized extension. For manual photos: at least one image file must be present, and work title + author name must be provided or obtainable through a human gate prompt. For owner-authored content: the text payload must be non-empty and the input type must be one of the five recognized types. For autonomous discovery: the repository module must return a non-empty title and a valid download handle; candidates with empty titles are logged as warnings and skipped.
 
-**Enrichment write-back input.** Downstream engines may write metadata enrichments back to source records. These arrive as structured update requests specifying: the source_id to update, the field(s) to update, the new value(s), and the engine that produced the enrichment. The source engine validates that the source_id exists and that the update does not violate any invariant (e.g., changing a frozen source hash). Invalid updates are rejected with error `SRC_INVALID_ENRICHMENT`.
+**Enrichment write-back input.** Downstream engines may write metadata enrichments back to source records. These arrive as structured update requests specifying: the source_id to update, the field(s) to update, the new value(s), and the engine that produced the enrichment. The source engine validates that the source_id exists and that the update does not violate the enrichment invariants enumerated below. Invalid updates are rejected with error `SRC_INVALID_ENRICHMENT`.
+
+**Enrichment invariants (exhaustive list — an enrichment write is rejected if it violates ANY of these):**
+
+1. **Frozen file immutability.** No enrichment may modify `frozen_hash`, `frozen_file_paths`, or any frozen file content.
+2. **Identity immutability.** No enrichment may modify `source_id`. Changes to `work_id` or `author.canonical_id` require a human gate checkpoint (`SRC_ENRICHMENT_CRITICAL_FIELD`) — these are high-cascade fields where a wrong change corrupts all downstream products.
+3. **No field deletion.** Enrichment may add new fields or update existing field values. No enrichment may set an existing non-null field to null or remove a field entirely.
+4. **History preservation.** Every field update must record the previous value, the updating engine, and the timestamp in `metadata_history`. An enrichment that does not provide the updating engine identifier is rejected.
+5. **Trust tier protection.** No enrichment may change `trust_tier` to `verified` directly — verified status can only be set through the trustworthiness evaluation algorithm (§4.A.8) or an explicit `owner_override`. An enrichment may request a trust re-evaluation by updating evaluation-relevant fields (e.g., correcting the muhaqiq name).
+6. **Schema compliance.** The updated metadata record, after applying the enrichment, must still pass the SourceMetadata Pydantic model validation. An enrichment that would produce an invalid record is rejected.
+7. **Referential integrity.** If the enrichment changes a reference field, the new reference must resolve to a valid record in its target registry: `author.canonical_id` must resolve in `scholars.json`, `work_id` must resolve in `works.json`, and genre chain work references must resolve in `works.json` (or exist as placeholder records).
+The source engine must check each reference before accepting the enrichment. Unresolvable references cause the enrichment to be rejected.
+
+**Critical field enrichment gate.** Enrichments to `author.canonical_id`, `work_id`, `genre`, or `science_scope` — regardless of originating engine — trigger additional validation: (a) the old and new values are logged at WARNING level, (b) a human gate checkpoint is created for owner confirmation before the enrichment is applied, and (c) if confirmed, a stale-marking cascade is triggered on all downstream products derived from this source.
 
 ---
 
@@ -148,9 +161,13 @@ The acquisition workflow is intentionally minimal for v1 (D-020). The source eng
 
 **Step 5: Duplicate detection.** The source engine checks the source registry for duplicates using the deduplication criteria in §4.A.7.
 
-**Step 6: Freezing.** The raw source files are copied to `library/sources/{source_id}/frozen/`, set read-only, and SHA-256 hashed. From this point, the frozen files are immutable.
+**Step 6: Freezing.** Before copying, the source engine computes a SHA-256 hash of each staged file (the "staging hash"). The staged files are then copied to `library/sources/{source_id}/frozen/`. After copying, the frozen files are hashed again (the "frozen hash"). The source engine verifies that each staging hash equals its corresponding frozen hash — if any mismatch is detected, the frozen directory is deleted and the intake aborts with `SRC_FREEZE_COPY_CORRUPT`. This post-freeze verification ensures no copy corruption occurs.
 
-**Step 7: Registration.** The source metadata record, source, work, and scholar registries are all updated atomically — all succeed or none are applied.
+After verification, frozen files are set read-only using filesystem permissions (`chmod 0444`). If the permission change fails, the intake aborts with `SRC_FREEZE_PERMISSION_FAILED` — a file that cannot be made read-only is not safely frozen. From this point, the frozen files are immutable. The staging directory for this source is renamed to `library/staging/.processed/{source_id}/` (preserving the originals for audit) after successful registration.
+
+**Staging lock.** Between format detection (Step 2) and freezing (Step 6), the source engine places a lock file (`library/staging/{source_dir}/.kr_processing`) to signal that the staged material is being processed. If the staged files are modified after format detection (detected by comparing file modification timestamps at freeze time against those recorded at format detection time), the intake aborts with `SRC_STAGING_MODIFIED`. This prevents TOCTOU corruption where a file changes between analysis and freezing.
+
+**Step 7: Registration.** The source metadata record, source, work, and scholar registries are all updated atomically — all succeed or none are applied. Atomicity mechanism: the source engine prepares all registry updates in memory, validates them all (§5 Layer 1), then writes them using a write-ahead log pattern: (1) write the complete set of intended changes to `library/logs/pending_registration_{source_id}.json`, (2) apply changes to each registry file, (3) delete the pending registration file. On startup, the source engine checks for orphaned pending registration files — if one exists, it means a previous registration was interrupted, and the engine either completes or rolls back the registration based on which files were already updated. A registry file that was partially written (detected by JSON parse failure) is restored from its `.bak` copy, which is created before each write.
 The engine must check schema compliance, referential integrity, and confidence thresholds before persisting (section 5, Layer 1).
 
 **Step 8: Trustworthiness evaluation.** The source engine assesses the source's reliability and assigns a trust tier (§4.A.8).
@@ -173,7 +190,7 @@ Step 9 (Handoff): Status → `acquired`.
 
 Each source type has a metadata extractor — a module that knows how to pull metadata from that format's specific conventions. Extractors are kept minimal: they extract what the format provides, then hand off to the LLM inference step (§4.A.4) for enrichment.
 
-**Shamela HTML extractor.** Parses the metadata card from the first `PageText` div. Extracts: title (from `<h1>` or title span), author (from المؤلف field), publisher, edition, page count (from `PageNumber` span count), volume structure (from numbered file stems). Shamela-specific fields (shamela_book_id, shamela_category) are preserved as `format_specific_metadata` — they are consumed only by the Shamela normalizer and do not enter the pipeline-wide metadata schema.
+**Shamela HTML extractor.** Parses the metadata card from the first `PageText` div. Extracts: title (from `<h1>` or title span), author (from المؤلف field), publisher, edition, page count (from `PageNumber` span count), volume structure (from numbered file stems). Shamela-specific fields (shamela_book_id, shamela_category) are preserved as `format_specific_metadata` — they are consumed only by the Shamela normalizer and do not enter the pipeline-wide metadata schema. If the `info.html` file is absent from an otherwise valid Shamela directory (numbered `.htm` files present but no metadata file), the extractor raises `SRC_FORMAT_STRUCTURE_MISSING`, extracts title and author from the first `PageText` div's content (first heading or first paragraph), and flags all extracted fields as `needs_review`. If `info.html` is present but malformed (not valid HTML, missing expected fields), the extractor logs a structured warning and extracts what it can — partial metadata is always preferred over no metadata.
 
 **PDF extractor.** Extracts document metadata from PDF properties (title, author, creation date). For scanned PDFs, performs limited OCR on the title page (first 1-3 pages) to extract title, author, publisher information. Uses Docling (see RESOURCES.md) for PDF parsing. Page count from PDF page count. For text-embedded PDFs, extracts table of contents if structured bookmarks exist.
 
@@ -285,6 +302,14 @@ The scholar authority registry (`library/registries/scholars.json`) is a shared 
 **Progressive enrichment.** When the 50th source mentioning a scholar is processed, the source engine checks whether the new source provides information the existing record lacks (a teacher, a work, a corrected date). If so, the record is updated.
 The engine must check no field invariant is broken before persisting. Overwritten values are preserved in a `revision_history` array. This means scholar records become increasingly rich as the library grows — an early record with just a name and death date gains teachers, students, works, methodology notes, and standing assessments over time.
 
+**Scholar record consistency checks on update.** When an enrichment modifies an established scholar record field (one with a non-null value and confidence ≥ 0.70), the source engine performs consistency validation before applying the change:
+
+1. **Death date drift.** If the existing `death_date_hijri` differs from the proposed new value by more than 5 years, this is suspicious (it may indicate a different scholar, not a correction). The update is blocked with `SRC_SCHOLAR_DATE_CONFLICT` and a human gate checkpoint is created presenting both dates with their sources.
+2. **School affiliation change.** If an existing school affiliation (e.g., `nahw: "بصري"`) would be changed to a different school (e.g., `nahw: "كوفي"`), the update is blocked with `SRC_SCHOLAR_SCHOOL_CONFLICT`. A scholar's school affiliation is a stable biographical fact — a change suggests either the original or the new data is wrong.
+3. **Name change.** If `canonical_name_ar` would be modified, the update is blocked. The canonical name is set at record creation; new name variants should be added to `known_as` instead.
+4. **Teacher/student self-reference.** If an enrichment would add a scholar as their own teacher or student, the update is rejected as logically impossible.
+5. **Temporal consistency.** If an enrichment adds a teacher whose death date is AFTER the student's death date, the relationship is flagged as suspicious (a person cannot study under someone who died after them — this usually indicates a misidentified scholar). Exception: if the dates are within 30 years, this is plausible (a teacher may outlive a student). Beyond 30 years, `SRC_SCHOLAR_TEMPORAL_INCONSISTENCY` is raised.
+
 **Muhaqiq (editor) records.** Tahqiq editors are scholars in their own right. Each muhaqiq encountered gets a scholar authority record with the same structure. The source metadata links to both the original author's canonical_id and the muhaqiq's canonical_id.
 
 **Disambiguation handling.** The most critical disambiguation case is when two different scholars share a commonly used name. The registry maintains a `disambiguation_notes` field per scholar: "When 'ابن حجر' appears in hadith context → likely sch_00042 (al-Asqalani d.852). When 'ابن حجر' appears in Shafi'i fiqh context → likely sch_00089 (al-Haytami d.974)." The excerpting engine uses these notes when it encounters scholar references in text.
@@ -357,7 +382,10 @@ The source engine assesses each source's reliability to determine the default ve
 **Conservative bias (§7.4).** When the evaluation is genuinely uncertain (e.g., a recognized author but unknown publisher and no muhaqiq), the source is flagged. Flagging a reliable source is correctable; verifying an unreliable source contaminates the library.
 
 **Special cases:**
-- Owner-authored content is always `verified` — the owner is a trusted source. However, intelligent validation still checks for detectable errors (attribution conflicts with established content).
+- Owner-authored content is always `verified` — the owner is a trusted source. However, the source engine must still check three things before writing the metadata record:
+  (1) If the content references a scholar by name, the source engine verifies the reference is consistent with the scholar authority registry (e.g., if the owner writes "قال ابن حجر العسقلاني" in a note tagged as Hanafi fiqh, the engine notes that Ibn Hajar al-Asqalani is a Shafi'i hadith scholar, and flags this as `SRC_METADATA_INCONSISTENCY` for the owner's awareness — not blocking, since the owner may be intentionally cross-referencing).
+  (2) If the content is tagged with a specific science scope, the engine must ensure the scope is recognized.
+  (3) If the content is a `tarjih` (scholarly preference conclusion), the engine must check that the sources referenced in the tarjih are in the library.
 - Quran text from canonical digital sources is always `verified` with maximum trust.
 - Hadith collections from the canonical Six Books (الكتب الستة: صحيح البخاري، صحيح مسلم، سنن أبي داود، سنن الترمذي، سنن النسائي، سنن ابن ماجه) and the Muwatta of Imam Malik are always `verified` when from recognized tahqiq editions.
 
@@ -748,9 +776,11 @@ Multi-model consensus is used for two decisions in the source engine:
 
 2. **Work matching.** When the source engine determines whether a new source belongs to an existing work or is a new work, two LLMs independently evaluate the match. Agreement → accept. Disagreement → human gate.
 
-Consensus is NOT used for: genre classification, science scope, structural format, or trust evaluation. These fields have lower cascade risk (they affect processing strategy but don't corrupt attribution) and their correctness is verifiable by downstream engines. Adding consensus to every field would multiply LLM costs without proportionate quality gain.
+Consensus is NOT used for: genre classification, science scope, structural format, trust evaluation, or scholar biographical details (death dates, school affiliations, teachers, students). These fields have lower cascade risk (they affect processing strategy but don't corrupt attribution) and their correctness is verifiable by downstream engines. Adding consensus to every field would multiply LLM costs without proportionate quality gain.
 
-**Consensus configuration:** Two models (configured via OpenRouter or direct API). Agreement threshold: both models must select the same canonical_id or work_id. Models should be from different providers (e.g., Claude + GPT) to reduce correlated errors. If one model times out or fails, the surviving model's result is accepted with a `single_model_confidence` flag.
+**Mitigation for single-LLM biographical inference.** Scholar biographical data (death dates, school affiliations, teacher-student links) inferred by a single LLM call is still critical for synthesis quality. Since consensus is not applied, the following mitigations apply: (1) All single-LLM biographical inferences carry a maximum confidence of 0.85 — never 0.90+ even if the LLM reports higher confidence. This ensures the data is always treated as provisional. (2) When OpenITI metadata is available (§4.B.1), it takes precedence over LLM inference for death dates and known works. (3) The scholar record consistency checks (§4.A.5) catch implausible LLM outputs (death date drift, temporal inconsistencies in teacher-student chains). (4) For scholars appearing in 3+ sources, the source engine cross-checks biographical data across all intake events — if two independent intakes produce different death dates for the same scholar, a human gate is created.
+
+**Consensus configuration:** Two models (configured via OpenRouter or direct API). Agreement threshold: both models must select the same canonical_id or work_id. Models should be from different providers (e.g., Claude + GPT) to reduce correlated errors. If one model times out or fails, the fallback depends on the decision type: for author identification (the highest-cascade decision), a single model result is NOT accepted — a human gate checkpoint is created with the single model's suggestion and the reason the second model failed. For work matching, a single model's result is accepted provisionally with a `single_model_confidence` flag and `needs_review` on the `work_id` field. This asymmetry reflects the cascade risk: a wrong author ID corrupts every downstream product, while a wrong work match is detectable and correctable at the work level.
 
 ---
 
@@ -774,6 +804,15 @@ Consensus is NOT used for: genre classification, science scope, structural forma
 | `SRC_OCR_LOW_QUALITY` | Warning | OCR confidence < 0.70 on critical fields | Create human gate for manual entry. Proceed with available data. |
 | `SRC_REPO_UNAVAILABLE` | Warning | Repository module cannot connect | Log. Skip this repository for this scan. Retry next cycle. |
 | `SRC_CONSENSUS_DISAGREEMENT` | Warning | Multi-model disagreement | Create human gate checkpoint. |
+| `SRC_FREEZE_COPY_CORRUPT` | Fatal | Post-freeze hash mismatch (staging hash ≠ frozen hash) | Delete frozen directory. Abort intake. Source remains in staging for retry. |
+| `SRC_FREEZE_PERMISSION_FAILED` | Fatal | Cannot set frozen files to read-only | Delete frozen directory. Abort intake. Log filesystem error. |
+| `SRC_STAGING_MODIFIED` | Fatal | Staged files modified between format detection and freezing | Abort intake. Log modification timestamps. Owner must re-stage. |
+| `SRC_REGISTRATION_INTERRUPTED` | Warning | Orphaned pending_registration file found on startup | Attempt to complete or roll back interrupted registration. Log outcome. |
+| `SRC_ENRICHMENT_CRITICAL_FIELD` | Warning | Enrichment modifies author, work_id, genre, or science_scope | Create human gate checkpoint. Do not apply until confirmed. |
+| `SRC_SCHOLAR_DATE_CONFLICT` | Warning | Scholar death date enrichment differs by >5 years from existing | Block update. Create human gate with both dates and sources. |
+| `SRC_SCHOLAR_SCHOOL_CONFLICT` | Warning | Scholar school affiliation enrichment contradicts existing | Block update. Create human gate. |
+| `SRC_SCHOLAR_TEMPORAL_INCONSISTENCY` | Warning | Teacher-student link with implausible death date gap (>30 years wrong direction) | Flag relationship. Create human gate. |
+| `SRC_FORMAT_STRUCTURE_MISSING` | Warning | Detected format but expected structural file absent (e.g., Shamela without info.html) | Fall back to minimal extraction + LLM inference. Flag all extracted fields as `needs_review`. |
 
 **Principle:** Never lose data silently. Every error is logged with: timestamp, source identifier (if known), error code, severity, human-readable message, and the specific recovery action taken (one of: reject intake, create human gate, flag field for review, skip optional enrichment, retry on next cycle). Fatal errors stop processing for the affected source but do not affect other sources in the pipeline. Warning errors allow processing to continue with the affected fields marked as `needs_review`. Info errors are logged for audit with no processing impact.
 

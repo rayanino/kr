@@ -527,3 +527,48 @@ Best: excerpting (90/100). Lowest: consensus, validation (40/100). Most engines:
 - "check" (not "validated") used as standalone keyword for compatibility with quality checker regex
 
 **Domain questions for owner:** None this session.
+
+---
+
+### Session: HARDENING — Source Engine Knowledge Corruption Audit
+**Date:** 2026-03-06
+**Type:** HARDENING
+**Focus:** Verify no knowledge corruption paths exist in the source engine SPEC.
+
+**What was done:**
+
+Systematic threat analysis of every §4.A processing step, identifying data flows (untrusted→trusted boundaries), transformation points, and failure modes. Nine corruption gaps found and fixed:
+
+1. **Enrichment invariant enumeration (§2).** Previously said "does not violate any invariant" without listing them. Added 7 explicit invariants: frozen file immutability, identity immutability, no field deletion, history preservation, trust tier protection, schema compliance, referential integrity. Added critical field enrichment gate (human gate for author/work_id/genre/science_scope changes).
+
+2. **Post-freeze hash verification (§4.A.2 Step 6).** Previously: "files are copied and hashed." Now: staging hash computed BEFORE copy, frozen hash computed AFTER copy, mismatch aborts with `SRC_FREEZE_COPY_CORRUPT`. Prevents silent copy corruption.
+
+3. **TOCTOU protection (§4.A.2 Step 6).** Added staging lock file and modification timestamp comparison. Prevents file changes between format detection and freezing.
+
+4. **Read-only enforcement (§4.A.2 Step 6).** Specified `chmod 0444` mechanism. If permission change fails, abort with `SRC_FREEZE_PERMISSION_FAILED`.
+
+5. **Registration atomicity (§4.A.2 Step 7).** Previously claimed "atomic" with no mechanism. Added write-ahead log pattern with `.bak` files and orphan detection on startup.
+
+6. **Scholar record consistency checks (§4.A.5).** Five checks on progressive enrichment: death date drift (>5 years → human gate), school affiliation change → block, canonical name immutability, self-reference rejection, temporal consistency in teacher-student links.
+
+7. **Single-model consensus fallback (§6).** Author identification now requires human gate when one model fails (previously accepted single model). Work matching still accepts single model provisionally.
+
+8. **Biographical inference confidence cap (§6).** Single-LLM biographical data capped at 0.85 confidence maximum. Cross-check across 3+ sources for consistency.
+
+9. **Format-specific gap (§4.A.3).** Added handling for Shamela export without info.html. Owner-authored content validation concretized (3 specific checks).
+
+Added 10 new error codes to §7.
+
+**Quality results:**
+- check_spec_quality: 4 HIGH (maintained baseline — all §4.B/§9 false positives)
+- creative_verification: §4.B score 90/100 (maintained)
+- SPEC grew from 895 → 934 lines
+
+**Decisions made:**
+- Enrichment invariants are an EXHAUSTIVE list — adding a new invariant requires SPEC update
+- Author identification is the one decision where single-model fallback is NOT acceptable (human gate required)
+- Scholar death date changes >5 years apart trigger human gate (not auto-applied) — based on reasoning that death dates are stable biographical facts and large changes indicate a different scholar
+- Staging lock uses `.kr_processing` marker file (lightweight, no flock dependency)
+- Write-ahead log pattern chosen over SQLite for atomicity (simpler, no new dependency, fits JSON-file architecture)
+
+**Domain questions for owner:** None this session.
