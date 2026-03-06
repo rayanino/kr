@@ -233,14 +233,133 @@ class TextFidelitySummary(BaseModel):
 
 class QualityReport(BaseModel):
     """Normalization quality summary (SPEC §3 manifest)."""
-    divisions_discovered: int = 0
-    division_confidence_distribution: dict[str, int] = Field(
+    division_count_by_tier: dict[str, int] = Field(
         default_factory=dict,
-        description="HeadingConfidence → count, e.g. {'confirmed': 5, 'high': 12}"
+        description="Tier name → count, e.g. {'confirmed': 5, 'high': 12, 'medium': 3, 'low': 1}"
     )
-    layer_transitions_detected: int = 0
+    layer_transition_count: int = 0
     pages_with_warnings: int = 0
-    high_fidelity_percentage: float = Field(ge=0.0, le=1.0)
+    high_fidelity_pct: float = Field(ge=0.0, le=1.0, default=1.0)
+    unclassified_footnote_count: int = 0
+    overall_confidence: HeadingConfidence = HeadingConfidence.HIGH
+
+
+# ──────────────────────────────────────────────────────────────────
+# Content Census — §4.B.5 downstream adaptation signals
+# ──────────────────────────────────────────────────────────────────
+
+class TextDensityProfile(BaseModel):
+    """Text density statistics across all content units (SPEC §4.B.5)."""
+    mean_chars_per_page: int
+    median_chars_per_page: int
+    std_dev: float
+    sparse_page_count: int = Field(description="Pages with <200 chars")
+    dense_page_count: int = Field(description="Pages with >3000 chars")
+
+
+class LayerComplexity(BaseModel):
+    """Multi-layer complexity metrics (SPEC §4.B.5)."""
+    layer_count: int = Field(ge=1)
+    transition_density: float = Field(description="Mean layer transitions per page")
+    matn_ratio: float = Field(ge=0.0, le=1.0, description="Proportion of text attributed to Layer 1")
+
+
+class StructuralDepth(BaseModel):
+    """Division tree depth metrics (SPEC §4.B.5)."""
+    division_count: int
+    max_depth: int
+    mean_pages_per_leaf_division: float
+
+
+class FootnoteDensity(BaseModel):
+    """Footnote distribution metrics (SPEC §4.B.5)."""
+    mean_footnotes_per_page: float
+    max_footnotes_on_single_page: int
+    footnote_text_ratio: float = Field(ge=0.0, le=1.0)
+
+
+class VocabularyProfile(BaseModel):
+    """Vocabulary analysis from sampled pages (SPEC §4.B.5)."""
+    estimated_unique_terms: int = Field(description="HyperLogLog estimate, ~0.8% standard error")
+    technical_term_density: float = Field(ge=0.0, le=1.0)
+    diacritics_density: float = Field(ge=0.0, le=1.0)
+
+
+class FidelityDistribution(BaseModel):
+    """Distribution of text fidelity across pages (SPEC §4.B.5)."""
+    high_pct: float = Field(ge=0.0, le=1.0)
+    medium_pct: float = Field(ge=0.0, le=1.0)
+    low_pct: float = Field(ge=0.0, le=1.0)
+    very_low_pct: float = Field(ge=0.0, le=1.0)
+
+
+class ContentCensus(BaseModel):
+    """Statistical profile of source content for downstream adaptation (SPEC §4.B.5).
+
+    Computed as a post-processing step after all content units are generated.
+    Enables downstream engines to adapt processing strategy per-source.
+    """
+    total_pages: int
+    text_density_profile: TextDensityProfile
+    verse_ratio: float = Field(ge=0.0, le=1.0)
+    table_ratio: float = Field(ge=0.0, le=1.0)
+    quran_citation_ratio: float = Field(ge=0.0, le=1.0)
+    hadith_citation_ratio: float = Field(ge=0.0, le=1.0)
+    layer_complexity: Optional[LayerComplexity] = Field(
+        None, description="Present only for multi-layer sources"
+    )
+    structural_depth: StructuralDepth
+    footnote_density: FootnoteDensity
+    vocabulary_profile: VocabularyProfile
+    fidelity_distribution: FidelityDistribution
+
+
+# ──────────────────────────────────────────────────────────────────
+# Tahqiq Apparatus Topology — §4.B.7
+# ──────────────────────────────────────────────────────────────────
+
+class ManuscriptWitness(BaseModel):
+    """A manuscript witness referenced in the tahqiq apparatus (SPEC §4.B.7)."""
+    siglum: str = Field(description="Editor's abbreviation, e.g. 'أ' or 'الأصل'")
+    description: Optional[str] = Field(None, description="Full name if available from introduction")
+    citation_count: int = Field(ge=0)
+    first_cited_unit: int = Field(ge=0)
+    last_cited_unit: int = Field(ge=0)
+
+
+class DivisionDisagreement(BaseModel):
+    """Variant reading density for one division (SPEC §4.B.7)."""
+    div_id: str
+    variant_count: int
+    pages: int
+
+
+class EditionReliability(BaseModel):
+    """Aggregate reliability signal for the tahqiq edition (SPEC §4.B.7)."""
+    witness_count: int
+    witness_coverage: float = Field(ge=0.0, le=1.0, description="Proportion of text supported by ≥2 witnesses")
+    editor_transparency: float = Field(ge=0.0, le=1.0, description="Proportion of variants with editor reasoning")
+    reliability_signal: str = Field(description="One of: high, moderate, low, minimal")
+    reliability_rationale: str
+
+
+class TahqiqTopology(BaseModel):
+    """Manuscript witness network extracted from footnote apparatus (SPEC §4.B.7).
+
+    Transforms the footnote apparatus from flat text into scholarly intelligence
+    about the quality and reliability of the edition itself.
+    """
+    has_tahqiq_apparatus: bool
+    manuscript_witnesses: list[ManuscriptWitness] = Field(default_factory=list)
+    total_variant_readings: int = 0
+    variant_density_per_100_pages: float = 0.0
+    anonymous_variant_count: int = Field(
+        default=0, description="Variants referencing unnamed witnesses ('في بعض النسخ')"
+    )
+    disagreement_by_division: list[DivisionDisagreement] = Field(default_factory=list)
+    edition_reliability: Optional[EditionReliability] = None
+    extraction_confidence: HeadingConfidence = HeadingConfidence.MEDIUM
+    extraction_method: str = "pattern_matching_with_llm_fallback"
 
 
 class NormalizedManifest(BaseModel):
@@ -273,6 +392,12 @@ class NormalizedManifest(BaseModel):
     total_content_units: int = Field(ge=0)
     quality_report: QualityReport
     normalization_warnings: list[str] = Field(default_factory=list)
+    content_census: Optional[ContentCensus] = Field(
+        None, description="§4.B.5 statistical profile for downstream adaptation"
+    )
+    tahqiq_topology: Optional[TahqiqTopology] = Field(
+        None, description="§4.B.7 manuscript witness network from footnote apparatus"
+    )
 
 
 # ──────────────────────────────────────────────────────────────────

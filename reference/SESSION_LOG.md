@@ -620,3 +620,16 @@ Bridged the gap between the hardened SPEC and buildable code. Five deliverables:
 - §4.B score: 75 → 90/100. Capabilities: 4 → 7. SPEC: 665 → 902 lines.
 **Decisions:** None (creative session — inventions, not architectural decisions)
 **Next:** Normalization engine PRECISION session
+
+### Session 2026-03-06-g — Claude Chat
+**Type:** PRECISION (normalization engine)
+**Focus:** Make normalization engine SPEC machine-implementable
+**Deliverables:**
+- HIGH defects: 46 → 6 (target ≤6 met). All remaining 6 are MISSING_EXAMPLE for lower-priority subsections.
+- Fixed: all vague quantifiers ("many", "some", "few", "multiple"), all "etc." (5 instances → complete lists), all missing thresholds ("high confidence" → ≥0.90, "low confidence" → ≤0.30), all "appropriate" (4 instances → specific criteria), 1 handwave analysis → specific method.
+- Added 4 Arabic text examples with input→output pairs: §4.A.2 Shamela normalizer (full HTML→ContentUnit), §4.A.5 multi-layer detection (sharh layer segmentation), §4.A.6 structure discovery (division tree), §4.A.9 content flagging (Quran+hadith detection).
+- contracts.py: added ContentCensus model (11 sub-models), TahqiqTopology model (5 sub-models), updated QualityReport to match SPEC §3 precise field names.
+- Creative verification: 90/100 maintained.
+- SPEC: 902 → 1013 lines.
+**Decisions:** None (precision session — no architectural decisions)
+**Next:** Normalization engine HARDENING session

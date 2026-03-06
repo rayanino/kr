@@ -1,57 +1,42 @@
 # NEXT SESSION
 
 ## Session Type
-PRECISION (see SESSION_TYPES.md for full framework)
+HARDENING (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Make the normalization engine SPEC machine-implementable.** The CREATIVE session added 3 new transformative capabilities (§4.B.5–§4.B.7) and the SPEC now has 7 §4.B capabilities total (score: 90/100). However, the SPEC has 51 defects (46 HIGH) — mostly vague language, missing thresholds, and unbounded quantifiers from both old and new content.
+**Verify no knowledge corruption paths exist in the normalization engine SPEC.** The PRECISION session reduced defects from 46 HIGH to 6 HIGH (all MISSING_EXAMPLE), fixed all vague quantifiers, added 4 Arabic text examples, updated contracts.py with §4.B.5 and §4.B.7 models. Now verify that no processing rule can silently corrupt the library.
 
 ## What to Read
 
-1. `engines/normalization/SPEC.md` — **ALL sections.** You are polishing this.
-2. `engines/normalization/contracts.py` — machine-readable truth. Update to match any §2/§3 changes.
-3. `reference/DOMAIN.md` — for Arabic terminology verification (use `python3 scripts/extract_vision_sections.py 2` for glossary).
+1. `engines/normalization/SPEC.md` — **Focus on §4.A (core processing), §5 (validation), §7 (error handling).** Look for paths where data is modified without validation.
+2. `engines/normalization/contracts.py` — verify models match SPEC §2/§3 exactly.
+3. `KNOWLEDGE_INTEGRITY.md` — the threat model. Apply it to normalization.
 
-**Do NOT read:** VISION.md, source engine SPEC, CREATIVE_MANDATE.md, ENTRY_EXAMPLE.md, CHALLENGE_PROTOCOL.md.
+**Do NOT read:** VISION.md, source engine SPEC, CREATIVE_MANDATE.md, CHALLENGE_PROTOCOL.md.
 
-**Budget:** ~10K tokens on reading. ~60K tokens on precision work. ~10K tokens on handoff.
+## The Hardening Work (follow this sequence)
 
-## The Precision Work (follow this sequence)
+### Phase 1: Threat enumeration
+For each §4.A processing step, ask: "What happens if this step produces wrong output?" Enumerate every path where:
+- Text could be silently lost (characters dropped, pages skipped)
+- Text could be silently modified (diacritics altered, whitespace mangled)
+- Attribution could be wrong (layer misattribution, footnote misclassification)
+- Structure could be wrong (heading missed, hierarchy inverted)
+- Metadata could be lost (D-023 pass-through failure)
 
-### Phase 1: Run quality baseline
-```
-python3 scripts/check_spec_quality.py engines/normalization/SPEC.md --verbose
-```
-Record: "Baseline: X HIGH defects." Categorize defects by section.
+### Phase 2: Validate error coverage
+For each threat from Phase 1, verify:
+- Is there a validation check in §5 that catches it?
+- Is there an error code in §7 that reports it?
+- Is there a human gate trigger that flags it?
+If any threat has no detection mechanism, add one.
 
-### Phase 2: Fix §4.A defects first (core processing must be pristine)
+### Phase 3: Add remaining examples
+The SPEC still needs examples for: §4.A.3, §4.A.7, §4.B.1, §4.B.2, §4.B.3, §4.B.4.
+Add at least 2 more (targeting §4.B.1 and §4.B.4 — highest corruption risk).
 
-The 46 HIGH defects include vague quantifiers ("many", "some", "few", "multiple"), missing thresholds ("high confidence"), unbounded etc., and handwave analysis. Fix each by:
-- Replace "many" with specific counts or "≥N" thresholds
-- Replace "high confidence" with numeric thresholds (e.g., ≥0.85)
-- Replace "etc." with complete lists
-- Replace "using content analysis" with specific algorithm names
-
-### Phase 3: Add Arabic text examples to §4.A
-
-Each normalizer (at minimum the Shamela normalizer §4.A.2) should have at least one concrete example showing:
-- Input: actual HTML snippet from a Shamela export
-- Output: the corresponding normalized content unit fields
-
-### Phase 4: Verify §4.B new capabilities (§4.B.5–§4.B.7)
-
-The three new capabilities already have concrete examples. Check:
-- Are all field names consistent with contracts.py?
-- Are all thresholds explicit?
-- Could Claude Code implement each algorithm without questions?
-- Do error cases have defined handling?
-
-### Phase 5: Update contracts.py
-
-Add any new fields from §4.B.5 (content_census manifest fields) and §4.B.7 (tahqiq_topology manifest fields) to the Pydantic models.
-
-### Phase 6: Run final quality check
+### Phase 4: Final quality checks
 ```
 python3 scripts/check_spec_quality.py engines/normalization/SPEC.md --verbose
 python3 scripts/creative_verification.py engines/normalization/SPEC.md
@@ -59,25 +44,23 @@ python3 scripts/creative_verification.py engines/normalization/SPEC.md
 
 ## Definition of Done
 
-1. `check_spec_quality.py` reports ≤6 HIGH defects (down from 46)
-2. `creative_verification.py` maintains ≥85/100 (currently 90)
-3. ≥3 Arabic text examples added (input → output pairs)
-4. Every threshold in §4.A has an explicit numeric value
-5. Every "etc." replaced with complete list
-6. contracts.py updated with new §4.B.5 and §4.B.7 fields
-7. NEXT.md written for HARDENING session
-8. SESSION_LOG.md updated
-9. Committed and pushed
+1. Every §4.A processing step has an identified failure mode with detection mechanism
+2. `check_spec_quality.py` reports ≤6 HIGH defects (maintained)
+3. `creative_verification.py` maintains ≥85/100 (currently 90)
+4. ≥2 additional Arabic text examples added
+5. NEXT.md written for IMPL_PREP session (normalization engine)
+6. SESSION_LOG.md updated
+7. Committed and pushed
 
 ## What the Previous Sessions Did
 
 Source engine complete (4 sessions): CREATIVE → PRECISION → HARDENING → IMPL_PREP.
-Normalization engine session 1 (CREATIVE, this session):
-- 3 new §4.B capabilities: Content Census (§4.B.5), Adaptive OCR Orchestration (§4.B.6), Tahqiq Apparatus Topology (§4.B.7)
-- §4.B score: 75 → 90/100. Capabilities: 4 → 7.
-- 8+ web searches on Arabic OCR landscape (Baseer, PaddleOCR-VL 1.5, QARI-OCR, KITAB-Bench, Granite-Docling)
-- RESOURCES.md updated with 6 new technology entries
-- Total SPEC: 665 → 902 lines
+Normalization engine session 1 (CREATIVE): 3 new §4.B capabilities (§4.B.5–§4.B.7).
+Normalization engine session 2 (PRECISION, this session):
+- HIGH defects: 46 → 6. All vague quantifiers, "etc.", missing thresholds fixed.
+- 4 Arabic text examples added (Shamela normalizer, multi-layer detection, structure discovery, content flagging).
+- contracts.py updated with ContentCensus and TahqiqTopology models.
+- SPEC: 902 → 1013 lines.
 
 ## Pending Owner Questions
 
