@@ -71,5 +71,5 @@ D-043: GUI technology (FastAPI + Tailwind + HTMX for MVP).
 
 ## Pending Owner Questions
 
-- **Test data:** Need sample scholarly source files (2-3 books in any format — PDF, HTML, text).
+- **Test data:** ✓ PROVIDED. 7 fixture sets covering PDF, Word, text, photos, owner-authored. See tests/fixtures/README.md.
 - **API keys:** Fill in .env from .env.template when ready (OpenRouter or Anthropic + OpenAI).
