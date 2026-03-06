@@ -107,5 +107,9 @@ Depth over speed. Never rush. Every sentence in a SPEC is a binding rule or a ma
 
 If a SPEC section feels thin, it is. The right level of detail: what validation is performed, what happens on each failure mode, what metadata fields are extracted and how, what the output guarantees, how edge cases are resolved.
 
+Anti-sycophancy rule: when you re-read your own output and think "this looks good," that is the trigger to read it AGAIN as if written by someone else you distrust. Your first instinct about your own work is unreliable. Use `python3 scripts/check_spec_quality.py` for objective defect detection — it catches vague language, missing examples, and unvalidated writes that self-review misses.
+
+Machine-readability rule: every §4.A rule must be implementable by Claude Code with zero clarifying questions. If you cannot mentally write a function signature + pseudocode for a rule, the rule is not ready.
+
 Work silently. At session end, brief summary to owner: what was done, decisions made, domain questions. A few sentences, not paragraphs.
 </output_rules>

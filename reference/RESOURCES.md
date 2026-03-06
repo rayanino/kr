@@ -1,12 +1,16 @@
 # خزانة ريان — External Resources Catalog
 
-**Last surveyed:** 2026-03-06 (Session 9)
+**Last surveyed:** 2026-03-06 (Hardening round — QARI-OCR, Swan confirmation, OpenITI v0.1.6)
 
 This file maps known external tools, libraries, and services to KR engines. Every engine SPEC should consider whether existing tools can handle part of the work before designing custom solutions.
 
 **Principle:** Build on existing tools wherever possible. Custom code is a last resort. If a library handles 80% of the job, use it and write custom code for the remaining 20%.
 
-## Technology Survey Update (2026-03-06)
+## Technology Survey Update (2026-03-06, Hardening Round)
+
+**QARI-OCR** — NEW. Open-source SOTA for Arabic OCR with diacritics. Based on Qwen2-VL-2B-Instruct, fine-tuned on specialized Arabic datasets. CER 0.061, WER 0.160, BLEU 0.737 on diacritized texts. Available on HuggingFace (`riotu-lab/QARI-OCR`). Handles: tashkeel, diverse fonts, document layouts, low-resolution images, handwritten text (v0.3). Use 8-bit quantization (NOT 4-bit) for OCR tasks. Paper: arXiv:2506.02295. **This should be evaluated as primary OCR for KR alongside Mistral OCR** — it's specifically optimized for diacritized Arabic scholarly text, which is KR's exact use case.
+
+## Technology Survey Update (2026-03-06, Session 9)
 
 Key findings from web research:
 

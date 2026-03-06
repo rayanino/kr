@@ -9,6 +9,11 @@ Execute refinement cycle 1 on the **source engine SPEC** (`engines/source/SPEC.m
 
 Follow `SPEC_REFINEMENT.md` Steps 0-10. Start with Step 0 (Creative Exploration from `CREATIVE_MANDATE.md`). Use `CONTEXT_BUDGET.md` to plan reads.
 
+**NEW in this cycle:** Three new refinement steps were added:
+- Step 1.5: Run `python3 scripts/check_spec_quality.py engines/source/SPEC.md --verbose` for automated defect baseline
+- Step 2.5: Corruption Risk Assessment — for each output field, what if it's wrong?
+- Step 3.5: Machine-Readability Test — can you write pseudocode for each §4.A rule?
+
 Cross-reference the SPEC prose against `engines/source/contracts.py` (Pydantic models) — mismatches are defects.
 
 ## Definition of Done
@@ -23,6 +28,9 @@ Cross-reference the SPEC prose against `engines/source/contracts.py` (Pydantic m
 8. Boundary with normalization verified
 9. Two self-review rounds; Three Challenges each found at least one issue
 10. Refined SPEC committed
+11. **NEW:** `check_spec_quality.py` high-severity defects reduced by ≥50% from baseline
+12. **NEW:** Every output field has an identified corruption risk and protection mechanism
+13. **NEW:** Every §4.A rule passes mental pseudocode test (machine-readability)
 
 ## Context
 
@@ -32,11 +40,18 @@ The preparatory phase has 8 work streams (see `PREPARATORY_ROADMAP.md`). This se
 
 Session 9 completed Stream 2 (source + normalization contracts.py) and Stream 3 (technology survey).
 
+The autonomous system hardening round added:
+- `scripts/check_spec_quality.py` — automated SPEC defect detector (526 defects across 14 SPECs; source SPEC has 35 high-severity)
+- Three new steps to SPEC_REFINEMENT.md (1.5, 2.5, 3.5)
+- Anti-sycophancy gate in Step 7
+- Quality verification gate in Step 10
+- QARI-OCR discovery — new open-source SOTA for Arabic OCR with diacritics (evaluate for source engine)
+
 ## Files to Read — IN THIS ORDER
 
 1. `CONTEXT_BUDGET.md` (~1,200 tokens)
 2. `CREATIVE_MANDATE.md` (~1,200 tokens)
-3. `SPEC_REFINEMENT.md` (~1,800 tokens)
+3. `SPEC_REFINEMENT.md` (~2,200 tokens — updated with 3 new steps)
 4. `SILENT_FAILURES.md` (~1,500 tokens)
 5. `KNOWLEDGE_INTEGRITY.md` (~1,600 tokens)
 6. `engines/source/contracts.py` (~3,500 tokens) — updated Session 9
@@ -46,7 +61,7 @@ Session 9 completed Stream 2 (source + normalization contracts.py) and Stream 3 
 10. `reference/ENTRY_EXAMPLE.md` (~1,600 tokens)
 11. `reference/USER_SCENARIOS.md` (~2,700 tokens)
 
-**Total: ~24,100 tokens. Budget remaining: ~130,000 tokens.**
+**Total: ~24,500 tokens. Budget remaining: ~130,000 tokens.**
 
 ## Files to NOT Read
 
@@ -54,20 +69,20 @@ VISION.md, DOMAIN.md, kr_decisions.md, STATUS.md, ORCHESTRATOR.md, other engine 
 
 ## What Last Session Did
 
-Session 9 (Claude Chat):
-- Stream 3: Technology survey (Docling, CAMeL Tools, Swan-Large embeddings, OpenITI confirmed active)
-- Stream 2: Fixed source contracts.py (WORD_DOC, WorkLevel, ScholarAuthorityRecord, WorkRegistryEntry, SourceRegistryEntry)
-- Stream 2: Created normalization contracts.py (ContentUnit, NormalizedManifest, NormalizedPackage)
-- Fixed field naming inconsistency (source_type → source_format in normalization SPEC)
-- Added Word document support to both SPECs
-- Updated RESOURCES.md with 2026 survey findings
+Autonomous system hardening round:
+- Created `scripts/check_spec_quality.py` — automated SPEC quality checker detecting vague language, missing examples, hand-waving tech, unvalidated writes, missing thresholds (526 defects found across 14 SPECs)
+- Added 3 new steps to SPEC_REFINEMENT.md: automated quality scan (1.5), corruption risk assessment (2.5), machine-readability test (3.5)
+- Added anti-sycophancy gate to Step 7 and quality verification gate to Step 10
+- Fixed PROJECT_INSTRUCTIONS.md: GitHub token from knowledge file, "continue the project" trigger, SESSION_LOG.md in commit checklist
+- Fixed STATUS.md: corrected misleading "preparatory phase complete" language
+- Rewrote HOW_TO_START.md for clean setup
+- Discovered QARI-OCR — new open-source Arabic OCR SOTA (CER 0.061 on diacritized text)
+- Confirmed Swan-Large as Arabic embedding SOTA (NAACL 2025)
+- Confirmed OpenITI v0.1.6 active (Nov 2025)
 
 ## Decisions Made
 
-- Source SPEC now includes Word document (.doc/.docx) format support
-- Normalization SPEC field `source_type` renamed to `source_format` (matching contracts.py)
-- Swan-Large recommended as primary Arabic embedding model
-- GenreRelationType expanded with taqrirat, responds_to, cites (matching SPEC §4.A.9)
+None — all changes are operational improvements to the autonomous system, not architectural decisions.
 
 ## Pending Owner Questions
 

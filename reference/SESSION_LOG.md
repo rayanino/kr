@@ -382,3 +382,15 @@ foundation (intake, freeze, metadata) for PDF format using waraqat_usul fixture.
 5. DEEP_REASONING_PROTOCOL.md: Copied from archive to reference/ for consistent download link.
 
 **No new decisions.** All changes are operational fixes, not architectural.
+
+**Tools built:**
+- `scripts/check_spec_quality.py` (250L): Automated SPEC quality checker. Detects: vague quantifiers, unbounded lists, hand-waving technology, missing thresholds, missing examples, undefined error codes, unvalidated library writes. Tested against all 14 SPECs — 526 total defects found (422 high, 77 medium, 27 low). Scholar interface SPEC has most (89), source SPEC has 35 high-severity.
+
+**Protocol improvements:**
+- SPEC_REFINEMENT.md: Added Step 1.5 (automated quality scan with baseline), Step 2.5 (corruption risk assessment per output field), Step 3.5 (machine-readability test via mental pseudocode). Step 7: anti-sycophancy gate with concrete checks. Step 10: quality verification gate with threshold requirements.
+- PROJECT_INSTRUCTIONS.md: Anti-sycophancy rule ("when you think 'this looks good,' read it again as someone else's work"), machine-readability rule ("every §4.A rule must be pseudocodeable"), reference to check_spec_quality.py.
+
+**Tool research findings:**
+- QARI-OCR: New open-source SOTA for Arabic OCR with diacritics. CER 0.061, WER 0.160. Based on Qwen2-VL-2B. HuggingFace: riotu-lab/QARI-OCR. Critical for KR's scholarly text processing.
+- Swan-Large: Confirmed SOTA Arabic embeddings (NAACL 2025). ArMistral-7B base, 94-dataset benchmark.
+- OpenITI: v0.1.6 Nov 2025, active. Converters for Shamela, HTML, TEI XML. Metadata CSV for scholar bootstrapping.

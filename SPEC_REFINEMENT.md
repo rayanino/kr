@@ -30,6 +30,20 @@ Questions to ask during cold read:
 
 **Write down every ambiguity, gap, and confusion.** These are defects.
 
+### Step 1.5: Automated Quality Scan
+
+Run the automated SPEC quality checker to get a concrete defect baseline:
+
+```bash
+python3 scripts/check_spec_quality.py engines/<name>/SPEC.md --verbose
+```
+
+This detects: vague quantifiers ("multiple", "several", "appropriate"), unbounded lists ("etc."), hand-waving technology references ("using LLM"), missing thresholds ("high confidence"), missing examples in §4 subsections, undefined error codes, and unvalidated writes to the library.
+
+**These are YOUR defect targets.** Every high-severity hit must be evaluated: genuine defect (fix it) or false positive (add context that makes the intent unambiguous). Do not dismiss hits without reasoning.
+
+Output: defect count baseline (e.g., "Source SPEC: 35 high, 6 medium before refinement → target: ≤5 high, ≤3 medium after").
+
 ### Step 2: Threat Analysis (KNOWLEDGE_INTEGRITY.md)
 
 Read `KNOWLEDGE_INTEGRITY.md` with this SPEC's domain in mind:
@@ -41,6 +55,22 @@ For each of the 7 threats:
 4. Is there a failure mode in this engine that could silently corrupt the library?
 
 **Write down every unaddressed threat.** These are defects.
+
+### Step 2.5: Corruption Risk Assessment
+
+For each data field this engine WRITES to the library (§3 Output Contract):
+
+1. **If this field is wrong, what happens to the user's knowledge?** Categorize:
+   - SILENT corruption: the user incorporates wrong information without noticing (e.g., wrong author attribution → Rayane cites wrong scholar for years)
+   - VISIBLE corruption: the user will notice something is off (e.g., garbled text → obviously unreadable)
+
+2. **For every SILENT corruption path:** Specify the validation that prevents it in §5. If no validation exists, that's the highest-severity defect — add one.
+
+3. **For every field that enters downstream engines:** What compound errors can it cause? (E.g., wrong `science` classification → wrong taxonomy tree → all excerpts from this source misplaced.)
+
+The goal: for each output field, an implementer can point to the specific validation rule that protects it. "We validate the output" is not enough — WHICH validation catches WHICH corruption?
+
+**Write down every unprotected corruption path.** These are the most critical defects.
 
 ### Step 3: Example Audit
 
@@ -61,6 +91,32 @@ Output: [concrete output data with all fields shown]
 At minimum, every §4.A subsection needs ONE worked example showing the complete transformation from input to output. §4.B capabilities need examples of what the transformative output looks like.
 
 **Write down every rule without a testable example.** These are defects.
+
+### Step 3.5: Machine-Readability Test
+
+For each §4.A rule (core processing rules that Claude Code will implement):
+
+1. Try to write a **function signature** for the rule: what are the inputs (with types), what is the output (with type), what exceptions can it raise?
+
+2. Try to write **pseudocode** for the rule in 5-15 lines. If you need to write `# ???` or `# unclear` or `# assumption:` at ANY point, the rule fails machine-readability.
+
+3. Try to write a **test assertion**: given specific input X, assert output Y. If you can't write a concrete assertion, the rule is untestable.
+
+You don't need to write actual code. You need to VERIFY that code COULD be written without interpretation. Write the pseudocode mentally or in scratch notes. The deliverable is: a list of §4.A rules that fail and WHY.
+
+**Example of a rule that PASSES:**
+> "The source engine computes trustworthiness as a weighted sum of 5 factors..."
+→ Function: `compute_trust(metadata: SourceMetadata) -> float`
+→ Pseudocode: clear formula with defined weights and thresholds
+→ Test: `assert compute_trust(metadata_with_no_author) == flagged`
+
+**Example of a rule that FAILS:**
+> "The source engine evaluates relevance using content analysis."
+→ Function: `evaluate_relevance(???) -> ???`  — what input? what output type?
+→ Pseudocode: impossible — "content analysis" is undefined
+→ Test: impossible — no criteria for pass/fail
+
+**Write down every rule that fails machine-readability.** These are defects.
 
 ### Step 4: Technology Review
 
@@ -105,7 +161,7 @@ Read `reference/ENTRY_EXAMPLE.md` and `reference/USER_SCENARIOS.md`:
 
 **Write down every scholarly value gap.** These are defects.
 
-### Step 7: Self-Review (Two Rounds)
+### Step 7: Self-Review (Two Rounds + Anti-Sycophancy Gate)
 
 **Round 1: Fix all defects found in Steps 1-6.**
 Apply the fixes directly to the SPEC. For each fix, verify it doesn't introduce new inconsistencies.
@@ -116,6 +172,12 @@ This time, read specifically for:
 - Is the SPEC still internally consistent?
 - Are the cross-references (§N.N, D-NNN) still correct?
 - Run the Three Challenges from CHALLENGE_PROTOCOL.md.
+
+**Anti-Sycophancy Gate (mandatory):**
+After Round 2, you will feel the SPEC is good. That feeling is the signal to do this:
+1. Pick the §4 subsection you are MOST confident about. Read it as if written by someone else. List 3 specific defects. If you genuinely cannot find 3, the section may be good — but be honest about whether you're not finding defects or not looking hard enough.
+2. Count your total defects for this cycle. If the count is <5, re-run Steps 1.5-3.5 on the sections you changed. Low defect counts in a first refinement cycle almost always mean the review was superficial, not that the SPEC is perfect.
+3. Run the quality checker AGAIN: `python3 scripts/check_spec_quality.py engines/<n>/SPEC.md`. Compare high-severity count to baseline from Step 1.5. If it didn't decrease by at least 50%, the refinement was cosmetic.
 
 ### Step 8: Research Round 2
 
@@ -133,13 +195,20 @@ Read `SILENT_FAILURES.md`. For each of the 7 patterns, check: does any rule in t
 
 ### Step 10: Commit and Document
 
-Commit the refined SPEC with a message describing:
-- How many defects were found and fixed
+**Pre-commit quality gate:** Run `python3 scripts/check_spec_quality.py engines/<n>/SPEC.md`. Record the final defect counts. A refined SPEC should have:
+- High-severity defects: ≤10 (down from typical draft baseline of 25-40)
+- No UNVALIDATED_WRITE defects (every library write must have nearby validation)
+- No MISSING_EXAMPLE defects in §4.A (every processing rule has an example)
+
+If these thresholds aren't met, the refinement cycle is incomplete.
+
+Commit the refined SPEC with a message including:
+- Defect counts: before → after (from Step 1.5 baseline → Step 10 final)
 - How many new capabilities were invented (from Step 0)
 - What research was conducted (search count and key findings)
 - Whether another refinement cycle is needed
 
-If >5 structural defects were found, another cycle is needed. Schedule it in NEXT.md.
+If >5 structural defects remain, another cycle is needed. Schedule it in NEXT.md.
 If 0 new capabilities were invented, the session failed the Creative Mandate — schedule a creative-focused session.
 
 ---
