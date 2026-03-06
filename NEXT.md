@@ -1,42 +1,51 @@
 # NEXT SESSION
 
 ## Session Type
-HARDENING (see SESSION_TYPES.md for full framework)
+CREATIVE (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Synthesis engine HARDENING session.** The CREATIVE session produced the SPEC draft; the PRECISION session refined it to 0 genuine high-severity defects, added 9 worked examples with Arabic text, added 3 prompt templates, added §5.4 threat mapping for all 7 KNOWLEDGE_INTEGRITY.md threats, added 8 new error codes, and aligned contracts.py with the SPEC. The HARDENING session must: verify no knowledge corruption paths exist, stress-test the attribution-first pipeline design against adversarial inputs, and validate that the threat mitigations in §5.4 are complete.
+**Source engine CREATIVE session.** The synthesis engine SPEC is now hardened (CREATIVE + PRECISION + HARDENING complete). Following the refinement priority order (upstream first), the source engine is next. The source engine is the pipeline entry point — it defines what enters the library, and all downstream quality depends on its decisions.
+
+The source engine SPEC exists (933 lines) but was written during the preparatory phase, before KNOWLEDGE_INTEGRITY.md, before the research on attribution-first generation, and before the synthesis engine's threat model revealed how critical upstream metadata quality is. This CREATIVE session should: research state-of-the-art in digital Islamic library management, invent transformative capabilities, and ensure the §4.B section contains architect-originated capabilities that match the ambition level of the synthesis engine's §4.B.
 
 ## What to Read
 
-1. `engines/synthesis/SPEC.md` §5.4 — The threat mapping to verify and stress-test.
-2. `KNOWLEDGE_INTEGRITY.md` — Full threat model. Verify every threat has a synthesis-specific mitigation and every mitigation is testable.
-3. `engines/synthesis/SPEC.md` §4.A.4.1 — The attribution-first pipeline. This is the primary hallucination defense. Stress-test with adversarial scenarios.
-4. `engines/synthesis/SPEC.md` §7 — Error handling table. Verify every processing failure has a defined error code and recovery.
-5. `engines/taxonomy/SPEC.md` §3 — Output contract. Verify the synthesis engine's §2 input expectations match exactly.
+1. `engines/source/SPEC.md` — The full SPEC. This is a CREATIVE session — read the whole thing to understand what exists before inventing.
+2. `KNOWLEDGE_INTEGRITY.md` — Refresh on threats T-1 (silent text corruption), T-6 (metadata poisoning), T-7 (duplication). These originate at the source engine.
+3. `engines/synthesis/SPEC.md` §2.1 — What the synthesis engine expects from upstream. The source engine's output quality directly determines entry quality.
+4. `CREATIVE_MANDATE.md` — The invention protocol. Follow it.
+5. `reference/RESOURCES.md` — Check what tools/libraries exist for source acquisition and processing.
+6. `DOMAIN.md` §3 (Islamic scholarly text structure) — Essential for understanding source types.
 
-**Do NOT read:** VISION.md, DOMAIN.md. Do NOT read other engine SPECs except §3 output contracts and §4.B.6 (landscape).
+**Do NOT read:** VISION.md (use extract script if needed). Do NOT read other engine SPECs beyond §2 input contracts.
 
 ## Definition of Done
 
-1. Every T-1 through T-7 threat in §5.4 has at least one adversarial test scenario showing the mitigation works
-2. At least 3 adversarial scenarios for the attribution-first pipeline (§4.A.4.1): e.g., what happens when all excerpts are low-quality, when an excerpt contradicts its own metadata, when the LLM consistently hallucinates despite entailment checks
-3. Error cascade analysis: trace at least 2 failure chains from upstream error → synthesis impact → recovery
-4. Verify §2 input contract matches taxonomy engine §3 output contract field-for-field
-5. Verify all error codes in §7 are reachable from §4 processing rules
-6. Self-audit: ≥3 structural/semantic defects found and fixed
-7. NEXT.md written (for next engine SPEC or implementation prep)
-8. SESSION_LOG.md updated
-9. Committed and pushed
+1. At least 8 web searches (3 problem space, 3 possibility, 2 validation)
+2. Invention notes with ≥ 3 new §4.B capabilities, each with named technology and concrete output example
+3. §4.A rules reviewed for precision — every rule implementable by Claude Code with zero clarifying questions
+4. §4.B capabilities fully specified (inputs, outputs, triggers, behavioral rules)
+5. contracts.py updated to match any SPEC changes
+6. SPEC quality check run, defect baseline established
+7. Self-audit: ≥ 3 structural/semantic defects found and fixed
+8. NEXT.md written (for source engine PRECISION session)
+9. SESSION_LOG.md updated
+10. Committed and pushed
 
-## Key Issues from PRECISION Session
+## Research Directions (Starting Points)
 
-- **5 false positive high-severity defects remain** in the quality script output. These are documented in SESSION_LOG.md and are genuinely false positives:
-  - L 491: "how many" is a question phrase, not a vague quantifier
-  - L 625: "topic-appropriate" is a compound adjective
-  - L 384, 495, 535: UNVALIDATED_WRITE false positives (validation is on same line, or the match is a read not a write)
-- **§5.4 threat mapping is new and untested** — the HARDENING session should verify each threat's mitigations are complete and testable
-- **Prompt templates are in Arabic** — the HARDENING session should verify the templates would produce correct structured output with Instructor
+- How do digital Islamic libraries (Shamela, Waqfeya, Turath.io) organize and validate sources?
+- What source-level metadata can predict downstream extraction quality?
+- Can source fingerprinting detect editions automatically?
+- What makes one edition better than another (tahqiq quality signals)?
+- Can the source engine pre-analyze a source's table of contents to predict what the library will learn from it?
+
+## Key Context from Synthesis HARDENING
+
+The synthesis engine's cascade analysis revealed two critical upstream dependencies:
+1. **Scholar authority registry completeness** — metadata resolution failures cause position loss. The source engine should ensure scholar records are created during source registration.
+2. **Duplicate cluster accuracy** — the synthesis engine now verifies clusters but depends on the taxonomy engine's deduplication, which depends on the source engine's work-level matching. The source engine's edition detection quality is a root cause.
 
 ## Pending Owner Questions
 

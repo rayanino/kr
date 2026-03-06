@@ -1,5 +1,38 @@
 # Session Log — خزانة ريان
 
+## Session: Synthesis Engine HARDENING — 2026-03-06
+**Type:** HARDENING
+**Engine:** Synthesis (محرك التوليف)
+
+### What Was Done
+- **Contract verification (§2 vs taxonomy §3):** Field-by-field match. Found `school_confidence` missing from synthesis input contract — fixed. Documented `primary_text` implicit preservation. Verified all 7 required and 8 expected fields match.
+- **Adversarial test scenarios designed (10 total):**
+  - 3 attribution-first pipeline scenarios: low self-containment (vacuous entailment attack), metadata-vs-text contradiction (multi-layer misattribution), self-reinforcing hallucination (same-provider parametric knowledge bias)
+  - 7 per-threat scenarios (T-1 through T-7): diacritic corruption, multi-layer misattribution, closely related topic misplacement, forward-reference excerpt, plausible wrong death date, misclassified source type, near-identical editions
+- **Error cascade analysis (2 chains):**
+  - Cascade 1: Metadata resolution failure → unattributed excerpt → lost unique position. Found residual gap: no alert when unattributed excerpt holds a unique position. Fixed with escalation rule.
+  - Cascade 2: Wrong duplicate cluster → merged distinct positions → silently lost position. Found residual gap: no defense against incorrect upstream clustering for different-author excerpts. Fixed with duplicate cluster verification.
+- **Self-audit (5 defects found and fixed):**
+  1. `school_confidence` missing from §2.1 → added with handling rule (< 0.5 routes to inference path)
+  2. Khilaf classification failure unhandled → added Instructor failure recovery and low-confidence handling
+  3. Same-provider entailment verification → mandated cross-provider model for Step 4 to prevent self-reinforcing hallucination. Added `entailment_model` config parameter.
+  4. `consensus_strength` missing from §3.2 schema → added to content structure definition
+  5. Vacuous entailment undefended → added semantic similarity check (< 0.3 triggers rewrite)
+- **Error code reachability:** All 22 error codes verified reachable from §4 processing rules. No unreachable codes found. No processing paths without error coverage.
+- **Quality script:** 14 defects reported, all 6 HIGH are confirmed false positives (same patterns as PRECISION session: "how many" question phrase, "topic-appropriate" compound adjective, UNVALIDATED_WRITE false positives on reads/validations/test descriptions).
+- **T-5 threat mapping updated** to reflect cross-provider entailment and vacuous entailment defense.
+
+### Decisions Made
+- Entailment verification MUST use a different provider from the generator (prevents self-reinforcing hallucination)
+- School_confidence < 0.5 triggers inference path rather than direct partitioning
+- Duplicate clusters are verified for position agreement before acceptance
+- Unattributed excerpts with unique positions escalate to human gate
+
+### Owner Questions
+- None new (API keys still pending, not blocking)
+
+---
+
 ## Session: Synthesis Engine PRECISION — 2026-03-06
 **Type:** PRECISION
 **Engine:** Synthesis (محرك التوليف)
