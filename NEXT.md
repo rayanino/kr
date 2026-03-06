@@ -1,53 +1,46 @@
 # NEXT SESSION
 
 ## Session Type
-CREATIVE (see SESSION_TYPES.md for full framework)
+PRECISION (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Atomization engine CREATIVE session.** The atomization engine is the next engine in the pipeline after passaging. It receives passages and identifies the atomic knowledge units within them — the smallest meaningful pieces of scholarly content (definitions, rulings, evidence citations, conditions, exceptions, etc.). This session: research Arabic NLP approaches to scholarly text classification, study the Islamic scholarly discourse structure, and write the atomization SPEC from scratch with research-informed §4.B capabilities.
+**Atomization engine PRECISION session.** The atomization SPEC now has 5 §4.B capabilities (3 from previous draft, 2 added this session: §4.B.4 Scholarly Attribution Chain Resolution, §4.B.5 Atom-Level Semantic Fingerprinting). The contracts.py is created. This session: audit the SPEC for machine-readability, fix defects, ensure every §4.A rule is implementable by Claude Code with zero clarifying questions, and run check_spec_quality.py.
 
 ## What to Read
 
-1. `reference/DOMAIN.md` — domain knowledge for atom types in Islamic scholarship. Read §4 (content types) carefully.
-2. `reference/ENTRY_EXAMPLE.md` — the target entry format. Atoms are what the excerpting engine combines into excerpts, and excerpts are what the synthesizer combines into entries. Understand what atom granularity the entry format NEEDS.
-3. `reference/USER_SCENARIOS.md` — which scenarios depend on atom quality.
-4. `engines/passaging/SPEC.md` §3 (output contract) — this is the atomization engine's INPUT. Read carefully.
-5. `engines/passaging/contracts.py` — the Pydantic schema the atomization engine receives.
-6. `reference/RESOURCES.md` — external tools and libraries for Arabic NLP.
-7. Web search aggressively: Arabic text classification, Islamic scholarly discourse analysis, computational approaches to fiqh text, hadith chain analysis tools, Arabic rhetorical structure theory.
+1. `engines/atomization/SPEC.md` — the full SPEC to audit. **Read this entire document.**
+2. `engines/atomization/contracts.py` — verify contracts match §3 exactly.
+3. `engines/passaging/SPEC.md` §3 — verify input contract consistency.
+4. `engines/passaging/contracts.py` — verify atomization input types import correctly.
+5. `reference/DOMAIN.md` §"What Failure Looks Like" → atomization failure section — ensure every failure mode listed there is covered in the SPEC.
 
-**Do NOT read:** VISION.md, kr_decisions.md, source engine SPEC, normalization SPEC (except by reference from passaging contracts).
+**Do NOT read:** VISION.md, kr_decisions.md, source/normalization SPECs (except by reference from passaging contracts).
 
-## The CREATIVE Work
+## The PRECISION Work
 
-### Research Phase (use web search)
-1. How do existing Arabic NLP tools classify text at the sub-paragraph level?
-2. What are the recognized atom types in Islamic scholarly discourse? (usul al-fiqh provides a taxonomy: hukm, dalil, qiyas components, conditions, exceptions, etc.)
-3. How do Arabic rhetorical structure theory (RST) parsers work? Any available tools?
-4. What computational approaches exist for hadith isnad/matn separation?
-5. How do existing Islamic studies databases (islamweb, al-maktaba al-shamila, dorar.net) categorize content?
+### Audit Checklist
+1. Every sentence in §4.A: is it a binding rule or a marked open question? Flag filler.
+2. Every §4.A rule: can Claude Code write a function for it without asking questions? If not, add specificity.
+3. §3 output contract vs. contracts.py: are they byte-for-byte consistent? Fix any drift.
+4. §7 error handling: are the 2 new capabilities (§4.B.4, §4.B.5) covered? Add error codes if missing.
+5. §10 test requirements: add test cases for attribution detection and fingerprinting.
+6. The scholarly function type taxonomy (§4.A.3): are all 16 types adequately distinguished? Can the LLM tell them apart with the definitions given?
+7. The attribution pattern markers (§4.B.4): is the Arabic marker list exhaustive for common patterns? Cross-check with DOMAIN.md.
+8. Cross-reference: does every field in §3 appear in contracts.py? Does every field in contracts.py appear in §3?
 
-### Design Phase
-- Define the atom type taxonomy (the classification system for knowledge units)
-- Design the atomization strategy per passage structural_format
-- Design §4.B transformative capabilities (at least 2 architect-originated)
-- Consider: what can atom-level patterns reveal about a source that passages can't?
-
-### Key Design Decisions
-- What is an "atom"? Is it a sentence? A semantic unit? A functional unit in scholarly discourse?
-- How fine-grained should atomization be? (Too fine = noise; too coarse = lost structure)
-- Should atom type classification use consensus? (Probably yes — this is interpretive)
-- How do atom types vary across sciences? (Fiqh atoms differ from hadith atoms differ from tafsir atoms)
+### Run Quality Scripts
+- `python3 scripts/check_spec_quality.py engines/atomization/SPEC.md`
+- Fix every defect found.
 
 ## Definition of Done
 
-1. Atomization SPEC draft complete (all 10 sections)
-2. At least 2 §4.B transformative capabilities fully specified
-3. Atom type taxonomy defined with Arabic terms and examples
-4. Research findings documented in SPEC rationale sections
-5. `engines/atomization/contracts.py` created with Pydantic models
-6. NEXT.md written (for atomization PRECISION session)
+1. All defects found by check_spec_quality.py fixed
+2. §3 and contracts.py are perfectly synchronized
+3. Error codes added for §4.B.4 and §4.B.5 failure modes
+4. Test cases added for attribution detection and fingerprinting
+5. Self-audit completed (minimum 4 structural/semantic defects found and fixed)
+6. NEXT.md written (for atomization HARDENING session)
 7. SESSION_LOG.md updated
 8. Committed and pushed
 
@@ -55,7 +48,8 @@ CREATIVE (see SESSION_TYPES.md for full framework)
 
 Source engine: CREATIVE → PRECISION → HARDENING → IMPL_PREP (complete).
 Normalization engine: CREATIVE → PRECISION → HARDENING → IMPL_PREP (complete).
-Passaging engine: CREATIVE → PRECISION → **HARDENING (this session)**: 8 threats analyzed, 4 new self-validation checks, 10 new error codes, state machine completed (2 missing transitions + deadlock proof), cross-page joining hardened (tanwin, Quran citations), §4.B.6 fallback for no-subboundary case, adaptation formula bounded.
+Passaging engine: CREATIVE → PRECISION → HARDENING (complete).
+Atomization engine: **CREATIVE (this session)**: 2 new §4.B capabilities (§4.B.4 Scholarly Attribution Chain Resolution, §4.B.5 Atom-Level Semantic Fingerprinting), contracts.py created, RESOURCES.md updated with Arabic NLP research findings (IslamicLegalBench 2026, hadith segmentation accuracy).
 
 ## Pending Owner Questions
 

@@ -109,7 +109,22 @@ The atomization engine produces one primary artifact per source: an atom stream.
 **Diagnostic fields:**
 - classification_notes: string or null. Explanation of non-obvious classification decisions. Null for straightforward atoms. Required non-null when: the atom was reclassified during self-validation, the scholarly function confidence is below 0.7, or the structural type is bonded_cluster.
 - bonded_reason: string or null. Required non-null when structural_type is bonded_cluster. Explains why multiple sentences were merged into a single atom (e.g., "condition_with_result", "isnad_chain_with_matn", "verse_with_inline_sharh").
-- review_flags: array of strings. Machine-generated flags for human review. Possible values: low_function_confidence (scholarly function confidence < 0.6), ambiguous_layer (atom spans a text_layer boundary with < 0.7 confidence), possible_misattribution (text appears to be quotation but no explicit attribution marker detected), offset_drift_corrected (character offset was adjusted during validation), unresolved_quran_ref (Quran fragment detected but could not be matched to a specific ayah).
+- review_flags: array of strings. Machine-generated flags for human review. Possible values: low_function_confidence (scholarly function confidence < 0.6), ambiguous_layer (atom spans a text_layer boundary with < 0.7 confidence), possible_misattribution (text appears to be quotation but no explicit attribution marker detected), offset_drift_corrected (character offset was adjusted during validation), unresolved_quran_ref (Quran fragment detected but could not be matched to a specific ayah), low_attribution_confidence (an attribution entry has confidence < attribution_confidence_threshold).
+
+**Scholarly attribution fields (§4.B.4):**
+- attributions: array of objects or null. Present when `enable_attribution_detection` is true. Each object identifies a scholarly attribution within this atom:
+  - attributed_to: string or null. Raw scholar name, work reference, or school name as it appears in the text. Null for anonymous attributions. NOT a canonical_id — downstream resolution is the excerpting engine's responsibility.
+  - attribution_type: string, one of: direct (named scholar), via_work (referenced through a work title), school_collective (attributed to a school), isnad (hadith transmission chain), anonymous (unidentified attribution), self (the source author's own position), refutation_target (position being refuted).
+  - work_reference: string or null. Work title referenced (for via_work type).
+  - school_scope: string or null. School name (for school_collective and anonymous with school context).
+  - isnad_chain: array of strings or null. Ordered transmitter names (for isnad type). Raw names, not canonical IDs.
+  - confidence: float, range [0.0, 1.0].
+  - marker_text: string. The Arabic text that triggered this attribution detection (e.g., "قال الشافعي").
+
+**Semantic fingerprint fields (§4.B.5):**
+- fingerprint_text_hash: string or null. Present when `enable_text_fingerprinting` is true. SHA-256 of the normalized atom text (diacritics stripped, alef/hamza/taa marbuta normalized, particles stripped, words sorted). 64 hex characters.
+- fingerprint_key_terms: array of strings or null. Present when `enable_text_fingerprinting` is true. 2-5 key Arabic terms extracted by the LLM representing the atom's conceptual core. Normalized (diacritics stripped).
+- fingerprint_embedding: array of floats or null. Present when `enable_semantic_fingerprinting` is true. Semantic embedding vector, truncated to configured dimensions (default 256).
 
 **Guarantees about the atom stream:**
 
@@ -127,6 +142,8 @@ The atomization engine produces one primary artifact per source: an atom stream.
 - Layer attribution per atom
 - Embedded content references (Quran, hadith, poetry, scholarly quotes)
 - Intra-passage atom relationships
+- Scholarly attribution chains per atom (§4.B.4) — who is being quoted, through what chain
+- Semantic fingerprints per atom (§4.B.5) — text hash, key terms, optional embedding
 - Classification confidence and review flags
 
 **Source registry update.** Upon successful atomization of all passages for a source, the source's processing status is updated from passaged to atomized. The atom stream path is recorded.
@@ -425,6 +442,77 @@ After atomizing all passages for a source, the engine computes an atom type dist
 
 [NOT YET IMPLEMENTED] — Full specification provided. No external dependencies beyond the atom stream itself.
 
+#### §4.B.4 — Scholarly Attribution Chain Resolution
+
+**Capability:** Detect and structure the nested attribution patterns within individual atoms, resolving WHO is being quoted, cited, or attributed — not just that an atom is an "opinion_statement," but whose opinion it is and through what chain of transmission.
+
+Arabic scholarly texts use richly layered attribution that is far more complex than Western-style citation. A single atom may contain a chain like: "قال الماوردي: قال الشافعي: حدثنا مالك عن نافع عن ابن عمر عن النبي ﷺ" — al-Mawardi transmitting al-Shafi'i transmitting Malik transmitting Nafi' transmitting Ibn 'Umar transmitting the Prophet. This is NOT just metadata about "who holds this opinion" — it is a structured provenance chain where each link carries different scholarly weight.
+
+**Attribution pattern types detected:**
+
+| Pattern | Arabic Markers | Output |
+|---------|---------------|--------|
+| Direct scholar attribution | "قال X"، "ذهب X إلى"، "يرى X أن"، "عند X" | attributed_to: scholar name, type: direct |
+| Work-based attribution | "في المغني"، "صاحب الهداية"، "قال في الكتاب" | attributed_to: work reference, type: via_work, requires scholar authority resolution |
+| School-level attribution | "مذهب الحنفية"، "وعند الشافعية"، "الحنابلة قالوا" | attributed_to: school name, type: school_collective |
+| Isnad chain attribution | "حدثنا X عن Y عن Z" (≥2 transmitters) | attribution_chain: ordered list of transmitters, type: isnad |
+| Anonymous partial | "قال بعض أصحابنا"، "ذهب بعضهم"، "قيل" | attributed_to: null, type: anonymous, scope: (same_school / unspecified) |
+| Reflexive (author's own) | "والراجح عندي"، "قلت"، "والصواب" | attributed_to: source_author, type: self |
+| Counter-attribution (refutation target) | "ورُدّ عليه"، "وأُجيب بأن"، "ولا يصح هذا" | responds_to: preceding attributed atom, type: refutation_target |
+
+**Processing approach:** Attribution detection runs as a sub-task within LLM atomization (§4.A.5). The LLM prompt includes attribution pattern examples and instructs the model to populate the `attributions` field on each atom. For isnad chains, the LLM segments the chain into individual transmitter names (unresolved — the scholar authority model resolves canonical identity downstream in the excerpting engine). The LLM does NOT attempt to resolve "صاحب المغني" to "ابن قدامة" — it outputs the raw reference for downstream resolution. It DOES attempt to resolve obvious cases where the attribution is unambiguous within the passage context (e.g., "قال المصنف" always refers to the matn author per source metadata).
+
+**Output structure per atom:**
+```
+attributions: [
+  {
+    attributed_to: "الشافعي" | null,
+    attribution_type: "direct" | "via_work" | "school_collective" | "isnad" | "anonymous" | "self" | "refutation_target",
+    work_reference: "الأم" | null,
+    school_scope: "شافعي" | null,
+    isnad_chain: ["مالك", "نافع", "ابن عمر"] | null,
+    confidence: 0.0-1.0,
+    marker_text: "قال الشافعي في الأم"
+  }
+]
+```
+
+An atom may have zero attributions (e.g., a definition without attribution is the source author's own), one (the common case), or multiple (nested attribution: "قال الماوردي: قال الشافعي" produces two attribution entries, one for each layer).
+
+**Interaction with text layers (§4.A.6).** In multi-layer texts, the attribution chain includes the layer structure. When a sharh author (Layer 2) quotes the matn author (Layer 1) using "قال المصنف," the atom's source_layer is set to "matn" AND an attribution entry records this as a Layer 2 → Layer 1 transition. When the sharh author then quotes a THIRD scholar within the commentary, that produces a separate attribution entry. The layer attribution and scholarly attribution are complementary, not redundant: layers tell you WHOSE TEXT this is physically; attributions tell you WHOSE POSITION is being described.
+
+**Why this is transformative.** No existing Islamic studies tool structures the attribution within scholarly text. Current tools either ignore it entirely (treating all text as the source author's words) or capture it only at the book level (metadata says "the author is X"). KR's atom-level attribution enables the synthesizer to answer: "Show me all positions attributed to al-Shafi'i across the library" — gathering not just passages FROM al-Shafi'i's own books, but every time ANY author in the library QUOTES al-Shafi'i. This reconstructs a scholar's complete intellectual footprint across the entire corpus — including positions transmitted by later scholars that may not appear in the original works (because many early works are lost, known only through quotation in later texts).
+
+**Research validation.** IslamicLegalBench (2026) showed that even the best LLMs achieve only ~67% accuracy on Islamic legal reasoning tasks, with 21% hallucination. However, attribution detection is a much more constrained task than legal reasoning — it is pattern recognition over well-defined Arabic markers, not open-ended inference. The LLM is not being asked to evaluate the strength of a legal argument; it is being asked to detect "قال X" patterns and structure them. This is closer to NER (named entity recognition) than to legal reasoning, and LLMs perform significantly better on structured extraction tasks. Expected accuracy: 80-90% for direct attributions, 60-70% for anonymous/implicit attributions (the latter requiring human review flags).
+
+[NOT YET IMPLEMENTED] — Full specification provided. Depends on: core atomization implementation (§4.A), and scholar authority model interface for downstream resolution of raw scholar names to canonical IDs (excerpting engine responsibility).
+
+#### §4.B.5 — Atom-Level Semantic Fingerprinting
+
+**Capability:** Generate a normalized canonical fingerprint for each content atom that enables downstream engines to detect when the same scholarly content (definition, rule, evidence citation) appears across multiple sources — even when the wording differs slightly.
+
+The same definition of المبتدأ appears in dozens of grammar books across 14 centuries. Sometimes word-for-word identical (because later scholars quote earlier ones). Sometimes paraphrased. Sometimes compressed or expanded. When the excerpting engine produces excerpts from 20 sources that all define المبتدأ, the taxonomy engine places them all at the same leaf, and the synthesizer encounters 20 near-duplicate definitions. Without fingerprinting, the synthesizer must rely on its own LLM judgment to detect duplicates — error-prone and opaque. With fingerprints, the synthesizer can group semantically equivalent atoms BEFORE synthesis, producing cleaner entries.
+
+**Fingerprint generation (three-tier):**
+
+**Tier 1 — Normalized text hash (deterministic, fast).** The atom's text is normalized by: (a) stripping all diacritics (tashkil), (b) normalizing alef variants (أ/إ/آ → ا), taa marbuta (ة → ه for matching purposes only), and hamza forms, (c) removing common particles and connectives (و، ف، ثم، لكن) from the start, (d) sorting words alphabetically. The resulting normalized string is SHA-256 hashed. Exact textual duplicates (modulo diacritics and orthographic variants) produce identical hashes. This tier catches verbatim quotations across sources. Output: `fingerprint_text_hash` (string, 64 hex chars).
+
+**Tier 2 — Key term extraction (LLM-assisted, medium cost).** During atomization, the LLM extracts 2-5 key Arabic terms from each atom — the conceptual core independent of phrasing. For a definition of المبتدأ, the key terms might be: [المبتدأ، اسم، مرفوع، عوامل، ابتداء]. These are stored as `fingerprint_key_terms` (array of strings, normalized). Two atoms sharing ≥70% of their key terms are candidate semantic duplicates even if their full text differs. This tier catches paraphrases and reformulations.
+
+**Tier 3 — Semantic embedding (model-based, highest cost).** The atom text is embedded using an Arabic semantic model (Swan-Large or Arabic-STS-Matryoshka, per RESOURCES.md). The resulting vector (truncated to 256 dimensions via Matryoshka) is stored as `fingerprint_embedding` (array of floats). Cosine similarity ≥ 0.85 between embeddings indicates strong semantic overlap. This tier catches deep paraphrases where the same concept is expressed in completely different words. Embedding computation is deferred by default — Tier 3 runs only when `enable_semantic_fingerprinting` is true in configuration, because it requires a GPU-resident embedding model.
+
+**Fingerprint is NOT identity.** Two atoms with matching fingerprints are CANDIDATES for deduplication — not confirmed duplicates. The synthesizer or excerpting engine makes the final deduplication decision because context matters: the same definition from a 2nd-century AH source and a 7th-century AH source may be textually identical but carry different scholarly weight. Fingerprints enable detection; downstream engines decide what to do with the detection.
+
+**Storage and downstream consumption.** Fingerprint fields are part of the atom record (§3). They are metadata that flows forward (D-023). The excerpting engine uses them to detect when multiple atoms within an excerpt are redundant. The taxonomy engine uses them to pre-group atoms at a leaf before synthesis. The synthesizer uses them to present unique content once (citing the strongest source) rather than repeating near-identical definitions from 20 sources.
+
+**Scalability consideration.** Tier 1 (text hash) is O(1) per atom — trivially fast. Tier 2 (key terms) is part of the existing LLM call — marginal cost. Tier 3 (embedding) adds one embedding model call per atom — significant at scale. For a 15-volume work producing ~50,000 atoms, Tier 3 adds ~50,000 embedding calls. At 1000 embeddings/second (batch processing with Swan-Large on a consumer GPU), this adds ~50 seconds. Acceptable.
+
+**Why this is transformative.** No existing Islamic studies tool detects conceptual duplicates across sources at the sub-paragraph level. The KITAB project's text reuse detection operates at 300-word chunks — too coarse to detect that two books contain the same one-sentence definition. Islamic scholarly tradition is deeply intertextual: later scholars routinely reproduce earlier scholars' exact definitions, often without attribution. Atom-level fingerprinting reveals this intertextual web at the finest meaningful granularity. Over time, as the library grows, the fingerprint database becomes a map of how scholarly concepts are transmitted, transformed, and preserved across centuries — making visible the invisible "DNA" of the Islamic intellectual tradition.
+
+**Cross-source fingerprint index.** After atomizing a source, the engine registers all fingerprints in a source-level fingerprint manifest (`library/sources/{source_id}/atoms/fingerprint_manifest.json`). When the library has multiple sources, a background process (or the taxonomy engine) can cross-reference fingerprints across sources to build a library-wide duplicate detection index. This index is a shared resource, not owned by the atomization engine — the atomization engine produces the fingerprints; consumption is downstream.
+
+[NOT YET IMPLEMENTED] — Full specification provided. Depends on: Arabic text normalization utilities from CAMeL Tools (Tier 1), core LLM atomization producing key terms (Tier 2), Arabic embedding model deployment (Tier 3). Tier 1 and Tier 2 can be implemented immediately; Tier 3 requires embedding model infrastructure.
+
 ---
 
 ## 5. Validation and Quality
@@ -498,6 +586,13 @@ Parameters controlling engine behavior, with defaults and valid ranges.
 | review_flag_rate_warning_threshold | 0.20 | 0.05–0.50 | Fraction of flagged atoms that triggers source-level review |
 | fidelity_escalation_threshold | 0.5 | 0.0–1.0 | text_fidelity.min_score below which the escalation model is used |
 | gold_baseline_path | engines/atomization/gold/ | Any path | Directory containing gold baseline files for few-shot examples |
+| enable_attribution_detection | true | true/false | Whether to run §4.B.4 scholarly attribution chain detection during LLM atomization |
+| attribution_confidence_threshold | 0.5 | 0.0–1.0 | Below this threshold, low_attribution_confidence review flag is set |
+| enable_text_fingerprinting | true | true/false | Whether to compute Tier 1 (text hash) and Tier 2 (key terms) fingerprints |
+| enable_semantic_fingerprinting | false | true/false | Whether to compute Tier 3 (embedding) fingerprints. Requires GPU-resident embedding model. |
+| fingerprint_embedding_model | Omartificial/Arabic-STS-Matryoshka | Any sentence-transformers model | Embedding model for Tier 3 fingerprinting |
+| fingerprint_embedding_dimensions | 256 | 64–1024 | Matryoshka truncation dimension for Tier 3 |
+| fingerprint_key_terms_count | 5 | 2–10 | Maximum number of key terms extracted per atom for Tier 2 |
 
 **Per-science configuration hooks (Level 3 / SCIENCE.md):** Each science may define:
 - Additional scholarly function types specific to that science (extending the base enum)
@@ -531,6 +626,8 @@ Parameters controlling engine behavior, with defaults and valid ranges.
 - [NOT YET IMPLEMENTED] Rhetorical structure analysis (§4.B.1).
 - [NOT YET IMPLEMENTED] Implicit layer transition detection (§4.B.2).
 - [NOT YET IMPLEMENTED] Atom type distribution analytics (§4.B.3).
+- [NOT YET IMPLEMENTED] Scholarly attribution chain resolution (§4.B.4).
+- [NOT YET IMPLEMENTED] Atom-level semantic fingerprinting (§4.B.5) — Tier 1 (text hash) and Tier 2 (key terms) can be implemented immediately; Tier 3 (embeddings) requires embedding model infrastructure.
 
 **External tools and libraries this engine depends on:**
 - **Instructor** (Python, MIT license): Structured LLM output with Pydantic schema enforcement and automatic retries. Primary tool for LLM interaction. Handles the "LLM returns valid JSON conforming to the atom schema" requirement.
@@ -539,6 +636,8 @@ Parameters controlling engine behavior, with defaults and valid ranges.
 - **CAMeL Tools** (NYU Abu Dhabi, MIT license): Arabic text processing utilities. Used for: Arabic sentence boundary detection as a pre-processing hint (not authoritative — LLM makes final decisions), Arabic text normalization for fuzzy matching in offset correction.
 - **OpenRouter / Anthropic API / OpenAI API**: LLM providers. Atomization uses the configured primary model (via OpenRouter for flexibility, or direct Anthropic API for Claude).
 - **DSPy** (Stanford, MIT license): Alternative to Instructor for structured LLM output. May be used for prompt optimization against gold baselines — DSPy's MIPROv2 optimizer can automatically tune atomization prompts to maximize classification accuracy against gold data.
+- **Swan-Large or Arabic-STS-Matryoshka** (Arabic embedding models): Used by §4.B.5 Tier 3 semantic fingerprinting. Swan-Large (NYUAD) is SOTA on ArabicMTEB; Arabic-STS-Matryoshka supports efficient Matryoshka dimensionality reduction. Only required when `enable_semantic_fingerprinting` is true.
+- **CAMeL Tools text normalization** (NYU Abu Dhabi, MIT license): Used by §4.B.5 Tier 1 for Arabic orthographic normalization (alef/hamza/taa marbuta normalization, diacritics stripping) before hashing. Already a project dependency.
 
 **What each external tool handles vs. custom code:**
 - Instructor/DSPy: LLM call orchestration, schema enforcement, retries.

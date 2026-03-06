@@ -218,3 +218,28 @@ Passaging HARDENING session: threat model failure modes, validate error handling
 
 ### Next
 Atomization engine CREATIVE session.
+
+## Session 12: Atomization Engine CREATIVE
+**Date:** 2026-03-06
+**Type:** CREATIVE
+**Focus:** Atomization engine SPEC enhancement with 2 new §4.B capabilities
+
+### What Was Done
+1. Read all required files: DOMAIN.md, ENTRY_EXAMPLE.md, USER_SCENARIOS.md, passaging SPEC §3, passaging contracts.py, RESOURCES.md
+2. Research phase: Arabic discourse segmentation, hadith isnad/matn segmentation (92.5% accuracy with bi-grams), IslamicLegalBench 2026 (67% LLM accuracy on Islamic legal reasoning), KITAB text reuse detection, computational approaches to fiqh classification
+3. Designed and fully specified **§4.B.4 — Scholarly Attribution Chain Resolution**: Detects and structures nested attribution patterns within atoms (direct, via_work, school_collective, isnad, anonymous, self, refutation_target). Enables the synthesizer to reconstruct complete scholarly dialogue structure across the corpus.
+4. Designed and fully specified **§4.B.5 — Atom-Level Semantic Fingerprinting**: Three-tier fingerprinting (normalized text hash, key term extraction, semantic embedding) enabling downstream cross-source deduplication detection at the finest meaningful granularity. No existing tool does this for Arabic scholarly texts.
+5. Created `engines/atomization/contracts.py` with full Pydantic models for: AtomRecord, all sub-models (AnchorSpan, EmbeddedRef, ScholarlyAttribution, etc.), distribution report models, fingerprint manifest models
+6. Updated §3 output contract with attribution and fingerprint fields
+7. Updated §8 configuration with 8 new parameters for the new capabilities
+8. Updated §9 implementation state with new NOT YET IMPLEMENTED entries
+9. Updated RESOURCES.md with new research findings
+
+### Decisions Made
+- Attribution detection runs as sub-task within existing LLM atomization call (not a separate pass) — marginal cost
+- Fingerprinting uses three tiers with increasing cost: Tier 1 (text hash, deterministic), Tier 2 (key terms, part of LLM call), Tier 3 (embeddings, optional/deferred)
+- Tier 3 embeddings default to OFF — requires GPU infrastructure
+- Attribution produces raw scholar names, NOT canonical IDs — resolution is excerpting engine's responsibility
+
+### Domain Questions for Owner
+None this session.
