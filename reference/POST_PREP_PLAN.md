@@ -86,6 +86,22 @@ the detection prompt. Does it correctly separate the layers?
 
 **Cost:** ~$1. **Time:** 1 session.
 
+### Experiment 5: RAGAS faithfulness on a synthetic KR example
+
+**Why this matters:** Research (Finding 11) shows that RAG faithfulness 
+checking is a well-established technique. RAGAS is an open-source framework 
+that can verify every claim in a generated text is grounded in source context.
+If RAGAS works on Arabic scholarly text, the synthesis engine can be 
+automatically checked for hallucination. If it doesn't, we need a 
+different grounding verification approach.
+
+**Method:** Create a synthetic example: 5 Arabic excerpts on one topic, 
+a hand-written synthesis entry (deliberately including 2 grounded claims 
+and 1 hallucinated claim). Run RAGAS faithfulness metric. Does it correctly 
+identify the hallucinated claim?
+
+**Cost:** ~$1. **Time:** 1 session.
+
 ---
 
 ## Phase 3: BUILD + TEST (incremental, not all-at-once)
@@ -157,6 +173,37 @@ What we DON'T know (and will learn in Phase 3):
    Islamic scholarly judgment requires human expertise.
 4. Arabic-first evaluation is critical. Models must evaluate in Arabic, 
    not translated text.
+
+### RAG Evaluation Tools (Finding 11)
+- RAGAS framework: open-source, Python, measures faithfulness (every claim 
+  grounded in context), context relevance, answer relevancy
+- Statement-level faithfulness: break output into claims, verify each 
+  against source excerpts. KR's grounding_type (D-040) maps perfectly.
+- SelfCheckGPT: run synthesis 3 times, check consistency. Hallucinated 
+  content diverges across runs; grounded content stays stable.
+- Multi-judge faithfulness evaluation (GPT-4.1 + Claude + Gemini) is 
+  standard practice in RAG systems as of late 2025.
+
+### OpenITI/KITAB Project (Finding 7)
+- 4,300+ unique Arabic books, 750M words, all on GitHub
+- Most texts sourced from Shamela — same as KR's sources
+- KITAB uses passim algorithm for text reuse detection (Smith-Waterman)
+- They split texts into 300-word chunks ("milestones") — similar to passaging
+- Manual ground truth annotation for algorithm evaluation — same approach needed
+- KR should learn from their infrastructure and methodology
+
+### Autonomous Agent Failure Modes (Finding 8)
+- Oscillation (fix A breaks B, fix B breaks A) — defense: regression tests
+- Context saturation — defense: fresh sessions per task
+- Wrong-problem optimization — defense: high-quality test verifier
+- Parallel conflicts — defense: git-based file locking (C compiler pattern)
+- 3-4 parallel agents optimal (Google DeepMind scaling paper)
+
+### OpenRouter Pricing (Finding 9)
+- One API key, 290+ models including Claude, GPT, Gemini, DeepSeek
+- DeepSeek V3.2: $0.14/$0.28 per M tokens (nearly free for fast checks)
+- Expert models: $2-5 input, $8-25 output per M tokens
+- Cascaded: 85% cheap model + 15% expert panel = ~$1.2/M effective
 
 ---
 
