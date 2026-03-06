@@ -1,40 +1,43 @@
 # NEXT SESSION
 
-**Written by:** Session 2026-03-05 (Claude Code environment setup)
-**Date:** 2026-03-05
+**Written by:** Session 2026-03-06 (Consensus SPEC)
+**Date:** 2026-03-06
 
 ## Immediate Task
 
-Begin shared/consensus SPEC — the highest-priority shared component. The consensus mechanism is used by excerpting (D-036), taxonomy (D-039), and potentially source and atomization engines.
+Begin shared/validation SPEC — the validation component that provides algorithmic checks (Layer 2 of the quality architecture). Or, if the architect judges human_gate or feedback is higher priority based on implementation dependencies, start with that instead.
 
 **Definition of done — this session is complete when:**
-1. shared/consensus/SPEC.md written with all 10 sections per SPEC template
+1. One shared component SPEC written with all 10 sections per SPEC template
 2. RESOURCES.md updated with any new tools discovered during research
 3. Any new decisions recorded in kr_decisions.md
 4. Changes committed and pushed
 
 ## Context
 
-All 7 engine SPECs are complete. Cross-SPEC verification done. VISION.md corrected to v1.1.0. Claude Code environment (.claude/) is now populated with agents, commands, hooks, and settings. The preparatory phase's remaining work is shared component SPECs (consensus, validation, feedback) and the first SCIENCE.md (إملاء for Milestone 1).
+The consensus SPEC is complete (405 lines, D-041). It defines the multi-model agreement service using LiteLLM + Instructor with parallel independent comparison, three comparison strategies (categorical, numerical, structured), full audit logging, and two transformative capabilities (calibration intelligence, difficulty estimation).
 
-The consensus mechanism is referenced by multiple engine SPECs but has no standalone specification yet. Each engine SPEC describes how IT uses consensus, but the consensus component's own behavior — model selection, agreement thresholds, disagreement handling, configuration, error recovery — needs its own SPEC.
+Remaining shared component SPECs needed before implementation can begin:
+- **shared/validation** — algorithmic validation tools: schema validation, structural integrity checks (VISION.md §8.1 Layer 2). Used by all engines for output self-validation. Existing ABD code: `shared/validation/src/cross_validate.py`, `shared/validation/src/run_all_validations.py`.
+- **shared/human_gate** — human approval gates for irreversible library changes (VISION.md §9). Existing ABD code: `shared/human_gate/src/human_gate.py`.
+- **shared/feedback** — feedback loop infrastructure: correction storage, pattern analysis, regression testing coordination (VISION.md §8.3). Spans all engines with human gates. No existing code.
+- **shared/user_model** — persistent user state (D-017). No existing code.
+- **shared/scholar_authority** — canonical scholar identities (D-025). No existing code beyond what the source engine references.
+- **interface/scholar/** — user-facing intelligence layer (D-016). No existing code.
+
+After all shared component SPECs: the first SCIENCE.md (إملاء for Milestone 1).
 
 ## Files to Read — IN THIS ORDER
 
-1. `reference/DOMAIN.md` — domain context (if not recently read)
-2. `shared/consensus/` — whatever exists (CLAUDE.md, any src/)
-3. `engines/excerpting/SPEC.md` §6 — how excerpting uses consensus (D-036)
-4. `engines/taxonomy/SPEC.md` §6 — how taxonomy uses consensus (D-039)
-5. `engines/source/SPEC.md` §6 — how source uses consensus
-6. `engines/atomization/SPEC.md` §6 — atomization's conscious decision NOT to use consensus
-7. `VISION.md` §2.2 (consensus definition), §8 (quality architecture) — use extract_vision_sections.py
-8. `reference/RESOURCES.md` — existing tool research
+1. `shared/consensus/SPEC.md` — just completed; reference for shared component SPEC quality level
+2. Whichever shared component is chosen: its `CLAUDE.md` and any existing `src/` code
+3. Engine SPECs that reference the chosen component (grep for its mentions)
+4. `VISION.md` §8 (quality architecture), §9 (human gates) — use extract_vision_sections.py
+5. `reference/RESOURCES.md` — existing tool research
 
 ## Decisions Needed
 
-- What LLM providers should the consensus mechanism support? (OpenRouter routing vs. direct provider APIs)
-- Should consensus support async parallel calls or sequential with early termination?
-- What's the minimum viable consensus configuration for Milestone 1?
+- Which shared component to tackle next (validation, human_gate, or feedback)? Consider implementation dependency order: validation is referenced by every engine's §5; human_gate is referenced by every engine that has gates; feedback depends on human_gate.
 
 ## Pending Owner Questions
 
@@ -42,12 +45,8 @@ None.
 
 ## What This Session Did
 
-Prepared the Claude Code implementation environment:
-- Rewrote root CLAUDE.md per §13.3.2 (59 lines, pre/post work protocols, current priorities)
-- Created .claude/settings.json with hooks (test-before-commit, test-before-push, SPEC-update reminder)
-- Created 2 subagents (test-runner, spec-reviewer) and 4 slash commands (run-tests, check-spec, read-vision, start-engine)
-- Trimmed 4 engine CLAUDE.md files to ≤50 lines per §13.3.3
+Completed shared/consensus/SPEC.md (405 lines, all 10 sections). Key design: LiteLLM + Instructor for parallel independent model comparison (D-041), three comparison strategies (categorical, numerical, structured), five verdict types, complete audit logging. Two transformative capabilities: consensus calibration intelligence (model agreement profiling + drift detection) and decision difficulty estimation. Updated RESOURCES.md with consensus-specific research findings. Updated STATUS.md and consensus CLAUDE.md.
 
 ## New Decisions
 
-None this session (infrastructure setup only, no architectural decisions).
+D-041: Consensus technology stack — LiteLLM + Instructor with parallel independent comparison.

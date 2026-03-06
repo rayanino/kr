@@ -231,10 +231,27 @@ When writing each engine SPEC, the architect must search the web for existing to
 - DiverseSumm (Huang et al., 2024 NAACL): benchmark showing GPT-4 covers only ~40% of diverse information in multi-document summarization. Validates KR's need for explicit position tracking rather than relying on LLM to implicitly capture all positions.
 - Hallucination in MDS (Belem et al., 2025): up to 75% of LLM-generated multi-document summary content is hallucinated; hallucinations increase toward end of summaries. Validates KR's citation-completeness integrity check and anti-hallucination verification approach.
 
-**Consensus engine:**
+**Consensus component:**
 - OpenRouter (already cataloged — multi-model gateway)
 - DSPy (already cataloged — pipeline orchestration)
-- LiteLLM (provider routing, used by DSPy internally)
+- LiteLLM (already cataloged — provider routing, used as direct SDK for consensus)
+- Instructor (already cataloged — structured output extraction with Pydantic)
+
+## Consensus Component Resources (added 2026-03-06)
+
+### LiteLLM as Consensus Provider Layer
+- **Role in consensus:** Primary provider abstraction. All consensus LLM calls go through `litellm.acompletion()` for async parallel dispatch. Provides unified API across Anthropic, OpenAI, Google, and 100+ other providers. Handles authentication, retries, cost tracking per call.
+- **Key capability for consensus:** Router with retry/fallback logic across multiple deployments. Supports `max_parallel_requests` semaphore for rate limiting. 8ms P95 latency overhead at 1k RPS.
+- **Decision:** Use LiteLLM Python SDK directly (not proxy server) — the consensus component is a shared library, not a standalone service. No operational overhead of running a proxy.
+
+### Instructor as Structured Output Layer
+- **Role in consensus:** Enforces Pydantic schema on every model response. Automatic retries on schema validation failure. Works on top of LiteLLM via `instructor.from_litellm()`.
+- **Key capability for consensus:** Schema violations trigger automatic retry with error feedback to the model, up to configurable limit. This handles the primary failure mode of multi-model structured output: different models may need different numbers of attempts to produce schema-conformant responses.
+
+### Multi-LLM Consensus Research (2024-2025)
+- **CONSENSAGENT (ACL 2025):** Framework that dynamically refines prompts to mitigate sycophancy in multi-agent debate — agents reinforcing each other's responses instead of critically evaluating. KR's consensus design avoids this by using independent (non-deliberative) evaluation: models never see each other's responses. The sycophancy risk applies to debate-style consensus, not to KR's parallel-independent-comparison approach.
+- **Multi-LLM Consensus for Cell Annotation (bioRxiv 2025):** Iterative multi-LLM consensus framework achieving 15% accuracy improvement over single-model. Uses cross-model deliberation to quantify uncertainty and identify ambiguous cases for expert review. Validates KR's approach of using disagreement as a signal for human gate escalation.
+- **Multi-LLM Consensus Survey (MDPI 2025):** Categorizes consensus into prompt-level, reasoning-to-detection, box-level, and hybrid approaches. KR's approach is "box-level" (compare independent structured outputs) — the simplest and most robust form, avoiding the complexity of reasoning-level consensus.
 
 ---
 

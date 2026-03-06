@@ -1,7 +1,7 @@
 # خزانة ريان — Project Status
 
-**Last updated:** 2026-03-05
-**Phase:** Preparatory phase COMPLETE — ready for implementation
+**Last updated:** 2026-03-06
+**Phase:** Preparatory phase — shared component SPECs in progress
 **Tests:** 903 pass, 37 skip, 1 fail (API key) — all ABD-era; no KR-specific tests yet
 
 ---
@@ -19,10 +19,11 @@
 | Excerpting engine SPEC | Complete | 559L. D-036, D-037. |
 | Taxonomy engine SPEC | Complete | 562L. D-038, D-039. |
 | Synthesizing engine SPEC | Complete | 582L. D-040. |
+| Consensus SPEC | Complete | 405L. D-041. LiteLLM + Instructor, parallel independent comparison, three comparison strategies. |
 | 7 schemas in schemas/ | ABD-era, superseded | Schemas now authoritatively defined in engine SPECs §2/§3. JSON files to be regenerated during implementation. |
 | root CLAUDE.md | Exists | Needs update for implementation phase. |
 | 7 engine CLAUDE.md | Exist | Updated alongside each SPEC. |
-| kr_decisions.md | 40 decisions | D-001 to D-040. |
+| kr_decisions.md | 41 decisions | D-001 to D-041. |
 | SCHEMA_ANALYSIS.md | Updated | Notes all SPECs complete; JSON files superseded by SPEC definitions. |
 | DOMAIN.md | Complete (~750L) | Core identity, scholarly domain knowledge, evidence hierarchy, integrity risks, design implications. |
 | USER_SCENARIOS.md | Complete (8 scenarios) | Day 1 through Year 3 + book briefing + science map + error correction. |
@@ -72,7 +73,7 @@ ABD code has zero design authority (D-019). SPECs define what to build. ABD code
 
 The preparatory phase deliverables are substantially complete. Remaining items:
 
-1. **Shared component SPECs** — consensus, human_gate, validation, feedback SPECs not yet written. These are lower priority than engine SPECs but needed before implementation.
+1. **Shared component SPECs** — human_gate, validation, feedback SPECs not yet written. Consensus SPEC complete (D-041). These are lower priority than engine SPECs but needed before implementation.
 2. **Scholar interface SPEC** — the user-facing intelligence layer has no SPEC yet.
 3. **User model SPEC** — shared component for persistent user state.
 4. **`.claude/` directory** — needs population with agents, commands, hooks, settings for Claude Code.
