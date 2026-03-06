@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-03-06
 **Phase:** SPEC Refinement (Sub-phase A). All 14 SPECs drafted. Iterative refinement in progress — source engine SPEC first, then pipeline order. Implementation (Sub-phase B) begins after SPECs pass refinement.
-**Tests:** 903 pass, 37 skip, 1 fail (API key) — all ABD-era; no KR-specific tests yet
+**Tests:** ABD-era tests archived to `reference/archive/abd_code/`. No KR-specific tests yet — they will be written during implementation (Sub-phase B).
 
 ---
 
@@ -53,21 +53,10 @@
 | Metadata pass-through (D-023) | Verified across full chain. All metadata accumulates from source to synthesis without loss. |
 | Terminology coherence | Verified. "entry", "excerpt", "leaf", "passage", "source" used consistently across all 14 SPECs + VISION.md. |
 
-### Code (legacy from ABD — functional but not designed for KR)
-ABD code has zero design authority (D-019). SPECs define what to build. ABD code is reference material only.
+### Code
+ABD-era code archived to `reference/archive/abd_code/` (D-019: zero design authority). Engine `src/` and `tests/` directories are clean — ready for KR-specific implementation after SPEC refinement.
 
-| Engine | ABD Source Lines | ABD Tests |
-|--------|-----------------|-----------|
-| source | 2,284L | 112 |
-| normalization | 4,352L | 292 |
-| passaging | 279L (scaffold) | 0 |
-| atomization | 0L (in excerpting) | 0 |
-| excerpting | 3,309L | 258 |
-| taxonomy | 2,377L | 109 |
-| synthesis | 0L | 0 |
-| shared/consensus | 1,749L | passing |
-| shared/human_gate | 881L | 28 |
-| shared/validation | 779L | passing |
+ABD-era schemas archived to `schemas/archive/`. New schemas will be generated from SPEC §2/§3 during implementation.
 
 ### Infrastructure
 | Component | State |
