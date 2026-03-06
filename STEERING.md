@@ -29,7 +29,7 @@ Passaging → Atomization → Excerpting → Taxonomy → Synthesis
 ## Data Flow
 
 ```
-Raw source (Shamela HTML, PDF, photos, manual text)
+Raw source (PDF, HTML exports, photos, EPUB, manual text, any scholarly format)
   → Frozen source + metadata.json (source engine)
     → manifest.json + content.jsonl (normalization engine)
       → passages[] (passaging engine)

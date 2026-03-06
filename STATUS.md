@@ -83,7 +83,7 @@ Remaining preparatory work:
 6. ~~Root CLAUDE.md rewrite~~ — **DONE** (2026-03-06). 62 lines, implementation-focused.
 7. **إملاء SCIENCE.md** — minimal Level 3 doc for first science. Can be done during Milestone 1 when needed.
 
-**The preparatory phase is complete.** Next: Milestone 1 implementation (source + normalization engines, Shamela format).
+**The preparatory phase is complete.** Next: Milestone 1 implementation (source + normalization engines, any format).
 
 ---
 

@@ -28,7 +28,7 @@ Cross-reference the SPEC prose against `engines/source/contracts.py` (Pydantic m
 
 Run `python3 scripts/orient.py --brief` for current project status.
 
-The preparatory phase has 8 work streams (see `PREPARATORY_ROADMAP.md`). This session does Stream 1 (source SPEC refinement). The owner is looking for Shamela test data to provide.
+The preparatory phase has 8 work streams (see `PREPARATORY_ROADMAP.md`). This session does Stream 1 (source SPEC refinement). The owner is looking for scholarly source data to provide (any format).
 
 ## Files to Read — IN THIS ORDER
 
@@ -54,7 +54,7 @@ VISION.md, DOMAIN.md, kr_decisions.md, STATUS.md, ORCHESTRATOR.md, other engine 
 
 - Source SPEC written before full multi-layer detection was specified
 - contracts.py derived from SPEC prose; mismatches likely
-- Test fixtures exist but owner providing additional Shamela data
+- Test fixtures exist but owner providing additional source data
 
 ## Progress Metrics
 
@@ -71,5 +71,5 @@ D-043: GUI technology (FastAPI + Tailwind + HTMX for MVP).
 
 ## Pending Owner Questions
 
-- **Test data:** Need sample Shamela directories (2-3 books of varying complexity).
+- **Test data:** Need sample scholarly source files (2-3 books in any format — PDF, HTML, text).
 - **API keys:** Fill in .env from .env.template when ready (OpenRouter or Anthropic + OpenAI).

@@ -77,12 +77,12 @@ Options:
 
 No engine can be properly tested without realistic test data:
 
-1. **Shamela test corpus:** 3-5 Shamela directories of varying complexity (single-layer, multi-layer, multi-volume, with footnotes, without). These should be committed to the repo (or Git LFS if too large).
+1. **Source test corpus:** Source data of varying formats and complexity. Could include: HTML exports from Islamic text libraries, PDFs of scholarly books, plain text files, owner-authored notes. What matters is format variety, not a specific source.
 2. **OCR test corpus:** 2-3 scanned Arabic pages with known-good transcriptions for OCR accuracy testing.
 3. **Gold baselines:** Hand-verified outputs for each engine. Starting with source engine metadata extraction.
 4. **Arabic text test cases:** From `.claude/skills/arabic-text/SKILL.md` — diacritized text, mixed Arabic/Latin, Quran verses, isnad chains, poetry.
 
-**Action required from owner:** Provide or point to sample Shamela directories. The system cannot test the Shamela intake path without real Shamela data.
+**Action required from owner:** Provide sample scholarly source files in whatever formats you have. The system needs real data to test — the specific format is secondary to having actual Arabic scholarly content.
 
 ### Stream 7: Architectural Validation
 

@@ -2,21 +2,23 @@
 
 Minimal test data for engine testing. Real Arabic text from actual scholarly sources.
 
-## shamela_minimal/
+## html_export_minimal/
 
-A minimal Shamela-format source based on شرح ابن عقيل على ألفية ابن مالك (Ibn Aqil's Commentary on Ibn Malik's Alfiyyah). This is a multi-layer text: the ألفية (versified grammar) is the matn, and ابن عقيل's commentary is the sharh.
+A minimal HTML export source based on شرح ابن عقيل على ألفية ابن مالك (Ibn Aqil's Commentary on Ibn Malik's Alfiyyah). This is a multi-layer text: the ألفية (versified grammar) is the matn, and ابن عقيل's commentary is the sharh.
 
 **Files:**
 - `info.html` — Book metadata (title, author, muhaqiq, publisher, edition, volume count, genre)
 - `content.html` — Two pages of actual text with: chapter heading, matn verses (CSS class `matn`), sharh paragraphs (CSS class `sharh`), footnotes, page/volume markers
 
 **What this fixture tests:**
-- Source engine: metadata extraction from info.html (title, author, muhaqiq, publisher, genre)
+- Source engine: metadata extraction from structured HTML (title, author, muhaqiq, publisher, genre)
 - Source engine: multi-layer detection (matn + sharh)
 - Source engine: genre chain detection (sharh → base work "ألفية ابن مالك" by "ابن مالك")
 - Normalization engine: HTML parsing, heading hierarchy, page break detection
 - Normalization engine: matn/sharh layer separation
 - Normalization engine: footnote extraction and marker normalization
+
+Note: This happens to use a Shamela-like HTML structure, but the source engine and normalization engine handle ALL formats. Additional fixtures for PDF, plain text, and other formats should be added.
 
 **Expected source metadata (for test assertions):**
 - title_arabic: "شرح ابن عقيل على ألفية ابن مالك"

@@ -106,7 +106,7 @@ NEXT.md drives every session. Write it as if the next session is a different per
 
 ## Immediate Task
 
-[Specific: "Implement source engine §4.A.2 metadata extraction for Shamela format"
+[Specific: "Implement source engine §4.A.2 metadata extraction for HTML export format"
  Not vague: "Work on source engine"]
 
 **Definition of done:**
@@ -164,7 +164,7 @@ A single session should complete ONE §4.A subsection (e.g., §4.A.1 Source Iden
 
 Every implementation task includes tests. Not "write tests later" — write them in the same session. Test structure mirrors SPEC structure:
 - `test_4a1_source_identification.py` for §4.A.1
-- `test_4a2_shamela_metadata.py` for §4.A.2
+- `test_4a2_metadata_extraction.py` for §4.A.2 (format-agnostic)
 - etc.
 
 ---
