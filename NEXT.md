@@ -1,62 +1,56 @@
 # NEXT SESSION
 
 ## Session Type
-CREATIVE (see SESSION_TYPES.md for full framework)
+PRECISION (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Synthesis engine CREATIVE session.** The synthesis engine is the final engine in the pipeline — it produces the entries that ARE Rayane's knowledge. This is the most important engine to get right because its output is what the owner reads, studies, and internalizes. The CREATIVE session must: research state-of-the-art in LLM-based scholarly synthesis, design the core processing rules (§4.A), and invent transformative capabilities (§4.B) that produce entries matching the quality target in ENTRY_EXAMPLE.md.
+**Synthesis engine PRECISION session.** The CREATIVE session produced the synthesis SPEC draft with 6 transformative capabilities, attribution-first generation design, and contracts.py. The PRECISION session must: reduce high-severity defects to 0, add worked examples to all §4 subsections missing them, specify the exact LLM prompt templates for key calls, and ensure every rule passes the "mental function signature" test for Claude Code.
 
 ## What to Read
 
-1. `reference/ENTRY_EXAMPLE.md` — The quality target. Study the GOOD entry (not the flat one). Understand what makes it a scholarly narrative rather than a compilation.
-2. `reference/DOMAIN.md` — Islamic scholarly conventions that the synthesizer must respect.
-3. `engines/taxonomy/SPEC.md` §3 (Output Contract) and §4.B.6 (Scholarly Landscape) — the synthesizer's primary input. The scholarly landscape is the narrative scaffold.
-4. `engines/excerpting/SPEC.md` §3 (Output Contract) — what excerpt metadata is available.
-5. `CREATIVE_MANDATE.md` — The invention protocol. Follow it.
-6. `reference/RESOURCES.md` — Available tools and libraries.
+1. `engines/synthesis/SPEC.md` — The SPEC to refine. Focus on §4 (processing rules) and §5 (validation).
+2. `engines/synthesis/contracts.py` — Verify contracts match SPEC exactly. Fix any divergence.
+3. `reference/ENTRY_EXAMPLE.md` — Re-read to verify the SPEC's processing rules would actually produce an entry of this quality.
+4. `scripts/check_spec_quality.py` output — Current: 20 high defects (mostly VAGUE_QUANTIFIER and MISSING_EXAMPLE). Target: 0 high.
+5. `engines/taxonomy/SPEC.md` §4.B.6 — Scholarly landscape output. Verify the synthesis engine's landscape consumption matches the taxonomy engine's landscape output exactly.
 
-**Do NOT read:** Other engine SPECs beyond §3 output contracts. Do NOT read KNOWLEDGE_INTEGRITY.md (save for HARDENING). Do NOT read full VISION.md — use `python3 scripts/extract_vision_sections.py` for §7 (synthesis) and §12 (entries) only.
+**Do NOT read:** VISION.md, DOMAIN.md (already consumed in CREATIVE session). Do NOT read other engine SPECs except §3 output contracts.
 
 ## Definition of Done
 
-1. `engines/synthesis/SPEC.md` draft exists with all 10 template sections
-2. §4.A has concrete processing rules for: entry structure generation, excerpt integration, grounding verification, narrative construction
-3. §4.B has at least 2 architect-originated transformative capabilities (not from VISION.md)
-4. Every §4.A rule passes the "mental function signature" test — Claude Code can implement without clarifying questions
-5. Web search research performed: at least 3 searches on LLM synthesis techniques, scholarly narrative generation, or multi-source compilation
-6. `engines/synthesis/contracts.py` created with Pydantic models for input/output
-7. check_spec_quality.py shows 0 high-severity defects
-8. creative_verification.py shows invention ratio > 0%
-9. Self-audit performed: ≥3 structural/semantic defects found and fixed
-10. NEXT.md written (for synthesis PRECISION session)
-11. SESSION_LOG.md updated
-12. Committed and pushed
+1. `check_spec_quality.py` shows 0 high-severity defects
+2. Every §4.A subsection has at least one worked example with real Arabic text showing input → processing → output
+3. §4.A.3 (Phase 2) and §4.A.4.1 (Phase 3 factual layer) have exact prompt templates (not just descriptions)
+4. §4.B.5 (Khilaf Disambiguation) has a worked example showing decomposition of a real disagreement (e.g., المبتدأ definitions)
+5. §4.B.6 (Socratic Self-Verification) has a worked example showing question generation + self-verification cycle
+6. contracts.py and SPEC agree perfectly — no schema field in one but not the other
+7. §5 (Validation) maps all KNOWLEDGE_INTEGRITY.md threats to synthesis-specific vectors (like the taxonomy SPEC does)
+8. §7 (Error Handling) has complete error codes for all failure modes
+9. §9 (Current Implementation State) updated with accurate file list
+10. Self-audit: ≥3 structural/semantic defects found and fixed
+11. NEXT.md written (for synthesis HARDENING session)
+12. SESSION_LOG.md updated
+13. Committed and pushed
 
-## What the Previous Session Did (Hardening — Taxonomy)
+## Key Issues from CREATIVE Session
 
-- Mapped all 7 KNOWLEDGE_INTEGRITY.md threats to taxonomy-specific prevention mechanisms (§5.4)
-- Added error cascade analysis for 5 failure propagation paths (§5.5)
-- Added 6 adversarial test cases to §10.5 (systematic bias, evolution orphan, crash recovery, rollback with post-evolution excerpts, duplicate gate decisions, Arabic text fidelity)
-- Self-audit: 6 structural/semantic defects found and fixed:
-  - Leaf embedding cache lifecycle unspecified → specified compute/update/staleness rules
-  - Post-write text fidelity check missing → added byte-for-byte primary_text verification
-  - Rollback failure scenario missing → added TAX_ROLLBACK_FAILURE with diagnostic + manual recovery
-  - Human gate decision idempotency missing → added duplicate detection via gate_log
-  - Pre-approval "consecutive" scope ambiguous → clarified per source-science pair
-  - "reviewed" status referenced (doesn't exist in taxonomy contract) → fixed to "draft" + re-placement queue
-- Added WAL (write-ahead log) mechanism for crash-safe evolution
-- Added 4 new error codes: TAX_METADATA_INCONSISTENCY, TAX_LOW_SELF_CONTAINMENT, TAX_EMBEDDING_DEGRADED, TAX_ROLLBACK_FAILURE
-- Final: 0 high, 6 medium (false-positive concept terms), 2 low
+- **20 high-severity defects remaining** — mostly VAGUE_QUANTIFIER ("multiple", "many", "some") in existing text. Replace each with specific numbers or ranges.
+- **7 §4 subsections missing worked examples** — §4.A.1, §4.A.5, §4.A.6, §4.A.8, §4.A.9, §4.A.10, §4.A.11. Each needs an Arabic example.
+- **3 UNVALIDATED_WRITE warnings** — writes to library need pre-write validation specified.
+- **Prompt templates not yet specified** — §4.A.3 describes what the LLM does but the exact system prompts, user messages, and few-shot examples are not written. The PRECISION session should add these for the 3 most critical LLM calls: (1) position identification, (2) attribution-first claim planning, (3) entailment verification.
+- **§5 threat mapping incomplete** — the taxonomy SPEC has a detailed §5.4 mapping KNOWLEDGE_INTEGRITY.md threats to engine-specific vectors. The synthesis SPEC should do the same.
 
-## Creative Focus for Synthesis
+## What the Previous Session Did (Creative — Synthesis)
 
-The synthesizer's job is NOT "compile excerpts into entries." It is: produce scholarly narratives that transform raw excerpt data + scholarly landscape metadata into the kind of entry shown in ENTRY_EXAMPLE.md. Key questions:
-
-1. **How does the synthesizer use the scholarly landscape?** The landscape provides chronological timelines, influence chains, discourse transitions, evidence evolution. How does the synthesizer transform these data structures into prose?
-2. **What is the entry's structure?** Not just "introduction + body + conclusion." The target entry has: definitional core, historical development, school comparison, evidence analysis, cross-reference network. How is this structure determined per topic?
-3. **How does the synthesizer handle grounding?** Every claim must be traceable (T-5, D-040). The entry must distinguish source_grounded claims from analytical claims. How does the synthesizer mark this distinction in the output?
-4. **What makes one entry better than another?** Can the synthesizer self-evaluate entry quality? Can it detect when an entry is flat vs. narrative?
+- Researched 8 sources on LLM multi-document synthesis, attribution-first generation, hallucination rates
+- Redesigned §4.A.4.1 as Attribution-First generation pipeline (plan → attribute → generate conditioned → verify entailment)
+- Added §4.B.5 Khilaf Disambiguation Engine (atomic sub-claim decomposition + agreement matrix)
+- Added §4.B.6 Socratic Self-Verification and Assessment Generation (dual-purpose quality + assessment)
+- Improved §4.A.3 with precise Pydantic schemas and formulas
+- Created contracts.py with all input/output models
+- Updated RESOURCES.md with 7 new research entries
+- Self-audit: 4 defects found and fixed
 
 ## Pending Owner Questions
 

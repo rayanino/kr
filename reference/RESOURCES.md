@@ -632,3 +632,19 @@ Optional keys (add as needed):
 - **Purpose:** After initial embedding-based retrieval (fast, approximate), re-rank top-K results with a cross-encoder (slower, precise). Standard in production RAG systems — significantly improves precision.
 - **Arabic options:** (a) Multilingual cross-encoders from BGE or Cohere families, (b) fine-tune a cross-encoder on KR-specific relevance data as the library grows, (c) LLM-as-reranker (more expensive but potentially more accurate for classical Arabic scholarly text).
 - **Latency:** Adds ~100-200ms per query. Acceptable for a personal scholarly application.
+
+## Technology Survey Update (2026-03-06, Creative Session — Synthesis Engine)
+
+**Attr-First (Slobodkin et al., ACL 2024)** — "Attribute First, then Generate" decomposes text generation into content selection → sentence planning → sequential generation. By selecting source spans BEFORE generating, the output comes with fine-grained attributions built-in rather than added post-hoc. Tested on multi-document summarization and long-form QA. Significantly reduces human verification time. **KR use: §4.A.4.1 (Attribution-First Factual Layer Construction)** — the synthesis engine's factual layer follows this decomposition: plan claims → attribute to excerpt spans → generate conditioned on spans → verify entailment. This directly addresses the hallucination problem documented by Belem et al. 2025.
+
+**OpenScholar (Asai et al., Nature 2025)** — Specialized retrieval-augmented LM for scientific literature synthesis. 8B parameter model outperforms GPT-4o by 6.1% on multi-paper synthesis tasks. Key finding: GPT-4o hallucinates citations 78-90% of the time; OpenScholar achieves expert-level citation accuracy through retrieval augmentation. Validates KR's approach of grounding synthesis in specific excerpts rather than LLM parametric knowledge. **KR use:** Architecture validation — confirms that retrieval-grounded generation vastly outperforms parametric-only generation for scholarly synthesis.
+
+**NEXUSSUM (ACL 2025)** — Hierarchical multi-agent framework for long-form narrative summarization. Achieves 30% improvement over baselines on BookSum by using hierarchical processing (chunk → summarize → merge). **KR use:** Validates KR's phased generation pipeline (collect → analyze → construct → verify → finalize) rather than single-pass generation.
+
+**DiverseSumm (Huang et al., NAACL 2024)** — Benchmark showing GPT-4 covers only ~40% of diverse information in multi-document summarization. **KR use:** Validates synthesis engine's explicit position tracking — the engine enumerates ALL positions from Phase 2 analysis and verifies each appears in the entry, rather than relying on the LLM to implicitly capture all perspectives.
+
+**Belem et al. 2025 (Hallucination in MDS)** — Up to 75% of LLM-generated multi-document summary content is hallucinated; hallucinations increase toward the end of summaries. **KR use:** Directly motivated the attribution-first approach in §4.A.4.1 and the Socratic self-verification in §4.B.6.
+
+**LAQuer (ACL 2025)** — Framework for localized attribution queries: decontextualizes claims from generated text, then attributes each to specific source spans. Uses NLI for verification. **KR use:** Informs the entailment verification step (§4.A.4.1 Step 4) — each generated sentence is verified against its attributed spans using NLI-style checking.
+
+**Contradiction Detection in RAG (Gokul et al., 2025)** — Evaluates LLMs as context validators for detecting contradictory information in retrieved documents. Finding: even SOTA LLMs perform only slightly better than random guessing on subtle contradictions. **KR use:** Validates the multi-model consensus approach for intra-author contradiction detection (§4.A.3 Step 4) rather than relying on a single model, and motivates the structured decomposition approach in §4.B.5 (Khilaf Disambiguation).

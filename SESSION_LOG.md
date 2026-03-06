@@ -566,3 +566,38 @@ None this session.
 
 ### Owner Questions
 - None new
+
+---
+
+## Session: Synthesis Engine CREATIVE
+**Date:** 2026-03-06
+**Type:** CREATIVE
+**Engine:** Synthesis (محرك التوليف)
+
+### What Was Done
+- **Web research (8 searches):** LLM multi-document synthesis, attribution-first generation (Slobodkin et al. 2024), OpenScholar (Nature 2025), contradiction detection in RAG, long-form structured generation techniques, Islamic scholarly comparison tools, hallucination rates in MDS (Belem et al. 2025), NEXUSSUM hierarchical summarization
+- **§4.A improvements:**
+  - §4.A.2: Added scholarly landscape loading as a key Phase 1 input — the synthesis engine validates and enriches the taxonomy engine's pre-computed landscape rather than rebuilding it
+  - §4.A.3 (Phase 2): Rewrote all 7 steps with precise Pydantic schemas, exact prompt structures, LLM output formats, and specific formulas (Herfindahl index defined, mu'tamad keyword lists, etc.)
+  - §4.A.4.1 (Phase 3 — Factual Layer): Complete redesign as "Attribution-First" generation — plan claims → select source spans → generate conditioned on spans → verify entailment. Based on Slobodkin et al. 2024 and Belem et al. 2025 findings on hallucination rates
+  - Added no-grounded-claims edge case handling
+- **§4.B new capabilities (architect-originated):**
+  - §4.B.5 — Khilaf Disambiguation Engine (تحرير مسألة الخلاف): Automatic tahrir al-mas'ala through atomic sub-claim decomposition, agreement-disagreement matrix construction, and four-category classification (lafzi, ishtiraki, haqiqi, su'al_mukhtalif). Novel contribution: no existing tool automates this fundamental scholarly methodology.
+  - §4.B.6 — Socratic Self-Verification and Assessment Generation: Dual-purpose system that generates comprehension questions at 4 cognitive levels to both (1) detect entry coherence defects and (2) fuel the user model's assessment system
+- **contracts.py created:** Full Pydantic models for all input/output schemas, Phase 2/3 intermediates, and all 6 §4.B capability outputs
+- **RESOURCES.md updated:** 7 new research entries (Attr-First, OpenScholar, NEXUSSUM, DiverseSumm, Belem et al., LAQuer, contradiction detection)
+- **Self-audit:** 4 defects found and fixed:
+  1. ExcerptSpan "approximate" offsets ambiguous → clarified as ±50 chars for highlighting, not extraction
+  2. No-grounded-claims edge case missing → added diagnostic entry generation
+  3. Agreement matrix storage format unspecified → specified flat triple representation
+  4. Herfindahl index formula undefined → added explicit formula
+
+### Decisions Made
+- Attribution-first generation over generate-then-cite: research shows 75% hallucination in standard MDS
+- Khilaf disambiguation uses four categories (not traditional two) — `ishtiraki` and `su'al_mukhtalif` are novel
+- Socratic self-verification is a quality mechanism AND an assessment generator — dual-purpose by design
+- Scholarly landscape is the PRIMARY analysis source when available (confidence ≥ 0.6)
+- Entry citation format: standard academic Arabic format (Author, Work (ed. Tahqiq, Publisher), vol:page)
+
+### Owner Questions
+- None new (API keys still pending, not blocking)
