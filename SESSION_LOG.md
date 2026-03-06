@@ -1,5 +1,36 @@
 # Session Log — خزانة ريان
 
+## Session: Taxonomy Engine HARDENING — 2026-03-06
+**Type:** HARDENING
+**Engine:** Taxonomy (محرك التصنيف)
+
+**What was done:**
+- Mapped all 7 KNOWLEDGE_INTEGRITY.md threats (T-1 through T-7) to taxonomy-specific vectors and prevention mechanisms (new §5.4)
+- Wrote error cascade analysis for 5 failure propagation paths: wrong science_id, corrupted tree semantics, mid-evolution crash, systematic LLM bias, embedding model degradation (new §5.5)
+- Added 6 adversarial test cases to §10.5: systematic placement bias, evolution orphan attack, mid-migration crash recovery, rollback with post-evolution excerpts, duplicate human gate decision, Arabic text fidelity
+- Self-audit found and fixed 6 structural/semantic defects:
+  1. Leaf embedding cache lifecycle unspecified → added compute/update/staleness rules
+  2. Post-write text fidelity check missing from §5.1 → added byte-for-byte primary_text verification
+  3. Rollback failure scenario missing → added TAX_ROLLBACK_FAILURE with diagnostic report + manual recovery path
+  4. Human gate decision idempotency missing → added duplicate detection via gate_log.jsonl
+  5. Pre-approval "consecutive" scope ambiguous → clarified as per source-science pair
+  6. "reviewed" status referenced in 3 places (doesn't exist in taxonomy contract) → fixed to "draft" + re-placement queue
+- Added WAL (write-ahead log) mechanism for crash-safe evolution application
+- Added 4 new error codes: TAX_METADATA_INCONSISTENCY, TAX_LOW_SELF_CONTAINMENT, TAX_EMBEDDING_DEGRADED, TAX_ROLLBACK_FAILURE
+
+**Quality metrics:**
+- `check_spec_quality.py`: 0 high (maintained), 6 medium (false-positive concept terms), 2 low
+- `creative_verification.py`: 90/100 (maintained). SECRETARY flag expected — this is a HARDENING session.
+- SPEC grew from 868 to 946 lines
+
+**Decisions made:**
+- WAL for evolution: write-ahead log records all intended file operations before execution, enabling recovery from any mid-point failure
+- Rollback failure halts the science entirely rather than attempting automated recovery — file system may be inconsistent, manual intervention is safer
+- Post-write fidelity check compares primary_text byte-for-byte (not Unicode-normalized) to catch any serialization corruption
+- TAX_METADATA_INCONSISTENCY is a warning (not fatal) because the taxonomy engine cannot independently verify attribution — it flags for human review
+
+**No domain questions for owner.**
+
 ## Session: Taxonomy Engine CREATIVE — 2026-03-06
 **Type:** CREATIVE
 **Engine:** Taxonomy (محرك التصنيف)
