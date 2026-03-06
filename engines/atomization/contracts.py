@@ -254,7 +254,9 @@ class AtomRecord(BaseModel):
     # Scholarly attribution (§4.B.4)
     attributions: Optional[list[ScholarlyAttribution]] = Field(
         None,
-        description="Present when enable_attribution_detection is true"
+        description="None when enable_attribution_detection is false (feature disabled — "
+        "downstream must NOT interpret as 'no attributions'). Empty list [] when "
+        "enabled but no attributions detected. Non-empty list when attributions found."
     )
 
     # Semantic fingerprints (§4.B.5)
@@ -279,7 +281,13 @@ class AtomRecord(BaseModel):
         None,
         description="Required non-null when structural_type is bonded_cluster"
     )
-    review_flags: list[str] = Field(default_factory=list)
+    review_flags: list[str] = Field(
+        default_factory=list,
+        description="Machine-generated flags for human review. Values: "
+        "low_function_confidence, ambiguous_layer, possible_misattribution, "
+        "offset_drift_corrected, unresolved_quran_ref, low_attribution_confidence, "
+        "mid_word_boundary, coverage_gap_unresolved"
+    )
 
 
 # ──────────────────────────────────────────────────────────────────

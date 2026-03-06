@@ -272,3 +272,35 @@ Atomization engine CREATIVE session.
 
 ### Domain Questions for Owner
 None this session.
+
+---
+
+## Session: Atomization HARDENING
+**Date:** 2026-03-06
+**Type:** HARDENING
+**Engine:** Atomization
+
+### What Was Done
+1. Systematic threat analysis against KNOWLEDGE_INTEGRITY.md — all 7 threats (T-1 through T-7) checked against atomization
+2. **9 hardening defects found and fixed:**
+   - H-1: V-2 hard failure vs "best available" contradiction — clarified: V-2 failure excludes the passage entirely (no corrupt atoms written); V-1 failure produces synthetic gap-marker atoms
+   - H-2: Coverage enforcement creating invalid atoms — fixed: coverage gap repair now updates BOTH anchor_span AND atom_text together to maintain offset integrity invariant
+   - H-3: Heading atom offset ambiguity — heading_text is separate from passage_text; defined heading-specific offset invariant (atom_text == heading_text[start:end]), excluded heading atoms from V-1 coverage and V-2 passage_text checks
+   - H-4: No word-boundary check — added V-8 word boundary integrity validation (soft failure with mid_word_boundary review flag)
+   - H-5: Unicode normalization form unspecified — added NFC precondition to input validation with safety-net normalization
+   - H-6: Quran hard constraint vs scholarly_function override tension — clarified two-level constraint system: embedded_ref is hard (text IS Quran), scholarly_function is soft (LLM may override evidence_quran)
+   - H-7: attributions null vs empty semantics — clarified: null = feature disabled, [] = enabled but nothing found
+   - H-8: Bonded cluster spanning layer boundary — special handling: attribute to FIRST layer segment (not majority), double review flags (ambiguous_layer + possible_misattribution)
+   - H-9: text_layers partial gap — explicit handling: treated identically to full gap with conservative matn default
+3. 11 new test cases added to §10 (tests 15-25) covering all hardening defects plus NEXT.md edge cases
+4. 2 new review flag values added: mid_word_boundary, coverage_gap_unresolved
+5. contracts.py updated: attribution null/empty semantics, review_flags documentation
+6. All 7 NEXT.md threat scenarios traced through the complete path (input → processing → validation → error handling → output)
+
+### Decisions Made
+- V-2 (offset integrity) failure is truly blocking: passage excluded entirely rather than writing corrupt atoms. Rationale: corrupt offsets → corrupt excerpts → T-1 silent text corruption. An excluded passage with a visible error is infinitely better than a silently corrupt one.
+- V-1 (coverage) failure produces synthetic whitespace_separator atoms to mark gaps, rather than excluding the passage. Rationale: partial atomization with visible gaps preserves the LLM's work on atoms it DID produce correctly.
+- Bonded clusters spanning layer boundaries are attributed to the FIRST layer segment (not majority). Rationale: in Arabic scholarly convention, the introducing voice determines attribution ("قال المصنف" + quoted text = the quoted text belongs to the introduced author, regardless of which layer occupies more characters).
+
+### Domain Questions for Owner
+None this session.
