@@ -95,6 +95,18 @@ Before implementation, validate that the 7-engine pipeline is still the right ar
 
 This is a DESIGN_REVIEW session type.
 
+### Stream 8: GUI Foundation
+
+The owner interacts with KR through a web GUI, not a CLI. See `interface/GUI.md` for architecture (D-043).
+
+Preparatory work:
+1. **Technology setup:** FastAPI + Jinja2 + Tailwind CSS + HTMX. Add to requirements.txt.
+2. **Base template:** Create `interface/scholar/src/templates/base.html` with Arabic RTL layout, Amiri font, Tailwind, HTMX.
+3. **API skeleton:** Create `interface/scholar/src/app.py` with FastAPI app and placeholder routes.
+4. **Human gate screen:** This is needed DURING pipeline operation (not after). Prioritize it.
+
+The GUI is built incrementally alongside the engines. As each engine is implemented, its data becomes browsable through the GUI.
+
 ---
 
 ## Session Sequencing
@@ -129,4 +141,7 @@ The preparatory phase is complete when:
 4. Test data exists for Milestone 1 engines
 5. Architectural validation found no blocking issues
 6. STEERING.md accurately reflects the architecture
-7. NEXT.md directs to Milestone 1 implementation
+7. GUI base template and FastAPI skeleton exist (interface/GUI.md)
+8. .env.template documents all required API keys
+9. `python3 scripts/orient.py` shows no blockers
+10. NEXT.md directs to Milestone 1 implementation

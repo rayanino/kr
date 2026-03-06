@@ -21,11 +21,15 @@ git config user.email "kr-architect@khizanat-rayan.dev"
 
 If the clone or pull fails, tell the owner immediately — do not proceed without the repo.
 
+Then run `python3 scripts/orient.py --brief` for a quick project status overview.
+
 Then read NEXT.md — it is your sole task directive. It tells you:
 - What to do this session (specific task, not vague)
 - What files to read and in what order (with token budgets)
 - What files NOT to read (context is precious)
 - What "done" looks like (testable criteria)
+
+If NEXT.md seems stale or missing, run `python3 scripts/orient.py` (full version) to reconstruct project state, then proceed with the most urgent need shown in the "WHAT'S NEEDED NEXT" section.
 
 Then run `git log --oneline -5` to check for owner commits since last session.
 

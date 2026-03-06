@@ -305,3 +305,18 @@ All removed detail is already in repo files loaded on-demand via NEXT.md. The cu
 - extract_vision_sections.py: Added --search keyword mode. Now supports both `--search "normalization boundary"` and numeric section extraction.
 - SPEC_REFINEMENT.md: Added Step 4.5 (Machine-Readable Contract Verification) for cross-checking SPEC prose against contracts.py Pydantic models.
 
+
+### Session 2026-03-06 — Claude Chat: Autonomous System Hardening (Eighth Pass — GUI + Orientation)
+
+**Two genuine gaps addressed:**
+
+1. **GUI architecture (D-043):** Created interface/GUI.md with technology decision (FastAPI + Tailwind + HTMX for MVP, React/Reflex for future), 5 MVP screens (dashboard, source browser, entry reader, search, human gate), RTL layout rules, Arabic typography (Amiri font), file structure, and implementation priority. Added D-043 to kr_decisions.md.
+
+2. **Autonomous session orientation:** Created scripts/orient.py that gives ANY session a complete project status in one command — current task, recent commits, SPEC refinement progress, code status, test data, API keys, GUI status, and what is needed next. Added to startup procedure in PROJECT_INSTRUCTIONS.md so sessions run it before reading NEXT.md. Handles stale/missing NEXT.md by falling back to automated status.
+
+**Also:**
+- Updated PREPARATORY_ROADMAP.md with Stream 8 (GUI Foundation) and expanded completion criteria (10 items)
+- Updated requirements.txt with actual application dependencies (pydantic, litellm, instructor, fastapi, uvicorn, jinja2, pyarabic, beautifulsoup4, pytest-asyncio, python-dotenv)
+- Updated .env.template with OCR, vector search, and application config
+- orient.py checks: SPEC refinement status, code files, test data, API keys, GUI components, and produces actionable "what is needed next" list
+

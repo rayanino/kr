@@ -53,6 +53,7 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 | D-040 | Analytical layer boundary — structured traceability via grounding_type | 2026-03-05 |
 | D-041 | Consensus technology stack — LiteLLM + Instructor with parallel independent comparison | 2026-03-06 |
 | D-042 | Owner confidence calibration moves from human gate to user model | 2026-03-06 |
+| D-043 | GUI technology: FastAPI + HTML/Tailwind/HTMX for MVP, React/Reflex for future | 2026-03-06 |
 
 ---
 
@@ -351,3 +352,10 @@ Decisions are append-only. To supersede a decision, add a new one referencing th
 **Decision:** The user model is the canonical owner of per-science expertise data. The human gate reads expertise levels from the user model instead of maintaining its own `confidence.json`. The mapping from human gate's four-level scale (`expert`, `intermediate`, `beginner`, `none`) to user model's five-level scale (`researcher`, `advanced`, `intermediate`, `beginner`, `none`) is: `expert` → `advanced` or `researcher`, `intermediate` → `intermediate`, `beginner` → `beginner`, `none` → `none`. The human gate's behavioral rules (raising auto-approval thresholds for low-expertise sciences) remain unchanged — only the data source moves. The user model additionally computes expertise from engagement data, providing a more accurate and continuously updated signal than self-declaration alone.
 **Alternatives considered:** (a) Keep confidence.json in the human gate — rejected (splits user state, creates consistency risk between user model expertise and gate confidence). (b) Have the human gate write to the user model — rejected (the user model should own the data and the computation; the human gate is a consumer, not a producer of expertise data).
 **Documents updated:** shared/user_model/SPEC.md §4.A.4, §4.A.4.1. shared/human_gate/SPEC.md needs minor update (next session or when the human gate is revisited — note in NEXT.md).
+
+### D-043: GUI technology — FastAPI + HTML/Tailwind/HTMX for MVP
+**Decided:** 2026-03-06
+**Context:** KR needs a human-facing GUI, not just a CLI. The scholar interface SPEC describes capabilities but not the presentation technology. The owner requires a web interface for interacting with the library — browsing sources, reading entries, approving human gate checkpoints, searching. Arabic RTL text support is mandatory.
+**Decision:** MVP uses FastAPI (backend) + Jinja2 templates + Tailwind CSS + HTMX (frontend). FastAPI is the natural backend — it matches our Pydantic contracts, supports async for LLM calls, and Claude Code works with it fluently. Tailwind CSS has native RTL support. HTMX enables interactive features (search, partial updates) without JavaScript frameworks. Amiri font (Naskh style) for Arabic scholarly text. Future complex features (taxonomy tree visualization, debate simulation) will use React or Reflex (Python → React compilation). See `interface/GUI.md` for full architecture.
+**Alternatives considered:** (a) Streamlit → rejected (poor RTL support, reruns entire script on interaction, doesn't scale for complex scholarly UIs). (b) Gradio → rejected (ML-demo focused, wrong paradigm). (c) Django → rejected (too heavyweight for a personal tool, FastAPI is lighter and faster). (d) React from day one → rejected (adds JavaScript complexity; HTMX achieves MVP interaction without it). (e) Reflex immediately → rejected (still young, unnecessary for MVP screens).
+**Documents updated:** interface/GUI.md (new), PREPARATORY_ROADMAP.md (updated with GUI stream).
