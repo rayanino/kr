@@ -1,5 +1,10 @@
 # Judge Panel Architecture — هيئة التحكيم
 
+> **NOTE:** This document contains theoretical architecture based on research. The actual
+> evaluation approach will be determined by the validation experiments in POST_PREP_PLAN.md.
+> Do not implement this as-is — test assumptions first.
+
+
 ## Why a Panel, Not a Single Judge
 
 Research (ICLR 2025, LLM-as-Judge survey, Multi-LLM Evaluator Framework) shows:
