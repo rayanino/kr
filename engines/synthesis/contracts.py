@@ -357,8 +357,21 @@ class EntryContent(BaseModel):
     scholarly_positions: list[ScholarlyPositionEntry] = Field(default_factory=list)
     edge_cases: Optional[str] = None
     common_misunderstandings: Optional[str] = None
+    khilaf_analysis: Optional[str] = Field(
+        default=None,
+        description="Khilaf disambiguation narrative from §4.B.5, if enabled"
+    )
     temporal_narrative: Optional[str] = None
     what_next: Optional[str] = None
+    analytical_layer: Optional[str] = Field(
+        default=None,
+        description="Engine's intellectual contribution: cross-excerpt analysis, "
+        "metadata-driven context, LLM research (§4.A.4.2)"
+    )
+    critical_analysis: Optional[str] = Field(
+        default=None,
+        description="Analysis based on flagged (non-verified) excerpts only"
+    )
 
 
 class GenerationMetadata(BaseModel):
@@ -523,6 +536,19 @@ class AssessmentSet(BaseModel):
 # ──────────────────────────────────────────────────────────────────
 
 
+class ChangeSummary(BaseModel):
+    """Structured change summary between entry versions (SPEC §3.4)."""
+    change_summary_id: str
+    old_version: int
+    new_version: int
+    trigger: str = Field(description="What caused the regeneration")
+    positions_added: list[str] = Field(default_factory=list)
+    positions_removed: list[str] = Field(default_factory=list)
+    positions_modified: list[str] = Field(default_factory=list)
+    new_excerpts_incorporated: list[str] = Field(default_factory=list)
+    structural_changes: str = Field(default="")
+
+
 class EntryVersionRecord(BaseModel):
     """A record in the entry's version history (SPEC §3.4)."""
     entry_id: str
@@ -533,7 +559,7 @@ class EntryVersionRecord(BaseModel):
     generation_metadata_summary: str = Field(
         description="One-line summary for the scholar interface"
     )
-    change_summary: Optional[str] = Field(
+    change_summary: Optional[ChangeSummary] = Field(
         default=None,
-        description="What changed from previous version (null for v1)"
+        description="Structured diff from previous version (null for v1)"
     )

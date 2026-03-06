@@ -1,5 +1,43 @@
 # Session Log — خزانة ريان
 
+## Session: Synthesis Engine PRECISION — 2026-03-06
+**Type:** PRECISION
+**Engine:** Synthesis (محرك التوليف)
+**SPEC:** `engines/synthesis/SPEC.md` (659 → 859 lines, +200)
+**Contracts:** `engines/synthesis/contracts.py` (539 → 565 lines, +26)
+
+### What Was Done
+1. **Fixed all genuine high-severity defects (20 → 0).** Replaced 10 vague quantifiers ("multiple" → specific counts, "many" → bounded ranges). Fixed 3 unvalidated write warnings by adding pre-write validation to §4.A.6, consensus output in §4.B.1, and gap note references in §4.B.3.
+2. **Added 9 worked examples with Arabic text.** §4.A.1 (pipeline overview with nahw leaf), §4.A.5 (integrity verification with fiqh leaf), §4.A.6 (finalization with version diff), §4.A.8 (diagnostic entry for riba topic), §4.A.9 (per-science hooks: fiqh vs tajwid), §4.A.10 (cross-science nahw↔fiqh), §4.A.11 (ellipsis expansion at 3 levels), §4.B.5 (khilaf disambiguation for المبتدأ definitions), §4.B.6 (Socratic self-verification catching coherence defect).
+3. **Added 3 exact prompt templates in Arabic.** Position identification (§4.A.3 Step 1), source span selection (§4.A.4.1 Step 2), entailment verification (§4.A.4.1 Step 4). All include system prompt, user prompt, and examples.
+4. **Added §5.4 threat mapping.** All 7 KNOWLEDGE_INTEGRITY.md threats (T-1 through T-7) mapped to synthesis-specific vectors with prevention strategies and residual risk assessments.
+5. **Added 8 new error codes to §7.** SYNTH_PREWRITE_VALIDATION_FAILED, SYNTH_CONSENSUS_VALIDATION_FAILED, SYNTH_INVALID_WORK_REFERENCE, SYNTH_ENTAILMENT_FAILED, SYNTH_NO_GROUNDED_CLAIMS, SYNTH_LANDSCAPE_MISMATCH, SYNTH_INSTRUCTOR_PARSE_FAILED, SYNTH_POSITION_COUNT_ZERO.
+6. **Aligned contracts.py with SPEC.** Added `analytical_layer`, `critical_analysis`, `khilaf_analysis` fields to `EntryContent`. Added `ChangeSummary` Pydantic model matching §3.4 structured change summary schema. Updated `EntryVersionRecord` to use structured `ChangeSummary`.
+7. **Updated §9** with accurate contracts alignment notes.
+
+### Self-Audit (4 defects found and fixed)
+
+**Defect 1 (Structural — Criterion #3 No Contradictions).** §3.2 schema listed 10 content fields but `EntryContent` in contracts.py had only 8 — missing `analytical_layer`, `critical_analysis`, `khilaf_analysis`. These fields are referenced extensively in §4.A.4.2 and §4.A.5. **Fix:** Added all 3 fields to contracts.py with descriptions matching SPEC usage.
+
+**Defect 2 (Completeness — Criterion #11 Exhaustive Error Handling).** §4.A.4.1 Step 4 describes entailment failure but no error code existed for it. §4.B.1 consensus validation failure had no error code. §4.A.6 pre-write validation failure had no error code. **Fix:** Added SYNTH_ENTAILMENT_FAILED, SYNTH_CONSENSUS_VALIDATION_FAILED, SYNTH_PREWRITE_VALIDATION_FAILED, and 5 more error codes.
+
+**Defect 3 (Design — Criterion #21 Scholarly Integrity).** §5 had no systematic mapping of KNOWLEDGE_INTEGRITY.md threats to synthesis-specific vectors. The taxonomy SPEC had a thorough §5.4 threat mapping; the synthesis SPEC — as the pipeline's terminal consumer where all upstream errors surface — needed one even more. **Fix:** Added §5.4 with all 7 threats mapped, including prevention strategies and residual risk.
+
+**Defect 4 (Communication — Criterion #8 Accurate State).** §9 said "All four §4.B transformative capabilities" but there are 6. §3.4 defines a structured change summary schema but contracts.py had only a string field. **Fix:** Updated §9 to say "All 6 §4.B transformative capabilities." Added `ChangeSummary` Pydantic model to contracts.py.
+
+### False Positives in Quality Script (5)
+- L 491: "how many" in "how many sources hold each position" — question phrase, not vague quantifier
+- L 625: "appropriate" in "topic-appropriate" — compound adjective, specific in context
+- L 384: UNVALIDATED_WRITE — validation text is on the same line; script only checks subsequent lines
+- L 495: UNVALIDATED_WRITE — describes content generation, not a library write
+- L 535: UNVALIDATED_WRITE — describes a registry read, not a write
+
+### Decisions Made
+- **Prompt templates in Arabic:** The 3 prompt templates use Arabic system prompts because the LLM processes Arabic text and Arabic scholarly terminology. English system prompts would require unnecessary translation overhead and risk terminology mismatches.
+- **`ChangeSummary` as structured model:** Changed from a free-text `change_summary: str` to a Pydantic model with `positions_added`, `positions_removed`, `positions_modified` fields. This enables the scholar interface to present structured diffs without parsing prose.
+
+### No Domain Questions for Owner
+
 ## Session: Taxonomy Engine HARDENING — 2026-03-06
 **Type:** HARDENING
 **Engine:** Taxonomy (محرك التصنيف)

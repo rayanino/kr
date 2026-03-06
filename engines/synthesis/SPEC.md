@@ -101,6 +101,7 @@ content: {
     }
   ],
   edge_cases: string or null,
+  common_misunderstandings: string or null,
   khilaf_analysis: string or null,
   temporal_narrative: string or null,
   what_next: string,
@@ -184,6 +185,14 @@ Entry generation follows a five-phase pipeline. Each phase has distinct inputs, 
 
 **Phase 5: Finalization.** Compute staleness hash. Record version metadata. Write entry. Generate change summary if replacing a previous version.
 
+**Example:** §4.A.1. Generating an entry for leaf `nahw/marfu'at/mubtada/ta'rif` with 5 verified excerpts from 3 sources (الكتاب، الأصول في النحو، شرح ابن عقيل).
+
+- *Phase 1:* Engine reads 5 excerpts. Resolves metadata: سيبويه d. 180 AH (بصري), ابن السراج d. 316 AH (بصري), ابن عقيل d. 769 AH (no school tag → inferred from scholar authority as شافعي/نحوي). Two excerpts from الكتاب and الأصول are semantically similar (both define المبتدأ as الاسم المجرد) → clustered, الكتاب excerpt selected as representative (higher source-authority: primary > reference). Inventory: 4 effective excerpts after deduplication.
+- *Phase 2:* Position identification finds 2 positions: pos_1 (Basran meaning-based: المبتدأ هو الاسم المجرد عن العوامل اللفظية), pos_2 (form-based: المسند إليه). Khilaf classified as `lafzi` (verbal — same referent, different terminology). No intra-author contradictions. Mu'tamad: not applicable for nahw (per SCIENCE.md `has_mu_tamad: false`).
+- *Phase 3:* Outline produces 12 planned claims. Attribution assigns each claim to specific excerpt spans. Conditioned generation produces Arabic prose with [cit:N] markers. Entailment verification passes for 11/12 claims; one claim about الكسائي's terminology fails entailment (excerpt only mentions الفراء) → claim rewritten to attribute to الفراء only.
+- *Phase 4:* 8 integrity checks pass. Citation completeness: 12/12 factual sentences cited. School isolation: N/A (nahw has no per-school entries per SCIENCE.md `school_entry_cardinality: "unified_with_attribution"`).
+- *Phase 5:* Staleness hash computed. Version 1. Entry written to `library/sciences/nahw/entries/marfu_at_mubtada_ta_rif/ent_nahw_mubtada_ta_rif_all_v1.json`.
+
 #### §4.A.2 — Phase 1: Collection and Preparation
 
 The engine reads all placed excerpts at the target leaf. For sciences with schools (§6.2), it partitions excerpts by school-group and generates one entry per school-group. For sciences without schools, all excerpts form a single entry.
@@ -214,6 +223,33 @@ This phase produces a structured analysis object (`ScholarlyAnalysis` Pydantic m
 
 **Step 1: Position identification.** The LLM receives: (a) a system prompt defining a "scholarly position" as a specific answer to the leaf's topic question, with 3 Arabic examples of same-position-different-wording vs genuinely-different-positions, (b) all verified excerpts formatted as `[EXCERPT {id}] Author: {name} (d. {date} AH) | School: {school} | Source: {work_title}\n{primary_text}`, (c) an instruction to return a `PositionList` Pydantic model. The `PositionList` contains an array of `ScholarlyPosition` objects, each with: `position_id` (format `pos_{sequence}`), `position_summary` (Arabic, ≤ 50 words), `holders` (array of `{scholar_id, name, death_hijri, school}`), `evidence_types` (array of evidence type strings from excerpt metadata), `supporting_excerpt_ids` (array), `is_response_to` (position_id of a position this one explicitly responds to, or null). Structured output enforced via Instructor with max 2 retries on schema failure.
 
+**Prompt template — Position identification:**
+
+```
+SYSTEM:
+أنت محلل نصوص علمية إسلامية. مهمتك: تحديد المواقف العلمية المتمايزة في مجموعة مقتطفات حول موضوع واحد.
+
+تعريف "الموقف العلمي": جواب محدد على سؤال الورقة (أي سؤال هذا الموضوع في شجرة العلم).
+
+قاعدة التمييز: عبارتان تعبّران عن نفس الحكم بألفاظ مختلفة = موقف واحد. عبارتان تختلفان في الحكم نفسه = موقفان متمايزان.
+
+أمثلة:
+- "المبتدأ هو الاسم المجرد عن العوامل اللفظية" و"المبتدأ هو ما ابتُدئ به" ← موقف واحد (تعريف واحد بصيغتين)
+- "المبتدأ هو المسند إليه" ← موقف ثانٍ (اصطلاح كوفي مختلف عن البصري)
+- "المبتدأ مرفوع بالابتداء" و"المبتدأ مرفوع بالخبر" ← موقفان (اختلاف في العامل)
+
+أجب فقط بصيغة JSON المطلوبة. لا تضف شرحاً خارج البنية.
+
+USER:
+الموضوع: {leaf_title} ({science_name})
+سؤال الورقة: {leaf_question}
+
+المقتطفات:
+{formatted_excerpts}
+
+حدد جميع المواقف العلمية المتمايزة. لكل موقف، بيّن: ملخصه، أصحابه، أدلته، والمقتطفات الداعمة.
+```
+
 When a scholarly landscape exists: the engine pre-populates the position list from the landscape's chronological timeline and asks the LLM to validate, correct, and supplement (new excerpts may have been added since the landscape was computed). The LLM prompt explicitly states: "The following positions were previously identified. Verify them against the current excerpts and add any new positions not listed."
 
 **Step 2: Khilaf classification.** For each pair of distinct positions on the same question, the LLM classifies the disagreement. The output is a `KhilafClassification` Pydantic model with: `position_pair` (two position_ids), `classification` (enum: `lafzi`, `haqiqi`, `mu_tabar`, `shadh`), `reasoning` (string, ≤ 100 words), `confidence` (float). When §4.B.5 (Khilaf Disambiguation Engine) is enabled, this step delegates to the full decomposition algorithm. When §4.B.5 is disabled, a simpler pairwise classification is used.
@@ -238,9 +274,55 @@ The factual layer is excerpt-grounded. Every claim is traceable. Construction us
 
 **Step 2: Source span selection (attribution).** For each `PlannedClaim`, the LLM selects the specific excerpt(s) that ground it. The LLM receives the claim and ALL available excerpts, and returns a `ClaimAttribution` with: `claim_id`, `attributed_excerpt_ids` (1–5 excerpt IDs), `attributed_spans` (for each excerpt, the approximate character range within `primary_text` that supports this claim — start and end offsets), `attribution_confidence` (float 0.0–1.0). Claims where no excerpt supports the claim are classified as `grounding_type: "llm_research"` and routed to the analytical layer instead. Claims attributed with confidence < 0.5 are flagged for the analytical layer as well.
 
+**Prompt template — Source span selection:**
+
+```
+SYSTEM:
+أنت متخصص في إسناد الادعاءات العلمية إلى مصادرها النصية. لكل ادعاء مخطط، حدد المقتطف أو المقتطفات (١-٥) التي تدعمه، مع تحديد النطاق النصي التقريبي (بداية ونهاية بالأحرف) داخل النص الأصلي.
+
+إذا لم يدعم أي مقتطف الادعاء ← اترك attributed_excerpt_ids فارغاً وضع attribution_confidence = 0.0
+إذا كان الدعم جزئياً ← حدد ما يدعمه المقتطف فقط واضبط الثقة (0.0-1.0) حسب قوة الدعم.
+
+لا تنسب ادعاءً إلى مقتطف لا يحتوي على محتواه صراحةً.
+
+USER:
+الادعاء المخطط:
+  claim_id: {claim_id}
+  claim_text: {claim_text}
+  claim_type: {claim_type}
+
+المقتطفات المتاحة:
+{formatted_excerpts_with_char_offsets}
+
+حدد المقتطفات الداعمة والنطاقات النصية.
+```
+
 **Step 3: Conditioned sentence generation.** For each claim with `grounding_type: "library_excerpt"`, the LLM generates the prose sentence(s) CONDITIONED ON the selected spans. The prompt provides ONLY the attributed excerpt spans (not all excerpts) and the claim description. The LLM generates the factual prose and an inline citation marker `[cit:N]`. This conditioning prevents the LLM from injecting parametric knowledge into the factual layer.
 
 **Step 4: Entailment verification.** For each generated sentence, the engine verifies that the sentence is entailed by its attributed excerpt spans. This uses a separate LLM call (or a different model, if consensus is triggered) that receives the generated sentence and the attributed spans and returns: `entailed` (boolean), `unsupported_elements` (list of specific sub-claims not supported by the spans). Sentences that fail entailment verification are rewritten (up to 2 retries) with the unsupported elements removed or moved to the analytical layer. If all retries fail, the sentence is marked with a `weak_grounding` flag and included with a note.
+
+**Prompt template — Entailment verification:**
+
+```
+SYSTEM:
+أنت مدقق استلزام نصي. تتلقى جملة مولّدة ونصوصاً مصدرية. مهمتك: هل النص المصدري يستلزم الجملة المولّدة؟
+
+القواعد:
+- "مستلزَم" = كل ما تدّعيه الجملة المولّدة موجود في النص المصدري (صراحة أو بلازم واضح)
+- "غير مستلزَم" = الجملة تحتوي على عنصر واحد على الأقل غير موجود في النص المصدري
+- حدد بدقة كل عنصر غير مدعوم (أسماء علماء، تواريخ، أحكام، نسب)
+- التعميم من حالة خاصة = غير مستلزَم
+- إضافة سياق تاريخي غير موجود في المصدر = غير مستلزَم
+
+USER:
+الجملة المولّدة:
+{generated_sentence}
+
+النصوص المصدرية (المقتطفات المنسوبة):
+{attributed_spans_text}
+
+هل الجملة مستلزَمة من النصوص المصدرية؟ إذا لا، ما هي العناصر غير المدعومة تحديداً؟
+```
 
 **Entailment failure escalation.** If all PlannedClaims end up classified as `grounding_type: "llm_research"` (no library-grounded claims at all), the entry is classified as a diagnostic entry (§4.A.8) with reason `SYNTH_NO_GROUNDED_CLAIMS`. The entry text is still generated but carries a prominent warning: "This entry is based entirely on the synthesizer's research capability, not on library excerpts. Acquiring primary sources for this topic is recommended." This can occur at leaves with very thin excerpt coverage where the only excerpts are flagged (not verified).
 
@@ -286,13 +368,22 @@ After content generation, automated checks either block the entry (critical fail
 
 When critical checks fail, the engine retries (up to 2 retries) with the failure highlighted in the prompt. If all retries fail, a diagnostic entry is produced (§4.A.8).
 
+**Example:** §4.A.5. Entry generated for `fiqh/ibadat/salah/shurut/taharah` with 8 excerpts across Hanafi (3), Shafi'i (3), and Hanbali (2) schools. School-group entry for Hanafi:
+
+- *Check 1 (citation completeness):* 15 sentences in `core_treatment`. Sentence 7 ("وهذا مما لا خلاف فيه") has no citation. → Critical failure. Retry prompt includes: "Sentence 7 is uncited. Either attribute it to a specific excerpt or move it to the analytical layer."
+- *Check 3 (school isolation):* `source_excerpt_ids` contains `exc_shafi_034`. This excerpt belongs to the Shafi'i school, not Hanafi. → Critical failure. Retry prompt includes: "Excerpt exc_shafi_034 is a Shafi'i excerpt and must not appear in the Hanafi school-group entry."
+- *Check 6 (grounding type):* `scholarly_positions[1].position_summary` contains a claim about the Maliki position not present in any excerpt. The claim's `grounding_type` is `library_excerpt` but no excerpt supports it. → Critical failure. Retry: either remove the Maliki reference or move it to the analytical layer with `grounding_type: "llm_research"`.
+- *Check 7 (temporal consistency):* Entry says "ابن عابدين (ت ٩٥٢ هـ)" but scholar authority record shows death date 1252 AH. → Non-critical warning; entry annotated, not blocked.
+
 #### §4.A.6 — Phase 5: Finalization
 
 **Staleness hash.** SHA-256 of (sorted excerpt_ids joined by `|`) + `|` + SHA-256 of (concatenated excerpt primary_texts in sorted ID order).
 
 **Version management.** First entry: version 1, null previous. Replacement: version incremented, old entry moved to history, change summary generated by comparing `scholarly_positions` arrays.
 
-**Write to library.** Atomic write (temp file → rename).
+**Write to library.** Before writing, the engine performs a final pre-write validation: (a) the entry passes Pydantic schema validation (Entry model), (b) all `source_excerpt_ids` exist as files in the placed excerpt directory, (c) no existing entry at the target path has a higher version number (prevents accidental downgrade), (d) the staleness hash differs from the current entry's hash (prevents identical regeneration). If any pre-write check fails, the write is aborted with `SYNTH_PREWRITE_VALIDATION_FAILED` and the diagnostic includes which check failed. On success: atomic write (write to temp file → fsync → rename to final path).
+
+**Example:** §4.A.6. Entry v2 replacing v1 at `nahw/marfu'at/mubtada/ta'rif`. Since v1, one new excerpt was placed (from أوضح المسالك by ابن هشام). Staleness hash: SHA-256 of `exc_001|exc_002|exc_003|exc_005|exc_007` + `|` + SHA-256 of concatenated primary texts. Version: 2. Previous version: `ent_nahw_mubtada_ta_rif_all_v1`. V1 entry moved to `history/ent_nahw_mubtada_ta_rif_all_v1.json`. Change summary generated by diffing `scholarly_positions` arrays: `positions_added: []`, `positions_modified: ["pos_1"]` (pos_1 now has an additional holder: ابن هشام d. 761 AH), `new_excerpts_incorporated: ["exc_007"]`, `structural_changes: "Added ابن هشام's formulation to the Basran definition section."`
 
 #### §4.A.7 — Staleness Detection and Regeneration Scheduling
 
@@ -319,6 +410,19 @@ When generation fails after all retries, the engine produces a diagnostic entry:
 
 Diagnostic entries prevent permanent gaps when synthesis encounters unhandled edge cases.
 
+**Example:** §4.A.8. Leaf `fiqh/mu'amalat/riba/ta'rif` has 2 verified excerpts, both from الهداية by المرغيناني. Phase 3 generation fails citation completeness 3 times (all retries exhausted) because the LLM keeps injecting claims about the Shafi'i position which has no excerpt support. Diagnostic entry produced:
+```
+{
+  "is_diagnostic": true,
+  "diagnostic_reason": "SYNTH_ALL_RETRIES_FAILED: citation completeness check failed 3 times. 
+    The LLM consistently introduces Shafi'i positions not grounded in any placed excerpt.",
+  "core_treatment": "الربا في اللغة: الزيادة. وفي الاصطلاح عند الحنفية: [exc_041 verbatim]. 
+    وقال المرغيناني: [exc_042 verbatim].",
+  "scholarly_positions": [{"position_id": "pos_1", "holders": [{"name": "المرغيناني"}], ...}]
+}
+```
+The diagnostic entry lists excerpts with minimal synthesis (near-verbatim presentation) and flags that only the Hanafi perspective is represented. The scholar interface displays: "⚠ This entry could not be fully synthesized. It presents available excerpts without narrative integration."
+
 #### §4.A.9 — Per-Science Customization Hooks
 
 SCIENCE.md (Level 3) specifies per-science configuration. The engine reads it at generation time.
@@ -335,14 +439,24 @@ SCIENCE.md (Level 3) specifies per-science configuration. The engine reads it at
 
 **Hook 6: Khilaf relevance.** `khilaf_classification: boolean`. False for tajwid.
 
+**Example:** §4.A.9. Two leaves processed with different SCIENCE.md configurations.
+
+*Leaf: `fiqh/ibadat/salah/shurut/taharah` (Fiqh science):*
+SCIENCE.md for fiqh: `has_schools: true`, `school_list: ["حنفي", "مالكي", "شافعي", "حنبلي"]`, `school_entry_cardinality: "per_school"`, `has_mu_tamad: true`, `abrogation_check: true`, `khilaf_classification: true`, `evidence_hierarchy: ["quran", "hadith", "ijma", "qiyas", "istihsan", "maslaha"]`. Engine generates 4 separate entries (one per school), each with mu'tamad identification and evidence ranked by the fiqh hierarchy.
+
+*Leaf: `tajwid/ahkam_nun_sakinah/idgham` (Tajwid science):*
+SCIENCE.md for tajwid: `has_schools: false`, `school_entry_cardinality: "unified_with_attribution"`, `has_mu_tamad: false`, `abrogation_check: false`, `khilaf_classification: false`, `evidence_hierarchy: ["qira'at_mutawatira", "scholarly_convention"]`. Engine generates 1 unified entry. Khilaf classification is skipped entirely. Evidence uses the tajwid-specific hierarchy (qira'at readings ranked above scholarly convention).
+
 #### §4.A.10 — Cross-Science Entry Generation
 
-For cross-science analyses (Scenario 3), the engine generates special entries drawing from excerpts at multiple leaves across science trees (linked via `cross_science_links.json`). Cross-science entries:
+For cross-science analyses (Scenario 3), the engine generates special entries drawing from excerpts at 2 or more leaves across 2 or more science trees (linked via `cross_science_links.json`). Cross-science entries:
 - Do NOT replace per-science entries — stored at `library/cross_science/{link_id}/entry.json`.
 - Factual layer represents positions from all linked sciences with clear attribution to science and leaf of origin.
 - Analytical layer focuses on the connection: how a grammatical rule affects a legal interpretation.
-- Citations reference multiple science trees.
-- Generated on demand, not automatically.
+- Citations reference each contributing science tree by `science_id` and `leaf_path`.
+- Generated on demand (owner request or scholar interface action), not automatically.
+
+**Example:** §4.A.10. Cross-science link between `nahw/marfu'at/mubtada` and `fiqh/usul/dalalat/mafhum_al_mukhalafa`. The grammatical definition of المبتدأ (subject) affects legal interpretation of conditional sentences. The cross-science entry's factual layer presents the nahw positions on المبتدأ with attribution to nahw scholars and excerpts, then the fiqh positions on مفهوم المخالفة with attribution to usul scholars. The analytical layer explains: "The Basran meaning-based definition of المبتدأ implies that the subject carries semantic weight beyond its syntactic position — this has consequences for how usul scholars evaluate whether a conditional sentence's unstated converse (مفهوم المخالفة) carries legal force." Each citation carries `science_id` identifying which tree grounded it.
 
 #### §4.A.11 — Ellipsis Expansion and Level Adaptation
 
@@ -356,6 +470,14 @@ Arabic scholarly texts omit words understood from context. The engine expands ba
 
 Default (no level data): intermediate. Level affects the analytical layer and edge_cases more than the factual layer.
 
+**Example:** §4.A.11. Excerpt from الكتاب: "هذا باب المسند والمسند إليه". This terse classical formulation omits explanation.
+
+*Beginner level:* "هذا باب المسند والمسند إليه — أي: هذا هو الباب الذي يتناول العلاقة بين المبتدأ (وهو المسند إليه، أي الاسم الذي يُحكم عليه) والخبر (وهو المسند، أي الكلام الذي يخبر عن المبتدأ). وسيبويه يعني بالمسند إليه ما يسمّيه النحاة المتأخرون: المبتدأ." — All implicit concepts explicit, technical terms defined, classical terminology mapped to later convention.
+
+*Intermediate level:* "هذا باب المسند والمسند إليه — يعني المبتدأ والخبر. والمسند إليه هو المبتدأ في اصطلاح المتأخرين." — Core mapping provided, technical terms used without full definition.
+
+*Advanced level:* "هذا باب المسند والمسند إليه" — Original wording preserved. No expansion. A note in the analytical layer: "سيبويه's terminology (المسند/المسند إليه) predates the standardized المبتدأ/الخبر terminology."
+
 ---
 
 ### §4.B — Transformative Capabilities
@@ -368,7 +490,9 @@ Default (no level data): intermediate. Level affects the analytical layer and ed
 
 **Input:** The `scholarly_positions` array from Phase 2 analysis, the library's full coverage data for the leaf (which schools are represented, how many sources hold each position), and the engine's LLM knowledge.
 
-**Output:** Each position in the `scholarly_positions` array receives a `consensus_strength` field with: the classification label, the evidence for the classification (which excerpts claim consensus, what the library distribution shows), and a confidence score. The entry's analytical layer includes a consensus narrative: "This position is held by consensus according to [excerpt sources], and the library confirms no dissenting source on record. However, [if the library has limited coverage of some schools], the consensus claim cannot be verified for [school] due to limited library coverage."
+**Output:** Each position in the `scholarly_positions` array receives a `consensus_strength` field with: the classification label, the evidence for the classification (specific excerpt IDs that claim consensus, the library's school-by-school position distribution as counts), and a confidence score. Before writing consensus data to the entry, the engine validates: (a) every cited excerpt ID exists in the placed excerpt collection, (b) the classification is consistent with the library distribution (e.g., `absolute_consensus` requires 0 dissenting positions in the library), (c) confidence scores are within [0.0, 1.0]. Validation failures produce `SYNTH_CONSENSUS_VALIDATION_FAILED` (warning) and the position's consensus field is omitted rather than written with invalid data.
+
+The entry's analytical layer includes a consensus narrative when 2 or more positions exist: "This position is held by consensus according to [excerpt sources], and the library confirms no dissenting source on record. However, [if the library covers fewer than 3 of the science's schools], the consensus claim cannot be verified for [school] due to limited library coverage."
 
 **Preventing overclaimed consensus.** When an excerpt claims ijma but the library contains at least one excerpt from a recognized scholar holding a different position, the engine flags the inconsistency: "Source X claims consensus, but Scholar Y (d. NNN AH) holds a different position in [Work Z]. The consensus claim may be qualified or contested." This detection uses NLI-style comparison: the consensus claim is the premise, the dissenting position is the hypothesis, and the engine checks for contradiction.
 
@@ -408,7 +532,7 @@ Default (no level data): intermediate. Level affects the analytical layer and ed
 1. For each gap of type `school`, `temporal`, or `source_diversity`: the engine queries its LLM knowledge for the likely content of the missing perspective.
 2. The query is specific: "For the topic [leaf topic] in [science], what is the [school] position? Which scholars are known to hold it? In which works is it documented?"
 3. The response is formatted as a provisional note, clearly labeled: "The following is the synthesizer's assessment based on its training knowledge, not on library excerpts. It should be verified against primary sources."
-4. If the work relationship graph contains placeholder records for unacquired works that would fill the gap (D-027), the engine includes these as acquisition recommendations: "Acquiring [Work X] by [Author Y], which is in the library's wish list, would provide primary source coverage for this gap."
+4. If the work relationship graph contains placeholder records for unacquired works that would fill the gap (D-027), the engine validates each placeholder record exists in `library/registries/works.json` before including it as an acquisition recommendation. Invalid work IDs are logged as `SYNTH_INVALID_WORK_REFERENCE` (warning) and omitted from the recommendation. Valid recommendations are included: "Acquiring [Work X] by [Author Y], which is in the library's wish list, would provide primary source coverage for this gap."
 
 **Output:** A `gap_notes` array in the entry, each containing: `gap_type`, `gap_description`, `provisional_content` (the engine's inference about the missing perspective), `confidence`, `grounding_type: "llm_research"`, `recommended_acquisitions` (work IDs from the work registry's placeholder records).
 
@@ -418,7 +542,7 @@ Default (no level data): intermediate. Level affects the analytical layer and ed
 
 #### §4.B.4 — Entry Quality Self-Assessment
 
-**Capability:** After generating an entry, the engine produces a structured self-assessment scoring the entry's quality across multiple dimensions, enabling the scholar interface to present quality indicators and enabling systematic quality improvement over time.
+**Capability:** After generating an entry, the engine produces a structured self-assessment scoring the entry's quality across 7 defined dimensions (source_diversity, temporal_coverage, school_balance, evidence_completeness, citation_density, confidence_floor, text_fidelity_distribution), enabling the scholar interface to present quality indicators and enabling systematic quality improvement over time.
 
 **Why this is transformative.** Most AI-generated content has no quality signal — the user must judge it themselves. For scholarly content, this is dangerous because errors may be subtle (a correct-sounding but inaccurate attribution, a plausible but wrong evidence classification). The self-assessment makes quality visible: "This entry has strong source diversity but limited temporal coverage, and one position's evidence base is thin."
 
@@ -468,6 +592,32 @@ Default (no level data): intermediate. Level affects the analytical layer and ed
 
 [NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: Phase 2 position identification, Instructor library for structured output, LLM with Arabic scholarly knowledge.
 
+**Example:** §4.B.5 — المبتدأ definitions disaggregated.**
+
+*Input:* Two positions at `nahw/marfu'at/mubtada/ta'rif`:
+- pos_1 (Basran): "المبتدأ هو الاسم المجرد عن العوامل اللفظية مسنداً إليه" (ابن السراج d. 316 AH)
+- pos_2 (Kufan): "المبتدأ هو المسنَد إليه في الجملة الاسمية" (attributed to الكسائي's school)
+
+*Step 1 — Atomic decomposition:*
+- pos_1 sub-claims: (a) المبتدأ is an اسم [definitional, shared_by: [pos_1, pos_2]], (b) it is مجرد عن العوامل اللفظية — free from verbal operators [methodological, shared_by: [pos_1]], (c) it is مسند إليه — predicated about [definitional, shared_by: [pos_1, pos_2]], (d) its رفع is caused by الابتداء [methodological, shared_by: [pos_1]]
+- pos_2 sub-claims: (a) المبتدأ is an اسم [definitional, shared_by: [pos_1, pos_2]], (b) it is المسند إليه — the thing predicated about [definitional, shared_by: [pos_1, pos_2]], (c) it occupies initial position في الجملة الاسمية [scope, shared_by: [pos_2]]
+
+*Step 2 — Agreement matrix:*
+| Sub-claim | pos_1 | pos_2 |
+|-----------|-------|-------|
+| المبتدأ is اسم | agree | agree |
+| المبتدأ is مسند إليه | agree | agree |
+| مجرد عن العوامل اللفظية | agree | not_addressed |
+| رفع by الابتداء | agree | not_addressed |
+| positional criterion (في الجملة) | not_addressed | agree |
+
+Common ground: both agree المبتدأ is an اسم and is مسند إليه.
+Disagreement loci: (1) pos_1 uses operator theory (العامل), pos_2 doesn't address it → `su'al_mukhtalif`; (2) pos_2 adds positional criterion, pos_1 doesn't → `ishtiraki`.
+
+*Step 3 — Classification:* Primary classification: `su'al_mukhtalif` — pos_1 answers "what theoretical framework explains المبتدأ's case?" while pos_2 answers "how do you identify المبتدأ in a sentence?"
+
+*Step 4 — Narrative:* "الخلاف بين البصريين والكوفيين في تعريف المبتدأ ليس خلافاً حقيقياً في المعرّف بل هو خلاف في زاوية التعريف: البصريون عرّفوه من جهة نظرية العامل (المجرد عن العوامل اللفظية)، والكوفيون عرّفوه من جهة الموقع الإعرابي (المسند إليه في الجملة). والمتفق عليه: أنه اسم مرفوع يُخبَر عنه."
+
 #### §4.B.6 — Socratic Self-Verification and Assessment Generation
 
 **Capability:** After generating an entry, the engine produces a structured set of comprehension questions at four cognitive levels, then uses these questions to verify the entry's own coherence AND to fuel the user model's assessment system. The questions test whether the entry actually teaches what it claims to teach — if the LLM cannot answer its own questions from the entry text alone, the entry has a coherence defect.
@@ -482,7 +632,7 @@ Default (no level data): intermediate. Level affects the analytical layer and ed
    - **Level 1 — Recall (حفظ):** "What is the Basran definition of المبتدأ?" — tests whether the entry's core definition is memorizable. 1–2 questions. Answer must be directly extractable from the entry text.
    - **Level 2 — Recognition (تمييز):** "Which scholar first articulated this definition, and in which work?" — tests attribution retention. 1–2 questions. Answer requires connecting position to scholar to source.
    - **Level 3 — Application (تطبيق):** "In the sentence 'في الدار رجلٌ', which word is the مبتدأ, and which definition supports this analysis?" — tests whether edge cases are understood. 1–2 questions. Answer requires applying the entry's rules to a novel example.
-   - **Level 4 — Comparison (موازنة):** "How does the Basran definition differ from the Kufan approach, and what underlying methodological disagreement explains this difference?" — tests deep understanding. 1–2 questions. Answer requires synthesizing multiple positions and understanding the intellectual context.
+   - **Level 4 — Comparison (موازنة):** "How does the Basran definition differ from the Kufan approach, and what underlying methodological disagreement explains this difference?" — tests deep understanding. 1–2 questions. Answer requires synthesizing 2 or more positions and understanding the intellectual context.
 
    Each question is a Pydantic `AssessmentQuestion` with: `question_text` (Arabic), `level` (1–4), `expected_answer` (the answer extractable from the entry), `answer_excerpt_ids` (which excerpts ground the answer), `prerequisite_knowledge` (what the student must already know to attempt this question).
 
@@ -503,6 +653,24 @@ Default (no level data): intermediate. Level affects the analytical layer and ed
 
 [NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: completed entry from Phases 1–4, Instructor library, embedding model for answer comparison, LLM with Arabic scholarly knowledge.
 
+**Example:** §4.B.6 — Self-verification catches a coherence defect.**
+
+*Entry:* `nahw/marfu'at/mubtada/ta'rif`, 5 positions, 12 citations.
+
+*Question generation:*
+- Level 1: "ما تعريف المبتدأ عند البصريين؟" → Expected answer: "الاسم المجرد عن العوامل اللفظية" (extractable from core_treatment sentence 3).
+- Level 2: "من أول من صاغ هذا التعريف، وفي أي كتاب؟" → Expected: "ابن السراج في الأصول في النحو" (from scholarly_positions[0].holders + citations).
+- Level 3: "في جملة 'في الدار رجلٌ'، ما المبتدأ؟ وأي تعريف يدعم هذا الإعراب؟" → Expected: "رجلٌ هو المبتدأ مؤخراً. التعريف البصري الدلالي يدعم ذلك لأنه يعرّف المبتدأ بدوره المعنوي لا بموقعه." (from edge_cases section).
+- Level 4: "ما الأساس المنهجي الذي يفسّر اختلاف البصريين والكوفيين في تعريف المبتدأ؟" → Expected: "البصريون بنوا النحو على المعنى والعامل المعنوي، والكوفيون بنوه على الموقع الإعرابي." (from analytical_layer).
+
+*Self-verification:*
+- Level 1 question: LLM answers from entry text → "الاسم المجرد عن العوامل اللفظية". Cosine similarity with expected: 0.97. ✓ Pass.
+- Level 2 question: LLM answers → "سيبويه في الكتاب". Expected was "ابن السراج في الأصول". Cosine similarity: 0.41. NLI: contradiction. **Coherence defect detected.** The entry attributes the operator-free definition to ابن السراج but the self-verification LLM (reading only entry text) concluded it was سيبويه. Root cause: the entry's core_treatment mentions سيبويه's earlier definition before ابن السراج's refinement, but doesn't clearly distinguish who formulated the "المجرد عن العوامل اللفظية" phrasing.
+- *Defect resolution:* Entry's core_treatment is rewritten for clarity: "سيبويه (ت ١٨٠ هـ) عرّف المبتدأ بأنه «الاسم الذي بُني عليه الخبر». ثم صاغ ابن السراج (ت ٣١٦ هـ) التعريف بمصطلح العامل: «الاسم المجرد عن العوامل اللفظية» — وهذه الصياغة الأخيرة هي المعتمدة عند البصريين المتأخرين."
+- Level 3, Level 4: both pass after re-verification.
+
+*Output:* `self_verification: {questions_generated: 5, questions_passed: 4, coherence_defects_found: 1, defects_resolved: 1, verification_confidence: 1.0}`
+
 ---
 
 ## 5. Validation and Quality
@@ -521,7 +689,7 @@ The synthesizing engine performs three categories of self-validation:
 
 **Regression testing with gold baselines.** For each science that has gold baseline entries (manually reviewed and approved entries for specific leaves), the engine can be run against the gold baselines to verify that updates to prompts, models, or configuration do not degrade quality. A gold baseline entry stores: the excerpts that produced it, the expected positions, the expected attributions, and the expected khilaf classifications. The regression test checks: (a) all expected positions are present, (b) all attributions match, (c) no new positions were hallucinated, (d) khilaf classifications match.
 
-**Cross-entry consistency checks.** When multiple entries at sibling leaves are generated (e.g., all leaves under المبتدأ والخبر), the engine verifies: (a) no contradictions between sibling entries (e.g., sibling entries don't attribute the same quote to different scholars), (b) prerequisite references are consistent (if entry A says "see topic B for prerequisite X", topic B's entry should cover X).
+**Cross-entry consistency checks.** When 2 or more entries at sibling leaves are generated (e.g., all leaves under المبتدأ والخبر), the engine verifies: (a) no contradictions between sibling entries (e.g., sibling entries don't attribute the same quote to different scholars), (b) prerequisite references are consistent (if entry A says "see topic B for prerequisite X", topic B's entry should cover X).
 
 ### 5.3 Human Gate Integration
 
@@ -531,7 +699,25 @@ The synthesizing engine's output is ultimately consumed by the owner. Human revi
 
 **What the human reviews:** The owner reads the entry and uses the scholar interface to: flag errors (triggers Scenario 8 correction flow), approve the entry (updates the user model with "studied" status), or request regeneration with feedback.
 
-**What happens after review:** Approved entries are marked `owner_reviewed: true`. Corrections become permanent constraints. The correction type (factual, attribution, structural) is logged, enabling pattern detection: if the same correction type recurs across entries, the engine's prompts or processing rules may need adjustment.
+**What happens after review:** Approved entries are marked `owner_reviewed: true`. Corrections become permanent constraints. The correction type (factual, attribution, structural) is logged, enabling pattern detection: if the same correction type recurs across 3+ entries, the engine's prompts or processing rules may need adjustment.
+
+### 5.4 Threat Mapping (KNOWLEDGE_INTEGRITY.md)
+
+The synthesizing engine is the pipeline's terminal consumer. Every upstream threat has the potential to surface as an error in the entry — which is an error in Rayane's knowledge. This section maps each threat to its synthesis-specific manifestation and prevention.
+
+**T-1 (Silent Text Corruption) → Synthesis vector: corrupted excerpt text enters the entry verbatim.** The engine quotes canonical definitions verbatim (§4.A.4.1 direct quotation policy). If `primary_text` was corrupted upstream, the entry perpetuates the corruption. **Prevention:** (a) The engine does not modify `primary_text` — it quotes or paraphrases what it receives. Corruption is therefore traceable to the frozen source. (b) For verbatim quotes (matn definitions), the entry's citation includes `source_id` + `passage_id` + page reference, enabling the owner to spot-check against the physical book. (c) The self-verification cycle (§4.B.6) may catch corruption that creates incoherence — e.g., a corrupted definition that contradicts its own edge cases. **Residual risk:** HIGH — the engine cannot independently detect single-character corruption in Arabic text. The frozen source chain is the primary mitigation.
+
+**T-2 (Attribution Error) → Synthesis vector: entry attributes a position to the wrong scholar or school.** This is the engine's highest-impact threat. An entry that says "قال ابن قدامة" when the excerpt is from ابن رشد corrupts Rayane's understanding of who holds which position. **Prevention:** (a) The engine reads `primary_author_id` from excerpt metadata, not from the text itself — attribution follows the upstream consensus. (b) For each scholar cited, the engine validates against the scholar authority registry: name, death date, school. Mismatches produce `SYNTH_TEMPORAL_MISMATCH` (warning). (c) The integrity check in §4.A.5 Check 3 (school isolation) prevents cross-school contamination. (d) The scholarly positions array uses structured `holders` with `scholar_id` — the scholar interface can independently verify. (e) Multi-model consensus for Phase 2 analysis (§6) provides a second opinion on attribution for high-significance leaves. **Residual risk:** MEDIUM — the engine trusts upstream attribution. If the excerpting engine misattributes and all consensus models agree, the error propagates.
+
+**T-3 (Taxonomic Misplacement) → Synthesis vector: entry incorporates an excerpt that doesn't belong at this leaf.** The engine synthesizes whatever excerpts are placed at the leaf. A misplaced excerpt introduces irrelevant or misleading content. **Prevention:** (a) Phase 2 tahrir al-mas'ala (§4.A.3 Step 3) detects when scholars are answering different questions — this catches excerpts that address a different topic. When detected, the engine emits `TAX_EVOLUTION_SIGNAL` suggesting a leaf split. (b) The scholarly analysis may identify an excerpt whose position is entirely unrelated to the other positions — this surfaces as an outlier in the khilaf classification. (c) The engine cannot independently determine correct placement; it relies on the taxonomy engine's placement pipeline. **Residual risk:** MEDIUM — a misplaced excerpt on a closely related topic (e.g., conditions of وضوء placed under conditions of صلاة) may not be detected.
+
+**T-4 (Context Loss) → Synthesis vector: entry paraphrases an excerpt that lacks the context needed for independent comprehension, producing a misleading claim.** An excerpt that says "والحكم كما سبق" without context yields an empty or fabricated paraphrase. **Prevention:** (a) The engine checks `self_containment_score` during Phase 1 collection (§4.A.2). Excerpts with score < 0.5 are flagged in `generation_metadata` and the LLM prompt notes their limited self-containment. (b) The attribution-first pipeline (§4.A.4.1) requires that each generated sentence be entailed by its attributed excerpt spans — an excerpt with insufficient context cannot entail a substantive claim, so the entailment check catches fabrication. (c) If all excerpts at a leaf have low self-containment, the overall entry quality drops and the quality assessment (§4.B.4) triggers human review. **Residual risk:** LOW — the entailment verification is specifically designed to catch claims that go beyond what the excerpt supports.
+
+**T-5 (Synthesis Hallucination) → Synthesis vector: the LLM invents scholarly positions, evidence, or attributions not in any excerpt.** This is the defining threat for the synthesizing engine. **Prevention:** (a) Attribution-first pipeline (§4.A.4.1) — content selection before generation, not post-hoc citation. (b) Entailment verification (§4.A.4.1 Step 4) — every factual sentence checked against its attributed spans. (c) Grounding type enforcement (§4.A.5 Check 6) — no `"llm_research"` claims in `core_treatment` or `scholarly_positions`. (d) Socratic self-verification (§4.B.6) — questions generated from the entry are answered from the entry text; inconsistencies reveal hallucinated content. (e) The structural separation between factual and analytical layers ensures that even when LLM knowledge is used, it is confined to sections the reader knows are not excerpt-backed. **Residual risk:** MEDIUM — subtle hallucinations (e.g., correct scholar, correct school, plausible but wrong death date) may pass all checks. Multi-model consensus for high-significance leaves is the primary mitigation for these cases.
+
+**T-6 (Metadata Poisoning) → Synthesis vector: wrong metadata produces a structurally correct but factually wrong entry.** If a source is tagged as primary (مصدر أصلي) but is actually a compilation (مصدر ثانوي), the engine gives it undue weight in deduplication (§4.A.2 — primary sources preferred). If an author's school is wrong, per-school entries contain cross-school content. **Prevention:** (a) The engine reads metadata from the library's registries, not from individual excerpts — centralized metadata is easier to audit. (b) Metadata chain resolution logs every lookup (§4.A.2) — if a suspicious pattern emerges (e.g., an author with conflicting school tags across sources), `SYNTH_METADATA_RESOLUTION_FAILED` is logged. (c) The library composition bias assessment (§4.A.3 Step 7) detects concentration in source_ids — if one "primary" source dominates, the entry notes the dependency. **Residual risk:** MEDIUM — the engine cannot independently verify metadata. It trusts the registries.
+
+**T-7 (Duplication and Contradiction) → Synthesis vector: duplicate excerpts inflate the entry, or contradictory duplicates produce incoherent positions.** Two editions of the same passage entering the library may have slightly different text. The engine might treat them as two distinct positions when they are one. **Prevention:** (a) Semantic deduplication in Phase 1 (§4.A.2) clusters similar excerpts using the taxonomy engine's duplicate cluster data. (b) Intra-author contradiction detection (§4.A.3 Step 4) identifies when the same author appears to hold different positions. (c) The representative-selection algorithm for duplicate clusters ensures only the best-quality excerpt is cited, while others are logged. **Residual risk:** LOW — the deduplication threshold (§8, default 0.92 similarity) may miss paraphrastic duplicates below the threshold, but these would appear as two scholars holding the same position (a false positive in position count, not a knowledge error).
 
 ---
 
@@ -569,6 +755,14 @@ The synthesizing engine uses multi-model consensus for a single specific decisio
 | SYNTH_ALL_RETRIES_FAILED | Fatal | All retry attempts exhausted | Produce diagnostic entry (§4.A.8) |
 | SYNTH_SCHEMA_VALIDATION_FAILED | Fatal | Generated entry fails schema validation | Retry generation |
 | SYNTH_STALENESS_HASH_COLLISION | Warning | Two entries have identical staleness hashes | Log for investigation; likely a bug |
+| SYNTH_PREWRITE_VALIDATION_FAILED | Fatal | Pre-write checks failed (§4.A.6) | Log which check failed; abort write |
+| SYNTH_CONSENSUS_VALIDATION_FAILED | Warning | Consensus strength data failed validation | Omit consensus field from position |
+| SYNTH_INVALID_WORK_REFERENCE | Warning | Gap note references non-existent work ID | Omit recommendation; log reference |
+| SYNTH_ENTAILMENT_FAILED | Warning | Generated sentence not entailed by attributed spans | Rewrite (up to 2 retries); mark `weak_grounding` if all fail |
+| SYNTH_NO_GROUNDED_CLAIMS | Fatal | All planned claims classified as LLM-research | Produce diagnostic entry with prominent warning |
+| SYNTH_LANDSCAPE_MISMATCH | Warning | Landscape data contradicts excerpt-derived analysis | Prefer excerpt-derived analysis; log discrepancy |
+| SYNTH_INSTRUCTOR_PARSE_FAILED | Fatal | LLM output failed Pydantic parsing after 2 retries | Produce diagnostic entry |
+| SYNTH_POSITION_COUNT_ZERO | Fatal | Phase 2 identified 0 positions from non-empty excerpt set | Retry with explicit prompt; if persists, diagnostic entry |
 
 ### 7.2 Error Principles
 
@@ -605,7 +799,13 @@ The synthesizing engine uses multi-model consensus for a single specific decisio
 
 ## 9. Current Implementation State
 
-**Code:** 0 lines. No code exists. No ABD equivalent existed — ABD did not have a synthesis engine.
+**Code:** 0 lines of engine logic. No processing code exists.
+
+**Contracts:** `engines/synthesis/contracts.py` — 539 lines. Defines all Pydantic models for input, output, and intermediate schemas. Models align with this SPEC as of this revision. Specific alignment notes:
+- `EntryContent` model includes `common_misunderstandings` field present in contracts but not explicitly in the §3.2 schema example → added to §3.2 for consistency.
+- `Citation` model uses flat fields (`excerpt_id`, `source_title`, `author_name`, `tahqiq_editor`, `publisher`, `volume`, `page_start`, `page_end`) rather than the nested `source_citation` object shown in §3.3 → contracts.py is authoritative; §3.3's nested structure is illustrative.
+- `KhilafClassificationType` enum has `mu_tabar` and `shadh` for Phase 2 pairwise classification (§4.A.3 Step 2). `DisagreementLocusType` enum has `lafzi`, `ishtiraki`, `haqiqi`, `su_al_mukhtalif` for §4.B.5 full disambiguation. These are distinct enums for distinct purposes.
+- `ClaimAttribution.attributed_excerpt_ids` allows `min_length=0` (for claims routed to analytical layer). This matches §4.A.4.1 Step 2 behavior.
 
 **Tests:** 0. No tests exist.
 
@@ -622,7 +822,7 @@ The synthesizing engine uses multi-model consensus for a single specific decisio
 - [NOT YET IMPLEMENTED] SCIENCE.md files for per-science configuration hooks (§4.A.9). These must be written as part of Level 3 documentation.
 - [NOT YET IMPLEMENTED] The owner constraint store (persistent constraints at each leaf surviving regeneration).
 - [NOT YET IMPLEMENTED] The staleness queue management system.
-- [NOT YET IMPLEMENTED] All four §4.B transformative capabilities.
+- [NOT YET IMPLEMENTED] All 6 §4.B transformative capabilities.
 
 ---
 
@@ -630,11 +830,11 @@ The synthesizing engine uses multi-model consensus for a single specific decisio
 
 ### 10.1 Mandatory Test Coverage
 
-**Gold baseline generation tests.** For each supported science (starting with nahw), create at least 2 gold baseline entries: one from a simple leaf (2-3 excerpts, one school) and one from a complex leaf (7+ excerpts, multiple schools, disagreements). Tests verify: all positions present, all attributions correct, all citations valid, khilaf classification correct.
+**Gold baseline generation tests.** For each supported science (starting with nahw), create at least 2 gold baseline entries: one from a simple leaf (2-3 excerpts, one school) and one from a complex leaf (7+ excerpts, 3+ schools, disagreements). Tests verify: all positions present, all attributions correct, all citations valid, khilaf classification correct.
 
 **Integrity check tests.** Each of the 8 integrity checks in §4.A.5 must have a test case with a deliberately flawed entry that the check should catch. Verify the check fires and the entry is rejected.
 
-**School isolation tests.** Generate entries for a fiqh leaf with multiple schools. Verify no cross-school contamination.
+**School isolation tests.** Generate entries for a fiqh leaf with 3+ schools. Verify no cross-school contamination.
 
 **Verified/flagged separation tests.** Generate an entry at a leaf with both verified and flagged excerpts. Verify flagged content appears only in critical_analysis.
 
