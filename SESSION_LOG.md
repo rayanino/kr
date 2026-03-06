@@ -188,3 +188,33 @@ Systematic self-audit of the passaging SPEC against the Perfection Standard. Fou
 
 ### Next
 Passaging HARDENING session: threat model failure modes, validate error handling completeness, verify state machine has no deadlock states.
+
+## Session 11: Passaging Engine HARDENING
+**Date:** 2026-03-06
+**Type:** HARDENING
+**Focus:** Threat analysis and gap closure for passaging SPEC
+
+### What Was Done
+- Analyzed 8 threat vectors against the passaging engine (silent text loss, bad boundary corruption, metadata loss, footnote corruption, argument false positive, adaptation edge case, state machine deadlock, false join)
+- Added 4 new self-validation checks (#8 boundary integrity, #9 predecessor/successor linking, #10 author preservation, #11 bidirectional footnote integrity)
+- Added 10 new error codes (PSG_ASSEMBLY_QURAN_UNCLOSED, PSG_ASSEMBLY_FOOTNOTE_COLLISION, PSG_ASSEMBLY_LAYER_MISMATCH, PSG_ARGUMENT_NO_SUBBOUNDARY, PSG_VALIDATION_BOUNDARY_MIDSENTENCE, PSG_VALIDATION_LINK_BROKEN, PSG_VALIDATION_AUTHOR_LOST, PSG_VALIDATION_FOOTNOTE_ORPHAN, PSG_VALIDATION_TEXT_LOSS, plus updated severity descriptions)
+- Hardened cross-page joining: added tanwin diacritics to word-final forms, added Quran citation bracket tracking at page boundaries
+- Completed §4.B.6 state machine: added 2 missing transitions (OPEN+counter-evidence/response → BODY), added explicit "any other text" rows for all states, proved deadlock impossibility, clarified nesting cap behavior
+- Added fallback for §4.B.6 oversized arguments with no internal sub-boundaries
+- Bounded adaptation formula (clamp technical_term_density to [0.0, 0.5])
+- Strengthened text integrity check #4 with character count invariant
+- Added §3 guarantee → validation check mapping in §5
+- Updated test requirements (12 cross-page tests, 9 self-validation tests, 6 sentence integrity tests)
+
+### Decisions Made
+- Author preservation check is FATAL (not warning) — losing an author is an attribution error (threat T-2), too serious for a warning
+- Predecessor/successor link check is FATAL — broken links indicate logic errors, not content issues
+- Text loss check is FATAL — any character loss during assembly is data corruption
+- Boundary mid-sentence check is WARNING — mid-sentence boundaries degrade quality but don't corrupt data
+
+### SPEC Stats
+- Before: 704 lines, 7 self-validation checks, ~16 error codes
+- After: 731 lines, 11 self-validation checks, ~26 error codes
+
+### Next
+Atomization engine CREATIVE session.

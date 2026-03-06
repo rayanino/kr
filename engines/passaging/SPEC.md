@@ -138,7 +138,7 @@ The normalization engine outputs per-page content units with text that ends at p
 
 **Assembly process.** For a contiguous range of content units (as defined by a division or passage boundary), the engine concatenates the `primary_text` fields in `unit_index` order. Between adjacent units, the engine applies joining logic:
 
-1. If the last unit's text ends mid-word (no terminal whitespace or punctuation) and the next unit's text starts with a word continuation, the two are joined without separator. Detection: the last character of unit N is a letter (Arabic or Latin) AND the first character of unit N+1 is a letter, with no whitespace between them, AND the last character of unit N is NOT a word-final form. Word-final forms in Arabic that prevent joining: taa marbuta `ة`, alif maqsura `ى`, final-form alif `ا` when preceded by a letter (indicating a complete word ending in alif), and hamza on the line `ء` when not preceded by a connecting letter. If the last character IS a word-final form, treat as Rule 2 or 3 (separate words at a page boundary) and insert a single space.
+1. If the last unit's text ends mid-word (no terminal whitespace or punctuation) and the next unit's text starts with a word continuation, the two are joined without separator. Detection: the last character of unit N is a letter (Arabic or Latin) AND the first character of unit N+1 is a letter, with no whitespace between them, AND the last character of unit N is NOT a word-final form. Word-final forms in Arabic that prevent joining: taa marbuta `ة`, alif maqsura `ى`, final-form alif `ا` when preceded by a letter (indicating a complete word ending in alif), hamza on the line `ء` when not preceded by a connecting letter, and tanwin diacritics (`ً` fathatan, `ٌ` dammatan, `ٍ` kasratan) — tanwin is grammatically word-final in all cases, so a letter followed by tanwin is always a complete word. If the last character (or the last diacritic on the last letter) IS a word-final form, treat as Rule 2 or 3 (separate words at a page boundary) and insert a single space.
 2. If the last unit's text ends with a complete word (followed by whitespace or punctuation) and the next unit starts a new sentence or paragraph, a single newline separates them.
 3. If the last unit's text ends mid-sentence (no sentence-terminal punctuation: `.`, `؟`, `!`, `،` at a natural clause boundary) and the next unit continues the sentence, a single space joins them.
 4. If both units end and start cleanly (sentence boundary to new sentence), the original whitespace pattern is preserved.
@@ -163,7 +163,9 @@ Unit 48 begins with: `وأما المسألة الثانية فقد اختلف �
 
 The last character of unit 47 is `.` (sentence-terminal punctuation). Rule 4 applies: preserve the original whitespace pattern (newline), producing the two sentences on separate lines.
 
-**Taa marbuta / hamza at page boundaries.** The word-final forms listed in Rule 1 (`ة`, `ى`, `ا` after a letter, standalone `ء`) prevent the mid-word join. This is critical because Arabic letters have different forms based on position (initial, medial, final), but page boundaries strip this positional context. The engine's word-final detection restores it. When unit N ends with one of these forms and unit N+1 begins with a space, the word is clearly complete. When unit N ends with one of these forms and unit N+1 begins with a letter (no space), the engine inserts a space — two complete words that happen to have no whitespace between them due to page-break formatting.
+**Taa marbuta / hamza at page boundaries.** The word-final forms listed in Rule 1 (`ة`, `ى`, `ا` after a letter, standalone `ء`, tanwin diacritics) prevent the mid-word join. This is critical because Arabic letters have different forms based on position (initial, medial, final), but page boundaries strip this positional context. The engine's word-final detection restores it. When unit N ends with one of these forms and unit N+1 begins with a space, the word is clearly complete. When unit N ends with one of these forms and unit N+1 begins with a letter (no space), the engine inserts a space — two complete words that happen to have no whitespace between them due to page-break formatting.
+
+**Quran citation integrity at page boundaries.** When assembling text across pages, the engine tracks open Quran citation brackets (`﴿`). If unit N's text contains an opening `﴿` without a matching `﴾`, the assembly is inside a Quran citation. In this state, Rule 1 (join without separator) applies unconditionally to the boundary between unit N and unit N+1 — Quran text is always joined directly, regardless of what the last/first characters are. The engine continues applying this override until a closing `﴾` is encountered. If a closing `﴾` is never found (the citation bracket is unmatched across the entire division), the engine logs `PSG_ASSEMBLY_QURAN_UNCLOSED` (warning) and treats the text from `﴿` onward as regular text for joining purposes.
 
 #### §4.A.3 — Strategy Selection
 
@@ -367,12 +369,16 @@ After creating all passage boundaries, the engine produces the output passage st
 1. **Coverage check.** Every content unit that is not flagged (`is_toc_page`, `is_index_page`, `is_blank` all false) must be covered by exactly one passage. `assert set(all_passage_unit_indices) == set(all_substantive_unit_indices)`.
 2. **Non-overlap check.** No content unit appears in multiple passages.
 3. **Ordering check.** Passages are strictly ordered by `sequence_index`, and their `unit_range.start` values are monotonically increasing.
-4. **Text integrity check.** For each passage, verify that `passage_text` matches the concatenated `primary_text` of its constituent content units (after cross-page joining). Hash comparison.
+4. **Text integrity check.** For each passage, two verifications: (a) **Hash comparison:** verify that `passage_text` matches the result of re-running cross-page assembly on the constituent content units. This confirms deterministic assembly. (b) **Character count invariant:** sum the character counts of `primary_text` from all constituent content units. The `passage_text` character count must be within a bounded range: `sum_of_unit_chars - (num_joins × 1)` ≤ `passage_text_chars` ≤ `sum_of_unit_chars + (num_joins × 1)`, where `num_joins` is the number of unit boundaries assembled (one fewer than the number of units). The tolerance of ±1 per join accounts for whitespace insertion/removal by joining rules. If `passage_text_chars` falls outside this range, text was lost or duplicated during assembly. Failure: `PSG_VALIDATION_TEXT_LOSS` (fatal).
 5. **Layer coverage check.** For multi-layer sources, every character in `passage_text` is covered by exactly one `text_layers` segment.
 6. **Size sanity.** No passage exceeds 3x the hard maximum (6000 words) — this would indicate a splitting failure. Flag and log if found.
 7. **Footnote reference integrity.** Every `⌜N⌝` marker in `passage_text` has a corresponding entry in the `footnotes` array.
+8. **Boundary integrity check.** For each passage boundary (between passage N and passage N+1): the last non-whitespace character of passage N's `passage_text` must be a sentence-terminal marker (`.`, `؟`, `!`, `﴾` followed by non-citation text) OR passage N's text must end with a paragraph break (double newline), OR passage N and N+1 belong to different divisions (division boundaries are always valid passage boundaries regardless of sentence position). If none of these conditions holds, the boundary falls mid-sentence — log `PSG_VALIDATION_BOUNDARY_MIDSENTENCE` (warning) and flag the passage with `low_confidence_boundary`.
+9. **Predecessor/successor link consistency.** For every passage P: if `P.sequence_index > 0`, then `P.predecessor_id` must equal the `passage_id` of the passage at `sequence_index == P.sequence_index - 1`. If `P.sequence_index < last_index`, then `P.successor_id` must equal the `passage_id` of the passage at `sequence_index == P.sequence_index + 1`. First passage must have `predecessor_id == null`. Last passage must have `successor_id == null`. Failure: `PSG_VALIDATION_LINK_BROKEN` (fatal — indicates a logic error in linking).
+10. **Author preservation check (multi-layer sources only).** For each passage in a multi-layer source: compute the set of unique `(layer_type, author_canonical_id)` pairs from the passage's `text_layers`. Compare against the union of `(layer_type, author_canonical_id)` pairs from the constituent content units' `text_layers` segments. If the passage is MISSING a pair that appears in its constituent units, an author was lost during layer rebasing. Failure: `PSG_VALIDATION_AUTHOR_LOST` (fatal — this is an attribution error, threat T-2).
+11. **Bidirectional footnote integrity.** In addition to check #7 (every marker has a footnote entry), verify the reverse: every entry in the `footnotes` array has exactly one corresponding `⌜N⌝` marker in `passage_text` (where N = the entry's `ref_marker`). Also verify injectivity: no two footnote entries have the same `ref_marker`. Failure: `PSG_VALIDATION_FOOTNOTE_ORPHAN` (warning — orphaned footnote entries indicate renumbering error).
 
-Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Coverage or overlap failures are fatal (the passage stream is not written). Size and footnote issues are warnings (the passage stream is written but flagged).
+Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Coverage, overlap, link consistency, or author loss failures are fatal (the passage stream is not written). Size, footnote, and boundary issues are warnings (the passage stream is written but flagged).
 
 ### §4.B — Transformative Capabilities
 
@@ -448,7 +454,7 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 
 **Technical approach.** When the normalization manifest includes a `content_census`, the passaging engine computes adapted parameters before processing begins:
 
-1. **Passage size calibration from text density.** The content census reports `text_density_profile.mean_chars_per_page` and `vocabulary_profile.technical_term_density`. Sources with high technical term density (>0.15) contain more information per word — their passages should be smaller so each passage is topically focused. Adapted formula:
+1. **Passage size calibration from text density.** The content census reports `text_density_profile.mean_chars_per_page` and `vocabulary_profile.technical_term_density`. Sources with high technical term density (>0.15) contain more information per word — their passages should be smaller so each passage is topically focused. Before applying the formula, clamp `technical_term_density` to [0.0, 0.5] — values above 0.5 are implausible (would mean >50% of words are technical terms) and indicate a census computation error; clamping prevents the adaptation from producing near-zero targets. Adapted formula:
    - `adapted_target_high = config.target_passage_words_high × (1.0 - technical_term_density × 0.3)`
    - Example: a dense usul al-fiqh text with `technical_term_density: 0.22` gets `adapted_target_high = 800 × (1.0 - 0.22 × 0.3) = 800 × 0.934 = 747 words`, tighter than the default 800.
    - A narrative sira text with `technical_term_density: 0.05` gets `adapted_target_high = 800 × (1.0 - 0.05 × 0.3) = 800 × 0.985 = 788 words`, essentially unchanged.
@@ -503,16 +509,18 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 | `IDLE` | Argument opening marker | `OPEN` | Record argument start offset. Set `depth = 1`. |
 | `IDLE` | Any other text | `IDLE` | No action. |
 | `OPEN` | Evidence marker | `BODY` | Record evidence section start. |
+| `OPEN` | Counter-evidence or response marker | `BODY` | Treat as direct entry into argument body (author skipped explicit evidence section). Record section start. |
 | `OPEN` | Nested argument opening marker | `OPEN` | Increment `depth`. Record nested argument start. |
 | `OPEN` | Conclusion marker + sentence boundary | `IDLE` | Decrement `depth`. If `depth == 0`: record argument end. If `depth > 0`: record sub-conclusion, remain in `OPEN`. |
 | `OPEN` | New argument opening (different مسألة) at depth 1 | `OPEN` | Close previous argument (implicit closure). Start new argument. Reset `depth = 1`. |
 | `OPEN` | End of division | `IDLE` | Close argument (forced closure). Flag `completeness: "partial_closing"`. |
-| `BODY` | Counter-evidence marker | `BODY` | Record counter-evidence section. |
-| `BODY` | Response marker | `BODY` | Record response section. |
+| `OPEN` | Any other text | `OPEN` | No action. Argument is open but no structural marker detected yet. |
+| `BODY` | Evidence, counter-evidence, or response marker | `BODY` | Record section. Argument body continues. |
 | `BODY` | Conclusion marker + sentence boundary | `IDLE` | Decrement `depth`. If `depth == 0`: record argument end. If `depth > 0`: return to `OPEN`. |
 | `BODY` | New argument opening at depth 1 | `OPEN` | Close previous argument (conclusion implied). Start new. Reset `depth = 1`. |
 | `BODY` | Nested argument opening marker | `BODY` | Increment `depth`. Record nested sub-argument. |
 | `BODY` | End of division | `IDLE` | Close argument (forced closure). Flag `completeness: "partial_closing"`. |
+| `BODY` | Any other text | `BODY` | No action. Argument body continues. |
 
 **Argument opening markers:**
 - Explicit مسألة markers: `مسألة:`, `فرع:`, `تنبيه:`, `واختلفوا في`, `وقد اختلف العلماء في`
@@ -527,11 +535,13 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 
 **Conclusion markers:** `والراجح`, `والصحيح`, `والمعتمد`, `فتبين أن`, `فالحاصل`
 
-**Nested argument handling.** A `فرع:` (subsidiary branch) inside a `مسألة:` increments `depth`. The sub-argument is tracked independently. The outer مسألة does not close until its own conclusion marker appears (at `depth == 1`) or a new top-level مسألة is encountered. Nesting depth is capped at 3 levels; at depth 4+, the engine treats additional openings as peer arguments (implicit closure of previous) rather than nesting deeper.
+**Nested argument handling.** A `فرع:` (subsidiary branch) inside a `مسألة:` increments `depth`. The sub-argument is tracked independently. The outer مسألة does not close until its own conclusion marker appears (at `depth == 1`) or a new top-level مسألة is encountered. Nesting depth is capped at 3 levels; at depth 4+, the engine treats additional openings as the "New argument opening at depth 1" transition in the state table — it implicitly closes all open nested arguments (resets `depth = 1`) and starts a new top-level argument. This cap prevents unbounded nesting from pathological input.
+
+**Deadlock prevention.** The state machine cannot deadlock. Every state has a guaranteed exit: the "End of division" transition fires when processing reaches the last content unit in the current division. Since every division has a finite number of content units, this transition is always reached. For flat passaging (empty division tree), the single synthetic division spans all content units — the machine exits at the last unit. No external timeout is needed.
 
 **Boundary protection rule.** When the passaging engine's size-based boundary calculation (§4.A.4 Step 2) would place a boundary inside a detected argument, the engine adjusts:
 - If the argument is ≤150% of the hard max: keep the argument intact as one passage, even though it exceeds the normal size target. Flag with `argument_preserved` review flag. The rationale: a slightly oversized passage with a complete argument is better for excerpting than two passages with a split argument.
-- If the argument is >150% of the hard max: split at an internal sub-argument boundary (between `القول الأول` block and `القول الثاني` block, or between the evidence section and the response section). Each sub-argument still carries the parent argument's مسألة text in its `heading_text` field, so the excerpting engine knows they belong together.
+- If the argument is >150% of the hard max: split at an internal sub-argument boundary (between `القول الأول` block and `القول الثاني` block, or between the evidence section and the response section). Each sub-argument still carries the parent argument's مسألة text in its `heading_text` field, so the excerpting engine knows they belong together. If no internal sub-argument boundary is found (the argument is a monolithic block with no position/evidence/response subdivision), fall back to paragraph-boundary splitting as in §4.A.4 Step 3. Flag all resulting passages with both `argument_preserved` and `low_confidence_boundary`. Log `PSG_ARGUMENT_NO_SUBBOUNDARY` (warning) — this indicates an unusual argument structure that likely needs human review.
 
 **Example.** In المغني by Ibn Qudamah, a typical مسألة block reads:
 ```
@@ -554,7 +564,7 @@ This is a single argument (~180 words). The engine detects `مسألة:` as the 
 
 ## 5. Validation and Quality
 
-**Self-validation (Layer 1).** The passaging engine runs the seven self-validation checks defined in §4.A.10 on every output. These are automated, deterministic, and mandatory.
+**Self-validation (Layer 1).** The passaging engine runs eleven self-validation checks defined in §4.A.10 on every output. These are automated, deterministic, and mandatory. Checks #1–#7 verify structural invariants (coverage, overlap, ordering, text integrity, layer coverage, size sanity, footnote references). Checks #8–#11 verify semantic invariants (boundary integrity, predecessor/successor linking, author preservation, bidirectional footnote integrity). Fatal checks (#1, #2, #4b, #5, #9, #10) prevent the passage stream from being written — better to fail loudly than silently corrupt the library.
 
 **Automated checks (Layer 2).** The following automated quality checks run after passaging completes:
 
@@ -565,6 +575,14 @@ This is a single argument (~180 words). The engine detects `مسألة:` as the 
 **Human gate integration.** The passaging engine does not have its own dedicated human gate. Instead, passages flagged with `review_flags` are surfaced at the excerpting engine's human gate — the owner reviews problematic passages when they produce questionable excerpts. The passaging engine contributes to human review by: producing clear `review_flags` with descriptions, providing `sizing.notes` for merge/split explanations, and recording `quality_prediction` scores when available.
 
 **What prevents errors from reaching the library.** A passaging error (bad boundary) produces a bad excerpt (broken argument, split definition). The passage containment rule (D-011) ensures that the error is contained: the bad passage produces bad excerpts that are caught at the excerpting engine's quality checks or the human gate. The passaging engine's contribution to error prevention is: self-validation that guarantees structural correctness (no missing content, no overlaps), and quality signals that direct attention to likely problems.
+
+**§3 guarantee coverage.** Every guarantee in §3 has at least one self-validation check:
+- Ordering guarantee → check #3
+- Complete coverage → check #1
+- Non-overlapping → check #2
+- Boundary integrity → check #8
+- Metadata completeness → check #10 (author preservation) + schema compliance
+- Text preservation → check #4 (hash + character count)
 
 ---
 
@@ -604,6 +622,15 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 | `PSG_ARGUMENT_OVERSIZED` | Warning | Argument preservation produced passage >150% of hard max | Log. Flag passage with `argument_preserved`. |
 | `PSG_ADAPTATION_FAILED` | Info | Content census-driven adaptation computed but produced out-of-range values | Fall back to default parameters. Log adapted values. |
 | `PSG_ISNAD_SPLIT` | Warning | An isnad-matn unit was split because it exceeded 3x hard max | Log. Flag both passages. This indicates an unusually long narration chain. |
+| `PSG_ASSEMBLY_QURAN_UNCLOSED` | Warning | Open `﴿` bracket with no matching `﴾` across entire division | Log. Treat text after `﴿` as regular text for joining. Flag affected passage with `low_confidence_boundary`. |
+| `PSG_ASSEMBLY_FOOTNOTE_COLLISION` | Warning | Footnote renumbering produced duplicate markers within a passage | Log with original and collision marker values. Resolve by appending suffix (e.g., `1a`, `1b`). Flag passage for review. |
+| `PSG_ASSEMBLY_LAYER_MISMATCH` | Warning | Layer rebasing produced segments with total coverage ≠ passage_text length | Log with expected vs actual coverage. Extend the last segment to cover remaining text. Flag passage with `mixed_layers`. |
+| `PSG_ARGUMENT_NO_SUBBOUNDARY` | Warning | Oversized argument (>150% hard max) has no internal sub-argument boundaries | Fall back to paragraph splitting. Flag with `argument_preserved` + `low_confidence_boundary`. |
+| `PSG_VALIDATION_BOUNDARY_MIDSENTENCE` | Warning | Self-validation: passage boundary falls mid-sentence | Log. Flag passage with `low_confidence_boundary`. |
+| `PSG_VALIDATION_LINK_BROKEN` | Fatal | Self-validation: predecessor/successor chain is inconsistent | Abort. This indicates a logic error in passage linking. |
+| `PSG_VALIDATION_AUTHOR_LOST` | Fatal | Self-validation: a (layer_type, author_canonical_id) pair from content units is missing in passage text_layers | Abort. This is an attribution corruption (threat T-2). |
+| `PSG_VALIDATION_FOOTNOTE_ORPHAN` | Warning | Self-validation: footnote entry has no corresponding marker in passage_text, or duplicate ref_marker | Log. Write passage stream but flag for review. |
+| `PSG_VALIDATION_TEXT_LOSS` | Fatal | Self-validation: passage_text character count outside expected range for constituent units | Abort. Text was lost or duplicated during cross-page assembly (threat T-1). |
 
 **Error logging.** All errors are logged with: error code, severity, source_id, timestamp, affected passage_ids (if applicable), and a human-readable description. Warning-level and above are included in the source's processing status record.
 
@@ -670,7 +697,7 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 
 **What MUST be tested:**
 
-1. **Cross-page text assembly correctness.** Given content units with known text, verify that assembly produces the expected joined text. Test cases: mid-word page break, mid-sentence page break, clean paragraph break, footnote renumbering across pages, layer rebasing across pages. Minimum 10 test cases covering all joining rules.
+1. **Cross-page text assembly correctness.** Given content units with known text, verify that assembly produces the expected joined text. Test cases: mid-word page break, mid-sentence page break, clean paragraph break, footnote renumbering across pages, layer rebasing across pages, word ending with tanwin at page boundary (must NOT join with next word), Quran citation spanning page boundary (must join directly inside `﴿...﴾`), unclosed Quran citation bracket across entire division. Minimum 12 test cases covering all joining rules.
 
 2. **Prose strategy sizing decisions.** Given division trees with known word counts, verify that merge, direct, and split decisions match expectations. Test cases: division exactly at minimum (50 words), division exactly at soft max (800 words), division just over hard max (2001 words), nested divisions requiring recursive merge, multi-level split with paragraph boundaries. Minimum 15 test cases.
 
@@ -678,9 +705,9 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 
 4. **Format-specific strategy selection.** Given manifest structural_format values, verify that the correct strategy is selected. Test cases: each format type, mixed format with per-division selection. 7 test cases.
 
-5. **Self-validation.** Verify that self-validation catches: a coverage gap (missing content unit), an overlap (unit in two passages), a size violation, an ordering violation. 4 test cases minimum.
+5. **Self-validation.** Verify that self-validation catches: a coverage gap (missing content unit), an overlap (unit in two passages), a size violation, an ordering violation, a mid-sentence boundary (check #8), a broken predecessor/successor link (check #9), a lost author attribution (check #10), an orphaned footnote entry (check #11), and a text loss during assembly (check #4b). 9 test cases minimum.
 
-6. **Sentence integrity.** Verify that no passage boundary falls mid-sentence in Arabic text. Test cases: text with only Arabic punctuation, text with mixed Arabic/Latin punctuation, text with no punctuation (requires heuristic sentence detection). Minimum 5 test cases.
+6. **Sentence integrity.** Verify that no passage boundary falls mid-sentence in Arabic text. Test cases: text with only Arabic punctuation, text with mixed Arabic/Latin punctuation, text with no punctuation (requires heuristic sentence detection), text with Quran citation at page boundary (`﴿...﴾` spanning pages). Minimum 6 test cases.
 
 7. **Isnad chain preservation.** Verify that isnad-matn units are never split across passage boundaries. Test cases: a hadith text with short isnad chains (3 narrators + matn), long isnad chains (7+ narrators), nested isnad chains (`حدثنا X قال حدثنا Y` within a larger chain), and isnad that spans a page boundary. Minimum 4 test cases.
 
