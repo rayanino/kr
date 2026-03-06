@@ -358,3 +358,26 @@ None this session.
 ### Domain Questions for Owner
 
 None this session.
+
+## Session: Excerpting Engine CREATIVE
+**Date:** 2026-03-06
+**Type:** CREATIVE
+**Engine:** Excerpting (محرك الاقتطاف)
+
+### What Was Done
+- Deep domain research: Talmud tools (DICTA, ChavrutAI), argumentation mining (RST, GNN), KITAB/OpenITI/passim, Arabic NLP 2025-2026, Islamic DH landscape
+- Added §4.B.4: Mas'ala Boundary Detection and Issue Formulation
+- Added §4.B.5: Evidence Chain Reconstruction
+- Added §4.B.6: Cross-Source Textual Resonance Detection
+- Added §4.A.7: Verse-Format (نظم) Excerpt Handling
+- Wrote contracts.py (459 lines, 30+ Pydantic models)
+- Updated §3 output contract and D-023 metadata pass-through
+
+### Decisions Made
+- §4.B.4 uses two-stage process: mas'ala detection then issue formulation with masala_id for cross-source grouping
+- §4.B.5 models Islamic argument types explicitly (textual, analogical, consensus_based, rational, presumptive)
+- §4.B.6 uses three tiers applied sequentially for cost management
+- Verse-format excerpts allow single-verse self-containment
+
+### Owner Questions
+- None new
