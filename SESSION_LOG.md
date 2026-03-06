@@ -480,3 +480,58 @@ None this session.
 
 ### Owner Questions
 - None new
+
+---
+
+## Session: 2026-03-06
+
+**Type:** PRECISION
+**Engine:** Taxonomy
+
+### What Was Done
+- Fixed 47→0 high-severity defects from `check_spec_quality.py`:
+  - 28 VAGUE_QUANTIFIER fixes: replaced every "multiple", "many", "some" with specific counts (2+, 3+, 5+, ≥50%, etc.)
+  - 1 VAGUE_APPROPRIATE fix: "appropriately granular" → "finer granularity than the source's chapter divisions"
+  - 1 HANDWAVE_LLM fix: §4.B.4 Category 2 now specifies model (claude-sonnet + gpt-4o consensus), Instructor, structured output schema
+  - 1 MISSING_THRESHOLD fix: "low score" → "scored < 0.4"
+  - 1 UNBOUNDED_ETC fix: enumerated all 8 dependent leaves instead of "etc."
+  - 6 additional medium terms fixed: "sufficient" → "meets the quality bar", "some sciences" → specific with configurable multiplier
+- Added 12 concrete examples with real Arabic content:
+  - §4.A.1: 2 placement decision flow examples (normal + override with escalation)
+  - §4.A.2: one-excerpt-per-source diagnostic example
+  - §4.A.4: primary topic determination example (multi-topic excerpt)
+  - §4.A.5: evolution signal accumulation example
+  - §4.A.6: coverage gap detection example (school + temporal + evidence gaps)
+  - §4.A.7: evolution application example
+  - §4.A.8: semantic deduplication example (same hadith from different sources)
+  - §4.A.9: cross-science link example (istithna in Nahw vs Usul)
+  - §4.A.10: terminology synonym detection example (الفاعل المعنوي / نائب الفاعل)
+  - §4.B.1: significance scoring example with computed weights
+  - §4.B.2: difficulty estimation example
+  - §4.B.3: corpus-driven tree construction example for Sarf
+  - §4.B.4: disagreement topology example for fiqh leaf
+  - §4.B.6: scholarly landscape example for nahw/mubtada
+- Specified LLM calls fully:
+  - §4.A.1 Stage 1b: claude-sonnet via Instructor, structured output schema, prompt template
+  - §4.A.1 Stage 2: single call for all candidates, structured ranking schema
+  - §4.A.4: claude-sonnet via consensus interface, structured output
+  - §4.B.4: claude-sonnet primary + gpt-4o consensus, Instructor structured output
+- Fixed contracts.py: added missing `entry_lifecycle_propagation` field to EvolutionInvariantChecks
+- Fixed SPEC §3.4: added `entry_lifecycle_propagation` to invariant_checks description
+- Self-audit found and fixed 4 defects:
+  1. §4.A.1 Stage 1b LLM underspecified → added model, prompt, output schema
+  2. §4.A.1 Stage 2 ranking call structure unclear → specified single call, all candidates
+  3. Pre-approval policy undefined → added definition, creation trigger (10+ approvals), revocation
+  4. §6 consensus provider fallback missing → added degraded mode with confidence cap at 0.75
+- Added small-tree fast path: trees < 10 leaves skip Stage 1b
+- Made evolution_sensitivity configurable per SCIENCE.md (multiplier 0.5–2.0)
+- SPEC grew from 691→868 lines (177 lines added, mostly examples)
+
+### Decisions Made
+- Pre-approval policies trigger after 10+ consecutive unmodified approvals per source+science
+- Consensus provider fallback caps confidence at 0.75 (forces human gate review)
+- Small trees (< 10 leaves) skip LLM topic search, use all leaves as candidates
+- Evolution sensitivity is a per-science multiplier on the global signal threshold
+
+### Owner Questions
+- None new

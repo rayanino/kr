@@ -277,6 +277,7 @@ class EvolutionInvariantChecks(BaseModel):
     zero_orphans: bool
     sibling_coherence: bool
     excerpt_non_interference: bool
+    entry_lifecycle_propagation: bool
 
 
 class EvolutionProposal(BaseModel):

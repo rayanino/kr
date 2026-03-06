@@ -118,7 +118,7 @@ When the taxonomy engine proposes an evolution, it produces a structured proposa
 - `proposed_structure`: object describing the new subtree.
 - `excerpt_redistribution`: array of objects, each: `excerpt_id`, `current_leaf`, `proposed_leaf`, `redistribution_confidence`, `reasoning`.
 - `trigger_signal`: object describing what triggered this proposal.
-- `invariant_checks`: object confirming zero_orphans (bool), sibling_coherence (bool), excerpt_non_interference (bool).
+- `invariant_checks`: object confirming zero_orphans (bool), sibling_coherence (bool), excerpt_non_interference (bool), entry_lifecycle_propagation (bool).
 
 Evolution proposals are written to `library/sciences/{science_id}/evolution/pending/{proposal_id}.json`. Approved proposals move to `library/sciences/{science_id}/evolution/applied/`. Rejected proposals move to `library/sciences/{science_id}/evolution/rejected/`.
 
@@ -138,20 +138,66 @@ Placement determines which leaf an excerpt belongs at. The algorithm uses a two-
 
 (a) **Excerpting engine proposal.** If `proposed_leaf` is non-null and resolves to a valid leaf, it becomes the first candidate with its `proposed_leaf_confidence` score.
 
-(b) **Topic-based search.** The engine uses the `excerpt_topic` text and `terminology_variants` to search the active tree for matching leaves. The search is LLM-driven: the engine sends the excerpt topic, the tree's branch structure (titles only — not the full tree), and asks the LLM to identify the 3–5 most likely leaf paths. For trees with more than 200 leaves, the search is hierarchical: first identify the correct branch (top 3), then identify the correct leaf within each candidate branch.
+(b) **Topic-based search.** The engine uses the `excerpt_topic` text and `terminology_variants` to search the active tree for matching leaves. The search is LLM-driven: the engine calls `claude-sonnet` via Instructor with structured output schema `{candidate_leaves: [{leaf_path: str, reasoning: str}], confidence: float}` and prompt: "Given this excerpt topic: {excerpt_topic}, and this tree structure: {branch_titles_only}, identify the 3–5 most likely leaf paths where this excerpt belongs." For trees with more than 200 leaves, the search is hierarchical: first identify the correct branch (top 3), then identify the correct leaf within each candidate branch. For trees with fewer than 10 leaves, all leaves are included as candidates directly (Stage 1b is skipped).
 
 (c) **Embedding similarity.** The engine computes a sentence embedding of `excerpt_topic` (using multilingual-e5-large or equivalent) and compares it against precomputed embeddings of all leaf titles in the science tree. The top 3 leaves by cosine similarity become additional candidates if they are not already in the candidate set. This catches terminology mismatches that LLM search might miss.
 
-**Stage 2: Candidate ranking.** Each candidate leaf is scored by the LLM on a 0.0–1.0 scale, considering: (a) does the excerpt's teaching content match the leaf's topic? (b) is there a more specific leaf that would be a better fit? (c) does the excerpt's content overlap with existing excerpts at this leaf (checked by providing titles/topics of existing excerpts at the leaf)? The highest-scoring candidate is selected.
+**Stage 2: Candidate ranking.** All candidates from Stage 1 are scored in a single LLM call (separate from Stage 1). The engine calls `claude-sonnet` via Instructor with structured output schema `{rankings: [{leaf_path: str, score: float, reasoning: str}]}` and prompt containing: the excerpt's `primary_text` (first 500 characters), the `excerpt_topic`, and for each candidate leaf: the leaf title, its parent branch titles, and the `excerpt_topic` values of up to 5 existing excerpts at that leaf. The LLM scores each candidate on a 0.0–1.0 scale considering: (a) does the excerpt's teaching content match the leaf's topic? (b) is there a more specific leaf that would be a better fit? (c) does the excerpt's content overlap with existing excerpts at this leaf? The highest-scoring candidate is selected.
 
 **Placement decision rules:**
 
-- If the top candidate scores ≥ 0.8: the excerpt is placed at that leaf. If a pre-approval policy covers this source and science, placement proceeds without human gate. Otherwise, placement is queued for human gate review.
+- If the top candidate scores ≥ 0.8: the excerpt is placed at that leaf after passing all §4.A.2 validation checks. If the source+science combination has a pre-approval policy (see below), placement proceeds without human gate. Otherwise, placement is queued for human gate review.
 - If the top candidate scores 0.5–0.8: placement is always escalated to human gate review, regardless of pre-approval policies. The owner sees the top 3 candidates with scores and reasoning.
 - If no candidate scores ≥ 0.5: the excerpt is flagged as `TAX_UNPLACEABLE` and held in a staging area. This is an evolution signal — the tree may lack the right leaf. The excerpt is not silently discarded; it is visible to the owner with an explanation.
 - If two candidates score within 0.1 of each other (tie condition): escalated to human gate with both candidates presented.
 
+**Pre-approval policies.** Per-source, per-science configuration records managed by the human gate engine. The human gate validates and stores these records after the owner approves 10+ consecutive placements from the same source in the same science without modification. Pre-approval can be revoked by the owner at any time. Pre-approval only affects the human gate step; all §4.A.2 validation checks still run.
+
 **The excerpting engine's proposal is a hint, not a constraint.** The taxonomy engine may override `proposed_leaf` with a different leaf if its own analysis determines a better placement. When it overrides, it records: `proposed_leaf_override: true`, `proposed_leaf_original`, `override_reason`.
+
+**Example: Placement Decision Flow.**
+
+An excerpt arrives with:
+```
+excerpt_id: exc_nahw_ibnhisham_qatralnada_001_014
+excerpt_topic: "أقسام الخبر: المفرد والجملة وشبه الجملة"
+proposed_leaf: "nahw/mubtada_khabar/khabar_types"
+proposed_leaf_confidence: 0.72
+science_id: "nahw"
+terminology_variants: ["أنواع الخبر", "الخبر المفرد"]
+```
+
+**Stage 1 — Candidate generation:**
+- (a) Excerpting engine proposal: `nahw/mubtada_khabar/khabar_types` with confidence 0.72. Added as candidate.
+- (b) Topic-based search: the LLM receives the Nahw tree's branch structure and `excerpt_topic`. It returns: `nahw/mubtada_khabar/khabar_types` (same as proposal, score 0.85), `nahw/mubtada_khabar/khabar_mufrad` (a more specific leaf, score 0.78), `nahw/jumal/jumla_khabariyya` (tangentially related, score 0.45).
+- (c) Embedding similarity: top 3 by cosine = `khabar_types` (0.91), `khabar_mufrad` (0.84), `khabar_jumla` (0.79). `khabar_jumla` is new — added to candidate set.
+
+**Stage 2 — Candidate ranking:** The LLM scores each candidate:
+- `khabar_types`: 0.88 — the excerpt covers ALL three types, so the general leaf is the best fit.
+- `khabar_mufrad`: 0.52 — the excerpt mentions المفرد but does not focus exclusively on it.
+- `khabar_jumla`: 0.41 — only tangentially relevant.
+- `jumla_khabariyya`: 0.35 — different topic entirely.
+
+**Decision:** Top candidate `khabar_types` scores 0.88 (≥ 0.8). The source has a pre-approval policy for Nahw. Placement proceeds without human gate. Override recorded: `proposed_leaf_override: false` (the taxonomy engine confirmed the excerpting engine's proposal).
+
+**Example: Placement Override with Escalation.**
+
+An excerpt arrives with:
+```
+excerpt_id: exc_fiqh_ibnqudama_mughni_003_042
+excerpt_topic: "شروط صحة البيع"
+proposed_leaf: "fiqh/buyu/buyu_general"
+proposed_leaf_confidence: 0.55
+science_id: "fiqh"
+```
+
+**Stage 1:** Topic search identifies `fiqh/buyu/shurut_buyu` (conditions of sale) as a candidate — a more specific leaf than the proposed general leaf.
+
+**Stage 2:** Ranking:
+- `shurut_buyu`: 0.91 — exact topic match.
+- `buyu_general`: 0.48 — too broad; the excerpt is specifically about conditions, not sales in general.
+
+**Decision:** Top candidate `shurut_buyu` scores 0.91. But this is an override of the excerpting engine's proposal. Recorded: `proposed_leaf_override: true`, `proposed_leaf_original: "fiqh/buyu/buyu_general"`, `override_reason: "More specific leaf 'shurut_buyu' (conditions of sale) matches excerpt topic exactly; the proposed general leaf is too broad."` Placement proceeds at `shurut_buyu`.
 
 #### §4.A.2 — Placement Validation
 
@@ -162,6 +208,13 @@ After the placement decision, before writing the placed excerpt, the taxonomy en
 **Verified/flagged consistency.** If the excerpt's source has a `trust_tier` that maps to `flagged`, the excerpt receives `verified_flagged_status: flagged` unless the owner has explicitly overridden the source's trust evaluation for this excerpt. Conversely, an individually flagged excerpt from a verified source receives `flagged` status with the specific `flag_reason`. The taxonomy engine never promotes an excerpt from flagged to verified autonomously — that requires human gate review.
 
 **Leaf capacity check.** This is purely diagnostic. When a leaf accumulates more than 30 verified excerpts, a diagnostic is logged suggesting the owner review whether the leaf is too coarse. This is NOT an evolution trigger — it is an informational signal.
+
+**Example: One-Excerpt-Per-Source Diagnostic.**
+
+Leaf `nahw/mubtada_khabar/khabar_types` already has a placed excerpt `exc_nahw_ibnhisham_qatralnada_001_014` from source `ibnhisham_qatralnada`. A new excerpt `exc_nahw_ibnhisham_qatralnada_001_027` from the same source is placed at the same leaf. The diagnostic fires. The engine evaluates:
+- Excerpt 014 topic: "أقسام الخبر: المفرد والجملة وشبه الجملة" (types of khabar).
+- Excerpt 027 topic: "تقديم الخبر على المبتدأ" (khabar preceding mubtada).
+These are distinguishably different sub-topics. The diagnostic records: `"same_source_different_subtopics: true"` — this is an evolution signal (Signal 4 in §4.A.5) suggesting the leaf should split into khabar-types and khabar-ordering sub-leaves.
 
 #### §4.A.3 — Tree Construction
 
@@ -180,8 +233,8 @@ Prerequisite edges are proposed during drafting: for each leaf, the engine ident
 **Validation phase.** The draft tree is validated against real content. The engine takes 3–5 representative sources in the science (chosen for breadth of coverage) and tests whether each source's chapters map cleanly to the tree's leaves. Specifically, for each chapter in each source, the engine asks: which leaf(s) would this chapter's content be placed at? Three failure modes are checked:
 
 - **Orphan content.** A chapter covers a topic not represented by any leaf. This reveals a missing leaf.
-- **Split content.** A single chapter spans multiple distinguishable sub-topics that map to different leaves. This is expected and acceptable — it means the tree is appropriately granular.
-- **Collapsed content.** Multiple chapters from the same source all map to the same leaf. This suggests the leaf is too coarse and should be split.
+- **Split content.** A single chapter spans 2+ distinguishable sub-topics that map to different leaves. This is expected and acceptable — it means the tree has finer granularity than the source's chapter divisions.
+- **Collapsed content.** 2+ chapters from the same source all map to the same leaf. This suggests the leaf is too coarse and should be split.
 
 Failures are recorded in the validation report. The engine proposes fixes for each failure. The owner reviews the validation report and approves the draft (with or without modifications).
 
@@ -189,15 +242,35 @@ Failures are recorded in the validation report. The engine proposes fixes for ea
 
 #### §4.A.4 — Primary Topic Determination
 
-When an excerpt mentions multiple topics (§5.3, Rule 1), the taxonomy engine determines the primary topic — the topic the excerpt exists to teach. The determination uses three signals:
+When an excerpt mentions 2+ topics (§5.3, Rule 1), the taxonomy engine determines the primary topic — the topic the excerpt exists to teach. The determination uses three signals:
 
 (a) **Core atom analysis.** The excerpt's `core_atom_ids` identify which atoms are the "teaching content." The taxonomy engine examines the scholarly functions of core atoms (from atom metadata): if the majority of core atoms are `definition`, `ruling`, or `opinion_marker` atoms about Topic A, and the context atoms are about Topic B, then Topic A is primary.
 
 (b) **Excerpt topic text.** The `excerpt_topic` field from the excerpting engine is a direct statement of what the excerpt teaches.
 
-(c) **LLM judgment.** When signals (a) and (b) conflict, or when the determination is ambiguous, the LLM reads the excerpt's `primary_text` and the candidate leaf descriptions, then determines which topic the author intended to teach. The LLM's prompt includes: "This excerpt may mention multiple topics. Determine which topic the author is primarily teaching, not merely referencing."
+(c) **LLM judgment.** When signals (a) and (b) conflict, or when the determination is ambiguous, the LLM reads the excerpt's `primary_text` and the candidate leaf descriptions, then determines which topic the author intended to teach. The LLM is called via the consensus interface (§6) with model `claude-sonnet` as primary, structured output via Instructor returning `{primary_topic: str, confidence: float, reasoning: str}`. The prompt includes: "This excerpt may mention two or more topics. Determine which topic the author is primarily teaching, not merely referencing."
 
 Primary topic determination is logged with the reasoning, supporting auditability (D-033).
+
+**Example: Primary Topic Determination.**
+
+An excerpt from شرح ابن عقيل على الألفية contains:
+```
+primary_text: "المبتدأ هو الاسم المرفوع العاري عن العوامل اللفظية... وخبره هو الجزء المتمّ الفائدة... وأصل الخبر أن يكون مفرداً نحو زيد قائم، وقد يكون جملةً نحو زيد أبوه قائم"
+core_atom_ids: [atom_014, atom_015, atom_016]  # definition of mubtada, definition of khabar, khabar types
+context_atom_ids: [atom_017]  # i'rab of the example sentence
+excerpt_topic: "تعريف المبتدأ والخبر وأقسام الخبر"
+```
+
+The excerpt mentions both المبتدأ (subject) and الخبر (predicate). Candidate leaves: `mubtada_khabar/mubtada_definition`, `mubtada_khabar/khabar_types`.
+
+Signal (a): Core atoms include `definition` atoms for BOTH mubtada and khabar, plus a `type_enumeration` atom for khabar types. Since 2 of 3 core atoms concern khabar (definition + types), while 1 concerns mubtada — but this is a combined definition passage where both are inseparable.
+
+Signal (b): `excerpt_topic` says "تعريف المبتدأ والخبر وأقسام الخبر" — both topics explicitly named, with khabar types as the additional focus.
+
+Signal (c): LLM judgment — the passage is a combined foundational definition that introduces mubtada AND khabar together; neither topic is subordinate to the other. The passage's STRUCTURE (defining mubtada first, then khabar, then elaborating khabar types) suggests the author treats them as a single unit of instruction.
+
+**Decision:** Primary topic = `mubtada_khabar/mubtada_khabar_combined` (a leaf for combined mubtada-khabar definitions). If no such combined leaf exists, the engine places at `mubtada_khabar/mubtada_definition` (the first concept defined, per the author's ordering) and creates a cross-reference to `khabar_types`. Reasoning logged: "Combined definition passage treating المبتدأ and الخبر as inseparable unit; placed at mubtada_definition per author's ordering with cross-reference to khabar_types."
 
 #### §4.A.5 — Evolution Signal Detection
 
@@ -207,7 +280,7 @@ The taxonomy engine continuously monitors for evolution signals. Five signal typ
 
 **Signal 2: Unplaceable excerpt.** When an excerpt scores < 0.5 against all candidate leaves (§4.A.1), the tree lacks the right leaf. This is a strong evolution signal — either a new leaf is needed, or an existing branch needs restructuring.
 
-**Signal 3: Cross-source convergence.** When excerpts from 3+ different sources are placed at the same leaf and a cluster analysis reveals two or more distinct sub-groups (by topic embedding clustering with silhouette score > 0.4), the leaf likely covers multiple distinguishable sub-topics.
+**Signal 3: Cross-source convergence.** When excerpts from 3+ different sources are placed at the same leaf and a cluster analysis reveals 2+ distinct sub-groups (by topic embedding clustering with silhouette score > 0.4), the leaf likely covers distinguishably different sub-topics.
 
 **Signal 4: One-excerpt-per-source violation.** Per §5.5, when a second excerpt from the same source is placed at the same leaf and the two excerpts cover different sub-topics, this suggests the leaf should split.
 
@@ -216,6 +289,15 @@ The taxonomy engine continuously monitors for evolution signals. Five signal typ
 **Evolution evaluation.** When a signal is detected, the engine evaluates whether evolution is warranted. Not every signal leads to a proposal — a single divergence signal from one excerpt is weak. The engine accumulates signals per leaf and evaluates when: (a) 3+ independent signals point to the same leaf, or (b) a single strong signal (unplaceable excerpt, owner request) targets the leaf.
 
 Evaluation generates a structured proposal (§3.4). The proposal must pass all four §4.4 invariants:
+
+**Example: Evolution Signal Accumulation and Evaluation.**
+
+Leaf `nahw/marfu'at/khabar` accumulates signals over time:
+1. Signal 1 (divergence): Excerpt about "أقسام الخبر" has cosine similarity 0.42 with the centroid of existing excerpts (which are about "تعريف الخبر"). Divergence signal raised. (Accumulated signals: 1)
+2. Signal 4 (one-per-source violation): Two excerpts from the same source at this leaf cover different sub-topics ("الخبر المفرد" vs "تقديم الخبر"). Signal raised. (Accumulated signals: 2)
+3. Signal 1 (divergence): Another excerpt about "حذف الخبر" has cosine similarity 0.38 with centroid. Divergence signal raised. (Accumulated signals: 3 — threshold reached)
+
+**Evaluation triggers.** The engine generates a `leaf_split` proposal: split `khabar` into `khabar_definition`, `khabar_types`, `khabar_ordering`, `khabar_deletion`. Each existing excerpt is tentatively redistributed. All four invariants are checked before presenting to the owner.
 - **Zero orphans.** Every existing excerpt at the affected leaf must have a valid placement in the proposed structure.
 - **Sibling coherence.** No excerpt should plausibly belong to more than one proposed sibling. Tested by LLM: for each excerpt, the LLM classifies it into one of the proposed siblings. If any excerpt receives a split classification (two siblings score within 0.15 of each other), sibling coherence fails.
 - **Excerpt non-interference.** No excerpt outside the evolution scope is affected.
@@ -231,15 +313,27 @@ Coverage gaps are computed per leaf, per branch, and per science. A gap is a str
 
 **Source diversity gap.** A leaf's excerpts all come from a single source (or fewer than 2 sources). Scholarly reliability requires corroboration. Gap records: `gap_type: source_diversity`, `current_source_count`, `leaf_path`.
 
-**Temporal gap.** A leaf's excerpts all come from a narrow time period (all authors within 200 hijri years of each other) when the science spans a wider period. Important topics typically have positions from multiple centuries. Gap records: `gap_type: temporal`, `covered_period`, `science_total_period`, `leaf_path`.
+**Temporal gap.** A leaf's excerpts all come from a narrow time period (all authors within 200 hijri years of each other) when the science spans a wider period. Important topics typically have positions spanning 2+ distinct centuries. Gap records: `gap_type: temporal`, `covered_period`, `science_total_period`, `leaf_path`.
 
 **Evidence type gap.** A leaf has positions (opinions) but no supporting evidence (no Quran, hadith, or rational argument excerpts). Scholarly positions without evidence are incomplete. Gap records: `gap_type: evidence`, `missing_evidence_types`, `leaf_path`.
 
 **Prerequisite gap.** A leaf has excerpts, but one of its hard prerequisite topics (from the prerequisite graph) has zero excerpts. The user cannot study this topic without first studying the prerequisite, but the prerequisite is empty. Gap records: `gap_type: prerequisite`, `missing_prerequisite_leaf`, `leaf_path`.
 
-**Empty leaf.** A leaf exists in the tree but has zero excerpts. For trees with many empty leaves, this is expected during early library building. The gap is reported but at low severity. Gap records: `gap_type: empty`, `leaf_path`.
+**Empty leaf.** A leaf exists in the tree but has zero excerpts. For trees where ≥50% of leaves are empty, this is expected during early library building. The gap is reported but at low severity. Gap records: `gap_type: empty`, `leaf_path`.
 
 Gaps are recalculated after every placement, relocation, or evolution event. They are written to the coverage analytics output (§3.3) and available to the scholar interface for display and alerting.
+
+**Example: Gap Detection After Placement.**
+
+Leaf `fiqh/salat/qunut` has 4 verified excerpts after a new placement:
+- 2 excerpts from Hanafi sources (al-Marghinani d. 593 AH, al-Kasani d. 587 AH)
+- 1 excerpt from Shafi'i source (al-Nawawi d. 676 AH)
+- 1 excerpt from Hanbali source (Ibn Qudama d. 620 AH)
+
+Gaps detected:
+1. **School gap:** `{gap_type: "school", missing_school: "maliki", leaf_path: "fiqh/salat/qunut"}` — Maliki school has zero excerpts.
+2. **Temporal gap:** `{gap_type: "temporal", covered_period: {start: 587, end: 676}, science_total_period: {start: 150, end: 1200}, leaf_path: "fiqh/salat/qunut"}` — all authors within a 89-year window vs. the science spanning 1050 years.
+3. **Evidence gap:** No excerpts have `evidence_refs` with Quran or hadith citations — only scholarly opinions without dalil. `{gap_type: "evidence", missing_evidence_types: ["quran", "hadith"], leaf_path: "fiqh/salat/qunut"}`.
 
 #### §4.A.7 — Evolution Application and Migration
 
@@ -259,17 +353,30 @@ For each redistributed excerpt:
 
 **Rollback.** If the owner requests rollback of an evolution, the taxonomy engine: (a) restores the previous tree version from `tree_history/`, (b) reverses all excerpt redistributions, (c) handles post-evolution excerpts — excerpts placed at the evolved leaves AFTER the evolution but BEFORE the rollback — by returning them to `reviewed` status for re-placement (per §4.4 rollback completeness invariant), (d) marks all affected entries as stale. Rollback is a human-gated operation.
 
+**Example: Evolution Application.**
+
+Leaf `nahw/marfu'at/khabar` is approved for split into `khabar_definition`, `khabar_types`, `khabar_ordering`. Tree version `nahw_v1_0` → `nahw_v2_0`. Three existing excerpts are redistributed:
+- `exc_001` (topic: "تعريف الخبر") → `khabar_definition`, confidence 0.92
+- `exc_002` (topic: "أقسام الخبر") → `khabar_types`, confidence 0.89
+- `exc_003` (topic: "تقديم الخبر") → `khabar_ordering`, confidence 0.94
+
+The engine writes the new tree YAML, archives `nahw_v1_0`, moves each excerpt file atomically, updates `taxonomy_version_at_placement` on each excerpt to `nahw_v2_0`, and queues entries at `khabar_definition`, `khabar_types`, `khabar_ordering` for initial generation. The old entry at `khabar` is marked stale.
+
 #### §4.A.8 — Semantic Deduplication Detection
 
-When multiple sources quote the same hadith, or paraphrase the same well-known definition, the taxonomy engine detects the semantic overlap and signals it to the synthesizing engine. This ensures entries present redundant content once (citing the strongest source) rather than repeating it.
+When 2+ sources quote the same hadith, or paraphrase the same well-known definition, the taxonomy engine detects the semantic overlap and signals it to the synthesizing engine. This ensures entries present redundant content once (citing the strongest source) rather than repeating it.
 
 Detection uses embedding similarity. After placement, the engine computes the embedding of the new excerpt's `primary_text` and compares it against all existing verified excerpts at the same leaf. If cosine similarity exceeds 0.85 with any existing excerpt, the pair is flagged as a duplicate cluster. Existing clusters are extended if the new excerpt is similar to any member.
 
 Duplicate clusters are recorded in the coverage analytics (§3.3) and attached to the leaf's metadata. The synthesizing engine reads these clusters to avoid redundant presentation. The taxonomy engine does NOT merge or remove duplicate excerpts — they remain as independent placed excerpts. Deduplication is a synthesis-time concern, not a placement-time action, because different sources may add unique context even when the core content is similar.
 
+**Example: Duplicate Detection.**
+
+At leaf `fiqh/tahara/nawaqid_wudu`, excerpt `exc_fiqh_nawawi_minhaj_002_008` is newly placed. Its `primary_text` includes the well-known hadith about the nullifiers of wudu. The engine computes its embedding and compares against existing excerpts. Excerpt `exc_fiqh_ibnqudama_mughni_001_015` has cosine similarity 0.91 (> 0.85 threshold) — both quote the same hadith with minor wording differences. They are grouped into duplicate cluster `["exc_fiqh_nawawi_minhaj_002_008", "exc_fiqh_ibnqudama_mughni_001_015"]`. The synthesizer will later cite the stronger source and note the other as corroboration, rather than presenting the same hadith twice.
+
 #### §4.A.9 — Cross-Science Link Management
 
-When the same concept appears as a leaf in multiple science trees (e.g., الاستثناء in both Nahw and Usul), the taxonomy engine records a cross-science link. Links are never merges — each science's leaf is independent with its own excerpts and entries. Links are metadata for the synthesizer and scholar interface.
+When the same concept appears as a leaf in 2+ science trees (e.g., الاستثناء in both Nahw and Usul), the taxonomy engine records a cross-science link. Links are never merges — each science's leaf is independent with its own excerpts and entries. Links are metadata for the synthesizer and scholar interface.
 
 Cross-science links are detected by two mechanisms:
 
@@ -278,6 +385,10 @@ Cross-science links are detected by two mechanisms:
 (b) **Excerpt cross-reference.** When an excerpt at a leaf explicitly references a concept from another science (detected from `excerpt_topic` or `primary_text` content), and that concept has a leaf in the other science's tree, a link is proposed.
 
 Links are written to `cross_science_links.json` (§3.2) and are available to the scholar interface for cross-science navigation (Scenario 3).
+
+**Example: Cross-Science Link Detection.**
+
+During tree construction for Usul al-Fiqh, a new leaf `usul/dalalat/istithna` (exception/استثناء in legal methodology) is created. Title matching detects an existing leaf `nahw/mansubat/istithna` (exception in grammar). The LLM confirms: "The grammatical concept of istithna and the usuli concept of istithna are genuinely related — usuli scholars depend on the grammatical analysis of exception particles (إلا، غير، سوى) to derive legal rulings. The relationship is `application_of` (usul applies nahw)." Link created: `{source_leaf: "usul/dalalat/istithna", target_leaf: "nahw/mansubat/istithna", relationship_type: "application_of", confidence: 0.88}`.
 
 #### §4.A.10 — Terminology Synonym Management
 
@@ -289,6 +400,10 @@ New synonyms are also detected during placement: when the LLM's topic-based sear
 
 Synonyms are stored per science (§3.2) and used in placement candidate generation — when searching for matching leaves, all known synonyms for each leaf title are included in the search.
 
+**Example: Synonym Detection During Placement.**
+
+An excerpt arrives with `excerpt_topic: "الفاعل المعنوي"` (semantic subject). The tree has no leaf titled "الفاعل المعنوي" but has `nahw/marfu'at/naib_fa'il` (نائب الفاعل / deputy subject). The LLM's topic search identifies `naib_fa'il` as the best match and notes: "الفاعل المعنوي is a synonym used by Basran grammarians (e.g., al-Mubarrad, Ibn al-Sarraj) for the concept standardly called نائب الفاعل." The synonym is registered: `{canonical_term: "نائب الفاعل", variants: [{term: "الفاعل المعنوي", context: "Basran grammatical tradition"}]}`. Future excerpts using "الفاعل المعنوي" will immediately match `naib_fa'il` without LLM re-evaluation.
+
 ---
 
 ### §4.B — Transformative Capabilities
@@ -299,11 +414,11 @@ Every leaf in every science tree receives a significance score that measures how
 
 Significance is computed from four signals:
 
-(a) **Prerequisite dependency count.** How many other topics depend on this one (out-degree in the prerequisite graph). A topic that is a prerequisite for many others is foundational.
+(a) **Prerequisite dependency count.** The count of other topics that depend on this one (out-degree in the prerequisite graph). A topic that is a prerequisite for 3+ others is foundational.
 
 (b) **Cross-reference frequency.** How often excerpts at OTHER leaves reference this topic in their text (detected by the excerpting engine's `quoted_scholars` and implicit reference data, plus text search for the leaf's title and synonyms across all excerpts in the science).
 
-(c) **Source coverage breadth.** How many distinct authoritative works dedicate substantial space to this topic (measured by the number of sources that contribute 2+ excerpts to this leaf). Topics that every major work addresses are significant.
+(c) **Source coverage breadth.** The count of distinct authoritative works that dedicate substantial space to this topic (measured by the number of sources that contribute 2+ excerpts to this leaf). Topics that every major work addresses are significant.
 
 (d) **LLM scholarly assessment.** The LLM is prompted: "Within the science of {science_name}, how significant is the topic of {leaf_title}? Consider: is this a foundational concept, a derived application, an edge case, or a minor detail? Rate 0.0–1.0 with reasoning." This assessment uses the LLM's broad knowledge of the science, not just library contents, to prevent corpus bias.
 
@@ -314,6 +429,16 @@ The four signals are combined with weights: prerequisite dependency (0.3), cross
 **Technical approach.** Prerequisite graph analysis uses NetworkX (DAG traversal, out-degree computation). Cross-reference frequency uses full-text search over the excerpt corpus (CAMeL Tools for Arabic text normalization, then exact and fuzzy matching). Source breadth is a simple database query. LLM assessment uses Instructor for structured output (score + reasoning).
 
 [NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: prerequisite graph (§4.A.3), placed excerpt corpus, scholar authority registry, Instructor library.
+
+**Example: Significance Scoring.**
+
+Leaf `nahw/marfu'at/mubtada` (المبتدأ):
+- (a) Prerequisite dependency: 8 other leaves depend on it (khabar, jumla ismiyya, ishtighal, kana wa-akhwatuha, inna wa-akhwatuha, hal, naib_fa'il, tawabi') → normalized score: 0.8
+- (b) Cross-reference: 23 excerpts at other Nahw leaves reference "المبتدأ" → normalized score: 0.75
+- (c) Source breadth: 6 of 7 registered Nahw sources contribute excerpts → normalized score: 0.86
+- (d) LLM assessment: "المبتدأ is one of the foundational pillars of Arabic syntax. Every sentence analysis depends on it." → score: 0.95
+
+Weighted combination: (0.8×0.3) + (0.75×0.25) + (0.86×0.2) + (0.95×0.25) = 0.24 + 0.19 + 0.17 + 0.24 = **0.84** (high significance).
 
 #### §4.B.2 — Difficulty Estimation and Study Path Intelligence
 
@@ -339,25 +464,47 @@ Difficulty is normalized to 0.0–1.0. The scholar interface combines difficulty
 
 [NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: prerequisite graph, excerpt corpus metadata, source metadata, user model.
 
+**Example: Difficulty Estimation.**
+
+Leaf `nahw/mansubat/tamyiz` (التمييز / specification):
+- (a) Prerequisite depth: longest path from root = 3 (marfu'at → mansubat → tamyiz) → normalized: 0.3
+- (b) Position complexity: 2 positions (Basran vs. Kufan on tamyiz scope) → normalized: 0.3
+- (c) Evidence complexity: hadith + Quran citations requiring basic Arabic understanding → normalized: 0.4
+- (d) Content types: 60% definition + 40% condition atoms → normalized: 0.35
+- (e) Source signals: excerpts from both mutun (al-Ajurrumiyyah) and shuruh (Ibn Aqil) → normalized: 0.5
+
+Combined difficulty: **0.37** (beginner-intermediate). The scholar interface recommends studying this after mubtada/khabar (prerequisite) but before more complex mansubat like maf'ul mutlaq.
+
 #### §4.B.3 — Corpus-Driven Tree Construction
 
-Instead of building science trees purely from manual scholarly research (§4.A.3), the taxonomy engine can generate draft trees from computational analysis of multiple authoritative works' structural organization. This capability accelerates tree construction for sciences with many available sources.
+Instead of building science trees purely from manual scholarly research (§4.A.3), the taxonomy engine can generate draft trees from computational analysis of 5+ authoritative works' structural organization. This capability accelerates tree construction for sciences with 5+ available sources.
 
 The process:
 
 (a) **Structural extraction.** For each authoritative work in the science (minimum 5 works spanning different periods and schools), extract the table of contents: chapter titles, section titles, sub-section titles, and their hierarchical relationships. This data comes from the normalization engine's division tree output.
 
-(b) **Cross-work alignment.** The LLM aligns TOC entries across works, identifying: which topics appear in all works (consensus structure), which topics appear in some works but not others (disputed structure), which topics are organized differently in different works (structural disagreements), and which works introduce unique topics not found elsewhere.
+(b) **Cross-work alignment.** The LLM aligns TOC entries across works, identifying: which topics appear in all works (consensus structure), which topics appear in fewer than all consulted works (disputed structure), which topics are organized differently in different works (structural disagreements), and which works introduce unique topics not found elsewhere.
 
 (c) **Consensus tree synthesis.** From the alignment, the engine generates a draft tree that represents the consensus structure. Topics present in ≥60% of consulted works form the core structure. Topics present in <60% but ≥2 works are included as optional branches. Unique-to-one-work topics are noted in the research report but not included in the draft. The threshold is configurable.
 
 (d) **Ordering inference.** The pedagogical sequence is inferred from the ordering of topics in the consulted works. Where works agree on ordering, that ordering is adopted. Where they disagree, the most common ordering is proposed with the alternatives documented.
 
-**Why this is transformative.** Building a science tree for a major Islamic discipline (Fiqh has thousands of topics across multiple organizational traditions) is a massive research effort. Corpus-driven construction reduces a weeks-long manual process to hours, producing a draft that reflects how scholars actually organize the discipline rather than an ad-hoc external classification. The draft still requires human validation (§4.A.3 Validation phase) and owner approval (§4.A.3 Commitment phase) — but it starts from a computationally derived scholarly consensus rather than from scratch.
+**Why this is transformative.** Building a science tree for a major Islamic discipline (Fiqh has thousands of topics across 3+ organizational traditions — Hanafi, Shafi'i, and Hanbali works each structure fiqh differently) is a massive research effort. Corpus-driven construction reduces a weeks-long manual process to hours, producing a draft that reflects how scholars actually organize the discipline rather than an ad-hoc external classification. The draft still requires human validation (§4.A.3 Validation phase) and owner approval (§4.A.3 Commitment phase) — but it starts from a computationally derived scholarly consensus rather than from scratch.
 
 **Technical approach.** TOC extraction from normalization engine's division trees. Cross-work alignment uses LLM analysis with Instructor for structured output. Sentence-transformers for title embedding similarity during alignment. NetworkX for tree structure construction and validation.
 
 [NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: normalization engine's division tree output, source engine's work registry, LLM with Arabic scholarly knowledge, Instructor library.
+
+**Example: Corpus-Driven Tree for Sarf (Morphology).**
+
+5 registered Sarf works are analyzed:
+- شذا العرف (al-Hamlawi): كتاب الأبنية → باب التصريف → باب الإعلال → باب الإبدال → باب المصادر
+- المقدمة الصرفية (al-Hattab): similar structure but merges إعلال and إبدال into one chapter
+- شرح التصريف العزي: starts with المجرد and المزيد before proceeding to إعلال
+- تصريف الأفعال (al-Na'ma): organizes by verb form (فعل ثلاثي، رباعي) rather than by phenomenon
+- النحو الوافي §morphology (Abbas Hasan): comprehensive, matches majority structure
+
+Cross-work alignment reveals: الأبنية (patterns), التصريف (conjugation), الإعلال (vowel changes), الإبدال (consonant substitution) appear in 4/5 works (≥60% threshold). المصادر appears in 3/5. Organization-by-verb-form (from al-Na'ma) is unique to one work — noted but not included. Draft tree generated with consensus structure, Hamlawi ordering (most common), and al-Na'ma's organizational alternative documented.
 
 #### §4.B.4 — Scholarly Disagreement Topology (خريطة الخلاف)
 
@@ -365,7 +512,7 @@ The taxonomy engine computes a structured disagreement map for every science tha
 
 **Category 1: Ijma' (consensus).** All schools with positions at this leaf agree on the ruling or definition. Specifically: 3+ schools are represented (from `school` metadata on placed excerpts), and the LLM determines that no genuine position conflict exists between them. The engine sends the excerpt topics and primary texts from each school to the LLM with the prompt: "Do these excerpts from different schools express the same position, or do they contain genuine scholarly disagreement?" The LLM returns a structured response: `consensus: true/false`, `reasoning: string`. If consensus is true, the leaf is classified `ijma_detected` with confidence equal to the number of agreeing schools divided by the total known schools for the science.
 
-**Category 2: Active khilaf (disagreement).** Two or more schools hold distinguishably different positions. The engine identifies the positions by clustering excerpts at the leaf by school affiliation, then using the LLM to summarize each school's position in one sentence and determine whether positions are genuinely different. The output per leaf is an array of `DisagreementPosition` objects, each containing: `schools` (array of school names that hold this position), `position_summary` (string, LLM-generated one-sentence summary), `evidence_types` (array of evidence types cited by this school for this position, from `evidence_refs` metadata), `earliest_scholar_date` (hijri year, from author metadata), `latest_scholar_date` (hijri year).
+**Category 2: Active khilaf (disagreement).** Two or more schools hold distinguishably different positions. The engine identifies the positions by clustering excerpts at the leaf by school affiliation, then calling the LLM (via Instructor, model `claude-sonnet` as primary with `gpt-4o` as consensus second, structured output schema: `{positions: [{schools: [str], summary: str, evidence_types: [str]}], reasoning: str}`) to summarize each school's position in one sentence and determine whether positions are genuinely different. The output per leaf is an array of `DisagreementPosition` objects, each containing: `schools` (array of school names that hold this position), `position_summary` (string, LLM-generated one-sentence summary), `evidence_types` (array of evidence types cited by this school for this position, from `evidence_refs` metadata), `earliest_scholar_date` (hijri year, from author metadata), `latest_scholar_date` (hijri year).
 
 **Category 3: Apparent consensus (potential false consensus).** Only one school's view is represented because the library lacks other schools' sources, but the science is known to have schools (per SCIENCE.md). The leaf is classified `apparent_consensus_unverified` with a note: "Only {school} is represented. Other schools may disagree but no sources are present." This is distinct from Category 1 — Category 1 requires positive evidence of agreement from 3+ schools; Category 3 flags the absence of data rather than claiming agreement.
 
@@ -392,6 +539,21 @@ The taxonomy engine computes a structured disagreement map for every science tha
 
 [NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: placed excerpts with school metadata, science configuration (school list), LLM with Arabic scholarly knowledge, Instructor library.
 
+**Example: Disagreement Topology for a Fiqh Leaf.**
+
+Leaf `fiqh/salat/qunut_fajr` has 5 verified excerpts:
+- 2 Shafi'i excerpts: القنوت سنة في صلاة الصبح (qunut is sunnah in fajr prayer)
+- 1 Hanafi excerpt: القنوت في الوتر لا في الصبح (qunut in witr, not fajr)
+- 1 Hanbali excerpt: القنوت في النوازل فقط (qunut only during calamities)
+- 1 Maliki excerpt: القنوت سنة في الصبح (same as Shafi'i)
+
+Classification: **Category 2 (active khilaf)** — 3 distinct positions:
+1. Position 1 (Shafi'i + Maliki): "Qunut is sunnah in fajr prayer permanently." Evidence: hadith of Anas.
+2. Position 2 (Hanafi): "Qunut is performed in witr prayer, not fajr." Evidence: hadith interpretation differences.
+3. Position 3 (Hanbali): "Qunut is only during calamities (nawazil)." Evidence: specific hadith limitations.
+
+Aggregation: this leaf contributes to the Shafi'i-Hanafi disagreement axis. If this axis appears in >40% of fiqh worship leaves, a `dominant_disagreement_axis` pattern is detected.
+
 #### §4.B.5 — Proactive Tree Evolution Prediction (استشراف التطور)
 
 The taxonomy engine predicts where the science tree will need to evolve BEFORE draft excerpts are processed, using the structural organization of newly registered sources. This is architecturally distinct from §4.A.5 (reactive signal detection after placement failures) — proactive prediction uses source metadata available BEFORE excerpting begins.
@@ -400,13 +562,13 @@ The taxonomy engine predicts where the science tree will need to evolve BEFORE d
 
 **Prediction algorithm.** The engine aligns the source's division tree against the science's active taxonomy tree. For each leaf node in the source's division tree that maps to content (i.e., it has actual text beneath it, not just structural nesting), the engine determines which taxonomy leaf it corresponds to. Alignment uses the same LLM-based topic matching as §4.A.1's Stage 1b, but operates on source SECTIONS (chapter titles + first 200 characters) rather than individual excerpts.
 
-The engine then counts: for each taxonomy leaf, how many distinct source sections map to it. Three outcomes are possible per taxonomy leaf:
+The engine then counts: for each taxonomy leaf, the number of distinct source sections that map to it. Three outcomes are possible per taxonomy leaf:
 
 **One-to-one (no prediction).** Exactly one source section maps to the leaf. This is the expected case — the tree's granularity matches the source's organization. No evolution predicted.
 
-**Many-to-one (split prediction).** Three or more source sections from the SAME source map to the same taxonomy leaf. This predicts the leaf is too coarse for this source's content. The engine generates a `split_prediction` containing: `leaf_path`, `source_id`, `mapped_section_count`, `section_titles` (the source's section titles that mapped here), `predicted_sub_topics` (the LLM's assessment of what distinct sub-topics the source sections cover), `confidence` (float 0.0–1.0, higher when more sections map to the same leaf). Confidence thresholds: ≥3 sections → 0.6 base; ≥5 sections → 0.8 base; adjusted downward by 0.1 if the source is known for unusually fine-grained organization. The threshold of 3 was chosen because 2 sections may represent the same sub-topic discussed from different angles (e.g., definition + examples), while 3+ strongly suggests genuinely distinct sub-topics.
+**3+-to-one (split prediction).** Three or more source sections from the SAME source map to the same taxonomy leaf. This predicts the leaf is too coarse for this source's content. The engine generates a `split_prediction` containing: `leaf_path`, `source_id`, `mapped_section_count`, `section_titles` (the source's section titles that mapped here), `predicted_sub_topics` (the LLM's assessment of what distinct sub-topics the source sections cover), `confidence` (float 0.0–1.0, higher when more sections map to the same leaf). Confidence thresholds: ≥3 sections → 0.6 base; ≥5 sections → 0.8 base; adjusted downward by 0.1 if the source is known for unusually fine-grained organization. The threshold of 3 was chosen because 2 sections may represent the same sub-topic discussed from different angles (e.g., definition + examples), while 3+ strongly suggests genuinely distinct sub-topics.
 
-**Unmapped sections (gap prediction).** A source section does not match any taxonomy leaf (LLM confidence < 0.4 for all candidates). This predicts a missing leaf. The engine generates a `gap_prediction` containing: `source_id`, `unmapped_section_title`, `unmapped_section_content_preview` (first 200 characters), `nearest_leaf` (the best candidate with its low score), `predicted_topic` (LLM's characterization of what topic the section covers).
+**Unmapped sections (gap prediction).** A source section does not match any taxonomy leaf (LLM confidence < 0.4 for all candidates). This predicts a missing leaf. The engine generates a `gap_prediction` containing: `source_id`, `unmapped_section_title`, `unmapped_section_content_preview` (first 200 characters), `nearest_leaf` (the best candidate, which scored < 0.4), `predicted_topic` (LLM's characterization of what topic the section covers).
 
 **Prediction aggregation.** Predictions from a single source are tentative. The engine accumulates predictions across sources. When 2+ sources independently generate the same split prediction for the same leaf (measured by overlap in `predicted_sub_topics` via embedding similarity ≥ 0.7), the prediction is elevated to `high_confidence_evolution_signal` — functionally equivalent to 3 reactive signals from §4.A.5, skipping the signal accumulation wait.
 
@@ -421,7 +583,7 @@ The engine then counts: for each taxonomy leaf, how many distinct source section
 - Source whose organizational style is idiosyncratic (e.g., an alphabetically organized dictionary rather than topically organized): the engine detects this by checking whether the source's section titles follow alphabetical ordering (Arabic abjad). If detected, the source is flagged `non_topical_organization` and its predictions are discounted (confidence multiplied by 0.3).
 - Source in a science with no tree yet: predictions are stored but not evaluated until the tree is created. When the tree is created (§4.A.3), stored predictions are retroactively evaluated against the new tree.
 
-**Why this is transformative.** Current taxonomy systems (including KR's §4.A.5) are reactive — they discover tree problems AFTER excerpts fail to place correctly. For a 12-volume Fiqh encyclopedia that will produce thousands of excerpts, reactive evolution means hundreds of excerpts may be placed at suboptimal leaves before the tree catches up. Proactive prediction inverts this: by analyzing the source's structure upfront, the tree can be refined BEFORE the first excerpt is processed. This is especially valuable during library bootstrapping (Scenario 1) when many sources arrive at once and the initial trees are coarse. The owner experiences smooth onboarding instead of a flood of placement escalations and retrospective relocations.
+**Why this is transformative.** Current taxonomy systems (including KR's §4.A.5) are reactive — they discover tree problems AFTER excerpts fail to place correctly. For a 12-volume Fiqh encyclopedia that will produce thousands of excerpts, reactive evolution means hundreds of excerpts may be placed at suboptimal leaves before the tree catches up. Proactive prediction inverts this: by analyzing the source's structure upfront, the tree can be refined BEFORE the first excerpt is processed. This is especially valuable during library bootstrapping (Scenario 1) when 5+ sources arrive at once and the initial trees are coarse. The owner experiences smooth onboarding instead of a flood of placement escalations and retrospective relocations.
 
 **Technical approach.** Division tree alignment uses the same LLM-based topic matching as placement (§4.A.1 Stage 1b) — no new model needed. Section counting and aggregation are deterministic. Embedding similarity for cross-source prediction matching uses the same sentence-transformers model as §4.A.1 Stage 1c. Owner notification integrates with the human gate system.
 
@@ -478,11 +640,26 @@ Low-confidence landscapes (< 0.4) are still computed and stored, but marked `pre
 
 **Why this is transformative.** The entry example in ENTRY_EXAMPLE.md shows the target quality: temporal depth, intellectual genealogy, school context, evidence evolution, discourse narrative. Today, producing ONE such entry requires a scholar to manually research author dates, trace teacher-student chains, compare evidence across centuries, and construct a narrative — a process that takes hours per topic. KR's scholarly landscape pre-computes ALL of this from metadata, for EVERY populated leaf, automatically. The synthesizer receives a ready-made narrative scaffold and focuses on prose quality rather than research. When the library has 200 populated leaves, the scholarly landscape has pre-computed 200 temporal analyses, 200 influence graphs, and 200 discourse narratives — a research effort that would take a human scholar months, done incrementally as excerpts are placed.
 
-The scholarly landscape also reveals knowledge the library implicitly contains but no single source explicitly states. No one source says "the Basran definition of المبتدأ was transmitted through a four-generation chain from Sibawayhi to Ibn al-Sarraj." That knowledge is COMPUTED from the intersection of teacher-student metadata, positional similarity, and temporal ordering across multiple sources. The landscape makes implicit scholarly relationships explicit.
+The scholarly landscape also reveals knowledge the library implicitly contains but no single source explicitly states. No one source says "the Basran definition of المبتدأ was transmitted through a four-generation chain from Sibawayhi to Ibn al-Sarraj." That knowledge is COMPUTED from the intersection of teacher-student metadata, positional similarity, and temporal ordering across 2+ sources. The landscape makes implicit scholarly relationships explicit.
 
 **Technical approach.** Position clustering uses LLM analysis with Instructor for structured output. Influence chain construction uses the scholar authority registry (graph traversal with NetworkX) combined with excerpting engine citation metadata. Discourse transition detection uses LLM classification. Period clustering for evidence evolution uses simple temporal gap analysis. All sub-structures are JSON-serializable.
 
 [NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: placed excerpts with full upstream metadata, scholar authority registry, excerpting engine's quoted_scholars and implicit reference data, LLM with Arabic scholarly knowledge, Instructor library, NetworkX for influence graph.
+
+**Example: Scholarly Landscape for `nahw/marfu'at/mubtada`.**
+
+5 verified excerpts from 4 sources, 3 scholars:
+
+Chronological timeline:
+- Position 1 (earliest): "المبتدأ هو الاسم المجرد عن العوامل اللفظية" — first by Sibawayhi (d. 180 AH), adopted by al-Mubarrad (d. 286 AH). School: Basran.
+- Position 2: "المبتدأ هو المسند إليه" — by Ibn al-Sarraj (d. 316 AH), refining Sibawayhi's definition. School: Basran.
+- Position 3: "المبتدأ ما حَسُن السكوت عليه مع خبره" — by Ibn Hisham (d. 761 AH), synthesizing earlier definitions. School: Egyptian.
+
+Influence chain: Sibawayhi → al-Mubarrad (teacher-student, confidence 1.0) → Ibn al-Sarraj (teacher-student, confidence 1.0). Ibn al-Sarraj → Ibn Hisham (temporal inference, confidence 0.6 — no direct chain but positional refinement).
+
+Discourse transitions: [Refinement] Ibn al-Sarraj refined Sibawayhi's definition by adding المسند إليه. [Synthesis] Ibn Hisham combined grammatical and semantic criteria from both earlier definitions.
+
+Landscape confidence: source_diversity = min(1.0, 4/4) = 1.0; temporal_span = min(1.0, 581/400) = 1.0; school_coverage = min(1.0, 2/3) = 0.67. Overall: **0.67**.
 
 ---
 
@@ -522,11 +699,11 @@ The taxonomy engine uses multi-model consensus for ONE specific decision: **leaf
 
 When the placement algorithm (§4.A.1) produces a top candidate with score 0.5–0.8, or when two candidates are within 0.1 of each other, the engine runs a second LLM (from a different provider) on the same placement task. Agreement between the two models increases confidence. Disagreement maintains the lower score and triggers human gate escalation.
 
-Consensus is NOT used for: tree construction (which is a research task requiring coherent vision, not averaging), evolution proposal generation (same reason), coverage analytics (deterministic computation), or high-confidence placements (score ≥ 0.8, where single-model accuracy is sufficient).
+Consensus is NOT used for: tree construction (which is a research task requiring coherent vision, not averaging), evolution proposal generation (same reason), coverage analytics (deterministic computation), or placements scoring ≥ 0.8 (where single-model accuracy meets the quality bar).
 
-**Consensus configuration.** Two models from different providers (e.g., Claude and GPT). Agreement threshold: both models must select the same leaf within the tree. If they select different leaves, the placement is escalated to the human gate with both models' selections presented.
+**Consensus configuration.** Two models from different providers (e.g., Claude and GPT). Agreement threshold: both models must select the same leaf within the tree. If they select different leaves, the placement is escalated to the human gate with both models' selections presented. **Provider fallback:** if one provider is unavailable (API error after 3 retries with exponential backoff), the engine falls back to single-model placement with the available provider, but the placement confidence is capped at 0.75 (forcing human gate review for any borderline case). The fallback is logged with `TAX_CONSENSUS_DEGRADED`.
 
-**Rationale for limited consensus.** Unlike excerpting (where self-containment judgment has profound quality implications), most taxonomy decisions are either clearly correct (high confidence) or genuinely ambiguous (requiring human judgment). The middle band where consensus adds value — where one model is right and the other is wrong, and the right answer can be identified by agreement — is narrow. For this reason, consensus is applied selectively rather than universally.
+**Rationale for limited consensus.** Unlike excerpting (where self-containment judgment has profound quality implications), most taxonomy decisions are either clearly correct (score ≥ 0.8) or genuinely ambiguous (requiring human judgment). The middle band where consensus adds value — where one model is right and the other is wrong, and the right answer can be identified by agreement — is narrow. For this reason, consensus is applied selectively rather than universally.
 
 ---
 
@@ -591,7 +768,7 @@ Each science's SCIENCE.md may override:
 
 - **School list.** Which schools exist in this science. Affects school gap detection.
 - **Prerequisite edge configuration.** Whether hard prerequisites are mandatory before study (scholar interface enforcement) or advisory.
-- **Evolution sensitivity.** Some sciences have stable, well-established structures (e.g., Tajwid). Others are actively debated (e.g., boundaries between Usul al-Fiqh sub-topics). Evolution sensitivity controls how readily the engine proposes evolution.
+- **Evolution sensitivity.** Sciences with well-established, stable structures (e.g., Tajwid, Nahw) need higher signal thresholds before proposing evolution. Sciences with actively debated boundaries (e.g., Usul al-Fiqh sub-topics) need lower thresholds. Per-science SCIENCE.md files specify an `evolution_sensitivity` multiplier (0.5–2.0, default 1.0) applied to the global `evolution_signal_accumulation` threshold.
 - **Narrative ordering authority.** Which work(s) define the canonical pedagogical sequence for this science.
 
 ### 8.3 Hardcoded Constraints (Not Configurable)
