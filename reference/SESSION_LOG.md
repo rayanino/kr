@@ -361,3 +361,14 @@ to an IMPLEMENTATION session.
 **NEXT.md: Pivoted from SPEC_REFINEMENT to IMPLEMENTATION.** First build task: source engine
 foundation (intake, freeze, metadata) for PDF format using waraqat_usul fixture. Definition of done:
 5+ passing tests, valid SourceMetadata output, duplicate detection working.
+
+**Source engine implementation (continued in same session):**
+- Built 8 source engine files (identity, freezer, format_detector, extractors, registry, intake)
+- 21 tests passing against real Arabic scholarly fixtures
+- End-to-end: waraqat_usul.pdf → src_3cc4a633 + metadata.json + registry entry
+- Title correctly extracted in Arabic: "متن الورقات لإمام الحرمين أبي المعالي الجويني"
+- Duplicate detection works (second intake → SRC_DUPLICATE_EXACT)
+- All formats detected correctly (PDF, text, image directory)
+
+**NEXT.md updated:** Next session adds LLM inference (§4.A.4) and Shamela HTML extractor.
+Requires API keys in .env file.
