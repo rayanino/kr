@@ -1,43 +1,47 @@
 # NEXT SESSION
 
 ## Session Type
-HARDENING (see SESSION_TYPES.md for full framework)
+CREATIVE (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Excerpting engine HARDENING session.** The PRECISION session resolved all 28 quality defects, added 6 worked examples with Arabic text, fixed duplicate §4.B section numbering (renumbered to §4.B.1–§4.B.8), synced contracts.py with §3 (added 4 missing fields + 8 new enums), and completed self-audit with 4 structural defects fixed. Now: verify no knowledge corruption paths. Threat analysis for decontextualization, misattribution, and silent data loss.
+**Taxonomy engine CREATIVE session.** The excerpting engine SPEC is now hardened (0 quality defects, adversarial test cases verified, threat model mapped, error cascades analyzed). The taxonomy engine is the next pipeline stage and has no SPEC refinement yet. Begin with the Creative Exploration Protocol: read the existing SPEC, run quality checks, research the problem space (taxonomy/classification in Arabic NLP), then invent transformative capabilities.
 
 ## What to Read
 
-1. `engines/excerpting/SPEC.md` — The full SPEC. Primary review target.
-2. `engines/excerpting/contracts.py` — Verify no corruption can enter through schema gaps.
-3. `KNOWLEDGE_INTEGRITY.md` — The threat model. Every threat must be addressed.
-4. `engines/atomization/SPEC.md` §3, §7 — Verify upstream error handling doesn't propagate corruption.
+1. `engines/taxonomy/SPEC.md` — The full SPEC. Primary target.
+2. `engines/taxonomy/contracts.py` — If it exists.
+3. `reference/ENTRY_EXAMPLE.md` — Quality target (how entries use taxonomy).
+4. `reference/USER_SCENARIOS.md` — Who benefits and how.
 
-**Do NOT read:** VISION.md, DOMAIN.md — already consumed in CREATIVE session.
+**Do NOT read:** Other SPECs (excerpting, atomization), KNOWLEDGE_INTEGRITY.md, DOMAIN.md — save context for creative work.
 
 ## Definition of Done
 
-1. Every knowledge corruption path in KNOWLEDGE_INTEGRITY.md has a corresponding prevention mechanism in the excerpting SPEC
-2. Decontextualization prevention (§4.A.2) verified: construct 3 adversarial test cases where misattribution WOULD occur without the prevention mechanism, and verify the SPEC rules prevent each one
-3. Multi-layer attribution (§4.A.3) verified: construct 2 adversarial test cases where layer misattribution WOULD occur
-4. Evidence integrity (§4.A.4) verified: ensure no path exists where hadith grading is silently dropped
-5. Silent data loss audit: trace every path where data could be lost without a log entry or review flag
-6. Error cascade analysis: verify that upstream errors (bad atoms, missing metadata) produce visible failures, not silent corruption
-7. `check_spec_quality.py` still passes with 0 defects
-8. NEXT.md written (for taxonomy engine CREATIVE session or excerpting IMPLEMENTATION_PREP — whichever is more urgent)
-9. SESSION_LOG.md updated
-10. Committed and pushed
+1. §4.B has 3+ new transformative capabilities, fully specified (not hollow)
+2. Each §4.B capability has: input, output, processing rules, edge cases, technical approach
+3. §4.A core processing reviewed and grounded (defects noted for PRECISION session)
+4. contracts.py created or updated to match §3
+5. `check_spec_quality.py` baseline recorded
+6. `creative_verification.py` score ≥ 70/100
+7. NEXT.md written (for taxonomy PRECISION session)
+8. SESSION_LOG.md updated
+9. Committed and pushed
 
 ## What the Previous Session Did
 
-- PRECISION session for excerpting engine
-- Resolved all 28 check_spec_quality.py defects (21 vague quantifiers, 6 missing examples, 1 unbounded)
-- Added 6 worked examples with Arabic text to §4.A.2–§4.A.7
-- Fixed duplicate §4.B section numbering: renumbered Dialogue (→§4.B.6), Repair (→§4.B.7), Resonance (→§4.B.8)
-- Fixed all cross-references in both SPEC.md and contracts.py
-- Synced contracts.py: added 4 missing fields + 8 new enums
-- Self-audit: 4 structural defects found and fixed
+- HARDENING session for excerpting engine
+- Mapped all 7 KNOWLEDGE_INTEGRITY.md threats to SPEC prevention mechanisms
+- Found and fixed 6 defects:
+  1. §3/§4.B.3 mismatch: `argument_completeness` field missing `continuation_detected`, `continuation_passage_id`
+  2. Whitespace_separator atom coverage ambiguity: V-3 and §3 now explicitly exclude whitespace_separator atoms
+  3. Source metadata cross-validation: added Layer 2 checks for school mismatch and layer distribution plausibility
+  4. Bidirectional update error handling (§4.B.6): added atomic rollback and retry queue with schema validation
+  5. Batch post-processing partial failure (§4.B.2): added checkpoint/resume and distinguishing null vs. empty list
+  6. Upstream layer error cascade: added `EXCERPT_LAYER_DISTRIBUTION_UNIFORM` warning for homogeneously wrong layers
+- Added 6 adversarial test cases to §10: 3 for decontextualization, 2 for multi-layer attribution, 1 for evidence integrity
+- Added 4 new error codes: `EXCERPT_SOURCE_SCHOOL_MISMATCH`, `EXCERPT_LAYER_DISTRIBUTION_UNIFORM`, `EXCERPT_DIALOGUE_UPDATE_FAILED`
+- check_spec_quality.py: 0 defects
 
 ## Pending Owner Questions
 

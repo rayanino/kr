@@ -418,3 +418,38 @@ None this session.
 
 ### Owner Questions
 - None new
+
+---
+
+## Session: Excerpting Engine HARDENING
+**Date:** 2026-03-06
+**Type:** HARDENING
+**Engine:** Excerpting
+
+### What Was Done
+- Mapped all 7 KNOWLEDGE_INTEGRITY.md threats (T-1 through T-7) to excerpting SPEC prevention mechanisms
+- Found and fixed 6 defects:
+  1. §3/§4.B.3 mismatch: `argument_completeness` field description in §3 omitted `continuation_detected` and `continuation_passage_id` fields that §4.B.3 defines
+  2. Whitespace_separator atom coverage ambiguity: §3 guarantee and V-3 said "every non-heading atom" — now explicitly excludes whitespace_separator atoms
+  3. Source metadata cross-validation gap: no mechanism detected when source-level metadata (school tag) contradicted textual evidence — added Layer 2 checks for school mismatch (≥30% threshold) and layer distribution plausibility
+  4. Bidirectional update error handling (§4.B.6): no error handling for failure during reciprocal dialogue link updates — added atomic rollback, retry queue with schema validation
+  5. Batch post-processing partial failure (§4.B.2): no behavior defined for partial failure of batch deduplication — added checkpoint/resume, null vs. empty list semantics
+  6. Upstream layer error cascade: if all atoms have WRONG source_layer (atomization error), excerpting produced incorrect primary_author_id with no detection — added EXCERPT_LAYER_DISTRIBUTION_UNIFORM warning
+- Added 6 adversarial test cases to §10:
+  - ADV-DECONTEXT-1: Nested quotation chain (Scholar A reports B's report of C's position)
+  - ADV-DECONTEXT-2: Refutation split across passage boundary
+  - ADV-DECONTEXT-3: Conditional agreement ("وهذا القول حسن لولا...")
+  - ADV-LAYER-1: Editor footnote corrects author
+  - ADV-LAYER-2: Three-layer hashiyah attribution chain
+  - ADV-EVIDENCE-1: Hadith grading silent drop path verification
+- Added 4 new error codes to §7
+- check_spec_quality.py: 0 defects (maintained from PRECISION session)
+
+### Decisions Made
+- Whitespace_separator atoms are excluded from excerpt assignment and V-3 coverage checks (they carry no scholarly content)
+- Source metadata cross-validation uses 30% threshold for school mismatch detection (below this, legitimate presentation of other schools' views is common)
+- Bidirectional dialogue link updates require atomic rollback on partial failure (unidirectional links are worse than no links)
+- Batch deduplication uses checkpoint/resume and distinguishes null (not yet run) from empty list (run, no duplicates)
+
+### Owner Questions
+- None new

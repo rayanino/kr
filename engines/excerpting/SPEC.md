@@ -168,14 +168,14 @@ Written to `library/sources/{source_id}/excerpts/excerpts.jsonl`. One JSONL reco
 - `dialogue_links`: array or null. From §4.B.6. When enabled: array of `{ target_excerpt_id: string, dialogue_type: enum(agrees, disagrees, refines, supersedes, cites), confidence: float, evidence: string }`. Null when §4.B.6 is disabled.
 - `resonance_links`: array or null. From §4.B.8. When enabled: array of `{ target_excerpt_id: string, resonance_tier: enum, resonance_type: enum, resonance_score: float, evidence: string, chronological_direction: enum }`. Null when §4.B.8 is disabled.
 - `repair_suggestions`: array or null. From §4.B.7. When enabled and self_containment_score < 0.7: array of `{ suggestion_type: enum, detail: string, target_atom_id: string|null }`. Null otherwise.
-- `argument_completeness`: object or null. From §4.B.3. When enabled and excerpt contains evidential content: `{ score: float, missing_elements: array of string, notes: string }`. Null otherwise.
+- `argument_completeness`: object or null. From §4.B.3. When enabled and excerpt contains evidential content: `{ score: float, missing_elements: array of string, continuation_detected: bool, continuation_passage_id: string|null, notes: string }`. Null otherwise.
 
 **Guarantees about the excerpt stream:**
 
 - **Source-agnostic.** The excerpt schema is identical regardless of source type.
 - **Passage containment.** Every excerpt's atoms all share the same `passage_id` (D-011).
 - **Non-overlapping atoms.** No atom appears in more than one excerpt. Each atom is assigned to exactly one excerpt.
-- **Exhaustive atom coverage.** Every non-heading atom is included in exactly one excerpt. Heading atoms may be excluded (they provide structural context, not excerpt content) or included as context atoms.
+- **Exhaustive atom coverage.** Every content atom (non-heading, non-whitespace_separator) is included in exactly one excerpt. Heading atoms may be excluded (they provide structural context, not excerpt content) or included as context atoms. Whitespace_separator atoms are excluded from excerpt assignment — they carry no scholarly content and are structural markers only.
 - **Text integrity.** `primary_text` is assembled verbatim from atom texts. No modification (D-004).
 - **Attribution completeness.** Every excerpt has `primary_author_id` (or null with review flag), `source_layer`, and `science_id`.
 - **Confidence propagation (D-023).** Every classification carries a confidence score. No decision is presented as certain when it is not.
@@ -639,6 +639,8 @@ self_containment_score: 0.92   (complete: definition + explanation)
 
 **Scale management:** During initial bulk loading (2+ sources processed in the same batch), deduplication runs as a batch job AFTER all sources are excerpted, comparing excerpts at the same proposed leaf. During incremental processing (new source added), deduplication runs per-excerpt against the existing library. The pre-filter keeps this tractable: only excerpts sharing fingerprint hashes or at the same leaf are compared.
 
+**Batch failure handling:** If the batch deduplication job fails partway (crash, timeout), the engine records a checkpoint: which source pairs have been compared and which have not. On the next run, processing resumes from the checkpoint rather than restarting. Excerpts that have not yet been compared have `semantic_duplicates: null` (not yet run), distinguishable from `semantic_duplicates: []` (run, no duplicates found). The source's processing status is not updated to `excerpted` until deduplication completes for all its excerpts. Partial deduplication is never treated as complete.
+
 **Technical approach:** Atomization fingerprints (hash-based) for pre-filter. Sentence-transformers for embedding similarity. LLM with Instructor for relationship classification. The atomization engine's `fingerprint_key_terms` field is used as an additional matching signal: excerpts sharing ≥3 key terms are candidate duplicates even without hash collisions.
 
 #### §4.B.3 — Scholarly Argument Completeness Analysis
@@ -700,6 +702,13 @@ If `continuation_detected` is true, this is also a signal to the passaging engin
 **Scale management:** Computationally O(n) per new excerpt at a leaf with n existing excerpts. For leaves with >50 existing excerpts, the engine pre-filters by argument role and evidence overlap (deterministic) before running LLM comparison. Only active during incremental processing (new source added to existing library), not during initial bulk loading (run as batch post-processing).
 
 **Bidirectional updates.** When a dialogue link is detected between the new excerpt A and an existing excerpt B, BOTH excerpts are updated: A's `dialogue_links` gains a link to B, and B's `dialogue_links` gains a reciprocal link to A. For existing excerpts whose `dialogue_links` is currently null (from bulk loading), the field transitions from null to a list containing the new link. The reciprocal link's `dialogue_type` is inverted where applicable: if A `disagrees` with B, then B `disagrees` with A; if A `refines` B, then B receives a `cites` link from A (not `refines`).
+
+**Bidirectional update failure handling.**
+
+Both updates (A→B and B→A) are performed atomically — if updating B fails (file I/O error, schema validation failure), the link on A is also rolled back. A unidirectional link is worse than no link because it creates an inconsistent state where A references B but B has no record of the relationship.
+
+The failed link is written to a retry queue (`library/sources/{source_id}/excerpts/dialogue_retry.jsonl`).
+Validation before each write: every DialogueLink is checked against the schema (§3 `dialogue_links` field definition) before being persisted to either excerpt record or the retry queue. On rollback, the engine logs `EXCERPT_DIALOGUE_UPDATE_FAILED` with both excerpt IDs and the failure reason. On the next run, the engine reads the retry queue and attempts the updates again before processing new excerpts.
 
 **Technical approach:** Deterministic pre-filtering (evidence match, chronological window) + LLM comparison using Instructor for structured output. The LLM receives the new excerpt, its metadata, and each candidate dialogue partner with their metadata.
 
@@ -825,7 +834,7 @@ When `suggestion_type` is `generate_context_note`, the `generated_context` field
 
 - **V-1: Passage containment.** All `atom_ids` belong to the same `passage_id`. Failure is fatal for the excerpt.
 - **V-2: Atom uniqueness.** No atom appears in more than one excerpt within the source. Failure is fatal — indicates a boundary error.
-- **V-3: Atom coverage.** Every non-heading atom in the passage appears in exactly one excerpt. Warning if atoms are missing.
+- **V-3: Atom coverage.** Every content atom (non-heading, non-whitespace_separator) in the passage appears in exactly one excerpt. Warning if atoms are missing.
 - **V-4: Text integrity.** `primary_text` matches the concatenation of `atom_text` values from `atom_ids`. Failure is fatal.
 - **V-5: Attribution completeness.** `primary_author_id`, `source_layer`, and `science_id` are all present. Warning if any is missing.
 - **V-6: Self-containment threshold.** `self_containment_score` ≥ 0.5. Scores below 0.5 are unlikely to be useful excerpts — warning with review flag.
@@ -836,6 +845,8 @@ When `suggestion_type` is `generate_context_note`, the `generated_context` field
 - **Duplicate detection.** If two excerpts from the same source have `excerpt_topic` similarity > 0.85 (measured by embedding similarity on `derived_normalized_text`), review flag `duplicate_candidate` is added to both.
 - **Coverage verification.** Every non-heading, non-whitespace atom in the source's atom stream should appear in exactly one excerpt. Missing atoms are logged.
 - **School consistency.** If the source is by an author with a known school affiliation, verify that the majority of excerpts' `school` values match the expected school. Anomalies get logged (not flagged — legitimate reasons exist for an author to present other schools' positions).
+- **Source metadata cross-validation.** If ≥30% of excerpts' `school` values disagree with the source metadata's expected school, this signals possible upstream metadata error (the source may be misclassified). Log warning `EXCERPT_SOURCE_SCHOOL_MISMATCH` with the distribution of school attributions. This does not block processing but creates a review flag on the source record, because incorrect source metadata silently corrupts implicit reference resolution (§4.A.5) — e.g., "الإمام" resolves to the wrong scholar when the source's school tag is wrong.
+- **Layer attribution plausibility.** If all excerpts in a source have the same `source_layer` value (e.g., all `matn` or all `sharh`), but the source metadata declares two or more text layers, log warning `EXCERPT_LAYER_DISTRIBUTION_UNIFORM`. This signals that the atomization engine may have misattributed layers, which cascades to incorrect `primary_author_id` values. The warning includes the expected layer distribution from source metadata and the actual distribution from excerpts.
 
 **Layer 3: Human gate integration.** The excerpting engine's primary human gate is the excerpt review checkpoint, managed by the taxonomy engine. Excerpts with any review flag are presented to the owner for verification during placement review. The reviewer can:
 
@@ -890,8 +901,11 @@ The excerpting engine uses multi-model consensus for two critical decision types
 | `EXCERPT_LLM_ENRICHMENT_FAILED` | LLM metadata enrichment failed after retries | Use deterministic metadata only. Review flag. |
 | `EXCERPT_LOW_SELF_CONTAINMENT` | Self-containment score < 0.5 | Excerpt produced but flagged heavily. |
 | `EXCERPT_MERGE_LIMIT` | Merge attempts exceeded limit (2) | Accept as-is with low score. |
-| `EXCERPT_ATOM_UNCOVERED` | Non-heading atom not assigned to any excerpt | Log the atom. Assign to nearest excerpt as context. |
+| `EXCERPT_ATOM_UNCOVERED` | Non-heading, non-whitespace_separator atom not assigned to any excerpt | Log the atom. Assign to nearest excerpt as context. |
 | `EXCERPT_HEADING_ONLY_PASSAGE` | Passage contains only heading atoms, no content | Skip passage. Log info. Not an error. |
+| `EXCERPT_SOURCE_SCHOOL_MISMATCH` | ≥30% of excerpts disagree with source metadata school | Log distribution. Review flag on source record. |
+| `EXCERPT_LAYER_DISTRIBUTION_UNIFORM` | All excerpts share one layer in a declared multi-layer source | Log expected vs. actual. Review flag on source. |
+| `EXCERPT_DIALOGUE_UPDATE_FAILED` | Bidirectional dialogue link update failed (§4.B.6) | Rollback both sides. Write to retry queue. Log. |
 
 **Logging:** `library/sources/{source_id}/excerpts/processing_log.jsonl`.
 
@@ -995,6 +1009,28 @@ The excerpting engine uses multi-model consensus for two critical decision types
 10. **Error handling.** Test each error code with synthetic inputs.
 
 **Regression testing:** Re-run all gold baselines when LLM model, prompt template, or consensus configuration changes.
+
+**Adversarial test cases (hardening-verified):**
+
+These test cases verify that specific knowledge corruption paths are blocked. Each case describes a scenario where corruption WOULD occur without the prevention mechanism.
+
+*Decontextualization prevention (§4.A.2):*
+
+- **ADV-DECONTEXT-1: Nested quotation chain.** Input: Atoms where Scholar A (the source author) reports Scholar B's report of Scholar C's position: "ذكر ابن رشد أن أبا حنيفة يرى أن..." (Ibn Rushd mentions that Abu Hanifa holds that...). Without prevention: the position is attributed to Ibn Rushd or to the source author. With prevention: `quoted_scholars` includes Abu Hanifa with role `quoted_opinion` (the position holder), Ibn Rushd with role `cited_source` (the intermediary), and the source author as `primary_author_id` (the reporter). The excerpt must contain any subsequent response by the source author to this chain.
+
+- **ADV-DECONTEXT-2: Refutation split across passage boundary.** Input: A passage ending with Atoms [A: "وقال المالكية: يجوز بيع الكلب", B: "واحتجوا بحديث..."] (the Malikis say dog sale is permissible, they argue by hadith...) and the NEXT passage beginning with Atoms [C: "ولنا أن النبي ﷺ نهى عن ثمن الكلب", D: "فالراجح عدم الجواز"] (our evidence is the Prophet prohibited the price of dogs, so the preferred view is impermissibility). Without prevention: Atoms A–B form an excerpt attributing the permissibility view to the source context without the refutation, making it appear the author endorses it. With prevention: Phase 2 self-containment evaluation detects that A–B contains a reported position without the author's response; the engine checks the adjacent passage and adds review flag `decontextualization_risk`. §4.B.3 argument completeness analysis flags `continuation_detected: true` with `continuation_passage_id` pointing to the next passage.
+
+- **ADV-DECONTEXT-3: Conditional agreement.** Input: Atoms [A: "وقال أبو حنيفة: لا تجب النية في الوضوء", B: "وهذا القول حسن لولا مخالفته للسنة"] (Abu Hanifa says intention is not required in wudu; this view is good if it didn't contradict the Sunnah). Without prevention: If only Atom A is excerpted, the source author appears to neutrally report Abu Hanifa's view. If only Atom B is excerpted, the conditional praise is decontextualized. With prevention: the `opinion_marker` on Atom A and the `refutation` scholarly_function on Atom B create an `atom_relations: responds_to` bond. Phase 1 boundary detection keeps them in one excerpt. The `quoted_scholars` entry for Abu Hanifa has role `refuted_position` (not `quoted_opinion`), because the author ultimately disagrees.
+
+*Multi-layer attribution (§4.A.3):*
+
+- **ADV-LAYER-1: Editor corrects author.** Input: Atoms [A: "والصحيح أن الماء لا ينجس بمجرد الملاقاة" (source_layer: matn, author: Ibn Qudamah), B footnote: "بل الراجح أنه ينجس إذا تغير أحد أوصافه، انظر المجموع للنووي" (source_layer: tahqiq, author: editor)]. Without prevention: If the footnote is merged into the main text excerpt, the editor's correction might be attributed to Ibn Qudamah, reversing his stated position. With prevention: §4.A.3 editor footnote handling classifies Atom B as substantive scholarly commentary. It forms either a separate tahqiq excerpt with `primary_author_id: editor` OR is attached as a context atom with role `editorial`. In neither case is the editor's position attributed to Ibn Qudamah. Review flag `mixed_layer_excerpt` if merged.
+
+- **ADV-LAYER-2: Three-layer hashiyah.** Input: Atoms [A: verse from matn (layer_author: Ibn Malik), B: sharh explanation (layer_author: Ibn Aqil), C: hashiyah addition (layer_author: al-Khudari), D: hashiyah quoting the sharh author — "قال الشارح يريد أن..." (the commentator means that...)]. Without prevention: If all atoms form one excerpt, attribution confusion arises: who is `primary_author_id`? The hashiyah author (al-Khudari) is teaching, but quoting the sharh author (Ibn Aqil), who is explaining the matn author (Ibn Malik). With prevention: The dominant teaching layer is hashiyah (Atom C contributes the most analysis), so `primary_author_id` is al-Khudari. `quoted_scholars` includes Ibn Aqil with role `quoted_opinion` (since the hashiyah quotes him) and Ibn Malik with role `classification_frame`. Review flag `mixed_layer_excerpt`.
+
+*Evidence integrity (§4.A.4):*
+
+- **ADV-EVIDENCE-1: Hadith grading silently dropped.** Verify: there is NO path from hadith detection in an atom's `embedded_refs` to the final excerpt where the grading information is absent without a review flag. Specifically: (a) if inline grading exists, `evidence_refs[].hadith_detail.grade` is populated; (b) if editor footnote grading exists, `takhrij_data[].grade` is populated; (c) if neither exists, `evidence_refs[].hadith_detail.grade` is null AND review flag `evidence_ungraded` is present. The test must verify all three paths with synthetic inputs.
 
 **Integration tests:**
 - **Upstream:** Read real atom streams and verify acceptance without schema errors.
