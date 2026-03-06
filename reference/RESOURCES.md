@@ -1,10 +1,20 @@
 # خزانة ريان — External Resources Catalog
 
-**Last surveyed:** 2026-03-06 (Hardening round — QARI-OCR, Swan confirmation, OpenITI v0.1.6)
+**Last surveyed:** 2026-03-06 (Creative session — KITAB text reuse data, passim, eScriptorium/Kraken, NetworkX)
 
 This file maps known external tools, libraries, and services to KR engines. Every engine SPEC should consider whether existing tools can handle part of the work before designing custom solutions.
 
 **Principle:** Build on existing tools wherever possible. Custom code is a last resort. If a library handles 80% of the job, use it and write custom code for the remaining 20%.
+
+## Technology Survey Update (2026-03-06, Creative Session)
+
+**KITAB Text Reuse Statistics** — Pre-computed pairwise text reuse data for the entire OpenITI corpus (~4,300+ Arabic texts). Generated using the passim algorithm (Smith-Waterman alignment on 300-word chunks). Available on Zenodo (DOI: 10.5281/zenodo.4362369, latest release matches OpenITI corpus version). Bidirectional statistics files are ~1GB. Each record documents: book pair, shared word count, percentage overlap, milestone positions. **KR use: §4.B.5 (Source Compositional Profiling)** — query this dataset at intake to instantly reveal a source's place in the intertextual network of classical Arabic scholarship. Download: `https://kitab-project.org/data/download`. License: CC-BY-NC-SA 4.0 (academic/non-commercial).
+
+**passim** — Open-source text reuse detection algorithm by David Smith (Northeastern). Uses locality-sensitive hashing for candidate detection + Smith-Waterman for alignment. Python interface available in development branch. GitHub: `https://github.com/dasmiq/passim`. Originally designed for newspaper corpora, adapted by KITAB for Arabic with specialized parameters (300-word chunks, Arabic-optimized). **KR use: §4.B.6 (Edition Comparison)** could use passim's approach for large-edition alignment as fallback when structural alignment fails. License: Apache 2.0.
+
+**eScriptorium + Kraken** — Leading open-source OCR/HTR platform for Arabic manuscripts. Kraken (Python, Apache 2.0) is the engine; eScriptorium is the web interface. Arabic models available: `04-01-2021_ArabPersGeneralized.mlmodel` (KITAB's production model). BADAM dataset for baseline detection in Arabic manuscripts. GitHub: `https://github.com/mittagessen/kraken`. **KR use:** Could complement QARI-OCR for handwritten manuscript recognition (eScriptorium excels at HTR with custom training). Not needed for printed text (QARI-OCR is better for that).
+
+**NetworkX** — Python graph library (BSD, v3.2+). Provides: shortest path, betweenness centrality, Louvain community detection, graph visualization. `pip install networkx`. **KR use: §4.B.7 (Scholarly Genealogy)** — computes centrality scores, scholarly communities, and generation numbers in the teacher-student network. Zero external dependencies for core algorithms.
 
 ## Technology Survey Update (2026-03-06, Hardening Round)
 

@@ -1,118 +1,81 @@
 # NEXT SESSION
 
 ## Session Type
-CREATIVE (see SESSION_TYPES.md for full framework)
+PRECISION (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Invent transformative capabilities for the source engine.**
+**Make the source engine SPEC implementation-ready.**
 
-This is NOT a review session. Do NOT fix defects, correct prose, or align contracts. Those are for the PRECISION session (next). This session exists for ONE purpose: make the source engine do things no Islamic studies tool has ever done.
+This is NOT a creative session. Do NOT invent new capabilities. This session exists for ONE purpose: eliminate every defect that would cause Claude Code to ask a clarifying question.
 
 ## What to Read
 
-1. `engines/source/SPEC.md` — **ALL sections.** You are building on this foundation — you must know it.
-2. `engines/source/contracts.py` — machine-readable truth for §2/§3 fields
-3. `reference/ENTRY_EXAMPLE.md` — the quality target. What does a great entry look like?
-4. `reference/USER_SCENARIOS.md` — who is Rayane and what does he need?
+1. `engines/source/SPEC.md` — **ALL sections.** You are cleaning this.
+2. `engines/source/contracts.py` — verify contracts match SPEC after your edits
+3. `reference/ENTRY_EXAMPLE.md` — the quality target (refresh your understanding of what metadata the synthesizer needs)
 
-**Do NOT read:** SPEC_REFINEMENT.md, CREATIVE_MANDATE.md, SILENT_FAILURES.md, KNOWLEDGE_INTEGRITY.md, CONTEXT_BUDGET.md, CHALLENGE_PROTOCOL.md, other engine SPECs. Those are for other session types.
+**Do NOT read:** CREATIVE_MANDATE.md, other engine SPECs, VISION.md sections unrelated to source engine. Stay focused.
 
-**Budget:** ~15K tokens on reading. ~50K tokens on web search + creative thinking. ~30K tokens on writing. ~10K tokens on handoff.
+**Budget:** ~10K tokens on reading. ~60K tokens on precision edits. ~20K tokens on validation. ~10K tokens on handoff.
 
-## The Creative Work (follow this sequence)
+## The Precision Work (follow this sequence)
 
-### Phase 0: GROUND (before any creative work — ~10% of budget)
+### Step 1: Run quality baseline
+```
+python3 scripts/check_spec_quality.py engines/source/SPEC.md --verbose
+```
+Record: "Baseline: X high-severity defects."
 
-You cannot build on a foundation you haven't inspected.
+### Step 2: Fix all HIGH severity defects
 
-1. **Read the full SPEC.** As you read, note:
-   - What does this engine ACTUALLY do? (What do the §4.A rules specify concretely?)
-   - What feels vague or under-specified? (Don't fix now — just note it)
-   - What §4.B capabilities already exist? Are they well-specified or hollow?
-   - What metadata does this engine produce (§3) that downstream engines consume?
+The creative session (2026-03-06) left 41 high-severity defects. Most are in §4.A (the creative session did not touch §4.A). Categories:
 
-2. **Run quality baseline:**
-   ```
-   python3 scripts/check_spec_quality.py engines/source/SPEC.md --verbose
-   python3 scripts/creative_verification.py engines/source/SPEC.md
-   ```
-   Record: "Baseline: X high-severity defects. §4.B score: Y/100."
+- **MISSING_EXAMPLE (14 instances):** Every §4 subsection needs a worked example with real Arabic text. This is the biggest gap. Write concrete input→output examples for: §4.A.1 (identity model), §4.A.2 (acquisition workflow), §4.A.3 (metadata extraction), §4.A.6 (relevance evaluation), §4.A.7 (deduplication), §4.A.8 (trustworthiness), §4.A.9 (work relationships), §4.A.10 (status tracking).
+- **VAGUE_QUANTIFIER (7 instances):** Replace "multiple", "many", "some" with specific numbers or bounded ranges.
+- **UNBOUNDED_ETC (6 instances):** Replace "etc." with exhaustive lists or explicit scope.
+- **UNVALIDATED (8 instances):** Ensure every write to disk has validation specified.
+- **VAGUE_APPROPRIATE (2 instances):** Replace "appropriate" with specific criteria.
 
-3. **Write a 5-line assessment** (for your own reference):
-   - Core processing (§4.A) is [solid/adequate/weak] because [reason]
-   - Main quality gaps: [top 3]
-   - Existing §4.B: [list them, real or hollow?]
-   - This engine's unique data advantage: [what does it know that nothing else does?]
-   - Biggest opportunity: [what's missing that would be transformative?]
+### Step 3: Verify contracts.py alignment
 
-This assessment FEEDS the creative phases. A vague §4.A rule is an opportunity to replace it with something transformative. A missing capability is a design space to explore.
+After editing the SPEC, check that `contracts.py` still matches:
+- Any new fields added to §3 or §4.A must appear in the Pydantic models
+- Any new enums must be defined
+- The `compositional_profile` from §4.B.5 needs a Pydantic model
+- The `edition_comparison` from §4.B.6 needs a Pydantic model
+- The `genealogy_metadata` from §4.B.7 needs a Pydantic model
 
-### Phase 1: Research the Problem Space (3-5 web searches)
-
-Search for what scholars struggle with, what tools exist, what's missing:
-- `Islamic manuscript cataloging tools digital 2025 2026`
-- `Arabic text source acquisition scholarly challenges`
-- `digital humanities Islamic studies what's missing`
-- `al-Shamela Maktaba alternative tools source management`
-
-Write down: What frustrates scholars? What takes weeks manually? What tools exist but are inadequate?
-
-### Phase 2: Research the Possibilities (3-5 web searches)
-
-Search for what's technically possible NOW:
-- `LLM Arabic metadata extraction scholarly texts`
-- `citation network discovery Arabic classical texts`
-- `OCR Arabic manuscript diacritics 2025 2026 QARI`
-- `book recommendation system scholarly domain graph`
-- `OpenITI metadata author network Islamic texts`
-
-Write down: What technologies could the source engine use that no Islamic studies tool uses today?
-
-### Phase 3: Invent (the core work — spend most tokens here)
-
-For each invention, answer ALL of these:
-1. **Name:** What is this capability called?
-2. **Technology:** What specific tool/technique makes this possible? (Name versions, libraries, APIs)
-3. **Input:** What does this capability receive?
-4. **Output:** What does it produce? Show a CONCRETE example with real Arabic text.
-5. **Scholar impact:** What can Rayane do now that he literally couldn't before?
-6. **Implementation sketch:** 5-10 sentences on how it works (not pseudocode — behavioral description)
-
-**Minimum 3 new capabilities. Aim for 5.**
-
-Thinking directions (don't just copy these — use them as starting points):
-- The source engine processes 500 sources over a year. What PATTERNS emerge across those 500 sources that no human could see? (Citation networks? Author influence? Topic evolution? Edition quality signals?)
-- When Rayane uploads iPhone photos of a book, what can the source engine INFER beyond just OCR? (Is this a well-known edition? Who is the likely muhaqiq? What other books should Rayane get next?)
-- What does the source engine know about the RELATIONSHIP between sources that individual sources don't tell you? (Which authors cite each other? Which topics have competing scholarly traditions? Which editions are most reliable for which topics?)
-- Can the source engine detect something about a source's QUALITY or TRUSTWORTHINESS that a student wouldn't notice but a senior scholar would? (Signs of weak tahqiq, missing isnad chains, anachronistic language suggesting forgery or error)
-
-### Phase 4: Write §4.B
-
-Write the full §4.B section with every capability specified precisely. Not aspirational — specified. Every capability should pass this test: "Could Claude Code build this from what I wrote, without asking me anything?"
-
-### Phase 5: Update RESOURCES.md
-
-For every tool, library, or dataset discovered, add it to `reference/RESOURCES.md` with: name, URL, version, what it does, Arabic support status, license, how KR would use it.
+### Step 4: Run quality verification
+```
+python3 scripts/check_spec_quality.py engines/source/SPEC.md --verbose
+python3 scripts/creative_verification.py engines/source/SPEC.md
+```
+Target: ≤10 high-severity defects (down from 41). §4.B score remains ≥85.
 
 ## Definition of Done
 
-1. Phase 0 completed: quality baseline recorded, 5-line assessment written
-2. §4.B has ≥3 new fully-specified capabilities (beyond what's already there)
-3. Each capability names specific technology with version
-4. Each capability has a concrete output example with real Arabic text
-5. ≥8 web searches conducted (with findings noted)
-6. RESOURCES.md updated with every discovery
-7. `python3 scripts/creative_verification.py engines/source/SPEC.md` scores ≥85/100
-8. If any §4.A rules were replaced with transformative alternatives, they are precise (not cosmetic rewording)
-9. NEXT.md written for the PRECISION session (source engine)
-10. SESSION_LOG.md updated
-11. Committed and pushed
+1. All MISSING_EXAMPLE defects resolved — every §4 subsection has a worked example
+2. All VAGUE_QUANTIFIER defects resolved — no unbounded "many", "some", "multiple"
+3. All UNBOUNDED_ETC defects resolved — no "etc." remains
+4. `contracts.py` updated with new models for §4.B.5, §4.B.6, §4.B.7 output schemas
+5. `check_spec_quality.py` reports ≤10 high-severity defects
+6. `creative_verification.py` score remains ≥85
+7. NEXT.md written for the next session (HARDENING for source engine)
+8. SESSION_LOG.md updated
+9. Committed and pushed
 
-## What the Previous Sessions Did
+## What the Previous Session Did
 
-Two hardening rounds built the autonomous system infrastructure: quality checking scripts, creative verification, session quality gates, consolidated Claude Code environment (7 commands, 4 agents, 5 skills), restructured PROJECT_INSTRUCTIONS.md. Created SESSION_TYPES.md framework splitting SPEC refinement into focused CREATIVE → PRECISION → HARDENING → IMPLEMENTATION_PREP sessions.
+CREATIVE session (2026-03-06): Added 3 new transformative §4.B capabilities to the source engine SPEC:
+- §4.B.5: KITAB Text Reuse Integration for Source Compositional Profiling (uses KITAB passim dataset to show a source's place in the classical Arabic intertextual network)
+- §4.B.6: Edition Comparison Intelligence (automated comparison of multiple editions of the same work, classifying divergences)
+- §4.B.7: Scholarly Genealogy Auto-Construction (builds teacher-student chains using OpenITI + LLM inference + NetworkX graph analysis)
+
+Updated RESOURCES.md with: KITAB text reuse statistics, passim algorithm, eScriptorium/Kraken, NetworkX.
+
+§4.B score went from 75/100 → 90/100. 4 → 7 capabilities. 2 → 7 named technologies. Examples added (was none).
 
 ## Pending Owner Questions
 
-- **API keys:** Not needed for this session (creative work doesn't require LLM calls)
+- **API keys:** Will be needed for the IMPLEMENTATION_PREP session (after PRECISION + HARDENING). Not needed yet.

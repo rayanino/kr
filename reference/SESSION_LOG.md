@@ -464,3 +464,34 @@ Best: excerpting (90/100). Lowest: consensus, validation (40/100). Most engines:
 - Number of files to read before working: reduced from 11 to 3
 - Session focus: from "do everything" to "do ONE thing excellently"
 - Estimated sessions to complete preparatory phase: ~35-40 (3-5 weeks at 1-2/day)
+
+---
+
+## Session 11: Source Engine Creative (2026-03-06)
+
+**Type:** CREATIVE
+**Focus:** Invent transformative capabilities for source engine §4.B
+**Duration:** ~25K tokens creative work
+
+**What was done:**
+1. Read full source engine SPEC (§1-§10), contracts.py, ENTRY_EXAMPLE.md, USER_SCENARIOS.md
+2. Ran quality baseline: 41 high-severity defects, §4.B score 75/100
+3. Conducted 8 web searches across problem space and technical possibilities:
+   - Islamic manuscript cataloging challenges (UCLA IMI, Michigan projects, CLIR grants)
+   - OpenITI/KITAB text reuse detection (passim algorithm, 4,300+ Arabic texts, pairwise statistics)
+   - eScriptorium/Kraken Arabic HTR (open-source, BADAM dataset, Arabic models)
+   - QARI-OCR Arabic multimodal LLM (CER 0.061, state-of-the-art)
+4. Invented 3 new §4.B capabilities:
+   - **§4.B.5 — KITAB Text Reuse Integration for Source Compositional Profiling:** Uses pre-computed passim text reuse data (~1GB CSV) to instantly reveal any source's place in the classical Arabic intertextual network. Shows originality estimate, network centrality, and top borrowers/sources. Technology: KITAB statistics CSV + OpenITI URI matching.
+   - **§4.B.6 — Edition Comparison Intelligence:** When the library has 2+ editions of the same work, automatically compares normalized text to classify divergences (tahqiq corrections, variant readings, OCR artifacts, editorial additions). Produces edition preference recommendation with evidence. Technology: difflib.SequenceMatcher + LLM classification.
+   - **§4.B.7 — Scholarly Genealogy Auto-Construction:** Builds multi-generational teacher-student chains by combining OpenITI metadata, LLM inference from biographical dictionaries (tabaqat), and progressive enrichment. Computes centrality, scholarly communities (Louvain), and generation numbers. Technology: NetworkX (BSD) + multi-model consensus for biographical inference.
+5. Updated RESOURCES.md with: KITAB text reuse statistics, passim, eScriptorium/Kraken, NetworkX
+6. §4.B score: 75 → 90/100. Capabilities: 4 → 7. Named technologies: 2 → 7. Examples with Arabic text: added.
+
+**Decisions made:**
+- KITAB text reuse data (CC-BY-NC-SA) is used as read-only enrichment; KR does not modify or redistribute it
+- Edition comparison is advisory only (does not auto-change preferred_source_id)
+- Genealogy construction depth limited to 4 generations up, 2 down per trigger (deeper chains build naturally)
+- Multi-model consensus required for scholarly genealogy inference (biographical data is high-cascade-risk)
+
+**Domain questions for owner:** None this session.

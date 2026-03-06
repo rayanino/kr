@@ -384,6 +384,149 @@ The gap analysis produces a ranked acquisition priority list:
 
 [NOT YET IMPLEMENTED] — Specification provided above. Depends on: taxonomy engine coverage metrics, work registry with citation counts, and repository search interface modules.
 
+#### §4.B.5 — KITAB Text Reuse Integration for Source Compositional Profiling
+
+**Capability:** When a new source enters the library, the source engine queries the KITAB project's pre-computed text reuse dataset — which documents verbatim textual overlap between 4,300+ premodern Arabic works — to produce a "compositional profile" showing how this work relates to the entire classical Arabic corpus: what it borrows, who borrows from it, and how original its content is.
+
+**Technology:** KITAB text reuse statistics CSV files (released on Zenodo, DOI: 10.5281/zenodo.4362369, latest release 2023.1.8+). Each CSV contains pairwise alignment data: book pairs, percentage of text shared, number of shared words, directionality. The source engine downloads and caches the statistics dataset (~1GB bidirectional, updated annually). Matching between KR sources and KITAB/OpenITI books uses the OpenITI CTS URN system (already leveraged in §4.B.1) — a source identified as al-Mughni by Ibn Qudamah maps to OpenITI URI `0620IbnQudworka.Mughni.*`.
+
+**Input:** A source_id for a source whose work has been identified (author canonical_id resolved, work_id assigned). The source engine looks up this work in the local KITAB statistics cache using the OpenITI URI derived from the author's death date and the work's title slug.
+
+**Output:** A `compositional_profile` record appended to the source metadata, containing:
+
+```json
+{
+  "kitab_uri_match": "0620IbnQudworka.Mughni.Shamela0010803-ara1",
+  "kitab_match_confidence": 0.95,
+  "intertextual_metrics": {
+    "reuse_as_source_count": 47,
+    "reuse_as_source_top_5": [
+      {"work": "0676Nawawi.MajmucSharh", "shared_words": 85420, "pct_of_target": 0.12},
+      {"work": "0852IbnHaworkar.FathBari", "shared_words": 42100, "pct_of_target": 0.04},
+      {"work": "0774IbnKathworkar.Bidaya", "shared_words": 31200, "pct_of_target": 0.03}
+    ],
+    "reuse_from_source_count": 12,
+    "reuse_from_source_top_5": [
+      {"work": "0204Shafici.Umm", "shared_words": 22300, "pct_of_this": 0.02}
+    ],
+    "originality_estimate": 0.89,
+    "network_centrality_rank": 23
+  }
+}
+```
+
+**Concrete example with Arabic text:** When Rayane acquires المغني by ابن قدامة, the source engine reports: "المغني shares text with 47 later works — it is the 23rd most-cited work in the entire OpenITI corpus of 4,300+ Arabic texts. النووي's المجموع شرح المهذب borrows 85,420 words (12% of المجموع). ابن حجر's فتح الباري borrows 42,100 words. المغني itself borrows from الأم by الشافعي (22,300 words). 89% of المغني's text is original (not found verbatim in earlier works). This places it as a foundational fiqh text that created new scholarly content rather than compiling from predecessors."
+
+**Scholar impact:** Before Rayane reads a single page, he knows the work's place in the entire classical Arabic scholarly network — which authors relied on it, which earlier works it drew from, and how original its contribution was. No Islamic studies student has ever had this view. A senior scholar might know from years of reading that al-Nawawi quotes al-Mughni frequently — but they cannot quantify "85,420 shared words across 12% of al-Majmu'" or rank originality across 4,300 texts.
+
+**Implementation sketch:** At intake time (after work identification in Step 4 of §4.A.2), the source engine constructs the OpenITI URI from the author's death date (from scholar authority record) and the work's title slug (transliterated). It queries the local KITAB statistics cache for all pairwise records where this URI appears as either book1 or book2. It computes: (1) how many other works share text with this source (reuse_as_source_count for later works, reuse_from_source_count for earlier works), (2) the top 5 in each direction sorted by shared word count, (3) an originality estimate = 1 - (sum of all text reused FROM earlier works / total word count), (4) network centrality as the rank of total shared words among all books in the dataset. If no KITAB match is found (obscure work or different edition), the profile records `kitab_match_confidence: 0.0` and the field is left for future enrichment.
+
+**Failure handling:** If the KITAB statistics cache is missing or outdated, the source engine logs `SRC_KITAB_CACHE_MISSING` (severity: info) and skips this enrichment — it is not required for intake. If the work matches but with low confidence (the OpenITI URI does not uniquely resolve — the same work may have variant editions in OpenITI), the engine records all candidate matches and uses the one with the longest text as the primary match.
+
+**Dependencies:** Requires downloading KITAB statistics CSV (~1GB) from Zenodo. Update frequency: annually, matching OpenITI release cycle. The cache is stored at the path configured in `kitab_stats_path` (default: `library/external/kitab_stats/`). This enrichment is additive — it never blocks intake. Depends on: §4.B.1's OpenITI URI matching logic.
+
+[NOT YET IMPLEMENTED] — Full specification provided. No code exists. Depends on: OpenITI URI matching from §4.B.1, local KITAB statistics cache download.
+
+#### §4.B.6 — Edition Comparison Intelligence
+
+**Capability:** When the library contains two or more sources (editions) of the same work, the source engine automatically detects substantive differences between editions and produces a structured comparison that identifies which edition is more complete, more accurate, and better tahqiq'd — and WHERE they diverge.
+
+**Technology:** Text comparison uses a two-phase approach: (1) character-level diff via Python's `difflib.SequenceMatcher` (stdlib, no external dependency) on the normalized text of both editions to identify divergence regions, (2) LLM analysis of each divergence region to classify it as: `tahqiq_correction` (the muhaqiq fixed a scribal error), `variant_reading` (legitimate textual variant from different manuscript traditions), `ocr_artifact` (a difference caused by OCR quality rather than actual textual difference), `editorial_addition` (footnote, commentary, or apparatus not in the other edition), or `structural_difference` (different chapter ordering, included/excluded sections). The normalization engine provides the normalized text; this capability operates after both editions have been normalized.
+
+**Input:** Two or more source_ids that share the same work_id (detected automatically when a second edition is acquired). The source engine retrieves the normalized text for each edition from the normalization engine's output.
+
+**Output:** An `edition_comparison` record stored at `library/sources/{work_id}/edition_comparison.json`, containing:
+
+```json
+{
+  "work_id": "wrk_ibn_qudamah_mughni",
+  "editions_compared": ["src_a3f2b1c4", "src_d7e8f9a0"],
+  "comparison_timestamp": "2026-03-06T12:00:00Z",
+  "summary": {
+    "total_divergence_regions": 342,
+    "by_type": {
+      "tahqiq_correction": 89,
+      "variant_reading": 41,
+      "ocr_artifact": 187,
+      "editorial_addition": 22,
+      "structural_difference": 3
+    },
+    "preferred_edition_recommendation": "src_a3f2b1c4",
+    "preference_reason": "187 fewer OCR artifacts; muhaqiq (عبد الله التركي) is recognized for rigorous tahqiq; 22 additional editorial footnotes providing hadith takhrij"
+  },
+  "sample_divergences": [
+    {
+      "location": {"volume": 3, "page_approx": 412},
+      "edition_a_text": "وقال أحمد في رواية المروذي",
+      "edition_b_text": "وقال أحمد في رواية المروزي",
+      "type": "variant_reading",
+      "analysis": "المروذي vs المروزي — both are attested nisbas for أبو بكر أحمد بن محمد المروذي. Edition A uses the more common scholarly convention."
+    }
+  ]
+}
+```
+
+**Concrete example with Arabic text:** Rayane has two Shamela editions of المغني. The source engine reports: "Compared 2 editions of المغني (src_a3f2b1c4: تحقيق عبد الله التركي, src_d7e8f9a0: تحقيق محمد شرف الدين). Found 342 divergence regions. 187 are OCR artifacts in the شرف الدين edition (lower text fidelity from Shamela scan quality). 89 are tahqiq corrections where التركي fixed scribal errors with manuscript evidence noted in footnotes. 41 are genuine variant readings from different manuscript traditions. Recommendation: التركي edition is preferred (fewer errors, better apparatus). However, the شرف الدين edition includes 3 additional chapters on المناسك that the التركي edition places in a separate volume."
+
+**Scholar impact:** Rayane can make an informed edition choice — not based on reputation alone (which is how most students choose) but on quantified evidence. When he encounters a passage and wonders "is this text reliable?", the comparison tells him exactly where the editions diverge and why. No tool currently provides this — scholars who want to compare editions must read them in parallel, page by page.
+
+**Implementation sketch:** When the source engine registers a new source and links it to an existing work_id that already has one or more sources, it enqueues an edition comparison job. The job waits until both editions have been normalized (status ≥ `normalized`). The comparison then: (1) aligns the normalized text of both editions by chapter/section structure, (2) runs character-level diff on each aligned section to identify divergence regions, (3) filters out divergences shorter than 3 characters (trivial whitespace/punctuation differences), (4) sends each non-trivial divergence region (the text from both editions plus 200 characters of surrounding context) to the LLM for classification, (5) aggregates the classifications into the summary statistics, (6) determines edition preference based on: fewer OCR artifacts, recognized muhaqiq, presence of scholarly apparatus. Multi-model consensus is NOT required because the comparison is non-destructive — it adds advisory metadata but does not change any source's trust tier or content.
+
+**Failure handling:** If normalized text is not yet available for one or both editions, the comparison is deferred (logged as `SRC_COMPARISON_DEFERRED`). If the editions are so different in structure that chapter-level alignment fails (e.g., one edition is a 10-volume set and the other is a 15-volume set with different chapter boundaries), the engine falls back to whole-text alignment using the passim approach (300-word chunks). Very large works (>500,000 words per edition) are compared in batches of 50,000 words to manage LLM context limits.
+
+**Constraints:** This capability is advisory only. It produces a recommendation but does not automatically change the `preferred_source_id` on the work registry — that requires owner confirmation through a human gate checkpoint. The comparison metadata is shared with the excerpting engine: when an excerpt is drawn from a divergence region, the excerpting engine can note "this passage has a variant reading in the other edition."
+
+[NOT YET IMPLEMENTED] — Full specification provided. No code exists. Depends on: normalization engine output, work registry tracking of source_ids per work_id. Triggered automatically on second-edition acquisition.
+
+#### §4.B.7 — Scholarly Genealogy Auto-Construction
+
+**Capability:** For every scholar encountered, the source engine automatically constructs a multi-generational teacher-student chain (silsila 'ilmiyya) by combining three data sources: (1) explicit teacher/student data from the scholar authority record, (2) OpenITI corpus metadata cross-references, and (3) LLM inference from the training knowledge of major Islamic biographical dictionaries (tabaqat). The result is a connected knowledge graph where Rayane can trace intellectual lineage across centuries.
+
+**Technology:** Graph construction uses a combination of: the scholar authority registry as the primary store (§4.A.5), OpenITI author metadata as a bootstrapping source (§4.B.1), and LLM-assisted biographical inference using specialized prompts that instruct the model to recall teacher-student relationships from its training on works like سير أعلام النبلاء by الذهبي, طبقات الشافعية by السبكي, and الأعلام by الزركلي. The graph is stored as adjacency lists in the scholar authority registry (the existing `teachers` and `students` fields). Graph analysis uses NetworkX (Python, BSD license, v3.2+) for centrality computation, path finding, and community detection.
+
+**Input:** A scholar `canonical_id` — either newly created during intake or an existing record being enriched during progressive enrichment. The trigger is: (1) a new scholar record is created with empty `teachers`/`students` fields, or (2) a new source adds previously unknown biographical data about an existing scholar.
+
+**Output:** Updated scholar authority records with populated `teachers` and `students` fields (as lists of `canonical_id` references), plus a `genealogy_metadata` record per scholar:
+
+```json
+{
+  "canonical_id": "sch_00312",
+  "genealogy_chain_upward": ["sch_00198", "sch_00155", "sch_00089"],
+  "genealogy_chain_upward_names": ["ابن مالك", "ابن الحاجب", "الزمخشري"],
+  "chain_confidence": 0.88,
+  "chain_sources": ["llm_inference:siyar_alam", "openiti_metadata", "source_text:src_a3f2b1c4"],
+  "scholarly_generation": 7,
+  "genealogy_community": "basri_nahw_late",
+  "centrality_score": 0.34,
+  "bridges_to_communities": ["kufi_nahw", "shafii_fiqh"]
+}
+```
+
+**Concrete example with Arabic text:** When the source engine processes شرح ابن عقيل على ألفية ابن مالك and creates a record for ابن عقيل (d. 769 AH), the engine:
+
+1. Creates scholar record for ابن عقيل with death date 769 AH.
+2. Queries OpenITI metadata: finds `0769IbnCaqworkkil` with known works list.
+3. LLM inference prompt: "ابن عقيل بهاء الدين عبد الله الهمداني المصري (ت ٧٦٩ هـ). من هم أشهر شيوخه وتلاميذه في النحو والفقه؟" (Who are his most notable teachers and students in grammar and fiqh?)
+4. LLM returns: Teachers include أبو حيان الأندلسي (d. 745 AH, sch_00287) and ابن جماعة (d. 767 AH). Students include بهرام الدميري (d. 805 AH).
+5. The engine checks if أبو حيان is already in the registry. If yes, links bidirectionally. If no, creates a new scholar record for أبو حيان and populates it.
+6. Traces upward from أبو حيان: his teacher was ابن النحاس (via OpenITI), whose teacher was ابن عصفور (d. 669 AH), whose teacher was ابن خروف (d. 609 AH) — a chain that reaches back to Sibawayhi within 6-8 generations.
+7. Computes: ابن عقيل is in the "Egyptian Shafi'i nahw" community, with bridges to the Andalusian grammar tradition (through أبو حيان) and Hanbali fiqh (through his own fiqh teaching).
+
+**Scholar impact:** When the synthesizer writes the entry on المبتدأ (as shown in ENTRY_EXAMPLE.md), it can now produce: "ابن عقيل (d. 769 AH), a student of أبو حيان الأندلسي who studied with ابن النحاس in the tradition descending from ابن مالك himself, explains that..." — the four-generation chain from Sibawayhi to Ibn al-Sarraj in the ENTRY_EXAMPLE is precisely what this capability produces AUTOMATICALLY. Without it, producing such chains requires the synthesizer to have training knowledge of Islamic biographical literature. With it, the chains are verified data in the scholar authority registry.
+
+**Implementation sketch:** When a new scholar record is created with empty genealogy, the engine:
+1. Queries OpenITI metadata for the author (using §4.B.1's matching logic). Extracts any teacher/student relationships encoded in the corpus metadata.
+2. Sends a biographical inference prompt to the LLM: provides the scholar's name, death date, known works, school affiliations, and geographic activity. Asks for: (a) up to 5 known teachers with their names, death dates, and the science studied under them, (b) up to 5 known students with the same data. The prompt specifies: "Cite the biographical source for each relationship (e.g., 'ذكره الذهبي في السير' or 'ذكره السبكي في الطبقات')."
+3. For each teacher/student returned, the engine checks the scholar authority registry for an existing match (using §4.A.5's matching logic). If found, creates bidirectional links. If not found, creates a stub record with the biographical data provided.
+4. Multi-model consensus is used for this inference — two LLMs independently produce the teacher/student list. Only relationships that both models agree on are auto-accepted. Relationships claimed by only one model are flagged with `genealogy_confidence: "single_model"` and accepted provisionally.
+5. After individual chain construction, NetworkX computes: (a) the shortest path length from each scholar to the earliest scholar in the registry (the "scholarly generation" number), (b) betweenness centrality (scholars who bridge between different intellectual communities), (c) community detection using the Louvain algorithm to identify scholarly clusters (e.g., "Basran nahw," "Hanbali fiqh," "Shafi'i usul").
+
+**Depth limit:** Chain construction traces up to 4 generations upward and 2 generations downward from the trigger scholar. Beyond this, the diminishing confidence of LLM inference makes the data unreliable. Deeper chains build naturally as more sources are processed — each new source may add a scholar who extends an existing chain by one generation.
+
+**Failure handling:** If the LLM returns a teacher/student with an ambiguous name (e.g., "ابن حجر" without clarification), the engine does NOT create a link — it creates a `genealogy_ambiguous` flag on the scholar record with the unresolved name, for human gate review. If OpenITI metadata contradicts LLM inference (different death date for a teacher), the OpenITI data is preferred (it is more likely to be manually verified) and the discrepancy is logged.
+
+[NOT YET IMPLEMENTED] — Full specification provided. No code exists. Depends on: §4.B.1's OpenITI matching, §4.A.5's scholar authority model, NetworkX library. Builds progressively — quality improves with each new source processed.
+
 ---
 
 ## 5. Validation and Quality
