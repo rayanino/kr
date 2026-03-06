@@ -5,38 +5,40 @@ PRECISION (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Excerpting engine PRECISION session.** The CREATIVE session produced a 660-line SPEC with 5 §4.B capabilities and a 389-line contracts.py. This session: fix every vague quantifier, resolve every ambiguity, ensure every §4.A rule is machine-implementable, sync contracts.py with any SPEC changes, and run full quality checks.
+**Excerpting engine PRECISION session.** The CREATIVE session added 3 new §4.B capabilities (§4.B.4 Mas'ala Detection, §4.B.5 Evidence Chain Reconstruction, §4.B.6 Cross-Source Resonance Detection), wrote contracts.py, added verse-format handling (§4.A.7), and expanded the output contract. Now: make every rule machine-implementable. Fix all vague quantifiers. Add worked examples with Arabic text.
 
 ## What to Read
 
-1. `engines/excerpting/SPEC.md` — Full document. This is the target.
-2. `engines/excerpting/contracts.py` — Must match SPEC §3 exactly.
-3. `engines/atomization/SPEC.md` §3 — Upstream contract. Verify the excerpting engine's input contract matches atomization's output.
-4. `engines/atomization/contracts.py` — Machine-readable atom schema. Verify field names match.
-5. `DEEP_REASONING_PROTOCOL.md` — The Perfection Standard checklist. Run every criterion.
-6. `KNOWLEDGE_INTEGRITY.md` — Verify T-2 (attribution), T-4 (context loss), T-5 (synthesis hallucination) mitigations are explicit.
+1. `engines/excerpting/SPEC.md` — The full SPEC. This is the primary work artifact.
+2. `engines/excerpting/contracts.py` — Pydantic models. Must stay in sync with §3.
+3. `engines/atomization/SPEC.md` §3 — Verify all input fields consumed are still correct.
+4. `engines/atomization/contracts.py` — Verify type compatibility at the boundary.
 
-**Do NOT read:** VISION.md, DOMAIN.md, reference docs (already incorporated in CREATIVE session). Do NOT do web research (PRECISION, not CREATIVE).
+**Do NOT read:** VISION.md, DOMAIN.md, ENTRY_EXAMPLE.md — already consumed in CREATIVE session.
 
 ## Definition of Done
 
-1. `check_spec_quality.py` produces 0 VAGUE_QUANTIFIER warnings (currently ~25).
-2. Every §4.A rule has a clear pass/fail test case (mentally verifiable).
-3. `contracts.py` fields match SPEC §3 field-by-field — no drift.
-4. Input contract (§2) field names match `atomization/contracts.py` exactly.
-5. Perfection Standard Tier 1 (all 9 criteria) pass for every section.
-6. Self-audit with ≥3 structural defects found and fixed.
-7. `session_quality_gate.py` passes.
-8. Committed and pushed.
-9. NEXT.md written (for excerpting HARDENING session).
+1. All 19 defects from `check_spec_quality.py` resolved (especially the 13 vague quantifiers and 5 missing examples)
+2. §4.A.1–§4.A.7 each have at least one worked example with Arabic text showing input atoms → processing → output excerpt
+3. §4.B.1 refined: the existing dialogue detection clarified with precise trigger conditions
+4. `contracts.py` verified against §3 — no field mismatches
+5. `check_spec_quality.py` passes with ≤5 defects (all LOW severity)
+6. Self-audit completed with ≥3 structural defects found and fixed
+7. NEXT.md written (for excerpting HARDENING session)
+8. SESSION_LOG.md updated
+9. Committed and pushed
 
-## What the Previous Sessions Did
+## What the Previous Session Did
 
-Source engine: CREATIVE → PRECISION → HARDENING → IMPL_PREP (complete).
-Normalization engine: CREATIVE → PRECISION → HARDENING → IMPL_PREP (complete).
-Passaging engine: CREATIVE → PRECISION → HARDENING (complete).
-Atomization engine: CREATIVE → PRECISION → HARDENING (complete).
-**Excerpting engine: CREATIVE (this session, complete).**
+- CREATIVE session for excerpting engine
+- Added §4.B.4 (Mas'ala Boundary Detection and Issue Formulation) — architect-originated
+- Added §4.B.5 (Evidence Chain Reconstruction) — architect-originated, informed by argumentation mining research
+- Added §4.B.6 (Cross-Source Textual Resonance Detection) — architect-originated, informed by KITAB/passim research
+- Added §4.A.7 (Verse-Format Excerpt Handling)
+- Wrote contracts.py (459 lines, 30+ Pydantic models)
+- Updated §3 output contract with transformative capability fields
+- Updated metadata pass-through list
+- Research: 5 web searches covering Talmud digital tools (DICTA, Sefaria, ChavrutAI), argumentation mining (RST, GNN), Arabic NLP (ArabicNLP 2025, AbjadNLP 2026), KITAB/OpenITI text reuse, Islamic DH landscape
 
 ## Pending Owner Questions
 

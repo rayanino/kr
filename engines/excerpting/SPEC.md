@@ -159,6 +159,15 @@ Written to `library/sources/{source_id}/excerpts/excerpts.jsonl`. One JSONL reco
 
 - `processing_metadata`: object. `engine_version` (string), `model_used` (string — the LLM model), `consensus_used` (bool), `processing_timestamp` (ISO datetime).
 
+**Transformative capability fields (§4.B — populated when capabilities are enabled):**
+
+- `masala_analysis`: object or null. From §4.B.4. When enabled: `{ excerpt_type: enum(masala_bearing, definitional, evidential, narrative, structural), masala_question: string|null, masala_scope: enum(definitional, ruling, interpretive, methodological, scope)|null, disagreement_axis: string|null, masala_id: string|null, confidence: float }`. Null when §4.B.4 is disabled.
+- `evidence_chain`: object or null. From §4.B.5. When enabled: `{ claims: array, evidence_links: array, logical_structure: enum, has_conclusion: bool, conclusion_atom_id: string|null, argument_type: enum|null, completeness: float }`. Null when §4.B.5 is disabled.
+- `dialogue_links`: array or null. From §4.B.1. When enabled: array of `{ target_excerpt_id: string, dialogue_type: enum(agrees, disagrees, refines, supersedes, cites), confidence: float, evidence: string }`. Null when §4.B.1 is disabled.
+- `resonance_links`: array or null. From §4.B.6. When enabled: array of `{ target_excerpt_id: string, resonance_tier: enum, resonance_type: enum, resonance_score: float, evidence: string, chronological_direction: enum }`. Null when §4.B.6 is disabled.
+- `repair_suggestions`: array or null. From §4.B.2. When enabled and self_containment_score < 0.7: array of `{ suggestion_type: enum, detail: string, target_atom_id: string|null }`. Null otherwise.
+- `argument_completeness`: object or null. From §4.B.3. When enabled and excerpt contains evidential content: `{ score: float, missing_elements: array of string, notes: string }`. Null otherwise.
+
 **Guarantees about the excerpt stream:**
 
 - **Source-agnostic.** The excerpt schema is identical regardless of source type.
@@ -183,6 +192,11 @@ Written to `library/sources/{source_id}/excerpts/excerpts.jsonl`. One JSONL reco
 - Quoted scholars with roles.
 - Terminology variants.
 - Review flags for quality gating.
+- Mas'ala analysis: issue formulation, disagreement axis, masala_id (§4.B.4).
+- Evidence chain: argumentative structure, claim-evidence links, argument type (§4.B.5).
+- Dialogue and resonance links: cross-excerpt scholarly relationships (§4.B.1, §4.B.6).
+- Argument completeness assessment (§4.B.3).
+- Self-containment repair suggestions (§4.B.2).
 
 **Source registry update.** Upon successful excerpting of all passages for a source, the source's processing status is updated from `atomized` to `excerpted`. The excerpt stream path is recorded.
 
@@ -312,6 +326,20 @@ When the LLM detects that a candidate excerpt covers multiple distinguishable to
 - If outcome (c): one excerpt with the full text, review flag `cross_topic_candidate`.
 
 **Rule 3 — Content integrity priority.** A multi-topic excerpt that is self-contained is always preferable to two broken excerpts.
+
+#### §4.A.7 — Verse-Format (نظم) Excerpt Handling
+
+Versified texts (المنظومات) require different excerpting rules than prose. A بيت (verse/couplet) is a complete self-contained unit in the scholarly tradition — scholars cite by line number ("ألفية line 75"), and each verse typically encodes exactly one grammatical or legal rule.
+
+**Detection.** The excerpting engine detects verse format from two signals: (a) the passage's `structural_format` field is `verse` or `versified`, or (b) the atoms' `structural_type` includes `verse_line`. When detected, the following rules apply:
+
+**Rule 1 — Single-verse excerpts are valid.** Unlike prose, a single verse atom (even just 10 words) may constitute a complete, self-contained excerpt. The self-containment evaluation prompt must be adjusted: a verse that states a complete grammatical or legal rule IS self-contained, even though it is short. Self-containment is evaluated by whether the verse encodes a complete rule, not by word count.
+
+**Rule 2 — Commentary inclusion.** In sharh sources where a verse (Layer 1) is followed by its commentary (Layer 2), the default excerpt grouping is: the verse atom(s) as core, the commentary atoms as core, forming a single teaching excerpt. The primary_author_id is the commentary author (the teaching contribution is the commentary). The verse author appears in `quoted_scholars` with role `classification_frame`.
+
+**Rule 3 — Verse numbering preservation.** The excerpt metadata must preserve verse numbering. For verse-format passages, the `physical_pages` field is supplemented with a `verse_numbers` field in excerpt metadata: `{ start_line: int, end_line: int }`. This enables the synthesizer and scholar interface to cite by line number.
+
+**Rule 4 — Verse grouping.** When consecutive verses address the same topic (common in longer nazm works), they form a single excerpt. The boundary signal is a topic shift — when the next verse introduces a new grammatical/legal concept. The LLM detects topic shifts using the same Phase 1 boundary detection but with adjusted sensitivity: in verse texts, each verse potentially introduces a new topic.
 
 ---
 
@@ -475,6 +503,97 @@ If `continuation_detected` is true, this is also a signal to the passaging engin
 When `suggestion_type` is `generate_context_note`, the `generated_context` field contains a brief Arabic sentence (≤50 words) that the synthesizer may include as a contextual preface when presenting the excerpt. This generated context is ALWAYS marked as `grounding_type: analytical` (not source-grounded) — it is the engine's interpolation, not the author's words.
 
 **Technical approach:** LLM analysis using the same model as self-containment evaluation, with an additional prompt asking for specific repair recommendations. The adjacent passage atoms are included in the context window to enable cross-passage suggestions.
+
+#### §4.B.4 — Mas'ala Boundary Detection and Issue Formulation
+
+[NOT YET IMPLEMENTED]
+
+**What this capability does:** Detects when an excerpt addresses a مسألة (scholarly question/issue) and precisely formulates what that مسألة is — in the classical تحرير المسألة tradition. This is not the same as topic classification (which assigns a label like "تعريف المبتدأ"). Mas'ala formulation produces a precise QUESTION that the excerpt addresses: "هل المبتدأ يُعرف بمعناه أم بموقعه؟" (Is the subject defined by its meaning or by its position?). This formulation captures the axis of disagreement, not just the topic.
+
+**Why this is transformative:** The fundamental unit of Islamic scholarly discourse is the مسألة. Every fiqh text, every usul work, every nahw disagreement is organized around مسائل. Classical scholars considered precise issue formulation (تحرير المسألة) a prerequisite for understanding any disagreement — two scholars who appear to disagree may actually be answering different questions. No digital Islamic studies tool (Shamela, Turath, Usul.ai) detects or formulates مسائل automatically. They provide keyword search; they cannot tell you "this passage addresses the question of X." KR can, and this formulation becomes the most valuable metadata the synthesizer receives — it determines whether two excerpts are even comparable.
+
+**Input:** An accepted excerpt with classified atoms, plus science context and taxonomy tree hints.
+
+**Processing:** Two stages:
+
+1. **Mas'ala detection.** The LLM classifies the excerpt as: `masala_bearing` (addresses a question with positions), `definitional` (provides a definition without disagreement), `evidential` (presents evidence for a position stated elsewhere), `narrative` (provides historical/biographical context), or `structural` (introductory/transitional). Only `masala_bearing` excerpts proceed to stage 2.
+
+2. **Issue formulation.** For masala-bearing excerpts, the LLM produces:
+   - `masala_question`: string. The مسألة formulated as a precise Arabic question. Must be answerable with specific scholarly positions — not a vague topic description.
+   - `masala_scope`: string enum. One of: `definitional` (what is X?), `ruling` (what is the حكم of X?), `interpretive` (how is evidence Y interpreted?), `methodological` (what method applies?), `scope` (does rule X apply to case Y?).
+   - `disagreement_axis`: string or null. If the excerpt reveals what scholars disagree ABOUT (not just that they disagree), this captures the axis. Null for excerpts presenting one position without revealing the opposing view.
+   - `masala_id`: string. A normalized identifier for deduplication. Two excerpts from different sources addressing the same مسألة should produce the same `masala_id`.
+
+**Output:** `masala_analysis` field on the excerpt: `{ excerpt_type: enum, masala_question: string|null, masala_scope: string|null, disagreement_axis: string|null, masala_id: string|null, confidence: float }`.
+
+**Impact on synthesis:** The synthesizer groups excerpts by `masala_id`, producing entries structured around مسائل. تحرير المسألة becomes automatic: "The scholars agree on X but disagree on Y. Scholar A asks question P while Scholar B asks question Q — what appears to be a disagreement is actually two different مسائل."
+
+**Dependency:** Taxonomy tree structure (for science context). Science-specific configurations in SCIENCE.md (what constitutes a مسألة varies: in fiqh it is a حكم question, in nahw an إعراب question, in usul a methodological question).
+
+#### §4.B.5 — Evidence Chain Reconstruction
+
+[NOT YET IMPLEMENTED]
+
+**What this capability does:** Reconstructs the complete argumentative structure within an excerpt: which claims are made, which pieces of evidence support each claim, in what order, with what logical connectors, and what conclusions are drawn. This goes beyond individual evidence type tagging — it reconstructs the CHAIN: "Position P is supported by evidence E1 AND E2, which together lead to conclusion C, UNLESS exception X applies."
+
+**Why this is transformative:** Islamic scholarly argumentation follows formalized patterns studied for 14 centuries in usul al-fiqh: استدلال بالنص (argumentation from text), قياس (analogy), استصحاب (continuity presumption), سد الذرائع (blocking pretexts). Each has a defined structure. No digital tool extracts these from Arabic text. The KITAB project detects text REUSE between Arabic sources; KR detects argument STRUCTURE within sources. Research in argumentation mining (RST-based approaches, GNN-based argument parsing) shows argumentative structures correlate with rhetorical structures — the atomization engine's scholarly function labels feed this analysis directly.
+
+**Input:** An accepted excerpt with its atoms (each having `scholarly_function` and `atom_relations`), plus `evidence_refs` from Phase 3 enrichment.
+
+**Processing:** The LLM reconstructs the argument graph:
+
+1. **Claim identification.** Atoms with `scholarly_function` in (`opinion_statement`, `rule_statement`, `definition`) are candidate claims.
+2. **Evidence mapping.** For each claim, which evidence atoms support it? `atom_relations` (type `evidences`) provides direct links; the LLM infers missing links from Arabic discourse connectors (لِ, بدليل, لقوله, والدليل).
+3. **Logical structure.** Conjunctive (E1 AND E2 both support C), disjunctive (E1 OR E2), sequential (E1 establishes premise for E2), or concessive (despite E1, C holds because of E2).
+4. **Counter-argument structure.** If the excerpt contains `scholarly_function: refutation`, what position is refuted and what evidence supports the refutation?
+5. **Conclusion identification.** Explicit ("والراجح أن..." — "the preferred view is...") or implicit? Is a ترجيح (preference) stated?
+
+**Output:** `evidence_chain` field on the excerpt:
+```
+{
+  claims: [{ atom_id: string, claim_text: string }],
+  evidence_links: [{
+    claim_atom_id: string,
+    evidence_atom_id: string,
+    evidence_type: string,
+    link_type: enum(supports, refutes, qualifies, illustrates),
+    link_confidence: float
+  }],
+  logical_structure: enum(conjunctive, disjunctive, sequential, concessive, mixed),
+  has_conclusion: bool,
+  conclusion_atom_id: string|null,
+  argument_type: enum(textual, analogical, consensus_based, rational, presumptive)|null,
+  completeness: float
+}
+```
+
+**Impact on synthesis:** The synthesizer compares HOW scholars argue, not just WHAT they conclude: "The Hanafi position rests on a Quranic verse establishing the general rule, with a hadith limiting scope. The Shafi'i position uses the same verse but interprets it differently, adding a companion statement as corroboration." This transforms entries from flat position lists into comparative argumentation analysis.
+
+**Technical approach:** LLM-based with Instructor structured output. Argument type classification uses science-specific knowledge. Confidence per link enables the synthesizer to distinguish robust chains from tentative ones.
+
+#### §4.B.6 — Cross-Source Textual Resonance Detection
+
+[NOT YET IMPLEMENTED]
+
+**What this capability does:** Detects implicit scholarly relationships between excerpts from DIFFERENT sources — cases where one author engages with another's argument without explicit citation. Uses semantic fingerprints from the atomization engine (§4.B.5 in atomization SPEC) and evidence chains (§4.B.5 above) to find structural and conceptual similarity between excerpts at the same taxonomy leaf, discovering the invisible scholarly conversation.
+
+**Why this is transformative:** Islamic scholarly texts are densely intertextual. A later scholar writing about المبتدأ responds to Sibawayhi's framework, adopts his terminology, or silently rejects his approach. These implicit relationships are invisible without expert knowledge. The KITAB project's passim algorithm detects verbatim text reuse across 10,000+ Arabic texts. KR goes deeper: CONCEPTUAL reuse — when two excerpts use different words to make structurally similar arguments, or when one argument structure mirrors another's in a way suggesting intellectual influence rather than coincidence.
+
+**Input:** A newly placed excerpt, plus the library's existing excerpt inventory at the same taxonomy leaf, plus semantic fingerprints and evidence chains from both.
+
+**Processing:** Three-tier comparison, applied sequentially for cost management:
+
+1. **Tier 1 — Textual resonance (deterministic).** Compare `fingerprint_text_hash` values aggregated at excerpt level. High hash similarity (>0.7) with different source_ids indicates probable textual borrowing. Fast, no LLM needed.
+
+2. **Tier 2 — Terminological resonance (hybrid).** Compare `fingerprint_key_terms` across excerpts. Shared key terms with identical scholarly functions suggest engagement with the same مسألة. When two excerpts use the same unusual technical term that is NOT the standard term for the topic, this strongly signals direct influence.
+
+3. **Tier 3 — Structural resonance (LLM-driven).** Compare evidence chains (§4.B.5). If two excerpts addressing the same مسألة present evidence in the same order, refute the same counter-argument, or use the same analogy structure — even with completely different wording — this suggests intellectual engagement. Only top candidates from Tier 1/2 reach this tier.
+
+**Output:** `resonance_links` field on the excerpt: array of `{ target_excerpt_id: string, resonance_tier: enum(textual, terminological, structural), resonance_type: enum(borrows_from, responds_to, mirrors_structure, shares_evidence, uses_counter_argument), resonance_score: float, evidence: string, chronological_direction: enum(earlier_to_later, later_to_earlier, contemporaneous, unknown) }`.
+
+**Impact on synthesis:** The synthesizer constructs the invisible scholarly conversation: "al-Nawawi's treatment mirrors Ibn Qudamah's evidence structure — the same three hadith in the same order, addressing the same counter-argument — suggesting direct engagement with al-Mughni, even though al-Nawawi never cites it here." This produces the intellectual genealogy that makes ENTRY_EXAMPLE.md possible.
+
+**Dependency:** Semantic fingerprints from atomization engine. Evidence chains from §4.B.5. Scholar authority registry for chronological ordering. Taxonomy tree for leaf-level grouping. Only active during incremental processing, not initial bulk loading.
 
 ---
 
