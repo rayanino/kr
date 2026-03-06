@@ -96,6 +96,7 @@ The atomization engine produces one primary artifact per source: an atom stream.
   - detection_method: string, one of: pattern_match, canonical_lookup, llm_detected.
 
 **Footnote linkage fields:**
+- footnote_source_index: integer or null. For footnote atoms (source_layer == "footnote"), the zero-based index into the passage's footnotes array identifying which footnote this atom derives from. Null for main text atoms. Required non-null when source_layer is "footnote".
 - footnote_refs: array of objects. Each object links this atom to a footnote from the passage's footnote array:
   - ref_marker: string. The footnote reference marker text (e.g., "1", matching the ⌜N⌝ marker in the passage text).
   - linked_footnote_atom_id: string or null. The atom_id of the corresponding footnote atom. Null if the footnote was not atomized (footnote text missing from passage record).
@@ -129,9 +130,9 @@ The atomization engine produces one primary artifact per source: an atom stream.
 **Guarantees about the atom stream:**
 
 - **Source-agnostic.** The atom schema is identical regardless of source type.
-- **Exhaustive coverage.** Every character in passage_text is covered by exactly one atom's anchor_span. No gaps. No overlaps. This is verified by self-validation.
+- **Exhaustive coverage.** Every character in passage_text is covered by exactly one main text atom's anchor_span. No gaps. No overlaps. Footnote atoms cover their respective footnote texts, not passage_text. This is verified by self-validation.
 - **Ordering.** Atoms are ordered by reading order within each passage, and passages are ordered by document order. atom_id sequence numbers are globally monotonic within a source.
-- **Offset integrity.** For every atom, atom_text == passage_text[anchor_span.start : anchor_span.end]. This invariant is verified deterministically during self-validation.
+- **Offset integrity.** For every main text atom, atom_text == passage_text[anchor_span.start : anchor_span.end]. For every footnote atom, atom_text == passage.footnotes[footnote_source_index].text[anchor_span.start : anchor_span.end]. These invariants are verified deterministically during self-validation.
 - **Layer attribution completeness.** Every atom has a source_layer value. For multi-layer passages, attribution is determined by matching the atom's character range against the passage's text_layers.
 - **Type completeness.** Every atom has a structural_type. Every atom except headings and whitespace separators has a scholarly_function. Every scholarly_function has a function_confidence.
 - **Metadata pass-through (D-023).** Every atom carries source_id for upstream metadata access and passage_id for passage-level context. The atom type itself is NEW metadata originated by this engine. The layer attribution is carried through from normalization. embedded_refs and atom_relations are new metadata that flows to the excerpting engine and ultimately to the synthesizer.
@@ -160,7 +161,7 @@ Atomization is per-passage, sequential, and LLM-driven with deterministic pre- a
 
 For each passage in the passage stream, the engine executes five phases:
 
-1. **Pre-screen** (deterministic): Examine content_flags, structural_format, text_fidelity, and review_flags. Select the appropriate atomization strategy and calibrate confidence thresholds.
+1. **Pre-screen** (deterministic): Examine content_flags, structural_format, text_fidelity, and review_flags. Select the atomization strategy matching the passage's structural_format value (§4.A.7 defines one strategy per format). If text_fidelity.min_score < fidelity_escalation_threshold OR review_flags contains low_fidelity_content, lower the default function_confidence by 0.1 (floor at 0.3) and select the escalation LLM model.
 2. **Rule-based pre-detection** (deterministic): Scan passage_text for high-confidence patterns: Quran quotations, hadith evidence markers, isnad chains, poetry markers, footnote reference markers. Mark detected spans with provisional type classifications. This phase runs before the LLM to provide anchoring hints.
 3. **LLM atomization** (LLM-driven): Send the passage text, pre-detection hints, structural format, layer information, and few-shot examples to the LLM. The LLM identifies atom boundaries and classifies each atom by structural type and scholarly function. The LLM receives the pre-detected spans as constraints it must respect (it may refine boundaries but not ignore confirmed detections).
 4. **Deterministic post-processing**: Verify offset integrity, enforce exhaustive coverage, reconcile LLM output with pre-detection results, assign atom_id values, derive source_layer from passage text_layers, resolve footnote linkages.
@@ -191,7 +192,7 @@ Every bonded cluster carries a bonded_reason explaining the trigger.
 
 **Rule AB-5: Footnotes are separate atoms.** Each footnote from the passage's footnotes array is atomized as a separate atom with source_layer: "footnote". Footnote atoms appear in the atom stream after all main text atoms for the passage. They are linked to their referencing main text atom via atom_relations with type footnote_for.
 
-**Rule AB-6: Whitespace and formatting artifacts are excluded.** Sequences of whitespace, section dividers ("***", "---"), and other non-content text do not become atoms. They are absorbed into the nearest atom boundary. The exhaustive coverage rule (every character covered) still holds: whitespace is assigned to the atom whose boundary it is nearest (typically the preceding atom's end or the following atom's start).
+**Rule AB-6: Whitespace handling.** Ordinary whitespace (spaces, newlines, blank lines) between content atoms does not become a standalone atom — it is absorbed into the preceding atom's boundary (extending its end offset to include the whitespace). If whitespace appears before the first atom, it is absorbed into the first atom's start (the first atom's start becomes 0). However, explicit section dividers ("***", "---", ornamental separators) that the LLM identifies as intentional structural markers become whitespace_separator atoms with no scholarly_function. Whitespace_separator atoms are rare (typically 0–3 per passage). The exhaustive coverage rule still holds: all characters are assigned to exactly one atom.
 
 **Rule AB-7: Verse lines are atoms.** In verse-format passages, each بيت (verse line) is one atom with structural_type: "verse_line". A بيت consists of two hemistichs (صدر and عجز). The hemistichs are NOT split into separate atoms — the بيت is the atomic unit. Verse numbering from verse_info is preserved in embedded_refs as metadata, not as separate atoms.
 
@@ -272,11 +273,11 @@ The LLM performs the core atomization work: determining atom boundaries and clas
 1. The full passage_text.
 2. The passage's structural_format and content_flags.
 3. Pre-detection results: spans identified by rule-based detection (§4.A.4), with their provisional types. The LLM is instructed to respect these as constraints for high-confidence detections and as hints for lower-confidence ones.
-4. Two few-shot examples from the gold baseline set (§10), selected by structural format match: the engine picks the gold examples whose format matches the current passage's structural_format. If no format-specific gold example exists, generic gold examples are used.
+4. Two few-shot examples from the gold baseline set (§10), selected by structural format match: the engine picks the two gold examples whose structural_format matches the current passage's structural_format. If fewer than two format-specific gold examples exist, the engine fills remaining slots with prose-format gold examples (prose is the most common format and provides the broadest coverage).
 
 **LLM output requirements:**
 1. Atoms must be returned as a JSON array, ordered by character offset.
-2. The union of all atom spans must cover the entire passage_text with no gaps and no overlaps.
+2. The union of all atom spans must cover the entire passage_text with no gaps and no overlaps. (This applies to main text atoms only; footnote atoms are produced separately in §4.A.9.)
 3. Each atom must have start, end, structural_type, and (unless heading/whitespace) scholarly_function with function_confidence.
 4. Bonded clusters must include bonded_reason.
 5. The LLM may include classification_notes for non-obvious decisions.
@@ -296,11 +297,12 @@ In multi-layer texts (matn/sharh/hashiyah), each atom must be attributed to the 
 3. If the atom spans a layer boundary (its range overlaps two or more layer segments), apply the majority rule: assign the layer that covers the largest portion of the atom. Set review_flags: ["ambiguous_layer"] and record the overlap details in classification_notes.
 4. If no layer segment covers the atom's range (a gap in text_layers), assign source_layer: "matn" as the conservative default (D-030 applies at the passage level; atoms inherit from their passage's layers). Set review_flags: ["ambiguous_layer"].
 
-**Layer type mapping.** The passage's text_layers[].layer_type values map to the atom's source_layer as follows:
-- layer_1 or matn → source_layer: "matn"
-- layer_2 or sharh → source_layer: "sharh"
-- layer_3 or hashiyah → source_layer: "hashiyah"
-- editor or tahqiq → source_layer: "tahqiq"
+**Layer type mapping.** The passage's text_layers[].layer_type values (from the normalization engine's LayerType enum) map to the atom's source_layer as follows:
+- matn → source_layer: "matn"
+- sharh → source_layer: "sharh"
+- hashiyah → source_layer: "hashiyah"
+- tahqiq_note → source_layer: "tahqiq"
+- uncertain → source_layer: "matn" (conservative default per D-030). Set review_flags: ["ambiguous_layer"].
 
 **LLM layer override.** The LLM may detect that text attributed to one layer by the normalization engine actually belongs to a different layer. The most common case: a passage in a sharh where the commentator writes "قال المصنف" and then quotes the matn author's words — the normalization engine may have classified the entire passage as Layer 2 (sharh), but the quoted words are actually Layer 1 (matn). When the LLM detects such an implicit layer transition, it marks the atom with the corrected layer and sets classification_notes explaining the override. This correction propagates to the atom's source_layer and layer_author_id fields. The review_flags: ["possible_misattribution"] flag is set for human verification.
 
@@ -324,7 +326,7 @@ The passage's structural_format determines which format-specific rules supplemen
 
 Character offsets are the foundation of atom-to-passage linkage. An offset error corrupts downstream excerpt construction. The following measures ensure offset integrity.
 
-**Invariant.** For every atom: atom_text == passage_text[anchor_span.start : anchor_span.end]. This is a hard invariant verified by the self-validation phase on every atom of every passage.
+**Invariant.** For every main text atom (source_layer != "footnote"): atom_text == passage_text[anchor_span.start : anchor_span.end]. For every footnote atom (source_layer == "footnote"): atom_text == passage.footnotes[footnote_source_index].text[anchor_span.start : anchor_span.end]. These are hard invariants verified by the self-validation phase on every atom of every passage.
 
 **LLM offset correction.** LLMs frequently produce slightly incorrect character offsets, especially for Arabic text with diacritics. The post-processing phase applies a correction algorithm:
 1. For each atom the LLM returns, extract the text at [start, end) from passage_text.
@@ -334,17 +336,17 @@ Character offsets are the foundation of atom-to-passage linkage. An offset error
 5. If a match is found, correct the offsets and set review_flags: ["offset_drift_corrected"].
 6. If no match is found, flag the atom with error ATOM_OFFSET_UNRESOLVABLE and include it in the atom stream with the LLM's reported offsets and atom_text, plus a review flag. The self-validation phase will detect the invariant violation.
 
-**Coverage enforcement.** After all atoms are assigned, the post-processing phase checks that the union of all [start, end) ranges equals [0, len(passage_text)). If gaps exist, they are absorbed into the nearest atom (extending its end or start boundary by the gap size). The adjustment is logged. If overlaps exist, the later atom's start is moved forward to the earlier atom's end. The adjustment is logged.
+**Coverage enforcement.** After all main text atoms are assigned, the post-processing phase checks that the union of all main text atom [start, end) ranges equals [0, len(passage_text)). If a gap exists between two adjacent atoms, the gap is absorbed into the preceding atom (its end boundary is extended to the following atom's start). If a gap exists before the first atom, the first atom's start is moved to 0. The adjustment is logged with ATOM_COVERAGE_GAP_REPAIRED. If overlaps exist, the later atom's start is moved forward to the earlier atom's end. The adjustment is logged with ATOM_COVERAGE_OVERLAP_REPAIRED.
 
 #### §4.A.9 — Footnote Atomization
 
 Each footnote in the passage's footnotes array is processed as a separate atom or set of atoms appended after the main text atoms.
 
 **Processing rules:**
-1. Each footnote's text field is treated as an independent mini-passage.
-2. If the footnote text contains a single assertion, it becomes one atom with source_layer: "footnote" and scholarly_function determined by its content (usually editorial_note for tahqiq footnotes, or the appropriate scholarly function for substantive footnotes).
-3. If the footnote text contains multiple assertions, it is split into multiple footnote atoms following the standard boundary rules.
-4. Footnote atoms' anchor_span values are relative to the footnote's own text, NOT to passage_text. A separate metadata field records that these atoms are footnote atoms.
+1. Each footnote's text field is treated as an independent mini-passage. If a footnote's text is empty or whitespace-only, no atom is produced for it — the footnote_for relation on the referencing main text atom has linked_footnote_atom_id set to null.
+2. If the footnote text contains a single assertion, it becomes one atom with source_layer: "footnote" and scholarly_function determined by its content (editorial_note for tahqiq footnotes; evidence_*, cross_reference, or the LLM-determined function for substantive footnotes).
+3. If the footnote text contains two or more assertions, it is split into that many footnote atoms following the standard boundary rules.
+4. Footnote atoms' anchor_span values are relative to the footnote's own text, NOT to passage_text. The footnote_source_index field (integer) records which footnote in the passage's footnotes array this atom references (zero-based index). The offset integrity invariant for footnote atoms is: atom_text == passage.footnotes[footnote_source_index].text[anchor_span.start : anchor_span.end]. This is a variant of the main text invariant, using the footnote text as the reference instead of passage_text.
 5. Each footnote atom is linked to the main text atom that contains the ⌜N⌝ marker via an atom_relations entry with relation_type: "footnote_for".
 
 **Footnote type classification.** The footnote_type from the passage's footnotes array guides classification:
@@ -356,13 +358,13 @@ Each footnote in the passage's footnotes array is processed as a separate atom o
 
 After atomization of each passage, the engine runs seven automated checks. Each check either passes, triggers auto-repair, or flags for human review.
 
-**Check V-1: Exhaustive coverage.** Verify that the union of all atom [start, end) ranges equals [0, len(passage_text)). If a gap or overlap is found, apply the correction algorithm from §4.A.8. If correction fails, flag ATOM_COVERAGE_VIOLATION.
+**Check V-1: Exhaustive coverage.** Verify that the union of all main text atom (source_layer != "footnote") [start, end) ranges equals [0, len(passage_text)). Footnote atoms are excluded from this check — they cover their respective footnote texts, not passage_text. If a gap or overlap is found in main text atom coverage, apply the correction algorithm from §4.A.8. If correction fails, flag ATOM_COVERAGE_VIOLATION.
 
-**Check V-2: Offset integrity.** Verify that for every atom, atom_text == passage_text[anchor_span.start : anchor_span.end]. Any violation is a hard failure — the atom stream is not written until this check passes.
+**Check V-2: Offset integrity.** Verify that for every main text atom (source_layer != "footnote"), atom_text == passage_text[anchor_span.start : anchor_span.end]. For every footnote atom (source_layer == "footnote"), verify atom_text == passage.footnotes[footnote_source_index].text[anchor_span.start : anchor_span.end]. Any violation is a hard failure — the atom stream is not written until this check passes.
 
 **Check V-3: No empty atoms.** Verify that every atom has len(atom_text) > 0. Empty atoms are removed from the stream. This should not happen if coverage is exhaustive, but is checked independently.
 
-**Check V-4: Ordering consistency.** Verify that atoms are ordered by anchor_span.start within each passage, and that sequence_in_passage values are zero-based and contiguous.
+**Check V-4: Ordering consistency.** Verify that main text atoms are ordered by anchor_span.start within each passage. Footnote atoms follow all main text atoms, ordered by footnote_source_index then by anchor_span.start within each footnote. Verify that sequence_in_passage values are zero-based and contiguous across all atoms (main text + footnotes).
 
 **Check V-5: Type completeness.** Verify that every atom has a structural_type. Verify that every atom except heading and whitespace_separator has a scholarly_function (which may be unclassified). Verify that every non-null scholarly_function has a function_confidence in [0.0, 1.0].
 
@@ -380,9 +382,9 @@ After atomization of each passage, the engine runs seven automated checks. Each 
 
 Arabic scholarly texts follow recognizable rhetorical patterns. A typical pattern in a fiqh text: (1) state the issue (تحرير المسألة), (2) present the first school's position (مذهب), (3) present their evidence (دليل), (4) present the opposing position, (5) present their evidence, (6) refute the weaker position (ردّ), (7) state the preponderant opinion (ترجيح). In a grammar text: (1) define the concept, (2) give the rule, (3) give examples, (4) state exceptions, (5) cite Sibawayhi's position, (6) note the Kufan disagreement.
 
-These patterns are not rigid, but they are recognizable. The atomization engine detects them by analyzing the sequence of scholarly function types across atoms within a passage. When a recognized pattern is detected, each atom in the pattern receives an atom_relations entry linking it to the other atoms in the pattern with appropriate relation types.
+These patterns are not rigid, but they are recognizable. The atomization engine detects them by analyzing the sequence of scholarly function types across atoms within a passage. When a recognized pattern is detected, each atom in the pattern receives an atom_relations entry linking it to the other atoms in the pattern with the relation types specified in the matching template (from the enum: illustrates, evidences, conditions, refutes, continues, responds_to).
 
-**Technical approach:** After the LLM assigns scholarly function types to all atoms in a passage, a post-processing step runs a pattern matcher over the sequence of types. The matcher uses a library of rhetorical pattern templates (defined in configuration, not hardcoded). Each template specifies: a sequence of scholarly function types (with optional elements and wildcards), the relation types to assign between matched atoms, and a pattern name.
+**Technical approach:** After the LLM assigns scholarly function types to all atoms in a passage, a post-processing step runs a pattern matcher over the sequence of types. The matcher uses a library of rhetorical pattern templates (defined in configuration, not hardcoded). Each template specifies: a sequence of scholarly function types (with optional elements and wildcards), the specific relation types to assign between matched atoms (from the atom_relations enum: illustrates, evidences, conditions, refutes, continues, responds_to), and a pattern name.
 
 **Example pattern: issue-opinion-evidence-refutation.**
 Template: [rule_statement|opinion_statement] → [evidence_*]{1,3} → [refutation] → [evidence_*]{0,3}
@@ -432,7 +434,7 @@ After atomizing all passages for a source, the engine computes an atom type dist
 **Per-source aggregate statistics:**
 - All per-passage statistics aggregated (sum, mean, std dev)
 - Source-level structural profile: is this source primarily definitional, evidential, argumentative, or mixed?
-- Anomaly detection: passages whose type distribution deviates significantly from the source mean (e.g., a suddenly evidence-heavy passage in an otherwise definition-focused text may indicate a chapter transition)
+- Anomaly detection: passages whose type distribution deviates more than 2 standard deviations from the source mean (e.g., a suddenly evidence-heavy passage in an otherwise definition-focused text may indicate a chapter transition)
 
 **Storage.** The distribution report is written to library/sources/{source_id}/atoms/distribution_report.json. This is a machine-readable artifact consumed by the excerpting engine (for excerpt boundary hinting), the scholar interface (for book briefing §D-022), and the quality monitoring system.
 
@@ -495,7 +497,7 @@ The same definition of المبتدأ appears in dozens of grammar books across 
 
 **Fingerprint generation (three-tier):**
 
-**Tier 1 — Normalized text hash (deterministic, fast).** The atom's text is normalized by: (a) stripping all diacritics (tashkil), (b) normalizing alef variants (أ/إ/آ → ا), taa marbuta (ة → ه for matching purposes only), and hamza forms, (c) removing common particles and connectives (و، ف، ثم، لكن) from the start, (d) sorting words alphabetically. The resulting normalized string is SHA-256 hashed. Exact textual duplicates (modulo diacritics and orthographic variants) produce identical hashes. This tier catches verbatim quotations across sources. Output: `fingerprint_text_hash` (string, 64 hex chars).
+**Tier 1 — Normalized text hash (deterministic, fast).** The atom's text is normalized by: (a) stripping all diacritics (tashkil), (b) normalizing alef variants (أ/إ/آ → ا), taa marbuta (ة → ه for matching purposes only), and hamza forms, (c) removing common particles and connectives (و، ف، ثم، لكن) from the start, (d) sorting words by Unicode codepoint order (not Arabic alphabetical order — Unicode order is deterministic and locale-independent). The resulting normalized string is SHA-256 hashed. Exact textual duplicates (modulo diacritics and orthographic variants) produce identical hashes. This tier catches verbatim quotations across sources. Output: `fingerprint_text_hash` (string, 64 hex chars).
 
 **Tier 2 — Key term extraction (LLM-assisted, medium cost).** During atomization, the LLM extracts 2-5 key Arabic terms from each atom — the conceptual core independent of phrasing. For a definition of المبتدأ, the key terms might be: [المبتدأ، اسم، مرفوع، عوامل، ابتداء]. These are stored as `fingerprint_key_terms` (array of strings, normalized). Two atoms sharing ≥70% of their key terms are candidate semantic duplicates even if their full text differs. This tier catches paraphrases and reformulations.
 
@@ -526,7 +528,7 @@ The atomization engine's validation architecture has three layers, following the
 - **Source-level layer plausibility:** If the source metadata declares the source as multi-layer (commentary), verify that at least one passage produced atoms with source_layer values from multiple layers. If all atoms are matn, either the source metadata is wrong or the layer detection failed.
 - **Type distribution sanity:** Using the distribution report (§4.B.3), flag anomalies that suggest systematic classification errors (e.g., 100% of atoms classified as prose_sentence with no scholarly function variety suggests the LLM prompt was ineffective).
 
-**Layer 3: Human gate integration.** The atomization engine does not have a dedicated human gate. Instead, human review is triggered by review flags on individual atoms. The excerpting engine's human gate reviews flagged atoms as part of excerpt review — this is the appropriate review point because atoms are intermediate artifacts that are most meaningful in the context of the excerpts they form. However, two conditions trigger source-level human review escalation:
+**Layer 3: Human gate integration.** The atomization engine does not have a dedicated human gate. Instead, human review is triggered by review flags on individual atoms. The excerpting engine's human gate reviews flagged atoms as part of excerpt review — atoms are intermediate artifacts whose classification decisions are most meaningful in the context of the excerpts they form. However, two conditions trigger source-level human review escalation:
 - More than 20% of atoms in a source have review flags → source-level atomization review.
 - More than 5% of atoms have scholarly_function: "unclassified" → source-level atomization review with prompt improvement task.
 
@@ -561,6 +563,12 @@ Every error the atomization engine can produce, with its code, severity, and rec
 | ATOM_LAYER_DISTRIBUTION_SUSPICIOUS | Info | All atoms in a multi-layer passage have the same layer | Log and flag source for review. Does not block processing. |
 | ATOM_HIGH_UNCLASSIFIED_RATE | Warning | >5% of source atoms have scholarly_function: "unclassified" | Flag source for human review. Suggests prompt needs improvement for this source's content type. |
 | ATOM_QURAN_REF_UNRESOLVED | Info | Quran fragment detected by pattern but could not match to specific ayah | Set unresolved_quran_ref review flag on the atom. Does not block processing. |
+| ATOM_ATTRIBUTION_PARSE_FAILURE | Warning | The LLM returned an attribution entry that does not conform to the ScholarlyAttribution schema (§4.B.4) | Drop the malformed attribution entry. Log the raw LLM output for debugging. Set review_flags: ["low_attribution_confidence"] on the atom. |
+| ATOM_ATTRIBUTION_LOW_CONFIDENCE | Info | An attribution entry has confidence below attribution_confidence_threshold (§4.B.4) | Set review_flags: ["low_attribution_confidence"] on the atom. Does not block processing. |
+| ATOM_FINGERPRINT_HASH_FAILURE | Warning | Text normalization for fingerprint hashing failed (e.g., CAMeL Tools error on malformed Unicode) (§4.B.5) | Set fingerprint_text_hash to null for this atom. Log the error. Does not block processing. |
+| ATOM_FINGERPRINT_EMBEDDING_FAILURE | Warning | Embedding model call failed for Tier 3 fingerprinting (§4.B.5) | Set fingerprint_embedding to null for this atom. Log the error. Does not block processing — Tier 1 and Tier 2 fingerprints remain available. |
+| ATOM_FINGERPRINT_KEY_TERMS_EMPTY | Info | The LLM returned zero key terms for an atom during Tier 2 fingerprinting (§4.B.5) | Set fingerprint_key_terms to empty array. Log a warning. Does not block processing. |
+| ATOM_UNKNOWN_LAYER_TYPE | Warning | A text_layer segment has a layer_type value not in the mapping (§4.A.6) | Default to source_layer "matn". Set review_flags: ["ambiguous_layer"]. Log the unrecognized value. |
 
 **Logging.** Every error and warning is logged to library/sources/{source_id}/atoms/atomization_log.jsonl with: timestamp, error code, passage_id, atom_id (if applicable), error details, and recovery action taken. Fatal errors additionally trigger an entry in the source's processing status.
 
@@ -661,8 +669,8 @@ Total: minimum 20 gold passages. Each gold passage specifies: input (passage rec
 
 **Unit test requirements (what MUST be tested):**
 
-1. **Offset integrity invariant.** For every atom in every gold passage, verify atom_text == passage_text[start:end]. This is the most critical test. 20 test cases (all gold passages).
-2. **Exhaustive coverage.** For every gold passage, verify that atom spans partition the full passage_text without gaps or overlaps. 20 test cases.
+1. **Offset integrity invariant.** For every main text atom in every gold passage, verify atom_text == passage_text[start:end]. For every footnote atom, verify atom_text == footnote_text[start:end] using the footnote identified by footnote_source_index. This is the most critical test. 20 test cases (all gold passages), plus 4 test cases specifically targeting footnote atoms.
+2. **Exhaustive coverage.** For every gold passage, verify that main text atom spans (source_layer != "footnote") partition the full passage_text without gaps or overlaps. 20 test cases.
 3. **Structural type accuracy.** Compare engine output structural types against gold types. Target: ≥95% exact match. 20 test cases.
 4. **Scholarly function accuracy.** Compare engine output scholarly functions against gold functions. Target: ≥85% exact match (scholarly function is harder than structural type). 20 test cases.
 5. **Layer attribution accuracy.** For multi-layer gold passages, verify correct source_layer assignment. Target: ≥90% exact match. 6 test cases (3 commentary passages + 3 single-layer control passages).
@@ -671,6 +679,10 @@ Total: minimum 20 gold passages. Each gold passage specifies: input (passage rec
 8. **Format-specific strategy selection.** Verify that the correct format-specific rules are applied for each structural_format value. 6 test cases (one per format).
 9. **Input validation.** Verify that malformed passage records (empty text, missing fields, invalid format) produce the correct error code and do not crash the engine. 5 test cases.
 10. **Offset correction algorithm.** Verify that the correction algorithm finds the right match within the search window for common drift patterns (off by 1–3 characters, diacritical differences). 10 test cases.
+11. **Attribution detection accuracy (§4.B.4).** For gold passages containing scholarly attributions, verify: (a) direct attributions ("قال الشافعي") are detected with correct attributed_to and attribution_type, (b) isnad chains are correctly segmented into ordered transmitter names, (c) school-level attributions ("مذهب الحنفية") produce school_collective type with correct school_scope, (d) self-attributions ("والراجح عندي") produce self type, (e) anonymous attributions ("قيل") produce anonymous type. Target: ≥85% precision and ≥80% recall for direct attributions; ≥70% precision and recall for anonymous/implicit. 8 test cases (from gold passages 2, 3, 5, 6 plus 4 additional attribution-focused test passages).
+12. **Fingerprint text hash determinism (§4.B.5 Tier 1).** Verify that the same atom text always produces the same fingerprint_text_hash regardless of diacritical variation. Test with: identical text, text differing only in tashkil, text differing in alef/hamza forms, text differing in taa marbuta. 8 test cases.
+13. **Fingerprint key terms relevance (§4.B.5 Tier 2).** Verify that key terms extracted for definition atoms include the defined term. Verify that key terms for evidence_quran atoms include a reference to the Quranic concept. Qualitative check — not pass/fail but logged for prompt tuning. 5 test cases.
+14. **Footnote atom integrity.** Verify that footnote atoms have source_layer "footnote", non-null footnote_source_index, and that the offset invariant holds against the footnote text (not passage_text). Verify footnote_for relation links to the correct main text atom. 4 test cases.
 
 **Regression testing strategy:** Gold baselines are never modified after initial creation (they are immutable ground truth). Any change to the atomization engine's code, prompts, or configuration triggers a full regression run against all gold baselines. If any gold baseline regresses (accuracy drops), the change is rejected until the regression is resolved.
 

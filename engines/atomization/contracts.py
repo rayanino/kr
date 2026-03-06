@@ -241,6 +241,11 @@ class AtomRecord(BaseModel):
     embedded_refs: list[EmbeddedRef] = Field(default_factory=list)
 
     # Footnote linkage
+    footnote_source_index: Optional[int] = Field(
+        None, ge=0,
+        description="For footnote atoms (source_layer=='footnote'): zero-based index "
+        "into the passage's footnotes array. Null for main text atoms."
+    )
     footnote_refs: list[FootnoteRef] = Field(default_factory=list)
 
     # Intra-passage relationships

@@ -1,5 +1,34 @@
 # Session Log — خزانة ريان
 
+## Session 13: Atomization Engine PRECISION
+**Date:** 2026-03-06
+**Type:** PRECISION
+**Focus:** Atomization SPEC audit — machine-readability, defect fixing, contracts synchronization
+
+**Defects Found and Fixed (15):**
+1. (CRITICAL) Footnote offset invariant contradiction — §4.A.9 said footnote atom spans are relative to footnote text, but V-2 and §4.A.8 required `atom_text == passage_text[start:end]` for ALL atoms. Fixed: added footnote variant of invariant, new `footnote_source_index` field, updated V-1, V-2, V-4, §3 guarantees, and coverage enforcement.
+2. Layer type mapping used "layer_1/layer_2/layer_3/editor" but upstream LayerType enum uses "matn/sharh/hashiyah/tahqiq_note/uncertain". Fixed mapping and added handling for "uncertain" layer type.
+3. Rule AB-6 said whitespace doesn't become atoms, but whitespace_separator structural type exists. Resolved contradiction: ordinary whitespace absorbed into preceding atom; explicit dividers ("***") become whitespace_separator atoms.
+4. V-1 (exhaustive coverage), V-2 (offset integrity), V-4 (ordering) all updated for footnote atom handling.
+5. §4.A.1 pre-screen "Select the appropriate atomization strategy" → specified: select by structural_format match per §4.A.7, calibrate confidence for low-fidelity passages.
+6. Coverage enforcement "nearest atom" → deterministic: always the preceding atom.
+7. §4.B.1 and §4.B.4 "appropriate relation types" → explicit enum reference.
+8. §5 "appropriate review point" → removed vague phrasing.
+9. §4.B.3 "deviates significantly" → ">2 standard deviations" (matching contracts.py).
+10. §4.A.5 "generic gold examples" → "prose-format gold examples".
+11. §4.B.5 Tier 1 word sorting → "Unicode codepoint order" (deterministic, locale-independent).
+12. §4.A.9 empty footnote text handling added.
+13. Missing error codes added for §4.B.4 (ATOM_ATTRIBUTION_PARSE_FAILURE, ATOM_ATTRIBUTION_LOW_CONFIDENCE) and §4.B.5 (ATOM_FINGERPRINT_HASH_FAILURE, ATOM_FINGERPRINT_EMBEDDING_FAILURE, ATOM_FINGERPRINT_KEY_TERMS_EMPTY) + ATOM_UNKNOWN_LAYER_TYPE.
+14. Test cases 11-14 added for attribution detection, fingerprint determinism, fingerprint relevance, and footnote atom integrity.
+15. Test cases 1-2 updated to account for footnote atom invariant variant.
+
+**Contracts.py Changes:** Added `footnote_source_index` field to AtomRecord.
+
+**Quality Script:** 41→35 defects (27 high). Remaining are false-positive VAGUE_QUANTIFIER on descriptive text and MISSING_EXAMPLE for worked examples (deferred to implementation prep).
+
+**Decisions:** None requiring owner input.
+**Next:** Atomization HARDENING session.
+
 ## Session 7 — Normalization Engine HARDENING
 **Date:** 2026-03-06
 **Type:** HARDENING
