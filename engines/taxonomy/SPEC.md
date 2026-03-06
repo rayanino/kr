@@ -359,6 +359,131 @@ The process:
 
 [NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: normalization engine's division tree output, source engine's work registry, LLM with Arabic scholarly knowledge, Instructor library.
 
+#### §4.B.4 — Scholarly Disagreement Topology (خريطة الخلاف)
+
+The taxonomy engine computes a structured disagreement map for every science that has schools (per SCIENCE.md). For each leaf, the engine classifies the scholarly state into one of five categories based on the placed excerpts and their metadata:
+
+**Category 1: Ijma' (consensus).** All schools with positions at this leaf agree on the ruling or definition. Specifically: 3+ schools are represented (from `school` metadata on placed excerpts), and the LLM determines that no genuine position conflict exists between them. The engine sends the excerpt topics and primary texts from each school to the LLM with the prompt: "Do these excerpts from different schools express the same position, or do they contain genuine scholarly disagreement?" The LLM returns a structured response: `consensus: true/false`, `reasoning: string`. If consensus is true, the leaf is classified `ijma_detected` with confidence equal to the number of agreeing schools divided by the total known schools for the science.
+
+**Category 2: Active khilaf (disagreement).** Two or more schools hold distinguishably different positions. The engine identifies the positions by clustering excerpts at the leaf by school affiliation, then using the LLM to summarize each school's position in one sentence and determine whether positions are genuinely different. The output per leaf is an array of `DisagreementPosition` objects, each containing: `schools` (array of school names that hold this position), `position_summary` (string, LLM-generated one-sentence summary), `evidence_types` (array of evidence types cited by this school for this position, from `evidence_refs` metadata), `earliest_scholar_date` (hijri year, from author metadata), `latest_scholar_date` (hijri year).
+
+**Category 3: Apparent consensus (potential false consensus).** Only one school's view is represented because the library lacks other schools' sources, but the science is known to have schools (per SCIENCE.md). The leaf is classified `apparent_consensus_unverified` with a note: "Only {school} is represented. Other schools may disagree but no sources are present." This is distinct from Category 1 — Category 1 requires positive evidence of agreement from 3+ schools; Category 3 flags the absence of data rather than claiming agreement.
+
+**Category 4: Intra-school disagreement.** Excerpts from the SAME school at this leaf express different positions. This happens when a school has internal debates (e.g., within the Hanafi school, Abu Hanifa vs. Abu Yusuf vs. Muhammad). The engine detects this when 2+ excerpts share a `school` value but the LLM determines they express different positions. The output records: `school`, `internal_positions` (array of position summaries with scholar attributions).
+
+**Category 5: Insufficient data.** Fewer than 2 verified excerpts at the leaf, or no school metadata available. The leaf is classified `insufficient_for_disagreement_analysis`.
+
+**Aggregation to branch and science level.** For each branch, the engine computes: `ijma_leaf_count`, `khilaf_leaf_count`, `apparent_consensus_leaf_count`, `insufficient_leaf_count`. For the science, the engine computes: percentage of leaves in each category, and a `khilaf_hotspot_list` — the top 10 branches by proportion of active khilaf leaves.
+
+**Pattern detection across the science.** After computing per-leaf classifications, the engine identifies recurring disagreement patterns. Specifically, it examines all Category 2 leaves and groups them by which schools oppose each other. If the same school pair (e.g., Hanafi vs. Shafi'i) accounts for >40% of disagreements in the science, this pattern is recorded as a `dominant_disagreement_axis` with the school pair and a count. The engine then sends the dominant axis's leaves to the LLM with the prompt: "These {n} topics all have Hanafi-Shafi'i disagreement. Is there a common underlying methodological principle (usuli or otherwise) that drives these disagreements, or are they independent?" The LLM's response is recorded as `axis_root_cause_hypothesis` — a string that the synthesizer can use as narrative material.
+
+**Output.** Written to `library/sciences/{science_id}/disagreement_topology.json`. Updated after every placement event that changes school representation at a leaf. The schema contains: `science_id`, `computed_utc`, `tree_version`, `per_leaf_classifications` (array), `branch_aggregations` (array), `science_summary` (object with category percentages), `khilaf_hotspots` (array), `dominant_disagreement_axes` (array with `school_pair`, `leaf_count`, `axis_root_cause_hypothesis`).
+
+**Interaction with coverage analytics.** School gaps (§4.A.6) and disagreement topology are complementary but distinct. A school gap says "Maliki sources are missing." Disagreement topology says "Of the topics where Maliki IS represented, they disagree with the Shafi'i school 73% of the time." Coverage gaps are about what's ABSENT; disagreement topology is about what's PRESENT.
+
+**Edge cases:**
+- Sciences without schools (e.g., Tajwid, Nahw): the engine skips school-based analysis but still computes intra-science disagreement by clustering excerpts at each leaf by position content. The output uses `positional_disagreement` instead of `school_disagreement`.
+- A leaf with excerpts from only one source per school: the engine computes disagreement but marks it `low_robustness` because the analysis rests on single-source evidence per school.
+- A leaf where the same author changes position between works: the engine treats each work's position independently (per excerpt), and flags the author-level shift in `intra_author_shifts`.
+
+**Why this is transformative.** No existing Islamic studies tool quantifies the topology of scholarly disagreement across an entire science. Classical ikhtilaf compilations (e.g., al-Mawsu'ah al-Fiqhiyyah, Bidayat al-Mujtahid) organize disagreements topic-by-topic but never reveal structural patterns: "80% of Hanafi-Shafi'i disagreements in worship law stem from differing positions on hadith authentication methodology." KR's disagreement topology makes these patterns visible and queryable. The synthesizer uses it to produce school-context sections in entries. The scholar interface uses it for Scenario 7's science map — showing disagreement hotspots as red regions on the tree. The student can ask: "Show me all topics where the four schools unanimously agree" — a question that would take months of manual research to answer, but KR can answer in seconds from the pre-computed topology.
+
+**Technical approach.** LLM analysis with Instructor for structured disagreement classification per leaf. Aggregation is deterministic computation (counting, grouping). Pattern detection combines deterministic grouping with LLM analysis for root cause hypotheses. No external libraries beyond Instructor and the LLM APIs.
+
+[NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: placed excerpts with school metadata, science configuration (school list), LLM with Arabic scholarly knowledge, Instructor library.
+
+#### §4.B.5 — Proactive Tree Evolution Prediction (استشراف التطور)
+
+The taxonomy engine predicts where the science tree will need to evolve BEFORE draft excerpts are processed, using the structural organization of newly registered sources. This is architecturally distinct from §4.A.5 (reactive signal detection after placement failures) — proactive prediction uses source metadata available BEFORE excerpting begins.
+
+**Trigger.** When a new source is registered in the source engine's work registry and has a normalization-produced division tree (the hierarchical structure of كتاب/باب/فصل/مسألة from the normalization engine's output), the taxonomy engine receives a notification containing: `source_id`, `science_id`, `division_tree` (the source's internal structural organization).
+
+**Prediction algorithm.** The engine aligns the source's division tree against the science's active taxonomy tree. For each leaf node in the source's division tree that maps to content (i.e., it has actual text beneath it, not just structural nesting), the engine determines which taxonomy leaf it corresponds to. Alignment uses the same LLM-based topic matching as §4.A.1's Stage 1b, but operates on source SECTIONS (chapter titles + first 200 characters) rather than individual excerpts.
+
+The engine then counts: for each taxonomy leaf, how many distinct source sections map to it. Three outcomes are possible per taxonomy leaf:
+
+**One-to-one (no prediction).** Exactly one source section maps to the leaf. This is the expected case — the tree's granularity matches the source's organization. No evolution predicted.
+
+**Many-to-one (split prediction).** Three or more source sections from the SAME source map to the same taxonomy leaf. This predicts the leaf is too coarse for this source's content. The engine generates a `split_prediction` containing: `leaf_path`, `source_id`, `mapped_section_count`, `section_titles` (the source's section titles that mapped here), `predicted_sub_topics` (the LLM's assessment of what distinct sub-topics the source sections cover), `confidence` (float 0.0–1.0, higher when more sections map to the same leaf). Confidence thresholds: ≥3 sections → 0.6 base; ≥5 sections → 0.8 base; adjusted downward by 0.1 if the source is known for unusually fine-grained organization. The threshold of 3 was chosen because 2 sections may represent the same sub-topic discussed from different angles (e.g., definition + examples), while 3+ strongly suggests genuinely distinct sub-topics.
+
+**Unmapped sections (gap prediction).** A source section does not match any taxonomy leaf (LLM confidence < 0.4 for all candidates). This predicts a missing leaf. The engine generates a `gap_prediction` containing: `source_id`, `unmapped_section_title`, `unmapped_section_content_preview` (first 200 characters), `nearest_leaf` (the best candidate with its low score), `predicted_topic` (LLM's characterization of what topic the section covers).
+
+**Prediction aggregation.** Predictions from a single source are tentative. The engine accumulates predictions across sources. When 2+ sources independently generate the same split prediction for the same leaf (measured by overlap in `predicted_sub_topics` via embedding similarity ≥ 0.7), the prediction is elevated to `high_confidence_evolution_signal` — functionally equivalent to 3 reactive signals from §4.A.5, skipping the signal accumulation wait.
+
+**Output.** Written to `library/sciences/{science_id}/evolution/predictions/{source_id}_predictions.json` per source. Aggregated predictions written to `library/sciences/{science_id}/evolution/predictions/aggregated.json`. High-confidence predictions are automatically converted to evolution proposals (§3.4) and routed to the human gate.
+
+**Interaction with reactive evolution (§4.A.5).** Proactive predictions and reactive signals feed the same evolution evaluation pipeline. A proactive prediction counts as one signal in §4.A.5's accumulation. If a proactive split prediction is confirmed by a subsequent reactive divergence signal (§4.A.5 Signal 1) from an actual placed excerpt, the combined evidence triggers immediate evolution evaluation regardless of the `evolution_signal_accumulation` threshold.
+
+**Owner notification.** When proactive predictions are generated for a new source, the owner is notified: "I've analyzed the structure of {source_title}. It has {n} sections that suggest your {science_name} tree needs adjustment at these leaves: {list}. Would you like to review these predictions now (before I process excerpts) or wait until excerpts confirm them?" This gives the owner the choice between preemptive tree refinement and wait-and-see.
+
+**Edge cases:**
+- Source with no division tree (e.g., a flat text with no chapters): no proactive predictions are generated. The engine relies entirely on reactive signals from §4.A.5.
+- Source whose organizational style is idiosyncratic (e.g., an alphabetically organized dictionary rather than topically organized): the engine detects this by checking whether the source's section titles follow alphabetical ordering (Arabic abjad). If detected, the source is flagged `non_topical_organization` and its predictions are discounted (confidence multiplied by 0.3).
+- Source in a science with no tree yet: predictions are stored but not evaluated until the tree is created. When the tree is created (§4.A.3), stored predictions are retroactively evaluated against the new tree.
+
+**Why this is transformative.** Current taxonomy systems (including KR's §4.A.5) are reactive — they discover tree problems AFTER excerpts fail to place correctly. For a 12-volume Fiqh encyclopedia that will produce thousands of excerpts, reactive evolution means hundreds of excerpts may be placed at suboptimal leaves before the tree catches up. Proactive prediction inverts this: by analyzing the source's structure upfront, the tree can be refined BEFORE the first excerpt is processed. This is especially valuable during library bootstrapping (Scenario 1) when many sources arrive at once and the initial trees are coarse. The owner experiences smooth onboarding instead of a flood of placement escalations and retrospective relocations.
+
+**Technical approach.** Division tree alignment uses the same LLM-based topic matching as placement (§4.A.1 Stage 1b) — no new model needed. Section counting and aggregation are deterministic. Embedding similarity for cross-source prediction matching uses the same sentence-transformers model as §4.A.1 Stage 1c. Owner notification integrates with the human gate system.
+
+[NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: normalization engine's division tree output, source engine's registration events, active taxonomy trees, LLM, Instructor library, sentence-transformers.
+
+#### §4.B.6 — Scholarly Landscape Reconstruction (المشهد العلمي)
+
+For each leaf with 2+ verified excerpts from 2+ distinct sources, the taxonomy engine constructs a **scholarly landscape** — a pre-computed, metadata-rich data structure that transforms raw excerpt metadata into the synthesizer's primary narrative fuel. The scholarly landscape answers the question: "For this topic, who said what, when, in response to whom, and how did the discourse evolve?"
+
+This capability bridges the gap between the taxonomy engine's placed excerpts and the synthesizing engine's entries. Without it, the synthesizer must perform ad-hoc research for every entry — analyzing author dates, teacher-student chains, school affiliations, and citation patterns from scratch. The scholarly landscape pre-computes this analysis once, ensuring consistency across entries and enabling the narrative depth shown in ENTRY_EXAMPLE.md.
+
+**Input.** For a given leaf: all placed verified excerpts, their full upstream metadata (source metadata, author metadata from the scholar authority registry, school affiliations, evidence types, content types, quoted scholars, implicit references from the excerpting engine's §4.B output).
+
+**Landscape construction.** The engine builds five sub-structures per leaf:
+
+**(a) Chronological position timeline.** All distinct scholarly positions at the leaf, ordered by the earliest author who held them. Each timeline entry contains: `position_id` (format `pos_{leaf_id}_{sequence}`), `position_summary` (LLM-generated one-sentence description of what this position claims), `first_known_proponent` (author with earliest death date who holds this position, from excerpt metadata), `first_known_date_hijri` (that author's death date), `subsequent_proponents` (array of {author, date, excerpt_id} for later scholars who explicitly held the same position), `school_affiliations` (which schools adopted this position), `evidence_basis` (array of evidence types cited for this position). The timeline enables the synthesizer to write: "This position was first articulated by X (d. Y AH) and later adopted by Z (d. W AH)."
+
+Position identity is determined by semantic equivalence: two excerpts express the "same position" if the LLM judges their substantive claims to be identical despite different wording. The LLM receives both excerpts' primary text and is prompted: "Do these two excerpts express the same scholarly position on {leaf_title}, or genuinely different positions? Respond with: same_position (true/false), reasoning (string)." Excerpts from different schools that reach the same conclusion via different evidence are classified as the same position with a note: `convergent_evidence: true`.
+
+**(b) Influence chain graph.** For each pair of scholars who address this topic, the engine determines whether an influence relationship exists. Influence is inferred from three sources, in priority order:
+
+1. **Explicit citation.** The excerpting engine's `quoted_scholars` metadata shows that Scholar B's excerpt quotes or cites Scholar A. This is direct evidence of influence.
+2. **Teacher-student relationship.** The scholar authority registry records that Scholar B studied under Scholar A (or under a chain that traces back to Scholar A). Combined with both scholars addressing the same topic, this implies transmission of ideas.
+3. **Temporal + positional inference.** Scholar B (later date) holds the same position as Scholar A (earlier date) and Scholar B's school traces intellectual lineage to Scholar A. This is weak evidence — recorded with `inferred: true` and `inference_confidence` (0.0–1.0).
+
+The influence chain is stored as a directed acyclic graph: nodes are scholars (with `scholar_id`, `name`, `death_date_hijri`, `school`), edges are influence relationships (with `type: explicit_citation | teacher_student | temporal_inference`, `confidence`, `excerpt_ids` that evidence the relationship). The synthesizer uses this graph to produce sentences like: "Ibn al-Sarraj was a student of al-Mubarrad, who was himself a student of al-Jarmi, who studied with al-Akhfash al-Awsat — Sibawayhi's own student."
+
+**(c) Discourse evolution narrative.** The engine uses the chronological timeline and influence chain to identify discourse transitions — moments when the scholarly conversation shifted. Three transition types are detected:
+
+- **Refinement.** Scholar B holds the same position as Scholar A but adds precision or restricts scope. Detected when the LLM judges: "B's position is a strict subset or refinement of A's position."
+- **Opposition.** Scholar B explicitly argues against Scholar A's position. Detected from `quoted_scholars` with role `refuted_position`, or from the LLM's analysis of content type `refutation` atoms in B's excerpt.
+- **Synthesis.** Scholar C combines elements of Scholar A's and Scholar B's competing positions into a new position. Detected when C's position shares elements with both A and B (by LLM judgment) and C's date is later than both A and B.
+
+The transitions are recorded as an array of `DiscourseTransition` objects: `transition_type`, `from_scholar`, `to_scholar`, `description` (LLM-generated explanation of what changed and why), `excerpt_ids` (evidence).
+
+**(d) Evidence evolution map.** For each position in the timeline, the engine tracks how the evidence basis changed over time. Early scholars may cite Quran and hadith directly; later scholars may cite earlier scholars' rulings as precedent; post-classical scholars may cite consensus (ijma') rather than original evidence. The map records: `position_id`, `evidence_by_period` (array of {`period_start_hijri`, `period_end_hijri`, `dominant_evidence_types`, `example_excerpt_id`}). Periods are determined by natural clustering of author death dates (gaps of ≥100 hijri years between clusters define period boundaries).
+
+**(e) School positioning summary.** For each school represented at the leaf, a structured summary: `school`, `position_id` (which position this school holds), `earliest_proponent` (author + date), `latest_proponent` (author + date), `internal_unity` (boolean — false if intra-school disagreement exists per §4.B.4 Category 4), `strength_of_evidence` (the diversity and quality of evidence cited: count of distinct evidence types used). This enables the synthesizer to write school-by-school sections with temporal context.
+
+**Output.** Written to `library/sciences/{science_id}/content/{leaf_path}/landscape.json`. Updated when: a new excerpt is placed at the leaf, an excerpt is relocated to or from the leaf, or scholar authority data is updated. The schema contains: `leaf_path`, `computed_utc`, `tree_version`, `excerpt_count` (number of verified excerpts contributing), `source_count` (number of distinct sources), `chronological_timeline` (array of positions), `influence_graph` (nodes + edges), `discourse_transitions` (array), `evidence_evolution` (array), `school_positioning` (array), `landscape_confidence` (float 0.0–1.0, based on data richness: higher when more sources, more schools, wider temporal span).
+
+**Confidence scoring.** Landscape confidence is computed as: `min(source_diversity_score, temporal_span_score, school_coverage_score)`, where:
+- `source_diversity_score`: `min(1.0, distinct_source_count / 4)` — 4+ sources gives full confidence.
+- `temporal_span_score`: `min(1.0, temporal_span_hijri / 400)` — 400+ years of scholarly coverage gives full confidence.
+- `school_coverage_score`: `min(1.0, represented_schools / total_schools_in_science)` — full school coverage gives full confidence. For sciences without schools, this factor is omitted.
+
+Low-confidence landscapes (< 0.4) are still computed and stored, but marked `preliminary` — the synthesizer should note the limited evidence base in the entry.
+
+**Edge cases:**
+- Leaf with excerpts from only one author: the landscape degenerates to a single-point timeline with no influence chains. It is still useful — it records the author's position, evidence, and school affiliation.
+- Leaf with excerpts from the same period only (all authors within 50 hijri years): the temporal analysis is limited, but positional and school analysis still applies. The `evidence_evolution` sub-structure is empty.
+- Quoted scholars in excerpts who are not in the scholar authority registry: the engine records them with the name from the excerpt metadata and `scholar_id: null`. A human gate checkpoint is created to resolve the scholar's identity.
+- Circular influence (scholar A cites B who cites A): possible when scholars are contemporaries debating each other. The influence graph remains a DAG by recording the direction of citation per excerpt, not per scholar pair. If A cites B in one excerpt and B cites A in another, both directed edges exist — this is not a cycle in the scholarly sense but a dialogue.
+
+**Why this is transformative.** The entry example in ENTRY_EXAMPLE.md shows the target quality: temporal depth, intellectual genealogy, school context, evidence evolution, discourse narrative. Today, producing ONE such entry requires a scholar to manually research author dates, trace teacher-student chains, compare evidence across centuries, and construct a narrative — a process that takes hours per topic. KR's scholarly landscape pre-computes ALL of this from metadata, for EVERY populated leaf, automatically. The synthesizer receives a ready-made narrative scaffold and focuses on prose quality rather than research. When the library has 200 populated leaves, the scholarly landscape has pre-computed 200 temporal analyses, 200 influence graphs, and 200 discourse narratives — a research effort that would take a human scholar months, done incrementally as excerpts are placed.
+
+The scholarly landscape also reveals knowledge the library implicitly contains but no single source explicitly states. No one source says "the Basran definition of المبتدأ was transmitted through a four-generation chain from Sibawayhi to Ibn al-Sarraj." That knowledge is COMPUTED from the intersection of teacher-student metadata, positional similarity, and temporal ordering across multiple sources. The landscape makes implicit scholarly relationships explicit.
+
+**Technical approach.** Position clustering uses LLM analysis with Instructor for structured output. Influence chain construction uses the scholar authority registry (graph traversal with NetworkX) combined with excerpting engine citation metadata. Discourse transition detection uses LLM classification. Period clustering for evidence evolution uses simple temporal gap analysis. All sub-structures are JSON-serializable.
+
+[NOT YET IMPLEMENTED] — Full specification provided; no code exists. Depends on: placed excerpts with full upstream metadata, scholar authority registry, excerpting engine's quoted_scholars and implicit reference data, LLM with Arabic scholarly knowledge, Instructor library, NetworkX for influence graph.
+
 ---
 
 ## 5. Validation and Quality
@@ -517,6 +642,9 @@ Each science's SCIENCE.md may override:
 | Topic significance (§4.B.1) | [NOT YET IMPLEMENTED] | Transformative capability. |
 | Difficulty estimation (§4.B.2) | [NOT YET IMPLEMENTED] | Transformative capability. |
 | Corpus-driven tree construction (§4.B.3) | [NOT YET IMPLEMENTED] | Transformative capability. |
+| Scholarly disagreement topology (§4.B.4) | [NOT YET IMPLEMENTED] | Transformative capability. |
+| Proactive tree evolution prediction (§4.B.5) | [NOT YET IMPLEMENTED] | Transformative capability. |
+| Scholarly landscape reconstruction (§4.B.6) | [NOT YET IMPLEMENTED] | Transformative capability. |
 | Multi-model consensus for placement | Not implemented for placement. Exists for evolution proposals. | **Extend to placement.** |
 
 ### 9.3 External Dependencies

@@ -1,5 +1,32 @@
 # Session Log — خزانة ريان
 
+## Session: Taxonomy Engine CREATIVE — 2026-03-06
+**Type:** CREATIVE
+**Engine:** Taxonomy (محرك التصنيف)
+
+**What was done:**
+- Read full taxonomy SPEC (562 lines), ENTRY_EXAMPLE.md, USER_SCENARIOS.md
+- Researched: Arabic NLP text classification, Islamic knowledge ontologies, scholarly knowledge graphs, ikhtilaf mapping, GRAPHYP dispute detection
+- Designed and wrote 3 new transformative capabilities (§4.B.4–§4.B.6):
+  - §4.B.4: Scholarly Disagreement Topology — maps consensus/disagreement patterns per leaf, branch, science; detects recurring axes with root cause hypotheses
+  - §4.B.5: Proactive Tree Evolution Prediction — predicts tree changes from source TOC alignment before excerpting begins
+  - §4.B.6: Scholarly Landscape Reconstruction — pre-computes chronological timeline, influence graphs, discourse transitions, evidence evolution per leaf
+- Created `engines/taxonomy/contracts.py` with Pydantic models for §2/§3 input/output + all §4.B outputs
+- Updated §9 implementation state table
+- Recorded 8 defects for PRECISION session
+
+**Quality metrics:**
+- `creative_verification.py`: 90/100 (up from 75)
+- `check_spec_quality.py`: 47 defects (39 pre-existing + 8 new — all deferred to PRECISION session)
+- SPEC grew from 562 to 691 lines
+
+**Decisions made:**
+- §4.B.4 disagreement analysis classifies into 5 categories (ijma, khilaf, apparent consensus, intra-school, insufficient) — not binary agree/disagree
+- §4.B.5 proactive prediction threshold: 3+ source sections mapping to same leaf (not 2, because 2 may be definition + examples of same sub-topic)
+- §4.B.6 landscape confidence formula: min(source_diversity, temporal_span, school_coverage) — conservative, because the weakest dimension limits narrative quality
+
+**No domain questions for owner.**
+
 ## Session 13: Atomization Engine PRECISION
 **Date:** 2026-03-06
 **Type:** PRECISION
