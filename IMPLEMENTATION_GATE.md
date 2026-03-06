@@ -79,6 +79,12 @@ python3 scripts/creative_verification.py engines/<n>/SPEC.md
 python3 scripts/verify_metadata_flow.py --boundary <upstream> <downstream>
 ```
 
+### G-10: Pipeline Test Harness
+- [ ] `kr-pipeline` CLI tool specified (how engines chain, report format, regression support)
+- [ ] `STRESS_TESTING.md` committed with communication protocol (Claude Code ↔ Claude Chat)
+- [ ] `test_corpus/` directory structure defined
+- [ ] Human-readable report format specified (Arabic content preserved, English labels)
+
 ---
 
 ## Implementation Order

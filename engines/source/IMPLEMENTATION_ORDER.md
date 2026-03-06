@@ -9,8 +9,9 @@ the Pydantic models defined there. Do not create parallel data structures.
 **Critical rule:** SPEC.md is the behavioral authority. Every processing decision
 references a specific SPEC section. When in doubt, read the SPEC.
 
-**v1 scope:** Shamela HTML intake (the only format with existing code and fixtures).
-Other formats are designed but marked as Phase 2 implementation.
+**v1 scope:** The first format normalizer built depends on available test data.
+The architecture is format-agnostic from day one — format-specific code is isolated
+in extractor modules. See `engines/source/SPEC.md` §4.A.3 for supported formats.
 
 ---
 

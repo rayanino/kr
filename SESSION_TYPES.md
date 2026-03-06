@@ -212,4 +212,6 @@ Scholar interface: C → P → H → I → [global verification]
 
 After the LAST component's IMPL_PREP, NEXT.md points to a GLOBAL_VERIFICATION session (cross-SPEC coherence, implementation gate check, Claude Code environment final setup).
 
+After global verification, the final Claude Chat task is: **PIPELINE_HARNESS_DESIGN** — design the `kr-pipeline` CLI tool that chains all 7 engines into a testable pipeline, generates human-readable reports (with Arabic content preserved), and supports regression testing. This is what Claude Code builds BEFORE individual engines. See `STRESS_TESTING.md` for the full testing phase architecture.
+
 Estimated total: ~35-40 sessions. At 1-2 sessions per day, this is 3-5 weeks of preparatory work. After that, the repo is 100% ready for Claude Code to take over implementation.
