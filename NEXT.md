@@ -1,55 +1,57 @@
 # NEXT SESSION
 
-**Written by:** Session 2026-03-06 (Cross-SPEC verification + VISION corrections)
+**Written by:** Session 2026-03-06 (Claude Code environment setup)
 **Date:** 2026-03-06
 
 ## Immediate Task
 
-Claude Code environment setup: populate `.claude/` directory and rewrite root CLAUDE.md for the implementation phase.
+Begin Milestone 1 implementation: source engine + normalization engine (Shamela format) end-to-end.
+
+Start with the **source engine** — specifically the Shamela intake path, since that's the format with existing ABD code and test data. The SPEC defines what to build; the ABD code is reference material only (D-019).
 
 **Definition of done — this session is complete when:**
-1. Root CLAUDE.md rewritten to conform to §13.3.2 requirements (≤100 lines, implementation-focused)
-2. `.claude/settings.json` populated with at minimum: permission settings, any initial hooks
-3. `.claude/commands/` populated with at least core slash commands for common implementation workflows
-4. `.claude/agents/` populated with at least one subagent definition (if useful subagents are identified)
-5. Optionally: إملاء SCIENCE.md started (minimal Level 3 doc for first science, needed for Milestone 1)
-6. Changes committed and pushed
+1. Source engine core module exists with Shamela intake: accepts a Shamela directory, freezes the raw files, extracts metadata, assigns source_id/work_id/canonical_id (D-024)
+2. Three registries initialized: sources.json, works.json, scholars.json
+3. Tests written and passing for Shamela intake path
+4. Engine CLAUDE.md updated with accurate state
 
 ## Context
 
-The preparatory phase is nearly complete. All 14 SPECs are written and verified:
-- 7 engines: source (582L), normalization (664L), passaging (502L), atomization (580L), excerpting (559L), taxonomy (562L), synthesizing (582L)
-- 6 shared components: consensus (405L), validation (406L), human_gate (413L), feedback (461L), user_model (368L), scholar_authority (462L)
-- 1 interface: scholar (872L)
+The preparatory phase is **complete**. All 14 SPECs written, cross-SPEC consistency verified, VISION.md at v1.2.0, Claude Code environment (.claude/) populated with settings, 7 commands, 3 agents. This is the first implementation session.
 
-Cross-SPEC consistency has been verified across all 14 boundaries. VISION.md has been updated to v1.2.0 with cross-cutting corrections (§8, §9, §11, §13.2).
-
-The last preparatory work is setting up the Claude Code development environment. This is critical infrastructure — Claude Code sessions will use the root CLAUDE.md, slash commands, and hooks on every implementation session.
+Milestone 1 target (from VISION.md §10.2): Source engine + normalization engine working end-to-end for Shamela format. One source in, normalized package out. This proves the Phase 1 pipeline.
 
 ## Files to Read — IN THIS ORDER
 
-1. `VISION.md` §13.3 (Agent Context Engineering) and §13.5 (Agent Infrastructure) — these define the requirements for the .claude/ directory and root CLAUDE.md. Use: `python3 scripts/extract_vision_sections.py 13` and read §13.3 and §13.5.
-2. Root `CLAUDE.md` — the current version, to understand what exists before rewriting.
-3. The archived roadmap `reference/archive/kr_definitive_roadmap_v2.md` — has a section on .claude/ setup. Read only that section (search for ".claude" or "agents").
-4. `STATUS.md` — for current project state to include in the CLAUDE.md.
+1. `engines/source/CLAUDE.md` — orientation (auto-loaded on directory entry).
+2. `engines/source/SPEC.md` — the authoritative specification. READ FULLY before writing any code.
+3. `reference/DOMAIN.md` — domain knowledge context (if not recently read).
+4. ABD code for reference only: `engines/source/src/intake.py`, `engines/source/src/enrich.py`.
+5. Existing tests: `engines/source/tests/` — understand what's tested today.
+6. `schemas/SCHEMA_ANALYSIS.md` — notes on schema state.
 
-**Context budget note:** This task is lighter than SPEC writing. No need to read all 14 SPECs. The .claude/ work is infrastructure setup, not deep architectural design. Budget should be ample.
+**Do NOT read all 14 SPECs.** Only the source engine SPEC is needed for this session.
 
 ## Decisions Needed
 
-- **Which slash commands?** §13.5.3 says commands are created incrementally. But some are obvious for implementation: "run all tests", "validate schemas", "run engine pipeline", "check documentation consistency." Decide which commands to create now vs. which to create during implementation.
-- **Which hooks?** §13.5.2 says hooks enforce rules mechanically. Obvious candidates: pre-commit hook to run tests, post-edit hook to validate schemas. Decide which hooks are worth creating before any implementation code exists.
-- **Subagents?** §13.5.1 lists anticipated subagents (research, review, integrity). Decide if any are worth creating now or if they should wait for implementation experience.
-- **Root CLAUDE.md content.** §13.3.2 prescribes exactly what must be in it (identity, repo map, pipeline summary, pre/post-work protocols, architectural constraints, current priorities). The current CLAUDE.md may need a complete rewrite.
+- **Python packaging:** The current `_paths.py` approach works but won't scale. Decide whether to introduce `pyproject.toml` with package structure now or defer. (Recommendation: defer — get engines working first, refactor packaging after Milestone 1.)
+- **Test data:** ABD tests reference Shamela data. Verify the test corpus is accessible. If not, the owner needs to provide sample Shamela directories or the test data needs to be committed (or use Git LFS).
+- **API keys for LLM calls:** Source engine metadata enrichment uses LLM. Verify `.env` setup works. If not, ask the owner to configure keys.
 
 ## Pending Owner Questions
 
-None.
+None currently. Implementation may surface domain questions about Shamela metadata fields.
 
 ## What This Session Did
 
-Completed cross-SPEC consistency verification across all 14 SPECs and VISION.md. Verified all engine-to-engine boundaries (field-level check), shared component integration patterns, and terminology coherence. Found one minor gap (taxonomy provenance list missing `school_confidence`) — fixed. Applied VISION.md cross-cutting corrections: §8 (referenced actual component SPECs, added D-033), §9 (referenced human_gate SPEC), §11 (added Principles 13-15 for D-018, D-033, D-023), §13.2 (updated repo layout tree and directory descriptions for all 14 components including interface/). Updated VISION.md to v1.2.0. Updated STATUS.md.
+Populated Claude Code environment for implementation phase:
+- Rewrote root CLAUDE.md (62 lines, ≤100 limit, all §13.3.2 content categories).
+- Refined `.claude/settings.json`: expanded permissions for implementation work, improved hooks.
+- 7 slash commands: start-engine, run-tests, check-spec, read-vision (refined), validate-output, trace-pipeline, impl-status (new).
+- 3 subagents: spec-reviewer (opus), test-runner (sonnet), integrity-checker (sonnet, new).
+- Updated `_paths.py` to include user_model, scholar_authority, interface/scholar.
+- Created missing src/ and tests/ directories for newer components.
 
 ## New Decisions
 
-None this session. (All changes were corrections and extensions of existing decisions, not new architectural decisions.)
+None. This session was infrastructure setup, not architectural design.

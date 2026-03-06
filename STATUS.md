@@ -1,7 +1,7 @@
 # خزانة ريان — Project Status
 
 **Last updated:** 2026-03-06
-**Phase:** Preparatory phase — ALL SPECs complete. Cross-SPEC consistency verified. VISION.md cross-cutting corrections applied (v1.2.0). Next: Claude Code environment setup (.claude/ directory).
+**Phase:** Preparatory phase **COMPLETE**. All SPECs written, verified, VISION v1.2.0, .claude/ populated. Ready for Milestone 1 implementation.
 **Tests:** 903 pass, 37 skip, 1 fail (API key) — all ABD-era; no KR-specific tests yet
 
 ---
@@ -27,7 +27,7 @@
 | Scholar Authority SPEC | Complete | 462L. |
 | Scholar Interface SPEC | Complete | 872L. Hybrid retrieval pipeline (Qdrant + Arabic embeddings + cross-encoder). 5 transformative capabilities: debate simulation, scholarly fingerprinting, unanswered question discovery, optimal source prediction, knowledge decay prediction. |
 | 7 schemas in schemas/ | ABD-era, superseded | Schemas now authoritatively defined in engine SPECs §2/§3. JSON files to be regenerated during implementation. |
-| root CLAUDE.md | Exists | Needs update for implementation phase. |
+| root CLAUDE.md | Complete (62L) | §13.3.2 compliant, implementation-focused. |
 | 7 engine CLAUDE.md | Exist | Updated alongside each SPEC. |
 | kr_decisions.md | 42 decisions | D-001 to D-042. |
 | SCHEMA_ANALYSIS.md | Updated | Notes all SPECs complete; JSON files superseded by SPEC definitions. |
@@ -72,7 +72,7 @@ ABD code has zero design authority (D-019). SPECs define what to build. ABD code
 ### Infrastructure
 | Component | State |
 |-----------|-------|
-| `.claude/` | Exists but empty — needs population for Claude Code |
+| `.claude/` | Populated — settings.json (permissions + hooks), 7 commands, 3 agents |
 | CI/CD | None |
 | Python packaging | `_paths.py` only |
 | Integration tests | None |
@@ -90,9 +90,11 @@ Remaining preparatory work:
 2. ~~Full coherence review~~ — **DONE** (2026-03-06). Terminology consistent across all documents.
 3. ~~Cross-cutting VISION corrections~~ — **DONE** (2026-03-06). §8, §9, §11, §13.2 updated. Principles 13–15 added.
 4. ~~Re-verify §0–§4, §13~~ — **DONE** (2026-03-06). §0–§4 consistent with SPEC-derived knowledge. §13 updated.
-5. **Claude Code environment** — populate `.claude/` directory with agents, commands, hooks, settings for Claude Code implementation sessions.
-6. **Root CLAUDE.md rewrite** — needs to conform to §13.3.2 requirements for implementation phase.
-7. **إملاء SCIENCE.md** — minimal Level 3 doc for first science.
+5. ~~Claude Code environment~~ — **DONE** (2026-03-06). `.claude/` populated: settings.json, 7 commands, 3 agents. Root CLAUDE.md rewritten (62L, §13.3.2 compliant).
+6. ~~Root CLAUDE.md rewrite~~ — **DONE** (2026-03-06). 62 lines, implementation-focused.
+7. **إملاء SCIENCE.md** — minimal Level 3 doc for first science. Can be done during Milestone 1 when needed.
+
+**The preparatory phase is complete.** Next: Milestone 1 implementation (source + normalization engines, Shamela format).
 
 ---
 

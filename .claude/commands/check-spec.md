@@ -1,14 +1,14 @@
-Review the SPEC.md for the specified engine for consistency and completeness.
+Review a SPEC.md for consistency with code and adjacent SPECs.
 
-Engine: $ARGUMENTS
+Component: $ARGUMENTS
 
 Steps:
-1. Read `engines/$ARGUMENTS/SPEC.md` fully.
-2. Verify input/output schema references exist in `schemas/`.
-3. Check upstream engine's output contract matches this engine's input contract.
-4. Check this engine's output contract matches downstream engine's input contract.
-5. Verify all VISION.md cross-references (§N.N) and decision references (D-NNN) are valid.
-6. Check §9 matches actual code in `engines/$ARGUMENTS/src/`.
-7. Flag ambiguous sentences, missing edge cases, or undefined terms.
+1. Read the component's SPEC.md fully.
+2. Read the component's `src/` code (if any exists).
+3. Verify §9 (Current Implementation State) matches actual code.
+4. Verify the upstream engine's output matches this engine's §2 (Input Contract).
+5. Verify this engine's §3 (Output Contract) matches the downstream engine's §2.
+6. Spot-check 2-3 VISION.md cross-references (§N.N) and decision references (D-NNN).
+7. Flag ambiguous sentences, missing edge cases, or stale implementation descriptions.
 
 Report issues with exact quotes and suggested fixes.

@@ -5,4 +5,4 @@ Example: /read-vision 2 7.6
 
 Run: `python3 scripts/extract_vision_sections.py $ARGUMENTS`
 
-Read the output and summarize the key points relevant to the current task.
+Summarize the key points relevant to the current task.

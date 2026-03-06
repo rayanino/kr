@@ -15,6 +15,9 @@ _dirs = [
     ROOT / "shared" / "validation" / "src",
     ROOT / "shared" / "human_gate" / "src",
     ROOT / "shared" / "feedback" / "src",
+    ROOT / "shared" / "user_model" / "src",
+    ROOT / "shared" / "scholar_authority" / "src",
+    ROOT / "interface" / "scholar" / "src",
 ]
 for d in _dirs:
     s = str(d)

@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd $CLAUDE_PROJECT_DIR && python -m pytest engines/*/tests/ shared/*/tests/ -q --tb=short 2>&1 | tail -5; test ${PIPESTATUS[0]} -eq 0 || (echo 'ERROR: Tests must pass before committing. Run tests and fix failures first.' && exit 2)"
+            "command": "cd $CLAUDE_PROJECT_DIR && python -m pytest engines/*/tests/ shared/*/tests/ -q --tb=line 2>&1 | tail -5; test ${PIPESTATUS[0]} -eq 0 || (echo 'BLOCK: Tests must pass before committing.' && exit 2)"
           }
         ]
       },
@@ -15,18 +15,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd $CLAUDE_PROJECT_DIR && python -m pytest engines/*/tests/ shared/*/tests/ -q --tb=short 2>&1 | tail -5; test ${PIPESTATUS[0]} -eq 0 || (echo 'ERROR: Tests must pass before pushing.' && exit 2)"
+            "command": "cd $CLAUDE_PROJECT_DIR && python -m pytest engines/*/tests/ shared/*/tests/ -q --tb=line 2>&1 | tail -5; test ${PIPESTATUS[0]} -eq 0 || (echo 'BLOCK: Tests must pass before pushing.' && exit 2)"
           }
         ]
       }
     ],
     "PostToolUse": [
       {
-        "matcher": "Edit|MultiEdit|Write",
+        "matcher": "Write|Edit|MultiEdit",
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.file_path // .tool_input.path // empty' | { read file_path; if echo \"$file_path\" | grep -q 'engines/.*/src/'; then engine=$(echo \"$file_path\" | sed 's|.*/engines/\\([^/]*\\)/.*|\\1|'); echo \"REMINDER: You modified engine code in $engine. If behavior changed, update engines/$engine/SPEC.md. If state changed, update engines/$engine/CLAUDE.md.\"; fi; }"
+            "command": "file_path=\"$TOOL_INPUT_FILE_PATH\"; if [ -z \"$file_path\" ]; then file_path=\"$TOOL_INPUT_PATH\"; fi; if echo \"$file_path\" | grep -q 'engines/.*/src/\\|shared/.*/src/\\|interface/.*/src/'; then component=$(echo \"$file_path\" | sed -E 's|.*(engines|shared|interface)/([^/]*)/.*|\\1/\\2|'); echo \"REMINDER: Code modified in $component. Update SPEC.md if behavior changed. Update CLAUDE.md if state changed.\"; fi"
           }
         ]
       }
@@ -35,6 +35,11 @@
   "permissions": {
     "allow": [
       "Bash(python -m pytest *)",
+      "Bash(python3 -m pytest *)",
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(pip install *)",
+      "Bash(pip3 install *)",
       "Bash(cd *)",
       "Bash(cat *)",
       "Bash(ls *)",
@@ -43,10 +48,27 @@
       "Bash(wc *)",
       "Bash(head *)",
       "Bash(tail *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(rm *)",
+      "Bash(touch *)",
       "Bash(git log *)",
       "Bash(git diff *)",
-      "Bash(git status *)",
-      "Bash(python3 scripts/*)"
+      "Bash(git status*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push*)",
+      "Bash(git checkout *)",
+      "Bash(git branch *)",
+      "Bash(git stash *)",
+      "Bash(tree *)",
+      "Bash(sed *)",
+      "Bash(awk *)",
+      "Bash(sort *)",
+      "Bash(diff *)",
+      "Bash(echo *)",
+      "Bash(jq *)"
     ]
   }
 }
