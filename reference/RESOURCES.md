@@ -32,6 +32,22 @@ Key findings from web research:
 
 **OpenITI** — Latest release Dec 2025 on Zenodo. Python package v0.1.6 (Nov 2025, `pip install openiti`). The metadata CSV at kitab-corpus-metadata.azurewebsites.net is the key resource for scholar authority bootstrapping (§4.B.1). CTS-compliant URIs encode author death dates (e.g., `0505Ghazali.IhyaCulumDin`). Over 7,000 texts integrated, 40,000+ raw texts available.
 
+## Technology Survey Update (2026-03-06, Creative Session — Normalization Engine)
+
+Key findings from web research on Arabic document processing and OCR landscape:
+
+**Baseer** (Misraj AI, 2025) — Arabic-specific VLM for document-to-Markdown OCR. Based on Qwen2.5-VL-3B-Instruct, fine-tuned on 500K Arabic document-text pairs (300K synthetic + 200K real-world). WER 0.25 on Misraj-DocOCR benchmark (SOTA). Best TEDS score (56) and MARS score (68.13) for structural fidelity — tables, footnotes, column layouts. Launched commercially at AWS re:Invent 2025. Paper: arXiv:2509.18174. Open weights on HuggingFace: `Misraj/Baseer`. **KR use: §4.B.6 (Adaptive OCR Orchestration)** — best engine for multi-column Arabic layouts and structural document parsing. Complements QARI-OCR (better for diacritics) and PaddleOCR-VL (better for speed).
+
+**PaddleOCR-VL 1.5** (Baidu, 2025) — Ultra-compact (0.9B params) VLM for multilingual document parsing. 109 languages including Arabic. Two-stage pipeline: PP-DocLayoutV2 for layout analysis + PaddleOCR-VL-0.9B for element recognition. 94.5% on OmniDocBench v1.5 (SOTA). Supports skewed, warped, scanned documents. Apache 2.0, local deployment. `pip install paddlepaddle-gpu && pip install -U "paddleocr[doc-parser]"`. **KR use: §4.B.6** — fast, cheap first-pass OCR for clean pages; PP-DocLayoutV2 as layout pre-analyzer for all pages before engine selection. Warning: Flash Attention 2 required for reasonable VRAM on Arabic pages (otherwise 40GB+ for a single page).
+
+**Granite-Docling-258M** (IBM, Sep 2025) — 258M parameter VLM for end-to-end document conversion. Uses DocTags (IBM structural markup). Experimental Arabic support. Apache 2.0. Successor to SmolDocling. Integrated into Docling library. **KR use:** Potential lightweight alternative for simple Arabic document parsing, but Arabic support is still early-stage — monitor progress. Not recommended as primary for KR's scholarly Arabic texts.
+
+**KITAB-Bench** (MBZUAI, ACL 2025) — Comprehensive Arabic OCR benchmark: 9 domains, 36 sub-domains, 8,809 samples. Tasks: OCR, layout detection, line recognition, table recognition, PDF-to-Markdown, chart extraction, VQA. Introduces MARS (Markdown Recognition Score), TEDS (Table Edit Distance), SCRM (Chart Extraction) metrics. Paper: arXiv:2502.14949. **KR use:** Benchmark for evaluating normalization engine OCR quality against standard Arabic documents.
+
+**ArabiDoc** (ICLR 2026 submission) — Holistic Arabic-English evaluation benchmark for full-page document parsing. Covers text, tables, charts, and reading order jointly. Fills gap left by KITAB-Bench (which is task-specific, not end-to-end). **KR use:** When evaluating normalization engine end-to-end quality across mixed Arabic/English content.
+
+**SARD** (2025) — Synthetic Arabic OCR dataset: 843,622 document images, 690M words, 10 Arabic fonts. Designed for book-style Arabic text recognition training. Paper: arXiv:2505.24600. **KR use:** Potential fine-tuning data if KR needs to train a domain-specific OCR model for classical Islamic scholarly texts.
+
 ---
 
 ## Document Processing

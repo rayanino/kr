@@ -606,3 +606,17 @@ Bridged the gap between the hardened SPEC and buildable code. Five deliverables:
 - contracts.py is read-only for Claude Code — schema changes require architect session
 
 **Domain questions for owner:** None. API keys reminder: Anthropic + OpenAI keys needed for Tasks 8+ (LLM integration).
+
+### Session 2026-03-06-f — Claude Chat
+**Type:** CREATIVE (normalization engine)
+**Focus:** Invent transformative capabilities for the normalization engine
+**Research:** 8+ web searches — Arabic OCR landscape 2025-2026: Baseer (Misraj AI, WER 0.25), PaddleOCR-VL 1.5 (Baidu, 0.9B params, 94.5% OmniDocBench), QARI-OCR v0.2 (CER 0.061 diacritics), KITAB-Bench (ACL 2025, Arabic OCR benchmark), Granite-Docling-258M (IBM, experimental Arabic), ArabiDoc (ICLR 2026 submission), SARD dataset
+**Deliverables:**
+- 3 new §4.B capabilities in normalization SPEC:
+  - §4.B.5 Content Census and Downstream Adaptation Signals — statistical profile for adaptive processing
+  - §4.B.6 Adaptive Multi-Engine OCR Orchestration — page-level engine selection (PaddleOCR-VL/QARI/Baseer/Mistral)
+  - §4.B.7 Tahqiq Apparatus Topology Extraction — manuscript witness network from footnotes
+- RESOURCES.md updated with 6 new technology entries
+- §4.B score: 75 → 90/100. Capabilities: 4 → 7. SPEC: 665 → 902 lines.
+**Decisions:** None (creative session — inventions, not architectural decisions)
+**Next:** Normalization engine PRECISION session

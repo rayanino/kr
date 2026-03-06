@@ -440,6 +440,242 @@ The scholar interface can display the fidelity heat map overlaid on the source t
 
 [NOT YET IMPLEMENTED] — Full specification provided. Depends on: LLM footnote classifier, pattern library for Arabic scholarly footnote conventions.
 
+#### §4.B.5 — Content Census and Downstream Adaptation Signals
+
+**Capability:** Before any downstream engine touches the normalized package, the normalization engine produces a **content census** — a structured statistical profile of what the source contains, how it is organized, and how its content distributes across categories. This census travels with the normalized package as manifest metadata, enabling every downstream engine to adapt its processing strategy to THIS source's specific characteristics without reading the entire content stream first.
+
+No existing scholarly text processing tool produces this kind of metadata. Current systems treat all 500-page books identically regardless of whether the book is 80% legal rulings or 80% hadith narration. The census changes that.
+
+**Census fields (written to `manifest.json` under `content_census`):**
+
+- `total_pages`: integer. Number of content units.
+- `text_density_profile`: object. `mean_chars_per_page` (int), `median_chars_per_page` (int), `std_dev` (float), `sparse_page_count` (int, pages with <200 chars), `dense_page_count` (int, pages with >3000 chars). Downstream use: the passaging engine uses density distribution to calibrate target passage length — a dense fiqh reference needs smaller passages than a sparse devotional text.
+- `verse_ratio`: float (0.0–1.0). Proportion of content units with `has_verse: true`. When >0.30, the passaging engine activates verse-aware boundary detection across all pages (not just flagged ones).
+- `table_ratio`: float (0.0–1.0). Proportion of content units with `has_table: true`. When >0.10, the excerpting engine expects structured tabular knowledge (comparative rulings, conjugation tables).
+- `quran_citation_ratio`: float (0.0–1.0). Proportion of content units with `has_quran_citation: true`. High ratios (>0.20) signal a tafsir-adjacent or usul-heavy source; the excerpting engine adjusts to extract evidence chains.
+- `hadith_citation_ratio`: float (0.0–1.0). Proportion of content units with `has_hadith_citation: true`. High ratios (>0.15) signal a hadith-driven source; the excerpting engine prioritizes hadith takhrij extraction.
+- `layer_complexity`: object. For multi-layer sources: `layer_count` (int), `transition_density` (float, mean layer transitions per page), `matn_ratio` (float, proportion of text attributed to Layer 1). Downstream use: high transition density (>5 per page) warns the excerpting engine that excerpt boundaries must respect layer transitions.
+- `structural_depth`: object. `division_count` (int), `max_depth` (int, deepest level in the division tree), `mean_pages_per_leaf_division` (float). Downstream use: the passaging engine uses leaf division size to decide whether divisions alone provide sufficient passage granularity or whether sub-division splitting is needed.
+- `footnote_density`: object. `mean_footnotes_per_page` (float), `max_footnotes_on_single_page` (int), `footnote_text_ratio` (float, proportion of total text that is footnotes). High footnote density (>5 per page) signals a heavily annotated tahqiq edition — the excerpting engine expects rich editorial metadata.
+- `vocabulary_profile`: object. `estimated_unique_terms` (int, approximated from a random sample of 20 pages using HyperLogLog), `technical_term_density` (float, proportion of words matching the KR technical glossary for this source's science classification), `diacritics_density` (float, proportion of characters that are diacritical marks). High diacritics density (>0.08) signals a vocalized scholarly text, increasing downstream confidence in precise grammatical analysis.
+- `fidelity_distribution`: object. `high_pct` (float), `medium_pct` (float), `low_pct` (float), `very_low_pct` (float). Downstream use: if `low_pct + very_low_pct > 0.25`, the excerpting engine applies conservative extraction thresholds and flags uncertain regions.
+
+**Computation method:** The census is computed as a post-processing step after all content units are generated (Pass 6 in the Shamela normalizer, equivalent final pass in other normalizers). It iterates over the content JSONL once, accumulating statistics. For `vocabulary_profile.estimated_unique_terms`, a HyperLogLog sketch (precision 14, standard error ~0.8%) processes word tokens from a random sample of 20 content units to avoid reading every word. For `technical_term_density`, the normalizer loads the KR technical glossary for the source's science classification (a pre-built set of ~500–2000 terms per science) and measures the proportion of content words that appear in it.
+
+**Concrete output example (for شرح ابن عقيل على ألفية ابن مالك, a Shamela export):**
+
+```json
+{
+  "content_census": {
+    "total_pages": 847,
+    "text_density_profile": {
+      "mean_chars_per_page": 1842,
+      "median_chars_per_page": 1920,
+      "std_dev": 412.3,
+      "sparse_page_count": 23,
+      "dense_page_count": 89
+    },
+    "verse_ratio": 0.38,
+    "table_ratio": 0.01,
+    "quran_citation_ratio": 0.12,
+    "hadith_citation_ratio": 0.04,
+    "layer_complexity": {
+      "layer_count": 2,
+      "transition_density": 3.7,
+      "matn_ratio": 0.18
+    },
+    "structural_depth": {
+      "division_count": 142,
+      "max_depth": 3,
+      "mean_pages_per_leaf_division": 5.2
+    },
+    "footnote_density": {
+      "mean_footnotes_per_page": 4.1,
+      "max_footnotes_on_single_page": 14,
+      "footnote_text_ratio": 0.22
+    },
+    "vocabulary_profile": {
+      "estimated_unique_terms": 8420,
+      "technical_term_density": 0.14,
+      "diacritics_density": 0.11
+    },
+    "fidelity_distribution": {
+      "high_pct": 0.97,
+      "medium_pct": 0.02,
+      "low_pct": 0.01,
+      "very_low_pct": 0.0
+    }
+  }
+}
+```
+
+This census tells downstream engines: this is a 2-layer commentary (sharh on matn) with frequent verse quotation (38% of pages — the Alfiyyah lines), heavy footnotes (tahqiq edition), high vocabulary density (nahw technical terms), and excellent fidelity (Shamela digital text). The passaging engine knows to respect verse boundaries, the excerpting engine knows to expect nahw terminology and hadith citations, and the synthesizer knows this source's metadata is rich enough for narrative construction.
+
+**What this enables that was previously impossible:** A scholar studying 50 books on nahw cannot quickly know "which of these books has the most hadith evidence?" or "which is the most footnote-dense tahqiq?" The census answers these questions before any human reads a page. It also enables the application to PRIORITIZE processing: sources with high technical term density in the owner's focus sciences get processed first.
+
+[NOT YET IMPLEMENTED] — Full specification provided. No external dependencies beyond content flags already computed in §4.A.9.
+
+#### §4.B.6 — Adaptive Multi-Engine OCR Orchestration
+
+**Capability:** Instead of routing all scanned/image pages through a single OCR engine, the normalization engine implements an **adaptive orchestrator** that selects the optimal OCR engine (or engine combination) for each page based on that page's visual characteristics. Different pages within the same source may be processed by different engines.
+
+This matters because the 2025 Arabic OCR landscape has specialized tools with complementary strengths:
+
+| Engine | Strength | Weakness | Cost |
+|--------|----------|----------|------|
+| Mistral OCR 3 (API, `mistral-ocr-latest`) | Best layout understanding, good Arabic | Weaker on dense diacritics, API cost | ~$1-2/1000 pages |
+| QARI-OCR v0.2 (local, Qwen2-VL-2B fine-tuned) | Best diacritics handling (CER 0.061), open-source | Weaker on complex multi-column layouts | GPU time only |
+| Baseer (local/API, Qwen2.5-VL-3B fine-tuned) | Best Arabic document-to-markdown structural fidelity (WER 0.25) | Less tested on heavily diacritized classical texts | GPU time only |
+| PaddleOCR-VL 1.5 (local, 0.9B) | Fastest, lightest, 94.5% OmniDocBench, 109 languages | Arabic support less specialized than dedicated Arabic models | CPU/GPU, minimal |
+
+No single engine is best for all pages. A page of clean modern Arabic print → PaddleOCR-VL (fast, cheap, accurate enough). A page of densely diacritized classical nahw → QARI-OCR (best tashkeel handling). A complex multi-column layout with tables and footnotes → Baseer or Mistral OCR (best structural understanding). A degraded smartphone photo → Mistral OCR (best at noisy input interpretation).
+
+**Page classification algorithm:**
+
+For each page image, the orchestrator runs a lightweight pre-analysis (before full OCR):
+
+1. **Layout complexity assessment.** Using PaddleOCR-VL's PP-DocLayoutV2 layout analysis model (runs in <0.5s per page), classify the page into: `single_column`, `multi_column`, `table_heavy`, `mixed_layout`. This model detects text blocks, tables, figures, and reading order without performing full OCR.
+
+2. **Diacritics density estimation.** Run PaddleOCR-VL 1.5 (fast, lightweight) on the page. Analyze the output text for diacritics density: count tashkeel characters (U+064B–U+0652, U+0670) as a proportion of total characters. If diacritics_density > 0.08, the page is classified as `diacritics_heavy`.
+
+3. **Image quality assessment.** Compute: resolution (DPI or equivalent pixel density), contrast ratio, blur metric (Laplacian variance), and skew angle. Pages with blur_metric < 100 or contrast_ratio < 1.5 are classified as `degraded`.
+
+4. **Engine selection matrix:**
+
+| Layout | Diacritics | Quality | Primary Engine | Fallback |
+|--------|-----------|---------|----------------|----------|
+| `single_column` | normal | good | PaddleOCR-VL 1.5 | — |
+| `single_column` | heavy | good | QARI-OCR v0.2 | Baseer |
+| `multi_column` | any | good | Baseer | Mistral OCR 3 |
+| `table_heavy` | any | good | Mistral OCR 3 | Baseer |
+| `mixed_layout` | any | good | Baseer | Mistral OCR 3 |
+| any | any | degraded | Mistral OCR 3 | QARI-OCR v0.2 |
+| any | heavy | degraded | QARI-OCR v0.2 + Mistral OCR 3 (dual) | — |
+
+5. **Fallback trigger.** After primary OCR, compute page-level confidence. If confidence < `fidelity_medium_threshold` (default 0.80), re-process with the fallback engine. If both primary and fallback produce low confidence, flag for human review.
+
+6. **Dual-OCR mode.** When the matrix specifies dual processing (heavily diacritized + degraded), both engines process the page independently. Character-level alignment merges the outputs: agreement → high confidence, disagreement → flag with both alternatives and lower confidence.
+
+**Engine availability handling.** The orchestrator degrades gracefully based on available engines:
+- All engines available → full adaptive routing (optimal).
+- No QARI-OCR (no local GPU) → PaddleOCR-VL handles all single-column; Mistral OCR handles diacritics-heavy.
+- No Baseer (not installed) → Mistral OCR handles multi-column/mixed.
+- No Mistral OCR (no API key) → QARI-OCR and PaddleOCR-VL share all work; complex layouts get PaddleOCR-VL with lower confidence thresholds.
+- Only PaddleOCR-VL available → all pages processed by PaddleOCR-VL; fidelity scores reflect the single-engine limitation.
+
+The orchestrator logs which engine processed each page in the content unit's metadata: `ocr_engine` field (already present in fidelity data). This enables quality analysis: "pages processed by QARI-OCR had mean confidence 0.94; pages processed by PaddleOCR-VL had mean confidence 0.87 for this source."
+
+**Concrete example (processing a scanned copy of المغني لابن قدامة):**
+
+Page 1 (title page): `single_column`, normal diacritics, good quality → PaddleOCR-VL 1.5. Result: confidence 0.96.
+Page 45 (dense fiqh text with heavy tashkeel): `single_column`, diacritics_heavy, good quality → QARI-OCR v0.2. Result: confidence 0.93.
+Page 200 (comparative table of madhahib positions): `table_heavy`, normal, good → Mistral OCR 3. Result: confidence 0.91.
+Page 347 (two-column layout with footnotes): `multi_column`, normal, good → Baseer. Result: confidence 0.89.
+Page 500 (blurry smartphone photo): any, normal, degraded → Mistral OCR 3. Result: confidence 0.72 → fallback to QARI-OCR → merged confidence 0.78.
+
+**What this enables that was previously impossible:** A scholar scanning 15 volumes of al-Mughni from different sources (some clean PDFs, some phone photos, some old scans) gets the best possible OCR for EACH page without manual intervention. The system automatically adapts to page characteristics, maximizing accuracy while minimizing cost (PaddleOCR-VL is free and fast for easy pages; expensive API calls are reserved for pages that need them).
+
+**Cost optimization.** The orchestrator tracks cumulative API costs per source. If a source's estimated total Mistral OCR cost exceeds a configurable threshold (`max_api_cost_per_source`, default $50), the orchestrator switches remaining pages to the best available local engine and logs a cost-limit warning.
+
+[NOT YET IMPLEMENTED] — Full specification provided. Depends on: PaddleOCR-VL 1.5 (Apache 2.0, local), QARI-OCR v0.2 (Qwen2-VL-2B fine-tuned, open-source, local GPU), Baseer (Qwen2.5-VL-3B fine-tuned, open weights, local GPU), Mistral OCR 3 (commercial API). PP-DocLayoutV2 for layout pre-analysis (PaddlePaddle, Apache 2.0).
+
+#### §4.B.7 — Tahqiq Apparatus Topology Extraction
+
+**Capability:** The normalization engine extracts from the footnote apparatus a **manuscript witness network** — a structured graph of which manuscripts and editions the tahqiq editor consulted, how frequently each is cited, and where textual disagreements occur. This transforms the footnote apparatus from flat text into scholarly intelligence about the QUALITY AND RELIABILITY of the edition itself.
+
+**Why this matters for KR:** When the synthesizer produces an entry citing "ابن قدامة in المغني says X," the reliability of that attribution depends on HOW GOOD the tahqiq edition is. An edition based on 6 manuscripts with careful collation is more reliable than one based on 1 manuscript with the editor's guesses. Currently, no tool extracts this information — a scholar must manually read through hundreds of footnotes to assess edition quality. The normalization engine sees every footnote and can build this picture automatically.
+
+**Extraction algorithm:**
+
+1. **Manuscript witness identification.** Scan all footnotes classified as `variant_reading` (by §4.B.4). Extract manuscript sigla — the abbreviations editors use to reference manuscripts. Common patterns:
+   - Single-letter or abbreviated sigla: `(أ)`, `(ب)`, `(ج)`, `(م)`, `(ظ)`, or latin letters `(A)`, `(B)`, `(C)`.
+   - Descriptive sigla: `نسخة الأزهرية`, `نسخة دار الكتب`, `الأصل`, `المطبوعة`.
+   - The editor's introduction (typically first 10-20 pages) usually lists all manuscripts with their sigla. The normalizer parses this introduction for the manuscript register.
+
+2. **Witness citation mapping.** For each variant reading footnote, record: `page_unit_index`, `siglum` (which manuscript), `variant_text` (the alternative reading), `editor_preference` (which reading the editor chose for the main text). Build a per-witness citation frequency map.
+
+3. **Disagreement density mapping.** Compute per-division (from the division tree) the number of variant readings. Divisions with high variant density indicate textual instability — the manuscripts disagree more in those sections. This is stored in the manifest under `tahqiq_topology.disagreement_by_division`.
+
+4. **Edition reliability signal.** Aggregate the witness network into an edition reliability score based on:
+   - `witness_count`: How many manuscripts were used. More witnesses → higher reliability.
+   - `witness_coverage`: What proportion of the text has support from ≥2 witnesses. Higher coverage → more reliable.
+   - `editor_transparency`: What proportion of variant readings include the editor's reasoning for their choice. Higher transparency → more trustworthy tahqiq.
+   - `variant_density`: Total variant readings per 100 pages. Very low density (<0.5) in a tahqiq edition may indicate the editor didn't collate carefully; moderate density (2-10) is typical of careful collation; very high density (>20) indicates significant textual instability.
+
+**Output schema (stored in `manifest.json` under `tahqiq_topology`):**
+
+```json
+{
+  "tahqiq_topology": {
+    "has_tahqiq_apparatus": true,
+    "manuscript_witnesses": [
+      {
+        "siglum": "أ",
+        "description": "نسخة الأزهرية رقم ٣٤٥ حديث",
+        "citation_count": 234,
+        "first_cited_unit": 15,
+        "last_cited_unit": 832
+      },
+      {
+        "siglum": "ب",
+        "description": "نسخة دار الكتب المصرية",
+        "citation_count": 189,
+        "first_cited_unit": 15,
+        "last_cited_unit": 830
+      },
+      {
+        "siglum": "الأصل",
+        "description": "النسخة المعتمدة عند المحقق",
+        "citation_count": 312,
+        "first_cited_unit": 1,
+        "last_cited_unit": 847
+      }
+    ],
+    "total_variant_readings": 423,
+    "variant_density_per_100_pages": 49.9,
+    "disagreement_by_division": [
+      {"div_id": "bab_mubtada", "variant_count": 12, "pages": 18},
+      {"div_id": "bab_khabar", "variant_count": 8, "pages": 15}
+    ],
+    "edition_reliability": {
+      "witness_count": 3,
+      "witness_coverage": 0.92,
+      "editor_transparency": 0.67,
+      "reliability_signal": "moderate",
+      "reliability_rationale": "3 manuscripts with 92% coverage; editor states preference in 67% of variants."
+    },
+    "extraction_confidence": "medium",
+    "extraction_method": "pattern_matching_with_llm_fallback"
+  }
+}
+```
+
+**Siglum detection patterns:**
+- `في نسخة (X):` → siglum X, variant follows
+- `في (X) و(Y):` → sigla X and Y agree on the variant
+- `والمثبت من (X):` → editor chose reading from manuscript X
+- `في الأصل: ... والصواب:` → editor corrected the base manuscript
+- `كذا في جميع النسخ` → all witnesses agree (no variant)
+- `سقط من (X)` → text missing from manuscript X (lacuna)
+- `زيادة في (X)` → extra text in manuscript X
+
+When patterns are insufficient (e.g., the editor uses non-standard notation), the normalizer invokes an LLM with the footnote text, the detected sigla register, and a description of standard tahqiq notation, requesting structured extraction. LLM-extracted variants carry confidence `medium`; pattern-matched variants carry confidence `high`.
+
+**What this enables that was previously impossible:**
+
+1. **Edition comparison at scale.** The source engine's edition comparison capability (§4.B.3 of source SPEC) can now be enriched: when two editions of the same work exist in the library, the normalizer's topology data reveals which edition consulted more manuscripts, which has more transparent editorial practice, and where the editions disagree because their editors had different manuscript witnesses.
+
+2. **Textual stability signals for synthesis.** The synthesizer, when compiling an entry on a topic, can weight excerpts from textually stable sections (low variant density) more heavily than excerpts from unstable sections. If the entry cites a passage where 3 manuscripts disagree, the synthesizer can note: "This passage has significant textual variation across manuscripts; the reading adopted here follows manuscript أ as preferred by the editor."
+
+3. **Scholarly apparatus browsing.** The owner can query: "Show me all sections of al-Mughni where the manuscripts disagree significantly." This is a question no existing tool answers without manual footnote reading across hundreds of pages.
+
+**Edge cases:**
+- Source has no tahqiq apparatus (e.g., a non-tahqiq reprint): `has_tahqiq_apparatus: false`. No topology extracted.
+- Editor uses the apparatus but never names manuscripts (e.g., "في بعض النسخ" — "in some copies"): Extractable as anonymous witnesses. `witness_count` reflects named witnesses only; anonymous references are counted separately under `anonymous_variant_count`.
+- Multiple tahqiq editors on different volumes: Each volume's topology is tracked separately under `per_volume_topology`, with a merged summary in the top-level `tahqiq_topology`.
+
+[NOT YET IMPLEMENTED] — Full specification provided. Depends on: §4.B.4 footnote classification (provides `variant_reading` footnotes as input), LLM for non-standard notation parsing, siglum pattern library.
+
 ---
 
 ## 5. Validation and Quality
