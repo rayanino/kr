@@ -525,6 +525,13 @@ Optional keys (add as needed):
 - **Relevant components:** Scholar authority (§4.A.5 external enrichment). This database contains exactly the teacher-student graph data KR needs. However, it has no public API — data would need to be scraped or requested from the maintainers. The ~5% error/duplication rate they acknowledge is within acceptable limits for enrichment data (KR's own validation catches conflicts). Priority: HIGH if data access can be obtained.
 - **License:** Not specified. Contact maintainers.
 
+### Usul.ai Data (seemorg/usul-data) (JSON, MIT license)
+- **URL:** https://github.com/seemorg/usul-data
+- **What it does:** Structured JSON dataset of Islamic scholars with multilingual names (14 languages including Arabic, English, Persian, Urdu), death dates (Hijri year), biographical descriptions, and linked book metadata. Built on OpenITI and Shamela/Turath data. MIT-licensed, freely redistributable.
+- **Relevant components:** Scholar authority (§4.B.1 bootstrapping, §4.A.5 external enrichment). Provides confirmed death dates, multilingual name variants, and author-book relationships. Complements OpenITI by adding richer multilingual biographical metadata. Can be bundled directly with KR.
+- **How to use:** Download `authors.json` from the repo. Each author record: `id`, `primaryNameTranslations` (multilingual), `year` (Hijri death year), `bio` (multilingual descriptions). Books link via `authorId`.
+- **License:** MIT.
+
 ### İSAM Ulema Database (Turkey)
 - **URL:** Centre for Islamic Studies (İSAM), Istanbul
 - **What it does:** Repository of 10,000+ Muslim scholars and Sufis with biographical data from classical texts integrated with modern historiography. Searchable by name, era, and madhhab.
