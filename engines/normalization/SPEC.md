@@ -97,7 +97,7 @@ The normalized package is a directory at `library/sources/{source_id}/normalized
    - `physical_page`: object with `volume` (int or null), `page_number_display` (string or null, Arabic-numeral form for citations), `page_number_int` (int or null).
    - `primary_text`: string. The main text content of this page, cleaned of all format-specific markup. All diacritics preserved exactly.
    - `text_layers`: array. For multi-layer sources, segments attributed to specific layers. Each segment: `layer_type` (matn/sharh/hashiyah/tahqiq_note/uncertain), `author_canonical_id`, `start` and `end` character offsets in `primary_text`, `confidence` (0.0–1.0). For single-layer sources, one segment covering the entire text.
-   - `footnotes`: array of objects. Each: `ref_marker` (string), `text` (string), `footnote_type` (tahqiq_editor/author_original/unknown), `confidence` (0.0–1.0).
+   - `footnotes`: array of objects. Each: `ref_marker` (string), `text` (string), `footnote_type` (one of: `tahqiq_editor`, `author_original`, `unknown_footnote_type` for coarse classification; or refined by §4.B.4 to: `variant_reading`, `hadith_takhrij`, `cross_reference`, `biographical_note`, `linguistic_note`, `correction_note`, `general_commentary`), `confidence` (0.0–1.0). When §4.B.4 classification succeeds, the footnote also carries type-specific structured data (variant_data, takhrij_data, bio_data, or correction_data).
    - `structural_markers`: object. If a heading is detected on this page: `heading_detected` (bool), `heading_text` (string), `heading_level` (int), `heading_detection_method` (html_tagged/keyword_heuristic/llm_discovered/toc_inferred/human_override), `heading_confidence` (confirmed/high/medium/low).
    - `verse_info`: object or null. If verse is detected: `verse_lines` (array of verse line objects with hemistich markers and verse numbers if available).
    - `content_flags`: object. Boolean flags: `has_verse`, `has_table`, `has_quran_citation`, `has_hadith_citation`, `is_toc_page`, `is_index_page`, `is_blank`.
@@ -179,7 +179,7 @@ The Shamela normalizer transforms Shamela desktop HTML exports into normalized p
 
 **Pass 1 — HTML parsing and page extraction.** Split the HTML at `<div class='PageText'>` boundaries. Extract page numbers from `<span class='PageNumber'>(ص: N)</span>`. Skip metadata pages (first PageText div with metadata labels). For multi-volume sources, process each file with its volume number derived from the filename stem. Assign monotonically increasing `unit_index` values across all volumes. This pass is deterministic and follows the existing ABD rules (§4.1–§4.4 of ABD_NORMALIZATION_SPEC.md).
 
-**Pass 2 — Content/footnote separation.** Within each page, split at `<hr width='95'>` to separate primary text from footnotes. Parse footnotes into individual entries using the `(N)` marker pattern. Classify footnote sections as `numbered_parens`, `bare_number`, `unnumbered`, or `none`. Capture footnote preamble text. Strip footnote reference markers from primary text only when a matching footnote exists on the same page. This pass follows ABD rules §4.5–§4.6, upgraded to classify footnote type:
+**Pass 2 — Content/footnote separation.** Within each page, split at `<hr width='95'>` to separate primary text from footnotes. If the separator is absent on a page, the entire page content is treated as primary text with no footnotes; the normalizer logs `NORM_FOOTNOTE_SEPARATOR_ABSENT` (info) for that page. If >30% of pages in the source lack the separator, the source-level flag `no_footnote_apparatus` is set in the quality report — this distinguishes "source has no footnotes" from "separator detection failed." Parse footnotes into individual entries using the `(N)` marker pattern. Classify footnote sections as `numbered_parens`, `bare_number`, `unnumbered`, or `none`. Capture footnote preamble text. Strip footnote reference markers from primary text only when a matching footnote exists on the same page. This pass follows ABD rules §4.5–§4.6, upgraded to classify footnote type:
 - If the footnote contains tahqiq markers (hadith grading, manuscript variant notation like "في نسخة:", bibliographic references to collections), classify as `tahqiq_editor`.
 - If the footnote appears to be the author's own note (matches the main text's writing style, no tahqiq markers), classify as `author_original`.
 - If uncertain, classify as `unknown_footnote_type` with a confidence score.
@@ -205,7 +205,10 @@ Shamela-specific layer signals:
 
 For each page, the normalizer produces a `text_layers` array segmenting primary text into attributed regions with layer types, author canonical_ids, character offsets, and confidence scores.
 
-**Pass 6 — Output generation.** Assemble the manifest and content JSONL. Run all §5 Layer 1 validation checks (schema compliance, coverage, text extraction, layer consistency, division tree validity) on the assembled output. Only after all checks pass, write the package to `library/sources/{source_id}/normalized/`.
+**Pass 6 — Output generation.** Assemble the manifest and content JSONL. Run all §5 Layer 1 validation checks (schema compliance, coverage, text extraction, layer consistency, division tree validity, unit_index integrity) on the assembled output. Only after all checks pass, write the package to disk.
+
+**Atomic write procedure.** The normalizer writes to a temporary directory (`library/sources/{source_id}/normalized_tmp_{timestamp}/`) first. Both `manifest.json` and `content.jsonl` are written and flushed to disk in the temporary directory. After both files are verified (existence, non-zero size, valid JSON/JSONL parse), the normalizer atomically renames the temporary directory to the final path (`library/sources/{source_id}/normalized/`). If a previous `normalized/` directory exists (reprocessing), it is renamed to `normalized_prev_{timestamp}/` before the swap, then deleted only after the new package passes verification. If any step fails (write error, verification failure, rename failure), the temporary directory is removed and normalization fails with `NORM_WRITE_FAILED`. This guarantees that `normalized/` either contains a complete, validated package or does not exist — no partial state is possible.
+
 Any §5 check failure aborts the write — the assert prevents corrupt packages from reaching disk. Compute the quality report as the final manifest field.
 
 **Verse detection.** ABD rules §4.8 detect verse markers (asterisks, hemistich separators). KR extends this: for `nazm` sources, verse-aware processing identifies each بيت, normalizes hemistich separators, and captures verse numbers as metadata. Verse numbers are critical scholarly references (e.g., "ألفية line 75").
@@ -291,10 +294,10 @@ For scanned PDFs (pages are images with no usable text layer) and image-based so
    - **Diacritics validation:** Flag impossible diacritic sequences as likely OCR errors.
 5. **Structure discovery.** Less reliable for OCR text. Uses layout-based detection from Mistral OCR's Markdown formatting, keyword heuristics, and LLM assistance. Confidence levels are typically lower than for structured text.
 6. **Multi-layer detection.** Based on visual font size differences from OCR spatial output. Less reliable than HTML-based detection. Confidence typically `medium` or `low`.
-7. **Page boundaries.** Scanned PDFs: one page per PDF page. Images: one page per image file, ordered by filename (numeric sort) or OCR-detected page numbers.
+7. **Page boundaries.** Scanned PDFs: one page per PDF page. Images: one page per image file. Ordering precedence for image sets: (1) filename numeric sort is the default and authoritative ordering. (2) If OCR detects page numbers on ≥80% of images, the OCR-detected page numbers are compared against filename order. If they agree, confidence is high. If they disagree, filename order is used as authoritative, a `NORM_PAGE_ORDER_CONFLICT` warning is logged with both orderings, and a human gate is triggered to let the owner choose the correct order. Filename sort is preferred because it reflects the owner's capture sequence, which is more reliable than OCR page number detection on potentially degraded images.
 8. **Text fidelity.** Per-page based on OCR confidence, dual-OCR agreement, and character-level statistics. Levels: `high` (>0.95 confidence), `medium` (0.80–0.95), `low` (0.60–0.80), `very_low` (<0.60, flag for human review).
 
-**iPhone photo-specific handling:** Variable lighting → adaptive thresholding. Perspective distortion → edge detection and correction. Partial pages → detected and flagged as `partial_page`. Finger obstruction → cannot recover; flag occluded regions. Sequential ordering → by filename or OCR-detected page numbers.
+**iPhone photo-specific handling:** Variable lighting → adaptive thresholding. Perspective distortion → edge detection and correction. Partial pages → detected and flagged as `partial_page`. Finger obstruction → cannot recover; flag occluded regions. Sequential ordering → by filename numeric sort (authoritative), cross-referenced with OCR-detected page numbers when available (see page boundary rule above).
 
 [NOT YET IMPLEMENTED] — Full specification provided. Depends on Mistral OCR API access, Qari-OCR local installation, image pre-processing library.
 
@@ -497,6 +500,24 @@ The classifier distinguishes layers using these content signals:
 
 **Confidence and validation:** Content-inferred layer boundaries carry confidence `medium` at best. The normalization engine cross-validates inferred boundaries against any typographic signals that exist (even partial ones) and against the expected layer proportion (matn should be a minority). Pages where content inference disagrees with typographic signals are flagged with confidence `low` for human review.
 
+**Concrete example (content-based layer inference in an old print without formatting):**
+
+Input text (from a pre-tahqiq print of شرح الورقات, no bold, no brackets):
+```
+الحكم خطاب الله المتعلق بأفعال المكلفين بالاقتضاء أو التخيير
+يعني بالحكم هنا الحكم الشرعي وهو ما ثبت بخطاب الله تعالى. وقوله المتعلق بأفعال المكلفين أخرج به ما يتعلق بذاته سبحانه نحو لا إله إلا الله. وأراد بالاقتضاء الطلب سواء كان طلب فعل أو طلب ترك. وأراد بالتخيير الإباحة وهي تسوية الطرفين.
+```
+
+Layer detection output:
+```json
+[
+  {"layer_type": "matn", "author_canonical_id": "juwayni_478", "start": 0, "end": 65, "confidence": 0.72},
+  {"layer_type": "sharh", "author_canonical_id": "mahalli_864", "start": 66, "end": 355, "confidence": 0.68}
+]
+```
+
+Detection reasoning: The first sentence is characteristically terse and definitional ("الحكم خطاب الله المتعلق بأفعال المكلفين بالاقتضاء أو التخيير" — a single dense statement with no explanation). The second section begins with "يعني بالحكم هنا" (explanatory marker — "he means by 'ruling' here..."), uses third-person reference to the author ("وقوله" — "and his saying"), and provides discursive explanation with 4 clauses. The terseness ratio shifts sharply: 13 words in the first sentence convey a complete definition; the next 60+ words explain it. The LLM classifier detects this density shift and the third-person pronoun pattern as strong layer-boundary signals. Confidence is `medium` (0.68–0.72) because no typographic confirmation exists — content signals alone.
+
 [NOT YET IMPLEMENTED] — Full specification provided. Depends on: LLM prompt engineering for Arabic layer classification, bootstrapping system for per-source style examples.
 
 #### §4.B.2 — Structural Format Auto-Detection
@@ -549,6 +570,32 @@ The scholar interface can display the fidelity heat map overlaid on the source t
 **Technical approach:** Each footnote is classified using pattern matching (for structured markers like "رواه البخاري") and LLM classification (for footnotes without clear markers). The LLM receives the footnote text, the main text it references, and a description of each footnote type. Classification confidence accompanies each assignment.
 
 **What this enables:** The excerpting engine can route hadith takhrij data to hadith metadata fields. The synthesizer can produce evidence-aware entries: "The Hanafi position rests on a hadith narrated by Abu Dawud (graded hasan by the editor), while the Shafi'i position cites a hadith in Bukhari (sahih)." Variant readings feed the source engine's edition comparison capability. Biographical notes enrich the scholar authority model. All of this metadata is extracted from the footnote apparatus during normalization — if it isn't captured here, it's lost.
+
+**Concrete example (classifying 4 footnotes from a single page of a tahqiq edition of المغني لابن قدامة):**
+
+Input footnotes (from Pass 2 separation):
+```
+(1) في نسخة (أ) و(ج): «يجوز» بدل «يجب». والمثبت من (ب) وهو الأصح لموافقته لما في المقنع.
+(2) أخرجه البخاري في الطهارة (١٣٥) ومسلم (٢٢٥) واللفظ لمسلم. وصححه الألباني في الإرواء (١/١٢٣).
+(3) هو: أبو عبد الله أحمد بن محمد بن حنبل الشيباني (ت ٢٤١هـ)، إمام أهل السنة. انظر: سير أعلام النبلاء (١١/١٧٧).
+(4) الصواب: «المتيمم» بدل «المتوضئ» كما في نسخة (أ) و(ب)، ولعل ما في المطبوعة تصحيف.
+```
+
+Output classified footnotes:
+```json
+[
+  {"ref_marker": "1", "text": "في نسخة (أ) و(ج): «يجوز» بدل «يجب». والمثبت من (ب) وهو الأصح لموافقته لما في المقنع.", "footnote_type": "variant_reading", "confidence": 0.95,
+   "variant_data": {"sigla_cited": ["أ", "ج", "ب"], "variant_text": "يجوز", "main_text_reading": "يجب", "editor_preferred": "ب"}},
+  {"ref_marker": "2", "text": "أخرجه البخاري في الطهارة (١٣٥) ومسلم (٢٢٥) واللفظ لمسلم. وصححه الألباني في الإرواء (١/١٢٣).", "footnote_type": "hadith_takhrij", "confidence": 0.97,
+   "takhrij_data": {"collections": [{"name": "البخاري", "book": "الطهارة", "number": "135"}, {"name": "مسلم", "number": "225"}], "grading": {"grader": "الألباني", "grade": "صحيح", "reference": "الإرواء ١/١٢٣"}}},
+  {"ref_marker": "3", "text": "هو: أبو عبد الله أحمد بن محمد بن حنبل الشيباني (ت ٢٤١هـ)، إمام أهل السنة. انظر: سير أعلام النبلاء (١١/١٧٧).", "footnote_type": "biographical_note", "confidence": 0.93,
+   "bio_data": {"scholar_name": "أحمد بن محمد بن حنبل", "death_date_ah": 241, "description": "إمام أهل السنة"}},
+  {"ref_marker": "4", "text": "الصواب: «المتيمم» بدل «المتوضئ» كما في نسخة (أ) و(ب)، ولعل ما في المطبوعة تصحيف.", "footnote_type": "correction_note", "confidence": 0.91,
+   "correction_data": {"corrected_text": "المتيمم", "original_text": "المتوضئ", "basis": "نسخة (أ) و(ب)"}}
+]
+```
+
+Detection: Footnote (1) matches `في نسخة (X):` pattern → `variant_reading`. Footnote (2) matches `أخرجه البخاري` + collection references → `hadith_takhrij`. Footnote (3) matches `هو:` + death date + biographical reference → `biographical_note`. Footnote (4) matches `الصواب:` correction marker → `correction_note`. All four are pattern-matched (no LLM needed), hence confidence ≥ 0.91 (pattern-match baseline). Note: the `variant_data`, `takhrij_data`, `bio_data`, and `correction_data` fields are type-specific structured extractions stored alongside the base footnote fields — they provide the machine-readable data that the synthesizer and scholar authority model consume.
 
 [NOT YET IMPLEMENTED] — Full specification provided. Depends on: LLM footnote classifier, pattern library for Arabic scholarly footnote conventions.
 
@@ -798,7 +845,7 @@ The normalization engine's output determines the quality ceiling for every downs
 
 1. **Schema compliance.** Every content unit is validated against the content unit schema before writing. The manifest is validated against the manifest schema. Any schema violation aborts normalization with a structured error.
 
-2. **Coverage check.** The number of content units must match the expected page count from the source metadata (±10% tolerance for skipped metadata/blank pages). A mismatch exceeding 10% triggers warning `NORM_PAGE_COUNT_MISMATCH` and requires human review.
+2. **Coverage check.** The number of content units must match the expected page count from the source metadata (±10% tolerance for skipped metadata/blank pages). A mismatch exceeding 10% triggers warning `NORM_PAGE_COUNT_MISMATCH` and requires human review. For deterministic source types (Shamela HTML, text PDFs) where the normalizer can count the exact number of pages from the source structure (PageText divs, PDF page count), a tighter check applies: the normalizer counts input pages in Pass 1, and the final content unit count must equal the input page count minus explicitly skipped pages (metadata pages, confirmed duplicates). Any discrepancy triggers `NORM_PAGE_COUNT_MISMATCH`. This catches even single-page loss in Shamela sources, where a malformed PageText div might be silently skipped by the HTML parser.
 
 3. **Text extraction verification.** For each content unit:
    - `primary_text` must be non-empty (except for `is_blank` pages).
@@ -821,6 +868,12 @@ The normalization engine's output determines the quality ceiling for every downs
 6. **Footnote integrity.**
    - Footnote text is non-empty for parsed footnotes.
    - Footnote reference markers in primary text have corresponding footnote entries (orphan references trigger warnings).
+
+7. **Unit index integrity.** The `unit_index` values across all content units must form a contiguous zero-based sequence: 0, 1, 2, ..., N-1 where N = `total_content_units`. Any gap (e.g., 0, 1, 3 — missing 2) or duplicate triggers `NORM_UNIT_INDEX_VIOLATION` (fatal). This check is critical because Phase 2 engines use unit_index adjacency for cross-page continuity — a gap would cause the passaging engine to treat consecutive pages as non-adjacent.
+
+8. **Diacritics preservation verification.** For format types where the source text is available as digital text (Shamela HTML, text PDFs, EPUB, plain text — NOT OCR sources), the normalizer performs a character-class comparison between the source's Arabic text and the output `primary_text`. Specifically: extract all Unicode characters in the Arabic diacritics range (U+064B–U+0652, U+0670, U+0640) from both source and output for each page. If the diacritic character counts differ by even one character, the page fails with `NORM_DIACRITICS_DRIFT` (fatal). This detects the scenario where a Python library or string operation silently applies Unicode normalization or strips diacritics. For OCR sources, this check is not applicable — OCR output is the baseline, not the image.
+
+9. **Format-specific input validation.** Each normalizer validates that its input matches the expected format BEFORE processing begins. The text PDF normalizer verifies the PDF contains an extractable text layer (at least 100 characters of text extractable by Docling from the first 5 pages); if no text layer is found, it rejects with `NORM_NO_TEXT_LAYER`. The Shamela normalizer verifies at least one `<div class='PageText'>` element exists. The image normalizer verifies at least one image file exists with a recognized image format. This prevents the wrong-normalizer-selected scenario: a scanned PDF routed to the text PDF normalizer is caught immediately rather than producing garbage output.
 
 **Layer 2: Quality report review.**
 
@@ -882,6 +935,12 @@ If future experience shows that LLM-assisted operations in this engine have unac
 | `NORM_DUPLICATE_PAGES` | Info | Duplicate page numbers detected | Log. Use `unit_index` as authoritative reference. |
 | `NORM_PARTIAL_PAGE` | Warning | Image source: page appears truncated | Flag content unit. |
 | `NORM_OCR_API_RATE_LIMIT` | Warning | Mistral OCR API rate limited | Implement exponential backoff. Retry. |
+| `NORM_WRITE_FAILED` | Fatal | Atomic write procedure failed (disk error, rename failure) | Remove temp directory. Retry once. If still failed, reject source. |
+| `NORM_UNIT_INDEX_VIOLATION` | Fatal | unit_index values are not monotonically increasing starting from 0, or contain duplicates | Abort normalization. This is a normalizer bug — unit_index generation must be deterministic. |
+| `NORM_NO_TEXT_LAYER` | Fatal | Text PDF normalizer found no extractable text layer in PDF | Reject. Reclassify source as `pdf_scanned` and re-route to scanned PDF normalizer. |
+| `NORM_PAGE_ORDER_CONFLICT` | Warning | Image set: filename sort order disagrees with OCR-detected page numbers | Use filename sort as authoritative. Log both orderings. Human gate triggered. |
+| `NORM_FOOTNOTE_SEPARATOR_ABSENT` | Info | Shamela page has no `<hr width='95'>` separator | Treat entire page content as primary text. Log. If >30% of pages have this, flag source as `no_footnote_apparatus`. |
+| `NORM_DIACRITICS_DRIFT` | Fatal | Post-normalization byte comparison detects diacritics were modified during processing | Abort normalization. This indicates a code bug (likely a library applying Unicode normalization). |
 
 **Principle:** Never lose data silently. Every error is logged with: timestamp, source_id, error code, severity, human-readable message, affected unit_index (if page-specific), and recovery action taken.
 

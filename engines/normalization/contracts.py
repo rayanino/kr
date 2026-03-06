@@ -56,10 +56,26 @@ class HeadingDetectionMethod(str, Enum):
 
 
 class FootnoteType(str, Enum):
-    """Footnote authorship classification (SPEC §4.A.2 Pass 2)."""
-    TAHQIQ_EDITOR = "tahqiq_editor"     # Modern editor's annotation
-    AUTHOR_ORIGINAL = "author_original"  # Part of original text
-    UNKNOWN = "unknown_footnote_type"    # Could not determine
+    """Footnote classification (SPEC §4.A.2 Pass 2, refined by §4.B.4).
+
+    Pass 2 assigns coarse types (tahqiq_editor, author_original, unknown).
+    §4.B.4 refines tahqiq_editor into fine-grained sub-types for
+    structured metadata extraction. The fine-grained types replace
+    the coarse 'tahqiq_editor' when classification succeeds.
+    """
+    # Coarse types (Pass 2)
+    TAHQIQ_EDITOR = "tahqiq_editor"         # Modern editor's annotation (unrefined)
+    AUTHOR_ORIGINAL = "author_original"      # Part of original text
+    UNKNOWN = "unknown_footnote_type"        # Could not determine
+
+    # Fine-grained types (§4.B.4 — all are sub-types of tahqiq_editor)
+    VARIANT_READING = "variant_reading"      # Manuscript textual differences
+    HADITH_TAKHRIJ = "hadith_takhrij"        # Hadith source tracing
+    CROSS_REFERENCE = "cross_reference"      # Internal/external reference
+    BIOGRAPHICAL_NOTE = "biographical_note"  # Scholar identification
+    LINGUISTIC_NOTE = "linguistic_note"      # Word/grammar explanation
+    CORRECTION_NOTE = "correction_note"      # Editor's text correction
+    GENERAL_COMMENTARY = "general_commentary"  # Editor's opinion/analysis
 
 
 class StructuralFormat(str, Enum):
@@ -103,12 +119,55 @@ class TextLayerSegment(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0)
 
 
+class VariantReadingData(BaseModel):
+    """Structured data from a variant_reading footnote (SPEC §4.B.4)."""
+    sigla_cited: list[str] = Field(description="Manuscript sigla mentioned")
+    variant_text: str = Field(description="The alternative reading")
+    main_text_reading: str = Field(description="The reading in the main text")
+    editor_preferred: Optional[str] = Field(
+        None, description="Which siglum the editor chose"
+    )
+
+
+class TakhrijData(BaseModel):
+    """Structured data from a hadith_takhrij footnote (SPEC §4.B.4)."""
+    collections: list[dict] = Field(
+        description="List of {name, book?, number} for each cited collection"
+    )
+    grading: Optional[dict] = Field(
+        None, description="{grader, grade, reference} if hadith grading is present"
+    )
+
+
+class BiographicalNoteData(BaseModel):
+    """Structured data from a biographical_note footnote (SPEC §4.B.4)."""
+    scholar_name: str
+    death_date_ah: Optional[int] = None
+    description: Optional[str] = None
+
+
+class CorrectionNoteData(BaseModel):
+    """Structured data from a correction_note footnote (SPEC §4.B.4)."""
+    corrected_text: str
+    original_text: str
+    basis: Optional[str] = Field(None, description="Manuscript or reasoning basis")
+
+
 class Footnote(BaseModel):
-    """An extracted footnote (SPEC §3 content unit schema)."""
+    """An extracted footnote (SPEC §3, enriched by §4.B.4).
+
+    Base fields are always present. Type-specific structured data fields
+    are populated when §4.B.4 fine-grained classification succeeds.
+    """
     ref_marker: str = Field(description="Reference marker as it appears in text, e.g. '1'")
     text: str = Field(description="Footnote content")
     footnote_type: FootnoteType
     confidence: float = Field(ge=0.0, le=1.0, description="Confidence in type classification")
+    # §4.B.4 type-specific structured data (exactly one populated based on footnote_type)
+    variant_data: Optional[VariantReadingData] = None
+    takhrij_data: Optional[TakhrijData] = None
+    bio_data: Optional[BiographicalNoteData] = None
+    correction_data: Optional[CorrectionNoteData] = None
 
 
 class StructuralMarkers(BaseModel):
