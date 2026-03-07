@@ -2,53 +2,29 @@
 
 ## Context
 
-The owner conducted a comprehensive plan review (2026-03-07) with an external Claude Chat session. Key decisions:
+The owner conducted a skills design session (2026-03-07). Six Claude Chat skills were written and iterated through 3 versions. The architecture shifted to a repo-first workflow where Claude Chat clones the repo at each chat start.
 
-1. **No standalone experiments.** Validation happens per-engine during the build cycle.
-2. **Build in pipeline order.** Source engine first, not atomization.
-3. **Per-engine cycle:** owner reviews SPEC → discuss comments → finalize → Claude Code builds → test (5a/5b/5c) → iterate.
-4. **Skills-based workflow.** 6 custom Claude Chat skills will structure the per-engine work. Architecture designed but skills not yet written.
-5. **Engine-specific expert roles.** Each engine project gets a detailed domain-specialist persona in custom instructions.
-6. **The autonomous prep sessions are paused.** The owner is doing focused domain review.
+Read the handoff document for full context:
+`skills/handoffs/workflow-research-2026-03-07.md`
 
 ## Immediate Task
 
-**Write the 6 KR custom skills and set up the source engine Claude Chat project.**
+**Deep research into Claude Chat optimization for complex multi-session projects.**
 
-Read `reference/SKILL_ARCHITECTURE_V2.md` for the full design. The 6 skills are:
-- kr-spec-review (handle owner comments on SPECs)
-- kr-finalize (consolidate changes, quality audit)
-- kr-build-prep (prepare for Claude Code implementation)
-- kr-evaluate (review test results across 5a/5b/5c)
-- kr-research (creative exploration — the CREATIVE ENGINE)
-- kr-integrity (quality and corruption audit)
+The skills are functional but the setup is untested. Before the owner starts real spec review, investigate:
 
-Each skill needs: SKILL.md (under 500 lines), optional reference files for progressive disclosure.
+1. Community patterns (Reddit r/ClaudeCode, r/ClaudeAI) for Claude Chat project management
+2. Available MCPs that could enhance the workflow (GitHub MCP, filesystem MCPs)
+3. Claude Chat-specific limitations and workarounds
+4. How people handle the Claude Chat → Claude Code transition
+5. Skill triggering reliability improvements
+6. Whether our repo-first approach (clone at chat start) has known issues
 
-After writing skills: set up the source engine project with engine-specific custom instructions (bibliographic + format specialist role from the architecture doc).
-
-## Files to Read
-
-1. `reference/SKILL_ARCHITECTURE_V2.md` — The skill architecture design (READ FIRST)
-2. `reference/HONEST_PLAN.md` — The overall plan
-3. `CREATIVE_MANDATE.md` — The creative protocol (kr-research skill must encode this)
-4. `KNOWLEDGE_INTEGRITY.md` — The 7 threats (kr-integrity skill must reference these)
-5. `SILENT_FAILURES.md` — The 7 deception patterns (kr-integrity skill must reference these)
-6. `reference/DEEP_REASONING_PROTOCOL.md` — The Perfection Standard (kr-finalize must use this)
-7. `STEERING.md` — Project context for custom instructions
-
-Do NOT read: VISION.md, individual engine SPECs, kr_decisions.md, SESSION_LOG.md.
-
-## Definition of Done
-
-1. 6 skill .zip files produced and ready for upload
-2. Source engine custom instructions written (bibliographic specialist role + universal mandates)
-3. List of project knowledge files for source engine project
-4. Skills tested mentally against real scenarios
-5. Everything committed to repo under `skills/` directory
+Then: apply findings to improve the 6 skills and the project setup.
 
 ## Owner Status
 
-- Currently reading source engine SPEC and writing numbered domain comments
+- Currently reading the source engine SPEC and writing numbered domain comments
 - Has OpenRouter API key ready
-- Will create the source engine Claude Chat project after skills are ready
+- Will create the source engine Claude Chat project after the workflow is optimized
+- No rush — quality over speed
