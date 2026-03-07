@@ -1129,3 +1129,45 @@ Prepared the passaging engine directory for Claude Code implementation.
 
 ### Owner Questions
 - None new
+
+---
+
+## Session: 2026-03-07 — Atomization HARDENING
+
+### Session Type
+HARDENING
+
+### What Was Done
+1. **12 adversarial scenarios** documented in §5.1 — attack vectors, engine behavior, knowledge impact, defense depth analysis. Key scenarios: LLM offset splitting multi-byte Arabic characters (ADV-1), commentary text classified as all-matn (ADV-2), fabricated attributions (ADV-3), Quran detector false positives (ADV-4), systematic evidence type confusion (ADV-5), over-segmentation (ADV-12).
+2. **2 failure cascade analyses** in §5.2 — (CASCADE-1) offset integrity failure → corrupt excerpts → fabricated library entries; (CASCADE-2) layer misattribution → wrong author propagation → scholarly credibility damage.
+3. **6 knowledge integrity invariants** verified against SPEC in §5.3 — all passing, one with clarification added (Invariant 2: NFC normalization operates on in-memory copy, not on-disk data).
+4. **4 new error codes** added to §7: ATOM_ATTRIBUTION_MARKER_MISSING, ATOM_EVIDENCE_TYPE_CONFLICT, ATOM_FOOTNOTE_INDEX_OUT_OF_RANGE, ATOM_OVER_SEGMENTATION.
+5. **6 new review flags** added to §3 and contracts.py: evidence_type_conflict, orphaned_footnote_marker, atom_reordering_applied, over_segmented, single_layer_in_commentary, nfc_normalization_applied.
+6. **V-9 atom density check** added to §4.A.10 — catches LLM over-segmentation.
+7. **V-6 severity escalation** for commentary_unit passages with 100% single-layer atoms.
+8. **V-4 explicit reordering** behavior defined for out-of-order LLM output.
+9. **Attribution marker verification** rule added to §4.B.4 — prevents LLM hallucination of attributions.
+10. **Evidence type conflict** reconciliation added to §4.A.8 post-processing.
+11. **Orphaned footnote marker** handling added to §4.A.9.
+12. **D-033 confidence laundering** warning added to §3 guarantees.
+13. **NFC normalization** clarification added to §2 step 5 (in-memory only, not on-disk).
+14. **3 missing Arabic examples** added: §4.B.2 (implicit layer detection), §4.B.3 (distribution analytics), §4.B.4 (attribution chain resolution).
+15. **8 new test cases** added to §10 (tests 31-38) for hardening defenses.
+
+### Quality Metrics
+- SPEC: 1029 → 1206 lines
+- check_spec_quality.py: 18 → 20 defects (9 HIGH, all false positives; 3 original MISSING_EXAMPLE HIGH defects resolved)
+- Error codes: 17 → 21
+- Review flags: 9 → 15
+- Validation checks: V-1 through V-8 → V-1 through V-9
+- Test cases: 30 → 38
+- contracts.py: review_flags description updated with 6 new values
+
+### Decisions Made
+- V-6 escalated to warning for commentary_unit 100% single-layer (not just info)
+- Attribution marker verification uses substring check for most types, relaxed check for "self" type
+- Over-segmentation threshold set at 0.5 atoms/character (1 atom per 2 characters)
+- Adversarial scenarios are documented in §5 (validation/quality) not as a separate section
+
+### Owner Questions
+- None new
