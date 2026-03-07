@@ -1,43 +1,42 @@
 # NEXT SESSION
 
 ## Session Type
-PRECISION (see SESSION_TYPES.md for full framework)
+HARDENING (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Atomization engine PRECISION session.** The atomization SPEC has completed its CREATIVE session: 3 new §4.B capabilities added (argument completeness scoring, terminological concordance, evidence quality signal detection), bringing total to 8 transformative capabilities. contracts.py updated and compiles.
+**Atomization engine HARDENING session.** The atomization SPEC has completed CREATIVE (8 §4.B capabilities) and PRECISION (vague quantifiers fixed, 13 Arabic examples added, contracts updated, cross-references verified). The SPEC is now at 1029 lines with 18 remaining check_spec_quality.py defects (8 HIGH — 5 are false-positive "few-shot" technical terms, 3 are §4.B.2/3/4 missing examples from the CREATIVE session).
 
-The SPEC now needs PRECISION work: vague quantifiers replaced with exact values, worked Arabic examples added to every §4 subsection, cross-references validated, and machine-readability ensured.
+The SPEC now needs HARDENING: adversarial scenarios, failure cascade analysis, invariant verification, and knowledge integrity threat assessment.
 
 ## What to Read
 
-1. `engines/atomization/SPEC.md` — The full SPEC (read ALL sections).
-2. `engines/atomization/contracts.py` — Verify alignment with SPEC §3.
-3. Run `python3 scripts/check_spec_quality.py engines/atomization/SPEC.md` — work through every HIGH defect.
+1. `engines/atomization/SPEC.md` — The full SPEC (read ALL sections, especially §4.A.8, §4.A.10, §5, §7).
+2. `KNOWLEDGE_INTEGRITY.md` — Threat model for knowledge corruption paths.
+3. Run `python3 scripts/check_spec_quality.py engines/atomization/SPEC.md` — address any remaining real defects.
 
-**Do NOT read:** VISION.md, kr_decisions.md, other engine SPECs, KNOWLEDGE_INTEGRITY.md, protocol documents.
+**Do NOT read:** VISION.md, kr_decisions.md, other engine SPECs, CREATIVE_MANDATE.md, protocol documents.
 
 ## Definition of Done
 
-1. Every HIGH defect from `check_spec_quality.py` resolved (target: 0 HIGH defects).
-2. All vague quantifiers ("multiple", "few", "some", "many") replaced with exact values or bounded ranges.
-3. Worked Arabic examples added to §4.A.1 through §4.A.10 (at least one per subsection showing input → processing → output with real Arabic text).
-4. Arabic examples added to §4.B.6, §4.B.7, §4.B.8 (at least one per capability).
-5. All cross-references between §3 (output contract), §4 (processing), §7 (errors), §8 (config), and §10 (tests) verified for consistency.
-6. contracts.py verified to match SPEC §3 exactly — every field, every type, every constraint.
-7. Review flag values in §3 match exactly the values referenced in §4 and §5.
-8. `check_spec_quality.py` re-run shows meaningful improvement (target: ≤10 total defects).
-9. Self-audit performed and documented (per DEEP_REASONING_PROTOCOL examples).
-10. NEXT.md written (pointing to atomization HARDENING session).
-11. SESSION_LOG.md updated.
-12. Committed and pushed.
+1. At least 10 adversarial scenarios documented (attack vector → engine behavior → knowledge impact).
+2. At least 2 failure cascade analyses (single failure → what breaks downstream).
+3. All knowledge integrity invariants from KNOWLEDGE_INTEGRITY.md verified against this SPEC.
+4. Any defects found during hardening fixed in the SPEC.
+5. Error handling table (§7) verified complete — every error code has a defined recovery, every failure mode has a defined error code.
+6. `check_spec_quality.py` re-run shows no regression from current 18 defects.
+7. Self-audit performed and documented.
+8. NEXT.md written (pointing to atomization IMPLEMENTATION_PREP session).
+9. SESSION_LOG.md updated.
+10. Committed and pushed.
 
 ## Notes for Next Architect
 
-- The 3 new §4.B capabilities (§4.B.6, §4.B.7, §4.B.8) need Arabic examples most urgently — they were designed with full behavioral rules but no worked examples yet.
-- The check_spec_quality.py HIGH defects are concentrated in two categories: VAGUE_QUANTIFIER (15 instances of "multiple", "few", "some", "many") and MISSING_EXAMPLE (§4 subsections needing worked examples). The vague quantifiers are ALL in §4.A — none in §4.B.
-- The new "incomplete_argument" review flag value needs to be added to the review_flags documentation in §3.
-- The passaging engine contracts (engines/passaging/contracts.py, 556 lines) define the upstream schema — useful for verifying the input contract examples are realistic.
+- The 5 remaining VAGUE_QUANTIFIER flags are false positives: 3 instances of "few-shot" (ML technical term), 1 "some but not all" (precise), 1 "that many" (pronoun). Document in self-audit, do not change.
+- The 3 MISSING_EXAMPLE flags for §4.B.2/3/4 are from the CREATIVE session — these capabilities have full behavioral specs but no worked Arabic examples. If time permits during HARDENING, add examples; if not, note as a gap for IMPLEMENTATION_PREP to address.
+- The offset integrity invariant (§4.A.8, V-2) is the most critical knowledge safety mechanism — focus adversarial analysis here. What happens when the LLM returns offsets that are subtly wrong (e.g., off by 1 in the middle of a multi-byte Arabic character)?
+- The layer attribution system (§4.A.6) has the highest misattribution risk — an incorrect layer assignment puts words in the wrong scholar's mouth. Focus threat analysis here.
+- The contracts.py now includes the "incomplete_argument" review flag (added this session).
 
 ## Pending Owner Questions
 

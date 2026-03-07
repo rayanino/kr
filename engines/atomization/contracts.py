@@ -379,7 +379,7 @@ class AtomRecord(BaseModel):
         description="Machine-generated flags for human review. Values: "
         "low_function_confidence, ambiguous_layer, possible_misattribution, "
         "offset_drift_corrected, unresolved_quran_ref, low_attribution_confidence, "
-        "mid_word_boundary, coverage_gap_unresolved"
+        "mid_word_boundary, coverage_gap_unresolved, incomplete_argument"
     )
 
 

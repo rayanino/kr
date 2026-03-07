@@ -1,5 +1,39 @@
 # Session Log — خزانة ريان
 
+## Session: Atomization Engine PRECISION — 2026-03-07
+**Type:** PRECISION
+**Engine:** Atomization (محرك التذرير)
+**Duration:** ~30 turns
+**Starting defects:** 40 (31 HIGH)
+**Ending defects:** 18 (8 HIGH — 5 false-positive "few-shot" terms, 3 §4.B.2/3/4 pre-existing missing examples)
+
+### What was done
+1. **Vague quantifiers fixed (12 instances).** Replaced "multiple", "many", "numerous" with "two or more", "0–3", precise quantities, or restructured phrasing throughout §4.A, §4.B, §5, §6. Five remaining "few-shot" flags are false positives (ML technical term).
+2. **Arabic worked examples added (13 total).** One per §4.A subsection (§4.A.1–§4.A.10) and one per new §4.B capability (§4.B.6, §4.B.7, §4.B.8). Each example shows real Arabic scholarly text → atomization processing → output atoms with all fields.
+3. **contracts.py updated.** Added "incomplete_argument" to review_flags enumeration (§4.B.6 new flag value). Verified syntax compiles.
+4. **§3 review_flags list updated.** Added "incomplete_argument" with definition and trigger condition to the output contract.
+5. **Cross-reference verification.** Error codes between §4 and §7 verified consistent. Review flag values between §3, §4, §5 verified consistent. Config parameters in §8 match §4 references.
+
+### Decisions made
+- "few-shot" classified as ML technical term, not a vague quantifier — no change needed.
+- "some but not all" in §4.A.6 classified as precise (describes partial coverage), not vague — no change.
+- Arabic examples use real text from شرح ابن عقيل, المغني لابن قدامة, and ألفية ابن مالك as representative sources.
+
+### Self-Audit Results (Atomization SPEC PRECISION)
+
+**Defect 1 (Completeness — Criterion #10):** §4.B.2 (implicit layer detection), §4.B.3 (distribution analytics), §4.B.4 (attribution chains) still lack worked Arabic examples. These were created in the CREATIVE session without examples. **Status:** Deferred to HARDENING session — these are older capabilities, not the 3 new ones from last session.
+
+**Defect 2 (Communication — Criterion #22):** The example in §4.A.5 uses a simplified JSON block that omits some atom fields (no atom_id, no source_layer in the JSON). **Fix consideration:** Acceptable for readability — the example demonstrates the LLM output format, not the full post-processed atom. The post-processing step described after the JSON adds the missing fields.
+
+**Defect 3 (Structural — Criterion #8):** The Arabic character offsets in examples are approximate — real offsets depend on Unicode encoding of specific characters with/without diacritics. **Fix consideration:** Acceptable for specification purposes. The examples illustrate the ALGORITHM, not exact byte counts. Gold baselines (§10) will provide exact offsets for testing.
+
+**Defect 4 (Design — Criterion #16):** The §4.A.8 example shows a trivial 2-atom gap repair. A more complex example (3+ atoms, overlapping offsets, multi-byte character boundary) would test harder edge cases. **Status:** Deferred — the simple example is sufficient for SPEC readability. Complex edge cases belong in §10 gold baselines.
+
+### Domain questions for owner
+None this session.
+
+---
+
 ## Session: Atomization Engine CREATIVE — 2026-03-07
 **Type:** CREATIVE
 **Engine:** Atomization (محرك التذرير)

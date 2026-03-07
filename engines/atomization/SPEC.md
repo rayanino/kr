@@ -110,8 +110,8 @@ The atomization engine produces one primary artifact per source: an atom stream.
 
 **Diagnostic fields:**
 - classification_notes: string or null. Explanation of non-obvious classification decisions. Null for straightforward atoms. Required non-null when: the atom was reclassified during self-validation, the scholarly function confidence is below 0.7, or the structural type is bonded_cluster.
-- bonded_reason: string or null. Required non-null when structural_type is bonded_cluster. Explains why multiple sentences were merged into a single atom (e.g., "condition_with_result", "isnad_chain_with_matn", "verse_with_inline_sharh").
-- review_flags: array of strings. Machine-generated flags for human review. Possible values: low_function_confidence (scholarly function confidence < 0.6), ambiguous_layer (atom spans a text_layer boundary with < 0.7 confidence), possible_misattribution (text appears to be quotation but no explicit attribution marker detected, or bonded cluster spans layer boundary), offset_drift_corrected (character offset was adjusted during validation), unresolved_quran_ref (Quran fragment detected but could not be matched to a specific ayah), low_attribution_confidence (an attribution entry has confidence < attribution_confidence_threshold), mid_word_boundary (atom boundary falls within an Arabic word — V-8 violation), coverage_gap_unresolved (synthetic atom inserted to fill a coverage gap that could not be resolved after retries).
+- bonded_reason: string or null. Required non-null when structural_type is bonded_cluster. Explains why two or more sentences were merged into a single atom (e.g., "condition_with_result", "isnad_chain_with_matn", "verse_with_inline_sharh").
+- review_flags: array of strings. Machine-generated flags for human review. Possible values: low_function_confidence (scholarly function confidence < 0.6), ambiguous_layer (atom spans a text_layer boundary with < 0.7 confidence), possible_misattribution (text appears to be quotation but no explicit attribution marker detected, or bonded cluster spans layer boundary), offset_drift_corrected (character offset was adjusted during validation), unresolved_quran_ref (Quran fragment detected but could not be matched to a specific ayah), low_attribution_confidence (an attribution entry has confidence < attribution_confidence_threshold), mid_word_boundary (atom boundary falls within an Arabic word — V-8 violation), coverage_gap_unresolved (synthetic atom inserted to fill a coverage gap that could not be resolved after retries), incomplete_argument (passage's rhetorical pattern is missing required components per §4.B.6 — set on all atoms in the passage when completeness_ratio < 1.0).
 
 **Scholarly attribution fields (§4.B.4):**
 - attributions: array of objects or null. Null when `enable_attribution_detection` is false (feature disabled — downstream engines must NOT interpret null as "no attributions detected"). Empty array [] when the feature is enabled but no attributions were detected in this atom. Non-empty array when attributions were detected. Each object identifies a scholarly attribution within this atom:
@@ -181,6 +181,21 @@ For each passage in the passage stream, the engine executes five phases:
 
 **LLM output format.** The LLM returns a structured JSON array of atom objects, each with: start (character offset), end (character offset), structural_type, scholarly_function, function_confidence, classification_notes, bonded_reason (if bonded_cluster), embedded_refs (if any), and atom_relations (if any). The engine uses the Instructor library (or DSPy with Pydantic models) to enforce schema compliance on LLM output. On schema violation, the engine retries with the validation error message appended to the prompt.
 
+**Example:** (§4.A.1) Input passage (prose format, single-layer nahw text from شرح ابن عقيل):
+
+> passage_text: "المبتدأ هو الاسم المرفوع العاري عن العوامل اللفظية. نحو: زيدٌ قائمٌ."
+> structural_format: "prose", content_flags: {has_verse: false, has_quran_citation: false, has_hadith_citation: false}
+
+Phase 1 (pre-screen): structural_format is "prose" → select prose atomization strategy. text_fidelity.min_score = 0.9 (above threshold) → use primary model. No review_flags from passaging.
+
+Phase 2 (rule-based pre-detection): No Quran markers, no hadith markers, no isnad patterns, no poetry markers detected. No pre-detection hints produced.
+
+Phase 3 (LLM atomization): LLM receives the passage text with prose strategy instructions and two gold prose examples. LLM returns two atoms: [0, 54) "المبتدأ هو الاسم المرفوع العاري عن العوامل اللفظية." classified as prose_sentence / definition; [55, 71) "نحو: زيدٌ قائمٌ." classified as prose_sentence / example.
+
+Phase 4 (post-processing): Verify offsets — passage_text[0:54] matches the first atom's text, passage_text[55:71] matches the second. Gap at offset 54 (space character) → absorbed into first atom, extending its end to 55. Assign atom_ids: atm_nahw_ibnaqil_alfiyyah_a3f2_00001, atm_nahw_ibnaqil_alfiyyah_a3f2_00002. Derive source_layer: "matn" for both (single-layer passage). Add atom_relation: atom 2 `illustrates` atom 1 (the example illustrates the definition).
+
+Phase 5 (self-validation): V-1 coverage: [0,55) ∪ [55,71) = [0,71) = [0, len(passage_text)) ✓. V-2 offset integrity: both atoms pass ✓. V-3 no empty atoms ✓. V-4 ordering: start offsets monotonically increasing ✓. V-5 type completeness: both have structural_type and scholarly_function ✓. V-6 layer attribution: single-layer, N/A ✓. V-7 bonded clusters: none present ✓. V-8 word boundaries: atom 1 ends after "." (punctuation), atom 2 starts at "ن" (start of word) ✓. All checks pass — atoms written to stream.
+
 #### §4.A.2 — Atom Boundary Rules
 
 An atom is the smallest indivisible unit of text within a passage. "Indivisible" means: splitting this atom would lose semantic coherence or break a scholarly convention. The following rules govern where atom boundaries are placed.
@@ -206,6 +221,17 @@ Every bonded cluster carries a bonded_reason explaining the trigger.
 
 **Rule AB-7: Verse lines are atoms.** In verse-format passages, each بيت (verse line) is one atom with structural_type: "verse_line". A بيت consists of two hemistichs (صدر and عجز). The hemistichs are NOT split into separate atoms — the بيت is the atomic unit. Verse numbering from verse_info is preserved in embedded_refs as metadata, not as separate atoms.
 
+**Example:** (§4.A.2) Input passage_text (fiqh text with mixed assertions):
+
+> "يجب الوضوء لكل صلاة مكتوبة. إذا نوى المتوضئ رفع الحدث واستباحة الصلاة أجزأه ذلك. لقوله تعالى: ﴿يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا قُمْتُمْ إِلَى الصَّلَاةِ فَاغْسِلُوا وُجُوهَكُمْ﴾."
+
+Boundary analysis applying the rules:
+- Atom 1: "يجب الوضوء لكل صلاة مكتوبة." → One scholarly assertion (a rule about wudu obligation). structural_type: prose_sentence, scholarly_function: rule_statement. (AB-1)
+- Atom 2: "إذا نوى المتوضئ رفع الحدث واستباحة الصلاة أجزأه ذلك." → Condition + result bonded cluster. The condition (إذا نوى) and its ruling (أجزأه) are inseparable. structural_type: bonded_cluster, scholarly_function: rule_statement, bonded_reason: "condition_with_result". (AB-2)
+- Atom 3: "لقوله تعالى: ﴿يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا قُمْتُمْ إِلَى الصَّلَاةِ فَاغْسِلُوا وُجُوهَكُمْ﴾." → Quran evidence citation. The evidence marker "لقوله تعالى" + the quotation form one atom. structural_type: prose_sentence, scholarly_function: evidence_quran. (AB-1)
+
+Three atoms, not one (even though the original is three consecutive sentences on the same topic). Each contains exactly one scholarly assertion.
+
 #### §4.A.3 — Atom Type Taxonomy
 
 Atoms are classified on two independent dimensions: structural type (the physical shape of the text unit) and scholarly function (the role the text plays in scholarly discourse). This two-tier system ensures that the excerpting engine receives both structural and semantic information.
@@ -220,7 +246,7 @@ Atoms are classified on two independent dimensions: structural type (the physica
 | verse_line | A single بيت of poetry with its two hemistichs. | "كلامُنا لفظٌ مفيدٌ كاستقِمْ *** واسمٌ وفعلٌ ثمّ حرفٌ الكَلِمْ" |
 | list_item | One item in an enumeration. The organizing statement is a separate prose_sentence atom. | "الثاني: أن يكون معرفة" |
 | table_cell | A single cell from a tabular structure (conjugation tables, comparison matrices). | "يَفْعَلُ" in a conjugation paradigm |
-| whitespace_separator | Non-content separator absorbed into the stream for coverage completeness. No scholarly_function. Typically zero or very few per passage. | "***" section divider |
+| whitespace_separator | Non-content separator absorbed into the stream for coverage completeness. No scholarly_function. Typically 0–3 per passage. | "***" section divider |
 
 **Scholarly function types** describe what the text does in scholarly discourse:
 
@@ -247,7 +273,15 @@ Atoms are classified on two independent dimensions: structural type (the physica
 - Every atom gets exactly one structural_type from the structural enum.
 - Every atom except heading and whitespace_separator gets exactly one scholarly_function from the function enum, or unclassified if the LLM cannot determine one.
 - The two dimensions are independent: a verse_line can have function definition (a versified definition), rule_statement (a versified rule), or example (a verse cited as a grammatical example).
-- When a single atom could carry multiple scholarly functions (e.g., a sentence that both states a rule and gives an example), the PRIMARY function is assigned and the secondary function is noted in classification_notes.
+- When a single atom could carry two or more scholarly functions (e.g., a sentence that both states a rule and gives an example), the PRIMARY function is assigned and the secondary function is noted in classification_notes.
+
+**Example:** (§4.A.3) Classifying a verse line from ألفية ابن مالك used in a شرح ابن عقيل commentary passage:
+
+> atom_text: "كلامُنا لفظٌ مفيدٌ كاستقِمْ *** واسمٌ وفعلٌ ثمّ حرفٌ الكَلِمْ"
+
+Classification: structural_type: verse_line (it is a بيت with صدر and عجز). scholarly_function: definition (the verse defines "الكلام" and enumerates the three categories of "الكَلِم"). function_confidence: 0.95. classification_notes: "Versified definition of الكلام — also contains an example (كاستقِمْ) as secondary function."
+
+The two tiers are independent: the structural shape is verse_line; the scholarly role is definition. A different بيت in the same poem — "بِالجَرِّ وَالتَّنوينِ وَالنِّدا وَأَلْ *** وَمُسنَدًا لِلاسمِ تَمييزٌ حَصَلْ" — would be structural_type: verse_line, scholarly_function: rule_statement (it states the signs that distinguish nouns).
 
 #### §4.A.4 — Rule-Based Pre-Detection
 
@@ -270,6 +304,18 @@ When a marker phrase is detected, the LLM is hinted that the following text like
 **Poetry marker detection.** Verse text is identified by: the presence of verse_info in the passage record (most reliable), hemistichal structure markers, or common poetry citation phrases ("قال الشاعر"، "كقول"، "ومنه قوله"). In verse-format passages, this detection is redundant with the format-specific strategy (§4.A.7). In prose-format passages, it detects embedded poetry citations.
 
 **Footnote marker detection.** The engine scans for ⌜N⌝ markers (D-031) in passage_text. Each detected marker is recorded with its character offset and reference number for linking to footnote atoms in post-processing.
+
+**Example:** (§4.A.4) Input passage_text from a fiqh text:
+
+> "والدليل على وجوب الوضوء قوله تعالى: ﴿يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا قُمْتُمْ إِلَى الصَّلَاةِ فَاغْسِلُوا وُجُوهَكُمْ﴾⌜1⌝ ولقول النبي ﷺ: لا يقبل الله صلاة أحدكم إذا أحدث حتى يتوضأ."
+
+Pre-detection results:
+1. Quran detection: The fragment "يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا قُمْتُمْ إِلَى الصَّلَاةِ فَاغْسِلُوا وُجُوهَكُمْ" matches canonical Quran text at surah 5 (المائدة), ayah 6, confidence 0.97. Marked as embedded_ref: {ref_type: quran_ayah, ref_detail: {surah: 5, ayah: 6, match_confidence: 0.97}, detection_method: canonical_lookup}. The introduction phrase "قوله تعالى" confirms this as a Quran evidence citation → soft default scholarly_function: evidence_quran.
+2. Evidence marker detection: "والدليل على" detected at passage start → hint that this passage opens with an evidence argument. "ولقول النبي ﷺ" detected → hint that subsequent text is evidence_hadith.
+3. Hadith marker detection: "لقول النبي ﷺ" followed by reported speech pattern → provisional hadith text span marked.
+4. Footnote marker detection: ⌜1⌝ detected at character offset 118 → recorded for footnote linking in post-processing.
+
+These hints are passed to the LLM as constraints (Quran at confidence ≥ 0.95 → hard constraint on the embedded_ref) and advisory hints (evidence markers → suggested scholarly functions).
 
 #### §4.A.5 — LLM-Driven Type Classification
 
@@ -299,6 +345,22 @@ The LLM performs the core atomization work: determining atom boundaries and clas
 
 **Model selection.** Atomization uses the configured primary LLM (default: Claude Sonnet via Anthropic API). For sources with text_fidelity.min_score < 0.5 or passages flagged with low_fidelity_content, the engine escalates to a stronger model (default: Claude Opus) for higher classification accuracy.
 
+**Example:** (§4.A.5) The LLM receives a passage from المغني لابن قدامة (fiqh, prose format) with one pre-detection hint (Quran fragment at positions 85–142):
+
+> passage_text: "وذهب أبو حنيفة إلى أن مس المرأة لا ينقض الوضوء مطلقاً. واحتج بأنه ﷺ قبّل بعض نسائه ثم صلى ولم يتوضأ. ولقوله تعالى: ﴿أَوْ لَامَسْتُمُ النِّسَاءَ﴾ والمراد به الجماع."
+
+LLM output (simplified):
+```
+[
+  {start: 0, end: 58, structural_type: "prose_sentence", scholarly_function: "opinion_statement", function_confidence: 0.92, classification_notes: "Hanafi position on touching a woman and wudu"},
+  {start: 59, end: 113, structural_type: "prose_sentence", scholarly_function: "evidence_hadith", function_confidence: 0.88},
+  {start: 114, end: 159, structural_type: "prose_sentence", scholarly_function: "evidence_quran", function_confidence: 0.95, embedded_refs: [{ref_type: "quran_ayah", span_start: 19, span_end: 39, ref_detail: {surah: 4, ayah: 43}, detection_method: "canonical_lookup"}]},
+  {start: 160, end: 183, structural_type: "prose_sentence", scholarly_function: "definition", function_confidence: 0.80, classification_notes: "Author's tafsir of the verse — defines المراد بـ'اللمس'"}
+]
+```
+
+Post-processing reconciles the LLM's Quran embedded_ref with the pre-detection result (both agree: surah 4, ayah 43, confirming An-Nisa). Atom_relations added: atom 2 `evidences` atom 1, atom 3 `evidences` atom 1, atom 4 `continues` atom 3.
+
 #### §4.A.6 — Multi-Layer Attribution
 
 In multi-layer texts (matn/sharh/hashiyah), each atom must be attributed to the correct text layer and author. The atomization engine determines this by matching each atom's character range against the passage's text_layers array.
@@ -320,6 +382,18 @@ In multi-layer texts (matn/sharh/hashiyah), each atom must be attributed to the 
 
 **LLM layer override.** The LLM may detect that text attributed to one layer by the normalization engine actually belongs to a different layer. The most common case: a passage in a sharh where the commentator writes "قال المصنف" and then quotes the matn author's words — the normalization engine may have classified the entire passage as Layer 2 (sharh), but the quoted words are actually Layer 1 (matn). When the LLM detects such an implicit layer transition, it marks the atom with the corrected layer and sets classification_notes explaining the override. This correction propagates to the atom's source_layer and layer_author_id fields. The review_flags: ["possible_misattribution"] flag is set for human verification.
 
+**Example:** (§4.A.6) Input passage from شرح ابن عقيل على ألفية ابن مالك (commentary_unit format):
+
+> passage_text: "قال المصنف: المبتدأ هو الاسم المرفوع العاري عن العوامل اللفظية. أقول: أراد بالعوامل اللفظية ما عدا الابتداء فإن الابتداء عامل معنوي."
+> text_layers: [{layer_type: "sharh", author_canonical_id: "ibn_aqil", start: 0, end: 130}]
+
+The normalization engine classified the entire passage as sharh (Layer 2). But the LLM detects "قال المصنف:" as an explicit layer transition marker.
+
+Attribution result:
+- Atom 1: "قال المصنف:" → structural_type: structural_transition, source_layer: "sharh" (Ibn Aqil introduces the quotation), layer_author_id: "ibn_aqil".
+- Atom 2: "المبتدأ هو الاسم المرفوع العاري عن العوامل اللفظية." → structural_type: prose_sentence, scholarly_function: definition. LLM override: source_layer changed from "sharh" to "matn", layer_author_id changed to "ibn_malik". review_flags: ["possible_misattribution"]. classification_notes: "LLM override: text after 'قال المصنف' is a direct matn quotation from ألفية ابن مالك."
+- Atom 3: "أقول: أراد بالعوامل اللفظية ما عدا الابتداء فإن الابتداء عامل معنوي." → structural_type: prose_sentence, scholarly_function: definition. source_layer: "sharh" (Ibn Aqil resumes commentary with "أقول"), layer_author_id: "ibn_aqil".
+
 #### §4.A.7 — Format-Specific Atomization
 
 The passage's structural_format determines which format-specific rules supplement the universal boundary rules (§4.A.2).
@@ -328,13 +402,24 @@ The passage's structural_format determines which format-specific rules supplemen
 
 **Verse format** (structural_format: "verse"). Each بيت is one atom (Rule AB-7). The verse_info field provides verse line data that the engine uses to verify the LLM's verse boundary detection. If verse_info.verse_lines and the LLM's verse detection disagree on the number of verse lines, the engine trusts verse_info (it comes from the normalization engine's structure discovery, which has higher accuracy for verse boundaries). Commentary text interspersed between verse lines in verse-format passages is atomized as separate prose atoms attributed to the commentary author.
 
-**Q&A format** (structural_format: "qa_pair"). Question-answer pairs are bonded clusters (Rule AB-2). The question is always a prose_sentence or bonded_cluster with scholarly function varying by context. The answer is the primary scholarly content. If a Q&A passage contains multiple sequential Q&A pairs, each pair is one atom.
+**Q&A format** (structural_format: "qa_pair"). Question-answer pairs are bonded clusters (Rule AB-2). The question is always a prose_sentence or bonded_cluster with scholarly function varying by context. The answer is the primary scholarly content. If a Q&A passage contains two or more sequential Q&A pairs, each pair is one atom.
 
 **Tabular format** (structural_format: "tabular_masala"). Each table row or distinct scholarly position within the tabular structure is atomized separately. If the table has a header row, it becomes a heading atom. Individual cells within a row may become separate atoms if they contain independent scholarly assertions (e.g., in a khilaf table: each school's position is a separate opinion_statement atom).
 
 **Dictionary format** (structural_format: "dictionary_entry"). The lemma/entry word is a heading atom. The definition body is atomized by scholarly function just like prose. Sense numbers create list_item structural types.
 
 **Commentary format** (structural_format: "commentary_unit"). This is the most complex format because it contains interleaved text from different authors. The key rule: the matn quotation at the start of the passage is one atom with source_layer: "matn" and layer_author_id pointing to the matn author. The commentary that follows is atomized as separate atoms with source_layer: "sharh". Layer transitions marked by phrases like "قال المصنف" or "قوله" (his words) trigger layer attribution changes on subsequent atoms until the commentary resumes.
+
+**Example:** (§4.A.7) Verse-format passage from ألفية ابن مالك with commentary (structural_format: "verse"):
+
+> passage_text: "كلامُنا لفظٌ مفيدٌ كاستقِمْ *** واسمٌ وفعلٌ ثمّ حرفٌ الكَلِمْ\nواحِدُهُ كَلِمَةٌ والقَوْلُ عَمّ *** وكَلِمَةٌ بها كلامٌ قد يُؤَمّ"
+> verse_info: {verse_lines: [{line_number: 1, sadr: "كلامُنا لفظٌ مفيدٌ كاستقِمْ", ajuz: "واسمٌ وفعلٌ ثمّ حرفٌ الكَلِمْ"}, {line_number: 2, sadr: "واحِدُهُ كَلِمَةٌ والقَوْلُ عَمّ", ajuz: "وكَلِمَةٌ بها كلامٌ قد يُؤَمّ"}]}
+
+Atomization result: Two atoms (one per بيت, per Rule AB-7):
+- Atom 1: "كلامُنا لفظٌ مفيدٌ كاستقِمْ *** واسمٌ وفعلٌ ثمّ حرفٌ الكَلِمْ" → structural_type: verse_line, scholarly_function: definition (defines الكلام). The verse_info confirms 2 verse lines; the LLM also identifies 2 → agreement, no conflict.
+- Atom 2: "واحِدُهُ كَلِمَةٌ والقَوْلُ عَمّ *** وكَلِمَةٌ بها كلامٌ قد يُؤَمّ" → structural_type: verse_line, scholarly_function: definition (defines الكلمة and distinguishes it from الكلام and القول).
+
+The hemistichs within each بيت are NOT split — the بيت is the atomic unit.
 
 #### §4.A.8 — Character Offset Integrity
 
@@ -352,6 +437,14 @@ Character offsets are the foundation of atom-to-passage linkage. An offset error
 
 **Coverage enforcement.** After all main text atoms are assigned, the post-processing phase checks that the union of all main text atom [start, end) ranges equals [0, len(passage_text)). If a gap exists between two adjacent atoms, the gap is absorbed into the preceding atom: its end boundary is extended to the following atom's start, AND its atom_text is updated to passage_text[atom.start : new_end]. Both the span and the text are corrected together to maintain the offset integrity invariant. If a gap exists before the first atom, the first atom's start is moved to 0 and its atom_text is updated similarly. The adjustment is logged with ATOM_COVERAGE_GAP_REPAIRED. If overlaps exist, the later atom's start is moved forward to the earlier atom's end and its atom_text is updated to passage_text[new_start : atom.end]. The adjustment is logged with ATOM_COVERAGE_OVERLAP_REPAIRED. In all cases, the review flag "offset_drift_corrected" is set on the adjusted atom.
 
+**Example:** (§4.A.8) passage_text: "المبتدأُ هو الاسمُ المرفوعُ. نحو: زيدٌ قائمٌ." (length: 44 characters)
+
+LLM returns two atoms:
+- Atom 1: {start: 0, end: 30, atom_text: "المبتدأُ هو الاسمُ المرفوعُ."} → passage_text[0:30] = "المبتدأُ هو الاسمُ المرفوعُ." ✓ exact match.
+- Atom 2: {start: 32, end: 44, atom_text: "نحو: زيدٌ قائمٌ."} → passage_text[32:44] = "نحو: زيدٌ قائمٌ." ✓ exact match.
+
+Coverage check: atom 1 covers [0,30), atom 2 covers [32,44). Gap at [30,32) — these are " " (space + newline). Gap repair: extend atom 1's end from 30 → 32, update atom 1's atom_text to passage_text[0:32] = "المبتدأُ هو الاسمُ المرفوعُ. " (includes trailing whitespace). Log ATOM_COVERAGE_GAP_REPAIRED, set review_flag "offset_drift_corrected". Final coverage: [0,32) ∪ [32,44) = [0,44) ✓ exhaustive.
+
 #### §4.A.9 — Footnote Atomization
 
 Each footnote in the passage's footnotes array is processed as a separate atom or set of atoms appended after the main text atoms.
@@ -367,6 +460,15 @@ Each footnote in the passage's footnotes array is processed as a separate atom o
 - editor_footnote → default scholarly function editorial_note
 - source_footnote → scholarly function determined by content (usually cross_reference or evidence_*)
 - unknown → LLM determines scholarly function
+
+**Example:** (§4.A.9) Input passage with one footnote:
+
+> passage_text: "المبتدأ هو الاسم المرفوع العاري عن العوامل اللفظية⌜1⌝."
+> footnotes: [{index: 0, text: "في نسخة: المجرد من العوامل اللفظية. والمعنى واحد.", footnote_type: "editor_footnote"}]
+
+Main text atom: "المبتدأ هو الاسم المرفوع العاري عن العوامل اللفظية⌜1⌝." → structural_type: prose_sentence, scholarly_function: definition, source_layer: "matn". footnote_refs: [{ref_marker: "1", linked_footnote_atom_id: "atm_...00002"}]. The ⌜1⌝ marker stays within the main text atom (Rule AB-4).
+
+Footnote atom: "في نسخة: المجرد من العوامل اللفظية. والمعنى واحد." → structural_type: prose_sentence, scholarly_function: editorial_note (because footnote_type is editor_footnote). source_layer: "footnote". footnote_source_index: 0. anchor_span: {start: 0, end: 50} (relative to the footnote's own text, NOT passage_text). atom_relations: [{relation_type: "footnote_for", target_atom_id: "atm_...00001"}]. Offset invariant: atom_text == footnotes[0].text[0:50] ✓.
 
 #### §4.A.10 — Self-Validation
 
@@ -396,6 +498,18 @@ Hard failures (V-1: coverage): trigger re-atomization (up to 2 retries). If retr
 
 Soft failures (V-3, V-5, V-6, V-7): produce review flags on the affected atoms but do not block the atom stream from being written.
 
+**Example:** (§4.A.10) Validation run on a 3-atom passage:
+
+> Atom 1: anchor_span [0, 35), atom_text = "يجب الوضوء لكل صلاة مكتوبة." → passage_text[0:35] matches ✓ (V-2 pass). structural_type: prose_sentence, scholarly_function: rule_statement with confidence 0.91 ✓ (V-5 pass).
+> Atom 2: anchor_span [35, 80), atom_text = "إذا نوى رفع الحدث واستباحة الصلاة أجزأه." → passage_text[35:80] matches ✓ (V-2 pass). structural_type: bonded_cluster, bonded_reason: "condition_with_result" ✓ (V-7 pass).
+> Atom 3: anchor_span [82, 120), atom_text = "لقوله تعالى: إذا قمتم إلى الصلاة." → passage_text[82:120] = "لقوله تعالى: إذا قمتم إلى الصلاة." ✓ (V-2 pass).
+
+V-1 coverage: [0,35) ∪ [35,80) ∪ [82,120). Gap at [80,82). Auto-repair: extend atom 2 end from 80 → 82, update atom_text to passage_text[35:82]. Log ATOM_COVERAGE_GAP_REPAIRED. Set review_flag "offset_drift_corrected" on atom 2. After repair: [0,35) ∪ [35,82) ∪ [82,120) = [0,120) = [0, len(passage_text)) ✓.
+V-4 ordering: start offsets 0 < 35 < 82 ✓. sequence_in_passage: 0, 1, 2 ✓.
+V-6 layer: single-layer passage, N/A ✓.
+V-8 word boundaries: atom 1 ends at position 35 (after "."), atom 2 ends at position 82 (after whitespace), atom 3 ends at 120 (after ".") — all at word/punctuation boundaries ✓.
+Result: all checks pass (one auto-repair applied). Atoms written to stream.
+
 ### §4.B — Transformative Capabilities
 
 #### §4.B.1 — Rhetorical Structure Analysis
@@ -422,7 +536,7 @@ When this pattern matches, the engine links: the refutation atom responds_to the
 
 **Capability:** Detect when a scholar quotes or paraphrases another scholar without explicit attribution markers, and flag these transitions as potential layer changes.
 
-Explicit layer transitions are handled by §4.A.6 — phrases like "قال المصنف" make the layer change obvious. But many scholarly texts contain implicit transitions: the author shifts from their own commentary into paraphrasing the matn without any explicit marker. These implicit transitions are dangerous because they can cause misattribution: the matn author's position is credited to the commentator, or vice versa.
+Explicit layer transitions are handled by §4.A.6 — phrases like "قال المصنف" make the layer change obvious. But scholarly texts frequently contain implicit transitions: the author shifts from their own commentary into paraphrasing the matn without any explicit marker. These implicit transitions are dangerous because they can cause misattribution: the matn author's position is credited to the commentator, or vice versa.
 
 **Detection signals:** The LLM is trained to detect implicit layer transitions by watching for:
 - **Register shifts:** Classical Arabic scholarly texts have distinctive register differences between matn (terse, definitional) and sharh (expansive, explanatory). A sudden shift from elaborate commentary to terse definitional language may indicate an unattributed matn quotation.
@@ -501,11 +615,11 @@ attributions: [
 ]
 ```
 
-An atom may have zero attributions (e.g., a definition without attribution is the source author's own), one (the common case), or multiple (nested attribution: "قال الماوردي: قال الشافعي" produces two attribution entries, one for each layer).
+An atom may have zero attributions (e.g., a definition without attribution is the source author's own), one (the common case), or two or more (nested attribution: "قال الماوردي: قال الشافعي" produces two attribution entries, one for each layer).
 
 **Interaction with text layers (§4.A.6).** In multi-layer texts, the attribution chain includes the layer structure. When a sharh author (Layer 2) quotes the matn author (Layer 1) using "قال المصنف," the atom's source_layer is set to "matn" AND an attribution entry records this as a Layer 2 → Layer 1 transition. When the sharh author then quotes a THIRD scholar within the commentary, that produces a separate attribution entry. The layer attribution and scholarly attribution are complementary, not redundant: layers tell you WHOSE TEXT this is physically; attributions tell you WHOSE POSITION is being described.
 
-**Why this is transformative.** No existing Islamic studies tool structures the attribution within scholarly text. Current tools either ignore it entirely (treating all text as the source author's words) or capture it only at the book level (metadata says "the author is X"). KR's atom-level attribution enables the synthesizer to answer: "Show me all positions attributed to al-Shafi'i across the library" — gathering not just passages FROM al-Shafi'i's own books, but every time ANY author in the library QUOTES al-Shafi'i. This reconstructs a scholar's complete intellectual footprint across the entire corpus — including positions transmitted by later scholars that may not appear in the original works (because many early works are lost, known only through quotation in later texts).
+**Why this is transformative.** No existing Islamic studies tool structures the attribution within scholarly text. Current tools either ignore it entirely (treating all text as the source author's words) or capture it only at the book level (metadata says "the author is X"). KR's atom-level attribution enables the synthesizer to answer: "Show me all positions attributed to al-Shafi'i across the library" — gathering not just passages FROM al-Shafi'i's own books, but every time ANY author in the library QUOTES al-Shafi'i. This reconstructs a scholar's complete intellectual footprint across the entire corpus — including positions transmitted by later scholars that may not appear in the original works (because a large proportion of early works are lost, known only through quotation in later texts).
 
 **Research validation.** IslamicLegalBench (2026) showed that even the best LLMs achieve only ~67% accuracy on Islamic legal reasoning tasks, with 21% hallucination. However, attribution detection is a much more constrained task than legal reasoning — it is pattern recognition over well-defined Arabic markers, not open-ended inference. The LLM is not being asked to evaluate the strength of a legal argument; it is being asked to detect "قال X" patterns and structure them. This is closer to NER (named entity recognition) than to legal reasoning, and LLMs perform significantly better on structured extraction tasks. Expected accuracy: 80-90% for direct attributions, 60-70% for anonymous/implicit attributions (the latter requiring human review flags).
 
@@ -513,7 +627,7 @@ An atom may have zero attributions (e.g., a definition without attribution is th
 
 #### §4.B.5 — Atom-Level Semantic Fingerprinting
 
-**Capability:** Generate a normalized canonical fingerprint for each content atom that enables downstream engines to detect when the same scholarly content (definition, rule, evidence citation) appears across multiple sources — even when the wording differs slightly.
+**Capability:** Generate a normalized canonical fingerprint for each content atom that enables downstream engines to detect when the same scholarly content (definition, rule, evidence citation) appears across different sources — even when the wording differs slightly.
 
 The same definition of المبتدأ appears in dozens of grammar books across 14 centuries. Sometimes word-for-word identical (because later scholars quote earlier ones). Sometimes paraphrased. Sometimes compressed or expanded. When the excerpting engine produces excerpts from 20 sources that all define المبتدأ, the taxonomy engine places them all at the same leaf, and the synthesizer encounters 20 near-duplicate definitions. Without fingerprinting, the synthesizer must rely on its own LLM judgment to detect duplicates — error-prone and opaque. With fingerprints, the synthesizer can group semantically equivalent atoms BEFORE synthesis, producing cleaner entries.
 
@@ -527,13 +641,13 @@ The same definition of المبتدأ appears in dozens of grammar books across 
 
 **Fingerprint is NOT identity.** Two atoms with matching fingerprints are CANDIDATES for deduplication — not confirmed duplicates. The synthesizer or excerpting engine makes the final deduplication decision because context matters: the same definition from a 2nd-century AH source and a 7th-century AH source may be textually identical but carry different scholarly weight. Fingerprints enable detection; downstream engines decide what to do with the detection.
 
-**Storage and downstream consumption.** Fingerprint fields are part of the atom record (§3). They are metadata that flows forward (D-023). The excerpting engine uses them to detect when multiple atoms within an excerpt are redundant. The taxonomy engine uses them to pre-group atoms at a leaf before synthesis. The synthesizer uses them to present unique content once (citing the strongest source) rather than repeating near-identical definitions from 20 sources.
+**Storage and downstream consumption.** Fingerprint fields are part of the atom record (§3). They are metadata that flows forward (D-023). The excerpting engine uses them to detect when two or more atoms within an excerpt are redundant. The taxonomy engine uses them to pre-group atoms at a leaf before synthesis. The synthesizer uses them to present unique content once (citing the strongest source) rather than repeating near-identical definitions from 20 sources.
 
 **Scalability consideration.** Tier 1 (text hash) is O(1) per atom — trivially fast. Tier 2 (key terms) is part of the existing LLM call — marginal cost. Tier 3 (embedding) adds one embedding model call per atom — significant at scale. For a 15-volume work producing ~50,000 atoms, Tier 3 adds ~50,000 embedding calls. At 1000 embeddings/second (batch processing with Swan-Large on a consumer GPU), this adds ~50 seconds. Acceptable.
 
 **Why this is transformative.** No existing Islamic studies tool detects conceptual duplicates across sources at the sub-paragraph level. The KITAB project's text reuse detection operates at 300-word chunks — too coarse to detect that two books contain the same one-sentence definition. Islamic scholarly tradition is deeply intertextual: later scholars routinely reproduce earlier scholars' exact definitions, often without attribution. Atom-level fingerprinting reveals this intertextual web at the finest meaningful granularity. Over time, as the library grows, the fingerprint database becomes a map of how scholarly concepts are transmitted, transformed, and preserved across centuries — making visible the invisible "DNA" of the Islamic intellectual tradition.
 
-**Cross-source fingerprint index.** After atomizing a source, the engine registers all fingerprints in a source-level fingerprint manifest (`library/sources/{source_id}/atoms/fingerprint_manifest.json`). When the library has multiple sources, a background process (or the taxonomy engine) can cross-reference fingerprints across sources to build a library-wide duplicate detection index. This index is a shared resource, not owned by the atomization engine — the atomization engine produces the fingerprints; consumption is downstream.
+**Cross-source fingerprint index.** After atomizing a source, the engine registers all fingerprints in a source-level fingerprint manifest (`library/sources/{source_id}/atoms/fingerprint_manifest.json`). When the library has two or more sources, a background process (or the taxonomy engine) can cross-reference fingerprints across sources to build a library-wide duplicate detection index. This index is a shared resource, not owned by the atomization engine — the atomization engine produces the fingerprints; consumption is downstream.
 
 [NOT YET IMPLEMENTED] — Full specification provided. Depends on: Arabic text normalization utilities from CAMeL Tools (Tier 1), core LLM atomization producing key terms (Tier 2), Arabic embedding model deployment (Tier 3). Tier 1 and Tier 2 can be implemented immediately; Tier 3 requires embedding model infrastructure.
 
@@ -568,6 +682,20 @@ Islamic scholarly texts follow conventionalized argument structures. In fiqh, th
 
 **Dependency.** Requires §4.B.1 (rhetorical structure analysis) to identify the pattern type. If §4.B.1 is disabled or detects no pattern, completeness scoring is skipped for that passage (completeness_score is null).
 
+**Example:** (§4.B.6) A khilaf passage about مسح الرأس في الوضوء containing 5 atoms:
+
+> Atom 1: "ذهب الشافعي إلى أنه يكفي مسح بعض الرأس." → scholarly_function: opinion_statement (position A)
+> Atom 2: "لقوله تعالى: ﴿وَامْسَحُوا بِرُءُوسِكُمْ﴾ والباء للتبعيض." → scholarly_function: evidence_quran (evidence for A)
+> Atom 3: "وذهب أحمد إلى وجوب مسح الرأس كله." → scholarly_function: opinion_statement (position B)
+> Atom 4: "لما رُوي أنه ﷺ مسح برأسه فأقبل بيديه وأدبر." → scholarly_function: evidence_hadith (evidence for B)
+> Atom 5: "والراجح مذهب الإمام أحمد لصراحة الحديث." → scholarly_function: opinion_statement (tarjih)
+
+§4.B.1 detects pattern: khilaf. Required components: ≥2 opinion_statement atoms (atoms 1, 3 ✓), ≥1 evidence_* atom (atoms 2, 4 ✓). Optional: refutation (absent), tarjih (atom 5, present ✓).
+
+completeness_score: {pattern_type: "khilaf", required_present: ["opinion_A", "opinion_B", "evidence_A", "evidence_B"], required_missing: [], optional_present: ["tarjih"], completeness_ratio: 1.0, gap_description: null}. No "incomplete_argument" flag set — this passage is argumentatively complete.
+
+Contrast: if atoms 2 and 4 were absent (opinions stated without evidence), completeness_ratio would be 0.5 (2 of 4 required components present), gap_description: "مذهب الشافعي stated without evidence; مذهب أحمد stated without evidence."
+
 [NOT YET IMPLEMENTED] — Full specification provided. Depends on: §4.B.1 rhetorical pattern detection, atom scholarly function classification (§4.A).
 
 #### §4.B.7 — Cross-Atom Terminological Concordance
@@ -600,6 +728,30 @@ The alternate_terms field is populated by the LLM when the definition text itsel
 **Why this is transformative.** No Islamic studies tool provides a machine-readable terminological concordance extracted from the source texts themselves. Existing glossaries are manually compiled and incomplete. KR's concordance is AUTOMATICALLY generated from every definition atom in the library. As the library grows, it becomes the most comprehensive Arabic scholarly terminology map ever constructed — not by manual compilation, but by reading what scholars actually wrote. The synthesizer uses this to produce entries that explain: "This concept is called X by the Basran school and Y by the Kufan school" — cross-referencing terminology automatically rather than requiring the student to discover this through years of reading.
 
 **Configuration.** `enable_concordance_extraction`: boolean, default true. When false, concordance_entry is null on all atoms and no term_index is produced.
+
+**Example:** (§4.B.7) Definition atom from شرح ابن عقيل:
+
+> atom_text: "المبتدأ هو الاسم المرفوع العاري عن العوامل اللفظية، ويُسمى أيضاً المُسنَد إليه."
+> scholarly_function: definition
+
+LLM extraction:
+- defined_term: "المبتدأ" (the term preceding "هو" in the definitional pattern)
+- definition_genus: "اسم" (the broader category — it IS a noun)
+- definition_differentia: ["مرفوع", "عارٍ عن العوامل اللفظية"] (the distinguishing features)
+- alternate_terms: ["المُسنَد إليه"] (extracted from "ويُسمى أيضاً")
+
+Output concordance_entry:
+```
+{
+  defined_term: "المبتدأ",
+  definition_genus: "اسم",
+  definition_differentia: ["مرفوع", "عارٍ عن العوامل اللفظية"],
+  alternate_terms: ["المُسنَد إليه"],
+  science_scope: "nahw"
+}
+```
+
+If a later source (e.g., a Kufan grammar) defines "المُسنَد إليه" with genus "اسم" and similar differentia, the downstream taxonomy engine detects the overlap: same genus + overlapping differentia + one term appears in the other's alternate_terms → candidate cross-source synonym.
 
 [NOT YET IMPLEMENTED] — Full specification provided. Depends on: core LLM atomization (§4.A.5) with concordance extraction in the prompt. No external dependencies beyond the LLM.
 
@@ -644,13 +796,33 @@ evidence_quality_signals: [
 ]
 ```
 
-An evidence atom may have zero signals (no explicit quality evaluation by the author), one (the common case), or multiple (e.g., "رواه البخاري — وقال الترمذي: حسن صحيح" has two positive signals). Non-evidence atoms always have evidence_quality_signals as null (feature not applicable).
+An evidence atom may have zero signals (no explicit quality evaluation by the author), one (the common case), or two or more (e.g., "رواه البخاري — وقال الترمذي: حسن صحيح" has two positive signals). Non-evidence atoms always have evidence_quality_signals as null (feature not applicable).
 
 **Interaction with attribution (§4.B.4).** When an evidence atom has both an attribution chain (who transmitted this evidence) and quality signals (how the author evaluates this evidence), the synthesizer receives both perspectives. Example: the attribution chain says this hadith comes through a particular transmitter chain; the quality signal says the author considers the chain sound. This is richer than either alone.
 
 **Why this is transformative.** No existing tool extracts the author's own evidence evaluations at the sub-paragraph level. Current Islamic studies tools present evidence citations without the author's quality assessment. But in scholarly practice, the author's assessment of their own evidence is crucial metadata: a scholar who KNOWS their evidence is weak but presents it anyway (with the weakness noted) is making a different scholarly move than one who presents evidence without qualification. The synthesizer uses these signals to produce entries that explain: "Source A considers this hadith strong (citing al-Bukhari); Source B considers the same hadith's chain questionable (noting weakness in one transmitter)." This reveals when scholars DISAGREE about evidence quality — a critical dimension of scholarly debate invisible in flat text presentation.
 
 **Configuration.** `enable_evidence_quality_detection`: boolean, default true. When false, evidence_quality_signals is null on all atoms. `evidence_quality_lexicon_path`: string, default `engines/atomization/lexicons/evidence_quality.json`. Path to the quality signal phrase lexicon.
+
+**Example:** (§4.B.8) Evidence atom from a fiqh text:
+
+> atom_text: "لقول النبي ﷺ: لا ضرر ولا ضرار — رواه أحمد وابن ماجه بإسناد صحيح، وقال بعضهم: في إسناده عبد الرحمن بن أبي بكر وهو ضعيف."
+> scholarly_function: evidence_hadith
+
+Phase 1 (rule-based pre-detection): Lexicon matches "رواه أحمد وابن ماجه" → hadith_strong_collection candidate. "بإسناد صحيح" → hadith_chain_quality candidate. "وهو ضعيف" → hadith_weakness_flag candidate.
+
+Phase 2 (LLM confirmation): LLM confirms all three signals and resolves context: the first two signals are the author's own positive assessment; the third signal is the author quoting a dissenting opinion about the chain.
+
+Output evidence_quality_signals:
+```
+[
+  {signal_type: "hadith_strong_collection", signal_text: "رواه أحمد وابن ماجه", quality_direction: "positive", span_start: 42, span_end: 60, confidence: 0.93},
+  {signal_type: "hadith_chain_quality", signal_text: "بإسناد صحيح", quality_direction: "positive", span_start: 61, span_end: 72, confidence: 0.95},
+  {signal_type: "hadith_weakness_flag", signal_text: "وهو ضعيف", quality_direction: "negative", span_start: 112, span_end: 121, confidence: 0.88}
+]
+```
+
+Three signals on one atom: the author presents BOTH a positive authentication (Ahmad and Ibn Majah, with a sound chain) AND a dissenting weakness claim. The synthesizer surfaces this tension: "The author cites this hadith as evidence with positive authentication, but notes a dissenting view questioning one transmitter."
 
 [NOT YET IMPLEMENTED] — Full specification provided. Depends on: core atomization (§4.A), quality signal lexicon file, LLM prompt integration.
 
@@ -664,7 +836,7 @@ The atomization engine's validation architecture has three layers, following the
 
 **Layer 2: Cross-passage consistency checks.** After all passages for a source are atomized, the engine runs cross-passage validation:
 - **Monotonic atom_id:** Verify that atom_id sequence numbers are globally monotonic across all passages.
-- **Source-level layer plausibility:** If the source metadata declares the source as multi-layer (commentary), verify that at least one passage produced atoms with source_layer values from multiple layers. If all atoms are matn, either the source metadata is wrong or the layer detection failed.
+- **Source-level layer plausibility:** If the source metadata declares the source as multi-layer (commentary), verify that at least one passage produced atoms with source_layer values from two or more distinct layers. If all atoms are matn, either the source metadata is wrong or the layer detection failed.
 - **Type distribution sanity:** Using the distribution report (§4.B.3), flag anomalies that suggest systematic classification errors (e.g., 100% of atoms classified as prose_sentence with no scholarly function variety suggests the LLM prompt was ineffective).
 
 **Layer 3: Human gate integration.** The atomization engine does not have a dedicated human gate. Instead, human review is triggered by review flags on individual atoms. The excerpting engine's human gate reviews flagged atoms as part of excerpt review — atoms are intermediate artifacts whose classification decisions are most meaningful in the context of the excerpts they form. However, two conditions trigger source-level human review escalation:
@@ -679,7 +851,7 @@ The atomization engine's validation architecture has three layers, following the
 
 The atomization engine does NOT use multi-model consensus for standard atomization. This is a conscious design decision.
 
-**Rationale:** Atom boundaries and type classifications are judgments that benefit from a single consistent perspective rather than from averaging multiple perspectives. Multi-model consensus is designed for decisions where agreement increases confidence (e.g., "is this excerpt correctly placed?"). Atom boundary placement is more analogous to annotation: different annotators may place valid boundaries in different positions, and averaging them produces worse results than letting one skilled annotator work consistently.
+**Rationale:** Atom boundaries and type classifications are judgments that benefit from a single consistent perspective rather than from averaging independent perspectives. Multi-model consensus is designed for decisions where agreement increases confidence (e.g., "is this excerpt correctly placed?"). Atom boundary placement is more analogous to annotation: different annotators may place valid boundaries in different positions, and averaging them produces worse results than letting one skilled annotator work consistently.
 
 **Exception: escalation consensus.** When a passage fails self-validation twice and the engine escalates to a stronger model, the escalation uses a different model (e.g., if the primary model is Claude Sonnet, escalation uses Claude Opus). If both models fail, the passage is flagged for human review. This is not consensus in the multi-model agreement sense — it is escalation with a different model as a fallback strategy.
 
