@@ -128,6 +128,12 @@ The atomization engine produces one primary artifact per source: an atom stream.
 - fingerprint_key_terms: array of strings or null. Present when `enable_text_fingerprinting` is true. 2-5 key Arabic terms extracted by the LLM representing the atom's conceptual core. Normalized (diacritics stripped).
 - fingerprint_embedding: array of floats or null. Present when `enable_semantic_fingerprinting` is true. Semantic embedding vector, truncated to configured dimensions (default 256).
 
+**Terminological concordance fields (§4.B.7):**
+- concordance_entry: object or null. Present only on atoms with scholarly_function: definition when `enable_concordance_extraction` is true. Null on non-definition atoms and when feature is disabled. Contains: defined_term (string, the Arabic term being defined), definition_genus (string or null, the broader category), definition_differentia (array of strings, distinguishing features), alternate_terms (array of strings, synonyms mentioned in the text), science_scope (string, the science this term belongs to, derived from source metadata).
+
+**Evidence quality signal fields (§4.B.8):**
+- evidence_quality_signals: array of objects or null. Present only on evidence atoms (scholarly_function in {evidence_quran, evidence_hadith, evidence_ijma, evidence_qiyas, evidence_rational}) when `enable_evidence_quality_detection` is true. Null on non-evidence atoms and when feature is disabled. Empty array when enabled but no quality signals detected. Each object: signal_type (string, one of: hadith_strong_collection, hadith_weakness_flag, hadith_chain_quality, evidence_explicit_strength, evidence_explicit_weakness, consensus_qualifier, author_tarjih_marker), signal_text (string, the Arabic text that triggered detection), quality_direction (string, one of: positive, negative, neutral), span_start (integer, start offset within atom_text), span_end (integer, end offset within atom_text), confidence (float, [0.0, 1.0]).
+
 **Guarantees about the atom stream:**
 
 - **Source-agnostic.** The atom schema is identical regardless of source type.
@@ -146,6 +152,9 @@ The atomization engine produces one primary artifact per source: an atom stream.
 - Intra-passage atom relationships
 - Scholarly attribution chains per atom (§4.B.4) — who is being quoted, through what chain
 - Semantic fingerprints per atom (§4.B.5) — text hash, key terms, optional embedding
+- Argument completeness scores per passage (§4.B.6) — structural gap detection in the distribution report
+- Terminological concordance entries per definition atom (§4.B.7) — term, genus, differentia, alternates
+- Evidence quality signals per evidence atom (§4.B.8) — author's own evaluation of cited evidence strength
 - Classification confidence and review flags
 
 **Source registry update.** Upon successful atomization of all passages for a source, the source's processing status is updated from passaged to atomized. The atom stream path is recorded.
@@ -528,6 +537,123 @@ The same definition of المبتدأ appears in dozens of grammar books across 
 
 [NOT YET IMPLEMENTED] — Full specification provided. Depends on: Arabic text normalization utilities from CAMeL Tools (Tier 1), core LLM atomization producing key terms (Tier 2), Arabic embedding model deployment (Tier 3). Tier 1 and Tier 2 can be implemented immediately; Tier 3 requires embedding model infrastructure.
 
+#### §4.B.6 — Argument Completeness Scoring
+
+**Capability:** Detect structural gaps in scholarly argument patterns within a passage — positions stated without evidence, evidence presented without a clear claim, disagreements listed without tarjih (preference) — and score each passage's argumentative completeness.
+
+Islamic scholarly texts follow conventionalized argument structures. In fiqh, the expected pattern for a khilaf (disagreement) discussion is: (1) state the masala (issue), (2) present position A, (3) present evidence for A, (4) present position B, (5) present evidence for B, (6) refute the weaker position or present counterarguments, (7) state the tarjih (preponderant opinion) with justification. In nahw, the pattern is: (1) define the concept, (2) state the rule, (3) give examples, (4) note exceptions, (5) cite authoritative position, (6) note disagreements if any. Passages that omit expected components are structurally incomplete — the omission may be intentional (the author assumes the reader knows the evidence) or may indicate that the source doesn't cover this aspect of the topic.
+
+**Detection mechanism.** After §4.B.1 (rhetorical structure analysis) identifies the rhetorical pattern in a passage, the completeness scorer checks whether all expected components of that pattern are present. This is a post-processing step that runs AFTER atom type classification and rhetorical pattern matching.
+
+**Expected components per pattern type:**
+
+| Pattern | Required components | Optional components |
+|---------|-------------------|---------------------|
+| khilaf (disagreement) | ≥2 opinion_statement atoms, ≥1 evidence_* atom | refutation, tarjih (opinion_statement with self attribution + evidence) |
+| single_ruling | 1 rule_statement atom, ≥1 evidence_* atom | example, condition_exception |
+| definition_block | 1 definition atom | example, cross_reference |
+| evidence_chain | ≥1 evidence_* atom, 1 opinion_statement or rule_statement atom (the claim being evidenced) | refutation of counter-evidence |
+
+**Completeness score.** Each passage receives a completeness_score object:
+- pattern_type: string or null. The detected rhetorical pattern (from §4.B.1). Null if no pattern detected.
+- required_present: array of strings. Required components that ARE present.
+- required_missing: array of strings. Required components that are ABSENT. Empty if complete.
+- optional_present: array of strings. Optional components that are present.
+- completeness_ratio: float, [0.0, 1.0]. |required_present| / |required_present ∪ required_missing|. 1.0 means all required components present.
+- gap_description: string or null. Human-readable description of what's missing. Null if completeness_ratio is 1.0. Example: "Opinion of الحنفية stated without evidence; tarjih stated without justification."
+
+**Output.** The completeness score is stored per passage in the distribution report (§4.B.3), NOT per atom. It is a passage-level analytical artifact. When completeness_ratio < 1.0, all atoms in the passage receive a review_flag: "incomplete_argument" (new flag value).
+
+**Why this is transformative.** No existing tool tells a scholar "this source discusses topic X but only provides one side's evidence." The synthesizer uses completeness scores to produce entries like: "For the Hanafi position's evidence, see Source A (which provides it); Source B states the position but does not provide supporting evidence." This transforms a flat list of excerpts into a map of argumentative coverage — the scholar knows not just WHAT each source says, but HOW COMPLETELY it argues. Over the full library, completeness scores reveal which sources are best for which purposes: Source A is argumentatively thorough (high completeness), Source B is concise and assumes prior knowledge (low completeness but high authority).
+
+**Dependency.** Requires §4.B.1 (rhetorical structure analysis) to identify the pattern type. If §4.B.1 is disabled or detects no pattern, completeness scoring is skipped for that passage (completeness_score is null).
+
+[NOT YET IMPLEMENTED] — Full specification provided. Depends on: §4.B.1 rhetorical pattern detection, atom scholarly function classification (§4.A).
+
+#### §4.B.7 — Cross-Atom Terminological Concordance
+
+**Capability:** Build a structured map of technical terms (mustalahaat) from definition atoms, identifying when different atoms define the same concept using different terminology, and producing a per-source terminological index that feeds downstream deduplication and cross-source linking.
+
+Islamic sciences developed regionally distinct terminologies. Basran grammarians say المبتدأ; Kufan grammarians say المُسنَد إليه. Hanafi jurists say الفرض; Shafi'i jurists say الفرضية for the same concept. Early scholars use العلة (effective cause); later scholars use المناط (operative basis). Students moving between texts encounter the same concept under unfamiliar names — a major barrier to learning that existing tools do not address.
+
+**Extraction mechanism.** During LLM atomization (§4.A.5), for every atom classified with scholarly_function: definition, the LLM extracts three additional fields:
+
+- defined_term: string. The Arabic term being defined. Extracted from the definitional pattern (the term following "هو/هي", the subject of "يُعرَّف بأنه", or the heading term in a dictionary entry). Example: "المبتدأ".
+- definition_genus: string or null. The broader category the term belongs to (the genus in the Aristotelian definition pattern). Extracted from the predicate of the definition. Example for "المبتدأ هو الاسم المرفوع": genus is "اسم" (noun). Null if the definition does not follow a genus-differentia pattern.
+- definition_differentia: array of strings. The distinguishing features. Example: ["مرفوع", "مجرد من العوامل اللفظية"]. Empty array if extraction fails.
+
+**Output per atom.** For definition atoms, a concordance_entry object is added to the atom record:
+```
+concordance_entry: {
+  defined_term: "المبتدأ",
+  definition_genus: "اسم",
+  definition_differentia: ["مرفوع", "مجرد من العوامل اللفظية"],
+  alternate_terms: ["المُسنَد إليه"],
+  science_scope: "nahw"
+}
+```
+
+The alternate_terms field is populated by the LLM when the definition text itself mentions synonyms (e.g., "المبتدأ، ويُسمى أيضاً المُسنَد إليه" — "the mubtada, also called al-musnad ilayh"). If the text does not mention alternates, alternate_terms is an empty array. Cross-source synonym detection (finding that Source A's المبتدأ and Source B's المُسنَد إليه refer to the same concept) is a DOWNSTREAM task for the taxonomy engine using fingerprint similarity (§4.B.5) + concordance genus overlap — the atomization engine produces the raw concordance data, not the cross-source links.
+
+**Per-source terminological index.** After atomizing all passages for a source, the engine compiles a terminological index: `library/sources/{source_id}/atoms/term_index.json`. This is a JSON array of all concordance entries from definition atoms in the source, deduplicated by defined_term (if two passages define the same term, both entries are included with their atom_ids). The index includes the atom_id, passage_id, source_layer, and layer_author_id for each entry — so the downstream engines know who defined the term and in what context.
+
+**Why this is transformative.** No Islamic studies tool provides a machine-readable terminological concordance extracted from the source texts themselves. Existing glossaries are manually compiled and incomplete. KR's concordance is AUTOMATICALLY generated from every definition atom in the library. As the library grows, it becomes the most comprehensive Arabic scholarly terminology map ever constructed — not by manual compilation, but by reading what scholars actually wrote. The synthesizer uses this to produce entries that explain: "This concept is called X by the Basran school and Y by the Kufan school" — cross-referencing terminology automatically rather than requiring the student to discover this through years of reading.
+
+**Configuration.** `enable_concordance_extraction`: boolean, default true. When false, concordance_entry is null on all atoms and no term_index is produced.
+
+[NOT YET IMPLEMENTED] — Full specification provided. Depends on: core LLM atomization (§4.A.5) with concordance extraction in the prompt. No external dependencies beyond the LLM.
+
+#### §4.B.8 — Evidence Quality Signal Detection
+
+**Capability:** Detect and structure the author's own explicit evaluations of evidence strength within evidence atoms, surfacing how the source author assessed the reliability of the evidence they cited.
+
+Arabic scholarly convention includes explicit quality markers embedded in or immediately adjacent to evidence citations. When a fiqh author writes "لقول النبي ﷺ — رواه البخاري ومسلم" (for the Prophet's saying — reported by al-Bukhari and Muslim), the authentication reference "رواه البخاري ومسلم" is the author's own quality signal: this hadith is in the two most trusted collections. When another author writes "رُوي أنه قال — وفي إسناده ضعف" (it is reported that he said — and in its chain is weakness), the phrase "وفي إسناده ضعف" is an explicit quality downgrade.
+
+These signals are NOT the atomization engine's own evaluation of evidence quality — the engine has no competence to grade hadith authenticity or evaluate legal arguments. These are the SOURCE AUTHOR'S explicit textual markers that evaluate the evidence they cite. The engine extracts what the author said about evidence quality, not what the evidence quality actually is.
+
+**Signal types detected:**
+
+| Signal | Arabic markers | Quality direction |
+|--------|---------------|-------------------|
+| hadith_strong_collection | "رواه البخاري"، "في الصحيحين"، "رواه مسلم"، "أخرجه أحمد"، "في السنن" | positive |
+| hadith_weakness_flag | "وفي إسناده ضعف"، "حديث ضعيف"، "لا يثبت"، "في إسناده فلان وهو ضعيف" | negative |
+| hadith_chain_quality | "بإسناد صحيح"، "إسناده حسن"، "رجاله ثقات" | positive |
+| evidence_explicit_strength | "وهو نص في الباب"، "دليل قاطع"، "لا معارض له" | positive |
+| evidence_explicit_weakness | "وهذا الدليل لا يستقيم"، "وأُجيب عنه بأن"، "ولا حجة فيه" | negative |
+| consensus_qualifier | "إجماع قطعي"، "إجماع سكوتي"، "لا نعلم فيه خلافاً" | varies (qat'i > sukuti > la na'lam) |
+| author_tarjih_marker | "والراجح"، "والأظهر"، "والأصح"، "والمعتمد" | positive (author's preferred) |
+
+**Detection approach.** Evidence quality signals are detected in two phases:
+
+1. **Rule-based pre-detection (§4.A.4 extension).** The engine maintains a lexicon of quality signal phrases (the Arabic markers above). During pre-detection, when a quality signal phrase is found within or immediately after an evidence_* atom, the span is marked as a quality signal.
+
+2. **LLM classification.** During atomization, the LLM confirms or rejects the pre-detected signals and may identify additional signals not in the lexicon (e.g., when the author uses an unusual phrasing to express evidence quality). The LLM also resolves ambiguous cases: "رواه أحمد" (reported by Ahmad) is a positive collection signal, but "رواه ابن أبي شيبة" may be positive or neutral depending on context.
+
+**Output per evidence atom.** Evidence atoms (scholarly_function in {evidence_quran, evidence_hadith, evidence_ijma, evidence_qiyas, evidence_rational}) receive an evidence_quality_signals field:
+
+```
+evidence_quality_signals: [
+  {
+    signal_type: "hadith_strong_collection",
+    signal_text: "رواه البخاري ومسلم",
+    quality_direction: "positive",
+    span_start: 45,
+    span_end: 62,
+    confidence: 0.95
+  }
+]
+```
+
+An evidence atom may have zero signals (no explicit quality evaluation by the author), one (the common case), or multiple (e.g., "رواه البخاري — وقال الترمذي: حسن صحيح" has two positive signals). Non-evidence atoms always have evidence_quality_signals as null (feature not applicable).
+
+**Interaction with attribution (§4.B.4).** When an evidence atom has both an attribution chain (who transmitted this evidence) and quality signals (how the author evaluates this evidence), the synthesizer receives both perspectives. Example: the attribution chain says this hadith comes through a particular transmitter chain; the quality signal says the author considers the chain sound. This is richer than either alone.
+
+**Why this is transformative.** No existing tool extracts the author's own evidence evaluations at the sub-paragraph level. Current Islamic studies tools present evidence citations without the author's quality assessment. But in scholarly practice, the author's assessment of their own evidence is crucial metadata: a scholar who KNOWS their evidence is weak but presents it anyway (with the weakness noted) is making a different scholarly move than one who presents evidence without qualification. The synthesizer uses these signals to produce entries that explain: "Source A considers this hadith strong (citing al-Bukhari); Source B considers the same hadith's chain questionable (noting weakness in one transmitter)." This reveals when scholars DISAGREE about evidence quality — a critical dimension of scholarly debate invisible in flat text presentation.
+
+**Configuration.** `enable_evidence_quality_detection`: boolean, default true. When false, evidence_quality_signals is null on all atoms. `evidence_quality_lexicon_path`: string, default `engines/atomization/lexicons/evidence_quality.json`. Path to the quality signal phrase lexicon.
+
+[NOT YET IMPLEMENTED] — Full specification provided. Depends on: core atomization (§4.A), quality signal lexicon file, LLM prompt integration.
+
 ---
 
 ## 5. Validation and Quality
@@ -582,6 +708,9 @@ Every error the atomization engine can produce, with its code, severity, and rec
 | ATOM_FINGERPRINT_EMBEDDING_FAILURE | Warning | Embedding model call failed for Tier 3 fingerprinting (§4.B.5) | Set fingerprint_embedding to null for this atom. Log the error. Does not block processing — Tier 1 and Tier 2 fingerprints remain available. |
 | ATOM_FINGERPRINT_KEY_TERMS_EMPTY | Info | The LLM returned zero key terms for an atom during Tier 2 fingerprinting (§4.B.5) | Set fingerprint_key_terms to empty array. Log a warning. Does not block processing. |
 | ATOM_UNKNOWN_LAYER_TYPE | Warning | A text_layer segment has a layer_type value not in the mapping (§4.A.6) | Default to source_layer "matn". Set review_flags: ["ambiguous_layer"]. Log the unrecognized value. |
+| ATOM_COMPLETENESS_PATTERN_MISMATCH | Info | §4.B.6 pattern matcher found a rhetorical pattern but expected components are missing | Record gap in completeness_score. Set "incomplete_argument" review flag on all passage atoms. Does not block processing. |
+| ATOM_CONCORDANCE_EXTRACTION_FAILURE | Warning | LLM failed to extract defined_term from a definition atom during §4.B.7 | Set concordance_entry to null for this atom. Log the passage_id and atom text. Does not block processing. |
+| ATOM_EVIDENCE_QUALITY_PARSE_FAILURE | Warning | LLM returned a quality signal entry that does not conform to the EvidenceQualitySignal schema (§4.B.8) | Drop the malformed signal entry. Log the raw LLM output. Does not block processing. |
 
 **Logging.** Every error and warning is logged to library/sources/{source_id}/atoms/atomization_log.jsonl with: timestamp, error code, passage_id, atom_id (if applicable), error details, and recovery action taken. Fatal errors additionally trigger an entry in the source's processing status.
 
@@ -614,6 +743,10 @@ Parameters controlling engine behavior, with defaults and valid ranges.
 | fingerprint_embedding_model | Omartificial/Arabic-STS-Matryoshka | Any sentence-transformers model | Embedding model for Tier 3 fingerprinting |
 | fingerprint_embedding_dimensions | 256 | 64–1024 | Matryoshka truncation dimension for Tier 3 |
 | fingerprint_key_terms_count | 5 | 2–10 | Maximum number of key terms extracted per atom for Tier 2 |
+| enable_completeness_scoring | true | true/false | Whether to run §4.B.6 argument completeness scoring. Requires §4.B.1 rhetorical pattern detection. |
+| enable_concordance_extraction | true | true/false | Whether to extract terminological concordance entries from definition atoms (§4.B.7). |
+| enable_evidence_quality_detection | true | true/false | Whether to detect evidence quality signals in evidence atoms (§4.B.8). |
+| evidence_quality_lexicon_path | engines/atomization/lexicons/evidence_quality.json | Any path | Path to the quality signal phrase lexicon for §4.B.8. |
 
 **Per-science configuration hooks (Level 3 / SCIENCE.md):** Each science may define:
 - Additional scholarly function types specific to that science (extending the base enum)
@@ -649,6 +782,9 @@ Parameters controlling engine behavior, with defaults and valid ranges.
 - [NOT YET IMPLEMENTED] Atom type distribution analytics (§4.B.3).
 - [NOT YET IMPLEMENTED] Scholarly attribution chain resolution (§4.B.4).
 - [NOT YET IMPLEMENTED] Atom-level semantic fingerprinting (§4.B.5) — Tier 1 (text hash) and Tier 2 (key terms) can be implemented immediately; Tier 3 (embeddings) requires embedding model infrastructure.
+- [NOT YET IMPLEMENTED] Argument completeness scoring (§4.B.6). Depends on §4.B.1 rhetorical pattern detection.
+- [NOT YET IMPLEMENTED] Cross-atom terminological concordance (§4.B.7). No external dependencies beyond the LLM.
+- [NOT YET IMPLEMENTED] Evidence quality signal detection (§4.B.8). Requires quality signal lexicon file.
 
 **External tools and libraries this engine depends on:**
 - **Instructor** (Python, MIT license): Structured LLM output with Pydantic schema enforcement and automatic retries. Primary tool for LLM interaction. Handles the "LLM returns valid JSON conforming to the atom schema" requirement.
@@ -707,6 +843,11 @@ Total: minimum 20 gold passages. Each gold passage specifies: input (passage rec
 23. **Verse_info disagrees with LLM.** Verify that when verse_info.verse_lines count differs from LLM-detected verse count, the engine trusts verse_info per §4.A.7. 2 test cases.
 24. **Commentary passage where ALL text is matn quotation.** Verify that V-6 flags ATOM_LAYER_DISTRIBUTION_SUSPICIOUS when a commentary_unit passage produces only matn-layer atoms with no sharh atoms. 1 test case.
 25. **Passage with 100+ footnotes (scale test).** Verify that footnote atomization handles large footnote counts without atom_id gaps, and that sequence_in_passage remains contiguous across all atoms. 1 test case.
+26. **Argument completeness scoring (§4.B.6).** Verify that a khilaf passage with two opinions and evidence for both scores completeness_ratio 1.0. Verify that a passage with two opinions but evidence for only one scores < 1.0 with the correct gap_description. Verify that a passage with no detected rhetorical pattern has completeness_score null. 3 test cases.
+27. **Terminological concordance extraction (§4.B.7).** Verify that definition atoms produce concordance_entry with correct defined_term. Test with: a standard genus-differentia definition ("المبتدأ هو الاسم المرفوع"), a definition mentioning alternate terms ("ويُسمى أيضاً المُسنَد إليه"), and a definition without genus-differentia pattern. Verify alternate_terms is populated when the text mentions synonyms and empty otherwise. 3 test cases.
+28. **Terminological index per source (§4.B.7).** Verify that the per-source term_index.json is produced after atomization, contains all definition atoms' concordance entries, and includes correct atom_id and passage_id references. 1 test case.
+29. **Evidence quality signal detection (§4.B.8).** Verify that a hadith citation with "رواه البخاري ومسلم" produces a hadith_strong_collection signal with quality_direction "positive". Verify that "وفي إسناده ضعف" produces a hadith_weakness_flag signal with quality_direction "negative". Verify that non-evidence atoms have evidence_quality_signals null. 3 test cases.
+30. **Evidence quality signal disabled (§4.B.8).** Verify that when enable_evidence_quality_detection is false, all atoms have evidence_quality_signals null. 1 test case.
 
 **Regression testing strategy:** Gold baselines are never modified after initial creation (they are immutable ground truth). Any change to the atomization engine's code, prompts, or configuration triggers a full regression run against all gold baselines. If any gold baseline regresses (accuracy drops), the change is rejected until the regression is resolved.
 

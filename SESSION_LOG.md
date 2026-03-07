@@ -1,5 +1,43 @@
 # Session Log — خزانة ريان
 
+## Session: Atomization Engine CREATIVE — 2026-03-07
+**Type:** CREATIVE
+**Engine:** Atomization (محرك التذرير)
+
+**What was done:**
+- Read full atomization SPEC (715L), contracts.py (369L), ENTRY_EXAMPLE.md, USER_SCENARIOS.md
+- Ran quality baselines: check_spec_quality.py (37 defects, 28 HIGH) and creative_verification.py (5 capabilities, 90/100)
+- Conducted 5 web searches: Arabic NLP discourse analysis, KITAB/OpenITI text reuse, LLM Arabic classification, IslamicLegalBench hallucination rates, argument mining for Arabic texts
+- Designed 3 new transformative capabilities for §4.B:
+  - §4.B.6 Argument Completeness Scoring: detects structural gaps in scholarly argument patterns (missing evidence, missing tarjih)
+  - §4.B.7 Cross-Atom Terminological Concordance: extracts term-concept mappings from definition atoms, builds per-source terminological index
+  - §4.B.8 Evidence Quality Signal Detection: surfaces author's own explicit evaluations of evidence strength (hadith authentication markers, weakness flags, etc.)
+- Updated SPEC §3 (output contract) with new fields for all 3 capabilities
+- Updated SPEC §7 with 4 new error codes
+- Updated SPEC §8 with 5 new configuration parameters
+- Updated SPEC §9 with 3 new [NOT YET IMPLEMENTED] entries
+- Updated SPEC §10 with 5 new test requirements (test cases 26-30)
+- Updated contracts.py with new models: EvidenceQualitySignalType, QualityDirection, ConcordanceEntry, EvidenceQualitySignal, ArgumentCompletenessScore, TermIndexEntry, TermIndex
+- contracts.py compiles successfully
+
+**Key research findings:**
+- IslamicLegalBench (Feb 2026): best LLM achieves only 68% correctness, 21% hallucination on Islamic legal reasoning — but KR's atom-level pattern extraction (NER-like) is far more constrained and accurate
+- KITAB project uses 300-word chunks for text reuse — orders of magnitude coarser than KR atom-level fingerprinting
+- No existing tool performs atom-level scholarly function tagging on Arabic classical texts
+- usul.ai has 15K+ texts but uses LLMs for search/QA, not structured sub-paragraph semantic tagging
+
+**Decisions made:**
+- Argument completeness scoring depends on §4.B.1 (rhetorical patterns) — scoped as a post-processing step, not a standalone LLM task
+- Evidence quality detection explicitly limited to author's own textual markers — system never evaluates evidence quality itself (beyond its competence)
+- Terminological concordance extracts raw data; cross-source synonym resolution delegated to taxonomy engine
+
+**Final quality metrics:**
+- SPEC: 857L (was 715L), 40 defects (was 37 — 3 new are MISSING_EXAMPLE for new §4.B sections)
+- Creative verification: 8 capabilities (was 5), 90/100 score maintained
+- contracts.py: 490L (was 369L), compiles clean
+
+**Next:** Atomization PRECISION session — fix all vague quantifiers, add worked Arabic examples to every §4 subsection
+
 ## Session: Normalization Engine HARDENING — 2026-03-07
 **Type:** HARDENING
 **Engine:** Normalization (محرك التطبيع)

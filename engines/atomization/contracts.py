@@ -97,6 +97,24 @@ class AttributionType(str, Enum):
     REFUTATION_TARGET = "refutation_target"
 
 
+class EvidenceQualitySignalType(str, Enum):
+    """Evidence quality signal type detected in evidence atoms (SPEC §4.B.8)."""
+    HADITH_STRONG_COLLECTION = "hadith_strong_collection"
+    HADITH_WEAKNESS_FLAG = "hadith_weakness_flag"
+    HADITH_CHAIN_QUALITY = "hadith_chain_quality"
+    EVIDENCE_EXPLICIT_STRENGTH = "evidence_explicit_strength"
+    EVIDENCE_EXPLICIT_WEAKNESS = "evidence_explicit_weakness"
+    CONSENSUS_QUALIFIER = "consensus_qualifier"
+    AUTHOR_TARJIH_MARKER = "author_tarjih_marker"
+
+
+class QualityDirection(str, Enum):
+    """Direction of an evidence quality signal (SPEC §4.B.8)."""
+    POSITIVE = "positive"
+    NEGATIVE = "negative"
+    NEUTRAL = "neutral"
+
+
 # ──────────────────────────────────────────────────────────────────
 # Sub-models
 # ──────────────────────────────────────────────────────────────────
@@ -191,6 +209,66 @@ class ScholarlyAttribution(BaseModel):
     )
 
 
+class ConcordanceEntry(BaseModel):
+    """Terminological concordance entry for a definition atom (SPEC §4.B.7).
+
+    Extracted from definition atoms to build a term-concept mapping.
+    """
+    defined_term: str = Field(description="The Arabic term being defined")
+    definition_genus: Optional[str] = Field(
+        None, description="Broader category (genus in genus-differentia pattern)"
+    )
+    definition_differentia: list[str] = Field(
+        default_factory=list,
+        description="Distinguishing features"
+    )
+    alternate_terms: list[str] = Field(
+        default_factory=list,
+        description="Synonyms mentioned in the definition text"
+    )
+    science_scope: str = Field(
+        description="Science this term belongs to, from source metadata"
+    )
+
+
+class EvidenceQualitySignal(BaseModel):
+    """Author's explicit evaluation of evidence strength (SPEC §4.B.8).
+
+    NOT the system's evaluation — the source author's own quality markers.
+    """
+    signal_type: EvidenceQualitySignalType
+    signal_text: str = Field(
+        description="Arabic text that triggered this detection"
+    )
+    quality_direction: QualityDirection
+    span_start: int = Field(ge=0, description="Start offset within atom_text")
+    span_end: int = Field(ge=0, description="End offset within atom_text")
+    confidence: float = Field(ge=0.0, le=1.0)
+
+
+class ArgumentCompletenessScore(BaseModel):
+    """Argument completeness analysis for a passage (SPEC §4.B.6).
+
+    Detects structural gaps in scholarly argument patterns.
+    Stored in the distribution report, not per atom.
+    """
+    pattern_type: Optional[str] = Field(
+        None, description="Detected rhetorical pattern from §4.B.1. Null if none."
+    )
+    required_present: list[str] = Field(default_factory=list)
+    required_missing: list[str] = Field(default_factory=list)
+    optional_present: list[str] = Field(default_factory=list)
+    completeness_ratio: float = Field(
+        ge=0.0, le=1.0,
+        description="|required_present| / |required_present ∪ required_missing|"
+    )
+    gap_description: Optional[str] = Field(
+        None,
+        description="Human-readable description of missing components. "
+        "Null when completeness_ratio is 1.0."
+    )
+
+
 # ──────────────────────────────────────────────────────────────────
 # Primary output: Atom record
 # ──────────────────────────────────────────────────────────────────
@@ -275,6 +353,21 @@ class AtomRecord(BaseModel):
         "Dimensions per config (default 256)."
     )
 
+    # Terminological concordance (§4.B.7)
+    concordance_entry: Optional[ConcordanceEntry] = Field(
+        None,
+        description="Present only on definition atoms when "
+        "enable_concordance_extraction is true. Null otherwise."
+    )
+
+    # Evidence quality signals (§4.B.8)
+    evidence_quality_signals: Optional[list[EvidenceQualitySignal]] = Field(
+        None,
+        description="None when enable_evidence_quality_detection is false. "
+        "Empty list [] when enabled but no signals detected. "
+        "Non-empty list when signals found. Only on evidence atoms."
+    )
+
     # Diagnostics
     classification_notes: Optional[str] = None
     bonded_reason: Optional[str] = Field(
@@ -308,6 +401,11 @@ class PassageTypeDistribution(BaseModel):
     mean_function_confidence: float = Field(ge=0.0, le=1.0, default=0.0)
     stddev_function_confidence: float = Field(ge=0.0, default=0.0)
     review_flag_counts: dict[str, int] = Field(default_factory=dict)
+    completeness_score: Optional[ArgumentCompletenessScore] = Field(
+        None,
+        description="§4.B.6 argument completeness analysis. "
+        "Null when completeness scoring is disabled or no pattern detected."
+    )
 
 
 class SourceTypeDistribution(BaseModel):
@@ -350,6 +448,31 @@ class FingerprintManifest(BaseModel):
     source_id: str
     atom_count: int = Field(ge=0)
     entries: list[FingerprintManifestEntry] = Field(default_factory=list)
+
+
+# ──────────────────────────────────────────────────────────────────
+# §4.B.7 — Terminological index
+# ──────────────────────────────────────────────────────────────────
+
+
+class TermIndexEntry(BaseModel):
+    """One entry in the per-source terminological index (SPEC §4.B.7)."""
+    atom_id: str
+    passage_id: str
+    source_layer: SourceLayer
+    layer_author_id: Optional[str] = None
+    concordance: ConcordanceEntry
+
+
+class TermIndex(BaseModel):
+    """Per-source terminological index (SPEC §4.B.7).
+
+    Written to: library/sources/{source_id}/atoms/term_index.json
+    Used by downstream engines for cross-source terminology mapping.
+    """
+    source_id: str
+    term_count: int = Field(ge=0)
+    entries: list[TermIndexEntry] = Field(default_factory=list)
 
 
 # ──────────────────────────────────────────────────────────────────
