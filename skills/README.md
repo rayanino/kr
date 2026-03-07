@@ -20,14 +20,19 @@ Upload each `.zip` file to Claude.ai via **Settings > Customize > Skills**.
 ```
 LAYER 1: CUSTOM INSTRUCTIONS (per engine project, always loaded)
   → WHO Claude is: engine-specific expert role
+  → Includes STARTUP PROCEDURE: clone repo at start of every chat
   → ~150 lines, active in every chat
 
-LAYER 2: PROJECT KNOWLEDGE (per engine project, available on demand)
-  → WHAT Claude works on: SPEC, contracts, context documents
+LAYER 2: PROJECT KNOWLEDGE (minimal — only 2 files needed)
+  → Github_key: enables repo access
+  → STEERING.md: concise project context
+  → Everything else read from the cloned repo on demand
 
 LAYER 3: SKILLS (account-level, triggered on demand)
   → WHAT TO DO: task procedures with embedded research
 ```
+
+**Key design decision:** Claude Chat clones the repo at the start of each chat (4 seconds). This means SPECs, contracts, comments, and all working files live in git — not in project knowledge. This gives versioning, a single source of truth, and minimal context window consumption.
 
 ## Shared Files
 

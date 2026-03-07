@@ -1,57 +1,80 @@
-# Source Engine Project — Knowledge Files
+# Source Engine Project — Setup Guide
 
-Upload these to the project's "Project knowledge" section.
+## How It Works
 
-## Essential (upload first)
+Claude Chat clones the KR repo at the start of each chat (4 seconds), giving direct access to all SPECs, contracts, code, and documentation. This means you need very few project knowledge files — just the essentials that must be available before the clone.
 
-1. **`engines/source/SPEC.md`** — The source engine specification.
-   *Consider splitting into sections for finalization phase:*
-   - `spec_sections_1-3.md` (Purpose, Input, Output contracts)
-   - `spec_section_4.md` (Processing — the core, longest section)
-   - `spec_sections_5-7.md` (Validation, Consensus, Errors)
-   - `spec_sections_8-10.md` (Config, State, Tests)
-   *Use the full file during comment review. Use split files during finalization audits.*
+## Project Knowledge Files (upload these)
 
-2. **`engines/source/contracts.py`** — Pydantic data models.
+**Only 2 files needed:**
 
-3. **`STEERING.md`** — Concise project context (78 lines).
+1. **`Github_key`** — The GitHub personal access token. Without this, Claude can't clone. This is the one essential file.
 
-4. **`KNOWLEDGE_INTEGRITY.md`** — The 7 corruption threats.
+2. **`STEERING.md`** — Concise project context (78 lines, ~1.5K tokens). Always useful as background context. Small enough to justify always-loaded.
 
-5. **`SILENT_FAILURES.md`** — The 7 silent failure patterns.
+That's it. Everything else comes from the repo.
 
-6. **`reference/DEEP_REASONING_PROTOCOL.md`** — Perfection Standard (25 criteria).
+## What Claude Reads From the Repo
 
-## Source-Engine Specific
+After cloning, Claude reads files on demand:
+- `engines/source/SPEC.md` — The source engine specification
+- `engines/source/contracts.py` — Pydantic data models
+- `engines/normalization/contracts.py` — Downstream contract
+- `KNOWLEDGE_INTEGRITY.md` — The 7 corruption threats
+- `SILENT_FAILURES.md` — The 7 silent failure patterns
+- `reference/DEEP_REASONING_PROTOCOL.md` — Perfection Standard
+- `reference/ENTRY_EXAMPLE.md` — Target output quality
+- `CREATIVE_MANDATE.md` — Creative protocol
+- `reference/RESOURCES.md` — Tool inventory
+- Any other file as needed
 
-7. **`engines/normalization/contracts.py`** — Downstream engine's input contract.
+## Owner's Comments
 
-8. **`reference/ENTRY_EXAMPLE.md`** — Target output quality.
+Write your SPEC comments using the template at `skills/shared/COMMENT_TEMPLATE.md`. Save them as a file in the repo:
 
-9. **`CREATIVE_MANDATE.md`** — Creative protocol for kr-research.
+```
+# Option A: In the repo (recommended)
+Save as: skills/source-engine-comments.md
+Claude reads it directly from the repo each chat.
 
-## Session-Specific (add as needed)
+# Option B: In project knowledge
+Upload the comments file to the project.
+Claude sees it immediately without cloning.
+```
 
-10. **Your comments file** (e.g., `COMMENTS_SOURCE.md`) — Use the template from `skills/shared/COMMENT_TEMPLATE.md`. Upload when your comments are ready.
+Option A is better because the file is versioned, Claude can update it (mark comments as resolved), and it persists across sessions without manual management.
 
-11. **Handoff documents** — When a chat produces a handoff summary, upload it for the next chat.
+## Session Handoffs
 
-## Optional
+When a chat gets long, Claude produces a handoff summary and commits it to:
+```
+skills/handoffs/source-engine-{date}.md
+```
+The next chat picks it up automatically from the repo.
 
-12. **`reference/RESOURCES.md`** — Tool inventory (useful during kr-build-prep and kr-research).
+## What About the SPEC Split?
 
-13. **`reference/DOMAIN.md`** — Domain context (useful for complex domain comments).
+During finalization (kr-finalize skill), you may want to split the SPEC into section files to audit one section per chat. Claude can do this split itself:
+```
+engines/source/spec-sections/
+├── sections_1-3_contracts.md
+├── section_4_processing.md
+├── sections_5-7_validation.md
+└── sections_8-10_config.md
+```
+These live in the repo, not project knowledge.
 
-## Context Budget Warning
+## Why So Few Project Knowledge Files?
 
-Claude Chat has a 200K token context window. Project knowledge files consume part of this. With all essential files loaded (~50K tokens estimated), you have ~150K tokens for conversation. Monitor this:
-- If chats feel "forgetful," you may have too many knowledge files loaded
-- Remove files not needed for the current task
-- The split SPEC sections help: load only the section being audited
+Context window = 200K tokens. Every project knowledge file consumes part of this. With the old approach (9+ files uploaded), ~50K tokens were consumed before the conversation started. With repo access:
+- Project knowledge: ~2K tokens (Github_key + STEERING.md)
+- Remaining: ~198K tokens for conversation
+- Files read on demand only when needed
 
-## DO NOT Upload
+## Creating Other Engine Projects
 
-- VISION.md (47K tokens — too large, STEERING.md has the summary)
-- SESSION_LOG.md (history noise)
-- kr_decisions.md (reference only when needed)
-- Engine SPECs other than source + normalization contracts
+When you move to the next engine (normalization, etc.):
+1. Create a new Claude Chat project
+2. Upload the same 2 files (Github_key, STEERING.md)
+3. Change the custom instructions to the engine-specific role (see SKILL_ARCHITECTURE_V2.md for examples)
+4. The skills are account-wide — they work in all projects automatically

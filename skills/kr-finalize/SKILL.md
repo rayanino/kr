@@ -60,10 +60,11 @@ For each chunk, note which changes apply and what to watch for.
 
 ### Step 4: Output
 
-Produce a `FINALIZATION_PLAN.md` that the owner can upload to the project for the audit chats:
+Produce a finalization plan and commit it to the repo:
 
 ```markdown
 # Finalization Plan — [Engine Name]
+# Committed to: skills/handoffs/{engine}-finalization-plan.md
 
 ## Change Manifest
 [The table from Step 1]
@@ -73,14 +74,17 @@ Produce a `FINALIZATION_PLAN.md` that the owner can upload to the project for th
 
 ## Audit Chunks
 [The division from Step 3 with notes per chunk]
-
-## SPEC Section Files
-Recommend splitting the SPEC into section files for project knowledge:
-- spec_sections_1-3.md (Purpose, Input, Output)
-- spec_section_4.md (Processing — the core)
-- spec_sections_5-7.md (Validation, Consensus, Errors)
-- spec_sections_8-10.md (Config, State, Tests)
 ```
+
+If the SPEC is large (>800 lines), split it into section files in the repo:
+```
+engines/{engine}/spec-sections/
+├── sections_1-3_contracts.md
+├── section_4_processing.md
+├── sections_5-7_validation.md
+└── sections_8-10_config.md
+```
+Each audit chat reads only the relevant section file.
 
 ---
 
@@ -130,19 +134,14 @@ Output the FULL updated SPEC text — not diffs, not "change X to Y," the comple
 
 ## Session Bridging
 
-Each phase produces an artifact that feeds the next:
-- Phase A → `FINALIZATION_PLAN.md` (upload to project knowledge)
-- Phase B → per-section defect lists (keep in conversation or upload)
-- Phase C → complete updated SPEC (commit to repo)
+Each phase produces artifacts committed to the repo:
+- Phase A → `skills/handoffs/{engine}-finalization-plan.md`
+- Phase B → per-section defect lists (in handoffs or inline)
+- Phase C → complete updated SPEC committed and pushed
 
-If any phase chat gets too long, produce a handoff summary:
-```
-## Handoff — [Phase] [Engine Name]
-### Completed: [what's done]
-### Pending: [what remains]
-### Key Decisions: [decisions made in this chat]
-### Upload This: [file to add to project knowledge for next chat]
-```
+Since Claude clones the repo at each chat start, all phase artifacts are automatically available to the next chat. No manual file uploads needed.
+
+If any phase chat gets too long, commit a handoff to `skills/handoffs/` and start a fresh chat.
 
 ---
 

@@ -34,9 +34,11 @@ Observation: "[what the owner noticed — domain insight]"
 Direction (optional): "[suggestion — treat as hypothesis only]"
 ```
 
-**Best relay method:** Owner writes all comments in a structured markdown file (e.g., `COMMENTS_SOURCE.md`), uploads it to the project knowledge. Then in each chat: "let's work on comments #3-5." This way all comments persist across chats and don't consume conversation context.
+**Best relay method:** Owner writes all comments in a structured markdown file and saves it in the repo as `skills/source-engine-comments.md` (or the equivalent for each engine). Claude reads it directly from the cloned repo at each chat start. The owner can also commit updates to the file between sessions.
 
-If comments arrive as plain text in chat, restructure them into the above format before proceeding.
+Alternative: paste comments directly in chat (fine for 1-3 simple comments).
+
+When commenting on comments, reference by number: "let's work on comments #3-5."
 
 ---
 
@@ -115,8 +117,10 @@ Based on evidence, decide:
 Claude Chat has a 200K token context window. Long comment sessions degrade quality. When context gets heavy:
 
 1. Produce a **handoff summary**: what's resolved, pending, key decisions
-2. Tell the owner: "We should continue in a fresh chat. Here's a summary to upload."
-3. Summary becomes starting context for the next chat
+2. Commit it to the repo at `skills/handoffs/{engine}-{date}.md`
+3. Push the changes
+4. Tell the owner: "We should continue in a fresh chat. I've committed the handoff."
+5. The next chat picks it up automatically from the repo after cloning
 
 ---
 
