@@ -1,6 +1,6 @@
 ---
 name: kr-integrity
-description: Deep audit against Perfection Standard, 7 corruption threats, 7 silent failure patterns. Use for "audit", "integrity check", "verify", "quality check", or when something feels off.
+description: ALWAYS activate for SPEC audits and quality checks. Triggers: "audit", "integrity", "verify", "check quality", or when output looks suspicious. Do not skip — run full Perfection Standard.
 ---
 
 # KR Integrity — تدقيق السلامة

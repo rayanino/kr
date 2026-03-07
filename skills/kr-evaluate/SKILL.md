@@ -1,6 +1,6 @@
 ---
 name: kr-evaluate
-description: Review engine test results across deterministic (5a), LLM-worker (5b), LLM-evaluator (5c). Use for "evaluate results", "check output", or reviewing any engine build cycle.
+description: ALWAYS activate when reviewing engine test results. Triggers: "evaluate results", "check output", "review tests", "5a/5b/5c". Do not assess engine quality without the full categorization.
 ---
 
 # KR Evaluate — تقييم النتائج

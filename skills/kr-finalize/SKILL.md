@@ -1,6 +1,6 @@
 ---
 name: kr-finalize
-description: Consolidate SPEC changes across multiple focused chats. Use for "finalize", "all comments done", "wrap up", "assemble the spec", or when comment resolution is complete.
+description: ALWAYS activate when comment resolution is complete. Triggers: "finalize", "all comments done", "assemble the spec", "wrap up". Do not produce final SPEC without the phased process.
 ---
 
 # KR Finalize — إنهاء المواصفات

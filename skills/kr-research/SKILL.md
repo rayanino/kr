@@ -1,6 +1,6 @@
 ---
 name: kr-research
-description: Deep creative research for KR — Scholar's Dream, Impossibility Search, Cross-Tradition Steal. Use for "research", "explore", "what's possible", "invent", or any design investigation.
+description: ALWAYS activate for design research and creative exploration. Triggers: "research", "explore", "what's possible", "invent". Do not propose designs without deep web research first (8+ searches).
 ---
 
 # KR Research — محرك الإبداع

@@ -1,6 +1,6 @@
 ---
 name: kr-spec-review
-description: Handle owner comments on KR engine SPECs — treat each comment as a research hypothesis requiring deep investigation. Use for "handle comment", "comment #N", domain feedback, or any SPEC discussion.
+description: ALWAYS activate for owner SPEC comments. Triggers: "comment #", "handle comment", domain feedback, SPEC change. Do not apply changes directly — investigate first, form your own position.
 ---
 
 # KR SPEC Review — معالجة تعليقات المواصفات
