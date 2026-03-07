@@ -2,29 +2,51 @@
 
 ## Context
 
-The owner conducted a skills design session (2026-03-07). Six Claude Chat skills were written and iterated through 3 versions. The architecture shifted to a repo-first workflow where Claude Chat clones the repo at each chat start.
+Deep research into Claude Chat optimization was completed (2026-03-07). Full findings are in:
+`skills/handoffs/claude-chat-research-2026-03-07.md`
 
-Read the handoff document for full context:
-`skills/handoffs/workflow-research-2026-03-07.md`
+## Key Finding: Native GitHub Integration
 
-## Immediate Task
+Claude.ai projects have a **built-in GitHub integration** that can replace our clone-at-start approach. The owner can sync repo files directly into project knowledge. This eliminates the need for the GitHub token in project knowledge and the STARTUP PROCEDURE in custom instructions.
 
-**Deep research into Claude Chat optimization for complex multi-session projects.**
+## Owner Actions Required (Before Starting SPEC Review)
 
-The skills are functional but the setup is untested. Before the owner starts real spec review, investigate:
+### 1. Enable Prerequisites
+- Settings > Capabilities > Enable **Code execution and file creation** (required for skills)
+- Customize > Skills > Verify all 6 kr-* skills are uploaded and enabled
 
-1. Community patterns (Reddit r/ClaudeCode, r/ClaudeAI) for Claude Chat project management
-2. Available MCPs that could enhance the workflow (GitHub MCP, filesystem MCPs)
-3. Claude Chat-specific limitations and workarounds
-4. How people handle the Claude Chat → Claude Code transition
-5. Skill triggering reliability improvements
-6. Whether our repo-first approach (clone at chat start) has known issues
+### 2. Set Up Source Engine Project with GitHub Integration
+- Create a new project for the source engine
+- Instead of uploading Github_key + STEERING.md as knowledge files:
+  - Click "+" in project knowledge → **Add from GitHub**
+  - Connect to `rayanino/kr` repo
+  - Select these files/folders to sync:
+    - `engines/source/` (the source engine SPEC and code)
+    - `STEERING.md` (project overview)
+    - `KNOWLEDGE_INTEGRITY.md` (corruption threats)
+    - `reference/DOMAIN.md` (Islamic studies domain)
+    - `reference/ENTRY_EXAMPLE.md` (target output quality)
+    - `reference/DEEP_REASONING_PROTOCOL.md` (quality standard)
+    - `skills/shared/COMMENT_TEMPLATE.md` (comment format)
+    - `NEXT.md` (current task context)
+  - Keep Github_key as a **fallback** knowledge file (only needed if GitHub sync fails)
 
-Then: apply findings to improve the 6 skills and the project setup.
+### 3. Paste Custom Instructions
+- Use the revised custom instructions from `skills/source-engine-project/custom_instructions_v2.md`
+- The revision removes the STARTUP PROCEDURE and adds GitHub sync awareness
+
+### 4. Test
+- Open a chat in the source engine project
+- Ask: "What files do you have access to in the project knowledge?"
+- Verify Claude can see the repo files
+- Ask: "use kr-spec-review" to verify the skill activates
+- If GitHub sync fails, say "clone the repo" to use the fallback
+
+## Open Design Questions (for owner to decide)
+- **One project per engine** vs **one project per workflow phase**? Research confirms one-per-engine is better (each engine needs different files).
+- **Should we version skills in the repo** and regenerate zips, or manage them manually? Manual is fine for 6 skills. Revisit if count grows.
 
 ## Owner Status
-
 - Currently reading the source engine SPEC and writing numbered domain comments
 - Has OpenRouter API key ready
-- Will create the source engine Claude Chat project after the workflow is optimized
 - No rush — quality over speed
