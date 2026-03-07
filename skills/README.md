@@ -4,6 +4,10 @@
 
 Upload each `.zip` file to Claude.ai via **Settings > Customize > Skills**.
 
+## How to Follow the Process
+
+**Read `shared/ENGINE_PROTOCOL.md` first.** It's the step-by-step guide for taking any engine from first SPEC reading to a working, tested build. Each engine goes through 6 phases, each phase uses a specific skill. The protocol tells you exactly what to do, what Claude does, and when you're done.
+
 ## The 6 Skills
 
 | Skill | Purpose | Triggers |
