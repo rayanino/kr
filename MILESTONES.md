@@ -101,12 +101,108 @@ Trustworthiness score computed. Low-confidence cases create human gate checkpoin
 **Goal:** Normalized package → passages → atoms → excerpts. Proves the content extraction chain.
 Source-format-agnostic — all input is normalized packages from Milestone 1.
 
-### M2.1 — Passaging Engine: Core
-### M2.2 — Atomization Engine: Core
-### M2.3 — Excerpting Engine: Core
-### M2.4 — Integration: Passaging → Atomization → Excerpting
+### M2.1 — Passaging Engine: Foundation
+**Depends on:** M1.2 (normalized package output exists to test against)
+**SPEC sections:** §2, §7, §8
+**Tasks:**
+- [ ] Implement errors.py — PassagingError, PassagingFatalError, PassagingWarning classes
+- [ ] Implement config.py — Load PassagingConfig defaults, stub per-science overrides
+- [ ] Implement loader.py — Read manifest.json + content.jsonl, 6 input validation checks
+- [ ] Write tests: all 6 validation checks (valid input, each failure mode)
+- [ ] Tests use real normalized output from test fixtures
 
-(Detailed decomposition when Milestone 1 nears completion.)
+**Acceptance:** loader.py reads a normalized package, validates it, returns (manifest, content_units). Each of the 6 validation failures tested.
+
+---
+
+### M2.1.1 — Passaging Engine: Cross-Page Assembly
+**Depends on:** M2.1
+**SPEC sections:** §4.A.2
+**Tasks:**
+- [ ] Implement assembly.py — basic text joining (space concatenation)
+- [ ] Add boundary_continuity signal integration
+- [ ] Add character-level heuristics (final-form Arabic letter, tanwin handling)
+- [ ] Add Quran citation bracket handling (﴿...﴾)
+- [ ] Add footnote renumbering (sequential per passage)
+- [ ] Add text layer rebasing (offsets relative to assembled text)
+- [ ] Write 12 assembly test cases (TEST_PLAN §10.1)
+
+**Acceptance:** All 12 §10.1 test cases pass. Character count invariant holds across all test inputs. Arabic text fragility verified (read arabic-text SKILL.md).
+
+---
+
+### M2.1.2 — Passaging Engine: Prose Strategy
+**Depends on:** M2.1.1
+**SPEC sections:** §4.A.3, §4.A.4
+**Tasks:**
+- [ ] Implement strategies/prose.py — Step 1 (division size classification)
+- [ ] Add Step 2 (boundary refinement with boundary_continuity)
+- [ ] Add Step 3 (paragraph splitting, then LLM-assisted above threshold)
+- [ ] Implement sentence integrity enforcement
+- [ ] Implement isnad chain preservation
+- [ ] Implement strategy.py — route structural_format to strategy
+- [ ] Write 15 prose sizing test cases (TEST_PLAN §10.2)
+- [ ] Write 6 sentence integrity test cases (TEST_PLAN §10.6)
+- [ ] Write 4 isnad preservation test cases (TEST_PLAN §10.7)
+
+**Acceptance:** Prose strategy produces correctly sized passages. No mid-sentence boundaries. No split isnad chains.
+
+---
+
+### M2.1.3 — Passaging Engine: Emission and Validation
+**Depends on:** M2.1.2
+**SPEC sections:** §4.A.10, §5
+**Tasks:**
+- [ ] Implement emitter.py — PassageRecord assembly, predecessor/successor linking, JSONL output
+- [ ] Implement validator.py — all 11 self-validation checks (fatal checks first)
+- [ ] Write 9 self-validation test cases (TEST_PLAN §10.5)
+- [ ] End-to-end test: loader → assembly → prose → emit → validate on ibn_aqil fixture
+
+**Acceptance:** Self-validation catches all 9 injected defects. End-to-end produces valid passages.jsonl.
+
+---
+
+### M2.1.4 — Passaging Engine: Orchestrator
+**Depends on:** M2.1.3
+**SPEC sections:** §4.A.1
+**Tasks:**
+- [ ] Implement engine.py — wire six phases into pipeline
+- [ ] Handle fatal errors (abort + log + source stays at normalized)
+- [ ] Handle warnings (collect + continue + flag passages)
+- [ ] Update source processing status on success
+- [ ] Integration test: process_source() end-to-end on waraqat_usul fixture
+
+**Acceptance:** `process_source(source_id)` succeeds. Output validates against PassageRecord schema.
+
+---
+
+### M2.1.5 — Passaging Engine: Additional Strategies
+**Depends on:** M2.1.4
+**SPEC sections:** §4.A.5–§4.A.9
+**Tasks:**
+- [ ] Implement strategies/verse.py — test with alfiyyah_versified (8 test cases)
+- [ ] Implement strategies/masala.py — test with mughni_comparative
+- [ ] Implement strategies/qa.py — stub tests (Q&A fixture needed)
+- [ ] Implement strategies/commentary.py — test with ibn_aqil_alfiyyah
+- [ ] Implement strategies/dictionary.py — stub tests (dictionary fixture needed)
+- [ ] Update strategy.py to route all 6 formats + mixed
+- [ ] Write 7 format selection test cases (TEST_PLAN §10.4)
+
+**Acceptance:** Each strategy produces valid passages on its test fixture. Format selection routes correctly.
+
+---
+
+### M2.1.6 — Passaging Engine: Transformative Capabilities
+**Depends on:** M2.1.5
+**SPEC sections:** §4.B.5, §4.B.6, §4.B.7, §4.B.8
+**Tasks:**
+- [ ] Implement adaptive_passaging.py (§4.B.5) — 4 test cases
+- [ ] Implement arguments.py (§4.B.6) — keyword state machine first, then discourse_flow — 7 test cases
+- [ ] Implement discourse_optimization.py (§4.B.7) — 5 test cases
+- [ ] Implement completeness_forecast.py (§4.B.8) — 6 test cases
+- [ ] Wire capabilities into engine.py pipeline
+
+**Acceptance:** §10.8–§10.11 test cases pass. Capabilities gated by config flags.
 
 ---
 

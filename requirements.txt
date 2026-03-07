@@ -18,6 +18,7 @@ python-multipart>=0.0.5
 # ── Arabic Text Processing ──
 pyarabic>=0.6
 # camel-tools — install separately: pip install camel-tools
+# sentence-transformers — deferred: passaging §4.B.1 quality prediction, §4.B.2 implicit structure
 
 # ── OCR (D-028) ──
 # mistralai — for Mistral OCR API

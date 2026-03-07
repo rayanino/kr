@@ -1023,3 +1023,37 @@ None this session.
 
 ### Owner Questions
 - None new
+
+---
+
+## Session 15 — 2026-03-07 — IMPLEMENTATION_PREP: Passaging Engine
+
+### Type
+IMPLEMENTATION_PREP
+
+### What Was Done
+Prepared the passaging engine directory for Claude Code implementation.
+
+### Deliverables
+1. **contracts.py updated (556 lines):** Added ReviewFlag enum (15 values), HeadingSource enum, PassagingConfig model (17 parameters), PassagingErrorCode enum (38 codes), ErrorSeverity enum, ERROR_SEVERITY mapping. Updated heading_source and review_flags fields to use proper enums.
+2. **Module stubs created (17 files):** Complete directory skeleton with SPEC-referencing docstrings. Core: engine.py, loader.py, assembly.py, strategy.py, emitter.py, validator.py, errors.py, config.py. Strategies: prose.py, verse.py, qa.py, masala.py, dictionary.py, commentary.py. §4.B: arguments.py, discourse_optimization.py, completeness_forecast.py, adaptive_passaging.py, quality_prediction.py, implicit_structure.py, commentary_alignment.py, cross_edition.py.
+3. **IMPLEMENTATION_ORDER.md:** 7-phase build plan with dependency graph and test gates per phase.
+4. **TEST_PLAN.md:** 12 test categories mapped to 90+ specific test cases with fixtures.
+5. **CLAUDE.md rewritten:** Accurate implementation state, module architecture, build order, constraints.
+6. **MILESTONES.md updated:** M2.1 decomposed into 6 sub-milestones (M2.1–M2.1.6) with specific tasks and acceptance criteria.
+7. **requirements.txt updated:** Added deferred dependency note for sentence-transformers.
+
+### Decisions Made
+- Module architecture: separate files per processing phase and per format strategy (not monolithic)
+- Strategy pattern: each format has its own module, strategy.py routes based on structural_format
+- §4.B capabilities deferred to Phase 6 except adaptive_passaging (lightweight, no external deps)
+- Error classes in errors.py use the enum codes from contracts.py
+
+### Quality Metrics
+- contracts.py: 297 → 556 lines (added enums, config, error codes)
+- Module stubs: 0 → 17 Python files
+- check_spec_quality.py: 25 HIGH (all VAGUE_QUANTIFIER false positives), 0 non-VAGUE HIGH
+- creative_verification.py: §4.B score 80/100, 8 capabilities
+
+### Owner Questions
+- None new

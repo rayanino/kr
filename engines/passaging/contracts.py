@@ -26,6 +26,35 @@ from engines.normalization.contracts import (
 # Enums
 # ──────────────────────────────────────────────────────────────────
 
+class ReviewFlag(str, Enum):
+    """Machine-generated flags for human review on passages (SPEC §3).
+
+    Each flag identifies a specific quality concern. Passages may carry
+    zero or more flags.
+    """
+    LOW_CONFIDENCE_BOUNDARY = "low_confidence_boundary"
+    CROSS_VOLUME = "cross_volume"
+    VERY_SHORT = "very_short"
+    VERY_LONG = "very_long"
+    LOW_FIDELITY_CONTENT = "low_fidelity_content"
+    SPLIT_FROM_LARGE = "split_from_large"
+    MERGED_SIBLINGS = "merged_siblings"
+    MIXED_LAYERS = "mixed_layers"
+    IMPLICIT_BOUNDARY = "implicit_boundary"
+    ARGUMENT_PRESERVED = "argument_preserved"
+    FORMAT_DETECTION_FAILED = "format_detection_failed"
+    HIGH_COST_BOUNDARY = "high_cost_boundary"
+    INCOMPLETE_SCHOLARLY_CONTENT = "incomplete_scholarly_content"
+    AUTHORIAL_INCOMPLETENESS = "authorial_incompleteness"
+    ARGUMENT_DEPTH_EXCEEDED = "argument_depth_exceeded"
+
+
+class HeadingSource(str, Enum):
+    """How a passage's heading was obtained (SPEC §3)."""
+    DIVISION_TREE = "division_tree"
+    LLM_INFERRED = "llm_inferred"
+
+
 class PassageStructuralFormat(str, Enum):
     """Per-passage structural format (SPEC §3).
 
@@ -308,9 +337,9 @@ class PassageRecord(BaseModel):
         None,
         description="Heading of primary division. Null for split pieces (except first)."
     )
-    heading_source: Optional[str] = Field(
+    heading_source: Optional[HeadingSource] = Field(
         None,
-        description="How heading was obtained: 'division_tree', 'llm_inferred', or null"
+        description="How heading was obtained: division_tree, llm_inferred, or null"
     )
 
     # Location
@@ -331,7 +360,7 @@ class PassageRecord(BaseModel):
     successor_id: Optional[str] = None
 
     # Quality signals
-    review_flags: list[str] = Field(default_factory=list)
+    review_flags: list[ReviewFlag] = Field(default_factory=list)
 
     # §4.B transformative capability outputs
     quality_prediction: Optional[QualityPrediction] = None
@@ -378,3 +407,150 @@ class PassageStream(BaseModel):
     passages: list[PassageRecord] = Field(
         description="Ordered by sequence_index. No gaps. Non-overlapping."
     )
+
+
+# ──────────────────────────────────────────────────────────────────
+# Error codes (SPEC §7)
+# ──────────────────────────────────────────────────────────────────
+
+class ErrorSeverity(str, Enum):
+    """Error severity levels (SPEC §7)."""
+    FATAL = "fatal"
+    WARNING = "warning"
+    INFO = "info"
+
+
+class PassagingErrorCode(str, Enum):
+    """All error codes defined in SPEC §7.
+
+    Fatal errors abort processing. Warnings are logged and processing continues.
+    Info events are logged for diagnostics.
+    """
+    # Input validation (§2)
+    MANIFEST_INVALID = "PSG_MANIFEST_INVALID"
+    SCHEMA_UNSUPPORTED = "PSG_SCHEMA_UNSUPPORTED"
+    CONTENT_MISSING = "PSG_CONTENT_MISSING"
+    CONTENT_COUNT_MISMATCH = "PSG_CONTENT_COUNT_MISMATCH"
+    CONTENT_UNORDERED = "PSG_CONTENT_UNORDERED"
+    CONTENT_GAP = "PSG_CONTENT_GAP"
+    DIVISION_INCONSISTENT = "PSG_DIVISION_INCONSISTENT"
+
+    # Processing (§4.A)
+    FORMAT_DETECTION_FAILED = "PSG_FORMAT_DETECTION_FAILED"
+    SPLIT_FALLBACK = "PSG_SPLIT_FALLBACK"
+    LLM_UNAVAILABLE = "PSG_LLM_UNAVAILABLE"
+
+    # Self-validation (§4.A.10)
+    VALIDATION_COVERAGE = "PSG_VALIDATION_COVERAGE"
+    VALIDATION_OVERLAP = "PSG_VALIDATION_OVERLAP"
+    VALIDATION_SIZE = "PSG_VALIDATION_SIZE"
+    VALIDATION_FOOTNOTE = "PSG_VALIDATION_FOOTNOTE"
+    VALIDATION_COVERAGE_GAP = "PSG_VALIDATION_COVERAGE_GAP"
+    VALIDATION_BOUNDARY_MIDSENTENCE = "PSG_VALIDATION_BOUNDARY_MIDSENTENCE"
+    VALIDATION_LINK_BROKEN = "PSG_VALIDATION_LINK_BROKEN"
+    VALIDATION_AUTHOR_LOST = "PSG_VALIDATION_AUTHOR_LOST"
+    VALIDATION_FOOTNOTE_ORPHAN = "PSG_VALIDATION_FOOTNOTE_ORPHAN"
+    VALIDATION_TEXT_LOSS = "PSG_VALIDATION_TEXT_LOSS"
+
+    # Quality checks (§5)
+    SIZE_DISTRIBUTION_SKEWED = "PSG_SIZE_DISTRIBUTION_SKEWED"
+    LOW_COHERENCE = "PSG_LOW_COHERENCE"
+    WEAK_BOUNDARIES = "PSG_WEAK_BOUNDARIES"
+    DIVISION_PATHOLOGICAL = "PSG_DIVISION_PATHOLOGICAL"
+
+    # §4.B capabilities
+    ARGUMENT_OVERSIZED = "PSG_ARGUMENT_OVERSIZED"
+    ADAPTATION_FAILED = "PSG_ADAPTATION_FAILED"
+    ISNAD_SPLIT = "PSG_ISNAD_SPLIT"
+    ARGUMENT_NO_SUBBOUNDARY = "PSG_ARGUMENT_NO_SUBBOUNDARY"
+    ARGUMENT_SIGNAL_DISAGREEMENT = "PSG_ARGUMENT_SIGNAL_DISAGREEMENT"
+    DISCOURSE_FLOW_ABSENT = "PSG_DISCOURSE_FLOW_ABSENT"
+    BOUNDARY_HIGH_COST = "PSG_BOUNDARY_HIGH_COST"
+    COMPLETENESS_FRAGMENT = "PSG_COMPLETENESS_FRAGMENT"
+    COMPLETENESS_MERGE_REPAIR = "PSG_COMPLETENESS_MERGE_REPAIR"
+    AUTHORIAL_INCOMPLETENESS = "PSG_AUTHORIAL_INCOMPLETENESS"
+    ARGUMENT_DEPTH_CAP_HIT = "PSG_ARGUMENT_DEPTH_CAP_HIT"
+
+    # Assembly-specific
+    ASSEMBLY_QURAN_UNCLOSED = "PSG_ASSEMBLY_QURAN_UNCLOSED"
+    ASSEMBLY_FOOTNOTE_COLLISION = "PSG_ASSEMBLY_FOOTNOTE_COLLISION"
+    ASSEMBLY_LAYER_MISMATCH = "PSG_ASSEMBLY_LAYER_MISMATCH"
+    ASSEMBLY_CONTINUITY_OVERRIDE = "PSG_ASSEMBLY_CONTINUITY_OVERRIDE"
+
+
+# Map error codes to their severity for programmatic use
+ERROR_SEVERITY: dict[PassagingErrorCode, ErrorSeverity] = {
+    PassagingErrorCode.MANIFEST_INVALID: ErrorSeverity.FATAL,
+    PassagingErrorCode.SCHEMA_UNSUPPORTED: ErrorSeverity.FATAL,
+    PassagingErrorCode.CONTENT_MISSING: ErrorSeverity.FATAL,
+    PassagingErrorCode.CONTENT_COUNT_MISMATCH: ErrorSeverity.WARNING,
+    PassagingErrorCode.CONTENT_UNORDERED: ErrorSeverity.FATAL,
+    PassagingErrorCode.CONTENT_GAP: ErrorSeverity.WARNING,
+    PassagingErrorCode.DIVISION_INCONSISTENT: ErrorSeverity.WARNING,
+    PassagingErrorCode.FORMAT_DETECTION_FAILED: ErrorSeverity.WARNING,
+    PassagingErrorCode.SPLIT_FALLBACK: ErrorSeverity.INFO,
+    PassagingErrorCode.LLM_UNAVAILABLE: ErrorSeverity.WARNING,
+    PassagingErrorCode.VALIDATION_COVERAGE: ErrorSeverity.FATAL,
+    PassagingErrorCode.VALIDATION_OVERLAP: ErrorSeverity.FATAL,
+    PassagingErrorCode.VALIDATION_SIZE: ErrorSeverity.WARNING,
+    PassagingErrorCode.VALIDATION_FOOTNOTE: ErrorSeverity.WARNING,
+    PassagingErrorCode.VALIDATION_COVERAGE_GAP: ErrorSeverity.FATAL,
+    PassagingErrorCode.VALIDATION_BOUNDARY_MIDSENTENCE: ErrorSeverity.WARNING,
+    PassagingErrorCode.VALIDATION_LINK_BROKEN: ErrorSeverity.FATAL,
+    PassagingErrorCode.VALIDATION_AUTHOR_LOST: ErrorSeverity.FATAL,
+    PassagingErrorCode.VALIDATION_FOOTNOTE_ORPHAN: ErrorSeverity.WARNING,
+    PassagingErrorCode.VALIDATION_TEXT_LOSS: ErrorSeverity.FATAL,
+    PassagingErrorCode.SIZE_DISTRIBUTION_SKEWED: ErrorSeverity.WARNING,
+    PassagingErrorCode.LOW_COHERENCE: ErrorSeverity.WARNING,
+    PassagingErrorCode.WEAK_BOUNDARIES: ErrorSeverity.WARNING,
+    PassagingErrorCode.DIVISION_PATHOLOGICAL: ErrorSeverity.WARNING,
+    PassagingErrorCode.ARGUMENT_OVERSIZED: ErrorSeverity.WARNING,
+    PassagingErrorCode.ADAPTATION_FAILED: ErrorSeverity.INFO,
+    PassagingErrorCode.ISNAD_SPLIT: ErrorSeverity.WARNING,
+    PassagingErrorCode.ARGUMENT_NO_SUBBOUNDARY: ErrorSeverity.WARNING,
+    PassagingErrorCode.ARGUMENT_SIGNAL_DISAGREEMENT: ErrorSeverity.INFO,
+    PassagingErrorCode.DISCOURSE_FLOW_ABSENT: ErrorSeverity.INFO,
+    PassagingErrorCode.BOUNDARY_HIGH_COST: ErrorSeverity.WARNING,
+    PassagingErrorCode.COMPLETENESS_FRAGMENT: ErrorSeverity.WARNING,
+    PassagingErrorCode.COMPLETENESS_MERGE_REPAIR: ErrorSeverity.INFO,
+    PassagingErrorCode.AUTHORIAL_INCOMPLETENESS: ErrorSeverity.INFO,
+    PassagingErrorCode.ARGUMENT_DEPTH_CAP_HIT: ErrorSeverity.INFO,
+    PassagingErrorCode.ASSEMBLY_QURAN_UNCLOSED: ErrorSeverity.WARNING,
+    PassagingErrorCode.ASSEMBLY_FOOTNOTE_COLLISION: ErrorSeverity.FATAL,
+    PassagingErrorCode.ASSEMBLY_LAYER_MISMATCH: ErrorSeverity.WARNING,
+    PassagingErrorCode.ASSEMBLY_CONTINUITY_OVERRIDE: ErrorSeverity.INFO,
+}
+
+
+# ──────────────────────────────────────────────────────────────────
+# Configuration (SPEC §8)
+# ──────────────────────────────────────────────────────────────────
+
+class PassagingConfig(BaseModel):
+    """Passaging engine configuration parameters (SPEC §8).
+
+    All parameters have defaults. Per-science overrides via SCIENCE.md files.
+    """
+    # Size parameters
+    min_passage_words: int = Field(default=50, ge=20, le=200)
+    target_passage_words_low: int = Field(default=200, ge=50, le=500)
+    target_passage_words_high: int = Field(default=800, ge=300, le=3000)
+    hard_max_passage_words: int = Field(default=2000, ge=500, le=5000)
+    verse_min_passage_words: int = Field(default=100, ge=20, le=200)
+    merge_threshold: int = Field(default=50, ge=20, le=200)
+
+    # Quality thresholds
+    coherence_threshold: float = Field(default=0.5, ge=0.2, le=0.9)
+    boundary_distance_threshold: float = Field(default=0.3, ge=0.1, le=0.7)
+
+    # Processing thresholds
+    llm_splitting_threshold: int = Field(default=1000, ge=500, le=2000)
+    cross_edition_overlap_threshold: float = Field(default=0.8, ge=0.5, le=1.0)
+    argument_max_expansion: float = Field(default=1.5, ge=1.1, le=2.0)
+
+    # Feature toggles
+    enable_quality_prediction: bool = False
+    enable_implicit_structure: bool = True
+    enable_commentary_alignment: bool = True
+    enable_adaptive_passaging: bool = True
+    enable_argument_detection: bool = True
