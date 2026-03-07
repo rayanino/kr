@@ -1,46 +1,45 @@
 # NEXT SESSION
 
 ## Session Type
-HARDENING (see SESSION_TYPES.md for full framework)
+CREATIVE (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Normalization engine HARDENING session.** The normalization SPEC has completed CREATIVE (10 §4.B capabilities) and PRECISION (0 HIGH defects, 5 examples added, 5 structural defects fixed, contracts updated, 4 normalizer outlines added). This session stress-tests the SPEC for knowledge corruption paths and failure cascades.
+**Passaging engine CREATIVE session.** The passaging engine has contracts defined but no SPEC. This session designs the passaging engine from scratch — what it does, how it creates passage boundaries, and what transformative capabilities make it more than a text splitter.
 
 ## What to Read
 
-1. `engines/normalization/SPEC.md` — Focus on §4 (processing), §5 (validation), §7 (error handling).
-2. `KNOWLEDGE_INTEGRITY.md` — The threat model for knowledge corruption.
-3. `engines/source/SPEC.md` §3 — Verify the source→normalization interface cannot produce corrupt inputs.
-4. `reference/DOMAIN.md` §236-248 — Arabic text hazards that could corrupt normalization.
+1. `engines/passaging/contracts.py` — The existing Pydantic models define the output schema.
+2. `reference/DOMAIN.md` §242-277 — Arabic text properties and book structures that affect passage design.
+3. `engines/normalization/SPEC.md` §3 (output contract) — What the passaging engine receives as input.
+4. `reference/ENTRY_EXAMPLE.md` — What the final knowledge product looks like. Work backward: what passage quality does the synthesizer need?
+5. `reference/USER_SCENARIOS.md` — Which user scenarios the passaging engine serves.
+6. `DEEP_REASONING_PROTOCOL.md` — SPEC template and perfection standard.
 
-**Do NOT read:** VISION.md whole, kr_decisions.md, other engine SPECs beyond source §3.
+**Do NOT read:** VISION.md whole (use extract_vision_sections.py for §8 passaging section if needed), kr_decisions.md, other engine SPECs beyond normalization §3.
 
 ## Definition of Done
 
-1. At least 10 adversarial scenarios tested (each: attack vector, what breaks, what prevents it, SPEC change if needed)
-2. At least 2 error cascade analyses (multi-step failure chains)
-3. At least 5 invariants verified (properties that must NEVER be violated, with the specific SPEC rules that guarantee them)
-4. `check_spec_quality.py` still shows 0 HIGH defects after any changes
-5. Every §7 error code has a clear trigger scenario — no theoretical-only error codes
-6. Multi-layer misattribution scenarios: at least 3 concrete attack vectors on §4.A.5 + §4.B.9 (this is the highest-risk operation)
-7. OCR corruption scenarios: at least 2 scenarios where OCR errors could propagate into the library as false knowledge
-8. New §4.B.8/§4.B.10 interaction verified under adversarial conditions (what if continuity says mid_argument but discourse flow says cycle complete on the SAME content unit?)
-9. Self-audit performed per DEEP_REASONING_PROTOCOL: ≥3 defects found and fixed
-10. `session_quality_gate.py` passes
-11. NEXT.md written (for passaging engine CREATIVE session)
-12. SESSION_LOG.md updated
-13. Committed and pushed
+1. Complete SPEC draft for the passaging engine following the SPEC template (§1-§10)
+2. §4.A rules precise enough for Claude Code to implement
+3. §4.B with ≥2 architect-originated transformative capabilities (not from VISION.md)
+4. Concrete examples for every non-trivial rule
+5. `check_spec_quality.py` shows 0 HIGH defects
+6. `creative_verification.py` shows ≥2 invention signals
+7. Self-audit performed per DEEP_REASONING_PROTOCOL: ≥3 defects found and fixed
+8. `session_quality_gate.py` passes
+9. NEXT.md written (for passaging PRECISION session)
+10. SESSION_LOG.md updated
+11. Committed and pushed
 
 ## Notes for Next Architect
 
-- The PRECISION session added §5 validation checks 10-12 for the new §4.B.8-10 fields. Hardening should verify these checks catch real failures.
-- Contracts.py was updated with `BoundaryContinuity`, `DiscourseFlow`, `LayerFingerprint`, and related models. Verify these models cannot represent invalid states (e.g., `argument_cycle_complete: true` with non-empty `cycle_missing_elements` — should this be a Pydantic validator?).
-- The `HeadingDetectionMethod` enum now includes `LAYOUT_DETECTED` for PDF/Docling/EPUB headings.
-- Pass 6 now has an explicit §4.B processing order with 11 steps + cross-validation. Hardening should verify this ordering is correct and no circular dependencies exist.
-- New error codes: `NORM_CONTINUITY_INCONSISTENT`, `NORM_DISCOURSE_INCONSISTENT`, `NORM_FINGERPRINT_INVALID`, `NORM_ORPHAN_FOOTNOTE_REF`. Verify each has a concrete trigger scenario.
-- §4.A.4a-4d are behavioral outlines only — they do not need hardening until full specs are written.
-- The heading inclusion rule (§4.A.6) now explicitly distinguishes Shamela PageHead (excluded from primary_text) from PDF/other headings (included). Verify this distinction is adversarial-proof.
+- The normalization engine's output contract is rich: `boundary_continuity` (§4.B.8), `discourse_flow` (§4.B.10), `content_census` (§4.B.5), `structural_format` (§4.B.2), and the division tree all provide signals for intelligent passage boundaries. Use them.
+- The key insight from DOMAIN.md: passage size should be calibrated by SEMANTIC density, not word count. Arabic is morphologically dense.
+- The content census's `verse_ratio` field triggers verse-aware boundary detection. `structural_format` (qa_format, tabular_khilaf, dictionary, verse) each demand format-specific passage strategies.
+- The normalization SPEC's §4.B.10 discourse flow annotation identifies argument cycles. The passaging engine's most transformative capability would be: NEVER split a complete argument cycle across passages, and NEVER create a passage that starts mid-argument unless the argument cycle spans >N pages (configurable).
+- The passaging engine is the last engine before excerpting — passage quality determines excerpt quality.
+- Hardening tightened the normalization contracts: `DiscourseFlow` now has validators (cycle_complete implies no missing, segments non-overlapping), `LayerFingerprint` enforces insufficient_data threshold, `DiscourseSegment.detection_method` is now an enum. The passaging engine contracts should be similarly rigorous.
 
 ## Pending Owner Questions
 

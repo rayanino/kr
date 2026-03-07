@@ -1,5 +1,56 @@
 # Session Log — خزانة ريان
 
+## Session: Normalization Engine HARDENING — 2026-03-07
+**Type:** HARDENING
+**Engine:** Normalization (محرك التطبيع)
+
+**Work completed:**
+- 12 adversarial scenarios tested with attack vectors, defenses evaluated, and SPEC fixes applied
+- 2 error cascade traces (footnote separator → false scholarly claims; page order → broken passages)
+- 6 KNOWLEDGE_INTEGRITY.md invariants verified (all PASS, 1 after fix)
+- 3 multi-layer misattribution attack vectors (gradual signal degradation, cross-source fingerprint poisoning, hashiyah triple-layer confusion)
+- 2 OCR corruption scenarios (diacritic hallucination, table structure destruction)
+- §4.B.8/§4.B.10 interaction verified under 3 test cases (all PASS after fixes)
+- Pass 6 processing order verified: no circular dependencies
+- All 24 error codes verified with concrete trigger scenarios
+- 5 new error codes added: NORM_SUSPICIOUS_PAGEHEAD, NORM_ORDERING_UNCERTAIN, NORM_OCR_DIACRITICS_HALLUCINATION, NORM_TABLE_STRUCTURE_LOST, NORM_OCR_COHERENCE_FAILURE
+- 6 self-audit defects found and fixed
+
+**Contract changes (contracts.py):**
+- Added `ELABORATION` to `DiscourseSegmentType` (was missing vs SPEC)
+- Created `DiscourseDetectionMethod` enum (was untyped string)
+- Created `FingerprintReliability` enum (was untyped string)
+- Added `model_validator` to `DiscourseFlow` (cycle_complete ↔ missing_elements, segments non-overlapping)
+- Added `model_validator` to `DiscourseSegment` (start_char < end_char)
+- Added `model_validator` to `LayerFingerprint` (insufficient_data threshold)
+- Added `cycle_truncated_by_structure` field to `DiscourseFlow`
+- Added `SecondaryFootnoteType` model and `secondary_types` field to `Footnote`
+
+**SPEC changes:**
+- §4.A.2: Added interrupted write recovery rule
+- §4.A.4: Added semantic confusion hazard rule, OCR diacritics hallucination check
+- §4.A.4d: Added embedded scholarly quotation detection for owner content
+- §4.A.5: Added numeric threshold (0.50) for conservative default; added bold-for-emphasis disambiguation; added hashiyah quotation detection (step 7)
+- §4.B.4: Added mixed-type footnote rule with secondary_types
+- §4.B.8: Added signal priority rule (headings > argument flow > punctuation)
+- §4.B.8/§4.B.10: Added reverse interaction rule with cycle_truncated_by_structure
+- §4.B.9: Added inversion detection thresholds, per-segment fingerprint option, minimum-sources rule for cross-source comparison
+- §5: Added checks 13 (OCR coherence) and 14 (OCR diacritics hallucination)
+- §7: Added 5 new error codes; upgraded NORM_FOOTNOTE_SEPARATOR_ABSENT severity for tahqiq editions
+- Appendix A: Full hardening analysis (adversarial scenarios, cascades, invariants, attack vectors)
+
+**Decisions made:**
+- Continuity signal priority: heading detection always overrides punctuation analysis, even for low-confidence headings
+- Cross-source fingerprint comparison requires ≥2 independent sources before baselines become authoritative
+- Mixed-type footnotes classified by primary content type with secondary types recorded separately
+- Per-segment fingerprinting enabled by default for sources with >50 pages (configurable)
+- OCR semantic confusion flagged but never auto-corrected
+
+**Quality metrics:**
+- check_spec_quality.py: 0 HIGH defects in SPEC proper (§1-§10); 6 HIGH in appendix (narrative prose, not binding rules)
+- All Pydantic validators tested and passing
+- 24 error codes with concrete trigger scenarios verified
+
 ## Session: Normalization Engine PRECISION — 2026-03-07
 **Type:** PRECISION
 **Engine:** Normalization (محرك التطبيع)

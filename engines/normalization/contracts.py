@@ -14,7 +14,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -154,6 +154,15 @@ class CorrectionNoteData(BaseModel):
     basis: Optional[str] = Field(None, description="Manuscript or reasoning basis")
 
 
+class SecondaryFootnoteType(BaseModel):
+    """A secondary type detected within a mixed-type footnote (SPEC §4.B.4)."""
+    type: FootnoteType
+    char_range: list[int] = Field(
+        min_length=2, max_length=2,
+        description="[start_char, end_char] within the footnote text"
+    )
+
+
 class Footnote(BaseModel):
     """An extracted footnote (SPEC §3, enriched by §4.B.4).
 
@@ -164,6 +173,11 @@ class Footnote(BaseModel):
     text: str = Field(description="Footnote content")
     footnote_type: FootnoteType
     confidence: float = Field(ge=0.0, le=1.0, description="Confidence in type classification")
+    # §4.B.4 mixed-type footnotes: additional types detected in sub-sections
+    secondary_types: list[SecondaryFootnoteType] = Field(
+        default_factory=list,
+        description="Other footnote types detected within this footnote's text"
+    )
     # §4.B.4 type-specific structured data (exactly one populated based on footnote_type)
     variant_data: Optional[VariantReadingData] = None
     takhrij_data: Optional[TakhrijData] = None
@@ -273,6 +287,7 @@ class DiscourseSegmentType(str, Enum):
     EXCEPTION = "exception"
     EXAMPLE = "example"
     PREFERRED = "preferred"
+    ELABORATION = "elaboration"
     NARRATION = "narration"
 
 
@@ -286,17 +301,31 @@ class DominantDiscourseType(str, Enum):
     INSUFFICIENT_TEXT = "insufficient_text"
 
 
+class DiscourseDetectionMethod(str, Enum):
+    """How a discourse segment was detected (SPEC §4.B.10)."""
+    MARKER = "marker"
+    LLM_INFERRED = "llm_inferred"
+
+
 class DiscourseSegment(BaseModel):
     """A labeled discourse segment within a content unit (SPEC §4.B.10)."""
     type: DiscourseSegmentType
     start_char: int = Field(ge=0)
     end_char: int = Field(ge=0)
     confidence: float = Field(ge=0.0, le=1.0)
-    detection_method: str = Field(description="'marker' or 'llm_inferred'")
+    detection_method: DiscourseDetectionMethod
     marker_text: Optional[str] = Field(None, description="The Arabic marker that triggered detection")
     position_metadata: Optional[dict] = Field(
         None, description="For 'position' segments: {school_hint, attribution_hint}"
     )
+
+    @model_validator(mode="after")
+    def start_before_end(self):
+        if self.start_char >= self.end_char:
+            raise ValueError(
+                f"start_char ({self.start_char}) must be less than end_char ({self.end_char})"
+            )
+        return self
 
 
 class DiscourseFlow(BaseModel):
@@ -314,6 +343,31 @@ class DiscourseFlow(BaseModel):
     cycle_missing_elements: list[str] = Field(
         default_factory=list, description="Discourse types expected but not found"
     )
+    cycle_truncated_by_structure: bool = Field(
+        default=False,
+        description="True when an incomplete argument cycle ends at a structural "
+        "boundary (section_break/division_break) rather than continuing on next page"
+    )
+
+    @model_validator(mode="after")
+    def cycle_complete_implies_no_missing(self):
+        if self.argument_cycle_complete and self.cycle_missing_elements:
+            raise ValueError(
+                "argument_cycle_complete is True but cycle_missing_elements is non-empty: "
+                f"{self.cycle_missing_elements}. A complete cycle cannot have missing elements."
+            )
+        return self
+
+    @model_validator(mode="after")
+    def segments_non_overlapping(self):
+        sorted_segs = sorted(self.segments, key=lambda s: s.start_char)
+        for i in range(1, len(sorted_segs)):
+            if sorted_segs[i].start_char < sorted_segs[i - 1].end_char:
+                raise ValueError(
+                    f"Discourse segments overlap: segment ending at {sorted_segs[i-1].end_char} "
+                    f"overlaps with segment starting at {sorted_segs[i].start_char}"
+                )
+        return self
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -325,6 +379,12 @@ class SentenceLengthStats(BaseModel):
     mean: float
     median: float
     std_dev: float
+
+
+class FingerprintReliability(str, Enum):
+    """Reliability of a layer fingerprint (SPEC §4.B.9)."""
+    NORMAL = "normal"
+    INSUFFICIENT_DATA = "insufficient_data"
 
 
 class LayerFingerprint(BaseModel):
@@ -343,10 +403,19 @@ class LayerFingerprint(BaseModel):
     self_reference_frequency: float = Field(ge=0.0, le=1.0)
     citation_density: float = Field(ge=0.0, le=1.0)
     information_density: float = Field(ge=0.0, le=1.0)
-    fingerprint_reliability: str = Field(
-        default="normal",
+    fingerprint_reliability: FingerprintReliability = Field(
+        default=FingerprintReliability.NORMAL,
         description="'normal' or 'insufficient_data' (when <2000 words attributed)"
     )
+
+    @model_validator(mode="after")
+    def insufficient_data_threshold(self):
+        if self.total_words_attributed < 2000 and self.fingerprint_reliability == FingerprintReliability.NORMAL:
+            raise ValueError(
+                f"total_words_attributed is {self.total_words_attributed} (<2000) "
+                f"but fingerprint_reliability is 'normal'. Must be 'insufficient_data'."
+            )
+        return self
 
 
 # ──────────────────────────────────────────────────────────────────

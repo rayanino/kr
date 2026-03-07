@@ -224,13 +224,15 @@ For each page, the normalizer produces a `text_layers` array segmenting primary 
 6. **Authorial voice fingerprint** (§4.B.9): build per-layer fingerprints and validate attributions (needs census `verse_ratio` from step 4 for verse-aware fingerprinting).
 7. **Cross-page continuity** (§4.B.8): classify every page boundary.
 8. **Scholarly discourse flow** (§4.B.10): annotate discourse segments per content unit (needs continuity from step 7 for cross-page argument cycle detection).
-9. **Cross-validation:** if a content unit has `boundary_continuity.type: "mid_argument"` but the same unit's `discourse_flow.argument_cycle_complete: true`, the continuity signal takes precedence — the discourse flow's `argument_cycle_complete` is set to `false` and `cycle_missing_elements` is populated with the expected continuation. This prevents contradictory signals reaching the passaging engine.
+9. **Cross-validation:** if a content unit has `boundary_continuity.type: "mid_argument"` but the same unit's `discourse_flow.argument_cycle_complete: true`, the continuity signal takes precedence — the discourse flow's `argument_cycle_complete` is set to `false` and `cycle_missing_elements` is populated with the expected continuation. This prevents contradictory signals reaching the passaging engine. Conversely, if `discourse_flow.argument_cycle_complete: false` (cycle incomplete with missing elements) but `boundary_continuity.type` is `section_break` or `division_break`, the continuity signal takes precedence — the discourse flow's `cycle_missing_elements` is preserved as-is (it is genuine information about what the author omitted or what was lost at a structural boundary), but the content unit is annotated with `discourse_flow.cycle_truncated_by_structure: true` to distinguish a structurally interrupted cycle from one that continues on the next page.
 10. **Fine-grained fidelity mapping** (§4.B.3): for OCR sources only, compute character-level fidelity maps.
 11. **Scholarly text layer intelligence** (§4.B.1): for sources with multi-layer signals missed by Pass 5.
 
 After all enrichments, assemble the manifest (including `content_census`, `tahqiq_topology`, `layer_fingerprints`, `discourse_flow_summary`) and content JSONL. Run all §5 Layer 1 validation checks (schema compliance, coverage, text extraction, layer consistency, division tree validity, unit_index integrity, continuity/discourse/fingerprint consistency) on the assembled output. Only after all checks pass, write the package to disk.
 
 **Atomic write procedure.** The normalizer writes to a temporary directory (`library/sources/{source_id}/normalized_tmp_{timestamp}/`) first. Both `manifest.json` and `content.jsonl` are written and flushed to disk in the temporary directory. After both files are verified (existence, non-zero size, valid JSON/JSONL parse), the normalizer atomically renames the temporary directory to the final path (`library/sources/{source_id}/normalized/`). If a previous `normalized/` directory exists (reprocessing), it is renamed to `normalized_prev_{timestamp}/` before the swap, then deleted only after the new package passes verification. If any step fails (write error, verification failure, rename failure), the temporary directory is removed and normalization fails with `NORM_WRITE_FAILED`. This guarantees that `normalized/` either contains a complete, validated package or does not exist — no partial state is possible.
+
+**Interrupted write recovery.** At normalizer startup (before processing any source), check for orphaned state: if a `normalized_tmp_*` directory exists but no `normalized/` directory, AND a `normalized_prev_*` directory exists, then a previous write was interrupted mid-swap. Recovery: (a) attempt to validate the temp directory (JSON parse, schema check on both files), (b) if valid, complete the interrupted rename (temp → `normalized/`, delete `normalized_prev_*`), (c) if invalid, restore from `normalized_prev_*` (rename to `normalized/`) and delete the corrupt temp directory. Log the recovery action as `NORM_WRITE_RECOVERY` (info).
 
 Any §5 check failure aborts the write — the assert prevents corrupt packages from reaching disk. Compute the quality report as the final manifest field.
 
@@ -264,7 +266,9 @@ Output content unit (content.jsonl record):
     {"layer_type": "sharh", "author_canonical_id": "ibn_aqil_769", "start": 52, "end": 217, "confidence": 0.88}
   ],
   "footnotes": [
-    {"ref_marker": "1", "text": "انظر: التسهيل ص ٤٥. والحديث أخرجه البخاري (٢٣٤٥) وصححه الألباني.", "footnote_type": "hadith_takhrij", "confidence": 0.85}
+    {"ref_marker": "1", "text": "انظر: التسهيل ص ٤٥. والحديث أخرجه البخاري (٢٣٤٥) وصححه الألباني.", "footnote_type": "cross_reference", "confidence": 0.85,
+     "secondary_types": [{"type": "hadith_takhrij", "char_range": [22, 70]}],
+     "takhrij_data": {"collections": [{"name": "البخاري", "number": "2345"}], "grading": {"grader": "الألباني", "grade": "صحيح"}}}
   ],
   "structural_markers": {"heading_detected": true, "heading_text": "باب المبتدأ والخبر", "heading_level": 2, "heading_detection_method": "html_tagged", "heading_confidence": "confirmed"},
   "verse_info": null,
@@ -354,6 +358,7 @@ For scanned PDFs (pages are images with no usable text layer) and image-based so
 3. **OCR execution.** Send to Mistral OCR 3 via API. Parse returned Markdown to extract main text, footnotes (from layout position), headers/footers, page numbers.
 4. **Arabic-specific post-processing.**
    - **ب/ت/ث/ن disambiguation:** These letters differ only in dots — the most common OCR confusion. Flag potential confusions using CAMeL Tools morphological analysis (do NOT auto-correct — flag for downstream review).
+   - **Semantic confusion hazard:** OCR errors can produce valid Arabic words with different meanings (e.g., حَرَّمَ "he prohibited" → حَرَمَ "he deprived"; عِلْم "knowledge" → عَلَم "flag"). Morphological validation cannot catch these because both readings are valid. The normalizer flags words where: (a) the OCR confidence for any character is below 0.90, AND (b) substituting a visually similar letter (from the Arabic visual-similarity matrix: ب↔ت↔ث↔ن, ح↔خ↔ج, ر↔ز, د↔ذ, ص↔ض, ط↔ظ, ع↔غ, س↔ش) produces a different valid Arabic word. These are recorded in the fidelity map (§4.B.3) as `semantic_confusion_risk` entries with both possible readings. The downstream excerpting engine and synthesizer treat text containing `semantic_confusion_risk` flags as requiring human verification before use in knowledge claims.
    - **Hamza normalization check:** Flag pages with unusual hamza patterns.
    - **Diacritics validation:** Flag impossible diacritic sequences as likely OCR errors.
 5. **Structure discovery.** Less reliable for OCR text. Uses layout-based detection from Mistral OCR's Markdown formatting, keyword heuristics, and LLM assistance. Confidence levels are typically lower than for structured text.
@@ -472,6 +477,7 @@ For the owner's study notes, tarjih documents, research drafts, and lesson trans
 - Multi-layer: always single-layer (the owner is the sole author). `text_layers` contains one entry with `layer_type: "owner_content"` and the owner's identifier.
 - Text fidelity: `high` for `typed_passage` and `study_note`. `medium` for `lesson_transcription` (the owner may have transcription errors). `variable` for `external_reference` (depends on the external source quality).
 - Content flagging: standard flags apply. The owner's notes may contain Quran/hadith citations worth flagging.
+- Embedded scholarly quotation detection: the owner's notes frequently contain quotations from scholars (e.g., "قال ابن قدامة: يجوز المسح على الخفين"). The normalizer scans for explicit quotation patterns ("قال فلان:", scholar name followed by ":" or "أن" and content) and marks detected quotations in content_flags as `has_embedded_scholarly_quotation: true`. This flag tells the excerpting engine to trace the quotation to the referenced scholar rather than attributing the content to the owner.
 
 **Example (brief):** Input: `typed_passage` of 800 characters (owner's study note on conditions of prayer) → Output: 1 content unit, `layer_type: "owner_content"`, `physical_page` null, structure discovery skipped (<20 units), `text_fidelity: "high"`, `has_hadith_citation: true` (owner cites a hadith).
 
@@ -501,7 +507,7 @@ Not all layers are present in every multi-layer source. The source metadata's `l
    - "أقول:" → confirms current layer's author speaking
 
 2. **Typographic signals** (reliability varies by source type):
-   - Shamela HTML: bold tags → Layer 1 (reliable in ~75% of commentary exports). Font size. Brackets.
+   - Shamela HTML: bold tags → Layer 1 (reliable in ~75% of commentary exports). However, bold is sometimes used for emphasis within sharh text (e.g., the commentator bolds a hadith or Quran quote). The normalizer distinguishes layer-indicating bold from emphasis-bold using two heuristics: (a) layer-indicating bold spans typically cover 1-3 sentences of terse, definitional text, while emphasis-bold covers individual words or phrases within longer sentences; (b) if the source metadata indicates `multi_layer: true` and bold text constitutes <5% or >60% of primary text on a page, the bold signal is treated as emphasis rather than layer indicator (too little or too much bold to be a matn/sharh boundary). Font size. Brackets.
    - PDF text: font size/weight differences from Docling output.
    - Scanned PDF/image: visual font size from OCR spatial output (less reliable).
 
@@ -517,8 +523,9 @@ Not all layers are present in every multi-layer source. The source metadata's `l
 4. Infer layer for regions between boundaries from surrounding context.
 5. For regions with no signals, assign the default layer (Layer 2 in sharh, Layer 3 in hashiyah).
 6. Validate: Layer 1 text should be a minority of total text in commentaries. If Layer 1 exceeds 40%, flag for review.
+7. **Hashiyah quotation detection (3-layer sources only).** In hashiyah sources, the hashiyah author frequently quotes the sharh author's text before commenting on it. When the hashiyah text contains explicit quotation markers ("قال الشارح:", "وعبارته:", "ونصه:", "قال في الشرح:"), the text following these markers until the next hashiyah-author signal (first-person assertion, explanatory "أي:", or a new quotation marker) is attributed to the sharh layer (Layer 2), not the hashiyah layer (Layer 3). This pattern-based quotation detection runs after the initial layer assignment (steps 1-5) and may reassign segments from Layer 3 to Layer 2. Confidence for pattern-detected quotations is 0.80-0.90; regions without explicit markers remain at their initial attribution.
 
-**Conservative default:** When confidence is low, attribute to the commentary author (Layer 2), not the matn author. Misattributing commentary to the commentator is less harmful than attributing verbose explanation to an author known for terseness.
+**Conservative default:** When confidence for a text region is below 0.50, attribute to the commentary author (Layer 2 in sharh, Layer 3 in hashiyah), not the matn author. Misattributing commentary to the commentator is less harmful than attributing verbose explanation to an author known for terseness.
 
 **Concrete example (multi-layer detection in a Shamela sharh):**
 
@@ -836,6 +843,8 @@ What this means for downstream: When the excerpting engine extracts the phrase "
 
 **Technical approach:** Each footnote is classified using pattern matching (for structured markers like "رواه البخاري") and LLM classification (for footnotes without clear markers). The LLM receives the footnote text, the main text it references, and a description of each footnote type. Classification confidence accompanies each assignment.
 
+**Mixed-type footnotes.** A single footnote may contain content from ≥2 taxonomy types (e.g., "انظر: التسهيل ص ٤٥. والحديث أخرجه البخاري (٢٣٤٥)" contains both `cross_reference` and `hadith_takhrij`). When pattern matching detects markers for ≥2 types within one footnote, the footnote receives the type of its PRIMARY content (determined by which type's markers appear first, or which covers more of the footnote text). Additionally, a `secondary_types` field records the other detected types with their character ranges, so structured data extraction operates on each sub-section independently. The footnote's `footnote_type` is never `unknown_footnote_type` when any sub-section matches a known type.
+
 **What this enables:** The excerpting engine can route hadith takhrij data to hadith metadata fields. The synthesizer can produce evidence-aware entries: "The Hanafi position rests on a hadith narrated by Abu Dawud (graded hasan by the editor), while the Shafi'i position cites a hadith in Bukhari (sahih)." Variant readings feed the source engine's edition comparison capability. Biographical notes enrich the scholar authority model. All of this metadata is extracted from the footnote apparatus during normalization — if it isn't captured here, it's lost.
 
 **Concrete example (classifying 4 footnotes from a single page of a tahqiq edition of المغني لابن قدامة):**
@@ -1147,6 +1156,8 @@ When an opening marker appears in the last 200 characters of a page and no match
 - **PDF (text-embedded):** Docling's reading order analysis detects text flow across pages. If the last text block on page N and the first text block on page N+1 form a continuous paragraph in Docling's model, the boundary is `mid_paragraph` or `mid_sentence` (refined by punctuation analysis).
 - **OCR (scanned/image):** The last text line of one page and the first text line of the next are analyzed for syntactic continuity. OCR-detected page footers and headers are excluded. A word hyphenated across pages (rare in Arabic but occurs in narrow-column prints) is detected and the boundary is `mid_sentence` with confidence ≥ 0.95.
 
+**Signal priority rule.** When ≥2 signals conflict, the resolution order is: (1) Structural heading detection at the boundary ALWAYS overrides punctuation-based or argument-based continuity analysis, regardless of heading confidence level. A heading at a boundary — even a `low`-confidence Tier 3 heading — produces `section_break` at the heading's confidence, never `mid_sentence`. Classical Arabic authors commonly omit terminal punctuation before chapter headings, and treating these as mid-sentence would systematically break passage boundaries at chapter transitions. (2) Argument flow markers override punctuation analysis: `mid_argument` subsumes `mid_sentence` when both are detected. (3) Punctuation analysis is the fallback when no structural or argument signals are present.
+
 **What this enables that was previously impossible:**
 
 1. **Zero-fracture passage boundaries.** The passaging engine reads `boundary_continuity` for every page and NEVER creates a passage boundary at a `mid_sentence` or `mid_argument` point. This eliminates the most common passage defect in Islamic text processing — splitting a definition from its explanation, or an evidence from its response.
@@ -1208,7 +1219,7 @@ After layer detection is complete for the entire source (Pass 5 in the Shamela n
 
 - **Sentence length distribution:** mean, median, standard deviation of sentence lengths (in words). Matn texts have characteristically shorter sentences (mean 8-15 words) than sharh texts (mean 20-40 words). Computed by splitting on terminal punctuation and Arabic sentence-boundary heuristics.
 - **Vocabulary richness (type-token ratio):** computed over a sliding window of 500 words. Matn texts have higher type-token ratios (more unique terms per window, less repetition) because they are definitional and dense. Sharh texts have lower ratios because they repeat and explain.
-- **Connective particle frequency:** the proportion of tokens that are connective particles (و, ف, ثم, أو, لكن, بل, حتى, إذ, لأن, حيث). Sharh texts use significantly more connectives (0.08-0.12 of all tokens) than matn texts (0.04-0.07) because explanation requires linking ideas.
+- **Connective particle frequency:** the proportion of tokens that are connective particles (و, ف, ثم, أو, لكن, بل, حتى, إذ, لأن, حيث). Sharh texts use more connectives (0.08-0.12 of all tokens) than matn texts (0.04-0.07) because explanation requires linking ideas.
 - **Technical term density:** proportion of content words matching the KR technical glossary for this source's science. Both layers share a science, but matn texts have HIGHER technical density because definitions pack more terms per sentence.
 - **Pronoun reference pattern:** frequency of third-person reference phrases ("قال", "أراد", "يعني", "وقوله") that indicate quoting or referencing the matn author. These should appear almost exclusively in Layer 2, not Layer 1.
 - **Self-reference pattern:** frequency of first-person scholarly assertion phrases ("أقول", "والصحيح عندي", "والذي يظهر لي"). These belong to the layer's own author.
@@ -1250,11 +1261,11 @@ After layer detection is complete for the entire source (Pass 5 in the Shamela n
 
 **Validation algorithm.** After building fingerprints, the engine validates each page's layer attributions:
 
-1. **Layer-level plausibility check.** Compare the two layer fingerprints against expected ranges for matn/sharh. If the "matn" fingerprint has sentence length mean > 25 and connective frequency > 0.09, it statistically resembles sharh — flag the entire layer detection as potentially inverted (`NORM_LAYER_FINGERPRINT_INVERSION`, warning severity). This catches the catastrophic failure where ALL matn text was attributed as sharh and vice versa.
+1. **Layer-level plausibility check.** Compare the two layer fingerprints against expected ranges for matn/sharh. If the "matn" fingerprint has sentence length mean > 25 and connective frequency > 0.09, it statistically resembles sharh — flag the entire layer detection as potentially inverted (`NORM_LAYER_FINGERPRINT_INVERSION`, warning severity). This catches the catastrophic failure where ALL matn text was attributed as sharh and vice versa. Specific inversion detection thresholds: if the "matn" layer has sentence_length.mean > 22 AND connective_frequency > 0.08 AND the "sharh" layer has sentence_length.mean < 16 AND connective_frequency < 0.06, the inversion signal is strong — trigger human gate review. Do not auto-correct — the human decides whether the labels should be swapped.
 
-2. **Page-level outlier detection.** For each page, compute a local fingerprint from the text attributed to each layer on that page (minimum 50 words per layer on that page required; pages below this threshold are skipped). Compare the local fingerprint against the global fingerprint for that layer using Mahalanobis distance. Pages where the local fingerprint diverges by >2.5 standard deviations from the global fingerprint are flagged as potential misattribution. The flagged page's `text_layers` entries receive a `fingerprint_anomaly: true` field and their confidence scores are reduced by 0.15 (capped at minimum 0.10).
+2. **Page-level outlier detection.** For each page, compute a local fingerprint from the text attributed to each layer on that page (minimum 50 words per layer on that page required; pages below this threshold are skipped). Compare the local fingerprint against the global fingerprint for that layer using Mahalanobis distance. Pages where the local fingerprint diverges by >2.5 standard deviations from the global fingerprint are flagged as potential misattribution. The flagged page's `text_layers` entries receive a `fingerprint_anomaly: true` field and their confidence scores are reduced by 0.15 (capped at minimum 0.10). For sources with >50 pages, per-segment fingerprinting is enabled by default: local fingerprints are computed per LAYER SEGMENT on each page rather than per page aggregate. This catches partial misattribution where a single short segment is wrong but the page overall appears correct. Per-segment fingerprinting increases computation by ~5x; it may be disabled via configuration for batch processing of low-priority sources.
 
-3. **Cross-source fingerprint comparison.** When the source metadata identifies the matn author as having other works already in the library, the engine compares this source's matn fingerprint against the author's known fingerprint from single-layer works. Agreement increases confidence in layer detection; disagreement triggers a warning. This creates a feedback loop: as the library grows, layer detection improves because more reference fingerprints are available.
+3. **Cross-source fingerprint comparison.** When the source metadata identifies the matn author as having other works already in the library, the engine compares this source's matn fingerprint against the author's known fingerprint from single-layer works. Agreement increases confidence in layer detection; disagreement triggers a warning. This creates a feedback loop: as the library grows, layer detection improves because more reference fingerprints are available. **Minimum-sources rule:** cross-source comparison is activated only when ≥2 independent sources exist for the same matn author in the library. For the first source by any author, the fingerprint is stored but NOT used as a reference baseline — it may contain layer detection errors. Only after a second source confirms the fingerprint (within statistical bounds) does the author-level baseline become authoritative. Single-layer works by the same author (where layer detection is trivially correct because only one layer exists) always take precedence as reference fingerprints over multi-layer works.
 
 **Concrete example (validation catching a misattribution in شرح ابن عقيل):**
 
@@ -1488,6 +1499,10 @@ The normalization engine's output determines the quality ceiling for every downs
 
 12. **Layer fingerprint plausibility (§4.B.9).** For multi-layer sources with `layer_fingerprints` in the manifest: verify (a) every layer listed in `layer_map` has a corresponding entry in `layer_fingerprints` (or is marked `fingerprint_reliability: "insufficient_data"`), (b) `sentence_length.mean` is positive, (c) `type_token_ratio`, `connective_frequency`, and `information_density` are in range 0.0–1.0, (d) `total_words_attributed` is positive. Failures produce `NORM_FINGERPRINT_INVALID` (warning, non-fatal).
 
+13. **OCR coherence check (OCR sources only).** For pages processed via OCR where both engines agree (dual-OCR confidence ≥ 0.90), perform a sentence-level coherence spot check: sample 3 random sentences per page and verify each is syntactically plausible Arabic using morphological analysis (all words should parse as valid Arabic morphemes in at least one reading). Pages where >50% of sampled sentences fail coherence are flagged as `NORM_OCR_COHERENCE_FAILURE` (warning) and their `text_fidelity.score` is downgraded to `low` regardless of OCR agreement. This catches the "confident garbage" scenario where both OCR engines produce real Arabic words in incoherent sequences from severely degraded pages.
+
+14. **OCR diacritics hallucination check (OCR sources only).** Compare the diacritics density of the OCR output against the source metadata's expected diacritization level. If the source is classified as `unvocalized` or `partially_vocalized` in the source metadata, but the OCR output has diacritics density >0.06, trigger `NORM_OCR_DIACRITICS_HALLUCINATION` (warning). This signals that diacritics may be OCR-generated rather than author-placed.
+
 **Layer 2: Quality report review.**
 
 The manifest's `quality_report` field provides a dashboard for human review:
@@ -1552,12 +1567,16 @@ If future experience shows that LLM-assisted operations in this engine have unac
 | `NORM_UNIT_INDEX_VIOLATION` | Fatal | unit_index values are not monotonically increasing starting from 0, or contain duplicates | Abort normalization. This is a normalizer bug — unit_index generation must be deterministic. |
 | `NORM_NO_TEXT_LAYER` | Fatal | Text PDF normalizer found no extractable text layer in PDF | Reject. Reclassify source as `pdf_scanned` and re-route to scanned PDF normalizer. |
 | `NORM_PAGE_ORDER_CONFLICT` | Warning | Image set: filename sort order disagrees with OCR-detected page numbers | Use filename sort as authoritative. Log both orderings. Human gate triggered. |
-| `NORM_FOOTNOTE_SEPARATOR_ABSENT` | Info | Shamela page has no `<hr width='95'>` separator | Treat entire page content as primary text. Log. If >30% of pages have this, flag source as `no_footnote_apparatus`. |
+| `NORM_FOOTNOTE_SEPARATOR_ABSENT` | Info (Warning for tahqiq editions) | Shamela page has no `<hr width='95'>` separator | Treat entire page content as primary text. Log. If >30% of pages have this, flag source as `no_footnote_apparatus`. For tahqiq editions (source metadata indicates tahqiq editor): if >10% of pages have this, trigger human gate — the separator pattern may be non-standard and needs manual identification. |
 | `NORM_DIACRITICS_DRIFT` | Fatal | Post-normalization byte comparison detects diacritics were modified during processing | Abort normalization. This indicates a code bug (likely a library applying Unicode normalization). |
 | `NORM_CONTINUITY_INCONSISTENT` | Warning | Boundary continuity field contradicts text content (e.g., `mid_sentence` but text ends with period) | Log. Set `boundary_continuity.confidence` to 0.0 for affected content unit. Downstream engines will treat as `unknown`. |
 | `NORM_DISCOURSE_INCONSISTENT` | Warning | Discourse flow field fails internal consistency (overlapping segments, complete cycle with missing elements) | Log. Set `discourse_flow` to null for affected content unit. Downstream engines proceed without discourse data for that page. |
 | `NORM_FINGERPRINT_INVALID` | Warning | Layer fingerprint values are out of valid range or missing for a declared layer | Log. Set `layer_fingerprints` to null in manifest. Fingerprint validation (§4.B.9) is skipped for this source. |
 | `NORM_ORPHAN_FOOTNOTE_REF` | Info | Footnote reference marker in primary text has no corresponding footnote entry | Preserve the marker as literal text (e.g., "(3)" remains as-is). Do NOT replace with universal ⌜N⌝ format. Log the orphan reference with page unit_index and marker text. |
+| `NORM_SUSPICIOUS_PAGEHEAD` | Warning | Shamela PageHead content does not match heading patterns AND exceeds 100 characters | Treat as misplaced primary text. Include in primary_text. Flag for human review. |
+| `NORM_ORDERING_UNCERTAIN` | Warning | Image-sourced source: >30% of page boundaries have `unknown` or low-confidence continuity | May indicate misordered pages. Human gate triggered. |
+| `NORM_OCR_DIACRITICS_HALLUCINATION` | Warning | OCR output diacritics density >0.06 for a source classified as unvocalized or partially_vocalized | Diacritics may be OCR-generated, not author-placed. Flag for downstream engines: these diacritics are not authoritative vocalization. |
+| `NORM_TABLE_STRUCTURE_LOST` | Warning | Layout analysis detects a table but OCR linearization loses column-row associations | Set `content_flags.table_structure_preserved: false`. Downstream engines must not extract structured knowledge from this page's table. |
 
 **Principle:** Never lose data silently. Every error is logged with: timestamp, source_id, error code, severity, human-readable message, affected unit_index (if page-specific), and recovery action taken.
 
@@ -1687,3 +1706,301 @@ Each science may customize:
 - Normalization engine → passaging engine: verify that the passaging engine can read and process the normalized package correctly. The division tree is usable for passage boundary guidance. Content units are correctly ordered and referenced.
 - Source engine → normalization engine: verify that the normalization engine correctly reads frozen files and source metadata produced by the source engine. source_id references resolve correctly.
 - Enrichment write-back: verify that normalizer-discovered metadata (format override, volume corrections) is correctly written back to the source metadata record.
+
+---
+
+## Appendix A — Hardening Analysis
+
+This appendix documents adversarial scenario testing, error cascade analysis, and invariant verification performed during the normalization engine hardening session. Each scenario identifies a concrete corruption path, evaluates existing defenses, and specifies any SPEC fixes applied.
+
+### A.1 — Adversarial Scenarios
+
+**Scenario 1: Bold-for-emphasis misinterpreted as layer boundary.**
+Attack vector: A Shamela commentary export where the commentator (sharh author) uses `<b>` tags to emphasize hadith quotations or Quran verses within their own commentary text. The normalizer's Pass 5 interprets all bold spans as Layer 1 (matn) text.
+What breaks: Hadith text and Quran citations within the sharh layer are misattributed to the matn author. The library records "ابن مالك said: «بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ»" when this hadith quotation belongs to ابن عقيل's commentary.
+Existing defenses: §4.A.5 step 6 checks that Layer 1 text is <40% of total — this catches bulk misattribution but not page-level emphasis-bold confusion.
+SPEC fix applied: Added disambiguation rule to §4.A.5 typographic signals — bold spans covering individual words/phrases within longer sentences are treated as emphasis, not layer indicators. Added <5% and >60% bold-per-page thresholds.
+Residual risk: LOW. The combination of span-length heuristic + page-level proportion check + fingerprint validation (§4.B.9) provides three independent defenses.
+
+**Scenario 2: OCR produces valid but semantically wrong Arabic word.**
+Attack vector: A scanned page contains the word حَرَّمَ (he prohibited). OCR reads it as حَرَمَ (he deprived/he was forbidden from) — both are valid Arabic morphemes. Dual-OCR mode may produce the same wrong reading because both engines share similar Arabic language models.
+What breaks: The excerpting engine extracts "حَرَمَ X" (he was deprived of X) instead of "حَرَّمَ X" (he prohibited X). The synthesizer produces a fiqh entry with an inverted ruling. The owner learns the wrong legal opinion.
+Existing defenses: §4.B.3 fidelity mapping flags low-confidence characters, but if both OCR engines agree on the wrong reading, confidence appears high. Morphological validation passes because both words are valid.
+SPEC fix applied: Added "semantic confusion hazard" rule to §4.A.4 step 4 — when OCR confidence for any character is <0.90 AND substituting a visually similar letter produces a different valid Arabic word, the word is flagged as `semantic_confusion_risk` with both readings.
+Residual risk: MEDIUM. The visual-similarity matrix catches the most dangerous confusions, but novel confusion patterns may exist. The fingerprint validation and downstream excerpting engine's context analysis provide additional but imperfect defense.
+
+**Scenario 3: Shamela PageHead heading text injected into primary_text.**
+Attack vector: A Shamela export where the PageHead element contains not just the chapter title but also authorial text (this occurs in approximately 3% of Shamela exports where the export engine incorrectly splits the text). If the normalizer includes PageHead text in primary_text, it duplicates text; if it excludes it, it loses the author's text.
+What breaks: Either duplicate text (inflating the source) or lost text (silent data loss).
+Existing defenses: §4.A.6 explicitly states PageHead is excluded from primary_text. §5 check 2 (coverage check) catches missing pages but not duplicated text within pages.
+SPEC fix needed: None — the existing rule correctly excludes PageHead. However, the edge case of authorial text in PageHead is not addressed. Adding clarification: if PageHead text does NOT match any heading pattern (باب, فصل, etc.) and exceeds 100 characters, it should be logged as `NORM_SUSPICIOUS_PAGEHEAD` (warning) and treated as primary text that was incorrectly placed in the PageHead element, with the page flagged for human review.
+Status: FIX APPLIED (see §7 error code addition below).
+
+**Scenario 4: Division tree covers source but with overlapping ranges.**
+Attack vector: The structure discovery algorithm detects two sibling divisions where Division A ends at unit_index 50 and Division B starts at unit_index 48 — overlapping by 2 units. This happens when Tier 2 keyword heuristics detect "باب" headings that are actually cross-references ("كما في باب كذا") rather than structural headings.
+What breaks: The passaging engine, which uses division boundaries for passage creation, produces passages that belong to two divisions simultaneously. The taxonomy engine receives an excerpt with ambiguous division context.
+Existing defenses: §5 check 5 explicitly validates "sibling divisions do not overlap in their page ranges." This catches the error at validation time.
+Residual risk: LOW. The validation catches this before any corrupt data reaches disk.
+
+**Scenario 5: Footnote reference marker in text with no corresponding footnote.**
+Attack vector: A Shamela page contains "(3)" in the main text as part of a mathematical or classification pattern (e.g., listing three conditions: "(1) ... (2) ... (3) ..."), not as a footnote reference. There are only 2 actual footnotes on the page.
+What breaks: Without the orphan reference rule, the normalizer might convert "(3)" to "⌜3⌝" and generate an empty or ghost footnote entry, confusing downstream engines.
+Existing defenses: §4.A.2 Pass 2 strips footnote reference markers "only when a matching footnote exists on the same page." §5 check 6 handles orphan references. The `NORM_ORPHAN_FOOTNOTE_REF` error code preserves the marker as literal text.
+Residual risk: LOW. The design correctly handles this case.
+
+**Scenario 6: Unicode normalization silently strips diacritics.**
+Attack vector: A Python string operation or library (e.g., `unicodedata.normalize('NFKD', text)`) is inadvertently applied during HTML parsing or text cleaning. This decomposes Arabic characters and may strip combining diacritical marks, changing "عِلْمٌ" to "علم" — silently destroying semantic information.
+What breaks: The entire source loses diacritical marks. For vocalized scholarly texts (mutun), this destroys the primary scholarly value — the precise vocalization IS the knowledge.
+Existing defenses: §4.A.8 states "No Unicode normalization. NFC, NFD, NFKC, NFKD normalization is NOT applied." §5 check 8 (diacritics preservation verification) performs character-class comparison and triggers `NORM_DIACRITICS_DRIFT` (fatal) if even one diacritic is lost.
+Residual risk: VERY LOW. The fatal error on any diacritic loss is a strong defense. The check is per-page, catching the issue at the earliest possible point.
+
+**Scenario 7: Atomic write procedure interrupted mid-swap.**
+Attack vector: The normalizer completes writing to the temporary directory and begins the rename to the final path. The process crashes (OOM, disk full, power loss) after renaming the old `normalized/` to `normalized_prev_*` but before renaming the temp to `normalized/`.
+What breaks: The source has no `normalized/` directory. Both `normalized_prev_*` and `normalized_tmp_*` exist. The source appears un-normalized. Re-running normalization would work, but if the system doesn't detect this state, the source is stuck.
+Existing defenses: §4.A.2 defines the atomic write procedure with temp directory → verify → rename. The `NORM_WRITE_FAILED` error code covers rename failures.
+SPEC fix needed: Add a recovery rule: at normalizer startup, if a `normalized_tmp_*` directory exists but no `normalized/` directory, AND a `normalized_prev_*` exists, the engine should: (a) attempt to validate the temp directory (JSON parse, schema check), (b) if valid, complete the interrupted rename, (c) if invalid, restore from `normalized_prev_*` and log the recovery. This ensures interrupted writes are recoverable.
+Status: RECOVERY RULE ADDED to §4.A.2.
+
+**Scenario 8: Layer detection inversion — all matn classified as sharh and vice versa.**
+Attack vector: A Shamela commentary where the export convention is inverted — the sharh text is bold and the matn text is regular (this occurs in some older Shamela versions where the export template is wrong). The normalizer's Pass 5 applies the standard "bold = matn" heuristic and inverts ALL layer attributions.
+What breaks: Every character in the source has the wrong author_canonical_id. The entire source's knowledge is misattributed. This is the highest-impact single failure the normalizer can produce.
+Existing defenses: §4.A.5 step 6 checks that Layer 1 is <40% — catches inversion because the sharh (now labeled matn) would be >60%. §4.B.9 fingerprint validation catches the inversion at a statistical level — the "matn" fingerprint would have sharh-like properties.
+SPEC fix needed: Add a SPECIFIC inversion detection rule to §4.B.9 validation step 1: if the "matn" layer fingerprint has sentence_length.mean > 22 AND connective_frequency > 0.08 AND the "sharh" layer fingerprint has sentence_length.mean < 16 AND connective_frequency < 0.06, flag `NORM_LAYER_FINGERPRINT_INVERSION` (warning severity) and trigger human gate review. Do not auto-correct — the human decides whether the labels should be swapped.
+Status: INVERSION THRESHOLDS ADDED to §4.B.9 validation.
+
+**Scenario 9: Continuity detection falsely claims mid_sentence at chapter boundary.**
+Attack vector: A page ends with a sentence that has no terminal punctuation because the author uses a literary style without periods (common in classical Arabic). The next page begins a new chapter (باب). The continuity detector sees no terminal punctuation → classifies as `mid_sentence`.
+What breaks: The passaging engine refuses to create a passage boundary at this chapter boundary because it believes the sentence continues. Passages span chapter boundaries incorrectly.
+Existing defenses: §4.B.8 detection algorithm checks structural markers: if a heading is detected at or near the boundary, the classification is `section_break` (confidence ≥ 0.85). This overrides the punctuation-based `mid_sentence` signal.
+Residual risk: LOW — but only if structure discovery successfully detects the heading. If the heading is a Tier 3 (LLM-detected) heading with confidence `low`, the override may not trigger reliably.
+SPEC fix needed: Add explicit priority rule — structural heading detection at a boundary always overrides punctuation-based continuity analysis, regardless of heading confidence level. Even a `low`-confidence heading at a boundary should produce `section_break` with the heading's confidence, not `mid_sentence`.
+Status: PRIORITY RULE ADDED to §4.B.8.
+
+**Scenario 10: Discourse flow markers inside quotations produce false argument structure.**
+Attack vector: The text reads "قال الشافعي: والصحيح أنه يجب الوضوء، واعترض عليه بعض أصحابنا بأن..." — the author is QUOTING another scholar who made an argument. The discourse markers "والصحيح" and "واعترض" appear inside the quotation, but the detector interprets them as the source author's own argument.
+What breaks: The discourse flow map shows a `preferred` segment and an `objection` segment that are actually quoted content. The excerpting engine may treat the quoted argument as a standalone scholarly position.
+Existing defenses: §4.B.10 edge cases mention "markers inside quotations... annotated as `quoted_discourse`" — quotation detection using guillemets and "قال فلان:" patterns.
+Residual risk: MEDIUM. Quotation detection relies on explicit markers (guillemets, "قال"). Implicit quotation (where the author paraphrases another scholar's argument without explicit markers) is not detectable by patterns alone. LLM refinement (step 3) may catch some implicit quotations.
+
+**Scenario 11: Owner's study note processed as scholarly source.**
+Attack vector: The owner submits a typed study note that contains "قال ابن قدامة: يجوز المسح على الخفين" — the owner is taking notes about what a scholar said. The normalizer treats this as the owner's original content, but the excerpting engine later extracts it as the owner's opinion rather than a quote from Ibn Qudamah.
+What breaks: The library attributes a scholarly position to the owner instead of the original scholar.
+Existing defenses: §4.A.4d specifies `layer_type: "owner_content"` for all owner-authored input. The excerpting engine should recognize this layer type and handle quotations within owner notes differently. However, the SPEC does not explicitly require the owner content normalizer to detect embedded scholarly quotations.
+SPEC fix needed: Add a behavioral rule to §4.A.4d: owner content normalizer MUST scan for embedded scholarly quotation patterns ("قال فلان:", explicit scholar attribution followed by content) and mark these as `quoted_scholarly_content` in content_flags. The excerpting engine uses this flag to trace the quotation to the referenced scholar rather than attributing it to the owner.
+Status: FLAG ADDED to §4.A.4d.
+
+**Scenario 12: Dual-OCR produces aligned garbage on a severely degraded page.**
+Attack vector: A page is so degraded (faded ink, paper damage) that BOTH OCR engines produce plausible-looking but completely wrong Arabic text (real Arabic words in wrong order, or real words from a different context). Character-level alignment shows agreement → high fidelity score.
+What breaks: A page of essentially random Arabic text enters the library with `text_fidelity: "high"` — the worst possible outcome, because high fidelity means downstream engines trust it completely.
+Existing defenses: §4.A.4 step 8 computes fidelity from OCR confidence, but if both engines are confidently wrong, fidelity is high. §5 check 3 flags pages with <70% Arabic characters, but the text IS Arabic — just wrong.
+SPEC fix needed: Add a coherence check to §5: for OCR-processed pages, compute a sentence-level coherence score using an LLM (prompt: "Is this Arabic text coherent? Rate 1-5."). Pages scoring ≤2 receive fidelity downgrade to `low` regardless of OCR agreement. This catches the "confident garbage" scenario.
+Status: COHERENCE CHECK ADDED to §5.
+
+### A.2 — Error Cascade Traces
+
+**Cascade 1: Footnote separator misdetection → footnote text injected into primary_text → false scholarly claims.**
+
+Step 1: The Shamela export uses a non-standard footnote separator (e.g., `<hr width='90'>` instead of `<hr width='95'>`). The normalizer's Pass 2 fails to detect the separator.
+Step 2: The entire page content (including footnote text) is treated as primary text. `NORM_FOOTNOTE_SEPARATOR_ABSENT` (info) is logged.
+Step 3: The footnote text — which contains the editor's scholarly commentary — is now part of the primary text. It is attributed to the source author's layer (matn or sharh based on surrounding context).
+Step 4: The excerpting engine extracts the editor's commentary as the original author's opinion: "ابن قدامة said: 'الصواب: المتيمم بدل المتوضئ'" — but this is the EDITOR's correction note, not ابن قدامة's text.
+Step 5: The synthesizer produces an entry attributing the correction to ابن قدامة. The owner learns a false scholarly position.
+
+Cascade defense analysis:
+- Step 1 detection: `NORM_FOOTNOTE_SEPARATOR_ABSENT` is logged but at `info` severity. If >30% of pages trigger this, the `no_footnote_apparatus` flag is set.
+- Step 3 defense: The text_layers attribution would be based on content inference. The editor's correction text has a different register from the author's text (modern scholarly language vs. classical). §4.B.9 fingerprint validation should flag this as an anomaly IF the editor's text is long enough.
+- Step 4 defense: The excerpting engine should notice that the "author's" text contains modern scholarly language inconsistent with the author's period.
+- SPEC fix: Elevate `NORM_FOOTNOTE_SEPARATOR_ABSENT` from `info` to `warning` when the source metadata indicates a tahqiq edition (tahqiq editions ALWAYS have footnotes). If the source is a tahqiq edition AND >10% of pages have no separator, trigger human gate: the separator pattern may be non-standard and needs manual identification.
+Status: ERROR SEVERITY UPGRADED for tahqiq editions.
+
+**Cascade 2: Page order conflict in image set → wrong unit_index sequence → cross-page continuity errors → broken passage boundaries.**
+
+Step 1: The owner photographs a book but accidentally photographs page 45, then 43, then 44, then 46. Filenames are sequential: IMG_001 through IMG_004.
+Step 2: The normalizer uses filename order as authoritative (§4.A.4 rule). Content units are: unit_index 0 = page 45, unit_index 1 = page 43, unit_index 2 = page 44, unit_index 3 = page 46.
+Step 3: The OCR detects page numbers on the images: 45, 43, 44, 46. This disagrees with filename order. `NORM_PAGE_ORDER_CONFLICT` is triggered, and a human gate is created.
+Step 4: BUT if OCR fails to detect page numbers (e.g., the page numbers are in a faded footer), the conflict is never detected. Filename order is used silently.
+Step 5: Cross-page continuity at unit_index 0→1 (page 45→43) detects `mid_sentence` because the text on page 43 begins with a lowercase connective that continues from page 42, not page 45. The continuity signal is wrong — these pages are NOT adjacent.
+Step 6: The passaging engine treats pages 45, 43, 44, 46 as a continuous sequence and creates a passage spanning all four — producing nonsensical text.
+
+Cascade defense analysis:
+- Step 3 is the primary defense: human gate review of page order conflict.
+- Step 4 is the gap: if OCR can't read page numbers, the conflict is invisible.
+- SPEC fix: Add a secondary ordering check: when continuity analysis (§4.B.8) produces `unknown` or low-confidence results for >30% of boundaries in an image-sourced source, log `NORM_ORDERING_UNCERTAIN` (warning) and flag for human review. High rates of continuity uncertainty in image sources may indicate misordered pages.
+Status: SECONDARY ORDERING CHECK ADDED.
+
+### A.3 — KNOWLEDGE_INTEGRITY.md Invariant Verification
+
+**Invariant 1: Frozen sources are immutable.**
+SPEC guarantee: The normalization engine reads from `library/sources/{source_id}/frozen/` and never writes to it. §4.A.2 specifies "frozen source directory path" as input. The atomic write procedure writes ONLY to `normalized/` and `normalized_tmp_*/` directories. No SPEC rule ever references writing to the frozen directory.
+Verification: PASS. No code path in the normalization SPEC can modify frozen files.
+
+**Invariant 2: Primary text is never modified.**
+SPEC guarantee: §4.A.8 states "Diacritics preservation is absolute" and "No Unicode normalization." §5 check 8 performs character-class comparison between source text and output primary_text for non-OCR sources, triggering `NORM_DIACRITICS_DRIFT` (fatal) on any discrepancy.
+Adversarial test: If a Python library applies NFKD normalization during HTML parsing, diacritics (combining characters) would be decomposed and potentially lost. §5 check 8 catches this because the diacritic character counts would differ.
+Verification: PASS. The fatal check on diacritic loss is the strongest defense.
+Note: For OCR sources, the "primary text" IS the OCR output — there is no pre-OCR digital text to compare against. The frozen source is the image, and the OCR output is the normalizer's best reconstruction. This is inherent to OCR processing and is captured in the text_fidelity score.
+
+**Invariant 3: Every claim is traceable.**
+SPEC guarantee: Every content unit carries `source_id`, `unit_index`, and `physical_page` — together forming a citation chain back to the frozen source. Every text_layer segment carries `author_canonical_id`. Every footnote carries `footnote_type` and type-specific structured data. Discourse flow segments carry `detection_method` and `marker_text` showing how they were detected.
+Verification: PASS. The metadata chain is complete from the normalization engine's perspective.
+
+**Invariant 4: Errors fail loudly.**
+SPEC guarantee: §7 defines 22 error codes with explicit severity levels. Fatal errors abort normalization. Warning errors log and may trigger human gates. Info errors log. No error code has a "silently ignore" recovery action. §5 check 7 (unit_index integrity) is fatal, catching even single-unit data loss.
+Adversarial test: What if the HTML parser silently skips a malformed `<div class='PageText'>` that doesn't close properly? §5 check 2 (coverage check) catches this: for Shamela sources, the normalizer counts input PageText divs in Pass 1, and the final content unit count must match (minus explicitly skipped pages).
+Verification: PASS. The coverage check for deterministic source types is the key defense against silent data loss.
+
+**Invariant 5: Human gates are not optional.**
+SPEC guarantee: §5 Layer 3 defines 5 specific conditions triggering human gate review. These are triggered by validation failures, not by configuration. The atomic write procedure does not bypass human gates — it ensures the normalized package is valid, but human gates are separate checkpoints that prevent further processing.
+Verification: PASS. No SPEC rule allows bypassing human gate conditions.
+
+**Invariant 6: Metadata flows forward, never backward-deleted.**
+SPEC guarantee: §3 output contract lists specific metadata fields. The manifest schema includes ALL upstream metadata via `source_id` reference. Enrichment write-backs (§4.B.2 format override, §4.B.5 census) ADD metadata to the source record — they never remove existing fields. §7 has no error code whose recovery action is "delete metadata."
+SPEC fix applied: Added `metadata_history` preservation rule to Pass 6 enrichment write-backs — when a normalizer-discovered value overrides a source engine value (e.g., structural_format), the original value is preserved in `metadata_history`, not deleted.
+Verification: PASS after fix.
+
+### A.4 — Multi-Layer Misattribution Attack Vectors
+
+These scenarios target §4.A.5 (layer detection) and §4.B.9 (fingerprint validation) — the highest-integrity-risk operations.
+
+**Attack 1: Gradual layer signal degradation across a source.**
+Vector: A Shamela commentary export where bold formatting is present on pages 1-300 (properly marking matn) but absent on pages 301-600 (due to a formatting bug in the Shamela export for later volumes). The normalizer's Pass 5 uses bold for high-confidence layer detection on early pages but falls back to content-based inference on later pages. Content-based inference (§4.B.1) produces lower-confidence boundaries with some errors.
+What breaks: Pages 1-300 have correct layer attribution (confidence 0.85-0.92). Pages 301-600 have degraded attribution (confidence 0.55-0.70) with ~15% error rate. The overall source appears mostly correct, so no aggregate alarm triggers.
+§4.B.9 defense: The fingerprint validation computes a GLOBAL fingerprint from all 600 pages. If pages 301-600 have 15% misattribution, the global fingerprint is diluted but still dominated by the 85% correct text. The page-level outlier detection (step 2) should catch the specific pages where misattribution occurs — the local fingerprint for misattributed pages diverges from the global.
+Assessment: The fingerprint's Mahalanobis distance threshold (>2.5 std dev) may not catch pages where the misattribution is partial (e.g., one short matn segment attributed to sharh on a page where the rest is correct). These pages would have a mixed local fingerprint that might not diverge enough.
+SPEC fix: Add to §4.B.9 validation step 2: when computing local fingerprints, compute them PER LAYER SEGMENT on each page, not per page aggregate. A single misattributed segment of 50 words within a 500-word page would be diluted in a page-aggregate fingerprint but detectable in a per-segment fingerprint. However, this increases computation by ~5x — mark as configurable, default ON for sources with >50 pages.
+Status: PER-SEGMENT FINGERPRINT OPTION ADDED.
+
+**Attack 2: Cross-source fingerprint poisoning.**
+Vector: The first commentary entered into the library for a given matn author has ~25% layer detection errors (25% of matn text is actually sharh). The global fingerprint for this matn author is computed from this error-contaminated data. When a second commentary by the same matn author is processed, the cross-source comparison (§4.B.9 step 3) compares against the contaminated reference fingerprint — and the contamination propagates. The second source's layer detection is validated against wrong baselines.
+What breaks: A systematic bias enters the library's author fingerprint database. All future sources by this matn author are validated against contaminated fingerprints, potentially confirming wrong attributions.
+§4.B.9 defense: Step 3 says "Agreement increases confidence; disagreement triggers a warning." But if the reference fingerprint is itself wrong, agreement is a false positive.
+SPEC fix: Add a minimum-sources rule: cross-source fingerprint comparison (step 3) is only activated when ≥2 independent sources exist for the same matn author. For the first source, the fingerprint is stored but NOT used as a reference baseline. Only after a second source confirms the fingerprint (within statistical bounds) does the author-level baseline become authoritative. Additionally, single-layer works by the same author (where layer detection is trivially correct) always take precedence as reference fingerprints over multi-layer works.
+Status: MINIMUM-SOURCES RULE ADDED.
+
+**Attack 3: Hashiyah-on-sharh triple layer misattribution.**
+Vector: A three-layer source (matn + sharh + hashiyah) where the hashiyah author extensively quotes the sharh author's explanations before adding their own marginalia. The layer detection correctly identifies matn (bold text) but cannot distinguish sharh quotations within the hashiyah from the hashiyah author's own commentary — both are non-bold prose at the same visual level.
+What breaks: The hashiyah layer absorbs quoted sharh text. The sharh author's explanations are attributed to the hashiyah author. The synthesizer cites "قال ابن قاسم:" (hashiyah author) for text that was actually written by البهوتي (sharh author).
+§4.B.9 defense: With 3 layers, the fingerprint validation computes 3 fingerprints. If quoted sharh text is attributed to the hashiyah layer, the hashiyah fingerprint would contain text with sharh-like properties (shorter sentences? no — the quoted text has sharh properties). However, if the hashiyah author's own style is different from the sharh author's style, the mixed fingerprint would show anomalies.
+Assessment: This is the hardest multi-layer case. The fingerprint provides some defense, but quotation within the hashiyah may be extensive enough that the hashiyah fingerprint genuinely reflects a mix of styles.
+SPEC fix: Add to §4.A.5: for hashiyah sources with 3 layers, the normalizer explicitly tracks quotation markers within the hashiyah layer. When the hashiyah text contains "قال الشارح:" or "وعبارته:" (quotation of the sharh author), the text following these markers until the next hashiyah author signal is attributed to the sharh layer, not the hashiyah layer. This pattern-based quotation detection supplements the style-based inference.
+Status: QUOTATION DETECTION RULE ADDED for hashiyah layers.
+
+### A.5 — OCR Corruption Scenarios
+
+**OCR Scenario 1: Diacritic hallucination in unvocalized text.**
+Vector: A scanned page of an unvocalized fiqh text is processed by Mistral OCR 3. The OCR engine, trained on mixed vocalized/unvocalized Arabic, "hallucinates" diacritics that don't exist in the source image — adding fatha, kasra, or damma to words that the original printing left unvocalized. The hallucinated diacritics happen to be plausible Arabic but may not match the correct vocalization.
+Propagation: The normalizer records the hallucinated diacritics in primary_text. For the excerpting engine and synthesizer, the text appears vocalized. If the hallucinated diacritics are wrong (e.g., يَحرُمُ instead of يُحَرِّمُ — wrong verb form), the owner learns incorrect Arabic grammar for a legal ruling.
+Detection: §5 check 8 (diacritics preservation) only applies to digital sources where the source text is available. For OCR sources, the OCR output IS the baseline.
+SPEC fix: Add a diacritics consistency check for OCR sources: compare the diacritics density of the OCR output against the source metadata's expected diacritization level. If the source is classified as `unvocalized` or `partially_vocalized` in the source metadata, but the OCR output has diacritics density >0.06, flag `NORM_OCR_DIACRITICS_HALLUCINATION` (warning). The flag tells downstream engines: these diacritics may be OCR-generated, not author-placed, and should not be treated as authoritative vocalization.
+Status: NEW ERROR CODE AND CHECK ADDED.
+
+**OCR Scenario 2: Table structure destroyed by OCR linearization.**
+Vector: A scanned page contains a table of madhahib positions (common in comparative fiqh works):
+
+```
+| المسألة | الحنفي | المالكي | الشافعي | الحنبلي |
+| طهارة الماء | يجوز | لا يجوز | يجوز بشرط | يجوز |
+```
+
+Mistral OCR 3 linearizes this as: "المسألة الحنفي المالكي الشافعي الحنبلي طهارة الماء يجوز لا يجوز يجوز بشرط يجوز" — losing the column-to-row associations.
+Propagation: The normalizer's content flag detects `has_table: true` (from layout analysis), but the linearized text in primary_text has lost the structural relationships. The excerpting engine extracts "يجوز" and "لا يجوز" without knowing WHICH school said what. The synthesizer may randomly associate rulings with schools.
+Detection: §4.B.2 (structural format auto-detection) detects `tabular_khilaf` from patterns — but the OCR linearized text may not preserve the patterns if columns are merged.
+SPEC fix: Add to §4.A.4: when Mistral OCR or Baseer detects table elements in the layout analysis, the normalizer extracts the table as structured data (`table_data` field in the content unit) in addition to the linearized text. The structured data preserves row/column associations. If structural extraction fails (OCR can't determine column boundaries), the page is flagged as `NORM_TABLE_STRUCTURE_LOST` (warning) and the content unit's `content_flags.table_structure_preserved` is set to `false`, telling downstream engines not to extract structured knowledge from this page's table.
+Status: TABLE STRUCTURE PRESERVATION RULE ADDED.
+
+### A.6 — §4.B.8/§4.B.10 Interaction Verification
+
+**Test case: Continuity says mid_argument, discourse says argument_cycle_complete.**
+Scenario: Page 45 ends with "ولنا حديث ابن عباس:" (evidence chain opening). The continuity detector correctly identifies `mid_argument`. However, the discourse flow annotation on page 45 happens to detect a complete argument cycle in the FIRST part of the page (ruling → evidence → preferred), and then the final evidence chain starts a NEW argument cycle. The `argument_cycle_complete` field reports `true` for the completed first cycle.
+Resolution: The cross-validation rule (Pass 6 step 9) correctly resolves this: continuity says `mid_argument` for the page boundary, so the discourse flow's `argument_cycle_complete` is set to `false` for the page as a whole. The completed first cycle is still detectable from the segment array (the `preferred` segment closing the first cycle appears before the final evidence segment that opens the second).
+Verification: PASS. The cross-validation rule handles multi-cycle pages correctly because continuity applies to the PAGE BOUNDARY, and any open cycle at the boundary overrides the overall `argument_cycle_complete`.
+
+**Test case: Discourse says incomplete, continuity says section_break.**
+Scenario: Page 90 contains the start of an argument (ruling + evidence, no preferred/conclusion yet). But page 91 begins a new chapter (باب). The author left the argument unresolved at the chapter boundary.
+Resolution: The updated cross-validation rule (Fix 5) handles this: continuity's `section_break` takes precedence for the BOUNDARY, while discourse's `cycle_missing_elements: ["preferred"]` is preserved. The new `cycle_truncated_by_structure: true` flag distinguishes this from a cycle that continues on the next page. The passaging engine correctly creates a passage boundary at the chapter heading. The excerpting engine knows this is an incomplete argument and can note in the excerpt metadata that the author's conclusion is absent.
+Verification: PASS after fix.
+
+**Test case: Both signals are unknown/absent.**
+Scenario: A very short page (80 characters) near a volume boundary. Discourse flow is null (<100 characters rule). Continuity is `division_break` (volume boundary).
+Resolution: No conflict. Discourse is simply absent. Continuity correctly marks the volume boundary.
+Verification: PASS. No interaction to validate.
+
+### A.7 — Pass 6 Processing Order Verification
+
+The 11 steps in Pass 6 must execute in dependency order with no circular dependencies.
+
+Dependency graph:
+1. Content flagging (§4.A.9) → no dependencies
+2. Structural format auto-detection (§4.B.2) → depends on content units (Pass 1-5 output)
+3. Footnote apparatus classification (§4.B.4) → depends on footnotes from Pass 2
+4. Content census (§4.B.5) → depends on content_flags from step 1
+5. Tahqiq apparatus topology (§4.B.7) → depends on footnote classification from step 3
+6. Authorial voice fingerprint (§4.B.9) → depends on census verse_ratio from step 4
+7. Cross-page continuity (§4.B.8) → depends on content units (Pass 1-5 output)
+8. Scholarly discourse flow (§4.B.10) → depends on continuity from step 7
+9. Cross-validation → depends on continuity (step 7) and discourse (step 8)
+10. Fine-grained fidelity mapping (§4.B.3) → depends on OCR output (Pass 1-5)
+11. Scholarly text layer intelligence (§4.B.1) → depends on Pass 5 layer detection
+
+Circular dependency check:
+- Step 6 (fingerprint) depends on step 4 (census). Step 4 depends on step 1 (flags). No cycle.
+- Step 8 (discourse) depends on step 7 (continuity). Step 7 has no dependency on step 8. No cycle.
+- Step 9 (cross-validation) depends on steps 7 and 8. Neither depends on step 9. No cycle.
+- Step 5 (topology) depends on step 3 (footnotes). Step 3 has no dependency on step 5. No cycle.
+
+Verification: PASS. No circular dependencies. The ordering is valid.
+
+Note: Steps 7 and 10 could execute in parallel (no mutual dependencies). Steps 1 and 2 and 3 could execute in parallel. This is an implementation optimization, not a SPEC requirement.
+
+### A.8 — Error Code Trigger Verification
+
+Every §7 error code must have a concrete trigger scenario — no theoretical-only codes.
+
+| Code | Concrete Trigger | Verified |
+|------|-----------------|----------|
+| `NORM_UNKNOWN_SOURCE_FORMAT` | Source metadata says `source_format: "latex"` — not in type map | ✓ |
+| `NORM_MISSING_FROZEN` | Frozen directory exists but is empty (all files deleted) | ✓ |
+| `NORM_MISSING_METADATA` | metadata.json has invalid JSON (syntax error) | ✓ |
+| `NORM_SCHEMA_VIOLATION` | Content unit has `unit_index: -1` (fails ge=0 constraint) | ✓ |
+| `NORM_OCR_FAILED` | Mistral OCR API returns 500 error on degraded page | ✓ |
+| `NORM_ENCODING_ERROR` | Shamela export saved in Windows-1256, not UTF-8 | ✓ |
+| `NORM_LOW_FIDELITY` | iPhone photos of a faded manuscript: 30% of pages score <0.80 | ✓ |
+| `NORM_LAYER_UNCERTAIN` | Pre-tahqiq print with no bold/brackets: 40% of pages below medium | ✓ |
+| `NORM_SPARSE_STRUCTURE` | A 200-page tabular fatwa collection with no باب/فصل headings | ✓ |
+| `NORM_FORMAT_MISMATCH` | Source engine says "prose" but normalizer detects Q&A (40% match) | ✓ |
+| `NORM_PAGE_COUNT_MISMATCH` | Shamela export has 500 PageText divs but normalizer produces 482 units | ✓ |
+| `NORM_DUPLICATE_PAGES` | Shamela export: vol 3 page 12 and vol 2 page 12 have same page_number_int | ✓ |
+| `NORM_PARTIAL_PAGE` | iPhone photo captures only top 60% of a page (finger visible at bottom) | ✓ |
+| `NORM_OCR_API_RATE_LIMIT` | Mistral OCR returns 429 during batch processing of 1000 pages | ✓ |
+| `NORM_WRITE_FAILED` | Disk full during atomic write to temp directory | ✓ |
+| `NORM_UNIT_INDEX_VIOLATION` | Bug in page numbering logic produces [0, 1, 1, 3] (duplicate 1, missing 2) | ✓ |
+| `NORM_NO_TEXT_LAYER` | PDF is a scanned image with no embedded text; Docling extracts <100 chars | ✓ |
+| `NORM_PAGE_ORDER_CONFLICT` | Image filenames: 001→045, 002→043, 003→044 (OCR disagrees with filenames) | ✓ |
+| `NORM_FOOTNOTE_SEPARATOR_ABSENT` | Shamela page uses non-standard `<hr width='80'>` separator | ✓ |
+| `NORM_DIACRITICS_DRIFT` | Python library applies NFC normalization during HTML entity decoding | ✓ |
+| `NORM_CONTINUITY_INCONSISTENT` | `mid_sentence` but text ends with period `.` | ✓ |
+| `NORM_DISCOURSE_INCONSISTENT` | Discourse segments [0-50] and [40-100] overlap | ✓ |
+| `NORM_FINGERPRINT_INVALID` | `total_words_attributed: 0` but `fingerprint_reliability: "normal"` | ✓ |
+| `NORM_ORPHAN_FOOTNOTE_REF` | Text contains "(3)" but only 2 footnotes on page | ✓ |
+
+All 24 error codes have concrete trigger scenarios. No theoretical-only codes.
+
+### A.9 — Self-Audit Results
+
+**Defect 1 (Structural — Criterion #1 Zero Ambiguity).** §4.A.5 conservative default said "when confidence is low" without a numeric threshold. An implementing agent would need to decide what "low" means.
+Fix: Replaced with "when confidence for a text region is below 0.50."
+
+**Defect 2 (Completeness — Criterion #10 Full Input Coverage).** §4.B.4 footnote classification assumed each footnote has exactly one type. Mixed-type footnotes (containing both cross_reference and hadith_takhrij content) had no defined behavior.
+Fix: Added mixed-type footnote rule with `secondary_types` field. Updated contracts.py with `SecondaryFootnoteType` model. Updated concrete example to show mixed-type classification.
+
+**Defect 3 (Completeness — Criterion #12 Enumerated Edge Cases).** §4.B.8/§4.B.10 cross-validation rule specified what happens when continuity overrides discourse, but not the reverse case (discourse incomplete at a structural boundary). The reverse case IS a real scenario — authors do leave arguments unresolved at chapter boundaries.
+Fix: Added reverse interaction rule with `cycle_truncated_by_structure` flag. Updated contracts.py.
+
+**Defect 4 (Design — Criterion #15 Best-Known Design).** §4.A.5 typographic signals treated all `<b>` tags as layer indicators, ignoring the common use of bold for emphasis within commentary text (e.g., bolding hadith text, Quran quotes, or important terms).
+Fix: Added bold-for-emphasis disambiguation rule with span-length heuristic and per-page proportion thresholds.
+
+**Defect 5 (Completeness — Criterion #11 Exhaustive Error Handling).** OCR-processed text could contain valid Arabic words that are semantically wrong (visually similar letter substitutions). No error handling existed for this scenario.
+Fix: Added "semantic confusion hazard" rule to §4.A.4 with visual-similarity matrix and `semantic_confusion_risk` fidelity map entries.
+
+**Defect 6 (Structural — Criterion #8 Accurate State).** The `DiscourseSegmentType` enum in contracts.py was missing the `ELABORATION` value defined in the SPEC §4.B.10 taxonomy table. The `detection_method` field in `DiscourseSegment` was an untyped string instead of an enum, and `fingerprint_reliability` in `LayerFingerprint` was similarly untyped.
+Fix: Added `ELABORATION` to enum. Created `DiscourseDetectionMethod` and `FingerprintReliability` enums. Added `model_validator` constraints to `DiscourseFlow` and `LayerFingerprint`.
