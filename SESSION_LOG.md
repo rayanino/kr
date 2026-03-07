@@ -958,3 +958,68 @@ None this session.
 
 ### Owner Questions
 - None new
+
+## Session: Passaging Engine HARDENING — 2026-03-07
+**Date:** 2026-03-07
+**Type:** HARDENING
+**Engine:** passaging
+
+### What Was Done
+1. **12 adversarial scenarios** tested against the SPEC:
+   - AS-1: Poisoned boundary_continuity signal → added `PSG_ASSEMBLY_CONTINUITY_OVERRIDE` logging
+   - AS-2: Division tree off-by-one overlap → clarified inclusive range overlap definition (`B.start > A.end`)
+   - AS-3: Argument depth cap forced closure → added `argument_depth_exceeded` review flag + `PSG_ARGUMENT_DEPTH_CAP_HIT` error
+   - AS-4: Corrupt census values → added input validation (non-negative, positive integer checks)
+   - AS-5: Footnote collision marker format → changed from suffix resolution to sequential renumbering (collision after renumbering is fatal code bug)
+   - AS-6: Quran bracket nesting → defined non-nesting bracket semantics
+   - AS-7: Layer segment overflow → added input validation during rebasing (clamp + warning)
+   - AS-8: Below-minimum division with no siblings → added parent-sibling merge fallback, then very_short
+   - AS-9: All-unknown discourse flow → added >80% unknown quality gate (fall back to keywords)
+   - AS-10: LLM splitting on massive text → added 8000-word windowing with 200-word overlap
+   - AS-11: Single-unit passage text identity → added explicit identity rule (no trimming)
+   - AS-12: Pathological division granularity → added division granularity check (<1.5 units/div)
+
+2. **2 error cascade analyses:**
+   - Cascade 1: `PSG_DIVISION_INCONSISTENT` → flat passaging → oversized implicit division → `PSG_ARGUMENT_NO_SUBBOUNDARY`. Result: poor but safe — all flags present. Suggested source-level flag for regions needing restructuring.
+   - Cascade 2: `PSG_CONTENT_GAP` → missing units → coverage check bypass → silent data loss. **Fixed:** Added coverage check #1b (gap correlation) to detect missing units that weren't flagged by input validation.
+
+3. **6 invariant verifications** — all 6 verified to hold under all processing paths including error recovery:
+   - INV-1: Coverage (every substantive unit in exactly one passage)
+   - INV-2: Ordering (monotonically increasing sequence_index and unit_range.start)
+   - INV-3: Non-overlap (no unit in multiple passages)
+   - INV-4: Text preservation (passage_text is deterministic function of input)
+   - INV-5: Author preservation (no (layer_type, author_id) pairs lost)
+   - INV-6: Link consistency (valid doubly-linked predecessor/successor chain)
+
+4. **Signal disagreement attack:** Constructed scenario where discourse flow (1 argument, 100% coverage) vs keywords (3 arguments, 93% coverage) disagree. Current resolution picks discourse flow by coverage. Added granularity tiebreaker: when coverage difference ≤10% and argument count differs by >1, prefer the more granular signal.
+
+5. **Corrective merge cascade attack:** Constructed 3-fragment scenario (position/evidence/conclusion split across 3 passages). Old cap (1 merge) couldn't reassemble. **Fixed:** Changed to max 2 merges per fragment (max 3 passages merged), covering the common 3-part argument pattern.
+
+6. **Discourse cost table completeness:** Verified 256 pairs (16 types × 16 types). 31 were explicit, 225 used default 0.4. Identified 14 pairs where default was clearly wrong. Added 14 explicit entries. Also fixed taxonomy count: "15-type" → "16-type" (narration was 16th type mentioned in SPEC but not counted).
+
+### Defects Fixed: 18
+- 3 new error codes: `PSG_ASSEMBLY_CONTINUITY_OVERRIDE`, `PSG_ARGUMENT_DEPTH_CAP_HIT`, `PSG_DIVISION_PATHOLOGICAL`, `PSG_VALIDATION_COVERAGE_GAP` (4 total)
+- 14 new discourse cost table entries
+- 1 new review flag: `argument_depth_exceeded`
+- Corrective merge cap: 1 → 2 merges
+- Census input validation added
+- Division range overlap clarified
+- Quran bracket nesting defined
+- Layer segment input validation added
+- No-sibling merge fallback added
+- LLM windowing for massive text added
+- Single-unit text identity rule added
+- Division granularity check added
+- Discourse flow quality gate added
+- Signal granularity tiebreaker added
+- Coverage gap correlation check added
+- Footnote collision changed from suffix to fatal-after-renumbering
+
+### Quality Metrics
+- SPEC: 1004 → 1038 lines (+34 lines, all hardening fixes)
+- HIGH defects: 22 → 25 (all VAGUE_QUANTIFIER false positives — 3 new from added descriptive text)
+- Non-VAGUE_QUANTIFIER HIGH: 0 → 0
+- Error codes: 28 → 32
+
+### Owner Questions
+- None new
