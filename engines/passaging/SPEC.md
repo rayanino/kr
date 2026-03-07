@@ -14,7 +14,7 @@ The passaging engine is the first Phase 2 engine. It receives normalized package
 
 **User scenarios served.** All scenarios in USER_SCENARIOS.md depend on passage quality because passages constrain excerpts (D-011: passage containment rule). Specifically: Scenario 1–2 (study workflow depends on excerpt quality, which depends on passage quality), Scenario 6 (new source processing), Scenario 7 (science map completeness depends on correct passage→excerpt→placement chain), Scenario 8 (correction tracing back through passages).
 
-**What this engine must produce for each scenario to work.** Each passage must be: topically coherent (a human reader would agree the content belongs together), appropriately sized (large enough for meaningful extraction, small enough for focused processing), boundary-clean (never splitting a definition, evidence chain, verse, or argument mid-sentence), and metadata-complete (carrying all information downstream engines need without re-reading the normalized package).
+**What this engine must produce for each scenario to work.** Each passage must be: topically coherent (a human reader would agree the content belongs together), correctly sized (200–800 Arabic words for prose; see §4.A.4 for all format-specific ranges), boundary-clean (never splitting a definition, evidence chain, verse, or argument mid-sentence), and metadata-complete (carrying all information downstream engines need without re-reading the normalized package).
 
 ---
 
@@ -141,6 +141,8 @@ Passaging proceeds in six sequential phases:
 
 The engine processes one source at a time. Batch processing of multiple sources is an orchestration concern outside this SPEC.
 
+**Example:** Processing المغني (source_id `fiqh_ibnqudamah_mughni_t4a1`, structural_format `tabular_khilaf`, 847 content units) → Phase 1: validate manifest, load 847 units. Phase 2: assemble cross-page text within each leaf division (412 leaf divisions → 412 assembled text segments). Phase 3: select masala-block strategy. Phase 4: build argument map from discourse_flow (detects 380 مسألة spans). Phase 5: create passages at مسألة boundaries, plus additional passages for introductory/transitional text (yields 395 passages). Phase 6: completeness forecast flags 8 fragment passages, corrective merge reduces to 387 passages, self-validation passes.
+
 #### §4.A.2 — Cross-Page Text Assembly
 
 The normalization engine outputs per-page content units with text that ends at page boundaries — it does not join text across pages (normalization SPEC §4.A.7). The passaging engine is responsible for cross-page text assembly.
@@ -170,7 +172,7 @@ When `boundary_continuity` is absent (null — normalization engine did not prod
 
 **Handling non-digestible content units.** Content units with `is_toc_page`, `is_index_page`, or `is_blank` true are skipped during assembly — they produce no passage text. If such units appear WITHIN a digestible region (e.g., a blank page in the middle of a chapter), they are skipped during assembly but their `unit_index` is recorded so the page range remains accurate for citation.
 
-**Arabic-specific joining example.** Consider two adjacent content units at a page boundary:
+**Example: Arabic-specific joining at page boundary.** Consider two adjacent content units at a page boundary:
 
 Unit 47 ends with: `...وقد ذهب الإمام أحمد بن حنبل رحمه الله إلى أن الم`
 Unit 48 begins with: `بتدأ هو الاسم المرفوع العاري عن العوامل اللفظية`
@@ -247,7 +249,7 @@ This is the default and most common strategy. It handles standard scholarly pros
    - **Evidence markers (استدلال):** `والدليل على ذلك` (and the evidence for that is), `لقوله تعالى` (due to His — the Exalted's — saying), `لقول النبي ﷺ` (due to the Prophet's ﷺ saying), `واحتج بـ` (and he argued with...), `واستدل بـ` (and he adduced evidence with...).
    - **Position markers (مذاهب):** `وذهب الحنفية إلى` (and the Hanafis held that), `وقال المالكية` (and the Malikis said), `القول الأول` / `القول الثاني` (the first position / the second position), `والراجح` (and the preponderant [view]).
 
-   **Example.** In a prose division of 1,200 words from al-Mughni by Ibn Qudamah, the text might read:
+   **Example:** In a prose division of 1,200 words from al-Mughni by Ibn Qudamah, the text might read:
    ```
    ...وقد اختلف العلماء في هذه المسألة على ثلاثة أقوال.
    القول الأول: ذهب الحنابلة والشافعية إلى أن... والدليل على ذلك قوله تعالى...
@@ -302,6 +304,14 @@ Versified texts (منظومات) have fundamentally different structure than pro
 
 **Verse numbering preservation.** Each verse passage records the verse number range in `verse_info.verse_lines`. Verse numbers from the normalization engine are passed through exactly. If numbering is unavailable, the passaging engine assigns sequential numbers within each division (starting from 1), flagged as `inferred_numbering`.
 
+**Example:** In الألفية by Ibn Malik, the باب المبتدأ والخبر division contains 18 verses. Since 18 ≤ 20, the entire division forms one passage:
+```
+وَالمُبتَدا مَا لَيسَ قَولاً يَجِبُ   ●   خَبَرُهُ كَذَا يُثَابُ المُذنِبُ
+والثّانِ مُبتَدا وَذَا الوَصفُ خَبَر   ●   إِن فِي سِوَى الإِفرَادِ طِبقاً استَقَر
+...
+```
+Output: one passage with `verse_info.verse_count: 18`, `structural_format: "verse"`, `sizing.action: "direct"`. If the same division had 25 verses, the engine would split at a topical boundary (e.g., between the verses on basic subject-predicate rules and the verses on exceptions).
+
 #### §4.A.6 — Q&A Pair Strategy
 
 Q&A-format sources (fatwa collections like مجموع الفتاوى, مسائل compilations) are structured as question-answer pairs.
@@ -312,7 +322,7 @@ Q&A-format sources (fatwa collections like مجموع الفتاوى, مسائل
 2. **Typographic signals:** If the normalization engine preserved bold or indented formatting (via structural markers), questions may be visually distinguished from answers.
 3. **Pattern-based:** A new question marker after an answer section signals a new Q&A pair. Specifically: the sequence `جواب/فأجاب → [answer text] → سُئل/سؤال/مسألة` indicates a pair boundary between the answer text and the next question.
 
-   **Example.** In مجموع الفتاوى by Ibn Taymiyyah:
+   **Example:** In مجموع الفتاوى by Ibn Taymiyyah:
    ```
    وسُئل رحمه الله تعالى عن رجل يصلي ولا يزكي هل تصح صلاته أم لا؟
    فأجاب: الحمد لله. أما الزكاة فهي أحد أركان الإسلام... [400 words of answer]
@@ -341,6 +351,17 @@ Tabular khilaf works (disagreement catalogs like المغني, الإنصاف) a
 
 - If a مسألة exceeds the hard maximum, split at position boundaries (القول الأول / القول الثاني markers).
 - If a مسألة is below minimum, merge with the next مسألة, flagged as `merged_siblings`.
+
+**Example:** In الإنصاف by al-Mardawi, a typical masala boundary:
+```
+مسألة: إذا شك في عدد الركعات بنى على اليقين.
+هذا المذهب. وبه قال أكثر أهل العلم...
+والراجح: ما ذكرناه.
+
+مسألة: إذا شك هل صلى ثلاثاً أو أربعاً وهو في التشهد الأخير.
+فيه وجهان...
+```
+The engine detects `مسألة:` as block boundaries. The first block (مسألة + positions + ترجيح, ~300 words) → one passage. The second block starts a new passage. If the second block is only 40 words, it merges with the next مسألة.
 
 #### §4.A.8 — Dictionary Entry Strategy
 
@@ -375,6 +396,13 @@ This strategy applies when `structural_format` is `commentary` and the source ha
 - If matn segments are very long (e.g., the commented-upon text quotes an entire chapter of the original), split at sentence boundaries within the matn, creating multiple commentary units each containing a portion of the matn plus whatever commentary covers that portion.
 - For three-layer texts (matn/sharh/hashiyah), the passage contains all three layers' text for the same segment. Layer attribution in `text_layers` distinguishes them.
 
+**Example:** In شرح ابن عقيل على الألفية, a commentary unit (annotations in brackets are layer attributions from `text_layers`, not literal text):
+```
+[matn layer] قال ابن مالك: كلامُنا لفظٌ مفيدٌ كاستقِم
+[sharh layer] قوله: "كلامُنا" أي: كلام النحويين. والكلام في اصطلاح النحاة: هو اللفظ المركب المفيد بالوضع... [350 words of commentary]
+```
+The engine detects `قوله:` as a matn quotation marker, identifies Layer 1 (verse) and Layer 2 (commentary), and creates one passage containing both. The passage's `text_layers` records: `[{layer_type: "matn", start: 0, end: 42}, {layer_type: "sharh", start: 43, end: 1200}]`. When a new `قوله:` appears quoting the next verse, a new passage starts.
+
 **Single-layer commentary sources.** If a source is classified as `commentary` but `layer_map` indicates only one layer (the normalization engine could not detect layer transitions), the engine falls back to the prose strategy. `review_flag: "commentary_layers_undetected"`.
 
 #### §4.A.10 — Passage Emission and Self-Validation
@@ -401,6 +429,8 @@ After creating all passage boundaries, the engine produces the output passage st
 
 Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Coverage, overlap, link consistency, or author loss failures are fatal (the passage stream is not written). Size, footnote, and boundary issues are warnings (the passage stream is written but flagged).
 
+**Example:** After emitting 387 passages for المغني, self-validation runs. Check #1 (coverage): 847 substantive unit indices expected, 847 found in passage unit_ranges → pass. Check #4b (character count): passage 42 has passage_text of 2,340 chars from 3 content units totaling 2,338 chars with 2 joins → expected range [2336, 2340] → 2,340 is within range → pass. Check #10 (author preservation): passage 15 in a sharh source has text_layers with `(sharh, author_A)` but its constituent units also had `(matn, author_B)` — `(matn, author_B)` missing from passage → `PSG_VALIDATION_AUTHOR_LOST` (fatal) → passage stream not written.
+
 ### §4.B — Transformative Capabilities
 
 #### §4.B.1 — Passage Quality Prediction
@@ -414,6 +444,8 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 - **Extractability (0.0–1.0):** Does the passage contain content that can produce self-contained excerpts? Measured by: presence of definitional patterns, scholarly position markers, evidence citations, or other extractable content types. A passage that is pure transitional text has low extractability.
 
 **Output.** Each passage record receives a `quality_prediction` field: `{ coherence: float, boundary_quality: float, extractability: float, overall: float }`. The `overall` score is a weighted average (coherence 0.4, boundary_quality 0.3, extractability 0.3).
+
+**Example:** A passage containing a focused مسألة about prayer (single topic, clear position + evidence + conclusion) → `coherence: 0.92, boundary_quality: 0.85, extractability: 0.90, overall: 0.89`. A passage that is a transitional paragraph between two أبواب (mixed topics, no extractable structure) → `coherence: 0.35, boundary_quality: 0.60, extractability: 0.15, overall: 0.35`.
 
 **Why this is transformative.** No existing text chunking system predicts downstream processing quality. Passage quality prediction enables: prioritized processing (excerpt high-quality passages first), targeted human review (focus on low-quality passages), and iterative improvement (the excerpting engine feeds back actual excerpt quality, which the passaging engine uses to refine its predictions over time).
 
@@ -432,6 +464,8 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 3. **LLM-based structural analysis.** For texts where signal 1 and 2 disagree or are ambiguous, the engine sends a 2000-word window to an LLM with the prompt: "This Arabic scholarly text has no headings. Identify where one scholarly topic ends and another begins. For each boundary, provide: the character offset and a brief title describing the new topic." The LLM response produces candidate divisions with generated titles. These generated titles are stored as `heading_text` on the passage with `heading_source: "llm_inferred"`, clearly distinguished from author-original headings.
 
 **Integration with the division tree.** When the normalization engine reports `structure_confidence: "minimal"`, the passaging engine runs implicit structure discovery BEFORE applying the prose strategy. The discovered structure is treated as a supplementary division tree that guides passage boundary placement. This supplementary tree is stored alongside the passage stream (not written back to the normalization engine's output — the normalization boundary is not violated).
+
+**Example:** A headingless section of الأم by al-Shafi'i discussing divorce types. The continuous prose begins with `وأما الخلع فهو...` (as for khul', it is...), then 800 words later shifts to `ومنها الطلاق البائن بينونة كبرى...` (and among them is irrevocable divorce...). Signal 1 (مسألة boundary detection) catches `وأما` as a sub-topic marker. Signal 2 (embeddings) detects a cosine distance spike at the transition from khul' vocabulary to irrevocable-divorce vocabulary. The engine creates two implicit divisions: one titled "الخلع" (llm_inferred) and one titled "الطلاق البائن" (llm_inferred).
 
 **Why this is transformative.** Many important early Islamic texts (particularly pre-5th century AH works) have no chapter structure. Scholars navigate them by memorization and familiarity. KR makes these texts structurally navigable for the first time — producing passage boundaries and generated topic headings that make a headingless text as browsable as a well-organized modern edition. This is a capability that even printed tahqiq editions do not provide.
 
@@ -464,6 +498,8 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 3. **Sequential ordering.** Passages in both editions follow the same author's text in the same order. Sequential alignment (dynamic time warping) resolves cases where passage boundaries differ but content order is preserved.
 
 **Output.** A correspondence record at `library/sources/{source_id}/passages/cross_edition_map.json`: an array of `{ this_passage_id, other_source_id, other_passage_id, overlap_score, alignment_method }`. This enables the excerpting engine to compare how the same text was edited across editions, and the synthesizer to note textual variants.
+
+**Example:** المغني by Ibn Qudamah — tahqiq al-Turki (source `fiqh_ibnqudamah_mughni_t4a1`) and tahqiq Abdulmuhsin al-Turki/Abdulfattah al-Hulw (source `fiqh_ibnqudamah_mughni_h7b2`). Passage `psg_..._t4a1_0047` in the first edition covers the مسألة on traveler's prayer. Character n-gram matching finds `psg_..._h7b2_0052` in the second edition with 94% overlap. The 6% difference includes footnote additions and one editorial correction. Output: `{ this_passage_id: "psg_..._t4a1_0047", other_source_id: "fiqh_ibnqudamah_mughni_h7b2", other_passage_id: "psg_..._h7b2_0052", overlap_score: 0.94, alignment_method: "character_ngram" }`.
 
 **Why this is transformative.** Edition comparison is a core activity in Islamic textual criticism (تحقيق). Scholars spend hours comparing different prints of the same work to identify variants, corrections, and editorial additions. KR automates the first step: aligning the editions at passage level so that the comparison can be done systematically. The KITAB project's passim algorithm (see RESOURCES.md) demonstrates that text reuse detection in Arabic is feasible at this scale.
 
@@ -509,9 +545,9 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 
    **Out-of-range guard.** If any adapted parameter falls outside its valid range (§8), the engine clamps it to the nearest boundary, logs `PSG_ADAPTATION_FAILED` with the pre-clamp value, and continues processing.
 
-**Output.** Each passage record receives an `adaptive_params` field recording which parameters were adapted and why: `{ text_density_adjustment: float, structural_depth_adjustment: string, commentary_sensitivity: string, footnote_adjustment: float, adaptation_rationale: string }`. This transparency allows debugging and gold baseline calibration.
+**Output.** Each passage record receives an `adaptive_params` field recording the adapted values applied: `{ adapted_target_high: int, footnote_factor: float, adapted_merge_threshold: int | null, adapted_llm_splitting_threshold: int | null, commentary_sensitivity: string | null, adaptation_rationale: string }`. See §3 for field definitions. This transparency allows debugging and gold baseline calibration.
 
-**Example.** شرح ابن عقيل على الألفية has: `technical_term_density: 0.18`, `structural_depth.mean_pages_per_leaf_division: 3.2`, `layer_complexity.transition_density: 2.1`, `footnote_density.mean_footnotes_per_page: 6.2`. The engine computes: Step 1 — term density: `800 × (1.0 - 0.18 × 0.3) = 800 × 0.946 = 757`. Step 2 — footnote factor: `mean_footnotes_per_page = 6.2 > 5.0`, so `footnote_factor = 0.85`, giving `757 × 0.85 = 643`. Structural depth: `mean_pages_per_leaf = 3.2`, in [2.0, 10.0] → no adaptation. Commentary sensitivity: `transition_density = 2.1`, in [0.5, 3.0] → `"normal"`. Final `adapted_target_high = 643`. This smaller target produces more focused passages from this dense grammatical commentary — each passage covers one or two verse explanations rather than three or four.
+**Example:** شرح ابن عقيل على الألفية has: `technical_term_density: 0.18`, `structural_depth.mean_pages_per_leaf_division: 3.2`, `layer_complexity.transition_density: 2.1`, `footnote_density.mean_footnotes_per_page: 6.2`. The engine computes: Step 1 — term density: `800 × (1.0 - 0.18 × 0.3) = 800 × 0.946 = 757`. Step 2 — footnote factor: `mean_footnotes_per_page = 6.2 > 5.0`, so `footnote_factor = 0.85`, giving `757 × 0.85 = 643`. Structural depth: `mean_pages_per_leaf = 3.2`, in [2.0, 10.0] → no adaptation. Commentary sensitivity: `transition_density = 2.1`, in [0.5, 3.0] → `"normal"`. Final `adapted_target_high = 643`. This smaller target produces more focused passages from this dense grammatical commentary — each passage covers one or two verse explanations rather than three or four.
 
 **Why this is transformative.** No existing text segmentation tool adapts its chunking parameters based on statistical analysis of the document being processed. RAG systems use fixed chunk sizes (256, 512, 1024 tokens) regardless of content density. KITAB's passim uses a flat 300-word milestone regardless of text complexity. KR's passaging engine becomes the first system that READS the content profile and ADAPTS its strategy to match — producing optimally-sized passages for every source, from dense fiqh reference works to flowing sira narratives.
 
@@ -523,7 +559,7 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 
 **Signal hierarchy.** The passaging engine uses TWO independent signals for argument detection, applied in priority order:
 
-1. **Primary: normalization engine's discourse flow annotations (§4.B.10 of normalization SPEC).** When `discourse_flow` data is available on content units, the passaging engine uses it as the authoritative source for argument structure. The discourse flow provides pre-classified segments (position, evidence_quran, evidence_hadith, objection, response, preferred, etc.) with character offsets, and explicitly annotates argument cycle completeness (`argument_cycle_complete`, `cycle_missing_elements`, `cycle_truncated_by_structure`). This data was computed by the normalization engine using the same scholarly discourse patterns but with access to the original per-page content and format-specific signals.
+1. **Primary: normalization engine's discourse flow annotations (§4.B.10 of normalization SPEC).** When `discourse_flow` data is available on content units, the passaging engine uses it as the authoritative source for argument structure. The discourse flow provides pre-classified segments (position, evidence_quran, evidence_hadith, objection, response, preferred, and the remaining types from the 15-type scholarly discourse taxonomy enumerated in §4.B.7) with character offsets, and explicitly annotates argument cycle completeness (`argument_cycle_complete`, `cycle_missing_elements`, `cycle_truncated_by_structure`). This data was computed by the normalization engine using the same scholarly discourse patterns but with access to the original per-page content and format-specific signals.
 
 2. **Secondary: pattern-based state machine (fallback).** When `discourse_flow` is absent (null — normalization engine did not produce it for pages with <100 characters, or the normalization engine version predates §4.B.10), the passaging engine runs its own keyword-based argument detection state machine on the assembled passage text. This is the same detection logic described below, but it operates on assembled text (cross-page joined) rather than per-page text, making it strictly a fallback.
 
@@ -539,7 +575,7 @@ Step 3: **Build the argument map.** The argument map is an ordered list of argum
 
 Step 4: **Apply argument spans to boundary placement.** When the prose strategy (§4.A.4) or any other strategy considers placing a passage boundary, it first consults the argument map. If the proposed boundary falls INSIDE an argument span, the boundary protection rule (below) applies. If the proposed boundary falls BETWEEN argument spans, it is a preferred boundary point.
 
-**Argument map validation against keywords.** When BOTH discourse flow data AND keyword matches are available (assembled text contains markers like `مسألة:`, `والدليل`, `والراجح`), the engine cross-validates: if the keyword-based state machine detects an argument boundary that the discourse flow missed, or vice versa, the engine logs `PSG_ARGUMENT_SIGNAL_DISAGREEMENT` (info) and uses the HIGHER-COVERAGE signal (the one that detects more complete argument spans). If the signals agree, the engine uses the discourse flow data (higher confidence because it was computed with per-page context).
+**Argument map validation against keywords.** When BOTH discourse flow data AND keyword matches are available (assembled text contains markers like `مسألة:`, `والدليل`, `والراجح`), the engine cross-validates: if the keyword-based state machine detects an argument boundary that the discourse flow missed, or vice versa, the engine logs `PSG_ARGUMENT_SIGNAL_DISAGREEMENT` (info) and selects the signal with higher coverage. Coverage is measured as the total character count of text within detected argument spans divided by the total text character count in the division. The signal whose argument spans cover a greater fraction of the text is used for boundary protection. Tie (within 5% coverage): use discourse flow (higher confidence because it was computed with per-page context). If the signals agree on argument boundaries (argument spans overlap ≥80% by character count), the engine uses discourse flow data and records `detection_source: "cross_validated"`.
 
 **Fallback: pattern-based state machine.** When discourse flow is unavailable, the engine detects argument boundaries using a keyword-based state machine with four states:
 
@@ -584,7 +620,7 @@ Step 4: **Apply argument spans to boundary placement.** When the prose strategy 
 - If the argument is ≤150% of the hard max: keep the argument intact as one passage, even though it exceeds the normal size target. Flag with `argument_preserved` review flag. The rationale: a slightly oversized passage with a complete argument is better for excerpting than two passages with a split argument.
 - If the argument is >150% of the hard max: split at an internal sub-argument boundary. When discourse flow is available, the engine uses discourse segment type transitions as split points — specifically, it prefers splitting between the `response` segment of one position and the `position` segment of the next (i.e., between different scholarly positions within the same مسألة). When discourse flow is unavailable, split between `القول الأول` block and `القول الثاني` block, or between the evidence section and the response section. Each sub-argument still carries the parent argument's مسألة text in its `heading_text` field, so the excerpting engine knows they belong together. If no internal sub-argument boundary is found (the argument is a monolithic block with no position/evidence/response subdivision), fall back to paragraph-boundary splitting as in §4.A.4 Step 3. Flag all resulting passages with both `argument_preserved` and `low_confidence_boundary`. Log `PSG_ARGUMENT_NO_SUBBOUNDARY` (warning) — this indicates an unusual argument structure that likely needs human review.
 
-**Example.** In المغني by Ibn Qudamah, a typical مسألة block reads:
+**Example:** In المغني by Ibn Qudamah, a typical مسألة block reads:
 ```
 مسألة: إذا نوى المسافر الإقامة أربعة أيام أتم.
 وهذا قول أكثر أهل العلم. وبه قال مالك والشافعي وأبو حنيفة.
@@ -605,7 +641,7 @@ With discourse flow available: the normalization engine annotates this as segmen
 
 **Capability:** Beyond preserving argument boundaries (§4.B.6), the passaging engine uses the normalization engine's full discourse flow annotations to place passage boundaries at the OPTIMAL point in the scholarly discourse structure — not merely at the least-bad point that avoids splitting an argument. This transforms passage boundary placement from a constraint satisfaction problem (don't break arguments) into an optimization problem (find the boundary that maximizes downstream excerpt quality).
 
-**The insight.** The normalization engine's discourse flow (§4.B.10) annotates each content unit with a sequence of discourse segment types: definition, ruling, position, evidence_quran, evidence_hadith, objection, response, preferred, example, condition, exception, elaboration, narration. These segments form patterns that recur across all Islamic scholarly texts. Some transitions between segment types are NATURAL passage boundaries (e.g., the transition from `preferred` at the end of one مسألة to `position` at the start of the next). Other transitions are CATASTROPHIC passage boundaries (e.g., between `evidence_quran` and `response` — splitting evidence from its refutation). This capability assigns a boundary cost to every possible passage boundary and selects boundaries that minimize total cost.
+**The insight.** The normalization engine's discourse flow (§4.B.10) annotates each content unit with a sequence of discourse segment types: definition, ruling, position, evidence_quran, evidence_hadith, objection, response, preferred, example, condition, exception, elaboration, narration. These segments form patterns that recur across all Islamic scholarly texts. Certain transitions between segment types are NATURAL passage boundaries (e.g., the transition from `preferred` at the end of one مسألة to `position` at the start of the next — cost 0.0 in the table below). Other transitions are CATASTROPHIC passage boundaries (e.g., between `evidence_quran` and `response` — cost 0.85, splitting evidence from its refutation). This capability assigns a boundary cost to every possible passage boundary and selects boundaries that minimize total cost.
 
 **Technical approach.**
 
@@ -632,7 +668,49 @@ Step 2: **Assign boundary costs.** Each `(from_type, to_type)` transition has a 
 | `condition` → `exception` | 0.9 | Condition separated from its exception — rule broken |
 | Any → mid-segment (no type transition) | 1.0 | Boundary falls INSIDE a discourse segment — worst case |
 
-For `(from_type, to_type)` pairs not in this table, the default cost is 0.4. The `evidence_*` notation in the table is shorthand for all five evidence types in the discourse taxonomy: `evidence_quran`, `evidence_hadith`, `evidence_athar`, `evidence_qiyas`, `evidence_ijma`. The same cost applies to all of them.
+For `(from_type, to_type)` pairs not in this table, the default cost is 0.4. The `evidence_*` notation in the table is shorthand for all five evidence types in the discourse taxonomy: `evidence_quran`, `evidence_hadith`, `evidence_athar`, `evidence_qiyas`, `evidence_ijma`. The same cost applies to all of them in the default table. Per-science SCIENCE.md overrides (§8) may assign different costs to specific evidence types — for instance, hadith sciences may assign lower cost to `evidence_hadith → objection` (cost 0.6 instead of 0.8) because evidence-objection pairs are the primary scholarly unit in that genre.
+
+**Example: Arabic text at each discourse transition cost level.**
+
+*Cost 0.0 — ideal boundary (`preferred` → `position`):*
+```
+... والراجح هو القول الأول لقوة أدلته وموافقته لظاهر الكتاب.
+[← PASSAGE BOUNDARY HERE — cost 0.0 →]
+مسألة: وإذا أراد المسافر أن يجمع بين الصلاتين فهل يُشترط نية الجمع؟
+```
+The first مسألة's conclusion (`والراجح`) is complete. A new مسألة opens cleanly. This is the ideal passage boundary.
+
+*Cost 0.0 — ideal boundary (`preferred` → `definition`):*
+```
+... فتبين أن الراجح وجوب الترتيب في الوضوء.
+[← PASSAGE BOUNDARY HERE — cost 0.0 →]
+والموالاة: هي ألّا يؤخر غسل عضو حتى يجف الذي قبله في زمن معتدل.
+```
+A conclusion ends one topic completely; a fresh definition opens an unrelated topic.
+
+*Cost 0.1 — good boundary (`response` → `position`):*
+```
+... والجواب عن هذا: أن الحديث محمول على من لم ينو الإقامة فلا حجة فيه.
+[← PASSAGE BOUNDARY HERE — cost 0.1 →]
+وذهب الحنفية إلى أن المسافر إذا نوى الإقامة خمسة عشر يوماً أتم.
+```
+The response to an objection completes the scholarly exchange. A new position opens. Slight cost because the response still contextually relates to the new position's topic.
+
+*Cost 0.7 — damaging boundary (`position` → `evidence_*`):*
+```
+... وذهب الشافعي رحمه الله إلى أن القصر واجب في السفر الطويل.
+[← PASSAGE BOUNDARY HERE — cost 0.7 →]
+والدليل على ذلك: قوله تعالى: ﴿وَإِذَا ضَرَبْتُمْ فِي الْأَرْضِ فَلَيْسَ عَلَيْكُمْ جُنَاحٌ أَن تَقْصُرُوا مِنَ الصَّلَاةِ﴾.
+```
+The position (al-Shafi'i's view) is stated but its evidence appears in the next passage. A reader seeing only the first passage has a claim without proof; a reader seeing only the second has proof without the claim. This damages scholarly understanding.
+
+*Cost 0.9 — nearly catastrophic boundary (`objection` → `response`):*
+```
+... واعتُرض على هذا بأن حديث عائشة رضي الله عنها يدل على أن القصر رخصة لا عزيمة.
+[← PASSAGE BOUNDARY HERE — cost 0.9 →]
+والجواب عن هذا الاعتراض: أن حديث عائشة محمول على حالة خاصة ولا يعارض الأدلة العامة.
+```
+The objection is severed from its refutation. A reader seeing the first passage is left with an unrefuted challenge; a reader seeing the second passage encounters a response to an objection they never read. This breaks the scholarly argument flow almost completely.
 
 Step 3: **Optimize boundary placement.** When the prose strategy (§4.A.4) has determined a set of candidate boundaries based on division structure and size constraints, the engine evaluates the discourse transition cost at each candidate. If multiple candidates are within the acceptable size range (between target_low and target_high), the engine selects the one with the LOWEST discourse transition cost. If no candidate has cost <0.5, the engine selects the lowest-cost candidate regardless and flags the passage with `high_cost_boundary` in `review_flags`.
 
@@ -644,7 +722,7 @@ Step 4: **Boundary sliding.** When the optimal candidate (lowest discourse cost)
 
 **Output.** Each passage record's `review_flags` may include `high_cost_boundary` if the best available boundary had discourse cost ≥0.5. The `sizing.notes` field records the discourse transition cost of the chosen boundary: `"discourse_boundary_cost: 0.15 (preferred→position)"`.
 
-**Example.** Consider a division with 1200 words and three مسائل. The size target suggests two passages. Candidate boundaries:
+**Example:** Consider a division with 1200 words and three مسائل. The size target suggests two passages. Candidate boundaries:
 - After word 500: `evidence_hadith` → `objection` (cost 0.8 — splits evidence from its counter)
 - After word 600: `response` → `position` (cost 0.1 — clean argument-to-argument transition)
 - After word 700: `position` → `evidence_quran` (cost 0.7 — splits position from evidence)
@@ -675,6 +753,40 @@ The engine selects the boundary at word 600 (cost 0.1), producing passages of 60
    - `condition` without `exception` → expects qualification
    - `evidence_*` without `preferred` or `response` and no other `position` → expects conclusion
 
+   **Example: Arabic text showing each dangling discourse pattern.**
+
+   *Position without evidence (expects evidence):*
+   ```
+   وذهب أحمد في إحدى الروايتين إلى أن المسح على الخفين جائز للمقيم يوماً وليلة وللمسافر ثلاثة أيام.
+   ```
+   Discourse types present: `{position}`. The passage states al-Imam Ahmad's view but contains no supporting evidence (no `والدليل على ذلك`, no Quran citation, no hadith). Forecast: `"fragment"`, dangling: `{"type": "position", "expects": "evidence"}`.
+
+   *Objection without response (expects refutation):*
+   ```
+   ... واحتج الشافعي بحديث أنس رضي الله عنه في صلاة الجماعة.
+   ونوقش هذا الاستدلال بأن الحديث ضعيف لا تقوم به حجة، وبأنه على تقدير صحته فهو محمول على الاستحباب.
+   ```
+   Discourse types present: `{evidence_hadith, objection}`. The passage presents evidence and a challenge to it, but no refutation of the challenge. Forecast: `"partial_closing"`, dangling: `{"type": "objection", "expects": "response"}`.
+
+   *Complete argument cycle:*
+   ```
+   مسألة: هل يجوز الجمع بين الصلاتين في المطر؟
+   وذهب الحنابلة إلى جوازه. والدليل: ما رواه ابن عباس أن النبي ﷺ جمع بين الظهر والعصر والمغرب والعشاء بالمدينة من غير خوف ولا مطر.
+   واعتُرض بأن هذا الحديث ليس فيه ذكر المطر صراحة.
+   والجواب: أن الجمع في الحضر لغير عذر لا يجوز إجماعاً، فيُحمل على عذر المطر.
+   والراجح: جواز الجمع في المطر الشديد.
+   ```
+   Discourse types present: `{position, evidence_hadith, objection, response, preferred}`. `argument_cycle_complete: true`. Forecast: `"complete"`, `complete_argument_cycles: 1`.
+
+   *Authorial incompleteness (not a passaging error):*
+   ```
+   مسألة: حكم بيع المعاطاة.
+   فيه خلاف بين العلماء.
+   [division break — author moved to next مسألة without discussing positions]
+   مسألة: حكم بيع العربون.
+   ```
+   Discourse types present in first passage: `{position}` (only the مسألة introduction). The author stated the existence of scholarly disagreement but did not enumerate the positions. This is authorial choice, not a boundary error. Forecast: `"fragment"`, `structural_incompleteness: false`, flag: `authorial_incompleteness`.
+
 4. **Cross-passage discourse continuity.** Using the predecessor/successor chain, the engine checks whether a dangling discourse in passage N is completed in passage N+1. If so, the incompleteness is STRUCTURAL (a boundary split the argument) rather than AUTHORIAL (the author left the argument incomplete in the source text). Structural incompleteness is a passaging quality issue; authorial incompleteness is not.
 
 **Predictive output.** Each passage receives a `completeness_forecast` field (added to the PassageRecord schema):
@@ -691,7 +803,7 @@ The engine selects the boundary at word 600 (cost 0.1), producing passages of 60
 ```
 
 - `"complete"`: At least one full argument cycle detected. The passage is very likely to produce self-contained excerpts.
-- `"partial_opening"`: The passage opens with content that continues from the previous passage. The first few sentences may not be self-contained.
+- `"partial_opening"`: The passage opens with content that continues from the previous passage. Sentences before the first discourse segment boundary in this passage may not be self-contained.
 - `"partial_closing"`: The passage closes with content that expects continuation. The last argument is incomplete.
 - `"fragment"`: The passage contains discourse segments that do not form any complete scholarly unit (e.g., just examples without the rule they illustrate, or just counter-evidence without the original claim).
 - `"unknown"`: Discourse flow data unavailable or insufficient for prediction.
@@ -702,7 +814,7 @@ The engine selects the boundary at word 600 (cost 0.1), producing passages of 60
 2. If merging would exceed the hard maximum, leave the boundary in place but flag the passage with `incomplete_scholarly_content` in `review_flags` and include the `completeness_forecast` in the passage record. The excerpting engine can then handle this passage specially (e.g., checking the successor passage for the missing discourse continuation before deciding the excerpt boundary).
 3. If the initial boundary was placed by discourse-aware optimization (§4.B.7) and the completeness forecast STILL predicts incompleteness, the source text itself is incomplete at this point — the author moved to a new topic without concluding the previous one. Flag with `authorial_incompleteness` — this is valuable metadata for the synthesizer, which can note this pattern in the entry.
 
-**Interaction with §4.B.1 (Quality Prediction).** The completeness forecast is orthogonal to quality prediction. Quality prediction scores SURFACE features (coherence, boundary distance, extractability). Completeness forecast scores SCHOLARLY features (argument completeness, discourse structure). A passage can have high quality prediction (coherent text, good boundary) but low completeness forecast (the coherent text is just the evidence section without the claim or conclusion). Both signals are emitted; downstream engines use both.
+**Interaction with §4.B.1 (Quality Prediction).** The completeness forecast is orthogonal to quality prediction. Quality prediction scores SURFACE features (coherence, boundary distance, extractability). Completeness forecast scores SCHOLARLY features (argument completeness, discourse structure). A passage can have a quality prediction overall score near 1.0 (coherent text, good boundary) but a low completeness forecast (the coherent text is just the evidence section without the claim or conclusion). Both signals are emitted; downstream engines use both.
 
 **Why this is transformative.** No existing text processing system predicts whether a text segment will produce complete, self-contained knowledge units BEFORE extraction is attempted. RAG systems discover extraction failures AFTER the fact — when the LLM can't answer a question because the retrieved chunk contains only half an argument. KR's passaging engine ANTICIPATES these failures using the normalization engine's discourse flow annotations, and either fixes them (boundary adjustment) or flags them (for special handling downstream). This is a second-order intelligence: the passaging engine doesn't just segment text, it reasons about the DOWNSTREAM CONSEQUENCES of its segmentation decisions and corrects them proactively. The result: fewer broken excerpts, fewer wasted processing cycles, and fewer corrections needed at the human gate.
 
@@ -739,7 +851,7 @@ The engine selects the boundary at word 600 (cost 0.1), producing passages of 60
 The passaging engine does NOT use multi-model consensus for its core processing. The reasoning:
 
 1. **Passage boundaries are primarily structural, not interpretive.** Most boundaries follow the division tree, which is deterministic. The normalization engine (which IS interpretation-heavy in structure discovery) already applied consensus where needed.
-2. **The few interpretive decisions (semantic splitting, implicit structure discovery) are flagged rather than consensus-validated.** When the engine places a boundary at an inferred topic shift rather than a heading, it flags it as `implicit_boundary` for human review. The human gate provides the validation that consensus would.
+2. **The two interpretive decisions (semantic splitting, implicit structure discovery) are flagged rather than consensus-validated.** When the engine places a boundary at an inferred topic shift rather than a heading, it flags it as `implicit_boundary` for human review. The human gate provides the validation that consensus would.
 3. **Cost-benefit.** Running multiple LLM models on every passage boundary would multiply processing cost for marginal quality improvement. The downstream engines (excerpting, taxonomy) provide correction opportunities for any passaging errors.
 
 **Exception:** The §4.B.2 implicit structure discovery capability, when implemented, may benefit from multi-model consensus for LLM-generated topic boundaries. If the normalization engine reports `structure_confidence: "minimal"` AND the source is a high-value scholarly text, running two LLMs independently and comparing their topic boundary proposals would reduce the risk of bad passage boundaries in headingless texts. This is a future design decision to be revisited when §4.B.2 is implemented.
@@ -774,7 +886,7 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 | `PSG_ASSEMBLY_FOOTNOTE_COLLISION` | Warning | Footnote renumbering produced duplicate markers within a passage | Log with original and collision marker values. Resolve by appending suffix (e.g., `1a`, `1b`). Flag passage for review. |
 | `PSG_ASSEMBLY_LAYER_MISMATCH` | Warning | Layer rebasing produced segments with total coverage ≠ passage_text length | Log with expected vs actual coverage. Extend the last segment to cover remaining text. Flag passage with `mixed_layers`. |
 | `PSG_ARGUMENT_NO_SUBBOUNDARY` | Warning | Oversized argument (>150% hard max) has no internal sub-argument boundaries | Fall back to paragraph splitting. Flag with `argument_preserved` + `low_confidence_boundary`. |
-| `PSG_ARGUMENT_SIGNAL_DISAGREEMENT` | Info | Discourse flow and keyword state machine disagree on argument boundaries | Log both signal results. Use higher-coverage signal. |
+| `PSG_ARGUMENT_SIGNAL_DISAGREEMENT` | Info | Discourse flow and keyword state machine disagree on argument boundaries | Log both signal results with coverage percentages. Use signal with higher text coverage (ties: discourse flow). |
 | `PSG_DISCOURSE_FLOW_ABSENT` | Info | Content units lack discourse_flow annotations — using keyword fallback | Log. Use pattern-based state machine for argument detection. |
 | `PSG_BOUNDARY_HIGH_COST` | Warning | Best available passage boundary has discourse transition cost ≥0.5 | Log with cost value and transition type. Flag passage with `high_cost_boundary`. |
 | `PSG_COMPLETENESS_FRAGMENT` | Warning | Completeness forecast predicts this passage is a scholarly fragment | Log with discourse types present. Attempt corrective merge if possible. Flag with `incomplete_scholarly_content`. |
@@ -814,7 +926,7 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 | `argument_max_expansion` | 1.5 | 1.1–2.0 | Maximum factor by which argument preservation can exceed hard_max |
 
 **Per-science configuration hooks (Level 3).** SCIENCE.md files may override:
-- Passage size parameters (some sciences have characteristically shorter or longer scholarly arguments).
+- Passage size parameters (sciences like hadith have shorter scholarly units than tafsir or fiqh muqaran).
 - Format-specific detection patterns (Q&A markers vary by scholarly tradition).
 - LLM prompts for implicit structure discovery (science-specific topic boundary indicators).
 

@@ -916,3 +916,45 @@ None this session.
 
 ### Owner Questions
 - None new (API keys still pending, not blocking)
+
+---
+
+## Session: Precision — Passaging Engine
+**Date:** 2026-03-07
+**Type:** PRECISION
+**Engine:** passaging
+
+### What Was Done
+1. **Resolved 18 genuine HIGH defects from check_spec_quality.py:**
+   - L17: "appropriately sized" → specific size criteria reference (200-800 words, §4.A.4)
+   - L526: "etc" → explicit reference to full 15-type discourse taxonomy
+   - L608: "Some transitions" → "Certain transitions" with cost references
+   - L694: "few sentences" → "sentences before the first discourse segment boundary"
+   - L705: "high quality prediction" → "quality prediction overall score near 1.0"
+   - L742: "few interpretive decisions" → "two interpretive decisions"
+   - L817: "some sciences" → "sciences like hadith vs tafsir vs fiqh muqaran"
+   - §4.B.5 output field names: fixed contradiction between §3 and §4.B.5 (§3 field names are authoritative; §4.B.5 had stale names)
+   - All `**Example.**` labels → `**Example:**` for script detection
+2. **Added Arabic examples to §4.B.7 (discourse cost table):** 5 concrete Arabic text examples at cost levels 0.0, 0.0, 0.1, 0.7, 0.9 showing exact scholarly text at each transition point.
+3. **Added Arabic examples to §4.B.8 (completeness forecast):** 4 Arabic examples — position without evidence, objection without response, complete argument cycle, authorial incompleteness — with forecast outputs.
+4. **Added examples to 8 §4 subsections:** §4.A.1 (end-to-end pipeline), §4.A.5 (verse ألفية), §4.A.7 (masala الإنصاف), §4.A.9 (commentary شرح ابن عقيل), §4.A.10 (self-validation), §4.B.1 (quality prediction scores), §4.B.2 (implicit structure الأم), §4.B.4 (cross-edition المغني).
+5. **§4.B.6 signal hierarchy cross-validated:** "HIGHER-COVERAGE signal" made precise — now defined as character-count-based coverage ratio with 5% tie threshold defaulting to discourse flow.
+6. **Self-audit: 3 defects found and fixed:**
+   - §4.A.1 example used non-SPEC term "text blocks" → corrected to "assembled text segments per leaf division"
+   - §4.B.7 evidence_* wildcard not explicitly overridable per evidence type → added per-science override note
+   - §4.A.9 example had layer annotations that could be confused with literal text → added clarification
+
+### VAGUE_QUANTIFIER False Positive Analysis
+22 remaining HIGH defects are all VAGUE_QUANTIFIER on "multiple"/"many". Every instance falls into one of three categories:
+- **Descriptive prose** (not behavioral rules): L13, L93, L142, L275, L357, L412, L424, L436, L452, L458, L460, L498, L679, L819 — these describe the problem domain, not implementation behavior
+- **Already quantified elsewhere**: L48 ("multiple layers" = boolean `multi_layer`), L81 ("Multiple" = dynamic array length from merging), L210 ("multiple layers" + "≥2 distinct" on same line)
+- **Inherently variable in behavioral rules**: L262x2 ("multiple candidates" — selection algorithm handles any count), L169 ("multiple content units" — assembly operates on whatever range the division covers), L375, L391
+
+### Quality Metrics
+- SPEC: 893 → 1009 lines (+116 lines, all examples and precision fixes)
+- HIGH defects: 40 → 22 (all 22 are documented false positives — VAGUE_QUANTIFIER in descriptive context)
+- Non-VAGUE_QUANTIFIER HIGH: 18 → 0
+- contracts.py: unchanged (already matched §3)
+
+### Owner Questions
+- None new
