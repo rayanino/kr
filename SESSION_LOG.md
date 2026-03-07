@@ -1,5 +1,30 @@
 # Session Log — خزانة ريان
 
+## Session: Atomization Engine IMPLEMENTATION_PREP — 2026-03-07
+**Type:** IMPLEMENTATION_PREP
+**Engine:** Atomization (محرك التذرير)
+**Duration:** ~15 turns
+
+### What was done
+1. **contracts.py expanded (494→676 lines).** Added: ReviewFlag enum (15 values replacing raw strings), AtomizationErrorCode enum (22 codes from §7), ErrorSeverity enum, ERROR_SEVERITY mapping, AtomizationConfig model (23 parameters from §8). Verified all 4 hardening error codes and 6 hardening review flags are present.
+2. **28 module stubs created in src/.** Each stub has a SPEC-referencing docstring and `raise NotImplementedError` functions. Organized by pipeline phases: core (engine, loader, prescreen, predetection, llm_atomizer, postprocessor, validator, emitter, errors, config, layer_attribution, footnote_atomizer), format strategies (prose, verse, commentary, qa, masala, dictionary), and §4.B capabilities (8 modules).
+3. **IMPLEMENTATION_ORDER.md created.** 8-phase build plan with test gates, dependency graph, and external dependency notes. Follows passaging template.
+4. **TEST_PLAN.md created.** All 38 SPEC §10 test cases mapped to fixtures with P0–P4 priority ordering. P0: offset integrity + coverage. P1: core functionality. P2: hardening defenses. P3: §4.B capabilities. P4: edge cases.
+5. **CLAUDE.md rewritten (67→111 lines).** Matches current SPEC: module architecture, build order, 676L contracts, 22 error codes, 28 stubs, implementation-ready status.
+6. **check_spec_quality.py verified:** 20 defects, 9 HIGH — no regression from hardening session.
+
+### Decisions made
+- ReviewFlag changed from list[str] to list[ReviewFlag] enum on AtomRecord for type safety.
+- Module organization follows the 5-phase pipeline model from §4.A.1 (prescreen → predetection → llm_atomizer → postprocessor → validator), with emitter and engine as separate orchestration modules.
+- Format strategies placed in `format_strategies/` subdirectory (matching passaging convention).
+- §4.B modules are standalone files (not in a subdirectory) since they integrate with the main pipeline at specific phases rather than being a separate subsystem.
+
+### Self-Audit Results (Atomization IMPLEMENTATION_PREP)
+
+**Defect 1 (Communication — Criterion #25):** The postprocessor.py stub lists 9 responsibilities in its docstring but only exposes 7 functions. The remaining 2 (atom_id assignment, evidence type conflict detection) are embedded in the main postprocess_atoms function rather than having dedicated functions. **Resolution:** Acceptable — atom_id assignment is a simple counter increment, and evidence type conflict is a single conditional check. Both are better as inline logic than separate functions.
+
+**Defect 2 (Completeness — Criterion #14):** The TEST_PLAN.md maps fixtures to test categories but several categories need "gold passages" that don't exist yet. **Resolution:** Expected — gold fixture creation is an implementation task. The test plan documents what's needed. Synthetic fixtures can be created alongside tests in Phase 0.
+
 ## Session: Atomization Engine PRECISION — 2026-03-07
 **Type:** PRECISION
 **Engine:** Atomization (محرك التذرير)

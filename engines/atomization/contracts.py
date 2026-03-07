@@ -97,6 +97,25 @@ class AttributionType(str, Enum):
     REFUTATION_TARGET = "refutation_target"
 
 
+class ReviewFlag(str, Enum):
+    """Machine-generated review flag values for atoms (SPEC §3)."""
+    LOW_FUNCTION_CONFIDENCE = "low_function_confidence"
+    AMBIGUOUS_LAYER = "ambiguous_layer"
+    POSSIBLE_MISATTRIBUTION = "possible_misattribution"
+    OFFSET_DRIFT_CORRECTED = "offset_drift_corrected"
+    UNRESOLVED_QURAN_REF = "unresolved_quran_ref"
+    LOW_ATTRIBUTION_CONFIDENCE = "low_attribution_confidence"
+    MID_WORD_BOUNDARY = "mid_word_boundary"
+    COVERAGE_GAP_UNRESOLVED = "coverage_gap_unresolved"
+    INCOMPLETE_ARGUMENT = "incomplete_argument"
+    EVIDENCE_TYPE_CONFLICT = "evidence_type_conflict"
+    ORPHANED_FOOTNOTE_MARKER = "orphaned_footnote_marker"
+    ATOM_REORDERING_APPLIED = "atom_reordering_applied"
+    OVER_SEGMENTED = "over_segmented"
+    SINGLE_LAYER_IN_COMMENTARY = "single_layer_in_commentary"
+    NFC_NORMALIZATION_APPLIED = "nfc_normalization_applied"
+
+
 class EvidenceQualitySignalType(str, Enum):
     """Evidence quality signal type detected in evidence atoms (SPEC §4.B.8)."""
     HADITH_STRONG_COLLECTION = "hadith_strong_collection"
@@ -374,14 +393,9 @@ class AtomRecord(BaseModel):
         None,
         description="Required non-null when structural_type is bonded_cluster"
     )
-    review_flags: list[str] = Field(
+    review_flags: list[ReviewFlag] = Field(
         default_factory=list,
-        description="Machine-generated flags for human review. Values: "
-        "low_function_confidence, ambiguous_layer, possible_misattribution, "
-        "offset_drift_corrected, unresolved_quran_ref, low_attribution_confidence, "
-        "mid_word_boundary, coverage_gap_unresolved, incomplete_argument, "
-        "evidence_type_conflict, orphaned_footnote_marker, atom_reordering_applied, "
-        "over_segmented, single_layer_in_commentary, nfc_normalization_applied"
+        description="Machine-generated flags for human review."
     )
 
 
@@ -491,4 +505,172 @@ class AtomStream(BaseModel):
     atoms: list[AtomRecord] = Field(
         description="Ordered by atom_id. Globally monotonic. "
         "Non-overlapping anchor_spans within each passage."
+    )
+
+
+# ──────────────────────────────────────────────────────────────────
+# Error handling (SPEC §7)
+# ──────────────────────────────────────────────────────────────────
+
+
+class ErrorSeverity(str, Enum):
+    """Severity levels for atomization errors."""
+    FATAL = "fatal"
+    WARNING = "warning"
+    INFO = "info"
+
+
+class AtomizationErrorCode(str, Enum):
+    """All error codes the atomization engine can produce (SPEC §7)."""
+    INVALID_INPUT = "ATOM_INVALID_INPUT"
+    LLM_FAILURE = "ATOM_LLM_FAILURE"
+    SCHEMA_VIOLATION = "ATOM_SCHEMA_VIOLATION"
+    OFFSET_UNRESOLVABLE = "ATOM_OFFSET_UNRESOLVABLE"
+    COVERAGE_VIOLATION = "ATOM_COVERAGE_VIOLATION"
+    OFFSET_INTEGRITY_FAILURE = "ATOM_OFFSET_INTEGRITY_FAILURE"
+    LAYER_DISTRIBUTION_SUSPICIOUS = "ATOM_LAYER_DISTRIBUTION_SUSPICIOUS"
+    HIGH_UNCLASSIFIED_RATE = "ATOM_HIGH_UNCLASSIFIED_RATE"
+    QURAN_REF_UNRESOLVED = "ATOM_QURAN_REF_UNRESOLVED"
+    ATTRIBUTION_PARSE_FAILURE = "ATOM_ATTRIBUTION_PARSE_FAILURE"
+    ATTRIBUTION_MARKER_MISSING = "ATOM_ATTRIBUTION_MARKER_MISSING"
+    ATTRIBUTION_LOW_CONFIDENCE = "ATOM_ATTRIBUTION_LOW_CONFIDENCE"
+    EVIDENCE_TYPE_CONFLICT = "ATOM_EVIDENCE_TYPE_CONFLICT"
+    FOOTNOTE_INDEX_OUT_OF_RANGE = "ATOM_FOOTNOTE_INDEX_OUT_OF_RANGE"
+    OVER_SEGMENTATION = "ATOM_OVER_SEGMENTATION"
+    FINGERPRINT_HASH_FAILURE = "ATOM_FINGERPRINT_HASH_FAILURE"
+    FINGERPRINT_EMBEDDING_FAILURE = "ATOM_FINGERPRINT_EMBEDDING_FAILURE"
+    FINGERPRINT_KEY_TERMS_EMPTY = "ATOM_FINGERPRINT_KEY_TERMS_EMPTY"
+    UNKNOWN_LAYER_TYPE = "ATOM_UNKNOWN_LAYER_TYPE"
+    COMPLETENESS_PATTERN_MISMATCH = "ATOM_COMPLETENESS_PATTERN_MISMATCH"
+    CONCORDANCE_EXTRACTION_FAILURE = "ATOM_CONCORDANCE_EXTRACTION_FAILURE"
+    EVIDENCE_QUALITY_PARSE_FAILURE = "ATOM_EVIDENCE_QUALITY_PARSE_FAILURE"
+
+
+ERROR_SEVERITY: dict[AtomizationErrorCode, ErrorSeverity] = {
+    AtomizationErrorCode.INVALID_INPUT: ErrorSeverity.WARNING,
+    AtomizationErrorCode.LLM_FAILURE: ErrorSeverity.WARNING,
+    AtomizationErrorCode.SCHEMA_VIOLATION: ErrorSeverity.WARNING,
+    AtomizationErrorCode.OFFSET_UNRESOLVABLE: ErrorSeverity.WARNING,
+    AtomizationErrorCode.COVERAGE_VIOLATION: ErrorSeverity.FATAL,
+    AtomizationErrorCode.OFFSET_INTEGRITY_FAILURE: ErrorSeverity.FATAL,
+    AtomizationErrorCode.LAYER_DISTRIBUTION_SUSPICIOUS: ErrorSeverity.INFO,
+    AtomizationErrorCode.HIGH_UNCLASSIFIED_RATE: ErrorSeverity.WARNING,
+    AtomizationErrorCode.QURAN_REF_UNRESOLVED: ErrorSeverity.INFO,
+    AtomizationErrorCode.ATTRIBUTION_PARSE_FAILURE: ErrorSeverity.WARNING,
+    AtomizationErrorCode.ATTRIBUTION_MARKER_MISSING: ErrorSeverity.WARNING,
+    AtomizationErrorCode.ATTRIBUTION_LOW_CONFIDENCE: ErrorSeverity.INFO,
+    AtomizationErrorCode.EVIDENCE_TYPE_CONFLICT: ErrorSeverity.INFO,
+    AtomizationErrorCode.FOOTNOTE_INDEX_OUT_OF_RANGE: ErrorSeverity.WARNING,
+    AtomizationErrorCode.OVER_SEGMENTATION: ErrorSeverity.WARNING,
+    AtomizationErrorCode.FINGERPRINT_HASH_FAILURE: ErrorSeverity.WARNING,
+    AtomizationErrorCode.FINGERPRINT_EMBEDDING_FAILURE: ErrorSeverity.WARNING,
+    AtomizationErrorCode.FINGERPRINT_KEY_TERMS_EMPTY: ErrorSeverity.INFO,
+    AtomizationErrorCode.UNKNOWN_LAYER_TYPE: ErrorSeverity.WARNING,
+    AtomizationErrorCode.COMPLETENESS_PATTERN_MISMATCH: ErrorSeverity.INFO,
+    AtomizationErrorCode.CONCORDANCE_EXTRACTION_FAILURE: ErrorSeverity.WARNING,
+    AtomizationErrorCode.EVIDENCE_QUALITY_PARSE_FAILURE: ErrorSeverity.WARNING,
+}
+
+
+# ──────────────────────────────────────────────────────────────────
+# Configuration (SPEC §8)
+# ──────────────────────────────────────────────────────────────────
+
+
+class AtomizationConfig(BaseModel):
+    """Atomization engine configuration parameters (SPEC §8).
+
+    All parameters have defaults matching SPEC §8's "Default" column.
+    """
+    primary_llm_model: str = Field(
+        default="anthropic/claude-sonnet-4-5-20250929",
+        description="Model for standard atomization"
+    )
+    escalation_llm_model: str = Field(
+        default="anthropic/claude-opus-4-5-20250929",
+        description="Model for escalation retries and low-fidelity sources"
+    )
+    max_retries_per_passage: int = Field(
+        default=2, ge=0, le=5,
+        description="Maximum LLM retries on validation failure"
+    )
+    function_confidence_threshold: float = Field(
+        default=0.6, ge=0.0, le=1.0,
+        description="Below this, low_function_confidence review flag is set"
+    )
+    quran_match_confidence_threshold: float = Field(
+        default=0.85, ge=0.5, le=1.0,
+        description="Minimum confidence for canonical Quran text matching"
+    )
+    quran_hard_constraint_threshold: float = Field(
+        default=0.95, ge=0.8, le=1.0,
+        description="Above this, Quran detection overrides LLM classification"
+    )
+    offset_correction_window: int = Field(
+        default=50, ge=10, le=200,
+        description="Characters to search when correcting LLM offsets"
+    )
+    offset_correction_max_distance: int = Field(
+        default=3, ge=0, le=10,
+        description="Maximum Levenshtein distance for offset fuzzy matching"
+    )
+    unclassified_rate_warning_threshold: float = Field(
+        default=0.05, ge=0.01, le=0.20,
+        description="Fraction of unclassified atoms triggering source-level review"
+    )
+    review_flag_rate_warning_threshold: float = Field(
+        default=0.20, ge=0.05, le=0.50,
+        description="Fraction of flagged atoms triggering source-level review"
+    )
+    fidelity_escalation_threshold: float = Field(
+        default=0.5, ge=0.0, le=1.0,
+        description="text_fidelity.min_score below which escalation model is used"
+    )
+    gold_baseline_path: str = Field(
+        default="engines/atomization/gold/",
+        description="Directory containing gold baseline files for few-shot examples"
+    )
+    enable_attribution_detection: bool = Field(
+        default=True,
+        description="Whether to run §4.B.4 scholarly attribution chain detection"
+    )
+    attribution_confidence_threshold: float = Field(
+        default=0.5, ge=0.0, le=1.0,
+        description="Below this, low_attribution_confidence review flag is set"
+    )
+    enable_text_fingerprinting: bool = Field(
+        default=True,
+        description="Whether to compute Tier 1 (text hash) and Tier 2 (key terms)"
+    )
+    enable_semantic_fingerprinting: bool = Field(
+        default=False,
+        description="Whether to compute Tier 3 (embedding). Requires GPU."
+    )
+    fingerprint_embedding_model: str = Field(
+        default="Omartificial/Arabic-STS-Matryoshka",
+        description="Embedding model for Tier 3 fingerprinting"
+    )
+    fingerprint_embedding_dimensions: int = Field(
+        default=256, ge=64, le=1024,
+        description="Matryoshka truncation dimension for Tier 3"
+    )
+    fingerprint_key_terms_count: int = Field(
+        default=5, ge=2, le=10,
+        description="Maximum number of key terms extracted per atom for Tier 2"
+    )
+    enable_completeness_scoring: bool = Field(
+        default=True,
+        description="Whether to run §4.B.6 argument completeness scoring"
+    )
+    enable_concordance_extraction: bool = Field(
+        default=True,
+        description="Whether to extract concordance entries from definition atoms"
+    )
+    enable_evidence_quality_detection: bool = Field(
+        default=True,
+        description="Whether to detect evidence quality signals in evidence atoms"
+    )
+    evidence_quality_lexicon_path: str = Field(
+        default="engines/atomization/lexicons/evidence_quality.json",
+        description="Path to the quality signal phrase lexicon"
     )
