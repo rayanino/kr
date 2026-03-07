@@ -34,7 +34,7 @@ Observation: "[what the owner noticed — domain insight]"
 Direction (optional): "[suggestion — treat as hypothesis only]"
 ```
 
-**Best relay method:** Owner writes all comments in a structured markdown file and saves it in the repo as `skills/source-engine-comments.md` (or the equivalent for each engine). Claude reads it directly from the cloned repo at each chat start. The owner can also commit updates to the file between sessions.
+**Best relay method:** Owner writes all comments in a structured markdown file and saves it in the repo as `skills/source-engine-comments.md` (or the equivalent for each engine). Claude reads it from project knowledge (synced via GitHub integration) or from the cloned repo. The owner can commit updates between sessions and click "Sync now" in the project.
 
 Alternative: paste comments directly in chat (fine for 1-3 simple comments).
 
@@ -120,7 +120,7 @@ Claude Chat has a 200K token context window. Long comment sessions degrade quali
 2. Commit it to the repo at `skills/handoffs/{engine}-{date}.md`
 3. Push the changes
 4. Tell the owner: "We should continue in a fresh chat. I've committed the handoff."
-5. The next chat picks it up automatically from the repo after cloning
+5. The owner clicks "Sync now" in the project to pick up the handoff in the next chat
 
 ---
 

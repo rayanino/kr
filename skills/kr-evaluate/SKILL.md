@@ -163,6 +163,18 @@ These learnings feed back into the plan. They may change the approach for later 
 
 ---
 
+## Special: Synthesis Engine Faithfulness Check
+
+For the synthesis engine specifically, add a **faithfulness dimension** to evaluation. This uses the RAGAS framework (industry standard for RAG evaluation):
+
+- **Faithfulness:** Break the synthesis entry into individual claims. For each claim tagged `source_grounded` (D-040), verify it appears in the cited excerpt. Score = supported claims / total claims. Target: 1.0.
+- **Context relevance:** Did the excerpting engine find the RIGHT excerpts for this topic?
+- **Consistency check (SelfCheckGPT method):** Run synthesis 3 times on the same excerpts. Claims appearing in all 3 runs are high-confidence. Claims in only 1 run are likely hallucinated.
+
+This is non-blocking for earlier engines but CRITICAL for synthesis evaluation.
+
+---
+
 ## Anti-Patterns
 
 **The Pass-Everything Evaluation.** If 100% of tests pass on the first run, either the tests are too easy or the fixture is too simple. Real engines processing real Arabic text always have issues. A clean first run should make you suspicious, not relieved.

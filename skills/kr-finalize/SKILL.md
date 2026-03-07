@@ -139,9 +139,9 @@ Each phase produces artifacts committed to the repo:
 - Phase B → per-section defect lists (in handoffs or inline)
 - Phase C → complete updated SPEC committed and pushed
 
-Since Claude clones the repo at each chat start, all phase artifacts are automatically available to the next chat. No manual file uploads needed.
+Since the project knowledge syncs files from the GitHub repo, all phase artifacts are available to the next chat after the owner clicks "Sync now." If using the fallback clone approach, artifacts are available immediately. No manual file uploads needed.
 
-If any phase chat gets too long, commit a handoff to `skills/handoffs/` and start a fresh chat.
+If any phase chat gets too long, commit a handoff to `skills/handoffs/` and start a fresh chat. The owner should sync the project knowledge to pick up the new files.
 
 ---
 

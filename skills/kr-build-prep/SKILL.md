@@ -205,6 +205,8 @@ Research identified these tools. None are required for v1, but note for the owne
 
 **Faber** (github.com/orecus/faber): Desktop GUI wrapping Claude Code with Kanban, git worktree isolation, multi-pane sessions. Good for visual task management. Young project (v0.8.1), adds complexity. Consider after basic build cycles work.
 
+**Git Worktrees** (built into git, supported by Claude Code): `claude -w feature-name` creates an isolated worktree with its own branch and file state. Enables parallel Claude Code sessions without file conflicts. Zero setup cost. Use for: running builder + tester simultaneously on the same engine, or working on two engines in parallel.
+
 **Claude Code Agent Teams** (experimental, Opus 4.6+): 3-5 parallel Claude instances coordinating via shared task list. Viable for: builder + tester + reviewer working simultaneously. High token cost (~3-4x single session). Consider for later engines after workflow is proven.
 
 **The bash-loop pattern** (from the C compiler case study): `while true; do claude -p "$(cat PROMPT.md)"; done`. Simplest autonomous approach. Good for running test suites repeatedly. Start here.
