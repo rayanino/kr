@@ -49,6 +49,7 @@ class HeadingConfidence(str, Enum):
 class HeadingDetectionMethod(str, Enum):
     """How a heading was detected (SPEC §4.A.6, structure discovery)."""
     HTML_TAGGED = "html_tagged"
+    LAYOUT_DETECTED = "layout_detected"
     KEYWORD_HEURISTIC = "keyword_heuristic"
     LLM_DISCOVERED = "llm_discovered"
     TOC_INFERRED = "toc_inferred"
@@ -215,6 +216,140 @@ class TextFidelity(BaseModel):
 
 
 # ──────────────────────────────────────────────────────────────────
+# §4.B.8 — Cross-Page Continuity Intelligence
+# ──────────────────────────────────────────────────────────────────
+
+class BoundaryContinuityType(str, Enum):
+    """Boundary type between consecutive content units (SPEC §4.B.8)."""
+    MID_SENTENCE = "mid_sentence"
+    MID_PARAGRAPH = "mid_paragraph"
+    MID_ARGUMENT = "mid_argument"
+    SECTION_BREAK = "section_break"
+    DIVISION_BREAK = "division_break"
+    UNKNOWN = "unknown"
+
+
+class ContinuityDetectionMethod(str, Enum):
+    """How boundary continuity was determined (SPEC §4.B.8)."""
+    PUNCTUATION_ANALYSIS = "punctuation_analysis"
+    STRUCTURAL_MARKER = "structural_marker"
+    ARGUMENT_FLOW = "argument_flow"
+    FORMAT_SPECIFIC = "format_specific"
+    LLM_INFERRED = "llm_inferred"
+
+
+class BoundaryContinuity(BaseModel):
+    """Continuity signal for the boundary after this content unit (SPEC §4.B.8).
+
+    Present on all content units except the last. Classifies whether
+    the content flowing across the page boundary is mid-sentence,
+    mid-argument, or at a natural break point.
+    """
+    type: BoundaryContinuityType
+    confidence: float = Field(ge=0.0, le=1.0)
+    detection_method: ContinuityDetectionMethod
+    continuation_hint: Optional[str] = Field(
+        None, description="Human-readable description of what continues"
+    )
+
+
+# ──────────────────────────────────────────────────────────────────
+# §4.B.10 — Scholarly Discourse Flow Annotation
+# ──────────────────────────────────────────────────────────────────
+
+class DiscourseSegmentType(str, Enum):
+    """Types of scholarly discourse segments (SPEC §4.B.10)."""
+    DEFINITION = "definition"
+    RULING = "ruling"
+    POSITION = "position"
+    EVIDENCE_QURAN = "evidence_quran"
+    EVIDENCE_HADITH = "evidence_hadith"
+    EVIDENCE_ATHAR = "evidence_athar"
+    EVIDENCE_QIYAS = "evidence_qiyas"
+    EVIDENCE_IJMA = "evidence_ijma"
+    OBJECTION = "objection"
+    RESPONSE = "response"
+    CONDITION = "condition"
+    EXCEPTION = "exception"
+    EXAMPLE = "example"
+    PREFERRED = "preferred"
+    NARRATION = "narration"
+
+
+class DominantDiscourseType(str, Enum):
+    """Overall discourse character of a content unit (SPEC §4.B.10)."""
+    ARGUMENTATIVE = "argumentative"
+    DEFINITIONAL = "definitional"
+    EVIDENTIAL = "evidential"
+    NARRATIVE = "narrative"
+    ENUMERATIVE = "enumerative"
+    INSUFFICIENT_TEXT = "insufficient_text"
+
+
+class DiscourseSegment(BaseModel):
+    """A labeled discourse segment within a content unit (SPEC §4.B.10)."""
+    type: DiscourseSegmentType
+    start_char: int = Field(ge=0)
+    end_char: int = Field(ge=0)
+    confidence: float = Field(ge=0.0, le=1.0)
+    detection_method: str = Field(description="'marker' or 'llm_inferred'")
+    marker_text: Optional[str] = Field(None, description="The Arabic marker that triggered detection")
+    position_metadata: Optional[dict] = Field(
+        None, description="For 'position' segments: {school_hint, attribution_hint}"
+    )
+
+
+class DiscourseFlow(BaseModel):
+    """Discourse flow annotation for a content unit (SPEC §4.B.10).
+
+    Identifies the sequence of scholarly discourse moves within a page.
+    Null for pages with <100 characters of text.
+    """
+    segments: list[DiscourseSegment] = Field(default_factory=list)
+    dominant_discourse_type: DominantDiscourseType
+    argument_cycle_complete: bool = False
+    argument_cycle_started_at_segment: Optional[int] = Field(
+        None, description="Index into segments array where cycle begins"
+    )
+    cycle_missing_elements: list[str] = Field(
+        default_factory=list, description="Discourse types expected but not found"
+    )
+
+
+# ──────────────────────────────────────────────────────────────────
+# §4.B.9 — Authorial Voice Fingerprint
+# ──────────────────────────────────────────────────────────────────
+
+class SentenceLengthStats(BaseModel):
+    """Sentence length distribution statistics (SPEC §4.B.9)."""
+    mean: float
+    median: float
+    std_dev: float
+
+
+class LayerFingerprint(BaseModel):
+    """Stylometric fingerprint for one text layer (SPEC §4.B.9).
+
+    Quantitative writing characteristics that distinguish layers.
+    Used for statistical validation of layer attribution decisions.
+    """
+    author_canonical_id: Optional[str] = None
+    total_words_attributed: int = Field(ge=0)
+    sentence_length: SentenceLengthStats
+    type_token_ratio: float = Field(ge=0.0, le=1.0)
+    connective_frequency: float = Field(ge=0.0, le=1.0)
+    technical_term_density: float = Field(ge=0.0, le=1.0)
+    pronoun_reference_frequency: float = Field(ge=0.0, le=1.0)
+    self_reference_frequency: float = Field(ge=0.0, le=1.0)
+    citation_density: float = Field(ge=0.0, le=1.0)
+    information_density: float = Field(ge=0.0, le=1.0)
+    fingerprint_reliability: str = Field(
+        default="normal",
+        description="'normal' or 'insufficient_data' (when <2000 words attributed)"
+    )
+
+
+# ──────────────────────────────────────────────────────────────────
 # Content Unit — one per physical page
 # ──────────────────────────────────────────────────────────────────
 
@@ -244,6 +379,14 @@ class ContentUnit(BaseModel):
     verse_info: Optional[VerseInfo] = None
     content_flags: ContentFlags = Field(default_factory=ContentFlags)
     text_fidelity: TextFidelity
+    boundary_continuity: Optional[BoundaryContinuity] = Field(
+        None, description="§4.B.8: Continuity signal for boundary after this page. "
+        "Null for last content unit and non-paginated sources."
+    )
+    discourse_flow: Optional[DiscourseFlow] = Field(
+        None, description="§4.B.10: Discourse segment annotation. "
+        "Null for pages with <100 characters of text."
+    )
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -456,6 +599,16 @@ class NormalizedManifest(BaseModel):
     )
     tahqiq_topology: Optional[TahqiqTopology] = Field(
         None, description="§4.B.7 manuscript witness network from footnote apparatus"
+    )
+    layer_fingerprints: Optional[dict[str, LayerFingerprint]] = Field(
+        None, description="§4.B.9: Per-layer stylometric fingerprints. "
+        "Keys are layer type names (e.g. 'matn', 'sharh'). "
+        "Null for single-layer sources."
+    )
+    discourse_flow_summary: Optional[dict] = Field(
+        None, description="§4.B.10: Aggregate discourse flow statistics. "
+        "Contains dominant_discourse_type, argument_cycle_count, "
+        "evidence_type_distribution, discourse_segment_distribution."
     )
 
 

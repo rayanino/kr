@@ -1,5 +1,36 @@
 # Session Log — خزانة ريان
 
+## Session: Normalization Engine PRECISION — 2026-03-07
+**Type:** PRECISION
+**Engine:** Normalization (محرك التطبيع)
+**SPEC:** engines/normalization/SPEC.md (1418L → 1690L)
+**Contracts:** engines/normalization/contracts.py updated
+
+### What Was Done
+1. **Resolved all 4 HIGH defects** (MISSING_EXAMPLE): Added worked examples with Arabic text to §4.A.3 (PDF text normalizer), §4.A.4 (scanned PDF/iPhone OCR), §4.A.7 (page boundary preservation with non-sequential numbering), §4.B.2 (Q&A format auto-detection in مجموع الفتاوى), §4.B.3 (dual-OCR character-level fidelity mapping).
+2. **Added 4 normalizer behavioral outlines:** §4.A.4a (EPUB), §4.A.4b (Word doc), §4.A.4c (plain text), §4.A.4d (owner content). Each defines key behavioral rules, input/output expectations, and [NOT YET IMPLEMENTED] status.
+3. **Added `layout_detected` to HeadingDetectionMethod enum** — PDF and EPUB headings detected by layout analysis had no applicable enum value.
+4. **Added heading inclusion rule to §4.A.6** — explicit distinction: Shamela PageHead excluded from primary_text (navigation metadata), PDF/EPUB/other headings included (part of author's text).
+5. **Added §5 validation checks 10-12** for §4.B.8 (boundary continuity consistency), §4.B.10 (discourse flow consistency), §4.B.9 (layer fingerprint plausibility).
+6. **Added 4 new error codes** to §7: `NORM_CONTINUITY_INCONSISTENT`, `NORM_DISCOURSE_INCONSISTENT`, `NORM_FINGERPRINT_INVALID`, `NORM_ORPHAN_FOOTNOTE_REF`.
+7. **Clarified orphan footnote reference handling** in §5 check 6: orphan markers preserved as literal text, not converted to universal format.
+8. **Added explicit §4.B processing order to Pass 6** with 11 dependency-ordered steps + cross-validation rule for §4.B.8/§4.B.10 consistency.
+9. **Updated contracts.py** with 7 new Pydantic models: `BoundaryContinuity`, `DiscourseFlow`, `DiscourseSegment`, `LayerFingerprint`, `SentenceLengthStats`, plus enums. Added `boundary_continuity` and `discourse_flow` to `ContentUnit`, `layer_fingerprints` and `discourse_flow_summary` to `NormalizedManifest`.
+
+### Self-Audit (5 defects found and fixed)
+1. **§3 heading_detection_method enum** (Criterion #1 Ambiguity): No value for PDF/Docling layout-based heading detection → added `layout_detected`.
+2. **§5 validation gaps** (Criterion #10 Completeness): No validation for §4.B.8-10 output fields → added checks 10-12.
+3. **Orphan footnote markers** (Criterion #10 Completeness): Undefined behavior for markers without matching footnotes → defined explicit handling and error code.
+4. **§4.B.8/§4.B.10 interaction** (Criterion #14 Both-sides integration): No cross-validation rule for consistency → added step 9 in Pass 6.
+5. **§4.A.3 example error** (Criterion #8 Accurate state): Example incorrectly used `html_tagged` for PDF heading → fixed to `layout_detected`.
+
+### Quality Metrics
+- `check_spec_quality.py`: 0 HIGH defects (was 4), 1 medium, 1 low
+- `creative_verification.py`: §4.B score 90/100
+- Contracts syntax: valid Python
+
+### No Domain Questions
+
 ## Session: Source Engine HARDENING — 2026-03-07
 **Type:** HARDENING
 **Engine:** Source (محرك المصادر)

@@ -1,41 +1,46 @@
 # NEXT SESSION
 
 ## Session Type
-PRECISION (see SESSION_TYPES.md for full framework)
+HARDENING (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Normalization engine PRECISION session.** The normalization SPEC has completed its CREATIVE session — 10 §4.B capabilities now exist (7 from initial draft + 3 new: cross-page continuity intelligence, authorial voice fingerprint, scholarly discourse flow annotation). The SPEC is now 1419 lines. This session makes every rule machine-implementable.
+**Normalization engine HARDENING session.** The normalization SPEC has completed CREATIVE (10 §4.B capabilities) and PRECISION (0 HIGH defects, 5 examples added, 5 structural defects fixed, contracts updated, 4 normalizer outlines added). This session stress-tests the SPEC for knowledge corruption paths and failure cascades.
 
 ## What to Read
 
-1. `engines/normalization/SPEC.md` — The full SPEC. Focus on defect resolution.
-2. Run `python3 scripts/check_spec_quality.py engines/normalization/SPEC.md` — Currently 4 HIGH defects (all MISSING_EXAMPLE in §4.A.3, §4.A.7, §4.B.2, §4.B.3). Resolve all HIGH defects to reach 0.
-3. `reference/DOMAIN.md` §236-248 (Arabic as a Processing Language) — For Arabic text handling precision.
-4. `engines/source/SPEC.md` §3 — Verify input contract alignment.
+1. `engines/normalization/SPEC.md` — Focus on §4 (processing), §5 (validation), §7 (error handling).
+2. `KNOWLEDGE_INTEGRITY.md` — The threat model for knowledge corruption.
+3. `engines/source/SPEC.md` §3 — Verify the source→normalization interface cannot produce corrupt inputs.
+4. `reference/DOMAIN.md` §236-248 — Arabic text hazards that could corrupt normalization.
 
-**Do NOT read:** VISION.md whole, kr_decisions.md, other engine SPECs beyond source §3. Keep context for precision work.
+**Do NOT read:** VISION.md whole, kr_decisions.md, other engine SPECs beyond source §3.
 
 ## Definition of Done
 
-1. `check_spec_quality.py` shows 0 HIGH defects
-2. All 4 missing examples added (§4.A.3, §4.A.7, §4.B.2, §4.B.3) with Arabic text worked examples
-3. §4.A sections reviewed for machine-implementability — every rule yields a function signature + pseudocode mentally
-4. Missing §4.A normalizer specifications noted: EPUB, Word doc, plain text, owner-authored normalizers need at least behavioral outlines (not full specs — they're [NOT YET IMPLEMENTED])
-5. Cross-reference consistency: every field mentioned in §3 output contract appears in §4 processing and §5 validation
-6. New error codes added for any new failure modes discovered during precision review
-7. Self-audit performed per DEEP_REASONING_PROTOCOL: ≥3 structural/semantic defects found and fixed (cosmetic-only audits indicate superficial review)
-8. `session_quality_gate.py` passes
-9. NEXT.md written (for normalization engine HARDENING session)
-10. SESSION_LOG.md updated
-11. Committed and pushed
+1. At least 10 adversarial scenarios tested (each: attack vector, what breaks, what prevents it, SPEC change if needed)
+2. At least 2 error cascade analyses (multi-step failure chains)
+3. At least 5 invariants verified (properties that must NEVER be violated, with the specific SPEC rules that guarantee them)
+4. `check_spec_quality.py` still shows 0 HIGH defects after any changes
+5. Every §7 error code has a clear trigger scenario — no theoretical-only error codes
+6. Multi-layer misattribution scenarios: at least 3 concrete attack vectors on §4.A.5 + §4.B.9 (this is the highest-risk operation)
+7. OCR corruption scenarios: at least 2 scenarios where OCR errors could propagate into the library as false knowledge
+8. New §4.B.8/§4.B.10 interaction verified under adversarial conditions (what if continuity says mid_argument but discourse flow says cycle complete on the SAME content unit?)
+9. Self-audit performed per DEEP_REASONING_PROTOCOL: ≥3 defects found and fixed
+10. `session_quality_gate.py` passes
+11. NEXT.md written (for passaging engine CREATIVE session)
+12. SESSION_LOG.md updated
+13. Committed and pushed
 
 ## Notes for Next Architect
 
-- The 3 new §4.B capabilities (§4.B.8-10) have full worked examples but their interaction with existing capabilities needs cross-checking: §4.B.8 (continuity) feeds §4.B.10 (discourse flow) via cross-page argument cycle detection — verify the data flow is consistent.
-- §4.B.9 (fingerprint) depends on §4.B.5 (census) for verse_ratio — verify the dependency is bidirectional-safe (census computes before fingerprint).
-- The content unit schema in §3 now has 2 new fields (boundary_continuity, discourse_flow). Verify the Pydantic model in contracts.py will need updating during implementation.
-- Pre-existing §4.A gaps: §4.A.3 (PDF text) and §4.A.4 (scanned PDF) have full specs but no examples. §4.A.7 (page boundaries) is thin. §4.B.2 (structural format auto-detection) and §4.B.3 (fine-grained fidelity mapping) lack examples.
+- The PRECISION session added §5 validation checks 10-12 for the new §4.B.8-10 fields. Hardening should verify these checks catch real failures.
+- Contracts.py was updated with `BoundaryContinuity`, `DiscourseFlow`, `LayerFingerprint`, and related models. Verify these models cannot represent invalid states (e.g., `argument_cycle_complete: true` with non-empty `cycle_missing_elements` — should this be a Pydantic validator?).
+- The `HeadingDetectionMethod` enum now includes `LAYOUT_DETECTED` for PDF/Docling/EPUB headings.
+- Pass 6 now has an explicit §4.B processing order with 11 steps + cross-validation. Hardening should verify this ordering is correct and no circular dependencies exist.
+- New error codes: `NORM_CONTINUITY_INCONSISTENT`, `NORM_DISCOURSE_INCONSISTENT`, `NORM_FINGERPRINT_INVALID`, `NORM_ORPHAN_FOOTNOTE_REF`. Verify each has a concrete trigger scenario.
+- §4.A.4a-4d are behavioral outlines only — they do not need hardening until full specs are written.
+- The heading inclusion rule (§4.A.6) now explicitly distinguishes Shamela PageHead (excluded from primary_text) from PDF/other headings (included). Verify this distinction is adversarial-proof.
 
 ## Pending Owner Questions
 
