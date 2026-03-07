@@ -221,6 +221,9 @@ class ErrorCode(str, Enum):
     USUL_DATA_MISSING = "SRC_USUL_DATA_MISSING"
     WIKIDATA_TIMEOUT = "SRC_WIKIDATA_TIMEOUT"
     COMPARISON_DEFERRED = "SRC_COMPARISON_DEFERRED"
+    FREEZE_CLEANUP_FAILED = "SRC_FREEZE_CLEANUP_FAILED"
+    OPENITI_CACHE_CORRUPT = "SRC_OPENITI_CACHE_CORRUPT"
+    COMPARISON_INCONCLUSIVE = "SRC_COMPARISON_INCONCLUSIVE"
 
 
 class HumanGateTrigger(str, Enum):
@@ -371,7 +374,9 @@ class EditionComparisonSummary(BaseModel):
     """Summary statistics for edition comparison (SPEC §4.B.6)."""
     total_divergence_regions: int = Field(ge=0)
     by_type: dict[str, int]
-    preferred_edition_recommendation: str
+    preferred_edition_recommendation: Optional[str] = Field(
+        None, description="Null when comparison is inconclusive (< 20% alignment)"
+    )
     preference_reason: str
 
 
@@ -397,6 +402,12 @@ class GenealogyMetadata(BaseModel):
     genealogy_chain_upward_names: list[str] = Field(description="Arabic names matching above")
     chain_confidence: float = Field(ge=0.0, le=1.0)
     chain_sources: list[str]
+    link_provenance: dict[str, str] = Field(
+        default_factory=dict,
+        description="Maps each teacher/student canonical_id to provenance: "
+                    "'llm_only' (max conf 0.70), 'openiti_corroborated', "
+                    "'wikidata_corroborated', 'source_text', 'multi_source' (conf up to 0.95)"
+    )
     scholarly_generation: int = Field(ge=1)
     genealogy_community: str
     centrality_score: float = Field(ge=0.0, le=1.0)
@@ -448,6 +459,11 @@ class ScholarAuthorityRecord(BaseModel):
     disambiguation_notes: Optional[str] = None
     sources_encountered_in: list[str] = Field(default_factory=list)
     record_completeness: float = Field(0.0, ge=0.0, le=1.0)
+    data_provenance_score: float = Field(
+        0.0, ge=0.0, le=1.0,
+        description="Fraction of non-null biographical fields corroborated by ≥1 non-LLM source. "
+                    "< 0.30 → low_provenance flag. Recomputed on every update (§5 Layer 1)."
+    )
     record_sources: list[str] = Field(default_factory=list)
     revision_history: list[MetadataHistoryEntry] = Field(default_factory=list)
     last_updated: str = Field(description="ISO 8601 timestamp")
@@ -616,13 +632,21 @@ class SourceMetadata(BaseModel):
 class EnrichmentRequest(BaseModel):
     """Enrichment write-back from a downstream engine (SPEC §2).
 
-    Validated against the 7 enrichment invariants before applying.
+    Validated against the 9 enrichment invariants before applying.
+    For critical field updates (author, work_id, genre, science_scope),
+    verification_context is required (invariant #9).
     """
     source_id: str
     updates: dict[str, Any] = Field(description="Field name → new value")
     requesting_engine: str
     timestamp: str
     reason: Optional[str] = None
+    verification_context: Optional[dict[str, str]] = Field(
+        None,
+        description="Required for critical field updates. Must contain "
+                    "'expected_work_id' and 'expected_author_canonical_id' "
+                    "matching the actual source metadata."
+    )
 
 
 class HumanGateCheckpoint(BaseModel):

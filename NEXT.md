@@ -1,42 +1,43 @@
 # NEXT SESSION
 
 ## Session Type
-HARDENING (see SESSION_TYPES.md for full framework)
+CREATIVE (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Source engine HARDENING session.** The source engine SPEC has completed both CREATIVE and PRECISION sessions. It now has 10 §4.B capabilities (all fully specified), 0 HIGH defects from `check_spec_quality.py`, all error codes in §7 (including 6 new codes from §4.B capabilities), and contracts.py aligned with the SPEC.
+**Normalization engine CREATIVE session.** The source engine has completed CREATIVE, PRECISION, and HARDENING. It is the first engine to be fully hardened. The normalization engine SPEC needs its first CREATIVE session — the session where transformative §4.B capabilities are invented.
 
-This HARDENING session should: verify no knowledge corruption paths exist (every write validated, every error handled, no silent data loss), verify all KNOWLEDGE_INTEGRITY.md invariants hold across all §4.A and §4.B rules, test adversarial scenarios (what if LLM returns wrong data? what if external APIs return corrupt data? what if two processes run intake simultaneously?), and verify the enrichment invariant system is watertight.
+Read the current normalization SPEC to understand its baseline, then design §4.B capabilities that make previously impossible scholarship possible through the normalization step. The normalization engine sits at the format-to-universal boundary — it sees structure that is lost after normalization. What intelligence can you extract from format-specific markup BEFORE it disappears?
 
 ## What to Read
 
-1. `engines/source/SPEC.md` — Full SPEC. Focus on: §4.A.2 (acquisition workflow atomicity), §4.A.5 (scholar record consistency checks), §4.A.8 (trust evaluation), §4.B.5-§4.B.10 (external data integration — main corruption surface).
-2. `KNOWLEDGE_INTEGRITY.md` — Full file. Test every invariant against every SPEC rule.
-3. `engines/source/contracts.py` — Verify all validation constraints are correct.
-4. Run `python3 scripts/check_spec_quality.py engines/source/SPEC.md` — Confirm 0 HIGH defects persist.
+1. `engines/normalization/SPEC.md` — Full current SPEC. Understand what exists, what's thin, what's missing.
+2. `reference/DOMAIN.md` — Refresh domain context. Pay special attention to: multi-layer text handling (sharh/matn), Arabic text fragility, structural conventions in Islamic scholarly texts.
+3. `reference/ENTRY_EXAMPLE.md` — The target quality. What normalization intelligence would improve the final entry?
+4. `engines/source/SPEC.md` §3 (output contract) and §4.B — Only the output contract and transformative capabilities. Understand what the normalization engine receives as input. The source engine's §4.B capabilities (KITAB profiling, edition comparison, difficulty prediction) set the bar for creative ambition.
+5. Run `python3 scripts/extract_vision_sections.py 7.3` — Normalization engine vision section.
 
-**Do NOT read:** VISION.md, other engine SPECs, CREATIVE_MANDATE.md. This is hardening work.
+**Do NOT read:** VISION.md whole, kr_decisions.md, other engine SPECs beyond source. This is creative work — keep context fresh.
 
 ## Definition of Done
 
-1. ≥10 adversarial scenarios tested (documented in SPEC §7 or a hardening appendix)
-2. ≥2 error cascade paths traced end-to-end
-3. Every KNOWLEDGE_INTEGRITY.md invariant verified against every §4.A and §4.B rule
-4. All external data integration points (OpenITI, KITAB, Usul-Data, Wikidata) have corruption defenses
-5. No new HIGH defects introduced
-6. contracts.py unchanged or only tightened
-7. NEXT.md written (for normalization engine CREATIVE session)
+1. ≥3 new §4.B capabilities designed (each with: inputs, outputs, triggers, edge cases, worked examples with Arabic text)
+2. Each §4.B capability passes the test: "Would a world-class Islamic scholar say 'I didn't know that was possible'?"
+3. §4.A rules reviewed for completeness (but NOT precision-edited — save that for next session)
+4. No [NOT YET IMPLEMENTED] markings removed (nothing is built yet)
+5. `check_spec_quality.py` run — 0 HIGH defects
+6. `creative_verification.py` run — must NOT show SECRETARY
+7. NEXT.md written (for normalization engine PRECISION session)
 8. SESSION_LOG.md updated
 9. Committed and pushed
 
-## Key Areas to Stress-Test
+## Thinking Directions (from DEEP_REASONING_PROTOCOL)
 
-- **Concurrent intake:** What happens if two sources are being processed simultaneously and both reference the same scholar? (§4.A.5 registry atomicity)
-- **External API corruption:** What if Wikidata returns a valid response for the wrong scholar? (§4.B.8 cross-validation)
-- **LLM hallucination in genealogy:** What if the LLM invents a teacher-student link that doesn't exist? (§4.B.7 depth limits and consensus)
-- **Edition comparison on divergent structures:** What if two editions have completely different chapter structures? (§4.B.6 fallback)
-- **Enrichment write-back loops:** Can an enrichment trigger a cascade that triggers another enrichment that creates a loop?
+- What structural intelligence can you extract from format-specific markup that would be lost after normalization?
+- What can you infer about text quality during normalization?
+- Shamela HTML has PageNumber spans, volume boundaries, footnote markers, section headers — what knowledge is encoded in these structures?
+- Multi-layer texts (sharh quoting matn) have typographic conventions — bold for matn, regular for sharh. Can you detect and annotate these automatically?
+- Arabic typesetting conventions encode scholarly signals: inline citations, hadith chains, Quranic verses have distinctive patterns. Can you tag these during normalization?
 
 ## Pending Owner Questions
 

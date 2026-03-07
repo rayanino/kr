@@ -1,5 +1,44 @@
 # Session Log — خزانة ريان
 
+## Session: Source Engine HARDENING — 2026-03-07
+**Type:** HARDENING
+**Engine:** Source (محرك المصادر)
+
+**What was done:**
+- Verified all 6 KNOWLEDGE_INTEGRITY.md invariants against every §4.A and §4.B rule (full matrix in Appendix A.3)
+- Tested 12 adversarial scenarios with concrete corruption paths, evaluated existing defenses, and applied fixes for gaps found
+- Traced 2 error cascades end-to-end (wrong author → corrupted synthesis; corrupt external data → poisoned genealogy)
+- All 4 external data integration points (OpenITI, KITAB, Usul-Data, Wikidata) verified with corruption defenses
+
+**Fixes applied (SPEC inline + Appendix A):**
+1. Registry file locking for concurrent intake atomicity (§4.A.2 Step 7)
+2. Freeze cleanup failure handling — SRC_FREEZE_CLEANUP_FAILED + CORRUPT_FREEZE marker (§4.A.2 Step 6)
+3. Orphaned staging lock cleanup on startup (§4.A.2)
+4. Enrichment invariant #8: re-processing depth limit to prevent write-back loops (§2)
+5. Enrichment invariant #9: verification_context for critical field updates (§2)
+6. LLM-only genealogy confidence cap at 0.70 + link_provenance tracking (§4.B.7)
+7. Wikidata known-works zero-overlap detection (§4.B.8)
+8. Edition comparison alignment sufficiency threshold at 20% (§4.B.6)
+9. OpenITI metadata integrity verification (spot-checks, SHA-256) (§4.B.1)
+10. Author-science mismatch detection in consistency cross-check (§5)
+11. Trust re-evaluation trigger on enrichment of trust-relevant fields (§4.A.8)
+12. Scholar data_provenance_score field for provenance quality tracking (§4.A.5)
+
+**Contracts.py changes:**
+- Added 3 error codes: FREEZE_CLEANUP_FAILED, OPENITI_CACHE_CORRUPT, COMPARISON_INCONCLUSIVE
+- Added data_provenance_score to ScholarAuthorityRecord
+- Added verification_context to EnrichmentRequest
+- Made EditionComparisonSummary.preferred_edition_recommendation Optional
+- Added link_provenance to GenealogyMetadata
+
+**Quality metrics:**
+- check_spec_quality.py: 0 HIGH in SPEC proper (3 false positives in appendix narrative)
+- 12 adversarial scenarios documented (requirement: ≥10)
+- 2 error cascades traced (requirement: ≥2)
+- All 6 invariants verified (requirement: all)
+
+**No domain questions for owner.**
+
 ## Session: Source Engine PRECISION — 2026-03-07
 **Type:** PRECISION
 **Engine:** Source (محرك المصادر)

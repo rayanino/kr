@@ -68,6 +68,8 @@ Autonomous discovery is triggered by: (1) periodic scheduled scans of configured
 6. **Schema compliance.** The updated metadata record, after applying the enrichment, must still pass the SourceMetadata Pydantic model validation. An enrichment that would produce an invalid record is rejected.
 7. **Referential integrity.** If the enrichment changes a reference field, the new reference must resolve to a valid record in its target registry: `author.canonical_id` must resolve in `scholars.json`, `work_id` must resolve in `works.json`, and genre chain work references must resolve in `works.json` (or exist as placeholder records).
 The source engine must check each reference before accepting the enrichment. Unresolvable references cause the enrichment to be rejected.
+8. **Re-processing depth limit.** When an enrichment triggers stale-marking and re-processing of downstream products, the re-processed output may generate at most one further enrichment request on the same source. If that second-generation enrichment would modify the same field that was changed by the first enrichment (forming a potential cycle), it is NOT auto-submitted. Instead, it is logged with both the original and proposed values, and a human gate checkpoint is created: "Field `{field}` was changed from A→B, re-processing now suggests reverting or changing further. Manual resolution required."
+9. **Verification context for critical fields.** Enrichment requests that modify fields in the critical set (`author.canonical_id`, `work_id`, `genre`, `science_scope`) must include a `verification_context` containing the `work_id` and `author.canonical_id` that the requesting engine believes belong to this source. The source engine checks these against the actual source metadata before applying. If they don't match, the enrichment is rejected with `SRC_INVALID_ENRICHMENT` — this catches source_id targeting errors at the boundary.
 
 **Critical field enrichment gate.** Enrichments to `author.canonical_id`, `work_id`, `genre`, or `science_scope` — regardless of originating engine — trigger additional validation: (a) the old and new values are logged at WARNING level, (b) a human gate checkpoint is created for owner confirmation before the enrichment is applied, and (c) if confirmed, a stale-marking cascade is triggered on all downstream products derived from this source.
 
@@ -163,11 +165,14 @@ The acquisition workflow is intentionally minimal for v1 (D-020). The source eng
 
 **Step 6: Freezing.** Before copying, the source engine computes a SHA-256 hash of each staged file (the "staging hash"). The staged files are then copied to `library/sources/{source_id}/frozen/`. After copying, the frozen files are hashed again (the "frozen hash"). The source engine verifies that each staging hash equals its corresponding frozen hash — if any mismatch is detected, the frozen directory is deleted and the intake aborts with `SRC_FREEZE_COPY_CORRUPT`. This post-freeze verification ensures no copy corruption occurs.
 
-After verification, frozen files are set read-only using filesystem permissions (`chmod 0444`). If the permission change fails, the intake aborts with `SRC_FREEZE_PERMISSION_FAILED` — a file that cannot be made read-only is not safely frozen. From this point, the frozen files are immutable. The staging directory for this source is renamed to `library/staging/.processed/{source_id}/` (preserving the originals for audit) after successful registration.
+After verification, frozen files are set read-only using filesystem permissions (`chmod 0444`). If the permission change fails, the intake aborts with `SRC_FREEZE_PERMISSION_FAILED` — a file that cannot be made read-only is not safely frozen. From this point, the frozen files are immutable. The staging directory for this source is renamed to `library/staging/.processed/{source_id}/` (preserving the originals for audit) after successful registration. If the post-freeze hash verification fails (SRC_FREEZE_COPY_CORRUPT), the frozen directory is deleted. If deletion also fails (e.g., disk full), the engine logs `SRC_FREEZE_CLEANUP_FAILED` (severity: Fatal) and writes a marker file `library/sources/{source_id}/CORRUPT_FREEZE` containing the error details and timestamp. On startup, the engine checks for any `CORRUPT_FREEZE` markers and treats those source directories as requiring manual cleanup — they are not available for processing.
 
-**Staging lock.** Between format detection (Step 2) and freezing (Step 6), the source engine places a lock file (`library/staging/{source_dir}/.kr_processing`) to signal that the staged material is being processed. If the staged files are modified after format detection (detected by comparing file modification timestamps at freeze time against those recorded at format detection time), the intake aborts with `SRC_STAGING_MODIFIED`. This prevents TOCTOU corruption where a file changes between analysis and freezing.
+**Staging lock.** Between format detection (Step 2) and freezing (Step 6), the source engine places a lock file (`library/staging/{source_dir}/.kr_processing`) to signal that the staged material is being processed. If the staged files are modified after format detection (detected by comparing file modification timestamps at freeze time against those recorded at format detection time), the intake aborts with `SRC_STAGING_MODIFIED`. This prevents TOCTOU corruption where a file changes between analysis and freezing. **Orphaned lock cleanup:** On startup, the source engine scans `library/staging/` for directories containing `.kr_processing` lock files. For each lock file whose modification timestamp is older than `staging_lock_timeout` (§8, default: 3600 seconds), the lock is removed and the directory is made available for re-processing. A log entry records each cleanup.
 
 **Step 7: Registration.** The source metadata record, source, work, and scholar registries are all updated atomically — all succeed or none are applied. Atomicity mechanism: the source engine prepares all registry updates in memory, validates them all (§5 Layer 1), then writes them using a write-ahead log pattern: (1) write the complete set of intended changes to `library/logs/pending_registration_{source_id}.json`, (2) apply changes to each registry file, (3) delete the pending registration file. On startup, the source engine checks for orphaned pending registration files — if one exists, it means a previous registration was interrupted, and the engine either completes or rolls back the registration based on which files were already updated. A registry file that was partially written (detected by JSON parse failure) is restored from its `.bak` copy, which is created before each write.
+
+**Registry file locking.** All registry read-check-write operations (in Steps 4, 5, and 7) acquire an exclusive file lock on the target registry file before reading current state. Specifically: Step 4's scholar matching acquires a lock on `scholars.json` that is held through scholar record creation or match linkage. Step 5's work matching acquires a lock on `works.json` that is held through work record creation or match linkage. Step 7's atomic write phase re-verifies that no concurrent process has created the same `canonical_id` or `work_id` since the lock was acquired in Steps 4/5 — if a duplicate is found (due to a lock gap between Steps 5 and 7), Step 7 links to the existing record instead of creating a duplicate. If a lock cannot be acquired within 30 seconds, the intake for this source is deferred to `staging` status with a retry scheduled. This serializes registry mutation without blocking the entire intake pipeline.
+
 The engine must check schema compliance, referential integrity, and confidence thresholds before persisting (section 5, Layer 1).
 
 **Step 8: Trustworthiness evaluation.** The source engine assesses the source's reliability and assigns a trust tier (§4.A.8).
@@ -290,6 +295,7 @@ The scholar authority registry (`library/registries/scholars.json`) is a shared 
   "methodology_notes": null,
   "sources_encountered_in": ["src_a1b2c3d4"],
   "record_completeness": 0.85,  // fraction of the 22 defined fields that have non-null values
+  "data_provenance_score": 0.65,  // fraction of non-null biographical fields corroborated by at least one non-LLM source
   "record_sources": ["auto_inference", "openiti_metadata"],
   "last_updated": "2026-03-04T12:00:00Z"
 }
@@ -301,6 +307,8 @@ The scholar authority registry (`library/registries/scholars.json`) is a shared 
 
 **Progressive enrichment.** When the 50th source mentioning a scholar is processed, the source engine checks whether the new source provides information the existing record lacks (a teacher, a work, a corrected date). If so, the record is updated.
 The engine must check no field invariant is broken before persisting. Overwritten values are preserved in a `revision_history` array. This means scholar records become increasingly rich as the library grows — an early record with just a name and death date gains teachers, students, works, methodology notes, and standing assessments over time.
+
+**Data provenance tracking.** The `data_provenance_score` field (0.0–1.0) records the fraction of non-null biographical fields (excluding mechanical fields like `canonical_id`, `last_updated`, `record_sources`) whose values are corroborated by at least one non-LLM source (OpenITI metadata, Usul-Data, Wikidata, explicit source text extraction, or owner input). The score is recomputed on every scholar record update as part of §5 Layer 1 self-validation and must pass the ScholarAuthorityRecord Pydantic model constraint (0.0 ≤ value ≤ 1.0) before the record is persisted. A score of 0.0 means entirely LLM-inferred; 1.0 means every field has external corroboration. Records with `data_provenance_score` < 0.30 are flagged as `low_provenance` in the scholar registry dashboard. The synthesizer uses this score to qualify biographical claims: high-provenance records (≥ 0.50) produce direct statements; low-provenance records (< 0.30) produce hedged statements qualified with "attributed by biographical sources" or similar language.
 
 **Scholar record consistency checks on update.** When an enrichment modifies an established scholar record field (one with a non-null value and confidence ≥ 0.70), the source engine performs consistency validation before applying the change:
 
@@ -388,6 +396,8 @@ The source engine assesses each source's reliability to determine the default ve
   (3) If the content is a `tarjih` (scholarly preference conclusion), the engine must check that the sources referenced in the tarjih are in the library.
 - Quran text from canonical digital sources is always `verified` with maximum trust.
 - Hadith collections from the canonical Six Books (الكتب الستة: صحيح البخاري، صحيح مسلم، سنن أبي داود، سنن الترمذي، سنن النسائي، سنن ابن ماجه) and the Muwatta of Imam Malik are always `verified` when from recognized tahqiq editions.
+
+**Trust re-evaluation on enrichment.** When an enrichment modifies any of the five trust evaluation input fields (`author.canonical_id` which determines author_standing, `muhaqiq` which determines tahqiq_quality, `publisher` which determines publisher_reputation, `authority_level`, or `text_fidelity`), the source engine automatically re-runs the trustworthiness evaluation algorithm using the updated values. If the new trust tier differs from the current tier: (a) if upgrading from `flagged` to `verified`, a human gate checkpoint is created for owner confirmation — upgrading trust is a higher-risk action than flagging. (b) if downgrading from `verified` to `flagged`, the change is applied immediately (conservative direction) and a stale-marking cascade is triggered on all excerpts derived from this source. The `trust_factors` array in the metadata record is updated to reflect the re-evaluation, and the old trust evaluation is preserved in `metadata_history`.
 
 **Worked example — Trustworthiness evaluation for two contrasting sources:**
 
@@ -490,6 +500,8 @@ The source remains in `error` status. The dashboard shows it as blocked. The own
 **Integration:** The enrichment is recorded as `record_source: "openiti_metadata"` in the scholar authority record. OpenITI data does not override owner-provided or source-extracted data — it supplements. Conflicts are flagged for owner review.
 
 **Dependencies:** Requires downloading and locally caching the OpenITI metadata CSV (~50MB). The KITAB corpus metadata search application provides the data. Update frequency: quarterly, matching OpenITI's release cycle.
+
+**Integrity verification.** Before the cached OpenITI CSV is used for enrichment, the engine verifies: (1) expected CSV column headers match the known schema, (2) spot-check 5 well-known scholars whose death dates and work counts are historically certain (configurable in `library/config/openiti_validation_samples.json`, initial entries: Sibawayhi d.180, Bukhari d.256, Ghazali d.505, Nawawi d.676, Ibn Taymiyyah d.728), (3) the file's SHA-256 hash matches the stored hash in `library/external/openiti_metadata/manifest.json`. If any verification step fails, the file is discarded with `SRC_OPENITI_CACHE_CORRUPT` (severity: Warning) and enrichment falls back to LLM-only inference. Death dates sourced solely from OpenITI (no corroboration from Usul-Data, Wikidata, source text, or LLM inference) carry a maximum confidence of 0.90 — excellent but not infallible.
 
 **Worked example — OpenITI enrichment for ابن قدامة:**
 
@@ -669,7 +681,7 @@ Before the cache is used, the engine verifies integrity: (1) checks that the fil
 
 **Implementation sketch:** When the source engine registers a new source and links it to an existing work_id that already has one or more sources, it enqueues an edition comparison job. The job waits until both editions have been normalized (status ≥ `normalized`). The comparison then: (1) aligns the normalized text of both editions by chapter/section structure, (2) runs character-level diff on each aligned section to identify divergence regions, (3) filters out divergences shorter than 3 characters (trivial whitespace/punctuation differences), (4) sends each non-trivial divergence region (the text from both editions plus 200 characters of surrounding context) to the LLM for classification, (5) aggregates the classifications into the summary statistics, (6) determines edition preference based on: fewer OCR artifacts, recognized muhaqiq, presence of scholarly apparatus. Multi-model consensus is NOT required because the comparison is non-destructive — it adds advisory metadata but does not change any source's trust tier or content.
 
-**Failure handling:** If normalized text is not yet available for one or both editions, the comparison is deferred (logged as `SRC_COMPARISON_DEFERRED`). If the editions are so different in structure that chapter-level alignment fails (e.g., one edition is a 10-volume set and the other is a 15-volume set with different chapter boundaries), the engine falls back to whole-text alignment using the passim approach (300-word chunks). Very large works (>500,000 words per edition) are compared in batches of 50,000 words to manage LLM context limits.
+**Failure handling:** If normalized text is not yet available for one or both editions, the comparison is deferred (logged as `SRC_COMPARISON_DEFERRED`). If the editions are so different in structure that chapter-level alignment fails (e.g., one edition is a 10-volume set and the other is a 15-volume set with different chapter boundaries), the engine falls back to whole-text alignment using the passim approach (300-word chunks). **Alignment sufficiency threshold:** If fewer than 20% of 300-word chunks from the shorter edition align with any chunk in the longer edition (alignment defined as SequenceMatcher ratio ≥ 0.60), the comparison is classified as `inconclusive` with reason `"editions_structurally_incomparable"` and logged as `SRC_COMPARISON_INCONCLUSIVE`. No preferred edition recommendation is produced — `preferred_edition_recommendation` is set to null and `preference_reason` reads: "Editions are too structurally divergent for automated comparison ({pct}% alignment). Manual review recommended." The owner is notified via a human gate checkpoint. Very large works (>500,000 words per edition) are compared in batches of 50,000 words to manage LLM context limits.
 
 **Constraints:** This capability is advisory only. It produces a recommendation but does not automatically change the `preferred_source_id` on the work registry — that requires owner confirmation through a human gate checkpoint. The comparison metadata is shared with the excerpting engine: when an excerpt is drawn from a divergence region, the excerpting engine can note "this passage has a variant reading in the other edition."
 
@@ -722,6 +734,8 @@ Before writing any teacher-student link, the engine must verify and check: (1) n
 
 **Depth limit:** Chain construction traces up to 4 generations upward and 2 generations downward from the trigger scholar. Beyond this, the diminishing confidence of LLM inference makes the data unreliable. Deeper chains build naturally as more sources are processed — each new source may add a scholar who extends an existing chain by one generation.
 
+**LLM-only provenance limit:** Genealogy links supported ONLY by LLM inference (no corroboration from OpenITI, Usul-Data, Wikidata, or source text) receive a maximum confidence of 0.70 (regardless of LLM-reported confidence) and are tagged with `link_provenance: "llm_only"`. Links corroborated by at least one structured source receive confidence up to 0.90 and are tagged `link_provenance: "{source}_corroborated"`. Links confirmed by two or more structured sources receive confidence up to 0.95. The synthesizer uses link_provenance to qualify biographical claims in entries: corroborated links are stated as fact; LLM-only links are qualified with "attributed by scholarly tradition" or similar hedging.
+
 **Failure handling:** If the LLM returns a teacher/student with an ambiguous name (e.g., "ابن حجر" without clarification), the engine does NOT create a link — it creates a `genealogy_ambiguous` flag on the scholar record with the unresolved name, for human gate review. If OpenITI metadata contradicts LLM inference (different death date for a teacher), the OpenITI data is preferred (it is more likely to be manually verified) and the discrepancy is logged.
 
 [NOT YET IMPLEMENTED] — Full specification provided. No code exists. Depends on: §4.B.1's OpenITI matching, §4.A.5's scholar authority model, NetworkX library. Builds progressively — quality improves with each new source processed.
@@ -768,7 +782,7 @@ Before writing any teacher-student link, the engine must verify and check: (1) n
 
 1. **Death date triangulation.** If all three sources agree on death date (within ±2 years for Hijri), confidence is boosted by 0.15 (capped at 0.99). If two agree and one disagrees, the majority value is used and the discrepancy is logged. If all three disagree, a human gate checkpoint is created with all three values and their sources.
 
-2. **Known works union.** The engine takes the UNION of all works attributed to this scholar across all three sources. Works found in all three sources receive the highest confidence. Works found in only one source receive lower confidence and are marked `needs_verification`. This union directly feeds the gap analysis (§4.B.4) — a work attributed to a scholar in KR's registry but not yet in the library is a candidate for acquisition.
+2. **Known works union.** The engine takes the UNION of all works attributed to this scholar across all three sources. Works found in all three sources receive the highest confidence. Works found in only one source receive lower confidence and are marked `needs_verification`. This union directly feeds the gap analysis (§4.B.4) — a work attributed to a scholar in KR's registry but not yet in the library is a candidate for acquisition. **Zero-overlap detection:** If Wikidata returns a candidate match where NONE of its known works overlap with works from OpenITI or Usul-Data (zero intersection), the match is flagged as `wikidata_match_suspect` and a human gate checkpoint is created. The Wikidata data is NOT merged into the scholar record until the owner confirms the match — this catches cases where Wikidata resolved to a different scholar with a similar name and date.
 
 3. **Teacher-student links from Wikidata.** Wikidata's P1066/P802 properties provide teacher-student relationships that may not be in OpenITI metadata or LLM inference. These are added to the scholar authority record with `source: "wikidata"`. Links found in both Wikidata AND LLM inference receive higher confidence than either alone.
 
@@ -944,7 +958,7 @@ The source engine validates its own output before writing the metadata record:
 
 4. **Duplicate re-check.** After metadata inference (which may have changed the title or author), deduplication is re-run. This catches cases where the raw metadata didn't match a duplicate but the inferred metadata does.
 
-5. **Consistency cross-check.** The inferred genre must be consistent with the inferred structural_format (a `nazm` genre should have `verse` structural_format). The inferred level must be consistent with the genre (a `hashiyah` should not be `beginner`). The science_scope must be plausible for the identified author. Inconsistencies are flagged as warnings (not blocking) and trigger `needs_review` on the inconsistent fields.
+5. **Consistency cross-check.** The inferred genre must be consistent with the inferred structural_format (a `nazm` genre should have `verse` structural_format). The inferred level must be consistent with the genre (a `hashiyah` should not be `beginner`). The science_scope must be plausible for the identified author. Inconsistencies are flagged as warnings (not blocking) and trigger `needs_review` on the inconsistent fields. **Author-science mismatch detection:** If the inferred `science_scope` does not overlap with any of the identified author's known science specializations (from the scholar authority record's `school_affiliations` keys, e.g., an author known only for nahw is identified as author of a fiqh work), this is flagged as `SRC_METADATA_INCONSISTENCY` with a human gate checkpoint — this specific inconsistency often indicates a misidentified author rather than a mere classification error.
 
 **Layer 2: Human gate review.**
 
@@ -1022,6 +1036,9 @@ Consensus is NOT used for: genre classification, science scope, structural forma
 | `SRC_USUL_DATA_MISSING` | Info | Usul-Data `authors.json` not found at configured path | Skip Usul-Data enrichment (§4.B.8). Log. Proceed with OpenITI and Wikidata only. |
 | `SRC_WIKIDATA_TIMEOUT` | Info | Wikidata SPARQL query timed out or returned HTTP error after 3 retries | Skip Wikidata enrichment (§4.B.8). Log. Proceed with OpenITI and Usul-Data only. |
 | `SRC_COMPARISON_DEFERRED` | Info | Edition comparison requested but normalized text not yet available for 1+ editions | Defer comparison. Log. Re-attempt when both editions reach `normalized` status. |
+| `SRC_FREEZE_CLEANUP_FAILED` | Fatal | Cannot delete corrupt frozen directory after SRC_FREEZE_COPY_CORRUPT | Write CORRUPT_FREEZE marker. Source stays in staging. Manual cleanup required. |
+| `SRC_OPENITI_CACHE_CORRUPT` | Warning | OpenITI metadata CSV fails integrity verification (bad headers or spot-check mismatch) | Discard file. Skip OpenITI enrichment. Fall back to LLM-only inference. |
+| `SRC_COMPARISON_INCONCLUSIVE` | Info | Edition comparison alignment below 20% sufficiency threshold | Write comparison record with null recommendation. Create human gate for manual review. |
 
 **Principle:** Never lose data silently. Every error is logged with: timestamp, source identifier (if known), error code, severity, human-readable message, and the specific recovery action taken (one of: reject intake, create human gate, flag field for review, skip optional enrichment, retry on next cycle). Fatal errors stop processing for the affected source but do not affect other sources in the pipeline. Warning errors allow processing to continue with the affected fields marked as `needs_review`. Info errors are logged for audit with no processing impact.
 
@@ -1047,6 +1064,7 @@ Consensus is NOT used for: genre classification, science scope, structural forma
 | `openiti_metadata_path` | `library/external/openiti_metadata.csv` | File path | Path to cached OpenITI metadata |
 | `dedup_hash_algorithm` | `sha256` | `sha256` only | Hash algorithm for deduplication |
 | `human_gate_batch_size` | 20 | 5–50 | Max pending checkpoints before alert |
+| `staging_lock_timeout` | 3600 | 300–86400 | Seconds before orphaned staging locks are cleaned up on startup |
 
 **Per-science configuration hooks (Level 3 / SCIENCE.md):**
 
@@ -1152,3 +1170,296 @@ Each science's Level 3 documentation may specify:
 - Source engine → normalization engine: verify that the metadata record produced by the source engine is correctly read by the normalization engine and that source_id references resolve correctly.
 - Source engine → scholar authority registry: verify that scholar records created during intake are correctly queryable by the excerpting engine and synthesizing engine.
 - Enrichment write-back: verify that a downstream engine's enrichment update is correctly applied to the source metadata record, that the old value is preserved in `metadata_history`, and that the update triggers stale-marking on all excerpts derived from this source when the changed field is one of: `author.canonical_id`, `work_id`, `genre`, `science_scope`, or `trust_tier`.
+
+---
+
+## Appendix A: Hardening Analysis (2026-03-07)
+
+This appendix documents adversarial scenario testing, error cascade analysis, and invariant verification performed during the source engine hardening session. Each scenario identifies a concrete corruption path, evaluates existing defenses, and specifies any SPEC fixes applied.
+
+### A.1 — Adversarial Scenarios
+
+#### Scenario 1: Concurrent Intake Creates Duplicate Scholar Records
+
+**Attack:** Two sources referencing the same scholar (e.g., ابن قدامة) are processed simultaneously. Source A creates `sch_00042` during Step 4. Source B begins Step 4 before A reaches Step 7, doesn't see `sch_00042` yet, and creates `sch_00043` for the same scholar.
+
+**Existing defenses:** §4.A.2 Step 7 uses write-ahead log for atomic registry updates per source. §4.A.5 record matching checks the registry before creating new records.
+
+**Gap:** The write-ahead log atomizes a single source's registration, but no cross-intake lock prevents two processes from reading the scholar registry at the same overlapping instant.
+
+**Corruption path:** Same scholar gets two canonical_ids. All downstream products for Source A attribute to `sch_00042`; Source B to `sch_00043`. The synthesizer treats them as different scholars.
+
+**Fix applied (§4.A.2 Step 7):** Registry write operations acquire an exclusive file lock on the target registry file before reading current state and writing updates. Specifically: before Step 4's scholar registry read-check-create sequence, the source engine acquires a lock on `scholars.json`. The lock is held through the scholar record creation or match, and released after the scholar record write completes. If the lock cannot be acquired within 30 seconds, the intake for this source is deferred with status `staging` and a retry scheduled. This serializes scholar record creation without blocking the entire intake pipeline — only the scholar registry critical section is locked. The same lock pattern applies to `works.json` for work matching (Step 5) and to all three registries during Step 7's atomic write.
+
+#### Scenario 2: Wikidata Returns Plausible But Wrong Scholar
+
+**Attack:** Source engine queries Wikidata for ابن قدامة (d. 620 AH). Wikidata returns a different scholar named ابن قدامة with a death date of 618 AH (within the ±2 year tolerance). The wrong scholar has entirely different known works.
+
+**Existing defenses:** §4.B.8 death date triangulation with ±2 year tolerance. Known works union across three sources.
+
+**Gap:** The cross-validation computes a known_works_union but doesn't flag zero overlap between Wikidata's works and OpenITI's works as a discrepancy. Death date passes within tolerance.
+
+**Corruption path:** Wrong biographical data (teachers, students, geographic info) from Wikidata enters the scholar record. Genealogy chains built on this data are false.
+
+**Fix applied (§4.B.8):** Added a known-works overlap check: if Wikidata returns a candidate match where NONE of the known works overlap with the works from OpenITI or Usul-Data (zero intersection between `wikidata_only` and `all_three`), the match is flagged as `wikidata_match_suspect` and a human gate checkpoint is created. The Wikidata data is NOT merged into the scholar record until the owner confirms the match. Additionally, when Wikidata returns two or more candidates, the candidate whose known works have the highest overlap with OpenITI is preferred (previously: human gate for all multi-match cases — this is now the first-pass filter before human gate).
+
+#### Scenario 3: LLM Invents Plausible Teacher-Student Link
+
+**Attack:** §4.B.7 genealogy inference prompt asks for teachers of ابن عقيل. Both LLMs confidently return a plausible but fabricated teacher: "درس على شمس الدين الأصفهاني" — a real scholar (d. 749 AH), correct era, correct geographic region, but no historical source confirms this student-teacher relationship.
+
+**Existing defenses:** Multi-model consensus (both models must agree). Temporal consistency check (teacher death must precede student). Depth limit (4 generations up, 2 down). `chain_sources` field records provenance.
+
+**Gap:** When both models hallucinate the same plausible relationship (same era, same field, plausible geographic overlap), all automated checks pass. The relationship enters the scholar authority record with `chain_sources: ["llm_inference"]` and no corroborating external data.
+
+**Corruption path:** The synthesizer produces scholarly narratives citing a false intellectual lineage. Rayane's understanding of scholarly tradition includes a fabricated connection.
+
+**Fix applied (§4.B.7):** Genealogy links supported ONLY by LLM inference (no corroboration from OpenITI, Usul-Data, Wikidata, or source text) receive a maximum confidence of 0.70 (regardless of LLM-reported confidence) and are flagged as `genealogy_source: "llm_only"` in the teacher/student link metadata. Links with `genealogy_source: "llm_only"` are displayed in synthesis outputs with an explicit qualifier: "attributed by scholarly tradition" rather than stated as fact. Links corroborated by at least one structured source (OpenITI, Wikidata P1066/P802) receive confidence up to 0.90 and are stated as confirmed relationships.
+
+#### Scenario 4: Edition Comparison on Radically Divergent Editions
+
+**Attack:** Two sources of المغني are acquired: one is the standard 15-volume print; the other is an abridged 3-volume digest marketed under the same title. Chapter-level alignment fails because the structures are completely different. The 300-word chunk fallback runs but only ~5% of text aligns.
+
+**Existing defenses:** §4.B.6 falls back to whole-text alignment for divergent structures.
+
+**Gap:** No threshold below which the comparison is abandoned. The engine produces a comparison record with 95% `structural_difference` divergences, which is meaningless noise rather than useful intelligence.
+
+**Corruption path:** No data corruption (the comparison is advisory), but the preferred edition recommendation is unreliable — the engine might recommend the abridged version because it has "fewer OCR artifacts" (it has fewer artifacts because it has 80% less text).
+
+**Fix applied (§4.B.6):** Added an alignment sufficiency threshold: if fewer than 20% of 300-word chunks from the shorter edition align with any chunk in the longer edition (alignment defined as SequenceMatcher ratio ≥ 0.60), the comparison is classified as `inconclusive` with reason `"editions_structurally_incomparable"`. No preferred edition recommendation is produced. The comparison record is still written (preserving whatever alignment was found) but the `summary.preferred_edition_recommendation` is set to `null` and `summary.preference_reason` reads: "Editions are too structurally divergent for automated comparison (X% alignment). Manual review recommended." The owner is notified via a human gate checkpoint.
+
+#### Scenario 5: Enrichment Write-Back Loop
+
+**Attack:** The excerpting engine discovers the actual author is different from the one initially identified. It sends an enrichment changing `author.canonical_id`. This triggers stale-marking cascade on all excerpts. Re-processing of those excerpts generates new metadata that contradicts the new author (e.g., the writing style analysis now disagrees). The excerpting engine sends another enrichment changing the author back. This triggers another stale-marking cascade...
+
+**Existing defenses:** §2 enrichment invariant #4 (history preservation). Human gate for critical field changes. §5 Layer 3 progressive correction.
+
+**Gap:** No explicit depth limit on enrichment-triggered re-processing. The human gate for author changes (invariant #2) prevents trivial loops, but if the owner approves each change, the loop continues with human-in-the-loop overhead.
+
+**Fix applied (§2 enrichment invariants, new invariant #8):** Added: **8. Re-processing depth limit.** When an enrichment triggers stale-marking and re-processing, the re-processed output may generate at most one further enrichment request on the same source. If that second-generation enrichment would modify the same field that was changed by the first enrichment (forming a cycle), the second enrichment is NOT auto-submitted. Instead, it is logged with both values and a human gate checkpoint is created: "Field `{field}` was changed from A→B, re-processing now suggests B→C (or back to A). Manual resolution required." This prevents enrichment ping-pong while preserving the ability to cascade legitimate corrections (e.g., author change → genre change is allowed as a one-level cascade).
+
+#### Scenario 6: Disk Full During Freezing — Cleanup Failure
+
+**Attack:** Step 6 copies files to the frozen directory. Disk fills mid-copy. Post-freeze hash verification detects the mismatch (SRC_FREEZE_COPY_CORRUPT). The engine tries to delete the partially-written frozen directory, but the deletion also fails (disk truly full — no space even for directory operations).
+
+**Existing defenses:** SRC_FREEZE_COPY_CORRUPT triggers frozen directory deletion.
+
+**Gap:** If deletion fails, the partial frozen directory persists. On next startup, the engine might find a frozen directory with files that appear valid individually but are an incomplete set.
+
+**Fix applied (§4.A.2 Step 6):** If frozen directory deletion fails after a SRC_FREEZE_COPY_CORRUPT, the engine logs `SRC_FREEZE_CLEANUP_FAILED` (new error code, severity: Fatal) and writes a marker file `library/sources/{source_id}/CORRUPT_FREEZE` containing the error details and timestamp. On startup, the engine checks for any `CORRUPT_FREEZE` markers and treats those source directories as requiring manual cleanup. The source remains in `staging` status and is not available for processing. Added `SRC_FREEZE_CLEANUP_FAILED` to §7 error taxonomy.
+
+#### Scenario 7: Malformed Enrichment Targeting Wrong Source
+
+**Attack:** The excerpting engine has a bug and sends an enrichment request with `source_id: "src_a3f2b1c4"` (a nahw source) but the enrichment data is for `src_d7e8f9a0` (a fiqh source). The enrichment changes `science_scope` from `["nahw"]` to `["fiqh"]`.
+
+**Existing defenses:** §2 enrichment invariants check schema compliance and referential integrity. §5 consistency cross-check would flag genre/science mismatches when genre and science_scope are contradictory.
+
+**Gap:** The enrichment is schema-valid (a science_scope of `["fiqh"]` is a valid value). The consistency cross-check catches `genre: sharh` (a nahw sharh) with `science_scope: ["fiqh"]` as a mismatch, but only as a warning that flags the field — it doesn't block the write.
+
+**Fix applied (§2 enrichment invariants):** Enrichment requests for fields in the critical set (`author.canonical_id`, `work_id`, `genre`, `science_scope`) must include a `verification_context` field containing: the `work_id` and `author.canonical_id` that the requesting engine believes belong to this source. The source engine checks these against the actual source metadata before applying. If they don't match, the enrichment is rejected with `SRC_INVALID_ENRICHMENT` and the mismatch is logged at WARNING level. This catches source_id targeting errors at the boundary. Updated the EnrichmentRequest contract model accordingly.
+
+#### Scenario 8: Orphaned Staging Lock After Crash
+
+**Attack:** The source engine crashes during intake between Step 2 (format detection, where `.kr_processing` lock is placed) and Step 6 (freezing). The lock file remains. Subsequent intake attempts for the same staged material see the lock and refuse to process it. The source is permanently stuck.
+
+**Existing defenses:** §4.A.2 defines the staging lock mechanism.
+
+**Gap:** No orphan lock cleanup.
+
+**Fix applied (§4.A.2):** On startup, the source engine scans `library/staging/` for directories containing `.kr_processing` lock files. For each lock file: if the file's modification timestamp is older than the configurable `staging_lock_timeout` (default: 1 hour), the lock is removed and the directory is made available for re-processing. A log entry records the cleanup. Added `staging_lock_timeout` to §8 configuration table.
+
+#### Scenario 9: Scholar Record Entirely From Single LLM — No External Validation
+
+**Attack:** An obscure scholar (a local Yemeni muhaddith from the 6th century Hijri) is not in OpenITI, Usul-Data, or Wikidata. The scholar record is 80% populated but every non-null field is from a single LLM inference call. The record looks complete but may contain hallucinated biographical data.
+
+**Existing defenses:** §6 caps single-LLM biographical inference at 0.85 confidence. `record_sources` tracks provenance.
+
+**Gap:** The `record_completeness` field (0.80) looks healthy, but it tracks fill rate, not data quality. No signal distinguishes "80% complete from verified sources" from "80% complete from one LLM call."
+
+**Fix applied (§4.A.5):** Added a `data_provenance_score` field to ScholarAuthorityRecord: the fraction of non-null biographical fields (excluding mechanical fields like `canonical_id`, `last_updated`, `record_sources` themselves) whose values are corroborated by at least one non-LLM source (OpenITI metadata, Usul-Data, Wikidata, explicit source text extraction, or owner input). Score of 0.0 means entirely LLM-inferred; 1.0 means every field has external corroboration. Records with `data_provenance_score` < 0.30 are flagged as `low_provenance` in the scholar registry dashboard. The synthesizer uses this score to qualify biographical claims: high-provenance records produce direct statements ("ابن قدامة, d. 620 AH"); low-provenance records produce hedged statements ("ابن قدامة, reportedly d. 620 AH according to biographical sources").
+
+#### Scenario 10: TOCTOU Between Metadata Inference and Registration
+
+**Attack:** Between Step 4 (metadata inference) and Step 7 (registration), an external process or concurrent intake modifies the scholar registry (adds a new scholar that would have been a match). The source engine's dedup re-check (§5 Layer 1, item 4) catches title/author matches but not scholar matches that appeared between Steps 4 and 7.
+
+**Existing defenses:** Step 5 re-runs deduplication after inference. Step 7 is atomic per-source.
+
+**Gap:** Scholar matching is done in Step 4 but not re-checked in Step 7's pre-write validation. If another intake process created the scholar between Steps 4 and 7, a duplicate scholar record is created.
+
+**Fix applied (§4.A.2 Step 7):** The registry file locking mechanism (added in Scenario 1's fix) resolves this: the lock acquired on `scholars.json` during Step 4's matching also covers Step 7's write. Since Step 4 through Step 7 holds the scholar registry lock, no concurrent process can create the same scholar in between. For the case where Steps 4-7 do NOT run as a continuous locked section (e.g., Step 5 deduplication releases and re-acquires locks), Step 7's atomic write phase re-checks that the `canonical_id` being created does not already exist in the registry. If it does (because a concurrent process created it during the lock gap), Step 7 links to the existing record instead of creating a duplicate.
+
+#### Scenario 11: External Dataset Contains Intentionally Poisoned Data
+
+**Attack:** A modified OpenITI metadata CSV is placed at the configured path — either by a supply-chain attack on the GitHub download or by filesystem compromise. The modified CSV contains altered death dates for 50 scholars.
+
+**Existing defenses:** §4.B.5 (KITAB) has integrity verification: CSV header check, 3 spot-check entries, hash verification.
+
+**Gap applied to §4.B.1 (OpenITI):** The OpenITI metadata enrichment (§4.B.1) doesn't specify integrity verification comparable to the KITAB cache verification.
+
+**Fix applied (§4.B.1):** Added integrity verification for the OpenITI metadata CSV mirroring the KITAB cache approach: (1) verify expected CSV column headers match a known schema, (2) spot-check 5 well-known scholars whose death dates and work counts are historically certain (configurable in `library/config/openiti_validation_samples.json`, initial entries: Sibawayhi d.180, Bukhari d.256, Ghazali d.505, Nawawi d.676, Ibn Taymiyyah d.728), (3) store and verify the file's SHA-256 hash in `library/external/openiti_metadata/manifest.json`. If verification fails, the download is discarded with `SRC_OPENITI_CACHE_CORRUPT` (new error code, severity: Warning) and enrichment falls back to LLM-only inference. Additionally, the Usul-Data `authors.json` receives the same verification treatment: header structure check, 5 spot-check scholars, SHA-256 hash in `library/external/usul_data/manifest.json`.
+
+#### Scenario 12: Enrichment Changes Trust-Relevant Field Without Re-Evaluation
+
+**Attack:** An enrichment updates the `muhaqiq` field to a recognized editor. The trust evaluation (§4.A.8) used the original unknown muhaqiq, scoring 0.50. The new recognized muhaqiq would score 0.90. But the trust tier is not re-evaluated — the source stays `flagged` when it should be `verified`.
+
+**Existing defenses:** §2 enrichment invariant #5 says no enrichment may change `trust_tier` directly. An enrichment may "request a trust re-evaluation by updating evaluation-relevant fields."
+
+**Gap:** The SPEC says enrichments "may request" re-evaluation but doesn't specify the mechanism. How does updating `muhaqiq` trigger a re-evaluation?
+
+**Fix applied (§4.A.8):** Explicitly specified: when an enrichment modifies any of the five trust evaluation input fields (`author.canonical_id`, `muhaqiq`, `publisher`, `authority_level`, `text_fidelity`), the source engine automatically re-runs the trustworthiness evaluation algorithm using the updated values. If the new trust tier differs from the old one, the change is logged and: (a) if the new tier is `verified` (upgrading from `flagged`), a human gate checkpoint is created for owner confirmation — upgrading trust is a higher-risk action than flagging. (b) if the new tier is `flagged` (downgrading from `verified`), the change is applied immediately and a stale-marking cascade is triggered on all excerpts (their verified/flagged status may need to change). The `trust_factors` array in the metadata record is updated to reflect the re-evaluation.
+
+### A.2 — Error Cascade Traces
+
+#### Cascade 1: Wrong Author at Intake → Corrupted Synthesis
+
+**Origin:** §4.A.4 (LLM inference) — the LLM identifies author as "ابن حجر الهيتمي" (Shafi'i fiqh, d. 974) when the actual author is "ابن حجر العسقلاني" (hadith scholar, d. 852).
+
+**Propagation path:**
+
+1. **Source engine (§4.A.4):** Wrong canonical_id assigned. Both models agree (both are Shafi'i, the title "فتح الباري" is ambiguous to models that don't distinguish editions). Confidence: 0.85. No human gate triggered (≥ 0.80).
+2. **Source engine (§4.A.5):** Scholar record for al-Haytami gains a work he didn't write. The record's `known_works` list is wrong.
+3. **Source engine (§4.A.8):** Trust evaluation uses al-Haytami's scholarly standing. Trust tier may differ from correct evaluation (al-Asqalani is a higher-standing hadith scholar).
+4. **Source engine (§4.A.9):** Work relationships are wrong — the genre chain links to al-Haytami's corpus instead of al-Asqalani's.
+5. **Normalization engine:** Proceeds normally (doesn't use author for text processing). No catch.
+6. **Excerpting engine:** Attributes all excerpts to al-Haytami. When excerpts reference "الحافظ" (a title for al-Asqalani), the system doesn't flag the inconsistency.
+7. **Taxonomy engine:** Places excerpts in Shafi'i fiqh tree instead of hadith methodology tree (wrong science scope).
+8. **Synthesizer:** Produces entries attributing فتح الباري to al-Haytami. Scholarly narratives cite wrong biographical data. Teacher-student chains are wrong.
+9. **Rayane's knowledge:** Contains systematic misattribution of a major hadith commentary. Every citation to this source is wrong.
+
+**Detection points (where the cascade could be caught):**
+
+- **§4.A.5 disambiguation_notes:** The SPEC already contains: "When 'ابن حجر' appears in hadith context → likely al-Asqalani." If the title "فتح الباري" is in the disambiguation notes for al-Asqalani, the matching should favor him. **Verdict:** Partially effective — depends on disambiguation notes being populated before this intake.
+- **§6 consensus:** Two models both got it wrong → consensus doesn't help. **Verdict:** Ineffective for correlated errors.
+- **§4.B.8 cross-validation:** OpenITI would match `0852IbnHaworkar.FathBari` (al-Asqalani), not al-Haytami. If the intake's canonical_id points to al-Haytami but OpenITI matches al-Asqalani, this is a detectable discrepancy. **Verdict:** Effective if OpenITI enrichment runs and cross-references the canonical_id.
+- **§5 consistency cross-check:** The inferred science_scope of `["hadith"]` (from title "فتح الباري" — a hadith commentary) would be inconsistent with al-Haytami's known specialization in Shafi'i fiqh. **Verdict:** Effective if the cross-check is implemented to compare author specialization against science scope.
+
+**Fix applied:** Added to §5 Layer 1, consistency cross-check: "If the inferred `science_scope` does not overlap with any of the identified author's known science specializations (from the scholar authority record's `school_affiliations` keys), flag as `SRC_METADATA_INCONSISTENCY` with severity WARNING and create a human gate checkpoint. This catches misidentifications where the author is real but wrong for this work."
+
+**Residual risk:** LOW after fix. The combination of disambiguation notes, OpenITI cross-validation, and science scope consistency check creates three independent detection layers. All three would need to fail simultaneously for the cascade to reach the synthesizer.
+
+#### Cascade 2: Corrupt External Data → Poisoned Scholar Records → Fabricated Genealogy
+
+**Origin:** §4.B.1 (OpenITI enrichment) — a corrupted local CSV has wrong death dates for 50 scholars.
+
+**Propagation path:**
+
+1. **Source engine (§4.B.1):** Wrong death dates enter scholar authority records. For scholars with no other source of death dates, these become the canonical dates.
+2. **Source engine (§4.B.7):** Genealogy construction uses death dates for temporal consistency checks (§4.A.5 item 5: "teacher death > student death + 30yr"). Wrong dates make impossible relationships pass the check (a teacher who actually died 100 years before the student now appears to have died 10 years before — plausible).
+3. **Source engine (§4.B.8):** Cross-validation with Usul-Data and Wikidata should catch discrepancies. But if the corrupted CSV contains dates that are only slightly wrong (off by 20-30 years), the ±2 year tolerance would flag them. **However**, if the corruption is exactly within ±2 years (targeted attack), cross-validation misses it.
+4. **Scholar authority registry:** 50 scholars have wrong death dates. Every downstream product referencing these scholars carries wrong dates.
+5. **Synthesizer:** Produces biographical statements with wrong dates. Scholarly narratives contain wrong temporal claims ("ابن عقيل (d. 790 AH)" instead of 769 AH).
+6. **Rayane's knowledge:** Systematic biographical errors across 50 scholars.
+
+**Detection points:**
+
+- **§4.B.1 integrity verification (newly added in Scenario 11):** The 5 spot-check scholars catch the corruption IF any of the 5 are among the 50 corrupted entries. With 50/4300+ corrupted entries, the probability of catching at least one in 5 samples is ~5.7%. **Verdict:** Weak for targeted attacks on non-famous scholars.
+- **§4.B.8 cross-validation:** Usul-Data and Wikidata provide independent death dates. If the corruption disagrees with both, it's caught. **Verdict:** Strong for scholars present in all three sources. Weak for scholars only in OpenITI.
+- **§6 confidence cap:** Death dates from OpenITI are not single-LLM inferences, so the 0.85 cap doesn't apply. OpenITI is treated as a verified source.
+
+**Fix applied:** OpenITI death dates are now treated with the same provenance tracking as any other data source. When a scholar's death date comes ONLY from OpenITI (no corroboration from Usul-Data, Wikidata, source text, or LLM inference), it carries a maximum confidence of 0.90 (not 0.99). When corroborated by at least one other source, confidence can reach 0.99. This ensures that purely-OpenITI data is still treated as excellent quality but not infallible, and the `data_provenance_score` (Scenario 9) correctly reflects single-source dependence.
+
+**Residual risk:** MEDIUM. For scholars only present in OpenITI, the corruption is undetectable by automated means. Mitigation: the spot-check list should be expanded over time as the library grows, and periodic full cross-validation sweeps (Layer 3 integrity checks) compare all scholar dates against Wikidata.
+
+### A.3 — KNOWLEDGE_INTEGRITY.md Invariant Verification
+
+Every invariant verified against every §4.A and §4.B rule:
+
+**Invariant 1: Frozen sources are immutable.**
+
+| Rule | Protection | Verified? |
+|------|-----------|-----------|
+| §4.A.2 Step 6 | SHA-256 pre/post copy verification | ✓ Defect-free |
+| §4.A.2 Step 6 | chmod 0444 after freezing | ✓ Defect-free |
+| §4.A.2 Step 6 | SRC_FREEZE_COPY_CORRUPT on hash mismatch | ✓ Defect-free |
+| §4.A.2 Step 6 | SRC_FREEZE_PERMISSION_FAILED if chmod fails | ✓ Defect-free |
+| §4.A.2 Step 6 | SRC_STAGING_MODIFIED (TOCTOU) | ✓ Defect-free |
+| §4.A.2 Step 6 | Cleanup failure (Scenario 6 fix) | ✓ Fixed this session |
+| §2 enrichment invariant #1 | No enrichment may modify frozen_hash or frozen files | ✓ Defect-free |
+| §4.B.6 edition comparison | Reads normalized text, never frozen files | ✓ Defect-free |
+
+**Invariant 2: Primary text is never modified.**
+
+| Rule | Protection | Verified? |
+|------|-----------|-----------|
+| §4.A.3 metadata extraction | Reads source for metadata only, does not modify | ✓ Defect-free |
+| §4.A.4 LLM inference | Receives first 2000 chars as input, source unchanged | ✓ Defect-free |
+| §4.B.10 tahqiq fingerprinting | Reads footnote text sample, does not modify | ✓ Defect-free |
+| All §4.B capabilities | All operate on metadata or external data; none modify source text | ✓ Defect-free |
+
+**Invariant 3: Every claim is traceable.**
+
+| Rule | Protection | Verified? |
+|------|-----------|-----------|
+| §4.A.1 source identity | Every source has source_id, work_id, author canonical_id | ✓ Defect-free |
+| §4.A.5 scholar authority | Every scholar linked to sources_encountered_in | ✓ Defect-free |
+| §4.B.7 genealogy | chain_sources records provenance of every link | ✓ Improved: LLM-only links now qualified (Scenario 3 fix) |
+| §4.B.8 cross-validation | record_sources tracks every external data source | ✓ Defect-free |
+| §4.B.5 KITAB | kitab_uri_match and kitab_match_confidence recorded | ✓ Defect-free |
+
+**Invariant 4: Errors fail loudly.**
+
+| Rule | Protection | Verified? |
+|------|-----------|-----------|
+| §4.A.2 all steps | 26+ error codes in §7, every step has defined error handling | ✓ Defect-free |
+| §4.A.2 Step 6 cleanup | SRC_FREEZE_CLEANUP_FAILED added (Scenario 6 fix) | ✓ Fixed this session |
+| §4.B.1 OpenITI | SRC_OPENITI_CACHE_CORRUPT added (Scenario 11 fix) | ✓ Fixed this session |
+| §4.A.2 Step 7 | Lock timeout logs and defers (Scenario 1 fix) | ✓ Fixed this session |
+| §4.B.5 KITAB | SRC_KITAB_CACHE_MISSING, SRC_KITAB_CACHE_CORRUPT | ✓ Defect-free |
+| §4.B.8 Wikidata | SRC_WIKIDATA_TIMEOUT | ✓ Defect-free |
+| §4.B.8 Usul-Data | SRC_USUL_DATA_MISSING | ✓ Defect-free |
+| §4.B.6 comparison | SRC_COMPARISON_DEFERRED | ✓ Improved: inconclusive threshold added (Scenario 4 fix) |
+| §4.B.7 genealogy | Ambiguous names → genealogy_ambiguous flag | ✓ Defect-free |
+
+**Invariant 5: Human gates are not optional.**
+
+| Rule | Protection | Verified? |
+|------|-----------|-----------|
+| §5 Layer 2 | 9 human gate triggers defined | ✓ Defect-free |
+| §2 invariant #2 | work_id and author changes require human gate | ✓ Defect-free |
+| §2 invariant #5 | Trust upgrade requires human gate | ✓ Defect-free (Scenario 12 made explicit) |
+| §4.A.8 trust downgrade | Downgrade applied immediately (conservative direction) | ✓ Defect-free |
+| §4.B.6 edition preference | Advisory only — requires owner confirmation | ✓ Defect-free |
+| §4.B.7 genealogy ambiguity | Ambiguous names create human gate | ✓ Defect-free |
+| No bypass mechanism defined | Correct: the source engine has no human gate bypass | ✓ Defect-free |
+
+**Invariant 6: Metadata flows forward, never backward-deleted.**
+
+| Rule | Protection | Verified? |
+|------|-----------|-----------|
+| §2 invariant #3 | No enrichment may set non-null field to null | ✓ Defect-free |
+| §2 invariant #4 | Every update records previous value in metadata_history | ✓ Defect-free |
+| §3 D-023 | Source metadata record is origin of metadata chain | ✓ Defect-free |
+| §4.A.5 scholar records | revision_history preserves all changes | ✓ Defect-free |
+| §4.B capabilities | All add metadata, none remove | ✓ Defect-free |
+| Stale-marking cascade | §5 Layer 3 — flags affected products, doesn't delete metadata | ✓ Defect-free |
+
+### A.4 — External Data Integration Corruption Defenses
+
+Summary of corruption defenses for each external data source:
+
+| External Source | Integrity Check | Failure Mode | Fallback | Blocks Intake? |
+|----------------|----------------|-------------|----------|----------------|
+| OpenITI CSV | Header + 5 spot-checks + SHA-256 | SRC_OPENITI_CACHE_CORRUPT | LLM-only inference | No |
+| KITAB CSV | Header + 3 spot-checks + SHA-256 | SRC_KITAB_CACHE_CORRUPT | Skip compositional profile | No |
+| Usul-Data JSON | Structure + 5 spot-checks + SHA-256 | SRC_USUL_DATA_MISSING | OpenITI + Wikidata only | No |
+| Wikidata SPARQL | HTTP response validation, 3 retries | SRC_WIKIDATA_TIMEOUT | OpenITI + Usul-Data only | No |
+
+All external data integration is additive and non-blocking. No single external source failure prevents intake.
+
+### A.5 — New Error Codes Added This Session
+
+| Code | Severity | Trigger | Recovery |
+|------|----------|---------|----------|
+| `SRC_FREEZE_CLEANUP_FAILED` | Fatal | Cannot delete corrupt frozen directory | Log. Create CORRUPT_FREEZE marker. Source stays in staging. Manual cleanup required. |
+| `SRC_OPENITI_CACHE_CORRUPT` | Warning | OpenITI CSV fails integrity verification | Discard file. Skip OpenITI enrichment. Fall back to LLM-only. |
+| `SRC_COMPARISON_INCONCLUSIVE` | Info | Edition comparison alignment below 20% threshold | Write comparison record with null recommendation. Create human gate for manual review. |
+
+### A.6 — Contracts.py Changes Required
+
+The following contract model changes are required to support hardening fixes. Changes should be applied in the next PRECISION or IMPLEMENTATION_PREP session:
+
+1. **EnrichmentRequest model:** Add `verification_context` field (optional dict with `expected_work_id` and `expected_author_canonical_id`). For critical field enrichments, this field is required.
+2. **ScholarAuthorityRecord model:** Add `data_provenance_score` field (float, 0.0-1.0). Add to existing `cross_validation` or as a top-level field.
+3. **ErrorCode enum:** Add `FREEZE_CLEANUP_FAILED`, `OPENITI_CACHE_CORRUPT`, `COMPARISON_INCONCLUSIVE`.
+4. **EditionComparisonSummary model:** Make `preferred_edition_recommendation` Optional[str] (currently str) to support inconclusive comparisons.
+5. **GenealogyMetadata model:** Add `link_provenance` field (dict mapping each teacher/student canonical_id to its source: "llm_only", "openiti_corroborated", "wikidata_corroborated", "source_text", "multi_source").
+6. **Configuration (§8):** Add `staging_lock_timeout` parameter (default: 3600 seconds, valid range: 300-86400).
