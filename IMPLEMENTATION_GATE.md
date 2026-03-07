@@ -2,6 +2,8 @@
 
 This document defines the EXACT conditions that must be met before Claude Code begins building. No implementation session should start until ALL gate criteria pass for the target engine.
 
+**Build target:** A testable pipeline CLI, not the application. Every engine must be runnable from the command line, produce inspectable output, and support stress testing with hundreds of real sources. The application (GUI, scholar interface) is a separate, later phase.
+
 ---
 
 ## Per-Engine Gate (must pass for each engine before implementation)

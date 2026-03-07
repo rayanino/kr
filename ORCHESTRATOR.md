@@ -5,6 +5,16 @@
 This document governs how Claude Code sessions execute implementation work autonomously.
 It replaces the SPEC-writing workflow with an implementation-phase workflow.
 
+## ⚠ BUILD GOAL: TESTABLE PIPELINE, NOT THE APPLICATION
+
+The goal of implementation is to build a **testable pipeline CLI** — all 7 engines wired together as a command-line tool that processes real Arabic scholarly sources and produces inspectable output at every stage. This pipeline exists for **stress testing**: running hundreds of sources through it, evaluating output quality, finding bugs, and fixing them iteratively.
+
+**You are NOT building the application** (no GUI, no scholar interface, no FastAPI, no frontend). The application comes LATER, after the pipeline is proven trustworthy through extensive testing. Build every engine so it can:
+1. Run from the command line on a real source file
+2. Produce human-readable output alongside machine output
+3. Be tested independently and as part of the full pipeline chain
+4. Report clear metrics (counts, scores, flags) without requiring full output reading
+
 ---
 
 ## Session Lifecycle

@@ -1,5 +1,9 @@
 # KR Milestones — Implementation Task Decomposition
 
+## ⚠ BUILD GOAL: TESTABLE PIPELINE, NOT THE APPLICATION
+
+All milestones build toward a **pipeline CLI** for stress testing — not the application. The pipeline processes real Arabic scholarly sources end-to-end and produces inspectable output at every stage. The application (GUI, scholar interface) is a SEPARATE phase that begins only after the pipeline is trusted through hundreds of tested sources.
+
 Each milestone is decomposed into atomic tasks. Each task is one session's work.
 Tasks have dependencies and acceptance criteria.
 
