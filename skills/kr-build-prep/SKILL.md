@@ -1,237 +1,222 @@
 ---
 name: kr-build-prep
-description: Prepare engine for Claude Code with tech survey, contracts, stubs, CLAUDE.md. Use for "prepare for building", "implementation prep", or when a SPEC is finalized.
+description: Prepare engine for Claude Code with tech survey, contracts, stubs, optimized CLAUDE.md. Use for "prepare for building", "implementation prep", or when a finalized SPEC is ready for coding.
 ---
 
 # KR Build Prep — تحضير البناء
 
-You are preparing a finalized KR engine SPEC for Claude Code implementation. Claude Code is powerful but context-limited — it needs a focused, actionable brief with contracts, stubs, and a clear NEXT.md. Your job is to produce everything Claude Code needs to build correctly on the first attempt.
+You are preparing a finalized KR engine SPEC for Claude Code implementation. This skill has two responsibilities: (1) the technology survey and architecture design, and (2) optimizing the Claude Code environment for maximum build quality. Both are research-heavy.
 
-**The cardinal rule:** Technology survey FIRST. Before designing module stubs, search for existing libraries that do 80% of the work. Claude Code should not reinvent what PyPI already provides.
+**Cardinal rule:** Technology survey FIRST, Claude Code optimization SECOND, then produce deliverables.
 
 ---
 
-## Procedure
+## Part 1: Technology Survey (MANDATORY FIRST)
 
-### Step 1: Technology Survey (MANDATORY — DO THIS FIRST)
+For every significant capability in the SPEC, search for existing tools BEFORE designing anything.
 
-For every significant processing capability in the SPEC, search for existing tools:
+### Search Pattern Per Capability
 
-**Search pattern for each capability:**
-1. Search: `python library [capability] arabic` (e.g., "python library arabic text segmentation")
-2. Search: `[capability] NLP tool 2025 2026` (for recent developments)
-3. Search: `[specific tool from RESOURCES.md] [capability]` (verify tools mentioned in SPEC)
+1. `python library [capability] arabic` (specific to our domain)
+2. `[capability] NLP tool 2025 2026` (recent developments)
+3. Verify tools from RESOURCES.md actually do what we claim
 
-**For each tool found, evaluate:**
-- Does it support Arabic text? (Many NLP tools don't)
-- Does it handle diacritics correctly? (Many Arabic tools strip tashkeel)
-- Is it maintained? (Check last commit date, open issues)
-- What's the license? (Must be compatible with KR)
-- What does it actually do vs. what its README claims? (Read the docs, not just the tagline)
+### Evaluation Criteria
 
-**Produce a Technology Inventory:**
+For each tool: Arabic support? Diacritics handling? Actively maintained? License compatible? What it ACTUALLY does vs. README claims? (Read the docs, not just the tagline.)
+
+### Technology Inventory Output
 
 ```
 ## Technology Inventory — [Engine Name]
 
-### Available Libraries
-| Capability | Library | Arabic Support | Diacritics | Status | Notes |
-|-----------|---------|---------------|-----------|--------|-------|
-| PDF text extraction | PyMuPDF | Yes | Preserves | Active | Best for machine-readable PDFs |
-| OCR | Mistral OCR API | Yes | Good | Active | Primary OCR per STEERING.md |
+### Use (don't build)
+| Capability | Library | Arabic? | Diacritics? | Evidence |
+|-----------|---------|---------|-------------|----------|
 
-### Build vs. Use Decision
-| Capability | Decision | Rationale |
-|-----------|----------|-----------|
-| Shamela HTML parsing | BUILD | No existing parser; format is Shamela-specific |
-| PDF metadata extraction | USE PyMuPDF | Handles Arabic PDF metadata well |
-| Arabic author name normalization | BUILD on CAMeL | CAMeL does morphology; name normalization is KR-specific |
+### Build (nothing suitable exists)
+| Capability | Why build? | Closest available | Gap |
+|-----------|-----------|-------------------|-----|
 
-### Gaps — No Good Tool Exists
-| Capability | What's needed | Closest available | Why it's not enough |
-|-----------|--------------|-------------------|-------------------|
-| Multi-layer text detection | Detect sharh/matn/hashiya layers | Nothing found | Unique to Islamic scholarly texts |
-```
-
-### Step 2: Contracts Audit
-
-Verify the Pydantic contracts match the finalized SPEC:
-
-1. **Read the existing contracts.py** for this engine (in `engines/{engine}/contracts.py`)
-2. **Compare every field** against the SPEC's §2 (input) and §3 (output) contracts
-3. **Check types** — is the SPEC's "list of authors" actually `list[AuthorAttribution]` or `list[str]`?
-4. **Check optionality** — fields the SPEC marks as "if available" must be `Optional[T]` in the contract
-5. **Check enums** — if the SPEC says "one of: relevant, partially_relevant, not_relevant," there should be a `Literal` or `Enum`
-6. **Check metadata pass-through** — every metadata field from upstream must appear in output (D-023)
-
-Produce a contracts diff: what needs to change, what's correct, what's missing.
-
-### Step 3: Module Architecture
-
-Based on the technology survey and SPEC, design the module structure:
-
-```
-engines/{engine}/
-├── __init__.py
-├── contracts.py        # Pydantic models (input/output/internal)
-├── engine.py           # Main engine entry point
-├── [module_1].py       # First processing module
-├── [module_2].py       # Second processing module
-└── tests/
-    ├── test_[module_1].py
-    ├── test_[module_2].py
-    └── test_integration.py
-```
-
-For each module:
-- **Purpose:** One sentence
-- **Input/Output:** What it receives and produces
-- **External dependencies:** Which libraries from the technology survey
-- **SPEC sections:** Which §4 rules it implements
-- **Complexity estimate:** Simple (pure logic) / Medium (uses libraries) / Complex (LLM calls)
-
-### Step 4: Stub Files
-
-Write stub files with:
-- Correct imports (from the technology survey)
-- Function signatures with type hints matching contracts
-- Docstrings that quote the relevant SPEC rule
-- `raise NotImplementedError("Implements SPEC §X.Y.Z")` as body
-- NO function bodies. That is Claude Code's job.
-
-Example:
-```python
-def detect_text_layers(
-    content: NormalizedContent,
-    config: LayerDetectionConfig,
-) -> list[TextLayer]:
-    """Detect sharh/matn/hashiya layers in normalized content.
-
-    SPEC §4.A.5: "The engine identifies text layers by analyzing
-    structural markers (font size changes, indentation patterns,
-    parenthetical markers) and content markers (قال المصنف, قال الشارح)."
-
-    Returns one TextLayer per detected layer, ordered by nesting depth.
-    Single-layer texts return [TextLayer(type='primary', author=source_author)].
-    """
-    raise NotImplementedError("Implements SPEC §4.A.5")
-```
-
-### Step 5: Test Infrastructure
-
-Design the test setup Claude Code needs:
-
-**5a — Deterministic tests:** List specific property checks with pass/fail criteria.
-```
-- Schema validation: output matches contract (automated via Pydantic)
-- Text integrity: no Arabic character loss (compare bytes)
-- Metadata preservation: all upstream fields present (D-023 check)
-- Required field coverage: no None in required fields
-```
-
-**5b — LLM-worker tests:** For each LLM call in the engine, define:
-```
-- What the LLM is asked to do (e.g., "classify this source's science")
-- What correct output looks like (e.g., "nahw" for an Arabic grammar book)
-- What test fixtures to use (reference specific files in tests/fixtures/)
-- How to judge correctness (exact match? acceptable set? human review?)
-```
-
-**5c — LLM-evaluator tests:** For each output type, define:
-```
-- What an independent LLM should check (e.g., "Is this author attribution correct?")
-- The evaluation prompt template
-- The scoring rubric (e.g., 1-5 scale with anchor descriptions)
-- Which models to use as judges (reference RESEARCH_LOG.md Finding 09)
-```
-
-### Step 6: Write CLAUDE.md
-
-Write the engine-specific `CLAUDE.md` file that Claude Code reads at session start:
-
-```markdown
-# [Engine Name] — Claude Code Brief
-
-## What You're Building
-[One paragraph: what this engine does, what its output feeds into]
-
-## Architecture
-[Module list from Step 3, with one-line descriptions]
-
-## Key Constraints
-- Arabic text fidelity: diacritics must be preserved byte-for-byte
-- Metadata flows forward, never deleted (D-023)
-- Errors fail loudly — no silent data loss
-- Consensus required for all content decisions
-- [Engine-specific constraints from the SPEC]
-
-## Implementation Order
-[Which module to build first, second, etc. — based on dependencies]
-
-## Test Fixtures Available
-[List the test fixture files in tests/fixtures/ that this engine uses]
-
-## Technology Stack
-[From the technology survey: which libraries to install and use]
-
-## What NOT To Do
-- Do not modify contracts.py without explicit approval
-- Do not implement §4.B capabilities yet — start with §4.A
-- Do not optimize for speed — optimize for correctness
-- Do not write clever code — write obvious code with clear error messages
-```
-
-### Step 7: Write NEXT.md
-
-Write the session-specific `NEXT.md` directive:
-
-```markdown
-# NEXT SESSION — [Engine Name] Build [Session N]
-
-## Context
-[What was built in previous sessions, if any]
-
-## Task
-[Specific modules to build in this session]
-
-## Definition of Done
-- [ ] [Module] passes all deterministic tests
-- [ ] [Module] handles all error paths in SPEC §7
-- [ ] [Module] preserves metadata (D-023 verified)
-- [ ] Integration test with [upstream] passes
-- [ ] No new warnings from type checker
-
-## Files to Read
-[Specific files Claude Code should read before starting]
-
-## Files to Modify
-[Specific files Claude Code will work on]
+### Uncertain (needs testing)
+| Capability | Candidate | Concern | How to test |
+|-----------|-----------|---------|-------------|
 ```
 
 ---
 
-## Output Summary
+## Part 2: Claude Code Environment Optimization
 
-When you finish, you should have produced:
+This is where most build-prep skills fail. Research shows the environment around Claude Code matters more than the code itself. The C compiler case study: "Most of my effort went into designing the environment around Claude."
 
-1. **Technology Inventory** — what to use, what to build, what's missing
-2. **Contracts Diff** — what needs updating in contracts.py
-3. **Module Architecture** — the directory structure and module responsibilities
-4. **Stub Files** — ready for Claude Code to fill in
-5. **Test Infrastructure** — 5a/5b/5c test plans with specific fixtures
-6. **CLAUDE.md** — Claude Code's orientation document
-7. **NEXT.md** — the first build session's directive
+### CLAUDE.md Design (CRITICAL — Under 200 Lines)
 
-All of these should be written as actual files ready to commit to the repo, not described in prose.
+Research confirms: frontier models follow ~150-200 instructions reliably. Claude Code's system prompt already uses ~50. Your CLAUDE.md gets ~100-150 instruction slots before quality degrades.
+
+**What goes IN CLAUDE.md:**
+- Build commands (test, lint, type-check)
+- Project-specific conventions Claude gets wrong without instruction
+- File paths that Claude needs repeatedly
+- Critical constraints (Arabic text handling, D-023 metadata rule)
+
+**What goes in SEPARATE files** (Claude reads on demand):
+- Detailed SPEC rules → `docs/spec-rules.md`
+- Architecture overview → `docs/architecture.md`
+- Test patterns → `docs/testing.md`
+
+**What goes NOWHERE** (Claude already knows it):
+- Python syntax conventions
+- General git workflow
+- How to use standard libraries
+
+### Dev Docs Pattern
+
+For each build session, create a task directory:
+```
+engines/{engine}/
+├── CLAUDE.md              # Under 200 lines, always loaded
+├── docs/
+│   ├── architecture.md    # Module structure, data flow
+│   ├── spec-rules.md      # Key SPEC rules for this engine
+│   └── testing.md         # Test strategy and fixtures
+├── {session}-plan.md      # Accepted plan for this session
+├── {session}-context.md   # Key files, decisions from this session
+└── {session}-tasks.md     # Checklist of work items
+```
+
+Claude Code performs best when it has a written plan to follow and a checklist to track progress. The plan file is created at session start (in plan mode) and the tasks file tracks completion.
+
+### Session Scoping
+
+**First session for any engine:** Target the SIMPLEST end-to-end path.
+- One format (e.g., Shamela HTML for the source engine)
+- One test fixture
+- Schema validation passing
+- NOT all formats, NOT all edge cases
+
+**Subsequent sessions:** Add one format or capability at a time.
+
+Each session's NEXT.md should be narrow enough that Claude Code can complete it without running out of context.
+
+---
+
+## Part 3: Produce Deliverables
+
+### 3a: Contracts Audit
+
+Compare existing `contracts.py` against the finalized SPEC:
+- Every field matches in name, type, and optionality
+- Enums/Literals for constrained fields
+- Metadata pass-through fields present (D-023)
+- Upstream/downstream boundary compatibility
+
+### 3b: Module Architecture
+
+```
+engines/{engine}/
+├── __init__.py
+├── contracts.py        # Pydantic models
+├── engine.py           # Entry point
+├── [module_1].py       # Processing modules
+└── tests/
+    ├── test_[module_1].py
+    └── test_integration.py
+```
+
+Per module: purpose, input/output, dependencies, SPEC sections it implements, complexity estimate.
+
+### 3c: Stub Files
+
+Function signatures with type hints, docstrings quoting the SPEC rule, and `raise NotImplementedError`. NO function bodies — that's Claude Code's job.
+
+### 3d: Test Infrastructure
+
+**5a Deterministic:**
+```
+- Schema validation (Pydantic)
+- Text integrity (Arabic character/diacritic preservation)
+- Metadata preservation (D-023)
+- Boundary contract compliance
+```
+
+**5b LLM-Worker:** Per LLM call: what it does, what correct output looks like, which fixture to use, how to judge.
+
+**5c LLM-Evaluator:** Per output type: what an independent LLM checks, prompt template, scoring rubric, which models.
+
+### 3e: CLAUDE.md (Under 200 Lines)
+
+Write the engine-specific CLAUDE.md:
+```markdown
+# [Engine Name] — Build Guide
+
+## Commands
+test: pytest engines/{engine}/tests/ -x
+lint: ruff check engines/{engine}/
+typecheck: pyright engines/{engine}/
+
+## Architecture
+[3-5 line summary, point to docs/architecture.md for detail]
+
+## Critical Constraints
+- Arabic diacritics: preserve byte-for-byte. NFC normalization only.
+- Metadata: never delete upstream fields (D-023). Add, don't remove.
+- Errors: fail loudly. No silent data loss. Use error codes from SPEC §7.
+- Consensus: all content decisions require multi-model agreement.
+- [Engine-specific constraints]
+
+## Key Files
+- SPEC: reference/[engine]-spec.md
+- Contracts: engines/{engine}/contracts.py
+- Fixtures: tests/fixtures/[relevant files]
+- Plan: engines/{engine}/{session}-plan.md
+
+## Don'ts
+- Don't modify contracts.py without approval
+- Don't implement §4.B yet — start with §4.A
+- Don't optimize for speed — optimize for correctness
+```
+
+### 3f: NEXT.md
+
+Write the first build session directive — narrow scope, clear definition of done:
+```markdown
+# NEXT — [Engine] Build Session 1
+
+## Task
+Build [specific module] for [specific format] using [specific fixture].
+
+## Definition of Done
+- [ ] [Module] passes deterministic tests
+- [ ] Error paths from SPEC §7 handled
+- [ ] Metadata preserved (D-023)
+- [ ] Integration test with upstream passes
+
+## Read First
+- engines/{engine}/CLAUDE.md
+- engines/{engine}/docs/architecture.md
+- engines/{engine}/{session}-plan.md
+```
+
+---
+
+## Advanced: Tools for Build Management
+
+Research identified these tools. None are required for v1, but note for the owner:
+
+**Faber** (github.com/orecus/faber): Desktop GUI wrapping Claude Code with Kanban, git worktree isolation, multi-pane sessions. Good for visual task management. Young project (v0.8.1), adds complexity. Consider after basic build cycles work.
+
+**Claude Code Agent Teams** (experimental, Opus 4.6+): 3-5 parallel Claude instances coordinating via shared task list. Viable for: builder + tester + reviewer working simultaneously. High token cost (~3-4x single session). Consider for later engines after workflow is proven.
+
+**The bash-loop pattern** (from the C compiler case study): `while true; do claude -p "$(cat PROMPT.md)"; done`. Simplest autonomous approach. Good for running test suites repeatedly. Start here.
 
 ---
 
 ## Anti-Patterns
 
-**Building without surveying.** If you design a custom Arabic tokenizer before checking whether CAMeL Tools already does it, you've wasted Claude Code's time and the owner's money.
+**Building without surveying.** Designing a custom parser before checking if PyMuPDF already does it.
 
-**Vague stubs.** `def process(input): pass` tells Claude Code nothing. Every stub needs the exact function signature, type hints, and a docstring quoting the SPEC rule it implements.
+**Bloated CLAUDE.md.** Over 200 lines → Claude ignores half your instructions. Prune ruthlessly. Put detail in docs/ files.
 
-**Missing test fixtures.** If the test plan references "a Shamela HTML export" but no such fixture exists in tests/fixtures/, Claude Code can't test. Flag missing fixtures explicitly.
+**Over-scoped first session.** First NEXT.md should target ONE format, ONE fixture, schema validation. Not all 6 formats.
 
-**Over-scoping the first session.** The first NEXT.md should target the simplest possible end-to-end path. For the source engine: one format (Shamela HTML), one fixture, schema validation passing. Not all 6 formats.
+**Vague stubs.** `def process(input): pass` tells Claude Code nothing. Every stub needs exact types and a docstring quoting the SPEC.

@@ -1,41 +1,57 @@
-# Source Engine Project — Knowledge Files to Upload
+# Source Engine Project — Knowledge Files
 
-Upload these files to the project's "Project knowledge" section. They provide the context Claude needs for all source engine work.
+Upload these to the project's "Project knowledge" section.
 
 ## Essential (upload first)
 
-1. **`engines/source/SPEC.md`** — The source engine specification. This is the primary working document.
+1. **`engines/source/SPEC.md`** — The source engine specification.
+   *Consider splitting into sections for finalization phase:*
+   - `spec_sections_1-3.md` (Purpose, Input, Output contracts)
+   - `spec_section_4.md` (Processing — the core, longest section)
+   - `spec_sections_5-7.md` (Validation, Consensus, Errors)
+   - `spec_sections_8-10.md` (Config, State, Tests)
+   *Use the full file during comment review. Use split files during finalization audits.*
 
-2. **`engines/source/contracts.py`** — Pydantic data models for source engine input/output. Claude needs these to verify contract compliance.
+2. **`engines/source/contracts.py`** — Pydantic data models.
 
-3. **`STEERING.md`** — Concise project context (architecture, data flow, key decisions, tech stack). 78 lines.
+3. **`STEERING.md`** — Concise project context (78 lines).
 
-4. **`KNOWLEDGE_INTEGRITY.md`** — The 7 corruption threats. Referenced by kr-integrity and kr-finalize skills.
+4. **`KNOWLEDGE_INTEGRITY.md`** — The 7 corruption threats.
 
-5. **`SILENT_FAILURES.md`** — The 7 silent failure patterns. Referenced by kr-integrity and kr-finalize skills.
+5. **`SILENT_FAILURES.md`** — The 7 silent failure patterns.
 
-6. **`reference/DEEP_REASONING_PROTOCOL.md`** — The Perfection Standard (25 criteria) and SPEC template. Referenced by kr-finalize and kr-integrity skills.
+6. **`reference/DEEP_REASONING_PROTOCOL.md`** — Perfection Standard (25 criteria).
 
-## Source-Engine Specific Context
+## Source-Engine Specific
 
-7. **`engines/normalization/contracts.py`** — The downstream engine's input contract. Needed to verify boundary compatibility (what the source engine must produce for normalization to consume).
+7. **`engines/normalization/contracts.py`** — Downstream engine's input contract.
 
-8. **`reference/ENTRY_EXAMPLE.md`** — The target output quality. Helps Claude understand what the entire pipeline must ultimately produce.
+8. **`reference/ENTRY_EXAMPLE.md`** — Target output quality.
 
-9. **`CREATIVE_MANDATE.md`** — The creative protocol. Referenced by kr-research skill.
+9. **`CREATIVE_MANDATE.md`** — Creative protocol for kr-research.
 
-## Optional (add if context budget allows)
+## Session-Specific (add as needed)
 
-10. **`reference/RESOURCES.md`** — Technology inventory (tools, libraries, APIs). Useful during kr-build-prep and kr-research.
+10. **Your comments file** (e.g., `COMMENTS_SOURCE.md`) — Use the template from `skills/shared/COMMENT_TEMPLATE.md`. Upload when your comments are ready.
 
-11. **`reference/DOMAIN.md`** — Deep domain context about Islamic scholarly traditions. Useful when handling domain comments.
+11. **Handoff documents** — When a chat produces a handoff summary, upload it for the next chat.
 
-12. **`reference/RESEARCH_LOG.md`** — Findings from the research phase. Useful for avoiding repeated research.
+## Optional
+
+12. **`reference/RESOURCES.md`** — Tool inventory (useful during kr-build-prep and kr-research).
+
+13. **`reference/DOMAIN.md`** — Domain context (useful for complex domain comments).
+
+## Context Budget Warning
+
+Claude Chat has a 200K token context window. Project knowledge files consume part of this. With all essential files loaded (~50K tokens estimated), you have ~150K tokens for conversation. Monitor this:
+- If chats feel "forgetful," you may have too many knowledge files loaded
+- Remove files not needed for the current task
+- The split SPEC sections help: load only the section being audited
 
 ## DO NOT Upload
 
-- VISION.md (too large — 47K tokens, STEERING.md has the summary)
-- SESSION_LOG.md (history noise, not useful for current work)
-- kr_decisions.md (long decision log, reference only when needed)
-- Any engine SPECs except source and normalization contracts
-- Any files from engines/ subdirectories except the two listed above
+- VISION.md (47K tokens — too large, STEERING.md has the summary)
+- SESSION_LOG.md (history noise)
+- kr_decisions.md (reference only when needed)
+- Engine SPECs other than source + normalization contracts
