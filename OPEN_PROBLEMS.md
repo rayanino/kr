@@ -27,7 +27,7 @@ Build → Test → Learn → Fix. Not: Research → Research → Research → Bu
 2. Add knowledge from GitHub:
    - Click "+" > Add from GitHub > connect to `rayanino/kr`
    - Select: `engines/source/`, `STEERING.md`, `KNOWLEDGE_INTEGRITY.md`, `SILENT_FAILURES.md`, `reference/DOMAIN.md`, `reference/ENTRY_EXAMPLE.md`, `reference/DEEP_REASONING_PROTOCOL.md`, `skills/shared/`, `NEXT.md`
-3. Paste the custom instructions from `skills/source-engine-project/custom_instructions_v2.md`
+3. Paste the custom instructions from `skills/engine-project-template/source.md`
 4. Keep `Github_key` as a fallback knowledge file
 5. Start a chat: "I have comments on the source engine SPEC. Use kr-spec-review."
 
@@ -185,15 +185,11 @@ When you finish the source engine and start the normalization engine, you'll nee
 - `skills/shared/` — ENGINE_PROTOCOL.md and other shared docs
 - `NEXT.md` — current task directive
 
-**Custom instructions:** Adapt `skills/source-engine-project/custom_instructions_v2.md`:
-- Change the role description to match the engine
-- Change the "deep expertise" section to match the engine's domain
-- Change the "foundation" warning to match the engine's position in the pipeline
-- Keep everything else (research mandate, creative mandate, domain deference, anti-sycophancy, skills list, hard boundaries) the same
+**Custom instructions:** Open the matching file from `skills/engine-project-template/` and paste everything below the `---` line. Each engine has its own ready-to-paste file — no editing needed.
 
 **Fallback:** Keep `Github_key` in project knowledge.
 
-This takes ~10 minutes per engine. You'll create 6 more of these over the coming months.
+This takes ~5 minutes per engine. You'll create 6 more of these over the coming months.
 
 ---
 
