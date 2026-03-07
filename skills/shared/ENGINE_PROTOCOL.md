@@ -112,29 +112,101 @@ After this, you switch from Claude Chat to Claude Code. You don't need to unders
 
 ---
 
-## Phase 6: BUILD + EVALUATE
+## Phase 6: BUILD, TEST, EVALUATE
 
-**What you do:** Run Claude Code (or agent teams). Review test results with Claude Chat.
-**What Claude Code does:** Implements the engine.
-**What Claude Chat does:** Helps you interpret test results.
-**Skills used:** `kr-evaluate` (in Claude Chat, after each build cycle).
+This is not building the application. This is building a **testable engine** and then **extensively testing it.** The engine is built as a CLI that can be run on real sources and produce inspectable output at every stage. The goal is to reach trust — proof that this engine's output is reliable enough to feed the next engine.
 
-This phase is a loop:
+**What Claude Code does:** Builds the engine as a testable CLI, runs it on real sources, runs all three test dimensions, stores results.
+**What you do:** Review test results with Claude Chat. Spot-check Arabic output.
+**Skill used:** `kr-evaluate` (in Claude Chat) — say "use kr-evaluate on these results."
+
+### The Three Test Dimensions
+
+Every engine is tested along three dimensions. They test DIFFERENT things:
+
+**5a — Deterministic checks (automated, no LLM needed)**
+Binary pass/fail tests that any computer can verify:
+- Does the output match the schema? (every field present, correct types)
+- Is the Arabic text preserved exactly? (diacritics, characters, no corruption)
+- Is metadata complete? (no missing required fields)
+- Is upstream metadata passed through? (D-023 — nothing lost)
+- Do all IDs resolve? (no broken references)
+
+A 5a failure is always a bug. No ambiguity.
+
+**5b — LLM-as-worker (tests the LLMs INSIDE the engine)**
+The engine uses LLMs internally for tasks like classifying a book's science, identifying the author, or detecting text layers. 5b tests whether those internal LLM calls get their tasks right:
+- Did the source engine's LLM correctly classify this book as نحو?
+- Did it correctly identify ابن عقيل as the author, not the muhaqiq?
+- Did it correctly detect that this is a sharh on a matn?
+
+A 5b failure means the engine's LLM prompts, model choice, or task design needs work.
+
+**5c — LLM-as-evaluator (INDEPENDENT review of the engine's output)**
+A DIFFERENT model reviews the engine's complete output and judges whether it's correct. This is like checking your own homework — by having someone else check it:
+- Give a different model the frozen source + the engine's metadata and ask: "Is this metadata correct?"
+- Give it the extracted passages and ask: "Are these complete, coherent text units?"
+- Track: what errors does this independent review catch that self-validation missed?
+
+A 5c finding tells you whether LLM-based quality gates are worth adding to the production pipeline. By the time you've tested 3-4 engines, you'll have data to decide.
+
+### The Build-Test-Evaluate Loop
 
 ```
-BUILD (Claude Code) → TEST (automated) → EVALUATE (Claude Chat) → FIX → repeat
+┌─────────────────────────────────────────────────────┐
+│                                                     │
+│  Claude Code BUILDS the engine                      │
+│     ↓                                               │
+│  Claude Code RUNS it on real sources (your fixtures) │
+│     ↓                                               │
+│  Claude Code runs all THREE test dimensions          │
+│     ↓                                               │
+│  Test results are STORED in files                    │
+│  (so Claude Chat can read and evaluate them)         │
+│     ↓                                               │
+│  You open Claude Chat                                │
+│  "use kr-evaluate on these test results"             │
+│     ↓                                               │
+│  Claude Chat categorizes every failure:              │
+│     • Engine bug → Claude Code fixes it              │
+│     • SPEC gap → back to Phase 2 (new comment)       │
+│     • Data issue → you provide better fixture        │
+│     • LLM quality → Claude Code adjusts prompts      │
+│     • Evaluator noise → dismiss (tune evaluator)     │
+│     • Upstream error → fix the previous engine first  │
+│     ↓                                               │
+│  You spot-check Arabic output where Claude asks      │
+│  (specific questions, not "does this look right?")   │
+│     ↓                                               │
+│  Fix issues → loop back to BUILD                     │
+│                                                     │
+└─────────────────────────────────────────────────────┘
 ```
 
-1. **Build:** Run Claude Code on the engine. It reads CLAUDE.md and NEXT.md, implements code, runs tests.
-2. **Test:** Automated tests run (deterministic checks, LLM quality checks, LLM evaluation).
-3. **Evaluate:** Open Claude Chat. Upload or reference the test results. Say "use kr-evaluate." Claude categorizes every failure (engine bug? SPEC gap? data issue?) and helps you spot-check Arabic output.
-4. **Fix:** Based on evaluation:
-   - Engine bugs → Claude Code fixes them (next build cycle)
-   - SPEC gaps → Back to Phase 2 (write a new comment, re-resolve)
-   - Data issues → You provide a better test fixture
-   - LLM quality issues → Claude Code adjusts prompts/models
+### Why Test Results Must Be Stored
 
-**You're done with Phase 6 when:** The engine passes its inter-engine gate: output is trustworthy enough to feed the next engine. Then you start Phase 1 for the NEXT engine in the pipeline.
+Claude Code and Claude Chat are separate tools with separate context windows. Claude Code can't hand its results directly to Claude Chat. The bridge is FILES:
+
+- Claude Code writes test results to `engines/{engine}/test-results/`
+- Each test run produces a structured report (what passed, what failed, what was flagged)
+- You open Claude Chat and point it at the results: "evaluate the test results in engines/source/test-results/"
+- Claude Chat reads them and applies the kr-evaluate analysis
+
+This separation is by design. Claude Code is good at running tests and fixing code. Claude Chat (with you) is good at interpreting results, making judgment calls on Arabic content, and deciding whether a SPEC gap needs revisiting.
+
+### Trust Graduation
+
+The engine isn't "done" when it runs. It's done when it's TRUSTED:
+
+```
+Level 0: Engine runs without crashing on test fixtures
+Level 1: All 5a deterministic checks pass
+Level 2: 5b LLM-worker checks show >90% accuracy
+Level 3: 5c LLM-evaluator review doesn't find errors self-validation missed
+Level 4: You (the owner) approve the output for your actual sources
+```
+
+**You're done with Phase 6 when:** The engine reaches at least Level 2, and you've approved its output on your real sources. Then you start Phase 1 for the NEXT engine in the pipeline.
 
 ---
 
@@ -159,10 +231,18 @@ BUILD (Claude Code) → TEST (automated) → EVALUATE (Claude Chat) → FIX → 
 ║  Phase 5: BUILD PREP    Claude prepares for Claude Code   ║
 ║     ↓                   (kr-build-prep)                   ║
 ║     ↓                                                     ║
-║  Phase 6: BUILD+EVAL    Claude Code builds, you evaluate  ║
-║     ↓                   (kr-evaluate)                     ║
+║  Phase 6: BUILD, TEST, EVALUATE                           ║
+║     ↓  Claude Code builds a testable engine               ║
+║     ↓  Claude Code runs it on real sources                ║
+║     ↓  Claude Code runs 3 test dimensions:                ║
+║     ↓    5a: deterministic (schema, text, metadata)       ║
+║     ↓    5b: LLM-as-worker (engine's own LLM calls)      ║
+║     ↓    5c: LLM-as-evaluator (independent review)       ║
+║     ↓  Test results stored in files                       ║
+║     ↓  You + Claude Chat evaluate results (kr-evaluate)   ║
+║     ↓  Fix → re-run → re-evaluate until TRUSTED           ║
 ║     ↓                                                     ║
-║  ✓ ENGINE DONE → Start Phase 1 for next engine            ║
+║  ✓ ENGINE TRUSTED → Start Phase 1 for next engine         ║
 ║                                                           ║
 ╚═══════════════════════════════════════════════════════════╝
 ```
