@@ -1,45 +1,41 @@
 # NEXT SESSION
 
 ## Session Type
-CREATIVE (see SESSION_TYPES.md for full framework)
+PRECISION (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Passaging engine CREATIVE session.** The passaging engine has contracts defined but no SPEC. This session designs the passaging engine from scratch — what it does, how it creates passage boundaries, and what transformative capabilities make it more than a text splitter.
+**Passaging engine PRECISION session.** The passaging SPEC received a Creative update integrating the normalization engine's newest capabilities (boundary_continuity §4.B.8, discourse_flow §4.B.10) and adding two new §4.B capabilities (§4.B.7 discourse-aware boundary optimization, §4.B.8 scholarly completeness forecast). This session resolves quality defects and ensures machine-implementability.
 
 ## What to Read
 
-1. `engines/passaging/contracts.py` — The existing Pydantic models define the output schema.
-2. `reference/DOMAIN.md` §242-277 — Arabic text properties and book structures that affect passage design.
-3. `engines/normalization/SPEC.md` §3 (output contract) — What the passaging engine receives as input.
-4. `reference/ENTRY_EXAMPLE.md` — What the final knowledge product looks like. Work backward: what passage quality does the synthesizer need?
-5. `reference/USER_SCENARIOS.md` — Which user scenarios the passaging engine serves.
-6. `DEEP_REASONING_PROTOCOL.md` — SPEC template and perfection standard.
+1. `engines/passaging/SPEC.md` — The full SPEC. Focus on the NEW sections: §4.B.6 (updated with discourse flow integration), §4.B.7 (new), §4.B.8 (new), §4.A.2 (updated with boundary_continuity), and §2 (updated input contract).
+2. `engines/passaging/contracts.py` — The updated Pydantic models. Verify they match §3 exactly.
+3. `DEEP_REASONING_PROTOCOL.md` — Perfection standard for defect detection.
+4. Run `python3 scripts/check_spec_quality.py engines/passaging/SPEC.md` — 56 defects reported, mostly VAGUE_QUANTIFIER. Triage: many are false positives (uses of "multiple" in descriptive context), but some may be genuine precision issues.
 
-**Do NOT read:** VISION.md whole (use extract_vision_sections.py for §8 passaging section if needed), kr_decisions.md, other engine SPECs beyond normalization §3.
+**Do NOT read:** VISION.md, kr_decisions.md, other engine SPECs, DOMAIN.md (all context already in the SPEC).
 
 ## Definition of Done
 
-1. Complete SPEC draft for the passaging engine following the SPEC template (§1-§10)
-2. §4.A rules precise enough for Claude Code to implement
-3. §4.B with ≥2 architect-originated transformative capabilities (not from VISION.md)
-4. Concrete examples for every non-trivial rule
-5. `check_spec_quality.py` shows 0 HIGH defects
-6. `creative_verification.py` shows ≥2 invention signals
-7. Self-audit performed per DEEP_REASONING_PROTOCOL: ≥3 defects found and fixed
-8. `session_quality_gate.py` passes
-9. NEXT.md written (for passaging PRECISION session)
-10. SESSION_LOG.md updated
-11. Committed and pushed
+1. `check_spec_quality.py` shows 0 HIGH defects (resolve or demonstrate false positive)
+2. Every rule in §4.B.7 (discourse cost table) has a concrete Arabic example
+3. Every rule in §4.B.8 (completeness forecast) has a concrete Arabic example
+4. §4.B.6 signal hierarchy cross-validated: verify no case where discourse flow primary and keyword fallback produce contradictory boundaries that aren't handled
+5. contracts.py matches §3 exactly — every field, every enum, every default
+6. Self-audit performed: ≥3 defects found and fixed
+7. `session_quality_gate.py` passes
+8. NEXT.md written (for passaging HARDENING session)
+9. SESSION_LOG.md updated
+10. Committed and pushed
 
 ## Notes for Next Architect
 
-- The normalization engine's output contract is rich: `boundary_continuity` (§4.B.8), `discourse_flow` (§4.B.10), `content_census` (§4.B.5), `structural_format` (§4.B.2), and the division tree all provide signals for intelligent passage boundaries. Use them.
-- The key insight from DOMAIN.md: passage size should be calibrated by SEMANTIC density, not word count. Arabic is morphologically dense.
-- The content census's `verse_ratio` field triggers verse-aware boundary detection. `structural_format` (qa_format, tabular_khilaf, dictionary, verse) each demand format-specific passage strategies.
-- The normalization SPEC's §4.B.10 discourse flow annotation identifies argument cycles. The passaging engine's most transformative capability would be: NEVER split a complete argument cycle across passages, and NEVER create a passage that starts mid-argument unless the argument cycle spans >N pages (configurable).
-- The passaging engine is the last engine before excerpting — passage quality determines excerpt quality.
-- Hardening tightened the normalization contracts: `DiscourseFlow` now has validators (cycle_complete implies no missing, segments non-overlapping), `LayerFingerprint` enforces insufficient_data threshold, `DiscourseSegment.detection_method` is now an enum. The passaging engine contracts should be similarly rigorous.
+- The discourse transition cost table (§4.B.7 Step 2) needs Arabic examples for at least the 0.0-cost transitions and the 0.9-cost transitions — show what text looks like at these boundaries.
+- The completeness forecast (§4.B.8) dangling discourse expectations need examples showing what "position without evidence" looks like in Arabic text vs. "objection without response."
+- The `evidence_*` wildcard is now documented (clarified in the fix note), but consider whether the cost table should have separate rows for each evidence type (they may have different costs in different sciences — e.g., evidence_ijma might be more important than evidence_qiyas in some contexts).
+- The boundary_continuity integration in §4.A.2 added a "Character-level joining heuristics (fallback)" subheading — verify the original Rules 1-4 are still correctly numbered and referenced.
+- Pre-existing defects: 40 HIGH defects mostly VAGUE_QUANTIFIER on words like "multiple" — triage carefully; most are contextually precise.
 
 ## Pending Owner Questions
 

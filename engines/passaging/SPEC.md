@@ -35,7 +35,11 @@ The passaging engine receives a single input artifact: a normalized package at `
 - `tahqiq_topology` — (§4.B.7 of normalization SPEC) manuscript witness network. If present and `has_tahqiq_apparatus` is true, the passaging engine records the variant reading density per division in passage metadata, enabling the excerpting engine to flag passages from high-variant regions for additional scrutiny. If absent, this metadata is simply not emitted.
 - `quality_report` — normalization quality summary. The passaging engine uses `overall_confidence` (an enum: `confirmed`, `high`, `medium`, `low`) to adjust division tree trust. Behavior per level: when `overall_confidence` is `confirmed` or `high`, the engine trusts the division tree fully and uses standard splitting thresholds. When `medium`, the engine adds `low_confidence_boundary` review flag to any passage boundary placed between divisions (not just within them). When `low`, the engine treats the division tree as unreliable: it still uses it for initial boundary candidates but additionally runs implicit structure discovery (§4.B.2, if enabled) and cross-validates LLM-proposed boundaries against division boundaries, preferring LLM boundaries when they disagree.
 
-**Content stream (`content.jsonl`).** One record per physical page, ordered by `unit_index`. The passaging engine reads all fields defined in the normalization engine SPEC §3.
+**Content stream (`content.jsonl`).** One record per physical page, ordered by `unit_index`. The passaging engine reads all fields defined in the normalization engine SPEC §3. The following fields are particularly important for passaging intelligence:
+
+- `boundary_continuity` (normalization §4.B.8) — present on all content units except the last. Classifies the boundary between this unit and the next: `type` (mid_sentence/mid_paragraph/mid_argument/section_break/division_break/unknown), `confidence` (0.0–1.0), `detection_method`, `continuation_hint`. The passaging engine uses this as a primary signal during cross-page text assembly (§4.A.2) and passage boundary placement (§4.A.4 Step 2). When `boundary_continuity.type` is `mid_argument` with confidence ≥0.7, the passaging engine treats the boundary between these units as a non-fracturable point — it will not place a passage boundary here unless the passage would exceed the hard maximum.
+- `discourse_flow` (normalization §4.B.10) — scholarly discourse segment annotation for each content unit. Contains: `segments` (array of labeled discourse segments with character offsets, types from the 15-type scholarly discourse taxonomy, and confidence), `dominant_discourse_type`, `argument_cycle_complete` (bool), `argument_cycle_started_at_segment` (index or null), `cycle_missing_elements` (array), `cycle_truncated_by_structure` (bool). Null for pages with <100 characters. The passaging engine uses this as the primary signal for argument boundary detection (§4.B.6) and discourse-aware boundary optimization (§4.B.7).
+- `layer_fingerprints` (normalization §4.B.9, in manifest) — per-layer stylometric fingerprints. The passaging engine uses these for commentary strategy validation: if the layer fingerprint indicates a mismatch between the manifest's `layer_map` and the actual per-page attributions (e.g., the fingerprint's outlier pages), the engine adjusts commentary-unit detection sensitivity for those pages.
 
 **Source metadata (via `source_id` reference).** The passaging engine accesses source metadata for:
 - `science_scope` — science classification (array). For multi-science sources, passages may carry per-passage science hints.
@@ -86,11 +90,12 @@ Written to `library/sources/{source_id}/passages/passages.jsonl`. One JSONL reco
 - `sizing`: object. `action` (one of: `direct`, `merged`, `split`), `word_count` (int — Arabic word count), `char_count` (int — character count of `passage_text`), `notes` (string or null — explanation of merge/split).
 - `predecessor_id`: string or null. `passage_id` of the preceding passage. Null for the first passage.
 - `successor_id`: string or null. `passage_id` of the following passage. Null for the last passage.
-- `review_flags`: array of strings. Machine-generated flags for human review. Possible values: `low_confidence_boundary` (boundary placed by heuristic with <0.7 confidence), `cross_volume` (passage spans a volume boundary), `very_short` (<50 Arabic words after assembly), `very_long` (>2000 Arabic words), `low_fidelity_content` (any constituent page has fidelity `very_low`), `split_from_large` (passage was created by splitting an oversized division), `merged_siblings` (passage merges multiple small divisions), `mixed_layers` (multi-layer source with uncertain layer boundaries in this passage), `implicit_boundary` (passage boundary placed at an inferred topic shift, not at a heading), `argument_preserved` (argument detection kept this passage oversized to preserve argument integrity), `format_detection_failed` (format-specific detection failed, fell back to prose strategy).
+- `review_flags`: array of strings. Machine-generated flags for human review. Possible values: `low_confidence_boundary` (boundary placed by heuristic with <0.7 confidence), `cross_volume` (passage spans a volume boundary), `very_short` (<50 Arabic words after assembly), `very_long` (>2000 Arabic words), `low_fidelity_content` (any constituent page has fidelity `very_low`), `split_from_large` (passage was created by splitting an oversized division), `merged_siblings` (passage merges multiple small divisions), `mixed_layers` (multi-layer source with uncertain layer boundaries in this passage), `implicit_boundary` (passage boundary placed at an inferred topic shift, not at a heading), `argument_preserved` (argument detection kept this passage oversized to preserve argument integrity), `format_detection_failed` (format-specific detection failed, fell back to prose strategy), `high_cost_boundary` (§4.B.7: best available boundary had discourse transition cost ≥0.5), `incomplete_scholarly_content` (§4.B.8: completeness forecast predicts this passage won't produce self-contained excerpts), `authorial_incompleteness` (§4.B.8: source author left argument incomplete — not a passaging error).
 - `quality_prediction`: object or null. [NOT YET IMPLEMENTED] Present when `enable_quality_prediction` is true (§4.B.1). Fields: `coherence` (float 0.0–1.0), `boundary_quality` (float 0.0–1.0), `extractability` (float 0.0–1.0), `overall` (float 0.0–1.0, weighted average: coherence×0.4 + boundary_quality×0.3 + extractability×0.3).
 - `commentary_alignment`: array or null. [NOT YET IMPLEMENTED] Present for commentary-format passages when `enable_commentary_alignment` is true (§4.B.3). Array of alignment records: `{ matn_segment: {text, start, end, verse_number?}, commentary_span: {start, end}, alignment_confidence: float }`.
 - `adaptive_params`: object or null. Present when content census-driven adaptation (§4.B.5) was applied. Fields: `adapted_target_high` (int), `footnote_factor` (float), `adapted_merge_threshold` (int or null), `adapted_llm_splitting_threshold` (int or null), `commentary_sensitivity` (string or null), `adaptation_rationale` (string).
-- `argument_structure`: object or null. [NOT YET IMPLEMENTED] Present when argument detection (§4.B.6) is active. Fields: `detected` (bool), `argument_markers_found` (array of strings), `completeness` (one of: `"complete"`, `"partial_opening"`, `"partial_closing"`), `protected_from_split` (bool), `depth` (int, nesting depth of deepest argument in passage).
+- `argument_structure`: object or null. [NOT YET IMPLEMENTED] Present when argument detection (§4.B.6) is active. Fields: `detected` (bool), `argument_markers_found` (array of strings), `completeness` (one of: `"complete"`, `"partial_opening"`, `"partial_closing"`), `protected_from_split` (bool), `depth` (int, nesting depth of deepest argument in passage), `detection_source` (one of: `"discourse_flow"`, `"keyword_state_machine"`, `"cross_validated"` — records which signal was used).
+- `completeness_forecast`: object or null. [NOT YET IMPLEMENTED] Present when discourse flow data is available (§4.B.8). Fields: `forecast` (one of: `"complete"`, `"partial_opening"`, `"partial_closing"`, `"fragment"`, `"unknown"`), `discourse_types_present` (array of strings — discourse segment types found in this passage), `complete_argument_cycles` (int), `dangling_discourse` (object or null with `type` and `expects` fields), `structural_incompleteness` (bool — true if incompleteness is due to boundary placement, not authorial choice), `confidence` (float 0.0–1.0).
 
 **Guarantees about the passage stream:**
 
@@ -111,6 +116,9 @@ Written to `library/sources/{source_id}/passages/passages.jsonl`. One JSONL reco
 - Aggregated content flags and fidelity
 - Sizing metadata (merge/split/direct)
 - Review flags for quality gating
+- Argument structure detection results (§4.B.6), when available
+- Discourse transition cost at boundary (§4.B.7), when available
+- Completeness forecast (§4.B.8), when available
 
 **Source registry update.** Upon successful passaging, the source's processing status is updated from `normalized` to `passaged`. The passage stream path is recorded.
 
@@ -122,13 +130,14 @@ Written to `library/sources/{source_id}/passages/passages.jsonl`. One JSONL reco
 
 #### §4.A.1 — Processing Overview
 
-Passaging proceeds in five sequential phases:
+Passaging proceeds in six sequential phases:
 
 1. **Load and validate** (§2): Read manifest and content stream, validate input contract.
-2. **Assemble text** (§4.A.2): Join cross-page text, produce continuous text blocks aligned to division boundaries.
+2. **Assemble text** (§4.A.2): Join cross-page text using `boundary_continuity` signals when available, produce continuous text blocks aligned to division boundaries.
 3. **Select strategy** (§4.A.3): Choose passaging strategy based on `structural_format`.
-4. **Create passages** (§4.A.4–§4.A.9): Apply the selected strategy to produce passage boundaries.
-5. **Emit and validate** (§4.A.10): Write passage records, run self-validation.
+4. **Build argument map** (§4.B.6): If `discourse_flow` data is available, build a cross-page argument map identifying argument spans. If unavailable, this phase is skipped and argument detection runs inline during passage creation.
+5. **Create passages** (§4.A.4–§4.A.9): Apply the selected strategy to produce passage boundaries, consulting the argument map (§4.B.6) for protection and the discourse transition costs (§4.B.7) for optimization.
+6. **Forecast, adjust, emit, and validate** (§4.A.10, §4.B.8): Run completeness forecast on proposed passages. Adjust boundaries if forecast detects fragment/partial passages that can be repaired. Emit passage records. Run self-validation.
 
 The engine processes one source at a time. Batch processing of multiple sources is an orchestration concern outside this SPEC.
 
@@ -136,7 +145,19 @@ The engine processes one source at a time. Batch processing of multiple sources 
 
 The normalization engine outputs per-page content units with text that ends at page boundaries — it does not join text across pages (normalization SPEC §4.A.7). The passaging engine is responsible for cross-page text assembly.
 
-**Assembly process.** For a contiguous range of content units (as defined by a division or passage boundary), the engine concatenates the `primary_text` fields in `unit_index` order. Between adjacent units, the engine applies joining logic:
+**Assembly process.** For a contiguous range of content units (as defined by a division or passage boundary), the engine concatenates the `primary_text` fields in `unit_index` order. Between adjacent units, the engine applies joining logic informed by the normalization engine's `boundary_continuity` signal when available.
+
+**Continuity-informed joining.** If unit N has a `boundary_continuity` field (normalization §4.B.8), the passaging engine uses it as a HIGH-PRIORITY signal before applying character-level heuristics:
+
+- `boundary_continuity.type == "mid_sentence"` with confidence ≥0.7: Apply Rule 1 or Rule 3 (join mid-sentence). Skip the character-level final-form detection — the normalization engine has already determined this is mid-sentence using format-specific intelligence (HTML page structure, PDF reading order, argument flow markers) that may be more reliable than character-level heuristics alone.
+- `boundary_continuity.type == "mid_paragraph"` with confidence ≥0.7: Apply Rule 3 (space join at sentence boundary within a paragraph).
+- `boundary_continuity.type == "section_break"` or `"division_break"` with confidence ≥0.7: Apply Rule 2 or Rule 4 (preserve paragraph/section whitespace). Insert double newline.
+- `boundary_continuity.type == "mid_argument"` with confidence ≥0.7: Apply Rule 3 (space join). Additionally, record this boundary in the passage's metadata as a `mid_argument_join` — the argument detection system (§4.B.6) uses this to track arguments that span page boundaries.
+- `boundary_continuity.type == "unknown"` or confidence <0.7: Fall back to character-level heuristic rules below.
+
+When `boundary_continuity` is absent (null — normalization engine did not produce it), the engine falls back entirely to character-level heuristics.
+
+**Character-level joining heuristics (fallback).** When continuity signals are unavailable or low-confidence:
 
 1. If the last unit's text ends mid-word (no terminal whitespace or punctuation) and the next unit's text starts with a word continuation, the two are joined without separator. Detection: the last character of unit N is a letter (Arabic or Latin) AND the first character of unit N+1 is a letter, with no whitespace between them, AND the last character of unit N is NOT a word-final form. Word-final forms in Arabic that prevent joining: taa marbuta `ة`, alif maqsura `ى`, final-form alif `ا` when preceded by a letter (indicating a complete word ending in alif), hamza on the line `ء` when not preceded by a connecting letter, and tanwin diacritics (`ً` fathatan, `ٌ` dammatan, `ٍ` kasratan) — tanwin is grammatically word-final in all cases, so a letter followed by tanwin is always a complete word. If the last character (or the last diacritic on the last letter) IS a word-final form, treat as Rule 2 or 3 (separate words at a page boundary) and insert a single space.
 2. If the last unit's text ends with a complete word (followed by whitespace or punctuation) and the next unit starts a new sentence or paragraph, a single newline separates them.
@@ -500,7 +521,27 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 
 **Capability:** Islamic scholarly texts are organized around ARGUMENTS, not just topics. A scholarly argument has a recognizable structure: claim (مسألة/دعوى) → supporting evidence (دليل/حجة) → counter-evidence (اعتراض/نقض) → refutation (جواب/رد) → conclusion (ترجيح/خلاصة). The passaging engine detects these argument structures and ensures that passage boundaries NEVER split a complete argument in half. A passage that contains the claim and evidence but splits before the refutation forces the excerpting engine to produce an incomplete excerpt — the reader learns a position but not its defense.
 
-**Technical approach.** The engine detects argument boundaries using a pattern-based state machine with four states:
+**Signal hierarchy.** The passaging engine uses TWO independent signals for argument detection, applied in priority order:
+
+1. **Primary: normalization engine's discourse flow annotations (§4.B.10 of normalization SPEC).** When `discourse_flow` data is available on content units, the passaging engine uses it as the authoritative source for argument structure. The discourse flow provides pre-classified segments (position, evidence_quran, evidence_hadith, objection, response, preferred, etc.) with character offsets, and explicitly annotates argument cycle completeness (`argument_cycle_complete`, `cycle_missing_elements`, `cycle_truncated_by_structure`). This data was computed by the normalization engine using the same scholarly discourse patterns but with access to the original per-page content and format-specific signals.
+
+2. **Secondary: pattern-based state machine (fallback).** When `discourse_flow` is absent (null — normalization engine did not produce it for pages with <100 characters, or the normalization engine version predates §4.B.10), the passaging engine runs its own keyword-based argument detection state machine on the assembled passage text. This is the same detection logic described below, but it operates on assembled text (cross-page joined) rather than per-page text, making it strictly a fallback.
+
+**Using discourse flow as primary signal.**
+
+When discourse flow data is available, the passaging engine constructs a cross-page argument map before placing any passage boundaries:
+
+Step 1: **Collect argument cycles across content units.** Iterate through content units in document order. For each unit with `discourse_flow.argument_cycle_complete == true`, record the argument cycle's unit range: from `argument_cycle_started_at_segment` on the starting unit through the current unit. When `argument_cycle_complete == false` and `cycle_missing_elements` is non-empty, the argument is still open — it continues on the next unit.
+
+Step 2: **Track cross-page argument continuity.** When unit N has `discourse_flow.argument_cycle_complete == false` AND unit N's `boundary_continuity.type == "mid_argument"`, the argument spans the page boundary. The passaging engine links these units into a single cross-page argument span: `[start_unit_of_cycle, ..., N, N+1, ..., unit_where_cycle_completes]`. The cycle completes either at a unit with `argument_cycle_complete == true`, or at a `boundary_continuity.type` of `section_break`/`division_break` (forced closure — the author moved to a new section without concluding the argument).
+
+Step 3: **Build the argument map.** The argument map is an ordered list of argument spans, each with: `start_unit_index`, `end_unit_index`, `is_complete` (true if `argument_cycle_complete` was true at closure, false if force-closed by structure), `discourse_types_present` (set of discourse segment types found in this cycle, e.g., `{position, evidence_quran, objection, response, preferred}`), `estimated_word_count` (sum of per-unit word counts for all units in the span).
+
+Step 4: **Apply argument spans to boundary placement.** When the prose strategy (§4.A.4) or any other strategy considers placing a passage boundary, it first consults the argument map. If the proposed boundary falls INSIDE an argument span, the boundary protection rule (below) applies. If the proposed boundary falls BETWEEN argument spans, it is a preferred boundary point.
+
+**Argument map validation against keywords.** When BOTH discourse flow data AND keyword matches are available (assembled text contains markers like `مسألة:`, `والدليل`, `والراجح`), the engine cross-validates: if the keyword-based state machine detects an argument boundary that the discourse flow missed, or vice versa, the engine logs `PSG_ARGUMENT_SIGNAL_DISAGREEMENT` (info) and uses the HIGHER-COVERAGE signal (the one that detects more complete argument spans). If the signals agree, the engine uses the discourse flow data (higher confidence because it was computed with per-page context).
+
+**Fallback: pattern-based state machine.** When discourse flow is unavailable, the engine detects argument boundaries using a keyword-based state machine with four states:
 
 **State transition table:**
 
@@ -539,9 +580,9 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 
 **Deadlock prevention.** The state machine cannot deadlock. Every state has a guaranteed exit: the "End of division" transition fires when processing reaches the last content unit in the current division. Since every division has a finite number of content units, this transition is always reached. For flat passaging (empty division tree), the single synthetic division spans all content units — the machine exits at the last unit. No external timeout is needed.
 
-**Boundary protection rule.** When the passaging engine's size-based boundary calculation (§4.A.4 Step 2) would place a boundary inside a detected argument, the engine adjusts:
+**Boundary protection rule.** When the passaging engine's size-based boundary calculation (§4.A.4 Step 2) would place a boundary inside a detected argument (whether detected via discourse flow or state machine), the engine adjusts:
 - If the argument is ≤150% of the hard max: keep the argument intact as one passage, even though it exceeds the normal size target. Flag with `argument_preserved` review flag. The rationale: a slightly oversized passage with a complete argument is better for excerpting than two passages with a split argument.
-- If the argument is >150% of the hard max: split at an internal sub-argument boundary (between `القول الأول` block and `القول الثاني` block, or between the evidence section and the response section). Each sub-argument still carries the parent argument's مسألة text in its `heading_text` field, so the excerpting engine knows they belong together. If no internal sub-argument boundary is found (the argument is a monolithic block with no position/evidence/response subdivision), fall back to paragraph-boundary splitting as in §4.A.4 Step 3. Flag all resulting passages with both `argument_preserved` and `low_confidence_boundary`. Log `PSG_ARGUMENT_NO_SUBBOUNDARY` (warning) — this indicates an unusual argument structure that likely needs human review.
+- If the argument is >150% of the hard max: split at an internal sub-argument boundary. When discourse flow is available, the engine uses discourse segment type transitions as split points — specifically, it prefers splitting between the `response` segment of one position and the `position` segment of the next (i.e., between different scholarly positions within the same مسألة). When discourse flow is unavailable, split between `القول الأول` block and `القول الثاني` block, or between the evidence section and the response section. Each sub-argument still carries the parent argument's مسألة text in its `heading_text` field, so the excerpting engine knows they belong together. If no internal sub-argument boundary is found (the argument is a monolithic block with no position/evidence/response subdivision), fall back to paragraph-boundary splitting as in §4.A.4 Step 3. Flag all resulting passages with both `argument_preserved` and `low_confidence_boundary`. Log `PSG_ARGUMENT_NO_SUBBOUNDARY` (warning) — this indicates an unusual argument structure that likely needs human review.
 
 **Example.** In المغني by Ibn Qudamah, a typical مسألة block reads:
 ```
@@ -552,13 +593,120 @@ Validation failures at self-validation produce `PSG_VALIDATION_*` errors. Covera
 والجواب عن هذا: أن الحديث محمول على من لم ينو الإقامة...
 والراجح: قول الجمهور لقوة دليلهم.
 ```
-This is a single argument (~180 words). The engine detects `مسألة:` as the opening, tracks through `والدليل`, `واحتج من قال بخلاف ذلك`, `والجواب عن هذا`, and `والراجح` as the closure. Even if surrounding passages are 400 words and this block would be below the merge threshold, the engine does NOT merge it with the next مسألة — it respects the argument boundary because merging two separate مسائل in one passage would confuse the excerpting engine.
+With discourse flow available: the normalization engine annotates this as segments `[position, evidence_hadith, objection, response, preferred]` with `argument_cycle_complete: true`. The passaging engine reads this directly — no state machine needed. Without discourse flow: the engine detects `مسألة:` as the opening, tracks through `والدليل`, `واحتج من قال بخلاف ذلك`, `والجواب عن هذا`, and `والراجح` as the closure. Either way, the engine does NOT merge this with the next مسألة — it respects the argument boundary because merging two separate مسائل in one passage would confuse the excerpting engine.
 
-**Output.** Each passage receives an `argument_structure` field when argument detection is active: `{ detected: bool, argument_markers_found: [string], completeness: "complete" | "partial_opening" | "partial_closing", protected_from_split: bool }`. The `completeness` field tells the excerpting engine whether this passage contains a complete argument or whether it was unavoidably split.
+**Output.** Each passage receives an `argument_structure` field when argument detection is active: `{ detected: bool, argument_markers_found: [string], completeness: "complete" | "partial_opening" | "partial_closing", protected_from_split: bool, depth: int, detection_source: "discourse_flow" | "keyword_state_machine" | "cross_validated" }`. The `completeness` field tells the excerpting engine whether this passage contains a complete argument or whether it was unavoidably split. The `detection_source` records which signal was used, enabling quality analysis of the two detection methods.
 
-**Why this is transformative.** Topic segmentation systems (including all existing RAG chunking tools and KITAB's milestones) segment text by TOPIC shifts — they detect when the subject changes. Argument boundary detection goes deeper: it understands the RHETORICAL structure of scholarly discourse. Two passages might discuss the same topic (e.g., traveler's prayer ruling) but contain different arguments. The passaging engine ensures each argument is self-contained, producing passages that map directly to scholarly reasoning units rather than arbitrary text chunks. This is what enables the excerpting engine to produce excerpts that faithfully represent complete scholarly positions with their evidence — the fundamental building block of the KR entry format (see ENTRY_EXAMPLE.md).
+**Why this is transformative.** Topic segmentation systems (including all existing RAG chunking tools and KITAB's milestones) segment text by TOPIC shifts — they detect when the subject changes. Argument boundary detection goes deeper: it understands the RHETORICAL structure of scholarly discourse. Two passages might discuss the same topic (e.g., traveler's prayer ruling) but contain different arguments. The passaging engine ensures each argument is self-contained, producing passages that map directly to scholarly reasoning units rather than arbitrary text chunks. The integration of discourse flow from the normalization engine makes this doubly powerful: the normalization engine detects discourse segments with per-page format-specific context, while the passaging engine uses this to preserve argument integrity across the assembled passage text. This is what enables the excerpting engine to produce excerpts that faithfully represent complete scholarly positions with their evidence — the fundamental building block of the KR entry format (see ENTRY_EXAMPLE.md).
 
-[NOT YET IMPLEMENTED] — Full specification provided. The pattern-based state machine is implemented using Python regex matching on the keyword lists, with optional enhancement via OpenAI or Anthropic LLM APIs for ambiguous cases. Depends on: the scholarly keyword patterns defined in §4.A.4 Step 2 (shared resource).
+[NOT YET IMPLEMENTED] — Full specification provided. The pattern-based state machine is implemented using Python regex matching on the keyword lists. The discourse flow integration is pure data consumption from the normalization engine's output. The cross-page argument cycle tracking is new logic that operates on the argument map. Depends on: normalization §4.B.10 discourse flow annotations (already designed) for primary signal; scholarly keyword patterns defined in §4.A.4 Step 2 for fallback.
+
+#### §4.B.7 — Discourse-Aware Passage Boundary Optimization (تحسين الحدود بوعي الخطاب)
+
+**Capability:** Beyond preserving argument boundaries (§4.B.6), the passaging engine uses the normalization engine's full discourse flow annotations to place passage boundaries at the OPTIMAL point in the scholarly discourse structure — not merely at the least-bad point that avoids splitting an argument. This transforms passage boundary placement from a constraint satisfaction problem (don't break arguments) into an optimization problem (find the boundary that maximizes downstream excerpt quality).
+
+**The insight.** The normalization engine's discourse flow (§4.B.10) annotates each content unit with a sequence of discourse segment types: definition, ruling, position, evidence_quran, evidence_hadith, objection, response, preferred, example, condition, exception, elaboration, narration. These segments form patterns that recur across all Islamic scholarly texts. Some transitions between segment types are NATURAL passage boundaries (e.g., the transition from `preferred` at the end of one مسألة to `position` at the start of the next). Other transitions are CATASTROPHIC passage boundaries (e.g., between `evidence_quran` and `response` — splitting evidence from its refutation). This capability assigns a boundary cost to every possible passage boundary and selects boundaries that minimize total cost.
+
+**Technical approach.**
+
+Step 1: **Build a discourse transition graph.** For each pair of adjacent content units within a division, compute the transition type: what is the discourse segment type of the LAST segment in unit N, and what is the FIRST segment in unit N+1? Record this as a `(from_type, to_type)` pair. At division boundaries (where two adjacent units belong to different divisions), the transition cost is always 0.0 — division boundaries are inherently optimal passage boundaries, so no discourse cost computation is needed there.
+
+Step 2: **Assign boundary costs.** Each `(from_type, to_type)` transition has a cost between 0.0 (ideal boundary) and 1.0 (catastrophic boundary). The cost table:
+
+| Transition | Cost | Rationale |
+|---|---|---|
+| `preferred` → `position` | 0.0 | End of one مسألة, start of next — ideal boundary |
+| `preferred` → `definition` | 0.0 | Conclusion followed by new concept — clean break |
+| `response` → `position` | 0.1 | Response completed, new position — good boundary |
+| `elaboration` → `position` | 0.1 | Elaboration ended, new position — good boundary |
+| `example` → `position` | 0.1 | Example ended, new topic — good boundary |
+| `ruling` → `definition` | 0.15 | Ruling completed, new definition — acceptable |
+| `definition` → `definition` | 0.2 | Two definitions — separate but could be grouped |
+| `evidence_*` → `position` | 0.3 | Evidence for prior position, then new position — context lost |
+| `position` → `position` | 0.35 | Two positions without intervening evidence — may be related |
+| `objection` → `position` | 0.5 | Objection without response, then new topic — incomplete |
+| `position` → `evidence_*` | 0.7 | Position separated from its evidence — damages understanding |
+| `evidence_*` → `objection` | 0.8 | Evidence separated from its counter — damages argument flow |
+| `evidence_*` → `response` | 0.85 | Evidence separated from response — damages argument |
+| `objection` → `response` | 0.9 | Objection separated from its answer — nearly catastrophic |
+| `condition` → `exception` | 0.9 | Condition separated from its exception — rule broken |
+| Any → mid-segment (no type transition) | 1.0 | Boundary falls INSIDE a discourse segment — worst case |
+
+For `(from_type, to_type)` pairs not in this table, the default cost is 0.4. The `evidence_*` notation in the table is shorthand for all five evidence types in the discourse taxonomy: `evidence_quran`, `evidence_hadith`, `evidence_athar`, `evidence_qiyas`, `evidence_ijma`. The same cost applies to all of them.
+
+Step 3: **Optimize boundary placement.** When the prose strategy (§4.A.4) has determined a set of candidate boundaries based on division structure and size constraints, the engine evaluates the discourse transition cost at each candidate. If multiple candidates are within the acceptable size range (between target_low and target_high), the engine selects the one with the LOWEST discourse transition cost. If no candidate has cost <0.5, the engine selects the lowest-cost candidate regardless and flags the passage with `high_cost_boundary` in `review_flags`.
+
+Step 4: **Boundary sliding.** When the optimal candidate (lowest discourse cost) is within ±100 words of the size target, the engine uses it even if a closer-to-target candidate exists with higher cost. When the optimal candidate would produce a passage outside the acceptable size range, the engine does NOT use it — size constraints override discourse optimization (except for argument preservation per §4.B.6, which has its own override rules).
+
+**Cross-page cost computation.** When computing discourse transition cost between content units at a page boundary, the engine may face a gap: unit N's last discourse segment and unit N+1's first discourse segment may not directly correspond (e.g., one segment spans the page boundary). In this case, the engine uses `boundary_continuity.type` as a proxy: `mid_argument` = cost 0.8 (don't split here), `mid_paragraph` = cost 0.5, `mid_sentence` = cost 0.9, `section_break`/`division_break` = cost 0.0.
+
+**Interaction with §4.B.6.** Discourse-aware optimization and argument boundary detection are complementary. §4.B.6 provides HARD constraints (never split an argument unless it's too large). §4.B.7 provides SOFT optimization (among valid boundary positions, pick the one that best respects discourse structure). The processing order: §4.B.6 first identifies protected argument spans, then §4.B.7 optimizes boundary placement among the remaining candidate positions.
+
+**Output.** Each passage record's `review_flags` may include `high_cost_boundary` if the best available boundary had discourse cost ≥0.5. The `sizing.notes` field records the discourse transition cost of the chosen boundary: `"discourse_boundary_cost: 0.15 (preferred→position)"`.
+
+**Example.** Consider a division with 1200 words and three مسائل. The size target suggests two passages. Candidate boundaries:
+- After word 500: `evidence_hadith` → `objection` (cost 0.8 — splits evidence from its counter)
+- After word 600: `response` → `position` (cost 0.1 — clean argument-to-argument transition)
+- After word 700: `position` → `evidence_quran` (cost 0.7 — splits position from evidence)
+
+The engine selects the boundary at word 600 (cost 0.1), producing passages of 600 and 600 words. Without this optimization, a naive midpoint split at word 600 would happen to land at the same point — but in general, the midpoint of a text block is rarely a discourse-optimal boundary.
+
+**Why this is transformative.** Every existing text segmentation system (RAG chunkers, KITAB milestones, document splitters) places boundaries based on SIZE (fixed tokens), STRUCTURE (headings, paragraphs), or TOPIC SIMILARITY (embedding distance). None of them understand the RHETORICAL FUNCTION of text segments. KR's passaging engine is the first system that knows the difference between splitting after a conclusion (safe) and splitting after an objection (destructive) — because it understands the discourse structure of scholarly argumentation. This produces passages that are not just topically coherent but RHETORICALLY complete, which directly translates to higher-quality excerpts that faithfully represent scholarly reasoning.
+
+[NOT YET IMPLEMENTED] — Full specification provided. The discourse transition cost table is a static configuration (can be tuned per-science via Level 3 SCIENCE.md hooks). The optimization algorithm is a minimum-cost selection over bounded-size candidates — computationally trivial (O(n) where n = candidate count per division). Depends on: normalization §4.B.10 discourse flow annotations. Falls back to standard size-based boundary placement when discourse flow is unavailable.
+
+#### §4.B.8 — Passage Scholarly Completeness Forecast (تقدير اكتمال المقطع العلمي)
+
+**Capability:** Before the excerpting engine processes passages, the passaging engine predicts whether each passage is likely to produce COMPLETE, SELF-CONTAINED scholarly excerpts — or whether the passage contains fragments that will fail the excerpting engine's completeness criterion (VISION §5.2). This prediction uses discourse flow data to detect incompleteness signals that are invisible to size-based or topic-based analysis.
+
+**The problem this solves.** The passage containment rule (VISION §5.2) requires that every excerpt comes from a single passage. If a passage contains an incomplete argument (claim but no evidence, or evidence but no conclusion), the excerpting engine faces an impossible choice: produce an incomplete excerpt (violating the completeness criterion) or skip the content (losing information). The passaging engine can detect this problem BEFORE it occurs and either adjust the boundary (if possible) or flag the passage for special handling.
+
+**Technical approach.**
+
+**Completeness signals from discourse flow.** For each passage, the engine analyzes the discourse flow annotations of its constituent content units:
+
+1. **Argument cycle completeness.** If the passage contains at least one argument cycle where `argument_cycle_complete == true`, the passage is `forecast_complete` for that argument. If the passage starts mid-argument (`argument_cycle_started_at_segment` is null on the first unit but `cycle_missing_elements` is non-empty), the passage opens with an incomplete argument — `forecast_partial_opening`.
+
+2. **Discourse type inventory.** Count the distinct discourse segment types present in the passage. A passage with types `{position, evidence_quran, evidence_hadith, response, preferred}` has high completeness potential (a full argument cycle). A passage with only `{position}` or only `{evidence_quran, evidence_hadith}` has low completeness potential — it's a fragment.
+
+3. **Dangling discourse.** If the passage ends with a discourse segment type that EXPECTS a continuation (e.g., `objection` without a following `response`, or `position` without a following `evidence_*`), the passage has a "dangling discourse" — it opens a scholarly conversation that it doesn't finish. The specific dangling expectations:
+   - `position` without any `evidence_*` → expects evidence
+   - `objection` without `response` → expects refutation
+   - `condition` without `exception` → expects qualification
+   - `evidence_*` without `preferred` or `response` and no other `position` → expects conclusion
+
+4. **Cross-passage discourse continuity.** Using the predecessor/successor chain, the engine checks whether a dangling discourse in passage N is completed in passage N+1. If so, the incompleteness is STRUCTURAL (a boundary split the argument) rather than AUTHORIAL (the author left the argument incomplete in the source text). Structural incompleteness is a passaging quality issue; authorial incompleteness is not.
+
+**Predictive output.** Each passage receives a `completeness_forecast` field (added to the PassageRecord schema):
+
+```
+{
+  "forecast": "complete" | "partial_opening" | "partial_closing" | "fragment" | "unknown",
+  "discourse_types_present": ["position", "evidence_quran", "response", "preferred"],
+  "complete_argument_cycles": 1,
+  "dangling_discourse": null | {"type": "position", "expects": "evidence"},
+  "structural_incompleteness": false,
+  "confidence": 0.85
+}
+```
+
+- `"complete"`: At least one full argument cycle detected. The passage is very likely to produce self-contained excerpts.
+- `"partial_opening"`: The passage opens with content that continues from the previous passage. The first few sentences may not be self-contained.
+- `"partial_closing"`: The passage closes with content that expects continuation. The last argument is incomplete.
+- `"fragment"`: The passage contains discourse segments that do not form any complete scholarly unit (e.g., just examples without the rule they illustrate, or just counter-evidence without the original claim).
+- `"unknown"`: Discourse flow data unavailable or insufficient for prediction.
+
+**Adaptive boundary adjustment.** When the completeness forecast detects a `fragment` or `partial_closing` passage during the emission phase (§4.A.10), the engine attempts a corrective adjustment BEFORE writing the passage stream:
+
+1. If the fragment/partial passage can be merged with its successor without exceeding the hard maximum, merge them and re-forecast. This is a post-hoc boundary correction: the initial boundary placement (by size + division structure) produced a suboptimal split, and the completeness forecast caught it. Corrective merge is applied at most ONCE per boundary — if merging passage N with passage N+1 produces a passage that is still a fragment (because N+1 was also incomplete), the engine does not attempt a second merge with N+2. The merged passage is kept and flagged. This prevents cascade merges from producing oversized passages.
+2. If merging would exceed the hard maximum, leave the boundary in place but flag the passage with `incomplete_scholarly_content` in `review_flags` and include the `completeness_forecast` in the passage record. The excerpting engine can then handle this passage specially (e.g., checking the successor passage for the missing discourse continuation before deciding the excerpt boundary).
+3. If the initial boundary was placed by discourse-aware optimization (§4.B.7) and the completeness forecast STILL predicts incompleteness, the source text itself is incomplete at this point — the author moved to a new topic without concluding the previous one. Flag with `authorial_incompleteness` — this is valuable metadata for the synthesizer, which can note this pattern in the entry.
+
+**Interaction with §4.B.1 (Quality Prediction).** The completeness forecast is orthogonal to quality prediction. Quality prediction scores SURFACE features (coherence, boundary distance, extractability). Completeness forecast scores SCHOLARLY features (argument completeness, discourse structure). A passage can have high quality prediction (coherent text, good boundary) but low completeness forecast (the coherent text is just the evidence section without the claim or conclusion). Both signals are emitted; downstream engines use both.
+
+**Why this is transformative.** No existing text processing system predicts whether a text segment will produce complete, self-contained knowledge units BEFORE extraction is attempted. RAG systems discover extraction failures AFTER the fact — when the LLM can't answer a question because the retrieved chunk contains only half an argument. KR's passaging engine ANTICIPATES these failures using the normalization engine's discourse flow annotations, and either fixes them (boundary adjustment) or flags them (for special handling downstream). This is a second-order intelligence: the passaging engine doesn't just segment text, it reasons about the DOWNSTREAM CONSEQUENCES of its segmentation decisions and corrects them proactively. The result: fewer broken excerpts, fewer wasted processing cycles, and fewer corrections needed at the human gate.
+
+[NOT YET IMPLEMENTED] — Full specification provided. The completeness forecast logic is a rule-based analysis of discourse segment type inventories — no LLM calls required. The adaptive boundary adjustment is a post-hoc correction pass over the initial passage stream. Depends on: normalization §4.B.10 discourse flow annotations (already designed). Falls back to `forecast: "unknown"` when discourse flow is unavailable.
 
 ---
 
@@ -626,6 +774,12 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 | `PSG_ASSEMBLY_FOOTNOTE_COLLISION` | Warning | Footnote renumbering produced duplicate markers within a passage | Log with original and collision marker values. Resolve by appending suffix (e.g., `1a`, `1b`). Flag passage for review. |
 | `PSG_ASSEMBLY_LAYER_MISMATCH` | Warning | Layer rebasing produced segments with total coverage ≠ passage_text length | Log with expected vs actual coverage. Extend the last segment to cover remaining text. Flag passage with `mixed_layers`. |
 | `PSG_ARGUMENT_NO_SUBBOUNDARY` | Warning | Oversized argument (>150% hard max) has no internal sub-argument boundaries | Fall back to paragraph splitting. Flag with `argument_preserved` + `low_confidence_boundary`. |
+| `PSG_ARGUMENT_SIGNAL_DISAGREEMENT` | Info | Discourse flow and keyword state machine disagree on argument boundaries | Log both signal results. Use higher-coverage signal. |
+| `PSG_DISCOURSE_FLOW_ABSENT` | Info | Content units lack discourse_flow annotations — using keyword fallback | Log. Use pattern-based state machine for argument detection. |
+| `PSG_BOUNDARY_HIGH_COST` | Warning | Best available passage boundary has discourse transition cost ≥0.5 | Log with cost value and transition type. Flag passage with `high_cost_boundary`. |
+| `PSG_COMPLETENESS_FRAGMENT` | Warning | Completeness forecast predicts this passage is a scholarly fragment | Log with discourse types present. Attempt corrective merge if possible. Flag with `incomplete_scholarly_content`. |
+| `PSG_COMPLETENESS_MERGE_REPAIR` | Info | Completeness forecast triggered corrective merge of fragment passage with successor | Log pre-merge and post-merge passage boundaries. |
+| `PSG_AUTHORIAL_INCOMPLETENESS` | Info | Source text has inherently incomplete argument (not a passaging error) | Log. Flag with `authorial_incompleteness`. |
 | `PSG_VALIDATION_BOUNDARY_MIDSENTENCE` | Warning | Self-validation: passage boundary falls mid-sentence | Log. Flag passage with `low_confidence_boundary`. |
 | `PSG_VALIDATION_LINK_BROKEN` | Fatal | Self-validation: predecessor/successor chain is inconsistent | Abort. This indicates a logic error in passage linking. |
 | `PSG_VALIDATION_AUTHOR_LOST` | Fatal | Self-validation: a (layer_type, author_canonical_id) pair from content units is missing in passage text_layers | Abort. This is an attribution corruption (threat T-2). |
@@ -682,8 +836,9 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 - The entire processing pipeline (§4.A.1–§4.A.10) is [NOT YET IMPLEMENTED].
 - All format-specific strategies (§4.A.4–§4.A.9) are [NOT YET IMPLEMENTED].
 - Cross-page text assembly (§4.A.2) is [NOT YET IMPLEMENTED].
-- All transformative capabilities (§4.B.1–§4.B.6) are [NOT YET IMPLEMENTED].
+- All transformative capabilities (§4.B.1–§4.B.8) are [NOT YET IMPLEMENTED].
 - The passage schema (§3) needs to be created as a new JSON Schema file.
+- Discourse flow integration (§4.B.6 primary signal, §4.B.7, §4.B.8) depends on normalization engine §4.B.10 output, which is also [NOT YET IMPLEMENTED].
 
 **External tools and libraries:**
 - **Sentence embedding model** (for §4.B.1 quality prediction, §4.B.2 implicit structure discovery): `intfloat/multilingual-e5-large` or `sentence-transformers/paraphrase-multilingual-mpnet-base-v2`. Arabic support via multilingual training. **Custom code:** sliding-window coherence computation, boundary quality scoring, threshold-based split decisions.
@@ -713,7 +868,13 @@ The passaging engine does NOT use multi-model consensus for its core processing.
 
 8. **Content census-driven adaptation (§4.B.5).** Verify that when content census is present, passage size targets are correctly adapted. Test cases: high technical term density source (should produce smaller passages), low structural depth source (should lower splitting threshold), high footnote density commentary (should reduce targets). Minimum 4 test cases.
 
-9. **Argument boundary detection (§4.B.6).** Verify that scholarly arguments are correctly detected and preserved. Test cases: a standard مسألة block with claim/evidence/counter/response/conclusion; an oversized argument that needs internal splitting at position boundaries; two adjacent مسائل that should NOT be merged even if both are small. Minimum 5 test cases.
+9. **Argument boundary detection (§4.B.6).** Verify that scholarly arguments are correctly detected and preserved. Test cases: a standard مسألة block with claim/evidence/counter/response/conclusion; an oversized argument that needs internal splitting at position boundaries; two adjacent مسائل that should NOT be merged even if both are small; discourse flow as primary signal vs. keyword fallback producing same result; cross-page argument cycle detected via boundary_continuity mid_argument signal. Minimum 7 test cases.
+
+10. **Discourse-aware boundary optimization (§4.B.7).** Verify that when discourse flow data is available, passage boundaries are placed at discourse-optimal points. Test cases: two candidate boundaries with different discourse transition costs (engine picks lower cost); boundary sliding within ±100 words to reach lower-cost point; no low-cost boundary available (engine picks best available and flags `high_cost_boundary`); discourse optimization does not override size constraints. Minimum 5 test cases.
+
+11. **Completeness forecast (§4.B.8).** Verify that completeness forecast correctly classifies passages. Test cases: a passage with a complete argument cycle forecasts `"complete"`; a passage with only `position` segments forecasts `"fragment"`; a passage ending with `objection` without `response` forecasts `"partial_closing"` with correct `dangling_discourse`; corrective merge triggered when forecast detects fragment that can be merged with successor; authorial incompleteness correctly distinguished from structural incompleteness. Minimum 6 test cases.
+
+12. **Boundary continuity integration (§4.A.2).** Verify that when boundary_continuity signals are available, cross-page assembly uses them instead of character heuristics. Test cases: `mid_sentence` continuity overrides final-form heuristic; `division_break` continuity inserts paragraph break; `mid_argument` continuity recorded for argument detection; low-confidence continuity (< 0.7) triggers fallback to character heuristics. Minimum 4 test cases.
 
 **Gold baseline usage.** Gold baselines should be created for:
 - One prose source (شرح ابن عقيل or similar intermediate sharh): hand-verified passage boundaries.

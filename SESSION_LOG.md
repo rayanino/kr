@@ -879,3 +879,40 @@ None this session.
 
 ### Owner Questions
 - None new (API keys still pending, not blocking)
+
+---
+
+## Session: Passaging Engine CREATIVE Update (Discourse Flow Integration)
+**Date:** 2026-03-07
+**Type:** CREATIVE
+**Duration:** ~1 session
+
+### What Was Done
+1. **Integrated normalization engine's newest capabilities into passaging SPEC:**
+   - `boundary_continuity` (§4.B.8 of normalization SPEC) now consumed in §4.A.2 cross-page text assembly as a high-priority signal before character-level heuristics.
+   - `discourse_flow` (§4.B.10 of normalization SPEC) now consumed in §4.B.6 as the PRIMARY signal for argument boundary detection, with keyword state machine as fallback.
+   - `layer_fingerprints` (§4.B.9 of normalization SPEC) now consumed for commentary strategy validation.
+2. **§4.B.6 upgraded:** Added discourse flow as primary signal with 4-step cross-page argument map construction (collect cycles → track continuity → build map → apply to boundaries). Keyword state machine retained as fallback. Cross-validation between signals when both available. `detection_source` field added to output.
+3. **§4.B.7 — Discourse-Aware Passage Boundary Optimization (NEW):** Assigns a boundary cost (0.0–1.0) to every possible passage boundary based on discourse segment type transitions. 15-row cost table with rationale. Boundary sliding (±100 words) to reach lower-cost points. Hard/soft constraint interaction with §4.B.6 specified.
+4. **§4.B.8 — Passage Scholarly Completeness Forecast (NEW):** Predicts whether each passage will produce complete, self-contained scholarly excerpts using discourse flow data. Four completeness signals (argument cycle, type inventory, dangling discourse, cross-passage continuity). Adaptive boundary adjustment: auto-merges fragment passages with successors (max 1 merge per boundary). Distinguishes structural incompleteness from authorial incompleteness.
+5. **contracts.py updated:** Added 4 new models/enums (ArgumentDetectionSource, CompletenessLevel, DanglingDiscourse, CompletenessForecast). Updated ArgumentStructure with detection_source field. Added completeness_forecast to PassageRecord.
+6. **Self-audit:** 4 defects found and fixed (evidence_* wildcard ambiguity, division boundary gap in discourse graph, cascading merge risk, typo in class name).
+7. **Processing pipeline updated:** 5 phases → 6 phases (new phase 4: build argument map from discourse flow).
+8. **5 new error codes added** (PSG_ARGUMENT_SIGNAL_DISAGREEMENT, PSG_DISCOURSE_FLOW_ABSENT, PSG_BOUNDARY_HIGH_COST, PSG_COMPLETENESS_FRAGMENT, PSG_COMPLETENESS_MERGE_REPAIR, PSG_AUTHORIAL_INCOMPLETENESS).
+9. **4 new test requirement categories** (discourse-aware boundary optimization, completeness forecast, boundary continuity integration, updated argument detection).
+
+### Decisions
+- Discourse flow from normalization engine is the PRIMARY signal for argument detection; keyword state machine is FALLBACK — rationale: normalization engine has access to per-page format-specific context unavailable after cross-page assembly
+- Boundary cost table is a STATIC configuration (not learned) — will be tunable per-science via Level 3 hooks; initial costs based on scholarly argument structure principles
+- Completeness forecast uses RULE-BASED analysis of discourse segment inventories, not LLM — keeps computational cost low and avoids adding LLM dependency to a pipeline stage that processes every passage
+- Corrective merge capped at 1 per boundary to prevent cascade — an incomplete passage after one merge is flagged, not merged again
+
+### Quality Metrics
+- SPEC: 731 → 892 lines (+161 lines of new capabilities)
+- contracts.py: 334 → 380 lines (+46 lines)
+- §4.B capabilities: 6 → 8 (+2 architect-originated)
+- creative_verification.py: §4.B score 80/100, 8 capabilities detected
+- check_spec_quality.py: 56 defects (40 HIGH — mostly pre-existing VAGUE_QUANTIFIER, to be resolved in PRECISION session)
+
+### Owner Questions
+- None new (API keys still pending, not blocking)

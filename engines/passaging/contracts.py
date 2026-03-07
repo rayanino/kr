@@ -54,6 +54,22 @@ class ArgumentCompleteness(str, Enum):
     PARTIAL_CLOSING = "partial_closing"  # Argument closes but opened in previous passage
 
 
+class ArgumentDetectionSource(str, Enum):
+    """How the argument structure was detected (SPEC §4.B.6)."""
+    DISCOURSE_FLOW = "discourse_flow"             # Primary: normalization engine's §4.B.10
+    KEYWORD_STATE_MACHINE = "keyword_state_machine"  # Fallback: passaging engine's own detection
+    CROSS_VALIDATED = "cross_validated"            # Both signals agreed
+
+
+class CompletenessLevel(str, Enum):
+    """Predicted scholarly completeness of a passage (SPEC §4.B.8)."""
+    COMPLETE = "complete"               # At least one full argument cycle detected
+    PARTIAL_OPENING = "partial_opening"  # Opens with content from previous passage
+    PARTIAL_CLOSING = "partial_closing"  # Closes with incomplete argument
+    FRAGMENT = "fragment"               # Discourse segments that don't form a scholarly unit
+    UNKNOWN = "unknown"                 # Discourse flow unavailable
+
+
 class CommentarySensitivity(str, Enum):
     """Commentary-unit detection granularity (SPEC §4.B.5)."""
     FINE = "fine"       # Detect at every layer transition
@@ -219,6 +235,36 @@ class ArgumentStructure(BaseModel):
         description="Whether argument preservation prevented this passage from being split"
     )
     depth: int = Field(ge=0, description="Nesting depth of deepest argument in passage")
+    detection_source: ArgumentDetectionSource = Field(
+        description="Which signal was used: discourse_flow (primary), "
+        "keyword_state_machine (fallback), or cross_validated (both agreed)"
+    )
+
+
+class DanglingDiscourse(BaseModel):
+    """A discourse segment that expects continuation (SPEC §4.B.8). [NOT YET IMPLEMENTED]"""
+    type: str = Field(description="The discourse segment type that is dangling")
+    expects: str = Field(description="What discourse type is expected next")
+
+
+class CompletenessForecast(BaseModel):
+    """Predicted scholarly completeness for a passage (SPEC §4.B.8). [NOT YET IMPLEMENTED]"""
+    forecast: CompletenessLevel
+    discourse_types_present: list[str] = Field(
+        default_factory=list,
+        description="Discourse segment types found in this passage"
+    )
+    complete_argument_cycles: int = Field(
+        ge=0, description="Number of complete argument cycles detected"
+    )
+    dangling_discourse: Optional[DanglingDiscourse] = Field(
+        None, description="If forecast is partial_closing or fragment, what's missing"
+    )
+    structural_incompleteness: bool = Field(
+        default=False,
+        description="True if incompleteness is due to boundary placement, not authorial choice"
+    )
+    confidence: float = Field(ge=0.0, le=1.0)
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -292,6 +338,7 @@ class PassageRecord(BaseModel):
     commentary_alignment: Optional[list[CommentaryAlignmentRecord]] = None
     adaptive_params: Optional[AdaptiveParams] = None
     argument_structure: Optional[ArgumentStructure] = None
+    completeness_forecast: Optional[CompletenessForecast] = None
 
 
 # ──────────────────────────────────────────────────────────────────
