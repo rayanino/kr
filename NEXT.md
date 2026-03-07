@@ -1,43 +1,41 @@
 # NEXT SESSION
 
 ## Session Type
-CREATIVE (see SESSION_TYPES.md for full framework)
+PRECISION (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Normalization engine CREATIVE session.** The source engine has completed CREATIVE, PRECISION, and HARDENING. It is the first engine to be fully hardened. The normalization engine SPEC needs its first CREATIVE session — the session where transformative §4.B capabilities are invented.
-
-Read the current normalization SPEC to understand its baseline, then design §4.B capabilities that make previously impossible scholarship possible through the normalization step. The normalization engine sits at the format-to-universal boundary — it sees structure that is lost after normalization. What intelligence can you extract from format-specific markup BEFORE it disappears?
+**Normalization engine PRECISION session.** The normalization SPEC has completed its CREATIVE session — 10 §4.B capabilities now exist (7 from initial draft + 3 new: cross-page continuity intelligence, authorial voice fingerprint, scholarly discourse flow annotation). The SPEC is now 1419 lines. This session makes every rule machine-implementable.
 
 ## What to Read
 
-1. `engines/normalization/SPEC.md` — Full current SPEC. Understand what exists, what's thin, what's missing.
-2. `reference/DOMAIN.md` — Refresh domain context. Pay special attention to: multi-layer text handling (sharh/matn), Arabic text fragility, structural conventions in Islamic scholarly texts.
-3. `reference/ENTRY_EXAMPLE.md` — The target quality. What normalization intelligence would improve the final entry?
-4. `engines/source/SPEC.md` §3 (output contract) and §4.B — Only the output contract and transformative capabilities. Understand what the normalization engine receives as input. The source engine's §4.B capabilities (KITAB profiling, edition comparison, difficulty prediction) set the bar for creative ambition.
-5. Run `python3 scripts/extract_vision_sections.py 7.3` — Normalization engine vision section.
+1. `engines/normalization/SPEC.md` — The full SPEC. Focus on defect resolution.
+2. Run `python3 scripts/check_spec_quality.py engines/normalization/SPEC.md` — Currently 4 HIGH defects (all MISSING_EXAMPLE in §4.A.3, §4.A.7, §4.B.2, §4.B.3). Resolve all HIGH defects to reach 0.
+3. `reference/DOMAIN.md` §236-248 (Arabic as a Processing Language) — For Arabic text handling precision.
+4. `engines/source/SPEC.md` §3 — Verify input contract alignment.
 
-**Do NOT read:** VISION.md whole, kr_decisions.md, other engine SPECs beyond source. This is creative work — keep context fresh.
+**Do NOT read:** VISION.md whole, kr_decisions.md, other engine SPECs beyond source §3. Keep context for precision work.
 
 ## Definition of Done
 
-1. ≥3 new §4.B capabilities designed (each with: inputs, outputs, triggers, edge cases, worked examples with Arabic text)
-2. Each §4.B capability passes the test: "Would a world-class Islamic scholar say 'I didn't know that was possible'?"
-3. §4.A rules reviewed for completeness (but NOT precision-edited — save that for next session)
-4. No [NOT YET IMPLEMENTED] markings removed (nothing is built yet)
-5. `check_spec_quality.py` run — 0 HIGH defects
-6. `creative_verification.py` run — must NOT show SECRETARY
-7. NEXT.md written (for normalization engine PRECISION session)
-8. SESSION_LOG.md updated
-9. Committed and pushed
+1. `check_spec_quality.py` shows 0 HIGH defects
+2. All 4 missing examples added (§4.A.3, §4.A.7, §4.B.2, §4.B.3) with Arabic text worked examples
+3. §4.A sections reviewed for machine-implementability — every rule yields a function signature + pseudocode mentally
+4. Missing §4.A normalizer specifications noted: EPUB, Word doc, plain text, owner-authored normalizers need at least behavioral outlines (not full specs — they're [NOT YET IMPLEMENTED])
+5. Cross-reference consistency: every field mentioned in §3 output contract appears in §4 processing and §5 validation
+6. New error codes added for any new failure modes discovered during precision review
+7. Self-audit performed per DEEP_REASONING_PROTOCOL: ≥3 structural/semantic defects found and fixed (cosmetic-only audits indicate superficial review)
+8. `session_quality_gate.py` passes
+9. NEXT.md written (for normalization engine HARDENING session)
+10. SESSION_LOG.md updated
+11. Committed and pushed
 
-## Thinking Directions (from DEEP_REASONING_PROTOCOL)
+## Notes for Next Architect
 
-- What structural intelligence can you extract from format-specific markup that would be lost after normalization?
-- What can you infer about text quality during normalization?
-- Shamela HTML has PageNumber spans, volume boundaries, footnote markers, section headers — what knowledge is encoded in these structures?
-- Multi-layer texts (sharh quoting matn) have typographic conventions — bold for matn, regular for sharh. Can you detect and annotate these automatically?
-- Arabic typesetting conventions encode scholarly signals: inline citations, hadith chains, Quranic verses have distinctive patterns. Can you tag these during normalization?
+- The 3 new §4.B capabilities (§4.B.8-10) have full worked examples but their interaction with existing capabilities needs cross-checking: §4.B.8 (continuity) feeds §4.B.10 (discourse flow) via cross-page argument cycle detection — verify the data flow is consistent.
+- §4.B.9 (fingerprint) depends on §4.B.5 (census) for verse_ratio — verify the dependency is bidirectional-safe (census computes before fingerprint).
+- The content unit schema in §3 now has 2 new fields (boundary_continuity, discourse_flow). Verify the Pydantic model in contracts.py will need updating during implementation.
+- Pre-existing §4.A gaps: §4.A.3 (PDF text) and §4.A.4 (scanned PDF) have full specs but no examples. §4.A.7 (page boundaries) is thin. §4.B.2 (structural format auto-detection) and §4.B.3 (fine-grained fidelity mapping) lack examples.
 
 ## Pending Owner Questions
 

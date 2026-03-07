@@ -88,6 +88,8 @@ The normalized package is a directory at `library/sources/{source_id}/normalized
    - `total_content_units`: the number of content unit records in the accompanying JSONL.
    - `quality_report`: a structured summary of normalization quality containing: `division_count_by_tier` (object mapping tier names to counts), `layer_transition_count` (int), `pages_with_warnings` (int), `high_fidelity_pct` (float, 0.0–1.0), `unclassified_footnote_count` (int), `overall_confidence` (one of: `high`, `medium`, `low`, `minimal`).
    - `normalization_warnings`: array of engine-level warnings (not per-page warnings, which are on the content units).
+   - `layer_fingerprints`: object or null. For multi-layer sources, per-layer stylometric fingerprints used for layer attribution validation (see §4.B.9). Contains one entry per detected layer with sentence length distribution, vocabulary richness, connective frequency, and other quantitative writing characteristics. Null for single-layer sources.
+   - `discourse_flow_summary`: object. Aggregate discourse flow statistics across all content units (see §4.B.10): `dominant_discourse_type` for the source as a whole, `argument_cycle_count` (total complete argument cycles detected), `evidence_type_distribution` (object mapping evidence types to their frequency), `discourse_segment_distribution` (object mapping segment types to page counts).
 
 2. **Content stream** (`content.jsonl`): a JSONL file with one record per content unit. A content unit corresponds to one physical page of the source. Each record conforms to the content unit schema:
 
@@ -102,6 +104,8 @@ The normalized package is a directory at `library/sources/{source_id}/normalized
    - `verse_info`: object or null. If verse is detected: `verse_lines` (array of verse line objects with hemistich markers and verse numbers if available).
    - `content_flags`: object. Boolean flags: `has_verse`, `has_table`, `has_quran_citation`, `has_hadith_citation`, `is_toc_page`, `is_index_page`, `is_blank`.
    - `text_fidelity`: object. `score` (high/medium/low/very_low), `ocr_confidence` (float or null), `warnings` (array of strings).
+   - `boundary_continuity`: object or null. Present on all content units except the last. Classifies the boundary between this unit and the next: `type` (mid_sentence/mid_paragraph/mid_argument/section_break/division_break/unknown), `confidence` (0.0–1.0), `detection_method`, `continuation_hint` (string or null). See §4.B.8.
+   - `discourse_flow`: object or null. Scholarly discourse segment annotation for this content unit: `segments` (array of labeled discourse segments with character offsets and confidence), `dominant_discourse_type` (argumentative/definitional/evidential/narrative/enumerative/insufficient_text), `argument_cycle_complete` (bool), `argument_cycle_started_at_segment` (int or null), `cycle_missing_elements` (array of strings). See §4.B.10. Null for pages with <100 characters of text.
 
 **Guarantees about the normalized package:**
 
@@ -120,10 +124,15 @@ The normalization engine ADDS the following metadata that did not exist before n
 - Division tree (structural hierarchy)
 - Per-page text fidelity scores
 - Layer annotations with character-level segments
-- Footnote type classification (author-original vs. tahqiq-editor)
+- Footnote type classification (author-original vs. tahqiq-editor, and fine-grained types per §4.B.4)
 - Structural format classification (may refine source engine's initial guess)
 - Verse detection and numbering
 - Content flags (TOC, index, blank, Quran/hadith citations)
+- Content census (statistical profile of source characteristics, §4.B.5)
+- Tahqiq apparatus topology (manuscript witness network, §4.B.7)
+- Cross-page boundary continuity signals (§4.B.8)
+- Layer fingerprints for multi-layer validation (§4.B.9)
+- Scholarly discourse flow annotations (§4.B.10)
 
 **Source registry update.** Upon successful normalization, the source's processing status is updated from `acquired` to `normalized`. The normalized package path is recorded in the source registry.
 The registry update occurs ONLY after all §5 Layer 1 validation checks (1–6) pass and the normalized package is fully verified on disk. If any validation check fails, the status remains `acquired` and no partial package is visible to downstream engines.
@@ -480,8 +489,6 @@ Output `content_flags`:
 
 Detection: "قال تعالى:" followed by curly-brace Quran text → `has_quran_citation`. "عن ... قال: قال رسول الله ﷺ" + "رواه البخاري" → `has_hadith_citation`.
 
-[CONTINUES NEXT SESSION]
-
 ### §4.B — Transformative Capabilities
 
 #### §4.B.1 — Scholarly Text Layer Intelligence
@@ -834,6 +841,345 @@ When patterns are insufficient (e.g., the editor uses non-standard notation), th
 - 2+ tahqiq editors on different volumes: Each volume's topology is tracked separately under `per_volume_topology`, with a merged summary in the top-level `tahqiq_topology`.
 
 [NOT YET IMPLEMENTED] — Full specification provided. Depends on: §4.B.4 footnote classification (provides `variant_reading` footnotes as input), LLM for non-standard notation parsing, siglum pattern library.
+
+#### §4.B.8 — Cross-Page Continuity Intelligence
+
+**Capability:** The normalization engine annotates every page boundary with a **continuity signal** — a structured classification of whether the content flowing across that boundary is mid-sentence, mid-paragraph, mid-argument, or at a natural break point. After normalization, pages become abstract content units and this boundary intelligence is lost. The passaging engine needs exactly this signal to avoid creating passage boundaries that fracture scholarly arguments, and the excerpting engine needs it to know when consecutive content units form an inseparable logical block.
+
+No existing Islamic text tool provides this. Current systems treat every page break as a potential split point, leading to passages that start mid-sentence or excerpts that capture half an evidence chain.
+
+**Why this belongs in normalization, not passaging:** The signals for continuity are format-specific. In Shamela HTML, a sentence that runs to the end of a `<div class='PageText'>` and continues in the next div produces specific textual patterns (no terminal punctuation, no structural marker). In PDFs, Docling's reading order model detects text flow across pages. In OCR sources, the last line of one image and the first line of the next may form a continuous sentence detectable only from line geometry and text flow. After normalization strips these format-specific cues, only the text remains — and text-only continuity detection is far less reliable than format-aware detection.
+
+**Continuity signal schema.** Each content unit (except the last) carries a `boundary_continuity` field in the content stream:
+
+```json
+{
+  "boundary_continuity": {
+    "type": "mid_sentence" | "mid_paragraph" | "mid_argument" | "section_break" | "division_break" | "unknown",
+    "confidence": 0.0-1.0,
+    "detection_method": "punctuation_analysis" | "structural_marker" | "argument_flow" | "format_specific" | "llm_inferred",
+    "continuation_hint": "string or null"
+  }
+}
+```
+
+- `mid_sentence`: The page ends without terminal punctuation (period/full stop `.`/`۔`, question mark, or Arabic sentence terminator). The next page begins with a word that continues the syntactic structure. Confidence ≥ 0.90 when both conditions hold.
+- `mid_paragraph`: The page ends at a sentence boundary (terminal punctuation present) but within the same paragraph — no heading, no structural keyword, no blank line follows. The next page continues the same topic. Confidence 0.70–0.85.
+- `mid_argument`: The page ends during a scholarly argument cycle. Detected when the text within the last 200 characters of the page contains an argument-opening marker (see marker list below) whose corresponding argument-closing marker has not appeared, OR when the first 200 characters of the next page contain an argument continuation marker. Confidence 0.60–0.80 (depends on marker reliability).
+- `section_break`: A structural heading is detected at or near the boundary (within 100 characters of the page end or page start). Corresponds to a division tree node boundary. Confidence ≥ 0.85 when heading detection is Tier 1 or high-confidence Tier 2.
+- `division_break`: The boundary coincides with a volume boundary or a major structural division (كتاب-level). Confidence ≥ 0.95.
+- `unknown`: Insufficient signal to determine boundary type. The normalizer logs this as `NORM_CONTINUITY_UNKNOWN` (info severity).
+
+**Argument flow markers for mid-argument detection:**
+
+| Marker Category | Opening Patterns | Closing/Continuation Patterns |
+|---|---|---|
+| Evidence chain | `والدليل`, `لقوله تعالى`, `ودليله`, `واحتجوا بـ`, `واستدلوا بـ` | `ونوقش بأن`, `ورُدّ بأن`, `والجواب` |
+| Position statement | `وذهب ... إلى`, `والمذهب أن`, `القول الأول` | `القول الثاني`, `والراجح`, `والصحيح` |
+| Objection-response | `واعترض عليه بأن`, `وأُشكل عليه`, `فإن قيل` | `فالجواب`, `قلنا`, `والجواب عنه` |
+| Conditional reasoning | `إذا`, `ولو أن`, `فإن كان` | `وإلا`, `فحينئذ`, `فالحكم` |
+
+When an opening marker appears in the last 200 characters of a page and no matching closing marker has appeared on that page, the boundary is classified as `mid_argument`. The `continuation_hint` field records the detected marker text (e.g., `"واستدلوا بـ — evidence chain opened, not closed"`).
+
+**Format-specific continuity signals:**
+
+- **Shamela HTML:** Sentence-ending analysis on cleaned text. The last character before the page boundary is checked: Arabic full stop (.) or other terminal punctuation → sentence boundary. No terminal punctuation → `mid_sentence`. Additionally, the next page's first content (after any heading) is checked: if it begins with a lowercase connective (و, ف, ثم) without a new sentence structure, this confirms mid-sentence or mid-paragraph continuity.
+- **PDF (text-embedded):** Docling's reading order analysis detects text flow across pages. If the last text block on page N and the first text block on page N+1 form a continuous paragraph in Docling's model, the boundary is `mid_paragraph` or `mid_sentence` (refined by punctuation analysis).
+- **OCR (scanned/image):** The last text line of one page and the first text line of the next are analyzed for syntactic continuity. OCR-detected page footers and headers are excluded. A word hyphenated across pages (rare in Arabic but occurs in narrow-column prints) is detected and the boundary is `mid_sentence` with confidence ≥ 0.95.
+
+**What this enables that was previously impossible:**
+
+1. **Zero-fracture passage boundaries.** The passaging engine reads `boundary_continuity` for every page and NEVER creates a passage boundary at a `mid_sentence` or `mid_argument` point. This eliminates the most common passage defect in Islamic text processing — splitting a definition from its explanation, or an evidence from its response.
+
+2. **Argument-aware excerpt construction.** The excerpting engine, when constructing an excerpt that starts near a page boundary, checks continuity to ensure the excerpt includes the complete argument cycle. If page 45 ends with "واستدلوا بحديث" and page 46 has the hadith text and the response, the excerpting engine knows these pages form an inseparable block.
+
+3. **Study flow intelligence.** The scholar interface can show the owner: "This argument spans pages 45-47 — read all three together." No existing tool provides this reading guidance.
+
+**Concrete example (from a Shamela export of كتاب المغني, pages 234-235):**
+
+Page 234 ends:
+```
+ولنا حديث ابن عباس رضي الله عنهما أن النبي ﷺ قال:
+```
+
+Page 235 begins:
+```
+«لا تُنكح الأيم حتى تُستأمر ولا تُنكح البكر حتى تُستأذن» متفق عليه.
+والأيم هي الثيب. وهذا يدل على اشتراط إذنها.
+```
+
+Continuity analysis:
+- Page 234 last text: ends with colon (`:`) after "قال:" — introducing a quotation that hasn't appeared yet. No terminal punctuation. → `mid_sentence`, confidence 0.95, detection_method: `punctuation_analysis`.
+- Additionally: "ولنا حديث" is an evidence-chain opening marker → confirms `mid_argument`, confidence 0.85, detection_method: `argument_flow`.
+- Final classification: `mid_argument` (higher semantic level subsumes `mid_sentence`), confidence 0.90.
+- `continuation_hint`: `"Evidence chain: 'ولنا حديث' — hadith quotation started, not completed"`
+
+Output:
+```json
+{
+  "boundary_continuity": {
+    "type": "mid_argument",
+    "confidence": 0.90,
+    "detection_method": "argument_flow",
+    "continuation_hint": "Evidence chain: 'ولنا حديث' — hadith quotation started, not completed"
+  }
+}
+```
+
+**Edge cases:**
+- Page ends with terminal punctuation but the next page immediately continues the same argument (e.g., "والدليل الأول..." ends with period, next page starts "والدليل الثاني..."): classified as `mid_argument` based on argument markers, even though sentence-level analysis says `section_break`. Argument flow markers override punctuation analysis.
+- Page ends mid-word (rare, occurs in OCR page-split errors or corrupt Shamela exports where a PageText div boundary falls inside a word): classified as `mid_sentence` with confidence 1.0. The normalizer also logs `NORM_MIDWORD_BREAK` (warning).
+- Source is non-paginated (plain text, owner-authored): `boundary_continuity` is null for all content units (boundaries are artificial). The passaging engine is informed via the `structural_format` metadata.
+- Single-page source: no boundary to classify. Field absent from the sole content unit.
+
+[NOT YET IMPLEMENTED] — Full specification provided. No external dependencies beyond existing normalization pipeline.
+
+#### §4.B.9 — Authorial Voice Fingerprint for Multi-Layer Validation
+
+**Capability:** The normalization engine builds a **stylometric fingerprint** for each text layer in a multi-layer source and uses cross-layer fingerprint comparison to validate — and flag for correction — layer attribution decisions. The fingerprint captures the quantitative writing characteristics that distinguish a terse matn author from a discursive commentator, independent of any typographic or verbal markers. This transforms layer detection from a single-pass classification into a statistically validated attribution.
+
+**Why this is transformative:** Layer misattribution is the highest-integrity-risk error the normalization engine can make (§4.A.5). Current layer detection (§4.A.5 + §4.B.1) relies on typographic signals and content-based inference. Both can fail: typographic signals are absent in 25% of Shamela commentary exports, and content-based inference operates on short windows. The fingerprint operates on the AGGREGATE statistical properties of all text attributed to each layer across the entire source. If the layer detection made 90% correct attributions and 10% errors, the aggregate fingerprint for each layer will be dominated by the 90% correct text — and the 10% errors will show as statistical outliers.
+
+No existing Islamic text tool validates layer attributions using author-level stylometric comparison. Research on Arabic stylometry (Ouamour & Sayoud 2016, Howedi et al. 2020) has shown that character n-grams and lexical features achieve 80-90% accuracy on Arabic authorship attribution even with short texts. KR applies this to the specific problem of validating matn/sharh/hashiyah layer boundaries, where the author differences are especially pronounced (matn authors write in fundamentally different registers than commentators).
+
+**Fingerprint construction.**
+
+After layer detection is complete for the entire source (Pass 5 in the Shamela normalizer), the engine builds one fingerprint per detected layer from all text attributed to that layer. The fingerprint contains:
+
+- **Sentence length distribution:** mean, median, standard deviation of sentence lengths (in words). Matn texts have characteristically shorter sentences (mean 8-15 words) than sharh texts (mean 20-40 words). Computed by splitting on terminal punctuation and Arabic sentence-boundary heuristics.
+- **Vocabulary richness (type-token ratio):** computed over a sliding window of 500 words. Matn texts have higher type-token ratios (more unique terms per window, less repetition) because they are definitional and dense. Sharh texts have lower ratios because they repeat and explain.
+- **Connective particle frequency:** the proportion of tokens that are connective particles (و, ف, ثم, أو, لكن, بل, حتى, إذ, لأن, حيث). Sharh texts use significantly more connectives (0.08-0.12 of all tokens) than matn texts (0.04-0.07) because explanation requires linking ideas.
+- **Technical term density:** proportion of content words matching the KR technical glossary for this source's science. Both layers share a science, but matn texts have HIGHER technical density because definitions pack more terms per sentence.
+- **Pronoun reference pattern:** frequency of third-person reference phrases ("قال", "أراد", "يعني", "وقوله") that indicate quoting or referencing the matn author. These should appear almost exclusively in Layer 2, not Layer 1.
+- **Self-reference pattern:** frequency of first-person scholarly assertion phrases ("أقول", "والصحيح عندي", "والذي يظهر لي"). These belong to the layer's own author.
+- **Citation density:** proportion of sentences containing explicit citations to other scholars or works. Commentary layers cite more frequently than matn layers.
+- **Information density:** ratio of content words (nouns, verbs, adjectives after stop-word removal) to total words. Matn texts are denser (0.65-0.75) than sharh texts (0.50-0.60).
+
+**Fingerprint schema (stored in manifest under `layer_fingerprints`):**
+
+```json
+{
+  "layer_fingerprints": {
+    "matn": {
+      "author_canonical_id": "ibn_malik_672",
+      "total_words_attributed": 12340,
+      "sentence_length": {"mean": 11.2, "median": 9, "std_dev": 5.8},
+      "type_token_ratio": 0.72,
+      "connective_frequency": 0.052,
+      "technical_term_density": 0.18,
+      "pronoun_reference_frequency": 0.003,
+      "self_reference_frequency": 0.001,
+      "citation_density": 0.02,
+      "information_density": 0.71
+    },
+    "sharh": {
+      "author_canonical_id": "ibn_aqil_769",
+      "total_words_attributed": 58920,
+      "sentence_length": {"mean": 28.4, "median": 25, "std_dev": 12.1},
+      "type_token_ratio": 0.48,
+      "connective_frequency": 0.094,
+      "technical_term_density": 0.11,
+      "pronoun_reference_frequency": 0.041,
+      "self_reference_frequency": 0.008,
+      "citation_density": 0.09,
+      "information_density": 0.54
+    }
+  }
+}
+```
+
+**Validation algorithm.** After building fingerprints, the engine validates each page's layer attributions:
+
+1. **Layer-level plausibility check.** Compare the two layer fingerprints against expected ranges for matn/sharh. If the "matn" fingerprint has sentence length mean > 25 and connective frequency > 0.09, it statistically resembles sharh — flag the entire layer detection as potentially inverted (`NORM_LAYER_FINGERPRINT_INVERSION`, warning severity). This catches the catastrophic failure where ALL matn text was attributed as sharh and vice versa.
+
+2. **Page-level outlier detection.** For each page, compute a local fingerprint from the text attributed to each layer on that page (minimum 50 words per layer on that page required; pages below this threshold are skipped). Compare the local fingerprint against the global fingerprint for that layer using Mahalanobis distance. Pages where the local fingerprint diverges by >2.5 standard deviations from the global fingerprint are flagged as potential misattribution. The flagged page's `text_layers` entries receive a `fingerprint_anomaly: true` field and their confidence scores are reduced by 0.15 (capped at minimum 0.10).
+
+3. **Cross-source fingerprint comparison.** When the source metadata identifies the matn author as having other works already in the library, the engine compares this source's matn fingerprint against the author's known fingerprint from single-layer works. Agreement increases confidence in layer detection; disagreement triggers a warning. This creates a feedback loop: as the library grows, layer detection improves because more reference fingerprints are available.
+
+**Concrete example (validation catching a misattribution in شرح ابن عقيل):**
+
+Global fingerprints (computed across 847 pages):
+- Matn (ابن مالك): sentence_length mean = 10.8, connective_frequency = 0.048, information_density = 0.73
+- Sharh (ابن عقيل): sentence_length mean = 27.1, connective_frequency = 0.091, information_density = 0.55
+
+Page 312 local fingerprint (text attributed to matn on this page):
+- sentence_length mean = 31.5, connective_frequency = 0.102, information_density = 0.51
+
+This page's "matn" text looks statistically like sharh (long sentences, high connective frequency, low information density). Mahalanobis distance from global matn fingerprint: 3.8 standard deviations. → Flag: `fingerprint_anomaly: true`. The page is likely misattributed — perhaps a section where ابن عقيل's paraphrase was detected as matn because it began with a phrase similar to a verse.
+
+The engine logs: `"Page 312: text attributed to matn (ابن مالك) has sharh-like statistical profile. Layer attribution confidence reduced from 0.75 to 0.60. Manual review recommended."` The quality report includes this page in the `layer_anomaly_pages` list.
+
+**What this enables that was previously impossible:**
+
+1. **Statistical validation of layer detection.** Instead of trusting layer boundaries based on a single classification pass, the engine produces a measurable consistency metric: "Layer detection for this source is statistically consistent across 94% of pages." This number is more informative than the per-page confidence scores alone.
+
+2. **Automatic detection of systematic layer errors.** If the Shamela export's bold formatting is inconsistent (bold for matn on pages 1-200, no bold on pages 201-400 due to a formatting bug in the export), the fingerprint catches the pattern: pages 201-400 will show "matn" text with sharh-like fingerprints.
+
+3. **Cross-source author voice verification.** When the library has ابن مالك's الألفية as a single-layer source AND as Layer 1 in five different commentaries, the engine can verify: "The text attributed to ابن مالك across all five commentaries has consistent stylometric properties, and those properties match his standalone work." This is unprecedented validation depth.
+
+**Edge cases:**
+- Very short matn texts (e.g., a matn with only 500 total words across 400 pages of commentary): insufficient data for reliable fingerprint. The engine marks `fingerprint_reliability: "insufficient_data"` when any layer has fewer than 2000 attributed words. Validation is skipped for that layer.
+- Matn text is verse (نظم) while sharh is prose: the fingerprint metrics are computed separately for verse and prose text types. Verse text has different sentence length distributions (constrained by meter) that would confound the comparison. The `verse_ratio` from the content census (§4.B.5) triggers verse-aware fingerprinting.
+- Hashiyah sources with 3 layers: each layer gets its own fingerprint. The hashiyah author's fingerprint is compared against both the sharh and matn fingerprints to verify it is distinct from both.
+- Single-layer source: no fingerprint validation needed. The fingerprint is still computed (as a single-entry `layer_fingerprints` with one layer) for future cross-source comparison.
+
+[NOT YET IMPLEMENTED] — Full specification provided. Depends on: completed layer detection (§4.A.5 + §4.B.1), content census (§4.B.5) for verse_ratio, KR technical glossary per science.
+
+#### §4.B.10 — Scholarly Discourse Flow Annotation
+
+**Capability:** The normalization engine annotates each content unit with a **discourse flow map** — a sequence of labeled discourse segments that identify the rhetorical function of each portion of the text. Where §4.A.6 (Structure Discovery) finds the source's HEADING hierarchy and §4.B.2 (Structural Format Auto-Detection) classifies the source's overall format, discourse flow annotation operates at a FINER granularity: within a single page, it identifies the sequence of scholarly discourse moves — claim, evidence, counter-evidence, objection, response, conclusion, example, definition, condition, exception.
+
+This is not general-purpose discourse analysis. It is a domain-specific annotation system designed for the specific patterns of classical Islamic scholarly reasoning, which follows highly conventionalized structures. A fiqh discussion of a مسألة typically follows: statement of the ruling → evidence from Quran/Hadith → scholarly positions → objections → responses → preferred ruling. A nahw discussion follows: grammatical rule → شواهد (attestations) → exceptions → scholarly disagreements. These patterns are detectable from Arabic discourse markers that are remarkably consistent across centuries of scholarly production.
+
+**Why this is transformative:** The synthesizer's target quality (ENTRY_EXAMPLE.md) requires entries that present "the core rule/definition, the evidence, the different scholarly positions, the reasoning behind each position, the edge cases, and the practical implications." Today, these must be manually identified within raw text. The discourse flow map pre-labels them during normalization: the excerpting engine can extract a complete argument cycle as a single excerpt because the normalization engine has already identified where the cycle starts and ends. No existing Islamic text tool provides this level of discourse structure annotation.
+
+**Discourse segment taxonomy:**
+
+| Segment Type | Arabic Markers | Description |
+|---|---|---|
+| `definition` | `هو/هي + noun phrase`, `يُعرَّف بأنه`, `المراد به`, `اصطلاحاً` | Definitional statement of a concept |
+| `ruling` | `يجوز`, `لا يجوز`, `يجب`, `يُستحب`, `يُكره`, `يحرم`, `الحكم` | Statement of a legal/grammatical ruling |
+| `evidence_quran` | `لقوله تعالى`, `قال تعالى`, `{...}` (Quran brackets) | Quranic evidence |
+| `evidence_hadith` | `لقول النبي ﷺ`, `لحديث`, `روى ... عن`, `«...»` (hadith brackets) | Prophetic tradition evidence |
+| `evidence_ijma` | `وقد أجمعوا على`, `بالإجماع`, `لا خلاف في` | Consensus evidence |
+| `evidence_qiyas` | `قياساً على`, `ولأنه`, `بجامع` | Analogical reasoning |
+| `evidence_athar` | `قال ابن عباس`, `عن عمر`, companion statement patterns | Companion statement evidence |
+| `position` | `وذهب ... إلى`, `والمذهب`, `القول الأول/الثاني`, `ومذهب الشافعي` | Statement of a scholarly position |
+| `objection` | `واعترض`, `وأُشكل`, `فإن قيل`, `ونُوقش`, `ولا يصح أن` | Objection to a position |
+| `response` | `فالجواب`, `قلنا`, `وأُجيب`, `ورُدّ بأن`, `والجواب عن هذا` | Response to an objection |
+| `preferred` | `والراجح`, `والصحيح`, `والمختار`, `والأظهر`, `والمعتمد` | Author's preferred conclusion |
+| `example` | `نحو`, `كقولك`, `مثاله`, `ومن ذلك` | Illustrative example |
+| `condition` | `بشرط`, `إذا`, `ويُشترط`, `ما لم` | Condition or prerequisite |
+| `exception` | `إلا`, `ويُستثنى`, `ما عدا`, `سوى` | Exception to a rule |
+| `elaboration` | `أي`, `يعني`, `والمعنى`, `توضيحه` | Explanatory elaboration |
+| `narration` | discursive text with no specific markers | Default: narrative/expository text |
+
+**Detection algorithm:**
+
+1. **Marker scan.** For each content unit, scan the primary text for discourse markers from the taxonomy. A marker is detected when its pattern matches at a sentence or clause boundary (not embedded within a quotation). Each marker produces a candidate discourse segment starting at the marker position.
+
+2. **Segment boundary inference.** Candidate segments extend from one marker to the next marker (or to the end of the page if no subsequent marker). When two markers appear in the same sentence (e.g., "والراجح لقوله تعالى" — preferred + Quran evidence in one phrase), the more specific marker takes priority for the segment type, and the other is recorded as a secondary annotation.
+
+3. **LLM refinement.** For pages where marker-based detection produces fewer than 2 segments (i.e., the text is largely unmarked scholarly prose), invoke an LLM to classify paragraphs by discourse function. The LLM receives: the page text, the source's science and genre, and a description of the discourse segment taxonomy. LLM-classified segments carry confidence 0.50–0.70 (lower than marker-based, which carry 0.80–0.95).
+
+4. **Cross-page argument cycle detection.** When a page's last discourse segment is an incomplete argument cycle (e.g., `position` without a subsequent `evidence` or `preferred`), the engine checks the next page for continuation. If the next page begins with a segment that completes the cycle, the boundary_continuity (§4.B.8) is updated to `mid_argument` if not already set, and the `continuation_hint` records the discourse flow context.
+
+**Output schema (per content unit, in `discourse_flow` field):**
+
+```json
+{
+  "discourse_flow": {
+    "segments": [
+      {
+        "type": "definition",
+        "start_char": 0,
+        "end_char": 67,
+        "confidence": 0.92,
+        "detection_method": "marker",
+        "marker_text": "المبتدأ هو"
+      },
+      {
+        "type": "position",
+        "start_char": 68,
+        "end_char": 145,
+        "confidence": 0.88,
+        "detection_method": "marker",
+        "marker_text": "وذهب الكوفيون إلى",
+        "position_metadata": {
+          "school_hint": "كوفي",
+          "attribution_hint": "الكوفيون"
+        }
+      },
+      {
+        "type": "evidence_hadith",
+        "start_char": 146,
+        "end_char": 234,
+        "confidence": 0.95,
+        "detection_method": "marker",
+        "marker_text": "لحديث"
+      }
+    ],
+    "dominant_discourse_type": "argumentative",
+    "argument_cycle_complete": false,
+    "argument_cycle_started_at_segment": 1,
+    "cycle_missing_elements": ["preferred"]
+  }
+}
+```
+
+The `dominant_discourse_type` field classifies the page's overall discourse character:
+- `argumentative`: 2+ positions, evidence, objections/responses (typical of fiqh, usul, aqidah discussions)
+- `definitional`: primarily definitions and elaborations (typical of textbook introductions, grammar mutun)
+- `evidential`: primarily evidence chains with minimal argumentation (typical of hadith-focused discussions)
+- `narrative`: expository prose without clear scholarly argument structure (typical of biographical entries, historical context)
+- `enumerative`: list-like content (conditions, categories, exceptions) (typical of furu' al-fiqh details)
+
+**Concrete example (from a page of المغني لابن قدامة, vol. 1 p. 245, on the topic of wiping over socks):**
+
+Input text (cleaned):
+```
+مسألة: ويجوز المسح على الخفين في الحضر والسفر.
+وهذا قول أكثر أهل العلم. حُكي عن مالك أنه يجوز للمسافر دون المقيم.
+والدليل على جوازه للمقيم حديث المغيرة بن شعبة «أنه صبّ على النبي ﷺ الماء فمسح على خفيه» متفق عليه. وكان ذلك في الحضر.
+ولأن الرخصة ثبتت بالسنة المتواترة فلا تُقيَّد بالسفر.
+واعترض من منعه في الحضر بأن أحاديث المسح وردت في السفر غالباً.
+والجواب أن حديث المغيرة صريح في الحضر. ولو سُلّم أن الغالب في السفر فلا يقتضي التخصيص.
+والصحيح: جوازه مطلقاً.
+```
+
+Discourse flow output:
+```json
+{
+  "discourse_flow": {
+    "segments": [
+      {"type": "ruling", "start_char": 0, "end_char": 50, "confidence": 0.93, "detection_method": "marker", "marker_text": "يجوز"},
+      {"type": "position", "start_char": 51, "end_char": 116, "confidence": 0.85, "detection_method": "marker", "marker_text": "قول أكثر أهل العلم",
+       "position_metadata": {"school_hint": "جمهور", "attribution_hint": "أكثر أهل العلم"}},
+      {"type": "position", "start_char": 117, "end_char": 170, "confidence": 0.88, "detection_method": "marker", "marker_text": "حُكي عن مالك",
+       "position_metadata": {"school_hint": "مالكي", "attribution_hint": "مالك"}},
+      {"type": "evidence_hadith", "start_char": 171, "end_char": 302, "confidence": 0.95, "detection_method": "marker", "marker_text": "حديث المغيرة"},
+      {"type": "evidence_qiyas", "start_char": 303, "end_char": 365, "confidence": 0.82, "detection_method": "marker", "marker_text": "ولأن"},
+      {"type": "objection", "start_char": 366, "end_char": 437, "confidence": 0.91, "detection_method": "marker", "marker_text": "واعترض"},
+      {"type": "response", "start_char": 438, "end_char": 540, "confidence": 0.93, "detection_method": "marker", "marker_text": "والجواب"},
+      {"type": "preferred", "start_char": 541, "end_char": 570, "confidence": 0.96, "detection_method": "marker", "marker_text": "والصحيح"}
+    ],
+    "dominant_discourse_type": "argumentative",
+    "argument_cycle_complete": true,
+    "argument_cycle_started_at_segment": 0,
+    "cycle_missing_elements": []
+  }
+}
+```
+
+This page contains a COMPLETE argument cycle: ruling → positions → evidence → objection → response → conclusion. The passaging engine knows: this page is a self-contained scholarly argument — it's an ideal passage boundary candidate at both ends. The excerpting engine knows: this is a complete مسألة discussion that should be extracted as a single excerpt with all discourse elements intact.
+
+**What this enables that was previously impossible:**
+
+1. **Automatic مسألة extraction.** The most valuable unit in fiqh scholarship is the complete مسألة — ruling + positions + evidence + resolution. The discourse flow map identifies exactly where each مسألة starts and ends. The excerpting engine can extract complete مسائل without human annotation.
+
+2. **Evidence-type statistics per source.** The content census (§4.B.5) reports page-level content flags. Discourse flow goes deeper: "This source uses Quranic evidence in 45% of its arguments, hadith evidence in 78%, and qiyas in 23%." This tells the synthesizer what kind of evidence this source provides.
+
+3. **Scholarly methodology profiling.** By analyzing discourse flow patterns across the entire source, the engine characterizes the author's reasoning style: "Ibn Qudamah in al-Mughni follows a consistent pattern: position → evidence → objection → response → preferred, with evidence_hadith appearing in 82% of argument cycles." This is a scholarly insight that no tool currently produces.
+
+4. **Argument completeness signals for the passaging engine.** The `argument_cycle_complete` field tells the passaging engine: "this content unit is a self-contained argument" or "this argument continues on the next page." The passaging engine uses this to create passages that respect argument boundaries, not just heading boundaries.
+
+5. **Position hints for the excerpting engine.** The `position_metadata.school_hint` provides a preliminary school attribution signal from discourse markers alone — before any LLM classification. "حُكي عن مالك" → school_hint: "مالكي". These hints reduce the excerpting engine's classification burden and provide a cross-check against its own school attribution.
+
+**Edge cases:**
+- Source with no recognizable discourse markers (e.g., a purely historical narrative or biographical dictionary): all text is classified as `narration`. `dominant_discourse_type: "narrative"`. This is valid — not all sources contain structured scholarly argumentation.
+- Source where discourse markers appear inside quotations (e.g., the author quotes another scholar's full argument): the detection algorithm uses quotation detection (guillemets «», explicit "قال فلان:" introductions) to suppress marker detection within quoted passages. Markers inside quotes are annotated as `quoted_discourse` rather than the source author's own argument flow.
+- Mixed-format pages where the author switches between definitional and argumentative discourse within a single page: both segment types are recorded. The `dominant_discourse_type` is determined by which type covers more characters.
+- Very short pages (<100 characters): insufficient text for meaningful discourse annotation. `discourse_flow.segments` is empty; `dominant_discourse_type: "insufficient_text"`.
+- Verse (nazm) source: each بيت often encodes a single rule. Discourse segments align with verse lines rather than prose sentence boundaries. The engine uses the verse_info from §4.A for segment boundaries in versified text.
+
+**Per-science calibration (Level 3 / SCIENCE.md hooks):**
+- **Fiqh:** full argument cycle detection with all marker types. Position metadata includes school_hint.
+- **Nahw:** definitional segments are primary. Evidence segments map to شواهد (attestations from Quran, hadith, poetry). Position metadata includes Basran/Kufan hint.
+- **Usul al-fiqh:** meta-level argument cycles ("evidence for the evidence rule") use the same taxonomy but with additional markers for أصولي reasoning (istishab, istihsan, maslaha).
+- **Hadith methodology:** discourse focuses on `evidence_athar` and narrator evaluation. Argument cycles center on hadith authenticity rather than legal rulings.
+- **Tajwid:** primarily definitional and enumerative (rules and conditions). Minimal argumentation.
+
+[NOT YET IMPLEMENTED] — Full specification provided. Depends on: discourse marker pattern library (per science), LLM prompt for unmarked discourse classification, §4.B.8 cross-page continuity for argument cycle spanning.
 
 ---
 

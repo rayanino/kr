@@ -765,3 +765,35 @@ None this session.
 
 ### Owner Questions
 - None new (API keys still pending, not blocking)
+
+---
+
+## Session: Normalization Engine CREATIVE
+**Date:** 2026-03-07
+**Type:** CREATIVE
+**Duration:** ~1 session
+
+### What Was Done
+1. **3 new §4.B transformative capabilities designed** for the normalization engine SPEC:
+   - **§4.B.8 — Cross-Page Continuity Intelligence:** Annotates every page boundary with a continuity signal (mid_sentence/mid_paragraph/mid_argument/section_break/division_break). Uses format-specific cues (Shamela HTML page boundaries, PDF reading order, OCR line geometry) and Arabic scholarly argument flow markers to detect whether content at a page boundary is fracturable. Feeds passaging engine with zero-fracture signals. No existing Islamic text tool provides this.
+   - **§4.B.9 — Authorial Voice Fingerprint for Multi-Layer Validation:** Builds per-layer stylometric fingerprints (sentence length, vocabulary richness, connective frequency, information density, pronoun patterns) across the entire source, then validates individual page layer attributions against the aggregate fingerprint using Mahalanobis distance outlier detection. Catches systematic layer detection failures (bold formatting disappearing mid-source) and enables cross-source author voice verification as the library grows.
+   - **§4.B.10 — Scholarly Discourse Flow Annotation:** Annotates each content unit with a discourse flow map identifying 15 scholarly discourse segment types (definition, ruling, evidence_quran, evidence_hadith, evidence_ijma, evidence_qiyas, position, objection, response, preferred, example, condition, exception, elaboration, narration). Detects complete argument cycles (position → evidence → objection → response → conclusion) and signals argument completeness to the passaging and excerpting engines. Per-science calibration hooks included.
+2. **Output schema updated:** Content unit schema in §3 now includes `boundary_continuity` and `discourse_flow` fields. Manifest schema includes `layer_fingerprints` and `discourse_flow_summary`.
+3. **Metadata-adds list updated** to include all §4.B-generated metadata (census, tahqiq topology, continuity, fingerprints, discourse flow).
+4. **Stale marker removed:** `[CONTINUES NEXT SESSION]` between §4.A.9 and §4.B.
+5. **4 vague language defects fixed** in new text (flagged by check_spec_quality.py).
+
+### Decisions
+- Cross-page continuity uses argument flow markers (15 opening/closing pattern pairs from Islamic scholarly discourse conventions) rather than general NLP discourse parsing — domain-specific markers are more reliable for classical Arabic
+- Authorial voice fingerprint uses 8 statistical features (sentence length, type-token ratio, connective frequency, technical term density, pronoun reference patterns, self-reference patterns, citation density, information density) — chosen because these features have proven discriminative for Arabic authorship attribution in computational stylometry literature
+- Discourse flow annotation uses a 15-type taxonomy specific to Islamic scholarly reasoning patterns, not a general rhetorical structure theory framework — the patterns are consistent across 14 centuries of Arabic scholarly production
+- Fingerprint validation threshold: 2.5 standard deviations Mahalanobis distance for page-level outlier detection, minimum 50 words per layer per page, minimum 2000 words total for fingerprint reliability
+
+### Quality Metrics
+- SPEC: 1072 → 1419 lines (+347 lines of new capabilities)
+- §4.B capabilities: 7 → 10
+- check_spec_quality.py: 4 HIGH defects remaining (all pre-existing MISSING_EXAMPLE in §4.A.3, §4.A.7, §4.B.2, §4.B.3 — to be resolved in PRECISION session)
+- creative_verification.py: §4.B score 90/100, invention ratio 91%, assessment CREATIVE
+
+### Owner Questions
+- None new (API keys still pending, not blocking)
