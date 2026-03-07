@@ -618,7 +618,9 @@ Gap analysis output (ranked by priority):
 
 **Failure handling:** If the KITAB statistics cache is missing or outdated, the source engine logs `SRC_KITAB_CACHE_MISSING` (severity: info) and skips this enrichment — it is not required for intake. If the work matches but with confidence below 0.70 (the OpenITI URI does not uniquely resolve — the same work may have variant editions in OpenITI), the engine records all candidate matches and uses the one with the longest text as the primary match.
 
-**Dependencies:** Requires downloading KITAB statistics CSV (~1GB) from Zenodo. Update frequency: annually, matching OpenITI release cycle. The cache is stored at the path configured in `kitab_stats_path` (default: `library/external/kitab_stats/`). This enrichment is additive — it never blocks intake. Depends on: §4.B.1's OpenITI URI matching logic.
+**Dependencies:** Requires downloading KITAB statistics CSV (~1GB) from Zenodo. The cache is stored at the path configured in `kitab_stats_path` (default: `library/external/kitab_stats/`). The engine records the file's SHA-256 hash in `library/external/kitab_stats/manifest.json`.
+
+Before the cache is used, the engine verifies integrity: (1) checks that the file is valid CSV with expected column headers (book1, book2, shared_words, pct_of_book1, pct_of_book2), (2) spot-checks 3 known entries (configurable in `library/config/kitab_validation_samples.json`) to confirm data integrity, (3) confirms the stored hash matches the file on disk. If verification fails, the download is discarded and `SRC_KITAB_CACHE_CORRUPT` is logged. Update frequency: annually, matching OpenITI release cycle. This enrichment is additive — it never blocks intake. Depends on: §4.B.1's OpenITI URI matching logic.
 
 [NOT YET IMPLEMENTED] — Full specification provided. No code exists. Depends on: OpenITI URI matching from §4.B.1, local KITAB statistics cache download.
 
@@ -677,7 +679,9 @@ Gap analysis output (ranked by priority):
 
 **Capability:** For every scholar encountered, the source engine automatically constructs a multi-generational teacher-student chain (silsila 'ilmiyya) by combining three data sources: (1) explicit teacher/student data from the scholar authority record, (2) OpenITI corpus metadata cross-references, and (3) LLM inference from the training knowledge of major Islamic biographical dictionaries (tabaqat). The result is a connected knowledge graph where Rayane can trace intellectual lineage across centuries.
 
-**Technology:** Graph construction uses a combination of: the scholar authority registry as the primary store (§4.A.5), OpenITI author metadata as a bootstrapping source (§4.B.1), and LLM-assisted biographical inference using specialized prompts that instruct the model to recall teacher-student relationships from its training on works like سير أعلام النبلاء by الذهبي, طبقات الشافعية by السبكي, and الأعلام by الزركلي. The graph is stored as adjacency lists in the scholar authority registry (the existing `teachers` and `students` fields). Graph analysis uses NetworkX (Python, BSD license, v3.2+) for centrality computation, path finding, and community detection.
+**Technology:** Graph construction uses a combination of: the scholar authority registry as the primary store (§4.A.5), OpenITI author metadata as a bootstrapping source (§4.B.1), and LLM-assisted biographical inference using specialized prompts that instruct the model to recall teacher-student relationships from its training on works like سير أعلام النبلاء by الذهبي, طبقات الشافعية by السبكي, and الأعلام by الزركلي. The graph is stored as adjacency lists in the scholar authority registry (the existing `teachers` and `students` fields).
+
+Before writing any teacher-student link, the engine must verify and check: (1) no self-referencing (a scholar cannot be their own teacher), (2) temporal plausibility (§4.A.5 consistency checks apply), (3) the ScholarAuthorityRecord Pydantic model passes §5 Layer 1 validation after the update. Graph analysis uses NetworkX (Python, BSD license, v3.2+) for centrality computation, path finding, and community detection.
 
 **Input:** A scholar `canonical_id` — either newly created during intake or an existing record being enriched during progressive enrichment. The trigger is: (1) a new scholar record is created with empty `teachers`/`students` fields, or (2) a new source adds previously unknown biographical data about an existing scholar.
 
@@ -707,7 +711,7 @@ Gap analysis output (ranked by priority):
 6. Traces upward from أبو حيان: his teacher was ابن النحاس (via OpenITI), whose teacher was ابن عصفور (d. 669 AH), whose teacher was ابن خروف (d. 609 AH) — a chain that reaches back to Sibawayhi within 6-8 generations.
 7. Computes: ابن عقيل is in the "Egyptian Shafi'i nahw" community, with bridges to the Andalusian grammar tradition (through أبو حيان) and Hanbali fiqh (through his own fiqh teaching).
 
-**Scholar impact:** When the synthesizer writes the entry on المبتدأ (as shown in ENTRY_EXAMPLE.md), it can now produce: "ابن عقيل (d. 769 AH), a student of أبو حيان الأندلسي who studied with ابن النحاس in the tradition descending from ابن مالك himself, explains that..." — the four-generation chain from Sibawayhi to Ibn al-Sarraj in the ENTRY_EXAMPLE is precisely what this capability produces AUTOMATICALLY. Without it, producing such chains requires the synthesizer to have training knowledge of Islamic biographical literature. With it, the chains are verified data in the scholar authority registry.
+**Scholar impact:** When the synthesizer produces the entry on المبتدأ (as shown in ENTRY_EXAMPLE.md), it can now generate: "ابن عقيل (d. 769 AH), a student of أبو حيان الأندلسي who studied with ابن النحاس in the tradition descending from ابن مالك himself, explains that..." — the four-generation chain from Sibawayhi to Ibn al-Sarraj in the ENTRY_EXAMPLE is precisely what this capability produces AUTOMATICALLY. Without it, producing such chains requires the synthesizer to have training knowledge of Islamic biographical literature. With it, the chains are verified data in the scholar authority registry.
 
 **Implementation sketch:** When a new scholar record is created with empty genealogy, the engine:
 1. Queries OpenITI metadata for the author (using §4.B.1's matching logic). Extracts any teacher/student relationships encoded in the corpus metadata.
@@ -726,7 +730,7 @@ Gap analysis output (ranked by priority):
 
 **Capability:** When the source engine creates or enriches a scholar authority record, it queries not only OpenITI (§4.B.1) but also two additional structured datasets — Usul-Data (seemorg/usul-data, MIT license) and Wikidata (CC0) — and cross-validates across all three to produce scholar records with higher confidence than any single source can provide. Disagreements between sources are surfaced as research signals rather than discarded.
 
-**Technology:** Usul-Data (`authors.json`, MIT license, ~50MB) provides: multilingual scholar names in 14 languages (Arabic, English, Persian, Urdu, etc.), death dates (Hijri year), biographical descriptions, and author-book relationships linking to the Usul.ai book catalog. Wikidata provides: structured biographical data queryable via SPARQL endpoint (`query.wikidata.org`), including properties P1066 (student of), P802 (student), P569/P570 (birth/death dates), P140 (religion), school affiliations, and geographic data. Wikidata items for Islamic scholars are identifiable via occupation Q13200659 (Islamic scholar) or related classes.
+**Technology:** Usul-Data (`authors.json`, MIT license, ~50MB) provides: multilingual scholar names in 14 languages (Arabic, English, Persian, Urdu, Turkish, French, German, Indonesian, Malay, Bengali, Russian, Chinese, Spanish, and Japanese — the complete set as of the current Usul-Data schema), death dates (Hijri year), biographical descriptions, and author-book relationships linking to the Usul.ai book catalog. Wikidata provides: structured biographical data queryable via SPARQL endpoint (`query.wikidata.org`), including properties P1066 (student of), P802 (student), P569/P570 (birth/death dates), P140 (religion), school affiliations, and geographic data. Wikidata items for Islamic scholars are identifiable via occupation Q13200659 (Islamic scholar) or related classes.
 
 **Input:** A scholar `canonical_id` — newly created or being enriched. The engine extracts the scholar's Arabic name, any known aliases, and death date (if available) from the scholar authority record.
 
@@ -783,7 +787,7 @@ Gap analysis output (ranked by priority):
 2. Wikidata: SPARQL query via HTTP GET to `query.wikidata.org/sparql`. Query template: find items with label matching the scholar's Arabic name AND death date within ±10 years of the known Hijri date (converted to CE). For matched items, fetch: P569, P570, P1066, P802, P27 (country of citizenship), sitelinks. Rate limit: max 5 queries per second (Wikidata policy). If rate-limited (HTTP 429), back off exponentially starting at 2 seconds, up to 3 retries. Cache query results for 30 days.
 3. Cross-validation runs after all three sources return. Results stored atomically with the scholar record update.
 
-**Failure handling:** If Usul-Data file is missing → log `SRC_USUL_DATA_MISSING` (info), skip this enrichment. If Wikidata query times out or returns no results → log `SRC_WIKIDATA_TIMEOUT` (info), proceed without Wikidata data. If Wikidata returns multiple candidate matches → present all candidates in a human gate checkpoint. Cross-validation disagreements on death date trigger human gate. This enrichment is additive and never blocks intake.
+**Failure handling:** If Usul-Data file is missing → log `SRC_USUL_DATA_MISSING` (info), skip this enrichment. If Wikidata query times out or returns no results → log `SRC_WIKIDATA_TIMEOUT` (info), proceed without Wikidata data. If Wikidata returns 2 or more candidate matches → present all candidates in a human gate checkpoint. Cross-validation disagreements on death date trigger human gate. This enrichment is additive and never blocks intake.
 
 **Dependencies:** Usul-Data JSON (~50MB, MIT license). Wikidata SPARQL endpoint (free, CC0). Update frequency: Usul-Data quarterly (follow their releases), Wikidata cache refreshed monthly. Depends on: §4.B.1's OpenITI matching (shared URI format), §4.A.5's scholar authority model.
 
@@ -791,7 +795,7 @@ Gap analysis output (ranked by priority):
 
 #### §4.B.9 — Source Difficulty Prediction
 
-**Capability:** Before the normalization engine processes a source, the source engine analyzes the source's metadata and a sample of its content to predict how difficult the source will be to process through the entire pipeline, what the expected knowledge yield will be, and where human intervention will likely be needed. This prediction enables intelligent queue prioritization: easy, high-yield sources are processed first, producing immediate library value, while difficult sources are queued with appropriate resource allocation and human gate expectations.
+**Capability:** Before the normalization engine processes a source, the source engine analyzes the source's metadata and a sample of its content to predict how difficult the source will be to process through the entire pipeline, what the expected knowledge yield will be, and where human intervention will likely be needed. This prediction enables intelligent queue prioritization: easy, high-yield sources are processed first, producing immediate library value, while difficult sources are queued with predicted human gate counts and estimated processing time.
 
 **Technology:** The prediction model uses a weighted combination of seven difficulty signals, each scored 0.0 (trivial) to 1.0 (maximum difficulty). The signals are computed from metadata already available at intake time (Steps 1-4 of §4.A.2) — no additional processing is required.
 
@@ -801,15 +805,15 @@ Gap analysis output (ranked by priority):
 
 1. **Format complexity** (weight 0.20). Shamela structured HTML → 0.1. Text-embedded PDF → 0.2. Mixed-format Word docs → 0.4. Scanned PDF → 0.6. iPhone photos → 0.8. Multi-format directory → 0.7. Score derived from `source_format` field.
 
-2. **Genre processing depth** (weight 0.20). `matn` or `risalah` (single-author, single-layer) → 0.1. `sharh` (two layers: matn + commentary) → 0.4. `hashiyah` (three layers) → 0.7. `taqrirat` (informal structure, often unpunctuated) → 0.6. `mawsuah` or `fatawa` (encyclopedic, many topics) → 0.5. `nazm` (verse — requires verse-aware processing) → 0.8. Score derived from `genre` field.
+2. **Genre processing depth** (weight 0.20). `matn` or `risalah` (single-author, single-layer) → 0.1. `sharh` (two layers: matn + commentary) → 0.4. `hashiyah` (three layers) → 0.7. `taqrirat` (informal structure, often unpunctuated) → 0.6. `mawsuah` or `fatawa` (encyclopedic, covering 10+ distinct topics) → 0.5. `nazm` (verse — requires verse-aware processing) → 0.8. `mukhtasar` (abridgment — single-layer but dense) → 0.2. `mujam` or `tabaqat` (dictionary/biographical — structured entries, low narrative complexity) → 0.3. `fiqh_comparative` (comparative — tracks positions across schools) → 0.5. `hadith_collection` (hadith — requires isnad/matn parsing) → 0.4. `tafsir` (exegesis — verse-by-verse, often multi-layer) → 0.5. `sirah` or `tarikh` (narrative history — moderate structure) → 0.3. `adab` (literary — variable structure) → 0.3. `other` → 0.5 (default for unclassified genres). Score derived from `genre` field.
 
 3. **Multi-layer complexity** (weight 0.15). `multi_layer: false` → 0.0. Two layers → 0.4. Three or more layers → 0.8. Each additional layer increases the difficulty of attributing text to the correct author — the normalization and excerpting engines must track which words belong to which scholar. Score derived from `multi_layer` and `layers` fields.
 
-4. **Science scope breadth** (weight 0.10). Single science → 0.1. Two sciences → 0.3. Three or more → 0.6. Multi-science sources require excerpts to be placed across multiple taxonomy trees, multiplying the classification and placement work. Score derived from `science_scope` array length.
+4. **Science scope breadth** (weight 0.10). Single science → 0.1. Two sciences → 0.3. Three or more → 0.6. Sources spanning 2+ sciences require excerpts to be placed across 2+ taxonomy trees, multiplying the classification and placement work. Score derived from `science_scope` array length.
 
 5. **Text fidelity** (weight 0.15). `high` → 0.0. `medium` → 0.3. `low` → 0.7. `unknown` → 0.5. Low-fidelity text produces more OCR errors, more low-confidence atoms, and more human gate checkpoints downstream. Score derived from `text_fidelity` field.
 
-6. **Source size** (weight 0.10). < 100 pages → 0.0. 100-500 pages → 0.2. 500-2000 pages → 0.5. > 2000 pages → 0.8. Multi-volume works (>5 volumes) → 0.9. Larger sources consume more LLM tokens, produce more passages, and have higher probability of containing processing edge cases. Score derived from `page_count` and `volume_count`.
+6. **Source size** (weight 0.10). < 100 pages → 0.0. 100-500 pages → 0.2. 500-2000 pages → 0.5. > 2000 pages → 0.8. Multi-volume works (>5 volumes) → max(page-based score, 0.9) — the volume count overrides only when it produces a higher score than the page count alone. Larger sources consume more LLM tokens, produce more passages, and have higher probability of containing processing edge cases. Score derived from `page_count` and `volume_count`.
 
 7. **Author disambiguation confidence** (weight 0.10). Author canonical_id confidence ≥ 0.90 → 0.0. 0.70-0.90 → 0.3. < 0.70 → 0.7. A weakly identified author means all downstream attribution is uncertain, cascading through every engine. Score derived from `author.canonical_id` confidence in metadata inference results.
 
@@ -838,9 +842,9 @@ Gap analysis output (ranked by priority):
 }
 ```
 
-**Difficulty tiers:** `easy` (0.0–0.25): single-layer, single-science, high-fidelity, small, well-identified. `moderate` (0.25–0.50): some complexity in one or two dimensions. `hard` (0.50–0.75): multi-layer, multi-science, or low-fidelity. `very_hard` (0.75–1.0): multiple compounding difficulties.
+**Difficulty tiers:** `easy` (0.0–0.25): single-layer, single-science, high-fidelity, under 500 pages, author confidence ≥ 0.90. `moderate` (0.25–0.50): 1–2 signals score above 0.3 while the rest remain low. `hard` (0.50–0.75): multi-layer, multi-science, or low-fidelity — at least 2 signals score above 0.5. `very_hard` (0.75–1.0): 3 or more signals score above 0.5, compounding difficulties across format, genre, and fidelity dimensions.
 
-**Priority recommendation logic:** Priority is NOT simply inverse difficulty. Priority considers: (1) difficulty (lower is better), (2) expected knowledge yield (how many taxonomy leaves this source will populate, estimated from science scope + source size + genre), (3) owner's current study focus (a source in the active study science is prioritized), (4) gap-fill potential (does this source fill a coverage gap identified by §4.B.4?). A hard source that fills a critical gap is higher priority than an easy source covering already-saturated topics.
+**Priority recommendation logic:** Priority is NOT simply inverse difficulty. Priority considers: (1) difficulty (lower is better), (2) expected knowledge yield (the estimated count of taxonomy leaves this source will populate, derived from science scope + source size + genre), (3) owner's current study focus (a source in the active study science is prioritized), (4) gap-fill potential (does this source fill a coverage gap identified by §4.B.4?). A hard source that fills a critical gap is higher priority than an easy source covering already-saturated topics.
 
 **Concrete example contrasting two sources:**
 
@@ -858,7 +862,7 @@ Source B: حاشية الصبان على شرح الأشموني على ألفي
 
 #### §4.B.10 — Tahqiq Apparatus Fingerprinting
 
-**Capability:** When a source claims to be a critical edition (tahqiq), the source engine analyzes the structure and content of its editorial apparatus — footnotes, variant reading notes, manuscript references, hadith takhrij — to produce a "tahqiq fingerprint" that distinguishes genuine critical editions from commercial reprints masquerading as tahqiq. This addresses a documented problem in Islamic publishing: many editions claim tahqiq on their cover but contain no actual critical apparatus, or contain formulaic apparatus copied from other editions.
+**Capability:** When a source claims to be a critical edition (tahqiq), the source engine analyzes the structure and content of its editorial apparatus — footnotes, variant reading notes, manuscript references, hadith takhrij — to produce a "tahqiq fingerprint" that distinguishes genuine critical editions from commercial reprints masquerading as tahqiq. This addresses a documented problem in Islamic publishing: a significant proportion of editions (estimated at 30–50% of commercially available prints) claim tahqiq on their cover but contain no actual critical apparatus, or contain formulaic apparatus copied from other editions.
 
 **Technology:** Pattern analysis of the first 5,000 characters of footnote content (extracted during format-specific metadata extraction in Step 3 of §4.A.2), combined with LLM classification of apparatus quality. No external dependencies beyond the standard LLM inference already used in Step 4.
 
@@ -872,7 +876,7 @@ Source B: حاشية الصبان على شرح الأشموني على ألفي
 
 3. **Hadith takhrij presence.** For fiqh and hadith sources, genuine tahqiq includes hadith source tracing in footnotes: references to hadith collections by name (أخرجه البخاري, رواه مسلم), hadith numbers, grading terms (صحيح, حسن, ضعيف). Presence of takhrij is a strong signal of editorial rigor.
 
-4. **Formulaic apparatus detection.** Commercial publishers often use templated footnotes: identical phrasing repeated across pages, generic biographical notes copied from reference works without original analysis. The engine checks for: (a) footnote text entropy — genuine apparatus has high entropy (diverse content), formulaic apparatus has low entropy (repetitive patterns), (b) proportion of footnotes that are purely biographical (> 80% biographical footnotes with no textual commentary suggests a commercial biographical compilation, not genuine tahqiq).
+4. **Formulaic apparatus detection.** Commercial publishers often use templated footnotes: identical phrasing repeated across pages, generic biographical notes copied from reference works without original analysis. The engine checks for: (a) footnote text entropy — genuine apparatus has high entropy (diverse content), formulaic apparatus has low entropy (repetitive patterns). Entropy is computed as Shannon entropy of word unigrams in the footnote text, normalized to 0.0-1.0 by dividing by log2(vocabulary_size) (the maximum possible entropy for the observed vocabulary). A normalized entropy of 0.0 means all footnotes use the same word; 1.0 means perfectly uniform word distribution. Genuine critical editions typically score > 0.75; formulaic apparatus scores < 0.50. (b) proportion of footnotes that are purely biographical (> 80% biographical footnotes with no textual commentary suggests a commercial biographical compilation, not genuine tahqiq).
 
 5. **Muhaqiq reputation cross-reference.** The engine checks the `muhaqiq` name against the recognized muhaqiqs list (§4.A.8 configuration) and also against a configurable watchlist of editors known for commercial, non-scholarly editions. The watchlist is informed by domain knowledge (e.g., the practices documented by Mufti Kadodia and other scholars regarding specific editors and publishers).
 
@@ -912,7 +916,7 @@ Edition B (publisher: دار الكتب العلمية, muhaqiq: محمد حسن
 
 The source engine automatically adjusts the trust evaluation for Edition B: tahqiq quality factor drops from 0.90 (recognized muhaqiq) to 0.30 (commercial reprint), which may push the combined trust score below the verified threshold. The owner is notified: "Edition B of صحيح البخاري claims tahqiq but the apparatus analysis found no manuscript references and no variant readings. This appears to be a commercial reprint. Recommend using Edition A as the preferred source."
 
-**Scholar impact:** Rayane no longer needs to manually evaluate whether a claimed tahqiq is genuine — a task that requires years of experience and comparing multiple editions. The source engine does this automatically, protecting the library from unreliable text that masquerades as critically edited. For a student who cannot yet distinguish good editions from bad ones, this is a scholarly mentor's judgment automated.
+**Scholar impact:** Rayane no longer needs to manually evaluate whether a claimed tahqiq is genuine — a task that requires years of experience and side-by-side comparison of 2 or more editions. The source engine does this automatically, protecting the library from unreliable text that masquerades as critically edited. For a student who cannot yet distinguish good editions from bad ones, this is a scholarly mentor's judgment automated.
 
 **Implementation sketch:** During metadata extraction (Step 3), format-specific extractors already parse footnotes for Shamela HTML (footnote divs) and PDFs (Docling footnote detection). The engine extracts up to 5,000 characters of footnote text. Pattern matching for manuscript references and variant readings uses regex patterns on Arabic text (library names, folio notation, variant reading formulae). Footnote entropy is computed as Shannon entropy of word unigrams in the footnote text. The LLM classifies the overall apparatus quality using a prompt that includes: the footnote sample, the pattern analysis scores, and the muhaqiq name. Multi-model consensus is NOT required because the classification is non-destructive (it adjusts a trust factor, not content or attribution). The classification is stored in the source metadata and feeds into the trustworthiness evaluation (§4.A.8).
 
@@ -1013,6 +1017,11 @@ Consensus is NOT used for: genre classification, science scope, structural forma
 | `SRC_SCHOLAR_SCHOOL_CONFLICT` | Warning | Scholar school affiliation enrichment contradicts existing | Block update. Create human gate. |
 | `SRC_SCHOLAR_TEMPORAL_INCONSISTENCY` | Warning | Teacher-student link with implausible death date gap (>30 years wrong direction) | Flag relationship. Create human gate. |
 | `SRC_FORMAT_STRUCTURE_MISSING` | Warning | Detected format but expected structural file absent (e.g., Shamela without info.html) | Fall back to minimal extraction + LLM inference. Flag all extracted fields as `needs_review`. |
+| `SRC_KITAB_CACHE_MISSING` | Info | KITAB statistics cache not found at configured path | Skip KITAB enrichment (§4.B.5). Log. Enrichment deferred until cache is downloaded. |
+| `SRC_KITAB_CACHE_CORRUPT` | Warning | KITAB statistics cache downloaded but fails validation (bad CSV headers or spot-check mismatch) | Discard corrupted file. Log. Skip KITAB enrichment until valid cache is obtained. |
+| `SRC_USUL_DATA_MISSING` | Info | Usul-Data `authors.json` not found at configured path | Skip Usul-Data enrichment (§4.B.8). Log. Proceed with OpenITI and Wikidata only. |
+| `SRC_WIKIDATA_TIMEOUT` | Info | Wikidata SPARQL query timed out or returned HTTP error after 3 retries | Skip Wikidata enrichment (§4.B.8). Log. Proceed with OpenITI and Usul-Data only. |
+| `SRC_COMPARISON_DEFERRED` | Info | Edition comparison requested but normalized text not yet available for 1+ editions | Defer comparison. Log. Re-attempt when both editions reach `normalized` status. |
 
 **Principle:** Never lose data silently. Every error is logged with: timestamp, source identifier (if known), error code, severity, human-readable message, and the specific recovery action taken (one of: reject intake, create human gate, flag field for review, skip optional enrichment, retry on next cycle). Fatal errors stop processing for the affected source but do not affect other sources in the pipeline. Warning errors allow processing to continue with the affected fields marked as `needs_review`. Info errors are logged for audit with no processing impact.
 
@@ -1073,7 +1082,7 @@ Each science's Level 3 documentation may specify:
 
 2. **Multi-format support.** Code handles Shamela HTML only. SPEC requires: PDF, image (iPhone photos), EPUB, plain text, owner-authored content. [NOT YET IMPLEMENTED]
 
-3. **Scholar authority model.** Code stores author as a flat string in metadata. SPEC requires a centralized scholar authority registry with canonical identities, name variants, biographical data, teacher-student graph, and progressive enrichment. [NOT YET IMPLEMENTED]
+3. **Scholar authority model.** Current code represents the author as a flat string in metadata. SPEC requires a centralized scholar authority registry with canonical identities, name variants, biographical data, teacher-student graph, and progressive enrichment. [NOT YET IMPLEMENTED]
 
 4. **Work registry.** Code has no concept of works grouping multiple sources. SPEC requires a work registry tracking abstract works, their sources (editions), relationships (sharh→matn chains), and preferred editions. [NOT YET IMPLEMENTED]
 
@@ -1092,6 +1101,18 @@ Each science's Level 3 documentation may specify:
 11. **Acquisition gap analysis.** [NOT YET IMPLEMENTED]
 
 12. **Processing status tracking.** Code uses a simple registry. SPEC requires pipeline-wide status tracking with stage-specific timestamps. [NOT YET IMPLEMENTED]
+
+13. **Cross-validated scholar authority bootstrapping (§4.B.8).** SPEC requires querying Usul-Data and Wikidata in addition to OpenITI, with three-source cross-validation for death dates, known works union, and teacher-student links. [NOT YET IMPLEMENTED]
+
+14. **Source difficulty prediction (§4.B.9).** SPEC requires a seven-signal weighted prediction model that computes difficulty tiers and priority recommendations before pipeline processing. [NOT YET IMPLEMENTED]
+
+15. **Tahqiq apparatus fingerprinting (§4.B.10).** SPEC requires analysis of footnote content to classify tahqiq editions as genuine_critical, scholarly_reprint, commercial_reprint, claimed_but_absent, or insufficient_data. [NOT YET IMPLEMENTED]
+
+16. **Edition comparison intelligence (§4.B.6).** SPEC requires automated comparison of 2+ editions of the same work, classifying divergences and recommending preferred edition. [NOT YET IMPLEMENTED]
+
+17. **KITAB text reuse integration (§4.B.5).** SPEC requires local KITAB statistics cache download and compositional profiling of sources against the OpenITI corpus. [NOT YET IMPLEMENTED]
+
+18. **Scholarly genealogy auto-construction (§4.B.7).** SPEC requires multi-generational teacher-student chain construction with NetworkX graph analysis. [NOT YET IMPLEMENTED]
 
 **External tools and libraries:**
 - **Docling** (IBM, Apache 2.0): PDF and image parsing for non-Shamela sources. The normalization engine will use Docling as its primary parser, but the source engine uses it for limited metadata extraction from PDFs and images during intake.

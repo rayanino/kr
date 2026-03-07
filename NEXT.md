@@ -1,43 +1,42 @@
 # NEXT SESSION
 
 ## Session Type
-PRECISION (see SESSION_TYPES.md for full framework)
+HARDENING (see SESSION_TYPES.md for full framework)
 
 ## Immediate Task
 
-**Source engine PRECISION session.** The source engine SPEC has completed its CREATIVE session — three new §4.B capabilities were added (§4.B.8 Cross-Validated Scholar Authority Bootstrapping, §4.B.9 Source Difficulty Prediction, §4.B.10 Tahqiq Apparatus Fingerprinting), and the total capabilities now stand at 10. The SPEC is 1140+ lines.
+**Source engine HARDENING session.** The source engine SPEC has completed both CREATIVE and PRECISION sessions. It now has 10 §4.B capabilities (all fully specified), 0 HIGH defects from `check_spec_quality.py`, all error codes in §7 (including 6 new codes from §4.B capabilities), and contracts.py aligned with the SPEC.
 
-This PRECISION session should: make every rule in §4.A and §4.B machine-implementable (Claude Code can build with zero clarifying questions), fix all HIGH-severity defects from `check_spec_quality.py`, ensure all error codes from the new capabilities are in §7, and verify contracts.py matches the SPEC exactly.
+This HARDENING session should: verify no knowledge corruption paths exist (every write validated, every error handled, no silent data loss), verify all KNOWLEDGE_INTEGRITY.md invariants hold across all §4.A and §4.B rules, test adversarial scenarios (what if LLM returns wrong data? what if external APIs return corrupt data? what if two processes run intake simultaneously?), and verify the enrichment invariant system is watertight.
 
 ## What to Read
 
-1. `engines/source/SPEC.md` — Full SPEC. This is a PRECISION session — read methodically, rule by rule.
-2. `engines/source/contracts.py` — Verify every model matches the SPEC output descriptions.
-3. Run `python3 scripts/check_spec_quality.py engines/source/SPEC.md` — Fix all HIGH defects.
-4. `KNOWLEDGE_INTEGRITY.md` §Invariants — Verify no new capability violates invariants.
+1. `engines/source/SPEC.md` — Full SPEC. Focus on: §4.A.2 (acquisition workflow atomicity), §4.A.5 (scholar record consistency checks), §4.A.8 (trust evaluation), §4.B.5-§4.B.10 (external data integration — main corruption surface).
+2. `KNOWLEDGE_INTEGRITY.md` — Full file. Test every invariant against every SPEC rule.
+3. `engines/source/contracts.py` — Verify all validation constraints are correct.
+4. Run `python3 scripts/check_spec_quality.py engines/source/SPEC.md` — Confirm 0 HIGH defects persist.
 
-**Do NOT read:** VISION.md, other engine SPECs, CREATIVE_MANDATE.md. This is precision work, not creative work.
+**Do NOT read:** VISION.md, other engine SPECs, CREATIVE_MANDATE.md. This is hardening work.
 
 ## Definition of Done
 
-1. All HIGH-severity defects from `check_spec_quality.py` resolved
-2. Every §4.A rule has: input, output, edge case, failure handling
-3. Every §4.B capability has: input, output, trigger, behavioral rules, error codes
-4. All new error codes (from §4.B.8-10) added to §7 error taxonomy
-5. contracts.py has models for every SPEC output — no SPEC field without a corresponding Pydantic field
-6. SPEC quality check run: 0 HIGH defects
-7. Self-audit: ≥3 structural/semantic defects found and fixed
-8. §9 (Current Implementation State) updated to reference new capabilities as [NOT YET IMPLEMENTED]
-9. NEXT.md written (for source engine HARDENING session)
-10. SESSION_LOG.md updated
-11. Committed and pushed
+1. ≥10 adversarial scenarios tested (documented in SPEC §7 or a hardening appendix)
+2. ≥2 error cascade paths traced end-to-end
+3. Every KNOWLEDGE_INTEGRITY.md invariant verified against every §4.A and §4.B rule
+4. All external data integration points (OpenITI, KITAB, Usul-Data, Wikidata) have corruption defenses
+5. No new HIGH defects introduced
+6. contracts.py unchanged or only tightened
+7. NEXT.md written (for normalization engine CREATIVE session)
+8. SESSION_LOG.md updated
+9. Committed and pushed
 
-## Key Defects to Fix (from CREATIVE session quality check)
+## Key Areas to Stress-Test
 
-The `check_spec_quality.py` run found 15 HIGH-severity defects, concentrated in:
-- Vague quantifiers ("multiple", "many", "some") — replace with specific numbers or "configurable" references
-- Unbounded "etc." — enumerate or reference configuration
-- Unvalidated writes — add explicit validation steps before writes in §4.B.5, §4.B.7
+- **Concurrent intake:** What happens if two sources are being processed simultaneously and both reference the same scholar? (§4.A.5 registry atomicity)
+- **External API corruption:** What if Wikidata returns a valid response for the wrong scholar? (§4.B.8 cross-validation)
+- **LLM hallucination in genealogy:** What if the LLM invents a teacher-student link that doesn't exist? (§4.B.7 depth limits and consensus)
+- **Edition comparison on divergent structures:** What if two editions have completely different chapter structures? (§4.B.6 fallback)
+- **Enrichment write-back loops:** Can an enrichment trigger a cascade that triggers another enrichment that creates a loop?
 
 ## Pending Owner Questions
 

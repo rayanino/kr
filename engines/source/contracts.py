@@ -216,6 +216,11 @@ class ErrorCode(str, Enum):
     SCHOLAR_SCHOOL_CONFLICT = "SRC_SCHOLAR_SCHOOL_CONFLICT"
     SCHOLAR_TEMPORAL_INCONSISTENCY = "SRC_SCHOLAR_TEMPORAL_INCONSISTENCY"
     FORMAT_STRUCTURE_MISSING = "SRC_FORMAT_STRUCTURE_MISSING"
+    KITAB_CACHE_MISSING = "SRC_KITAB_CACHE_MISSING"
+    KITAB_CACHE_CORRUPT = "SRC_KITAB_CACHE_CORRUPT"
+    USUL_DATA_MISSING = "SRC_USUL_DATA_MISSING"
+    WIKIDATA_TIMEOUT = "SRC_WIKIDATA_TIMEOUT"
+    COMPARISON_DEFERRED = "SRC_COMPARISON_DEFERRED"
 
 
 class HumanGateTrigger(str, Enum):
@@ -449,6 +454,9 @@ class ScholarAuthorityRecord(BaseModel):
     genealogy_metadata: Optional[GenealogyMetadata] = Field(
         None, description="§4.B.7 scholarly genealogy. [NOT YET IMPLEMENTED]"
     )
+    cross_validation: Optional[CrossValidationResult] = Field(
+        None, description="§4.B.8 cross-validated authority bootstrapping. [NOT YET IMPLEMENTED]"
+    )
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -593,6 +601,12 @@ class SourceMetadata(BaseModel):
     compositional_profile: Optional[CompositionalProfile] = Field(
         None, description="KITAB text reuse (§4.B.5). [NOT YET IMPLEMENTED]"
     )
+    difficulty_prediction: Optional[DifficultyPrediction] = Field(
+        None, description="Pipeline difficulty prediction (§4.B.9). [NOT YET IMPLEMENTED]"
+    )
+    tahqiq_fingerprint: Optional[TahqiqFingerprint] = Field(
+        None, description="Tahqiq apparatus quality analysis (§4.B.10). [NOT YET IMPLEMENTED]"
+    )
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -698,7 +712,7 @@ class DeathDateAgreement(BaseModel):
     usul_data: Optional[int] = None
     wikidata: Optional[int] = None
     status: str = Field(description="unanimous | majority | disagreement | insufficient_data")
-    confidence_boost: float = Field(ge=0.0, le=0.20, default=0.0)
+    confidence_boost: float = Field(ge=0.0, le=0.15, default=0.0)
 
 
 class KnownWorksUnion(BaseModel):
