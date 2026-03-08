@@ -24,7 +24,7 @@ Research in KR serves two purposes. During Step 1 (SPEC), it informs design deci
 
 ## Research Protocol
 
-### Phase 1: Map the Problem Space (3-5 searches)
+### Map the Problem Space (3-5 searches)
 
 Understand what exists and what doesn't.
 
@@ -34,7 +34,7 @@ Use all available research tools — Exa for finding similar architectures, Scho
 
 Deliverable: a map of existing capabilities and known gaps, with sources.
 
-### Phase 2: Explore Possibilities (3-5 searches)
+### Explore Possibilities (3-5 searches)
 
 Discover what's technically feasible.
 
@@ -44,7 +44,7 @@ Technical feasibility: what can current LLMs do for this type of analysis? What 
 
 Deliverable: feasible approaches with named technologies.
 
-### Phase 3: Validate (2-3 searches)
+### Validate (2-3 searches)
 
 Verify that proposed approaches actually work.
 
@@ -54,7 +54,7 @@ For LLM-dependent approaches: what evidence exists that the LLM can perform this
 
 Deliverable: each proposed approach has evidence it works, AND named limitations.
 
-### Minimum: 8 searches across the three phases.
+### Minimum: 8 searches across the three stages.
 
 ---
 

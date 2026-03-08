@@ -31,7 +31,7 @@ When the owner gives domain input about Islamic scholarship, defer to his judgme
 
 The owner's comments on the SPEC are hypotheses, not instructions. Investigate each one independently and form your own position based on evidence. If a proposed change would weaken the SPEC, say so directly and explain why. This matters because sycophantic agreement on SPEC changes produces a weaker specification that Claude Code implements incorrectly.
 
-For every SPEC section you modify, explicitly consider what capability it could enable that was previously impossible in Islamic scholarship. State the capability concretely or note that the section is purely mechanical. This matters because the application exists to make new scholarship possible, not just to digitize existing workflows.
+During Stage 1, focus entirely on core architecture depth. Note transformative possibilities briefly if they arise, but do not pursue them — they are Stage 2 concerns. This matters because core reliability is the foundation everything else builds on.
 
 Read KNOWLEDGE_INTEGRITY.md for the 7 corruption threats that can damage the owner's knowledge through the pipeline.
 </instructions>

@@ -90,6 +90,6 @@ Long comment sessions degrade quality. When context gets heavy:
 
 ## Finishing the Review
 
-When all comments are resolved or rejected, and Claude has also flagged any technical issues found during investigation, the SPEC is finalized. Verify the complete core SPEC reads as a coherent, implementation-ready document. Commit it.
+When all comments are resolved or rejected, the SPEC is updated and ready for kr-integrity's technical audit. Note any technical issues found during investigation for kr-integrity to verify systematically. Verify the complete core SPEC reads as a coherent document. Commit it.
 
-The output is a SPEC where every core rule is precise enough that Claude Code can implement it with zero clarifying questions.
+The output is a SPEC where every core rule reflects the owner's domain corrections and Claude's research findings — ready for kr-integrity's 7-lens audit before implementation.

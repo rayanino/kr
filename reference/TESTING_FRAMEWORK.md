@@ -165,13 +165,13 @@ def compare_to_gold(actual: dict, gold: dict) -> list[GoldMismatch]:
 
 ### Initial Gold Baselines Required (Source Engine)
 
-The owner must hand-verify these before Phase 5:
+The owner must hand-verify these before Step 3 (BUILD):
 
 1. **`html_export_minimal.json`** — The synthetic Shamela-style export. Verify: title, author, science, genre, structural_format. Fastest to create because the fixture is small and the metadata is known.
 
 2. **`waraqat_usul.json`** — Real PDF. Verify: title (متن الورقات), author (الجويني), science (أصول الفقه), genre (matn), trust evaluation. Requires running the source engine once and correcting the output.
 
-**Two gold baselines are the minimum for Phase 5.** Additional baselines (ibn_aqil_alfiyyah, owner_note) are added during Phase 6 iteration.
+**Two gold baselines are the minimum for Step 3 (BUILD).** Additional baselines (ibn_aqil_alfiyyah, owner_note) are added during Step 4 (TEST) iteration.
 
 ---
 
@@ -827,7 +827,7 @@ These are the measurable criteria for each trust level, adapted from ENGINE_PROT
 
 **Level 3 is aspirational for early engines.** The inter-engine gate decision depends on accumulating 5c data across 3-4 engines. If 5c consistently finds errors self-validation missed, we add inter-engine LLM gates. If not, 5c becomes testing-only.
 
-**Level 4 is per-source, not per-engine.** The engine reaches Level 4 when the owner has approved its output on sources they actually study from. This happens during Phase 6 iteration, not as a one-time gate.
+**Level 4 is per-source, not per-engine.** The engine reaches Level 4 when the owner has approved its output on sources they actually study from. This happens during Step 4 (TEST) iteration, not as a one-time gate.
 
 ---
 
@@ -949,7 +949,7 @@ Each integration test:
 
 Integration tests are 5a-only (deterministic). They run with no API calls if the engines have cached outputs from previous runs.
 
-Build integration tests incrementally — `test_source_to_normalization.py` is created during Phase 1 (source + normalization). Others are added as engines are built.
+Build integration tests incrementally — `test_source_to_normalization.py` is created when both the source and normalization engines are built. Others are added as engines are built.
 
 ---
 

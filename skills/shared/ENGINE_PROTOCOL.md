@@ -93,7 +93,11 @@ Results are documented in the engine directory as `engines/{engine}/research/`. 
 
 **Tools:** This is where you use everything — Exa for finding similar architectures, Scholar Gateway for academic approaches, Tavily for comprehensive research, web search for tool comparisons, actual API calls to test LLM reliability. Assume infinite budget.
 
-**You're done when:** Every marked assumption in the SPEC has been tested. The SPEC has been updated with findings. There are no open questions that would change the architecture.
+**You're done when:** Every marked assumption in the SPEC has been tested on at least 3 representative fixtures. The SPEC has been updated with findings. There are no open questions that would change the architecture.
+
+For LLM reliability assumptions specifically: ≥85% accuracy across fixtures means the design holds. <70% means redesign the approach (different prompt, two-stage pipeline, lookup table, or human gate). Between 70-85% means add an explicit fallback path in the SPEC and proceed to BUILD with test coverage for the fallback.
+
+**Constraint:** Do not run more than 3 research sessions per engine. If assumptions are still uncertain after 3 sessions, they become BUILD-phase experiments with explicit test coverage — building and testing will resolve them faster than more isolated experiments.
 
 ---
 
@@ -192,3 +196,4 @@ These lessons accumulate. By engine 7, you have a comprehensive understanding of
 6. **Document everything.** Lessons are as valuable as code.
 7. **Quality over speed.** A narrow engine that works is worth infinitely more than a wide engine that doesn't.
 8. **If Step 4 reveals a core design problem, go back to Step 1.** Write a new comment, resolve it, update the SPEC, rebuild. Don't patch.
+9. **If engine N reveals that engine M (upstream) needs a change:** Document the required change in engine M's directory. Assess impact on engines M+1 through N-1. Update engine M's SPEC and code. Re-run engine M's Step 4 tests to confirm no regressions. Verify downstream contracts still hold. Then continue engine N. This is not a violation of Rule 1 — it is a targeted fix, not restarting engine M from scratch.
