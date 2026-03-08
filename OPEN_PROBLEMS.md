@@ -203,7 +203,7 @@ This takes ~5 minutes per engine. You'll create 6 more of these over the coming 
 | API keys (.env file) | TODO | Owner action: copy from project knowledge files |
 | Phase 1 (read SPEC) | IN PROGRESS | Owner is reading source engine SPEC |
 | Phase 2 (comment resolution) | BLOCKED | Waiting on project setup |
-| Problem 1 (testing architecture) | TODO | One deep-research chat, during Phases 2-3 |
+| Problem 1 (testing architecture) | DONE | `reference/TESTING_FRAMEWORK.md` — 2026-03-08 |
 | Problem 2 (Claude Code env) | TODO | One deep-research chat, right before Phase 5 |
 | Repo cleanup | TODO | Low priority, any time |
 
