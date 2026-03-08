@@ -24,7 +24,7 @@ The source engine. Step 1 (SPEC — Core Architecture). You need to read the cor
 - Settings > Capabilities > Enable **Code execution and file creation**
 
 **Upload skills:**
-- Customize > Skills > Upload all 6 `.zip` files from `skills/` > Toggle ON
+- Customize > Skills > Upload all 5 `.zip` files from `skills/` > Toggle ON
 - Test: in any chat, say "use kr-research" — if it activates, skills work
 
 **Create the source engine project:**
@@ -41,9 +41,15 @@ The source engine. Step 1 (SPEC — Core Architecture). You need to read the cor
 - Fill in: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `MISTRAL_API_KEY`
 - Needed for Step 2 (research/testing LLM assumptions)
 
-### 2. Read the Source Engine SPEC (core sections only)
+### 2. Classify Core vs Deferred
 
-Read `engines/source/SPEC.md`. Focus on §1-§4.A (core processing). Skip §4.B (transformative capabilities — deferred to Stage 2).
+Start a chat in the source engine project: "Use kr-core-extract on the source engine SPEC. Classify core vs deferred."
+
+Claude reads the full SPEC and produces a classification table — every capability tagged CORE or DEFERRED with reasons. Review this table and correct any misclassifications. Then Claude rewrites the SPEC with exhaustive depth on core only.
+
+### 3. Read the Core SPEC and Write Comments
+
+Read the rewritten SPEC. Focus on core behavior.
 
 As you read, write comments about the CORE behavior:
 - Things that are wrong ("Shamela puts the muhaqiq in the author field, not the author")
@@ -53,9 +59,9 @@ As you read, write comments about the CORE behavior:
 
 Use the template in `skills/shared/COMMENT_TEMPLATE.md`. Save as `engines/source/owner-comments.md`.
 
-### 3. Start a Chat in the Source Engine Project
+### 4. Resolve Comments
 
-Say: "I have comments on the source engine SPEC core architecture. Use kr-spec-review."
+In the source engine project, say: "I have comments on the core SPEC. Use kr-spec-review."
 
 Give Claude your comments in batches of 3-5. Claude will research each one deeply and propose SPEC changes. You decide.
 

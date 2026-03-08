@@ -1,5 +1,27 @@
 # Session Log — خزانة ريان
 
+## Session: Skills Rewrite — 2026-03-08
+**Type:** ARCHITECTURE
+**Focus:** Rewrite all skills to match new 4-step core-first engine protocol
+
+### What was done
+1. **Created kr-core-extract** (NEW, 98 lines). Two-part workflow: classify every SPEC capability as CORE or DEFERRED (owner reviews), then rewrite the SPEC with exhaustive depth on core only. Includes engine-specific guidance for all 7 engines.
+2. **Rewrote kr-spec-review** (145 → 95 lines). Refocused on core architecture only. Added core-only filter: extension comments get acknowledged and deferred, not resolved. Removed old multi-phase references.
+3. **Rewrote kr-research** (165 → 91 lines). Streamlined around the two purposes: informing design decisions (Step 1) and validating assumptions (Step 2). Emphasized using all available tools (Exa, Tavily, Scholar Gateway). Removed §4.B creative exploration focus (deferred to Stage 2).
+4. **Rewrote kr-evaluate** (186 → 140 lines). Added CORE GAP vs EXTENSION OPPORTUNITY vs LESSON LEARNED categorization from new protocol. Kept 5a/5b/5c framework. Added LESSONS.md documentation requirement.
+5. **Rewrote kr-build-prep** (218 → 140 lines). Repositioned as first session of BUILD step, not separate phase. Removed agent team orchestration (Stage 2 concern). Kept technology survey and CLAUDE.md design.
+6. **Retired kr-integrity** (archived to reference/archive/process/). Functionality folded into kr-spec-review — technical concerns handled during comment resolution, not separately.
+7. **Retired kr-finalize** (archived to reference/archive/process/). The kr-core-extract rewrite IS the finalization.
+8. **Regenerated all 5 zip files.** Updated skills/README.md and OPEN_PROBLEMS.md.
+
+### Prompting best practices applied (from platform.claude.com/docs)
+- Descriptions: specific about what and when, without aggressive ALL CAPS (Claude 4.6 follows instructions precisely without heavy emphasis)
+- Body: explains WHY things matter rather than heavy-handed directives
+- XML tags for structure where beneficial
+- Clear role at the top of each skill
+- Examples and output format templates
+- Concise: all skills under 150 lines (well under the 500-line ceiling)
+
 ## Session: Engine Protocol Rewrite — 2026-03-08
 **Type:** ARCHITECTURE
 **Focus:** Critically evaluate the 6-phase per-engine process and redesign from first principles

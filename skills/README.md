@@ -1,57 +1,28 @@
-# KR Skills
+# KR Skills — مهارات خزانة ريان
 
-## Installation
+Skills are uploaded to Claude Chat (Customize > Skills) as .zip files. They activate when you invoke them by name in a chat.
 
-Upload each `.zip` file to Claude.ai via **Settings > Customize > Skills**.
+## The 5 Skills
 
-## How to Follow the Process
+| Skill | Step | What It Does |
+|-------|------|-------------|
+| **kr-core-extract** | Step 1 | Separates core architecture from extensions. Produces classification table, then rewrites SPEC for core-only depth. |
+| **kr-spec-review** | Step 1 | Resolves owner domain comments on the core SPEC. Investigates each comment with deep research before forming a position. |
+| **kr-research** | Steps 1-2 | Deep architectural research. Explores approaches, validates tools, compares similar systems. Minimum 8 searches. |
+| **kr-build-prep** | Step 3 | Prepares Claude Code environment. Technology survey, architecture, stubs, tests, CLAUDE.md. |
+| **kr-evaluate** | Step 4 | Reviews test results. Categorizes findings as core gaps, extension opportunities, or lessons learned. |
 
-**Read `shared/ENGINE_PROTOCOL.md` first.** It's the step-by-step guide for taking any engine from first SPEC reading to a working, tested build. Each engine goes through 6 phases, each phase uses a specific skill. The protocol tells you exactly what to do, what Claude does, and when you're done.
+## How to Install
 
-## The 6 Skills
+1. Go to Customize > Skills in Claude Chat
+2. Upload all 5 `.zip` files from this directory
+3. Toggle each skill ON
+4. Test: say "use kr-research" in any chat — if it activates, skills work
 
-| Skill | Purpose | Triggers |
-|-------|---------|----------|
-| **kr-spec-review** | Handle owner domain comments as research hypotheses | "handle comment", "comment #N", domain feedback |
-| **kr-finalize** | Phased SPEC consolidation across multiple focused chats | "finalize", "all comments done", "wrap up" |
-| **kr-build-prep** | Tech survey + Claude Code environment optimization | "prepare for building", "implementation prep" |
-| **kr-evaluate** | Review test results across 5a/5b/5c dimensions | "evaluate results", "check output" |
-| **kr-research** | Creative engine: Scholar's Dream, Impossibility Search, Cross-Tradition Steal | "research", "explore", "what's possible" |
-| **kr-integrity** | Deep audit: Perfection Standard + 7 threats + 7 silent failure patterns | "audit", "integrity check", "verify" |
+## Other Directories
 
-## Architecture (Three Layers)
-
-```
-LAYER 1: CUSTOM INSTRUCTIONS (per engine project, always loaded)
-  → WHO Claude is: engine-specific expert role
-  → Includes STARTUP PROCEDURE: clone repo at start of every chat
-  → ~150 lines, active in every chat
-
-LAYER 2: PROJECT KNOWLEDGE (minimal — only 2 files needed)
-  → Github_key: enables repo access
-  → STEERING.md: concise project context
-  → Everything else read from the cloned repo on demand
-
-LAYER 3: SKILLS (account-level, triggered on demand)
-  → WHAT TO DO: task procedures with embedded research
-```
-
-**Key design decision:** Claude Chat clones the repo at the start of each chat (4 seconds). This means SPECs, contracts, comments, and all working files live in git — not in project knowledge. This gives versioning, a single source of truth, and minimal context window consumption.
-
-## Shared Files
-
-Files in `shared/` are templates and protocols to upload to each engine project:
-- `COMMENT_TEMPLATE.md` — structured format for owner's SPEC comments
-- `HANDOFF_PROTOCOL.md` — clean session bridging when chats get long
-
-## Per-Engine Project Setup
+- `engine-project-template/` — Ready-to-paste custom instructions per engine
+- `shared/` — ENGINE_PROTOCOL.md (the 4-step process), COMMENT_TEMPLATE.md, HANDOFF_PROTOCOL.md
+- `handoffs/` — Session handoff documents
 
 Each engine gets its own Claude Chat project. Setup files are in `engine-project-template/` with a ready-to-paste file per engine.
-
-## Design Principles
-
-1. **Comments are hypotheses, not instructions.** Claude investigates and forms its own position.
-2. **Research scales to complexity.** Not "always 3 searches" — simple comments need 1, complex ones need 10+.
-3. **Finalization is phased.** Never try to audit a 1500-line SPEC in one chat.
-4. **CLAUDE.md stays under 200 lines.** Detail goes in docs/ files.
-5. **Handoff when context degrades.** Structured summaries bridge chats cleanly.

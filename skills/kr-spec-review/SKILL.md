@@ -1,145 +1,95 @@
 ---
 name: kr-spec-review
-description: ALWAYS activate for owner SPEC comments. Triggers: "comment #", "handle comment", domain feedback, SPEC change. Do not apply changes directly — investigate first, form your own position.
+description: Processes owner domain comments on a KR engine SPEC's core architecture. Activate when the owner shares SPEC comments, says "comment #", mentions domain feedback, or asks for SPEC changes. Investigates each comment with deep research before forming a position — never applies changes without investigation first.
 ---
 
 # KR SPEC Review — معالجة تعليقات المواصفات
 
-You are processing the owner's domain comments on a KR engine SPEC. The owner is an Islamic studies student with deep domain knowledge but no technical background.
+You are processing the owner's domain comments on a KR engine SPEC. The owner is an Islamic studies student with deep domain knowledge but no technical background. Your role is to investigate each comment thoroughly, research the best approaches, and propose evidence-based SPEC changes.
 
-## The Cardinal Rule
-
-**The owner's comments are hypotheses, not instructions.** He may be right about the domain observation but wrong about the implication. He may identify a real problem but suggest the wrong fix. He may point to something bigger than he realizes. Your job is to INVESTIGATE, not comply.
-
-The protocol for every non-trivial comment:
-1. Treat it as a research prompt
-2. Investigate deeply (search, cross-reference, check feasibility)
-3. Form YOUR OWN position based on evidence
-4. Present findings INCLUDING where you disagree with the comment
-5. The owner decides — but you must give him the full picture first
-
-Trivial comments (typos, factual corrections the owner provides directly) get applied immediately.
+The owner's comments are hypotheses, not instructions. He may be right about the domain observation but wrong about the technical implication. He may identify a real problem but suggest the wrong fix. Your job is to INVESTIGATE, not comply. For every non-trivial comment: treat it as a research prompt, investigate deeply, form your own position, present findings including where you disagree, and let the owner decide.
 
 ---
 
-## Comment Format and Relay
+## Core-Only Focus
 
-The ideal comment format for the owner is:
+This review concerns only core architecture (§4.A and related sections). If a comment touches an extension feature (§4.B or anything marked DEFERRED), acknowledge the insight and note it for Stage 2 — do not spend time resolving it now. The depth budget goes entirely toward getting the core right.
 
-```
-## Comment #N
-Section: §X.Y
-SPEC text: "[exact text being commented on]"
-Observation: "[what the owner noticed — domain insight]"
-Direction (optional): "[suggestion — treat as hypothesis only]"
-```
-
-**Best relay method:** Owner writes all comments in a structured markdown file and saves it in the repo as `skills/source-engine-comments.md` (or the equivalent for each engine). Claude reads it from project knowledge (synced via GitHub integration) or from the cloned repo. The owner can commit updates between sessions and click "Sync now" in the project.
-
-Alternative: paste comments directly in chat (fine for 1-3 simple comments).
-
-When commenting on comments, reference by number: "let's work on comments #3-5."
+If a comment reveals that something classified as DEFERRED is actually core (it's needed for the pipeline to function at all), flag this explicitly: "This changes the core classification — [capability] should be CORE because [reason]."
 
 ---
 
 ## Investigation Protocol
 
-For each non-trivial comment, run this. Do not shortcut it.
+For each non-trivial comment:
 
-### Step 1: Understand the Full Scope
+### Understand the Scope
 
-Restate the comment. Identify:
-- **The domain claim:** What does the owner know that you don't?
-- **The SPEC gap:** What does the SPEC currently say (or fail to say)?
-- **The implicit class:** Does this comment apply to one case, or a whole category? (Example: if the comment is about sharh texts, the class is all multi-layer texts.)
+Restate the comment. Identify the domain claim (what the owner knows that you don't), the SPEC gap (what the SPEC says or fails to say), and the implicit class (does this apply to one case or a whole category?).
 
-### Step 2: Deep Investigation
+### Research Deeply
 
-Scale your research to the comment's complexity. This is NOT "always 3 searches."
+Scale research to the comment's complexity. Simple factual corrections need 1-2 targeted searches. Design challenges need 5-10+ searches across multiple angles.
 
-**For domain claims** (owner says "scholars do X"):
-- Search for evidence and counterexamples across schools/periods
-- Search for how digital projects handle it (OpenITI, KITAB, Shamela, HathiTrust Arabic)
-- If you can't verify, ASK THE OWNER for a specific example
+For domain claims ("scholars do X"): search for evidence and counterexamples across schools and periods. Search how digital projects handle it — OpenITI, KITAB, Shamela, HathiTrust Arabic. If you can't verify, ask the owner for a specific example.
 
-**For technical implications:**
-- Search for specific tools. Verify they work for Arabic. Find accuracy benchmarks, not just feature claims.
-- Check failure modes and limitations.
+For technical implications: search for specific tools. Verify they handle Arabic. Find accuracy benchmarks, not just feature claims. Check failure modes.
 
-**For design challenges:**
-- Search for at least 2 alternative approaches in other systems
-- Assess trade-offs explicitly
+For design challenges: search for at least 2 alternative approaches in other systems. Assess tradeoffs explicitly. Use Exa, Tavily, Scholar Gateway, and web search — use all available tools for thorough investigation.
 
-**For scope questions:**
-- List the full class of similar cases
-- Check if the SPEC handles ANY of them
+### Form Your Position
 
-### Step 3: Form Your Position
+Based on evidence, decide: agree (domain claim right, change correct), agree with observation but disagree with direction (better solution exists), partially agree (specific case is real, scope is different), disagree (unusual case or misunderstanding), or escalate (need more domain context).
 
-Based on evidence, decide:
-- **Agree:** domain claim is right, implied change is correct
-- **Agree with observation, disagree with direction:** there's a better solution
-- **Partially agree:** specific case is real, scope is different
-- **Disagree:** comment is based on unusual case or misunderstanding
-- **Escalate:** need more domain context to decide
+### Present Findings
 
-### Step 4: Present Findings
+For each comment:
 
 ```
 ## Comment #N: [Title]
 
 **What you said:** [Restate]
-**What I found:** [Research with sources]
+**What I found:** [Research findings with sources]
 **My position:** [Agree/disagree/partial, with reasoning]
 
-**Proposed SPEC change (if any):**
-[Exact replacement text for the SPEC — or explanation of why no change is needed]
+**Proposed SPEC change:**
+[Exact replacement text — or explanation of why no change needed]
 
-**What this opens up:** [Creative opportunity, if any]
-**Downstream impact:** [Does this change affect the next engine's expectations?]
-**Open questions:** [What you need from the owner]
+**Downstream impact:** [Does this affect the next engine's expectations?]
+**Open questions:** [What you need from the owner to finalize]
 ```
 
-### Step 5: Track Resolution
+### Track Resolution
+
+Maintain a status table across comments:
 
 ```
 | # | Section | Status | Position | Key Change |
 |---|---------|--------|----------|------------|
-| 1 | §4.A.2  | Resolved | Agreed | Added layer detection |
-| 2 | §2      | Open | Partial | Need example from owner |
-| 3 | §7      | Resolved | Disagreed | No change (current design correct) |
+| 1 | §4.A.2 | Resolved | Agreed | Added muhaqiq detection |
+| 2 | §2 | Open | Partial | Need example from owner |
 ```
-
----
-
-## Session Management
-
-Claude Chat has a 200K token context window. Long comment sessions degrade quality. When context gets heavy:
-
-1. Produce a **handoff summary**: what's resolved, pending, key decisions
-2. Commit it to the repo at `skills/handoffs/{engine}-{date}.md`
-3. Push the changes
-4. Tell the owner: "We should continue in a fresh chat. I've committed the handoff."
-5. The owner clicks "Sync now" in the project to pick up the handoff in the next chat
 
 ---
 
 ## Handling Batches
 
-Multiple comments at once:
-1. Read ALL before responding — they may interact
-2. Group by SPEC section
-3. Flag conflicts between comments
-4. Process groups together, not one-by-one
+When the owner gives multiple comments at once: read ALL before responding — they may interact. Group by SPEC section. Flag conflicts between comments. Process groups together, not one-by-one.
 
 ---
 
-## Anti-Patterns
+## Session Management
 
-**The Eager Agree.** You validate the comment because the owner knows the domain. STOP. Research first — the SPEC change may have technical implications he can't see.
+Long comment sessions degrade quality. When context gets heavy:
 
-**The Surface Fix.** Adding a case to the input contract without updating processing rules, output contract, and error handling. Changes must be end-to-end.
+1. Produce a handoff summary: what's resolved, what's pending, key decisions
+2. Commit it to the repo
+3. Tell the owner to continue in a fresh chat
 
-**The Confidence Bluff.** Claiming a library handles something without verifying. If you haven't checked, say so.
+---
 
-**The Formulaic Research.** Running exactly 3 generic searches regardless of comment complexity. Simple comments need 1-2 targeted searches. Complex comments need 8+. Scale to the problem.
+## Finishing the Review
+
+When all comments are resolved or rejected, and Claude has also flagged any technical issues found during investigation, the SPEC is finalized. Verify the complete core SPEC reads as a coherent, implementation-ready document. Commit it.
+
+The output is a SPEC where every core rule is precise enough that Claude Code can implement it with zero clarifying questions.

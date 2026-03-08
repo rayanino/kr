@@ -1,186 +1,140 @@
 ---
 name: kr-evaluate
-description: ALWAYS activate when reviewing engine test results. Triggers: "evaluate results", "check output", "review tests", "5a/5b/5c". Do not assess engine quality without the full categorization.
+description: Reviews engine test results and categorizes every finding. Activate when reviewing test output, checking engine quality, or when the owner says "evaluate results", "check output", or "review tests." Distinguishes core gaps from extension opportunities and documents lessons learned.
 ---
 
 # KR Evaluate — تقييم النتائج
 
-You are collaboratively reviewing test results from a KR engine build cycle with the owner. Your job is to categorize every issue, distinguish engine bugs from SPEC gaps from data problems, help the owner spot-check Arabic output, and gather evidence for the inter-engine gate decision: "Is this engine's output trustworthy enough to feed the next engine?"
+You are reviewing test results from a KR engine with the owner. Your job: categorize every finding, distinguish core gaps from extensions, help the owner spot-check Arabic output, and determine whether this engine is reliable enough to feed the next one.
 
 ---
 
 ## The Three Test Dimensions
 
 ### 5a — Deterministic Checks
-These are automated, binary pass/fail tests. No judgment required.
+Automated pass/fail tests. Schema conformance, Arabic text integrity (diacritics preserved), metadata completeness, D-023 pass-through, referential integrity, boundary contract compliance.
 
-**What they test:**
-- Schema conformance (Pydantic validation)
-- Text integrity (Arabic characters, diacritics preserved)
-- Metadata completeness (no missing required fields)
-- Metadata pass-through (D-023 — nothing lost from upstream)
-- Referential integrity (all IDs resolve)
-- Boundary contract compliance (output matches downstream's input contract)
-
-**How to read results:** A 5a failure is always a bug. There's no ambiguity — either the schema matches or it doesn't. The question is: is it a code bug (Claude Code fix) or a contract bug (SPEC fix)?
+A 5a failure is always a bug — either in the code (doesn't match SPEC) or in the contract (SPEC is wrong).
 
 ### 5b — LLM-Worker Quality
-These test whether the LLM calls INSIDE the engine produce correct results.
+Tests whether the LLM calls inside the engine produce correct results. Classification accuracy, extraction accuracy, detection accuracy.
 
-**What they test:**
-- Classification accuracy (e.g., did the LLM correctly identify the science as nahw?)
-- Extraction accuracy (e.g., did the LLM correctly extract the author name?)
-- Detection accuracy (e.g., did the LLM correctly identify text layers?)
-
-**How to read results:** A 5b failure means the engine's LLM integration needs work. Possible causes: bad prompt, wrong model, insufficient context, or a task the LLM genuinely can't do. The fix might be prompt engineering, model selection, or redesigning the task to be more tractable.
+A 5b failure means the engine's LLM integration needs work — bad prompt, wrong model, insufficient context, or a task the LLM can't do reliably.
 
 ### 5c — LLM-Evaluator Assessment
-An INDEPENDENT LLM reviews the engine's complete output and judges quality.
+An independent LLM (different model family) reviews the engine's complete output. Catches errors that self-validation missed.
 
-**What they test:**
-- Overall output quality (does this look like correct output for this input?)
-- Error detection (does the evaluator catch issues self-validation missed?)
-- Consistency (does the evaluator agree with the engine's own confidence scores?)
-
-**How to read results:** A 5c finding might be a real error OR evaluator noise. This is why the owner spot-checks: the evaluator flags issues, the owner confirms or dismisses them.
+A 5c finding might be a real error or evaluator noise. The owner spot-checks to confirm or dismiss.
 
 ---
 
 ## Procedure
 
-### Step 1: Ingest Results
+### Step 1: Ingest and Summarize
 
-Read all available test output. Organize by dimension:
+Read all test output. Organize by dimension:
 
 ```
-## Test Results Summary — [Engine Name] on [Fixture]
+## Test Results — [Engine Name] on [Fixture]
 
-### 5a Deterministic
-- Total checks: N
-- Passed: N
-- Failed: N
-- Failures: [list with error codes]
+### 5a Deterministic: [N/M passed]
+Failures: [list with error codes]
 
-### 5b LLM-Worker
-- Tasks tested: N
-- Correct: N
-- Incorrect: N
-- Uncertain: N
-- Details: [per-task results]
+### 5b LLM-Worker: [N/M correct]
+Details: [per-task results]
 
-### 5c LLM-Evaluator
-- Items evaluated: N
-- Issues flagged: N
-- Severity breakdown: [critical/warning/info]
-- Details: [per-item findings]
+### 5c LLM-Evaluator: [N issues flagged]
+Details: [per-item findings]
 ```
 
-### Step 2: Error Categorization
+### Step 2: Categorize Every Finding
 
-For every failure or flagged issue, classify it:
+This is the most important step. Each finding gets exactly one category:
 
-| Category | Meaning | Who Fixes | Example |
-|----------|---------|-----------|---------|
-| ENGINE BUG | Code doesn't match SPEC | Claude Code | Schema field missing |
-| LLM QUALITY | LLM call produces wrong result | Claude Code (prompt/model) | Wrong author extracted |
-| SPEC GAP | SPEC doesn't address this case | kr-spec-review cycle | Unhandled input format |
-| DATA ISSUE | Test fixture has problems | Owner provides better fixture | Corrupted PDF |
-| UPSTREAM ERROR | Input from previous engine is wrong | Fix upstream engine first | Bad metadata from source engine |
-| EVALUATOR NOISE | LLM evaluator flagged something that's actually correct | Dismiss (note for evaluator tuning) | Evaluator unfamiliar with Islamic convention |
+| Category | What It Means | Who Fixes |
+|----------|--------------|-----------|
+| **CORE GAP** | Something fundamental is wrong or missing. The pipeline would produce corrupt or incomplete output without a fix. | Fix before moving to next engine. May require SPEC change. |
+| **ENGINE BUG** | Code doesn't match the SPEC. | Claude Code fixes it. |
+| **LLM QUALITY** | LLM call produces wrong results. | Prompt redesign, model change, or task restructuring. |
+| **DATA ISSUE** | Test fixture has problems. | Owner provides better fixture. |
+| **UPSTREAM ERROR** | Input from the previous engine is wrong. | Fix upstream engine first. |
+| **EXTENSION OPPORTUNITY** | Something that would improve the engine but isn't needed for the core pipeline to work. | Document for Stage 2. |
+| **LESSON LEARNED** | An insight about LLM reliability, data structures, testing, or architecture. | Document in LESSONS.md. |
+| **EVALUATOR NOISE** | LLM evaluator flagged something that's actually correct. | Dismiss, note for evaluator tuning. |
 
-**The critical distinction:** ENGINE BUG vs. SPEC GAP. An engine bug means the code doesn't do what the SPEC says. A SPEC gap means the SPEC doesn't say what to do. These have completely different fix paths.
+The critical distinctions:
 
-### Step 3: Owner Spot-Check Assist
+**CORE GAP vs EXTENSION OPPORTUNITY.** "The engine doesn't capture the muhaqiq's name, but downstream engines need it for attribution" is a core gap. "The engine doesn't detect citation networks between sources" is an extension opportunity. The test: would the pipeline produce wrong or incomplete knowledge entries without this? If yes, core gap. If no, extension.
 
-For Arabic content, the owner is the authority. Help them check efficiently:
+**ENGINE BUG vs SPEC GAP (= CORE GAP).** An engine bug means the code doesn't do what the SPEC says. A SPEC gap means the SPEC doesn't say what to do. If the SPEC is silent on a case the engine encounters, that's a core gap — the SPEC needs updating, not just the code.
 
-**For each flagged item that requires domain judgment:**
+### Step 3: Owner Spot-Check
 
-1. Show the specific Arabic text in question
-2. Show what the engine produced (classification, attribution, extraction)
-3. Show what the evaluator flagged (if applicable)
-4. Ask the owner a specific question: "Is ابن عقيل correctly identified as the author of this commentary?" — not "Does this look right?"
+For Arabic content, the owner is the authority. For each flagged item requiring domain judgment:
 
-**Spot-check sampling strategy:**
-- ALL critical errors get owner review
-- 20% random sample of warnings
-- Focus on items where 5b and 5c disagree (engine says correct, evaluator says wrong, or vice versa)
+1. Show the specific Arabic text
+2. Show what the engine produced
+3. Ask a specific question: "Is ابن عقيل correctly identified as the author of this commentary?" — not "Does this look right?"
+
+Sampling: all critical findings get owner review. 20% random sample of warnings. Focus on items where 5b and 5c disagree.
 
 ### Step 4: Aggregate Assessment
-
-Produce the overall engine quality assessment:
 
 ```
 ## Engine Assessment — [Engine Name]
 
-### Correctness Score
-- Deterministic: [N/M passed] — [PASS if 100%, FAIL otherwise]
-- LLM-Worker: [N/M correct] — [threshold depends on engine]
-- LLM-Evaluator: [summary of findings after noise removal]
+### Reliability
+- 5a: [N/M passed] — [PASS if 100%]
+- 5b: [accuracy %] — [PASS if ≥90%]
+- 5c: [findings after noise removal]
 
-### Error Pattern Analysis
-[Are there systematic errors? E.g., "The engine consistently misidentifies
-multi-author works" or "Diacritics are lost in footnotes but not body text"]
+### Core Gaps Found
+[List each with severity and fix plan]
 
-### Risk Assessment for Downstream
-[If this output feeds the next engine, what errors will propagate?
-Which errors are tolerable and which are blocking?]
+### Extension Opportunities
+[List each — these go in LESSONS.md for Stage 2]
 
-### Inter-Engine Gate Decision
-Based on the evidence: is this engine's output trustworthy enough
-to serve as input for the next engine?
+### Lessons Learned
+[Insights about LLM reliability, data structures, testing]
 
-Recommendation: PASS / CONDITIONAL PASS (with noted limitations) / FAIL (needs fixes first)
+### Verdict
+PASS — engine is reliable enough for the next engine
+CONDITIONAL PASS — reliable with noted limitations
+FAIL — core gaps must be fixed first
 ```
 
-### Step 5: Fix Planning
+### Step 5: Document for LESSONS.md
 
-For each issue that needs fixing:
+Every evaluation session contributes to the engine's LESSONS.md:
 
-```
-### Fix Plan
-| Priority | Issue | Category | Fix Description | Effort |
-|----------|-------|----------|----------------|--------|
-| 1 | Schema missing trust_score | ENGINE BUG | Add field to output | Small |
-| 2 | Author extraction fails on multi-layer texts | LLM QUALITY | Redesign prompt with layer context | Medium |
-| 3 | No handling for EPUB format | SPEC GAP | Needs spec-review cycle | Large |
-```
+- What LLM tasks worked reliably and what didn't
+- What data structures worked and what needed changing
+- What testing approaches caught real issues
+- Architectural decisions that affect downstream engines
+- Extension opportunities identified for Stage 2
+- What the next engine should account for
 
-### Step 6: Learning Synthesis
-
-End with: **What did we learn?**
-
-This is not a formality. It's the most valuable part of evaluation. Capture:
-
-1. **About this engine:** What's harder than expected? What works surprisingly well?
-2. **About LLM capabilities:** Which tasks do LLMs handle well? Which do they struggle with?
-3. **About the SPEC:** Which rules were clear enough for correct implementation? Which were ambiguous?
-4. **About the test fixtures:** Which fixtures exposed real issues? Which were too simple?
-5. **About evaluation:** Did the LLM evaluator catch things self-validation missed? Is it worth the cost?
-6. **For downstream engines:** What should the next engine's SPEC account for, given what we learned?
-
-These learnings feed back into the plan. They may change the approach for later engines.
+These lessons accumulate across engines. By engine 7, they form a comprehensive body of evidence about the pipeline.
 
 ---
 
-## Special: Synthesis Engine Faithfulness Check
+## Synthesis Engine: Additional Checks
 
-For the synthesis engine specifically, add a **faithfulness dimension** to evaluation. This uses the RAGAS framework (industry standard for RAG evaluation):
+For the synthesis engine only, add faithfulness evaluation:
 
-- **Faithfulness:** Break the synthesis entry into individual claims. For each claim tagged `source_grounded` (D-040), verify it appears in the cited excerpt. Score = supported claims / total claims. Target: 1.0.
-- **Context relevance:** Did the excerpting engine find the RIGHT excerpts for this topic?
-- **Consistency check (SelfCheckGPT method):** Run synthesis 3 times on the same excerpts. Claims appearing in all 3 runs are high-confidence. Claims in only 1 run are likely hallucinated.
+- Break the entry into individual claims. For each claim tagged as source-grounded, verify it appears in the cited excerpt.
+- Run synthesis 3 times on the same excerpts. Claims in all 3 runs are high-confidence. Claims in only 1 run are likely hallucinated.
 
-This is non-blocking for earlier engines but CRITICAL for synthesis evaluation.
+This is non-blocking for earlier engines but critical for synthesis.
 
 ---
 
-## Anti-Patterns
+## Common Mistakes to Avoid
 
-**The Pass-Everything Evaluation.** If 100% of tests pass on the first run, either the tests are too easy or the fixture is too simple. Real engines processing real Arabic text always have issues. A clean first run should make you suspicious, not relieved.
+**The pass-everything evaluation.** If 100% pass on the first run, the tests are probably too easy or the fixture too simple. Real Arabic text processing always has issues.
 
-**The Blame-the-LLM Escape.** When an LLM call produces wrong results, the instinct is "the LLM isn't good enough." But often the real cause is: bad prompt, insufficient context, wrong task decomposition, or a task that shouldn't be LLM-based at all. Investigate before blaming the model.
+**The blame-the-LLM escape.** When an LLM call produces wrong results, often the real cause is a bad prompt, insufficient context, or wrong task decomposition — not the model itself. Investigate before blaming.
 
-**The Fix-Without-Understanding Loop.** Claude Code fixes a failing test by changing the code until the test passes. But nobody understood WHY the test was failing. The "fix" might mask a deeper issue. Every fix must come with an explanation of the root cause.
+**The fix-without-understanding loop.** Every fix needs a root cause explanation. Changing code until a test passes, without understanding why it was failing, masks deeper issues.
 
-**Ignoring Evaluator Noise.** If you dismiss too many evaluator findings as "noise," you're defeating the purpose of 5c. Track dismissal rate. If >50% of evaluator findings are noise, the evaluation prompts need redesigning, not the findings need ignoring.
+**Over-dismissing evaluator findings.** If you dismiss >50% of 5c findings as noise, the evaluation prompts need redesigning.

@@ -1,18 +1,15 @@
 # NEXT SESSION
 
 ## Context
-Engine protocol rewritten (2026-03-08). New approach: core-first, depth over breadth.
-4 steps per engine: SPEC → RESEARCH → BUILD → TEST. Stage 1 = core pipeline only.
+Skills rewritten (2026-03-08). 5 skills aligned with 4-step core-first protocol.
+New: kr-core-extract. Updated: kr-spec-review, kr-research, kr-evaluate, kr-build-prep.
+Retired: kr-integrity, kr-finalize.
 
 ## What the Owner Should Do Now
 
-1. **Setup** — follow OPEN_PROBLEMS.md setup steps (15 min)
-2. **Read `engines/source/SPEC.md`** — focus on §1-§4.A (core processing), skip §4.B
-3. **Write comments** about core behavior issues → `engines/source/owner-comments.md`
-4. **Start source engine project chat** — "I have comments on the source engine SPEC. Use kr-spec-review."
-
-## What the Next Claude Session Should Do
-
-In the source engine project: resolve owner comments with deep research.
-For every comment, research similar architectures and best approaches.
-Output: updated core SPEC, with §4.B explicitly deferred to Stage 2.
+1. **Setup** — follow OPEN_PROBLEMS.md (enable capabilities, upload 5 skill zips, create source engine project, create .env)
+2. **First chat in source engine project:** "Use kr-core-extract on the source engine SPEC. Classify core vs deferred."
+3. **Review** the classification table, correct any mistakes
+4. **Claude rewrites** the SPEC focused on core only
+5. **You read** the rewritten SPEC, write domain comments
+6. **Resolve comments** with kr-spec-review across 1-3 chats
