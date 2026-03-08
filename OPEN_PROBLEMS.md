@@ -24,7 +24,7 @@ The source engine. Step 1 (SPEC — Core Architecture). You need to read the cor
 - Settings > Capabilities > Enable **Code execution and file creation**
 
 **Upload skills:**
-- Customize > Skills > Upload all 5 `.zip` files from `skills/` > Toggle ON
+- Customize > Skills > Upload all 6 `.zip` files from `skills/` > Toggle ON
 - Test: in any chat, say "use kr-research" — if it activates, skills work
 
 **Create the source engine project:**

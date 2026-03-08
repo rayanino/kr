@@ -54,14 +54,14 @@ NOT core: audio transcription, OCR from phone photos, citation network discovery
 
 4. **Write the core SPEC to implementation depth.** The final SPEC should read almost like pseudocode for the entire engine. Every data structure: exact field names, types, constraints, and why. Every LLM call: what goes in, what prompt, what structured output, what model, what fallback. Every error: code, severity, recovery. Every decision point: exact threshold, exact logic. A developer reading this SPEC should have zero questions.
 
-**Skills used:** `kr-spec-review` for comment resolution. `kr-research` when deep research is needed.
+**Skills used:** `kr-core-extract` for the classification and rewrite. `kr-spec-review` for comment resolution. `kr-research` when deep research is needed. `kr-integrity` as the final quality gate — audits the SPEC for technical defects that domain review can't catch (ambiguous rules, missing error paths, knowledge corruption risks, untested assumptions).
 
 **Rules:**
 - Do comments in batches of 3-5 per chat. Fresh chat when things get long.
 - Claude may disagree with your comments. Listen on technical matters. Push back on domain matters — you're the authority.
 - If a design question can't be resolved by discussion alone, it becomes a research question for Step 2.
 
-**You're done when:** The core SPEC is committed. Every sentence in §4.A is either a binding rule with enough detail for implementation, or a marked question that Step 2 will answer through testing. All §4.B content and non-core features are explicitly deferred.
+**You're done when:** The core SPEC has passed kr-integrity's technical audit with all HIGH-severity defects fixed. Every sentence in §4.A is either a binding rule with enough detail for implementation, or a marked assumption that Step 2 will answer through testing. All §4.B content and non-core features are explicitly deferred.
 
 ---
 

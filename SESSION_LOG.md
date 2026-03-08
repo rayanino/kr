@@ -10,9 +10,9 @@
 3. **Rewrote kr-research** (165 → 91 lines). Streamlined around the two purposes: informing design decisions (Step 1) and validating assumptions (Step 2). Emphasized using all available tools (Exa, Tavily, Scholar Gateway). Removed §4.B creative exploration focus (deferred to Stage 2).
 4. **Rewrote kr-evaluate** (186 → 140 lines). Added CORE GAP vs EXTENSION OPPORTUNITY vs LESSON LEARNED categorization from new protocol. Kept 5a/5b/5c framework. Added LESSONS.md documentation requirement.
 5. **Rewrote kr-build-prep** (218 → 140 lines). Repositioned as first session of BUILD step, not separate phase. Removed agent team orchestration (Stage 2 concern). Kept technology survey and CLAUDE.md design.
-6. **Retired kr-integrity** (archived to reference/archive/process/). Functionality folded into kr-spec-review — technical concerns handled during comment resolution, not separately.
-7. **Retired kr-finalize** (archived to reference/archive/process/). The kr-core-extract rewrite IS the finalization.
-8. **Regenerated all 5 zip files.** Updated skills/README.md and OPEN_PROBLEMS.md.
+6. **Retired kr-finalize** (archived to reference/archive/process/). The kr-core-extract rewrite IS the finalization.
+7. **Restored kr-integrity** (118 lines). Initially retired but owner correctly questioned the decision. The technical audit function — checking for ambiguous rules, knowledge corruption paths, missing error handling, silent failure patterns — is distinct from what kr-spec-review does (domain comment resolution). kr-integrity is the quality gate at the end of Step 1, before Step 2.
+8. **Regenerated all 6 zip files.** Updated skills/README.md, OPEN_PROBLEMS.md, ENGINE_PROTOCOL.md.
 
 ### Prompting best practices applied (from platform.claude.com/docs)
 - Descriptions: specific about what and when, without aggressive ALL CAPS (Claude 4.6 follows instructions precisely without heavy emphasis)
