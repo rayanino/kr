@@ -633,3 +633,21 @@ Bridged the gap between the hardened SPEC and buildable code. Five deliverables:
 - SPEC: 902 → 1013 lines.
 **Decisions:** None (precision session — no architectural decisions)
 **Next:** Normalization engine HARDENING session
+
+### Session 2026-03-08-a — Claude Chat (Meta-Project)
+**Type:** RESEARCH (testing architecture — Problem 1 from OPEN_PROBLEMS.md)
+**Focus:** Design the complete testing framework for KR's engine pipeline
+**Deliverables:**
+- `reference/TESTING_FRAMEWORK.md` (~650 lines): complete testing architecture document
+- Framework decision: DeepEval + pytest (DeepEval for LLM evaluation metrics, pytest for deterministic checks)
+- Three-dimension test design: 5a (deterministic/Pydantic), 5b (LLM-worker via GEval), 5c (independent cross-provider review)
+- Gold baseline format with tolerance types (exact, range, skip, set_equal)
+- Source engine test plan with concrete pytest code for all three dimensions
+- Per-engine test templates for all 7 engines
+- Trust graduation thresholds (Levels 0-4 with measurable criteria)
+- Integration test structure for cross-engine boundary validation
+- Cross-provider rule for 5c: evaluator must use different model family than engine
+- Model mapping: Anthropic/OpenAI/Mistral direct keys (no OpenRouter needed)
+- Cost estimate: ~$0.35 per full test run on 5 fixtures
+**Decisions:** DeepEval over pure pytest for LLM evaluation (native GEval, Anthropic/OpenAI integration, component tracing). Direct provider keys over OpenRouter (simpler, already available).
+**Next:** Owner completes Phase 1 SPEC reading → Phase 2. Or: Problem 2 (Claude Code build environment).
