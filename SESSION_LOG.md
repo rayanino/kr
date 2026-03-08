@@ -1,5 +1,30 @@
 # Session Log — خزانة ريان
 
+## Session: Engine Protocol Rewrite — 2026-03-08
+**Type:** ARCHITECTURE
+**Focus:** Critically evaluate the 6-phase per-engine process and redesign from first principles
+
+### What was done
+1. **Critical analysis of the existing 6-phase process.** Found three structural flaws: all empirical feedback delayed to Phase 6, three review phases doing work that should be one phase, no early validation of core assumptions. The process that HONEST_PLAN.md killed (4-session refinement cycle) had returned wearing different clothes.
+2. **Research into NLP pipeline development methodologies.** Confirmed: every methodology says prototype first, get empirical feedback, then iterate. Walking skeleton pattern (Alistair Cockburn): build the thinnest end-to-end implementation first.
+3. **Discussion with owner produced the core insight:** SPECs currently mix core foundational architecture with extension features. The focus should be on specifying the core in extreme depth — almost writing out the entire application — while deferring extensions. Quality over quantity. Narrow but reliable.
+4. **Rewrote ENGINE_PROTOCOL.md** from 6 phases to 4 steps: SPEC (core architecture in exhaustive detail) → RESEARCH (validate every assumption before building) → BUILD → TEST (prove reliability, find core gaps not nice-to-haves).
+5. **Introduced two-stage model:** Stage 1 = core pipeline (all 7 engines, core only, proven reliable). Stage 2 = expansion (add features engine by engine, building on proven foundations).
+6. **Rewrote OPEN_PROBLEMS.md** to reflect the new plan. Simplified from 232 lines to 122 lines.
+7. **Archived old ENGINE_PROTOCOL.md** (v1, 6-phase) to reference/archive/process/.
+
+### Key decisions
+- Core vs. extension separation: each engine's SPEC focuses depth budget entirely on core. Extensions get "Deferred to Stage 2."
+- Research step BEFORE building: test LLM reliability, data structure fitness, tool capabilities on actual fixtures. Results change the SPEC.
+- LESSONS.md per engine: document everything discovered. Lessons feed forward.
+- Source engine core scope: Shamela HTML + plain text only. No OCR, no audio, no PDF initially.
+
+### Owner's principles (quoted)
+- "Every block needs to be reliable before building on it"
+- "Quality focused — a robust engine that works on a smaller number of source types rather than a complex engine on many types"
+- "Those extras should be forgotten for now"
+- "Deep research per engine into similar architectures, how reliable LLMs can be integrated"
+
 ## Session: Repo Cleanup — 2026-03-08
 **Type:** MAINTENANCE
 **Focus:** Deep audit and cleanup of entire repository

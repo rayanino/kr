@@ -1,280 +1,194 @@
 # Engine Protocol — المسار لكل محرك
 
-This is YOUR guide. Follow it top to bottom for each engine. Don't skip phases. Don't mix phases.
-
-Each engine goes through 6 phases. You are always in exactly ONE phase. If you're unsure which phase you're in, something went wrong — go back to the last phase you completed.
+This is YOUR guide. Follow it top to bottom for each engine. Don't skip steps. Don't mix steps.
 
 ---
 
-## Phase 1: READ THE SPEC
+## The Principle
 
-**What you do:** Read the engine SPEC. Write numbered comments.
-**What Claude does:** Nothing yet. This is your solo reading time.
-**Skill used:** None.
+**Depth over breadth. Reliability over features. Every block proven before building on it.**
 
-Read the SPEC section by section. For anything that confuses you, surprises you, seems wrong, or triggers a domain insight, write a comment. Use this format:
+Each engine has a core — the fundamental thing it does, the reason it exists. A source engine ingests and registers sources. A normalization engine transforms raw formats into a single clean structure. A passaging engine divides text into coherent units. That core must be specified in exhaustive detail, tested against reality, built, and made bulletproof — before anything else.
 
-```
-## Comment #1
-Section: §4.A.2
-SPEC text: "The source engine identifies the author from the info.html file"
-Observation: In many classical texts, the author field in Shamela contains 
-the muhaqiq (editor), not the original author. This would misattribute the work.
-Direction: Maybe check against a known-authors list?
-```
-
-Save all comments in a file. Commit to the repo as `engines/{engine}/owner-comments.md`.
-
-**You're done with Phase 1 when:** You've read the entire SPEC and written all your comments. You don't need to comment on everything — only things that trigger a reaction. Zero comments is fine if the SPEC is solid, but unlikely for a first read.
+Features that extend the core (more input formats, advanced detection, clever optimizations) come later. They build ON the core. If the core is unreliable, features built on it are unreliable. If the core is solid, features are straightforward additions.
 
 ---
 
-## Phase 2: COMMENT RESOLUTION
+## Two Stages
 
-**What you do:** Give Claude your comments, one or a few at a time.
-**What Claude does:** Investigates each comment, forms a position, proposes SPEC changes.
-**Skill used:** `kr-spec-review` — say "use kr-spec-review for comment #1" or "handle comments #3-5."
+### Stage 1: Core Pipeline (v0.0.1)
 
-This is where the real work happens. For each comment:
-1. You give Claude the comment
-2. Claude researches it (web searches, cross-references, feasibility checks)
-3. Claude forms its OWN position — it may agree, disagree, or partially agree
-4. Claude proposes a specific SPEC change (or explains why no change is needed)
-5. **You decide.** Accept, reject, or discuss further.
+Build all 7 engines, one at a time in pipeline order, each focused only on its core architecture. The goal: a narrow but reliable pipeline where data flows from source intake to knowledge entry. Every engine does its fundamental job well on a small number of supported inputs.
 
-**Important rules:**
-- Do comments in batches of 3-5 per chat. Don't try to do 20 in one chat.
-- If a chat gets long (30+ turns or things start feeling sluggish), tell Claude: "Let's handoff." It will produce a summary. Start a fresh chat.
-- If Claude disagrees with your comment, listen. It may be right about the technical implications. But if it's wrong about the domain (Islamic studies), push back — you're the authority there.
-- Track status: each comment is either **Resolved** (SPEC change accepted), **Rejected** (no change needed), or **Open** (needs more discussion).
+### Stage 2: Expansion
 
-**You're done with Phase 2 when:** Every comment is either Resolved or Rejected. No Open items remain.
+Go back engine by engine and add capabilities. More input formats, advanced features, §4.B transformative capabilities. Each addition is a scoped project built on a proven foundation, informed by real evidence from Stage 1.
+
+**This document governs Stage 1.** Stage 2 gets its own protocol when Stage 1 is complete.
 
 ---
 
-## Phase 3: DEEP AUDIT
+## Stage 1: Per-Engine Process
 
-**What you do:** Ask Claude to audit the SPEC for things you COULDN'T catch as a domain reader.
-**What Claude does:** Runs the full quality gauntlet on the SPEC.
-**Skill used:** `kr-integrity` — say "use kr-integrity to audit §4" or "audit the full SPEC."
+Each engine goes through 4 steps. You are always in exactly ONE step.
 
-This catches what your domain reading missed: ambiguous sentences that would confuse a builder, missing error handling, contradictions between sections, silent failure patterns, threats to knowledge integrity. You couldn't catch these because they're technical — Claude can.
+### Step 1: SPEC — Core Architecture
 
-The audit is done in chunks (one major SPEC section per chat) to avoid context overload:
-- Chat 1: Audit §1-§3 (Purpose, Input, Output — the contracts)
-- Chat 2: Audit §4 (Processing — usually the longest section)
-- Chat 3: Audit §5-§7 (Validation, Consensus, Errors)
-- Chat 4: Audit §8-§10 (Config, State, Tests)
+**Goal:** Produce a SPEC that describes the core engine in such exhaustive detail that Claude Code's only job is translating it into code. No ambiguity. No gaps. Every data structure, every decision point, every error path, every LLM call — specified precisely.
 
-Each audit chat produces a defect list with exact fixes. You review the fixes — most will be technical improvements you can accept. Some may touch domain content, where you weigh in.
+**What "core" means:**
 
-**You're done with Phase 3 when:** All defect fixes are accepted or rejected. The SPEC has no known quality issues.
+The core is the engine's identity — what makes it THIS engine and not something else. It is the minimum set of behaviors that, if any were removed, the engine would no longer fulfill its purpose in the pipeline.
 
----
+For the source engine: format detection, metadata extraction, metadata inference (LLM), freezing, deduplication, registration, trust evaluation. On TWO formats: Shamela HTML and plain text. That's the core.
 
-## Phase 4: FINALIZE
+NOT core: audio transcription, OCR from phone photos, citation network discovery, tahqiq apparatus fingerprinting, source difficulty prediction. These are extensions that build on a working core.
 
-**What you do:** Tell Claude to assemble the final SPEC.
-**What Claude does:** Applies all changes, checks consistency, produces the complete updated document.
-**Skill used:** `kr-finalize` — say "use kr-finalize" or "finalize the SPEC."
+**What happens in this step:**
 
-This is assembly, not new work. Claude:
-1. Collects every resolved comment change and every audit fix
-2. Checks for interactions between changes (does fix #3 break fix #7?)
-3. Checks cross-engine consistency (does the output contract still match the next engine's input?)
-4. Produces the COMPLETE updated SPEC text — the authoritative version
-5. Runs the "anti-secretary test": did the SPEC get RICHER, not just cleaner?
+1. **Identify core vs. deferred.** Read the current SPEC. Draw the line: what is the engine's fundamental job? What is an extension? Everything deferred gets a single line: "Deferred to Stage 2 expansion." The SPEC's depth budget goes entirely toward the core.
 
-You review the final SPEC. If something looks off, you're back in Phase 2 (write a new comment). Otherwise, commit it.
+2. **Owner domain review.** You read the core sections of the SPEC. Write comments about anything that's wrong, confusing, or missing from the core behavior. Focus on: "Is this how the domain actually works?" and "Would this produce correct results for my real sources?"
 
-**You're done with Phase 4 when:** The final SPEC is committed to the repo. This is the document Claude Code will build from.
+3. **Claude investigates your comments.** Research-heavy. Claude uses web search, Exa, Scholar Gateway, Tavily — whatever tools help find the best approach. For every core design decision, Claude researches how similar systems handle it, what the tradeoffs are, what the state of the art is. This is not a quick review — it's deep architectural research grounded in your domain feedback.
+
+4. **Write the core SPEC to implementation depth.** The final SPEC should read almost like pseudocode for the entire engine. Every data structure: exact field names, types, constraints, and why. Every LLM call: what goes in, what prompt, what structured output, what model, what fallback. Every error: code, severity, recovery. Every decision point: exact threshold, exact logic. A developer reading this SPEC should have zero questions.
+
+**Skills used:** `kr-spec-review` for comment resolution. `kr-research` when deep research is needed.
+
+**Rules:**
+- Do comments in batches of 3-5 per chat. Fresh chat when things get long.
+- Claude may disagree with your comments. Listen on technical matters. Push back on domain matters — you're the authority.
+- If a design question can't be resolved by discussion alone, it becomes a research question for Step 2.
+
+**You're done when:** The core SPEC is committed. Every sentence in §4.A is either a binding rule with enough detail for implementation, or a marked question that Step 2 will answer through testing. All §4.B content and non-core features are explicitly deferred.
 
 ---
 
-## Phase 5: BUILD PREP
+### Step 2: RESEARCH — Validate Assumptions
 
-**What you do:** Tell Claude to prepare everything Claude Code needs.
-**What Claude does:** Technology survey, architecture design, stubs, test infrastructure, CLAUDE.md.
-**Skill used:** `kr-build-prep` — say "use kr-build-prep" or "prepare for building."
+**Goal:** Every assumption the core SPEC rests on gets tested BEFORE building. If an assumption fails, the SPEC changes. The SPEC drives the build, so the SPEC must be grounded in evidence.
 
-This is the bridge from Claude Chat (design) to Claude Code (implementation). Claude:
-1. Surveys available tools and libraries (what to use vs. what to build)
-2. Designs the module architecture
-3. Writes stub files (function signatures with types and docstrings, no bodies)
-4. Sets up test infrastructure (deterministic checks, LLM evaluation prompts)
-5. Writes a CLAUDE.md under 200 lines for Claude Code to read
-6. Writes the first NEXT.md (narrow scope: one format, one fixture)
-7. Optionally: defines agent team templates for the build phase
+**What gets tested:**
 
-After this, you switch from Claude Chat to Claude Code. You don't need to understand the technical deliverables — they're for Claude Code, not for you.
+Any part of the SPEC where the design depends on something unproven. Common categories:
 
-**You're done with Phase 5 when:** The build prep deliverables are committed to the repo. Claude Code can start building.
+- **LLM reliability.** The SPEC says "use an LLM to identify the author." Can it? Run the actual call on your actual fixtures. Measure accuracy. If it's unreliable, the SPEC changes — maybe to a different prompt, a two-stage approach, a lookup table, or a human gate.
 
----
+- **Data structure fitness.** The SPEC defines output schemas. Do they carry enough information for the next engine? Mock up realistic data in the schema format and manually verify the downstream engine could work with it.
 
-## Phase 6: BUILD, TEST, EVALUATE
+- **Tool capabilities.** The SPEC says "use X library for Y." Does it actually handle Arabic text correctly? Does it handle your specific formats? Run it on your fixtures.
 
-This is not building the application. This is building a **testable engine** and then **extensively testing it.** The engine is built as a CLI that can be run on real sources and produce inspectable output at every stage. The goal is to reach trust — proof that this engine's output is reliable enough to feed the next engine.
+- **Architectural questions.** Should this be one LLM call or two? Should consensus require 2 models or 3? What confidence threshold separates "accept" from "human review"? These are empirical questions with testable answers.
 
-**What Claude Code does:** Builds the engine as a testable CLI, runs it on real sources, runs all three test dimensions, stores results.
-**What you do:** Review test results with Claude Chat. Spot-check Arabic output.
-**Skill used:** `kr-evaluate` (in Claude Chat) — say "use kr-evaluate on these results."
+**How it works:**
 
-### The Three Test Dimensions
+Claude designs and runs targeted experiments. Not building the engine — running isolated tests of specific assumptions. Each experiment:
+1. States the assumption being tested
+2. Describes the test (input, method, expected output)
+3. Shows the actual results
+4. Recommends a SPEC change if the assumption failed
 
-Every engine is tested along three dimensions. They test DIFFERENT things:
+Results are documented in the engine directory as `engines/{engine}/research/`. Every finding feeds back into the SPEC. The SPEC is updated before moving to Step 3.
 
-**5a — Deterministic checks (automated, no LLM needed)**
-Binary pass/fail tests that any computer can verify:
-- Does the output match the schema? (every field present, correct types)
-- Is the Arabic text preserved exactly? (diacritics, characters, no corruption)
-- Is metadata complete? (no missing required fields)
-- Is upstream metadata passed through? (D-023 — nothing lost)
-- Do all IDs resolve? (no broken references)
+**Tools:** This is where you use everything — Exa for finding similar architectures, Scholar Gateway for academic approaches, Tavily for comprehensive research, web search for tool comparisons, actual API calls to test LLM reliability. Assume infinite budget.
 
-A 5a failure is always a bug. No ambiguity.
-
-**5b — LLM-as-worker (tests the LLMs INSIDE the engine)**
-The engine uses LLMs internally for tasks like classifying a book's science, identifying the author, or detecting text layers. 5b tests whether those internal LLM calls get their tasks right:
-- Did the source engine's LLM correctly classify this book as نحو?
-- Did it correctly identify ابن عقيل as the author, not the muhaqiq?
-- Did it correctly detect that this is a sharh on a matn?
-
-A 5b failure means the engine's LLM prompts, model choice, or task design needs work.
-
-**5c — LLM-as-evaluator (INDEPENDENT review of the engine's output)**
-A DIFFERENT model reviews the engine's complete output and judges whether it's correct. This is like checking your own homework — by having someone else check it:
-- Give a different model the frozen source + the engine's metadata and ask: "Is this metadata correct?"
-- Give it the extracted passages and ask: "Are these complete, coherent text units?"
-- Track: what errors does this independent review catch that self-validation missed?
-
-A 5c finding tells you whether LLM-based quality gates are worth adding to the production pipeline. By the time you've tested 3-4 engines, you'll have data to decide.
-
-### The Build-Test-Evaluate Loop
-
-```
-┌─────────────────────────────────────────────────────┐
-│                                                     │
-│  Claude Code BUILDS the engine                      │
-│     ↓                                               │
-│  Claude Code RUNS it on real sources (your fixtures) │
-│     ↓                                               │
-│  Claude Code runs all THREE test dimensions          │
-│     ↓                                               │
-│  Test results are STORED in files                    │
-│  (so Claude Chat can read and evaluate them)         │
-│     ↓                                               │
-│  You open Claude Chat                                │
-│  "use kr-evaluate on these test results"             │
-│     ↓                                               │
-│  Claude Chat categorizes every failure:              │
-│     • Engine bug → Claude Code fixes it              │
-│     • SPEC gap → back to Phase 2 (new comment)       │
-│     • Data issue → you provide better fixture        │
-│     • LLM quality → Claude Code adjusts prompts      │
-│     • Evaluator noise → dismiss (tune evaluator)     │
-│     • Upstream error → fix the previous engine first  │
-│     ↓                                               │
-│  You spot-check Arabic output where Claude asks      │
-│  (specific questions, not "does this look right?")   │
-│     ↓                                               │
-│  Fix issues → loop back to BUILD                     │
-│                                                     │
-└─────────────────────────────────────────────────────┘
-```
-
-### Why Test Results Must Be Stored
-
-Claude Code and Claude Chat are separate tools with separate context windows. Claude Code can't hand its results directly to Claude Chat. The bridge is FILES:
-
-- Claude Code writes test results to `engines/{engine}/test-results/`
-- Each test run produces a structured report (what passed, what failed, what was flagged)
-- You open Claude Chat and point it at the results: "evaluate the test results in engines/source/test-results/"
-- Claude Chat reads them and applies the kr-evaluate analysis
-
-This separation is by design. Claude Code is good at running tests and fixing code. Claude Chat (with you) is good at interpreting results, making judgment calls on Arabic content, and deciding whether a SPEC gap needs revisiting.
-
-### Trust Graduation
-
-The engine isn't "done" when it runs. It's done when it's TRUSTED:
-
-```
-Level 0: Engine runs without crashing on test fixtures
-Level 1: All 5a deterministic checks pass
-Level 2: 5b LLM-worker checks show >90% accuracy
-Level 3: 5c LLM-evaluator review doesn't find errors self-validation missed
-Level 4: You (the owner) approve the output for your actual sources
-```
-
-**You're done with Phase 6 when:** The engine reaches at least Level 2, and you've approved its output on your real sources. Then you start Phase 1 for the NEXT engine in the pipeline.
+**You're done when:** Every marked assumption in the SPEC has been tested. The SPEC has been updated with findings. There are no open questions that would change the architecture.
 
 ---
 
-## The Full Picture
+### Step 3: BUILD
+
+**Goal:** Turn the SPEC into a working, testable engine.
+
+**What happens:**
+
+1. **Build prep** (first session). Set up the Claude Code environment: CLAUDE.md, architecture doc, testing infrastructure, session plan. This is one session of build prep, not a separate phase.
+
+2. **Incremental build.** Each session adds one capability with its tests. 5a deterministic tests run continuously. 5b LLM-worker tests run as each LLM-dependent feature is added. No session ends with untested code.
+
+3. **Core formats only.** The engine supports exactly the formats specified in the core SPEC. No scope creep.
+
+**You're done when:** The engine runs on all specified input formats, all 5a tests pass, 5b tests show ≥90% accuracy.
+
+---
+
+### Step 4: TEST — Prove Reliability
+
+**Goal:** Subject the engine to ruthless testing until it is bulletproof. Find core gaps — not nice-to-haves, but things that would corrupt the pipeline if left unfixed.
+
+**What happens:**
+
+1. **Full 5a/5b/5c evaluation** across all test fixtures appropriate for the core formats.
+
+2. **You review output.** Not "does this look OK?" but specific questions: "Is this author identification correct?" "Is this science classification right?" "Does this metadata capture everything a downstream engine needs?"
+
+3. **Every finding is categorized:**
+   - **Core gap:** Something fundamental is wrong or missing. Metadata that downstream engines need but isn't captured. A failure mode that corrupts data. An unreliable LLM task. **These get fixed before moving on.**
+   - **Extension opportunity:** Something that would improve the engine but isn't required for the pipeline to work. Audio support, better OCR, advanced features. **These get documented for Stage 2.**
+   - **Lesson learned:** An insight about LLM reliability, data structure design, testing approaches, or anything else. **These feed forward to the next engine.**
+
+4. **Fix core gaps → re-test → repeat** until no core gaps remain.
+
+5. **Document everything.** Findings, lessons, extension opportunities. This documentation is as valuable as the code — it's the knowledge that informs every subsequent engine and all of Stage 2.
+
+**You're done when:**
+- All 5a deterministic checks pass
+- 5b LLM-worker accuracy ≥90%
+- 5c independent review finds no errors that self-validation missed
+- You have reviewed and approved the output on your real sources
+- All core gaps are fixed
+- Lessons and extension opportunities are documented
+
+Then you start Step 1 for the NEXT engine in the pipeline.
+
+---
+
+## Engine Order
+
+Pipeline order. Each engine's core must be reliable before starting the next.
 
 ```
-╔═══════════════════════════════════════════════════════════╗
-║                    PER ENGINE CYCLE                       ║
-╠═══════════════════════════════════════════════════════════╣
-║                                                           ║
-║  Phase 1: READ          You read the SPEC, write comments ║
-║     ↓                                                     ║
-║  Phase 2: RESOLVE       Claude investigates your comments ║
-║     ↓                   (kr-spec-review)                  ║
-║     ↓                                                     ║
-║  Phase 3: AUDIT         Claude finds technical defects    ║
-║     ↓                   (kr-integrity)                    ║
-║     ↓                                                     ║
-║  Phase 4: FINALIZE      Claude assembles final SPEC       ║
-║     ↓                   (kr-finalize)                     ║
-║     ↓                                                     ║
-║  Phase 5: BUILD PREP    Claude prepares for Claude Code   ║
-║     ↓                   (kr-build-prep)                   ║
-║     ↓                                                     ║
-║  Phase 6: BUILD, TEST, EVALUATE                           ║
-║     ↓  Claude Code builds a testable engine               ║
-║     ↓  Claude Code runs it on real sources                ║
-║     ↓  Claude Code runs 3 test dimensions:                ║
-║     ↓    5a: deterministic (schema, text, metadata)       ║
-║     ↓    5b: LLM-as-worker (engine's own LLM calls)      ║
-║     ↓    5c: LLM-as-evaluator (independent review)       ║
-║     ↓  Test results stored in files                       ║
-║     ↓  You + Claude Chat evaluate results (kr-evaluate)   ║
-║     ↓  Fix → re-run → re-evaluate until TRUSTED           ║
-║     ↓                                                     ║
-║  ✓ ENGINE TRUSTED → Start Phase 1 for next engine         ║
-║                                                           ║
-╚═══════════════════════════════════════════════════════════╝
-```
-
-**Engine order (following the pipeline):**
-1. Source engine (محرك المصادر) ← you are here
+1. Source engine       (محرك المصادر)     ← start here
 2. Normalization engine (محرك التسوية)
-3. Passaging engine (محرك التقطيع)
-4. Atomization engine (محرك التذرية)
-5. Excerpting engine (محرك الاستخراج)
-6. Taxonomy engine (محرك التصنيف)
-7. Synthesis engine (محرك التركيب)
+3. Passaging engine    (محرك التقطيع)
+4. Atomization engine  (محرك التذرية)
+5. Excerpting engine   (محرك الاستخراج)
+6. Taxonomy engine     (محرك التصنيف)
+7. Synthesis engine    (محرك التركيب)
+```
+
+After engine 7's core is proven: **Stage 1 is complete.** You have v0.0.1 — a narrow, reliable pipeline. Data flows from a Shamela HTML file to a knowledge entry. Every engine does its fundamental job. Every block is proven.
 
 ---
 
-## Where Does kr-research Fit?
+## What Gets Documented Per Engine
 
-`kr-research` is not a phase — it's a tool you can invoke DURING Phase 2, 3, or 5 when Claude needs to explore something deeply. Examples:
-- During Phase 2: your comment raises a question about how other digital projects handle X → "use kr-research to explore how OpenITI handles multi-edition works"
-- During Phase 3: the audit reveals a design weakness → "use kr-research to find a better approach"
-- During Phase 5: the technology survey needs deeper exploration → Claude invokes it automatically
+At the end of each engine's Step 4, produce:
 
-You don't schedule kr-research. It happens when the work demands it.
+```
+engines/{engine}/LESSONS.md
+```
+
+Contents:
+- What LLM tasks worked reliably, and what didn't
+- What data structures worked, and what needed changing
+- What testing approaches were effective
+- Architectural decisions that affected downstream engines
+- Extension opportunities identified (for Stage 2)
+- Anything the next engine should know
+
+These lessons accumulate. By engine 7, you have a comprehensive understanding of the pipeline's strengths and weaknesses — real evidence, not theory.
 
 ---
 
-## Rules That Prevent Chaos
+## Rules
 
-1. **One engine at a time.** Don't start the normalization engine until the source engine passes Phase 6.
-2. **One phase at a time.** Don't jump to Phase 4 while Phase 2 comments are still Open.
-3. **Fresh chats between phases.** Start Phase 3 in a new chat, not at the tail end of a Phase 2 chat.
-4. **Fresh chats within long phases.** If Phase 2 takes 5 chats, that's fine. Handoff between them.
-5. **Always invoke skills by name.** Say "use kr-spec-review" not "handle my comment." Auto-triggering is unreliable.
-6. **When in doubt, tell Claude which phase you're in.** "I'm in Phase 2, comment resolution. Here's comment #4."
-7. **If you discover a SPEC problem during Phase 6 (building), go back to Phase 2.** Write a new comment, resolve it, re-audit that section, re-finalize. Don't patch the SPEC informally.
+1. **One engine at a time.** Don't start normalization until source is proven.
+2. **Core only in Stage 1.** Every feature request gets asked: "Is this core, or is this an extension?" If extension, it goes in LESSONS.md for Stage 2.
+3. **Test assumptions before building.** If the SPEC says "use an LLM for X," test whether an LLM can actually do X reliably. Before writing engine code.
+4. **Fresh chats when context gets long.** 30+ turns or sluggish responses = time for a handoff.
+5. **Always invoke skills by name.** "Use kr-spec-review" not "handle my comment."
+6. **Document everything.** Lessons are as valuable as code.
+7. **Quality over speed.** A narrow engine that works is worth infinitely more than a wide engine that doesn't.
+8. **If Step 4 reveals a core design problem, go back to Step 1.** Write a new comment, resolve it, update the SPEC, rebuild. Don't patch.

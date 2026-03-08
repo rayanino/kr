@@ -1,20 +1,18 @@
 # NEXT SESSION
 
 ## Context
-Repo cleanup complete (2026-03-08). Root .md files: 23 → 16. Superseded process docs,
-plans, and schemas archived to `reference/archive/`. Testing framework at
-`reference/TESTING_FRAMEWORK.md`. All cross-references verified and fixed.
+Engine protocol rewritten (2026-03-08). New approach: core-first, depth over breadth.
+4 steps per engine: SPEC → RESEARCH → BUILD → TEST. Stage 1 = core pipeline only.
 
-## What the Owner Needs to Do (Before Next Session)
+## What the Owner Should Do Now
 
-1. **Set up the source engine project** — follow the steps in OPEN_PROBLEMS.md "What You Should Do RIGHT NOW"
-2. **Create .env file** — copy `.env.template` to `.env`, fill in API keys from project knowledge files
-3. **Continue reading the source engine SPEC** (Phase 1) — write comments in `engines/source/owner-comments.md`
+1. **Setup** — follow OPEN_PROBLEMS.md setup steps (15 min)
+2. **Read `engines/source/SPEC.md`** — focus on §1-§4.A (core processing), skip §4.B
+3. **Write comments** about core behavior issues → `engines/source/owner-comments.md`
+4. **Start source engine project chat** — "I have comments on the source engine SPEC. Use kr-spec-review."
 
-## What the Next Session Should Do
+## What the Next Claude Session Should Do
 
-**If the owner has SPEC comments ready:** Start Phase 2 (comment resolution) in the source engine project.
-
-**If the owner is still reading:** Tackle Problem 2 from OPEN_PROBLEMS.md — Claude Code Build Environment.
-
-**Files to read:** `OPEN_PROBLEMS.md` (roadmap), `reference/TESTING_FRAMEWORK.md` (testing architecture).
+In the source engine project: resolve owner comments with deep research.
+For every comment, research similar architectures and best approaches.
+Output: updated core SPEC, with §4.B explicitly deferred to Stage 2.
