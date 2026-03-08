@@ -2,7 +2,7 @@
 
 **The library IS the user's knowledge. An error here is an error in his mind.**
 
-Concise context: `STEERING.md`. Implementation guide: `IMPLEMENTATION_GUIDE.md`. Full spec: `VISION.md`. Quality target: `reference/ENTRY_EXAMPLE.md`.
+Concise context: `STEERING.md`. Implementation guide: `ORCHESTRATOR.md`. Full spec: `VISION.md`. Quality target: `reference/ENTRY_EXAMPLE.md`.
 
 ## Critical Rules
 
@@ -45,4 +45,4 @@ engines/ — 7 engines: source, normalization, passaging, atomization, excerptin
 shared/ — consensus, validation, human_gate, feedback, user_model, scholar_authority
 interface/scholar/ — user-facing intelligence layer
 library/ — knowledge product (the user's knowledge)
-schemas/ — data contracts; scripts/ — utilities; tests/integration/ — cross-engine tests
+scripts/ — utilities; tests/integration/ — cross-engine tests

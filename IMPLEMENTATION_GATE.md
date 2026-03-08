@@ -41,7 +41,7 @@ This document defines the EXACT conditions that must be met before Claude Code b
 
 ### G-6: Cross-SPEC Coherence
 - [ ] `python3 scripts/verify_metadata_flow.py` — all boundaries clear
-- [ ] Terminology consistent across all SPECs (verified in STATUS.md)
+- [ ] Terminology consistent across all SPECs (run `python3 scripts/verify_metadata_flow.py --verbose`)
 - [ ] kr_decisions.md consistent with all SPECs (no contradictions)
 
 ### G-7: Claude Code Environment

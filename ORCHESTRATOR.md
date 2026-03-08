@@ -101,7 +101,7 @@ After all tasks complete:
 1. `git add` changed files. Commit with a descriptive message.
 2. Update the engine's `CLAUDE.md` §Current State with accurate file counts and what works.
 3. Write `NEXT.md` for the next session (see NEXT.md protocol below).
-4. Update `STATUS.md` if a milestone checkpoint was reached.
+4. Run `python3 scripts/orient.py --brief` to verify project state.
 5. `git push`.
 
 ---
@@ -188,7 +188,7 @@ After completing a milestone (defined in MILESTONES.md):
 1. Run ALL tests across all completed engines.
 2. Run `/trace-pipeline` with test data to verify end-to-end flow.
 3. Run the integrity-checker agent.
-4. Update STATUS.md with the milestone completion.
+4. Run `python3 scripts/orient.py --brief` to verify project state.
 5. Write a milestone summary in SESSION_LOG.md.
 
 ---

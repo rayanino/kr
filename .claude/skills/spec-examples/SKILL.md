@@ -1,6 +1,6 @@
 ---
 name: spec-examples
-description: Generate concrete input/output examples for SPEC behavioral rules. Use when refining SPECs (Step 3 of SPEC_REFINEMENT.md), when a rule lacks a testable example, or when Claude Code reports a SPEC-AMBIGUITY. Every example uses real Arabic text, not placeholders.
+description: Generate concrete input/output examples for SPEC behavioral rules. Use when refining SPECs, when a rule lacks a testable example, or when Claude Code reports a SPEC-AMBIGUITY. Every example uses real Arabic text, not placeholders.
 ---
 
 # SPEC Example Generation

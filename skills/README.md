@@ -46,7 +46,7 @@ Files in `shared/` are templates and protocols to upload to each engine project:
 
 ## Per-Engine Project Setup
 
-Each engine gets its own Claude Chat project. Setup files are in `source-engine-project/` (source engine) with instructions for creating additional engine projects.
+Each engine gets its own Claude Chat project. Setup files are in `engine-project-template/` with a ready-to-paste file per engine.
 
 ## Design Principles
 

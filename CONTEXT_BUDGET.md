@@ -8,7 +8,7 @@ Claude Chat (the architect) has ~200K tokens total. This document provides concr
 
 | Item | Tokens (approx) | Notes |
 |------|-----------------|-------|
-| System prompt (PROJECT_INSTRUCTIONS.md content) | ~5,000 | Loaded as project custom instructions |
+| System prompt (project custom instructions) | ~5,000 | Loaded as project custom instructions |
 | Knowledge file (DEEP_REASONING_PROTOCOL.md) | ~8,000 | Loaded automatically as project knowledge |
 | Knowledge file (Github_key) | ~50 | GitHub access token |
 | Startup (clone, NEXT.md, git log) | ~2,000 | Commands + output |
@@ -26,14 +26,12 @@ Measured by line count × ~1.3 tokens/line average for technical English/Arabic.
 ### Governance Documents
 | File | Lines | Tokens (approx) |
 |------|-------|-----------------|
-| SPEC_REFINEMENT.md | 160 | ~1,500 |
 | KNOWLEDGE_INTEGRITY.md | 168 | ~1,600 |
 | CHALLENGE_PROTOCOL.md | 142 | ~1,300 |
-| CREATIVE_MANDATE.md | ~130 | ~1,200 |
-| ORCHESTRATOR.md | 239 | ~2,200 |
-| SESSION_CONTINUITY.md | 148 | ~1,400 |
-| MILESTONES.md | 170 | ~1,600 |
-| REVIEW_PROTOCOL.md | 160 | ~1,500 |
+| ORCHESTRATOR.md | 251 | ~2,400 |
+| MILESTONES.md | 262 | ~2,500 |
+| REVIEW_PROTOCOL.md | 220 | ~2,100 |
+| OPEN_PROBLEMS.md | 232 | ~2,200 |
 
 ### Skills
 | File | Lines | Tokens (approx) |
@@ -70,25 +68,23 @@ Measured by line count × ~1.3 tokens/line average for technical English/Arabic.
 
 ## Session Budgets by Type
 
-### SPEC Refinement Session (~155K available)
+### Engine Review Session — Phase 2/3 (~155K available)
 
 Must read:
-- SPEC_REFINEMENT.md: 1,500
+- ENGINE_PROTOCOL.md: ~2,500
 - KNOWLEDGE_INTEGRITY.md: 1,600
-- spec-examples skill: 950
-- The SPEC being refined: ~5,500
+- The SPEC being reviewed: ~5,500
 - ENTRY_EXAMPLE.md: 1,600
-- USER_SCENARIOS.md: 2,700
-- CREATIVE_MANDATE.md: 1,200
-**Subtotal reading: ~15,050**
+- Owner comments file: ~1,000
+**Subtotal reading: ~12,200**
 
-Budget for output (refined SPEC, defect ledger, research): ~60,000
-Budget for web searches (8-13 searches × ~2K per search result): ~26,000
-**Total work: ~86,000**
+Budget for output (SPEC edits, defect ledger, research): ~60,000
+Budget for web searches (5-10 searches × ~2K per search result): ~20,000
+**Total work: ~80,000**
 
-**Remaining buffer: ~47,000** — comfortable margin.
+**Remaining buffer: ~55,000** — comfortable margin.
 
-**Optimization:** Do NOT read kr_decisions.md (9,500 tokens) — the SPEC already incorporates decisions. Do NOT read DOMAIN.md — the SPEC already incorporates domain knowledge. Do NOT read CHALLENGE_PROTOCOL.md — the refinement protocol already includes the challenges.
+**Optimization:** Do NOT read kr_decisions.md (9,500 tokens) — the SPEC already incorporates decisions. Do NOT read DOMAIN.md — the SPEC already incorporates domain knowledge.
 
 ### Implementation Session (~155K available)
 
@@ -109,13 +105,12 @@ Budget for test execution output: ~10,000
 ### Design Review Session (~155K available)
 
 Must read:
-- REVIEW_PROTOCOL.md: 1,500
+- REVIEW_PROTOCOL.md: 2,100
 - CHALLENGE_PROTOCOL.md: 1,300
-- CREATIVE_MANDATE.md: 1,200
 - The component being reviewed: ~5,500
 - ENTRY_EXAMPLE.md: 1,600
 - scholarly-design skill: 850
-**Subtotal reading: ~11,950**
+**Subtotal reading: ~11,350**
 
 Budget for review output + improvements: ~60,000
 Budget for web searches: ~20,000
