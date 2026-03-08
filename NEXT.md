@@ -1,8 +1,8 @@
 # NEXT SESSION
 
 ## Context
-Skills finalized (2026-03-08). 6 skills aligned with 4-step core-first protocol.
-kr-core-extract (NEW), kr-spec-review, kr-integrity (restored), kr-research, kr-build-prep, kr-evaluate.
+All skills and templates synced (2026-03-08). 6 skills + 7 engine project templates
+aligned with 4-step core-first protocol. Root files: 15 (SESSION_TYPES.md archived).
 
 ## What the Owner Should Do Now
 

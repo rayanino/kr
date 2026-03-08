@@ -13,6 +13,8 @@
 6. **Retired kr-finalize** (archived to reference/archive/process/). The kr-core-extract rewrite IS the finalization.
 7. **Restored kr-integrity** (118 lines). Initially retired but owner correctly questioned the decision. The technical audit function — checking for ambiguous rules, knowledge corruption paths, missing error handling, silent failure patterns — is distinct from what kr-spec-review does (domain comment resolution). kr-integrity is the quality gate at the end of Step 1, before Step 2.
 8. **Regenerated all 6 zip files.** Updated skills/README.md, OPEN_PROBLEMS.md, ENGINE_PROTOCOL.md.
+9. **Synced all 7 engine project templates.** Updated skills section (kr-finalize → kr-core-extract), added missing `<reasoning>` and `<quality_standards>` sections to 6 templates that were missing them (only source.md had them). All 7 templates now 100 lines, consistent structure.
+10. **Archived SESSION_TYPES.md** — entirely about the old CREATIVE/PRECISION/HARDENING workflow. Updated ORCHESTRATOR.md reference to point to ENGINE_PROTOCOL.md instead.
 
 ### Prompting best practices applied (from platform.claude.com/docs)
 - Descriptions: specific about what and when, without aggressive ALL CAPS (Claude 4.6 follows instructions precisely without heavy emphasis)

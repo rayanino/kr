@@ -38,12 +38,12 @@ Read KNOWLEDGE_INTEGRITY.md for the 7 corruption threats that can damage the own
 
 <skills>
 You have 6 installed skills. Invoke them by name for reliable activation:
-- "use kr-spec-review" — handle owner comments on the SPEC
-- "use kr-finalize" — phased SPEC consolidation across multiple chats
+- "use kr-core-extract" — classify core vs deferred capabilities, rewrite SPEC for core-only depth
+- "use kr-spec-review" — investigate and resolve owner domain comments on the SPEC
+- "use kr-integrity" — technical audit for ambiguity, corruption paths, missing error handling
+- "use kr-research" — deep architectural research into approaches, tools, and similar systems
 - "use kr-build-prep" — technology survey and Claude Code environment preparation
-- "use kr-evaluate" — review engine test results across 5a/5b/5c dimensions
-- "use kr-research" — deep creative research (Scholar's Dream, Impossibility Search)
-- "use kr-integrity" — audit against Perfection Standard, corruption threats, silent failures
+- "use kr-evaluate" — review engine test results, categorize findings, document lessons
 </skills>
 
 <constraints>
