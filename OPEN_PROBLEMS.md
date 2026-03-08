@@ -205,7 +205,7 @@ This takes ~5 minutes per engine. You'll create 6 more of these over the coming 
 | Phase 2 (comment resolution) | BLOCKED | Waiting on project setup |
 | Problem 1 (testing architecture) | DONE | `reference/TESTING_FRAMEWORK.md` — 2026-03-08 |
 | Problem 2 (Claude Code env) | TODO | One deep-research chat, right before Phase 5 |
-| Repo cleanup | TODO | Low priority, any time |
+| Repo cleanup | DONE | Root 23→16, superseded docs archived — 2026-03-08 |
 
 ---
 
