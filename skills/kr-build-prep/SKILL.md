@@ -88,7 +88,7 @@ engines/{engine}/
 
 ### Session Scoping
 
-First session targets the simplest end-to-end path: one format, one fixture, schema validation passing. Not all formats, not all edge cases.
+The tracer bullet stub for this engine already exists from Step 0. The first BUILD session deepens it: replace placeholder logic with real implementation for one format, one fixture, schema validation passing. Not all formats, not all edge cases.
 
 Each subsequent session adds one capability with its tests.
 
@@ -97,7 +97,7 @@ Each subsequent session adds one capability with its tests.
 ## Part 3: Deliverables
 
 ### Contracts Audit
-Compare `contracts.py` against the finalized SPEC. Every field matches in name, type, and optionality. Enums for constrained fields. Metadata pass-through fields present (D-023). Boundary compatibility with upstream/downstream.
+Compare `contracts.py` against the finalized SPEC. The tracer bullet (Step 0) established the initial contracts — verify the SPEC hasn't introduced fields or constraints that conflict with the validated boundary contracts. Every field matches in name, type, and optionality. Enums for constrained fields. Metadata pass-through fields present (D-023). Boundary compatibility with upstream/downstream.
 
 ### Module Architecture
 Per module: purpose, inputs/outputs, SPEC sections it implements. Keep it simple — core engines are narrow by design.

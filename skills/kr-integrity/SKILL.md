@@ -35,7 +35,7 @@ For every behavioral rule, ask: could two competent developers read this and bui
 
 Watch for: "the engine evaluates" (how?), "appropriate threshold" (what number?), "relevant metadata" (which fields?), "handles gracefully" (what specific behavior?). Every vague term must be replaced with a precise one, or flagged as a defect.
 
-The test: can you write a function signature and 5-15 lines of pseudocode from this rule alone? If not, the rule is ambiguous.
+The test: could a developer read this rule and know what to build without guessing? If they would have to invent the approach, the rule is ambiguous. Note: uncertain thresholds and prompt templates marked `[ASSUMPTION]` are not ambiguity defects — they are explicit unknowns awaiting Step 2 testing.
 
 ### Lens 2: Knowledge Corruption Paths
 
@@ -71,6 +71,10 @@ Read the SPEC as if you are Claude Code, about to build. For each rule:
 - Do you know what to do when something goes wrong? (exact error handling)
 
 Any "I'd have to guess" moment is a defect.
+
+### Lens 8: Extension-Blocking Assumptions
+
+Check each deferred capability's extension hook. Does the core architecture actually preserve the extension path? Look for: data models that hardcode a single value where the extension needs a list (e.g., one author vs. multiple). Processing flows that embed format-specific logic where the extension needs pluggable modules. Thresholds or enums that would need breaking changes to accommodate the deferred capability. If the core design blocks a documented extension, that is a defect.
 
 ---
 

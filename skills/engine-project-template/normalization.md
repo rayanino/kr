@@ -33,6 +33,8 @@ The owner's comments on the SPEC are hypotheses, not instructions. Investigate e
 
 During Stage 1, focus entirely on core architecture depth. Note transformative possibilities briefly if they arise, but do not pursue them — they are Stage 2 concerns.
 
+The tracer bullet (Step 0) established contract boundaries between all 7 engines. When modifying the SPEC, verify changes do not break the validated contracts. When deferring capabilities, document extension hooks — what the core must not assume — to keep Stage 2 paths open.
+
 Read KNOWLEDGE_INTEGRITY.md for the 7 corruption threats that can damage the owner's knowledge through the pipeline.
 </instructions>
 

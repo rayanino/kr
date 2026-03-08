@@ -1,18 +1,18 @@
 # Open Problems — المشاكل المفتوحة
 
-Last updated: 2026-03-08 (v3 — core-first rewrite)
+Last updated: 2026-03-08 (v4 — tracer bullet + iterative depth)
 
 ## The Principle
 
 **Depth over breadth. Reliability over features. Every block proven before building on it.**
 
-Build a narrow pipeline that works. Then expand it. Not: build a wide engine that handles everything, then discover the architecture is wrong.
+Validate the pipeline shape first with a tracer bullet. Then build a narrow pipeline that works, one engine at a time. Then expand it.
 
 ---
 
 ## Where You Are
 
-The source engine. Step 1 (SPEC — Core Architecture). You need to read the core sections of the SPEC and write your domain comments.
+Pre-engine. You need to complete setup, then run the tracer bullet (Step 0) before starting the source engine.
 
 ---
 
@@ -41,13 +41,21 @@ The source engine. Step 1 (SPEC — Core Architecture). You need to read the cor
 - Fill in: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `MISTRAL_API_KEY`
 - Needed for Step 2 (research/testing LLM assumptions)
 
-### 2. Classify Core vs Deferred
+### 2. Tracer Bullet (Step 0)
 
-Start a chat in the source engine project: "Use kr-core-extract on the source engine SPEC. Classify core vs deferred."
+Before deepening any engine, validate that data can flow through all 7 engines end-to-end. This is 2-3 sessions that prevent weeks of rework from contract mismatches.
 
-Claude reads the full SPEC and produces a classification table — every capability tagged CORE or DEFERRED with reasons. Review this table and correct any misclassifications. Then Claude rewrites the SPEC with exhaustive depth on core only.
+In the source engine project: "We need to run Step 0 from ENGINE_PROTOCOL.md — the tracer bullet. Write contract SPECs (§2 and §3 only) for all 7 engines, then build rough stubs that pass one Shamela HTML file through the full pipeline."
 
-### 3. Read the Core SPEC and Write Comments
+Claude writes lightweight input/output contracts for all 7 engines, builds stubs, and runs one fixture through. The output is documented in `reference/TRACER_FINDINGS.md`.
+
+### 3. Source Engine Step 1: Classify Core vs Deferred
+
+After the tracer bullet: "Use kr-core-extract on the source engine SPEC. Classify core vs deferred."
+
+Claude reads the full SPEC and produces a classification table — every capability tagged CORE or DEFERRED with extension hooks. Review this table and correct any misclassifications. Then Claude rewrites the SPEC focused on core only.
+
+### 4. Read the Core SPEC and Write Comments
 
 Read the rewritten SPEC. Focus on core behavior.
 
@@ -59,7 +67,7 @@ As you read, write comments about the CORE behavior:
 
 Use the template in `skills/shared/COMMENT_TEMPLATE.md`. Save as `engines/source/owner-comments.md`.
 
-### 4. Resolve Comments
+### 5. Resolve Comments
 
 In the source engine project, say: "I have comments on the core SPEC. Use kr-spec-review."
 
@@ -72,13 +80,14 @@ Give Claude your comments in batches of 3-5. Claude will research each one deepl
 See `skills/shared/ENGINE_PROTOCOL.md` for the complete process. Summary:
 
 ```
-Step 1: SPEC    — Define core architecture in exhaustive detail
-Step 2: RESEARCH — Test every assumption before building
-Step 3: BUILD   — Turn SPEC into code
-Step 4: TEST    — Prove reliability, document lessons
+Step 0: TRACER BULLET — Validate all 7 contract boundaries (one time)
+Step 1: SPEC          — Define core architecture at significant-decisions depth
+Step 2: RESEARCH      — Test every assumption before building
+Step 3: BUILD         — Turn SPEC into code (deepening the tracer bullet stub)
+Step 4: TEST          — Prove reliability, document lessons
 ```
 
-Do this for all 7 engines in pipeline order. After all 7: v0.0.1 — a narrow, reliable pipeline.
+Steps 1-4 repeat for all 7 engines in pipeline order. After every 2 engines, a lessons backward review. After all 7: v0.0.1 — a narrow, reliable pipeline.
 
 ---
 
@@ -88,16 +97,20 @@ Do this for all 7 engines in pipeline order. After all 7: v0.0.1 — a narrow, r
 |------|--------|-------|
 | Setup (capabilities, skills, project) | TODO | Owner action, 15 minutes |
 | API keys (.env file) | TODO | Owner action, needed for Step 2 |
+| **Step 0: Tracer bullet** | TODO | 2-3 sessions, validates all boundaries |
 | **Source engine** | | |
-| Step 1: SPEC core architecture | TODO | Read §1-§4.A, write comments |
-| Step 2: Research assumptions | TODO | After SPEC is finalized |
+| Step 1: SPEC core architecture | TODO | After tracer bullet |
+| Step 2: Research assumptions | TODO | After SPEC passes kr-integrity |
 | Step 3: Build | TODO | After research validates design |
 | Step 4: Test + prove | TODO | After build |
 | **Normalization engine** | BLOCKED | Waiting on source engine |
+| Lessons backward review | BLOCKED | After normalization Step 4 |
 | **Passaging engine** | BLOCKED | Waiting on normalization |
 | **Atomization engine** | BLOCKED | Waiting on passaging |
+| Lessons backward review | BLOCKED | After atomization Step 4 |
 | **Excerpting engine** | BLOCKED | Waiting on atomization |
 | **Taxonomy engine** | BLOCKED | Waiting on excerpting |
+| Lessons backward review | BLOCKED | After taxonomy Step 4 |
 | **Synthesis engine** | BLOCKED | Waiting on taxonomy |
 
 ### Completed
@@ -106,6 +119,7 @@ Do this for all 7 engines in pipeline order. After all 7: v0.0.1 — a narrow, r
 | Testing framework design | 2026-03-08 |
 | Repo cleanup | 2026-03-08 |
 | Engine protocol rewrite (core-first) | 2026-03-08 |
+| Protocol evaluation + fixes (tracer bullet, iterative depth, extension hooks) | 2026-03-08 |
 
 ---
 
@@ -113,7 +127,7 @@ Do this for all 7 engines in pipeline order. After all 7: v0.0.1 — a narrow, r
 
 **Your daily files:**
 - `OPEN_PROBLEMS.md` — this file, your roadmap
-- `skills/shared/ENGINE_PROTOCOL.md` — the 4-step process per engine
+- `skills/shared/ENGINE_PROTOCOL.md` — the process (Step 0 + 4-step per engine)
 - `engines/source/SPEC.md` — the source engine specification
 
 **For the source engine project:**

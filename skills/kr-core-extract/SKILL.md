@@ -1,6 +1,6 @@
 ---
 name: kr-core-extract
-description: Separates core engine architecture from extension features in a KR engine SPEC. Activate when starting work on a new engine, when asked to classify core vs deferred, or when rewriting a SPEC for core-only focus. Produces a classification table for owner review, then rewrites the SPEC with exhaustive depth on core only.
+description: Separates core engine architecture from extension features in a KR engine SPEC. Activate when starting work on a new engine, when asked to classify core vs deferred, or when rewriting a SPEC for core-only focus. Produces a classification table with extension hooks for owner review, then rewrites the SPEC focused on core only.
 ---
 
 # KR Core Extract — استخلاص الجوهر
@@ -53,6 +53,12 @@ After the table, add a summary:
 - Core input formats: [list the 2-3 formats]
 - Deferred input formats: [list]
 
+## Extension Hooks
+For each deferred capability, state what the core must NOT assume:
+| Deferred Capability | Core Must Not Assume |
+|---------------------|---------------------|
+| [capability] | [architectural constraint to preserve the extension path] |
+
 ## Items I'm Uncertain About
 [List any where the classification could go either way, with your reasoning for each side]
 ```
@@ -65,17 +71,18 @@ After the table, add a summary:
 
 After the owner approves (and corrects) the classification, rewrite the SPEC.
 
-**For core items:** Write with exhaustive depth. Every data structure — exact fields, types, constraints, and why each field exists. Every LLM call — exact input, prompt structure, expected output format, model recommendation, fallback behavior. Every error path — code, severity, recovery action. Every decision point — exact threshold, exact logic. The goal: Claude Code reads this and has zero questions.
+**For core items:** Write with depth sufficient for implementation. Every data structure — exact fields, types, constraints, and why each field exists. Every LLM call — input, prompt strategy, expected output format, model recommendation, fallback behavior. Every error path — code, severity, recovery action. Every decision point — threshold, logic. Where exact thresholds or prompt templates are uncertain, mark them as `[ASSUMPTION — NEEDS STEP 2 TESTING]` rather than guessing. The goal: Claude Code can build the right architecture with zero questions about *what* to build. Step 4 (TEST) will reveal where more edge case detail is needed — the SPEC deepens iteratively.
 
-**For deferred items:** Replace the detailed content with a single line:
+**For deferred items:** Replace the detailed content with two lines:
 
 ```
 [DEFERRED TO STAGE 2] — [one-sentence description of what this will do]
+[EXTENSION HOOK] — Core must not assume [constraint], to preserve this extension path.
 ```
 
 Preserve the section structure so deferred items remain visible as placeholders. Future sessions know they exist and where they belong.
 
-**Quality check before finishing:** Read the rewritten SPEC as if you were Claude Code about to implement it. For each core rule, verify you could write a function signature and pseudocode from the description alone. If any rule is too vague for that, add detail until it isn't.
+**Quality check before finishing:** Read the rewritten SPEC as if you were Claude Code about to implement it. For each core rule, verify you know *what* to build — the data structures, the processing logic, the error handling. Where a rule is too vague to implement, add detail. Where a threshold or prompt template is uncertain, mark it as `[ASSUMPTION — NEEDS STEP 2 TESTING]` rather than inventing a precise value.
 
 ---
 
