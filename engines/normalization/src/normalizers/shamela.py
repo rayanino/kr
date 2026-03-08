@@ -24,7 +24,7 @@ Processing pipeline (6 passes):
   Pass 5 — Multi-layer detection [NEW]
   Pass 6 — Output generation + validation + atomic write [NEW]
 
-Implementation order: Build incrementally per IMPL_BRIEF.md.
+Implementation order: Build incrementally per SPEC.md processing rules.
 """
 
 from __future__ import annotations
@@ -68,7 +68,7 @@ class ShamelaNormalizer(BaseNormalizer):
         """Execute the 6-pass pipeline.
 
         See SPEC §4.A.2 for complete behavioral specification of each pass.
-        See IMPL_BRIEF.md for implementation order.
+        See SPEC.md for processing rules.
         """
         # TODO (Claude Code): Implement the 6-pass pipeline.
         # Phase 1: Adapt ABD normalize_shamela.py passes 1-3 to produce

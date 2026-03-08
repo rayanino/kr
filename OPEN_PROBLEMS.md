@@ -83,13 +83,15 @@ See `skills/shared/ENGINE_PROTOCOL.md` for the complete process. Summary:
 
 ```
 Step 0: TRACER BULLET — Validate all 7 contract boundaries (one time)
-Step 1: SPEC          — Define core architecture at significant-decisions depth
+Step 1: SPEC          — Define core architecture at architecture-decision depth
 Step 2: RESEARCH      — Test every assumption before building
 Step 3: BUILD         — Turn SPEC into code (deepening the tracer bullet stub)
-Step 4: TEST          — Prove reliability, document lessons
+Step 4: TEST          — Prove reliability, create gold baselines, document lessons
 ```
 
 Steps 1-4 repeat for all 7 engines in pipeline order. After every 2 engines, a lessons backward review. After all 7: v0.0.1 — a narrow, reliable pipeline.
+
+**Create each engine's Claude.ai project when you start that engine's Step 1, not all upfront.** Use the matching template from `skills/engine-project-template/`. Sync knowledge files from GitHub.
 
 ---
 
@@ -101,34 +103,40 @@ Steps 1-4 repeat for all 7 engines in pipeline order. After every 2 engines, a l
 | API keys (.env file) | TODO | Owner action, needed for Step 2 |
 | **Step 0: Tracer bullet** | TODO | 3-5 sessions, reconcile contracts, stub shared components |
 | **Source engine** | | |
-| Step 1: SPEC core architecture | TODO | After tracer bullet |
+| Step 1: SPEC core architecture | TODO | After tracer bullet. Heavy domain review needed. |
 | Step 2: Research assumptions | TODO | After SPEC passes kr-integrity |
 | Step 3: Build (incl. shared components) | TODO | Builds consensus, human_gate, scholar_authority, validation |
-| Step 4: Test + prove | TODO | After build |
+| Step 4: Test + prove + gold baselines | TODO | Owner reviews Arabic output. Gold baselines created here. |
 | **Normalization engine** | BLOCKED | Waiting on source engine |
 | Lessons backward review | BLOCKED | After normalization Step 4 |
-| **Passaging engine** | BLOCKED | Fast-track candidate, waiting on normalization |
+| **Passaging engine** | BLOCKED | 25 HIGH-severity SPEC defects — needs substantive Step 1 work |
 | **Atomization engine** | BLOCKED | Critical Step 2 research — LLM classification accuracy |
 | Lessons backward review | BLOCKED | After atomization Step 4 |
 | **Excerpting engine** | BLOCKED | Highest-risk LLM task (self-containment) |
-| **Taxonomy engine** | BLOCKED | **Prereq:** Owner defines nahw science tree structure |
+| **Taxonomy engine** | BLOCKED | **Prereq:** Owner validates nahw science tree |
 | Lessons backward review | BLOCKED | After taxonomy Step 4 |
 | **Synthesis engine** | BLOCKED | Needs entry viewer script for Step 4 |
 
 ### Owner Deliverables (non-code, blocks specific engines)
 | Item | Blocks | Notes |
 |------|--------|-------|
-| Nahw science tree structure | Taxonomy engine Step 3 | Define the tree hierarchy the engine places excerpts into |
-| Domain comments per engine | Each engine's Step 1 | Heavy for source/synthesis, moderate for normalization, light for others |
+| Nahw science tree validation | Taxonomy engine Step 3 | A tree exists at library/sciences/nahw/tree.yaml — owner must validate it matches his study structure |
+| Domain comments (source engine) | Source engine Step 1 | Heavy review — how Shamela works, metadata conventions, author identification |
+| Domain comments (synthesis engine) | Synthesis engine Step 1 | Heavy review — what makes a good entry, scholarly narrative expectations |
+| Domain comments (other engines) | Each engine's Step 1 | Light review — flag anything surprising, Claude proceeds after 3 days |
+| Gold baseline verification | Each engine's Step 4 | Owner spot-checks engine output for correctness, Claude produces the JSON |
 
 ### Completed
 | Item | Date |
 |------|------|
 | Testing framework design | 2026-03-08 |
-| Repo cleanup | 2026-03-08 |
 | Engine protocol rewrite (core-first) | 2026-03-08 |
 | Protocol evaluation + fixes (tracer bullet, iterative depth, extension hooks) | 2026-03-08 |
 | Deep analysis + corrections (shared components, mature SPECs, contract sync) | 2026-03-08 |
+| Repo audit round 1: archive 6 obsolete root protocols, fix stale references | 2026-03-08 |
+| Repo audit round 2: archive old engine artifacts, handoffs, premature files | 2026-03-08 |
+| Meta-audit: apply kr-integrity lenses to ENGINE_PROTOCOL, fix 10 HIGH defects | 2026-03-08 |
+| Rewrite all 7 engine CLAUDE.md files for current protocol | 2026-03-08 |
 
 ---
 

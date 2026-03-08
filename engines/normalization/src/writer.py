@@ -12,7 +12,7 @@ Procedure:
   6. Delete prev directory only after new package passes verification
   7. On any failure: remove temp directory, raise NORM_WRITE_FAILED
 
-Implementation order: Part of Step 1 (output schema upgrade) in IMPL_BRIEF.md.
+Implementation order: See SPEC.md for processing rules.
 """
 
 from __future__ import annotations

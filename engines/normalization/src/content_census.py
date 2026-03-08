@@ -13,7 +13,7 @@ Profiles computed:
   - Vocabulary profile (unique terms estimate, technical density, diacritics density)
   - Fidelity distribution
 
-Implementation order: Step 6 in IMPL_BRIEF.md.
+Implementation order: See SPEC.md for processing rules.
 """
 
 from __future__ import annotations

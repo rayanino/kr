@@ -10,7 +10,7 @@ Existing ABD code handles has_verse and has_table. KR adds:
   - is_index_page: Index/فهرس page detection
   - is_blank: Page with no meaningful text
 
-Implementation order: Step 5 in IMPL_BRIEF.md.
+Implementation order: See SPEC.md for processing rules.
 """
 
 from __future__ import annotations

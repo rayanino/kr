@@ -62,35 +62,39 @@ def read_next_md():
     return info
 
 
-def spec_refinement_status():
-    """Check refinement status across all engines."""
-    targets = [
-        "engines/source", "engines/normalization", "engines/passaging",
-        "engines/atomization", "engines/excerpting", "engines/taxonomy",
-        "engines/synthesis", "shared/consensus", "shared/validation",
-        "shared/human_gate", "shared/feedback", "shared/user_model",
-        "shared/scholar_authority", "interface/scholar",
+def engine_protocol_status():
+    """Check per-engine status against ENGINE_PROTOCOL.md steps."""
+    engines = [
+        "source", "normalization", "passaging",
+        "atomization", "excerpting", "taxonomy", "synthesis",
     ]
 
-    ready = 0
-    total = 0
-    status = []
+    statuses = []
+    for eng in engines:
+        eng_dir = Path(f"engines/{eng}")
+        has_spec = (eng_dir / "SPEC.md").exists()
+        has_contracts = (eng_dir / "contracts.py").exists()
+        has_src = len(list((eng_dir / "src").glob("*.py"))) > 1 if (eng_dir / "src").exists() else False
+        has_tests = len(list((eng_dir / "tests").glob("test_*.py"))) > 0 if (eng_dir / "tests").exists() else False
+        has_lessons = (eng_dir / "LESSONS.md").exists()
 
-    for target in targets:
-        claude_md = Path(target) / "CLAUDE.md"
-        total += 1
-        if claude_md.exists():
-            text = claude_md.read_text(encoding="utf-8")
-            if "Implementation-ready: YES" in text:
-                ready += 1
-                status.append(f"  ✓ {Path(target).name}")
-            else:
-                cycles = len(re.findall(r"Cycle \d+(?!\s*\(not yet)", text))
-                status.append(f"  · {Path(target).name} (cycle {cycles})")
+        if has_lessons:
+            status = "COMPLETE"
+        elif has_tests:
+            status = "Step 4 (TEST)"
+        elif has_src:
+            status = "Step 3 (BUILD) or pre-protocol stubs"
+        elif has_spec and has_contracts:
+            status = "Step 1 (SPEC) pending"
         else:
-            status.append(f"  ? {Path(target).name} (no CLAUDE.md)")
+            status = "NOT STARTED"
 
-    return ready, total, status
+        statuses.append(f"    {eng}: {status}")
+
+    tracer = Path("reference/TRACER_FINDINGS.md").exists()
+    pipeline = Path("scripts/run_pipeline.py").exists()
+
+    return tracer, pipeline, statuses
 
 
 def code_status():
@@ -151,10 +155,13 @@ def main():
     for line in git_log(5).split("\n"):
         print(f"  {line}")
 
-    # SPEC refinement
-    ready, total, statuses = spec_refinement_status()
-    print(f"\n📊 SPEC REFINEMENT: {ready}/{total} implementation-ready")
+    # Engine protocol status
+    tracer, pipeline, statuses = engine_protocol_status()
+    print(f"\n📊 PROTOCOL STATUS:")
+    print(f"  Tracer bullet: {'✓ DONE' if tracer else '✗ NOT DONE (Step 0)'}")
+    print(f"  Pipeline runner: {'✓ exists' if pipeline else '✗ not built yet'}")
     if not brief:
+        print("  Per-engine:")
         for s in statuses:
             print(s)
 
@@ -186,29 +193,20 @@ def main():
           f"{len(list(Path('.claude/commands').glob('*.md')))} commands, "
           f"{len(list(Path('.claude/skills').iterdir()))} skills")
 
-    # GUI
-    gui_app = Path("interface/scholar/src/app.py").exists()
-    gui_template = Path("interface/scholar/src/templates/base.html").exists()
-    gui_spec = Path("interface/GUI.md").exists()
-    print(f"\n🖥️  GUI: spec={'✓' if gui_spec else '✗'} app={'✓' if gui_app else '✗'} templates={'✓' if gui_template else '✗'}")
-
     # What's needed
     print(f"\n⚡ WHAT'S NEEDED NEXT")
-    if ready == 0:
-        print("  → SPEC refinement (no SPECs are implementation-ready)")
+    if not tracer:
+        print("  → Step 0: Run the tracer bullet (see ENGINE_PROTOCOL.md)")
+    elif not pipeline:
+        print("  → Tracer bullet incomplete: scripts/run_pipeline.py needed")
+    else:
+        print("  → Per-engine work: Steps 1-4 per ENGINE_PROTOCOL.md")
     if not contracts:
         print("  → Machine-readable contracts (no contracts.py files)")
-    elif len(contracts) < len(engines):
-        missing = set(engines.keys()) - set(contracts.keys())
-        print(f"  → Contracts for: {', '.join(sorted(missing))}")
     if not fixtures:
         print("  → Test fixtures (no test data)")
     if "MISSING" in env_status:
         print("  → API keys (.env file)")
-    if not gui_app:
-        print("  → GUI skeleton (FastAPI app.py, see interface/GUI.md)")
-    if ready == total:
-        print("  → Implementation can begin! Follow skills/shared/ENGINE_PROTOCOL.md")
 
     print()
 

@@ -2,7 +2,7 @@
 
 **The library IS the user's knowledge. An error here is an error in his mind.**
 
-Concise context: `STEERING.md`. Development process: `skills/shared/ENGINE_PROTOCOL.md`. Full spec: `VISION.md`. Quality target: `reference/ENTRY_EXAMPLE.md`.
+Concise context: `STEERING.md`. Development process: `skills/shared/ENGINE_PROTOCOL.md`. Test architecture: `reference/TESTING_FRAMEWORK.md`. Quality target: `reference/ENTRY_EXAMPLE.md`. Full spec: `VISION.md` (47K tokens — never read whole, use `scripts/extract_vision_sections.py`).
 
 ## Critical Rules
 
@@ -20,29 +20,34 @@ Concise context: `STEERING.md`. Development process: `skills/shared/ENGINE_PROTO
 ## Before Starting Work
 
 Read `NEXT.md` — it tells you what to do and what files to read.
+Read this engine's `CLAUDE.md` in `engines/<n>/CLAUDE.md` — it tells you the current state.
 
 ## Pipeline
 
-Source -> Normalization --- normalization boundary --- Passaging -> Atomization -> Excerpting -> Taxonomy -> Synthesis -> Scholar Interface
+Source → Normalization ─── normalization boundary ─── Passaging → Atomization → Excerpting → Taxonomy → Synthesis
 
 ## Build and Test
 
 ```
-python -m pytest engines/*/tests/ shared/*/tests/ -q
-python -m pytest engines/<n>/tests/ -v --tb=short
-python3 scripts/verify_metadata_flow.py
-python3 scripts/check_compliance.py --all
-python3 scripts/check_spec_quality.py --all
-python3 scripts/creative_verification.py engines/<n>/SPEC.md
-python3 scripts/session_quality_gate.py
-python3 scripts/refinement_status.py
-python3 scripts/extract_vision_sections.py --search keyword
+python3 scripts/run_pipeline.py                           # Run full pipeline (after tracer bullet)
+python -m pytest engines/<n>/tests/ -v --tb=short         # Per-engine tests
+python -m pytest engines/*/tests/ shared/*/tests/ -q      # All tests
+python3 scripts/verify_metadata_flow.py                   # D-023 metadata pass-through check
+python3 scripts/check_spec_quality.py engines/<n>/SPEC.md # SPEC defect detection
+python3 scripts/check_compliance.py --all                 # Code-to-SPEC compliance
+python3 scripts/session_quality_gate.py                   # Pre-commit quality check
+python3 scripts/extract_vision_sections.py 2 7            # Read VISION.md sections
 ```
 
 ## Repo Layout
 
-engines/ — 7 engines: source, normalization, passaging, atomization, excerpting, taxonomy, synthesis
-shared/ — consensus, validation, human_gate, feedback, user_model, scholar_authority
-interface/scholar/ — user-facing intelligence layer
-library/ — knowledge product (the user's knowledge)
-scripts/ — utilities; tests/integration/ — cross-engine tests
+```
+engines/          — 7 engines: source, normalization, passaging, atomization, excerpting, taxonomy, synthesis
+shared/           — consensus, validation, human_gate, feedback, user_model, scholar_authority
+library/          — knowledge product (the user's knowledge): science trees, source registry
+skills/           — Claude.ai uploadable skills (kr-*) + engine project templates + shared protocol
+tests/fixtures/   — 7 real Arabic scholarly test sources
+reference/        — domain docs, testing framework, decisions, resources
+scripts/          — quality checks, pipeline runner, VISION.md extractor
+.claude/          — Claude Code skills, agents, commands, hooks
+```

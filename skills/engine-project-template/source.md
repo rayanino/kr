@@ -41,7 +41,7 @@ Read KNOWLEDGE_INTEGRITY.md for the 7 corruption threats that can damage the own
 </instructions>
 
 <skills>
-You have 6 installed skills. Invoke them by name for reliable activation:
+You have 6 installed skills. IMPORTANT: Always invoke skills by name — auto-activation is unreliable (~50% success rate). Say "use kr-spec-review" not "handle my comment."
 - "use kr-core-extract" — classify core vs deferred capabilities, rewrite SPEC for core-only depth
 - "use kr-spec-review" — investigate and resolve owner domain comments on the SPEC
 - "use kr-integrity" — technical audit for ambiguity, corruption paths, missing error handling

@@ -14,7 +14,7 @@ Check list (SPEC §5):
   8. Diacritics preservation (character-class comparison, digital sources only)
   9. Format-specific input validation (delegated to each normalizer)
 
-Implementation order: Step 2 in IMPL_BRIEF.md (after output schema upgrade).
+Implementation order: See SPEC.md for processing rules.
 """
 
 from __future__ import annotations

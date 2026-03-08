@@ -4,6 +4,8 @@
 **Author:** KR Architect
 **Status:** Authoritative — Claude Code reads this to set up test infrastructure.
 
+**Cross-reference:** This framework is used during Steps 3-4 of `skills/shared/ENGINE_PROTOCOL.md`. Step 3 (BUILD) uses dimensions 5a and 5b. Step 4 (TEST) uses all three dimensions (5a/5b/5c) and creates gold baselines.
+
 ---
 
 ## 1. Framework Decision: DeepEval + pytest
@@ -165,13 +167,13 @@ def compare_to_gold(actual: dict, gold: dict) -> list[GoldMismatch]:
 
 ### Initial Gold Baselines Required (Source Engine)
 
-The owner must hand-verify these before Step 3 (BUILD):
+Gold baselines are created during Step 4 (TEST), not before Step 3 (BUILD). The process: run the engine on a fixture, inspect the output, correct errors manually with the owner, save the corrected output as the gold baseline. This is inherently iterative — the first engine run produces wrong output, which gets fixed, and the corrected version becomes the baseline for regression testing.
 
 1. **`html_export_minimal.json`** — The synthetic Shamela-style export. Verify: title, author, science, genre, structural_format. Fastest to create because the fixture is small and the metadata is known.
 
-2. **`waraqat_usul.json`** — Real PDF. Verify: title (متن الورقات), author (الجويني), science (أصول الفقه), genre (matn), trust evaluation. Requires running the source engine once and correcting the output.
+2. **`waraqat_usul.json`** — Real PDF. Verify: title (متن الورقات), author (الجويني), science (أصول الفقه), genre (matn), trust evaluation. Requires running the source engine on the PDF and correcting the output.
 
-**Two gold baselines are the minimum for Step 3 (BUILD).** Additional baselines (ibn_aqil_alfiyyah, owner_note) are added during Step 4 (TEST) iteration.
+**Two gold baselines are the minimum before declaring Step 4 complete.** Additional baselines (ibn_aqil_alfiyyah, owner_note) are added as more formats are supported.
 
 ---
 
