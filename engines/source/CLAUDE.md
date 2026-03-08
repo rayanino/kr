@@ -1,47 +1,48 @@
 # Source Engine — محرك المصادر
 
-**Responsibility:** Discovering, identifying, acquiring, freezing, and documenting raw knowledge sources (§2.2).
+**Responsibility:** Acquiring raw sources, assigning identifiers, extracting and inferring metadata, freezing originals, evaluating trustworthiness, and producing the metadata record that every downstream engine consumes.
 **Phase:** 1 (source-format-specific, above the normalization boundary).
 
-## Required Reading
-1. This engine's SPEC.md (the authoritative behavioral specification)
-2. This engine's contracts.py (machine-readable Pydantic models for input/output schemas)
-2. VISION.md §7 (source pipeline architecture), §2.2, §2.5
-3. Output boundary: frozen source + metadata → normalization engine
+## Process
 
-## What This Engine Does
-- Acquires sources from any format (Shamela, PDF, manual input, etc.)
-- Assigns three-tier identity: `source_id`, `work_id`, `canonical_id` (D-024)
-- Freezes source immediately upon acquisition (§2.5)
-- Extracts and enriches metadata (author, school, dates, work relationships)
-- Maintains three registries: sources.json, works.json, scholars.json
-- Evaluates trustworthiness via 5-factor weighted scoring
+Follow `skills/shared/ENGINE_PROTOCOL.md`. This engine is first in pipeline order and bootstraps the shared components (consensus, human_gate, scholar_authority, validation).
+
+## Required Reading
+
+1. This engine's `SPEC.md` (1,465 lines — the authoritative specification)
+2. This engine's `contracts.py` (825 lines — Pydantic input/output schemas)
+3. `skills/shared/ENGINE_PROTOCOL.md` — the development process (Step 0-4)
+4. `reference/TESTING_FRAMEWORK.md` — test architecture (5a/5b/5c dimensions)
+5. `KNOWLEDGE_INTEGRITY.md` — 7 corruption threats this engine must prevent
+6. `SILENT_FAILURES.md` — 7 failure patterns to check against
+7. Output boundary: frozen source + metadata → normalization engine
 
 ## Current State
-Legacy ABD code (D-019: zero design authority). Works for Shamela intake only.
-Code: `src/` (intake.py 1476L, enrich.py 580L, corpus_audit.py 228L).
-Tests: 112 tests in `tests/`.
 
-## Commands
-```
-cd engines/source && python -m pytest tests/ -q
-```
+**SPEC:** 1,465 lines. Has been through prior refinement but needs core extraction (Step 1) — §4.B features and non-core formats must be deferred with extension hooks. §4.A needs rewriting for core-only focus. Immature by ENGINE_PROTOCOL's criteria.
 
-## Transformative Capabilities (§4.B)
-1. **OpenITI corpus enrichment** for scholar authority bootstrapping (§4.B.1)
-2. **Bibliographic intelligence** from minimal input (§4.B.2)
-3. **Citation network discovery** [NOT YET IMPLEMENTED] (§4.B.3)
-4. **Acquisition gap analysis** [NOT YET IMPLEMENTED] (§4.B.4)
+**Contracts:** 825 lines. Written against the full SPEC including deferred features. Will be pruned during core extraction. Boundary with normalization has known mismatches (22+ fields) — the tracer bullet (Step 0) addresses this.
 
-## Key Constraints
-1. **Freezing immediate and absolute (§2.5):** frozen before any processing, never modified
-2. **Not Shamela-only (D-019):** design for ALL scholarly source types
-3. **Manual acquisition first-class (D-020):** iPhone photos, manual downloads are primary paths
-4. **Metadata is synthesis fuel (D-023):** biography, dates, schools, relationships enable scholarly narratives
-5. **Multi-layer detection (D-030):** identify matn+sharh composition, attribute each layer's author
-6. **Work vs. source distinction (D-024):** same work, different tahqiq = different sources
-7. **Fail-loud (D-033):** uncertain identification → human gate, not silent default
+**Code:** 27 pre-protocol stub files, 265 total lines. These are SPEC-derived placeholders, not working implementations. They include deferred features. The tracer bullet uses them as starting points; Step 3 replaces them with real code.
 
-## SPEC Refinement Status
-- Cycle 0 (not yet started)
-- Implementation-ready: NO — refinement required before implementation
+**Tests:** None.
+
+**Shared component bootstrap:** This engine builds the first real implementations of consensus, human_gate, scholar_authority, and validation. See ENGINE_PROTOCOL.md engine-specific notes for the minimum viable method signatures needed.
+
+## What This Engine Does (Core Only)
+
+- Acquires sources from Shamela HTML exports and plain text (2 formats for Stage 1)
+- Assigns three-tier identity: source_id, work_id, canonical_id (D-024)
+- Extracts metadata from format-specific markup
+- Infers metadata via LLM when extraction is insufficient (multi-model consensus)
+- Detects duplicates via composite key matching
+- Freezes the raw source immediately upon acquisition (SHA-256 hash)
+- Evaluates trustworthiness: 3-tier classification (verified / flagged / unknown)
+- Produces metadata.json consumed by the normalization engine
+
+## Key Domain Concepts
+
+- **tahqiq**: Critical scholarly edition. The muhaqiq (editor) is NOT the author.
+- **source_format**: Shamela HTML has specific structure (info.html + content.html)
+- **trust_tier**: Based on publisher reputation, tahqiq quality, manuscript lineage
+- **Three-tier ID**: source_id (this specific file), work_id (this book), canonical_id (this scholar's identity)
