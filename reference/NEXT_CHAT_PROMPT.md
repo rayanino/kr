@@ -1,67 +1,75 @@
 # Prompt for Next Chat Session
 
-Copy everything below the line into a new chat with the KR project context.
+Copy everything below the line into a new chat. This chat does NOT need to be in a specific engine project — it is project-level work.
 
 ---
 
-<context>
-You are the architect of خزانة ريان (KR), a personal intelligent Islamic scholarly library with a 7-engine pipeline that transforms raw Arabic scholarly texts into structured knowledge entries.
+<project>
+خزانة ريان (KR) is a personal Islamic scholarly library with a 7-engine pipeline (Source → Normalization → Passaging → Atomization → Excerpting → Taxonomy → Synthesis) that transforms raw Arabic scholarly texts into structured knowledge entries.
 
-The pipeline: Source → Normalization → Passaging → Atomization → Excerpting → Taxonomy → Synthesis.
+Repository: github.com/rayanino/kr
+The Github_key project knowledge file contains the personal access token.
 
-The project is at a critical transition point. Over the past session, I (the owner) worked with Claude to:
+Current state: The development protocol has been redesigned and refined across three sessions. No engine code runs yet. All 7 engines have SPECs and contracts.py files. The next action is the tracer bullet (Step 0 in ENGINE_PROTOCOL.md), but before starting it, the repo foundation needs a final check.
+</project>
 
-1. Restructure the development process from a 6-phase per-engine cycle to a leaner 4-step process (SPEC → RESEARCH → BUILD → TEST)
-2. Add a "tracer bullet" (Step 0) — a thin end-to-end slice that validates all 7 contract boundaries before any engine is deepened
-3. Identify that 4 shared components (consensus, human_gate, scholar_authority, validation) have full SPECs but zero implementation, and engines depend on them
-4. Add engine-specific guidance (e.g., normalization's basic layer detection is core; taxonomy needs a science tree prerequisite from the owner; synthesis needs an entry viewer for Step 4)
-5. Add mature SPEC handling (normalization has 4 refinement passes — don't rewrite its §4.A), iterative spec depth, extension hooks, lessons backward reviews, and contract sync rules
+<startup>
+Clone the repo and orient yourself:
 
-The master document is `skills/shared/ENGINE_PROTOCOL.md` (301 lines). The roadmap is `OPEN_PROBLEMS.md`. Current state: setup not yet done, tracer bullet not yet run, no engine code works yet. All 7 engines have SPECs (918-2,006 lines) and contracts.py files (491-825 lines). Four engines have partial src/ directories from earlier attempts (pre-protocol).
+```
+cd /home/claude
+rm -rf kr
+git clone https://rayanino:TOKEN@github.com/rayanino/kr.git kr
+cd kr
+git config user.name "KR Architect"
+git config user.email "kr-architect@khizanat-rayan.dev"
+```
 
-I am an Islamic studies student with deep domain knowledge but no technical background. I answer domain questions only — Claude makes all technical and architectural decisions.
-</context>
+Replace TOKEN with the actual token from the Github_key project knowledge file.
 
-<topic_1>
-Continue improving the plan and repo setup before starting the pipeline.
+Then read these files in order to understand the current plan:
+1. `skills/shared/ENGINE_PROTOCOL.md` (301 lines) — the master development process
+2. `OPEN_PROBLEMS.md` — the roadmap and status
+3. `NEXT.md` — what happens next
+4. `STEERING.md` — project overview
+</startup>
 
-The protocol and skills have been through three rounds of analysis and correction. There may still be gaps, inconsistencies between files, or improvements to make. Before I start the tracer bullet, I want confidence that the foundation is solid. 
+<task_1>
+## Final repo and plan audit before starting the tracer bullet
 
-Specific areas to investigate:
-- Are there remaining inconsistencies between ENGINE_PROTOCOL.md, the 6 skills, the 7 engine templates, and supporting documents (TESTING_FRAMEWORK.md, KNOWLEDGE_INTEGRITY.md, STEERING.md)?
-- Is the repo structure clean? There are 15 root-level markdown files — some may be obsolete or superseded by the new protocol.
-- Are the existing engine src/ directories (source, normalization, passaging, atomization have code from earlier attempts) going to cause confusion during the tracer bullet and build phases? Should they be archived?
-- Is there anything else you would improve about the plan or repo before starting?
+Investigate the repo for remaining problems. Read all files you need — do not limit yourself to what I list here. Look at the full picture: protocol, skills, templates, engine SPECs, contracts, existing code, supporting documents, test fixtures.
 
-Read the repo (clone using the Github_key in project knowledge) and investigate before answering. Use `python3 scripts/orient.py --brief` for project status if the script exists.
-</topic_1>
+Specific concerns to check (not exhaustive — find issues I have not thought of too):
 
-<topic_2>
-Explore whether Claude can fully autonomously steer the project.
+- Inconsistencies between ENGINE_PROTOCOL.md, the 6 skills in `skills/kr-*/SKILL.md`, the 7 engine templates in `skills/engine-project-template/*.md`, and supporting documents (TESTING_FRAMEWORK.md, KNOWLEDGE_INTEGRITY.md, STEERING.md). After three rounds of changes, things may have drifted.
+- Root-level file clutter. There are ~15 root markdown files. Some may be obsolete or superseded by the new protocol (CHALLENGE_PROTOCOL.md? MILESTONES.md? ORCHESTRATOR.md? REVIEW_PROTOCOL.md?). Identify which are still needed.
+- Stale code in engine src/ directories. Four engines (source, normalization, passaging, atomization) have src/ code from before the current protocol existed. Will this confuse the tracer bullet or build phases? Should it be archived?
+- Anything else that would cause problems when the tracer bullet starts.
 
-Currently, the protocol requires me (the owner) to:
-- Write domain comments on SPECs (Step 1)
-- Review and correct core vs. deferred classification (Step 1)
-- Approve SPEC changes proposed by kr-spec-review (Step 1)
-- Review Arabic output at Step 4 ("Is this author identification correct?")
-- Define the science tree structure (taxonomy engine prerequisite)
-- Make final approval decisions at human gates
+For each finding: state what you found, why it matters, and propose a concrete fix. Use severity levels: CRITICAL (blocks the tracer bullet), IMPORTANT (causes confusion or errors during engine work), MINOR (cosmetic or low-risk).
 
-My hypothesis: an LLM with the right context (DOMAIN.md, ENTRY_EXAMPLE.md, the existing SPECs, web search access) could perform most of these tasks — writing domain comments, evaluating Arabic output, even constructing science trees from research. The owner's irreplaceable contributions are narrow: providing API keys, running Claude Code sessions, and making genuinely subjective preferences ("I want to study nahw first").
+After presenting findings, implement all CRITICAL and IMPORTANT fixes. Present MINOR fixes for my approval before implementing.
+</task_1>
 
-Questions to investigate:
-1. Which of my current responsibilities can an LLM reliably replace, and which genuinely require a human Islamic studies student?
-2. What would a "fully autonomous" setup look like? A Claude Chat instance that reads the protocol, executes steps, writes its own comments, resolves them, runs kr-integrity, and only pauses for things it truly cannot do?
-3. What are the risks? Where would autonomous operation most likely go wrong, and what safeguards would catch it?
-4. Is there a practical setup — specific project structure, custom instructions, skill configuration — that enables this?
+<task_2>
+## Autonomous project steering — feasibility analysis
 
-Research how other projects handle autonomous AI-driven development pipelines. Look at Claude Code's autonomous capabilities, multi-agent patterns, and what Anthropic recommends for agentic workflows. Form your own position on what's feasible vs. what's risky for this specific project.
-</topic_2>
+After task 1 is complete, investigate this question:
 
-<instructions>
-Handle these two topics in order. For topic 1, clone the repo and do a concrete investigation — read files, find inconsistencies, propose fixes. For topic 2, research deeply (use web search, look at how others structure autonomous AI development) before forming a position. 
+The current protocol requires the owner (an Islamic studies student, no technical background) to do several things: write domain comments on SPECs, review core vs. deferred classification, approve SPEC changes, evaluate Arabic output at Step 4, define science tree structures, and make human gate decisions. 
 
-Do not rush. Take all your time on both topics. The goal is to reach a state where I can confidently start the tracer bullet, and to have a clear picture of how much of the process Claude can drive autonomously.
+Can an LLM with the right setup (domain knowledge files, web search, the existing SPECs) reliably replace some or all of these responsibilities? What would that setup look like concretely?
 
-Start by cloning the repo and reading ENGINE_PROTOCOL.md, OPEN_PROBLEMS.md, and NEXT.md to orient yourself. Then investigate topic 1. Then research and analyze topic 2.
-</instructions>
+To answer this well:
+- Research how other projects structure autonomous AI-driven development. Look at agentic workflows, Claude Code autonomous mode, multi-agent orchestration patterns.
+- For each owner responsibility listed above, independently assess: can an LLM do this reliably for classical Arabic Islamic scholarly texts specifically? What would go wrong? What evidence exists?
+- If a practical autonomous setup is feasible, describe it concretely: what project structure, what custom instructions, what safeguards, what the owner still must do manually.
+- If it is not feasible (or only partially feasible), explain which responsibilities are genuinely human-irreplaceable and why.
+
+Present your analysis as a structured assessment, not a recommendation I asked you to validate. I want your honest evaluation, including where autonomy would fail.
+</task_2>
+
+<output_format>
+For task 1: Present findings with severity levels, then implement fixes (CRITICAL and IMPORTANT immediately; MINOR after my approval).
+For task 2: Present a structured analysis with clear sections. Do not make repo changes for task 2 — it is analysis only.
+</output_format>
