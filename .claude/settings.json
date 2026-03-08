@@ -40,7 +40,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'echo \"POST-COMPACTION: Read NEXT.md for current task. Key rules: (1) Library IS the users knowledge — errors propagate silently. (2) Metadata never deleted (D-023). (3) Fail loud (D-033). (4) Multi-model consensus for content decisions. (5) Run Three Challenges before committing. (6) Invention before review.\"'"
+            "command": "bash -c 'echo \"POST-COMPACTION: Read NEXT.md for current task. Key rules: (1) Library IS the users knowledge — errors propagate silently. (2) Metadata never deleted (D-023). (3) Fail loud (D-033). (4) Multi-model consensus for content decisions. (5) Run quality checks before committing. (6) Follow ENGINE_PROTOCOL.md for the development process.\"'"
           }
         ]
       }

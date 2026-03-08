@@ -208,7 +208,7 @@ def main():
     if not gui_app:
         print("  → GUI skeleton (FastAPI app.py, see interface/GUI.md)")
     if ready == total:
-        print("  → Implementation can begin! Follow ORCHESTRATOR.md")
+        print("  → Implementation can begin! Follow skills/shared/ENGINE_PROTOCOL.md")
 
     print()
 

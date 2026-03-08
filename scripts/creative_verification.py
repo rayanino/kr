@@ -2,7 +2,11 @@
 """Verify creative output was produced during a SPEC refinement session.
 
 Checks for evidence of inventive work — not just review and correction.
-This enforces the Creative Mandate structurally, not just via instructions.
+
+NOTE: This script was designed for the old CREATIVE/PRECISION/HARDENING session model.
+The current process uses ENGINE_PROTOCOL.md (4-step per engine). The §4.B substance
+checks are still useful for SPEC quality assessment, but the "secretary session" warning
+should be interpreted in the new context.
 
 Usage:
     python3 scripts/creative_verification.py engines/source/SPEC.md
@@ -140,8 +144,7 @@ def main():
     if diff_result['assessment'] == 'secretary':
         print(f"\n    ⚠ SECRETARY SESSION DETECTED.")
         print(f"      This session only corrected existing content.")
-        print(f"      Did you skip the Creative Exploration Protocol?")
-        print(f"      Reread CREATIVE_MANDATE.md before committing.")
+        print(f"      Ensure substantive design work was produced, not just corrections.")
     
     print(f"\n{'=' * 60}")
 

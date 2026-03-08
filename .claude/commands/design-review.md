@@ -2,27 +2,22 @@ Run a structured design review on a component or the full system.
 
 Arguments: $ARGUMENTS (e.g., "source" or "boundaries" or "scholarly-value" or "architecture")
 
-Follow the review protocol defined in REVIEW_PROTOCOL.md:
-
-If "source", "normalization", etc. (engine name):
-  → Run Type 1: SPEC Integrity Review for that engine.
+If an engine name (source, normalization, etc.):
+  → Use kr-integrity to audit that engine's SPEC for technical defects.
+  → Check: ambiguous rules, missing error paths, corruption risks, untested assumptions.
 
 If "boundaries":
-  → Run Type 2: Cross-Engine Boundary Review for all implemented boundaries.
+  → Run scripts/verify_metadata_flow.py and check all contract boundaries.
+  → Verify D-023 metadata pass-through at every engine boundary.
 
 If "scholarly-value":
-  → Run Type 4: Scholarly Value Audit.
-  → Read reference/USER_SCENARIOS.md and reference/ENTRY_EXAMPLE.md first.
+  → Read reference/USER_SCENARIOS.md and reference/ENTRY_EXAMPLE.md.
+  → Evaluate whether the current design would produce entries matching the quality target.
 
 If "architecture":
-  → Run Type 5: Architecture Health Check.
-
-If "transformative" or "capabilities":
-  → Run Type 3: Transformative Capability Review.
-  → Optionally specify an engine: "transformative source"
+  → Read STEERING.md and skills/shared/ENGINE_PROTOCOL.md.
+  → Check for structural issues across the full pipeline.
 
 For all review types:
-1. Follow the procedure in REVIEW_PROTOCOL.md exactly.
-2. Use the specified output format.
-3. Produce at least ONE concrete improvement recommendation.
-4. If the review identifies a SPEC change needed, note the exact edit.
+1. Produce at least ONE concrete improvement recommendation.
+2. If the review identifies a SPEC change needed, note the exact edit.

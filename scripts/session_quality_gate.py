@@ -5,6 +5,10 @@ This script objectively verifies that a session produced real work,
 not just cosmetic changes. It catches the failure modes that
 Claude Chat self-review misses.
 
+NOTE: Some checks reference the old CREATIVE/PRECISION/HARDENING session model.
+The current process uses ENGINE_PROTOCOL.md (4-step per engine). These checks
+still provide useful sanity verification but may produce false positives.
+
 Usage:
     python3 scripts/session_quality_gate.py [--spec engines/source/SPEC.md]
 """
@@ -95,7 +99,7 @@ def check_creative_output(diff_text: str) -> list:
     
     if not has_4b_work and not has_new_content:
         issues.append("NO_CREATIVE_SIGNAL: No evidence of creative/inventive work in changes. "
-                     "Was this a secretary session? Check CREATIVE_MANDATE.md.")
+                     "Was this a secretary session? Ensure substantive work was done.")
     
     return issues
 

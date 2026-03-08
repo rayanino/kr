@@ -2,7 +2,7 @@
 
 **The library IS the user's knowledge. An error here is an error in his mind.**
 
-Concise context: `STEERING.md`. Implementation guide: `ORCHESTRATOR.md`. Full spec: `VISION.md`. Quality target: `reference/ENTRY_EXAMPLE.md`.
+Concise context: `STEERING.md`. Development process: `skills/shared/ENGINE_PROTOCOL.md`. Full spec: `VISION.md`. Quality target: `reference/ENTRY_EXAMPLE.md`.
 
 ## Critical Rules
 

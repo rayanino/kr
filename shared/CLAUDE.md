@@ -13,6 +13,6 @@ Cross-engine components used by two or more engines. Code belongs here only when
 
 ## Current State
 
-ABD-era code archived to reference/archive/abd_code/. Engine src/ and tests/ directories are clean.
+ABD-era code archived to reference/archive/abd_code/. Four engines (source, normalization, passaging, atomization) have pre-protocol src/ stubs — these are SPEC-derived placeholder code from before ENGINE_PROTOCOL.md existed. The tracer bullet (Step 0) will reconcile and extend these stubs.
 Each component has its own SPEC.md (authoritative) and CLAUDE.md (orientation).
-All SPECs need refinement before implementation — see SPEC Refinement Status in each CLAUDE.md.
+All SPECs need core-extraction and potential rewriting before implementation — see skills/shared/ENGINE_PROTOCOL.md Step 1.

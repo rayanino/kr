@@ -23,36 +23,54 @@ Claude Chat (the architect) has ~200K tokens total. This document provides concr
 
 Measured by line count × ~1.3 tokens/line average for technical English/Arabic.
 
-### Governance Documents
+### Active Governance Documents
 | File | Lines | Tokens (approx) |
 |------|-------|-----------------|
 | KNOWLEDGE_INTEGRITY.md | 168 | ~1,600 |
-| CHALLENGE_PROTOCOL.md | 142 | ~1,300 |
-| ORCHESTRATOR.md | 251 | ~2,400 |
-| MILESTONES.md | 262 | ~2,500 |
-| REVIEW_PROTOCOL.md | 220 | ~2,100 |
-| OPEN_PROBLEMS.md | 232 | ~2,200 |
+| STEERING.md | ~100 | ~950 |
+| OPEN_PROBLEMS.md | ~230 | ~2,200 |
+| SILENT_FAILURES.md | ~170 | ~1,600 |
+| ENGINE_PROTOCOL.md (skills/shared/) | ~300 | ~2,900 |
 
-### Skills
+### Skills (Claude.ai — kr-* uploadable zips)
 | File | Lines | Tokens (approx) |
 |------|-------|-----------------|
-| knowledge-safety/SKILL.md | 74 | ~700 |
-| arabic-text/SKILL.md | 98 | ~900 |
-| technology-survey/SKILL.md | 94 | ~900 |
-| scholarly-design/SKILL.md | 90 | ~850 |
-| spec-examples/SKILL.md | 102 | ~950 |
+| kr-core-extract/SKILL.md | ~120 | ~1,100 |
+| kr-spec-review/SKILL.md | ~130 | ~1,200 |
+| kr-integrity/SKILL.md | ~140 | ~1,300 |
+| kr-research/SKILL.md | ~100 | ~950 |
+| kr-build-prep/SKILL.md | ~120 | ~1,100 |
+| kr-evaluate/SKILL.md | ~100 | ~950 |
+
+### Skills (Claude Code — .claude/skills/)
+| File | Lines | Tokens (approx) |
+|------|-------|-----------------|
+| arabic-text/SKILL.md | ~98 | ~900 |
+| technology-survey/SKILL.md | ~94 | ~900 |
+| knowledge-safety/SKILL.md | ~74 | ~700 |
+| scholarly-design/SKILL.md | ~90 | ~850 |
 
 ### Engine SPECs
 | File | Lines | Tokens (approx) |
 |------|-------|-----------------|
-| Source SPEC | 582 | ~5,500 |
-| Normalization SPEC | 664 | ~6,300 |
-| Passaging SPEC | 502 | ~4,800 |
-| Atomization SPEC | 580 | ~5,500 |
-| Excerpting SPEC | 559 | ~5,300 |
-| Taxonomy SPEC | 562 | ~5,300 |
-| Synthesis SPEC | 582 | ~5,500 |
-| Scholar Interface SPEC | 872 | ~8,300 |
+| Source SPEC | 1,465 | ~14,000 |
+| Normalization SPEC | 2,006 | ~19,000 |
+| Passaging SPEC | 1,037 | ~9,900 |
+| Atomization SPEC | 1,205 | ~11,400 |
+| Excerpting SPEC | 1,038 | ~9,900 |
+| Taxonomy SPEC | 945 | ~9,000 |
+| Synthesis SPEC | 918 | ~8,700 |
+
+### Engine Contracts
+| File | Lines | Tokens (approx) |
+|------|-------|-----------------|
+| Source contracts.py | 825 | ~7,800 |
+| Normalization contracts.py | 697 | ~6,600 |
+| Passaging contracts.py | 556 | ~5,300 |
+| Atomization contracts.py | 676 | ~6,400 |
+| Excerpting contracts.py | 557 | ~5,300 |
+| Taxonomy contracts.py | 491 | ~4,700 |
+| Synthesis contracts.py | 565 | ~5,400 |
 
 ### Reference Documents
 | File | Lines | Tokens (approx) |
@@ -61,62 +79,59 @@ Measured by line count × ~1.3 tokens/line average for technical English/Arabic.
 | ENTRY_EXAMPLE.md | ~170 | ~1,600 |
 | USER_SCENARIOS.md | ~280 | ~2,700 |
 | RESOURCES.md | ~320 | ~3,000 |
+| TESTING_FRAMEWORK.md | ~700 | ~6,700 |
 | kr_decisions.md | ~1,000 | ~9,500 |
 | VISION.md | ~5,000 | ~47,000 (NEVER read whole) |
 
 ---
 
-## Session Budgets by Type
+## Session Budgets by Step (ENGINE_PROTOCOL.md)
 
-### Engine Review Session — Phase 2/3 (~155K available)
+### Tracer Bullet (Step 0) — ~155K available
 
 Must read:
-- ENGINE_PROTOCOL.md: ~2,500
+- ENGINE_PROTOCOL.md: ~2,900
+- All 7 contracts.py files: ~41,500
+- STEERING.md: ~950
+**Subtotal reading: ~45,350**
+
+Budget for reconciliation + stub code: ~80,000
+Budget for test execution output: ~10,000
+**Total work: ~90,000**
+
+**Remaining buffer: ~20,000** — tight. Read contracts in batches if needed.
+
+### SPEC Core Architecture (Step 1) — ~155K available
+
+Must read:
+- ENGINE_PROTOCOL.md: ~2,900
 - KNOWLEDGE_INTEGRITY.md: 1,600
-- The SPEC being reviewed: ~5,500
+- The SPEC being reviewed: ~9,000–19,000
 - ENTRY_EXAMPLE.md: 1,600
 - Owner comments file: ~1,000
-**Subtotal reading: ~12,200**
+**Subtotal reading: ~16,100–26,100**
 
-Budget for output (SPEC edits, defect ledger, research): ~60,000
-Budget for web searches (5-10 searches × ~2K per search result): ~20,000
+Budget for output (SPEC rewrites, research): ~60,000
+Budget for web searches (5-10 × ~2K each): ~20,000
 **Total work: ~80,000**
 
-**Remaining buffer: ~55,000** — comfortable margin.
+**Remaining buffer: ~49,000–59,000** — comfortable.
 
-**Optimization:** Do NOT read kr_decisions.md (9,500 tokens) — the SPEC already incorporates decisions. Do NOT read DOMAIN.md — the SPEC already incorporates domain knowledge.
-
-### Implementation Session (~155K available)
+### Build (Step 3) — ~155K available
 
 Must read:
-- ORCHESTRATOR.md: 2,200
-- The SPEC section being implemented: ~2,000 (partial SPEC read)
+- ENGINE_PROTOCOL.md (Step 3 section): ~1,000
+- The SPEC section being implemented: ~3,000 (partial)
 - arabic-text skill: 900
 - knowledge-safety skill: 700
-- Existing code in the engine: variable (target <3,000)
-**Subtotal reading: ~5,800**
+- Existing code in the engine: variable (target <5,000)
+**Subtotal reading: ~5,600**
 
 Budget for code writing + tests: ~80,000
 Budget for test execution output: ~10,000
 **Total work: ~90,000**
 
 **Remaining buffer: ~52,000** — very comfortable.
-
-### Design Review Session (~155K available)
-
-Must read:
-- REVIEW_PROTOCOL.md: 2,100
-- CHALLENGE_PROTOCOL.md: 1,300
-- The component being reviewed: ~5,500
-- ENTRY_EXAMPLE.md: 1,600
-- scholarly-design skill: 850
-**Subtotal reading: ~11,350**
-
-Budget for review output + improvements: ~60,000
-Budget for web searches: ~20,000
-**Total work: ~80,000**
-
-**Remaining buffer: ~56,000** — comfortable.
 
 ---
 

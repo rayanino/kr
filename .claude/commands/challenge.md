@@ -1,10 +1,9 @@
-Run the Three Challenges from CHALLENGE_PROTOCOL.md against the current session's work.
+Run the Three Challenges against the current session's work.
 
 This is MANDATORY before every commit of substantial work. It is not optional.
 
 Steps:
-1. Read `CHALLENGE_PROTOCOL.md` — the full protocol, not just the summary.
-2. Identify the deliverable(s) from this session (code files, SPEC sections, design decisions).
+1. Identify the deliverable(s) from this session (code files, SPEC sections, design decisions).
 
 3. **Challenge 1: The Hostile Implementer**
    - For each deliverable, find at least ONE sentence/line with two valid interpretations.
