@@ -1,6 +1,6 @@
 # Open Problems — المشاكل المفتوحة
 
-Last updated: 2026-03-08 (v4 — tracer bullet + iterative depth)
+Last updated: 2026-03-08 (v5 — shared components, mature SPECs, contract sync, engine-specific guidance)
 
 ## The Principle
 
@@ -43,11 +43,13 @@ Pre-engine. You need to complete setup, then run the tracer bullet (Step 0) befo
 
 ### 2. Tracer Bullet (Step 0)
 
-Before deepening any engine, validate that data can flow through all 7 engines end-to-end. This is 2-3 sessions that prevent weeks of rework from contract mismatches.
+Before deepening any engine, validate that data can flow through all 7 engines end-to-end. This is 3-5 sessions that prevent weeks of rework from contract mismatches.
 
-In the source engine project: "We need to run Step 0 from ENGINE_PROTOCOL.md — the tracer bullet. Write contract SPECs (§2 and §3 only) for all 7 engines, then build rough stubs that pass one Shamela HTML file through the full pipeline."
+All 7 engines already have SPECs and contracts.py files. The tracer bullet reconciles them (fixing mismatches between adjacent contracts), stubs the shared components (consensus, human_gate, scholar_authority, validation), builds rough engine stubs, and runs one Shamela HTML file through the full pipeline.
 
-Claude writes lightweight input/output contracts for all 7 engines, builds stubs, and runs one fixture through. The output is documented in `reference/TRACER_FINDINGS.md`.
+In the source engine project: "We need to run Step 0 from ENGINE_PROTOCOL.md — the tracer bullet. Reconcile the existing 7 contracts.py files, stub the shared components, build engine stubs, and run html_export_minimal through the full pipeline."
+
+Output is documented in `reference/TRACER_FINDINGS.md`.
 
 ### 3. Source Engine Step 1: Classify Core vs Deferred
 
@@ -97,21 +99,27 @@ Steps 1-4 repeat for all 7 engines in pipeline order. After every 2 engines, a l
 |------|--------|-------|
 | Setup (capabilities, skills, project) | TODO | Owner action, 15 minutes |
 | API keys (.env file) | TODO | Owner action, needed for Step 2 |
-| **Step 0: Tracer bullet** | TODO | 2-3 sessions, validates all boundaries |
+| **Step 0: Tracer bullet** | TODO | 3-5 sessions, reconcile contracts, stub shared components |
 | **Source engine** | | |
 | Step 1: SPEC core architecture | TODO | After tracer bullet |
 | Step 2: Research assumptions | TODO | After SPEC passes kr-integrity |
-| Step 3: Build | TODO | After research validates design |
+| Step 3: Build (incl. shared components) | TODO | Builds consensus, human_gate, scholar_authority, validation |
 | Step 4: Test + prove | TODO | After build |
 | **Normalization engine** | BLOCKED | Waiting on source engine |
 | Lessons backward review | BLOCKED | After normalization Step 4 |
-| **Passaging engine** | BLOCKED | Waiting on normalization |
-| **Atomization engine** | BLOCKED | Waiting on passaging |
+| **Passaging engine** | BLOCKED | Fast-track candidate, waiting on normalization |
+| **Atomization engine** | BLOCKED | Critical Step 2 research — LLM classification accuracy |
 | Lessons backward review | BLOCKED | After atomization Step 4 |
-| **Excerpting engine** | BLOCKED | Waiting on atomization |
-| **Taxonomy engine** | BLOCKED | Waiting on excerpting |
+| **Excerpting engine** | BLOCKED | Highest-risk LLM task (self-containment) |
+| **Taxonomy engine** | BLOCKED | **Prereq:** Owner defines nahw science tree structure |
 | Lessons backward review | BLOCKED | After taxonomy Step 4 |
-| **Synthesis engine** | BLOCKED | Waiting on taxonomy |
+| **Synthesis engine** | BLOCKED | Needs entry viewer script for Step 4 |
+
+### Owner Deliverables (non-code, blocks specific engines)
+| Item | Blocks | Notes |
+|------|--------|-------|
+| Nahw science tree structure | Taxonomy engine Step 3 | Define the tree hierarchy the engine places excerpts into |
+| Domain comments per engine | Each engine's Step 1 | Heavy for source/synthesis, moderate for normalization, light for others |
 
 ### Completed
 | Item | Date |
@@ -120,6 +128,7 @@ Steps 1-4 repeat for all 7 engines in pipeline order. After every 2 engines, a l
 | Repo cleanup | 2026-03-08 |
 | Engine protocol rewrite (core-first) | 2026-03-08 |
 | Protocol evaluation + fixes (tracer bullet, iterative depth, extension hooks) | 2026-03-08 |
+| Deep analysis + corrections (shared components, mature SPECs, contract sync) | 2026-03-08 |
 
 ---
 

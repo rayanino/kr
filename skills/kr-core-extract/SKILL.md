@@ -71,6 +71,11 @@ For each deferred capability, state what the core must NOT assume:
 
 After the owner approves (and corrects) the classification, rewrite the SPEC.
 
+**First: assess SPEC maturity.** Not all SPECs need the same depth of rewrite.
+
+- **Mature SPECs** (normalization, atomization, excerpting, taxonomy, synthesis — those that have been through PRECISION, HARDENING, or IMPL_PREP passes): Core extraction is surgical. Move §4.B to deferred with extension hooks. Verify §4.A is implementation-ready. Do NOT rewrite refined §4.A content — that work has already been done. Fix specific defects if found, but preserve the existing quality.
+- **Immature SPECs** (source, passaging — those with known defects or vague §4.A content): Rewrite §4.A to significant-decisions depth as described below.
+
 **For core items:** Write with depth sufficient for implementation. Every data structure — exact fields, types, constraints, and why each field exists. Every LLM call — input, prompt strategy, expected output format, model recommendation, fallback behavior. Every error path — code, severity, recovery action. Every decision point — threshold, logic. Where exact thresholds or prompt templates are uncertain, mark them as `[ASSUMPTION — NEEDS STEP 2 TESTING]` rather than guessing. The goal: Claude Code can build the right architecture with zero questions about *what* to build. Step 4 (TEST) will reveal where more edge case detail is needed — the SPEC deepens iteratively.
 
 **For deferred items:** Replace the detailed content with two lines:
@@ -90,16 +95,16 @@ Preserve the section structure so deferred items remain visible as placeholders.
 
 The classification question is slightly different for each engine:
 
-**Source engine:** Core = format detection + metadata extraction + metadata inference + freezing + deduplication + registration + trust evaluation. On the minimum set of formats. Deferred = additional formats, citation discovery, advanced scholar matching, source difficulty prediction.
+**Source engine:** Core = format detection + metadata extraction + metadata inference + freezing + deduplication + registration + trust evaluation (simple 3-tier: verified/flagged/unknown). On the minimum set of formats. Deferred = additional formats, citation discovery, advanced scholar matching, source difficulty prediction, elaborate trust scoring algorithm.
 
-**Normalization engine:** Core = defining exactly what the normalized structure looks like + transforming the core source formats into that structure. Deferred = additional format normalizers, advanced layer detection, content census.
+**Normalization engine:** Core = defining exactly what the normalized structure looks like + transforming the core source formats into that structure + basic layer detection (matn vs sharh vs hashiyah) using format-specific CSS classes. Basic layer detection is CORE because every downstream engine depends on knowing which text layer an atom/excerpt comes from. Deferred = additional format normalizers, advanced layer detection (inferring layers when markup is absent), content census.
 
-**Passaging engine:** Core = dividing normalized text into coherent passages using the simplest reliable strategy (heading-based for structured text, fixed-size for unstructured). Deferred = advanced strategies (commentary alignment, argument detection, quality prediction).
+**Passaging engine:** Core = dividing normalized text into coherent passages using the simplest reliable strategy (heading-based for structured text, fixed-size for unstructured). Core structural formats: prose and commentary-with-layers. Deferred = verse and dictionary formats, advanced strategies (commentary alignment, argument detection, quality prediction). Fast-track candidate — light spec work if §4.A is mature.
 
-**Atomization engine:** Core = breaking passages into atomic scholarly units with basic function labels. Deferred = advanced rhetorical analysis, cross-reference detection, distribution analytics.
+**Atomization engine:** Core = breaking passages into atomic scholarly units with basic function labels. Deferred = advanced rhetorical analysis, cross-reference detection, distribution analytics. Note: this engine's Step 2 research is critical — if LLM classification accuracy is below 70%, the approach may need redesign.
 
-**Excerpting engine:** Core = extracting self-contained scholarly claims with attribution. Deferred = implicit reference resolution, cross-text linking, advanced self-containment analysis.
+**Excerpting engine:** Core = extracting self-contained scholarly claims with attribution. Deferred = implicit reference resolution, cross-text linking, advanced self-containment analysis. Note: self-containment evaluation is the highest-risk LLM task in the pipeline.
 
-**Taxonomy engine:** Core = placing excerpts into the science tree with basic topic matching. Deferred = tree evolution, coverage analysis, prerequisite chain detection.
+**Taxonomy engine:** Core = placing excerpts into the science tree with basic topic matching. Deferred = tree evolution, coverage analysis, prerequisite chain detection. **Prerequisite:** The engine needs a parsed science tree data structure before Step 3 can begin. The owner must define at minimum the nahw (grammar) tree structure; the architect translates it into the engine's format.
 
-**Synthesis engine:** Core = producing a grounded knowledge entry from placed excerpts. Deferred = multi-model panel evaluation, consistency oracle, advanced narrative generation.
+**Synthesis engine:** Core = producing a grounded knowledge entry from placed excerpts with temporal ordering, school attribution, and full traceability (every claim tagged with excerpt IDs). Core quality bar: structured compilation, NOT the flat compilation shown as unacceptable in ENTRY_EXAMPLE.md. Deferred = multi-model panel evaluation, consistency oracle, full narrative generation (intellectual genealogy, "why scholars disagreed", "what to read next").

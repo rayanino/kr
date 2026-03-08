@@ -90,6 +90,8 @@ engines/{engine}/
 
 The tracer bullet stub for this engine already exists from Step 0. The first BUILD session deepens it: replace placeholder logic with real implementation for one format, one fixture, schema validation passing. Not all formats, not all edge cases.
 
+**Shared component dependencies:** If this engine needs shared components (consensus, human_gate, scholar_authority, validation) that are still tracer bullet stubs, plan sessions to build minimum viable implementations of those components. The source engine (engine 1) bears the heaviest shared component burden — plan 2-4 extra sessions for it. Later engines reuse and extend what was built for the source engine.
+
 Each subsequent session adds one capability with its tests.
 
 ---

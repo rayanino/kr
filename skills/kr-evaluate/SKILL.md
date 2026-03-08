@@ -125,6 +125,8 @@ For the synthesis engine only, add faithfulness evaluation:
 - Break the entry into individual claims. For each claim tagged as source-grounded, verify it appears in the cited excerpt.
 - Run synthesis 3 times on the same excerpts. Claims in all 3 runs are high-confidence. Claims in only 1 run are likely hallucinated.
 
+**Entry viewer prerequisite:** Before the owner can evaluate synthesis output, build `scripts/render_entry.py` — a script that converts entry JSON into readable Markdown or HTML. Without this, the owner reviews raw JSON, which makes quality assessment impossible. The owner must be able to read the entry as a scholar would read a reference work. This is a Step 4 prerequisite for the synthesis engine.
+
 This is non-blocking for earlier engines but critical for synthesis.
 
 ---

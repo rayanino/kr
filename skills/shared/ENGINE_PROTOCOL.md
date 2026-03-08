@@ -40,27 +40,32 @@ Go back engine by engine and add capabilities. More input formats, advanced feat
 
 The concept comes from Alistair Cockburn's "walking skeleton" and Hunt & Thomas's "tracer bullets" in The Pragmatic Programmer: build a thin, production-quality slice that exercises all layers of the system, then deepen each layer iteratively.
 
+**Existing assets:** All 7 engines already have SPECs (918-2,006 lines) and contracts.py files (491-825 lines). Four engines have partial src/ directories. The tracer bullet's job is NOT to create these from scratch — it is to reconcile, validate, and connect what exists.
+
 **What happens:**
 
-1. **Write contract SPECs for all 7 engines.** For each engine, write only §2 (Input Contract) and §3 (Output Contract) — roughly 20-40 lines each. These define: what data this engine receives, what data it produces, and what metadata it passes through. Use the existing SPECs as starting material where they exist.
+1. **Reconcile the 7 existing contracts.py files.** Load source output into normalization input. Load normalization output into passaging input. Repeat for every boundary. Fix every mismatch: type conflicts, missing fields, renamed enums, incompatible schemas. Currently only the passaging engine imports from normalization — the other 5 boundaries have no Python-level enforcement. The tracer bullet enforces all 6.
 
-2. **Write contracts.py for all 7 engines.** Translate the contract SPECs into Pydantic models. These are the concrete schemas data must conform to at each boundary. Pay special attention to D-023: every metadata field must flow from source to synthesis without deletion.
+2. **Stub shared components.** The engines depend on shared infrastructure that has SPECs but no implementation: consensus (multi-model LLM verification), human_gate (owner approval checkpoints), scholar_authority (scholar identity registry), and validation (output checks). Build minimal stubs for each — just enough that engine code can call them without crashing. Consensus returns hardcoded agreement. Human gate auto-approves. Scholar authority stores and retrieves records. Validation passes everything. These stubs evolve into real implementations during the source engine build (Step 3 for engine 1).
 
 3. **Build rough stubs for all 7 engines.** Each stub accepts its input contract, performs the simplest possible transformation (even if the output quality is terrible), and produces output conforming to its output contract. LLM calls can return hardcoded plausible values for now. The goal is data flowing, not data quality.
 
-4. **Run one Shamela HTML file through the full pipeline.** Feed a real fixture through all 7 stubs. The output will be a rough, probably wrong knowledge entry. That is fine. What you are checking: Does data flow without contract violations? Does metadata accumulate correctly? Are there fields engine N needs that engine M does not produce? Does the final entry have all the pieces (even if they are wrong)?
+4. **Build a pipeline runner script.** A simple script (`scripts/run_pipeline.py`) that chains the 7 engines sequentially: runs engine 1 on a fixture, feeds output to engine 2, feeds that to engine 3, etc. This does not need to be the final orchestration system — it just needs to execute the chain and report contract violations at each boundary.
 
-5. **Document every boundary issue found.** Every contract mismatch, every missing field, every assumption that broke. These findings feed directly into the engine-by-engine SPECs.
+5. **Run one Shamela HTML file through the full pipeline.** Feed the `html_export_minimal` fixture through all 7 stubs. The output will be a rough, probably wrong knowledge entry. That is fine. What you are checking: Does data flow without contract violations? Does metadata accumulate correctly (D-023)? Are there fields engine N needs that engine M does not produce? Does the final entry have all the pieces (even if they are wrong)?
+
+6. **Document every boundary issue found.** Every contract mismatch, every missing field, every assumption that broke. These findings feed directly into the engine-by-engine SPECs.
 
 **Skills used:** `kr-research` for contract design questions. `kr-build-prep` for the stub architecture.
 
 **Rules:**
-- Keep it lean. The tracer bullet is 2-3 sessions, not a month-long project.
+- Keep it lean. The tracer bullet is 3-5 sessions, not a month-long project.
 - Stubs are production code structure with placeholder logic — they will evolve into the real engines.
 - Do NOT optimize any engine's logic during this step. Resist the temptation to make the source engine "good" while the others are stubs.
 - The tracer bullet code lives in the main engine directories, not in a throwaway prototype folder. It IS the skeleton the real engines grow on.
+- Shared component stubs live in their existing `shared/` directories.
 
-**You're done when:** One Shamela HTML fixture produces one (rough) knowledge entry with no contract violations at any boundary. All 7 contracts.py files exist and are validated against each other. Boundary issues are documented in `reference/TRACER_FINDINGS.md`.
+**You're done when:** One Shamela HTML fixture produces one (rough) knowledge entry with no contract violations at any boundary. All 7 contracts.py files are reconciled and import-tested against their neighbors. Shared component stubs exist. The pipeline runner works. Boundary issues are documented in `reference/TRACER_FINDINGS.md`.
 
 ---
 
@@ -84,11 +89,16 @@ NOT core: audio transcription, OCR from phone photos, citation network discovery
 
 1. **Identify core vs. deferred.** Read the current SPEC. Draw the line: what is the engine's fundamental job? What is an extension? Everything deferred gets a single line: "Deferred to Stage 2 expansion." The SPEC's depth budget goes entirely toward the core. For each deferred capability, note what the core must NOT assume in order to keep the extension path open (see Extension Hooks below).
 
-2. **Owner domain review.** You read the core sections of the SPEC. Write comments about anything that's wrong, confusing, or missing from the core behavior. Focus on: "Is this how the domain actually works?" and "Would this produce correct results for my real sources?"
+2. **Assess SPEC maturity.** Not all SPECs need the same treatment. Some have been through multiple refinement passes (normalization has had 4 passes; synthesis has had 3). Others are rougher. For mature SPECs where §4.A has already been through PRECISION and HARDENING: core extraction is surgical — move §4.B to deferred, add extension hooks, verify §4.A is still implementation-ready. Do NOT rewrite refined §4.A content. For immature SPECs where §4.A has known defects or vague language: core extraction includes rewriting §4.A to significant-decisions depth.
 
-3. **Claude investigates your comments.** Research-heavy. Claude uses web search, Exa, Scholar Gateway, Tavily — whatever tools help find the best approach. For every core design decision, Claude researches how similar systems handle it, what the tradeoffs are, what the state of the art is. This is not a quick review — it's deep architectural research grounded in your domain feedback.
+3. **Owner domain review.** The owner reads the core sections and writes comments. The depth of owner involvement varies by engine:
+   - **Heavy domain review** (source engine, synthesis engine): The owner has strong domain knowledge about how Islamic books work and what scholarly entries should look like. Full comment process.
+   - **Moderate domain review** (normalization engine): The owner knows about matn/sharh layer conventions, footnote styles, and physical book structure. Comments focus on "would this correctly handle my real books?"
+   - **Light domain review** (passaging, atomization, excerpting, taxonomy): The owner's expertise is less relevant at the spec stage. A brief read-through for anything surprising is sufficient. The owner's real contribution for these engines comes at Step 4, reviewing actual Arabic output.
 
-4. **Write the core SPEC to significant-decisions depth.** The SPEC should cover every data structure (field names, types, constraints), every LLM call (input, prompt strategy, structured output, model, fallback), every error path (code, severity, recovery), and every decision point (threshold, logic). The goal is that Claude Code can build the right architecture with zero clarifying questions about *what* to build. Where exact thresholds or prompt templates are uncertain, mark them as `[ASSUMPTION — NEEDS STEP 2 TESTING]` rather than guessing a precise value. Step 4 (TEST) will reveal which areas need further specification — deepen iteratively rather than trying to anticipate every edge case upfront.
+4. **Claude investigates comments.** Research-heavy. Claude uses web search, Exa, Scholar Gateway, Tavily — whatever tools help find the best approach. For every core design decision, Claude researches how similar systems handle it, what the tradeoffs are, what the state of the art is. This is not a quick review — it's deep architectural research grounded in domain feedback.
+
+5. **Write the core SPEC to significant-decisions depth.** The SPEC should cover every data structure (field names, types, constraints), every LLM call (input, prompt strategy, structured output, model, fallback), every error path (code, severity, recovery), and every decision point (threshold, logic). The goal is that Claude Code can build the right architecture with zero clarifying questions about *what* to build. Where exact thresholds or prompt templates are uncertain, mark them as `[ASSUMPTION — NEEDS STEP 2 TESTING]` rather than guessing a precise value. Step 4 (TEST) will reveal which areas need further specification — deepen iteratively rather than trying to anticipate every edge case upfront.
 
 **Extension hooks:** When deferring a capability, add one line noting what the core architecture must not assume. Examples: "Core must not assume exactly one author per source — multi-author support is deferred but the data model must accommodate it." "Core must not hardcode Shamela HTML parsing logic into the metadata extraction flow — format-specific logic must be in pluggable modules." This costs almost nothing but prevents the core from accidentally closing doors on Stage 2 extensions.
 
@@ -149,13 +159,17 @@ For LLM reliability assumptions specifically: ≥85% accuracy across fixtures me
 
 1. **Build prep** (first session). Set up the Claude Code environment: CLAUDE.md, architecture doc, testing infrastructure, session plan. This is one session of build prep, not a separate phase. The tracer bullet stub for this engine already exists — the build deepens it into a real implementation.
 
-2. **Incremental build.** Each session adds one capability with its tests. 5a deterministic tests run continuously. 5b LLM-worker tests run as each LLM-dependent feature is added. No session ends with untested code.
+2. **Build shared component dependencies.** If this engine requires shared components (consensus, human_gate, scholar_authority, validation) that are still stubs, build the minimum viable versions needed for THIS engine's core. The source engine will need to build the most — it is the first consumer of consensus (for author identification), human_gate (for low-confidence decisions), scholar_authority (for scholar records), and validation (for output checks). Later engines reuse what the source engine built and extend as needed.
 
-3. **Core formats only.** The engine supports exactly the formats specified in the core SPEC. No scope creep.
+3. **Incremental build.** Each session adds one capability with its tests. 5a deterministic tests run continuously. 5b LLM-worker tests run as each LLM-dependent feature is added. No session ends with untested code.
 
-4. **BUILD-PHASE VALIDATION.** Run the tests marked `[BUILD-PHASE VALIDATION]` from Step 2 as the relevant code is implemented. Update the SPEC if results require design changes.
+4. **Core formats only.** The engine supports exactly the formats specified in the core SPEC. No scope creep.
 
-**You're done when:** The engine runs on all specified input formats, all 5a tests pass, 5b tests show ≥90% accuracy, and all BUILD-PHASE VALIDATION items are resolved.
+5. **BUILD-PHASE VALIDATION.** Run the tests marked `[BUILD-PHASE VALIDATION]` from Step 2 as the relevant code is implemented. Update the SPEC if results require design changes.
+
+6. **Contract sync.** If this engine's build reveals that its contracts.py needs changes (new fields, type changes), update the neighboring engines' contracts.py files to match. Run the pipeline runner script to verify no downstream stubs break. Commit contract changes together with the engine changes, never separately.
+
+**You're done when:** The engine runs on all specified input formats, all 5a tests pass, 5b tests show ≥90% accuracy, all BUILD-PHASE VALIDATION items are resolved, and contract changes are synced with neighbors.
 
 ---
 
@@ -178,7 +192,9 @@ For LLM reliability assumptions specifically: ≥85% accuracy across fixtures me
 
 5. **Document everything.** Findings, lessons, extension opportunities. This documentation is as valuable as the code — it's the knowledge that informs every subsequent engine and all of Stage 2.
 
-6. **Run pipeline integration test.** Feed the engine's output into the next engine's tracer bullet stub. Verify the contract boundary holds with real (not mocked) data. If it breaks, fix the contract mismatch before moving on.
+6. **Run pipeline integration test.** Feed the engine's output into the next engine's tracer bullet stub. Run `scripts/run_pipeline.py` from this engine's output through the remaining stubs. Verify the contract boundary holds with real (not mocked) data. If it breaks, fix the contract mismatch before moving on.
+
+7. **For the synthesis engine only:** Build a minimal entry viewer (`scripts/render_entry.py`) that converts the output JSON into readable Markdown or HTML. Without this, the owner cannot assess the most important quality metric: "Does this read like a scholarly reference I would trust?" The entry viewer is a Step 4 prerequisite for engine 7, not a nice-to-have.
 
 **You're done when:**
 - All 5a deterministic checks pass
@@ -226,6 +242,28 @@ After engine 7's core is proven: **Stage 1 is complete.** You have v0.0.1 — a 
 
 ---
 
+## Engine-Specific Notes
+
+Not all engines are equal in complexity. These notes prevent misclassification and call out prerequisites.
+
+**Source engine (1).** The heaviest build — it bootstraps the shared components (consensus, human_gate, scholar_authority, validation). Plan for extra sessions. Trust evaluation is core but keep it simple for v0.0.1: a 3-tier classification (verified / flagged / unknown) rather than the elaborate scoring algorithm in the current SPEC.
+
+**Normalization engine (2).** Basic layer detection (matn vs sharh vs hashiyah) using format-specific CSS classes is CORE, not deferred. Without it, the passaging engine cannot align commentary to base text, the atomization engine cannot attribute atoms to the right author, and the synthesis engine cannot produce the narratives shown in ENTRY_EXAMPLE.md. The test fixture (Ibn Aqil's sharh) IS a multi-layer text. Advanced layer detection (inferring layers when markup is absent) is deferred.
+
+**Passaging engine (3).** Fast-track candidate — its core is simple (heading-based splitting for structured text, fixed-size for unstructured). The existing SPEC's §4.A is reasonably mature. Expect light Step 1, minimal Step 2, and a straightforward build. Core structural formats: prose and commentary-with-layers. Verse and dictionary are deferred.
+
+**Atomization engine (4).** The first engine where the LLM does the primary work (classifying scholarly function). Step 2 research is critical: if LLM accuracy on scholarly function classification is below 70%, the approach needs fundamental redesign before building.
+
+**Excerpting engine (5).** Self-containment evaluation is the highest-risk LLM task in the pipeline (T-4: Context Loss). Step 2 research must determine whether LLMs can reliably judge "can a reader understand this excerpt alone?" If unreliable, consider larger excerpts with guaranteed surrounding context rather than precise self-containment judgments.
+
+**Taxonomy engine (6).** **Prerequisite:** The engine needs a parsed science tree to place excerpts into. The library has SCIENCE.md files for 5 sciences, but these are prose research documents, not the data structures the engine consumes. Before Step 3, the owner must define at minimum the nahw (grammar) tree structure, and the architect must translate it into the engine's expected format. This is an owner deliverable — call it out early.
+
+**Synthesis engine (7).** Core quality bar: structured compilation with temporal ordering, school attribution, and correct traceability (all claims to excerpt IDs). The full scholarly narrative quality from ENTRY_EXAMPLE.md (intellectual genealogy, "why scholars disagreed", "what to read next") can start basic in v0.0.1. Flat compilations are unacceptable even for core.
+
+**Fast-track guidance.** Engines with simple cores (passaging, taxonomy in core-only mode) may not need the full 4-step treatment at full depth. Allow compressed Steps 1-2 (2-3 sessions combined) when the core is well-understood and the SPEC is mature. The same rigor applies to Step 3 (BUILD) and Step 4 (TEST) — the build just happens faster.
+
+---
+
 ## What Gets Documented Per Engine
 
 At the end of each engine's Step 4, produce:
@@ -260,3 +298,4 @@ These lessons accumulate. By engine 7, you have a comprehensive understanding of
 9. **If engine N reveals that engine M (upstream) needs a change:** Document the required change in engine M's directory. Assess impact on engines M+1 through N-1. Update engine M's SPEC and code. Re-run engine M's Step 4 tests to confirm no regressions. Verify downstream contracts still hold. Then continue engine N. This is not a violation of Rule 1 — it is a targeted fix, not restarting engine M from scratch.
 10. **Keep extension doors open.** When core architecture makes a structural decision (data model shape, module boundaries, processing flow), verify it does not block known Stage 2 extensions. One sentence per deferred capability noting the constraint.
 11. **Iterate spec depth.** The first SPEC pass covers significant decisions — architecture, data structures, major error paths. Step 4 test feedback reveals where more detail is needed. Deepen the SPEC iteratively rather than trying to specify every edge case before any code runs.
+12. **Keep contracts in sync.** When any engine's contracts.py changes, update neighboring engines' contracts.py to match and run `scripts/run_pipeline.py` to verify no stubs break. Contract changes are committed alongside the engine changes that caused them.

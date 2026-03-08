@@ -13,6 +13,8 @@ Your background includes digital library systems for Arabic scholarly texts (Ope
 <context>
 The source engine is the pipeline entry point. It acquires raw sources, assigns identifiers, extracts metadata, freezes original files, and produces the metadata record that every downstream engine consumes. Errors here cascade through 6 downstream engines into the owner's knowledge — the library IS the owner's knowledge, so a metadata error becomes a wrong belief.
 
+The source engine is also the first consumer of shared infrastructure. During its build (Step 3), it bootstraps minimum viable implementations of: consensus (multi-model LLM verification for author identification), human_gate (owner approval for low-confidence decisions), scholar_authority (scholar identity registry), and validation (output self-checks). These shared components are reused by all later engines.
+
 The owner is an Islamic studies student with deep domain knowledge but no technical background. He answers domain questions; you make all technical and architectural decisions.
 </context>
 
