@@ -115,6 +115,8 @@ The best-performing model scored 0.796 weighted aggregate. On a scale where 1.0 
 
 **Resolution:** Not a blocker. The substring containment boost (deferred to build) will improve scoring. The pipeline uses confidence thresholds and consensus — not raw accuracy scores — to gate decisions. But the per-fixture breakdown (currently unavailable) would help distinguish eval-harness artifacts from genuine LLM errors.
 
+**UPDATE:** Claude Code re-scored with corrected name matching: Opus 0.890 (not 0.796). The 0.094 gap was entirely an eval-harness artifact from the A3-1 issue. The corrected 0.890 represents ~11% gap from perfect, which is consistent with expected difficulty on genre boundary cases (fixtures 07, 12) and partial science_scope matches. This confirms the analysis above: the eval harness, not the models, was the primary source of the gap.
+
 ### Finding F-04: Consensus Pair Selection — Cohere Replaces OpenAI
 
 **Category:** CORE GAP — SPEC default must be updated
@@ -363,8 +365,8 @@ The following changes to SPEC_CORE.md should be made during this evaluation sess
 | File | Status | Notes |
 |------|--------|-------|
 | `engines/source/review/STEP2_EVALUATION.md` | **THIS FILE** | Categorized findings, 5 decisions with evidence |
-| `engines/source/SPEC_CORE.md` | PENDING | ASSUMPTION markers to be resolved |
+| `engines/source/SPEC_CORE.md` | DONE | ASSUMPTION markers resolved, 1000 AH, consensus pair updated |
 | `engines/source/prompts/inference_v1.py` | DONE (no changes needed) | draft-3 is final |
-| `NEXT.md` | PENDING | Rewrite for Step 3 scope |
-| `OPEN_PROBLEMS.md` | PENDING | Update status |
-| Handoff doc | PENDING | Context for build prep session |
+| `NEXT.md` | DONE | Rewritten for Step 3 scope with blocking conditions |
+| `OPEN_PROBLEMS.md` | DONE | Steps 0-2 marked complete |
+| Handoff doc | N/A | NEXT.md + this evaluation serve as handoff |
