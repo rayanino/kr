@@ -44,29 +44,29 @@ Write the scoring script BEFORE the first API call so results are automatically 
 
 ## The 5 Assumptions to Test
 
-### A1: LLM Structured JSON (§4.A.4, line ~825)
+### A1: LLM Structured JSON (§4.A.4, line ~981)
 **Claim:** LLM produces the full inference output schema reliably.
 **Test:** Send the inference prompt to each model with extracted metadata + text_sample for ≥6 fixtures. Measure JSON parse success, enum compliance, field completeness.
 **Fixtures:** 01_nahw_simple, 03_fiqh, 06_usul, 08_death_date, 11_multi_small, alfiyyah_versified
 **If fails:** Simplify schema, add few-shot examples, or split into multiple calls.
 
-### A2: Multi-Layer Detection (§4.A.4, line ~850)
+### A2: Multi-Layer Detection (§4.A.4, line ~1050)
 **Claim:** LLM detects multi-layer composition ≥90% from genre + title + content.
 **Test:** Check is_multi_layer and layers output for fixtures with known answers.
 **Fixtures:** 11_multi_small (sharh → TRUE), 03_fiqh (standalone → FALSE), alfiyyah (matn → FALSE), 05_tafsir (UNCERTAIN — resolve with owner first)
 **If fails (<85%):** Add human gate for multi-layer classification.
 
-### A3: Scholar Name Matching (§4.A.5, line ~952)
+### A3: Scholar Name Matching (§4.A.5, line ~1203)
 **Claim:** normalized_name_similarity scoring produces correct match/no-match decisions.
 **Test:** Run the utility functions (defined in SPEC §4.A.1) on name pairs. Deterministic — no LLM needed.
 **If fails:** Adjust normalization rules or thresholds.
 
-### A4: Trust Weight Calibration (§4.A.8, line ~1013)
+### A4: Trust Weight Calibration (§4.A.8, line ~1311)
 **Claim:** Weights and 0.65 threshold produce correct verified/flagged assignments.
 **Test:** Compute trust scores for each fixture using the 5-factor algorithm. Compare against ground truth expected_trust.
 **If fails:** Adjust weights or threshold.
 
-### A5: Two-Model Consensus (§6, line ~1205)
+### A5: Two-Model Consensus (§6, line ~1496)
 **Claim:** Two different-provider models catch more author identification errors than one.
 **Test:** Run the same inference prompt through multiple models. Compare author identification accuracy per-model and in pairs.
 **If fails:** Add third model, tighten human gate thresholds, or change pair.
@@ -163,8 +163,8 @@ python3 tests/test_llm_inference.py --phase 1 --fixture 06_usul  # Single fixtur
 2. `tests/STEP2_READINESS_VERIFICATION.md` — pre-flight verification summary (schema sync, model IDs, known issues)
 3. `tests/fixtures/GROUND_TRUTH.json` — expected answers (owner-validated)
 4. `tests/fixtures/EXTRACTED_DATA.json` — pre-extracted data for prompts
-5. `engines/source/SPEC_CORE.md` §4.A.4 lines 750-860 — LLM inference spec
-6. `engines/source/SPEC_CORE.md` §6 lines 1170-1210 — consensus spec
+5. `engines/source/SPEC_CORE.md` §4.A.4 lines 981-1203 — LLM inference spec
+6. `engines/source/SPEC_CORE.md` §6 lines 1496-1542 — consensus spec
 7. `engines/source/contracts.py` lines 115-160 — enum values
 
 ---

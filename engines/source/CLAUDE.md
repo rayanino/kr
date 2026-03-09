@@ -17,7 +17,13 @@
 
 **Step 1 (SPEC hardening): COMPLETE.** 8 review passes, all defects resolved. SPEC_CORE.md is locked. Deterministic assumptions (A3 name matching, A4 trust weights) validated.
 
-**Step 2 (LLM assumption testing): NEXT.** See `/NEXT.md` at repo root for the full test plan. Phase 0 (ground truth validation, eval harness, deterministic tests) is complete. Phases 1–3 (API calls, multi-model testing, consensus pair selection) are pending.
+**Step 2 (LLM assumption testing): NEXT.** See `/NEXT.md` at repo root for the full test plan. Phase 0 (ground truth validation, eval harness, deterministic tests) is complete. Pre-flight readiness verified — see `/tests/STEP2_READINESS_VERIFICATION.md`. Phases 1–3 (API calls, multi-model testing, consensus pair selection) are pending.
+
+**Pre-flight verification found and fixed:**
+- 2 invalid Anthropic model IDs in test runner (fabricated snapshot dates)
+- Scoring bug: name comparison penalized by death dates in ground truth (8/13 fixtures affected)
+- Missing enum compliance checks for Step 1 fields (attribution_status, context_richness)
+- Stale SPEC line number references in NEXT.md (sections shifted during Step 1)
 
 **Step 3 (build prep): BLOCKED on Step 2.**
 
