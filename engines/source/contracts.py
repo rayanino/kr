@@ -336,6 +336,108 @@ class InferredFieldConfidence(BaseModel):
     genre_chain: Optional[float] = Field(None, ge=0.0, le=1.0)
 
 
+class ScholarlyContext(BaseModel):
+    """LLM-inferred scholarly background for a source (SPEC §4.A.4).
+
+    Contains narrative context about this work and edition that is not
+    available from any other field in the pipeline. Author-level context
+    (school affiliations, standing, death dates, methodology) lives in
+    ScholarAuthorityRecord. Source-level classification (genre, format,
+    trust, fidelity) lives in SourceMetadata's main fields.
+
+    This model stores ONLY genuinely new LLM-inferred context that
+    enables the synthesis engine to build richer analytical narratives.
+    Every field here has a traced downstream consumer:
+
+    - composition_period → synthesis §4.A.3 Step 4 (intra-author contradiction)
+    - tradition_position → synthesis authority weighting
+    - known_textual_issues → synthesis textual reliability caveats
+    - historical_significance → synthesis analytical layer framing
+    - muhaqiq_reputation → trust evaluation context
+    - tahqiq_methodology_note → trust evaluation + synthesis quality caveats
+    - edition_known_issues → synthesis quality caveats
+
+    Optional on SourceMetadata — null means the context inference call
+    failed or was skipped. All downstream engines handle null gracefully
+    by falling back to registry-only data with no narrative enrichment.
+    """
+
+    # ── Work-level context ──
+    composition_period: Optional[str] = Field(
+        None,
+        description="Whether this is an early, middle, or late work of the author, "
+                    "and what that implies. E.g. 'Late comprehensive synthesis, "
+                    "reflecting the author's mature methodology' or 'Early work, "
+                    "may not represent final positions'. Used by synthesis engine "
+                    "for intra-author contradiction resolution (§4.A.3 Step 4)."
+    )
+    tradition_position: Optional[str] = Field(
+        None,
+        description="The work's role in its scholarly tradition. E.g. 'Standard "
+                    "matn in the Shafi'i nahw curriculum for over 700 years' or "
+                    "'Marginal work, rarely cited outside specialist circles'. "
+                    "Encompasses reception history. Used by synthesis for authority "
+                    "weighting beyond the authority_level enum."
+    )
+    known_textual_issues: list[str] = Field(
+        default_factory=list,
+        description="Specific, documented problems with the work's textual "
+                    "transmission. E.g. 'Popular editions omit the final chapter "
+                    "on al-waqf', 'Contains interpolations not in the oldest "
+                    "manuscripts'. Only populated when the LLM has concrete "
+                    "knowledge — empty list is correct and preferred when uncertain."
+    )
+    historical_significance: Optional[str] = Field(
+        None,
+        description="What makes this work notable in its tradition — historical "
+                    "importance, known controversies, composition context, the "
+                    "work's position in its scholarly lineage. Absorbs the former "
+                    "work_notes concept. E.g. 'The most widely taught sharh of "
+                    "the Alfiyyah, generating more commentaries than any other "
+                    "grammar text.' Null when unremarkable."
+    )
+
+    # ── Edition-level context ──
+    muhaqiq_reputation: Optional[str] = Field(
+        None,
+        description="One-sentence characterization of the tahqiq editor's "
+                    "reputation. Absorbs the former muhaqiq_reputation_note. "
+                    "E.g. 'Abd al-Salam Harun's editions are widely considered "
+                    "among the finest in Arabic linguistics.' Null when the "
+                    "muhaqiq is unrecognized or absent."
+    )
+    tahqiq_methodology_note: Optional[str] = Field(
+        None,
+        description="How the tahqiq was performed, when known. E.g. 'Based on "
+                    "7 manuscripts including the author's autograph' or "
+                    "'Commercial reprint with no critical apparatus'. Used by "
+                    "trust evaluation and synthesis quality caveats."
+    )
+    edition_known_issues: list[str] = Field(
+        default_factory=list,
+        description="Specific problems with THIS edition (not the work's textual "
+                    "tradition). E.g. 'Missing footnotes in volumes 3-4', 'Known "
+                    "printing errors in the first edition'. Only populated when "
+                    "the LLM has concrete knowledge."
+    )
+
+    # ── Quality signal ──
+    context_richness: Literal["rich", "partial", "minimal"] = Field(
+        "minimal",
+        description="LLM self-assessment of its knowledge about this work/edition. "
+                    "'rich' = strong knowledge, most fields populated with substance. "
+                    "'partial' = some knowledge, key fields populated but gaps exist. "
+                    "'minimal' = little knowledge, mostly nulls. Synthesis engine uses "
+                    "this to decide how heavily to lean on scholarly context."
+    )
+    uncertain_dimensions: list[str] = Field(
+        default_factory=list,
+        description="Names of specific fields the LLM flagged as uncertain. "
+                    "E.g. ['composition_period', 'known_textual_issues']. Synthesis "
+                    "engine checks this before using specific context fields in claims."
+    )
+
+
 # ──────────────────────────────────────────────────────────────────
 # §4.B Transformative Capability Output Models
 # ──────────────────────────────────────────────────────────────────
@@ -429,7 +531,7 @@ class ScholarAuthorityRecord(BaseModel):
 
     Written to: library/registries/scholars.json (keyed by canonical_id).
     Created by the source engine, enriched by downstream engines.
-    22 defined fields — record_completeness tracks fill rate.
+    24 defined fields — record_completeness tracks fill rate.
 
     Consistency checks on update (§4.A.5):
     1. Death date drift > 5 years → SRC_SCHOLAR_DATE_CONFLICT
@@ -457,11 +559,27 @@ class ScholarAuthorityRecord(BaseModel):
         default_factory=dict,
         description="Science → school, e.g. {'nahw': 'بصري', 'fiqh': 'حنبلي'}"
     )
+    sectarian_tradition: Optional[str] = Field(
+        None,
+        description="Broad sectarian frame: 'sunni', 'twelver_shii', 'zaydi', "
+                    "'ibadi', etc. Prevents silent mixing of traditions from "
+                    "different sectarian contexts in synthesis. Default for the "
+                    "owner's collection is 'sunni' — only deviate when there is "
+                    "positive evidence of a different tradition."
+    )
     teachers: list[str] = Field(default_factory=list, description="List of canonical_ids")
     students: list[str] = Field(default_factory=list, description="List of canonical_ids")
     known_works: list[str] = Field(default_factory=list, description="List of work_ids")
     scholarly_standing: Optional[str] = None
     methodology_notes: Optional[str] = None
+    methodological_stance: Optional[str] = Field(
+        None,
+        description="Interpretive characterization of the scholar's approach. "
+                    "E.g. 'Tends toward strictness (tashaddud) in hadith grading', "
+                    "'Known for reconciling (tawfiq) between seemingly contradictory "
+                    "positions'. Used by synthesis for authority weighting when "
+                    "evaluating positions from this scholar."
+    )
     disambiguation_notes: Optional[str] = None
     sources_encountered_in: list[str] = Field(default_factory=list)
     record_completeness: float = Field(0.0, ge=0.0, le=1.0)
@@ -602,6 +720,16 @@ class SourceMetadata(BaseModel):
     format_specific_metadata: dict[str, Any] = Field(
         default_factory=dict,
         description="e.g. shamela_book_id, shamela_category for Shamela sources"
+    )
+
+    # ── Scholarly context (SPEC §4.A.4) ──
+    scholarly_context: Optional[ScholarlyContext] = Field(
+        None,
+        description="LLM-inferred scholarly background about this work and edition. "
+                    "Null when context inference was skipped or failed. Downstream "
+                    "engines fall back to registry-only data when null. Contains "
+                    "only genuinely new context not available elsewhere in the "
+                    "pipeline — author-level context lives in ScholarAuthorityRecord."
     )
 
     # ── Work relationships (SPEC §4.A.9) ──

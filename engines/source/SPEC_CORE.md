@@ -90,6 +90,7 @@ Downstream engines write metadata corrections back to source records via structu
 - `trust_tier` reflects a conscious evaluation, not a default.
 - `text_fidelity` reflects text data quality, separate from scholarly trustworthiness.
 - All fields present at intake are preserved through enrichment. Overwritten values preserved in `metadata_history`.
+- `scholarly_context`, when present, contains only LLM-inferred narrative context not available elsewhere in the pipeline. It is Optional — its absence never blocks processing or downstream consumption.
 
 ### 3.2 Registry Updates
 
@@ -99,7 +100,7 @@ All registry writes are validated against their Pydantic models and applied atom
 
 **Work registry** (`library/registries/works.json`). Each entry conforms to `WorkRegistryEntry`: `work_id`, `canonical_title`, `author_canonical_id`, `genre`, `science_scope`, `source_ids`, `preferred_source_id`, `relationships`, `status`, `volumes_present`, `volumes_missing`.
 
-**Scholar authority registry** (`library/registries/scholars.json`). Each entry conforms to `ScholarAuthorityRecord` (22 defined fields). The source engine is the primary writer. Structure and semantics defined in §4.A.5.
+**Scholar authority registry** (`library/registries/scholars.json`). Each entry conforms to `ScholarAuthorityRecord` (24 defined fields). The source engine is the primary writer. Structure and semantics defined in §4.A.5.
 
 ### 3.3 Metadata Pass-Through (D-023)
 
@@ -956,12 +957,17 @@ After format-specific extraction produces a sparse metadata record, the engine u
   "author_identification_confidence": 0.96,
   "attribution_status": "definitive",        // AttributionStatus enum: definitive, traditional, disputed, unknown
   "attribution_notes": null,                  // Free text — only populated when status != definitive
-  "work_notes": null,                         // Free text — notable context about this work (historical
-                                              // significance, known controversies, partial loss, etc.)
-                                              // NOT used programmatically — for owner review and synthesis.
-  "muhaqiq_reputation_note": null             // Free text — when muhaqiq is identified, a one-sentence
-                                              // characterization of their editorial reputation. Used to
-                                              // contextualize the trust evaluation's tahqiq_quality factor.
+  "scholarly_context": {                       // LLM-inferred scholarly background (ScholarlyContext model)
+    "composition_period": null,                // "Late comprehensive synthesis" / "Early work" / null
+    "tradition_position": null,                // "Standard matn in the Shafi'i nahw curriculum" / null
+    "known_textual_issues": [],                // ["Popular editions omit the final chapter"] or []
+    "historical_significance": null,           // Notable context about the work — absorbs former work_notes
+    "muhaqiq_reputation": null,                // Absorbs former muhaqiq_reputation_note
+    "tahqiq_methodology_note": null,           // "Based on 7 manuscripts" / "Commercial reprint" / null
+    "edition_known_issues": [],                // ["Missing footnotes in volumes 3-4"] or []
+    "context_richness": "minimal",             // "rich" | "partial" | "minimal" — LLM self-assessment
+    "uncertain_dimensions": []                 // Field names the LLM is uncertain about
+  }
 }
 ```
 
@@ -1011,13 +1017,31 @@ When `attribution_status` is `disputed`, the `attribution_notes` field MUST cont
 
 When `attribution_status` is `unknown`, `author_identification_confidence` is set to 0.0, and the author falls to human gate.
 
-**Work-level scholarly context.** The `work_notes` field captures anything the LLM considers notable about the work itself (not the author): historical significance, known controversies, partial textual loss, known errors in popular editions, or the work's position in its scholarly tradition. This field is:
-- NOT used programmatically by any downstream engine
-- Surfaced to the owner during human gate review
-- Available to the synthesis engine for entry generation context
-- Left null when the LLM has nothing notable to report (this is the common case)
+**Scholarly context inference.** The `scholarly_context` section of the inference output captures LLM-inferred narrative background about the work and edition that is not available from any other field in the pipeline. It is stored as `SourceMetadata.scholarly_context` (the `ScholarlyContext` Pydantic model in contracts.py). This section is Optional on SourceMetadata — when null, downstream engines fall back to registry-only data with no narrative enrichment.
 
-**Muhaqiq reputation context.** When a muhaqiq is identified, the LLM also produces `muhaqiq_reputation_note`: a one-sentence characterization of the muhaqiq's editorial reputation in Islamic scholarship. For example: "Muhammad Muhyi al-Din Abd al-Hamid's tahqiq editions are widely considered among the finest in Arabic grammar and are standard references." This is stored in `SourceMetadata.muhaqiq_reputation_note` and contextualizes the trust evaluation's tahqiq_quality factor. When the muhaqiq is not recognized or the LLM has no knowledge of their reputation, this field is null.
+**Design principle:** ScholarlyContext contains ONLY genuinely new information. Author-level context (school affiliations, death dates, scholarly standing, geographic activity, methodological stance) lives in ScholarAuthorityRecord — it is maintained once per scholar and accessed by all sources from that author. Source-level classification (genre, format, trust, fidelity) lives in SourceMetadata's main fields. ScholarlyContext fills the gap: work-level and edition-level narrative context that no other field captures.
+
+**Field semantics:**
+- `composition_period`: whether this is an early, middle, or late work of the author, and what that implies for interpretation. Used by synthesis engine for intra-author contradiction resolution (§4.A.3 Step 4) — when an author's positions differ between two works, the later work may supersede.
+- `tradition_position`: the work's role in its scholarly tradition, encompassing reception history. Used by synthesis for authority weighting beyond the `authority_level` enum.
+- `known_textual_issues`: specific, documented problems with the work's textual transmission (not this edition — see `edition_known_issues`). The LLM must only populate this when it has concrete knowledge; an empty list is correct and preferred when uncertain. Used by synthesis for textual reliability caveats in the analytical layer.
+- `historical_significance`: what makes this work notable — historical importance, composition context, known controversies, the work's position in its scholarly lineage. Absorbs the former `work_notes` concept. Null when the work is unremarkable.
+- `muhaqiq_reputation`: one-sentence characterization of the tahqiq editor's reputation. Absorbs the former `muhaqiq_reputation_note` concept. Contextualizes the trust evaluation's tahqiq_quality factor.
+- `tahqiq_methodology_note`: how the tahqiq was performed, when known. Used by trust evaluation and synthesis quality caveats.
+- `edition_known_issues`: specific problems with THIS edition. Distinct from `known_textual_issues` (which covers the work's transmission history). Only populated with concrete knowledge.
+- `context_richness`: LLM self-assessment of how much it knows about this work/edition. "rich" means most fields are populated with substance; "partial" means some gaps; "minimal" means mostly nulls. The synthesis engine uses this to decide how heavily to lean on scholarly context in its analytical layer.
+- `uncertain_dimensions`: field names the LLM is uncertain about. The synthesis engine checks this before using specific context fields in generated claims — if a dimension is listed here, the engine does not build narrative claims on it.
+
+**Prompt design for scholarly context.** The inference prompt instructs the LLM:
+1. For `known_textual_issues` and `edition_known_issues`: populate ONLY with specific, documented knowledge. An empty list is correct and preferred when uncertain. Fabricating issues is worse than reporting none.
+2. For `context_richness`: self-assess honestly. "minimal" is the correct answer for obscure works.
+3. For `uncertain_dimensions`: list every field where the LLM has low confidence. Downstream engines use this as a veto list.
+
+**Inference call strategy.** The SPEC supports two approaches; Step 2 testing determines which to use:
+- **Single call:** The scholarly_context fields are added to the existing inference prompt. Simpler, lower latency, but risks degrading JSON reliability for the classification fields.
+- **Two-call split:** Call 1 produces classification fields (genre, format, author, etc.) plus attribution_status. Call 2 produces scholarly_context fields, taking Call 1's output as additional input context. Call 2 failure produces `scholarly_context: null` — it never blocks intake. Higher reliability for both calls, but double the latency and cost.
+
+Step 2 testing (A1) measures JSON parse rate and enum compliance. If the single-call approach achieves ≥95% JSON parse rate with the expanded schema, use it. Otherwise, split.
 
 **Single-LLM biographical inference cap.** Scholar biographical data (death dates, school affiliations, teacher-student links) inferred by a single LLM are capped at confidence 0.85, regardless of what the LLM reports. This ensures single-model biographical data is always treated as provisional (§6).
 
@@ -1072,8 +1096,17 @@ LLM output:
   "author_identification_confidence": 0.99,
   "attribution_status": "definitive",
   "attribution_notes": null,
-  "work_notes": "The Alfiyyah of Ibn Malik is the single most influential didactic poem in Arabic grammar, forming the core of the nahw curriculum across all schools for over 700 years. It has generated more commentaries and hashiyat than any other grammar text.",
-  "muhaqiq_reputation_note": null
+  "scholarly_context": {
+    "composition_period": null,
+    "tradition_position": "The single most widely studied didactic poem in Arabic grammar, forming the core of the nahw curriculum across all schools for over 700 years.",
+    "known_textual_issues": [],
+    "historical_significance": "The Alfiyyah of Ibn Malik is the most influential didactic poem in Arabic grammar. It has generated more commentaries and hashiyat than any other grammar text.",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": []
+  }
 }
 ```
 
@@ -1081,14 +1114,14 @@ LLM output:
 
 The scholar authority registry (`library/registries/scholars.json`) stores every scholar encountered. The source engine creates records; other engines enrich them.
 
-**Scholar record structure.** Each record conforms to `ScholarAuthorityRecord` in contracts.py (22 defined fields):
+**Scholar record structure.** Each record conforms to `ScholarAuthorityRecord` in contracts.py (24 defined fields):
 
 - **Identity:** `canonical_id` (format: `sch_{5_digit_sequence}`), `canonical_name_ar` (full Arabic name, immutable after creation), `known_as` (common names), `name_variants`, `kunya`, `laqab`, `nisba`
 - **Dates:** `birth_date_hijri`, `birth_date_ce`, `death_date_hijri`, `death_date_ce`, `death_date_approximate`, `era_century_hijri`
 - **Geography:** `geographic_origin`, `geographic_active`
-- **Scholarship:** `school_affiliations` (dict: science → school), `teachers` (list of canonical_ids), `students` (list of canonical_ids), `known_works` (list of work_ids), `scholarly_standing`, `methodology_notes`
+- **Scholarship:** `school_affiliations` (dict: science → school), `sectarian_tradition` (broad sectarian frame: "sunni", "twelver_shii", "zaydi", "ibadi" — prevents silent mixing of positions from different sectarian traditions in synthesis; default "sunni" for the owner's collection), `teachers` (list of canonical_ids), `students` (list of canonical_ids), `known_works` (list of work_ids), `scholarly_standing`, `methodology_notes`, `methodological_stance` (interpretive characterization of the scholar's approach, e.g. "tends toward strictness in hadith grading" — used by synthesis for authority weighting)
 - **Disambiguation:** `disambiguation_notes` (e.g., "When 'ابن حجر' appears in hadith → likely sch_00042")
-- **Metadata:** `sources_encountered_in`, `record_completeness` (fraction of 22 fields with non-null values), `data_provenance_score` (fraction of biographical fields corroborated by non-LLM sources; 0.0 for Stage 1 since no external sources), `record_sources`, `revision_history`, `last_updated`
+- **Metadata:** `sources_encountered_in`, `record_completeness` (fraction of 24 fields with non-null values), `data_provenance_score` (fraction of biographical fields corroborated by non-LLM sources; 0.0 for Stage 1 since no external sources), `record_sources`, `revision_history`, `last_updated`
 
 The `canonical_id` sequence is monotonically increasing: `sch_00001`, `sch_00002`, etc. The next available ID is determined by scanning the registry for the highest existing ID.
 
@@ -1590,6 +1623,7 @@ Verified field names between this SPEC and `contracts.py`:
 | §3 MetadataHistoryEntry | `MetadataHistoryEntry` | `field`, `old_value`, `new_value`, `changed_by`, `timestamp` | ✓ |
 | §4.A.9 WorkRelationshipEdge | `WorkRelationshipEdge` | `from_work_id`, `to_work_id`, `relation_type`, `confidence`, `discovered_by` | ✓ |
 | §4.A.7 GenreChain | `GenreChain` | `relation_type`, `base_work_title`, `base_work_author`, `base_work_id`, `confidence` | ✓ |
+| §4.A.4 ScholarlyContext | `ScholarlyContext` | `composition_period`, `tradition_position`, `known_textual_issues`, `historical_significance`, `muhaqiq_reputation`, `tahqiq_methodology_note`, `edition_known_issues`, `context_richness`, `uncertain_dimensions` | ✓ |
 
 All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) are addressed: the SPEC now uses the exact field names from contracts.py (`name_arabic` not `display_name`, `source_of_identification` not omitted, `name` not `factor` for trust factors, etc.).
 
@@ -1604,8 +1638,17 @@ All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) ar
 
 **SPEC Review Session Updates (Comment #1 — 2026-03-09):**
 - **New enum `AttributionStatus`:** `definitive`, `traditional`, `disputed`, `unknown`. Needs addition to `contracts.py`. Used in `SourceMetadata.attribution_status`.
-- **New fields on `SourceMetadata`:** `attribution_status` (AttributionStatus enum), `attribution_notes` (Optional[str]), `work_notes` (Optional[str]), `muhaqiq_reputation_note` (Optional[str]). All four need addition to `contracts.py`.
+- **New fields on `SourceMetadata`:** `attribution_status` (AttributionStatus enum), `attribution_notes` (Optional[str]). Both need addition to `contracts.py`. (Note: `work_notes` and `muhaqiq_reputation_note` were originally proposed as standalone fields but are absorbed into `ScholarlyContext` — see Comment #2.)
 - **Expanded FIELD_MAP:** 23 entries → 48 entries. New internal names introduced: `distributor`, `foreword_by`, `compiler_name_raw`, `translator`, `original_author_name_raw`, `commentator_name_raw`. These map to `format_specific_metadata` sub-fields, not top-level SourceMetadata fields.
 - **Content quality inspection:** `format_specific_metadata.quality_issues` (list of dicts with `check`, `severity`, `detail`). No contracts.py change needed — this is inside the existing `format_specific_metadata: dict` field.
 - **text_fidelity logic change:** Now content-aware (can downgrade from format baseline). No schema change — `text_fidelity` field and `TextFidelity` enum unchanged.
 - **New error codes:** `SRC_PAGE_COUNT_MISMATCH`, `SRC_CONTENT_MINIMAL`, `SRC_ENCODING_SUSPECT`, `SRC_HIGH_EMPTY_RATIO`, `SRC_ATTRIBUTION_DISPUTED`. Need addition to `ErrorCode` enum in `contracts.py`.
+
+**SPEC Review Session Updates (Comment #2 — Scholarly Context — 2026-03-09):**
+- **New model `ScholarlyContext`:** Added to `contracts.py`. Contains 7 LLM-inferred content fields + 2 quality signal fields. Flat model — no sub-models.
+- **New field on `SourceMetadata`:** `scholarly_context: Optional[ScholarlyContext]`. Null when context inference failed or was skipped. All downstream engines handle null gracefully.
+- **Absorbed fields:** `work_notes` → `scholarly_context.historical_significance`. `muhaqiq_reputation_note` → `scholarly_context.muhaqiq_reputation`. These are NOT added as standalone SourceMetadata fields.
+- **New fields on `ScholarAuthorityRecord`:** `sectarian_tradition` (Optional[str]) and `methodological_stance` (Optional[str]). Field count 22 → 24. `record_completeness` denominator updated.
+- **Inference output schema:** `work_notes` and `muhaqiq_reputation_note` replaced by `scholarly_context` block containing: `composition_period`, `tradition_position`, `known_textual_issues`, `historical_significance`, `muhaqiq_reputation`, `tahqiq_methodology_note`, `edition_known_issues`, `context_richness`, `uncertain_dimensions`.
+- **Inference call strategy:** SPEC documents both single-call and two-call approaches. Step 2 testing determines which to use based on JSON reliability metrics.
+- **Design rationale:** Three rounds of critical review eliminated 11 originally proposed fields as redundant, misplaced, or over-engineered. Author-level context lives in ScholarAuthorityRecord (not duplicated per-source). No assembly utility function — the synthesis engine's existing metadata chain resolution handles joins. No era configuration file — synthesis engine handles periodization during narrative construction. See `reference/SCHOLARLY_CONTEXT_DESIGN.md` for the full review record.
