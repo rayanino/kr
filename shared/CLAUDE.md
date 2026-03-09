@@ -8,7 +8,7 @@ Follow `skills/shared/ENGINE_PROTOCOL.md`. Shared components are bootstrapped du
 
 ## Components
 
-- **consensus/** — Multi-model LLM agreement (LiteLLM + Instructor). Used by source, atomization, excerpting, taxonomy.
+- **consensus/** — Multi-model LLM agreement (Instructor `from_provider()`). Used by source, atomization, excerpting, taxonomy.
 - **validation/** — Schema validation, structural integrity checks. Used by all engines.
 - **human_gate/** — Owner approval gates for irreversible library changes. Used by all engines.
 - **feedback/** — Correction storage, pattern analysis, regression coordination. Spans all engines.

@@ -34,11 +34,18 @@ These are the production name matching functions. The token-based approach handl
 
 ### Module 2: `shared/consensus/src/consensus.py`
 Replace the tracer stub. Implement:
-- `evaluate(task, prompt, response_model, models, agreement_fn) -> ConsensusResult`
+- `evaluate(task, messages, response_model, models, agreement_fn, simplified_messages) -> ConsensusResult`
+- `messages` is a `list[dict]` — NOT a single string. Constructed from inference_v1.py's SYSTEM_MESSAGE + USER_MESSAGE_TEMPLATE:
+  ```python
+  messages = [
+      {"role": "system", "content": SYSTEM_MESSAGE},
+      {"role": "user", "content": user_prompt},  # filled from template
+  ]
+  ```
 - Both model calls dispatched concurrently via `asyncio.gather()`
-- Per-model retry: 2 retries (fresh request, then simplified prompt)
+- Per-model retry: 2 retries (fresh request, then simplified_messages which removes library context)
 - Fallback: if Command A fails → swap for GPT-5.4, retry consensus
-- Timeout: 60s per model call
+- Timeout: 60s per model call via `asyncio.wait_for()`
 - Use Instructor's `from_provider()`:
   ```python
   # Model A: Cohere Command A via OpenRouter
@@ -48,6 +55,7 @@ Replace the tracer stub. Implement:
   client_b = instructor.from_provider("anthropic/claude-opus-4-6", async_client=True)
   ```
 - API keys from environment: `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`
+- **Important:** The `.claude/skills/consensus-pattern/SKILL.md` has been updated to use `from_provider()`. Do NOT use `from_litellm()` — that was the Step 2 testing pattern, not the production pattern.
 
 ### Module 3: `engines/source/src/consensus.py`
 Source-engine consensus integration:
@@ -63,21 +71,27 @@ Source-engine consensus integration:
 
 ### Module 4: `engines/source/src/metadata_inference.py`
 Core inference flow:
-1. Build prompt from extractor output using `inference_v1.py` template
-2. For author identification and work matching: call consensus (`evaluate()` with both models)
-3. For other fields (genre, science, format, etc.): use the canonical result from consensus
-4. Map LLM output → SourceMetadata fields:
+1. Build messages from extractor output using `inference_v1.py` template:
+   - `messages = [{"role": "system", "content": SYSTEM_MESSAGE}, {"role": "user", "content": filled_template}]`
+   - Also build `simplified_messages` with library context (existing scholars/works lists) removed from the user message
+2. Call consensus ONCE: `evaluate(task="author_identification", messages=messages, ...)` with the author identification agreement function. This dispatches both models concurrently on the SAME prompt.
+3. From the returned `ConsensusResult.model_responses`, run TWO additional local comparisons on the same response pair:
+   - Work matching agreement check (engines/source/src/consensus.py)
+   - Directed attribution_status comparison (engines/source/src/consensus.py)
+   This avoids calling the models 4 times — one consensus call, three comparisons.
+4. Use the canonical_result for ALL non-consensus fields (genre, science, format, level, scholarly_context, etc.)
+5. Map LLM output → SourceMetadata fields:
    - `layers` → `text_layers` (resolve each layer author via scholar name matching)
    - `author_identification` → `ScholarReference` (canonical_name_ar, known_as, death_date_hijri, confidence)
    - Confidence fields → `InferredFieldConfidence`
-5. Apply caps:
+6. Apply caps:
    - Biographical inference cap: author confidence ≤ 0.85 (single-LLM cap)
    - Attribution disputed: author confidence ≤ 0.70
    - Attribution unknown: author confidence = 0.0
-6. Set `text_fidelity` deterministically:
+7. Set `text_fidelity` deterministically:
    - `shamela_html` → baseline `high`; downgrade on quality issues
    - `plain_text` → baseline `medium`
-7. Construct `needs_review_fields`: fields with confidence < 0.70
+8. Construct `needs_review_fields`: fields with confidence < 0.70
 
 ---
 
@@ -135,6 +149,8 @@ Run `tests/consensus_analysis.py` filtered to author_identification. If a differ
 - [ ] `text_fidelity` set deterministically from format + quality issues
 - [ ] `needs_review_fields` populated for fields with confidence < 0.70
 - [ ] Consensus `evaluate()` dispatches both models concurrently
+- [ ] Consensus `evaluate()` takes `messages: list[dict]` (NOT a prompt string)
+- [ ] Single consensus call → three local comparisons (author, work, attribution) on same response pair
 - [ ] Author identification agreement function implements §6.1 rules
 - [ ] Work matching agreement function implements §6.2 rules
 - [ ] Directed attribution_status comparison implements §6.3 (conservative value wins)

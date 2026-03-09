@@ -130,10 +130,11 @@ def register(record: ScholarAuthorityRecord) -> ScholarAuthorityRecord:
     Parameters
     ----------
     record : ScholarAuthorityRecord
-        The record to create. Must have:
-        - canonical_id: assigned by this function (next in sequence sch_NNNNN)
+        The record to create. The caller populates all known fields EXCEPT
+        canonical_id, which this function assigns (next in sequence sch_NNNNN).
+        Required from the caller:
         - canonical_name_ar: the full Arabic name (immutable after creation)
-        All other fields may be partially populated.
+        All other fields may be partially populated or null.
 
     Returns
     -------

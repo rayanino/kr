@@ -22,7 +22,7 @@ The consensus module runs the same structured prompt through two LLMs from diffe
 
 ```python
 from dataclasses import dataclass, field
-from typing import Any, Optional
+from typing import Any, Callable, Optional
 from pydantic import BaseModel
 
 
@@ -50,31 +50,49 @@ class ConsensusResult:
 
 async def evaluate(
     task: str,
-    prompt: str,
+    messages: list[dict[str, str]],
     response_model: type[BaseModel],
     models: Optional[list[dict]] = None,
-    agreement_fn: Optional[callable] = None,
+    agreement_fn: Optional[Callable[[BaseModel, BaseModel], bool]] = None,
+    simplified_messages: Optional[list[dict[str, str]]] = None,
 ) -> ConsensusResult:
-    """Run a prompt through multiple models and compare results.
+    """Run the same messages through multiple models and compare results.
 
     Parameters
     ----------
     task : str
         Task identifier. One of: "author_identification", "work_matching".
         Determines failure handling behavior (§6 asymmetric rules).
-    prompt : str
-        The complete prompt to send to each model (same prompt for all models).
+    messages : list[dict]
+        The messages list to send to each model (same for all models).
+        Must include system and user messages, e.g.:
+        [{"role": "system", "content": SYSTEM_MESSAGE},
+         {"role": "user", "content": user_prompt}]
+        This is the standard format Instructor's client.create() expects.
     response_model : type[BaseModel]
         Pydantic model for Instructor to parse the response into.
         Must match the inference output schema (§4.A.4).
+        Instructor returns typed Pydantic instances — the agreement_fn
+        receives these typed objects (not dicts). The consensus module
+        stores the dict form (via .model_dump()) in ModelResponse.raw_response
+        for logging and serialization.
     models : list[dict], optional
         List of model configurations. Each dict has keys:
-        - "model": str (model identifier, e.g. "claude-opus-4-6")
-        - "provider": str ("anthropic" or "openrouter")
+        - "provider_model": str (the full from_provider() identifier,
+          e.g. "openrouter/cohere/command-a" or "anthropic/claude-opus-4-6")
+        - "api_key_env": str (environment variable name for the API key)
         Defaults to the configured consensus pair (§8).
-    agreement_fn : callable, optional
-        Custom agreement function: (response_a, response_b) -> bool.
+    agreement_fn : Callable[[BaseModel, BaseModel], bool], optional
+        Custom agreement function. Receives two typed Pydantic model
+        instances (the Instructor responses) and returns True if they agree.
         If None, uses the task-specific default agreement function.
+    simplified_messages : list[dict], optional
+        A shorter version of `messages` for the second retry attempt.
+        Constructed by the caller by removing library context (the
+        existing_scholars and existing_works lists) from the user message,
+        keeping only extracted metadata and text sample. This reduces
+        token count when the full prompt caused a timeout or parse failure.
+        If None, the second retry uses the original messages.
 
     Returns
     -------
@@ -93,23 +111,21 @@ async def evaluate(
 
 ```python
 # Default consensus pair (from SPEC §8, validated in Step 2 Phase 3)
+# The "provider_model" values are passed directly to instructor.from_provider().
 DEFAULT_CONSENSUS_MODELS = [
     {
-        "model": "cohere/command-a",
-        "provider": "openrouter",
+        "provider_model": "openrouter/cohere/command-a",
         "api_key_env": "OPENROUTER_API_KEY",
     },
     {
-        "model": "claude-opus-4-6",
-        "provider": "anthropic",
+        "provider_model": "anthropic/claude-opus-4-6",
         "api_key_env": "ANTHROPIC_API_KEY",
     },
 ]
 
 # Fallback: if Command A fails after retries, swap it for GPT-5.4
 FALLBACK_MODEL = {
-    "model": "openai/gpt-5.4",
-    "provider": "openrouter",
+    "provider_model": "openrouter/openai/gpt-5.4",
     "api_key_env": "OPENROUTER_API_KEY",
 }
 ```
@@ -190,9 +206,11 @@ def compare_attribution_status(status_a: str, status_b: str) -> tuple[str, bool]
 ### Per-model retry logic
 
 When a single model call fails (timeout, API error, unparseable response):
-1. First retry: same model, fresh request.
-2. Second retry: same model, simplified prompt (remove library context to reduce tokens).
+1. First retry: same model, fresh request (same `messages`).
+2. Second retry: same model, `simplified_messages` if provided (otherwise same `messages`). The simplified messages have library context removed — specifically, the existing_scholars and existing_works lists are stripped from the user message, keeping only extracted metadata and text sample. This reduces token count and is the most common fix for timeout failures.
 3. Both retries failed → model is marked as "failed."
+
+**Timeout mechanism:** Each model call is wrapped in `asyncio.wait_for(coro, timeout=60.0)`. `asyncio.TimeoutError` is caught and treated as a failure (triggers retry).
 
 ### Task-specific handling after model failure
 
@@ -216,6 +234,20 @@ If Command A (Cohere) fails after all retries for author identification:
 3. If GPT-5.4 also fails → human gate with Opus 4.6's single-model result as context.
 
 This fallback does NOT apply to work matching (single-model provisional acceptance is sufficient for lower-cascade-risk tasks).
+
+---
+
+## Call Pattern (Source Engine)
+
+**Call the models ONCE, compare THREE times.** The source engine sends one consensus `evaluate()` call with the full inference prompt. This dispatches both models concurrently on the same messages. The returned `ConsensusResult.model_responses` contains typed `InferenceOutput` objects from both models. The source engine then runs three local comparisons on those same responses:
+
+1. **Author identification** — uses the `agreement_fn` passed to `evaluate()`. The ConsensusResult reflects this comparison.
+2. **Work matching** — runs locally in `engines/source/src/consensus.py` on the model_responses. Does NOT require a second `evaluate()` call.
+3. **Attribution status directed comparison** — runs locally. Extracts `attribution_status` from each model's response.
+
+This avoids calling the models 4 times. The SPEC §6 says "calls evaluate twice" — this is the behavioral intent (two agreement checks), not the call count. Both checks use the same model outputs.
+
+**Why this matters:** Each consensus call costs ~$0.10–0.20 and takes ~5–10 seconds. Doubling the calls doubles cost and latency with no accuracy benefit, since the models see the same prompt both times.
 
 ---
 

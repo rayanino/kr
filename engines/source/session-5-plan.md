@@ -3,6 +3,8 @@
 **Pipeline steps:** Steps 7–8 (Registration, Trust Evaluation) + Validation + Human Gate
 **Depends on:** Session 4 (hashing + dedup + freezing)
 
+**⚠️ Scope risk:** This session builds 10 modules — roughly double the complexity of Sessions 3 and 4. If the session runs long, consider splitting: (a) shared components (scholar_authority, human_gate, validation) first, then (b) source-engine wrappers (trust_evaluator, registries, source validation) in a follow-up. The shared components are the blocking dependency for Session 6; the source-engine wrappers can overlap.
+
 ---
 
 ## Read First

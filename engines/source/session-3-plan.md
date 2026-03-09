@@ -55,8 +55,10 @@ All fixtures are in `tests/fixtures/` (in `.claudeignore` — must reference exa
    Send the inference_v1 prompt for fixture 01 and verify JSON parse + enum validation. Budget: ~$0.10.
 
 2. **Implement `metadata_inference.py`.** Core inference flow:
-   - Build prompt from extractor output + inference_v1 template
-   - Call LLM via Instructor with `response_model=InferenceOutput` (Pydantic model matching §4.A.4 schema)
+   - Build `messages` list from extractor output + inference_v1 template (SYSTEM_MESSAGE + filled USER_MESSAGE_TEMPLATE)
+   - Also build `simplified_messages` (same but with library context — scholar/work lists — removed from user message)
+   - Call LLM via consensus `evaluate()` with `response_model=InferenceOutput` (Pydantic model matching §4.A.4 schema)
+   - One consensus call, three local comparisons on the same response pair (author ID, work matching, attribution_status)
    - Map response to SourceMetadata fields (§4.A.4 field name mapping)
    - Apply biographical inference cap (0.85) to author confidence
    - Apply attribution status caps (disputed → 0.70, unknown → 0.0)
@@ -65,17 +67,19 @@ All fixtures are in `tests/fixtures/` (in `.claudeignore` — must reference exa
    - Set `text_fidelity` deterministically from format + quality issues (NOT from LLM)
 
 3. **Implement `shared/consensus/src/consensus.py`.** Replace the tracer stub:
-   - `evaluate()` dispatches both model calls concurrently
-   - Per-model retry (2 retries: fresh request, then simplified prompt)
+   - `evaluate()` takes `messages: list[dict]` (NOT a prompt string) plus `simplified_messages` for retry
+   - Dispatches both model calls concurrently via `asyncio.gather()`
+   - Each model call: `instructor.from_provider(model_config["provider_model"], async_client=True)`
+   - Per-model retry (2 retries: fresh request, then simplified_messages)
+   - Timeout: 60s via `asyncio.wait_for()`
    - Fallback swap (Command A fails → GPT-5.4)
-   - Timeout: 60s per model call
-   - Returns `ConsensusResult` with all fields populated
+   - Returns `ConsensusResult` with full typed model responses
 
 4. **Implement `engines/source/src/consensus.py`.** Source-engine integration:
-   - Author identification agreement function (§6.1 rules)
-   - Work matching agreement function (§6.2 rules)
-   - Directed attribution_status comparison (§6.3 — conservative value wins)
-   - Wire to metadata_inference.py (call consensus for author + work matching)
+   - Author identification agreement function (§6.1 rules): receives two InferenceOutput Pydantic objects
+   - Work matching agreement function (§6.2 rules): runs locally on the same response pair
+   - Directed attribution_status comparison (§6.3 — conservative value wins): runs locally
+   - Wire to metadata_inference.py: one consensus call → three comparisons
 
 5. **Copy name matching to production location.** Move from eval_harness to `shared/scholar_authority/src/name_matching.py`.
 

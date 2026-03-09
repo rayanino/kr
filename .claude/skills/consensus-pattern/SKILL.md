@@ -23,8 +23,7 @@ Based on Step 2 Phase 3 testing (2026-03-09):
 ### Dependencies
 ```python
 # requirements.txt
-litellm>=1.40.0
-instructor>=1.0.0
+instructor[anthropic]>=1.12.0
 pydantic>=2.0
 ```
 
@@ -32,56 +31,59 @@ pydantic>=2.0
 ```python
 from __future__ import annotations
 
+import asyncio
+import os
 from typing import TypeVar
 
 import instructor
-import litellm
 from pydantic import BaseModel
 
 T = TypeVar("T", bound=BaseModel)
 
-# Model configuration
+# Model configuration — "provider_model" values are passed to from_provider()
 CONSENSUS_MODELS = [
     {
-        "model": "cohere/command-a",
-        "api_base": "https://openrouter.ai/api/v1",
+        "provider_model": "openrouter/cohere/command-a",
         "api_key_env": "OPENROUTER_API_KEY",
     },
     {
-        "model": "claude-opus-4-6",
+        "provider_model": "anthropic/claude-opus-4-6",
         "api_key_env": "ANTHROPIC_API_KEY",
     },
 ]
 
 
 async def consensus_infer(
-    prompt: str,
+    messages: list[dict[str, str]],
     response_model: type[T],
-    system_prompt: str = "",
     max_tokens: int = 4000,
 ) -> tuple[T, T, bool]:
-    """Run inference through both consensus models.
+    """Run inference through both consensus models concurrently.
 
     Returns:
         (response_a, response_b, agreed) where agreed is True if
         the critical fields match between the two responses.
     """
-    responses: list[T] = []
 
-    for model_config in CONSENSUS_MODELS:
-        client = instructor.from_litellm(litellm.acompletion)
-        response = await client.chat.completions.create(
-            model=model_config["model"],
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": prompt},
-            ],
-            response_model=response_model,
-            max_tokens=max_tokens,
+    async def call_model(model_config: dict) -> T:
+        client = instructor.from_provider(
+            model_config["provider_model"],
+            async_client=True,
         )
-        responses.append(response)
+        return await asyncio.wait_for(
+            client.create(
+                messages=messages,
+                response_model=response_model,
+                max_tokens=max_tokens,
+            ),
+            timeout=60.0,
+        )
 
-    response_a, response_b = responses
+    # Dispatch both models concurrently
+    response_a, response_b = await asyncio.gather(
+        call_model(CONSENSUS_MODELS[0]),
+        call_model(CONSENSUS_MODELS[1]),
+    )
     agreed = check_agreement(response_a, response_b)
 
     return response_a, response_b, agreed
@@ -121,8 +123,8 @@ def check_agreement(a: BaseModel, b: BaseModel) -> bool:
     name_a = a_dict.get("author_name", "")
     name_b = b_dict.get("author_name", "")
     if name_a and name_b:
-        # Import from eval_harness for consistent name comparison
-        from tests.eval_harness import _extract_name_tokens
+        # Import from production location (copied from eval_harness in Session 3)
+        from shared.scholar_authority.src.name_matching import _extract_name_tokens
 
         tokens_a = _extract_name_tokens(name_a)
         tokens_b = _extract_name_tokens(name_b)
