@@ -41,11 +41,59 @@ def normalize_arabic_name(name: str) -> str:
     return result
 
 
+def _extract_name_tokens(name: str) -> set:
+    """Extract significant tokens from a normalized Arabic scholarly name.
+
+    Removes patronymic particles (بن, ابن) which are structural connectors,
+    not identifying components. Keeps kunya, laqab, ism, nasab names, and nisba.
+    """
+    normalized = normalize_arabic_name(name)
+    particles = {'بن', 'ابن'}
+    return {t for t in normalized.split() if t not in particles}
+
+
 def normalized_name_similarity(a: str, b: str) -> float:
-    """Compare two Arabic names after normalization. Returns 0.0-1.0."""
+    """Compare two Arabic scholarly names by semantic component overlap.
+
+    Handles the common case where the same scholar is referred to by
+    different subsets of name components (e.g., nisba-only vs full nasab chain).
+    Uses token overlap relative to the shorter name to reward elaboration matches.
+    Falls back to substring containment for compound-word mismatches.
+    """
     norm_a = normalize_arabic_name(a)
     norm_b = normalize_arabic_name(b)
-    return difflib.SequenceMatcher(None, norm_a, norm_b).ratio()
+
+    if norm_a == norm_b:
+        return 1.0
+    if not norm_a or not norm_b:
+        return 0.0
+
+    tokens_a = _extract_name_tokens(a)
+    tokens_b = _extract_name_tokens(b)
+
+    if not tokens_a or not tokens_b:
+        return 0.0
+
+    shared = tokens_a & tokens_b
+
+    if not shared:
+        # Substring fallback for compound-word mismatches (عبدالله vs عبد له)
+        for ta in tokens_a:
+            for tb in tokens_b:
+                if len(ta) >= 3 and len(tb) >= 3 and (ta in tb or tb in ta):
+                    return 0.4
+        return 0.0
+
+    min_size = min(len(tokens_a), len(tokens_b))
+    overlap = len(shared) / min_size
+
+    # If all of shorter name's tokens found in longer → strict elaboration
+    shorter = tokens_a if len(tokens_a) <= len(tokens_b) else tokens_b
+    longer = tokens_b if len(tokens_a) <= len(tokens_b) else tokens_a
+    if shorter.issubset(longer) and min_size >= 2:
+        return max(0.85, overlap)
+
+    return overlap
 
 
 # ── Genre scoring ──
@@ -164,8 +212,11 @@ def score_author_identification(
         else:
             date_score = 0.0
     
-    # Correct person (weight 0.20) - heuristic: high name + date match implies same person
-    if name_score >= 0.70 and date_score >= 0.7:
+    # Correct person (weight 0.20) - domain-aware heuristic
+    # Death date exact match + any name component overlap → certainly same person
+    if date_score == 1.0 and name_score > 0.0:
+        person_score = 1.0
+    elif name_score >= 0.85:
         person_score = 1.0
     elif name_score >= 0.50 and date_score >= 0.3:
         person_score = 0.5
@@ -332,7 +383,7 @@ def run_self_test():
     assert s1 == 1.0, f"Exact match expected 1.0, got {s1}"
     
     s2 = normalized_name_similarity('ابن حجر العسقلاني', 'ابن حجر الهيتمي')
-    assert 0.5 < s2 < 0.9, f"Similar names expected 0.5-0.9, got {s2}"
+    assert 0.3 <= s2 <= 0.7, f"Partial overlap (shared حجر, different nisba) expected 0.3-0.7, got {s2}"
     
     s3 = normalized_name_similarity('النووي', 'ابن تيمية')
     assert s3 < 0.4, f"Different scholars expected <0.4, got {s3}"

@@ -8,3 +8,6 @@ globs: ["engines/*/tests/**/*.py", "shared/*/tests/**/*.py", "tests/**/*.py"]
 - Edge cases to always test: empty input, diacritics-only text, mixed Arabic/Latin, single-character atoms.
 - Deterministic tests go in test_deterministic.py. LLM-dependent tests go in test_llm_inference.py.
 - Run with: `python -m pytest engines/<n>/tests/ -v --tb=short`
+- **No function is "done" until tested against at least one real Arabic fixture** from `tests/fixtures/`. Synthetic inputs (English text, placeholder Arabic, transliteration) are never acceptable as the ONLY test data.
+- Every commit touching `engines/*/src/` or `shared/*/src/` code MUST include or update a test that exercises the changed code with real fixture data.
+- When verifying scholarly claims (author attributions, genre classifications, science scope), cross-reference against Usul.ai (https://usul.ai) when available.

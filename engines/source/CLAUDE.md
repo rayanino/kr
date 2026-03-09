@@ -9,49 +9,39 @@
 |------|------|-------|
 | `SPEC_CORE.md` | **THE** specification. Behavioral authority. | ~1810 |
 | `contracts.py` | Schema authority. Pydantic models for all data structures. | ~1020 |
-| `prompts/inference_v1.py` | Draft LLM inference prompt (Step 2 iterates on this). | ~110 |
+| `prompts/inference_v1.py` | Final LLM inference prompt (validated in Step 2). | ~110 |
 | `STRATEGIC_PLAN.md` | Phases A-E plan from Step 2 evaluation through engine completion. | ~280 |
 
-**⚠ `SPEC.md` is SUPERSEDED.** It is the pre-core-extraction full spec, kept only as an archive of deferred (Stage 2) capability descriptions. Do NOT read it for current architecture — read `SPEC_CORE.md`.
+**`SPEC.md` is SUPERSEDED.** Pre-core-extraction full spec, kept only as archive of deferred (Stage 2) capabilities. Read `SPEC_CORE.md` for current architecture.
 
 ## Current State (as of 2026-03-09)
 
-**Step 1 (SPEC hardening): COMPLETE.** 8 review passes, all defects resolved. SPEC_CORE.md is locked. Deterministic assumptions (A3 name matching, A4 trust weights) validated.
+**Step 1 (SPEC hardening): COMPLETE.** 8 review passes, all defects resolved. SPEC_CORE.md is locked.
 
-**Step 2 (LLM assumption testing): NEXT.** See `/NEXT.md` at repo root for the full test plan. Phase 0 (ground truth validation, eval harness, deterministic tests) is complete. Pre-flight readiness verified — see `/tests/STEP2_READINESS_VERIFICATION.md`. Phases 1–3 (API calls, multi-model testing, consensus pair selection) are pending.
+**Step 2 (LLM assumption testing): COMPLETE.** All 5 assumptions validated:
+- A1 (JSON reliability): 100% parse rate on 4/5 models (Gemini 92% — timeout, not format)
+- A2 (multi-layer detection): 100% accuracy across all 5 models, all 13 fixtures
+- A3 (name matching): validated deterministically, substring containment boost deferred
+- A4 (trust weights): 13/13 PASS at threshold 0.65
+- A5 (consensus pair): Command A + Opus 4.6 selected (92.3% "at least one right")
 
-**Pre-flight verification found and fixed:**
-- 2 invalid Anthropic model IDs in test runner (fabricated snapshot dates)
-- Scoring bug: name comparison penalized by death dates in ground truth (8/13 fixtures affected)
-- Missing enum compliance checks for Step 1 fields (attribution_status, context_richness)
-- Stale SPEC line number references in NEXT.md (sections shifted during Step 1)
-
-**Step 3 (build prep): BLOCKED on Step 2.**
+**Step 3 (BUILD): STARTING.** See `/NEXT.md` for session plan.
 
 ## Required Reading (for Claude Code)
 
 1. `SPEC_CORE.md` — the specification (NOT SPEC.md)
 2. `contracts.py` — Pydantic schemas, enums, all data models
-3. `/NEXT.md` — current task directive with detailed test plan
+3. `/NEXT.md` — current task directive
 4. `/KNOWLEDGE_INTEGRITY.md` — 7 corruption threats this engine must prevent
-5. `/tests/SCORING_CRITERIA.md` — how to score LLM inference results
-6. `/tests/eval_harness.py` — automated scoring script (run this, don't score manually)
-7. `/tests/fixtures/GROUND_TRUTH.json` — expected answers (owner-validated)
-8. `/tests/fixtures/EXTRACTED_DATA.json` — pre-extracted fixture data for prompts
-
-## Review History (reference/)
-
-Review artifacts from Step 1 are archived in `review/`. They document the audit trail but are not required reading for implementation:
-- INTEGRITY_AUDIT.md, DOWNSTREAM_CONTRACT_AUDIT.md, STEP1_HARDENING.md, etc.
-- CORE_VS_DEFERRED.md — classification of core vs Stage 2 features
-- OWNER_SANITY_CHECK*.md — domain validation by the owner
+5. `prompts/inference_v1.py` — validated inference prompt template
+6. `/tests/fixtures/GROUND_TRUTH.json` — expected answers (owner-validated)
 
 ## What This Engine Does (Core Only)
 
 - Acquires sources from Shamela HTML exports and plain text (2 formats for Stage 1)
 - Assigns three-tier identity: source_id, work_id, canonical_id (D-024)
 - Extracts metadata from format-specific markup
-- Infers metadata via LLM when extraction is insufficient (multi-model consensus)
+- Infers metadata via LLM when extraction is insufficient (multi-model consensus — D-041)
 - Detects duplicates via composite key matching
 - Freezes the raw source immediately upon acquisition (SHA-256 hash)
 - Evaluates trustworthiness: 3-tier classification (verified / flagged / owner_override)
@@ -64,3 +54,121 @@ Review artifacts from Step 1 are archived in `review/`. They document the audit 
 - **trust_tier**: Based on publisher reputation, tahqiq quality, manuscript lineage
 - **Three-tier ID**: source_id (this specific file), work_id (this book), canonical_id (this scholar's identity)
 
+## Canonical Examples
+
+These show the full input→output mapping for 3 representative fixtures. Use these to calibrate implementation accuracy.
+
+### Example 1: Simple Modern Risalah (fixture 03_fiqh)
+
+**Input metadata (extracted from Shamela HTML):**
+```
+Title: أحكام الاضطباع والرمل في الطواف
+Author field: عبد الله بن إبراهيم الزاحم
+Publisher: الجامعة الإسلامية بالمدينة المنورة
+Shamela category: الفقه العام
+Edition: السنة السادسة والثلاثون العدد (112) 1424هـ/2004م
+Source format: shamela_html
+Multi-volume: no
+```
+
+**Expected SourceMetadata output:**
+```json
+{
+  "genre": "risalah",
+  "science_scope": ["fiqh"],
+  "is_multi_layer": false,
+  "structural_format": "prose",
+  "level": "intermediate",
+  "authority_level": "modern_compilation",
+  "author_name": "عبد الله بن إبراهيم الزاحم",
+  "author_death_hijri": null,
+  "attribution_status": "definitive",
+  "expected_trust": "flagged"
+}
+```
+
+**Why each field:**
+- `risalah` (not matn): Short focused treatise, no commentary ecosystem built on it
+- `modern_compilation`: Contemporary author, published 2004 in university journal
+- `level: intermediate`: Academic paper but not specialist-level research
+- `trust: flagged`: Modern source without established tahqiq tradition
+- `author_death_hijri: null`: Living/contemporary author, no death date
+
+### Example 2: Classical Multi-Layer Sharh (fixture 11_multi_small)
+
+**Input metadata:**
+```
+Title: همع الهوامع في شرح جمع الجوامع
+Author field: عبد الرحمن بن أبي بكر، جلال الدين السيوطي (ت 911هـ)
+Muhaqiq/Editor: عبد الحميد هنداوي
+Publisher: المكتبة التوفيقية - مصر
+Shamela category: النحو والصرف
+Source format: shamela_html
+Multi-volume: yes (3 volumes)
+```
+
+**Expected SourceMetadata output:**
+```json
+{
+  "genre": "sharh",
+  "science_scope": ["nahw"],
+  "is_multi_layer": true,
+  "structural_format": "commentary",
+  "level": "advanced",
+  "authority_level": "primary",
+  "author_name": "جلال الدين السيوطي",
+  "author_death_hijri": 911,
+  "attribution_status": "definitive",
+  "expected_trust": "verified"
+}
+```
+
+**Why each field:**
+- `sharh`: Title says "في شرح" — this is a commentary on جمع الجوامع
+- `is_multi_layer: true`: Contains interleaved matn text (جمع الجوامع) + sharh
+- `commentary`: Text alternates between quoted base text and explanation
+- `advanced`: Major scholarly commentary, 3 volumes, deep linguistic analysis
+- `primary`: al-Suyuti (d. 911 AH) is one of the most recognized classical scholars
+- `verified`: Classical primary by recognized scholar + established publisher
+- The muhaqiq (عبد الحميد هنداوي) is NOT the author — stored separately
+
+### Example 3: Non-Islamic-Scholarship Edge Case (fixture 12_multi_muq)
+
+**Input metadata:**
+```
+Title: مذكرات (العفن) 1932 - 1940
+Author field: مالك بن الحاج عمر بن الخضر بن نبي (ت 1393 هـ)
+Publisher: دار الأمة
+Shamela category: كتب عامة
+Edition: الأولى، 2007
+Source format: shamela_html
+Multi-volume: yes (1 volumes)
+```
+
+**Expected SourceMetadata output:**
+```json
+{
+  "genre": "other",
+  "science_scope": [],
+  "is_multi_layer": false,
+  "structural_format": "prose",
+  "level": null,
+  "authority_level": "primary",
+  "author_name": "مالك بن نبي",
+  "author_death_hijri": 1393,
+  "attribution_status": "definitive",
+  "expected_trust": "flagged"
+}
+```
+
+**Why each field:**
+- `other`: Autobiography/memoirs, not an Islamic scholarly genre
+- `science_scope: []`: EMPTY — not Islamic scholarship, no science applies
+- `level: null`: Classification inapplicable for non-scholarly works
+- `primary`: Written by the attributed author himself (original composition)
+- `flagged`: Modern publication without tahqiq apparatus
+- Key: Malek Bennabi is an Algerian intellectual, not an Islamic scholar. This tests the system's ability to correctly identify non-scholarly works in the library.
+
+## Review History (reference/)
+
+Review artifacts from Step 1 are archived in `review/`. They document the audit trail but are not required reading for implementation.

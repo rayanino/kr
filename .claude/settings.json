@@ -59,7 +59,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "( FILE=\"$CLAUDE_TOOL_FILE_PATH\"; if [ -n \"$FILE\" ] && git -C \"$CLAUDE_PROJECT_DIR\" rev-parse --git-dir >/dev/null 2>&1; then git -C \"$CLAUDE_PROJECT_DIR\" add \"$FILE\" 2>/dev/null; echo \"[$(date '+%Y-%m-%d %H:%M:%S')] Modified: $FILE\" >> \"$CLAUDE_PROJECT_DIR/.claude/changes.log\"; fi ) &>/dev/null &; exit 0",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/arabic-safety-check.sh\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "( FILE=\"$CLAUDE_TOOL_FILE_PATH\"; if [ -n \"$FILE\" ] && git -C \"$CLAUDE_PROJECT_DIR\" rev-parse --git-dir >/dev/null 2>&1; then git -C \"$CLAUDE_PROJECT_DIR\" add \"$FILE\" 2>/dev/null; echo \"[$(date '+%Y-%m-%d %H:%M:%S')] Modified: $FILE\" >> \"$CLAUDE_PROJECT_DIR/.claude/changes.log\"; fi ) &>/dev/null & exit 0",
             "timeout": 5
           }
         ]

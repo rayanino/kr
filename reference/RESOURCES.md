@@ -16,6 +16,23 @@ This file maps known external tools, libraries, and services to KR engines. Ever
 
 **NetworkX** — Python graph library (BSD, v3.2+). Provides: shortest path, betweenness centrality, Louvain community detection, graph visualization. `pip install networkx`. **KR use: §4.B.7 (Scholarly Genealogy)** — computes centrality scores, scholarly communities, and generation numbers in the teacher-student network. Zero external dependencies for core algorithms.
 
+## OpenITI Python Library — EVALUATED, NOT ADOPTED (2026-03-09)
+
+**openiti** v0.1.6.1 — Python utility library for the Open Islamicate Texts Initiative. PyPI: `pip install openiti`. GitHub: `https://github.com/OpenITI/OpenITI` (12 stars, 1 primary contributor). Evaluated for KR Arabic text normalization and Shamela format handling.
+
+**Decision: DO NOT ADOPT.** Reasons:
+1. `shamela_converter` processes `.mdb/.bok` binary database files only — does NOT handle Shamela HTML exports (KR's format)
+2. `normalize_ara_heavy` deletes hamzas entirely (ء ؤ ئ → empty string) — destructive for scholarly name tokens (مؤلف → مولف)
+3. `deNoise` diacritic stripping covers a narrower Unicode range than KR's `normalize_arabic_name()` — missing U+0610-U+061A honorific marks
+4. `normalize_ara_light` normalizes hamza carriers to bare ء (not to ا) — different semantic operation than KR name matching needs
+5. Bus factor of 1, documentation frozen at v0.0.2 while code is at v0.1.6.1
+
+**Worth borrowing (future):** The `denormalize()` pattern — converts normalized text into a regex matching all variant spellings (e.g., ا → [إأٱآا]). ~10 lines, useful for fuzzy search in excerpting/search layers. Implement natively when needed, no dependency required.
+
+## Verification Resources (2026-03-09)
+
+**Usul.ai** — AI-powered search across 15,000+ Islamic texts including the full Shamela corpus. URL: `https://usul.ai`. Free access. Provides: full-text search with Arabic morphological awareness, author/work metadata, cross-references between texts. **KR use:** Verification resource for scholarly claims — confirm author attributions, genre classifications, check hadith chains, verify text existence and authorship. Not programmatically integrated, but Claude can web-search Usul.ai results to cross-reference metadata claims during source engine processing. Particularly valuable for disambiguating scholars with similar names (e.g., ابن حجر العسقلاني vs ابن حجر الهيتمي).
+
 ## Technology Survey Update (2026-03-06, Hardening Round)
 
 **QARI-OCR** — NEW. Open-source SOTA for Arabic OCR with diacritics. Based on Qwen2-VL-2B-Instruct, fine-tuned on specialized Arabic datasets. CER 0.061, WER 0.160, BLEU 0.737 on diacritized texts. Available on HuggingFace (`riotu-lab/QARI-OCR`). Handles: tashkeel, diverse fonts, document layouts, low-resolution images, handwritten text (v0.3). Use 8-bit quantization (NOT 4-bit) for OCR tasks. Paper: arXiv:2506.02295. **This should be evaluated as primary OCR for KR alongside Mistral OCR** — it's specifically optimized for diacritized Arabic scholarly text, which is KR's exact use case.

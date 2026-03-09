@@ -18,3 +18,10 @@ Protocol:
    - **Sources**: URLs for everything cited
 
 If a finding should be preserved, suggest adding it to reference/RESOURCES.md.
+
+## Verification Resources
+
+For Islamic scholarly claims (author attributions, text classifications, hadith verification):
+- **Usul.ai** (https://usul.ai) — AI-powered search across 15,000+ Islamic texts including Shamela corpus. Use for verifying scholarly attributions, checking hadith chains, confirming text existence and authorship.
+- **al-Maktaba al-Shamela** (https://shamela.ws) — primary source for cross-referencing book metadata.
+- **OpenITI corpus** (https://github.com/OpenITI) — machine-readable Arabic texts with scholarly metadata.
