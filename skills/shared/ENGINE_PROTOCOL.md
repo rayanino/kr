@@ -44,11 +44,11 @@ The concept comes from Alistair Cockburn's "walking skeleton" and Hunt & Thomas'
 
 **What happens:**
 
-1. **Reconcile the 7 existing contracts.py files.** Load source output into normalization input. Load normalization output into passaging input. Repeat for every boundary. Fix every mismatch: type conflicts, missing fields, renamed enums, incompatible schemas. Currently only the passaging engine imports from normalization — the other 5 boundaries have no Python-level enforcement. The tracer bullet enforces all 6. Reconcile ALL fields in contracts.py, not just core fields — the core/deferred split happens per-engine in Step 1, after the tracer bullet has validated the full contract shape.
+1. **Reconcile the 7 existing contracts.py files (core classes only).** Using the classification in `reference/CORE_CONTRACT_CLASSIFICATION.md`, reconcile only the CORE models across boundaries. Load source core output into normalization core input. Load normalization core output into passaging core input. Repeat for every boundary. Fix every mismatch: type conflicts, missing fields, renamed enums, incompatible schemas. DEFERRED classes remain in contracts.py but are not reconciled — they will be addressed when their features are built in Stage 2. This reduces reconciliation scope from ~296 classes to ~125.
 
 2. **Stub shared components.** The engines depend on shared infrastructure that has SPECs but no implementation: consensus (multi-model LLM verification), human_gate (owner approval checkpoints), scholar_authority (scholar identity registry), and validation (output checks). Build minimal stubs for each in `shared/*/src/`. Each stub implements the minimum interface that engine code needs to call without crashing: consensus returns hardcoded agreement, human gate auto-approves, scholar authority stores and retrieves records from a JSON file, validation passes everything. These stubs evolve into real implementations during the source engine build (Step 3 for engine 1). Do NOT read the full shared component SPECs (400+ lines each) — build stubs from what the engine code actually calls.
 
-3. **Build rough stubs for all 7 engines.** Each stub accepts its input contract, performs the simplest possible transformation (even if the output quality is terrible), and produces output conforming to its output contract. LLM calls can return hardcoded plausible values for now. The goal is data flowing, not data quality. Four engines (source, normalization, passaging, atomization) already have src/ stubs from before this protocol — use them as starting points but expect they include deferred features. Do not prune them now; just ensure they conform to the current contracts.py. Each engine exposes a single entry-point function: `process(input_path: Path, output_path: Path, config: dict) -> None`. This is the interface `run_pipeline.py` calls. Engines read input from disk (JSON/JSONL), write output to disk. No in-memory object passing between engines — disk is the boundary.
+3. **Build rough stubs for all 7 engines.** Each stub accepts its input contract, performs the simplest possible transformation (even if the output quality is terrible), and produces output conforming to its output contract. LLM calls can return hardcoded plausible values for now. The goal is data flowing, not data quality. Four engines (source, normalization, passaging, atomization) already have src/ stubs from before this protocol — use them as starting points but expect they include deferred features. Do not prune them now; just ensure they conform to the current contracts.py. **ABD legacy code reuse:** Where ABD code in `reference/archive/abd_code/` provides working functionality (especially the Shamela HTML normalizer at ~1,123 lines), adapt it for use in tracer bullet stubs rather than writing NotImplementedError placeholders. A tracer bullet that produces real normalized text from real Arabic is far more informative than one that crashes at every engine. ABD code has zero DESIGN authority but its working parsers are reusable assets. Each engine exposes a single entry-point function: `process(input_path: Path, output_path: Path, config: dict) -> None`. This is the interface `run_pipeline.py` calls. Engines read input from disk (JSON/JSONL), write output to disk. No in-memory object passing between engines — disk is the boundary.
 
 4. **Build a pipeline runner script.** `scripts/run_pipeline.py` chains the 7 engines sequentially: runs engine 1 on a fixture, feeds output to engine 2, feeds that to engine 3. At each boundary, it validates the output against the next engine's input contract using Pydantic's `model_validate()`. Any validation failure is logged with the specific field and error, then processing continues (do not halt on the first error — collect all boundary issues in one pass).
 
@@ -65,7 +65,7 @@ The concept comes from Alistair Cockburn's "walking skeleton" and Hunt & Thomas'
 - The tracer bullet code lives in the main engine directories, not in a throwaway prototype folder. It IS the skeleton the real engines grow on.
 - Shared component stubs live in their existing `shared/` directories.
 
-**You're done when:** One Shamela HTML fixture produces one (rough) knowledge entry with no contract violations at any boundary. All 7 contracts.py files are reconciled and import-tested against their neighbors. Shared component stubs exist. The pipeline runner works. Boundary issues are documented in `reference/TRACER_FINDINGS.md`.
+**You're done when:** One Shamela HTML fixture produces one (rough) knowledge entry with no contract violations at any boundary. All 7 contracts.py files have their CORE classes reconciled and import-tested against their neighbors (per `reference/CORE_CONTRACT_CLASSIFICATION.md`). Shared component stubs exist. The pipeline runner works. Boundary issues are documented in `reference/TRACER_FINDINGS.md`.
 
 ---
 
@@ -91,10 +91,10 @@ NOT core: audio transcription, OCR from phone photos, citation network discovery
 
 2. **Assess SPEC maturity.** Not all SPECs need the same treatment. Some have been through multiple refinement passes (normalization has had 4 passes; synthesis has had 3). Others are rougher. For mature SPECs where §4.A has already been through PRECISION and HARDENING: core extraction is surgical — move §4.B to deferred, add extension hooks, verify §4.A is still implementation-ready. Do NOT rewrite refined §4.A content. For immature SPECs where §4.A has known defects or vague language: core extraction includes rewriting §4.A to significant-decisions depth.
 
-3. **Owner domain review.** The owner reads the core sections and writes comments. The depth of owner involvement varies by engine:
-   - **Heavy domain review** (source engine, synthesis engine): The owner has strong domain knowledge about how Islamic books work and what scholarly entries should look like. Full comment process.
-   - **Moderate domain review** (normalization engine): The owner knows about matn/sharh layer conventions, footnote styles, and physical book structure. Comments focus on "would this correctly handle my real books?"
-   - **Light domain review** (passaging, atomization, excerpting, taxonomy): The owner's expertise is less directly applicable at the spec stage. A brief read-through to flag anything surprising is enough — the owner's real contribution for these engines comes at Step 4, reviewing actual Arabic output. If no owner comments arrive within 3 days, Claude proceeds.
+3. **Owner sanity check.** The owner reviews core sections for experiential correctness — "does this match the books I actually use?" The owner is an Islamic studies student, not a specialist scholar. Review depth varies by engine:
+   - **Experiential review** (source engine, synthesis engine): The owner recognizes his books, knows basic metadata (author, title, science), and can judge whether output "looks right." Focus on: "would this correctly handle the books I actually uploaded?"
+   - **Light review** (all other engines): A brief read-through to flag anything surprising. The owner's real contribution for these engines comes at Step 4, reviewing actual Arabic output against books he recognizes.
+   - If no owner comments arrive within 3 days, Claude proceeds. The owner may always respond "I'm not sure" — this triggers deeper automated verification, not a block.
 
 4. **Claude investigates comments.** Research-heavy. Claude uses web search, Exa, Scholar Gateway, Tavily — whatever tools help find the best approach. For every core design decision, Claude researches how similar systems handle it, what the tradeoffs are, what the state of the art is. This is not a quick review — it's deep architectural research grounded in domain feedback.
 
@@ -108,7 +108,7 @@ NOT core: audio transcription, OCR from phone photos, citation network discovery
 
 **Rules:**
 - Do comments in batches of 3-5 per chat. Fresh chat when things get long.
-- Claude may disagree with your comments. Listen on technical matters. Push back on domain matters — you're the authority.
+- Claude may disagree with the owner's comments. On technical and scholarly precision matters, Claude's research is authoritative — the owner is not a specialist scholar. On experiential matters ("this is how my books actually look"), the owner is authoritative.
 - If a design question can't be resolved by discussion alone, it becomes a research question for Step 2.
 
 **You're done when:** The core SPEC has passed kr-integrity's technical audit with all HIGH-severity defects fixed. Every sentence in §4.A is either a binding rule with enough detail for implementation, or a marked assumption that Step 2 will answer through testing. All §4.B content and non-core features are explicitly deferred with extension hooks documented.
@@ -191,9 +191,9 @@ For LLM reliability assumptions specifically, apply these thresholds PER TASK (n
 
 1. **Full 5a/5b/5c evaluation** using the test architecture in `reference/TESTING_FRAMEWORK.md`. Run on all test fixtures that match this engine's core formats (see fixture mapping in Step 2 above). 5a = deterministic checks (schema, text integrity, metadata). 5b = LLM-worker accuracy (do the LLM calls inside the engine produce correct results?). 5c = independent LLM review (can a different model catch errors the engine missed?).
 
-2. **Create gold baselines.** Run the engine on each core-format fixture. Manually verify the output field-by-field with the owner. Save the verified output as `engines/{engine}/tests/gold_baselines/{fixture}.json`. Gold baselines are the ground truth for regression testing — they cannot exist before the engine runs, so they are a Step 4 deliverable, not a prerequisite. Format: see `reference/TESTING_FRAMEWORK.md` §3.
+2. **Create gold baselines.** Run the engine on each core-format fixture. Verify the output through two layers: (a) cross-provider automated verification — a different LLM provider reviews each field for plausibility and consistency, and (b) owner sanity check — the owner reviews recognizable fields (title, author, science, "does this look like my book?"). Save the verified output as `engines/{engine}/tests/gold_baselines/{fixture}.json`. Gold baselines are the ground truth for regression testing — they cannot exist before the engine runs, so they are a Step 4 deliverable, not a prerequisite. Format: see `reference/TESTING_FRAMEWORK.md` §3.
 
-3. **You review output.** Not "does this look OK?" but specific questions: "Is this author identification correct?" "Is this science classification right?" "Does this metadata capture everything a downstream engine needs?"
+3. **Owner reviews output.** Not scholarly audit but experiential validation. Specific questions: "Is this the right book?" "Is this the right author?" "Does this text look like what you uploaded?" "Does this entry seem useful for your study?" The owner may answer "yes," "no," or "I'm not sure." "I'm not sure" triggers deeper automated verification.
 
 3. **Every finding is categorized:**
    - **Core gap:** Something fundamental is wrong or missing. Metadata that downstream engines need but isn't captured. A failure mode that corrupts data. An unreliable LLM task. **These get fixed before moving on.**
@@ -212,7 +212,7 @@ For LLM reliability assumptions specifically, apply these thresholds PER TASK (n
 - All 5a deterministic checks pass
 - 5b LLM-worker accuracy ≥90%
 - 5c independent review finds no errors that self-validation missed
-- You have reviewed and approved the output on your real sources
+- Owner has sanity-checked output on recognizable fixtures ("right book, right author, looks useful")
 - All core gaps are fixed
 - Pipeline integration test passes against the next engine's stub
 - Lessons and extension opportunities are documented
@@ -268,7 +268,7 @@ Not all engines are equal in complexity. These notes prevent misclassification a
 
 **Excerpting engine (5).** Self-containment evaluation is the highest-risk LLM task in the pipeline (T-4: Context Loss). Step 2 research must determine whether LLMs can reliably judge "can a reader understand this excerpt alone?" If unreliable, consider larger excerpts with guaranteed surrounding context rather than precise self-containment judgments.
 
-**Taxonomy engine (6).** **Prerequisite:** The engine needs a parsed science tree to place excerpts into. The library has SCIENCE.md files for 5 sciences, but these are prose research documents, not the data structures the engine consumes. Before Step 3, the owner must define at minimum the nahw (grammar) tree structure, and the architect must translate it into the engine's expected format. This is an owner deliverable — call it out early.
+**Taxonomy engine (6).** **Prerequisite:** The engine needs a parsed science tree to place excerpts into. The library has SCIENCE.md files for 5 sciences, but these are prose research documents, not the data structures the engine consumes. Before Step 3, the architect must generate the nahw (grammar) tree structure using multi-source AI research (cross-referencing standard curricula, textbook tables of contents, and established nahw reference works), and the owner must sanity-check it ("does this match how I learned nahw?"). The architect generates; the owner validates experientially.
 
 **Synthesis engine (7).** Core quality bar: structured compilation with temporal ordering, school attribution, and correct traceability (all claims to excerpt IDs). The full scholarly narrative quality from ENTRY_EXAMPLE.md (intellectual genealogy, "why scholars disagreed", "what to read next") can start basic in v0.0.1. Flat compilations are unacceptable even for core.
 
@@ -305,7 +305,7 @@ Defined recovery paths for common failure states. If you're stuck and none of th
 
 **Step 2 research shows <70% LLM accuracy on a core task.** The SPEC's approach doesn't work. Fix: redesign the approach in the SPEC — options include a different prompt strategy, a two-stage pipeline (LLM proposes, rules verify), a lookup table for known values, or reclassifying the task as always-human-gated. Update the SPEC. Re-run the test. If no approach reaches 70% after 3 attempts, escalate to the owner: "This task cannot be reliably automated. Should it be human-performed, or should we accept the error rate with mandatory review?"
 
-**The owner doesn't provide domain comments.** Step 1 blocks on owner review for source and synthesis engines. Fix: after 1 week with no comments, Claude proceeds with its best assessment and marks every domain-dependent decision as `[OWNER REVIEW PENDING]`. The owner reviews when available. For passaging/atomization/excerpting/taxonomy (light review engines), Claude proceeds after 3 days without comments.
+**The owner doesn't provide domain comments.** Step 1 benefits from owner sanity checks on source and synthesis engines but does not hard-block on them. Fix: after 3 days with no comments, Claude proceeds with its best assessment, marks domain-dependent decisions as `[OWNER REVIEW PENDING]`, and adds cross-provider verification for those decisions. The owner reviews when available.
 
 **Claude Code session runs out of context mid-build.** Fix: before context gets tight (>70% usage), commit all work, write a session handoff file at `engines/{engine}/docs/HANDOFF_{date}.md` describing: what's built, what's tested, what's next, what decisions were made. The next session reads this file first.
 

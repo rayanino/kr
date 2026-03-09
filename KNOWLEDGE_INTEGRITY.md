@@ -118,11 +118,38 @@ At each engine boundary:
 - Spot-check sampling — random excerpts verified against frozen sources
 - Run integrity-checker agent
 
+### Layer 3.5: Cross-Provider Entailment Verification (every content decision)
+The same LLM provider must never both generate and verify a content decision.
+For every attribution, classification, or synthesis claim:
+- Provider A generates the claim (e.g., Claude identifies the author)
+- Provider B verifies the claim (e.g., GPT or Mistral checks whether that identification is consistent with known data)
+- If providers disagree, the decision escalates to higher consensus (3+ models) or a human gate
+This prevents self-reinforcing hallucination — the most dangerous failure mode because it produces high-confidence wrong answers.
+
 ### Layer 4: Human Gates (triggered by uncertainty)
+The owner is an Islamic studies student, not a specialist scholar. Human gates are designed accordingly:
+
+**What the owner CAN reliably verify (experiential validation):**
+- Is this the right book? (recognition of sources he studies from)
+- Is this the right author? (for well-known scholars he has encountered)
+- Does this excerpt obviously belong under grammar vs. fiqh vs. aqidah? (coarse placement)
+- Does this entry make sense as something he would use for study? (utility check)
+- Preference decisions: which edition to prefer, what to study next, curriculum ordering
+
+**What the owner CANNOT reliably verify (scholarly audit):**
+- Precise death dates, teacher-student chains, or school affiliations for lesser-known scholars
+- Whether a specific opinion is correctly attributed to a specific scholar
+- Whether an isnad chain is correctly parsed
+- Subtle taxonomic distinctions within a science (e.g., conditions of prayer vs. pillars of prayer)
+
+**Gate design principles:**
 - Every low-confidence decision creates a checkpoint
-- Every new entry requires owner approval
+- The owner may respond: "yes," "no," or **"I'm not sure"**
+- "I'm not sure" triggers Layer 3.5 cross-provider verification with elevated consensus (3+ models must agree), NOT auto-approval
+- Gates for preference decisions (edition choice, curriculum) block until owner responds — these cannot be automated
+- Gates for content verification that exceed owner expertise are pre-verified by Layer 3.5 before reaching the owner — the owner sees the automated verification result alongside the question
+- Every new entry requires owner approval, but the approval is "does this look useful and reasonable," not "is every scholarly claim correct"
 - Every correction triggers review of affected entries
-- The owner is the final authority on all knowledge products
 
 ### Layer 5: User Feedback (continuous)
 - Rayane's corrections feed back into the pipeline
@@ -145,7 +172,7 @@ These are absolute rules. No engine, no configuration, no optimization may viola
 
 4. **Errors fail loudly.** No engine may silently drop data, silently default on an uncertain decision, or silently skip a validation. If something is wrong, the pipeline stops or flags it.
 
-5. **Human gates are not optional.** The bypass mechanism for human gates requires explicit owner authentication. No automated process may auto-approve a human gate checkpoint.
+5. **Human gates are not optional.** The bypass mechanism for human gates requires explicit owner authentication. No automated process may auto-approve a human gate checkpoint. However, the owner may respond "I'm not sure" to any content verification gate — this triggers elevated automated verification (Layer 3.5 with 3+ model consensus), not auto-approval. Only preference gates (edition choice, curriculum decisions) require a definitive owner answer.
 
 6. **Metadata flows forward, never backward-deleted.** An engine may ADD metadata fields. An engine may ENRICH metadata values. No engine may DELETE a metadata field that arrived in its input.
 
@@ -163,6 +190,6 @@ When implementing any engine:
 
 4. **When making attribution decisions:** Always use multi-model consensus. Never rely on a single LLM call for author identification, school classification, or date estimation.
 
-5. **When uncertain:** Create a human gate checkpoint with full context. The cost of bothering the owner is infinitely lower than the cost of a silent error.
+5. **When uncertain:** First, attempt resolution through Layer 3.5 cross-provider verification. If consensus is reached (3+ models agree), proceed with the consensus result and log it. If consensus fails, create a human gate checkpoint with full context including the disagreement details. Present the gate so the owner can answer with "yes," "no," or "I'm not sure" — design the UI/prompt accordingly.
 
 6. **When writing tests:** Include negative tests that verify the error paths. Test that invalid data is rejected, that low-confidence decisions trigger human gates, and that metadata is preserved.

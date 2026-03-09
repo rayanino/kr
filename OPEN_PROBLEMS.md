@@ -120,11 +120,11 @@ Steps 1-4 repeat for all 7 engines in pipeline order. After every 2 engines, a l
 ### Owner Deliverables (non-code, blocks specific engines)
 | Item | Blocks | Notes |
 |------|--------|-------|
-| Nahw science tree validation | Taxonomy engine Step 3 | A tree exists at library/sciences/nahw/tree.yaml — owner must validate it matches his study structure |
-| Domain comments (source engine) | Source engine Step 1 | Heavy review — how Shamela works, metadata conventions, author identification |
-| Domain comments (synthesis engine) | Synthesis engine Step 1 | Heavy review — what makes a good entry, scholarly narrative expectations |
-| Domain comments (other engines) | Each engine's Step 1 | Light review — flag anything surprising, Claude proceeds after 3 days |
-| Gold baseline verification | Each engine's Step 4 | Owner spot-checks engine output for correctness, Claude produces the JSON |
+| Nahw science tree sanity check | Taxonomy engine Step 3 | Architect generates the tree via multi-source AI research; owner validates "does this match how I learned nahw?" |
+| Experiential sanity check (source engine) | Source engine Step 4 | "Is this the right book? Right author? Does the text look right?" — 10-15 minutes |
+| Experiential sanity check (synthesis engine) | Synthesis engine Step 4 | "Does this entry seem useful for study? Does it make sense?" — 10-15 minutes |
+| Sanity check (other engines) | Each engine's Step 4 | Light review — flag anything that looks obviously wrong. "I'm not sure" is valid. |
+| Gold baseline verification | Each engine's Step 4 | Owner spot-checks recognizable fields, automated verification handles scholarly precision |
 
 ### Completed
 | Item | Date |
