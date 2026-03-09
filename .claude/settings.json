@@ -1,15 +1,24 @@
 {
-  "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
-  },
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "hooks": {
     "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); CMD=$(echo \"$input\" | jq -r '.tool_input.command // empty' 2>/dev/null); if echo \"$CMD\" | grep -qE '^rm\\s+-rf\\s+(/|~|\\.)' || echo \"$CMD\" | grep -qE 'git\\s+push\\s+--force.*(main|master)'; then echo '{\"decision\":\"block\",\"reason\":\"Blocked: destructive rm -rf or force-push to main. Use a safer alternative.\"}'; fi",
+            "timeout": 5
+          }
+        ]
+      },
       {
         "matcher": "Bash(git push*)",
         "hooks": [
           {
             "type": "command",
-            "command": "cd $CLAUDE_PROJECT_DIR && python3 scripts/session_quality_gate.py 2>&1 | tail -15"
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && python3 scripts/session_quality_gate.py 2>&1 | tail -15",
+            "timeout": 30
           }
         ]
       },
@@ -18,7 +27,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-commit-check.sh"
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-commit-check.sh\"",
+            "timeout": 30
           }
         ]
       }
@@ -29,7 +39,28 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'FILE=\"${TOOL_INPUT_FILE_PATH:-$TOOL_INPUT_PATH}\"; if echo \"$FILE\" | grep -q \"SPEC.md\"; then echo \"SPEC MODIFIED. Run: python3 scripts/check_spec_quality.py $FILE\"; fi; if echo \"$FILE\" | grep -qE \"\\.py$\" && echo \"$FILE\" | grep -q \"src/\"; then echo \"CODE MODIFIED. Arabic text safe? Metadata preserved (D-023)?\"; fi'"
+            "command": "FILE=\"$CLAUDE_TOOL_FILE_PATH\"; if [ -z \"$FILE\" ]; then exit 0; fi; if echo \"$FILE\" | grep -qE '\\.py$'; then black \"$FILE\" 2>/dev/null || true; fi",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=\"$CLAUDE_TOOL_FILE_PATH\"; if [ -z \"$FILE\" ]; then exit 0; fi; if echo \"$FILE\" | grep -q 'SPEC.md'; then echo 'SPEC MODIFIED — run: python3 scripts/check_spec_quality.py '\"$FILE\"; fi; if echo \"$FILE\" | grep -qE '\\.py$' && echo \"$FILE\" | grep -q 'src/'; then echo 'CODE MODIFIED — verify: Arabic text safe? Metadata preserved (D-023)?'; fi",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "( FILE=\"$CLAUDE_TOOL_FILE_PATH\"; if [ -n \"$FILE\" ] && git -C \"$CLAUDE_PROJECT_DIR\" rev-parse --git-dir >/dev/null 2>&1; then git -C \"$CLAUDE_PROJECT_DIR\" add \"$FILE\" 2>/dev/null; echo \"[$(date '+%Y-%m-%d %H:%M:%S')] Modified: $FILE\" >> \"$CLAUDE_PROJECT_DIR/.claude/changes.log\"; fi ) &>/dev/null &; exit 0",
+            "timeout": 5
           }
         ]
       }
@@ -40,14 +71,28 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'echo \"POST-COMPACTION: Read NEXT.md for current task. Key rules: (1) Library IS the users knowledge — errors propagate silently. (2) Metadata never deleted (D-023). (3) Fail loud (D-033). (4) Multi-model consensus for content decisions. (5) Run quality checks before committing. (6) Follow ENGINE_PROTOCOL.md for the development process.\"'"
+            "command": "echo 'POST-COMPACTION RECOVERY: Read NEXT.md for current task. Critical rules: (1) Library IS the users knowledge — errors propagate silently. (2) Metadata never deleted (D-023). (3) Fail loud (D-033). (4) Multi-model consensus for content decisions. (5) Follow ENGINE_PROTOCOL.md. Read the active engines CLAUDE.md for current state.'"
+          }
+        ]
+      },
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo '--- git status ---' && git branch --show-current && git status --short | head -10 && echo '--- recent commits ---' && git log --oneline -5",
+            "timeout": 10
           }
         ]
       }
     ]
   },
   "permissions": {
+    "defaultMode": "acceptEdits",
     "allow": [
+      "Read", "Write", "Edit", "MultiEdit",
+      "Glob", "Grep", "LS", "Task",
+      "WebFetch", "WebSearch", "TodoWrite",
       "Bash(python *)", "Bash(python3 *)",
       "Bash(pip install *)", "Bash(pip3 install *)",
       "Bash(cd *)", "Bash(cat *)", "Bash(ls *)",
@@ -57,8 +102,15 @@
       "Bash(touch *)", "Bash(chmod *)", "Bash(git *)",
       "Bash(tree *)", "Bash(sed *)", "Bash(awk *)",
       "Bash(sort *)", "Bash(diff *)", "Bash(echo *)",
-      "Bash(jq *)", "Bash(curl *)",
-      "Bash(sha256sum *)", "Bash(md5sum *)"
+      "Bash(jq *)", "Bash(curl *)", "Bash(make *)",
+      "Bash(sha256sum *)", "Bash(md5sum *)",
+      "Bash(pytest *)", "Bash(black *)", "Bash(ruff *)",
+      "Bash(npx *)", "Bash(node *)"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(sudo rm:*)",
+      "Read(.env)"
     ]
   }
 }
