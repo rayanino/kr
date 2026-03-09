@@ -44,7 +44,7 @@ The owner places source material in the intake staging area (`library/staging/`)
 
 **Supported formats (Stage 1):**
 
-1. **Shamela HTML export.** Either (a) a single `.htm` file (single-volume book — 76.7% of real exports), or (b) a directory of numbered `.htm` files like `001.htm`, `002.htm`, etc. (multi-volume book — 23.3%). Some multi-volume books also have a `المقدمة.htm` file (11.6%). There is NO separate `info.html` metadata file — metadata is embedded in the first `PageText` div of each `.htm` file. Content files use `<div class='PageText'>` for pages, `<span class='title'>` for metadata labels and section headings, and `<span class='PageNumber'>` for page numbers. Detection criteria: `.htm`/`.html` file containing `<div class='PageText'>`, `<span class='title'>`, and `<div class='Main'>`. See `reference/SHAMELA_FORMAT_ANALYSIS.md` for the complete format specification derived from analysis of 2,519 real exports.
+1. **Shamela HTML export.** Either (a) a single `.htm` file (single-volume book — 76.7% of real exports), or (b) a directory of numbered `.htm` files like `001.htm`, `002.htm`, etc. (multi-volume book — 23.3%). Some multi-volume books also have a `المقدمة.htm` file (11.6%). There is NO separate `info.html` metadata file — metadata is embedded in the first `PageText` div of each `.htm` file. Content files use `<div class='PageText'>` for pages, `<span class='title'>` for metadata labels and section headings, and `<span class='PageNumber'>` for page numbers. Detection criteria: `.htm`/`.html` file containing `<div class='PageText'>`, `<span class='title'>`, and `<div class='Main'>`. The metadata card contains 50+ distinct field labels across the collection, including 20+ muhaqiq-equivalent editorial labels. The FIELD_MAP in §4.A.3 covers all labels with ≥5 occurrences; rarer muhaqiq labels are caught by pattern matching. See `reference/SHAMELA_FORMAT_ANALYSIS.md` for the HTML structural specification and `reference/SHAMELA_COLLECTION_AUDIT.md` for the empirical content-level analysis of the owner's full 2,256-book collection (field frequencies, quality anomalies, category distribution).
 
 2. **Plain text.** A single `.txt` file containing Arabic text. Metadata is minimal: title from the first non-empty line, author unknown. Most metadata comes from LLM inference (§4.A.4). Detection criteria: file with `.txt` extension.
 
@@ -517,29 +517,67 @@ def extract_shamela_metadata(source_path: Path) -> dict:
     FIELD_MAP = {
         # Primary fields → internal field names
         'الكتاب': 'title_full',
-        'اسم الكتاب': 'title_full',          # Alternative (2.8% of books)
+        'اسم الكتاب': 'title_full',          # Alternative (0.9%)
         'المؤلف': 'author_name_raw',
-        'المحقق': 'muhaqiq_name_raw',
-        'تحقيق': 'muhaqiq_name_raw',           # Alternative (7.0%)
-        'دراسة وتحقيق': 'muhaqiq_name_raw',   # Alternative (2.1%)
-        'تحقيق ودراسة': 'muhaqiq_name_raw',   # Alternative (1.0%)
-        'تحقيق وتعليق': 'muhaqiq_name_raw',   # Alternative (0.8%)
-        'راجعه': 'muhaqiq_name_raw',           # Reviewer = muhaqiq-equivalent
-        'راجعه ودققه': 'muhaqiq_name_raw',     # Alternative
+        # Muhaqiq-equivalent labels — all map to muhaqiq_name_raw.
+        # Frequencies from full-collection audit (2,256 books):
+        'المحقق': 'muhaqiq_name_raw',         # 32.4%
+        'تحقيق': 'muhaqiq_name_raw',           # 7.4%
+        'دراسة وتحقيق': 'muhaqiq_name_raw',   # 2.3%
+        'تحقيق ودراسة': 'muhaqiq_name_raw',   # 0.9%
+        'تحقيق وتعليق': 'muhaqiq_name_raw',   # 0.8%
+        'راجعه': 'muhaqiq_name_raw',           # 1.2%
+        'راجعه ودققه': 'muhaqiq_name_raw',     # <0.1%
+        'اعتناء وتخريج': 'muhaqiq_name_raw',  # 0.6%
+        'تخريج': 'muhaqiq_name_raw',           # 0.6%
+        'حققه وخرج أحاديثه': 'muhaqiq_name_raw',  # 0.6%
+        'تحقيق وتخريج': 'muhaqiq_name_raw',   # 0.5%
+        'حققه وعلق عليه': 'muhaqiq_name_raw',  # 0.5%
+        'اعتنى به': 'muhaqiq_name_raw',       # 0.4%
+        'تقديم وتحقيق': 'muhaqiq_name_raw',   # 0.4%
+        'حققه وخرج أحاديثه وعلق عليه': 'muhaqiq_name_raw',  # 0.4%
+        'مراجعة': 'muhaqiq_name_raw',          # 0.2%
+        'حققه': 'muhaqiq_name_raw',            # 0.2%
+        # Publishing fields
         'الناشر': 'publisher',
+        'دار النشر': 'publisher',              # Alternative (0.9%)
+        'توزيع': 'distributor',                # Distributor (0.3%) — format_specific_metadata
         'الطبعة': 'edition_raw',
         'عدد الأجزاء': 'volume_count_raw',
+        'عدد المجلدات': 'volume_count_raw',    # Alternative (0.2%)
         'عدد الصفحات': 'page_count_raw',
         'عدد صفحات (الكتاب الورقي)': 'page_count_raw',  # Alternative
         'عام النشر': 'publication_year_raw',
+        'سنة النشر': 'publication_year_raw',   # Alternative (0.4%)
         'تاريخ النشر بالشاملة': 'shamela_publish_date',
         'مصدر الكتاب': 'source_note',
         'تنبيه': 'editorial_note',
+        '[تنبيه]': 'editorial_note',           # Variant with brackets (0.3%)
+        # Multi-layer attribution fields (ground truth when present)
+        'مؤلف الأصل': 'original_author_name_raw',  # 0.3% — for sharh/hashiyah
+        'الشارح': 'commentator_name_raw',      # 0.3% — the commentator
+        # Compilation and translation
+        'جمع وترتيب': 'compiler_name_raw',    # 0.4% — compiler/arranger
+        'ترجمة': 'translator',                 # 0.2%
+        'تقديم': 'foreword_by',                # 0.8% — NOT muhaqiq
+        'قدم له': 'foreword_by',               # 0.5% — NOT muhaqiq
         # Thesis/academic fields
         'إعداد': 'author_name_raw',            # Thesis author (when المؤلف absent)
         'إشراف': 'supervisor',
         'رسالة': 'thesis_info',
+        'كود المادة': '_academic_course_code',  # Academic course metadata
+        'المرحلة': '_academic_level',           # Academic level
+        'العام الجامعي': '_academic_year',      # Academic year
+        # Source provenance
+        'أصل الكتاب': '_source_origin',        # 0.4% — original source of the work
+        'أصل التحقيق': '_tahqiq_origin',       # 0.4% — origin of the tahqiq (NOT a muhaqiq)
     }
+    
+    # Muhaqiq pattern matching for long-tail labels not in FIELD_MAP.
+    # These are labels containing editorial work stems that appear with
+    # <5 occurrences in the collection (50+ distinct variants found).
+    MUHAQIQ_STEMS = ['حقق', 'خرج', 'ضبط', 'صحح']
+    MUHAQIQ_EXCLUSIONS = ['أصل التحقيق', 'المحقق (رسالة علمية)']
     
     for m in re.finditer(
         r"<span class='title'>(.*?)(?:<font[^>]*>)?:(?:</font>)?</span>\s*(.*?)(?:<p>|<hr|$)",
@@ -554,10 +592,17 @@ def extract_shamela_metadata(source_path: Path) -> dict:
             if internal_name not in result or label in ('الكتاب', 'المؤلف', 'المحقق'):
                 result[internal_name] = value
                 result[f'_field_source_{internal_name}'] = label  # Track which label was used
+        elif value and label not in MUHAQIQ_EXCLUSIONS and any(stem in label for stem in MUHAQIQ_STEMS):
+            # Long-tail muhaqiq label caught by pattern matching.
+            # 50+ distinct editorial labels exist in the collection; the FIELD_MAP
+            # covers labels with ≥5 occurrences, this catches the rest.
+            if 'muhaqiq_name_raw' not in result:
+                result['muhaqiq_name_raw'] = value
+                result['_field_source_muhaqiq_name_raw'] = label
         elif value:
-            # Capture unmapped card fields (e.g., أصل التحقيق, تقديم, ترجمة,
-            # أعده للشاملة) in extra_card_fields rather than silently dropping them.
-            # 5 such fields found across 2,519 real exports.
+            # Capture unmapped card fields in extra_card_fields rather than silently
+            # dropping them. 31 distinct unmapped labels with ≥5 occurrences found
+            # across 2,256 real exports (see SHAMELA_COLLECTION_AUDIT.md §2.2).
             if '_extra_card_fields' not in result:
                 result['_extra_card_fields'] = {}
             result['_extra_card_fields'][label] = value
@@ -675,10 +720,97 @@ def extract_shamela_metadata(source_path: Path) -> dict:
             break
     result['text_sample'] = '\n'.join(body_text_parts)[:2000]
     
+    # --- Content quality inspection ---
+    # Five deterministic checks that produce a content-aware text_fidelity
+    # assessment. Calibrated against the full 2,256-book collection audit
+    # (see reference/SHAMELA_COLLECTION_AUDIT.md).
+    quality_issues = []
+    
+    # Check 1: Minimum content threshold.
+    # 12 books in the collection have <3 pages. Most are legitimate short
+    # texts (hadith ajza'), but some are export artifacts.
+    if body_page_count < 3:
+        quality_issues.append({
+            'check': 'content_minimal',
+            'severity': 'info',
+            'detail': f'Only {body_page_count} content pages'
+        })
+    
+    # Check 2: Page count consistency.
+    # 94 books (4.2%) have digital/physical ratio outside 0.15–8.0.
+    # A ratio < 0.15 means <15% of the claimed content is present —
+    # almost certainly a partial export. Near-zero false positives.
+    if '_physical_page_count' in result and body_page_count > 0:
+        physical = result['_physical_page_count']
+        if physical > 0:
+            ratio = body_page_count / physical
+            if ratio < 0.15:
+                quality_issues.append({
+                    'check': 'page_count_mismatch',
+                    'severity': 'warning',
+                    'detail': f'Digital pages ({body_page_count}) are {ratio:.0%} of '
+                              f'claimed physical pages ({physical}) — likely partial export'
+                })
+            elif ratio > 8.0:
+                quality_issues.append({
+                    'check': 'page_count_mismatch',
+                    'severity': 'info',
+                    'detail': f'Digital pages ({body_page_count}) exceed claimed physical '
+                              f'pages ({physical}) by {ratio:.1f}x — likely metadata error'
+                })
+    
+    # Check 3: Encoding quality.
+    # Zero U+FFFD found across 2,256 books (Shamela exports are clean UTF-8).
+    # This check is a safety net for edge cases not in the surveyed collection.
+    replacement_count = content.count('\ufffd')
+    if replacement_count > 0:
+        quality_issues.append({
+            'check': 'encoding_suspect',
+            'severity': 'warning',
+            'detail': f'{replacement_count} Unicode replacement characters found'
+        })
+    
+    # Check 4: Empty page ratio.
+    # Count pages with very little content after HTML stripping.
+    empty_page_count = 0
+    for i, seg in enumerate(page_segments):
+        if i <= 1:
+            continue
+        seg_text = strip_tags(seg).strip()
+        if len(seg_text) < 50:
+            empty_page_count += 1
+    if body_page_count > 10 and empty_page_count / body_page_count > 0.25:
+        quality_issues.append({
+            'check': 'high_empty_ratio',
+            'severity': 'warning',
+            'detail': f'{empty_page_count}/{body_page_count} pages have <50 chars of content'
+        })
+    
+    # Check 5: Truncation detection (secondary signal only).
+    # 39% of books fail this check standalone (80% false positive rate).
+    # Only meaningful when combined with page_count_mismatch.
+    has_page_mismatch = any(q['check'] == 'page_count_mismatch' for q in quality_issues)
+    if has_page_mismatch and body_page_count > 5:
+        last_body = body_text_parts[-1] if body_text_parts else ''
+        last_char = last_body.strip()[-1:] if last_body.strip() else ''
+        if last_char and last_char not in '.؟!»)﴾]،' and not last_char.isdigit():
+            quality_issues.append({
+                'check': 'truncation_with_mismatch',
+                'severity': 'warning',
+                'detail': 'Text ends without sentence-ending punctuation AND '
+                          'page count is inconsistent — strongly suggests truncated export'
+            })
+    
+    result['_quality_issues'] = quality_issues
+    
     # --- Store format-specific metadata ---
     result['format_specific_metadata'] = {}
     for key in ('shamela_category', 'shamela_publish_date', 'source_note', 
-                'editorial_note', 'thesis_info', 'supervisor'):
+                'editorial_note', 'thesis_info', 'supervisor', 'distributor',
+                'foreword_by', 'compiler_name_raw', 'translator',
+                'original_author_name_raw', 'commentator_name_raw',
+                '_academic_course_code', '_academic_level', '_academic_year',
+                '_source_origin', '_tahqiq_origin'):
         if key in result:
             result['format_specific_metadata'][key] = result[key]
     if result.get('has_muqaddima'):
@@ -687,6 +819,8 @@ def extract_shamela_metadata(source_path: Path) -> dict:
         result['format_specific_metadata']['physical_page_count'] = result['_physical_page_count']
     if '_extra_card_fields' in result:
         result['format_specific_metadata']['extra_card_fields'] = result['_extra_card_fields']
+    if quality_issues:
+        result['format_specific_metadata']['quality_issues'] = quality_issues
     
     return result
 ```
@@ -732,7 +866,10 @@ All other metadata (author, genre, science, structural format) comes from LLM in
 | `volume_count` | `volume_count` | From extractor or عدد الأجزاء field |
 | `shamela_category` | `format_specific_metadata.shamela_category` | NOT mapped to `science_scope` — that comes from LLM |
 | `text_sample` | — | Passed to LLM prompt, not stored in SourceMetadata |
-| `format_specific_metadata` | `format_specific_metadata` | Direct copy |
+| `format_specific_metadata` | `format_specific_metadata` | Direct copy. Includes `quality_issues` list from content quality inspection when non-empty. |
+| `_quality_issues` | — | Used by the engine to set `text_fidelity` (see §4.A.4). Not stored directly. |
+| `original_author_name_raw` | `format_specific_metadata.original_author_name_raw` | Ground truth for multi-layer detection when مؤلف الأصل is present (0.3% of books) |
+| `commentator_name_raw` | `format_specific_metadata.commentator_name_raw` | Ground truth for multi-layer detection when الشارح is present (0.3% of books) |
 
 **VolumeInfo construction.** For multi-volume sources, the engine constructs the `volumes: list[VolumeInfo]` during Step 7 (registration), after freezing:
 ```
@@ -799,15 +936,34 @@ After format-specific extraction produces a sparse metadata record, the engine u
     "school_affiliations": {"nahw": null, "fiqh": null},
     "scholarly_standing": "Classical grammarian, author of the most widely taught sharh of the Alfiyyah"
   },
-  "author_identification_confidence": 0.96
+  "author_identification_confidence": 0.96,
+  "attribution_status": "definitive",        // AttributionStatus enum: definitive, traditional, disputed, unknown
+  "attribution_notes": null,                  // Free text — only populated when status != definitive
+  "work_notes": null,                         // Free text — notable context about this work (historical
+                                              // significance, known controversies, partial loss, etc.)
+                                              // NOT used programmatically — for owner review and synthesis.
+  "muhaqiq_reputation_note": null             // Free text — when muhaqiq is identified, a one-sentence
+                                              // characterization of their editorial reputation. Used to
+                                              // contextualize the trust evaluation's tahqiq_quality factor.
 }
 ```
 
-Note: `text_fidelity` is NOT part of the LLM output. It is set deterministically by the engine after inference, based on `source_format`:
-- `shamela_html` → `"high"`, reason: `"Shamela structured HTML export — digital text, not OCR"`
-- `plain_text` → `"medium"`, reason: `"Plain text file — digital text, no structural markup"`
+Note: `text_fidelity` is NOT part of the LLM output. It is set deterministically by the engine after extraction, based on `source_format` AND content quality inspection results (§4.A.3):
 
-Both `text_fidelity` and `text_fidelity_reason` are set together. `text_fidelity_reason` is a required field in SourceMetadata.
+**Baseline by format:**
+- `shamela_html` → baseline `"high"`
+- `plain_text` → baseline `"medium"`
+
+**Content-aware downgrade (Shamela only).** If the extractor's content quality inspection (§4.A.3) found quality issues, the baseline is downgraded:
+- Any issue with severity `warning` → downgrade one level: `"high"` → `"medium"`, `"medium"` → `"low"`
+- Two or more `warning` issues → downgrade to `"low"` regardless of baseline
+- `page_count_mismatch` with ratio < 0.05 (less than 5% of claimed content present) → `"low"` directly
+
+**`text_fidelity_reason`** is constructed from the format baseline plus any quality issues found:
+- No issues: `"Shamela structured HTML export — digital text, not OCR"`
+- With issues: `"Shamela HTML, downgraded: {issue_detail_1}; {issue_detail_2}"`
+
+Both `text_fidelity` and `text_fidelity_reason` are set together. `text_fidelity_reason` is a required field in SourceMetadata. The specific quality issues are also stored in `format_specific_metadata.quality_issues` for downstream inspection.
 
 **Confidence field mapping.** After LLM inference, construct the `confidence_scores: InferredFieldConfidence` object from the LLM response:
 - `confidence_scores.genre` ← LLM `genre_confidence`
@@ -826,7 +982,25 @@ Author identification confidence goes into `author.confidence` (the `ScholarRefe
 
 **Confidence scoring.** Every inferred field carries a confidence score 0.0–1.0. Fields with confidence < 0.70 are added to `needs_review_fields`. Fields with confidence < 0.50 block the metadata write entirely (§5 Layer 1) and create a human gate checkpoint.
 
-**LLM response validation.** After parsing the LLM JSON response, validate each enum-constrained field: `genre` against `Genre` enum, `structural_format` against `StructuralFormat` enum, `authority_level` against `AuthorityLevel` enum, `level` against `WorkLevel` enum. If a field value is not in its enum: (1) check a configurable synonym table (e.g., `"منظومة"` → `"nazm"`, `"commentary"` → `"sharh"`) stored at `library/config/genre_synonyms.json`; (2) if no synonym match, set the field to the most conservative value (`"other"` for genre, `"mixed"` for structural_format) with confidence 0.50 and add to `needs_review_fields`; (3) log a WARNING with the invalid value for debugging prompt quality.
+**LLM response validation.** After parsing the LLM JSON response, validate each enum-constrained field: `genre` against `Genre` enum, `structural_format` against `StructuralFormat` enum, `authority_level` against `AuthorityLevel` enum, `level` against `WorkLevel` enum. If a field value is not in its enum: (1) check a configurable synonym table (e.g., `"منظومة"` → `"nazm"`, `"commentary"` → `"sharh"`) stored at `library/config/genre_synonyms.json`; (2) if no synonym match, set the field to the most conservative value (`"other"` for genre, `"mixed"` for structural_format) with confidence 0.50 and add to `needs_review_fields`; (3) log a WARNING with the invalid value for debugging prompt quality. Also validate `attribution_status` against the `AttributionStatus` enum (`definitive`, `traditional`, `disputed`, `unknown`). If invalid or missing, default to `traditional` (the safe assumption for classical works — attribution is conventional but not independently verified).
+
+**Attribution status.** The LLM assesses whether the work's authorship is historically secure. This captures a real phenomenon in Islamic scholarship where works circulate under an author's name by tradition rather than verified attribution. The `AttributionStatus` enum:
+- `definitive`: authorship is uncontested and well-documented (e.g., شرح ابن عقيل — definitively by Ibn Aqil)
+- `traditional`: authorship is conventionally accepted but not independently established (default for classical works)
+- `disputed`: authorship is actively contested among scholars (e.g., متن البناء — attributed to الزنجاني but some scholars attribute it to الدنقزي, and the muhaqiq found no conclusive evidence for any attribution)
+- `unknown`: no author is identified or identifiable
+
+When `attribution_status` is `disputed`, the `attribution_notes` field MUST contain a description of the dispute. The `author_identification_confidence` should be capped at 0.70 regardless of other signals — disputed attribution means the engine cannot be confident in ANY identification. This triggers human gate review (`SRC_AUTHOR_AMBIGUOUS`), which is the correct behavior: the owner needs to make a judgment call.
+
+When `attribution_status` is `unknown`, `author_identification_confidence` is set to 0.0, and the author falls to human gate.
+
+**Work-level scholarly context.** The `work_notes` field captures anything the LLM considers notable about the work itself (not the author): historical significance, known controversies, partial textual loss, known errors in popular editions, or the work's position in its scholarly tradition. This field is:
+- NOT used programmatically by any downstream engine
+- Surfaced to the owner during human gate review
+- Available to the synthesis engine for entry generation context
+- Left null when the LLM has nothing notable to report (this is the common case)
+
+**Muhaqiq reputation context.** When a muhaqiq is identified, the LLM also produces `muhaqiq_reputation_note`: a one-sentence characterization of the muhaqiq's editorial reputation in Islamic scholarship. For example: "Muhammad Muhyi al-Din Abd al-Hamid's tahqiq editions are widely considered among the finest in Arabic grammar and are standard references." This is stored in `SourceMetadata.muhaqiq_reputation_note` and contextualizes the trust evaluation's tahqiq_quality factor. When the muhaqiq is not recognized or the LLM has no knowledge of their reputation, this field is null.
 
 **Single-LLM biographical inference cap.** Scholar biographical data (death dates, school affiliations, teacher-student links) inferred by a single LLM are capped at confidence 0.85, regardless of what the LLM reports. This ensures single-model biographical data is always treated as provisional (§6).
 
@@ -839,11 +1013,12 @@ Author identification confidence goes into `author.confidence` (the `ScholarRefe
 
 **Multi-layer detection.** The engine must determine whether a source contains text from multiple authors (e.g., a sharh quoting the matn). 
 
-**CRITICAL FINDING:** Real Shamela desktop exports do NOT use CSS classes for text layers. No `class="matn"`, `class="sharh"`, or `class="hashiyah"` exists in any of 2,519 surveyed exports (see `reference/SHAMELA_FORMAT_ANALYSIS.md`). Multi-layer detection relies entirely on:
+**CRITICAL FINDING:** Real Shamela desktop exports do NOT use CSS classes for text layers. No `class="matn"`, `class="sharh"`, or `class="hashiyah"` exists in any of 2,519 surveyed exports (see `reference/SHAMELA_FORMAT_ANALYSIS.md`). Multi-layer detection relies on:
 
-1. **Genre inference:** A `sharh` is always multi-layer by definition (it contains the matn it comments on). A `hashiyah` is multi-layer (it contains the sharh and often the matn). A standalone `matn` is single-layer.
-2. **Title analysis:** Titles containing "شرح ... على ..." imply matn+sharh layers. Titles containing "حاشية ... على شرح ... على ..." imply three layers.
-3. **Content analysis (LLM):** The LLM examines the first 2000 characters for patterns that indicate quoted matn within commentary (e.g., verse lines followed by prose explanation).
+1. **Metadata card fields (ground truth when present):** The collection audit found that 0.3% of books have explicit `مؤلف الأصل` (original author) and/or `الشارح` (commentator) fields in the metadata card. When present, these provide definitive multi-layer evidence: if `مؤلف الأصل` ≠ `المؤلف`, the book is multi-layer. The extractor captures these as `original_author_name_raw` and `commentator_name_raw` in `format_specific_metadata`. The LLM prompt should include these fields when available.
+2. **Genre inference:** A `sharh` is always multi-layer by definition (it contains the matn it comments on). A `hashiyah` is multi-layer (it contains the sharh and often the matn). A standalone `matn` is single-layer.
+3. **Title analysis:** Titles containing "شرح ... على ..." imply matn+sharh layers. Titles containing "حاشية ... على شرح ... على ..." imply three layers.
+4. **Content analysis (LLM):** The LLM examines the first 2000 characters for patterns that indicate quoted matn within commentary (e.g., verse lines followed by prose explanation).
 
 When `is_multi_layer` is true, the `text_layers` field is populated with the type and author of each layer. The layer authors must be resolved to scholar authority records (creating new records if needed). This is critical because the normalization engine's layer detection depends on knowing which layers to expect (T-2 mitigation).
 
@@ -877,7 +1052,11 @@ LLM output:
     "school_affiliations": {"nahw": null},
     "scholarly_standing": "Author of the Alfiyyah, the most famous didactic poem in Arabic grammar"
   },
-  "author_identification_confidence": 0.99
+  "author_identification_confidence": 0.99,
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "work_notes": "The Alfiyyah of Ibn Malik is the single most influential didactic poem in Arabic grammar, forming the core of the nahw curriculum across all schools for over 700 years. It has generated more commentaries and hashiyat than any other grammar text.",
+  "muhaqiq_reputation_note": null
 }
 ```
 
@@ -1234,6 +1413,11 @@ The source engine calls `evaluate` twice during Step 4: once for author identifi
 | `SRC_SCHOLAR_SCHOOL_CONFLICT` | Warning | School affiliation enrichment contradicts | Block update. Human gate. |
 | `SRC_SCHOLAR_TEMPORAL_INCONSISTENCY` | Warning | Teacher-student death date gap > 30 years wrong direction | Flag. Human gate. |
 | `SRC_FORMAT_STRUCTURE_MISSING` | Warning | Expected structural element absent (e.g., Shamela file without PageText metadata card) | Fall back to minimal extraction + LLM inference. Flag all fields `needs_review`. |
+| `SRC_PAGE_COUNT_MISMATCH` | Warning | Digital page count is <15% or >800% of claimed physical page count | Downgrade `text_fidelity`. Log mismatch details. Source is still acquired but flagged. |
+| `SRC_CONTENT_MINIMAL` | Info | Source has fewer than 3 content pages | Log for owner awareness. May be legitimate (short ajza', risalahs). |
+| `SRC_ENCODING_SUSPECT` | Warning | Unicode replacement characters (U+FFFD) found in decoded text | Downgrade `text_fidelity`. Flag `text_fidelity` in `needs_review_fields`. |
+| `SRC_HIGH_EMPTY_RATIO` | Warning | >25% of pages have <50 characters of content | Downgrade `text_fidelity`. Possible export artifact. |
+| `SRC_ATTRIBUTION_DISPUTED` | Info | LLM identified the work's authorship as historically disputed | Log for owner awareness. Author confidence capped at 0.70 → triggers human gate. |
 
 **Deferred error codes** (only fire from deferred capabilities, not implemented in Stage 1): `SRC_OCR_LOW_QUALITY`, `SRC_REPO_UNAVAILABLE`, `SRC_KITAB_CACHE_MISSING`, `SRC_KITAB_CACHE_CORRUPT`, `SRC_USUL_DATA_MISSING`, `SRC_WIKIDATA_TIMEOUT`, `SRC_COMPARISON_DEFERRED`, `SRC_OPENITI_CACHE_CORRUPT`, `SRC_COMPARISON_INCONCLUSIVE`.
 
@@ -1312,6 +1496,7 @@ Stored in `library/config/genre_synonyms.json`. Maps common non-standard genre v
 - SHA-256 hash algorithm — changing breaks dedup and integrity.
 - `source_id` format (`src_{8_char_hash}`) — changing requires re-keying.
 - Trust tier names (`verified`, `flagged`, `owner_override`) — referenced by downstream engines.
+- Attribution status names (`definitive`, `traditional`, `disputed`, `unknown`) — affects author confidence capping and human gate triggers.
 - Freeze-before-process invariant — architectural guarantee.
 - Enrichment invariant set (9 invariants) — removing any opens a corruption path.
 
@@ -1399,3 +1584,11 @@ All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) ar
 - المقدمة.htm excluded from volume count, tracked in `format_specific_metadata.has_muqaddima`
 - Unmapped metadata card fields captured in `format_specific_metadata.extra_card_fields`
 - VolumeInfo construction logic added
+
+**SPEC Review Session Updates (Comment #1 — 2026-03-09):**
+- **New enum `AttributionStatus`:** `definitive`, `traditional`, `disputed`, `unknown`. Needs addition to `contracts.py`. Used in `SourceMetadata.attribution_status`.
+- **New fields on `SourceMetadata`:** `attribution_status` (AttributionStatus enum), `attribution_notes` (Optional[str]), `work_notes` (Optional[str]), `muhaqiq_reputation_note` (Optional[str]). All four need addition to `contracts.py`.
+- **Expanded FIELD_MAP:** 23 entries → 48 entries. New internal names introduced: `distributor`, `foreword_by`, `compiler_name_raw`, `translator`, `original_author_name_raw`, `commentator_name_raw`. These map to `format_specific_metadata` sub-fields, not top-level SourceMetadata fields.
+- **Content quality inspection:** `format_specific_metadata.quality_issues` (list of dicts with `check`, `severity`, `detail`). No contracts.py change needed — this is inside the existing `format_specific_metadata: dict` field.
+- **text_fidelity logic change:** Now content-aware (can downgrade from format baseline). No schema change — `text_fidelity` field and `TextFidelity` enum unchanged.
+- **New error codes:** `SRC_PAGE_COUNT_MISMATCH`, `SRC_CONTENT_MINIMAL`, `SRC_ENCODING_SUSPECT`, `SRC_HIGH_EMPTY_RATIO`, `SRC_ATTRIBUTION_DISPUTED`. Need addition to `ErrorCode` enum in `contracts.py`.
