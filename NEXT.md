@@ -1,186 +1,108 @@
-# NEXT — Source Engine Step 2: LLM Research & Prompt Engineering
+# NEXT — Source Engine Step 3: Build Prep
 
-**Session type:** RESEARCH — empirical testing of LLM assumptions
-**Goal:** Validate or revise the 5 [ASSUMPTION] markers in SPEC_CORE.md through real API calls against real fixtures.
+**Session type:** BUILD PREP — technology survey and Claude Code environment preparation
+**Skill:** `use kr-build-prep`
+**Goal:** Prepare everything Claude Code needs to build the source engine in 6 focused sessions.
 
 ---
 
 ## Context
 
-Step 1 (SPEC hardening) is locked after 6 review passes. The SPEC's deterministic components (extraction, hashing, dedup, trust arithmetic, validation) have been verified against all 12 real fixtures. What remains untested is everything that involves LLM inference: structured output, genre classification, author identification, multi-layer detection, and multi-model consensus.
+Steps 0–2 are complete. The source engine SPEC has been hardened through 8+ review passes (Step 1) and all LLM assumptions validated through empirical testing (Step 2). The SPEC is now the behavioral authority — no ASSUMPTION markers remain.
 
----
+**Step 2 Summary (evaluated in `engines/source/review/STEP2_EVALUATION.md`):**
+- A1 (JSON reliability): 100% parse, 0 enum violations across 6 models. Single-call prompt confirmed.
+- A2 (Multi-layer detection): 100% accuracy across 5 production models.
+- A3 (Name matching): Partially validated. KNOWN ISSUE: substring containment boost needed (A3-1).
+- A4 (Trust weights): 13/13 correct at threshold 0.65 (uniquely optimal). 900→1000 AH cutpoint resolved.
+- A5 (Consensus pair): Command A (Cohere) + Opus 4.6 (Anthropic). 92.3% "at least one right". Fallback: GPT-5.4 + Opus 4.6.
 
-## IMPORTANT: Test Design Before Testing
-
-Before making any API calls, the new session must:
-
-### 1. Validate ground truth with the owner
-`tests/fixtures/GROUND_TRUTH.json` contains expected correct answers, but 5 values are marked `_uncertain` and the rest were assigned by a non-specialist. The owner IS an Islamic studies student — ask him to validate or correct:
-- Genre classifications for all 13 fixtures (especially 01, 05, 07, 10, 12)
-- Multi-layer classification for fixture 05 (تعقبات على الجلالين)
-- Science scope for fixture 12 (مالك بن نبي memoirs)
-- Whether any fixtures need different expected values
-
-### 2. Define scoring criteria precisely
-For each field the LLM outputs, define what counts as correct:
-- `genre`: exact enum match? Or is `sharh` acceptable when ground truth says `hashiyah`?
-- `science_scope`: exact set match? Subset acceptable? Superset acceptable?
-- `author_identification`: name match threshold? Death date within how many years?
-- `is_multi_layer`: boolean exact match
-- `structural_format`: exact enum match
-
-### 3. Check fixture coverage for each assumption
-- A1 (JSON reliability): 6 fixtures is fine
-- A2 (multi-layer): only 1 confident multi-layer fixture (11). Is that enough? Can we add a known hashiyah? Are there sharh fixtures in the owner's collection we could add?
-- A3 (name matching): deterministic — no fixtures needed, just test pairs
-- A4 (trust weights): all 13 fixtures have expected trust tiers
-- A5 (consensus): need enough fixtures to measure meaningful agreement rates
-
-### 4. Build the evaluation harness
-Write the scoring script BEFORE the first API call so results are automatically evaluated. This prevents subjective "close enough" judgments.
-
----
-
-## The 5 Assumptions to Test
-
-### A1: LLM Structured JSON (§4.A.4, line ~981)
-**Claim:** LLM produces the full inference output schema reliably.
-**Test:** Send the inference prompt to each model with extracted metadata + text_sample for ≥6 fixtures. Measure JSON parse success, enum compliance, field completeness.
-**Fixtures:** 01_nahw_simple, 03_fiqh, 06_usul, 08_death_date, 11_multi_small, alfiyyah_versified
-**If fails:** Simplify schema, add few-shot examples, or split into multiple calls.
-
-### A2: Multi-Layer Detection (§4.A.4, line ~1050)
-**Claim:** LLM detects multi-layer composition ≥90% from genre + title + content.
-**Test:** Check is_multi_layer and layers output for fixtures with known answers.
-**Fixtures:** 11_multi_small (sharh → TRUE), 03_fiqh (standalone → FALSE), alfiyyah (matn → FALSE), 05_tafsir (UNCERTAIN — resolve with owner first)
-**If fails (<85%):** Add human gate for multi-layer classification.
-
-### A3: Scholar Name Matching (§4.A.5, line ~1203)
-**Claim:** normalized_name_similarity scoring produces correct match/no-match decisions.
-**Test:** Run the utility functions (defined in SPEC §4.A.1) on name pairs. Deterministic — no LLM needed.
-**If fails:** Adjust normalization rules or thresholds.
-
-### A4: Trust Weight Calibration (§4.A.8, line ~1311)
-**Claim:** Weights and 0.65 threshold produce correct verified/flagged assignments.
-**Test:** Compute trust scores for each fixture using the 5-factor algorithm. Compare against ground truth expected_trust.
-**If fails:** Adjust weights or threshold.
-
-### A5: Two-Model Consensus (§6, line ~1496)
-**Claim:** Two different-provider models catch more author identification errors than one.
-**Test:** Run the same inference prompt through multiple models. Compare author identification accuracy per-model and in pairs.
-**If fails:** Add third model, tighten human gate thresholds, or change pair.
-
----
-
-## Strategic Approach (4 phases)
-
-### Phase 0: Test Design (NO API calls)
-1. Get owner validation of ground truth (genre, multi-layer, science_scope)
-2. Define exact scoring criteria for each field
-3. Assess fixture coverage gaps, potentially add fixtures
-4. Build automated evaluation harness
-5. Validate A3 (name matching) and A4 (trust weights) — these are deterministic, need no LLM
-
-### Phase 1: Prompt Engineering (Anthropic — Claude Sonnet 4.6)
-Use `claude-sonnet-4-6` via Anthropic direct API for fast, cheap iteration on prompt structure.
-1. Draft the inference prompt from SPEC §4.A.4 requirements
-2. Run against 6 diverse fixtures, auto-score results
-3. Iterate until JSON parse rate ≥95%, enum compliance ≥95%
-4. Sonnet is correct here: we're testing prompt quality, not model capability. If the prompt works on Sonnet, it works better on Opus.
-
-### Phase 2: Multi-Model Accuracy (strongest tier from each provider)
-Run the validated prompt through the STRONGEST model from each provider.
-**Rationale:** Production will use the strongest models. Testing weaker models would give misleading accuracy/agreement numbers.
-
-**Models (verified available):**
-- `claude-opus-4-6` (Anthropic direct) — strongest Claude
-- `openai/gpt-5.4` (OpenRouter) — strongest GPT. Note: the direct OpenAI key only has GPT-4o; GPT-5.x requires OpenRouter.
-- `google/gemini-3.1-pro-preview` (OpenRouter) — strongest Gemini, very strong multilingual
-- `mistralai/mistral-large-2512` (OpenRouter or Mistral direct key) — strongest Mistral
-- `cohere/command-a` (OpenRouter) — Cohere's strongest
-
-**Cost estimate:** ~3500 input tokens per fixture × 13 fixtures × 5 models = ~230K tokens. At strongest-tier pricing, total ≈ $2-5. Cost is not a constraint.
-
-For each model, measure on all 13 fixtures:
-- JSON parse success rate
-- Per-field accuracy vs ground truth
-- Author identification accuracy
-- Multi-layer detection accuracy
-
-### Phase 3: Consensus Pair Selection
-Pick the pair that maximizes "at least one got it right" rate.
-Run full consensus flow on all fixtures with the production-tier pair.
-
----
-
-## Pre-built Resources
-
-**`tests/fixtures/EXTRACTED_DATA.json`** — Pre-extracted metadata and text samples for all 13 fixtures. Each entry has `prompt_context` (formatted metadata string) and `text_sample` (2000 chars of body text). Run `python3 scripts/extract_fixtures.py` to regenerate.
-
-**`tests/fixtures/GROUND_TRUTH.json`** — Expected answers. MUST BE VALIDATED BY OWNER before use.
-
-**`engines/source/contracts.py`** — Enum values the LLM must output:
-- Genre: matn, sharh, hashiyah, mukhtasar, nazm, risalah, taqrirat, mawsuah, fatawa, mujam, tabaqat, fiqh_comparative, hadith_collection, tafsir, sirah, tarikh, adab, other
-- StructuralFormat: prose, verse, qa_format, tabular_khilaf, dictionary, commentary, mixed
-- AuthorityLevel: primary, reference, modern_compilation
-- WorkLevel: beginner, intermediate, advanced, specialist
-
----
-
-## API Access
-
-### Setup (Claude Code)
-Create a `.env` file in repo root (it is gitignored):
-```
-ANTHROPIC_API_KEY=sk-ant-api03-...
-OPENROUTER_API_KEY=sk-or-v1-...
-```
-The test runner (`tests/test_llm_inference.py`) loads keys in this order: environment variable → `.env` file → `/mnt/project/` (Claude Chat) → repo root file. See `.env.example` for the template.
-
-### Which keys for which phase
-- **Phase 1** (prompt iteration): `ANTHROPIC_API_KEY` only — uses Sonnet 4.6
-- **Phase 2** (multi-model accuracy): `ANTHROPIC_API_KEY` + `OPENROUTER_API_KEY` — Opus via Anthropic, GPT-5.4/Gemini/Mistral/Cohere via OpenRouter
-- Optional: `MISTRAL_API_KEY` for Mistral direct (alternative to OpenRouter)
-
-**Important:** The direct OpenAI key lacks GPT-5. Use OpenRouter for GPT-5.4 and all non-Anthropic models in Phase 2.
-
-### Quick start commands
-```bash
-pip install -r requirements.txt                              # Install dependencies (httpx, pydantic needed)
-python3 tests/test_llm_inference.py --phase 1 --dry-run      # Verify setup, no API calls
-python3 tests/test_llm_inference.py --phase 1                 # Run Phase 1 (Sonnet iteration)
-python3 tests/test_llm_inference.py --phase 2                 # Run Phase 2 (all 5 models)
-python3 tests/test_llm_inference.py --phase 2 --model opus-4.6  # Single model
-python3 tests/test_llm_inference.py --phase 1 --fixture 06_usul  # Single fixture
-```
+**Two mandatory build-phase tasks from Step 2:**
+1. **Confidence calibration analysis** — extract confidence scores from Step 2 results, check correlation with accuracy. If models produce >0.90 on wrong answers, raise thresholds.
+2. **Name matching substring boost** — implement A3-1 fix in `normalized_name_similarity`.
 
 ---
 
 ## What to Read First
 
 1. `NEXT.md` (this file)
-2. `tests/STEP2_READINESS_VERIFICATION.md` — pre-flight verification summary (schema sync, model IDs, known issues)
-3. `tests/fixtures/GROUND_TRUTH.json` — expected answers (owner-validated)
-4. `tests/fixtures/EXTRACTED_DATA.json` — pre-extracted data for prompts
-5. `engines/source/SPEC_CORE.md` §4.A.4 lines 981-1203 — LLM inference spec
-6. `engines/source/SPEC_CORE.md` §6 lines 1496-1542 — consensus spec
-7. `engines/source/contracts.py` lines 115-160 — enum values
+2. `engines/source/review/STEP2_EVALUATION.md` — Step 2 evaluation with 5 binding decisions
+3. `engines/source/STRATEGIC_PLAN.md` Phase B — build prep work items
+4. `engines/source/SPEC_CORE.md` — the behavioral authority (all ASSUMPTION markers resolved)
+5. `engines/source/contracts.py` — the data authority
+6. `engines/source/prompts/inference_v1.py` — the validated prompt (draft-3, final)
+7. `KNOWLEDGE_INTEGRITY.md` — corruption threats
+
+---
+
+## Build Prep Work Items (from STRATEGIC_PLAN Phase B)
+
+### 1. Technology Survey
+Verify stack decisions:
+- BeautifulSoup4 + lxml → Shamela HTML parsing
+- hashlib → SHA-256 freezing (stdlib)
+- LiteLLM + Instructor → LLM inference via OpenRouter
+- Pydantic → schema validation (contracts.py exists)
+- **Research:** PyArabic vs CAMeL Tools for Arabic name normalization (including A3-1 substring boost)
+- **Verify:** Does Instructor's structured output mode work with Command A (Cohere) via OpenRouter?
+
+### 2. Deferred Code Quarantine
+`engines/source/src/` has ~28 Python files. Only ~19 are core. Explicitly exclude:
+- Extractors: `pdf.py`, `image.py`, `word.py`, `owner_authored.py`
+- Modules: `citation_discovery.py`, `gap_analysis.py`, `openiti_enrichment.py`, `enrichment.py`
+- Step 0 artifact: `tracer.py`
+
+### 3. Shared Component Requirements
+Produce `shared/{component}/REQUIREMENTS_source.md` for: consensus, human_gate, scholar_authority, validation.
+Cross-check against what the normalization engine will need.
+
+### 4. Resolve Trust Evaluation Tension
+ENGINE_PROTOCOL says "keep trust simple — 3-tier." SPEC_CORE has the full 5-factor algorithm, validated.
+**Resolution: SPEC_CORE wins.** Document explicitly in CLAUDE.md.
+
+### 5. Architecture Doc
+Map the 9-step acquisition pipeline to modules.
+
+### 6. Session Plans
+One per build session (6 sessions), following pipeline order:
+1. Staging + Format Detection + Extraction
+2. LLM Metadata Inference + Consensus
+3. Hashing + Dedup + Freezing
+4. Registration + Scholar Authority
+5. Trust Evaluation + Human Gate + Validation
+6. Integration + Plain Text + Error Paths
+
+### 7. Mandatory Step 2 Follow-ups
+- **Confidence calibration:** Add as explicit task in Session 2 plan (LLM inference session).
+- **Committed results summary:** Test runner should produce a committed summary (no raw API text, just per-fixture scores).
+
+---
+
+## Output Artifacts (per STRATEGIC_PLAN Phase B)
+
+| File | Purpose |
+|------|---------|
+| `engines/source/docs/architecture.md` | Module structure, 9-step pipeline mapping |
+| `engines/source/docs/technology-inventory.md` | Use/build/test decisions |
+| `shared/consensus/REQUIREMENTS_source.md` | What source engine needs from consensus |
+| `shared/human_gate/REQUIREMENTS_source.md` | What source engine needs from human_gate |
+| `shared/scholar_authority/REQUIREMENTS_source.md` | What source engine needs from scholar_authority |
+| `shared/validation/REQUIREMENTS_source.md` | What source engine needs from validation |
+| Updated `engines/source/CLAUDE.md` | Build instructions, deferred file list |
+| `engines/source/session-{1-6}-plan.md` | Per-session build plans |
 
 ---
 
 ## Done When
 
-- [x] Ground truth validated by owner (Phase 0) — 9 fields corrected across 6 fixtures
-- [x] Scoring criteria defined and evaluation harness built (Phase 0) — tests/SCORING_CRITERIA.md + tests/eval_harness.py
-- [x] A3 (name matching) validated deterministically (Phase 0) — KNOWN ISSUE: substring containment boost needed, deferred to build
-- [x] A4 (trust weights) validated deterministically (Phase 0) — 13/13 PASS at threshold 0.65 (uniquely optimal)
-- [x] Readiness verification complete (Phase 0) — prompt↔contracts sync, model IDs, eval harness bugs fixed. See tests/STEP2_READINESS_VERIFICATION.md
-- [x] A1: Inference prompt ≥95% JSON parse, ≥90% enum compliance (Phase 1) — 100% parse, 0 enum violations on Sonnet 4.6 (13/13). All 5 production models also 100% parse (Gemini 92% due to 1 timeout, not format issue). Prompt locked: inference_v1.py draft-3.
-- [x] A2: Multi-layer detection correct on all test cases or gated (Phase 1) — 100% accuracy across ALL 5 models on all 13 fixtures. Fixture 11 correctly detected as multi-layer, all others correctly single-layer.
-- [x] A5: Best consensus pair identified on production-tier models (Phase 2-3) — Top pair: Command A + Opus 4.6 (92.3% "at least one right", 15.4% complementarity, both 100% parse). Alternative: Gemini 3.1 + Command A (92.3%, 24.2% complementarity, but Gemini had 1 timeout). See tests/results/phase3_consensus.json.
-- [x] Draft prompt template saved to `engines/source/prompts/inference_v1.py`
-- [x] Final prompt templates saved to `engines/source/prompts/` — inference_v1.py draft-3 is the final version (passed all targets on first iteration, no changes needed)
-- [ ] All [ASSUMPTION] markers in SPEC resolved — A1, A2, A5 validated; markers can be removed during Step 3 build prep
+- [ ] Technology survey complete with use/build/test decisions
+- [ ] Deferred code quarantined (moved to `src/_deferred/` or listed in CLAUDE.md)
+- [ ] Shared component requirements written for all 4 components
+- [ ] Architecture doc maps pipeline to modules
+- [ ] 6 session plans written, each with narrow scope and clear "done when"
+- [ ] CLAUDE.md updated with build instructions
+- [ ] Trust evaluation tension resolved and documented
+- [ ] Confidence calibration task explicitly placed in a session plan
+- [ ] Name matching A3-1 fix explicitly placed in a session plan
 
-After Step 2: Evaluate results using `engines/source/STRATEGIC_PLAN.md` Phase A, then move to Step 3 (BUILD PREP — use kr-build-prep skill).
+After Step 3: Move to Phase C (BUILD) — Claude Code executes session plans.

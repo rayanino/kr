@@ -1087,9 +1087,9 @@ Author identification confidence goes into `author.confidence` (the `ScholarRefe
 
 **Constructing `needs_review_fields`.** After mapping confidences, iterate over `confidence_scores`: for each field with confidence < 0.70, add the field name to `needs_review_fields`. Also add `"author"` if the extractor found no `author_name_raw` field. This list drives the human gate review (§5 Layer 2).
 
-[ASSUMPTION — NEEDS STEP 2 TESTING] The LLM can produce this structured JSON reliably for well-known Islamic scholarly works. Testing should cover: (1) works with unambiguous titles like "شرح ابن عقيل", (2) works with ambiguous titles, (3) plain text with no metadata beyond a title line. Use real Shamela fixtures from `tests/fixtures/shamela_real/` for testing.
+**[VALIDATED — Step 2]** Structured JSON reliability confirmed: 100% JSON parse rate and 0 enum violations across 6 models (Sonnet 4.6, Opus 4.6, GPT-5.4, Gemini 3.1 Pro, Mistral Large, Command A) on all 13 fixtures. Prompt template: `engines/source/prompts/inference_v1.py` draft-3.
 
-**Confidence scoring.** Every inferred field carries a confidence score 0.0–1.0. Fields with confidence < 0.70 are added to `needs_review_fields`. Fields with confidence < 0.50 block the metadata write entirely (§5 Layer 1) and create a human gate checkpoint.
+**Confidence scoring.** Every inferred field carries a confidence score 0.0–1.0. Fields with confidence < 0.70 are added to `needs_review_fields`. Fields with confidence < 0.50 block the metadata write entirely (§5 Layer 1) and create a human gate checkpoint. **[PROVISIONALLY VALIDATED — Step 2]** Thresholds 0.70/0.50 are maintained as designed. Confidence calibration analysis (do models produce appropriately graded scores, or uniformly high scores even when wrong?) was not performed in Step 2 but the data exists in the test results. This analysis is a mandatory build-phase task — if models produce >0.90 confidence on wrong answers, thresholds must be raised.
 
 **LLM response validation.** After parsing the LLM JSON response, validate each enum-constrained field: `genre` against `Genre` enum, `structural_format` against `StructuralFormat` enum, `authority_level` against `AuthorityLevel` enum, `level` against `WorkLevel` enum. If a field value is not in its enum: (1) check a configurable synonym table (e.g., `"منظومة"` → `"nazm"`, `"commentary"` → `"sharh"`) stored at `library/config/genre_synonyms.json`; (2) if no synonym match, set the field to the most conservative value (`"other"` for genre, `"mixed"` for structural_format) with confidence 0.50 and add to `needs_review_fields`; (3) log a WARNING with the invalid value for debugging prompt quality. Also validate `attribution_status` against the `AttributionStatus` enum (`definitive`, `traditional`, `disputed`, `unknown`). If invalid or missing, default to `traditional` (the safe assumption for classical works — attribution is conventional but not independently verified).
 
@@ -1151,7 +1151,7 @@ Step 2 testing (A1) measures JSON parse rate and enum compliance. If the single-
 
 When `is_multi_layer` is true, the `text_layers` field is populated with the type and author of each layer. The layer authors must be resolved to scholar authority records (creating new records if needed). This is critical because the normalization engine's layer detection depends on knowing which layers to expect (T-2 mitigation).
 
-[ASSUMPTION — NEEDS STEP 2 TESTING] LLM multi-layer detection from genre + title + content achieves ≥ 90% accuracy. Test with: (1) a known sharh fixture, (2) the alfiyyah plain text (single-layer matn), (3) a standalone fiqh work. If accuracy is below 85%, the SPEC must add a human gate for multi-layer classification rather than trusting the LLM alone.
+**[VALIDATED — Step 2]** Multi-layer detection achieved 100% accuracy across all 5 production-tier models on all 13 fixtures. Fixture 11 (همع الهوامع, sharh) correctly detected as multi-layer; all 12 single-layer fixtures correctly classified. Caveat: only 1 true multi-layer fixture was tested. Edge cases (hashiyah, تقريرات, multi-sharh compositions) are deferred to Step 4 testing on the full collection. If Step 4 accuracy drops below 85%, add a mandatory human gate for multi-layer classification.
 
 **Author disambiguation.** When the author name is ambiguous (e.g., "ابن حجر" could be al-Asqalani d. 852 or al-Haytami d. 974), the LLM uses context clues: science scope, genre, death date, other metadata. If disambiguation confidence < 0.80, a human gate checkpoint is created with the candidate identities presented.
 
@@ -1268,7 +1268,7 @@ def compute_scholar_match_score(candidate_name, candidate_death_date,
 
 Scoring thresholds: ≥ 0.85 → auto-link; 0.50–0.85 → human gate; < 0.50 → new record.
 
-[ASSUMPTION — NEEDS STEP 2 TESTING] The name normalization and similarity scoring produce accurate matches. Test with: (1) exact match ("ابن عقيل" vs "ابن عقيل"), (2) variant spelling ("ابن عقيل الهمداني" vs "بهاء الدين ابن عقيل"), (3) different scholars with similar names ("ابن حجر العسقلاني" vs "ابن حجر الهيتمي").
+**[PARTIALLY VALIDATED — Step 2 Phase 0]** Name matching works correctly for similar-length names: exact matches score 1.0, different scholars (e.g., Ibn Hajar al-Asqalani vs al-Haytami) score ~0.64 and route to human gate correctly, teacher/student pairs (الزجاجي vs الزجاج) score ~0.79 correctly. **KNOWN ISSUE (A3-1):** Short-vs-long name comparison fails — "النووي" vs "أبو زكريا يحيى بن شرف النووي" scores 0.267, creating duplicate records for the same scholar. **MANDATORY BUILD FIX:** Add substring containment boost to `normalized_name_similarity`: if the shorter normalized form is fully contained in the longer, set score = max(score, 0.70). This forces short-form matches into the human gate zone at minimum. See `tests/PHASE0_FINDINGS.md` for full analysis.
 
 **Progressive enrichment.** Each time a source mentions an existing scholar, the engine checks whether the new source provides information the existing record lacks. If so, the record is updated (with all overwritten values preserved in `revision_history`).
 
@@ -1316,7 +1316,7 @@ The engine assesses each source's reliability to determine the default verified/
 
 | Factor | Weight | Input Source | Scoring Rules |
 |--------|--------|-------------|---------------|
-| Author scholarly standing | 0.30 | Scholar authority record | Classical scholar (death_date_hijri ≤ 900 AH AND scholarly_standing non-null AND the scholar's `sources_encountered_in` contains at least one source_id other than the current source): **0.90**. Known scholar (record exists in registry with at least one prior source): **0.70**. Unknown (record just created from this intake with no prior sources): **0.30**. |
+| Author scholarly standing | 0.30 | Scholar authority record | Classical scholar (death_date_hijri ≤ 1000 AH AND scholarly_standing non-null AND the scholar's `sources_encountered_in` contains at least one source_id other than the current source): **0.90**. Known scholar (record exists in registry with at least one prior source): **0.70**. Unknown (record just created from this intake with no prior sources): **0.30**. |
 | Tahqiq quality | 0.25 | Muhaqiq name | Recognized muhaqiq (in configurable list, §8): **0.90**. Unknown muhaqiq: **0.50**. No muhaqiq, pre-modern work (author death_date_hijri ≤ 1300): **0.40**. No muhaqiq, death date unknown: **0.35**. No muhaqiq, modern work (death_date_hijri > 1300 or contemporary): **0.30**. |
 | Publisher reputation | 0.15 | Publisher name | Publisher in known_publishers.json: use its configured score (0.55–0.80 depending on publisher). Unknown/absent: **0.40**. |
 | Source authority | 0.15 | `authority_level` | `primary`: **0.85**. `reference`: **0.60**. `modern_compilation`: **0.40**. |
@@ -1329,9 +1329,9 @@ The engine assesses each source's reliability to determine the default verified/
 - `flagged`: combined score < 0.65, OR any individual factor scores critically low (author_standing < 0.30 AND muhaqiq score < 0.40). Flag reason is recorded.
 - `owner_override`: owner has manually set the tier. Original evaluation preserved in metadata.
 
-[ASSUMPTION — NEEDS STEP 2 TESTING] The weights (0.30, 0.25, 0.15, 0.15, 0.15) and threshold (0.65) produce sensible results. Test with: (1) Ibn Aqil/Abd al-Hamid → expect verified, (2) unknown modern author/no muhaqiq/photos → expect flagged, (3) borderline cases.
+**[VALIDATED — Step 2 Phase 0]** Weights (0.30, 0.25, 0.15, 0.15, 0.15) and threshold 0.65 produce correct tier assignments for all 13 fixtures. Sensitivity analysis confirms 0.65 is the uniquely optimal threshold across the 0.55–0.75 range (only value achieving 13/13 correct). See `tests/PHASE0_FINDINGS.md`.
 
-[ASSUMPTION — NEEDS STEP 2 TESTING] The 900 AH cutpoint for "classical scholar" was chosen to capture pre-Ottoman classical scholarship. It excludes scholars like al-Suyuti (d. 911 AH) and Ibn Hajar al-Haytami (d. 974 AH) who are widely recognized classical authorities. Test whether raising to 1000 AH (mid-Ottoman) produces better trust calibration for the owner's collection. The owner should validate which scholars in his collection fall in the 900–1000 AH gap.
+**[RESOLVED — Step 2 Evaluation]** Classical scholar cutpoint raised from 900 AH to 1000 AH. Evidence: al-Suyuti (d. 911 AH, fixture 11) is unambiguously classical — one of the most prolific scholars in Islamic history. Other scholars in the 900–1000 AH gap include Ibn Hajar al-Haytami (d. 974), Zakariya al-Ansari (d. 926), al-Sha'rani (d. 973), al-Qastallani (d. 923). The 1000 AH boundary (mid-Ottoman period) captures the complete classical scholarship tradition.
 
 **Conservative bias.** When evaluation is genuinely uncertain, the source is flagged. Flagging a reliable source is correctable; verifying an unreliable source contaminates the library.
 
@@ -1497,7 +1497,7 @@ Source metadata is living. Downstream engines discover corrections via the enric
 
 Multi-model consensus is used for two primary decisions, plus a directed safety comparison on attribution status.
 
-**1. Author identification.** Two LLMs from different providers (configured in §8, default: Anthropic + OpenAI) independently process the metadata inference prompt. Agreement is defined as:
+**1. Author identification.** Two LLMs from different providers (configured in §8, default: Anthropic + Cohere, fallback: Anthropic + OpenAI) independently process the metadata inference prompt. Agreement is defined as:
 - **Existing scholar match:** Both models return the same `canonical_id` from the registry.
 - **New scholar (neither finds a match):** Both models agree no existing record matches, AND both models' author identification metadata agrees on (a) the canonical Arabic name after normalization (normalized_name_similarity ≥ 0.90), and (b) the death date within ±10 years (or both return null for death date).
 - **Disagreement:** One model matches an existing record, the other says "new" — OR both match different existing records — OR both say "new" but disagree on name/death date.
@@ -1533,9 +1533,9 @@ async def evaluate(task: str, prompt: str, models: list[str],
 
 The source engine calls `evaluate` twice during Step 4: once for author identification, once for work matching. Each call sends the same structured prompt to both models and parses the JSON output. The attribution_status directed comparison (§6.3) extracts `attribution_status` from the same per-model results used for author identification — it does not require a third `evaluate` call.
 
-[ASSUMPTION — NEEDS STEP 2 TESTING] Two-model consensus catches most attribution errors. Test: run the same prompt through Claude and GPT on 10+ fixtures. Measure agreement rate and accuracy of each model independently.
+**[VALIDATED — Step 2 Phase 3]** Two-model consensus validated across 5 production-tier models on 13 fixtures. Selected pair: Command A (Cohere) + Opus 4.6 (Anthropic), achieving 92.3% "at least one right" rate with 15.4% complementarity and 100% parse reliability for both models. Fallback pair: GPT-5.4 (OpenAI) + Opus 4.6 (tested, above 0.70 threshold). See `engines/source/review/STEP2_EVALUATION.md` for decision rationale.
 
-[ASSUMPTION — NEEDS STEP 2 TESTING] The directed attribution_status comparison catches false "definitive" classifications for works with disputed authorship. Test with: (1) متن البناء (known disputed attribution), (2) a well-known definitive work like شرح ابن عقيل, (3) works with traditional but unverified attribution. Measure: how often do the two models disagree on attribution_status? When they agree on "definitive," is it correct?
+**[DEFERRED — Step 2 Evaluation]** The directed attribution_status comparison could not be tested — all 13 fixtures have "definitive" attribution. The mechanism's logic is sound (conservative value wins when models disagree) and the implementation is straightforward. Empirical testing deferred to Step 4 on the full 2,519-book Shamela collection, which will include works with disputed/traditional attribution (e.g., contested Ghazali attributions, anonymous compilations, student compilations circulating under a teacher's name).
 
 ---
 
@@ -1599,7 +1599,9 @@ For consensus calls (§6), failure handling is defined in the consensus section.
 | `confidence_threshold_block` | 0.50 | 0.30–0.70 | Fields < this block metadata write |
 | `trust_score_verified_threshold` | 0.65 | 0.50–0.80 | Combined trust score ≥ this → verified |
 | `consensus_model_count` | 2 | 2–3 | Models for consensus |
-| `consensus_model_providers` | `["anthropic", "openai"]` | Valid provider list | Must be different providers |
+| `consensus_model_providers` | `["anthropic", "cohere"]` | Valid provider list | Must be different providers. Selected empirically in Step 2 Phase 3. |
+| `consensus_model_primary` | `{"anthropic": "claude-opus-4-6", "cohere": "cohere/command-a"}` | Valid model IDs | Primary consensus pair. Anthropic via direct API, Cohere via OpenRouter. |
+| `consensus_model_fallback` | `{"openai": "openai/gpt-5.4"}` | Valid model ID | Fallback non-Anthropic model if primary fails after retries. Via OpenRouter. |
 | `dedup_hash_algorithm` | `sha256` | `sha256` only | Hardcoded; changing breaks dedup |
 | `human_gate_batch_size` | 20 | 5–50 | Max pending checkpoints before alert |
 | `staging_lock_timeout` | 3600 | 300–86400 | Seconds before orphaned locks cleaned |
@@ -1785,7 +1787,7 @@ Self-review of the audit found 2 additional defects missed in the initial pass:
 
 **Integrity Audit — Attribution Status Safety Gap (2026-03-09):**
 Critical analysis of the self-review flagged item revealed a genuine safety gap, not a judgment call:
-- **(IMPORTANT)** `attribution_status` had ZERO protection against false "definitive" classification. A single-point-of-failure LLM error would disable the confidence cap (0.70) and human gate that protect against T-2 attribution errors, with no downstream correction mechanism. This contradicts KNOWLEDGE_INTEGRITY.md T-2 mitigation #1 ("Multi-model consensus for **all** attribution decisions"). Fix: added directed asymmetric comparison in §6 (if either model returns "disputed"/"unknown" while the other doesn't, use the conservative value + human gate), plus a §5 Layer 1 cross-check against prior sources of the same work. ASSUMPTION marker added for Step 2 testing. No contracts.py change needed — `CONSENSUS_DISAGREEMENT` trigger already exists.
+- **(IMPORTANT)** `attribution_status` had ZERO protection against false "definitive" classification. A single-point-of-failure LLM error would disable the confidence cap (0.70) and human gate that protect against T-2 attribution errors, with no downstream correction mechanism. This contradicts KNOWLEDGE_INTEGRITY.md T-2 mitigation #1 ("Multi-model consensus for **all** attribution decisions"). Fix: added directed asymmetric comparison in §6 (if either model returns "disputed"/"unknown" while the other doesn't, use the conservative value + human gate), plus a §5 Layer 1 cross-check against prior sources of the same work. No contracts.py change needed — `CONSENSUS_DISAGREEMENT` trigger already exists. *Step 2 resolution: directed comparison mechanism untestable (all 13 fixtures definitive). Deferred to Step 4 empirical testing.*
 
 **Integrity Audit — Pass 2, Fresh 8-Lens Systematic (2026-03-09):**
 Full re-audit with fresh eyes applying all 8 lenses to every section. 11 findings (1 critical, 4 important, 6 minor). No contracts.py changes needed — all fixes are SPEC-only:
@@ -1795,7 +1797,7 @@ Full re-audit with fresh eyes applying all 8 lenses to every section. 11 finding
 - **(IMPORTANT)** §4.A.8: Trust factor "tahqiq_quality" had no rule for (no muhaqiq + death date unknown). Fix: added explicit branch scoring 0.35.
 - **(IMPORTANT)** §4.A.8: "record existed before this intake" was ambiguous. Fix: replaced with explicit `sources_encountered_in` check.
 - **(MINOR)** §2.2 invariant #8: "downstream" engine ordering undefined. Fix: added formal pipeline ordering to §8.
-- **(MINOR)** §4.A.8: 900 AH "classical scholar" threshold excludes al-Suyuti et al. Fix: marked as [ASSUMPTION] for Step 2 testing.
+- **(MINOR)** §4.A.8: 900 AH "classical scholar" threshold excludes al-Suyuti et al. *Step 2 resolution: raised to 1000 AH.*
 - **(MINOR)** §4.A.3: Plain text title from first line captures bismillah. Fix: added preamble skip logic.
 - **(MINOR)** §5 Layer 1 check 3: referenced work_id confidence that doesn't exist as a field. Fix: clarified which fields are checked and why work_id is handled separately.
 - **(MINOR)** §2.2 invariant #8: enrichment_tracking expiry mechanism undefined. Fix: specified lazy expiry.

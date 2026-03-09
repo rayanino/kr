@@ -12,68 +12,21 @@ Validate the pipeline shape first with a tracer bullet. Then build a narrow pipe
 
 ## Where You Are
 
-Pre-engine. You need to complete setup, then run the tracer bullet (Step 0) before starting the source engine.
+Source engine Steps 0–2 complete. Step 3 (build prep) is next. The SPEC is hardened and all LLM assumptions are validated. Ready to prepare for the build phase.
 
 ---
 
 ## What You Should Do RIGHT NOW
 
-### 1. Setup (15 minutes, one time)
+### Step 3: Build Prep (1 session, Claude Chat)
 
-**Enable capabilities:**
-- Settings > Capabilities > Enable **Code execution and file creation**
+In the source engine project: "Use kr-build-prep."
 
-**Upload skills:**
-- Customize > Skills > Upload all 6 `.zip` files from `skills/` > Toggle ON
-- Test: in any chat, say "use kr-research" — if it activates, skills work
+This session produces the architecture doc, technology inventory, shared component requirements, 6 session plans, and updated CLAUDE.md. See `NEXT.md` for full scope.
 
-**Create the source engine project:**
-1. Create a new project: "Source Engine — محرك المصادر"
-2. Add knowledge from GitHub (`rayanino/kr`):
-   - `engines/source/`, `STEERING.md`, `KNOWLEDGE_INTEGRITY.md`, `SILENT_FAILURES.md`
-   - `reference/DOMAIN.md`, `reference/ENTRY_EXAMPLE.md`, `reference/DEEP_REASONING_PROTOCOL.md`
-   - `skills/shared/`, `NEXT.md`
-3. Paste custom instructions from `skills/engine-project-template/source.md`
-4. Keep `Github_key` as fallback knowledge
+### Then: Build (6 sessions, Claude Code)
 
-**Set up API keys:**
-- Copy `.env.template` to `.env`
-- Fill in: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `MISTRAL_API_KEY`
-- Needed for Step 2 (research/testing LLM assumptions)
-
-### 2. Tracer Bullet (Step 0)
-
-Before deepening any engine, validate that data can flow through all 7 engines end-to-end. This is 3-5 sessions that prevent weeks of rework from contract mismatches.
-
-All 7 engines already have SPECs and contracts.py files. The tracer bullet reconciles them (fixing mismatches between adjacent contracts), stubs the shared components (consensus, human_gate, scholar_authority, validation), builds rough engine stubs, and runs one Shamela HTML file through the full pipeline.
-
-In the source engine project: "We need to run Step 0 from ENGINE_PROTOCOL.md — the tracer bullet. Reconcile the existing 7 contracts.py files, stub the shared components, build engine stubs, and run html_export_minimal through the full pipeline."
-
-Output is documented in `reference/TRACER_FINDINGS.md`.
-
-### 3. Source Engine Step 1: Classify Core vs Deferred
-
-After the tracer bullet: "Use kr-core-extract on the source engine SPEC. Classify core vs deferred."
-
-Claude reads the full SPEC and produces a classification table — every capability tagged CORE or DEFERRED with extension hooks. Review this table and correct any misclassifications. Then Claude rewrites the SPEC focused on core only.
-
-### 4. Read the Core SPEC and Write Comments
-
-Read the rewritten SPEC. Focus on core behavior.
-
-As you read, write comments about the CORE behavior:
-- Things that are wrong ("Shamela puts the muhaqiq in the author field, not the author")
-- Things that are confusing ("I don't understand what trust evaluation means here")
-- Things that are missing ("What about books with multiple authors?")
-- Things that surprise you ("Why does it need an LLM for this?")
-
-Use the template in `skills/shared/COMMENT_TEMPLATE.md`. Save as `engines/source/owner-comments.md`.
-
-### 5. Resolve Comments
-
-In the source engine project, say: "I have comments on the core SPEC. Use kr-spec-review."
-
-Give Claude your comments in batches of 3-5. Claude will research each one deeply and propose SPEC changes. You decide.
+Claude Code executes the session plans, building the source engine one pipeline step at a time. Each session ends with committed, tested code.
 
 ---
 
@@ -99,14 +52,15 @@ Steps 1-4 repeat for all 7 engines in pipeline order. After every 2 engines, a l
 
 | Item | Status | Notes |
 |------|--------|-------|
-| Setup (capabilities, skills, project) | TODO | Owner action, 15 minutes |
-| API keys (.env file) | TODO | Owner action, needed for Step 2 |
-| **Step 0: Tracer bullet** | TODO | 3-5 sessions, reconcile contracts, stub shared components |
+| Setup (capabilities, skills, project) | DONE | |
+| API keys (.env file) | DONE | |
+| **Step 0: Tracer bullet** | DONE | Contract boundaries validated |
 | **Source engine** | | |
-| Step 1: SPEC core architecture | TODO | After tracer bullet. Heavy domain review needed. |
-| Step 2: Research assumptions | TODO | After SPEC passes kr-integrity |
-| Step 3: Build (incl. shared components) | TODO | Builds consensus, human_gate, scholar_authority, validation |
-| Step 4: Test + prove + gold baselines | TODO | Owner reviews Arabic output. Gold baselines created here. |
+| Step 1: SPEC core architecture | DONE | 8+ review passes, kr-integrity audit |
+| Step 2: Research assumptions | DONE | All 5 assumptions tested. See `engines/source/review/STEP2_EVALUATION.md` |
+| Step 3: Build prep | **ACTIVE** | Technology survey, session plans, shared component requirements |
+| Step 3: Build (incl. shared components) | BLOCKED | Waiting on build prep |
+| Step 4: Test + prove + gold baselines | BLOCKED | Waiting on build |
 | **Normalization engine** | BLOCKED | Waiting on source engine |
 | Lessons backward review | BLOCKED | After normalization Step 4 |
 | **Passaging engine** | BLOCKED | 25 HIGH-severity SPEC defects — needs substantive Step 1 work |
@@ -137,6 +91,10 @@ Steps 1-4 repeat for all 7 engines in pipeline order. After every 2 engines, a l
 | Repo audit round 2: archive old engine artifacts, handoffs, premature files | 2026-03-08 |
 | Meta-audit: apply kr-integrity lenses to ENGINE_PROTOCOL, fix 10 HIGH defects | 2026-03-08 |
 | Rewrite all 7 engine CLAUDE.md files for current protocol | 2026-03-08 |
+| Step 0: Tracer bullet — contract reconciliation, shared component stubs | 2026-03-09 |
+| Step 1: SPEC hardening — 8 review passes, integrity audit, core extraction | 2026-03-09 |
+| Step 2: LLM assumption testing — A1-A5 validated across 5 production models | 2026-03-09 |
+| Step 2 evaluation — 5 binding decisions, ASSUMPTION markers resolved | 2026-03-09 |
 
 ---
 
