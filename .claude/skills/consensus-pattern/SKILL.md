@@ -141,7 +141,7 @@ from shared.human_gate.src.checkpoint import HumanGateCheckpoint
 
 async def infer_with_consensus(
     source_id: str,
-    prompt: str,
+    messages: list[dict[str, str]],
     response_model: type[T],
 ) -> T:
     """Full consensus flow with human gate fallback.
@@ -151,7 +151,7 @@ async def infer_with_consensus(
     3. If they disagree → trigger human gate
     """
     response_a, response_b, agreed = await consensus_infer(
-        prompt=prompt,
+        messages=messages,
         response_model=response_model,
     )
 
