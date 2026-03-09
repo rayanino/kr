@@ -1037,6 +1037,7 @@ After format-specific extraction produces a sparse metadata record, the engine u
   "attribution_notes": null,                  // Free text — only populated when status != definitive
   "scholarly_context": {                       // LLM-inferred scholarly background (ScholarlyContext model)
     "composition_period": null,                // "Late comprehensive synthesis" / "Early work" / null
+    "composition_date_hijri": null,            // Approximate hijri year of composition, e.g. 670 / null
     "tradition_position": null,                // "Standard matn in the Shafi'i nahw curriculum" / null
     "known_textual_issues": [],                // ["Popular editions omit the final chapter"] or []
     "historical_significance": null,           // Notable context about the work — absorbs former work_notes
@@ -1108,7 +1109,8 @@ When `attribution_status` is `unknown`, `author_identification_confidence` is se
 
 **Field semantics:**
 - `composition_period`: whether this is an early, middle, or late work of the author, and what that implies for interpretation. Used by synthesis engine for intra-author contradiction resolution (§4.A.3 Step 4) — when an author's positions differ between two works, the later work may supersede.
-- `tradition_position`: the work's role in its scholarly tradition, encompassing reception history. Used by synthesis for authority weighting beyond the `authority_level` enum.
+- `composition_date_hijri`: approximate hijri year the work was composed, when the LLM has concrete knowledge. E.g. 670 for a work known to have been written around 670 AH. Null when unknown (the common case). Used by synthesis engine for retraction detection in intra-author contradiction resolution (§4.A.3 Step 4) — enables chronological ordering of an author's works. When null, synthesis falls back to `composition_period` (narrative proxy) or author death dates (rough proxy).
+- `tradition_position`: the work's role in its scholarly tradition, encompassing reception history. Used by synthesis for authority weighting beyond the `authority_level` enum (§4.A.4.2).
 - `known_textual_issues`: specific, documented problems with the work's textual transmission (not this edition — see `edition_known_issues`). The LLM must only populate this when it has concrete knowledge; an empty list is correct and preferred when uncertain. Used by synthesis for textual reliability caveats in the analytical layer.
 - `historical_significance`: what makes this work notable — historical importance, composition context, known controversies, the work's position in its scholarly lineage. Absorbs the former `work_notes` concept. Null when the work is unremarkable.
 - `muhaqiq_reputation`: one-sentence characterization of the tahqiq editor's reputation. Absorbs the former `muhaqiq_reputation_note` concept. Contextualizes the trust evaluation's tahqiq_quality factor.
@@ -1121,6 +1123,7 @@ When `attribution_status` is `unknown`, `author_identification_confidence` is se
 1. For `known_textual_issues` and `edition_known_issues`: populate ONLY with specific, documented knowledge. An empty list is correct and preferred when uncertain. Fabricating issues is worse than reporting none.
 2. For `context_richness`: self-assess honestly. "minimal" is the correct answer for obscure works.
 3. For `uncertain_dimensions`: list every field where the LLM has low confidence. Downstream engines use this as a veto list.
+4. For `composition_date_hijri`: provide the approximate hijri year ONLY when the LLM has concrete knowledge of when the work was composed. Null is correct when unknown. This field must be an integer (the hijri year), not a range or a narrative. When the LLM knows the work was composed "around the middle of the 7th century AH," it should output approximately 650. When it only knows the period ("early" vs "late"), leave `composition_date_hijri` as null and put the narrative in `composition_period` instead.
 
 **Inference call strategy.** The SPEC supports two approaches; Step 2 testing determines which to use:
 - **Single call:** The scholarly_context fields are added to the existing inference prompt. Simpler, lower latency, but risks degrading JSON reliability for the classification fields.
@@ -1759,7 +1762,7 @@ All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) ar
 - **New field on `SourceMetadata`:** `scholarly_context: Optional[ScholarlyContext]`. Null when context inference failed or was skipped. All downstream engines handle null gracefully.
 - **Absorbed fields:** `work_notes` → `scholarly_context.historical_significance`. `muhaqiq_reputation_note` → `scholarly_context.muhaqiq_reputation`. These are NOT added as standalone SourceMetadata fields.
 - **New fields on `ScholarAuthorityRecord`:** `sectarian_tradition` (Optional[str]) and `methodological_stance` (Optional[str]). Biographical/scholarly field count 22 → 24. `record_completeness` denominator updated.
-- **Inference output schema:** `work_notes` and `muhaqiq_reputation_note` replaced by `scholarly_context` block containing: `composition_period`, `tradition_position`, `known_textual_issues`, `historical_significance`, `muhaqiq_reputation`, `tahqiq_methodology_note`, `edition_known_issues`, `context_richness`, `uncertain_dimensions`.
+- **Inference output schema:** `work_notes` and `muhaqiq_reputation_note` replaced by `scholarly_context` block containing: `composition_period`, `composition_date_hijri`, `tradition_position`, `known_textual_issues`, `historical_significance`, `muhaqiq_reputation`, `tahqiq_methodology_note`, `edition_known_issues`, `context_richness`, `uncertain_dimensions`.
 - **Inference call strategy:** SPEC documents both single-call and two-call approaches. Step 2 testing determines which to use based on JSON reliability metrics.
 - **Design rationale:** Three rounds of critical review eliminated 11 originally proposed fields as redundant, misplaced, or over-engineered. Author-level context lives in ScholarAuthorityRecord (not duplicated per-source). No assembly utility function — the synthesis engine's existing metadata chain resolution handles joins. No era configuration file — synthesis engine handles periodization during narrative construction.
 
@@ -1797,3 +1800,11 @@ Full re-audit with fresh eyes applying all 8 lenses to every section. 11 finding
 - **(MINOR)** §5 Layer 1 check 3: referenced work_id confidence that doesn't exist as a field. Fix: clarified which fields are checked and why work_id is handled separately.
 - **(MINOR)** §2.2 invariant #8: enrichment_tracking expiry mechanism undefined. Fix: specified lazy expiry.
 - **(MINOR)** §9: contracts.py line count stale (825 → ~1000).
+
+**Downstream Contract Audit (2026-03-09):**
+Verified that the source engine produces every field consumed by all 6 downstream engines. Three gaps found and fixed:
+- **(HIGH — GAP 1)** Synthesis SPEC §4.A.1 and excerpting SPEC §2 referenced `library/registries/sources.json` for fields (`genre`, `authority_level`, `text_fidelity`, `publisher`, `muhaqiq`) that exist only in the full `SourceMetadata` at `library/sources/{source_id}/metadata.json`. The `SourceRegistryEntry` is a lightweight status index, not a bibliographic record. Fix: corrected both downstream SPECs to reference `metadata.json` for bibliographic fields. The source registry is the correct source for `trust_tier` and `processing_status` quick filtering only.
+- **(MEDIUM — GAP 2)** Synthesis SPEC §4.A.3 Step 4 referenced `composition_date` for intra-author retraction detection. No such field existed. Fix: added `composition_date_hijri: Optional[int]` to `ScholarlyContext` in contracts.py. Updated source SPEC_CORE field semantics, output example, and prompt design. Updated synthesis SPEC to reference `scholarly_context.composition_date_hijri` with fallback chain: composition_date_hijri → composition_period → author death dates.
+- **(HIGH — GAP 3)** `ScholarlyContext` (9 fields + 2 quality signals) was produced by the source engine with documented synthesis consumers, but the synthesis SPEC never referenced any of these fields. The source-side consumer claims were aspirational, not verified. Fix: added explicit scholarly_context consumption to synthesis SPEC §4.A.2 (metadata chain resolution step 6), §4.A.3 Step 4 (composition_date_hijri for retraction), and §4.A.4.2 (new "Source scholarly context integration" paragraph covering tradition_position, historical_significance, known_textual_issues, edition_known_issues, muhaqiq_reputation, tahqiq_methodology_note, context_richness, uncertain_dimensions). Updated contracts.py docstring to mark all consumer traces as verified.
+- **(MINOR)** Added `sectarian_tradition` guard to synthesis §4.A.5 Check 3 (school isolation). The field existed in `ScholarAuthorityRecord` with documented synthesis intent, but the synthesis SPEC's school isolation check did not reference it.
+- **(MINOR)** Fixed excerpting SPEC §4.B.2 naming: `source_authority` → `authority_level` (matching contracts.py `AuthorityLevel` enum).

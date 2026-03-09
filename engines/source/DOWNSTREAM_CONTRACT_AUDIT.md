@@ -394,9 +394,14 @@ All 3 consumption points SATISFIED. No gaps.
 
 **Recommended resolution:** Add `composition_date_hijri: Optional[int]` to `ScholarlyContext` (or directly to `SourceMetadata`). The LLM inference prompt should extract an approximate hijri date when it has knowledge of when a work was composed. When unknown, the field remains null and the existing fallback engages. Also update the synthesis SPEC to reference the correct field path: `scholarly_context.composition_date_hijri` rather than bare `composition_date`.
 
-### No Other Gaps
+### GAP 3: ScholarlyContext Orphaned — Source Produces, Synthesis Never Consumes (HIGH)
 
-All other consumption points across all 6 downstream engines are SATISFIED. The source engine's output coverage is comprehensive for the current SPEC state.
+**Location:** Source engine contracts.py `ScholarlyContext` model (10 fields), synthesis SPEC.md (entire document)
+**Nature:** The source engine produces `ScholarlyContext` with extensive docstrings claiming traced synthesis consumers (e.g., "Used by synthesis engine for intra-author contradiction resolution"). However, a search across ALL 6 downstream SPECs reveals zero references to `scholarly_context`, `composition_period`, `tradition_position`, `known_textual_issues`, `historical_significance`, `context_richness`, `uncertain_dimensions`, `edition_known_issues`, `tahqiq_methodology_note`, or `muhaqiq_reputation`. The only downstream reference is the normalization SPEC explicitly noting it does NOT read `scholarly_context`.
+
+**Impact:** The synthesis engine's analytical layer (§4.A.4.2) describes generating context via its own LLM research (`grounding_type: "llm_research"`), but never mentions reading pre-computed context from source metadata. If Claude Code implements the synthesis SPEC as written, 10 source-engine-produced fields are generated, stored, and never consumed — wasted computation and missed narrative enrichment.
+
+**Resolution:** Added explicit scholarly_context consumption to synthesis SPEC: §4.A.2 (metadata chain resolution step 6 with context_richness gating and uncertain_dimensions veto), §4.A.3 Step 4 (composition_date_hijri for retraction detection), §4.A.4.2 (new "Source scholarly context integration" paragraph covering all fields). Updated contracts.py docstring to mark consumer traces as verified.
 
 ---
 
@@ -414,10 +419,34 @@ Three downstream SPECs (normalization, passaging, atomization) use `multi_layer`
 
 The atomization engine's concordance entry defines `science_scope: string` (singular) while the source engine provides `science_scope: list[str]` (array). The atomization engine must select the primary science from the list. This is a minor type adaptation, not a gap — the data exists.
 
-### Finding S-4: `scholarly_context` downstream handling is well-designed
+### Finding S-4 (REVISED): `scholarly_context` was orphaned, now integrated
 
-The `ScholarlyContext` model's design — Optional on `SourceMetadata`, with explicit `context_richness` and `uncertain_dimensions` fields, and documented graceful degradation — cleanly handles the case where LLM inference fails or produces low-quality output. All downstream engines documented to handle null gracefully. This is a positive finding.
+**Original finding (incorrect):** Praised `ScholarlyContext` as "well-designed" with "all downstream engines documented to handle null gracefully."
 
-### Finding S-5: `sectarian_tradition` not explicitly referenced in synthesis SPEC
+**Self-review correction:** This was wrong. The model's design IS good (Optional, context_richness gating, uncertain_dimensions veto), but no downstream SPEC actually referenced it. "Documented to handle null gracefully" was based on the source-side docstring's claim, not verified against downstream SPECs. The self-review identified this as the audit's most serious error — trusting source-side consumer claims without independent verification of downstream SPECs.
 
-The `ScholarAuthorityRecord.sectarian_tradition` field's docstring says it "Prevents silent mixing of traditions from different sectarian contexts in synthesis." However, the synthesis SPEC's school isolation check (§4.A.5 Check 3) checks excerpt `school` values, not `sectarian_tradition`. The field exists and is available, but the synthesis SPEC should explicitly reference it in the school isolation check to ensure the guard actually fires during implementation. This is a documentation gap, not a data gap.
+**Resolution (implemented):** Reclassified as GAP 3 (HIGH). Added explicit scholarly_context consumption to synthesis SPEC. The contracts.py docstring's consumer traces are now verified.
+
+### Finding S-5 (RESOLVED): `sectarian_tradition` now referenced in synthesis SPEC
+
+**Original finding:** The `ScholarAuthorityRecord.sectarian_tradition` field was not referenced in synthesis §4.A.5 Check 3.
+
+**Resolution (implemented):** Added `sectarian_tradition` guard to Check 3, preventing cross-tradition contamination that school-level isolation alone would miss.
+
+### Finding S-6 (NEW): Excerpting SPEC `source_authority` naming mismatch
+
+The excerpting SPEC §4.B.2 line 636 used `source_authority` to refer to the authority ranking of sources. The contracts.py field is `authority_level` (enum `AuthorityLevel` with values `primary`, `reference`, `modern_compilation`). Corrected in excerpting SPEC.
+
+### Finding S-7 (NEW): Synthesis `text_fidelity_distribution` absent from contracts
+
+The synthesis SPEC §4.B.4 lists `text_fidelity_distribution` as a quality assessment dimension, but the synthesis `contracts.py` `QualityAssessment` model does not include this field. Similarly, `confidence_summary` is listed in §3.1 `generation_metadata` but absent from `GenerationMetadata` in contracts.py. Both are synthesis-internal contract gaps, not source engine gaps, but they affect how source engine data (`text_fidelity`, `confidence_scores`) flows into synthesis output. Flagged for synthesis engine build-prep.
+
+---
+
+## Implementation Status
+
+All three gaps and findings S-5, S-6 resolved in this session:
+- `contracts.py`: Added `composition_date_hijri: Optional[int]` to `ScholarlyContext`. Updated docstring with verified consumer traces.
+- Source `SPEC_CORE.md`: Documented `composition_date_hijri` in field semantics, output example, prompt design. Added CHANGELOG entry.
+- Synthesis `SPEC.md`: Fixed metadata chain resolution path (metadata.json, not sources.json). Added scholarly_context as resolution step 6. Fixed Step 4 composition_date reference with three-level fallback. Added "Source scholarly context integration" paragraph to §4.A.4.2. Added sectarian_tradition to Check 3.
+- Excerpting `SPEC.md`: Fixed metadata access path (metadata.json for bibliographic fields, scholars.json for biographical). Fixed `source_authority` → `authority_level`.

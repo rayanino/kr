@@ -58,7 +58,7 @@ Each atom record conforms to the atom schema (`atom_v2.0`) as defined in the ato
 
 The excerpting engine also accesses:
 
-- **Source metadata** via `source_id` reference: author biography, school affiliations, work genre, trust tier, text fidelity, work relationships. Accessed from `library/registries/sources.json` and `library/registries/scholars.json`.
+- **Source metadata** via `source_id` reference: author biography, school affiliations, work genre, authority level, trust tier, text fidelity, work relationships. Bibliographic fields (genre, authority level, text fidelity, work relationships, publisher, muhaqiq) are accessed from `library/sources/{source_id}/metadata.json`. Scholar biographical data (school affiliations, death dates, teachers, students, methodological stance) is accessed from `library/registries/scholars.json` via `author.canonical_id`. The source registry (`library/registries/sources.json`) provides `trust_tier` and `processing_status` for quick filtering but does not carry the full bibliographic metadata.
 - **Passage metadata** via `passage_id` reference: `division_path`, `physical_pages`, `structural_format`, `content_flags`, `text_layers`, `verse_info`. Accessed from the passage stream.
 
 **Validation on input:**
@@ -633,7 +633,7 @@ self_containment_score: 0.92   (complete: definition + explanation)
    - `paraphrase`: Same scholarly content expressed differently. The underlying position, evidence, or definition is the same.
    - `related_not_duplicate`: Similar topic and partially overlapping content, but substantively different arguments or conclusions.
 
-4. **Primary source identification.** For `verbatim_duplicate` and `shared_quotation` pairs, the engine identifies which excerpt is from the "primary" source (the original author, the earlier chronological source, the higher-authority source based on `source_authority` metadata). The synthesizer will cite the primary source and reference the others.
+4. **Primary source identification.** For `verbatim_duplicate` and `shared_quotation` pairs, the engine identifies which excerpt is from the "primary" source (the original author, the earlier chronological source, the higher-authority source based on `authority_level` metadata — primary > reference > modern_compilation). The synthesizer will cite the primary source and reference the others.
 
 **Output:** `semantic_duplicates` field on the excerpt (array of objects): `{ target_excerpt_id: string, target_source_id: string, relationship: enum(verbatim_duplicate, shared_quotation, paraphrase, related_not_duplicate), confidence: float, primary_source: string|null }`.
 

@@ -373,15 +373,19 @@ class ScholarlyContext(BaseModel):
 
     This model stores ONLY genuinely new LLM-inferred context that
     enables the synthesis engine to build richer analytical narratives.
-    Every field here has a traced downstream consumer:
+    Every field here has a traced and verified downstream consumer
+    (verified by downstream contract audit, 2026-03-09):
 
-    - composition_period → synthesis §4.A.3 Step 4 (intra-author contradiction)
-    - tradition_position → synthesis authority weighting
-    - known_textual_issues → synthesis textual reliability caveats
-    - historical_significance → synthesis analytical layer framing
-    - muhaqiq_reputation → trust evaluation context
-    - tahqiq_methodology_note → trust evaluation + synthesis quality caveats
-    - edition_known_issues → synthesis quality caveats
+    - composition_date_hijri → synthesis §4.A.3 Step 4 (intra-author retraction detection)
+    - composition_period → synthesis §4.A.3 Step 4 (intra-author contradiction narrative)
+    - tradition_position → synthesis §4.A.4.2 (analytical layer authority weighting)
+    - known_textual_issues → synthesis §4.A.4.2 (analytical layer quality caveats)
+    - historical_significance → synthesis §4.A.4.2 (analytical layer framing)
+    - muhaqiq_reputation → trust evaluation context + synthesis §4.A.4.2 (citation quality notes)
+    - tahqiq_methodology_note → trust evaluation + synthesis §4.A.4.2 (citation quality notes)
+    - edition_known_issues → synthesis §4.A.4.2 (analytical layer quality caveats)
+    - context_richness → synthesis §4.A.2 (scholarly context reliance gating)
+    - uncertain_dimensions → synthesis §4.A.2 + §4.A.4.2 (field-level veto list)
 
     Optional on SourceMetadata — null means the context inference call
     failed or was skipped. All downstream engines handle null gracefully
@@ -396,6 +400,18 @@ class ScholarlyContext(BaseModel):
                     "reflecting the author's mature methodology' or 'Early work, "
                     "may not represent final positions'. Used by synthesis engine "
                     "for intra-author contradiction resolution (§4.A.3 Step 4)."
+    )
+    composition_date_hijri: Optional[int] = Field(
+        None,
+        description="Approximate hijri year the work was composed, when the LLM "
+                    "has knowledge of this. E.g. 670 for a work known to have "
+                    "been written around 670 AH. Used by synthesis engine for "
+                    "intra-author retraction detection (§4.A.3 Step 4) — when "
+                    "an author's positions differ between two works, the later "
+                    "work may supersede the earlier. Null when the composition "
+                    "date is unknown (the common case for classical works). When "
+                    "null, synthesis falls back to composition_period (narrative "
+                    "proxy) or author death dates (rough proxy)."
     )
     tradition_position: Optional[str] = Field(
         None,
