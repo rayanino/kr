@@ -67,7 +67,7 @@ Downstream engines write metadata corrections back to source records via structu
 7. **Referential integrity.** `author.canonical_id` must resolve in `scholars.json`, `work_id` must resolve in `works.json`.
 8. **Re-processing depth limit.** When enrichment triggers downstream re-processing and the re-processed output generates a further enrichment on the same source field that was just changed, the second enrichment is NOT auto-submitted. A human gate checkpoint is created instead.
 
-   **Detection mechanism:** The engine maintains a per-source `recent_enrichments` dict (in memory during processing, persisted as part of the metadata record's `enrichment_tracking` field between sessions — see `SourceMetadata.enrichment_tracking` in contracts.py). Structure: `{field_name: {"changed_by": engine_name, "timestamp": iso_str, "generation": int}}`. The `generation` counter starts at 1 for the first enrichment to a field and increments each time. When a new enrichment arrives for a field that already has a `recent_enrichments` entry AND the entry's `generation` ≥ 1 AND the new enrichment was triggered by re-processing of the previous enrichment's change (detected by: the `requesting_engine` is downstream of the engine that made the previous change, AND the timestamp is within `enrichment_cycle_timeout` of the previous change, default 3600 seconds), the enrichment is blocked and a human gate checkpoint is created with trigger `ENRICHMENT_CRITICAL_FIELD` and detail explaining the cycle. The `recent_enrichments` entries expire after `enrichment_cycle_timeout` seconds — after that, a new enrichment to the same field is treated as a fresh change, not a cycle.
+   **Detection mechanism:** The engine maintains a per-source `recent_enrichments` dict (in memory during processing, persisted as part of the metadata record's `enrichment_tracking` field between sessions — see `SourceMetadata.enrichment_tracking` in contracts.py). Structure: `{field_name: {"changed_by": engine_name, "timestamp": iso_str, "generation": int}}`. The `generation` counter starts at 1 for the first enrichment to a field and increments each time. When a new enrichment arrives for a field that already has a `recent_enrichments` entry AND the entry's `generation` ≥ 1 AND the new enrichment was triggered by re-processing of the previous enrichment's change (detected by: the `requesting_engine` is downstream of the engine that made the previous change, AND the timestamp is within `enrichment_cycle_timeout` of the previous change, default 3600 seconds), the enrichment is blocked and a human gate checkpoint is created with trigger `ENRICHMENT_CRITICAL_FIELD` and detail explaining the cycle. The `recent_enrichments` entries expire after `enrichment_cycle_timeout` seconds — after that, a new enrichment to the same field is treated as a fresh change, not a cycle. Expiry is checked lazily: when a new enrichment arrives for a field that has an existing entry, the engine checks the entry's timestamp against the current time. If the difference exceeds `enrichment_cycle_timeout`, the entry is deleted and the new enrichment is treated as fresh (generation resets to 1).
 9. **Verification context for critical fields.** Enrichments to `author.canonical_id`, `work_id`, `genre`, or `science_scope` must include a `verification_context` with `expected_work_id` and `expected_author_canonical_id` matching the actual source. Mismatches cause rejection (catches source_id targeting errors).
 
 **Critical field enrichment gate.** Enrichments to `author.canonical_id`, `work_id`, `genre`, or `science_scope` — regardless of source — trigger: (a) WARNING-level logging of old and new values, (b) human gate checkpoint for owner confirmation before applying, (c) stale-marking cascade on all downstream products from this source if confirmed.
@@ -207,9 +207,32 @@ def generate_slug(arabic_text: str, table: dict) -> str:
 
 The table is extensible by the owner. Slug generation checks `scholars` and `titles` tables separately for author and title components.
 
-**Utility function definitions.** The following functions are used by slug generation (above), scholar matching (§4.A.5), and work matching. They are shared utilities, not engine-specific.
+**Utility function definitions.** The following functions are used by metadata extraction (§4.A.3), slug generation (above), scholar matching (§4.A.5), and work matching. They are shared utilities, not engine-specific.
 
 ```
+import html as html_module
+
+def strip_tags(html_text: str) -> str:
+    """Remove HTML tags and decode HTML entities.
+    
+    Two-step process:
+    1. Remove all HTML tags: <anything> → empty string
+    2. Decode HTML entities: &nbsp; → space, &amp; → &, &#NNN; → character
+    
+    Used by the Shamela extractor (§4.A.3) to extract clean text from
+    the metadata card and body pages.
+    
+    >>> strip_tags("<span class='title'>الكتاب</span>")
+    'الكتاب'
+    >>> strip_tags("Title&nbsp;&nbsp;Extra")
+    'Title  Extra'
+    >>> strip_tags("<b>bold &#1576;</b>")
+    'bold ب'
+    """
+    text = re.sub(r'<[^>]+>', '', html_text)
+    return html_module.unescape(text)
+
+
 ARABIC_DIACRITICS = '\u064B\u064C\u064D\u064E\u064F\u0650\u0651\u0652\u0670'
 # Fathatan, Dammatan, Kasratan, Fatha, Damma, Kasra, Shadda, Sukun, Alef superscript
 
@@ -399,7 +422,11 @@ def _is_shamela_html(htm_file: Path) -> bool:
 
 For single-file books, the staged item is a single `.htm` file. For multi-volume books, it is a directory of numbered `.htm` files (e.g., `001.htm`, `002.htm`, ...). See `reference/SHAMELA_FORMAT_ANALYSIS.md` for the complete structural specification.
 
-**Step 3: Metadata extraction.** Format-specific extractor runs (§4.A.3). Produces a sparse `dict` of extracted fields.
+**Step 3: Encoding detection and metadata extraction.** Before running the format-specific extractor, detect file encoding:
+- For `shamela_html`: assume UTF-8 (validated across 2,256 exports — zero exceptions found). If `read_text(encoding='utf-8')` raises `UnicodeDecodeError`, abort with `SRC_UNSUPPORTED_FORMAT` and message "Shamela file is not valid UTF-8."
+- For `plain_text`: read first 8192 raw bytes and detect encoding using `charset_normalizer` (preferred) or `chardet`. Accept UTF-8, CP1256, or ISO-8859-6 with confidence ≥ 0.80. If detected encoding is not UTF-8, decode with the detected encoding and work with the decoded text for all metadata extraction (the frozen file in Step 6 preserves the original bytes regardless). If detection confidence < 0.80 or encoding is none of {UTF-8, CP1256, ISO-8859-6}: abort with `SRC_UNSUPPORTED_FORMAT` and message suggesting the owner verify the file encoding. Store the detected encoding in `format_specific_metadata.detected_encoding`.
+
+Then run the format-specific extractor (§4.A.3). Produces a sparse `dict` of extracted fields. The extractor uses the detected encoding to read file contents (not hardcoded UTF-8 for plain text).
 
 **Step 4: Metadata inference.** LLM enriches the sparse metadata (§4.A.4). Author identification and work matching use multi-model consensus (§6).
 
@@ -885,11 +912,21 @@ If the metadata card has no `author_name_raw` field — meaning neither `الم�
 
 ```
 def extract_plaintext_metadata(file_path: Path) -> dict:
-    text = file_path.read_text(encoding='utf-8')
+    # Encoding is detected in Step 3 (§4.A.2) before this extractor runs.
+    # For plain text, use the detected encoding (not hardcoded UTF-8).
+    # The detected_encoding is passed to the extractor by the engine.
+    text = file_path.read_text(encoding=detected_encoding)
     lines = [line.strip() for line in text.splitlines() if line.strip()]
     
+    # Skip common Islamic preamble lines (بسم الله, الحمد لله) to find the actual title.
+    # Many Islamic texts begin with bismillah or hamdala before the title.
+    PREAMBLE_PREFIXES = ['بسم الله', 'الحمد لله']
+    title_line = lines[0] if lines else file_path.stem
+    if any(title_line.startswith(p) for p in PREAMBLE_PREFIXES) and len(lines) > 1:
+        title_line = lines[1]
+    
     result = {
-        'title_arabic': lines[0] if lines else file_path.stem,
+        'title_arabic': title_line,
         'page_count': None,
         'text_sample': text[:2000],
         'format_specific_metadata': {
@@ -1276,8 +1313,8 @@ The engine assesses each source's reliability to determine the default verified/
 
 | Factor | Weight | Input Source | Scoring Rules |
 |--------|--------|-------------|---------------|
-| Author scholarly standing | 0.30 | Scholar authority record | Classical scholar (death_date_hijri ≤ 900 AH AND scholarly_standing non-null AND record existed before this intake): **0.90**. Known scholar (record exists in registry): **0.70**. Unknown (record just created from this intake with no prior sources): **0.30**. |
-| Tahqiq quality | 0.25 | Muhaqiq name | Recognized muhaqiq (in configurable list, §8): **0.90**. Unknown muhaqiq: **0.50**. No muhaqiq, pre-modern work (author death_date_hijri ≤ 1300): **0.40**. No muhaqiq, modern work: **0.30**. |
+| Author scholarly standing | 0.30 | Scholar authority record | Classical scholar (death_date_hijri ≤ 900 AH AND scholarly_standing non-null AND the scholar's `sources_encountered_in` contains at least one source_id other than the current source): **0.90**. Known scholar (record exists in registry with at least one prior source): **0.70**. Unknown (record just created from this intake with no prior sources): **0.30**. |
+| Tahqiq quality | 0.25 | Muhaqiq name | Recognized muhaqiq (in configurable list, §8): **0.90**. Unknown muhaqiq: **0.50**. No muhaqiq, pre-modern work (author death_date_hijri ≤ 1300): **0.40**. No muhaqiq, death date unknown: **0.35**. No muhaqiq, modern work (death_date_hijri > 1300 or contemporary): **0.30**. |
 | Publisher reputation | 0.15 | Publisher name | Publisher in known_publishers.json: use its configured score (0.55–0.80 depending on publisher). Unknown/absent: **0.40**. |
 | Source authority | 0.15 | `authority_level` | `primary`: **0.85**. `reference`: **0.60**. `modern_compilation`: **0.40**. |
 | Text fidelity | 0.15 | `text_fidelity` | `high`: **0.90**. `medium`: **0.60**. `low`: **0.30**. `unknown`: **0.40**. |
@@ -1290,6 +1327,8 @@ The engine assesses each source's reliability to determine the default verified/
 - `owner_override`: owner has manually set the tier. Original evaluation preserved in metadata.
 
 [ASSUMPTION — NEEDS STEP 2 TESTING] The weights (0.30, 0.25, 0.15, 0.15, 0.15) and threshold (0.65) produce sensible results. Test with: (1) Ibn Aqil/Abd al-Hamid → expect verified, (2) unknown modern author/no muhaqiq/photos → expect flagged, (3) borderline cases.
+
+[ASSUMPTION — NEEDS STEP 2 TESTING] The 900 AH cutpoint for "classical scholar" was chosen to capture pre-Ottoman classical scholarship. It excludes scholars like al-Suyuti (d. 911 AH) and Ibn Hajar al-Haytami (d. 974 AH) who are widely recognized classical authorities. Test whether raising to 1000 AH (mid-Ottoman) produces better trust calibration for the owner's collection. The owner should validate which scholars in his collection fall in the 900–1000 AH gap.
 
 **Conservative bias.** When evaluation is genuinely uncertain, the source is flagged. Flagging a reliable source is correctable; verifying an unreliable source contaminates the library.
 
@@ -1406,7 +1445,7 @@ Six checks run in order. Any failure aborts the write.
 
 2. **Referential integrity.** `author.canonical_id` must resolve in `scholars.json`. `work_id` must resolve in `works.json`. Genre chain work references must resolve (or exist as placeholder records). Invalid reference → abort.
 
-3. **Confidence threshold check.** If any critical field (`author.canonical_id`, `work_id`, `genre`, `science_scope`) has confidence < 0.50 → abort write → create human gate checkpoint. (0.50–0.70 fields are written with `needs_review` flags; < 0.50 blocks entirely.)
+3. **Confidence threshold check.** If any critical inferred field has confidence < 0.50 → abort write → create human gate checkpoint. Specifically: check `author.confidence` for author identity, `confidence_scores.genre` for genre, `confidence_scores.science_scope` for science scope. (0.50–0.70 fields are written with `needs_review` flags; < 0.50 blocks entirely.) Note: `work_id` confidence is handled separately by the work matching process (§4.A.1) — work matching with confidence < 0.50 creates a new work record, and 0.50–0.85 triggers a human gate, so by the time this check runs, `work_id` is already resolved.
 
 4. **Duplicate re-check.** After inference (which may have changed title or author), re-run deduplication. This catches cases where raw metadata didn't match but inferred metadata does.
 
@@ -1415,6 +1454,7 @@ Six checks run in order. Any failure aborts the write.
    - Level vs. genre: `hashiyah` → should not be `beginner`.
    - Science scope vs. author: if `science_scope` doesn't overlap with the author's known specializations (from `school_affiliations`), flag `SRC_METADATA_INCONSISTENCY` with human gate trigger `AUTHOR_SCIENCE_MISMATCH` (author-science mismatch often indicates misidentified author).
    - Attribution status vs. prior sources: if `attribution_status` is `definitive` or `traditional` but an existing source of the same `work_id` has `attribution_status` = `disputed` or `unknown`, flag `SRC_METADATA_INCONSISTENCY` with detail "attribution status conflicts with prior source of the same work." This catches the case where both consensus models share a blind spot about a dispute that a prior intake correctly identified. Only fires when the work registry already has another source. Not blocking — creates `needs_review` on `attribution_status`.
+   - Genre vs. multi-layer: if `genre` is `sharh` or `hashiyah`, `is_multi_layer` MUST be true (a sharh by definition contains the matn; a hashiyah contains the sharh). If `is_multi_layer` is false → auto-correct to true, log `SRC_METADATA_INCONSISTENCY` with detail "genre {genre} implies multi-layer but is_multi_layer was false — corrected." Then check 6 (multi-layer coherence) will verify that `text_layers` is non-empty; if the LLM identified the genre but failed to produce layers, check 6 aborts the write with a human gate. This prevents T-2 (Attribution Error) where an entire sharh/hashiyah is treated as single-author text.
    - Inconsistencies are flagged as warnings (not blocking) and trigger `needs_review` on the inconsistent fields, EXCEPT author-science mismatch which triggers a human gate.
 
 6. **Multi-layer coherence.** Three sub-checks enforce that multi-layer metadata is internally consistent and complete enough for the normalization engine to use:
@@ -1562,6 +1602,14 @@ For consensus calls (§6), failure handling is defined in the consensus section.
 | `staging_lock_timeout` | 3600 | 300–86400 | Seconds before orphaned locks cleaned |
 | `enrichment_cycle_timeout` | 3600 | 600–86400 | Seconds before `recent_enrichments` entries expire (§2.2, invariant #8). After this timeout, a new enrichment to the same field is treated as fresh, not cyclic. |
 
+### Pipeline Engine Ordering
+
+Used by enrichment cycle detection (§2.2 invariant #8) to determine "downstream":
+
+`source` → `normalization` → `passaging` → `excerpting` → `atomization` → `taxonomy` → `synthesis`
+
+An engine is "downstream" of another if it appears later in this ordering. For example, `excerpting` is downstream of `normalization`, so an enrichment from the excerpting engine that modifies a field previously changed by the normalization engine is a potential cycle.
+
 ### Configurable Reference Lists
 
 **Recognized muhaqiqs** (initial list):
@@ -1619,7 +1667,7 @@ Stored in `library/config/genre_synonyms.json`. Maps common non-standard genre v
 - `engines/source/src/tracer.py` (253 lines): Tracer bullet Shamela intake. Parses `info.html`, freezes files, writes SourceMetadata JSON. Works for the `html_export_minimal` fixture. Hardcoded genre/structural_format (no LLM inference yet). No consensus, no trust evaluation, no scholar authority registry.
 - `engines/source/src/extractors/` directory: Module stubs for each format. Only `shamela.py` and `plaintext.py` needed for Stage 1.
 - `engines/source/src/engine.py`, `format_detector.py`, `trust_evaluator.py`, etc.: Module stubs.
-- `engines/source/contracts.py` (825 lines): Full Pydantic models, validated by tracer bullet.
+- `engines/source/contracts.py` (~1000 lines): Full Pydantic models, validated by tracer bullet.
 
 **Known gaps between tracer and this SPEC:**
 1. Identity model: tracer uses ad-hoc IDs, not hash-based `source_id` or slug-based `work_id`.
@@ -1735,3 +1783,17 @@ Self-review of the audit found 2 additional defects missed in the initial pass:
 **Integrity Audit — Attribution Status Safety Gap (2026-03-09):**
 Critical analysis of the self-review flagged item revealed a genuine safety gap, not a judgment call:
 - **(IMPORTANT)** `attribution_status` had ZERO protection against false "definitive" classification. A single-point-of-failure LLM error would disable the confidence cap (0.70) and human gate that protect against T-2 attribution errors, with no downstream correction mechanism. This contradicts KNOWLEDGE_INTEGRITY.md T-2 mitigation #1 ("Multi-model consensus for **all** attribution decisions"). Fix: added directed asymmetric comparison in §6 (if either model returns "disputed"/"unknown" while the other doesn't, use the conservative value + human gate), plus a §5 Layer 1 cross-check against prior sources of the same work. ASSUMPTION marker added for Step 2 testing. No contracts.py change needed — `CONSENSUS_DISAGREEMENT` trigger already exists.
+
+**Integrity Audit — Pass 2, Fresh 8-Lens Systematic (2026-03-09):**
+Full re-audit with fresh eyes applying all 8 lenses to every section. 11 findings (1 critical, 4 important, 6 minor). No contracts.py changes needed — all fixes are SPEC-only:
+- **(CRITICAL)** §5 Layer 1: genre→is_multi_layer coherence unchecked. If LLM infers `genre=sharh` but `is_multi_layer=false`, all 6 validation checks pass. The normalization engine skips layer detection, causing T-2 (Attribution Error) at scale — every excerpt from the embedded matn is attributed to the commentator. Fix: added genre vs multi-layer cross-check to §5 check 5. If genre is sharh/hashiyah, is_multi_layer is auto-corrected to true; if text_layers is also empty, check 6 aborts with human gate.
+- **(IMPORTANT)** §2.1/§4.A.2/§4.A.3: Encoding detection promised but unimplemented — all code hardcoded UTF-8. A CP1256 plain text file would produce silently garbled metadata (T-1). Fix: added encoding detection to Step 3 using charset_normalizer, with explicit rules for Shamela (assume UTF-8) vs plain text (detect and decode).
+- **(IMPORTANT)** §4.A.3: `strip_tags()` function used 7 times, never defined. Fix: added to §4.A.1 utility functions with HTML entity decoding.
+- **(IMPORTANT)** §4.A.8: Trust factor "tahqiq_quality" had no rule for (no muhaqiq + death date unknown). Fix: added explicit branch scoring 0.35.
+- **(IMPORTANT)** §4.A.8: "record existed before this intake" was ambiguous. Fix: replaced with explicit `sources_encountered_in` check.
+- **(MINOR)** §2.2 invariant #8: "downstream" engine ordering undefined. Fix: added formal pipeline ordering to §8.
+- **(MINOR)** §4.A.8: 900 AH "classical scholar" threshold excludes al-Suyuti et al. Fix: marked as [ASSUMPTION] for Step 2 testing.
+- **(MINOR)** §4.A.3: Plain text title from first line captures bismillah. Fix: added preamble skip logic.
+- **(MINOR)** §5 Layer 1 check 3: referenced work_id confidence that doesn't exist as a field. Fix: clarified which fields are checked and why work_id is handled separately.
+- **(MINOR)** §2.2 invariant #8: enrichment_tracking expiry mechanism undefined. Fix: specified lazy expiry.
+- **(MINOR)** §9: contracts.py line count stale (825 → ~1000).
