@@ -60,6 +60,7 @@ library/sources/{source_id}/metadata.json + frozen/
 
 | Module | Session | SPEC Section | What it does |
 |--------|---------|-------------|-------------|
+| `src/inference_models.py` | 3 | §4.A.4 | `InferenceOutput` Pydantic model (and sub-models) used as Instructor's `response_model`. Matches the LLM output JSON schema. Intermediate representation — mapped to SourceMetadata by metadata_inference.py. |
 | `src/metadata_inference.py` | 3 | §4.A.4 | Constructs the inference prompt, calls LLMs via Instructor, maps LLM output to SourceMetadata fields, handles confidence scoring and attribution status caps. |
 | `src/consensus.py` | 3 | §6 | Source-engine consensus integration: wraps `shared/consensus/evaluate()`, implements author identification agreement function, work matching agreement function, directed attribution_status comparison. |
 | `src/freezer.py` | 4 | §4.A.2 Steps 5–6 | SHA-256 hashing (per-file + composite), staging hash comparison, file copy to `library/sources/{source_id}/frozen/`, post-copy verification, chmod 0444, corruption handling. |

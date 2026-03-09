@@ -29,10 +29,11 @@ from pydantic import BaseModel
 @dataclass
 class ModelResponse:
     """Response from a single model."""
-    model_id: str           # e.g. "claude-opus-4-6" or "cohere/command-a"
+    model_id: str           # e.g. "openrouter/cohere/command-a"
     provider: str           # e.g. "anthropic" or "openrouter"
-    raw_response: dict      # Full parsed JSON from the model
-    parse_success: bool     # Whether the response parsed as valid JSON
+    parsed: Any             # The typed Pydantic object returned by Instructor (or None on failure)
+    raw_response: dict      # .model_dump() of parsed — for logging and serialization
+    parse_success: bool     # Whether the response parsed as valid JSON/Pydantic
     error: Optional[str] = None  # Error message if parse_success is False
 
 
@@ -40,7 +41,7 @@ class ModelResponse:
 class ConsensusResult:
     """Result of a consensus evaluation."""
     agreed: bool                           # Whether models agreed per the task-specific rules
-    canonical_result: Optional[dict]       # The accepted result (agreed value, or None if disagreed)
+    canonical_result: Any                  # The accepted result — a typed Pydantic object when agreed, None when disagreed
     model_responses: list[ModelResponse]   # Per-model results (always 2 for normal operation)
     agreement_detail: str                  # Human-readable explanation of the agreement/disagreement
     single_model_fallback: bool = False    # True when one model failed and the other's result was accepted provisionally

@@ -8,6 +8,42 @@
 
 ## Defects Found: 3 Critical, 5 Important, 4 Minor
 
+*Round 1 found and fixed 12 defects. Round 2 found 4 additional gaps.*
+
+### Round 2 Findings (gaps that would block or slow Claude Code)
+
+**G-1 (HIGH): `InferenceOutput` Pydantic model referenced but never defined.**
+
+NEXT.md, session-3-plan, and consensus requirements all reference `InferenceOutput` as the `response_model` for Instructor, but no Pydantic model with this name exists anywhere in the codebase. Claude Code would have to reverse-engineer the model from the §4.A.4 JSON schema in the prompt template.
+
+*Impact:* Claude Code spends 30+ minutes building a complex Pydantic model (~100 lines, 5 sub-models, constrained types) from a JSON example. Risk of field name mismatches with the prompt template or contracts.py.
+
+*Fix:* Created `engines/source/src/inference_models.py` with the complete model: `InferenceOutput`, `InferredAuthorIdentification`, `InferredGenreChain`, `InferredLayer`, `InferredScholarlyContext`. Added to NEXT.md read list, session-3 module table, and architecture doc.
+
+**G-2 (HIGH): `prompt_context` construction format undefined.**
+
+inference_v1.py has `{prompt_context}` as a template variable. Neither NEXT.md nor the session plan specifies what goes into it. SPEC §4.A.4 describes the inputs conceptually ("Extracted metadata... Library context...") but not the exact string format that fills this variable.
+
+*Impact:* Claude Code guesses the format. The library context section (existing scholars/works) may be omitted entirely or formatted incompatibly.
+
+*Fix:* Added explicit `prompt_context` format specification to NEXT.md Module 4, including the exact template with field references. Defined the "=== LIBRARY CONTEXT ===" section boundary that gets removed in `simplified_messages`.
+
+**G-3 (MEDIUM): `ConsensusResult.canonical_result` typed as `Optional[dict]` — loses Pydantic types.**
+
+Instructor returns typed `InferenceOutput` objects, but `ModelResponse.raw_response: dict` and `ConsensusResult.canonical_result: Optional[dict]` convert them to dicts. The agreement_fn receives typed objects, but the caller (metadata_inference.py) gets back dicts and must re-parse or index manually.
+
+*Fix:* Added `ModelResponse.parsed: Any` (stores the typed Pydantic object) alongside `raw_response: dict` (for serialization). Changed `ConsensusResult.canonical_result` to `Any`.
+
+**G-4 (LOW): API key auto-detection for `from_provider("openrouter/...")` assumed but unverified.**
+
+The smoke test will catch this, but Claude Code might waste time if `from_provider()` doesn't auto-detect `OPENROUTER_API_KEY`.
+
+*Fix:* Added explicit fallback to NEXT.md API Keys section: pass `api_key=os.environ["OPENROUTER_API_KEY"]` if auto-detection fails.
+
+**M-5: Consensus skill `check_agreement()` imports from `tests.eval_harness` instead of production location.**
+
+Fixed — now imports from `shared.scholar_authority.src.name_matching`.
+
 ### CRITICAL (would cause build failure or incorrect implementation)
 
 **C-1: `evaluate()` takes `prompt: str` but LLMs need `messages: list[dict]`.**

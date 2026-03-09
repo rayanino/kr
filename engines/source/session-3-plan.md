@@ -20,7 +20,8 @@
 
 | File | Purpose |
 |------|---------|
-| `engines/source/src/metadata_inference.py` | Prompt construction, LLM call via Instructor, response parsing, field mapping (LLM output → SourceMetadata), confidence scoring, attribution status caps |
+| `engines/source/src/inference_models.py` | **Already created** — `InferenceOutput` Pydantic model and sub-models. Import it, do not recreate. This is the `response_model` for Instructor. |
+| `engines/source/src/metadata_inference.py` | Prompt construction, LLM call via Instructor, response parsing, field mapping (InferenceOutput → SourceMetadata), confidence scoring, attribution status caps |
 | `shared/consensus/src/consensus.py` | Replace tracer stub. Implement `evaluate()` with per-model async calls, retry logic, timeout handling, fallback model swap |
 | `engines/source/src/consensus.py` | Source-engine consensus integration: author identification agreement fn, work matching agreement fn, directed attribution_status comparison |
 | `shared/scholar_authority/src/name_matching.py` | Copy `normalize_arabic_name()`, `_extract_name_tokens()`, `normalized_name_similarity()` from `tests/eval_harness.py` into production location |
