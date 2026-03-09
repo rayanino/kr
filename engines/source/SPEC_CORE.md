@@ -13,7 +13,7 @@ The source engine is the pipeline entry point. It accepts raw knowledge material
 **Core scope (Stage 1):**
 - Accept Shamela HTML exports and plain text files through manual acquisition
 - Assign canonical identifiers to sources, works, and scholars
-- Extract metadata from format-specific structure (Shamela info.html, plain text first line)
+- Extract metadata from format-specific structure (Shamela embedded metadata card, plain text first line)
 - Infer missing metadata via LLM (genre, science, author identity, structural format, multi-layer composition)
 - Verify author identification and work matching via multi-model consensus
 - Freeze raw source files with SHA-256 integrity hashes
@@ -254,15 +254,12 @@ For single-file books, the staged item is a single `.htm` file. For multi-volume
 
 **Step 4: Metadata inference.** LLM enriches the sparse metadata (§4.A.4). Author identification and work matching use multi-model consensus (§6).
 
-**Step 5: Duplicate detection.** Deduplication checks run (§4.A.7).
+**Step 5: Hashing and duplicate detection.** Compute SHA-256 hash of each staged file ("staging hashes"). Derive the composite hash (SHA-256 of the sorted JSON of individual file hashes). Derive `source_id` from composite hash (§4.A.1). Then run deduplication checks (§4.A.7) using the composite staging hash. If an exact duplicate is found, abort without freezing.
 
-**Step 6: Freezing.** Exact sequence:
-1. Compute SHA-256 hash of each staged file ("staging hashes").
-2. Copy staged files to `library/sources/{source_id}/frozen/`.
-3. Compute SHA-256 hash of each frozen file ("frozen hashes").
-4. Compare: if any staging hash ≠ corresponding frozen hash → delete frozen directory → abort with `SRC_FREEZE_COPY_CORRUPT`.
-5. Set frozen files read-only: `chmod 0444`. If permission change fails → delete frozen directory → abort with `SRC_FREEZE_PERMISSION_FAILED`.
-6. If frozen directory deletion also fails (e.g., disk full): log `SRC_FREEZE_CLEANUP_FAILED` (Fatal) → write marker file `library/sources/{source_id}/CORRUPT_FREEZE` → on startup, engine treats these as requiring manual cleanup.
+**Step 6: Freezing.** Copy staged files to `library/sources/{source_id}/frozen/` (source_id is already known from Step 5). After copying, compute SHA-256 of each frozen file ("frozen hashes"). Compare:
+1. If any staging hash ≠ corresponding frozen hash → delete frozen directory → abort with `SRC_FREEZE_COPY_CORRUPT`.
+2. Set frozen files read-only: `chmod 0444`. If permission change fails → delete frozen directory → abort with `SRC_FREEZE_PERMISSION_FAILED`.
+3. If frozen directory deletion also fails (e.g., disk full): log `SRC_FREEZE_CLEANUP_FAILED` (Fatal) → write marker file `library/sources/{source_id}/CORRUPT_FREEZE` → on startup, engine treats these as requiring manual cleanup.
 
 **Staging lock.** Between Step 2 and Step 6, the engine places a lock file (`library/staging/{source_dir}/.kr_processing`). At freeze time, file modification timestamps are compared against those recorded at format detection. If any file changed → abort with `SRC_STAGING_MODIFIED`. Orphaned locks older than `staging_lock_timeout` (default: 3600s) are cleaned up on startup.
 
@@ -396,7 +393,8 @@ def extract_shamela_metadata(source_path: Path) -> dict:
                 result[f'_field_source_{internal_name}'] = label  # Track which label was used
     
     # --- Parse death date from author field ---
-    # Pattern: "FULL_NAME (ت NNN هـ)" or "FULL_NAME (المتوفى: NNN هـ)"
+    # Pattern 1: "FULL_NAME (ت NNN هـ)" or "FULL_NAME (المتوفى: NNN هـ)"
+    # Pattern 2: "FULL_NAME (NNN - NNN هـ)" (birth-death range, e.g. النووي "631 - 676 هـ")
     if 'author_name_raw' in result:
         death_match = re.search(
             r'\(.*?(?:المتوفى|ت)\s*:?\s*(\d+)\s*هـ\)?', 
@@ -404,6 +402,15 @@ def extract_shamela_metadata(source_path: Path) -> dict:
         )
         if death_match:
             result['author_death_hijri'] = int(death_match.group(1))
+        else:
+            # Try birth-death range: (NNN - NNN هـ)
+            range_match = re.search(
+                r'\((\d+)\s*-\s*(\d+)\s*هـ\)',
+                result['author_name_raw']
+            )
+            if range_match:
+                result['author_birth_hijri'] = int(range_match.group(1))
+                result['author_death_hijri'] = int(range_match.group(2))
         # Extract clean name (before parenthetical)
         clean_match = re.match(r'^(.*?)\s*\(', result['author_name_raw'])
         if clean_match:
@@ -428,6 +435,9 @@ def extract_shamela_metadata(source_path: Path) -> dict:
     # --- Parse edition number and year from الطبعة ---
     if 'edition_raw' in result:
         result['edition_number'] = _parse_arabic_ordinal(result['edition_raw'])
+        # _parse_arabic_ordinal maps Arabic ordinal words to integers:
+        # الأولى→1, الثانية→2, الثالثة→3, ... العاشرة→10, العشرون→20
+        # Falls back to extracting the first integer from the string.
         year_match = re.search(r'(\d{4})\s*(?:هـ|م)', result['edition_raw'])
         if year_match:
             result['edition_year'] = int(year_match.group(1))
@@ -438,10 +448,12 @@ def extract_shamela_metadata(source_path: Path) -> dict:
     
     # --- Extract first 2000 chars of body text for LLM inference ---
     body_text_parts = []
+    first_page = True
     for pt_match in re.finditer(r"<div class='PageText'>(.*?)</div>", content, re.DOTALL):
         page = pt_match.group(1)
-        if '<PageHead>' not in page[:50] and "<span class='title'>الكتاب" not in page[:200]:
-            continue  # Skip metadata card
+        if first_page:
+            first_page = False
+            continue  # Skip metadata card (always the first PageText div)
         # This is a body page — extract text
         # Remove PageHead, footnotes, and HTML tags
         body = re.sub(r"<div class='PageHead'>.*?</div>", '', page, flags=re.DOTALL)
@@ -487,6 +499,23 @@ def extract_plaintext_metadata(file_path: Path) -> dict:
 
 All other metadata (author, genre, science, structural format) comes from LLM inference (§4.A.4). The plain text extractor produces the sparsest metadata of any format — the LLM must fill almost everything.
 
+**Extractor output → SourceMetadata field mapping.** The extractors produce a dict with internal field names. These map to SourceMetadata fields as follows (fields not listed here are populated by LLM inference or computed by the engine):
+
+| Extractor Key | SourceMetadata Field | Notes |
+|---------------|---------------------|-------|
+| `display_title` or `title_full` | `title_arabic` | Use `title_full` if present (from الكتاب field), else `display_title` (from card header) |
+| `author_name_raw` | Used to construct `author: ScholarReference` | LLM resolves to canonical identity |
+| `muhaqiq_name_raw` | Used to construct `muhaqiq: ScholarReference` | LLM resolves to canonical identity |
+| `publisher` | `publisher` | Direct copy |
+| `edition_number` | `edition_number` | Parsed from edition_raw |
+| `edition_year` | `publication_year_hijri` or `publication_year_miladi` | Based on هـ vs م suffix |
+| `page_count` | `page_count` | From عدد الصفحات or body page count |
+| `is_multi_volume` | — | Used to set `volume_count` and populate `volumes` list |
+| `volume_count` | `volume_count` | From extractor or عدد الأجزاء field |
+| `shamela_category` | `format_specific_metadata.shamela_category` | NOT mapped to `science_scope` — that comes from LLM |
+| `text_sample` | — | Passed to LLM prompt, not stored in SourceMetadata |
+| `format_specific_metadata` | `format_specific_metadata` | Direct copy |
+
 #### §4.A.4 — LLM-Assisted Metadata Inference
 
 After format-specific extraction produces a sparse metadata record, the engine uses LLM inference to fill gaps, validate extracted data, and enrich with scholarly context.
@@ -501,7 +530,7 @@ After format-specific extraction produces a sparse metadata record, the engine u
 1. A system message establishing the LLM as an Islamic bibliographic specialist with knowledge of classical Arabic scholarship, genre conventions, scholarly chains, and science classifications.
 2. The extracted metadata fields formatted as key-value pairs.
 3. The first 2000 characters of source text, or an explicit note that no text sample is available.
-4. For Shamela sources: whether CSS layer classes (matn, sharh, hashiyah) were detected in the content.
+4. For Shamela sources: the Shamela category (القسم) value from the metadata card, and whether the book is single-volume or multi-volume.
 5. The JSON output schema with field descriptions and enum values for each constrained field.
 6. An instruction to return ONLY the JSON object with no preamble, explanation, or markdown formatting.
 7. An instruction to set confidence to 0.50 for any field the LLM is genuinely uncertain about rather than guessing.
@@ -544,8 +573,23 @@ After format-specific extraction produces a sparse metadata record, the engine u
 ```
 
 Note: `text_fidelity` is NOT part of the LLM output. It is set deterministically by the engine after inference, based on `source_format`:
-- `shamela_html` → `"high"` (structured digital text)
-- `plain_text` → `"medium"` (no structural markup, but text is digital)
+- `shamela_html` → `"high"`, reason: `"Shamela structured HTML export — digital text, not OCR"`
+- `plain_text` → `"medium"`, reason: `"Plain text file — digital text, no structural markup"`
+
+Both `text_fidelity` and `text_fidelity_reason` are set together. `text_fidelity_reason` is a required field in SourceMetadata.
+
+**Confidence field mapping.** After LLM inference, construct the `confidence_scores: InferredFieldConfidence` object from the LLM response:
+- `confidence_scores.genre` ← LLM `genre_confidence`
+- `confidence_scores.science_scope` ← LLM `science_scope_confidence`
+- `confidence_scores.structural_format` ← LLM `structural_format_confidence`
+- `confidence_scores.authority_level` ← LLM `authority_level_confidence`
+- `confidence_scores.level` ← LLM `level_confidence` (Optional — null if LLM didn't infer)
+- `confidence_scores.multi_layer` ← LLM `multi_layer_confidence` (Optional)
+- `confidence_scores.genre_chain` ← LLM `genre_chain_confidence` (Optional — null if no genre chain)
+
+Author identification confidence goes into `author.confidence` (the `ScholarReference.confidence` field), NOT into `InferredFieldConfidence`.
+
+**Constructing `needs_review_fields`.** After mapping confidences, iterate over `confidence_scores`: for each field with confidence < 0.70, add the field name to `needs_review_fields`. Also add `"author"` if the extractor found no `author_name_raw` field. This list drives the human gate review (§5 Layer 2).
 
 [ASSUMPTION — NEEDS STEP 2 TESTING] The LLM can produce this structured JSON reliably for well-known Islamic scholarly works. Testing should cover: (1) works with unambiguous titles like "شرح ابن عقيل", (2) works with ambiguous titles, (3) plain text with no metadata beyond a title line. Use real Shamela fixtures from `tests/fixtures/shamela_real/` for testing.
 
@@ -701,7 +745,7 @@ Scoring thresholds: ≥ 0.85 → auto-link; 0.50–0.85 → human gate; < 0.50 �
 
 Two levels of deduplication.
 
-**Source-level deduplication (exact duplicate).** After freezing (Step 6), the composite SHA-256 hash is compared against all `frozen_hash` values in the source registry.
+**Source-level deduplication (exact duplicate).** During Step 5 (Hashing + Dedup), the composite staging hash is compared against all `frozen_hash` values in the source registry.
 
 If match found:
 - Log `SRC_DUPLICATE_EXACT` with the matching `source_id`.
@@ -949,7 +993,7 @@ The source engine calls `evaluate` twice during Step 4: once for author identifi
 | `SRC_SCHOLAR_DATE_CONFLICT` | Warning | Death date enrichment differs > 5 years | Block update. Human gate. |
 | `SRC_SCHOLAR_SCHOOL_CONFLICT` | Warning | School affiliation enrichment contradicts | Block update. Human gate. |
 | `SRC_SCHOLAR_TEMPORAL_INCONSISTENCY` | Warning | Teacher-student death date gap > 30 years wrong direction | Flag. Human gate. |
-| `SRC_FORMAT_STRUCTURE_MISSING` | Warning | Expected structural file absent (e.g., Shamela without info.html) | Fall back to minimal extraction + LLM inference. Flag all fields `needs_review`. |
+| `SRC_FORMAT_STRUCTURE_MISSING` | Warning | Expected structural element absent (e.g., Shamela file without PageText metadata card) | Fall back to minimal extraction + LLM inference. Flag all fields `needs_review`. |
 
 **Deferred error codes** (only fire from deferred capabilities, not implemented in Stage 1): `SRC_OCR_LOW_QUALITY`, `SRC_REPO_UNAVAILABLE`, `SRC_KITAB_CACHE_MISSING`, `SRC_KITAB_CACHE_CORRUPT`, `SRC_USUL_DATA_MISSING`, `SRC_WIKIDATA_TIMEOUT`, `SRC_COMPARISON_DEFERRED`, `SRC_OPENITI_CACHE_CORRUPT`, `SRC_COMPARISON_INCONCLUSIVE`.
 
@@ -1056,7 +1100,7 @@ Stored in `library/config/genre_synonyms.json`. Maps common non-standard genre v
 
 ### Deterministic Tests (5a)
 
-1. **Identity determinism.** Same input → same `source_id`, `work_id`, `human_label`. Verify on `html_export_minimal` and `alfiyyah_versified`.
+1. **Identity determinism.** Same input → same `source_id`, `work_id`, `human_label`. Verify on `shamela_real/02_nahw_muhaqiq` and `alfiyyah_versified`.
 2. **Deduplication.** Ingest same file twice → second rejected with `SRC_DUPLICATE_EXACT`. Ingest two editions of same work → both acquired, same `work_id`.
 3. **Metadata completeness.** After intake, all required fields non-null. Confidence scores present for all inferred fields. `author.canonical_id` resolves in scholars.json.
 4. **Trust consistency.** Classical work + known muhaqiq → `verified`. Unknown modern + no muhaqiq → `flagged`. Owner override → tier changes, original preserved.
@@ -1070,7 +1114,7 @@ Stored in `library/config/genre_synonyms.json`. Maps common non-standard genre v
 9. **Genre inference accuracy.** Run inference on ≥5 fixtures with known genres. ≥90% accuracy.
 10. **Author identification accuracy.** Run inference on ≥5 fixtures. ≥85% accuracy.
 11. **Consensus agreement rate.** Run consensus on ≥5 fixtures. Measure agreement rate and per-model accuracy.
-12. **Multi-layer detection.** Run on multi-layer fixture (html_export_minimal) and single-layer fixture (alfiyyah_versified). Correct in both cases.
+12. **Multi-layer detection.** Run on `shamela_real/11_multi_small` (multi-layer sharh: همع الهوامع) and single-layer fixture (`alfiyyah_versified`). Correct in both cases.
 
 ### Integration Tests
 
