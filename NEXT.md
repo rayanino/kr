@@ -58,7 +58,26 @@ class HumanGateCheckpoint(BaseModel):
     elevated_result: Optional[dict[str, Any]] = None  # Layer 3.5 output
 ```
 
-This is needed because the `unsure → elevated` workflow (KNOWLEDGE_INTEGRITY.md Layer 4) cannot be represented with a boolean. The existing `test_consensus_integration.py` and `test_metadata_inference.py` create HumanGateCheckpoint instances — update them to use `status="auto_approved"` instead of `resolved=True`.
+This is needed because the `unsure → elevated` workflow (KNOWLEDGE_INTEGRITY.md Layer 4) cannot be represented with a boolean. No existing tests create HumanGateCheckpoint instances, so this change has no test impact.
+
+---
+
+## SPEC Defect Fix: Author Standing First-Intake Formula
+
+**CRITICAL — must understand before building trust evaluator.**
+
+The SPEC §4.A.8 author_standing tier says: "Classical scholar (death_date_hijri ≤ 1000 AH AND scholarly_standing non-null AND the scholar's sources_encountered_in contains at least one source_id other than the current source): 0.90."
+
+The "prior sources" condition was added during HARDENING but **never re-validated**. On first intake, every author has 0 prior sources, making `author_standing` = 0.30 for ALL scholars. This causes **6 of 13 fixtures to produce INCORRECT trust tiers** — classical scholars like al-Suyuti (d. 911) and al-Bukhari (d. 256) get flagged instead of verified.
+
+The **validated formula** (Phase 0: 13/13 correct at threshold 0.65) uses ONLY the death date for first intake:
+- `death_date_hijri ≤ 1000` → 0.90 (classical)
+- `death_date_hijri > 1000` (known date) → 0.70 (post-classical)
+- `death_date_hijri is None` → 0.30 (unknown/contemporary)
+
+**Build the trust evaluator using this validated formula.** The "prior sources" and "scholarly_standing non-null" checks belong in the **trust re-evaluation** path (§4.A.8, "Trust re-evaluation on enrichment") where prior sources actually exist. For initial intake, they must not be required.
+
+The trust_evaluator.py stub documents this with the full explanation. See its module docstring.
 
 ---
 
@@ -88,7 +107,14 @@ Implement:
 
 **Storage:** `library/registries/scholars.json`. Use `filelock` for locking. Use atomic write pattern (temp file → fsync → os.replace).
 
-**Important:** The old `__init__.py` tracer stub is imported by `engines/source/src/consensus.py` (line ~7: `from shared.scholar_authority.src import lookup, register`). After creating `scholar_authority.py`, update `__init__.py` to re-export from the new module.
+**Important:** The old `__init__.py` tracer stub is imported by `shared/scholar_authority/tests/test_name_matching.py` (4 tests use `from shared.scholar_authority.src import clear, lookup, register`). The tracer stub API differs from the new module:
+- Old: `register(name: str, record: dict) → str`
+- New: `register(record: ScholarAuthorityRecord) → ScholarAuthorityRecord`
+- Old: `lookup(name: str, death_date: int | None = None) → Optional[dict]`
+- New: `lookup(name, death_date_hijri, ...) → ScholarMatchResult`
+- Old: `clear()` — resets in-memory dict
+
+After creating `scholar_authority.py`, update `__init__.py` to re-export the new public API (`lookup`, `register`, `update`, `get_all`, `ScholarMatchResult`, `compute_scholar_match_score`). The 4 existing integration tests in `test_name_matching.py` that use the old API must be **rewritten** to use the new API — they test name matching within the context of lookup/register, which is now handled differently. Alternatively, add backward-compatible wrappers in `__init__.py`, but rewriting is preferred since the old tests are simple.
 
 **Test:** `shared/scholar_authority/tests/test_scholar_authority.py` (20 tests)
 
@@ -133,7 +159,7 @@ Implement 3 generic functions:
 Replace the stub.
 
 Implement `evaluate_trust()` with 5 sub-functions:
-- `_score_author_standing()` — Check death_date_hijri ≤ 1000, scholarly_standing non-null, sources_encountered_in has other sources → 0.90. Known with prior source → 0.70. Unknown → 0.30.
+- `_score_author_standing()` — **Use the VALIDATED formula, NOT the SPEC §4.A.8 text.** death_date ≤ 1000 → 0.90 (classical); death_date > 1000 → 0.70 (post-classical); death_date None → 0.30 (unknown). See "SPEC Defect Fix" section above and the trust_evaluator.py stub docstring.
 - `_score_tahqiq_quality()` — Check muhaqiq name against recognized_muhaqiqs list using `normalized_name_similarity >= 0.85`. Recognized → 0.90. Unknown → 0.50. No muhaqiq + pre-modern (≤1300) → 0.40. No muhaqiq + unknown death → 0.35. No muhaqiq + modern (>1300) → 0.30.
 - `_score_publisher_reputation()` — Check publisher name AND all variants using substring matching. Known → configured score. Unknown → 0.40.
 - `_score_source_authority()` — primary → 0.85, reference → 0.60, modern_compilation → 0.40.
@@ -208,6 +234,7 @@ Implement `validate_source_metadata()` calling all 6 checks in order:
 - [ ] **Trust evaluation:** 5 factors computed with correct weights (0.30, 0.25, 0.15, 0.15, 0.15)
 - [ ] **Trust evaluation:** Threshold 0.65 for verified/flagged boundary
 - [ ] **Trust evaluation:** Classical scholar cutpoint at 1000 AH (not 900)
+- [ ] **Trust evaluation:** First-intake formula uses ONLY death_date (NOT prior-sources check — see SPEC Defect Fix section)
 - [ ] **Trust evaluation:** Recognized muhaqiq matching uses name_matching (not exact string compare)
 - [ ] **Trust evaluation:** Publisher variant matching via substring
 - [ ] **Source validation:** All 6 Layer 1 checks implemented

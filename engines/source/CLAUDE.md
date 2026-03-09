@@ -14,7 +14,7 @@
 
 **`SPEC.md` is SUPERSEDED.** Pre-core-extraction full spec, kept only as archive of deferred (Stage 2) capabilities. Read `SPEC_CORE.md` for current architecture.
 
-## Current State (as of 2026-03-09)
+## Current State (as of 2026-03-10)
 
 **Step 1 (SPEC hardening): COMPLETE.** 8 review passes, all defects resolved. SPEC_CORE.md is locked.
 
@@ -25,7 +25,11 @@
 - A4 (trust weights): 13/13 PASS at threshold 0.65
 - A5 (consensus pair): Command A + Opus 4.6 selected (92.3% "at least one right")
 
-**Step 3 (BUILD): STARTING.** See `/NEXT.md` for session plan.
+**Step 3 (BUILD): Sessions 1–4 COMPLETE.** 365 tests passing.
+- Session 1–2: Staging, format detection, Shamela HTML extraction, plain text extraction (219 tests)
+- Session 3: LLM inference, consensus module, name matching (130 tests)
+- Session 4: Hashing, deduplication, freezing with TOCTOU protection (16 tests)
+- **Session 5a: IN PROGRESS.** Shared components + trust + validation. See `/NEXT.md`.
 
 ## Required Reading (for Claude Code)
 

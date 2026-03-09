@@ -65,6 +65,18 @@ class HumanGateCheckpoint(BaseModel):
 
 **Recommendation:** This is a Session 6 concern (error paths). Not needed for Session 5. The 9 existing triggers cover all Session 5 use cases.
 
+### ⚠️ Misalignment 3: SPEC §4.A.8 author_standing formula broken for first intake
+
+**SPEC text:** "Classical scholar (death_date_hijri ≤ 1000 AH AND scholarly_standing non-null AND the scholar's sources_encountered_in contains at least one source_id other than the current source): 0.90."
+
+**Reality:** On first intake, every author has 0 prior sources → `author_standing` = 0.30 for ALL scholars → 6/13 fixtures produce incorrect trust tiers (classical scholars flagged instead of verified).
+
+**Root cause:** The "prior sources" condition was added during HARDENING but never re-validated against the 13 fixtures. The Phase 0 validation (13/13 correct) used only death_date ≤ 1000 for the classical tier.
+
+**Validated formula:** death_date ≤ 1000 → 0.90; death_date > 1000 → 0.70; no death date → 0.30. Re-verified: 13/13 correct.
+
+**Fix:** Build trust evaluator using the validated formula for initial intake. The "prior sources" check applies only during trust re-evaluation on enrichment (§4.A.8 last paragraph). Documented in trust_evaluator.py stub and NEXT.md.
+
 ### ❌ Missing config files
 
 The following config files are referenced in SPEC §8 but don't exist yet:

@@ -1,18 +1,32 @@
 """Trustworthiness Evaluation — SPEC §4.A.8
 
 Five weighted factors:
-- author_standing (0.30): classical ≤1000AH + known → 0.90; known → 0.70; unknown → 0.30
+- author_standing (0.30): classical ≤1000AH → 0.90; post-classical >1000 → 0.70; no death date → 0.30
 - tahqiq_quality (0.25): recognized muhaqiq → 0.90; unknown → 0.50; no muhaqiq → 0.30-0.40
 - publisher_reputation (0.15): known publisher → configured score; unknown → 0.40
 - source_authority (0.15): primary → 0.85; reference → 0.60; modern_compilation → 0.40
 - text_fidelity (0.15): high → 0.90; medium → 0.60; low → 0.30; unknown → 0.40
 
 Combined >= 0.65 → verified. < 0.65 → flagged.
-Special: owner-authored → verified; Quran/canonical hadith → verified.
 Conservative bias: uncertain → flagged.
+Special cases: owner-authored → verified; Quran/canonical hadith → verified.
 
 [VALIDATED — Step 2 Phase 0]: 13/13 correct at threshold 0.65 (uniquely optimal 0.55-0.75).
 [RESOLVED]: Classical cutpoint 1000 AH (not 900).
+
+IMPORTANT — Author Standing First-Intake Fix (Session 5a build-prep finding):
+The SPEC §4.A.8 adds conditions "scholarly_standing non-null AND sources_encountered_in
+contains at least one source_id other than the current source" for the 0.90 classical tier.
+These conditions were added during HARDENING but never re-validated. On first intake, every
+author has 0 prior sources, causing 6/13 fixtures to produce INCORRECT trust tiers.
+
+The validated formula (Phase 0, 13/13 correct) uses ONLY the death date:
+- death_date_hijri ≤ 1000 → 0.90 (classical)
+- death_date_hijri > 1000 → 0.70 (post-classical with known date)
+- death_date_hijri is None → 0.30 (unknown)
+
+The "prior sources" check belongs in trust RE-EVALUATION (§4.A.8 last paragraph),
+not in initial evaluation. On re-evaluation after enrichment, the full conditions apply.
 """
 
 from __future__ import annotations
@@ -73,14 +87,18 @@ def _score_author_standing(
 ) -> tuple[float, str]:
     """Score author scholarly standing factor.
     
-    SPEC §4.A.8:
-    - Classical scholar (death_date_hijri <= 1000 AH AND scholarly_standing non-null
-      AND sources_encountered_in contains at least one source_id other than current):
-      → 0.90
-    - Known scholar (record exists with at least one prior source):
-      → 0.70
-    - Unknown (record just created from this intake):
-      → 0.30
+    VALIDATED formula (Phase 0, 13/13 correct):
+    - death_date_hijri ≤ 1000 → 0.90 (classical scholar)
+    - death_date_hijri > 1000 → 0.70 (post-classical, known date)
+    - death_date_hijri is None → 0.30 (unknown/contemporary)
+    
+    NOTE: The SPEC §4.A.8 text adds "scholarly_standing non-null AND
+    sources_encountered_in contains at least one OTHER source_id" for the
+    0.90 tier. These conditions apply to trust RE-EVALUATION only, not
+    first intake. See module docstring for full explanation.
+    
+    For trust re-evaluation (enrichment path): use the full SPEC formula
+    including prior-sources check.
     
     Returns (score, reason).
     """
