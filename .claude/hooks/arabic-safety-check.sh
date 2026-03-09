@@ -31,8 +31,8 @@ if grep -nE '\.strip\(\)' "$FILE" 2>/dev/null | grep -v '#.*noqa' | grep -v '# s
 fi
 
 # Check 3: .replace() calls in files containing Arabic text
-# (bash grep can't match Unicode ranges directly, so check if file has Arabic AND .replace)
-if grep -qP '[\x{0600}-\x{06FF}]' "$FILE" 2>/dev/null; then
+# Use python for Arabic detection — grep -P with Unicode ranges fails on Windows Git Bash
+if python3 -c "import sys; sys.exit(0 if any('\u0600'<=c<='\u06FF' for line in open(sys.argv[1],encoding='utf-8',errors='ignore') for c in line) else 1)" "$FILE" 2>/dev/null; then
     if grep -nE '\.replace\(' "$FILE" 2>/dev/null | grep -v '#.*noqa' | grep -v '# safe:' | grep -v '# normalize' > /dev/null; then
         LINES=$(grep -nE '\.replace\(' "$FILE" 2>/dev/null | grep -v '#.*noqa' | grep -v '# safe:' | grep -v '# normalize' | head -3)
         WARNINGS="${WARNINGS}WARNING: .replace() in file with Arabic content — verify this preserves text integrity.\n${LINES}\n\n"
