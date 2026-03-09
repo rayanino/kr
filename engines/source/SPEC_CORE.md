@@ -724,7 +724,7 @@ The engine assesses each source's reliability to determine the default verified/
 |--------|--------|-------------|---------------|
 | Author scholarly standing | 0.30 | Scholar authority record | Classical scholar (death_date_hijri ≤ 900 AH AND scholarly_standing non-null AND record existed before this intake): **0.90**. Known scholar (record exists in registry): **0.70**. Unknown (record just created from this intake with no prior sources): **0.30**. |
 | Tahqiq quality | 0.25 | Muhaqiq name | Recognized muhaqiq (in configurable list, §8): **0.90**. Unknown muhaqiq: **0.50**. No muhaqiq, pre-modern work (author death_date_hijri ≤ 1300): **0.40**. No muhaqiq, modern work: **0.30**. |
-| Publisher reputation | 0.15 | Publisher name | Known scholarly publisher (in configurable list, §8): **0.80**. Unknown/absent: **0.40**. |
+| Publisher reputation | 0.15 | Publisher name | Publisher in known_publishers.json: use its configured score (0.55–0.80 depending on publisher). Unknown/absent: **0.40**. |
 | Source authority | 0.15 | `authority_level` | `primary`: **0.85**. `reference`: **0.60**. `modern_compilation`: **0.40**. |
 | Text fidelity | 0.15 | `text_fidelity` | `high`: **0.90**. `medium`: **0.60**. `low`: **0.30**. `unknown`: **0.40**. |
 
@@ -855,7 +855,7 @@ Five checks run in order. Any failure aborts the write.
 4. **Duplicate re-check.** After inference (which may have changed title or author), re-run deduplication. This catches cases where raw metadata didn't match but inferred metadata does.
 
 5. **Consistency cross-check.** Inferred fields are checked for mutual consistency:
-   - Genre vs. structural_format: `nazm` → should be `verse`; `sharh` → should be `commentary` or `prose`.
+   - Genre vs. structural_format: `nazm` → should be `verse`; `sharh` → should be `commentary` or `prose` (some shuruh are running prose that discuss the matn topically without interlinear quotation — this is valid). `hashiyah` → should be `commentary`.
    - Level vs. genre: `hashiyah` → should not be `beginner`.
    - Science scope vs. author: if `science_scope` doesn't overlap with the author's known specializations (from `school_affiliations`), flag `SRC_METADATA_INCONSISTENCY` with human gate (author-science mismatch often indicates misidentified author).
    - Inconsistencies are flagged as warnings (not blocking) and trigger `needs_review` on the inconsistent fields, EXCEPT author-science mismatch which triggers a human gate.
@@ -985,14 +985,29 @@ For consensus calls (§6), failure handling is defined in the consensus section.
 ### Configurable Reference Lists
 
 **Recognized muhaqiqs** (initial list):
-شعيب الأرناؤوط, أحمد شاكر, عبد السلام هارون, عبد الله التركي, محمد فؤاد عبد الباقي, عبد القادر الأرناؤوط, محمد ناصر الدين الألباني, محمد محيي الدين عبد الحميد
+شعيب الأرناؤوط, أحمد شاكر, عبد السلام هارون, عبد الله التركي, محمد فؤاد عبد الباقي, عبد القادر الأرناؤوط, محمد ناصر الدين الألباني, محمد محيي الدين عبد الحميد, عبد الرحمن بن يحيى المعلمي اليماني, بشار عواد معروف
 
 Stored in `library/config/recognized_muhaqiqs.json`. Owner can extend.
 
-**Known scholarly publishers** (initial list):
-دار الرسالة, مؤسسة الرسالة, دار التراث, دار الكتب العلمية, المكتب الإسلامي, دار ابن حزم, دار ابن الجوزي
-
+**Known scholarly publishers** (initial list, with trust score for the trust evaluation algorithm):
 Stored in `library/config/known_publishers.json`. Owner can extend.
+
+```json
+{
+  "مؤسسة الرسالة": {"score": 0.80, "variants": ["دار الرسالة", "مؤسسة الرسالة - بيروت"]},
+  "دار التراث": {"score": 0.75, "variants": ["دار التراث - القاهرة"]},
+  "المكتب الإسلامي": {"score": 0.75, "variants": ["المكتب الإسلامي - بيروت"]},
+  "دار ابن حزم": {"score": 0.70, "variants": ["دار ابن حزم - بيروت", "دار ابن حزم، بيروت - لبنان"]},
+  "دار ابن الجوزي": {"score": 0.75, "variants": []},
+  "دار عالم الفوائد": {"score": 0.75, "variants": ["دار عالم الفوائد للنشر والتوزيع"]},
+  "مكتبة الرشد": {"score": 0.70, "variants": ["مكتبة الرشد - الرياض"]},
+  "دار البشائر الإسلامية": {"score": 0.70, "variants": ["دار البشائر الإسلامية - بيروت"]},
+  "دار الكتب العلمية": {"score": 0.55, "variants": ["دار الكتب العلمية - بيروت", "دار الكتب العلمية، بيروت - لبنان"]},
+  "دار الفكر": {"score": 0.60, "variants": ["دار الفكر - دمشق", "دار الفكر - بيروت"]}
+}
+```
+
+Publisher matching checks both the canonical name and all variants using substring matching. "دار الكتب العلمية" is scored lower (0.55) than other scholarly publishers because it is known for mass-producing editions of variable quality — some are genuine scholarly editions, many are quick commercial reprints. Unknown/absent publishers score 0.40. The publisher list was validated against the owner's collection of 2,519 Shamela exports.
 
 **Arabic transliteration table** for slug generation:
 Stored in `library/config/transliteration.json`. Maps common Arabic scholar names and work titles to Latin slugs. Initial entries defined in §4.A.1. Extensible by the owner.
