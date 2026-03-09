@@ -1414,6 +1414,7 @@ Six checks run in order. Any failure aborts the write.
    - Genre vs. structural_format: `nazm` → should be `verse`; `sharh` → should be `commentary` or `prose` (some shuruh are running prose that discuss the matn topically without interlinear quotation — this is valid). `hashiyah` → should be `commentary`.
    - Level vs. genre: `hashiyah` → should not be `beginner`.
    - Science scope vs. author: if `science_scope` doesn't overlap with the author's known specializations (from `school_affiliations`), flag `SRC_METADATA_INCONSISTENCY` with human gate trigger `AUTHOR_SCIENCE_MISMATCH` (author-science mismatch often indicates misidentified author).
+   - Attribution status vs. prior sources: if `attribution_status` is `definitive` or `traditional` but an existing source of the same `work_id` has `attribution_status` = `disputed` or `unknown`, flag `SRC_METADATA_INCONSISTENCY` with detail "attribution status conflicts with prior source of the same work." This catches the case where both consensus models share a blind spot about a dispute that a prior intake correctly identified. Only fires when the work registry already has another source. Not blocking — creates `needs_review` on `attribution_status`.
    - Inconsistencies are flagged as warnings (not blocking) and trigger `needs_review` on the inconsistent fields, EXCEPT author-science mismatch which triggers a human gate.
 
 6. **Multi-layer coherence.** Three sub-checks enforce that multi-layer metadata is internally consistent and complete enough for the normalization engine to use:
@@ -1429,7 +1430,7 @@ The following conditions trigger human gate checkpoints (stored as `HumanGateChe
 - Work matching with confidence between 0.50 and 0.85 → `WORK_MATCH_UNCERTAIN`
 - Any critical field with confidence < 0.70 → `LOW_CONFIDENCE_FIELD`
 - Trust evaluation resulting in `flagged` (owner may override) → `TRUST_FLAGGED`
-- Multi-model consensus disagreement on author or work identification → `CONSENSUS_DISAGREEMENT`
+- Multi-model consensus disagreement on author identification, work matching, or attribution status (directed comparison) → `CONSENSUS_DISAGREEMENT`
 - Genre chain relationship where the base work is not in the library → `GENRE_CHAIN_UNRESOLVED`
 - Author-science mismatch from consistency cross-check → `AUTHOR_SCIENCE_MISMATCH`
 - Enrichment modifying critical fields (author, work_id, genre, science_scope) → `ENRICHMENT_CRITICAL_FIELD`
@@ -1451,7 +1452,7 @@ Source metadata is living. Downstream engines discover corrections via the enric
 
 ## 6. Consensus Integration
 
-Multi-model consensus is used for exactly two decisions.
+Multi-model consensus is used for two primary decisions, plus a directed safety comparison on attribution status.
 
 **1. Author identification.** Two LLMs from different providers (configured in §8, default: Anthropic + OpenAI) independently process the metadata inference prompt. Agreement is defined as:
 - **Existing scholar match:** Both models return the same `canonical_id` from the registry.
@@ -1462,11 +1463,19 @@ Agreement → accept. For the "new scholar" case, the engine creates a new recor
 
 **2. Work matching.** Two LLMs independently evaluate whether the new source belongs to an existing work. Agreement → accept. Disagreement → human gate.
 
-**Consensus is NOT used for:** genre, science scope, structural format, trust evaluation, scholar biographical details. These have lower cascade risk and their correctness is verifiable by downstream engines.
+**3. Attribution status (directed comparison).** During the author identification consensus, the two models' `attribution_status` values are also compared. This is NOT a symmetric agreement check — it is a directed safety comparison that catches the dangerous case (false "definitive" when the attribution is actually disputed). Rules:
+- Both models agree → accept the agreed value.
+- One model returns `disputed` or `unknown` while the other returns `definitive` or `traditional` → use the more conservative value (disputed/unknown wins) and create a human gate checkpoint with trigger `CONSENSUS_DISAGREEMENT`. Rationale: if even one model detects a dispute, the dispute signal is worth investigating — false "disputed" is correctable by the owner, but false "definitive" disables the confidence cap and human gate that would otherwise protect the library.
+- One model returns `traditional` and the other returns `definitive` → use `traditional` (the more conservative value) without triggering human gate. This disagreement is about degree of certainty for works with uncontested authorship; the conservative default is appropriate but not alarming.
+
+This comparison runs alongside the author identification consensus (same LLM calls, no additional cost). It addresses KNOWLEDGE_INTEGRITY.md T-2 mitigation #1 ("Multi-model consensus for **all** attribution decisions"), which requires that the certainty of an attribution — not just the identity — is verified. No downstream engine checks `attribution_status`; this is the only verification point.
+
+**Consensus is NOT used for:** genre, science scope, structural format, trust evaluation, scholar biographical details. These have lower cascade risk and their correctness is verifiable by downstream engines. (Note: `attribution_status` was previously in this exclusion list by omission. It was moved to directed comparison because a false "definitive" disables the safety mechanisms — confidence caps and human gates — that protect against T-2 attribution errors, and no downstream engine verifies it.)
 
 **Consensus failure handling (asymmetric by cascade risk):**
 - Author identification (highest cascade risk): if one model times out or fails, a single-model result is NOT accepted. Human gate checkpoint with the single model's suggestion.
 - Work matching (lower cascade risk): if one model fails, the single model's result is accepted provisionally with `single_model_confidence` flag and `needs_review` on `work_id`.
+- Attribution status (piggybacks on author identification): if one model fails, the author identification already goes to human gate. The single model's `attribution_status` is accepted at face value with `needs_review` on `attribution_status` — the human gate review will cover it.
 
 **Implementation.** The consensus module exposes:
 ```python
@@ -1479,9 +1488,11 @@ async def evaluate(task: str, prompt: str, models: list[str],
     """
 ```
 
-The source engine calls `evaluate` twice during Step 4: once for author identification, once for work matching. Each call sends the same structured prompt to both models and parses the JSON output.
+The source engine calls `evaluate` twice during Step 4: once for author identification, once for work matching. Each call sends the same structured prompt to both models and parses the JSON output. The attribution_status directed comparison (§6.3) extracts `attribution_status` from the same per-model results used for author identification — it does not require a third `evaluate` call.
 
 [ASSUMPTION — NEEDS STEP 2 TESTING] Two-model consensus catches most attribution errors. Test: run the same prompt through Claude and GPT on 10+ fixtures. Measure agreement rate and accuracy of each model independently.
+
+[ASSUMPTION — NEEDS STEP 2 TESTING] The directed attribution_status comparison catches false "definitive" classifications for works with disputed authorship. Test with: (1) متن البناء (known disputed attribution), (2) a well-known definitive work like شرح ابن عقيل, (3) works with traditional but unverified attribution. Measure: how often do the two models disagree on attribution_status? When they agree on "definitive," is it correct?
 
 ---
 
@@ -1720,3 +1731,7 @@ All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) ar
 Self-review of the audit found 2 additional defects missed in the initial pass:
 - **(MINOR)** LLM output `layers` → `SourceMetadata.text_layers` rename undocumented at LLM→SourceMetadata boundary (only documented at normalization boundary) — added explicit field name mapping section to §4.A.4.
 - **(MINOR)** `author_short` (card header short author name) and `page_count_raw` (raw عدد الصفحات) extracted but not stored — added to `format_specific_metadata` preservation list and extractor mapping table.
+
+**Integrity Audit — Attribution Status Safety Gap (2026-03-09):**
+Critical analysis of the self-review flagged item revealed a genuine safety gap, not a judgment call:
+- **(IMPORTANT)** `attribution_status` had ZERO protection against false "definitive" classification. A single-point-of-failure LLM error would disable the confidence cap (0.70) and human gate that protect against T-2 attribution errors, with no downstream correction mechanism. This contradicts KNOWLEDGE_INTEGRITY.md T-2 mitigation #1 ("Multi-model consensus for **all** attribution decisions"). Fix: added directed asymmetric comparison in §6 (if either model returns "disputed"/"unknown" while the other doesn't, use the conservative value + human gate), plus a §5 Layer 1 cross-check against prior sources of the same work. ASSUMPTION marker added for Step 2 testing. No contracts.py change needed — `CONSENSUS_DISAGREEMENT` trigger already exists.
