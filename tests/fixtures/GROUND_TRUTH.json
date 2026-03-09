@@ -1,0 +1,215 @@
+{
+  "01_nahw_simple": {
+    "title": "أخبار أبي القاسم الزجاجي",
+    "author_identified": "أبو القاسم الزجاجي (ت 337هـ)",
+    "author_death_hijri": 337,
+    "genre": "other",
+    "science_scope": [
+      "nahw"
+    ],
+    "structural_format": "prose",
+    "is_multi_layer": false,
+    "level": "specialist",
+    "authority_level": "primary",
+    "expected_trust": "flagged",
+    "notes": "Biographical work about a grammarian. No muhaqiq.",
+    "_uncertain": {
+      "genre": "UNCERTAIN — أخبار could be tabaqat, sirah, or other. Need owner input."
+    }
+  },
+  "02_nahw_muhaqiq": {
+    "title": "أبنية الأسماء والأفعال والمصادر",
+    "author_identified": "ابن القطاع الصقلي (ت 515هـ)",
+    "author_death_hijri": 515,
+    "genre": "matn",
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "structural_format": "prose",
+    "is_multi_layer": false,
+    "level": "advanced",
+    "authority_level": "primary",
+    "expected_trust": "flagged",
+    "notes": "Classical sarf reference. Has muhaqiq (أحمد محمد عبد الدايم) but not in recognized list."
+  },
+  "03_fiqh": {
+    "title": "أحكام الاضطباع والرمل في الطواف",
+    "author_identified": "عبد الله بن إبراهيم الزاحم",
+    "author_death_hijri": null,
+    "genre": "risalah",
+    "science_scope": [
+      "fiqh"
+    ],
+    "structural_format": "prose",
+    "is_multi_layer": false,
+    "level": "intermediate",
+    "authority_level": "modern_compilation",
+    "expected_trust": "flagged",
+    "notes": "Modern risalah, contemporary author, published in university journal."
+  },
+  "04_hadith": {
+    "title": "جزء فيه من أحاديث الإمام أيوب السختياني",
+    "author_identified": "القاضي إسماعيل بن إسحاق المالكي (ت 282هـ)",
+    "author_death_hijri": 282,
+    "genre": "hadith_collection",
+    "science_scope": [
+      "hadith"
+    ],
+    "structural_format": "prose",
+    "is_multi_layer": false,
+    "level": "specialist",
+    "authority_level": "primary",
+    "expected_trust": "flagged",
+    "notes": "Classical hadith juz. Has muhaqiq but not recognized."
+  },
+  "05_tafsir": {
+    "title": "أنوار الهلالين في التعقبات على الجلالين",
+    "author_identified": "محمد بن عبد الرحمن الخميس",
+    "author_death_hijri": null,
+    "genre": "sharh",
+    "science_scope": [
+      "tafsir"
+    ],
+    "structural_format": "commentary",
+    "is_multi_layer": true,
+    "level": "advanced",
+    "authority_level": "modern_compilation",
+    "expected_trust": "flagged",
+    "notes": "Modern corrections on Tafsir al-Jalalayn. Multi-layer is debatable — it's a taqaqqubat work.",
+    "_uncertain": {
+      "genre": "UNCERTAIN — تعقبات على الجلالين is corrections ON a tafsir. Could be sharh, hashiyah, or taqrirat.",
+      "is_multi_layer": "UNCERTAIN — references Jalalayn content but may not interleave it. Need content check."
+    }
+  },
+  "06_usul": {
+    "title": "آداب الفتوى والمفتي والمستفتي",
+    "author_identified": "النووي (631-676 هـ)",
+    "author_death_hijri": 676,
+    "genre": "risalah",
+    "science_scope": [
+      "usul_al_fiqh"
+    ],
+    "structural_format": "prose",
+    "is_multi_layer": false,
+    "level": "intermediate",
+    "authority_level": "primary",
+    "expected_trust": "verified",
+    "notes": "النووي is one of the most recognized scholars. Muhaqiq present, دار الفكر publisher."
+  },
+  "07_balagha": {
+    "title": "أساليب بلاغية",
+    "author_identified": "أحمد مطلوب",
+    "author_death_hijri": null,
+    "genre": "matn",
+    "science_scope": [
+      "balagha"
+    ],
+    "structural_format": "prose",
+    "is_multi_layer": false,
+    "level": "intermediate",
+    "authority_level": "modern_compilation",
+    "expected_trust": "flagged",
+    "notes": "Modern balagha textbook. Contemporary Iraqi scholar.",
+    "_uncertain": {
+      "genre": "UNCERTAIN — modern textbook. Could be matn or risalah or other."
+    }
+  },
+  "08_death_date": {
+    "title": "آداب الصحبة",
+    "author_identified": "أبو عبد الرحمن السلمي (ت 412هـ)",
+    "author_death_hijri": 412,
+    "genre": "risalah",
+    "science_scope": [
+      "tasawwuf",
+      "hadith"
+    ],
+    "structural_format": "prose",
+    "is_multi_layer": false,
+    "level": "intermediate",
+    "authority_level": "primary",
+    "expected_trust": "flagged",
+    "notes": "Classical Sufi adab work. Has muhaqiq (مجدي فتحي السيد) but not in recognized list."
+  },
+  "09_alt_title": {
+    "title": "أسلوب خطبة الجمعة",
+    "author_identified": "عبد الله بن ضيف الله الرحيلي",
+    "author_death_hijri": null,
+    "genre": "risalah",
+    "science_scope": [
+      "fiqh"
+    ],
+    "structural_format": "prose",
+    "is_multi_layer": false,
+    "level": "beginner",
+    "authority_level": "modern_compilation",
+    "expected_trust": "flagged",
+    "notes": "Modern risalah on khutbah style. Government publication."
+  },
+  "10_no_author": {
+    "title": "البدر التمام بما صح من أدلة الأحكام",
+    "author_identified": "ناصر بن سعيد بن سيف السيف",
+    "author_death_hijri": null,
+    "genre": "hadith_collection",
+    "science_scope": [
+      "hadith",
+      "fiqh"
+    ],
+    "structural_format": "prose",
+    "is_multi_layer": false,
+    "level": "intermediate",
+    "authority_level": "modern_compilation",
+    "expected_trust": "flagged",
+    "notes": "Uses إعداد instead of المؤلف. Modern compilation of hadith evidence.",
+    "_uncertain": {
+      "genre": "UNCERTAIN — compilation of hadith evidence. Could be hadith_collection or fiqh_comparative."
+    }
+  },
+  "11_multi_small": {
+    "title": "همع الهوامع في شرح جمع الجوامع",
+    "author_identified": "جلال الدين السيوطي (ت 911هـ)",
+    "author_death_hijri": 911,
+    "genre": "sharh",
+    "science_scope": [
+      "nahw"
+    ],
+    "structural_format": "commentary",
+    "is_multi_layer": true,
+    "level": "advanced",
+    "authority_level": "primary",
+    "expected_trust": "verified",
+    "notes": "Major grammar sharh. 3 volumes. Multi-layer: sharh on جمع الجوامع."
+  },
+  "12_multi_muq": {
+    "title": "مذكرات مالك بن نبي - العفن",
+    "author_identified": "مالك بن نبي (ت 1393هـ)",
+    "author_death_hijri": 1393,
+    "genre": "other",
+    "science_scope": [],
+    "structural_format": "prose",
+    "is_multi_layer": false,
+    "level": null,
+    "authority_level": "primary",
+    "expected_trust": "flagged",
+    "notes": "Memoirs of Algerian intellectual. Has المقدمة.htm. Not traditional Islamic scholarship.",
+    "_uncertain": {
+      "science_scope": "UNCERTAIN — مالك بن نبي is Islamic thought/civilization, not a traditional Islamic science."
+    }
+  },
+  "alfiyyah_versified": {
+    "title": "متن الفية ابن مالك فى علم النحو والصرف",
+    "author_identified": "ابن مالك (ت 672هـ)",
+    "author_death_hijri": 672,
+    "genre": "matn",
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "structural_format": "verse",
+    "is_multi_layer": false,
+    "level": "intermediate",
+    "authority_level": "primary",
+    "expected_trust": "flagged",
+    "notes": "Plain text file. Most famous Arabic grammar poem. 1002 verses."
+  }
+}
