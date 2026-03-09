@@ -4,7 +4,6 @@ Scores LLM outputs against GROUND_TRUTH.json using criteria from SCORING_CRITERI
 Run directly to verify scoring logic against known test cases.
 """
 
-import difflib
 import io
 import json
 import re
@@ -214,9 +213,17 @@ def score_author_identification(
     
     # Correct person (weight 0.20) - domain-aware heuristic
     # Death date exact match + any name component overlap → certainly same person
-    if date_score == 1.0 and name_score > 0.0:
+    # But if death dates are both known and strongly contradict → definitely different people
+    dates_contradict = (
+        expected_death is not None
+        and predicted_death is not None
+        and date_score == 0.0
+    )
+    if dates_contradict:
+        person_score = 0.0  # 50+ year gap = different people regardless of name
+    elif date_score == 1.0 and name_score > 0.0:
         person_score = 1.0
-    elif name_score >= 0.85:
+    elif name_score >= 0.85 and date_score >= 0.3:
         person_score = 1.0
     elif name_score >= 0.50 and date_score >= 0.3:
         person_score = 0.5

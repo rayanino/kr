@@ -30,10 +30,13 @@ if grep -nE '\.strip\(\)' "$FILE" 2>/dev/null | grep -v '#.*noqa' | grep -v '# s
     WARNINGS="${WARNINGS}WARNING: bare .strip() found — safe for whitespace but verify no Arabic diacritics are affected.\n${LINES}\n\n"
 fi
 
-# Check 3: .replace() on potentially Arabic content without safety comment
-if grep -nE "\.replace\(['\"][\u0600-\u06FF]" "$FILE" 2>/dev/null | grep -v '#.*noqa' | grep -v '# safe:' > /dev/null; then
-    LINES=$(grep -nE "\.replace\(['\"][\u0600-\u06FF]" "$FILE" 2>/dev/null | grep -v '#.*noqa' | grep -v '# safe:' | head -3)
-    WARNINGS="${WARNINGS}WARNING: .replace() on Arabic characters found — verify this preserves text integrity.\n${LINES}\n\n"
+# Check 3: .replace() calls in files containing Arabic text
+# (bash grep can't match Unicode ranges directly, so check if file has Arabic AND .replace)
+if grep -qP '[\x{0600}-\x{06FF}]' "$FILE" 2>/dev/null; then
+    if grep -nE '\.replace\(' "$FILE" 2>/dev/null | grep -v '#.*noqa' | grep -v '# safe:' | grep -v '# normalize' > /dev/null; then
+        LINES=$(grep -nE '\.replace\(' "$FILE" 2>/dev/null | grep -v '#.*noqa' | grep -v '# safe:' | grep -v '# normalize' | head -3)
+        WARNINGS="${WARNINGS}WARNING: .replace() in file with Arabic content — verify this preserves text integrity.\n${LINES}\n\n"
+    fi
 fi
 
 # Check 4: Hardcoded Latin-only regex patterns that might miss Arabic

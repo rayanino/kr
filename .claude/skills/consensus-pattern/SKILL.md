@@ -111,9 +111,23 @@ def check_agreement(a: BaseModel, b: BaseModel) -> bool:
     if set(a_dict.get("science_scope", [])) != set(b_dict.get("science_scope", [])):
         return False
 
-    # Fuzzy fields (name, death date) — checked separately
-    # Author names: at least one shared significant token
-    # Death dates: must match exactly if both provided
+    # Author death date: must match exactly if both provided
+    death_a = a_dict.get("author_death_hijri")
+    death_b = b_dict.get("author_death_hijri")
+    if death_a is not None and death_b is not None and death_a != death_b:
+        return False
+
+    # Author name: at least one shared significant token after normalization
+    name_a = a_dict.get("author_name", "")
+    name_b = b_dict.get("author_name", "")
+    if name_a and name_b:
+        # Import from eval_harness for consistent name comparison
+        from tests.eval_harness import _extract_name_tokens
+
+        tokens_a = _extract_name_tokens(name_a)
+        tokens_b = _extract_name_tokens(name_b)
+        if tokens_a and tokens_b and not (tokens_a & tokens_b):
+            return False  # No shared name component
 
     return True
 ```
