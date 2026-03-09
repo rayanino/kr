@@ -80,7 +80,7 @@ library/sources/{source_id}/metadata.json + frozen/
 |-----------|---------|-----------|
 | `shared/consensus/src/consensus.py` | 3 | `evaluate()` — multi-model inference + comparison |
 | `shared/scholar_authority/src/scholar_authority.py` | 5 | `lookup()`, `register()`, `update()` |
-| `shared/scholar_authority/src/name_matching.py` | 5 | `normalize_arabic_name()`, `_extract_name_tokens()`, `normalized_name_similarity()` |
+| `shared/scholar_authority/src/name_matching.py` | 3 | `normalize_arabic_name()`, `_extract_name_tokens()`, `normalized_name_similarity()` |
 | `shared/human_gate/src/human_gate.py` | 5 | `create_checkpoint()`, `resolve()`, `get_pending()` |
 | `shared/validation/src/validation.py` | 5 | `validate_output()`, `validate_enrichment_passthrough()` |
 
