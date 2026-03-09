@@ -480,6 +480,10 @@ def extract_shamela_metadata(source_path: Path) -> dict:
     }
     
     # === Parse the metadata card (first PageText div) ===
+    # NOTE: The non-greedy (.*?)</div> regex works here because the metadata
+    # card has NO nested <div> elements (verified across all 2,519 exports).
+    # Body pages DO have nested <div class='PageHead'>...</div>, so the body
+    # text extraction below uses a split-based approach instead of this regex.
     card_match = re.search(r"<div class='PageText'>(.*?)</div>", content, re.DOTALL)
     if not card_match:
         raise SourceError(ErrorCode.FORMAT_STRUCTURE_MISSING, 
@@ -647,19 +651,26 @@ def extract_shamela_metadata(source_path: Path) -> dict:
     result['page_count'] = body_page_count  # Digital count → SourceMetadata.page_count
     
     # --- Extract first 2000 chars of body text for LLM inference ---
+    # IMPORTANT: Cannot use re.finditer(r"<div class='PageText'>(.*?)</div>")
+    # because PageText contains a nested <div class='PageHead'>...</div>, and
+    # the non-greedy (.*?) stops at PageHead's closing </div>, capturing only
+    # the header instead of the body text. Use split-based extraction instead.
     body_text_parts = []
-    first_page = True
-    for pt_match in re.finditer(r"<div class='PageText'>(.*?)</div>", content, re.DOTALL):
-        page = pt_match.group(1)
-        if first_page:
-            first_page = False
-            continue  # Skip metadata card (always the first PageText div)
-        # This is a body page — extract text
-        # Remove PageHead, footnotes, and HTML tags
-        body = re.sub(r"<div class='PageHead'>.*?</div>", '', page, flags=re.DOTALL)
-        body = re.sub(r"<hr[^>]*>.*?<div class='footnote'>.*?$", '', body, flags=re.DOTALL)
-        body = strip_tags(body).strip()
-        body_text_parts.append(body)
+    page_segments = re.split(r"<div class='PageText'>", content)
+    for i, seg in enumerate(page_segments):
+        if i <= 1:  # Before first PageText (HTML head) + metadata card
+            continue
+        # Each segment = PageHead div + body text + </div> (PageText close) + ...
+        # Split at PageHead's closing </div> to get body text
+        after_pagehead = seg.split("</div>", 1)
+        if len(after_pagehead) < 2:
+            continue
+        body_html = after_pagehead[1].split("</div>")[0]  # Up to PageText close
+        # Remove footnotes (after <hr> separator)
+        body_html = re.sub(r"<hr[^>]*>.*$", '', body_html, flags=re.DOTALL)
+        body = strip_tags(body_html).strip()
+        if body:
+            body_text_parts.append(body)
         if sum(len(p) for p in body_text_parts) > 2000:
             break
     result['text_sample'] = '\n'.join(body_text_parts)[:2000]
