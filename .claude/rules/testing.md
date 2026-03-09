@@ -1,0 +1,10 @@
+---
+globs: ["engines/*/tests/**/*.py", "shared/*/tests/**/*.py", "tests/**/*.py"]
+---
+- All tests use real Arabic text from tests/fixtures/ — never transliteration, never lorem ipsum.
+- Test the SPEC, not the implementation: write tests from §4 behavioral rules.
+- Every test must have a clear Arrange-Act-Assert structure.
+- Use pytest fixtures for shared setup. Parametrize over multiple inputs.
+- Edge cases to always test: empty input, diacritics-only text, mixed Arabic/Latin, single-character atoms.
+- Deterministic tests go in test_deterministic.py. LLM-dependent tests go in test_llm_inference.py.
+- Run with: `python -m pytest engines/<n>/tests/ -v --tb=short`

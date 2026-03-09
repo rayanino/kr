@@ -1,0 +1,11 @@
+---
+globs: ["engines/*/src/**/*.py", "shared/*/src/**/*.py", "scripts/**/*.py"]
+---
+- Type hints on ALL function signatures. No `Any` unless explicitly justified.
+- Pydantic models for all data contracts. Use `model_validator` for cross-field validation.
+- Errors fail loud: raise specific exceptions, never return None for failures, never bare `except:`.
+- Arabic text: NEVER use `.lower()`, `.upper()`, `.strip()`, or `.replace()` on Arabic strings without checking `.claude/skills/arabic-text/SKILL.md`.
+- Metadata preservation (D-023): every function that transforms data must pass through ALL upstream metadata fields.
+- Use `from __future__ import annotations` in all new files.
+- Prefer `pathlib.Path` over `os.path`.
+- Run `black` before committing. Line length 88.
