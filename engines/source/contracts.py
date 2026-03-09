@@ -159,6 +159,24 @@ class WorkLevel(str, Enum):
     SPECIALIST = "specialist"
 
 
+class AttributionStatus(str, Enum):
+    """Authorship attribution certainty (SPEC §4.A.4).
+
+    Captures whether the work's authorship is historically secure.
+    - definitive: uncontested and well-documented
+    - traditional: conventionally accepted but not independently established (default for classical works)
+    - disputed: actively contested among scholars
+    - unknown: no author identified or identifiable
+
+    When disputed, author.confidence is capped at 0.70.
+    When unknown, author.confidence is set to 0.0.
+    """
+    DEFINITIVE = "definitive"
+    TRADITIONAL = "traditional"
+    DISPUTED = "disputed"
+    UNKNOWN = "unknown"
+
+
 class ProcessingStatus(str, Enum):
     """Pipeline processing status (SPEC §4.A.10).
 
@@ -668,6 +686,17 @@ class SourceMetadata(BaseModel):
     title_arabic: str
     title_transliterated: Optional[str] = None
     author: ScholarReference
+    attribution_status: AttributionStatus = Field(
+        default=AttributionStatus.TRADITIONAL,
+        description="How secure the authorship attribution is. 'traditional' is the "
+                    "safe default for classical works. When 'disputed', author.confidence "
+                    "is capped at 0.70. When 'unknown', author.confidence is set to 0.0."
+    )
+    attribution_notes: Optional[str] = Field(
+        None,
+        description="Description of the attribution dispute. Required when "
+                    "attribution_status is 'disputed'. Null otherwise."
+    )
     muhaqiq: Optional[ScholarReference] = Field(
         None, description="Tahqiq editor — also a scholar in the authority registry"
     )

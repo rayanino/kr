@@ -952,7 +952,9 @@ After format-specific extraction produces a sparse metadata record, the engine u
     "known_as": ["ابن عقيل"],
     "death_date_hijri": 769,
     "school_affiliations": {"nahw": null, "fiqh": null},
-    "scholarly_standing": "Classical grammarian, author of the most widely taught sharh of the Alfiyyah"
+    "sectarian_tradition": "sunni",            // Broad sectarian frame — routes to ScholarAuthorityRecord
+    "scholarly_standing": "Classical grammarian, author of the most widely taught sharh of the Alfiyyah",
+    "methodological_stance": null               // Routes to ScholarAuthorityRecord.methodological_stance
   },
   "author_identification_confidence": 0.96,
   "attribution_status": "definitive",        // AttributionStatus enum: definitive, traditional, disputed, unknown
@@ -1091,7 +1093,9 @@ LLM output:
     "known_as": ["ابن مالك"],
     "death_date_hijri": 672,
     "school_affiliations": {"nahw": null},
-    "scholarly_standing": "Author of the Alfiyyah, the most famous didactic poem in Arabic grammar"
+    "sectarian_tradition": "sunni",
+    "scholarly_standing": "Author of the Alfiyyah, the most famous didactic poem in Arabic grammar",
+    "methodological_stance": null
   },
   "author_identification_confidence": 0.99,
   "attribution_status": "definitive",
@@ -1624,6 +1628,7 @@ Verified field names between this SPEC and `contracts.py`:
 | §4.A.9 WorkRelationshipEdge | `WorkRelationshipEdge` | `from_work_id`, `to_work_id`, `relation_type`, `confidence`, `discovered_by` | ✓ |
 | §4.A.7 GenreChain | `GenreChain` | `relation_type`, `base_work_title`, `base_work_author`, `base_work_id`, `confidence` | ✓ |
 | §4.A.4 ScholarlyContext | `ScholarlyContext` | `composition_period`, `tradition_position`, `known_textual_issues`, `historical_significance`, `muhaqiq_reputation`, `tahqiq_methodology_note`, `edition_known_issues`, `context_richness`, `uncertain_dimensions` | ✓ |
+| §4.A.4 AttributionStatus | `AttributionStatus` | `definitive`, `traditional`, `disputed`, `unknown` | ✓ |
 
 All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) are addressed: the SPEC now uses the exact field names from contracts.py (`name_arabic` not `display_name`, `source_of_identification` not omitted, `name` not `factor` for trust factors, etc.).
 
@@ -1637,8 +1642,8 @@ All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) ar
 - VolumeInfo construction logic added
 
 **SPEC Review Session Updates (Comment #1 — 2026-03-09):**
-- **New enum `AttributionStatus`:** `definitive`, `traditional`, `disputed`, `unknown`. Needs addition to `contracts.py`. Used in `SourceMetadata.attribution_status`.
-- **New fields on `SourceMetadata`:** `attribution_status` (AttributionStatus enum), `attribution_notes` (Optional[str]). Both need addition to `contracts.py`. (Note: `work_notes` and `muhaqiq_reputation_note` were originally proposed as standalone fields but are absorbed into `ScholarlyContext` — see Comment #2.)
+- **New enum `AttributionStatus`:** `definitive`, `traditional`, `disputed`, `unknown`. Added to `contracts.py` (Comment #2 session). Used in `SourceMetadata.attribution_status`.
+- **New fields on `SourceMetadata`:** `attribution_status` (AttributionStatus enum), `attribution_notes` (Optional[str]). Added to `contracts.py` (Comment #2 session). (Note: `work_notes` and `muhaqiq_reputation_note` were originally proposed as standalone fields but are absorbed into `ScholarlyContext` — see Comment #2.)
 - **Expanded FIELD_MAP:** 23 entries → 48 entries. New internal names introduced: `distributor`, `foreword_by`, `compiler_name_raw`, `translator`, `original_author_name_raw`, `commentator_name_raw`. These map to `format_specific_metadata` sub-fields, not top-level SourceMetadata fields.
 - **Content quality inspection:** `format_specific_metadata.quality_issues` (list of dicts with `check`, `severity`, `detail`). No contracts.py change needed — this is inside the existing `format_specific_metadata: dict` field.
 - **text_fidelity logic change:** Now content-aware (can downgrade from format baseline). No schema change — `text_fidelity` field and `TextFidelity` enum unchanged.
@@ -1651,4 +1656,4 @@ All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) ar
 - **New fields on `ScholarAuthorityRecord`:** `sectarian_tradition` (Optional[str]) and `methodological_stance` (Optional[str]). Field count 22 → 24. `record_completeness` denominator updated.
 - **Inference output schema:** `work_notes` and `muhaqiq_reputation_note` replaced by `scholarly_context` block containing: `composition_period`, `tradition_position`, `known_textual_issues`, `historical_significance`, `muhaqiq_reputation`, `tahqiq_methodology_note`, `edition_known_issues`, `context_richness`, `uncertain_dimensions`.
 - **Inference call strategy:** SPEC documents both single-call and two-call approaches. Step 2 testing determines which to use based on JSON reliability metrics.
-- **Design rationale:** Three rounds of critical review eliminated 11 originally proposed fields as redundant, misplaced, or over-engineered. Author-level context lives in ScholarAuthorityRecord (not duplicated per-source). No assembly utility function — the synthesis engine's existing metadata chain resolution handles joins. No era configuration file — synthesis engine handles periodization during narrative construction. See `reference/SCHOLARLY_CONTEXT_DESIGN.md` for the full review record.
+- **Design rationale:** Three rounds of critical review eliminated 11 originally proposed fields as redundant, misplaced, or over-engineered. Author-level context lives in ScholarAuthorityRecord (not duplicated per-source). No assembly utility function — the synthesis engine's existing metadata chain resolution handles joins. No era configuration file — synthesis engine handles periodization during narrative construction.
