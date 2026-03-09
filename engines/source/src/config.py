@@ -1,31 +1,63 @@
 """Source Engine Configuration — SPEC §8
 
-Core parameters with defaults and valid ranges.
-See SPEC §8 for the full parameter table.
+Loads all configuration from library/config/:
+- recognized_muhaqiqs.json: list of recognized tahqiq editor names
+- known_publishers.json: publisher name → {score, variants}
+- transliteration.json: Arabic → Latin slug mapping tables
+- genre_synonyms.json: non-standard genre values → Genre enum values
 
-Hardcoded (not configurable):
-- SHA-256 hash algorithm
-- source_id format (src_{8_char_hash})
-- Trust tier names (verified, flagged, owner_override)
-- Freeze-before-process invariant
+Also provides typed access to core parameters (§8):
+- confidence thresholds (auto_accept: 0.70, block: 0.50)
+- trust evaluation threshold (0.65)
+- consensus configuration (models, fallback)
+- staging/enrichment timeouts
 """
 
 from __future__ import annotations
 
+import json
+from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Optional
 
-from pydantic import BaseModel, Field
+
+@dataclass
+class SourceEngineConfig:
+    """Typed configuration for the source engine.
+    
+    All fields have defaults matching SPEC §8.
+    Config files override defaults when loaded.
+    """
+    # Paths
+    library_root: Path = Path("library")
+    staging_path: Path = Path("library/staging")
+    
+    # Confidence thresholds (§8)
+    confidence_threshold_auto_accept: float = 0.70
+    confidence_threshold_block: float = 0.50
+    
+    # Trust evaluation (§8)
+    trust_score_verified_threshold: float = 0.65
+    
+    # Timeouts (§8)
+    staging_lock_timeout: int = 3600  # seconds
+    enrichment_cycle_timeout: int = 3600  # seconds
+    human_gate_batch_size: int = 20  # max pending before alert
+    
+    # Loaded config data
+    recognized_muhaqiqs: list[str] = field(default_factory=list)
+    known_publishers: dict[str, dict] = field(default_factory=dict)
+    transliteration: dict[str, dict[str, str]] = field(default_factory=dict)
+    genre_synonyms: dict[str, str] = field(default_factory=dict)
 
 
-class SourceEngineConfig(BaseModel):
-    """Configuration for the source engine."""
-
-    staging_path: Path = Field(description="Root directory for staging sources.")
-    library_root: Path = Field(
-        default=Path("library"), description="Root directory for frozen library."
-    )
-    inference_timeout: float = Field(
-        default=60.0, description="Timeout in seconds for LLM inference calls."
-    )
-
-    model_config = {"arbitrary_types_allowed": True}
+def load_config(
+    library_root: Path = Path("library"),
+) -> SourceEngineConfig:
+    """Load all configuration files and return a typed config object.
+    
+    SPEC §8: Config files are in library/config/.
+    Missing files produce empty defaults (not errors).
+    Malformed JSON files raise with clear error messages.
+    """
+    raise NotImplementedError

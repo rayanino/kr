@@ -1,8 +1,18 @@
-# NEXT — Source Engine Session 3: LLM Inference + Consensus
+# NEXT — Source Engine Session 5a: Shared Components + Trust + Validation
 
-**Session type:** BUILD — implement LLM metadata inference and multi-model consensus
-**Pipeline steps:** Step 4 (Metadata Inference)
-**Depends on:** Sessions 1–2 (staging + format detection + extraction — 217 tests passing)
+**Session type:** BUILD — implement shared scholar_authority, human_gate, validation, trust evaluator, config
+**Pipeline steps:** Step 7 (Registration prerequisites) + Step 8 (Trust Evaluation) + §5 (Validation)
+**Depends on:** Sessions 1–4 (365 tests passing: extraction, format detection, inference, consensus, hashing, dedup, freezing)
+
+---
+
+## ⚠️ Scope Warning
+
+Session 5 builds 10 modules — this is split into two sub-sessions:
+- **Session 5a (this session):** Shared components + trust + validation (6 modules)
+- **Session 5b (next session):** Registries + registration orchestrator (4 modules)
+
+Session 5a produces the components that Session 6 (integration) blocks on.
 
 ---
 
@@ -10,327 +20,216 @@
 
 Read these files in order before writing any code:
 
-1. `engines/source/SPEC_CORE.md` §4.A.4 — LLM-Assisted Metadata Inference (the behavioral authority for this session)
-2. `engines/source/SPEC_CORE.md` §6 — Consensus Integration (agreement rules, failure handling, directed attribution_status comparison)
-3. `engines/source/prompts/inference_v1.py` — The validated prompt template (draft-3, final). This is the exact prompt to use.
-4. `engines/source/contracts.py` — Data models: `InferredFieldConfidence`, `ScholarReference`, `TextLayer`, `ScholarlyContext`, `AttributionStatus`, `GenreChain`
-5. `engines/source/src/inference_models.py` — The `InferenceOutput` Pydantic model (and sub-models) used as Instructor's `response_model`. **Created in Module 0** of this session — build it first, then Modules 2–4 import from it.
-6. `shared/consensus/REQUIREMENTS_source.md` — Consensus interface specification (function signatures, agreement rules, failure handling)
-7. `engines/source/docs/technology-inventory.md` — Instructor configuration (use `from_provider()`, see RQ-1)
-8. `.claude/skills/consensus-pattern/SKILL.md` — Implementation pattern for multi-model calls
-9. `tests/fixtures/GROUND_TRUTH.json` — Expected answers for all 13 fixtures
-10. `tests/eval_harness.py` lines 22–95 — Name matching functions to copy to production
+1. `engines/source/SPEC_CORE.md` §4.A.5 — Scholar Authority Model (full section, lines 1203–1288)
+2. `engines/source/SPEC_CORE.md` §4.A.8 — Trustworthiness Evaluation (full section, lines 1311–1365)
+3. `engines/source/SPEC_CORE.md` §5 — Validation and Quality (all 6 Layer 1 checks + Layer 2, lines 1441–1494)
+4. `engines/source/SPEC_CORE.md` §8 — Configuration (reference lists, parameters, lines 1591–1666)
+5. `engines/source/contracts.py` — `ScholarAuthorityRecord`, `TrustworthinessFactor`, `TrustTier`, `HumanGateCheckpoint`, `HumanGateTrigger`, `InferredFieldConfidence`, `ErrorCode`
+6. `shared/scholar_authority/REQUIREMENTS_source.md` — Scholar authority interface spec
+7. `shared/human_gate/REQUIREMENTS_source.md` — Human gate interface spec
+8. `shared/validation/REQUIREMENTS_source.md` — Validation interface spec
+9. `KNOWLEDGE_INTEGRITY.md` Layer 4 — What the owner CAN and CANNOT verify
+10. `engines/source/docs/session5-architecture.md` — Module dependency graph and data flow
+11. `engines/source/docs/session5-contracts-audit.md` — Known misalignment: HumanGateCheckpoint needs `status` field
+12. `engines/source/docs/session5-test-plan.md` — Test specifications (tests 1–70)
+13. `tests/fixtures/GROUND_TRUTH.json` — Expected trust values for all 13 fixtures
 
 ---
 
-## What to Build
+## Contracts Change Required FIRST
 
-### Module 0: `engines/source/src/inference_models.py` (ALREADY CREATED — verify it matches below)
-The `InferenceOutput` Pydantic model that Instructor parses LLM responses into. This model matches the §4.A.4 inference output schema exactly. Without it, nothing else works — it is the `response_model` passed to `evaluate()`. The file is already created and should match this specification:
+**Before writing any module code**, update `engines/source/contracts.py`:
+
+Replace the `HumanGateCheckpoint` model's `resolved: bool` with `status: str`:
 
 ```python
-from pydantic import BaseModel, Field
-from typing import Optional, Literal
-from engines.source.contracts import (
-    Genre, StructuralFormat, WorkLevel, AuthorityLevel, AttributionStatus
-)
-
-class AuthorIdentificationOutput(BaseModel):
-    canonical_name_ar: str
-    known_as: list[str] = []
-    death_date_hijri: Optional[int] = None
-    school_affiliations: Optional[dict[str, Optional[str]]] = None
-    sectarian_tradition: Optional[str] = None
-    scholarly_standing: Optional[str] = None
-    methodological_stance: Optional[str] = None
-
-class LayerOutput(BaseModel):
-    layer_type: Literal["matn", "sharh", "hashiyah", "tahqiq_note"]
-    author_name: str  # Arabic name — resolved to ScholarReference AFTER inference
-
-class GenreChainOutput(BaseModel):
-    relation_type: str  # "sharh_of", "hashiyah_on", etc.
-    base_work_title: str
-    base_work_author: str
-
-class ScholarlyContextOutput(BaseModel):
-    composition_period: Optional[str] = None
-    composition_date_hijri: Optional[int] = None
-    tradition_position: Optional[str] = None
-    known_textual_issues: list[str] = []
-    historical_significance: Optional[str] = None
-    muhaqiq_reputation: Optional[str] = None
-    tahqiq_methodology_note: Optional[str] = None
-    edition_known_issues: list[str] = []
-    context_richness: Literal["rich", "partial", "minimal"] = "minimal"
-    uncertain_dimensions: list[str] = []
-
-class InferenceOutput(BaseModel):
-    """The Pydantic model Instructor parses LLM responses into.
-    Matches SPEC §4.A.4 inference output schema."""
-    genre: str  # Will be validated against Genre enum after parsing
-    genre_confidence: float = Field(ge=0.0, le=1.0)
-    genre_chain: Optional[GenreChainOutput] = None
-    genre_chain_confidence: Optional[float] = Field(None, ge=0.0, le=1.0)
-    structural_format: str
-    structural_format_confidence: float = Field(ge=0.0, le=1.0)
-    is_multi_layer: bool
-    multi_layer_confidence: float = Field(ge=0.0, le=1.0)
-    layers: Optional[list[LayerOutput]] = None
-    science_scope: list[str]
-    science_scope_confidence: float = Field(ge=0.0, le=1.0)
-    level: Optional[str] = None
-    level_confidence: Optional[float] = Field(None, ge=0.0, le=1.0)
-    authority_level: str
-    authority_level_confidence: float = Field(ge=0.0, le=1.0)
-    author_identification: AuthorIdentificationOutput
-    author_identification_confidence: float = Field(ge=0.0, le=1.0)
-    attribution_status: str = "traditional"  # Validated against AttributionStatus after
-    attribution_notes: Optional[str] = None
-    scholarly_context: Optional[ScholarlyContextOutput] = None
+class HumanGateCheckpoint(BaseModel):
+    checkpoint_id: str
+    source_id: str
+    trigger: HumanGateTrigger
+    trigger_detail: str
+    fields_to_review: list[str]
+    current_values: dict[str, Any]
+    alternatives: Optional[list[dict[str, Any]]] = None
+    created_at: str
+    status: str = "pending"  # pending|approved|rejected|unsure|elevated|auto_approved
+    resolution: Optional[str] = None
+    resolved_at: Optional[str] = None
+    elevated_result: Optional[dict[str, Any]] = None  # Layer 3.5 output
 ```
 
-**Why enum fields are `str` not the actual enum:** Instructor parses the LLM's raw JSON. If the LLM returns `"منظومة"` instead of `"nazm"`, Pydantic enum validation would reject it immediately. Using `str` lets the engine apply synonym normalization first (§4.A.4 LLM response validation, `library/config/genre_synonyms.json`), THEN validate against the enum. The engine validates enums after synonym mapping, not during parsing.
-
-**Use single-call inference** (scholarly_context in same prompt as classification fields). Step 2 achieved 100% JSON parse rate across all models — above the 95% threshold for single-call.
-
-### Module 1: `shared/scholar_authority/src/name_matching.py`
-Copy from `tests/eval_harness.py` (lines 22–95):
-- `normalize_arabic_name(name: str) -> str`
-- `_extract_name_tokens(name: str) -> set`
-- `normalized_name_similarity(a: str, b: str) -> float`
-
-These are the production name matching functions. The token-based approach handles the A3-1 edge case (short-vs-long name forms). Do NOT use `difflib.SequenceMatcher`.
-
-**WARNING:** SPEC §4.A.1 (lines ~292–312) still shows the OLD SequenceMatcher-based `normalized_name_similarity()` in its code. That version is SUPERSEDED. The eval_harness.py token-based version is authoritative (confirmed in STEP2_EVALUATION.md, A3-1 finding).
-
-### Module 2: `shared/consensus/src/consensus.py`
-Replace the tracer stub. Implement:
-- `evaluate(task, messages, response_model, models, agreement_fn, simplified_messages) -> ConsensusResult`
-- `messages` is a `list[dict]` — NOT a single string. Constructed from inference_v1.py's SYSTEM_MESSAGE + USER_MESSAGE_TEMPLATE:
-  ```python
-  messages = [
-      {"role": "system", "content": SYSTEM_MESSAGE},
-      {"role": "user", "content": user_prompt},  # filled from template
-  ]
-  ```
-- Both model calls dispatched concurrently via `asyncio.gather()`
-- Per-model retry: 2 retries (fresh request, then simplified_messages which removes library context)
-- Fallback: if Command A fails → swap for GPT-5.4, retry consensus
-- Timeout: 60s per model call via `asyncio.wait_for()`
-- **Client lifecycle:** Create Instructor clients once at module level (not inside every evaluate() call). Store them as module-level variables initialized on first use:
-  ```python
-  # Module-level — initialized once
-  # Model A: Cohere Command A via OpenRouter
-  client_a = instructor.from_provider("openrouter/cohere/command-a", async_client=True)
-  
-  # Model B: Opus 4.6 via Anthropic direct API
-  client_b = instructor.from_provider("anthropic/claude-opus-4-6", async_client=True)
-  ```
-- API keys from environment: `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`
-- **Important:** The `.claude/skills/consensus-pattern/SKILL.md` uses `from_provider()` (correct). Do NOT use `from_litellm()` — that was the Step 2 testing pattern, not the production pattern.
-
-### Module 3: `engines/source/src/consensus.py`
-Source-engine consensus integration. This module defines the agreement functions that are passed to `evaluate()`.
-
-**Author identification agreement function (SPEC §6.1):**
-- The function is a **closure** that captures the scholar registry (the tracer stub at `shared/scholar_authority/src/__init__.py`):
-  ```python
-  def make_author_agreement_fn(scholar_lookup_fn):
-      """Create an agreement function that uses the scholar registry.
-      
-      The LLM does NOT return canonical_ids — it returns names and dates.
-      The ENGINE looks up each model's author in the registry to determine
-      whether they resolve to the same scholar or are both new.
-      """
-      def author_agreement(response_a: InferenceOutput, response_b: InferenceOutput) -> bool:
-          # Look up model A's author in registry
-          match_a = scholar_lookup_fn(
-              response_a.author_identification.canonical_name_ar,
-              response_a.author_identification.death_date_hijri,
-          )
-          # Look up model B's author in registry
-          match_b = scholar_lookup_fn(
-              response_b.author_identification.canonical_name_ar,
-              response_b.author_identification.death_date_hijri,
-          )
-          
-          # Case A: Both match the same existing record
-          if match_a and match_b and match_a.canonical_id == match_b.canonical_id:
-              return True
-          # Case B: Both say "new" (no registry match)
-          if not match_a and not match_b:
-              name_sim = normalized_name_similarity(
-                  response_a.author_identification.canonical_name_ar,
-                  response_b.author_identification.canonical_name_ar,
-              )
-              death_a = response_a.author_identification.death_date_hijri
-              death_b = response_b.author_identification.death_date_hijri
-              dates_agree = (death_a is None and death_b is None) or \
-                            (death_a is not None and death_b is not None and abs(death_a - death_b) <= 10)
-              return name_sim >= 0.90 and dates_agree
-          # All other cases: disagreement
-          return False
-      return author_agreement
-  ```
-- **Scholar registry in Session 3:** The full `scholar_authority.py` is built in Session 5. For Session 3, use the tracer stub (`shared/scholar_authority/src/__init__.py`) which has in-memory lookup/register. Wire `name_matching.py` into the lookup by importing and using `normalized_name_similarity()` for comparison. The stub's substring matching is NOT sufficient — replace its lookup logic with token-based matching.
-- Work matching agreement function (SPEC §6.2): compares inferred title and author. Both models producing the same genre_chain base work (if present) or similar titles → agree.
-- Directed attribution_status comparison (SPEC §6.3):
-  - disputed/unknown beats definitive/traditional (conservative wins)
-  - traditional vs definitive → use traditional, no gate
-  - disputed/unknown vs definitive/traditional → use conservative + human gate
-
-### Module 4: `engines/source/src/metadata_inference.py`
-
-**Prerequisites:**
-- `engines/source/src/inference_models.py` — Created in Module 0 above. Contains the `InferenceOutput` Pydantic model that Instructor uses as `response_model`. Import it:
-  ```python
-  from engines.source.src.inference_models import InferenceOutput
-  ```
-
-**Constructing `prompt_context`** (fills the `{prompt_context}` variable in inference_v1.py):
-```
-Title: {extracted.get('display_title') or extracted.get('title_arabic', 'Unknown')}
-Author: {extracted.get('author_name_raw', 'Not specified')}
-Publisher: {extracted.get('publisher', 'Not specified')}
-Shamela category: {extracted.get('shamela_category', 'N/A')}
-Edition: {extracted.get('edition_raw', 'Not specified')}
-Source format: {source_format.value}
-Multi-volume: {'yes' if extracted.get('is_multi_volume') else 'no'}
-Volume count: {extracted.get('volume_count', 1)}
-Muhaqiq/Editor: {extracted.get('muhaqiq_name_raw', 'Not specified')}
-Death date in metadata: {extracted.get('author_death_hijri', 'Not specified')}
-
-=== LIBRARY CONTEXT ===
-Existing scholars in library:
-{newline-separated list of "sch_XXXXX: canonical_name_ar (d. death_date_hijri)" for each scholar in scholars.json}
-
-Existing works in library:
-{newline-separated list of "work_id: canonical_title (by author_canonical_id)" for each work in works.json}
-```
-If the library is empty (first intake), the LIBRARY CONTEXT section says "No existing scholars or works." The library context is what gets REMOVED in `simplified_messages` for retry — keep everything above the "=== LIBRARY CONTEXT ===" line.
-
-**Core inference flow:**
-1. Build `messages` from extractor output + inference_v1.py template (SYSTEM_MESSAGE + filled USER_MESSAGE_TEMPLATE)
-2. Build `simplified_messages` — same but with LIBRARY CONTEXT section removed from user message
-3. Call consensus ONCE: `evaluate(task="author_identification", messages=messages, response_model=InferenceOutput, ...)` with the author identification agreement function. This dispatches both models concurrently on the SAME prompt.
-4. From the returned `ConsensusResult.model_responses`, each `ModelResponse.parsed` is an `InferenceOutput` object. Run TWO additional local comparisons on the same response pair:
-   - Work matching agreement check (engines/source/src/consensus.py)
-   - Directed attribution_status comparison (engines/source/src/consensus.py)
-   This avoids calling the models 4 times — one consensus call, three comparisons.
-5. Use `ConsensusResult.canonical_result` (an `InferenceOutput` object) for ALL fields.
-6. **Enum validation with synonym fallback** (§4.A.4): Before mapping to SourceMetadata, validate each enum-constrained field (`genre`, `structural_format`, `authority_level`, `level`, `attribution_status`) against its Pydantic enum. If a value is not in the enum (e.g., `"منظومة"` for genre), check `library/config/genre_synonyms.json`. If no synonym match, set field to conservative default (`"other"` for genre, `"mixed"` for structural_format) with confidence 0.50 and add to `needs_review_fields`. Log a WARNING with the invalid value.
-7. Map InferenceOutput → SourceMetadata fields:
-   - `layers` → `text_layers` (resolve each layer `author_name` to a `ScholarReference` via scholar name matching)
-   - `author_identification` → `ScholarReference`. **The `canonical_id` field is required.** For Session 3, use the tracer stub's `register()` to assign one (it returns the canonical_name as a placeholder ID — acceptable for Session 3 testing; Session 5 builds the real sequential ID generator). If the scholar was found by lookup, use the existing canonical_id.
-   - Confidence fields → `InferredFieldConfidence`
-8. Apply caps:
-   - Biographical inference cap: author confidence ≤ 0.85 (single-LLM cap)
-   - Attribution disputed: author confidence ≤ 0.70
-   - Attribution unknown: author confidence = 0.0
-9. Set `text_fidelity` deterministically:
-   - `shamela_html` → baseline `high`; downgrade on quality issues
-   - `plain_text` → baseline `medium`
-10. Construct `needs_review_fields`: fields with confidence < 0.70
-
-   Also add `"author"` if no `author_name_raw` in extractor output (§4.A.4).
+This is needed because the `unsure → elevated` workflow (KNOWLEDGE_INTEGRITY.md Layer 4) cannot be represented with a boolean. The existing `test_consensus_integration.py` and `test_metadata_inference.py` create HumanGateCheckpoint instances — update them to use `status="auto_approved"` instead of `resolved=True`.
 
 ---
 
-## What to Test
+## What to Build (in dependency order)
 
-### Fixtures (in `.claudeignore` — use exact paths)
+### Module 1: `engines/source/src/config.py` (~50 lines)
+Replace the stub. Load all 4 config files from `library/config/`:
+- `recognized_muhaqiqs.json` → `list[str]`
+- `known_publishers.json` → `dict[str, dict]` (each entry has `score` and `variants`)
+- `transliteration.json` → `dict[str, dict[str, str]]` (keys: "scholars", "titles")
+- `genre_synonyms.json` → `dict[str, str]`
 
-**Primary (run full inference):**
-- `tests/fixtures/shamela_real/01_nahw_simple/book.htm`
-- `tests/fixtures/shamela_real/06_usul/book.htm`
-- `tests/fixtures/shamela_real/11_multi_small/` (3 files: 001.htm, 002.htm, 003.htm)
+Return a `SourceEngineConfig` dataclass. Missing files produce empty defaults (not errors). Malformed JSON raises with the filename in the error message.
 
-**Secondary (edge cases):**
-- `tests/fixtures/shamela_real/03_fiqh/book.htm` (modern, no death date)
-- `tests/fixtures/shamela_real/10_no_author/book.htm` (no المؤلف field)
-- `tests/fixtures/alfiyyah_versified/` (plain text)
+**Test:** `engines/source/tests/test_config.py` (5 tests)
 
-**Expected values:** `tests/fixtures/GROUND_TRUTH.json`
+### Module 2: `shared/scholar_authority/src/scholar_authority.py` (~250 lines)
+Replace the tracer stub at `shared/scholar_authority/src/__init__.py`. The new implementation lives in `scholar_authority.py` and the `__init__.py` should re-export the public API.
 
-### Smoke test (run FIRST, before writing production code)
+Implement:
+- `compute_scholar_match_score()` — SPEC §4.A.5 weighted algorithm. Use `normalized_name_similarity()` from `name_matching.py` (already built, 22 tests passing). Weight 0.50 name, 0.30 death date, 0.10 school, 0.10 known works. Only available signals contribute to the weighted average.
+- `lookup()` — Iterate all records, compute match score, return best. Thresholds: ≥ 0.85 auto_link, 0.50–0.85 human_gate, < 0.50 new_record. Compare against canonical_name_ar + known_as + name_variants.
+- `register()` — Assign next sequential ID (`sch_NNNNN`). Validate with Pydantic. Compute `record_completeness`. Set `data_provenance_score = 0.0`. Set `last_updated` to UTC ISO 8601.
+- `update()` — Run 5 consistency checks before applying. Preserve old values in `revision_history`. Recalculate `record_completeness`.
+- `_next_canonical_id()` — Scan registry for highest existing ID, increment.
+- `_compute_record_completeness()` — 24 biographical fields fraction.
 
-Verify Instructor works with both consensus models:
-```python
-# Quick test: send inference prompt for fixture 01 through each model
-# Check: JSON parses, enum values validate, no timeout
+**Storage:** `library/registries/scholars.json`. Use `filelock` for locking. Use atomic write pattern (temp file → fsync → os.replace).
+
+**Important:** The old `__init__.py` tracer stub is imported by `engines/source/src/consensus.py` (line ~7: `from shared.scholar_authority.src import lookup, register`). After creating `scholar_authority.py`, update `__init__.py` to re-export from the new module.
+
+**Test:** `shared/scholar_authority/tests/test_scholar_authority.py` (20 tests)
+
+### Module 3: `shared/human_gate/src/human_gate.py` (~150 lines)
+Replace the tracer stub.
+
+Implement:
+- `create_checkpoint()` — Generate `hg_{uuid4_hex[:8]}` ID. Persist to `library/gates/pending/{source_id}.json` (list of checkpoints per source). Update `library/gates/index.json`. If `auto_approve=True`, set status to `auto_approved` immediately (SAME code path as real review).
+- `resolve()` — Update checkpoint status. Move from pending/ to resolved/ on approve/reject. On `unsure`: set status to `elevated` (Layer 3.5 placeholder for future sessions).
+- `get_pending()` — Read all files in pending/, filter by source_id if provided.
+- `get_checkpoint()` — Look up in index.json, read from pending or resolved.
+- `get_pending_count()` — Sum checkpoints across all pending files.
+- `configure()` — Set gates_dir and auto_approve mode.
+
+**Persistence format (pending/{source_id}.json):**
+```json
+[
+  {
+    "checkpoint_id": "hg_1a2b3c4d",
+    "source_id": "src_abc12345",
+    "trigger": "author_disambiguation",
+    ...
+  }
+]
 ```
-Budget: ~$0.10. If either model fails with Instructor, fall back to raw LiteLLM calls with manual JSON parsing.
+
+**Critical:** Auto-approve must use the SAME code path. Create the checkpoint, persist it, then immediately resolve it with decision="approve". This ensures the real workflow is tested.
+
+**Test:** `shared/human_gate/tests/test_human_gate.py` (8 tests)
+
+### Module 4: `shared/validation/src/validation.py` (~100 lines)
+Replace the tracer stub.
+
+Implement 3 generic functions:
+- `validate_schema()` — `schema.model_validate(data)`, catch `PydanticValidationError`, convert to `list[ValidationError]`.
+- `validate_referential_integrity()` — For each `(field_path, registry_name)`, resolve nested field path in data, check it exists in `registries[registry_name]`.
+- `validate_enrichment_passthrough()` — Compare `before` and `after` dicts. Any key in `before` that was non-null and is now null or missing in `after` → `SRC_INVALID_ENRICHMENT`.
+
+**Test:** Tested as part of `engines/source/tests/test_validation.py` (tests 34-36, 49-50)
+
+### Module 5: `engines/source/src/trust_evaluator.py` (~200 lines)
+Replace the stub.
+
+Implement `evaluate_trust()` with 5 sub-functions:
+- `_score_author_standing()` — Check death_date_hijri ≤ 1000, scholarly_standing non-null, sources_encountered_in has other sources → 0.90. Known with prior source → 0.70. Unknown → 0.30.
+- `_score_tahqiq_quality()` — Check muhaqiq name against recognized_muhaqiqs list using `normalized_name_similarity >= 0.85`. Recognized → 0.90. Unknown → 0.50. No muhaqiq + pre-modern (≤1300) → 0.40. No muhaqiq + unknown death → 0.35. No muhaqiq + modern (>1300) → 0.30.
+- `_score_publisher_reputation()` — Check publisher name AND all variants using substring matching. Known → configured score. Unknown → 0.40.
+- `_score_source_authority()` — primary → 0.85, reference → 0.60, modern_compilation → 0.40.
+- `_score_text_fidelity()` — high → 0.90, medium → 0.60, low → 0.30, unknown → 0.40.
+
+Combined score = Σ(factor_weight × factor_score). Tier: ≥ 0.65 → verified; < 0.65 → flagged. Also flagged if author_standing < 0.30 AND tahqiq_quality < 0.40.
+
+**Critical verification:** Run against ALL 13 fixtures using GROUND_TRUTH.json expected_trust values. All 13 must match. This was validated in Step 2 — the implementation just needs to reproduce the validated algorithm.
+
+**Test:** `engines/source/tests/test_trust_evaluator.py` (13 tests)
+
+### Module 6: `engines/source/src/validation.py` (~250 lines)
+Replace the stub.
+
+Implement `validate_source_metadata()` calling all 6 checks in order:
+1. `validate_schema(data, SourceMetadata)` — delegated to shared
+2. `validate_referential_integrity(data, registries, [...])` — delegated to shared
+3. `_check_confidence_thresholds(data)` — author, genre, science_scope < 0.50 → gate
+4. `_check_duplicates(data, registries)` — post-inference dedup (warning only)
+5. `_check_consistency(data, registries, prior_sources)` — 5 sub-checks:
+   - 5a: nazm→verse, sharh→commentary|prose, hashiyah→commentary
+   - 5b: hashiyah should not be beginner
+   - 5c: author↔science scope mismatch → HUMAN GATE (only consistency check that gates)
+   - 5d: attribution_status vs prior sources → warning
+   - 5e: sharh/hashiyah must be multi-layer → auto-correct
+6. `_check_multi_layer_coherence(data, registries)` — 3 sub-checks:
+   - 6a: multi_layer=true + empty layers → gate
+   - 6b: multi_layer=false + has layers → auto-correct
+   - 6c: layer author refs resolve in scholars
+
+**Important for Check 5e → 6 chain:** When auto-correcting `is_multi_layer` from false to true in Check 5e, the data dict is modified in-place. Then Check 6 verifies `text_layers` is non-empty. If the LLM identified genre as sharh but produced no layers, Check 6a triggers a human gate.
+
+**Test:** `engines/source/tests/test_validation.py` (17 tests)
 
 ---
 
-## Carry-Forward Tasks for This Session
+## What NOT to Build
 
-### 1. Confidence Calibration Analysis (from Step 2 CG-1)
-Extract confidence scores from Step 2 results at `tests/results/phase1_*.json`, `phase2_*.json`. Check: do models produce > 0.90 confidence on wrong answers? If so, raise thresholds above 0.70/0.50.
-
-**If results files don't exist** (they're gitignored — may have been lost if environment was reset): re-run `tests/test_llm_inference.py --phase 2` to regenerate ($2–5 API cost). If not feasible, document that calibration is deferred and thresholds are maintained provisionally.
-
-### 2. Author-Specific Consensus Complementarity (from Step 2 CG-5)
-The consensus pair was selected on all 7 fields equally. Verify that Command A + Opus 4.6 is still the best pair when filtered to `author_identification` only.
-
-Run `tests/consensus_analysis.py` filtered to author_identification. If a different pair ranks higher, update the consensus configuration.
-
-**If results files don't exist:** Perform this check with live API calls during the Instructor smoke test — compare 3 models on 3 fixtures ($0.50–$1.00).
+- **Registries (source/work/scholar CRUD)** — Session 5b
+- **Registration orchestrator** — Session 5b
+- **engine.py pipeline orchestrator** — Session 6
+- **logger.py** — Session 6
+- **Work relationship tracking** — Session 5b
+- **Source-engine human_gate wrapper** (`engines/source/src/human_gate.py`) — Session 5b
 
 ---
 
 ## Done When
 
-- [ ] **InferenceOutput Pydantic model** created in `engines/source/src/inference_models.py` matching §4.A.4 schema
-- [ ] Instructor smoke test passes for Command A (OpenRouter) and Opus 4.6 (Anthropic)
-- [ ] `metadata_inference.py` produces valid SourceMetadata fields for fixtures 01, 06, 11
-- [ ] LLM output field mapping correct: `layers` → `text_layers`, `author_identification` → `ScholarReference`
-- [ ] Enum fields validated after synonym normalization (genre_synonyms.json fallback for non-standard values)
-- [ ] Confidence scores populate `InferredFieldConfidence` correctly
-- [ ] Biographical inference cap applied (author confidence ≤ 0.85)
-- [ ] Attribution status caps applied (disputed → 0.70, unknown → 0.0)
-- [ ] `text_fidelity` set deterministically from format + quality issues
-- [ ] `needs_review_fields` populated for fields with confidence < 0.70
-- [ ] `scholarly_context` fields populate correctly (or null when LLM returns minimal context)
-- [ ] Consensus `evaluate()` dispatches both models concurrently
-- [ ] Consensus `evaluate()` takes `messages: list[dict]` (NOT a prompt string)
-- [ ] Single consensus call → three local comparisons (author, work, attribution) on same response pair
-- [ ] Author identification agreement function implements §6.1 rules (including scholar registry lookup)
-- [ ] Work matching agreement function implements §6.2 rules
-- [ ] Work matching DISAGREEMENT (both models respond, disagree) → human gate
-- [ ] Directed attribution_status comparison implements §6.3 (conservative value wins)
-- [ ] Attribution status safety disagreement (disputed/unknown vs definitive/traditional) → creates human gate with CONSENSUS_DISAGREEMENT trigger
-- [ ] Consensus failure: author ID → human gate; work matching failure (one model down) → provisional accept
-- [ ] Fallback: Command A failure → GPT-5.4 swap → retry
-- [ ] Name matching in production location: `shared/scholar_authority/src/name_matching.py`
-- [ ] Tracer stub scholar_authority lookup updated to use token-based name matching (not substring)
-- [ ] Confidence calibration analysis complete OR documented as deferred with rationale
-- [ ] Author-specific complementarity verified OR pair updated
-- [ ] All new tests pass
+- [ ] **contracts.py updated:** `HumanGateCheckpoint.resolved` → `status` field, existing tests updated
+- [ ] **Config:** `load_config()` loads all 4 JSON files, returns typed `SourceEngineConfig`
+- [ ] **Scholar authority lookup:** Finds existing records with correct thresholds (≥0.85 auto-link, 0.50–0.85 gate, <0.50 new)
+- [ ] **Scholar authority lookup:** Short-vs-long name (A3-1): "النووي" vs full name scores ≥0.85 → auto_link
+- [ ] **Scholar authority lookup:** Ambiguous "ابن حجر" without death date → human_gate zone
+- [ ] **Scholar authority register:** Creates records with sequential IDs (sch_00001, sch_00002, ...)
+- [ ] **Scholar authority update:** 5 consistency checks all tested:
+  - Death date drift > 5 years → gate
+  - School affiliation change → gate
+  - Name change → blocked (added to known_as)
+  - Self-reference → rejected
+  - Temporal inconsistency → gate
+- [ ] **Scholar authority update:** Preserves old values in revision_history
+- [ ] **Scholar authority:** record_completeness correctly computed (24-field fraction)
+- [ ] **Human gate:** Checkpoints persist to `library/gates/pending/{source_id}.json`
+- [ ] **Human gate:** Auto-approve mode creates + immediately resolves (same code path)
+- [ ] **Human gate:** `get_pending()` returns correct checkpoints filtered by source_id
+- [ ] **Human gate:** `resolve()` moves checkpoint from pending/ to resolved/
+- [ ] **Shared validation:** Schema compliance catches missing required fields
+- [ ] **Shared validation:** Referential integrity catches broken canonical_id references
+- [ ] **Shared validation:** D-023 passthrough catches deleted upstream fields
+- [ ] **Trust evaluation:** 13/13 fixtures match GROUND_TRUTH.json expected_trust
+- [ ] **Trust evaluation:** 5 factors computed with correct weights (0.30, 0.25, 0.15, 0.15, 0.15)
+- [ ] **Trust evaluation:** Threshold 0.65 for verified/flagged boundary
+- [ ] **Trust evaluation:** Classical scholar cutpoint at 1000 AH (not 900)
+- [ ] **Trust evaluation:** Recognized muhaqiq matching uses name_matching (not exact string compare)
+- [ ] **Trust evaluation:** Publisher variant matching via substring
+- [ ] **Source validation:** All 6 Layer 1 checks implemented
+- [ ] **Source validation:** Genre↔multi-layer auto-correction (Check 5e) chains to Check 6
+- [ ] **Source validation:** Author↔science mismatch triggers human gate (only consistency check that gates)
+- [ ] **Source validation:** Multi-layer + empty layers → gate (prevents T-2 attribution error)
+- [ ] **All new tests pass** (target: ~70 new tests + 365 existing = ~435 total)
 
 ---
 
 ## API Keys
 
-Set these environment variables before running tests:
-```bash
-export ANTHROPIC_API_KEY="..."   # From project knowledge
-export OPENROUTER_API_KEY="..."  # From project knowledge
-```
+Not needed for Session 5a. All modules are deterministic — no LLM calls.
 
-Do NOT hardcode keys in source files. Read from environment at runtime.
+---
 
-**How `from_provider()` discovers keys:**
-- `instructor.from_provider("anthropic/claude-opus-4-6")` → auto-reads `ANTHROPIC_API_KEY` from environment
-- `instructor.from_provider("openrouter/cohere/command-a")` → auto-reads `OPENROUTER_API_KEY` from environment (uses OpenAI client internally with OpenRouter base URL)
+## Build Tips
 
-**If auto-detection fails during smoke test:** Pass the key explicitly:
-```python
-import os
-client = instructor.from_provider(
-    "openrouter/cohere/command-a",
-    api_key=os.environ["OPENROUTER_API_KEY"],
-    async_client=True,
-)
-```
+1. **Start with config.** Every other module reads config. Get it working first.
+2. **Then scholar_authority.** The trust evaluator and validation both depend on scholar records.
+3. **Then human_gate.** The scholar authority update() creates gate checkpoints.
+4. **Then trust_evaluator.** Uses config (muhaqiqs, publishers) + scholar records.
+5. **Then shared validation.** Generic functions.
+6. **Last: source validation.** Composes all the above.
+7. **Test each module before moving to the next.** Don't write all 6 then test — you'll hit cascading failures.

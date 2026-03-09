@@ -1,0 +1,39 @@
+{
+  "scholars": {
+    "ابن عقيل": "ibn_aqil",
+    "ابن مالك": "ibn_malik",
+    "ابن قدامة": "ibn_qudamah",
+    "سيبويه": "sibawayhi",
+    "الجويني": "juwayni",
+    "ابن هشام": "ibn_hisham",
+    "الأشموني": "ashmuni",
+    "الصبان": "sabban",
+    "ابن حجر": "ibn_hajar",
+    "النووي": "nawawi",
+    "الغزالي": "ghazali",
+    "ابن تيمية": "ibn_taymiyyah",
+    "ابن كثير": "ibn_kathir",
+    "السيوطي": "suyuti",
+    "الزجاجي": "zajjaji",
+    "الزجاج": "zajjaj",
+    "البخاري": "bukhari",
+    "مالك بن أنس": "malik_ibn_anas",
+    "مالك بن نبي": "malik_bennabi",
+    "الزاحم": "zahim"
+  },
+  "titles": {
+    "ألفية": "alfiyyah",
+    "المغني": "mughni",
+    "الورقات": "waraqat",
+    "الكتاب": "kitab",
+    "قطر الندى": "qatr_alnada",
+    "شرح": "sharh",
+    "حاشية": "hashiyah",
+    "مختصر": "mukhtasar",
+    "همع الهوامع": "hama_alhawami",
+    "جمع الجوامع": "jam_aljawami",
+    "أخبار": "akhbar",
+    "مذكرات": "mudhakkirat",
+    "أحكام": "ahkam"
+  }
+}
