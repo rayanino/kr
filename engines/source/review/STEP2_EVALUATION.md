@@ -64,6 +64,8 @@ Before categorizing findings, I need to state what evidence exists and what does
 
 All 5 models crossed the 0.70 aggregate eligibility threshold. Only Opus's exact aggregate (0.796) is recorded in the available evidence; the others' precise scores are not available.
 
+**UPDATE (from Claude Code's build prep):** Claude Code re-scored with corrected name matching and reported: Opus 0.890, Command A 0.883, GPT-5.4 0.873, Mistral 0.863, Gemini 0.788. The original 0.796 for Opus was depressed by the A3-1 name matching issue. The corrected scores confirm all 5 models are well above the 0.70 threshold, and the ranking is tight — only 0.102 separates best from worst.
+
 ### Phase 3 — Consensus Pair Selection
 
 | Pair | At Least One Right | Complementarity | Parse Reliability | Issues |

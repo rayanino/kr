@@ -17,9 +17,12 @@ Steps 0–2 are complete. The source engine SPEC has been hardened through 8+ re
 - A4 (Trust weights): 13/13 correct at threshold 0.65 (uniquely optimal). 900→1000 AH cutpoint resolved.
 - A5 (Consensus pair): Command A (Cohere) + Opus 4.6 (Anthropic). 92.3% "at least one right". Fallback: GPT-5.4 + Opus 4.6.
 
-**Two mandatory build-phase tasks from Step 2:**
+**Re-scored model aggregates (corrected name matching):** Opus 0.890, Command A 0.883, GPT-5.4 0.873, Mistral 0.863, Gemini 0.788.
+
+**Three mandatory build-phase tasks from Step 2 (see §8 Step 4 Blocking Conditions below):**
 1. **Confidence calibration analysis** — extract confidence scores from Step 2 results, check correlation with accuracy. If models produce >0.90 on wrong answers, raise thresholds.
 2. **Name matching substring boost** — implement A3-1 fix in `normalized_name_similarity`.
+3. **Author-specific consensus complementarity** — verify pair selection holds when filtered to author_identification field only.
 
 ---
 
