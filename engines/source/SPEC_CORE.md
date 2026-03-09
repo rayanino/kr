@@ -1048,7 +1048,7 @@ The engine maintains a graph of work-to-work relationships.
 1. Identifies the base work title and author.
 2. Searches the work registry for a matching `work_id`.
 3. If found → creates a `WorkRelationshipEdge` linking the two works.
-4. If not found → creates a placeholder work record with `status: "referenced_not_acquired"` and creates the edge to the placeholder. The placeholder must conform to `WorkRegistryEntry` before persisting.
+4. If not found → creates a placeholder work record with `status: "referenced_not_acquired"` and creates the edge to the placeholder. The placeholder must conform to `WorkRegistryEntry` before persisting. Since `WorkRegistryEntry.author_canonical_id` is required, the engine must also ensure a scholar record exists for the referenced author. If the referenced author (from `genre_chain.base_work_author`) is not already in `scholars.json`, the engine creates a sparse scholar record from the name alone — no death date, no school affiliations, just the name from the genre chain. This record will have very low `record_completeness` (~0.10) and `data_provenance_score` = 0.0, which is correct: it's a stub that gets enriched when the referenced work is actually acquired.
 
 **Storage.** Relationships are stored as `WorkRelationshipEdge` objects in the work registry entry's `relationships` list. Each edge has: `from_work_id`, `to_work_id`, `relation_type`, `confidence`, `discovered_by`.
 
