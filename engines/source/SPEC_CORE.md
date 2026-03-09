@@ -884,6 +884,8 @@ The engine maintains a graph of work-to-work relationships.
 
 **Storage.** Relationships are stored as `WorkRelationshipEdge` objects in the work registry entry's `relationships` list. Each edge has: `from_work_id`, `to_work_id`, `relation_type`, `confidence`, `discovered_by`.
 
+**Distinction: source-level vs work-level relationships.** `SourceMetadata.work_relationships` (type: `list[GenreChain]`) stores genre chain relationships discovered at intake for this specific source — e.g., "this source is a sharh of X." `WorkRegistryEntry.relationships` (type: `list[WorkRelationshipEdge]`) stores the work-level relationship graph — e.g., "work A is a sharh of work B." The GenreChain is created first (during LLM inference at Step 4), then converted into a WorkRelationshipEdge when the work registry is updated (during registration at Step 7). Both persist independently: the GenreChain preserves the per-source discovery context; the WorkRelationshipEdge builds the cross-work graph.
+
 **Worked example — حاشية الصبان على شرح الأشموني على ألفية ابن مالك:**
 
 LLM analysis: "حاشية" → `hashiyah`. "على شرح الأشموني" → base work is شرح الأشموني على ألفية ابن مالك. That base work is itself a sharh of ألفية ابن مالك.

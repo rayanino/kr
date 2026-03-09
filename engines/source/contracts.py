@@ -34,7 +34,7 @@ CHANGELOG (IMPLEMENTATION_PREP session, 2026-03-06):
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -254,8 +254,14 @@ class ScholarReference(BaseModel):
 
 
 class TextLayer(BaseModel):
-    """A text layer in a multi-layer source (SPEC §4.A.4, D-030)."""
-    layer_type: str = Field(description="One of: matn, sharh, hashiyah, tahqiq_note")
+    """A text layer in a multi-layer source (SPEC §4.A.4, D-030).
+
+    layer_type values match the normalization engine's LayerType enum to ensure
+    cross-boundary compatibility (see STEP1_HARDENING.md defect D-H02).
+    """
+    layer_type: Literal["matn", "sharh", "hashiyah", "tahqiq_note"] = Field(
+        description="One of: matn, sharh, hashiyah, tahqiq_note"
+    )
     author: ScholarReference = Field(description="Author of this specific layer")
 
 
