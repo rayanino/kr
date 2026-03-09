@@ -44,7 +44,7 @@ The owner places source material in the intake staging area (`library/staging/`)
 
 **Supported formats (Stage 1):**
 
-1. **Shamela HTML export.** A directory containing either (a) a single `.htm` or `.html` content file plus an `info.html` metadata file, or (b) numbered `.htm` files (multi-volume) plus an `info.html` metadata file. The `info.html` file contains a metadata table with author, title, publisher, muhaqiq, and category information. The content files contain `<div class="page">` elements with `<span class="vol">` and `<span class="pg">` page markers, and CSS classes (`matn`, `sharh`, `hashiyah`, `footnote`) indicating text layers. Detection criteria: directory containing at least one `.htm` or `.html` file, with either an `info.html` present OR page-structured HTML content (containing `class="page"` divs).
+1. **Shamela HTML export.** Either (a) a single `.htm` file (single-volume book — 76.7% of real exports), or (b) a directory of numbered `.htm` files like `001.htm`, `002.htm`, etc. (multi-volume book — 23.3%). Some multi-volume books also have a `المقدمة.htm` file (11.6%). There is NO separate `info.html` metadata file — metadata is embedded in the first `PageText` div of each `.htm` file. Content files use `<div class='PageText'>` for pages, `<span class='title'>` for metadata labels and section headings, and `<span class='PageNumber'>` for page numbers. Detection criteria: `.htm`/`.html` file containing `<div class='PageText'>`, `<span class='title'>`, and `<div class='Main'>`. See `reference/SHAMELA_FORMAT_ANALYSIS.md` for the complete format specification derived from analysis of 2,519 real exports.
 
 2. **Plain text.** A single `.txt` file containing Arabic text. Metadata is minimal: title from the first non-empty line, author unknown. Most metadata comes from LLM inference (§4.A.4). Detection criteria: file with `.txt` extension.
 
@@ -217,25 +217,38 @@ Nine sequential steps. Each step has defined inputs, outputs, and error handling
 ```
 def detect_format(path: Path) -> SourceFormat:
     if path.is_dir():
-        files = list(path.iterdir())
-        htm_files = [f for f in files if f.suffix.lower() in ('.htm', '.html') and f.name != 'info.html']
-        has_info = (path / 'info.html').exists()
-        if htm_files and (has_info or _has_page_structure(htm_files[0])):
+        htm_files = sorted([f for f in path.iterdir() 
+                           if f.suffix.lower() in ('.htm', '.html')])
+        if htm_files and _is_shamela_html(htm_files[0]):
             return SourceFormat.SHAMELA_HTML
-        # Check for single text file in directory
-        txt_files = [f for f in files if f.suffix.lower() == '.txt']
+        txt_files = [f for f in path.iterdir() if f.suffix.lower() == '.txt']
         if len(txt_files) == 1:
             return SourceFormat.PLAIN_TEXT
     elif path.is_file():
         if path.suffix.lower() == '.txt':
             return SourceFormat.PLAIN_TEXT
         if path.suffix.lower() in ('.htm', '.html'):
-            if _has_page_structure(path) or (path.parent / 'info.html').exists():
+            if _is_shamela_html(path):
                 return SourceFormat.SHAMELA_HTML
     raise SourceError(ErrorCode.UNSUPPORTED_FORMAT, f"Cannot detect format of {path}")
+
+def _is_shamela_html(htm_file: Path) -> bool:
+    """Check whether an .htm file is a Shamela desktop export.
+    
+    Detection markers (ALL must be present):
+    1. <div class='PageText'> — Shamela's page container
+    2. <span class='title'> — Shamela's metadata field label style
+    3. <div class='Main'> — Shamela's root container
+    """
+    content = htm_file.read_text(encoding='utf-8')[:3000]
+    return (
+        "<div class='PageText'>" in content
+        and "<span class='title'>" in content
+        and "<div class='Main'>" in content
+    )
 ```
 
-`_has_page_structure(html_file)` checks whether the file contains `<div` elements with `class="page"` — the defining marker of Shamela HTML content.
+For single-file books, the staged item is a single `.htm` file. For multi-volume books, it is a directory of numbered `.htm` files (e.g., `001.htm`, `002.htm`, ...). See `reference/SHAMELA_FORMAT_ANALYSIS.md` for the complete structural specification.
 
 **Step 3: Metadata extraction.** Format-specific extractor runs (§4.A.3). Produces a sparse `dict` of extracted fields.
 
@@ -268,96 +281,205 @@ On startup, check for orphaned pending registration files. If one exists, the pr
 
 After successful registration, the staging directory is renamed to `library/staging/.processed/{source_id}/` (preserving originals for audit).
 
+**Worked example — Acquisition of a real Shamela export:**
+
+Step 1 (Staging): Owner places `أحكام الاضطباع والرمل في الطواف.htm` in `library/staging/`.
+Step 2 (Format detection): Single `.htm` file. `_is_shamela_html()` finds `PageText`, `title`, and `Main` markers → `shamela_html`.
+Step 3 (Metadata extraction): Shamela extractor parses first `PageText` div → display_title: "أحكام الاضطباع والرمل في الطواف", author_short: "عبد الله بن إبراهيم الحماد", category: "الفقه العام", full author from المؤلف field, publisher from الناشر, edition from الطبعة, page_count from عدد الصفحات.
+Step 4 (Metadata inference): LLM infers → genre: `risalah` (0.88), science_scope: `["fiqh"]` (0.95), author_death_hijri: not found in field → LLM infers contemporary author. Multi-layer: false (standalone work, not a sharh).
+Step 5 (Deduplication): SHA-256 computed. No hash match in registry.
+Step 6 (Freezing): File copied to `library/sources/src_{hash}/frozen/`. Hash verified. Set read-only.
+Step 7 (Registration): metadata.json written. Registries updated atomically.
+Step 8 (Trustworthiness): Contemporary author, no muhaqiq → flagged.
+Step 9 (Handoff): Status → `acquired`.
+
 #### §4.A.3 — Format-Specific Metadata Extraction
 
 Each source format has a dedicated extractor module. Extractors are minimal: they pull what the format provides, then hand off to LLM inference (§4.A.4) for enrichment.
 
-**Shamela HTML extractor.** Parses `info.html` to extract metadata fields. Concrete extraction rules:
+**Shamela HTML extractor.** Parses the metadata card embedded in the first `PageText` div. The full structural specification is in `reference/SHAMELA_FORMAT_ANALYSIS.md` (derived from analysis of 2,519 real Shamela exports). Concrete extraction rules:
 
 ```
-def extract_shamela_metadata(source_dir: Path) -> dict:
-    info_path = source_dir / "info.html"
-    result = {}
+def extract_shamela_metadata(source_path: Path) -> dict:
+    """Extract metadata from a Shamela desktop export.
     
-    if not info_path.exists():
-        # Fallback: extract from first content file
+    source_path: either a single .htm file or a directory of .htm files.
+    Returns a dict of extracted metadata fields.
+    """
+    # Determine which file to parse
+    if source_path.is_dir():
+        htm_files = sorted([f for f in source_path.iterdir() 
+                           if f.suffix.lower() in ('.htm', '.html')])
+        if not htm_files:
+            raise SourceError(ErrorCode.EMPTY_INPUT, "Directory has no .htm files")
+        first_file = htm_files[0]
+        is_multi_volume = True
+        volume_count = len(htm_files)
+    else:
+        first_file = source_path
+        is_multi_volume = False
+        volume_count = 1
+    
+    content = first_file.read_text(encoding='utf-8')
+    result = {'is_multi_volume': is_multi_volume, 'volume_count': volume_count}
+    
+    # === Parse the metadata card (first PageText div) ===
+    card_match = re.search(r"<div class='PageText'>(.*?)</div>", content, re.DOTALL)
+    if not card_match:
         raise SourceError(ErrorCode.FORMAT_STRUCTURE_MISSING, 
-            "info.html absent; will extract from content")
+            "No PageText div found — file may not be a Shamela export")
+    card = card_match.group(1)
     
-    html = info_path.read_text(encoding="utf-8")
-    
-    # Title: from <h1> tag
-    h1_match = re.search(r"<h1>(.*?)</h1>", html, re.DOTALL)
-    if h1_match:
-        result["title_arabic"] = strip_tags(h1_match.group(1)).strip()
-    
-    # Table fields: each <tr> has <td>key</td><td>value</td>
-    field_map = {
-        "المؤلف": "author_name_raw",
-        "المحقق": "muhaqiq_name_raw",
-        "الناشر": "publisher",
-        "الطبعة": "edition_raw",
-        "عدد الأجزاء": "volume_count_raw",
-        "التصنيف": "shamela_category",
-        "الوصف": "description",
-    }
-    for tr_match in re.finditer(
-        r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>", html, re.DOTALL
-    ):
-        key = strip_tags(tr_match.group(1)).strip()
-        value = strip_tags(tr_match.group(2)).strip()
-        if key in field_map:
-            result[field_map[key]] = value
-    
-    # Parse volume count from content files
-    content_files = sorted(
-        [f for f in source_dir.iterdir() 
-         if f.suffix.lower() in ('.htm', '.html') and f.name != 'info.html'],
-        key=lambda f: f.stem
+    # --- Card header: display title + short author ---
+    # Pattern: <span class='title'>TITLE&nbsp;&nbsp;&nbsp;</span>
+    #          <span class='footnote'>(AUTHOR_SHORT)</span>
+    header_match = re.match(
+        r"\s*<span class='title'>(.*?)(?:&nbsp;)+\s*</span>"
+        r"\s*(?:<span class='footnote'>\((.*?)\)</span>)?",
+        card
     )
-    result["content_file_count"] = len(content_files)
+    if header_match:
+        result['display_title'] = strip_tags(header_match.group(1)).strip()
+        if header_match.group(2):
+            result['author_short'] = header_match.group(2).strip()
     
-    # Count pages from <span class="pg"> markers in content files
-    page_count = 0
-    for cf in content_files:
-        content = cf.read_text(encoding="utf-8")
-        page_count += len(re.findall(r'class="pg"', content))
-    result["page_count"] = page_count if page_count > 0 else None
+    # --- Category (القسم) - always after first <hr> ---
+    cat_match = re.search(
+        r"<span class='title'>القسم.*?</span>\s*(.*?)(?:<hr|<p>)", 
+        card, re.DOTALL
+    )
+    if cat_match:
+        result['shamela_category'] = strip_tags(cat_match.group(1)).strip()
     
-    # Detect multi-layer from CSS classes in content
-    if content_files:
-        sample_content = content_files[0].read_text(encoding="utf-8")
-        result["has_matn_class"] = 'class="matn"' in sample_content
-        result["has_sharh_class"] = 'class="sharh"' in sample_content
-        result["has_hashiyah_class"] = 'class="hashiyah"' in sample_content
+    # --- Bibliographic fields ---
+    # Pattern: <span class='title'>LABEL<font color=#be0000>:</font></span> VALUE
+    # Some fields omit the <font> wrapper: <span class='title'>LABEL:</span> VALUE
+    FIELD_MAP = {
+        # Primary fields → internal field names
+        'الكتاب': 'title_full',
+        'اسم الكتاب': 'title_full',          # Alternative (2.8% of books)
+        'المؤلف': 'author_name_raw',
+        'المحقق': 'muhaqiq_name_raw',
+        'تحقيق': 'muhaqiq_name_raw',           # Alternative (7.0%)
+        'دراسة وتحقيق': 'muhaqiq_name_raw',   # Alternative (2.1%)
+        'تحقيق ودراسة': 'muhaqiq_name_raw',   # Alternative (1.0%)
+        'تحقيق وتعليق': 'muhaqiq_name_raw',   # Alternative (0.8%)
+        'راجعه': 'muhaqiq_name_raw',           # Reviewer = muhaqiq-equivalent
+        'راجعه ودققه': 'muhaqiq_name_raw',     # Alternative
+        'الناشر': 'publisher',
+        'الطبعة': 'edition_raw',
+        'عدد الأجزاء': 'volume_count_raw',
+        'عدد الصفحات': 'page_count_raw',
+        'عدد صفحات (الكتاب الورقي)': 'page_count_raw',  # Alternative
+        'عام النشر': 'publication_year_raw',
+        'تاريخ النشر بالشاملة': 'shamela_publish_date',
+        'مصدر الكتاب': 'source_note',
+        'تنبيه': 'editorial_note',
+        # Thesis/academic fields
+        'إعداد': 'author_name_raw',            # Thesis author (when المؤلف absent)
+        'إشراف': 'supervisor',
+        'رسالة': 'thesis_info',
+    }
     
-    # Store format-specific metadata
-    result["format_specific_metadata"] = {}
-    if "shamela_category" in result:
-        result["format_specific_metadata"]["shamela_category"] = result["shamela_category"]
-    if "description" in result:
-        result["format_specific_metadata"]["shamela_description"] = result["description"]
+    for m in re.finditer(
+        r"<span class='title'>(.*?)(?:<font[^>]*>)?:(?:</font>)?</span>\s*(.*?)(?:<p>|<hr|$)",
+        card, re.DOTALL
+    ):
+        label = strip_tags(m.group(1)).strip()
+        value = strip_tags(m.group(2)).strip()
+        
+        if label in FIELD_MAP and value:
+            internal_name = FIELD_MAP[label]
+            # Don't overwrite primary fields with alternatives
+            if internal_name not in result or label in ('الكتاب', 'المؤلف', 'المحقق'):
+                result[internal_name] = value
+                result[f'_field_source_{internal_name}'] = label  # Track which label was used
+    
+    # --- Parse death date from author field ---
+    # Pattern: "FULL_NAME (ت NNN هـ)" or "FULL_NAME (المتوفى: NNN هـ)"
+    if 'author_name_raw' in result:
+        death_match = re.search(
+            r'\(.*?(?:المتوفى|ت)\s*:?\s*(\d+)\s*هـ\)?', 
+            result['author_name_raw']
+        )
+        if death_match:
+            result['author_death_hijri'] = int(death_match.group(1))
+        # Extract clean name (before parenthetical)
+        clean_match = re.match(r'^(.*?)\s*\(', result['author_name_raw'])
+        if clean_match:
+            result['author_name_clean'] = clean_match.group(1).strip()
+    
+    # --- Parse muhaqiq death date ---
+    # Pattern: "NAME [ت NNN هـ]"
+    if 'muhaqiq_name_raw' in result:
+        muh_death = re.search(r'\[.*?ت\s*(\d+)\s*هـ\]', result['muhaqiq_name_raw'])
+        if muh_death:
+            result['muhaqiq_death_hijri'] = int(muh_death.group(1))
+        clean_muh = re.match(r'^(.*?)\s*\[', result['muhaqiq_name_raw'])
+        if clean_muh:
+            result['muhaqiq_name_clean'] = clean_muh.group(1).strip()
+    
+    # --- Parse page count ---
+    if 'page_count_raw' in result:
+        digits = re.findall(r'\d+', result['page_count_raw'])
+        if digits:
+            result['page_count'] = int(digits[0])
+    
+    # --- Parse edition number and year from الطبعة ---
+    if 'edition_raw' in result:
+        result['edition_number'] = _parse_arabic_ordinal(result['edition_raw'])
+        year_match = re.search(r'(\d{4})\s*(?:هـ|م)', result['edition_raw'])
+        if year_match:
+            result['edition_year'] = int(year_match.group(1))
+    
+    # --- Count body pages from PageText divs ---
+    body_page_count = len(re.findall(r"<div class='PageText'>", content)) - 1
+    result['body_page_count'] = body_page_count
+    
+    # --- Extract first 2000 chars of body text for LLM inference ---
+    body_text_parts = []
+    for pt_match in re.finditer(r"<div class='PageText'>(.*?)</div>", content, re.DOTALL):
+        page = pt_match.group(1)
+        if '<PageHead>' not in page[:50] and "<span class='title'>الكتاب" not in page[:200]:
+            continue  # Skip metadata card
+        # This is a body page — extract text
+        # Remove PageHead, footnotes, and HTML tags
+        body = re.sub(r"<div class='PageHead'>.*?</div>", '', page, flags=re.DOTALL)
+        body = re.sub(r"<hr[^>]*>.*?<div class='footnote'>.*?$", '', body, flags=re.DOTALL)
+        body = strip_tags(body).strip()
+        body_text_parts.append(body)
+        if sum(len(p) for p in body_text_parts) > 2000:
+            break
+    result['text_sample'] = '\n'.join(body_text_parts)[:2000]
+    
+    # --- Store format-specific metadata ---
+    result['format_specific_metadata'] = {}
+    for key in ('shamela_category', 'shamela_publish_date', 'source_note', 
+                'editorial_note', 'thesis_info', 'supervisor'):
+        if key in result:
+            result['format_specific_metadata'][key] = result[key]
     
     return result
 ```
 
-If `info.html` is absent but content files exist (numbered `.htm` files with page structure), the extractor: raises `SRC_FORMAT_STRUCTURE_MISSING`, extracts title from the first `<div class="title">` or `<h1>` in the first content file, extracts author from any `المؤلف` text in the first content file, flags all extracted fields as `needs_review`.
+If the metadata card has no `author_name_raw` field (6.6% of books — typically theses using `إعداد` instead of `المؤلف`), the extractor flags `SRC_FORMAT_STRUCTURE_MISSING` and adds `"author"` to `needs_review_fields`. The author will be entirely LLM-inferred.
 
-If `info.html` exists but the table parsing extracts zero fields (empty or malformed table), the extractor treats this as equivalent to missing `info.html`: logs `SRC_FORMAT_STRUCTURE_MISSING`, flags all fields as `needs_review`. Specifically, if `author_name_raw` is absent after parsing, the source is treated as having no format-extracted author — all author identification relies entirely on LLM inference, and the owner is notified via `needs_review_fields` including `"author"`.
+**Key finding from real data:** No Shamela desktop export uses CSS classes for text layers (`matn`, `sharh`, `hashiyah`). These classes do NOT exist. Multi-layer detection must rely entirely on LLM inference from genre and content. See §4.A.4.
 
 **Plain text extractor.** Minimal extraction from a `.txt` file:
 
 ```
 def extract_plaintext_metadata(file_path: Path) -> dict:
-    text = file_path.read_text(encoding="utf-8")
+    text = file_path.read_text(encoding='utf-8')
     lines = [line.strip() for line in text.splitlines() if line.strip()]
     
     result = {
-        "title_arabic": lines[0] if lines else file_path.stem,
-        "page_count": None,  # Not meaningful for plain text
-        "format_specific_metadata": {
-            "char_count": len(text),
-            "line_count": len(lines),
+        'title_arabic': lines[0] if lines else file_path.stem,
+        'page_count': None,
+        'text_sample': text[:2000],
+        'format_specific_metadata': {
+            'char_count': len(text),
+            'line_count': len(lines),
         },
     }
     return result
@@ -425,7 +547,7 @@ Note: `text_fidelity` is NOT part of the LLM output. It is set deterministically
 - `shamela_html` → `"high"` (structured digital text)
 - `plain_text` → `"medium"` (no structural markup, but text is digital)
 
-[ASSUMPTION — NEEDS STEP 2 TESTING] The LLM can produce this structured JSON reliably for well-known Islamic scholarly works. Testing should cover: (1) works with unambiguous titles like "شرح ابن عقيل", (2) works with ambiguous titles, (3) plain text with no metadata beyond a title line.
+[ASSUMPTION — NEEDS STEP 2 TESTING] The LLM can produce this structured JSON reliably for well-known Islamic scholarly works. Testing should cover: (1) works with unambiguous titles like "شرح ابن عقيل", (2) works with ambiguous titles, (3) plain text with no metadata beyond a title line. Use real Shamela fixtures from `tests/fixtures/shamela_real/` for testing.
 
 **Confidence scoring.** Every inferred field carries a confidence score 0.0–1.0. Fields with confidence < 0.70 are added to `needs_review_fields`. Fields with confidence < 0.50 block the metadata write entirely (§5 Layer 1) and create a human gate checkpoint.
 
@@ -440,11 +562,17 @@ Note: `text_fidelity` is NOT part of the LLM output. It is set deterministically
 - Title keywords are strong signals: "شرح" → `sharh`, "مختصر" → `mukhtasar`, "حاشية" → `hashiyah`, "نظم" → `nazm`, "رسالة" → `risalah`
 - No additional genres may be added without updating both the SPEC and the `Genre` enum
 
-**Multi-layer detection.** The engine must determine whether a source contains text from multiple authors (e.g., a sharh quoting the matn). Detection uses two signals:
-1. **CSS class detection (Shamela):** If the Shamela extractor found `has_matn_class` AND (`has_sharh_class` OR `has_hashiyah_class`), the source is multi-layer with high confidence (≥ 0.90).
-2. **LLM inference:** The LLM infers `is_multi_layer` from genre (a sharh is always multi-layer by definition), title conventions, and content inspection.
+**Multi-layer detection.** The engine must determine whether a source contains text from multiple authors (e.g., a sharh quoting the matn). 
+
+**CRITICAL FINDING:** Real Shamela desktop exports do NOT use CSS classes for text layers. No `class="matn"`, `class="sharh"`, or `class="hashiyah"` exists in any of 2,519 surveyed exports (see `reference/SHAMELA_FORMAT_ANALYSIS.md`). Multi-layer detection relies entirely on:
+
+1. **Genre inference:** A `sharh` is always multi-layer by definition (it contains the matn it comments on). A `hashiyah` is multi-layer (it contains the sharh and often the matn). A standalone `matn` is single-layer.
+2. **Title analysis:** Titles containing "شرح ... على ..." imply matn+sharh layers. Titles containing "حاشية ... على شرح ... على ..." imply three layers.
+3. **Content analysis (LLM):** The LLM examines the first 2000 characters for patterns that indicate quoted matn within commentary (e.g., verse lines followed by prose explanation).
 
 When `is_multi_layer` is true, the `text_layers` field is populated with the type and author of each layer. The layer authors must be resolved to scholar authority records (creating new records if needed). This is critical because the normalization engine's layer detection depends on knowing which layers to expect (T-2 mitigation).
+
+[ASSUMPTION — NEEDS STEP 2 TESTING] LLM multi-layer detection from genre + title + content achieves ≥ 90% accuracy. Test with: (1) a known sharh fixture, (2) the alfiyyah plain text (single-layer matn), (3) a standalone fiqh work. If accuracy is below 85%, the SPEC must add a human gate for multi-layer classification rather than trusting the LLM alone.
 
 **Author disambiguation.** When the author name is ambiguous (e.g., "ابن حجر" could be al-Asqalani d. 852 or al-Haytami d. 974), the LLM uses context clues: science scope, genre, death date, other metadata. If disambiguation confidence < 0.80, a human gate checkpoint is created with the candidate identities presented.
 
@@ -936,7 +1064,13 @@ Stored in `library/config/genre_synonyms.json`. Maps common non-standard genre v
 
 ### Gold Baselines
 
-No gold baselines exist yet. Create from: (1) `html_export_minimal` with manually verified metadata, (2) `alfiyyah_versified` with manually verified metadata.
+No gold baselines exist yet. Create from: (1) `shamela_real/02_nahw_muhaqiq` (Shamela book with muhaqiq, death date, known science), (2) `alfiyyah_versified` (plain text), (3) `shamela_real/11_multi_small` (multi-volume).
+
+### Test Fixture Inventory
+
+- `tests/fixtures/shamela_real/` — 12 real Shamela desktop exports covering: different sciences (nahw, fiqh, hadith, tafsir, usul, balagha), with/without muhaqiq, alternative field names, multi-volume, with المقدمة.htm, books with death dates in author field, books without المؤلف. See `tests/fixtures/shamela_real/README.md` for details.
+- `tests/fixtures/alfiyyah_versified/` — Plain text file (ألفية ابن مالك), for plain text intake testing.
+- `tests/fixtures/html_export_minimal/` — **DEPRECATED.** Synthetic fixture with wrong HTML structure. Do not use for Shamela testing. The `shamela_real/` fixtures replace it.
 
 ---
 

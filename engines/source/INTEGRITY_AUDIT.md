@@ -173,3 +173,16 @@ Remaining MEDIUM defects for Step 2:
 - Defect 6: LLM inference assumption needs splitting into A1/A2/A3 (documented in assumptions table)
 - Defect 7: data_provenance_score Stage 1 behavior (synthesis engine interface decision)
 - Defect 10: work_id max length (changed to 50 chars in fix)
+
+### Post-Audit Critical Discovery (2026-03-09)
+
+After the integrity audit, a structural survey of 2,519 real Shamela exports revealed that the SPEC's extraction rules were built on entirely wrong assumptions. The synthetic `html_export_minimal` fixture does not match real Shamela exports in ANY structural detail:
+
+- No `info.html` exists (metadata is in first PageText div)
+- No `<table>` metadata format (uses `<span class='title'>label:</span> value`)
+- No `class="matn"` / `class="sharh"` / `class="hashiyah"` CSS classes exist anywhere
+- Page markers use `<span class='PageNumber'>(ص: ١٥)</span>`, not `<span class="pg">15</span>`
+
+All extraction rules in §4.A.3 were rewritten. Multi-layer detection (§4.A.4) was updated to remove CSS-class reliance. The assumption A3 (multi-layer detection ≥ 90%) is now a higher-risk assumption since it relies on LLM inference alone with no structural signal.
+
+Full findings documented in `reference/SHAMELA_FORMAT_ANALYSIS.md`. 12 real fixtures added to `tests/fixtures/shamela_real/`.

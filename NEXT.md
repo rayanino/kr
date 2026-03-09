@@ -1,60 +1,47 @@
-# NEXT — Source Engine Step 1 (Continued) or Step 2
+# NEXT — Source Engine Step 2 (RESEARCH)
 
-**Session type:** Owner review → then RESEARCH
-**Goal:** Owner reviews SPEC_CORE.md experientially, then Claude researches the 7 marked assumptions.
+**Session type:** RESEARCH — test 7 marked assumptions
+**Goal:** Empirically validate every assumption in SPEC_CORE.md before building
 
 ---
 
 ## What happened last session
 
-Step 1 Parts 1, 4, 5 completed:
+1. **Core SPEC written and audited** (SPEC_CORE.md + INTEGRITY_AUDIT.md)
+2. **Owner provided 2,519 real Shamela exports** — surveyed 100% of them
+3. **Critical discovery:** Real Shamela format is completely different from synthetic fixture. No info.html, no table metadata, no CSS layer classes. All extraction rules rewritten.
+4. **Permanent documentation:** `reference/SHAMELA_FORMAT_ANALYSIS.md` (complete format spec from 2,519 books)
+5. **12 real test fixtures** added to `tests/fixtures/shamela_real/`
+6. **SPEC_CORE.md fully updated** with correct extraction pseudocode
 
-1. **Core extraction** (CORE_VS_DEFERRED.md): 68 core / 32 deferred capabilities classified. Core formats: shamela_html + plain_text. All §4.B deferred with extension hooks.
-
-2. **Core SPEC written** (SPEC_CORE.md): ~700 lines at architecture-decision depth. Includes pseudocode for: format detection, Shamela HTML extraction, plain text extraction, scholar matching score formula, slug generation, trust evaluation (deterministic factor scores), consensus agreement (including "new record" case), LLM output schema with required prompt elements.
-
-3. **Integrity audit** (INTEGRITY_AUDIT.md): 11 defects found. 3 HIGH + 5 MEDIUM fixed in the SPEC. 7 assumptions marked for Step 2 testing.
-
-4. **Owner sanity check** (OWNER_SANITY_CHECK.md): 10 experiential questions prepared.
-
----
-
-## What to do now
-
-### If the owner has reviewed OWNER_SANITY_CHECK.md:
-
-1. Read the owner's answers.
-2. For any ✗ answers: use `kr-spec-review` to investigate and resolve.
-3. Update SPEC_CORE.md with any fixes.
-4. Move to Step 2 (RESEARCH) — test the 7 marked assumptions.
-
-### If the owner has NOT yet reviewed:
-
-Per ENGINE_PROTOCOL: after 3 days with no comments, proceed to Step 2. Mark domain-dependent decisions as `[OWNER REVIEW PENDING]`.
+### Owner Sanity Check Status
+Questions Q1-Q3 (Shamela structure) are now answered empirically from real data — no owner input needed. Questions Q4-Q10 still await owner response. Per ENGINE_PROTOCOL: after 3 days, proceed without answers.
 
 ---
 
-## Step 2 Plan (when ready)
+## Step 2 Plan
 
-Test these 7 assumptions on the `html_export_minimal` and `alfiyyah_versified` fixtures:
+Test these assumptions on real fixtures from `tests/fixtures/shamela_real/` and `alfiyyah_versified`:
 
-| ID | What to Test | Method |
-|----|-------------|--------|
-| A1 | LLM genre inference ≥ 85% | Run inference prompt on both fixtures + manual test cases |
-| A2 | LLM genre_chain inference ≥ 80% | Test with commentary titles |
-| A3 | LLM multi-layer detection ≥ 90% | Test on multi-layer and single-layer fixtures |
-| A4 | Two-model consensus effectiveness | Run same prompt through Claude + GPT, compare |
-| A5 | Scholar matching score formula accuracy | Test with variant spellings |
-| A6 | Trust evaluation weights/threshold correctness | Run on 5+ source scenarios |
-| A7 | Name normalization sufficiency | Test with real Shamela name variants |
+| ID | Assumption | Fixtures to Test | Pass Criteria |
+|----|-----------|-----------------|---------------|
+| A1 | LLM genre inference ≥ 85% | All 12 shamela_real + alfiyyah | ≥ 85% correct genre |
+| A2 | LLM genre_chain inference ≥ 80% | Books with sharh/hashiyah titles | ≥ 80% correct base work |
+| A3 | LLM multi-layer detection ≥ 90% | Genre-inferred (no CSS signal) | ≥ 90% correct is_multi_layer |
+| A4 | Two-model consensus catches errors | 10+ fixtures through Claude + GPT | Agreement rate and accuracy |
+| A5 | Scholar matching formula accuracy | Variant spellings from real exports | Correct match/no-match |
+| A6 | Trust weights produce correct tiers | 5+ sources (verified + flagged cases) | Expected tier for each |
+| A7 | Name normalization sufficiency | Real author names from exports | Correct normalization |
 
 **Skills to use:** `kr-research` for the assumption testing.
+
+**Key risk elevation:** A3 (multi-layer detection) is now higher risk than originally assessed because CSS classes don't exist. The LLM must infer multi-layer purely from genre + title + content. If accuracy is < 85%, the SPEC must add a human gate for all multi-layer decisions.
 
 ---
 
 ## What to read
 
-1. `engines/source/SPEC_CORE.md` — The core SPEC (primary document)
-2. `engines/source/INTEGRITY_AUDIT.md` — Defects found and fixes applied
-3. `engines/source/CORE_VS_DEFERRED.md` — Classification decisions
-4. `engines/source/OWNER_SANITY_CHECK.md` — Questions for the owner
+1. `engines/source/SPEC_CORE.md` — The core SPEC (updated with real extraction rules)
+2. `reference/SHAMELA_FORMAT_ANALYSIS.md` — Complete format spec from real data
+3. `engines/source/INTEGRITY_AUDIT.md` — Defects + post-audit discovery
+4. `tests/fixtures/shamela_real/README.md` — 12 real test fixtures

@@ -8,14 +8,9 @@
 
 ## §4.A.3 — Shamela HTML Extraction
 
-**Q1: Does the info.html structure match your Shamela exports?**
-The SPEC assumes info.html has `<h1>` for the title and `<tr><td>key</td><td>value</td></tr>` table rows with Arabic field labels (المؤلف, المحقق, الناشر, الطبعة, عدد الأجزاء, التصنيف, الوصف). Does this match the real Shamela exports you've used?
+**Q1-Q3: ANSWERED EMPIRICALLY.** The owner provided 2,519 real Shamela exports. A structural survey of all 2,519 files answered these questions definitively. The results are in `reference/SHAMELA_FORMAT_ANALYSIS.md` and the SPEC extraction rules have been rewritten accordingly. No owner input needed on these questions.
 
-**Q2: Does content.html use these CSS classes?**
-The SPEC assumes content files have `class="matn"`, `class="sharh"`, `class="hashiyah"`, `class="footnote"` on paragraph elements, and `class="page"` on div elements with `class="vol"` and `class="pg"` span markers. Does this match?
-
-**Q3: Are there other metadata fields in your Shamela exports not listed here?**
-The extractor looks for: المؤلف, المحقق, الناشر, الطبعة, عدد الأجزاء, التصنيف, الوصف. Are there other fields (like a Shamela book ID, shamela_book_id) that are commonly present?
+Key findings: No `info.html` file. Metadata uses `<span class='title'>` pattern, not `<table>`. No `class="matn"` / `class="sharh"` CSS classes. See the full analysis for details.
 
 ---
 
