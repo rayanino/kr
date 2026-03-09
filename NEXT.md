@@ -176,11 +176,11 @@ python3 tests/test_llm_inference.py --phase 1 --fixture 06_usul  # Single fixtur
 - [x] A3 (name matching) validated deterministically (Phase 0) — KNOWN ISSUE: substring containment boost needed, deferred to build
 - [x] A4 (trust weights) validated deterministically (Phase 0) — 13/13 PASS at threshold 0.65 (uniquely optimal)
 - [x] Readiness verification complete (Phase 0) — prompt↔contracts sync, model IDs, eval harness bugs fixed. See tests/STEP2_READINESS_VERIFICATION.md
-- [ ] A1: Inference prompt ≥95% JSON parse, ≥90% enum compliance (Phase 1)
-- [ ] A2: Multi-layer detection correct on all test cases or gated (Phase 1)
-- [ ] A5: Best consensus pair identified on production-tier models (Phase 2-3)
+- [x] A1: Inference prompt ≥95% JSON parse, ≥90% enum compliance (Phase 1) — 100% parse, 0 enum violations on Sonnet 4.6 (13/13). All 5 production models also 100% parse (Gemini 92% due to 1 timeout, not format issue). Prompt locked: inference_v1.py draft-3.
+- [x] A2: Multi-layer detection correct on all test cases or gated (Phase 1) — 100% accuracy across ALL 5 models on all 13 fixtures. Fixture 11 correctly detected as multi-layer, all others correctly single-layer.
+- [x] A5: Best consensus pair identified on production-tier models (Phase 2-3) — Top pair: Command A + Opus 4.6 (92.3% "at least one right", 15.4% complementarity, both 100% parse). Alternative: Gemini 3.1 + Command A (92.3%, 24.2% complementarity, but Gemini had 1 timeout). See tests/results/phase3_consensus.json.
 - [x] Draft prompt template saved to `engines/source/prompts/inference_v1.py`
-- [ ] Final prompt templates saved to `engines/source/prompts/`
-- [ ] All [ASSUMPTION] markers in SPEC resolved
+- [x] Final prompt templates saved to `engines/source/prompts/` — inference_v1.py draft-3 is the final version (passed all targets on first iteration, no changes needed)
+- [ ] All [ASSUMPTION] markers in SPEC resolved — A1, A2, A5 validated; markers can be removed during Step 3 build prep
 
 After Step 2: Evaluate results using `engines/source/STRATEGIC_PLAN.md` Phase A, then move to Step 3 (BUILD PREP — use kr-build-prep skill).

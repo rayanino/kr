@@ -10,11 +10,17 @@ Usage:
 """
 
 import argparse
+import io
 import json
 import os
 import sys
 import time
 from pathlib import Path
+
+# Fix Windows console encoding for Arabic text
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 sys.path.insert(0, str(Path(__file__).parent))
 from eval_harness import score_model_run
@@ -29,8 +35,8 @@ RESULTS_DIR = Path(__file__).parent / 'results'
 
 
 def load_fixtures():
-    extracted = json.load(open(FIXTURES_DIR / 'EXTRACTED_DATA.json'))
-    ground_truth = json.load(open(FIXTURES_DIR / 'GROUND_TRUTH.json'))
+    extracted = json.load(open(FIXTURES_DIR / 'EXTRACTED_DATA.json', encoding='utf-8'))
+    ground_truth = json.load(open(FIXTURES_DIR / 'GROUND_TRUTH.json', encoding='utf-8'))
     return extracted, ground_truth
 
 
@@ -47,7 +53,7 @@ def format_prompt(fixture_data: dict) -> str:
 def call_anthropic(system_msg: str, user_msg: str, model: str, api_key: str) -> dict:
     """Call Anthropic API. Returns parsed JSON or error dict."""
     import httpx
-    
+
     response = httpx.post(
         'https://api.anthropic.com/v1/messages',
         headers={
@@ -57,7 +63,7 @@ def call_anthropic(system_msg: str, user_msg: str, model: str, api_key: str) -> 
         },
         json={
             'model': model,
-            'max_tokens': 2000,
+            'max_tokens': 4000,
             'system': system_msg,
             'messages': [{'role': 'user', 'content': user_msg}],
         },
@@ -95,14 +101,14 @@ def call_openrouter(system_msg: str, user_msg: str, model: str, api_key: str) ->
                 {'role': 'system', 'content': system_msg},
                 {'role': 'user', 'content': user_msg},
             ],
-            'max_tokens': 2000,
+            'max_tokens': 4000,
         },
         timeout=90.0,
     )
-    
+
     if response.status_code != 200:
         return {'_parse_error': True, '_raw': response.text, '_status': response.status_code}
-    
+
     data = response.json()
     text = data['choices'][0]['message']['content'].strip()
     return _parse_llm_json(text)
@@ -375,11 +381,14 @@ def main():
         # Per-fixture breakdown
         print(f"\n  Per-fixture scores:")
         for fid, fs in scores['fixture_scores'].items():
+            if fs.get('error'):
+                print(f"    {fid:25s} ERROR: {fs['error']}")
+                continue
             agg = fs.get('aggregate', 0.0)
-            genre = fs.get('genre', '-')
-            scope = fs.get('science_scope', '-')
-            multi = fs.get('is_multi_layer', '-')
-            auth = fs.get('author_identification', '-')
+            genre = fs.get('genre', 0.0)
+            scope = fs.get('science_scope', 0.0)
+            multi = fs.get('is_multi_layer', 0.0)
+            auth = fs.get('author_identification', 0.0)
             print(f"    {fid:25s} agg={agg:.3f}  genre={genre:.1f} scope={scope:.2f} multi={multi:.1f} auth={auth:.3f}")
     
     # Save results
@@ -398,7 +407,8 @@ def main():
             },
         }
     
-    json.dump(serializable, open(results_file, 'w'), ensure_ascii=False, indent=2)
+    with open(results_file, 'w', encoding='utf-8') as f:
+        json.dump(serializable, f, ensure_ascii=False, indent=2)
     print(f"\nResults saved to: {results_file}")
 
 

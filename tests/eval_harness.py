@@ -5,11 +5,17 @@ Run directly to verify scoring logic against known test cases.
 """
 
 import difflib
+import io
 import json
 import re
 import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
+
+# Fix Windows console encoding for Unicode characters
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 
 # ── Name normalization (from SPEC §4.A.1) ──
