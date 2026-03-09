@@ -1002,12 +1002,13 @@ Stored in `library/config/known_publishers.json`. Owner can extend.
   "دار عالم الفوائد": {"score": 0.75, "variants": ["دار عالم الفوائد للنشر والتوزيع"]},
   "مكتبة الرشد": {"score": 0.70, "variants": ["مكتبة الرشد - الرياض"]},
   "دار البشائر الإسلامية": {"score": 0.70, "variants": ["دار البشائر الإسلامية - بيروت"]},
-  "دار الكتب العلمية": {"score": 0.55, "variants": ["دار الكتب العلمية - بيروت", "دار الكتب العلمية، بيروت - لبنان"]},
+  "دار طيبة": {"score": 0.75, "variants": ["دار طيبة للنشر والتوزيع"]},
+  "عالم الكتب": {"score": 0.70, "variants": ["عالم الكتب - بيروت"]},
   "دار الفكر": {"score": 0.60, "variants": ["دار الفكر - دمشق", "دار الفكر - بيروت"]}
 }
 ```
 
-Publisher matching checks both the canonical name and all variants using substring matching. "دار الكتب العلمية" is scored lower (0.55) than other scholarly publishers because it is known for mass-producing editions of variable quality — some are genuine scholarly editions, many are quick commercial reprints. Unknown/absent publishers score 0.40. The publisher list was validated against the owner's collection of 2,519 Shamela exports.
+Publisher matching checks both the canonical name and all variants using substring matching. Unknown/absent publishers score 0.40. Note: دار الكتب العلمية (DKI Beirut) is intentionally excluded from the trusted list and receives the default unknown score (0.40) — their tahqiq quality is widely criticized as commercial rather than scholarly, and the conservative principle (§4.A.8) dictates that uncertain quality should not confer trust. The publisher list was validated against the owner's collection of 2,519 Shamela exports.
 
 **Arabic transliteration table** for slug generation:
 Stored in `library/config/transliteration.json`. Maps common Arabic scholar names and work titles to Latin slugs. Initial entries defined in §4.A.1. Extensible by the owner.
