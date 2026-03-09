@@ -90,17 +90,51 @@ def process(input_path: Path, output_path: Path, config: dict) -> None:
 
 
 def _parse_content_html(html: str, source_id: str) -> list[dict]:
-    """Parse Shamela-style content.html into ContentUnit dicts."""
+    """Parse Shamela-style content.html into ContentUnit dicts.
+    
+    Shamela HTML has two heading locations:
+    1. Inside <div class="chapter"><h2>...</h2> — BEFORE the page divs
+    2. Inside <div class="page"> — rare, inline headings
+    
+    We extract chapter-level headings first, then associate each with
+    the first page div that follows it in document order.
+    """
     content_units = []
     unit_index = 0
 
-    # Find all page divs
+    # --- Phase 1: Extract chapter headings with their document positions ---
+    # These headings sit between <div class="chapter"> and the first <div class="page">
+    chapter_headings = []
+    for ch_match in re.finditer(r'<div\s+class="chapter">\s*<h(\d)>(.*?)</h\1>', html, re.DOTALL):
+        heading_level = int(ch_match.group(1))
+        heading_text = _strip_tags(ch_match.group(2)).strip()
+        heading_end_pos = ch_match.end()
+        chapter_headings.append({
+            "text": heading_text,
+            "level": heading_level,
+            "doc_position": heading_end_pos,
+        })
+
+    # --- Phase 2: Extract page divs ---
     page_pattern = re.compile(
         r'<div\s+class="page"\s+id="(v\d+p\d+)">(.*?)</div>\s*(?=<div\s+class="page"|</div>\s*</div>)',
         re.DOTALL,
     )
 
-    for page_match in page_pattern.finditer(html):
+    page_matches = list(page_pattern.finditer(html))
+
+    # --- Phase 3: Associate chapter headings with their first page ---
+    # A chapter heading applies to the first page div whose start position
+    # is after the heading's position in the document.
+    page_heading_map: dict[int, dict] = {}  # page_match_index → heading info
+    for ch in chapter_headings:
+        for pi, pm in enumerate(page_matches):
+            if pm.start() > ch["doc_position"] and pi not in page_heading_map:
+                page_heading_map[pi] = ch
+                break
+
+    # --- Phase 4: Build content units ---
+    for pi, page_match in enumerate(page_matches):
         page_id = page_match.group(1)
         page_content = page_match.group(2)
 
@@ -125,7 +159,7 @@ def _parse_content_html(html: str, source_id: str) -> list[dict]:
         for mt in matn_texts:
             text_layers.append({
                 "layer_type": "matn",
-                "author_canonical_id": None,  # Will be inferred
+                "author_canonical_id": None,  # Populated by _build_layer_map
                 "start": char_offset,
                 "end": char_offset + len(mt),
                 "confidence": 0.95,
@@ -166,9 +200,22 @@ def _parse_content_html(html: str, source_id: str) -> list[dict]:
                 "correction_data": None,
             })
 
-        # Detect heading
-        heading_match = re.search(r"<h\d>(.*?)</h\d>", page_content, re.DOTALL)
-        heading_text = _strip_tags(heading_match.group(1)).strip() if heading_match else None
+        # Determine heading: chapter-level heading (from phase 3) or inline heading
+        heading_text = None
+        heading_level = None
+        heading_method = None
+        if pi in page_heading_map:
+            ch = page_heading_map[pi]
+            heading_text = ch["text"]
+            heading_level = ch["level"]
+            heading_method = "html_tagged"
+        else:
+            # Check for inline heading within the page div itself
+            inline_match = re.search(r"<h(\d)>(.*?)</h\1>", page_content, re.DOTALL)
+            if inline_match:
+                heading_level = int(inline_match.group(1))
+                heading_text = _strip_tags(inline_match.group(2)).strip()
+                heading_method = "html_tagged"
 
         # Check for verse (matn class with prosodic pattern)
         has_verse = any("…" in t or re.search(r"[\u064B-\u065F]{2,}", t) for t in matn_texts)
@@ -188,8 +235,8 @@ def _parse_content_html(html: str, source_id: str) -> list[dict]:
             "structural_markers": {
                 "heading_detected": heading_text is not None,
                 "heading_text": heading_text,
-                "heading_level": 2 if heading_text else None,
-                "heading_detection_method": "html_tagged" if heading_text else None,
+                "heading_level": heading_level,
+                "heading_detection_method": heading_method,
                 "heading_confidence": "confirmed" if heading_text else None,
             },
             "verse_info": None,
@@ -382,24 +429,47 @@ def _build_division_tree(content_units: list[dict]) -> list[dict]:
 
 
 def _build_layer_map(content_units: list[dict], source_meta: dict) -> list[dict]:
-    """Build a layer map from detected text layers."""
+    """Build a layer map from detected text layers.
+    
+    Also back-fills author_canonical_id into content unit text_layers
+    using the source engine's layer→author mapping.
+    """
+    # Build author lookup from source metadata text_layers.
+    # Source engine uses nested ScholarReference: {"layer_type": "matn", "author": {"canonical_id": "...", "name_arabic": "..."}}
+    source_layers = source_meta.get("text_layers", [])
+    layer_author_map: dict[str, tuple[str | None, str | None]] = {}  # layer_type → (canonical_id, name_arabic)
+    for sl in source_layers:
+        lt = sl.get("layer_type")
+        author_obj = sl.get("author", {})
+        if isinstance(author_obj, dict):
+            layer_author_map[lt] = (
+                author_obj.get("canonical_id"),
+                author_obj.get("name_arabic"),
+            )
+        else:
+            # Fallback: flat field (shouldn't happen with current contracts)
+            layer_author_map[lt] = (sl.get("author_canonical_id"), None)
+
+    # Back-fill author_canonical_id into content unit text_layers
+    for unit in content_units:
+        for tl in unit.get("text_layers", []):
+            lt = tl["layer_type"]
+            if lt in layer_author_map and tl.get("author_canonical_id") is None:
+                tl["author_canonical_id"] = layer_author_map[lt][0]
+
+    # Collect all layer types seen across units
     layer_types_seen = set()
     for unit in content_units:
         for layer in unit.get("text_layers", []):
             layer_types_seen.add(layer["layer_type"])
 
     layer_map = []
-    source_layers = source_meta.get("text_layers", [])
     for lt in sorted(layer_types_seen):
-        author_id = None
-        for sl in source_layers:
-            if sl.get("layer_type") == lt:
-                author_id = sl.get("author_canonical_id")
-                break
+        author_id, author_name = layer_author_map.get(lt, (None, None))
         layer_map.append({
             "layer_type": lt,
             "author_canonical_id": author_id,
-            "author_name_arabic": None,
+            "author_name_arabic": author_name,
             "detection_confidence": 0.95,
         })
 

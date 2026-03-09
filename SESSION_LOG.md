@@ -1945,3 +1945,16 @@ Bridged the gap between the hardened SPEC and buildable code. Five deliverables:
 - Taxonomy and synthesis lack formal Pydantic output contracts
 **Decisions:** None (build session — implemented to existing contracts, no architectural changes)
 **Next:** Source engine core SPEC (Step 1) — first engine to build properly
+
+### Session 2026-03-09-b — Claude Chat (Self-Review Fixes)
+**Type:** BUILD (Step 0 — Tracer Bullet self-review fixes)
+**Focus:** Fix 5 defects found during critical self-review
+**Defects fixed:**
+1. Normalization missed chapter headings outside page divs → added chapter-level heading extraction pre-pass
+2. Only 5 of 6 boundaries validated → added taxonomy→synthesis custom validator (PlacedExcerptAdditions + TreeNode)
+3. work_id collision (ibn_aqil_ibn_aqil) → sorted _slugify replacements longest-first
+4. Layer author attribution silently lost → _build_layer_map now reads nested author.canonical_id, back-fills into content units
+5. source_id hardcoded "nahw_" → added _category_to_science() mapping from Shamela categories
+**Verified:** All 7 engines pass, all 6 boundaries valid, heading "باب الكلام وما يتألف منه" propagates through passaging→excerpting, layer authors matn→ibn_malik sharh→ibn_aqil flow end-to-end
+**Decisions:** None
+**Next:** Source engine core SPEC (Step 1) using kr-core-extract skill

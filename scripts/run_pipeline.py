@@ -162,9 +162,21 @@ def run_pipeline(fixture_path: Path, work_dir: Path) -> dict:
 
         try:
             data = json.loads(json_path.read_text(encoding="utf-8"))
-            model_cls = bv["model"]
-            model_cls.model_validate(data)
-            print(f"  ✓ {label}: valid")
+            if "model" in bv:
+                model_cls = bv["model"]
+                model_cls.model_validate(data)
+                print(f"  ✓ {label}: valid")
+            elif "validator_fn" in bv:
+                errs = bv["validator_fn"](data)
+                if errs:
+                    for err in errs:
+                        msg = f"[{label}] {err}"
+                        report["boundary_errors"].append(msg)
+                    print(f"  ✗ {label}: {len(errs)} error(s)")
+                    for err in errs[:3]:
+                        print(f"    {str(err)[:200]}")
+                else:
+                    print(f"  ✓ {label}: valid")
         except Exception as e:
             msg = f"[{label}] {type(e).__name__}: {e}"
             report["boundary_errors"].append(msg)
@@ -203,6 +215,10 @@ def _get_boundary_validations(work_dir: Path) -> list[dict]:
     
     We validate each engine's output against its own output contract model.
     This catches structural issues before the next engine tries to read.
+    
+    Each entry has either:
+    - "model": a Pydantic model class (validated via model_validate on the whole JSON)
+    - "validator_fn": a callable(data) -> list[str] of errors (for custom structures)
     """
     # Import contract models (only core ones)
     from engines.source.contracts import SourceMetadata
@@ -210,10 +226,34 @@ def _get_boundary_validations(work_dir: Path) -> list[dict]:
     from engines.passaging.contracts import PassageStream
     from engines.atomization.contracts import AtomStream
     from engines.excerpting.contracts import ExcerptStream
+    from engines.taxonomy.contracts import PlacedExcerptAdditions, TreeNode
 
-    # Note: taxonomy and synthesis outputs are custom structures,
-    # not directly validated against their full contract models
-    # because the tracer bullet uses simplified output formats.
+    def _validate_taxonomy_output(data: dict) -> list[str]:
+        """Validate taxonomy output's placements and tree against contracts."""
+        errors = []
+        # Validate tree
+        tree = data.get("tree")
+        if tree is None:
+            errors.append("Missing 'tree' key in taxonomy output")
+        else:
+            try:
+                TreeNode.model_validate(tree)
+            except Exception as e:
+                errors.append(f"tree: {e}")
+
+        # Validate each placement
+        placements = data.get("placements", [])
+        if not placements:
+            errors.append("No placements in taxonomy output")
+        for i, p in enumerate(placements):
+            try:
+                PlacedExcerptAdditions.model_validate(p)
+            except Exception as e:
+                errors.append(f"placements[{i}]: {e}")
+                if i >= 2:  # Cap at 3 errors to avoid flood
+                    errors.append(f"... and {len(placements) - i - 1} more placements not checked")
+                    break
+        return errors
 
     return [
         {
@@ -240,6 +280,11 @@ def _get_boundary_validations(work_dir: Path) -> list[dict]:
             "label": "excerpting → taxonomy",
             "json_path": str(work_dir / "05_excerpt_stream.json"),
             "model": ExcerptStream,
+        },
+        {
+            "label": "taxonomy → synthesis",
+            "json_path": str(work_dir / "06_taxonomy_output.json"),
+            "validator_fn": _validate_taxonomy_output,
         },
     ]
 

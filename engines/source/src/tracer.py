@@ -33,10 +33,11 @@ def process(input_path: Path, output_path: Path, config: dict) -> None:
     # --- Generate source_id ---
     author_slug = _slugify(metadata.get("author_name", "unknown"))
     title_slug = _slugify(metadata.get("title", "unknown"))
+    science_slug = _category_to_science(metadata.get("category", ""))
     edition_hash = hashlib.md5(
         f"{metadata.get('muhaqiq', '')}{metadata.get('publisher', '')}{metadata.get('edition', '')}".encode()
     ).hexdigest()[:4]
-    source_id = config.get("source_id", f"nahw_{author_slug}_{title_slug}_{edition_hash}")
+    source_id = config.get("source_id", f"{science_slug}_{author_slug}_{title_slug}_{edition_hash}")
     work_id = f"{author_slug}_{title_slug}"
 
     # --- Freeze source files ---
@@ -75,7 +76,7 @@ def process(input_path: Path, output_path: Path, config: dict) -> None:
             "source_of_identification": "info.html المحقق field",
         } if metadata.get("muhaqiq") else None,
         "additional_authors": [],
-        "science_scope": [metadata.get("category", "nahw")],
+        "science_scope": [science_slug],
         "genre": "sharh",
         "genre_chain": None,
         "level": None,
@@ -181,20 +182,54 @@ def _strip_tags(html: str) -> str:
 
 
 def _slugify(text: str) -> str:
-    """Create a URL-safe slug from Arabic text."""
-    import unicodedata
-    # Transliterate common Arabic names
+    """Create a URL-safe slug from Arabic text.
+    
+    Checks longest matches first to avoid substring collisions
+    (e.g., "ابن عقيل" matching inside "شرح ابن عقيل على ألفية ابن مالك").
+    """
+    # Transliterate common Arabic names — checked longest-first
     replacements = {
+        "شرح ابن عقيل على ألفية ابن مالك": "sharh_ibn_aqil",
+        "محمد محيي الدين عبد الحميد": "abdulhamid",
         "ابن عقيل": "ibn_aqil",
         "ابن مالك": "ibn_malik",
-        "محمد محيي الدين عبد الحميد": "abdulhamid",
-        "شرح ابن عقيل على ألفية ابن مالك": "sharh_ibn_aqil",
     }
-    for arabic, latin in replacements.items():
+    # Sort by key length descending to match longest substring first
+    for arabic, latin in sorted(replacements.items(), key=lambda kv: len(kv[0]), reverse=True):
         if arabic in text:
             return latin
     # Fallback: hash
     return hashlib.md5(text.encode()).hexdigest()[:8]
+
+
+def _category_to_science(category: str) -> str:
+    """Map Shamela category text to a normalized science slug.
+    
+    Shamela categories are free-text Arabic like "نحو وصرف" or "فقه شافعي".
+    This maps them to the KR science classification IDs.
+    """
+    mapping = {
+        "نحو": "nahw",
+        "صرف": "sarf",
+        "نحو وصرف": "nahw",
+        "بلاغة": "balagha",
+        "فقه": "fiqh",
+        "أصول الفقه": "usul_fiqh",
+        "أصول": "usul_fiqh",
+        "حديث": "hadith",
+        "تفسير": "tafsir",
+        "عقيدة": "aqidah",
+        "توحيد": "aqidah",
+        "سيرة": "sirah",
+        "تاريخ": "tarikh",
+        "أدب": "adab",
+        "منطق": "mantiq",
+    }
+    # Check longest matches first (substring match)
+    for arabic, slug in sorted(mapping.items(), key=lambda kv: len(kv[0]), reverse=True):
+        if arabic in category:
+            return slug
+    return "unclassified"
 
 
 def _parse_edition_number(text: str) -> int | None:

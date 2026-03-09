@@ -3,15 +3,20 @@
 **Session type:** SPEC
 **Goal:** Produce a core-only source engine SPEC at architecture-decision depth. Claude Code must be able to build the source engine from this SPEC with zero clarifying questions.
 
+**Skills to use:** `kr-core-extract` for the core vs. deferred classification and SPEC rewrite. `kr-integrity` as the final quality gate once the core SPEC is written.
+
+**Note:** ENGINE_PROTOCOL Step 1 is a multi-part process: (1) core extraction → (2) owner sanity check → (3) research → (4) SPEC writing → (5) integrity audit. This session covers parts 1, 4, and 5. Part 2 happens async (owner reviews between sessions). Part 3 happens only if the SPEC reveals unresolved design questions.
+
 ---
 
 ## What to read first
 
-1. `skills/shared/ENGINE_PROTOCOL.md` — Step 1 section (SPEC requirements)
-2. `engines/source/SPEC.md` — Current full SPEC (~1,140 lines). Read §4.A only.
-3. `reference/CORE_CONTRACT_CLASSIFICATION.md` — Source engine section (27 core classes, 18 deferred)
-4. `reference/TRACER_FINDINGS.md` — Source→normalization boundary issues
-5. `engines/source/contracts.py` — The actual Pydantic models (825 lines)
+1. `skills/shared/ENGINE_PROTOCOL.md` — Step 1 section (full SPEC requirements and depth test)
+2. `skills/user/kr-core-extract/SKILL.md` — The skill that guides core vs. deferred classification
+3. `engines/source/SPEC.md` — Current full SPEC (~1,140 lines). Read §4.A only.
+4. `reference/CORE_CONTRACT_CLASSIFICATION.md` — Source engine section (27 core classes, 18 deferred)
+5. `reference/TRACER_FINDINGS.md` — Boundary issues found and self-review defects fixed
+6. `engines/source/contracts.py` — The actual Pydantic models (825 lines)
 
 ## What NOT to read
 
