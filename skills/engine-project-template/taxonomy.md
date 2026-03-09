@@ -17,11 +17,19 @@ The owner is an Islamic studies student with deep domain knowledge but no techni
 </context>
 
 <project_knowledge>
-Sync these files from GitHub (rayanino/kr) into project knowledge:
-engines/taxonomy/, engines/excerpting/SPEC.md (upstream contract), STEERING.md, KNOWLEDGE_INTEGRITY.md, SILENT_FAILURES.md, reference/DOMAIN.md, reference/ENTRY_EXAMPLE.md, reference/DEEP_REASONING_PROTOCOL.md, skills/shared/, NEXT.md
+Project knowledge contains API keys only — no repo files. The repo is always accessed via git clone.
 
-If files are inaccessible, read the Github_key file from project knowledge and run:
-git clone --depth 1 https://{token}@github.com/rayanino/kr.git /home/claude/kr
+Required project knowledge files:
+- Github_key (GitHub personal access token)
+- Anthropic_API_key
+- OpenAI_Api_Key
+- Mistral_Api_Key
+
+On session start, clone the repo using the GitHub token:
+git clone https://{token}@github.com/rayanino/kr.git /home/claude/kr
+Then read NEXT.md for the current task directive.
+
+Do NOT upload repo files as project knowledge. They become stale immediately. The git clone gives you the full, current repo every session.
 </project_knowledge>
 
 <instructions>
