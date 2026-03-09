@@ -166,14 +166,56 @@ All 13 fixtures are "definitive." This means the field has zero discrimination p
 | `tests/test_llm_inference.py` line 169 | `claude-opus-4-6-20250528` → `claude-opus-4-6` | Invalid snapshot ID would cause API 400 error |
 | `tests/test_llm_inference.py` lines 130-153 | Added enum compliance checks for `attribution_status`, `context_richness`, `genre_chain.relation_type` | New fields from Step 1 were not being validated |
 | `tests/fixtures/GROUND_TRUTH.json` | Added `attribution_status: "definitive"` to all 13 fixtures | Expected values for enum compliance testing |
+| `tests/eval_harness.py` line 19 | Added parenthetical annotation stripping to `normalize_arabic_name()` | **CRITICAL BUG**: Ground truth names include death dates like "(ت 337هـ)" which depressed name_score for 8/13 fixtures. Worst case: al-Nawawi scored 0.381 name match even for perfect identification (name "النووي" is shorter than the annotation "(631-676 هـ)"). Fix: strip `(...)` content before comparison. All 13 fixtures now score 1.000 with perfect inputs. |
 
-## Issues Found But Not Fixed (Need Owner Input)
+### Critical Bug Detail: Name Comparison Penalty
 
-1. **No disputed-attribution fixture exists.** All 13 fixtures have "definitive" attribution. This means the system's handling of disputed/traditional/unknown attribution cannot be tested. Consider adding a fixture from the owner's collection where authorship is genuinely uncertain. Examples from the Islamic scholarly tradition: works attributed to al-Ghazali that may be by students, or Sufi texts with contested attribution chains.
+Found during self-review. The eval harness compared normalized names including editorial death-date annotations present in GROUND_TRUTH.json's `author_identified` field. Example:
 
-2. **attribution_status not yet in weighted scoring.** Once a disputed-attribution fixture exists, this should be added. Current decision: defer.
+- LLM outputs: `"النووي"` (correct)
+- Ground truth: `"النووي (631-676 هـ)"` (name + annotation)
+- Before fix: name_score = 0.381 → auth total = 0.691 → fixture aggregate = 0.847
+- After fix: name_score = 1.000 → auth total = 1.000 → fixture aggregate = 1.000
 
-3. **layers → text_layers naming gap.** Not a testing bug, but implementation code must map this. Documented here so Claude Code doesn't miss it.
+Impact on 8 fixtures with death dates in ground truth names:
+
+| Fixture | name_score BEFORE | name_score AFTER |
+|---|---|---|
+| 06_usul (النووي) | 0.381 | 1.000 |
+| alfiyyah (ابن مالك) | 0.615 | 1.000 |
+| 12_multi_muq (مالك بن نبي) | 0.667 | 1.000 |
+| 02_nahw_muhaqiq | 0.722 | 1.000 |
+| 01_nahw_simple | 0.737 | 1.000 |
+| 11_multi_small | 0.737 | 1.000 |
+| 08_death_date | 0.773 | 1.000 |
+| 04_hadith | 0.844 | 1.000 |
+
+Without this fix, all model comparison scores in Phase 2 would have been systematically depressed, and the worst-case fixture (al-Nawawi) would appear to have poor author identification even when the model gets it perfectly right. This would have distorted consensus pair selection in Phase 3.
+
+## Issues Found But Not Fixed (Documented for Future)
+
+1. **No disputed-attribution fixture exists.** All 13 fixtures have "definitive" attribution — all works have uncontested, well-documented authorship. This means attribution_status has zero discrimination power. Decision: defer adding fixtures. When the owner acquires a work with contested attribution (e.g., works sometimes attributed to al-Ghazali that may be by students, or anonymous compilations), it should be added as a fixture with "disputed" or "traditional" ground truth, and attribution_status should then be added to weighted scoring at weight 0.05.
+
+2. **attribution_status not yet in weighted scoring.** Cannot be scored meaningfully until fixture set has non-definitive examples. Deferred by design.
+
+3. **layers → text_layers naming gap.** Prompt asks LLM to produce `layers`, contracts.py expects `text_layers`. Not a testing bug — implementation code must map this. Documented so Claude Code doesn't miss it.
+
+4. **LLM prompt encourages "traditional" as default for classical works.** The prompt instruction says: "traditional: conventionally accepted but not independently verified (default for classical works)." Ground truth sets "definitive" for all classical works because their attributions are in fact well-documented and uncontested. A model outputting "traditional" for a classical fixture would be following prompt guidance conservatively, not making an error. Since attribution_status is not accuracy-scored, this tension has no impact on Step 2 results, but it should be addressed when attribution_status is eventually scored.
+
+5. **Gemini 3 Pro (3.0, NOT 3.1) marked "going away March 9, 2026."** This is today. We use `google/gemini-3.1-pro-preview` (the replacement), not the deprecated `google/gemini-3-pro-preview`. No action needed, but if Claude Code encounters "model not found" errors for Gemini, verify it's not accidentally using the old ID.
+
+---
+
+## Verification Method
+
+All claims in this document were verified using tools, not just manual inspection:
+
+1. **Enum matching:** Programmatic extraction of all enum values from both `contracts.py` (via Pydantic model introspection) and `inference_v1.py` (via regex), then automated set comparison. All 8 enum-constrained fields verified: 0 mismatches.
+2. **Model IDs:** Live web search on all 5 model IDs against OpenRouter and Anthropic documentation. Each verified against the provider's own listing page.
+3. **EXTRACTED_DATA.json integrity:** Programmatic check of all 13 fixtures for required fields (`prompt_context`, `text_sample`), length validation, and key alignment with GROUND_TRUTH.json.
+4. **End-to-end scoring:** Mock "perfect" LLM responses generated for all 13 fixtures, parsed through `_parse_llm_json`, and scored via `score_model_run`. Before name fix: model_aggregate = 0.962, 1 fixture below 0.90. After fix: model_aggregate = 1.000, all fixtures at 1.000.
+5. **Name discrimination:** Verified the parenthetical-stripping fix preserves the ability to distinguish different scholars (al-Nawawi vs Ibn Taymiyyah: 0.308, Ibn Hajar al-Asqalani vs al-Haytami: 0.643).
+6. **Self-tests:** `eval_harness.py` self-tests pass after all changes.
 
 ---
 
@@ -182,11 +224,12 @@ All 13 fixtures are "definitive." This means the field has zero discrimination p
 ### ✅ YES — The test infrastructure is ready for Claude Code to run Step 2 Phases 1–3.
 
 All blocking issues have been fixed:
-- Prompt schema matches contracts.py (no phantom fields, no enum mismatches)
-- All model IDs verified against live APIs (2 Anthropic IDs were wrong, now fixed)
-- Eval harness field name mapping is correct across the full chain
-- Enum compliance checks cover all enum-constrained fields including new Step 1 additions
+- Prompt schema matches contracts.py (verified by automated enum comparison — 0 mismatches across 8 fields)
+- All model IDs verified against live APIs (2 Anthropic IDs were fabricated snapshot dates, now fixed)
+- **Critical scoring bug fixed**: name comparison was penalized by death date annotations in ground truth, depressing scores for 8/13 fixtures (worst case: 0.381 → 1.000 for al-Nawawi)
+- Enum compliance checks cover all enum-constrained fields including Step 1 additions
 - Ground truth has expected values for all scored fields
+- End-to-end scoring verified: perfect inputs produce perfect scores (1.000 aggregate)
 - Dry-run mode verified working with corrected model IDs
 - Eval harness self-tests passing
 

@@ -17,6 +17,9 @@ from typing import Any, Dict, List, Optional, Tuple
 def normalize_arabic_name(name: str) -> str:
     """Normalize Arabic name for comparison."""
     result = name
+    # Strip parenthetical annotations — ground truth includes death dates
+    # like "(ت 337هـ)" or "(631-676 هـ)" that are metadata, not name parts.
+    result = re.sub(r'\([^)]*\)', '', result)
     # Strip common diacritics (tashkeel)
     diacritics = '\u0610\u0611\u0612\u0613\u0614\u0615\u0616\u0617\u0618\u0619\u061A\u064B\u064C\u064D\u064E\u064F\u0650\u0651\u0652\u0653\u0654\u0655\u0656\u0657\u0658\u0659\u065A\u065B\u065C\u065D\u065E\u065F\u0670'
     for d in diacritics:
