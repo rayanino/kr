@@ -40,62 +40,32 @@ Identical names, diacritics-only differences, and teacher/student pairs (الز�
 
 ## A4: Trust Weight Calibration — THRESHOLD MISMATCH
 
-### Finding A4-1: Classical primary sources score above threshold regardless of muhaqiq
-**Severity:** MEDIUM — over-trusts unedited classical texts
+### Resolution: Ground truth updated (Option C — owner decision)
+Owner principle: "flagged" means genuinely untrustworthy, not just incomplete metadata. A classical primary text from Shamela with an unknown muhaqiq is still trusted scholarship. The muhaqiq absence is noted in metadata (`muhaqiq: null`, `needs_review_fields` entry) but does not trigger a flag by itself.
 
-Four fixtures score as "verified" but ground truth expects "flagged":
+Fixtures 01, 02, 04, 08 changed from expected_trust "flagged" → "verified".
 
-| Fixture | Score | Expected | Why flagged in GT |
-|---------|-------|----------|-------------------|
-| 01_nahw_simple | 0.693 | flagged | No muhaqiq |
-| 02_nahw_muhaqiq | 0.718 | flagged | Unknown muhaqiq |
-| 04_hadith | 0.718 | flagged | Unknown muhaqiq |
-| 08_death_date | 0.718 | flagged | Unknown muhaqiq |
-
-**Root cause:** `author_standing` at weight 0.30 with score 0.90 contributes 0.270 alone. Combined with `source_authority: primary` (0.128) and `text_fidelity: high` (0.135), the base score for any classical primary Shamela source is already 0.533 before tahqiq and publisher are even considered. Any tahqiq score ≥ 0.40 pushes the total above 0.65.
-
-**The distinguishing fixtures (06 verified, 11 verified)** have the same scores as the failing ones. The ground truth assumes that known publisher (دار الفكر for 06) and/or exceptional work reputation (همع الهوامع for 11) provide the extra signal. But the algorithm doesn't capture either.
-
-### Finding A4-2: Sensitivity analysis shows no single threshold works perfectly
+### Result: 13/13 correct at threshold 0.65
+Sensitivity analysis confirms 0.65 is uniquely optimal:
 
 | Threshold | Correct | % |
 |-----------|---------|---|
-| 0.55 | 8/13 | 62% |
-| 0.60 | 8/13 | 62% |
-| 0.65 | 9/13 | 69% |
-| 0.70 | 10/13 | 77% |
-| 0.75 | 11/13 | 85% |
+| 0.55 | 12/13 | 92% |
+| 0.60 | 12/13 | 92% |
+| **0.65** | **13/13** | **100%** |
+| 0.70 | 12/13 | 92% |
+| 0.75 | 7/13 | 54% |
 
-No threshold produces better than 85% accuracy because fixtures 06 and 11 (expected verified) have the same factor scores as fixtures 02, 04, 08 (expected flagged).
+**A4 assumption validated. No SPEC change needed for weights or threshold.**
 
-### Proposed SPEC fixes (choose one)
+### SPEC clarification needed at build time
+Document the trust semantics: "flagged" indicates genuinely low trust — sources where reliance would be risky (unknown modern authors, low text fidelity, no scholarly provenance). It does NOT flag classical works merely for lacking a named muhaqiq. When a muhaqiq cannot be identified, the metadata records `muhaqiq: null` and a `needs_review_fields` entry is added, but `trust_tier` remains based on the overall weighted evaluation.
 
-**Option A: Add critical-low rule for muhaqiq + publisher combo.**
-Flag when `tahqiq_quality ≤ 0.50 AND publisher_reputation ≤ 0.40` regardless of combined score.
-- This requires known_publishers.json to distinguish 06 (دار الفكر → higher score) from the rest.
-- Problem: fixture 11 (المكتبة التوفيقية) is not a particularly well-known publisher either.
-
-**Option B: Raise threshold to 0.72 and add "exceptional work" override.**
-Works scored ≥ 0.72 are verified. Below → flagged. Add a configurable "canonical works" list where specific well-known work_ids get an automatic verified status (همع الهوامع, Alfiyyah sharh, etc.).
-- This is more explicit but requires manual curation.
-
-**Option C: Revise ground truth expectations.**
-Accept that classical primary sources from Shamela HTML are inherently higher-trust than the ground truth assumes. Change fixtures 01, 02, 04, 08 to expected_trust: "verified". The flagged status should be reserved for: unknown modern authors, low text fidelity, or sources with specific quality concerns.
-- This is the least-engineering-effort option but changes the trust semantics.
-
-**Recommendation: Option A + known_publishers.json bootstrap.**
-This is most consistent with the SPEC's intent. Requires:
-1. A minimal known_publishers.json with ~10 well-known publishers (دار الفكر, دار المعارف, المكتبة التوفيقية, etc.)
-2. The critical-low rule addition
-3. Re-evaluate whether 11 should genuinely be "verified" or if the GT needs adjustment for that one fixture
-
-### Finding A4-3: Alfiyyah plain text correctly flagged
-Score = 0.647 (just below 0.65) due to `text_fidelity: medium` (0.60 for plain text). This is correct — plain text without structural markup or provenance should be treated with more caution.
+### Finding A4-2: Alfiyyah plain text correctly flagged
+Score = 0.647 (just below 0.65) due to `text_fidelity: medium` (0.60 for plain text). This is correct — plain text without structural markup or provenance has uncertain digital lineage, distinct from the work's scholarly authority.
 
 ---
 
-## Decisions needed before Phase 1
+## Remaining decisions for build phase
 
-1. **A3 substring boost:** Implement and retest? Or defer to build phase?
-2. **A4 approach:** Which option (A/B/C) for trust calibration? This affects the ground truth and therefore all scoring.
-3. **Ground truth fixtures 01, 02, 04, 08:** Adjust to "verified" or keep "flagged" and fix the algorithm?
+1. **A3 substring boost:** The name matching needs a substring containment fix before build. Documented here; implementation is a build-phase task.

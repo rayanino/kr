@@ -11,8 +11,8 @@
     "is_multi_layer": false,
     "level": "intermediate",
     "authority_level": "primary",
-    "expected_trust": "flagged",
-    "notes": "Literary compilation (أمالي/أخبار tradition). Classified under أدب by al-Warraq and islamicbook.ws. Shamela category النحو والصرف is author-driven, not content-based."
+    "expected_trust": "verified",
+    "notes": "Literary compilation (أمالي/أخبار tradition). Classified under أدب by al-Warraq and islamicbook.ws. Shamela category النحو والصرف is author-driven, not content-based. Classical primary from Shamela → verified. No muhaqiq noted in metadata but does not trigger flag."
   },
   "02_nahw_muhaqiq": {
     "title": "أبنية الأسماء والأفعال والمصادر",
@@ -27,8 +27,8 @@
     "is_multi_layer": false,
     "level": "advanced",
     "authority_level": "primary",
-    "expected_trust": "flagged",
-    "notes": "Classical sarf reference. Has muhaqiq (أحمد محمد عبد الدايم) but not in recognized list."
+    "expected_trust": "verified",
+    "notes": "Classical sarf reference. Has muhaqiq (أحمد محمد عبد الدايم) — not in recognized list but presence noted. Classical primary → verified."
   },
   "03_fiqh": {
     "title": "أحكام الاضطباع والرمل في الطواف",
@@ -57,8 +57,8 @@
     "is_multi_layer": false,
     "level": "specialist",
     "authority_level": "primary",
-    "expected_trust": "flagged",
-    "notes": "Classical hadith juz. Has muhaqiq but not recognized."
+    "expected_trust": "verified",
+    "notes": "Classical hadith juz. Has muhaqiq (د سليمان العريني) — not in recognized list but presence noted. Classical primary → verified."
   },
   "05_tafsir": {
     "title": "أنوار الهلالين في التعقبات على الجلالين",
@@ -118,8 +118,8 @@
     "is_multi_layer": false,
     "level": "intermediate",
     "authority_level": "primary",
-    "expected_trust": "flagged",
-    "notes": "Classical Sufi adab work by شيخ الصوفية al-Sulami. Hadith chains are the method of argumentation, not the subject. Shamela category كتب السنة is format-driven. Content is Sufi ethics of companionship."
+    "expected_trust": "verified",
+    "notes": "Classical Sufi adab work. Has muhaqiq (مجدي فتحي السيد) — not in recognized list but presence noted. Classical primary → verified."
   },
   "09_alt_title": {
     "title": "أسلوب خطبة الجمعة",
