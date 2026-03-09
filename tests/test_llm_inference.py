@@ -214,15 +214,46 @@ PHASE2_MODELS = {
 
 
 def load_api_key(key_file: str) -> str:
-    """Load API key from project knowledge files."""
+    """Load API key from environment variable, .env file, or project knowledge.
+    
+    Search order:
+    1. Environment variable (e.g., ANTHROPIC_API_KEY for key_file='anthropic_api_key')
+    2. .env file in repo root (python-dotenv format)
+    3. /mnt/project/{key_file} (Claude Chat project knowledge)
+    4. {repo_root}/{key_file} (file in repo root)
+    """
+    # 1. Environment variable (key_file='anthropic_api_key' → 'ANTHROPIC_API_KEY')
+    env_name = key_file.upper()
+    env_val = os.environ.get(env_name)
+    if env_val:
+        return env_val.strip()
+    
+    # 2. .env file in repo root
+    repo_root = Path(__file__).parent.parent
+    env_file = repo_root / '.env'
+    if env_file.exists():
+        for line in env_file.read_text().splitlines():
+            line = line.strip()
+            if line.startswith('#') or '=' not in line:
+                continue
+            k, v = line.split('=', 1)
+            if k.strip() == env_name:
+                return v.strip().strip('"').strip("'")
+    
+    # 3. Claude Chat project knowledge
     key_path = Path('/mnt/project') / key_file
     if key_path.exists():
         return key_path.read_text().strip()
-    # Fallback: try repo root
-    key_path = Path(__file__).parent.parent / key_file
+    
+    # 4. File in repo root
+    key_path = repo_root / key_file
     if key_path.exists():
         return key_path.read_text().strip()
-    raise FileNotFoundError(f"API key file not found: {key_file}")
+    
+    raise FileNotFoundError(
+        f"API key '{key_file}' not found. Set {env_name} environment variable, "
+        f"add it to .env file, or place key in {repo_root / key_file}"
+    )
 
 
 def run_model(model_name: str, model_config: dict, fixtures: dict, dry_run: bool = False) -> dict:

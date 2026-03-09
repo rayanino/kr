@@ -130,26 +130,42 @@ Run full consensus flow on all fixtures with the production-tier pair.
 
 ## API Access
 
-Keys in project knowledge files:
-- `anthropic_api_key` → Anthropic direct (Sonnet 4.6 for Phase 1, Opus 4.6 for Phase 2)
-- `openai_api_key` → OpenAI direct (has GPT-4o only — NOT sufficient for Phase 2)
-- `openrouter_api_key` → OpenRouter (GPT-5.x, Gemini 3.x, Mistral, Cohere — USE THIS for Phase 2 non-Anthropic models)
-- `mistral_api_key` → Mistral direct (alternative to OpenRouter for Mistral)
+### Setup (Claude Code)
+Create a `.env` file in repo root (it is gitignored):
+```
+ANTHROPIC_API_KEY=sk-ant-api03-...
+OPENROUTER_API_KEY=sk-or-v1-...
+```
+The test runner (`tests/test_llm_inference.py`) loads keys in this order: environment variable → `.env` file → `/mnt/project/` (Claude Chat) → repo root file. See `.env.example` for the template.
+
+### Which keys for which phase
+- **Phase 1** (prompt iteration): `ANTHROPIC_API_KEY` only — uses Sonnet 4.6
+- **Phase 2** (multi-model accuracy): `ANTHROPIC_API_KEY` + `OPENROUTER_API_KEY` — Opus via Anthropic, GPT-5.4/Gemini/Mistral/Cohere via OpenRouter
+- Optional: `MISTRAL_API_KEY` for Mistral direct (alternative to OpenRouter)
 
 **Important:** The direct OpenAI key lacks GPT-5. Use OpenRouter for GPT-5.4 and all non-Anthropic models in Phase 2.
 
-All four APIs verified working.
+### Quick start commands
+```bash
+pip install -r requirements.txt                              # Install dependencies (httpx, pydantic needed)
+python3 tests/test_llm_inference.py --phase 1 --dry-run      # Verify setup, no API calls
+python3 tests/test_llm_inference.py --phase 1                 # Run Phase 1 (Sonnet iteration)
+python3 tests/test_llm_inference.py --phase 2                 # Run Phase 2 (all 5 models)
+python3 tests/test_llm_inference.py --phase 2 --model opus-4.6  # Single model
+python3 tests/test_llm_inference.py --phase 1 --fixture 06_usul  # Single fixture
+```
 
 ---
 
 ## What to Read First
 
 1. `NEXT.md` (this file)
-2. `tests/fixtures/GROUND_TRUTH.json` — validate with owner FIRST
-3. `tests/fixtures/EXTRACTED_DATA.json` — pre-extracted data for prompts
-4. `engines/source/SPEC_CORE.md` §4.A.4 lines 750-860 — LLM inference spec
-5. `engines/source/SPEC_CORE.md` §6 lines 1170-1210 — consensus spec
-6. `engines/source/contracts.py` lines 115-160 — enum values
+2. `tests/STEP2_READINESS_VERIFICATION.md` — pre-flight verification summary (schema sync, model IDs, known issues)
+3. `tests/fixtures/GROUND_TRUTH.json` — expected answers (owner-validated)
+4. `tests/fixtures/EXTRACTED_DATA.json` — pre-extracted data for prompts
+5. `engines/source/SPEC_CORE.md` §4.A.4 lines 750-860 — LLM inference spec
+6. `engines/source/SPEC_CORE.md` §6 lines 1170-1210 — consensus spec
+7. `engines/source/contracts.py` lines 115-160 — enum values
 
 ---
 
@@ -159,6 +175,7 @@ All four APIs verified working.
 - [x] Scoring criteria defined and evaluation harness built (Phase 0) — tests/SCORING_CRITERIA.md + tests/eval_harness.py
 - [x] A3 (name matching) validated deterministically (Phase 0) — KNOWN ISSUE: substring containment boost needed, deferred to build
 - [x] A4 (trust weights) validated deterministically (Phase 0) — 13/13 PASS at threshold 0.65 (uniquely optimal)
+- [x] Readiness verification complete (Phase 0) — prompt↔contracts sync, model IDs, eval harness bugs fixed. See tests/STEP2_READINESS_VERIFICATION.md
 - [ ] A1: Inference prompt ≥95% JSON parse, ≥90% enum compliance (Phase 1)
 - [ ] A2: Multi-layer detection correct on all test cases or gated (Phase 1)
 - [ ] A5: Best consensus pair identified on production-tier models (Phase 2-3)

@@ -34,4 +34,5 @@ Thumbs.db
 
 # ─── Test results (per-engine, regeneratable) ────────────────────────
 **/test-results/
+tests/results/
 tmp/
