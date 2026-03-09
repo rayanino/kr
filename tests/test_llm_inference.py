@@ -133,6 +133,8 @@ def _parse_llm_json(text: str) -> dict:
         VALID_FORMATS = {'prose','verse','qa_format','tabular_khilaf','dictionary','commentary','mixed'}
         VALID_AUTHORITY = {'primary','reference','modern_compilation'}
         VALID_LEVELS = {'beginner','intermediate','advanced','specialist', None}
+        VALID_ATTRIBUTION = {'definitive','traditional','disputed','unknown'}
+        VALID_RICHNESS = {'rich','partial','minimal'}
         
         if result['genre'] not in VALID_GENRES:
             violations.append(f"genre={result['genre']}")
@@ -142,6 +144,26 @@ def _parse_llm_json(text: str) -> dict:
             violations.append(f"authority_level={result['authority_level']}")
         if result['level'] not in VALID_LEVELS:
             violations.append(f"level={result['level']}")
+        
+        # attribution_status (added during Step 1 integrity audit)
+        attr_status = parsed.get('attribution_status')
+        if attr_status is not None and attr_status not in VALID_ATTRIBUTION:
+            violations.append(f"attribution_status={attr_status}")
+        
+        # scholarly_context.context_richness
+        sc = parsed.get('scholarly_context', {})
+        if sc:
+            richness = sc.get('context_richness')
+            if richness is not None and richness not in VALID_RICHNESS:
+                violations.append(f"context_richness={richness}")
+        
+        # genre_chain.relation_type
+        gc = parsed.get('genre_chain')
+        if gc:
+            VALID_RELATIONS = {'sharh_of','hashiyah_on','mukhtasar_of','nazm_of','taqrirat_on','responds_to','cites'}
+            rel = gc.get('relation_type')
+            if rel is not None and rel not in VALID_RELATIONS:
+                violations.append(f"genre_chain.relation_type={rel}")
         
         if violations:
             result['_enum_violations'] = violations
@@ -157,7 +179,7 @@ def _parse_llm_json(text: str) -> dict:
 PHASE1_MODELS = {
     'sonnet-4.6': {
         'caller': 'anthropic',
-        'model_id': 'claude-sonnet-4-6-20250514',
+        'model_id': 'claude-sonnet-4-6',
         'key_file': 'anthropic_api_key',
     },
 }
@@ -165,7 +187,7 @@ PHASE1_MODELS = {
 PHASE2_MODELS = {
     'opus-4.6': {
         'caller': 'anthropic',
-        'model_id': 'claude-opus-4-6-20250528',
+        'model_id': 'claude-opus-4-6',
         'key_file': 'anthropic_api_key',
     },
     'gpt-5.4': {

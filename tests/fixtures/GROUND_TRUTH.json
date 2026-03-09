@@ -12,7 +12,8 @@
     "level": "intermediate",
     "authority_level": "primary",
     "expected_trust": "verified",
-    "notes": "Literary compilation (أمالي/أخبار tradition). Classified under أدب by al-Warraq and islamicbook.ws. Shamela category النحو والصرف is author-driven, not content-based. Classical primary from Shamela → verified. No muhaqiq noted in metadata but does not trigger flag."
+    "notes": "Literary compilation (أمالي/أخبار tradition). Classified under أدب by al-Warraq and islamicbook.ws. Shamela category النحو والصرف is author-driven, not content-based. Classical primary from Shamela → verified. No muhaqiq noted in metadata but does not trigger flag.",
+    "attribution_status": "definitive"
   },
   "02_nahw_muhaqiq": {
     "title": "أبنية الأسماء والأفعال والمصادر",
@@ -28,7 +29,8 @@
     "level": "advanced",
     "authority_level": "primary",
     "expected_trust": "verified",
-    "notes": "Classical sarf reference. Has muhaqiq (أحمد محمد عبد الدايم) — not in recognized list but presence noted. Classical primary → verified."
+    "notes": "Classical sarf reference. Has muhaqiq (أحمد محمد عبد الدايم) — not in recognized list but presence noted. Classical primary → verified.",
+    "attribution_status": "definitive"
   },
   "03_fiqh": {
     "title": "أحكام الاضطباع والرمل في الطواف",
@@ -43,7 +45,8 @@
     "level": "intermediate",
     "authority_level": "modern_compilation",
     "expected_trust": "flagged",
-    "notes": "Modern risalah, contemporary author, published in university journal."
+    "notes": "Modern risalah, contemporary author, published in university journal.",
+    "attribution_status": "definitive"
   },
   "04_hadith": {
     "title": "جزء فيه من أحاديث الإمام أيوب السختياني",
@@ -58,7 +61,8 @@
     "level": "specialist",
     "authority_level": "primary",
     "expected_trust": "verified",
-    "notes": "Classical hadith juz. Has muhaqiq (د سليمان العريني) — not in recognized list but presence noted. Classical primary → verified."
+    "notes": "Classical hadith juz. Has muhaqiq (د سليمان العريني) — not in recognized list but presence noted. Classical primary → verified.",
+    "attribution_status": "definitive"
   },
   "05_tafsir": {
     "title": "أنوار الهلالين في التعقبات على الجلالين",
@@ -74,7 +78,8 @@
     "level": "advanced",
     "authority_level": "modern_compilation",
     "expected_trust": "flagged",
-    "notes": "Modern تعقبات (critical corrections) on Tafsir al-Jalalayn. 56 pages. Not a sharh (does not explain) or hashiyah (does not supplement). Standalone critical work organized by مباحث, not verse order. Quotes al-Jalalayn in citation style, not interleaved layers. Should have genre_chain with responds_to relation to Tafsir al-Jalalayn."
+    "notes": "Modern تعقبات (critical corrections) on Tafsir al-Jalalayn. 56 pages. Not a sharh (does not explain) or hashiyah (does not supplement). Standalone critical work organized by مباحث, not verse order. Quotes al-Jalalayn in citation style, not interleaved layers. Should have genre_chain with responds_to relation to Tafsir al-Jalalayn.",
+    "attribution_status": "definitive"
   },
   "06_usul": {
     "title": "آداب الفتوى والمفتي والمستفتي",
@@ -89,7 +94,8 @@
     "level": "intermediate",
     "authority_level": "primary",
     "expected_trust": "verified",
-    "notes": "النووي is one of the most recognized scholars. Muhaqiq present, دار الفكر publisher."
+    "notes": "النووي is one of the most recognized scholars. Muhaqiq present, دار الفكر publisher.",
+    "attribution_status": "definitive"
   },
   "07_balagha": {
     "title": "أساليب بلاغية",
@@ -104,7 +110,8 @@
     "level": "intermediate",
     "authority_level": "modern_compilation",
     "expected_trust": "flagged",
-    "notes": "Modern university textbook (محاضرات) for first-year Arabic students. By Prof. Ahmad Matloub, Baghdad University. Not a matn (no sharh/hashiyah ecosystem). Not a risalah (comprehensive textbook, not focused treatise)."
+    "notes": "Modern university textbook (محاضرات) for first-year Arabic students. By Prof. Ahmad Matloub, Baghdad University. Not a matn (no sharh/hashiyah ecosystem). Not a risalah (comprehensive textbook, not focused treatise).",
+    "attribution_status": "definitive"
   },
   "08_death_date": {
     "title": "آداب الصحبة",
@@ -119,7 +126,8 @@
     "level": "intermediate",
     "authority_level": "primary",
     "expected_trust": "verified",
-    "notes": "Classical Sufi adab work. Has muhaqiq (مجدي فتحي السيد) — not in recognized list but presence noted. Classical primary → verified."
+    "notes": "Classical Sufi adab work. Has muhaqiq (مجدي فتحي السيد) — not in recognized list but presence noted. Classical primary → verified.",
+    "attribution_status": "definitive"
   },
   "09_alt_title": {
     "title": "أسلوب خطبة الجمعة",
@@ -134,7 +142,8 @@
     "level": "intermediate",
     "authority_level": "modern_compilation",
     "expected_trust": "flagged",
-    "notes": "Academic paper by a university professor, published in government religious affairs journal. Not beginner-level material."
+    "notes": "Academic paper by a university professor, published in government religious affairs journal. Not beginner-level material.",
+    "attribution_status": "definitive"
   },
   "10_no_author": {
     "title": "البدر التمام بما صح من أدلة الأحكام",
@@ -150,7 +159,8 @@
     "level": "intermediate",
     "authority_level": "modern_compilation",
     "expected_trust": "flagged",
-    "notes": "Modern compilation of Bukhari/Muslim hadith organized by fiqh chapters (أحاديث الأحكام sub-genre, modeled on بلوغ المرام). Content is hadith texts, organizing principle is fiqh topics. Both sciences apply."
+    "notes": "Modern compilation of Bukhari/Muslim hadith organized by fiqh chapters (أحاديث الأحكام sub-genre, modeled on بلوغ المرام). Content is hadith texts, organizing principle is fiqh topics. Both sciences apply.",
+    "attribution_status": "definitive"
   },
   "11_multi_small": {
     "title": "همع الهوامع في شرح جمع الجوامع",
@@ -165,7 +175,8 @@
     "level": "advanced",
     "authority_level": "primary",
     "expected_trust": "verified",
-    "notes": "Major grammar sharh. 3 volumes. Multi-layer: sharh on جمع الجوامع."
+    "notes": "Major grammar sharh. 3 volumes. Multi-layer: sharh on جمع الجوامع.",
+    "attribution_status": "definitive"
   },
   "12_multi_muq": {
     "title": "مذكرات مالك بن نبي - العفن",
@@ -178,7 +189,8 @@
     "level": null,
     "authority_level": "primary",
     "expected_trust": "flagged",
-    "notes": "Autobiography/memoirs of Algerian intellectual Malek Bennabi. Originally French (Pourritures), translated to Arabic. Personal narrative, not Islamic scholarship. level=null means classification inapplicable."
+    "notes": "Autobiography/memoirs of Algerian intellectual Malek Bennabi. Originally French (Pourritures), translated to Arabic. Personal narrative, not Islamic scholarship. level=null means classification inapplicable.",
+    "attribution_status": "definitive"
   },
   "alfiyyah_versified": {
     "title": "متن الفية ابن مالك فى علم النحو والصرف",
@@ -194,6 +206,7 @@
     "level": "intermediate",
     "authority_level": "primary",
     "expected_trust": "flagged",
-    "notes": "Plain text file. Most famous Arabic grammar poem. 1002 verses."
+    "notes": "Plain text file. Most famous Arabic grammar poem. 1002 verses.",
+    "attribution_status": "definitive"
   }
 }
