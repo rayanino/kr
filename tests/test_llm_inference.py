@@ -68,7 +68,14 @@ def call_anthropic(system_msg: str, user_msg: str, model: str, api_key: str) -> 
         return {'_parse_error': True, '_raw': response.text, '_status': response.status_code}
     
     data = response.json()
-    text = data['content'][0]['text'].strip()
+    # Extract text from first text content block (defensive: skip any non-text blocks)
+    text = ''
+    for block in data.get('content', []):
+        if block.get('type') == 'text':
+            text = block['text'].strip()
+            break
+    if not text:
+        return {'_parse_error': True, '_raw': str(data.get('content', []))[:500], '_error': 'No text block in response'}
     return _parse_llm_json(text)
 
 
