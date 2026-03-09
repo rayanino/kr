@@ -1,67 +1,64 @@
-# NEXT — Source Engine Step 1 Final Hardening
+# NEXT — Source Engine Step 2: Research
 
-**Session type:** SPEC hardening (final pass before Step 2)
-**Goal:** Close 4 identified blind spots from quality review. Bounded checklist — not open-ended.
+**Session type:** RESEARCH (deep investigation before build)
+**Goal:** Validate all [ASSUMPTION — NEEDS STEP 2 TESTING] markers in SPEC_CORE.md through real LLM testing and prompt engineering.
 
 ---
 
 ## Context
 
-Step 1 has been through three review passes:
+Step 1 is locked. The SPEC has been through four review passes:
 1. **Integrity audit** (kr-integrity): found 11 defects, 8 fixed
 2. **Shamela survey** (2,519 real exports): revealed all extraction rules were wrong, complete rewrite
 3. **Deep quality review** (8-dimension analysis): found 14 more defects, 10 fixed
+4. **Final hardening** (4 blind spots): found 8 defects, 7 fixed, 1 documented
 
-Each pass found critical problems the previous pass missed. Four specific blind spots remain unexamined.
+The SPEC is now implementation-ready for deterministic components. The remaining unknowns are all LLM-dependent: prompt accuracy, consensus reliability, and confidence calibration.
 
 ---
 
-## The 4 Blind Spots to Close
+## Step 2 Scope: Test Every ASSUMPTION Marker
 
-### 1. Cross-Boundary Contract Verification (source → normalization)
-Read `engines/normalization/contracts.py` field by field. For every field the normalization engine's input expects, verify:
-- The source engine's output contract (SourceMetadata) provides it
-- The SPEC has a rule that populates it
-- The types match exactly (not just "close enough")
+The SPEC contains 5 explicit assumptions that need empirical validation:
 
-### 2. contracts.py Sync Audit
-The SPEC has been rewritten 3 times since contracts.py was last updated. Check:
-- Does the SPEC describe any data structures that contracts.py doesn't have models for?
-- Are there enum values the SPEC uses that aren't in the contract enums?
-- Do the publisher scoring structure and name variants need a new model?
-- Does the extractor output dict need a contract model, or is it intentionally untyped?
+### A1: LLM Structured JSON Reliability (§4.A.4)
+"The LLM can produce this structured JSON reliably for well-known Islamic scholarly works."
+**Test:** Run inference prompt on ≥5 real fixtures. Measure: JSON parse success rate, enum compliance, field completeness.
 
-### 3. Edge Case Testing on Real Fixtures
-Run the extraction logic (as defined in SPEC pseudocode) against specific edge cases in the 12 real fixtures:
-- Multi-volume book where المقدمة.htm sorts before 001.htm alphabetically
-- Book with zero body pages (if any exist in fixtures)
-- Books where المؤلف field uses إعداد alternative
-- Books where multiple muhaqiq-equivalent fields appear in the same card
+### A2: LLM Multi-Layer Detection Accuracy (§4.A.4)
+"LLM multi-layer detection from genre + title + content achieves ≥ 90% accuracy."
+**Test:** Run on fixture 11 (multi-layer sharh: همع الهوامع), alfiyyah plain text (single-layer), standalone fiqh work. Measure: correct classification rate.
 
-### 4. Enrichment Invariants After Workflow Reorder
-The workflow was reordered (hash moved to Step 5, freeze to Step 6). Verify:
-- The 9 enrichment invariants still reference correct steps
-- The staging lock timing still makes sense
-- Registry locking still covers the right steps
+### A3: Scholar Name Matching Accuracy (§4.A.5)
+"The name normalization and similarity scoring produce accurate matches."
+**Test:** Exact match, variant spelling, different-scholar-similar-names cases with real data.
+
+### A4: Trust Evaluation Weight Calibration (§4.A.8)
+"The weights (0.30, 0.25, 0.15, 0.15, 0.15) and threshold (0.65) produce sensible results."
+**Test:** Run trust evaluation on ≥5 fixtures with known expected outcomes. Measure: correct tier assignment rate.
+
+### A5: Two-Model Consensus Effectiveness (§6)
+"Two-model consensus catches most attribution errors."
+**Test:** Run the same prompt through Claude and GPT on ≥5 fixtures. Measure: agreement rate, per-model accuracy.
 
 ---
 
 ## What to read first
 
 1. `NEXT.md` (this file)
-2. `engines/source/SPEC_CORE.md` — The core SPEC (~1120 lines)
-3. `engines/source/STEP1_QUALITY_REVIEW.md` — Previous review findings
-4. `engines/source/contracts.py` — Source engine Pydantic models (825 lines)
-5. `engines/normalization/contracts.py` — Normalization engine input contract
-6. `reference/SHAMELA_FORMAT_ANALYSIS.md` — Real Shamela format spec
-7. `tests/fixtures/shamela_real/` — 12 real test fixtures
+2. `engines/source/SPEC_CORE.md` — The locked SPEC
+3. `engines/source/STEP1_FINAL_HARDENING.md` — Final review findings
+4. `tests/fixtures/shamela_real/` — Real test fixtures
+5. `tests/fixtures/alfiyyah_versified/` — Plain text fixture
 
 ## Done when
 
-- [ ] Cross-boundary: every normalization input field traced to a source output rule
-- [ ] contracts.py: no mismatches between SPEC and models
-- [ ] Edge cases: extraction pseudocode handles all 12 fixtures without errors
-- [ ] Enrichment: invariants verified consistent with reordered workflow
-- [ ] Any defects found are fixed in SPEC_CORE.md and documented
+- [ ] A1: Inference prompt tested on ≥5 fixtures, JSON parse rate ≥95%
+- [ ] A2: Multi-layer detection correct on ≥3 test cases
+- [ ] A3: Scholar matching tested on exact, variant, and adversarial cases
+- [ ] A4: Trust weights validated or adjusted on ≥5 fixtures
+- [ ] A5: Consensus tested on ≥5 fixtures, agreement rate measured
+- [ ] All ASSUMPTION markers in SPEC_CORE.md either validated or SPEC adjusted
+- [ ] Prompt templates drafted and tested
 
-After this pass: Step 1 is locked. Move to Step 2 (RESEARCH).
+After this pass: Move to Step 3 (BUILD PREP — kr-build-prep skill).

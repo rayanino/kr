@@ -112,6 +112,23 @@ The source metadata record is the origin point for the metadata chain. The norma
 
 No field is "just for documentation" — each has a specific downstream consumer.
 
+**Normalization engine input field mapping (verified against normalization SPEC §2).** The normalization engine reads these exact SourceMetadata field names from `metadata.json`:
+
+| SourceMetadata Field | Normalization Use | Notes |
+|---------------------|-------------------|-------|
+| `source_id` | Primary key linking normalized package to source | |
+| `source_format` | Selects which normalizer processes the source | |
+| `work_id` | Output file naming and cross-referencing | |
+| `text_fidelity` | Baseline fidelity signal, refined to page-level | Source enum (`high`/`medium`/`low`/`unknown`) differs from normalization's page-level enum which adds `very_low` |
+| `structural_format` | Initial classification, may be overridden by content analysis | Same `StructuralFormat` enum |
+| `is_multi_layer` | Determines whether layer detection runs | Note: the normalization SPEC prose uses `multi_layer` but the actual JSON field is `is_multi_layer` |
+| `text_layers` | Layer types and author `canonical_id`s for layer attribution | Note: the normalization SPEC prose uses `layers` but the actual JSON field is `text_layers`. Layer type values are aligned: source uses `tahqiq_note` matching normalization's `LayerType.TAHQIQ_NOTE`. |
+| `genre` | Affects normalization strategy (verse-aware for nazm, etc.) | Same `Genre` enum |
+| `volume_count` | Multi-volume processing | |
+| `volumes` | Per-volume file paths and page ranges | |
+
+The normalization engine does NOT read: `trust_tier`, `genre_chain`, `confidence_scores`, `needs_review_fields`, or scholar authority data. These pass through untouched via the `source_id` reference.
+
 ---
 
 ## 4. Processing Specification
@@ -270,7 +287,7 @@ For single-file books, the staged item is a single `.htm` file. For multi-volume
 
 On startup, check for orphaned pending registration files. If one exists, the previous registration was interrupted: complete or roll back based on which files were already updated. A registry file with JSON parse failure is restored from its `.bak` copy.
 
-**Registry file locking.** Steps 4, 5, and 7 acquire an exclusive file lock on the target registry file before reading. Step 4's scholar matching holds the lock on `scholars.json` through record creation. Step 5's work matching holds the lock on `works.json` through record creation. Step 7 re-verifies that no concurrent process created the same `canonical_id` or `work_id` since the lock was acquired. If lock cannot be acquired within 30 seconds → defer intake to `staging` status with retry scheduled.
+**Registry file locking.** Steps 4 and 7 acquire exclusive file locks on target registry files before reading. Step 4's scholar matching holds the lock on `scholars.json` through record creation; Step 4's work matching holds the lock on `works.json` through record creation. Step 5 reads the source registry for hash comparison but does NOT need an exclusive lock — Step 7 re-verifies that no concurrent process created the same `source_id`, `canonical_id`, or `work_id`. If lock cannot be acquired within 30 seconds → defer intake to `staging` status with retry scheduled.
 
 **Step 8: Trustworthiness evaluation.** Runs the trust evaluation algorithm (§4.A.8).
 
@@ -284,7 +301,7 @@ Step 1 (Staging): Owner places `أحكام الاضطباع والرمل في ا
 Step 2 (Format detection): Single `.htm` file. `_is_shamela_html()` finds `PageText`, `title`, and `Main` markers → `shamela_html`.
 Step 3 (Metadata extraction): Shamela extractor parses first `PageText` div → display_title: "أحكام الاضطباع والرمل في الطواف", author_short: "عبد الله بن إبراهيم الحماد", category: "الفقه العام", full author from المؤلف field, publisher from الناشر, edition from الطبعة, page_count from عدد الصفحات.
 Step 4 (Metadata inference): LLM infers → genre: `risalah` (0.88), science_scope: `["fiqh"]` (0.95), author_death_hijri: not found in field → LLM infers contemporary author. Multi-layer: false (standalone work, not a sharh).
-Step 5 (Deduplication): SHA-256 computed. No hash match in registry.
+Step 5 (Hashing + Dedup): SHA-256 computed. No hash match in registry.
 Step 6 (Freezing): File copied to `library/sources/src_{hash}/frozen/`. Hash verified. Set read-only.
 Step 7 (Registration): metadata.json written. Registries updated atomically.
 Step 8 (Trustworthiness): Contemporary author, no muhaqiq → flagged.
@@ -309,16 +326,27 @@ def extract_shamela_metadata(source_path: Path) -> dict:
                            if f.suffix.lower() in ('.htm', '.html')])
         if not htm_files:
             raise SourceError(ErrorCode.EMPTY_INPUT, "Directory has no .htm files")
-        first_file = htm_files[0]
-        is_multi_volume = True
-        volume_count = len(htm_files)
+        
+        # Separate numbered volume files from special files (المقدمة.htm)
+        # المقدمة.htm is front-matter, not a volume (11.6% of multi-volume books)
+        numbered_files = [f for f in htm_files if re.match(r'^\d+$', f.stem)]
+        muqaddima_file = next((f for f in htm_files if f.stem == 'المقدمة'), None)
+        
+        first_file = numbered_files[0] if numbered_files else htm_files[0]
+        is_multi_volume = len(numbered_files) > 1 or (len(numbered_files) == 1 and muqaddima_file)
+        volume_count = len(numbered_files)  # المقدمة is front-matter, not a volume
     else:
         first_file = source_path
         is_multi_volume = False
         volume_count = 1
+        muqaddima_file = None
     
     content = first_file.read_text(encoding='utf-8')
-    result = {'is_multi_volume': is_multi_volume, 'volume_count': volume_count}
+    result = {
+        'is_multi_volume': is_multi_volume, 
+        'volume_count': volume_count,
+        'has_muqaddima': muqaddima_file is not None,
+    }
     
     # === Parse the metadata card (first PageText div) ===
     card_match = re.search(r"<div class='PageText'>(.*?)</div>", content, re.DOTALL)
@@ -391,6 +419,13 @@ def extract_shamela_metadata(source_path: Path) -> dict:
             if internal_name not in result or label in ('الكتاب', 'المؤلف', 'المحقق'):
                 result[internal_name] = value
                 result[f'_field_source_{internal_name}'] = label  # Track which label was used
+        elif value:
+            # Capture unmapped card fields (e.g., أصل التحقيق, تقديم, ترجمة,
+            # أعده للشاملة) in extra_card_fields rather than silently dropping them.
+            # 5 such fields found across 2,519 real exports.
+            if '_extra_card_fields' not in result:
+                result['_extra_card_fields'] = {}
+            result['_extra_card_fields'][label] = value
     
     # --- Parse death date from author field ---
     # Pattern 1: "FULL_NAME (ت NNN هـ)" or "FULL_NAME (المتوفى: NNN هـ)"
@@ -470,11 +505,15 @@ def extract_shamela_metadata(source_path: Path) -> dict:
                 'editorial_note', 'thesis_info', 'supervisor'):
         if key in result:
             result['format_specific_metadata'][key] = result[key]
+    if result.get('has_muqaddima'):
+        result['format_specific_metadata']['has_muqaddima'] = True
+    if '_extra_card_fields' in result:
+        result['format_specific_metadata']['extra_card_fields'] = result['_extra_card_fields']
     
     return result
 ```
 
-If the metadata card has no `author_name_raw` field (6.6% of books — typically theses using `إعداد` instead of `المؤلف`), the extractor flags `SRC_FORMAT_STRUCTURE_MISSING` and adds `"author"` to `needs_review_fields`. The author will be entirely LLM-inferred.
+If the metadata card has no `author_name_raw` field — meaning neither `المؤلف` nor `إعداد` is present — the extractor flags `SRC_FORMAT_STRUCTURE_MISSING` and adds `"author"` to `needs_review_fields`. The author will be entirely LLM-inferred. Note: the `إعداد` field (used in ~6.6% of books, typically theses) maps to `author_name_raw` via FIELD_MAP, so those books DO get author extraction. The truly author-less case is rarer and requires LLM inference from content alone.
 
 **Key finding from real data:** No Shamela desktop export uses CSS classes for text layers (`matn`, `sharh`, `hashiyah`). These classes do NOT exist. Multi-layer detection must rely entirely on LLM inference from genre and content. See §4.A.4.
 
@@ -510,11 +549,24 @@ All other metadata (author, genre, science, structural format) comes from LLM in
 | `edition_number` | `edition_number` | Parsed from edition_raw |
 | `edition_year` | `publication_year_hijri` or `publication_year_miladi` | Based on هـ vs م suffix |
 | `page_count` | `page_count` | From عدد الصفحات or body page count |
-| `is_multi_volume` | — | Used to set `volume_count` and populate `volumes` list |
+| `is_multi_volume` | — | Used to set `volume_count` and populate `volumes` list (see below) |
 | `volume_count` | `volume_count` | From extractor or عدد الأجزاء field |
 | `shamela_category` | `format_specific_metadata.shamela_category` | NOT mapped to `science_scope` — that comes from LLM |
 | `text_sample` | — | Passed to LLM prompt, not stored in SourceMetadata |
 | `format_specific_metadata` | `format_specific_metadata` | Direct copy |
+
+**VolumeInfo construction.** For multi-volume sources, the engine constructs the `volumes: list[VolumeInfo]` during Step 7 (registration), after freezing:
+```
+volumes = []
+for f in numbered_files:  # Sorted list of ###.htm files, excluding المقدمة.htm
+    vol_num = int(f.stem)  # "001" → 1, "002" → 2
+    volumes.append(VolumeInfo(
+        volume_number=vol_num,
+        file_path=f"frozen/{f.name}",  # Path relative to source dir
+        page_range=None  # Set during normalization, not intake
+    ))
+```
+If المقدمة.htm is present, it is included in the frozen files and hashed, but not assigned a volume number. The normalization engine handles المقدمة.htm as front-matter (volume 0 or pre-volume content) based on the `format_specific_metadata.has_muqaddima` flag. For single-volume sources, `volumes` is a list with one entry: `VolumeInfo(volume_number=1, file_path="frozen/{filename}", page_range=None)`.
 
 #### §4.A.4 — LLM-Assisted Metadata Inference
 
@@ -901,20 +953,22 @@ Five checks run in order. Any failure aborts the write.
 5. **Consistency cross-check.** Inferred fields are checked for mutual consistency:
    - Genre vs. structural_format: `nazm` → should be `verse`; `sharh` → should be `commentary` or `prose` (some shuruh are running prose that discuss the matn topically without interlinear quotation — this is valid). `hashiyah` → should be `commentary`.
    - Level vs. genre: `hashiyah` → should not be `beginner`.
-   - Science scope vs. author: if `science_scope` doesn't overlap with the author's known specializations (from `school_affiliations`), flag `SRC_METADATA_INCONSISTENCY` with human gate (author-science mismatch often indicates misidentified author).
+   - Science scope vs. author: if `science_scope` doesn't overlap with the author's known specializations (from `school_affiliations`), flag `SRC_METADATA_INCONSISTENCY` with human gate trigger `AUTHOR_SCIENCE_MISMATCH` (author-science mismatch often indicates misidentified author).
    - Inconsistencies are flagged as warnings (not blocking) and trigger `needs_review` on the inconsistent fields, EXCEPT author-science mismatch which triggers a human gate.
 
 ### Layer 2: Human Gate Review
 
-The following conditions trigger human gate checkpoints (stored as `HumanGateCheckpoint` objects):
+The following conditions trigger human gate checkpoints (stored as `HumanGateCheckpoint` objects). Each maps to a `HumanGateTrigger` enum value:
 
-- Author disambiguation with confidence < 0.80
-- Work matching with confidence between 0.50 and 0.85
-- Any critical field with confidence < 0.70
-- Trust evaluation resulting in `flagged` (owner may override)
-- Multi-model consensus disagreement on author or work identification
-- Genre chain relationship where the base work is not in the library
-- Author-science mismatch from consistency cross-check
+- Author disambiguation with confidence < 0.80 → `AUTHOR_DISAMBIGUATION`
+- Work matching with confidence between 0.50 and 0.85 → `WORK_MATCH_UNCERTAIN`
+- Any critical field with confidence < 0.70 → `LOW_CONFIDENCE_FIELD`
+- Trust evaluation resulting in `flagged` (owner may override) → `TRUST_FLAGGED`
+- Multi-model consensus disagreement on author or work identification → `CONSENSUS_DISAGREEMENT`
+- Genre chain relationship where the base work is not in the library → `GENRE_CHAIN_UNRESOLVED`
+- Author-science mismatch from consistency cross-check → `AUTHOR_SCIENCE_MISMATCH`
+- Enrichment modifying critical fields (author, work_id, genre, science_scope) → `ENRICHMENT_CRITICAL_FIELD`
+- Scholar record consistency check violations (§4.A.5: death date drift, school affiliation change, temporal inconsistency) → `SCHOLAR_CONFLICT`
 
 Human gate reviews are batched: the owner reviews all pending checkpoints for a source at once, not one field at a time. The review interface presents: inferred metadata with confidence scores, specific fields needing review, alternatives considered.
 
@@ -1149,3 +1203,12 @@ Verified field names between this SPEC and `contracts.py`:
 | §4.A.7 GenreChain | `GenreChain` | `relation_type`, `base_work_title`, `base_work_author`, `base_work_id`, `confidence` | ✓ |
 
 All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) are addressed: the SPEC now uses the exact field names from contracts.py (`name_arabic` not `display_name`, `source_of_identification` not omitted, `name` not `factor` for trust factors, etc.).
+
+**Final hardening alignment updates (STEP1_HARDENING.md):**
+- `TextLayer.layer_type` values aligned: uses `tahqiq_note` matching normalization engine's `LayerType.TAHQIQ_NOTE`
+- `HumanGateTrigger` enum: added `AUTHOR_SCIENCE_MISMATCH` for §5 Layer 1 consistency cross-check (§4.A.4 author-science mismatch)
+- Cross-boundary field mapping table added to §3.3 (normalization engine reads `is_multi_layer`/`text_layers`, not `multi_layer`/`layers`)
+- All 10 `HumanGateTrigger` enum values now have explicit SPEC backing
+- المقدمة.htm excluded from volume count, tracked in `format_specific_metadata.has_muqaddima`
+- Unmapped metadata card fields captured in `format_specific_metadata.extra_card_fields`
+- VolumeInfo construction logic added

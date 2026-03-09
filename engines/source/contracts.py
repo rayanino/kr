@@ -236,6 +236,7 @@ class HumanGateTrigger(str, Enum):
     GENRE_CHAIN_UNRESOLVED = "genre_chain_unresolved"
     ENRICHMENT_CRITICAL_FIELD = "enrichment_critical_field"
     SCHOLAR_CONFLICT = "scholar_conflict"
+    AUTHOR_SCIENCE_MISMATCH = "author_science_mismatch"
     MISSING_REQUIRED_INPUT = "missing_required_input"
 
 
@@ -255,7 +256,7 @@ class ScholarReference(BaseModel):
 
 class TextLayer(BaseModel):
     """A text layer in a multi-layer source (SPEC §4.A.4, D-030)."""
-    layer_type: str = Field(description="One of: matn, sharh, hashiyah, tahqiq")
+    layer_type: str = Field(description="One of: matn, sharh, hashiyah, tahqiq_note")
     author: ScholarReference = Field(description="Author of this specific layer")
 
 
