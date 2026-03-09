@@ -66,6 +66,8 @@ Downstream engines write metadata corrections back to source records via structu
 6. **Schema compliance.** The updated record must pass SourceMetadata Pydantic validation after the enrichment is applied.
 7. **Referential integrity.** `author.canonical_id` must resolve in `scholars.json`, `work_id` must resolve in `works.json`.
 8. **Re-processing depth limit.** When enrichment triggers downstream re-processing and the re-processed output generates a further enrichment on the same source field that was just changed, the second enrichment is NOT auto-submitted. A human gate checkpoint is created instead.
+
+   **Detection mechanism:** The engine maintains a per-source `recent_enrichments` dict (in memory during processing, persisted as part of the metadata record's `_enrichment_tracking` field between sessions). Structure: `{field_name: {"changed_by": engine_name, "timestamp": iso_str, "generation": int}}`. The `generation` counter starts at 1 for the first enrichment to a field and increments each time. When a new enrichment arrives for a field that already has a `recent_enrichments` entry AND the entry's `generation` ≥ 1 AND the new enrichment was triggered by re-processing of the previous enrichment's change (detected by: the `requesting_engine` is downstream of the engine that made the previous change, AND the timestamp is within `enrichment_cycle_timeout` of the previous change, default 3600 seconds), the enrichment is blocked and a human gate checkpoint is created with trigger `ENRICHMENT_CRITICAL_FIELD` and detail explaining the cycle. The `recent_enrichments` entries expire after `enrichment_cycle_timeout` seconds — after that, a new enrichment to the same field is treated as a fresh change, not a cycle.
 9. **Verification context for critical fields.** Enrichments to `author.canonical_id`, `work_id`, `genre`, or `science_scope` must include a `verification_context` with `expected_work_id` and `expected_author_canonical_id` matching the actual source. Mismatches cause rejection (catches source_id targeting errors).
 
 **Critical field enrichment gate.** Enrichments to `author.canonical_id`, `work_id`, `genre`, or `science_scope` — regardless of source — trigger: (a) WARNING-level logging of old and new values, (b) human gate checkpoint for owner confirmation before applying, (c) stale-marking cascade on all downstream products from this source if confirmed.
@@ -204,6 +206,135 @@ def generate_slug(arabic_text: str, table: dict) -> str:
 
 The table is extensible by the owner. Slug generation checks `scholars` and `titles` tables separately for author and title components.
 
+**Utility function definitions.** The following functions are used by slug generation (above), scholar matching (§4.A.5), and work matching. They are shared utilities, not engine-specific.
+
+```
+ARABIC_DIACRITICS = '\u064B\u064C\u064D\u064E\u064F\u0650\u0651\u0652\u0670'
+# Fathatan, Dammatan, Kasratan, Fatha, Damma, Kasra, Shadda, Sukun, Alef superscript
+
+def strip_diacritics(text: str) -> str:
+    """Remove Arabic tashkeel marks. Preserves all base characters.
+    
+    >>> strip_diacritics("الْكِتَابُ")
+    'الكتاب'
+    """
+    return ''.join(c for c in text if c not in ARABIC_DIACRITICS)
+
+
+# Character-level transliteration map (Arabic → Latin)
+TRANSLIT_MAP = {
+    'ا': 'a', 'أ': 'a', 'إ': 'a', 'آ': 'a', 'ب': 'b', 'ت': 't',
+    'ث': 'th', 'ج': 'j', 'ح': 'h', 'خ': 'kh', 'د': 'd', 'ذ': 'dh',
+    'ر': 'r', 'ز': 'z', 'س': 's', 'ش': 'sh', 'ص': 's', 'ض': 'd',
+    'ط': 't', 'ظ': 'z', 'ع': 'a', 'غ': 'gh', 'ف': 'f', 'ق': 'q',
+    'ك': 'k', 'ل': 'l', 'م': 'm', 'ن': 'n', 'ه': 'h', 'و': 'w',
+    'ي': 'y', 'ى': 'a', 'ة': 'h', 'ء': '',
+}
+
+def transliterate_chars(text: str) -> str:
+    """Map Arabic characters to Latin equivalents for slug generation.
+    Non-mapped characters pass through (will be stripped by the slug regex).
+    
+    This is a LOSSY, non-reversible transliteration for slug purposes only.
+    It is NOT a scholarly transliteration (no macrons, no dots).
+    
+    >>> transliterate_chars("كتاب")
+    'ktab'
+    """
+    return ''.join(TRANSLIT_MAP.get(c, c) for c in text)
+
+
+def normalize_arabic_name(name: str) -> str:
+    """Normalize an Arabic name for comparison.
+    
+    Steps:
+    1. Strip diacritics (tashkeel)
+    2. Normalize hamza forms: أ إ آ → ا
+    3. Normalize taa marbuta: ة → ه
+    4. Strip definite article ال (including الـ with tatweel)
+    5. Collapse whitespace
+    
+    >>> normalize_arabic_name("أبو زكريّا يحيى بن شرف النَّوويّ")
+    'ابو زكريا يحيى بن شرف نووي'
+    """
+    result = strip_diacritics(name)
+    result = result.replace('أ', 'ا').replace('إ', 'ا').replace('آ', 'ا')
+    result = result.replace('ة', 'ه')
+    result = re.sub(r'\bال[ـ]?', '', result)
+    result = re.sub(r'\s+', ' ', result).strip()
+    return result
+
+
+def normalized_name_similarity(a: str, b: str) -> float:
+    """Compare two Arabic names after normalization.
+    
+    Uses Python's difflib.SequenceMatcher ratio on the normalized forms.
+    This captures both exact matches and partial overlap (e.g., one name
+    has a fuller patronymic than the other).
+    
+    Returns 0.0–1.0 where 1.0 = identical after normalization.
+    
+    Examples:
+      "ابن عقيل" vs "ابن عقيل" → 1.0 (exact)
+      "ابن عقيل الهمداني" vs "بهاء الدين ابن عقيل" → ~0.55 (partial overlap)
+      "ابن حجر العسقلاني" vs "ابن حجر الهيتمي" → ~0.70 (shared component, different nisba)
+    
+    The threshold interpretation is in §4.A.5: ≥0.85 → auto-link, 
+    0.50–0.85 → human gate, <0.50 → new record.
+    """
+    import difflib
+    norm_a = normalize_arabic_name(a)
+    norm_b = normalize_arabic_name(b)
+    return difflib.SequenceMatcher(None, norm_a, norm_b).ratio()
+
+
+def normalized_title_similarity(a: str, b: str) -> float:
+    """Compare two Arabic work titles after normalization.
+    
+    Same as normalized_name_similarity but also strips common prefixes
+    like "كتاب" and "رسالة" that add noise to title comparison.
+    """
+    import difflib
+    norm_a = normalize_arabic_name(a)
+    norm_b = normalize_arabic_name(b)
+    # Strip common title prefixes
+    for prefix in ('كتاب ', 'رساله ', 'متن '):
+        if norm_a.startswith(prefix):
+            norm_a = norm_a[len(prefix):]
+        if norm_b.startswith(prefix):
+            norm_b = norm_b[len(prefix):]
+    return difflib.SequenceMatcher(None, norm_a, norm_b).ratio()
+
+
+ARABIC_ORDINALS = {
+    'الأولى': 1, 'الأول': 1, 'الثانية': 2, 'الثاني': 2,
+    'الثالثة': 3, 'الثالث': 3, 'الرابعة': 4, 'الرابع': 4,
+    'الخامسة': 5, 'الخامس': 5, 'السادسة': 6, 'السادس': 6,
+    'السابعة': 7, 'السابع': 7, 'الثامنة': 8, 'الثامن': 8,
+    'التاسعة': 9, 'التاسع': 9, 'العاشرة': 10, 'العاشر': 10,
+    'العشرون': 20,
+}
+
+def _parse_arabic_ordinal(text: str) -> Optional[int]:
+    """Extract edition number from Arabic ordinal text.
+    
+    Checks for Arabic ordinal words first, then falls back to
+    extracting the first bare integer from the string.
+    
+    >>> _parse_arabic_ordinal("الأولى، 1408 هـ")
+    1
+    >>> _parse_arabic_ordinal("الطبعة 3")
+    3
+    >>> _parse_arabic_ordinal("no number here")
+    None
+    """
+    for word, num in ARABIC_ORDINALS.items():
+        if word in text:
+            return num
+    digits = re.findall(r'\d+', text)
+    return int(digits[0]) if digits else None
+```
+
 The same work may have multiple sources (different tahqiq editions, different formats). When a new source is processed, the engine checks the work registry for an existing match. Matching uses normalized title comparison (strip definite articles, normalize hamza forms and taa marbuta) combined with author `canonical_id` matching:
 - Confidence ≥ 0.85 → auto-link to existing work
 - Confidence 0.50–0.85 → human gate checkpoint for owner confirmation
@@ -299,7 +430,7 @@ After successful registration, the staging directory is renamed to `library/stag
 
 Step 1 (Staging): Owner places `أحكام الاضطباع والرمل في الطواف.htm` in `library/staging/`.
 Step 2 (Format detection): Single `.htm` file. `_is_shamela_html()` finds `PageText`, `title`, and `Main` markers → `shamela_html`.
-Step 3 (Metadata extraction): Shamela extractor parses first `PageText` div → display_title: "أحكام الاضطباع والرمل في الطواف", author_short: "عبد الله بن إبراهيم الحماد", category: "الفقه العام", full author from المؤلف field, publisher from الناشر, edition from الطبعة, page_count from عدد الصفحات.
+Step 3 (Metadata extraction): Shamela extractor parses first `PageText` div → display_title: "أحكام الاضطباع والرمل في الطواف", author_short: "عبد الله بن إبراهيم الحماد", category: "الفقه العام", full author from المؤلف field, publisher from الناشر, edition from الطبعة, page_count from body PageText divs (=102), physical_page_count from عدد الصفحات (=322) stored in format_specific_metadata.
 Step 4 (Metadata inference): LLM infers → genre: `risalah` (0.88), science_scope: `["fiqh"]` (0.95), author_death_hijri: not found in field → LLM infers contemporary author. Multi-layer: false (standalone work, not a sharh).
 Step 5 (Hashing + Dedup): SHA-256 computed. No hash match in registry.
 Step 6 (Freezing): File copied to `library/sources/src_{hash}/frozen/`. Hash verified. Set read-only.
@@ -461,11 +592,13 @@ def extract_shamela_metadata(source_path: Path) -> dict:
         if clean_muh:
             result['muhaqiq_name_clean'] = clean_muh.group(1).strip()
     
-    # --- Parse page count ---
+    # --- Parse physical page count from عدد الصفحات ---
+    # This is the PHYSICAL BOOK page count — NOT the same as digital body pages.
+    # Stored temporarily; moved to format_specific_metadata below.
     if 'page_count_raw' in result:
         digits = re.findall(r'\d+', result['page_count_raw'])
         if digits:
-            result['page_count'] = int(digits[0])
+            result['_physical_page_count'] = int(digits[0])
     
     # --- Parse edition number and year from الطبعة ---
     if 'edition_raw' in result:
@@ -473,13 +606,45 @@ def extract_shamela_metadata(source_path: Path) -> dict:
         # _parse_arabic_ordinal maps Arabic ordinal words to integers:
         # الأولى→1, الثانية→2, الثالثة→3, ... العاشرة→10, العشرون→20
         # Falls back to extracting the first integer from the string.
-        year_match = re.search(r'(\d{4})\s*(?:هـ|م)', result['edition_raw'])
-        if year_match:
-            result['edition_year'] = int(year_match.group(1))
+        
+        # Extract ALL year+suffix pairs — a single edition field often has both
+        # hijri and miladi years, e.g. "الأولى، 1408 هـ - 1988 م"
+        for year_m in re.finditer(r'(\d{4})\s*(هـ|م)', result['edition_raw']):
+            year_val = int(year_m.group(1))
+            if year_m.group(2) == 'هـ':
+                result['edition_year_hijri'] = year_val
+            else:
+                result['edition_year_miladi'] = year_val
+        # Bare years without suffix (e.g. "الأولى، 1410 - 1990" or "الأولى، 2007")
+        # Only fires if no suffix-bearing years were found above.
+        if 'edition_year_hijri' not in result and 'edition_year_miladi' not in result:
+            bare_years = re.findall(r'(\d{4})', result['edition_raw'])
+            if len(bare_years) == 2:
+                # Two bare years: common "hijri - miladi" pair pattern
+                y1, y2 = int(bare_years[0]), int(bare_years[1])
+                if y1 <= 1500 and y2 > 1500:
+                    result['edition_year_hijri'] = y1
+                    result['edition_year_miladi'] = y2
+                elif y1 > 1500 and y2 <= 1500:
+                    result['edition_year_miladi'] = y1
+                    result['edition_year_hijri'] = y2
+                else:
+                    # Both in same range — take the smaller as hijri
+                    result['edition_year_miladi'] = max(y1, y2)
+            elif len(bare_years) == 1:
+                year_val = int(bare_years[0])
+                # Heuristic: years > 1500 are miladi, ≤ 1500 are hijri
+                if year_val > 1500:
+                    result['edition_year_miladi'] = year_val
+                else:
+                    result['edition_year_hijri'] = year_val
     
     # --- Count body pages from PageText divs ---
+    # This is the DIGITAL body page count — the number of actual content pages
+    # in the HTM file. This becomes SourceMetadata.page_count.
     body_page_count = len(re.findall(r"<div class='PageText'>", content)) - 1
     result['body_page_count'] = body_page_count
+    result['page_count'] = body_page_count  # Digital count → SourceMetadata.page_count
     
     # --- Extract first 2000 chars of body text for LLM inference ---
     body_text_parts = []
@@ -507,6 +672,8 @@ def extract_shamela_metadata(source_path: Path) -> dict:
             result['format_specific_metadata'][key] = result[key]
     if result.get('has_muqaddima'):
         result['format_specific_metadata']['has_muqaddima'] = True
+    if '_physical_page_count' in result:
+        result['format_specific_metadata']['physical_page_count'] = result['_physical_page_count']
     if '_extra_card_fields' in result:
         result['format_specific_metadata']['extra_card_fields'] = result['_extra_card_fields']
     
@@ -547,8 +714,9 @@ All other metadata (author, genre, science, structural format) comes from LLM in
 | `muhaqiq_name_raw` | Used to construct `muhaqiq: ScholarReference` | LLM resolves to canonical identity |
 | `publisher` | `publisher` | Direct copy |
 | `edition_number` | `edition_number` | Parsed from edition_raw |
-| `edition_year` | `publication_year_hijri` or `publication_year_miladi` | Based on هـ vs م suffix |
-| `page_count` | `page_count` | From عدد الصفحات or body page count |
+| `edition_year_hijri` | `publication_year_hijri` | From الطبعة field, suffix هـ |
+| `edition_year_miladi` | `publication_year_miladi` | From الطبعة field, suffix م (or bare year > 1500) |
+| `page_count` | `page_count` | Always the DIGITAL body page count (PageText divs - 1). Physical book page count from عدد الصفحات is stored in `format_specific_metadata.physical_page_count`. The normalization engine uses `page_count` for validation — it must reflect actual pages in the frozen file. |
 | `is_multi_volume` | — | Used to set `volume_count` and populate `volumes` list (see below) |
 | `volume_count` | `volume_count` | From extractor or عدد الأجزاء field |
 | `shamela_category` | `format_specific_metadata.shamela_category` | NOT mapped to `science_scope` — that comes from LLM |
@@ -942,7 +1110,7 @@ All §4.B capabilities are deferred to Stage 2. Each is preserved as a placehold
 
 ### Layer 1: Self-Validation (automated, before every metadata write)
 
-Five checks run in order. Any failure aborts the write.
+Six checks run in order. Any failure aborts the write.
 
 1. **Schema compliance.** Validate the metadata record against `SourceMetadata` Pydantic model. Missing required field, type mismatch, or constraint violation → abort with structured error.
 
@@ -957,6 +1125,11 @@ Five checks run in order. Any failure aborts the write.
    - Level vs. genre: `hashiyah` → should not be `beginner`.
    - Science scope vs. author: if `science_scope` doesn't overlap with the author's known specializations (from `school_affiliations`), flag `SRC_METADATA_INCONSISTENCY` with human gate trigger `AUTHOR_SCIENCE_MISMATCH` (author-science mismatch often indicates misidentified author).
    - Inconsistencies are flagged as warnings (not blocking) and trigger `needs_review` on the inconsistent fields, EXCEPT author-science mismatch which triggers a human gate.
+
+6. **Multi-layer coherence.** Three sub-checks enforce that multi-layer metadata is internally consistent and complete enough for the normalization engine to use:
+   - If `is_multi_layer` is true, `text_layers` must be non-empty. An empty list means the LLM flagged the source as multi-layer but failed to identify any layers — abort write, create human gate checkpoint with trigger `LOW_CONFIDENCE_FIELD` and field `"text_layers"`.
+   - If `is_multi_layer` is false, `text_layers` must be empty. A non-empty list with `is_multi_layer=false` is a contradiction — set `is_multi_layer=true` and log a warning.
+   - Every `TextLayer.author.canonical_id` must resolve in `scholars.json` (referential integrity for layer authors, not just the primary author). This matters because the normalization engine reads `text_layers` and uses `author_canonical_id` for layer attribution.
 
 ### Layer 2: Human Gate Review
 
@@ -1081,6 +1254,7 @@ For consensus calls (§6), failure handling is defined in the consensus section.
 | `dedup_hash_algorithm` | `sha256` | `sha256` only | Hardcoded; changing breaks dedup |
 | `human_gate_batch_size` | 20 | 5–50 | Max pending checkpoints before alert |
 | `staging_lock_timeout` | 3600 | 300–86400 | Seconds before orphaned locks cleaned |
+| `enrichment_cycle_timeout` | 3600 | 600–86400 | Seconds before `recent_enrichments` entries expire (§2.2, invariant #8). After this timeout, a new enrichment to the same field is treated as fresh, not cyclic. |
 
 ### Configurable Reference Lists
 
