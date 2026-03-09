@@ -5,17 +5,24 @@
 
 ---
 
-## What happened last session
+## What happened in previous sessions
 
-1. **Core SPEC written and audited** (SPEC_CORE.md + INTEGRITY_AUDIT.md)
-2. **Owner provided 2,519 real Shamela exports** — surveyed 100% of them
-3. **Critical discovery:** Real Shamela format is completely different from synthetic fixture. No info.html, no table metadata, no CSS layer classes. All extraction rules rewritten.
-4. **Permanent documentation:** `reference/SHAMELA_FORMAT_ANALYSIS.md` (complete format spec from 2,519 books)
-5. **12 real test fixtures** added to `tests/fixtures/shamela_real/`
-6. **SPEC_CORE.md fully updated** with correct extraction pseudocode
+### Session 1: Core extraction + SPEC writing + integrity audit
+- CORE_VS_DEFERRED.md: 68 core / 32 deferred
+- SPEC_CORE.md: ~1100 lines at architecture-decision depth
+- INTEGRITY_AUDIT.md: 11 defects found, 8 fixed
 
-### Owner Sanity Check Status
-Questions Q1-Q3 (Shamela structure) are now answered empirically from real data — no owner input needed. Questions Q4-Q10 still await owner response. Per ENGINE_PROTOCOL: after 3 days, proceed without answers.
+### Session 2: Shamela survey + sanity check
+- Surveyed ALL 2,519 real Shamela exports → rewrote extraction rules
+- 12 real test fixtures added to tests/fixtures/shamela_real/
+- All 10 sanity check questions answered empirically
+- reference/SHAMELA_FORMAT_ANALYSIS.md: complete format spec
+
+### Session 3: Deep quality review
+- STEP1_QUALITY_REVIEW.md: 14 findings across 8 dimensions
+- 5 critical defects fixed (workflow ordering, text_fidelity_reason, confidence_scores mapping, death date regex, stale CSS prompt)
+- 5 important defects fixed (stale references, field mapping table, test fixtures, etc.)
+- All 25+ required SourceMetadata fields confirmed covered in SPEC
 
 ---
 
@@ -26,22 +33,24 @@ Test these assumptions on real fixtures from `tests/fixtures/shamela_real/` and 
 | ID | Assumption | Fixtures to Test | Pass Criteria |
 |----|-----------|-----------------|---------------|
 | A1 | LLM genre inference ≥ 85% | All 12 shamela_real + alfiyyah | ≥ 85% correct genre |
-| A2 | LLM genre_chain inference ≥ 80% | Books with sharh/hashiyah titles | ≥ 80% correct base work |
+| A2 | LLM genre_chain inference ≥ 80% | shamela_real/11_multi_small (sharh) | ≥ 80% correct base work |
 | A3 | LLM multi-layer detection ≥ 90% | Genre-inferred (no CSS signal) | ≥ 90% correct is_multi_layer |
-| A4 | Two-model consensus catches errors | 10+ fixtures through Claude + GPT | Agreement rate and accuracy |
+| A4 | Two-model consensus catches errors | 10+ fixtures through Claude + GPT | Agreement rate + accuracy |
 | A5 | Scholar matching formula accuracy | Variant spellings from real exports | Correct match/no-match |
-| A6 | Trust weights produce correct tiers | 5+ sources (verified + flagged cases) | Expected tier for each |
+| A6 | Trust weights produce correct tiers | 5+ sources (verified + flagged) | Expected tier for each |
 | A7 | Name normalization sufficiency | Real author names from exports | Correct normalization |
 
-**Skills to use:** `kr-research` for the assumption testing.
+**Key risk:** A3 (multi-layer detection) is the highest-risk assumption — no CSS signal available, purely LLM-inferred.
 
-**Key risk elevation:** A3 (multi-layer detection) is now higher risk than originally assessed because CSS classes don't exist. The LLM must infer multi-layer purely from genre + title + content. If accuracy is < 85%, the SPEC must add a human gate for all multi-layer decisions.
+**Skills:** `kr-research` for assumption testing.
+**Max sessions:** 3 (per ENGINE_PROTOCOL).
 
 ---
 
 ## What to read
 
-1. `engines/source/SPEC_CORE.md` — The core SPEC (updated with real extraction rules)
-2. `reference/SHAMELA_FORMAT_ANALYSIS.md` — Complete format spec from real data
-3. `engines/source/INTEGRITY_AUDIT.md` — Defects + post-audit discovery
-4. `tests/fixtures/shamela_real/README.md` — 12 real test fixtures
+1. `engines/source/SPEC_CORE.md` — The core SPEC (fully reviewed and fixed)
+2. `engines/source/STEP1_QUALITY_REVIEW.md` — Quality review findings
+3. `reference/SHAMELA_FORMAT_ANALYSIS.md` — Real Shamela format spec
+4. `tests/fixtures/shamela_real/MANIFEST.json` — 12 test fixtures
+5. `engines/source/OWNER_SANITY_CHECK_ANSWERS.md` — Domain answers
