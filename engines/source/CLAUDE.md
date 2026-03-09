@@ -10,6 +10,7 @@
 | `SPEC_CORE.md` | **THE** specification. Behavioral authority. | ~1810 |
 | `contracts.py` | Schema authority. Pydantic models for all data structures. | ~1020 |
 | `prompts/inference_v1.py` | Draft LLM inference prompt (Step 2 iterates on this). | ~110 |
+| `STRATEGIC_PLAN.md` | Phases A-E plan from Step 2 evaluation through engine completion. | ~280 |
 
 **⚠ `SPEC.md` is SUPERSEDED.** It is the pre-core-extraction full spec, kept only as an archive of deferred (Stage 2) capability descriptions. Do NOT read it for current architecture — read `SPEC_CORE.md`.
 
@@ -59,7 +60,7 @@ Review artifacts from Step 1 are archived in `review/`. They document the audit 
 ## Key Domain Concepts
 
 - **tahqiq**: Critical scholarly edition. The muhaqiq (editor) is NOT the author.
-- **source_format**: Shamela HTML has specific structure (info.html + content.html)
+- **source_format**: Shamela HTML is a single .htm file (or numbered volume files) with metadata card embedded in the first PageText div. See `reference/SHAMELA_FORMAT_ANALYSIS.md`.
 - **trust_tier**: Based on publisher reputation, tahqiq quality, manuscript lineage
 - **Three-tier ID**: source_id (this specific file), work_id (this book), canonical_id (this scholar's identity)
 

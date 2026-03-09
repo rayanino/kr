@@ -183,4 +183,4 @@ python3 tests/test_llm_inference.py --phase 1 --fixture 06_usul  # Single fixtur
 - [ ] Final prompt templates saved to `engines/source/prompts/`
 - [ ] All [ASSUMPTION] markers in SPEC resolved
 
-After Step 2: Move to Step 3 (BUILD PREP — use kr-build-prep skill).
+After Step 2: Evaluate results using `engines/source/STRATEGIC_PLAN.md` Phase A, then move to Step 3 (BUILD PREP — use kr-build-prep skill).
