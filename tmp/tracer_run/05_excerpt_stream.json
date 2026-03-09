@@ -1,0 +1,145 @@
+{
+  "source_id": "nahw_ibn_aqil_ibn_aqil_3d9e",
+  "excerpts": [
+    {
+      "schema_version": "0.1.0",
+      "excerpt_id": "nahw_ibn_aqil_ibn_aqil_3d9e_e0000",
+      "source_id": "nahw_ibn_aqil_ibn_aqil_3d9e",
+      "passage_id": "nahw_ibn_aqil_ibn_aqil_3d9e_p0000",
+      "lifecycle_stage": "draft",
+      "atom_ids": [
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a000",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a001",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a002",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a003",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a004",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a005"
+      ],
+      "core_atom_ids": [
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a000",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a001",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a002",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a003",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a004",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0000_a005"
+      ],
+      "context_atom_ids": [],
+      "primary_text": "كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ ... وَاسْمٌ وَفِعْلٌ ثُمَّ حَرْفٌ الْكَلِمْ قال ابن عقيل رحمه الله: الكلام في اصطلاح النحويين: هو اللفظ المفيد فائدة يحسن السكوت عليها. فقولنا «اللفظ» جنس يشمل المفيد وغير المفيد، و«المفيد» فصل أخرج غير المفيد. ومعنى «يحسن السكوت عليها» أن يكتفي المخاطب بها بحيث لا يكون منتظراً لشيء آخر. فالكلام عند النحاة مركب من كلمتين فأكثر، وله أربعة شروط: اللفظ، والتركيب، والإفادة، والوضع.",
+      "derived_normalized_text": "كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ ... وَاسْمٌ وَفِعْلٌ ثُمَّ حَرْفٌ الْكَلِمْ قال ابن عقيل رحمه الله: الكلام في اصطلاح النحويين: هو اللفظ المفيد فائدة يحسن السكوت عليها. فقولنا «اللفظ» جنس يشمل المفيد وغير المفيد، و«المفيد» فصل أخرج غير المفيد. ومعنى «يحسن السكوت عليها» أن يكتفي المخاطب بها بحيث لا يكون منتظراً لشيء آخر. فالكلام عند النحاة مركب من كلمتين فأكثر، وله أربعة شروط: اللفظ، والتركيب، والإفادة، والوضع.",
+      "primary_author_id": null,
+      "primary_author_name": null,
+      "quoted_scholars": [],
+      "source_layer": "sharh",
+      "excerpt_topic": "Definition: قال ابن عقيل رحمه الله: الكلام في اصطلاح النحويين:",
+      "proposed_leaf": "nahw/kalaam",
+      "proposed_leaf_confidence": 0.5,
+      "science_id": "nahw",
+      "school": null,
+      "school_confidence": null,
+      "content_types": [
+        "teaching"
+      ],
+      "excerpt_kind": "teaching",
+      "evidence_refs": [],
+      "takhrij_data": [],
+      "terminology_variants": [],
+      "self_containment_score": 0.7,
+      "self_containment_notes": "Tracer bullet: passage-level grouping",
+      "excerpt_confidence": 0.6,
+      "physical_pages": {
+        "volume": 1,
+        "start_page": "15",
+        "end_page": "15"
+      },
+      "verse_numbers": null,
+      "division_path": [
+        "div_root_nahw_ibn_aqil_ibn_aqil_3d9e"
+      ],
+      "review_flags": [
+        "tracer_bullet_stub"
+      ],
+      "processing_metadata": {
+        "engine_version": "tracer_v0",
+        "model_used": "none",
+        "consensus_used": false,
+        "processing_timestamp": "2026-03-09T05:23:28.673962+00:00"
+      },
+      "argument_role": null,
+      "argument_role_confidence": null,
+      "argument_map": null,
+      "semantic_duplicates": null,
+      "argument_completeness": null,
+      "dialogue_links": null,
+      "repair_suggestions": null,
+      "masala_analysis": null,
+      "evidence_chain": null,
+      "resonance_links": null
+    },
+    {
+      "schema_version": "0.1.0",
+      "excerpt_id": "nahw_ibn_aqil_ibn_aqil_3d9e_e0001",
+      "source_id": "nahw_ibn_aqil_ibn_aqil_3d9e",
+      "passage_id": "nahw_ibn_aqil_ibn_aqil_3d9e_p0001",
+      "lifecycle_stage": "draft",
+      "atom_ids": [
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0001_a000",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0001_a001"
+      ],
+      "core_atom_ids": [
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0001_a000",
+        "nahw_ibn_aqil_ibn_aqil_3d9e_p0001_a001"
+      ],
+      "context_atom_ids": [],
+      "primary_text": "واحترز بقوله «لفظ» عن الإشارة والكتابة والعقد؛ فإن كل واحد من هذه قد يفيد ما يفيده اللفظ ولكنه لا يسمى كلاماً. واحترز بقوله «مفيد» عن اللفظ الذي لا يفيد، كأسماء الحروف المفردة نحو «زيد» إذا لم تقصد التسمية.",
+      "derived_normalized_text": "واحترز بقوله «لفظ» عن الإشارة والكتابة والعقد؛ فإن كل واحد من هذه قد يفيد ما يفيده اللفظ ولكنه لا يسمى كلاماً. واحترز بقوله «مفيد» عن اللفظ الذي لا يفيد، كأسماء الحروف المفردة نحو «زيد» إذا لم تقصد التسمية.",
+      "primary_author_id": null,
+      "primary_author_name": null,
+      "quoted_scholars": [],
+      "source_layer": "sharh",
+      "excerpt_topic": "General",
+      "proposed_leaf": "nahw/kalaam",
+      "proposed_leaf_confidence": 0.5,
+      "science_id": "nahw",
+      "school": null,
+      "school_confidence": null,
+      "content_types": [
+        "teaching"
+      ],
+      "excerpt_kind": "teaching",
+      "evidence_refs": [],
+      "takhrij_data": [],
+      "terminology_variants": [],
+      "self_containment_score": 0.7,
+      "self_containment_notes": "Tracer bullet: passage-level grouping",
+      "excerpt_confidence": 0.6,
+      "physical_pages": {
+        "volume": 1,
+        "start_page": "16",
+        "end_page": "16"
+      },
+      "verse_numbers": null,
+      "division_path": [
+        "div_root_nahw_ibn_aqil_ibn_aqil_3d9e"
+      ],
+      "review_flags": [
+        "tracer_bullet_stub"
+      ],
+      "processing_metadata": {
+        "engine_version": "tracer_v0",
+        "model_used": "none",
+        "consensus_used": false,
+        "processing_timestamp": "2026-03-09T05:23:28.673962+00:00"
+      },
+      "argument_role": null,
+      "argument_role_confidence": null,
+      "argument_map": null,
+      "semantic_duplicates": null,
+      "argument_completeness": null,
+      "dialogue_links": null,
+      "repair_suggestions": null,
+      "masala_analysis": null,
+      "evidence_chain": null,
+      "resonance_links": null
+    }
+  ]
+}

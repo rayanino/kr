@@ -1,0 +1,106 @@
+{
+  "source_id": "nahw_ibn_aqil_ibn_aqil_3d9e",
+  "work_id": "ibn_aqil_ibn_aqil",
+  "human_label": "شرح ابن عقيل على ألفية ابن مالك",
+  "title_arabic": "شرح ابن عقيل على ألفية ابن مالك",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "ibn_aqil",
+    "name_arabic": "ابن عقيل (بهاء الدين عبد الله بن عقيل العقيلي الهمداني المصري)",
+    "confidence": 0.9,
+    "source_of_identification": "info.html المؤلف field"
+  },
+  "muhaqiq": {
+    "canonical_id": "abdulhamid",
+    "name_arabic": "محمد محيي الدين عبد الحميد",
+    "confidence": 0.85,
+    "source_of_identification": "info.html المحقق field"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "نحو وصرف"
+  ],
+  "genre": "sharh",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار التراث - القاهرة",
+  "edition_number": 20,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "commentary",
+  "language": "ar",
+  "page_count": null,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "ibn_malik",
+        "name_arabic": "ابن مالك",
+        "confidence": 0.95,
+        "source_of_identification": "known work attribution"
+      }
+    },
+    {
+      "layer_type": "sharh",
+      "author": {
+        "canonical_id": "ibn_aqil",
+        "name_arabic": "ابن عقيل (بهاء الدين عبد الله بن عقيل العقيلي الهمداني المصري)",
+        "confidence": 0.95,
+        "source_of_identification": "info.html"
+      }
+    }
+  ],
+  "trust_tier": "verified",
+  "trust_score": 0.85,
+  "trust_factors": [
+    {
+      "name": "known_publisher",
+      "weight": 0.3,
+      "score": 0.85,
+      "reason": "دار التراث - القاهرة"
+    }
+  ],
+  "trust_reason": "Shamela HTML export from established publisher",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Digital text export, not OCR",
+  "confidence_scores": {
+    "genre": 0.85,
+    "science_scope": 0.9,
+    "structural_format": 0.9,
+    "authority_level": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 4,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "/home/claude/kr/tmp/tracer_run/frozen",
+  "frozen_hash": "e73da26a1ad80237",
+  "frozen_file_hashes": {
+    "content.html": "52830bb0f5a0056db600967954e6e7ca47c0eca94f2f3d37701dc91beec81153",
+    "info.html": "77151496f3682005ea6673c1d1b16176ee996a445127fa4f82cd344a2769366e"
+  },
+  "format_specific_metadata": {
+    "shamela_description": "شرح مشهور على ألفية ابن مالك في النحو والصرف، وهو من أهم شروح الألفية وأكثرها تداولاً بين طلبة العلم"
+  },
+  "work_relationships": [],
+  "status": "acquired",
+  "intake_timestamp": "2026-03-09T05:23:28.655715+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [
+    {
+      "field": "initial_registration",
+      "old_value": null,
+      "new_value": "all fields extracted from info.html",
+      "changed_by": "source_engine_tracer",
+      "timestamp": "2026-03-09T05:23:28.655715+00:00"
+    }
+  ],
+  "enrichment_sources": [],
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null
+}

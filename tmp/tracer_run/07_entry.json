@@ -1,0 +1,110 @@
+{
+  "entry_id": "entry_9edb1bd8",
+  "leaf_path": "nahw/kalaam/definition",
+  "science_id": "nahw",
+  "school_group": null,
+  "generated_utc": "2026-03-09T05:23:28.688092+00:00",
+  "generator_config": {
+    "engine": "synthesis_tracer_v0",
+    "model": "none"
+  },
+  "source_excerpt_ids": [
+    "nahw_ibn_aqil_ibn_aqil_3d9e_e0000",
+    "nahw_ibn_aqil_ibn_aqil_3d9e_e0001"
+  ],
+  "content": {
+    "prerequisites": "Knowledge of Arabic morphology basics.",
+    "topic_situation": "This entry covers the topic at nahw/kalaam/definition based on 2 excerpt(s) from شرح ابن عقيل على ألفية ابن مالك.",
+    "core_treatment": "كَلَامُنَا لَفْظٌ مُفِيدٌ كَاسْتَقِمْ ... وَاسْمٌ وَفِعْلٌ ثُمَّ حَرْفٌ الْكَلِمْ قال ابن عقيل رحمه الله: الكلام في اصطلاح النحويين: هو اللفظ المفيد فائدة يحسن السكوت عليها. فقولنا «اللفظ» جنس يشمل المفيد وغير المفيد، و«المفيد» فصل أخرج غير المفيد. ومعنى «يحسن السكوت عليها» أن يكتفي المخاطب بها بحيث لا يكون منتظراً لشيء آخر. فالكلام عند النحاة مركب من كلمتين فأكثر، وله أربعة شروط: اللفظ، والتركيب، والإفادة، والوضع.\n\nواحترز بقوله «لفظ» عن الإشارة والكتابة والعقد؛ فإن كل واحد من هذه قد يفيد ما يفيده اللفظ ولكنه لا يسمى كلاماً. واحترز بقوله «مفيد» عن اللفظ الذي لا يفيد، كأسماء الحروف المفردة نحو «زيد» إذا لم تقصد التسمية.",
+    "scholarly_positions": [
+      {
+        "position_id": "pos_001",
+        "position_summary": "Position of ابن عقيل (بهاء الدين عبد الله بن عقيل العقيلي الهمداني المصري) on this topic as presented in the commentary.",
+        "holders": [
+          {
+            "scholar_id": "ibn_aqil",
+            "name": "ابن عقيل (بهاء الدين عبد الله بن عقيل العقيلي الهمداني المصري)",
+            "death_hijri": null,
+            "school": null
+          }
+        ],
+        "evidence_types": [
+          "rational"
+        ],
+        "evidence_refs": [],
+        "mu_tamad_in_school": null,
+        "is_consensus": false,
+        "consensus_strength": null,
+        "confidence": 0.5
+      }
+    ],
+    "edge_cases": null,
+    "common_misunderstandings": null,
+    "khilaf_analysis": null,
+    "temporal_narrative": null,
+    "what_next": null,
+    "analytical_layer": null,
+    "critical_analysis": null
+  },
+  "citations": [
+    {
+      "citation_id": "cite_000",
+      "excerpt_id": "nahw_ibn_aqil_ibn_aqil_3d9e_e0000",
+      "source_title": "شرح ابن عقيل على ألفية ابن مالك",
+      "author_name": "ابن عقيل (بهاء الدين عبد الله بن عقيل العقيلي الهمداني المصري)",
+      "tahqiq_editor": "محمد محيي الدين عبد الحميد",
+      "publisher": "دار التراث - القاهرة",
+      "volume": 1,
+      "page_start": "15",
+      "page_end": "15",
+      "grounding_type": "library_excerpt",
+      "formatted_citation": "ابن عقيل (بهاء الدين عبد الله بن عقيل العقيلي الهمداني المصري)، شرح ابن عقيل على ألفية ابن مالك، تحقيق: محمد محيي الدين عبد الحميد، 1/15"
+    },
+    {
+      "citation_id": "cite_001",
+      "excerpt_id": "nahw_ibn_aqil_ibn_aqil_3d9e_e0001",
+      "source_title": "شرح ابن عقيل على ألفية ابن مالك",
+      "author_name": "ابن عقيل (بهاء الدين عبد الله بن عقيل العقيلي الهمداني المصري)",
+      "tahqiq_editor": "محمد محيي الدين عبد الحميد",
+      "publisher": "دار التراث - القاهرة",
+      "volume": 1,
+      "page_start": "16",
+      "page_end": "16",
+      "grounding_type": "library_excerpt",
+      "formatted_citation": "ابن عقيل (بهاء الدين عبد الله بن عقيل العقيلي الهمداني المصري)، شرح ابن عقيل على ألفية ابن مالك، تحقيق: محمد محيي الدين عبد الحميد، 1/16"
+    }
+  ],
+  "staleness_hash": "af94ee0d9cff2674",
+  "version": 1,
+  "previous_version_id": null,
+  "owner_constraints": [],
+  "is_stale": false,
+  "taxonomy_version": "tracer_v0",
+  "generation_metadata": {
+    "duration_seconds": 0.0,
+    "total_excerpts_used": 2,
+    "verified_excerpts": 0,
+    "flagged_excerpts_referenced": 0,
+    "unique_authors": 1,
+    "unique_sources": 1,
+    "temporal_span_hijri": null,
+    "library_grounded_claim_count": 2,
+    "llm_contributed_claim_count": 0,
+    "deduplication_clusters_found": 0,
+    "quality_assessment": {
+      "source_diversity": 0.0,
+      "temporal_coverage": 0.0,
+      "school_balance": 0.0,
+      "evidence_completeness": 0.3,
+      "citation_density": 1.0,
+      "confidence_floor": 0.5,
+      "overall_quality": 0.3,
+      "quality_narrative": "Tracer bullet output — single source, no LLM synthesis."
+    },
+    "self_verification": null,
+    "khilaf_disambiguation": null,
+    "genealogy_chains": null,
+    "gap_notes": null,
+    "consensus_mappings": null
+  }
+}

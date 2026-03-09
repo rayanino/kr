@@ -1,0 +1,64 @@
+{
+  "fixture": "/home/claude/kr/tests/fixtures/html_export_minimal",
+  "stages": [
+    {
+      "name": "source",
+      "input": "/home/claude/kr/tests/fixtures/html_export_minimal",
+      "output": "/home/claude/kr/tmp/tracer_run/01_source_metadata.json",
+      "success": true,
+      "duration_ms": 54,
+      "error": null
+    },
+    {
+      "name": "normalization",
+      "input": "/home/claude/kr/tmp/tracer_run/01_source_metadata.json",
+      "output": "/home/claude/kr/tmp/tracer_run/02_normalized_package.json",
+      "success": true,
+      "duration_ms": 5,
+      "error": null
+    },
+    {
+      "name": "passaging",
+      "input": "/home/claude/kr/tmp/tracer_run/02_normalized_package.json",
+      "output": "/home/claude/kr/tmp/tracer_run/03_passage_stream.json",
+      "success": true,
+      "duration_ms": 3,
+      "error": null
+    },
+    {
+      "name": "atomization",
+      "input": "/home/claude/kr/tmp/tracer_run/03_passage_stream.json",
+      "output": "/home/claude/kr/tmp/tracer_run/04_atom_stream.json",
+      "success": true,
+      "duration_ms": 4,
+      "error": null
+    },
+    {
+      "name": "excerpting",
+      "input": "/home/claude/kr/tmp/tracer_run/04_atom_stream.json",
+      "output": "/home/claude/kr/tmp/tracer_run/05_excerpt_stream.json",
+      "success": true,
+      "duration_ms": 3,
+      "error": null
+    },
+    {
+      "name": "taxonomy",
+      "input": "/home/claude/kr/tmp/tracer_run/05_excerpt_stream.json",
+      "output": "/home/claude/kr/tmp/tracer_run/06_taxonomy_output.json",
+      "success": true,
+      "duration_ms": 3,
+      "error": null
+    },
+    {
+      "name": "synthesis",
+      "input": "/home/claude/kr/tmp/tracer_run/06_taxonomy_output.json",
+      "output": "/home/claude/kr/tmp/tracer_run/07_entry.json",
+      "success": true,
+      "duration_ms": 9,
+      "error": null
+    }
+  ],
+  "boundary_errors": [],
+  "total_errors": 0,
+  "success": true
+}

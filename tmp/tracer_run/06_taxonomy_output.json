@@ -1,0 +1,80 @@
+{
+  "source_id": "nahw_ibn_aqil_ibn_aqil_3d9e",
+  "tree": {
+    "id": "nahw",
+    "title": "النحو",
+    "children": [
+      {
+        "id": "nahw/kalaam",
+        "title": "باب الكلام وما يتألف منه",
+        "children": [
+          {
+            "id": "nahw/kalaam/definition",
+            "title": "تعريف الكلام",
+            "children": [],
+            "leaf": true
+          },
+          {
+            "id": "nahw/kalaam/parts",
+            "title": "أقسام الكلمة",
+            "children": [],
+            "leaf": true
+          }
+        ],
+        "leaf": false
+      }
+    ],
+    "leaf": false
+  },
+  "placements": [
+    {
+      "excerpt_id": "nahw_ibn_aqil_ibn_aqil_3d9e_e0000",
+      "source_id": "nahw_ibn_aqil_ibn_aqil_3d9e",
+      "confirmed_leaf": "nahw/kalaam/definition",
+      "placement_confidence": 0.6,
+      "placed_utc": "2026-03-09T05:23:28.678258+00:00",
+      "review_metadata": {
+        "review_outcome": "auto_approved",
+        "evolution_proposal_id": null,
+        "reviewer_notes": "Tracer bullet: all excerpts placed at default leaf"
+      },
+      "verified_flagged_status": "verified",
+      "taxonomy_version_at_placement": "tracer_v0",
+      "placement_reasoning": "Tracer bullet stub — all excerpts placed at nahw/kalaam/definition",
+      "proposed_leaf_override": false,
+      "proposed_leaf_original": "nahw/kalaam",
+      "override_reason": null
+    },
+    {
+      "excerpt_id": "nahw_ibn_aqil_ibn_aqil_3d9e_e0001",
+      "source_id": "nahw_ibn_aqil_ibn_aqil_3d9e",
+      "confirmed_leaf": "nahw/kalaam/definition",
+      "placement_confidence": 0.6,
+      "placed_utc": "2026-03-09T05:23:28.678258+00:00",
+      "review_metadata": {
+        "review_outcome": "auto_approved",
+        "evolution_proposal_id": null,
+        "reviewer_notes": "Tracer bullet: all excerpts placed at default leaf"
+      },
+      "verified_flagged_status": "verified",
+      "taxonomy_version_at_placement": "tracer_v0",
+      "placement_reasoning": "Tracer bullet stub — all excerpts placed at nahw/kalaam/definition",
+      "proposed_leaf_override": false,
+      "proposed_leaf_original": "nahw/kalaam",
+      "override_reason": null
+    }
+  ],
+  "coverage": [
+    {
+      "leaf_id": "nahw/kalaam/definition",
+      "excerpt_count": 2,
+      "gap_type": null
+    },
+    {
+      "leaf_id": "nahw/kalaam/parts",
+      "excerpt_count": 0,
+      "gap_type": "empty_leaf"
+    }
+  ],
+  "taxonomy_version": "tracer_v0"
+}

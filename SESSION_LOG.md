@@ -1925,3 +1925,23 @@ Bridged the gap between the hardened SPEC and buildable code. Five deliverables:
 - Cost estimate: ~$0.35 per full test run on 5 fixtures
 **Decisions:** DeepEval over pure pytest for LLM evaluation (native GEval, Anthropic/OpenAI integration, component tracing). Direct provider keys over OpenRouter (simpler, already available).
 **Next:** Owner completes Phase 1 SPEC reading → Phase 2. Or: Problem 2 (Claude Code build environment).
+
+### Session 2026-03-09-a — Claude Chat (Tracer Bullet)
+**Type:** BUILD (Step 0 — Tracer Bullet)
+**Focus:** Get real Arabic text flowing through all 7 engines with zero contract violations
+**Deliverables:**
+- Shared component stubs: `consensus`, `human_gate`, `scholar_authority`, `validation` (4 files)
+- Engine tracer stubs: 7 `process()` functions in `engines/*/src/tracer.py`
+- Pipeline runner: `scripts/run_pipeline.py` with Pydantic validation at 5 boundaries
+- `reference/TRACER_FINDINGS.md`: 34 boundary errors found and fixed across 5 boundaries
+- Full pipeline run: html_export_minimal → Entry in ~80ms, zero errors
+**Key findings:**
+- ScholarReference field names differ from intuitive names (name_arabic, not display_name)
+- TextFidelityLevel is enum string across normalization/passaging but float in other contexts — needs standardization
+- PassageStructuralFormat uses `commentary_unit` while source uses `commentary` — enum value mismatch
+- Normalization footnote `secondary_types` is required list (not Optional) — must be `[]` not `None`
+- PassageRecord `division_ids` has MinLen(1) — every passage needs at least one division
+- Arabic text with full tashkeel survives all 7 engines intact
+- Taxonomy and synthesis lack formal Pydantic output contracts
+**Decisions:** None (build session — implemented to existing contracts, no architectural changes)
+**Next:** Source engine core SPEC (Step 1) — first engine to build properly
