@@ -1,120 +1,158 @@
-# NEXT — Source Engine Step 3: Build Prep
+# NEXT — Source Engine Session 3: LLM Inference + Consensus
 
-**Session type:** BUILD PREP — technology survey and Claude Code environment preparation
-**Skill:** `use kr-build-prep`
-**Goal:** Prepare everything Claude Code needs to build the source engine in 6 focused sessions.
-
----
-
-## Context
-
-Steps 0–2 are complete. The source engine SPEC has been hardened through 8+ review passes (Step 1) and all LLM assumptions validated through empirical testing (Step 2). The SPEC is now the behavioral authority — no ASSUMPTION markers remain.
-
-**Step 2 Summary (evaluated in `engines/source/review/STEP2_EVALUATION.md`):**
-- A1 (JSON reliability): 100% parse, 0 enum violations across 6 models. Single-call prompt confirmed.
-- A2 (Multi-layer detection): 100% accuracy across 5 production models.
-- A3 (Name matching): Partially validated. KNOWN ISSUE: substring containment boost needed (A3-1).
-- A4 (Trust weights): 13/13 correct at threshold 0.65 (uniquely optimal). 900→1000 AH cutpoint resolved.
-- A5 (Consensus pair): Command A (Cohere) + Opus 4.6 (Anthropic). 92.3% "at least one right". Fallback: GPT-5.4 + Opus 4.6.
-
-**Re-scored model aggregates (corrected name matching):** Opus 0.890, Command A 0.883, GPT-5.4 0.873, Mistral 0.863, Gemini 0.788.
-
-**Three mandatory build-phase tasks from Step 2 (see §8 Step 4 Blocking Conditions below):**
-1. **Confidence calibration analysis** — extract confidence scores from Step 2 results, check correlation with accuracy. If models produce >0.90 on wrong answers, raise thresholds.
-2. **Name matching substring boost** — implement A3-1 fix in `normalized_name_similarity`.
-3. **Author-specific consensus complementarity** — verify pair selection holds when filtered to author_identification field only.
+**Session type:** BUILD — implement LLM metadata inference and multi-model consensus
+**Pipeline steps:** Step 4 (Metadata Inference)
+**Depends on:** Sessions 1–2 (staging + format detection + extraction — 217 tests passing)
 
 ---
 
-## What to Read First
+## What to Read
 
-1. `NEXT.md` (this file)
-2. `engines/source/review/STEP2_EVALUATION.md` — Step 2 evaluation with 5 binding decisions
-3. `engines/source/STRATEGIC_PLAN.md` Phase B — build prep work items
-4. `engines/source/SPEC_CORE.md` — the behavioral authority (all ASSUMPTION markers resolved)
-5. `engines/source/contracts.py` — the data authority
-6. `engines/source/prompts/inference_v1.py` — the validated prompt (draft-3, final)
-7. `KNOWLEDGE_INTEGRITY.md` — corruption threats
+Read these files in order before writing any code:
 
----
-
-## Build Prep Work Items (from STRATEGIC_PLAN Phase B)
-
-### 1. Technology Survey
-Verify stack decisions:
-- BeautifulSoup4 + lxml → Shamela HTML parsing
-- hashlib → SHA-256 freezing (stdlib)
-- LiteLLM + Instructor → LLM inference via OpenRouter
-- Pydantic → schema validation (contracts.py exists)
-- **Research:** PyArabic vs CAMeL Tools for Arabic name normalization (including A3-1 substring boost)
-- **Verify:** Does Instructor's structured output mode work with Command A (Cohere) via OpenRouter?
-
-### 2. Deferred Code Quarantine
-`engines/source/src/` has ~28 Python files. Only ~19 are core. Explicitly exclude:
-- Extractors: `pdf.py`, `image.py`, `word.py`, `owner_authored.py`
-- Modules: `citation_discovery.py`, `gap_analysis.py`, `openiti_enrichment.py`, `enrichment.py`
-- Step 0 artifact: `tracer.py`
-
-### 3. Shared Component Requirements
-Produce `shared/{component}/REQUIREMENTS_source.md` for: consensus, human_gate, scholar_authority, validation.
-Cross-check against what the normalization engine will need.
-
-### 4. Resolve Trust Evaluation Tension
-ENGINE_PROTOCOL says "keep trust simple — 3-tier." SPEC_CORE has the full 5-factor algorithm, validated.
-**Resolution: SPEC_CORE wins.** Document explicitly in CLAUDE.md.
-
-### 5. Architecture Doc
-Map the 9-step acquisition pipeline to modules.
-
-### 6. Session Plans
-One per build session (6 sessions), following pipeline order:
-1. Staging + Format Detection + Extraction
-2. LLM Metadata Inference + Consensus
-3. Hashing + Dedup + Freezing
-4. Registration + Scholar Authority
-5. Trust Evaluation + Human Gate + Validation
-6. Integration + Plain Text + Error Paths
-
-### 7. Mandatory Step 2 Follow-ups
-- **Confidence calibration:** Add as explicit task in Session 2 plan (LLM inference session). **DATA RISK:** The Step 2 results files (`tests/results/phase1_*.json`, `phase2_*.json`, `phase3_consensus.json`) are gitignored. They must exist on the build machine. If Claude Code's environment was reset, re-run `tests/test_llm_inference.py --phase 2` to regenerate ($2-5 API cost).
-- **Author-specific consensus complementarity:** The consensus pair (Command A + Opus 4.6) was selected using a metric that treats all 7 fields equally. But consensus is only used for author identification and work matching. Before implementing the consensus module, re-run `consensus_analysis.py` filtered to `author_identification` field only. If a different pair ranks higher for author-specific complementarity, update §8.
-- **Committed results summary:** Test runner should produce a committed summary (no raw API text, just per-fixture scores and confidence distributions).
-
-### 8. Step 4 Blocking Conditions
-These must be resolved before Step 4 (test and prove) begins:
-- [ ] Confidence calibration analysis complete — thresholds confirmed or adjusted
-- [ ] Name matching substring boost (A3-1) implemented and tested
-- [ ] Author-specific consensus complementarity verified — pair confirmed or updated
+1. `engines/source/SPEC_CORE.md` §4.A.4 — LLM-Assisted Metadata Inference (the behavioral authority for this session)
+2. `engines/source/SPEC_CORE.md` §6 — Consensus Integration (agreement rules, failure handling, directed attribution_status comparison)
+3. `engines/source/prompts/inference_v1.py` — The validated prompt template (draft-3, final). This is the exact prompt to use.
+4. `engines/source/contracts.py` — Data models: `InferredFieldConfidence`, `ScholarReference`, `TextLayer`, `ScholarlyContext`, `AttributionStatus`, `GenreChain`
+5. `shared/consensus/REQUIREMENTS_source.md` — Consensus interface specification (function signatures, agreement rules, failure handling)
+6. `engines/source/docs/technology-inventory.md` — Instructor configuration (use `from_provider()`, see RQ-1)
+7. `.claude/skills/consensus-pattern/SKILL.md` — Implementation pattern for multi-model calls
+8. `tests/fixtures/GROUND_TRUTH.json` — Expected answers for all 13 fixtures
+9. `tests/eval_harness.py` lines 22–95 — Name matching functions to copy to production
 
 ---
 
-## Output Artifacts (per STRATEGIC_PLAN Phase B)
+## What to Build
 
-| File | Purpose |
-|------|---------|
-| `engines/source/docs/architecture.md` | Module structure, 9-step pipeline mapping |
-| `engines/source/docs/technology-inventory.md` | Use/build/test decisions |
-| `shared/consensus/REQUIREMENTS_source.md` | What source engine needs from consensus |
-| `shared/human_gate/REQUIREMENTS_source.md` | What source engine needs from human_gate |
-| `shared/scholar_authority/REQUIREMENTS_source.md` | What source engine needs from scholar_authority |
-| `shared/validation/REQUIREMENTS_source.md` | What source engine needs from validation |
-| Updated `engines/source/CLAUDE.md` | Build instructions, deferred file list |
-| `engines/source/session-{1-6}-plan.md` | Per-session build plans |
+### Module 1: `shared/scholar_authority/src/name_matching.py`
+Copy from `tests/eval_harness.py` (lines 22–95):
+- `normalize_arabic_name(name: str) -> str`
+- `_extract_name_tokens(name: str) -> set`
+- `normalized_name_similarity(a: str, b: str) -> float`
+
+These are the production name matching functions. The token-based approach handles the A3-1 edge case (short-vs-long name forms). Do NOT use `difflib.SequenceMatcher`.
+
+### Module 2: `shared/consensus/src/consensus.py`
+Replace the tracer stub. Implement:
+- `evaluate(task, prompt, response_model, models, agreement_fn) -> ConsensusResult`
+- Both model calls dispatched concurrently via `asyncio.gather()`
+- Per-model retry: 2 retries (fresh request, then simplified prompt)
+- Fallback: if Command A fails → swap for GPT-5.4, retry consensus
+- Timeout: 60s per model call
+- Use Instructor's `from_provider()`:
+  ```python
+  # Model A: Cohere Command A via OpenRouter
+  client_a = instructor.from_provider("openrouter/cohere/command-a", async_client=True)
+  
+  # Model B: Opus 4.6 via Anthropic direct API
+  client_b = instructor.from_provider("anthropic/claude-opus-4-6", async_client=True)
+  ```
+- API keys from environment: `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`
+
+### Module 3: `engines/source/src/consensus.py`
+Source-engine consensus integration:
+- Author identification agreement function (SPEC §6.1):
+  - Both match same canonical_id → agree
+  - Both say "new" + name similarity ≥ 0.90 + death date ±10 years → agree
+  - Otherwise → disagree → human gate
+- Work matching agreement function (SPEC §6.2)
+- Directed attribution_status comparison (SPEC §6.3):
+  - disputed/unknown beats definitive/traditional (conservative wins)
+  - traditional vs definitive → use traditional, no gate
+  - disputed/unknown vs definitive/traditional → use conservative + human gate
+
+### Module 4: `engines/source/src/metadata_inference.py`
+Core inference flow:
+1. Build prompt from extractor output using `inference_v1.py` template
+2. For author identification and work matching: call consensus (`evaluate()` with both models)
+3. For other fields (genre, science, format, etc.): use the canonical result from consensus
+4. Map LLM output → SourceMetadata fields:
+   - `layers` → `text_layers` (resolve each layer author via scholar name matching)
+   - `author_identification` → `ScholarReference` (canonical_name_ar, known_as, death_date_hijri, confidence)
+   - Confidence fields → `InferredFieldConfidence`
+5. Apply caps:
+   - Biographical inference cap: author confidence ≤ 0.85 (single-LLM cap)
+   - Attribution disputed: author confidence ≤ 0.70
+   - Attribution unknown: author confidence = 0.0
+6. Set `text_fidelity` deterministically:
+   - `shamela_html` → baseline `high`; downgrade on quality issues
+   - `plain_text` → baseline `medium`
+7. Construct `needs_review_fields`: fields with confidence < 0.70
+
+---
+
+## What to Test
+
+### Fixtures (in `.claudeignore` — use exact paths)
+
+**Primary (run full inference):**
+- `tests/fixtures/shamela_real/01_nahw_simple/book.htm`
+- `tests/fixtures/shamela_real/06_usul/book.htm`
+- `tests/fixtures/shamela_real/11_multi_small/` (3 files: 001.htm, 002.htm, 003.htm)
+
+**Secondary (edge cases):**
+- `tests/fixtures/shamela_real/03_fiqh/book.htm` (modern, no death date)
+- `tests/fixtures/shamela_real/10_no_author/book.htm` (no المؤلف field)
+- `tests/fixtures/alfiyyah_versified/` (plain text)
+
+**Expected values:** `tests/fixtures/GROUND_TRUTH.json`
+
+### Smoke test (run FIRST, before writing production code)
+
+Verify Instructor works with both consensus models:
+```python
+# Quick test: send inference prompt for fixture 01 through each model
+# Check: JSON parses, enum values validate, no timeout
+```
+Budget: ~$0.10. If either model fails with Instructor, fall back to raw LiteLLM calls with manual JSON parsing.
+
+---
+
+## Carry-Forward Tasks for This Session
+
+### 1. Confidence Calibration Analysis (from Step 2 CG-1)
+Extract confidence scores from Step 2 results at `tests/results/phase1_*.json`, `phase2_*.json`. Check: do models produce > 0.90 confidence on wrong answers? If so, raise thresholds above 0.70/0.50.
+
+**If results files don't exist** (they're gitignored — may have been lost if environment was reset): re-run `tests/test_llm_inference.py --phase 2` to regenerate ($2–5 API cost). If not feasible, document that calibration is deferred and thresholds are maintained provisionally.
+
+### 2. Author-Specific Consensus Complementarity (from Step 2 CG-5)
+The consensus pair was selected on all 7 fields equally. Verify that Command A + Opus 4.6 is still the best pair when filtered to `author_identification` only.
+
+Run `tests/consensus_analysis.py` filtered to author_identification. If a different pair ranks higher, update the consensus configuration.
+
+**If results files don't exist:** Perform this check with live API calls during the Instructor smoke test — compare 3 models on 3 fixtures ($0.50–$1.00).
 
 ---
 
 ## Done When
 
-- [ ] Technology survey complete with use/build/test decisions
-- [ ] Deferred code quarantined (moved to `src/_deferred/` or listed in CLAUDE.md)
-- [ ] Shared component requirements written for all 4 components
-- [ ] Architecture doc maps pipeline to modules
-- [ ] 6 session plans written, each with narrow scope and clear "done when"
-- [ ] CLAUDE.md updated with build instructions
-- [ ] Trust evaluation tension resolved and documented
-- [ ] Confidence calibration task explicitly placed in a session plan
-- [ ] Name matching A3-1 fix explicitly placed in a session plan
-- [ ] Author-specific consensus complementarity check placed in a session plan
-- [ ] Step 4 blocking conditions documented in session plans (not just here)
+- [ ] Instructor smoke test passes for Command A (OpenRouter) and Opus 4.6 (Anthropic)
+- [ ] `metadata_inference.py` produces valid SourceMetadata fields for fixtures 01, 06, 11
+- [ ] LLM output field mapping correct: `layers` → `text_layers`, `author_identification` → `ScholarReference`
+- [ ] Confidence scores populate `InferredFieldConfidence` correctly
+- [ ] Biographical inference cap applied (author confidence ≤ 0.85)
+- [ ] Attribution status caps applied (disputed → 0.70, unknown → 0.0)
+- [ ] `text_fidelity` set deterministically from format + quality issues
+- [ ] `needs_review_fields` populated for fields with confidence < 0.70
+- [ ] Consensus `evaluate()` dispatches both models concurrently
+- [ ] Author identification agreement function implements §6.1 rules
+- [ ] Work matching agreement function implements §6.2 rules
+- [ ] Directed attribution_status comparison implements §6.3 (conservative value wins)
+- [ ] Consensus failure: author ID → human gate; work matching → provisional accept
+- [ ] Fallback: Command A failure → GPT-5.4 swap → retry
+- [ ] Name matching in production location: `shared/scholar_authority/src/name_matching.py`
+- [ ] Confidence calibration analysis complete OR documented as deferred with rationale
+- [ ] Author-specific complementarity verified OR pair updated
+- [ ] All new tests pass
 
-After Step 3: Move to Phase C (BUILD) — Claude Code executes session plans.
+---
+
+## API Keys
+
+Set these environment variables before running tests:
+```bash
+export ANTHROPIC_API_KEY="..."   # From project knowledge
+export OPENROUTER_API_KEY="..."  # From project knowledge
+```
+
+Do NOT hardcode keys in source files. Read from environment at runtime.
