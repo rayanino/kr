@@ -199,6 +199,8 @@ The test results exist only in `tests/results/` (gitignored) and Claude Code's t
 
 **Caveat:** Author-identification-specific complementarity is unverified. The overall 15.4% complementarity includes all 7 fields. If the 15.4% is concentrated in low-weight fields (genre, format) while both models agree on author errors, the consensus provides less value than the aggregate suggests. Step 4 will reveal this.
 
+**SELF-REVIEW CORRECTION (post-commit):** The consensus pair selection metric has a methodological flaw: it treats all 7 fields equally, but production consensus is used ONLY for author identification and work matching (§6). The 92.3% "at least one right" rate is inflated by fields consensus doesn't protect. Furthermore, the false-agreement rate (both models wrong on the same cell) is approximately 9.1% overall (7/77 agreement cells) — and could be higher specifically on author identification. **Mandatory build-phase check:** before committing to this pair in implementation, compute "at least one right" on `author_identification` alone. If a different pair ranks higher for author-specific complementarity, update §8.
+
 **SPEC impact:** Update §8 `consensus_model_providers` default from `["anthropic", "openai"]` to `["anthropic", "cohere"]`. Add specific model IDs: `claude-opus-4-6` and `cohere/command-a` (via OpenRouter).
 
 ### Decision 3 — Confidence Threshold Calibration
@@ -303,10 +305,11 @@ This evaluation is unusual because Step 2 tests assumptions, not the built engin
 
 | # | Gap | Severity | Fix Plan |
 |---|-----|----------|----------|
-| CG-1 | Confidence calibration not tested | HIGH | Analyze during build; calibration data exists in test results JSON |
+| CG-1 | Confidence calibration not tested | HIGH | Analyze during build; calibration data exists in test results JSON. **DATA RISK:** results files are gitignored — if Claude Code's local env is reset, data is lost and Phase 2 API calls must be re-run ($2-5). |
 | CG-2 | Name matching substring boost not implemented | MEDIUM | Build-phase task (A3-1 from Phase 0) |
 | CG-3 | SPEC §8 consensus pair default is wrong | LOW | Update during ASSUMPTION resolution |
 | CG-4 | 900 AH cutpoint misclassifies al-Suyuti | LOW | Update to 1000 AH during ASSUMPTION resolution |
+| CG-5 | Consensus pair selection metric doesn't match production use case | MEDIUM | The "at least one right" metric treats all 7 fields equally, but production consensus is only used for author identification and work matching. False-agreement rate ~9.1% overall. Must verify author-specific complementarity during build before committing pair. |
 
 ### Extension Opportunities
 
@@ -315,7 +318,6 @@ This evaluation is unusual because Step 2 tests assumptions, not the built engin
 | EO-1 | Add disputed-attribution fixtures for directed comparison testing | Needed when processing full collection |
 | EO-2 | Add more multi-layer fixtures (hashiyah, taqrirat, multi-sharh) | Would validate detection on edge cases |
 | EO-3 | Per-field consensus analysis (author-specific complementarity) | Would validate pair selection for the highest-weight field |
-| EO-4 | Test confidence calibration across models | Critical for production safety |
 
 ### Lessons Learned
 
@@ -330,12 +332,13 @@ This evaluation is unusual because Step 2 tests assumptions, not the built engin
 
 ### Verdict
 
-**CONDITIONAL PASS** — Step 2 assumptions are validated with two conditions:
+**CONDITIONAL PASS** — Step 2 assumptions are validated with three conditions:
 
-1. **Confidence calibration analysis** must be performed during build (CG-1). The data exists; it just wasn't analyzed. If calibration reveals uniformly high confidence on wrong answers, thresholds must be raised before production.
+1. **Confidence calibration analysis** must be performed during build (CG-1). The data exists; it just wasn't analyzed. If calibration reveals uniformly high confidence on wrong answers, thresholds must be raised before production. DATA RISK: results files are gitignored and may not survive environment resets.
 2. **Name matching substring boost** must be implemented during build (CG-2). Without it, scholar deduplication will create duplicate records for the same person with different name forms.
+3. **Author-specific consensus complementarity** must be verified during build (CG-5). The pair selection metric treated all fields equally; production consensus is used only for author identification and work matching. If a different pair ranks higher on author_identification alone, the pair must be updated.
 
-Neither condition blocks moving to Step 3 (build prep). Both must be resolved before Step 4 (test and prove).
+Neither condition blocks moving to Step 3 (build prep). All three must be resolved before Step 4 (test and prove).
 
 ---
 

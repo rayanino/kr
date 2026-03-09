@@ -1,19 +1,14 @@
-# NEXT — Source Engine Step 3: BUILD
+# NEXT — Source Engine Step 3: Build Prep
 
-**Session type:** BUILD — implementing the source engine
-**Goal:** Build the source engine from SPEC_CORE.md, starting with the staging pipeline and format detection.
+**Session type:** BUILD PREP — technology survey and Claude Code environment preparation
+**Skill:** `use kr-build-prep`
+**Goal:** Prepare everything Claude Code needs to build the source engine in 6 focused sessions.
 
 ---
 
 ## Context
 
-Step 1 (SPEC hardening) and Step 2 (LLM assumption testing) are both complete. All assumptions validated. The consensus pair (Command A + Opus 4.6) is selected. The inference prompt (inference_v1.py draft-3) is locked. Build begins now.
-
-**Key results from Step 2:**
-- All 5 models achieve 100% JSON parse rate and 0 enum violations
-- Multi-layer detection: 100% accuracy across all models
-- Consensus pair: Command A (Cohere) + Opus 4.6 (Anthropic), 92.3% coverage
-- Re-scored model aggregates (with corrected name scoring): Opus 0.890, Command A 0.883, GPT-5.4 0.873, Mistral 0.863, Gemini 0.788
+Steps 0–2 are complete. The source engine SPEC has been hardened through 8+ review passes (Step 1) and all LLM assumptions validated through empirical testing (Step 2). The SPEC is now the behavioral authority — no ASSUMPTION markers remain.
 
 **Step 2 Summary (evaluated in `engines/source/review/STEP2_EVALUATION.md`):**
 - A1 (JSON reliability): 100% parse, 0 enum violations across 6 models. Single-call prompt confirmed.
@@ -26,97 +21,97 @@ Step 1 (SPEC hardening) and Step 2 (LLM assumption testing) are both complete. A
 1. **Confidence calibration analysis** — extract confidence scores from Step 2 results, check correlation with accuracy. If models produce >0.90 on wrong answers, raise thresholds.
 2. **Name matching substring boost** — implement A3-1 fix in `normalized_name_similarity`.
 
-## Build Strategy
-
-The source engine is built in sessions, each tackling one SPEC section. One session = one focused implementation block. Use `/smart-compact` proactively. Re-read SPEC_CORE.md section before implementing.
-
-### Session 1: Staging Pipeline + Format Detection (§4.A.2)
-
-**Read first:** SPEC_CORE.md §4.A.2 (Step 1: Staging, Step 2: Format Detection)
-
-**Build:**
-1. `engines/source/src/staging.py` — File staging: copy to staging area, compute SHA-256, generate source_id
-2. `engines/source/src/format_detection.py` — Detect Shamela HTML vs plain text (2 Stage 1 formats)
-3. Tests: `engines/source/tests/test_deterministic.py` — staging + format detection against real fixtures
-
-**Contracts used:** `AcquisitionPath`, `SourceFormat`, `ProcessingStatus.STAGING`
-
-### Session 2: Shamela HTML Extraction (§4.A.3)
-
-**Read first:** SPEC_CORE.md §4.A.3, `reference/SHAMELA_FORMAT_ANALYSIS.md`
-
-**Build:**
-1. `engines/source/src/extractors/shamela_html.py` — Parse بطاقة الكتاب metadata card, extract title, author, publisher, muhaqiq, page count
-2. `engines/source/src/extractors/plain_text.py` — Minimal extraction from plain text files
-3. Tests against all 12 Shamela fixtures + 1 plain text fixture (alfiyyah_versified)
-
-**Contracts used:** `FormatSpecificMetadata`, extraction-related fields in `SourceMetadata`
-
-### Session 3: LLM Inference Integration (§4.A.4)
-
-**Read first:** SPEC_CORE.md §4.A.4, `prompts/inference_v1.py`, consensus-pattern skill
-
-**Build:**
-1. `engines/source/src/inference.py` — Multi-model consensus using Command A + Opus 4.6
-2. Uses the validated prompt template from inference_v1.py
-3. Uses Instructor + LiteLLM for structured output (see `.claude/skills/consensus-pattern/SKILL.md`)
-4. Human gate fallback when models disagree
-5. Tests: `engines/source/tests/test_llm_inference.py` — against 3+ fixtures with mocked responses
-
-**Contracts used:** Full `InferenceOutput` model, `InferredFieldConfidence`
-
-### Session 4: Identity Assignment + Dedup (§4.A.5, §4.A.6)
-
-**Build:**
-1. `engines/source/src/identity.py` — Three-tier ID (source_id, work_id, canonical_id)
-2. `engines/source/src/dedup.py` — Composite key duplicate detection
-3. Scholar name matching using normalized comparison
-
-### Session 5: Trust Evaluation + Freeze (§4.A.8, §4.A.7)
-
-**Build:**
-1. `engines/source/src/trust.py` — 5-factor trust scoring (threshold 0.65)
-2. `engines/source/src/freeze.py` — Freeze raw source, write metadata.json
-3. Final output: complete SourceMetadata record for normalization engine
-
-### Session 6: Pipeline Orchestration + Integration Tests
-
-**Build:**
-1. `engines/source/src/pipeline.py` — Orchestrate all steps: stage → detect → extract → infer → identify → dedup → trust → freeze
-2. End-to-end integration test: feed a real fixture through the full pipeline
-3. Verify output matches normalization engine's input contract
-
 ---
 
 ## What to Read First
 
 1. `NEXT.md` (this file)
-2. `engines/source/CLAUDE.md` — engine state + canonical examples
-3. `engines/source/SPEC_CORE.md` — the relevant section for the current session
-4. `engines/source/contracts.py` — Pydantic schemas
-5. `/KNOWLEDGE_INTEGRITY.md` — corruption threats to prevent
+2. `engines/source/review/STEP2_EVALUATION.md` — Step 2 evaluation with 5 binding decisions
+3. `engines/source/STRATEGIC_PLAN.md` Phase B — build prep work items
+4. `engines/source/SPEC_CORE.md` — the behavioral authority (all ASSUMPTION markers resolved)
+5. `engines/source/contracts.py` — the data authority
+6. `engines/source/prompts/inference_v1.py` — the validated prompt (draft-3, final)
+7. `KNOWLEDGE_INTEGRITY.md` — corruption threats
 
 ---
 
-## Critical Rules for Build
+## Build Prep Work Items (from STRATEGIC_PLAN Phase B)
 
-1. **Multi-model consensus for ALL content decisions** (D-041). Use the consensus-pattern skill. Never single-LLM calls for genre, author, science_scope, multi-layer.
-2. **Metadata flows forward, never deleted** (D-023). Every function that transforms data must pass through ALL upstream metadata fields.
-3. **Arabic text is fragile.** Check the arabic-text skill before writing any text processing code.
-4. **Real fixtures in all tests.** Use tests/fixtures/ data, never synthetic English text.
-5. **Fail loud** (D-033). Raise specific exceptions, never silently drop data.
-6. **Frozen sources are immutable.** Once SHA-256 hash is computed, bytes never change.
-7. **The muhaqiq is NOT the author.** Always store them separately.
+### 1. Technology Survey
+Verify stack decisions:
+- BeautifulSoup4 + lxml → Shamela HTML parsing
+- hashlib → SHA-256 freezing (stdlib)
+- LiteLLM + Instructor → LLM inference via OpenRouter
+- Pydantic → schema validation (contracts.py exists)
+- **Research:** PyArabic vs CAMeL Tools for Arabic name normalization (including A3-1 substring boost)
+- **Verify:** Does Instructor's structured output mode work with Command A (Cohere) via OpenRouter?
+
+### 2. Deferred Code Quarantine
+`engines/source/src/` has ~28 Python files. Only ~19 are core. Explicitly exclude:
+- Extractors: `pdf.py`, `image.py`, `word.py`, `owner_authored.py`
+- Modules: `citation_discovery.py`, `gap_analysis.py`, `openiti_enrichment.py`, `enrichment.py`
+- Step 0 artifact: `tracer.py`
+
+### 3. Shared Component Requirements
+Produce `shared/{component}/REQUIREMENTS_source.md` for: consensus, human_gate, scholar_authority, validation.
+Cross-check against what the normalization engine will need.
+
+### 4. Resolve Trust Evaluation Tension
+ENGINE_PROTOCOL says "keep trust simple — 3-tier." SPEC_CORE has the full 5-factor algorithm, validated.
+**Resolution: SPEC_CORE wins.** Document explicitly in CLAUDE.md.
+
+### 5. Architecture Doc
+Map the 9-step acquisition pipeline to modules.
+
+### 6. Session Plans
+One per build session (6 sessions), following pipeline order:
+1. Staging + Format Detection + Extraction
+2. LLM Metadata Inference + Consensus
+3. Hashing + Dedup + Freezing
+4. Registration + Scholar Authority
+5. Trust Evaluation + Human Gate + Validation
+6. Integration + Plain Text + Error Paths
+
+### 7. Mandatory Step 2 Follow-ups
+- **Confidence calibration:** Add as explicit task in Session 2 plan (LLM inference session). **DATA RISK:** The Step 2 results files (`tests/results/phase1_*.json`, `phase2_*.json`, `phase3_consensus.json`) are gitignored. They must exist on the build machine. If Claude Code's environment was reset, re-run `tests/test_llm_inference.py --phase 2` to regenerate ($2-5 API cost).
+- **Author-specific consensus complementarity:** The consensus pair (Command A + Opus 4.6) was selected using a metric that treats all 7 fields equally. But consensus is only used for author identification and work matching. Before implementing the consensus module, re-run `consensus_analysis.py` filtered to `author_identification` field only. If a different pair ranks higher for author-specific complementarity, update §8.
+- **Committed results summary:** Test runner should produce a committed summary (no raw API text, just per-fixture scores and confidence distributions).
+
+### 8. Step 4 Blocking Conditions
+These must be resolved before Step 4 (test and prove) begins:
+- [ ] Confidence calibration analysis complete — thresholds confirmed or adjusted
+- [ ] Name matching substring boost (A3-1) implemented and tested
+- [ ] Author-specific consensus complementarity verified — pair confirmed or updated
+
+---
+
+## Output Artifacts (per STRATEGIC_PLAN Phase B)
+
+| File | Purpose |
+|------|---------|
+| `engines/source/docs/architecture.md` | Module structure, 9-step pipeline mapping |
+| `engines/source/docs/technology-inventory.md` | Use/build/test decisions |
+| `shared/consensus/REQUIREMENTS_source.md` | What source engine needs from consensus |
+| `shared/human_gate/REQUIREMENTS_source.md` | What source engine needs from human_gate |
+| `shared/scholar_authority/REQUIREMENTS_source.md` | What source engine needs from scholar_authority |
+| `shared/validation/REQUIREMENTS_source.md` | What source engine needs from validation |
+| Updated `engines/source/CLAUDE.md` | Build instructions, deferred file list |
+| `engines/source/session-{1-6}-plan.md` | Per-session build plans |
 
 ---
 
 ## Done When
 
-- [ ] Session 1: Staging + format detection implemented and tested
-- [ ] Session 2: Shamela HTML + plain text extraction implemented and tested
-- [ ] Session 3: LLM inference with consensus integrated and tested
-- [ ] Session 4: Identity assignment + dedup implemented and tested
-- [ ] Session 5: Trust evaluation + freeze implemented and tested
-- [ ] Session 6: Full pipeline orchestrated + integration tests pass
-- [ ] All [ASSUMPTION] markers removed from SPEC_CORE.md
-- [ ] Output passes `python3 scripts/verify_metadata_flow.py`
+- [ ] Technology survey complete with use/build/test decisions
+- [ ] Deferred code quarantined (moved to `src/_deferred/` or listed in CLAUDE.md)
+- [ ] Shared component requirements written for all 4 components
+- [ ] Architecture doc maps pipeline to modules
+- [ ] 6 session plans written, each with narrow scope and clear "done when"
+- [ ] CLAUDE.md updated with build instructions
+- [ ] Trust evaluation tension resolved and documented
+- [ ] Confidence calibration task explicitly placed in a session plan
+- [ ] Name matching A3-1 fix explicitly placed in a session plan
+- [ ] Author-specific consensus complementarity check placed in a session plan
+- [ ] Step 4 blocking conditions documented in session plans (not just here)
+
+After Step 3: Move to Phase C (BUILD) — Claude Code executes session plans.
