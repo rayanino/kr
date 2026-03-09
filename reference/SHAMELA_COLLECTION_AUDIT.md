@@ -1,8 +1,8 @@
 # Shamela Collection Audit — تدقيق مجموعة الشاملة
 
 **Date:** 2026-03-09
-**Source:** Owner's Shamela desktop app v4 export (2,256 books successfully analyzed out of 2,519 total — 263 had filenames exceeding filesystem limits during extraction)
-**Method:** Automated full-collection analysis: every book's first file parsed for metadata card fields, body page structure, and content quality signals
+**Source:** Owner's Shamela desktop app v4 exports — 2,256 books successfully analyzed out of 2,519 exported (263 had filenames exceeding filesystem limits during extraction). This is a large subset of the Shamela desktop library, which contains thousands more books. The audit covers the owner's current exports, not the full Shamela catalog.
+**Method:** Automated analysis: every book's first file parsed for metadata card fields, body page structure, and content quality signals
 **Purpose:** Empirical reference for source engine content quality inspection, FIELD_MAP expansion, and intake calibration
 
 This document records what was *found* in the actual data. Every number is observed, not estimated. It complements `SHAMELA_FORMAT_ANALYSIS.md` (which documents the HTML structure) by documenting the *content-level* variability and quality characteristics of the collection.

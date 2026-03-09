@@ -1,10 +1,10 @@
 # Shamela Desktop Export — Structural Analysis
 
 **Date:** 2026-03-09
-**Source:** Owner's Shamela desktop app export of 2,519 books (1.3 GB compressed)
-**Survey method:** Automated analysis of ALL 2,519 first-files (100% coverage, zero errors)
+**Source:** Owner's Shamela desktop app v4 exports (2,519 books, a large subset of the full Shamela library)
+**Survey method:** Automated analysis of ALL 2,519 first-files (100% coverage of exports, zero errors)
 
-This document is the ground truth for Shamela HTML extraction rules. Every claim is derived from observation of real exports, not from documentation or guesswork.
+This document is the ground truth for Shamela HTML extraction rules. Every claim is derived from observation of real exports, not from documentation or guesswork. All exports are from Shamela desktop app v4; other Shamela versions (v3, online shamela.ws) may use different HTML structures. The owner's 2,519 exports are a large subset of the full Shamela library, which contains thousands more books — additional exports may reveal field labels or patterns not documented here.
 
 ---
 
@@ -40,7 +40,7 @@ In multi-volume books, EVERY volume file (not just the first) contains the full 
 
 ## 2. HTML Structure
 
-### Document Template (100% uniform across all 2,519 books)
+### Document Template (100% uniform across all 2,519 exports)
 
 ```html
 <!DOCTYPE html><html lang='ar' dir='rtl'>

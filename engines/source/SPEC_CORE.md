@@ -44,7 +44,7 @@ The owner places source material in the intake staging area (`library/staging/`)
 
 **Supported formats (Stage 1):**
 
-1. **Shamela HTML export.** Either (a) a single `.htm` file (single-volume book — 76.7% of real exports), or (b) a directory of numbered `.htm` files like `001.htm`, `002.htm`, etc. (multi-volume book — 23.3%). Some multi-volume books also have a `المقدمة.htm` file (11.6%). There is NO separate `info.html` metadata file — metadata is embedded in the first `PageText` div of each `.htm` file. Content files use `<div class='PageText'>` for pages, `<span class='title'>` for metadata labels and section headings, and `<span class='PageNumber'>` for page numbers. Detection criteria: `.htm`/`.html` file containing `<div class='PageText'>`, `<span class='title'>`, and `<div class='Main'>`. The metadata card contains 50+ distinct field labels across the collection, including 48 muhaqiq-equivalent editorial labels. The FIELD_MAP in §4.A.3 covers all labels with ≥5 occurrences; rarer muhaqiq labels are caught by pattern matching. See `reference/SHAMELA_FORMAT_ANALYSIS.md` for the HTML structural specification and `reference/SHAMELA_COLLECTION_AUDIT.md` for the empirical content-level analysis of the owner's full 2,256-book collection (field frequencies, quality anomalies, category distribution).
+1. **Shamela HTML export.** Either (a) a single `.htm` file (single-volume book — 76.7% of real exports), or (b) a directory of numbered `.htm` files like `001.htm`, `002.htm`, etc. (multi-volume book — 23.3%). Some multi-volume books also have a `المقدمة.htm` file (11.6%). There is NO separate `info.html` metadata file — metadata is embedded in the first `PageText` div of each `.htm` file. Content files use `<div class='PageText'>` for pages, `<span class='title'>` for metadata labels and section headings, and `<span class='PageNumber'>` for page numbers. Detection criteria: `.htm`/`.html` file containing `<div class='PageText'>`, `<span class='title'>`, and `<div class='Main'>`. The metadata card contains 50+ distinct field labels across the collection, including 48 muhaqiq-equivalent editorial labels. The FIELD_MAP in §4.A.3 covers all labels with ≥5 occurrences; rarer muhaqiq labels are caught by pattern matching. See `reference/SHAMELA_FORMAT_ANALYSIS.md` for the HTML structural specification and `reference/SHAMELA_COLLECTION_AUDIT.md` for the empirical content-level analysis of the owner's 2,256-book export collection (field frequencies, quality anomalies, category distribution). Note: the Shamela desktop library contains thousands more books than this export; the audit covers the owner's current exports, not the full Shamela catalog.
 
 2. **Plain text.** A single `.txt` file containing Arabic text. Metadata is minimal: title from the first non-empty line, author unknown. Most metadata comes from LLM inference (§4.A.4). Detection criteria: file with `.txt` extension.
 
@@ -520,7 +520,7 @@ def extract_shamela_metadata(source_path: Path) -> dict:
         'اسم الكتاب': 'title_full',          # Alternative (0.9%)
         'المؤلف': 'author_name_raw',
         # Muhaqiq-equivalent labels — all map to muhaqiq_name_raw.
-        # Frequencies from full-collection audit (2,256 books):
+        # Frequencies from collection audit (2,256 exports analyzed):
         'المحقق': 'muhaqiq_name_raw',         # 32.4%
         'تحقيق': 'muhaqiq_name_raw',           # 7.4%
         'دراسة وتحقيق': 'muhaqiq_name_raw',   # 2.3%
@@ -769,7 +769,7 @@ def extract_shamela_metadata(source_path: Path) -> dict:
                 })
     
     # Check 3: Encoding quality.
-    # Zero U+FFFD found across 2,256 books (Shamela exports are clean UTF-8).
+    # Zero U+FFFD found across 2,256 analyzed exports (Shamela exports are clean UTF-8).
     # This check is a safety net for edge cases not in the surveyed collection.
     replacement_count = content.count('\ufffd')
     if replacement_count > 0:
@@ -1494,7 +1494,7 @@ Stored in `library/config/known_publishers.json`. Owner can extend.
 }
 ```
 
-Publisher matching checks both the canonical name and all variants using substring matching. Unknown/absent publishers score 0.40. Note: دار الكتب العلمية (DKI Beirut) is intentionally excluded from the trusted list and receives the default unknown score (0.40) — their tahqiq quality is widely criticized as commercial rather than scholarly, and the conservative principle (§4.A.8) dictates that uncertain quality should not confer trust. The publisher list was validated against the owner's collection of 2,519 Shamela exports.
+Publisher matching checks both the canonical name and all variants using substring matching. Unknown/absent publishers score 0.40. Note: دار الكتب العلمية (DKI Beirut) is intentionally excluded from the trusted list and receives the default unknown score (0.40) — their tahqiq quality is widely criticized as commercial rather than scholarly, and the conservative principle (§4.A.8) dictates that uncertain quality should not confer trust. The publisher list was validated against the owner's 2,519 Shamela exports (a subset of the full Shamela library).
 
 **Arabic transliteration table** for slug generation:
 Stored in `library/config/transliteration.json`. Maps common Arabic scholar names and work titles to Latin slugs. Initial entries defined in §4.A.1. Extensible by the owner.
