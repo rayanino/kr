@@ -1,67 +1,60 @@
-# NEXT — Source Engine Core SPEC (Step 1)
+# NEXT — Source Engine Step 1 (Continued) or Step 2
 
-**Session type:** SPEC
-**Goal:** Produce a core-only source engine SPEC at architecture-decision depth. Claude Code must be able to build the source engine from this SPEC with zero clarifying questions.
-
-**Skills to use:** `kr-core-extract` for the core vs. deferred classification and SPEC rewrite. `kr-integrity` as the final quality gate once the core SPEC is written.
-
-**Note:** ENGINE_PROTOCOL Step 1 is a multi-part process: (1) core extraction → (2) owner sanity check → (3) research → (4) SPEC writing → (5) integrity audit. This session covers parts 1, 4, and 5. Part 2 happens async (owner reviews between sessions). Part 3 happens only if the SPEC reveals unresolved design questions.
+**Session type:** Owner review → then RESEARCH
+**Goal:** Owner reviews SPEC_CORE.md experientially, then Claude researches the 7 marked assumptions.
 
 ---
 
-## What to read first
+## What happened last session
 
-1. `skills/shared/ENGINE_PROTOCOL.md` — Step 1 section (full SPEC requirements and depth test)
-2. `skills/user/kr-core-extract/SKILL.md` — The skill that guides core vs. deferred classification
-3. `engines/source/SPEC.md` — Current full SPEC (~1,140 lines). Read §4.A only.
-4. `reference/CORE_CONTRACT_CLASSIFICATION.md` — Source engine section (27 core classes, 18 deferred)
-5. `reference/TRACER_FINDINGS.md` — Boundary issues found and self-review defects fixed
-6. `engines/source/contracts.py` — The actual Pydantic models (825 lines)
+Step 1 Parts 1, 4, 5 completed:
 
-## What NOT to read
+1. **Core extraction** (CORE_VS_DEFERRED.md): 68 core / 32 deferred capabilities classified. Core formats: shamela_html + plain_text. All §4.B deferred with extension hooks.
 
-- VISION.md — not needed
-- kr_decisions.md — not needed
-- Other engine SPECs — not needed
-- §4.B of the source SPEC — these are deferred
+2. **Core SPEC written** (SPEC_CORE.md): ~700 lines at architecture-decision depth. Includes pseudocode for: format detection, Shamela HTML extraction, plain text extraction, scholar matching score formula, slug generation, trust evaluation (deterministic factor scores), consensus agreement (including "new record" case), LLM output schema with required prompt elements.
+
+3. **Integrity audit** (INTEGRITY_AUDIT.md): 11 defects found. 3 HIGH + 5 MEDIUM fixed in the SPEC. 7 assumptions marked for Step 2 testing.
+
+4. **Owner sanity check** (OWNER_SANITY_CHECK.md): 10 experiential questions prepared.
 
 ---
 
-## The work
+## What to do now
 
-### 1. Core vs. Deferred classification
-Draw the line in the existing source SPEC:
-- **Core:** Format detection (shamela_html + plain_text only), metadata extraction, metadata inference (LLM), freezing, deduplication, registration, trust evaluation
-- **Deferred:** Citation network discovery, cross-validated scholar bootstrapping, source difficulty prediction, tahqiq apparatus fingerprinting, edition comparison, all formats except shamela_html and plain_text
+### If the owner has reviewed OWNER_SANITY_CHECK.md:
 
-Move all deferred content to a single "Deferred to Stage 2" section. Add extension hooks per ENGINE_PROTOCOL.
+1. Read the owner's answers.
+2. For any ✗ answers: use `kr-spec-review` to investigate and resolve.
+3. Update SPEC_CORE.md with any fixes.
+4. Move to Step 2 (RESEARCH) — test the 7 marked assumptions.
 
-### 2. Assess SPEC maturity
-The source SPEC has been through CREATIVE and partial PRECISION sessions. §4.A likely has vague language and missing concrete examples. The tracer bullet revealed 15 field-level mismatches between what the SPEC implies and what the contracts require — verify these are addressed.
+### If the owner has NOT yet reviewed:
 
-### 3. Write core §4.A to architecture-decision depth
-For each processing rule, verify you can write a function signature + 5-15 lines of pseudocode. Key areas:
-- **Shamela HTML extraction:** Exact extraction rules for info.html fields (the tracer stub has working code)
-- **Plain text handling:** What metadata can be inferred from plain text with no structural markup
-- **LLM metadata inference:** What model, what prompt, what structured output schema, what fallback
-- **Freezing:** Exact file operations, hash computation, immutability guarantees
-- **Deduplication:** Composite key definition, what triggers human review vs. auto-reject
-- **Trust evaluation:** Factor weights, scoring formula, tier thresholds
-
-### 4. Verify contract alignment
-The tracer bullet fixed contract mismatches. Verify the SPEC describes the ACTUAL contract fields:
-- ScholarReference: `canonical_id`, `name_arabic`, `confidence`, `source_of_identification`
-- TextLayer: `layer_type`, `author` (ScholarReference)
-- TrustworthinessFactor: `name`, `weight`, `score`, `reason`
-- InferredFieldConfidence: `genre`, `science_scope`, `structural_format`, `authority_level`
-- MetadataHistoryEntry: `field`, `old_value`, `new_value`, `changed_by`, `timestamp`
+Per ENGINE_PROTOCOL: after 3 days with no comments, proceed to Step 2. Mark domain-dependent decisions as `[OWNER REVIEW PENDING]`.
 
 ---
 
-## Done when
+## Step 2 Plan (when ready)
 
-- [ ] Core SPEC passes the depth test: every §4.A rule → function signature + pseudocode
-- [ ] All §4.B content deferred with extension hooks
-- [ ] Contract field names in SPEC match contracts.py exactly
-- [ ] SPEC addresses all source→normalization boundary findings from TRACER_FINDINGS.md
-- [ ] Owner sanity check questions prepared (experiential review)
+Test these 7 assumptions on the `html_export_minimal` and `alfiyyah_versified` fixtures:
+
+| ID | What to Test | Method |
+|----|-------------|--------|
+| A1 | LLM genre inference ≥ 85% | Run inference prompt on both fixtures + manual test cases |
+| A2 | LLM genre_chain inference ≥ 80% | Test with commentary titles |
+| A3 | LLM multi-layer detection ≥ 90% | Test on multi-layer and single-layer fixtures |
+| A4 | Two-model consensus effectiveness | Run same prompt through Claude + GPT, compare |
+| A5 | Scholar matching score formula accuracy | Test with variant spellings |
+| A6 | Trust evaluation weights/threshold correctness | Run on 5+ source scenarios |
+| A7 | Name normalization sufficiency | Test with real Shamela name variants |
+
+**Skills to use:** `kr-research` for the assumption testing.
+
+---
+
+## What to read
+
+1. `engines/source/SPEC_CORE.md` — The core SPEC (primary document)
+2. `engines/source/INTEGRITY_AUDIT.md` — Defects found and fixes applied
+3. `engines/source/CORE_VS_DEFERRED.md` — Classification decisions
+4. `engines/source/OWNER_SANITY_CHECK.md` — Questions for the owner
