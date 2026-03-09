@@ -1,5 +1,5 @@
 # Source Engine — LLM Inference Prompt Template
-# Version: draft-2 (includes attribution_status + scholarly_context)
+# Version: draft-3 (adds composition_date_hijri to scholarly_context)
 #
 # This file defines the system message and user message templates
 # used for metadata inference in §4.A.4.
@@ -82,6 +82,7 @@ Return a JSON object with exactly these fields:
   "attribution_notes": "<description of dispute when status is disputed, else null>",
   "scholarly_context": {{
     "composition_period": "<early/middle/late work and implications, or null>",
+    "composition_date_hijri": <approximate hijri year of composition, integer> | null,
     "tradition_position": "<the work's role in its scholarly tradition, or null>",
     "known_textual_issues": ["<specific documented issue>"] | [],
     "historical_significance": "<what makes this work notable, or null>",
@@ -103,6 +104,7 @@ IMPORTANT:
 - methodological_stance: null unless you have specific knowledge of this scholar's known methodology.
 - attribution_status: "definitive" when authorship is uncontested. "traditional" when conventionally accepted but not independently verified (default for classical works). "disputed" when actively contested. "unknown" when no author is identified.
 - scholarly_context: for known_textual_issues and edition_known_issues, populate ONLY with specific documented knowledge. Empty list [] is correct and preferred over fabrication.
+- composition_date_hijri: approximate hijri year when the work was composed. Integer, not a range. Null when unknown (the common case). When you know it was "around the middle of the 7th century AH," output approximately 650. When you only know "early" vs "late," leave null and use composition_period instead.
 - context_richness: self-assess honestly. "minimal" is the correct answer for works you know little about.
 - uncertain_dimensions: list field names from scholarly_context where you have low confidence.
 

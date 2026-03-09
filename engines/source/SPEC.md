@@ -1,4 +1,12 @@
-# Source Engine — محرك المصادر — Specification
+# ⚠ SUPERSEDED — DO NOT USE FOR IMPLEMENTATION
+
+**This file is the pre-core-extraction full SPEC, kept as an archive of Stage 2 (deferred) capability descriptions. The authoritative specification is `SPEC_CORE.md`.**
+
+Read `SPEC_CORE.md` instead. If you are looking for deferred feature descriptions (§4.B capabilities), see `CORE_VS_DEFERRED.md` for the classification.
+
+---
+
+# Source Engine — محرك المصادر — Specification (ARCHIVED)
 
 ## 1. Purpose and Scope
 

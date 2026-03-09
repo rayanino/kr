@@ -3,31 +3,41 @@
 **Responsibility:** Acquiring raw sources, assigning identifiers, extracting and inferring metadata, freezing originals, evaluating trustworthiness, and producing the metadata record that every downstream engine consumes.
 **Phase:** 1 (source-format-specific, above the normalization boundary).
 
-## Process
+## Authoritative Files
 
-Follow `skills/shared/ENGINE_PROTOCOL.md`. This engine is first in pipeline order and bootstraps the shared components (consensus, human_gate, scholar_authority, validation).
+| File | Role | Lines |
+|------|------|-------|
+| `SPEC_CORE.md` | **THE** specification. Behavioral authority. | ~1810 |
+| `contracts.py` | Schema authority. Pydantic models for all data structures. | ~1020 |
+| `prompts/inference_v1.py` | Draft LLM inference prompt (Step 2 iterates on this). | ~110 |
 
-## Required Reading
+**⚠ `SPEC.md` is SUPERSEDED.** It is the pre-core-extraction full spec, kept only as an archive of deferred (Stage 2) capability descriptions. Do NOT read it for current architecture — read `SPEC_CORE.md`.
 
-1. This engine's `SPEC.md` (1,465 lines — the authoritative specification)
-2. This engine's `contracts.py` (825 lines — Pydantic input/output schemas)
-3. `skills/shared/ENGINE_PROTOCOL.md` — the development process (Step 0-4)
-4. `reference/TESTING_FRAMEWORK.md` — test architecture (5a/5b/5c dimensions)
-5. `KNOWLEDGE_INTEGRITY.md` — 7 corruption threats this engine must prevent
-6. `SILENT_FAILURES.md` — 7 failure patterns to check against
-7. Output boundary: frozen source + metadata → normalization engine
+## Current State (as of 2026-03-09)
 
-## Current State
+**Step 1 (SPEC hardening): COMPLETE.** 8 review passes, all defects resolved. SPEC_CORE.md is locked. Deterministic assumptions (A3 name matching, A4 trust weights) validated.
 
-**SPEC:** 1,465 lines. Has been through prior refinement but needs core extraction (Step 1) — §4.B features and non-core formats must be deferred with extension hooks. §4.A needs rewriting for core-only focus. Immature by ENGINE_PROTOCOL's criteria.
+**Step 2 (LLM assumption testing): NEXT.** See `/NEXT.md` at repo root for the full test plan. Phase 0 (ground truth validation, eval harness, deterministic tests) is complete. Phases 1–3 (API calls, multi-model testing, consensus pair selection) are pending.
 
-**Contracts:** 825 lines. Written against the full SPEC including deferred features. Will be pruned during core extraction. Boundary with normalization has known mismatches (22+ fields) — the tracer bullet (Step 0) addresses this.
+**Step 3 (build prep): BLOCKED on Step 2.**
 
-**Code:** 27 pre-protocol stub files, 265 total lines. These are SPEC-derived placeholders, not working implementations. They include deferred features. The tracer bullet uses them as starting points; Step 3 replaces them with real code.
+## Required Reading (for Claude Code)
 
-**Tests:** None.
+1. `SPEC_CORE.md` — the specification (NOT SPEC.md)
+2. `contracts.py` — Pydantic schemas, enums, all data models
+3. `/NEXT.md` — current task directive with detailed test plan
+4. `/KNOWLEDGE_INTEGRITY.md` — 7 corruption threats this engine must prevent
+5. `/tests/SCORING_CRITERIA.md` — how to score LLM inference results
+6. `/tests/eval_harness.py` — automated scoring script (run this, don't score manually)
+7. `/tests/fixtures/GROUND_TRUTH.json` — expected answers (owner-validated)
+8. `/tests/fixtures/EXTRACTED_DATA.json` — pre-extracted fixture data for prompts
 
-**Shared component bootstrap:** This engine builds the first real implementations of consensus, human_gate, scholar_authority, and validation. See ENGINE_PROTOCOL.md engine-specific notes for the minimum viable method signatures needed.
+## Review History (reference/)
+
+Review artifacts from Step 1 are archived in `review/`. They document the audit trail but are not required reading for implementation:
+- INTEGRITY_AUDIT.md, DOWNSTREAM_CONTRACT_AUDIT.md, STEP1_HARDENING.md, etc.
+- CORE_VS_DEFERRED.md — classification of core vs Stage 2 features
+- OWNER_SANITY_CHECK*.md — domain validation by the owner
 
 ## What This Engine Does (Core Only)
 
@@ -37,7 +47,7 @@ Follow `skills/shared/ENGINE_PROTOCOL.md`. This engine is first in pipeline orde
 - Infers metadata via LLM when extraction is insufficient (multi-model consensus)
 - Detects duplicates via composite key matching
 - Freezes the raw source immediately upon acquisition (SHA-256 hash)
-- Evaluates trustworthiness: 3-tier classification (verified / flagged / unknown)
+- Evaluates trustworthiness: 3-tier classification (verified / flagged / owner_override)
 - Produces metadata.json consumed by the normalization engine
 
 ## Key Domain Concepts
@@ -46,3 +56,4 @@ Follow `skills/shared/ENGINE_PROTOCOL.md`. This engine is first in pipeline orde
 - **source_format**: Shamela HTML has specific structure (info.html + content.html)
 - **trust_tier**: Based on publisher reputation, tahqiq quality, manuscript lineage
 - **Three-tier ID**: source_id (this specific file), work_id (this book), canonical_id (this scholar's identity)
+
