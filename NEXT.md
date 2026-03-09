@@ -155,13 +155,14 @@ All four APIs verified working.
 
 ## Done When
 
-- [ ] Ground truth validated by owner (Phase 0)
-- [ ] Scoring criteria defined and evaluation harness built (Phase 0)
-- [ ] A3 (name matching) validated deterministically (Phase 0)
-- [ ] A4 (trust weights) validated deterministically (Phase 0)
+- [x] Ground truth validated by owner (Phase 0) — 9 fields corrected across 6 fixtures
+- [x] Scoring criteria defined and evaluation harness built (Phase 0) — tests/SCORING_CRITERIA.md + tests/eval_harness.py
+- [x] A3 (name matching) validated deterministically (Phase 0) — KNOWN ISSUE: substring containment boost needed, deferred to build
+- [x] A4 (trust weights) validated deterministically (Phase 0) — 13/13 PASS at threshold 0.65 (uniquely optimal)
 - [ ] A1: Inference prompt ≥95% JSON parse, ≥90% enum compliance (Phase 1)
 - [ ] A2: Multi-layer detection correct on all test cases or gated (Phase 1)
 - [ ] A5: Best consensus pair identified on production-tier models (Phase 2-3)
+- [x] Draft prompt template saved to `engines/source/prompts/inference_v1.py`
 - [ ] Final prompt templates saved to `engines/source/prompts/`
 - [ ] All [ASSUMPTION] markers in SPEC resolved
 
