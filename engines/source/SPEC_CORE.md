@@ -858,6 +858,7 @@ def extract_shamela_metadata(source_path: Path) -> dict:
                 'foreword_by', 'compiler_name_raw', 'translator',
                 'original_author_name_raw', 'commentator_name_raw',
                 'publication_year_raw', 'volume_count_raw', 'edition_raw',
+                'page_count_raw', 'author_short',
                 '_academic_course_code', '_academic_level', '_academic_year',
                 '_source_origin', '_tahqiq_origin'):
         if key in result:
@@ -924,6 +925,8 @@ All other metadata (author, genre, science, structural format) comes from LLM in
 | `publication_year_raw` | `format_specific_metadata.publication_year_raw` | Raw عام النشر / سنة النشر value (preserved even when parsed into publication_year_hijri/miladi) |
 | `volume_count_raw` | `format_specific_metadata.volume_count_raw` | Raw عدد الأجزاء / عدد المجلدات value; `metadata_volume_count` stores the parsed integer |
 | `edition_raw` | `format_specific_metadata.edition_raw` | Raw الطبعة value (preserved even when parsed into edition_number/year fields) |
+| `author_short` | `format_specific_metadata.author_short` | Short author name from card header parenthetical. Secondary signal for author identification when المؤلف is absent. |
+| `page_count_raw` | `format_specific_metadata.page_count_raw` | Raw عدد الصفحات value (the parsed integer is stored as `physical_page_count`) |
 
 **VolumeInfo construction.** For multi-volume sources, the engine constructs the `volumes: list[VolumeInfo]` during Step 7 (registration), after freezing:
 ```
@@ -1037,6 +1040,10 @@ Both `text_fidelity` and `text_fidelity_reason` are set together. `text_fidelity
 
 Additionally, when constructing the `GenreChain` object from the LLM's `genre_chain` output:
 - `genre_chain.confidence` ← LLM `genre_chain_confidence` (the same LLM value populates both `confidence_scores.genre_chain` and the `GenreChain.confidence` field, which is required on the model)
+
+**Field name mapping (LLM output → SourceMetadata).** Most LLM output fields map directly by name (genre→genre, structural_format→structural_format, etc.). Two field names differ:
+- LLM `layers` → `SourceMetadata.text_layers` (list of `TextLayer` objects; each LLM `author_name` is resolved to a `ScholarReference` via the scholar authority model §4.A.5 before constructing the `TextLayer`)
+- LLM `author_identification` → `SourceMetadata.author` (a `ScholarReference` constructed from LLM output fields plus scholar authority registry resolution)
 
 Author identification confidence goes into `author.confidence` (the `ScholarReference.confidence` field), NOT into `InferredFieldConfidence`. **Important:** `author.confidence` is subject to two caps: (1) the single-LLM biographical inference cap of 0.85 (see below), and (2) the attribution status cap — if `attribution_status` is `disputed`, `author.confidence` is capped at 0.70; if `unknown`, set to 0.0 (see Attribution Status below). Apply caps AFTER mapping the LLM value.
 
@@ -1708,3 +1715,8 @@ All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) ar
 - **(MINOR)** `SourceError.recovery_action` typed as `str` — changed to `Literal[...]` in contracts.py.
 - **(MINOR)** Prompt template permits `sectarian_tradition: "other"` not in SPEC — added to SPEC with documentation.
 - **(MINOR)** `WorkRegistryEntry` has `canonical_title_transliterated` and `citation_count` undocumented in §3.2 — added to SPEC.
+
+**Integrity Audit Self-Review (2026-03-09):**
+Self-review of the audit found 2 additional defects missed in the initial pass:
+- **(MINOR)** LLM output `layers` → `SourceMetadata.text_layers` rename undocumented at LLM→SourceMetadata boundary (only documented at normalization boundary) — added explicit field name mapping section to §4.A.4.
+- **(MINOR)** `author_short` (card header short author name) and `page_count_raw` (raw عدد الصفحات) extracted but not stored — added to `format_specific_metadata` preservation list and extractor mapping table.
