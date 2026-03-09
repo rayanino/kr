@@ -3,19 +3,16 @@
     "title": "أخبار أبي القاسم الزجاجي",
     "author_identified": "أبو القاسم الزجاجي (ت 337هـ)",
     "author_death_hijri": 337,
-    "genre": "other",
+    "genre": "adab",
     "science_scope": [
-      "nahw"
+      "adab"
     ],
     "structural_format": "prose",
     "is_multi_layer": false,
-    "level": "specialist",
+    "level": "intermediate",
     "authority_level": "primary",
     "expected_trust": "flagged",
-    "notes": "Biographical work about a grammarian. No muhaqiq.",
-    "_uncertain": {
-      "genre": "UNCERTAIN — أخبار could be tabaqat, sirah, or other. Need owner input."
-    }
+    "notes": "Literary compilation (أمالي/أخبار tradition). Classified under أدب by al-Warraq and islamicbook.ws. Shamela category النحو والصرف is author-driven, not content-based."
   },
   "02_nahw_muhaqiq": {
     "title": "أبنية الأسماء والأفعال والمصادر",
@@ -67,20 +64,17 @@
     "title": "أنوار الهلالين في التعقبات على الجلالين",
     "author_identified": "محمد بن عبد الرحمن الخميس",
     "author_death_hijri": null,
-    "genre": "sharh",
+    "genre": "risalah",
     "science_scope": [
-      "tafsir"
+      "tafsir",
+      "aqidah"
     ],
-    "structural_format": "commentary",
-    "is_multi_layer": true,
+    "structural_format": "prose",
+    "is_multi_layer": false,
     "level": "advanced",
     "authority_level": "modern_compilation",
     "expected_trust": "flagged",
-    "notes": "Modern corrections on Tafsir al-Jalalayn. Multi-layer is debatable — it's a taqaqqubat work.",
-    "_uncertain": {
-      "genre": "UNCERTAIN — تعقبات على الجلالين is corrections ON a tafsir. Could be sharh, hashiyah, or taqrirat.",
-      "is_multi_layer": "UNCERTAIN — references Jalalayn content but may not interleave it. Need content check."
-    }
+    "notes": "Modern تعقبات (critical corrections) on Tafsir al-Jalalayn. 56 pages. Not a sharh (does not explain) or hashiyah (does not supplement). Standalone critical work organized by مباحث, not verse order. Quotes al-Jalalayn in citation style, not interleaved layers. Should have genre_chain with responds_to relation to Tafsir al-Jalalayn."
   },
   "06_usul": {
     "title": "آداب الفتوى والمفتي والمستفتي",
@@ -101,7 +95,7 @@
     "title": "أساليب بلاغية",
     "author_identified": "أحمد مطلوب",
     "author_death_hijri": null,
-    "genre": "matn",
+    "genre": "other",
     "science_scope": [
       "balagha"
     ],
@@ -110,10 +104,7 @@
     "level": "intermediate",
     "authority_level": "modern_compilation",
     "expected_trust": "flagged",
-    "notes": "Modern balagha textbook. Contemporary Iraqi scholar.",
-    "_uncertain": {
-      "genre": "UNCERTAIN — modern textbook. Could be matn or risalah or other."
-    }
+    "notes": "Modern university textbook (محاضرات) for first-year Arabic students. By Prof. Ahmad Matloub, Baghdad University. Not a matn (no sharh/hashiyah ecosystem). Not a risalah (comprehensive textbook, not focused treatise)."
   },
   "08_death_date": {
     "title": "آداب الصحبة",
@@ -121,15 +112,14 @@
     "author_death_hijri": 412,
     "genre": "risalah",
     "science_scope": [
-      "tasawwuf",
-      "hadith"
+      "tasawwuf"
     ],
     "structural_format": "prose",
     "is_multi_layer": false,
     "level": "intermediate",
     "authority_level": "primary",
     "expected_trust": "flagged",
-    "notes": "Classical Sufi adab work. Has muhaqiq (مجدي فتحي السيد) but not in recognized list."
+    "notes": "Classical Sufi adab work by شيخ الصوفية al-Sulami. Hadith chains are the method of argumentation, not the subject. Shamela category كتب السنة is format-driven. Content is Sufi ethics of companionship."
   },
   "09_alt_title": {
     "title": "أسلوب خطبة الجمعة",
@@ -141,10 +131,10 @@
     ],
     "structural_format": "prose",
     "is_multi_layer": false,
-    "level": "beginner",
+    "level": "intermediate",
     "authority_level": "modern_compilation",
     "expected_trust": "flagged",
-    "notes": "Modern risalah on khutbah style. Government publication."
+    "notes": "Academic paper by a university professor, published in government religious affairs journal. Not beginner-level material."
   },
   "10_no_author": {
     "title": "البدر التمام بما صح من أدلة الأحكام",
@@ -160,10 +150,7 @@
     "level": "intermediate",
     "authority_level": "modern_compilation",
     "expected_trust": "flagged",
-    "notes": "Uses إعداد instead of المؤلف. Modern compilation of hadith evidence.",
-    "_uncertain": {
-      "genre": "UNCERTAIN — compilation of hadith evidence. Could be hadith_collection or fiqh_comparative."
-    }
+    "notes": "Modern compilation of Bukhari/Muslim hadith organized by fiqh chapters (أحاديث الأحكام sub-genre, modeled on بلوغ المرام). Content is hadith texts, organizing principle is fiqh topics. Both sciences apply."
   },
   "11_multi_small": {
     "title": "همع الهوامع في شرح جمع الجوامع",
@@ -191,10 +178,7 @@
     "level": null,
     "authority_level": "primary",
     "expected_trust": "flagged",
-    "notes": "Memoirs of Algerian intellectual. Has المقدمة.htm. Not traditional Islamic scholarship.",
-    "_uncertain": {
-      "science_scope": "UNCERTAIN — مالك بن نبي is Islamic thought/civilization, not a traditional Islamic science."
-    }
+    "notes": "Autobiography/memoirs of Algerian intellectual Malek Bennabi. Originally French (Pourritures), translated to Arabic. Personal narrative, not Islamic scholarship. level=null means classification inapplicable."
   },
   "alfiyyah_versified": {
     "title": "متن الفية ابن مالك فى علم النحو والصرف",
