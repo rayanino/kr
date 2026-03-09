@@ -38,7 +38,7 @@ DEFAULT_CONSENSUS_MODELS = [
 ]
 
 FALLBACK_MODEL = {
-    "provider_model": "openrouter/openai/gpt-4o",
+    "provider_model": "openrouter/openai/gpt-5.4",
     "api_key_env": "OPENROUTER_API_KEY",
 }
 
