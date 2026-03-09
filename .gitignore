@@ -1,5 +1,10 @@
 .cowork/
 
+# ─── Claude Code local settings (personal, not shared) ──────────────
+.claude/settings.local.json
+.claude/changes.log
+global-settings.json
+
 # ─── Frozen source files ─────────────────────────────────────────────
 # Source files are large and frozen at intake time. They are stored locally
 # but not tracked in version control. Each source's source_metadata.json
