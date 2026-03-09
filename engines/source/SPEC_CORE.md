@@ -67,7 +67,7 @@ Downstream engines write metadata corrections back to source records via structu
 7. **Referential integrity.** `author.canonical_id` must resolve in `scholars.json`, `work_id` must resolve in `works.json`.
 8. **Re-processing depth limit.** When enrichment triggers downstream re-processing and the re-processed output generates a further enrichment on the same source field that was just changed, the second enrichment is NOT auto-submitted. A human gate checkpoint is created instead.
 
-   **Detection mechanism:** The engine maintains a per-source `recent_enrichments` dict (in memory during processing, persisted as part of the metadata record's `_enrichment_tracking` field between sessions). Structure: `{field_name: {"changed_by": engine_name, "timestamp": iso_str, "generation": int}}`. The `generation` counter starts at 1 for the first enrichment to a field and increments each time. When a new enrichment arrives for a field that already has a `recent_enrichments` entry AND the entry's `generation` ≥ 1 AND the new enrichment was triggered by re-processing of the previous enrichment's change (detected by: the `requesting_engine` is downstream of the engine that made the previous change, AND the timestamp is within `enrichment_cycle_timeout` of the previous change, default 3600 seconds), the enrichment is blocked and a human gate checkpoint is created with trigger `ENRICHMENT_CRITICAL_FIELD` and detail explaining the cycle. The `recent_enrichments` entries expire after `enrichment_cycle_timeout` seconds — after that, a new enrichment to the same field is treated as a fresh change, not a cycle.
+   **Detection mechanism:** The engine maintains a per-source `recent_enrichments` dict (in memory during processing, persisted as part of the metadata record's `enrichment_tracking` field between sessions — see `SourceMetadata.enrichment_tracking` in contracts.py). Structure: `{field_name: {"changed_by": engine_name, "timestamp": iso_str, "generation": int}}`. The `generation` counter starts at 1 for the first enrichment to a field and increments each time. When a new enrichment arrives for a field that already has a `recent_enrichments` entry AND the entry's `generation` ≥ 1 AND the new enrichment was triggered by re-processing of the previous enrichment's change (detected by: the `requesting_engine` is downstream of the engine that made the previous change, AND the timestamp is within `enrichment_cycle_timeout` of the previous change, default 3600 seconds), the enrichment is blocked and a human gate checkpoint is created with trigger `ENRICHMENT_CRITICAL_FIELD` and detail explaining the cycle. The `recent_enrichments` entries expire after `enrichment_cycle_timeout` seconds — after that, a new enrichment to the same field is treated as a fresh change, not a cycle.
 9. **Verification context for critical fields.** Enrichments to `author.canonical_id`, `work_id`, `genre`, or `science_scope` must include a `verification_context` with `expected_work_id` and `expected_author_canonical_id` matching the actual source. Mismatches cause rejection (catches source_id targeting errors).
 
 **Critical field enrichment gate.** Enrichments to `author.canonical_id`, `work_id`, `genre`, or `science_scope` — regardless of source — trigger: (a) WARNING-level logging of old and new values, (b) human gate checkpoint for owner confirmation before applying, (c) stale-marking cascade on all downstream products from this source if confirmed.
@@ -98,9 +98,9 @@ All registry writes are validated against their Pydantic models and applied atom
 
 **Source registry** (`library/registries/sources.json`). Each entry conforms to `SourceRegistryEntry`: `source_id`, `work_id`, `human_label`, `title_arabic`, `author_canonical_id`, `trust_tier`, `processing_status`, `frozen_hash`, `intake_timestamp`, `acquisition_path`, `error_detail`.
 
-**Work registry** (`library/registries/works.json`). Each entry conforms to `WorkRegistryEntry`: `work_id`, `canonical_title`, `author_canonical_id`, `genre`, `science_scope`, `source_ids`, `preferred_source_id`, `relationships`, `status`, `volumes_present`, `volumes_missing`.
+**Work registry** (`library/registries/works.json`). Each entry conforms to `WorkRegistryEntry`: `work_id`, `canonical_title`, `canonical_title_transliterated` (Optional), `author_canonical_id`, `genre`, `science_scope`, `source_ids`, `preferred_source_id`, `relationships`, `status`, `citation_count` (§4.B.3 extension hook, defaults to 0), `volumes_present`, `volumes_missing`.
 
-**Scholar authority registry** (`library/registries/scholars.json`). Each entry conforms to `ScholarAuthorityRecord` (24 defined fields). The source engine is the primary writer. Structure and semantics defined in §4.A.5.
+**Scholar authority registry** (`library/registries/scholars.json`). Each entry conforms to `ScholarAuthorityRecord` (24 biographical/scholarly fields + 6 bookkeeping + 2 extension hooks). The source engine is the primary writer. Structure and semantics defined in §4.A.5.
 
 ### 3.3 Metadata Pass-Through (D-023)
 
@@ -698,6 +698,36 @@ def extract_shamela_metadata(source_path: Path) -> dict:
                 else:
                     result['edition_year_hijri'] = year_val
     
+    # --- Parse publication year from عام النشر / سنة النشر (fallback) ---
+    # These fields provide publication year independently of الطبعة. Parse them
+    # only when the edition field didn't already produce year values, to avoid
+    # overwriting more specific edition-year data with a generic publication year.
+    if 'publication_year_raw' in result:
+        if 'edition_year_hijri' not in result and 'edition_year_miladi' not in result:
+            for year_m in re.finditer(r'(\d{4})\s*(هـ|م)', result['publication_year_raw']):
+                year_val = int(year_m.group(1))
+                if year_m.group(2) == 'هـ':
+                    result['edition_year_hijri'] = year_val
+                else:
+                    result['edition_year_miladi'] = year_val
+            # Bare year fallback (same heuristic as edition_raw)
+            if 'edition_year_hijri' not in result and 'edition_year_miladi' not in result:
+                bare_years = re.findall(r'(\d{4})', result['publication_year_raw'])
+                if len(bare_years) == 1:
+                    year_val = int(bare_years[0])
+                    if year_val > 1500:
+                        result['edition_year_miladi'] = year_val
+                    else:
+                        result['edition_year_hijri'] = year_val
+    
+    # --- Parse volume count from عدد الأجزاء / عدد المجلدات (cross-check) ---
+    # The extractor already sets volume_count from file counting. The metadata
+    # card value serves as a cross-check and is stored in format_specific_metadata.
+    if 'volume_count_raw' in result:
+        digits = re.findall(r'\d+', result['volume_count_raw'])
+        if digits:
+            result['_metadata_volume_count'] = int(digits[0])
+    
     # --- Count body pages from PageText divs ---
     # This is the DIGITAL body page count — the number of actual content pages
     # in the HTM file. This becomes SourceMetadata.page_count.
@@ -827,6 +857,7 @@ def extract_shamela_metadata(source_path: Path) -> dict:
                 'editorial_note', 'thesis_info', 'supervisor', 'distributor',
                 'foreword_by', 'compiler_name_raw', 'translator',
                 'original_author_name_raw', 'commentator_name_raw',
+                'publication_year_raw', 'volume_count_raw', 'edition_raw',
                 '_academic_course_code', '_academic_level', '_academic_year',
                 '_source_origin', '_tahqiq_origin'):
         if key in result:
@@ -835,6 +866,8 @@ def extract_shamela_metadata(source_path: Path) -> dict:
         result['format_specific_metadata']['has_muqaddima'] = True
     if '_physical_page_count' in result:
         result['format_specific_metadata']['physical_page_count'] = result['_physical_page_count']
+    if '_metadata_volume_count' in result:
+        result['format_specific_metadata']['metadata_volume_count'] = result['_metadata_volume_count']
     if '_extra_card_fields' in result:
         result['format_specific_metadata']['extra_card_fields'] = result['_extra_card_fields']
     if quality_issues:
@@ -877,8 +910,8 @@ All other metadata (author, genre, science, structural format) comes from LLM in
 | `muhaqiq_name_raw` | Used to construct `muhaqiq: ScholarReference` | LLM resolves to canonical identity |
 | `publisher` | `publisher` | Direct copy |
 | `edition_number` | `edition_number` | Parsed from edition_raw |
-| `edition_year_hijri` | `publication_year_hijri` | From الطبعة field, suffix هـ |
-| `edition_year_miladi` | `publication_year_miladi` | From الطبعة field, suffix م (or bare year > 1500) |
+| `edition_year_hijri` | `publication_year_hijri` | From الطبعة field, suffix هـ. Falls back to عام النشر / سنة النشر if الطبعة has no years. |
+| `edition_year_miladi` | `publication_year_miladi` | From الطبعة field, suffix م (or bare year > 1500). Falls back to عام النشر / سنة النشر if الطبعة has no years. |
 | `page_count` | `page_count` | Always the DIGITAL body page count (PageText divs - 1). Physical book page count from عدد الصفحات is stored in `format_specific_metadata.physical_page_count`. The normalization engine uses `page_count` for validation — it must reflect actual pages in the frozen file. |
 | `is_multi_volume` | — | Used to set `volume_count` and populate `volumes` list (see below) |
 | `volume_count` | `volume_count` | From extractor or عدد الأجزاء field |
@@ -888,6 +921,9 @@ All other metadata (author, genre, science, structural format) comes from LLM in
 | `_quality_issues` | — | Used by the engine to set `text_fidelity` (see §4.A.4). Not stored directly. |
 | `original_author_name_raw` | `format_specific_metadata.original_author_name_raw` | Ground truth for multi-layer detection when مؤلف الأصل is present (0.3% of books) |
 | `commentator_name_raw` | `format_specific_metadata.commentator_name_raw` | Ground truth for multi-layer detection when الشارح is present (0.3% of books) |
+| `publication_year_raw` | `format_specific_metadata.publication_year_raw` | Raw عام النشر / سنة النشر value (preserved even when parsed into publication_year_hijri/miladi) |
+| `volume_count_raw` | `format_specific_metadata.volume_count_raw` | Raw عدد الأجزاء / عدد المجلدات value; `metadata_volume_count` stores the parsed integer |
+| `edition_raw` | `format_specific_metadata.edition_raw` | Raw الطبعة value (preserved even when parsed into edition_number/year fields) |
 
 **VolumeInfo construction.** For multi-volume sources, the engine constructs the `volumes: list[VolumeInfo]` during Step 7 (registration), after freezing:
 ```
@@ -998,6 +1034,9 @@ Both `text_fidelity` and `text_fidelity_reason` are set together. `text_fidelity
 - `confidence_scores.level` ← LLM `level_confidence` (Optional — null if LLM didn't infer)
 - `confidence_scores.multi_layer` ← LLM `multi_layer_confidence` (Optional)
 - `confidence_scores.genre_chain` ← LLM `genre_chain_confidence` (Optional — null if no genre chain)
+
+Additionally, when constructing the `GenreChain` object from the LLM's `genre_chain` output:
+- `genre_chain.confidence` ← LLM `genre_chain_confidence` (the same LLM value populates both `confidence_scores.genre_chain` and the `GenreChain.confidence` field, which is required on the model)
 
 Author identification confidence goes into `author.confidence` (the `ScholarReference.confidence` field), NOT into `InferredFieldConfidence`. **Important:** `author.confidence` is subject to two caps: (1) the single-LLM biographical inference cap of 0.85 (see below), and (2) the attribution status cap — if `attribution_status` is `disputed`, `author.confidence` is capped at 0.70; if `unknown`, set to 0.0 (see Attribution Status below). Apply caps AFTER mapping the LLM value.
 
@@ -1118,14 +1157,14 @@ LLM output:
 
 The scholar authority registry (`library/registries/scholars.json`) stores every scholar encountered. The source engine creates records; other engines enrich them.
 
-**Scholar record structure.** Each record conforms to `ScholarAuthorityRecord` in contracts.py (24 defined fields):
+**Scholar record structure.** Each record conforms to `ScholarAuthorityRecord` in contracts.py (24 biographical/scholarly fields + 6 bookkeeping metadata fields + 2 extension hooks for deferred capabilities):
 
 - **Identity:** `canonical_id` (format: `sch_{5_digit_sequence}`), `canonical_name_ar` (full Arabic name, immutable after creation), `known_as` (common names), `name_variants`, `kunya`, `laqab`, `nisba`
 - **Dates:** `birth_date_hijri`, `birth_date_ce`, `death_date_hijri`, `death_date_ce`, `death_date_approximate`, `era_century_hijri`
 - **Geography:** `geographic_origin`, `geographic_active`
-- **Scholarship:** `school_affiliations` (dict: science → school), `sectarian_tradition` (broad sectarian frame: "sunni", "twelver_shii", "zaydi", "ibadi" — prevents silent mixing of positions from different sectarian traditions in synthesis; default "sunni" for the owner's collection), `teachers` (list of canonical_ids), `students` (list of canonical_ids), `known_works` (list of work_ids), `scholarly_standing`, `methodology_notes`, `methodological_stance` (interpretive characterization of the scholar's approach, e.g. "tends toward strictness in hadith grading" — used by synthesis for authority weighting)
+- **Scholarship:** `school_affiliations` (dict: science → school), `sectarian_tradition` (broad sectarian frame: "sunni", "twelver_shii", "zaydi", "ibadi", "other" — prevents silent mixing of positions from different sectarian traditions in synthesis; "other" is the escape hatch for rare traditions not explicitly listed, e.g. Ismaili, and should be documented in `methodology_notes`; default "sunni" for the owner's collection), `teachers` (list of canonical_ids), `students` (list of canonical_ids), `known_works` (list of work_ids), `scholarly_standing`, `methodology_notes`, `methodological_stance` (interpretive characterization of the scholar's approach, e.g. "tends toward strictness in hadith grading" — used by synthesis for authority weighting)
 - **Disambiguation:** `disambiguation_notes` (e.g., "When 'ابن حجر' appears in hadith → likely sch_00042")
-- **Metadata:** `sources_encountered_in`, `record_completeness` (fraction of 24 fields with non-null values), `data_provenance_score` (fraction of biographical fields corroborated by non-LLM sources; 0.0 for Stage 1 since no external sources), `record_sources`, `revision_history`, `last_updated`
+- **Metadata:** `sources_encountered_in`, `record_completeness` (fraction of the 24 biographical/scholarly fields with non-null values — excludes the 6 bookkeeping fields), `data_provenance_score` (fraction of biographical fields corroborated by non-LLM sources; 0.0 for Stage 1 since no external sources), `record_sources`, `revision_history`, `last_updated`
 
 The `canonical_id` sequence is monotonically increasing: `sch_00001`, `sch_00002`, etc. The next available ID is determined by scanning the registry for the highest existing ID.
 
@@ -1636,7 +1675,7 @@ All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) ar
 - `TextLayer.layer_type` values aligned: uses `tahqiq_note` matching normalization engine's `LayerType.TAHQIQ_NOTE`
 - `HumanGateTrigger` enum: added `AUTHOR_SCIENCE_MISMATCH` for §5 Layer 1 consistency cross-check (§4.A.4 author-science mismatch)
 - Cross-boundary field mapping table added to §3.3 (normalization engine reads `is_multi_layer`/`text_layers`, not `multi_layer`/`layers`)
-- All 10 `HumanGateTrigger` enum values now have explicit SPEC backing
+- All 9 `HumanGateTrigger` enum values now have explicit SPEC backing
 - المقدمة.htm excluded from volume count, tracked in `format_specific_metadata.has_muqaddima`
 - Unmapped metadata card fields captured in `format_specific_metadata.extra_card_fields`
 - VolumeInfo construction logic added
@@ -1647,13 +1686,25 @@ All tracer findings from `TRACER_FINDINGS.md` §1 (15 field-level mismatches) ar
 - **Expanded FIELD_MAP:** 23 entries → 48 entries. New internal names introduced: `distributor`, `foreword_by`, `compiler_name_raw`, `translator`, `original_author_name_raw`, `commentator_name_raw`. These map to `format_specific_metadata` sub-fields, not top-level SourceMetadata fields.
 - **Content quality inspection:** `format_specific_metadata.quality_issues` (list of dicts with `check`, `severity`, `detail`). No contracts.py change needed — this is inside the existing `format_specific_metadata: dict` field.
 - **text_fidelity logic change:** Now content-aware (can downgrade from format baseline). No schema change — `text_fidelity` field and `TextFidelity` enum unchanged.
-- **New error codes:** `SRC_PAGE_COUNT_MISMATCH`, `SRC_CONTENT_MINIMAL`, `SRC_ENCODING_SUSPECT`, `SRC_HIGH_EMPTY_RATIO`, `SRC_ATTRIBUTION_DISPUTED`. Need addition to `ErrorCode` enum in `contracts.py`.
+- **New error codes:** `SRC_PAGE_COUNT_MISMATCH`, `SRC_CONTENT_MINIMAL`, `SRC_ENCODING_SUSPECT`, `SRC_HIGH_EMPTY_RATIO`, `SRC_ATTRIBUTION_DISPUTED`. Added to `ErrorCode` enum in `contracts.py` (integrity audit session).
 
 **SPEC Review Session Updates (Comment #2 — Scholarly Context — 2026-03-09):**
 - **New model `ScholarlyContext`:** Added to `contracts.py`. Contains 7 LLM-inferred content fields + 2 quality signal fields. Flat model — no sub-models.
 - **New field on `SourceMetadata`:** `scholarly_context: Optional[ScholarlyContext]`. Null when context inference failed or was skipped. All downstream engines handle null gracefully.
 - **Absorbed fields:** `work_notes` → `scholarly_context.historical_significance`. `muhaqiq_reputation_note` → `scholarly_context.muhaqiq_reputation`. These are NOT added as standalone SourceMetadata fields.
-- **New fields on `ScholarAuthorityRecord`:** `sectarian_tradition` (Optional[str]) and `methodological_stance` (Optional[str]). Field count 22 → 24. `record_completeness` denominator updated.
+- **New fields on `ScholarAuthorityRecord`:** `sectarian_tradition` (Optional[str]) and `methodological_stance` (Optional[str]). Biographical/scholarly field count 22 → 24. `record_completeness` denominator updated.
 - **Inference output schema:** `work_notes` and `muhaqiq_reputation_note` replaced by `scholarly_context` block containing: `composition_period`, `tradition_position`, `known_textual_issues`, `historical_significance`, `muhaqiq_reputation`, `tahqiq_methodology_note`, `edition_known_issues`, `context_richness`, `uncertain_dimensions`.
 - **Inference call strategy:** SPEC documents both single-call and two-call approaches. Step 2 testing determines which to use based on JSON reliability metrics.
 - **Design rationale:** Three rounds of critical review eliminated 11 originally proposed fields as redundant, misplaced, or over-engineered. Author-level context lives in ScholarAuthorityRecord (not duplicated per-source). No assembly utility function — the synthesis engine's existing metadata chain resolution handles joins. No era configuration file — synthesis engine handles periodization during narrative construction.
+
+**Integrity Audit (2026-03-09):**
+7-lens technical audit of SPEC_CORE.md and contracts.py. 9 defects found and fixed:
+- **(CRITICAL)** 5 error codes from Comment #1 missing from `ErrorCode` enum — added: `PAGE_COUNT_MISMATCH`, `CONTENT_MINIMAL`, `ENCODING_SUSPECT`, `HIGH_EMPTY_RATIO`, `ATTRIBUTION_DISPUTED`.
+- **(CRITICAL)** `enrichment_tracking` field missing from `SourceMetadata` — added as `Optional[dict[str, Any]]`. SPEC §2.2 field name aligned from `_enrichment_tracking` → `enrichment_tracking`.
+- **(IMPORTANT)** `GenreChain.confidence` mapping undocumented — added mapping line: `genre_chain.confidence` ← LLM `genre_chain_confidence`.
+- **(IMPORTANT)** `publication_year_raw` (from عام النشر / سنة النشر) extracted but never stored — added: fallback year-parsing when الطبعة has no years, preservation in `format_specific_metadata`, `volume_count_raw` and `edition_raw` also preserved, extractor mapping table updated.
+- **(MINOR)** Appendix claimed 10 `HumanGateTrigger` values; actual count is 9 — corrected.
+- **(MINOR)** ScholarAuthorityRecord "24 defined fields" counting convention unclear — clarified: 24 biographical/scholarly + 6 bookkeeping + 2 extension hooks.
+- **(MINOR)** `SourceError.recovery_action` typed as `str` — changed to `Literal[...]` in contracts.py.
+- **(MINOR)** Prompt template permits `sectarian_tradition: "other"` not in SPEC — added to SPEC with documentation.
+- **(MINOR)** `WorkRegistryEntry` has `canonical_title_transliterated` and `citation_count` undocumented in §3.2 — added to SPEC.

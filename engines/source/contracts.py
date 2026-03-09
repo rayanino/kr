@@ -234,6 +234,14 @@ class ErrorCode(str, Enum):
     SCHOLAR_SCHOOL_CONFLICT = "SRC_SCHOLAR_SCHOOL_CONFLICT"
     SCHOLAR_TEMPORAL_INCONSISTENCY = "SRC_SCHOLAR_TEMPORAL_INCONSISTENCY"
     FORMAT_STRUCTURE_MISSING = "SRC_FORMAT_STRUCTURE_MISSING"
+    # Content quality inspection codes (SPEC §4.A.3 / §7, Comment #1 session)
+    PAGE_COUNT_MISMATCH = "SRC_PAGE_COUNT_MISMATCH"
+    CONTENT_MINIMAL = "SRC_CONTENT_MINIMAL"
+    ENCODING_SUSPECT = "SRC_ENCODING_SUSPECT"
+    HIGH_EMPTY_RATIO = "SRC_HIGH_EMPTY_RATIO"
+    # Attribution status code (SPEC §4.A.4 / §7, Comment #1 session)
+    ATTRIBUTION_DISPUTED = "SRC_ATTRIBUTION_DISPUTED"
+    # Deferred error codes (only fire from deferred capabilities, not implemented in Stage 1)
     KITAB_CACHE_MISSING = "SRC_KITAB_CACHE_MISSING"
     KITAB_CACHE_CORRUPT = "SRC_KITAB_CACHE_CORRUPT"
     USUL_DATA_MISSING = "SRC_USUL_DATA_MISSING"
@@ -772,6 +780,13 @@ class SourceMetadata(BaseModel):
     # ── Progressive enrichment (SPEC §3) ──
     metadata_history: list[MetadataHistoryEntry] = Field(default_factory=list)
     enrichment_sources: list[str] = Field(default_factory=list)
+    enrichment_tracking: Optional[dict[str, Any]] = Field(
+        None,
+        description="Per-field enrichment generation counters for cycle detection "
+                    "(SPEC §2.2, invariant #8). Persisted between sessions. "
+                    "Structure: {field_name: {'changed_by': str, 'timestamp': str, "
+                    "'generation': int}}. Entries expire after enrichment_cycle_timeout seconds."
+    )
 
     # ── Owner-authored specific (SPEC §2) ──
     owner_authored_type: Optional[OwnerAuthoredType] = None
@@ -840,10 +855,9 @@ class SourceError(BaseModel):
     error_code: ErrorCode
     severity: ErrorSeverity
     message: str
-    recovery_action: str = Field(
-        description="'rejected' | 'human_gate_created' | 'field_flagged' | "
-                    "'skipped' | 'retry_scheduled'"
-    )
+    recovery_action: Literal[
+        "rejected", "human_gate_created", "field_flagged", "skipped", "retry_scheduled"
+    ] = Field(description="Recovery action taken for this error (SPEC §7)")
     context: Optional[dict[str, Any]] = None
 
 
