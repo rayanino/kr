@@ -1,54 +1,44 @@
-# Prompt for Next Chat — Strategic Readiness Evaluation
+# Prompt for Next Chat — Strategic Readiness Discussion
 
 Copy everything below the line into a new chat in this project.
 
 ---
 
-Clone the repo using the Github_key file, then read these files in this exact order before responding:
+Before responding, read these files from the repo:
 
-1. `STEERING.md` — what this project is (short, read first)
-2. `skills/shared/ENGINE_PROTOCOL.md` (331 lines) — the development process you are evaluating
-3. `OPEN_PROBLEMS.md` — current status and roadmap
-4. `KNOWLEDGE_INTEGRITY.md` — the 7 threats the process must prevent
-5. `SILENT_FAILURES.md` — the 7 failure patterns the process must avoid
-6. `reference/TESTING_FRAMEWORK.md` — test architecture (skim §1-§3 and §8, skip per-engine details)
-7. `engines/source/CLAUDE.md` — the first engine to be built (read as a concrete example of state)
+1. `skills/shared/ENGINE_PROTOCOL.md` — the development process we need to evaluate
+2. `OPEN_PROBLEMS.md` — current status and roadmap
+3. `KNOWLEDGE_INTEGRITY.md` — the 7 corruption threats
+4. `engines/source/CLAUDE.md` — the first engine (concrete example of current state)
 
-Do NOT read: VISION.md, SESSION_LOG.md, any SPEC.md, any contracts.py, reference/archive/. These are not relevant to this evaluation.
+Then skim these for context (don't deep-read):
+- `reference/TESTING_FRAMEWORK.md` §1-§3 and §8
+- `engines/source/SPEC.md` §1-§4 (first 200 lines — enough to see the SPEC style)
+- `engines/source/contracts.py` (first 100 lines — enough to see the contract style)
+
+Read anything else in the repo you think is relevant. Use your judgment.
 
 <context>
-خزانة ريان (KR) is a personal Islamic scholarly library with a 7-engine pipeline. No engine code runs yet — all src/ files are pre-protocol stubs. All 7 engines have SPECs (918-2006 lines) and Pydantic contracts (491-825 lines). The repo just went through a thorough audit: 20+ stale files archived, all cross-references verified, ENGINE_PROTOCOL.md had 10 HIGH-severity defects fixed using the project's own integrity lenses, all 7 engine CLAUDE.md files rewritten, gold baseline timing corrected, failure states added.
+The repo just went through a deep audit. ENGINE_PROTOCOL.md had 10 HIGH-severity defects fixed against the project's own integrity lenses. 20+ stale files were archived. All 7 engine CLAUDE.md files were rewritten. Cross-references were verified clean. No engine code runs — all src/ is pre-protocol stubs.
 
-SPEC defect counts (HIGH severity by check_spec_quality.py): excerpting 0, taxonomy 0, source 3, normalization 6, atomization 9, passaging 25, synthesis 6. These will be addressed during each engine's Step 1.
+SPEC quality varies sharply: excerpting and taxonomy have 0 HIGH defects, source has 3, but passaging has 25 (worst in the repo despite multiple refinement passes). All 6 contract boundaries show field mismatches per verify_metadata_flow.py.
 
-The current plan says: run a tracer bullet (Step 0) to validate all contract boundaries, then build engines one at a time through a 4-step cycle (SPEC → RESEARCH → BUILD → TEST).
-
-The owner is an Islamic studies student with no technical background. He provides domain knowledge only. All technical and architectural decisions come from Claude.
+The plan says: tracer bullet first (reconcile contracts, stub everything, run one fixture end-to-end), then build engines sequentially through a 4-step cycle.
 </context>
 
-<task>
-Evaluate whether ENGINE_PROTOCOL.md is strategically sound and ready to execute. This is not a formatting review or a defect hunt — those were done last session. This is a strategic assessment: will this plan actually produce a working, reliable pipeline?
+<what_I_want>
+A genuine discussion about whether ENGINE_PROTOCOL.md is strategically ready to execute, or whether there are problems that need fixing before we start.
 
-Investigate these specific concerns:
+I'm NOT looking for a report or a structured verdict. I want to think through this together. Push back on the plan where you see problems. Ask me questions where my input matters. Tell me if you think something looks wrong that I haven't considered.
 
-1. **Tracer bullet risk.** The protocol says the tracer bullet reconciles 7 contracts.py files that currently have mismatches at all 6 boundaries. But these contracts were written against full SPECs (including deferred features), and Step 1 will strip them to core-only. Is reconciling ALL fields before core extraction the right sequence? Or should core extraction happen first so the tracer bullet only reconciles what matters?
+Some concerns from the last session that may or may not be real problems (investigate them if they seem important, ignore them if they don't):
 
-2. **SPEC depth vs. build speed.** The protocol went through 3 planning sessions and a meta-audit before any code runs. The earlier HONEST_PLAN.md (now archived) diagnosed the project as over-specifying and under-building. Has the new protocol actually solved this, or has it just created a more sophisticated version of the same trap? What's the minimum viable Step 1 that gets to running code fastest without compromising quality?
+- The tracer bullet reconciles full contracts before Step 1 strips them to core-only. Wrong sequence?
+- The project has spent 3+ planning sessions and zero building sessions. Is the new protocol just a more sophisticated version of the same over-planning trap?
+- Passaging has the most defects despite the most refinement. Why? Structural problem?
+- Shared components get designed around the source engine's needs. Will that break for later engines?
+- Owner availability is unpredictable. Does strict sequential ordering create an unnecessary bottleneck?
+- What am I not seeing?
 
-3. **The passaging problem.** Passaging has 25 HIGH-severity SPEC defects — the worst in the repo — despite multiple refinement passes. The protocol now correctly notes this, but doesn't address a deeper question: why did multiple passes leave it in worse shape than engines with fewer passes? Is there a structural problem with the passaging SPEC that more refinement won't fix?
-
-4. **Shared component bootstrap.** The source engine must build minimum viable versions of 4 shared components (consensus, human_gate, scholar_authority, validation). ENGINE_PROTOCOL now lists specific method signatures. But building these during one engine's Step 3 means the shared component design is driven by one consumer's needs. Will this create problems when engine 2 (normalization) needs different behavior from the same components?
-
-5. **The owner bottleneck.** The protocol requires owner domain review for source and synthesis engines (heavy), normalization (moderate), and has a 3-day timeout for light-review engines. But the owner is a student — his availability is unpredictable. If the source engine's Step 1 blocks for 2 weeks waiting on domain comments, and the protocol has no parallelism, the entire pipeline stalls. Is strict sequential ordering actually necessary for Step 1 across engines?
-
-6. **What's missing.** What risks or gaps does the protocol not address that could cause failure? Think about: what happens when the first real Arabic text hits the pipeline and something unexpected occurs? What assumptions is the protocol making that haven't been questioned?
-
-For each concern: state what you find, whether it's a real problem or an acceptable tradeoff, and if it's a problem, propose a concrete fix. If the protocol is ready to execute as-is, say so and explain why the concerns are manageable. If it needs changes before starting, say that directly — do not soften the assessment.
-</task>
-
-<output_format>
-Structure your response as:
-1. One-paragraph overall verdict (ready / ready with caveats / not ready)
-2. Per-concern analysis (findings → judgment → fix if needed)
-3. If changes are needed: produce the specific edits, not just recommendations
-</output_format>
+But these are starting points, not the agenda. If you find bigger issues, lead with those.
+</what_I_want>
