@@ -44,7 +44,7 @@ The owner places source material in the intake staging area (`library/staging/`)
 
 **Supported formats (Stage 1):**
 
-1. **Shamela HTML export.** Either (a) a single `.htm` file (single-volume book — 76.7% of real exports), or (b) a directory of numbered `.htm` files like `001.htm`, `002.htm`, etc. (multi-volume book — 23.3%). Some multi-volume books also have a `المقدمة.htm` file (11.6%). There is NO separate `info.html` metadata file — metadata is embedded in the first `PageText` div of each `.htm` file. Content files use `<div class='PageText'>` for pages, `<span class='title'>` for metadata labels and section headings, and `<span class='PageNumber'>` for page numbers. Detection criteria: `.htm`/`.html` file containing `<div class='PageText'>`, `<span class='title'>`, and `<div class='Main'>`. The metadata card contains 50+ distinct field labels across the collection, including 20+ muhaqiq-equivalent editorial labels. The FIELD_MAP in §4.A.3 covers all labels with ≥5 occurrences; rarer muhaqiq labels are caught by pattern matching. See `reference/SHAMELA_FORMAT_ANALYSIS.md` for the HTML structural specification and `reference/SHAMELA_COLLECTION_AUDIT.md` for the empirical content-level analysis of the owner's full 2,256-book collection (field frequencies, quality anomalies, category distribution).
+1. **Shamela HTML export.** Either (a) a single `.htm` file (single-volume book — 76.7% of real exports), or (b) a directory of numbered `.htm` files like `001.htm`, `002.htm`, etc. (multi-volume book — 23.3%). Some multi-volume books also have a `المقدمة.htm` file (11.6%). There is NO separate `info.html` metadata file — metadata is embedded in the first `PageText` div of each `.htm` file. Content files use `<div class='PageText'>` for pages, `<span class='title'>` for metadata labels and section headings, and `<span class='PageNumber'>` for page numbers. Detection criteria: `.htm`/`.html` file containing `<div class='PageText'>`, `<span class='title'>`, and `<div class='Main'>`. The metadata card contains 50+ distinct field labels across the collection, including 48 muhaqiq-equivalent editorial labels. The FIELD_MAP in §4.A.3 covers all labels with ≥5 occurrences; rarer muhaqiq labels are caught by pattern matching. See `reference/SHAMELA_FORMAT_ANALYSIS.md` for the HTML structural specification and `reference/SHAMELA_COLLECTION_AUDIT.md` for the empirical content-level analysis of the owner's full 2,256-book collection (field frequencies, quality anomalies, category distribution).
 
 2. **Plain text.** A single `.txt` file containing Arabic text. Metadata is minimal: title from the first non-empty line, author unknown. Most metadata comes from LLM inference (§4.A.4). Detection criteria: file with `.txt` extension.
 
@@ -576,7 +576,16 @@ def extract_shamela_metadata(source_path: Path) -> dict:
     # Muhaqiq pattern matching for long-tail labels not in FIELD_MAP.
     # These are labels containing editorial work stems that appear with
     # <5 occurrences in the collection (50+ distinct variants found).
-    MUHAQIQ_STEMS = ['حقق', 'خرج', 'ضبط', 'صحح']
+    #
+    # IMPORTANT: Arabic Form II masdar (تفعيل) inserts ي between 2nd and 3rd
+    # radicals, so trilateral roots are NOT substrings of their masdar forms:
+    # حقق ∉ تحقيق, خرج ∉ تخريج, علق ∉ تعليق. Both forms must be listed.
+    MUHAQIQ_KEYWORDS = [
+        # Root verb forms (match حققه, خرّج, علّق عليه, etc.)
+        'حقق', 'خرج', 'ضبط', 'صحح', 'علق', 'راجع', 'اعتن',
+        # Form II masdar forms (match تحقيق و..., تخريج و..., etc.)
+        'تحقيق', 'تخريج', 'تعليق', 'تصحيح', 'مراجع',
+    ]
     MUHAQIQ_EXCLUSIONS = ['أصل التحقيق', 'المحقق (رسالة علمية)']
     
     for m in re.finditer(
@@ -592,7 +601,7 @@ def extract_shamela_metadata(source_path: Path) -> dict:
             if internal_name not in result or label in ('الكتاب', 'المؤلف', 'المحقق'):
                 result[internal_name] = value
                 result[f'_field_source_{internal_name}'] = label  # Track which label was used
-        elif value and label not in MUHAQIQ_EXCLUSIONS and any(stem in label for stem in MUHAQIQ_STEMS):
+        elif value and label not in MUHAQIQ_EXCLUSIONS and any(kw in label for kw in MUHAQIQ_KEYWORDS):
             # Long-tail muhaqiq label caught by pattern matching.
             # 50+ distinct editorial labels exist in the collection; the FIELD_MAP
             # covers labels with ≥5 occurrences, this catches the rest.
@@ -791,13 +800,21 @@ def extract_shamela_metadata(source_path: Path) -> dict:
     # Only meaningful when combined with page_count_mismatch.
     has_page_mismatch = any(q['check'] == 'page_count_mismatch' for q in quality_issues)
     if has_page_mismatch and body_page_count > 5:
-        last_body = body_text_parts[-1] if body_text_parts else ''
-        last_char = last_body.strip()[-1:] if last_body.strip() else ''
+        # Extract text from the LAST page segment (not body_text_parts, which
+        # only has the first ~2000 chars of the book).
+        last_seg = page_segments[-1] if len(page_segments) > 2 else ''
+        last_seg_html = last_seg.split("</div>", 1)
+        last_body_text = ''
+        if len(last_seg_html) >= 2:
+            last_body_html = last_seg_html[1].split("</div>")[0]
+            last_body_html = re.sub(r"<hr[^>]*>.*$", '', last_body_html, flags=re.DOTALL)
+            last_body_text = strip_tags(last_body_html).strip()
+        last_char = last_body_text[-1:] if last_body_text else ''
         if last_char and last_char not in '.؟!»)﴾]،' and not last_char.isdigit():
             quality_issues.append({
                 'check': 'truncation_with_mismatch',
                 'severity': 'warning',
-                'detail': 'Text ends without sentence-ending punctuation AND '
+                'detail': 'Last page ends without sentence-ending punctuation AND '
                           'page count is inconsistent — strongly suggests truncated export'
             })
     
@@ -974,7 +991,7 @@ Both `text_fidelity` and `text_fidelity_reason` are set together. `text_fidelity
 - `confidence_scores.multi_layer` ← LLM `multi_layer_confidence` (Optional)
 - `confidence_scores.genre_chain` ← LLM `genre_chain_confidence` (Optional — null if no genre chain)
 
-Author identification confidence goes into `author.confidence` (the `ScholarReference.confidence` field), NOT into `InferredFieldConfidence`.
+Author identification confidence goes into `author.confidence` (the `ScholarReference.confidence` field), NOT into `InferredFieldConfidence`. **Important:** `author.confidence` is subject to two caps: (1) the single-LLM biographical inference cap of 0.85 (see below), and (2) the attribution status cap — if `attribution_status` is `disputed`, `author.confidence` is capped at 0.70; if `unknown`, set to 0.0 (see Attribution Status below). Apply caps AFTER mapping the LLM value.
 
 **Constructing `needs_review_fields`.** After mapping confidences, iterate over `confidence_scores`: for each field with confidence < 0.70, add the field name to `needs_review_fields`. Also add `"author"` if the extractor found no `author_name_raw` field. This list drives the human gate review (§5 Layer 2).
 
@@ -1533,7 +1550,7 @@ Stored in `library/config/genre_synonyms.json`. Maps common non-standard genre v
 5. **Scholar matching.** Same author (different spelling) → same `canonical_id`. Different scholars (similar names) → different `canonical_id`s.
 6. **Work relationships.** Sharh title → genre chain + relationship edge. Standalone matn → no genre chain.
 7. **Freeze integrity.** Frozen files match computed SHA-256. Attempt to modify frozen file → detected.
-8. **Error codes.** Each of the 22 core error codes triggered at least once with correct code, severity, and recovery.
+8. **Error codes.** Each of the 27 core error codes triggered at least once with correct code, severity, and recovery.
 
 ### LLM-Worker Tests (5b)
 

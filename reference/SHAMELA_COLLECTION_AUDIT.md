@@ -105,7 +105,7 @@ These fields appear in the real collection but are currently caught only by the 
 
 ### 2.3 Complete Muhaqiq-Equivalent Label Inventory
 
-The SPEC currently recognizes 7 muhaqiq labels. The real collection contains **50 distinct labels** that indicate editorial/tahqiq work. For the FIELD_MAP, these should be grouped into tiers:
+The SPEC currently recognizes 7 muhaqiq labels. The real collection contains **48 distinct labels** that indicate editorial/tahqiq work (plus 2 non-muhaqiq labels — `قدم له` (foreword) and `أصل التحقيق` (tahqiq origin) — that share vocabulary with muhaqiq labels but serve different functions). For the FIELD_MAP, these should be grouped into tiers:
 
 **Tier 1: High-frequency labels (≥20 occurrences) — must be in FIELD_MAP:**
 المحقق (731), تحقيق (166), دراسة وتحقيق (53), راجعه (28), تحقيق ودراسة (21)
@@ -180,22 +180,21 @@ The current SPEC handles this correctly: the short name is extracted, the full a
 
 ## 4. Category (القسم) Distribution
 
-The Shamela category field is present in 99.9% of books. The top categories across the analyzed collection:
+The Shamela category field is present in 100% of books (2,256/2,256). The categories are extracted via a dedicated regex, not the general FIELD_MAP loop (القسم uses a different HTML pattern). Only 9 distinct category values appear in the collection — Shamela uses a flat, coarse classification system.
 
 | Category | Count | % |
 |----------|-------|---|
-| كتب السنة | ~350 | ~15% |
-| الفقه العام | ~200 | ~9% |
-| كتب عامة | ~180 | ~8% |
-| التفسير | ~120 | ~5% |
-| الدعوة والأمر بالمعروف | ~90 | ~4% |
-| النحو والصرف | ~85 | ~4% |
-| كتب اللغة | ~70 | ~3% |
-| أصول الفقه والقواعد الفقهية | ~65 | ~3% |
-| الفتاوى | ~60 | ~3% |
-| البلاغة | ~40 | ~2% |
+| كتب السنة | 1,151 | 51.0% |
+| كتب عامة | 289 | 12.8% |
+| التفسير | 222 | 9.8% |
+| النحو والصرف | 195 | 8.6% |
+| الفقه العام | 176 | 7.8% |
+| كتب اللغة | 69 | 3.1% |
+| أصول الفقه | 58 | 2.6% |
+| الفتاوى | 53 | 2.3% |
+| البلاغة | 41 | 1.8% |
 
-**Note:** The القسم value is Shamela's own classification and does NOT directly map to the engine's `science_scope`. The SPEC correctly treats it as an input signal to LLM inference, not as a direct assignment. Some categories (like "كتب عامة") are too broad to be useful; others (like "النحو والصرف") are reliable.
+**Notable:** Over half the collection (51%) is hadith literature (كتب السنة). This heavily skews the collection toward muhaqiq-bearing books (hadith tahqiq is the most active editorial tradition), which explains the high muhaqiq label frequency (32.4% having المحقق). The engine's trust evaluation and muhaqiq matching will be exercised primarily on hadith texts in the early library.
 
 ---
 
