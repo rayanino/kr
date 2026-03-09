@@ -237,7 +237,6 @@ class HumanGateTrigger(str, Enum):
     ENRICHMENT_CRITICAL_FIELD = "enrichment_critical_field"
     SCHOLAR_CONFLICT = "scholar_conflict"
     AUTHOR_SCIENCE_MISMATCH = "author_science_mismatch"
-    MISSING_REQUIRED_INPUT = "missing_required_input"
 
 
 # ──────────────────────────────────────────────────────────────────
