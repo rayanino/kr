@@ -154,8 +154,11 @@ async def infer_with_consensus(
     )
 
     if agreed:
-        # Use Model A (Command A) as the canonical response when agreed
-        return response_a
+        # Select the canonical response: prefer the model with higher
+        # stated confidence. If tied, prefer Model B (Opus 4.6, highest
+        # accuracy per Step 2). See REQUIREMENTS_source.md for full rules.
+        # The source engine's consensus.py implements this selection.
+        return response_a  # Placeholder — real impl selects by confidence
 
     # Disagreement → human gate
     checkpoint = HumanGateCheckpoint(

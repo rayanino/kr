@@ -44,14 +44,18 @@
 - Infers metadata via LLM when extraction is insufficient (multi-model consensus — D-041)
 - Detects duplicates via composite key matching
 - Freezes the raw source immediately upon acquisition (SHA-256 hash)
-- Evaluates trustworthiness: 3-tier classification (verified / flagged / owner_override)
+- Evaluates trustworthiness: 5-factor weighted algorithm → 3-tier classification (verified / flagged / owner_override)
 - Produces metadata.json consumed by the normalization engine
+
+## Resolved Design Tensions
+
+**Trust evaluation: SPEC_CORE wins over ENGINE_PROTOCOL.** ENGINE_PROTOCOL said "keep trust simple — 3-tier." SPEC_CORE specifies the full 5-factor weighted algorithm (author standing 0.30, tahqiq quality 0.25, publisher reputation 0.15, source authority 0.15, text fidelity 0.15) with threshold 0.65. SPEC_CORE wins — it was empirically validated in Step 2 (A4: 13/13 PASS at threshold 0.65, uniquely optimal across 0.55–0.75 range). The "3-tier" is the OUTPUT (verified/flagged/owner_override), not a simplification of the evaluation algorithm.
 
 ## Key Domain Concepts
 
 - **tahqiq**: Critical scholarly edition. The muhaqiq (editor) is NOT the author.
 - **source_format**: Shamela HTML is a single .htm file (or numbered volume files) with metadata card embedded in the first PageText div. See `reference/SHAMELA_FORMAT_ANALYSIS.md`.
-- **trust_tier**: Based on publisher reputation, tahqiq quality, manuscript lineage
+- **trust_tier**: 5-factor weighted score → verified (≥0.65) or flagged (<0.65). Based on author standing, tahqiq quality, publisher reputation, source authority, text fidelity.
 - **Three-tier ID**: source_id (this specific file), work_id (this book), canonical_id (this scholar's identity)
 
 ## Canonical Examples
