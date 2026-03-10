@@ -125,19 +125,18 @@ def register_source(
     sources_lock = FileLock(str(sources_path) + ".lock", timeout=_LOCK_TIMEOUT)
     works_lock = FileLock(str(works_path) + ".lock", timeout=_LOCK_TIMEOUT)
 
+    sources_acquired = False
     try:
         sources_lock.acquire()
+        sources_acquired = True
         works_lock.acquire()
     except Exception as exc:
-        # Clean up any acquired locks
-        try:
-            sources_lock.release()
-        except Exception:
-            pass
-        try:
-            works_lock.release()
-        except Exception:
-            pass
+        # Only release locks that were actually acquired
+        if sources_acquired:
+            try:
+                sources_lock.release()
+            except (OSError, RuntimeError):
+                pass
         raise RuntimeError(
             f"Lock timeout during registration of {metadata.source_id}: "
             f"{ErrorCode.REGISTRATION_INTERRUPTED.value}"

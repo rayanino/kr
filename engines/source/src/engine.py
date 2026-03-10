@@ -15,10 +15,13 @@ Startup: startup_cleanup(config) → list[str]
 from __future__ import annotations
 
 import asyncio
+import logging
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+_log = logging.getLogger(__name__)
 
 from engines.source.contracts import (
     AcquisitionPath,
@@ -174,6 +177,7 @@ def _build_genre_chain(inference: MetadataInferenceResult) -> GenreChain | None:
     try:
         relation_type = GenreRelationType(gc.relation_type)
     except ValueError:
+        _log.warning("Unknown relation_type '%s' in genre chain, skipping", gc.relation_type)
         return None
 
     return GenreChain(
@@ -398,11 +402,11 @@ async def acquire_source(
             except ValueError:
                 genre = Genre.OTHER
 
-            structural_format_val = inference.structural_format or "prose"
+            structural_format_val = inference.structural_format or "mixed"
             try:
                 structural_format = StructuralFormat(structural_format_val)
             except ValueError:
-                structural_format = StructuralFormat.PROSE
+                structural_format = StructuralFormat.MIXED
 
             authority_level_val = inference.authority_level or "modern_compilation"
             try:
@@ -627,8 +631,8 @@ async def acquire_source(
             processed_dir.mkdir(parents=True, exist_ok=True)
             try:
                 shutil.move(str(staging_result.source_path), str(processed_dir / source_id))
-            except Exception:
-                pass  # Non-fatal if move fails
+            except Exception as exc:
+                _log.warning("Failed to move processed source %s: %s", source_id, exc)
 
             _safe_remove_lock(lock_path)
             lock_path = None  # Prevent double-remove in finally
