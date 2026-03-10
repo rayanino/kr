@@ -59,4 +59,4 @@ The task spec originally called `stage_source()` before `acquire_source()` to ca
 4. **Owner** runs the validated script on all 73 books on his Windows machine.
 5. **Review** results in Claude Chat using kr-evaluate (5 books per session).
 
-**Budget:** ~€88 remaining. Step 3 estimate: €10-15. Step 3 ceiling: €50.
+**Budget:** ~€98 remaining (€100 ceiling − €1.80 spent in Step 0). Step 3 estimate: €10-15. Step 3 ceiling: €50.

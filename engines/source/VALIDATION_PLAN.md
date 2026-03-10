@@ -105,35 +105,37 @@ python scripts/run_session6_integration.py
 
 ---
 
-## Step 3: Targeted LLM Probes — Phase C (€5-10)
+## Step 3: Targeted LLM Probes — Phase C (€10-15)
 
 **Purpose:** Test LLM inference quality and consensus behavior on real diversity.
 
 **Prerequisites:** Steps 0, 1, and 2 complete. Zero known code bugs. Owner has reviewed 20 extraction samples.
 
-**Selection strategy (25-30 books, hand-picked by owner for diversity):**
+**Selection: 73 books** (owner expanded from original 30 to include edition variants, riwayah books, and additional coverage). See `PHASE_C_FINAL_SELECTION.md` for full rationale and `scripts/phase_c_books.txt` for the list.
 
 | Category | Count | Selection Criteria |
 |----------|-------|--------------------|
-| Genre coverage | 12 | One book per active Genre enum value |
-| Multi-layer | 3 | One sharh, one hashiyah, one taqrirat |
-| Disputed attribution | 3 | Known disputed works (owner selects) |
-| Edge cases | 3 | Versified fiqh, multi-author compilation, very short juz' |
-| High-value | 5 | Books the owner will use daily |
-| Modern | 4 | Contemporary authors, journal articles, non-scholarly |
+| Fixture regression (Group A) | 14 | 12 with ground truth + 2 alfiyyah editions |
+| Genre coverage (Group B) | 16 | All 18 Genre enum values covered, including edition variants |
+| Multi-layer (Group C) | 7 | Sharh, hashiyah, false-positive trap, tahqiq pseudo-layer, edition variants |
+| Disputed attribution (Group D) | 8 | Disputed, institutional, author-short-only, edition variants |
+| Trust calibration (Group E) | 5 | Clearly verified, clearly flagged, borderline, degraded |
+| Technical edge cases (Group F) | 6 | Riwayah, minimal content, truncated exports, page mismatches |
+| Consensus stress (Group G) | 6 | Obscure, genre-ambiguous, school-dependent, format-ambiguous, edition variants |
+| Additional coverage (Group H) | 11 | Same-author pairs, diwan, poetry, massive musnad, edition variants |
 
-**Cost estimate:** 30 books × ~$0.10/book = ~$3. Buffer for retries: $5-10 total.
+**Cost estimate:** 73 books × ~$0.15/book (Step 0 actual) = ~$11. With retries: ~€12. Budget ceiling: €50.
 
 **Output:** `tests/results/source_engine/phase_c/` — per RESULT_PRESERVATION.md protocol:
 - Per-book directory with `result.json` (full SourceMetadata), `extraction.json`, `llm_responses/` (raw per-model), `consensus.json`, `ground_truth_comparison.json`
 - `PHASE_C_MANIFEST.json` — reusability index (Phase E skips successfully processed books)
-- `PHASE_C_SUMMARY.json` — aggregate statistics
+- `PHASE_C_SUMMARY.json` — aggregate statistics including edition-group consistency analysis
 - `PHASE_C_LESSONS.md` — bugs found, LLM quality patterns, recommendations for Phase D
 
 **Review workflow:**
-- Owner reviews all 30 in 5-6 Claude Chat sessions (5 books per session, using kr-evaluate)
+- Owner reviews all 73 in ~15 Claude Chat sessions (5 books per session, using kr-evaluate)
 - Every finding categorized: CORE GAP / ENGINE BUG / LLM QUALITY / DATA ISSUE
-- Each validated result becomes new ground truth → GROUND_TRUTH.json expands from 13 to ~43 entries
+- Each validated result becomes new ground truth → GROUND_TRUTH.json expands from 13 to ~85 entries
 
 **GO/NO-GO:** Zero CORE GAP findings. All ENGINE BUG findings fixed. Confidence thresholds adjusted if needed.
 
@@ -149,7 +151,7 @@ python scripts/run_session6_integration.py
 - Stratified by: Shamela category (proportional), estimated era (pre-1000 AH, 1000-1300, post-1300), with/without muhaqiq
 - All Phase C books included (regression check)
 
-**Output:** `tests/results/source_engine/phase_d/` — same structure as Phase C per RESULT_PRESERVATION.md. `PHASE_D_MANIFEST.json` covers all 150 books. Phase C's 30 books included as regression checks. `PHASE_D_LESSONS.md` documents scaling patterns.
+**Output:** `tests/results/source_engine/phase_d/` — same structure as Phase C per RESULT_PRESERVATION.md. `PHASE_D_MANIFEST.json` covers all 150 books. Phase C's 73 books included as regression checks. `PHASE_D_LESSONS.md` documents scaling patterns.
 
 **Review:** Owner reviews targeted subset:
 - All ground truth mismatches
@@ -183,13 +185,13 @@ File: `tests/results/source_engine/COST_LOG.json`
 ```json
 {
   "phases": {
-    "0": {"books": 14,    "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"},
-    "A": {"books": 2519,  "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"},
-    "C": {"books": 30,    "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"},
-    "D": {"books": 150,   "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"},
-    "E": {"books": 2519,  "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"}
+    "0": {"books": 13,    "cost_usd": 1.95, "cost_eur": 1.80, "status": "complete"},
+    "A": {"books": 2519,  "cost_usd": 0.00, "cost_eur": 0.00, "status": "complete"},
+    "C": {"books": 0,     "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"},
+    "D": {"books": 0,     "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"},
+    "E": {"books": 0,     "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"}
   },
-  "total_eur": 0.00,
+  "total_eur": 1.80,
   "budget_ceiling_eur": 100.00
 }
 ```

@@ -81,13 +81,13 @@ Per-book JSON contains: `extracted_metadata` (full dict), `file_hashes`, `compos
 
 **Downstream value:** The normalization engine can read these to understand field distributions across 2,519 books. Phase C's pipeline can optionally read extraction results instead of re-parsing HTML (though extraction is cheap enough that re-parsing is acceptable).
 
-### Phase C (Step 3) — 30 books with LLM, €5–10
+### Phase C (Step 3) — 73 books with LLM, €10–15
 
 ```
 tests/results/source_engine/phase_c/
   PHASE_C_SUMMARY.json          # Aggregate statistics
   PHASE_C_LESSONS.md            # Bugs found, LLM quality patterns
-  PHASE_C_MANIFEST.json         # Reusability index for all 30 books
+  PHASE_C_MANIFEST.json         # Reusability index for all 73 books
   {book_name}/
     result.json                 # Full pipeline output (SourceMetadata-compatible)
     extraction.json             # Raw extraction result (same as Phase A format)
@@ -99,11 +99,11 @@ tests/results/source_engine/phase_c/
     ground_truth_comparison.json # Comparison with owner validation
 ```
 
-**Downstream value:** These 30 books are FINISHED source engine products. Phase D includes them as regression checks. Phase E skips them entirely (unless `needs_rerun` is set). The normalization engine can start development against these 30 real results.
+**Downstream value:** These 73 books are FINISHED source engine products. Phase D includes them as regression checks. Phase E skips them entirely (unless `needs_rerun` is set). The normalization engine can start development against these 73 real results.
 
 ### Phase D (Step 4) — 150 books with LLM, €20–30
 
-Same structure as Phase C, in `phase_d/`. The manifest covers all 150 books. Phase C's 30 books are included as regression checks (re-run and compared, but their results were already saved).
+Same structure as Phase C, in `phase_d/`. The manifest covers all 150 books. Phase C's 73 books are included as regression checks (re-run and compared, but their results were already saved).
 
 ### Phase E (Step 5) — Full collection, €40–50
 
@@ -186,4 +186,4 @@ The chain is: **Source → Normalization → Passaging → ... → Synthesis**. 
 
 ## Retroactive Note on Step 0
 
-Step 0 (13-fixture integration) was run before this protocol existed. Its results in `tests/results/source_engine/session6/` save only summaries — not raw LLM responses, not full SourceMetadata output. Those 13 books will be re-processed in Phase C (they're included in the 30-book set), so this is not a critical loss. But it illustrates why this protocol exists: €1.80 of API calls produced results we can't fully reuse.
+Step 0 (13-fixture integration) was run before this protocol existed. Its results in `tests/results/source_engine/session6/` save only summaries — not raw LLM responses, not full SourceMetadata output. Those 13 books will be re-processed in Phase C (they're included in the 73-book set), so this is not a critical loss. But it illustrates why this protocol exists: €1.80 of API calls produced results we can't fully reuse.

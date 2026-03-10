@@ -1,5 +1,5 @@
 # Phase C — 73 books for targeted LLM probes
-# 14 fixture-matching (ground truth) + 59 new
+# 12 fixture-matching (ground truth) + 2 alfiyyah editions (new) + 59 new
 
 
 # Group A

@@ -8,20 +8,20 @@
 
 ## Cost Model
 
-| Component | Per Book | 50 Books | % of Total |
+| Component | Per Book | 73 Books | % of Total |
 |-----------|---------|----------|-----------|
-| Command A input ($2.50/M) | $0.0075 | $0.38 | 12% |
-| Command A output ($10/M) | $0.0120 | $0.60 | 19% |
-| Opus 4.6 input ($5/M) | $0.0150 | $0.75 | 23% |
-| Opus 4.6 output ($25/M) | $0.0300 | $1.50 | 47% |
-| **Total (no retries)** | **$0.0645** | **$3.23** | |
-| Retries (10% estimate) | | $0.32 | |
-| Fallbacks (5% estimate) | | $0.07 | |
-| **Total worst case** | | **$5.61** | |
+| Command A input ($2.50/M) | $0.0075 | $0.55 | 12% |
+| Command A output ($10/M) | $0.0120 | $0.88 | 19% |
+| Opus 4.6 input ($5/M) | $0.0150 | $1.10 | 23% |
+| Opus 4.6 output ($25/M) | $0.0300 | $2.19 | 47% |
+| **Total (no retries)** | **$0.0645** | **$4.71** | |
+| Retries (10% estimate) | | $0.47 | |
+| Fallbacks (5% estimate) | | $0.10 | |
+| **Total worst case** | | **$8.18** | |
 
-**OpenRouter fee:** 5.5% on credit purchase. On $3-6 of OpenRouter usage (Command A + fallback), that's ~$0.20 overhead.
+**OpenRouter fee:** 5.5% on credit purchase. On $4-8 of OpenRouter usage (Command A + fallback), that's ~$0.30 overhead.
 
-**Key insight:** Opus output tokens are 47% of total cost. But the absolute cost (~€3-5) is negligible. The real financial risk is having to RE-RUN due to a preventable error. A single full re-run doubles the bill.
+**Key insight:** Opus output tokens are 47% of total cost. But the absolute cost (~€5-8) is negligible. The real financial risk is having to RE-RUN due to a preventable error. A single full re-run doubles the bill.
 
 ---
 
@@ -31,7 +31,7 @@
 
 **Status:** Specified in PHASE_C_TASK_SPEC.md Pre-Requisite 0
 **Impact:** 54% of books lose muhaqiq data, 74% lose edition data
-**Cost of NOT fixing:** If we discover after 50 books that the LLM never saw muhaqiq data, we'd need to re-run all 50 books = $3-6 wasted.
+**Cost of NOT fixing:** If we discover after 73 books that the LLM never saw muhaqiq data, we'd need to re-run all 73 books = $5-10 wasted.
 
 ### FINDING 2 (MODERATE): No temperature parameter set
 
@@ -62,7 +62,7 @@ result = await asyncio.wait_for(
 **File:** `engines/source/src/text_utils.py` — `strip_tags`
 **Status:** `strip_tags` correctly decodes HTML entities via `html.unescape()`. The decoded output contains invisible Unicode characters (zero-width non-joiners U+200C, non-breaking spaces U+00A0) which waste ~2-5% of text_sample tokens on non-informational characters.
 
-**Decision:** NOT fixing for Phase C. The waste is ~50 tokens/book × 50 books × $5/M = $0.01. Not worth the regression risk of changing text processing before a money-spending run. Document for Phase D cleanup.
+**Decision:** NOT fixing for Phase C. The waste is ~50 tokens/book × 73 books × $5/M = $0.02. Not worth the regression risk of changing text processing before a money-spending run. Document for Phase D cleanup.
 
 ### FINDING 4 (LOW): Instructor max_retries=0 (default)
 
@@ -75,7 +75,7 @@ result = await asyncio.wait_for(
 
 The system message (2321 chars) + JSON schema in user message (2630 chars) + post-schema instructions (1980 chars) = ~7000 chars of IDENTICAL content sent with every API call. Only the prompt_context (~500 chars) and text_sample (~2000 chars) change per book.
 
-**Optimization opportunity:** Anthropic prompt caching could save ~$0.45 across 50 books on the Opus 4.6 calls. However:
+**Optimization opportunity:** Anthropic prompt caching could save ~$0.65 across 73 books on the Opus 4.6 calls. However:
 - Requires code changes to add cache_control headers
 - Only works on Anthropic direct calls, not OpenRouter
 - $0.45 savings vs engineering risk of caching bugs
@@ -156,7 +156,7 @@ The system message (2321 chars) + JSON schema in user message (2630 chars) + pos
 | Risk | Likelihood | Impact | Mitigation |
 |------|-----------|--------|-----------|
 | API key invalid/expired | Low | Full re-run | Dry-run validates keys with test call |
-| Model deprecated mid-run | Very Low | Partial re-run | 50 books takes ~30 min — unlikely |
+| Model deprecated mid-run | Very Low | Partial re-run | 73 books takes ~15 min — unlikely |
 | Instructor version incompatibility | Low | Full re-run | Test on 2 books first |
 | Rate limiting (Anthropic) | Medium | Delays | Sequential processing with natural pauses |
 | Rate limiting (OpenRouter) | Medium | Delays | Sequential processing |
@@ -174,7 +174,7 @@ The system message (2321 chars) + JSON schema in user message (2630 chars) + pos
 **What I wrote:** Patch `shared.consensus.src.consensus.evaluate`
 **Why it's wrong:** Python's `from X import Y` copies the reference into the importing module's namespace. Patching `X.Y` does NOT affect the copy that `metadata_inference.py` already has.
 **What it should be:** Patch `engines.source.src.engine.infer_metadata` — this captures the MetadataInferenceResult (which, after Pre-Req 2, contains the full ConsensusResult).
-**Impact if not caught:** The Phase C script would silently produce empty llm_responses/ directories for all 50 books. We'd discover this after spending $5-7 and need to re-run.
+**Impact if not caught:** The Phase C script would silently produce empty llm_responses/ directories for all 73 books. We'd discover this after spending $8-11 and need to re-run.
 **Status:** FIXED in task spec.
 
 ### BUG 2 (CRITICAL): Pre-pipeline extraction creates lock that blocks pipeline
@@ -204,7 +204,7 @@ Each Phase C book gets its own empty registry. The author_agreement_fn's Case A 
 
 ### OBSERVATION 3: Actual cost likely ~$0.15/book, not $0.065
 
-Step 0 cost €1.80 for 13 books = ~$0.15/book. My theoretical estimate was $0.065. The 2.3× discrepancy likely comes from Instructor schema overhead tokens and default-temperature verbosity. Updated 50-book estimate: ~$7.50 + retries ≈ ~$9 ≈ ~€8. Still well within ceiling.
+Step 0 cost €1.80 for 13 books = ~$0.15/book. My theoretical estimate was $0.065. The 2.3× discrepancy likely comes from Instructor schema overhead tokens and default-temperature verbosity. Updated 73-book estimate: ~$10.95 + retries ≈ ~$12 ≈ ~€11. Still well within ceiling.
 
 ---
 
@@ -228,7 +228,13 @@ In TOOLS mode (Anthropic/Opus), Instructor sends the Pydantic schema as a tool d
 ### VERIFIED: Retry logic is useful at temperature=0
 Our retry uses `simplified_messages` on attempt 1 (strips LIBRARY CONTEXT section) — a different input, not identical. So even at temperature=0, the retry has a chance of producing different output. Additionally, API-level failures (timeout, 429 rate limit) are non-deterministic regardless of temperature. The retry handles both model failures and infrastructure failures correctly.
 
-### OPEN: Three questions deferred to next session
-- Q5: --force flag for re-running "success" books (design decision)
-- Q6: Agent team architecture (design question)
-- Q7: Edition variants — run all 73 or pick one per multi-edition work (design decision, ~$2.40 cost difference)
+### RESOLVED: Three questions from previous session
+
+**Q5: --force flag for re-running "success" books.**
+YES — added to `PHASE_C_TASK_SPEC.md`. `--force` overrides `--resume` and re-processes all books regardless of existing results. Needed when a pre-req fix (e.g., build_prompt_context) invalidates prior results.
+
+**Q6: Agent team architecture (sub-agents for parallel processing).**
+NO — Claude Code processes books sequentially. API rate limiting is the bottleneck, not CPU. The monkey-patch capture mechanism is inherently sequential. 73 books at ~12s each = ~15 minutes.
+
+**Q7: Edition variants — run all 73 or pick one per work.**
+RUN ALL 73. The ~16 edition variants test metadata consistency, muhaqiq differentiation, and pipeline stability. The I'lam al-Muwaqqi'in triplet (3 editions) is the single most valuable probe cluster. Cost difference: ~€2.40, negligible against €50 ceiling. Edition-group consistency analysis added to `PHASE_C_SUMMARY.json`.

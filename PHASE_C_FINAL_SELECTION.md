@@ -1,8 +1,8 @@
 # Phase C Final Book Selection — 50 Targeted LLM Probes
 
 **Status:** FINAL — all picks made, ready for owner download and Claude Code execution
-**Cost estimate:** ~€5–8 for 50 books
-**Review sessions:** 10 sessions × 5 books each
+**Cost estimate:** ~€10–15 for 73 books
+**Review sessions:** ~15 sessions × 5 books each
 
 ---
 
@@ -18,9 +18,9 @@
 
 ---
 
-## GROUP A: 13 Existing Fixtures (regression + full result capture)
+## GROUP A: 12 Fixture-Matching Books + 2 Alfiyyah Editions (regression + full result capture)
 
-These are processed from the FIXTURE directories, not the collection. The Phase C script handles them separately.
+These are processed from the COLLECTION, not from fixture directories. The Phase C script runs the full pipeline on the real Shamela exports, then compares the 12 fixture-matching results against `GROUND_TRUTH.json` entries. The 2 alfiyyah editions have no ground truth and are tested as new books. The plain-text `alfiyyah_versified` fixture is excluded from Phase C (validated in Step 0, covered again in Phase D).
 
 | # | Title | Ground Truth Key |
 |---|-------|-----------------|
@@ -36,7 +36,9 @@ These are processed from the FIXTURE directories, not the collection. The Phase 
 | A10 | البدر التمام بما صح من أدلة الأحكام | 10_no_author |
 | A11 | همع الهوامع في شرح جمع الجوامع | 11_multi_small |
 | A12 | مذكرات مالك بن نبي - العفن | 12_multi_muq |
-| A13 | ألفية ابن مالك (plain text fixture) | alfiyyah_versified |
+| A13 | ألفية ابن مالك - ت القاسم | *(new — no ground truth)* |
+| A14 | ألفية ابن مالك - ط التعاون | *(new — no ground truth)* |
+| ~~A15~~ | ~~ألفية ابن مالك (plain text fixture)~~ | ~~alfiyyah_versified~~ — **EXCLUDED from Phase C** |
 
 ---
 
@@ -111,8 +113,8 @@ Targeting known pipeline vulnerabilities from Phase A findings.
 |---|-----------|--------------|--------|---------------|
 | F01 | **Minimal content** (1 page) | حديث الضب الذي تكلم بين يدي النبي للطبراني | Phase A tiny books | Already used as D04. 1 page of content. Tests: is text_sample long enough for LLM inference? Does confidence correctly drop for sparse data? **Dual-use: also tests author-short-only.** |
 | F02 | **Large multi-volume** (>10 vols) | مجموع الفتاوى (ابن تيمية) | Group B06 | Already selected as B06. 37 volumes. Tests processing at scale. **Dual-use.** |
-| F03 | **Format B HTML** | *Owner must verify* — pick one of the 64 books that triggered Bug 2 | Phase A Bug 2 | I cannot identify specific Format B books from audit data. **Owner action:** when running Phase C, if any of the 50 books happens to be Format B, the extraction will confirm the fix. Additionally, the synthetic Format B fixture (created as a pre-req by Claude Code) covers this. Mark as "opportunistic" — if no Format B book is among the 50, we add one in Phase D. |
-| F04 | **رواية field** | *Pick from the 26 riwayah books* | Phase A | Cannot identify specific names from audit data. **Mitigation:** the 1,228 books in كتب السنة likely include most of the 26 رواية books. Some of our hadith picks (A04, C01, E01, D04) may include one. During Phase C execution, check the extraction.json for riwayah field presence. If none of the 50 books has it, add one in Phase D. |
+| F03 | **Format B HTML** | *Owner must verify* — pick one of the 64 books that triggered Bug 2 | Phase A Bug 2 | I cannot identify specific Format B books from audit data. **Owner action:** when running Phase C, if any of the 73 books happens to be Format B, the extraction will confirm the fix. Additionally, the synthetic Format B fixture (created as a pre-req by Claude Code) covers this. Mark as "opportunistic" — if no Format B book is among the 73, we add one in Phase D. |
+| F04 | **رواية field** | أمالي المحاملي رواية ابن الصلت, تاريخ ابن معين - رواية الدارمي, + 4 more | Phase A + Owner additions | The owner added 6 explicit riwayah books to Group F in books.txt. Check extraction.json for riwayah field presence. **Now directly covered**, unlike the original 50-book plan. |
 | F05 | **Truncated export** | أحاديث العطار عن شيوخه | Phase A page_mismatch | Already used as E04. 10 digital vs 279 physical pages. Tests: pipeline behavior on severely incomplete text. Quality_issues should flag truncation. **Dual-use.** |
 | F06 | **Page count mismatch** | الإبدال في لغات الأزد | Phase A page_mismatch | 73 digital vs 494 physical pages (15% complete). Less severe truncation than F05 — still has substantial text. Tests: does moderate truncation affect LLM inference quality? Does quality_issues correctly flag it? |
 | F07 | **Multiple muhaqiqs** | تفسير الطبري (جامع البيان) - ت. أحمد شاكر | Group C04 | Ahmad Shakir's tahqiq was completed by others after his death. Tests: how does the pipeline handle partial tahqiq with multiple editors? **Dual-use with C04.** |
@@ -135,9 +137,11 @@ Chosen because the two models (Opus 4.6 + Command A) are likely to disagree, tes
 
 ---
 
-## Final Deduplicated Book List (37 distinct books + 13 fixtures = 50 total)
+## Original 50: Deduplicated Book List (37 distinct books + 13 fixtures)
 
-After resolving dual-use overlaps, here are the 37 NEW books to process from Shamela (in addition to the 13 fixtures):
+The architect originally selected 37 new books + 13 fixtures = 50 total. The owner then expanded the list to 73 by adding edition variants, riwayah books, and additional coverage across all groups. **The authoritative list is `scripts/phase_c_books.txt` (73 books).** The table below documents the original 37 and their test rationale.
+
+After resolving dual-use overlaps, the original 37 NEW books from Shamela (in addition to the 13 fixtures):
 
 | # | Shamela Title | Groups | Primary Test |
 |---|--------------|--------|-------------|
@@ -171,9 +175,7 @@ After resolving dual-use overlaps, here are the 37 NEW books to process from Sha
 | 28 | شرح العقيدة الطحاوية (ابن أبي العز) | G03 | school-dependent classification + multi-layer |
 | 29 | مقامات الحريري | G04 | structural format ambiguity |
 
-**Count: 29 distinct new books + 8 dual-use overlaps resolved = 29 new + 13 fixtures = 42 total processing units.** 
-
-Wait — I need 50 total. Let me add 8 more strategically selected books to reach 50.
+**Original 29 distinct + 8 dual-use = 37 new books + 13 fixtures = 50 total.** The owner then expanded the list to 73 — see `scripts/phase_c_books.txt` for the full set and "FINAL COUNT" below for the updated breakdown.
 
 ---
 
@@ -194,9 +196,10 @@ These fill remaining gaps and add depth where single probes are insufficient.
 
 ---
 
-## FINAL COUNT: 50
+## FINAL COUNT: 73
 
-- Group A: 13 fixtures
+**Original architect selection (50):**
+- Group A: 13 fixtures (12 with ground truth + 1 alfiyyah)
 - Group B: 11 genre coverage
 - Group C: 4 multi-layer
 - Group D: 6 attribution/author
@@ -205,9 +208,13 @@ These fill remaining gaps and add depth where single probes are insufficient.
 - Group G: 4 consensus stress (2 dual-use)
 - Group H: 8 additional coverage
 
-Distinct new books from Shamela: **37**
-Fixtures: **13**
-**Total: 50**
+**Owner expansion (+23 books to 73):**
+The owner added edition variants, riwayah books, and additional editions across all groups. Key additions: 2 alfiyyah editions (Group A), additional editions of البداية والنهاية / إعلام الموقعين / شرح العقيدة الطحاوية / تفسير الطبري / حاشية ابن عابدين / تحفة المودود / الإبانة / فتاوى اللجنة الدائمة, 6 riwayah books (Group F), sharh/commentary pairs for ديوان المتنبي (Group H), التعليق على الرحيق المختوم, المستدرك على مجموع الفتاوى, النكت على شرح النووي, and others.
+
+Distinct books from Shamela collection: **59**
+Fixture-matching collection books (with ground truth): **12**
+Alfiyyah editions (new, no ground truth): **2**
+**Total: 73** (see `scripts/phase_c_books.txt`)
 
 ---
 
@@ -231,7 +238,7 @@ Fixtures: **13**
 
 ## books.txt Template
 
-After verifying which books are in the collection (directory name matching), create this file:
+> **SUPERSEDED:** The owner has provided the actual file at `scripts/phase_c_books.txt` (73 books with verified directory names). The template below was the original 50-book draft. Use `phase_c_books.txt` instead.
 
 ```
 # Group A fixtures are handled separately by the Phase C script

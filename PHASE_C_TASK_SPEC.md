@@ -145,8 +145,14 @@ python scripts/run_phase_c.py COLLECTION_DIR --books books.txt
 # Single book (for testing)
 python scripts/run_phase_c.py COLLECTION_DIR --book "أحكام الاضطباع والرمل في الطواف"
 
-# Resume after interruption (skip already-processed books)
+# Resume after interruption (skip already-processed books with status "success")
 python scripts/run_phase_c.py COLLECTION_DIR --books books.txt --resume
+
+# Force re-run of specific book (even if it already has status "success")
+python scripts/run_phase_c.py COLLECTION_DIR --book "أحكام الاضطباع والرمل في الطواف" --force
+
+# Force re-run of ALL books (ignores existing results entirely)
+python scripts/run_phase_c.py COLLECTION_DIR --books books.txt --force
 
 # Dry run (validate setup, no API calls)
 python scripts/run_phase_c.py COLLECTION_DIR --books books.txt --dry-run
@@ -156,7 +162,8 @@ python scripts/run_phase_c.py COLLECTION_DIR --books books.txt --dry-run
 - `COLLECTION_DIR`: Path to the Shamela export directory containing all .htm book folders
 - `--books FILE`: Text file listing book directory names (one per line, UTF-8)
 - `--book NAME`: Single book directory name (for testing)
-- `--resume`: Skip books that already have a result.json in the output directory
+- `--resume`: Skip books that already have a `result.json` with `status: "success"` in the output directory. Books with `status: "error"` are re-processed (the error may have been transient). Has no effect when combined with `--force`.
+- `--force`: Re-run books even if they already have `status: "success"` results. Existing result directories are overwritten. Use after fixing a pre-requisite bug that invalidates prior results. Overrides `--resume`.
 - `--dry-run`: Validate environment, check all books exist, verify API keys work with a minimal test call, estimate cost, then exit. The API test call should be a trivial inference (not a real book) to confirm both Anthropic and OpenRouter keys are valid and models respond.
 - `--output-dir DIR`: Override output directory (default: `tests/results/source_engine/phase_c/`)
 - `--budget-eur FLOAT`: Maximum cost ceiling in EUR (default: 50.0)
@@ -172,7 +179,7 @@ Script MUST check both keys exist before starting. Exit with clear error if miss
 
 ### Early Abort on Model Failure
 
-If the FIRST book fails with an API error (not a parse error — an actual connectivity/auth failure), abort immediately with a clear error message. Do not proceed to book 2. This prevents burning extraction time on 49 books when the API keys are invalid or models are down.
+If the FIRST book fails with an API error (not a parse error — an actual connectivity/auth failure), abort immediately with a clear error message. Do not proceed to book 2. This prevents burning extraction time on 72 books when the API keys are invalid or models are down.
 
 If 3 consecutive books fail with API errors (after the first book succeeded), pause and ask for user confirmation before continuing. This catches intermittent rate-limiting without losing all progress.
 
@@ -241,6 +248,13 @@ async def process_book(book_path, output_dir, ground_truth):
     # 1. Create isolated temp library
     config = create_temp_library(...)
     
+    # 1b. Configure human gate for this temp library
+    #     Without this, any book that triggers a gate (disputed attribution,
+    #     low confidence, trust flagged) will crash with FileNotFoundError
+    #     when the pipeline tries to write a checkpoint file.
+    from shared.human_gate.src.human_gate import configure as configure_gate
+    configure_gate(gates_dir=config.library_root / "gates", auto_approve=True)
+    
     # 2. Copy book to staging
     staging_path = copy_to_staging(book_path, config)
     
@@ -284,7 +298,9 @@ async def process_book(book_path, output_dir, ground_truth):
     # ── PIPELINE: API calls happen here ──
     
     # IMPORTANT: Reset capture variable before each book to prevent data bleed
-    # from previous book if this book's infer_metadata fails
+    # from previous book if this book's infer_metadata fails.
+    # SEQUENTIAL ONLY — this global capture pattern breaks with concurrent
+    # book processing (asyncio.gather). Phase C processes books sequentially.
     _captured_inference = None
     
     # 6. Run full pipeline (steps 1-13) with consensus capture wrapper active
@@ -465,7 +481,7 @@ The `_` prefixed fields are diagnostic gold — they show which HTML field label
   "phase": "C",
   "pipeline_version": "22a260c",  // git commit hash at time of run
   "timestamp": "2026-03-10T14:30:00Z",
-  "total_books": 30,
+  "total_books": 73,
   "books": {
     "أحكام الاضطباع والرمل في الطواف": {
       "status": "success",
@@ -488,36 +504,69 @@ The `_` prefixed fields are diagnostic gold — they show which HTML field label
   "phase": "C",
   "pipeline_version": "22a260c",
   "timestamp": "2026-03-10T15:45:00Z",
-  "total_books": 30,
-  "successful": 28,
+  "total_books": 73,
+  "successful": 70,
   "failed": 1,
-  "gate_pending": 1,
-  "total_cost_eur": 3.50,
+  "gate_pending": 2,
+  "total_cost_eur": 8.50,
   "avg_cost_per_book_eur": 0.12,
   "avg_processing_time_seconds": 11.5,
   "consensus_stats": {
-    "agreed": 25,
-    "disagreed_resolved": 3,
-    "fallback_triggered": 2,
-    "human_gate_triggered": 1
+    "agreed": 60,
+    "disagreed_resolved": 8,
+    "fallback_triggered": 3,
+    "human_gate_triggered": 2
   },
   "field_coverage": {
-    "genre": {"present": 30, "high_confidence": 27},
-    "author_name": {"present": 30, "high_confidence": 24},
-    "is_multi_layer": {"present": 30, "high_confidence": 28}
+    "genre": {"present": 73, "high_confidence": 65},
+    "author_name": {"present": 73, "high_confidence": 58},
+    "is_multi_layer": {"present": 73, "high_confidence": 68}
   },
   "ground_truth_results": {
-    "total_compared": 13,
-    "genre_match": 12,
-    "author_match": 11,
-    "trust_match": 13,
-    "multi_layer_match": 13
+    "total_compared": 12,
+    "genre_match": 11,
+    "author_match": 10,
+    "trust_match": 12,
+    "multi_layer_match": 12
   },
+  "edition_groups": [
+    {
+      "work_short": "إعلام الموقعين",
+      "editions": ["أعلام الموقعين - ط عطاءات العلم", "إعلام الموقعين - ط العلمية", "إعلام الموقعين - ت مشهور"],
+      "genre_consistent": true,
+      "author_consistent": true,
+      "is_multi_layer_consistent": true,
+      "muhaqiq_differs": true,
+      "notes": "All 3 agree on genre, author, multi-layer. Muhaqiq varies by edition as expected."
+    }
+  ],
   "errors": [
     {"book": "...", "error_code": "...", "message": "..."}
   ]
 }
 ```
+
+### Edition Groups (edition_groups in PHASE_C_SUMMARY.json)
+
+The 73 books include ~16 edition variants across ~8 works (e.g., 3 editions of إعلام الموقعين, 2 editions of البداية والنهاية, 2 editions of شرح العقيدة الطحاوية). The `edition_groups` array compares pipeline results across editions of the same work.
+
+**How to compute:** After all books are processed, group result.json files by work identity (same author + same core title, ignoring muhaqiq/publisher/طبعة suffixes). For each group, compare: `genre`, `author_identification.canonical_name_ar`, `author_identification.death_date_hijri`, `is_multi_layer`, `science_scope`, `trust_tier`. Flag any inconsistency — it indicates the pipeline's output depends on edition-specific metadata rather than the work itself.
+
+**Known edition groups in books.txt** (the script should detect these automatically by comparing `author_identification` + normalized title across results, but these are the expected groupings):
+
+| Work | Editions in books.txt |
+|---|---|
+| إعلام الموقعين | أعلام الموقعين - ط عطاءات العلم, إعلام الموقعين - ط العلمية, إعلام الموقعين - ت مشهور |
+| البداية والنهاية | البداية والنهاية - ت التركي, البداية والنهاية - ط السعادة |
+| شرح العقيدة الطحاوية | شرح العقيدة الطحاوية - ط الرسالة, شرح العقيدة الطحاوية - ط الأوقاف السعودية |
+| تفسير الطبري | تفسير الطبري جامع البيان - ت التركي, تفسير الطبري جامع البيان - ط دار التربية والتراث |
+| حاشية ابن عابدين | حاشية ابن عابدين = رد المحتار - ط الحلبي, تكملة حاشية ابن عابدين = قرة عيون الأخيار |
+| تحفة المودود | تحفة المودود بأحكام المولود - ت الأرنؤوط, تحفة المودود بأحكام المولود - ط عطاءات العلم |
+| الإبانة | الإبانة عن أصول الديانة - ت العصيمي, الإبانة عن أصول الديانة - ت فوقية |
+| فتاوى اللجنة الدائمة | فتاوى اللجنة الدائمة - المجموعة الأولى, فتاوى اللجنة الدائمة - المجموعة الثانية |
+| ألفية ابن مالك | ألفية ابن مالك - ت القاسم, ألفية ابن مالك - ط التعاون |
+
+**Note:** حاشية ابن عابدين + تكملة حاشية ابن عابدين are technically different works (the تكملة is by ابن عابدين's son). If the pipeline correctly identifies different authors, they should NOT be grouped. This is itself a valuable test.
 
 ---
 
@@ -569,7 +618,7 @@ Approximate per-book cost (based on Step 0 data):
 
 3. **API failures:** If both primary models fail AND the fallback fails for a single book, mark it as error and continue. If 3 consecutive books fail with API errors (not parse errors), stop the run — this likely indicates an API key or rate limit issue.
 
-4. **Resume support:** `--resume` checks `output_dir/{book_name}/result.json` existence. If present and `status: "success"`, skip. If present and `status: "error"`, re-process (the bug may have been an intermittent API failure).
+4. **Resume support:** `--resume` checks `output_dir/{book_name}/result.json` existence. If present and `status: "success"`, skip. If present and `status: "error"`, re-process (the bug may have been an intermittent API failure). `--force` overrides `--resume` and re-processes all books regardless of existing results.
 
 ---
 
@@ -620,7 +669,7 @@ The `ground_truth_comparison.json` for matched books:
 
 ## Matching Fixture Books to Collection
 
-The 13 existing fixtures correspond to specific books in the collection. The script needs to process the FULL collection copies, not the fixture files. Match fixtures to collection directories by `display_title` from the fixture MANIFEST.json:
+The 12 Shamela fixtures correspond to specific books in the collection. The script needs to process the FULL collection copies, not the fixture files. Match fixtures to collection directories by `display_title` from the fixture MANIFEST.json:
 
 | Fixture | Display Title (search for this in COLLECTION_DIR) |
 |---|---|
@@ -637,7 +686,7 @@ The 13 existing fixtures correspond to specific books in the collection. The scr
 | 11_multi_small | همع الهوامع في شرح جمع الجوامع |
 | 12_multi_muq | مذكرات مالك بن نبي - العفن |
 
-The 13th (alfiyyah_versified) is a plain-text fixture, not from Shamela. It should be processed from the fixture directory, not the collection.
+The 13th fixture (alfiyyah_versified) is a plain-text fixture, not from Shamela. It is **excluded from Phase C** — it was already validated in Step 0 and will be covered in Phase D. The two Shamela alfiyyah editions in books.txt (`ألفية ابن مالك - ت القاسم` and `ألفية ابن مالك - ط التعاون`) are NEW books without ground truth — they test whether the pipeline handles the same didactic poem from Shamela HTML format.
 
 When writing `books.txt`, the owner uses the COLLECTION_DIR directory names. The script resolves these against the actual filesystem.
 
@@ -685,8 +734,10 @@ These are low-priority. Do them only if the Phase C script is working and tested
 - [ ] `scripts/run_phase_c.py` exists and runs
 - [ ] 2-book test run produces correct output structure (see checklist below)
 - [ ] Budget protection works (tested with `--budget-eur 0.01` to force ceiling hit)
-- [ ] Resume mode works
+- [ ] Resume mode works (re-run skips books with status "success")
+- [ ] Force mode works (`--force` re-runs books even with status "success")
 - [ ] Dry-run mode works
+- [ ] Human gate configured: verify a gate-triggering book (e.g., الفقه الأكبر) doesn't crash with FileNotFoundError
 - [ ] All existing tests still pass (768+)
 - [ ] Script is committed and ready for the owner to run on the full 73-book selection
 
@@ -703,5 +754,6 @@ Before the full run, validate on 2 books (one fixture with ground truth, one new
 - [ ] `ground_truth_comparison.json` generated for fixture book and shows comparison results
 - [ ] COST_LOG.json updated after each book (not just at the end)
 - [ ] Resume mode works (re-running skips the 2 already-processed books)
+- [ ] Force mode works (`--force` re-runs the 2 books and overwrites previous results)
 - [ ] Cost estimate is reasonable (€0.07–0.15 per book)
 - [ ] No data loss on API failure: if one book's API call fails, extraction.json and prompt_sent.json are still present
