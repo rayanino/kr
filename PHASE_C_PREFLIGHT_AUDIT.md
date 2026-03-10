@@ -198,3 +198,24 @@ Each Phase C book gets its own empty registry. The author_agreement_fn's Case A 
 ### OBSERVATION 3: Actual cost likely ~$0.15/book, not $0.065
 
 Step 0 cost €1.80 for 13 books = ~$0.15/book. My theoretical estimate was $0.065. The 2.3× discrepancy likely comes from Instructor schema overhead tokens and default-temperature verbosity. Updated 50-book estimate: ~$7.50 + retries ≈ ~$9 ≈ ~€8. Still well within ceiling.
+
+---
+
+## Additional Verified Findings (resolved, no action needed)
+
+### VERIFIED: Consensus None-path is safe
+When both models succeed but consensus disagrees (canonical_result=None), `metadata_inference.py` calls `select_canonical_result()` which picks the model with higher `author_identification_confidence`. The pipeline continues with that answer and sets `needs_human_gate=True`. No data loss, no crash. Traced through code: lines 440-448 of metadata_inference.py.
+
+### VERIFIED: Multi-volume handling is correct
+`_detect_volumes()` in shamela_html.py finds the first numbered .htm file. All metadata extraction and text_sample come from volume 1 only. This is correct — Shamela HTML metadata cards are always in the first file. For 45-volume books (الموسوعة الفقهية الكويتية), the LLM sees volume 1's introduction, which is sufficient for genre/author classification.
+
+### VERIFIED: Temperature pass-through works
+Instructor's `from_provider` creates provider-native clients. Anthropic's client accepts `temperature` natively. OpenRouter follows the OpenAI API spec which includes `temperature`. Both will receive `temperature=0` when the pre-requisite is implemented.
+
+### LOW RISK: Instructor mode asymmetry
+OpenRouter uses `instructor.Mode.JSON` (raw JSON output). Anthropic uses default mode (tool use). Both produce the same `InferenceOutput` Pydantic model, but the mechanism differs. For optional fields with defaults, Pydantic handles both "field omitted" (JSON mode) and "field present as null" (TOOLS mode). The 2-book test should verify this works in practice.
+
+### OPEN: Three questions deferred to next session
+- Q5: --force flag for re-running "success" books (design decision)
+- Q6: Agent team architecture (design question)
+- Q7: Edition variants — run all 73 or pick one per multi-edition work (design decision, ~$2.40 cost difference)
