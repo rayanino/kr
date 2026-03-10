@@ -1,0 +1,79 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 21.160004899997148,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.99,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "صحيح مسلم",
+      "base_work_author": "مسلم بن الحجاج النيسابوري"
+    },
+    "genre_chain_confidence": 0.99,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.99,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "مسلم بن الحجاج النيسابوري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "يحيى بن شرف النووي"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith",
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "advanced",
+    "level_confidence": 0.9,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.97,
+    "author_identification": {
+      "canonical_name_ar": "أبو زكريا محيي الدين يحيى بن شرف بن مري بن حسن بن حسين بن حزام النووي",
+      "known_as": [
+        "النووي",
+        "الإمام النووي",
+        "محيي الدين النووي"
+      ],
+      "death_date_hijri": 676,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث",
+        "aqidah": "أشعري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم علماء الإسلام، إمام في الفقه الشافعي والحديث، صاحب مصنفات مرجعية كالمجموع ورياض الصالحين والأذكار والأربعين النووية",
+      "methodological_stance": "يجمع بين الفقه والحديث، يعتني بتحرير المذهب الشافعي مع الاستدلال بالأحاديث وبيان درجاتها، ويميل إلى الترجيح بالدليل"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر مؤلفات النووي، ألفه في النصف الثاني من القرن السابع الهجري",
+      "composition_date_hijri": 670,
+      "tradition_position": "أهم وأشهر شروح صحيح مسلم على الإطلاق، وهو المرجع الأول للعلماء في فهم أحاديث صحيح مسلم، ولا يكاد يستغني عنه باحث في الحديث أو الفقه",
+      "known_textual_issues": [
+        "لم يكمل النووي الشرح بالكامل حسب بعض الأقوال، لكن المطبوع يغطي الكتاب كاملاً"
+      ],
+      "historical_significance": "أجمع شروح صحيح مسلم وأكثرها تداولاً، يجمع بين شرح الحديث وبيان الفقه واللغة وعلم الرجال، وهو عمدة المحدثين والفقهاء",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "طبعة دار إحياء التراث العربي من الطبعات المشهورة المتداولة، وهي طبعة قديمة بدون تحقيق علمي حديث متكامل",
+      "edition_known_issues": [
+        "طبعة قديمة (1392هـ) تفتقر إلى التحقيق العلمي الحديث وتخريج الأحاديث المفصل"
+      ],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

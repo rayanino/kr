@@ -1,0 +1,127 @@
+{
+  "source_id": "src_4814378a",
+  "work_id": "wrk_abw_abd_al_lh_mhmd_b_alfiyyah",
+  "human_label": "alfiyyah",
+  "title_arabic": "الخلاصة في النحو، ألفية ابن مالك",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو عبد الله محمد بن عبد الله بن مالك الأندلسي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د عبد المحسن بن محمد القاسم",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "nahw",
+    "sarf"
+  ],
+  "genre": "nazm",
+  "genre_chain": null,
+  "level": "intermediate",
+  "publisher": null,
+  "edition_number": 4,
+  "publication_year_hijri": 1442,
+  "publication_year_miladi": 2021,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "verse",
+  "language": "ar",
+  "page_count": 432,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 672 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: د عبد المحسن بن محمد القاسم"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": 0.9,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": null
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpfikfs3tp\\library\\sources\\src_4814378a\\frozen",
+  "frozen_hash": "4814378afb5e8653559965aa4e02e788ac2578b5a77a81d124220527d75cf28c",
+  "frozen_file_hashes": {
+    "book.htm": "055138e508fcbef31d956d14c266adcf6c2c7ad26f5558c7efbcad659e5c1672"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "النحو والصرف",
+    "shamela_publish_date": "17 جُمادَى الآخرة 1443",
+    "edition_raw": "الرابعة، 1442 هـ - 2021 م",
+    "page_count_raw": "441",
+    "author_short": "ابن مالك",
+    "physical_page_count": 441
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "A foundational text in the study of Arabic grammar and morphology, widely used as a teaching tool.",
+    "known_textual_issues": [],
+    "historical_significance": "The Alfiyyah is one of the most famous and widely studied texts in Arabic grammar, known for its concise and comprehensive coverage of the subject.",
+    "muhaqiq_reputation": "Dr. Abdul Muhsin bin Muhammad Al-Qasim is a respected scholar and imam of the Prophet's Mosque in Madinah, known for his meticulous work in textual verification.",
+    "tahqiq_methodology_note": "The edition is based on multiple manuscripts, including one read to a student of the author and bearing the student's handwriting and ijaza, as well as a manuscript in the handwriting of Ibn Hisham and others read to prominent scholars like Abu Hayyan and Ibn Aqil.",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": []
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-10T19:43:34.054372+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 17.73
+}

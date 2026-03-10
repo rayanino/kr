@@ -1,0 +1,65 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 22.999903400006588,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.92,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.99,
+    "level": "advanced",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.97,
+    "author_identification": {
+      "canonical_name_ar": "أبو عبد الله محمد بن إدريس بن العباس الشافعي",
+      "known_as": [
+        "الإمام الشافعي",
+        "الشافعي"
+      ],
+      "death_date_hijri": 204,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "usul_al_fiqh": "شافعي",
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "مؤسس المذهب الشافعي وأحد الأئمة الأربعة في الفقه السني، وواضع أصول الفقه كعلم مستقل بكتابه الرسالة",
+      "methodological_stance": "يجمع بين أهل الحديث وأهل الرأي، مع تقديم النص على القياس، وله منهج دقيق في الاستدلال بالكتاب والسنة والإجماع والقياس"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "traditional",
+    "attribution_notes": "الكتاب مروي عن الشافعي بطريق الربيع بن سليمان المرادي، وهو من أشهر رواة كتب الشافعي. النص يبدأ بـ\"أخبرنا الربيع بن سليمان قال أخبرنا الشافعي\" مما يؤكد أنه رواية الربيع للأم",
+    "scholarly_context": {
+      "composition_period": "من أواخر مؤلفات الشافعي، ألّفه في مصر بعد استقراره فيها (القول الجديد)، وهو يمثل فقهه المصري المتأخر",
+      "composition_date_hijri": 200,
+      "tradition_position": "الكتاب الأساسي والمرجع الأول في الفقه الشافعي، يمثل القول الجديد للإمام الشافعي ويعد أهم مدونة فقهية في المذهب الشافعي",
+      "known_textual_issues": [
+        "الكتاب مروي برواية الربيع بن سليمان وقد وقع فيه بعض التداخل مع كتب أخرى للشافعي كالمختصر",
+        "بعض الأجزاء قد تكون إملاءات وليست تأليفاً مباشراً"
+      ],
+      "historical_significance": "أول موسوعة فقهية شاملة في المذهب الشافعي، وأحد أقدم المصنفات الفقهية الكبرى في الإسلام، يمثل القول الجديد للشافعي في مصر",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "طبعة دار الفكر ليست محققة تحقيقاً علمياً دقيقاً، بل هي إعادة تصوير لطبعات سابقة",
+      "edition_known_issues": [
+        "طبعة دار الفكر تعتبر من الطبعات التجارية غير المحققة تحقيقاً علمياً",
+        "هي إعادة تصوير وليست طبعة جديدة محققة على مخطوطات"
+      ],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

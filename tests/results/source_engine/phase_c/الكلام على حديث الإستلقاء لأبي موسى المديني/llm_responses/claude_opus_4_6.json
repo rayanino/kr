@@ -1,0 +1,65 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.606984400001238,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.85,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن عمر بن أحمد بن عمر بن محمد الأصبهاني المديني، أبو موسى",
+      "known_as": [
+        "أبو موسى المديني",
+        "الحافظ أبو موسى الأصبهاني"
+      ],
+      "death_date_hijri": 581,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "حافظ كبير من أعلام المحدثين في أصبهان في القرن السادس الهجري، له مصنفات كثيرة في الحديث وعلومه وغريبه",
+      "methodological_stance": "محدث حافظ متقن، عُرف بالتدقيق في رواية الحديث وجمع الطرق والكلام على العلل"
+    },
+    "author_identification_confidence": 0.92,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر حياة المؤلف، إذ ذُكر في الإسناد سماعه في محرم سنة 575 هـ",
+      "composition_date_hijri": 575,
+      "tradition_position": "جزء حديثي متخصص في الكلام على حديث واحد من حيث روايته ومعناه، وهو نمط معروف عند الحفاظ المتأخرين",
+      "known_textual_issues": [
+        "النص مخطوط ولم يُحقق تحقيقاً علمياً كاملاً",
+        "يوجد بياض في الأصل المخطوط كما يظهر من النقاط في آخر النص"
+      ],
+      "historical_significance": "جزء نادر يتناول حديثاً مشكلاً في صفات الله تعالى (حديث الاستلقاء)، وهو من الأحاديث التي تكلم فيها العلماء من حيث الثبوت والمعنى",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "النص مخطوط غير محقق",
+      "edition_known_issues": [
+        "مخطوط بدون تحقيق",
+        "يوجد سقط في النص كما يظهر من النقاط"
+      ],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

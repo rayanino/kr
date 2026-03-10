@@ -1,0 +1,58 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.8661667000124,
+  "parsed": {
+    "genre": "other",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "tarikh",
+      "fikr_islami"
+    ],
+    "science_scope_confidence": 0.75,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "مالك بن الحاج عمر بن الخضر بن نبي",
+      "known_as": [
+        "مالك بن نبي",
+        "Malek Bennabi"
+      ],
+      "death_date_hijri": 1393,
+      "school_affiliations": null,
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "مفكر جزائري بارز من أعلام الفكر الإسلامي المعاصر، صاحب نظرية شروط الحضارة والقابلية للاستعمار، من أبرز المفكرين المسلمين في القرن العشرين",
+      "methodological_stance": "مفكر حضاري إصلاحي يجمع بين التحليل الاجتماعي والرؤية الإسلامية، متأثر بالثقافتين العربية والفرنسية"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "كُتبت المذكرات بالفرنسية في فترة لاحقة تغطي أحداث الفترة 1932-1940، ولم تُنشر في حياة المؤلف",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء من سلسلة مذكرات مالك بن نبي التي تشمل (مذكرات شاهد القرن) بجزئيها (الطفل) و(الطالب) ثم (الكاتب) و(الدفاتر)، وهذا الجزء (العفن) لم يُنشر في حياته وهو مكمل لتلك السلسلة",
+      "known_textual_issues": [
+        "النص الأصلي بالفرنسية وهذه ترجمة عربية لنور الدين خندودي"
+      ],
+      "historical_significance": "مذكرات شخصية لأحد أبرز المفكرين المسلمين المعاصرين، تكشف عن تجربته في فرنسا خلال الثلاثينيات وتحليله للواقع الاستعماري والاجتماعي",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

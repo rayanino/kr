@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.67887000000337,
+  "parsed": {
+    "genre": "tabaqat",
+    "genre_confidence": 0.85,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "qa_format",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "ulum_al_hadith",
+      "al_jarh_wa_al_tadil"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "specialist",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "يحيى بن معين بن عون بن زياد بن بسطام المري البغدادي",
+      "known_as": [
+        "ابن معين",
+        "أبو زكريا يحيى بن معين"
+      ],
+      "death_date_hijri": 233,
+      "school_affiliations": {
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "إمام الجرح والتعديل في عصره، من كبار أئمة علم الرجال والحديث، أحد أعلام المحدثين في القرن الثالث الهجري",
+      "methodological_stance": "متشدد في الجرح والتعديل، معروف بدقته في نقد الرواة وتمييز الثقات من الضعفاء"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "أوائل القرن الثالث الهجري، من أقدم مصادر الجرح والتعديل",
+      "composition_date_hijri": null,
+      "tradition_position": "من أقدم وأهم كتب الجرح والتعديل، رواية عثمان بن سعيد الدارمي عن يحيى بن معين، وهي من أوثق الروايات عنه في أحكامه على الرواة",
+      "known_textual_issues": [],
+      "historical_significance": "يعد من أصول علم الجرح والتعديل، ومن أقدم المصنفات في نقد الرجال. رواية الدارمي من أهم روايات تاريخ ابن معين لأن الدارمي كان من أجلّ تلاميذه وأوثقهم",
+      "muhaqiq_reputation": "د. أحمد محمد نور سيف باحث متخصص في علوم الحديث، عُرف بتحقيقه لعدد من كتب الجرح والتعديل",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "tahqiq_methodology_note",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

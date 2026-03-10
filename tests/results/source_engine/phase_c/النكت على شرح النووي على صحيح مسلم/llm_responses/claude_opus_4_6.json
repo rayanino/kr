@@ -1,0 +1,61 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.953711699999985,
+  "parsed": {
+    "genre": "other",
+    "genre_confidence": 0.82,
+    "genre_chain": {
+      "relation_type": "responds_to",
+      "base_work_title": "المنهاج بشرح صحيح مسلم بن الحجاج",
+      "base_work_author": "أبو زكريا يحيى بن شرف النووي"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.88,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "specialist",
+    "level_confidence": 0.9,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "هاني فقيه",
+      "known_as": [
+        "د. هاني فقيه"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "hadith": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "باحث معاصر في علوم الحديث",
+      "methodological_stance": "نقدي تحليلي، يتتبع أوهام النووي واعتراضاته في شرح صحيح مسلم"
+    },
+    "author_identification_confidence": 0.75,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "عمل معاصر، صدرت طبعته الأولى عام 1438 هـ / 2017 م",
+      "composition_date_hijri": 1438,
+      "tradition_position": "يندرج ضمن أعمال التعقبات والاستدراكات على شرح النووي لصحيح مسلم، وهو تقليد علمي قديم في نقد الشروح الحديثية",
+      "known_textual_issues": [],
+      "historical_significance": "عمل متخصص في تتبع أوهام النووي في شرحه لصحيح مسلم، يشمل تصحيح العزو والنسبة والتواريخ والأحكام الحديثية",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "author_identification"
+      ]
+    }
+  }
+}

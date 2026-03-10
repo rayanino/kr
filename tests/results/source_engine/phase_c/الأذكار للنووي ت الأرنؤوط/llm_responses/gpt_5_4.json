@@ -1,0 +1,61 @@
+{
+  "model_id": "openrouter/openai/gpt-5.4",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.055042899999535,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.88,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.98,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "adab",
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.84,
+    "level": "intermediate",
+    "level_confidence": 0.62,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "أبو زكريا محيي الدين يحيى بن شرف النووي",
+      "known_as": [
+        "النووي",
+        "الإمام النووي",
+        "محيي الدين النووي"
+      ],
+      "death_date_hijri": 676,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "إمام شافعي ومحدث من كبار أئمة الإسلام، اشتهر بالتصنيف في الحديث والفقه والآداب",
+      "methodological_stance": "يميل إلى جمع النصوص الحديثية مع العناية بالحكم الإجمالي على الأحاديث والتنبيه على الفوائد الفقهية والآدابية"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مصنفات النووي في مرحلة نضجه العلمي، ويظهر فيه قصده إلى الاختصار العملي وتهذيب كتب الأذكار والعمل اليومي",
+      "composition_date_hijri": null,
+      "tradition_position": "من أشهر كتب الأذكار والآداب العملية في التقليد السني، وتلقاه العلماء وطلاب العلم بالقبول وكثرت العناية به اختصارا وشرحا وتخريجا",
+      "known_textual_issues": [],
+      "historical_significance": "يعد من أكثر كتب الأذكار انتشارا واعتمادا، إذ جمع الأذكار النبوية المرتبطة بالأحوال والعبادات مع إشارات حديثية وفقهية نافعة",
+      "muhaqiq_reputation": "عبد القادر الأرنؤوط من المحققين المعاصرين المعروفين بخدمة كتب السنة والتخريج والعناية بالأحكام على الأحاديث",
+      "tahqiq_methodology_note": "الطبعة المحققة عادة تعتني بتخريج الأحاديث وبيان درجاتها وضبط النص وخدمة الآيات والعزو، مع بقاء المتن الأصلي للنووي مستقلا غير مشروح",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

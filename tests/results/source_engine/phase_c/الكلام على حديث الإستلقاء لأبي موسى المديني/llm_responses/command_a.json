@@ -1,0 +1,57 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 21.67395860000397,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن عمر بن أحمد بن عمر بن محمد الأصبهاني المديني، أبو موسى",
+      "known_as": [
+        "أبو موسى المديني",
+        "الحافظ"
+      ],
+      "death_date_hijri": 581,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Prominent hadith scholar and compiler from Isfahan, known for his contributions to hadith literature.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": null,
+      "known_textual_issues": [],
+      "historical_significance": "A specialized treatise discussing a specific hadith, reflecting the author's expertise in hadith criticism and narration.",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_period",
+        "tradition_position"
+      ]
+    }
+  }
+}

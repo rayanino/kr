@@ -1,0 +1,72 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.995106899994425,
+  "parsed": {
+    "genre": "mukhtasar",
+    "genre_confidence": 0.97,
+    "genre_chain": {
+      "relation_type": "mukhtasar_of",
+      "base_work_title": "صحيح مسلم",
+      "base_work_author": "مسلم بن الحجاج القشيري النيسابوري"
+    },
+    "genre_chain_confidence": 0.99,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.85,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "مسلم بن الحجاج القشيري النيسابوري"
+      },
+      {
+        "layer_type": "tahqiq_note",
+        "author_name": "محمد ناصر الدين الألباني"
+      }
+    ],
+    "science_scope": [
+      "hadith"
+    ],
+    "science_scope_confidence": 0.99,
+    "level": "intermediate",
+    "level_confidence": 0.8,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "عبد العظيم بن عبد القوي بن عبد الله بن سلامة، أبو محمد، زكي الدين المنذري",
+      "known_as": [
+        "المنذري",
+        "زكي الدين المنذري",
+        "الحافظ المنذري"
+      ],
+      "death_date_hijri": 656,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث حافظ"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من كبار حفاظ الحديث في القرن السابع الهجري، قال عنه الذهبي: لم يكن في زمانه أحفظ منه. صاحب الترغيب والترهيب ومختصر صحيح مسلم ومختصر سنن أبي داود.",
+      "methodological_stance": "محدث متثبت ورع، يعتني بالجرح والتعديل والتصحيح والتعليل"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "النصف الأول من القرن السابع الهجري، من أعمال المنذري المتوسطة",
+      "composition_date_hijri": 640,
+      "tradition_position": "من أشهر مختصرات صحيح مسلم، اعتمده العلماء كمرجع مختصر لأحاديث صحيح مسلم مع حذف الأسانيد والمكررات",
+      "known_textual_issues": [],
+      "historical_significance": "مختصر مهم لصحيح مسلم حظي بقبول واسع، وزاد من أهميته تحقيق الألباني له مع تعليقاته الحديثية",
+      "muhaqiq_reputation": "محمد ناصر الدين الألباني (ت 1420 هـ) من أبرز محدثي العصر الحديث، اشتهر بتخريج الأحاديث وتصحيحها وتضعيفها",
+      "tahqiq_methodology_note": "تحقيق الألباني يتضمن تعليقات حديثية وتخريجات، وقد طبع في عدة طبعات عن المكتب الإسلامي",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

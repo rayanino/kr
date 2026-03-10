@@ -1,0 +1,64 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 19.220183900004486,
+  "parsed": {
+    "genre": "tarikh",
+    "genre_confidence": 0.99,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.97,
+    "layers": null,
+    "science_scope": [
+      "tarikh",
+      "sirah"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "عماد الدين أبو الفداء إسماعيل بن عمر بن كثير القرشي البصروي ثم الدمشقي",
+      "known_as": [
+        "ابن كثير",
+        "الحافظ ابن كثير"
+      ],
+      "death_date_hijri": 774,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "aqidah": "أثري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعلام القرن الثامن الهجري، حافظ محدث مفسر مؤرخ فقيه، تلميذ ابن تيمية والمزي، صاحب تفسير القرآن العظيم والبداية والنهاية",
+      "methodological_stance": "يعتمد على الرواية والإسناد في التاريخ، متأثر بمنهج ابن تيمية في نقد الروايات والآثار، يجمع بين النقل والتحليل"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر مؤلفات ابن كثير، ألفه في النصف الثاني من القرن الثامن الهجري",
+      "composition_date_hijri": 760,
+      "tradition_position": "من أهم المصادر التاريخية الإسلامية الشاملة، يغطي التاريخ من بدء الخليقة إلى عصر المؤلف، ويعد مرجعاً أساسياً في التاريخ الإسلامي",
+      "known_textual_issues": [
+        "بعض الأجزاء الأخيرة من الكتاب (أحداث ما بعد 750 هـ) لم تحظَ بنفس درجة التنقيح من المؤلف بسبب فقدانه بصره في آخر حياته"
+      ],
+      "historical_significance": "من أوسع الموسوعات التاريخية الإسلامية، يجمع بين تاريخ الأنبياء والسيرة النبوية والتاريخ الإسلامي العام حتى عصر المؤلف، ويتميز بمنهج نقدي للروايات التاريخية",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "طبعة مطبعة السعادة بمصر، من أقدم الطبعات، صدرت بين 1348-1358 هـ، وهي طبعة قديمة بدون تحقيق علمي حديث",
+      "edition_known_issues": [
+        "طبعة قديمة بدون تحقيق علمي منهجي",
+        "تفتقر إلى التخريج والفهارس التفصيلية المعتادة في الطبعات الحديثة"
+      ],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

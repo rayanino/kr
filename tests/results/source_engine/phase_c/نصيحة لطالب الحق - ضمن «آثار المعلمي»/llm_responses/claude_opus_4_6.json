@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.229196599990246,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "ulum_al_hadith",
+      "usul_al_fiqh"
+    ],
+    "science_scope_confidence": 0.8,
+    "level": "advanced",
+    "level_confidence": 0.75,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "عبد الرحمن بن يحيى المعلمي اليماني",
+      "known_as": [
+        "المعلمي اليماني",
+        "المعلمي"
+      ],
+      "death_date_hijri": 1386,
+      "school_affiliations": {
+        "hadith": "أهل الحديث",
+        "fiqh": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من كبار محققي الحديث والتراث في العصر الحديث، عُرف بتحقيقاته العلمية الدقيقة وردوده على المستشرقين والمقلدين، وكان أمين مكتبة الحرم المكي",
+      "methodological_stance": "سلفي أثري، يعتمد منهج أهل الحديث في الاستدلال ويرفض التقليد المذهبي الجامد، مع عناية فائقة بالتحقيق العلمي والنقد الحديثي"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال المعلمي المتأخرة، ضمن آثاره التي جُمعت بعد وفاته",
+      "composition_date_hijri": null,
+      "tradition_position": "رسالة منهجية في آداب طلب الحق والتحرر من الهوى عند النظر في مسائل العلم، تتناول أحكام أخبار الآحاد وهي من المسائل الأصولية الحديثية المهمة",
+      "known_textual_issues": [],
+      "historical_significance": "تمثل منهج المعلمي في التحرر من التعصب المذهبي والدعوة إلى اتباع الدليل، وهي جزء من مشروع جمع آثاره الذي أشرف عليه محمد أجمل الإصلاحي",
+      "muhaqiq_reputation": "محمد أجمل الإصلاحي من أبرز تلاميذ ومحققي تراث المعلمي اليماني، وأشرف على مشروع جمع آثاره ونشرها",
+      "tahqiq_methodology_note": "نُشرت ضمن مشروع آثار المعلمي الذي أصدرته دار عالم الفوائد",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

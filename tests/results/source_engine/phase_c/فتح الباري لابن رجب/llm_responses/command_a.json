@@ -1,0 +1,71 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 47.15506420000747,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "صحيح البخاري",
+      "base_work_author": "محمد بن إسماعيل البخاري"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "محمد بن إسماعيل البخاري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "زين الدين عبد الرحمن بن أحمد بن رجب بن الحسن"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "usul_al_fiqh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "advanced",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "زين الدين عبد الرحمن بن أحمد بن رجب بن الحسن، السَلامي، البغدادي، ثم الدمشقي، الحنبلي",
+      "known_as": [
+        "ابن رجب",
+        "زين الدين"
+      ],
+      "death_date_hijri": 795,
+      "school_affiliations": {
+        "fiqh": "حنبلي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم حديث وفقيه حنبلي بارز، من كبار علماء القرن الثامن الهجري",
+      "methodological_stance": "يتبع المنهج السلفي في العقيدة، ويميل إلى التحقيق والتدقيق في المسائل الفقهية والحديثية"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "يعد هذا الشرح من أهم شروح صحيح البخاري، ويتميز بالتحقيق والتدقيق في المسائل الفقهية والحديثية",
+      "known_textual_issues": [],
+      "historical_significance": "من الشروح الكلاسيكية لصحيح البخاري، ويحظى بتقدير كبير لدى علماء الحديث والفقه",
+      "muhaqiq_reputation": "فريق التحقيق معروف بدقته في إخراج النصوص التراثية",
+      "tahqiq_methodology_note": "اعتمد المحققون على عدة نسخ خطية ومطبوعة لتحقيق النص",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

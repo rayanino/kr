@@ -1,0 +1,74 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.82279400000698,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.99,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "جمع الجوامع في العربية",
+      "base_work_author": "جلال الدين السيوطي"
+    },
+    "genre_chain_confidence": 0.97,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.99,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "جلال الدين السيوطي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "جلال الدين السيوطي"
+      }
+    ],
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 0.98,
+    "level": "advanced",
+    "level_confidence": 0.93,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.93,
+    "author_identification": {
+      "canonical_name_ar": "عبد الرحمن بن أبي بكر بن محمد جلال الدين السيوطي",
+      "known_as": [
+        "السيوطي",
+        "جلال الدين السيوطي",
+        "ابن الكتب"
+      ],
+      "death_date_hijri": 911,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "nahw": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم علماء الإسلام تصنيفاً وأغزرهم إنتاجاً، إمام في علوم اللغة والحديث والتفسير والفقه، بلغت مؤلفاته المئات",
+      "methodological_stance": "موسوعي جامع، يستقصي الأقوال والمذاهب النحوية ويجمع بين مدرستي البصرة والكوفة مع ميل للترجيح"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر مؤلفات السيوطي في النحو، ألفه بعد تأليف جمع الجوامع الذي هو متن مختصر جامع في العربية",
+      "composition_date_hijri": null,
+      "tradition_position": "يُعدّ من أوسع كتب النحو العربي وأجمعها، جمع فيه السيوطي خلاصة نحو مائة مصنف في العربية، وهو شرح المؤلف على متنه الخاص (جمع الجوامع)، ويُعتبر مرجعاً أساسياً في النحو المقارن بين المذاهب النحوية",
+      "known_textual_issues": [],
+      "historical_significance": "من أهم المراجع النحوية الموسوعية، يجمع مسائل النحو والصرف من مصادر متعددة مع ذكر الخلاف بين النحاة البصريين والكوفيين والبغداديين والأندلسيين، ويُعدّ خاتمة المطاف في التأليف النحوي الكلاسيكي",
+      "muhaqiq_reputation": "عبد الحميد هنداوي محقق مصري معروف بتحقيقاته في كتب اللغة والبلاغة",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

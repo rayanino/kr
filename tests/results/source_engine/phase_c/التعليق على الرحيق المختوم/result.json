@@ -1,0 +1,152 @@
+{
+  "source_id": "src_4e8bf0d3",
+  "work_id": "wrk_mhmwd_bn_mhmd_al_mla_al_talyq_ala_al_rhyq",
+  "human_label": "al_talyq_ala_al_rhyq",
+  "title_arabic": "التعليق على الرحيق المختوم",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمود بن محمد الملاح",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "sirah"
+  ],
+  "genre": "sharh",
+  "genre_chain": {
+    "relation_type": "sharh_of",
+    "base_work_title": "الرحيق المختوم",
+    "base_work_author": "صفي الرحمن المباركفوري",
+    "base_work_id": null,
+    "confidence": 0.9
+  },
+  "level": null,
+  "publisher": "دار التدمرية - السعودية",
+  "edition_number": 1,
+  "publication_year_hijri": 1438,
+  "publication_year_miladi": 2017,
+  "source_format": "shamela_html",
+  "authority_level": "reference",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 345,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00002",
+        "name_arabic": "صفي الرحمن المباركفوري",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "sharh",
+      "author": {
+        "canonical_id": "sch_00001",
+        "name_arabic": "محمود بن محمد الملاح",
+        "confidence": 0.65,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "flagged",
+  "trust_score": 0.4625,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار التدمرية - السعودية"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Reference work"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.463 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.95,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.85,
+    "multi_layer": 0.9,
+    "genre_chain": 0.9
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpwo090cto\\library\\sources\\src_4e8bf0d3\\frozen",
+  "frozen_hash": "4e8bf0d3e127f635e9caca605ae6b4805a6dd7c55d38fa17c859a95ea75fa439",
+  "frozen_file_hashes": {
+    "book.htm": "a19aa4054b8d165faefef4012d1a72b2a2914ddc17780aaf8b88de3d6864b0f3"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "السيرة النبوية",
+    "shamela_publish_date": "9 جُمادَى الأولى 1436",
+    "foreword_by": "عبد الله بن مانع الروقي",
+    "edition_raw": "الأولى (للتدمرية)، 1438 هـ - 2017 م",
+    "page_count_raw": "354",
+    "author_short": "محمود الملاح",
+    "physical_page_count": 354
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": null,
+    "known_textual_issues": [],
+    "historical_significance": null,
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "composition_period",
+      "composition_date_hijri",
+      "tradition_position",
+      "historical_significance"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-10T19:50:00.567752+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 35.15
+}

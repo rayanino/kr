@@ -1,0 +1,59 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.542870599994785,
+  "parsed": {
+    "genre": "nazm",
+    "genre_confidence": 1.0,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "verse",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 1.0,
+    "layers": null,
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن عبد الله بن عبد الله بن مالك الطائي الجياني",
+      "known_as": [
+        "ابن مالك",
+        "جمال الدين"
+      ],
+      "death_date_hijri": 672,
+      "school_affiliations": {
+        "nahw": "mixed",
+        "sarf": "mixed"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Prominent grammarian and linguist, renowned for his contributions to Arabic grammar and morphology.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "A foundational text in the study of Arabic grammar and morphology, widely studied and referenced.",
+      "known_textual_issues": [],
+      "historical_significance": "The Alfiyyah is one of the most important and widely studied texts in the history of Arabic grammar, known for its comprehensive coverage and poetic form.",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

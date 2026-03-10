@@ -1,0 +1,57 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 29.06945480000286,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو الحسن علي بن إسماعيل بن إسحاق بن سالم بن إسماعيل بن عبد الله بن موسى بن أبي بردة بن أبي موسى الأشعري",
+      "known_as": [
+        "أبو الحسن الأشعري"
+      ],
+      "death_date_hijri": 324,
+      "school_affiliations": {
+        "aqidah": "Asha'ari"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Founding figure of the Asha'ari school of theology, influential in Sunni Islamic thought.",
+      "methodological_stance": "Rationalist approach to theology, reconciling reason with revelation."
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "Foundational text in Asha'ari theology, establishing key principles of Sunni belief.",
+      "known_textual_issues": [],
+      "historical_significance": "One of the earliest systematic expositions of Sunni theology, influential in shaping Islamic thought.",
+      "muhaqiq_reputation": "Dr. فوقية حسين محمود is a respected scholar in the field of Islamic studies, known for her rigorous editorial work.",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

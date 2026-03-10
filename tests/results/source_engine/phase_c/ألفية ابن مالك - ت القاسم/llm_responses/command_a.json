@@ -1,0 +1,55 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.444463599997107,
+  "parsed": {
+    "genre": "nazm",
+    "genre_confidence": 1.0,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "verse",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 1.0,
+    "layers": null,
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": "intermediate",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "أبو عبد الله محمد بن عبد الله بن مالك الأندلسي",
+      "known_as": [
+        "ابن مالك"
+      ],
+      "death_date_hijri": 672,
+      "school_affiliations": {
+        "nahw": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "One of the most influential grammarians in Islamic history, known for his comprehensive works in Arabic grammar and morphology.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "A foundational text in the study of Arabic grammar and morphology, widely used as a teaching tool.",
+      "known_textual_issues": [],
+      "historical_significance": "The Alfiyyah is one of the most famous and widely studied texts in Arabic grammar, known for its concise and comprehensive coverage of the subject.",
+      "muhaqiq_reputation": "Dr. Abdul Muhsin bin Muhammad Al-Qasim is a respected scholar and imam of the Prophet's Mosque in Madinah, known for his meticulous work in textual verification.",
+      "tahqiq_methodology_note": "The edition is based on multiple manuscripts, including one read to a student of the author and bearing the student's handwriting and ijaza, as well as a manuscript in the handwriting of Ibn Hisham and others read to prominent scholars like Abu Hayyan and Ibn Aqil.",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": []
+    }
+  }
+}

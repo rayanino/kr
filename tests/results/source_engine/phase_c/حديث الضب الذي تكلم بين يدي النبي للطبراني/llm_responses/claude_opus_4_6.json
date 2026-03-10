@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.438351100005093,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.85,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "سليمان بن أحمد بن أيوب بن مطير اللخمي الشامي، أبو القاسم الطبراني",
+      "known_as": [
+        "الطبراني",
+        "أبو القاسم الطبراني"
+      ],
+      "death_date_hijri": 360,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث حافظ"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أكابر حفاظ الحديث، صاحب المعاجم الثلاثة (الكبير والأوسط والصغير)، يُعدّ من أوسع المحدثين رواية وأكثرهم شيوخاً",
+      "methodological_stance": "محدث جامع يروي بالأسانيد العالية والنازلة، يجمع الطرق والأسانيد المتعددة للحديث الواحد"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مؤلفات الطبراني في النصف الأول من القرن الرابع الهجري، وهو جزء حديثي صغير",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي مفرد في موضوع واحد (حديث الضب)، وهو من الأجزاء الحديثية التي أفردها الطبراني لأحاديث بعينها",
+      "known_textual_issues": [],
+      "historical_significance": "جزء حديثي يجمع طرق حديث الضب الذي تكلم بين يدي النبي صلى الله عليه وسلم، وهو من أحاديث دلائل النبوة",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

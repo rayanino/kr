@@ -1,0 +1,63 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 20.912834899994778,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.99,
+    "level": "beginner",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "أبو حنيفة النعمان بن ثابت بن زوطى",
+      "known_as": [
+        "أبو حنيفة",
+        "الإمام الأعظم",
+        "النعمان بن ثابت"
+      ],
+      "death_date_hijri": 150,
+      "school_affiliations": {
+        "fiqh": "حنفي",
+        "aqidah": "أهل السنة - ماتريدي (ينسب إليه)"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "إمام المذهب الحنفي وأحد الأئمة الأربعة عند أهل السنة، من أعلام الفقه والرأي في الإسلام",
+      "methodological_stance": "من أهل الرأي والقياس في الفقه، وفي العقيدة يُعدّ من أوائل من دوّن في أصول الاعتقاد السني"
+    },
+    "author_identification_confidence": 0.9,
+    "attribution_status": "disputed",
+    "attribution_notes": "الفقه الأكبر يُنسب تقليدياً إلى أبي حنيفة النعمان (ت 150هـ)، لكن نسبته إليه محل خلاف بين الباحثين المعاصرين. يرى بعض المحققين أنه من تأليف تلاميذه أو من وضع متأخر نُسب إليه، بينما يقبل آخرون نسبته إليه. العنوان نفسه في المصادر يشير إلى أكثر من رسالة منسوبة إليه. عنوان الكتاب في البيانات الوصفية يقول صراحة: ينسب لأبي حنيفة.",
+    "scholarly_context": {
+      "composition_period": "يُنسب إلى منتصف القرن الثاني الهجري إن صحت النسبة، وقد يكون من القرن الثالث أو الرابع",
+      "composition_date_hijri": null,
+      "tradition_position": "من أقدم المتون العقدية المنسوبة لأهل السنة، ويُعدّ أساساً لعقيدة الماتريدية والحنفية، وعليه شروح كثيرة أشهرها شرح الملا علي القاري",
+      "known_textual_issues": [
+        "تعدد النسخ المنسوبة لأبي حنيفة باسم الفقه الأكبر مع اختلاف في المحتوى",
+        "خلاف في التمييز بين الفقه الأكبر والفقه الأبسط ورسالة أبي حنيفة إلى عثمان البتي"
+      ],
+      "historical_significance": "من أوائل المتون العقدية في التراث الإسلامي السني، وأحد أهم مراجع العقيدة الحنفية الماتريدية، تناقله العلماء عبر القرون وشرحوه وعلّقوا عليه",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "composition_period"
+      ]
+    }
+  }
+}

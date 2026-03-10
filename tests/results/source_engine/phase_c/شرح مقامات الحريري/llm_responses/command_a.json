@@ -1,0 +1,68 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 39.41365360000054,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "مقامات الحريري",
+      "base_work_author": "أبو محمد القاسم بن علي الحريري"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أبو محمد القاسم بن علي الحريري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "أبو عباس أحمد بن عبد المؤمن بن موسى القَيْسي الشُّريشي"
+      }
+    ],
+    "science_scope": [
+      "adab"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "أبو عباس أحمد بن عبد المؤمن بن موسى القَيْسي الشُّريشي",
+      "known_as": [
+        "الشُّريشي"
+      ],
+      "death_date_hijri": 619,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم أديب وشارح مشهور، معروف بشرحه لمقامات الحريري",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.9,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "شرح مهم لمقامات الحريري، يُعتبر من الشروح الأساسية في الأدب العربي",
+      "known_textual_issues": [],
+      "historical_significance": "يُعد من الشروح الهامة التي ساهمت في حفظ ونشر مقامات الحريري، وأظهرت براعة الشُّريشي في شرح النصوص الأدبية",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

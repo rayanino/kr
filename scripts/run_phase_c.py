@@ -612,46 +612,111 @@ async def process_book(
 # ── Edition Groups ──
 
 
-def compute_edition_groups(all_results: dict[str, dict]) -> list[dict]:
-    """Group results by normalized title similarity. Compare across editions."""
-    # Known edition groups from spec
+def _load_llm_genre_author(output_dir: Path, book_name: str) -> tuple[str, str]:
+    """Load genre and author from LLM responses for gate_abort books."""
+    llm_dir = output_dir / book_name / "llm_responses"
+    if not llm_dir.exists():
+        return "", ""
+    for f in llm_dir.iterdir():
+        if f.suffix == ".json":
+            try:
+                data = json.loads(f.read_text(encoding="utf-8"))
+                parsed = data.get("parsed")
+                if parsed:
+                    genre = parsed.get("genre", "")
+                    author_id = parsed.get("author_identification", {})
+                    author_name = author_id.get("canonical_name_ar", "") if isinstance(author_id, dict) else ""
+                    return genre, author_name
+            except (json.JSONDecodeError, KeyError):
+                continue
+    return "", ""
+
+
+def compute_edition_groups(
+    all_results: dict[str, dict],
+    output_dir: Optional[Path] = None,
+) -> list[dict]:
+    """Group results by normalized title similarity. Compare across editions.
+
+    Includes both success and gate_abort books — gate_abort books have LLM
+    responses saved (inference completed before validation aborted).
+    """
+    # Known edition groups — exact directory names from collection
     known_groups = {
-        "إعلام الموقعين": ["أعلام الموقعين - ط عطاءات العلم", "إعلام الموقعين - ط العلمية", "إعلام الموقعين - ت مشهور"],
-        "البداية والنهاية": ["البداية والنهاية - ت التركي", "البداية والنهاية - ط السعادة"],
-        "شرح العقيدة الطحاوية": ["شرح العقيدة الطحاوية - ط الرسالة", "شرح العقيدة الطحاوية - ط الأوقاف السعودية"],
-        "تفسير الطبري": ["تفسير الطبري جامع البيان - ت التركي", "تفسير الطبري جامع البيان - ط دار التربية والتراث"],
-        "حاشية ابن عابدين": ["حاشية ابن عابدين = رد المحتار - ط الحلبي", "تكملة حاشية ابن عابدين = قرة عيون الأخيار"],
-        "تحفة المودود": ["تحفة المودود بأحكام المولود - ت الأرنؤوط", "تحفة المودود بأحكام المولود - ط عطاءات العلم"],
-        "الإبانة": ["الإبانة عن أصول الديانة - ت العصيمي", "الإبانة عن أصول الديانة - ت فوقية"],
-        "فتاوى اللجنة الدائمة": ["فتاوى اللجنة الدائمة - المجموعة الأولى", "فتاوى اللجنة الدائمة - المجموعة الثانية"],
-        "ألفية ابن مالك": ["ألفية ابن مالك - ت القاسم", "ألفية ابن مالك - ط التعاون"],
+        "إعلام الموقعين": [
+            "أعلام الموقعين عن رب العالمين - ط عطاءات العلم",
+            "إعلام الموقعين عن رب العالمين - ط العلمية",
+            "إعلام الموقعين عن رب العالمين - ت مشهور",
+        ],
+        "البداية والنهاية": [
+            "البداية والنهاية - ت التركي",
+            "البداية والنهاية - ط السعادة",
+        ],
+        "شرح العقيدة الطحاوية": [
+            "شرح العقيدة الطحاوية - ط الرسالة",
+            "شرح العقيدة الطحاوية - ط الأوقاف السعودية - بتعليقات أحمد شاكر",
+        ],
+        "تفسير الطبري": [
+            "تفسير الطبري جامع البيان - ت التركي",
+            "تفسير الطبري جامع البيان - ط دار التربية والتراث",
+        ],
+        "حاشية ابن عابدين": [
+            "حاشية ابن عابدين = رد المحتار - ط الحلبي",
+            "تكملة حاشية ابن عابدين = قرة عيون الأخيار تكملة رد المحتار - ط الفكر",
+        ],
+        "تحفة المودود": [
+            "تحفة المودود بأحكام المولود - ت الأرنؤوط",
+            "تحفة المودود بأحكام المولود - ط عطاءات العلم",
+        ],
+        "الإبانة": [
+            "الإبانة عن أصول الديانة - ت العصيمي",
+            "الإبانة عن أصول الديانة - ت فوقية",
+        ],
+        "فتاوى اللجنة الدائمة": [
+            "فتاوى اللجنة الدائمة - المجموعة الأولى",
+            "فتاوى اللجنة الدائمة - المجموعة الثانية",
+        ],
+        "ألفية ابن مالك": [
+            "ألفية ابن مالك - ت القاسم",
+            "ألفية ابن مالك - ط التعاون",
+        ],
     }
 
     groups: list[dict] = []
     for work_short, editions in known_groups.items():
-        present = [e for e in editions if e in all_results and all_results[e].get("status") == "success"]
+        present = [
+            e for e in editions
+            if e in all_results and all_results[e].get("status") in ("success", "gate_abort")
+        ]
         if len(present) < 2:
             continue
 
-        results = [all_results[e] for e in present]
-        genres = set()
-        authors = set()
-        multi_layers = set()
-        for r in results:
-            genres.add(r.get("genre", ""))
-            author = r.get("author", {})
-            if isinstance(author, dict):
-                authors.add(author.get("name_arabic", ""))
-            multi_layers.add(r.get("is_multi_layer", None))
+        genres: set[str] = set()
+        authors: set[str] = set()
+        multi_layers: set[Optional[bool]] = set()
+        for e in present:
+            r = all_results[e]
+            if r.get("status") == "success":
+                genres.add(r.get("genre", ""))
+                author = r.get("author", {})
+                if isinstance(author, dict):
+                    authors.add(author.get("name_arabic", ""))
+                multi_layers.add(r.get("is_multi_layer", None))
+            elif r.get("status") == "gate_abort" and output_dir:
+                genre, author_name = _load_llm_genre_author(output_dir, e)
+                if genre:
+                    genres.add(genre)
+                if author_name:
+                    authors.add(author_name)
 
         group = {
             "work_short": work_short,
             "editions": present,
-            "genre_consistent": len(genres) == 1,
-            "author_consistent": len(authors) == 1,
-            "is_multi_layer_consistent": len(multi_layers) == 1,
-            "genres_found": sorted(genres),
-            "authors_found": sorted(authors),
+            "genre_consistent": len(genres) <= 1,
+            "author_consistent": len(authors) <= 1,
+            "is_multi_layer_consistent": len(multi_layers) <= 1,
+            "genres_found": sorted(g for g in genres if g),
+            "authors_found": sorted(a for a in authors if a),
         }
         groups.append(group)
 
@@ -925,7 +990,7 @@ async def main() -> None:
     save_cost_log(cost_log)
 
     # Generate manifest and summary
-    edition_groups = compute_edition_groups(all_results)
+    edition_groups = compute_edition_groups(all_results, output_dir=args.output_dir)
     manifest = generate_manifest(all_results, git_hash, args.output_dir)
     save_json(args.output_dir / "PHASE_C_MANIFEST.json", manifest)
 

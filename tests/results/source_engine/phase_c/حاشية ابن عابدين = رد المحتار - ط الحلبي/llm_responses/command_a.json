@@ -1,0 +1,73 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 23.681540300007327,
+  "parsed": {
+    "genre": "hashiyah",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "hashiyah_on",
+      "base_work_title": "الدر المختار شرح تنوير الأبصار",
+      "base_work_author": "محمد علاء الدين الحصكفي"
+    },
+    "genre_chain_confidence": 0.9,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "محمد علاء الدين الحصكفي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "محمد علاء الدين الحصكفي"
+      },
+      {
+        "layer_type": "hashiyah",
+        "author_name": "محمد أمين بن عابدين"
+      }
+    ],
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "advanced",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "محمد أمين بن عمر بن عبد العزيز عابدين",
+      "known_as": [
+        "ابن عابدين"
+      ],
+      "death_date_hijri": 1252,
+      "school_affiliations": {
+        "fiqh": "حَنَفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز فقهاء الحنفية في القرن الثالث عشر الهجري، وصاحب المؤلفات الهامة في الفقه الحنفي",
+      "methodological_stance": "يتميز منهجه بالدقة في شرح المتن وتوضيح المسائل الفقهية مع الاستشهاد بالأدلة الشرعية"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "تُعتبر حاشية ابن عابدين من أهم المراجع في الفقه الحنفي، وتُدرس في المعاهد والجامعات الإسلامية",
+      "known_textual_issues": [],
+      "historical_significance": "تُعد هذه الحاشية من أهم الشروح على الدر المختار، ولها تأثير كبير في الفقه الإسلامي",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

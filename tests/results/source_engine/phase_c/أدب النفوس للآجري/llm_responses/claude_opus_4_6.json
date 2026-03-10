@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.518119000000297,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.88,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.93,
+    "layers": null,
+    "science_scope": [
+      "tasawwuf",
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.82,
+    "level": "beginner",
+    "level_confidence": 0.7,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر محمد بن الحسين بن عبد الله الآجُرِّيّ البغدادي",
+      "known_as": [
+        "الآجري",
+        "ابن الآجري"
+      ],
+      "death_date_hijri": 360,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "aqidah": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "محدّث وفقيه شافعي من أعلام القرن الرابع الهجري، صاحب كتاب الشريعة وأخلاق العلماء، سكن مكة وتوفي بها",
+      "methodological_stance": "أثري سلفي، يعتمد على الكتاب والسنة والآثار في التربية والسلوك"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مؤلفات الآجري في النصف الأول من القرن الرابع الهجري، وهي رسالة صغيرة في تهذيب النفس",
+      "composition_date_hijri": null,
+      "tradition_position": "رسالة مختصرة في أدب النفس وتزكيتها على منهج أهل الحديث، تندرج ضمن مؤلفات الآجري في الزهد والرقائق والأخلاق",
+      "known_textual_issues": [],
+      "historical_significance": "رسالة صغيرة الحجم (24 صفحة) للآجري في تهذيب النفوس، تعتمد على الآيات القرآنية والآثار في الحث على مجاهدة النفس",
+      "muhaqiq_reputation": "مشهور بن حسن آل سلمان محقق أردني معروف بتحقيقاته الكثيرة للتراث السلفي والحديثي",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "known_textual_issues"
+      ]
+    }
+  }
+}

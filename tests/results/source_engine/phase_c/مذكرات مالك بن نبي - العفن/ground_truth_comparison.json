@@ -1,0 +1,62 @@
+{
+  "comparisons": {
+    "genre": {
+      "expected": "other",
+      "actual": "other",
+      "match": true
+    },
+    "author": {
+      "expected": "مالك بن نبي (ت 1393هـ)",
+      "actual": "مالك بن الحاج عمر بن الخضر بن نبي",
+      "match": true,
+      "similarity": 1.0
+    },
+    "trust_tier": {
+      "expected": "flagged",
+      "actual": "flagged",
+      "match": true
+    },
+    "is_multi_layer": {
+      "expected": false,
+      "actual": false,
+      "match": true
+    },
+    "science_scope": {
+      "expected": [],
+      "actual": [
+        "tarikh",
+        "fikr_islami"
+      ],
+      "overlap": [],
+      "extra_in_actual": [
+        "fikr_islami",
+        "tarikh"
+      ],
+      "missing_from_actual": [],
+      "match_type": "superset"
+    },
+    "structural_format": {
+      "expected": "prose",
+      "actual": "prose",
+      "match": true
+    },
+    "authority_level": {
+      "expected": "primary",
+      "actual": "primary",
+      "match": true
+    },
+    "level": {
+      "expected": null,
+      "actual": null,
+      "match": true
+    },
+    "attribution_status": {
+      "expected": "definitive",
+      "actual": "definitive",
+      "match": true
+    }
+  },
+  "all_match": true,
+  "book": "مذكرات مالك بن نبي - العفن",
+  "ground_truth_key": "12_multi_muq"
+}

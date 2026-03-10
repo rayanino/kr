@@ -1,0 +1,65 @@
+{
+  "comparisons": {
+    "genre": {
+      "expected": "hadith_collection",
+      "actual": "hadith_collection",
+      "match": true
+    },
+    "author": {
+      "expected": "ناصر بن سعيد بن سيف السيف",
+      "actual": "أبو خلاد ناصر بن سعيد بن سيف السيف",
+      "match": true,
+      "similarity": 1.0
+    },
+    "trust_tier": {
+      "expected": "flagged",
+      "actual": "flagged",
+      "match": true
+    },
+    "is_multi_layer": {
+      "expected": false,
+      "actual": false,
+      "match": true
+    },
+    "science_scope": {
+      "expected": [
+        "hadith",
+        "fiqh"
+      ],
+      "actual": [
+        "hadith",
+        "fiqh"
+      ],
+      "overlap": [
+        "fiqh",
+        "hadith"
+      ],
+      "extra_in_actual": [],
+      "missing_from_actual": [],
+      "match_type": "exact_match"
+    },
+    "structural_format": {
+      "expected": "prose",
+      "actual": "prose",
+      "match": true
+    },
+    "authority_level": {
+      "expected": "modern_compilation",
+      "actual": "modern_compilation",
+      "match": true
+    },
+    "level": {
+      "expected": "intermediate",
+      "actual": "beginner",
+      "match": false
+    },
+    "attribution_status": {
+      "expected": "definitive",
+      "actual": "definitive",
+      "match": true
+    }
+  },
+  "all_match": false,
+  "book": "البدر التمام بما صح من أدلة الأحكام",
+  "ground_truth_key": "10_no_author"
+}

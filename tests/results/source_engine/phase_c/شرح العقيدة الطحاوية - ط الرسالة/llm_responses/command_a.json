@@ -1,0 +1,69 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 38.603984500005026,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "العقيدة الطحاوية",
+      "base_work_author": "أبو جعفر أحمد بن محمد بن سلامة الطحاوي"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أبو جعفر أحمد بن محمد بن سلامة الطحاوي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "علي بن علي بن محمد بن أبي العز الدمشقي"
+      }
+    ],
+    "science_scope": [
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "intermediate",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "علي بن علي بن محمد بن أبي العز الدمشقي",
+      "known_as": [
+        "ابن أبي العز"
+      ],
+      "death_date_hijri": 792,
+      "school_affiliations": {
+        "aqidah": "أهل السنة والجماعة"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم في العقيدة والتفسير، من أبرز شراح العقيدة الطحاوية",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "أحد أهم الشروح على العقيدة الطحاوية، يجمع بين العقيدة والرد على المخالفين",
+      "known_textual_issues": [],
+      "historical_significance": "يعد من أهم المراجع في علم العقيدة عند أهل السنة والجماعة",
+      "muhaqiq_reputation": "عبد الله بن المحسن التركي وشعيب الأرنؤوط من المحققين المشهورين بدقة التحقيق وجودة العمل",
+      "tahqiq_methodology_note": "تحقيق يعتمد على مقارنة المخطوطات وتوثيق النصوص مع تعليقات علمية",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

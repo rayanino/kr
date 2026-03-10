@@ -1,0 +1,134 @@
+{
+  "source_id": "src_2f2fb241",
+  "work_id": "wrk_malk_bn_al_haj_amr_b_mudhakkirat",
+  "human_label": "mudhakkirat",
+  "title_arabic": "مذكرات (العفن) 1932 - 1940",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "مالك بن الحاج عمر بن الخضر بن نبي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "tarikh",
+    "fikr_islami"
+  ],
+  "genre": "other",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار الأمة",
+  "edition_number": 1,
+  "publication_year_hijri": null,
+  "publication_year_miladi": 2007,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 193,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.6075,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1393 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.3,
+      "reason": "No muhaqiq, modern author (d. 1393 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الأمة"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.608 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.75,
+    "level": null,
+    "structural_format": 0.97,
+    "authority_level": 0.92,
+    "multi_layer": 0.95,
+    "genre_chain": null
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpsu_qmomj\\library\\sources\\src_2f2fb241\\frozen",
+  "frozen_hash": "2f2fb241f64935d4babefde93e6991d5506d7e4b04467522ab09668bdb0e5b2f",
+  "frozen_file_hashes": {
+    "001.htm": "f0f77df756b7c7c7d0e75569be3509de69c2d518ab3cf09d3a983dee2a1ab572",
+    "المقدمة.htm": "7ce3c510e550ce84fe73e9559c767243deeecbbcfa5a74c6a2bf310a9f73ab8e"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب عامة",
+    "shamela_publish_date": "16 ربيع الآخر 1437",
+    "foreword_by": "الدكتور أحمد بن نعمان",
+    "translator": "نور الدين خندودي",
+    "edition_raw": "الأولى، 2007",
+    "page_count_raw": "199",
+    "author_short": "مالك بن نبي",
+    "preparer": "أبو ياسر الجزائري.",
+    "has_muqaddima": true,
+    "physical_page_count": 199,
+    "extra_card_fields": {
+      "تصدير": "عبد الرحمان بن عمارة"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": "كُتبت المذكرات بالفرنسية في فترة لاحقة تغطي أحداث الفترة 1932-1940، ولم تُنشر في حياة المؤلف",
+    "composition_date_hijri": null,
+    "tradition_position": "جزء من سلسلة مذكرات مالك بن نبي التي تشمل (مذكرات شاهد القرن) بجزئيها (الطفل) و(الطالب) ثم (الكاتب) و(الدفاتر)، وهذا الجزء (العفن) لم يُنشر في حياته وهو مكمل لتلك السلسلة",
+    "known_textual_issues": [
+      "النص الأصلي بالفرنسية وهذه ترجمة عربية لنور الدين خندودي"
+    ],
+    "historical_significance": "مذكرات شخصية لأحد أبرز المفكرين المسلمين المعاصرين، تكشف عن تجربته في فرنسا خلال الثلاثينيات وتحليله للواقع الاستعماري والاجتماعي",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-10T19:46:56.073631+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 37.92
+}

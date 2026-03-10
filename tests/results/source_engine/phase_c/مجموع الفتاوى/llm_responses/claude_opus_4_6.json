@@ -1,0 +1,67 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 21.66854370001238,
+  "parsed": {
+    "genre": "fatawa",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "mixed",
+    "structural_format_confidence": 0.85,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "aqidah",
+      "fiqh",
+      "usul_al_fiqh",
+      "tafsir",
+      "hadith",
+      "tasawwuf"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "advanced",
+    "level_confidence": 0.85,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "أحمد بن عبد الحليم بن عبد السلام ابن تيمية الحراني",
+      "known_as": [
+        "شيخ الإسلام ابن تيمية",
+        "ابن تيمية",
+        "تقي الدين ابن تيمية"
+      ],
+      "death_date_hijri": 728,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "aqidah": "أثري سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز علماء الإسلام وأكثرهم تأثيراً، مجتهد مطلق، شيخ الإسلام، له مؤلفات ضخمة في العقيدة والفقه والأصول والرد على الفرق",
+      "methodological_stance": "منهج أثري سلفي يعتمد على الكتاب والسنة وفهم السلف الصالح، مع اجتهاد مستقل في كثير من المسائل الفقهية والعقدية"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "فتاوى ورسائل متفرقة كتبها ابن تيمية على مدار حياته العلمية في القرنين السابع والثامن الهجريين، جمعها ابن قاسم في القرن الرابع عشر الهجري",
+      "composition_date_hijri": null,
+      "tradition_position": "أهم وأشمل مجموعة لفتاوى ابن تيمية ورسائله، وهو المرجع الأساسي لمعرفة آرائه في مختلف العلوم الشرعية، ويعد من أهم المصادر في المكتبة الإسلامية",
+      "known_textual_issues": [
+        "بعض الرسائل والفتاوى المدرجة قد تكون منسوبة لابن تيمية بالاجتهاد دون تحقق قاطع",
+        "ترتيب المواد اجتهادي من الجامع وليس من المؤلف"
+      ],
+      "historical_significance": "أضخم مجموعة لفتاوى عالم واحد في التراث الإسلامي، في 35 مجلداً، تغطي العقيدة والفقه والتفسير والحديث والتصوف والمنطق والفلسفة وغيرها",
+      "muhaqiq_reputation": "عبد الرحمن بن محمد بن قاسم (ت 1392هـ) عالم نجدي جليل، بذل عمره في جمع فتاوى ابن تيمية وترتيبها، وأعانه ابنه محمد بن عبد الرحمن",
+      "tahqiq_methodology_note": "جمع ابن قاسم الفتاوى والرسائل من مخطوطات متعددة ورتبها على الأبواب العلمية، وهو عمل جمع وترتيب أكثر منه تحقيقاً نقدياً بالمعنى الأكاديمي الحديث",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "known_textual_issues"
+      ]
+    }
+  }
+}

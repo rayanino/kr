@@ -1,0 +1,64 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 19.300725499997498,
+  "parsed": {
+    "genre": "tafsir",
+    "genre_confidence": 0.99,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "tafsir",
+      "hadith",
+      "ulum_al_quran"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "specialist",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.97,
+    "author_identification": {
+      "canonical_name_ar": "أبو جعفر محمد بن جرير الطبري",
+      "known_as": [
+        "ابن جرير الطبري",
+        "الطبري",
+        "إمام المفسرين"
+      ],
+      "death_date_hijri": 310,
+      "school_affiliations": {
+        "fiqh": "مجتهد مستقل (له مذهب خاص)",
+        "tafsir": "تفسير بالمأثور مع الاجتهاد"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم أئمة الإسلام، إمام المفسرين والمؤرخين، جمع بين الفقه والحديث والتاريخ والتفسير، وكان مجتهداً مطلقاً له مذهب فقهي مستقل",
+      "methodological_stance": "يعتمد على التفسير بالمأثور بالأسانيد مع الترجيح بين الأقوال واستخدام اللغة العربية والإعراب في بيان المعاني"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر أعمال الطبري، ألفه في أواخر القرن الثالث الهجري",
+      "composition_date_hijri": 290,
+      "tradition_position": "أقدم وأجل تفسير بالمأثور وصل إلينا كاملاً، وهو أصل التفاسير بالمأثور وعمدتها، ولا يستغني عنه مفسر بعده",
+      "known_textual_issues": [
+        "سقط بعض الأجزاء من بعض النسخ الخطية",
+        "اختلاف النسخ في بعض الأسانيد"
+      ],
+      "historical_significance": "يُعدّ أعظم تفسير في الإسلام وأوسعها، جمع فيه الطبري أقوال الصحابة والتابعين بالأسانيد مع الترجيح بينها، وهو مرجع أساسي لجميع المفسرين بعده",
+      "muhaqiq_reputation": "الدكتور عبد الله بن عبد المحسن التركي عالم سعودي بارز ومحقق معروف، أشرف على تحقيقات كبرى عديدة",
+      "tahqiq_methodology_note": "طبعة دار هجر بتحقيق التركي تعتمد على عدة نسخ خطية مع تخريج الأحاديث والآثار والتعليق على الأسانيد، وتُعدّ من أفضل طبعات الكتاب",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

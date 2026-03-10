@@ -1,0 +1,62 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 23.51164820000122,
+  "parsed": {
+    "genre": "mukhtasar",
+    "genre_confidence": 1.0,
+    "genre_chain": {
+      "relation_type": "mukhtasar_of",
+      "base_work_title": "صحيح مسلم",
+      "base_work_author": "مسلم بن الحجاج القشيري النيسابوري"
+    },
+    "genre_chain_confidence": 1.0,
+    "structural_format": "prose",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 1.0,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": "intermediate",
+    "level_confidence": 0.8,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "عبد العظيم بن عبد القوي بن عبد الله، أبو محمد، زكي الدين المنذري",
+      "known_as": [
+        "زكي الدين المنذري",
+        "المنذري"
+      ],
+      "death_date_hijri": 656,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "حافظ ومحدث كبير، من أبرز علماء الحديث في القرن السابع الهجري",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "من المختصرات الهامة لصحيح مسلم، ويتميز باختيارات المنذري الدقيقة للأحاديث",
+      "known_textual_issues": [],
+      "historical_significance": "يعتبر من أهم المختصرات لصحيح مسلم، وقد حظي بقبول واسع بين العلماء",
+      "muhaqiq_reputation": "محمد ناصر الدين الألباني من المحققين البارزين في علم الحديث، معروف بدقته وتحقيقاته القيمة",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

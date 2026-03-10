@@ -1,0 +1,85 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 25.329987199991592,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.97,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "صحيح البخاري",
+      "base_work_author": "محمد بن إسماعيل البخاري"
+    },
+    "genre_chain_confidence": 0.97,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.97,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "محمد بن إسماعيل البخاري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "ابن رجب الحنبلي"
+      },
+      {
+        "layer_type": "tahqiq_note",
+        "author_name": "محمود بن شعبان بن عبد المقصود وآخرون"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith",
+      "aqidah",
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "advanced",
+    "level_confidence": 0.92,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.93,
+    "author_identification": {
+      "canonical_name_ar": "زين الدين عبد الرحمن بن أحمد بن رجب الحنبلي",
+      "known_as": [
+        "ابن رجب الحنبلي",
+        "ابن رجب",
+        "الحافظ ابن رجب"
+      ],
+      "death_date_hijri": 795,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "hadith": "أثري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من كبار علماء الحنابلة والمحدثين في القرن الثامن الهجري، حافظ محدث فقيه، من أبرز تلاميذ ابن القيم الجوزية",
+      "methodological_stance": "أثري سلفي على منهج أهل الحديث، يعتني بآثار السلف والإجماعات ويرجح مذهب أهل الحديث في مسائل الإيمان والاعتقاد"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر أعمال ابن رجب، ولم يكمله بل وصل إلى كتاب الجنائز تقريباً",
+      "composition_date_hijri": null,
+      "tradition_position": "شرح مستقل لصحيح البخاري موازٍ لفتح الباري لابن حجر العسقلاني، يتميز بالعناية بآثار السلف وأقوال الحنابلة والمحدثين، ويُعدّ من أهم شروح البخاري عند أهل الحديث والأثر",
+      "known_textual_issues": [
+        "الكتاب لم يكمله المؤلف، فهو ناقص ينتهي عند أبواب الجنائز تقريباً",
+        "وجود نسخ خطية متعددة بعضها فيه سقط وتحريف"
+      ],
+      "historical_significance": "من أجلّ شروح صحيح البخاري، يتميز عن فتح الباري لابن حجر بكثرة نقل أقوال السلف والأئمة المتقدمين وبيان مذاهبهم، وهو مرجع أساسي في فقه الحديث عند الحنابلة والأثرية",
+      "muhaqiq_reputation": "تحقيق جماعي أشرف عليه عدة محققين، وقد صدرت طبعات أخرى لاحقة أفضل منها كطبعة دار ابن الجوزي بتحقيق طارق عوض الله",
+      "tahqiq_methodology_note": "طبعة مكتبة الغرباء الأثرية بالمدينة النبوية، الطبعة الأولى 1417 هـ، وهي من أوائل الطبعات المحققة للكتاب",
+      "edition_known_issues": [
+        "تعتبر من الطبعات المبكرة وقد تجاوزتها طبعات لاحقة أكثر دقة وتحقيقاً",
+        "تعدد المحققين قد يؤدي إلى تفاوت في جودة التحقيق بين الأجزاء"
+      ],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

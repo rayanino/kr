@@ -1,0 +1,77 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 22.566587399996934,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.99,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "العقيدة الطحاوية",
+      "base_work_author": "أبو جعفر أحمد بن محمد بن سلامة الطحاوي"
+    },
+    "genre_chain_confidence": 0.99,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.97,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أبو جعفر أحمد بن محمد بن سلامة الطحاوي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "صدر الدين علي بن علي بن محمد بن أبي العز الحنفي"
+      },
+      {
+        "layer_type": "tahqiq_note",
+        "author_name": "أحمد محمد شاكر"
+      }
+    ],
+    "science_scope": [
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.99,
+    "level": "intermediate",
+    "level_confidence": 0.82,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "صدر الدين علي بن علي بن محمد بن أبي العز الحنفي",
+      "known_as": [
+        "ابن أبي العز",
+        "ابن أبي العز الحنفي"
+      ],
+      "death_date_hijri": 792,
+      "school_affiliations": {
+        "fiqh": "حنفي",
+        "aqidah": "أثري سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "قاضٍ حنفي وعالم بالعقيدة، اشتهر بشرحه على العقيدة الطحاوية الذي يُعدّ من أهم شروحها وأكثرها انتشاراً، وقد تميّز بتقريره لعقيدة السلف على منهج ابن تيمية وابن القيم",
+      "methodological_stance": "سلفي أثري متأثر بمنهج ابن تيمية وابن القيم في تقرير مسائل الاعتقاد، مع انتسابه للمذهب الحنفي في الفقه"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "traditional",
+    "attribution_notes": "نُسب الشرح تقليدياً لابن أبي العز الحنفي، وقد أثار بعض الباحثين تساؤلات حول نسبته إليه لتأثره الواضح بمنهج ابن تيمية وابن القيم رغم كونه حنفياً، لكن النسبة مقبولة عند الجمهور",
+    "scholarly_context": {
+      "composition_period": "أُلّف في النصف الثاني من القرن الثامن الهجري",
+      "composition_date_hijri": 780,
+      "tradition_position": "يُعدّ أشهر شروح العقيدة الطحاوية وأكثرها تداولاً، وهو المرجع الأساسي في شرح هذه العقيدة عند أهل السنة على المنهج السلفي الأثري، واعتمدته المؤسسات العلمية السعودية كمقرر دراسي",
+      "known_textual_issues": [
+        "وقع خلاف في نسبة الشرح لابن أبي العز، وأثار بعض الباحثين شكوكاً حول ذلك"
+      ],
+      "historical_significance": "من أهم المتون العقدية المشروحة في التراث الإسلامي السني، جمع بين الانتساب الحنفي والمنهج السلفي الأثري في تقرير العقيدة",
+      "muhaqiq_reputation": "أحمد محمد شاكر (ت 1377هـ) من أعلام المحققين في العصر الحديث، عُرف بدقته وتحقيقاته الرصينة لكتب الحديث والتراث",
+      "tahqiq_methodology_note": "تحقيق أحمد شاكر مع تعليقات علمية، وهذه الطبعة صادرة عن وزارة الشؤون الإسلامية السعودية سنة 1418هـ",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

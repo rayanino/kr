@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.554253399997833,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.82,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "fiqh",
+      "hadith"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "intermediate",
+    "level_confidence": 0.75,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن أبي بكر بن أيوب بن سعد شمس الدين ابن قيم الجوزية",
+      "known_as": [
+        "ابن القيم",
+        "ابن قيم الجوزية",
+        "شمس الدين ابن القيم"
+      ],
+      "death_date_hijri": 751,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "aqidah": "أثري سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز علماء الإسلام في القرن الثامن الهجري، تلميذ شيخ الإسلام ابن تيمية، وإمام محقق في الفقه والحديث والتفسير والعقيدة واللغة",
+      "methodological_stance": "يميل إلى الاجتهاد والترجيح بالدليل من الكتاب والسنة، ولا يتقيد بمذهب واحد وإن كان حنبلي الأصل، ويعتني بالجمع بين النقل والعقل"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مؤلفات ابن القيم في النصف الأول من القرن الثامن الهجري، ولعله من أعماله المتوسطة أو المتأخرة",
+      "composition_date_hijri": null,
+      "tradition_position": "من أهم المؤلفات المفردة في أحكام المولود في الفقه الإسلامي، يجمع بين الأحكام الفقهية والأحاديث النبوية المتعلقة بالمولود من العقيقة والتسمية والختان وغيرها",
+      "known_textual_issues": [],
+      "historical_significance": "كتاب فريد في بابه، جمع فيه ابن القيم أحكام المولود من حين ولادته إلى بلوغه، مع تحقيق الأدلة ومناقشة الأقوال الفقهية، ويعد مرجعاً أساسياً في هذا الموضوع",
+      "muhaqiq_reputation": "عبد القادر الأرناؤوط (ت 1425 هـ) محدث ومحقق سوري معروف بجودة تحقيقاته وتخريجه للأحاديث، من أبرز المحققين في القرن العشرين",
+      "tahqiq_methodology_note": "تحقيق الأرناؤوط يعتني بتخريج الأحاديث والحكم عليها وضبط النص",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}
