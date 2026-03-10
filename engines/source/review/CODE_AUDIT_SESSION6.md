@@ -507,3 +507,108 @@ If the LLM returns a relation_type not in the `GenreRelationType` enum, the enti
 |---|---------|---------------|
 | 1 | AF-2: Author inference confidence not stored | Consider adding `author` field to `InferredFieldConfidence` in a future iteration |
 | 2 | AF-3: Genre chain silently drops invalid relation types | Add warning log before returning None |
+
+---
+
+## Self-Review — Errors and Gaps in This Audit
+
+This section was added after a skeptical re-read of the entire audit. It documents mistakes, incomplete analysis, and missed findings.
+
+### SR-1: CRITICAL — Checklist 7 Fix Does Not Abort the Write
+
+**Problem:** My proposed fix for Checklist 7 (gate-severity errors ignored) creates human gate checkpoints but does NOT raise an exception to prevent Steps 12–13 (registration and cleanup) from executing. The source would be registered as if nothing is wrong, defeating the purpose of the gate.
+
+**SPEC evidence:** SPEC §5 line 1445: "Six checks run in order. Any failure aborts the write." Check 3 (line 1451): explicit "abort write." Check 6a (line 1464): explicit "abort write." Check 5c (line 1461): "EXCEPT author-science mismatch which triggers a human gate" — the exception to "not blocking" implies this IS blocking.
+
+**Corrected fix:** After creating gate checkpoints for gate-severity errors, the fix must raise to prevent registration:
+
+```python
+gate_errors = [e for e in validation_errors if e.severity == "gate"]
+if gate_errors:
+    for gate_error in gate_errors:
+        # ... create appropriate gate checkpoints ...
+    raise make_error(
+        ErrorCode.LOW_CONFIDENCE,
+        f"Validation produced {len(gate_errors)} gate-severity error(s) "
+        f"requiring human review before registration",
+        source_id=source_id,
+        context={"gate_errors": [e.message for e in gate_errors]},
+    )
+```
+
+Without this raise, the fix is worse than useless: it creates gates that imply the source needs review while simultaneously registering it as if approved.
+
+### SR-2: MODERATE — Checklist 7 Fix Contains Code Errors
+
+**Problem:** The pseudocode in my fix references functions that don't exist in engine.py:
+- `_resolve_nested_field(data_for_validation, gate_error.field)` — this function exists in `shared/validation/src/validation.py`, not in engine.py. It would need to be imported or the logic inlined.
+- `_get_confidence_value(data_for_validation, gate_error.field)` — this function does not exist anywhere.
+- The import `from engines.source.src.human_gate import gate_author_disambiguation` is wrong — the code calls `create_checkpoint`, not `gate_author_disambiguation`. The correct import is `from shared.human_gate.src.human_gate import create_checkpoint`.
+
+**Impact:** Claude Code would encounter import errors if it implemented the fix verbatim. The FIX INTENTION is correct but the FIX CODE is not copy-pasteable. Claude Code needs to understand the intent and write correct code.
+
+### SR-3: MODERATE — AF-1 Evidence Claim Is Overstated
+
+**Problem:** I wrote: "Verified: Test result 02_nahw_muhaqiq.json has publication_year_hijri: null and publication_year_miladi: null despite the source having الطبعة field with year data."
+
+This evidence is wrong on two counts:
+1. Fixture 02_nahw_muhaqiq does NOT have an الطبعة field in its source HTML.
+2. Fixture 03_fiqh DOES have الطبعة with year data ("الأولى 1354 هـ"), but `format_specific_metadata` is completely empty for ALL 13 fixtures. This means the extractor's secondary field collection may have its own issues — the null `publication_year_hijri` could be caused by extraction failure upstream, not just the field mapping bug.
+
+**The bug itself is still real** — provable from code inspection alone: `shamela_html.py` writes `result["edition_year_hijri"]`, `engine.py` reads `extracted.get("publication_year_hijri")`. These keys do not match. But my evidence from test results does not demonstrate this bug because the data never reaches the mapping stage.
+
+**Bonus finding:** `format_specific_metadata` is empty for all 13 fixtures. This is likely a separate extraction issue (the fixtures may lack the expected HTML structure for secondary fields, or the extractor's `_assemble_format_specific_metadata` isn't being called correctly). Step 2 (deterministic sweep on real data) will reveal whether this is a fixture limitation or a real extraction bug.
+
+### SR-4: MINOR — Checklist 1 Understates the Fallback Asymmetry
+
+**Problem:** My analysis correctly identified that fallback GPT-5.4 fires only when Cohere fails (consensus.py:258 checks `"cohere" in failed_model.model_id`). But I framed this as a "note for future" when it's actually a present asymmetry worth documenting more clearly.
+
+When Opus fails, NO fallback is attempted — the system goes straight to human gate. When Cohere fails, the system tries GPT-5.4 as a replacement, potentially avoiding the human gate. This means Opus failures cause strictly more human gate checkpoints than Cohere failures.
+
+The SPEC doesn't require symmetric fallback, so this remains NO ISSUE. But the practical consequence — Opus instability would cause a disproportionate gate queue — should be called out for operational awareness during Step 5 (full 2,519-book run). A symmetric fallback (also try GPT-5.4 when Opus fails, paired with surviving Cohere) would be a sensible hardening step before Step 5.
+
+### SR-5: MINOR — Missed Finding: Single-Model Work Matching Lacks needs_review
+
+**Problem I missed:** SPEC §6 (line 1520): "Work matching (lower cascade risk): if one model fails, the single model's result is accepted provisionally with single_model_confidence flag and needs_review on work_id."
+
+In the code (`metadata_inference.py:452–477`), when only one model succeeds, the work matching comparison is skipped entirely (it requires `len(successful) >= 2`). The surviving model's genre_chain is accepted without setting `needs_review` on `work_id` or marking `single_model_confidence`.
+
+**Risk:** Low. When one model fails for `author_identification`, the consensus result already triggers a human gate (`needs_human_gate=True`). The owner will review the entire source. The missing `work_id` needs_review flag is technically a SPEC-code mismatch but has no practical impact because the source is already flagged for review.
+
+**Recommendation:** Add `work_id` to `needs_review_fields` when `len(successful) == 1` in `metadata_inference.py`. Non-blocking for Step 2 but should be fixed for SPEC compliance.
+
+### SR-6: MINOR — SPEC Says Two evaluate() Calls, Code Makes One
+
+**Problem:** SPEC §6 line 1534: "The source engine calls evaluate() twice during Step 4: once for author identification, once for work matching." The code calls `evaluate()` once (`metadata_inference.py:413`) and performs work matching locally on the same model responses (`metadata_inference.py:458`).
+
+This is architecturally correct — the same prompt produces the same responses, so a second call would be wasteful. The work matching comparison (`check_work_agreement`) correctly extracts genre_chain fields from both models' responses. But the SPEC text is misleading.
+
+**Action:** SPEC documentation fix only (no code change). The SPEC should say: "The source engine calls evaluate() once during Step 4 for author identification. Work matching (§6.2) and attribution status comparison (§6.3) are performed locally on the same model responses — they do not require additional evaluate() calls."
+
+### SR-7: MINOR — Staging Cleanup Failure Is Silent
+
+**Problem I noted but underweighted:** `engine.py:596–599`:
+```python
+try:
+    shutil.move(str(staging_result.source_path), str(processed_dir / source_id))
+except Exception:
+    pass  # Non-fatal if move fails
+```
+
+This violates the fail-loud constraint. If the move fails, the original staging files remain in place alongside the frozen copies. Next startup, `cleanup_orphaned_locks` won't catch this (no lock file remains). The staging directory gradually accumulates processed files.
+
+**Fix:** Replace `pass` with `logger.log_event("cleanup_warning", source_id, f"Failed to move staging files to .processed: {exc}")`. Non-blocking for Step 2.
+
+### Summary of Self-Review Changes
+
+| # | Finding | Impact on Audit |
+|---|---------|----------------|
+| SR-1 | Checklist 7 fix missing abort raise | **CRITICAL** — Fix as written would register sources that should be blocked. Claude Code must add the raise. |
+| SR-2 | Checklist 7 fix has code errors | **MODERATE** — Fix cannot be copied verbatim. Claude Code needs to understand intent. |
+| SR-3 | AF-1 evidence was wrong | **MODERATE** — Bug is still real (code proves it), but "verified" claim was based on bad evidence. Bonus: format_specific_metadata empty for all fixtures. |
+| SR-4 | Checklist 1 understated fallback asymmetry | **MINOR** — Verdict unchanged, but operational note needed. |
+| SR-5 | Missed: work_id needs_review on single-model | **MINOR** — SPEC-code gap, no practical impact due to existing human gate coverage. |
+| SR-6 | SPEC says two evaluate() calls, code has one | **MINOR** — SPEC documentation fix only. |
+| SR-7 | Staging cleanup failure silent | **MINOR** — Add logging. |
+
+**Final bug count (unchanged):** 4 bugs requiring fix before Step 2. But the fix specification for bug #1 (Checklist 7) is materially wrong as originally written — SR-1 and SR-2 correct it.
