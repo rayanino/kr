@@ -31,6 +31,10 @@
 
 **Monkey-patch scope:** Patch `engine_mod.infer_metadata`, NOT `consensus_mod.evaluate`. Python's `from X import Y` creates a local copy — patching the source module doesn't work. The `global _captured_inference` declaration is required inside `process_book`.
 
+**Import setup:** Project uses namespace packages (no `__init__.py` in parent dirs). Script needs `sys.path.insert(0, project_root)`. See `scripts/run_session6_integration.py` as reference implementation.
+
+**Ground truth field names:** GT uses `author_identified` (not `author_name`) and `expected_trust` (not `trust_tier`). Full mapping table in PHASE_C_TASK_SPEC.md §Ground Truth Comparison.
+
 ## Architecture Decisions (Already Made)
 
 - **Sequential processing** — no parallelism. Rate limits + monkey-patch pattern require it.

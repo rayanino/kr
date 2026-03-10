@@ -196,6 +196,18 @@ export OPENROUTER_API_KEY="..."
 
 Script MUST check both keys exist before starting. Exit with clear error if missing.
 
+### Import Setup
+
+The project uses namespace packages (no `__init__.py` in `engines/`, `shared/`, etc.). Scripts must add the project root to `sys.path`:
+
+```python
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+```
+
+See `scripts/run_session6_integration.py` for the existing pattern — it handles imports, temp library creation, API key checks, and error catching. Use it as a reference implementation.
+
 ### Early Abort on Model Failure
 
 If the FIRST book fails with an API error (not a parse error — an actual connectivity/auth failure), abort immediately with a clear error message. Do not proceed to book 2. This prevents burning extraction time on 72 books when the API keys are invalid or models are down.
@@ -734,7 +746,7 @@ Approximate per-book cost (based on Step 0 data):
 ```json
 {
   "status": "gate_abort",
-  "error_code": "LOW_CONFIDENCE",
+  "error_code": "SRC_LOW_CONFIDENCE",
   "error_message": "Validation gate: 1 issue(s) require human review",
   "gate_errors": ["confidence_threshold: author confidence 0.45 < 0.50"],
   "partial_data": {
@@ -756,20 +768,27 @@ Approximate per-book cost (based on Step 0 data):
 ## Ground Truth Comparison
 
 For the 12 collection books that match existing `GROUND_TRUTH.json` entries (the original fixtures), compare:
-- `genre` (exact enum match)
-- `author_name` (name similarity ≥ 0.80 using `normalized_name_similarity`)
-- `trust_tier` (exact match)
-- `is_multi_layer` (exact match)
-- `science_scope` — **NOT strict set equality.** Step 0 showed the LLM typically returns a SUPERSET of ground truth (more specific). Use this graded comparison:
+
+**IMPORTANT — field name mapping:** The ground truth JSON uses different field names than the pipeline output. Map as follows:
+
+| Ground Truth Field | Pipeline Output Field | Comparison |
+|---|---|---|
+| `genre` | `result["genre"]` | exact enum match |
+| `author_identified` | `result["author"]["name_arabic"]` | name similarity ≥ 0.80 |
+| `expected_trust` | `result["trust_tier"]` | exact match |
+| `is_multi_layer` | `result["is_multi_layer"]` | exact match |
+| `science_scope` | `result["science_scope"]` | graded (see below) |
+| `structural_format` | `result["structural_format"]` | exact match |
+| `authority_level` | `result["authority_level"]` | exact match |
+| `level` | `result["level"]` | exact match, null-safe |
+| `attribution_status` | `result["attribution_status"]` | exact match |
+
+Science scope comparison — **NOT strict set equality.** Step 0 showed the LLM typically returns a SUPERSET of ground truth (more specific). Use this graded comparison:
   - `exact_match`: sets are identical
   - `superset`: pipeline output contains all ground truth values plus extras (LLM more specific — likely correct)
   - `subset`: pipeline output is missing some ground truth values (LLM less specific — investigate)
   - `overlap`: some values match, some don't (partial agreement — investigate)
   - `disjoint`: no overlap (clearly wrong)
-- `structural_format` (exact match)
-- `authority_level` (exact match)
-- `level` (exact match, null-safe)
-- `attribution_status` (exact match)
 
 For the 61 NEW books (without ground truth entries), no ground truth comparison is possible yet — the owner reviews them in Phase 3 sessions and creates new ground truth entries.
 
@@ -780,7 +799,7 @@ The `ground_truth_comparison.json` for matched books:
   "ground_truth_key": "04_hadith",
   "comparisons": {
     "genre": {"expected": "hadith_collection", "actual": "hadith_collection", "match": true},
-    "author_name": {"expected": "القاضي إسماعيل المالكي", "actual": "القاضي أبو إسحاق إسماعيل بن إسحاق المالكي", "match": true, "similarity": 0.88},
+    "author": {"expected": "القاضي إسماعيل المالكي", "actual": "القاضي أبو إسحاق إسماعيل بن إسحاق المالكي", "match": true, "similarity": 0.88, "gt_field": "author_identified", "pipeline_field": "author.name_arabic"},
     "trust_tier": {"expected": "verified", "actual": "verified", "match": true},
     "science_scope": {
       "expected": ["hadith"],
