@@ -37,3 +37,6 @@
 - 0/73 single-model fallback (LESSONS.md claim of 73/73 is false)
 - result.json author confidence is always 1.0 (ENGINE BUG) — read from llm_responses/ instead
 - Framework Section 7 (single-model) does not apply
+
+## Attribution decision (RESOLVED):
+When Opus says "traditional" and CA says "definitive" on classical books, Opus is correct. SPEC §4.A.4 defines "traditional" as the default for classical works. Do not flag or escalate these disagreements. Only flag when Opus says "disputed" — those are genuine disputes.

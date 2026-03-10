@@ -88,6 +88,18 @@ From the strategic analysis, these Session 2 books have pre-identified concerns:
 - الموسوعة الفقهية الكويتية: Institutional author (وزارة الأوقاف). Unusual case — no death date, no individual author.
 </pre_identified_risks>
 
+<attribution_decision>
+RESOLVED — do not re-escalate.
+
+When Opus says "traditional" and Command A says "definitive" on classical books, Opus is correct. The SPEC (§4.A.4) explicitly defines "traditional" as the DEFAULT for classical works: "authorship is conventionally accepted but not independently established." Most pre-modern Islamic texts are attributed through scholarly tradition (biographical dictionaries, isnad chains, stylistic consensus), not independent modern verification.
+
+The consensus engine already handles this correctly: conservative value wins (traditional), no human gate triggered.
+
+For Session 2 specifically: حاشية ابن عابدين and other classical works may show this disagreement. Accept Opus's "traditional" as correct. Only flag attribution as a concern when Opus says "disputed" — those are genuine scholarly disputes.
+
+The ground truth entries saying "definitive" for classical works are architect assumptions that need correcting. This will be noted in the aggregation session.
+</attribution_decision>
+
 <corrected_per_book_workflow>
 For EVERY book, follow this exact sequence. Do not skip steps or reorder them.
 
@@ -150,7 +162,7 @@ Clone the repo. Read these files in this order:
 1. NEXT.md — current status and Session 2 specifics
 2. PHASE_C_EVALUATION_FRAMEWORK.md — the full protocol (but remember the corrections above override it)
 3. PHASE_C_ERRATA.md — detailed correction document
-4. PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md — predictions to test against
+4. PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md — predictions and risk map (MANDATORY — contains testable predictions for Session 2 books)
 
 HELPER TOOL: python3 read_book.py "book_directory_name" reads all data for any book.
 
