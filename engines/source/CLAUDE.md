@@ -31,16 +31,18 @@
 - Session 4: Hashing, deduplication, freezing with TOCTOU protection (16 tests)
 - **Session 5a: COMPLETE.** Shared components: scholar authority, human gate, validation, trust evaluator, config (82 new tests, 447 total)
 - **Session 5b: COMPLETE.** Registries, registration orchestrator, text_utils slug generation, work relationships (56 new tests, 723 total including shared component tests)
-- **Session 6: NEXT.** Integration + error paths + full pipeline. See `engines/source/session-6-next.md` for complete directive.
+- **Session 6: COMPLETE.** engine.py + logger.py built, 35 new tests, 6 bugs fixed in post-build review. 758 total tests passing.
+- **Post-Session 6: VALIDATION PHASE.** See `engines/source/VALIDATION_PLAN.md` for the governing plan. Currently at Step 0 (14-fixture integration run).
 
 ## Required Reading (for Claude Code)
 
 1. `SPEC_CORE.md` — the specification (NOT SPEC.md)
 2. `contracts.py` — Pydantic schemas, enums, all data models
 3. `/NEXT.md` — current task directive
-4. `/KNOWLEDGE_INTEGRITY.md` — 7 corruption threats this engine must prevent
-5. `prompts/inference_v1.py` — validated inference prompt template
-6. `/tests/fixtures/GROUND_TRUTH.json` — expected answers (owner-validated)
+4. `VALIDATION_PLAN.md` — governs all testing phases post-Session 6
+5. `/KNOWLEDGE_INTEGRITY.md` — 7 corruption threats this engine must prevent
+6. `prompts/inference_v1.py` — validated inference prompt template
+7. `/tests/fixtures/GROUND_TRUTH.json` — expected answers (owner-validated)
 
 ## What This Engine Does (Core Only)
 

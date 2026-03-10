@@ -1,9 +1,16 @@
-# NEXT — Source Engine Session 6
+# NEXT — Source Engine Validation, Step 0
 
-**Read:** `engines/source/session-6-next.md` — this is the complete build directive.
+**Governing document:** `engines/source/VALIDATION_PLAN.md` — read this first in every new session.
 
-**Summary:** Build engine.py (pipeline orchestrator) and logger.py (structured logging), then run full pipeline integration on all 14 fixtures with real LLM calls (~$1-2). Resolve the two remaining Step 4 blocking conditions (confidence calibration, author complementarity).
+**Current step:** Step 0 — 14-fixture integration run with real LLM calls.
 
-**Pre-existing state:** 723 tests passing (22 skipped). All modules built except engine.py and logger.py. config.py is already complete (do NOT rebuild).
+**What to do:**
+```bash
+export ANTHROPIC_API_KEY="..."
+export OPENROUTER_API_KEY="..."
+python scripts/run_session6_integration.py
+```
 
-**API keys needed:** ANTHROPIC_API_KEY, OPENROUTER_API_KEY (from project knowledge files).
+**After Step 0 completes:** Push results. Owner reviews in Claude Chat with kr-evaluate. Then proceed to Step 1 (Code Audit) per the validation plan.
+
+**Pre-existing state:** 758 tests passing. Engine fully built and reviewed. No real LLM calls made yet.
