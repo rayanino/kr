@@ -77,6 +77,27 @@ class HumanGateCheckpoint(BaseModel):
 
 **Fix:** Build trust evaluator using the validated formula for initial intake. The "prior sources" check applies only during trust re-evaluation on enrichment (§4.A.8 last paragraph). Documented in trust_evaluator.py stub and NEXT.md.
 
+### ⚠️ Misalignment 4: SPEC §4.A.1 TRANSLIT_MAP maps إ to 'a' — WRONG
+
+**SPEC text:** `'إ': 'a'` (in the TRANSLIT_MAP constant, line 251)
+
+**Reality:** إ (hamza-below-alif) carries kasra — it's an "i" sound. إبراهيم is Ibrahim, not Abraham. إسلام is Islam, not Aslam.
+
+**Implementation:** Correctly uses `"إ": "i"`. Also correctly adds two characters the SPEC omits: `"ئ": "i"` (hamza-on-ya = i sound) and `"ؤ": "u"` (hamza-on-waw = u sound).
+
+**Impact:** If someone built from the SPEC text literally, every slug containing إ would be phonetically wrong. The implementation is authoritative here, not the SPEC.
+
+**Action:** SPEC_CORE.md is locked. Document defect here. Fix in next SPEC revision cycle.
+
+### ❌ Missing: 3 genre synonyms from SPEC §8
+
+`genre_synonyms.json` was missing three entries from the SPEC §8 synonym list:
+- `"commentary"` → `"sharh"` (English synonym, in case LLM returns English)
+- `"مقالة"` → `"risalah"` (Arabic: article/essay)
+- `"مجموع"` → `"mawsuah"` (Arabic: collection/compendium)
+
+**Fixed** in Session 5b review. File now has 25 entries.
+
 ### ❌ Missing config files
 
 The following config files are referenced in SPEC §8 but don't exist yet:

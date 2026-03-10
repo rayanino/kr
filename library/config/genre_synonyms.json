@@ -20,5 +20,8 @@
   "أدب": "adab",
   "فقه مقارن": "fiqh_comparative",
   "حديث": "hadith_collection",
-  "أحاديث": "hadith_collection"
+  "أحاديث": "hadith_collection",
+  "commentary": "sharh",
+  "مقالة": "risalah",
+  "مجموع": "mawsuah"
 }
