@@ -85,6 +85,7 @@ STEP 3 — Extract pipeline values:
   For SUCCESS books: read fields from result.json (genre, science_scope, is_multi_layer, trust_tier, attribution_status, structural_format, author.name_arabic)
     EXCEPT author confidence — read that from llm_responses/claude_opus_4_6.json → parsed.author_identification_confidence
     AND death_date_hijri — always from llm_responses/claude_opus_4_6.json → parsed.author_identification.death_date_hijri
+    NOTE: result.json may reflect COMMAND A's values, not Opus's, when Command A had higher author confidence (3 books). If result.json genre differs from Opus genre, check Command A — result.json uses the canonical (winning) model's output. This is correct behavior, not a bug.
   For GATE_ABORT books: read ALL classification fields from llm_responses/claude_opus_4_6.json → parsed.*
     Trust tier: NOT AVAILABLE for gate_abort books — skip it.
   Also read the second model (command_a.json or gpt_5_4.json) for comparison.
