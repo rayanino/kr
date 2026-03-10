@@ -8,18 +8,23 @@
 
 ## What the script does
 
-Iterates every item in the owner's Shamela collection directory. For each item (single `.htm` file or multi-volume directory): detects format, extracts metadata, computes SHA-256 hashes. Catches ALL exceptions and produces structured output. No LLM inference, no staging locks, no freezing, no registration.
+Iterates every item in a given source directory. For each item (single `.htm` file or multi-volume directory): detects format, extracts metadata, computes SHA-256 hashes. Catches ALL exceptions per-item and produces structured output. No LLM inference, no staging locks, no freezing, no registration.
 
-## Collection location
+## CLI interface
 
+```
+python scripts/run_phase_a.py COLLECTION_DIR [--output-dir DIR] [--limit N] [--resume]
+```
+
+Arguments:
+- `COLLECTION_DIR` (required, positional): Path to directory containing Shamela exports. Use `argparse`.
+- `--output-dir` (optional): Output directory for results. Default: `tests/results/source_engine/phase_a/`
+- `--limit N` (optional): Process only the first N items, for quick testing.
+- `--resume` (optional): Skip items that already have a result JSON in the output directory. Mutually exclusive with the default behavior, which clears the output directory before starting.
+
+The owner's full collection is at:
 ```
 C:\Users\Rayane\Desktop\kr\shamela export samples
-```
-
-The script takes this as a **command-line argument** (not hardcoded):
-
-```bash
-python scripts/run_phase_a.py "C:\Users\Rayane\Desktop\kr\shamela export samples"
 ```
 
 The directory contains 2,519 items: 1,932 single `.htm` files + 587 multi-volume directories (each containing numbered `.htm` files like `001.htm`, `002.htm`, plus optional `المقدمة.htm`).
@@ -30,14 +35,46 @@ Do NOT call `stage_source()` — it creates `.kr_processing` lock files in the s
 
 1. **Format detection:** `engines.source.src.format_detection.detect_format(path)` → returns `SourceFormat` enum
 2. **Metadata extraction:** `engines.source.src.extractors.extract_metadata(path, source_format)` → returns `dict[str, Any]`
-3. **Hashing:** For each source file, call `engines.source.src.staging.compute_file_hash(file_path)`, then `compute_composite_hash(file_hashes_dict)`
+3. **File collection and hashing:** Use the private `_collect_source_files` from staging.py (importing a private function in a test script is fine — this ensures hash consistency with the real pipeline). Then hash each file and compute the composite:
 
-The script must also track duplicates: build a `dict[str, list[str]]` mapping `composite_hash → [source_names]` and report any hash with more than one source.
+```python
+from engines.source.src.staging import (
+    compute_file_hash,
+    compute_composite_hash,
+    _collect_source_files,
+)
+
+files = _collect_source_files(source_path)
+file_hashes = {f.name: compute_file_hash(f) for f in files}
+composite_hash = compute_composite_hash(file_hashes)
+```
+
+**Why `_collect_source_files` and not a reimplementation:** It returns `[single_file]` for a file, or all non-hidden files sorted by name for a directory. If you reimplement this differently (e.g., only `.htm` files), composite hashes won't match what `stage_source` would produce, making duplicate detection unreliable.
+
+The script must also track duplicates: build a `dict[str, list[str]]` mapping `composite_hash → [source_names]` across all processed items and report any hash with more than one source.
+
+## Processing order per item
+
+Run these three steps sequentially. Each step may fail independently. Capture whatever succeeds before recording the error:
+
+```
+source_format = None
+file_hashes = None
+composite_hash = None
+extracted_metadata = None
+
+1. detect_format(path)        → sets source_format, or records error and moves to next item
+2. _collect_source_files + hash → sets file_hashes + composite_hash (can fail on I/O errors)
+3. extract_metadata(path, fmt) → sets extracted_metadata (can fail on parsing errors)
+```
+
+Steps 2 and 3 are independent — extraction doesn't need hashes, hashing doesn't need metadata. If step 3 fails but step 2 succeeded, the per-book JSON should still include `file_hashes` and `composite_hash`. This ensures duplicate detection works even for books that fail extraction.
 
 ## Output structure
 
-### Per-book JSON: `tests/results/source_engine/phase_a/{sanitized_name}.json`
+### Per-book JSON: `{output_dir}/{sanitized_name}.json`
 
+On success:
 ```json
 {
   "source_name": "أخبار أبي القاسم الزجاجي.htm",
@@ -46,8 +83,8 @@ The script must also track duplicates: build a `dict[str, list[str]]` mapping `c
   "source_format": "shamela_html",
   "composite_hash": "a1b2c3...",
   "file_hashes": {"أخبار أبي القاسم الزجاجي.htm": "d4e5f6..."},
-  "extracted_metadata": { ... },
-  "quality_issues": [...],
+  "extracted_metadata": { "...full extraction result dict as-is..." },
+  "quality_issues": [],
   "processing_time_ms": 42,
   "error": null
 }
@@ -59,7 +96,7 @@ On error:
   "source_name": "بعض الكتاب.htm",
   "source_path_relative": "بعض الكتاب.htm",
   "status": "error",
-  "source_format": null,
+  "source_format": "shamela_html",
   "composite_hash": null,
   "file_hashes": null,
   "extracted_metadata": null,
@@ -74,6 +111,12 @@ On error:
 }
 ```
 
+**Partial progress on error:** Record whichever fields were successfully computed before the failure. If format detection succeeded but extraction failed, `source_format` should still be set (not null). If hashing completed but extraction failed, include the hashes. Only fields that were never computed should be null.
+
+**`extracted_metadata`:** Store the FULL dict returned by `extract_metadata()`, including internal `_` prefixed keys (`_quality_issues`, `_field_source_*`, `_physical_page_count`, `_extra_card_fields`, etc.). These are valuable for debugging.
+
+**`quality_issues`:** Pull from `extracted_metadata["format_specific_metadata"]["quality_issues"]` (the assembled output, not the internal `_quality_issues` key). This is what the real pipeline passes downstream. Default to empty list `[]` if the key is absent (many books have no quality issues).
+
 ### Filename sanitization
 
 Arabic filenames can't be used directly as JSON output filenames on all systems. Sanitize by:
@@ -82,13 +125,14 @@ Arabic filenames can't be used directly as JSON output filenames on all systems.
 - On collision, append `_2`, `_3`, etc.
 - Store the original name in `source_name` inside the JSON
 
-### Summary: `tests/results/source_engine/phase_a/PHASE_A_SUMMARY.json`
+### Summary: `{output_dir}/PHASE_A_SUMMARY.json`
 
 ```json
 {
   "run_timestamp": "2026-03-10T...",
   "collection_path": "C:\\Users\\Rayane\\Desktop\\kr\\shamela export samples",
   "total_items": 2519,
+  "processed": 2519,
   "successful": 2450,
   "errors": 69,
   "errors_by_code": {
@@ -104,11 +148,7 @@ Arabic filenames can't be used directly as JSON output filenames on all systems.
   "field_coverage": {
     "title_full": {"count": 2400, "pct": 96.0},
     "author_name_raw": {"count": 2350, "pct": 94.0},
-    "muhaqiq_name_raw": {"count": 800, "pct": 32.0},
-    "publisher": {"count": 2100, "pct": 84.0},
-    "edition_raw": {"count": 1800, "pct": 72.0},
-    "shamela_category": {"count": 2450, "pct": 98.0},
-    "author_death_hijri": {"count": 1900, "pct": 76.0}
+    "muhaqiq_name_raw": {"count": 800, "pct": 32.0}
   },
   "multi_volume_count": 587,
   "single_file_count": 1932,
@@ -130,57 +170,82 @@ Arabic filenames can't be used directly as JSON output filenames on all systems.
 }
 ```
 
+**`field_coverage` — DYNAMIC, not hardcoded.** For each successful extraction, iterate the result dict's top-level keys and count occurrences. Report all fields sorted by count descending. Exclude keys starting with `_` (internal) and `format_specific_metadata` (structural/always present). This ensures we discover any field the extractor produces, including ones we didn't anticipate. The numbers in the example above are illustrative placeholders.
+
 ## Critical requirements
 
-1. **Zero uncaught exceptions.** Every possible failure must be caught and recorded as a structured error in the per-book JSON. The script must NEVER crash mid-run — losing 1,000 results because book #1,501 hit an unexpected exception is unacceptable. Wrap EACH book's processing in its own try/except.
+0. **Deterministic item ordering.** Sort items from `collection_dir.iterdir()` by name before processing. This ensures `--limit N` and `--resume` are reproducible across runs, and that the output order is predictable for review.
 
-2. **Error codes from SPEC §7.** Use `SourceEngineError.error` attributes when catching `SourceEngineError`. For truly unexpected exceptions (not `SourceEngineError`), record as `SRC_INTERNAL_ERROR` with the exception type and message in context.
+1. **Zero uncaught exceptions.** Every possible failure must be caught and recorded as a structured error in the per-book JSON. The script must NEVER crash mid-run. Wrap EACH book's processing in its own `try/except`.
 
-3. **Progress reporting.** Print progress every 100 books: `[100/2519] 98 ok, 2 errors (4.2s)`. Print a final summary line.
+2. **Error codes from SPEC §7.** When catching `SourceEngineError`, use `exc.error.error_code.value`, `exc.error.severity.value`, `exc.error.message`, and `exc.error.context`. For truly unexpected exceptions (not `SourceEngineError`), record as `SRC_INTERNAL_ERROR` with the exception type, message, and traceback (first 500 chars) in context.
+
+3. **Progress reporting.** Print progress every 100 books: `[100/2519] 98 ok, 2 errors (4.2s)`. Print a final one-line summary.
 
 4. **No LLM calls.** The script must not import or call anything from `metadata_inference.py`, `consensus.py`, or any module that makes API calls.
 
-5. **No filesystem side effects on the collection.** Do not create lock files, temp files, or any artifacts inside the collection directory. All output goes to `tests/results/source_engine/phase_a/`.
+5. **No filesystem side effects on the collection.** Do not create lock files, temp files, or any artifacts inside the collection directory. All output goes to the output directory only.
 
-6. **Windows compatibility.** The script runs on Windows. Use `Path` objects throughout. Handle Arabic filenames in paths. Use `encoding="utf-8"` for all file reads/writes. Be careful with path separators.
+6. **Windows compatibility.** The script runs on Windows. Use `Path` objects throughout. Handle Arabic filenames in paths. Use `encoding="utf-8"` for all file reads/writes. Use `json.dumps(..., ensure_ascii=False)` to preserve Arabic in JSON output.
 
-7. **Idempotent.** If the output directory exists, clear it before starting (or overwrite). The script should be safe to re-run.
+7. **Idempotent by default.** Without `--resume`: if the output directory exists, clear all `.json` files in it before starting. With `--resume`: keep existing result files and skip items whose sanitized name already has a result JSON present.
 
-8. **Resume support (optional but nice).** If `--resume` flag is passed, skip books that already have a result JSON in the output directory. This helps if the script is interrupted mid-run.
+8. **`sys.path` setup.** Follow the pattern from `scripts/run_session6_integration.py`:
+   ```python
+   sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+   ```
 
 ## Testing before handoff
 
-Run the script on the 12 existing fixtures in `tests/fixtures/shamela_real/` first:
+**Test A — fixture run:** Run the script on the existing fixtures:
 
 ```bash
 python scripts/run_phase_a.py tests/fixtures/shamela_real --output-dir tests/results/source_engine/phase_a_fixtures
 ```
 
-Verify:
-- 12/12 produce `status: "success"`
-- Extracted metadata matches GROUND_TRUTH.json for key fields (title_full, author_name_raw, author_death_hijri)
-- No crashes, no uncaught exceptions
+That directory contains **14 items**: 12 fixture directories + `MANIFEST.json` + `README.md`. Expected results:
+- **12 items with `status: "success"`** (the 12 fixture directories)
+- **2 items with `status: "error"`** and error code `SRC_UNSUPPORTED_FORMAT` (MANIFEST.json and README.md — not `.htm` files or Shamela directories)
 
-Also add a `--limit N` flag for testing: process only the first N items.
+Verify for the 12 successful fixtures:
+- `extracted_metadata["title_full"]` matches `GROUND_TRUTH.json` title for each fixture
+- `extracted_metadata["author_name_raw"]` is present for all except `10_no_author`
+- `extracted_metadata["author_death_hijri"]` matches ground truth where present
+- No `SRC_INTERNAL_ERROR` anywhere
+- PHASE_A_SUMMARY.json shows `successful: 12, errors: 2`
+
+**Test B — limit flag:** Run with `--limit 3` and verify only 3 items processed.
+
+**Test C — resume flag:** Run with `--resume` after Test A and verify it skips all 14 items (0 new processed).
 
 ## Module imports needed
 
 ```python
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from engines.source.src.format_detection import detect_format
 from engines.source.src.extractors import extract_metadata
-from engines.source.src.staging import compute_file_hash, compute_composite_hash
+from engines.source.src.staging import (
+    compute_file_hash,
+    compute_composite_hash,
+    _collect_source_files,
+)
 from engines.source.src.exceptions import SourceEngineError
 from engines.source.contracts import SourceFormat
 ```
 
 ## Edge cases to handle
 
-- **Items that are neither `.htm` files nor directories:** Skip with a warning (e.g., `.DS_Store`, `Thumbs.db`, desktop.ini). Record as `SRC_UNSUPPORTED_FORMAT`.
-- **Empty directories:** Will be caught by `detect_format` as `SRC_EMPTY_INPUT`.
-- **Non-UTF-8 files:** Will be caught by the extractor as `SRC_UNSUPPORTED_FORMAT`.
-- **Very large files (20+ MB):** Should still work — hashing reads in 64KB chunks, extraction parses the full HTML. May be slow. The timing data will show this.
-- **Directories with only `المقدمة.htm` and no numbered files:** Valid edge case — should detect as single-volume Shamela.
-- **Hidden files (`.` prefix) inside multi-volume directories:** Already filtered by `_detect_volumes` in the extractor.
+- **Items that are neither `.htm` files nor directories:** Passed to `detect_format()` which raises `SRC_UNSUPPORTED_FORMAT`. Catch and record.
+- **Empty directories:** Caught by `detect_format` as `SRC_EMPTY_INPUT`.
+- **Non-UTF-8 files:** Caught by the extractor as `SRC_UNSUPPORTED_FORMAT`.
+- **Very large files (20+ MB):** Should still work — hashing reads in 64KB chunks. May be slow. Timing data will show this.
+- **Directories with only `المقدمة.htm` and no numbered files:** Valid edge case — `_detect_volumes` handles this.
+- **Hidden files (`.` prefix) inside multi-volume directories:** Filtered by `_detect_volumes` in the extractor and by `_collect_source_files` for hashing.
+- **Non-Shamela `.htm` files:** Would pass extension check but fail `_is_shamela_html` marker check → `SRC_UNSUPPORTED_FORMAT`.
+- **PermissionError or OSError during file read:** Catch as `SRC_INTERNAL_ERROR` with the OS error message in context.
 
 ## What NOT to build
 
@@ -191,3 +256,4 @@ from engines.source.contracts import SourceFormat
 - No scholar authority lookups
 - No validation checks (those need LLM output)
 - No human gate interactions
+- No modifications to existing engine source code — the point of Phase A is to find bugs by running the code as-is
