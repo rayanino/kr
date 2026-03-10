@@ -27,6 +27,7 @@ FIELD_MAP: dict[str, str] = {
     "الكتاب": "title_full",
     "اسم الكتاب": "title_full",  # Alternative (0.9%)
     "المؤلف": "author_name_raw",
+    "تأليف": "author_name_raw",  # Synonym for المؤلف (3 books)
     # Muhaqiq-equivalent labels — all map to muhaqiq_name_raw.
     # Frequencies from collection audit (2,256 exports analyzed):
     "المحقق": "muhaqiq_name_raw",  # 32.4%
@@ -46,6 +47,7 @@ FIELD_MAP: dict[str, str] = {
     "حققه وخرج أحاديثه وعلق عليه": "muhaqiq_name_raw",  # 0.4%
     "مراجعة": "muhaqiq_name_raw",  # 0.2%
     "حققه": "muhaqiq_name_raw",  # 0.2%
+    "بعناية": "muhaqiq_name_raw",  # Editorial care variant (3 books)
     # Publishing fields
     "الناشر": "publisher",
     "دار النشر": "publisher",  # Alternative (0.9%)
@@ -57,6 +59,7 @@ FIELD_MAP: dict[str, str] = {
     "عدد صفحات (الكتاب الورقي)": "page_count_raw",  # Alternative
     "عام النشر": "publication_year_raw",
     "سنة النشر": "publication_year_raw",  # Alternative (0.4%)
+    "تاريخ النشر": "publication_year_raw",  # Publication date variant (4 books)
     "تاريخ النشر بالشاملة": "shamela_publish_date",
     "مصدر الكتاب": "source_note",
     "تنبيه": "editorial_note",
@@ -66,6 +69,8 @@ FIELD_MAP: dict[str, str] = {
     "الشارح": "commentator_name_raw",  # 0.3% — the commentator
     # Compilation and translation
     "جمع وترتيب": "compiler_name_raw",  # 0.4%
+    "جمعها": "compiler_name_raw",  # Collection/compilation (3 books)
+    "انتقاء": "compiler_name_raw",  # Selection/curation (8 books)
     "ترجمة": "translator",  # 0.2%
     "تقديم": "foreword_by",  # 0.8% — NOT muhaqiq
     "قدم له": "foreword_by",  # 0.5% — NOT muhaqiq
@@ -198,6 +203,11 @@ def extract_shamela_metadata(source_path: Path) -> dict[str, Any]:
 
     # ── Bibliographic fields ──
     _parse_bibliographic_fields(card, result)
+
+    # Bug 3: Fallback — if title_full not extracted but display_title exists
+    if "title_full" not in result and "display_title" in result:
+        result["title_full"] = result["display_title"]
+        result["_field_source_title_full"] = "display_title_fallback"
 
     # ── Death dates ──
     _parse_death_dates(result)
@@ -333,6 +343,26 @@ def _parse_bibliographic_fields(card: str, result: dict[str, Any]) -> None:
     for m in _RE_FIELD.finditer(card):
         label = strip_tags(m.group(1)).strip()
         value = strip_tags(m.group(2)).strip()
+
+        # Bug 1 + Fix 5: Skip header line captured as field.
+        # The card header contains القسم which is never a real field label.
+        # This prevents: (a) category assigned as muhaqiq, (b) redundant extra_card_fields.
+        if "القسم" in label:
+            continue
+
+        # Bug 2: Format B recovery — value embedded inside <span class='title'>.
+        # In this variant, strip_tags(label) contains ":" because the regex
+        # matched a later colon as the field separator. Split on first ":"
+        # to recover the real label and reassemble the value.
+        if ":" in label:
+            colon_pos = label.index(":")
+            real_label = label[:colon_pos].strip()
+            value_prefix = label[colon_pos + 1:].strip()
+            label = real_label
+            if value_prefix and value:
+                value = f"{value_prefix} {value}"
+            elif value_prefix:
+                value = value_prefix
 
         if label in FIELD_MAP and value:
             internal_name = FIELD_MAP[label]
