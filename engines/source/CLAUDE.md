@@ -34,7 +34,8 @@
 - **Session 6: COMPLETE.** engine.py + logger.py built, 35 new tests, 6 bugs fixed in post-build review. 758 total tests passing.
 - **Post-Session 6: VALIDATION PHASE.** See `engines/source/VALIDATION_PLAN.md` for the governing plan.
   - **Step 0: COMPLETE.** 12/13 fixtures pass (GO). 4 bugs fixed during run, 4 more found for Step 1. See `engines/source/review/STEP0_RESULTS.md`.
-  - **Step 1: CURRENT.** Code audit — Claude Chat reads modules against SPEC. See `/NEXT.md`.
+  - **Step 1: COMPLETE.** Code audit found 6 bugs (4 original + 2 from final review). All 6 fixed in commit `4b51718`. See `engines/source/review/CODE_AUDIT_SESSION6.md`. 768 tests passing.
+  - **Step 2: CURRENT.** Deterministic sweep — run extraction on 2,519 books without LLM. See `/NEXT.md`.
 
 ## Required Reading (for Claude Code)
 
