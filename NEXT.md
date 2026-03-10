@@ -1,6 +1,7 @@
 # NEXT — Source Engine Validation, Step 2: Deterministic Sweep
 
 **Governing document:** `engines/source/VALIDATION_PLAN.md` — read this first in every new session.
+**Result preservation:** `/RESULT_PRESERVATION.md` — every test result is a reusable artifact, not disposable validation. Read this before any pipeline run.
 
 **Previous steps:**
 - Step 0 COMPLETE — 12/13 fixtures pass. See `engines/source/review/STEP0_RESULTS.md`.

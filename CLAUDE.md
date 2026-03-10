@@ -16,6 +16,7 @@ Concise context: `STEERING.md`. Development process: `skills/shared/ENGINE_PROTO
 8. Arabic text is fragile. Read `.claude/skills/arabic-text/SKILL.md` before text processing.
 9. Technology first. Check `.claude/skills/technology-survey/SKILL.md` before custom code.
 10. ABD legacy has zero authority (D-019). SPECs define what to build.
+11. Every API call persists its full output. Test results are reusable artifacts, not disposable validation. See `RESULT_PRESERVATION.md`.
 
 ## Before Starting Work
 
