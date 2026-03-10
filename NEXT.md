@@ -20,6 +20,22 @@ Read these files in order before writing any code:
 
 ---
 
+## Prerequisites Check
+
+Before building, verify these fixes from Session 5a evaluation are applied:
+
+1. In `engines/source/contracts.py` ErrorCode enum, these 4 codes should exist:
+   - `SCHEMA_VIOLATION = "SRC_SCHEMA_VIOLATION"`
+   - `MULTI_LAYER_VIOLATION = "SRC_MULTI_LAYER_VIOLATION"`
+   - `SCHOLAR_NAME_BLOCKED = "SRC_SCHOLAR_NAME_BLOCKED"`
+   - `SCHOLAR_SELF_REFERENCE = "SRC_SCHOLAR_SELF_REFERENCE"`
+
+2. In `engines/source/src/validation.py` line ~130, error code should be `SRC_DUPLICATE_WORK` (not `SRC_DUPLICATE_DETECTED`).
+
+If any are missing, add them before proceeding. Run `pytest engines/source/tests/ shared/*/tests/ -q` to confirm 447 tests pass.
+
+---
+
 ## What to Build (in dependency order)
 
 ### Module 1: `engines/source/src/text_utils.py` — extend with slug generation (~60 lines added)
