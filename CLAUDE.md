@@ -4,6 +4,26 @@
 
 Concise context: `STEERING.md`. Development process: `skills/shared/ENGINE_PROTOCOL.md`. Test architecture: `reference/TESTING_FRAMEWORK.md`. Quality target: `reference/ENTRY_EXAMPLE.md`. Full spec: `VISION.md` (47K tokens — never read whole, use `scripts/extract_vision_sections.py`).
 
+## Development Priority — Pipeline First
+
+**The goal is building a correct, robust, fully-tested 7-engine pipeline. The goal is NOT populating the library, building a user interface, or producing the owner's scholarly library.**
+
+Library population is a *consequence* of having a working pipeline — not an objective. A populated library built on a fragile pipeline is worthless: it will produce wrong metadata, corrupt scholar records, misattribute texts, and embed errors into the owner's knowledge. A correct pipeline with zero books processed is infinitely more valuable — you run it once and the library is correct.
+
+This means every agent, in every session, optimizes for:
+- **Correctness** — does the pipeline produce right answers?
+- **Robustness** — does it handle every edge case without crashing or silently defaulting?
+- **Test coverage** — have we proven it works on diverse, adversarial, real-world inputs?
+- **Error handling** — does every failure mode produce a clear, structured, actionable error?
+
+And never optimizes for:
+- Throughput (processing more books faster)
+- User experience or interface design
+- "Finishing" an engine by running it on the full collection before it's proven correct
+- Any work on the Scholar Interface or owner-facing features
+
+When you're unsure whether to fix a subtle edge case or move on to the next phase: **fix the edge case**. The pipeline must be right before it is complete.
+
 ## Critical Rules
 
 1. Frozen sources are immutable. Bytes never change after freezing.

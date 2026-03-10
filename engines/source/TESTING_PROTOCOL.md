@@ -210,9 +210,9 @@ Owner in Claude Chat:                    Repo:
 
 **Input:** Entire Shamela collection.
 
-**What this produces:** A populated library. After this, the source engine is done and the normalization engine can begin processing real sources.
+**What this proves:** The source engine pipeline handles the full collection correctly at scale. This is the final validation gate. The output also populates `library/` as a side effect — this becomes the normalization engine's input data.
 
-**Output:** Full `library/` populated: registries, frozen sources, metadata.json files, human gate queue.
+**Output:** Structured results per RESULT_PRESERVATION.md, plus `library/` (registries, frozen sources, metadata.json files, human gate queue).
 
 **Review:** Statistical summary only (not per-book). Owner reviews the human gate queue and resolves pending checkpoints.
 

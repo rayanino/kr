@@ -122,7 +122,7 @@ tests/results/source_engine/phase_e/
 
 **MASTER_MANIFEST.json** is the final artifact. It maps every book in the collection to its result, regardless of which phase produced it. Phase E only processes books not already covered by C and D.
 
-After Phase E, the `library/` directory is populated from these results. The test results ARE the source data for population — not an intermediate step that gets thrown away.
+After Phase E, the `library/` directory is populated from these results as a side effect. The primary deliverable is the test evidence (MASTER_MANIFEST.json, per-book results, PHASE_E_LESSONS.md) proving the pipeline handles the full collection correctly. The `library/` output becomes the normalization engine's input data.
 
 ---
 

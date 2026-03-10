@@ -11,6 +11,12 @@ This is the CONCISE project context for Claude Code. It replaces reading VISION.
 **Goal:** Make previously impossible scholarship possible through technology.
 **Language:** All scholarly content in Arabic. System messages in English. Entries in Arabic.
 
+## Current Development Phase: Pipeline Engineering
+
+**We are building and proving a 7-engine pipeline. We are NOT populating a library.**
+
+The library gets populated as a side effect of a working pipeline. Until all 7 engines are built and proven correct, the only deliverable is: engines that work. Every session, every task, every decision optimizes for pipeline correctness and robustness — never for throughput, user experience, or library population speed. See `/CLAUDE.md` "Development Priority" section for the full directive.
+
 ## Architecture
 
 ```

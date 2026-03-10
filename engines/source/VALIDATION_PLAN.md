@@ -164,15 +164,15 @@ python scripts/run_session6_integration.py
 
 ## Step 5: Full Collection — Phase E (€40-50)
 
-**Purpose:** Produce the populated library. Source engine is done after this.
+**Purpose:** Prove the pipeline handles the entire collection correctly at scale. This is the final validation gate — not a production run. The output is evidence that the source engine works, not "the library."
 
 **Prerequisites:** Step 4 passes all gates.
 
 **Input:** Entire 2,519-book Shamela collection.
 
-**Output:** Full `library/` populated: registries, frozen sources, metadata.json files, human gate queue. Per RESULT_PRESERVATION.md: `MASTER_MANIFEST.json` maps every book to its result (including books processed in C/D). Phase E only processes books NOT already successfully covered by earlier phases. `PHASE_E_LESSONS.md` captures the final state.
+**Output:** `tests/results/source_engine/phase_e/` with full structured results per RESULT_PRESERVATION.md: `MASTER_MANIFEST.json` maps every book to its result (including books processed in C/D). Phase E only processes books NOT already successfully covered by earlier phases. `PHASE_E_LESSONS.md` captures the final state. The results also populate `library/` (registries, frozen sources, metadata.json files, human gate queue) as a side effect — this output becomes the normalization engine's input data.
 
-**Review:** Statistical summary only. Owner resolves human gate queue. Normalization engine can begin.
+**Review:** Statistical summary reviewed. Error rate analysis. Owner resolves human gate queue. After this step, the source engine pipeline is validated and the normalization engine can begin development using real data.
 
 ---
 
