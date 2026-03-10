@@ -2,16 +2,16 @@
 
 **For:** Claude Code implementation session
 **Phase:** Validation Step 3 (first real LLM costs)
-**Budget:** €50 ceiling (owner lifted the original €10 cap; expect ~€5–8 actual spend for 50 books)
+**Budget:** €50 ceiling (owner lifted the original €10 cap; expect ~€8–12 actual spend for 73 books at ~$0.15/book)
 **Governing docs:** `VALIDATION_PLAN.md`, `RESULT_PRESERVATION.md`, `CLAUDE_CODE_MEMORY_PRINCIPLES.md`
 
 ---
 
 ## Task Summary
 
-Write `scripts/run_phase_c.py` — a script that runs the FULL source engine pipeline (Steps 1–13) on 50 owner-selected books from the Shamela collection, captures every intermediate artifact per RESULT_PRESERVATION.md, and produces structured results ready for owner review.
+Write `scripts/run_phase_c.py` — a script that runs the FULL source engine pipeline (Steps 1–13) on 73 owner-selected books from the Shamela collection, captures every intermediate artifact per RESULT_PRESERVATION.md, and produces structured results ready for owner review.
 
-This is NOT a modification of `acquire_source`. It is a test/validation script that orchestrates the pipeline while capturing comprehensive diagnostic data that `acquire_source` normally discards.
+The owner provided 73 unique books (after deduplication of cross-group copies) organized by test group A-H, including extras like multiple editions of key works. The collection is ~646 MB across 415 .htm files. books.txt is at `scripts/phase_c_books.txt`. Fixture-to-ground-truth mappings are at `tests/fixtures/phase_c_fixture_mappings.json`.
 
 ---
 
@@ -540,6 +540,8 @@ Approximate per-book cost (based on Step 0 data):
 
 50 books × €0.10 = €5.00 baseline. With retries and edge cases: €7–8 expected. Budget ceiling €50 provides ample headroom.
 
+**Updated estimate based on Step 0 actual costs:** Step 0 cost €1.80 for 13 books = ~$0.15/book (2.3× the theoretical estimate). At $0.15/book: 73 books × $0.15 = $10.95 ≈ €10. With retries (~10%): ~€11. Well within the €50 ceiling. The temperature=0 fix should reduce output verbosity and bring per-book cost closer to $0.10.
+
 ---
 
 ## Error Handling
@@ -568,7 +570,7 @@ Approximate per-book cost (based on Step 0 data):
 
 ## Ground Truth Comparison
 
-For the 13 books that match existing `GROUND_TRUTH.json` entries (the original fixtures), compare:
+For the 12 collection books that match existing `GROUND_TRUTH.json` entries (the original fixtures), compare:
 - `genre` (exact enum match)
 - `author_name` (name similarity ≥ 0.80 using `normalized_name_similarity`)
 - `trust_tier` (exact match)
