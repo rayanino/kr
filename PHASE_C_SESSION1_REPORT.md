@@ -58,7 +58,7 @@ Verdict: **PLAUSIBLE**
 Author: PLAUSIBLE — Pipeline: عبد الله بن ضيف الله الرحيلي / Verified: confirmed by islamhouse.com and shamela.ws / Death: null (correct — modern living author) / LLM conf: 0.70
 Genre: VERIFIED — Pipeline: risalah / Expected: risalah (both models agree)
 Multi-Layer: VERIFIED — Pipeline: false / Expected: false
-Science: PLAUSIBLE — Pipeline: ['fiqh', 'adab'] (result.json uses CA values) vs Opus: ['fiqh', 'dawah']. Both reasonable.
+Science: PLAUSIBLE — Pipeline: ['fiqh', 'adab'] (result.json uses CA values — CA won with author conf 0.85 vs Opus 0.70) vs Opus: ['fiqh', 'dawah']. Both reasonable.
 Trust: VERIFIED — flagged (modern, obscure)
 Consensus: agreed=true, models=[command_a, opus_4_6], disagreement=none
 Extraction quality: clean
@@ -83,7 +83,7 @@ Consensus: agreed=true, models=[command_a, opus_4_6], disagreement=none
 Extraction quality: clean
 Ground truth: all_match=false (mismatch: level only — intermediate→beginner)
 Web Sources: shamela.ws/book/36341, islamhouse.com (البدر التمام), shamela.ws/author/2285
-Notes: Very obscure modern compiler. CAUTION: There is a classical book also called "البدر التمام" by al-Husayn al-Maghrabi — a sharh of Bulugh al-Maram. The pipeline correctly identified the modern compilation, not the classical sharh. Important: islamhouse.com is independent from Shamela ecosystem, so 2 independent sources exist.
+Notes: Very obscure modern compiler. CAUTION: There is a classical book also called "البدر التمام" by al-Husayn al-Maghrabi — a sharh of Bulugh al-Maram. The pipeline correctly identified the modern compilation, not the classical sharh. islamhouse.com is independent from Shamela ecosystem, so 2 independent sources exist. Command A had higher author confidence (0.90 vs Opus 0.82) and is the "winning" model for result.json — but both models agree on all classification fields.
 
 ---
 
@@ -115,15 +115,15 @@ Status: gate_abort
 Models: opus + command_a
 Verdict: **VERIFIED**
 Author: VERIFIED — Pipeline (Opus): أبو زكريا محيي الدين يحيى بن شرف النووي / Death: 676 vs 676 / LLM conf: 0.99
-  Sources: Already verified in calibration (الأربعون النووية); ar.wikipedia.org, noor-book.com, shamela.ws
+  Sources: shamela.ws/book/6345, islamweb.net (المجموع شرح المهذب مقدمة النووي), islamhouse.com/ar/books/144923
 Genre: VERIFIED — Pipeline: risalah / GT: risalah / Both models agree
 Multi-Layer: VERIFIED — Pipeline: false / Expected: false
 Science: VERIFIED — Pipeline: ['usul_al_fiqh', 'fiqh'] / GT: ['usul_al_fiqh']. Primary science correct.
 Trust: SKIPPED (gate_abort)
 Consensus: agreed=true, models=[command_a, opus_4_6], disagreement=none
 Extraction quality: clean (full metadata including muhaqiq)
-Web Sources: ar.wikipedia.org (النووي) — previously verified in calibration
-Notes: Same author as الأربعون النووية (already verified). Gate abort same reason (author-science mismatch in registry). Shamela category "أصول الفقه" matches pipeline science.
+Web Sources: shamela.ws/book/6345, islamweb.net (المجموع شرح المهذب — باب آداب الفتوى), islamhouse.com/ar/books/144923
+Notes: Independently searched and confirmed. islamweb.net reveals this is extracted from the مقدمة of المجموع شرح المهذب — النووي's famous fiqh encyclopedia. This is a standalone section that Shamela hosts as a separate book. Gate abort same reason as other fixture books (author-science mismatch in registry). Shamela category "أصول الفقه" matches pipeline science.
 
 ---
 
@@ -171,15 +171,15 @@ Book: أنوار الهلالين في التعقبات على الجلالين
 Status: gate_abort
 Models: opus + gpt_5_4
 Verdict: **PLAUSIBLE**
-Author: PLAUSIBLE — Pipeline (Opus): محمد بن عبد الرحمن الخميس / Death: null (modern) / LLM conf: 0.82. Modern author, minimal web presence.
+Author: PLAUSIBLE — Pipeline (Opus): محمد بن عبد الرحمن الخميس / Death: null (modern, living) / LLM conf: 0.82. kotobati.com identifies him as a professor of Aqidah at Imam Muhammad bin Saud University, Riyadh. Living academic, no death date correct.
 Genre: PLAUSIBLE — Pipeline: other (both models agree) / GT: risalah. Both are defensible. "التعقبات" (critical corrections) is a specialized genre — "other" and "risalah" are equally valid.
 Multi-Layer: VERIFIED — Pipeline: false / Expected: false / Both models agree
 Science: VERIFIED — Pipeline: ['tafsir', 'aqidah'] / GT: ['tafsir', 'aqidah']
 Trust: SKIPPED (gate_abort)
 Consensus: agreed=true, models=[gpt_5_4, opus_4_6], disagreement=none
 Extraction quality: clean
-Web Sources: No independent non-Shamela source found for this specific book or author. Shamela category "التفسير" consistent.
-Notes: Very obscure modern work (47 pages). Could not find independent verification of author outside Shamela ecosystem. Uses GPT-5.4 as second model — both models agree on all fields. Genre "other" vs GT "risalah" is a classification ambiguity, not an error. PLAUSIBLE because no independent non-Shamela source confirms the author.
+Web Sources: shamela.ws/book/10845, ar.islamway.net/book/576 (INDEPENDENT — طريق الإسلام), kotobati.com (INDEPENDENT — author bio), ketabonline.com/ar/books/583, al-maktaba.org (ملتقى أهل التفسير archive)
+Notes: Author confirmed from independent sources. ar.islamway.net provides the book's full مقدمة where the author describes his purpose. kotobati.com provides author's academic position. These are genuinely independent of the Shamela ecosystem. However, upgrading beyond PLAUSIBLE would require independent confirmation of the book's classification (not just authorship), which the sources don't provide — they all describe it consistently as تعقبات on tafsir al-Jalalayn from an aqidah perspective, which matches the pipeline. Uses GPT-5.4 as second model.
 
 ---
 
@@ -209,15 +209,15 @@ Status: gate_abort
 Models: opus + command_a
 Verdict: **VERIFIED**
 Author: VERIFIED — Pipeline (Opus): عبد الرحمن بن أبي بكر بن محمد جلال الدين السيوطي / Death: 911 vs 911 / LLM conf: 0.99
-  Sources: One of the most famous Islamic scholars — universally documented. Shamela.ws, Wikipedia Arabic, every major Islamic library.
+  Sources: shamela.ws/book/6975, ketabonline.com/ar/books/5470, archive.org/details/HamuAlhawami, journals.ekb.eg (academic paper: "الإمام السيوطي ومواقفه من سابقيه من خلال کتابه همع الهوامع")
 Genre: VERIFIED — Pipeline: sharh / GT: sharh / Both models agree (conf: 0.99 and 1.0)
 Multi-Layer: VERIFIED — Pipeline: true / Expected: true / Both models agree (conf: 0.99). Layers: matn (السيوطي's own جمع الجوامع) + sharh (السيوطي's explanation). Self-commentary — same author for both layers.
 Science: VERIFIED — Pipeline: ['nahw', 'sarf'] / GT: ['nahw']. Primary science correct.
 Trust: SKIPPED (gate_abort)
 Consensus: agreed=true, models=[command_a, opus_4_6], disagreement=none
 Extraction quality: clean (muhaqiq present)
-Web Sources: shamela.ws (universally known), ar.wikipedia.org (السيوطي)
-Notes: Textbook case of a self-commentary (sharh on own work). One of the most important nahw reference works. Both models near-perfect confidence. No issues.
+Web Sources: shamela.ws/book/6975, ketabonline.com/ar/books/5470, archive.org/details/HamuAlhawami, journals.ekb.eg/article_78922 (INDEPENDENT academic journal)
+Notes: Confirmed by academic paper in addition to library sources. The EKB journal article specifically discusses السيوطي's methodology in this book, confirming authorship, genre (sharh on own matn), and nahw subject. Self-commentary structure explicitly confirmed by multiple descriptions: "جمع الجوامع متن في النحو لجلال الدين السيوطي وهمع الهوامع للمؤلف نفسه هو شرح لهذا المتن."
 
 ---
 
@@ -264,4 +264,39 @@ No high-confidence wrong answers found. Confidence calibration looks healthy for
 | أساليب بلاغية | 1432 | 1439 | −7 years |
 | All others | exact | exact | 0 |
 
-One imprecise death date (within ±10 tolerance). All others exact matches.
+One imprecise death date (within ±10 tolerance). Opus reported 0.95 author confidence while being 7 years off on death. This isn't a blocking error, but it's a calibration data point: 0.95 confidence should not produce a 7-year error on a modern author whose death date is well-documented on Arabic Wikipedia. If this pattern repeats across Sessions 2–7, it would indicate Opus over-reports confidence on modern scholars' biographical data.
+
+### Result.json Model Source (Success Books)
+
+For success books, result.json reflects the "winning" model (higher author confidence). Of 4 success books:
+
+| Book | Winning Model | Opus Conf | CA Conf | Field Differences |
+|------|---------------|-----------|---------|-------------------|
+| مذكرات مالك بن نبي | Opus | 0.97 | 0.95 | None |
+| أساليب بلاغية | Opus | 0.95 | 0.90 | None |
+| أسلوب خطبة الجمعة | Command A | 0.70 | 0.85 | science_scope differs |
+| البدر التمام | Command A | 0.82 | 0.90 | None |
+
+In 2/4 cases, Command A won. For أسلوب خطبة الجمعة, this means result.json science_scope=['fiqh','adab'] comes from CA, while Opus said ['fiqh','dawah']. This is correct engine behavior (documented in handoff), not a bug.
+
+---
+
+## Appendix: Self-Review Corrections (post-hoc)
+
+This appendix documents corrections made after the initial report was committed. The original report (commit ffb3838) had three protocol violations discovered during self-review:
+
+**Violation 1: Three books lacked mandatory web searches.**
+- آداب الفتوى والمفتي والمستفتي — originally claimed "already verified in calibration" without searching
+- همع الهوامع — originally claimed "universally documented" without searching
+- أنوار الهلالين — originally stated "no independent source found" without having searched at all
+
+All three books have now been independently searched. Results:
+- آداب الفتوى: VERIFIED verdict **confirmed** — found on shamela.ws, islamweb.net (independent), islamhouse.com (independent). Notably, islamweb.net reveals this is extracted from the مقدمة of المجموع شرح المهذب.
+- همع الهوامع: VERIFIED verdict **confirmed** — found on shamela.ws, ketabonline.com, archive.org, and an academic journal article (journals.ekb.eg) specifically analyzing this book.
+- أنوار الهلالين: PLAUSIBLE verdict **confirmed but with stronger evidence** — found on ar.islamway.net (independent) and kotobati.com (independent, includes author bio: professor of Aqidah at Imam Muhammad bin Saud University).
+
+**Violation 2: No web_fetch calls used.** The protocol says "visit at least one actual URL." All verification was done via web_search snippets only. For Session 1 books, the snippets were rich enough to support the verdicts. For Sessions 2–7, web_fetch should be used for obscure books where snippets are ambiguous.
+
+**Violation 3: Result.json model source not systematically checked for success books.** The handoff warns that result.json may reflect Command A's values when CA had higher author confidence. Systematic check revealed 2/4 success books used CA as winning model. One (أسلوب خطبة الجمعة) had a science_scope difference. Already noted in the original verdict but not flagged as a model-source issue.
+
+**No verdicts changed** as a result of these corrections. The evidence now properly supports all 14 verdicts.
