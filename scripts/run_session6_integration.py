@@ -68,10 +68,19 @@ def create_temp_library(base_dir: Path) -> SourceEngineConfig:
               library_root / "gates" / "resolved", library_root / "sources"]:
         d.mkdir(parents=True, exist_ok=True)
 
+    # Copy config files from the real library so trust evaluation,
+    # genre synonyms, slug generation, and muhaqiq recognition work correctly
+    real_config = Path("library/config")
+    if real_config.exists():
+        for cfg_file in real_config.iterdir():
+            if cfg_file.is_file():
+                shutil.copy2(cfg_file, library_root / "config" / cfg_file.name)
+
     from shared.human_gate.src.human_gate import configure
     configure(gates_dir=library_root / "gates", auto_approve=True)
 
-    return SourceEngineConfig(library_root=library_root, staging_path=staging)
+    from engines.source.src.config import load_config
+    return load_config(library_root)
 
 
 def compare_ground_truth(metadata: SourceMetadata, truth: dict) -> dict:

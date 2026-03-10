@@ -100,8 +100,8 @@ def _compute_fidelity(
         fidelity = TextFidelity.HIGH.value
         reason = "Shamela structured HTML text"
     elif source_format == SourceFormat.PLAIN_TEXT:
-        fidelity = TextFidelity.HIGH.value
-        reason = "Plain text (text-embedded)"
+        fidelity = TextFidelity.MEDIUM.value
+        reason = "Plain text file"
     elif source_format == SourceFormat.PDF_TEXT:
         fidelity = TextFidelity.HIGH.value
         reason = "Text-embedded PDF"
@@ -115,10 +115,25 @@ def _compute_fidelity(
         fidelity = TextFidelity.UNKNOWN.value
         reason = f"Unknown format: {source_format.value}"
 
-    # Check for quality issues in extracted data
-    quality_issues = extracted.get("quality_issues", [])
-    if quality_issues:
-        reason += f"; quality issues: {', '.join(quality_issues)}"
+    # Check for quality issues in extracted data (key uses underscore prefix)
+    quality_issues = extracted.get("_quality_issues", [])
+    for issue in quality_issues:
+        check = issue.get("check", "") if isinstance(issue, dict) else str(issue)
+        detail = issue.get("detail", check) if isinstance(issue, dict) else str(issue)
+
+        if check == "page_count_mismatch":
+            if fidelity == TextFidelity.HIGH.value:
+                fidelity = TextFidelity.MEDIUM.value
+            reason += f"; page count mismatch: {detail}"
+        elif check == "encoding_suspect":
+            fidelity = TextFidelity.LOW.value
+            reason += f"; encoding suspect: {detail}"
+        elif check == "high_empty_ratio":
+            if fidelity == TextFidelity.HIGH.value:
+                fidelity = TextFidelity.MEDIUM.value
+            reason += f"; high empty ratio: {detail}"
+        elif check == "content_minimal":
+            reason += f"; minimal content: {detail}"
 
     return fidelity, reason
 
@@ -291,9 +306,9 @@ async def acquire_source(
                 raise make_error(
                     ErrorCode.DUPLICATE_EXACT,
                     f"Exact duplicate of {dup_source_id}",
-                    severity=ErrorSeverity.WARNING,
+                    severity=ErrorSeverity.INFO,
                     source_id=source_id,
-                    recovery_action="rejected",
+                    recovery_action="skipped",
                     context={"duplicate_of": dup_source_id},
                 )
 
@@ -316,7 +331,8 @@ async def acquire_source(
                 and inference.canonical_output.author_identification.school_affiliations
             ):
                 schools = inference.canonical_output.author_identification.school_affiliations
-                school = next(iter(schools.keys()), None)
+                # school_affiliations is {science: school_name}, we want a school name
+                school = next((v for v in schools.values() if v), None)
 
             author_ref, author_gate_id = lookup_or_register_author(
                 author_name,
@@ -463,7 +479,7 @@ async def acquire_source(
                 scholarly_context=scholarly_context,
                 status=ProcessingStatus.ACQUIRED,
                 intake_timestamp=now_iso,
-                acquisition_path=AcquisitionPath.AUTONOMOUS,
+                acquisition_path=AcquisitionPath.MANUAL,
             )
 
             # ── Step 10: Evaluate trust ──
