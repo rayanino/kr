@@ -1,5 +1,61 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "MultiEdit",
+      "Glob",
+      "Grep",
+      "LS",
+      "Task",
+      "WebFetch",
+      "WebSearch",
+      "TodoWrite",
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(pip install *)",
+      "Bash(pip3 install *)",
+      "Bash(cd *)",
+      "Bash(cat *)",
+      "Bash(ls *)",
+      "Bash(grep *)",
+      "Bash(find *)",
+      "Bash(wc *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(rm *)",
+      "Bash(touch *)",
+      "Bash(chmod *)",
+      "Bash(git *)",
+      "Bash(tree *)",
+      "Bash(sed *)",
+      "Bash(awk *)",
+      "Bash(sort *)",
+      "Bash(diff *)",
+      "Bash(echo *)",
+      "Bash(jq *)",
+      "Bash(curl *)",
+      "Bash(make *)",
+      "Bash(sha256sum *)",
+      "Bash(md5sum *)",
+      "Bash(pytest *)",
+      "Bash(black *)",
+      "Bash(ruff *)",
+      "Bash(npx *)",
+      "Bash(node *)"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(sudo rm:*)",
+      "Read(.env)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -97,30 +153,7 @@
       }
     ]
   },
-  "permissions": {
-    "defaultMode": "acceptEdits",
-    "allow": [
-      "Read", "Write", "Edit", "MultiEdit",
-      "Glob", "Grep", "LS", "Task",
-      "WebFetch", "WebSearch", "TodoWrite",
-      "Bash(python *)", "Bash(python3 *)",
-      "Bash(pip install *)", "Bash(pip3 install *)",
-      "Bash(cd *)", "Bash(cat *)", "Bash(ls *)",
-      "Bash(grep *)", "Bash(find *)", "Bash(wc *)",
-      "Bash(head *)", "Bash(tail *)", "Bash(mkdir *)",
-      "Bash(cp *)", "Bash(mv *)", "Bash(rm *)",
-      "Bash(touch *)", "Bash(chmod *)", "Bash(git *)",
-      "Bash(tree *)", "Bash(sed *)", "Bash(awk *)",
-      "Bash(sort *)", "Bash(diff *)", "Bash(echo *)",
-      "Bash(jq *)", "Bash(curl *)", "Bash(make *)",
-      "Bash(sha256sum *)", "Bash(md5sum *)",
-      "Bash(pytest *)", "Bash(black *)", "Bash(ruff *)",
-      "Bash(npx *)", "Bash(node *)"
-    ],
-    "deny": [
-      "Bash(rm -rf /)",
-      "Bash(sudo rm:*)",
-      "Read(.env)"
-    ]
+  "enabledPlugins": {
+    "oberskills@rtd": true
   }
 }
