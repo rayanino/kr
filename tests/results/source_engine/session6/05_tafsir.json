@@ -1,0 +1,7 @@
+{
+  "fixture": "05_tafsir",
+  "success": false,
+  "elapsed_seconds": 13.2,
+  "error_code": "SRC_FREEZE_FAILED",
+  "error_message": "Unexpected error during acquisition: 'ScholarMatchResult' object has no attribute 'get'"
+}

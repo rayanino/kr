@@ -1,0 +1,7 @@
+{
+  "fixture": "alfiyyah_versified",
+  "success": false,
+  "elapsed_seconds": 16.63,
+  "error_code": "SRC_FREEZE_FAILED",
+  "error_message": "Unexpected error during acquisition: 'ScholarMatchResult' object has no attribute 'get'"
+}

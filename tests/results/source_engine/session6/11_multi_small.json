@@ -1,0 +1,7 @@
+{
+  "fixture": "11_multi_small",
+  "success": false,
+  "elapsed_seconds": 21.39,
+  "error_code": "SRC_FREEZE_FAILED",
+  "error_message": "Unexpected error during acquisition: 'ScholarMatchResult' object has no attribute 'get'"
+}
