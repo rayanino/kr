@@ -244,14 +244,14 @@ async def process_book(book_path, output_dir, ground_truth):
     # 2. Copy book to staging
     staging_path = copy_to_staging(book_path, config)
     
-    # 3-4. Extract metadata SEPARATELY (for extraction.json capture)
-    #      This is cheap — no API calls, just HTML parsing
+    # 3-4. Extract metadata DIRECTLY (no staging — staging creates a lock file
+    #      that would block acquire_source later)
+    #      This is read-only: just format detection + HTML parsing, zero side effects.
     from engines.source.src.format_detection import detect_format
     from engines.source.src.extractors import extract_metadata
-    from engines.source.src.staging import stage_source
     
-    staging_result = stage_source(staging_path, config, existing_ids=set())
-    extracted = extract_metadata(staging_result.source_path, staging_result.source_format)
+    source_format = detect_format(staging_path)
+    extracted = extract_metadata(staging_path, source_format)
     save_json(output_dir / "extraction.json", extracted)  # SAVE IMMEDIATELY
     
     # 5. Build and save the exact prompt the LLM will see
@@ -304,28 +304,39 @@ async def process_book(book_path, output_dir, ground_truth):
 
 **IMPORTANT implementation detail:** `acquire_source` doesn't expose the `MetadataInferenceResult` or `ConsensusResult`. To capture per-model LLM responses, use ONE of these approaches (choose whichever is cleanest):
 
-**Approach A (preferred): Capture via consensus module wrapper.**
-Monkey-patch `shared.consensus.src.consensus.evaluate` before calling `acquire_source`. The wrapper calls the real `evaluate`, saves the full `ConsensusResult` to a module-level variable, then returns the result unchanged. After `acquire_source` returns, read the captured result and serialize per-model responses.
+**Approach A (preferred): Capture via infer_metadata wrapper.**
+Monkey-patch `infer_metadata` in engine.py's namespace. This captures the full MetadataInferenceResult (which, after Pre-Req 2, contains `_full_consensus_result` with per-model responses).
+
+**CRITICAL:** You must patch the reference in the IMPORTING module, not the defining module. Python's `from X import Y` creates a local copy — patching X.Y does NOT affect the copy.
 
 ```python
-import shared.consensus.src.consensus as consensus_mod
+# CORRECT: patch in engine.py's namespace (where infer_metadata is called)
+import engines.source.src.engine as engine_mod
 
-_captured_consensus: ConsensusResult | None = None
+_original_infer = engine_mod.infer_metadata
+_captured_inference = None
 
-async def _capturing_evaluate(*args, **kwargs):
-    global _captured_consensus
-    result = await _original_evaluate(*args, **kwargs)
-    _captured_consensus = result
+async def _capturing_infer(*args, **kwargs):
+    global _captured_inference
+    result = await _original_infer(*args, **kwargs)
+    _captured_inference = result
     return result
 
-# Before processing:
-_original_evaluate = consensus_mod.evaluate
-consensus_mod.evaluate = _capturing_evaluate
+# Before processing each book:
+engine_mod.infer_metadata = _capturing_infer
 
-# After acquire_source:
-if _captured_consensus:
-    save_per_model_responses(_captured_consensus, output_dir / "llm_responses")
-    save_consensus_details(_captured_consensus, output_dir / "consensus.json")
+# After acquire_source returns:
+if _captured_inference and _captured_inference._full_consensus_result:
+    consensus_result = _captured_inference._full_consensus_result
+    save_per_model_responses(consensus_result, output_dir / "llm_responses")
+    save_consensus_details(consensus_result, output_dir / "consensus.json")
+```
+
+**WRONG (do NOT do this):**
+```python
+# WRONG: patching the source module doesn't affect metadata_inference's local reference
+import shared.consensus.src.consensus as consensus_mod
+consensus_mod.evaluate = _wrapper  # This WON'T be seen by metadata_inference.py!
 ```
 
 **Approach B (alternative): Add diagnostic_dir parameter to acquire_source.**

@@ -164,3 +164,37 @@ The system message (2321 chars) + JSON schema in user message (2630 chars) + pos
 | Parse failure on complex book | Medium | 1 book error | Error recorded, book marked for re-run |
 | Temperature=0 breaks Instructor | Very Low | Revert change | Test in 2-book run; revert if issues |
 | Prompt context fix regression | Low | Wrong metadata | Test on all 13 fixtures before full run |
+
+---
+
+## Self-Analysis: Bugs Found in My Own Task Spec
+
+### BUG 1 (CRITICAL): Monkey-patch targeted WRONG module
+
+**What I wrote:** Patch `shared.consensus.src.consensus.evaluate`
+**Why it's wrong:** Python's `from X import Y` copies the reference into the importing module's namespace. Patching `X.Y` does NOT affect the copy that `metadata_inference.py` already has.
+**What it should be:** Patch `engines.source.src.engine.infer_metadata` — this captures the MetadataInferenceResult (which, after Pre-Req 2, contains the full ConsensusResult).
+**Impact if not caught:** The Phase C script would silently produce empty llm_responses/ directories for all 50 books. We'd discover this after spending $5-7 and need to re-run.
+**Status:** FIXED in task spec.
+
+### BUG 2 (CRITICAL): Pre-pipeline extraction creates lock that blocks pipeline
+
+**What I wrote:** Call `stage_source()` then `extract_metadata()` before `acquire_source()`
+**Why it's wrong:** `stage_source()` creates a `.kr_processing` lock file with exclusive mode (`open("x")`). When `acquire_source()` internally calls `stage_source()` on the same path, it finds the lock and FAILS with a contention error.
+**What it should be:** Call `detect_format()` then `extract_metadata()` directly — no staging, no lock. Extraction is read-only.
+**Impact if not caught:** Every book in Phase C would crash with a lock contention error before making any API calls. $0 wasted but a full debugging session lost.
+**Status:** FIXED in task spec.
+
+### OBSERVATION 1: Text sample includes title page in ~17% of books
+
+Some Shamela books have their first body page as a title/colophon page (repeating author, publisher). The text_sample correctly skips the metadata CARD but can't distinguish title-page body-divs from content body-divs. In affected books, ~300 of 2000 chars are redundant.
+**Decision:** NOT fixing for Phase C. The LLM still gets ~1700 chars of actual body text. Document for Phase E optimization.
+
+### OBSERVATION 2: Isolated temp libraries = scholar registry Case A untested
+
+Each Phase C book gets its own empty registry. The author_agreement_fn's Case A (both models match an existing record) never fires — only Case B (name similarity) is tested. If Case A has a bug, Phase C won't catch it.
+**Decision:** Correct for Phase C (independent probes). Phase D must use a shared registry.
+
+### OBSERVATION 3: Actual cost likely ~$0.15/book, not $0.065
+
+Step 0 cost €1.80 for 13 books = ~$0.15/book. My theoretical estimate was $0.065. The 2.3× discrepancy likely comes from Instructor schema overhead tokens and default-temperature verbosity. Updated 50-book estimate: ~$7.50 + retries ≈ ~$9 ≈ ~€8. Still well within ceiling.
