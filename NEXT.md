@@ -52,9 +52,13 @@ Sequential book processing. No parallelism. Full spec in PHASE_C_TASK_SPEC.md in
 
 All 14 items in the 3-Book Test Checklist (end of PHASE_C_TASK_SPEC.md) must pass.
 
-### Step 4: Commit
+### Step 4: Run Full 73 Books
 
-Commit the validated script. The owner runs `python scripts/run_phase_c.py` on all 73 books on his Windows machine.
+After the 3-book test passes, run the full set. The owner provides the path to the Shamela collection directory. Claude Code runs the script directly — no handoff needed.
+
+### Step 5: Commit
+
+Commit the script, all pre-req changes, and the 3-book test results. The full 73-book results go to `tests/results/source_engine/phase_c/`.
 
 ## Key Files
 
@@ -75,8 +79,8 @@ The 3-book test costs ~€0.45. The full 73-book run costs ~€11.
 
 ## Do NOT
 
-- Run the full 73 books (owner does that)
 - Parallelize processing
 - Use agent teams or subagents
 - Reimplement the pipeline (use `acquire_source`)
 - Strip schema text from user message (Command A needs it)
+- Skip the 3-book test gate before running the full 73

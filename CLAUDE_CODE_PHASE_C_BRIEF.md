@@ -9,14 +9,16 @@
 ## Execution Order
 
 ```
-1. Read PHASE_C_TASK_SPEC.md (the detailed spec — 810 lines, read it all)
+1. Read PHASE_C_TASK_SPEC.md (the detailed spec — 850+ lines, read it all)
 2. Read CLAUDE.md (project conventions)
 3. Implement pre-requisites 0a → 0b → 1 → 2 → 3 → 4 (in order)
 4. Run full test suite after each pre-req (768+ tests must pass)
 5. Write scripts/run_phase_c.py
 6. Test on 3 books (fixture + clean new + gate-trigger)
 7. Verify all 14 items in the 3-Book Test Checklist pass
-8. Commit the validated script — owner runs the full 73 on Windows
+8. Run full 73 books (owner provides collection path)
+9. Generate PHASE_C_SUMMARY.json and PHASE_C_MANIFEST.json
+10. Commit everything
 ```
 
 ## Critical Things That Will Waste Money If Wrong
@@ -49,7 +51,7 @@
 
 ## What NOT to Do
 
-- Do NOT run the full 73 books. Test on 3, commit, owner runs the rest.
+- Do NOT skip the 3-book test gate before running the full 73.
 - Do NOT parallelize book processing. Sequential only.
 - Do NOT use agent teams or subagents for this task.
 - Do NOT reimplement the pipeline. Use `acquire_source()` and capture via monkey-patch.
@@ -57,4 +59,4 @@
 
 ## Done When
 
-The script passes the 3-Book Test Checklist (14 items), all 768+ tests pass, and the script is committed. The owner handles the full 73-book run on Windows.
+The script passes the 3-Book Test Checklist (14 items), the full 73-book run completes, all 768+ tests pass, and everything is committed.

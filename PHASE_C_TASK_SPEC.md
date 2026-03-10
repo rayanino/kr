@@ -873,7 +873,7 @@ These are low-priority. Do them only if the Phase C script is working and tested
 - [ ] Dry-run mode works
 - [ ] Human gate configured: verify a gate-triggering book (e.g., الفقه الأكبر) doesn't crash or write to project gates dir
 - [ ] All existing tests still pass (768+)
-- [ ] Script is committed and ready for the owner to run on the full 73-book selection
+- [ ] Script is committed with all pre-req changes and full 73-book results
 
 ### 3-Book Test Checklist
 
