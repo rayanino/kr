@@ -35,7 +35,8 @@
 - **Post-Session 6: VALIDATION PHASE.** See `engines/source/VALIDATION_PLAN.md` for the governing plan.
   - **Step 0: COMPLETE.** 12/13 fixtures pass (GO). 4 bugs fixed during run, 4 more found for Step 1. See `engines/source/review/STEP0_RESULTS.md`.
   - **Step 1: COMPLETE.** Code audit found 6 bugs (4 original + 2 from final review). All 6 fixed in commit `4b51718`. See `engines/source/review/CODE_AUDIT_SESSION6.md`. 768 tests passing.
-  - **Step 2: CURRENT.** Deterministic sweep — run extraction on 2,519 books without LLM. See `/NEXT.md`.
+  - **Step 2: COMPLETE.** Deterministic sweep: 2,519/2,519 success, zero crashes. 5 extraction bugs found and fixed (commit `8beff68`): title_full 98.1%→100%, author_name_raw 94.3%→96.2%, 32 false muhaqiqs→0. See `engines/source/review/PHASE_A_LESSONS.md`.
+  - **Step 3: CURRENT.** Targeted LLM probes on 30 owner-selected books. See `/NEXT.md`.
 
 ## Required Reading (for Claude Code)
 
