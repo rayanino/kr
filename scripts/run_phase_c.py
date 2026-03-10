@@ -380,8 +380,8 @@ def run_sanity_checks(result_data: dict, extraction: dict, prompt_sent: dict) ->
         })
 
     # 2. Author name blank — only for success books (gate_abort has no author in result_data)
+    author = result_data.get("author", {})
     if result_data.get("status") != "gate_abort":
-        author = result_data.get("author", {})
         if isinstance(author, dict) and not author.get("name_arabic", "").strip():
             flags.append({
                 "check": "author_name_blank",

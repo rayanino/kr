@@ -205,6 +205,9 @@ def _check_consistency(
                     ))
 
     # 5d: Attribution ↔ prior sources
+    # NOTE: prior_sources is not yet passed by engine.py — deferred to Phase D/E
+    # when the library accumulates multiple sources per work. The check logic is
+    # correct but has no callers yet.
     attribution = data.get("attribution_status")
     if (
         prior_sources

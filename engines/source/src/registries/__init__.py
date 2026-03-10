@@ -144,6 +144,11 @@ def register_source(
 
     try:
         # Update sources.json
+        # NOTE: Narrow crash window — if process dies between save() and the
+        # pending update below, sources.json is modified but pending says
+        # completed_files=[]. Recovery treats this as "never started" and
+        # doesn't rollback. Probability is near-zero (two Python statements).
+        # The .bak from save() persists for manual recovery if needed.
         src_reg = source_registry.load(registry_path=sources_path)
         src_reg[metadata.source_id] = src_entry.model_dump(mode="json")
         source_registry.save(registry_path=sources_path, data=src_reg)
