@@ -21,4 +21,5 @@ Calibration (Phase 1) is COMPLETE. 3 books evaluated, framework validated with c
 ## Session plan:
 Follow the framework's session assignments (Sessions 1-7).
 Each session = new conversation. Max 10 books per session.
-Owner provides the handoff prompt with specific session instructions.
+Owner provides the handoff prompt (PHASE_2_HANDOFF.md) with specific session instructions.
+The handoff contains the corrected per-book workflow, worked examples, and all 5 corrections inline.
