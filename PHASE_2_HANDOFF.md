@@ -54,6 +54,14 @@ CORRECTION 5 — VERIFIED THRESHOLD:
   Shamela-ecosystem sources (shamela.ws, ketabonline.com, turath.io, waqfeya.net) all derive from the same underlying database. They count as ONE source collectively, not multiple independent sources.
   VERIFIED requires 2+ genuinely independent sources. Independent means: Wikipedia Arabic, academic catalogs, university syllabi, publisher sites, or non-Shamela Islamic library sites.
   When only Shamela-ecosystem sources confirm a book, the ceiling is PLAUSIBLE.
+
+CORRECTION 6 — TAHQIQ-AS-LAYER SYSTEMATIC BIAS:
+  Opus classifies tahqiq (critical edition) notes as a multi-layer structure (matn + tahqiq_note) for 3 non-commentary books. Command A says ML=false for all 3. The framework expects false.
+  When you see ML=true with layer_type="tahqiq_note" on a non-sharh/non-hashiyah book, FLAG it — this is a known Opus bias.
+  The 11 sharh and 4 hashiyah ML=true classifications ARE correct.
+
+CORRECTION 7 — CONSENSUS DOES NOT CHECK MULTI-LAYER:
+  consensus.agreed=true only means author + work agreement. Models can disagree on is_multi_layer and still show agreed=true. Always compare ML between both models yourself.
 </critical_corrections>
 
 <corrected_per_book_workflow>
@@ -84,6 +92,7 @@ STEP 3 — Extract pipeline values:
 STEP 4 — Check consensus:
   Read {book}/consensus.json: agreed (bool), successful_models (list)
   If agreed=false, compare the two models' outputs on genre, author, multi-layer. Note the specific disagreement.
+  IMPORTANT: Even if agreed=true, compare is_multi_layer between both models — consensus does NOT check ML (Correction 7).
 
 STEP 5 — Independent web verification (MANDATORY — do not skip):
   Search for the book title + author in Arabic. Visit at least one actual URL.
@@ -199,6 +208,10 @@ Clone the repo. Read these files in this order:
 1. PHASE_C_EVALUATION_FRAMEWORK.md — the full protocol (but remember the corrections above override it)
 2. PHASE_C_ERRATA.md — detailed correction document committed by the calibration session
 3. PHASE_C_CALIBRATION_BUGS.md — engine bugs found, with workarounds
+
+HELPER TOOL: A script `read_book.py` in the repo root reads all data for any book in one command:
+  python3 read_book.py "book_directory_name"
+It outputs extraction, both models, consensus, and result.json in the corrected evaluation order. Use it as Step 1-4 of the workflow, then do Steps 5-6 (web search + verdict) yourself.
 
 Then begin Session 1 evaluation. For each book, follow the corrected per-book workflow above exactly. Produce the structured verdict for each book. Report the batch when Session 1 is complete.
 </task>

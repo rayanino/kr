@@ -141,7 +141,49 @@ Based on calibration findings, Phase 2 evaluators should:
 
 ---
 
-## 9. Corrected Calibration Verdicts
+---
+
+## 9. Systematic Finding: Opus Treats Tahqiq Notes as Multi-Layer
+
+Opus classifies 3 non-commentary books as multi-layer because they have tahqiq (critical edition) notes by a modern editor:
+- الرسالة للشافعي: [matn, tahqiq_note] — Ahmad Shakir's tahqiq
+- مختصر صحيح مسلم: [matn, tahqiq_note] — Albani's tahqiq
+- مسند أحمد: [matn, tahqiq_note] — Ahmad Shakir's tahqiq
+
+In all 3 cases, Command A says ML=false. The framework expects ML=false for all three.
+
+This is a calibration question: does a tahqiq edition make a book "multi-layer"? The SPEC defines layers as textual strata (matn/sharh/hashiyah). Tahqiq notes are editorial apparatus, not a scholarly commentary layer. Opus is over-extending the multi-layer concept.
+
+**For evaluators:** When a non-sharh/hashiyah book has ML=true with layer_type="tahqiq_note", FLAG it as a systematic Opus bias — do NOT treat it as correct multi-layer classification. The 11 sharh books and 4 hashiyah books with ML=true ARE correct.
+
+---
+
+## 10. Consensus Does NOT Check Multi-Layer Agreement
+
+The consensus module (`engines/source/src/consensus.py`) only checks:
+1. Author agreement (name similarity + death date)
+2. Work agreement (genre chain base work)
+3. Attribution status agreement
+
+It does NOT compare `is_multi_layer`. This means `consensus.agreed=true` can coexist with models disagreeing on multi-layer status. 4 books in Phase C have this exact situation.
+
+**For evaluators:** Even for consensus=agreed books, compare is_multi_layer between both models. The agreed flag doesn't guarantee ML agreement.
+
+---
+
+## 11. Critical Framework Tests — Pre-Verified Results
+
+Three critical checks from the framework's expected values table have been pre-verified in calibration:
+
+1. **إعلام الموقعين (3 editions)**: ALL have is_multi_layer=false ✓ (framework's highest-priority check)
+2. **البداية والنهاية (2 editions)**: Both have genre=tarikh ✓ (not tafsir)
+3. **فتح الباري بشرح البخاري**: Author is ابن حجر العسقلاني (ت 852هـ) ✓ (not البخاري)
+
+Evaluators should still independently verify these but can be confident the pipeline passed the most dangerous failure modes.
+
+---
+
+## 12. Corrected Calibration Verdicts
 
 ### Book 1: أحكام الاضطباع والرمل في الطواف
 ```
