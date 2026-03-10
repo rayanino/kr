@@ -30,7 +30,7 @@
 - Session 3: LLM inference, consensus module, name matching (130 tests)
 - Session 4: Hashing, deduplication, freezing with TOCTOU protection (16 tests)
 - **Session 5a: COMPLETE.** Shared components: scholar authority, human gate, validation, trust evaluator, config (82 new tests, 447 total)
-- **Session 5b: COMPLETE.** Registries, registration orchestrator, text_utils slug generation, work relationships (56 new tests, 503 total)
+- **Session 5b: COMPLETE.** Registries, registration orchestrator, text_utils slug generation, work relationships (56 new tests, 723 total including shared component tests)
 - **Session 6: NEXT.** Integration + error paths + full pipeline. See `engines/source/session-6-next.md` for complete directive.
 
 ## Required Reading (for Claude Code)
