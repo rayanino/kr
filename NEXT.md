@@ -1,28 +1,27 @@
-# NEXT — Source Engine Validation, Step 1: Code Audit
+# NEXT — Source Engine Validation, Step 1 Fixes
 
 **Governing document:** `engines/source/VALIDATION_PLAN.md` — read this first in every new session.
 
-**Previous step:** Step 0 COMPLETE — 12/13 fixtures pass. See `engines/source/review/STEP0_RESULTS.md` for findings.
+**Previous step:** Step 1 COMPLETE — Code Audit delivered. See `engines/source/review/CODE_AUDIT_SESSION6.md`.
 
-**Current step:** Step 1 — Code Audit (Phase B). Claude Chat reads each module against the SPEC.
+**Current step:** Step 1 Fixes — Claude Code implements the 6 blocking fixes from the audit.
 
-**What to do:** This is a Claude Chat session (not Claude Code). The architect reads each module against `SPEC_CORE.md` and traces the 6 checklist items from the validation plan, plus 4 additional bugs found in Step 0.
+**What to do:** This is a Claude Code session. Implement the 6 fixes listed in the "Definitive Fix List for Claude Code" section at the bottom of `engines/source/review/CODE_AUDIT_SESSION6.md`. Read the ENTIRE audit document before starting — including the Self-Review and Final Review sections, which correct errors in the inline fix descriptions. The "Definitive Fix List" section is the authoritative specification; ignore the inline fix pseudocode in the checklist items (it contains errors documented in SR-1 and SR-2).
 
-**Checklist (from VALIDATION_PLAN.md Step 1 + Step 0 findings):**
+**Fix list (6 blocking):**
 
-1. **Consensus retry flow.** Trace engine.py → metadata_inference.py → consensus.py. Does the fallback model (GPT-5.4) actually get called when both primaries fail?
-2. **Registration atomicity.** What if `.bak` is also corrupt? (Step 0 finding A2: silent `pass` on double corruption.)
-3. **Concurrent scholar updates.** `lookup_or_register_author` lacks file locking. (Step 0 finding A3.)
-4. **Human gate auto-approve.** Does `auto_approve=True` use the same code path as real owner review?
-5. **Validation check ordering.** Does Check 5e propagate before Check 6 runs? (Bug was found and fixed in Session 6 — verify the fix is complete.)
-6. **Trust re-evaluation gating.** Document the extension hook for Stage 2.
-7. **[NEW] Validation gate-severity errors ignored.** (Step 0 finding A1.) Engine.py only handles `severity="fatal"`, ignoring `severity="gate"` errors that should create human gate checkpoints.
-8. **[NEW] Name matching punctuation bug.** (Step 0 finding A4.) `normalize_arabic_name` doesn't strip Arabic commas (،), causing token mismatches in scholar deduplication.
-9. **[NEW] `validate_enrichment_passthrough` imported but never called.** D-023 passthrough validation is imported in validation.py but not wired into any check.
-10. **[NEW] Integration script `level` field and author comparison.** Already fixed in commit 3d18faf. Verify correctness.
+1. **Gate errors ignored** — engine.py: process `severity="gate"` validation errors, create human gate checkpoints, AND raise to abort registration.
+2. **Rollback silent on double corruption** — registries/__init__.py: validate .bak content after restore, raise on unrecoverable corruption.
+3. **Name matching punctuation bug** — shared/scholar_authority/src/name_matching.py: strip Arabic/Latin punctuation in normalize_arabic_name.
+4. **Publication year field mapping** — engine.py: read `edition_year_hijri`/`miladi` from extracted dict.
+5. **Title priority reversed** — engine.py: swap `title_full` before `display_title`.
+6. **Layer author dummy ID crash** — engine.py: register placeholder scholar instead of using hard-coded sch_00000.
 
-**Deliverable:** `engines/source/review/CODE_AUDIT_SESSION6.md`
+**Also implement (non-blocking, if time permits):**
+- structural_format default: change "prose" to "mixed" (engine.py:401)
+- Genre chain silent drop: add logger.warning before return None (engine.py:175)
+- Staging cleanup: replace pass with logger.log_event (engine.py:598)
 
-**GO/NO-GO:** All findings fixed or documented as deferred-to-Stage-2 with clear rationale.
+**After fixes:** Run existing tests (`pytest engines/source/tests/ -x`). All 758 must still pass. Then update NEXT.md for Step 2 (deterministic sweep).
 
-**After Step 1:** Claude Code session to implement fixes. Then Step 2 (deterministic sweep on 2,519 books).
+**GO/NO-GO:** All 6 fixes implemented. All existing tests pass. New tests added for each fix.

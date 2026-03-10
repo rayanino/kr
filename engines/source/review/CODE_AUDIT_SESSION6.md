@@ -612,3 +612,276 @@ This violates the fail-loud constraint. If the move fails, the original staging 
 | SR-7 | Staging cleanup failure silent | **MINOR** — Add logging. |
 
 **Final bug count (unchanged):** 4 bugs requiring fix before Step 2. But the fix specification for bug #1 (Checklist 7) is materially wrong as originally written — SR-1 and SR-2 correct it.
+
+---
+
+## Final Review — New Findings and Definitive Fix List
+
+This section was added after a third, independent re-trace of every code path in engine.py, validation.py, metadata_inference.py, consensus.py, scholar_authority.py, and the extractors. It found 2 additional bugs that must be fixed before Step 2, 3 lower-severity issues, and corrected a factual error in the self-review.
+
+### FR-1: BUG — Title Priority Reversed (engine.py:376–381)
+
+**Code:**
+```python
+title_arabic = (
+    extracted.get("display_title")    # ← checked first
+    or extracted.get("title_full")    # ← checked second
+    or extracted.get("title_arabic")
+    or ""
+)
+```
+
+**SPEC (line 946):** "Use `title_full` if present (from الكتاب field), else `display_title` (from card header)."
+
+`display_title` is the Shamela card header — a short UI display name. `title_full` is the الكتاب metadata field — the authoritative book title. Python's `or` short-circuits: when `display_title` is non-empty (which it always is for Shamela exports), `title_full` is never checked.
+
+**Cascade:** `title_arabic` feeds into `generate_work_id(author_name, title_arabic, ...)`. Wrong title → wrong `work_id` → two sources of the same work with different display titles but identical الكتاب fields would get different work_ids, defeating deduplication.
+
+**Fix:** Swap the priority order:
+```python
+title_arabic = (
+    extracted.get("title_full")
+    or extracted.get("display_title")
+    or extracted.get("title_arabic")
+    or ""
+)
+```
+
+### FR-2: BUG — Layer Author Dummy ID Crashes Validation (engine.py:208–213)
+
+**Code:**
+```python
+if author_name:
+    ref = lookup_or_register_muhaqiq(...)
+else:
+    ref = ScholarReference(
+        canonical_id="sch_00000",
+        name_arabic="مجهول",
+        confidence=0.0,
+        source_of_identification="inferred",
+    )
+```
+
+When the LLM returns a text layer with an empty `author_name`, the engine creates a dummy `ScholarReference` with `canonical_id="sch_00000"`. This ID does not exist in `scholars.json` (sequential IDs start at `sch_00001`).
+
+Validation Check 6c (`validation.py:281–296`) then checks:
+```python
+if layer_author_id and layer_author_id not in registries["scholars"]:
+    errors.append(ValidationError(severity="fatal", ...))
+```
+
+Result: any multi-layer source where the LLM omits a layer author name triggers a FATAL validation error and the source is rejected. The engine should degrade gracefully — either register a placeholder "unknown" scholar or omit the layer from `text_layers`.
+
+**Fix:** Register a placeholder scholar instead of using a hard-coded dummy ID:
+```python
+else:
+    # Register anonymous layer author as a placeholder scholar
+    unknown_record = ScholarAuthorityRecord(
+        canonical_id="",
+        canonical_name_ar="مجهول",
+        sources_encountered_in=[source_id],
+        last_updated="",
+    )
+    registered = register(unknown_record, registry_path=registry_path)
+    ref = ScholarReference(
+        canonical_id=registered.canonical_id,
+        name_arabic="مجهول",
+        confidence=0.0,
+        source_of_identification="inferred",
+    )
+```
+
+Or, more conservatively, skip layers with unknown authors and flag `text_layers` for human review.
+
+### FR-3: Low severity — structural_format Defaults to "prose" Instead of "mixed" (engine.py:401)
+
+**Code:** `structural_format_val = inference.structural_format or "prose"` — when inference returns `None`, the engine defaults to `"prose"`.
+
+**SPEC (line 1094):** "set the field to the most conservative value... `'mixed'` for structural_format."
+
+`metadata_inference.py:486` correctly uses `StructuralFormat.MIXED.value` for invalid LLM values, but that's a different code path. The engine's `None` handling overrides it. "prose" is a specific claim; "mixed" is honest uncertainty.
+
+**Fix:** Change `"prose"` to `"mixed"` on engine.py:401. Trivial.
+
+### FR-4: Low severity — Check 5d (Attribution vs Prior Sources) Is Dead Code
+
+`engine.py:564` calls `validate_source_metadata(data_for_validation, registries=registries)` without passing `prior_sources`. The parameter defaults to `None`, so `_check_consistency` (validation.py:208–226) skips the entire Check 5d branch. The check is correctly implemented but never receives data.
+
+**Impact:** Low. Only matters when another source of the same work_id already exists with a different attribution_status. During Step 2 (processing 2,519 books against an empty registry), work-level duplicates are uncommon. The check becomes relevant during Step 5 (full collection processing).
+
+**Fix (defer to before Step 5):** After the work_reg lookup (engine.py:432–439), if `work_id in work_reg`, load the existing source's metadata and pass as `prior_sources` to validation.
+
+### FR-5: Low severity — Layer Authors Use Muhaqiq Registration Path (engine.py:202)
+
+`_build_text_layers` calls `lookup_or_register_muhaqiq` for layer authors. Muhaqiq registration auto-links in the 0.50–0.85 range without creating a human gate (scholar_registry.py:139–145), while author registration would create a gate in that range (scholar_registry.py:63–90).
+
+Layer authors (e.g., the matn author in a sharh) are primary authors, not editors. They should receive the same deduplication rigor. An ambiguous match at score 0.65 would auto-link silently instead of requesting owner confirmation.
+
+**Fix:** Use `lookup_or_register_author` with available death date and school info. Non-blocking for Step 2 — in practice, layer authors are usually already registered as primary authors of their own works, so the auto-link is typically correct.
+
+### FR-6: Correction to SR-3 — Evidence Was Even Weaker Than Stated
+
+The self-review noted that `format_specific_metadata` is "empty for all 13 fixtures" and speculated about extraction issues. This is wrong. The integration script (`scripts/run_session6_integration.py`) simply does not capture `format_specific_metadata`, `publication_year_hijri`, `publication_year_miladi`, or `edition_number` in its output JSON. The actual `SourceMetadata` object created during the run may have had these fields populated — we cannot tell from the script output.
+
+The AF-1 field mapping bug remains provable from code alone (extractor writes `edition_year_hijri`, engine reads `publication_year_hijri` — keys don't match). No empirical verification of this bug was actually performed or is available from current test outputs.
+
+---
+
+## Definitive Fix List for Claude Code
+
+This is the authoritative, corrected specification of all fixes. It supersedes the inline fix descriptions in the checklist items above (which contain errors identified in the self-review). Fixes are ordered by severity.
+
+### Fix 1 (HIGH): Validation Gate Errors — Create Gates AND Abort
+
+**File:** `engines/source/src/engine.py`
+**Location:** After line 581 (after the fatal_errors check)
+**What to do:**
+
+1. Filter validation_errors for `severity == "gate"`.
+2. For each gate error, create the appropriate human gate checkpoint based on `gate_error.check`:
+   - `"confidence_threshold"` → call `gate_low_confidence(source_id, gate_error.field, <value>, <confidence>)`. Extract the value and confidence from `data_for_validation` using the field path in `gate_error.field`.
+   - `"consistency_author_science"` → call `create_checkpoint(source_id=source_id, trigger=HumanGateTrigger.AUTHOR_SCIENCE_MISMATCH, trigger_detail=gate_error.message, fields_to_review=["science_scope", "author"], current_values={"detail": gate_error.message})`. Import `create_checkpoint` from `shared.human_gate.src.human_gate` and `HumanGateTrigger` from `engines.source.contracts`.
+   - `"multi_layer_empty_layers"` → call `gate_low_confidence(source_id, "text_layers", "[]", 0.0)`.
+3. After creating all gate checkpoints, **raise** to prevent registration:
+   ```python
+   raise make_error(
+       ErrorCode.LOW_CONFIDENCE,
+       f"Validation gate: {len(gate_errors)} issue(s) require human review",
+       source_id=source_id,
+       context={"gate_errors": [e.message for e in gate_errors]},
+   )
+   ```
+
+**Why the raise is essential:** SPEC §5 line 1445 says "Any failure aborts the write." Check 3 and Check 6a explicitly say "abort write." Without the raise, the source is registered with unreviewed gate conditions — the gate checkpoint exists but the damage is already done.
+
+### Fix 2 (MEDIUM): Registration Rollback — Validate .bak and Fail Loud
+
+**File:** `engines/source/src/registries/__init__.py`
+**Function:** `_rollback_registries` (line 270)
+
+After `os.replace(str(bak_file), str(registry_path))` succeeds, validate the restored file:
+```python
+try:
+    restored_raw = registry_path.read_text(encoding="utf-8")
+    json.loads(restored_raw)
+except (json.JSONDecodeError, OSError) as exc:
+    raise RuntimeError(
+        f"Registry {registry_path} restored from backup but backup is also corrupt. "
+        f"Manual recovery required."
+    ) from exc
+```
+
+Replace the `except OSError: pass` (line 286) with a raise:
+```python
+except OSError as exc:
+    raise RuntimeError(
+        f"Cannot restore registry {registry_path} from backup: {exc}. "
+        f"Manual recovery required."
+    ) from exc
+```
+
+**Also fix** the partial rollback in `check_orphaned_registrations` (line 263): same pattern — replace `pass` with a logged error and append to an unrecoverable list.
+
+### Fix 3 (MEDIUM): Name Matching — Strip Punctuation
+
+**File:** `shared/scholar_authority/src/name_matching.py`
+**Function:** `normalize_arabic_name` (line 15)
+
+Add after the definite article strip (line 30) and before whitespace collapse (line 32):
+```python
+# Strip Arabic and Latin punctuation (prevents token mismatches from LLM commas)
+result = re.sub(r'[،؛,;:.!؟?\u00BB\u00AB\-\u2013\u2014/]', ' ', result)
+```
+
+This replaces: Arabic comma (،), Arabic semicolon (؛), Latin comma, semicolon, colon, period, exclamation, Arabic question mark (؟), Latin question mark, guillemets (» «), hyphens/dashes, forward slash — all with spaces, which the subsequent whitespace collapse normalizes.
+
+### Fix 4 (MEDIUM): Publication Year Field Mapping
+
+**File:** `engines/source/src/engine.py`
+**Lines:** 461–462
+
+Change:
+```python
+publication_year_hijri=extracted.get("publication_year_hijri"),
+publication_year_miladi=extracted.get("publication_year_miladi"),
+```
+To:
+```python
+publication_year_hijri=extracted.get("edition_year_hijri"),
+publication_year_miladi=extracted.get("edition_year_miladi"),
+```
+
+### Fix 5 (MEDIUM): Title Priority — title_full Before display_title
+
+**File:** `engines/source/src/engine.py`
+**Lines:** 376–381
+
+Change:
+```python
+title_arabic = (
+    extracted.get("display_title")
+    or extracted.get("title_full")
+    or extracted.get("title_arabic")
+    or ""
+)
+```
+To:
+```python
+title_arabic = (
+    extracted.get("title_full")
+    or extracted.get("display_title")
+    or extracted.get("title_arabic")
+    or ""
+)
+```
+
+### Fix 6 (MEDIUM): Layer Author Dummy ID — Register Placeholder Instead
+
+**File:** `engines/source/src/engine.py`
+**Function:** `_build_text_layers` (lines 207–213)
+
+Replace the dummy ScholarReference with a real placeholder registration. Either:
+
+Option A (preferred): Register a placeholder "مجهول" scholar:
+```python
+else:
+    from shared.scholar_authority.src.scholar_authority import register
+    unknown_record = ScholarAuthorityRecord(
+        canonical_id="",
+        canonical_name_ar="مجهول",
+        sources_encountered_in=[source_id],
+        last_updated="",
+    )
+    registered = register(unknown_record, registry_path=registry_path)
+    ref = ScholarReference(
+        canonical_id=registered.canonical_id,
+        name_arabic="مجهول",
+        confidence=0.0,
+        source_of_identification="inferred",
+    )
+```
+
+Option B (simpler): Skip layers with no author and flag for review. This avoids polluting the scholar registry with anonymous placeholders but means the layer isn't tracked.
+
+Claude Code should choose based on which behavior is safer: registering anonymous scholars (Option A, complete layer tracking) or omitting anonymous layers (Option B, cleaner registry). I recommend Option A for layer tracking completeness, with a note that each "مجهول" registration gets its own unique ID, so they won't conflict.
+
+### Non-Blocking Fixes (implement during Step 2 fix cycle or later)
+
+| Fix | File | Change |
+|-----|------|--------|
+| structural_format default | engine.py:401 | Change `"prose"` to `"mixed"` |
+| Genre chain silent drop | engine.py:175 | Add `logger.warning(...)` before `return None` |
+| Staging cleanup silent | engine.py:598 | Replace `pass` with `logger.log_event(...)` |
+| Layer author human gate | engine.py:202 | Change `lookup_or_register_muhaqiq` to `lookup_or_register_author` |
+| Single-model work_id needs_review | metadata_inference.py | Add `work_id` to needs_review when `len(successful) == 1` |
+| prior_sources for Check 5d | engine.py:564 | Pass existing source metadata when work_id exists in registry |
+| SPEC text: two evaluate calls | SPEC_CORE.md:1534 | Correct to "one evaluate call, local comparisons on same responses" |
+
+### Revised Summary
+
+| Category | Count | Items |
+|----------|-------|-------|
+| **Bugs requiring fix before Step 2** | **6** | Gate errors ignored (#1), rollback silent (#2), punctuation bug (#3), publication year mapping (#4), title priority (#5), layer author crash (#6) |
+| **Deferred to Stage 2** | 3 | Concurrent scholar locking, trust re-evaluation, enrichment passthrough |
+| **Non-blocking fixes** | 7 | structural_format default, genre chain log, staging cleanup log, layer author human gate, work_id needs_review, prior_sources wiring, SPEC text correction |
+| **No issue** | 4 | Consensus retry, human gate auto-approve, validation ordering, integration script fixes |
