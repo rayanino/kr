@@ -29,7 +29,8 @@
 - Session 1–2: Staging, format detection, Shamela HTML extraction, plain text extraction (219 tests)
 - Session 3: LLM inference, consensus module, name matching (130 tests)
 - Session 4: Hashing, deduplication, freezing with TOCTOU protection (16 tests)
-- **Session 5a: IN PROGRESS.** Shared components + trust + validation. See `/NEXT.md`.
+- **Session 5a: COMPLETE.** Shared components: scholar authority, human gate, validation, trust evaluator, config (82 new tests, 447 total)
+- **Session 5b: IN PROGRESS.** Registries + registration orchestrator. See `/NEXT.md`.
 
 ## Required Reading (for Claude Code)
 

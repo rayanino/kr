@@ -1,18 +1,8 @@
-# NEXT — Source Engine Session 5a: Shared Components + Trust + Validation
+# NEXT — Source Engine Session 5b: Registries + Registration Orchestrator
 
-**Session type:** BUILD — implement shared scholar_authority, human_gate, validation, trust evaluator, config
-**Pipeline steps:** Step 7 (Registration prerequisites) + Step 8 (Trust Evaluation) + §5 (Validation)
-**Depends on:** Sessions 1–4 (365 tests passing: extraction, format detection, inference, consensus, hashing, dedup, freezing)
-
----
-
-## ⚠️ Scope Warning
-
-Session 5 builds 10 modules — this is split into two sub-sessions:
-- **Session 5a (this session):** Shared components + trust + validation (6 modules)
-- **Session 5b (next session):** Registries + registration orchestrator (4 modules)
-
-Session 5a produces the components that Session 6 (integration) blocks on.
+**Session type:** BUILD — implement registry CRUD, registration orchestrator, work relationships, source-engine human gate wrapper
+**Pipeline steps:** Step 7 (Registration), §4.A.9 (Work Relationships)
+**Depends on:** Session 5a (447 tests passing: config, scholar authority, human gate, trust evaluator, validation)
 
 ---
 
@@ -20,243 +10,184 @@ Session 5a produces the components that Session 6 (integration) blocks on.
 
 Read these files in order before writing any code:
 
-1. `engines/source/SPEC_CORE.md` §4.A.5 — Scholar Authority Model (full section, lines 1203–1288)
-2. `engines/source/SPEC_CORE.md` §4.A.8 — Trustworthiness Evaluation (full section, lines 1311–1365)
-3. `engines/source/SPEC_CORE.md` §5 — Validation and Quality (all 6 Layer 1 checks + Layer 2, lines 1441–1494)
-4. `engines/source/SPEC_CORE.md` §8 — Configuration (reference lists, parameters, lines 1591–1666)
-5. `engines/source/contracts.py` — `ScholarAuthorityRecord`, `TrustworthinessFactor`, `TrustTier`, `HumanGateCheckpoint`, `HumanGateTrigger`, `InferredFieldConfidence`, `ErrorCode`
-6. `shared/scholar_authority/REQUIREMENTS_source.md` — Scholar authority interface spec
-7. `shared/human_gate/REQUIREMENTS_source.md` — Human gate interface spec
-8. `shared/validation/REQUIREMENTS_source.md` — Validation interface spec
-9. `KNOWLEDGE_INTEGRITY.md` Layer 4 — What the owner CAN and CANNOT verify
-10. `engines/source/docs/session5-architecture.md` — Module dependency graph and data flow
-11. `engines/source/docs/session5-contracts-audit.md` — Known misalignment: HumanGateCheckpoint needs `status` field
-12. `engines/source/docs/session5-test-plan.md` — Test specifications (tests 1–70)
-13. `tests/fixtures/GROUND_TRUTH.json` — Expected trust values for all 13 fixtures
-
----
-
-## Contracts Change Required FIRST
-
-**Before writing any module code**, update `engines/source/contracts.py`:
-
-Replace the `HumanGateCheckpoint` model's `resolved: bool` with `status: str`:
-
-```python
-class HumanGateCheckpoint(BaseModel):
-    checkpoint_id: str
-    source_id: str
-    trigger: HumanGateTrigger
-    trigger_detail: str
-    fields_to_review: list[str]
-    current_values: dict[str, Any]
-    alternatives: Optional[list[dict[str, Any]]] = None
-    created_at: str
-    status: str = "pending"  # pending|approved|rejected|unsure|elevated|auto_approved
-    resolution: Optional[str] = None
-    resolved_at: Optional[str] = None
-    elevated_result: Optional[dict[str, Any]] = None  # Layer 3.5 output
-```
-
-This is needed because the `unsure → elevated` workflow (KNOWLEDGE_INTEGRITY.md Layer 4) cannot be represented with a boolean. No existing tests create HumanGateCheckpoint instances, so this change has no test impact.
-
----
-
-## SPEC Defect Fix: Author Standing First-Intake Formula
-
-**CRITICAL — must understand before building trust evaluator.**
-
-The SPEC §4.A.8 author_standing tier says: "Classical scholar (death_date_hijri ≤ 1000 AH AND scholarly_standing non-null AND the scholar's sources_encountered_in contains at least one source_id other than the current source): 0.90."
-
-The "prior sources" condition was added during HARDENING but **never re-validated**. On first intake, every author has 0 prior sources, making `author_standing` = 0.30 for ALL scholars. This causes **6 of 13 fixtures to produce INCORRECT trust tiers** — classical scholars like al-Suyuti (d. 911) and al-Bukhari (d. 256) get flagged instead of verified.
-
-The **validated formula** (Phase 0: 13/13 correct at threshold 0.65) uses ONLY the death date for first intake:
-- `death_date_hijri ≤ 1000` → 0.90 (classical)
-- `death_date_hijri > 1000` (known date) → 0.70 (post-classical)
-- `death_date_hijri is None` → 0.30 (unknown/contemporary)
-
-**Build the trust evaluator using this validated formula.** The "prior sources" and "scholarly_standing non-null" checks belong in the **trust re-evaluation** path (§4.A.8, "Trust re-evaluation on enrichment") where prior sources actually exist. For initial intake, they must not be required.
-
-The trust_evaluator.py stub documents this with the full explanation. See its module docstring.
+1. `engines/source/SPEC_CORE.md` §4.A.1 — Source Identity Model (source_id, work_id, human_label, slug generation, lines 141–210)
+2. `engines/source/SPEC_CORE.md` §4.A.2 Step 7 — Registration (atomic WAL pattern, lines 442–449)
+3. `engines/source/SPEC_CORE.md` §4.A.9 — Work Relationship Tracking (full section, lines 1366–1399)
+4. `engines/source/SPEC_CORE.md` §3 — Output Contract (metadata.json, registry formats, lines 77–134)
+5. `engines/source/contracts.py` — `SourceRegistryEntry`, `WorkRegistryEntry`, `WorkRelationshipEdge`, `GenreRelationType`, `RegistryPendingWrite`, `SourceMetadata`
+6. `engines/source/docs/session5-architecture.md` — Module dependency graph and atomic write pattern
+7. `library/config/transliteration.json` — Slug generation lookup tables (scholars + titles)
 
 ---
 
 ## What to Build (in dependency order)
 
-### Module 1: `engines/source/src/config.py` (~50 lines)
-Replace the stub. Load all 4 config files from `library/config/`:
-- `recognized_muhaqiqs.json` → `list[str]`
-- `known_publishers.json` → `dict[str, dict]` (each entry has `score` and `variants`)
-- `transliteration.json` → `dict[str, dict[str, str]]` (keys: "scholars", "titles")
-- `genre_synonyms.json` → `dict[str, str]`
+### Module 1: `engines/source/src/text_utils.py` — extend with slug generation (~60 lines added)
 
-Return a `SourceEngineConfig` dataclass. Missing files produce empty defaults (not errors). Malformed JSON raises with the filename in the error message.
-
-**Test:** `engines/source/tests/test_config.py` (5 tests)
-
-### Module 2: `shared/scholar_authority/src/scholar_authority.py` (~250 lines)
-Replace the tracer stub at `shared/scholar_authority/src/__init__.py`. The new implementation lives in `scholar_authority.py` and the `__init__.py` should re-export the public API.
+The SPEC §4.A.1 defines `generate_slug()`, `strip_diacritics()`, `transliterate_chars()`, `TRANSLIT_MAP`, and `ARABIC_DIACRITICS`. These are currently specified in the SPEC but not implemented. The file already has `strip_tags()` — add the remaining utilities.
 
 Implement:
-- `compute_scholar_match_score()` — SPEC §4.A.5 weighted algorithm. Use `normalized_name_similarity()` from `name_matching.py` (already built, 22 tests passing). Weight 0.50 name, 0.30 death date, 0.10 school, 0.10 known works. Only available signals contribute to the weighted average.
-- `lookup()` — Iterate all records, compute match score, return best. Thresholds: ≥ 0.85 auto_link, 0.50–0.85 human_gate, < 0.50 new_record. Compare against canonical_name_ar + known_as + name_variants.
-- `register()` — Assign next sequential ID (`sch_NNNNN`). Validate with Pydantic. Compute `record_completeness`. Set `data_provenance_score = 0.0`. Set `last_updated` to UTC ISO 8601.
-- `update()` — Run 5 consistency checks before applying. Preserve old values in `revision_history`. Recalculate `record_completeness`.
-- `_next_canonical_id()` — Scan registry for highest existing ID, increment.
-- `_compute_record_completeness()` — 24 biographical fields fraction.
+- `ARABIC_DIACRITICS` constant (9 Unicode tashkeel marks from SPEC §4.A.1)
+- `TRANSLIT_MAP` dict (28 Arabic → Latin mappings from SPEC §4.A.1)
+- `strip_diacritics(text: str) -> str` — remove tashkeel
+- `transliterate_chars(text: str) -> str` — map Arabic chars to Latin for slugs
+- `generate_slug(arabic_text: str, table: dict) -> str` — SPEC algorithm:
+  1. Check configurable table for exact or substring match (longest match first)
+  2. If no match: strip diacritics, rule-based transliteration
+  3. Truncate to max 20 chars per component
+  4. If empty: use first 8 hex chars of MD5 hash
+- `generate_work_id(author_name: str, title: str, transliteration_table: dict) -> str`
+  - Format: `wrk_{author_slug}_{title_slug}`, max 50 characters total
+  - Uses `generate_slug()` for each component with the appropriate sub-table ("scholars" for author, "titles" for title)
+- `generate_human_label(title: str, transliteration_table: dict) -> str`
+  - Transliterated, lowercased, underscored, max 30 characters
 
-**Storage:** `library/registries/scholars.json`. Use `filelock` for locking. Use atomic write pattern (temp file → fsync → os.replace).
+**Test:** `engines/source/tests/test_text_utils.py` — add tests for slug generation with Arabic text including diacritics, transliteration table lookups, fallback to rule-based, empty input → MD5 hash, max length truncation.
 
-**Important:** The old `__init__.py` tracer stub is imported by `shared/scholar_authority/tests/test_name_matching.py` (4 tests use `from shared.scholar_authority.src import clear, lookup, register`). The tracer stub API differs from the new module:
-- Old: `register(name: str, record: dict) → str`
-- New: `register(record: ScholarAuthorityRecord) → ScholarAuthorityRecord`
-- Old: `lookup(name: str, death_date: int | None = None) → Optional[dict]`
-- New: `lookup(name, death_date_hijri, ...) → ScholarMatchResult`
-- Old: `clear()` — resets in-memory dict
-
-After creating `scholar_authority.py`, update `__init__.py` to re-export the new public API (`lookup`, `register`, `update`, `get_all`, `ScholarMatchResult`, `compute_scholar_match_score`). The 4 existing integration tests in `test_name_matching.py` that use the old API must be **rewritten** to use the new API — they test name matching within the context of lookup/register, which is now handled differently. Alternatively, add backward-compatible wrappers in `__init__.py`, but rewriting is preferred since the old tests are simple.
-
-**Test:** `shared/scholar_authority/tests/test_scholar_authority.py` (20 tests)
-
-### Module 3: `shared/human_gate/src/human_gate.py` (~150 lines)
-Replace the tracer stub.
+### Module 2: `engines/source/src/registries/source_registry.py` (~80 lines)
+Replace the stub.
 
 Implement:
-- `create_checkpoint()` — Generate `hg_{uuid4_hex[:8]}` ID. Persist to `library/gates/pending/{source_id}.json` (list of checkpoints per source). Update `library/gates/index.json`. If `auto_approve=True`, set status to `auto_approved` immediately (SAME code path as real review).
-- `resolve()` — Update checkpoint status. Move from pending/ to resolved/ on approve/reject. On `unsure`: set status to `elevated` (Layer 3.5 placeholder for future sessions).
-- `get_pending()` — Read all files in pending/, filter by source_id if provided.
-- `get_checkpoint()` — Look up in index.json, read from pending or resolved.
-- `get_pending_count()` — Sum checkpoints across all pending files.
-- `configure()` — Set gates_dir and auto_approve mode.
+- `build_entry(metadata: SourceMetadata) -> SourceRegistryEntry` — maps SourceMetadata fields to SourceRegistryEntry fields: source_id, work_id, human_label, title_arabic, author_canonical_id (from metadata.author.canonical_id), trust_tier, processing_status, frozen_hash, intake_timestamp, acquisition_path.
+- `load(registry_path) -> dict[str, dict]` — load sources.json
+- `save(registry_path, data)` — atomic JSON write with .bak
+- `find_by_hash(frozen_hash, registry) -> Optional[str]` — used by dedup
 
-**Persistence format (pending/{source_id}.json):**
-```json
-[
-  {
-    "checkpoint_id": "hg_1a2b3c4d",
-    "source_id": "src_abc12345",
-    "trigger": "author_disambiguation",
-    ...
-  }
-]
-```
+**Test:** `engines/source/tests/test_registries.py`
 
-**Critical:** Auto-approve must use the SAME code path. Create the checkpoint, persist it, then immediately resolve it with decision="approve". This ensures the real workflow is tested.
+### Module 3: `engines/source/src/registries/scholar_registry.py` (~80 lines)
+Replace the stub. Thin wrapper around `shared/scholar_authority`.
 
-**Test:** `shared/human_gate/tests/test_human_gate.py` (8 tests)
+Implement:
+- `lookup_or_register_author(name, death_date, school, source_id, *, registry_path) -> tuple[ScholarReference, Optional[str]]`
+  - Calls `shared.scholar_authority.src.lookup()`.
+  - If auto_link: return existing record's canonical_id as ScholarReference, no gate.
+  - If human_gate: return best match's canonical_id as ScholarReference, return gate checkpoint_id.
+  - If new_record: create minimal ScholarAuthorityRecord, call `register()`, return new canonical_id.
+  - The human gate is created by calling `shared.human_gate.src.human_gate.create_checkpoint()` with trigger=AUTHOR_DISAMBIGUATION.
+- `lookup_or_register_muhaqiq(muhaqiq_name, source_id, *, registry_path) -> ScholarReference`
+  - Same pattern but simpler — muhaqiqs have less data. Uses a higher tolerance for auto-linking (muhaqiq disambiguation is less critical).
 
-### Module 4: `shared/validation/src/validation.py` (~100 lines)
-Replace the tracer stub.
+**Test:** `engines/source/tests/test_registries.py`
 
-Implement 3 generic functions:
-- `validate_schema()` — `schema.model_validate(data)`, catch `PydanticValidationError`, convert to `list[ValidationError]`.
-- `validate_referential_integrity()` — For each `(field_path, registry_name)`, resolve nested field path in data, check it exists in `registries[registry_name]`.
-- `validate_enrichment_passthrough()` — Compare `before` and `after` dicts. Any key in `before` that was non-null and is now null or missing in `after` → `SRC_INVALID_ENRICHMENT`.
-
-**Test:** Tested as part of `engines/source/tests/test_validation.py` (tests 34-36, 49-50)
-
-### Module 5: `engines/source/src/trust_evaluator.py` (~200 lines)
+### Module 4: `engines/source/src/registries/work_registry_store.py` (~150 lines)
 Replace the stub.
 
-Implement `evaluate_trust()` with 5 sub-functions:
-- `_score_author_standing()` — **Use the VALIDATED formula, NOT the SPEC §4.A.8 text.** death_date ≤ 1000 → 0.90 (classical); death_date > 1000 → 0.70 (post-classical); death_date None → 0.30 (unknown). See "SPEC Defect Fix" section above and the trust_evaluator.py stub docstring.
-- `_score_tahqiq_quality()` — Check muhaqiq name against recognized_muhaqiqs list using `normalized_name_similarity >= 0.85`. Recognized → 0.90. Unknown → 0.50. No muhaqiq + pre-modern (≤1300) → 0.40. No muhaqiq + unknown death → 0.35. No muhaqiq + modern (>1300) → 0.30.
-- `_score_publisher_reputation()` — Check publisher name AND all variants using substring matching. Known → configured score. Unknown → 0.40.
-- `_score_source_authority()` — primary → 0.85, reference → 0.60, modern_compilation → 0.40.
-- `_score_text_fidelity()` — high → 0.90, medium → 0.60, low → 0.30, unknown → 0.40.
+Implement:
+- `build_entry(metadata: SourceMetadata, transliteration_table: dict) -> WorkRegistryEntry`
+  - Generates `work_id` using `generate_work_id()` from text_utils.
+  - Maps: canonical_title (from metadata.title_arabic), author_canonical_id, genre, science_scope, source_ids=[metadata.source_id], preferred_source_id=metadata.source_id, status="acquired".
+- `build_placeholder(title, author_canonical_id, work_id) -> WorkRegistryEntry`
+  - SPEC §4.A.9: creates placeholder with `status: "referenced_not_acquired"`.
+  - source_ids=[], preferred_source_id=None.
+- `create_relationship_edge(from_work_id, to_work_id, relation_type, confidence, discovered_by) -> WorkRelationshipEdge`
+- `process_genre_chain(metadata: SourceMetadata, work_registry: dict, scholar_registry_path: Path, transliteration_table: dict) -> list[WorkRelationshipEdge]`
+  - SPEC §4.A.9 discovery mechanism:
+    1. If metadata has genre_chain, extract base work title and author.
+    2. Search work registry for matching work_id (by title + author).
+    3. If found → create edge.
+    4. If not found → create placeholder work + sparse scholar record for base work author → create edge to placeholder.
+  - Returns list of edges to add to the work's relationships.
+- `load(registry_path) -> dict[str, dict]`
+- `save(registry_path, data)` — atomic write with .bak
+- `find_by_title_author(title, author_canonical_id, registry) -> Optional[str]` — uses `normalized_name_similarity` for title comparison (threshold 0.80)
 
-Combined score = Σ(factor_weight × factor_score). Tier: ≥ 0.65 → verified; < 0.65 → flagged. Also flagged if author_standing < 0.30 AND tahqiq_quality < 0.40.
+**Test:** `engines/source/tests/test_registries.py`
 
-**Critical verification:** Run against ALL 13 fixtures using GROUND_TRUTH.json expected_trust values. All 13 must match. This was validated in Step 2 — the implementation just needs to reproduce the validated algorithm.
+### Module 5: `engines/source/src/human_gate.py` (~60 lines)
+Replace the stub. Source-engine convenience wrappers.
 
-**Test:** `engines/source/tests/test_trust_evaluator.py` (13 tests)
+Implement 5 gate creation functions that map source-engine triggers to `shared.human_gate.src.human_gate.create_checkpoint()`:
+- `gate_author_disambiguation(source_id, candidates, match_score, inferred_name)`
+- `gate_consensus_disagreement(source_id, field, model_a_value, model_b_value, model_a_name, model_b_name)`
+- `gate_low_confidence(source_id, field, value, confidence)`
+- `gate_trust_flagged(source_id, trust_score, trust_factors)`
+- `gate_scholar_conflict(source_id, canonical_id, conflict_type, existing_value, proposed_value)`
 
-### Module 6: `engines/source/src/validation.py` (~250 lines)
-Replace the stub.
+Each function constructs the appropriate `fields_to_review`, `current_values`, and `alternatives` for its trigger type, then delegates to `create_checkpoint()`.
 
-Implement `validate_source_metadata()` calling all 6 checks in order:
-1. `validate_schema(data, SourceMetadata)` — delegated to shared
-2. `validate_referential_integrity(data, registries, [...])` — delegated to shared
-3. `_check_confidence_thresholds(data)` — author, genre, science_scope < 0.50 → gate
-4. `_check_duplicates(data, registries)` — post-inference dedup (warning only)
-5. `_check_consistency(data, registries, prior_sources)` — 5 sub-checks:
-   - 5a: nazm→verse, sharh→commentary|prose, hashiyah→commentary
-   - 5b: hashiyah should not be beginner
-   - 5c: author↔science scope mismatch → HUMAN GATE (only consistency check that gates)
-   - 5d: attribution_status vs prior sources → warning
-   - 5e: sharh/hashiyah must be multi-layer → auto-correct
-6. `_check_multi_layer_coherence(data, registries)` — 3 sub-checks:
-   - 6a: multi_layer=true + empty layers → gate
-   - 6b: multi_layer=false + has layers → auto-correct
-   - 6c: layer author refs resolve in scholars
+**Test:** `engines/source/tests/test_registries.py` (or separate `test_human_gate_wrapper.py`)
 
-**Important for Check 5e → 6 chain:** When auto-correcting `is_multi_layer` from false to true in Check 5e, the data dict is modified in-place. Then Check 6 verifies `text_layers` is non-empty. If the LLM identified genre as sharh but produced no layers, Check 6a triggers a human gate.
+### Module 6: `engines/source/src/registries/__init__.py` (~200 lines)
+Replace the stub. Registration orchestrator.
 
-**Test:** `engines/source/tests/test_validation.py` (17 tests)
+Implement:
+- `register_source(metadata: SourceMetadata, *, library_root, config) -> None`
+  - SPEC §4.A.2 Step 7 atomic multi-registry write:
+    1. Build all registry entries in memory (SourceRegistryEntry, WorkRegistryEntry updates, scholar records are already registered during Step 4).
+    2. Process genre chain → create relationship edges and placeholder works if needed.
+    3. Write `library/logs/pending_registration_{source_id}.json` with intended changes.
+    4. Acquire file locks on sources.json, works.json (scholars.json already updated in Step 4).
+    5. Apply changes: update sources.json (add entry), update works.json (add/update entry + relationships).
+    6. Write `library/sources/{source_id}/metadata.json` (the full SourceMetadata as JSON).
+    7. Delete pending registration file.
+  - Each registry write creates .bak before overwriting.
+  - If lock cannot be acquired within 30s → raise with retry signal.
+- `check_orphaned_registrations(*, library_root) -> list[str]`
+  - SPEC §4.A.2 Step 7: on startup, scan for `pending_registration_*.json`.
+  - For each: check which registry files were already updated (by checking if source_id exists in registry).
+  - If all updated → delete pending file (registration completed, pending cleanup failed).
+  - If none updated → delete pending file (registration never started).
+  - If partially updated → restore from .bak files, delete pending file (rollback).
+  - A registry file with JSON parse failure → restore from .bak copy.
+
+**Important:** Scholar records (author + muhaqiq) are already registered during Step 4 (metadata_inference.py calls scholar_authority.lookup/register). The registration orchestrator does NOT re-register scholars. It registers sources and works, and creates relationship edges.
+
+**Test:** `engines/source/tests/test_registries.py`
 
 ---
 
 ## What NOT to Build
 
-- **Registries (source/work/scholar CRUD)** — Session 5b
-- **Registration orchestrator** — Session 5b
-- **engine.py pipeline orchestrator** — Session 6
+- **engine.py** (full pipeline orchestrator) — Session 6
 - **logger.py** — Session 6
-- **Work relationship tracking** — Session 5b
-- **Source-engine human_gate wrapper** (`engines/source/src/human_gate.py`) — Session 5b
+- **Error path testing** — Session 6
+- **Plain text end-to-end** — Session 6
+
+---
+
+## Fixtures
+
+All 13 existing fixtures can be used. For registration testing, construct SourceMetadata dicts from extraction output + GROUND_TRUTH.json + trust evaluation results (from Session 5a trust_evaluator). The registration orchestrator receives a fully populated SourceMetadata — it doesn't need to run extraction or inference.
+
+For work relationship testing, use:
+- Fixture 11 (همع الهوامع في شرح جمع الجوامع) — has genre_chain: sharh of جمع الجوامع
 
 ---
 
 ## Done When
 
-- [ ] **contracts.py updated:** `HumanGateCheckpoint.resolved` → `status` field, existing tests updated
-- [ ] **Config:** `load_config()` loads all 4 JSON files, returns typed `SourceEngineConfig`
-- [ ] **Scholar authority lookup:** Finds existing records with correct thresholds (≥0.85 auto-link, 0.50–0.85 gate, <0.50 new)
-- [ ] **Scholar authority lookup:** Short-vs-long name (A3-1): "النووي" vs full name scores ≥0.85 → auto_link
-- [ ] **Scholar authority lookup:** Ambiguous "ابن حجر" without death date → human_gate zone
-- [ ] **Scholar authority register:** Creates records with sequential IDs (sch_00001, sch_00002, ...)
-- [ ] **Scholar authority update:** 5 consistency checks all tested:
-  - Death date drift > 5 years → gate
-  - School affiliation change → gate
-  - Name change → blocked (added to known_as)
-  - Self-reference → rejected
-  - Temporal inconsistency → gate
-- [ ] **Scholar authority update:** Preserves old values in revision_history
-- [ ] **Scholar authority:** record_completeness correctly computed (24-field fraction)
-- [ ] **Human gate:** Checkpoints persist to `library/gates/pending/{source_id}.json`
-- [ ] **Human gate:** Auto-approve mode creates + immediately resolves (same code path)
-- [ ] **Human gate:** `get_pending()` returns correct checkpoints filtered by source_id
-- [ ] **Human gate:** `resolve()` moves checkpoint from pending/ to resolved/
-- [ ] **Shared validation:** Schema compliance catches missing required fields
-- [ ] **Shared validation:** Referential integrity catches broken canonical_id references
-- [ ] **Shared validation:** D-023 passthrough catches deleted upstream fields
-- [ ] **Trust evaluation:** 13/13 fixtures match GROUND_TRUTH.json expected_trust
-- [ ] **Trust evaluation:** 5 factors computed with correct weights (0.30, 0.25, 0.15, 0.15, 0.15)
-- [ ] **Trust evaluation:** Threshold 0.65 for verified/flagged boundary
-- [ ] **Trust evaluation:** Classical scholar cutpoint at 1000 AH (not 900)
-- [ ] **Trust evaluation:** First-intake formula uses ONLY death_date (NOT prior-sources check — see SPEC Defect Fix section)
-- [ ] **Trust evaluation:** Recognized muhaqiq matching uses name_matching (not exact string compare)
-- [ ] **Trust evaluation:** Publisher variant matching via substring
-- [ ] **Source validation:** All 6 Layer 1 checks implemented
-- [ ] **Source validation:** Genre↔multi-layer auto-correction (Check 5e) chains to Check 6
-- [ ] **Source validation:** Author↔science mismatch triggers human gate (only consistency check that gates)
-- [ ] **Source validation:** Multi-layer + empty layers → gate (prevents T-2 attribution error)
-- [ ] **All new tests pass** (target: ~70 new tests + 365 existing = ~435 total)
+- [ ] **text_utils:** `generate_slug()` produces correct Latin slugs from Arabic text (table lookup + fallback)
+- [ ] **text_utils:** `generate_work_id()` produces `wrk_` format IDs, max 50 chars
+- [ ] **text_utils:** Diacritics stripped, transliteration map applied, empty input → MD5 hash
+- [ ] **source_registry:** `build_entry()` correctly maps all SourceMetadata → SourceRegistryEntry fields
+- [ ] **source_registry:** Atomic write with .bak
+- [ ] **scholar_registry:** `lookup_or_register_author()` routes auto_link / human_gate / new_record correctly
+- [ ] **scholar_registry:** `lookup_or_register_muhaqiq()` creates scholar records for muhaqiqs
+- [ ] **work_registry:** `build_entry()` generates work_id using transliteration table
+- [ ] **work_registry:** `build_placeholder()` creates referenced_not_acquired records
+- [ ] **work_registry:** `process_genre_chain()` creates edges and placeholder works
+- [ ] **work_registry:** Placeholder works create sparse scholar records for referenced authors
+- [ ] **human_gate wrapper:** All 5 gate functions create correct checkpoints
+- [ ] **registration orchestrator:** `register_source()` writes pending → applies to registries → writes metadata.json → deletes pending
+- [ ] **registration orchestrator:** metadata.json at `library/sources/{source_id}/metadata.json` is valid JSON matching SourceMetadata
+- [ ] **registration orchestrator:** `check_orphaned_registrations()` handles all 3 cases (complete, none, partial)
+- [ ] **registration orchestrator:** .bak files created before each registry write
+- [ ] **All new tests pass** (target: ~30-40 new tests + 447 existing = ~480-490 total)
 
 ---
 
 ## API Keys
 
-Not needed for Session 5a. All modules are deterministic — no LLM calls.
+Not needed for Session 5b. All modules are deterministic.
 
 ---
 
 ## Build Tips
 
-1. **Start with config.** Every other module reads config. Get it working first.
-2. **Then scholar_authority.** The trust evaluator and validation both depend on scholar records.
-3. **Then human_gate.** The scholar authority update() creates gate checkpoints.
-4. **Then trust_evaluator.** Uses config (muhaqiqs, publishers) + scholar records.
-5. **Then shared validation.** Generic functions.
-6. **Last: source validation.** Composes all the above.
-7. **Test each module before moving to the next.** Don't write all 6 then test — you'll hit cascading failures.
+1. **Start with text_utils** (slug generation). The work registry depends on it for work_id generation.
+2. **Then source_registry and scholar_registry** — simple modules, few dependencies.
+3. **Then work_registry** — depends on scholar_registry for placeholder author records and text_utils for work_id.
+4. **Then human_gate wrapper** — thin delegation, quick to build and test.
+5. **Last: registration orchestrator** — composes everything. This is the most complex module; test it with a constructed SourceMetadata dict, not live pipeline output.
+6. **Test each module before moving to the next.**
