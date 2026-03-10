@@ -71,6 +71,7 @@ FIELD_MAP: dict[str, str] = {
     "جمع وترتيب": "compiler_name_raw",  # 0.4%
     "جمعها": "compiler_name_raw",  # Collection/compilation (3 books)
     "انتقاء": "compiler_name_raw",  # Selection/curation (8 books)
+    "رواية": "riwayah",  # Hadith transmission/recension (26 books)
     "ترجمة": "translator",  # 0.2%
     "تقديم": "foreword_by",  # 0.8% — NOT muhaqiq
     "قدم له": "foreword_by",  # 0.5% — NOT muhaqiq
@@ -667,6 +668,7 @@ _FORMAT_SPECIFIC_KEYS: tuple[str, ...] = (
     "distributor",
     "foreword_by",
     "compiler_name_raw",
+    "riwayah",
     "translator",
     "original_author_name_raw",
     "commentator_name_raw",
