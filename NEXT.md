@@ -1,62 +1,82 @@
-# NEXT — Source Engine Validation, Step 3: Targeted LLM Probes
+# NEXT — Phase C Implementation (Claude Code Session)
 
-**Governing document:** `engines/source/VALIDATION_PLAN.md`
-**Result preservation:** `/RESULT_PRESERVATION.md`
+**READ FIRST:** `CLAUDE_CODE_PHASE_C_BRIEF.md` — 60-line executive summary.
+**THEN READ:** `PHASE_C_TASK_SPEC.md` — full implementation spec (850+ lines).
 
-## Previous Steps (all complete)
+---
 
-- **Step 0:** 12/13 fixtures pass with real LLM calls. Cost €1.80. See `engines/source/review/STEP0_RESULTS.md`.
-- **Step 1:** Code audit + 6 bug fixes (commit `4b51718`). 768 tests passing.
-- **Step 2:** Deterministic sweep on 2,519 books: zero crashes. 5 extraction bugs fixed (commit `8beff68`). title_full 100%, author_name_raw 96.2%.
-- **Claude Code inspection:** 5 minor fixes (commit `638a134`).
+## Context
 
-## Current: Phase C Preparation (hardening before execution)
+The source engine pipeline is built and tested. Steps 0-2 are complete:
+- **Step 0:** 12/13 fixtures pass with real LLM calls. Cost €1.80.
+- **Step 1:** Code audit + 6 bug fixes. 768 tests passing.
+- **Step 2:** Deterministic sweep on 2,519 books: zero crashes. 5 bugs fixed.
+- **Deep audit:** 10 findings across prompt, consensus, inference, and engine code. 4 fixes queued as pre-requisites below.
 
-Phase C is the first validation step that costs real money. It runs the FULL 13-step pipeline (including LLM inference) on 73 owner-selected books. Every API call costs ~$0.15/book. A preventable error that forces re-running wastes ~€10.
+Phase C is the first step that spends real API money: ~€11 for 73 books at ~$0.15/book.
 
-### What's been prepared (read these documents in order):
+## Your Task
 
-1. **`PHASE_C_TASK_SPEC.md`** — The implementation spec for Claude Code. Contains 5 pre-requisites, processing flow, output structure, budget protection, error handling, and a test checklist.
+Implement pre-requisites, write `scripts/run_phase_c.py`, test on 3 books, commit.
 
-2. **`PHASE_C_PREFLIGHT_AUDIT.md`** — Audit of every component that touches real money. Found 5 issues (2 fixes, 3 documented non-fixes). Found 2 critical bugs in my own task spec. Contains cost model, risk register.
+### Step 1: Pre-Requisites (do these first, in order)
 
-3. **`PHASE_C_FINAL_SELECTION.md`** — Why each of the 50 originally-selected books was chosen. (Owner provided 73 total with valuable extras like multiple editions.)
+| # | What | File | Why |
+|---|------|------|-----|
+| 0a | Fix `build_prompt_context` field names + add 5 fields | `metadata_inference.py` | 54% of books have muhaqiq data the LLM never sees |
+| 0b | Add compiler/commentator/riwayah guidance to SYSTEM_MESSAGE | `inference_v1.py` | LLM may confuse compiler with author without guidance |
+| 1 | Add `temperature=0` to consensus `_call_model` | `consensus.py` | Deterministic output, reduces token waste |
+| 2 | Add `_full_consensus_result` field to MetadataInferenceResult | `metadata_inference.py` | Phase C script needs per-model LLM responses |
+| 3 | Create Format B test fixture | `tests/fixtures/` | Bug fix has no regression test |
+| 4 | Create `COST_LOG.json` | `tests/results/source_engine/` | Budget tracking infrastructure |
 
-4. **`scripts/phase_c_books.txt`** — The 73 book names, grouped by test category.
+Run full test suite (768+) after each. See PHASE_C_TASK_SPEC.md for exact code changes.
 
-5. **`tests/fixtures/phase_c_fixture_mappings.json`** — Maps 12 collection books to ground truth fixture keys.
+### Step 2: Write `scripts/run_phase_c.py`
 
-### Pre-requisites for Claude Code (WHY each matters):
+Sequential book processing. No parallelism. Full spec in PHASE_C_TASK_SPEC.md including:
+- Processing flow (pre-pipeline extraction → pipeline via acquire_source → post-pipeline save)
+- Monkey-patch for capturing per-model LLM responses
+- Human gate configuration for temp libraries
+- Budget protection with hard ceiling
+- Resume/force/dry-run modes
+- Per-book sanity checks (deterministic, no LLM calls)
+- Gate abort handling (status: "gate_abort", not "error")
+- Edition group analysis in PHASE_C_SUMMARY.json
 
-**Pre-req 0 (CRITICAL): Fix `build_prompt_context` field-name mismatches.**
-WHY: The function that builds the metadata section the LLM sees looks for `muhaqiq_name` and `edition`, but extraction saves `muhaqiq_name_raw` and `edition_raw`. Result: 54% of books have muhaqiq data the LLM NEVER sees. Without fixing, every API call on books with muhaqiqs produces results where the LLM couldn't factor in tahqiq quality. We'd discover this during review and have to re-run all affected books.
+### Step 3: Test on 3 Books
 
-**Pre-req 1: Add `temperature=0` to consensus model calls.**
-WHY: Default temperature introduces non-determinism and slightly inflates output tokens. For structured JSON classification, temperature=0 is standard practice. Makes results reproducible.
+1. `أحكام الاضطباع والرمل في الطواف` — fixture 03_fiqh, has ground truth
+2. `الأربعون النووية` — famous book, clean run expected
+3. `الفقه الأكبر` — disputed attribution, should trigger gate abort
 
-**Pre-req 2: Expose full ConsensusResult in MetadataInferenceResult.**
-WHY: `acquire_source` doesn't expose per-model LLM responses. Adding a `_full_consensus_result` field lets the Phase C script capture the complete response from each model (Opus + Command A) for diagnostic analysis. Without this, we can't see what each model individually said — only the consensus output.
+All 14 items in the 3-Book Test Checklist (end of PHASE_C_TASK_SPEC.md) must pass.
 
-**Pre-req 3: Create Format B test fixture.**
-WHY: Phase A Bug 2 (colon-in-label, affecting 64 books) was fixed in code but has no unit test. A test fixture prevents regressions.
+### Step 4: Commit
 
-**Pre-req 4: Create COST_LOG.json.**
-WHY: Budget tracking infrastructure. Script refuses to start if estimated cost exceeds remaining budget.
+Commit the validated script. The owner runs `python scripts/run_phase_c.py` on all 73 books on his Windows machine.
 
-### Critical bugs found in the task spec (self-analysis):
+## Key Files
 
-**BUG 1: Monkey-patch targeted wrong Python module.**
-The task spec originally said to patch `shared.consensus.src.consensus.evaluate`. This is WRONG. Python's `from X import Y` creates a local reference copy in the importing module. Patching `X.Y` does NOT affect the copy. metadata_inference.py's local `evaluate` reference would still point to the original. FIXED: patch `engines.source.src.engine.infer_metadata` instead, which captures the full MetadataInferenceResult return value.
+| File | Purpose |
+|------|---------|
+| `CLAUDE_CODE_PHASE_C_BRIEF.md` | Executive summary (read first) |
+| `PHASE_C_TASK_SPEC.md` | Full implementation spec |
+| `PHASE_C_PREFLIGHT_AUDIT.md` | Risk register, cost model, 10 verified findings |
+| `PHASE_C_FINAL_SELECTION.md` | Book selection rationale |
+| `scripts/phase_c_books.txt` | 73 book names |
+| `tests/fixtures/phase_c_fixture_mappings.json` | 12 ground-truth mappings |
+| `RESULT_PRESERVATION.md` | How every API result must be saved |
 
-**BUG 2: Pre-pipeline extraction creates lock that blocks pipeline.**
-The task spec originally called `stage_source()` before `acquire_source()` to capture extraction data. But `stage_source()` creates an exclusive `.kr_processing` lock file. When `acquire_source()` internally calls `stage_source()`, it finds the lock and CRASHES. FIXED: use `detect_format()` + `extract_metadata()` directly (read-only, no lock).
+## Budget
 
-### What to do next:
+€98 remaining (€100 ceiling − €1.80 Step 0). Phase C estimate: €10-15. Ceiling: €50.
+The 3-book test costs ~€0.45. The full 73-book run costs ~€11.
 
-1. **Critically review** all Phase C documents. Look for: remaining bugs in the task spec, inconsistencies between documents, untested code paths, anything that could waste money or produce unusable results.
-2. **When satisfied**, hand `PHASE_C_TASK_SPEC.md` + the books to Claude Code for implementation.
-3. **Claude Code** implements pre-requisites, writes `scripts/run_phase_c.py`, tests on 2 books.
-4. **Owner** runs the validated script on all 73 books on his Windows machine.
-5. **Review** results in Claude Chat using kr-evaluate (5 books per session).
+## Do NOT
 
-**Budget:** ~€98 remaining (€100 ceiling − €1.80 spent in Step 0). Step 3 estimate: €10-15. Step 3 ceiling: €50.
+- Run the full 73 books (owner does that)
+- Parallelize processing
+- Use agent teams or subagents
+- Reimplement the pipeline (use `acquire_source`)
+- Strip schema text from user message (Command A needs it)

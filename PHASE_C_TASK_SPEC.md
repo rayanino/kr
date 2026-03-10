@@ -78,7 +78,7 @@ if edition_year_m:
 - Riwayah/transmission chains: for hadith works, a riwayah (رواية) identifies the specific transmission path. Different riwayahs of the same base collection are distinct works with different genre_chains.
 ```
 
-**Test:** Run the 2-book test. If genre/author results for the test books change in unexpected ways compared to Step 0 results, REVERT the system message change and keep only the `build_prompt_context` fix (Pre-Req 0a). The behavioral guidance is valuable but not worth introducing regressions. Document what happened.
+**Test:** Run the 3-book test. If genre/author results for the test books change in unexpected ways compared to Step 0 results, REVERT the system message change and keep only the `build_prompt_context` fix (Pre-Req 0a). The behavioral guidance is valuable but not worth introducing regressions. Document what happened.
 
 ### 1. Add temperature=0 to consensus model calls
 
@@ -99,7 +99,7 @@ result = await asyncio.wait_for(
 )
 ```
 
-**Test:** Run the 2-book test and verify temperature=0 is passed through by checking API response headers or logs. If Instructor doesn't pass temperature for a specific mode, fall back to not setting it and document the issue.
+**Test:** Run a test call and verify temperature=0 is passed through by checking API response headers or logs. If Instructor doesn't pass temperature for a specific mode, fall back to not setting it and document the issue.
 
 ### 2. Small engine change: expose full ConsensusResult
 
@@ -598,6 +598,89 @@ The 73 books include ~16 edition variants across ~8 works (e.g., 3 editions of �
 
 ---
 
+## Per-Book Sanity Checks (automated, no LLM calls)
+
+After each book's pipeline completes (or gate-aborts), run these deterministic checks. Save results to `{book_dir}/sanity_checks.json`. These catch obvious errors before human review — they are NOT gates; they flag issues but never block processing.
+
+```python
+def run_sanity_checks(result, extraction, prompt_sent) -> list[dict]:
+    """Deterministic post-pipeline checks. Returns list of {check, severity, detail}."""
+    flags = []
+
+    # 1. Multi-layer but empty layers
+    if result.get("is_multi_layer") and not result.get("text_layers"):
+        flags.append({"check": "multi_layer_no_layers",
+                       "severity": "error", "detail": "is_multi_layer=true but text_layers is empty"})
+
+    # 2. Author name blank
+    author = result.get("author", {})
+    if not author.get("name_arabic", "").strip():
+        flags.append({"check": "author_name_blank",
+                       "severity": "error", "detail": "canonical_name_ar is empty"})
+
+    # 3. Death date mismatch between extraction and inference
+    ext_death = extraction.get("author_death_hijri")
+    inf_death = author.get("death_date_hijri")
+    if ext_death and inf_death and abs(ext_death - inf_death) > 20:
+        flags.append({"check": "death_date_mismatch",
+                       "severity": "warning",
+                       "detail": f"Extracted {ext_death}, inferred {inf_death} (diff > 20 years)"})
+
+    # 4. Genre-title plausibility (Arabic title signals)
+    title = result.get("title_arabic", "")
+    genre = result.get("genre", "")
+    if "شرح" in title and genre not in ("sharh", "hashiyah", "taqrirat", "other"):
+        flags.append({"check": "genre_title_mismatch",
+                       "severity": "warning", "detail": f"Title contains 'شرح' but genre is '{genre}'"})
+    if "مختصر" in title and genre != "mukhtasar":
+        flags.append({"check": "genre_title_mismatch",
+                       "severity": "info", "detail": f"Title contains 'مختصر' but genre is '{genre}'"})
+
+    # 5. Muhaqiq in prompt but absent from scholarly_context
+    sc = result.get("scholarly_context") or {}
+    fields_present = prompt_sent.get("metadata_fields_present", [])
+    if "muhaqiq_name_raw" in fields_present and not sc.get("muhaqiq_reputation"):
+        flags.append({"check": "muhaqiq_not_in_context",
+                       "severity": "info",
+                       "detail": "Muhaqiq was in extraction but scholarly_context.muhaqiq_reputation is null"})
+
+    # 6. Suspiciously high confidence on sparse data
+    text_len = prompt_sent.get("text_sample_length", 0)
+    conf = result.get("confidence_scores", {})
+    if text_len < 500 and conf.get("author", 0) > 0.85:
+        flags.append({"check": "high_confidence_sparse_data",
+                       "severity": "warning",
+                       "detail": f"Author confidence {conf['author']} with only {text_len} chars of text"})
+
+    return flags
+```
+
+The `sanity_checks.json` output per book:
+```json
+{
+  "book": "الفقه الأكبر",
+  "total_flags": 1,
+  "errors": 0,
+  "warnings": 1,
+  "info": 0,
+  "flags": [
+    {"check": "death_date_mismatch", "severity": "warning", "detail": "Extracted 150, inferred 150 (match)"}
+  ]
+}
+```
+
+Aggregate in `PHASE_C_SUMMARY.json`:
+```json
+"sanity_check_summary": {
+  "total_flags": 12,
+  "by_severity": {"error": 1, "warning": 7, "info": 4},
+  "by_check": {"multi_layer_no_layers": 1, "genre_title_mismatch": 3, ...},
+  "clean_books": 61
+}
+```
+
+---
+
 ## Budget Protection
 
 The script MUST implement budget protection:
@@ -742,9 +825,10 @@ When writing `books.txt`, the owner uses the COLLECTION_DIR directory names. The
 
 ## Testing Before Full Run
 
-Before the full run, validate the script on 2 books:
+Before the full run, validate the script on **3 books** (not 2 — the third tests gate abort handling):
 1. One fixture book that has ground truth (e.g., `أحكام الاضطباع والرمل في الطواف` → fixture 03_fiqh)
-2. One new book without ground truth
+2. One new book without ground truth that is unlikely to trigger gates (e.g., `الأربعون النووية` — famous, unambiguous)
+3. One book expected to trigger a validation gate (e.g., `الفقه الأكبر` — disputed attribution, should produce `status: "gate_abort"`)
 
 Verify:
 - [ ] All output files created in correct structure
@@ -754,7 +838,7 @@ Verify:
 - [ ] result.json contains complete SourceMetadata
 - [ ] ground_truth_comparison.json generated for fixture book
 - [ ] COST_LOG.json updated
-- [ ] Resume mode works (re-running skips the 2 already-processed books)
+- [ ] Resume mode works (re-running skips the 3 already-processed books)
 - [ ] Cost estimate is reasonable (€0.07–0.15 per book)
 
 ---
@@ -776,13 +860,13 @@ These are low-priority. Do them only if the Phase C script is working and tested
 - [ ] Pre-requisite 0a: `build_prompt_context` field-name bugs fixed (muhaqiq_name_raw, edition_raw) + 5 new fields added
 - [ ] Pre-requisite 0a verified: `build_prompt_context` on fixture 02 output now includes "Muhaqiq/Editor:"
 - [ ] Pre-requisite 0b: System message updated with compiler/commentator/riwayah guidance
-- [ ] Pre-requisite 0b tested: 2-book test shows no regressions on genre/author fields (revert if issues)
+- [ ] Pre-requisite 0b tested: 3-book test shows no regressions on genre/author fields (revert if issues)
 - [ ] Pre-requisite 1: temperature=0 added to _call_model in consensus.py, verified working
 - [ ] Pre-requisite 2: `_full_consensus_result` field added to MetadataInferenceResult
 - [ ] Pre-requisite 3: Format B fixture created with test
 - [ ] Pre-requisite 4: COST_LOG.json created
 - [ ] `scripts/run_phase_c.py` exists and runs
-- [ ] 2-book test run produces correct output structure (see checklist below)
+- [ ] 3-book test run produces correct output structure (see checklist below)
 - [ ] Budget protection works (tested with `--budget-eur 0.01` to force ceiling hit)
 - [ ] Resume mode works (re-run skips books with status "success")
 - [ ] Force mode works (`--force` re-runs books even with status "success")
@@ -791,9 +875,9 @@ These are low-priority. Do them only if the Phase C script is working and tested
 - [ ] All existing tests still pass (768+)
 - [ ] Script is committed and ready for the owner to run on the full 73-book selection
 
-### 2-Book Test Checklist
+### 3-Book Test Checklist
 
-Before the full run, validate on 2 books (one fixture with ground truth, one new):
+Before the full run, validate on 3 books (fixture with GT, clean new book, gate-trigger book):
 
 - [ ] `extraction.json` contains all expected fields INCLUDING `_` prefixed debug fields
 - [ ] `prompt_sent.json` exists and was saved BEFORE the API call (check timestamps)
@@ -803,8 +887,9 @@ Before the full run, validate on 2 books (one fixture with ground truth, one new
 - [ ] `result.json` contains complete SourceMetadata (verifiable via Pydantic model_validate)
 - [ ] `ground_truth_comparison.json` generated for fixture book and shows comparison results
 - [ ] COST_LOG.json updated after each book (not just at the end)
-- [ ] Resume mode works (re-running skips the 2 already-processed books)
-- [ ] Force mode works (`--force` re-runs the 2 books and overwrites previous results)
+- [ ] Resume mode works (re-running skips the 3 already-processed books)
+- [ ] Force mode works (`--force` re-runs the 3 books and overwrites previous results)
 - [ ] Cost estimate is reasonable (€0.07–0.15 per book)
 - [ ] No data loss on API failure: if one book's API call fails, extraction.json and prompt_sent.json are still present
-- [ ] Gate abort handling: if a book triggers LOW_CONFIDENCE validation gate, result.json has status "gate_abort" (not "error") and llm_responses/ are still saved
+- [ ] Gate abort handling: book 3 (الفقه الأكبر) produces `status: "gate_abort"` (not "error"), and llm_responses/ are still saved
+- [ ] Gate abort resume: `--resume` skips the gate_abort book (does not re-process)
