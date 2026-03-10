@@ -61,7 +61,28 @@ if edition_year_m:
 
 **Why this matters:** Without this fix, every API call on the 54% of books with muhaqiq data produces results where the LLM couldn't factor in tahqiq quality. The scholarly_context.muhaqiq_reputation field will be either null or hallucinated (from text_sample alone). This wastes money because we'd have to re-run these books after fixing the prompt context.
 
-### 1. Small engine change: expose full ConsensusResult
+### 1. Add temperature=0 to consensus model calls
+
+**File:** `shared/consensus/src/consensus.py`, function `_call_model`, line ~134
+
+**Problem:** No temperature parameter is passed. Both models use their defaults (Anthropic: 1.0, Cohere: varies). For deterministic structured JSON classification, temperature=0 is optimal — it reduces output token count, prevents hallucination in scholarly_context, and makes results reproducible.
+
+**Fix:** Add `temperature=0` to the create() call:
+```python
+result = await asyncio.wait_for(
+    client.create(
+        messages=msgs,
+        response_model=response_model,
+        max_tokens=4000,
+        temperature=0,   # ADD: deterministic output for structured classification
+    ),
+    timeout=MODEL_TIMEOUT,
+)
+```
+
+**Test:** Run the 2-book test and verify temperature=0 is passed through by checking API response headers or logs. If Instructor doesn't pass temperature for a specific mode, fall back to not setting it and document the issue.
+
+### 2. Small engine change: expose full ConsensusResult
 
 **File:** `engines/source/src/metadata_inference.py`
 
@@ -83,7 +104,7 @@ result._full_consensus_result = consensus_result
 
 **Test:** Existing tests must still pass. The new field defaults to None and is never read by engine.py — it's purely diagnostic.
 
-### 2. Create Format B test fixture
+### 3. Create Format B test fixture
 
 **Problem:** Phase A Bug 2 (colon-in-label value embedding for 64 books) was fixed in `shamela_html.py` but has no unit test fixture.
 
@@ -93,7 +114,7 @@ result._full_consensus_result = consensus_result
 - Add ground truth entry in `GROUND_TRUTH.json` for `13_format_b`
 - Add unit test in the appropriate test file
 
-### 3. Create COST_LOG.json
+### 4. Create COST_LOG.json
 
 ```json
 {
@@ -639,9 +660,10 @@ These are low-priority. Do them only if the Phase C script is working and tested
 
 - [ ] Pre-requisite 0: `build_prompt_context` field-name bugs fixed (muhaqiq_name_raw, edition_raw) + 5 new fields added
 - [ ] Pre-requisite 0 verified: `build_prompt_context` on fixture 02 output now includes "Muhaqiq/Editor:"
-- [ ] Pre-requisite 1: `_full_consensus_result` field added to MetadataInferenceResult
-- [ ] Pre-requisite 2: Format B fixture created with test
-- [ ] Pre-requisite 3: COST_LOG.json created
+- [ ] Pre-requisite 1: temperature=0 added to _call_model in consensus.py, verified working
+- [ ] Pre-requisite 2: `_full_consensus_result` field added to MetadataInferenceResult
+- [ ] Pre-requisite 3: Format B fixture created with test
+- [ ] Pre-requisite 4: COST_LOG.json created
 - [ ] `scripts/run_phase_c.py` exists and runs
 - [ ] 2-book test run produces correct output structure (see checklist below)
 - [ ] Budget protection works (tested with `--budget-eur 0.01` to force ceiling hit)
