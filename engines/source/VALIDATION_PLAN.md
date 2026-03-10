@@ -17,11 +17,13 @@
 
 ---
 
-## Step 0: 14-Fixture Integration Run (~$1-2)
+## Step 0: 13-Fixture Integration Run (~$1-2) — ✅ COMPLETE
+
+**Status:** GO — 12/13 pass. See `engines/source/review/STEP0_RESULTS.md`.
 
 **Purpose:** First end-to-end pipeline test with real LLM calls. Resolves the two formal blocking conditions.
 
-**What runs:** Full pipeline (Steps 1-13) on all 14 fixtures (12 Shamela + 1 plain text + 1 alfiyyah_versified) with real API calls to Opus 4.6 and Command A.
+**What runs:** Full pipeline (Steps 1-13) on all 13 fixtures (12 Shamela + 1 plain text) with real API calls to Opus 4.6 and Command A.
 
 **Script:** `scripts/run_session6_integration.py`
 
@@ -62,6 +64,12 @@ python scripts/run_session6_integration.py
 5. **Validation check ordering.** Does Check 5e (genre↔multi-layer auto-correction) propagate before Check 6 (multi-layer coherence) runs? Trace through `validate_source_metadata`.
 
 6. **Trust re-evaluation gating.** Trust evaluator uses validated formula (death_date only). SPEC says "prior sources" check applies during re-evaluation on enrichment. Document the extension hook for Stage 2.
+
+7. **[Step 0 finding A1] Validation gate-severity errors ignored.** Engine.py only handles `severity="fatal"` from validation, ignoring `severity="gate"` errors that SPEC §5 says should create human gate checkpoints. Three gate conditions exist: confidence < 0.50 (Check 3), author-science mismatch (Check 5c), multi_layer=true with empty layers (Check 6a). **Expected finding: needs fix.**
+
+8. **[Step 0 finding A4] Name matching punctuation bug.** `normalize_arabic_name` doesn't strip Arabic commas (،) or other punctuation, causing token mismatches. LLM-generated full nasab names include commas (e.g., "الزجاجي، أبو القاسم"). **Expected finding: needs fix.**
+
+9. **[Step 0 finding] `validate_enrichment_passthrough` imported but never called.** D-023 passthrough validation function is imported in validation.py but not wired into any check. Assess whether this is needed for Stage 1 or is a Stage 2 concern.
 
 **Deliverable:** `engines/source/review/CODE_AUDIT_SESSION6.md`
 

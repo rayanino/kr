@@ -32,7 +32,9 @@
 - **Session 5a: COMPLETE.** Shared components: scholar authority, human gate, validation, trust evaluator, config (82 new tests, 447 total)
 - **Session 5b: COMPLETE.** Registries, registration orchestrator, text_utils slug generation, work relationships (56 new tests, 723 total including shared component tests)
 - **Session 6: COMPLETE.** engine.py + logger.py built, 35 new tests, 6 bugs fixed in post-build review. 758 total tests passing.
-- **Post-Session 6: VALIDATION PHASE.** See `engines/source/VALIDATION_PLAN.md` for the governing plan. Currently at Step 0 (14-fixture integration run).
+- **Post-Session 6: VALIDATION PHASE.** See `engines/source/VALIDATION_PLAN.md` for the governing plan.
+  - **Step 0: COMPLETE.** 12/13 fixtures pass (GO). 4 bugs fixed during run, 4 more found for Step 1. See `engines/source/review/STEP0_RESULTS.md`.
+  - **Step 1: CURRENT.** Code audit — Claude Chat reads modules against SPEC. See `/NEXT.md`.
 
 ## Required Reading (for Claude Code)
 
