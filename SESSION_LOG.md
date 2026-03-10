@@ -1,5 +1,122 @@
 # Session Log — خزانة ريان
 
+## Session: Source Engine Session 5b — 2026-03-10
+**Type:** BUILD
+**Focus:** Registries + Registration Orchestrator
+**Pipeline steps:** Step 7 (Registration), §4.A.9 (Work Relationships)
+**Test results:** 503 tests passing, 0 failures
+**Duration:** Claude Code session
+
+### What was done
+
+**6 modules implemented with 56 new tests:**
+
+1. **`text_utils.py` — Slug Generation (~200 lines, 12 tests)**
+   - `ARABIC_DIACRITICS` constant (9 Unicode tashkeel marks)
+   - `TRANSLIT_MAP` dict (28 Arabic → Latin mappings)
+   - `strip_diacritics(text: str)` — removes tashkeel
+   - `transliterate_chars(text: str)` — Arabic → Latin for slugs
+   - `generate_slug(arabic_text, table)` — table lookup (longest match first) → rule-based fallback → MD5 hash fallback
+   - `generate_work_id(author_name, title, transliteration_table)` — format: `wrk_{author_slug}_{title_slug}`, max 50 chars
+   - `generate_human_label(title, transliteration_table)` — transliterated, lowercased, underscored, max 30 chars
+   - Critical fix: underscore preservation in transliterate_chars for `al_` prefix handling
+
+2. **`registries/source_registry.py` — Source Registry CRUD (~80 lines, 8 tests)**
+   - `build_entry(metadata: SourceMetadata)` — maps all SourceMetadata fields to SourceRegistryEntry
+   - `load(registry_path)` — loads sources.json with empty dict fallback
+   - `save(registry_path, data)` — atomic write: .bak → tempfile → fsync → os.replace
+   - `find_by_hash(frozen_hash, registry)` — dedup lookup
+
+3. **`registries/scholar_registry.py` — Scholar Registry Wrapper (~80 lines, 10 tests)**
+   - `lookup_or_register_author(name, death_date, school, source_id)` — 3-path routing:
+     - auto_link → return existing canonical_id, no gate
+     - human_gate → create checkpoint, return best match canonical_id
+     - new_record → register minimal ScholarAuthorityRecord, return new canonical_id
+   - `lookup_or_register_muhaqiq(muhaqiq_name, source_id)` — simpler variant with higher auto-link tolerance
+   - Calls `shared.scholar_authority` for actual scholar management
+   - Critical fix: resolve author to canonical_id before work lookup
+
+4. **`registries/work_registry_store.py` — Work Registry Store (~150 lines, 12 tests)**
+   - `build_entry(metadata, transliteration_table)` — generates work_id using `generate_work_id()`
+   - `build_placeholder(title, author_canonical_id, work_id)` — creates `status: "referenced_not_acquired"` works
+   - `create_relationship_edge(from_work_id, to_work_id, relation_type, confidence, discovered_by)` — WorkRelationshipEdge factory
+   - `process_genre_chain(metadata, work_registry, scholar_registry_path, transliteration_table)`:
+     - Extracts base work title and author from genre_chain
+     - Searches work registry for matching work_id (title + author)
+     - If not found → creates placeholder work + sparse scholar record for referenced author
+     - Returns list of WorkRelationshipEdge objects
+   - `find_by_title_author(title, author_canonical_id, registry)` — uses `normalized_name_similarity()` with 0.80 threshold
+   - `load(registry_path)` and `save(registry_path, data)` — atomic writes with .bak
+
+5. **`human_gate.py` — Source Engine Gate Wrappers (~60 lines, 5 tests)**
+   - 5 convenience functions mapping source-engine triggers to `shared.human_gate.create_checkpoint()`:
+     - `gate_author_disambiguation(source_id, candidates, match_score, inferred_name)`
+     - `gate_consensus_disagreement(source_id, field, model_a_value, model_b_value, model_a_name, model_b_name)`
+     - `gate_low_confidence(source_id, field, value, confidence)`
+     - `gate_trust_flagged(source_id, trust_score, trust_factors)`
+     - `gate_scholar_conflict(source_id, canonical_id, conflict_type, existing_value, proposed_value)`
+   - Each constructs appropriate `fields_to_review`, `current_values`, `alternatives` for its trigger type
+
+6. **`registries/__init__.py` — Registration Orchestrator (~285 lines, 9 tests)**
+   - `register_source(metadata, library_root, config)` — atomic multi-registry write:
+     1. Build all registry entries in memory (SourceRegistryEntry, WorkRegistryEntry)
+     2. Process genre chain → create relationship edges + placeholder works if needed
+     3. Write `library/logs/pending_registration_{source_id}.json` (WAL pattern)
+     4. Acquire FileLock on sources.json and works.json (30s timeout)
+     5. Update sources.json (add entry with .bak backup)
+     6. Update works.json (add/update entry + relationships with .bak backup)
+     7. Write `library/sources/{source_id}/metadata.json`
+     8. Delete pending registration file
+   - `check_orphaned_registrations(library_root)` — startup recovery:
+     - Scans `library/logs/` for `pending_registration_*.json`
+     - For each: checks which registry files were updated
+     - Three cases:
+       - All updated → delete pending (completed ok, cleanup failed)
+       - None updated → delete pending (never started)
+       - Partial → restore from .bak files, delete pending (rollback)
+   - `_atomic_json_write(path, data)` — tempfile → fsync → os.replace pattern
+   - `_rollback_registries(library_root)` — restore registries from .bak if corrupt
+   - Critical fixes:
+     - work_id sync between source entry and work entry (ensures consistency)
+     - registries dir creation before FileLock acquisition (prevents lock failure)
+     - placeholder works added to work_reg_data before save (ensures references persist)
+
+### Critical Review Fixes Applied
+
+- **transliterate_chars underscore preservation:** Added special handling for `al_` prefix to prevent corruption during transliteration
+- **work_id synchronization:** Source registry entry now gets work_id from work registry entry to ensure consistency
+- **find_by_title_author author resolution:** Now resolves author name to canonical_id before lookup to prevent mismatches
+- **registries directory initialization:** Ensured registries directory exists before FileLock acquisition
+- **Removed dead code and unused imports:** Cleaned up all 6 modules
+
+### Testing
+
+**Test coverage (56 new tests):**
+- text_utils: 12 tests (slug generation, diacritics, transliteration, MD5 fallback, max length)
+- source_registry: 8 tests (build_entry, atomic save, dedup lookup)
+- scholar_registry: 10 tests (3-path routing, gate creation, muhaqiq handling)
+- work_registry_store: 12 tests (build_entry, placeholder, genre chain, relationships)
+- human_gate: 5 tests (all 5 wrapper functions)
+- registration orchestrator: 9 tests (atomic write, WAL pattern, orphan recovery)
+
+**Total tests:** 503 passing (447 from Session 5a + 56 new)
+**Failures:** 0
+
+### Decisions Made
+
+- Registry directory structure: `library/registries/{sources|works|scholars}.json`
+- Atomic writes use tempfile + fsync + os.replace (not SQLite)
+- FileLock timeout: 30 seconds (configurable)
+- Orphaned registration recovery happens on startup (not continuous monitoring)
+- Placeholder works created immediately during genre chain processing (not deferred)
+- Work deduplication uses 0.80 similarity threshold for title matching
+
+### Domain Questions for Owner
+
+None this session.
+
+---
+
 ## Session: Skills Rewrite — 2026-03-08
 **Type:** ARCHITECTURE
 **Focus:** Rewrite all skills to match new 4-step core-first engine protocol
