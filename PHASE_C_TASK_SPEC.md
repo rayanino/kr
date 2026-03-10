@@ -61,6 +61,25 @@ if edition_year_m:
 
 **Why this matters:** Without this fix, every API call on the 54% of books with muhaqiq data produces results where the LLM couldn't factor in tahqiq quality. The scholarly_context.muhaqiq_reputation field will be either null or hallucinated (from text_sample alone). This wastes money because we'd have to re-run these books after fixing the prompt context.
 
+#### 0b. Update system message to guide LLM on new metadata fields
+
+**File:** `engines/source/prompts/inference_v1.py`, `SYSTEM_MESSAGE`
+
+**Problem:** Pre-Req 0a adds `Compiler:`, `Commentator:`, and `Riwayah/Transmission:` to the metadata the LLM sees, but the system message says nothing about these fields. Without guidance:
+- The LLM may confuse a compiler (جامع/مرتب) with the author — critical for مجموع الفتاوى where Ibn Taymiyyah is the author but Ibn Qasim is the compiler.
+- The LLM may not recognize that a `Commentator:` field in the metadata card is strong evidence of multi-layer text.
+- The LLM may ignore the `Riwayah/Transmission:` field entirely, losing important hadith sub-identification.
+
+**Fix:** Add the following to `SYSTEM_MESSAGE`, after the "Tahqiq methodology" bullet in the expertise list:
+
+```python
+- Compiler vs. author distinction: a compiler (جامع/مرتب) organized existing material but is not the original author. When both Author and Compiler are present in the metadata, author_identification should identify the ORIGINAL author, not the compiler. The compiler's role may affect authority_level (modern_compilation).
+- Commentator identification: a commentator (شارح/معلق) listed in the metadata card is strong evidence of multi-layer text — the commentary is a distinct textual layer above the base work.
+- Riwayah/transmission chains: for hadith works, a riwayah (رواية) identifies the specific transmission path. Different riwayahs of the same base collection are distinct works with different genre_chains.
+```
+
+**Test:** Run the 2-book test. If genre/author results for the test books change in unexpected ways compared to Step 0 results, REVERT the system message change and keep only the `build_prompt_context` fix (Pre-Req 0a). The behavioral guidance is valuable but not worth introducing regressions. Document what happened.
+
 ### 1. Add temperature=0 to consensus model calls
 
 **File:** `shared/consensus/src/consensus.py`, function `_call_model`, line ~134
@@ -263,6 +282,9 @@ async def process_book(book_path, output_dir, ground_truth):
     # 3-4. Extract metadata DIRECTLY (no staging — staging creates a lock file
     #      that would block acquire_source later)
     #      This is read-only: just format detection + HTML parsing, zero side effects.
+    #      ASSUMPTION: the .htm files are not modified between this read and
+    #      acquire_source's read. Safe because the owner doesn't modify files mid-run
+    #      and processing is sequential.
     from engines.source.src.format_detection import detect_format
     from engines.source.src.extractors import extract_metadata
     
@@ -510,7 +532,8 @@ The `_` prefixed fields are diagnostic gold — they show which HTML field label
   "pipeline_version": "22a260c",
   "timestamp": "2026-03-10T15:45:00Z",
   "total_books": 73,
-  "successful": 70,
+  "successful": 68,
+  "gate_abort": 2,
   "failed": 1,
   "gate_pending": 2,
   "total_cost_eur": 8.50,
@@ -621,9 +644,29 @@ Approximate per-book cost (based on Step 0 data):
 }
 ```
 
-3. **API failures:** If both primary models fail AND the fallback fails for a single book, mark it as error and continue. If 3 consecutive books fail with API errors (not parse errors), stop the run — this likely indicates an API key or rate limit issue.
+3. **Gate aborts (IMPORTANT):** The engine's validation step (Step 11) raises `SourceEngineError` with `ErrorCode.LOW_CONFIDENCE` when gate-severity issues are found (disputed attribution, very low confidence, author-science mismatch). This is EXPECTED behavior for books like الفقه الأكبر — not a bug. When this happens:
+   - The SourceMetadata object WAS created (Step 9) but is NOT returned (the exception aborts before Step 12).
+   - The monkey-patch still captures the MetadataInferenceResult (inference happens at Step 4, before validation).
+   - Save with `status: "gate_abort"` instead of `status: "error"`:
+```json
+{
+  "status": "gate_abort",
+  "error_code": "LOW_CONFIDENCE",
+  "error_message": "Validation gate: 1 issue(s) require human review",
+  "gate_errors": ["confidence_threshold: author confidence 0.45 < 0.50"],
+  "partial_data": {
+    "extraction_completed": true,
+    "inference_completed": true,
+    "metadata_assembled": true,
+    "metadata_returned": false
+  }
+}
+```
+   The `--resume` flag should treat `gate_abort` like `success` — do NOT re-process. The LLM data is captured; the gate just means the owner needs to review it.
 
-4. **Resume support:** `--resume` checks `output_dir/{book_name}/result.json` existence. If present and `status: "success"`, skip. If present and `status: "error"`, re-process (the bug may have been an intermittent API failure). `--force` overrides `--resume` and re-processes all books regardless of existing results.
+4. **API failures:** If both primary models fail AND the fallback fails for a single book, mark it as error and continue. If 3 consecutive books fail with API errors (not parse errors), stop the run — this likely indicates an API key or rate limit issue.
+
+5. **Resume support:** `--resume` checks `output_dir/{book_name}/result.json` existence. If present and `status: "success"` or `status: "gate_abort"`, skip. If present and `status: "error"`, re-process (the error may have been transient). `--force` overrides `--resume` and re-processes all books regardless of existing results.
 
 ---
 
@@ -730,8 +773,10 @@ These are low-priority. Do them only if the Phase C script is working and tested
 
 ## Definition of Done
 
-- [ ] Pre-requisite 0: `build_prompt_context` field-name bugs fixed (muhaqiq_name_raw, edition_raw) + 5 new fields added
-- [ ] Pre-requisite 0 verified: `build_prompt_context` on fixture 02 output now includes "Muhaqiq/Editor:"
+- [ ] Pre-requisite 0a: `build_prompt_context` field-name bugs fixed (muhaqiq_name_raw, edition_raw) + 5 new fields added
+- [ ] Pre-requisite 0a verified: `build_prompt_context` on fixture 02 output now includes "Muhaqiq/Editor:"
+- [ ] Pre-requisite 0b: System message updated with compiler/commentator/riwayah guidance
+- [ ] Pre-requisite 0b tested: 2-book test shows no regressions on genre/author fields (revert if issues)
 - [ ] Pre-requisite 1: temperature=0 added to _call_model in consensus.py, verified working
 - [ ] Pre-requisite 2: `_full_consensus_result` field added to MetadataInferenceResult
 - [ ] Pre-requisite 3: Format B fixture created with test
@@ -762,3 +807,4 @@ Before the full run, validate on 2 books (one fixture with ground truth, one new
 - [ ] Force mode works (`--force` re-runs the 2 books and overwrites previous results)
 - [ ] Cost estimate is reasonable (€0.07–0.15 per book)
 - [ ] No data loss on API failure: if one book's API call fails, extraction.json and prompt_sent.json are still present
+- [ ] Gate abort handling: if a book triggers LOW_CONFIDENCE validation gate, result.json has status "gate_abort" (not "error") and llm_responses/ are still saved

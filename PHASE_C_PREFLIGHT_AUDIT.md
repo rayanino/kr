@@ -83,6 +83,53 @@ The system message (2321 chars) + JSON schema in user message (2630 chars) + pos
 
 ---
 
+## Deep Technical Audit — Money Protection (Session 2)
+
+**Date:** 2026-03-10
+**Auditor:** Claude Chat (Architect), second session
+**Scope:** LLM prompt, inference orchestration, consensus, Pydantic schema, 13-step pipeline
+
+### FINDING 6 (WARNING): System message has no guidance for new metadata fields
+
+**Status:** Added as Pre-Req 0b in PHASE_C_TASK_SPEC.md
+**Impact:** Pre-Req 0a adds Compiler, Commentator, and Riwayah fields to the metadata the LLM sees, but the system message mentions none of them. Risk: LLM confuses compiler with author (critical for مجموع الفتاوى), ignores commentator as multi-layer evidence, and discards riwayah information.
+**Fix:** Add 3-line guidance to SYSTEM_MESSAGE in inference_v1.py. Test in 2-book run; revert if regressions.
+
+### FINDING 7 (WARNING): Gate-severity validation errors abort pipeline, losing assembled metadata
+
+**Status:** Added to PHASE_C_TASK_SPEC.md error handling section
+**Impact:** When a book triggers a validation gate (disputed attribution, low confidence <0.50, author-science mismatch), engine.py Step 11 creates human gate checkpoints then RAISES `SourceEngineError(LOW_CONFIDENCE)`. The SourceMetadata object was assembled at Step 9 but never returned. Phase C books deliberately selected to trigger gates (D01, D02, G01, E02) would show status "error" despite the LLM successfully classifying them.
+**Fix:** Phase C script catches LOW_CONFIDENCE specifically and saves with `status: "gate_abort"`. The monkey-patch still captures the LLM inference data. `--resume` treats gate_abort like success (no re-processing needed).
+
+### FINDING 8 (NOTE): Schema text in user message is structurally redundant in TOOLS mode
+
+**Status:** NOT fixing for Phase C
+**Impact:** In Anthropic TOOLS mode, Instructor sends the Pydantic schema as a tool definition (~500 tokens). Our user message ALSO contains the schema structure (~680 tokens). The structural overlap is redundant. HOWEVER, the user message also contains ~490 tokens of behavioral guidance ("death_date_hijri: null if contemporary", "sectarian_tradition: default sunni", etc.) that is NOT in the Pydantic schema Field descriptions. Removing the schema text would lose this guidance.
+**Cost:** ~680 redundant tokens × $5/M × 73 books = $0.25.
+**Phase E note:** At 2500 books, redundancy costs ~$8.50. Worth stripping the JSON structure while keeping the IMPORTANT guidance section. This requires sending different user messages to Anthropic (TOOLS mode) vs OpenRouter (JSON mode), which introduces prompt asymmetry risk that must be tested.
+
+### FINDING 9 (NOTE): All-null scholarly_context output tokens
+
+**Status:** NOT fixing for Phase C
+**Impact:** For obscure books, the LLM produces an all-null scholarly_context (~103 output tokens per book). At Opus output rate ($25/M): $0.0026/book. For 73 books with ~40% obscure: $0.075 wasted.
+**Phase E note:** At 2500 books with ~60% obscure: ~$3.88 wasted. Could be optimized by telling the LLM to skip scholarly_context when context_richness would be "minimal", but this requires a two-pass approach (classify first, then decide whether to fill scholarly_context). Not worth the complexity.
+
+### FINDING 10 (NOTE): Consensus log writes to hardcoded relative path
+
+**Status:** NOT fixing for Phase C
+**Impact:** `shared/consensus/src/consensus.py` line 401: `_log_consensus` writes to `Path("library/logs")` — relative to CWD, not the temp library. When Phase C runs from the project root, consensus log entries (73 books × 2 models = 146 entries) go to the project's `library/logs/consensus.jsonl`. Not data corruption — just log noise. The log is append-only and not consumed by any pipeline component.
+**Phase D note:** If Phase D uses a shared registry (not isolated temp libraries), this becomes correct behavior. For isolated temp-library runs, could be fixed by passing a log_dir to evaluate() or setting CWD to the temp library root.
+
+### VERIFIED: Monkey-patch mechanism is correct
+
+Traced and empirically verified. Engine.py line 61: `from engines.source.src.metadata_inference import infer_metadata`. Line 301: `inference = await infer_metadata(...)`. When the Phase C script patches `engine_mod.infer_metadata = _capturing_wrapper`, the patched name lives in `engine_mod.__dict__`. When `acquire_source` (defined in engine_mod) calls `infer_metadata(...)`, Python looks up the name in the module's `__dict__` and finds the wrapper. Confirmed with empirical test: patching a module attribute IS visible to functions defined in that module.
+
+### VERIFIED: TOCTOU risk is negligible
+
+Pre-pipeline `detect_format()` + `extract_metadata()` and pipeline `acquire_source()` both read the same .htm files. If the owner modifies files between reads, extraction data diverges from pipeline data. This is safe because: (a) the owner doesn't modify source files during processing, (b) processing is sequential (no concurrent readers), (c) files are on local disk (no network latency window). Documented assumption in the task spec's processing flow.
+
+---
+
 ## Findings — Already Correct, Verified
 
 ### VERIFIED: All prompt enum values match code enums
@@ -98,7 +145,7 @@ The system message (2321 chars) + JSON schema in user message (2630 chars) + pos
 - Critical rules: confidence calibration guidance is good (0.50 for uncertainty, <0.80 for ambiguous author)
 - Multi-layer detection rules: correctly distinguish sharh (multi-layer) from ta'aqqubat (single-layer with citations)
 - scholarly_context guidance: correctly prefers null over fabrication, honest context_richness self-assessment
-- **No prompt changes needed.**
+- **Update (Session 2):** System message needs compiler/commentator/riwayah guidance (Finding 6 → Pre-Req 0b). No other prompt changes needed.
 
 ### VERIFIED: Consensus mechanism
 - Both models called concurrently (good — no wasted sequential latency)
@@ -122,8 +169,10 @@ The system message (2321 chars) + JSON schema in user message (2630 chars) + pos
 - [ ] Read PHASE_C_FINAL_SELECTION.md (book list)
 
 ### Pre-Requisite fixes:
-- [ ] Pre-Req 0: Fix build_prompt_context (muhaqiq_name_raw, edition_raw, + 5 new fields)
-- [ ] Pre-Req 0 test: build_prompt_context on fixture 02 now shows "Muhaqiq/Editor: أحمد محمد عبد الدايم"
+- [ ] Pre-Req 0a: Fix build_prompt_context (muhaqiq_name_raw, edition_raw, + 5 new fields)
+- [ ] Pre-Req 0a test: build_prompt_context on fixture 02 now shows "Muhaqiq/Editor: أحمد محمد عبد الدايم"
+- [ ] Pre-Req 0b: Add compiler/commentator/riwayah guidance to SYSTEM_MESSAGE
+- [ ] Pre-Req 0b test: 2-book test shows no regressions on genre/author (revert if issues)
 - [ ] Pre-Req 1: Add temperature=0 to _call_model in consensus.py
 - [ ] Pre-Req 1 test: Verify Instructor passes temperature through (check API logs in dry-run)
 - [ ] Pre-Req 2: _full_consensus_result field in MetadataInferenceResult
@@ -164,6 +213,8 @@ The system message (2321 chars) + JSON schema in user message (2630 chars) + pos
 | Parse failure on complex book | Medium | 1 book error | Error recorded, book marked for re-run |
 | Temperature=0 breaks Instructor | Very Low | Revert change | Test in 2-book run; revert if issues |
 | Prompt context fix regression | Low | Wrong metadata | Test on all 13 fixtures before full run |
+| System message change (0b) regresses existing fields | Low | Revert 0b | 2-book test before full run; keep 0a even if 0b reverts |
+| Gate-abort books misclassified as errors | Medium | Wasted re-runs | Script catches LOW_CONFIDENCE specifically → gate_abort status |
 
 ---
 
