@@ -8,6 +8,8 @@ Build engine.py (pipeline orchestrator) and logger.py (structured logging), then
 
 503 tests pass across 14 test files. Every module except engine.py and logger.py is built and tested. config.py is complete (102 lines, tested). The orchestrator delegates all real work to existing modules — it is a coordinator, not a processor.
 
+Note: Running `pytest --ignore=reference/` shows 723 passed, 22 skipped — the 503 figure was from before shared component tests were counted.
+
 ## Required Reading
 
 1. `engines/source/SPEC_CORE.md` §4.A.2 (9-step workflow), §4.A.10 (processing status), §7 (error handling — ALL codes)
@@ -44,39 +46,58 @@ async def acquire_source(source_path: Path, config: SourceEngineConfig) -> Sourc
     4. check_exact_duplicate(staging.composite_hash, source_registry) → Optional[str]
        [Step 5 — if match, log SRC_DUPLICATE_EXACT, cleanup lock, return early]
 
-    5. check_work_duplicate(title, author_id, work_registry) → Optional[str]
-       [Step 5 cont. — if match, log SRC_DUPLICATE_WORK (Info), link to existing work_id]
+    5. REGISTER AUTHOR: lookup_or_register_author(name, death_date, school, source_id)
+       → (ScholarReference, Optional[gate_checkpoint_id])
+       [Uses inference.author_reference dict for name_arabic and death_date_hijri.
+        For school: extract from inference.canonical_output.author_identification.school_affiliations
+        — pass the first value, or None if empty.
+        If gate_checkpoint_id is not None, an AUTHOR_DISAMBIGUATION gate was created —
+        add to the human_gate list.
+        MUST happen before freeze and before register_source — the canonical_id is needed
+        for work_id slug generation and for the SourceMetadata.author field.
+        Import from: engines.source.src.registries.scholar_registry]
 
-    6. freeze_source(staged_path, source_id, library_root, hashes, timestamps) → FreezeResult
+    6. REGISTER MUHAQIQ (if extracted has muhaqiq_name_raw or muhaqiq_name_clean):
+       lookup_or_register_muhaqiq(name, source_id) → ScholarReference
+       [From engines/source/src/registries/scholar_registry.py]
+
+    7. freeze_source(staged_path, source_id, library_root, hashes, timestamps) → FreezeResult
        [Step 6]
 
-    7. Assemble SourceMetadata object from staging + extraction + inference + freeze results
+    8. Assemble SourceMetadata object from staging + extraction + inference + freeze +
+       author ScholarReference + muhaqiq ScholarReference
        [All fields populated except trust]
 
-    8. evaluate_trust(metadata_fields, publishers, muhaqiqs, config) → trust fields
+    9. evaluate_trust(author_ref, author_record, muhaqiq_name, publisher,
+                      authority_level, text_fidelity, source_id,
+                      recognized_muhaqiqs=..., known_publishers=...) → tuple
        [Step 8 — MUST happen BEFORE registration because SourceRegistryEntry needs trust_tier]
 
-    9. Add trust fields to SourceMetadata. Set status = STAGING.
-       Create human gates for: author ambiguity, consensus disagreement, low confidence.
+    10. Add trust fields to SourceMetadata. Set status = ACQUIRED.
+        Create human gates for: author ambiguity, consensus disagreement, low confidence.
 
-    10. validate_source_metadata(metadata_dict, registries) → list[ValidationError]
+    11. validate_source_metadata(metadata_dict, registries) → list[ValidationError]
         [§5 Layer 1 — if blocking errors, abort]
 
-    11. register_source(metadata, library_root, config) → None
-        [Step 7 — writes metadata.json + all 3 registries atomically]
-        [NOTE: register_source handles scholar creation via lookup_or_register_author]
+    12. register_source(metadata, library_root, config) → None
+        [Step 7 — writes metadata.json + source/work registries atomically.
+         NOTE: register_source does NOT register the primary author — that
+         happened in step 5. It DOES handle genre chain processing which
+         may register base work authors for sharh/hashiyah relationships.]
 
-    12. Set status → ACQUIRED. Move staging/{source} to staging/.processed/{source_id}/
+    13. Move staging/{source} to staging/.processed/{source_id}/
         Remove staging lock. Log success.
         [Step 9]
     """
 ```
 
+**IMPORTANT: Work-level duplicate detection.** `check_work_duplicate()` from `deduplication.py` is NOT called as a separate pipeline step. Work matching happens automatically inside `register_source` → `work_registry_store.build_entry()` → work_id slug collision detection. If the work_id already exists in works.json, `register_source` adds this source_id to the existing work's `source_ids` list. To log `SRC_DUPLICATE_WORK` (Info), engine.py should check BEFORE calling register_source whether the work_id already exists in the work registry. Load the work registry, generate the work_id using `text_utils.generate_work_id()`, and check if it's present. If so, log the info event — but do NOT abort. The source still gets acquired.
+
 ### Critical Implementation Notes
 
 **Trust before registration.** The SPEC numbers trust as Step 8 and registration as Step 7, but `SourceRegistryEntry.trust_tier` is required at write time. Compute trust BEFORE calling register_source. The SourceMetadata object must be fully built (all fields including trust) before registration.
 
-**Scholar record for trust evaluation.** `evaluate_trust()` takes `author_record: Optional[ScholarAuthorityRecord]`, but the scholar hasn't been registered yet at trust-evaluation time (registration is the next step). Solution: construct a minimal `ScholarAuthorityRecord` from the inference result, with just the fields trust evaluation uses (`death_date_hijri`, `canonical_name_ar`, `canonical_id`). Or look up the scholar registry to see if this scholar already exists from a previous intake — use `shared.scholar_authority.src.scholar_authority.lookup()`. If found, pass the existing record. If not found, construct a minimal temporary one.
+**Scholar record for trust evaluation.** `evaluate_trust()` takes `author_record: Optional[ScholarAuthorityRecord]`. Since the author was registered in step 5 (lookup_or_register_author), load the scholar record from `library/registries/scholars.json` using the `canonical_id` from the returned ScholarReference. This gives you the full `ScholarAuthorityRecord` with `death_date_hijri` that the trust evaluator needs.
 
 **Async entry point.** `infer_metadata` is async. The top-level `acquire_source` function must be `async def`. Provide a synchronous wrapper `acquire_source_sync(path, config)` that calls `asyncio.run()` for CLI usage.
 
@@ -86,7 +107,7 @@ async def acquire_source(source_path: Path, config: SourceEngineConfig) -> Sourc
 
 **Staging lock lifecycle.** `stage_source` creates the lock and returns `StagingResult.lock_path`. The orchestrator removes the lock in a `finally` block after successful acquisition OR after a fatal error. Never leave orphaned locks.
 
-**Status transitions.** SourceMetadata.status starts as `STAGING` (set during assembly). After registration, update to `ACQUIRED`. This is done by reading the just-written metadata.json, updating status, and rewriting — or by setting status to ACQUIRED before calling register_source (preferred, since register_source writes metadata.json).
+**Status transitions.** Set `status = ProcessingStatus.ACQUIRED` before calling `register_source`. Since `register_source` writes metadata.json, the status must be correct at that point. Do NOT set status to STAGING first and then update after — that would require a second write to metadata.json.
 
 ### Startup Cleanup
 
@@ -158,12 +179,13 @@ From StagingResult:
   frozen_file_hashes   ← freeze.frozen_file_hashes
 
 From extract_metadata dict:
-  title_arabic         ← extracted["display_title"]
+  title_arabic         ← extracted.get("display_title") or extracted.get("title_full") or extracted.get("title_arabic")
+                          [Shamela uses "display_title", plain text uses "title_arabic" — must try both]
   publisher            ← extracted.get("publisher")
-  page_count           ← extracted.get("page_count")
-  volume_count         ← extracted.get("volume_count")
+  page_count           ← extracted.get("page_count") or extracted.get("body_page_count")
+  volume_count         ← extracted.get("volume_count") (parsed from volume_count_raw by Shamela extractor)
   volumes              ← [VolumeInfo(...) for v in extracted.get("volumes", [])]
-  format_specific_metadata ← extracted.get("format_specific", {})
+  format_specific_metadata ← extracted.get("format_specific_metadata", {})
 
 From MetadataInferenceResult:
   genre                ← Genre(inference.genre)
@@ -177,9 +199,21 @@ From MetadataInferenceResult:
   confidence_scores    ← InferredFieldConfidence(**inference.confidence_scores)
   text_fidelity        ← TextFidelity(inference.text_fidelity)
   needs_review_fields  ← inference.needs_review_fields
-  scholarly_context     ← ScholarlyContext from inference.canonical_output.scholarly_context
-  author               ← ScholarReference from inference.author_reference
-  genre_chain          ← GenreChain from inference.canonical_output.genre_chain
+  scholarly_context    ← ScholarlyContext(**inference.canonical_output.scholarly_context.model_dump())
+                          if inference.canonical_output and inference.canonical_output.scholarly_context
+                          else None
+  genre_chain          ← build GenreChain from inference.canonical_output.genre_chain if present
+
+From lookup_or_register_author (step 5 in data flow):
+  author               ← ScholarReference returned by lookup_or_register_author()
+                          [Built from inference.author_reference dict: name_arabic, death_date_hijri.
+                           The lookup call returns a ScholarReference with canonical_id assigned.
+                           Import from: engines.source.src.registries.scholar_registry]
+
+From lookup_or_register_muhaqiq (step 6 in data flow):
+  muhaqiq              ← ScholarReference returned by lookup_or_register_muhaqiq()
+                          if extracted has "muhaqiq_name_clean" or "muhaqiq_name_raw", else None
+                          [Import from: engines.source.src.registries.scholar_registry]
 
 From evaluate_trust (returns tuple: tier, score, factors, reason):
   trust_tier           ← trust_tier  (TrustTier enum)
@@ -199,7 +233,24 @@ Generated:
   enrichment_sources   ← []
 ```
 
-**work_id must be set BEFORE calling register_source.** `register_source` writes `metadata.model_dump()` to metadata.json, but it does NOT update `metadata.work_id` — it only updates `src_entry.work_id` internally. This means if engine.py passes `work_id = "pending"`, the metadata.json file will contain "pending". Fix: either (a) have engine.py generate the work_id using the same slug functions `work_registry_store.build_entry()` uses, then set `metadata.work_id` before calling `register_source`, or (b) modify `register_source` to update `metadata.work_id = actual_work_id` before writing metadata.json. Option (b) is cleaner — add one line: `metadata.work_id = actual_work_id` before the `_atomic_json_write` call. But since SourceMetadata is a Pydantic model, use `metadata = metadata.model_copy(update={"work_id": actual_work_id})` or set it directly if the model is mutable.
+**work_id must be set BEFORE calling register_source.** `register_source` writes `metadata.model_dump()` to metadata.json but does NOT update `metadata.work_id` — it only sets `src_entry.work_id` internally. Two approaches:
+
+Option A (preferred): Engine.py generates the work_id itself before calling register_source:
+```python
+from engines.source.src.text_utils import generate_work_id
+work_id = generate_work_id(author_ref.name_arabic, title_arabic, config.transliteration)
+# Set on metadata before calling register_source
+```
+
+Option B: Fix register_source to update metadata before writing metadata.json. Add before the `_atomic_json_write` call in register_source:
+```python
+# Update metadata with the actual work_id (may differ from placeholder)
+metadata_dict = metadata.model_dump(mode="json")
+metadata_dict["work_id"] = actual_work_id
+_atomic_json_write(metadata_path, metadata_dict)
+```
+
+Either way, the metadata.json MUST contain the real work_id, not "pending".
 
 **text_fidelity_reason generation.** `MetadataInferenceResult` provides `text_fidelity` (the enum value) but NOT `text_fidelity_reason` (a required string on SourceMetadata). Engine.py must generate the reason:
 - Base reason from format: "Shamela structured HTML — high fidelity digital text" or "Plain text — standard encoding"  
@@ -280,7 +331,7 @@ Test the orchestrator with mocked `infer_metadata` that returns pre-built `Metad
 test_acquire_shamela_simple          — fixture 03_fiqh, happy path, mock returns correct metadata
 test_acquire_plain_text              — fixture alfiyyah_versified, plain text path
 test_acquire_exact_duplicate         — pre-populate registry with matching hash → SRC_DUPLICATE_EXACT
-test_acquire_work_duplicate          — pre-populate work registry → SRC_DUPLICATE_WORK info logged, still acquires
+test_acquire_work_duplicate          — pre-populate work registry with same author+title slug → SRC_DUPLICATE_WORK info logged, source still acquired and linked to existing work_id
 test_acquire_consensus_disagreement  — mock returns needs_human_gate=True → human gate created
 test_acquire_low_confidence          — mock returns confidence < 0.50 → SRC_LOW_CONFIDENCE, human gate
 test_acquire_staging_modified        — modify file after staging → SRC_STAGING_MODIFIED
@@ -325,7 +376,7 @@ For each core error code that CAN fire in Stage 1, verify it fires under the cor
 | SRC_ATTRIBUTION_DISPUTED | 4 | Mock disputed attribution status |
 | SRC_METADATA_INCONSISTENCY | 4 | Mock inconsistent genre/format combination |
 | SRC_DUPLICATE_EXACT | 5 | Pre-populated registry with matching hash |
-| SRC_DUPLICATE_WORK | 5 | Pre-populated work registry with same title+author |
+| SRC_DUPLICATE_WORK | 7 | Pre-populated work registry with same work_id slug → Info logged during registration |
 | SRC_STAGING_MODIFIED | 6 | Modify file between staging and freeze |
 | SRC_FREEZE_COPY_CORRUPT | 6 | Mock hash mismatch after copy |
 | SRC_SCHEMA_VIOLATION | val | SourceMetadata with missing required field |
@@ -416,7 +467,7 @@ Also verify:
 - [ ] All produced metadata.json files pass normalization boundary check (6f)
 - [ ] Staging directories moved to .processed/ after successful acquisition
 - [ ] Startup cleanup handles orphaned locks and registrations
-- [ ] All existing 503 tests still pass (regression)
+- [ ] All existing 723+ tests still pass (regression: `pytest --ignore=reference/`)
 
 ## Session Budget
 

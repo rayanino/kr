@@ -184,11 +184,13 @@ def register_source(
         works_lock.release()
         sources_lock.release()
 
-    # 3. Write metadata.json
+    # 3. Write metadata.json (with actual work_id, not placeholder)
     source_dir = library_root / "sources" / metadata.source_id
     source_dir.mkdir(parents=True, exist_ok=True)
     metadata_path = source_dir / "metadata.json"
-    _atomic_json_write(metadata_path, metadata.model_dump(mode="json"))
+    metadata_dict = metadata.model_dump(mode="json")
+    metadata_dict["work_id"] = actual_work_id
+    _atomic_json_write(metadata_path, metadata_dict)
 
     # 4. Delete pending registration
     if pending_path.exists():
