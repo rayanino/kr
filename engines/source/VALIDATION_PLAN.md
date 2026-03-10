@@ -135,7 +135,7 @@ python scripts/run_session6_integration.py
 **Review workflow:**
 - Owner reviews all 73 in ~15 Claude Chat sessions (5 books per session, using kr-evaluate)
 - Every finding categorized: CORE GAP / ENGINE BUG / LLM QUALITY / DATA ISSUE
-- Each validated result becomes new ground truth → GROUND_TRUTH.json expands from 13 to ~85 entries
+- Each validated result becomes new ground truth → GROUND_TRUTH.json expands from 13 to ~74 entries
 
 **GO/NO-GO:** Zero CORE GAP findings. All ENGINE BUG findings fixed. Confidence thresholds adjusted if needed.
 

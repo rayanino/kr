@@ -249,9 +249,11 @@ async def process_book(book_path, output_dir, ground_truth):
     config = create_temp_library(...)
     
     # 1b. Configure human gate for this temp library
-    #     Without this, any book that triggers a gate (disputed attribution,
-    #     low confidence, trust flagged) will crash with FileNotFoundError
-    #     when the pipeline tries to write a checkpoint file.
+    #     Without this, the human_gate module uses its default _GATES_DIR
+    #     (Path("library/gates") — relative to CWD). If CWD is the project
+    #     root, gate checkpoints silently write to the PROJECT's gates directory
+    #     instead of the temp library's, polluting permanent files. If CWD is
+    #     elsewhere, it crashes with FileNotFoundError. Either way: must configure.
     from shared.human_gate.src.human_gate import configure as configure_gate
     configure_gate(gates_dir=config.library_root / "gates", auto_approve=True)
     
@@ -279,7 +281,7 @@ async def process_book(book_path, output_dir, ground_truth):
         "display_title", "title_full", "author_name_raw", "author_short",
         "muhaqiq_name_raw", "publisher", "shamela_category", "edition_raw",
         "compiler_name_raw", "commentator_name_raw", "riwayah",
-        "page_count", "volume_count"
+        "page_count", "volume_count", "source_format"
     ]
     fields_present = [f for f in metadata_fields_check if extracted.get(f)]
     fields_absent = [f for f in metadata_fields_check if not extracted.get(f)]
@@ -301,6 +303,9 @@ async def process_book(book_path, output_dir, ground_truth):
     # from previous book if this book's infer_metadata fails.
     # SEQUENTIAL ONLY — this global capture pattern breaks with concurrent
     # book processing (asyncio.gather). Phase C processes books sequentially.
+    # NOTE: needs `global _captured_inference` declaration here, since the
+    # variable is defined at module scope and written by _capturing_infer.
+    global _captured_inference
     _captured_inference = None
     
     # 6. Run full pipeline (steps 1-13) with consensus capture wrapper active
@@ -550,7 +555,7 @@ The `_` prefixed fields are diagnostic gold — they show which HTML field label
 
 The 73 books include ~16 edition variants across ~8 works (e.g., 3 editions of إعلام الموقعين, 2 editions of البداية والنهاية, 2 editions of شرح العقيدة الطحاوية). The `edition_groups` array compares pipeline results across editions of the same work.
 
-**How to compute:** After all books are processed, group result.json files by work identity (same author + same core title, ignoring muhaqiq/publisher/طبعة suffixes). For each group, compare: `genre`, `author_identification.canonical_name_ar`, `author_identification.death_date_hijri`, `is_multi_layer`, `science_scope`, `trust_tier`. Flag any inconsistency — it indicates the pipeline's output depends on edition-specific metadata rather than the work itself.
+**How to compute:** After all books are processed, group result.json files by core title similarity (ignoring muhaqiq/publisher/طبعة/تحقيق suffixes). For each group, compare: `genre`, `author_identification.canonical_name_ar`, `author_identification.death_date_hijri`, `is_multi_layer`, `science_scope`, `trust_tier`. Flag any field that differs across editions. Author differences within a title group are especially valuable — they may indicate the pipeline correctly identified different authors (e.g., a work and its تكملة) or incorrectly conflated them.
 
 **Known edition groups in books.txt** (the script should detect these automatically by comparing `author_identification` + normalized title across results, but these are the expected groupings):
 
@@ -737,7 +742,7 @@ These are low-priority. Do them only if the Phase C script is working and tested
 - [ ] Resume mode works (re-run skips books with status "success")
 - [ ] Force mode works (`--force` re-runs books even with status "success")
 - [ ] Dry-run mode works
-- [ ] Human gate configured: verify a gate-triggering book (e.g., الفقه الأكبر) doesn't crash with FileNotFoundError
+- [ ] Human gate configured: verify a gate-triggering book (e.g., الفقه الأكبر) doesn't crash or write to project gates dir
 - [ ] All existing tests still pass (768+)
 - [ ] Script is committed and ready for the owner to run on the full 73-book selection
 

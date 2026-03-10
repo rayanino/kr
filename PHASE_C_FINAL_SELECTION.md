@@ -1,4 +1,4 @@
-# Phase C Final Book Selection — 50 Targeted LLM Probes
+# Phase C Final Book Selection — 73 Targeted LLM Probes
 
 **Status:** FINAL — all picks made, ready for owner download and Claude Code execution
 **Cost estimate:** ~€10–15 for 73 books
