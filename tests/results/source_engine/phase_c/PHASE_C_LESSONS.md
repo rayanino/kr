@@ -14,7 +14,7 @@
 
 - **[BUG-C02] Edition groups excluded gate_abort books**: The comparison filter required `status == "success"`, but most edition groups had all books in gate_abort status. Since gate_abort books have full LLM responses saved (inference completes before validation aborts), they are valid for edition comparison. Fixed to include gate_abort books with data loaded from `llm_responses/`.
 
-- **[BUG-C03] Command A (Cohere) completely unavailable**: `openrouter/cohere/command-a` timed out on every single attempt throughout the entire 73-book run (60s timeout, 2 retries each). All books fell back to single-model mode (Opus 4.6 only). No consensus comparison occurred for any book. This is not a code bug but an infrastructure issue — Command A was either down or rate-limited during the run window.
+- **[BUG-C03] RETRACTED — Command A was NOT unavailable**: Originally claimed Command A timed out on all attempts. This was incorrect — the stderr timeout messages during the run were misleading. Actual data from consensus.json files: 67/73 books used Command A successfully (latencies 12-47s). 6 books used GPT-5.4 as fallback second model. 0/73 were single-model fallback. 73/73 have genuine dual-model consensus (67 agreed, 6 disagreed).
 
 ## Patterns Observed
 
@@ -22,19 +22,23 @@
 
 - **Gate aborts are data-complete**: Every gate_abort book has complete extraction.json, prompt_sent.json, llm_responses/, and consensus.json. The inference pipeline ran fully — only the post-inference validation step aborted. This means the LLM data is reliable and reusable.
 
-- **Ground truth level field consistently mismatched**: 3 of 4 ground-truth comparisons failed on the `level` field (expected "intermediate", got "beginner"). This suggests the LLM (Opus 4.6 in single-model mode) has a systematic tendency to underestimate scholarly level for modern academic works.
+- **Ground truth level field consistently mismatched**: 3 of 4 ground-truth comparisons failed on the `level` field (expected "intermediate", got "beginner"). This suggests dual-model consensus (Opus + Command A) has a systematic tendency to underestimate scholarly level for modern academic works.
 
 - **Edition group consistency is high**: Of the 9 edition groups, 7 had consistent genre classification across editions. The 2 inconsistent groups (إعلام الموقعين: matn/other, الإبانة: matn/risalah) represent genuine classification difficulty, not pipeline errors.
 
-- **حاشية ابن عابدين correctly separated father from son**: The pipeline correctly identified different authors for حاشية ابن عابدين (محمد أمين عابدين) vs. تكملة حاشية ابن عابدين (محمد علاء الدين عابدين). This validates the author identification working correctly even without consensus.
+- **حاشية ابن عابدين correctly separated father from son**: The pipeline correctly identified different authors for حاشية ابن عابدين (محمد أمين عابدين) vs. تكملة حاشية ابن عابدين (محمد علاء الدين عابدين). This validates the author identification working correctly with dual-model consensus.
+
+- **Dual-model consensus worked as designed**: 67/73 books had both models agree. 6 disagreements triggered the fallback resolution path. 0 single-model fallbacks. The consensus infrastructure is operational despite the stderr timeout warnings during the run.
 
 ## What Went Wrong
-
-- **No multi-model consensus**: Command A's unavailability means every result is Opus-only. The D-041 consensus requirement was technically met (the fallback mechanism worked), but the value of independent verification was lost. Every classification decision rests on a single model.
 
 - **70% gate_abort rate inflated by incomplete scholar registry**: The author-science mismatch check is valuable but the scholar registry has sparse science data. Authors like النووي (known for hadith AND fiqh) only have generic "primary" registered, causing false triggers on every hadith-related work.
 
 - **3-book test gate_abort on الأربعون النووية was unexpected**: Expected a clean "success" for this famous hadith collection, but got gate_abort due to author-science mismatch. This was a correct gate trigger given the registry state, but it means the 3-book test didn't fully validate the "success" path for non-fixture books.
+
+- **6 books had consensus disagreement**: 6 of 73 books had the two models disagree, triggering fallback resolution. These deserve manual review to understand what caused the disagreement.
+
+- **Misleading stderr during run**: Command A's retry timeout messages in stderr gave the false impression that the model was completely unavailable. In reality, 67/73 books used Command A successfully — the timeouts were from retries on a minority of attempts.
 
 ## What Worked
 
@@ -52,9 +56,9 @@
 
 1. **Fix the scholar registry before Phase D**: The 70% gate_abort rate is solvable. Populate science_scope data for major scholars (النووي, ابن تيمية, الطبري, ابن كثير, etc.) in the scholar registry. This should drop gate_abort to <20%.
 
-2. **Re-run with Command A available**: The entire run lacks consensus verification. Consider a Phase D re-run (just the inference step, not full pipeline) when Command A is available, or substitute with a different second model (e.g., GPT-4o via OpenRouter).
+2. **Review the 6 consensus disagreements**: Investigate which books had Command A and Opus disagree, and whether the fallback resolution chose the correct answer. These are the highest-value items for pipeline calibration.
 
-3. **Investigate level field calibration**: Opus 4.6 consistently underestimates scholarly level for modern academic works (classifying "intermediate" as "beginner"). Consider adding calibration guidance to the system message or adjusting ground truth expectations.
+3. **Investigate level field calibration**: Both models consistently underestimate scholarly level for modern academic works (classifying "intermediate" as "beginner"). Consider adding calibration guidance to the system message or adjusting ground truth expectations.
 
 4. **Consider relaxing the author-science check**: The current check gates on ANY mismatch between registered sciences and inferred sciences. A softer check (e.g., warning instead of gate for minor mismatches, gate only for impossible combinations like "nahw scholar wrote tafsir") would reduce false gates.
 

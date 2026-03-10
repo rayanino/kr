@@ -153,6 +153,7 @@ def _build_confidence_scores(inference: MetadataInferenceResult) -> InferredFiel
         authority_level=scores.get("authority_level", 0.5),
         multi_layer=scores.get("multi_layer"),
         genre_chain=scores.get("genre_chain"),
+        author=scores.get("author"),
     )
 
 
@@ -238,6 +239,8 @@ def _build_needs_review(
         fields.append("multi_layer")
     if confidence_scores.genre_chain is not None and confidence_scores.genre_chain < threshold:
         fields.append("genre_chain")
+    if confidence_scores.author is not None and confidence_scores.author < threshold:
+        fields.append("author")
 
     return sorted(fields)
 

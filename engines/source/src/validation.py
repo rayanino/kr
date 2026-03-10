@@ -82,12 +82,13 @@ def _check_confidence_thresholds(data: dict[str, Any]) -> list[ValidationError]:
     errors: list[ValidationError] = []
     confidence = data.get("confidence_scores", {})
 
-    # Author confidence comes from the ScholarReference
+    # Author confidence: check both ScholarReference and LLM inference
     author = data.get("author", {})
     author_conf = author.get("confidence") if isinstance(author, dict) else None
 
     checks = [
         ("author.confidence", author_conf),
+        ("confidence_scores.author", confidence.get("author")),
         ("confidence_scores.genre", confidence.get("genre")),
         ("confidence_scores.science_scope", confidence.get("science_scope")),
     ]

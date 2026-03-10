@@ -379,14 +379,15 @@ def run_sanity_checks(result_data: dict, extraction: dict, prompt_sent: dict) ->
             "detail": "is_multi_layer=true but text_layers is empty",
         })
 
-    # 2. Author name blank
-    author = result_data.get("author", {})
-    if isinstance(author, dict) and not author.get("name_arabic", "").strip():
-        flags.append({
-            "check": "author_name_blank",
-            "severity": "error",
-            "detail": "author.name_arabic is empty",
-        })
+    # 2. Author name blank — only for success books (gate_abort has no author in result_data)
+    if result_data.get("status") != "gate_abort":
+        author = result_data.get("author", {})
+        if isinstance(author, dict) and not author.get("name_arabic", "").strip():
+            flags.append({
+                "check": "author_name_blank",
+                "severity": "error",
+                "detail": "author.name_arabic is empty",
+            })
 
     # 3. Death date mismatch between extraction and inference
     ext_death = extraction.get("author_death_hijri")
@@ -583,6 +584,33 @@ async def process_book(
 
             # Save result.json with error/gate_abort status
             save_json(book_output / "result.json", book_result)
+
+            # Ground truth comparison for gate_abort books (LLM data is available)
+            if error_code == ErrorCode.LOW_CONFIDENCE and _captured_inference:
+                fixture_key = fixture_mappings.get(book_name)
+                if fixture_key and fixture_key in ground_truth:
+                    canon = getattr(_captured_inference, "canonical_output", None)
+                    if canon:
+                        author_id = getattr(canon, "author_identification", None)
+                        pseudo_result = {
+                            "genre": getattr(canon, "genre", ""),
+                            "author": {
+                                "name_arabic": author_id.canonical_name_ar if author_id else "",
+                            },
+                            "is_multi_layer": getattr(canon, "is_multi_layer", None),
+                            "science_scope": getattr(canon, "science_scope", []),
+                            "structural_format": getattr(canon, "structural_format", ""),
+                            "authority_level": getattr(canon, "authority_level", ""),
+                            "level": getattr(canon, "level", None),
+                            "attribution_status": getattr(canon, "attribution_status", ""),
+                        }
+                        comparison = compare_ground_truth(pseudo_result, ground_truth[fixture_key])
+                        comparison["book"] = book_name
+                        comparison["ground_truth_key"] = fixture_key
+                        comparison["from_gate_abort"] = True
+                        save_json(book_output / "ground_truth_comparison.json", comparison)
+                        book_result["ground_truth_available"] = True
+                        book_result["ground_truth_match"] = comparison["all_match"]
 
             # Still run sanity checks on extraction if available
             extraction_path = book_output / "extraction.json"

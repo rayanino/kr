@@ -367,6 +367,7 @@ class InferredFieldConfidence(BaseModel):
     authority_level: float = Field(ge=0.0, le=1.0)
     multi_layer: Optional[float] = Field(None, ge=0.0, le=1.0)
     genre_chain: Optional[float] = Field(None, ge=0.0, le=1.0)
+    author: Optional[float] = Field(None, ge=0.0, le=1.0, description="LLM author identification confidence, post-caps")
 
 
 class ScholarlyContext(BaseModel):
