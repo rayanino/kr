@@ -134,7 +134,7 @@ def _make_inference_result(
 def mock_inference(monkeypatch):
     """Factory fixture that patches infer_metadata with a given result."""
     def _factory(result: MetadataInferenceResult):
-        async def _mock(extracted, source_format, staging_context=None):
+        async def _mock(extracted, source_format, staging_context=None, **kwargs):
             return result
         monkeypatch.setattr("engines.source.src.engine.infer_metadata", _mock)
     return _factory

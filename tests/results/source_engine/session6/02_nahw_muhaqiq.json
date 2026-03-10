@@ -1,7 +1,34 @@
 {
   "fixture": "02_nahw_muhaqiq",
-  "success": false,
-  "elapsed_seconds": 19.7,
-  "error_code": "SRC_FREEZE_FAILED",
-  "error_message": "Unexpected error during acquisition: 'ScholarMatchResult' object has no attribute 'get'"
+  "success": true,
+  "elapsed_seconds": 17.91,
+  "source_id": "src_41e133af",
+  "genre": "matn",
+  "trust_tier": "verified",
+  "trust_score": 0.718,
+  "author_name": "علي بن جعفر بن علي السعدي الصقلي، أبو القاسم ابن القطّاع",
+  "author_id": "sch_00001",
+  "is_multi_layer": false,
+  "science_scope": [
+    "sarf",
+    "lughah"
+  ],
+  "structural_format": "prose",
+  "authority_level": "primary",
+  "confidence_scores": {
+    "genre": 0.88,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.92,
+    "authority_level": 0.92,
+    "multi_layer": 0.95,
+    "genre_chain": null
+  },
+  "ground_truth": {
+    "genre_match": true,
+    "trust_match": true,
+    "author_match": false,
+    "multi_layer_match": true,
+    "science_match": false
+  }
 }

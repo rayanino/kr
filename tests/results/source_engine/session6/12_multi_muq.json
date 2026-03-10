@@ -1,7 +1,34 @@
 {
   "fixture": "12_multi_muq",
-  "success": false,
-  "elapsed_seconds": 16.58,
-  "error_code": "SRC_FREEZE_FAILED",
-  "error_message": "Unexpected error during acquisition: 'ScholarMatchResult' object has no attribute 'get'"
+  "success": true,
+  "elapsed_seconds": 19.17,
+  "source_id": "src_2f2fb241",
+  "genre": "other",
+  "trust_tier": "flagged",
+  "trust_score": 0.608,
+  "author_name": "مالك بن الحاج عمر بن الخضر بن نبي",
+  "author_id": "sch_00001",
+  "is_multi_layer": false,
+  "science_scope": [
+    "tarikh",
+    "fikr_islami"
+  ],
+  "structural_format": "prose",
+  "authority_level": "primary",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.7,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.95,
+    "multi_layer": 0.95,
+    "genre_chain": null
+  },
+  "ground_truth": {
+    "genre_match": true,
+    "trust_match": true,
+    "author_match": false,
+    "multi_layer_match": true,
+    "science_match": false
+  }
 }

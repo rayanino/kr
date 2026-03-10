@@ -1,7 +1,34 @@
 {
   "fixture": "07_balagha",
-  "success": false,
-  "elapsed_seconds": 12.8,
-  "error_code": "SRC_FREEZE_FAILED",
-  "error_message": "Unexpected error during acquisition: 'ScholarMatchResult' object has no attribute 'get'"
+  "success": true,
+  "elapsed_seconds": 12.71,
+  "source_id": "src_c7377add",
+  "genre": "other",
+  "trust_tier": "flagged",
+  "trust_score": 0.54,
+  "author_name": "أحمد مطلوب أحمد الناصري الصيادي الرفاعي",
+  "author_id": "sch_00001",
+  "is_multi_layer": false,
+  "science_scope": [
+    "balagha",
+    "nahw"
+  ],
+  "structural_format": "prose",
+  "authority_level": "modern_compilation",
+  "confidence_scores": {
+    "genre": 0.72,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 0.95,
+    "genre_chain": null
+  },
+  "ground_truth": {
+    "genre_match": true,
+    "trust_match": true,
+    "author_match": true,
+    "multi_layer_match": true,
+    "science_match": false
+  }
 }

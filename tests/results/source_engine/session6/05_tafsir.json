@@ -1,7 +1,34 @@
 {
   "fixture": "05_tafsir",
-  "success": false,
-  "elapsed_seconds": 13.2,
-  "error_code": "SRC_FREEZE_FAILED",
-  "error_message": "Unexpected error during acquisition: 'ScholarMatchResult' object has no attribute 'get'"
+  "success": true,
+  "elapsed_seconds": 12.79,
+  "source_id": "src_4052568a",
+  "genre": "tafsir",
+  "trust_tier": "flagged",
+  "trust_score": 0.432,
+  "author_name": "محمد بن عبد الرحمن الخميس",
+  "author_id": "sch_00001",
+  "is_multi_layer": false,
+  "science_scope": [
+    "tafsir",
+    "aqidah"
+  ],
+  "structural_format": "prose",
+  "authority_level": "modern_compilation",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.85,
+    "level": null,
+    "structural_format": 0.9,
+    "authority_level": 0.8,
+    "multi_layer": 0.9,
+    "genre_chain": 0.9
+  },
+  "ground_truth": {
+    "genre_match": false,
+    "trust_match": true,
+    "author_match": true,
+    "multi_layer_match": true,
+    "science_match": true
+  }
 }

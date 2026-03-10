@@ -1,7 +1,33 @@
 {
   "fixture": "03_fiqh",
-  "success": false,
-  "elapsed_seconds": 15.0,
-  "error_code": "SRC_FREEZE_FAILED",
-  "error_message": "Unexpected error during acquisition: 'ScholarMatchResult' object has no attribute 'get'"
+  "success": true,
+  "elapsed_seconds": 12.08,
+  "source_id": "src_2c92b5f1",
+  "genre": "risalah",
+  "trust_tier": "flagged",
+  "trust_score": 0.5,
+  "author_name": "عبد الله بن إبراهيم الزاحم",
+  "author_id": "sch_00001",
+  "is_multi_layer": false,
+  "science_scope": [
+    "fiqh"
+  ],
+  "structural_format": "prose",
+  "authority_level": "primary",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.95,
+    "level": 0.8,
+    "structural_format": 0.9,
+    "authority_level": 0.9,
+    "multi_layer": 0.9,
+    "genre_chain": null
+  },
+  "ground_truth": {
+    "genre_match": true,
+    "trust_match": true,
+    "author_match": true,
+    "multi_layer_match": true,
+    "science_match": true
+  }
 }

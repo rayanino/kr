@@ -294,7 +294,11 @@ async def acquire_source(
             logger.log_event("extraction_complete", source_id, "Metadata extracted")
 
             # ── Step 4: Infer metadata (async) ──
-            inference = await infer_metadata(extracted, staging_result.source_format)
+            inference = await infer_metadata(
+                extracted,
+                staging_result.source_format,
+                registry_path=config.library_root / "registries" / "scholars.json",
+            )
             logger.log_event("inference_complete", source_id, f"Consensus agreed: {inference.consensus_agreed}")
 
             # ── Step 5: Check exact duplicate ──

@@ -85,7 +85,7 @@ def _make_inference_result(**overrides: Any) -> MetadataInferenceResult:
 @pytest.fixture
 def mock_inference(monkeypatch):
     def _factory(result):
-        async def _mock(extracted, source_format, staging_context=None):
+        async def _mock(extracted, source_format, staging_context=None, **kwargs):
             return result
         monkeypatch.setattr("engines.source.src.engine.infer_metadata", _mock)
     return _factory
@@ -250,7 +250,7 @@ def test_error_inference_failure(lib_config) -> None:
     """Inference raises → pipeline fails cleanly."""
     src = _copy_shamela(lib_config, "03_fiqh")
 
-    async def _fail_inference(extracted, source_format, staging_context=None):
+    async def _fail_inference(extracted, source_format, staging_context=None, **kwargs):
         raise SourceEngineError(
             SourceError(
                 timestamp="2026-01-01T00:00:00+00:00",

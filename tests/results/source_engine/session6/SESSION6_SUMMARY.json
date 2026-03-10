@@ -1,7 +1,28 @@
 {
-  "timestamp": "2026-03-10T10:24:37.382777+00:00",
+  "timestamp": "2026-03-10T11:00:54.056451+00:00",
   "total_fixtures": 13,
-  "successes": 0,
-  "failures": 13,
-  "ground_truth_checks": {}
+  "successes": 13,
+  "failures": 0,
+  "ground_truth_checks": {
+    "genre_match": {
+      "pass": 12,
+      "fail": 1
+    },
+    "trust_match": {
+      "pass": 13,
+      "fail": 0
+    },
+    "author_match": {
+      "pass": 5,
+      "fail": 8
+    },
+    "multi_layer_match": {
+      "pass": 13,
+      "fail": 0
+    },
+    "science_match": {
+      "pass": 5,
+      "fail": 8
+    }
+  }
 }

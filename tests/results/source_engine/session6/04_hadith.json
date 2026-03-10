@@ -1,7 +1,33 @@
 {
   "fixture": "04_hadith",
-  "success": false,
-  "elapsed_seconds": 16.2,
-  "error_code": "SRC_FREEZE_FAILED",
-  "error_message": "Unexpected error during acquisition: 'ScholarMatchResult' object has no attribute 'get'"
+  "success": true,
+  "elapsed_seconds": 21.02,
+  "source_id": "src_23427f62",
+  "genre": "hadith_collection",
+  "trust_tier": "verified",
+  "trust_score": 0.763,
+  "author_name": "القاضي أبو إسحاق إسماعيل بن إسحاق بن إسماعيل بن حماد بن زيد الأزدي البصري ثم البغدادي المالكي الجهضمي",
+  "author_id": "sch_00001",
+  "is_multi_layer": false,
+  "science_scope": [
+    "hadith"
+  ],
+  "structural_format": "prose",
+  "authority_level": "primary",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": null,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": null
+  },
+  "ground_truth": {
+    "genre_match": true,
+    "trust_match": true,
+    "author_match": false,
+    "multi_layer_match": true,
+    "science_match": true
+  }
 }

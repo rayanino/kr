@@ -335,6 +335,8 @@ async def infer_metadata(
     extracted: dict[str, Any],
     source_format: SourceFormat,
     staging_context: dict[str, Any] | None = None,
+    *,
+    registry_path: Path | None = None,
 ) -> MetadataInferenceResult:
     """Run LLM metadata inference with multi-model consensus.
 
@@ -393,7 +395,21 @@ async def infer_metadata(
     ]
 
     # 5. Single consensus call — author_identification task triggers fallback logic
-    agreement_fn = make_author_agreement_fn(scholar_authority.lookup)
+    # Wrap scholar_authority.lookup to match make_author_agreement_fn's expected
+    # Callable[[str], Optional[dict]] signature. The raw lookup returns
+    # ScholarMatchResult (dataclass), not a dict.
+    _registry_path = registry_path or Path("library/registries/scholars.json")
+
+    def _scholar_lookup_adapter(name: str) -> Optional[dict]:
+        result = scholar_authority.lookup(name, registry_path=_registry_path)
+        if result.found and result.record is not None:
+            return {
+                "canonical_id": result.record.canonical_id,
+                "canonical_name_ar": result.record.canonical_name_ar,
+            }
+        return None
+
+    agreement_fn = make_author_agreement_fn(_scholar_lookup_adapter)
     consensus_result: ConsensusResult = await evaluate(
         task="author_identification",
         messages=messages,
