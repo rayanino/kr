@@ -1,7 +1,7 @@
 {
   "fixture": "12_multi_muq",
   "success": true,
-  "elapsed_seconds": 19.17,
+  "elapsed_seconds": 17.4,
   "source_id": "src_2f2fb241",
   "genre": "other",
   "trust_tier": "flagged",
@@ -15,6 +15,7 @@
   ],
   "structural_format": "prose",
   "authority_level": "primary",
+  "level": null,
   "confidence_scores": {
     "genre": 0.9,
     "science_scope": 0.7,
@@ -27,7 +28,7 @@
   "ground_truth": {
     "genre_match": true,
     "trust_match": true,
-    "author_match": false,
+    "author_match": true,
     "multi_layer_match": true,
     "science_match": false
   }

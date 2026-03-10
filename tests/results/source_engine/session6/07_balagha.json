@@ -1,7 +1,7 @@
 {
   "fixture": "07_balagha",
   "success": true,
-  "elapsed_seconds": 12.71,
+  "elapsed_seconds": 13.4,
   "source_id": "src_c7377add",
   "genre": "other",
   "trust_tier": "flagged",
@@ -10,17 +10,17 @@
   "author_id": "sch_00001",
   "is_multi_layer": false,
   "science_scope": [
-    "balagha",
-    "nahw"
+    "balagha"
   ],
   "structural_format": "prose",
   "authority_level": "modern_compilation",
+  "level": "beginner",
   "confidence_scores": {
     "genre": 0.72,
-    "science_scope": 0.95,
+    "science_scope": 0.97,
     "level": 0.85,
     "structural_format": 0.95,
-    "authority_level": 0.9,
+    "authority_level": 0.92,
     "multi_layer": 0.95,
     "genre_chain": null
   },
@@ -29,6 +29,6 @@
     "trust_match": true,
     "author_match": true,
     "multi_layer_match": true,
-    "science_match": false
+    "science_match": true
   }
 }

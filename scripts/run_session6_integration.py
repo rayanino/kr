@@ -15,6 +15,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import re
 import shutil
 import sys
 import time
@@ -26,6 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from engines.source.contracts import SourceMetadata
 from engines.source.src.config import SourceEngineConfig
+from shared.scholar_authority.src.name_matching import normalized_name_similarity
 from engines.source.src.engine import acquire_source
 from engines.source.src.exceptions import SourceEngineError
 
@@ -91,12 +93,9 @@ def compare_ground_truth(metadata: SourceMetadata, truth: dict) -> dict:
     if "expected_trust" in truth:
         results["trust_match"] = metadata.trust_tier.value == truth["expected_trust"]
     if "author_identified" in truth:
-        # Ground truth may include death date e.g. "الزجاجي (ت 337هـ)" but
-        # metadata.author.name_arabic is just the name, so check both directions
-        results["author_match"] = (
-            metadata.author.name_arabic in truth["author_identified"]
-            or truth["author_identified"] in metadata.author.name_arabic
-        )
+        # Strip death date suffix e.g. "(ت 337هـ)" before comparing
+        gt_name = re.sub(r"\s*\(ت\s+\d+هـ\)\s*$", "", truth["author_identified"]).strip()
+        results["author_match"] = normalized_name_similarity(gt_name, metadata.author.name_arabic) >= 0.80
     if "is_multi_layer" in truth:
         results["multi_layer_match"] = metadata.is_multi_layer == truth["is_multi_layer"]
     if "science_scope" in truth:
@@ -146,6 +145,7 @@ async def run_fixture(
             result["science_scope"] = metadata.science_scope
             result["structural_format"] = metadata.structural_format.value
             result["authority_level"] = metadata.authority_level.value
+            result["level"] = metadata.level.value if metadata.level else None
             result["confidence_scores"] = metadata.confidence_scores.model_dump(mode="json")
 
             # Compare ground truth

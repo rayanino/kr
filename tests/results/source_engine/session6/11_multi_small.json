@@ -1,12 +1,12 @@
 {
   "fixture": "11_multi_small",
   "success": true,
-  "elapsed_seconds": 117.01,
+  "elapsed_seconds": 19.66,
   "source_id": "src_9dbdd781",
   "genre": "sharh",
   "trust_tier": "verified",
   "trust_score": 0.718,
-  "author_name": "عبد الرحمن بن أبي بكر، جلال الدين السيوطي",
+  "author_name": "عبد الرحمن بن أبي بكر بن محمد بن سابق الدين الخضيري السيوطي",
   "author_id": "sch_00001",
   "is_multi_layer": true,
   "science_scope": [
@@ -15,6 +15,7 @@
   ],
   "structural_format": "prose",
   "authority_level": "primary",
+  "level": "advanced",
   "confidence_scores": {
     "genre": 1.0,
     "science_scope": 1.0,

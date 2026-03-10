@@ -1,7 +1,7 @@
 {
   "fixture": "08_death_date",
   "success": true,
-  "elapsed_seconds": 15.44,
+  "elapsed_seconds": 16.63,
   "source_id": "src_043de807",
   "genre": "risalah",
   "trust_tier": "verified",
@@ -15,6 +15,7 @@
   ],
   "structural_format": "prose",
   "authority_level": "primary",
+  "level": "intermediate",
   "confidence_scores": {
     "genre": 0.82,
     "science_scope": 0.9,
@@ -27,7 +28,7 @@
   "ground_truth": {
     "genre_match": true,
     "trust_match": true,
-    "author_match": false,
+    "author_match": true,
     "multi_layer_match": true,
     "science_match": false
   }

@@ -1,9 +1,9 @@
 {
   "fixture": "05_tafsir",
   "success": true,
-  "elapsed_seconds": 12.79,
+  "elapsed_seconds": 13.61,
   "source_id": "src_4052568a",
-  "genre": "tafsir",
+  "genre": "other",
   "trust_tier": "flagged",
   "trust_score": 0.432,
   "author_name": "محمد بن عبد الرحمن الخميس",
@@ -15,14 +15,15 @@
   ],
   "structural_format": "prose",
   "authority_level": "modern_compilation",
+  "level": "intermediate",
   "confidence_scores": {
-    "genre": 0.95,
-    "science_scope": 0.85,
-    "level": null,
-    "structural_format": 0.9,
-    "authority_level": 0.8,
+    "genre": 0.82,
+    "science_scope": 0.92,
+    "level": 0.7,
+    "structural_format": 0.92,
+    "authority_level": 0.88,
     "multi_layer": 0.9,
-    "genre_chain": 0.9
+    "genre_chain": 0.95
   },
   "ground_truth": {
     "genre_match": false,

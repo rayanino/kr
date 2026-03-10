@@ -1,7 +1,7 @@
 {
   "fixture": "09_alt_title",
   "success": true,
-  "elapsed_seconds": 12.09,
+  "elapsed_seconds": 10.83,
   "source_id": "src_b4df02b0",
   "genre": "risalah",
   "trust_tier": "flagged",
@@ -15,6 +15,7 @@
   ],
   "structural_format": "prose",
   "authority_level": "modern_compilation",
+  "level": null,
   "confidence_scores": {
     "genre": 0.9,
     "science_scope": 0.85,

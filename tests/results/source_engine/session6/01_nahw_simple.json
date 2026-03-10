@@ -1,7 +1,7 @@
 {
   "fixture": "01_nahw_simple",
   "success": true,
-  "elapsed_seconds": 14.95,
+  "elapsed_seconds": 14.28,
   "source_id": "src_bc71208d",
   "genre": "adab",
   "trust_tier": "verified",
@@ -16,13 +16,14 @@
   ],
   "structural_format": "mixed",
   "authority_level": "primary",
+  "level": null,
   "confidence_scores": {
     "genre": 0.75,
     "science_scope": 0.78,
     "level": null,
     "structural_format": 0.82,
     "authority_level": 0.9,
-    "multi_layer": 0.92,
+    "multi_layer": 0.95,
     "genre_chain": null
   },
   "ground_truth": {

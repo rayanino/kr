@@ -1,7 +1,7 @@
 {
   "fixture": "06_usul",
   "success": true,
-  "elapsed_seconds": 17.68,
+  "elapsed_seconds": 16.79,
   "source_id": "src_1310ff9c",
   "genre": "risalah",
   "trust_tier": "verified",
@@ -15,19 +15,20 @@
   ],
   "structural_format": "prose",
   "authority_level": "primary",
+  "level": "intermediate",
   "confidence_scores": {
     "genre": 0.9,
     "science_scope": 0.9,
-    "level": 0.75,
+    "level": 0.8,
     "structural_format": 0.95,
-    "authority_level": 0.9,
+    "authority_level": 0.92,
     "multi_layer": 0.95,
     "genre_chain": null
   },
   "ground_truth": {
     "genre_match": true,
     "trust_match": true,
-    "author_match": false,
+    "author_match": true,
     "multi_layer_match": true,
     "science_match": false
   }

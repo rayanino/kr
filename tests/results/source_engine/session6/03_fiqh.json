@@ -1,11 +1,11 @@
 {
   "fixture": "03_fiqh",
   "success": true,
-  "elapsed_seconds": 12.08,
+  "elapsed_seconds": 11.01,
   "source_id": "src_2c92b5f1",
   "genre": "risalah",
   "trust_tier": "flagged",
-  "trust_score": 0.5,
+  "trust_score": 0.463,
   "author_name": "عبد الله بن إبراهيم الزاحم",
   "author_id": "sch_00001",
   "is_multi_layer": false,
@@ -13,14 +13,15 @@
     "fiqh"
   ],
   "structural_format": "prose",
-  "authority_level": "primary",
+  "authority_level": "reference",
+  "level": "intermediate",
   "confidence_scores": {
     "genre": 0.95,
     "science_scope": 0.95,
-    "level": 0.8,
+    "level": 0.7,
     "structural_format": 0.9,
-    "authority_level": 0.9,
-    "multi_layer": 0.9,
+    "authority_level": 0.85,
+    "multi_layer": 0.95,
     "genre_chain": null
   },
   "ground_truth": {
