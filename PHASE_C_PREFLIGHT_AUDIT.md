@@ -222,6 +222,12 @@ Instructor's `from_provider` creates provider-native clients. Anthropic's client
 ### LOW RISK: Instructor mode asymmetry
 OpenRouter uses `instructor.Mode.JSON` (raw JSON output). Anthropic uses default mode (tool use). Both produce the same `InferenceOutput` Pydantic model, but the mechanism differs. For optional fields with defaults, Pydantic handles both "field omitted" (JSON mode) and "field present as null" (TOOLS mode). The 2-book test should verify this works in practice.
 
+### VERIFIED: Schema double-send is harmless for Phase C
+In TOOLS mode (Anthropic/Opus), Instructor sends the Pydantic schema as a tool definition. Our user message ALSO contains the schema as text (~700 tokens). This is redundant — the model sees the schema twice. Cost: 73 books × 700 tokens × $5/M = $0.26. The "Return ONLY a valid JSON object" instruction is also ignored in TOOLS mode (tool_choice forces tool calling). Neither causes parse failures — just wasted input tokens. NOT fixing for Phase C. For Phase E (2500 books), strip the user-message schema for TOOLS mode calls to save ~$8.75.
+
+### VERIFIED: Retry logic is useful at temperature=0
+Our retry uses `simplified_messages` on attempt 1 (strips LIBRARY CONTEXT section) — a different input, not identical. So even at temperature=0, the retry has a chance of producing different output. Additionally, API-level failures (timeout, 429 rate limit) are non-deterministic regardless of temperature. The retry handles both model failures and infrastructure failures correctly.
+
 ### OPEN: Three questions deferred to next session
 - Q5: --force flag for re-running "success" books (design decision)
 - Q6: Agent team architecture (design question)
