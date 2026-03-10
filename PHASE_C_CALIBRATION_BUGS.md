@@ -100,5 +100,19 @@ Engine builds ScholarReference via lookup_or_register_author()
 | BUG-C05 | MODERATE | No (manual evaluation covers fixtures) | run_phase_c.py |
 | BUG-C06 | LOW | No (cosmetic) | run_phase_c.py |
 | BUG-C07 | MODERATE | No (errata document corrects) | PHASE_C_LESSONS.md |
+| BUG-C08 | LOW | No (grouping is metadata-only) | run_phase_c.py compute_edition_groups() |
+
+---
+
+## BUG-C08: Edition Grouping False Positive (Father/Son Books)
+
+**Severity:** LOW — grouping is informational, not used in pipeline decisions
+**Component:** `scripts/run_phase_c.py`, function `compute_edition_groups()`
+
+**Symptom:** حاشية ابن عابدين (father, ت 1252هـ) and تكملة حاشية ابن عابدين (son, ت ~1306هـ) are grouped as 2 editions of the same work. They are different works by different authors.
+
+**Root cause:** The grouping algorithm matches on partial title overlap ("حاشية ابن عابدين") without checking whether the pipeline identified different authors. When authors differ with death dates >50 years apart, the books cannot be editions of the same work.
+
+**Fix:** After grouping by title, verify that all books in a group have the same author (using the same name similarity threshold as consensus, 0.90). If authors differ, split into separate groups or exclude from grouping.
 
 None of these block Phase 2 evaluation. All should be fixed in Step 4 before any re-run.

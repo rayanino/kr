@@ -204,7 +204,7 @@ Sessions 2–7 follow the framework's session assignments (read PHASE_C_EVALUATI
 
 IMPORTANT SESSION NOTES:
 - Session 3: SKIP الأربعون النووية and مجموع الفتاوى — already evaluated in calibration. Evaluate only the other 5 books.
-- Session 6: This is a CROSS-COMPARISON session, not new independent evaluation. Compare editions of the same work for consistency (genre, author, ML must agree). Books here were already evaluated individually in earlier sessions.
+- Session 6: This is a CROSS-COMPARISON session, not new independent evaluation. Compare editions of the same work for consistency (genre, author, ML must agree). Books here were already evaluated individually in earlier sessions. A pre-analysis document (SESSION6_EDITION_PREANALYSIS.md) is in the repo with full findings for all 9 groups — read it before starting Session 6.
 - Session 7: 4 of 5 riwayah books have extraction["riwayah"]=null. This is an extraction limitation (the extractor doesn't always parse "رواية X" from titles), NOT an LLM error. The riwayah info exists in the title_full or format_specific_metadata but wasn't promoted to the top-level field. Only حديث يحيى بن معين extracted it correctly.
 
 After all sessions, produce the final aggregation per the framework's aggregation template.
