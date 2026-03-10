@@ -185,6 +185,13 @@ The system message (2321 chars) + JSON schema in user message (2630 chars) + pos
 **Impact if not caught:** Every book in Phase C would crash with a lock contention error before making any API calls. $0 wasted but a full debugging session lost.
 **Status:** FIXED in task spec.
 
+### BUG 3 (MODERATE): Capture variable not reset between books
+
+**What happens:** The monkey-patch stores `_captured_inference` in a global variable. If book N succeeds but book N+1's `infer_metadata` fails (API error), the global still holds book N's result. The post-pipeline save logic would then write book N's LLM responses into book N+1's directory — silent data corruption.
+**Fix:** Explicitly set `_captured_inference = None` before each `acquire_source()` call. Added to the processing flow in the task spec.
+**Impact if not caught:** On any book where inference fails, the PREVIOUS book's LLM responses get saved as this book's. During review, we'd see "correct-looking" LLM output for a book that actually failed — the most dangerous kind of silent corruption.
+**Status:** FIXED in task spec.
+
 ### OBSERVATION 1: Text sample includes title page in ~17% of books
 
 Some Shamela books have their first body page as a title/colophon page (repeating author, publisher). The text_sample correctly skips the metadata CARD but can't distinguish title-page body-divs from content body-divs. In affected books, ~300 of 2000 chars are redundant.
