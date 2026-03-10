@@ -241,6 +241,11 @@ class ErrorCode(str, Enum):
     HIGH_EMPTY_RATIO = "SRC_HIGH_EMPTY_RATIO"
     # Attribution status code (SPEC §4.A.4 / §7, Comment #1 session)
     ATTRIBUTION_DISPUTED = "SRC_ATTRIBUTION_DISPUTED"
+    # Validation and scholar authority codes (Session 5a)
+    SCHEMA_VIOLATION = "SRC_SCHEMA_VIOLATION"
+    MULTI_LAYER_VIOLATION = "SRC_MULTI_LAYER_VIOLATION"
+    SCHOLAR_NAME_BLOCKED = "SRC_SCHOLAR_NAME_BLOCKED"
+    SCHOLAR_SELF_REFERENCE = "SRC_SCHOLAR_SELF_REFERENCE"
     # Deferred error codes (only fire from deferred capabilities, not implemented in Stage 1)
     KITAB_CACHE_MISSING = "SRC_KITAB_CACHE_MISSING"
     KITAB_CACHE_CORRUPT = "SRC_KITAB_CACHE_CORRUPT"
@@ -858,7 +863,7 @@ class HumanGateCheckpoint(BaseModel):
     created_at: str
     status: str = Field(
         default="pending",
-        description="pending|approved|rejected|unsure|elevated|auto_approved"
+        description="pending|approved|rejected|elevated|auto_approved"
     )
     resolution: Optional[str] = None
     resolved_at: Optional[str] = None

@@ -126,7 +126,7 @@ def _check_duplicates(data: dict[str, Any], registries: dict[str, dict]) -> list
                     f"Source {source_id} shares work_id '{work_id}' "
                     f"with existing source {sid}"
                 ),
-                error_code="SRC_DUPLICATE_DETECTED",
+                error_code="SRC_DUPLICATE_WORK",
                 recovery="flag_needs_review",
             ))
             break
