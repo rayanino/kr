@@ -246,6 +246,8 @@ class ErrorCode(str, Enum):
     MULTI_LAYER_VIOLATION = "SRC_MULTI_LAYER_VIOLATION"
     SCHOLAR_NAME_BLOCKED = "SRC_SCHOLAR_NAME_BLOCKED"
     SCHOLAR_SELF_REFERENCE = "SRC_SCHOLAR_SELF_REFERENCE"
+    # Generic internal error — used only for truly unexpected exceptions
+    INTERNAL_ERROR = "SRC_INTERNAL_ERROR"
     # Deferred error codes (only fire from deferred capabilities, not implemented in Stage 1)
     KITAB_CACHE_MISSING = "SRC_KITAB_CACHE_MISSING"
     KITAB_CACHE_CORRUPT = "SRC_KITAB_CACHE_CORRUPT"

@@ -91,7 +91,12 @@ def compare_ground_truth(metadata: SourceMetadata, truth: dict) -> dict:
     if "expected_trust" in truth:
         results["trust_match"] = metadata.trust_tier.value == truth["expected_trust"]
     if "author_identified" in truth:
-        results["author_match"] = truth["author_identified"] in metadata.author.name_arabic
+        # Ground truth may include death date e.g. "الزجاجي (ت 337هـ)" but
+        # metadata.author.name_arabic is just the name, so check both directions
+        results["author_match"] = (
+            metadata.author.name_arabic in truth["author_identified"]
+            or truth["author_identified"] in metadata.author.name_arabic
+        )
     if "is_multi_layer" in truth:
         results["multi_layer_match"] = metadata.is_multi_layer == truth["is_multi_layer"]
     if "science_scope" in truth:

@@ -507,11 +507,21 @@ async def acquire_source(
 
             # Create human gates for flagged conditions
             if inference.needs_human_gate:
+                model_ids = [
+                    r.get("model_id", "unknown")
+                    for r in inference.raw_model_responses
+                ]
+                model_a = model_ids[0] if len(model_ids) > 0 else "model_a"
+                model_b = model_ids[1] if len(model_ids) > 1 else "model_b"
                 for trigger in inference.human_gate_triggers:
                     if "consensus" in trigger.lower():
                         gate_consensus_disagreement(
-                            source_id, "inference", "model_a", "model_b",
-                            "model_a", "model_b",
+                            source_id,
+                            trigger,  # actual trigger reason, not generic "inference"
+                            "disagreed",
+                            "disagreed",
+                            model_a,
+                            model_b,
                         )
 
             # Low confidence gates
@@ -546,10 +556,16 @@ async def acquire_source(
                 },
                 "works": validation_works,
             }
+            data_for_validation = metadata.model_dump(mode="json")
             validation_errors = validate_source_metadata(
-                metadata.model_dump(mode="json"),
+                data_for_validation,
                 registries=registries,
             )
+
+            # Apply auto-corrections from validation back to metadata
+            # (Checks 5e and 6b may auto-correct is_multi_layer in the dict)
+            if data_for_validation.get("is_multi_layer") != metadata.is_multi_layer:
+                metadata.is_multi_layer = data_for_validation["is_multi_layer"]
 
             fatal_errors = [e for e in validation_errors if e.severity == "fatal"]
             if fatal_errors:
@@ -589,7 +605,7 @@ async def acquire_source(
             raise
         except Exception as exc:
             raise make_error(
-                ErrorCode.FREEZE_FAILED,
+                ErrorCode.INTERNAL_ERROR,
                 f"Unexpected error during acquisition: {exc}",
                 source_id=source_id,
             ) from exc
