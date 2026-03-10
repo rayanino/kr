@@ -283,15 +283,20 @@ async def process_book(book_path, output_dir, ground_truth):
     
     # ── PIPELINE: API calls happen here ──
     
+    # IMPORTANT: Reset capture variable before each book to prevent data bleed
+    # from previous book if this book's infer_metadata fails
+    _captured_inference = None
+    
     # 6. Run full pipeline (steps 1-13) with consensus capture wrapper active
     metadata = await acquire_source(staging_path, config)
     
     # ── POST-PIPELINE: save everything ──
     
-    # 7-8. Extract and save diagnostic data from captured consensus
-    if _captured_consensus:
-        save_per_model_responses(_captured_consensus, output_dir / "llm_responses")
-        save_consensus_details(_captured_consensus, output_dir / "consensus.json")
+    # 7-8. Extract and save diagnostic data from captured inference result
+    if _captured_inference and _captured_inference._full_consensus_result:
+        consensus_result = _captured_inference._full_consensus_result
+        save_per_model_responses(consensus_result, output_dir / "llm_responses")
+        save_consensus_details(consensus_result, output_dir / "consensus.json")
     
     # 9. Save full result
     save_json(output_dir / "result.json", metadata.model_dump(mode="json"))
@@ -538,7 +543,7 @@ Approximate per-book cost (based on Step 0 data):
 - Fallback (when triggered): ~€0.03/book
 - Total per book: ~€0.07–0.10
 
-50 books × €0.10 = €5.00 baseline. With retries and edge cases: €7–8 expected. Budget ceiling €50 provides ample headroom.
+73 books × €0.10 = €7.30 theoretical baseline.
 
 **Updated estimate based on Step 0 actual costs:** Step 0 cost €1.80 for 13 books = ~$0.15/book (2.3× the theoretical estimate). At $0.15/book: 73 books × $0.15 = $10.95 ≈ €10. With retries (~10%): ~€11. Well within the €50 ceiling. The temperature=0 fix should reduce output verbosity and bring per-book cost closer to $0.10.
 
@@ -586,7 +591,7 @@ For the 12 collection books that match existing `GROUND_TRUTH.json` entries (the
 - `level` (exact match, null-safe)
 - `attribution_status` (exact match)
 
-For the 17 NEW books, no ground truth comparison is possible yet — the owner reviews them in Phase 3 sessions and creates new ground truth entries.
+For the 61 NEW books (without ground truth entries), no ground truth comparison is possible yet — the owner reviews them in Phase 3 sessions and creates new ground truth entries.
 
 The `ground_truth_comparison.json` for matched books:
 ```json
@@ -640,7 +645,7 @@ When writing `books.txt`, the owner uses the COLLECTION_DIR directory names. The
 
 ## Testing Before Full Run
 
-Before the 30-book run, validate the script on 2 books:
+Before the full run, validate the script on 2 books:
 1. One fixture book that has ground truth (e.g., `أحكام الاضطباع والرمل في الطواف` → fixture 03_fiqh)
 2. One new book without ground truth
 
@@ -683,7 +688,7 @@ These are low-priority. Do them only if the Phase C script is working and tested
 - [ ] Resume mode works
 - [ ] Dry-run mode works
 - [ ] All existing tests still pass (768+)
-- [ ] Script is committed and ready for the owner to run on the full 50-book selection
+- [ ] Script is committed and ready for the owner to run on the full 73-book selection
 
 ### 2-Book Test Checklist
 

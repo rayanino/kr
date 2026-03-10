@@ -1,246 +1,179 @@
 # Phase C Hardening — Prompts for New Chat Session
 
-Use these prompts in order. Paste Prompt 1 first, let it complete. Then use Prompts 2A-2E one at a time (each is a focused review). Finish with Prompt 3.
+## How to use these prompts
+
+4 prompts, used in order. Each is self-contained — the new Claude reads the needed files within each prompt, not everything upfront.
+
+**Time estimate:** ~60-90 minutes total across all 4 prompts.
+
+**If a prompt finds BLOCKERS:** Fix them before proceeding. Don't push through broken foundations.
 
 ---
 
-## PROMPT 1 — Context Intake
+## PROMPT 1 — Context Intake & Sanity Check
+
+Goal: Establish understanding. Catch obvious inconsistencies before deep-diving.
 
 ```
-Start by cloning the repo, then read these files in this exact order:
-1. `NEXT.md`
-2. `PHASE_C_TASK_SPEC.md`
-3. `PHASE_C_PREFLIGHT_AUDIT.md`
-4. `PHASE_C_FINAL_SELECTION.md`
-5. `engines/source/VALIDATION_PLAN.md`
-6. `engines/source/CLAUDE.md`
-7. `RESULT_PRESERVATION.md`
-8. `scripts/phase_c_books.txt`
-9. `tests/fixtures/phase_c_fixture_mappings.json`
+Start by cloning the repo, then read these 3 documents carefully:
+1. `NEXT.md` — current state and reasoning behind every decision
+2. `PHASE_C_TASK_SPEC.md` — the complete implementation spec (~700 lines)
+3. `PHASE_C_PREFLIGHT_AUDIT.md` — what was already audited and what was found
 
-After reading all files, give me a structured status report covering:
-- What Step 3 (Phase C) is and why it matters
-- What has been prepared so far (documents, pre-requisites, book selection, audit findings)
-- The 2 critical bugs that were caught in self-analysis and how they were fixed
-- The 5 pre-requisites Claude Code must implement before any API call
-- Any concerns, gaps, or inconsistencies you notice between the documents
-- What remains to be hardened before we hand this to Claude Code
+Then do these quick sanity checks (5 minutes, not deep analysis):
 
-Do NOT summarize superficially. Read each document carefully and identify anything that seems incomplete, contradictory, or risky. The goal of THIS session is to stress-test the preparation — find every remaining weakness before real money is spent.
-```
+A) COUNT CHECK: How many books does NEXT.md say? How many does the task spec say? How many lines are in scripts/phase_c_books.txt (excluding comments and blanks)? Do they all agree?
 
----
+B) PRE-REQ COUNT: NEXT.md lists 5 pre-requisites (0-4). The task spec has numbered sections for each. Does the numbering match? Does the Definition of Done checklist reference all 5?
 
-## PROMPT 2A — LLM Prompt & Model Configuration Audit
+C) FILE EXISTENCE: Run `ls` on every file the task spec references as input (books.txt, fixture_mappings.json, COST_LOG.json path, etc.). Do they all exist? Is COST_LOG.json supposed to be CREATED by Claude Code (pre-req 4) or should it already exist?
 
-This is the highest-stakes review. Everything here directly determines whether API credits produce useful data or waste.
+D) FIXTURE MAPPING: Read tests/fixtures/phase_c_fixture_mappings.json. It maps 12 collection books to fixture keys. Open tests/fixtures/GROUND_TRUTH.json and verify all 12 fixture keys exist in ground truth. Are there fixture keys in ground truth that DON'T have a collection book mapping (i.e., we're missing coverage)?
 
-```
-Conduct a deep audit of the LLM inference chain — every component between "extracted metadata" and "structured JSON output." Read these files:
-
-1. `engines/source/prompts/inference_v1.py` — the FULL prompt template (system + user messages)
-2. `engines/source/src/metadata_inference.py` — the function that builds prompt context and calls consensus
-3. `shared/consensus/src/consensus.py` — model dispatch, retry logic, agreement evaluation
-4. `engines/source/src/inference_models.py` — the Pydantic schema the LLM must produce
-5. `engines/source/src/consensus.py` (engine-specific) — author agreement function
-6. `library/config/genre_synonyms.json` — enum synonym mapping
-
-For each component, answer:
-
-<audit_questions>
-PROMPT TEMPLATE:
-- Does every instruction in the system message actually help classification quality, or is any of it noise that wastes output tokens?
-- Is the JSON schema in the user message the optimal way to communicate the expected output? Could Instructor's tool-mode schema injection replace it (saving ~700 input tokens per call)?
-- Are there ambiguities in the instructions that would cause models to disagree for the WRONG reasons (prompt ambiguity vs genuine domain ambiguity)?
-- The prompt says "Return ONLY a valid JSON object." But Instructor handles JSON extraction — does this instruction conflict with Instructor's mode (tool vs JSON)?
-
-MODEL CONFIGURATION:
-- Command A via OpenRouter uses `mode=instructor.Mode.JSON`. Opus 4.6 via Anthropic uses the default mode (tool use). Is this asymmetry intentional? Could it cause systematic differences in output structure between the two models?
-- The `max_tokens=4000` — is this verified sufficient for the worst-case InferenceOutput? What happens if output is truncated?
-- `temperature=0` is specified as a pre-requisite. Verify: does Instructor pass temperature through for both Anthropic tool mode AND OpenRouter JSON mode?
-
-RETRY & FAILURE:
-- Our retry (`MAX_RETRIES_PER_MODEL = 2`) catches ALL exceptions. Instructor's default `max_retries=0`. What happens when Instructor raises a validation error vs an API error? Are both handled correctly by our retry?
-- The fallback model (GPT-5.4 via OpenRouter) — has it ever been tested with the InferenceOutput schema? What evidence do we have it will parse correctly?
-
-CONSENSUS:
-- The author_agreement_fn checks name_similarity ≥ 0.90 AND death_date ±10 years. Is 0.90 too strict for Arabic names with varying nasab lengths? Too lenient?
-- When consensus disagrees, canonical_result is None and needs_human_gate is True. But the FULL pipeline continues and produces a SourceMetadata anyway — what author data goes into it when canonical_result is None?
-</audit_questions>
-
-For every issue you find: classify as BLOCKER (must fix before Phase C), WARNING (should fix, document if not), or NOTE (awareness only). Show your reasoning.
+After the sanity checks, give me:
+1. A 3-sentence summary of where Phase C preparation stands
+2. Any inconsistencies found in the sanity checks
+3. Your initial concerns about the preparation (things that feel risky or incomplete, based on your fresh reading)
 ```
 
 ---
 
-## PROMPT 2B — Result-Saving Architecture Audit
+## PROMPT 2 — End-to-End Trace (Script Flow + Result Saving + Failure Handling)
 
-This ensures no API credit is wasted — every call's output is fully captured and reusable.
-
-```
-Audit the result-saving architecture specified in PHASE_C_TASK_SPEC.md against RESULT_PRESERVATION.md. Read both documents carefully, then read the processing flow in the task spec.
-
-For each of the 7 output files per book (extraction.json, prompt_sent.json, llm_responses/*.json, consensus.json, result.json, ground_truth_comparison.json), verify:
-
-<verification_checklist>
-1. COMPLETENESS: Does the specified format capture EVERYTHING that RESULT_PRESERVATION.md requires? Cross-reference every bullet point in Layer 1 (Raw Artifacts) against the output structure.
-
-2. ORDERING: The task spec says extraction.json and prompt_sent.json are saved BEFORE the API call. Trace the processing flow — is there any code path where the API call could fire before these files are written? What if detect_format() or extract_metadata() throws an exception — do we lose the partial extraction?
-
-3. REUSABILITY: Could a future agent reconstruct the full LLM interaction from the saved files WITHOUT re-calling the API? Specifically:
-   - Can you reconstruct the exact prompt from prompt_sent.json?
-   - Can you reconstruct the exact model responses from llm_responses/*.json?
-   - Can you re-run consensus evaluation from the saved per-model outputs?
-   - Can you re-compute trust scores from result.json?
-
-4. COST TRACKING: The spec says COST_LOG.json is updated after each book. But the actual per-book cost isn't available from acquire_source — it's an estimate. How accurate is the estimate? What if the estimate is 3x off (as Step 0 actual vs theoretical showed)?
-
-5. MANIFEST: PHASE_C_MANIFEST.json tracks `needs_rerun` per book. What triggers `needs_rerun = true`? Is the trigger automatic or manual? What happens if a bug fix between Phase C and Phase D affects a field that wasn't saved in the manifest?
-
-6. FAILURE RECOVERY: If the script crashes mid-book (e.g., OOM on a 45-volume encyclopedia), what is the state? Are partial files left behind? Does `--resume` correctly handle a book with extraction.json but no result.json?
-</verification_checklist>
-
-For each finding: classify as BLOCKER / WARNING / NOTE and explain the fix.
-```
-
----
-
-## PROMPT 2C — Script Architecture & Processing Flow Audit
+Goal: Trace one book through the ENTIRE processing flow. At each step: what happens on success? On failure? Is the result properly saved? This covers script architecture, result saving, and failure handling as coupled concerns.
 
 ```
-Read PHASE_C_TASK_SPEC.md focusing on the "Script Specification" and "Processing Flow" sections. Then read the existing scripts for patterns:
-- `scripts/run_session6_integration.py` — the Step 0 script (existing, working)
-- `scripts/run_phase_a.py` — the Step 2 script (existing, working)
+Read PHASE_C_TASK_SPEC.md's "Processing Flow" section carefully. Then read the source code it references:
+- `engines/source/src/engine.py` — acquire_source (the 13-step pipeline)
+- `engines/source/src/metadata_inference.py` — infer_metadata + build_prompt_context
+- `engines/source/src/format_detection.py` — detect_format
+- `shared/consensus/src/consensus.py` — evaluate + _call_model
+- `scripts/run_session6_integration.py` — the existing Step 0 script (working reference)
 
-Audit the Phase C script design:
+Now trace a SINGLE BOOK through the Phase C processing flow. Use "فتح الباري بشرح البخاري - ط السلفية" (14 volumes, 66MB) as the test case — it's the largest and most complex.
 
-<audit_areas>
-TEMP LIBRARY ISOLATION:
-- The spec says each book gets its own temp library (same as Step 0). This means EMPTY scholar registries for every book. But: the pre-requisites include a _full_consensus_result capture via monkey-patching engine_mod.infer_metadata. Does the monkey-patch persist correctly across 73 sequential book runs in the same Python process? Or does it need to be re-applied per book?
+At each step, answer these questions:
 
-MONKEY-PATCH CORRECTNESS:
-- The spec says to patch `engine_mod.infer_metadata` (Approach A). Trace this through: engine.py imports infer_metadata at the TOP. So `engine_mod.infer_metadata` is a module-level reference. Patching it should work — but verify: does acquire_source call `infer_metadata(...)` or `self.infer_metadata(...)` or something else? Is there any indirection that would bypass the patch?
+<step_trace>
+STEP: "Copy book to temp staging"
+- فتح الباري is a DIRECTORY with 14 .htm files. How is it copied? Does shutil.copytree work? What's the temp staging path structure?
 
-MULTI-VOLUME HANDLING:
-- Books like الموسوعة الفقهية الكويتية (45 volumes, 87MB) and فتح الباري (14 volumes, 66MB) are LARGE. Does acquire_source handle multi-volume Shamela dirs? Does it read ALL volumes or just the first? What is the text_sample extraction for a multi-volume work — first 2000 chars of volume 1 only?
+STEP: "detect_format() + extract_metadata()"
+- detect_format receives a directory path. Does _detect_directory_format handle 14 .htm files correctly?
+- extract_metadata for shamela_html — does it read ALL 14 volumes or just the first? What's the text_sample for a multi-volume work?
+- If detect_format throws, is extraction.json still saved? (The task spec says save BEFORE API call, but format detection is before extraction.)
 
-CONCURRENT CONSIDERATION:
-- The spec says sequential processing. But Claude Code with Opus 4.6 has agent capabilities. Could we process books in parallel using sub-agents? What would change in the script design? What are the risks (rate limiting, cost tracking, result file collisions)?
+STEP: "Build and save prompt_sent.json"
+- build_prompt_context currently has the field-name bugs (pre-req 0 not yet applied). After the fix, what fields will be present for فتح الباري? It has: title, author with death date, muhaqiq, publisher, edition, page count. Verify each field name matches what the FIXED build_prompt_context will look for.
 
-EDGE CASE: VERY TINY BOOKS:
-- الكلام على حديث الإستلقاء is 4KB. الورقة النحوية is 8KB. نصيحة لطالب الحق is 7KB. After metadata card extraction, the text_sample might be <200 characters. Is that enough for meaningful LLM inference? Should the script log a warning when text_sample is very short?
+STEP: "acquire_source(staging_path, config)"
+- The task spec monkey-patches engine_mod.infer_metadata to capture MetadataInferenceResult. Trace the import chain: How does engine.py import infer_metadata? Is the patch point correct?
+- فتح الباري is 14 volumes — does staging handle this? Does hashing handle this? Does freezing copy all 14 files?
 
-EDGE CASE: ALREADY-PROCESSED BOOKS:
-- --resume skips books with result.json status "success". But what if the script ran once with a bug (e.g., the prompt context bug unfixed), produced "success" results with bad data, and the user wants to re-run? Should there be a --force flag?
-</audit_areas>
+STEP: "Save per-model LLM responses"
+- The captured MetadataInferenceResult has _full_consensus_result (a ConsensusResult dataclass with model_responses: list[ModelResponse]). Each ModelResponse has .parsed (InferenceOutput) and .raw_response (dict). Verify: calling .parsed.model_dump() produces the JSON we want in llm_responses/opus_4_6.json.
 
-For each finding: BLOCKER / WARNING / NOTE with reasoning and fix.
+STEP: "Save result.json"
+- acquire_source returns SourceMetadata. Calling .model_dump(mode="json") should produce serializable JSON. Are there field types that don't serialize cleanly (Path, datetime, enums)?
+
+STEP: "What if the API call fails mid-book?"
+- Both models fail → ConsensusResult.needs_human_gate = True, canonical_result = None. Does acquire_source still produce SourceMetadata or raise an exception? Trace the code path in engine.py.
+- If acquire_source raises SourceEngineError, is extraction.json already saved? Is prompt_sent.json already saved?
+</step_trace>
+
+Also check:
+- Does the monkey-patch persist correctly across 73 sequential book runs in one Python process?
+- --resume: If script crashes with extraction.json saved but no result.json, does resume correctly re-process that book?
+- Should there be a --force flag to re-run books even if result.json exists with status "success"?
+
+For each issue: BLOCKER / WARNING / NOTE with specific fix.
 ```
 
 ---
 
-## PROMPT 2D — Book Selection Validation
+## PROMPT 3 — LLM Call Quality & Cost Audit
+
+Goal: Verify every API call produces maximum useful data for its cost. The previous audit already verified enum alignment, prompt template clarity, and consensus correctness. Focus on what WASN'T checked.
 
 ```
-Read PHASE_C_FINAL_SELECTION.md and scripts/phase_c_books.txt. Then read:
-- `engines/source/contracts.py` — Genre enum, StructuralFormat enum, AuthorityLevel enum
-- `tests/fixtures/GROUND_TRUTH.json` — existing ground truth
-- `tests/fixtures/phase_c_fixture_mappings.json` — fixture-to-collection mapping
+Read these files:
+- `engines/source/prompts/inference_v1.py` — the full prompt template
+- `engines/source/src/inference_models.py` — the InferenceOutput Pydantic schema
+- `shared/consensus/src/consensus.py` — model dispatch and Instructor usage
+- `engines/source/src/metadata_inference.py` — build_prompt_context + infer_metadata
+- `PHASE_C_PREFLIGHT_AUDIT.md` — what was already verified (DON'T re-audit those items)
 
-Validate the book selection:
+The preflight audit already verified: all enum values match, prompt instructions are clear, consensus mechanism is correct, cost model is reasonable. Focus on these NEW areas:
 
-<validation_questions>
-1. GENRE COVERAGE: The selection doc claims all 18 Genre enum values are covered. Verify this by mapping each of the 73 books to its expected genre. Are there any genres with only 1 probe? (Single-probe genres can't distinguish "LLM got it wrong" from "LLM disagrees with my expectation.")
+<new_audit_areas>
+1. INSTRUCTOR MODE ASYMMETRY:
+Command A via OpenRouter uses `mode=instructor.Mode.JSON`.
+Opus 4.6 via Anthropic uses the DEFAULT mode (tool use).
+These are fundamentally different prompting strategies. JSON mode injects "respond in JSON" into the prompt. Tool mode converts the schema into a tool definition.
+- Could this cause systematic structural differences between the two models' outputs?
+- Research what Instructor actually does in each mode — check Instructor docs or source code.
+- Is this asymmetry intentional and tested, or an accident?
 
-2. EDITION VARIANTS: The owner provided multiple editions of several works (البداية والنهاية ×2, إعلام الموقعين ×3, تفسير الطبري ×2, etc.). These are valuable but double the API cost. For which multi-edition works should we run ALL editions vs just ONE? What's the testing value of running both editions of the same work?
+2. WHAT HAPPENS WHEN CONSENSUS CANONICAL IS NONE:
+When both models disagree on author, canonical_result = None. But acquire_source continues. What author data goes into SourceMetadata? Trace from metadata_inference.py where canonical_result is None through to engine.py's Step 9 (Assemble SourceMetadata). What does ScholarReference contain?
 
-3. FIXTURE MAPPING: 12 of 73 books map to ground truth fixtures. But the books.txt names (from the owner's collection) may differ slightly from the fixture display_titles. The fixture_mappings.json was generated by substring matching. Verify: are all 12 mappings correct? Could any mapping be wrong (e.g., a different edition of the same title matching the wrong fixture)?
+3. SCHOLARLY_CONTEXT COST-EFFICIENCY:
+The scholarly_context section has 10 subfields. For obscure hadith juz' texts (4KB), these will be mostly null/empty. Is the LLM wasting output tokens generating empty fields? Consider: should the prompt tell the LLM to set scholarly_context to null when context_richness would be "minimal"? This could save ~200 output tokens × ~30 obscure books = ~$0.15.
 
-4. GROUP A HANDLING: The 14 Group A books are the fixture equivalents from the owner's COLLECTION (not the fixture directory). The task spec says fixtures are "handled separately." But the books.txt includes all Group A books. Clarify: are we running Group A through the collection path (acquire_source on the owner's .htm files) or the fixture path (acquire_source on test/fixtures/)? The former tests the real collection; the latter tests known-good data. We should do the former.
+4. ACTUAL TOKEN TRACKING:
+Both Anthropic and OpenRouter return token usage data (prompt_tokens, completion_tokens) in API responses. Does the Phase C script capture and log these per-book? This is the ONLY way to verify cost estimates before the full run. If not specified in the task spec, it should be.
 
-5. MISSING PROBES: Given the 73 books, are there any pipeline code paths that NO book exercises? For example: does any book test the `responds_to` or `cites` relation_types? Does any book test `attribution_status: "unknown"`? Does any book test `level: null` for a non-scholarly work? Does any book test `is_multi_layer: true` with `layers` including a `tahqiq_note` layer type?
-</validation_questions>
-```
+5. TEMPERATURE=0 VERIFICATION:
+Pre-req 1 adds temperature=0 to _call_model. Does Instructor pass temperature through for BOTH modes (tool mode for Anthropic, JSON mode for OpenRouter)? Check Instructor docs. If one mode doesn't support temperature, what happens — error or silent ignore?
+</new_audit_areas>
 
----
-
-## PROMPT 2E — Agent Team Architecture for Claude Code
-
-This is a new design consideration. The user suggested Claude Code could use agent teams — each agent processes one book.
-
-```
-Research and design an agent team architecture for Phase C execution in Claude Code. Context: Claude Code runs with Opus 4.6 and ~1M context window. It can spawn sub-agents for parallel work.
-
-<design_requirements>
-GOAL: Process 73 books through the full source engine pipeline, capturing all diagnostic artifacts per PHASE_C_TASK_SPEC.md.
-
-CONSTRAINTS:
-- Each book requires real API calls (Opus 4.6 + Command A via OpenRouter)
-- Sequential processing of 73 books takes ~60-90 minutes
-- Rate limits: Anthropic has per-minute and per-day token limits; OpenRouter has per-minute limits
-- Each book's result must be independently valid (no shared state between books)
-- Budget ceiling: €50 (expect ~€12)
-- Script runs on the OWNER'S Windows machine, not in Claude Code's container
-
-KEY QUESTIONS:
-1. Should Claude Code write a script that the owner runs (current plan), or should Claude Code RUN the script itself using the owner's API keys?
-2. If the owner runs it: should the script process books sequentially or use Python asyncio/multiprocessing for parallelism?
-3. If parallel: how many concurrent books? Rate limiting is the binding constraint. With 2 models per book, 2-3 concurrent books might be safe. More risks 429 errors.
-4. Agent teams in Claude Code: could Claude Code spawn sub-agents where each agent REVIEWS a completed book result (after the pipeline run)? This would parallelize the review phase (currently planned as 5 books/session in Claude Chat).
-5. Self-evaluation: could each book's pipeline run include an automatic LLM-based evaluation step (using a DIFFERENT model than the consensus pair) that checks whether the output looks reasonable? This catches obvious errors before human review.
-</design_requirements>
-
-Research rate limits for Anthropic API and OpenRouter, then propose an architecture. Distinguish between what Claude Code builds vs what the owner runs vs what Claude Chat reviews. Be specific about parallelism levels, rate limit safety margins, and failure handling.
+For each finding: BLOCKER / WARNING / NOTE.
 ```
 
 ---
 
-## PROMPT 3 — Integration Review & Final Hardening
+## PROMPT 4 — Integration Review, Action List, and Commit
 
-Use this AFTER all 2A-2E reviews are complete. It checks that everything fits together.
+Goal: Synthesize all findings. Fix everything. Commit clean.
 
 ```
-You've now reviewed every component of the Phase C preparation individually. Do a final integration check.
+Review your findings from Prompts 1-3. Then do these final integration checks:
 
-Read the following files one more time, looking specifically for CROSS-DOCUMENT INCONSISTENCIES:
-1. `NEXT.md`
-2. `PHASE_C_TASK_SPEC.md`
-3. `PHASE_C_PREFLIGHT_AUDIT.md`
-4. `PHASE_C_FINAL_SELECTION.md`
-5. `engines/source/VALIDATION_PLAN.md`
-6. `RESULT_PRESERVATION.md`
-7. `scripts/phase_c_books.txt`
+<final_checks>
+1. RESULT_PRESERVATION COMPLIANCE: Read RESULT_PRESERVATION.md Layer 1 (Raw Artifacts). Cross-reference every bullet against the Phase C output structure. Is anything in Layer 1 NOT captured?
 
-<integration_checks>
-1. NUMBERS: Do all documents agree on: number of books (73), number of pre-requisites (5, numbered 0-4), budget estimate (~€10-12), number of fixture matches (12)?
+2. 2-BOOK TEST SPECIFICS: The task spec's "Testing Before Full Run" section — does it specify WHICH 2 books to test? It should be:
+   - Book 1: A small fixture-matching book (e.g., أحكام الاضطباع والرمل في الطواف, 265KB → fixture 03_fiqh)
+   - Book 2: A small new book WITHOUT ground truth (e.g., الفقه الأكبر, 91KB → disputed attribution)
+   NOT a large multi-volume book for the initial test.
 
-2. FIELD NAMES: The pre-requisite 0 fix changes build_prompt_context to use muhaqiq_name_raw and edition_raw. Does the task spec's prompt_sent.json format reference these same field names? Does the extraction.json format show the correct field names?
+3. PARALLELISM: The owner mentioned Claude Code agent teams. The script runs on the OWNER'S Windows machine. Agent teams in Claude Code would only help with script writing (not a bottleneck). Should the Python script use asyncio for parallel book processing? Answer: probably not for 73 books — sequential is simple and debuggable. Note this as a Phase D/E optimization.
 
-3. FLOW CONSISTENCY: The task spec's processing flow says "detect_format() + extract_metadata() BEFORE acquire_source()". But extract_metadata() requires a source_path. The processing flow says "Copy book to temp staging" → then extract. Does the copied path match what acquire_source expects? Could there be a path mismatch between extraction and pipeline?
+4. COMPILE THE MASTER ACTION LIST from all prompts:
+   - BLOCKERS: must fix before Claude Code handoff
+   - WARNINGS: should fix, with specific changes proposed
+   - NOTES: document for future
+   For each item: which file to change, what to change, why.
 
-4. GROUND TRUTH: The fixture_mappings.json maps 12 collection books to fixture keys. The task spec's "Ground Truth Comparison" section describes the comparison format. Does the comparison function in the task spec handle the case where a collection book's extraction differs slightly from the fixture extraction (different .htm file structure, etc.)?
+5. Apply all BLOCKER and WARNING fixes to the relevant documents. Commit and push.
+</final_checks>
 
-5. PRE-REQUISITE DEPENDENCIES: Pre-req 2 adds _full_consensus_result to MetadataInferenceResult. The processing flow's monkey-patch reads this field. But: does the monkey-patch approach (wrapping infer_metadata) actually give access to this field? The wrapper captures the RETURN VALUE of infer_metadata, which IS the MetadataInferenceResult. So yes — confirm this chain is unbroken.
-
-6. COST: The preflight audit says Step 0 actual cost was $0.15/book. The task spec says budget ceiling €50. 73 × $0.15 = $10.95 ≈ €10. But: with temperature=0, output tokens should decrease. With the prompt context fix, input tokens increase slightly (more fields sent). Net effect on cost?
-
-7. WHAT'S MISSING: After all reviews, is there anything that should be in the Phase C preparation but isn't? Any document that should exist but doesn't? Any test that should be specified but isn't?
-</integration_checks>
-
-Compile all findings from this review AND from Prompts 2A-2E into a single prioritized action list:
-- BLOCKERS (must fix before Claude Code)
-- WARNINGS (should fix, with workarounds if not)
-- NOTES (awareness, fix later)
-
-Then write the final updated PHASE_C_TASK_SPEC.md incorporating all fixes. Commit and push.
+After committing, give me:
+- Total BLOCKERS found and fixed across all prompts
+- Total WARNINGS found and fixed
+- Total NOTES documented
+- Confidence level (1-10) that Phase C preparation is ready for Claude Code
+- Any remaining concerns
 ```
 
 ---
 
-## Usage Notes
+## Design Notes
 
-- **Prompt 1** establishes context. Let it complete fully before continuing.
-- **Prompts 2A-2E** are independent reviews. You can do them in any order, but 2A (LLM audit) is highest priority since it directly protects money.
-- **Prompt 2E** (agent teams) is exploratory — it might lead to architectural changes in the task spec.
-- **Prompt 3** is the synthesis step. Do it LAST, after all individual reviews have surfaced their findings.
-- Each prompt should take 10-20 minutes of deep analysis. Don't rush the new Claude — let it use extended thinking fully.
+**Why 4 prompts, not 7:** Each prompt covers coupled concerns. The end-to-end trace (Prompt 2) exercises script flow, result saving, AND failure handling together — separating them would miss interactions. The LLM audit (Prompt 3) skips what the preflight already verified.
+
+**Why no separate book selection prompt:** The 73 books are selected and downloaded. Re-evaluating each book's test value has marginal benefit for the cost of a full prompt.
+
+**Why no separate agent team prompt:** The Phase C script runs on the owner's machine, not in Claude Code. Sequential processing of 73 books takes ~60-90 minutes — acceptable. Agent teams and parallelism are Phase D/E concerns.
+
+**If early prompts find major issues:** Stop. Fix. Re-run the affected prompt. Don't build on broken foundations.

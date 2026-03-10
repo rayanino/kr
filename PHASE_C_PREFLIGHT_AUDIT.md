@@ -124,11 +124,11 @@ The system message (2321 chars) + JSON schema in user message (2630 chars) + pos
 ### Pre-Requisite fixes:
 - [ ] Pre-Req 0: Fix build_prompt_context (muhaqiq_name_raw, edition_raw, + 5 new fields)
 - [ ] Pre-Req 0 test: build_prompt_context on fixture 02 now shows "Muhaqiq/Editor: أحمد محمد عبد الدايم"
-- [ ] Temperature fix: Add temperature=0 to _call_model in consensus.py
-- [ ] Temperature test: Verify Instructor passes temperature through (check API logs in dry-run)
-- [ ] Pre-Req 1: _full_consensus_result field in MetadataInferenceResult
-- [ ] Pre-Req 2: Format B fixture
-- [ ] Pre-Req 3: COST_LOG.json
+- [ ] Pre-Req 1: Add temperature=0 to _call_model in consensus.py
+- [ ] Pre-Req 1 test: Verify Instructor passes temperature through (check API logs in dry-run)
+- [ ] Pre-Req 2: _full_consensus_result field in MetadataInferenceResult
+- [ ] Pre-Req 3: Format B fixture
+- [ ] Pre-Req 4: COST_LOG.json
 
 ### Script validation:
 - [ ] Dry-run mode: validates environment, API keys, book paths
