@@ -114,6 +114,7 @@ class MetadataInferenceResult:
 
     # Diagnostics
     raw_model_responses: list[dict] = field(default_factory=list)
+    _full_consensus_result: Optional[Any] = None  # ConsensusResult for diagnostic capture
 
 
 def build_prompt_context(extracted: dict[str, Any]) -> str:
@@ -150,8 +151,8 @@ def build_prompt_context(extracted: dict[str, Any]) -> str:
     if publisher:
         lines.append(f"Publisher: {publisher}")
 
-    # Muhaqiq / editor
-    muhaqiq = extracted.get("muhaqiq_name") or extracted.get("muhaqiq", "")
+    # Muhaqiq / editor — check actual field name from Shamela extraction
+    muhaqiq = extracted.get("muhaqiq_name_raw") or extracted.get("muhaqiq_name") or extracted.get("muhaqiq", "")
     if muhaqiq:
         lines.append(f"Muhaqiq/Editor: {muhaqiq}")
 
@@ -160,10 +161,33 @@ def build_prompt_context(extracted: dict[str, Any]) -> str:
     if category:
         lines.append(f"Category: {category}")
 
-    # Edition
-    edition = extracted.get("edition", "")
+    # Edition — check actual field name from Shamela extraction
+    edition = extracted.get("edition_raw") or extracted.get("edition", "")
     if edition:
         lines.append(f"Edition: {edition}")
+
+    # Compiler
+    compiler = extracted.get("compiler_name_raw", "")
+    if compiler:
+        lines.append(f"Compiler: {compiler}")
+
+    # Commentator
+    commentator = extracted.get("commentator_name_raw", "")
+    if commentator:
+        lines.append(f"Commentator: {commentator}")
+
+    # Riwayah / transmission
+    riwayah = extracted.get("riwayah", "")
+    if riwayah:
+        lines.append(f"Riwayah/Transmission: {riwayah}")
+
+    # Edition year
+    edition_year_h = extracted.get("edition_year_hijri")
+    edition_year_m = extracted.get("edition_year_miladi")
+    if edition_year_h:
+        lines.append(f"Edition year (Hijri): {edition_year_h}")
+    if edition_year_m:
+        lines.append(f"Edition year (Miladi): {edition_year_m}")
 
     # Page count
     page_count = extracted.get("page_count")
@@ -433,6 +457,7 @@ async def infer_metadata(
         }
         for r in consensus_result.model_responses
     ]
+    result._full_consensus_result = consensus_result
 
     # 6. Get canonical output — bail early if both models failed
     successful = [r for r in consensus_result.model_responses if r.parse_success]

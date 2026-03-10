@@ -52,6 +52,7 @@ ALL_SHAMELA_FIXTURES = [
     "10_no_author",
     "11_multi_small",
     "12_multi_muq",
+    "13_format_b",
 ]
 
 
@@ -849,6 +850,31 @@ class TestShamelaFixtureSpecific:
         """Fixture 02: عام النشر provides year when الطبعة is absent."""
         r = _extract("02_nahw_muhaqiq")
         assert r.get("edition_year_miladi") == 1999
+
+    # ── Format B recovery ──
+
+    def test_format_b_title_extraction(self) -> None:
+        """Fixture 13: Format B layout extracts title from value inside span."""
+        r = _extract("13_format_b")
+        assert r["title_full"] == "كتاب التوحيد الذي هو حق الله على العبيد"
+
+    def test_format_b_author_extraction(self) -> None:
+        """Fixture 13: Format B layout extracts author from value inside span."""
+        r = _extract("13_format_b")
+        assert "محمد بن عبد الوهاب" in r["author_name_raw"]
+        assert r["author_death_hijri"] == 1206
+
+    def test_format_b_muhaqiq_extraction(self) -> None:
+        """Fixture 13: Format B layout extracts muhaqiq from value inside span."""
+        r = _extract("13_format_b")
+        assert r["muhaqiq_name_raw"] == "أبو مالك محمد شكري الآلوسي"
+
+    def test_format_b_field_sources(self) -> None:
+        """Fixture 13: field source labels correctly extracted despite Format B."""
+        r = _extract("13_format_b")
+        assert r["_field_source_title_full"] == "الكتاب"
+        assert r["_field_source_author_name_raw"] == "المؤلف"
+        assert r["_field_source_muhaqiq_name_raw"] == "المحقق"
 
 
 # ──────────────────────────────────────────────────────────────────

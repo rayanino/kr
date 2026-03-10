@@ -192,6 +192,22 @@
     "notes": "Autobiography/memoirs of Algerian intellectual Malek Bennabi. Originally French (Pourritures), translated to Arabic. Personal narrative, not Islamic scholarship. level=null means classification inapplicable.",
     "attribution_status": "definitive"
   },
+  "13_format_b": {
+    "title": "كتاب التوحيد الذي هو حق الله على العبيد",
+    "author_identified": "محمد بن عبد الوهاب (ت 1206هـ)",
+    "author_death_hijri": 1206,
+    "genre": "matn",
+    "science_scope": [
+      "aqidah"
+    ],
+    "structural_format": "prose",
+    "is_multi_layer": false,
+    "level": "intermediate",
+    "authority_level": "primary",
+    "expected_trust": "verified",
+    "notes": "Classical aqidah matn. Format B fixture: metadata values embedded inside span tag, not after it. Tests the Format B recovery code path in shamela_html.py.",
+    "attribution_status": "definitive"
+  },
   "alfiyyah_versified": {
     "title": "متن الفية ابن مالك فى علم النحو والصرف",
     "author_identified": "ابن مالك (ت 672هـ)",

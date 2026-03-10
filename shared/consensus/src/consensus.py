@@ -132,6 +132,7 @@ async def _call_model(
                     messages=msgs,
                     response_model=response_model,
                     max_tokens=4000,
+                    temperature=0,
                 ),
                 timeout=MODEL_TIMEOUT,
             )
