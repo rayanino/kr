@@ -4,7 +4,7 @@ Thin wrapper around shared/human_gate that maps source-engine-specific
 triggers and context to the generic human gate interface.
 
 Batches checkpoints per source. Provides convenience functions for
-5 source-engine trigger types (remaining 4 are created by other modules).
+6 source-engine trigger types (remaining 3 are created by other modules).
 """
 
 from __future__ import annotations
@@ -114,6 +114,25 @@ def gate_trust_flagged(
         current_values={
             "trust_score": trust_score,
             "trust_factors": trust_factors,
+        },
+    )
+
+
+def gate_author_science_mismatch(
+    source_id: str,
+    author_sciences: list[str],
+    source_sciences: list[str],
+    detail: str,
+) -> HumanGateCheckpoint:
+    """Create AUTHOR_SCIENCE_MISMATCH gate."""
+    return create_checkpoint(
+        source_id=source_id,
+        trigger=HumanGateTrigger.AUTHOR_SCIENCE_MISMATCH,
+        trigger_detail=detail,
+        fields_to_review=["science_scope", "author"],
+        current_values={
+            "author_sciences": author_sciences,
+            "source_sciences": source_sciences,
         },
     )
 

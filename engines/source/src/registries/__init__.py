@@ -259,8 +259,11 @@ def check_orphaned_registrations(
                 if bak_path.exists():
                     try:
                         os.replace(str(bak_path), str(registry_path))
-                    except OSError:
-                        pass
+                    except OSError as exc:
+                        raise RuntimeError(
+                            f"Cannot restore registry {registry_path} from backup during "
+                            f"orphan recovery for {source_id}: {exc}. Manual recovery required."
+                        ) from exc
             pending_file.unlink(missing_ok=True)
             recovered.append(source_id)
 
@@ -282,5 +285,17 @@ def _rollback_registries(library_root: Path) -> None:
         except (json.JSONDecodeError, OSError):
             try:
                 os.replace(str(bak_file), str(registry_path))
-            except OSError:
-                pass
+            except OSError as exc:
+                raise RuntimeError(
+                    f"Cannot restore registry {registry_path} from backup: {exc}. "
+                    f"Manual recovery required."
+                ) from exc
+            # Validate restored content is valid JSON
+            try:
+                restored_raw = registry_path.read_text(encoding="utf-8")
+                json.loads(restored_raw)
+            except (json.JSONDecodeError, OSError) as exc:
+                raise RuntimeError(
+                    f"Registry {registry_path} restored from backup but backup is also corrupt. "
+                    f"Manual recovery required."
+                ) from exc

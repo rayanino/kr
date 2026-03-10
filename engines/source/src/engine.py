@@ -49,6 +49,7 @@ from engines.source.src.exceptions import SourceEngineError, make_error
 from engines.source.src.extractors import extract_metadata
 from engines.source.src.freezer import freeze_source
 from engines.source.src.human_gate import (
+    gate_author_science_mismatch,
     gate_consensus_disagreement,
     gate_low_confidence,
     gate_trust_flagged,
@@ -205,11 +206,10 @@ def _build_text_layers(
                 registry_path=registry_path,
             )
         else:
-            ref = ScholarReference(
-                canonical_id="sch_00000",
-                name_arabic="مجهول",
-                confidence=0.0,
-                source_of_identification="inferred",
+            ref = lookup_or_register_muhaqiq(
+                "مجهول",
+                source_id,
+                registry_path=registry_path,
             )
 
         layers.append(TextLayer(layer_type=layer_type, author=ref))
@@ -374,8 +374,8 @@ async def acquire_source(
 
             # ── Step 9: Assemble SourceMetadata ──
             title_arabic = (
-                extracted.get("display_title")
-                or extracted.get("title_full")
+                extracted.get("title_full")
+                or extracted.get("display_title")
                 or extracted.get("title_arabic")
                 or ""
             )
@@ -458,8 +458,8 @@ async def acquire_source(
                 level=level,
                 publisher=extracted.get("publisher"),
                 edition_number=extracted.get("edition_number"),
-                publication_year_hijri=extracted.get("publication_year_hijri"),
-                publication_year_miladi=extracted.get("publication_year_miladi"),
+                publication_year_hijri=extracted.get("edition_year_hijri"),
+                publication_year_miladi=extracted.get("edition_year_miladi"),
                 source_format=staging_result.source_format,
                 authority_level=authority_level,
                 structural_format=structural_format,
@@ -578,6 +578,38 @@ async def acquire_source(
                     f"Validation failed: {fatal_errors[0].message}",
                     source_id=source_id,
                     context={"errors": [e.message for e in fatal_errors]},
+                )
+
+            # Process gate-severity errors — create checkpoints then abort
+            gate_errors = [e for e in validation_errors if e.severity == "gate"]
+            if gate_errors:
+                for gate_error in gate_errors:
+                    if gate_error.check == "confidence_threshold":
+                        gate_low_confidence(
+                            source_id,
+                            gate_error.field,
+                            data_for_validation.get(gate_error.field, ""),
+                            0.0,
+                        )
+                    elif gate_error.check == "consistency_author_science":
+                        gate_author_science_mismatch(
+                            source_id,
+                            author_sciences=[],
+                            source_sciences=[],
+                            detail=gate_error.message,
+                        )
+                    elif gate_error.check == "multi_layer_empty_layers":
+                        gate_low_confidence(
+                            source_id,
+                            "text_layers",
+                            "[]",
+                            0.0,
+                        )
+                raise make_error(
+                    ErrorCode.LOW_CONFIDENCE,
+                    f"Validation gate: {len(gate_errors)} issue(s) require human review",
+                    source_id=source_id,
+                    context={"gate_errors": [e.message for e in gate_errors]},
                 )
 
             logger.log_event("validation_complete", source_id, f"Errors: {len(validation_errors)}")

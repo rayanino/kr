@@ -287,7 +287,7 @@ def test_acquire_consensus_disagreement(
 def test_acquire_low_confidence(
     mock_inference, lib_config, shamela_source,
 ) -> None:
-    """confidence < 0.50 → gate created."""
+    """confidence < 0.50 → gate created AND acquisition aborted (Fix 1)."""
     inference_result = _make_inference_result(
         confidence_scores={
             "genre": 0.40,
@@ -302,9 +302,10 @@ def test_acquire_low_confidence(
     )
     mock_inference(inference_result)
 
-    metadata = asyncio.run(acquire_source(shamela_source, lib_config))
-    assert metadata.status == ProcessingStatus.ACQUIRED
-    assert "genre" in metadata.needs_review_fields
+    with pytest.raises(SourceEngineError) as exc_info:
+        asyncio.run(acquire_source(shamela_source, lib_config))
+
+    assert exc_info.value.error.error_code == ErrorCode.LOW_CONFIDENCE
 
 
 def test_acquire_empty_input(
@@ -463,4 +464,186 @@ def test_status_transition(
     mock_inference(inference_result)
 
     metadata = asyncio.run(acquire_source(shamela_source, lib_config))
+    assert metadata.status == ProcessingStatus.ACQUIRED
+
+
+# ──────────────────────────────────────────────────────────────────
+# Fix 5: title_full priority over display_title
+# ──────────────────────────────────────────────────────────────────
+
+
+def test_title_full_takes_priority_over_display_title(
+    mock_inference, lib_config, shamela_source,
+) -> None:
+    """When both display_title and title_full exist, title_full wins."""
+    inference_result = _make_inference_result()
+    mock_inference(inference_result)
+
+    # Patch extract_metadata to return both fields
+    original_extract = None
+
+    def _patched_extract(path, fmt):
+        result = original_extract(path, fmt)
+        result["display_title"] = "عنوان مختصر"
+        result["title_full"] = "العنوان الكامل للكتاب"
+        return result
+
+    import engines.source.src.engine as eng_module
+    original_extract = eng_module.extract_metadata
+
+    with patch.object(eng_module, "extract_metadata", side_effect=_patched_extract):
+        metadata = asyncio.run(acquire_source(shamela_source, lib_config))
+
+    assert metadata.title_arabic == "العنوان الكامل للكتاب"
+
+
+# ──────────────────────────────────────────────────────────────────
+# Fix 4: edition_year field mapping
+# ──────────────────────────────────────────────────────────────────
+
+
+def test_edition_year_flows_to_publication_year(
+    mock_inference, lib_config, shamela_source,
+) -> None:
+    """Extracted edition_year_hijri/miladi map to publication_year fields."""
+    inference_result = _make_inference_result()
+    mock_inference(inference_result)
+
+    original_extract = None
+
+    def _patched_extract(path, fmt):
+        result = original_extract(path, fmt)
+        result["edition_year_hijri"] = 1424
+        result["edition_year_miladi"] = 2004
+        return result
+
+    import engines.source.src.engine as eng_module
+    original_extract = eng_module.extract_metadata
+
+    with patch.object(eng_module, "extract_metadata", side_effect=_patched_extract):
+        metadata = asyncio.run(acquire_source(shamela_source, lib_config))
+
+    assert metadata.publication_year_hijri == 1424
+    assert metadata.publication_year_miladi == 2004
+
+
+# ──────────────────────────────────────────────────────────────────
+# Fix 6: lookup_or_register_muhaqiq for unknown layer authors
+# ──────────────────────────────────────────────────────────────────
+
+
+def test_build_text_layers_unknown_author_registers(
+    lib_config,
+) -> None:
+    """Missing layer author calls lookup_or_register_muhaqiq, not dummy sch_00000."""
+    from engines.source.src.engine import _build_text_layers
+
+    inference_result = _make_inference_result(is_multi_layer=True)
+    # Add a layer with no author_name
+    inference_result.text_layers = [{"layer_type": "matn", "author_name": ""}]
+
+    layers = _build_text_layers(inference_result, "src_test_layer", lib_config)
+
+    assert len(layers) == 1
+    assert layers[0].author.canonical_id.startswith("sch_")
+    assert layers[0].author.canonical_id != "sch_00000"
+    assert layers[0].author.name_arabic == "مجهول"
+
+
+# ──────────────────────────────────────────────────────────────────
+# Fix 1: gate errors create checkpoints AND abort
+# ──────────────────────────────────────────────────────────────────
+
+
+def test_gate_error_creates_checkpoint_and_aborts(
+    mock_inference, lib_config, shamela_source,
+) -> None:
+    """Gate-severity validation error → checkpoint created + SourceEngineError raised."""
+    from shared.validation.src.validation import ValidationError as ValError
+
+    inference_result = _make_inference_result()
+    mock_inference(inference_result)
+
+    # Patch validate_source_metadata to return a gate-severity error
+    def _mock_validate(data, registries=None):
+        return [
+            ValError(
+                check="confidence_threshold",
+                field="genre",
+                severity="gate",
+                message="Genre confidence below threshold",
+                error_code=None,
+                recovery="human_gate",
+            )
+        ]
+
+    with patch("engines.source.src.engine.validate_source_metadata", side_effect=_mock_validate):
+        with pytest.raises(SourceEngineError) as exc_info:
+            asyncio.run(acquire_source(shamela_source, lib_config))
+
+    assert exc_info.value.error.error_code == ErrorCode.LOW_CONFIDENCE
+    assert "gate" in exc_info.value.error.message.lower()
+
+
+def test_multiple_gate_errors_create_multiple_checkpoints(
+    mock_inference, lib_config, shamela_source,
+) -> None:
+    """Multiple gate errors → multiple checkpoints before single raise."""
+    from shared.validation.src.validation import ValidationError as ValError
+
+    inference_result = _make_inference_result()
+    mock_inference(inference_result)
+
+    def _mock_validate(data, registries=None):
+        return [
+            ValError(
+                check="confidence_threshold",
+                field="genre",
+                severity="gate",
+                message="Genre confidence below threshold",
+                error_code=None,
+                recovery="human_gate",
+            ),
+            ValError(
+                check="consistency_author_science",
+                field="science_scope",
+                severity="gate",
+                message="Author sciences don't match source sciences",
+                error_code=None,
+                recovery="human_gate",
+            ),
+        ]
+
+    with patch("engines.source.src.engine.validate_source_metadata", side_effect=_mock_validate):
+        with pytest.raises(SourceEngineError) as exc_info:
+            asyncio.run(acquire_source(shamela_source, lib_config))
+
+    assert exc_info.value.error.error_code == ErrorCode.LOW_CONFIDENCE
+    assert "2 issue(s)" in exc_info.value.error.message
+
+
+def test_warning_errors_do_not_abort(
+    mock_inference, lib_config, shamela_source,
+) -> None:
+    """Warning-severity validation errors do NOT abort acquisition."""
+    from shared.validation.src.validation import ValidationError as ValError
+
+    inference_result = _make_inference_result()
+    mock_inference(inference_result)
+
+    def _mock_validate(data, registries=None):
+        return [
+            ValError(
+                check="some_check",
+                field="some_field",
+                severity="warning",
+                message="Non-critical issue",
+                error_code=None,
+                recovery="flag_needs_review",
+            ),
+        ]
+
+    with patch("engines.source.src.engine.validate_source_metadata", side_effect=_mock_validate):
+        metadata = asyncio.run(acquire_source(shamela_source, lib_config))
+
     assert metadata.status == ProcessingStatus.ACQUIRED

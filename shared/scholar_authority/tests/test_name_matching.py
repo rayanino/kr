@@ -53,6 +53,24 @@ class TestNormalizeArabicName:
         result = normalize_arabic_name("محمد   بن   أحمد")
         assert "   " not in result
 
+    def test_strips_arabic_punctuation(self) -> None:
+        """LLM-inferred names may include Arabic commas/semicolons."""
+        clean = normalize_arabic_name("محمد بن أحمد")
+        with_comma = normalize_arabic_name("محمد، بن أحمد")
+        with_semicolon = normalize_arabic_name("محمد؛ بن أحمد")
+        with_hyphen = normalize_arabic_name("محمد - بن أحمد")
+        assert clean == with_comma
+        assert clean == with_semicolon
+        assert clean == with_hyphen
+
+    def test_punctuation_does_not_break_similarity(self) -> None:
+        """Names with punctuation should match identically to clean names."""
+        score = normalized_name_similarity(
+            "عبد الرحمن، بن أبي بكر",
+            "عبد الرحمن بن أبي بكر",
+        )
+        assert score == 1.0
+
 
 class TestExtractNameTokens:
     """Tests for _extract_name_tokens()."""

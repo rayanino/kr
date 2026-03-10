@@ -28,6 +28,8 @@ def normalize_arabic_name(name: str) -> str:
     result = result.replace('ة', 'ه')
     # Strip definite article
     result = re.sub(r'\bال[ـ]?', '', result)
+    # Strip Arabic and Latin punctuation (prevents token mismatches from LLM commas)
+    result = re.sub(r'[،؛,;:.!؟?\u00BB\u00AB\-\u2013\u2014/]', ' ', result)
     # Collapse whitespace
     result = re.sub(r'\s+', ' ', result).strip()
     return result

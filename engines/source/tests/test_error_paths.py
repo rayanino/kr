@@ -211,7 +211,7 @@ def test_error_consensus_disagreement(mock_inference, lib_config) -> None:
 
 
 def test_error_low_confidence(mock_inference, lib_config) -> None:
-    """Mock confidence < 0.50 → gate created."""
+    """Mock confidence < 0.50 → gate created AND acquisition aborted (Fix 1)."""
     src = _copy_shamela(lib_config, "04_hadith")
     result = _make_inference_result(
         confidence_scores={
@@ -221,8 +221,9 @@ def test_error_low_confidence(mock_inference, lib_config) -> None:
         },
     )
     mock_inference(result)
-    metadata = asyncio.run(acquire_source(src, lib_config))
-    assert "genre" in metadata.needs_review_fields
+    with pytest.raises(SourceEngineError) as exc_info:
+        asyncio.run(acquire_source(src, lib_config))
+    assert exc_info.value.error.error_code == ErrorCode.LOW_CONFIDENCE
 
 
 def test_error_duplicate_work_info_only(mock_inference, lib_config) -> None:
