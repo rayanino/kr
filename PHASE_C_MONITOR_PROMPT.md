@@ -1,6 +1,6 @@
 # Phase C Monitoring Supervisor — Starting Prompt
 
-Copy everything below the line into a new chat within this project.
+**USE THIS FILE** — copy everything below the `---` line into a new chat within this project. Do NOT use any earlier inline version from the architecture chat; this file is the authoritative, tested version.
 
 ---
 
@@ -44,18 +44,22 @@ Read CLAUDE_CODE_PHASE_C_BRIEF.md first, then NEXT.md. These are your entry poin
 The full implementation spec is PHASE_C_TASK_SPEC.md (914 lines). Read it completely before writing any code. The existing script scripts/run_session6_integration.py is your reference implementation for import setup, temp library creation, and error handling patterns.
 
 Execute in this order:
-1. Pre-requisites 0a → 0b → 1 → 2 → 3 → 4 (run full test suite after each)
+1. Pre-requisites 0a → 0b → 1 → 2 → 3 → 4 (run full test suite after each, report test count + pass/fail)
 2. Write scripts/run_phase_c.py
-3. Test on 3 books: أحكام الاضطباع والرمل في الطواف, الأربعون النووية, الفقه الأكبر
-4. Verify the 14-item 3-Book Test Checklist at the end of PHASE_C_TASK_SPEC.md
-5. Run full 73 books with --resume (collection at: COLLECTION_PATH_HERE)
-6. Generate PHASE_C_SUMMARY.json and PHASE_C_MANIFEST.json
-7. Commit everything
+3. Run --dry-run and report the output (catches import errors, missing keys, book resolution failures)
+4. Test on 3 books: أحكام الاضطباع والرمل في الطواف, الأربعون النووية, الفقه الأكبر
+5. Report the full 14-item 3-Book Test Checklist results (end of PHASE_C_TASK_SPEC.md)
+6. STOP and wait for go/no-go before proceeding
+7. Run full 73 books with --resume (collection at: COLLECTION_PATH_HERE)
+8. Generate PHASE_C_SUMMARY.json and PHASE_C_MANIFEST.json
+9. Commit everything
 
-Report after each pre-req (test count + pass/fail) and after the 3-book test (full checklist results). Stop and ask before running the full 73 books.
+Report after each pre-req and after the 3-book test. STOP after step 5 — do NOT run the full 73 books until I confirm.
 ```
 
-IMPORTANT: Before giving this to the owner, replace COLLECTION_PATH_HERE with the actual path the owner provided in the launch sequence.
+IMPORTANT: Before giving this to the owner:
+- Replace COLLECTION_PATH_HERE with the actual path the owner provided in the launch sequence.
+- If the path contains spaces (common on Windows), wrap it in quotes: `"C:\Users\...\shamela export samples"`
 </cc_kickoff_prompt>
 
 <execution_phases>
@@ -67,7 +71,7 @@ PHASE 1 — Pre-Requisites (€0, ~30 min)
 
 PHASE 2 — Write run_phase_c.py (€0, ~1 hour)
   Sequential processing script with monkey-patch, human gate config, budget protection, sanity checks
-  GATE: --dry-run works, no import errors
+  GATE: --dry-run succeeds (no import errors, all 73 books resolved, both API keys detected)
 
 PHASE 3 — 3-Book Test (€0.45, ~5 min)
   Book 1: أحكام الاضطباع والرمل في الطواف (fixture, has ground truth)
