@@ -6,6 +6,8 @@ Uses real scholarly names from the Islamic tradition.
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
 from shared.scholar_authority.src.name_matching import (
@@ -131,39 +133,54 @@ class TestNormalizedNameSimilarity:
 
 
 class TestScholarAuthorityLookup:
-    """Tests for the updated scholar authority lookup function."""
+    """Integration tests: lookup with the production scholar_authority module."""
 
-    def test_lookup_exact_match(self) -> None:
-        from shared.scholar_authority.src import clear, lookup, register
+    def test_lookup_exact_match(self, tmp_path: Path) -> None:
+        from engines.source.contracts import ScholarAuthorityRecord
+        from shared.scholar_authority.src import lookup, register
 
-        clear()
-        register("النووي", {"death_date_hijri": 676})
-        result = lookup("النووي")
-        assert result is not None
-        assert result["death_date_hijri"] == 676
-
-    def test_lookup_token_similarity(self) -> None:
-        from shared.scholar_authority.src import clear, lookup, register
-
-        clear()
-        register(
-            "أبو زكريا يحيى بن شرف النووي",
-            {"death_date_hijri": 676},
+        reg_path = tmp_path / "scholars.json"
+        record = ScholarAuthorityRecord(
+            canonical_id="", canonical_name_ar="النووي",
+            death_date_hijri=676, last_updated="2026-01-01T00:00:00+00:00",
         )
-        result = lookup("النووي")
-        assert result is not None
+        register(record, registry_path=reg_path)
+        result = lookup("النووي", death_date_hijri=676, registry_path=reg_path)
+        assert result.found
+        assert result.record is not None
+        assert result.record.death_date_hijri == 676
 
-    def test_lookup_no_match(self) -> None:
-        from shared.scholar_authority.src import clear, lookup
+    def test_lookup_token_similarity(self, tmp_path: Path) -> None:
+        from engines.source.contracts import ScholarAuthorityRecord
+        from shared.scholar_authority.src import lookup, register
 
-        clear()
-        result = lookup("البخاري")
-        assert result is None
+        reg_path = tmp_path / "scholars.json"
+        record = ScholarAuthorityRecord(
+            canonical_id="", canonical_name_ar="أبو زكريا يحيى بن شرف النووي",
+            death_date_hijri=676, last_updated="2026-01-01T00:00:00+00:00",
+        )
+        register(record, registry_path=reg_path)
+        result = lookup("النووي", death_date_hijri=676, registry_path=reg_path)
+        assert result.found
 
-    def test_lookup_with_death_date_param(self) -> None:
-        from shared.scholar_authority.src import clear, lookup, register
+    def test_lookup_no_match(self, tmp_path: Path) -> None:
+        from shared.scholar_authority.src import lookup
 
-        clear()
-        register("النووي", {"death_date_hijri": 676})
-        result = lookup("النووي", death_date=676)
-        assert result is not None
+        reg_path = tmp_path / "scholars.json"
+        result = lookup("البخاري", registry_path=reg_path)
+        assert not result.found
+        assert result.action == "new_record"
+
+    def test_lookup_with_death_date(self, tmp_path: Path) -> None:
+        from engines.source.contracts import ScholarAuthorityRecord
+        from shared.scholar_authority.src import lookup, register
+
+        reg_path = tmp_path / "scholars.json"
+        record = ScholarAuthorityRecord(
+            canonical_id="", canonical_name_ar="النووي",
+            death_date_hijri=676, last_updated="2026-01-01T00:00:00+00:00",
+        )
+        register(record, registry_path=reg_path)
+        result = lookup("النووي", death_date_hijri=676, registry_path=reg_path)
+        assert result.found
+        assert result.match_score >= 0.85

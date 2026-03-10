@@ -20,18 +20,18 @@ from pydantic import BaseModel, ValidationError as PydanticValidationError
 @dataclass
 class ValidationError:
     """A single validation failure.
-    
+
     Severities (SPEC §5 Layer 1):
     - fatal: abort the write entirely.
     - gate: create human gate checkpoint, halt processing for this field.
     - warning: flag in needs_review_fields, continue processing.
     """
-    check: str               # Which check failed: "schema_compliance", "referential_integrity", etc.
+    check: str
     severity: Literal["fatal", "gate", "warning"]
-    field: Optional[str]     # Which field caused the failure, if applicable
-    message: str             # Human-readable description
-    error_code: Optional[str]  # SRC_* error code, if applicable
-    recovery: str            # "abort" | "human_gate" | "flag_needs_review"
+    field: Optional[str]
+    message: str
+    error_code: Optional[str]
+    recovery: str  # "abort" | "human_gate" | "flag_needs_review"
 
 
 def validate_schema(
@@ -39,15 +39,41 @@ def validate_schema(
     schema: type[BaseModel],
 ) -> list[ValidationError]:
     """Check 1: Schema compliance via Pydantic model validation.
-    
-    SPEC §5 Layer 1 Check 1: 'Validate the metadata record against the
-    Pydantic model. Missing required field, type mismatch, or constraint
-    violation → abort with structured error.'
-    
-    severity: fatal
-    recovery: abort
+
+    severity: fatal, recovery: abort.
     """
-    raise NotImplementedError
+    try:
+        schema.model_validate(data)
+        return []
+    except PydanticValidationError as exc:
+        errors: list[ValidationError] = []
+        for err in exc.errors():
+            field_path = ".".join(str(loc) for loc in err["loc"]) if err["loc"] else None
+            errors.append(ValidationError(
+                check="schema_compliance",
+                severity="fatal",
+                field=field_path,
+                message=err["msg"],
+                error_code="SRC_SCHEMA_VIOLATION",
+                recovery="abort",
+            ))
+        return errors
+
+
+def _resolve_nested_field(data: dict[str, Any], field_path: str) -> Any:
+    """Resolve a dotted field path like 'author.canonical_id' in a nested dict."""
+    parts = field_path.split(".")
+    current = data
+    for part in parts:
+        if isinstance(current, dict):
+            current = current.get(part)
+        elif hasattr(current, part):
+            current = getattr(current, part)
+        else:
+            return None
+        if current is None:
+            return None
+    return current
 
 
 def validate_referential_integrity(
@@ -55,22 +81,32 @@ def validate_referential_integrity(
     registries: dict[str, dict],
     ref_fields: list[tuple[str, str]],
 ) -> list[ValidationError]:
-    """Check 2: Referential integrity.
-    
-    SPEC §5 Layer 1 Check 2: Verify cross-references resolve.
-    
-    Args:
-        data: The metadata record to validate.
-        registries: Dict mapping registry name → registry data.
-            e.g. {"scholars": {...}, "works": {...}}
-        ref_fields: List of (field_path, registry_name) tuples.
-            e.g. [("author.canonical_id", "scholars"), ("work_id", "works")]
-    
-    severity: fatal
-    recovery: abort
-    error_code: SRC_REGISTRY_CONFLICT
+    """Check 2: Referential integrity — verify cross-references resolve.
+
+    severity: fatal, recovery: abort, error_code: SRC_REGISTRY_CONFLICT.
     """
-    raise NotImplementedError
+    errors: list[ValidationError] = []
+
+    for field_path, registry_name in ref_fields:
+        ref_value = _resolve_nested_field(data, field_path)
+        if ref_value is None:
+            continue  # Optional reference, not present
+
+        registry = registries.get(registry_name, {})
+        if ref_value not in registry:
+            errors.append(ValidationError(
+                check="referential_integrity",
+                severity="fatal",
+                field=field_path,
+                message=(
+                    f"Reference '{ref_value}' in field '{field_path}' "
+                    f"not found in registry '{registry_name}'"
+                ),
+                error_code="SRC_REGISTRY_CONFLICT",
+                recovery="abort",
+            ))
+
+    return errors
 
 
 def validate_enrichment_passthrough(
@@ -78,15 +114,30 @@ def validate_enrichment_passthrough(
     after: dict[str, Any],
 ) -> list[ValidationError]:
     """D-023 pass-through check: no upstream fields deleted during enrichment.
-    
-    SPEC §3.3: 'Downstream engines may ADD but never REMOVE or OVERWRITE
-    fields added by upstream engines.'
-    
-    Checks that no existing non-null field was set to null or removed.
-    Called during enrichment write-back processing, not during initial intake.
-    
-    severity: fatal
-    recovery: abort
-    error_code: SRC_INVALID_ENRICHMENT
+
+    Any key in `before` that was non-null and is now null or missing in `after`
+    → SRC_INVALID_ENRICHMENT.
+
+    severity: fatal, recovery: abort.
     """
-    raise NotImplementedError
+    errors: list[ValidationError] = []
+
+    for key, old_value in before.items():
+        if old_value is None:
+            continue  # Was null before, so deletion is acceptable
+
+        new_value = after.get(key)
+        if new_value is None:
+            errors.append(ValidationError(
+                check="enrichment_passthrough",
+                severity="fatal",
+                field=key,
+                message=(
+                    f"D-023 violation: field '{key}' was '{old_value}' "
+                    f"but is now null/missing after enrichment"
+                ),
+                error_code="SRC_INVALID_ENRICHMENT",
+                recovery="abort",
+            ))
+
+    return errors

@@ -856,9 +856,13 @@ class HumanGateCheckpoint(BaseModel):
     current_values: dict[str, Any]
     alternatives: Optional[list[dict[str, Any]]] = None
     created_at: str
-    resolved: bool = Field(default=False)
+    status: str = Field(
+        default="pending",
+        description="pending|approved|rejected|unsure|elevated|auto_approved"
+    )
     resolution: Optional[str] = None
     resolved_at: Optional[str] = None
+    elevated_result: Optional[dict[str, Any]] = None
 
 
 class SourceError(BaseModel):
