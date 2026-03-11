@@ -48,7 +48,7 @@ Trust: SKIPPED (gate_abort)
 Consensus: agreed=true, models=[gpt_5_4, opus_4_6]
 Extraction quality: clean. author_raw contains full nasab + death date.
 Result.json model source: N/A (gate_abort)
-Web Sources: ar.wikipedia.org/مجموع_الفتاوى (independent — confirms المستدرك compiled by محمد بن عبد الرحمن بن قاسم in 5 volumes), books.apple.com (independent — confirms over 2000 additional masa'il), everand.com (independent — fetched, same data), amazon.com (independent), ketabonline.com (Shamela-ecosystem), shamela.ws/book/10284 (Shamela-ecosystem)
+Web Sources: ar.wikipedia.org/مجموع_الفتاوى (independent — confirms المستدرك compiled by محمد بن عبد الرحمن بن قاسم in 5 volumes), books.apple.com (independent — confirms over 2000 additional masa'il), everand.com (independent — confirmed in search snippet), amazon.com (independent), ketabonline.com (Shamela-ecosystem), shamela.ws/book/10284 (Shamela-ecosystem)
 Notes:
 - **Cross-session check with Session 0 مجموع الفتاوى:** Fully consistent. Author=ابن تيمية (ت 728), genre=fatawa, ML=false, primary sciences=fiqh+aqidah. The المستدرك contains fatwas missed from the original 37-volume مجموع — a different compilation but same author and genre.
 - **GPT-5.4 as second model:** No model-specific biases detected. GPT-5.4 and Opus produced nearly identical results on all fields. GPT-5.4 showed slightly different science ordering but equivalent content. Attribution: GPT-5.4=traditional vs Opus=definitive is the only substantive difference, and it's a known taxonomy preference.
