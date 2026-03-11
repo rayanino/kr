@@ -5,8 +5,8 @@
 | Session | Scope | Books | VERIFIED | PLAUSIBLE | FLAG | ESCALATE | Report |
 |---------|-------|-------|----------|-----------|------|----------|--------|
 | 0 (Calibration) | 3 calibration books | 3 | 2 | 1 | 0 | 0 | PHASE_C_ERRATA.md §12 |
-| 1 (Fixture Regression) | Fixtures + 3 additional | 14 | — | — | — | — | PHASE_C_SESSION1_REPORT.md |
-| 2 (Famous Works A) | Major reference works | 14 | — | — | — | — | PHASE_C_SESSION2_REPORT.md |
+| 1 (Fixture Regression) | Fixtures + 3 additional | 11 | 8 | 3 | 0 | 0 | PHASE_C_SESSION1_REPORT.md |
+| 2 (Famous Works A) | Major reference works | 8 | 8 | 0 | 0 | 0 | PHASE_C_SESSION2_REPORT.md |
 | 3 (Famous Works B) | Famous works continued | 7 | 7 | 0 | 0 | 0 | PHASE_C_SESSION3_REPORT.md |
 | 4 (Multi-Layer + Commentary) | sharh/hashiyah works | 10 | 9 | 1 | 0 | 0 | PHASE_C_SESSION4_REPORT.md |
 | 5 (Attribution + Trust + Obscure) | Edge cases | 10 | 4 | 6 | 0 | 0 | PHASE_C_SESSION5_REPORT.md |
@@ -16,7 +16,7 @@
 
 **72 unique books** evaluated (4 books appear in two sessions: مجموع الفتاوى, الأربعون النووية, شرح العقيدة الطحاوية ط الرسالة, حاشية ابن عابدين). **0 FLAG, 0 ESCALATE** across the entire corpus. 1 pipeline book (أمالي المحاملي رواية ابن الصلت, gate_abort) was never selected for evaluation — a coverage gap, not an error.
 
-Note: Sessions 1-2 per-verdict breakdowns are in their reports but were not tracked in the running-total format used from Session 3 onward. The post-Session 4 cumulative was 34V + 5P = 39 books (verified in Session 4 and Session 5 reports). Sessions 1-2 individual V/P splits should be counted from their reports during aggregation.
+Note: The post-Session 4 cumulative was 34V + 5P = 39 books (verified in Session 4 and Session 5 reports). Verify: 2+8+8+7+9 = 34V and 1+3+0+0+1 = 5P across Sessions 0-4. ✓
 
 ---
 
@@ -59,21 +59,20 @@ Based on the systematic findings, what should be fixed before Step 4 (calibratio
 - Same author across different works (النووي ×3, ابن القيم ×5, ابن معين ×2)
 - Narrator vs compiler for musnad works (مسند أبي حنيفة: أبو حنيفة not الحصكفي)
 
-### FINDING 2: Tahqiq-Note-as-Layer Bias (5 instances)
+### FINDING 2: Tahqiq-Note-as-Layer Bias (4 distinct books)
 
 Opus (and once GPT-5.4) classifies tahqiq editorial notes as a scholarly commentary layer, setting is_multi_layer=true when it should be false.
 
-| # | Book | Session | Model | Muhaqiq |
-|---|------|---------|-------|---------|
-| 1 | الرسالة للشافعي | 2 | Opus | أحمد شاكر |
-| 2 | مختصر صحيح مسلم | Errata §9 | Opus | الألباني |
-| 3 | مسند أحمد ت شاكر | 2 | Opus | أحمد شاكر |
-| 4 | تفسير الطبري ط التربية | 6 | GPT-5.4 | محمود شاكر |
-| 5 | مختصر صحيح مسلم ت الألباني | 7 | Opus | الألباني |
+| # | Book | Session | Model with bias | Muhaqiq | Pipeline ML correct? |
+|---|------|---------|-----------------|---------|---------------------|
+| 1 | الرسالة للشافعي | 3 | Opus | أحمد شاكر | **No** (Opus won) |
+| 2 | مسند أحمد ت شاكر | 2 | Opus | أحمد شاكر | **No** (Opus won) |
+| 3 | تفسير الطبري ط التربية | 6 | GPT-5.4 | محمود شاكر | Yes (Opus correct, won) |
+| 4 | مختصر صحيح مسلم ت الألباني | 7 | Opus | الألباني | **No** (Opus won) |
 
-Model rates: Opus 4/73 (5.5%), GPT-5.4 1/6 (16.7%), Command A 0/67+ (0% — appears immune). Can be detected mechanically: `is_multi_layer==true AND layers contains only [matn, tahqiq_note] AND muhaqiq present in extraction → flag as false positive`.
+3/4 books have wrong pipeline output (ML=true when it should be false). 1/4 (تفسير الطبري) has correct output because Opus was the correct model on that book. Model rates: Opus 3/4 affected books, GPT-5.4 1/4. Command A: 0 — appears immune across 67+ books.
 
-**Recommendation:** Add a post-inference validation rule to auto-correct this pattern.
+**Recommendation:** Add a post-inference validation rule: `is_multi_layer==true AND layers contains only [matn, tahqiq_note] AND muhaqiq present in extraction → auto-correct ML to false`.
 
 ### FINDING 3: Authority-Level Divergence on Classical Commentary Works
 
@@ -109,7 +108,7 @@ Discovered in Session 7 (Book #4, النكت). Engine code at `validation.py:232
 
 The most dangerous pattern — a model is confident AND wrong:
 - **CA genre=hashiyah at 0.90** for النكت (Session 7) — should be risalah/other
-- **Opus ML=true at 0.85-0.90** for tahqiq_note books (5 instances) — should be false
+- **Opus ML=true at 0.85-0.90** for tahqiq_note books (3 with wrong pipeline output) — should be false
 - **No high-confidence author errors** in any session — author identification confidence is well-calibrated
 
 ### FINDING 8: Consensus Module Limitations
