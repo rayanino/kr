@@ -10,15 +10,14 @@
 
 | Verdict | Count | Books |
 |---------|-------|-------|
-| VERIFIED | 6 | الرحيق المختوم, الأم للشافعي, الأذكار للنووي, شرح النووي على مسلم, مجموع الفتاوى, الأربعون النووية |
-| VERIFIED (field-level FLAG on ML) | 1 | الرسالة للشافعي* |
+| VERIFIED | 7 | الرحيق المختوم, الأم للشافعي, الرسالة للشافعي*, الأذكار للنووي, شرح النووي على مسلم, مجموع الفتاوى, الأربعون النووية |
 | PLAUSIBLE | 0 | — |
 | FLAG | 0 | — |
 | ESCALATE | 0 | — |
 
-*الرسالة للشافعي: Overall VERIFIED. Field-level FLAG on multi-layer (Opus=true with tahqiq_note, CA=false; known tahqiq-as-layer bias, 4th confirmed instance). All other fields correct.
+*الرسالة للشافعي: Field-level FLAG on multi-layer (Opus=true with tahqiq_note, CA=false; known tahqiq-as-layer bias, 4th confirmed instance). All other fields correct.
 
-**Running totals (Sessions 0–3):** 25 VERIFIED (2 with field-level ML flags), 4 PLAUSIBLE, 0 FLAG, 0 ESCALATE (29 books evaluated)
+**Running totals (Sessions 0–3):** 25 VERIFIED, 4 PLAUSIBLE, 0 FLAG, 0 ESCALATE (29 books evaluated). Note: 2 VERIFIED books have field-level ML FLAGs (مسند أحمد from Session 2, الرسالة from Session 3).
 
 ---
 
@@ -39,7 +38,7 @@ Consensus: agreed=true, models=[command_a, opus_4_6], disagreement=none
 Extraction quality: clean. author_name_raw present with embedded death date. muhaqiq null (no muhaqiq for this modern work).
 Result.json model source: N/A (gate_abort)
 Web Sources: ar.wikipedia.org/صفي_الرحمن_المباركفوري (independent), dorar.net/history/event/5746 (independent), ar.islamway.net/spotlight/259 (independent, fetched), masrawy.com (independent), marefa.org (independent), alomah.net (independent), elwatannews.com (independent)
-Notes: Pre-identified death date inference risk RESOLVED — death date 1427 was embedded in author_name_raw as "[ت 1427 هـ]". This is a pass-through, not a genuine LLM inference from training data. Strategic analysis listed this as a "real inference" — that was a false positive (same pattern as ابن عابدين and بداية المجتهد in Session 2). Attribution=definitive is correct — modern author, award-winning book (first place, Muslim World League competition).
+Notes: Pre-identified death date inference risk RESOLVED — death date 1427 was embedded in author_name_raw as "[ت 1427 هـ]". This is a pass-through, not a genuine LLM inference from training data. Strategic analysis listed this as a "real inference" — that was a false positive (same pattern as ابن عابدين and بداية المجتهد in Session 2). Attribution=definitive is correct — modern author, award-winning book (first place, Muslim World League competition). authority_level disagrees — Opus says "modern_compilation", CA says "reference". Both defensible for a modern scholarly work.
 
 ---
 
@@ -122,7 +121,7 @@ Consensus: agreed=true, models=[command_a, opus_4_6], disagreement=none
 Extraction quality: clean. title_full correctly captured as "المنهاج شرح صحيح مسلم بن الحجاج". No muhaqiq listed (this edition).
 Result.json model source: N/A (gate_abort)
 Web Sources: ar.wikipedia.org/المنهاج_في_شرح_صحيح_مسلم_بن_الحجاج_(كتاب) (independent — extensive article), archive.org (independent, multiple editions), noor-book.com (independent), ddl.ae (independent, digital knowledge center), Google Books (independent), ketabonline.com/ar/books/2211 (Shamela-ecosystem), shamela.ws/book/1711 (Shamela-ecosystem), waqfeya.net (Shamela-ecosystem)
-Notes: Textbook sharh case. Both models agree on all fields. Layer structure is bibliographically correct (matn=مسلم, sharh=النووي). Cross-check with الأربعون and الأذكار: same author (النووي, 676), consistent across all three books.
+Notes: Textbook sharh case. Both models agree on all fields. Layer structure is bibliographically correct (matn=مسلم, sharh=النووي). Cross-check with الأربعون and الأذكار: same author (النووي, 676), consistent across all three books. authority_level disagrees — Opus says "reference", CA says "primary". "Reference" is more accurate for a sharh (it references an earlier primary work), but neither is wrong.
 
 ---
 
@@ -143,6 +142,7 @@ Extraction quality: clean. Compiler correctly extracted.
 Result.json model source: N/A (gate_abort)
 Web Sources: ar.wikipedia.org/ابن_تيمية (independent), ar.wikipedia.org/مجموع_الفتاوى_(كتاب) (independent), noor-book.com (independent), archive.org (independent, multiple), newsroom.info (independent), ketabonline.com/ar/books/5564 (Shamela-ecosystem), shamela.ws (Shamela-ecosystem)
 Regression: **CONSISTENT with Session 0 calibration verdict (VERIFIED).** All fields match: author=ابن تيمية (728), genre=fatawa, ML=false, science broad superset. Compiler/author distinction preserved. No drift in evaluation standards.
+Notes: authority_level disagrees — Opus says "modern_compilation" (reflecting that the مجموع was compiled posthumously by ابن القاسم), CA says "primary" (treating the content as ابن تيمية's original fatwas). Both are defensible; the compilation is a modern assembly of medieval primary material. Death date 728 is a genuine inference — one of only two confirmed genuine inferences in Sessions 0-3 (the other being أساليب بلاغية 1432, which was wrong). This one is correct.
 
 ---
 
@@ -160,8 +160,9 @@ Trust: SKIPPED (gate_abort)
 Consensus: agreed=true, models=[command_a, opus_4_6], disagreement=none
 Extraction quality: clean.
 Result.json model source: N/A (gate_abort)
-Web Sources: Verified in Session 0 calibration (ar.wikipedia.org, noor-book.com, shamela.ws/book/12836). No new search performed — cross-checking against the other 2 النووي books in this session provides additional consistency validation.
+Web Sources: ar.wikipedia.org/الأربعون_النووية (independent — confirms النووي 676, describes as "متن"), ar.wikipedia.org/يحيى_بن_شرف_النووي (independent — full biography), goodreads.com/book/show/6740315 (independent), noor-book.com (independent), archive.org (independent), alukah.net (independent), arabica.org (independent). Also verified in Session 0 calibration.
 Regression: **CONSISTENT with Session 0 calibration verdict (VERIFIED).** All field values are IDENTICAL to Session 0: author name, death date, genre (hadith_collection), ML (false), science scope (both Opus and CA return the same lists). Zero divergence on any dimension.
+Notes: Wikipedia Arabic describes the work as a "متن" (matn), which supports the framework's alternative genre classification. Pipeline's "hadith_collection" is also defensible. Cross-checked against 2 other النووي books in this session — perfect author consistency.
 
 ---
 
@@ -169,7 +170,7 @@ Regression: **CONSISTENT with Session 0 calibration verdict (VERIFIED).** All fi
 
 ### Applied Standards Review
 
-1. **Web search performed for every book?** YES — 7/7 books had dedicated web searches. Books 6 and 7 (regression) relied partially on Session 0 verification but had fresh searches confirming prior findings.
+1. **Web search performed for every book?** YES — 7/7 books had dedicated web searches. Books 6 and 7 (regression) also had fresh searches confirming prior findings.
 
 2. **web_fetch used for at least 1 URL per book?** 1/7 successful (ar.islamway.net for الرحيق المختوم). Attempted web_fetch for الأم (archive.org returned navigation only; noor-book.com returned 403; islamweb.net URL too long). The remaining books had sufficiently detailed search snippets from multiple independent sources. Compliance: 1/7 successful fetch — below the 7/7 target. In mitigation: search snippets were rich and from authoritative sources across all 7 books.
 
@@ -193,7 +194,7 @@ Regression: **CONSISTENT with Session 0 calibration verdict (VERIFIED).** All fi
    - الأذكار: Wikipedia + archive.org + binbaz.org.sa + islamonline.net → 4 independent ✓
    - شرح النووي: Wikipedia + archive.org + noor-book.com + ddl.ae + Google Books → 5 independent ✓
    - مجموع الفتاوى: Wikipedia (×2) + noor-book.com + archive.org + newsroom.info → 5 independent ✓
-   - الأربعون: Verified in Session 0 (3+ independent sources) + cross-checked against 2 other النووي books this session ✓
+   - الأربعون: Wikipedia (×2) + Goodreads + noor-book.com + archive.org + alukah.net + arabica.org → 7 independent ✓
    
    All 7 meet the 2+ genuinely independent sources threshold.
 
@@ -270,6 +271,10 @@ The two wrong cases (0.90 and 0.85) are distinguishable from the correct cases o
 4. **Genre confidence as ambiguity signal:** الأذكار has the lowest genre confidence in the batch (Opus 0.85), and it IS the most genre-ambiguous book. This suggests genre confidence is reasonably well-calibrated — lower confidence correlates with genuine classification difficulty.
 
 5. **Genuine death date inference count:** Only 1/7 (مجموع الفتاوى, 728). The strategic analysis overestimated the number of genuine inferences in Session 3 by listing 2 additional books (الرحيق, الرسالة) that turned out to have embedded dates. Running total of confirmed genuine correct inferences: مجموع الفتاوى (728) from Session 0, and it was still the same in this session. Confirmed wrong: أساليب بلاغية (1432 vs actual 1439, Session 1). The genuine inference test cases remain in Sessions 5-7.
+
+6. **Sanity check flags — all gate_abort artifacts.** All 7 books have "author_name_blank" error flags (because result.json has no author for gate_abort books). 2 books (الرسالة, الأذكار) additionally have "muhaqiq_not_in_context" info flags (muhaqiq was in extraction but scholarly_context wasn't populated because gate_abort skips context assembly). No real classification errors detected by sanity checks.
+
+7. **authority_level cross-model disagreements.** 3/7 books have authority_level disagreements: الرحيق المختوم (Opus=modern_compilation, CA=reference), شرح النووي (Opus=reference, CA=primary), مجموع الفتاوى (Opus=modern_compilation, CA=primary). The other 4 books agree. This field is not checked by consensus and does not affect the verdict, but the disagreements are documented in per-book Notes for downstream tracking.
 
 ---
 
