@@ -10,40 +10,69 @@ The standard: this output will be consumed by downstream pipeline phases and by 
 
 <review_protocol>
 
-PHASE 1 — REQUIREMENT COMPLIANCE
-Re-read the original task document. For every explicit instruction, checklist item, or "MUST" requirement, confirm you actually did it. Don't assess from memory — open the files and check. Common failures: skipped steps in the per-book workflow, missing methodology fixes (FIX 1–6), missing framework-required sections (confidence calibration, consistency self-check), invented categories not in the spec.
+PHASE 1 — REQUIREMENT COMPLIANCE (re-read ALL governing documents, not just the task)
+Open and re-read: the task document, PHASE_C_EVALUATION_FRAMEWORK.md, PHASE_C_ERRATA.md, and NEXT.md. For every explicit instruction, checklist item, or "MUST" requirement across ALL of these, confirm you actually did it — don't assess from memory, open the files and check.
 
-PHASE 2 — ADVERSARIAL CLAIM VERIFICATION  
-Pick the 5 claims in your output most likely to be wrong — not the ones you're most confident about, the ones with the highest *expected damage if wrong*. For each one:
-- State the claim explicitly
-- Search the web or read the pipeline data to verify it independently
-- If the evidence contradicts your claim, fix it immediately — do not rationalize
-- If the evidence is ambiguous, mark it as uncertain rather than asserting confidence
+Then ask: **what did I skip?** List every pipeline data file that EXISTS for these books but that you never opened (sanity_checks.json? prompt_sent.json? consensus.json? ground_truth_comparison.json?). Open each one now and check for findings.
 
-Use tools. Run scripts. Fetch pages. Read JSON files. Introspection catches nothing that tool-grounded verification doesn't catch faster and more reliably.
+<known_failure_patterns>
+These are errors that have occurred in prior sessions. Check for EACH ONE explicitly:
+- Invented verdict categories not in the 5-level scale (VERIFIED/PLAUSIBLE/UNVERIFIABLE/FLAG/ESCALATE)
+- Shamela-ecosystem sources (shamela.ws, ketabonline, turath.io, waqfeya) counted as independent
+- Author confidence read from result.json instead of llm_responses/ (always 1.0 — engine bug)
+- Confidence calibration section missing (framework requires it)
+- Consistency self-check missing or done inline instead of as a separate pass
+- web_fetch compliance below target
+- Death dates classified as "genuine inference" when actually embedded in author_name_raw text
+- Strategic analysis predictions not checked against actual results
+- Cross-model field differences on non-consensus-checked fields (authority_level, science_scope, layers) not documented
+- Causal claims about engine behavior ("X because Y") asserted without tracing through actual engine data
+</known_failure_patterns>
+
+PHASE 2 — ADVERSARIAL CLAIM VERIFICATION
+Identify every claim in your output that, if wrong, would damage downstream consumers. This includes: author identifications, death dates, genre classifications, multi-layer determinations, science scope terms, source independence counts, and any "VERIFIED" verdict. For each high-damage claim:
+- State it explicitly
+- Verify it with a tool (web search, script, file read) — not from memory
+- If the evidence contradicts your claim, fix it. Do not rationalize.
+
+Minimum: 8 tool calls during this phase. If you haven't used 8 tools, you haven't checked enough.
 
 PHASE 3 — DOMAIN ATTACK
-You are evaluating Islamic scholarly texts. Assume your domain knowledge contains errors. For every book where you made a domain claim (genre classification, science scope, author identification, multi-layer structure, death date), find at least one piece of external evidence that either confirms or challenges it. The Islamic sciences have precise technical meanings — verify you used terms correctly (e.g., "sirah" means prophetic biography, not general biography; "tarajim" means biographical dictionary; "tabaqat" means generational classes).
+You are evaluating Islamic scholarly texts. Assume your domain knowledge contains errors. For every book where you made a domain claim (genre, science scope, author, multi-layer, death date, layer structure), find at least one piece of EXTERNAL evidence (web search) that confirms or challenges it.
 
-PHASE 4 — CROSS-BOOK CONSISTENCY
+<domain_precision_checklist>
+- "sirah" means prophetic biography (السيرة النبوية), NOT general biography
+- "tarajim" means biographical dictionary, "tabaqat" means generational-class biographical work
+- "tarikh" means historical chronicle
+- A hashiyah has 3 layers (matn → sharh → hashiyah) — verify the actual author of each layer
+- Tahqiq notes are editorial apparatus, NOT a scholarly commentary layer
+- "fiqh_comparative" means cross-school comparative jurisprudence
+- "mukhtasar" means an abridgment of a specific named longer work
+- When two models disagree on layer structure, verify which is bibliographically correct via external sources
+</domain_precision_checklist>
+
+PHASE 4 — CROSS-BOOK AND CROSS-SESSION CONSISTENCY
 Review all verdicts together as a batch. Ask:
-- Did I apply the same standard to book 1 and book 8?  
+- Did I apply the same standard to book 1 and book N?
 - Did I flag something for one book but let the same issue pass for another?
-- Are my source independence counts honest (Shamela ecosystem excluded)?
-- Is there a pattern I should have caught but didn't?
+- Are my source independence counts honest after excluding Shamela ecosystem?
+- Are my verdicts consistent with prior sessions (calibration, Session 1, Session 2)?
+- Did I check the strategic analysis predictions against actual Session results?
+- Is there a cross-book pattern I should have caught but didn't?
 
 PHASE 5 — FIX AND REPORT
-Apply all corrections directly to the output file. Then append a structured summary:
+Apply all corrections directly to the output file (str_replace). Then append a structured summary:
 
-**Self-review findings:**  
-**Claims verified by tool:** [list what you checked and how]  
-**Errors found and fixed:** [specific corrections, not cosmetic]  
-**Remaining uncertainty:** [anything you couldn't resolve]  
+**Self-review findings:**
+**Tool calls used:** [count and list what you checked]
+**Errors found and fixed:** [specific corrections — not cosmetic]
+**Known failure patterns checked:** [which patterns from the checklist were relevant, which were clean]
+**Remaining uncertainty:** [anything you couldn't resolve]
 </review_protocol>
 
 <constraints>
-- You MUST use tools (web search, file reads, script execution) during this review. A review that only "thinks harder" is not a review.
-- Do NOT fabricate issues to appear thorough. Real fixes only. If the output is genuinely clean, say so and list exactly what you verified to reach that conclusion.
-- Do NOT acknowledge the gap without closing it. "Should have searched more" without searching more is a failure. Go search.
-- Time is unlimited. Depth is the only metric. Take as many tool calls as needed.
+- Minimum 8 tool calls during review. A review with fewer than 8 tools didn't verify enough.
+- Do NOT fabricate issues. Real fixes only. If clean, list exactly what you verified.
+- Do NOT acknowledge gaps without closing them. "Should have searched more" without searching is failure. Go search.
+- Time is unlimited. Depth is the only metric.
 </constraints>
