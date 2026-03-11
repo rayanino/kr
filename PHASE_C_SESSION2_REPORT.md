@@ -70,7 +70,7 @@ Verdict: **VERIFIED**
 Author: VERIFIED — Pipeline: شمس الدين محمد بن أحمد بن عثمان الذهبي / Verified: same / Death: 748 vs 748 ✓ / LLM conf: 0.99 (Opus), 1.0 (CA) / Death source: pass-through (extraction had 748)
 Genre: VERIFIED — Pipeline: tabaqat / Expected: tabaqat / Shamela cat: التراجم والطبقات / Agreement: yes (direct match)
 Multi-Layer: VERIFIED — Pipeline: false / Expected: false / Model agreement: yes
-Science: PLAUSIBLE — Pipeline (result.json): ['tarikh', 'sirah'] / Opus: ['tarikh', 'ulum_al_hadith'] / Expected: ['tarikh'] / Note: Primary science tarikh correct. CA's 'sirah' is less precise (sirah = prophetic biography; Siyar is general biographical history). Opus's 'ulum_al_hadith' is defensible since the work extensively covers hadith scholars.
+Science: PLAUSIBLE — Pipeline (result.json): ['tarikh', 'sirah'] / Opus: ['tarikh', 'ulum_al_hadith'] / Expected: ['tarikh'] / Note: Primary science tarikh correct. **CA's 'sirah' is questionable**: in the Islamic sciences, 'sirah' technically refers to prophetic biography (السيرة النبوية). سير أعلام النبلاء is a biographical dictionary of scholars across all fields and centuries — the Arabic 'سير' in the title means 'biographies' (plural of سيرة) but the technical science is tarajim/tarikh, not sirah. The book does include the prophetic sira in its first 2 volumes (from تاريخ الإسلام), but that's a minor fraction. Opus's alternative 'ulum_al_hadith' is more defensible since the Dhahabi was primarily a muhaddith and the book extensively evaluates hadith transmitters. Result.json carries CA's 'sirah' because CA had higher author confidence.
 Trust: VERIFIED — Pipeline: verified / Trust score: 0.7175
 Consensus: agreed=true, models=[command_a, opus_4_6], disagreement=none
 Extraction quality: clean. muhaqiq correctly identified (محمد أيمن الشبراوي).
@@ -246,6 +246,29 @@ From PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md:
 
 ---
 
+## Confidence Calibration Analysis
+
+All 8 books are famous works, so high confidence is expected and appropriate. The relevant question is whether any high-confidence classification is wrong.
+
+| Book | Author conf | Genre conf | ML conf | Any wrong? |
+|------|-----------|-----------|---------|-----------|
+| حاشية ابن عابدين | 0.99 | 0.99 | 0.99 | No |
+| لسان العرب | 0.99 | 0.97 | 0.90 | No |
+| سير أعلام النبلاء | 0.99 | 0.95 | 0.95 | No (science_scope questionable but not author/genre/ML) |
+| فتح الباري | 0.99 | 0.99 | 0.99 | No |
+| بداية المجتهد | 0.99 | 0.95 | 0.95 | No |
+| الموسوعة الفقهية | 0.97 | 0.99 | 0.95 | No |
+| مسند أحمد | 0.99 | 0.97 | **0.90** | **YES: ML wrong at 0.90 conf** |
+| زاد المستقنع | 0.99 | 0.97 | 0.92 | No |
+
+**DANGEROUS PATTERN: مسند أحمد has ML confidence 0.90 with WRONG binary classification.** Opus says ML=true (wrong — tahqiq notes are not a scholarly layer). 0.90 confidence on a wrong answer means the pipeline would NOT trigger a human gate for this error. This is exactly the calibration failure mode the framework warns about: high confidence + wrong = undetected bad metadata.
+
+The ML confidence range across the batch (0.90–0.99) is poorly calibrated for this field. All 8 books are correctly classified on author and genre with appropriately high confidence. But ML confidence doesn't discriminate between genuine multi-layer works (حاشية ابن عابدين at 0.99, correctly true) and the tahqiq-as-layer false positive (مسند أحمد at 0.90, incorrectly true). The 0.09 gap between these is too small for a human gate threshold to exploit.
+
+**Recommendation:** The ML confidence calibration issue reinforces the need for the consensus engine to compare is_multi_layer between models (Correction 7 fix). Confidence alone cannot catch this — only model disagreement reliably flags it.
+
+---
+
 ## Findings & Recommendations
 
 ### Positive Findings
@@ -292,3 +315,9 @@ From PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md:
 8. **Sanity checks examined:** 5/8 books have sanity flags — all are gate_abort artifacts (author_name_blank on partial result.json), not real errors.
 9. **CA layer structure error noted:** For حاشية ابن عابدين, CA conflates matn/sharh authors. Opus is bibliographically superior on layer detail.
 10. **Trust tier reasoning fixed:** Removed unsupported "modern compilation → flagged" causal claim for الموسوعة; replaced with honest uncertainty about trust engine factors.
+
+**Round 3 (domain-level verification and calibration):**
+11. **Confidence calibration section added.** Framework requires this; was completely missing. Found: مسند أحمد has 0.90 ML confidence on a WRONG classification — the most dangerous calibration pattern (high-conf + wrong = undetected).
+12. **سير أعلام النبلاء science_scope corrected.** Changed "Neither secondary science is wrong" → explicit note that CA's 'sirah' is technically incorrect for this biographical dictionary. Opus's 'ulum_al_hadith' is more defensible.
+13. **حاشية ابن عابدين layer structure domain-verified.** Confirmed via Wikipedia and Shamela that the 3-layer chain (التمرتاشي → الحصكفي → ابن عابدين) is bibliographically correct and CA's conflation is a verified error.
+14. **ابن عابدين death date 1252 independently verified.** 5 independent sources confirm: Wikipedia, dar-alifta.org (Egyptian Dar al-Ifta), tarajm.com, Alukah, Al Jazeera.
