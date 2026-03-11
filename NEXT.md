@@ -36,34 +36,40 @@ Note: 0 ML disagreements in this batch — consensus agrees on all 10. No tahqiq
 
 1. **المآخذ على شراح ديوان أبي الطيب المتنبي: Genre must NOT be sharh.**
    Strategic analysis calls this out explicitly: "Genre for المآخذ (NOT sharh — it's criticism)."
-   Pipeline has genre=other, ML=false — correct per framework. But verify: this is a critique OF commentators on المتنبي, not itself a commentary. The title "المآخذ على شراح" = "criticisms of the commentators." Author: الأزدي (ت 644). Success book — check trust.
+   Opus has genre=other, ML=false. CA has genre=adab. **Result.json carries genre=adab** (CA won on confidence). Both are acceptable per framework (risalah/other). But verify: this is a critique OF commentators on المتنبي, not itself a commentary. The title "المآخذ على شراح" = "criticisms of the commentators." Author: الأزدي (ت 644). Success book: trust=verified (0.7175).
 
-2. **التعليق على الرحيق المختوم: Genre=hashiyah may be wrong.**
-   Opus says hashiyah (which implies 3 layers: matn→sharh→hashiyah) but the layer structure shows only 2 layers: matn=المباركفوري, sharh=الملاح. A real hashiyah requires 3 distinct layers. If this is a 2-layer commentary on الرحيق المختوم, genre should be sharh, not hashiyah. Framework expected: sharh/risalah. Success book — check trust + result.json genre.
+2. **التعليق على الرحيق المختوم: Genre disagreement — Opus=hashiyah, CA=sharh.**
+   Opus says hashiyah (which implies 3 layers: matn→sharh→hashiyah) but the layer structure shows only 2 layers: matn=المباركفوري, sharh=الملاح. This is internally contradictory in Opus — a real hashiyah requires 3 distinct layers. CA correctly says sharh. **Result.json carries genre=sharh** (CA won). Framework expected: sharh/risalah. Success book: trust=flagged (0.4625), science=['sirah'].
    **Death date risk:** Author الملاح has NO death date in extraction (author_death_hijri=null, author_name_raw="محمود بن محمد الملاح" with no embedded date). Any LLM death date is a **genuine inference** — verify independently. This is one of very few genuine inference tests in the corpus.
 
 3. **حاشية العطار: Verify 3-layer chain against external sources.**
-   This is a genuine hashiyah. Opus identifies: matn=تاج الدين السبكي (جمع الجوامع), sharh=جلال الدين المحلي, hashiyah=حسن العطار (ت 1250). This is the ONLY hashiyah in Session 4 — the layer chain must be verified. Framework expected: hashiyah/taqrirat, death=1250, ML=true, science=usul_al_fiqh.
-   Uses GPT-5.4 — compare its layer structure against Opus for accuracy.
+   This is the only genuine hashiyah in Session 4 (3 distinct layers — التعليق's Opus-labeled "hashiyah" only has 2 layers). Opus identifies: matn=تاج الدين السبكي (جمع الجوامع), sharh=جلال الدين المحلي, hashiyah=حسن العطار (ت 1250). Both Opus and GPT-5.4 agree on this exact chain. Framework expected: hashiyah/taqrirat, death=1250, ML=true, science=usul_al_fiqh.
+   Uses GPT-5.4 — both models agree on the 3-layer chain, so cross-model comparison should be clean.
 
 ### MEDIUM PRIORITY
 
-4. **Tahqiq-as-layer on genuine sharh books (3 books).**
+4. **فتح الباري لابن رجب: DIFFERENT author from Session 2's فتح الباري.**
+   Framework marks this "Different author." Session 2 evaluated فتح الباري بشرح البخاري by **ابن حجر العسقلاني (ت 852)**. This Session 4 book is فتح الباري by **ابن رجب الحنبلي (ت 795)** — a completely different scholar. Same matn (صحيح البخاري), different sharh author. The pipeline must NOT confuse these two. Framework expected: ابن رجب, 795, sharh, ML=true, hadith.
+
+5. **Tahqiq-as-layer on genuine sharh books (3 books).**
    فتح الباري لابن رجب, شرح الورقات, and شرح العقيدة الطحاوية all have tahqiq_note as an additional layer from Opus — BUT binary ML=true is correct for all three because they ARE genuine sharh works. Do NOT flag these. Same pattern as فتح الباري بشرح البخاري in Session 2 (noted, not flagged). Note the tahqiq_note but confirm binary classification is correct.
 
-5. **المتنبي commentary cluster (3 books).**
+6. **المتنبي commentary cluster (3 books).**
    شرح ديوان المتنبي للواحدي (sharh, الواحدي ت 468), اللامع العزيزي (sharh, أبو العلاء المعري ت 449), and المآخذ (other/criticism, الأزدي ت 644) are all related to المتنبي's poetry. Verify: the two sharh books should share the same matn author (المتنبي = أبو الطيب أحمد بن الحسين). المآخذ should NOT have المتنبي as matn — it critiques the commentators, not the poetry itself.
 
-6. **Cross-check الرحيق المختوم → التعليق على الرحيق المختوم.**
+7. **Cross-check الرحيق المختوم → التعليق على الرحيق المختوم.**
    Session 3 evaluated الرحيق المختوم by المباركفوري (ت 1427). التعليق is a commentary ON that book by الملاح. Verify: the matn author in التعليق's layer structure matches Session 3's verified author (صفي الرحمن المباركفوري).
+
+8. **شرح العقيدة الطحاوية: One of 2 editions.**
+   This is the ط الرسالة edition. The second edition will be in Session 6 (edition cross-comparison). Author, genre, ML, and science MUST be consistent across both editions. Note your findings here for cross-checking later.
 
 ### LOW PRIORITY
 
-7. **مقامات الحريري: Genre=adab, ML=false.**
-   Literary work, not a commentary. Framework expected: adab/other, ML=false. Success book — check trust_tier. الحريري (ت 516) is well-known.
+9. **مقامات الحريري: Genre=adab, ML=false.**
+   Literary work, not a commentary. Framework expected: adab/other, ML=false. Success book: trust=verified (0.6925), science=['adab']. الحريري (ت 516) is well-known.
 
-8. **شرح مقامات الحريري: Author unknown (VERIFY in framework).**
-   Framework says author=VERIFY. Opus identifies: أبو العباس أحمد بن عبد المؤمن (sharh=القيسي, death=619). Look up this author independently.
+10. **شرح مقامات الحريري: Author in extraction but marked VERIFY in framework.**
+   Framework says author=VERIFY (not pre-populated). However, extraction HAS the author: أبو عباس أحمد بن عبد المؤمن بن موسى القيسي الشريشي (ت 619 هـ). Opus confirms the same identification (conf 0.97). Death date 619 is a pass-through. Look up الشريشي (the commentator is known as الشريشي, his nisbah to مدينة شريش in الأندلس) independently to verify.
 
 ## Key Session 3 findings (carry forward)
 
