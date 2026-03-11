@@ -42,6 +42,7 @@ Note: مجموع الفتاوى and الأربعون النووية were evaluat
 2. PHASE_C_ERRATA.md (corrections override framework)
 3. PHASE_C_SESSION2_REPORT.md (for cross-session consistency and carried-forward findings)
 4. PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md (Session 3 risk predictions)
+5. **EVALUATION_QUICK_REFERENCE.md** — re-read this before EACH book (70 lines, compact checklist + negative examples + mid-session gate)
 
 ## After completing all verdicts:
 Paste the contents of SELF_REVIEW_PROMPT.md four times (once after output, then after each review round). The prompt auto-detects which round it is. Each round attacks from a different angle — do not skip rounds.
