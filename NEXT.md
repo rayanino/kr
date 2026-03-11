@@ -16,7 +16,7 @@
 
 **73 unique books** evaluated (3 books appear in two sessions for cross-edition checks). **0 FLAG, 0 ESCALATE** across the entire corpus.
 
-Note: Sessions 1-2 per-verdict breakdowns are in their reports but were not tracked in the running-total format used from Session 3 onward. The pre-Session 4 cumulative was 34V + 5P = 39 books (verified in Session 4 report). Sessions 1-2 individual V/P splits should be counted from their reports during aggregation.
+Note: Sessions 1-2 per-verdict breakdowns are in their reports but were not tracked in the running-total format used from Session 3 onward. The post-Session 4 cumulative was 34V + 5P = 39 books (verified in Session 4 and Session 5 reports). Sessions 1-2 individual V/P splits should be counted from their reports during aggregation.
 
 ---
 
