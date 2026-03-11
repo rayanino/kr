@@ -15,7 +15,7 @@
 | FLAG | 0 | — |
 | ESCALATE | 0 | — |
 
-*الرسالة للشافعي: Field-level FLAG on multi-layer (Opus=true with tahqiq_note, CA=false; known tahqiq-as-layer bias, 4th confirmed instance). All other fields correct.
+*الرسالة للشافعي: Field-level FLAG on multi-layer (Opus=true with tahqiq_note, CA=false; known tahqiq-as-layer bias, 3rd and final instance from Errata §9). All other fields correct.
 
 **Running totals (Sessions 0–3):** 25 VERIFIED, 4 PLAUSIBLE, 0 FLAG, 0 ESCALATE (29 books evaluated). Note: 2 VERIFIED books have field-level ML FLAGs (مسند أحمد from Session 2, الرسالة from Session 3).
 
@@ -74,7 +74,7 @@ Multi-Layer: **FLAG** — Pipeline (Opus): true / Pipeline (CA): false / Expecte
   - Command A: is_multi_layer=false
   - This is the **tahqiq-as-layer systematic bias** (Errata §9, Correction 6). الرسالة is a single-author foundational text, not a commentary. Ahmad Shakir's tahqiq notes are editorial apparatus, not a scholarly commentary layer.
   - Command A is correct (ML=false). Opus over-extends multi-layer to include the tahqiq edition.
-  - This is the 4th confirmed instance of this pattern (with مختصر صحيح مسلم, مسند أحمد, and now الرسالة — as predicted by Errata §9).
+  - This is the 3rd and final instance of this pattern (the 3 cases from Errata §9: الرسالة, مختصر صحيح مسلم, and مسند أحمد — all now confirmed through evaluation or data analysis).
   - **Confidence note:** Opus has ML confidence 0.85 — lower than مسند أحمد's 0.90 but still well above any reasonable human-gate threshold. This is the second high-conf + wrong case for ML (after مسند أحمد's 0.90). However, 0.85 is lower, suggesting Opus has some uncertainty about the tahqiq classification.
   - consensus.agreed=true despite this ML disagreement, confirming Correction 7 yet again.
 Science: VERIFIED — Pipeline: ['usul_al_fiqh'] / Expected: ['usul_al_fiqh'] / Both models agree.
@@ -200,7 +200,7 @@ Notes: Wikipedia Arabic describes the work as a "متن" (matn), which supports 
 
 6. **Genre treatment consistent?** VERIFIED for 6/7 books' genres. PLAUSIBLE for الأذكار's genre (where both models disagree with each other AND with the framework's expected genre). This is consistent — الأذكار genuinely has an ambiguous genre (thematic compilation of adhkar that doesn't fit neatly into hadith_collection, matn, or risalah).
 
-7. **ML treatment consistent?** FLAGged الرسالة's ML disagreement (tahqiq-as-layer bias, 4th instance). Did NOT flag شرح النووي's ML=true because it IS a genuine sharh where ML=true is correct. This distinction is consistent with Session 2's treatment of مسند أحمد (flagged) vs فتح الباري (not flagged) — the flag targets cases where tahqiq_note is the ONLY basis for ML=true.
+7. **ML treatment consistent?** FLAGged الرسالة's ML disagreement (tahqiq-as-layer bias, 3rd and final instance from Errata §9). Did NOT flag شرح النووي's ML=true because it IS a genuine sharh where ML=true is correct. This distinction is consistent with Session 2's treatment of مسند أحمد (flagged) vs فتح الباري (not flagged) — the flag targets cases where tahqiq_note is the ONLY basis for ML=true.
 
 8. **Regression verdicts consistent with Session 0?** مجموع الفتاوى: VERIFIED → VERIFIED ✓. الأربعون النووية: VERIFIED → VERIFIED ✓. All field values match Session 0 calibration verdicts exactly.
 
@@ -284,7 +284,7 @@ The two wrong cases (0.90 and 0.85) are distinguishable from the correct cases o
 
 1. **Zero author identification errors across all 7 books.** Running total: 0 author errors in 29 books evaluated.
 
-2. **Tahqiq-as-layer bias is perfectly predictable.** Every instance (now 4 confirmed: الرسالة, مختصر صحيح مسلم, مسند أحمد, and one more) follows the exact same pattern: non-commentary book + muhaqiq in extraction → Opus says ML=true with tahqiq_note, CA says ML=false. This can be detected mechanically by checking: is_multi_layer==true AND layers contains type=="tahqiq_note" AND no other layer_type besides "matn" → flag.
+2. **Tahqiq-as-layer bias is perfectly predictable.** All 3 instances from Errata §9 (الرسالة, مختصر صحيح مسلم, مسند أحمد) are now confirmed. Every instance follows the exact same pattern: non-commentary book + muhaqiq in extraction → Opus says ML=true with tahqiq_note, CA says ML=false. This can be detected mechanically by checking: is_multi_layer==true AND layers contains type=="tahqiq_note" AND no other layer_type besides "matn" → flag.
 
 3. **Cross-author consistency excellent.** Three النووي books and two الشافعي books all maintain consistent author identification across different works.
 
@@ -294,7 +294,7 @@ The two wrong cases (0.90 and 0.85) are distinguishable from the correct cases o
 
 ### Issues Found
 
-1. **Tahqiq-as-layer ML bias (الرسالة):** 4th confirmed instance. Opus ML conf=0.85 (wrong). Consensus does not catch this (agreed=true despite ML disagreement). **Engine fix needed:** consensus should compare is_multi_layer between models (Correction 7 → fix for Step 4).
+1. **Tahqiq-as-layer ML bias (الرسالة):** 3rd and final instance (all 3 from Errata §9 now confirmed). Opus ML conf=0.85 (wrong). Consensus does not catch this (agreed=true despite ML disagreement). **Engine fix needed:** consensus should compare is_multi_layer between models (Correction 7 → fix for Step 4).
 
 2. **Genre imprecision for الأذكار:** Neither model captures the book's true nature as a thematic compilation of adhkar. The genre enum may need expansion, or "risalah" should be preferred for thematic compilations that don't fit standard categories.
 
