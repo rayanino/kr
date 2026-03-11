@@ -44,7 +44,7 @@ Note: مجموع الفتاوى and الأربعون النووية were evaluat
 4. PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md (Session 3 risk predictions)
 
 ## After completing all verdicts:
-Paste the contents of SELF_REVIEW_PROMPT.md and follow the review protocol before finalizing.
+Paste the contents of SELF_REVIEW_PROMPT.md four times (once after output, then after each review round). The prompt auto-detects which round it is. Each round attacks from a different angle — do not skip rounds.
 
 ## Key corrections from calibration (still apply):
 - LLM filename is `claude_opus_4_6.json` NOT `opus_4_6.json`
