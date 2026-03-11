@@ -298,9 +298,10 @@ Genre inconsistency across editions: the same text gets risalah in one edition a
 
 ### Attribution pattern: Session 5 vs Sessions 3-4 taxonomy
 Session 5 introduces the first genuinely disputed attributions to the evaluation. The Opus attribution taxonomy from Sessions 3-4 holds:
-- **definitive**: famous well-established works → البيان والتبيين (both models agree)
-- **traditional**: conventionally-attributed works → حديث الضب, أحاديث العطار, نصيحة, أدب النفوس, الكلام (Opus uses traditional; CA overrides to definitive)
-- **disputed**: genuinely contested works → الفقه الأكبر, الإبانة ×2
+- **definitive** (both agree): البيان والتبيين, الورقة النحوية, نصيحة لطالب الحق
+- **traditional** (both agree): أحاديث العطار
+- **traditional** (Opus) vs **definitive** (CA): حديث الضب, أدب النفوس, الكلام على حديث — standard Opus→CA escalation pattern
+- **disputed** (Opus) vs traditional/definitive (CA): الفقه الأكبر, الإبانة ×2 — genuinely contested works
 
 The 3 "disputed" books all have documented scholarly debates. Opus's use of "disputed" demonstrates genuine domain knowledge about Islamic attribution controversies. CA's tendency to override to "definitive" or "traditional" is less nuanced for these cases.
 
