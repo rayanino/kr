@@ -21,7 +21,7 @@ This aggregation report determines whether a €20-30 calibration run proceeds o
 **Angle:** "Did I actually verify every claim against the JSON, or did I just restate what NEXT.md told me?"
 
 **Step 1: Recompute ALL statistics from the JSON independently.**
-Run a script that reads PHASE_C_ALL_VERDICTS.json and computes:
+Run a script that reads phase_c_collection/PHASE_C_ALL_VERDICTS.json and computes:
 - Total V/P/F/E (must equal 59/17/0/0)
 - Per-session counts (must match the table in the report)
 - Per-genre counts
@@ -40,10 +40,10 @@ For each finding from NEXT.md that the report includes:
 - Example: "Zero author errors" — run: `all(v['author_correct'] for v in verdicts)`. Did you actually do this, or just write "confirmed"?
 
 **Step 3: Check Section 1 (Verdict Summary) completeness.**
-- Are all 76 entries in the table?
+- Does the summary table have per-session counts that sum to 76?
 - Are the 4 duplicates noted?
 - Is the 1 unevaluated book (أمالي المحاملي) flagged?
-- Do per-session subtotals add up to 76?
+- Does the total match 59V + 17P = 76?
 
 **Step 4: Check required sections.**
 The prompt specified 6 sections. Confirm each exists AND is substantive (not just a header with a sentence):
@@ -112,7 +112,7 @@ Run queries looking for:
 - Author confidence vs verdict: same analysis
 - Trust score distribution: what separates flagged from verified?
 - Science scope breadth: do books with more sciences tend to be gate_abort?
-- Model pair effect: do the 6 GPT-5.4 books behave differently from the 67 Command A books?
+- Model pair effect: do the 6 GPT-5.4 books behave differently from the 70 Command A books?
 - Session effect: is Session 5 (6 PLAUSIBLE) genuinely harder, or was the evaluator more conservative?
 - Death date availability: do books with pass-through death dates have higher author confidence?
 
