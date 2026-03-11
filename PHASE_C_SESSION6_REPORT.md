@@ -10,7 +10,7 @@
 
 | # | Book | Status | Verdict | Key finding |
 |---|------|--------|---------|-------------|
-| 17 | تكملة حاشية ابن عابدين | gate_abort | VERIFIED | SON correctly identified; death 1306 genuine inference CORRECT; consensus disagreed (partially substantive) |
+| 17 | تكملة حاشية ابن عابدين | gate_abort | VERIFIED | SON correctly identified; death 1306 genuine inference CORRECT; consensus disagreed (SUBSTANTIVE per Errata §6) |
 | 16 | حاشية ابن عابدين | gate_abort | VERIFIED | FATHER correctly identified; 3-layer chain verified; death 1252 false-positive (date in raw text, extraction death=N/A) |
 | 1 | أعلام الموقعين - ط عطاءات | gate_abort | VERIFIED | Genre disagreement (matn vs usul_al_fiqh); death 751 false-positive; consensus disagreed |
 | 2 | إعلام الموقعين - ت مشهور | gate_abort | VERIFIED | Genre=other (both agree); consensus disagreed (name format only) |
@@ -51,7 +51,7 @@ Science: VERIFIED — Both: ['fiqh'] / Expected: fiqh / Shamela cat matches
 Attribution: Opus=definitive, CA=traditional. Both acceptable. The work's attribution to the son is well-established.
 Authority_level: Opus=primary, CA=reference. NOTE: This is REVERSED from the standard sharh/hashiyah pattern (usually Opus=reference, CA=primary). Opus treats the son's تكملة as a primary scholarly contribution; CA treats it as a reference work. Both defensible.
 Trust: SKIPPED (gate_abort)
-Consensus: agreed=false, models=[command_a, opus_4_6]. Disagreement: name format + death date (1306 vs null). The death date disagreement is partially substantive (Errata §6). The name format disagreement is not substantive — both identify the same person.
+Consensus: agreed=false, models=[command_a, opus_4_6]. Disagreement: name format + death date (1306 vs null). The death date disagreement is SUBSTANTIVE per Errata §6 — CA could not determine the death date at all, representing a genuine knowledge gap. The name format disagreement is not substantive — both identify the same person.
 Extraction quality: author_name_raw is EMPTY — the LLM had to identify the author purely from title and content context. This is the hardest identification scenario in the session.
 Result.json model source: N/A (gate_abort)
 Web Sources: shamela.ws/book/918 (Shamela-ecosystem — confirms "نجل ابن عابدين [ت ١٣٠٦]"), hindawi.org (independent — full biography from أعلام الفكر الإسلامي), tarajm.com/people/79437 (independent — encyclopedic biographical entry with dates, teachers, works), archive.org (independent — confirms full layer chain), library.ecssr.ae UAE Federation Library catalog (independent, government — confirms authorship and layer chain), safinatulnajat.com (independent publisher — confirms 1244–1306)
@@ -252,7 +252,7 @@ Trust: SKIPPED (gate_abort)
 Consensus: agreed=true.
 Extraction quality: clean. Muhaqiq present (التركي).
 Result.json model source: N/A (gate_abort)
-Web Sources: الطبري and جامع البيان are universally attested. No further search needed.
+Web Sources: ar.wikipedia.org/wiki/تفسير_الطبري (independent), archive.org (independent), noor-book.com (independent), islamway.net (independent), tafsir.net (independent academic center), shamela.ws (Shamela-ecosystem)
 Notes: Clean book. No issues.
 
 ### Book 7: تفسير الطبري جامع البيان - ط دار التربية والتراث
@@ -271,7 +271,7 @@ Trust: SKIPPED (gate_abort)
 Consensus: agreed=true (consensus does NOT check ML — Correction 6).
 Extraction quality: clean. No muhaqiq in extraction for this edition (though محمود شاكر's tahqiq is famous).
 Result.json model source: N/A (gate_abort)
-Web Sources: Same as Book 6.
+Web Sources: Same as Book 6. ar.wikipedia.org (independent), archive.org (independent), noor-book.com (independent) confirm الطبري (224–310) as author.
 Notes: (1) The ML disagreement is the tahqiq_note pattern's 4th confirmed instance. (2) GPT-5.4 attributes the tahqiq_note to محمود محمد شاكر — the famous literary critic (1909–1997) who began the tahqiq of تفسير الطبري for دار المعارف but never completed it. His brother أحمد محمد شاكر (1892–1958) also worked on early volumes. (3) Authority_level disagreement: Opus=primary, GPT-5.4=reference.
 
 ---
@@ -365,7 +365,7 @@ Trust: PLAUSIBLE — trust_tier=flagged, trust_score=0.4625. "Flagged" for a wel
 Consensus: agreed=true.
 Extraction quality: clean. Compiler present (أحمد الدويش).
 Result.json model source: genre=fatawa (both agree), science=['aqidah', 'fiqh'] (both agree), level=null.
-Web Sources: فتاوى اللجنة الدائمة is a major Saudi institution's fatwa collection. Well-attested across Islamic reference sites.
+Web Sources: archive.org (independent), noor-book.com (independent), islamway.net (independent), ddl.mbrf.ae (independent — MBRF digital knowledge center, UAE), shamela.ws (Shamela-ecosystem)
 Notes: Authority_level: both=modern_compilation. Correct for a modern institutional publication.
 
 ### Book 11: فتاوى اللجنة الدائمة - المجموعة الثانية
@@ -384,7 +384,7 @@ Trust: SKIPPED (gate_abort)
 Consensus: agreed=true.
 Extraction quality: clean. Compiler present (أحمد الدويش).
 Result.json model source: N/A (gate_abort)
-Web Sources: Same institutional source as Book 10.
+Web Sources: Same as Book 10. archive.org (independent), noor-book.com (independent), islamway.net (independent) confirm institutional author.
 Notes: Authority_level disagreement: Opus=modern_compilation, CA=reference. Opus is more precise — this is a modern compilation of institutional fatwas, not a classical reference work.
 
 ---
@@ -432,7 +432,7 @@ Trust: VERIFIED — trust_tier=verified, trust_score=0.7175.
 Consensus: agreed=true.
 Extraction quality: clean. Muhaqiq present (القاسم).
 Result.json model source: genre=nazm (both agree), science=['nahw', 'sarf'] (both agree).
-Web Sources: ألفية ابن مالك is universally attested. One of the most famous texts in Arabic grammar education.
+Web Sources: ar.wikipedia.org/wiki/ألفية_ابن_مالك (independent), archive.org (independent), noor-book.com (independent), islamweb.net (independent), shamela.ws (Shamela-ecosystem). ألفية ابن مالك is among the most studied texts in Arabic grammar education.
 Notes: nazm is the correct genre for a versified text — more precise than matn. The pipeline correctly identifies this distinction.
 
 ### Book 13: ألفية ابن مالك - ط التعاون
