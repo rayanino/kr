@@ -71,7 +71,7 @@
 **Author:** VERIFIED — Pipeline: علي بن أبي العز الحنفي الدمشقي / Death: 792 vs 792 / LLM conf: 0.97 (Opus), 0.95 (CA) / Death source: pass-through
 **Genre:** VERIFIED — sharh / Shamela cat: العقيدة / Both agree
 **Multi-Layer:** VERIFIED — true / Both agree
-**Layers:** Opus: [matn=الطحاوي (ت 321/322), sharh=ابن أبي العز, tahqiq_note=التركي والأرنؤوط]. Tahqiq_note on genuine sharh — noted, NOT flagged.
+**Layers:** Opus: [matn=الطحاوي (ت 321), sharh=ابن أبي العز, tahqiq_note=التركي والأرنؤوط]. Tahqiq_note on genuine sharh — noted, NOT flagged.
 **Science:** VERIFIED — ['aqidah'] / Both agree / Shamela cat exact match
 **Attribution:** Opus=traditional, CA=definitive. There is a scholarly discussion about authorship. Not flagged — mainstream consensus attributes it to ابن أبي العز.
 **Web Sources:** archive.org ×2, noor-book.com, islamhouse.com, islamway.net (4+ independent) + shamela.ws (Shamela-ecosystem)
@@ -284,7 +284,7 @@ Pattern: Opus labels sharh works as "reference" while CA labels them "primary." 
 2. **All 7 layer chains verified externally.** ML=true binary classification is 100% correct in this session.
 3. **المآخذ genre correctly identified.** The most important single check in this session — the pipeline did not misclassify literary criticism as sharh.
 4. **Cross-book consistency excellent.** المتنبي matn author, المحلي identity, فتح الباري author distinction — all correct.
-5. **GPT-5.4 (حاشية العطار) performs identically to Command A.** Running total: 2/2 GPT-5.4 books performed comparably.
+5. **GPT-5.4 (حاشية العطار) performs comparably to Command A.** Both models agreed on all fields. Running total: 2/2 GPT-5.4 books performed comparably (small sample).
 
 ### Issues Found
 1. **Opus hashiyah contradiction (التعليق):** Genre=hashiyah with only 2 layers. This is an error — hashiyah requires 3 distinct layers. CA correctly says sharh. The quick reference anticipated this exact pattern. **Not an engine bug** (result.json carries the correct CA value) but a model-level classification error.
