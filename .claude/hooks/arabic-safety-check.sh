@@ -1,7 +1,8 @@
 #!/bin/bash
 # Arabic text safety check — PostToolUse hook for Python files in engine/shared src
 # Scans modified Python files for common Arabic text corruption patterns.
-# Non-blocking: outputs warnings to stderr, always exits 0.
+# Check 1 (.lower/.upper) is BLOCKING when file contains Arabic — Arabic has no case.
+# Checks 2-5 are non-blocking warnings (exit 0).
 
 FILE="$CLAUDE_TOOL_FILE_PATH"
 
@@ -18,10 +19,19 @@ fi
 
 WARNINGS=""
 
-# Check 1: .lower()/.upper() — destroys Arabic text (Arabic has no case)
-if grep -nE '\.(lower|upper)\(\)' "$FILE" 2>/dev/null | grep -v '#.*noqa' | grep -v '# safe:' > /dev/null; then
-    LINES=$(grep -nE '\.(lower|upper)\(\)' "$FILE" 2>/dev/null | grep -v '#.*noqa' | grep -v '# safe:' | head -3)
-    WARNINGS="${WARNINGS}WARNING: .lower()/.upper() found — Arabic has no case. Verify this only applies to non-Arabic text.\n${LINES}\n\n"
+# Check 1: .lower()/.upper() — BLOCKING when file contains Arabic text
+LOWER_UPPER=$(grep -nE '\.(lower|upper)\(\)' "$FILE" 2>/dev/null | grep -v '#.*noqa' | grep -v '# safe:')
+if [ -n "$LOWER_UPPER" ]; then
+    # Reuse the same Arabic detection as Check 3
+    HAS_ARABIC=$(python3 -c "import sys; sys.exit(0 if any('\u0600'<=c<='\u06FF' for line in open(sys.argv[1],encoding='utf-8',errors='ignore') for c in line) else 1)" "$FILE" 2>/dev/null && echo "yes" || echo "no")
+    if [ "$HAS_ARABIC" = "yes" ]; then
+        echo "BLOCKED: .lower()/.upper() in file with Arabic content." >&2
+        echo "Arabic has no case — this WILL corrupt data. Add '# safe: reason' comment to bypass." >&2
+        echo "$LOWER_UPPER" >&2
+        exit 1
+    else
+        WARNINGS="${WARNINGS}WARNING: .lower()/.upper() found — verify this only applies to non-Arabic text.\n$(echo "$LOWER_UPPER" | head -3)\n\n"
+    fi
 fi
 
 # Check 2: .strip() without explicit chars — may strip Arabic diacritics
