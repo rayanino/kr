@@ -11,7 +11,7 @@
 | # | Book | Status | Verdict | Key finding |
 |---|------|--------|---------|-------------|
 | 17 | تكملة حاشية ابن عابدين | gate_abort | VERIFIED | SON correctly identified; death 1306 genuine inference CORRECT; consensus disagreed (partially substantive) |
-| 16 | حاشية ابن عابدين | gate_abort | VERIFIED | FATHER correctly identified; 3-layer chain verified; death 1252 pass-through (in raw text) |
+| 16 | حاشية ابن عابدين | gate_abort | VERIFIED | FATHER correctly identified; 3-layer chain verified; death 1252 false-positive (date in raw text, extraction death=N/A) |
 | 1 | أعلام الموقعين - ط عطاءات | gate_abort | VERIFIED | Genre disagreement (matn vs usul_al_fiqh); death 751 false-positive; consensus disagreed |
 | 2 | إعلام الموقعين - ت مشهور | gate_abort | VERIFIED | Genre=other (both agree); consensus disagreed (name format only) |
 | 3 | إعلام الموقعين - ط العلمية | gate_abort | VERIFIED | Genre disagreement (other vs matn); consensus agreed |
@@ -64,7 +64,7 @@ Status: gate_abort
 Models: opus + command_a
 Verdict: VERIFIED
 
-Author: VERIFIED — Pipeline (Opus): محمد أمين بن عمر بن عبد العزيز عابدين الدمشقي / Verified: ابن عابدين (1198–1252 هـ), the most authoritative late-period Hanafi jurist. Known as "خاتمة المحققين" (seal of the verifiers). / Death: 1252 (both models) vs 1252 (verified) / LLM conf: 0.99 (Opus), 0.95 (CA) / Death source: pass-through (author_raw contains "ت 1252 هـ"). Note: extraction has author_death=N/A but death date IS visible in raw text — the extraction parser did not capture it, but the LLM read it from the prompt. This is NOT a genuine inference.
+Author: VERIFIED — Pipeline (Opus): محمد أمين بن عمر بن عبد العزيز عابدين الدمشقي / Verified: ابن عابدين (1198–1252 هـ), the most authoritative late-period Hanafi jurist. Known as "خاتمة المحققين" (seal of the verifiers). / Death: 1252 (both models) vs 1252 (verified) / LLM conf: 0.99 (Opus), 0.95 (CA) / Death source: **false-positive** — extraction has author_death=N/A BUT author_raw contains "[ت 1252 هـ]". The date is visible in the raw text, so the LLM read it from the prompt, not from inference. This is NOT a genuine inference.
 **CRITICAL CHECK PASSED: This is the FATHER (محمد أمين, ت 1252), correctly distinguished from Book 17's SON.**
 Genre: VERIFIED — Pipeline: hashiyah (Opus 0.99, CA 0.95) / Expected: hashiyah / Shamela cat: الفقه الحنفي / Both agree.
 Multi-Layer: VERIFIED — true (both agree) / Expected: true
@@ -116,7 +116,7 @@ Consensus: agreed=false. Disagreement: genre (matn vs usul_al_fiqh) + name forma
 Extraction quality: clean. No muhaqiq in this edition's extraction (despite being the عطاءات العلم edition).
 Result.json model source: N/A (gate_abort)
 Web Sources: noor-book.com (independent), ibnalqayem.net (independent — confirms usul_al_fiqh classification), archive.org (independent), binbaz.org.sa (independent), islamweb.net (independent), shamela.ws (Shamela-ecosystem), ketabonline.com (Shamela-ecosystem)
-Notes: Death date "(691 - 751)" visible in author_name_raw — this is a false-positive, not genuine inference. Updated false positive count: 8 (6 prior + this + Book 9's ط عطاءات).
+Notes: Death date "(691 - 751)" visible in author_name_raw — this is a false-positive, not genuine inference. Session 6 false positives: this book + Book 9 (تحفة ط عطاءات) + Book 16 (حاشية ابن عابدين). Updated total: 9 (6 prior + 3 from Session 6).
 
 ### Book 2: إعلام الموقعين عن رب العالمين - ت مشهور
 
@@ -272,7 +272,7 @@ Consensus: agreed=true (consensus does NOT check ML — Correction 6).
 Extraction quality: clean. No muhaqiq in extraction for this edition (though محمود شاكر's tahqiq is famous).
 Result.json model source: N/A (gate_abort)
 Web Sources: Same as Book 6.
-Notes: (1) The ML disagreement is the tahqiq_note pattern's 4th confirmed instance. (2) GPT-5.4 attributes the tahqiq_note to محمود محمد شاكر — this is historically correct (شاكر began the tahqiq but died before completing it; أحمد شاكر finished). (3) Authority_level disagreement: Opus=primary, GPT-5.4=reference.
+Notes: (1) The ML disagreement is the tahqiq_note pattern's 4th confirmed instance. (2) GPT-5.4 attributes the tahqiq_note to محمود محمد شاكر — the famous literary critic (1909–1997) who began the tahqiq of تفسير الطبري for دار المعارف but never completed it. His brother أحمد محمد شاكر (1892–1958) also worked on early volumes. (3) Authority_level disagreement: Opus=primary, GPT-5.4=reference.
 
 ---
 
@@ -500,9 +500,18 @@ Status: gate_abort
 Models: opus + command_a
 Verdict: VERIFIED (re-used from Session 4)
 
-**This book was already evaluated in Session 4 as VERIFIED.** Per the edition group protocol, the Session 4 verdict is re-used. Cross-reference confirms identical classification: author=ابن أبي العز (ت 792), genre=sharh, ML=true, science=['aqidah'], attribution: Opus=traditional, CA=definitive.
-
-Session 4 verdict reference: PHASE_C_SESSION4_REPORT.md, Book 4.
+Author: VERIFIED — Pipeline: علي بن علي بن محمد بن أبي العز الحنفي الدمشقي / Death: 792 / LLM conf: 0.97 (Opus), 0.95 (CA) / Death source: pass-through (author_death=792 in extraction)
+Genre: VERIFIED — sharh / Shamela cat: العقيدة / Both agree (0.99/0.95)
+Multi-Layer: VERIFIED — true / Both agree
+Layers: matn=الطحاوي, sharh=ابن أبي العز, tahqiq_note=التركي والأرنؤوط
+Science: VERIFIED — ['aqidah'] / Both agree
+Attribution: Opus=traditional, CA=definitive (same pattern as ط الأوقاف)
+Trust: SKIPPED (gate_abort)
+Consensus: agreed=true
+Extraction quality: clean. Muhaqiq present.
+Result.json model source: N/A (gate_abort)
+Web Sources: Verified in Session 4 (PHASE_C_SESSION4_REPORT.md, Book 4).
+Notes: **Re-used Session 4 verdict.** Included in Session 6 for cross-edition comparison with Book 14 (ط الأوقاف). All fields match exactly between editions.
 
 ---
 
@@ -534,8 +543,8 @@ Session 4 verdict reference: PHASE_C_SESSION4_REPORT.md, Book 4.
 4. **Edition group protocol run for all 7 groups + author pair?** Yes. Cross-edition tables produced for: إعلام الموقعين (3 editions), البداية والنهاية (2), تفسير الطبري (2), تحفة المودود (2), فتاوى اللجنة (2), ألفية ابن مالك (2), شرح الطحاوية (2 + Session 4 cross-check). Author-verification pair (حاشية + تكملة) checked with separate protocol.
 
 5. **Death date sources documented for all 17?** Yes.
-   - Pass-through: 12 books (death visible in extraction or raw text)
-   - False-positive: 3 books (أعلام ط عطاءات, تحفة ط عطاءات — dates in raw text; حاشية — date in raw text but extraction death=N/A)
+   - Pass-through: 11 books (death visible in extraction)
+   - False-positive: 3 books (أعلام ط عطاءات, تحفة ط عطاءات, حاشية — dates in raw text but extraction death=N/A)
    - Genuine inference: 1 book (تكملة حاشية — author_raw EMPTY, no death in extraction)
    - Absent (correct): 2 books (فتاوى اللجنة ×2 — institutional author)
 
@@ -625,12 +634,12 @@ Instance 4 is notable: it is the first time a model other than Opus exhibits the
 
 | Category | Count | Books |
 |----------|-------|-------|
-| Pass-through | 12 | Books 2, 3, 4, 5, 6, 7, 8, 12, 13, 14, 15, 16 |
+| Pass-through | 11 | Books 2, 3, 4, 5, 6, 7, 8, 12, 13, 14, 15 |
 | False-positive | 3 | Books 1, 9, 16 (dates visible in raw text, extraction death=N/A) |
 | Genuine inference | 1 | Book 17 (تكملة حاشية — EMPTY raw, death 1306 CORRECT) |
 | Absent (correct) | 2 | Books 10, 11 (institutional author) |
 
-**Updated running totals:** 3 correct genuine inferences (728, 324, 1306), 1 wrong (1432 vs 1439), 8 false positives. Genuine inference accuracy: 3/4 (75%).
+**Updated running totals:** 3 correct genuine inferences (728, 324, 1306), 1 wrong (1432 vs 1439), 9 false positives. Genuine inference accuracy: 3/4 (75%).
 
 ### ابن القيم Books — Cross-Session Consistency
 
@@ -657,7 +666,37 @@ Session 6 has 5 books by ابن القيم (إعلام ×3, تحفة ×2). All 5
 
 ### Methodology Notes
 - Mid-session quality gate at Book 11 detected no drift.
-- web_fetch compliance: 0/17 books had explicit web_fetch calls. All relied on search snippets. For these famous works, search snippets were rich and sufficient — but protocol compliance is below target.
+- web_fetch compliance: 0/17 books had explicit web_fetch calls. All relied on search snippets. For these famous works, search snippets were rich and sufficient — but this is a **protocol violation** that should be remediated in future sessions. The quick reference requires "web_fetch at least 1 URL per book."
 - Edition group cross-check tables produced for all 7 groups + 1 author-verification pair immediately after each group, as required.
 - Book 15 (شرح الطحاوية ط الرسالة) re-used Session 4 verdict per the edition group protocol.
 - Recommended order followed: critical books first (تكملة, حاشية), then إعلام, then remaining groups.
+
+---
+
+## Round 1 Review — Protocol Compliance & Factual Accuracy
+
+**Review date:** 2026-03-11
+**Angle:** Protocol compliance, internal consistency, factual accuracy
+
+### Corrections Applied
+
+**CRITICAL — Internal contradiction fixed:**
+Book 16 (حاشية ابن عابدين) death date was classified as BOTH "pass-through" (in per-book verdict) AND "false-positive" (in summary table). The correct classification is **false-positive**: extraction has author_death=N/A, but "[ت 1252 هـ]" is visible in author_name_raw. The LLM read the date from the prompt text, not from the structured extraction field and not from inference. Fixed: per-book verdict now says false-positive; Book 16 removed from pass-through list; pass-through count corrected from 12 to 11; false-positive running total corrected from 8 to 9.
+
+**MODERATE — Factual error fixed:**
+Book 7 (تفسير الطبري ط التربية) note about Shaker brothers reversed: originally stated "شاكر began the tahqiq but died before completing it; أحمد شاكر finished." In fact, أحمد محمد شاكر (1892–1958) died first; محمود محمد شاكر (1909–1997) continued separately but never completed the project. Fixed: corrected the biographical note.
+
+**MODERATE — Missing structured verdict added:**
+Book 15 (شرح الطحاوية ط الرسالة) originally had only a 2-line re-use statement. The protocol requires structured verdict format for EVERY book. Added: full structured verdict fields with Session 4 cross-reference.
+
+### Protocol Violations Noted (not fixed — require future action)
+
+**web_fetch compliance: 0/17.** The quick reference requires "web_fetch at least 1 URL per book" and the protocol requires "Use web_fetch on at least 1 URL per high-priority book." All 17 books relied on web_search snippets. For Session 6's famous works, search snippets were rich enough for accurate verdicts, but the protocol was not followed. Recommendation: Session 7 must achieve at minimum 3/N web_fetch calls.
+
+### Verified correct (no changes needed)
+
+- 17/17 VERIFIED is appropriate: all Session 6 books are famous works or well-attested institutional publications with 2+ genuinely independent sources. This contrasts with Session 5's 6 PLAUSIBLE which were obscure/short works (حديث الضب at 1 page, نصيحة at 2 pages, أدب النفوس truncated to 9%).
+- All edition group cross-comparison tables present and accurate.
+- All critical checks documented as passed (ML=false for إعلام ×3, tarikh for البداية ×2, father vs son for حاشية/تكملة).
+- Confidence calibration table complete with no high-confidence + wrong cases.
+- Shamela-ecosystem exclusion applied consistently.
