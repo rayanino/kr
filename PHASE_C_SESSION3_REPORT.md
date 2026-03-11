@@ -49,7 +49,7 @@ Status: gate_abort
 Models: opus + command_a
 Verdict: **VERIFIED**
 Author: VERIFIED — Pipeline (Opus): أبو عبد الله محمد بن إدريس بن العباس الشافعي / Verified: same / Death: 204 vs 204 ✓ / LLM conf: 0.99 (Opus), 0.95 (CA) / Death source: pass-through (extraction.author_death_hijri=204, also in raw text "(150 - 204 هـ)")
-Genre: VERIFIED — Pipeline: matn / Expected: verify / Shamela cat: الفقه الشافعي / Agreement: yes — "matn" is acceptable for a foundational original fiqh text. الأم is not a mukhtasar, sharh, or commentary — it is the primary Shafi'i fiqh source text. Sources uniformly classify it as "فقه" which is compatible with "matn" as a form classification.
+Genre: VERIFIED — Pipeline: matn / Expected: verify / Shamela cat: الفقه الشافعي / Agreement: yes — "matn" is acceptable for a foundational original fiqh text. الأم is not a mukhtasar, sharh, or commentary — it is the primary Shafi'i fiqh source text. Sources uniformly classify it as "فقه" which is compatible with "matn" as a form classification. Note: external sources (islamhouse.com, daribnhazm.com) describe الأم as "موسوعة فقهية ضخمة" — technically, "matn" implies a concise foundational text, while الأم is 8 volumes. "Matn" is the closest available pipeline enum value for an original non-commentary fiqh work, but the classification is imprecise.
 Multi-Layer: VERIFIED — Pipeline: false / Expected: false / Model agreement: yes
 Science: VERIFIED — Pipeline: ['fiqh'] / Expected: ['fiqh']
 Trust: SKIPPED (gate_abort)
@@ -264,7 +264,7 @@ The two wrong cases (0.90 and 0.85) are distinguishable from the correct cases o
 
 1. **النووي consistency:** Three books by النووي in this session (الأذكار, شرح النووي, الأربعون). Author name and death date (676) are perfectly consistent across all three. Genre varies appropriately (hadith_collection, sharh, hadith_collection/matn). ML varies correctly (false, true, false — only the sharh is multi-layer). The pipeline handles same-author-different-work well.
 
-2. **الشافعي consistency:** Two books by الشافعي (الأم, الرسالة). Author name and death date (204) consistent. Genre varies appropriately (matn, risalah). ML differs: الأم is correctly false; الرسالة triggers the tahqiq-as-layer bias on Opus (the only difference is الرسالة has a muhaqiq identified in extraction — أحمد محمد شاكر — while الأم does not). This confirms that the muhaqiq field triggers Opus's over-extension of multi-layer.
+2. **الشافعي consistency:** Two books by الشافعي (الأم, الرسالة). Author name and death date (204) consistent. Genre varies appropriately (matn, risalah). ML differs: الأم is correctly false; الرسالة triggers the tahqiq-as-layer bias on Opus (الرسالة has a muhaqiq identified in extraction — أحمد محمد شاكر — while الأم does not). However, muhaqiq presence is necessary but NOT sufficient for this bias: الأذكار has a muhaqiq (الأرنؤوط) yet Opus correctly says ML=false. The differentiator may be the nature or extent of the tahqiq — the mechanism is not fully understood.
 
 3. **Attribution nuances:** الأم has attribution disagreement (Opus=traditional, CA=definitive) while الرسالة has agreement (both=definitive). This is interesting — both are by الشافعي, but Opus treats الأم's attribution differently, likely due to the more complex transmission history (compiled by البويطي/الربيع). الرسالة's attribution is more direct (written as a letter, manuscript in الربيع's hand from الشافعي's lifetime).
 
