@@ -628,7 +628,7 @@ ML=true is 100% consistent for genuine commentary works across all sessions.
 | 3 | مسند أحمد (Session 3) | Opus | tahqiq_note (أحمد شاكر) |
 | 4 | تفسير الطبري ط التربية (Session 6) | **GPT-5.4** | tahqiq_note (محمود شاكر) |
 
-Instance 4 is notable: it is the first time a model other than Opus exhibits the tahqiq_note bias. GPT-5.4 treats محمود شاكر's famous tahqiq as a scholarly layer. The pattern is now confirmed as model-agnostic — it is a training-data bias about what constitutes a "layer" rather than a model-specific artifact.
+Instance 4 is notable: it is the first time a model other than Opus exhibits the tahqiq_note bias. GPT-5.4 treats محمود شاكر's famous tahqiq as a scholarly layer. The pattern is now observed in 2 of 3 models (Opus: 3/73 books, GPT-5.4: 1/6 books) but never in Command A (0/67 books). This suggests the bias is not universal across all LLMs — Command A appears immune. The causal mechanism remains unknown.
 
 ### Death Date Classification Summary (Session 6)
 
