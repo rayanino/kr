@@ -189,7 +189,10 @@ After completing all 10 verdicts:
 
 4. Strategic prediction validation from PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md.
 
-5. Commit and push the report as PHASE_C_SESSION4_REPORT.md. Note: the owner will run 4 review rounds after this. Each round may amend the report. The final commit happens after Round 4.
+5. Commit and push the report as PHASE_C_SESSION4_REPORT.md. Note: the owner will run 5 review rounds after this.
+   - Rounds 1-4: Review the report (each round attacks from a different angle). The report is finalized after Round 4.
+   - After Round 4: Write the handoff (NEXT.md) for Session 5 with pre-scanned pipeline data.
+   - Round 5: Verify the handoff against pipeline data and governing documents. The final commit happens after Round 5.
 </after_all_verdicts>
 
 <task>
@@ -205,7 +208,7 @@ HELPER TOOL: python3 read_book.py "book_directory_name" reads all data for any b
 
 Then evaluate all 10 Session 4 books. For each book, re-read the quick reference, then follow the corrected per-book workflow exactly. Produce the structured verdict for each book.
 
-After book 4 or 5: pause and run the mid-session quality gate from EVALUATION_QUICK_REFERENCE.md.
+After book 6 or 7: pause and run the mid-session quality gate from EVALUATION_QUICK_REFERENCE.md.
 
 After all 10 verdicts: produce the consistency self-check, confidence calibration, and cross-book patterns sections. Commit the report.
 </task>

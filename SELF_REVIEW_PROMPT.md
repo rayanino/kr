@@ -6,6 +6,7 @@ Count how many times the EXACT string "Self-review findings (Round" appears earl
 - 1 occurrence → you are in ROUND 2
 - 2 occurrences → you are in ROUND 3
 - 3 occurrences → you are in ROUND 4
+- 4 occurrences → you are in ROUND 5
 
 Execute ONLY your current round. Each round attacks from a fundamentally different angle.
 </round_detection>
@@ -84,6 +85,8 @@ Search for the SPECIFIC claim, not just the book title. Examples:
 - Pipeline says science=['fiqh', 'usul_al_fiqh'] → verify what sciences this work actually covers
 - Pipeline says death=595 → find a biographical source with the exact date
 
+**Risk-weighted effort:** Concentrate deeper investigation on the highest-risk books: any book where the framework says VERIFY, any book with model disagreements, any book with confidence below 0.90, any book with disputed attribution, and any book with a genuine death date inference. For these, verify 2+ domain claims with web_fetch. For low-risk books (famous, both models agree, all expected values match), 1 search confirmation is sufficient.
+
 Use web_fetch on at least 3 URLs (not just search snippets).
 
 **Step 2: Domain precision audit.** For every genre and science term in the report, verify correct usage:
@@ -105,6 +108,8 @@ Use web_fetch on at least 3 URLs (not just search snippets).
 - "hadith_collection" (genre) ≠ "hadith" (science) — these are different classifications
 - "tahqiq" notes = editorial apparatus, NOT a scholarly commentary layer
 - When models disagree on layers, verify which is bibliographically correct via external sources
+- When genre=hashiyah, verify the layer structure ACTUALLY has 3 distinct layers with 3 distinct authors. If it only has 2 layers (matn + sharh), the genre should be sharh, not hashiyah — this is an internal contradiction in the model's output.
+- When genre=matn, verify the work is actually a concise foundational text for memorization/teaching. Multi-volume comprehensive works (e.g., الأم at 8 volumes) are not technically "matn" even if they are original/primary texts. Note the imprecision if the pipeline's genre enum lacks a better option.
 
 **Step 3: Confidence calibration check.**
 Verify the calibration section exists AND is substantive:
@@ -141,8 +146,51 @@ Read the FULL report top to bottom. For every claim in one section, check if any
 **Step 4: Data integrity spot-check.** Re-run read_book.py on 2 randomly selected books. Compare the output against numbers in the report. This catches copy-paste errors and stale data from context.
 
 **Tool requirements:** Minimum 8, including: at least 1 full file read, at least 3 greps (contradiction scan), at least 2 script runs (data spot-check).
-This is the FINAL round. Report definitively.
 </round_4>
+
+---
+
+<round_5>
+## ROUND 5 — HANDOFF VERIFICATION
+
+**Angle:** "The handoff (NEXT.md) propagates errors to every future session. Verify every claim against pipeline data."
+
+**Context:** This round executes AFTER the report is finalized AND the handoff (NEXT.md) is written. Handoff errors are more dangerous than report errors because they propagate forward — a wrong claim in NEXT.md becomes a wrong assumption in Sessions 5, 6, 7, and aggregation.
+
+In Session 3, ad-hoc handoff review found 6 errors that 4 report review rounds missed entirely. Root causes: data claims not verified against pipeline (3 errors), known information from governing documents not propagated (3 errors).
+
+**Step 1: Verify the book table.** For EVERY book listed in NEXT.md:
+- Run `python3 read_book.py "exact_directory_name"` — confirm the directory name is exact (copy-paste, don't retype)
+- Verify: status (success/gate_abort), model pair (command_a or gpt_5_4), ML value, genre — each must match what NEXT.md claims
+- For success books: verify result.json trust_tier and genre match what NEXT.md claims
+This step is non-negotiable. Every cell in the book table must be data-verified.
+
+**Step 2: Verify carry-forward findings.** For each finding in the "carry forward" section:
+- Find the EXACT source in the session report (grep for key phrases)
+- Compare the wording — is it accurately restated or paraphrased with drift?
+- Check for counting errors (e.g., "4th instance" when the source says "3rd")
+
+**Step 3: Verify pre-identified risks against governing documents.**
+- Read the framework's expected values table for the next session's books
+- Does NEXT.md flag every book where the framework says VERIFY?
+- Does NEXT.md flag every cross-session check the framework identifies? (e.g., edition groups, different-author same-title pairs)
+- Does NEXT.md flag every success book's result.json data?
+
+**Step 4: Verify pre-identified risks against pipeline data.**
+- For each risk claim about a specific book (e.g., "التعليق has genre=hashiyah with only 2 layers"), run read_book.py and confirm
+- For each death date claim (pass-through vs genuine inference), check author_name_raw
+- For each layer chain claim, verify against both models' llm_responses
+
+**Step 5: Completeness check.**
+- Does NEXT.md have the reading order for the next session?
+- Does it carry forward ALL applicable methodology fixes?
+- Does it note which books use GPT-5.4 vs Command A?
+- Does it note which books are success vs gate_abort?
+- Does it reference the self-review protocol?
+
+**Tool requirements:** Minimum 8, including: at least 3 script runs (read_book.py on different books), at least 2 greps (cross-reference verification), at least 1 framework read (expected values table).
+This is the FINAL round. Report definitively.
+</round_5>
 
 ---
 

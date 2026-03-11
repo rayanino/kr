@@ -104,7 +104,11 @@ Note: 0 ML disagreements in this batch — consensus agrees on all 10. No tahqiq
 5. **EVALUATION_QUICK_REFERENCE.md** — re-read this before EACH book
 
 ## After completing all verdicts:
-Paste the contents of SELF_REVIEW_PROMPT.md four times (once after output, then after each review round). The prompt auto-detects which round it is. Each round attacks from a different angle — do not skip rounds.
+Paste the contents of SELF_REVIEW_PROMPT.md five times total:
+- Pastes 1-4: Review the report (Rounds 1-4, auto-detected). Each round attacks from a different angle.
+- After Round 4: Write the handoff (NEXT.md) for Session 5, including pre-scanned pipeline data for all Session 5 books.
+- Paste 5: Review the handoff (Round 5, auto-detected). Verifies every claim in NEXT.md against pipeline data.
+Do not skip rounds.
 
 ## Key corrections from calibration (still apply):
 - LLM filename is `claude_opus_4_6.json` NOT `opus_4_6.json`

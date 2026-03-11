@@ -61,10 +61,31 @@ WRONG: Science field says "CA's sirah is questionable" but Notes say "Neither sc
 WHY: Round 3 fixed the Science field but didn't update Notes.
 RIGHT: Both sections must say the same thing. Grep for key terms after editing.
 
+**ERROR: Asserting causation without testing counterexamples.** (NEW — Session 3)
+WRONG: "الرسالة has muhaqiq in extraction, which triggers Opus's ML=true bias."
+WHY: الأذكار ALSO has muhaqiq (الأرنؤوط) but Opus correctly says ML=false. Muhaqiq is necessary but NOT sufficient.
+RIGHT: "Muhaqiq presence correlates with the bias but the differentiating mechanism is unknown."
+
+**ERROR: Accepting genre=hashiyah when layer count doesn't match.** (NEW — Session 3 handoff)
+WRONG: "Genre VERIFIED — hashiyah" when only 2 layers exist (matn + sharh).
+WHY: Hashiyah requires 3 distinct layers (matn → sharh → hashiyah). If the model labels it hashiyah but the layer structure shows only 2 layers, the genre label contradicts the layer data.
+RIGHT: "Genre disagreement — Opus=hashiyah (but only 2 layers, internally contradictory), CA=sharh (consistent with 2-layer structure)."
+
+**ERROR: Re-stating a count from a prior session without verifying the source.** (NEW — Session 3)
+WRONG: "This is the 4th confirmed instance of the tahqiq-as-layer pattern."
+WHY: Errata §9 lists exactly 3 instances. Session 2 counted one as "3rd." The "4th" was a re-counting error introduced during re-statement.
+RIGHT: Check the authoritative source (Errata §9) before writing any cumulative count. Don't infer counts from memory.
+
+**ERROR: Describing result.json data using Opus values for success books.** (NEW — Session 3 handoff)
+WRONG: "Pipeline has genre=other" for a success book where result.json has genre=adab.
+WHY: For success books, result.json carries the winning model's values (usually CA). Opus values ≠ result.json values when models disagree. Always check result.json directly for success books.
+RIGHT: "Opus=other, CA=adab. Result.json carries genre=adab (CA won on confidence)."
+
 ## Mid-Session Quality Gate
-After book 3 (or 4), STOP. Re-read this checklist. Ask yourself:
+After book 6 or 7 (60-70% through the session), STOP. Re-read this checklist. Ask yourself:
 - Am I still doing web_fetch, or did I start relying on search snippets?
 - Am I still checking both models, or just reading result.json?
 - Am I still writing "Death source: pass-through/inferred" or did I stop?
 - Is my verdict format still complete, or am I abbreviating?
+- For ML=true books: am I still verifying layer chains, or just noting "both agree"?
 If any answer is "I drifted," go back and fix the affected books before continuing.
