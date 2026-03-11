@@ -4,7 +4,7 @@
 
 | Session | Scope | Books | VERIFIED | PLAUSIBLE | FLAG | ESCALATE | Report |
 |---------|-------|-------|----------|-----------|------|----------|--------|
-| 0 (Calibration) | 3 calibration books | 3 | 1 | 2 | 0 | 0 | PHASE_C_ERRATA.md §12 |
+| 0 (Calibration) | 3 calibration books | 3 | 2 | 1 | 0 | 0 | PHASE_C_ERRATA.md §12 |
 | 1 (Fixture Regression) | Fixtures + 3 additional | 14 | — | — | — | — | PHASE_C_SESSION1_REPORT.md |
 | 2 (Famous Works A) | Major reference works | 14 | — | — | — | — | PHASE_C_SESSION2_REPORT.md |
 | 3 (Famous Works B) | Famous works continued | 7 | 7 | 0 | 0 | 0 | PHASE_C_SESSION3_REPORT.md |
@@ -28,7 +28,7 @@ Read each session report and extract every per-book verdict into a single canoni
 
 | Book (exact directory name) | Session | Status | Verdict | Author correct? | Genre correct? | ML correct? | Key issue |
 
-For the 3 books evaluated twice (شرح العقيدة الطحاوية ط الرسالة in Sessions 4+6, and any others), use the later session's verdict (it had the benefit of cross-edition comparison).
+For the 4 books evaluated twice (مجموع الفتاوى, الأربعون النووية, شرح العقيدة الطحاوية ط الرسالة, حاشية ابن عابدين), use the later session's verdict (it had the benefit of cross-edition comparison).
 
 ### 2. Produce aggregate statistics
 
@@ -53,7 +53,7 @@ Based on the systematic findings, what should be fixed before Step 4 (calibratio
 
 ### FINDING 1: Zero Author Identification Errors
 
-**0 author errors across 76 verdicts (73 unique books).** This is the pipeline's strongest field. Every book — from famous (ابن تيمية, النووي, ابن حجر) to obscure (هاني فقيه, أحمد قشاش) to institutional (اللجنة الدائمة) — was correctly identified. The pipeline correctly handles:
+**0 author errors across 76 verdicts (72 unique books).** This is the pipeline's strongest field. Every book — from famous (ابن تيمية, النووي, ابن حجر) to obscure (هاني فقيه, أحمد قشاش) to institutional (اللجنة الدائمة) — was correctly identified. The pipeline correctly handles:
 - Compiler vs author distinction (مجموع الفتاوى: ابن تيمية not ابن القاسم; المستدرك: same)
 - Father vs son disambiguation (حاشية ابن عابدين vs تكملة حاشية — Session 6)
 - Same author across different works (النووي ×3, ابن القيم ×5, ابن معين ×2)
