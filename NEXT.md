@@ -14,7 +14,7 @@
 | 7 (Remaining) | Final 10 unevaluated | 10 | 4 | 6 | 0 | 0 | PHASE_C_SESSION7_REPORT.md |
 | **TOTAL** | | **76 verdicts** | **59** | **17** | **0** | **0** | |
 
-**73 unique books** evaluated (3 books appear in two sessions for cross-edition checks). **0 FLAG, 0 ESCALATE** across the entire corpus.
+**72 unique books** evaluated (4 books appear in two sessions: مجموع الفتاوى, الأربعون النووية, شرح العقيدة الطحاوية ط الرسالة, حاشية ابن عابدين). **0 FLAG, 0 ESCALATE** across the entire corpus. 1 pipeline book (أمالي المحاملي رواية ابن الصلت, gate_abort) was never selected for evaluation — a coverage gap, not an error.
 
 Note: Sessions 1-2 per-verdict breakdowns are in their reports but were not tracked in the running-total format used from Session 3 onward. The post-Session 4 cumulative was 34V + 5P = 39 books (verified in Session 4 and Session 5 reports). Sessions 1-2 individual V/P splits should be counted from their reports during aggregation.
 

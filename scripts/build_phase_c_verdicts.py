@@ -1520,7 +1520,7 @@ verdicts = [
         "duplicate_of": None,
     },
     {
-        "book": "شرح العقيدة الطحاوية - ط الأوقاف السعودية",
+        "book": "شرح العقيدة الطحاوية - ط الأوقاف السعودية - بتعليقات أحمد شاكر",
         "session": 6,
         "status": "gate_abort",
         "models": "opus + command_a",
@@ -1949,7 +1949,23 @@ stats = {
     "death_source_distribution": death_source_dist,
 }
 
-output = {"verdicts": verdicts, "_statistics": stats}
+coverage_notes = {
+    "pipeline_books_total": 73,
+    "unique_books_evaluated": len(unique_books),
+    "unevaluated_books": [
+        "أمالي المحاملي رواية ابن الصلت"
+    ],
+    "unevaluated_note": "Processed by pipeline (gate_abort, consensus agreed) but never selected for manual evaluation in any session. This is a coverage gap, not a data error.",
+    "duplicate_books": [
+        {"book": "مجموع الفتاوى", "sessions": [0, 3], "note": "S3 regression re-evaluation"},
+        {"book": "الأربعون النووية", "sessions": [0, 3], "note": "S3 regression re-evaluation"},
+        {"book": "شرح العقيدة الطحاوية - ط الرسالة", "sessions": [4, 6], "note": "S6 re-used S4 verdict for cross-edition check"},
+        {"book": "حاشية ابن عابدين = رد المحتار - ط الحلبي", "sessions": [2, 6], "note": "S6 re-evaluated for father/son cross-check with تكملة"},
+    ],
+    "next_md_correction": "NEXT.md states '73 unique books evaluated' — actual count is 72 evaluated + 1 unevaluated (أمالي المحاملي). NEXT.md states '3 books appear in two sessions' — actual count is 4.",
+}
+
+output = {"verdicts": verdicts, "_statistics": stats, "_coverage_notes": coverage_notes}
 
 out_path = Path("phase_c_collection/PHASE_C_ALL_VERDICTS.json")
 out_path.parent.mkdir(parents=True, exist_ok=True)
