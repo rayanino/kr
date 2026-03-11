@@ -10,13 +10,14 @@
 
 | Verdict | Count | Books |
 |---------|-------|-------|
-| VERIFIED | 7 | حاشية ابن عابدين, لسان العرب, سير أعلام النبلاء, فتح الباري, بداية المجتهد, الموسوعة الفقهية, زاد المستقنع |
-| VERIFIED w/ FLAG | 1 | مسند أحمد (ML disagreement — tahqiq-as-layer bias) |
+| VERIFIED | 8 | حاشية ابن عابدين, لسان العرب, سير أعلام النبلاء, فتح الباري, بداية المجتهد, الموسوعة الفقهية, مسند أحمد*, زاد المستقنع |
 | PLAUSIBLE | 0 | — |
 | FLAG | 0 | — |
 | ESCALATE | 0 | — |
 
-**Running totals (Sessions 0–2):** 17 VERIFIED, 4 PLAUSIBLE, 1 VERIFIED w/ FLAG, 0 FLAG, 0 ESCALATE (22 books evaluated)
+*مسند أحمد: Overall VERIFIED. Field-level FLAG on multi-layer (Opus=true, CA=false; known tahqiq-as-layer bias). All other fields correct. See verdict #7 for detail.
+
+**Running totals (Sessions 0–2):** 18 VERIFIED, 4 PLAUSIBLE, 0 FLAG, 0 ESCALATE (22 books evaluated)
 
 ---
 
@@ -30,7 +31,7 @@ Models: opus + command_a
 Verdict: **VERIFIED**
 Author: VERIFIED — Pipeline: محمد أمين بن عمر بن عبد العزيز عابدين الدمشقي / Verified: same / Death: 1252 vs 1252 ✓ / LLM conf: 0.99 (Opus), 0.95 (CA) / Death source: embedded in author_name_raw (not separate field, not genuine inference)
 Genre: VERIFIED — Pipeline: hashiyah / Expected: hashiyah / Shamela cat: الفقه الحنفي / Agreement: yes (school vs form, compatible)
-Multi-Layer: VERIFIED — Pipeline: true / Expected: true / Model agreement: yes (both true). Opus correctly identifies 3-layer structure: matn (التمرتاشي), sharh (الحصكفي), hashiyah (ابن عابدين). Note: Opus adds tahqiq_note layer for this edition — but since ML=true is correct regardless (genuine hashiyah), this doesn't affect binary classification.
+Multi-Layer: VERIFIED — Pipeline: true / Expected: true / Model agreement: yes (both true). Opus correctly identifies 3-layer structure: matn (التمرتاشي), sharh (الحصكفي), hashiyah (ابن عابدين). Note: CA's layer detail is wrong — it attributes both matn and sharh to الحصكفي, conflating the matn author التمرتاشي. Binary ML=true is correct for both models; only the layer attribution details differ. Opus also adds a tahqiq_note layer for this edition — but since ML=true is correct regardless (genuine hashiyah), this doesn't affect binary classification.
 Science: VERIFIED — Pipeline: ['fiqh'] / Expected: ['fiqh']
 Trust: SKIPPED (gate_abort)
 Consensus: agreed=true, models=[command_a, opus_4_6], disagreement=none
@@ -129,7 +130,7 @@ Author: VERIFIED — Pipeline: وزارة الأوقاف والشئون الإس
 Genre: VERIFIED — Pipeline: mawsuah / Expected: mawsuah / Shamela cat: الفقه العام / Agreement: yes (subject vs form, compatible)
 Multi-Layer: VERIFIED — Pipeline: false / Expected: false / Model agreement: yes
 Science: VERIFIED — Pipeline: ['fiqh'] / Expected: ['fiqh']
-Trust: PLAUSIBLE — Pipeline: flagged / Trust score: 0.4625 / Note: Pipeline flags modern compilations per its rules. The الموسوعة is actually one of the most authoritative fiqh works in modern Islamic scholarship (government-backed, 45 volumes, multi-decade project). The "flagged" trust tier is technically correct per SPEC rules (modern compilation → flagged), but may need recalibration for institutional encyclopedias of this stature. Not flagging as an error — it's a design choice, not a classification mistake.
+Trust: PLAUSIBLE — Pipeline: flagged / Trust score: 0.4625 / Note: Pipeline flags this book. The الموسوعة is actually one of the most authoritative fiqh works in modern Islamic scholarship (government-backed, 45 volumes, multi-decade project). The low trust score and "flagged" tier may be influenced by the institutional authorship (no individual scholar to validate against), the modern_compilation authority_level (per Opus; CA said "reference"), or other trust engine factors. Not flagging as an error — but the trust engine's handling of institutional encyclopedias may need calibration.
 Consensus: agreed=true, models=[command_a, opus_4_6], disagreement=none
 Extraction quality: **Notable — author_name_raw was EMPTY.** Yet both LLMs correctly identified the institutional author from the title alone. This is a strong positive finding about inference capability.
 Result.json model source: command_a (CA had conf 1.0 > Opus 0.97)
@@ -143,7 +144,7 @@ Notes: The extraction having EMPTY author_name_raw makes this a genuine LLM infe
 Book: مسند أحمد - ت شاكر - ط دار الحديث
 Status: gate_abort
 Models: opus + command_a
-Verdict: **VERIFIED with FLAG on ML** (tahqiq-as-layer systematic bias confirmed)
+Verdict: **VERIFIED** (field-level FLAG on multi-layer — see below)
 Author: VERIFIED — Pipeline: أحمد بن محمد بن حنبل الشيباني / Verified: same / Death: 241 vs 241 ✓ / LLM conf: 0.99 (Opus), 1.0 (CA) / Death source: pass-through (extraction had 241)
 Genre: VERIFIED — Pipeline: hadith_collection / Expected: hadith_collection / Shamela cat: كتب السنة / Agreement: yes
 Multi-Layer: **FLAG** — Pipeline (Opus): true / Pipeline (CA): false / Expected: false / Model agreement: **NO — ML DISAGREEMENT**
@@ -218,9 +219,11 @@ Notes: Death date has scholarly dispute (960 vs 968). Pipeline has 968 (majority
 
 2. **Command A consistently higher confidence:** In all 3 success books, CA had 1.0 author confidence vs Opus's 0.97-0.99. This means CA "wins" the confidence comparison — but for 2 of the 3 books (لسان العرب, الموسوعة الفقهية), both models returned identical genre and science values, so the "winner" is indistinguishable from the result fields. Only سير أعلام النبلاء shows a visible difference: result.json carries CA's science_scope (['tarikh', 'sirah']) rather than Opus's (['tarikh', 'ulum_al_hadith']).
 
-3. **Attribution:** Both models agree on "definitive" for all 8 books. No traditional/definitive disagreements in this batch (unlike Session 1). This is expected — all 8 are very famous, well-attributed works.
+3. **Attribution: prediction incorrect, but behavior may be more accurate.** Both models agree on "definitive" for all 7 classical books (plus الموسوعة). The task's attribution_decision section predicted that "حاشية ابن عابدين and other classical works may show [traditional/definitive] disagreement." This prediction was wrong — Opus says "definitive" for all Session 2 classics. Combined with Session 1 data (where Opus said "traditional" for obscure books like حديث الضب and أحاديث أيوب), this suggests Opus discriminates: famous well-established works → definitive; obscure conventionally-attributed works → traditional. This is arguably MORE accurate than the blanket "classical = traditional" rule in SPEC §4.A.4, since works like مسند أحمد and فتح الباري have strong independent evidence of authorship beyond mere convention.
 
 4. **Death date diagnostic value:** Zero genuine death date inferences in this batch. The 2 pre-identified "real inferences" (ابن عابدين 1252, بداية المجتهد 595) were actually embedded in the raw author field. This weakens the strategic analysis's predictions — these weren't true tests of LLM death date inference capability. The genuine inference tests remain in Sessions 3, 5, and 6.
+
+5. **Sanity checks: systematic gate_abort artifact.** All 5 gate_abort books have "author_name_blank" sanity flags (because result.json has partial data for gate_abort books). All 3 success books have 0 flags. 4 gate_abort books also have "muhaqiq_not_in_context" info flags (context assembly skipped for gate_abort). These are artifacts of gate_abort status, not real classification errors. The sanity check fires on result.json, which is empty for gate_abort books — but the data IS correct in llm_responses/.
 
 ---
 
@@ -230,15 +233,16 @@ From PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md:
 
 | Prediction | Result |
 |-----------|--------|
-| Session 2 difficulty: LOW | ✅ Confirmed — 7/8 fully verified, 1 verified with expected flag |
+| Session 2 difficulty: LOW | ✅ Confirmed — 8/8 VERIFIED (1 with ML field-level flag) |
 | مسند أحمد: HIGH RISK — ML disagreement | ✅ Confirmed — exact tahqiq-as-layer pattern as predicted |
 | فتح الباري: tahqiq-as-layer bias possible | ✅ Confirmed — Opus adds tahqiq_note layer, but binary ML still correct |
 | حاشية ابن عابدين: death date real inference | ❌ Not confirmed — death date was embedded in raw author field |
 | بداية المجتهد: death date real inference | ❌ Not confirmed — death date was embedded in raw author field |
+| حاشية ابن عابدين: attribution traditional/definitive disagreement | ❌ Not confirmed — both models say "definitive" for all 7 classical books |
 | Genre will be the field with most FLAGs (3-5 across Sessions 2-5) | 0 genre flags in Session 2 — prediction not tested yet (famous works have unambiguous genres) |
 | Sessions 2-7 will not produce new ML disagreements beyond the known 4 | ✓ Consistent — no new patterns found |
 
-**Net prediction accuracy: 4/6 confirmed, 2/6 incorrect (death date inference mischaracterized).** The death date false positives reveal a gap in the strategic analysis methodology: it checked extraction.author_death_hijri but not the text content of author_name_raw.
+**Net prediction accuracy: 4/8 confirmed, 3/8 incorrect, 1/8 pending.** The attribution prediction failure is the most interesting — it reveals Opus discriminates between famous and obscure classical works rather than applying a blanket "traditional" label.
 
 ---
 
@@ -253,6 +257,10 @@ From PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md:
 3. **Genre classification perfect for famous works.** All 8 genres correct with no ambiguity.
 
 4. **Tahqiq-as-layer pattern continues to be precisely predictable.** مسند أحمد confirmed the 3rd instance; the pattern is consistent and well-characterized.
+
+5. **Opus shows superior bibliographic depth on layer structure.** For حاشية ابن عابدين, Opus correctly identified the 3-layer chain (التمرتاشي → الحصكفي → ابن عابدين) while CA incorrectly attributed both matn and sharh to الحصكفي. Binary ML was correct for both, but Opus's layer detail is bibliographically superior.
+
+6. **Attribution behavior is more nuanced than predicted.** Opus says "definitive" for famous classical works and "traditional" for obscure ones — a meaningful distinction that may be more accurate than the blanket "classical = traditional" rule.
 
 ### Issues Found
 
@@ -271,9 +279,16 @@ From PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md:
 
 ### Self-Review Corrections Applied
 
-The following substantive corrections were made during critical self-review:
-1. **Source independence audit:** All VERIFIED threshold counts re-examined with Shamela-ecosystem sources excluded. All 8 still meet the 2+ independent threshold. مسند أحمد was the tightest case (3 independent: Wikipedia + archive.org + islamway).
-2. **Result.json model source precision:** Corrected claim from "CA values in all 3" to "distinguishable CA values only in سير أعلام النبلاء; other 2 had identical inter-model values."
-3. **الموسوعة الفقهية authority_level discrepancy:** Added note about Opus ("modern_compilation") vs CA ("reference") divergence.
-4. **Death date inference evidence strengthened:** Added explicit verification that author_name_raw was in prompt_sent.json metadata_fields_present, proving death dates were in the prompt text.
-5. **Additional web_fetches:** 3 pages fetched during review to improve FIX 2 compliance.
+**Round 1 (methodology verification):**
+1. Source independence audit — Shamela-ecosystem sources excluded from VERIFIED counts
+2. Result.json model source precision corrected
+3. الموسوعة authority_level discrepancy documented
+4. Death date inference evidence strengthened with prompt_sent.json data
+5. Additional web_fetches (1/8 → 4/8)
+
+**Round 2 (logic and completeness audit):**
+6. **Verdict category fixed:** "VERIFIED with FLAG" hybrid replaced with standard VERIFIED + field-level note. Running totals corrected (17→18 VERIFIED).
+7. **Attribution prediction failure documented:** Task predicted traditional/definitive disagreement for classical books; all 7 showed definitive/definitive agreement. Finding: Opus discriminates by book fame, not just era.
+8. **Sanity checks examined:** 5/8 books have sanity flags — all are gate_abort artifacts (author_name_blank on partial result.json), not real errors.
+9. **CA layer structure error noted:** For حاشية ابن عابدين, CA conflates matn/sharh authors. Opus is bibliographically superior on layer detail.
+10. **Trust tier reasoning fixed:** Removed unsupported "modern compilation → flagged" causal claim for الموسوعة; replaced with honest uncertainty about trust engine factors.
