@@ -9,7 +9,7 @@
 - Sessions 3–7: PENDING
 
 ## Session 3 books (7) — Famous Works B:
-الرحيق المختوم, الأم للشافعي, الرسالة للشافعي, الأذكار للنووي ت الأرنؤوط, شرح النووي على مسلم, مجموع الفتاوى, الأربعون النووية
+الرحيق المختوم, الأم للشافعي - ط الفكر, الرسالة للشافعي, الأذكار للنووي ت الأرنؤوط, شرح النووي على مسلم, مجموع الفتاوى, الأربعون النووية
 
 Note: مجموع الفتاوى and الأربعون النووية were evaluated in Session 0 (calibration). They serve as regression checks — verdicts should be consistent with calibration.
 
@@ -17,7 +17,7 @@ Note: مجموع الفتاوى and الأربعون النووية were evaluat
 - الرسالة للشافعي: HIGH RISK — ML disagreement (tahqiq-as-layer, same as مسند أحمد). Opus=true with tahqiq_note (Ahmad Shakir), CA=false. Expected: false.
 - الرسالة للشافعي: death date inference — check if 204 is embedded in raw text or genuine inference
 - الرحيق المختوم: death date inference (المباركفوري, 1427) — check raw text vs genuine inference
-- الأم للشافعي: genre ambiguity — what genre fits best? (verify against sources, not training data)
+- الأم للشافعي - ط الفكر: genre ambiguity — what genre fits best? (verify against sources, not training data)
 - الأذكار للنووي: note this uses GPT-5.4 as second model (one of the 6 GPT-5.4 books)
 - شرح النووي على مسلم: genuine sharh — ML=true expected, both models should agree
 
@@ -38,8 +38,8 @@ Note: مجموع الفتاوى and الأربعون النووية were evaluat
 7. **NEW: Confidence calibration section required** (was missing in Session 2 initial draft)
 
 ## Before starting Session 3, read these in order:
-1. PHASE_C_EVALUATION_FRAMEWORK.md
-2. PHASE_C_ERRATA.md (corrections override framework)
+1. PHASE_C_ERRATA.md (corrections override framework — DEEP READ, these are the actual rules)
+2. PHASE_C_EVALUATION_FRAMEWORK.md (SKIM for context — verdict scale, worked examples, expected values table)
 3. PHASE_C_SESSION2_REPORT.md (for cross-session consistency and carried-forward findings)
 4. PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md (Session 3 risk predictions)
 5. **EVALUATION_QUICK_REFERENCE.md** — re-read this before EACH book (70 lines, compact checklist + negative examples + mid-session gate)
