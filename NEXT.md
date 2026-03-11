@@ -23,7 +23,7 @@ This session evaluates **edition groups**: multiple editions of the same work, w
 | # | Book (exact directory name) | Status | Models | Genre (Opus) | ML | Key risk |
 |---|---------------------------|--------|--------|--------------|-----|----------|
 | **إعلام الموقعين (3 editions)** |||||
-| 1 | أعلام الموقعين عن رب العالمين - ط عطاءات العلم | gate_abort | opus + command_a | matn | F | **Consensus DISAGREED** (genre + name + attribution) |
+| 1 | أعلام الموقعين عن رب العالمين - ط عطاءات العلم | gate_abort | opus + command_a | matn | F | **Consensus DISAGREED** (genre + name format) |
 | 2 | إعلام الموقعين عن رب العالمين - ت مشهور | gate_abort | opus + command_a | other | F | Consensus DISAGREED (name format only) |
 | 3 | إعلام الموقعين عن رب العالمين - ط العلمية | gate_abort | opus + command_a | other | F | — |
 | **البداية والنهاية (2 editions)** |||||
@@ -63,7 +63,7 @@ This session evaluates **edition groups**: multiple editions of the same work, w
 
 2. **إعلام الموقعين: Genre inconsistency across 3 editions.**
    This is the ONLY work in the corpus with 3 editions. Genre varies: ط عطاءات → Opus=matn (0.85), CA=usul_al_fiqh (0.95); ت مشهور → Opus=other (0.75), CA=other (0.85); ط العلمية → Opus=other (0.75), CA=matn (0.95). The framework expects risalah/other with ML=false. ALL 3 correctly identify ابن القيم (ت 751). ML=false for all 3 ✓ (critical check from framework: MUST NOT be ML=true).
-   Note: أعلام ط عطاءات is in the Errata §6 consensus-disagreed list (genre + name format + attribution disagreement — the only substantive disagreement in that list).
+   Note: أعلام ط عطاءات is in the Errata §6 consensus-disagreed list (genre + name format disagreement — partially substantive per Errata).
 
 3. **تفسير الطبري ط دار التربية: ML disagreement (Opus=false, GPT-5.4=true).**
    GPT-5.4 says ML=true with layers [matn: الطبري, tahqiq_note: محمود محمد شاكر]. This is the SAME tahqiq_note-as-layer pattern seen in Sessions 2-3 (الرسالة, مختصر صحيح مسلم, مسند أحمد — documented in Errata §9). Opus correctly says ML=false. The other edition (ت التركي, using Command A) has both models saying ML=false. The ML disagreement is model-specific (GPT-5.4) and edition-specific. Note the pattern but do not flag it as an error — it is a known model-level bias. Cumulative tahqiq_note instances: 4 (3 from Errata §9 + this one).
