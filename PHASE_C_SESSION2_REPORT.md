@@ -76,7 +76,7 @@ Consensus: agreed=true, models=[command_a, opus_4_6], disagreement=none
 Extraction quality: clean. muhaqiq correctly identified (محمد أيمن الشبراوي).
 Result.json model source: command_a (CA had conf 1.0 > Opus 0.99)
 Web Sources: ar.wikipedia.org/سير_أعلام_النبلاء, noor-book.com, archive.org (multiple), ar.islamway.net, marefa.org, ibnaljawzi.com
-Notes: Science scope minor disagreement between models: Opus says 'ulum_al_hadith' while CA says 'sirah'. The result.json carries CA's values because CA had higher author confidence. Neither secondary science is wrong, but neither is precisely the best label either. Primary science 'tarikh' is correct.
+Notes: Science scope disagreement between models: Opus says 'ulum_al_hadith' while CA says 'sirah'. Result.json carries CA's values (CA had higher author confidence). CA's 'sirah' is technically imprecise for a biographical dictionary — see Science field note. Primary science 'tarikh' is correct; the secondary science is the diagnostic question.
 
 ---
 
