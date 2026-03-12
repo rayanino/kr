@@ -65,7 +65,7 @@ The 71.1% gate_abort rate (54/76) is extremely high and is entirely explained by
 
 Overall: min=0.55, max=0.99, mean=0.947, median=0.985.
 
-Author confidence discriminates well. The 0.95+ band is 90% VERIFIED (53/59). Below 0.85, zero books achieved VERIFIED — all 8 are PLAUSIBLE. The transition zone is 0.85–0.95, which is a coin flip.
+Author confidence discriminates well. The 0.95+ band is 90% VERIFIED (53/59). The [0.75–0.85) band is 0% VERIFIED (0/4 — all PLAUSIBLE), while the [0.00–0.75) band has only 1 VERIFIED out of 4 (الورقة النحوية at 0.55, an outlier where the evaluator found independent sources despite the model's low confidence). In total, below 0.85 only 1 of 8 books is VERIFIED (12.5%). The transition zone is 0.85–0.95, which is a coin flip (56%).
 
 However, the 6 PLAUSIBLE books at confidence 0.95+ deserve scrutiny. Examining them: 3 are driven by source scarcity for minor hadith works (حديث الضب at 0.99, نصيحة لطالب الحق at 0.97, حديث يحيى بن معين at 0.97 — all minor juz' with no independent web sources), 1 by severe content truncation (أدب النفوس at 0.97 — only 9% of pages present), and 2 by text ambiguity and cross-edition inconsistency (both الإبانة editions at 0.97 — debated text integrity and genre drift between editions). Note: الفقه الأكبر, which has genuine attribution ambiguity, has author confidence 0.90 — it falls in the 0.85–0.95 band, not this group. The confidence was correct — the model knew the author — but the *verdict* was downgraded because the evaluator couldn't find independent web sources to confirm. This means high author confidence tracks identification accuracy, not overall verifiability.
 
@@ -101,7 +101,7 @@ The one VERIFIED book with genre confidence <0.75 is أساليب بلاغية (
 
 The trust tier is a strong predictor of evaluation outcome for success books: verified tier is 90% VERIFIED, flagged tier is only 42% VERIFIED.
 
-What drives flagged status? Examining the 12 flagged books: the dominant pattern is **modern or living authors with absent death dates and no established bibliographic history**. 9 of 12 flagged books have death_source=absent. The trust algorithm penalizes unknown muhaqiq and missing death dates, which correctly identifies books with higher uncertainty — but the flag means "less bibliographic evidence" rather than "untrustworthy content."
+What drives flagged status? Examining the 12 flagged books: the dominant pattern is **modern or living authors with absent death dates and no established bibliographic history**. 10 of 12 flagged books have death_source=absent (the exceptions are مذكرات مالك بن نبي with a pass-through date and أساليب بلاغية with a genuine inference). The trust algorithm penalizes unknown muhaqiq and missing death dates, which correctly identifies books with higher uncertainty — but the flag means "less bibliographic evidence" rather than "untrustworthy content."
 
 The one PLAUSIBLE in the verified tier is من أحاديث سفيان الثوري (trust score 0.6925) — a minor hadith juz' that scored well on trust factors but had limited independent web sources.
 
@@ -235,6 +235,8 @@ THEN auto-correct is_multi_layer to false
 ```
 This is safe because tahqiq_note is definitionally editorial apparatus, not a scholarly commentary layer. The rule should NOT fire if any other layer type is present (sharh, hashiyah, etc.).
 
+**Safety caveat:** At scale, some heavy tahqiq editions (e.g., Ahmad Shakir's extensive footnotes in Musnad Ahmad) blur the line between editorial notes and scholarly commentary. The auto-correction should log every override to a review queue so the owner can verify that no genuine multi-layer books are being silently flattened.
+
 Priority: **Must-fix.** 3 books with wrong output, and the pattern will repeat at scale.
 
 **4.1.2 — Author confidence surfacing bug**
@@ -339,7 +341,7 @@ These VERIFIED books have classification imprecision or lower confidence that ma
 
 ### 5.5 Summary
 
-**38 unconditional ground truth candidates** (28 strongest + 10 solid) ready to use immediately. 3 additional candidates with ML override needed (tahqiq-note correction). 8 usable with caveats. 6 excluded. The existing 14-entry GROUND_TRUTH.json grows to ~52 entries (41 + existing 14 minus overlap). This provides a robust calibration baseline for Step 4.
+**38 unconditional ground truth candidates** (29 strongest + 9 solid) ready to use immediately. 3 additional candidates with ML override needed (tahqiq-note correction). 8 usable with caveats. 6 excluded. The existing 14-entry GROUND_TRUTH.json grows to ~52 entries (41 + existing 14 minus overlap). This provides a robust calibration baseline for Step 4.
 
 ---
 
@@ -363,7 +365,7 @@ The source engine is **ready for Step 4** with the three must-fix items addresse
 
 **Risk 3 — Tahqiq_note pattern frequency at scale.** Phase C found 4 instances in 73 books (5.5%). At 150 books, expect ~8 instances. If the post-correction rule (4.1.1) is not implemented, these will all produce wrong ML output.
 
-**Risk 4 — Evaluator bandwidth.** Step 4 calls for targeted review of all mismatches, gates, disagreements, and 10% random. If the gate-abort rate isn't reduced, that's ~107 gate_abort + all mismatches + 10% random = potentially 50+ books requiring human review. The owner reviews 5 per session — that's 10 review sessions.
+**Risk 4 — Evaluator bandwidth.** Step 4 calls for targeted review of all mismatches, gates, disagreements, and 10% random. If the gate-abort rate is reduced per must-fix 4.1.3, the review workload is manageable: ~12 consensus disagreements + ~6 ML mismatches + 15 random (10% of 150) ≈ 30 books, or ~6 review sessions at 5/session. If the gate-abort fix is NOT implemented, the workload expands to 107+ gate_abort books requiring at least spot-checking — an impractical volume. This reinforces why 4.1.3 is a must-fix, not a should-fix.
 
 ### 6.3 GO/NO-GO Verdict
 
