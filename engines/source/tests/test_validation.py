@@ -285,3 +285,71 @@ class TestAutoCorrectChain:
         errors_6 = _check_multi_layer_coherence(data, None)
         gate_errors = [e for e in errors_6 if e.severity == "gate"]
         assert len(gate_errors) == 0
+
+
+# ── Check 5f: Tahqiq-note override (BUG-03) ──
+
+
+class TestTahqiqNoteOverride:
+    """Tests for check 5f: auto-correct ML when all layers are {matn, tahqiq_note}."""
+
+    def test_tahqiq_only_layers_clears_ml(self) -> None:
+        """is_multi_layer=True + only matn/tahqiq_note → corrected to False, layers cleared."""
+        data = _make_data(
+            is_multi_layer=True,
+            text_layers=[
+                {"layer_type": "matn", "author_name": "المؤلف"},
+                {"layer_type": "tahqiq_note", "author_name": "المحقق"},
+            ],
+        )
+        errors = _check_consistency(data, None, None)
+        assert data["is_multi_layer"] is False
+        assert data["text_layers"] == []
+        override_errors = [e for e in errors if e.check == "tahqiq_note_override"]
+        assert len(override_errors) == 1
+        assert "tahqiq editorial apparatus" in override_errors[0].message
+
+    def test_sharh_layer_prevents_override(self) -> None:
+        """is_multi_layer=True + sharh layer present → stays True (real commentary)."""
+        data = _make_data(
+            is_multi_layer=True,
+            text_layers=[
+                {"layer_type": "matn", "author_name": "المؤلف"},
+                {"layer_type": "sharh", "author_name": "الشارح"},
+            ],
+        )
+        errors = _check_consistency(data, None, None)
+        assert data["is_multi_layer"] is True
+        assert len(data["text_layers"]) == 2
+        override_errors = [e for e in errors if e.check == "tahqiq_note_override"]
+        assert len(override_errors) == 0
+
+    def test_matn_only_still_overrides(self) -> None:
+        """is_multi_layer=True + only matn → corrected (matn ⊂ {matn, tahqiq_note})."""
+        data = _make_data(
+            is_multi_layer=True,
+            text_layers=[{"layer_type": "matn", "author_name": "المؤلف"}],
+        )
+        errors = _check_consistency(data, None, None)
+        assert data["is_multi_layer"] is False
+        assert data["text_layers"] == []
+
+    def test_5e_then_5f_chain(self) -> None:
+        """sharh + ML=false + tahqiq layers → 5e sets True, 5f overrides back to False."""
+        data = _make_data(
+            genre="sharh",
+            is_multi_layer=False,
+            structural_format="commentary",
+            text_layers=[
+                {"layer_type": "matn", "author_name": "المؤلف"},
+                {"layer_type": "tahqiq_note", "author_name": "المحقق"},
+            ],
+        )
+        errors = _check_consistency(data, None, None)
+        # Check 5e fires (auto-correct to True), then 5f fires (override to False)
+        assert data["is_multi_layer"] is False
+        assert data["text_layers"] == []
+        # Both corrections should produce warnings
+        check_names = {e.check for e in errors}
+        assert "consistency_genre_multi_layer" in check_names
+        assert "tahqiq_note_override" in check_names

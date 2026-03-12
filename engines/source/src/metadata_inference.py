@@ -319,6 +319,34 @@ def set_text_fidelity(source_format: SourceFormat) -> str:
     return TextFidelity.MEDIUM.value
 
 
+def _determine_death_date_source(
+    death_date: Optional[int],
+    extracted: dict[str, Any],
+) -> str:
+    """Determine the provenance of a death date value.
+
+    Returns one of: 'absent', 'author_raw_text', 'extraction', 'inference'.
+    Checks extraction fields for the death date value before classifying as LLM inference.
+    """
+    if death_date is None:
+        return "absent"
+
+    date_str = str(death_date)
+
+    # Check author_name_raw first (most common source: "السيوطي ت 911هـ")
+    author_raw = extracted.get("author_name_raw")
+    if author_raw and date_str in str(author_raw):
+        return "author_raw_text"
+
+    # Check other structured extraction fields
+    for field in ("author_name", "shamela_category", "edition_raw", "publisher_raw"):
+        val = extracted.get(field)
+        if val is not None and date_str in str(val):
+            return "extraction"
+
+    return "inference"
+
+
 def build_needs_review(
     confidence_scores: dict[str, float],
     extracted: dict[str, Any],
@@ -551,21 +579,9 @@ async def infer_metadata(
     }
 
     # 10b. Determine death_date_source provenance
-    death_date = author_id.death_date_hijri
-    if death_date is None:
-        result.death_date_source = "absent"
-    else:
-        # Check if death date appears in extraction fields
-        author_raw = extracted.get("author_name_raw", "")
-        if str(death_date) in str(author_raw):
-            result.death_date_source = "author_raw_text"
-        elif any(
-            str(death_date) in str(extracted.get(f, ""))
-            for f in ("author_name", "shamela_category", "edition_raw", "publisher_raw")
-        ):
-            result.death_date_source = "extraction"
-        else:
-            result.death_date_source = "inference"
+    result.death_date_source = _determine_death_date_source(
+        author_id.death_date_hijri, extracted
+    )
 
     # 11. Apply confidence caps — SPEC §6
     confidence = apply_confidence_caps(canonical, result.attribution_status)

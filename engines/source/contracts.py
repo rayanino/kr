@@ -612,7 +612,7 @@ class ScholarAuthorityRecord(BaseModel):
     death_date_hijri: Optional[int] = None
     death_date_ce: Optional[int] = None
     death_date_approximate: bool = False
-    death_date_source: Optional[str] = Field(
+    death_date_source: Optional[Literal["extraction", "author_raw_text", "inference", "absent"]] = Field(
         None,
         description="Provenance of death_date_hijri: 'extraction' (from structured fields), "
                     "'author_raw_text' (parsed from author name string), "

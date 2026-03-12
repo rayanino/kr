@@ -283,6 +283,32 @@ class TestScholarRegistry:
         assert checkpoint_id is None
         assert ref.confidence == 1.0
 
+    def test_new_record_stores_full_school_affiliations(self, tmp_path: Path) -> None:
+        """Multi-entry school_affiliations dict stored correctly (BUG-01 regression)."""
+        from engines.source.src.registries.scholar_registry import lookup_or_register_author
+        from shared.human_gate.src.human_gate import configure
+        from shared.scholar_authority.src.scholar_authority import _load_registry
+
+        reg_path = tmp_path / "registries" / "scholars.json"
+        gates_dir = tmp_path / "gates"
+        configure(gates_dir=gates_dir, auto_approve=True)
+
+        affiliations = {"fiqh": "شافعي", "usul": "شافعي", "nahw": "بصري"}
+        ref, _ = lookup_or_register_author(
+            name="إمام الحرمين الجويني",
+            death_date_hijri=478,
+            school_affiliations=affiliations,
+            source_id="src_test_sa",
+            registry_path=reg_path,
+        )
+
+        # Verify the full dict was stored, not {"primary": "شافعي"}
+        registry = _load_registry(reg_path)
+        record = registry[ref.canonical_id]
+        stored_sa = record.school_affiliations if hasattr(record, "school_affiliations") else record.get("school_affiliations", {})
+        assert stored_sa == affiliations
+        assert "primary" not in stored_sa
+
     def test_muhaqiq_registration(self, tmp_path: Path) -> None:
         """Muhaqiq with name-only → registered as new scholar."""
         from engines.source.src.registries.scholar_registry import lookup_or_register_muhaqiq

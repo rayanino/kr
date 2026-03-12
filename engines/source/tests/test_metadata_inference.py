@@ -947,3 +947,68 @@ class TestInferMetadata:
 
         assert result.genre == "other"
         assert "genre" in result.needs_review_fields
+
+
+# ── Death date source determination (BUG-04) ──
+
+
+class TestDeathDateSource:
+    """Tests for _determine_death_date_source provenance logic."""
+
+    def test_absent_when_no_date(self) -> None:
+        """No death date → 'absent'."""
+        from engines.source.src.metadata_inference import _determine_death_date_source
+
+        result = _determine_death_date_source(None, {"author_name_raw": "السيوطي"})
+        assert result == "absent"
+
+    def test_author_raw_text(self) -> None:
+        """Death date visible in author_name_raw → 'author_raw_text'."""
+        from engines.source.src.metadata_inference import _determine_death_date_source
+
+        result = _determine_death_date_source(
+            911, {"author_name_raw": "جلال الدين السيوطي (ت 911هـ)"}
+        )
+        assert result == "author_raw_text"
+
+    def test_extraction_from_edition(self) -> None:
+        """Death date in edition_raw but not author_raw → 'extraction'."""
+        from engines.source.src.metadata_inference import _determine_death_date_source
+
+        result = _determine_death_date_source(
+            911,
+            {
+                "author_name_raw": "جلال الدين السيوطي",
+                "edition_raw": "طبعة 911هـ",
+            },
+        )
+        assert result == "extraction"
+
+    def test_inference_when_not_in_fields(self) -> None:
+        """Death date not in any extraction field → 'inference'."""
+        from engines.source.src.metadata_inference import _determine_death_date_source
+
+        result = _determine_death_date_source(
+            911,
+            {
+                "author_name_raw": "جلال الدين السيوطي",
+                "edition_raw": "الطبعة الأولى",
+                "publisher_raw": "دار الكتب العلمية",
+            },
+        )
+        assert result == "inference"
+
+    def test_none_field_values_handled(self) -> None:
+        """Fields with None values don't cause errors."""
+        from engines.source.src.metadata_inference import _determine_death_date_source
+
+        result = _determine_death_date_source(
+            911,
+            {
+                "author_name_raw": None,
+                "author_name": None,
+                "edition_raw": None,
+                "publisher_raw": None,
+            },
+        )
+        assert result == "inference"
