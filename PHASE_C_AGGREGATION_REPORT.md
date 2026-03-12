@@ -297,7 +297,7 @@ Problem: nukat/istidrak and jarh_wa_tadil don't have dedicated genre labels. The
 
 Proposed fix: Add genre labels `nukat` and `jarh_wa_tadil` to the enum. Update the LLM prompt to include definitions and examples.
 
-Priority: **Nice-to-have.** Only affects precision of edge-case genres. Can wait until after Step 5 when the full collection reveals how many books fall into these categories.
+Priority: **Nice-to-have.** Only affects precision of edge-case genres. Can be revisited after Step 4 results reveal how many books in a larger sample fall into these categories.
 
 **4.3.2 — Consensus expansion to ML and authority_level**
 

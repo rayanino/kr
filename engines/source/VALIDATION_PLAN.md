@@ -1,6 +1,6 @@
 # Source Engine Validation Plan — Post-Session 6
 
-**Status:** ACTIVE — governs all testing from Session 6 completion through full collection processing
+**Status:** ACTIVE — governs all testing from Session 6 completion through source engine validation
 **Derived from:** `engines/source/TESTING_PROTOCOL.md` (base plan), adapted to current state
 **Budget ceiling:** €80-100 total API credits across all phases
 **Date:** 2026-03-10
@@ -128,7 +128,7 @@ python scripts/run_session6_integration.py
 
 **Output:** `tests/results/source_engine/phase_c/` — per RESULT_PRESERVATION.md protocol:
 - Per-book directory with `result.json` (full SourceMetadata), `extraction.json`, `llm_responses/` (raw per-model), `consensus.json`, `ground_truth_comparison.json`
-- `PHASE_C_MANIFEST.json` — reusability index (Phase E skips successfully processed books)
+- `PHASE_C_MANIFEST.json` — reusability index (Step 4 skips successfully processed books)
 - `PHASE_C_SUMMARY.json` — aggregate statistics including edition-group consistency analysis
 - `PHASE_C_LESSONS.md` — bugs found, LLM quality patterns, recommendations for Phase D
 
@@ -141,17 +141,17 @@ python scripts/run_session6_integration.py
 
 ---
 
-## Step 4: Calibration Run — Phase D (€20-30)
+## Step 4: Final Validation — Phase D (~200 books, €20-30)
 
-**Purpose:** Test scaling behavior: scholar registry growth, work deduplication, trust distribution, gate rates.
+**Purpose:** Final validation of the source engine at scale. Test scaling behavior: scholar registry growth, work deduplication, trust distribution, gate rates. **Secondary purpose:** produce verified structured output that becomes the normalization engine's development input.
 
-**Prerequisites:** Step 3 findings all resolved. Owner has reviewed all Phase C results.
+**Prerequisites:** Step 3 findings all resolved (3 must-fix bugs from Phase C aggregation report). Owner has reviewed all Phase C results.
 
-**Selection:** 100-150 books, random stratified sample:
+**Selection:** ~200 books, random stratified sample:
 - Stratified by: Shamela category (proportional), estimated era (pre-1000 AH, 1000-1300, post-1300), with/without muhaqiq
-- All Phase C books included (regression check)
+- All Phase C books included (regression check — skipped via manifest if already processed and not needs_rerun)
 
-**Output:** `tests/results/source_engine/phase_d/` — same structure as Phase C per RESULT_PRESERVATION.md. `PHASE_D_MANIFEST.json` covers all 150 books. Phase C's 73 books included as regression checks. `PHASE_D_LESSONS.md` documents scaling patterns.
+**Output:** `tests/results/source_engine/phase_d/` — same structure as Phase C per RESULT_PRESERVATION.md. `PHASE_D_MANIFEST.json` covers all ~200 books. Phase C's 73 books included as regression checks. `PHASE_D_LESSONS.md` documents scaling patterns. `MASTER_MANIFEST.json` maps every book processed across all phases to its result.
 
 **Review:** Owner reviews targeted subset:
 - All ground truth mismatches
@@ -160,21 +160,9 @@ python scripts/run_session6_integration.py
 - 10% random sample of "clean" books
 - All trust_score within ±0.05 of the 0.65 boundary
 
-**GO/NO-GO:** Trust distribution reasonable. Gate rate <15%. No systematic scholar duplicates. No CORE GAP.
+**GO/NO-GO:** Trust distribution reasonable. Gate rate <15%. No systematic scholar duplicates. No CORE GAP. Results verified as correct and reliable.
 
----
-
-## Step 5: Full Collection — Phase E (€40-50)
-
-**Purpose:** Prove the pipeline handles the entire collection correctly at scale. This is the final validation gate — not a production run. The output is evidence that the source engine works, not "the library."
-
-**Prerequisites:** Step 4 passes all gates.
-
-**Input:** Entire 2,519-book Shamela collection.
-
-**Output:** `tests/results/source_engine/phase_e/` with full structured results per RESULT_PRESERVATION.md: `MASTER_MANIFEST.json` maps every book to its result (including books processed in C/D). Phase E only processes books NOT already successfully covered by earlier phases. `PHASE_E_LESSONS.md` captures the final state. The results also populate `library/` (registries, frozen sources, metadata.json files, human gate queue) as a side effect — this output becomes the normalization engine's input data.
-
-**Review:** Statistical summary reviewed. Error rate analysis. Owner resolves human gate queue. After this step, the source engine pipeline is validated and the normalization engine can begin development using real data.
+**After Step 4 passes:** Source engine is validated. The verified results (Phase C + Phase D combined: ~273 books) are saved as structured input for normalization engine development. The source engine code is proven correct and ready to process any Shamela book. Library population is a future activity — it happens only after all 7 engines are validated end-to-end. There is no Step 5.
 
 ---
 
@@ -187,9 +175,8 @@ File: `tests/results/source_engine/COST_LOG.json`
   "phases": {
     "0": {"books": 13,    "cost_usd": 1.95, "cost_eur": 1.80, "status": "complete"},
     "A": {"books": 2519,  "cost_usd": 0.00, "cost_eur": 0.00, "status": "complete"},
-    "C": {"books": 0,     "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"},
-    "D": {"books": 0,     "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"},
-    "E": {"books": 0,     "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"}
+    "C": {"books": 73,    "cost_usd": 0.00, "cost_eur": 0.00, "status": "complete"},
+    "D": {"books": 0,     "cost_usd": 0.00, "cost_eur": 0.00, "status": "pending"}
   },
   "total_eur": 1.80,
   "budget_ceiling_eur": 100.00
@@ -208,7 +195,8 @@ Updated after every run. Script refuses to start if remaining budget is below es
 4. **Cost log updated before every run.**
 5. **Owner reviews happen in Claude Chat with kr-evaluate.** 3-5 result files per turn.
 6. **Ground truth expanded incrementally.** Phase C adds ~30 entries, Phase D adds more.
-7. **Results are reusable, not disposable.** Phase C/D results are finished products. Phase E skips books already processed. Raw LLM responses saved alongside structured results. See `/RESULT_PRESERVATION.md` for the full protocol.
+7. **Results are reusable, not disposable.** Phase C/D results are finished products. Later phases skip books already processed. Raw LLM responses saved alongside structured results. See `/RESULT_PRESERVATION.md` for the full protocol.
+8. **The 2,519 books are a test sample, not the library.** Processing the full sample is not a validation goal. ~200 diverse books prove reliability. Library population happens after all 7 engines are validated.
 
 ---
 

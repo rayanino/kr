@@ -8,11 +8,11 @@
 
 ## The Rule
 
-**Every API call, every test run, every pipeline execution produces persisted artifacts structured for maximum downstream reuse.** Results are not disposable validation waste. They are the first real outputs of the engine. A book successfully processed in Step 3 is a finished source engine product — Step 5 must not re-process it. A lesson learned in Phase A must be readable by any future agent in any future session.
+**Every API call, every test run, every pipeline execution produces persisted artifacts structured for maximum downstream reuse.** Results are not disposable validation waste. They are the first real outputs of the engine. A book successfully processed in Step 3 is a finished source engine product — later phases must not re-process it. A lesson learned in Phase A must be readable by any future agent in any future session.
 
 This rule exists because:
 - LLM API calls cost real money. Re-running the pipeline on books already processed is burning budget for zero new information.
-- Every engine downstream of the source engine consumes source engine output. If we save structured results from validation phases, the normalization engine can begin development using real data before the source engine finishes its full collection run.
+- Every engine downstream of the source engine consumes source engine output. If we save structured results from validation phases, the normalization engine can begin development using real data from the source engine's validation runs — it does not need to wait for a separate "production run."
 - Bugs found in one phase teach lessons that prevent wasted runs in the next phase. If those lessons aren't documented, the next session's agent will repeat the same mistakes.
 
 **Violation of this rule** means: an API call was made whose output was not persisted, or was persisted in a format that requires re-running the call to extract the information downstream engines need. This is always wrong, regardless of phase or context.
@@ -49,18 +49,18 @@ For every book processed through any pipeline step that involves an LLM call:
 
 After each phase, produce a manifest listing every book processed, with:
 - `book_name`: original filename/directory name
-- `phase`: which phase produced this result (A, C, D, E)
+- `phase`: which phase produced this result (A, C, D)
 - `pipeline_version`: git commit hash of the engine code that produced it
 - `status`: success / error / gate_pending
 - `needs_rerun`: boolean — set to true if a bug fix between phases invalidates this result
 - `result_path`: path to the per-book JSON
 
-**Phase E reads this manifest.** For each book in the collection:
-1. If the book has `status: success` and `needs_rerun: false` from Phase C or D → **skip it**. The result is already a finished product.
+**Later phases read this manifest.** For each book to be processed:
+1. If the book has `status: success` and `needs_rerun: false` from a prior phase → **skip it**. The result is already a finished product.
 2. If `needs_rerun: true` → re-process with the fixed pipeline.
 3. If no prior result exists → process for the first time.
 
-This means Phase E's cost is: `(total_books - already_processed) × cost_per_book`, not `total_books × cost_per_book`.
+This means each phase's cost is only: `(new_books + rerun_books) × cost_per_book`.
 
 ---
 
@@ -99,30 +99,17 @@ tests/results/source_engine/phase_c/
     ground_truth_comparison.json # Comparison with owner validation
 ```
 
-**Downstream value:** These 73 books are FINISHED source engine products. Phase D includes them as regression checks. Phase E skips them entirely (unless `needs_rerun` is set). The normalization engine can start development against these 73 real results.
+**Downstream value:** These 73 books are FINISHED source engine products. Step 4 includes them as regression checks (skipping re-processing unless `needs_rerun` is set). The normalization engine can start development against these 73 real results immediately.
 
-### Phase D (Step 4) — 150 books with LLM, €20–30
+### Phase D (Step 4) — ~200 books with LLM, €20–30
 
-Same structure as Phase C, in `phase_d/`. The manifest covers all 150 books. Phase C's 73 books are included as regression checks (re-run and compared, but their results were already saved).
+Same structure as Phase C, in `phase_d/`. The manifest covers all ~200 books. Phase C's 73 books are included as regression checks (re-run and compared, but their results were already saved).
 
-### Phase E (Step 5) — Full collection, €40–50
-
-```
-tests/results/source_engine/phase_e/
-  PHASE_E_SUMMARY.json
-  PHASE_E_LESSONS.md
-  MASTER_MANIFEST.json          # Unified manifest: every book, which phase produced it
-  {book_name}/
-    result.json
-    extraction.json
-    llm_responses/
-      ...
-    consensus.json
-```
-
-**MASTER_MANIFEST.json** is the final artifact. It maps every book in the collection to its result, regardless of which phase produced it. Phase E only processes books not already covered by C and D.
-
-After Phase E, the `library/` directory is populated from these results as a side effect. The primary deliverable is the test evidence (MASTER_MANIFEST.json, per-book results, PHASE_E_LESSONS.md) proving the pipeline handles the full collection correctly. The `library/` output becomes the normalization engine's input data.
+**This is the final validation step for the source engine.** After Step 4 results are verified:
+- The source engine is validated — proven correct and reliable on ~273 diverse books across two independent runs.
+- A MASTER_MANIFEST.json is produced mapping every processed book to its result, regardless of which phase produced it.
+- The verified results become the normalization engine's development input. The normalization engine builds and tests against real source engine output — not synthetic data, not a separate "production run."
+- The source engine code is ready to process any Shamela book reliably. Actual library population happens later, after all 7 engines are proven end-to-end.
 
 ---
 
@@ -177,7 +164,7 @@ This prevents the wasteful pattern of "found 1 bug, re-run 150 books."
 This protocol is not source-engine-specific. When the normalization engine begins validation:
 
 1. Its test results are structured for the passaging engine to consume.
-2. Its Phase C (targeted testing) results are reusable by its Phase E (full collection).
+2. Its targeted testing results are reusable by its final validation run.
 3. Its lessons learned are readable by the next engine's first session.
 
 The chain is: **Source → Normalization → Passaging → ... → Synthesis**. Each engine's test results feed the next engine's development. No engine starts from scratch when real data from the previous engine already exists.

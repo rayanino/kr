@@ -177,6 +177,10 @@ These were initially listed as unevaluated but found in prior session reports. T
 
 Once the aggregation report is complete:
 1. Owner reviews the aggregate findings and resolves any remaining questions
-2. Systematic findings feed into engine bug fixes (Step 4 preparation)
-3. The VERIFIED books become ground truth candidates for calibration
-4. Phase C is CLOSED — the source engine moves to Step 4 (calibration run, 150 books, €20-30)
+2. Systematic findings feed into engine bug fixes (3 must-fix bugs from Phase C)
+3. The VERIFIED books become ground truth candidates for Step 4
+4. Phase C is CLOSED — the source engine moves to Step 4
+
+**Step 4 (~200 books, €20-30):** Fix the 3 bugs, then run ~200 random-stratified books. Verify results. If correct and reliable, the source engine is validated. Step 4's verified output is saved as structured input for the normalization engine's development — the normalization engine builds against real source engine output, not synthetic test data.
+
+**There is no Step 5.** The 2,519 books are a local test sample, not the full Shamela collection and not "the library." Processing the full sample serves no validation purpose beyond what ~200 diverse books already prove. Library population happens only after all 7 engines are built and validated end-to-end.

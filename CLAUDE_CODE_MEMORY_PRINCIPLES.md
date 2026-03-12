@@ -24,7 +24,7 @@ Save EVERYTHING: raw per-model LLM responses, full extraction dicts (including i
 
 Each phase produces: per-book structured JSON results, a phase summary, a lessons learned document (PHASE_X_LESSONS.md), and a reusability manifest (PHASE_X_MANIFEST.json) tracking which books were processed, by which pipeline version (git commit), and whether they need re-running after bug fixes.
 
-Later phases SKIP books already successfully processed in earlier phases (checked via manifest). Phase E (full collection) only processes books NOT already covered by Phase C and D. This is not optional — it is the mechanism that prevents wasting budget.
+Later phases SKIP books already successfully processed in earlier phases (checked via manifest). Step 4 only processes books NOT already covered by Phase C (unless marked needs_rerun). This is not optional — it is the mechanism that prevents wasting budget.
 
 When a bug is found between phases: assess which specific books it could have affected, mark ONLY those as needs_rerun=true in the manifest, and the next phase re-processes only the affected books. NEVER blanket re-run an entire phase because of one bug.
 
@@ -152,7 +152,7 @@ SESSION_LOG.md tracks the high-level arc across all sessions. It is the project'
 
 ## 17. BUDGET DISCIPLINE
 
-Total API budget: €98 remaining. Phases: Step 3 (€5-10), Step 4 (€20-30), Step 5 (€40-50). NEVER start a phase without checking the cost log at tests/results/source_engine/COST_LOG.json. NEVER start a run if remaining budget is below estimated cost.
+Total API budget: ~€90 remaining. Step 4 (~200 books, €20-30). Remaining budget reserved for normalization engine and beyond. NEVER start a phase without checking the cost log at tests/results/source_engine/COST_LOG.json. NEVER start a run if remaining budget is below estimated cost.
 
 Cost-saving via result reuse is mandatory (see principle #2). Re-running books already successfully processed is burning budget for zero new information.
 
@@ -240,13 +240,15 @@ Commit with meaningful messages that reference what was changed and why. Push be
 
 ## 28. THE OWNER'S SHAMELA COLLECTION
 
-2,519 books exported from Shamela desktop v4. 1,932 single .htm files + 587 multi-volume directories. Owner's collection is at: C:\Users\Rayane\Desktop\kr\shamela export samples. 263 books had filenames exceeding filesystem limits during the original audit (may or may not be present in owner's copy). The collection is the test dataset for the source engine — all validation phases run against it. The owner wants full nasab names for all authors.
+2,519 books exported from Shamela desktop v4. 1,932 single .htm files + 587 multi-volume directories. Owner's local test sample is at: C:\Users\Rayane\Desktop\kr\shamela export samples. This is a CONVENIENCE SAMPLE for testing — not the full Shamela collection (~10,000+ books) and not "the library." 263 books had filenames exceeding filesystem limits during the original audit (may or may not be present in owner's copy). The owner wants full nasab names for all authors.
 
 ---
 
 ## 29. THE VALIDATION STEP SEQUENCE
 
-Step 0 ✅ (13 fixtures, real LLM, €1.80) → Step 1 ✅ (code audit, 6 bugs fixed, €0) → Step 2 (deterministic sweep, 2519 books, €0) → Step 3 (LLM probes, 30 books, €5-10) → Step 4 (calibration, 150 books, €20-30) → Step 5 (full collection, 2519 books, €40-50).
+Step 0 ✅ (13 fixtures, real LLM, €1.80) → Step 1 ✅ (code audit, 6 bugs fixed, €0) → Step 2 ✅ (deterministic sweep, 2519 books, €0) → Step 3 ✅ (LLM probes, 73 books, ~€8) → Step 4 (~200 books, €20-30, final validation + produce normalization engine input).
+
+There is NO Step 5. The 2,519 local books are a test sample, not the library. After Step 4 validates the engine and produces verified output, the source engine is complete and we move to the normalization engine. Step 4's verified results serve as the normalization engine's development input.
 
 Each step has a GO/NO-GO gate. No phase starts without the previous gate passing. Fixes happen BETWEEN phases, not during. Run → review → fix → next phase.
 
@@ -256,7 +258,7 @@ Each step has a GO/NO-GO gate. No phase starts without the previous gate passing
 
 An engine is complete when: (1) it handles every format/input type in its SPEC, (2) every error path produces a structured error code, (3) it has been tested on real data (not just synthetic fixtures), (4) the owner has spot-checked representative outputs, (5) all GO/NO-GO gates have passed, (6) its output has been verified as consumable by the next engine downstream, and (7) PHASE_X_LESSONS.md documents everything learned.
 
-An engine is NOT complete just because: it runs without crashing on test fixtures, all unit tests pass, or it produced output for the full collection.
+An engine is NOT complete just because: it runs without crashing on test fixtures, all unit tests pass, or it produced output for a large number of books. Quantity of books processed is not a proxy for correctness — a broken engine that processes 2,519 books is still broken.
 
 ---
 
