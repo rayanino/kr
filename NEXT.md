@@ -1,43 +1,40 @@
-# NEXT — Step 4 Phase B (Claude Code)
+# NEXT — Step 4 Phase D Pipeline Run
 
-## Status: Phase A COMPLETE → Phase B (this session)
+## Status: Pre-run preparation COMPLETE. Owner runs pipeline next.
 
-Phase A verified bug fixes via smoke test (5 books, all pass), analyzed category distribution, and selected 131 new books via stratified sampling. See commits `d309b48` through `ac29b7a`.
+## What the owner does
 
----
+Open a terminal in the `kr` directory and run:
 
-## Current Task: Build Step 4 Tooling
+```
+set ANTHROPIC_API_KEY=<your key>
+set OPENROUTER_API_KEY=<your key>
 
-Claude Chat produced the task specification in the owner's message. Read it fully before writing any code.
+# Run 1: Rerun 73 Phase C books on fixed pipeline
+python scripts/run_phase_c.py phase_c_collection --books scripts/phase_c_books.txt --output-dir tests/results/source_engine/phase_d/ --budget-eur 20
 
-**Four deliverables:**
-1. Update Phase C manifest (mark 73 books for rerun)
-2. `scripts/run_phase_d.py` (adapted from run_phase_c.py — 204 books)
-3. `scripts/generate_screening_report.py` (auto-flag anomalies)
-4. `scripts/generate_review_gui.py` (self-contained HTML review tool)
+# Run 2: Process 131 new books
+python scripts/run_phase_c.py phase_d_collection --books scripts/phase_d_books.txt --output-dir tests/results/source_engine/phase_d/ --budget-eur 35
+```
 
-Commit after each deliverable.
+If disconnected mid-run, add `--resume` to the command that was interrupted:
 
----
+```
+python scripts/run_phase_c.py phase_c_collection --books scripts/phase_c_books.txt --output-dir tests/results/source_engine/phase_d/ --budget-eur 20 --resume
+python scripts/run_phase_c.py phase_d_collection --books scripts/phase_d_books.txt --output-dir tests/results/source_engine/phase_d/ --budget-eur 35 --resume
+```
 
-## Key State
+**Why two commands?** The 204 books span two prepared collection directories (`phase_c_collection/` and `phase_d_collection/`). `shamela export samples/` only has 46/204 as directories — verified by `scripts/verify_step4_books.py`.
 
-- **Pipeline version:** `ac29b7a` (HEAD, includes all bug fixes from `c640a9b` plus Phase A work)
-- **Tests passing:** 573
-- **Budget spent:** €9.70 | **Remaining:** €90.30
-- **Phase C manifest:** `tests/results/source_engine/phase_c/PHASE_C_MANIFEST.json` — needs `needs_rerun: true` for all 73 books
-- **Book lists:** `scripts/phase_c_books.txt` (73 reruns) + `scripts/phase_d_books.txt` (131 new) = 204 total
-- **Phase C results for regression comparison:** `tests/results/source_engine/phase_c/{book}/result.json`
+Expected: ~1-2 hours total, ~EUR 20 cost, 204 books processed.
 
-## After This Session
+After both runs complete, open Claude Code and paste Prompt 3 (post-processing + GUI generation).
 
-The owner runs `python scripts/run_phase_d.py COLLECTION_DIR` on their Windows machine (1-2 hours, can walk away). Then runs `generate_screening_report.py` and `generate_review_gui.py` to produce the review tools. Claude Chat evaluates results in Phase C sessions.
-
-## Governing Documents (read in this order)
-
-1. **This file** (NEXT.md)
-2. **The owner's message** — contains the full task specification
-3. **STEP4_PREPARATION_PLAN.md** — overall Step 4 workflow context
-4. **scripts/run_phase_c.py** — the script to adapt (read thoroughly)
-5. **RESULT_PRESERVATION.md** — output structure requirements
-6. **STEP3_FINAL_BUG_LIST.md** — what the bug fixes changed
+## Key state
+- Pipeline version: HEAD (post-bug-fix, smoke-tested)
+- Books: 204 (73 reruns + 131 new)
+- Combined list: `scripts/step4_all_books.txt`
+- Budget spent: EUR 9.70, estimated Phase D: ~EUR 20-30, remaining: ~EUR 60-70
+- Rerun tracking: `tests/results/source_engine/phase_d/RERUN_BOOKS.json`
+- Verification: `scripts/verify_step4_books.py` — all 6 checks PASS
+- Source engine tests: 502 passed, 0 failures
