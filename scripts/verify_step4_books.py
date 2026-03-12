@@ -67,10 +67,10 @@ def check_category_distribution(
         for b in phase_d_missing:
             messages.append(f"    - {b}")
     else:
-        messages.append(f"  Phase D: 131/131 in distribution")
+        messages.append(f"  Phase D: {len(phase_d)}/{len(phase_d)} in distribution")
 
     messages.append(
-        f"  Phase C: {phase_c_found}/73 in distribution "
+        f"  Phase C: {phase_c_found}/{len(phase_c)} in distribution "
         f"({len(phase_c_missing)} uncategorized — expected, not an error)"
     )
 
