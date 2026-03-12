@@ -146,6 +146,7 @@ def _check_consistency(
     structural_format = data.get("structural_format")
     level = data.get("level")
     is_multi_layer = data.get("is_multi_layer", False)
+    text_layers = data.get("text_layers", [])
 
     # 5a: Genre ↔ structural_format
     genre_format_rules = {
@@ -179,7 +180,7 @@ def _check_consistency(
             recovery="flag_needs_review",
         ))
 
-    # 5c: Author ↔ science scope → HUMAN GATE (only consistency check that gates)
+    # 5c: Author ↔ science scope — warning (school_affiliations keys ≠ full science portfolio)
     if registries and "scholars" in registries:
         author = data.get("author", {})
         canonical_id = author.get("canonical_id") if isinstance(author, dict) else None
@@ -194,7 +195,7 @@ def _check_consistency(
                 if not known_sciences.intersection(source_sciences):
                     errors.append(ValidationError(
                         check="consistency_author_science",
-                        severity="gate",
+                        severity="warning",
                         field="science_scope",
                         message=(
                             f"Author's known sciences {known_sciences} "
@@ -231,17 +232,56 @@ def _check_consistency(
 
     # 5e: Genre ↔ multi-layer: sharh/hashiyah must be multi-layer
     if genre in ("sharh", "hashiyah") and not is_multi_layer:
-        data["is_multi_layer"] = True  # Auto-correct in-place
-        errors.append(ValidationError(
-            check="consistency_genre_multi_layer",
-            severity="warning",
-            field="is_multi_layer",
-            message=(
-                f"Genre '{genre}' requires is_multi_layer=true — auto-corrected"
-            ),
-            error_code="SRC_METADATA_INCONSISTENCY",
-            recovery="flag_needs_review",
-        ))
+        if text_layers:  # Only auto-correct when layers exist
+            data["is_multi_layer"] = True  # Auto-correct in-place
+            errors.append(ValidationError(
+                check="consistency_genre_multi_layer",
+                severity="warning",
+                field="is_multi_layer",
+                message=(
+                    f"Genre '{genre}' requires is_multi_layer=true — auto-corrected"
+                ),
+                error_code="SRC_METADATA_INCONSISTENCY",
+                recovery="flag_needs_review",
+            ))
+        else:
+            # Genre suggests multi-layer but no layers found — flag for review
+            errors.append(ValidationError(
+                check="consistency_genre_multi_layer_no_layers",
+                severity="warning",
+                field="genre",
+                message=(
+                    f"Genre '{genre}' suggests multi-layer but text_layers is empty — "
+                    f"possible genre misclassification. Both genre and is_multi_layer need review."
+                ),
+                error_code="SRC_METADATA_INCONSISTENCY",
+                recovery="flag_needs_review",
+            ))
+
+    # 5f: Tahqiq-note override — auto-correct ML when all layers are {matn, tahqiq_note}
+    if data.get("is_multi_layer", False):
+        layers = data.get("text_layers", [])
+        if layers:
+            layer_types: set[str] = set()
+            for layer in layers:
+                lt = layer.get("layer_type") if isinstance(layer, dict) else getattr(layer, "layer_type", None)
+                if lt:
+                    layer_types.add(lt)
+            tahqiq_only_types = {"matn", "tahqiq_note"}
+            if layer_types and layer_types.issubset(tahqiq_only_types):
+                data["is_multi_layer"] = False
+                data["text_layers"] = []
+                errors.append(ValidationError(
+                    check="tahqiq_note_override",
+                    severity="warning",
+                    field="is_multi_layer",
+                    message=(
+                        f"All layer types {layer_types} are tahqiq editorial apparatus "
+                        f"(not scholarly commentary) — auto-corrected is_multi_layer to false"
+                    ),
+                    error_code="SRC_METADATA_CONSISTENCY",
+                    recovery="flag_needs_review",
+                ))
 
     return errors
 

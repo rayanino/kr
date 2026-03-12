@@ -102,6 +102,7 @@ class MetadataInferenceResult:
     is_multi_layer: bool = False
     text_layers: list[dict] = field(default_factory=list)
     author_reference: Optional[dict] = None  # Ready for ScholarReference construction
+    death_date_source: Optional[str] = None  # extraction, author_raw_text, inference, absent
 
     # Confidence
     confidence_scores: Optional[dict] = None
@@ -548,6 +549,23 @@ async def infer_metadata(
             "consensus" if len(successful) >= 2 else "inferred"
         ),
     }
+
+    # 10b. Determine death_date_source provenance
+    death_date = author_id.death_date_hijri
+    if death_date is None:
+        result.death_date_source = "absent"
+    else:
+        # Check if death date appears in extraction fields
+        author_raw = extracted.get("author_name_raw", "")
+        if str(death_date) in str(author_raw):
+            result.death_date_source = "author_raw_text"
+        elif any(
+            str(death_date) in str(extracted.get(f, ""))
+            for f in ("author_name", "shamela_category", "edition_raw", "publisher_raw")
+        ):
+            result.death_date_source = "extraction"
+        else:
+            result.death_date_source = "inference"
 
     # 11. Apply confidence caps — SPEC §6
     confidence = apply_confidence_caps(canonical, result.attribution_status)

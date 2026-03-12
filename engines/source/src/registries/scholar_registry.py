@@ -30,9 +30,10 @@ from shared.scholar_authority.src.scholar_authority import (
 def lookup_or_register_author(
     name: str,
     death_date_hijri: Optional[int],
-    school: Optional[str],
+    school_affiliations: Optional[dict[str, Optional[str]]],
     source_id: str,
     *,
+    death_date_source: Optional[str] = None,
     registry_path: Path = Path("library/registries/scholars.json"),
 ) -> tuple[ScholarReference, Optional[str]]:
     """Look up an author; register if new; create human gate if ambiguous.
@@ -44,6 +45,11 @@ def lookup_or_register_author(
     - 0.50-0.85: create AUTHOR_DISAMBIGUATION gate, return best match's id
     - < 0.50: register new, return new canonical_id
     """
+    # Extract one school value for lookup() compatibility
+    school: Optional[str] = None
+    if school_affiliations:
+        school = next((v for v in school_affiliations.values() if v), None)
+
     result: ScholarMatchResult = lookup(
         name,
         death_date_hijri=death_date_hijri,
@@ -97,8 +103,10 @@ def lookup_or_register_author(
         sources_encountered_in=[source_id],
         last_updated="",  # set by register()
     )
-    if school:
-        new_record.school_affiliations = {"primary": school}
+    if school_affiliations:
+        new_record.school_affiliations = school_affiliations
+    if death_date_source:
+        new_record.death_date_source = death_date_source
 
     registered = register(new_record, registry_path=registry_path)
     ref = ScholarReference(

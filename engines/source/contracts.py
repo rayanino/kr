@@ -277,10 +277,20 @@ class HumanGateTrigger(str, Enum):
 # ──────────────────────────────────────────────────────────────────
 
 class ScholarReference(BaseModel):
-    """Reference to a scholar in the scholar authority registry (SPEC §4.A.5)."""
+    """Reference to a scholar in the scholar authority registry (SPEC §4.A.5).
+
+    confidence = registry match score (1.0 for new records, match_score for
+    auto-linked records). This is NOT the LLM identification confidence.
+    Downstream engines must use SourceMetadata.confidence_scores.author for
+    the LLM identification confidence (capped per D-027).
+    """
     canonical_id: str = Field(description="sch_{5_digit_sequence}, e.g. sch_00042")
     name_arabic: str = Field(description="Primary Arabic name as found in the source")
-    confidence: float = Field(ge=0.0, le=1.0, description="Confidence in identification")
+    confidence: float = Field(
+        ge=0.0, le=1.0,
+        description="Registry match confidence (1.0 for new records). "
+                    "NOT LLM identification confidence — use confidence_scores.author for that."
+    )
     source_of_identification: str = Field(
         description="How identified: 'extracted', 'inferred', 'owner_provided', 'consensus'"
     )
@@ -602,6 +612,12 @@ class ScholarAuthorityRecord(BaseModel):
     death_date_hijri: Optional[int] = None
     death_date_ce: Optional[int] = None
     death_date_approximate: bool = False
+    death_date_source: Optional[str] = Field(
+        None,
+        description="Provenance of death_date_hijri: 'extraction' (from structured fields), "
+                    "'author_raw_text' (parsed from author name string), "
+                    "'inference' (LLM training knowledge), 'absent' (no date available)"
+    )
     era_century_hijri: Optional[int] = None
     geographic_origin: Optional[str] = None
     geographic_active: list[str] = Field(default_factory=list)

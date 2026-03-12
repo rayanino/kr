@@ -160,7 +160,7 @@ class TestConsistencyChecks:
         assert level_errors[0].severity == "warning"
 
     def test_44_author_science_mismatch_gates(self) -> None:
-        """Test 44: Author known in nahw but source says fiqh → human gate."""
+        """Test 44: Author known in nahw but source says fiqh → warning (BUG-01 fix)."""
         data = _make_data(science_scope=["fiqh"])
         registries = {
             "scholars": {
@@ -172,12 +172,17 @@ class TestConsistencyChecks:
         errors = _check_consistency(data, registries, None)
         science_errors = [e for e in errors if e.check == "consistency_author_science"]
         assert len(science_errors) == 1
-        assert science_errors[0].severity == "gate"
+        assert science_errors[0].severity == "warning"
         assert science_errors[0].recovery == "human_gate"
 
     def test_45_sharh_auto_corrects_multi_layer(self) -> None:
-        """Test 45: sharh + is_multi_layer=false → auto-corrected to true."""
-        data = _make_data(genre="sharh", is_multi_layer=False, structural_format="commentary")
+        """Test 45: sharh + is_multi_layer=false + layers present → auto-corrected to true."""
+        data = _make_data(
+            genre="sharh",
+            is_multi_layer=False,
+            structural_format="commentary",
+            text_layers=[{"layer_type": "sharh", "author_name": "الشارح"}],
+        )
         errors = _check_consistency(data, None, None)
         # After check 5e, data should be auto-corrected
         assert data["is_multi_layer"] is True
@@ -260,20 +265,23 @@ class TestPassthrough:
 class TestAutoCorrectChain:
     """Verify that check 5e auto-correction chains to check 6."""
 
-    def test_sharh_auto_correct_then_empty_layers_gate(self) -> None:
-        """sharh + is_multi_layer=false → auto-correct → check 6a → gate."""
+    def test_sharh_empty_layers_no_auto_correct(self) -> None:
+        """sharh + is_multi_layer=false + empty layers → warning, NO auto-correct (BUG-05 fix)."""
         data = _make_data(
             genre="sharh",
             is_multi_layer=False,
             text_layers=[],
             structural_format="commentary",
         )
-        # Run both checks in sequence (as validate_source_metadata does)
         errors_5 = _check_consistency(data, None, None)
-        # After 5e, is_multi_layer should be True
-        assert data["is_multi_layer"] is True
+        # After BUG-05 fix: is_multi_layer stays False (no auto-correct)
+        assert data["is_multi_layer"] is False
 
+        no_layers_warns = [e for e in errors_5 if e.check == "consistency_genre_multi_layer_no_layers"]
+        assert len(no_layers_warns) == 1
+        assert no_layers_warns[0].severity == "warning"
+
+        # Check 6a should NOT fire since is_multi_layer is still False
         errors_6 = _check_multi_layer_coherence(data, None)
-        # 6a: is_multi_layer=true + empty layers → gate
         gate_errors = [e for e in errors_6 if e.severity == "gate"]
-        assert len(gate_errors) == 1
+        assert len(gate_errors) == 0

@@ -52,7 +52,6 @@ from engines.source.src.exceptions import SourceEngineError, make_error
 from engines.source.src.extractors import extract_metadata
 from engines.source.src.freezer import freeze_source
 from engines.source.src.human_gate import (
-    gate_author_science_mismatch,
     gate_consensus_disagreement,
     gate_low_confidence,
     gate_trust_flagged,
@@ -327,7 +326,7 @@ async def acquire_source(
             registry_path = config.library_root / "registries" / "scholars.json"
             author_name = ""
             death_date_hijri = None
-            school = None
+            school_affiliations = None
 
             if inference.author_reference:
                 author_name = inference.author_reference.get("name_arabic", "")
@@ -336,20 +335,19 @@ async def acquire_source(
             if not author_name:
                 author_name = extracted.get("author_name_raw") or extracted.get("author_name", "مجهول")
 
-            # Extract school from canonical output
+            # Extract school_affiliations from canonical output
             if (
                 inference.canonical_output
                 and inference.canonical_output.author_identification.school_affiliations
             ):
-                schools = inference.canonical_output.author_identification.school_affiliations
-                # school_affiliations is {science: school_name}, we want a school name
-                school = next((v for v in schools.values() if v), None)
+                school_affiliations = inference.canonical_output.author_identification.school_affiliations
 
             author_ref, author_gate_id = lookup_or_register_author(
                 author_name,
                 death_date_hijri,
-                school,
+                school_affiliations,
                 source_id,
+                death_date_source=getattr(inference, "death_date_source", None),
                 registry_path=registry_path,
             )
             human_gates: list[str] = []
@@ -574,9 +572,12 @@ async def acquire_source(
             )
 
             # Apply auto-corrections from validation back to metadata
-            # (Checks 5e and 6b may auto-correct is_multi_layer in the dict)
+            # (Checks 5e, 5f, and 6b may auto-correct is_multi_layer and text_layers)
             if data_for_validation.get("is_multi_layer") != metadata.is_multi_layer:
                 metadata.is_multi_layer = data_for_validation["is_multi_layer"]
+            # Propagate text_layers clearing (check 5f tahqiq-note override)
+            if not data_for_validation.get("text_layers") and metadata.text_layers:
+                metadata.text_layers = []
 
             fatal_errors = [e for e in validation_errors if e.severity == "fatal"]
             if fatal_errors:
@@ -597,13 +598,6 @@ async def acquire_source(
                             gate_error.field,
                             data_for_validation.get(gate_error.field, ""),
                             0.0,
-                        )
-                    elif gate_error.check == "consistency_author_science":
-                        gate_author_science_mismatch(
-                            source_id,
-                            author_sciences=[],
-                            source_sciences=[],
-                            detail=gate_error.message,
                         )
                     elif gate_error.check == "multi_layer_empty_layers":
                         gate_low_confidence(

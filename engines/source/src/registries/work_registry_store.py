@@ -120,7 +120,7 @@ def process_genre_chain(
         author_ref, _ = lookup_or_register_author(
             name=chain.base_work_author,
             death_date_hijri=None,
-            school=None,
+            school_affiliations=None,
             source_id=metadata.source_id,
             registry_path=scholar_registry_path,
         )

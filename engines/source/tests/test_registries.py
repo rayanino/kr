@@ -228,7 +228,7 @@ class TestScholarRegistry:
         ref, checkpoint_id = lookup_or_register_author(
             name="السيوطي",
             death_date_hijri=911,
-            school="شافعي",
+            school_affiliations={"fiqh": "شافعي"},
             source_id="src_test_auto",
             registry_path=reg_path,
         )
@@ -251,7 +251,7 @@ class TestScholarRegistry:
         ref, checkpoint_id = lookup_or_register_author(
             name="السيوطي",
             death_date_hijri=None,
-            school=None,
+            school_affiliations=None,
             source_id="src_test_gate",
             registry_path=reg_path,
         )
@@ -273,7 +273,7 @@ class TestScholarRegistry:
         ref, checkpoint_id = lookup_or_register_author(
             name="عبد الله بن إبراهيم الزاحم",
             death_date_hijri=None,
-            school=None,
+            school_affiliations=None,
             source_id="src_test_new",
             registry_path=reg_path,
         )
