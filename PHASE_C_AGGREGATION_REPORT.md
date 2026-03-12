@@ -147,7 +147,7 @@ Consensus agreed=false does not predict poor verdicts: 5/6 disagreed books are V
 
 ## Section 3 — Systematic Findings (Independently Verified)
 
-NEXT.md lists 9 findings accumulated across 7 evaluation sessions. Each is verified below against the full 76-book dataset. Three additional findings are documented that emerge only at scale.
+NEXT.md lists 9 findings accumulated across 7 evaluation sessions. Each is verified below against the full 76-book dataset. Four additional findings are documented that emerge only at scale.
 
 ### FINDING 1: Zero Author Identification Errors — CONFIRMED
 
@@ -209,11 +209,11 @@ The single-axis finding (genre confidence ≥ 0.95 → 97.3% VERIFIED) is strong
 
 This creates a clean automated triage rule for Step 4: books passing the joint threshold can be fast-tracked in review, while books below either threshold warrant close human scrutiny. At scale, this could reduce review workload significantly — roughly 45% of Phase C books (34/76) passed the joint threshold.
 
-### FINDING 13 (NEW): Science Scope Breadth Amplifies Gate-Abort Rate
+### FINDING 12 (NEW): Science Scope Breadth Amplifies Gate-Abort Rate
 
 Books with 3+ sciences in their scope list are 88–100% gate_abort (16/17), compared to 63–66% for books with 1–2 sciences (38/59). This is a direct consequence of the empty-registry bug (more sciences → more chances for the author-science mismatch to fire), but it has a practical implication: the books most affected by the gate-abort bug are the major multi-disciplinary classical works (encyclopedic fatawa collections, comprehensive sharh works) — exactly the books where full pipeline output matters most. This reinforces why gate-abort rate reduction (4.1.3) is a must-fix.
 
-### FINDING 14 (NEW): Session 5 and 7 Are Genuinely Harder, Not Conservative
+### FINDING 13 (NEW): Session 5 and 7 Are Genuinely Harder, Not Conservative
 
 Sessions 5 and 7 each produced 6 PLAUSIBLE out of 10 books (60%). Is this harder material or more conservative evaluation? The evidence favors genuinely harder material:
 
@@ -315,17 +315,17 @@ Priority: **Nice-to-have.** The tahqiq_note post-correction (4.1.1) addresses th
 
 A good ground truth entry must have: (a) VERIFIED verdict with 2+ independent sources, (b) unambiguous genre classification (not a catch-all label), (c) high confidence in both author and genre, (d) correct ML status. Books with PLAUSIBLE verdicts are excluded entirely — ground truth must be authoritative.
 
-### 5.2 Strong Ground Truth Candidates (38 unconditional + 3 ML-caveat)
+### 5.2 Strong Ground Truth Candidates (39 unconditional + 3 ML-caveat)
 
-These 38 unique VERIFIED books have both author confidence ≥ 0.92 and genre confidence ≥ 0.85, correct ML status, and no known classification imprecision. 3 additional books qualify on all dimensions except ML (wrong due to the tahqiq-note bias) and are listed separately:
+These 39 unique VERIFIED books have both author confidence ≥ 0.92 and genre confidence ≥ 0.85, correct ML status, and no known classification imprecision. 3 additional books qualify on all dimensions except ML (wrong due to the tahqiq-note bias) and are listed separately:
 
-The strongest tier (conf_a ≥ 0.97, conf_g ≥ 0.95, genre is specific): مجموع الفتاوى (fatawa), فتاوى اللجنة الدائمة - المجموعة الأولى (fatawa), فتاوى اللجنة الدائمة - المجموعة الثانية (fatawa), بداية المجتهد (fiqh_comparative), حاشية ابن عابدين (hashiyah), حاشية العطار (hashiyah), لسان العرب (mujam), زاد المستقنع (mukhtasar), ألفية ابن مالك - ت القاسم (nazm), ألفية ابن مالك - ط التعاون (nazm), الموسوعة الفقهية الكويتية (mawsuah), همع الهوامع (sharh), فتح الباري (sharh), شرح النووي على مسلم (sharh), فتح الباري لابن رجب (sharh), شرح الورقات (sharh), شرح العقيدة الطحاوية - ط الرسالة (sharh), شرح العقيدة الطحاوية - ط الأوقاف (sharh), شرح مقامات الحريري (sharh), اللامع العزيزي (sharh), الرحيق المختوم (sirah), سير أعلام النبلاء (tabaqat), تفسير الطبري ت التركي (tafsir), تفسير الطبري ط التربية (tafsir), البداية والنهاية ت التركي (tarikh), البداية والنهاية ط السعادة (tarikh), مقامات الحريري (adab), البيان والتبيين (adab).
+The strongest tier (conf_a ≥ 0.97, conf_g ≥ 0.95, genre is specific): مجموع الفتاوى (fatawa), فتاوى اللجنة الدائمة - المجموعة الأولى (fatawa), فتاوى اللجنة الدائمة - المجموعة الثانية (fatawa), بداية المجتهد (fiqh_comparative), حاشية ابن عابدين (hashiyah), حاشية العطار (hashiyah), لسان العرب (mujam), زاد المستقنع (mukhtasar), ألفية ابن مالك - ت القاسم (nazm), ألفية ابن مالك - ط التعاون (nazm), الموسوعة الفقهية الكويتية (mawsuah), همع الهوامع (sharh), فتح الباري (sharh), شرح النووي على مسلم (sharh), فتح الباري لابن رجب (sharh), شرح الورقات (sharh), شرح العقيدة الطحاوية - ط الرسالة (sharh), شرح العقيدة الطحاوية - ط الأوقاف (sharh), شرح مقامات الحريري (sharh), شرح ديوان المتنبي للواحدي (sharh), اللامع العزيزي (sharh), الرحيق المختوم (sirah), سير أعلام النبلاء (tabaqat), تفسير الطبري ت التركي (tafsir), تفسير الطبري ط التربية (tafsir), البداية والنهاية ت التركي (tarikh), البداية والنهاية ط السعادة (tarikh), مقامات الحريري (adab), البيان والتبيين (adab).
 
 The solid tier (conf_a ≥ 0.92, conf_g ≥ 0.85, no issues): الأربعون النووية (hadith_collection), آداب الصحبة (risalah), آداب الفتوى (risalah), الأم للشافعي (matn), الأذكار للنووي (matn), أبنية الأسماء (matn), أحاديث أيوب السختياني (hadith_collection), أحاديث العطار (hadith_collection), مسند أبي حنيفة (hadith_collection), المستدرك على مجموع الفتاوى (fatawa).
 
 **ML-caveat tier** (VERIFIED, high confidence, but ml_correct=False due to tahqiq-note bias): مسند أحمد ت شاكر (hadith_collection, conf 0.99/0.97), الرسالة للشافعي (risalah, conf 0.99/0.92), مختصر صحيح مسلم (mukhtasar, conf 0.99/0.97). All three are excellent ground truth for author and genre, but their is_multi_layer=true is WRONG (should be false). **Include as ground truth with ml_correct overridden to false.** These are valuable precisely because they test the tahqiq-note edge case.
 
-### 5.3 Usable With Caveats (8 books)
+### 5.3 Usable With Caveats (7 books)
 
 These VERIFIED books have classification imprecision or lower confidence that makes them less ideal as ground truth:
 
@@ -339,8 +339,6 @@ These VERIFIED books have classification imprecision or lower confidence that ma
 
 تكملة حاشية ابن عابدين (hashiyah, conf_a=0.92, conf_g=0.95) — good confidence but complex identity case (father vs son). **Recommendation: include — this is actually valuable ground truth for the father/son disambiguation pattern.**
 
-شرح ديوان المتنبي للواحدي (sharh, conf_g=0.95) — solid. **Recommendation: include.**
-
 أعلام الموقعين ط عطاءات العلم (matn, conf_g=0.85) — genre disagreement between models (matn vs usul_al_fiqh). **Recommendation: exclude from ground truth given the genre instability across editions.**
 
 ### 5.4 Exclude from Ground Truth (6 books)
@@ -349,7 +347,7 @@ These VERIFIED books have classification imprecision or lower confidence that ma
 
 ### 5.5 Summary
 
-**38 unconditional ground truth candidates** (29 strongest + 9 solid) ready to use immediately. 3 additional candidates with ML override needed (tahqiq-note correction). 8 usable with caveats. 6 excluded. The existing 14-entry GROUND_TRUTH.json grows to ~52 entries (41 + existing 14 minus overlap). This provides a robust calibration baseline for Step 4.
+**39 unconditional ground truth candidates** (29 strongest + 10 solid) ready to use immediately. 3 additional candidates with ML override needed (tahqiq-note correction). 7 usable with caveats. 6 excluded. The existing 14-entry GROUND_TRUTH.json grows to ~56 entries (42 + existing 14 minus overlap). This provides a robust calibration baseline for Step 4.
 
 ---
 
