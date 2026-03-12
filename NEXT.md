@@ -1,100 +1,52 @@
-# NEXT — Step 3 Bug Fixes (Claude Code)
+# NEXT — Step 4 Preparation (Claude Chat)
 
-## Status: Bug List COMPLETE → Claude Code Fixes All Bugs
+## Status: Step 3 Bug Fixes COMPLETE → Step 4 Preparation
 
-The exhaustive bug identification is done. `STEP3_FINAL_BUG_LIST.md` contains 7 bugs (3 must-fix, 2 should-fix, 2 nice-to-have deferred). All decisions are made. No ambiguity remains.
+Claude Code fixed BUG-01 through BUG-05 (commit `c640a9b`). 562 tests pass. No smoke test with real books yet.
 
----
-
-## Your Task
-
-Fix BUG-01 through BUG-05 in the order specified below. BUG-06 and BUG-07 are deferred to post-Step-4.
-
-**Read `STEP3_FINAL_BUG_LIST.md` first.** Every bug has: root cause with file + line numbers, data evidence, and a specific proposed fix. Follow the proposed fixes — they have been verified against the code and data.
+The `STEP4_PREPARATION_PLAN.md` defines the complete workflow. Read it first.
 
 ---
 
-## Implementation Order
+## Current Task: Phase A — Verify Bug Fixes + Smoke Test + Book Selection
 
-### 1. BUG-01 Part 1 — Fix school_affiliations key names
+Before any €20 pipeline run, we must:
 
-**Files:** `engines/source/src/engine.py`, `engines/source/src/registries/scholar_registry.py`
+1. **Verify Claude Code's fixes** — pull the repo, read the diff from `c640a9b`, verify each of the 5 bug fixes against `STEP3_FINAL_BUG_LIST.md`. Multiple review rounds.
 
-- `engine.py` lines 340–346: pass the full LLM `school_affiliations` dict to registration instead of extracting one school name value.
-- `scholar_registry.py` `lookup_or_register_author`: change parameter from `school: Optional[str]` to `school_affiliations: Optional[dict]`. Store the dict directly on new records. For the `lookup()` call, extract one school value from the dict values (maintains interface compatibility).
-- Update all callers of `lookup_or_register_author` to pass the new parameter.
+2. **Write the Claude Code prompt for Step A** — a prompt that tells Claude Code (on the owner's machine) to:
+   - Run the full test suite
+   - Run 5 specific books end-to-end as a smoke test
+   - Analyze Shamela category distribution across all 2,519 books
+   - Generate stratified random sample of ~130 new books
 
-### 2. BUG-01 Part 2 — Downgrade check 5c to warning
-
-**File:** `engines/source/src/validation.py` line 197
-
-- Change `severity="gate"` to `severity="warning"` for the `consistency_author_science` check.
-- That is it. One word change. The check still fires, still populates `needs_review_fields`, just does not abort the pipeline.
-
-### 3. BUG-05 — Fix genre/ML impossible state
-
-**File:** `engines/source/src/validation.py` lines 232–244
-
-- Make check 5e conditional: only auto-correct `is_multi_layer=True` when `text_layers` is non-empty.
-- When genre is sharh/hashiyah but layers are empty, emit a warning and add both `genre` and `is_multi_layer` to `needs_review_fields`, but do NOT auto-correct.
-
-### 4. BUG-03 — Add tahqiq-note override
-
-**File:** `engines/source/src/validation.py` (new check, after existing checks)
-
-- Add a post-validation rule:
-  ```
-  IF is_multi_layer == true
-     AND all layer types in text_layers are in {matn, tahqiq_note}
-  THEN auto-correct is_multi_layer to false
-       AND clear text_layers
-       AND log correction as "tahqiq_note_override"
-  ```
-- Do NOT require muhaqiq presence (1/4 known false positives has no muhaqiq in extraction).
-- The layer-type pattern alone is sufficient — all real sharh/hashiyah books have sharh/hashiyah layer types.
-
-### 5. BUG-02 — Verify author confidence end-to-end
-
-**Files:** `engines/source/src/engine.py`, `engines/source/contracts.py`
-
-- FIX-C04 (commit `2760f62`) already added `confidence_scores.author` to `InferredFieldConfidence`. Verify this field is populated correctly by running 2–3 test books.
-- `result.author.confidence` (from `ScholarReference`) remains the registry match score. Document this distinction clearly in the ScholarReference docstring: `confidence` = registry match score (1.0 for new records), NOT LLM identification confidence. Downstream engines must use `confidence_scores.author` for identification confidence.
-
-### 6. BUG-04 — Add death_date_source tracking
-
-**Files:** `engines/source/contracts.py`, `engines/source/src/metadata_inference.py`, `engines/source/src/registries/scholar_registry.py`
-
-- Add `death_date_source` field to `ScholarAuthorityRecord` with values: `extraction`, `author_raw_text`, `inference`, `absent`.
-- In `metadata_inference.py`: after mapping author fields, determine death_date_source by checking whether the death date value appears in any extraction field (`author_name_raw`, etc.).
-- Pass through to scholar registration.
+3. **After owner runs Step A** — verify smoke test results and book selection before proceeding to Step B (€20 pipeline run).
 
 ---
 
-## After Fixing
+## Key State
 
-1. Run the full test suite. All existing tests must pass.
-2. Run 5–10 books end-to-end via `scripts/run_phase_c.py` (or a similar script) as a smoke test:
-   - Verify BUG-01 fix: books that previously gate_abort now succeed
-   - Verify BUG-03 fix: tahqiq-note books get ML auto-corrected to false
-   - Verify BUG-05 fix: genre=hashiyah with empty layers emits warning, not gate error
-3. Update `CLAUDE.md` with the new validation state.
-4. Commit with a descriptive message listing all bug IDs fixed.
+- **Pipeline version:** `c640a9b` (post-bug-fix, untested with real LLM calls)
+- **Phase C manifest:** `needs_rerun: false` for all 73 books — MUST be updated to `true` before Step 4 run (they were processed on pre-fix pipeline `10644a6`)
+- **Budget spent:** €9.20 (Step 0: €1.80, Phase C: €7.00, smoke test pending: ~€0.50)
+- **Budget remaining:** ~€90.80
+- **Step 4 estimated cost:** ~€20 (200 books × €0.10/book)
 
----
+## Critical Context
 
-## What NOT To Do
-
-- Do NOT fix BUG-06 (genre taxonomy) or BUG-07 (consensus ML check) — deferred to post-Step-4.
-- Do NOT plan Step 4. This session is scoped to bug fixes only.
-- Do NOT modify SPEC_CORE.md (the check 5c severity change is an implementation-level decision that does not require a SPEC rewrite — the SPEC can be updated after Step 4 validates the decision).
-- Do NOT re-run the full 73-book Phase C. A 5–10 book smoke test is sufficient.
-
----
+- **BUG-01 Layer 2:** Check 5c (author-science mismatch) was downgraded from gate to warning. Reasoning: 0/76 true positives, 100% false-positive rate, semantic mismatch in data source. Decision documented in `STEP3_FINAL_BUG_LIST.md` with full analysis.
+- **BUG-03 refinement:** Tahqiq-note override does NOT require muhaqiq in extraction (1/4 known false positives lacks muhaqiq). Layer-type pattern alone is sufficient.
+- **Phase C correction:** Aggregation report Section 2.7 incorrectly claimed 3/4 ML disagreement cases had wrong pipeline output. Actually, Command A is canonical in 3/4 cases (higher author_conf), so all 4 canonical results are correct.
+- **22 Phase C success books succeeded BECAUSE their canonical model had empty or None-valued school_affiliations** — so BUG-01's {"primary": school} never got stored, and check 5c never fired.
 
 ## Governing Documents (read in this order)
 
-1. **This file** (NEXT.md) — task directive
-2. **STEP3_FINAL_BUG_LIST.md** — the complete bug list with evidence and fixes
-3. **PHASE_C_ERRATA.md** — corrections discovered during evaluation
-4. **SPEC_CORE.md** — behavioral authority
-5. **engines/source/src/** — the code you are modifying
+1. **This file** (NEXT.md)
+2. **STEP4_PREPARATION_PLAN.md** — the complete 4-step workflow
+3. **STEP3_FINAL_BUG_LIST.md** — the 7 bugs, evidence, fixes, and self-review appendix
+4. **PHASE_C_AGGREGATION_REPORT.md** — Phase C evaluation results (76 verdicts, 59V/17P)
+5. **PHASE_C_ERRATA.md** — corrections to the evaluation framework
+6. **PHASE_C_EVALUATION_FRAMEWORK.md** — how evaluation sessions work
+7. **RESULT_PRESERVATION.md** — result persistence protocol
+8. **engines/source/VALIDATION_PLAN.md** — Step 4 definition and GO/NO-GO criteria
+9. **SPEC_CORE.md** — behavioral authority for the source engine
