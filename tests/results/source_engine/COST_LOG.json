@@ -11,8 +11,8 @@
       "status": "complete"
     },
     "C": {
-      "books": 73,
-      "cost_eur": 7.0,
+      "books": 5,
+      "cost_eur": 0.5,
       "status": "complete"
     },
     "D": {
@@ -26,6 +26,6 @@
       "status": "pending"
     }
   },
-  "total_eur": 9.2,
+  "total_eur": 9.7,
   "budget_ceiling_eur": 100.0
 }

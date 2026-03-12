@@ -143,15 +143,6 @@ def lookup_or_register_muhaqiq(
             source_of_identification="extracted",
         )
 
-    # For muhaqiqs: also auto-link on human_gate range (less critical)
-    if result.action == "human_gate" and result.record is not None:
-        return ScholarReference(
-            canonical_id=result.record.canonical_id,
-            name_arabic=muhaqiq_name,
-            confidence=result.match_score,
-            source_of_identification="extracted",
-        )
-
     # Register new muhaqiq
     new_record = ScholarAuthorityRecord(
         canonical_id="",

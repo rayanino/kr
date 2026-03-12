@@ -331,6 +331,45 @@ class TestScholarRegistry:
         assert ref.name_arabic == "عبد الحميد هنداوي"
         assert ref.confidence == 1.0
 
+    def test_muhaqiq_not_linked_to_similar_author(self, tmp_path: Path) -> None:
+        """Muhaqiq with similar name to existing author gets separate canonical_id.
+
+        Regression: أحمد محمد شاكر was auto-linked to أحمد بن محمد بن حنبل
+        because lookup_or_register_muhaqiq auto-linked on human_gate range.
+        """
+        from engines.source.src.registries.scholar_registry import (
+            lookup_or_register_author,
+            lookup_or_register_muhaqiq,
+        )
+        from shared.human_gate.src.human_gate import configure
+
+        reg_path = tmp_path / "registries" / "scholars.json"
+        gates_dir = tmp_path / "gates"
+        configure(gates_dir=gates_dir, auto_approve=True)
+        reg_path.parent.mkdir(parents=True, exist_ok=True)
+        reg_path.write_text("{}", encoding="utf-8")
+
+        # Register author first
+        author_ref, _ = lookup_or_register_author(
+            name="أحمد بن محمد بن حنبل",
+            death_date_hijri=241,
+            source_id="src_musnad",
+            school_affiliations={"fiqh": "حنبلي"},
+            registry_path=reg_path,
+        )
+
+        # Register muhaqiq with similar name but different person
+        muhaqiq_ref = lookup_or_register_muhaqiq(
+            muhaqiq_name="أحمد محمد شاكر",
+            source_id="src_musnad",
+            registry_path=reg_path,
+        )
+
+        # Must be different scholars — 1100+ years apart
+        assert author_ref.canonical_id != muhaqiq_ref.canonical_id
+        assert author_ref.name_arabic == "أحمد بن محمد بن حنبل"
+        assert muhaqiq_ref.name_arabic == "أحمد محمد شاكر"
+
 
 # ═══════════════════════════════════════════════════════════════════
 # Module 4: work_registry_store tests
