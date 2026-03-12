@@ -259,7 +259,7 @@ Priority: **Must-fix.** Without this, no downstream engine can use author confid
 
 **4.1.3 — Gate-abort rate reduction (author-science mismatch)**
 
-Problem: 71.1% gate_abort rate. Every gate_abort book skips trust tier calculation, frozen file creation, and final result assembly. At Step 4 scale (150 books), this means ~107 books would gate_abort, leaving only ~43 with full results.
+Problem: 71.1% gate_abort rate. Every gate_abort book skips trust tier calculation, frozen file creation, and final result assembly. At Step 4 scale (~200 books), this means ~142 books would gate_abort, leaving only ~58 with full results.
 
 Evidence: 54/76 verdicts are gate_abort, all due to the same mechanism: the scholar registry starts empty, so the author-science mismatch check fires on the first book for every author.
 
@@ -365,17 +365,17 @@ The source engine is **ready for Step 4** with the three must-fix items addresse
 
 ### 6.2 Remaining Risks for Step 4
 
-**Risk 1 — Scale effects on the scholar registry.** Phase C processed 73 books starting from an empty registry. Step 4 processes 150 books, potentially seeded with Phase C data. Registry collisions (two different scholars matching the same entry) have not been tested at scale.
+**Risk 1 — Scale effects on the scholar registry.** Phase C processed 73 books starting from an empty registry. Step 4 processes ~200 books, potentially seeded with Phase C data. Registry collisions (two different scholars matching the same entry) have not been tested at scale.
 
-**Risk 2 — Genre distribution skew.** Phase C's 73 books were hand-selected for diversity. Step 4's 150 books are random-stratified. If certain genres are underrepresented in Phase C (e.g., only 1 fiqh_comparative, 1 mawsuah, 1 sirah), the pipeline's behavior on genres with thin ground truth is unvalidated.
+**Risk 2 — Genre distribution skew.** Phase C's 73 books were hand-selected for diversity. Step 4's ~200 books are random-stratified. If certain genres are underrepresented in Phase C (e.g., only 1 fiqh_comparative, 1 mawsuah, 1 sirah), the pipeline's behavior on genres with thin ground truth is unvalidated.
 
-**Risk 3 — Tahqiq_note pattern frequency at scale.** Phase C found 4 instances in 73 books (5.5%). At 150 books, expect ~8 instances. If the post-correction rule (4.1.1) is not implemented, these will all produce wrong ML output.
+**Risk 3 — Tahqiq_note pattern frequency at scale.** Phase C found 4 instances in 73 books (5.5%). At ~200 books, expect ~11 instances. If the post-correction rule (4.1.1) is not implemented, these will all produce wrong ML output.
 
-**Risk 4 — Evaluator bandwidth.** Step 4 calls for targeted review of all mismatches, gates, disagreements, and 10% random. If the gate-abort rate is reduced per must-fix 4.1.3, the review workload is manageable: ~12 consensus disagreements + ~6 ML mismatches + 15 random (10% of 150) ≈ 30 books, or ~6 review sessions at 5/session. If the gate-abort fix is NOT implemented, the workload expands to 107+ gate_abort books requiring at least spot-checking — an impractical volume. This reinforces why 4.1.3 is a must-fix, not a should-fix.
+**Risk 4 — Evaluator bandwidth.** Step 4 calls for targeted review of all mismatches, gates, disagreements, and 10% random. If the gate-abort rate is reduced per must-fix 4.1.3, the review workload is manageable: ~16 consensus disagreements + ~8 ML mismatches + 20 random (10% of ~200) ≈ 44 books, or ~9 review sessions at 5/session. If the gate-abort fix is NOT implemented, the workload expands to 142+ gate_abort books requiring at least spot-checking — an impractical volume. This reinforces why 4.1.3 is a must-fix, not a should-fix.
 
 ### 6.3 GO/NO-GO Verdict
 
-**Conditional GO.** The source engine passes Phase C evaluation with no FLAG or ESCALATE verdicts, zero author errors, and 100% genre correctness. The three must-fix items (4.1.1, 4.1.2, 4.1.3) must be implemented before Step 4 begins. With those fixes, the engine is ready for a 150-book calibration run at €20–30.
+**Conditional GO.** The source engine passes Phase C evaluation with no FLAG or ESCALATE verdicts, zero author errors, and 100% genre correctness. The three must-fix items (4.1.1, 4.1.2, 4.1.3) must be implemented before Step 4 begins. With those fixes, the engine is ready for a ~200-book calibration run at €15–25.
 
 ### 6.4 Confidence Assessment
 
