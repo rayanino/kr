@@ -67,7 +67,7 @@ Overall: min=0.55, max=0.99, mean=0.947, median=0.985.
 
 Author confidence discriminates well. The 0.95+ band is 90% VERIFIED (53/59). Below 0.85, zero books achieved VERIFIED — all 8 are PLAUSIBLE. The transition zone is 0.85–0.95, which is a coin flip.
 
-However, the 6 PLAUSIBLE books at confidence 0.95+ deserve scrutiny. Examining them: 4 are driven by source scarcity (obscure hadith juz' and minor works with no independent web presence), 1 by genuine attribution ambiguity (الفقه الأكبر), and 1 by content truncation (أدب النفوس, 9% of pages). The confidence was correct — the model knew the author — but the *verdict* was downgraded because the evaluator couldn't find independent web sources to confirm. This means high author confidence tracks identification accuracy, not overall verifiability.
+However, the 6 PLAUSIBLE books at confidence 0.95+ deserve scrutiny. Examining them: 3 are driven by source scarcity for minor hadith works (حديث الضب at 0.99, نصيحة لطالب الحق at 0.97, حديث يحيى بن معين at 0.97 — all minor juz' with no independent web sources), 1 by severe content truncation (أدب النفوس at 0.97 — only 9% of pages present), and 2 by text ambiguity and cross-edition inconsistency (both الإبانة editions at 0.97 — debated text integrity and genre drift between editions). Note: الفقه الأكبر, which has genuine attribution ambiguity, has author confidence 0.90 — it falls in the 0.85–0.95 band, not this group. The confidence was correct — the model knew the author — but the *verdict* was downgraded because the evaluator couldn't find independent web sources to confirm. This means high author confidence tracks identification accuracy, not overall verifiability.
 
 Lowest VERIFIED: الورقة النحوية at 0.55. This is well-calibrated — the model was uncertain about an obscure author, and the evaluator found 2+ independent sources.
 
@@ -309,9 +309,11 @@ A good ground truth entry must have: (a) VERIFIED verdict with 2+ independent so
 
 These 41 unique VERIFIED books have both author confidence ≥ 0.92 and genre confidence ≥ 0.85, correct ML status, and no known classification imprecision:
 
-The strongest tier (conf_a ≥ 0.97, conf_g ≥ 0.95, genre is specific): مجموع الفتاوى (fatawa), فتاوى اللجنة الدائمة - المجموعة الأولى (fatawa), فتاوى اللجنة الدائمة - المجموعة الثانية (fatawa), بداية المجتهد (fiqh_comparative), الأربعون النووية (hadith_collection), مسند أحمد ت شاكر (hadith_collection), حاشية ابن عابدين (hashiyah), حاشية العطار (hashiyah), لسان العرب (mujam), زاد المستقنع (mukhtasar), مختصر صحيح مسلم (mukhtasar), ألفية ابن مالك - ت القاسم (nazm), ألفية ابن مالك - ط التعاون (nazm), الموسوعة الفقهية الكويتية (mawsuah), همع الهوامع (sharh), فتح الباري (sharh), شرح النووي على مسلم (sharh), فتح الباري لابن رجب (sharh), شرح الورقات (sharh), شرح العقيدة الطحاوية - ط الرسالة (sharh), شرح العقيدة الطحاوية - ط الأوقاف (sharh), شرح مقامات الحريري (sharh), اللامع العزيزي (sharh), الرحيق المختوم (sirah), سير أعلام النبلاء (tabaqat), تفسير الطبري ت التركي (tafsir), تفسير الطبري ط التربية (tafsir), البداية والنهاية ت التركي (tarikh), البداية والنهاية ط السعادة (tarikh), مقامات الحريري (adab), البيان والتبيين (adab).
+The strongest tier (conf_a ≥ 0.97, conf_g ≥ 0.95, genre is specific): مجموع الفتاوى (fatawa), فتاوى اللجنة الدائمة - المجموعة الأولى (fatawa), فتاوى اللجنة الدائمة - المجموعة الثانية (fatawa), بداية المجتهد (fiqh_comparative), الأربعون النووية (hadith_collection), حاشية ابن عابدين (hashiyah), حاشية العطار (hashiyah), لسان العرب (mujam), زاد المستقنع (mukhtasar), ألفية ابن مالك - ت القاسم (nazm), ألفية ابن مالك - ط التعاون (nazm), الموسوعة الفقهية الكويتية (mawsuah), همع الهوامع (sharh), فتح الباري (sharh), شرح النووي على مسلم (sharh), فتح الباري لابن رجب (sharh), شرح الورقات (sharh), شرح العقيدة الطحاوية - ط الرسالة (sharh), شرح العقيدة الطحاوية - ط الأوقاف (sharh), شرح مقامات الحريري (sharh), اللامع العزيزي (sharh), الرحيق المختوم (sirah), سير أعلام النبلاء (tabaqat), تفسير الطبري ت التركي (tafsir), تفسير الطبري ط التربية (tafsir), البداية والنهاية ت التركي (tarikh), البداية والنهاية ط السعادة (tarikh), مقامات الحريري (adab), البيان والتبيين (adab).
 
-The solid tier (conf_a ≥ 0.92, conf_g ≥ 0.85, no issues): آداب الصحبة (risalah), آداب الفتوى (risalah), الرسالة للشافعي (risalah), الأم للشافعي (matn), الأذكار للنووي (matn), أبنية الأسماء (matn), أحاديث أيوب السختياني (hadith_collection), أحاديث العطار (hadith_collection), مسند أبي حنيفة (hadith_collection), المستدرك على مجموع الفتاوى (fatawa).
+The solid tier (conf_a ≥ 0.92, conf_g ≥ 0.85, no issues): آداب الصحبة (risalah), آداب الفتوى (risalah), الأم للشافعي (matn), الأذكار للنووي (matn), أبنية الأسماء (matn), أحاديث أيوب السختياني (hadith_collection), أحاديث العطار (hadith_collection), مسند أبي حنيفة (hadith_collection), المستدرك على مجموع الفتاوى (fatawa).
+
+**ML-caveat tier** (VERIFIED, high confidence, but ml_correct=False due to tahqiq-note bias): مسند أحمد ت شاكر (hadith_collection, conf 0.99/0.97), الرسالة للشافعي (risalah, conf 0.99/0.92), مختصر صحيح مسلم (mukhtasar, conf 0.99/0.97). All three are excellent ground truth for author and genre, but their is_multi_layer=true is WRONG (should be false). **Include as ground truth with ml_correct overridden to false.** These are valuable precisely because they test the tahqiq-note edge case.
 
 ### 5.3 Usable With Caveats (8 books)
 
@@ -337,7 +339,7 @@ These VERIFIED books have classification imprecision or lower confidence that ma
 
 ### 5.5 Summary
 
-**41 strong ground truth candidates** ready to use immediately. 8 usable with caveats. 6 excluded. The existing 14-entry GROUND_TRUTH.json grows to ~49 entries (41 + existing 14 minus overlap). This provides a robust calibration baseline for Step 4.
+**38 unconditional ground truth candidates** (29 strongest + 9 solid) ready to use immediately. 3 additional candidates with ML override needed (tahqiq-note correction). 8 usable with caveats. 6 excluded. The existing 14-entry GROUND_TRUTH.json grows to ~52 entries (41 + existing 14 minus overlap). This provides a robust calibration baseline for Step 4.
 
 ---
 
