@@ -105,6 +105,8 @@ What drives flagged status? Examining the 12 flagged books: the dominant pattern
 
 The one PLAUSIBLE in the verified tier is من أحاديث سفيان الثوري (trust score 0.6925) — a minor hadith juz' that scored well on trust factors but had limited independent web sources.
 
+Notably, the trust score boundary is clean with zero overlap: the lowest verified-tier score is 0.655 and the highest flagged-tier score is 0.608. The trust algorithm creates a genuine separation — there is no ambiguous zone where the tier assignment could go either way.
+
 ### 2.6 Death Date Source and Its Impact
 
 | Death source | N | VERIFIED | PLAUSIBLE | V rate | Mean author conf |
@@ -201,11 +203,17 @@ This is the most important statistical finding that the incremental sessions did
 
 This isn't a pipeline deficiency — the pipeline correctly identifies these authors and appropriately reflects lower confidence. The PLAUSIBLE verdict is driven by the evaluator's inability to find independent web sources, which correlates with the same obscurity that causes absent death dates. For Step 4, this means: **expect higher PLAUSIBLE rates for modern/obscure books, and this is correct behavior, not an engine bug.**
 
-### FINDING 11 (NEW): Genre Confidence ≥ 0.95 Is a Near-Perfect Verification Predictor
+### FINDING 11 (NEW): Joint Confidence Threshold Is a Perfect Verification Predictor
 
-36/37 books with genre confidence ≥ 0.95 received VERIFIED (97.3%). Below 0.85, the rate drops to 64%. This threshold could serve as an automated triage signal: books with both author confidence ≥ 0.95 and genre confidence ≥ 0.95 are very likely to be correct and could be fast-tracked in review, while books below these thresholds warrant closer human scrutiny.
+The single-axis finding (genre confidence ≥ 0.95 → 97.3% VERIFIED) is strong, but the joint threshold is even stronger: **books with both author confidence ≥ 0.95 AND genre confidence ≥ 0.95 are 100% VERIFIED (34/34).** Zero exceptions. When either axis drops below 0.95, verification rates fall sharply: ac≥0.95 with gc in [0.90–0.95) drops to 73% (8/11); below both thresholds it's a coin flip (50%, 12/24).
 
-### FINDING 12 (NEW): Session 5 and 7 Are Genuinely Harder, Not Conservative
+This creates a clean automated triage rule for Step 4: books passing the joint threshold can be fast-tracked in review, while books below either threshold warrant close human scrutiny. At scale, this could reduce review workload significantly — roughly 45% of Phase C books (34/76) passed the joint threshold.
+
+### FINDING 13 (NEW): Science Scope Breadth Amplifies Gate-Abort Rate
+
+Books with 3+ sciences in their scope list are 88–100% gate_abort (16/17), compared to 63–66% for books with 1–2 sciences (38/59). This is a direct consequence of the empty-registry bug (more sciences → more chances for the author-science mismatch to fire), but it has a practical implication: the books most affected by the gate-abort bug are the major multi-disciplinary classical works (encyclopedic fatawa collections, comprehensive sharh works) — exactly the books where full pipeline output matters most. This reinforces why gate-abort rate reduction (4.1.3) is a must-fix.
+
+### FINDING 14 (NEW): Session 5 and 7 Are Genuinely Harder, Not Conservative
 
 Sessions 5 and 7 each produced 6 PLAUSIBLE out of 10 books (60%). Is this harder material or more conservative evaluation? The evidence favors genuinely harder material:
 
