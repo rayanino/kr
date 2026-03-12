@@ -1,52 +1,43 @@
-# NEXT — Step 4 Preparation (Claude Chat)
+# NEXT — Step 4 Phase B (Claude Code)
 
-## Status: Step 3 Bug Fixes COMPLETE → Step 4 Preparation
+## Status: Phase A COMPLETE → Phase B (this session)
 
-Claude Code fixed BUG-01 through BUG-05 (commit `c640a9b`). 562 tests pass. No smoke test with real books yet.
-
-The `STEP4_PREPARATION_PLAN.md` defines the complete workflow. Read it first.
+Phase A verified bug fixes via smoke test (5 books, all pass), analyzed category distribution, and selected 131 new books via stratified sampling. See commits `d309b48` through `ac29b7a`.
 
 ---
 
-## Current Task: Phase A — Verify Bug Fixes + Smoke Test + Book Selection
+## Current Task: Build Step 4 Tooling
 
-Before any €20 pipeline run, we must:
+Claude Chat produced the task specification in the owner's message. Read it fully before writing any code.
 
-1. **Verify Claude Code's fixes** — pull the repo, read the diff from `c640a9b`, verify each of the 5 bug fixes against `STEP3_FINAL_BUG_LIST.md`. Multiple review rounds.
+**Four deliverables:**
+1. Update Phase C manifest (mark 73 books for rerun)
+2. `scripts/run_phase_d.py` (adapted from run_phase_c.py — 204 books)
+3. `scripts/generate_screening_report.py` (auto-flag anomalies)
+4. `scripts/generate_review_gui.py` (self-contained HTML review tool)
 
-2. **Write the Claude Code prompt for Step A** — a prompt that tells Claude Code (on the owner's machine) to:
-   - Run the full test suite
-   - Run 5 specific books end-to-end as a smoke test
-   - Analyze Shamela category distribution across all 2,519 books
-   - Generate stratified random sample of ~130 new books
-
-3. **After owner runs Step A** — verify smoke test results and book selection before proceeding to Step B (€20 pipeline run).
+Commit after each deliverable.
 
 ---
 
 ## Key State
 
-- **Pipeline version:** `c640a9b` (post-bug-fix, untested with real LLM calls)
-- **Phase C manifest:** `needs_rerun: false` for all 73 books — MUST be updated to `true` before Step 4 run (they were processed on pre-fix pipeline `10644a6`)
-- **Budget spent:** €9.20 (Step 0: €1.80, Phase C: €7.00, smoke test pending: ~€0.50)
-- **Budget remaining:** ~€90.80
-- **Step 4 estimated cost:** ~€20 (200 books × €0.10/book)
+- **Pipeline version:** `ac29b7a` (HEAD, includes all bug fixes from `c640a9b` plus Phase A work)
+- **Tests passing:** 573
+- **Budget spent:** €9.70 | **Remaining:** €90.30
+- **Phase C manifest:** `tests/results/source_engine/phase_c/PHASE_C_MANIFEST.json` — needs `needs_rerun: true` for all 73 books
+- **Book lists:** `scripts/phase_c_books.txt` (73 reruns) + `scripts/phase_d_books.txt` (131 new) = 204 total
+- **Phase C results for regression comparison:** `tests/results/source_engine/phase_c/{book}/result.json`
 
-## Critical Context
+## After This Session
 
-- **BUG-01 Layer 2:** Check 5c (author-science mismatch) was downgraded from gate to warning. Reasoning: 0/76 true positives, 100% false-positive rate, semantic mismatch in data source. Decision documented in `STEP3_FINAL_BUG_LIST.md` with full analysis.
-- **BUG-03 refinement:** Tahqiq-note override does NOT require muhaqiq in extraction (1/4 known false positives lacks muhaqiq). Layer-type pattern alone is sufficient.
-- **Phase C correction:** Aggregation report Section 2.7 incorrectly claimed 3/4 ML disagreement cases had wrong pipeline output. Actually, Command A is canonical in 3/4 cases (higher author_conf), so all 4 canonical results are correct.
-- **22 Phase C success books succeeded BECAUSE their canonical model had empty or None-valued school_affiliations** — so BUG-01's {"primary": school} never got stored, and check 5c never fired.
+The owner runs `python scripts/run_phase_d.py COLLECTION_DIR` on their Windows machine (1-2 hours, can walk away). Then runs `generate_screening_report.py` and `generate_review_gui.py` to produce the review tools. Claude Chat evaluates results in Phase C sessions.
 
 ## Governing Documents (read in this order)
 
 1. **This file** (NEXT.md)
-2. **STEP4_PREPARATION_PLAN.md** — the complete 4-step workflow
-3. **STEP3_FINAL_BUG_LIST.md** — the 7 bugs, evidence, fixes, and self-review appendix
-4. **PHASE_C_AGGREGATION_REPORT.md** — Phase C evaluation results (76 verdicts, 59V/17P)
-5. **PHASE_C_ERRATA.md** — corrections to the evaluation framework
-6. **PHASE_C_EVALUATION_FRAMEWORK.md** — how evaluation sessions work
-7. **RESULT_PRESERVATION.md** — result persistence protocol
-8. **engines/source/VALIDATION_PLAN.md** — Step 4 definition and GO/NO-GO criteria
-9. **SPEC_CORE.md** — behavioral authority for the source engine
+2. **The owner's message** — contains the full task specification
+3. **STEP4_PREPARATION_PLAN.md** — overall Step 4 workflow context
+4. **scripts/run_phase_c.py** — the script to adapt (read thoroughly)
+5. **RESULT_PRESERVATION.md** — output structure requirements
+6. **STEP3_FINAL_BUG_LIST.md** — what the bug fixes changed
