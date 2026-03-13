@@ -113,10 +113,28 @@ def load_books(books_file: Path) -> list[str]:
     return books
 
 
+def _resolve_book_path(collection_dir: Path, book_name: str) -> Path | None:
+    """Resolve book name to actual path (directory or .htm file).
+
+    Shamela books come in two formats:
+    - Multi-volume: directories containing .htm page files
+    - Single-volume: standalone .htm files (book list omits extension)
+    """
+    p = collection_dir / book_name
+    if p.is_dir():
+        return p
+    htm = collection_dir / (book_name + ".htm")
+    if htm.is_file():
+        return htm
+    if p.is_file():
+        return p
+    return None
+
+
 def validate_books(collection_dir: Path, book_names: list[str]) -> None:
-    missing = [name for name in book_names if not (collection_dir / name).is_dir()]
+    missing = [name for name in book_names if _resolve_book_path(collection_dir, name) is None]
     if missing:
-        print(f"ERROR: {len(missing)} book directories not found in {collection_dir}:")
+        print(f"ERROR: {len(missing)} books not found in {collection_dir}:")
         for name in missing[:10]:
             print(f"  - {name}")
         if len(missing) > 10:
@@ -459,7 +477,11 @@ async def process_book(
 
     book_output = output_dir / book_name
     book_output.mkdir(parents=True, exist_ok=True)
-    book_path = collection_dir / book_name
+
+    # Resolve actual path: directory or .htm file
+    actual_path = _resolve_book_path(collection_dir, book_name)
+    if actual_path is None:
+        raise FileNotFoundError(f"Book not found: {book_name} in {collection_dir}")
 
     start_time = time.time()
     book_result: dict[str, Any] = {
@@ -479,7 +501,11 @@ async def process_book(
 
             # 2. Copy book to staging
             staging_path = config.staging_path / book_name
-            shutil.copytree(book_path, staging_path)
+            if actual_path.is_dir():
+                shutil.copytree(actual_path, staging_path)
+            else:
+                staging_path.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(actual_path, staging_path / actual_path.name)
 
             # 3-4. Extract metadata directly (read-only, zero side effects)
             source_format = detect_format(staging_path)
