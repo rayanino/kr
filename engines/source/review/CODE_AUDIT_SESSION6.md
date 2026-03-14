@@ -382,7 +382,7 @@ This item relates to the integration test script, not the engine itself.
 
 ### Code Trace
 
-1. **Commit 3d18faf** — `scripts/run_session6_integration.py`:
+1. **Commit 3d18faf** — `scripts/phases/run_session6_integration.py`:
    - **Level field (line 148):** Added `result["level"] = metadata.level.value if metadata.level else None`. Previously, the level field was not captured in result JSON files.
    - **Author comparison (lines 96–98):** Changed from brittle substring matching:
      ```python
@@ -721,7 +721,7 @@ Layer authors (e.g., the matn author in a sharh) are primary authors, not editor
 
 ### FR-6: Correction to SR-3 — Evidence Was Even Weaker Than Stated
 
-The self-review noted that `format_specific_metadata` is "empty for all 13 fixtures" and speculated about extraction issues. This is wrong. The integration script (`scripts/run_session6_integration.py`) simply does not capture `format_specific_metadata`, `publication_year_hijri`, `publication_year_miladi`, or `edition_number` in its output JSON. The actual `SourceMetadata` object created during the run may have had these fields populated — we cannot tell from the script output.
+The self-review noted that `format_specific_metadata` is "empty for all 13 fixtures" and speculated about extraction issues. This is wrong. The integration script (`scripts/phases/run_session6_integration.py`) simply does not capture `format_specific_metadata`, `publication_year_hijri`, `publication_year_miladi`, or `edition_number` in its output JSON. The actual `SourceMetadata` object created during the run may have had these fields populated — we cannot tell from the script output.
 
 The AF-1 field mapping bug remains provable from code alone (extractor writes `edition_year_hijri`, engine reads `publication_year_hijri` — keys don't match). No empirical verification of this bug was actually performed or is available from current test outputs.
 

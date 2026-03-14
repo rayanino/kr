@@ -160,7 +160,7 @@ All 768+ tests must still pass. No regressions.
 ### Step 3: Re-run Phase A on the full collection
 
 ```bash
-python scripts/run_phase_a.py "C:\Users\Rayane\Desktop\kr\shamela export samples"
+python scripts/phases/run_phase_a.py "C:\Users\Rayane\Desktop\kr\shamela export samples"
 ```
 
 ### Step 4: Compare results

@@ -131,7 +131,7 @@ Owner in Claude Chat:                    Repo:
 - Every unexpected error code → investigate
 - Structural variants not handled → extend extractor
 
-**Script:** `scripts/run_phase_a.py` — iterates collection, runs extraction, saves results, produces summary.
+**Script:** `scripts/phases/run_phase_a.py` — iterates collection, runs extraction, saves results, produces summary.
 
 ---
 

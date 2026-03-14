@@ -389,7 +389,7 @@ Deferred error codes (should NOT fire): SRC_OCR_LOW_QUALITY, SRC_REPO_UNAVAILABL
 
 Run the full pipeline on all 13 fixtures + alfiyyah_versified with real API calls. Save results to `tests/results/source_engine/session6/`.
 
-**Script: `scripts/run_session6_integration.py`**
+**Script: `scripts/phases/run_session6_integration.py`**
 
 For each fixture:
 1. Copy fixture to a temp staging directory

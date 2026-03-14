@@ -25,13 +25,13 @@
 
 **What runs:** Full pipeline (Steps 1-13) on all 13 fixtures (12 Shamela + 1 plain text) with real API calls to Opus 4.6 and Command A.
 
-**Script:** `scripts/run_session6_integration.py`
+**Script:** `scripts/phases/run_session6_integration.py`
 
 **Environment:**
 ```bash
 export ANTHROPIC_API_KEY="..."
 export OPENROUTER_API_KEY="..."
-python scripts/run_session6_integration.py
+python scripts/phases/run_session6_integration.py
 ```
 
 **Output:** `tests/results/source_engine/session6/` — one JSON per fixture + SESSION6_SUMMARY.json
@@ -87,7 +87,7 @@ python scripts/run_session6_integration.py
 
 **What runs:** Steps 1-3 only (staging → format detection → extraction) on all 2,519 files. Plus: hashing and deduplication check against empty registry. No LLM calls. No API costs.
 
-**Script:** `scripts/run_phase_a.py` (to be written by Claude Code)
+**Script:** `scripts/phases/run_phase_a.py` (to be written by Claude Code)
 
 **Output:** `tests/results/source_engine/phase_a/` — one JSON per book with full extraction results, hashes, and any errors + `PHASE_A_SUMMARY.json`. After review: `PHASE_A_LESSONS.md` documenting bugs found, field distribution patterns, and recommendations for Phase C. Per RESULT_PRESERVATION.md, Phase A results are reusable by the normalization engine for field distribution analysis.
 

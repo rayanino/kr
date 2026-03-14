@@ -28,5 +28,5 @@
 - `tests/results/source_engine/phase_d/PHASE_D_AUTO_SCREENING.md` — auto-screening report
 - `tests/results/source_engine/phase_d/PHASE_D_MANIFEST.json` — book manifest
 - `tests/results/source_engine/phase_d/PHASE_D_SUMMARY.json` — run summary
-- `scripts/phase_d_postprocess.py` — post-processing script
-- `scripts/generate_review_gui.py` — GUI generator
+- `scripts/phases/phase_d_postprocess.py` — post-processing script
+- `scripts/phases/generate_review_gui.py` — GUI generator
