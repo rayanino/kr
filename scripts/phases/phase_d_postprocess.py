@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 PHASE_D_DIR = PROJECT_ROOT / "tests" / "results" / "source_engine" / "phase_d"
 PHASE_C_DIR = PROJECT_ROOT / "tests" / "results" / "source_engine" / "phase_c"
 COST_LOG_PATH = PROJECT_ROOT / "tests" / "results" / "source_engine" / "COST_LOG.json"

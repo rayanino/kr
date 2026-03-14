@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 PHASE_D_DIR = PROJECT_ROOT / "tests" / "results" / "source_engine" / "phase_d"
 
 

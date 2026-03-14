@@ -111,7 +111,7 @@ python scripts/phases/run_session6_integration.py
 
 **Prerequisites:** Steps 0, 1, and 2 complete. Zero known code bugs. Owner has reviewed 20 extraction samples.
 
-**Selection: 73 books** (owner expanded from original 30 to include edition variants, riwayah books, and additional coverage). See `PHASE_C_FINAL_SELECTION.md` for full rationale and `scripts/phase_c_books.txt` for the list.
+**Selection: 73 books** (owner expanded from original 30 to include edition variants, riwayah books, and additional coverage). See `PHASE_C_FINAL_SELECTION.md` for full rationale and `scripts/phases/data/phase_c_books.txt` for the list.
 
 | Category | Count | Selection Criteria |
 |----------|-------|--------------------|

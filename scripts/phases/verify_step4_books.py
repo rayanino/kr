@@ -9,12 +9,12 @@ import json
 import sys
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
 # --- Paths ---
-PHASE_C_BOOKS = PROJECT_ROOT / "scripts" / "phase_c_books.txt"
-PHASE_D_BOOKS = PROJECT_ROOT / "scripts" / "phase_d_books.txt"
-COMBINED_BOOKS = PROJECT_ROOT / "scripts" / "step4_all_books.txt"
+PHASE_C_BOOKS = PROJECT_ROOT / "scripts" / "phases" / "data" / "phase_c_books.txt"
+PHASE_D_BOOKS = PROJECT_ROOT / "scripts" / "phases" / "data" / "phase_d_books.txt"
+COMBINED_BOOKS = PROJECT_ROOT / "scripts" / "phases" / "data" / "step4_all_books.txt"
 DISTRIBUTION_JSON = (
     PROJECT_ROOT / "tests" / "results" / "source_engine" / "PHASE_D_CATEGORY_DISTRIBUTION.json"
 )

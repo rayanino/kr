@@ -15,7 +15,7 @@ PHASE_A_DIR = Path("tests/results/source_engine/phase_a")
 PHASE_C_MANIFEST = Path("tests/results/source_engine/phase_c/PHASE_C_MANIFEST.json")
 OUTPUT_DISTRIBUTION = Path("tests/results/source_engine/PHASE_D_CATEGORY_DISTRIBUTION.json")
 OUTPUT_SELECTION_MD = Path("tests/results/source_engine/PHASE_D_SELECTION.md")
-OUTPUT_BOOKLIST = Path("scripts/phase_d_books.txt")
+OUTPUT_BOOKLIST = Path("scripts/phases/data/phase_d_books.txt")
 
 TARGET_BOOKS = 130
 MIN_BOOKS = 120
