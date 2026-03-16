@@ -1,11 +1,11 @@
 # NEXT — Source Engine Pre-Batch Hardening
 
-## Current position: STEP 4 — Subtask 4A
-## What to do: Audit SPEC against code changes — read source SPEC_CORE.md, diff the 4-fix commit, find inconsistencies
-## Context: Steps 1-3 complete. Contract verification done (reference/CONTRACT_VERIFICATION_REPORT.md). 4 defects found and fixed: 2 SPEC field name mismatches, 1 enum gap, 1 stale docstring. All applied in-place.
+## Current position: STEP 5 — Subtask 5A
+## What to do: Design the e2e validation and write the Claude Code handoff prompt
+## Context: Steps 1-4 complete. SPEC audit found 3 inconsistencies, all fixed. 34 script defects triaged as STYLE. ErrorCode enum now has DEATH_DATE_UNVERIFIED. Check 5g documented. Check 5 closing clause fixed.
 ## Owner action needed: No — Claude Chat executes this subtask
 
-Read `reference/PRE_BATCH_EXECUTION_PROTOCOL.md` — the governing protocol (Step 4 instructions).
+Read `reference/PRE_BATCH_EXECUTION_PROTOCOL.md` — the governing protocol (Step 5 instructions).
 
 ## Budget
 

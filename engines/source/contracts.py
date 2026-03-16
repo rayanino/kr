@@ -243,6 +243,8 @@ class ErrorCode(str, Enum):
     HIGH_EMPTY_RATIO = "SRC_HIGH_EMPTY_RATIO"
     # Attribution status code (SPEC §4.A.4 / §7, Comment #1 session)
     ATTRIBUTION_DISPUTED = "SRC_ATTRIBUTION_DISPUTED"
+    # Death date verification (SPEC §4.A.4, ERR-03 pattern)
+    DEATH_DATE_UNVERIFIED = "SRC_DEATH_DATE_UNVERIFIED"
     # Validation and scholar authority codes (Session 5a)
     SCHEMA_VIOLATION = "SRC_SCHEMA_VIOLATION"
     MULTI_LAYER_VIOLATION = "SRC_MULTI_LAYER_VIOLATION"
