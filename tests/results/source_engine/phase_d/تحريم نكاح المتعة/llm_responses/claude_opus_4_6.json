@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.892163800017443,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.85,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "intermediate",
+    "level_confidence": 0.6,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "نصر بن إبراهيم بن نصر بن إبراهيم بن داود النابلسي المقدسي، أبو الفتح",
+      "known_as": [
+        "ابن أبي حافظ",
+        "أبو الفتح النابلسي",
+        "نصر المقدسي"
+      ],
+      "death_date_hijri": 490,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "فقيه شافعي محدث زاهد من أهل القدس، كان من كبار علماء الشام في القرن الخامس الهجري، له مصنفات في الفقه والحديث والزهد",
+      "methodological_stance": "محدث يعتمد على الأسانيد في تقرير المسائل الفقهية، يجمع بين الفقه والحديث"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "النصف الثاني من القرن الخامس الهجري، قبل وفاة المؤلف سنة 490 هـ",
+      "composition_date_hijri": null,
+      "tradition_position": "رسالة حديثية فقهية في إثبات تحريم نكاح المتعة بالأحاديث النبوية المسندة، وهو موضوع خلافي بين أهل السنة والشيعة",
+      "known_textual_issues": [],
+      "historical_significance": "رسالة مختصرة تجمع الأحاديث والآثار في تحريم نكاح المتعة، تعكس اهتمام علماء الشام بالرد على القول بإباحة المتعة",
+      "muhaqiq_reputation": "الشيخ حماد بن محمد الأنصاري (ت 1418 هـ) عالم محدث معروف بالمدينة المنورة، من أبرز علماء الحديث في العصر الحديث",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

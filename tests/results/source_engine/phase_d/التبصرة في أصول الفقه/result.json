@@ -1,0 +1,132 @@
+{
+  "source_id": "src_0dde4bb5",
+  "work_id": "wrk_abw_ishaq_ibrahym_bn_al_tbsrh_fy_aswl_al_",
+  "human_label": "al_tbsrh_fy_aswl_al_",
+  "title_arabic": "التبصرة في أصول الفقه",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو إسحاق إبراهيم بن علي بن يوسف الفيروزابادي الشيرازي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د. محمد حسن هيتو",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "usul_al_fiqh"
+  ],
+  "genre": "matn",
+  "genre_chain": null,
+  "level": "intermediate",
+  "publisher": "دار الفكر - دمشق",
+  "edition_number": 1,
+  "publication_year_hijri": 1980,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 521,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7475,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 476 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: د. محمد حسن هيتو"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Known publisher: دار الفكر (score 0.6)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.748 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.99,
+    "level": 0.75,
+    "structural_format": 0.95,
+    "authority_level": 0.95,
+    "multi_layer": 0.92,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp5w2l0p4r\\library\\sources\\src_0dde4bb5\\frozen",
+  "frozen_hash": "0dde4bb5d0c81ea4782498f5598d8344adb31eb1ce182454207afe0d24a1f20c",
+  "frozen_file_hashes": {
+    "book.htm": "d2b436c684a9857d5556270e451f4d703335704956cb1e6e713a9f3761fea4e0"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "أصول الفقه",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1980 هـ",
+    "page_count_raw": "537",
+    "author_short": "أبو إسحاق الشيرازي",
+    "physical_page_count": 537
+  },
+  "scholarly_context": {
+    "composition_period": "من مؤلفات الشيرازي في أصول الفقه، ألفها في القرن الخامس الهجري، وهي من أعماله المتوسطة في الحجم بين اللمع والتبصرة",
+    "composition_date_hijri": null,
+    "tradition_position": "تعد التبصرة من أهم المصنفات في أصول الفقه على طريقة المتكلمين عند الشافعية، وهي أوسع من كتابه اللمع في أصول الفقه، وتتميز بعرض أقوال المعتزلة والرد عليها",
+    "known_textual_issues": [],
+    "historical_significance": "من أمهات كتب أصول الفقه الشافعي، يعرض فيها المسائل الأصولية بأسلوب جدلي مع ذكر أقوال المخالفين والرد عليها، وقد اعتنى بها العلماء شرحاً واختصاراً",
+    "muhaqiq_reputation": "د. محمد حسن هيتو محقق سوري معروف بتحقيقاته لكتب أصول الفقه الشافعي، له عدة تحقيقات في هذا المجال",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:28:28.549466+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 16.78,
+  "is_rerun": false,
+  "original_phase": null
+}

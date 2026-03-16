@@ -1,0 +1,57 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 9.845798900001682,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "usul_al_fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "advanced",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر محمد بن أحمد بن أبي سهل السرخسي",
+      "known_as": [
+        "السرخسي",
+        "شمس الأئمة"
+      ],
+      "death_date_hijri": 483,
+      "school_affiliations": {
+        "fiqh": "حنفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من كبار فقهاء الحنفية، له إسهامات بارزة في أصول الفقه",
+      "methodological_stance": "يتبع المنهج الحنفي في الاستدلال والفقه"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "mid",
+      "composition_date_hijri": 479,
+      "tradition_position": "يعتبر هذا الكتاب من أهم المراجع في أصول الفقه الحنفي",
+      "known_textual_issues": [],
+      "historical_significance": "يعد من أهم المؤلفات في أصول الفقه الحنفي، ويتميز بمنهجه التحليلي العميق",
+      "muhaqiq_reputation": "أبو الوفا الأفغاني معروف بتحقيقاته الدقيقة للنصوص الفقهية والأصولية",
+      "tahqiq_methodology_note": "اعتمد المحقق على نسخ خطية متعددة وقام بضبط النص وتخريج الأحاديث",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

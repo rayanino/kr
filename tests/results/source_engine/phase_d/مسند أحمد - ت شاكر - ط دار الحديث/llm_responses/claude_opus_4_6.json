@@ -1,0 +1,76 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 21.348220000014408,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.97,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.88,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أحمد بن محمد بن حنبل"
+      },
+      {
+        "layer_type": "tahqiq_note",
+        "author_name": "أحمد محمد شاكر"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.98,
+    "level": "specialist",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.97,
+    "author_identification": {
+      "canonical_name_ar": "أحمد بن محمد بن حنبل الشيباني",
+      "known_as": [
+        "الإمام أحمد",
+        "أحمد بن حنبل",
+        "ابن حنبل"
+      ],
+      "death_date_hijri": 241,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "إمام أهل السنة والجماعة، مؤسس المذهب الحنبلي، ومن أعظم أئمة الحديث والفقه في الإسلام، صاحب المحنة الشهيرة في مسألة خلق القرآن",
+      "methodological_stance": "منهج أهل الحديث في الفقه والعقيدة، يقدم النص على الرأي والقياس"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "النصف الأول من القرن الثالث الهجري، من أواخر أعمال الإمام أحمد، جمعه ابنه عبد الله",
+      "composition_date_hijri": 230,
+      "tradition_position": "أكبر دواوين السنة النبوية من حيث عدد الأحاديث، ومن أهم مصادر الحديث الأصلية عند أهل السنة، يُعدّ من المسانيد الكبرى المرتبة على أسماء الصحابة",
+      "known_textual_issues": [
+        "لم يكمل أحمد شاكر تحقيقه، توقف عند مسند عبد الله بن عمرو بن العاص وأكمله حمزة الزين",
+        "ترتيب المسند على مسانيد الصحابة يجعل البحث فيه صعباً دون فهارس"
+      ],
+      "historical_significance": "أضخم مسند في الحديث النبوي، يحتوي على أكثر من 27000 حديث، وهو من أهم المصادر الحديثية الأصلية في التراث الإسلامي",
+      "muhaqiq_reputation": "أحمد محمد شاكر من أجلّ محققي التراث الإسلامي في العصر الحديث، عُرف بدقته في التحقيق والتخريج والحكم على الأسانيد",
+      "tahqiq_methodology_note": "اعتنى شاكر بتخريج الأحاديث والحكم على أسانيدها وشرح غريبها وصنع الفهارس، لكنه لم يكمل العمل وأتمه حمزة أحمد الزين",
+      "edition_known_issues": [
+        "لم يكمل أحمد شاكر التحقيق، أكمله حمزة الزين بمنهج مختلف",
+        "طبعة دار الحديث هذه في 8 مجلدات فقط وهي مختصرة مقارنة بالطبعات الأخرى"
+      ],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "edition_known_issues"
+      ]
+    }
+  }
+}

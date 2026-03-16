@@ -1,0 +1,138 @@
+{
+  "source_id": "src_8ef0c712",
+  "work_id": "wrk_mwfq_al_dyn_abw_mhmd_blghh_al_talb_al_hth",
+  "human_label": "blghh_al_talb_al_hth",
+  "title_arabic": "بلغة الطالب الحثيث في صحيح عوالي الحديث - مخطوط",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "موفق الدين أبو محمد عبد الله بن أحمد بن محمد بن قدامة المقدسي الجماعيلي ثم الدمشقي الحنبلي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": "الكتاب من مسموعات ابن قدامة المقدسي، وتخريج الضياء المقدسي (ت 643هـ) الذي هو ابن أخت ابن قدامة. فالمادة الحديثية هي مرويات ابن قدامة، والتخريج والترتيب من عمل الضياء المقدسي.",
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "الضياء المقدسي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": "specialist",
+  "publisher": null,
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 50,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 620 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: الضياء المقدسي"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.85,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.92,
+    "authority_level": 0.8,
+    "multi_layer": 0.82,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp7nl58iox\\library\\sources\\src_8ef0c712\\frozen",
+  "frozen_hash": "8ef0c712b3f6f1f8728e76137e4d8ae6d1c30f36fa91f926ec31bdd2d4713515",
+  "frozen_file_hashes": {
+    "book.htm": "931778d577c229f65ea425268362cdb81de82d2fb572aa3dddaff94cc2ce6126"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "editorial_note": "لا يوجد من المخطوط إلا الجزء الثاني والسابع فقط.",
+    "page_count_raw": "49",
+    "author_short": "ابن قدامة",
+    "preparer": "أحمد الخضري",
+    "physical_page_count": 49
+  },
+  "scholarly_context": {
+    "composition_period": "أوائل القرن السابع الهجري، من مسموعات ابن قدامة المقدسي التي خرّجها الضياء المقدسي",
+    "composition_date_hijri": 617,
+    "tradition_position": "جزء حديثي في العوالي، يجمع الأحاديث الصحيحة ذات الأسانيد العالية من مسموعات ابن قدامة المقدسي",
+    "known_textual_issues": [
+      "لا يوجد من المخطوط إلا الجزء الثاني والسابع فقط",
+      "طمس في بعض المواضع بالأصل"
+    ],
+    "historical_significance": "يمثل نموذجاً لأجزاء العوالي الحديثية التي اعتنى بها علماء بيت المقادسة في دمشق، ويبين العلاقة العلمية بين ابن قدامة وابن أخته الضياء المقدسي",
+    "muhaqiq_reputation": "الضياء المقدسي (محمد بن عبد الواحد المقدسي ت 643هـ) حافظ كبير من أئمة الحديث، صاحب المختارة، وهو المخرّج لا المحقق بالمعنى الحديث",
+    "tahqiq_methodology_note": "هذا مخطوط لم يُحقق تحقيقاً علمياً حديثاً، والضياء المقدسي هو مخرّج الأحاديث لا محقق بالمعنى المعاصر",
+    "edition_known_issues": [
+      "مخطوط ناقص، لا يوجد منه إلا الجزء الثاني والسابع"
+    ],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:39:42.196124+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 20.8,
+  "is_rerun": false,
+  "original_phase": null
+}

@@ -1,0 +1,159 @@
+{
+  "source_id": "src_0ad6663f",
+  "work_id": "wrk_jlal_al_dyn_mhmd_bn__waraqat",
+  "human_label": "waraqat",
+  "title_arabic": "شرح الورقات في أصول الفقه",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "جلال الدين محمد بن أحمد بن محمد بن إبراهيم المحلي الشافعي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "الدكتور حسام الدين بن موسى عفانة",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "usul_al_fiqh"
+  ],
+  "genre": "sharh",
+  "genre_chain": {
+    "relation_type": "sharh_of",
+    "base_work_title": "الورقات في أصول الفقه",
+    "base_work_author": "إمام الحرمين الجويني",
+    "base_work_id": null,
+    "confidence": 1.0
+  },
+  "level": "intermediate",
+  "publisher": "جامعة القدس، فلسطين",
+  "edition_number": 1,
+  "publication_year_hijri": 1420,
+  "publication_year_miladi": 1999,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "commentary",
+  "language": "ar",
+  "page_count": 226,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00003",
+        "name_arabic": "إمام الحرمين الجويني",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "sharh",
+      "author": {
+        "canonical_id": "sch_00004",
+        "name_arabic": "جلال الدين المحلي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 864 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: الدكتور حسام الدين بن موسى عفانة"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: جامعة القدس، فلسطين"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": 0.9,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": 1.0,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpcc28_yb7\\library\\sources\\src_0ad6663f\\frozen",
+  "frozen_hash": "0ad6663f682363b3883ea7893d213afe1bf351dc670b10b4d490dbcb4df2a0dc",
+  "frozen_file_hashes": {
+    "book.htm": "f805529d3f395fce555cf5adbff083808dc11b03f5b7d307384fec98c29c0435"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "أصول الفقه",
+    "shamela_publish_date": "27 شوّال 1432",
+    "edition_raw": "الأولى، 1420 هـ - 1999 م",
+    "page_count_raw": "249",
+    "author_short": "المحلي، جلال الدين",
+    "physical_page_count": 249,
+    "extra_card_fields": {
+      "صف وتنسيق": "حذيفة بن حسام الدين عفانة"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "أحد الشروح الأساسية على الورقات، ويُعتبر من أهم المراجع في أصول الفقه",
+    "known_textual_issues": [],
+    "historical_significance": "يُعد شرح المحلي على الورقات من أشهر الشروح وأهمها، وقد حظي بقبول واسع في الأوساط العلمية",
+    "muhaqiq_reputation": "الدكتور حسام الدين بن موسى عفانة معروف بتحقيقاته العلمية الدقيقة في التراث الإسلامي",
+    "tahqiq_methodology_note": "تم التحقيق وفق أصول علم تحقيق المخطوطات، مع جمع نسخ متعددة للشرح والمتن ومقارنتها",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:08:56.744616+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 22.14,
+  "is_rerun": true,
+  "original_phase": "C"
+}

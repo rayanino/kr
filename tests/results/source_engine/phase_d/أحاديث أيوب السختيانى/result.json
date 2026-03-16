@@ -1,0 +1,133 @@
+{
+  "source_id": "src_23427f62",
+  "work_id": "wrk_al_qady_abw_ishaq_is_jz_fyh_mn_ahadyth_al",
+  "human_label": "jz_fyh_mn_ahadyth_al",
+  "title_arabic": "جزء فيه من أحاديث الإمام أيوب السختياني",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "القاضي أبو إسحاق إسماعيل بن إسحاق بن إسماعيل بن حماد بن زيد الأزدي البصري ثم البغدادي المالكي الجهضمي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د سليمان بن عبد العزيز العريني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": "specialist",
+  "publisher": "مكتبة الرشد وشركة الرياض - السعودية",
+  "edition_number": 1,
+  "publication_year_hijri": 1418,
+  "publication_year_miladi": 1998,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 42,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7625000000000001,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 282 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: د سليمان بن عبد العزيز العريني"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.7,
+      "reason": "Known publisher: مكتبة الرشد (score 0.7)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.763 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.92,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpkuqkeaw_\\library\\sources\\src_23427f62\\frozen",
+  "frozen_hash": "23427f626d77f6147b0b96d96c92174ab9c34b9e7c0e3b8fc5d372fbfc07b5dc",
+  "frozen_file_hashes": {
+    "book.htm": "aca9907d7886c20e999cd29602ade8d0d830f906f7d7214ca5f9566797f47486"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "volume_count_raw": "1",
+    "edition_raw": "الأولى، 1418هـ - 1998م",
+    "author_short": "القاضي إسماعيل المالكي",
+    "metadata_volume_count": 1
+  },
+  "scholarly_context": {
+    "composition_period": "القرن الثالث الهجري، من أعمال المؤلف في جمع أحاديث أيوب السختياني بأسانيده",
+    "composition_date_hijri": null,
+    "tradition_position": "جزء حديثي يجمع مرويات أيوب بن أبي تميمة السختياني (ت 131هـ) أحد كبار التابعين وأئمة الحديث في البصرة، من خلال أسانيد المؤلف التي تصل إليه عبر جده حماد بن زيد وغيره",
+    "known_textual_issues": [],
+    "historical_significance": "جزء حديثي نادر يوثق مرويات أيوب السختياني عبر طرق بصرية عالية الإسناد، ويعكس اهتمام القاضي إسماعيل بجمع حديث أجداده وشيوخ بلده",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "muhaqiq_reputation"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T04:52:49.585184+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 113.84,
+  "is_rerun": true,
+  "original_phase": "C"
+}

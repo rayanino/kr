@@ -1,0 +1,127 @@
+{
+  "source_id": "src_c36afe59",
+  "work_id": "wrk_abw_aly_al_hsn_bn_al_al_thany_mn_al_wkhsh",
+  "human_label": "al_thany_mn_al_wkhsh",
+  "title_arabic": "الثاني من الوخشيات",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أَبُو عَلِيٍّ الحَسَنُ بنُ عَلِيِّ بنِ مُحَمَّدِ بنِ أَحْمَدَ بنِ جَعْفَرٍ البَلْخِيُّ، الوَخشِيّ",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "مخطوط نُشر في برنامج جوامع الكلم المجاني التابع لموقع الشبكة الإسلامية",
+  "edition_number": 1,
+  "publication_year_hijri": null,
+  "publication_year_miladi": 2004,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 59,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.6925,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 471 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 471 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مخطوط نُشر في برنامج جوامع الكلم المجاني التابع لموقع الشبكة الإسلامية"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.693 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.95,
+    "level": null,
+    "structural_format": 0.9,
+    "authority_level": 0.9,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmppifk9uu5\\library\\sources\\src_c36afe59\\frozen",
+  "frozen_hash": "c36afe59beee59fcf6f2e0728cf610f47b6aafa600f278dc927bac8af310c5c7",
+  "frozen_file_hashes": {
+    "book.htm": "36d55097919b081e3cf18976e49b34047d7bf53b147b693129913f985bf2d056"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 2004",
+    "page_count_raw": "59",
+    "author_short": "الوخشي",
+    "physical_page_count": 59
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "A collection of hadith narrations compiled by the author",
+    "known_textual_issues": [],
+    "historical_significance": "Part of the broader tradition of hadith compilation in the Islamic scholarly heritage",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "composition_period",
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:30:06.533688+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 14.47,
+  "is_rerun": false,
+  "original_phase": null
+}

@@ -1,0 +1,138 @@
+{
+  "source_id": "src_fb9027d3",
+  "work_id": "wrk_mhyy_al_dyn_bn_ahmd__iarab_al_qran_wbyanh",
+  "human_label": "iarab_al_qran_wbyanh",
+  "title_arabic": "إعراب القرآن وبيانه",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محيي الدين بن أحمد مصطفى درويش",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "nahw",
+    "tafsir",
+    "balagha",
+    "ulum_al_quran"
+  ],
+  "genre": "tafsir",
+  "genre_chain": null,
+  "level": "advanced",
+  "publisher": "دار الإرشاد للشئون الجامعية - حمص - سورية، (دار اليمامة - دمشق - بيروت)، (دار ابن كثير - دمشق - بيروت)",
+  "edition_number": 4,
+  "publication_year_hijri": 1415,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 567,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.6075,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1403 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.3,
+      "reason": "No muhaqiq, modern author (d. 1403 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الإرشاد للشئون الجامعية - حمص - سورية، (دار اليمامة - دمشق - بيروت)، (دار ابن كثير - دمشق - بيروت)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.608 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.82,
+    "science_scope": 0.9,
+    "level": 0.8,
+    "structural_format": 0.9,
+    "authority_level": 0.85,
+    "multi_layer": 0.88,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 10,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpr8pkdyex\\library\\sources\\src_fb9027d3\\frozen",
+  "frozen_hash": "fb9027d3541791bb61efe7ea2c67199c8a8d7649d810cadde04f4630d11f691b",
+  "frozen_file_hashes": {
+    "001.htm": "8ccca4b838acad00cd479b1ddcdb3097cce11a116d97009890dbc986e49a6556",
+    "002.htm": "526f711dda1011a768785b3b7bf3abe153af2d039ac589fd1a5fefc0203622ff",
+    "003.htm": "d1d8c7cca8b037dbc25dcb4a9bd356f06129a52f12b327cbcc36e96a32f79af1",
+    "004.htm": "a29f42acaa7313032203eaf1478c4a046e98148537da0381089fca48c2c557b1",
+    "005.htm": "0826a082bf1cd4dd567d9ef524be1ff11553ce7c96f1b75a5683ea39b34c7bdb",
+    "006.htm": "e536979dc67b426238d8f9dcf79d7d91747f33fd452257f78673e2885c0a3bff",
+    "007.htm": "45113c8cbd401f7ab512e8460ac67243576132a6ac8ae971f5f3bdcaffb639af",
+    "008.htm": "19305638ab73c256fcfe565004395c8b71545e4b415f5653f09e9958276f66a5",
+    "009.htm": "bdd5e29137f2443c16e45f59063b61c30f4c0e7aeffbcd1b910d3303c722a27e",
+    "010.htm": "e47f96a859bcd05a22c7531a4f2f59e7693c9f35a72ad60288e0c8b13e1522ed"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التفسير",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "volume_count_raw": "10",
+    "edition_raw": "الرابعة، 1415 هـ",
+    "author_short": "محيي الدين درويش",
+    "metadata_volume_count": 10
+  },
+  "scholarly_context": {
+    "composition_period": "من أواخر أعمال المؤلف، صدر بعد وفاته عام 1403 هـ",
+    "composition_date_hijri": null,
+    "tradition_position": "يعد من أبرز المؤلفات الحديثة في إعراب القرآن الكريم، يجمع بين التحليل النحوي والبلاغي والتفسيري، ويُعتبر مرجعاً أساسياً للباحثين في علوم القرآن والنحو",
+    "known_textual_issues": [],
+    "historical_significance": "من أشمل الكتب المعاصرة في إعراب القرآن الكريم، يقع في عشرة مجلدات ويتميز بالجمع بين الإعراب والبيان البلاغي والتفسيري",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:22:57.104974+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 12.71,
+  "is_rerun": false,
+  "original_phase": null
+}

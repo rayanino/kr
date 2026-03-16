@@ -1,0 +1,151 @@
+{
+  "source_id": "src_fa8ac9ac",
+  "work_id": "wrk_bukhari_sharh",
+  "human_label": "sharh",
+  "title_arabic": "الروضة الندية شرح الدرر البهية",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو الطيب محمد صديق خان بن حسن بن علي ابن لطف الله الحسيني البخاري القنوجي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh"
+  ],
+  "genre": "sharh",
+  "genre_chain": {
+    "relation_type": "sharh_of",
+    "base_work_title": "الدرر البهية في المسائل الفقهية",
+    "base_work_author": "محمد بن علي بن محمد الشوكاني",
+    "base_work_id": null,
+    "confidence": 0.99
+  },
+  "level": "intermediate",
+  "publisher": "دار المعرفة",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "commentary",
+  "language": "ar",
+  "page_count": 299,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00002",
+        "name_arabic": "محمد بن علي الشوكاني",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "sharh",
+      "author": {
+        "canonical_id": "sch_00003",
+        "name_arabic": "محمد صديق خان القنوجي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "flagged",
+  "trust_score": 0.6075,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1307 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.3,
+      "reason": "No muhaqiq, modern author (d. 1307 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار المعرفة"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.608 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.97,
+    "science_scope": 0.98,
+    "level": 0.8,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 0.97,
+    "genre_chain": 0.99,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 2,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpqn2u_gul\\library\\sources\\src_fa8ac9ac\\frozen",
+  "frozen_hash": "fa8ac9ac73529a7618e221a86822fdc18ea0aaefedd62d0fc923793ff7365d1c",
+  "frozen_file_hashes": {
+    "001.htm": "fd0d6541fff9e1ca15919bfb8463edfb32827a6c781d699a990c47ae0a09b1eb",
+    "002.htm": "60e8e800e65f0372c83f27eb16991d2471c0da69df22e3fce1e65011fc098b92"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الفقه العام",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "volume_count_raw": "2",
+    "author_short": "صديق حسن خان",
+    "metadata_volume_count": 2
+  },
+  "scholarly_context": {
+    "composition_period": "من أعمال القنوجي في النصف الثاني من القرن الثالث عشر الهجري",
+    "composition_date_hijri": null,
+    "tradition_position": "شرح مهم على مختصر الشوكاني الفقهي، يمثل امتداد المدرسة الحديثية اليمنية في الهند، ويعد من أبرز الشروح على الدرر البهية",
+    "known_textual_issues": [],
+    "historical_significance": "يعد هذا الشرح من أهم المصنفات في الفقه الاستدلالي المبني على الدليل دون التقيد بمذهب معين، وهو من أشهر كتب القنوجي وأكثرها تداولاً",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:31:58.458347+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 40.4,
+  "is_rerun": false,
+  "original_phase": null
+}

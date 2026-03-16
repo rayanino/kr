@@ -1,0 +1,136 @@
+{
+  "source_id": "src_41e133af",
+  "work_id": "wrk_aly_bn_jafr_bn_aly_a_abnyh_al_asma_walafa",
+  "human_label": "abnyh_al_asma_walafa",
+  "title_arabic": "أبنية الأسماء والأفعال والمصادر",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "علي بن جعفر بن علي السعدي الصقلي، أبو القاسم ابن القطاع",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "أحمد محمد عبد الدايم",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "sarf",
+    "lughah"
+  ],
+  "genre": "matn",
+  "genre_chain": null,
+  "level": "advanced",
+  "publisher": "دار الكتب والوثائق القومية - القاهرة",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": 1999,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 295,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 515 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: أحمد محمد عبد الدايم"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الكتب والوثائق القومية - القاهرة"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.88,
+    "science_scope": 0.95,
+    "level": 0.82,
+    "structural_format": 0.92,
+    "authority_level": 0.92,
+    "multi_layer": 0.93,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpxj_e212r\\library\\sources\\src_41e133af\\frozen",
+  "frozen_hash": "41e133af0651229603d091bdaa3f35916b288929030bc249f53feb31f8fe5eee",
+  "frozen_file_hashes": {
+    "book.htm": "5c8a0205b473abaa5dcca6d3c723b1b18a689a167cde916095efea4d4b3768c1"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "النحو والصرف",
+    "shamela_publish_date": "24 جُمادَى الآخرة 1438",
+    "publication_year_raw": "1999 م",
+    "page_count_raw": "383",
+    "author_short": "ابن القطاع الصقلي",
+    "preparer": "فريق رابطة النساخ برعاية (مركز النخب العلمية)",
+    "_tahqiq_origin": "أطروحة دكتوراة بكلية دار العلوم - جامعة القاهرة، 1980 م",
+    "physical_page_count": 383
+  },
+  "scholarly_context": {
+    "composition_period": "أواخر القرن الخامس أو أوائل القرن السادس الهجري، من أعمال ابن القطاع في مصر",
+    "composition_date_hijri": null,
+    "tradition_position": "يمثل محاولة استيعابية لأبنية الأسماء والأفعال والمصادر العربية، تجاوز فيها المؤلف ما ذكره سيبويه وابن السراج والجرمي وابن خالويه، فبلغ ألفاً وخمسمائة مثال بعد أن كان سيبويه ذكر ثلاثمائة وثمانية",
+    "known_textual_issues": [],
+    "historical_significance": "من أوسع المصنفات في حصر الأبنية الصرفية العربية، يعد مرجعاً مهماً في علم التصريف وأوزان الكلمات",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "muhaqiq_reputation",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T04:50:55.740659+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 15.95,
+  "is_rerun": true,
+  "original_phase": "C"
+}

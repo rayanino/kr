@@ -1,0 +1,54 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.087310100003378,
+  "parsed": {
+    "genre": "tabaqat",
+    "genre_confidence": 1.0,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 1.0,
+    "layers": null,
+    "science_scope": [
+      "tarikh",
+      "sirah"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "شمس الدين محمد بن أحمد بن عثمان الذهبي",
+      "known_as": [
+        "الذهبي",
+        "شمس الدين"
+      ],
+      "death_date_hijri": 748,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "مؤرخ الإسلام والحافظ الشهير، أحد كبار علماء الحديث والتاريخ والتراجم",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "أحد أهم المراجع في علم التراجم والتاريخ الإسلامي",
+      "known_textual_issues": [],
+      "historical_significance": "يعد من أعظم كتب التراجم التي تناولت كافة العصور إلى عصر المؤلف، وشمل تراجم لمختلف الشخصيات من مشارق الأرض ومغاربها",
+      "muhaqiq_reputation": "محمد أيمن الشبراوي معروف بتحقيقاته العلمية الدقيقة في مجال التراث الإسلامي",
+      "tahqiq_methodology_note": "تم التحقيق مع مراعاة النص الأصلي وخدمته علمياً لتيسير النفع به وتقريبه إلى القراء",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": []
+    }
+  }
+}

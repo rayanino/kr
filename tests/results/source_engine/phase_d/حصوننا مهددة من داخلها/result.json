@@ -1,0 +1,128 @@
+{
+  "source_id": "src_6788f296",
+  "work_id": "wrk_mhmd_mhmd_hsyn_hswnna_mhddh_mn_dakh",
+  "human_label": "hswnna_mhddh_mn_dakh",
+  "title_arabic": "حُصُوُننا مهدَّدة من دَاخِلِهَا",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد محمد حسين",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fikr_islami",
+    "naqd_adabi",
+    "adab"
+  ],
+  "genre": "other",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "مؤسسة الرسالة، بيروت",
+  "edition_number": 8,
+  "publication_year_hijri": 1404,
+  "publication_year_miladi": 1983,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 228,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.6675,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1402 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.3,
+      "reason": "No muhaqiq, modern author (d. 1402 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.8,
+      "reason": "Known publisher: مؤسسة الرسالة (score 0.8)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.667 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.82,
+    "science_scope": 0.75,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.92,
+    "multi_layer": 0.97,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpr_njhy1e\\library\\sources\\src_6788f296\\frozen",
+  "frozen_hash": "6788f29692fa623474435e1b9eaadbc5a10927588f47b2485153863c9eecb809",
+  "frozen_file_hashes": {
+    "book.htm": "82c74dcf4c7ed48962306f72b1dc2bf84475c8db059073da024d5dc575cbb4a1"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب عامة",
+    "shamela_publish_date": "8 ربيع الآخر 1435",
+    "edition_raw": "الثامنة، 1404 هـ -1983 م",
+    "page_count_raw": "236",
+    "author_short": "محمد محمد حسين",
+    "physical_page_count": 236
+  },
+  "scholarly_context": {
+    "composition_period": "نُشرت المقالات أولاً في مجلة الأزهر بعد الحرب العالمية الثانية، ثم جُمعت في كتاب صدرت طبعته الأولى عام 1387 هـ",
+    "composition_date_hijri": 1387,
+    "tradition_position": "من أبرز الكتب في النقد الفكري الإسلامي المعاصر، يمثل تياراً محافظاً في مواجهة التيارات التغريبية في الفكر والأدب العربي بعد الحرب العالمية الثانية",
+    "known_textual_issues": [
+      "أسقط المؤلف الفصول الثلاثة الأخيرة من باب الدراسات الإسلامية ابتداءً من الطبعة الرابعة ونقلها إلى كتابه الإسلام والحضارة الغربية"
+    ],
+    "historical_significance": "كتاب مؤثر في الفكر الإسلامي المعاصر، صدر في ثماني طبعات خلال حياة المؤلف، يُعدّ من المراجع الأساسية في نقد التيارات الفكرية المعاصرة من منظور إسلامي",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": []
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:45:57.413000+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 15.08,
+  "is_rerun": false,
+  "original_phase": null
+}

@@ -1,0 +1,55 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.420656299975235,
+  "parsed": {
+    "genre": "adab",
+    "genre_confidence": 1.0,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 1.0,
+    "layers": null,
+    "science_scope": [
+      "adab",
+      "lughah"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "عمرو بن بحر بن محبوب الكناني بالولاء، الليثي، أبو عثمان، الشهير بالجاحظ",
+      "known_as": [
+        "الجاحظ"
+      ],
+      "death_date_hijri": 255,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "أحد كبار الأدباء والمفكرين في العصر العباسي، معروف بأسلوبه الأدبي الفلسفي",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "يعتبر كتاب البيان والتبيين أحد أهم الأعمال في علم البيان والأدب العربي",
+      "known_textual_issues": [],
+      "historical_significance": "من أهم المؤلفات الأدبية والفلسفية في التراث العربي، يتناول قضايا اللغة والبيان وفلسفة الكلام",
+      "muhaqiq_reputation": "حسن السندوبي وعبد السلام هارون من المحققين البارزين في مجال التراث العربي",
+      "tahqiq_methodology_note": "بذل المحققون جهدا في التحقيق والشرح والفهرسة، مع تركيز على المنحى الفلسفي والتبويب",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

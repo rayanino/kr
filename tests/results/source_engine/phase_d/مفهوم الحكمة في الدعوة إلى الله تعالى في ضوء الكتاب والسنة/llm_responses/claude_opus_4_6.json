@@ -1,0 +1,57 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.29797340001096,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.92,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.97,
+    "layers": null,
+    "science_scope": [
+      "dawah",
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "beginner",
+    "level_confidence": 0.85,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "سعيد بن علي بن وهف القحطاني",
+      "known_as": [
+        "سعيد القحطاني",
+        "صاحب حصن المسلم"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "aqidah": "سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "داعية وكاتب سعودي معاصر، اشتهر بمؤلفاته الدعوية المختصرة وأشهرها حصن المسلم، حاصل على الدكتوراه من جامعة الإمام محمد بن سعود الإسلامية",
+      "methodological_stance": "منهج سلفي في الدعوة والعقيدة، يعتمد على الكتاب والسنة بفهم السلف الصالح"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "مؤلف معاصر، حُرر في 25/2/1425هـ كما ذُكر في المقدمة",
+      "composition_date_hijri": 1425,
+      "tradition_position": "رسالة دعوية مختصرة ضمن سلسلة مؤلفات القحطاني الموجهة لعامة المسلمين والدعاة",
+      "known_textual_issues": [],
+      "historical_significance": "جزء من سلسلة مؤلفات القحطاني الدعوية المنتشرة في العالم الإسلامي، تتناول مفهوم الحكمة في الدعوة وهو موضوع مهم في أدبيات الدعوة المعاصرة",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": []
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.294267400022363,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.85,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "أبو حنيفة النعمان بن ثابت بن زوطي بن ماه",
+      "known_as": [
+        "أبو حنيفة",
+        "الإمام الأعظم"
+      ],
+      "death_date_hijri": 150,
+      "school_affiliations": {
+        "fiqh": "Hanafi"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Founding jurist of the Hanafi school of Islamic jurisprudence, one of the four major Sunni madhhabs.",
+      "methodological_stance": "Known for his reliance on ra'y (juristic opinion) alongside hadith in legal reasoning."
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "This work is part of the Musnad collections, which compile hadiths according to the narrators, specifically those narrated by Abu Hanifa.",
+      "known_textual_issues": [],
+      "historical_significance": "One of the earliest Musnad collections, significant for its role in preserving the hadith transmission chain of Abu Hanifa, a key figure in Islamic jurisprudence.",
+      "muhaqiq_reputation": "عبد الرحمن حسن محمود is a known editor of Islamic texts, though specific reputation details are not widely documented.",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

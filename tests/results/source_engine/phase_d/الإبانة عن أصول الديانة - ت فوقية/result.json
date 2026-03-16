@@ -1,0 +1,137 @@
+{
+  "source_id": "src_7e55de52",
+  "work_id": "wrk_abw_al_hsn_aly_bn_is_al_ibanh_an_aswl_al_",
+  "human_label": "al_ibanh_an_aswl_al_",
+  "title_arabic": "الإبانة عن أصول الديانة",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو الحسن علي بن إسماعيل بن إسحاق بن سالم بن إسماعيل بن عبد الله بن موسى بن أبي بردة بن أبي موسى الأشعري",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "disputed",
+  "attribution_notes": "كتاب الإبانة منسوب للأشعري بشكل تقليدي ومشهور، لكن هناك خلاف بين الباحثين حول مدى صحة نسبته إليه بالصورة الحالية، إذ يرى بعض الباحثين أن النص الواصل إلينا قد طاله تحريف أو زيادات، بينما يثبته آخرون. كما أن هناك نقاشاً حول ما إذا كان يمثل مرحلته الأخيرة في العقيدة أم لا.",
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د. فوقية حسين محمود",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "aqidah"
+  ],
+  "genre": "matn",
+  "genre_chain": null,
+  "level": "intermediate",
+  "publisher": "دار الأنصار - القاهرة",
+  "edition_number": 1,
+  "publication_year_hijri": 1397,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 246,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 324 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: د. فوقية حسين محمود"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الأنصار - القاهرة"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.99,
+    "level": 0.7,
+    "structural_format": 0.97,
+    "authority_level": 0.95,
+    "multi_layer": 0.92,
+    "genre_chain": null,
+    "author": 0.7
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpomauy54o\\library\\sources\\src_7e55de52\\frozen",
+  "frozen_hash": "7e55de529922a9250dc894d2ccbab062a20ed2a9f0a123e023fd444428bc7a71",
+  "frozen_file_hashes": {
+    "book.htm": "7e1f3207e44aa5c523d432c343a62a5ef40669d9743fbba1836360c333c57fd2"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "العقيدة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1397",
+    "page_count_raw": "260",
+    "author_short": "أبو الحسن الأشعري",
+    "physical_page_count": 260
+  },
+  "scholarly_context": {
+    "composition_period": "من آخر مؤلفات الأشعري بعد رجوعه عن الاعتزال، ألفه في أواخر القرن الثالث أو أوائل القرن الرابع الهجري",
+    "composition_date_hijri": 320,
+    "tradition_position": "يُعدّ من أهم كتب العقيدة عند أهل السنة، ويستدل به كل من الأشاعرة وأهل الحديث على أن الأشعري رجع إلى مذهبهم. وهو من أبرز المتون العقدية في تاريخ الإسلام.",
+    "known_textual_issues": [
+      "خلاف حول مدى سلامة النص الواصل من التحريف والزيادات",
+      "اختلاف النسخ الخطية في بعض المواضع",
+      "نسب بعض الباحثين بعض الزيادات في النص إلى النساخ"
+    ],
+    "historical_significance": "من أهم المتون العقدية في تاريخ الإسلام، يمثل موقف الأشعري بعد رجوعه عن الاعتزال، ويُعدّ وثيقة مرجعية في تحديد عقيدة الأشعري النهائية",
+    "muhaqiq_reputation": "د. فوقية حسين محمود أكاديمية مصرية، تحقيقها من أوائل التحقيقات العلمية للكتاب",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [
+      "الطبعة الأولى 1397هـ، وقد صدرت بعدها تحقيقات أخرى أكثر اعتماداً على نسخ خطية متعددة"
+    ],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:10:35.074556+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 30.66,
+  "is_rerun": true,
+  "original_phase": "C"
+}

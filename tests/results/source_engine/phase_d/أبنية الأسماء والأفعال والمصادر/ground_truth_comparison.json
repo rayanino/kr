@@ -1,0 +1,68 @@
+{
+  "comparisons": {
+    "genre": {
+      "expected": "matn",
+      "actual": "matn",
+      "match": true
+    },
+    "author": {
+      "expected": "ابن القطاع الصقلي (ت 515هـ)",
+      "actual": "علي بن جعفر بن علي السعدي الصقلي، أبو القاسم ابن القطاع",
+      "match": true,
+      "similarity": 1.0
+    },
+    "trust_tier": {
+      "expected": "verified",
+      "actual": "verified",
+      "match": true
+    },
+    "is_multi_layer": {
+      "expected": false,
+      "actual": false,
+      "match": true
+    },
+    "science_scope": {
+      "expected": [
+        "nahw",
+        "sarf"
+      ],
+      "actual": [
+        "sarf",
+        "lughah"
+      ],
+      "overlap": [
+        "sarf"
+      ],
+      "extra_in_actual": [
+        "lughah"
+      ],
+      "missing_from_actual": [
+        "nahw"
+      ],
+      "match_type": "overlap"
+    },
+    "structural_format": {
+      "expected": "prose",
+      "actual": "prose",
+      "match": true
+    },
+    "authority_level": {
+      "expected": "primary",
+      "actual": "primary",
+      "match": true
+    },
+    "level": {
+      "expected": "advanced",
+      "actual": "advanced",
+      "match": true
+    },
+    "attribution_status": {
+      "expected": "definitive",
+      "actual": "definitive",
+      "match": true
+    }
+  },
+  "all_match": false,
+  "book": "أبنية الأسماء والأفعال والمصادر",
+  "ground_truth_key": "02_nahw_muhaqiq"
+}

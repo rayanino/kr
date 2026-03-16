@@ -1,0 +1,55 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 9.786884100001771,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.82,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "beginner",
+    "level_confidence": 0.88,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "نديم حسين دعكور",
+      "known_as": [
+        "الدكتور نديم دعكور"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": null,
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "مؤلف تعليمي معاصر في مجال اللغة العربية والنحو التطبيقي",
+      "methodological_stance": "منهج تعليمي تطبيقي يجمع بين النظرية والتطبيق العملي مع الاستشهاد بالقرآن الكريم"
+    },
+    "author_identification_confidence": 0.75,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "عمل معاصر من أواخر القرن العشرين الميلادي",
+      "composition_date_hijri": 1418,
+      "tradition_position": "كتاب تعليمي تطبيقي موجه لطلاب المرحلة المتوسطة والثانوية في قواعد اللغة العربية",
+      "known_textual_issues": [],
+      "historical_significance": "كتاب تعليمي حديث يركز على الجانب التطبيقي في تعليم النحو والصرف مع الاستشهاد بالقرآن الكريم",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

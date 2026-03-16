@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.023337000020547,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.85,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "tasawwuf",
+      "adab"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "intermediate",
+    "level_confidence": 0.6,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.93,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن الحسين بن محمد بن موسى بن خالد بن سالم النيسابوري، أبو عبد الرحمن السلمي",
+      "known_as": [
+        "أبو عبد الرحمن السلمي",
+        "السلمي"
+      ],
+      "death_date_hijri": 412,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "tasawwuf": "صوفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز مؤرخي التصوف ومصنفيه في القرن الخامس الهجري، صاحب طبقات الصوفية وحقائق التفسير وغيرها من المصنفات المهمة في التصوف",
+      "methodological_stance": "جمع بين التصوف والحديث، عُرف بجمع أقوال المشايخ وآدابهم ونقلها بالأسانيد"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال السلمي في أواخر القرن الرابع الهجري",
+      "composition_date_hijri": null,
+      "tradition_position": "من الرسائل المبكرة في آداب الصحبة عند الصوفية، يجمع بين النصوص القرآنية والأحاديث النبوية وأقوال مشايخ التصوف في بيان آداب المعاشرة والصحبة",
+      "known_textual_issues": [],
+      "historical_significance": "رسالة مهمة في أدب الصحبة الصوفية، تعكس اهتمام السلمي بتدوين آداب الصوفية وأخلاقهم، وهي من المصادر المبكرة في هذا الباب",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

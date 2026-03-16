@@ -1,0 +1,51 @@
+{
+  "schema_version": "phase_d_review_bundle.v2",
+  "review_identity": {
+    "review_id": "test-review-1",
+    "book_index": 1,
+    "exact_title": "Dummy Book 1",
+    "strict_match_key": "1::Dummy Book 1",
+    "phase": "D"
+  },
+  "evidence_gate": {
+    "gate_status": "pass",
+    "blocking_reasons": [],
+    "material_uncertainty_notes": []
+  },
+  "field_audit": {
+    "title": {
+      "state": "Verified",
+      "evidence_refs": [],
+      "notes": ""
+    }
+  },
+  "material_issues": [],
+  "certification": {
+    "round_1_coverage_protocol": {},
+    "round_2_evidence_attack": {},
+    "round_3_alternative_explanation_attack": {},
+    "round_4_final_artifact_certification": {},
+    "certification_status": "certified"
+  },
+  "analytics": {
+    "overall_severity": "Minor",
+    "primary_issue_classes": [],
+    "normalized_issue_tags": [],
+    "suspected_subsystems": [],
+    "generalization_level": "isolated",
+    "model_adequacy": "adequate",
+    "fix_scope": [],
+    "release_blocker": false
+  },
+  "final_certified_output": {
+    "final_verdict": "Correct",
+    "surviving_material_findings": [],
+    "final_comment": "Looks good.",
+    "policy_clarification": null,
+    "engine_level_lesson": null,
+    "future_comparison_note": null
+  },
+  "runtime_control": {
+    "reservation_token": "d62d0562-5ef4-4a36-8125-7c02904165ff"
+  }
+}

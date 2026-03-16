@@ -1,0 +1,70 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.300667499977862,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 1.0,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "الورقات في أصول الفقه",
+      "base_work_author": "إمام الحرمين الجويني"
+    },
+    "genre_chain_confidence": 1.0,
+    "structural_format": "commentary",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 1.0,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "إمام الحرمين الجويني"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "جلال الدين المحلي"
+      }
+    ],
+    "science_scope": [
+      "usul_al_fiqh"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": "intermediate",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "جلال الدين محمد بن أحمد بن محمد بن إبراهيم المحلي الشافعي",
+      "known_as": [
+        "جلال الدين المحلي",
+        "المحلي"
+      ],
+      "death_date_hijri": 864,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم شافعي بارز، له شروح مهمة في أصول الفقه وغيرها من العلوم الإسلامية",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "أحد الشروح الأساسية على الورقات، ويُعتبر من أهم المراجع في أصول الفقه",
+      "known_textual_issues": [],
+      "historical_significance": "يُعد شرح المحلي على الورقات من أشهر الشروح وأهمها، وقد حظي بقبول واسع في الأوساط العلمية",
+      "muhaqiq_reputation": "الدكتور حسام الدين بن موسى عفانة معروف بتحقيقاته العلمية الدقيقة في التراث الإسلامي",
+      "tahqiq_methodology_note": "تم التحقيق وفق أصول علم تحقيق المخطوطات، مع جمع نسخ متعددة للشرح والمتن ومقارنتها",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

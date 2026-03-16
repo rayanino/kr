@@ -1,0 +1,169 @@
+{
+  "source_id": "src_8811af0c",
+  "work_id": "wrk_aly_bn_aly_bn_mhmd_b_sharh",
+  "human_label": "sharh",
+  "title_arabic": "شرح العقيدة الطحاوية",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "علي بن علي بن محمد بن أبي العز الحنفي الدمشقي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": "نُسب الشرح تقليدياً لابن أبي العز الحنفي، وقد أثار بعض الباحثين تساؤلات حول نسبته إليه لكن الرأي السائد يقبل هذه النسبة",
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د عبد الله بن المحسن التركي - شعيب الأرنؤوط",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "aqidah"
+  ],
+  "genre": "sharh",
+  "genre_chain": {
+    "relation_type": "sharh_of",
+    "base_work_title": "العقيدة الطحاوية",
+    "base_work_author": "أبو جعفر أحمد بن محمد بن سلامة الطحاوي",
+    "base_work_id": null,
+    "confidence": 0.99
+  },
+  "level": "intermediate",
+  "publisher": "مؤسسة الرسالة، بيروت - لبنان",
+  "edition_number": 2,
+  "publication_year_hijri": 1411,
+  "publication_year_miladi": 1990,
+  "source_format": "shamela_html",
+  "authority_level": "reference",
+  "structural_format": "commentary",
+  "language": "ar",
+  "page_count": 338,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00003",
+        "name_arabic": "أبو جعفر أحمد بن محمد بن سلامة الطحاوي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "sharh",
+      "author": {
+        "canonical_id": "sch_00004",
+        "name_arabic": "علي بن علي بن محمد بن أبي العز الدمشقي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "tahqiq_note",
+      "author": {
+        "canonical_id": "sch_00005",
+        "name_arabic": "عبد الله بن المحسن التركي وشعيب الأرنؤوط",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "verified",
+  "trust_score": 0.8400000000000001,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 792 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.9,
+      "reason": "Recognized muhaqiq: د عبد الله بن المحسن التركي - شعيب الأرنؤوط (matched عبد الله التركي)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.8,
+      "reason": "Known publisher: مؤسسة الرسالة (score 0.8)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Reference work"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.840 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.99,
+    "science_scope": 0.99,
+    "level": 0.82,
+    "structural_format": 0.97,
+    "authority_level": 0.92,
+    "multi_layer": 0.98,
+    "genre_chain": 0.99,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 2,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpvhjg3jmu\\library\\sources\\src_8811af0c\\frozen",
+  "frozen_hash": "8811af0c9893e65c8dec4b14c79e09eb1b14aef118a97f70fc0acfe5b110a8da",
+  "frozen_file_hashes": {
+    "001.htm": "91745075f08850d93940b41e68279d4e124a09ce3f1b7ef498e4e8a73bb633bb",
+    "002.htm": "8b653662ec9536c8f700225e6bccb051d038c27e5426d73e6c9563887a8ee48e"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "العقيدة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "volume_count_raw": "2 (متسلسلة الترقيم)",
+    "edition_raw": "الثانية، 1411 هـ - 1990 م",
+    "author_short": "ابن أبي العز",
+    "metadata_volume_count": 2
+  },
+  "scholarly_context": {
+    "composition_period": "أُلّف في النصف الثاني من القرن الثامن الهجري",
+    "composition_date_hijri": 780,
+    "tradition_position": "أشهر شروح العقيدة الطحاوية وأكثرها تداولاً، يُعدّ مرجعاً أساسياً في تقرير عقيدة أهل السنة على منهج السلف، وقد حظي باهتمام واسع في العصر الحديث خاصة في الأوساط السلفية",
+    "known_textual_issues": [
+      "وقع خلاف حول نسبة الشرح لابن أبي العز، وأشار بعض الباحثين إلى احتمال أن يكون المؤلف غيره",
+      "النسخ الخطية متعددة وفيها اختلافات"
+    ],
+    "historical_significance": "يُعدّ من أهم المتون العقدية المشروحة في التراث الإسلامي السني، وقد أصبح مقرراً دراسياً في كثير من المعاهد والجامعات الإسلامية",
+    "muhaqiq_reputation": "شعيب الأرنؤوط (ت 1438 هـ) محقق سوري مشهور بتحقيقاته العلمية الدقيقة وتخريج الأحاديث، وعبد الله التركي عالم سعودي معروف بإشرافه على مشاريع تحقيق التراث",
+    "tahqiq_methodology_note": "تحقيق علمي يعتمد على مقابلة النسخ الخطية مع تخريج الأحاديث والآثار والتعليق على المسائل العلمية",
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:17:15.970163+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 23.45,
+  "is_rerun": true,
+  "original_phase": "C"
+}

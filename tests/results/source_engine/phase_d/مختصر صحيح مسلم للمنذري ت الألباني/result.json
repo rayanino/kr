@@ -1,0 +1,139 @@
+{
+  "source_id": "src_f57b0e31",
+  "work_id": "wrk_abd_al_azym_bn_abd_a_mukhtasar",
+  "human_label": "mukhtasar",
+  "title_arabic": "مختصر صحيح مسلم «للإمام أبي الحسين مسلم بن الحجاج القشيري النيسابوري»",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد العظيم بن عبد القوي بن عبد الله بن سلامة، أبو محمد، زكي الدين المنذري",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "محمد ناصر الدين الألباني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith"
+  ],
+  "genre": "mukhtasar",
+  "genre_chain": {
+    "relation_type": "mukhtasar_of",
+    "base_work_title": "صحيح مسلم",
+    "base_work_author": "مسلم بن الحجاج القشيري النيسابوري",
+    "base_work_id": null,
+    "confidence": 0.99
+  },
+  "level": "intermediate",
+  "publisher": "المكتب الإسلامي، بيروت - لبنان",
+  "edition_number": 6,
+  "publication_year_hijri": 1407,
+  "publication_year_miladi": 1987,
+  "source_format": "shamela_html",
+  "authority_level": "reference",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 237,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.8325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 656 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.9,
+      "reason": "Recognized muhaqiq: محمد ناصر الدين الألباني (matched محمد ناصر الدين الألباني)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.75,
+      "reason": "Known publisher: المكتب الإسلامي (score 0.75)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Reference work"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.833 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.97,
+    "science_scope": 0.99,
+    "level": 0.8,
+    "structural_format": 0.95,
+    "authority_level": 0.88,
+    "multi_layer": 0.85,
+    "genre_chain": 0.99,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 2,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpex7dekau\\library\\sources\\src_f57b0e31\\frozen",
+  "frozen_hash": "f57b0e31cea36a436265f49633cbf5da802944bc1bbde27f7d290a8a9d5f5c6c",
+  "frozen_file_hashes": {
+    "001.htm": "b892d7ac54c3caf0981c3ecc440e16be3800b1937c75d9dbd58f5e9641c531f3",
+    "002.htm": "59952565577f02692435506b99190775d6858eb4d067b3c517b0bb15e434c473",
+    "مقدمة.htm": "b047837c05ab3dd2def834aa233f2e56203508f8645dfb97a059d01103656162"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "9 شوّال 1436",
+    "volume_count_raw": "2 (متسلسلة الترقيم)",
+    "edition_raw": "السادسة، 1407 هـ - 1987 م",
+    "author_short": "عبد العظيم المنذري",
+    "metadata_volume_count": 2
+  },
+  "scholarly_context": {
+    "composition_period": "النصف الأول من القرن السابع الهجري، من أعمال المنذري المتوسطة",
+    "composition_date_hijri": 640,
+    "tradition_position": "من أشهر مختصرات صحيح مسلم، اعتمده العلماء كمرجع مختصر لأحاديث صحيح مسلم مع حذف الأسانيد والمكررات",
+    "known_textual_issues": [],
+    "historical_significance": "مختصر مهم لصحيح مسلم حظي بقبول واسع، وزاد من شهرته تحقيق الألباني له الذي أضاف تعليقات حديثية قيمة",
+    "muhaqiq_reputation": "محمد ناصر الدين الألباني (ت 1420 هـ) من أبرز محدثي العصر الحديث، اشتهر بتصحيح الأحاديث وتضعيفها وله مؤلفات كثيرة في علم الحديث",
+    "tahqiq_methodology_note": "اعتنى الألباني بتخريج الأحاديث والتعليق عليها وبيان درجاتها، مع ضبط النص",
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:20:52.475286+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 17.24,
+  "is_rerun": true,
+  "original_phase": "C"
+}

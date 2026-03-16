@@ -1,0 +1,132 @@
+{
+  "source_id": "src_8ccb8fef",
+  "work_id": "wrk_mray_bn_ywsf_bn_aby__al_qwl_al_marwf_fy_f",
+  "human_label": "al_qwl_al_marwf_fy_f",
+  "title_arabic": "القول المعروف في فضل المعروف - سلسلة لقاء العشر الأواخر بالمسجد الحرام (19)",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "مرعي بن يوسف بن أبي بكر بن أحمد الكرمي المقدسي الحنبلي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "محمد أبو بكر عبد الله باذيب",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "adab"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": "beginner",
+  "publisher": "دار البشائر الإسلامية للطباعة والنشر والتوزيع، بيروت - لبنان",
+  "edition_number": 1,
+  "publication_year_hijri": 1421,
+  "publication_year_miladi": 2000,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 59,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7025,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1033 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: محمد أبو بكر عبد الله باذيب"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.7,
+      "reason": "Known publisher: دار البشائر الإسلامية (score 0.7)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.703 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.8,
+    "level": 0.7,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpgz70311l\\library\\sources\\src_8ccb8fef\\frozen",
+  "frozen_hash": "8ccb8fefd39a1da6b41780cef0f983d04ec9c11fadad4b5da828ba260680d824",
+  "frozen_file_hashes": {
+    "book.htm": "df4973012a79efa33ed4cf382e6b109697b1f65d9c6921e88094e1ada70c5f43"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "2 صفر 1437",
+    "edition_raw": "الأولى، 1421 هـ - 2000 م",
+    "page_count_raw": "60",
+    "author_short": "مرعي الكرمي",
+    "physical_page_count": 60
+  },
+  "scholarly_context": {
+    "composition_period": "أواخر القرن العاشر أو أوائل القرن الحادي عشر الهجري، من مؤلفات مرعي الكرمي المتوفى سنة 1033 هـ",
+    "composition_date_hijri": null,
+    "tradition_position": "رسالة في فضائل الأعمال وبيان فضل المعروف والإحسان، تندرج ضمن أدب الترغيب والترهيب",
+    "known_textual_issues": [],
+    "historical_significance": "رسالة صغيرة الحجم في فضل المعروف، تمثل نموذجاً لرسائل الوعظ والترغيب عند الحنابلة المتأخرين",
+    "muhaqiq_reputation": "محمد أبو بكر عبد الله باذيب محقق يمني معروف بتحقيقاته لكتب التراث الإسلامي خاصة في الحديث والتصوف",
+    "tahqiq_methodology_note": "اعتمد المحقق على نسخة أصلية بخط المصنف، وقام بتخريج الأحاديث الواردة فيها",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:34:45.865322+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 14.95,
+  "is_rerun": false,
+  "original_phase": null
+}

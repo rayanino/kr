@@ -1,0 +1,136 @@
+{
+  "source_id": "src_c0baed4c",
+  "work_id": "wrk_abd_al_ghny_bn_abd_a_al_amr_balmarwf_waln",
+  "human_label": "al_amr_balmarwf_waln",
+  "title_arabic": "الأمر بالمعروف والنهي عن المنكر",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد الغني بن عبد الواحد بن علي بن سرور المقدسي الجماعيلي الدمشقي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "سمير بن أمين الزهيري",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": "intermediate",
+  "publisher": "دار السلف",
+  "edition_number": 1,
+  "publication_year_hijri": 1416,
+  "publication_year_miladi": 1995,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 97,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 600 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: سمير بن أمين الزهيري"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار السلف"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.92,
+    "science_scope": 0.9,
+    "level": 0.6,
+    "structural_format": 0.95,
+    "authority_level": 0.92,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [
+    "level"
+  ],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp6ms6_k4f\\library\\sources\\src_c0baed4c\\frozen",
+  "frozen_hash": "c0baed4cdd81b38df89a691dfe4f386e0678ed118ef74114d64217d20a219b8d",
+  "frozen_file_hashes": {
+    "book.htm": "911954e2931ff0a4d39bf1856a163acdf9d58fe613fe88f7548efcd7db523e9b"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "2 ربيع الأول 1433",
+    "edition_raw": "الأولى، 1416هـ - 1995م",
+    "page_count_raw": "62",
+    "author_short": "عبد الغني المقدسي",
+    "preparer": "يا باغي الخير أقبل",
+    "physical_page_count": 62
+  },
+  "scholarly_context": {
+    "composition_period": "أواخر القرن السادس الهجري، من مؤلفات الحافظ عبد الغني المقدسي المتوفى سنة 600هـ",
+    "composition_date_hijri": null,
+    "tradition_position": "جزء حديثي موضوعي في باب الأمر بالمعروف والنهي عن المنكر، يجمع الأحاديث المسندة في هذا الباب على طريقة المحدثين",
+    "known_textual_issues": [],
+    "historical_significance": "من الأجزاء الحديثية المتخصصة في موضوع الأمر بالمعروف والنهي عن المنكر، لحافظ معروف بالضبط والإتقان",
+    "muhaqiq_reputation": "سمير بن أمين الزهيري محقق معروف بتحقيق كتب السنة والأجزاء الحديثية",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:25:51.547659+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 16.8,
+  "is_rerun": false,
+  "original_phase": null
+}

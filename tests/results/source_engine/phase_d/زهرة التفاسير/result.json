@@ -1,0 +1,138 @@
+{
+  "source_id": "src_1e1d3766",
+  "work_id": "wrk_mhmd_bn_ahmd_bn_mstf_zhrh_al_tfasyr",
+  "human_label": "zhrh_al_tfasyr",
+  "title_arabic": "زهرة التفاسير",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد بن أحمد بن مصطفى بن أحمد المعروف بأبي زهرة",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "tafsir",
+    "ulum_al_quran"
+  ],
+  "genre": "tafsir",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار الفكر العربي",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 736,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.6375,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1394 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.3,
+      "reason": "No muhaqiq, modern author (d. 1394 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Known publisher: دار الفكر (score 0.6)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.637 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": null,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 10,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpziyejdtt\\library\\sources\\src_1e1d3766\\frozen",
+  "frozen_hash": "1e1d37666a9a909efef8c2d762ec8fb794bd7846be5749215ecfefccc7b33035",
+  "frozen_file_hashes": {
+    "001.htm": "21ce3307996895086dc5bf954afbf2979d5dad1a321f6ae72aa30c079bcedd09",
+    "002.htm": "7ee343bf0dbbd93dc26e847b6ee72b5946e352df7aa85547e0b571835ec298a2",
+    "003.htm": "4b908a2a9b38d2bf28090911bf7e02c657766e9064b17b3bb88969b29a6daaea",
+    "004.htm": "fea02198b5a2341d8429bf10a5818a7433dec0f7de621b8bc12bb705b477c2e9",
+    "005.htm": "3f614d911ed33d13926411c3e45fea7fa0ef1e2671aa1f3a1e282512fad400a5",
+    "006.htm": "2f771177e848025435f3cfd46a3718731b45d9f9d0efc50ddfe907c8f5b8ec85",
+    "007.htm": "64d60d125d82ba80dfbd9ae70f7e3954909b9bff0fa1331889e754d43771bc30",
+    "008.htm": "106302fc609ae06ee975e4710829164c11e6e0d30d219be9f9a8ca23f95fbc77",
+    "009.htm": "613b7592bd368fc1ef6fd797c1a6a3b582ab55a3ffdaeb194571ea52f884ed1f",
+    "010.htm": "ed90cd26ec794e2a02e43a51cf98ab0a03790bb2c696bf8dbe3347aa0b91c6f3"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التفسير",
+    "shamela_publish_date": "21 جُمادَى الآخرة 1432",
+    "volume_count_raw": "10",
+    "author_short": "محمد أبو زهرة",
+    "preparer": "أبو إبراهيم حسانين، جزاه الله خيرا",
+    "metadata_volume_count": 10
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": null,
+    "known_textual_issues": [],
+    "historical_significance": "A modern tafsir work by a renowned scholar, known for its clarity and accessibility.",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "composition_period",
+      "composition_date_hijri",
+      "tradition_position"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:48:34.065723+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 16.28,
+  "is_rerun": false,
+  "original_phase": null
+}

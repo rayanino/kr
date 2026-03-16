@@ -1,0 +1,14 @@
+{
+  "total_flags": 1,
+  "errors": 0,
+  "warnings": 0,
+  "info": 1,
+  "flags": [
+    {
+      "check": "muhaqiq_not_in_context",
+      "severity": "info",
+      "detail": "Muhaqiq was in extraction but scholarly_context.muhaqiq_reputation is null"
+    }
+  ],
+  "book": "الزهد لأبي داود"
+}

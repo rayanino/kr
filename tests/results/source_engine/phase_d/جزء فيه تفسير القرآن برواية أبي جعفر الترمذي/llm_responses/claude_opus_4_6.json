@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.524641500000143,
+  "parsed": {
+    "genre": "tafsir",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.75,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.8,
+    "layers": null,
+    "science_scope": [
+      "tafsir",
+      "hadith"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "specialist",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "أبو جعفر محمد بن أحمد بن نصر الترمذي الرملي الشافعي",
+      "known_as": [
+        "أبو جعفر الترمذي",
+        "الترمذي الفقيه"
+      ],
+      "death_date_hijri": 295,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "فقيه شافعي ومحدث من أهل القرن الثالث الهجري، راوٍ لعدة تفاسير مسندة عن شيوخه",
+      "methodological_stance": "رواية بالإسناد لتفاسير السلف"
+    },
+    "author_identification_confidence": 0.88,
+    "attribution_status": "traditional",
+    "attribution_notes": "أبو جعفر الترمذي هو راوي هذا الجزء وليس مؤلفاً أصلياً للتفاسير المجموعة فيه، فهو يروي تفاسير يحيى بن يمان ونافع بن أبي نعيم ومسلم بن خالد الزنجي وعطاء الخراساني بأسانيده",
+    "scholarly_context": {
+      "composition_period": "أواخر القرن الثالث الهجري، قبل وفاة الراوي سنة 295 هـ",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي يجمع تفاسير مسندة من السلف عبر رواية أبي جعفر الترمذي، يمثل نموذجاً للتفسير بالمأثور في مرحلة الرواية المبكرة",
+      "known_textual_issues": [],
+      "historical_significance": "يحفظ تفاسير مسندة لعدد من علماء القرن الثاني الهجري (يحيى بن يمان، نافع بن أبي نعيم، مسلم بن خالد الزنجي، عطاء الخراساني) مما يجعله مصدراً مهماً للتفسير بالمأثور",
+      "muhaqiq_reputation": "حكمت بشير ياسين محقق عراقي معروف بتحقيقاته لكتب الحديث والتفسير",
+      "tahqiq_methodology_note": "تحقيق ودراسة",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

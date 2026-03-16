@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.273092399991583,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "intermediate",
+    "level_confidence": 0.7,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.93,
+    "author_identification": {
+      "canonical_name_ar": "أبو علي الحسن بن أحمد بن عبد الغفار الفارسي",
+      "known_as": [
+        "أبو علي الفارسي",
+        "الفارسي"
+      ],
+      "death_date_hijri": 377,
+      "school_affiliations": {
+        "nahw": "البصرية"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أكابر أئمة النحو في القرن الرابع الهجري، وأحد أعلام المدرسة البصرية المتأخرة، أستاذ ابن جني",
+      "methodological_stance": "بصري المنهج مع ميل إلى التعليل والقياس النحوي"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "ألّفه أبو علي الفارسي لعضد الدولة البويهي، أي في أواخر حياته في النصف الثاني من القرن الرابع الهجري",
+      "composition_date_hijri": 370,
+      "tradition_position": "كتاب مهم في النحو العربي ألّف بطلب من عضد الدولة البويهي، ويعدّ من المصنفات التعليمية المتقنة في النحو",
+      "known_textual_issues": [],
+      "historical_significance": "يمثل نموذجاً للتأليف النحوي المخصص للأمراء والحكام، وهو من أهم مؤلفات أبي علي الفارسي في النحو التعليمي، سُمّي بالعضدي نسبة إلى عضد الدولة البويهي",
+      "muhaqiq_reputation": "د. حسن شاذلي فرهود أستاذ جامعي متخصص في الدراسات اللغوية والنحوية، عُرف بتحقيقه لعدد من مؤلفات أبي علي الفارسي",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

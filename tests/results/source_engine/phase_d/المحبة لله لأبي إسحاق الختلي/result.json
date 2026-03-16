@@ -1,0 +1,134 @@
+{
+  "source_id": "src_aca5cf7a",
+  "work_id": "wrk_abw_ishaq_ibrahym_bn_al_mhbh_llh_sbhanh",
+  "human_label": "al_mhbh_llh_sbhanh",
+  "title_arabic": "المحبة لله سبحانه",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أَبُو إِسْحَاقَ إِبْرَاهِيْمُ بنُ عَبْدِ اللهِ بنِ الجُنَيْدِ الخُتَّلِيُّ",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "الدكتور عادل بن عبد الشكور الزرقي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "tasawwuf"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار الحضارة للنشر والتوزيع - الرياض",
+  "edition_number": 1,
+  "publication_year_hijri": 1424,
+  "publication_year_miladi": 2003,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 265,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 270 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: الدكتور عادل بن عبد الشكور الزرقي"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الحضارة للنشر والتوزيع - الرياض"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.85,
+    "level": null,
+    "structural_format": 0.9,
+    "authority_level": 0.9,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpiw4y83yg\\library\\sources\\src_aca5cf7a\\frozen",
+  "frozen_hash": "aca5cf7a0f9f1a4b5db775697571ad07d2b531628ead82300097b4c57a2ea3e1",
+  "frozen_file_hashes": {
+    "book.htm": "56abf5fc75b293b137a96066b073b616199783680b726313d473fd68b0e1d1ab"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "2 ربيع الأول 1433",
+    "edition_raw": "الأولى، 1424 هـ - 2003 م",
+    "page_count_raw": "114",
+    "author_short": "ابن الجنيد",
+    "preparer": "يا باغي الخير أقبل",
+    "physical_page_count": 114
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "A collection of Hadiths and sayings focusing on the love of God, reflecting early Sufi thought.",
+    "known_textual_issues": [],
+    "historical_significance": "One of the early works linking Hadith literature with Sufi themes of divine love.",
+    "muhaqiq_reputation": "Dr. Adel bin Abdul Shukoor Al-Zarqi is known for his meticulous tahqiq work in Islamic texts.",
+    "tahqiq_methodology_note": "The editor likely relied on multiple manuscript sources and cross-referenced with other Hadith collections.",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "methodological_stance"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:36:24.324976+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 29.27,
+  "is_rerun": false,
+  "original_phase": null
+}

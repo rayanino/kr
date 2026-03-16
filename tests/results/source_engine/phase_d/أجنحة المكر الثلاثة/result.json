@@ -1,0 +1,128 @@
+{
+  "source_id": "src_e274a3d1",
+  "work_id": "wrk_abd_al_rhmn_bn_hsn_h_ajnhh_al_mkr_al_thla",
+  "human_label": "ajnhh_al_mkr_al_thla",
+  "title_arabic": "أجنحة المكر الثلاثة وخوافيها التبشير - الاستِشراق - الاستعمار ، دراسة وتحليل وتوجيه",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد الرحمن بن حسن حَبَنَّكَة الميداني الدمشقي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fikr_islami",
+    "da'wah",
+    "tarikh"
+  ],
+  "genre": "other",
+  "genre_chain": null,
+  "level": "advanced",
+  "publisher": "دار القلم - دمشق",
+  "edition_number": 8,
+  "publication_year_hijri": 1420,
+  "publication_year_miladi": 2000,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 750,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.6075,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1425 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.3,
+      "reason": "No muhaqiq, modern author (d. 1425 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار القلم - دمشق"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.608 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.82,
+    "science_scope": 0.8,
+    "level": 0.7,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 0.97,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp7o90a0yz\\library\\sources\\src_e274a3d1\\frozen",
+  "frozen_hash": "e274a3d11243321361dbfbe6f16ed65d75694cbe8e5b4910a2c9657e6413a3e1",
+  "frozen_file_hashes": {
+    "book.htm": "cc6085e6d703c9e57a469aca735b68158af589d1b5b9033ac2e02231dc70431c"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب عامة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الثامنة ، 1420 هـ - 2000 م",
+    "page_count_raw": "759",
+    "author_short": "عبد الرحمن حبنكة الميداني",
+    "physical_page_count": 759
+  },
+  "scholarly_context": {
+    "composition_period": "من أعمال المؤلف المتأخرة نسبياً، ألفه في سياق مواجهة التحديات الفكرية المعاصرة للعالم الإسلامي",
+    "composition_date_hijri": null,
+    "tradition_position": "من أبرز المؤلفات العربية في نقد التبشير والاستشراق والاستعمار ودراسة الغزو الفكري، يُعدّ مرجعاً أساسياً في هذا الباب",
+    "known_textual_issues": [],
+    "historical_significance": "كتاب مؤثر في الفكر الإسلامي المعاصر، يتناول بالتحليل والنقد ثلاثة محاور: التبشير والاستشراق والاستعمار، وبلغ ثماني طبعات مما يدل على انتشاره الواسع",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:21:42.274186+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 15.49,
+  "is_rerun": false,
+  "original_phase": null
+}

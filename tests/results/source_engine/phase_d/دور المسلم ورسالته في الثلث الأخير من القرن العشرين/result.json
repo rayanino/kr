@@ -1,0 +1,126 @@
+{
+  "source_id": "src_e475c831",
+  "work_id": "wrk_malk_bn_al_haj_amr_b_dwr_al_mslm_wrsalth_",
+  "human_label": "dwr_al_mslm_wrsalth_",
+  "title_arabic": "دَوْرُ الْمُسْلِمِ وَرِسَالَتُهُ فِي الثُّلُثِ الْأَخِيرِ مِنَ الْقَرْنِ الْعِشْرِيْن",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "مالك بن الحاج عمر بن الخضر بن نبي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fikr_islami",
+    "hadara"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار الفكر- دمشق سورية / دار الفكر - الجزائر",
+  "edition_number": 1,
+  "publication_year_hijri": 1412,
+  "publication_year_miladi": 1991,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 63,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.6375,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1393 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.3,
+      "reason": "No muhaqiq, modern author (d. 1393 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Known publisher: دار الفكر (score 0.6)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.637 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.82,
+    "science_scope": 0.85,
+    "level": null,
+    "structural_format": 0.97,
+    "authority_level": 0.93,
+    "multi_layer": 0.97,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpa0w67c0y\\library\\sources\\src_e475c831\\frozen",
+  "frozen_hash": "e475c831ba0e78c2bfc329d7089e4680190a8647dabee3a7936727b518720b9e",
+  "frozen_file_hashes": {
+    "book.htm": "f42d5fff531ec0d0f2a0cc46f160115750716235eeb066d3bff24841445bab4a"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب عامة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1412هـ - 1991م",
+    "page_count_raw": "64",
+    "author_short": "مالك بن نبي",
+    "preparer": "أبو ياسر الجزائري",
+    "physical_page_count": 64
+  },
+  "scholarly_context": {
+    "composition_period": "آخر أعمال المؤلف، ألقيت كمحاضرتين في دمشق عام 1972م قبيل وفاته عام 1973م",
+    "composition_date_hijri": 1392,
+    "tradition_position": "تمثل الوصية الفكرية الأخيرة لمالك بن نبي، حيث ألقاها بعد حجته الأخيرة وقبيل وفاته، وتلخص رؤيته لدور المسلم في العصر الحديث",
+    "known_textual_issues": [],
+    "historical_significance": "محاضرتان تمثلان خلاصة فكر مالك بن نبي ووصيته الأخيرة للأمة الإسلامية، ألقيتا في دمشق عام 1972م في رابطة الحقوقيين ومسجد المرابط",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": []
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:47:05.352255+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 21.7,
+  "is_rerun": false,
+  "original_phase": null
+}

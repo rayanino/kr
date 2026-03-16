@@ -1,0 +1,58 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.765497000014875,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.88,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.88,
+    "layers": null,
+    "science_scope": [
+      "fiqh",
+      "fiqh_al_jihad"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "intermediate",
+    "level_confidence": 0.65,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن عيسى بن محمد بن أصبغ الأزدي القرطبي، أبو عبد الله ابن المناصف",
+      "known_as": [
+        "ابن المناصف",
+        "أبو عبد الله ابن المناصف"
+      ],
+      "death_date_hijri": 620,
+      "school_affiliations": {
+        "fiqh": "مالكي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "فقيه مالكي أندلسي قرطبي، قاضٍ ومجاهد، من أعلام القرن السابع الهجري، عُرف بالجمع بين العلم والجهاد",
+      "methodological_stance": "فقيه مالكي يجمع بين الأحكام الفقهية والآداب الشرعية المتعلقة بالجهاد"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "أُلِّف في أواخر حياة المؤلف في الأندلس، في فترة الصراع مع الممالك المسيحية، بين 563-620هـ",
+      "composition_date_hijri": null,
+      "tradition_position": "من المصنفات المتخصصة في أحكام الجهاد في الفقه المالكي الأندلسي، يجمع بين الفرائض والسنن والآداب المتعلقة بالجهاد",
+      "known_textual_issues": [],
+      "historical_significance": "كتاب متخصص في فقه الجهاد من منظور مالكي أندلسي، ألّفه مؤلفه بطلب من أحد الأمراء المجاهدين الموحدين، مما يعكس الواقع العملي للجهاد في الأندلس",
+      "muhaqiq_reputation": "مشهور بن حسن آل سلمان محقق معروف بتحقيقاته الكثيرة والمتقنة في التراث الإسلامي، خاصة في الحديث والفقه",
+      "tahqiq_methodology_note": "ضبط النص وعلّق عليه ووثّق نصوصه وخرّج أحاديثه وآثاره",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

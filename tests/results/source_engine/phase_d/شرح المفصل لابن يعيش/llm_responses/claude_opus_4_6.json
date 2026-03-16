@@ -1,0 +1,73 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.366269200021634,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.99,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "المفصل في صنعة الإعراب",
+      "base_work_author": "جار الله أبو القاسم محمود بن عمر الزمخشري"
+    },
+    "genre_chain_confidence": 0.99,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.98,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "جار الله أبو القاسم محمود بن عمر الزمخشري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "موفق الدين أبو البقاء يعيش بن علي بن يعيش الموصلي"
+      }
+    ],
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 0.99,
+    "level": "advanced",
+    "level_confidence": 0.9,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "موفق الدين أبو البقاء يعيش بن علي بن يعيش الأسدي الموصلي",
+      "known_as": [
+        "ابن يعيش",
+        "ابن الصانع"
+      ],
+      "death_date_hijri": 643,
+      "school_affiliations": {
+        "nahw": "بصري مع ميل إلى البغدادي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز نحاة القرن السابع الهجري، اشتهر بشرحه على المفصل الذي يُعدّ من أهم شروح النحو العربي وأوسعها",
+      "methodological_stance": "منهج تحليلي مستوعب يجمع بين آراء المدارس النحوية مع ترجيح وتعليل"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "النصف الأول من القرن السابع الهجري، من أواخر أعمال ابن يعيش",
+      "composition_date_hijri": null,
+      "tradition_position": "يُعدّ من أهم شروح المفصل للزمخشري وأكثرها تفصيلاً واستيعاباً، وهو مرجع أساسي في النحو العربي لدى المتأخرين",
+      "known_textual_issues": [],
+      "historical_significance": "شرح موسوعي على المفصل للزمخشري، يُعدّ من أمهات كتب النحو العربي، استوعب فيه ابن يعيش آراء النحاة من مختلف المدارس مع التحليل والترجيح",
+      "muhaqiq_reputation": "الدكتور إميل بديع يعقوب باحث لبناني معروف بتحقيقاته ومؤلفاته في اللغة العربية والنحو، لكن طبعاته عبر دار الكتب العلمية لا تُعدّ من أجود التحقيقات",
+      "tahqiq_methodology_note": "قدّم له ووضع هوامشه وفهارسه، وليس تحقيقاً نقدياً بالمعنى الأكاديمي الدقيق",
+      "edition_known_issues": [
+        "طبعة دار الكتب العلمية ليست من أفضل الطبعات مقارنة بطبعات أخرى كطبعة إدارة الطباعة المنيرية أو طبعة مكتبة المتنبي"
+      ],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

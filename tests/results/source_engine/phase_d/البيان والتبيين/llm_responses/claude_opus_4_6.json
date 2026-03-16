@@ -1,0 +1,65 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.988495099998545,
+  "parsed": {
+    "genre": "adab",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "mixed",
+    "structural_format_confidence": 0.85,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "adab",
+      "balagha",
+      "lughah"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.97,
+    "author_identification": {
+      "canonical_name_ar": "عمرو بن بحر بن محبوب الكناني بالولاء، الليثي، أبو عثمان، الشهير بالجاحظ",
+      "known_as": [
+        "الجاحظ",
+        "أبو عثمان"
+      ],
+      "death_date_hijri": 255,
+      "school_affiliations": {
+        "kalam": "معتزلة",
+        "adab": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم أدباء العربية وأبرز متكلمي المعتزلة، إمام في الأدب والبيان والنثر العربي، من أغزر المؤلفين في التراث العربي الإسلامي",
+      "methodological_stance": "منهج عقلي اعتزالي مع موسوعية أدبية وعلمية، يمزج بين الأدب والفلسفة والعلوم الطبيعية"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر مؤلفات الجاحظ الكبرى، ألّفه في النصف الأول من القرن الثالث الهجري",
+      "composition_date_hijri": 245,
+      "tradition_position": "من أوائل المؤلفات العربية في علم البيان وفلسفة اللغة والبلاغة، يُعدّ أساساً لعلم البلاغة العربية ومرجعاً رئيسياً في الأدب العربي",
+      "known_textual_issues": [
+        "اختلاف في تجزئة الكتاب بين النسّاخ والمحققين",
+        "النسخة الأصلية بخط أحمد بن سلامة بن سالم المعري فرغ منها سنة 683 هـ"
+      ],
+      "historical_significance": "من أهم كتب الأدب العربي والبلاغة، يُعدّ مع كتاب الحيوان من أضخم مؤلفات الجاحظ، وهو من المصادر التأسيسية لعلم البيان العربي",
+      "muhaqiq_reputation": "هذه الطبعة ليست من أشهر التحقيقات؛ أشهر التحقيقات هي تحقيق عبد السلام هارون",
+      "tahqiq_methodology_note": "المحقق أشار إلى اهتمامه بالمنحى الفلسفي والتبويب الدقيق مقارنة بطبعتي السندوبي وعبد السلام هارون",
+      "edition_known_issues": [
+        "طبعة دار الهلال ليست الطبعة المرجعية المعتمدة عند الباحثين، الطبعة المرجعية هي تحقيق عبد السلام هارون"
+      ],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

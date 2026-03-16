@@ -1,0 +1,63 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 11.869841100007761,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.85,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "beginner",
+    "level_confidence": 0.75,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو خلاد ناصر بن سعيد بن سيف السيف",
+      "known_as": [
+        "أبو خلاد السيف"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": null,
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "باحث معاصر مهتم بخدمة السنة النبوية وجمع أحاديث الأحكام الصحيحة",
+      "methodological_stance": "يعتمد على ما رواه البخاري ومسلم أو أحدهما في انتقاء الأحاديث"
+    },
+    "author_identification_confidence": 0.7,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "معاصر، أُلِّف في العصر الحديث",
+      "composition_date_hijri": null,
+      "tradition_position": "كتاب مختصر في جمع أحاديث الأحكام الصحيحة من الصحيحين، يندرج ضمن مؤلفات أحاديث الأحكام المعاصرة المبسطة",
+      "known_textual_issues": [
+        "الكتاب مرقم آلياً غير موافق للمطبوع"
+      ],
+      "historical_significance": "عمل تعليمي مبسط لنشر أحاديث الأحكام الصحيحة بين عامة المسلمين",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [
+        "الترقيم الآلي غير موافق للمطبوع"
+      ],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tradition_position"
+      ]
+    }
+  }
+}

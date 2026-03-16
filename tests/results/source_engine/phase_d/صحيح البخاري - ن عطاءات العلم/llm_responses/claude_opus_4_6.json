@@ -1,0 +1,65 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.547563900006935,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.99,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith"
+    ],
+    "science_scope_confidence": 0.99,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.97,
+    "author_identification": {
+      "canonical_name_ar": "أبو عبد الله محمد بن إسماعيل بن إبراهيم بن المغيرة البخاري",
+      "known_as": [
+        "البخاري",
+        "الإمام البخاري",
+        "أمير المؤمنين في الحديث"
+      ],
+      "death_date_hijri": 256,
+      "school_affiliations": {
+        "fiqh": "شافعي/مجتهد",
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "أعظم أئمة الحديث على الإطلاق، صاحب أصح كتاب بعد كتاب الله عند أهل السنة",
+      "methodological_stance": "أشد شروط الصحة في قبول الحديث، يشترط ثبوت اللقاء بين الراوي وشيخه"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "أُلِّف في النصف الأول من القرن الثالث الهجري، واستغرق تأليفه ستة عشر عاماً",
+      "composition_date_hijri": 232,
+      "tradition_position": "أصح كتاب بعد كتاب الله تعالى عند أهل السنة والجماعة، وهو أول مصنف في الحديث الصحيح المجرد. هذه النسخة تعتمد رواية اليونيني عن الفربري عن البخاري.",
+      "known_textual_issues": [
+        "اختلاف الروايات بين نسخ الصحيح (رواية الفربري، رواية إبراهيم بن معقل، رواية حماد بن شاكر)",
+        "تعليقات البخاري المعلقة التي لم يصلها بإسناد كامل",
+        "اختلاف ترتيب بعض الأبواب والأحاديث بين النسخ"
+      ],
+      "historical_significance": "أجل كتب الحديث وأصحها، اتفقت الأمة على تلقيه بالقبول، وهو أول مصنف جمع الصحيح المجرد",
+      "muhaqiq_reputation": "دار الكمال المتحدة مؤسسة تحقيق سورية معروفة بعنايتها بنصوص الحديث",
+      "tahqiq_methodology_note": "هذه الطبعة من مشروع موسوعة صحيح البخاري (بخاري بيديا) وتعتمد على نسخة اليونيني المقابلة على الأصول المعتمدة",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "muhaqiq_reputation",
+        "tahqiq_methodology_note",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 26.33129740000004,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر أحمد بن محمد بن هارون بن يزيد الخَلَّال البغدادي الحنبلي",
+      "known_as": [
+        "الخَلَّال"
+      ],
+      "death_date_hijri": 311,
+      "school_affiliations": {
+        "fiqh": "حنبلي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Prominent Hanbali scholar and jurist, known for his extensive compilation of the works of Imam Ahmad ibn Hanbal and his students.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "Part of the larger collection of works by al-Khallal, focusing on the transmission of hadith and the teachings of Imam Ahmad ibn Hanbal.",
+      "known_textual_issues": [],
+      "historical_significance": "Contributes to the understanding of early Hanbali jurisprudence and the transmission of hadith within the school.",
+      "muhaqiq_reputation": "The editor, al-Haddad, is known for his careful and scholarly approach to textual investigation.",
+      "tahqiq_methodology_note": "The edition appears to be based on a careful review of available manuscripts and includes a detailed isnad (chain of transmission).",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

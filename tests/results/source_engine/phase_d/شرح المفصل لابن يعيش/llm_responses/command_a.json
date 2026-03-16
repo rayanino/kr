@@ -1,0 +1,72 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 33.917439100012416,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 1.0,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "المفصل",
+      "base_work_author": "الزمخشري"
+    },
+    "genre_chain_confidence": 1.0,
+    "structural_format": "commentary",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 1.0,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "الزمخشري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "يعيش بن علي بن يعيش ابن أبي السرايا محمد بن علي، أبو البقاء، موفق الدين الأسدي الموصلي"
+      }
+    ],
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": "advanced",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "يعيش بن علي بن يعيش ابن أبي السرايا محمد بن علي، أبو البقاء، موفق الدين الأسدي الموصلي",
+      "known_as": [
+        "ابن يعيش",
+        "ابن الصانع"
+      ],
+      "death_date_hijri": 643,
+      "school_affiliations": {
+        "nahw": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "أحد كبار النحاة في القرن السابع الهجري، له شرح شهير على مفصل الزمخشري",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "يعد شرح ابن يعيش على مفصل الزمخشري من أهم الشروح النحوية في التراث العربي",
+      "known_textual_issues": [],
+      "historical_significance": "من أهم المراجع في النحو العربي، ويتميز بدقته وشموله",
+      "muhaqiq_reputation": "الدكتور إميل بديع يعقوب معروف بتحقيقاته الجيدة في التراث النحوي",
+      "tahqiq_methodology_note": "تضمن التحقيق هوامش وفهارس مفصلة لتسهيل الاستفادة من النص",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

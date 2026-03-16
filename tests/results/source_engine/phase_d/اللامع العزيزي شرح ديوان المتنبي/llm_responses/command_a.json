@@ -1,0 +1,68 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.965667499986012,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "ديوان المتنبي",
+      "base_work_author": "أبو الطيب المتنبي"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أبو الطيب المتنبي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "أبو العلاء أحمد بن عبد الله المعري"
+      }
+    ],
+    "science_scope": [
+      "adab"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو العلاء أحمد بن عبد الله بن سليمان التنوخي المعري",
+      "known_as": [
+        "المعري",
+        "أبو العلاء"
+      ],
+      "death_date_hijri": 449,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "شاعر وأديب وفيلسوف عربي شهير، من كبار شعراء العصر العباسي، معروف ببلاغته وحكمته.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "يعد هذا الشرح من أهم الشروح على ديوان المتنبي، ويتميز بدقة التحليل اللغوي والأدبي.",
+      "known_textual_issues": [],
+      "historical_significance": "من الشروح الكلاسيكية الهامة التي ساهمت في فهم شعر المتنبي وتفسيره.",
+      "muhaqiq_reputation": "محمد سعيد المولوي معروف بتحقيقاته الدقيقة في مجال الأدب العربي.",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

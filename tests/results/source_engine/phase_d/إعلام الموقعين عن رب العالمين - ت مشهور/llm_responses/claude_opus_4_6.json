@@ -1,0 +1,62 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 19.982881600008113,
+  "parsed": {
+    "genre": "other",
+    "genre_confidence": 0.75,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "usul_al_fiqh",
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "advanced",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن أبي بكر بن أيوب بن سعد الزرعي الدمشقي، شمس الدين ابن قيم الجوزية",
+      "known_as": [
+        "ابن قيم الجوزية",
+        "ابن القيم"
+      ],
+      "death_date_hijri": 751,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "aqidah": "أثري سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز علماء الإسلام في القرن الثامن الهجري، تلميذ شيخ الإسلام ابن تيمية، وأحد أعلام المدرسة السلفية، له مؤلفات كثيرة في الفقه والأصول والعقيدة والتفسير والسلوك",
+      "methodological_stance": "يميل إلى الاجتهاد والترجيح بالدليل من الكتاب والسنة، ويرفض التقليد المذهبي الجامد، مع اعتبار مقاصد الشريعة والمصالح المرسلة"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر مؤلفات ابن القيم، ألّفه في أواخر حياته",
+      "composition_date_hijri": 745,
+      "tradition_position": "يُعدّ من أهم المؤلفات في أصول الفقه والفتوى والاجتهاد، وهو مرجع أساسي في بيان أحكام الإفتاء وآداب المفتي والمستفتي، ومن أوسع الكتب في بيان تغير الفتوى بتغير الأزمان والأمكنة والأحوال",
+      "known_textual_issues": [
+        "اختلاف النسخ الخطية في بعض المواضع",
+        "بعض الزيادات والنقص بين النسخ"
+      ],
+      "historical_significance": "من أعظم ما كُتب في فقه الفتوى وأصول الاجتهاد، أثّر تأثيرًا بالغًا في الحركة الإصلاحية الإسلامية، ويُعدّ مرجعًا لا غنى عنه في أصول الفقه والسياسة الشرعية",
+      "muhaqiq_reputation": "مشهور بن حسن آل سلمان محقق أردني معروف بتحقيقاته الكثيرة للتراث الإسلامي، وله عناية خاصة بتراث ابن القيم وابن تيمية",
+      "tahqiq_methodology_note": "اعتمد على عدة نسخ خطية مع ضبط النص والتعليق عليه وتخريج الأحاديث والآثار وتوثيق النقولات ومقارنة المواضع بكتب ابن القيم الأخرى",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

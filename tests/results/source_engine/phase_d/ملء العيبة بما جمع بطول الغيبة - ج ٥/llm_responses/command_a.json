@@ -1,0 +1,56 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.770839799981331,
+  "parsed": {
+    "genre": "sirah",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "sirah",
+      "tarikh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو عبد الله، محمد بن عمر بن رشيد الفهري السبتي",
+      "known_as": [
+        "ابن رشيد",
+        "الفهري"
+      ],
+      "death_date_hijri": 721,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Prominent scholar and traveler known for his contributions to hadith and sirah.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "A travelogue and historical account of the author's journey, including encounters with scholars and descriptions of significant places.",
+      "known_textual_issues": [],
+      "historical_significance": "Provides valuable insights into the scholarly and social life of the Islamic world during the author's time, particularly in the regions of Baghdad, Syria, and the Hijaz.",
+      "muhaqiq_reputation": "Dr. Muhammad al-Habib ibn al-Khujjah is a respected scholar known for his meticulous editing and tahqiq work.",
+      "tahqiq_methodology_note": "The edition is based on a careful comparison of available manuscripts and includes annotations and explanations to aid understanding.",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

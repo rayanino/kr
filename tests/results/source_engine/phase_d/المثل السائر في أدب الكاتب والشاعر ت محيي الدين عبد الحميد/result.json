@@ -1,0 +1,131 @@
+{
+  "source_id": "src_43e719d2",
+  "work_id": "wrk_nsr_al_lh_bn_mhmd_bn_al_mthl_al_sair_fy_a",
+  "human_label": "al_mthl_al_sair_fy_a",
+  "title_arabic": "المثل السائر في أدب الكاتب والشاعر",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "نصر الله بن محمد بن محمد بن عبد الكريم الشيباني الجزري، أبو الفتح، ضياء الدين، ابن الأثير الكاتب",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "محمد محي الدين عبد الحميد",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "balagha",
+    "adab"
+  ],
+  "genre": "matn",
+  "genre_chain": null,
+  "level": "advanced",
+  "publisher": "المكتبة العصرية للطباعة والنشر - بيروت",
+  "edition_number": null,
+  "publication_year_hijri": 1420,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 409,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 637 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: محمد محي الدين عبد الحميد"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: المكتبة العصرية للطباعة والنشر - بيروت"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.95,
+    "authority_level": 0.92,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 2,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp3q6fscm_\\library\\sources\\src_43e719d2\\frozen",
+  "frozen_hash": "43e719d2736fb25f82b217f98ef3f1c0e942cd18a2e76796d2ebdb04b9fc10b4",
+  "frozen_file_hashes": {
+    "001.htm": "74cccd18ab4f41d3f895d2aa1f04e82cb8f0d0ed06e15216ab97375b618fe7c9",
+    "002.htm": "3691d8fbf82fa996df2cc5ee0b867e14a20c22e3815030c2ddd1a5d1f5de1c0c"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "البلاغة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "publication_year_raw": "1420 هـ",
+    "author_short": "ابن الأثير، ضياء الدين أبو الفتح"
+  },
+  "scholarly_context": {
+    "composition_period": "من أواخر مؤلفات ضياء الدين ابن الأثير، ألّفه في النصف الأول من القرن السابع الهجري",
+    "composition_date_hijri": 620,
+    "tradition_position": "يُعدّ من أهم المصنفات في علم البلاغة والنقد الأدبي وصناعة الكتابة والإنشاء، وهو مرجع أساسي في أدب الكاتب والشاعر، أثار جدلاً نقدياً واسعاً وردّ عليه عدد من العلماء أبرزهم صلاح الدين الصفدي في كتابه 'نصرة الثائر على المثل السائر'",
+    "known_textual_issues": [],
+    "historical_significance": "من أمهات كتب البلاغة والنقد الأدبي العربي، جمع فيه مؤلفه بين نظرية البلاغة وتطبيقاتها في الشعر والنثر، وتناول فيه صناعة الكتابة الديوانية والأدبية بشكل موسوعي",
+    "muhaqiq_reputation": "محمد محيي الدين عبد الحميد (ت 1392 هـ) من أشهر المحققين المصريين في القرن العشرين، عُرف بغزارة إنتاجه وتحقيقاته الكثيرة لكتب التراث العربي في النحو والصرف والأدب والفقه",
+    "tahqiq_methodology_note": "تحقيق محيي الدين عبد الحميد يتميز بالضبط والتعليق المختصر، وإن كان بعض الباحثين يرى أن تحقيقاته تفتقر أحياناً إلى المقابلة الدقيقة بين النسخ الخطية",
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:35:55.067519+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 37.17,
+  "is_rerun": false,
+  "original_phase": null
+}

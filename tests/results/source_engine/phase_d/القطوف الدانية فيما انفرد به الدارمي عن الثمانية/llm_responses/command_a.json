@@ -1,0 +1,51 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 10.007359599985648,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "intermediate",
+    "level_confidence": 0.8,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "الدكتور مرزوق بن هياس الزهراني",
+      "known_as": [],
+      "death_date_hijri": null,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Contemporary scholar and editor of Islamic texts",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.9,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "A compilation of unique hadiths found in Musnad al-Darimi not present in the other eight major hadith collections.",
+      "known_textual_issues": [],
+      "historical_significance": "Highlights the unique contributions of Musnad al-Darimi to the corpus of hadith literature.",
+      "muhaqiq_reputation": "Known for meticulous editing and scholarly rigor in hadith studies.",
+      "tahqiq_methodology_note": "Includes critical analysis, grading of hadiths, and cross-referencing with other sources.",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": []
+    }
+  }
+}

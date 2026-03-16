@@ -1,0 +1,127 @@
+{
+  "source_id": "src_cdfcddbf",
+  "work_id": "wrk_sayd_bn_aly_bn_whf_a_kitab",
+  "human_label": "kitab",
+  "title_arabic": "كيفية دعوة أهل الكتاب إلى اللَّه تعالى في ضوء الكتاب والسنة",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "سعيد بن علي بن وهف القحطاني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "dawah",
+    "aqidah"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": "beginner",
+  "publisher": "مطبعة سفير، الرياض",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 95,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.54,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1443 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.3,
+      "reason": "No muhaqiq, modern author (d. 1443 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مطبعة سفير، الرياض"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.540 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.92,
+    "science_scope": 0.88,
+    "level": 0.82,
+    "structural_format": 0.95,
+    "authority_level": 0.85,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp5p86rb71\\library\\sources\\src_cdfcddbf\\frozen",
+  "frozen_hash": "cdfcddbff49cb1d781f03193aa5b20a9d9416fac8766614f357e350d49347ebf",
+  "frozen_file_hashes": {
+    "book.htm": "a368cd2db7f137b88ca532b1c88e5f98537c73cb3b9c9e8fcfe1b4795abba2b1"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب عامة",
+    "shamela_publish_date": "17 ذو القعدة 1433",
+    "distributor": "مؤسسة الجريسي للتوزيع والإعلان، الرياض",
+    "page_count_raw": "96",
+    "author_short": "سعيد بن وهف القحطاني",
+    "physical_page_count": 96
+  },
+  "scholarly_context": {
+    "composition_period": "مؤلف حديث، حُرر في 25/2/1425هـ كما ذُكر في المقدمة",
+    "composition_date_hijri": 1425,
+    "tradition_position": "رسالة دعوية مختصرة ضمن سلسلة مؤلفات القحطاني الدعوية، تتناول أساليب دعوة أهل الكتاب",
+    "known_textual_issues": [],
+    "historical_significance": "جزء من سلسلة رسائل دعوية واسعة الانتشار للمؤلف، موجهة للدعاة في التعامل مع أهل الكتاب",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "historical_significance"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:56:02.394499+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 13.58,
+  "is_rerun": false,
+  "original_phase": null
+}

@@ -1,0 +1,54 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 8.345543900009943,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "fiqh",
+      "adab"
+    ],
+    "science_scope_confidence": 0.85,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.8,
+    "author_identification": {
+      "canonical_name_ar": "عبد الله بن ضيف الله الرحيلي",
+      "known_as": [],
+      "death_date_hijri": null,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": null,
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.85,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": 1419,
+      "tradition_position": null,
+      "known_textual_issues": [],
+      "historical_significance": null,
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "scholarly_standing",
+        "methodological_stance"
+      ]
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "source_id": "src_7f1a09d3",
+  "work_id": "wrk_mhmd_sbhy_bn_hsn_hla_kitab",
+  "human_label": "kitab",
+  "title_arabic": "اللباب في فقه السنة والكتاب «مختصر فقه السنة»",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد صبحي بن حسن حلاق",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh"
+  ],
+  "genre": "fiqh_comparative",
+  "genre_chain": null,
+  "level": "intermediate",
+  "publisher": "مكتبة الصحابة (الشارقة)، مكتية التابعين (القاهرة)",
+  "edition_number": 2,
+  "publication_year_hijri": 1424,
+  "publication_year_miladi": 2004,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 548,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.4325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مكتبة الصحابة (الشارقة)، مكتية التابعين (القاهرة)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.432 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.85,
+    "science_scope": 0.9,
+    "level": 0.7,
+    "structural_format": 0.9,
+    "authority_level": 0.8,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp9lxmotex\\library\\sources\\src_7f1a09d3\\frozen",
+  "frozen_hash": "7f1a09d3b6befc55fa0025fbe345c98068b90e4fe0d1778b723973b6f5256395",
+  "frozen_file_hashes": {
+    "book.htm": "5fc83e2644f6c6f76b742efee8365e818d7adb476ef5e6c2fa72a2c009eefcee"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الفقه العام",
+    "shamela_publish_date": "15 شعبان 1443",
+    "edition_raw": "الثانية، 1424 هـ - 2004 م",
+    "page_count_raw": "562",
+    "author_short": "محمد صبحي حلاق",
+    "physical_page_count": 562
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": 1424,
+    "tradition_position": "A modern compilation aimed at presenting a comprehensive view of Islamic jurisprudence based on the Quran and Sunnah.",
+    "known_textual_issues": [],
+    "historical_significance": "Part of the modern trend in Islamic scholarship to compile and simplify classical fiqh works for contemporary audiences.",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_period",
+      "tradition_position"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:34:58.262567+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 12.39,
+  "is_rerun": false,
+  "original_phase": null
+}

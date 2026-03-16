@@ -1,0 +1,74 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.385730000009062,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.9,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "الإيضاح",
+      "base_work_author": "أبو علي الحسن بن أحمد بن عبد الغفار الفارسي"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أبو علي الحسن بن أحمد بن عبد الغفار الفارسي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "أبو علي الحسن بن عبد الله القيسي"
+      }
+    ],
+    "science_scope": [
+      "nahw",
+      "adab",
+      "lughah"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "advanced",
+    "level_confidence": 0.82,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "أبو علي الحسن بن عبد الله القيسي",
+      "known_as": [
+        "القيسي",
+        "أبو علي القيسي"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "nahw": "بصري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم نحوي ومقرئ أندلسي من القرن السادس الهجري، اهتم بشرح شواهد كتب النحو",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.72,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "القرن السادس الهجري تقريباً، بناءً على وفاة المؤلف في القرن السادس",
+      "composition_date_hijri": null,
+      "tradition_position": "يندرج ضمن تقليد شرح شواهد كتب النحو، وهو شرح لشواهد كتاب الإيضاح لأبي علي الفارسي (ت 377هـ)، يبيّن مواضع الشاهد ويعرب الأبيات وينسبها إلى قائليها",
+      "known_textual_issues": [],
+      "historical_significance": "من الأعمال المتخصصة في شرح شواهد الإيضاح للفارسي، وهو من الكتب النادرة التي تخدم فهم شواهد النحو في هذا الكتاب المهم",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation",
+        "school_affiliations"
+      ]
+    }
+  }
+}

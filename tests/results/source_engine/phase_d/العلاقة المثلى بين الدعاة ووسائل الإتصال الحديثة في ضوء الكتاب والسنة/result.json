@@ -1,0 +1,128 @@
+{
+  "source_id": "src_8c0460df",
+  "work_id": "wrk_sayd_bn_aly_bn_whf_a_kitab",
+  "human_label": "kitab",
+  "title_arabic": "العلاقة المثلى بين الدعاة ووسائل الإتصال الحديثة في ضوء الكتاب والسنة",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "سعيد بن علي بن وهف القحطاني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "dawah",
+    "fiqh"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": "beginner",
+  "publisher": "مطبعة سفير، الرياض",
+  "edition_number": 1,
+  "publication_year_hijri": 1432,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 91,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.5,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مطبعة سفير، الرياض"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.500 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.88,
+    "science_scope": 0.85,
+    "level": 0.75,
+    "structural_format": 0.95,
+    "authority_level": 0.85,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpsvbjrknz\\library\\sources\\src_8c0460df\\frozen",
+  "frozen_hash": "8c0460df1c2f0bbb6734a0ffa318424c4eada14e12337cea3b67509a8c1a1c55",
+  "frozen_file_hashes": {
+    "book.htm": "16c72796bbc729590083fdbaa3b997c48670dae7b6ad7ef217b68a5f07caa8ca"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب عامة",
+    "shamela_publish_date": "17 ذو القعدة 1433",
+    "distributor": "مؤسسة الجريسي للتوزيع والإعلان، الرياض",
+    "edition_raw": "الأولى، 1432 هـ",
+    "page_count_raw": "108",
+    "author_short": "سعيد بن وهف القحطاني",
+    "physical_page_count": 108
+  },
+  "scholarly_context": {
+    "composition_period": "أُعدّ البحث أصلاً عام 1407هـ كبحث جامعي في السنة التمهيدية للماجستير بجامعة الإمام محمد بن سعود الإسلامية، ثم أُعيد تحريره ونُشر عام 1431-1432هـ",
+    "composition_date_hijri": 1407,
+    "tradition_position": "بحث معاصر يعالج موقف الدعاة من وسائل الإعلام الحديثة من منظور شرعي سلفي",
+    "known_textual_issues": [],
+    "historical_significance": "يعكس النقاش الفقهي المعاصر حول مشروعية استخدام وسائل الإعلام الحديثة في الدعوة، وتطور الموقف من التصوير",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "historical_significance"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:33:12.267837+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 13.67,
+  "is_rerun": false,
+  "original_phase": null
+}

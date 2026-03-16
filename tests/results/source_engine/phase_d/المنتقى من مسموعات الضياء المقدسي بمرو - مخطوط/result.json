@@ -1,0 +1,131 @@
+{
+  "source_id": "src_533b038d",
+  "work_id": "wrk_dya_al_dyn_abw_abd_a_al_mntqa_mn_msmwaat_",
+  "human_label": "al_mntqa_mn_msmwaat_",
+  "title_arabic": "المنتقى من مسموعات مرو - مخطوط",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "ضياء الدين أبو عبد الله محمد بن عبد الواحد بن أحمد المقدسي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": "specialist",
+  "publisher": null,
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 425,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.6925,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 643 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 643 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.693 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.9,
+    "authority_level": 0.9,
+    "multi_layer": 0.92,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp3y708huj\\library\\sources\\src_533b038d\\frozen",
+  "frozen_hash": "533b038d1fafe502aa90184b7f1fed8356fc0d68eca16170bd724c1517781afe",
+  "frozen_file_hashes": {
+    "book.htm": "dfdb0fbc3a275ca5103f09261a7c2604f89cbf3efd37ca69cb617baf98b45938"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "page_count_raw": "423",
+    "author_short": "ضياء الدين المقدسي",
+    "preparer": "أحمد الخضري",
+    "physical_page_count": 423
+  },
+  "scholarly_context": {
+    "composition_period": "ألّف أثناء رحلته إلى مرو لطلب الحديث، وهو من أعماله المتعلقة بمسموعاته في رحلاته",
+    "composition_date_hijri": null,
+    "tradition_position": "جزء حديثي يمثل نموذجاً لأجزاء المسموعات التي كان المحدثون يدونونها في رحلاتهم، وهو من مسموعات الضياء المقدسي عن شيخه أبي المظفر السمعاني بمرو",
+    "known_textual_issues": [
+      "مخطوط لم يُحقق تحقيقاً علمياً كاملاً"
+    ],
+    "historical_significance": "يوثق سماعات الضياء المقدسي في مرو ويحفظ أسانيد عالية عن طريق أبي المظفر السمعاني، مما يعكس الحركة العلمية في خراسان قبيل الغزو المغولي",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [
+      "النص مخطوط وليس محققاً"
+    ],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:38:46.728617+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 17.0,
+  "is_rerun": false,
+  "original_phase": null
+}

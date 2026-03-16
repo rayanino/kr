@@ -1,0 +1,78 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 23.338606900011655,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.99,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "العقيدة الطحاوية",
+      "base_work_author": "أبو جعفر أحمد بن محمد بن سلامة الطحاوي"
+    },
+    "genre_chain_confidence": 0.99,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.98,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أبو جعفر أحمد بن محمد بن سلامة الطحاوي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "علي بن علي بن محمد بن أبي العز الدمشقي"
+      },
+      {
+        "layer_type": "tahqiq_note",
+        "author_name": "عبد الله بن المحسن التركي وشعيب الأرنؤوط"
+      }
+    ],
+    "science_scope": [
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.99,
+    "level": "intermediate",
+    "level_confidence": 0.82,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "علي بن علي بن محمد بن أبي العز الحنفي الدمشقي",
+      "known_as": [
+        "ابن أبي العز",
+        "ابن أبي العز الحنفي"
+      ],
+      "death_date_hijri": 792,
+      "school_affiliations": {
+        "fiqh": "حنفي",
+        "aqidah": "أثري سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "قاضٍ حنفي دمشقي، اشتهر بشرحه على العقيدة الطحاوية الذي يُعدّ من أهم شروحها وأوسعها انتشاراً، وقد تميّز بتقريره العقيدة على منهج السلف خلافاً لما عليه كثير من متأخري الحنفية",
+      "methodological_stance": "يقرر العقيدة على منهج أهل الحديث والأثر، متأثر بابن تيمية وابن القيم، مخالف لمنهج الماتريدية السائد عند الحنفية"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "traditional",
+    "attribution_notes": "نُسب الشرح تقليدياً لابن أبي العز الحنفي، وقد أثار بعض الباحثين تساؤلات حول نسبته إليه لكن الرأي السائد يقبل هذه النسبة",
+    "scholarly_context": {
+      "composition_period": "أُلّف في النصف الثاني من القرن الثامن الهجري",
+      "composition_date_hijri": 780,
+      "tradition_position": "أشهر شروح العقيدة الطحاوية وأكثرها تداولاً، يُعدّ مرجعاً أساسياً في تقرير عقيدة أهل السنة على منهج السلف، وقد حظي باهتمام واسع في العصر الحديث خاصة في الأوساط السلفية",
+      "known_textual_issues": [
+        "وقع خلاف حول نسبة الشرح لابن أبي العز، وأشار بعض الباحثين إلى احتمال أن يكون المؤلف غيره",
+        "النسخ الخطية متعددة وفيها اختلافات"
+      ],
+      "historical_significance": "يُعدّ من أهم المتون العقدية المشروحة في التراث الإسلامي السني، وقد أصبح مقرراً دراسياً في كثير من المعاهد والجامعات الإسلامية",
+      "muhaqiq_reputation": "شعيب الأرنؤوط (ت 1438 هـ) محقق سوري مشهور بتحقيقاته العلمية الدقيقة وتخريج الأحاديث، وعبد الله التركي عالم سعودي معروف بإشرافه على مشاريع تحقيق التراث",
+      "tahqiq_methodology_note": "تحقيق علمي يعتمد على مقابلة النسخ الخطية مع تخريج الأحاديث والآثار والتعليق على المسائل العلمية",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

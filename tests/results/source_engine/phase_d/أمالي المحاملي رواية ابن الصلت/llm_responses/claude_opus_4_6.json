@@ -1,0 +1,55 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.788772100000642,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "أبو عبد الله الحسين بن إسماعيل بن محمد بن إسماعيل بن سعيد بن أبان الضبي المحاملي",
+      "known_as": [
+        "المحاملي",
+        "القاضي المحاملي"
+      ],
+      "death_date_hijri": 330,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "قاضٍ محدّث بغدادي كبير، من حفاظ الحديث الثقات، روى عنه خلق كثير وعُمِّر طويلاً",
+      "methodological_stance": "محدّث على طريقة أهل الحديث البغداديين، اشتهر بمجالس الإملاء"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "أملاها المحاملي في مجالس إملاء في بغداد، والنص يذكر تاريخ إملاء سنة 324 هـ",
+      "composition_date_hijri": 324,
+      "tradition_position": "من كتب الأمالي الحديثية التي أملاها المحاملي في مجالسه ببغداد، وهي رواية ابن الصلت القرشي المجبّر (ت 405 هـ) عنه",
+      "known_textual_issues": [],
+      "historical_significance": "أمالي المحاملي من المصادر الحديثية المسندة المهمة، وللمحاملي عدة روايات لأماليه منها رواية ابن الصلت ورواية ابن مهدي الفارسي",
+      "muhaqiq_reputation": "حمدي عبد المجيد السلفي (ت 1433 هـ) محقق عراقي معروف بتحقيقاته الكثيرة لكتب الحديث والتراث",
+      "tahqiq_methodology_note": "طُبع مع أمالي المحاملي رواية ابن مهدي الفارسي في مجلد واحد",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": []
+    }
+  }
+}

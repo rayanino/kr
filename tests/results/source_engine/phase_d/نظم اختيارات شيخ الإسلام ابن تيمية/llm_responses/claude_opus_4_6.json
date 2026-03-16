@@ -1,0 +1,63 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.932991899986519,
+  "parsed": {
+    "genre": "nazm",
+    "genre_confidence": 0.97,
+    "genre_chain": {
+      "relation_type": "nazm_of",
+      "base_work_title": "الاختيارات الفقهية",
+      "base_work_author": "تقي الدين أحمد بن عبد الحليم ابن تيمية"
+    },
+    "genre_chain_confidence": 0.85,
+    "structural_format": "verse",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.93,
+    "level": "intermediate",
+    "level_confidence": 0.7,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.88,
+    "author_identification": {
+      "canonical_name_ar": "سليمان بن سحمان بن مصلح بن حمدان الخثعمي النجدي",
+      "known_as": [
+        "سليمان بن سحمان",
+        "ابن سحمان"
+      ],
+      "death_date_hijri": 1349,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "aqidah": "سلفي أثري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم نجدي بارز من أتباع الدعوة السلفية، كثير التصانيف والردود، من أبرز علماء نجد في القرن الرابع عشر الهجري",
+      "methodological_stance": "سلفي أثري على منهج ابن تيمية وابن عبد الوهاب، معروف بالردود على المخالفين"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال المؤلف في الفترة المتأخرة من حياته العلمية في نجد",
+      "composition_date_hijri": null,
+      "tradition_position": "نظم يختصر ويسهل حفظ اختيارات ابن تيمية الفقهية، ضمن تقليد نجدي في نظم المتون الفقهية والعقدية",
+      "known_textual_issues": [],
+      "historical_significance": "يعكس اهتمام علماء نجد بنشر اختيارات ابن تيمية الفقهية وتيسيرها للطلاب عبر النظم",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "composition_period"
+      ]
+    }
+  }
+}

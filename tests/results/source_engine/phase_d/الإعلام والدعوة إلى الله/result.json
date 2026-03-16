@@ -1,0 +1,125 @@
+{
+  "source_id": "src_7dbb27e3",
+  "work_id": "wrk_th_abd_al_ftah_mqld_al_ialam_waldawh_ila",
+  "human_label": "al_ialam_waldawh_ila",
+  "title_arabic": "الإعلام والدعوة إلى الله",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "طه عبد الفتاح مقلد",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "adab",
+    "dawah"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "الجامعة الإسلامية، المدينة المنورة",
+  "edition_number": 3,
+  "publication_year_hijri": 1395,
+  "publication_year_miladi": 1975,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 17,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.4325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: الجامعة الإسلامية، المدينة المنورة"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.432 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.85,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 1.0,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp3w1amg78\\library\\sources\\src_7dbb27e3\\frozen",
+  "frozen_hash": "7dbb27e374ef67a6b3a4cba9b7fc25295b29eab36e1bf5e20518be86ea660fa2",
+  "frozen_file_hashes": {
+    "book.htm": "8f180bb8883d998c4c91826118d3c4b79a5e2cc6cc6ecb790e262fa31c25edfb"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب عامة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "السنة الثامنة، العدد الثالث، ذو الحجة 1395هـ/ ديسمبر 1975م",
+    "page_count_raw": "93",
+    "author_short": "طه عبد الفتاح مقلد",
+    "physical_page_count": 93
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": 1395,
+    "tradition_position": "A modern work addressing the role of media in Islamic dawah, reflecting contemporary concerns about the impact of global media on Islamic society.",
+    "known_textual_issues": [],
+    "historical_significance": "Part of the modern discourse on the intersection of Islamic dawah and contemporary media, highlighting the importance of using media for Islamic propagation.",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": []
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:26:49.797019+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 11.03,
+  "is_rerun": false,
+  "original_phase": null
+}

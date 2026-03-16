@@ -1,0 +1,138 @@
+{
+  "source_id": "src_df10f6b4",
+  "work_id": "wrk_mhmd_bn_aby_bkr_bn_a_tfsyr_al_qran_al_kry",
+  "human_label": "tfsyr_al_qran_al_kry",
+  "title_arabic": "تفسير القرآن الكريم (ابن القيم)",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد بن أبي بكر بن أيوب بن سعد شمس الدين ابن قيم الجوزية",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": "هذا الكتاب ليس تفسيراً مستقلاً ألّفه ابن القيم، بل هو مجموع من أقواله التفسيرية المستخرجة من كتبه المختلفة، جمعها ورتبها بعض المحققين المعاصرين. لذلك فهو تفسير منسوب إليه بالجمع لا بالتأليف المباشر.",
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "مكتب الدراسات والبحوث العربية والإسلامية بإشراف الشيخ إبراهيم رمضان",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "tafsir",
+    "aqidah"
+  ],
+  "genre": "tafsir",
+  "genre_chain": null,
+  "level": "advanced",
+  "publisher": "دار ومكتبة الهلال - بيروت",
+  "edition_number": 1,
+  "publication_year_hijri": 1410,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 664,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.65,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 751 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: مكتب الدراسات والبحوث العربية والإسلامية بإشراف الشيخ إبراهيم رمضان"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار ومكتبة الهلال - بيروت"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.650 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.92,
+    "science_scope": 0.88,
+    "level": 0.75,
+    "structural_format": 0.9,
+    "authority_level": 0.85,
+    "multi_layer": 0.85,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpsumkf3uh\\library\\sources\\src_df10f6b4\\frozen",
+  "frozen_hash": "df10f6b458319a01a31629ff97cbc6f3da59955306f368a5a67210cc66826d9a",
+  "frozen_file_hashes": {
+    "book.htm": "11344edfeae3d8ba2ba3c44595513b5499be059d8897ddaa2c0f185e09564141"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التفسير",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى - 1410 هـ",
+    "page_count_raw": "695",
+    "author_short": "ابن القيم",
+    "physical_page_count": 695
+  },
+  "scholarly_context": {
+    "composition_period": "العمل الأصلي لابن القيم في النصف الأول من القرن الثامن الهجري، لكن الجمع والترتيب حديث",
+    "composition_date_hijri": null,
+    "tradition_position": "مجموعة تفسيرية مستخلصة من مؤلفات ابن القيم المتعددة، تمثل رؤيته التفسيرية الأثرية السلفية، وليست تفسيراً كاملاً مستقلاً بل مختارات مرتبة على ترتيب المصحف",
+    "known_textual_issues": [
+      "الكتاب ليس مؤلفاً مستقلاً لابن القيم بل مجموع من كتبه المختلفة",
+      "لا يغطي جميع سور القرآن بل ما وُجد من أقواله التفسيرية"
+    ],
+    "historical_significance": "يجمع الآراء التفسيرية لابن القيم المبثوثة في مؤلفاته المتعددة في مكان واحد مما يسهل الوصول إليها",
+    "muhaqiq_reputation": "مكتب الدراسات والبحوث العربية والإسلامية بإشراف الشيخ إبراهيم رمضان، وهو من المحققين المعروفين في لبنان لكن تحقيقاته تعتبر تجارية أكثر منها علمية دقيقة",
+    "tahqiq_methodology_note": "تحقيق وضبط وشرح بإشراف الشيخ إبراهيم رمضان من خلال مكتب الدراسات والبحوث",
+    "edition_known_issues": [
+      "الطبعة الأولى 1410هـ من دار الهلال بيروت، وهي دار نشر تجارية",
+      "التحقيق يعتبر من التحقيقات التجارية وليس من التحقيقات العلمية المعتمدة"
+    ],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:28:51.043713+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 22.48,
+  "is_rerun": false,
+  "original_phase": null
+}

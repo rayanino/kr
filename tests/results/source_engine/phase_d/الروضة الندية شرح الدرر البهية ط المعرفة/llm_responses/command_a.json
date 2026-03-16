@@ -1,0 +1,69 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 40.324258900014684,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "الدرر البهية في المسائل الفقهية",
+      "base_work_author": "محمد بن علي الشوكاني"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "محمد بن علي الشوكاني"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "أبو الطيب محمد صديق خان القِنَّوجي"
+      }
+    ],
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "intermediate",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "أبو الطيب محمد صديق خان بن حسن بن علي ابن لطف الله الحسيني البخاري القِنَّوجي",
+      "known_as": [
+        "محمد صديق خان القِنَّوجي"
+      ],
+      "death_date_hijri": 1307,
+      "school_affiliations": {
+        "fiqh": "حنفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم وفقيه بارز، معروف بجهوده في التصنيف والتحقيق، خاصة في الفقه والحديث",
+      "methodological_stance": "يميل إلى اتباع الدليل مع مراعاة المذاهب الفقهية، خاصة المذهب الحنفي"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "يعد هذا الشرح من الشروح المهمة على مختصر الشوكاني، ويتميز بجمعه بين الدليل الفقهي والشرح الواضح",
+      "known_textual_issues": [],
+      "historical_significance": "يبرز أهمية الجمع بين الدليل الفقهي والتطبيق العملي في الفقه الإسلامي",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

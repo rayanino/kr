@@ -1,0 +1,140 @@
+{
+  "source_id": "src_5aa81aaf",
+  "work_id": "wrk_ahmd_bn_mhmd_bn_hnbl_msnd_al_imam_ahmd_bn",
+  "human_label": "msnd_al_imam_ahmd_bn",
+  "title_arabic": "مسند الإمام أحمد بن حنبل",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أحمد بن محمد بن حنبل",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "أحمد محمد شاكر",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار الحديث - القاهرة",
+  "edition_number": 1,
+  "publication_year_hijri": 1416,
+  "publication_year_miladi": 1995,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 559,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.8175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 241 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.9,
+      "reason": "Recognized muhaqiq: أحمد محمد شاكر (matched أحمد شاكر)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الحديث - القاهرة"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.818 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": null,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 8,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmphz_n_hsa\\library\\sources\\src_5aa81aaf\\frozen",
+  "frozen_hash": "5aa81aaf4030461c0df4aca56cb109c491a1945948e86d775eeb9c6151f5ab9a",
+  "frozen_file_hashes": {
+    "001.htm": "65cde2d3666c148ace4161889cca899623b536d1423b9e8ed2ce34f6a1179935",
+    "002.htm": "38de0f2998f276667fa01beecb10474ad815432d18f63e7a2258fa3345cd353f",
+    "003.htm": "a42ec971c701d5d7fd2f73ba0d219514c0f12aca8f465034a16159bcb4458271",
+    "004.htm": "99c27519628d995c07cd635d31c181e3c37d2d6411aa72873240e3a748e749bc",
+    "005.htm": "43c1da7a927077cf4e18687443b192fc9ee65b24e6ab2d792df6cbdf6dc5d1c7",
+    "006.htm": "82a9e6a721a5d1c6d099e67fef8df3d9ecd5a436ba593c772f9d16fb8be70c69",
+    "007.htm": "b840b70b1a46033fffa4090a45972c2ed8a6592f365ebbadbfa5bb2cb9aa20b1",
+    "008.htm": "3adda0a0ac92bd705e967cbee0fe3edf78fb01188505169de0d4301d0c68067d"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "27 ذو القعدة 1434",
+    "volume_count_raw": "20 (آخر 2 فهارس)",
+    "edition_raw": "الأولى، 1416 هـ - 1995 م",
+    "author_short": "أحمد بن حنبل",
+    "metadata_volume_count": 20,
+    "extra_card_fields": {
+      "وقد اقتصرنا": "في هذه النسخة الإلكترونية على 8 الـ أجزاء، التي حققها أحمد شاكر وكان طبعها قديما في دار المعارف، ثم أعادت صفها دار الحديث وأكملوا طباعة المسند"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": "middle",
+    "composition_date_hijri": null,
+    "tradition_position": "A foundational work in the hadith literature, serving as one of the primary sources for Sunni hadith.",
+    "known_textual_issues": [],
+    "historical_significance": "One of the most important collections of hadith, compiled by Imam Ahmad ibn Hanbal, a leading figure in the early Islamic period.",
+    "muhaqiq_reputation": "Ahmad Muhammad Shakir is a well-respected scholar and editor known for his rigorous tahqiq work on classical Islamic texts.",
+    "tahqiq_methodology_note": "Shakir's edition includes critical apparatus, explanatory notes, and indexing, enhancing the accessibility and reliability of the text.",
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": []
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:21:14.168453+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 21.75,
+  "is_rerun": true,
+  "original_phase": "C"
+}

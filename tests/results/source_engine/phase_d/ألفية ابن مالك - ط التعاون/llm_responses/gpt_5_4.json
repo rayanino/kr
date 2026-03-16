@@ -1,0 +1,63 @@
+{
+  "model_id": "openrouter/openai/gpt-5.4",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 9.80090190001647,
+  "parsed": {
+    "genre": "nazm",
+    "genre_confidence": 0.99,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "verse",
+    "structural_format_confidence": 0.99,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.98,
+    "layers": null,
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 0.98,
+    "level": "intermediate",
+    "level_confidence": 0.78,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن عبد الله بن مالك الطائي الجياني",
+      "known_as": [
+        "ابن مالك",
+        "جمال الدين",
+        "أبو عبد الله"
+      ],
+      "death_date_hijri": 672,
+      "school_affiliations": {
+        "fiqh": "مالكي ثم شافعي",
+        "nahw": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "إمام كبير في العربية والنحو والتصريف، وصاحب منظومات ومصنفات صارت عمدة في الدرس النحوي.",
+      "methodological_stance": "يغلب عليه التقعيد التعليمي المنظوم مع كثرة الاستشهاد بالقرآن والحديث وكلام العرب."
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أشهر المتون التعليمية النحوية في المرحلة الناضجة من تصنيف ابن مالك، وقد استقر في التقليد الدراسي السني وصار محورًا للشروح والحواشي.",
+      "composition_date_hijri": null,
+      "tradition_position": "متن مركزي في التعليم النحوي، حفظه الطلاب وكثرت عليه الشروح والحواشي في مختلف البيئات العلمية.",
+      "known_textual_issues": [],
+      "historical_significance": "ألفية ابن مالك من أكثر المتون النحوية انتشارا في تاريخ التعليم الإسلامي، وقد لخصت مسائل النحو والتصريف في ألف بيت تقريبا وصارت أساسا لسلسلة واسعة من الشروح.",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation",
+        "tahqiq_methodology_note",
+        "edition_known_issues"
+      ]
+    }
+  }
+}

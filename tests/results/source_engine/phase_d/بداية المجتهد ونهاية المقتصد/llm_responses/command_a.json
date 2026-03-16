@@ -1,0 +1,57 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 10.77861550002126,
+  "parsed": {
+    "genre": "fiqh_comparative",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "fiqh",
+      "usul_al_fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "advanced",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو الوليد محمد بن أحمد بن محمد بن أحمد بن رشد القرطبي الأندلسي",
+      "known_as": [
+        "ابن رشد الحفيد"
+      ],
+      "death_date_hijri": 595,
+      "school_affiliations": {
+        "fiqh": "مالكي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "فقيه وأصولي وفيلسوف بارز، من كبار علماء المالكية في الأندلس",
+      "methodological_stance": "يتميز بمنهجية مقارنة بين المذاهب الفقهية مع التركيز على الأدلة والعلل"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "middle",
+      "composition_date_hijri": null,
+      "tradition_position": "يُعتبر من أهم الأعمال في الفقه المقارن عند المالكية، ويتميز بمنهجيته في عرض الخلاف الفقهي وأدلته",
+      "known_textual_issues": [],
+      "historical_significance": "يُعد مرجعاً أساسياً في الفقه المقارن، ويُدرس في الحلقات العلمية المتقدمة",
+      "muhaqiq_reputation": "فريد عبدالعزيز الجندي معروف بتحقيقاته الجيدة في التراث الفقهي",
+      "tahqiq_methodology_note": "اعتمد على عدة نسخ خطية مع توثيق النصوص ومقارنتها",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 7.72753579998971,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.82,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "fiqh",
+      "huquq"
+    ],
+    "science_scope_confidence": 0.8,
+    "level": "beginner",
+    "level_confidence": 0.75,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "طاهر أحمد مولانا جمل الليل",
+      "known_as": [
+        "جمل الليل"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": null,
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.55,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "كتاب معاصر يعرض حقوق الإنسان من منظور إسلامي مقارنة بالمواثيق الدولية",
+      "known_textual_issues": [],
+      "historical_significance": null,
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

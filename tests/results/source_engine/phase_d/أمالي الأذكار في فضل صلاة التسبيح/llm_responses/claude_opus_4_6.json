@@ -1,0 +1,75 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.881866900017485,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.82,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "الأذكار",
+      "base_work_author": "يحيى بن شرف النووي"
+    },
+    "genre_chain_confidence": 0.85,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.88,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.88,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "يحيى بن شرف النووي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "أحمد بن علي بن حجر العسقلاني"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith",
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.88,
+    "level": "advanced",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.88,
+    "author_identification": {
+      "canonical_name_ar": "أحمد بن علي بن محمد بن أحمد بن حجر العسقلاني",
+      "known_as": [
+        "ابن حجر العسقلاني",
+        "الحافظ ابن حجر",
+        "شهاب الدين أبو الفضل"
+      ],
+      "death_date_hijri": 852,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث حافظ"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "أمير المؤمنين في الحديث، من أعظم حفاظ الإسلام وأبرز شراح البخاري، وله مؤلفات كثيرة في علوم الحديث والفقه والتراجم",
+      "methodological_stance": "محدث ناقد متقن، يجمع بين الرواية والدراية، ويعتني بتخريج الأحاديث ونقد الأسانيد"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال ابن حجر المتأخرة، وهي أمالٍ أملاها في مجالس على كتاب الأذكار للنووي في باب صلاة التسبيح",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء من مشروع ابن حجر الأوسع في التعليق على كتاب الأذكار للنووي، وهو من الأمالي الحديثية التي تعتني بتخريج أحاديث صلاة التسبيح ونقدها",
+      "known_textual_issues": [],
+      "historical_significance": "رسالة مختصرة نافعة في بيان أحاديث صلاة التسبيح وطرقها وأحكامها، من إملاء الحافظ ابن حجر وهو من أجلّ من تكلم في هذا الباب",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

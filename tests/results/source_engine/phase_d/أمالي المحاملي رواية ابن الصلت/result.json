@@ -1,0 +1,133 @@
+{
+  "source_id": "src_8e378952",
+  "work_id": "wrk_abw_abd_al_lh_al_hsy_amaly_al_mhamly",
+  "human_label": "amaly_al_mhamly",
+  "title_arabic": "أمالي المحاملي",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو عبد الله الحسين بن إسماعيل بن محمد بن إسماعيل بن سعيد بن أبان الضبي المحاملي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "حمدي عبد المجيد السلفي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار النوادر [طبع مع أمالي المحاملي رواية ابن مهدي الفارسي]",
+  "edition_number": 1,
+  "publication_year_hijri": 1427,
+  "publication_year_miladi": 2006,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 53,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 330 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: حمدي عبد المجيد السلفي"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار النوادر [طبع مع أمالي المحاملي رواية ابن مهدي الفارسي]"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.97,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.92,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp_kc_drx6\\library\\sources\\src_8e378952\\frozen",
+  "frozen_hash": "8e3789523e90f4f855ec113ada39f7f6a3884f9755462d72b9f09e9a97d67261",
+  "frozen_file_hashes": {
+    "book.htm": "4a2c100993ad5847d33eb872c5c0494e5c04f319f92ec0a98260f9f1d28fd628"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "6 صفر 1432",
+    "edition_raw": "الأولى 1427 هـ - 2006 م",
+    "page_count_raw": "240",
+    "author_short": "المحاملي",
+    "preparer": "أحمد الخضري (نسخ)، ويا باغي الخير أقبل (مقابلة)",
+    "physical_page_count": 240,
+    "extra_card_fields": {
+      "رواية ابن الصلت القرشي": "أحمد بن محمد بن موسى بن الصلت المجبِّر (405 هـ)"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": "أملاها المحاملي في مجالس إملاء في بغداد، والنص يذكر تاريخ إملاء سنة 324 هـ",
+    "composition_date_hijri": 324,
+    "tradition_position": "من كتب الأمالي الحديثية التي أملاها المحاملي في مجالسه ببغداد، وهي رواية ابن الصلت القرشي المجبّر (ت 405 هـ) عنه",
+    "known_textual_issues": [],
+    "historical_significance": "أمالي المحاملي من المصادر الحديثية المسندة المهمة، وللمحاملي عدة روايات لأماليه منها رواية ابن الصلت ورواية ابن مهدي الفارسي",
+    "muhaqiq_reputation": "حمدي عبد المجيد السلفي (ت 1433 هـ) محقق عراقي معروف بتحقيقاته الكثيرة لكتب الحديث والتراث",
+    "tahqiq_methodology_note": "طُبع مع أمالي المحاملي رواية ابن مهدي الفارسي في مجلد واحد",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": []
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:14:50.624953+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 15.83,
+  "is_rerun": true,
+  "original_phase": "C"
+}

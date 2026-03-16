@@ -1,0 +1,56 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.188379600003827,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن أبي بكر بن أيوب بن سعد شمس الدين ابن قيم الجوزية",
+      "known_as": [
+        "ابن القيم"
+      ],
+      "death_date_hijri": 751,
+      "school_affiliations": {
+        "fiqh": "Hanbali"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Prominent Hanbali scholar, jurist, and theologian, known for his extensive works in fiqh, tafsir, and aqidah.",
+      "methodological_stance": "Hanbali methodology with a strong emphasis on textual evidence and the works of Ibn Taymiyyah."
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "A specialized treatise on the fiqh of newborn care and related issues, reflecting Ibn al-Qayyim's practical and comprehensive approach to Islamic law.",
+      "known_textual_issues": [],
+      "historical_significance": "Widely referenced work on the legal and ethical aspects of newborn care in Islamic tradition.",
+      "muhaqiq_reputation": "Abdul Qadir al-Arna'ut is a well-regarded muhaddith and editor known for his rigorous tahqiq work on classical texts.",
+      "tahqiq_methodology_note": "Likely includes verification of manuscript sources and cross-referencing with other works of Ibn al-Qayyim.",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

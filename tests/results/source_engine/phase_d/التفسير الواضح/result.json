@@ -1,0 +1,128 @@
+{
+  "source_id": "src_3733a882",
+  "work_id": "wrk_mhmd_mhmwd_al_hjazy_al_tfsyr_al_wadh",
+  "human_label": "al_tfsyr_al_wadh",
+  "title_arabic": "التفسير الواضح",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد محمود الحجازي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "tafsir",
+    "ulum_al_quran"
+  ],
+  "genre": "tafsir",
+  "genre_chain": null,
+  "level": "intermediate",
+  "publisher": "دار الجيل الجديد - بيروت",
+  "edition_number": 10,
+  "publication_year_hijri": 1413,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 925,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.4325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الجيل الجديد - بيروت"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.432 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": 0.8,
+    "structural_format": 1.0,
+    "authority_level": 0.9,
+    "multi_layer": 1.0,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 3,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp58d1r2uz\\library\\sources\\src_3733a882\\frozen",
+  "frozen_hash": "3733a882d7746fc59eb1feeafd0bce0e55ab6e8e8d0d3773fe7c3baa294ccb95",
+  "frozen_file_hashes": {
+    "001.htm": "ea0854b6bcce6f7bdd18e2e4c5e7dd620a073c81264b9bc3a77b4c7225a525d2",
+    "002.htm": "46bce8f1f7f87cee2a9efd3f10f35c84a1d53ac72bc8202bdf5cfd0214a41188",
+    "003.htm": "0b61ccb21fbed919ecab507c52d2306c5b040f915985370f4861882f4b96e26f"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التفسير",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "العاشرة - 1413 هـ",
+    "author_short": "محمد محمود حجازي"
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "A modern Tafsir work aimed at a general audience, focusing on clarity and accessibility.",
+    "known_textual_issues": [],
+    "historical_significance": "Part of the modern trend in Islamic scholarship to produce accessible Tafsir works for a broader audience.",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "tradition_position"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:29:22.194201+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 13.88,
+  "is_rerun": false,
+  "original_phase": null
+}

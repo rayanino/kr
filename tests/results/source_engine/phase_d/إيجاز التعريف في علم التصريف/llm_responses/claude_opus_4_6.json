@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.309309799980838,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.88,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.85,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "sarf"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "intermediate",
+    "level_confidence": 0.7,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن عبد الله بن مالك الطائي الجياني، أبو عبد الله، جمال الدين",
+      "known_as": [
+        "ابن مالك",
+        "جمال الدين ابن مالك"
+      ],
+      "death_date_hijri": 672,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "nahw": "أندلسي ثم متأثر بالمدرستين البصرية والكوفية"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم علماء العربية والنحو والصرف، صاحب الألفية الشهيرة وتسهيل الفوائد، إمام في اللغة والنحو والصرف والقراءات",
+      "methodological_stance": "يميل إلى الاستشهاد بالحديث النبوي في النحو والصرف، ويجمع بين مذاهب البصريين والكوفيين مع ترجيحات مستقلة"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مؤلفات ابن مالك المتأخرة في الصرف، ألفه في دمشق على الأرجح",
+      "composition_date_hijri": null,
+      "tradition_position": "مصنف مختصر في علم التصريف لابن مالك، يعد من مؤلفاته الصرفية إلى جانب التعريف في ضرورة التصريف ولامية الأفعال",
+      "known_textual_issues": [],
+      "historical_significance": "يمثل جهد ابن مالك في تقديم علم الصرف بأسلوب موجز ومركز، وهو من مصنفاته الأقل شهرة مقارنة بالألفية والتسهيل",
+      "muhaqiq_reputation": "محمد المهدي عبد الحي عمار سالم، باحث متخصص في تراث ابن مالك، حقق عدة مصنفات له",
+      "tahqiq_methodology_note": "اعتمد المحقق على نسخ خطية مع دراسة شاملة للمؤلف والكتاب، ونشرته عمادة البحث العلمي بالجامعة الإسلامية بالمدينة المنورة",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "composition_period"
+      ]
+    }
+  }
+}

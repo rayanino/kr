@@ -1,0 +1,77 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.90349050000077,
+  "parsed": {
+    "genre": "hashiyah",
+    "genre_confidence": 0.99,
+    "genre_chain": {
+      "relation_type": "hashiyah_on",
+      "base_work_title": "شرح المحلي على جمع الجوامع",
+      "base_work_author": "جلال الدين المحلي"
+    },
+    "genre_chain_confidence": 0.99,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.99,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "تاج الدين السبكي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "جلال الدين المحلي"
+      },
+      {
+        "layer_type": "hashiyah",
+        "author_name": "حسن العطار"
+      }
+    ],
+    "science_scope": [
+      "usul_al_fiqh"
+    ],
+    "science_scope_confidence": 0.99,
+    "level": "advanced",
+    "level_confidence": 0.95,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "حسن بن محمد بن محمود العطار",
+      "known_as": [
+        "الشيخ العطار",
+        "حسن العطار"
+      ],
+      "death_date_hijri": 1250,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "aqidah": "أشعري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "شيخ الأزهر، من كبار علماء مصر في القرن الثالث عشر الهجري، جمع بين العلوم النقلية والعقلية وكان من رواد التجديد في الأزهر",
+      "methodological_stance": "جمع بين التحقيق والتدقيق في العلوم العقلية والنقلية، متأثر بالمنهج الأزهري التقليدي مع انفتاح على العلوم الحديثة"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر أعمال الشيخ العطار، ألفها في أوائل القرن الثالث عشر الهجري",
+      "composition_date_hijri": null,
+      "tradition_position": "تعد من أهم الحواشي على شرح المحلي على جمع الجوامع، وهي مرجع أساسي في أصول الفقه الشافعي عند الأزهريين، وتمثل الطبقة العليا في سلسلة شروح جمع الجوامع",
+      "known_textual_issues": [],
+      "historical_significance": "من أبرز المصنفات في أصول الفقه عند المتأخرين، اعتمدها علماء الأزهر في التدريس لقرون، وتتميز بجمعها بين التحقيقات الأصولية واللغوية والمنطقية",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [
+        "طبعة دار الكتب العلمية بدون تحقيق علمي دقيق، وهي من الطبعات التجارية التي قد تحتوي على أخطاء مطبعية"
+      ],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

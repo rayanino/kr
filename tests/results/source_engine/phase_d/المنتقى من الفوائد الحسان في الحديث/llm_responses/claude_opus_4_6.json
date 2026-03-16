@@ -1,0 +1,65 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.852146999997785,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.85,
+    "genre_chain": {
+      "relation_type": "mukhtasar_of",
+      "base_work_title": "الفوائد الحسان من حديث أبي حامد محمد بن هارون الحضرمي",
+      "base_work_author": "أبو حامد محمد بن هارون بن عبد الله بن مياح الحضرمي"
+    },
+    "genre_chain_confidence": 0.8,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "يوسف بن عبد الرحمن بن يوسف أبو الحجاج جمال الدين المزي",
+      "known_as": [
+        "المزي",
+        "الحافظ المزي",
+        "جمال الدين المزي"
+      ],
+      "death_date_hijri": 742,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من كبار حفاظ الحديث في القرن الثامن الهجري، صاحب تهذيب الكمال في أسماء الرجال، وأحد أبرز علماء الجرح والتعديل",
+      "methodological_stance": "محدث ناقد متقن، عُرف بالدقة في الرواية والتخريج وانتقاء الأحاديث"
+    },
+    "author_identification_confidence": 0.98,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال المزي في النصف الأول من القرن الثامن الهجري، وهو جزء حديثي منتقى من أصل أقدم",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي صغير يمثل نشاط المزي في انتقاء الأحاديث من الأجزاء الحديثية القديمة، وهو من الأعمال الصغيرة للمزي بخلاف مصنفاته الكبرى كتهذيب الكمال وتحفة الأشراف",
+      "known_textual_issues": [],
+      "historical_significance": "يمثل نموذجاً لنشاط الحفاظ في انتقاء الفوائد الحديثية من الأجزاء القديمة، ويحتوي على 55 حديثاً منتقاة بعناية الحافظ المزي",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

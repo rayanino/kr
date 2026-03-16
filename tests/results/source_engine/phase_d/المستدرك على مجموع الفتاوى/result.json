@@ -1,0 +1,144 @@
+{
+  "source_id": "src_28a95094",
+  "work_id": "wrk_tqy_al_dyn_abw_al_ab_al_mstdrk_ala_mjmwa_",
+  "human_label": "al_mstdrk_ala_mjmwa_",
+  "title_arabic": "المستدرك على مجموع فتاوى شيخ الإسلام",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "تقي الدين أبو العباس أحمد بن عبد الحليم بن عبد السلام بن تيمية الحراني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": "الفتاوى والرسائل لابن تيمية قطعية النسبة إليه، لكن الجمع والترتيب من عمل محمد بن عبد الرحمن بن قاسم (ت 1421هـ) الذي جمع ما فاته في المجموع الأصلي",
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "aqidah",
+    "fiqh",
+    "usul_al_fiqh",
+    "tafsir",
+    "hadith",
+    "tasawwuf"
+  ],
+  "genre": "fatawa",
+  "genre_chain": {
+    "relation_type": "cites",
+    "base_work_title": "مجموع الفتاوى",
+    "base_work_author": "تقي الدين أحمد بن عبد الحليم بن تيمية",
+    "base_work_id": null,
+    "confidence": 0.92
+  },
+  "level": "advanced",
+  "publisher": null,
+  "edition_number": 1,
+  "publication_year_hijri": 1418,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "mixed",
+  "language": "ar",
+  "page_count": 214,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.625,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 728 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 728 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.625 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.92,
+    "science_scope": 0.82,
+    "level": 0.8,
+    "structural_format": 0.8,
+    "authority_level": 0.93,
+    "multi_layer": 0.9,
+    "genre_chain": 0.92,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 5,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpy6gueotk\\library\\sources\\src_28a95094\\frozen",
+  "frozen_hash": "28a95094533d29d7783cbbdbc2610314cd9fc872e7d64b3af96fb7ae7070f80b",
+  "frozen_file_hashes": {
+    "001.htm": "729c8d1355737340f467298d90713c9cd69f57499c341bdc49b078cc849e74fe",
+    "002.htm": "39fabe57ce1c584d5abf37547f2fc983e3684a0494fb9d1fe009b63c73db6f41",
+    "003.htm": "44e237f64517a96b3549895dc31a04db7f82f23d554bedf3cf15d3b47f237358",
+    "004.htm": "9b64e94397ce9f58ba868d1bdc693d8dc8cc6c5abc5615bf044704ab908f2762",
+    "005.htm": "94cea3cabba1c417cf2900a2cab4509c75e075f9d627d13408da3877639d6895"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الجوامع",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "volume_count_raw": "5 أجزاء",
+    "edition_raw": "الأولى، 1418 هـ",
+    "author_short": "ابن تيمية",
+    "metadata_volume_count": 5,
+    "extra_card_fields": {
+      "جمعه ورتبه وطبعه على نفقته": "محمد بن عبد الرحمن بن قاسم (ت 1421هـ)"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": "هذا المستدرك يضم فتاوى ورسائل لابن تيمية كُتبت في أواخر القرن السابع وأوائل الثامن الهجري، لكن الجمع والترتيب تم في أواخر القرن الرابع عشر الهجري",
+    "composition_date_hijri": null,
+    "tradition_position": "مكمّل لمجموع الفتاوى الأصلي (37 مجلداً)، يحتوي على ما فات الجامع في المجموع الأول من فتاوى ورسائل ابن تيمية",
+    "known_textual_issues": [],
+    "historical_significance": "يعد تكملة ضرورية لمجموع فتاوى شيخ الإسلام ابن تيمية، أحد أهم المراجع في الفقه والعقيدة الحنبلية والسلفية",
+    "muhaqiq_reputation": "محمد بن عبد الرحمن بن قاسم (ت 1421هـ) من أبرز من خدم تراث ابن تيمية وابن القيم، وهو ابن الشيخ عبد الرحمن بن قاسم الذي بدأ جمع الفتاوى",
+    "tahqiq_methodology_note": "جمع ما فات من فتاوى ورسائل ابن تيمية بعد إتمام المجموع الأصلي، ورتبها على نفس منهج المجموع الأصلي",
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:02:50.187599+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 22.41,
+  "is_rerun": true,
+  "original_phase": "C"
+}

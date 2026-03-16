@@ -1,0 +1,134 @@
+{
+  "source_id": "src_7e5817d5",
+  "work_id": "wrk_abw_al_hsn_ahmd_bn_m_fwaid_mntqah_mn_rway",
+  "human_label": "fwaid_mntqah_mn_rway",
+  "title_arabic": "فوائد منتقاة من رواية الشيخين أبي الحسن أحمد بن محمد بن الصلت وأبي أحمد عبيد الله بن محمد بن أبي مسلم الفرضي",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو الحسن أحمد بن محمد بن الصلت وأبو أحمد عبيد الله بن محمد بن أبي مسلم الفرضي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "نبيل سعد الدين جرار",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار البشائر الإسلامية [ضمن سلسلة الأجزاء المنسوخة (1 - 3) ]",
+  "edition_number": 1,
+  "publication_year_hijri": 1429,
+  "publication_year_miladi": 2008,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 59,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7625000000000001,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 406 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: نبيل سعد الدين جرار"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.7,
+      "reason": "Known publisher: دار البشائر الإسلامية (score 0.7)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.763 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.9,
+    "level": null,
+    "structural_format": 0.9,
+    "authority_level": 0.9,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpkkm8m4_5\\library\\sources\\src_7e5817d5\\frozen",
+  "frozen_hash": "7e5817d5b69879dc9c030977d1a69f5cddf0179f7ce7fbf052a940cc2bb11c50",
+  "frozen_file_hashes": {
+    "book.htm": "0f974c3e360a84a14da96ece79c9684d0d6e0aca2ad8796ed3bd1349aeded096"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى 1429 هـ - 2008 م",
+    "page_count_raw": "81",
+    "author_short": "أحمد بن محمد بن الصلت",
+    "preparer": "يا باغي الخير أقبل",
+    "physical_page_count": 81
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": null,
+    "known_textual_issues": [],
+    "historical_significance": "Part of a series of transmitted hadith collections, preserving the chains of narration.",
+    "muhaqiq_reputation": "نبيل سعد الدين جرار is a known hadith manuscript editor.",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "tradition_position"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:55:01.091654+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 33.82,
+  "is_rerun": false,
+  "original_phase": null
+}

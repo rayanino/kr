@@ -1,0 +1,136 @@
+{
+  "source_id": "src_c93b8acb",
+  "work_id": "wrk_abw_al_wlyd_mhmd_bn__bdayh_al_mjthd_wnhay",
+  "human_label": "bdayh_al_mjthd_wnhay",
+  "title_arabic": "بداية المجتهد ونهاية المقتصد",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو الوليد محمد بن أحمد بن محمد بن أحمد بن رشد القرطبي الأندلسي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "فريد عبدالعزيز الجندي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh",
+    "usul_al_fiqh"
+  ],
+  "genre": "fiqh_comparative",
+  "genre_chain": null,
+  "level": "advanced",
+  "publisher": "دار الحديث - القاهرة",
+  "edition_number": null,
+  "publication_year_hijri": 1425,
+  "publication_year_miladi": 2004,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 250,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 595 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: فريد عبدالعزيز الجندي"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الحديث - القاهرة"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.95,
+    "level": 0.9,
+    "structural_format": 0.95,
+    "authority_level": 0.95,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 4,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpb0vlq2vk\\library\\sources\\src_c93b8acb\\frozen",
+  "frozen_hash": "c93b8acbbeb07d45fe4550328e951c55ee236535734fe54aa59688ff76fb9679",
+  "frozen_file_hashes": {
+    "001.htm": "2d14f7f1e789d10c36fad511c426bd91f95ae4817acce83fb3e5dc834e543c5a",
+    "002.htm": "3f878b20db5be4900e77eb12ff1a61ff0e90d3c0fd7e507a49f45c4957c7eb42",
+    "003.htm": "a178bb5346a4e95e2e65a7ccd43a6b8d14f0ab47c7bbbccf868f47fb25293887",
+    "004.htm": "906b71360d535b3cb1adb1b6509f00838aa9fd1618de75f9f98b6a2dbe0d7485"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الفقه المالكي",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "publication_year_raw": "1425 هـ - 2004 م",
+    "volume_count_raw": "4 (في مجلدين)",
+    "author_short": "ابن رشد الحفيد",
+    "metadata_volume_count": 4
+  },
+  "scholarly_context": {
+    "composition_period": "من أواخر مؤلفات ابن رشد الفقهية، ألّفه في النصف الثاني من القرن السادس الهجري",
+    "composition_date_hijri": 580,
+    "tradition_position": "يُعدّ من أهم كتب الفقه المقارن في التراث الإسلامي، وهو مرجع أساسي في بيان مسائل الاتفاق والاختلاف بين الفقهاء مع تحليل أسباب الخلاف وردّها إلى الأصول",
+    "known_textual_issues": [],
+    "historical_significance": "من أوائل الكتب التي اعتنت بالفقه المقارن بمنهج تحليلي أصولي، يبيّن مواطن الاتفاق والاختلاف بين المذاهب الأربعة وأهل الظاهر مع ذكر الأدلة وأسباب الخلاف، وقد أصبح مرجعاً لا غنى عنه للمجتهدين والباحثين في الفقه المقارن",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "muhaqiq_reputation"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:03:21.077399+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 15.88,
+  "is_rerun": true,
+  "original_phase": "C"
+}

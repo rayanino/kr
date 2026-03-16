@@ -1,0 +1,58 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 10.526503500004765,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.82,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "fiqh",
+      "huquq_al_insan"
+    ],
+    "science_scope_confidence": 0.8,
+    "level": "intermediate",
+    "level_confidence": 0.6,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.82,
+    "author_identification": {
+      "canonical_name_ar": "محمد كمال الدين بن محمد العزيز جعيط",
+      "known_as": [
+        "كمال جعيط"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": "مالكي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم وفقيه تونسي معاصر، له مشاركات في مجمع الفقه الإسلامي الدولي",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.55,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "عمل معاصر، نُشر في مجلة مجمع الفقه الإسلامي الدولي",
+      "composition_date_hijri": null,
+      "tradition_position": "بحث مقدم لمجمع الفقه الإسلامي يتناول موقف الإسلام من حقوق الإنسان في ضوء المتغيرات العالمية المعاصرة",
+      "known_textual_issues": [],
+      "historical_significance": "بحث يعالج قضية حقوق الإنسان من منظور إسلامي في سياق الحوار المعاصر حول هذه القضية",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "school_affiliations"
+      ]
+    }
+  }
+}

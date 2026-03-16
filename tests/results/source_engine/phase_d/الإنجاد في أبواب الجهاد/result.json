@@ -1,0 +1,133 @@
+{
+  "source_id": "src_f365f5ce",
+  "work_id": "wrk_mhmd_bn_aysa_bn_mhmd_ahkam",
+  "human_label": "ahkam",
+  "title_arabic": "الإنجاد في أبواب الجهاد وتفصيل فرائضه وسننه وذكر جمل من آدابه ولواحق أحكامه",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد بن عيسى بن محمد بن أصبغ الأزدي القرطبي، أبو عبد الله ابن المناصف",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "(مشهور بن حسن آل سلمان ومحمد بن زكريا أبو غازي) (ضبط نصه وعلق عليه ووثق نصوصه وخرج أحاديثه وآثاره)",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh",
+    "fiqh_al_jihad"
+  ],
+  "genre": "matn",
+  "genre_chain": null,
+  "level": "intermediate",
+  "publisher": "دار الإمام مالك، مؤسسة الريان",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 664,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 620 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: (مشهور بن حسن آل سلمان ومحمد بن زكريا أبو غازي) (ضبط نصه وعلق عليه ووثق نصوصه وخرج أحاديثه وآثاره)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الإمام مالك، مؤسسة الريان"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.88,
+    "science_scope": 0.95,
+    "level": 0.65,
+    "structural_format": 0.95,
+    "authority_level": 0.92,
+    "multi_layer": 0.88,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [
+    "level"
+  ],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpleo2v9m2\\library\\sources\\src_f365f5ce\\frozen",
+  "frozen_hash": "f365f5cef70d41d80df373e1a19eec3f715a7b23bc73b0444b3d8d5ee2bfc8f1",
+  "frozen_file_hashes": {
+    "book.htm": "697a5822cde9a3ab8bc0939d3100efd8b73f81e8bf1ad9b6affbce4ed3c73242"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الفقه العام",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "page_count_raw": "685",
+    "author_short": "ابن المناصف",
+    "physical_page_count": 685
+  },
+  "scholarly_context": {
+    "composition_period": "أُلِّف في أواخر حياة المؤلف في الأندلس، في فترة الصراع مع الممالك المسيحية، بين 563-620هـ",
+    "composition_date_hijri": null,
+    "tradition_position": "من المصنفات المتخصصة في أحكام الجهاد في الفقه المالكي الأندلسي، يجمع بين الفرائض والسنن والآداب المتعلقة بالجهاد",
+    "known_textual_issues": [],
+    "historical_significance": "كتاب متخصص في فقه الجهاد من منظور مالكي أندلسي، ألّفه مؤلفه بطلب من أحد الأمراء المجاهدين الموحدين، مما يعكس الواقع العملي للجهاد في الأندلس",
+    "muhaqiq_reputation": "مشهور بن حسن آل سلمان محقق معروف بتحقيقاته الكثيرة والمتقنة في التراث الإسلامي، خاصة في الحديث والفقه",
+    "tahqiq_methodology_note": "ضبط النص وعلّق عليه ووثّق نصوصه وخرّج أحاديثه وآثاره",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:27:21.060067+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 15.85,
+  "is_rerun": false,
+  "original_phase": null
+}

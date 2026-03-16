@@ -1,0 +1,156 @@
+{
+  "source_id": "src_dd359fa4",
+  "work_id": "wrk_nawawi_sharh",
+  "human_label": "sharh",
+  "title_arabic": "المنهاج شرح صحيح مسلم بن الحجاج",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو زكريا محيي الدين يحيى بن شرف بن مرى بن حسن بن حسين بن حزام النووي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "sharh",
+  "genre_chain": {
+    "relation_type": "sharh_of",
+    "base_work_title": "صحيح مسلم",
+    "base_work_author": "مسلم بن الحجاج القشيري النيسابوري",
+    "base_work_id": null,
+    "confidence": 1.0
+  },
+  "level": "advanced",
+  "publisher": "دار إحياء التراث العربي - بيروت",
+  "edition_number": 2,
+  "publication_year_hijri": 1392,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "commentary",
+  "language": "ar",
+  "page_count": 245,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00002",
+        "name_arabic": "مسلم بن الحجاج القشيري النيسابوري",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "sharh",
+      "author": {
+        "canonical_id": "sch_00003",
+        "name_arabic": "أبو زكريا محيي الدين يحيى بن شرف النووي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "verified",
+  "trust_score": 0.6925,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 676 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 676 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار إحياء التراث العربي - بيروت"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.693 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": 0.9,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": 1.0,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 18,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpk59lh_6i\\library\\sources\\src_dd359fa4\\frozen",
+  "frozen_hash": "dd359fa4cf8b6848608111d8820bbab0c5a62c062ba636dcd0c1466e64c4c1f2",
+  "frozen_file_hashes": {
+    "001.htm": "02e9df3ea7519931fc33c3a377afd9b30af8b7a7cf4c96e4189eb203abcd5b83",
+    "002.htm": "736b1b935ad97b78c06282c46b2c2117d77eff24824173ddfdd92ed6d9ae1f9d",
+    "003.htm": "81168ffb673e9ebb457a713dbbfce76ad07abf70ae8fa3c8b747ae957f67f6c3",
+    "004.htm": "6384f6381271d0eaec8ddb843bc2b8a9b5ca31afbb56dfe5f6ac14cb006de97a",
+    "005.htm": "5676af053787411fcd222dff8dac56b152289977265613a3cff7983aba3cea40",
+    "006.htm": "b6bce3a5cd8b4ae4b68fad577b600b9612102aee38a1279676ad34c37055775b",
+    "007.htm": "c343e25b0c8a737b2942ae866e1e2592f504eff7c53702fe519c6a55b25ce2b2",
+    "008.htm": "5bb3091e70290a22600b3d12dc72407eaa2651c0745068cbf3e10ee72160664c",
+    "009.htm": "bbd06f58eb013b840b79ccbd173809c60de180ef88d32f237b5cf32a80fd56bb",
+    "010.htm": "8233586bbf6189b68feb1920ba3ee65c2f6748a4997831cf58f4ff13e836d70f",
+    "011.htm": "cd8e827e0e3b24a88007ba5e259a6c8b9b9fccb92a4d394e120e5b1cbf438967",
+    "012.htm": "95ef2027845ab54551729088f4196468beeb402f1006d41a631a327a04a53272",
+    "013.htm": "0ac409afa48f5a18ebd5f2381d10647835eb0890573bed0ad15de6f71a85b28f",
+    "014.htm": "1ecbb20ad629f13a038403f522607e279dcea758c1fe99a1fe67c1119ce8f89a",
+    "015.htm": "9c4a53f644aa8e1ab009a245e191ca93aa558814e18350233b3d7475e25c8049",
+    "016.htm": "336727aab7c4f7b183a88c680a62941409a14e2a892eb1442326dc130329a2b3",
+    "017.htm": "e7a1116f98dc912a95e0cd88c28854f5242760370de3475a8e94708ed478eb1d",
+    "018.htm": "a2f046e3b5a206595b60c6cbf9645e431456de6784b372f03d3682ca0122b790"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "شروح الحديث",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "volume_count_raw": "18 (في 9 مجلدات)",
+    "edition_raw": "الثانية، 1392",
+    "author_short": "النووي",
+    "metadata_volume_count": 18
+  },
+  "scholarly_context": null,
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:14:18.301196+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 18.64,
+  "is_rerun": true,
+  "original_phase": "C"
+}

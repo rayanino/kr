@@ -1,0 +1,58 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.518232800008263,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.88,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.97,
+    "layers": null,
+    "science_scope": [
+      "dawah",
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.82,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.78,
+    "author_identification": {
+      "canonical_name_ar": "أبو عبد الله المصري",
+      "known_as": [
+        "أبو عبد الله المصري"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "aqidah": "سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "كاتب معاصر غير معروف على نطاق واسع، يكتب في مجال الدعوة والنصيحة",
+      "methodological_stance": "منهج سلفي مع دعوة إلى الاعتدال في التعامل مع الجماعات الإسلامية الدعوية"
+    },
+    "author_identification_confidence": 0.3,
+    "attribution_status": "traditional",
+    "attribution_notes": "الاسم كنية عامة (أبو عبد الله المصري) لا تكفي لتحديد هوية المؤلف بشكل قاطع، وقد يكون اسمًا مستعارًا",
+    "scholarly_context": {
+      "composition_period": "معاصر، يشير النص إلى أحداث أفغانستان والعراق والشيشان مما يدل على تأليفه بعد 2003م تقريبًا (بعد 1424هـ)",
+      "composition_date_hijri": 1425,
+      "tradition_position": "رسالة دعوية تدعو إلى الاعتدال في نقد الجماعات الإسلامية الدعوية كالإخوان والتبليغ، وتنتقد الغلو في التحذير منها",
+      "known_textual_issues": [],
+      "historical_significance": null,
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tradition_position"
+      ]
+    }
+  }
+}

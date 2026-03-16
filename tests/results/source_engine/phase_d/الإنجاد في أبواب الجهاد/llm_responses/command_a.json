@@ -1,0 +1,56 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.19438810000429,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن عيسى بن محمد بن أصبغ، أبو عبد الله بن المناصف الأزدي القرطبي",
+      "known_as": [
+        "ابن المناصف"
+      ],
+      "death_date_hijri": 620,
+      "school_affiliations": {
+        "fiqh": "Maliki"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Prominent Maliki jurist and scholar from Cordoba, known for his contributions to Islamic jurisprudence, particularly in the area of jihad.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "A specialized treatise on the jurisprudence of jihad, reflecting the author's expertise in Maliki fiqh and the socio-political context of his time.",
+      "known_textual_issues": [],
+      "historical_significance": "Significant for its detailed treatment of jihad within the Maliki school, offering insights into the legal and ethical dimensions of warfare in Islamic history.",
+      "muhaqiq_reputation": "The editors, مشهور بن حسن آل سلمان ومحمد بن زكريا أبو غازي, are known for their meticulous textual verification, commentary, and hadith authentication in Islamic scholarly works.",
+      "tahqiq_methodology_note": "The editors have meticulously verified the text, added commentary, authenticated hadiths, and documented sources, ensuring a reliable edition of the work.",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

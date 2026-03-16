@@ -1,0 +1,73 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.980921399983345,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.75,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "محمد بن إسماعيل البخاري"
+      },
+      {
+        "layer_type": "tahqiq_note",
+        "author_name": "سمير بن أمين الزهيري"
+      },
+      {
+        "layer_type": "tahqiq_note",
+        "author_name": "محمد ناصر الدين الألباني"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "adab"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "intermediate",
+    "level_confidence": 0.7,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "أبو عبد الله محمد بن إسماعيل بن إبراهيم البخاري",
+      "known_as": [
+        "البخاري",
+        "الإمام البخاري",
+        "أمير المؤمنين في الحديث"
+      ],
+      "death_date_hijri": 256,
+      "school_affiliations": {
+        "hadith": "أهل الحديث",
+        "fiqh": "شافعي/مجتهد مستقل"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "أعظم أئمة الحديث على الإطلاق، صاحب أصح كتاب بعد كتاب الله تعالى (الجامع الصحيح)، إمام في الحفظ والنقد والفقه",
+      "methodological_stance": "متشدد في شروط الصحة، يشترط ثبوت اللقاء بين الراوي وشيخه"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال البخاري المتأخرة، ألفه في القرن الثالث الهجري",
+      "composition_date_hijri": 240,
+      "tradition_position": "من أهم مصنفات الأدب النبوي والأخلاق الإسلامية، يُعد مرجعاً أساسياً في أحاديث الآداب والأخلاق، وهو مصنف مستقل عن الجامع الصحيح يتضمن أحاديث صحيحة وحسنة وضعيفة",
+      "known_textual_issues": [],
+      "historical_significance": "كتاب فريد في بابه جمع فيه البخاري أحاديث الآداب والأخلاق الإسلامية مما لم يدخله في الجامع الصحيح، وهو من أوائل المصنفات المتخصصة في أدب المسلم",
+      "muhaqiq_reputation": "سمير الزهيري محقق معاصر معروف بتحقيقاته لكتب السنة، وهذه الطبعة تتميز بإدراج أحكام الألباني على الأحاديث",
+      "tahqiq_methodology_note": "تضمن التحقيق إدراج أحكام الشيخ الألباني على الأحاديث (تصحيحاً وتضعيفاً) مع الإحالة إلى مصادر أحكامه كالإرواء والسلسلة الصحيحة والضعيفة، مع تخريج الأحاديث",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 53.766731800016714,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "القاضي أبو إسحاق إسماعيل بن إسحاق بن إسماعيل بن حماد بن زيد الأزدي البصري ثم البغدادي المالكي الجهضمي",
+      "known_as": [
+        "القاضي إسماعيل",
+        "الجهضمي"
+      ],
+      "death_date_hijri": 282,
+      "school_affiliations": {
+        "fiqh": "مالكي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "قاض وفقيه مالكي بارز، له إسهامات في الفقه والحديث",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي يجمع أحاديث أيوب السختياني، أحد أئمة الحديث",
+      "known_textual_issues": [],
+      "historical_significance": "جزء مهم في نقل أحاديث أيوب السختياني، أحد كبار المحدثين في القرن الثاني الهجري",
+      "muhaqiq_reputation": "د. سليمان بن عبد العزيز العريني معروف بتحقيقاته الدقيقة في مجال الحديث",
+      "tahqiq_methodology_note": "التحقيق يعتمد على نسخة خطية مع مقارنة بالمصادر الحديثية الأخرى",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

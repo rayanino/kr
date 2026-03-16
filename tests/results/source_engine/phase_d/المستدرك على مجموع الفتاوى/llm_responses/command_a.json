@@ -1,0 +1,59 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.982879199989839,
+  "parsed": {
+    "genre": "fatawa",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "fiqh",
+      "usul_al_fiqh",
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.85,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.8,
+    "author_identification": {
+      "canonical_name_ar": "تقي الدين أبو العباس أحمد بن عبد الحليم بن تيمية الحراني",
+      "known_as": [
+        "ابن تيمية",
+        "شيخ الإسلام"
+      ],
+      "death_date_hijri": 728,
+      "school_affiliations": {
+        "fiqh": "Hanbali"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Prominent scholar and jurist, highly influential in Sunni Islam, particularly in Hanbali jurisprudence and theology.",
+      "methodological_stance": "Known for his strict adherence to the Quran and Sunnah, and his opposition to philosophical and theological innovations."
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "This work is a compilation of additional fatwas and rulings by Ibn Taymiyyah, supplementing his main collection of fatwas.",
+      "known_textual_issues": [],
+      "historical_significance": "Part of the larger effort to preserve and disseminate Ibn Taymiyyah's scholarly legacy, which has been highly influential in Sunni Islamic thought.",
+      "muhaqiq_reputation": "Muhammad ibn Abd al-Rahman ibn Qasim is known for his meticulous work in compiling and editing Ibn Taymiyyah's writings.",
+      "tahqiq_methodology_note": "The compiler gathered additional fatwas and rulings not included in the original collection, organized them, and published them as a supplement.",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

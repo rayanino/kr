@@ -1,0 +1,138 @@
+{
+  "source_id": "src_2fa26318",
+  "work_id": "wrk_slyman_bn_ahmd_bn_ay_hdyth_al_db_al_dhy_t",
+  "human_label": "hdyth_al_db_al_dhy_t",
+  "title_arabic": "حديث الضب الذي تكلم بين يدي النبي للطبراني",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "سليمان بن أحمد بن أيوب بن مطير اللخمي الشامي، أبو القاسم الطبراني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "عبد الله ضيف الله العامري",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار الريان - دبي",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 1,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 360 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: عبد الله ضيف الله العامري"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الريان - دبي"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text; minimal content: Only 1 content pages",
+  "confidence_scores": {
+    "genre": 0.85,
+    "science_scope": 0.97,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.92,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpjds47nta\\library\\sources\\src_2fa26318\\frozen",
+  "frozen_hash": "2fa26318099549a299038166b347b432160e62d92badd127e0dd4e6be9f647db",
+  "frozen_file_hashes": {
+    "book.htm": "b55c412c30d9bca4597f8ab46c9aa4899754b3e56b1154f44383440e61d98952"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "page_count_raw": "1",
+    "author_short": "الطبراني",
+    "physical_page_count": 1,
+    "quality_issues": [
+      {
+        "check": "content_minimal",
+        "severity": "info",
+        "detail": "Only 1 content pages"
+      }
+    ]
+  },
+  "scholarly_context": {
+    "composition_period": "من مؤلفات الطبراني في النصف الأول من القرن الرابع الهجري، وهو جزء حديثي صغير",
+    "composition_date_hijri": null,
+    "tradition_position": "جزء حديثي مفرد في موضوع واحد (حديث الضب)، وهو من الأجزاء الحديثية التي أفردها الطبراني لأحاديث بعينها",
+    "known_textual_issues": [],
+    "historical_significance": "جزء حديثي يجمع طرق وروايات حديث الضب الذي تكلم بين يدي النبي صلى الله عليه وسلم، وهو من الأحاديث الغريبة التي اعتنى المحدثون بجمع طرقها",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "muhaqiq_reputation"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:11:58.989529+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 32.81,
+  "is_rerun": true,
+  "original_phase": "C"
+}

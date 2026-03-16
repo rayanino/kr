@@ -1,0 +1,65 @@
+{
+  "comparisons": {
+    "genre": {
+      "expected": "risalah",
+      "actual": "risalah",
+      "match": true
+    },
+    "author": {
+      "expected": "النووي (631-676 هـ)",
+      "actual": "أبو زكريا محيي الدين يحيى بن شرف النووي",
+      "match": true,
+      "similarity": 1.0
+    },
+    "trust_tier": {
+      "expected": "verified",
+      "actual": "verified",
+      "match": true
+    },
+    "is_multi_layer": {
+      "expected": false,
+      "actual": false,
+      "match": true
+    },
+    "science_scope": {
+      "expected": [
+        "usul_al_fiqh"
+      ],
+      "actual": [
+        "usul_al_fiqh",
+        "fiqh"
+      ],
+      "overlap": [
+        "usul_al_fiqh"
+      ],
+      "extra_in_actual": [
+        "fiqh"
+      ],
+      "missing_from_actual": [],
+      "match_type": "superset"
+    },
+    "structural_format": {
+      "expected": "prose",
+      "actual": "prose",
+      "match": true
+    },
+    "authority_level": {
+      "expected": "primary",
+      "actual": "primary",
+      "match": true
+    },
+    "level": {
+      "expected": "intermediate",
+      "actual": "intermediate",
+      "match": true
+    },
+    "attribution_status": {
+      "expected": "definitive",
+      "actual": "definitive",
+      "match": true
+    }
+  },
+  "all_match": true,
+  "book": "آداب الفتوى والمفتي والمستفتي",
+  "ground_truth_key": "06_usul"
+}

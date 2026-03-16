@@ -1,0 +1,56 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.740833199990448,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.82,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.97,
+    "layers": null,
+    "science_scope": [
+      "fikr_islami",
+      "istishraq"
+    ],
+    "science_scope_confidence": 0.88,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "مالك بن الحاج عمر بن الخضر بن نبي",
+      "known_as": [
+        "مالك بن نبي",
+        "Malek Bennabi"
+      ],
+      "death_date_hijri": 1393,
+      "school_affiliations": null,
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "مفكر إسلامي جزائري بارز من أعلام الفكر الإسلامي المعاصر، اشتهر بتحليلاته الحضارية ومفهوم القابلية للاستعمار وشروط النهضة",
+      "methodological_stance": "منهج تحليلي حضاري يجمع بين الفكر الإسلامي والعلوم الاجتماعية الحديثة"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعماله المتأخرة، نُشر عام 1388هـ/1969م ضمن سلسلة مفاهيم إسلامية",
+      "composition_date_hijri": 1388,
+      "tradition_position": "رسالة نقدية تحليلية في تقييم أثر الاستشراق على الفكر الإسلامي الحديث، تندرج ضمن مشروع مالك بن نبي الفكري الحضاري",
+      "known_textual_issues": [],
+      "historical_significance": "من الأعمال المبكرة في نقد الاستشراق من منظور إسلامي حضاري، سبقت موجة نقد الاستشراق التي اشتهرت لاحقاً مع إدوارد سعيد",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

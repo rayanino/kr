@@ -1,0 +1,58 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 9.910304799996084,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "sarf"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن عبد الله بن مالك الطائي الجياني، أبو عبد الله، جمال الدين",
+      "known_as": [
+        "ابن مالك"
+      ],
+      "death_date_hijri": 672,
+      "school_affiliations": {
+        "nahw": null,
+        "sarf": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Prominent grammarian and linguist, author of the renowned Alfiyyah in grammar.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "Part of Ibn Malik's linguistic works focusing on morphology.",
+      "known_textual_issues": [],
+      "historical_significance": "Contributes to the understanding of Arabic morphology and complements Ibn Malik's other works.",
+      "muhaqiq_reputation": "The editor is known for his work on Ibn Malik's linguistic corpus.",
+      "tahqiq_methodology_note": "Includes a detailed study of the author and the work, with a focus on manuscript description and critical apparatus.",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tradition_position"
+      ]
+    }
+  }
+}

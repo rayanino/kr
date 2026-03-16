@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.473043899983168,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "hadith"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر أحمد بن سلمان بن الحسن بن إسرائيل بن يونس النجاد البغدادي",
+      "known_as": [
+        "أبو بكر النجاد",
+        "النجاد"
+      ],
+      "death_date_hijri": 348,
+      "school_affiliations": {
+        "fiqh": "حنبلي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "محدث وفقيه حنبلي بغدادي كبير، من أصحاب أبي داود السجستاني، وكان شيخ الحنابلة في عصره ببغداد",
+      "methodological_stance": "محدث يروي بالأسانيد العالية، فقيه حنبلي"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مرويات النجاد في النصف الأول من القرن الرابع الهجري، سُمع منه سنة 344هـ كما في السماع",
+      "composition_date_hijri": 344,
+      "tradition_position": "جزء حديثي من الأجزاء المروية بالأسانيد، يحتوي على فوائد وعوالي وغرائب من مرويات النجاد",
+      "known_textual_issues": [],
+      "historical_significance": "جزء حديثي يحفظ مرويات النجاد بأسانيده العالية، وهو من الأجزاء الحديثية التي تُروى بسلسلة سماعات متصلة",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "نُشر ضمن برنامج جوامع الكلم الإلكتروني، وهو نشر إلكتروني لمخطوط دون تحقيق علمي متكامل",
+      "edition_known_issues": [
+        "نشر إلكتروني من مخطوط ضمن برنامج جوامع الكلم، قد لا يرقى لمستوى التحقيق العلمي المطبوع"
+      ],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

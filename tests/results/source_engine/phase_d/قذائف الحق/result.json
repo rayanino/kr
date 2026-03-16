@@ -1,0 +1,125 @@
+{
+  "source_id": "src_0a20410f",
+  "work_id": "wrk_ghazali_qdhaif_al_hq",
+  "human_label": "qdhaif_al_hq",
+  "title_arabic": "قذائف الحق",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد الغزالي السقا",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fikr_islami",
+    "aqidah"
+  ],
+  "genre": "other",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار القلم، دمشق",
+  "edition_number": 1,
+  "publication_year_hijri": 1411,
+  "publication_year_miladi": 1991,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 256,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.6075,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1416 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.3,
+      "reason": "No muhaqiq, modern author (d. 1416 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار القلم، دمشق"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.608 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.8,
+    "science_scope": 0.8,
+    "level": null,
+    "structural_format": 0.97,
+    "authority_level": 0.92,
+    "multi_layer": 0.97,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpbf3lscx9\\library\\sources\\src_0a20410f\\frozen",
+  "frozen_hash": "0a20410f00794cea99cbc08dfcef38582f5b327e5fe4091450012615ae4ae662",
+  "frozen_file_hashes": {
+    "book.htm": "e5c728ca3b6b76abde518209b6cb4655d128369276d4fcae68a4adcf6b9fb1f3"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب عامة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1411 هـ - 1991 م",
+    "page_count_raw": "301",
+    "author_short": "محمد الغزالي",
+    "physical_page_count": 301
+  },
+  "scholarly_context": {
+    "composition_period": "من مؤلفات الشيخ محمد الغزالي المتأخرة، صدرت الطبعة الأولى عام 1411هـ",
+    "composition_date_hijri": 1411,
+    "tradition_position": "كتاب دفاعي عن الإسلام يرد على الشبهات المثارة ضده من تيارات علمانية واستشراقية وغيرها، ويؤكد شمولية الإسلام عقيدةً وشريعةً",
+    "known_textual_issues": [],
+    "historical_significance": "من الكتب المهمة في أدب الدفاع عن الإسلام في العصر الحديث، يتناول الرد على الشبهات المعاصرة حول الإسلام ويدافع عن تطبيق الشريعة الإسلامية",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": []
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:55:35.841585+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 14.91,
+  "is_rerun": false,
+  "original_phase": null
+}

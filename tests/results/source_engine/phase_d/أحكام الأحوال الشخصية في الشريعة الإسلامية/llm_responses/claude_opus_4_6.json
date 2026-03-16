@@ -1,0 +1,58 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.228588599973591,
+  "parsed": {
+    "genre": "fiqh_comparative",
+    "genre_confidence": 0.85,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "intermediate",
+    "level_confidence": 0.82,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.88,
+    "author_identification": {
+      "canonical_name_ar": "عبد الوهاب خلاف",
+      "known_as": [
+        "عبد الوهاب خلاف",
+        "الشيخ خلاف"
+      ],
+      "death_date_hijri": 1375,
+      "school_affiliations": {
+        "fiqh": "حنفي (مع مقارنة بالمذاهب الأخرى)",
+        "usul_al_fiqh": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز علماء الأزهر في القرن العشرين، أستاذ الشريعة الإسلامية بكلية الحقوق جامعة القاهرة، اشتهر بتأليفاته في أصول الفقه والتشريع الإسلامي",
+      "methodological_stance": "منهج تجديدي إصلاحي يجمع بين الفقه التقليدي ومتطلبات التقنين الحديث، مع الاستفادة من مختلف المذاهب الفقهية"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "ألّف في منتصف القرن الرابع عشر الهجري، في فترة التقنين والإصلاح القانوني في مصر",
+      "composition_date_hijri": 1355,
+      "tradition_position": "يمثل حركة تقنين الأحوال الشخصية في مصر، حيث جمع بين الفقه الحنفي المعمول به في المحاكم الشرعية المصرية والأحكام المأخوذة من المذاهب الأخرى وفق القوانين الصادرة",
+      "known_textual_issues": [],
+      "historical_significance": "من أوائل المؤلفات الأكاديمية الحديثة التي نظّمت أحكام الأحوال الشخصية في الشريعة الإسلامية بأسلوب قانوني حديث، مع ربطها بالقوانين والمنشورات المصرية المعمول بها",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "edition_known_issues"
+      ]
+    }
+  }
+}

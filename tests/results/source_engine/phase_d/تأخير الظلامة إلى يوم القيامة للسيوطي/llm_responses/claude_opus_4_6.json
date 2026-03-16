@@ -1,0 +1,63 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.81246879999526,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "tafsir"
+    ],
+    "science_scope_confidence": 0.85,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "عبد الرحمن بن أبي بكر جلال الدين السيوطي",
+      "known_as": [
+        "السيوطي",
+        "جلال الدين السيوطي"
+      ],
+      "death_date_hijri": 911,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث متوسع",
+        "tafsir": "جامع"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم علماء القرن التاسع والعاشر الهجري، موسوعي غزير التأليف في شتى العلوم الإسلامية، بلغت مؤلفاته المئات",
+      "methodological_stance": "جامع للآثار والأحاديث مع التوسع في النقل عن المصادر المتعددة، يميل إلى الجمع والاستقصاء"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مؤلفات السيوطي المتأخرة، وهي رسالة قصيرة ضمن رسائله الكثيرة في جمع الأحاديث والآثار حول موضوع معين",
+      "composition_date_hijri": null,
+      "tradition_position": "رسالة حديثية موضوعية تجمع الأحاديث والآثار المتعلقة بقصة ثعلبة بن حاطب ومنع الزكاة وتأخير العقوبة إلى يوم القيامة، على طريقة السيوطي في التأليف الموضوعي",
+      "known_textual_issues": [],
+      "historical_significance": "رسالة صغيرة من رسائل السيوطي الحديثية الموضوعية، تجمع روايات قصة ثعلبة بن حاطب مع تخريجها",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "النص مخطوط غير محقق كما يظهر من الوصف",
+      "edition_known_issues": [
+        "النص مخطوط وليس محققاً"
+      ],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tradition_position"
+      ]
+    }
+  }
+}

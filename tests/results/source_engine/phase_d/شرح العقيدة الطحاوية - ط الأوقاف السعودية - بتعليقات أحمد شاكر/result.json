@@ -1,0 +1,167 @@
+{
+  "source_id": "src_eb704f91",
+  "work_id": "wrk_sdr_al_dyn_aly_bn_al_sharh",
+  "human_label": "sharh",
+  "title_arabic": "شرح العقيدة الطحاوية",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "صدر الدين علي بن علي بن محمد بن أبي العز الحنفي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": "نُسب الشرح تقليدياً لابن أبي العز الحنفي، وقد أثار بعض الباحثين تساؤلات حول نسبته إليه بسبب تأثره الواضح بمنهج ابن تيمية وابن القيم رغم كونه حنفياً، لكن النسبة مقبولة عند الجمهور",
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "أحمد محمد شاكر",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "aqidah"
+  ],
+  "genre": "sharh",
+  "genre_chain": {
+    "relation_type": "sharh_of",
+    "base_work_title": "العقيدة الطحاوية",
+    "base_work_author": "أبو جعفر أحمد بن محمد بن سلامة الطحاوي",
+    "base_work_id": null,
+    "confidence": 0.99
+  },
+  "level": "intermediate",
+  "publisher": "وزارة الشؤون الإسلامية - السعودية",
+  "edition_number": null,
+  "publication_year_hijri": 1418,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "reference",
+  "structural_format": "commentary",
+  "language": "ar",
+  "page_count": 543,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00003",
+        "name_arabic": "أبو جعفر أحمد بن محمد بن سلامة الطحاوي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "sharh",
+      "author": {
+        "canonical_id": "sch_00004",
+        "name_arabic": "صدر الدين علي بن علي بن محمد بن أبي العز الحنفي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "tahqiq_note",
+      "author": {
+        "canonical_id": "sch_00005",
+        "name_arabic": "أحمد محمد شاكر",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "verified",
+  "trust_score": 0.78,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 792 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.9,
+      "reason": "Recognized muhaqiq: أحمد محمد شاكر (matched أحمد شاكر)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: وزارة الشؤون الإسلامية - السعودية"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Reference work"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.780 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.99,
+    "science_scope": 0.99,
+    "level": 0.82,
+    "structural_format": 0.95,
+    "authority_level": 0.92,
+    "multi_layer": 0.97,
+    "genre_chain": 0.99,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp5qu_eg6d\\library\\sources\\src_eb704f91\\frozen",
+  "frozen_hash": "eb704f9189336c3ffccfe362f9f8b09450e0336e2377b91d128e1f8872cdc39c",
+  "frozen_file_hashes": {
+    "book.htm": "ec2621922f932dfdadae102c50f8520b6cd91941189d2512aab97b404c5a73f1"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "العقيدة",
+    "shamela_publish_date": "21 شعبان 1432",
+    "publication_year_raw": "1418 هـ",
+    "page_count_raw": "546",
+    "author_short": "ابن أبي العز",
+    "physical_page_count": 546
+  },
+  "scholarly_context": {
+    "composition_period": "أُلّف في النصف الثاني من القرن الثامن الهجري",
+    "composition_date_hijri": 780,
+    "tradition_position": "يُعدّ أشهر شروح العقيدة الطحاوية وأكثرها تداولاً، وهو المرجع الأساسي في شرح هذه العقيدة عند أهل السنة على المنهج السلفي الأثري، واعتمدته المؤسسات العلمية السعودية كمقرر دراسي",
+    "known_textual_issues": [
+      "وقع خلاف حول نسبة الشرح لابن أبي العز، وأثار بعض الباحثين شكوكاً حول ذلك"
+    ],
+    "historical_significance": "من أهم المتون العقدية المشروحة في التراث الإسلامي السني، جمع بين الفقه الحنفي والعقيدة الأثرية السلفية، وأصبح مرجعاً أساسياً في تدريس العقيدة",
+    "muhaqiq_reputation": "أحمد محمد شاكر (ت 1377هـ) من أعلام المحققين في العصر الحديث، عُرف بدقته وتحقيقاته الرصينة لكتب الحديث والتراث",
+    "tahqiq_methodology_note": "تحقيق أحمد شاكر مع تعليقات علمية، وهذه الطبعة صادرة عن وزارة الشؤون الإسلامية السعودية عام 1418هـ",
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:18:12.740497+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 24.5,
+  "is_rerun": true,
+  "original_phase": "C"
+}

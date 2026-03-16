@@ -1,0 +1,73 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.582565899996553,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.85,
+    "genre_chain": {
+      "relation_type": "mukhtasar_of",
+      "base_work_title": "صحيح الجامع الصغير وزيادته",
+      "base_work_author": "جلال الدين السيوطي / محمد ناصر الدين الألباني"
+    },
+    "genre_chain_confidence": 0.88,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.82,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "جلال الدين السيوطي"
+      },
+      {
+        "layer_type": "tahqiq_note",
+        "author_name": "عصام موسى هادي"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "intermediate",
+    "level_confidence": 0.7,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "جلال الدين عبد الرحمن بن أبي بكر السيوطي",
+      "known_as": [
+        "السيوطي",
+        "جلال الدين السيوطي",
+        "الحافظ السيوطي"
+      ],
+      "death_date_hijri": 911,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث حافظ"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم علماء الإسلام وأكثرهم تأليفاً، حافظ محدث مفسر فقيه لغوي، بلغت مؤلفاته المئات",
+      "methodological_stance": "جامع موسوعي، يجمع الأحاديث من مصادر متعددة ويرتبها"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "traditional",
+    "attribution_notes": "الأصل هو الجامع الصغير للسيوطي، صححه الألباني في صحيح الجامع الصغير، ثم رتبه عصام موسى هادي في هذا الكتاب مع تعليقات وشرح غريب",
+    "scholarly_context": {
+      "composition_period": "العمل الأصلي (الجامع الصغير) من أواخر القرن التاسع الهجري، وتصحيح الألباني من القرن الخامس عشر، والترتيب الحالي معاصر",
+      "composition_date_hijri": null,
+      "tradition_position": "ترتيب موضوعي لأحاديث صحيح الجامع الصغير للسيوطي بتصحيح الألباني، يسهل الوصول إلى الأحاديث الصحيحة المرتبة على الأبواب بدلاً من الترتيب الألفبائي",
+      "known_textual_issues": [],
+      "historical_significance": "الجامع الصغير من أشهر كتب الحديث الجامعة، وصحيح الجامع من أهم أعمال الألباني في تصحيح الأحاديث وتضعيفها، وهذا الترتيب يسهل الانتفاع به",
+      "muhaqiq_reputation": "عصام موسى هادي باحث أردني معاصر معروف بترتيب وتنظيم كتب الألباني",
+      "tahqiq_methodology_note": "رتب الأحاديث على الأبواب الفقهية والموضوعية، وعلق عليها بشرح الغريب وبيان مصادر التخريج من كتب الألباني الأخرى، مع تشكيل الكلمات المشكلة",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

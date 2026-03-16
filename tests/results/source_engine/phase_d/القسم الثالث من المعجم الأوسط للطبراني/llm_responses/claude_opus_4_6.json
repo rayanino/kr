@@ -1,0 +1,71 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.206969200022286,
+  "parsed": {
+    "genre": "mujam",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.85,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أبو القاسم سليمان بن أحمد الطبراني"
+      },
+      {
+        "layer_type": "tahqiq_note",
+        "author_name": "محمد فوزي محمد السعدني"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "specialist",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "أبو القاسم سليمان بن أحمد بن أيوب الطبراني",
+      "known_as": [
+        "الطبراني",
+        "الحافظ الطبراني"
+      ],
+      "death_date_hijri": 360,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث حافظ"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أكابر حفاظ الحديث، صاحب المعاجم الثلاثة (الكبير والأوسط والصغير)، عُمِّر طويلاً وروى عن خلق كثير",
+      "methodological_stance": "محدث جامع مكثر، يروي بالأسانيد العالية والنازلة، ويُعنى ببيان التفرد في الأحاديث"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال الطبراني في النصف الأول من القرن الرابع الهجري، ألفه في أصبهان حيث استقر",
+      "composition_date_hijri": null,
+      "tradition_position": "المعجم الأوسط من أهم مصادر الحديث النبوي، يُعنى بذكر الغرائب والتفردات، وهو أحب المعاجم الثلاثة إلى الطبراني لما فيه من الفوائد الحديثية",
+      "known_textual_issues": [],
+      "historical_significance": "من أهم دواوين السنة النبوية، يحتوي على أحاديث كثيرة لا توجد في غيره، ويُعدّ مرجعاً أساسياً في تخريج الأحاديث ومعرفة التفردات",
+      "muhaqiq_reputation": "هذا التحقيق رسالة ماجستير أكاديمية من جامعة الأزهر، وليس تحقيقاً تجارياً منشوراً على نطاق واسع",
+      "tahqiq_methodology_note": "تحقيق ودراسة أكاديمية مع ملاحظة أحكام الطبراني على الأحاديث بالتفرد، يغطي القسم الثالث من الكتاب (أحاديث 651-900)",
+      "edition_known_issues": [
+        "هذا قسم جزئي من الكتاب وليس تحقيقاً كاملاً",
+        "التحقيق الأشهر والأوسع انتشاراً هو تحقيق طارق بن عوض الله وعبد المحسن الحسيني"
+      ],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

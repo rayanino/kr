@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 20.062103100004606,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.92,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "القاضي أبو إسحاق إسماعيل بن إسحاق بن إسماعيل بن حماد بن زيد الأزدي البصري ثم البغدادي المالكي الجهضمي",
+      "known_as": [
+        "إسماعيل بن إسحاق القاضي",
+        "القاضي إسماعيل"
+      ],
+      "death_date_hijri": 282,
+      "school_affiliations": {
+        "fiqh": "مالكي",
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "قاضٍ كبير ومحدث بارز من أعلام المالكية في بغداد، تولى قضاء بغداد، وكان من أبرز علماء الحديث والفقه المالكي في القرن الثالث الهجري، حفيد حماد بن زيد المحدث الشهير",
+      "methodological_stance": "محدث فقيه على طريقة أهل الحديث مع التزام بالمذهب المالكي"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "القرن الثالث الهجري، من أعمال المؤلف في جمع أحاديث أيوب السختياني بأسانيده",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي يجمع مرويات أيوب بن أبي تميمة السختياني (ت 131هـ) أحد كبار التابعين وأئمة الحديث في البصرة، من خلال أسانيد المؤلف التي تصل إليه عبر جده حماد بن زيد وغيره",
+      "known_textual_issues": [],
+      "historical_significance": "جزء حديثي نادر يوثق مرويات أيوب السختياني عبر طرق بصرية عالية الإسناد، ويعكس اهتمام القاضي إسماعيل بجمع حديث أجداده وشيوخ بلده",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

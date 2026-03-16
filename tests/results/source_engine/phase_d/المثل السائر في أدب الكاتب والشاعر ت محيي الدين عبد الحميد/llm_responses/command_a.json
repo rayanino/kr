@@ -1,0 +1,52 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 37.01878830001806,
+  "parsed": {
+    "genre": "adab",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "balagha"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "نصر الله بن محمد بن محمد بن عبد الكريم الشيباني، الجزري، أبو الفتح، ضياء الدين، المعروف بابن الأثير الكاتب",
+      "known_as": [
+        "ابن الأثير الكاتب"
+      ],
+      "death_date_hijri": 637,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "أديب وكاتب مشهور، من أعلام القرن السابع الهجري",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "عمل مهم في البلاغة والأدب، يتناول قضايا تتعلق بالكتابة والشعر",
+      "known_textual_issues": [],
+      "historical_significance": "من الأعمال البارزة في الأدب العربي، يُدرس فيه ابن الأثير فنون الكتابة والشعر",
+      "muhaqiq_reputation": "محيي الدين عبد الحميد من المحققين المشهورين في القرن الرابع عشر الهجري، معروف بدقته وتحقيقاته القيمة",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": []
+    }
+  }
+}

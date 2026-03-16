@@ -1,0 +1,142 @@
+{
+  "source_id": "src_84957349",
+  "work_id": "wrk_mhmd_bn_ftwh_bn_abd__al_jma_byn_al_shyhyn",
+  "human_label": "al_jma_byn_al_shyhyn",
+  "title_arabic": "الجمع بين الصحيحين البخاري ومسلم",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد بن فتوح بن عبد الله بن فتوح بن حميد الأزدي الميورقي الحميدي أبو عبد الله",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د. علي حسين البواب",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": {
+    "relation_type": "cites",
+    "base_work_title": "صحيح البخاري وصحيح مسلم",
+    "base_work_author": "البخاري ومسلم",
+    "base_work_id": null,
+    "confidence": 0.85
+  },
+  "level": "advanced",
+  "publisher": "دار ابن حزم - لبنان/ بيروت",
+  "edition_number": 2,
+  "publication_year_hijri": 1423,
+  "publication_year_miladi": 2002,
+  "source_format": "shamela_html",
+  "authority_level": "reference",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 517,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.725,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 488 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: د. علي حسين البواب"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.7,
+      "reason": "Known publisher: دار ابن حزم (score 0.7)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Reference work"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.725 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.95,
+    "level": 0.8,
+    "structural_format": 0.9,
+    "authority_level": 0.88,
+    "multi_layer": 0.88,
+    "genre_chain": 0.85,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 4,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpo5nbdxqr\\library\\sources\\src_84957349\\frozen",
+  "frozen_hash": "849573495bc517fd2857313b31a82d61ef1a10c757e15a20a6f945764412cba2",
+  "frozen_file_hashes": {
+    "001.htm": "9b947efb4b8917bab7fb1418f91151ed70414fb8283d2c56b8b2b6237eba55e4",
+    "002.htm": "5d1dcca2a13a4683cc80503fe408f2215018a33a0b06b2fe6c649bfae4768115",
+    "003.htm": "8ca3feed5da9a8028f1e109389a1013b33ea13b1ef7662ec13e62b9ab6dc2dae",
+    "004.htm": "f788440e14c0a4735b37cb53f0c93f17af4e0f34df20caaae699722f62a7cd12"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "volume_count_raw": "2×4",
+    "edition_raw": "الثانية، 1423هـ - 2002م",
+    "author_short": "أبو عبد الله الحميدي",
+    "metadata_volume_count": 2
+  },
+  "scholarly_context": {
+    "composition_period": "أُلّف في النصف الثاني من القرن الخامس الهجري، في أواخر حياة الحميدي ببغداد",
+    "composition_date_hijri": 475,
+    "tradition_position": "من أهم وأقدم المصنفات في الجمع بين الصحيحين، سبقه عمل عبد الحق الإشبيلي وتلاه عمل ابن الأثير في جامع الأصول. يُعدّ مرجعاً أساسياً في بابه وقد اعتمد عليه كثير من العلماء المتأخرين",
+    "known_textual_issues": [],
+    "historical_significance": "أول عمل منهجي شامل في الجمع بين صحيحي البخاري ومسلم مع بيان المتفق عليه والمنفرد، وقد أصبح نموذجاً لمن جاء بعده في هذا الفن",
+    "muhaqiq_reputation": "د. علي حسين البواب باحث سعودي معروف بتحقيقاته في كتب التراث",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:30:36.740581+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 16.23,
+  "is_rerun": false,
+  "original_phase": null
+}

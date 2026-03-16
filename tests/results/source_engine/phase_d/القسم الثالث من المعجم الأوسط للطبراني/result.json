@@ -1,0 +1,136 @@
+{
+  "source_id": "src_a0c04b6b",
+  "work_id": "wrk_abw_al_qasm_slyman_b_al_qsm_al_thalth_mn_",
+  "human_label": "al_qsm_al_thalth_mn_",
+  "title_arabic": "القسم الثالث من المعجم الأوسط",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو القاسم سليمان بن أحمد الطبراني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "محمد فوزي محمد السعدني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": null,
+  "publisher": null,
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 637,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 360 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: محمد فوزي محمد السعدني"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": null,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 2,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp0w7qunt7\\library\\sources\\src_a0c04b6b\\frozen",
+  "frozen_hash": "a0c04b6b12b5526b1a2dc144d8669fad0a3fa7926ac1a9b26eb8b7ba9dba30d2",
+  "frozen_file_hashes": {
+    "001.htm": "55d0b2a6cc46b916fffd17d3c6bad2964ece4fd60ed2aae2a2c032f012e40631",
+    "002.htm": "d26c6beaba13f86dd2c3694364e01add7b64e0b74e86e7f458f8648e76f6e965"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "(الطبراني)",
+    "shamela_publish_date": "15 جُمادَى الآخرة 1443",
+    "editorial_note": "المراد بالقسم في العنوان، تقسيم خاص بتوزيع الرسائل العلمية على الباحثين في قسم الحديث وعلومه - كلية أصول الدين، جامعة الأزهر",
+    "thesis_info": "ماجستير، قسم الحديث وعلومه - كلية أصول الدين، جامعة الأزهر",
+    "supervisor": "أ د محمود عمر إبراهيم هاشم، د عبد العزيز مهدي حسن السيد (رحمه الله تعالى)",
+    "page_count_raw": "1167",
+    "author_short": "الطبراني",
+    "physical_page_count": 1167
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "Part of the 'al-Mu'jam al-Awsat', one of the three major hadith collections by al-Tabarani, known for its focus on rare and unique hadith narrations.",
+    "known_textual_issues": [],
+    "historical_significance": "A significant contribution to the corpus of hadith literature, particularly in preserving rare and unique narrations.",
+    "muhaqiq_reputation": "محمد فوزي محمد السعدني is a known scholar in the field of hadith studies, with several contributions to the investigation and publication of classical Islamic texts.",
+    "tahqiq_methodology_note": "The investigation includes a study of the hadith's chains of transmission and the author's rulings on the uniqueness of the narrations.",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_period",
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:34:07.446728+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 18.34,
+  "is_rerun": false,
+  "original_phase": null
+}

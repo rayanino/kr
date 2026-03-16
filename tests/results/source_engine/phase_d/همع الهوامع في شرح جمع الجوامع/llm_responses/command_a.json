@@ -1,0 +1,72 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.303914399992209,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 1.0,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "جمع الجوامع",
+      "base_work_author": "جلال الدين السيوطي"
+    },
+    "genre_chain_confidence": 1.0,
+    "structural_format": "prose",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 1.0,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "جلال الدين السيوطي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "جلال الدين السيوطي"
+      }
+    ],
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": "advanced",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "عبد الرحمن بن أبي بكر، جلال الدين السيوطي",
+      "known_as": [
+        "السيوطي",
+        "جلال الدين"
+      ],
+      "death_date_hijri": 911,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم موسوعي بارز في علوم اللغة والحديث والتفسير، له مصنفات عديدة في مختلف العلوم الإسلامية",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "يعد هذا الشرح من أهم الأعمال في علم النحو والصرف، حيث يجمع بين الإحاطة بالمسائل النحوية والصرفية والتفصيل في شرحها",
+      "known_textual_issues": [],
+      "historical_significance": "يتميز بكونه شرحاً وافياً لمتن جمع الجوامع، الذي يعتبر من أهم المتون في النحو والصرف",
+      "muhaqiq_reputation": "عبد الحميد هنداوي معروف بتحقيقاته الجيدة في علوم اللغة العربية",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

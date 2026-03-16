@@ -1,0 +1,159 @@
+{
+  "source_id": "src_9dbdd781",
+  "work_id": "wrk_suyuti_hama_alhawami",
+  "human_label": "hama_alhawami",
+  "title_arabic": "همع الهوامع في شرح جمع الجوامع",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد الرحمن بن أبي بكر، جلال الدين السيوطي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "عبد الحميد هنداوي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "nahw",
+    "sarf"
+  ],
+  "genre": "sharh",
+  "genre_chain": {
+    "relation_type": "sharh_of",
+    "base_work_title": "جمع الجوامع",
+    "base_work_author": "جلال الدين السيوطي",
+    "base_work_id": null,
+    "confidence": 1.0
+  },
+  "level": "advanced",
+  "publisher": "المكتبة التوفيقية - مصر",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 575,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00003",
+        "name_arabic": "جلال الدين السيوطي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "sharh",
+      "author": {
+        "canonical_id": "sch_00004",
+        "name_arabic": "جلال الدين السيوطي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 911 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: عبد الحميد هنداوي"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: المكتبة التوفيقية - مصر"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": 0.9,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": 1.0,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 3,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpclslmwgy\\library\\sources\\src_9dbdd781\\frozen",
+  "frozen_hash": "9dbdd781cd07fca7e6736c5c55e3601d02061000b2edcd670802f252ab020b0b",
+  "frozen_file_hashes": {
+    "001.htm": "068c75dbeebd0c6397ed970baec45d2c13dd01230b0c7efc742295fa349f0456",
+    "002.htm": "56ceb0d99f25ecb58884216495eb09d48b7e539d3b7ca130979d4d8b12b82f31",
+    "003.htm": "4b2800310537e947872c29a77b829ecfc770cbd38cf8df883a8bad444372adbf"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "النحو والصرف",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "volume_count_raw": "3",
+    "author_short": "الجلال السيوطي",
+    "metadata_volume_count": 3
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "يعد هذا الشرح من أهم الأعمال في علم النحو والصرف، حيث يجمع بين الإحاطة بالمسائل النحوية والصرفية والتفصيل في شرحها",
+    "known_textual_issues": [],
+    "historical_significance": "يتميز بكونه شرحاً وافياً لمتن جمع الجوامع، الذي يعتبر من أهم المتون في النحو والصرف",
+    "muhaqiq_reputation": "عبد الحميد هنداوي معروف بتحقيقاته الجيدة في علوم اللغة العربية",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_period",
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:00:53.307977+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 18.29,
+  "is_rerun": true,
+  "original_phase": "C"
+}

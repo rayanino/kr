@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.828532399988035,
+  "parsed": {
+    "genre": "other",
+    "genre_confidence": 0.8,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "falsafa",
+      "tarikh"
+    ],
+    "science_scope_confidence": 0.7,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "مالك بن الحاج عمر بن الخضر بن نبي",
+      "known_as": [
+        "مالك بن نبي",
+        "Malek Bennabi"
+      ],
+      "death_date_hijri": 1393,
+      "school_affiliations": {
+        "فكر": "فكر حضاري إسلامي معاصر"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "مفكر جزائري بارز من أعلام الفكر الإسلامي المعاصر، صاحب نظرية في مشكلات الحضارة وشروط النهضة، من أبرز المفكرين المسلمين في القرن العشرين",
+      "methodological_stance": "منهج تحليلي حضاري يجمع بين الرؤية الإسلامية والعلوم الاجتماعية الحديثة، متأثر بفلسفة التاريخ وعلم الاجتماع"
+    },
+    "author_identification_confidence": 0.98,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أوائل أعمال مالك بن نبي، كُتب أصلاً بالفرنسية ثم تُرجم إلى العربية",
+      "composition_date_hijri": null,
+      "tradition_position": "أحد أهم كتب سلسلة مشكلات الحضارة لمالك بن نبي، يُعدّ من الأعمال التأسيسية في الفكر النهضوي الإسلامي المعاصر",
+      "known_textual_issues": [
+        "الكتاب مترجم من الفرنسية وقد تتفاوت الترجمات في دقتها"
+      ],
+      "historical_significance": "عمل فكري رائد يطرح شروط النهضة في العالم الإسلامي من منظور حضاري تحليلي، وهو جزء من مشروع مالك بن نبي الفكري الشامل حول مشكلات الحضارة",
+      "muhaqiq_reputation": "ندوة مالك بن نبي بإشراف عمر كامل مسقاوي، وهو الوصي على تراث مالك بن نبي الفكري",
+      "tahqiq_methodology_note": "إشراف عام على النشر وليس تحقيقاً بالمعنى التراثي، ترجمة عمر كامل مسقاوي وعبد الصبور شاهين",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

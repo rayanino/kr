@@ -1,0 +1,14 @@
+{
+  "total_flags": 1,
+  "errors": 0,
+  "warnings": 0,
+  "info": 1,
+  "flags": [
+    {
+      "check": "genre_title_mismatch",
+      "severity": "info",
+      "detail": "Title contains 'مختصر' but genre is 'hadith_collection'"
+    }
+  ],
+  "book": "صحيح البخاري - ن عطاءات العلم"
+}

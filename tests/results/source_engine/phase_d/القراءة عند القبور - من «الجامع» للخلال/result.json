@@ -1,0 +1,145 @@
+{
+  "source_id": "src_96e5e2b6",
+  "work_id": "wrk_abw_bkr_ahmd_bn_mhmd_al_qrah_and_al_qbwr_",
+  "human_label": "al_qrah_and_al_qbwr_",
+  "title_arabic": "القراءة عند القبور [من \"الجامع لعلوم الإمام أحمد\" لأبي بكر الخلال]",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو بكر أحمد بن محمد بن هارون الخلال",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "الدكتور يحيى مراد",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "fiqh"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": {
+    "relation_type": "mukhtasar_of",
+    "base_work_title": "الجامع لعلوم الإمام أحمد",
+    "base_work_author": "أبو بكر أحمد بن محمد بن هارون الخلال",
+    "base_work_id": null,
+    "confidence": 0.85
+  },
+  "level": "specialist",
+  "publisher": "دار الكتب العلمية، بيروت - لبنان",
+  "edition_number": 1,
+  "publication_year_hijri": 1424,
+  "publication_year_miladi": 2003,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 11,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 311 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: الدكتور يحيى مراد"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الكتب العلمية، بيروت - لبنان"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.82,
+    "science_scope": 0.88,
+    "level": 0.8,
+    "structural_format": 0.95,
+    "authority_level": 0.85,
+    "multi_layer": 0.9,
+    "genre_chain": 0.85,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmptxvtq4a8\\library\\sources\\src_96e5e2b6\\frozen",
+  "frozen_hash": "96e5e2b641bf76d6a67273322c6d4a99e5eb614026492388af8c57c52d18d28d",
+  "frozen_file_hashes": {
+    "book.htm": "20bd75f7b73fd68fbc76f221d4fcaf4de752178debaf0ffd94ad7eb44dfa3e2b"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1424 هـ - 2003 م",
+    "page_count_raw": "4",
+    "author_short": "أبو بكر الخلال",
+    "physical_page_count": 4,
+    "extra_card_fields": {
+      "مطبوع بذيل كتاب": "الأمر بالمعروف والنهي عن المنكر، من مسائل الإمام المبجل أبي عبد الله أحمد بن حنبل"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": "أواخر القرن الثالث الهجري، من أعمال الخلال الأخيرة ضمن مشروعه الكبير في جمع مسائل الإمام أحمد",
+    "composition_date_hijri": 300,
+    "tradition_position": "جزء مستل من كتاب الجامع للخلال، وهو من أهم المصادر في جمع آراء الإمام أحمد بن حنبل وروايات أصحابه في مسألة القراءة عند القبور",
+    "known_textual_issues": [],
+    "historical_significance": "يوثق موقف الإمام أحمد وأصحابه من مسألة القراءة عند القبور، وهي مسألة خلافية مهمة في الفقه الحنبلي",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [
+      "رسالة صغيرة جداً (11 صفحة) مما يشير إلى أنها جزء مستل وليست عملاً مستقلاً كاملاً",
+      "طبعة دار الكتب العلمية المعروفة بتفاوت جودة تحقيقاتها"
+    ],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "muhaqiq_reputation"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:33:49.089588+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 15.27,
+  "is_rerun": false,
+  "original_phase": null
+}

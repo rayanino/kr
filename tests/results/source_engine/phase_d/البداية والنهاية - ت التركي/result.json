@@ -1,0 +1,153 @@
+{
+  "source_id": "src_55b0c3ee",
+  "work_id": "wrk_ismaayl_bn_amr_bn_kt_al_bdayh_walnhayh",
+  "human_label": "al_bdayh_walnhayh",
+  "title_arabic": "البداية والنهاية",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "إسماعيل بن عمر بن كثير القرشي الدمشقي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د. عبد الله بن عبد المحسن التركي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "tarikh"
+  ],
+  "genre": "tarikh",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار هجر للطباعة والنشر والتوزيع والإعلان",
+  "edition_number": 1,
+  "publication_year_hijri": 1420,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 522,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.8175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 774 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.9,
+      "reason": "Recognized muhaqiq: د. عبد الله بن عبد المحسن التركي (matched عبد الله التركي)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار هجر للطباعة والنشر والتوزيع والإعلان"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.818 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": null,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 20,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmparps66os\\library\\sources\\src_55b0c3ee\\frozen",
+  "frozen_hash": "55b0c3ee579f7f15611881d81b6d80eb49595a2fbbf8aba1e5c0c5e80d3f166e",
+  "frozen_file_hashes": {
+    "001.htm": "b5336bde32af979cce7af76bb60bcfb442413dbff4fce13bc3f116589431c2c0",
+    "002.htm": "700f810c3ea22d64b1321a1e09b493cc759582b0bc4b8ba67002aed47dbd85ed",
+    "003.htm": "735e5badd2d7d0fb2ba4073fe12f40a50e76a000628aba9e46c1079a4afcfbd0",
+    "004.htm": "d2df4b9c3346e774e445f1554673ef534175b22b5531f9b5de97e4935666c883",
+    "005.htm": "738aab85d662b558b5e97ca71ffe353979d773240f3ca8b138e3d4445c01494d",
+    "006.htm": "987f49b74876e151496b062f2ac9067aef874812bc7e58d87be52961c11706c1",
+    "007.htm": "65af00f8988670b4a7912579771fa02b9aadc890fd5a043f56aca4cbb5b455cc",
+    "008.htm": "8109df2a7b465a89ef1f28dbf73eb2964968bd5670e8cf9886d28b235d2f0f1e",
+    "009.htm": "f4934a095950bac26fd42ab193244cebbaa901def0786d1bc7fc57f3cad023fc",
+    "010.htm": "bcb6213053d3f25a6ff5ea234a1944e52f81bb22fc45ebc06a7229b23c73e069",
+    "011.htm": "7e294ee0d54a33beb5f9398350ae7e19f9191067d04bc2e38d0ebf75c15b9397",
+    "012.htm": "25baf7a8fc2dfeaf939116a2ed6ce901791d93ee61052ad9312f3f854d8d4eb6",
+    "013.htm": "0a74bae59da6d932bcf7335b40ae08cf7ee7732c6f8519a6fd682f6cf7938fdf",
+    "014.htm": "de6e31c71bdf275a95e9cd7beb8443ac914e60fc0dd1a336ac3e8a84fd6713bb",
+    "015.htm": "e3619fce3caa0a9ca197a16b47b802a2aa1970f8a60e61b6b604241d6640bec0",
+    "016.htm": "35bb17202170121d7f3eaba737c05c77f6e2969c97633314a579f7335df67c3d",
+    "017.htm": "e557a5f555bc0b57903e908af828a400aef4799f30498d92cf51edaeb74c1f5f",
+    "018.htm": "1dc79eda96ecdf1e02f0293a06d9480485ed27abcf5087c1ab36ebd15ffdddb4",
+    "019.htm": "5d7b0622e8997552a707c0fb058ab657166bb2d02ea55c1ec5790f863e76e47f",
+    "020.htm": "e7b56fbfdbba78b4057a1785b801e7375cc275302b29694e1f5d4e9810525a7d"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التاريخ",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "editorial_note": "في بعض نُسَخ الكتاب الخطية زياداتٌ على ما كَتَبه ابنُ كثير، وقد أَثبَتتْها طبعاتُ الكتاب السابقة لتحقيق د التركي، ورأى هو ألّا يُثبِتَها في طبعته؛ فليس في هذه النسخة الإلكترونية نَقصٌ كما يُتوهّم",
+    "volume_count_raw": "21 (20 والفهارس)",
+    "edition_raw": "الأولى، (1417 - 1420 هـ)",
+    "author_short": "ابن كثير",
+    "metadata_volume_count": 21,
+    "extra_card_fields": {
+      "بالتعاون مع": "مركز البحوث والدارسات العربية والإسلامية بدار هجر",
+      "وأعادتْ تصويرها": "دار عالم الكتب بالرياض مِرارًا"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "A major work in Islamic historiography, covering the history from the beginning of creation to the author's time.",
+    "known_textual_issues": [],
+    "historical_significance": "One of the most important historical works in the Islamic tradition, widely referenced and studied.",
+    "muhaqiq_reputation": "Dr. Abdullah bin Abdul Mohsin al-Turki is a respected scholar and editor known for his meticulous work on classical Islamic texts.",
+    "tahqiq_methodology_note": "The edition is known for its thorough annotation and verification of the text.",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": []
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:01:39.906115+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 22.71,
+  "is_rerun": true,
+  "original_phase": "C"
+}

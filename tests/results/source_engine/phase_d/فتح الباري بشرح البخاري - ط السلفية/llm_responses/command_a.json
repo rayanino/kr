@@ -1,0 +1,71 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.24595599999884,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 1.0,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "الجامع الصحيح",
+      "base_work_author": "محمد بن إسماعيل البخاري"
+    },
+    "genre_chain_confidence": 1.0,
+    "structural_format": "commentary",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 1.0,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "محمد بن إسماعيل البخاري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "أحمد بن علي بن حجر العسقلاني"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith",
+      "fiqh"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": "advanced",
+    "level_confidence": 1.0,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "أحمد بن علي بن حجر العسقلاني",
+      "known_as": [
+        "ابن حجر",
+        "الحافظ ابن حجر"
+      ],
+      "death_date_hijri": 852,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "أحد أعلام الحديث والفقه في القرن التاسع الهجري، وصاحب المصنفات المشهورة في علوم الحديث.",
+      "methodological_stance": "يتميز منهجه بالدقة في التخريج، والتحري في النقل، والجمع بين الروايات، مع عناية فائقة ببيان علل الأحاديث."
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "يُعتبر هذا الشرح من أهم الشروح على صحيح البخاري، ويُعد مرجعاً أساسياً في فهم الأحاديث النبوية وعلومها.",
+      "known_textual_issues": [],
+      "historical_significance": "يتميز الشرح بشموليته ودقته في شرح الأحاديث، وبيان مسائل الإجماع والخلاف، والتنبيه على أوهام بعض الشراح، مما جعله مرجعاً لا غنى عنه للعلماء والباحثين.",
+      "muhaqiq_reputation": "محب الدين الخطيب معروف بدقته في التحقيق واهتمامه بنشر التراث الإسلامي.",
+      "tahqiq_methodology_note": "تمت مقابلة النص على نسخ خطية معتمدة، مع التعليق على المواضع التي تحتاج إلى توضيح أو تصحيح.",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": []
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.53324699998484,
+  "parsed": {
+    "genre": "tafsir",
+    "genre_confidence": 1.0,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 1.0,
+    "layers": null,
+    "science_scope": [
+      "tafsir",
+      "ulum_al_quran"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "شمس الدين أحمد بن سليمان بن كمال باشا الرومي الحنفي",
+      "known_as": [
+        "ابن كمال باشا"
+      ],
+      "death_date_hijri": 940,
+      "school_affiliations": {
+        "fiqh": "حنفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "فقيه حنفي ومفسر عثماني بارز، شغل منصب شيخ الإسلام في الدولة العثمانية",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "تفسير معتبر في التقليد الحنفي، يجمع بين التفسير الفقهي واللغوي",
+      "known_textual_issues": [],
+      "historical_significance": "أحد التفاسير الهامة في العصر العثماني، يعكس المنهج الحنفي في التفسير",
+      "muhaqiq_reputation": "ماهر أديب حبوش معروف بتحقيقاته الجيدة للنصوص العثمانية",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "source_id": "src_92af5922",
+  "work_id": "wrk_mhmd_bn_mhmd_abn_arf_tfsyr_abn_arfh",
+  "human_label": "tfsyr_abn_arfh",
+  "title_arabic": "تفسير ابن عرفة",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد بن محمد ابن عرفة الورغمي التونسي المالكي، أبو عبد الله",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "جلال الأسيوطي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "tafsir",
+    "ulum_al_quran"
+  ],
+  "genre": "tafsir",
+  "genre_chain": null,
+  "level": "advanced",
+  "publisher": "دار الكتب العلمية، بيروت - لبنان",
+  "edition_number": 1,
+  "publication_year_hijri": null,
+  "publication_year_miladi": 2008,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 443,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 803 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: جلال الأسيوطي"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الكتب العلمية، بيروت - لبنان"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": 0.9,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 4,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpu3hncabh\\library\\sources\\src_92af5922\\frozen",
+  "frozen_hash": "92af59222c57cfe57d7769adf4378ed5f699aed00d1cf4b80a1ebd6c9ef709ed",
+  "frozen_file_hashes": {
+    "001.htm": "8af6e45c78ff4887ef8cbedc44b9501f9c3996a77ca797d8813354b3d4a6efd4",
+    "002.htm": "e3061db07182c726d469f27882f3d49173a2e1767060e38934d7b3ef406c1de1",
+    "003.htm": "8f1c8a28fad654708f04d9a34dd65487ccf444c19c62d7080bf3bf63f2f00e1c",
+    "004.htm": "2e91f6ddeb6e89888aaff7f35e374a90362b4f5234a8d4d1a9e80d42861001d5"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التفسير",
+    "shamela_publish_date": "15 ذو الحجة 1433",
+    "volume_count_raw": "4",
+    "edition_raw": "الأولى، 2008 م",
+    "author_short": "ابن عرفة",
+    "preparer": "أبو إبراهيم حسانين",
+    "metadata_volume_count": 4
+  },
+  "scholarly_context": {
+    "composition_period": "late",
+    "composition_date_hijri": null,
+    "tradition_position": "A significant contribution to the Maliki school's approach to Quranic interpretation, blending legal and theological insights.",
+    "known_textual_issues": [],
+    "historical_significance": "Widely regarded as a foundational work in Maliki tafsir, influencing later scholars in both Maghreb and Mashriq.",
+    "muhaqiq_reputation": "Jalal al-Asyuti is known for meticulous editing and reliable textual reconstruction, though specific details about this edition's methodology are not provided.",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:42:04.425602+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 34.7,
+  "is_rerun": false,
+  "original_phase": null
+}

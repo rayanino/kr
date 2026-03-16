@@ -1,0 +1,134 @@
+{
+  "source_id": "src_e2d636c2",
+  "work_id": "wrk_abw_bkr_ahmd_bn_mwsa_mjlsan_mn_al_amaly_a",
+  "human_label": "mjlsan_mn_al_amaly_a",
+  "title_arabic": "مجلسان من الأمالي أحدهما في صفات الله لابن مردويه",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو بكر أحمد بن موسى بن مردويه بن فورك الأصبهاني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "محمد بن زياد بن عمر التُّكْله",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "aqidah"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار البشائر الإسلامية - ضمن المجموعة التاسعة من لقاء العشر الأواخر (105)",
+  "edition_number": 1,
+  "publication_year_hijri": 1428,
+  "publication_year_miladi": 2007,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 35,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7625000000000001,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 410 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: محمد بن زياد بن عمر التُّكْله"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.7,
+      "reason": "Known publisher: دار البشائر الإسلامية (score 0.7)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.763 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.92,
+    "science_scope": 0.85,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 0.92,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpdzea__md\\library\\sources\\src_e2d636c2\\frozen",
+  "frozen_hash": "e2d636c250db747afbfe2824d50ca1dd556feda5bf3cda26eed1ab159b9b859d",
+  "frozen_file_hashes": {
+    "book.htm": "9a410a63dbdc0777741e8505b4eef8ff62891be8b72d8fc9f737762f85646538"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1428 هـ - 2007 م",
+    "page_count_raw": "43",
+    "author_short": "أبو بكر بن مردويه",
+    "preparer": "أحمد الخضري (نسخ) ، ويا باغي الخير أقبل (مقابلة)",
+    "physical_page_count": 43
+  },
+  "scholarly_context": {
+    "composition_period": "أواخر القرن الرابع الهجري، من مجالس الإملاء التي عقدها ابن مردويه",
+    "composition_date_hijri": null,
+    "tradition_position": "جزء حديثي من مجالس الأمالي، يمثل نمط التحديث بالإسناد في مجالس السماع، وأحد المجلسين يتعلق بصفات الله مما يدل على اهتمام المؤلف بأحاديث الصفات",
+    "known_textual_issues": [],
+    "historical_significance": "جزء حديثي نادر من أمالي ابن مردويه الحافظ الأصبهاني، يحفظ أسانيد عالية وأحاديث في صفات الله وغيرها",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "muhaqiq_reputation",
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:56:39.191440+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 19.34,
+  "is_rerun": false,
+  "original_phase": null
+}

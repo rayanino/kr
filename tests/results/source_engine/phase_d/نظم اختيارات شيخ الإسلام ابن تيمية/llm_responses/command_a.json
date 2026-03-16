@@ -1,0 +1,56 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 24.160206100001233,
+  "parsed": {
+    "genre": "nazm",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "verse",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.85,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "سليمان بن سحمان بن مصلح بن حمدان بن مصلح بن حمدان بن مسفر بن محمد بن مالك بن عامر الخثعمي",
+      "known_as": [
+        "سليمان بن سحمان"
+      ],
+      "death_date_hijri": 1349,
+      "school_affiliations": {
+        "fiqh": "Hanbali"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Prominent Hanbali scholar and poet, known for his defense of Salafi doctrine and refutations of various theological and juridical opponents.",
+      "methodological_stance": "Salafi, strongly influenced by Ibn Taymiyyah's thought."
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "Part of the late Hanbali revivalist literature, systematizing Ibn Taymiyyah's fiqh choices in poetic form.",
+      "known_textual_issues": [],
+      "historical_significance": "Important contribution to the dissemination of Ibn Taymiyyah's legal thought in accessible poetic format.",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

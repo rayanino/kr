@@ -1,0 +1,56 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 10.737284400005592,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو عبد الله محمد بن إدريس الشافعي",
+      "known_as": [
+        "الشافعي"
+      ],
+      "death_date_hijri": 204,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "إمام المذهب الشافعي وأحد الأئمة الأربعة الكبار في الفقه الإسلامي",
+      "methodological_stance": "يتميز منهجه بالاعتماد على القرآن والسنة والإجماع والقياس، مع التركيز على الاستدلال العقلي"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "يُعتبر هذا الكتاب من أهم كتب الفقه الشافعي وأساس المذهب",
+      "known_textual_issues": [],
+      "historical_significance": "يُعد كتاب الأم من أهم المراجع الفقهية في التاريخ الإسلامي، حيث يمثل الأساس الذي بُني عليه المذهب الشافعي",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

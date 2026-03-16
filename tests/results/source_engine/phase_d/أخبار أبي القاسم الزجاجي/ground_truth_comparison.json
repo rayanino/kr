@@ -1,0 +1,67 @@
+{
+  "comparisons": {
+    "genre": {
+      "expected": "adab",
+      "actual": "adab",
+      "match": true
+    },
+    "author": {
+      "expected": "أبو القاسم الزجاجي (ت 337هـ)",
+      "actual": "عبد الرحمن بن إسحاق البغدادي النهاوندي الزجاجي، أبو القاسم",
+      "match": true,
+      "similarity": 1.0
+    },
+    "trust_tier": {
+      "expected": "verified",
+      "actual": "verified",
+      "match": true
+    },
+    "is_multi_layer": {
+      "expected": false,
+      "actual": false,
+      "match": true
+    },
+    "science_scope": {
+      "expected": [
+        "adab"
+      ],
+      "actual": [
+        "adab",
+        "nahw",
+        "lughah"
+      ],
+      "overlap": [
+        "adab"
+      ],
+      "extra_in_actual": [
+        "lughah",
+        "nahw"
+      ],
+      "missing_from_actual": [],
+      "match_type": "superset"
+    },
+    "structural_format": {
+      "expected": "prose",
+      "actual": "mixed",
+      "match": false
+    },
+    "authority_level": {
+      "expected": "primary",
+      "actual": "primary",
+      "match": true
+    },
+    "level": {
+      "expected": "intermediate",
+      "actual": null,
+      "match": false
+    },
+    "attribution_status": {
+      "expected": "definitive",
+      "actual": "traditional",
+      "match": false
+    }
+  },
+  "all_match": false,
+  "book": "أخبار أبي القاسم الزجاجي",
+  "ground_truth_key": "01_nahw_simple"
+}

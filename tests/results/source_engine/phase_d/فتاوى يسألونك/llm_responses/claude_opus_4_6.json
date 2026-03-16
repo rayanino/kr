@@ -1,0 +1,57 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 11.853708599985112,
+  "parsed": {
+    "genre": "fatawa",
+    "genre_confidence": 0.97,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "qa_format",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "intermediate",
+    "level_confidence": 0.7,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "حسام الدين بن موسى عفانة",
+      "known_as": [
+        "حسام عفانة",
+        "د. حسام الدين عفانة"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "أكاديمي فلسطيني معاصر، أستاذ الفقه والأصول في جامعة القدس، معروف بفتاواه المعاصرة وكتاباته الفقهية الموجهة للعامة",
+      "methodological_stance": "يعتمد على الأدلة من الكتاب والسنة مع مراعاة المذاهب الفقهية المختلفة والترجيح بينها"
+    },
+    "author_identification_confidence": 0.92,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "عمل معاصر بدأ تأليفه في أواخر القرن الرابع عشر الهجري واستمر إلى أوائل القرن الخامس عشر",
+      "composition_date_hijri": null,
+      "tradition_position": "مجموعة فتاوى معاصرة موجهة للجمهور العام تعالج مسائل فقهية حياتية معاصرة",
+      "known_textual_issues": [],
+      "historical_significance": "من أبرز مجموعات الفتاوى المعاصرة في فلسطين، تتميز بأسلوبها الميسر وتناولها لقضايا فقهية معاصرة",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

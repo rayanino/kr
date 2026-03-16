@@ -1,0 +1,58 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.365317699994193,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.92,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "hadith"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "specialist",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر محمد بن إبراهيم بن علي بن عاصم بن زاذان الأصبهاني المعروف بابن المقرئ",
+      "known_as": [
+        "ابن المقرئ",
+        "ابن المقرئ الأصبهاني"
+      ],
+      "death_date_hijri": 381,
+      "school_affiliations": {
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "محدّث أصبهاني مشهور، من حفاظ الحديث ورحّاليه، له مسند ومعجم وأجزاء حديثية عديدة",
+      "methodological_stance": "محدّث رحّال جمع الحديث بالأسانيد العالية من مشايخ عصره"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مرويات ابن المقرئ في النصف الثاني من القرن الرابع الهجري",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي صغير من أجزاء ابن المقرئ الحديثية، يروي فيه أحاديث بأسانيده عن شيوخه كأبي عروبة الحراني وغيره",
+      "known_textual_issues": [],
+      "historical_significance": "جزء حديثي من مرويات أحد كبار محدثي أصبهان، يحتوي على أسانيد عالية وأحاديث متنوعة",
+      "muhaqiq_reputation": "محمد زياد عمر تكلة باحث معاصر له عناية بتحقيق الأجزاء الحديثية",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 11.822830399993109,
+  "parsed": {
+    "genre": "hashiyah",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "hashiyah_on",
+      "base_work_title": "رد المحتار على الدر المختار",
+      "base_work_author": "ابن عابدين"
+    },
+    "genre_chain_confidence": 0.9,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "ابن عابدين"
+      },
+      {
+        "layer_type": "hashiyah",
+        "author_name": "محمد علاء الدين أفندي"
+      }
+    ],
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "advanced",
+    "level_confidence": 0.85,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "محمد علاء الدين أفندي",
+      "known_as": [
+        "نجل ابن عابدين"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": "حَنَفِيّ"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "فقيه حنفي بارز، نجل ابن عابدين صاحب رد المحتار",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.85,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "تكملة وتتمة لرد المحتار، أحد أهم المتون في الفقه الحنفي",
+      "known_textual_issues": [],
+      "historical_significance": "تعتبر هذه الحاشية من أهم الشروح والتعليقات على رد المحتار، وتساهم في توضيح وتفصيل المسائل الفقهية",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

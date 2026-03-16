@@ -1,0 +1,139 @@
+{
+  "source_id": "src_f7e6e7b6",
+  "work_id": "wrk_al_ljnh_al_daimh_llb_ftawa_al_ljnh_al_dai",
+  "human_label": "ftawa_al_ljnh_al_dai",
+  "title_arabic": "فتاوى اللجنة الدائمة - المجموعة الثانية",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "اللجنة الدائمة للبحوث العلمية والإفتاء",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh",
+    "aqidah",
+    "tafsir",
+    "usul_al_fiqh"
+  ],
+  "genre": "fatawa",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "رئاسة إدارة البحوث العلمية والإفتاء - الإدارة العامة للطبع - الرياض",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "qa_format",
+  "language": "ar",
+  "page_count": 741,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.4325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: رئاسة إدارة البحوث العلمية والإفتاء - الإدارة العامة للطبع - الرياض"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.432 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.99,
+    "science_scope": 0.88,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.95,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 11,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp3uw3zhrx\\library\\sources\\src_f7e6e7b6\\frozen",
+  "frozen_hash": "f7e6e7b6d09ef1bcf05f7f135050cdf9185512119f6ca898bce35c24c50dd084",
+  "frozen_file_hashes": {
+    "001.htm": "972cefbe41276c044e5ccf697911d63f7ea3c5fd9eb52ab7fad9abafc4ebfbbd",
+    "002.htm": "38742da0f0c8d82fc1835ae25ece7120c5df7f9423c9689a92f68d7f38f2eb0b",
+    "003.htm": "4683a67bd9a76a3746e17898df4aa1cf9c6acfc251ca4dde130ae8948416a1db",
+    "004.htm": "99d0b2ef1053b0dc12da664cbc5a374388ee84aeaaabf954c4d3989d2620bd0b",
+    "005.htm": "613ff1a4ad467751c9c4428c2c440e98806fe42130911a01c85bdb8c75a0e493",
+    "006.htm": "70833c1cd93cd7acbaf2e96fee9e4d953167afc02b57c167e779465d91b01e58",
+    "007.htm": "6ea557e69f8da46f3979e571a377c657aa0558290952705ec37ecbade72f41af",
+    "008.htm": "b558f5ea6b2b1f194a047e7b9e2f6a9f3154f826276c191e9e910b35f315959c",
+    "009.htm": "d9de87f0740ff087f567fd19ff40972d5e5905d50bdb4baa154c8f975acd9f93",
+    "010.htm": "aee1b0f67f5958cc7d7df1a5256f7b8cc539e586177782504f9f9f22055f0313",
+    "011.htm": "b5a14df4ba3d3609a220da1180df6d89486aa5e1666d25d3d8d66347345d5845"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الفتاوى",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "compiler_name_raw": "أحمد بن عبد الرزاق الدويش",
+    "volume_count_raw": "11 جزءا",
+    "author_short": "اللجنة الدائمة للبحوث العلمية والإفتاء",
+    "metadata_volume_count": 11
+  },
+  "scholarly_context": {
+    "composition_period": "المجموعة الثانية من فتاوى اللجنة الدائمة، جُمعت بعد اكتمال المجموعة الأولى، في عهد المفتي العام الشيخ عبد العزيز بن عبد الله آل الشيخ",
+    "composition_date_hijri": null,
+    "tradition_position": "مرجع رسمي أساسي في الفتوى المعاصرة في المملكة العربية السعودية والعالم الإسلامي، تُعدّ المجموعة الثانية مكملة للمجموعة الأولى التي جمعها الدويش أيضاً",
+    "known_textual_issues": [],
+    "historical_significance": "تمثل الفتاوى الرسمية الصادرة عن أعلى هيئة إفتاء في المملكة العربية السعودية، وتغطي مسائل معاصرة متنوعة في العقيدة والفقه والتفسير وغيرها",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": "جمع وترتيب أحمد بن عبد الرزاق الدويش، بإشراف ومراجعة المفتي العام الشيخ عبد العزيز آل الشيخ والشيخ عبد الله بن غديان",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:12:35.672906+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 17.4,
+  "is_rerun": true,
+  "original_phase": "C"
+}

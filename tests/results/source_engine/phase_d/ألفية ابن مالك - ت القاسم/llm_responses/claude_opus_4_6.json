@@ -1,0 +1,67 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 19.451570700010052,
+  "parsed": {
+    "genre": "nazm",
+    "genre_confidence": 0.97,
+    "genre_chain": {
+      "relation_type": "nazm_of",
+      "base_work_title": "الكافية الشافية",
+      "base_work_author": "محمد بن عبد الله بن مالك الأندلسي"
+    },
+    "genre_chain_confidence": 0.7,
+    "structural_format": "verse",
+    "structural_format_confidence": 0.98,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 0.99,
+    "level": "advanced",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو عبد الله محمد بن عبد الله بن مالك الطائي الجياني الأندلسي",
+      "known_as": [
+        "ابن مالك",
+        "ابن مالك الأندلسي",
+        "الجياني"
+      ],
+      "death_date_hijri": 672,
+      "school_affiliations": {
+        "nahw": "مدرسة بغداد والأندلس، مع ميل إلى مذهب الكوفيين أحياناً",
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم أئمة النحو والصرف في تاريخ العربية، صاحب أشهر منظومة نحوية على الإطلاق، وألفيته هي أكثر المتون النحوية تداولاً وشرحاً في العالم الإسلامي",
+      "methodological_stance": "جمع بين مذاهب البصريين والكوفيين والبغداديين والأندلسيين، واعتمد كثيراً على الاستشهاد بالحديث النبوي في النحو"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر أعمال ابن مالك، نظمها كخلاصة لمنظومته الأطول الكافية الشافية",
+      "composition_date_hijri": 660,
+      "tradition_position": "أشهر منظومة نحوية في تاريخ العربية، وهي المتن الأساسي الذي بنيت عليه عشرات الشروح والحواشي، أبرزها شرح ابن عقيل وشرح الأشموني وأوضح المسالك لابن هشام",
+      "known_textual_issues": [
+        "اختلاف النسخ في بعض الأبيات بسبب كثرة الرواية والنسخ",
+        "وجود أبيات بديلة في بعض المواضع"
+      ],
+      "historical_significance": "أهم متن نحوي في التراث العربي الإسلامي، حُفظت واشتُرحت على مدى ثمانية قرون، ولا تزال تُدرَّس في المعاهد الشرعية والجامعات حتى اليوم",
+      "muhaqiq_reputation": "د. عبد المحسن بن محمد القاسم، إمام وخطيب المسجد النبوي، معروف بتحقيقاته لمتون طالب العلم",
+      "tahqiq_methodology_note": "محققة على نسخة مقروءة على تلميذ الناظم وعليها خطه وإجازته، ونسخة بخط ابن هشام، ونسخ مقروءة على أبي حيان وابن السراج وابن عقيل والفيروزآبادي، ونسخ أخرى - مجموع 230 مخطوطة",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

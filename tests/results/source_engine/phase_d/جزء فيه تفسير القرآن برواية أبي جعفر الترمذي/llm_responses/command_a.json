@@ -1,0 +1,58 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 30.964782399998512,
+  "parsed": {
+    "genre": "tafsir",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "tafsir",
+      "ulum_al_quran"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "أَبُو جَعْفَرٍ مُحَمَّدُ بنُ أَحْمَدَ بنِ نَصْرٍ التِّرْمِذِيُّ الشافعي الرملي الفقيه",
+      "known_as": [
+        "أَبُو جَعْفَرٍ التِّرْمِذِيُّ"
+      ],
+      "death_date_hijri": 295,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "فقيه ومحدث معروف، له عدة مصنفات في الفقه والحديث",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "جزء في تفسير القرآن يجمع روايات متعددة برواية أبي جعفر الترمذي",
+      "known_textual_issues": [],
+      "historical_significance": "يعد من المصادر المهمة في تفسير القرآن الكريم، خاصة في نقل روايات السلف",
+      "muhaqiq_reputation": "حكمت بشير ياسين معروف بتحقيقاته الجيدة في مجال الحديث والتفسير",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

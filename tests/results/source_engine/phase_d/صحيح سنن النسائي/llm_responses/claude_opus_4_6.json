@@ -1,0 +1,61 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.997659499989823,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.9,
+    "genre_chain": {
+      "relation_type": "mukhtasar_of",
+      "base_work_title": "سنن النسائي (المجتبى)",
+      "base_work_author": "أحمد بن شعيب النسائي"
+    },
+    "genre_chain_confidence": 0.88,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.82,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "specialist",
+    "level_confidence": 0.8,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "محمد ناصر الدين الألباني",
+      "known_as": [
+        "الألباني",
+        "الشيخ الألباني"
+      ],
+      "death_date_hijri": 1420,
+      "school_affiliations": {
+        "hadith": "أهل الحديث",
+        "fiqh": "لا مذهبي - يتبع الدليل"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز علماء الحديث في العصر الحديث، اشتهر بتصحيح الأحاديث وتضعيفها وتخريجها",
+      "methodological_stance": "منهج حديثي صارم في تصحيح وتضعيف الأحاديث بناءً على دراسة الأسانيد، مع ميل إلى ظاهرية حديثية في الفقه"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "عمل متأخر من أعمال الألباني، أنجزه بتكليف من مكتب التربية العربي لدول الخليج",
+      "composition_date_hijri": 1409,
+      "tradition_position": "جزء من مشروع الألباني الكبير في تصحيح وتضعيف كتب السنة الستة، حيث قسّم كل كتاب إلى صحيح وضعيف. هذا الكتاب يضم الأحاديث التي حكم عليها بالصحة من سنن النسائي مع اختصار الأسانيد",
+      "known_textual_issues": [],
+      "historical_significance": "من أهم المشاريع الحديثية المعاصرة، أتاح للقارئ العام معرفة درجة أحاديث سنن النسائي بحسب اجتهاد الألباني، وأثار نقاشاً علمياً واسعاً حول منهجه في التصحيح والتضعيف",
+      "muhaqiq_reputation": "الألباني هو المصنف والمحقق معاً، يُعدّ من أبرز محدثي العصر الحديث وإن اختلف معه بعض العلماء في بعض أحكامه",
+      "tahqiq_methodology_note": "اختصر الألباني أسانيد أحاديث سنن النسائي وأبقى المتون، وحكم على كل حديث بالصحة أو الحسن، مع إحالات إلى مصادر التخريج الأخرى ككتبه إرواء الغليل وصحيح الجامع الصغير",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": []
+    }
+  }
+}

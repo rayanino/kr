@@ -1,0 +1,70 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.664900199975818,
+  "parsed": {
+    "genre": "hashiyah",
+    "genre_confidence": 0.82,
+    "genre_chain": {
+      "relation_type": "hashiyah_on",
+      "base_work_title": "الرحيق المختوم",
+      "base_work_author": "صفي الرحمن المباركفوري"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.85,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "صفي الرحمن المباركفوري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "محمود بن محمد الملاح"
+      }
+    ],
+    "science_scope": [
+      "sirah"
+    ],
+    "science_scope_confidence": 0.98,
+    "level": "intermediate",
+    "level_confidence": 0.75,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "محمود بن محمد الملاح",
+      "known_as": [
+        "الملاح"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "sirah": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "باحث معاصر في السيرة النبوية، له تعليقات وتحقيقات",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.72,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "عمل معاصر، الطبعة الأولى للتدمرية 1438 هـ",
+      "composition_date_hijri": 1438,
+      "tradition_position": "تعليق توضيحي وتصحيحي على كتاب الرحيق المختوم الذي يعد من أشهر كتب السيرة النبوية المعاصرة",
+      "known_textual_issues": [],
+      "historical_significance": "يضيف تعليقات وتنقيحات على كتاب الرحيق المختوم الحائز على جائزة رابطة العالم الإسلامي في السيرة النبوية",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "author_identification",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

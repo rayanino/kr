@@ -1,0 +1,55 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.588250500004506,
+  "parsed": {
+    "genre": "tafsir",
+    "genre_confidence": 1.0,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 1.0,
+    "layers": null,
+    "science_scope": [
+      "tafsir",
+      "ulum_al_quran"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "أبو جعفر محمد بن جرير الطبري",
+      "known_as": [
+        "ابن جرير الطبري"
+      ],
+      "death_date_hijri": 310,
+      "school_affiliations": {
+        "fiqh": "Shafi'i"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "One of the most prominent and influential scholars of Islam, renowned for his comprehensive works in tafsir, history, and fiqh.",
+      "methodological_stance": "Known for his meticulous approach to tafsir, combining narrative (riwaya) and analytical (diraya) methods, and for his independence in legal reasoning."
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "A foundational work in tafsir, widely regarded as one of the most comprehensive and authoritative commentaries on the Quran.",
+      "known_textual_issues": [],
+      "historical_significance": "Considered a cornerstone of Islamic scholarship, influencing generations of scholars and serving as a primary reference in tafsir studies.",
+      "muhaqiq_reputation": "Dr. Abdullah bin Abdul Mohsin al-Turki is a respected scholar and editor known for his rigorous and meticulous approach to tahqiq.",
+      "tahqiq_methodology_note": "The edition is based on multiple manuscripts and includes extensive annotations, variant readings, and a critical apparatus.",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": []
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.91253780000261,
+  "parsed": {
+    "genre": "fatawa",
+    "genre_confidence": 0.99,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "qa_format",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "aqidah",
+      "fiqh",
+      "usul_al_fiqh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "اللجنة الدائمة للبحوث العلمية والإفتاء",
+      "known_as": [
+        "اللجنة الدائمة"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "aqidah": "سلفي أثري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "هيئة إفتاء رسمية في المملكة العربية السعودية تضم كبار العلماء، منهم ابن باز وعبد الرزاق عفيفي وعبد الله بن غديان",
+      "methodological_stance": "منهج سلفي أثري في العقيدة والفتوى، يعتمد على الكتاب والسنة وأقوال السلف"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "النصف الثاني من القرن الرابع عشر الهجري، فتاوى صدرت على مدى عقود من عمل اللجنة الدائمة",
+      "composition_date_hijri": null,
+      "tradition_position": "من أهم مجاميع الفتاوى المعاصرة في المملكة العربية السعودية، مرجع أساسي للفتوى الرسمية السعودية",
+      "known_textual_issues": [],
+      "historical_significance": "تمثل الموقف الرسمي للإفتاء في المملكة العربية السعودية في مسائل العقيدة والفقه والمعاملات، وتضم فتاوى كبار علماء المملكة كابن باز وعفيفي وابن غديان",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "جمع وترتيب أحمد بن عبد الرزاق الدويش، رتبها على أبواب الفقه والعقيدة",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 20.00413839999237,
+  "parsed": {
+    "genre": "tabaqat",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "tarikh",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "شمس الدين محمد بن أحمد بن عثمان الذهبي",
+      "known_as": [
+        "الذهبي",
+        "الإمام الذهبي",
+        "مؤرخ الإسلام"
+      ],
+      "death_date_hijri": 748,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم حفاظ الحديث والمؤرخين في الإسلام، إمام الجرح والتعديل في عصره، ومن أبرز تلاميذ ابن تيمية والمزي",
+      "methodological_stance": "محدث ناقد متشدد في الجرح والتعديل، يجمع بين الرواية والدراية مع عناية بالتاريخ والتراجم"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر أعمال الذهبي، ألفه في النصف الأول من القرن الثامن الهجري",
+      "composition_date_hijri": 739,
+      "tradition_position": "يُعدّ من أعظم كتب التراجم في التراث الإسلامي، وهو موسوعة شاملة في تراجم الأعلام من عصر النبوة إلى عصر المؤلف، ويُعتبر مرجعاً أساسياً لا يستغني عنه باحث في التاريخ الإسلامي والحديث",
+      "known_textual_issues": [
+        "وصلت بعض أجزاء الكتاب ناقصة أو مبتورة",
+        "اختلاف النسخ الخطية في بعض التراجم"
+      ],
+      "historical_significance": "من أهم الموسوعات في تراجم الرجال، يضم تراجم آلاف الأعلام من مختلف الطبقات والتخصصات، ويتميز بأحكام الذهبي النقدية على المترجَم لهم",
+      "muhaqiq_reputation": "محمد أيمن الشبراوي محقق معاصر عمل مع دار الحديث بالقاهرة، وتحقيقه يُعدّ من الطبعات التجارية المختصرة مقارنة بطبعة مؤسسة الرسالة بإشراف شعيب الأرنؤوط",
+      "tahqiq_methodology_note": "ذكر المحقق أنه أنجز العمل في فترة نافت على السنة، مما يشير إلى تحقيق مختصر مقارنة بالطبعات الأكاديمية الأخرى",
+      "edition_known_issues": [
+        "طبعة دار الحديث تُعدّ أقل دقة من طبعة مؤسسة الرسالة بتحقيق شعيب الأرنؤوط وآخرين التي استغرقت سنوات طويلة"
+      ],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.526843500003451,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 1.0,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 1.0,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "أبو عبد الله محمد بن إسماعيل البخاري",
+      "known_as": [
+        "البخاري",
+        "الإمام البخاري"
+      ],
+      "death_date_hijri": 256,
+      "school_affiliations": {
+        "hadith": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "One of the most renowned hadith scholars and compilers in Islamic history, best known for his Sahih al-Bukhari, considered the most authentic collection of hadith.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "Sahih al-Bukhari is one of the six major hadith collections (Kutub al-Sittah) and holds the highest authority in Sunni hadith literature.",
+      "known_textual_issues": [],
+      "historical_significance": "Sahih al-Bukhari is considered the most authentic collection of hadith and has been a cornerstone of Islamic scholarship for over a millennium.",
+      "muhaqiq_reputation": "دار الكمال المتحدة is a reputable publisher known for producing high-quality editions of classical Islamic texts.",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

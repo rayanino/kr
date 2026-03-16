@@ -1,0 +1,62 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.331800299987663,
+  "parsed": {
+    "genre": "fiqh_comparative",
+    "genre_confidence": 0.88,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "fiqh",
+      "hadith"
+    ],
+    "science_scope_confidence": 0.93,
+    "level": "advanced",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر محمد بن إبراهيم بن المنذر النيسابوري",
+      "known_as": [
+        "ابن المنذر",
+        "ابن المنذر النيسابوري"
+      ],
+      "death_date_hijri": 319,
+      "school_affiliations": {
+        "fiqh": "مجتهد مستقل"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من كبار أئمة الفقه المقارن والإجماع، يُعدّ من المجتهدين المستقلين، وله مكانة عالية في نقل الإجماع والخلاف بين الفقهاء",
+      "methodological_stance": "منهج مقارن يعتمد على جمع أقوال الفقهاء والاستدلال بالأحاديث والآثار مع ذكر الإجماع والخلاف، ولا يتقيد بمذهب معين"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "أواخر القرن الثالث الهجري، من أعمال ابن المنذر المتأخرة",
+      "composition_date_hijri": null,
+      "tradition_position": "من أهم المصنفات في الفقه المقارن المبني على الدليل، يُعدّ مرجعاً أساسياً في نقل أقوال السلف والإجماع والخلاف، وهو أحد ثلاثة كتب رئيسية لابن المنذر مع الأوسط والإشراف",
+      "known_textual_issues": [
+        "الكتاب لم يصل كاملاً، وأجزاء منه مفقودة"
+      ],
+      "historical_significance": "يُعدّ من أقدم المصنفات في الفقه المقارن المبني على الحديث والأثر، وقد اعتمد عليه العلماء في نقل الإجماع والخلاف",
+      "muhaqiq_reputation": "الدكتور عبد الله بن عبد العزيز الجبرين، محقق سعودي",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note",
+        "edition_known_issues"
+      ]
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.573227700020652,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.88,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.85,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.93,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.8,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر محمد بن عبد الله بن محمد بن أحمد بن العربي المعافري الإشبيلي",
+      "known_as": [
+        "ابن العربي المتأخر",
+        "ابن العربي الإشبيلي"
+      ],
+      "death_date_hijri": 617,
+      "school_affiliations": {
+        "fiqh": "مالكي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم أندلسي زاهد متصوف من أقارب القاضي أبي بكر ابن العربي، رحل إلى المشرق عدة مرات وسمع من السلفي وغيره",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.82,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "أوائل القرن السابع الهجري، من مرويات ابن العربي المتأخر عن شيوخه",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي صغير يحتوي على خمسة أحاديث برواية ابن العربي المتأخر، يمثل نموذجاً من أجزاء السماع والرواية في التقليد الحديثي",
+      "known_textual_issues": [],
+      "historical_significance": "جزء حديثي نادر محفوظ ضمن مجاميع المحمودية في مكتبة الملك عبد العزيز بالمدينة المنورة، يتضمن سماعات متعددة آخرها سنة 704 هـ",
+      "muhaqiq_reputation": "نبيل سعد الدين جرار باحث أردني معروف بتحقيق الأجزاء الحديثية والنوادر المخطوطة",
+      "tahqiq_methodology_note": "تحقيق مبني على نسخة مخطوطة من مجاميع المحمودية (المجموع 2704)",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

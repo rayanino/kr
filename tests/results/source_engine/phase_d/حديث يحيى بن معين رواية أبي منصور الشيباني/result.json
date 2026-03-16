@@ -1,0 +1,137 @@
+{
+  "source_id": "src_d489a547",
+  "work_id": "wrk_abw_zkrya_yhya_bn_ma_jz_fyh_ahadyth_yhya_",
+  "human_label": "jz_fyh_ahadyth_yhya_",
+  "title_arabic": "جزء فيه أحاديث يحيى بن معين",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو زكريا يحيى بن معين بن عون بن زياد بن بسطام بن عبد الرحمن",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د. عبد الله محمد حسن دمفو",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": "specialist",
+  "publisher": "دار المآثر - المدينة المنورة",
+  "edition_number": 1,
+  "publication_year_hijri": 1420,
+  "publication_year_miladi": 2000,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 43,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 233 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: د. عبد الله محمد حسن دمفو"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار المآثر - المدينة المنورة"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.92,
+    "level": 0.85,
+    "structural_format": 0.92,
+    "authority_level": 0.9,
+    "multi_layer": 0.88,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp6qbpnu3s\\library\\sources\\src_d489a547\\frozen",
+  "frozen_hash": "d489a54750592c8f6f4e66f8d1b974084a41dc1d5889a58608d9e857598a400a",
+  "frozen_file_hashes": {
+    "book.htm": "e52666ba1932ed77fedcf730ff6545ae0bc23e75e9ada6a402d6cc778ee9a0b2"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "riwayah": "أبي منصور يحيى بن أحمد الشيباني",
+    "edition_raw": "الأولى، 1420هـ، 2000م",
+    "page_count_raw": "182",
+    "author_short": "يحيى بن معين",
+    "physical_page_count": 182
+  },
+  "scholarly_context": {
+    "composition_period": "النصف الأول من القرن الثالث الهجري، من مرويات ابن معين التي دوّنها تلاميذه",
+    "composition_date_hijri": null,
+    "tradition_position": "جزء حديثي صغير من مرويات يحيى بن معين برواية أبي منصور الشيباني (ت 298هـ)، يتضمن أحاديث نبوية ومسائل في العقيدة والفقه وكلاماً في الجرح والتعديل",
+    "known_textual_issues": [
+      "ترجمة الراوي أبي منصور الشيباني نادرة، ولم يقف عليها بعض الباحثين مثل أحمد نور سيف",
+      "وقع تصحيف في اسم الشيباني إلى السفياني في تاريخ الإسلام للذهبي"
+    ],
+    "historical_significance": "جزء نفيس يحتوي على مسائل فقهية لا توجد عن ابن معين في غيره، وأحاديث بأسانيد فريدة لا توجد عند غيره",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "muhaqiq_reputation",
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:15:20.597077+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 14.59,
+  "is_rerun": true,
+  "original_phase": "C"
+}

@@ -1,0 +1,145 @@
+{
+  "source_id": "src_76eb20c2",
+  "work_id": "wrk_mhmd_bn_al_hsn_bn_ya_al_jz_fyh_mn_hdyth_a",
+  "human_label": "al_jz_fyh_mn_hdyth_a",
+  "title_arabic": "الجزء فيه من حديث أبي بكر محمد بن الحسن بن يعقوب بن مقسم العطار عن شيوخه (وهو مطبوع ضمن كتاب الفوائد)",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد بن الحسن بن يعقوب بن الحسن بن مِقْسَم العطار، أبو بكر",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "خلاف محمود عبد السميع",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": "specialist",
+  "publisher": "دار الكتب العلمية، بيروت - لبنان",
+  "edition_number": 1,
+  "publication_year_hijri": 1423,
+  "publication_year_miladi": 2002,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 10,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.6725,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 354 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: خلاف محمود عبد السميع"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الكتب العلمية، بيروت - لبنان"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Medium text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.672 >= 0.65 threshold",
+  "text_fidelity": "medium",
+  "text_fidelity_reason": "Shamela structured HTML text; page count mismatch: Digital pages (10) are 4% of claimed physical pages (279) — likely partial export",
+  "confidence_scores": {
+    "genre": 0.92,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 0.93,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpbhf85jkn\\library\\sources\\src_76eb20c2\\frozen",
+  "frozen_hash": "76eb20c28df8405dc0b703748010823ce3f382d7012f49d0087552eeb5b6c4c7",
+  "frozen_file_hashes": {
+    "book.htm": "21cefa6f14a4e3691a936d1b7c71378e3cd65f6c548fc216606fc989c60a19ad"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1423 هـ - 2002 م",
+    "page_count_raw": "279",
+    "author_short": "ابن مقسم العطار",
+    "physical_page_count": 279,
+    "quality_issues": [
+      {
+        "check": "page_count_mismatch",
+        "severity": "warning",
+        "detail": "Digital pages (10) are 4% of claimed physical pages (279) — likely partial export"
+      },
+      {
+        "check": "truncation_with_mismatch",
+        "severity": "warning",
+        "detail": "Last page ends without sentence-ending punctuation AND page count is inconsistent — strongly suggests truncated export"
+      }
+    ]
+  },
+  "scholarly_context": {
+    "composition_period": "منتصف القرن الرابع الهجري، حيث سمع منه تلميذه سنة 350 هـ",
+    "composition_date_hijri": 350,
+    "tradition_position": "جزء حديثي صغير يجمع مرويات الشيخ عن شيوخه، من نوع الأجزاء الحديثية التي كانت شائعة في بغداد في القرن الرابع",
+    "known_textual_issues": [],
+    "historical_significance": "جزء حديثي نادر يحفظ أسانيد بغدادية عالية، مع سلسلة رواية متصلة تصل إلى ابن حجر العسقلاني",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "muhaqiq_reputation",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:13:31.341997+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 55.66,
+  "is_rerun": true,
+  "original_phase": "C"
+}

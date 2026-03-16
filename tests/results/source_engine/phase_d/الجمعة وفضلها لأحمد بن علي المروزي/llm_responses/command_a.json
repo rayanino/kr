@@ -1,0 +1,55 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.885994200012647,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر أحمد بن علي بن سعيد بن إبراهيم الأموي المروزي",
+      "known_as": [
+        "المروزي"
+      ],
+      "death_date_hijri": 292,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Hadith scholar and jurist known for his contributions to early Islamic jurisprudence and hadith compilation.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "Early collection focusing on the Friday prayer (Jumu'ah) and its virtues, contributing to the broader hadith literature on Islamic rituals.",
+      "known_textual_issues": [],
+      "historical_significance": "One of the early works dedicated to the topic of Jumu'ah, providing insights into the practices and virtues of the Friday prayer in early Islamic communities.",
+      "muhaqiq_reputation": "سمير بن أمين الزهيري is known for his careful and methodical approach to hadith text editing and verification.",
+      "tahqiq_methodology_note": "The editor likely relied on multiple manuscript sources and cross-referenced with other hadith collections to ensure textual accuracy.",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

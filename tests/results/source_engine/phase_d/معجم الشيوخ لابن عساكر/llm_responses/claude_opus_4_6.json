@@ -1,0 +1,61 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.657672000001185,
+  "parsed": {
+    "genre": "mujam",
+    "genre_confidence": 0.97,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "dictionary",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "ulum_al_hadith",
+      "hadith",
+      "tarikh"
+    ],
+    "science_scope_confidence": 0.93,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو القاسم علي بن الحسن بن هبة الله بن عبد الله بن الحسين الدمشقي الشافعي",
+      "known_as": [
+        "ابن عساكر",
+        "محدث الشام"
+      ],
+      "death_date_hijri": 571,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أكابر حفاظ الحديث في القرن السادس الهجري، صاحب تاريخ دمشق الكبير، لقب بمحدث الشام وثقة الدين",
+      "methodological_stance": "محدث حافظ متقن، عُرف بالرحلة الواسعة في طلب الحديث والسماع من عدد كبير جداً من الشيوخ"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال ابن عساكر في النصف الثاني من القرن السادس الهجري، وهو معجم لشيوخه الذين سمع منهم أو أجازوا له",
+      "composition_date_hijri": 560,
+      "tradition_position": "معجم الشيوخ من الأنواع المهمة في علوم الحديث، يوثق فيه المحدث شيوخه وأسانيده، وهذا المعجم يعد من أهم معاجم الشيوخ لكونه لابن عساكر الذي سمع من أكثر من ألف وثلاثمائة شيخ",
+      "known_textual_issues": [],
+      "historical_significance": "يعد هذا المعجم وثيقة مهمة لحركة الرواية والإسناد في القرن السادس الهجري، ويكشف عن سعة رحلات ابن عساكر وكثرة شيوخه في مختلف الأمصار الإسلامية",
+      "muhaqiq_reputation": "الدكتورة وفاء تقي الدين (ت 1428 هـ) باحثة سورية متخصصة في تحقيق التراث الإسلامي",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

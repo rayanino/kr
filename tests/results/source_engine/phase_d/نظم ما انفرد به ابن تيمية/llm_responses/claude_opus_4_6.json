@@ -1,0 +1,65 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.245447699999204,
+  "parsed": {
+    "genre": "nazm",
+    "genre_confidence": 0.97,
+    "genre_chain": {
+      "relation_type": "nazm_of",
+      "base_work_title": "المسائل التي انفرد بها شيخ الإسلام ابن تيمية عن الأئمة الأربعة",
+      "base_work_author": "ابن تيمية"
+    },
+    "genre_chain_confidence": 0.6,
+    "structural_format": "verse",
+    "structural_format_confidence": 0.99,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "intermediate",
+    "level_confidence": 0.7,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "سليمان بن سحمان بن مصلح بن حمدان الخثعمي النجدي",
+      "known_as": [
+        "سليمان بن سحمان",
+        "ابن سحمان"
+      ],
+      "death_date_hijri": 1349,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "aqidah": "سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم نجدي بارز من أتباع الدعوة السلفية الوهابية، شاعر وفقيه ومؤلف غزير الإنتاج، من تلاميذ الشيخ عبد اللطيف بن عبد الرحمن آل الشيخ",
+      "methodological_stance": "سلفي أثري على منهج ابن تيمية وابن عبد الوهاب، شديد في الرد على المخالفين"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مؤلفات المؤلف في أواخر القرن الثالث عشر أو أوائل القرن الرابع عشر الهجري",
+      "composition_date_hijri": null,
+      "tradition_position": "نظم تعليمي يجمع المسائل الفقهية التي انفرد بها ابن تيمية عن المذاهب الأربعة، يعكس اهتمام علماء الدعوة النجدية بتراث ابن تيمية الفقهي",
+      "known_textual_issues": [],
+      "historical_significance": "يمثل اهتمام المدرسة السلفية النجدية بإبراز اختيارات ابن تيمية الفقهية المستقلة عن المذاهب الأربعة",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [
+        "النص منقول إلى الشبكة (الإنترنت) بواسطة أبو مهند النجدي، وليس تحقيقاً علمياً"
+      ],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "genre_chain"
+      ]
+    }
+  }
+}

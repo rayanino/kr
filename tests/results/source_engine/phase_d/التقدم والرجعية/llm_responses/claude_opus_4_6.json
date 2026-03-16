@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.56946820000303,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.75,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "fikr_islami",
+      "tarikh"
+    ],
+    "science_scope_confidence": 0.75,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "محمد تقي الدين بن عبد القادر الهلالي",
+      "known_as": [
+        "تقي الدين الهلالي",
+        "أبو شكيب الهلالي"
+      ],
+      "death_date_hijri": 1407,
+      "school_affiliations": {
+        "fiqh": null,
+        "aqidah": "سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم مغربي سلفي بارز، لغوي ومحدث ومترجم، درّس في الجامعة الإسلامية بالمدينة المنورة وله مشاركات علمية واسعة",
+      "methodological_stance": "سلفي أثري، ناقد للتقليد والخرافات، داعية إلى الإصلاح على منهج السلف"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعماله المتأخرة، ألقيت كمحاضرة في الجامعة الإسلامية بالمدينة المنورة",
+      "composition_date_hijri": null,
+      "tradition_position": "محاضرة فكرية إسلامية تناقش مفهومي التقدم والرجعية من منظور إسلامي سلفي، في سياق الصراع الفكري مع التيارات التغريبية",
+      "known_textual_issues": [],
+      "historical_significance": "تعكس موقف التيار السلفي من مفاهيم الحداثة والتقدم الغربية، وتقدم نقداً لاستعمال مصطلحات مترجمة عن اللغات الأوروبية في السياق العربي الإسلامي",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

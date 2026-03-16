@@ -1,0 +1,62 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.960975800000597,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.92,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "tasawwuf"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "intermediate",
+    "level_confidence": 0.6,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن الحسين بن محمد بن موسى بن خالد بن سالم النيسابوري، أبو عبد الرحمن السلمي",
+      "known_as": [
+        "أبو عبد الرحمن السلمي",
+        "السلمي"
+      ],
+      "death_date_hijri": 412,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "tasawwuf": "صوفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز أعلام التصوف في القرن الخامس الهجري، محدّث ومؤرخ للصوفية، صاحب طبقات الصوفية وحقائق التفسير وغيرها من المصنفات الكثيرة في التصوف والحديث",
+      "methodological_stance": "جمع بين رواية الحديث والتصوف، عُرف بتأليف الأربعينيات الحديثية في موضوعات التصوف، وقد تُكلّم في بعض مروياته"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "أواخر القرن الرابع الهجري، من مؤلفات السلمي المتأخرة في جمع الأحاديث المتعلقة بالتصوف",
+      "composition_date_hijri": null,
+      "tradition_position": "من أوائل المصنفات في جنس الأربعينيات الحديثية المخصصة لموضوع التصوف، يجمع أربعين حديثاً مسندة تتعلق بفضائل الصوفية وأخلاقهم ومقاماتهم",
+      "known_textual_issues": [
+        "بعض أسانيد الكتاب فيها ضعف وفيها رواة متكلم فيهم كما هو شأن كثير من مرويات السلمي في التصوف"
+      ],
+      "historical_significance": "يمثل نموذجاً مبكراً لمحاولة تأصيل التصوف من خلال الحديث النبوي، وهو من جنس الأربعينيات الحديثية الموضوعية",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "طبعة مجلس دائرة المعارف العثمانية بحيدر آباد الدكن، وهي من المطبوعات الهندية القديمة المعروفة",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

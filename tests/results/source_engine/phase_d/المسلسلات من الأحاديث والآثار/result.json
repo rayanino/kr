@@ -1,0 +1,127 @@
+{
+  "source_id": "src_2aef98c1",
+  "work_id": "wrk_slyman_bn_mwsa_bn_sa_al_mslslat_mn_al_aha",
+  "human_label": "al_mslslat_mn_al_aha",
+  "title_arabic": "المسلسلات من الأحاديث والآثار",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "سليمان بن موسى بن سالم بن حسان الكلاعي الحميري، أبو الربيع",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": "specialist",
+  "publisher": null,
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 98,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.6925,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 634 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 634 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.693 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.92,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.92,
+    "authority_level": 0.9,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp6y3hapsd\\library\\sources\\src_2aef98c1\\frozen",
+  "frozen_hash": "2aef98c13eaa3b3967aadf9e60154cc7912ee09a35062c569b2279625d816ddb",
+  "frozen_file_hashes": {
+    "book.htm": "ae604d3ec25e1cc1ad81b859b952fbd2d97e1771d058a7ecdd5c537675b4da58"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "page_count_raw": "98",
+    "author_short": "أبو الربيع الكلاعي",
+    "physical_page_count": 98
+  },
+  "scholarly_context": {
+    "composition_period": "أواخر حياة المؤلف، كتبه بخطه في أواخر جمادى الآخرة سنة 630 هـ",
+    "composition_date_hijri": 630,
+    "tradition_position": "جزء حديثي متخصص في المسلسلات، وهو نوع من أنواع علوم الحديث اعتنى به المحدثون كما ذكر الحاكم في معرفة علوم الحديث",
+    "known_textual_issues": [],
+    "historical_significance": "جزء حديثي نادر في المسلسلات من تخريج حافظ أندلسي كبير، يعكس اهتمام محدثي الأندلس بهذا النوع من علوم الحديث",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "muhaqiq_reputation",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:36:58.888380+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 14.58,
+  "is_rerun": false,
+  "original_phase": null
+}

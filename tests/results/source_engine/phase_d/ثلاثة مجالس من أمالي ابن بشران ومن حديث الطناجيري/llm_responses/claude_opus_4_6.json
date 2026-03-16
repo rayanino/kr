@@ -1,0 +1,62 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.373396099981619,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.92,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.88,
+    "author_identification": {
+      "canonical_name_ar": "أبو القاسم عبد الملك بن محمد بن عبد الله بن بشران البغدادي",
+      "known_as": [
+        "ابن بشران",
+        "أبو القاسم بن بشران"
+      ],
+      "death_date_hijri": 430,
+      "school_affiliations": {
+        "fiqh": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "محدث بغدادي ثقة من أهل الرواية والإملاء، وُصف بالزاهد",
+      "methodological_stance": "محدث يملي الحديث في مجالس الإملاء ويعقب على الأحاديث بتخريجها"
+    },
+    "author_identification_confidence": 0.92,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "أملاها ابن بشران في مجالس الإملاء ببغداد، والمجلس الأول مؤرخ بسابع المحرم سنة 426 هـ",
+      "composition_date_hijri": 426,
+      "tradition_position": "جزء حديثي صغير من أمالي ابن بشران، يمثل نموذجاً لمجالس الإملاء الحديثية في بغداد في القرن الخامس الهجري، مع إضافة أحاديث من رواية الطناجيري",
+      "known_textual_issues": [
+        "المخطوطة لا تحتوي إلا على مجلسين من الثلاثة المذكورة في العنوان وأربعة أحاديث من العشرة المنسوبة للطناجيري"
+      ],
+      "historical_significance": "جزء حديثي نادر يحفظ بعض مجالس إملاء ابن بشران مع أحاديث الطناجيري بأسانيد بغدادية عالية",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "مخطوط غير محقق",
+      "edition_known_issues": [
+        "مخطوط لم يُحقق، والنص ناقص عن المذكور في العنوان"
+      ],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "historical_significance"
+      ]
+    }
+  }
+}

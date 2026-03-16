@@ -1,0 +1,56 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.886579099984374,
+  "parsed": {
+    "genre": "other",
+    "genre_confidence": 0.75,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.85,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.85,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "beginner",
+    "level_confidence": 0.7,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "عادل بن سعد",
+      "known_as": [
+        "أبو عبد الرحمن عادل بن سعد"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "مؤلف معاصر قام بجمع وتخريج أقوال العلماء في أحكام الصلاة",
+      "methodological_stance": "جمع وإعداد وتخريج من أقوال كبار العلماء المعاصرين والمتقدمين كابن القيم وابن باز والعثيمين والألباني وابن فوزان"
+    },
+    "author_identification_confidence": 0.82,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "عمل معاصر صدر عام 1427 هـ / 2006 م",
+      "composition_date_hijri": 1427,
+      "tradition_position": "كتاب جامع حديث يجمع أقوال عدد من كبار العلماء في أحكام الصلاة، منهم ابن قيم الجوزية وابن باز ومحمد بن عبد الوهاب والعثيمين والفوزان والألباني",
+      "known_textual_issues": [],
+      "historical_significance": "تجميع عملي لأقوال علماء بارزين في باب الصلاة موجه للعامة وطلاب العلم المبتدئين",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "historical_significance"
+      ]
+    }
+  }
+}

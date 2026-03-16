@@ -1,0 +1,142 @@
+{
+  "source_id": "src_d29a5bc0",
+  "work_id": "wrk_khldwn_al_ahdb_zwaid_tarykh_bghdad_",
+  "human_label": "zwaid_tarykh_bghdad_",
+  "title_arabic": "زوائد تاريخ بغداد على الكتب الستة",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "خلدون الأحدب",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": {
+    "relation_type": "cites",
+    "base_work_title": "تاريخ بغداد",
+    "base_work_author": "الخطيب البغدادي",
+    "base_work_id": null,
+    "confidence": 0.9
+  },
+  "level": "specialist",
+  "publisher": "دار القلم للطباعة والنشر والتوزيع، دمشق",
+  "edition_number": 1,
+  "publication_year_hijri": null,
+  "publication_year_miladi": 1996,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 576,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.4325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار القلم للطباعة والنشر والتوزيع، دمشق"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.432 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.88,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.9,
+    "authority_level": 0.95,
+    "multi_layer": 0.9,
+    "genre_chain": 0.9,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 10,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp21m2ljqe\\library\\sources\\src_d29a5bc0\\frozen",
+  "frozen_hash": "d29a5bc0c28aa5706c633790dfe25efde1f5b48479963cb4c9f3e097268f745b",
+  "frozen_file_hashes": {
+    "001.htm": "62740834e2396245057084feb1764375ba9a7636f9dec84fa9b73fcf49e2c5e5",
+    "002.htm": "5d9eec7457ebd8444d8f9474bbc5d9589314b20435b49add3cb6f36b3cbb4980",
+    "003.htm": "4d1ec688a5d3d38d0bba62b0db05757072010ad7e660b1dfeaab423e5bac41fe",
+    "004.htm": "f67f46a63b824556b9815bcc2be9595c0c31d95ca93af8170bd35bdf43b8d8f2",
+    "005.htm": "d9348e4327afc281133e9e183188604365715f509c6cfe02b97a3ee887f508ae",
+    "006.htm": "82e376ebc4f9155d849d5f36ccdc7214c11dd4b2e0b8ab164061afcc1626c4e9",
+    "007.htm": "8f2a263bb2c9799e1cb149655e9728475385f15a5d3724260abc8b8aebfd856f",
+    "008.htm": "e91fb19103010d7f30c133a44785f81675a03a9d0b2e67e86ae15f43efddfc38",
+    "009.htm": "2537aaa2f4a0d04b2cad63defc4706328cfcc1ae62f3c707952db24365fc87c1",
+    "010.htm": "965a9bb20ce112d785f2b1e05eb69c25271cc8d6123a3c57fe47b8f82b89cccf"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "6 شعبان 1442",
+    "volume_count_raw": "10 (الأخير فهارس)",
+    "edition_raw": "الأولى، 1996 م",
+    "author_short": "خلدون الأحدب",
+    "metadata_volume_count": 10
+  },
+  "scholarly_context": {
+    "composition_period": "عمل معاصر صدرت طبعته الأولى عام 1996م",
+    "composition_date_hijri": 1417,
+    "tradition_position": "يندرج في فن الزوائد الحديثية، وهو استخراج الأحاديث الزائدة في كتاب على كتب أخرى، على غرار مجمع الزوائد للهيثمي وغيره. يستخرج زوائد تاريخ بغداد للخطيب البغدادي على الكتب الستة.",
+    "known_textual_issues": [],
+    "historical_significance": "عمل متخصص في استخراج الأحاديث التي رواها الخطيب البغدادي في تاريخ بغداد ولم ترد في الكتب الستة (البخاري ومسلم وأبو داود والترمذي والنسائي وابن ماجه)",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:48:46.695104+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 12.62,
+  "is_rerun": false,
+  "original_phase": null
+}

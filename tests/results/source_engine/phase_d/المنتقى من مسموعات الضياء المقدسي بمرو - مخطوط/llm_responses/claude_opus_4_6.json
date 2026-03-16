@@ -1,0 +1,63 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.888038500008406,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "ضياء الدين أبو عبد الله محمد بن عبد الواحد بن أحمد المقدسي",
+      "known_as": [
+        "الضياء المقدسي",
+        "ضياء الدين المقدسي"
+      ],
+      "death_date_hijri": 643,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من كبار حفاظ الحديث في القرن السابع الهجري، صاحب كتاب الأحاديث المختارة، رحّال في طلب الحديث",
+      "methodological_stance": "محدث ناقد متشدد في الانتقاء، عُرف برحلاته الواسعة في طلب الحديث وسماعه من شيوخ بلدان متعددة"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "ألّف أثناء رحلته إلى مرو لطلب الحديث، وهو من أعماله المتعلقة بمسموعاته في رحلاته",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي يمثل نموذجاً لأجزاء المسموعات التي كان المحدثون يدونونها في رحلاتهم، وهو من مسموعات الضياء المقدسي عن شيخه أبي المظفر السمعاني بمرو",
+      "known_textual_issues": [
+        "مخطوط لم يُحقق تحقيقاً علمياً كاملاً"
+      ],
+      "historical_significance": "يوثق سماعات الضياء المقدسي في مرو ويحفظ أسانيد عالية عن طريق أبي المظفر السمعاني، مما يعكس الحركة العلمية في خراسان قبيل الغزو المغولي",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [
+        "النص مخطوط وليس محققاً"
+      ],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

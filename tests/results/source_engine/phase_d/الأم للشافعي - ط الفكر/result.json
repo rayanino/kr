@@ -1,0 +1,139 @@
+{
+  "source_id": "src_c91fbe54",
+  "work_id": "wrk_abw_abd_al_lh_mhmd_b_al_am",
+  "human_label": "al_am",
+  "title_arabic": "الأم",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو عبد الله محمد بن إدريس بن العباس الشافعي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": "الكتاب مروي عن الشافعي بطريق الربيع بن سليمان المرادي، وهو من إملاء الشافعي في مصر (القول الجديد)، وقد نوقشت مسألة ترتيب الكتاب وتبويبه",
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh"
+  ],
+  "genre": "matn",
+  "genre_chain": null,
+  "level": "advanced",
+  "publisher": "دار الفكر - بيروت",
+  "edition_number": 2,
+  "publication_year_hijri": 1410,
+  "publication_year_miladi": 1990,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 315,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7225,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 204 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 204 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Known publisher: دار الفكر (score 0.6)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.723 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.92,
+    "science_scope": 0.99,
+    "level": 0.9,
+    "structural_format": 0.97,
+    "authority_level": 0.97,
+    "multi_layer": 0.92,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 8,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpy52det1d\\library\\sources\\src_c91fbe54\\frozen",
+  "frozen_hash": "c91fbe54e81f55381410caf27f49545971875276efcc0acab04249a724cb9031",
+  "frozen_file_hashes": {
+    "001.htm": "9b34e10a0f57a0cf83b251afbc66f482c3977cbbd146deee54b560082dd20e96",
+    "002.htm": "1327bd55141249d9dc6836de4f04a496ba334a87526199408b7af7bcb6288bcb",
+    "003.htm": "9c014459fda7cf7177d57566756a7ec8c8b2bc08bf1e8f71bff43c4f3a210929",
+    "004.htm": "c8f9d991c8e7a6dac5c784bc3c53290cb815d26ee30df1deb522b6b7b193a634",
+    "005.htm": "8d86037ef53d1241b2cc040ed52a798118b485842219e111707ae92c9c36cb18",
+    "006.htm": "bf029d40a3b0655d0e44a4dc38064e989758306bc9e07217be21ad43dfdfd1e6",
+    "007.htm": "149347e29ac402929f085b38d3d52357efc5baff6906d6641927c74eca67e532",
+    "008.htm": "ee167870628a4a2a4fd67d485e6d5a9c912c7cd050c7e346e684317e3f5b37f1"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الفقه الشافعي",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "volume_count_raw": "8 (في 5 مجلدات)",
+    "edition_raw": "الثانية 1403 هـ - 1983 م (وأعادوا تصويرها 1410 هـ -1990 م)",
+    "author_short": "الشافعي",
+    "metadata_volume_count": 8
+  },
+  "scholarly_context": {
+    "composition_period": "من أواخر مؤلفات الشافعي، أملاه في مصر بعد استقراره فيها (199-204 هـ)، ويمثل القول الجديد للشافعي",
+    "composition_date_hijri": 200,
+    "tradition_position": "أهم وأوسع كتب الفقه الشافعي على الإطلاق، وهو الأصل الذي بُني عليه المذهب الشافعي الجديد، ومرجع أساسي لجميع فقهاء الشافعية",
+    "known_textual_issues": [
+      "ترتيب الكتاب وتبويبه قد يكون من عمل الربيع بن سليمان وليس من الشافعي نفسه",
+      "بعض الأجزاء قد تكون مدرجة من كتب أخرى للشافعي أو من رواية البويطي"
+    ],
+    "historical_significance": "أول موسوعة فقهية شاملة في الإسلام تجمع بين الاستدلال بالنصوص والتفريع الفقهي، وهو أساس المذهب الشافعي الجديد",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": "طبعة دار الفكر ليست محققة تحقيقاً علمياً دقيقاً، بل هي تصوير للطبعة البولاقية القديمة مع بعض التعديلات",
+    "edition_known_issues": [
+      "طبعة دار الفكر تعتمد على الطبعة البولاقية القديمة وليست تحقيقاً علمياً جديداً",
+      "تفتقر إلى تخريج الأحاديث والآثار بشكل كافٍ"
+    ],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:18:51.386555+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 20.24,
+  "is_rerun": true,
+  "original_phase": "C"
+}

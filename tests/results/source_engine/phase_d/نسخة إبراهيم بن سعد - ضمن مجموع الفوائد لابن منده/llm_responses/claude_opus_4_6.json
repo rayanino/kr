@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.633410399983404,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.88,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.85,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "specialist",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "إبراهيم بن سعد بن إبراهيم بن عبد الرحمن بن عوف الزهري",
+      "known_as": [
+        "إبراهيم بن سعد",
+        "أبو إسحاق الزهري"
+      ],
+      "death_date_hijri": 184,
+      "school_affiliations": {
+        "hadith": "أهل المدينة"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "محدث ثقة من كبار رواة الحديث في المدينة، من ذرية عبد الرحمن بن عوف، روى عن الزهري وغيره، واحتج به أصحاب الكتب الستة",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.92,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "القرن الثاني الهجري، من أوائل التدوين الحديثي",
+      "composition_date_hijri": null,
+      "tradition_position": "نسخة حديثية مبكرة تمثل مرحلة التدوين الأولى للحديث النبوي، تُروى بسلسلة إسناد متصلة عبر القرون وصولاً إلى المؤلف",
+      "known_textual_issues": [],
+      "historical_significance": "نسخة حديثية مبكرة من القرن الثاني الهجري لأحد أحفاد عبد الرحمن بن عوف، ضُمّنت في مجموع الفوائد لابن منده، وتمثل نموذجاً للنسخ الحديثية المبكرة التي حُفظت عبر سلاسل السماع والإجازة",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.72849559999304,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.92,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith",
+      "fiqh",
+      "aqidah",
+      "tasawwuf"
+    ],
+    "science_scope_confidence": 0.88,
+    "level": "beginner",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو زكريا محيي الدين يحيى بن شرف النووي",
+      "known_as": [
+        "النووي",
+        "الإمام النووي",
+        "محيي الدين النووي"
+      ],
+      "death_date_hijri": 676,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "aqidah": "أشعري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم أئمة الشافعية وأبرز علماء الحديث والفقه، صاحب المصنفات المعتمدة في المذهب الشافعي كالمجموع والروضة والمنهاج، وشرح صحيح مسلم",
+      "methodological_stance": "محدث فقيه جمع بين الرواية والدراية، يميل إلى الترجيح والتحقيق في المذهب الشافعي مع عناية بالحديث وعلومه"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر مؤلفات النووي، ألفها في أواخر حياته في القرن السابع الهجري",
+      "composition_date_hijri": 668,
+      "tradition_position": "أشهر مجموعة أربعينية في الإسلام على الإطلاق، أصبحت المتن الأساسي الذي يُحفَّظ للمبتدئين في علم الحديث، وعليها عشرات الشروح والحواشي من مختلف المذاهب والعصور",
+      "known_textual_issues": [
+        "اختلاف النسخ في عدد الأحاديث بين 42 و40 حديثاً، حيث أضاف ابن رجب الحنبلي ثمانية أحاديث لتصبح الأربعين النووية مع زيادات ابن رجب خمسين حديثاً"
+      ],
+      "historical_significance": "أكثر المتون الحديثية انتشاراً وتداولاً في العالم الإسلامي، تُدرَّس في جميع المستويات التعليمية، وقد خدمها العلماء بالشرح والنظم والترجمة إلى عشرات اللغات",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.215498100005789,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "الحسن بن محمد بن محمد ابن عمروك التيمي النيسابورىّ ثم الدمشقيّ، أبو علي، صدر الدين البكري",
+      "known_as": [
+        "صدر الدين البكري",
+        "أبو علي البكري"
+      ],
+      "death_date_hijri": 656,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Hadith scholar and compiler known for his collection of forty hadiths.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "A collection of forty hadiths, a common genre in Islamic scholarship.",
+      "known_textual_issues": [],
+      "historical_significance": "Part of the tradition of compiling forty hadiths, a significant genre in hadith literature.",
+      "muhaqiq_reputation": "محمد محفوظ is a known editor of Islamic texts, though specific reputation details are not widely documented.",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

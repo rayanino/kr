@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.440141500002937,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.92,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith",
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.85,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.93,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر عبد الله بن محمد بن عبيد بن سفيان بن قيس البغدادي القرشي الأموي المعروف بابن أبي الدنيا",
+      "known_as": [
+        "ابن أبي الدنيا"
+      ],
+      "death_date_hijri": 281,
+      "school_affiliations": {
+        "fiqh": null,
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من كبار المصنفين في الزهد والرقائق والأخلاق، مؤدب أولاد الخلفاء العباسيين، له مئات المصنفات في أبواب متنوعة من الآداب والسلوك والزهد",
+      "methodological_stance": "يجمع الأحاديث المرفوعة والآثار الموقوفة والمقطوعة في موضوعات الزهد والرقائق والأخلاق، يتساهل في الأسانيد أحياناً لأن مصنفاته في باب الترغيب والترهيب"
+    },
+    "author_identification_confidence": 0.98,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مصنفات ابن أبي الدنيا في القرن الثالث الهجري، ألفه قبل وفاته سنة 281هـ",
+      "composition_date_hijri": null,
+      "tradition_position": "من أوائل المصنفات المستقلة في ذم الملاهي والمعازف، يُعد مرجعاً أساسياً في باب تحريم آلات اللهو عند من يقول بذلك، ويستدل به الفقهاء والمحدثون في هذا الباب",
+      "known_textual_issues": [],
+      "historical_significance": "من أقدم المصنفات المستقلة في موضوع ذم الملاهي والمعازف، جمع فيه ابن أبي الدنيا الأحاديث والآثار المتعلقة بتحريم آلات اللهو والغناء",
+      "muhaqiq_reputation": "عمرو عبد المنعم سليم محقق مصري معاصر له عناية بتحقيق كتب السنة والآثار",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

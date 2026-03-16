@@ -1,0 +1,132 @@
+{
+  "source_id": "src_9be60ef4",
+  "work_id": "wrk_mhmd_bn_idrys_al_sha_al_rsalh",
+  "human_label": "al_rsalh",
+  "title_arabic": "الرسالة",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد بن إدريس الشافعي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "أحمد محمد شاكر",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "usul_al_fiqh"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": "advanced",
+  "publisher": "مصطفى البابي الحلبي وأولاد - مصر",
+  "edition_number": 1,
+  "publication_year_hijri": 1357,
+  "publication_year_miladi": 1938,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 591,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.8175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 204 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.9,
+      "reason": "Recognized muhaqiq: أحمد محمد شاكر (matched أحمد شاكر)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مصطفى البابي الحلبي وأولاد - مصر"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.818 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": 0.9,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpgefuntlw\\library\\sources\\src_9be60ef4\\frozen",
+  "frozen_hash": "9be60ef42c9f73f714690727ba05865bdb9bcac82508fb2227cf07ca8816e520",
+  "frozen_file_hashes": {
+    "الكتاب.htm": "4f43ca764cc031ac18d747de61cd1ef0deeeb701b66026b8c49700744827d628",
+    "المقدمة.htm": "c7ad4a30e257b528f457da2e015809d5f133b3bdd673eaa06547be5a14cdfe13"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "أصول الفقه",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "editorial_note": "ألحق الشيخ أحمد شاكر -رحمه الله- بالكتاب مستدركا ذكر فيه تصويبات وإضافات، وقد أضفناها لمواضعها في هذه النسخة الإلكترونية مع الإشارة إلى ذلك في تلك المواضع",
+    "edition_raw": "الأولى، 1357 هـ - 1938 م",
+    "page_count_raw": "601",
+    "author_short": "الشافعي",
+    "has_muqaddima": true,
+    "physical_page_count": 601
+  },
+  "scholarly_context": {
+    "composition_period": "early",
+    "composition_date_hijri": 200,
+    "tradition_position": "A foundational text in usul al-fiqh, establishing principles of legal methodology.",
+    "known_textual_issues": [],
+    "historical_significance": "One of the earliest systematic treatises on Islamic legal theory, influencing all subsequent schools of thought.",
+    "muhaqiq_reputation": "Ahmad Muhammad Shakir is renowned for his rigorous tahqiq methodology and contributions to hadith and fiqh texts.",
+    "tahqiq_methodology_note": "Based on the manuscript of al-Rabi' ibn Sulayman, a direct student of al-Shafi'i, with careful collation of multiple copies.",
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": []
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:19:12.384630+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 21.03,
+  "is_rerun": true,
+  "original_phase": "C"
+}

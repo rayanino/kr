@@ -1,0 +1,59 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.633869399985997,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو محمد عبد الله بن محمد بن جعفر بن حيان الأنصاري المعروف بأبي الشيخ الأصبهاني",
+      "known_as": [
+        "أبو الشيخ الأصبهاني"
+      ],
+      "death_date_hijri": 369,
+      "school_affiliations": {
+        "hadith": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Prominent hadith scholar and historian from Isfahan, known for his extensive compilations of hadith and biographical works.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "Part of the broader tradition of hadith compilation focusing on specific narrations and their transmission chains.",
+      "known_textual_issues": [],
+      "historical_significance": "Contributes to the understanding of hadith transmission and the relationships between narrators, particularly in the context of mutual narration.",
+      "muhaqiq_reputation": "مسعد السعدني is a known editor with experience in classical Islamic texts, though specific reputation details are not widely documented.",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

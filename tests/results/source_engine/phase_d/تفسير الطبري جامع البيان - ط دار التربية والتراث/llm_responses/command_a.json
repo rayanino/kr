@@ -1,0 +1,59 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.486920700001065,
+  "parsed": {
+    "genre": "tafsir",
+    "genre_confidence": 1.0,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 1.0,
+    "layers": null,
+    "science_scope": [
+      "tafsir",
+      "ulum_al_quran"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "أبو جعفر محمد بن جرير الطبري",
+      "known_as": [
+        "ابن جرير الطبري"
+      ],
+      "death_date_hijri": 310,
+      "school_affiliations": {
+        "fiqh": "shafi'i"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "One of the most prominent classical scholars of Islam, renowned for his comprehensive works in tafsir, history, and fiqh.",
+      "methodological_stance": "Known for his rigorous methodology, reliance on multiple sources, and independent reasoning in both tafsir and fiqh."
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "middle",
+      "composition_date_hijri": null,
+      "tradition_position": "A foundational work in tafsir, widely regarded as one of the most comprehensive and authoritative classical commentaries on the Quran.",
+      "known_textual_issues": [],
+      "historical_significance": "Considered a cornerstone of Islamic scholarship, influencing generations of scholars and setting standards for tafsir methodology.",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

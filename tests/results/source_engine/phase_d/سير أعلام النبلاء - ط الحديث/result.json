@@ -1,0 +1,145 @@
+{
+  "source_id": "src_b909822b",
+  "work_id": "wrk_shms_al_dyn_mhmd_bn__syr_aalam_al_nbla",
+  "human_label": "syr_aalam_al_nbla",
+  "title_arabic": "سير أعلام النبلاء",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "شمس الدين محمد بن أحمد بن عثمان الذهبي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "محمد أيمن الشبراوي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "tarikh",
+    "sirah"
+  ],
+  "genre": "tabaqat",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار الحديث، القاهرة - مصر",
+  "edition_number": null,
+  "publication_year_hijri": 1427,
+  "publication_year_miladi": 2006,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 459,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 748 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: محمد أيمن الشبراوي"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الحديث، القاهرة - مصر"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": null,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 16,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp182p_89p\\library\\sources\\src_b909822b\\frozen",
+  "frozen_hash": "b909822b8a08f12f59e85f43973b588b405222ed6dbb2b2479a81adb2dd88514",
+  "frozen_file_hashes": {
+    "001.htm": "f840e6efa900b0cb2529da808317ee0361ac9abe96f8f1822e13dc1975bd8662",
+    "002.htm": "7d0d5d902547ea4d24297d0026a70702a99f473d2a027ac254e5e02d326d70c1",
+    "003.htm": "88b10d25d9db53a00eb09b3981738bc3cd61a324cd858b81fad1f46348cd3af6",
+    "004.htm": "687388464b90d21bff5f52e755b22fe68723adb527d3c34698aeb0486ef4b0eb",
+    "005.htm": "32e20e1ab4b7e9c573de8305fb7f1985b4870c1894dde297bd6bc08ee5eb191a",
+    "006.htm": "8ff3adfa42a6c48ee9d72cacaa56de7bcd2196bae46df7e83d258da21988d452",
+    "007.htm": "15d6f84cb36da12809f8de0f0898cb494adb8d01d0d35fdd62830fd0a0b583cf",
+    "008.htm": "60b6d6f85ff781bc440aba40d946c94bc345024789e71e79b3029b3a2d2a8b16",
+    "009.htm": "5127ce8922a0b536a070d0c6952d14bd0256582ba8bf584a3658179760c35a3d",
+    "010.htm": "d1dcb881b544c55a9953f54296a222dd4add9e7c92acfaae6fa68fcac0ab6757",
+    "011.htm": "8fe1bf6e1bad66d5e04275880dcd445d11faf09757320c9087660830bc923ac6",
+    "012.htm": "ca6df75a12e118e0db74900d031af372b0018f763dc67e156a172ddb3d426d56",
+    "013.htm": "319fa78949d4b2802282d67f6fdf1a8ea21af37cecd19e70cf5b0fefa4cced50",
+    "014.htm": "47a7ff0da0d0c32058fa23c50c3d8ced0d41ee35d043aa3ee3d849d7b2981ceb",
+    "015.htm": "22228853ca0f97039b0017a9f494a1dd9a462d044e234402998de0b601797739",
+    "016.htm": "a2114df723df8811c8780fa2a0df29cdf5f44d2bbe6fc962a7d21eb04e7f1439"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التراجم والطبقات",
+    "shamela_publish_date": "15 صفر 1446",
+    "publication_year_raw": "1427 هـ - 2006 م",
+    "volume_count_raw": "18 (16 والفهارس)",
+    "author_short": "شمس الدين الذهبي",
+    "metadata_volume_count": 18
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "أحد أهم المراجع في علم التراجم والتاريخ الإسلامي",
+    "known_textual_issues": [],
+    "historical_significance": "يعد من أعظم كتب التراجم التي تناولت كافة العصور إلى عصر المؤلف، وشمل تراجم لمختلف الشخصيات من مشارق الأرض ومغاربها",
+    "muhaqiq_reputation": "محمد أيمن الشبراوي معروف بتحقيقاته العلمية الدقيقة في مجال التراث الإسلامي",
+    "tahqiq_methodology_note": "تم التحقيق مع مراعاة النص الأصلي وخدمته علمياً لتيسير النفع به وتقريبه إلى القراء",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": []
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:04:17.754353+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 20.26,
+  "is_rerun": true,
+  "original_phase": "C"
+}

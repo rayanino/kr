@@ -1,0 +1,65 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 30.5818768000172,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.99,
+    "level": "intermediate",
+    "level_confidence": 0.7,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو الحسن علي بن إسماعيل بن إسحاق بن سالم بن إسماعيل بن عبد الله بن موسى بن أبي بردة بن أبي موسى الأشعري",
+      "known_as": [
+        "أبو الحسن الأشعري",
+        "الأشعري",
+        "إمام أهل السنة"
+      ],
+      "death_date_hijri": 324,
+      "school_affiliations": {
+        "aqidah": "أشعري (مؤسس المذهب الأشعري)",
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "مؤسس المذهب الأشعري في العقيدة، من أعظم أئمة أهل السنة والجماعة، كان معتزلياً ثم رجع إلى مذهب أهل السنة",
+      "methodological_stance": "في الإبانة يميل إلى منهج أهل الحديث والإثبات، مع استخدام الحجج العقلية في الرد على المعتزلة والجهمية"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "disputed",
+    "attribution_notes": "كتاب الإبانة منسوب للأشعري بشكل تقليدي ومشهور، لكن هناك خلاف بين الباحثين حول مدى صحة نسبته إليه بالصورة الحالية، إذ يرى بعض الباحثين أن النص الواصل إلينا قد طاله تحريف أو زيادات، بينما يثبته آخرون. كما أن هناك نقاشاً حول ما إذا كان يمثل مرحلته الأخيرة في العقيدة أم لا.",
+    "scholarly_context": {
+      "composition_period": "من آخر مؤلفات الأشعري بعد رجوعه عن الاعتزال، ألفه في أواخر القرن الثالث أو أوائل القرن الرابع الهجري",
+      "composition_date_hijri": 320,
+      "tradition_position": "يُعدّ من أهم كتب العقيدة عند أهل السنة، ويستدل به كل من الأشاعرة وأهل الحديث على أن الأشعري رجع إلى مذهبهم. وهو من أبرز المتون العقدية في تاريخ الإسلام.",
+      "known_textual_issues": [
+        "خلاف حول مدى سلامة النص الواصل من التحريف والزيادات",
+        "اختلاف النسخ الخطية في بعض المواضع",
+        "نسب بعض الباحثين بعض الزيادات في النص إلى النساخ"
+      ],
+      "historical_significance": "من أهم المتون العقدية في تاريخ الإسلام، يمثل موقف الأشعري بعد رجوعه عن الاعتزال، ويُعدّ وثيقة مرجعية في تحديد عقيدة الأشعري النهائية",
+      "muhaqiq_reputation": "د. فوقية حسين محمود أكاديمية مصرية، تحقيقها من أوائل التحقيقات العلمية للكتاب",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [
+        "الطبعة الأولى 1397هـ، وقد صدرت بعدها تحقيقات أخرى أكثر اعتماداً على نسخ خطية متعددة"
+      ],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "source_id": "src_b4df02b0",
+  "work_id": "wrk_abd_al_lh_bn_dyf_al__aslwb_khtbh_al_jmah",
+  "human_label": "aslwb_khtbh_al_jmah",
+  "title_arabic": "أسلوب خطبة الجمعة",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد الله بن ضيف الله الرحيلي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh",
+    "adab"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "وزارة الشئون الإسلامية والأوقاف والدعوة والإرشاد - المملكة العربية السعودية 1419 هـ",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 23,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.4325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: وزارة الشئون الإسلامية والأوقاف والدعوة والإرشاد - المملكة العربية السعودية 1419 هـ"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.432 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.85,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.8,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpmrps4dsx\\library\\sources\\src_b4df02b0\\frozen",
+  "frozen_hash": "b4df02b0e769d5b93a58d985dc0c4d056222adf7ec2134e504e5b7278b321f94",
+  "frozen_file_hashes": {
+    "book.htm": "aae2ab806abd5bb17aaef255c91a24ef2d2b1d077ab09988deb2b03c50f65d5e"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب عامة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "page_count_raw": "25",
+    "author_short": "عبد الله الرحيلي",
+    "physical_page_count": 25
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": 1419,
+    "tradition_position": null,
+    "known_textual_issues": [],
+    "historical_significance": null,
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "scholarly_standing",
+      "methodological_stance"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T04:54:23.025611+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 9.6,
+  "is_rerun": true,
+  "original_phase": "C"
+}

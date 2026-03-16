@@ -1,0 +1,57 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.700279099983163,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "عبد المنعم بن عبد الله ابن فقيه الحرم أبي عبد الله محمد بن الفضل بن أحمد النيسابوري، أبو المعالي الفُراوي، الصاعدي، الشافعي",
+      "known_as": [
+        "أبو المعالي الفراوي"
+      ],
+      "death_date_hijri": 587,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "محدث وفقيه شافعي معروف من نيسابور، له إسهامات في رواية الحديث",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.9,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي يضم سباعيات أبي المعالي الفراوي، وهو نوع من التصنيفات الحديثية التي تجمع الأسانيد المكونة من سبعة رواة",
+      "known_textual_issues": [],
+      "historical_significance": "يعد من المصنفات الحديثية المهمة التي تحافظ على الأسانيد العالية، خاصة في سياق الرواية النيسابورية",
+      "muhaqiq_reputation": "يحيى بن عبد الله البكري الشهري معروف بتحقيقاته في مجال الحديث النبوي",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

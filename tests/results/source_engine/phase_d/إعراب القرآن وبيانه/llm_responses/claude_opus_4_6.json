@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.522751799988328,
+  "parsed": {
+    "genre": "tafsir",
+    "genre_confidence": 0.82,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.88,
+    "layers": null,
+    "science_scope": [
+      "nahw",
+      "tafsir",
+      "balagha",
+      "ulum_al_quran"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "advanced",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "محيي الدين بن أحمد مصطفى درويش",
+      "known_as": [
+        "محيي الدين درويش"
+      ],
+      "death_date_hijri": 1403,
+      "school_affiliations": {
+        "nahw": null,
+        "tafsir": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم سوري معاصر متخصص في النحو والإعراب القرآني، اشتهر بكتابه إعراب القرآن وبيانه الذي يعد من أهم المراجع الحديثة في إعراب القرآن الكريم",
+      "methodological_stance": "يجمع بين الإعراب النحوي التفصيلي والبيان البلاغي والتفسيري لآيات القرآن الكريم"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر أعمال المؤلف، صدر بعد وفاته عام 1403 هـ",
+      "composition_date_hijri": null,
+      "tradition_position": "يعد من أبرز المؤلفات الحديثة في إعراب القرآن الكريم، يجمع بين التحليل النحوي والبلاغي والتفسيري، ويُعتبر مرجعاً أساسياً للباحثين في علوم القرآن والنحو",
+      "known_textual_issues": [],
+      "historical_significance": "من أشمل الكتب المعاصرة في إعراب القرآن الكريم، يقع في عشرة مجلدات ويتميز بالجمع بين الإعراب والبيان البلاغي والتفسيري",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

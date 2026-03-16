@@ -1,0 +1,61 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.172217399987858,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "intermediate",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو القاسم محمود بن عمر بن محمد الزمخشري",
+      "known_as": [
+        "الزمخشري",
+        "جار الله"
+      ],
+      "death_date_hijri": 538,
+      "school_affiliations": {
+        "nahw": "بصري مع اطلاع على المذاهب",
+        "fiqh": "حنفي",
+        "aqidah": "معتزلي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أكابر أئمة اللغة والنحو والتفسير، صاحب الكشاف وأساس البلاغة والمفصل، إمام في العربية والبلاغة",
+      "methodological_stance": "معتزلي الاعتقاد، يجمع بين مذاهب النحويين البصريين والكوفيين مع ميل بصري"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال الزمخشري في النحو، ألّفه في النصف الأول من القرن السادس الهجري",
+      "composition_date_hijri": null,
+      "tradition_position": "من أهم المتون النحوية المتوسطة، اعتنى به العلماء شرحاً وتعليقاً، ومن أشهر شروحه شرح ابن يعيش (ت 643هـ) وشرح المطرزي، وهو مرجع أساسي في النحو العربي",
+      "known_textual_issues": [],
+      "historical_significance": "يُعدّ المفصل من أمهات كتب النحو العربي، رتّبه الزمخشري ترتيباً محكماً على أربعة أقسام: الأسماء والأفعال والحروف والمشترك، وقد حظي بعناية فائقة من العلماء فكثرت شروحه حتى بلغت العشرات",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

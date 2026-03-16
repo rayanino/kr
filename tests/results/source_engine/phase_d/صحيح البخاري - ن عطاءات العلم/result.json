@@ -1,0 +1,143 @@
+{
+  "source_id": "src_8b9526f7",
+  "work_id": "wrk_bukhari_mukhtasar",
+  "human_label": "mukhtasar",
+  "title_arabic": "الجامع المسند الصحيح المختصر من أمور رسول الله صلى الله عليه وسلم وسننه وأيامه",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو عبد الله محمد بن إسماعيل البخاري",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "دار الكمال المتحدة",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "عطاءات العلم - موسوعة صحيح البخاري،  https //bukhari-pedia.net",
+  "edition_number": null,
+  "publication_year_hijri": 1437,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 2199,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 256 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: دار الكمال المتحدة"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: عطاءات العلم - موسوعة صحيح البخاري،  https //bukhari-pedia.net"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": null,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 6,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpwjubu591\\library\\sources\\src_8b9526f7\\frozen",
+  "frozen_hash": "8b9526f7284bbf859b26fe5c7788569b1782d10e5f8364fbe3e199b88b2614a1",
+  "frozen_file_hashes": {
+    "001.htm": "1eebff1900a236eaaca447177ac8f4bf40f6146e8ed80702cade2d1dd20fe487",
+    "002.htm": "5528a5a19f1a319ae98c6374328de2879e14582eb02aa7a08035f390b8f5d1fe",
+    "003.htm": "b12349729637cb5e968e8b2e2ab2662bda4429ecc77154459f9cea9c694dde3e",
+    "004.htm": "ec56308e0307d1d9f174f9af571c3295ff425a1f5dee442dba311316a7022caf",
+    "005.htm": "e5fa2457ced8a2ae630d1b3998ffaa6fa046fb0f5ffeaab99e931ee3e10e3274",
+    "006.htm": "147fe77029e53639a195fcfc9d2bbe900ac1f098a66a458c60a5e29ad894410d",
+    "المقدمة.htm": "b9c4d2fd0848247bceaecfa14cd9f8c20411b5827252685ab5cc3bfc3eb43633",
+    "تقديم.htm": "554c9be3f3efa60f9975f8af13ba08867edb58966a5e549543b7e621b40d6851"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 جُمادَى الآخرة 1445",
+    "publication_year_raw": "1437 هـ",
+    "author_short": "البخاري",
+    "preparer": "«عطاءات العلم» جزاهم الله خيرًا",
+    "has_muqaddima": true,
+    "extra_card_fields": {
+      "نسخة الحافظ": "شرف الدين أبي الحسين علي بن محمد اليونيني (621 - 701 هـ)"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "Sahih al-Bukhari is one of the six major hadith collections (Kutub al-Sittah) and holds the highest authority in Sunni hadith literature.",
+    "known_textual_issues": [],
+    "historical_significance": "Sahih al-Bukhari is considered the most authentic collection of hadith and has been a cornerstone of Islamic scholarship for over a millennium.",
+    "muhaqiq_reputation": "دار الكمال المتحدة is a reputable publisher known for producing high-quality editions of classical Islamic texts.",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T05:51:29.291356+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 18.71,
+  "is_rerun": false,
+  "original_phase": null
+}

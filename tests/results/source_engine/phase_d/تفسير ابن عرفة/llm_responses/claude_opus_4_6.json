@@ -1,0 +1,68 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 20.784000800020294,
+  "parsed": {
+    "genre": "tafsir",
+    "genre_confidence": 0.97,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.82,
+    "layers": null,
+    "science_scope": [
+      "tafsir",
+      "ulum_al_quran",
+      "usul_al_fiqh",
+      "balagha"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "advanced",
+    "level_confidence": 0.88,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن محمد بن عرفة الورغمي التونسي المالكي",
+      "known_as": [
+        "ابن عرفة",
+        "أبو عبد الله ابن عرفة"
+      ],
+      "death_date_hijri": 803,
+      "school_affiliations": {
+        "fiqh": "مالكي",
+        "aqidah": "أشعري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من كبار علماء المالكية في تونس والمغرب العربي، إمام جامع الزيتونة وخطيبه، يُعدّ من أبرز فقهاء القرن الثامن الهجري",
+      "methodological_stance": "يجمع بين التفسير اللغوي والبلاغي والفقهي، مع عناية بالمسائل الأصولية والكلامية، ويتميز بالتحقيق والتدقيق في المسائل العلمية"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "traditional",
+    "attribution_notes": "التفسير لم يكتبه ابن عرفة بنفسه وإنما هو تقييدات من دروسه ومجالسه العلمية دوّنها تلاميذه، وأشهر من قيّده هو تلميذه محمد بن محمد الأبّي. وهذا يجعل نسبته إلى ابن عرفة تقليدية وليست مباشرة تماماً.",
+    "scholarly_context": {
+      "composition_period": "أواخر القرن الثامن الهجري، من إملاءات ابن عرفة في مجالسه العلمية بجامع الزيتونة",
+      "composition_date_hijri": 790,
+      "tradition_position": "يمثل مدرسة التفسير المالكية المغاربية، ويُعدّ من أهم التفاسير التي أنتجتها المدرسة الزيتونية، يتميز بطابعه الأصولي والفقهي",
+      "known_textual_issues": [
+        "التفسير وصلنا عن طريق تقييدات التلاميذ وليس بخط المؤلف مباشرة",
+        "لم يصل كاملاً بل وصلت أجزاء منه"
+      ],
+      "historical_significance": "من أبرز التفاسير المالكية المغاربية، يعكس المستوى العلمي الرفيع لمدرسة جامع الزيتونة في القرن الثامن الهجري",
+      "muhaqiq_reputation": "د. حسن المناعي باحث تونسي متخصص في التراث الزيتوني",
+      "tahqiq_methodology_note": "صدر عن مركز البحوث بالكلية الزيتونية بتونس، الطبعة الأولى 1986م",
+      "edition_known_issues": [
+        "طبعة مبكرة في مجلدين فقط، قد لا تشمل كامل ما وصل من التفسير"
+      ],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation",
+        "edition_known_issues"
+      ]
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "source_id": "src_043de807",
+  "work_id": "wrk_mhmd_bn_al_hsyn_bn_m_adab_al_shbh",
+  "human_label": "adab_al_shbh",
+  "title_arabic": "آداب الصحبة",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد بن الحسين بن محمد بن موسى بن خالد بن سالم النيسابوري، أبو عبد الرحمن السلمي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "مجدي فتحي السيد",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "tasawwuf",
+    "adab"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": "intermediate",
+  "publisher": "دار الصحابة للتراث - طنطا - مصر",
+  "edition_number": 1,
+  "publication_year_hijri": 1410,
+  "publication_year_miladi": 1990,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 186,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 412 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: مجدي فتحي السيد"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الصحابة للتراث - طنطا - مصر"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.85,
+    "science_scope": 0.92,
+    "level": 0.6,
+    "structural_format": 0.95,
+    "authority_level": 0.93,
+    "multi_layer": 0.92,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [
+    "level"
+  ],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpvce8jhvj\\library\\sources\\src_043de807\\frozen",
+  "frozen_hash": "043de807f2b68eb30488305167b5294df7e526e5021f2a9df3c3032d2d591ba5",
+  "frozen_file_hashes": {
+    "book.htm": "3b438ee1c433df2fe320483ce3d9b55d2c2d1ecaaa3440938db1cf210510b559"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1410 - 1990",
+    "page_count_raw": "125",
+    "author_short": "أبو عبد الرحمن السلمي",
+    "physical_page_count": 125
+  },
+  "scholarly_context": {
+    "composition_period": "من أعمال السلمي في أواخر القرن الرابع الهجري",
+    "composition_date_hijri": null,
+    "tradition_position": "من الرسائل المبكرة في آداب الصحبة عند الصوفية، يجمع بين النصوص القرآنية والأحاديث النبوية وأقوال مشايخ التصوف في بيان آداب المعاشرة والصحبة",
+    "known_textual_issues": [],
+    "historical_significance": "رسالة مهمة في أدب الصحبة الصوفية، تعكس اهتمام السلمي بتدوين آداب الصوفية وأخلاقهم، وهي من المصادر المبكرة في هذا الباب",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "muhaqiq_reputation"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-13T04:50:22.579815+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 32.74,
+  "is_rerun": true,
+  "original_phase": "C"
+}

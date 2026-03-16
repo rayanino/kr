@@ -1,0 +1,53 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 11.625432200002251,
+  "parsed": {
+    "genre": "fatawa",
+    "genre_confidence": 1.0,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "qa_format",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 1.0,
+    "layers": null,
+    "science_scope": [
+      "aqidah",
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "اللجنة الدائمة للبحوث العلمية والإفتاء",
+      "known_as": [
+        "اللجنة الدائمة"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "A collective body of scholars responsible for issuing fatwas and conducting research in Saudi Arabia.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "A significant collection of fatwas addressing various aspects of Islamic belief and practice, widely referenced in contemporary Sunni scholarship.",
+      "known_textual_issues": [],
+      "historical_significance": "Serves as a primary reference for fatwas in the modern era, reflecting the official religious stance of Saudi Arabia.",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": []
+    }
+  }
+}

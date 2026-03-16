@@ -1,0 +1,58 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.601006900018547,
+  "parsed": {
+    "genre": "other",
+    "genre_confidence": 0.72,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.88,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "tafsir",
+      "ulum_al_quran"
+    ],
+    "science_scope_confidence": 0.93,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "نايف بن سعيد بن جمعان الزهراني",
+      "known_as": [
+        "نايف الزهراني"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "tafsir": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "باحث سعودي معاصر متخصص في التفسير وعلوم القرآن، له عدة مؤلفات في استدراكات السلف في التفسير",
+      "methodological_stance": "أثري سلفي المنهج، يعتمد على الاستقراء من كتب التفسير المسندة ويعتني بمرويات السلف"
+    },
+    "author_identification_confidence": 0.82,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "عمل معاصر، صدرت طبعته عام 1441هـ، وهو تتمة لعمل سابق للمؤلف بعنوان 'استدراكات السلف في التفسير في القرون الثلاثة الأولى' صدر قبل عشر سنوات تقريباً",
+      "composition_date_hijri": 1441,
+      "tradition_position": "جمع استقرائي شامل لمرويات استدراكات السلف في التفسير من أصول كتب التفسير المسندة، يهدف لتأسيس 'علم الخلاف في التفسير'",
+      "known_textual_issues": [],
+      "historical_significance": "يجمع 414 رواية مأثورة عن النبي صلى الله عليه وسلم والسلف في استدراكات التفسير، مرتبة على ترتيب السور، ويعد مرجعاً متخصصاً في هذا الباب",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "scholarly_standing",
+        "methodological_stance"
+      ]
+    }
+  }
+}

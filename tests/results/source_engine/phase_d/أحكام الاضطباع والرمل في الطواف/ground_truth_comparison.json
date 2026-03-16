@@ -1,0 +1,62 @@
+{
+  "comparisons": {
+    "genre": {
+      "expected": "risalah",
+      "actual": "risalah",
+      "match": true
+    },
+    "author": {
+      "expected": "عبد الله بن إبراهيم الزاحم",
+      "actual": "عبد الله بن إبراهيم الزاحم",
+      "match": true,
+      "similarity": 1.0
+    },
+    "trust_tier": {
+      "expected": "flagged",
+      "actual": "flagged",
+      "match": true
+    },
+    "is_multi_layer": {
+      "expected": false,
+      "actual": false,
+      "match": true
+    },
+    "science_scope": {
+      "expected": [
+        "fiqh"
+      ],
+      "actual": [
+        "fiqh"
+      ],
+      "overlap": [
+        "fiqh"
+      ],
+      "extra_in_actual": [],
+      "missing_from_actual": [],
+      "match_type": "exact_match"
+    },
+    "structural_format": {
+      "expected": "prose",
+      "actual": "prose",
+      "match": true
+    },
+    "authority_level": {
+      "expected": "modern_compilation",
+      "actual": "modern_compilation",
+      "match": true
+    },
+    "level": {
+      "expected": "intermediate",
+      "actual": "intermediate",
+      "match": true
+    },
+    "attribution_status": {
+      "expected": "definitive",
+      "actual": "definitive",
+      "match": true
+    }
+  },
+  "all_match": true,
+  "book": "أحكام الاضطباع والرمل في الطواف",
+  "ground_truth_key": "03_fiqh"
+}
