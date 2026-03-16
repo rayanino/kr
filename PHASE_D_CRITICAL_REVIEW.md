@@ -243,4 +243,58 @@ However, the GO should be conditioned on **4 mandatory fixes** (not 3):
 
 The GO verdict **holds under adversarial scrutiny**, but the mandatory fix list should be expanded from 3 to 4 items (add genre confidence resolution), and the scope of ERR-02 and ERR-03 should be broadened as described above.
 
-**PHASE_D_CRITICAL_REVIEW.md — COMPLETE.**
+---
+
+## Addendum: Round 2 Review (post self-critique)
+
+The self-critique identified specific gaps: only famous books were spot-checked, no flagged unevaluated books were examined. This round addresses both.
+
+### Additional Spot-Check: تكملة حاشية ابن عابدين (Session A)
+
+**Why selected:** EMPTY author_raw (hardest case — author entirely inferred by LLMs), death date inferred by Opus only, VERIFIED by evaluator.
+
+**Pipeline data:** Opus identified محمد علاء الدين بن محمد أمين عابدين (d. 1306 AH) with 0.92 confidence from zero extraction data. CA identified the same person as محمد علاء الدين أفندي but with no death date.
+
+**Independent verification:** tebyan.net, archive.org, shamela.ws, and ar.wikipedia.org (رد المحتار article) all confirm: محمد علاء الدين أفندي, son of ابن عابدين, d. 1306 AH, who completed his father's hashiyah. Genre=hashiyah with 3 genuine layers (تنوير الأبصار → الدر المختار → رد المحتار) confirmed.
+
+**Verdict: VERIFIED holds.** Impressive pipeline work from zero extraction — Opus correctly identified a relatively obscure author and death date purely from text analysis.
+
+### Flagged Unevaluated Book Check: ملء العيبة (ERRATA-07 anomaly)
+
+**Why selected:** Layer 2 flagged this as a consensus module anomaly where pipeline genre matches neither model.
+
+**Pipeline data:** Opus=rihlah (0.92), CA=sirah (0.90), Pipeline=other. Genre matches NEITHER model.
+
+**Independent verification:** ar.wikipedia.org, الرابطة المحمدية للعلماء, Shamela, and multiple scholarly sources universally describe this as "رحلة ابن رشيد السبتي" — a medieval Maghrebi travel account to the Haramayn. Opus's "rihlah" is definitively correct. CA's "sirah" is wrong. The pipeline's "other" is wrong AND was proposed by neither model.
+
+**Finding: CONFIRMED CONSENSUS MODULE BUG.** This is a different and more severe failure mode than إعلام الموقعين. In that case, the pipeline chose the wrong model's answer. Here, the pipeline fabricated a genre that neither model proposed. This should be included in mandatory fix #4 as a distinct sub-pattern requiring code investigation.
+
+### Flagged Unevaluated Book Check: حاشية العطار على شرح الجلال المحلي
+
+**Pipeline data:** Both models agree genre=hashiyah (0.99/1.0), ML=True with 3 layers (السبكي → المحلي → العطار), author d. 1250 AH. Perfect consensus.
+
+**Assessment:** No issues. This is a textbook correct classification.
+
+### Flagged Unevaluated Book Check: أنوار الهلالين في التعقبات على الجلالين
+
+**Pipeline data:** Opus=other (0.82), CA=tafsir (0.95). Pipeline chose CA's genre=tafsir.
+
+**Assessment:** The genre resolution here went the opposite direction from إعلام الموقعين — CA won with higher confidence. The result (tafsir) is defensible since the subject matter is Quranic exegesis, though "risalah" might be more precise for a work of تعقبات (corrections) rather than tafsir proper. No hard error. This shows the genre resolution mechanism is inconsistent — sometimes Opus wins at lower confidence, sometimes CA wins at higher confidence.
+
+### Updated Fix #4 Scope
+
+The genre confidence resolution investigation now has THREE confirmed sub-patterns:
+
+1. **إعلام الموقعين (3 editions):** Pipeline chose wrong model's lower-confidence answer
+2. **ملء العيبة:** Pipeline fabricated a genre that neither model proposed (MOST SEVERE)
+3. **أنوار الهلالين:** Pipeline correctly chose higher-confidence model (shows mechanism is inconsistent, not uniformly broken)
+
+The ملء العيبة anomaly is the most important finding from Round 2. It proves the consensus module has a code path that produces outputs not proposed by either model. This is a bug that should be investigated at the code level.
+
+---
+
+## Revised Bottom Line
+
+The GO verdict holds. Round 2 found one new significant finding (ملء العيبة consensus module bug producing genre=other from rihlah+sirah) that strengthens the case for mandatory fix #4 but does not change the GO/NO-GO assessment. The spot-check of تكملة حاشية ابن عابدين confirms the pipeline works correctly even in the hardest case (EMPTY author_raw). The unevaluated book checks found no new error types beyond what was already documented.
+
+**PHASE_D_CRITICAL_REVIEW.md — COMPLETE (with Round 2 addendum).**
