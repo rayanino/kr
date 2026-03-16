@@ -92,9 +92,9 @@
 - **Genre verdict:** PLAUSIBLE — this is a sharh (explanation) of the poetic شواهد cited in الإيضاح by أبو علي الفارسي. Both models agree.
 - **Pipeline ML:** True (conf 0.90 Opus)
 - **ML verdict:** PLAUSIBLE — the book explains poetic citations from الإيضاح في النحو by أبو علي الفارسي. It contains the original citations (matn layer) plus القيسي's explanations (sharh layer). ML=true with 2 layers is structurally consistent with sharh genre.
-- **Pipeline science:** ['nahw', 'sarf'] (result.json), Opus adds 'adab'
-- **Science verdict:** PLAUSIBLE — nahw is correct. adab has some justification given the extensive poetic analysis.
-- **Trust tier:** flagged (score not checked)
+- **Pipeline science:** ['nahw', 'lughah'] (result.json), Opus adds 'adab'
+- **Science verdict:** PLAUSIBLE — nahw is correct. lughah fits given the Arabic linguistic analysis content.
+- **Trust tier:** verified (0.7175)
 - **Death date:** Opus says None, CA says 460 AH. Published edition says "ق 6هـ" (6th century AH = 501-600). CA's 460 is 5th century — a discrepancy with the published designation, not a match. Death date source: inferred by CA (no structured field, author_raw says "ت ق 6هـ" which is in the raw text but imprecise). CA may have rounded down or confused centuries.
 - **Model agreement:** Agreed on genre, ML, science, author name. Disagreed on death date (None vs 460).
 - **Overall verdict:** PLAUSIBLE
@@ -201,7 +201,7 @@
 - **Status:** success
 - **Pipeline author:** عادل بن سعد (no death date)
 - **Author verdict:** PLAUSIBLE
-- **Author source:** Only Shamela-ecosystem. author_raw is EMPTY; the author name comes from the title itself ("- عادل بن سعد"). No independent verification found. The pipeline inferred the author from the title suffix.
+- **Author source:** Only Shamela-ecosystem. author_raw is EMPTY; the extraction's muhaqiq field contains "أبي عبد الرحمن عادل بن سعد" — the LLMs treated this as the functional author (same pattern as Books 2 and 10). No independent verification found.
 - **Pipeline genre:** other (0.75 Opus, 0.85 CA)
 - **Genre verdict:** PLAUSIBLE — a general fiqh compilation on prayer rulings. "other" is reasonable when the work doesn't fit standard genre categories.
 - **Pipeline ML:** False
@@ -371,7 +371,7 @@
 | Verdict | Count | Books |
 |---------|-------|-------|
 | VERIFIED | 4 | صحيح سنن النسائي, الموسوعة الفقهية, الإسلام وحقوق الإنسان (جعيط), حقوق الإنسان في الإسلام (جمل الليل) |
-| PLAUSIBLE | 13 | أحكام الاضطباع, إيضاح شواهد, المصباح, خمسة أحاديث ابن العربي, التعليق على الرحيق (author only), الأحاديث سقطت, الأنشوطة, الجامع لأحكام الصلاة, القطوف الدانية, الورقة النحوية, البدر التمام, أسلوب خطبة الجمعة, أصول علم العربية, منهج الصحابة |
+| PLAUSIBLE | 13 | أحكام الاضطباع, إيضاح شواهد, المصباح, خمسة أحاديث ابن العربي, الأحاديث سقطت, الأنشوطة, الجامع لأحكام الصلاة, القطوف الدانية, الورقة النحوية, البدر التمام, أسلوب خطبة الجمعة, أصول علم العربية, منهج الصحابة |
 | FLAG | 1 | التعليق على الرحيق المختوم (genre/ML) |
 | ESCALATE | 1 | وقفة هادئة (pseudonymous author) |
 | **Total** | **19** | |
@@ -450,3 +450,7 @@ The following errors were found during critical self-review and corrected in thi
 3. **Counting error** — header said "15 evaluated, 4 remaining" but actual is 14 unique + 5 remaining (Book 7 was a duplicate pointer). Fixed.
 4. **CRITICAL: Book 4 was incorrectly flagged** — I claimed "617 AH doesn't match any known ابن العربي" but tarajm.com (citing الذهبي's تاريخ الإسلام الكبير) confirms a grandson of القاضي ابن العربي who died in Alexandria in 617 AH. Both LLMs were correct. Downgraded FLAG→PLAUSIBLE. This error resulted from insufficient research depth — I searched for the two famous ابن العربي scholars but failed to search for descendants.
 5. **Book 8 attribution criticism was wrong** — I claimed the pipeline resolved attribution to "definitive" but result.json actually says "traditional." The pipeline handled this correctly. False criticism removed.
+6. **Book 5 trust_tier was wrong** — report said "flagged" but data shows trust_tier=verified (0.7175). Found in final data sweep.
+7. **Book 5 science_scope was wrong** — report said ['nahw', 'sarf'] but result.json has ['nahw', 'lughah']. Confused with Book 6 (المصباح) which does have 'sarf'. Fixed.
+8. **Book 12 author source was wrong** — report said author name comes from "the title itself" but extraction shows it comes from the muhaqiq field ("أبي عبد الرحمن عادل بن سعد"). Same pattern as Books 2 and 10. Fixed.
+9. **Summary table had 14 names in the PLAUSIBLE row but claimed 13** — التعليق على الرحيق was listed in both PLAUSIBLE and FLAG rows. Removed from PLAUSIBLE since overall verdict is FLAG.
