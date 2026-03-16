@@ -42,7 +42,7 @@ Each session is an independent Claude Chat conversation in the KR project. Paste
 
 **Session B:** Read PHASE_D_TRIAGE.json → sessions.B.books (19 books). Full per-book web search evaluation per protocol. Output: `PHASE_D_SESSION_B_REPORT.md`.
 
-**Session C:** Read PHASE_D_TRIAGE.json → sessions.C.books (25 books). Full per-book web search evaluation per protocol. Output: `PHASE_D_SESSION_C_REPORT.md`.
+**Session C:** Read PHASE_D_TRIAGE.json → sessions.C.books (15 books). Full per-book web search evaluation per protocol. Output: `PHASE_D_SESSION_C_REPORT.md`.
 
 **Session D:** Read PHASE_D_TRIAGE.json → sessions.D.books (12 books). Full per-book web search evaluation per protocol. If ANY error found, note that sample should be expanded. Output: `PHASE_D_SESSION_D_REPORT.md`.
 
