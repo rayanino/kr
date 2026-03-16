@@ -7,311 +7,356 @@ involvement. The owner's only actions are:
 
 1. Start a new Claude Chat session (or say "continue" in the current one)
 2. When prompted: start Claude Code with the provided prompt
-3. When prompted: confirm "looks good" or raise concerns
-4. Say "continue" to advance between steps
+3. Say "continue" or "go on" to advance between subtasks
 
-Claude Chat reads NEXT.md at session start, executes the current step,
-self-reviews, updates NEXT.md, and commits. The owner never needs to
-decide what to do next — the protocol decides.
+Claude Chat reads NEXT.md at session start, executes the current subtask,
+stops, then on "continue" performs the critical review as a separate step.
+The owner never needs to decide what to do next — the protocol decides.
 
-## Self-Review Protocol (mandatory for every step)
+---
 
-Every step produces work. Every piece of work gets 3 review rounds before
-delivery. This is non-negotiable.
+## Critical Review Protocol
 
-**Round 1 — Completeness check.** Re-read the step's requirements. For each
-requirement, verify the work product addresses it. List any gaps found.
-Fix them before proceeding.
+Review is NOT part of the work. It is a SEPARATE STEP that happens AFTER
+the work, triggered by the owner saying "continue." This forces a context
+break between production and evaluation.
 
-**Round 2 — Adversarial check.** Attack your own work. For each finding or
-conclusion: "What if this is wrong? What evidence would disprove it?
-What am I assuming?" For each code change specification: "Could this
-break something else? What edge case did I miss?" Fix anything found.
-
-**Round 3 — Scope check.** Did you stay within the step's boundaries? Did
-you accidentally defer something that should have been caught? Did you
-gold-plate something that should be minimal? Did you miss something that
-the NEXT step assumes is done? Adjust.
-
-After all 3 rounds, append to the step's output:
+Every piece of work follows this cycle:
 
 ```
-## Self-Review Summary
-- Round 1 (completeness): [what was found and fixed]
-- Round 2 (adversarial): [what was challenged and the result]
-- Round 3 (scope): [any boundary adjustments]
+Subtask A: DO the work
+  ↓ (owner says "continue")
+Subtask B: REVIEW the work (separate step, tool-grounded)
+  ↓ (owner says "continue")
+Next subtask or next step
 ```
 
-If any round finds a significant issue, the fix gets its own mini-review
-(1 round of adversarial check on the fix itself).
+### Review requirements (Subtask B)
+
+**Round 1 — Tool-grounded verification.** Do NOT just re-read your output
+and think about it. USE TOOLS:
+- Re-read the actual source files your work references (view tool)
+- Re-run any scripts that verify your claims (bash tool)
+- If you made factual claims, web-search to verify them
+- If you wrote a handoff prompt, re-read the target files to confirm your
+  line numbers, function names, and file paths are still correct
+- List every claim in your output. For each: how do you KNOW this? If
+  the answer is "I inferred it," verify with a tool.
+
+**Round 2 — Adversarial challenge.** For each conclusion or recommendation:
+- "What is the strongest argument this is wrong?"
+- "What would I see if the opposite were true?"
+- "What am I assuming that I haven't verified?"
+- For code change specs: "Could this break an unrelated test? What
+  side effect did I miss?"
+Fix anything this round surfaces.
+
+**Round 3 — Thinking framework application.** Use the thinking-frameworks
+skill explicitly:
+- Pre-mortem: "It's one week later and this work caused a problem. What
+  went wrong?" Generate 2-3 distinct failure scenarios.
+- Scope check: Did I stay within boundaries? Did I defer something that
+  should have been caught? Did I over-engineer?
+- Second-order effects: What happens downstream when the next step
+  consumes this output? Did I create assumptions the next step can't meet?
+
+After all 3 rounds, write a review summary that states:
+- What was verified with tools (and what the tools showed)
+- What was challenged and survived (or was fixed)
+- What failure scenarios were considered
+- Confidence level: HIGH / MEDIUM / LOW with reasoning
+
+If confidence is LOW on anything, do NOT proceed. Mark as BLOCKED.
 
 ---
 
 ## Step Sequence
 
-### STEP 1: mypy crash fixes — Claude Code handoff
-**Who:** Claude Chat writes prompt → Owner runs Claude Code
-**Input:** reference/PRE_BATCH_VERIFICATION_PLAN.md Layer 1
-**Output:** Claude Code prompt committed as `CLAUDE_CODE_MYPY_FIXES.md`
+Each STEP is broken into subtasks. The owner says "continue" between each
+subtask. This keeps each unit of work focused and reviewable.
 
-Claude Chat actions:
-1. Clone repo, read PRE_BATCH_VERIFICATION_PLAN.md
-2. Read the mypy errors listed in the plan (crash risks + contract mismatches)
-3. Read the actual source files involved to understand the context
-4. Write a precise Claude Code handoff prompt specifying:
-   - Each crash-risk fix with exact file, line, and the change needed
-   - Each contract-mismatch fix with exact file and approach
-   - What NOT to fix (type narrowing issues — document only)
-   - Test command to run after: `pytest engines/source/tests/ -v`
-   - mypy command to verify: `mypy engines/source/src/ --ignore-missing-imports --explicit-package-bases`
-   - Expected outcome: 0 crash-risk errors, 0 contract-mismatch errors
-5. Run 3-round self-review on the handoff prompt
-6. Commit as `CLAUDE_CODE_MYPY_FIXES.md`, update NEXT.md to say:
-   "STEP 1 COMPLETE — handoff ready. Owner: run Claude Code in /plan mode,
-    read CLAUDE_CODE_MYPY_FIXES.md"
-7. Push
+---
 
-Owner action: start Claude Code, point it at the prompt.
+### STEP 1: mypy crash fix handoff
 
-**NEXT.md after this step:**
-```
-## Current step: STEP 1 — OWNER ACTION NEEDED
-Run Claude Code in /plan mode. Entry point: CLAUDE_CODE_MYPY_FIXES.md
-After Claude Code finishes: say "continue" in Claude Chat.
-```
+**Subtask 1A — Research and write the handoff prompt**
+- Clone repo, read PRE_BATCH_VERIFICATION_PLAN.md Layer 1
+- Read EVERY source file listed in the mypy errors (not just the plan's
+  summary — the actual files). Use the view tool.
+- For each crash-risk error: read the surrounding code context (±20 lines),
+  understand the actual data flow, determine the minimal fix
+- For each contract-mismatch error: read the Pydantic model definition,
+  understand which fields have defaults vs. which are required
+- Write the Claude Code handoff prompt with:
+  - Each fix: file, function, the specific change, WHY this fixes it
+  - What NOT to fix (type-narrowing — list them so Claude Code doesn't
+    over-fix)
+  - Verification commands: pytest + mypy
+  - Expected outcome
+- Stop. Tell owner: "Handoff prompt drafted. Say 'continue' for review."
+
+**Subtask 1B — Critical review of the handoff prompt**
+- Execute the 3-round review protocol (above)
+- Specifically: re-read each source file AGAIN and verify the fix
+  specifications are still correct (files may have changed since the
+  plan was written — commit a8b17ff modified these files)
+- Verify: does the handoff prompt reference the correct line numbers
+  AFTER Claude Code's 4-fix commit?
+- Commit as `CLAUDE_CODE_MYPY_FIXES.md`, update NEXT.md, push
+- Tell owner: "Step 1 complete. Run Claude Code with CLAUDE_CODE_MYPY_FIXES.md"
 
 ---
 
 ### STEP 2: Verify Claude Code's mypy work
-**Who:** Claude Chat
-**Input:** Claude Code's commit (mypy fixes applied)
-**Output:** Verification report appended to PRE_BATCH_VERIFICATION_PLAN.md
 
-Claude Chat actions:
-1. Clone repo, read NEXT.md
-2. Read Claude Code's diff (`git log --oneline -3` then `git diff` the relevant commit)
-3. For each fix, verify:
-   - Does the fix address the actual mypy error?
-   - Could the fix introduce a new bug?
-   - Is the fix minimal (no unnecessary changes)?
-4. Check: did Claude Code run the test suite? Did all tests pass?
-5. Check: did Claude Code run mypy? How many errors remain?
-6. If remaining mypy errors are type-narrowing only → acceptable
-7. If crash risks or contract mismatches remain → write a follow-up prompt
-8. Run 3-round self-review
-9. Append verification results to PRE_BATCH_VERIFICATION_PLAN.md
-10. Update NEXT.md, commit, push
+**Subtask 2A — Read and analyze Claude Code's changes**
+- Clone repo, read Claude Code's diff
+- For EACH fix in the diff:
+  - Does the fix address the mypy error?
+  - Read the surrounding code: could this fix break anything?
+  - Is the fix minimal?
+- Check test results and mypy results from Claude Code's output
+- Write a verification report
+- Stop. Tell owner: "Verification drafted. Say 'continue' for review."
 
-**NEXT.md after this step:**
-```
-## Current step: STEP 3 — contract boundary verification
-Claude Chat: execute STEP 3 from the protocol.
-```
+**Subtask 2B — Critical review of the verification**
+- Execute 3-round review protocol
+- Specifically: re-run mypy yourself if possible (install + run)
+- If mypy can't run in this environment, verify by reading the exact
+  code lines Claude Code changed and manually checking the types
+- Append verification to PRE_BATCH_VERIFICATION_PLAN.md
+- Update NEXT.md, commit, push
+- Tell owner: "Step 2 complete. Say 'continue' for contract verification."
 
 ---
 
 ### STEP 3: Contract boundary verification
-**Who:** Claude Chat (this is analysis work, no Claude Code needed)
-**Input:** Source engine contracts.py, normalization engine contracts.py + src/
-**Output:** Contract verification report committed to reference/
 
-Claude Chat actions:
-1. Clone repo
-2. Read `engines/source/contracts.py` — identify all output fields of `SourceMetadata`
-3. Read `engines/normalization/contracts.py` — identify what it imports from source
-4. Read `engines/normalization/src/dispatcher.py`, `normalizers/shamela.py`,
-   `normalizers/base.py`, `validation.py` — trace how source output is consumed
-5. For each of the 22 fields flagged by verify_metadata_flow.py:
-   - Is it a real field the normalization engine reads? → document the gap
-   - Is it an enum value matched as a field name? → mark as false positive
-6. Specific questions to resolve:
-   - Does normalization read death dates? From where?
-   - Does normalization use genre? How? String or enum?
-   - Does normalization need rihlah/usul_al_fiqh values?
-   - Do any Fix 3 fields (death_date_single_model) need downstream propagation?
-7. Run 3-round self-review
-8. Commit report as `reference/CONTRACT_VERIFICATION_REPORT.md`
-9. Update NEXT.md, push
+This step is analysis-heavy. It uses the thinking-frameworks skill
+explicitly. Split into 3 subtasks.
 
-**NEXT.md after this step:**
-```
-## Current step: STEP 4 — SPEC consistency audit
-Claude Chat: execute STEP 4 from the protocol.
-```
+**Subtask 3A — Map the source engine output schema**
+- Read `engines/source/contracts.py` — the full SourceMetadata class
+- Read `engines/source/contracts.py` — ScholarAuthorityRecord, WorkRegistryEntry
+- List every field the source engine produces, organized by:
+  - Per-book output (result.json → SourceMetadata)
+  - Scholar registry (scholars.json → ScholarAuthorityRecord)
+  - Work registry (works.json → WorkRegistryEntry)
+  - Frozen files (frozen source files + hashes)
+- Stop. Tell owner: "Source schema mapped. Say 'continue'."
+
+**Subtask 3B — Map the normalization engine input expectations**
+- Read `engines/normalization/contracts.py` — what it imports from source
+- Read `engines/normalization/src/dispatcher.py` — how it receives input
+- Read `engines/normalization/src/normalizers/shamela.py` — what fields it accesses
+- Read `engines/normalization/src/normalizers/base.py` — base class expectations
+- Read `engines/normalization/src/validation.py` — what it validates
+- For each field the normalization engine reads from source output:
+  document WHERE it reads it from and HOW it uses it
+- Apply thinking framework: for each of the 22 flagged fields, generate
+  two competing hypotheses (real gap vs. false positive) and determine
+  which has more evidence
+- Stop. Tell owner: "Normalization expectations mapped. Say 'continue'."
+
+**Subtask 3C — Critical review and gap resolution**
+- Execute 3-round review protocol on BOTH subtask outputs
+- Cross-reference: every field normalization reads, does source produce?
+- Resolve the specific questions:
+  - Death dates: where, how
+  - Genre: string or enum, new values
+  - Fix 3 fields: propagation needed?
+- Write `reference/CONTRACT_VERIFICATION_REPORT.md`
+- Update NEXT.md, commit, push
+- Tell owner: "Step 3 complete. Say 'continue' for SPEC audit."
 
 ---
 
 ### STEP 4: SPEC consistency audit
-**Who:** Claude Chat
-**Input:** SPEC_CORE.md, the 4 fix diffs, check_spec_quality.py output
-**Output:** SPEC fixes committed directly (if small) or handoff prompt (if large)
 
-Claude Chat actions:
-1. Clone repo
-2. Read `engines/source/SPEC_CORE.md`
-3. Read the 4 fix diffs: `git diff a8b17ff~1..a8b17ff -- engines/source/SPEC_CORE.md`
-4. For each fix that modified the SPEC:
-   - Does the SPEC description match the actual code implementation?
-   - Are there stale references (describing old behavior)?
-   - Are new checks (5g, consistency_hashiyah_no_layers) properly documented?
-5. Check: does SPEC's genre list match the Genre enum in contracts.py?
-6. Triage the 34 HIGH SPEC defects from check_spec_quality.py:
-   - Which affect correctness? (wrong threshold, ambiguous rule an implementer
-     would misinterpret) → these need fixing
-   - Which are style? (vague quantifiers in descriptive text) → document in
-     OPEN_PROBLEMS.md, don't fix now
-7. If SPEC fixes are small (< 20 lines): make them directly via str_replace,
-   commit with clear message
-8. If SPEC fixes are large: write a Claude Code handoff prompt
-9. Run 3-round self-review
-10. Update NEXT.md, commit, push
+**Subtask 4A — Audit SPEC against code changes**
+- Read `engines/source/SPEC_CORE.md` (full file)
+- Read the 4-fix diff: `git diff a8b17ff~1..a8b17ff -- engines/source/`
+- For each code change, find the corresponding SPEC section:
+  - Does the SPEC describe the current behavior (not pre-fix behavior)?
+  - Are new checks (5g, consistency_hashiyah_no_layers) documented?
+  - Does SPEC's genre list match contracts.py's Genre enum?
+- List all inconsistencies found
+- Stop. Tell owner: "SPEC audit drafted. Say 'continue'."
 
-**NEXT.md after this step:**
-```
-## Current step: STEP 5 — targeted end-to-end validation
-Claude Chat: write the Claude Code handoff for e2e fix validation.
-```
+**Subtask 4B — Triage SPEC quality defects**
+- Run `check_spec_quality.py` (or read cached output from earlier)
+- For each of the 34 HIGH defects, classify:
+  - CORRECTNESS: an implementer would misinterpret this → fix now
+  - STYLE: vague but wouldn't cause wrong code → defer to OPEN_PROBLEMS.md
+- List the correctness-affecting defects with proposed fixes
+- Stop. Tell owner: "Triage complete. Say 'continue' for review."
+
+**Subtask 4C — Critical review and apply fixes**
+- Execute 3-round review protocol on BOTH the audit and the triage
+- For each proposed SPEC fix: re-read the corresponding code to verify
+  the SPEC change matches what the code actually does
+- Apply small fixes (< 20 lines) directly via str_replace
+- If large fixes needed: write a Claude Code handoff prompt
+- Update NEXT.md, commit, push
+- Tell owner: "Step 4 complete. Say 'continue' for e2e validation handoff."
 
 ---
 
-### STEP 5: Targeted end-to-end validation — Claude Code handoff
-**Who:** Claude Chat writes prompt → Owner runs Claude Code
-**Input:** PRE_BATCH_VERIFICATION_PLAN.md Layer 4, contract verification results
-**Output:** Claude Code prompt committed as `CLAUDE_CODE_E2E_VALIDATION.md`
+### STEP 5: End-to-end validation handoff
 
-Claude Chat actions:
-1. Clone repo, read PRE_BATCH_VERIFICATION_PLAN.md Layer 4
-2. Read contract verification results from STEP 3
-3. Write Claude Code handoff prompt specifying:
-   - Exactly which 4-5 books to run (with full directory names)
-   - What each book tests (which fix, expected behavioral change)
-   - How to verify results (specific fields to check in result.json)
-   - The control book and what "identical to Phase D" means concretely
-   - Budget cap: max €2.00 for this run
-4. Include verification script: a Python script Claude Code should write and
-   run AFTER the pipeline runs, that automatically checks each expected change
-5. Run 3-round self-review
-6. Commit as `CLAUDE_CODE_E2E_VALIDATION.md`, update NEXT.md
-7. Push
+**Subtask 5A — Design the validation and write the handoff**
+- Read PRE_BATCH_VERIFICATION_PLAN.md Layer 4
+- Read contract verification results from Step 3
+- For each target book, verify the directory name exists in the Shamela
+  sample: `ls "C:\Users\Rayane\Desktop\kr\shamela export samples\"` (or
+  the book list file in the repo)
+- Write the Claude Code handoff prompt with:
+  - Exact book directory names (verified they exist)
+  - Per-book: which fix it tests, expected behavioral change, specific
+    field to check in result.json
+  - A verification script that Claude Code writes and runs automatically
+  - Budget cap: €2.00
+  - Control book comparison criteria
+- Stop. Tell owner: "Handoff drafted. Say 'continue' for review."
 
-Owner action: start Claude Code, point it at the prompt.
-
-**NEXT.md after this step:**
-```
-## Current step: STEP 5 — OWNER ACTION NEEDED
-Run Claude Code. Entry point: CLAUDE_CODE_E2E_VALIDATION.md
-Budget cap: €2.00. After Claude Code finishes: say "continue" in Claude Chat.
-```
+**Subtask 5B — Critical review of the handoff**
+- Execute 3-round review protocol
+- Specifically: verify book directory names against the actual Shamela
+  collection file (reference/exhaustive_collection... or the repo copy)
+- Verify that the expected behavioral changes are correct by re-reading
+  the fix code (not the fix description — the ACTUAL code)
+- Commit as `CLAUDE_CODE_E2E_VALIDATION.md`, update NEXT.md, push
+- Tell owner: "Step 5 complete. Run Claude Code with CLAUDE_CODE_E2E_VALIDATION.md"
 
 ---
 
-### STEP 6: Verify e2e results + batch design
-**Who:** Claude Chat
-**Input:** Claude Code's e2e results
-**Output:** Batch design document, final NEXT.md pointing to batch execution
+### STEP 6: Verify e2e results
 
-Claude Chat actions:
-1. Clone repo, read NEXT.md
-2. Read Claude Code's e2e results — the verification script output
-3. For each fix, verify the expected behavioral change occurred:
-   - Fix 1: ملء العيبة genre=rihlah? (was other)
-   - Fix 2: النكت triggered gate? (was warning)
-   - Fix 3: أساليب بلاغية has death_date_hijri in needs_review_fields?
-   - Control: صحيح البخاري matches Phase D?
-4. If any fix didn't produce expected change → investigate, write follow-up
-5. If all pass → design the final batch:
-   - Select ~50 books from the 2,519 sample
-   - Prioritize: genres underrepresented in Phase D (sirah, tarikh, mujam,
-     rihlah, usul_al_fiqh), multi-volume books, books with complex structures
-   - Document selection rationale
-   - Write the Claude Code batch handoff prompt
-6. Run 3-round self-review on both the verification AND the batch design
-7. Commit batch design + handoff as `CLAUDE_CODE_FINAL_BATCH.md`
-8. Update NEXT.md
-9. Push
+**Subtask 6A — Analyze e2e results**
+- Clone repo, read Claude Code's verification script output
+- For each fix, verify the expected change occurred
+- If any fix didn't work: investigate root cause, don't just note it
+- Stop. Tell owner: "E2e verification analyzed. Say 'continue' for review."
 
-**NEXT.md after this step:**
-```
-## Current step: STEP 6 — OWNER ACTION NEEDED
-Run Claude Code. Entry point: CLAUDE_CODE_FINAL_BATCH.md
-Budget cap: €10.00. This is the ENGINE TRANSITION final batch.
-After Claude Code finishes: say "continue" in Claude Chat.
-```
+**Subtask 6B — Critical review of e2e verification**
+- Execute 3-round review protocol
+- Specifically: read the actual result.json files Claude Code produced
+  (not just the verification script's summary) to confirm the script
+  checked the right things
+- Update NEXT.md, commit, push
+- Tell owner: "Step 6 complete. Say 'continue' for batch design."
 
 ---
 
-### STEP 7: Final batch review + source engine wrap-up
-**Who:** Claude Chat
-**Input:** Batch results
-**Output:** Source engine completion report, NEXT.md pointing to normalization
+### STEP 7: Final batch design
 
-Claude Chat actions:
-1. Clone repo, read batch results
-2. Statistical review of batch:
-   - Genre distribution — any new genre=other cases?
-   - Trust tier distribution — flag rate reasonable?
-   - Any crashes or errors?
-   - Any patterns suggesting new bugs?
-3. Spot-check 5 books from the batch (famous works if possible)
-4. Compare batch statistics to Phase D statistics — any drift?
-5. If issues found → investigate, possibly write fix prompt
-6. If clean → write source engine completion report:
-   - Final statistics (total books processed, trust distribution, etc.)
-   - Known limitations (documented in OPEN_PROBLEMS.md)
-   - What the normalization engine receives (contract summary)
-   - Lessons learned
-7. Run 3-round self-review
-8. Update NEXT.md to point to normalization engine SPEC design
-9. Commit and push
+**Subtask 7A — Design the batch**
+- Read Phase D results: genre distribution, trust distribution, gaps
+- Read the Shamela collection list (exhaustive .htm book file)
+- Select ~50 books optimizing for:
+  - Genres underrepresented in Phase D (sirah, tarikh, mujam, rihlah,
+    usul_al_fiqh — 0-2 examples each currently)
+  - Multi-volume books (normalization engine needs these)
+  - Mix of classical and modern works
+  - Books with complex structures (multi-layer, versified)
+- Document selection rationale for each category
+- Write the Claude Code batch handoff prompt
+- Stop. Tell owner: "Batch design drafted. Say 'continue' for review."
 
-**NEXT.md after this step:**
-```
-## Status: SOURCE ENGINE COMPLETE
-## Current task: Begin normalization engine SPEC design
-Read reference/ENGINE_FACTORY_PLAN.md for the autonomous build system.
-First deliverable: reference/DECISION_PLAYBOOK.md (Oracle's institutional memory).
-```
+**Subtask 7B — Critical review of batch design**
+- Execute 3-round review protocol
+- Pre-mortem: "The batch ran and the normalization engine can't use the
+  output. What went wrong?" → verify book selection covers normalization's
+  needs
+- Verify every selected book directory name exists
+- Commit as `CLAUDE_CODE_FINAL_BATCH.md`, update NEXT.md, push
+- Tell owner: "Step 7 complete. Run Claude Code with CLAUDE_CODE_FINAL_BATCH.md"
 
 ---
 
-## Session Protocol (every Claude Chat session)
+### STEP 8: Final batch review
+
+**Subtask 8A — Statistical analysis of batch results**
+- Read batch summary JSON
+- Analyze: genre distribution, trust distribution, error rate, crash count
+- Compare to Phase D statistics — any unexpected drift?
+- Spot-check 5 books (prioritize famous works for easy verification)
+- Stop. Tell owner: "Batch analysis done. Say 'continue' for review."
+
+**Subtask 8B — Critical review of batch analysis**
+- Execute 3-round review protocol
+- Specifically: for each spot-checked book, do a quick web search to
+  verify the author attribution is correct
+- If issues found → document and assess severity
+- Stop. Tell owner: "Review complete. Say 'continue' for wrap-up."
+
+**Subtask 8C — Source engine completion report**
+- Write the completion report:
+  - Final statistics
+  - Known limitations (from OPEN_PROBLEMS.md)
+  - Contract summary (what normalization engine receives)
+  - Lessons learned
+- Run 3-round review on the report
+- Update NEXT.md to point to normalization engine
+- Commit and push
+- Tell owner: "SOURCE ENGINE COMPLETE. Start new chat for normalization."
+
+---
+
+## Session Protocol
 
 ```
 ON SESSION START:
   1. Clone repo: git clone https://{token}@github.com/rayanino/kr.git
-  2. Read NEXT.md — it tells you the current step
-  3. Read this protocol file for the step's instructions
-  4. Execute the step
+  2. Read NEXT.md — it tells you the current step AND subtask
+  3. Read this protocol file for the subtask's instructions
+  4. Execute the subtask
+  5. STOP and wait for owner to say "continue"
 
-ON STEP COMPLETION:
-  1. Run 3-round self-review (mandatory, no exceptions)
-  2. Update NEXT.md with:
-     - What was done
-     - What the next step is
-     - Whether owner action is needed (Claude Code run)
-  3. Commit all changes with descriptive message
-  4. Push to GitHub
-  5. Tell the owner: "Step N complete. [Next action needed]."
+WITHIN A SESSION (owner says "continue"):
+  1. Read NEXT.md to confirm current subtask
+  2. Execute the next subtask
+  3. STOP and wait
+
+ON SUBTASK COMPLETION:
+  1. If this is a "B" subtask (review): commit and push
+  2. If this is an "A" subtask (work): do NOT commit yet — review comes next
+  3. Update NEXT.md with current subtask position
+  4. Tell owner what was done and what "continue" will trigger next
+
+ON SESSION END (context getting long, or natural break):
+  1. Update NEXT.md with EXACT position: step number + subtask letter
+  2. Document any in-progress findings that would be lost
+  3. Commit and push
+  4. Tell owner: "Session saved at Step N, Subtask X.
+     Start new chat and say 'continue'."
 
 ON ERROR OR UNCERTAINTY:
   1. Do NOT proceed past the uncertain point
-  2. Document exactly what's uncertain and why
-  3. Update NEXT.md with: "BLOCKED — [description]. Owner: [what's needed]"
-  4. Commit and push
-  5. Tell the owner what's blocked and what they need to decide
+  2. Document exactly what's uncertain and why in NEXT.md
+  3. Commit and push
+  4. Tell owner: "BLOCKED at Step N — [what's needed]"
 ```
+
+## NEXT.md format
+
+NEXT.md always contains:
+```
+## Current position: STEP [N] — Subtask [A/B/C]
+## What to do: [exact instruction for Claude Chat]
+## Context: [any state needed from previous subtask]
+## Owner action needed: [yes/no, what]
+```
+
+This allows any fresh Claude Chat session to pick up exactly where the
+last one left off, even mid-step.
 
 ## What the owner does
 
-The owner's complete action set:
-
 | Owner sees | Owner does |
 |------------|-----------|
-| "Step N complete. Continue to Step N+1." | Says "continue" (or starts new chat) |
-| "OWNER ACTION NEEDED — run Claude Code" | Opens Claude Code, says "read NEXT.md" |
-| "Claude Code finished. Continue." | Says "continue" in Claude Chat |
-| "BLOCKED — need your input on X" | Answers the question or says "your call" |
-| "Source engine COMPLETE" | Starts new chat for normalization engine |
-
-That's it. No technical decisions. No evaluation. No code review.
-The protocol handles everything.
+| "Subtask done. Say 'continue'." | Says "continue" |
+| "Run Claude Code with [file]" | Opens Claude Code, says "read NEXT.md" |
+| "BLOCKED — need input on X" | Answers the question |
+| "Session saved at Step N. Start new chat." | Starts new chat, says "continue" |
+| "SOURCE ENGINE COMPLETE" | Starts new chat for normalization |
