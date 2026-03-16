@@ -1,6 +1,6 @@
 # NEXT — Phase D Evaluation
 
-## Status: Pipeline run COMPLETE. Programmatic analysis COMPLETE. Per-book evaluation NEXT.
+## Status: Phase D Evaluation COMPLETE. Verdict: **GO** with 3 mandatory fixes. Next: implement fixes → final batch → normalization engine.
 
 ## What happened
 
@@ -18,7 +18,7 @@ The evaluation follows 4 layers, governed by `PHASE_D_EVALUATION_PROTOCOL.md`:
 | Session B | Author uncertainty | 19 | ✅ COMPLETE (4V 13P 1F 1E) |
 | Session C | Structural flags | 15 | ✅ COMPLETE (11V 2P 2F) |
 | Session D | Random calibration | 12 | ✅ COMPLETE (4V 7P 1F — ERR-03 death date) |
-| Layer 4 | Aggregation + GO/NO-GO | all | PENDING |
+| Layer 4 | Aggregation + GO/NO-GO | all | ✅ COMPLETE — **GO** with 3 mandatory fixes |
 
 ## How to run each session
 
