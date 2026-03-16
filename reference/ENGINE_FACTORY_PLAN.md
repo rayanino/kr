@@ -19,24 +19,197 @@ The project has strong foundations: ENGINE_PROTOCOL.md defines the 4-step proces
 | Tool | Role | Reasoning |
 |------|------|-----------|
 | **Claude Code (Opus 4.6, 1M context)** | PRIMARY BUILD ENVIRONMENT | Proven (source engine built successfully), domain-aware (9 KR skills), quality infra in place (4 scripts, 8 agents), 1M context window holds entire engine context without compaction risk |
+| **OpenClaw (v2026.3.13)** | MULTI-AGENT QUALITY COORDINATION | `sessions_send` for Builder→Reviewer review loops, `sessions_spawn` for independent verification, agent isolation for separate roles, Telegram notifications for human gates |
 | **OpenRouter** | MULTI-MODEL CONSENSUS | Expanded consensus pool: Command A + Opus 4.6 (existing 92.3% pair) + GPT-4o + Gemini 2.5 Pro. 4 models for critical content decisions, 2-model minimum for non-critical |
-| **OpenClaw** | MONITORING & NOTIFICATIONS | Telegram/Discord notifications for human gates, session health monitoring, cost tracking. NOT orchestration — just the eyes-and-ears layer for 24/7 operation |
-| **Codex Plus** | PARALLEL RESEARCH | Fire-and-forget Step 2 experiments running independently. Supplements, never replaces, the primary Claude Code research |
+| **Codex Plus** | PARALLEL RESEARCH | Fire-and-forget Step 2 experiments running independently. Supplements the primary Claude Code research |
 
-### Why OpenClaw is monitoring, not orchestration
+### Why OpenClaw as quality coordinator (not just monitoring)
 
-OpenClaw excels at multi-agent coordination. KR engine building is fundamentally sequential (pipeline ordering). Using OpenClaw as the orchestrator would add a translation layer between ENGINE_PROTOCOL (which already defines the process precisely) and OpenClaw's routing model — complexity without accuracy benefit. However, with 24/7 operation, OpenClaw's monitoring features are genuinely valuable:
+The source engine's post-Phase-C bugs (FIX-C04 through C08) were all **self-review failures** — the single builder agent missed its own errors. The same principle KR applies to LLM decisions applies to the build process itself:
 
-- **Telegram notification** when a human gate is reached (owner gets alerted even when away)
-- **Session health monitoring** (detect if a build session has stalled or errored)
-- **Cost tracking dashboard** (visible progress even though budget is uncapped)
-- **Uptime monitoring** (ensure the PC stays healthy during long-running sessions)
+> **D-041: Never trust a single LLM for content decisions → Multi-model consensus**
+> **Corollary: Never trust a single agent for engine building → Multi-agent quality assurance**
 
-**OpenClaw's future role:** When Stage 2 begins (library population with parallel book processing across all engines), OpenClaw becomes the primary orchestrator. The monitoring setup from Stage 1 carries forward.
+OpenClaw provides the primitives for structured multi-agent review:
+
+- **`sessions_send`** — Builder sends work to Reviewer, blocks for response. Up to 5 ping-pong turns for discussion. Messages tagged with `provenance.kind = "inter_session"` for auditability.
+- **`sessions_spawn`** — Builder spawns independent verification task on Verifier agent. Non-blocking. Results posted back when complete.
+- **Agent isolation** — Each agent has separate workspace, session store, tool permissions. Reviewer is read-only (can't modify code). Verifier has web search + `exec` (for Usul.ai queries).
+- **Hooks** — Event-driven scripts fire on session events. Git post-commit hooks can trigger review cycles.
+- **Telegram notifications** — Human gates trigger owner notification immediately.
+
+**Why this improves accuracy:** Within each ENGINE_PROTOCOL step, every sub-step gets independent review before proceeding. No code is committed without a second agent verifying SPEC compliance, Arabic safety, D-023 metadata flow, and knowledge integrity. No gold baseline is accepted without independent scholarly verification.
+
+### Three Agent Roles
+
+```
+┌─────────────────────────────────────────────────────┐
+│  OpenClaw Gateway (24/7, coordinates all agents)    │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  ┌──────────────┐   sessions_send    ┌───────────┐ │
+│  │   BUILDER    │ ───────────────→   │ REVIEWER  │ │
+│  │              │ ←───────────────   │           │ │
+│  │ Claude Code  │   review feedback  │ Read-only │ │
+│  │ Full tools   │                    │ SPEC+code │ │
+│  │ 1M context   │   sessions_spawn   │ Arabic    │ │
+│  │ All skills   │ ──────────────→    │ safety    │ │
+│  └──────────────┘                    │ D-023     │ │
+│         │                            │ Knowledge │ │
+│         │ sessions_spawn             │ integrity │ │
+│         ▼                            └───────────┘ │
+│  ┌──────────────┐                                  │
+│  │  VERIFIER    │                                  │
+│  │              │                                  │
+│  │ Web search   │                                  │
+│  │ Usul.ai      │                                  │
+│  │ Independent  │                                  │
+│  │ test writing │                                  │
+│  │ Scholarly    │                                  │
+│  │ verification │                                  │
+│  └──────────────┘                                  │
+└─────────────────────────────────────────────────────┘
+```
+
+| Agent | Model | Tools | Responsibility |
+|-------|-------|-------|----------------|
+| **Builder** | Opus 4.6 (1M) via Claude Code | Full tool access (edit, exec, MCP, skills) | Writes code, runs tests, manages state, drives ENGINE_PROTOCOL |
+| **Reviewer** | Opus 4.6 | Read-only file access, quality scripts (`exec`), `sessions_send` | Reviews every output against SPEC, Arabic safety (skill), D-023 compliance, knowledge integrity (skill). Can REJECT work. |
+| **Verifier** | Opus 4.6 | Web search, `exec` (for scripts), file read, `sessions_send` | Writes independent tests from SPEC (without seeing Builder's implementation), scholarly verification (Usul.ai + web search), cross-references factual claims |
+| **Oracle** | Opus 4.6 via `claude -p --effort max` | Read, Glob, Grep, WebSearch, WebFetch | **Owner proxy.** Handles ALL human gate decisions. Deep reasoning on SPEC design, scholarly questions, disagreement arbitration. Covered by Max subscription — zero API cost. |
+
+### The Oracle — True Autonomy via Owner Proxy
+
+**Why Claude Chat can't be automated:** Claude Chat (web and desktop) has no programmatic API. You cannot send it a message and get a response without human interaction. There's no way around this.
+
+**Why `claude -p --effort max` is the equivalent:** Claude Code's print mode provides the exact same Opus 4.6 model with the same extended thinking capabilities as Claude Chat. The key differences:
+- `claude -p` is fully automatable (called via shell command)
+- `claude -p` reads CLAUDE.md and project context automatically
+- `claude -p` is covered by Max 20x subscription (zero additional API cost)
+- `claude -p --effort max` enables maximum reasoning depth (same as Chat's extended thinking)
+- `claude -p --output-format json` returns structured responses for programmatic processing
+
+**How OpenClaw invokes the Oracle:**
+```bash
+# Oracle handles a human gate decision
+claude -p --effort max --model opus --agent oracle \
+  --output-format json --permission-mode default \
+  "HUMAN GATE G1 — Normalization Engine SPEC Core Review
+
+   Context: The Builder has extracted SPEC_CORE.md from the normalization
+   engine's SPEC.md. Layer detection (matn/sharh/hashiyah via CSS classes)
+   is classified as CORE.
+
+   Your role: You are acting as the owner — an Islamic studies student who
+   uses these books for his studies. Review this classification:
+   1. Is layer detection correctly classified as core?
+   2. Does this match how multi-layer books (sharh, hashiyah) actually work?
+   3. Are any critical capabilities incorrectly deferred?
+
+   Respond with: APPROVE or REJECT with specific reasoning."
+```
+
+**What the Oracle replaces:**
+
+| Previously (human required) | Now (Oracle handles autonomously) |
+|-----|-----|
+| G1: Owner reviews core/deferred classification | Oracle evaluates SPEC classification with deep reasoning about scholarly text structure |
+| G2: Owner reviews gold baselines ("right book?") | Oracle cross-references against Usul.ai + web search + domain knowledge |
+| G3: Owner validates nahw science tree | Oracle generates AND validates using multi-source scholarly research |
+| G4: Owner reviews entry viewer output | Oracle evaluates narrative quality against ENTRY_EXAMPLE.md standards |
+| Disagreement between Builder/Reviewer | Oracle arbitrates with deep analysis of both positions |
+| Ambiguous SPEC interpretation | Oracle reasons deeply about intent and scholarly implications |
+
+**Oracle agent definition** (`.claude/agents/oracle.md`):
+```markdown
+---
+name: Oracle
+description: Owner proxy for KR Engine Factory — handles human gates, deep reasoning, scholarly decisions
+model: opus
+tools: Read, Glob, Grep, WebSearch, WebFetch
+---
+You are the Oracle for the KR Engine Factory. You act as the owner's proxy —
+an Islamic studies student who uses these books for his studies.
+
+Your decisions have the same authority as the owner's. You must:
+1. Apply deep scholarly reasoning to every decision
+2. Cross-reference against Usul.ai and web sources for factual claims
+3. Consider how the decision affects the library's accuracy
+4. Document your reasoning in full (decisions are auditable)
+5. When uncertain, err on the side of caution (flag for later owner review)
+
+Read reference/ENGINE_FACTORY.md for the full factory protocol.
+Read the relevant engine's SPEC_CORE.md before making decisions.
+```
+
+**True autonomy achieved:** With the Oracle, the factory runs 24/7 with zero human intervention:
+- Builder builds → Reviewer reviews → Verifier verifies → Oracle approves gates
+- All 4 agents running through OpenClaw coordination
+- Owner receives Telegram summaries but is never REQUIRED to act
+- Owner can override any Oracle decision retroactively by reviewing decision logs
+
+**Cost structure:**
+- Builder: Covered by Max subscription (Claude Code session)
+- Reviewer: Covered by Max subscription (OpenClaw agent using Claude API — wait, this needs clarification)
+
+**Important clarification on costs:**
+- **Claude Code sessions** (`claude` CLI): Covered by Max 20x subscription
+- **OpenClaw agents**: Use the Anthropic API directly — this costs tokens UNLESS they invoke `claude -p` for their reasoning
+- **Oracle** (`claude -p`): Covered by Max subscription
+
+**Recommended approach:** ALL agents use `claude -p` for their reasoning, coordinated by OpenClaw. This means:
+- OpenClaw Gateway handles routing and coordination (lightweight, no LLM cost)
+- Each agent's actual reasoning is done via `claude -p` (covered by Max)
+- Only the multi-model consensus calls (Command A, GPT-4o, Gemini 2.5 Pro) go through OpenRouter (API cost)
+
+### Multi-Agent Workflow Within Each Step
+
+**Step 1 (SPEC Core Extraction):**
+1. Builder extracts core from SPEC, produces SPEC_CORE.md
+2. Builder → `sessions_send` → Reviewer: "Review SPEC_CORE.md for completeness, ambiguity, Arabic safety"
+3. Reviewer reads SPEC_CORE.md independently, runs `check_spec_quality.py`, checks contract compatibility
+4. Reviewer replies with findings (APPROVE / REJECT with specific issues)
+5. If REJECT: Builder fixes → re-sends for review (up to 5 ping-pong turns)
+6. Builder → `sessions_spawn` → Verifier: "Independently verify contract compatibility with upstream/downstream"
+7. Builder invokes Oracle for human gate G1: "Review core/deferred classification"
+8. Oracle reasons deeply, cross-references scholarly sources, returns APPROVE/REJECT with reasoning
+9. Reviewer AND Verifier AND Oracle must all APPROVE before Step 1 exits
+
+**Step 2 (Research):**
+1. Builder designs experiments and runs them
+2. Builder → `sessions_send` → Reviewer: "Review experiment design and results"
+3. Reviewer checks: Are the right fixtures used? Are the accuracy thresholds correctly applied? Are findings correctly translated to SPEC changes?
+4. Builder → `sessions_spawn` → Verifier: "Independently replicate key experiments on different fixtures"
+5. Verifier runs same LLM tasks on fixtures Builder didn't test → confirms or contradicts findings
+6. All three must agree on findings before Step 2 exits
+
+**Step 3 (Build) — Sub-step level review:**
+1. Builder writes module N + tests
+2. Builder → `sessions_send` → Reviewer: "Review module N against SPEC §4.X, check Arabic safety and D-023"
+3. Reviewer reads code, checks:
+   - Every SPEC rule in §4.X has corresponding code
+   - Arabic text handling follows `.claude/skills/arabic-text/SKILL.md`
+   - Metadata flows forward (D-023) — no field dropped
+   - Type hints on all signatures, no `Any`
+   - Error handling fails loud (no silent defaults)
+4. Reviewer replies: APPROVE or REJECT with specific line-level issues
+5. Builder → `sessions_spawn` → Verifier: "Write independent tests for SPEC §4.X without reading Builder's implementation"
+6. Verifier writes tests from SPEC behavioral rules only → tests committed alongside Builder's tests
+7. **Both test suites must pass against Builder's code.** If Verifier's tests fail, it means Builder misinterpreted the SPEC — this is the highest-value catch.
+8. No module is committed without Reviewer APPROVE + Verifier tests passing
+
+**Step 4 (Prove):**
+1. Builder runs full 5a/5b/5c evaluation
+2. Builder → `sessions_send` → Reviewer: "Review gold baselines against SPEC and source data"
+3. Reviewer checks every gold baseline field: Is this the right author? Right genre? Right death date? Does the output match the SPEC's quality bar?
+4. Builder → `sessions_spawn` → Verifier: "Scholarly verification of all gold baselines — Usul.ai + web search"
+5. Verifier independently checks every factual claim in every gold baseline
+6. Verifier produces `verification_log.json` with per-claim evidence
+7. All three must agree + cross-engine regression passes before engine is marked COMPLETE
 
 ### Why GSD is available but not default
 
-GSD's milestone/phase model adds abstraction over ENGINE_PROTOCOL. Since ENGINE_PROTOCOL already defines the 4-step process with precision, GSD's discuss→plan→execute cycle would re-discover decisions that ENGINE_FACTORY.md already pre-computes. The `/build-engine` command codifies ENGINE_PROTOCOL directly for more accurate, domain-aware execution.
+GSD's milestone/phase model adds abstraction over ENGINE_PROTOCOL. Since ENGINE_PROTOCOL already defines the 4-step process with precision, GSD's discuss→plan→execute cycle would re-discover decisions that ENGINE_FACTORY.md already pre-computes. The `/build-engine` command codifies ENGINE_PROTOCOL directly. However, GSD's `/gsd:verify-work` could supplement OpenClaw's verification as an additional quality layer if desired.
 
 ### Expanded Consensus Pool
 
@@ -81,17 +254,27 @@ The user's desktop GPU enables:
 USER runs /build-engine normalization
          │
          ▼
-┌────────────────────────────────────────────────┐
-│  /build-engine command                         │
-│  1. Read ENGINE_FACTORY.md (blueprint)         │
-│  2. Read engine CLAUDE.md (state)              │
-│  3. Determine current step                     │
-│  4. Drive through steps — NO SHORTCUTS         │
-│  5. Run quality gates at EVERY boundary        │
-│  6. Run cross-engine regression after Step 4   │
-│  7. Pause at human gates                       │
-│  8. Write handoff at session end               │
-└────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  OpenClaw Gateway (24/7)                                     │
+│  ┌──────────────────────────────────────────────────────┐    │
+│  │  BUILDER (Claude Code, Opus 4.6, 1M context)        │    │
+│  │  /build-engine command drives ENGINE_PROTOCOL        │    │
+│  └──────────┬───────────────────────┬───────────────────┘    │
+│             │ sessions_send          │ sessions_spawn         │
+│             ▼                        ▼                        │
+│  ┌──────────────────┐    ┌──────────────────────┐            │
+│  │  REVIEWER         │    │  VERIFIER             │            │
+│  │  Read-only access │    │  Independent tests    │            │
+│  │  SPEC compliance  │    │  Scholarly verify     │            │
+│  │  Arabic safety    │    │  Usul.ai + web search │            │
+│  │  D-023 check      │    │  Experiment replicate │            │
+│  │  Knowledge integ. │    │  Factual claims       │            │
+│  └──────────────────┘    └──────────────────────┘            │
+│             │                        │                        │
+│             └────── ALL APPROVE ─────┘                        │
+│                         │                                     │
+│                    Step advances                              │
+└──────────────────────────────────────────────────────────────┘
          │
     ┌────┴────┐────────┐────────┐
     ▼         ▼        ▼        ▼
@@ -99,25 +282,33 @@ USER runs /build-engine normalization
   SPEC    Research   Build    Prove
     │         │        │        │
     ▼         ▼        ▼        ▼
- Quality   Quality  Quality  Quality
-  Gate      Gate     Gate     Gate
+ Builder   Builder  Builder  Builder
+ writes    runs     writes   runs
+ SPEC_CORE exper.   code     eval
     │         │        │        │
     ▼         ▼        ▼        ▼
- HUMAN    HUMAN*    mypy +   HUMAN
- GATE #1  (if <85%  pytest   GATE #2
-(core/    accuracy) + cov    (gold baselines)
- defer)              ≥90%     │
-                              ▼
-                     Cross-Engine
-                     Regression
-                     (ALL prior
-                      engines)
-                              │
-                              ▼
-                     Scholarly
-                     Verification
-                     (Usul.ai +
-                      web search)
+ Reviewer  Reviewer Reviewer Reviewer
+ audits    checks   reviews  checks
+ SPEC      design   each     gold
+ quality   +results module   baselines
+    │         │        │        │
+    ▼         ▼        ▼        ▼
+ Verifier  Verifier Verifier Verifier
+ checks    replicates writes  scholarly
+ contracts experiments indep.  verify
+                     tests   (Usul.ai)
+    │         │        │        │
+    ▼         ▼        ▼        ▼
+ ALL MUST   ALL MUST ALL MUST ALL MUST
+ APPROVE    AGREE    PASS     APPROVE
+    │         │        │        │
+    ▼         ▼        ▼        ▼
+ HUMAN     (auto)    mypy +  HUMAN
+ GATE #1             cov≥90% GATE #2
+                        │
+                        ▼
+                   Cross-Engine
+                   Regression
 ```
 
 **State lives in:**
@@ -139,6 +330,8 @@ These quality standards apply to EVERY engine. They are not guidelines — they 
 - kr-integrity audit passes with **0 HIGH findings**
 - Every §4.A rule has at least one **concrete testable example with real Arabic text**
 - Contract compatibility verified with **both** upstream and downstream engines
+- **Reviewer APPROVE** on SPEC_CORE.md (SPEC compliance, Arabic safety, completeness)
+- **Verifier APPROVE** on contract compatibility (independent check)
 - Owner has reviewed core/deferred classification (or 3-day timeout with extended verification)
 
 ### Step 2 (Research) Exit Criteria
@@ -147,6 +340,8 @@ These quality standards apply to EVERY engine. They are not guidelines — they 
 - For engines with heavy LLM dependence (atomization, excerpting, taxonomy, synthesis): test on **ALL available fixtures**
 - Results documented in `engines/{engine}/research/` with full reproducibility information
 - SPEC_CORE.md updated with findings — no assumption left unaddressed
+- **Reviewer APPROVE** on experiment design and interpretation of results
+- **Verifier** has independently replicated at least 1 key experiment → results consistent
 
 ### Step 3 (Build) Exit Criteria
 - All `pytest` tests pass (`python -m pytest engines/{engine}/tests/ -v --tb=short`)
@@ -157,6 +352,8 @@ These quality standards apply to EVERY engine. They are not guidelines — they 
 - Every function tested against **at least one real Arabic fixture** from `tests/fixtures/`
 - Contract changes synced with neighbors via `run_pipeline.py`
 - `session_quality_gate.py` passes
+- **Reviewer APPROVE** on every module (SPEC compliance, Arabic safety, D-023, knowledge integrity)
+- **Verifier's independent tests** pass against Builder's code (SPEC interpretation cross-check)
 
 ### Step 4 (Prove) Exit Criteria
 - Full **5a/5b/5c evaluation** on ALL 8 test fixtures (not just core-format ones)
@@ -174,6 +371,8 @@ These quality standards apply to EVERY engine. They are not guidelines — they 
 - **No compressed steps.** Step 2 is never merged into Step 1. Each step is a separate, focused effort.
 - **No skipping fixtures.** Step 4 tests ALL 8 fixtures, including edge cases (photos, multi-volume, owner notes).
 - **No advancing with known defects.** If a quality gate fails, fix before proceeding.
+- **No single-agent approval.** Every sub-step requires Reviewer APPROVE. No code is committed without independent review.
+- **No skipping Verifier tests.** Verifier's independent tests are as authoritative as Builder's tests. Both must pass.
 
 ---
 
@@ -279,6 +478,7 @@ Cross-engine regression: PASSING (503/503)
 D-023 metadata flow: CLEAN
 Budget spent: €32.50 (uncapped)
 Consensus pool: Command A | Opus 4.6 | GPT-4o | Gemini 2.5 Pro
+Agents: Builder ● | Reviewer ● | Verifier ● | Oracle ●
 ```
 
 ### 5. `scripts/engine_readiness.py` — Step Advancement Gate (~300-400 lines)
@@ -326,13 +526,64 @@ Runs:
 - Contract boundary validation at every junction
 - Reports any regression introduced by the latest engine build
 
-### 7. OpenClaw monitoring setup
+### 7. OpenClaw Multi-Agent Quality Setup
 
-Configure OpenClaw for passive monitoring (not orchestration):
-- **Telegram bot** that receives notifications at human gates
-- **Health endpoint** that checks if active Claude Code sessions are responsive
-- **Cost aggregator** that reads COST_LOG.json and reports cumulative spend
-- Configuration stored in `.openclaw/` directory
+Configure OpenClaw Gateway with 3 agents for quality coordination:
+
+**`~/.openclaw/openclaw.json`** — Gateway configuration:
+```json5
+{
+  agents: {
+    list: [
+      {
+        id: "builder",
+        model: "anthropic/claude-opus-4-6",
+        tools: { profile: "coding", allow: ["sessions_send", "sessions_spawn"] }
+      },
+      {
+        id: "reviewer",
+        model: "anthropic/claude-opus-4-6",
+        tools: { profile: "coding", deny: ["apply_patch", "write"] }  // READ-ONLY
+      },
+      {
+        id: "verifier",
+        model: "anthropic/claude-opus-4-6",
+        tools: { profile: "coding", allow: ["sessions_send", "exec", "browser"] }
+      }
+    ]
+  },
+  tools: {
+    agentToAgent: { enabled: true, allow: ["builder", "reviewer", "verifier", "oracle"] },
+    sessions: { visibility: "agent" }
+  },
+  session: { agentToAgent: { maxPingPongTurns: 5 } }
+}
+```
+
+**Per-agent workspace setup:**
+- `~/.openclaw/agents/builder/` — SOUL.md with ENGINE_PROTOCOL knowledge, access to all KR skills
+- `~/.openclaw/agents/reviewer/` — SOUL.md with review checklist (SPEC compliance, Arabic safety, D-023, knowledge integrity), READ-ONLY tool access
+- `~/.openclaw/agents/verifier/` — SOUL.md with scholarly verification protocol, Usul.ai instructions, independent test-writing methodology
+
+**Git integration** (`.git/hooks/post-commit`):
+```bash
+#!/bin/bash
+# Trigger Reviewer after engine code commits
+if git diff --name-only HEAD~1 | grep -q "engines/"; then
+  openclaw agent --agent reviewer \
+    --message "Review latest commit to engine code. Check SPEC, Arabic safety, D-023." \
+    --thinking high
+fi
+```
+
+**Telegram notifications** — configured via OpenClaw channels for human gate alerts
+
+**What this enables:**
+- Builder writes code → Reviewer automatically reviews every commit
+- Builder requests scholarly verification → Verifier independently checks via Usul.ai + web
+- Verifier writes independent tests → Builder's code must pass both test suites
+- Disagreements trigger ping-pong discussion (up to 5 turns) → resolved or escalated to human gate
+- All agent interactions logged with `provenance.kind = "inter_session"` for auditability
 
 ### 8. Updates to existing files
 
@@ -453,11 +704,12 @@ Pipeline ordering requires sequential engine building. The allowed overlap (Step
 
 ### What the 20 conversations are used for
 
-- **1-2 slots for engine building** (current engine + next engine early steps)
+- **3 slots for engine building** (Builder + Reviewer + Verifier agents via OpenClaw)
+- **1-2 slots for next engine** (early Steps 1-2 overlapping current engine Steps 3-4)
 - **1 slot for Phase D evaluation** (remaining Sessions B, C, D, Layer 4)
 - **1 slot for Codex research** (Step 2 experiments)
 - **1 slot for nahw tree research** (starting during engine 4 work)
-- **15+ slots reserved** — available for deep research, one-off investigations, or when an engine needs multiple research threads explored simultaneously
+- **12+ slots reserved** — available for deep research, additional verification agents, or when an engine needs multiple research threads explored simultaneously
 
 ### 24/7 Operation Model
 
@@ -551,29 +803,40 @@ This protocol catches the silent errors that automated tests cannot: wrong autho
 
 ## Implementation Order
 
-1. **Create `reference/ENGINE_FACTORY.md`** — The master blueprint with all sections (A through H). This is the largest deliverable (~1000-1500 lines) and the foundation everything else depends on. Must include the expanded quality standards, consensus configuration, and scholarly verification protocol.
+1. **Set up OpenClaw Gateway with 3 agents** — `~/.openclaw/openclaw.json` with builder/reviewer/verifier roles, `agentToAgent` enabled, per-agent SOUL.md files with KR domain knowledge. This is the foundation — all subsequent work runs through the multi-agent quality loop.
 
-2. **Create `.claude/commands/build-engine.md`** — The entry point command.
+2. **Create `reference/ENGINE_FACTORY.md`** — The master blueprint with all sections (A through H). Must include multi-agent review protocols for each step, expanded quality standards, consensus configuration, and scholarly verification protocol.
 
-3. **Create `.claude/commands/engine-handoff.md`** — Session end protocol.
+3. **Create `.claude/commands/build-engine.md`** — Entry point command. Integrates with OpenClaw: Builder drives ENGINE_PROTOCOL, sends review requests to Reviewer, spawns verification tasks on Verifier.
 
-4. **Create `.claude/commands/engine-status.md`** — Progress dashboard.
+4. **Create `.claude/commands/engine-handoff.md`** — Session end protocol.
 
-5. **Create `scripts/engine_readiness.py`** — Programmatic step advancement gate with zero-tolerance checks.
+5. **Create `.claude/commands/engine-status.md`** — Progress dashboard.
 
-6. **Create `scripts/cross_engine_regression.py`** — Regression test runner.
+6. **Create `scripts/engine_readiness.py`** — Step advancement gate. Checks include: Reviewer APPROVE status, Verifier tests passing, all automated quality gates.
 
-7. **Create `.pre-commit-config.yaml`** — Pre-commit hooks for black + mypy + quality scripts.
+7. **Create `scripts/cross_engine_regression.py`** — Regression test runner.
 
-8. **Set up OpenClaw monitoring** — Telegram notifications for human gates and session health.
+8. **Create `.pre-commit-config.yaml`** — Pre-commit hooks for black + mypy + quality scripts.
 
-9. **Update `NEXT.md`** — Point to ENGINE_FACTORY.md and `/build-engine normalization` as the first action.
+9. **Set up git hooks for OpenClaw** — `.git/hooks/post-commit` triggers Reviewer on engine code changes.
 
-10. **Update each engine's `CLAUDE.md`** — Add factory-compatible status section.
+10. **Set up Telegram notifications** — OpenClaw channel integration for human gate alerts.
 
-11. **Test the factory** — Dry run on normalization Step 1 per verification plan below.
+11. **Update `NEXT.md`** — Point to ENGINE_FACTORY.md and `/build-engine normalization`.
+
+12. **Update each engine's `CLAUDE.md`** — Add factory-compatible status section.
+
+13. **Create `.claude/agents/oracle.md`** — Oracle agent definition with owner proxy prompt, scholarly reasoning instructions, and decision audit requirements.
+
+14. **Test the factory** — Full 4-agent dry run on normalization Step 1: Builder extracts SPEC_CORE → Reviewer reviews → Verifier checks contracts → Oracle approves human gate → all four must agree.
 
 ### Critical files to create
+- `~/.openclaw/openclaw.json` (NEW — gateway config with 4 agents: builder, reviewer, verifier, oracle)
+- `~/.openclaw/agents/builder/SOUL.md` (NEW — ENGINE_PROTOCOL knowledge + KR skills)
+- `~/.openclaw/agents/reviewer/SOUL.md` (NEW — review checklist: SPEC, Arabic safety, D-023, knowledge integrity)
+- `~/.openclaw/agents/verifier/SOUL.md` (NEW — scholarly verification protocol, independent test methodology)
+- `.claude/agents/oracle.md` (NEW — owner proxy agent: deep reasoning, human gate decisions, scholarly expertise)
 - `reference/ENGINE_FACTORY.md` (NEW — ~1000-1500 lines)
 - `.claude/commands/build-engine.md` (NEW — ~150-200 lines)
 - `.claude/commands/engine-handoff.md` (NEW — ~80-100 lines)
@@ -581,7 +844,7 @@ This protocol catches the silent errors that automated tests cannot: wrong autho
 - `scripts/engine_readiness.py` (NEW — ~300-400 lines)
 - `scripts/cross_engine_regression.py` (NEW — ~150-200 lines)
 - `.pre-commit-config.yaml` (NEW — ~30-50 lines)
-- `.openclaw/monitoring.yaml` (NEW — ~50-80 lines, if OpenClaw supports declarative config)
+- `.git/hooks/post-commit` (NEW — triggers Reviewer on engine code commits)
 
 ### Critical files to update
 - `NEXT.md` (UPDATE — point to factory)
@@ -630,11 +893,22 @@ Before running on normalization, verify:
    - All 503 source engine tests pass
    - D-023 metadata flow is clean through source
 
-5. **OpenClaw monitoring**
-   - Telegram notification fires on test trigger
-   - Health check endpoint responds
+5. **OpenClaw multi-agent coordination**
+   - Gateway starts with 3 agents (builder, reviewer, verifier)
+   - `sessions_send` from builder to reviewer delivers message and gets response
+   - `sessions_spawn` from builder to verifier creates independent task
+   - Reviewer can REJECT work (Builder receives rejection and must address it)
+   - Telegram notification fires when human gate is reached
+   - Git post-commit hook triggers Reviewer on engine code changes
 
-6. **Pre-commit hooks**
+6. **Multi-agent dry run (normalization Step 1)**
+   - Builder extracts a small section of SPEC_CORE
+   - Builder sends to Reviewer for review → Reviewer responds with findings
+   - Builder spawns Verifier to check contract compatibility → Verifier responds
+   - All three agree → sub-step advances
+   - Disagreement triggers ping-pong discussion → resolution or escalation
+
+7. **Pre-commit hooks**
    - `black` formats on commit
    - `mypy --strict` runs on changed engine files
    - Quality scripts run on relevant changes
@@ -652,3 +926,6 @@ Before running on normalization, verify:
 - Each engine has LESSONS.md with forward-looking insights
 - Backward lesson reviews completed after engines 2, 4, 6
 - No known defects in any SPEC_CORE.md (0 HIGH across all engines)
+- **Every module has Reviewer APPROVE in audit trail**
+- **Every engine has Verifier's independent tests passing alongside Builder's tests**
+- **Every gold baseline has Verifier's scholarly verification log**
