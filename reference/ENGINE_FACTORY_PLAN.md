@@ -76,91 +76,110 @@ OpenClaw provides the primitives for structured multi-agent review:
 | **Builder** | Opus 4.6 (1M) via Claude Code | Full tool access (edit, exec, MCP, skills) | Writes code, runs tests, manages state, drives ENGINE_PROTOCOL |
 | **Reviewer** | Opus 4.6 | Read-only file access, quality scripts (`exec`), `sessions_send` | Reviews every output against SPEC, Arabic safety (skill), D-023 compliance, knowledge integrity (skill). Can REJECT work. |
 | **Verifier** | Opus 4.6 | Web search, `exec` (for scripts), file read, `sessions_send` | Writes independent tests from SPEC (without seeing Builder's implementation), scholarly verification (Usul.ai + web search), cross-references factual claims |
-| **Oracle** | Opus 4.6 via `claude -p --effort max` | Read, Glob, Grep, WebSearch, WebFetch | **Owner proxy.** Handles ALL human gate decisions. Deep reasoning on SPEC design, scholarly questions, disagreement arbitration. Covered by Max subscription — zero API cost. |
+| **Oracle** | Opus 4.6 via `claude -p --effort max` | Read, Glob, Grep, WebSearch, WebFetch | **Claude Chat equivalent.** Performs the same deep domain reasoning that Claude Chat does in the current workflow — web research, cross-referencing sources, evaluating scholarly claims. NOT an "owner proxy" — it's the automated version of what the owner already delegates to Claude Chat. Reads the Decision Playbook for accumulated project knowledge. Covered by Max subscription — zero API cost. |
 
-### The Oracle — True Autonomy via Owner Proxy
+### The Oracle — Claude Chat Equivalent via CLI
 
-**Why Claude Chat can't be automated:** Claude Chat (web and desktop) has no programmatic API. You cannot send it a message and get a response without human interaction. There's no way around this.
+**What the Oracle actually is:** During source engine development, the owner never personally evaluated whether an author attribution was correct or a genre classification was right. Instead, the owner would come to Claude Chat, and Claude Chat would do web searches, cross-reference sources, read extraction data, and make the call. The owner would confirm the result made sense. The "domain expertise" was Claude Chat doing research and reasoning, with the owner as a sanity check.
 
-**Why `claude -p --effort max` is the equivalent:** Claude Code's print mode provides the exact same Opus 4.6 model with the same extended thinking capabilities as Claude Chat. The key differences:
+The Oracle replicates this exact workflow programmatically. It's NOT "AI pretending to be the owner." It's "AI doing what Claude Chat already does, without the owner having to copy-paste between windows."
+
+**Why `claude -p --effort max` works:** Claude Code's print mode provides the same Opus 4.6 model with the same extended thinking. Key properties:
 - `claude -p` is fully automatable (called via shell command)
 - `claude -p` reads CLAUDE.md and project context automatically
 - `claude -p` is covered by Max 20x subscription (zero additional API cost)
-- `claude -p --effort max` enables maximum reasoning depth (same as Chat's extended thinking)
+- `claude -p --effort max` enables maximum reasoning depth
 - `claude -p --output-format json` returns structured responses for programmatic processing
 
-**How OpenClaw invokes the Oracle:**
+**The context gap and how to close it:** Claude Chat has accumulated memory across dozens of sessions — every lesson learned, every bug pattern, every domain correction. A `claude -p` call starts fresh. The solution is the **Decision Playbook** (`reference/DECISION_PLAYBOOK.md`), a document that captures every heuristic and pattern Claude Chat currently carries:
+
+- Known bug patterns (tahqiq-note ML=true bias, death date hallucination, compiler-as-muhaqiq)
+- Domain rules (Shamela-ecosystem sources count as one, "traditional" not "definitive" for attribution)
+- Evaluation heuristics (when to trust consensus, when to override, what "flagged" really means)
+- Arabic text handling patterns (diacritics, NFC normalization, punctuation in nasab chains)
+- Scholarly verification sources and their reliability hierarchy
+
+With the Decision Playbook + SPEC + engine context injected, the Oracle handles ~90% of what Claude Chat handles. The remaining ~10% are cases where the answer depends on obscure cross-session precedents.
+
+**Three-tier gate model:**
+
+| Tier | Who | When | Example |
+|------|-----|------|---------|
+| **Oracle (automated)** | `claude -p --effort max` | Most gates — factual verification, SPEC compliance, scholarly cross-referencing | "Is this author attribution correct?" → Oracle does web search, checks Usul.ai, cross-references |
+| **Owner (sanity check)** | Rayane via Telegram notification | Quick "does this look right?" reviews, high-level direction | "Does this core/deferred classification match what you imagined?" |
+| **Claude Chat (escalation)** | Rayane opens Claude Chat manually | Hard 10% — ambiguous cases, novel patterns, decisions requiring deep cross-session context | "This book has a structure we've never seen before — is it a compilation or a commentary?" |
+
+**Oracle invocation:**
 ```bash
 # Oracle handles a human gate decision
 claude -p --effort max --model opus --agent oracle \
   --output-format json --permission-mode default \
-  "HUMAN GATE G1 — Normalization Engine SPEC Core Review
+  "HUMAN GATE G2 — Normalization Engine Gold Baseline Review
 
-   Context: The Builder has extracted SPEC_CORE.md from the normalization
-   engine's SPEC.md. Layer detection (matn/sharh/hashiyah via CSS classes)
-   is classified as CORE.
+   Context: [SPEC_CORE.md excerpt + relevant test output injected here]
 
-   Your role: You are acting as the owner — an Islamic studies student who
-   uses these books for his studies. Review this classification:
-   1. Is layer detection correctly classified as core?
-   2. Does this match how multi-layer books (sharh, hashiyah) actually work?
-   3. Are any critical capabilities incorrectly deferred?
+   Decision Playbook loaded from: reference/DECISION_PLAYBOOK.md
+   Known patterns relevant to this gate: [auto-extracted from playbook]
 
-   Respond with: APPROVE or REJECT with specific reasoning."
+   Task: Verify gold baseline for ibn_aqil_alfiyyah fixture.
+   1. Is the author attribution correct? (Cross-reference via web search)
+   2. Is the genre classification correct?
+   3. Does the layer detection output match expected multi-layer structure?
+   4. Are there any patterns from DECISION_PLAYBOOK that apply?
+
+   Respond with: APPROVE, REJECT (with specific issues), or ESCALATE (with reasoning for why this needs Claude Chat)."
 ```
 
-**What the Oracle replaces:**
+**Critical design choice — ESCALATE option:** The Oracle can recognize when it's out of its depth and explicitly escalate to Claude Chat. This prevents the failure mode where an LLM confidently approves something wrong. The Oracle should ESCALATE when:
+- Confidence is below a threshold on a factual claim
+- The pattern doesn't match anything in the Decision Playbook
+- Two sources contradict each other and resolution requires domain judgment
+- The decision would set a precedent not covered by existing rules
 
-| Previously (human required) | Now (Oracle handles autonomously) |
-|-----|-----|
-| G1: Owner reviews core/deferred classification | Oracle evaluates SPEC classification with deep reasoning about scholarly text structure |
-| G2: Owner reviews gold baselines ("right book?") | Oracle cross-references against Usul.ai + web search + domain knowledge |
-| G3: Owner validates nahw science tree | Oracle generates AND validates using multi-source scholarly research |
-| G4: Owner reviews entry viewer output | Oracle evaluates narrative quality against ENTRY_EXAMPLE.md standards |
-| Disagreement between Builder/Reviewer | Oracle arbitrates with deep analysis of both positions |
-| Ambiguous SPEC interpretation | Oracle reasons deeply about intent and scholarly implications |
+**What the Oracle replaces vs. what it doesn't:**
+
+| Oracle handles autonomously | Owner sanity-checks | Escalate to Claude Chat |
+|-----|-----|-----|
+| Author attribution verification (web search + Usul.ai) | "Does this core/deferred split look right for my studies?" | Novel book structures not covered by Decision Playbook |
+| Genre classification verification | "Does this entry read like a reference I would trust?" | Contradictory sources requiring experiential judgment |
+| Death date cross-referencing | High-level direction on priorities | Patterns that might indicate a new systematic bug |
+| SPEC compliance checking | | Disagreements the Oracle can't resolve |
+| Scholarly source verification | | |
 
 **Oracle agent definition** (`.claude/agents/oracle.md`):
 ```markdown
 ---
 name: Oracle
-description: Owner proxy for KR Engine Factory — handles human gates, deep reasoning, scholarly decisions
+description: Domain reasoning agent for KR Engine Factory — handles scholarly verification, factual cross-referencing, and gate decisions. Claude Chat equivalent via CLI.
 model: opus
 tools: Read, Glob, Grep, WebSearch, WebFetch
 ---
-You are the Oracle for the KR Engine Factory. You act as the owner's proxy —
-an Islamic studies student who uses these books for his studies.
+You are the Oracle for the KR Engine Factory. You perform the same role that
+Claude Chat performs in the current manual workflow: deep domain reasoning,
+web research, scholarly verification, and evidence-based decision making.
 
-Your decisions have the same authority as the owner's. You must:
-1. Apply deep scholarly reasoning to every decision
-2. Cross-reference against Usul.ai and web sources for factual claims
-3. Consider how the decision affects the library's accuracy
-4. Document your reasoning in full (decisions are auditable)
-5. When uncertain, err on the side of caution (flag for later owner review)
+You are NOT pretending to be the owner. You are the research and reasoning
+layer that the owner relies on for domain decisions.
 
-Read reference/ENGINE_FACTORY.md for the full factory protocol.
-Read the relevant engine's SPEC_CORE.md before making decisions.
+Your protocol:
+1. Read the Decision Playbook (reference/DECISION_PLAYBOOK.md) for accumulated project knowledge
+2. Read the relevant engine's SPEC_CORE.md before making decisions
+3. Cross-reference factual claims against web sources and Usul.ai
+4. Apply known patterns from the Decision Playbook
+5. Document your reasoning in full (all decisions are auditable)
+6. When uncertain or when the situation doesn't match known patterns,
+   respond with ESCALATE and explain why this needs Claude Chat review
+
+The owner will sanity-check your decisions. If you're wrong, that becomes
+a new entry in the Decision Playbook for future reference.
 ```
 
-**True autonomy achieved:** With the Oracle, the factory runs 24/7 with zero human intervention:
-- Builder builds → Reviewer reviews → Verifier verifies → Oracle approves gates
-- All 4 agents running through OpenClaw coordination
-- Owner receives Telegram summaries but is never REQUIRED to act
-- Owner can override any Oracle decision retroactively by reviewing decision logs
-
-**Cost structure:**
-- Builder: Covered by Max subscription (Claude Code session)
-- Reviewer: Covered by Max subscription (OpenClaw agent using Claude API — wait, this needs clarification)
-
-**Important clarification on costs:**
-- **Claude Code sessions** (`claude` CLI): Covered by Max 20x subscription
-- **OpenClaw agents**: Use the Anthropic API directly — this costs tokens UNLESS they invoke `claude -p` for their reasoning
-- **Oracle** (`claude -p`): Covered by Max subscription
-
-**Recommended approach:** ALL agents use `claude -p` for their reasoning, coordinated by OpenClaw. This means:
-- OpenClaw Gateway handles routing and coordination (lightweight, no LLM cost)
-- Each agent's actual reasoning is done via `claude -p` (covered by Max)
-- Only the multi-model consensus calls (Command A, GPT-4o, Gemini 2.5 Pro) go through OpenRouter (API cost)
+**Cost structure (all covered by Max 20x subscription):**
+- Builder: Claude Code interactive session
+- Reviewer: Claude Code subagent (read-only tools)
+- Verifier: Claude Code subagent (read + exec for tests)
+- Oracle: `claude -p --effort max` invoked by orchestration script
+- Only multi-model consensus calls (Command A, GPT-4o) go through OpenRouter (API cost)
 
 ### Multi-Agent Workflow Within Each Step
 
@@ -413,11 +432,13 @@ Step 4 exit: All 4 scripts pass | cross-engine regression | gold baselines + sch
 - Run `run_pipeline.py` from source through this engine (real data, real contracts)
 - Any failure blocks advancement to next engine
 
-**Section F: Human Gate Schedule** — When owner reviews what, with clear notification mechanism
+**Section F: Human Gate Schedule** — Three-tier gate model (Oracle automated / Owner sanity-check / Claude Chat escalation), with Telegram notification for Tier 2
 
-**Section G: Scholarly Verification Protocol** — How to cross-reference gold baselines against Usul.ai and web sources
+**Section G: Scholarly Verification Protocol** — How Oracle cross-references gold baselines against Usul.ai and web sources
 
 **Section H: Multi-Model Consensus Configuration** — Which models for which decisions, how to add/remove models
+
+**Section I: Decision Playbook Reference** — Pointer to `reference/DECISION_PLAYBOOK.md`, protocol for updating it after each engine build
 
 ### 2. `.claude/commands/build-engine.md` — Entry Point Command (~150-200 lines)
 
@@ -526,9 +547,82 @@ Runs:
 - Contract boundary validation at every junction
 - Reports any regression introduced by the latest engine build
 
-### 7. OpenClaw Multi-Agent Quality Setup
+### 7. Multi-Agent Quality Setup — Two Architecture Options
 
-Configure OpenClaw Gateway with 3 agents for quality coordination:
+The Builder/Reviewer/Verifier/Oracle roles can be implemented through two paths. Both achieve the same quality goal (independent review of every module). Choose based on setup complexity vs. feature richness.
+
+#### Option A: Claude Code Native (Recommended for v1)
+
+Uses Claude Code's built-in subagents and Agent Teams. Simpler setup, fully covered by Max subscription, no external infrastructure.
+
+**Reviewer subagent** (`.claude/agents/reviewer.md`):
+```markdown
+---
+name: reviewer
+description: Reviews engine code against SPEC for compliance, Arabic safety, D-023 metadata flow, and knowledge integrity. Use for every module before commit.
+model: opus
+tools: Read, Grep, Glob
+---
+You are the KR Engine Reviewer. You review code against SPEC_CORE.md.
+
+Checklist for every review:
+1. Every SPEC rule in the relevant section has corresponding code
+2. Arabic text handling follows NFC normalization, diacritics preserved
+3. Metadata flows forward (D-023) — no field dropped
+4. Error handling fails loud — no silent defaults
+5. Type hints on all signatures, no `Any`
+6. Knowledge integrity — check against DECISION_PLAYBOOK.md patterns
+
+Respond: APPROVE or REJECT with specific file:line issues.
+```
+
+**Verifier subagent** (`.claude/agents/verifier.md`):
+```markdown
+---
+name: verifier
+description: Writes independent tests from SPEC without seeing Builder's implementation. Use after each module is built.
+model: opus
+tools: Read, Grep, Glob, Bash
+---
+You are the KR Engine Verifier. You write tests from SPEC behavioral rules ONLY.
+
+Protocol:
+1. Read SPEC_CORE.md for the relevant section
+2. DO NOT read the Builder's implementation code
+3. Write tests that verify SPEC behavior using only the public API
+4. Run your tests against the Builder's code
+5. If your tests fail, it means the Builder misinterpreted the SPEC
+
+This is the highest-value quality check in the factory.
+```
+
+**Orchestration** via a simple bash/Python script (`scripts/engine_orchestrator.py`):
+```bash
+# Pseudocode — deterministic, no LLM deciding flow
+for each module in SPEC_CORE:
+    builder builds module + tests
+    reviewer subagent reviews → APPROVE/REJECT
+    if REJECT: builder fixes, re-review (max 3 rounds)
+    verifier subagent writes independent tests
+    run both test suites
+    if all pass: commit
+    else: builder fixes
+
+# At step boundaries:
+run quality gates (check_spec_quality.py, etc.)
+invoke oracle for human gates (claude -p --effort max)
+notify owner via Telegram for sanity check
+```
+
+**Advantages:** Zero external infrastructure. All covered by Max. No TOS concerns. Native Claude Code context management. Subagents can be upgraded to Agent Teams if inter-agent communication is needed.
+
+**Limitation:** Subagents can't spawn other subagents. Orchestration must be driven by the main session or an external script.
+
+#### Option B: OpenClaw + Lobster (Full autonomy)
+
+Uses OpenClaw Gateway for multi-agent coordination with Lobster for deterministic workflow orchestration. More infrastructure, but supports true 24/7 autonomous operation.
+
+**Important: Use Lobster for orchestration, not `sessions_spawn`.** `sessions_spawn` is non-deterministic (the LLM decides when to spawn children). Lobster provides deterministic YAML-driven pipelines with approval gates and resume tokens. The Builder→Reviewer→Verifier flow should be a Lobster workflow, not an LLM decision.
 
 **`~/.openclaw/openclaw.json`** — Gateway configuration:
 ```json5
@@ -538,7 +632,7 @@ Configure OpenClaw Gateway with 3 agents for quality coordination:
       {
         id: "builder",
         model: "anthropic/claude-opus-4-6",
-        tools: { profile: "coding", allow: ["sessions_send", "sessions_spawn"] }
+        tools: { profile: "coding", allow: ["sessions_send", "lobster"] }
       },
       {
         id: "reviewer",
@@ -556,36 +650,108 @@ Configure OpenClaw Gateway with 3 agents for quality coordination:
     agentToAgent: { enabled: true, allow: ["builder", "reviewer", "verifier", "oracle"] },
     sessions: { visibility: "agent" }
   },
-  session: { agentToAgent: { maxPingPongTurns: 5 } }
+  session: { agentToAgent: { maxPingPongTurns: 5 } },
+  plugins: { entries: { "llm-task": { enabled: true } } }
 }
 ```
 
-**Per-agent workspace setup:**
-- `~/.openclaw/agents/builder/` — SOUL.md with ENGINE_PROTOCOL knowledge, access to all KR skills
-- `~/.openclaw/agents/reviewer/` — SOUL.md with review checklist (SPEC compliance, Arabic safety, D-023, knowledge integrity), READ-ONLY tool access
-- `~/.openclaw/agents/verifier/` — SOUL.md with scholarly verification protocol, Usul.ai instructions, independent test-writing methodology
-
-**Git integration** (`.git/hooks/post-commit`):
-```bash
-#!/bin/bash
-# Trigger Reviewer after engine code commits
-if git diff --name-only HEAD~1 | grep -q "engines/"; then
-  openclaw agent --agent reviewer \
-    --message "Review latest commit to engine code. Check SPEC, Arabic safety, D-023." \
-    --thinking high
-fi
+**Lobster workflow** (`workflows/engine-module-build.lobster`):
+```yaml
+name: engine-module-build
+args:
+  module: {}
+  spec_section: {}
+steps:
+  - id: build
+    command: >
+      openclaw.invoke --tool llm-task --action json
+      --args-json '{"prompt": "Build module ${module} per SPEC ${spec_section}"}'
+  - id: review
+    command: >
+      openclaw.invoke --agent reviewer --tool sessions_send
+      --args-json '{"message": "Review module ${module} against SPEC ${spec_section}"}'
+  - id: review_gate
+    approval: "Reviewer approved? Check review output."
+    condition: $review.json.verdict == "APPROVE"
+  - id: verify
+    command: >
+      openclaw.invoke --agent verifier --tool sessions_send
+      --args-json '{"message": "Write independent tests for SPEC ${spec_section}"}'
+  - id: test
+    command: python -m pytest engines/${engine}/tests/ -v
+  - id: commit
+    command: git add -A && git commit -m "feat(${engine}): implement ${module}"
+    approval: "All tests pass. Commit?"
 ```
 
-**Telegram notifications** — configured via OpenClaw channels for human gate alerts
+**Known issue:** There is a reported bug where `agentToAgent.enabled: true` breaks `sessions_spawn`. Since we use Lobster instead of `sessions_spawn`, this should not affect us, but verify during setup.
 
-**What this enables:**
-- Builder writes code → Reviewer automatically reviews every commit
-- Builder requests scholarly verification → Verifier independently checks via Usul.ai + web
-- Verifier writes independent tests → Builder's code must pass both test suites
-- Disagreements trigger ping-pong discussion (up to 5 turns) → resolved or escalated to human gate
-- All agent interactions logged with `provenance.kind = "inter_session"` for auditability
+**Per-agent workspace setup:**
+- `~/.openclaw/agents/builder/` — SOUL.md with ENGINE_PROTOCOL knowledge, access to all KR skills
+- `~/.openclaw/agents/reviewer/` — SOUL.md with review checklist, READ-ONLY tool access
+- `~/.openclaw/agents/verifier/` — SOUL.md with scholarly verification protocol, independent test methodology
 
-### 8. Updates to existing files
+**Telegram notifications** — configured via OpenClaw channels for Tier 2 owner sanity checks
+
+**Advantages:** True 24/7 autonomous operation. Lobster handles deterministic orchestration. OpenClaw handles agent isolation and communication. Full audit trail via `provenance.kind = "inter_session"`.
+
+**Limitation:** More infrastructure to set up and maintain. OpenClaw is young (launched January 2026) with known bugs. TOS situation around subscription tokens needs monitoring.
+
+#### Recommendation
+
+**Start with Option A** (Claude Code native). It's simpler, fully supported, and gets you the highest-value quality measure (independent Reviewer and Verifier) with zero infrastructure overhead. Graduate to Option B only if:
+- You want true 24/7 unattended operation (Option A needs someone to kick off each session)
+- You need more than 3 agents working in parallel
+- The Lobster workflow model proves valuable for your specific patterns
+
+### 8. Decision Playbook — `reference/DECISION_PLAYBOOK.md` (NEW — Critical for Oracle)
+
+The Decision Playbook captures every heuristic, pattern, and domain rule that Claude Chat has accumulated across the source engine build. Without this document, the Oracle starts from zero on every invocation.
+
+**Contents (seeded from source engine experience):**
+
+```markdown
+# Decision Playbook — خزانة ريان
+
+## Known Bug Patterns
+- Tahqiq-note ML=true bias: Opus systematically misclassifies editorial apparatus as commentary layers
+- Death date hallucination: Opus infers specific dates 2-6 years off for modern scholars; CA fabricates years from century designations
+- Compiler-as-muhaqiq: Shamela lists source authors in author_raw while placing actual compiler in muhaqiq_raw
+- Genre enum silent fallback: validate_enum_value falls back to "other" without logging
+
+## Domain Rules
+- Shamela-ecosystem sources (shamela.ws, ketabonline.com, turath.io, waqfeya.net) count collectively as ONE source for VERIFIED threshold
+- "Traditional" (not "definitive") is the correct default attribution status per SPEC §4.A.4
+- "Flagged" means genuinely untrustworthy, not just incomplete metadata
+- Classical primary text with unknown muhaqiq should be "verified" with absence noted
+
+## Scholarly Verification Sources (reliability hierarchy)
+1. ar.wikipedia.org — most reliable for well-known classical works
+2. archive.org — good for edition verification
+3. shamela.ws — good for cross-referencing but counts as Shamela ecosystem
+4. noor-book.com, hindawi.org — supplementary
+5. tarajm.com — biographical data
+
+## Arabic Text Handling
+- Diacritics must be preserved exactly
+- NFC normalization only
+- Arabic commas in nasab chains cause silent failures — handle explicitly
+- Hash computation must precede dedup, which must precede freeze
+
+## Confidence Calibration
+- result.json author confidence is always 1.0 (engine bug) — real confidence from llm_responses
+- consensus.agreed=true does not check is_multi_layer — must compare manually
+- Scholar canonical IDs are not consistent across books (isolated temporary libraries)
+
+## Evaluation Heuristics
+- 5-verdict scale: VERIFIED / PLAUSIBLE / UNVERIFIABLE / FLAG / ESCALATE
+- web_fetch required for framework-VERIFY books; search snippets sufficient for famous works only
+- When one model provides data and the other abstains, treat the data as higher-risk
+```
+
+**Maintenance:** After each engine's build, add new patterns discovered during that engine's development. The Decision Playbook grows with each engine — it's the institutional memory of the factory.
+
+### 9. Updates to existing files
 
 - `NEXT.md` — Point to ENGINE_FACTORY.md as the starting point
 - Each engine's `CLAUDE.md` — Add factory-compatible status section
@@ -724,31 +890,45 @@ With the PC running continuously:
 
 ## Human Gate Schedule
 
-### Mandatory Gates
+### Three-Tier Gate Model
 
-| Gate | When | What Owner Does | Notification |
-|------|------|-----------------|-------------|
-| G1 x6 | Each engine Step 1 | Review core/deferred classification: "Is this what matters for my books?" | OpenClaw → Telegram |
-| G2 x6 | Each engine Step 4 | Review gold baselines: "Is this the right book? Right author? Does this look useful?" | OpenClaw → Telegram |
-| G3 | Before Taxonomy Step 3 | Validate nahw science tree: "Does this match how I learned nahw?" | OpenClaw → Telegram |
-| G4 | Synthesis Step 4 | Review entry viewer output: "Does this read like a reference I would trust?" | OpenClaw → Telegram |
+During source engine development, every "human gate" was actually handled by Claude Chat — the owner would bring the question to Claude Chat, Claude Chat would research and reason, and the owner would confirm "looks good." The factory formalizes this into three tiers:
+
+**Tier 1 — Oracle (automated, no human needed):**
+The Oracle (`claude -p --effort max`) handles the substantive domain reasoning that Claude Chat previously handled. It reads the Decision Playbook, does web research, cross-references sources, and makes evidence-based decisions. Most gates are handled here.
+
+**Tier 2 — Owner sanity check (Telegram notification, ~5 min):**
+The owner receives a summary of the Oracle's reasoning and confirms "does this look right?" or "is this what you imagined?" The owner is NOT expected to evaluate whether an author attribution is correct — the Oracle already did that. The owner evaluates whether the overall direction matches their vision for the library.
+
+**Tier 3 — Claude Chat escalation (manual, ~30 min):**
+For the ~10% of cases where the Oracle recognizes it's out of its depth — novel patterns, contradictory sources, decisions that would set new precedents — the system pauses and the owner brings the question to Claude Chat. Claude Chat has accumulated memory and cross-session context that `claude -p` lacks.
+
+### Gate Schedule
+
+| Gate | When | Tier 1 (Oracle) | Tier 2 (Owner) | Tier 3 (Claude Chat) |
+|------|------|-----------------|----------------|---------------------|
+| G1 x6 | Each engine Step 1 | Oracle evaluates SPEC classification against scholarly text structure | Owner confirms: "Is this what matters for my books?" | If Oracle ESCALATEs on novel classification |
+| G2 x6 | Each engine Step 4 | Oracle verifies gold baselines via web search + Usul.ai | Owner confirms: "Does this look useful?" | If Oracle finds contradictory sources |
+| G3 | Before Taxonomy Step 3 | Oracle generates nahw tree via multi-source research | Owner confirms: "Does this match how I learned nahw?" | Almost certainly — this requires experiential knowledge |
+| G4 | Synthesis Step 4 | Oracle evaluates narrative quality against ENTRY_EXAMPLE.md | Owner confirms: "Does this read like a reference I'd trust?" | If narrative quality is ambiguous |
 
 ### What happens when owner is unavailable
 
-Per ENGINE_PROTOCOL, after 3 days without response, Claude proceeds — BUT with additional safeguards:
+Per ENGINE_PROTOCOL, after 3 days without Tier 2 response, the factory proceeds with Oracle-only decisions:
 1. Decisions marked `[OWNER REVIEW PENDING]`
-2. **Extended multi-model verification** (4-model consensus on the pending decisions)
-3. **Scholarly verification** via Usul.ai + web search for factual claims
+2. Oracle applies extra caution (ESCALATE threshold lowered)
+3. **Extended multi-model verification** (4-model consensus on the pending decisions)
 4. Owner can review retroactively at any point — if they disagree, roll back and redo
+5. Any Oracle ESCALATE with no Claude Chat available → decision deferred, engine continues on non-blocked work
 
 ### Owner time commitment
 
-Total: **~8-10 hours** across all 6 engines, spread over the full build period.
-- G1 reviews: ~20 min each × 6 = ~2 hours
-- G2 reviews: ~30 min each × 6 = ~3 hours
-- G3 (nahw tree): ~1 hour
-- G4 (entry viewer): ~1 hour
-- Ad-hoc questions: ~1-2 hours total
+Total: **~4-6 hours** across all 6 engines (reduced from 8-10 because Oracle handles substantive reasoning).
+- G1 sanity checks: ~10 min each × 6 = ~1 hour
+- G2 sanity checks: ~15 min each × 6 = ~1.5 hours
+- G3 (nahw tree): ~1 hour (likely needs Claude Chat escalation)
+- G4 (entry viewer): ~30 min
+- Claude Chat escalations: ~1-2 hours total (estimated 3-5 escalations across all engines)
 
 ---
 
@@ -924,61 +1104,78 @@ This is a factual error that RESOURCES.md (March 2026 survey) already corrected 
 
 ## Implementation Order
 
-1. **Set up OpenClaw Gateway with 3 agents** — `~/.openclaw/openclaw.json` with builder/reviewer/verifier roles, `agentToAgent` enabled, per-agent SOUL.md files with KR domain knowledge. This is the foundation — all subsequent work runs through the multi-agent quality loop.
+### Phase 0: Decision Playbook (before anything else)
 
-2. **Create `reference/ENGINE_FACTORY.md`** — The master blueprint with all sections (A through H). Must include multi-agent review protocols for each step, expanded quality standards, consensus configuration, and scholarly verification protocol.
+0. **Write `reference/DECISION_PLAYBOOK.md`** — Claude Chat (in conversation with owner) captures all accumulated heuristics, patterns, and domain rules from the source engine build. This is the Oracle's institutional memory. Without it, the Oracle starts from zero. **This is the single most important deliverable for factory quality.**
 
-3. **Create `.claude/commands/build-engine.md`** — Entry point command. Integrates with OpenClaw: Builder drives ENGINE_PROTOCOL, sends review requests to Reviewer, spawns verification tasks on Verifier.
+### Phase 1: Core infrastructure (Option A — Claude Code native)
 
-4. **Create `.claude/commands/engine-handoff.md`** — Session end protocol.
+1. **Create `.claude/agents/reviewer.md`** — Read-only review subagent definition.
 
-5. **Create `.claude/commands/engine-status.md`** — Progress dashboard.
+2. **Create `.claude/agents/verifier.md`** — Independent test-writing subagent definition.
 
-6. **Create `scripts/engine_readiness.py`** — Step advancement gate. Checks include: Reviewer APPROVE status, Verifier tests passing, all automated quality gates.
+3. **Create `.claude/agents/oracle.md`** — Claude Chat equivalent agent definition (reads Decision Playbook).
 
-7. **Create `scripts/cross_engine_regression.py`** — Regression test runner.
+4. **Create `reference/ENGINE_FACTORY.md`** — The master blueprint with all sections (A through H). Updated to reference Decision Playbook, three-tier gate model, and Option A/B architecture.
 
-8. **Create `.pre-commit-config.yaml`** — Pre-commit hooks for black + mypy + quality scripts.
+5. **Create `.claude/commands/build-engine.md`** — Entry point command. Drives ENGINE_PROTOCOL, invokes reviewer/verifier subagents, calls `claude -p` for Oracle decisions.
 
-9. **Set up git hooks for OpenClaw** — `.git/hooks/post-commit` triggers Reviewer on engine code changes.
+6. **Create `.claude/commands/engine-handoff.md`** — Session end protocol.
 
-10. **Set up Telegram notifications** — OpenClaw channel integration for human gate alerts.
+7. **Create `.claude/commands/engine-status.md`** — Progress dashboard.
 
-11. **Fix STEERING.md embedding recommendation** — Update from "arabic-e5-base" to "Swan-Large (NYUAD SOTA)".
+8. **Create `scripts/engine_orchestrator.py`** — Deterministic orchestration script. Drives the build→review→verify→test→commit cycle without LLM flow control.
 
-12. **Resolve IDEAS.md RAG question** — Document the decision: 7-engine architecture confirmed, RAG is supplementary.
+9. **Create `scripts/engine_readiness.py`** — Step advancement gate.
 
-13. **Triage high-priority inbox items** — Run `/technology-survey` on desloppify, Azure AI Vision, Amazon Textract, DeepSeek-OCR. Move results to RESOURCES.md.
+10. **Create `scripts/cross_engine_regression.py`** — Regression test runner.
 
-14. **Bundle usul-data** — Download and integrate the 40K+ scholar dataset (MIT licensed) for Verifier agent scholarly verification.
+11. **Create `.pre-commit-config.yaml`** — Pre-commit hooks for black + mypy + quality scripts.
 
-15. **Update `NEXT.md`** — Point to ENGINE_FACTORY.md and `/build-engine normalization`.
+12. **Set up Telegram notifications** — Simple bot for Tier 2 owner sanity check notifications.
 
-16. **Update each engine's `CLAUDE.md`** — Add factory-compatible status section.
+13. **Fix STEERING.md embedding recommendation** — Update from "arabic-e5-base" to "Swan-Large (NYUAD SOTA)".
 
-13. **Create `.claude/agents/oracle.md`** — Oracle agent definition with owner proxy prompt, scholarly reasoning instructions, and decision audit requirements.
+14. **Resolve IDEAS.md RAG question** — Document the decision: 7-engine architecture confirmed, RAG is supplementary.
 
-14. **Test the factory** — Full 4-agent dry run on normalization Step 1: Builder extracts SPEC_CORE → Reviewer reviews → Verifier checks contracts → Oracle approves human gate → all four must agree.
+15. **Bundle usul-data** — Download and integrate the 40K+ scholar dataset (MIT licensed) for Oracle/Verifier scholarly verification.
 
-### Critical files to create
-- `~/.openclaw/openclaw.json` (NEW — gateway config with 4 agents: builder, reviewer, verifier, oracle)
-- `~/.openclaw/agents/builder/SOUL.md` (NEW — ENGINE_PROTOCOL knowledge + KR skills)
-- `~/.openclaw/agents/reviewer/SOUL.md` (NEW — review checklist: SPEC, Arabic safety, D-023, knowledge integrity)
-- `~/.openclaw/agents/verifier/SOUL.md` (NEW — scholarly verification protocol, independent test methodology)
-- `.claude/agents/oracle.md` (NEW — owner proxy agent: deep reasoning, human gate decisions, scholarly expertise)
+16. **Test the factory** — Dry run on normalization Step 1: Builder extracts SPEC_CORE → reviewer subagent reviews → verifier subagent checks contracts → Oracle (`claude -p`) approves gate → owner sanity-checks via Telegram.
+
+### Phase 2: OpenClaw upgrade (Option B — only if needed)
+
+17. **Set up OpenClaw Gateway** — Only if Option A proves insufficient (need 24/7 unattended operation or more parallelism).
+
+18. **Install and configure Lobster** — Deterministic workflow engine for the build pipeline.
+
+19. **Migrate subagent definitions to OpenClaw agent SOUL.md files** — Reviewer and Verifier become full OpenClaw agents with inter-agent communication.
+
+20. **Set up git hooks** — Post-commit triggers Reviewer on engine code changes.
+
+### Critical files to create (Option A)
+- `.claude/agents/reviewer.md` (NEW — SPEC compliance, Arabic safety, D-023, knowledge integrity review)
+- `.claude/agents/verifier.md` (NEW — independent test writing from SPEC only)
+- `.claude/agents/oracle.md` (NEW — Claude Chat equivalent for domain reasoning)
+- `reference/DECISION_PLAYBOOK.md` (NEW — **CRITICAL** — Oracle's institutional memory, ~200-400 lines)
 - `reference/ENGINE_FACTORY.md` (NEW — ~1000-1500 lines)
 - `.claude/commands/build-engine.md` (NEW — ~150-200 lines)
 - `.claude/commands/engine-handoff.md` (NEW — ~80-100 lines)
 - `.claude/commands/engine-status.md` (NEW — ~60-80 lines)
+- `scripts/engine_orchestrator.py` (NEW — ~200-300 lines, deterministic build cycle)
 - `scripts/engine_readiness.py` (NEW — ~300-400 lines)
 - `scripts/cross_engine_regression.py` (NEW — ~150-200 lines)
 - `.pre-commit-config.yaml` (NEW — ~30-50 lines)
-- `.git/hooks/post-commit` (NEW — triggers Reviewer on engine code commits)
+
+### Additional files for Option B (if upgrading)
+- `~/.openclaw/openclaw.json` (gateway config with builder/reviewer/verifier agents)
+- `~/.openclaw/agents/*/SOUL.md` (per-agent workspace files)
+- `workflows/engine-module-build.lobster` (Lobster workflow definition)
+- `.git/hooks/post-commit` (triggers Reviewer on engine code commits)
 
 ### Critical files to update
 - `NEXT.md` (UPDATE — point to factory)
 - `engines/*/CLAUDE.md` x6 (UPDATE — add factory status sections)
-- `STEERING.md` (UPDATE — reference ENGINE_FACTORY.md)
+- `STEERING.md` (UPDATE — reference ENGINE_FACTORY.md, fix embedding recommendation)
 
 ### Existing files to reuse (not modify)
 - `skills/shared/ENGINE_PROTOCOL.md` — The authoritative process (factory codifies this)
@@ -990,6 +1187,7 @@ This is a factual error that RESOURCES.md (March 2026 survey) already corrected 
 - `reference/CORE_CONTRACT_CLASSIFICATION.md` — Core vs deferred models
 - `reference/TRACER_FINDINGS.md` — Boundary validation baseline
 - `reference/TESTING_FRAMEWORK.md` — Test architecture
+- `reference/CLAUDE_CODE_MEMORY_PRINCIPLES.md` — 33 principles for Claude Code (feeds into Decision Playbook)
 
 ---
 
@@ -1022,20 +1220,21 @@ Before running on normalization, verify:
    - All 503 source engine tests pass
    - D-023 metadata flow is clean through source
 
-5. **OpenClaw multi-agent coordination**
-   - Gateway starts with 3 agents (builder, reviewer, verifier)
-   - `sessions_send` from builder to reviewer delivers message and gets response
-   - `sessions_spawn` from builder to verifier creates independent task
-   - Reviewer can REJECT work (Builder receives rejection and must address it)
-   - Telegram notification fires when human gate is reached
-   - Git post-commit hook triggers Reviewer on engine code changes
+5. **Multi-agent quality verification (Option A — Claude Code native)**
+   - Reviewer subagent invoked from main session, returns APPROVE/REJECT with specific issues
+   - Verifier subagent writes independent tests without seeing Builder's code
+   - Oracle (`claude -p --effort max`) makes evidence-based gate decisions with Decision Playbook context
+   - Oracle correctly ESCALATEs when confidence is low or pattern is novel
+   - Telegram notification fires when Tier 2 owner sanity check is needed
+   - `engine_orchestrator.py` drives the build→review→verify→test→commit cycle deterministically
 
-6. **Multi-agent dry run (normalization Step 1)**
+6. **End-to-end dry run (normalization Step 1)**
    - Builder extracts a small section of SPEC_CORE
-   - Builder sends to Reviewer for review → Reviewer responds with findings
-   - Builder spawns Verifier to check contract compatibility → Verifier responds
-   - All three agree → sub-step advances
-   - Disagreement triggers ping-pong discussion → resolution or escalation
+   - Reviewer subagent reviews → responds with findings
+   - Verifier subagent writes independent contract compatibility test → test passes
+   - Oracle evaluates core/deferred classification → APPROVE with reasoning
+   - Owner receives Telegram summary → confirms "looks right"
+   - Decision Playbook is consulted and applied by Oracle during gate decision
 
 7. **Pre-commit hooks**
    - `black` formats on commit
@@ -1048,7 +1247,7 @@ Before running on normalization, verify:
 - Cross-engine regression passes from source through synthesis
 - `verify_metadata_flow.py` shows clean D-023 compliance across the FULL pipeline
 - `run_pipeline.py` produces a knowledge entry from Shamela HTML → source → ... → synthesis
-- Owner has approved all gold baselines
+- Owner has sanity-checked all gold baselines (Tier 2)
 - Scholarly verification completed on all gold baselines with no unresolved discrepancies
 - mypy --strict passes across ALL engine code
 - pytest-cov ≥90% on ALL core modules
@@ -1057,4 +1256,6 @@ Before running on normalization, verify:
 - No known defects in any SPEC_CORE.md (0 HIGH across all engines)
 - **Every module has Reviewer APPROVE in audit trail**
 - **Every engine has Verifier's independent tests passing alongside Builder's tests**
-- **Every gold baseline has Verifier's scholarly verification log**
+- **Every gold baseline has Oracle verification log (web search + Usul.ai cross-reference)**
+- **Decision Playbook updated after each engine build with new patterns discovered**
+- **All Oracle ESCALATE decisions resolved via Claude Chat with resolution documented**
