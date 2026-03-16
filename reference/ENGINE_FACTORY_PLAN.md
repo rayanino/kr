@@ -801,6 +801,127 @@ This protocol catches the silent errors that automated tests cannot: wrong autho
 
 ---
 
+## Resources & Tools Integration
+
+Evaluated from `reference/RESOURCES.md` (667 lines, 45+ tools), `reference/IDEAS.md` (3 ideas), and `reference/RESOURCE_INBOX.md` (131 inbox items). Each resource is mapped to the specific engine and step where it should be integrated.
+
+### Cross-Cutting: Tools for ALL Engines
+
+| Tool | Status | Where to Use | Impact |
+|------|--------|-------------|--------|
+| **DSPy** (Stanford/Databricks) | EVALUATED, not yet adopted | Step 2 Research for engines 4-7 (LLM-dependent). MIPROv2 optimizer can auto-tune prompts for scholarly classification tasks. | HIGH — could significantly improve LLM accuracy on atomization, excerpting, taxonomy, synthesis tasks. Evaluate in Engine 4 Step 2. |
+| **desloppify** | IN INBOX, HIGH PRIORITY | Reviewer agent's toolkit. Run on every Builder output during Step 3. | MEDIUM — catches LLM-generated code quality issues. Evaluate before normalization build starts. |
+| **DeepEval** (Apache 2.0) | EVALUATED | Step 4 (Prove) for all engines. GEval, correctness, bias metrics. pytest integration. | MEDIUM — supplements existing quality scripts with LLM-specific evaluation metrics. |
+| **Swan-Large** (NYUAD) | EVALUATED, STEERING.md outdated | Any engine needing Arabic embeddings (taxonomy, synthesis, deduplication). SOTA on ArabicMTEB. | ACTION: Update STEERING.md from "arabic-e5-base" to "Swan-Large (recommended)". |
+| **usul-data** (seemorg, MIT) | EVALUATED, ready to bundle | Verifier agent's scholarly verification. 40K+ scholars with multilingual names, Hijri death dates, book metadata. | HIGH — dramatically improves Verifier's ability to cross-reference scholarly claims. Bundle with KR. |
+| **Instructor** | ADOPTED, in use | All engines — structured LLM output with Pydantic. Already integrated. | Already delivering value. |
+| **LiteLLM** | ADOPTED, in use | All engines — provider abstraction. Already integrated. | Already delivering value. |
+
+### Normalization Engine (Engine 2) — Specific Resources
+
+| Tool | Status | Integration Point | Priority |
+|------|--------|------------------|----------|
+| **QARI-OCR** | EVALUATED, recommended | Core OCR for classical Arabic with diacritics. CER 0.061, WER 0.160. Runs locally with 8-bit quantization on user's GPU. | HIGH — primary OCR choice (already in STEERING.md). Stage 2 for photo/scan formats. |
+| **Baseer** (Misraj AI) | EVALUATED | Secondary OCR for complex layouts (multi-column, tables, footnotes). MARS 68.13 SOTA. | MEDIUM — Stage 2 for complex formats. |
+| **Mistral OCR 3** | EVALUATED, in STEERING.md | Fallback OCR. API-based, $2/1000 pages. Strong Arabic. | LOW for Stage 1 (Shamela HTML doesn't need OCR). Stage 2 fallback. |
+| **PaddleOCR-VL 1.5** (Baidu) | EVALUATED | Fast first-pass OCR (0.9B model). Requires Flash Attention 2. | LOW — Stage 2 fast-pass option. |
+| **Docling** (IBM) | EVALUATED | PDF/DOCX conversion. Arabic support experimental. | MEDIUM — evaluate for Word doc handling in Stage 2. |
+| **Source format hunting** (IDEAS.md) | IDEA, not yet implemented | Before OCR on difficult format, check if source exists in better format (HTML, EPUB). Smart optimization for normalization pipeline. | HIGH IDEA — reduces OCR errors by finding better sources. Add to normalization SPEC as optional pre-processing step. |
+
+**Unevaluated (need triage via /technology-survey):**
+- Azure AI Vision, Amazon Textract, DeepSeek-OCR, Sakhr Software — OCR services
+- OpenAI Whisper, Speechmatics, Kateb ASR — Speech-to-text (only relevant if audio input planned)
+
+**Action:** Run `/technology-survey` on Azure AI Vision, Amazon Textract, and DeepSeek-OCR before normalization Step 2. The others are Stage 2 or irrelevant.
+
+### Atomization Engine (Engine 4) — Specific Resources
+
+| Tool | Status | Integration Point | Priority |
+|------|--------|------------------|----------|
+| **Quran_Detector** | EVALUATED | Atom classification — identifies Quranic verses in Arabic text. Handles typos, missing words. Returns surah/ayah. | HIGH — core capability for scholarly function classification. Integrate in Step 3. |
+| **Quranic Arabic Corpus** | EVALUATED | Reference data — complete word-by-word morphology, syntactic treebank, semantic ontology. | HIGH — enriches Quranic citation atoms with precise reference information. |
+| **Hadith Segmenter** (Altammami 2023) | EVALUATED | Atom classification — segments hadith into isnad (narrators) + matn (content). 92.5% accuracy. | HIGH — validates and assists hadith atom type classification. |
+| **CANERCorpus** | EVALUATED | Reference — 7000+ hadiths with Islamic entity classes. Potential training data. | MEDIUM — reference for NER patterns in scholarly text. |
+| **DSPy MIPROv2** | EVALUATED | Step 2 — auto-optimize classification prompts for scholarly function. Bayesian combination search. | HIGH — could push LLM classification accuracy above the 85% threshold. Evaluate in Step 2. |
+
+### Excerpting Engine (Engine 5) — Specific Resources
+
+| Tool | Status | Integration Point | Priority |
+|------|--------|------------------|----------|
+| **ContextGem** | EVALUATED | Reference for self-containment evaluation patterns. Document-level LLM extraction with context preservation. | MEDIUM — design reference for the highest-risk LLM task (T-4: Context Loss). Study during Step 1. |
+| **LLM4IE papers** | EVALUATED | Research foundation for excerpt enrichment. NER, relation extraction, event extraction. | MEDIUM — research reference for Step 2. |
+
+### Taxonomy Engine (Engine 6) — Specific Resources
+
+| Tool | Status | Integration Point | Priority |
+|------|--------|------------------|----------|
+| **NetworkX** | ADOPTED | Tree validation, DAG operations, centrality scoring. Already in tech stack. | Already delivering value. |
+| **nxontology** (Apache 2.0) | EVALUATED | Potential enhancement — semantic similarity, information content on taxonomy tree. | LOW — Stage 2 enhancement. NetworkX sufficient for core. |
+| **Classical Islamic Pedagogical Resources** | EVALUATED | Nahw tree validation — madhab-specific learning progressions from islamclass.wordpress.com, SeekersGuidance curriculum. | HIGH — Oracle + Verifier should reference these when validating the nahw science tree (human gate G3). |
+| **usul-data** | EVALUATED | Scholar metadata for taxonomy placement verification — confirms which scholars belong to which sciences. | HIGH — already recommended for cross-cutting use. |
+
+### Synthesis Engine (Engine 7) — Specific Resources
+
+| Tool | Status | Integration Point | Priority |
+|------|--------|------------------|----------|
+| **Attr-First** (Slobodkin et al., ACL 2024) | RESEARCH | Core design pattern — select source spans FIRST, then generate conditioned on them. Fine-grained attribution built-in. | CRITICAL — this validates KR's citation-grounded synthesis design. Step 1 SPEC should reference this approach. |
+| **OpenScholar** (Asai et al., Nature 2025) | RESEARCH | Hallucination mitigation — 8B model outperforms GPT-4o by 6.1%. GPT-4o citation hallucination: 78-90%. | CRITICAL — quantifies the hallucination risk. Informs why KR needs multi-model verification for every claim. |
+| **Belem et al. 2025** | RESEARCH | Risk quantification — 75% hallucination rate in LLM summaries, increasing toward end of output. | CRITICAL — informs synthesis quality bar and verification protocol. |
+| **LAQuer** (ACL 2025) | RESEARCH | Verification technique — localized attribution queries with NLI verification. | HIGH — could be integrated into Verifier agent's synthesis review protocol. |
+| **ContraDoc/ContraGen** (2024-2025) | RESEARCH | Self-contradiction detection — multi-agent framework. | MEDIUM — reference for synthesis self-consistency checking. |
+| **NEXUSSUM** (ACL 2025) | RESEARCH | Alternative synthesis approach — hierarchical multi-agent (chunk→summarize→merge). 30% improvement. | MEDIUM — research reference. KR's approach is different but can learn from this. |
+
+### Scholar Authority Enrichment (Cross-Engine)
+
+| Source | Status | Integration | Priority |
+|--------|--------|------------|----------|
+| **usul-data** (seemorg, MIT) | READY TO BUNDLE | 40K+ scholars, multilingual names, Hijri death dates, book metadata. JSON format. | HIGH — integrate during Engine 2 setup. Enriches scholar_authority module. |
+| **Muslim Scholars Database** (muslimscholars.info) | EVALUATED, access unclear | 40K+ records with Tahzeeb/Taqrib/Thiqat source data. Teacher-student links. | HIGH if accessible — explore during Engine 2 Step 1. Request from maintainers. |
+| **OpenITI metadata** | EVALUATED | 7K+ integrated texts. CTS-compliant URIs encode author death dates. Dec 2025 release. | MEDIUM — bootstrapping reference for scholar registry. |
+| **Wikidata Islamic Scholars** | EVALUATED | SPARQL queryable. Coverage incomplete for premodern scholars. CC0. | LOW — supplement when usul-data has gaps. |
+
+### Unresolved Architectural Question (IDEAS.md)
+
+> *"I just learned about RAG libraries. Is it still meaningful to continue developing this application the way we visualized it (7 engines)? Or would RAG libraries help achieve the goal?"*
+
+**Resolution:** The 7-engine pipeline IS the correct architecture. RAG libraries (GraphRAG, StructRAG) are research references that inform specific engines (taxonomy, synthesis) but do NOT replace the pipeline. Here's why:
+
+1. **RAG retrieves — KR transforms.** RAG finds relevant passages. KR's pipeline does something fundamentally different: it extracts scholarly structure (layers, atoms, excerpts), preserves attribution chains, and synthesizes multi-century scholarly narratives. RAG can't do this.
+
+2. **RAG has no normalization boundary.** KR's critical insight is that source-specific processing (above the boundary) must be separated from source-agnostic scholarly processing (below). RAG flattens everything into vectors, losing structural information.
+
+3. **RAG hallucinates citations.** OpenScholar (Nature 2025) found GPT-4o hallucinates 78-90% of citations. KR's grounding_type traceability (D-040) prevents this by requiring every claim to be tagged with its source.
+
+4. **Where RAG DOES help:** Qdrant (already in tech stack) provides RAG-like semantic search for the Scholar Interface (Stage 2). GraphRAG patterns could inform the taxonomy engine's placement algorithm.
+
+**Decision: 7-engine architecture confirmed. RAG libraries are supplementary tools for specific engines, not replacements.** This should be documented in IDEAS.md as resolved.
+
+### Inbox Triage Action Items
+
+**Before Engine 2 starts (evaluate via /technology-survey):**
+1. **desloppify** — Code quality for LLM-generated code → Reviewer agent toolkit
+2. **Azure AI Vision** — OCR service → compare with QARI-OCR
+3. **Amazon Textract** — Document extraction → compare with Docling
+4. **DeepSeek-OCR** — New OCR model → Arabic diacritics support?
+
+**Before Engine 4 starts (evaluate via /technology-survey):**
+5. **DSPy MIPROv2** — Prompt optimization → classification accuracy boost
+
+**Defer or deprioritize (Stage 2 or low relevance):**
+- Speech-to-text tools (Whisper, Speechmatics, Kateb ASR) — only if audio input planned
+- Claude Code workflow tools (12 items) — evaluate as workflow needs arise
+- AI Agent frameworks (13 items) — OpenClaw already selected as coordinator
+- Social links, general tools — reference only
+
+### STEERING.md Correction Required
+
+**Current (wrong):** `Embeddings: arabic-e5-base or GTE-multilingual-base`
+**Should be:** `Embeddings: Swan-Large (NYUAD SOTA on ArabicMTEB) or Arabic-STS-Matryoshka for efficiency`
+
+This is a factual error that RESOURCES.md (March 2026 survey) already corrected but STEERING.md wasn't updated.
+
+---
+
 ## Implementation Order
 
 1. **Set up OpenClaw Gateway with 3 agents** — `~/.openclaw/openclaw.json` with builder/reviewer/verifier roles, `agentToAgent` enabled, per-agent SOUL.md files with KR domain knowledge. This is the foundation — all subsequent work runs through the multi-agent quality loop.
@@ -823,9 +944,17 @@ This protocol catches the silent errors that automated tests cannot: wrong autho
 
 10. **Set up Telegram notifications** — OpenClaw channel integration for human gate alerts.
 
-11. **Update `NEXT.md`** — Point to ENGINE_FACTORY.md and `/build-engine normalization`.
+11. **Fix STEERING.md embedding recommendation** — Update from "arabic-e5-base" to "Swan-Large (NYUAD SOTA)".
 
-12. **Update each engine's `CLAUDE.md`** — Add factory-compatible status section.
+12. **Resolve IDEAS.md RAG question** — Document the decision: 7-engine architecture confirmed, RAG is supplementary.
+
+13. **Triage high-priority inbox items** — Run `/technology-survey` on desloppify, Azure AI Vision, Amazon Textract, DeepSeek-OCR. Move results to RESOURCES.md.
+
+14. **Bundle usul-data** — Download and integrate the 40K+ scholar dataset (MIT licensed) for Verifier agent scholarly verification.
+
+15. **Update `NEXT.md`** — Point to ENGINE_FACTORY.md and `/build-engine normalization`.
+
+16. **Update each engine's `CLAUDE.md`** — Add factory-compatible status section.
 
 13. **Create `.claude/agents/oracle.md`** — Oracle agent definition with owner proxy prompt, scholarly reasoning instructions, and decision audit requirements.
 
