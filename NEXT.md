@@ -15,7 +15,7 @@ The evaluation follows 4 layers, governed by `PHASE_D_EVALUATION_PROTOCOL.md`:
 | Layer 1 | Programmatic validation | 204 | ✅ COMPLETE |
 | Layer 2 | Pattern analysis | 62 (as cohorts) | ✅ COMPLETE |
 | Session A | Consensus disagreements | 14 | ✅ COMPLETE (8V 5P 1F) |
-| Session B | Author uncertainty | 19 | ⏳ 15/19 done (2V 10P 2F 1E) |
+| Session B | Author uncertainty | 19 | ✅ COMPLETE (4V 13P 1F 1E) |
 | Session C | Structural flags | 15 | PENDING |
 | Session D | Random calibration | 12 | PENDING |
 | Layer 4 | Aggregation + GO/NO-GO | all | PENDING |
@@ -75,7 +75,7 @@ Each session is an independent Claude Chat conversation in the KR project. Paste
 
 **Session A:** 8 VERIFIED, 5 PLAUSIBLE, 1 FLAG. ERR-02 confirmed: السراج المنير author misattribution. 13/14 consensus disagreements are cosmetic (author identification object text differences). Consensus module is oversensitive. Critical self-review found and fixed: web_fetch protocol violation, false source citations, death date labeling errors, speculative mechanism claims. See PHASE_D_SESSION_ERRATA.md for full lessons — **future sessions must read this file before starting**.
 
-**Session B (partial, 15/19):** 2 VERIFIED, 10 PLAUSIBLE, 2 FLAG, 1 ESCALATE. ERR-03: خمسة أحاديث ابن العربي المتأخر death date 617 doesn't match any known ابن العربي scholar (543 or 638). التعليق على الرحيق المختوم genre/ML classification questionable (ta'liq vs sharh). وقفة هادئة: pseudonymous author with 0.30 confidence escalated, but attribution_status=definitive is wrong for a pseudonym. Key pattern: contemporary obscure authors dominate the cohort, Shamela-ecosystem is the only verification source for most. 4 books remain pending (all likely PLAUSIBLE). See PHASE_D_SESSION_B_REPORT.md.
+**Session B (COMPLETE, 19 books):** 4 VERIFIED, 13 PLAUSIBLE, 1 FLAG, 1 ESCALATE. Two low-confidence (0.55) authors turned out to be Grand Muftis (Tunisia and Comoros) — upgraded to VERIFIED. Book 4 (ابن العربي المتأخر) initially flagged but critical self-review found the LLMs were correct (grandson confirmed by الذهبي). التعليق على الرحيق المختوم: genre/ML classification questionable (ta'liq vs sharh). وقفة هادئة: pseudonymous author escalated. Key pattern: low Opus confidence doesn't correlate with actual author obscurity. Missing death dates for recently deceased prominent scholars (d. 2012, d. 2020). See PHASE_D_SESSION_B_REPORT.md.
 
 ## PREREQUISITE: Push per-book Phase D results
 
