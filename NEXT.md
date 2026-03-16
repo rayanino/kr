@@ -16,7 +16,7 @@ The evaluation follows 4 layers, governed by `PHASE_D_EVALUATION_PROTOCOL.md`:
 | Layer 2 | Pattern analysis | 62 (as cohorts) | ✅ COMPLETE |
 | Session A | Consensus disagreements | 14 | ✅ COMPLETE (8V 5P 1F) |
 | Session B | Author uncertainty | 19 | ✅ COMPLETE (4V 13P 1F 1E) |
-| Session C | Structural flags | 15 | PENDING |
+| Session C | Structural flags | 15 | ✅ COMPLETE (11V 2P 2F) |
 | Session D | Random calibration | 12 | PENDING |
 | Layer 4 | Aggregation + GO/NO-GO | all | PENDING |
 
@@ -76,6 +76,8 @@ Each session is an independent Claude Chat conversation in the KR project. Paste
 **Session A:** 8 VERIFIED, 5 PLAUSIBLE, 1 FLAG. ERR-02 confirmed: السراج المنير author misattribution. 13/14 consensus disagreements are cosmetic (author identification object text differences). Consensus module is oversensitive. Critical self-review found and fixed: web_fetch protocol violation, false source citations, death date labeling errors, speculative mechanism claims. See PHASE_D_SESSION_ERRATA.md for full lessons — **future sessions must read this file before starting**.
 
 **Session B (COMPLETE, 19 books):** 4 VERIFIED, 13 PLAUSIBLE, 1 FLAG, 1 ESCALATE. Two low-confidence (0.55) authors turned out to be Grand Muftis (Tunisia and Comoros) — upgraded to VERIFIED. Book 4 (ابن العربي المتأخر) initially flagged but critical self-review found the LLMs were correct (grandson confirmed by الذهبي). التعليق على الرحيق المختوم: genre/ML classification questionable (ta'liq vs sharh). وقفة هادئة: pseudonymous author escalated. Key pattern: low Opus confidence doesn't correlate with actual author obscurity. Missing death dates for recently deceased prominent scholars (d. 2012, d. 2020). See PHASE_D_SESSION_B_REPORT.md.
+
+**Session C (COMPLETE, 15 books):** 11 VERIFIED, 2 PLAUSIBLE, 2 FLAG. BUG-03 override verified working 5/5 (all ML disagreement books correctly overridden). ERR-01 confirmed: النكت hashiyah+ML=False is genuinely contradictory. Tafsir+ML=False is NOT an error for standalone tafsirs (تفسير ابن كمال باشا) — validation rule should be refined. إعلام الموقعين genre=other is wrong (should be usul_al_fiqh, CA was correct at 0.95). الإبانة عن أصول الديانة disputed attribution correctly handled by both editions. Self-review found and fixed header count error. See PHASE_D_SESSION_C_REPORT.md.
 
 ## PREREQUISITE: Push per-book Phase D results
 
