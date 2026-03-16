@@ -1,0 +1,63 @@
+{
+  "model_id": "openrouter/anthropic/claude-opus-4-6",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 26.925336500000412,
+  "parsed": {
+    "genre": "rihlah",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "rihlah",
+      "hadith",
+      "ulum_al_hadith",
+      "tarikh"
+    ],
+    "science_scope_confidence": 0.88,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.93,
+    "author_identification": {
+      "canonical_name_ar": "أبو عبد الله محمد بن عمر بن محمد بن عمر بن رشيد الفهري السبتي",
+      "known_as": [
+        "ابن رشيد السبتي",
+        "ابن رشيد الفهري"
+      ],
+      "death_date_hijri": 721,
+      "school_affiliations": {
+        "fiqh": "مالكي",
+        "hadith": "محدّث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم مغربي محدّث رحّال من أبرز علماء المغرب والأندلس في القرن الثامن الهجري، اشتهر برحلته الحجازية المشرقية وبتحصيل الأسانيد والإجازات",
+      "methodological_stance": "محدّث رحّال عُني بالسماع والإجازة وتوثيق الأسانيد، مع اهتمام بالنحو والأدب"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "ألّفه بعد رحلته إلى المشرق التي كانت في حدود 684 هـ وما بعدها",
+      "composition_date_hijri": 690,
+      "tradition_position": "من أهم كتب الرحلات العلمية المغربية، يوثّق لقاءات المؤلف بالعلماء في المشرق وأسانيده وسماعاته، ويُعدّ مصدراً مهماً لتاريخ الحديث والإسناد في القرن السابع الهجري",
+      "known_textual_issues": [
+        "الكتاب لم يصلنا كاملاً، وبعض أجزائه مفقودة"
+      ],
+      "historical_significance": "رحلة علمية حديثية فريدة توثّق شبكة العلماء والأسانيد بين المغرب والمشرق في أواخر القرن السابع الهجري، وتُعدّ من أنفس كتب الرحلات في التراث الإسلامي",
+      "muhaqiq_reputation": "الدكتور محمد الحبيب ابن الخوجة (ت 1433 هـ) عالم تونسي بارز ومحقق معروف، شغل منصب الأمين العام لمجمع الفقه الإسلامي الدولي",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

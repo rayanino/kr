@@ -1,0 +1,53 @@
+{
+  "phase": "C",
+  "pipeline_version": "e6c35fe",
+  "timestamp": "2026-03-16T20:24:26.554664+00:00",
+  "total_books": 5,
+  "books": {
+    "ملء العيبة بما جمع بطول الغيبة - ج ٥": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_c/ملء العيبة بما جمع بطول الغيبة - ج ٥/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 27.87
+    },
+    "النكت على شرح النووي على صحيح مسلم": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_c/النكت على شرح النووي على صحيح مسلم/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 11.59
+    },
+    "أساليب بلاغية": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_c/أساليب بلاغية/result.json",
+      "ground_truth_available": true,
+      "ground_truth_match": false,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 13.27
+    },
+    "صحيح البخاري - ن عطاءات العلم": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_c/صحيح البخاري - ن عطاءات العلم/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 18.01
+    },
+    "إعلام الموقعين عن رب العالمين - ط العلمية": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_c/إعلام الموقعين عن رب العالمين - ط العلمية/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 19.16
+    }
+  }
+}

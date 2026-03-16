@@ -1,0 +1,134 @@
+{
+  "source_id": "src_47897c84",
+  "work_id": "wrk_abw_abd_al_lh_mhmd_b_ml_al_aybh_bma_jma_b",
+  "human_label": "ml_al_aybh_bma_jma_b",
+  "title_arabic": "ملء العَيبة بما جُمع بطول الغَيبة في الوجهة الوجيهة إلى الحرمين مكة وطَيبة - الجزء الخامس",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو عبد الله محمد بن عمر بن محمد بن عمر بن رشيد الفهري السبتي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د. محمد الحبيب ابن الخُوجة",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "rihlah",
+    "hadith",
+    "ulum_al_hadith",
+    "tarikh"
+  ],
+  "genre": "rihlah",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار الغرب الإسلامي، بيروت - لبنان",
+  "edition_number": 1,
+  "publication_year_hijri": 1408,
+  "publication_year_miladi": 1988,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 385,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 721 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: د. محمد الحبيب ابن الخُوجة"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الغرب الإسلامي، بيروت - لبنان"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.88,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.93,
+    "multi_layer": 0.92,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpgzzjktrh\\library\\sources\\src_47897c84\\frozen",
+  "frozen_hash": "47897c844283d85d9763a7a5dbedd92d20a9add101e235b4bb06909622c5ef8f",
+  "frozen_file_hashes": {
+    "ملء العيبة بما جمع بطول الغيبة - ج ٥.htm": "7772a2c46c6188e6fd08e3e5801917217bcff1b9a52b6821ab4c3780727b6804"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1408 هـ - 1988 م",
+    "page_count_raw": "405",
+    "author_short": "ابن رشيد",
+    "physical_page_count": 405
+  },
+  "scholarly_context": {
+    "composition_period": "ألّفه بعد رحلته إلى المشرق التي كانت في حدود 684 هـ وما بعدها",
+    "composition_date_hijri": 690,
+    "tradition_position": "من أهم كتب الرحلات العلمية المغربية، يوثّق لقاءات المؤلف بالعلماء في المشرق وأسانيده وسماعاته، ويُعدّ مصدراً مهماً لتاريخ الحديث والإسناد في القرن السابع الهجري",
+    "known_textual_issues": [
+      "الكتاب لم يصلنا كاملاً، وبعض أجزائه مفقودة"
+    ],
+    "historical_significance": "رحلة علمية حديثية فريدة توثّق شبكة العلماء والأسانيد بين المغرب والمشرق في أواخر القرن السابع الهجري، وتُعدّ من أنفس كتب الرحلات في التراث الإسلامي",
+    "muhaqiq_reputation": "الدكتور محمد الحبيب ابن الخوجة (ت 1433 هـ) عالم تونسي بارز ومحقق معروف، شغل منصب الأمين العام لمجمع الفقه الإسلامي الدولي",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-16T20:23:24.452095+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 27.87
+}
