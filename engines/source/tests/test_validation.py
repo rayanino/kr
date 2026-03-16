@@ -286,6 +286,59 @@ class TestAutoCorrectChain:
         gate_errors = [e for e in errors_6 if e.severity == "gate"]
         assert len(gate_errors) == 0
 
+    def test_hashiyah_empty_layers_gates(self) -> None:
+        """hashiyah + is_multi_layer=false + empty layers → gate (structural contradiction)."""
+        data = _make_data(
+            genre="hashiyah",
+            is_multi_layer=False,
+            text_layers=[],
+            structural_format="commentary",
+        )
+        errors = _check_consistency(data, None, None)
+        hashiyah_errors = [e for e in errors if e.check == "consistency_hashiyah_no_layers"]
+        assert len(hashiyah_errors) == 1
+        assert hashiyah_errors[0].severity == "gate"
+        assert "3 layers" in hashiyah_errors[0].message
+
+
+# ── Check 5g: Single-model death date warning (ERR-03) ──
+
+
+class TestSingleModelDeathDate:
+    """Tests for check 5g: flag death dates from single-model inference."""
+
+    def test_single_model_inferred_death_date_warns(self) -> None:
+        """death_date_single_model=True + source=inference → warning."""
+        data = _make_data(
+            death_date_single_model=True,
+            death_date_source="inference",
+        )
+        errors = _check_consistency(data, None, None)
+        dd_warns = [e for e in errors if e.check == "single_model_death_date"]
+        assert len(dd_warns) == 1
+        assert dd_warns[0].severity == "warning"
+        assert dd_warns[0].error_code == "SRC_DEATH_DATE_UNVERIFIED"
+
+    def test_single_model_extraction_death_date_no_warning(self) -> None:
+        """death_date_single_model=True + source=author_raw_text → no warning."""
+        data = _make_data(
+            death_date_single_model=True,
+            death_date_source="author_raw_text",
+        )
+        errors = _check_consistency(data, None, None)
+        dd_warns = [e for e in errors if e.check == "single_model_death_date"]
+        assert len(dd_warns) == 0
+
+    def test_both_models_inferred_death_date_no_warning(self) -> None:
+        """death_date_single_model=False + source=inference → no warning."""
+        data = _make_data(
+            death_date_single_model=False,
+            death_date_source="inference",
+        )
+        errors = _check_consistency(data, None, None)
+        dd_warns = [e for e in errors if e.check == "single_model_death_date"]
+        assert len(dd_warns) == 0
+
 
 # ── Check 5f: Tahqiq-note override (BUG-03) ──
 

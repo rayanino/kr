@@ -244,8 +244,24 @@ def _check_consistency(
                 error_code="SRC_METADATA_INCONSISTENCY",
                 recovery="flag_needs_review",
             ))
+        elif genre == "hashiyah":
+            # Hashiyah structurally requires 3 layers (matn→sharh→hashiyah).
+            # hashiyah + no layers is always contradictory → human gate.
+            errors.append(ValidationError(
+                check="consistency_hashiyah_no_layers",
+                severity="gate",
+                field="genre",
+                message=(
+                    "Genre 'hashiyah' requires 3 layers (matn→sharh→hashiyah) but "
+                    "text_layers is empty and is_multi_layer=False — structural "
+                    "contradiction requires human review."
+                ),
+                error_code="SRC_METADATA_INCONSISTENCY",
+                recovery="flag_needs_review",
+            ))
         else:
-            # Genre suggests multi-layer but no layers found — flag for review
+            # sharh + no layers: could be a classification boundary issue
+            # (standalone work near the sharh/risalah boundary) — warning only.
             errors.append(ValidationError(
                 check="consistency_genre_multi_layer_no_layers",
                 severity="warning",
@@ -282,6 +298,22 @@ def _check_consistency(
                     error_code="SRC_METADATA_CONSISTENCY",
                     recovery="flag_needs_review",
                 ))
+
+    # 5g: Single-model death date warning
+    death_date_single = data.get("death_date_single_model", False)
+    death_date_source = data.get("death_date_source", "absent")
+    if death_date_single and death_date_source == "inference":
+        errors.append(ValidationError(
+            check="single_model_death_date",
+            severity="warning",
+            field="author.death_date_hijri",
+            message=(
+                "Death date from single-model inference only (other model "
+                "abstained). High risk for hallucination — needs manual verification."
+            ),
+            error_code="SRC_DEATH_DATE_UNVERIFIED",
+            recovery="flag_needs_review",
+        ))
 
     return errors
 

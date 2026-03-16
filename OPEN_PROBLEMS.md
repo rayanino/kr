@@ -98,6 +98,18 @@ Steps 1-4 repeat for all 7 engines in pipeline order. After every 2 engines, a l
 
 ---
 
+## Open Research Problems
+
+### Compiler Detection (Source Engine)
+
+**Problem:** Shamela may list classical source authors in `author_name_raw` while placing the actual compiler/arranger in `muhaqiq_name_raw`. The pipeline treats muhaqiq as an editor, not as a potential author, so it misattributes compiled works. Confirmed in ERR-02 (السراج المنير: compiler عصام موسى هادي listed as muhaqiq, classical authors السيوطي and الألباني listed as authors).
+
+**Potential approach:** Add a detection heuristic — when muhaqiq is contemporary (no death date or recent) but listed authors are classical (death date > 200 years ago), flag as potential compilation rather than tahqiq. Requires a new LLM inference step to distinguish muhaqiq-as-editor from muhaqiq-as-compiler.
+
+**Status:** Documented in SPEC_CORE.md. No code fix planned — requires design work for a "compiler" role concept.
+
+---
+
 ## Files That Matter
 
 **Your daily files:**

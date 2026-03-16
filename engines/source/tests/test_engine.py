@@ -647,3 +647,18 @@ def test_warning_errors_do_not_abort(
         metadata = asyncio.run(acquire_source(shamela_source, lib_config))
 
     assert metadata.status == ProcessingStatus.ACQUIRED
+
+
+# ── Fix 3: needs_review_fields merge from inference ──
+
+
+def test_inference_needs_review_fields_merge(
+    lib_config, shamela_source, mock_inference,
+):
+    """inference.needs_review_fields propagates to final SourceMetadata.needs_review_fields."""
+    result = _make_inference_result()
+    result.needs_review_fields = ["death_date_hijri"]
+    mock_inference(result)
+
+    metadata = asyncio.run(acquire_source(shamela_source, lib_config))
+    assert "death_date_hijri" in metadata.needs_review_fields

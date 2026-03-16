@@ -103,6 +103,7 @@ class MetadataInferenceResult:
     text_layers: list[dict] = field(default_factory=list)
     author_reference: Optional[dict] = None  # Ready for ScholarReference construction
     death_date_source: Optional[str] = None  # extraction, author_raw_text, inference, absent
+    death_date_single_model: bool = False  # True when only one model provided a death date
 
     # Confidence
     confidence_scores: Optional[dict] = None
@@ -249,6 +250,10 @@ def validate_enum_value(
             pass
 
     # Conservative default (may be None for optional fields)
+    logger.warning(
+        "Enum fallback: value '%s' not in %s and no synonym match — using default '%s'",
+        value, enum_class.__name__, default,
+    )
     return default, True  # type: ignore[return-value]
 
 
@@ -583,6 +588,18 @@ async def infer_metadata(
         author_id.death_date_hijri, extracted
     )
 
+    # 10c. Flag single-model death dates (ERR-03 pattern)
+    # When one model provides a death_date and the other says None,
+    # the date is higher-risk for hallucination.
+    if len(successful) >= 2:
+        death_a = successful[0].parsed.author_identification.death_date_hijri
+        death_b = successful[1].parsed.author_identification.death_date_hijri
+        if (death_a is None) != (death_b is None):
+            result.death_date_single_model = True
+    else:
+        # Single model = treat death date as unverified if inferred
+        result.death_date_single_model = True
+
     # 11. Apply confidence caps — SPEC §6
     confidence = apply_confidence_caps(canonical, result.attribution_status)
     result.confidence_scores = confidence
@@ -602,6 +619,11 @@ async def infer_metadata(
         needs_review.append("authority_level")
     if level_fallback and "level" not in needs_review:
         needs_review.append("level")
+
+    # Flag single-model inferred death dates for owner review (ERR-03)
+    if result.death_date_single_model and result.death_date_source == "inference":
+        if "death_date_hijri" not in needs_review:
+            needs_review.append("death_date_hijri")
 
     result.needs_review_fields = sorted(needs_review)
 

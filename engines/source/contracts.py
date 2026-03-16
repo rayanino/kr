@@ -134,6 +134,8 @@ class Genre(str, Enum):
     SIRAH = "sirah"
     TARIKH = "tarikh"
     ADAB = "adab"
+    RIHLAH = "rihlah"
+    USUL_AL_FIQH = "usul_al_fiqh"
     OTHER = "other"
 
 

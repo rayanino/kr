@@ -321,6 +321,32 @@ class TestValidateEnumValue:
             )
             assert fallback is True  # synonym was used
 
+    def test_valid_genre_rihlah_passes_direct(self) -> None:
+        """rihlah is a valid Genre enum value (Fix 1 — post-evaluation)."""
+        val, fallback = validate_enum_value("rihlah", Genre, {}, "other")
+        assert val == "rihlah"
+        assert fallback is False
+
+    def test_valid_genre_usul_al_fiqh_passes_direct(self) -> None:
+        """usul_al_fiqh is a valid Genre enum value (Fix 1 — post-evaluation)."""
+        val, fallback = validate_enum_value("usul_al_fiqh", Genre, {}, "other")
+        assert val == "usul_al_fiqh"
+        assert fallback is False
+
+    def test_arabic_synonym_رحلة_maps_to_rihlah(self) -> None:
+        """Arabic synonym رحلة → rihlah."""
+        synonyms = {"رحلة": "rihlah"}
+        val, fallback = validate_enum_value("رحلة", Genre, synonyms, "other")
+        assert val == "rihlah"
+        assert fallback is True
+
+    def test_arabic_synonym_أصول_الفقه_maps_to_usul_al_fiqh(self) -> None:
+        """Arabic synonym أصول الفقه → usul_al_fiqh."""
+        synonyms = {"أصول الفقه": "usul_al_fiqh"}
+        val, fallback = validate_enum_value("أصول الفقه", Genre, synonyms, "other")
+        assert val == "usul_al_fiqh"
+        assert fallback is True
+
 
 # ──────────────────────────────────────────────────────────────────
 # TestApplyConfidenceCaps

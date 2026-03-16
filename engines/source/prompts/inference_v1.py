@@ -50,7 +50,7 @@ USER_MESSAGE_TEMPLATE = """Analyze this Arabic Islamic source and return the cla
 Return a JSON object with exactly these fields:
 
 {{
-  "genre": "<one of: matn, sharh, hashiyah, mukhtasar, nazm, risalah, taqrirat, mawsuah, fatawa, mujam, tabaqat, fiqh_comparative, hadith_collection, tafsir, sirah, tarikh, adab, other>",
+  "genre": "<one of: matn, sharh, hashiyah, mukhtasar, nazm, risalah, rihlah, taqrirat, mawsuah, fatawa, mujam, tabaqat, fiqh_comparative, hadith_collection, tafsir, sirah, tarikh, adab, usul_al_fiqh, other>",
   "genre_confidence": <0.0-1.0>,
   "genre_chain": {{
     "relation_type": "<one of: sharh_of, hashiyah_on, mukhtasar_of, nazm_of, taqrirat_on, responds_to, cites>",

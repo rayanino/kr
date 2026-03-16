@@ -392,6 +392,16 @@ async def acquire_source(
 
             confidence_scores = _build_confidence_scores(inference)
             needs_review_fields = _build_needs_review(confidence_scores)
+
+            # Merge inference-specific review flags (genre fallback, death date, etc.)
+            # The inference builds its own needs_review list that includes flags
+            # not based on confidence scores (e.g., enum fallback, single-model death dates).
+            if inference.needs_review_fields:
+                for f in inference.needs_review_fields:
+                    if f not in needs_review_fields:
+                        needs_review_fields.append(f)
+                needs_review_fields = sorted(needs_review_fields)
+
             scholarly_context = _build_scholarly_context(inference)
             genre_chain = _build_genre_chain(inference)
             text_layers = _build_text_layers(inference, source_id, config)
@@ -566,6 +576,9 @@ async def acquire_source(
                 "works": validation_works,
             }
             data_for_validation = metadata.model_dump(mode="json")
+            # Inject inference-only fields for validation (not in SourceMetadata schema)
+            data_for_validation["death_date_source"] = getattr(inference, "death_date_source", "absent")
+            data_for_validation["death_date_single_model"] = getattr(inference, "death_date_single_model", False)
             validation_errors = validate_source_metadata(
                 data_for_validation,
                 registries=registries,
@@ -604,6 +617,13 @@ async def acquire_source(
                             source_id,
                             "text_layers",
                             "[]",
+                            0.0,
+                        )
+                    elif gate_error.check == "consistency_hashiyah_no_layers":
+                        gate_low_confidence(
+                            source_id,
+                            "genre",
+                            data_for_validation.get("genre", "hashiyah"),
                             0.0,
                         )
                 raise make_error(
