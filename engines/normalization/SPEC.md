@@ -49,8 +49,9 @@ The normalization engine receives two inputs per source.
 - `work_id`: used for output file naming and cross-referencing.
 - `text_fidelity`: the source-level fidelity signal from the source engine. The normalization engine uses this as a baseline and may refine it to page-level granularity based on actual processing quality (e.g., OCR confidence scores per page).
 - `structural_format`: the source engine's initial classification. Valid values: `prose`, `verse`, `qa_format`, `tabular_khilaf`, `dictionary`, `commentary`, `mixed`. The normalization engine may override this if content analysis reveals a different format.
-- `multi_layer`: boolean indicating whether this source contains text from 2 or more authors (e.g., a sharh contains both the matn author's and commentator's text). When true, the `layers` field specifies which layers are present and who authored each.
+- `is_multi_layer`: boolean indicating whether this source contains text from 2 or more authors (e.g., a sharh contains both the matn author's and commentator's text). When true, the `text_layers` field specifies which layers are present and who authored each.
 - `genre`: affects normalization strategy (a `nazm` triggers verse-aware processing; a `mu'jam` triggers dictionary-entry-aware processing).
+- `page_count`: the source engine's page count estimate. Used by §5 check 2 (coverage validation) to verify content unit count matches expected pages.
 - `volume_count` and volume metadata: for multi-volume sources.
 
 The normalization engine does NOT read: scholarly_context, trust_tier, genre_chain, or other metadata fields that are irrelevant to format transformation. These fields pass through untouched in the normalized package via the source_id reference.
@@ -204,7 +205,7 @@ The Shamela normalizer transforms Shamela desktop HTML exports into normalized p
 
 The output is a division tree stored in the manifest's `division_tree` field, and each content unit records detected headings in `structural_markers`.
 
-**Pass 5 — Multi-layer detection.** For sources where `multi_layer` is true in the source metadata (or where the normalizer detects layer signals even when the source engine didn't flag it), identify which portions of each page's text belong to which layer.
+**Pass 5 — Multi-layer detection.** For sources where `is_multi_layer` is true in the source metadata (or where the normalizer detects layer signals even when the source engine didn't flag it), identify which portions of each page's text belong to which layer.
 
 Shamela-specific layer signals:
 - **Bold text** (detected from `<b>` tags in HTML before stripping in Pass 1): In approximately 75% of Shamela commentary exports, matn text is bold. The normalizer records bold spans and their character offsets during Pass 1.
@@ -457,7 +458,7 @@ For raw .txt files with minimal or no formatting. Common for manually digitized 
 - Physical page numbers: null for all fields. `unit_index` is the sole positional identifier.
 - Structure discovery relies entirely on Tier 2 (keyword heuristics) and Tier 3 (LLM). No HTML or formatting signals are available. Structure confidence is typically `low` or `minimal`.
 - Footnotes: Detected by pattern matching only — `(N)` markers followed by matching text at the paragraph end or document end. If no footnote pattern is detected, all text is treated as primary text.
-- Multi-layer: Cannot be detected from formatting. Relies on content-based inference only (§4.B.1 Scholarly Text Layer Intelligence). Confidence is low. If the source metadata specifies `multi_layer: true`, the normalizer attempts detection; otherwise, the source is treated as single-layer.
+- Multi-layer: Cannot be detected from formatting. Relies on content-based inference only (§4.B.1 Scholarly Text Layer Intelligence). Confidence is low. If the source metadata specifies `is_multi_layer: true`, the normalizer attempts detection; otherwise, the source is treated as single-layer.
 - Text fidelity: Default `high` (digital text, though content quality depends on the digitization source). If encoding errors are detected during conversion, fidelity is downgraded.
 
 **Example (brief):** Input: 15KB .txt file with باب/فصل headings but no formatting → Output: ~8 content units at paragraph boundaries, division tree from keyword heuristics (Tier 2, confidence `medium`), `physical_page` fields null, `text_fidelity: "high"`.
@@ -496,7 +497,7 @@ Multi-layer text detection is the highest-integrity-risk operation in the normal
 | 3 | `hashiyah` | Marginal annotator | Smaller text, marginal notes |
 | 4 | `tahqiq_note` | Modern editor | Footnotes, variant readings |
 
-Not all layers are present in every multi-layer source. The source metadata's `layers` field specifies which are present.
+Not all layers are present in every multi-layer source. The source metadata's `text_layers` field specifies which are present.
 
 **Layer detection signals (by reliability):**
 
@@ -507,7 +508,7 @@ Not all layers are present in every multi-layer source. The source metadata's `l
    - "أقول:" → confirms current layer's author speaking
 
 2. **Typographic signals** (reliability varies by source type):
-   - Shamela HTML: bold tags → Layer 1 (reliable in ~75% of commentary exports). However, bold is sometimes used for emphasis within sharh text (e.g., the commentator bolds a hadith or Quran quote). The normalizer distinguishes layer-indicating bold from emphasis-bold using two heuristics: (a) layer-indicating bold spans typically cover 1-3 sentences of terse, definitional text, while emphasis-bold covers individual words or phrases within longer sentences; (b) if the source metadata indicates `multi_layer: true` and bold text constitutes <5% or >60% of primary text on a page, the bold signal is treated as emphasis rather than layer indicator (too little or too much bold to be a matn/sharh boundary). Font size. Brackets.
+   - Shamela HTML: bold tags → Layer 1 (reliable in ~75% of commentary exports). However, bold is sometimes used for emphasis within sharh text (e.g., the commentator bolds a hadith or Quran quote). The normalizer distinguishes layer-indicating bold from emphasis-bold using two heuristics: (a) layer-indicating bold spans typically cover 1-3 sentences of terse, definitional text, while emphasis-bold covers individual words or phrases within longer sentences; (b) if the source metadata indicates `is_multi_layer: true` and bold text constitutes <5% or >60% of primary text on a page, the bold signal is treated as emphasis rather than layer indicator (too little or too much bold to be a matn/sharh boundary). Font size. Brackets.
    - PDF text: font size/weight differences from Docling output.
    - Scanned PDF/image: visual font size from OCR spatial output (less reliable).
 

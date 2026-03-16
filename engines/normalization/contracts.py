@@ -27,6 +27,7 @@ class TextFidelityLevel(str, Enum):
     MEDIUM = "medium"       # Minor issues (OCR artifacts, encoding quirks)
     LOW = "low"             # Significant issues (poor OCR, damaged source)
     VERY_LOW = "very_low"   # Barely usable (heavy OCR errors, partial page)
+    UNKNOWN = "unknown"     # Source-level quality not assessed (from source engine baseline)
 
 
 class LayerType(str, Enum):

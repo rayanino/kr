@@ -593,7 +593,7 @@ class ScholarAuthorityRecord(BaseModel):
 
     Written to: library/registries/scholars.json (keyed by canonical_id).
     Created by the source engine, enriched by downstream engines.
-    24 defined fields — record_completeness tracks fill rate.
+    33 defined fields — record_completeness tracks fill rate.
 
     Consistency checks on update (§4.A.5):
     1. Death date drift > 5 years → SRC_SCHOLAR_DATE_CONFLICT
