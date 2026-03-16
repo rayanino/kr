@@ -13,8 +13,8 @@ The evaluation follows 4 layers, governed by `PHASE_D_EVALUATION_PROTOCOL.md`:
 | Session | What | Books | Status |
 |---------|------|-------|--------|
 | Layer 1 | Programmatic validation | 204 | ✅ COMPLETE |
-| Layer 2 | Pattern analysis | 62 (as cohorts) | PENDING |
-| Session A | Consensus disagreements | 14 | PENDING |
+| Layer 2 | Pattern analysis | 62 (as cohorts) | ✅ COMPLETE |
+| Session A | Consensus disagreements | 14 | ✅ COMPLETE (8V 5P 1F) |
 | Session B | Author uncertainty | 19 | PENDING |
 | Session C | Structural flags | 15 | PENDING |
 | Session D | Random calibration | 12 | PENDING |
@@ -66,6 +66,12 @@ Each session is an independent Claude Chat conversation in the KR project. Paste
 - Success rate: 100% (0 gate_abort)
 - Programmatic errors found: 2 (hashiyah/ML inconsistency, author disagreement)
 - Phase C VERIFIED verdicts carried: 55 (41 gate_abort→success, 14 success→success)
+
+## Completed session findings
+
+**Layer 2:** BUG-03 override confirmed working (12/12). ERR-01 is a validation gap (genre-ML consistency). 14/39 genre disagreements are benign risalah/matn/other boundary. Consensus does NOT check genre/ML.
+
+**Session A:** 8 VERIFIED, 5 PLAUSIBLE, 1 FLAG. ERR-02 confirmed: السراج المنير author misattribution. 13/14 consensus disagreements are cosmetic (author identification object text differences). Consensus module is oversensitive.
 
 ## PREREQUISITE: Push per-book Phase D results
 
