@@ -42,7 +42,7 @@
 |----|------|------|----------|-------------|
 | ERR-01 | النكت على شرح النووي | Validation gap | Medium | genre=hashiyah but ML=False with 0 layers. Internal contradiction not caught by pipeline. |
 | ERR-02 | السراج المنير | Author misattribution | **High** | Death date disagreement (911 vs 1420) suggests wrong author identification. Only confirmed hard error. |
-| ERR-03 | القحطاني | Death date hallucination | Low | Opus inferred d. 1443 AH; correct is 1440 AH. 3-year error in inferred field. |
+| ERR-03 | القحطاني + others | Death date hallucination | Medium | Opus inferred d. 1443 AH; correct is 1440 AH. Critical self-review found at least 2 more cases in unevaluated books (وافي: Opus 1418, correct 1412; مطلوب: Opus 1441, likely ~1440). **This is a systematic pattern, not an isolated case.** Opus hallucinating death dates 1-6 years off for modern scholars when no extraction data exists. |
 
 ### Flagged Issues (need review, may not be errors)
 
@@ -103,8 +103,8 @@ Session C found that "tafsir implies ML=True" is too broad — standalone tafsir
 ### 5f. Trust Flagging Rate
 Layer 2 found 33% of books have trust=flagged. This is mechanically correct (driven by extraction sparseness — missing muhaqiq, death date, publisher) but creates a high volume of "flagged" books that are actually fine. **Not an error, but worth noting for the owner's gate queue management.**
 
-### 5g. Death Date Hallucination
-ERR-03 is a new error class not seen in Phase C. LLMs can hallucinate specific dates for recently deceased scholars. The pipeline has no mechanism to validate inferred death dates. **Recommendation: note as a known limitation. Cross-referencing against biographical databases would be a future enhancement, not a core engine fix.**
+### 5g. Death Date Hallucination — SYSTEMATIC PATTERN
+ERR-03 is not an isolated case. Across all 204 books, there are 9 death date disagreements between models. Critical self-review confirmed at least 3 are Opus hallucinations: القحطاني (1443→1440, +3 years), وافي (1418→1412, +6 years), مطلوب (1441→~1440, +1 year). All three are modern scholars where the extraction provides no death date and Opus infers one from domain knowledge. CA correctly abstains (None) in all three cases. **Recommendation: add a validation warning when Opus is the sole source of a death date (CA=None). Flag these for owner review rather than accepting them silently. This is a low-cost fix with high impact — every death date from a single-model inference should be treated as unverified.**
 
 ---
 
@@ -140,7 +140,7 @@ The source engine is ready to proceed. The 204-book run demonstrates:
 **Mandatory fixes before normalization engine begins:**
 1. **ERR-01 fix:** Add validation rule — hashiyah implies ML=True with 3+ layers. Also refine tafsir/ML rule for standalone tafsirs.
 2. **ERR-02 investigation:** Investigate السراج المنير author misattribution root cause. May need a manual correction or a pipeline logic fix.
-3. **ERR-03 documentation:** Document death date hallucination as a known limitation in SPEC_CORE.md.
+3. **ERR-03 documentation and mitigation:** Document death date hallucination as a **systematic pattern** in SPEC_CORE.md. At least 3 instances confirmed across 204 books (القحطاني +3 years, وافي +6 years, مطلوب ~+1 year). Consider adding a validation warning when only one model provides a death date and the other says None — these are the highest-risk cases for hallucination.
 
 **Recommended but not blocking:**
 - Refine consensus module to ignore cosmetic text differences
