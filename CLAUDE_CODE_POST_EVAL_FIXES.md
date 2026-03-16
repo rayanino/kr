@@ -6,6 +6,8 @@ Source engine validation is COMPLETE. GO verdict with 4 mandatory fixes. This pr
 
 Budget: ~€70 remaining. This session should cost ~€0 (no API calls — all fixes are code/documentation changes).
 
+**IMPORTANT: All references below use content-based search strings, not line numbers. Line numbers can shift. Always search for the quoted content to find the exact location.**
+
 ## Fix 1: Missing Genre Values (was "genre confidence resolution")
 
 ### Root Cause (confirmed by code investigation)
@@ -24,7 +26,7 @@ This is NOT a consensus resolution bug. The consensus module works correctly (se
    - `RIHLAH = "rihlah"` (travel literature)
    - `USUL_AL_FIQH = "usul_al_fiqh"` (Islamic legal theory/methodology)
 
-2. **`engines/source/SPEC_CORE.md`** — Update the genre list at line ~1139 to include the two new values. Update the count from 18 to 20. Add a note that the LLM prompt and genre_synonyms.json should include these values.
+2. **`engines/source/SPEC_CORE.md`** — Search for the genre list that starts "`genre` must be one of the `Genre` enum values in contracts.py (18 values:". Update the count from 18 to 20 and add `rihlah` and `usul_al_fiqh` to the parenthetical list. Also add a note below it: "The LLM prompt and `library/config/genre_synonyms.json` must include all Genre enum values and their Arabic synonyms."
 
 3. **`engines/source/prompts/inference_v1.py`** — Add `rihlah` and `usul_al_fiqh` to the genre enum list in the prompt's schema section. Keep them in the same alphabetical style.
 
@@ -33,10 +35,10 @@ This is NOT a consensus resolution bug. The consensus module works correctly (se
    - `"أصول الفقه": "usul_al_fiqh"`
    - `"أصول فقه": "usul_al_fiqh"`
 
-5. **Tests** — Add to `engines/source/tests/test_validation.py`:
-   - Test that genre="rihlah" passes validation (no fallback)
+5. **Tests** — Add to `engines/source/tests/test_metadata_inference.py` in class `TestValidateEnumValue` (NOT test_validation.py — the genre enum tests live here alongside the existing genre synonym tests):
+   - Test that genre="rihlah" passes validation (no fallback) — same pattern as `test_valid_genre_passes_direct`
    - Test that genre="usul_al_fiqh" passes validation (no fallback)
-   - Test that Arabic synonym "رحلة" maps to "rihlah"
+   - Test that Arabic synonym "رحلة" maps to "rihlah" — same pattern as `test_arabic_synonym_منظومة_maps_to_nazm`
    - Test that Arabic synonym "أصول الفقه" maps to "usul_al_fiqh"
 
 ### What NOT to Change
@@ -47,20 +49,33 @@ Do NOT modify the consensus module (`shared/consensus/src/consensus.py`). It is 
 
 ### Root Cause
 
-Check 5e in `validation.py` (line 233-259) catches `genre in ("sharh", "hashiyah") and not is_multi_layer` but only at severity="warning". For hashiyah specifically, ML=False with no layers is an internal contradiction (hashiyah requires 3 layers: matn→sharh→hashiyah). The النكت case shows this warning wasn't sufficient to surface the issue.
+Check 5e in `validation.py` (search for `# 5e: Genre ↔ multi-layer`) catches `genre in ("sharh", "hashiyah") and not is_multi_layer` but only at severity="warning". For hashiyah specifically, ML=False with no layers is an internal contradiction (hashiyah requires 3 layers: matn→sharh→hashiyah). The النكت case shows this warning wasn't sufficient to surface the issue.
 
 ### Files to Modify
 
-1. **`engines/source/src/validation.py`** — In `_check_consistency()`, check 5e (line ~234):
-   - When genre="hashiyah" AND is_multi_layer=False AND text_layers is empty: change severity from "warning" to "gate". This is a genuine contradiction that needs human review.
-   - When genre="sharh" AND is_multi_layer=False AND text_layers is empty: keep as "warning" with auto-correct attempt (current behavior is fine — sharh could be a classification boundary issue).
+1. **`engines/source/src/validation.py`** — In `_check_consistency()`, check 5e (search for `# 5e:`):
+   - Split the existing `else` branch (genre suggests multi-layer but no layers) into two paths:
+     - When genre="hashiyah" AND is_multi_layer=False AND text_layers is empty: change severity from "warning" to "gate" and use check name `"consistency_hashiyah_no_layers"`. This is a genuine contradiction that needs human review.
+     - When genre="sharh" AND is_multi_layer=False AND text_layers is empty: keep as "warning" (current behavior — sharh could be a classification boundary issue).
    - Add a comment explaining the asymmetry: hashiyah structurally requires 3 layers, so hashiyah+no_layers is always contradictory. Sharh could be a standalone work near the sharh/risalah boundary.
 
-2. **`engines/source/SPEC_CORE.md`** — Add to the consistency check documentation (around line ~1456): "hashiyah + is_multi_layer=False with no layers triggers human gate (not just warning) because hashiyah structurally requires 3 layers."
+2. **`engines/source/src/engine.py`** — In the gate error handler (search for `# Process gate-severity errors`), add an `elif` branch for the new check name:
+   ```python
+   elif gate_error.check == "consistency_hashiyah_no_layers":
+       gate_low_confidence(
+           source_id,
+           "genre",
+           data_for_validation.get("genre", "hashiyah"),
+           0.0,
+       )
+   ```
+   Without this branch, the book would abort correctly but no human gate checkpoint would be created, leaving the owner unable to see why the book was gated.
 
-3. **Tests** — Add to `engines/source/tests/test_validation.py`:
-   - Test: genre="hashiyah", is_multi_layer=False, text_layers=[] → severity="gate"
-   - Test: genre="sharh", is_multi_layer=False, text_layers=[] → severity="warning" (existing behavior preserved)
+3. **`engines/source/SPEC_CORE.md`** — Search for the consistency check documentation (near "hashiyah → should not be beginner") and add: "hashiyah + is_multi_layer=False with no layers triggers human gate (not just warning) because hashiyah structurally requires 3 layers."
+
+4. **Tests** — Add to `engines/source/tests/test_validation.py` in class `TestAutoCorrectChain` (alongside the existing `test_sharh_empty_layers_no_auto_correct`):
+   - Test: genre="hashiyah", is_multi_layer=False, text_layers=[] → severity="gate" with check name "consistency_hashiyah_no_layers"
+   - Test: genre="sharh", is_multi_layer=False, text_layers=[] → severity="warning" (confirm existing behavior preserved — this test already exists as `test_sharh_empty_layers_no_auto_correct` but verify it still passes)
 
 ### Tafsir/ML Rule — No Change Needed
 
@@ -76,26 +91,51 @@ Additionally, CA fabricates precision from approximate century designations: "ت
 
 ### Files to Modify
 
-1. **`engines/source/src/metadata_inference.py`** — After step 10b (line ~584), add:
+1. **`engines/source/src/metadata_inference.py`** — Two changes:
+
+   a) Add field to `MetadataInferenceResult` dataclass (search for `death_date_source: Optional[str]`):
    ```python
-   # 10c. Flag single-model death dates
-   # When one model provides a death_date and the other says None,
-   # the date is higher-risk for hallucination (ERR-03 pattern).
-   if len(successful) >= 2:
-       resp_a_parsed, resp_b_parsed = successful[0].parsed, successful[1].parsed
-       death_a = resp_a_parsed.author_identification.death_date_hijri
-       death_b = resp_b_parsed.author_identification.death_date_hijri
-       if (death_a is None) != (death_b is None):
-           result.death_date_single_model = True
-       else:
-           result.death_date_single_model = False
-   else:
-       result.death_date_single_model = True  # Single model = always flag
+   death_date_source: Optional[str] = None  # extraction, author_raw_text, inference, absent
+   death_date_single_model: bool = False     # True when only one model provided a death date
    ```
 
-   Add `death_date_single_model: bool = False` to `MetadataInferenceResult` dataclass.
+   b) After step 10b (search for `# 10b. Determine death_date_source`), add step 10c. Note: at this point in the function, `successful` is still in scope from line ~492 and `result` is the MetadataInferenceResult being built:
+   ```python
+   # 10c. Flag single-model death dates (ERR-03 pattern)
+   # When one model provides a death_date and the other says None,
+   # the date is higher-risk for hallucination.
+   if len(successful) >= 2:
+       death_a = successful[0].parsed.author_identification.death_date_hijri
+       death_b = successful[1].parsed.author_identification.death_date_hijri
+       if (death_a is None) != (death_b is None):
+           result.death_date_single_model = True
+   else:
+       # Single model = treat death date as unverified if inferred
+       result.death_date_single_model = True
+   ```
 
-2. **`engines/source/src/validation.py`** — Add a new check in `_check_consistency()`:
+   c) In step 13 (search for `# 13. Build needs_review_fields`), AFTER the existing genre/format/authority/level fallback blocks and BEFORE `result.needs_review_fields = sorted(needs_review)`, add:
+   ```python
+   # Flag single-model inferred death dates for owner review (ERR-03)
+   if result.death_date_single_model and result.death_date_source == "inference":
+       if "death_date_hijri" not in needs_review:
+           needs_review.append("death_date_hijri")
+   ```
+
+2. **`engines/source/src/engine.py`** — **CRITICAL: Fix pre-existing needs_review_fields merge gap.** Search for `needs_review_fields = _build_needs_review(confidence_scores)` (line ~394). Immediately after, add:
+   ```python
+   # Merge inference-specific review flags (genre fallback, death date, etc.)
+   # The inference builds its own needs_review list that includes flags
+   # not based on confidence scores (e.g., enum fallback, single-model death dates).
+   if inference.needs_review_fields:
+       for f in inference.needs_review_fields:
+           if f not in needs_review_fields:
+               needs_review_fields.append(f)
+       needs_review_fields = sorted(needs_review_fields)
+   ```
+   **Why this matters:** Without this merge, inference.needs_review_fields is silently discarded. The engine builds needs_review_fields only from confidence scores, losing any non-confidence-based flags. This pre-existing gap means the genre enum fallback flag (when LLM returns unknown genre → "other") was already being lost. This merge fixes that AND enables the death date flag to propagate. It's a 4-line fix that's safe (only adds fields, never removes) and forward-compatible.
+
+3. **`engines/source/src/validation.py`** — Add a new check in `_check_consistency()`, before the `return errors` statement:
    ```python
    # 5g: Single-model death date warning
    death_date_single = data.get("death_date_single_model", False)
@@ -113,23 +153,27 @@ Additionally, CA fabricates precision from approximate century designations: "ت
            recovery="flag_needs_review",
        ))
    ```
+   Note: This validation check is now REDUNDANT with the direct needs_review_fields addition in metadata_inference.py. It serves as documentation and logging only (the validation warning gets logged at line ~616 in engine.py). The actual flagging to the owner happens via needs_review_fields.
 
-3. **`engines/source/src/engine.py`** — At line ~568, after `data_for_validation = metadata.model_dump(mode="json")` and before `validation_errors = validate_source_metadata(...)`, inject the extra fields:
+4. **`engines/source/src/engine.py`** — Search for `data_for_validation = metadata.model_dump(mode="json")`. Immediately after that line, before `validation_errors = validate_source_metadata(...)`, inject:
    ```python
    # Inject inference-only fields for validation (not in SourceMetadata schema)
    data_for_validation["death_date_source"] = getattr(inference, "death_date_source", "absent")
    data_for_validation["death_date_single_model"] = getattr(inference, "death_date_single_model", False)
    ```
-   This pattern is safe because validation reads from the dict but SourceMetadata's schema is unchanged. The extra fields are ignored by Pydantic serialization and only consumed by the validation check.
+   This is needed for the validation warning (check 5g) to fire. The extra keys are ignored by SourceMetadata serialization.
 
-4. **`engines/source/SPEC_CORE.md`** — Add a new subsection after line ~1134 ("Single-LLM biographical inference cap"):
+5. **`engines/source/SPEC_CORE.md`** — Search for "Single-LLM biographical inference cap" and add a new subsection immediately after:
 
    **Death date hallucination pattern (ERR-03).** Three confirmed cases in 204-book validation: Opus inferred death dates 2-6 years off for modern scholars when extraction provided no death data. Pattern: Opus supplies a specific date, CA correctly abstains (None). Additionally, CA may fabricate specific years from approximate century designations ("ت ق 4هـ" → 400 AH). Mitigation: when only one model provides a death_date and the other returns None, and the source is "inference" (not from extraction), add `SRC_DEATH_DATE_UNVERIFIED` warning to `needs_review_fields`. This flags the date for owner verification without dropping it.
 
-5. **Tests** — Add to `engines/source/tests/test_validation.py`:
+6. **Tests** — Add to `engines/source/tests/test_validation.py`:
    - Test: death_date_single_model=True, death_date_source="inference" → warning with code SRC_DEATH_DATE_UNVERIFIED
    - Test: death_date_single_model=True, death_date_source="author_raw_text" → no warning (extraction confirms the date)
    - Test: death_date_single_model=False, death_date_source="inference" → no warning (both models agree)
+
+   Add to `engines/source/tests/test_engine.py` or `engines/source/tests/test_metadata_inference.py`:
+   - Test: Verify that inference.needs_review_fields propagates to the final SourceMetadata.needs_review_fields. Create an inference result with needs_review_fields=["death_date_hijri"], verify it appears in the engine's output. This tests the merge fix.
 
 ## Fix 4: ERR-02 — السراج المنير Documentation
 
