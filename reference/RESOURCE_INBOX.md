@@ -1,8 +1,7 @@
 # Resource Inbox
 
-Quick-capture for external tools, repos, libraries, and services encountered during research.
+Quick-capture for tools, repos, ideas, and references encountered during research.
 Triage into `RESOURCES.md` (or discard) during `technology-survey` skill sessions.
-For project ideas and design thoughts, see `IDEAS.md`.
 
 **Format:** `- [link] — description. [EVALUATED: see RESOURCES.md]` for items already cataloged.
 
@@ -59,6 +58,7 @@ For project ideas and design thoughts, see `IDEAS.md`.
 Items marked `[EVALUATED]` are already cataloged in `RESOURCES.md` with full assessment.
 
 ### OCR (Character Recognition)
+
 - Google Cloud Vision — General-purpose OCR. `[EVALUATED: see RESOURCES.md]`
 - Azure AI Vision — Microsoft OCR service. **Not yet evaluated**
 - Amazon Textract — AWS document extraction. **Not yet evaluated**
@@ -66,18 +66,29 @@ Items marked `[EVALUATED]` are already cataloged in `RESOURCES.md` with full ass
 - DeepSeek-OCR — DeepSeek's OCR offering. **Not yet evaluated**
 
 ### Arabic-Specific OCR
+
 - Sakhr Software — Arabic OCR specialist (also has ASR). **Not yet evaluated**
 
 ### Speech Recognition (ASR)
+
 - OpenAI Whisper — Open-source multilingual ASR. **Not yet evaluated**
 - Speechmatics — Commercial ASR with Arabic support. **Not yet evaluated**
 
 ### Arabic-Specific ASR
+
 - Kateb ASR — Arabic-focused speech-to-text. **Not yet evaluated**
 - Sakhr Software — Arabic ASR (also has OCR, listed above). **Not yet evaluated**
 
 ### Format Conversion
+
 - Docling (ai-cookbook) — Document conversion pipeline. `[EVALUATED: see RESOURCES.md]`
+
+## Normalization Engine Design Ideas
+
+> These are requirements/ideas for the normalization SPEC, not external resources.
+
+- **Multi-language input:** The engine should accept Arabic as primary input but also handle English text.
+- **Source format hunting:** Before OCR, check if the source exists elsewhere in a better format (e.g., an Arabic PDF book might exist as HTML or plain text on another platform). This should be a phase in the normalization pipeline.
 
 ## MCP Servers & Tools
 
@@ -96,6 +107,7 @@ Items marked `[EVALUATED]` are already cataloged in `RESOURCES.md` with full ass
 - https://www.reddit.com/r/ClaudeAI/comments/1laby6h/comment/mxjbupq/ — Reddit discussion
 
 ### API Keys Needed
+
 - OpenRouter API key
 - OpenAI API key
 - Anthropic API key
@@ -107,7 +119,12 @@ Items marked `[EVALUATED]` are already cataloged in `RESOURCES.md` with full ass
 
 ---
 
+## Synthesizing and Academics
+
+- https://github.com/delibae/claude-prism
+
 ## Triaged
 
 <!-- Entries moved here after evaluation via technology-survey skill. -->
+
 <!-- Format: - [date] **Name** — adopted/rejected/deferred. Notes. -->

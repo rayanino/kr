@@ -1,0 +1,2124 @@
+{
+  "description": "Programmatic triage of all 204 Phase D books for evaluation",
+  "generated_by": "Claude Chat (Architect)",
+  "timestamp": "2026-03-16",
+  "methodology": "8 automated checks: genre-structure consistency, title-genre signals, author extraction cross-check, death date model agreement, author confidence, Shamela category vs genre, SPEC §6.3 attribution compliance, trust math verification",
+  "summary": {
+    "total_books": 204,
+    "layer2_pattern_analysis": 62,
+    "layer3_web_search": 60,
+    "layer3_random_sample": 12,
+    "layer4_accept": 82
+  },
+  "programmatic_findings": {
+    "errors": [
+      {
+        "id": "ERR-01",
+        "book": "النكت على شرح النووي على صحيح مسلم",
+        "finding": "genre=hashiyah but ML=false with 0 layers. Internal contradiction."
+      },
+      {
+        "id": "ERR-02",
+        "book": "السراج المنير في ترتيب أحاديث صحيح الجامع الصغير",
+        "finding": "Death date disagreement: Opus=911 (السيوطي), CA=1420 (الألباني). Probable author misidentification."
+      }
+    ],
+    "warnings": [
+      {
+        "id": "WARN-01",
+        "count": 8,
+        "finding": "ML disagreement: Opus=true, CA=false. 6/8 are tahqiq-note bias (override working). 2 need verification."
+      },
+      {
+        "id": "WARN-02",
+        "count": 2,
+        "finding": "Edition group genre inconsistency: إعلام الموقعين (other vs matn), الإبانة (risalah vs matn)"
+      },
+      {
+        "id": "WARN-03",
+        "count": 4,
+        "finding": "Low author confidence (<0.70): وقفة هادئة (0.30), الإسلام وحقوق (0.55), الورقة النحوية (0.55), حقوق الإنسان (0.55)"
+      },
+      {
+        "id": "WARN-04",
+        "finding": "canonical_model='unknown' in 190/204 consensus.json files. Recording bug — does not affect output correctness."
+      },
+      {
+        "id": "WARN-05",
+        "count": 68,
+        "finding": "33% trust flagging rate. Root cause: no muhaqiq + unknown/contemporary author. Formula working correctly for these inputs."
+      },
+      {
+        "id": "WARN-06",
+        "finding": "Opus wins canonically ~90% of the time (inferred from 121 books with field disagreements). Concentration risk if Opus has systematic biases."
+      }
+    ],
+    "verified_correct": [
+      "Trust math: all 204 books — trust_score matches weighted factor sum",
+      "Trust tier threshold: all 204 books — tier matches 0.65 cutoff",
+      "SPEC §6.3 attribution: 47 disagreements all resolved conservatively, 0 violations",
+      "Regression: 0 negative regressions from Phase C. 3 ML improvements (BUG-03 override)",
+      "Phase C VERIFIED genre stability: 0 genre changes in formerly-verified books"
+    ]
+  },
+  "sessions": {
+    "A": {
+      "name": "Consensus disagreements",
+      "books": [
+        "أعلام الموقعين عن رب العالمين - ط عطاءات العلم",
+        "إعلام الموقعين عن رب العالمين - ت مشهور",
+        "إيجاز البيان عن معاني القرآن",
+        "السراج المنير في ترتيب أحاديث صحيح الجامع الصغير",
+        "القول المعروف في فضل المعروف",
+        "المفصل في صنعة الإعراب",
+        "تحفة المودود بأحكام المولود - ط عطاءات العلم",
+        "تكملة حاشية ابن عابدين = قرة عيون الأخيار تكملة رد المحتار - ط الفكر",
+        "فوائد ابن الصلت وأبي أحمد الفرضي",
+        "معجم الشيوخ لابن عساكر",
+        "من أحاديث سفيان الثوري - رواية السري بن يحيى - جوامع الكلم",
+        "من حديث ابن المقرئ",
+        "نظم اختيارات شيخ الإسلام ابن تيمية",
+        "نظم ما انفرد به ابن تيمية"
+      ],
+      "count": 14
+    },
+    "B": {
+      "name": "Author uncertainty",
+      "books": [
+        "أحكام الاضطباع والرمل في الطواف",
+        "أسلوب خطبة الجمعة",
+        "أصول علم العربية في المدينة",
+        "إيضاح شواهد الإيضاح",
+        "الأحاديث التي سقطت من مطبوع المعجم الأوسط للطبراني",
+        "الأنشوطة في النحو",
+        "الإسلام وحقوق الإنسان في ضوء المتغيرات العالمية",
+        "البدر التمام بما صح من أدلة الأحكام",
+        "التعليق على الرحيق المختوم",
+        "الجامع لأحكام الصلاة - عادل بن سعد",
+        "القطوف الدانية فيما انفرد به الدارمي عن الثمانية",
+        "المصباح لما أعتم من شواهد الإيضاح",
+        "الموسوعة الفقهية الكويتية",
+        "الورقة النحوية",
+        "حقوق الإنسان في الإسلام لجمل الليل",
+        "خمسة أحاديث من رواية ابن العربي المتأخر",
+        "صحيح سنن النسائي",
+        "منهج الصحابة في دعوة المشركين من غير أهل الكتاب",
+        "وقفة هادئة مع الطاعنين في جماعات الدعوة"
+      ],
+      "count": 19
+    },
+    "C": {
+      "name": "Programmatic flags",
+      "books": [
+        "أمالي الأذكار في فضل صلاة التسبيح",
+        "إعلام الموقعين عن رب العالمين - ط العلمية",
+        "الأحاديث الأربعين النووية مع ما زاد عليها ابن رجب وعليها الشرح الموجز المفيد",
+        "الأدب المفرد - بأحكام الألباني - ت الزهيري",
+        "الإبانة عن أصول الديانة - ت العصيمي",
+        "الإبانة عن أصول الديانة - ت فوقية",
+        "الرسالة للشافعي",
+        "الروضة الندية شرح الدرر البهية ط المعرفة",
+        "القسم الثالث من المعجم الأوسط للطبراني",
+        "المسائل النحوية في كتاب التوضيح لشرح الجامع الصحيح",
+        "النكت على شرح النووي على صحيح مسلم",
+        "تفسير ابن كمال باشا",
+        "شرح المفصل لابن يعيش",
+        "مختصر صحيح مسلم للمنذري ت الألباني",
+        "مسند أحمد - ت شاكر - ط دار الحديث"
+      ],
+      "count": 15
+    },
+    "D": {
+      "name": "Random calibration sample",
+      "books": [
+        "أحاديث العطار عن شيوخه",
+        "أحكام الأحوال الشخصية في الشريعة الإسلامية",
+        "إعراب قوله تعالى {وأن ليس للإنسان إلا ما سعى} - ضمن «آثار المعلمي»",
+        "الأربعون النووية",
+        "الأربعون للبكري",
+        "الإعلام والدعوة إلى الله",
+        "الثاني من الوخشيات",
+        "الرحيق المختوم",
+        "المسلسلات من الأحاديث والآثار",
+        "ذكر من لم يكن عنده إلا حديث واحد للخلال",
+        "كيفية دعوة أهل الكتاب إلى الله تعالى في ضوء الكتاب والسنة",
+        "نزهة الناظر في ذكر من حدث عن البغوي"
+      ],
+      "count": 12
+    }
+  },
+  "pattern_analysis_books": [
+    "آداب الصحبة لأبي عبد الرحمن السلمي",
+    "أحاديث أيوب السختيانى",
+    "أدب النفوس للآجري",
+    "أساليب بلاغية",
+    "أنوار الهلالين في التعقبات على الجلالين",
+    "إنتاج المستشرقين وأثره في الفكر الإسلامي الحديث",
+    "الأذكار للنووي ت الأرنؤوط",
+    "الأربعون في التصوف للسلمي",
+    "الأربعون من رواية مالك عن نافع للسيوطي",
+    "الأم للشافعي - ط الفكر",
+    "الأمر بالمعروف والنهي عن المنكر - عبد الغني المقدسي",
+    "الإعراب المفصل لكتاب الله المرتل",
+    "الإقناع لابن المنذر",
+    "الإنجاد في أبواب الجهاد",
+    "البلاغة العربية",
+    "التفسير القيم = تفسير القرآن الكريم لابن القيم",
+    "الحث على التجارة - من «الجامع» للخلال - ت الحداد",
+    "الزهد لأبي داود",
+    "العمر والشيب لابن أبي الدنيا",
+    "الفقه الأكبر",
+    "القراءة عند القبور - من «الجامع» للخلال",
+    "القواعد التطبيقية في اللغة العربية",
+    "الكلام على حديث الإستلقاء لأبي موسى المديني",
+    "اللباب في فقه السنة والكتاب",
+    "المآخذ على شراح ديوان أبي الطيب المتنبي",
+    "المثل السائر في أدب الكاتب والشاعر ت الحوفي",
+    "المثل السائر في أدب الكاتب والشاعر ت محيي الدين عبد الحميد",
+    "المستدرك على مجموع الفتاوى",
+    "المنتقى من الفوائد الحسان في الحديث",
+    "بلغة الطالب الحثيث في صحيح عوالي الحديث لابن قدامة",
+    "تأخير الظلامة إلى يوم القيامة للسيوطي",
+    "تاريخ دنيسر",
+    "تثبيت الإمامة وترتيب الخلافة لأبي نعيم الأصبهاني",
+    "تحريم نكاح المتعة",
+    "تفسير أول المائدة (١ - ٣) - ضمن «آثار المعلمي»",
+    "تفسير ابن عرفة",
+    "تفسير ابن عرفة النسخة الكاملة",
+    "تقويم النظر في مسائل خلافية ذائعة",
+    "جامع مرويات استدراكات السلف في التفسير",
+    "جزء من حديث أبي بكر النجاد",
+    "حديث أبي الحسين بن المظفر",
+    "حديث الضب الذي تكلم بين يدي النبي للطبراني",
+    "حديث يحيى بن معين رواية أبي منصور الشيباني",
+    "حصوننا مهددة من داخلها",
+    "ذكر ابن أبي الدنيا وما وقع عاليا من حديثه",
+    "زوائد تاريخ بغداد على الكتب الستة",
+    "شرح العقيدة الطحاوية - ط الأوقاف السعودية - بتعليقات أحمد شاكر",
+    "شرح العقيدة الطحاوية - ط الرسالة",
+    "شروط النهضة",
+    "علم اللغة",
+    "علم اللغة مقدمة للقارئ العربي",
+    "غرائب مالك بن أنس لابن المظفر",
+    "فوائد أبي ذر الهروي",
+    "قذائف الحق",
+    "مجلسان من الأمالي أحدهما في صفات الله لابن مردويه",
+    "مذكرات مالك بن نبي - العفن",
+    "مسند عبد الله بن عمر للطرسوسي",
+    "مشيخة أبي بكر بن عبد الدائم",
+    "ملء العيبة بما جمع بطول الغيبة - ج ٥",
+    "من عاش مائة وعشرين سنة من الصحابة لابن منده",
+    "منتقى من حديث الجصاص والحنائي لأحمد بن عبد الدائم",
+    "وقفات مع قضايا معاصرة شبهات ردود"
+  ],
+  "books": {
+    "آداب الصحبة لأبي عبد الرحمن السلمي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "آداب الفتوى والمفتي والمستفتي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "أبنية الأسماء والأفعال والمصادر": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "أجنحة المكر الثلاثة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "أحاديث أيوب السختيانى": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "أحاديث العطار عن شيوخه": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "أحكام الأحوال الشخصية في الشريعة الإسلامية": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "أحكام الاضطباع والرمل في الطواف": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "LOW_AUTHOR_CONF"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "أخبار أبي القاسم الزجاجي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "أدب النفوس للآجري": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "أساليب بلاغية": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "أسلوب خطبة الجمعة": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "LOW_AUTHOR_CONF"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "أصول السرخسي = تمهيد الفصول في الأصول - ت الأفغاني": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "أصول علم العربية في المدينة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "LOW_AUTHOR_CONF"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "أعلام الموقعين عن رب العالمين - ط عطاءات العلم": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "CONSENSUS_DISAGREE",
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "ألفية ابن مالك - ت القاسم": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "ألفية ابن مالك - ط التعاون": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "أمالي الأذكار في فضل صلاة التسبيح": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ML_DISAGREE",
+        "GENRE_DISAGREE",
+        "ATTR_DISAGREE",
+        "MULTI_LAYER"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Structural or ML flag"
+    },
+    "أمالي المحاملي رواية ابن الصلت": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "أنوار الهلالين في التعقبات على الجلالين": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "إعراب القرآن وبيانه": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "إعراب قوله تعالى {وأن ليس للإنسان إلا ما سعى} - ضمن «آثار المعلمي»": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "إعلام الموقعين عن رب العالمين - ت مشهور": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "CONSENSUS_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "إعلام الموقعين عن رب العالمين - ط العلمية": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Edition group genre inconsistency"
+    },
+    "إنتاج المستشرقين وأثره في الفكر الإسلامي الحديث": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "إيجاز البيان عن معاني القرآن": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "CONSENSUS_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "إيجاز التعريف في علم التصريف": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "إيضاح شواهد الإيضاح": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "LOW_AUTHOR_CONF",
+        "MULTI_LAYER"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "الأحاديث الأربعين النووية مع ما زاد عليها ابن رجب وعليها الشرح الموجز المفيد": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Title-genre mismatch or multi-layer verification"
+    },
+    "الأحاديث التي سقطت من مطبوع المعجم الأوسط للطبراني": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "NO_EXTRACTED_AUTHOR",
+        "TITLE_GENRE_MISMATCH_mujam"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "الأدب المفرد - بأحكام الألباني - ت الزهيري": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ML_DISAGREE"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Structural or ML flag"
+    },
+    "الأذكار للنووي ت الأرنؤوط": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "الأربعون النووية": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "الأربعون في التصوف للسلمي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "الأربعون للبكري": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "الأربعون من رواية مالك عن نافع للسيوطي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "الأم للشافعي - ط الفكر": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "الأمر بالمعروف والنهي عن المنكر - عبد الغني المقدسي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "الأمر بالمعروف والنهي عن المنكر- ابن أبي الدنيا": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "الأنشوطة في النحو": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "LOW_AUTHOR_CONF"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "الإبانة عن أصول الديانة - ت العصيمي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Edition group genre inconsistency"
+    },
+    "الإبانة عن أصول الديانة - ت فوقية": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Edition group genre inconsistency"
+    },
+    "الإبدال في لغات الأزد دراسة صوتية في ضوء علم اللغة الحديث": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "الإسلام وحقوق الإنسان في ضوء المتغيرات العالمية": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "LOW_AUTHOR_CONF"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "الإعراب المفصل لكتاب الله المرتل": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "الإعلام والدعوة إلى الله": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "الإقناع لابن المنذر": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "الإنجاد في أبواب الجهاد": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE",
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "الإيضاح العضدي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "البداية والنهاية - ت التركي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "البداية والنهاية - ط السعادة": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "البدر التمام بما صح من أدلة الأحكام": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "LOW_AUTHOR_CONF"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "البلاغة العربية": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "البيان والتبيين": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "التاسع عشر من الخلعيات": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "التبصرة في أصول الفقه": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "التعليق على الرحيق المختوم": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "GENRE_DISAGREE",
+        "LOW_AUTHOR_CONF",
+        "MULTI_LAYER"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "التفسير القيم = تفسير القرآن الكريم لابن القيم": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "التفسير المنير - الزحيلي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "التفسير الواضح": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "التقدم والرجعية": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "التنصير عبر الخدمات التفاعلية لشبكة المعلومات العالمية": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "الثاني من الوخشيات": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "الجامع لأحكام الصلاة - عادل بن سعد": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "NO_EXTRACTED_AUTHOR"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "الجمع بين الصحيحين للحميدي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "الجمعة وفضلها لأحمد بن علي المروزي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "الحث على التجارة - من «الجامع» للخلال - ت الحداد": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "الرحيق المختوم": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "الرسالة للشافعي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "ML_DISAGREE"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Structural or ML flag"
+    },
+    "الروضة الندية شرح الدرر البهية ط المعرفة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Title-genre mismatch or multi-layer verification"
+    },
+    "الزهد لأبي داود": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "الزهد لابن أبي الدنيا": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "السراج المنير في ترتيب أحاديث صحيح الجامع الصغير": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "CONSENSUS_DISAGREE",
+        "ML_DISAGREE",
+        "ATTR_DISAGREE",
+        "DEATH_DATE_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "العلاقة المثلى بين الدعاة ووسائل الإتصال الحديثة في ضوء الكتاب والسنة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "العمر والشيب لابن أبي الدنيا": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "الفقه الأكبر": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "GENRE_DISAGREE",
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "القراءة عند القبور - من «الجامع» للخلال": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "القسم الثالث من المعجم الأوسط للطبراني": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ML_DISAGREE",
+        "GENRE_DISAGREE",
+        "TITLE_GENRE_MISMATCH_mujam"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Structural or ML flag"
+    },
+    "القطوف الدانية فيما انفرد به الدارمي عن الثمانية": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "NO_EXTRACTED_AUTHOR"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "القواعد التطبيقية في اللغة العربية": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "القول المعروف في فضل المعروف": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "CONSENSUS_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "الكلام على حديث الإستلقاء لأبي موسى المديني": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "اللامع العزيزي شرح ديوان المتنبي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
+    },
+    "اللباب في فقه السنة والكتاب": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE",
+        "TITLE_GENRE_MISMATCH_mukhtasar"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "المآخذ على شراح ديوان أبي الطيب المتنبي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "GENRE_DISAGREE",
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "المثل السائر في أدب الكاتب والشاعر ت الحوفي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "المثل السائر في أدب الكاتب والشاعر ت محيي الدين عبد الحميد": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "المحبة لله لأبي إسحاق الختلي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "المسائل النحوية في كتاب التوضيح لشرح الجامع الصحيح": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "TITLE_GENRE_MISMATCH_sharh"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Title-genre mismatch or multi-layer verification"
+    },
+    "المستدرك على مجموع الفتاوى": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "المسلسلات من الأحاديث والآثار": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "المسند المصنف المعلل": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "المصباح لما أعتم من شواهد الإيضاح": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "LOW_AUTHOR_CONF",
+        "MULTI_LAYER"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "المصنف - ابن أبي شيبة - ت الحوت": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "المفصل في صنعة الإعراب": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "CONSENSUS_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "المنتقى من الفوائد الحسان في الحديث": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "المنتقى من مسموعات الضياء المقدسي بمرو - مخطوط": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "المنصوب على نزع الخافض في القرآن": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "الموسوعة الفقهية الكويتية": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "NO_EXTRACTED_AUTHOR"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "الموسوعة الفقهية الميسرة في فقه الكتاب والسنة المطهرة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "النكت على شرح النووي على صحيح مسلم": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "GENRE_DISAGREE",
+        "GENRE_STRUCTURE_INCONSISTENT"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Structural or ML flag"
+    },
+    "الورقة النحوية": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "GENRE_DISAGREE",
+        "LOW_AUTHOR_CONF"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "بداية المجتهد ونهاية المقتصد": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "بلغة الطالب الحثيث في صحيح عوالي الحديث لابن قدامة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "تأخير الظلامة إلى يوم القيامة للسيوطي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE",
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "تاريخ ابن معين - رواية الدارمي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "تاريخ دنيسر": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "تثبيت الإمامة وترتيب الخلافة لأبي نعيم الأصبهاني": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE",
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "تحريم نكاح المتعة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "تحفة المودود بأحكام المولود - ت الأرنؤوط": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "تحفة المودود بأحكام المولود - ط عطاءات العلم": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "CONSENSUS_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "تفسير أول المائدة (١ - ٣) - ضمن «آثار المعلمي»": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE",
+        "TITLE_GENRE_MISMATCH_tafsir"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "تفسير ابن عرفة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "تفسير ابن عرفة النسخة الكاملة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "تفسير ابن كمال باشا": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ML_DISAGREE",
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Structural or ML flag"
+    },
+    "تفسير الطبري جامع البيان - ت التركي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "تفسير الطبري جامع البيان - ط دار التربية والتراث": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "تقويم النظر في مسائل خلافية ذائعة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "تكملة حاشية ابن عابدين = قرة عيون الأخيار تكملة رد المحتار - ط الفكر": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "CONSENSUS_DISAGREE",
+        "ATTR_DISAGREE",
+        "NO_EXTRACTED_AUTHOR",
+        "MULTI_LAYER"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "ثلاثة مجالس من أمالي ابن بشران ومن حديث الطناجيري": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "جامع مرويات استدراكات السلف في التفسير": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE",
+        "TITLE_GENRE_MISMATCH_tafsir"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "جزء ابن عمشليق": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "جزء الجركاني": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "جزء فيه تفسير القرآن برواية أبي جعفر الترمذي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "جزء من حديث أبي بكر النجاد": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "جزء من حديث ابن شاهين": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "حاشية ابن عابدين = رد المحتار - ط الحلبي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
+    },
+    "حاشية العطار على شرح الجلال المحلي على جمع الجوامع": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
+    },
+    "حديث أبي الحسين بن المظفر": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "حديث الضب الذي تكلم بين يدي النبي للطبراني": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "حديث يحيى بن معين رواية أبي منصور الشيباني": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "حصوننا مهددة من داخلها": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "حقوق الإنسان في الإسلام لجمل الليل": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "LOW_AUTHOR_CONF"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "حول حديث الذباب": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "خمسة أحاديث من رواية ابن العربي المتأخر": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "NO_EXTRACTED_AUTHOR"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "دور المسلم ورسالته في الثلث الأخير من القرن العشرين": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "ذكر ابن أبي الدنيا وما وقع عاليا من حديثه": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE",
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "ذكر الأقران لأبي الشيخ": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "ذكر من لم يكن عنده إلا حديث واحد للخلال": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "ذم الملاهي لابن أبي الدنيا": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "زاد المستقنع في اختصار المقنع - ت العسكر": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "زهرة التفاسير": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "زوائد تاريخ بغداد على الكتب الستة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "سباعيات أبي المعالي الفراوي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "سبعة مجالس من أمالي أبي طاهر المخلص": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "سير أعلام النبلاء - ط الحديث": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "شرح العقيدة الطحاوية - ط الأوقاف السعودية - بتعليقات أحمد شاكر": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "ATTR_DISAGREE",
+        "MULTI_LAYER"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "شرح العقيدة الطحاوية - ط الرسالة": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "ATTR_DISAGREE",
+        "MULTI_LAYER"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "شرح المفصل لابن يعيش": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Title-genre mismatch or multi-layer verification"
+    },
+    "شرح النووي على مسلم": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
+    },
+    "شرح الورقات في أصول الفقه - المحلي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
+    },
+    "شرح ديوان المتنبي للواحدي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
+    },
+    "شرح مقامات الحريري": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
+    },
+    "شروط النهضة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "صحيح ابن حبان التقاسيم والأنواع": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "صحيح البخاري - ن عطاءات العلم": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "صحيح سنن النسائي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "NO_EXTRACTED_AUTHOR"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "علم اللغة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "علم اللغة مقدمة للقارئ العربي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "عيون الرسائل والأجوبة على المسائل": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "غرائب مالك بن أنس لابن المظفر": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "فتاوى اللجنة الدائمة - المجموعة الأولى": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "فتاوى اللجنة الدائمة - المجموعة الثانية": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "فتاوى يسألونك": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "فتح الباري بشرح البخاري - ط السلفية": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
+    },
+    "فتح الباري لابن رجب": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
+    },
+    "فوائد أبي ذر الهروي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "فوائد ابن الصلت وأبي أحمد الفرضي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "CONSENSUS_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "فوائد ابن نصر": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "قذائف الحق": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "قواعد مهمة في الأمر بالمعروف والنهي عن المنكر": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "كيفية دعوة أهل الكتاب إلى الله تعالى في ضوء الكتاب والسنة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "لسان العرب": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "متن شذور الذهب": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "مجلسان من الأمالي أحدهما في صفات الله لابن مردويه": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "مجموع الفتاوى": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "مختصر صحيح مسلم للمنذري ت الألباني": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "ML_DISAGREE"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Structural or ML flag"
+    },
+    "مذكرات مالك بن نبي - العفن": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "مسائل الإمام ابن باز": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "مسند أبي حنيفة رواية الحصكفي": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "مسند أحمد - ت شاكر - ط دار الحديث": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "ML_DISAGREE"
+      ],
+      "assignment": "SESSION_C",
+      "reason": "Structural or ML flag"
+    },
+    "مسند عبد الله بن عمر للطرسوسي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "مسند عمر بن عبد العزيز للباغندي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "مشيخة أبي بكر بن عبد الدائم": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE",
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "معالم بيانية في آيات قرآنية": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "معجم الشيوخ لابن عساكر": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "CONSENSUS_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "مفهوم الحكمة في الدعوة إلى الله تعالى في ضوء الكتاب والسنة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "مفيد الأنام ونور الظلام في تحرير الأحكام لحج بيت الله الحرام": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "مقامات الحريري": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "ملء العيبة بما جمع بطول الغيبة - ج ٥": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "ملاك التأويل القاطع بذوي الإلحاد والتعطيل": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "من أحاديث سفيان الثوري - رواية السري بن يحيى - جوامع الكلم": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [
+        "CONSENSUS_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "من حديث ابن المقرئ": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "CONSENSUS_DISAGREE",
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "من عاش مائة وعشرين سنة من الصحابة لابن منده": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE",
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "منتقى من حديث الجصاص والحنائي لأحمد بن عبد الدائم": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "منهج الصحابة في دعوة المشركين من غير أهل الكتاب": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE",
+        "LOW_AUTHOR_CONF"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    },
+    "نزهة الناظر في ذكر من حدث عن البغوي": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "SESSION_D",
+      "reason": "Random calibration sample"
+    },
+    "نسخة إبراهيم بن سعد - ضمن مجموع الفوائد لابن منده": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "نصيحة لطالب الحق - ضمن «آثار المعلمي»": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "PLAUSIBLE",
+      "flags": [],
+      "assignment": "ACCEPT",
+      "reason": "No programmatic flags"
+    },
+    "نظم اختيارات شيخ الإسلام ابن تيمية": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "CONSENSUS_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "نظم ما انفرد به ابن تيمية": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "CONSENSUS_DISAGREE"
+      ],
+      "assignment": "SESSION_A",
+      "reason": "Consensus disagreement requires web verification"
+    },
+    "همع الهوامع في شرح جمع الجوامع": {
+      "status": "success",
+      "is_rerun": true,
+      "phase_c_verdict": "VERIFIED",
+      "flags": [
+        "MULTI_LAYER"
+      ],
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
+    },
+    "وقفات مع قضايا معاصرة شبهات ردود": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "GENRE_DISAGREE"
+      ],
+      "assignment": "PATTERN_ANALYSIS",
+      "reason": "Genre/attribution disagreement — analyzed as cohort"
+    },
+    "وقفة هادئة مع الطاعنين في جماعات الدعوة": {
+      "status": "success",
+      "is_rerun": false,
+      "phase_c_verdict": null,
+      "flags": [
+        "ATTR_DISAGREE",
+        "LOW_AUTHOR_CONF"
+      ],
+      "assignment": "SESSION_B",
+      "reason": "Author identification uncertainty"
+    }
+  }
+}

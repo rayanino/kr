@@ -10,6 +10,8 @@ For external tools and resources, see `RESOURCE_INBOX.md`.
 
 ## General / Cross-Engine
 
+* I just learned about RAG libraries. Is it still meaningfull to continue developing this application the way we visualized it (7 engines, ...)? Or would RAG libraries - or any other technology - help achieve the goal (taxonomy library with excerpts at leaf nodes)? I do not want to compromise on quality.
+
 <!-- Pipeline-wide ideas, tooling, workflow, architecture -->
 
 ## Source Engine

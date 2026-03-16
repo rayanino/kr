@@ -49,3 +49,8 @@ tests/results/
 tmp/
 library/logs/consensus.jsonl
 library/logs/*.jsonl
+
+# ─── Book collections (local data, not tracked) ─────────────────────
+phase_c_collection/
+phase_d_collection/
+combined_collection/
