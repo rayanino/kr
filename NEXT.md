@@ -1,6 +1,6 @@
 # NEXT — Phase D Evaluation
 
-## Status: Phase D Evaluation COMPLETE. Verdict: **GO** with 3 mandatory fixes. Next: implement fixes → final batch → normalization engine.
+## Status: Phase D Evaluation COMPLETE. Verdict: **GO** with 3 mandatory fixes. **PENDING: Owner critical review before Claude Code implements fixes.** See PHASE_D_REVIEW_PREPARATION.md and PHASE_D_REVIEW_PROMPT.md.
 
 ## What happened
 
