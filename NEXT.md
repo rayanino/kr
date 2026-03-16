@@ -17,7 +17,7 @@ The evaluation follows 4 layers, governed by `PHASE_D_EVALUATION_PROTOCOL.md`:
 | Session A | Consensus disagreements | 14 | ✅ COMPLETE (8V 5P 1F) |
 | Session B | Author uncertainty | 19 | ✅ COMPLETE (4V 13P 1F 1E) |
 | Session C | Structural flags | 15 | ✅ COMPLETE (11V 2P 2F) |
-| Session D | Random calibration | 12 | PENDING |
+| Session D | Random calibration | 12 | ✅ COMPLETE (4V 7P 1F — ERR-03 death date) |
 | Layer 4 | Aggregation + GO/NO-GO | all | PENDING |
 
 ## How to run each session
@@ -78,6 +78,8 @@ Each session is an independent Claude Chat conversation in the KR project. Paste
 **Session B (COMPLETE, 19 books):** 4 VERIFIED, 13 PLAUSIBLE, 1 FLAG, 1 ESCALATE. Two low-confidence (0.55) authors turned out to be Grand Muftis (Tunisia and Comoros) — upgraded to VERIFIED. Book 4 (ابن العربي المتأخر) initially flagged but critical self-review found the LLMs were correct (grandson confirmed by الذهبي). التعليق على الرحيق المختوم: genre/ML classification questionable (ta'liq vs sharh). وقفة هادئة: pseudonymous author escalated. Key pattern: low Opus confidence doesn't correlate with actual author obscurity. Missing death dates for recently deceased prominent scholars (d. 2012, d. 2020). See PHASE_D_SESSION_B_REPORT.md.
 
 **Session C (COMPLETE, 15 books):** 11 VERIFIED, 2 PLAUSIBLE, 2 FLAG. BUG-03 override verified working 5/5 (all ML disagreement books correctly overridden). ERR-01 confirmed: النكت hashiyah+ML=False is genuinely contradictory. Tafsir+ML=False is NOT an error for standalone tafsirs (تفسير ابن كمال باشا) — validation rule should be refined. إعلام الموقعين genre=other is wrong (should be usul_al_fiqh, CA was correct at 0.95). الإبانة عن أصول الديانة disputed attribution correctly handled by both editions. Self-review found and fixed header count error. See PHASE_D_SESSION_C_REPORT.md.
+
+**Session D (COMPLETE, 12 books):** 4 VERIFIED, 7 PLAUSIBLE, 1 FLAG. ERR-03 found: القحطاني death date 1443 AH is wrong (correct: 1440 AH, confirmed by ar.wikipedia.org + multiple obituaries). Opus hallucinated a death date 3 years late. No genre, ML, or author identification errors in calibration sample. Per protocol: error found → sample expansion recommended, though the error is in an inferred death date field, not in verdict-critical fields. See PHASE_D_SESSION_D_REPORT.md.
 
 ## PREREQUISITE: Push per-book Phase D results
 
