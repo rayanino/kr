@@ -49,7 +49,7 @@ Build the strongest possible case AGAINST GO. Consider:
 - The 1.7% hard error rate and what it means at scale (2,519 books)
 - The genre consensus failure (إعلام الموقعين)
 - Whether the 3 mandatory fixes are sufficient or need expansion
-Then: does the case against GO actually hold? Or is GO justified despite these concerns?
+Then: present your independent assessment. GO may or may not be justified — that's what you're here to determine.
 
 TASK 6 — OWNER DECISION SUPPORT
 Present findings organized by the owner decisions listed in PHASE_D_REVIEW_PREPARATION.md §6. For each decision, provide your recommendation with reasoning.

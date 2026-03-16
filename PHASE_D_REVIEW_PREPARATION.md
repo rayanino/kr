@@ -111,7 +111,7 @@ ls tests/results/source_engine/phase_d/{book_name}/llm_responses/
 **Death date disagreement audit:** To check all 9 death date disagreements:
 ```python
 # Already documented in the aggregation report:
-# 1. أساليب بلاغية — Opus: 1441, CA: None (needs verification)
+# 1. أساليب بلاغية — Opus: 1441, CA: None (CONFIRMED: correct is 1439, +2 years hallucination)
 # 2. إيضاح شواهد الإيضاح — Opus: None, CA: 460 (Session B evaluated)
 # 3. السراج المنير — Opus: 911, CA: 1420 (ERR-02, Session A)
 # 4. المصباح — Opus: 582, CA: None (Session B evaluated)
