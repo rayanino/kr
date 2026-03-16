@@ -50,6 +50,7 @@ Each session is an independent Claude Chat conversation in the KR project. Paste
 ## Key files
 
 - `PHASE_D_EVALUATION_PROTOCOL.md` — evaluation methodology and per-book procedure
+- `PHASE_D_PROGRAMMATIC_ANALYSIS.md` — deep analysis from Layer 1 (genre patterns, attribution compliance, ML bias, trust root causes, edition consistency, specific errors)
 - `EVALUATION_QUICK_REFERENCE.md` — compact checklist, re-read before each book
 - `tests/results/source_engine/phase_d/PHASE_D_TRIAGE.json` — all 204 books triaged with assignments
 - `tests/results/source_engine/phase_d/PHASE_D_AUTO_SCREENING.md` — auto-screening report
