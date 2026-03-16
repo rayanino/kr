@@ -185,8 +185,9 @@ Read `EVALUATION_QUICK_REFERENCE.md` before EACH book. It's in the repo root.
 
 Results: `tests/results/source_engine/phase_d/{book_name}/`
 Triage: `tests/results/source_engine/phase_d/PHASE_D_TRIAGE.json`
+Programmatic analysis: `PHASE_D_PROGRAMMATIC_ANALYSIS.md` (genre patterns, attribution compliance, ML bias, trust causes, edition consistency, specific errors — read this BEFORE Layer 2)
 Phase C verdicts: `phase_c_collection/PHASE_C_ALL_VERDICTS.json`
 Phase C results (for regression): `tests/results/source_engine/phase_c/{book_name}/`
 Auto-screening: `tests/results/source_engine/phase_d/PHASE_D_AUTO_SCREENING.md`
 
-Book data reader: `python3 read_book.py "{book_name}"` (reads from phase_c — may need updating for phase_d path)
+Book data reader: `python3 read_book.py "{book_name}"` (defaults to phase_d; use `--phase phase_c` for Phase C comparison)

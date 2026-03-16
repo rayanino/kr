@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
-"""Phase C Evaluation Helper — Read all data for a single book.
+"""Evaluation Helper — Read all data for a single book.
 
 Usage: python3 read_book.py "book_directory_name"
+       python3 read_book.py "book_directory_name" --phase phase_c
+
+Default phase: phase_d (current evaluation target).
+Use --phase phase_c to read Phase C results for comparison.
 
 Outputs all relevant fields in the corrected evaluation order:
 1. Status + model pair
@@ -14,8 +18,8 @@ import json
 import os
 import sys
 
-def read_book(book_dir):
-    base = os.path.join(os.path.dirname(__file__), 'tests/results/source_engine/phase_c', book_dir)
+def read_book(book_dir, phase='phase_d'):
+    base = os.path.join(os.path.dirname(__file__) or '.', 'tests/results/source_engine', phase, book_dir)
     if not os.path.isdir(base):
         print(f"ERROR: Directory not found: {base}")
         sys.exit(1)
@@ -124,12 +128,19 @@ def read_book(book_dir):
         print(f"\n⚠️  ML DISAGREEMENT: Opus={op['is_multi_layer']}, {m2_label}={m2p['is_multi_layer']}")
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Usage: python3 read_book.py 'book_directory_name'")
-        print("\nAvailable books:")
-        base = os.path.join(os.path.dirname(__file__) or '.', 'tests/results/source_engine/phase_c')
+    phase = 'phase_d'
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    for i, a in enumerate(sys.argv[1:], 1):
+        if a == '--phase' and i < len(sys.argv) - 1:
+            phase = sys.argv[i + 1]
+    
+    if not args:
+        print(f"Usage: python3 read_book.py 'book_directory_name' [--phase phase_c|phase_d]")
+        print(f"\nCurrent phase: {phase}")
+        print(f"\nAvailable books:")
+        base = os.path.join(os.path.dirname(__file__) or '.', 'tests/results/source_engine', phase)
         for d in sorted(os.listdir(base)):
             if os.path.isdir(os.path.join(base, d)):
                 print(f"  {d}")
         sys.exit(1)
-    read_book(sys.argv[1])
+    read_book(args[0], phase)
