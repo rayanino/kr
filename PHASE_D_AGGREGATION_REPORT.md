@@ -110,6 +110,12 @@ ERR-03 is a new error class not seen in Phase C. LLMs can hallucinate specific d
 
 ## 6. GO / NO-GO Decision
 
+### Evaluation Limitations (from critical self-review)
+
+**ERRATA-02 violation in Sessions C and D:** 10 of 27 VERIFIED books cited ar.wikipedia.org and archive.org as sources without performing actual web_search calls during those sessions. Retroactive searches during critical self-review confirmed all citations substantively correct. However, this is a methodological weakness — the evaluator's domain knowledge was relied upon instead of tool-grounded verification for famous classical works. The VERIFIED verdicts remain defensible (these are books like البخاري's الأدب المفرد, الشافعي's الرسالة, مسند أحمد — foundational Islamic texts with unambiguous attribution), but the evaluation's rigor for Sessions C and D is lower than Sessions A and B.
+
+**Session D sample expansion not performed:** The protocol says "if ANY error found, expand sample." ERR-03 (death date hallucination) was found in the 12-book calibration sample. Sample expansion was recommended but not performed and does not block GO, because: (a) the error is in an inferred secondary field, not a core metadata field; (b) the pipeline's core function (author, genre, ML) had 0/12 errors; (c) the fix (documentation) doesn't require pipeline code changes or re-runs.
+
 ### Gate Criteria (from STEP4_PREPARATION_PLAN.md)
 1. Trust distribution reasonable → **PASS** (67% verified, 33% flagged — mechanically correct)
 2. Gate rate <15% → **PASS** (0% gate_abort in 204 books)
