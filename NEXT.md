@@ -30,8 +30,9 @@ Each session is an independent Claude Chat conversation in the KR project. Paste
 2. Read `NEXT.md` (this file)
 3. Read `PHASE_D_EVALUATION_PROTOCOL.md`
 4. Read `EVALUATION_QUICK_REFERENCE.md`
-5. Load triage: `tests/results/source_engine/phase_d/PHASE_D_TRIAGE.json`
-6. Process assigned books per protocol
+5. **Read `PHASE_D_SESSION_ERRATA.md`** — lessons from Session A critical review. Do not repeat these errors.
+6. Load triage: `tests/results/source_engine/phase_d/PHASE_D_TRIAGE.json`
+7. Process assigned books per protocol
 
 ### Session-specific instructions
 
@@ -51,6 +52,7 @@ Each session is an independent Claude Chat conversation in the KR project. Paste
 
 - `PHASE_D_EVALUATION_PROTOCOL.md` — evaluation methodology and per-book procedure
 - `PHASE_D_PROGRAMMATIC_ANALYSIS.md` — deep analysis from Layer 1 (genre patterns, attribution compliance, ML bias, trust root causes, edition consistency, specific errors)
+- `PHASE_D_SESSION_ERRATA.md` — lessons from Session A critical review: web_fetch mandate, source honesty, death date labeling, self-review integrity
 - `EVALUATION_QUICK_REFERENCE.md` — compact checklist, re-read before each book
 - `tests/results/source_engine/phase_d/PHASE_D_TRIAGE.json` — all 204 books triaged with assignments
 - `tests/results/source_engine/phase_d/PHASE_D_AUTO_SCREENING.md` — auto-screening report
@@ -71,7 +73,7 @@ Each session is an independent Claude Chat conversation in the KR project. Paste
 
 **Layer 2:** BUG-03 override confirmed working (12/12). ERR-01 is a validation gap (genre-ML consistency). 14/39 genre disagreements are benign risalah/matn/other boundary. Consensus does NOT check genre/ML.
 
-**Session A:** 8 VERIFIED, 5 PLAUSIBLE, 1 FLAG. ERR-02 confirmed: السراج المنير author misattribution. 13/14 consensus disagreements are cosmetic (author identification object text differences). Consensus module is oversensitive.
+**Session A:** 8 VERIFIED, 5 PLAUSIBLE, 1 FLAG. ERR-02 confirmed: السراج المنير author misattribution. 13/14 consensus disagreements are cosmetic (author identification object text differences). Consensus module is oversensitive. Critical self-review found and fixed: web_fetch protocol violation, false source citations, death date labeling errors, speculative mechanism claims. See PHASE_D_SESSION_ERRATA.md for full lessons — **future sessions must read this file before starting**.
 
 ## PREREQUISITE: Push per-book Phase D results
 
