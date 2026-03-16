@@ -199,10 +199,27 @@ No code changes for this fix. It's documentation + future work scoping.
 
 1. Fix 1 first (Genre enum) — smallest change, broadest impact
 2. Fix 2 (hashiyah validation) — small, self-contained
-3. Fix 3 (death date warning) — touches 3 files but each change is small
+3. Fix 3 (death date warning) — touches 4 files, includes the riskiest change (needs_review merge)
 4. Fix 4 (documentation) — no code, just SPEC and OPEN_PROBLEMS
 
 After all 4: run the full test suite (`pytest engines/source/tests/ -v`). All existing tests must pass (370 test functions, some parametrized — total test count varies). New tests must pass.
+
+## Additional Items (from strategic review)
+
+These are small additions that make the 4 fixes more robust. Not separate fixes — they're part of the quality of implementation.
+
+**A. Add logging to `validate_enum_value` when falling back to default.**
+In `engines/source/src/metadata_inference.py`, the module already has `logger = logging.getLogger(__name__)` at the top. In the `validate_enum_value` function, just before the final `return default, True` line, add:
+```python
+logger.warning("Enum fallback: value '%s' not in %s and no synonym match — using default '%s'", value, enum_class.__name__, default)
+```
+The SPEC (search for "log a WARNING with the invalid value") explicitly requires this. It's currently missing. Without it, new missing genres in the full collection are silently swallowed.
+
+**B. Verify normalization engine has no hardcoded genre lists.**
+After adding `rihlah` and `usul_al_fiqh` to the Genre enum, run: `grep -rn "genre.*==" engines/normalization/src/ --include="*.py"` to confirm no normalization code has hardcoded genre checks that would need updating. The normalization SPEC mentions genre-specific strategies (nazm → verse-aware), but these should be driven by the Genre enum or by content analysis, not by hardcoded strings. If any hardcoded checks exist, add the new genres.
+
+**C. Risk flag: the needs_review_fields merge (Fix 3 step 2) is the riskiest change.**
+It changes a data flow pattern: inference-level flags now propagate to SourceMetadata.needs_review_fields. Existing tests mock inference with `needs_review_fields=[]`, so they should pass. But after implementation, manually verify by running the full test suite and checking if any test that asserts specific needs_review_fields content fails unexpectedly. If a test fails, the issue is the test (which was implicitly depending on the merge NOT happening), not the fix.
 
 ## After Fixes
 
