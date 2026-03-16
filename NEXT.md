@@ -1,13 +1,14 @@
 # NEXT — Source Engine Pre-Batch Hardening
 
-## Current position: STEP 7 — Subtask 7A
-## What to do: Design the final batch — select ~50 books, write Claude Code handoff
-## Context: Steps 1-6 complete. All 4 fixes verified end-to-end. 5/5 PASS. Cost: €0.50. Total spent: €30.60, remaining: ~€69.40.
-## Owner action needed: No — Claude Chat executes this subtask
+## Current position: STEP 7 — Subtask 7B complete
+## What to do: Owner runs Claude Code with CLAUDE_CODE_FINAL_BATCH.md
+## Context: Steps 1-6 complete. Final batch designed: ~50 new books targeting genre gaps (rihlah, taqrirat, sirah, tarikh, usul_al_fiqh, mukhtasar, mujam) + format diversity + stratified random fill. Budget: €7.00.
+## Owner action needed: YES — Run Claude Code with "read CLAUDE_CODE_FINAL_BATCH.md"
 
-Read `reference/PRE_BATCH_EXECUTION_PROTOCOL.md` — the governing protocol (Step 7 instructions).
+Read `reference/PRE_BATCH_EXECUTION_PROTOCOL.md` — the governing protocol.
 
 ## Budget
 
 - Spent: €30.60
-- Remaining: ~€69.40
+- Final batch estimated: €5-7
+- Remaining after: ~€62-64
