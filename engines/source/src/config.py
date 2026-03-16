@@ -18,6 +18,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Any
 
 
 @dataclass
@@ -50,7 +51,7 @@ class SourceEngineConfig:
     genre_synonyms: dict[str, str] = field(default_factory=dict)
 
 
-def _load_json(path: Path) -> list | dict:
+def _load_json(path: Path) -> Any:
     """Load a JSON file. Raise with filename on malformed JSON."""
     try:
         return json.loads(path.read_text(encoding="utf-8"))

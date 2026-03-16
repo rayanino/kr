@@ -221,7 +221,7 @@ async def evaluate(
     # Normalise gather exceptions into failed ModelResponse objects
     model_responses: list[ModelResponse] = []
     for i, resp in enumerate(raw_responses):
-        if isinstance(resp, Exception):
+        if isinstance(resp, BaseException):
             model_responses.append(
                 ModelResponse(
                     model_id=model_configs[i]["provider_model"],

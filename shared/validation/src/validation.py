@@ -63,7 +63,7 @@ def validate_schema(
 def _resolve_nested_field(data: dict[str, Any], field_path: str) -> Any:
     """Resolve a dotted field path like 'author.canonical_id' in a nested dict."""
     parts = field_path.split(".")
-    current = data
+    current: Any = data
     for part in parts:
         if isinstance(current, dict):
             current = current.get(part)

@@ -105,6 +105,7 @@ def check_work_agreement(
     if (chain_a is None) != (chain_b is None):
         return False, HumanGateTrigger.WORK_MATCH_UNCERTAIN.value
 
+    assert chain_a is not None and chain_b is not None  # narrowed by lines 101-106
     # Both have genre chains — compare title and author
     title_sim = normalized_name_similarity(
         chain_a.base_work_title, chain_b.base_work_title

@@ -43,7 +43,7 @@ def build_entry(
         metadata.title_arabic,
         transliteration_table,
     )
-    return WorkRegistryEntry(
+    return WorkRegistryEntry(  # type: ignore[call-arg]  # Pydantic Field defaults
         work_id=work_id,
         canonical_title=metadata.title_arabic,
         canonical_title_transliterated=metadata.title_transliterated,
@@ -66,7 +66,7 @@ def build_placeholder(
     SPEC §4.A.9: 'creates a placeholder work record with
     status: "referenced_not_acquired"'
     """
-    return WorkRegistryEntry(
+    return WorkRegistryEntry(  # type: ignore[call-arg]  # Pydantic Field defaults
         work_id=work_id,
         canonical_title=title,
         author_canonical_id=author_canonical_id,

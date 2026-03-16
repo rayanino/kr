@@ -465,10 +465,10 @@ def update(
                 new_value = merged
 
             # For dict fields: merge (update keys)
-            if isinstance(old_value, dict) and isinstance(new_value, dict):
-                merged = dict(old_value)
-                merged.update(new_value)
-                new_value = merged
+            elif isinstance(old_value, dict) and isinstance(new_value, dict):
+                merged_dict = dict(old_value)
+                merged_dict.update(new_value)
+                new_value = merged_dict
 
             if old_value != new_value:
                 record.revision_history.append(MetadataHistoryEntry(

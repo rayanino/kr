@@ -96,7 +96,7 @@ def lookup_or_register_author(
         return ref, checkpoint.checkpoint_id
 
     # action == "new_record": register new scholar
-    new_record = ScholarAuthorityRecord(
+    new_record = ScholarAuthorityRecord(  # type: ignore[call-arg]  # Pydantic Field defaults
         canonical_id="",  # assigned by register()
         canonical_name_ar=name,
         death_date_hijri=death_date_hijri,
@@ -106,7 +106,7 @@ def lookup_or_register_author(
     if school_affiliations:
         new_record.school_affiliations = school_affiliations
     if death_date_source:
-        new_record.death_date_source = death_date_source
+        new_record.death_date_source = death_date_source  # type: ignore[assignment]  # validated upstream by _determine_death_date_source()
 
     registered = register(new_record, registry_path=registry_path)
     ref = ScholarReference(
@@ -144,7 +144,7 @@ def lookup_or_register_muhaqiq(
         )
 
     # Register new muhaqiq
-    new_record = ScholarAuthorityRecord(
+    new_record = ScholarAuthorityRecord(  # type: ignore[call-arg]  # Pydantic Field defaults
         canonical_id="",
         canonical_name_ar=muhaqiq_name,
         sources_encountered_in=[source_id],

@@ -180,7 +180,7 @@ def _build_genre_chain(inference: MetadataInferenceResult) -> GenreChain | None:
         _log.warning("Unknown relation_type '%s' in genre chain, skipping", gc.relation_type)
         return None
 
-    return GenreChain(
+    return GenreChain(  # type: ignore[call-arg]  # Pydantic Field defaults
         relation_type=relation_type,
         base_work_title=gc.base_work_title,
         base_work_author=gc.base_work_author,
@@ -455,7 +455,7 @@ async def acquire_source(
 
             now_iso = datetime.now(timezone.utc).isoformat()
 
-            metadata = SourceMetadata(
+            metadata = SourceMetadata(  # type: ignore[call-arg]  # Pydantic Field defaults
                 source_id=source_id,
                 work_id=work_id,
                 human_label=human_label,
@@ -605,11 +605,12 @@ async def acquire_source(
             gate_errors = [e for e in validation_errors if e.severity == "gate"]
             if gate_errors:
                 for gate_error in gate_errors:
+                    field_name = gate_error.field or "unknown"
                     if gate_error.check == "confidence_threshold":
                         gate_low_confidence(
                             source_id,
-                            gate_error.field,
-                            data_for_validation.get(gate_error.field, ""),
+                            field_name,
+                            data_for_validation.get(field_name, ""),
                             0.0,
                         )
                     elif gate_error.check == "multi_layer_empty_layers":

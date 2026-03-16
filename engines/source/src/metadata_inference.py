@@ -260,7 +260,7 @@ def validate_enum_value(
 def apply_confidence_caps(
     output: InferenceOutput,
     attribution_status: str,
-) -> dict[str, float]:
+) -> dict[str, float | None]:
     """Apply confidence caps based on attribution status.
 
     SPEC §6 rule: single-LLM biographical inference is always capped at 0.85.
@@ -353,7 +353,7 @@ def _determine_death_date_source(
 
 
 def build_needs_review(
-    confidence_scores: dict[str, float],
+    confidence_scores: dict[str, float | None],
     extracted: dict[str, Any],
     threshold: float = 0.70,
 ) -> list[str]:
@@ -472,7 +472,7 @@ async def infer_metadata(
         task="author_identification",
         messages=messages,
         response_model=InferenceOutput,
-        agreement_fn=agreement_fn,
+        agreement_fn=agreement_fn,  # type: ignore[arg-type]  # InferenceOutput is BaseModel; variance is safe
         simplified_messages=simplified_messages,
     )
 
