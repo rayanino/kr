@@ -231,3 +231,27 @@ Final batch (~€5-10):
 Total pre-batch cost: ~€1.50-2.00
 Batch cost: ~€5-10
 Combined: ~€7-12 (well within ~€70 remaining)
+
+---
+
+## Layer 1 — COMPLETE (commit 56dbe61)
+
+**mypy result:** `Success: no issues found in 39 source files`
+**pytest result:** `511 passed in 10.69s`
+
+### Fixes applied (9 files, 22 insertions, 19 deletions):
+- Fix 1: config.py `_load_json → Any` return type (4 errors)
+- Fix 2: validation.py `current: Any` variable type (1 error)
+- Fix 3: scholar_authority.py `if→elif` + rename `merged→merged_dict` (2 errors)
+- Fix 4: shared consensus.py `Exception→BaseException` (1 error)
+- Fix 5: source consensus.py None-narrowing assert (2 errors)
+- Fix 6: scholar_registry.py:109 `type: ignore[assignment]` (1 error)
+- Fix 7: metadata_inference.py `dict[str, float|None]` return + downstream `build_needs_review` (3 errors)
+- Fix 8: metadata_inference.py:475 `type: ignore[arg-type]` (1 error)
+- Fix 9: engine.py `field_name = gate_error.field or "unknown"` (2 errors)
+- Pydantic suppressions: 6 sites across 4 files (21 errors)
+
+### Handoff gap found:
+My handoff missed that `build_needs_review` (line 356) also needed `dict[str, float|None]`
+to match the widened return type of `apply_confidence_caps`. Claude Code caught this
+independently. Lesson: trace ALL consumers of a function whose signature changes.
