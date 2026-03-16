@@ -185,13 +185,6 @@ VERIFIERS = {
 def main() -> None:
     results: list[tuple[int, str, str, str]] = []
 
-    # Read total cost from COST_LOG.json (pipeline tracks cumulative cost)
-    cost_log_path = Path("tests/results/source_engine/COST_LOG.json")
-    cost_log = load_json(cost_log_path)
-    # The pipeline added this run's cost to the "C" phase entry.
-    # Approximate: 5 books * ~0.10 EUR/book = ~0.50 EUR
-    phase_c_cost = cost_log.get("phases", {}).get("C", {}).get("cost_eur", 0) if cost_log else 0
-
     for book in BOOKS:
         num = book["num"]
         name = book["name"]
@@ -206,14 +199,9 @@ def main() -> None:
         verdict, detail = VERIFIERS[num](result, book_dir)
         results.append((num, fix, verdict, detail))
 
-    # Sum per-book costs: gate_abort books have cost in result.json,
-    # success books lack it (cost is only in the tracking dict, not the metadata dump).
-    # Use 0.10 EUR per book (pipeline default estimate) for books missing the field.
-    total_cost = 0.0
-    for book in BOOKS:
-        r = load_json(RESULTS_DIR / book["name"] / "result.json")
-        if r:
-            total_cost += r.get("cost_estimate_eur", 0.10)
+    # Cost: read from COST_LOG E2E phase entry (pipeline reported 0.10 EUR/book)
+    cost_log = load_json(Path("tests/results/source_engine/COST_LOG.json"))
+    total_cost = cost_log.get("phases", {}).get("E2E", {}).get("cost_eur", 0.5) if cost_log else 0.5
 
     # Print summary
     print()

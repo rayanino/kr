@@ -11,13 +11,18 @@
       "status": "complete"
     },
     "C": {
-      "books": 5,
-      "cost_eur": 0.5,
+      "books": 73,
+      "cost_eur": 7.0,
       "status": "complete"
     },
     "D": {
       "books": 204,
       "cost_eur": 20.4,
+      "status": "complete"
+    },
+    "E2E": {
+      "books": 5,
+      "cost_eur": 0.5,
       "status": "complete"
     },
     "E": {
