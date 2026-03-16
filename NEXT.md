@@ -16,7 +16,7 @@ The evaluation follows 4 layers, governed by `PHASE_D_EVALUATION_PROTOCOL.md`:
 | Layer 2 | Pattern analysis | 62 (as cohorts) | PENDING |
 | Session A | Consensus disagreements | 14 | PENDING |
 | Session B | Author uncertainty | 19 | PENDING |
-| Session C | Structural flags | 25 | PENDING |
+| Session C | Structural flags | 15 | PENDING |
 | Session D | Random calibration | 12 | PENDING |
 | Layer 4 | Aggregation + GO/NO-GO | all | PENDING |
 

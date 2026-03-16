@@ -6,9 +6,9 @@
   "summary": {
     "total_books": 204,
     "layer2_pattern_analysis": 62,
-    "layer3_web_search": 70,
+    "layer3_web_search": 60,
     "layer3_random_sample": 12,
-    "layer4_accept": 72
+    "layer4_accept": 82
   },
   "programmatic_findings": {
     "errors": [
@@ -119,24 +119,14 @@
         "الرسالة للشافعي",
         "الروضة الندية شرح الدرر البهية ط المعرفة",
         "القسم الثالث من المعجم الأوسط للطبراني",
-        "اللامع العزيزي شرح ديوان المتنبي",
         "المسائل النحوية في كتاب التوضيح لشرح الجامع الصحيح",
         "النكت على شرح النووي على صحيح مسلم",
         "تفسير ابن كمال باشا",
-        "حاشية ابن عابدين = رد المحتار - ط الحلبي",
-        "حاشية العطار على شرح الجلال المحلي على جمع الجوامع",
         "شرح المفصل لابن يعيش",
-        "شرح النووي على مسلم",
-        "شرح الورقات في أصول الفقه - المحلي",
-        "شرح ديوان المتنبي للواحدي",
-        "شرح مقامات الحريري",
-        "فتح الباري بشرح البخاري - ط السلفية",
-        "فتح الباري لابن رجب",
         "مختصر صحيح مسلم للمنذري ت الألباني",
-        "مسند أحمد - ت شاكر - ط دار الحديث",
-        "همع الهوامع في شرح جمع الجوامع"
+        "مسند أحمد - ت شاكر - ط دار الحديث"
       ],
-      "count": 25
+      "count": 15
     },
     "D": {
       "name": "Random calibration sample",
@@ -996,8 +986,8 @@
       "flags": [
         "MULTI_LAYER"
       ],
-      "assignment": "SESSION_C",
-      "reason": "Title-genre mismatch or multi-layer verification"
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
     },
     "اللباب في فقه السنة والكتاب": {
       "status": "success",
@@ -1415,8 +1405,8 @@
       "flags": [
         "MULTI_LAYER"
       ],
-      "assignment": "SESSION_C",
-      "reason": "Title-genre mismatch or multi-layer verification"
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
     },
     "حاشية العطار على شرح الجلال المحلي على جمع الجوامع": {
       "status": "success",
@@ -1425,8 +1415,8 @@
       "flags": [
         "MULTI_LAYER"
       ],
-      "assignment": "SESSION_C",
-      "reason": "Title-genre mismatch or multi-layer verification"
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
     },
     "حديث أبي الحسين بن المظفر": {
       "status": "success",
@@ -1628,8 +1618,8 @@
       "flags": [
         "MULTI_LAYER"
       ],
-      "assignment": "SESSION_C",
-      "reason": "Title-genre mismatch or multi-layer verification"
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
     },
     "شرح الورقات في أصول الفقه - المحلي": {
       "status": "success",
@@ -1638,8 +1628,8 @@
       "flags": [
         "MULTI_LAYER"
       ],
-      "assignment": "SESSION_C",
-      "reason": "Title-genre mismatch or multi-layer verification"
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
     },
     "شرح ديوان المتنبي للواحدي": {
       "status": "success",
@@ -1648,8 +1638,8 @@
       "flags": [
         "MULTI_LAYER"
       ],
-      "assignment": "SESSION_C",
-      "reason": "Title-genre mismatch or multi-layer verification"
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
     },
     "شرح مقامات الحريري": {
       "status": "success",
@@ -1658,8 +1648,8 @@
       "flags": [
         "MULTI_LAYER"
       ],
-      "assignment": "SESSION_C",
-      "reason": "Title-genre mismatch or multi-layer verification"
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
     },
     "شروط النهضة": {
       "status": "success",
@@ -1766,8 +1756,8 @@
       "flags": [
         "MULTI_LAYER"
       ],
-      "assignment": "SESSION_C",
-      "reason": "Title-genre mismatch or multi-layer verification"
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
     },
     "فتح الباري لابن رجب": {
       "status": "success",
@@ -1776,8 +1766,8 @@
       "flags": [
         "MULTI_LAYER"
       ],
-      "assignment": "SESSION_C",
-      "reason": "Title-genre mismatch or multi-layer verification"
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
     },
     "فوائد أبي ذر الهروي": {
       "status": "success",
@@ -2106,8 +2096,8 @@
       "flags": [
         "MULTI_LAYER"
       ],
-      "assignment": "SESSION_C",
-      "reason": "Title-genre mismatch or multi-layer verification"
+      "assignment": "ACCEPT",
+      "reason": "Phase C VERIFIED multi-layer, regression check passed, no concerning flags"
     },
     "وقفات مع قضايا معاصرة شبهات ردود": {
       "status": "success",

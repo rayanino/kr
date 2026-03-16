@@ -38,7 +38,7 @@ Analyzes disagreement cohorts — not per-book, but as engine behavior patterns:
 
 ### Layer 3: Per-Book Web Search Verification (4 sessions)
 
-~70 books verified individually with web search.
+~60 books verified individually with web search.
 
 **Session A — Consensus Disagreements (14 books)**
 Books where the two models couldn't reach consensus. Highest risk of incorrect output.
@@ -46,11 +46,11 @@ Books where the two models couldn't reach consensus. Highest risk of incorrect o
 **Session B — Author Uncertainty (19 books)**
 Books with no extracted author (pure LLM inference), low author confidence (<0.75), or death date disagreement.
 
-**Session C — Structural Flags (25 books)**
-ML-affecting genre disagreements, genre-structure inconsistencies, edition group issues, title-genre mismatches, multi-layer books needing layer verification.
+**Session C — Structural Flags (15 books)**
+ML-affecting genre disagreements, genre-structure inconsistencies, edition group issues, title-genre mismatches, new multi-layer books needing layer verification. (10 Phase C VERIFIED multi-layer books moved to ACCEPT — regression already verified programmatically.)
 
 **Session D — Random Calibration Sample (12 books)**
-Stratified random from the 72 unflagged books. If ANY error found, expand sample.
+Stratified random from the 82 unflagged books. If ANY error found, expand sample.
 
 ### Layer 4: Aggregation + GO/NO-GO (1 session)
 
