@@ -4,6 +4,8 @@ This document defines the verification and safety mechanisms that protect Rayane
 
 The foundational axiom: **the knowledge cannot defend itself.** Once an error enters the library — a misattributed quote, a wrong school classification, a corrupted text — it becomes part of what Rayane "knows." Unlike a human scholar who might notice inconsistencies, the library has no immune system unless we build one.
 
+**Operational context:** The owner is an Islamic studies student who has not yet studied Islamic texts — KR exists to create that study environment. References to "owner reviews" and "human gate" throughout this document mean the owner triggers an AI-assisted research process (via Claude Chat or a future built-in assistant), not that the owner independently validates domain correctness. The "human" in human gate is the decision authority, not the domain researcher.
+
 ---
 
 ## Threat Model

@@ -1,14 +1,28 @@
-# NEXT — Source Engine Pre-Batch Hardening
+# NEXT — Start Normalization Engine
 
-## Current position: STEP 7 — Subtask 7B complete
-## What to do: Owner runs Claude Code with CLAUDE_CODE_FINAL_BATCH.md
-## Context: Steps 1-6 complete. Final batch designed: ~50 new books targeting genre gaps (rihlah, taqrirat, sirah, tarikh, usul_al_fiqh, mukhtasar, mujam) + format diversity + stratified random fill. Budget: €7.00.
-## Owner action needed: YES — Run Claude Code with "read CLAUDE_CODE_FINAL_BATCH.md"
+## Current position: Source engine COMPLETE → Normalization engine SPEC
+## What to do: Begin normalization engine Step 1 (SPEC design)
+## Context: Source engine validated and complete (reference/SOURCE_ENGINE_COMPLETION.md). 582 tests, 209 books, 4 fixes verified. Contract to normalization verified. Budget: €30.60 spent, ~€69.40 remaining.
+## Owner action needed: No
 
-Read `reference/PRE_BATCH_EXECUTION_PROTOCOL.md` — the governing protocol.
+**CRITICAL CONTEXT CORRECTION:** The owner is an Islamic studies STUDENT
+who has NOT yet studied Islamic texts. KR exists to CREATE the study
+environment. The owner CANNOT independently validate domain correctness
+of metadata. Domain validation is performed by Claude Chat via web
+research. Human gates are resolved via AI-assisted research, not owner
+expertise. All repo documents, SPECs, and prompts that imply the owner
+has deep domain knowledge are INCORRECT and should be read with this
+understanding.
 
-## Budget
+## Starting the normalization engine
 
-- Spent: €30.60
-- Final batch estimated: €5-7
-- Remaining after: ~€62-64
+The normalization engine SPEC already exists at `engines/normalization/SPEC.md`
+(2006 lines). Contracts exist at `engines/normalization/contracts.py` (697 lines).
+Stubs exist for all source modules. The tracer bullet produced a working
+prototype in `engines/normalization/src/tracer.py`.
+
+The normalization engine's input contract is documented in
+`reference/CONTRACT_VERIFICATION_REPORT.md`.
+
+Next session: Read the normalization SPEC, assess readiness for build,
+and plan the implementation.
