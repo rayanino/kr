@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import html as html_module
 import re
+import uuid
 from typing import Optional
 
 # ──────────────────────────────────────────────────────────────────
@@ -167,7 +168,10 @@ def generate_slug(arabic_text: str, table: dict[str, str]) -> str:
     4. If empty: first 8 hex of MD5
     """
     if not arabic_text or not arabic_text.strip():
-        return hashlib.md5(arabic_text.encode("utf-8")).hexdigest()[:8]
+        # Use uuid4 to avoid collision: all empty inputs would otherwise
+        # produce the same MD5 hash (d41d8cd9).
+        fallback_seed = f"_empty_{uuid.uuid4().hex[:8]}"
+        return hashlib.md5(fallback_seed.encode("utf-8")).hexdigest()[:8]
 
     text = arabic_text.strip()
 

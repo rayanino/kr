@@ -137,7 +137,13 @@ def _next_canonical_id(registry: dict[str, dict]) -> str:
                 max_num = max(max_num, num)
             except ValueError:
                 continue
-    return f"sch_{max_num + 1:05d}"
+    next_num = max_num + 1
+    if next_num > 99999:
+        raise RuntimeError(
+            f"Scholar ID space exhausted: max ID is sch_{max_num:05d}. "
+            f"Cannot generate sch_{next_num:06d} without breaking 5-digit format."
+        )
+    return f"sch_{next_num:05d}"
 
 
 def _compute_record_completeness(record: ScholarAuthorityRecord) -> float:

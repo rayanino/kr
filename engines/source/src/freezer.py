@@ -157,22 +157,28 @@ def freeze_source(
         expected_hash = staging_hashes.get(src_file.name)
         if expected_hash is not None and frozen_hash != expected_hash:
             # Corruption detected — attempt cleanup, then fail loudly
+            cleanup_failed = False
             try:
                 shutil.rmtree(frozen_dir)
             except OSError as cleanup_err:
+                cleanup_failed = True
                 logger.error(
                     "Failed to clean up corrupt freeze directory %s: %s",
                     frozen_dir,
                     cleanup_err,
                 )
+            msg = f"Frozen file hash mismatch for {src_file.name}"
+            if cleanup_failed:
+                msg += f" (cleanup of {frozen_dir} also failed — manual removal needed)"
             raise make_error(
                 error_code=ErrorCode.FREEZE_COPY_CORRUPT,
-                message=f"Frozen file hash mismatch for {src_file.name}",
+                message=msg,
                 source_id=source_id,
                 context={
                     "filename": src_file.name,
                     "staging_hash": expected_hash,
                     "frozen_hash": frozen_hash,
+                    "cleanup_failed": cleanup_failed,
                 },
             )
 

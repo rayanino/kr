@@ -118,10 +118,23 @@ class TestGenerateSlug:
         assert all(c.isalnum() or c == "_" for c in result)
 
     def test_empty_input_md5(self) -> None:
-        """Empty input → MD5 hash prefix."""
+        """Empty input → MD5 hash prefix (unique per call)."""
         result = generate_slug("", {})
         assert len(result) == 8
         assert all(c in "0123456789abcdef" for c in result)
+
+    def test_empty_inputs_no_collision(self) -> None:
+        """Two empty inputs produce different slugs (no collision)."""
+        r1 = generate_slug("", {})
+        r2 = generate_slug("", {})
+        assert r1 != r2, "Empty inputs must produce unique slugs"
+
+    def test_whitespace_only_input(self) -> None:
+        """Whitespace-only input → unique MD5 hash."""
+        r1 = generate_slug("   ", {})
+        r2 = generate_slug("   ", {})
+        assert len(r1) == 8
+        assert r1 != r2
 
     def test_max_length_20(self) -> None:
         """Slug truncated to 20 chars."""

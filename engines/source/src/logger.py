@@ -12,6 +12,8 @@ Alerts: fatal errors during batch, >10% same warning code, human gate queue > 20
 from __future__ import annotations
 
 import json
+import logging
+import sys
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -109,6 +111,13 @@ class SourceEngineLogger:
         self._batch_severity_counts = Counter()
 
     def _append(self, record: dict[str, Any]) -> None:
-        """Append a JSON record as a single line."""
-        with self._log_path.open("a", encoding="utf-8") as f:
-            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        """Append a JSON record as a single line. Never raises on I/O errors."""
+        try:
+            with self._log_path.open("a", encoding="utf-8") as f:
+                f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        except OSError as exc:
+            # Logging should never crash the pipeline. Write to stderr as fallback.
+            print(
+                f"[SourceEngineLogger] Failed to write log: {exc}",
+                file=sys.stderr,
+            )

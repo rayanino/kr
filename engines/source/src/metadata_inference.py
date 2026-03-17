@@ -53,7 +53,10 @@ logger = logging.getLogger(__name__)
 _GENRE_SYNONYMS: dict[str, str] = {}
 _SYNONYMS_PATH = Path("library/config/genre_synonyms.json")
 if _SYNONYMS_PATH.exists():
-    _GENRE_SYNONYMS = json.loads(_SYNONYMS_PATH.read_text(encoding="utf-8"))
+    try:
+        _GENRE_SYNONYMS = json.loads(_SYNONYMS_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        logger.warning("Malformed %s — using empty synonyms", _SYNONYMS_PATH)
 
 
 @dataclass

@@ -52,6 +52,7 @@ from engines.source.src.exceptions import SourceEngineError, make_error
 from engines.source.src.extractors import extract_metadata
 from engines.source.src.freezer import freeze_source
 from engines.source.src.human_gate import (
+    gate_author_science_mismatch,
     gate_consensus_disagreement,
     gate_low_confidence,
     gate_trust_flagged,
@@ -626,6 +627,18 @@ async def acquire_source(
                             "genre",
                             data_for_validation.get("genre", "hashiyah"),
                             0.0,
+                        )
+                    elif gate_error.check == "consistency_author_science":
+                        author_id = data_for_validation.get("author", {}).get("canonical_id", "")
+                        known = list(
+                            registries.get("scholars", {})
+                            .get(author_id, {})
+                            .get("school_affiliations", {})
+                            .keys()
+                        )
+                        source_sci = data_for_validation.get("science_scope", [])
+                        gate_author_science_mismatch(
+                            source_id, known, source_sci, gate_error.message,
                         )
                 raise make_error(
                     ErrorCode.LOW_CONFIDENCE,

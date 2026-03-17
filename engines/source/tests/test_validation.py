@@ -160,7 +160,10 @@ class TestConsistencyChecks:
         assert level_errors[0].severity == "warning"
 
     def test_44_author_science_mismatch_gates(self) -> None:
-        """Test 44: Author known in nahw but source says fiqh → warning (BUG-01 fix)."""
+        """Test 44: Author known in nahw but source says fiqh → gate (SPEC §5).
+
+        SPEC §5 line 1463: author-science mismatch triggers human gate.
+        """
         data = _make_data(science_scope=["fiqh"])
         registries = {
             "scholars": {
@@ -172,7 +175,7 @@ class TestConsistencyChecks:
         errors = _check_consistency(data, registries, None)
         science_errors = [e for e in errors if e.check == "consistency_author_science"]
         assert len(science_errors) == 1
-        assert science_errors[0].severity == "warning"
+        assert science_errors[0].severity == "gate"
         assert science_errors[0].recovery == "human_gate"
 
     def test_45_sharh_auto_corrects_multi_layer(self) -> None:

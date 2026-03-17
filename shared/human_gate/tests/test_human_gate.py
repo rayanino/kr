@@ -157,3 +157,79 @@ class TestUnsureElevation:
         cp = _create_test_checkpoint()
         elevated = resolve(cp.checkpoint_id, "unsure", notes="Not sure about this")
         assert elevated.status == "elevated"
+
+
+class TestCorruptJsonRecovery:
+    """BUG-6: Corrupt JSON files should not crash the gate system."""
+
+    def test_corrupt_pending_returns_empty(self, tmp_path: Path) -> None:
+        """Corrupt pending JSON returns empty list, doesn't crash."""
+        gates_dir = tmp_path / "gates_corrupt"
+        gates_dir.mkdir()
+        (gates_dir / "pending").mkdir()
+        (gates_dir / "resolved").mkdir()
+        configure(gates_dir=gates_dir, auto_approve=False)
+
+        # Write corrupt JSON to pending file
+        corrupt_path = gates_dir / "pending" / "src_corrupt.json"
+        corrupt_path.write_text("{invalid json!!!}", encoding="utf-8")
+
+        # Should return empty list, not crash
+        pending = get_pending("src_corrupt")
+        assert pending == []
+
+    def test_corrupt_index_allows_new_checkpoints(self, tmp_path: Path) -> None:
+        """Corrupt index.json doesn't block new checkpoint creation."""
+        gates_dir = tmp_path / "gates_corrupt2"
+        gates_dir.mkdir()
+        (gates_dir / "pending").mkdir()
+        (gates_dir / "resolved").mkdir()
+        configure(gates_dir=gates_dir, auto_approve=False)
+
+        # Write corrupt index
+        (gates_dir / "index.json").write_text("not json", encoding="utf-8")
+
+        # Creating a new checkpoint should still work (overwrites corrupt index)
+        cp = _create_test_checkpoint()
+        assert cp.checkpoint_id.startswith("hg_")
+        assert cp.status == "pending"
+
+    def test_resolve_nonexistent_raises(self) -> None:
+        """Resolving a nonexistent checkpoint raises KeyError."""
+        with pytest.raises(KeyError, match="not found in index"):
+            resolve("hg_nonexist", "approve")
+
+
+class TestFileLockProtection:
+    """BUG-2: Verify FileLock is used during create and resolve."""
+
+    def test_create_and_resolve_work_with_locking(self, tmp_path: Path) -> None:
+        """Create and resolve both succeed under lock protection."""
+        gates_dir = tmp_path / "gates_lock"
+        gates_dir.mkdir()
+        (gates_dir / "pending").mkdir()
+        (gates_dir / "resolved").mkdir()
+        configure(gates_dir=gates_dir, auto_approve=False)
+
+        cp = _create_test_checkpoint()
+        assert cp.status == "pending"
+        assert get_pending_count() == 1
+
+        # Resolve should also work (uses same lock)
+        resolved_cp = resolve(cp.checkpoint_id, "approve")
+        assert resolved_cp.status == "approved"
+        assert get_pending_count() == 0
+
+    def test_rapid_create_resolve_cycle(self, tmp_path: Path) -> None:
+        """Multiple rapid create-resolve cycles don't corrupt data."""
+        gates_dir = tmp_path / "gates_rapid"
+        gates_dir.mkdir()
+        (gates_dir / "pending").mkdir()
+        (gates_dir / "resolved").mkdir()
+        configure(gates_dir=gates_dir, auto_approve=False)
+
+        for i in range(5):
+            cp = _create_test_checkpoint(f"src_rapid_{i:04d}")
+            resolve(cp.checkpoint_id, "approve")
+
+        assert get_pending_count() == 0

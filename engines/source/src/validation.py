@@ -195,7 +195,7 @@ def _check_consistency(
                 if not known_sciences.intersection(source_sciences):
                     errors.append(ValidationError(
                         check="consistency_author_science",
-                        severity="warning",
+                        severity="gate",
                         field="science_scope",
                         message=(
                             f"Author's known sciences {known_sciences} "

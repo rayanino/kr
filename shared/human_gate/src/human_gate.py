@@ -23,6 +23,7 @@ Invariants (KNOWLEDGE_INTEGRITY.md):
 from __future__ import annotations
 
 import json
+import logging
 import os
 import tempfile
 import uuid
@@ -30,12 +31,16 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Literal, Optional
 
+from filelock import FileLock
+
 from engines.source.contracts import HumanGateCheckpoint, HumanGateTrigger
 
+logger = logging.getLogger(__name__)
 
 # Module-level configuration
 _GATES_DIR = Path("library/gates")
 _AUTO_APPROVE = True  # Set to False for production
+_LOCK_TIMEOUT = 30  # seconds
 
 
 def configure(gates_dir: Path = Path("library/gates"), auto_approve: bool = True) -> None:
@@ -69,14 +74,24 @@ def _atomic_json_write(path: Path, data: Any) -> None:
         raise
 
 
+def _get_lock() -> FileLock:
+    """Get a FileLock for the gates directory."""
+    _GATES_DIR.mkdir(parents=True, exist_ok=True)
+    return FileLock(str(_GATES_DIR / "gates.lock"), timeout=_LOCK_TIMEOUT)
+
+
 def _load_json(path: Path) -> Any:
-    """Load JSON file, return empty list/dict for missing files."""
+    """Load JSON file, return None for missing or corrupt files."""
     if not path.exists():
         return None
     raw = path.read_text(encoding="utf-8")
     if not raw.strip():
         return None
-    return json.loads(raw)
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError as exc:
+        logger.warning("Corrupt JSON in %s: %s — treating as empty", path, exc)
+        return None
 
 
 def _load_index() -> dict[str, str]:
@@ -148,15 +163,17 @@ def create_checkpoint(
         status="pending",
     )
 
-    # Persist to pending
-    pending = _load_pending_for_source(source_id)
-    pending.append(checkpoint.model_dump(mode="json"))
-    _save_pending_for_source(source_id, pending)
+    lock = _get_lock()
+    with lock:
+        # Persist to pending
+        pending = _load_pending_for_source(source_id)
+        pending.append(checkpoint.model_dump(mode="json"))
+        _save_pending_for_source(source_id, pending)
 
-    # Update index
-    index = _load_index()
-    index[checkpoint_id] = source_id
-    _save_index(index)
+        # Update index
+        index = _load_index()
+        index[checkpoint_id] = source_id
+        _save_index(index)
 
     # Auto-approve uses the SAME resolve() code path
     if _AUTO_APPROVE:
@@ -176,50 +193,52 @@ def resolve(
     - 'reject': moves checkpoint from pending/ to resolved/
     - 'unsure': sets status to 'elevated' (Layer 3.5 placeholder)
     """
-    index = _load_index()
-    if checkpoint_id not in index:
-        raise KeyError(f"Checkpoint {checkpoint_id} not found in index")
+    lock = _get_lock()
+    with lock:
+        index = _load_index()
+        if checkpoint_id not in index:
+            raise KeyError(f"Checkpoint {checkpoint_id} not found in index")
 
-    source_id = index[checkpoint_id]
-    now = datetime.now(timezone.utc).isoformat()
+        source_id = index[checkpoint_id]
+        now = datetime.now(timezone.utc).isoformat()
 
-    # Find in pending
-    pending = _load_pending_for_source(source_id)
-    found_idx = None
-    for i, cp in enumerate(pending):
-        if cp["checkpoint_id"] == checkpoint_id:
-            found_idx = i
-            break
+        # Find in pending
+        pending = _load_pending_for_source(source_id)
+        found_idx = None
+        for i, cp in enumerate(pending):
+            if cp["checkpoint_id"] == checkpoint_id:
+                found_idx = i
+                break
 
-    if found_idx is None:
-        raise KeyError(f"Checkpoint {checkpoint_id} not found in pending for {source_id}")
+        if found_idx is None:
+            raise KeyError(f"Checkpoint {checkpoint_id} not found in pending for {source_id}")
 
-    cp_data = pending[found_idx]
+        cp_data = pending[found_idx]
 
-    # Determine status based on decision
-    if decision == "unsure":
-        status = "elevated"
-    elif notes == "auto_approved":
-        status = "auto_approved"
-    else:
-        status = decision + ("d" if decision == "approve" else "ed")
+        # Determine status based on decision
+        if decision == "unsure":
+            status = "elevated"
+        elif notes == "auto_approved":
+            status = "auto_approved"
+        else:
+            status = decision + ("d" if decision == "approve" else "ed")
 
-    cp_data["status"] = status
-    cp_data["resolution"] = notes
-    cp_data["resolved_at"] = now
+        cp_data["status"] = status
+        cp_data["resolution"] = notes
+        cp_data["resolved_at"] = now
 
-    checkpoint = HumanGateCheckpoint.model_validate(cp_data)
+        checkpoint = HumanGateCheckpoint.model_validate(cp_data)
 
-    # Remove from pending
-    pending.pop(found_idx)
-    _save_pending_for_source(source_id, pending)
+        # Remove from pending
+        pending.pop(found_idx)
+        _save_pending_for_source(source_id, pending)
 
-    # Add to resolved
-    resolved = _load_resolved_for_source(source_id)
-    resolved.append(checkpoint.model_dump(mode="json"))
-    _save_resolved_for_source(source_id, resolved)
+        # Add to resolved
+        resolved = _load_resolved_for_source(source_id)
+        resolved.append(checkpoint.model_dump(mode="json"))
+        _save_resolved_for_source(source_id, resolved)
 
-    return checkpoint
+        return checkpoint
 
 
 def get_pending(source_id: Optional[str] = None) -> list[HumanGateCheckpoint]:

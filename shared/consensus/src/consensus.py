@@ -201,22 +201,39 @@ async def evaluate(
     """
     model_configs = models or DEFAULT_CONSENSUS_MODELS
 
-    # Dispatch both models concurrently
-    raw_responses = await asyncio.gather(
-        _call_model(
-            model_configs[0]["provider_model"],
-            messages,
-            response_model,
-            simplified_messages,
-        ),
-        _call_model(
-            model_configs[1]["provider_model"],
-            messages,
-            response_model,
-            simplified_messages,
-        ),
-        return_exceptions=True,
-    )
+    # Dispatch both models concurrently with overall timeout guard.
+    # Individual models have MODEL_TIMEOUT each; this caps total wall time
+    # (e.g. if both hit timeout simultaneously: 2×60s → capped at 150s).
+    try:
+        raw_responses = await asyncio.wait_for(
+            asyncio.gather(
+                _call_model(
+                    model_configs[0]["provider_model"],
+                    messages,
+                    response_model,
+                    simplified_messages,
+                ),
+                _call_model(
+                    model_configs[1]["provider_model"],
+                    messages,
+                    response_model,
+                    simplified_messages,
+                ),
+                return_exceptions=True,
+            ),
+            timeout=MODEL_TIMEOUT * 2 + 30,  # 150s total
+        )
+    except asyncio.TimeoutError:
+        logger.error("Consensus overall timeout exceeded (%.0fs)", MODEL_TIMEOUT * 2 + 30)
+        _log_consensus(task, [], False, "overall_timeout")
+        return ConsensusResult(
+            agreed=False,
+            canonical_result=None,
+            model_responses=[],
+            agreement_detail="Overall consensus timeout exceeded",
+            needs_human_gate=True,
+            human_gate_trigger="consensus_disagreement",
+        )
 
     # Normalise gather exceptions into failed ModelResponse objects
     model_responses: list[ModelResponse] = []
