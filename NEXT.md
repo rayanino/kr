@@ -1,28 +1,35 @@
-# NEXT — Start Normalization Engine
+# NEXT — Engine Factory Design Session
 
-## Current position: Source engine COMPLETE → Normalization engine SPEC
-## What to do: Begin normalization engine Step 1 (SPEC design)
-## Context: Source engine validated and complete (reference/SOURCE_ENGINE_COMPLETION.md). 582 tests, 209 books, 4 fixes verified. Contract to normalization verified. Budget: €30.60 spent, ~€69.40 remaining.
-## Owner action needed: No
+## Current position: Source engine COMPLETE → Design the autonomous build system
+## What to do: Discuss and improve reference/ENGINE_FACTORY_PLAN.md
+## Context: Source engine done (reference/SOURCE_ENGINE_COMPLETION.md). 6 engines remaining. The plan exists but needs critical review and refinement before implementation.
+## Owner action needed: YES — This is a discussion session (Claude Chat + owner)
 
-**CRITICAL CONTEXT CORRECTION:** The owner is an Islamic studies STUDENT
-who has NOT yet studied Islamic texts. KR exists to CREATE the study
-environment. The owner CANNOT independently validate domain correctness
-of metadata. Domain validation is performed by Claude Chat via web
-research. Human gates are resolved via AI-assisted research, not owner
-expertise. All repo documents, SPECs, and prompts that imply the owner
-has deep domain knowledge are INCORRECT and should be read with this
-understanding.
+**CRITICAL CONTEXT:** The owner is an Islamic studies STUDENT who has NOT
+studied Islamic texts yet. KR exists to CREATE that study environment.
+The owner CANNOT validate domain correctness. All "human gate" and "owner
+review" steps mean the owner triggers AI-assisted research (via Oracle or
+Claude Chat), NOT that the owner independently evaluates scholarly metadata.
+The ENGINE_FACTORY_PLAN.md was written with this understanding (see the
+Oracle section and three-tier gate model).
 
-## Starting the normalization engine
+## Key documents to read
+- `reference/ENGINE_FACTORY_PLAN.md` — the current plan (~800 lines)
+- `reference/SOURCE_ENGINE_COMPLETION.md` — what we just finished
+- `KNOWLEDGE_INTEGRITY.md` — corruption threats the factory must prevent
+- `RESULT_PRESERVATION.md` — how results feed downstream
 
-The normalization engine SPEC already exists at `engines/normalization/SPEC.md`
-(2006 lines). Contracts exist at `engines/normalization/contracts.py` (697 lines).
-Stubs exist for all source modules. The tracer bullet produced a working
-prototype in `engines/normalization/src/tracer.py`.
+## Questions for the discussion
+1. Is the multi-agent architecture (Builder/Reviewer/Verifier/Oracle) the
+   right approach, or is it over-engineered?
+2. Should we start with Option A (Claude Code native) or go straight to
+   Option B (OpenClaw)?
+3. Is the Decision Playbook the right way to transfer Claude Chat's
+   accumulated knowledge to the Oracle?
+4. Are the quality gates realistic or will they create bottlenecks?
+5. What's the minimum viable factory — what can we cut without sacrificing
+   correctness?
 
-The normalization engine's input contract is documented in
-`reference/CONTRACT_VERIFICATION_REPORT.md`.
-
-Next session: Read the normalization SPEC, assess readiness for build,
-and plan the implementation.
+## Budget
+- Spent: €30.60
+- Remaining: ~€69.40
