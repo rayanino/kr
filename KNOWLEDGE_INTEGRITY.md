@@ -2,9 +2,9 @@
 
 This document defines the verification and safety mechanisms that protect Rayane's knowledge from corruption. It is the most important operational document in the repository.
 
-The foundational axiom: **the knowledge cannot defend itself.** Once an error enters the library — a misattributed quote, a wrong school classification, a corrupted text — it becomes part of what Rayane "knows." Unlike a human scholar who might notice inconsistencies, the library has no immune system unless we build one.
+The foundational axiom: **the knowledge cannot defend itself.** Once an error enters the library — a misattributed quote, a wrong school classification, a corrupted text — it becomes part of what Rayane "knows." Unlike a human scholar who might notice inconsistencies, the library has no immune system unless we build one. This is critical.
 
-**Operational context:** The owner is an Islamic studies student who has not yet studied Islamic texts — KR exists to create that study environment. References to "owner reviews" and "human gate" throughout this document mean the owner triggers an AI-assisted research process (via Claude Chat or a future built-in assistant), not that the owner independently validates domain correctness. The "human" in human gate is the decision authority, not the domain researcher.
+**Operational context:** The owner is a future Islamic studies student who has not yet studied Islamic texts — KR exists to create that study environment. References to "owner reviews" and "human gate" throughout this document mean the owner triggers an AI-assisted research process (via Claude Chat or a future built-in assistant), not that the owner independently validates domain correctness. The "human" in human gate is the decision authority, not the domain researcher.
 
 ---
 
@@ -13,10 +13,12 @@ The foundational axiom: **the knowledge cannot defend itself.** Once an error en
 Every threat below has happened in real Islamic studies scholarship. These are not hypothetical.
 
 ### T-1: Silent Text Corruption
+
 **Vector:** OCR error, encoding issue, normalization bug, or copy corruption changes Arabic text.
 **Consequence:** Rayane cites a scholarly opinion that doesn't exist in the original source.
 **Detection difficulty:** HIGH — a single diacritic change can reverse meaning (حَرَّمَ vs حَرَمَ).
 **Mitigation chain:**
+
 1. Frozen source with SHA-256 hash — tamper-evident baseline (source engine)
 2. Text fidelity score at normalization — character-level comparison with frozen original
 3. Primary text immutability — no engine may modify excerpt primary_text after extraction
@@ -24,10 +26,12 @@ Every threat below has happened in real Islamic studies scholarship. These are n
 5. Human gate on low-fidelity passages — owner reviews anything below confidence threshold
 
 ### T-2: Attribution Error
+
 **Vector:** LLM incorrectly identifies author, school, or date. Multi-layer text (sharh/matn) attributed to wrong author.
 **Consequence:** Rayane attributes a Hanbali position to a Shafi'i scholar, or a commentary opinion to the original author.
 **Detection difficulty:** MEDIUM — cross-referencing with scholar authority data can catch many cases.
 **Mitigation chain:**
+
 1. Multi-model consensus for all attribution decisions (consensus module)
 2. Scholar authority registry with verified data — LLM assertions checked against registry
 3. Multi-layer detection at normalization — explicit layer→author mapping
@@ -35,10 +39,12 @@ Every threat below has happened in real Islamic studies scholarship. These are n
 5. Cross-source verification — if the same author appears in multiple sources, attributions should be consistent
 
 ### T-3: Taxonomic Misplacement
+
 **Vector:** Excerpt placed under wrong taxonomy leaf. Topic classification error.
 **Consequence:** When Rayane looks up "conditions of prayer," he sees content about "conditions of sale."
 **Detection difficulty:** LOW — misplacement is often obvious to a domain expert.
 **Mitigation chain:**
+
 1. Two-stage placement with multiple candidate sources (taxonomy engine)
 2. Consensus for ambiguous-range placements
 3. Coverage analysis — detect suspiciously dense or empty leaves
@@ -46,10 +52,12 @@ Every threat below has happened in real Islamic studies scholarship. These are n
 5. User feedback loop — if Rayane marks an excerpt as misplaced, the feedback propagates
 
 ### T-4: Context Loss (Self-Containment Failure)
+
 **Vector:** Excerpt extracted without sufficient context to be independently understandable.
 **Consequence:** Rayane reads an excerpt that says "the ruling is as stated above" with no reference to what was stated above.
 **Detection difficulty:** MEDIUM — requires understanding Arabic scholarly discourse conventions.
 **Mitigation chain:**
+
 1. Self-containment verification at excerpting (LLM check: "can this be understood alone?")
 2. Self-containment context field — explicitly added context for dependent excerpts
 3. Consensus on self-containment assessment
@@ -57,10 +65,12 @@ Every threat below has happened in real Islamic studies scholarship. These are n
 5. User feedback — "I don't understand this excerpt" triggers review
 
 ### T-5: Synthesis Hallucination
+
 **Vector:** LLM synthesizer adds claims not grounded in source excerpts. Fabricates scholarly positions.
 **Consequence:** Rayane's entry contains "Ibn Taymiyyah argued X" when no source says this.
 **Detection difficulty:** HIGH — the entry reads naturally and the claim is plausible.
 **Mitigation chain:**
+
 1. Grounding_type traceability — every claim in an entry tagged as source_grounded, metadata_derived, or analytical (D-040)
 2. Source_grounded claims must cite specific excerpt IDs — verifiable link
 3. Analytical claims explicitly marked as synthesizer contributions, not source claims
@@ -69,10 +79,12 @@ Every threat below has happened in real Islamic studies scholarship. These are n
 6. No entry may contain a factual claim that isn't traceable to either a source excerpt or an explicit "analytical" tag
 
 ### T-6: Metadata Poisoning
+
 **Vector:** Incorrect metadata propagates through the pipeline, affecting all downstream decisions.
 **Consequence:** A source incorrectly tagged as "Hanafi fiqh" corrupts all entries it feeds into.
 **Detection difficulty:** LOW to MEDIUM — often catchable by cross-referencing.
 **Mitigation chain:**
+
 1. Metadata enrichment uses consensus
 2. Critical metadata (author, school, science) requires higher consensus threshold
 3. Metadata consistency checks — same author's school shouldn't change between sources
@@ -80,10 +92,12 @@ Every threat below has happened in real Islamic studies scholarship. These are n
 5. Metadata correction cascade — when metadata is corrected, all downstream products are flagged for re-processing
 
 ### T-7: Duplication and Contradiction
+
 **Vector:** Same content enters the library through different sources and receives contradictory treatment.
 **Consequence:** The same passage has two entries in the taxonomy with different metadata.
 **Detection difficulty:** MEDIUM — requires cross-source comparison.
 **Mitigation chain:**
+
 1. Deduplication at source registration (source engine)
 2. Work-level matching (same work, different editions)
 3. Excerpt-level similarity detection at excerpting
@@ -95,25 +109,31 @@ Every threat below has happened in real Islamic studies scholarship. These are n
 ## Verification Layers
 
 ### Layer 0: Immutable Baselines
+
 - Frozen sources are write-once, never modified, SHA-256 hashed
 - Gold baselines in `gold/` are hand-crafted and never auto-modified
 - These are the ground truth against which everything else is verified
 
 ### Layer 1: Engine Self-Validation (every run)
+
 Each engine validates its own output before writing to the library:
+
 - Schema conformance (all required fields present, correct types)
 - Metadata completeness (no empty required fields)
 - Metadata consistency (no contradictions within the output)
 - Confidence thresholds met (low-confidence decisions flagged)
 
 ### Layer 2: Boundary Validation (every pipeline run)
+
 At each engine boundary:
+
 - Output of engine N matches input contract of engine N+1
 - Metadata accumulation — no fields lost
 - Text integrity — primary text unchanged
 - Run `scripts/verify_metadata_flow.py` as automated check
 
 ### Layer 3: Library-Wide Integrity (periodic)
+
 - Referential integrity — every ID reference resolves
 - Cross-source consistency — same entities have consistent metadata
 - Coverage analysis — detect gaps and anomalies in taxonomy
@@ -121,17 +141,21 @@ At each engine boundary:
 - Run integrity-checker agent
 
 ### Layer 3.5: Cross-Provider Entailment Verification (every content decision)
+
 The same LLM provider must never both generate and verify a content decision.
 For every attribution, classification, or synthesis claim:
+
 - Provider A generates the claim (e.g., Claude identifies the author)
 - Provider B verifies the claim (e.g., GPT or Mistral checks whether that identification is consistent with known data)
 - If providers disagree, the decision escalates to higher consensus (3+ models) or a human gate
-This prevents self-reinforcing hallucination — the most dangerous failure mode because it produces high-confidence wrong answers.
+  This prevents self-reinforcing hallucination — the most dangerous failure mode because it produces high-confidence wrong answers.
 
 ### Layer 4: Human Gates (triggered by uncertainty)
+
 The owner is an Islamic studies student, not a specialist scholar. Human gates are designed accordingly:
 
 **What the owner CAN reliably verify (experiential validation):**
+
 - Is this the right book? (recognition of sources he studies from)
 - Is this the right author? (for well-known scholars he has encountered)
 - Does this excerpt obviously belong under grammar vs. fiqh vs. aqidah? (coarse placement)
@@ -139,12 +163,14 @@ The owner is an Islamic studies student, not a specialist scholar. Human gates a
 - Preference decisions: which edition to prefer, what to study next, curriculum ordering
 
 **What the owner CANNOT reliably verify (scholarly audit):**
+
 - Precise death dates, teacher-student chains, or school affiliations for lesser-known scholars
 - Whether a specific opinion is correctly attributed to a specific scholar
 - Whether an isnad chain is correctly parsed
 - Subtle taxonomic distinctions within a science (e.g., conditions of prayer vs. pillars of prayer)
 
 **Gate design principles:**
+
 - Every low-confidence decision creates a checkpoint
 - The owner may respond: "yes," "no," or **"I'm not sure"**
 - "I'm not sure" triggers Layer 3.5 cross-provider verification with elevated consensus (3+ models must agree), NOT auto-approval
@@ -154,6 +180,7 @@ The owner is an Islamic studies student, not a specialist scholar. Human gates a
 - Every correction triggers review of affected entries
 
 ### Layer 5: User Feedback (continuous)
+
 - Rayane's corrections feed back into the pipeline
 - Misplacement reports → taxonomy engine
 - Attribution errors → source engine + scholar authority

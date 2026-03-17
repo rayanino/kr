@@ -8,19 +8,23 @@ Concise context: `reference/archive/STEERING.md`. Development process: `skills/s
 
 **The goal is building a correct, robust, fully-tested 7-engine pipeline. The goal is NOT populating the library, building a user interface, or producing the owner's scholarly library.**
 
-Library population is a *consequence* of having a working pipeline — not an objective. A populated library built on a fragile pipeline is worthless: it will produce wrong metadata, corrupt scholar records, misattribute texts, and embed errors into the owner's knowledge. A correct pipeline with zero books processed is infinitely more valuable — you run it once and the library is correct.
+Library population is a *consequence* of having a working pipeline — not an objective. A populated library built on a fragile pipeline is worthless: it will produce wrong metadata, corrupt scholar records, misattribute texts, and embed errors into the owner's knowledge (avoid at all costs). A correct pipeline with zero books processed is infinitely more valuable — you run it once and the library is correct.
 
 This means every agent, in every session, optimizes for:
+
 - **Correctness** — does the pipeline produce right answers?
 - **Robustness** — does it handle every edge case without crashing or silently defaulting?
 - **Test coverage** — have we proven it works on diverse, adversarial, real-world inputs?
-- **Error handling** — does every failure mode produce a clear, structured, actionable error?
+- *Error handling** — does every failure mode produce a clear, structured, actionable error?
+- **Feedback Implementation** — have we documented and learned from errors and the behaviour of the pipeline to improve it for the better
 
 And never optimizes for:
+
 - Throughput (processing more books faster)
 - User experience or interface design
 - "Finishing" an engine by running it on the full collection before it's proven correct
 - Any work on the Scholar Interface or owner-facing features
+- Saving costs or cutting on tool use / integrations / add-ons / api calls / ...
 
 When you're unsure whether to fix a subtle edge case or move on to the next phase: **fix the edge case**. The pipeline must be right before it is complete.
 
@@ -37,6 +41,7 @@ When you're unsure whether to fix a subtle edge case or move on to the next phas
 9. Technology first. Check `.claude/skills/technology-survey/SKILL.md` before custom code.
 10. ABD legacy has zero authority (D-019). SPECs define what to build.
 11. Every API call persists its full output. Test results are reusable artifacts, not disposable validation. See `RESULT_PRESERVATION.md`.
+12. Every single action needs to be thoroughly thought-out, reviewed and optimized before being implemented.
 
 ## Before Starting Work
 
