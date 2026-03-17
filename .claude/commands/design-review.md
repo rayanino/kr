@@ -15,7 +15,7 @@ If "scholarly-value":
   → Evaluate whether the current design would produce entries matching the quality target.
 
 If "architecture":
-  → Read STEERING.md and skills/shared/ENGINE_PROTOCOL.md.
+  → Read reference/archive/STEERING.md and skills/shared/ENGINE_PROTOCOL.md.
   → Check for structural issues across the full pipeline.
 
 For all review types:
