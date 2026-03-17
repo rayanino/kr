@@ -17,7 +17,7 @@ A document passes when ALL applicable criteria are met. Use this as a checklist 
 | 3 | No contradictions | No sentence contradicts anything in any KR document |
 | 4 | No premature constraints | Nothing constrains an undecided matter |
 | 5 | No unbounded universals | Every "always/never/all" scoped to what can be guaranteed |
-| 6 | Glossary compliance | Every term matches VISION.md §2 exactly — no synonyms, no collisions |
+| 6 | Glossary compliance | Every term matches reference/archive/VISION.md §2 exactly — no synonyms, no collisions |
 | 7 | No duplication | Only unique content; external rules referenced, not restated |
 | 8 | Accurate state | Current code described accurately; unbuilt features marked [NOT YET IMPLEMENTED] |
 | 9 | Adversarial-proof | No second valid reading exists under hostile interpretation |
@@ -41,7 +41,7 @@ A document passes when ALL applicable criteria are met. Use this as a checklist 
 | 17 | Scale-graceful | Works at 1x and 1000x; limitations stated if not |
 | 18 | Vendor-neutral | No unjustified tool/platform lock-in |
 | 19 | Forward-compatible | Known extension points identified |
-| 20 | Transformative ambition | At least one capability that makes previously impossible scholarship possible; architect-originated, not from VISION.md or owner requests |
+| 20 | Transformative ambition | At least one capability that makes previously impossible scholarship possible; architect-originated, not from reference/archive/VISION.md or owner requests |
 | 21 | Scholarly integrity | Every knowledge product is verifiable, every claim traceable to source, no error can propagate undetected into the library (which IS the user's knowledge) |
 
 ### Tier 4 — Communication Quality
@@ -92,7 +92,7 @@ This section has two parts:
 beyond basic processing — capabilities that make previously impossible
 scholarship possible. These are not nice-to-haves; they are the reason
 this application exists. Every engine must have at least one capability
-in §4.B that the architect originated (not from VISION.md, not from
+in §4.B that the architect originated (not from reference/archive/VISION.md, not from
 the owner's requests). Design them fully here even if unbuilt.
 
 Subsections as needed for both parts.
@@ -186,10 +186,10 @@ Notice: each defect quotes the exact failing text, names the specific Perfection
 
 ## Example: What a Good VISION Correction Looks Like
 
-When correcting VISION.md sections, produce a defect ledger like this:
+When correcting reference/archive/VISION.md sections, produce a defect ledger like this:
 
 <example name="good_vision_correction">
-### VISION.md §7.2 Defect Ledger
+### reference/archive/VISION.md §7.2 Defect Ledger
 
 **Defect 1 (Severity: HIGH).** Line 769: "The source engine maintains a source registry that tracks all acquired sources with sufficient identifying information to detect duplicates."
 **Problem:** "Sufficient identifying information" is unbounded — Criterion #1 (zero ambiguity). What fields are sufficient? Title alone? Title + author? Hash?

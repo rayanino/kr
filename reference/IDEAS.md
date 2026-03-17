@@ -4,7 +4,7 @@ Design thoughts, feature concepts, and architectural ideas for KR.
 When an idea matures, it gets formalized into the relevant engine's SPEC.
 For external tools and resources, see `RESOURCE_INBOX.md`.
 
-**Format:** Title + 1-3 sentences. Add `(§N.N)` to reference VISION.md sections.
+**Format:** Title + 1-3 sentences. Add `(§N.N)` to reference `reference/archive/VISION.md` sections.
 
 ---
 

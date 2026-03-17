@@ -118,7 +118,7 @@ Steps 1-4 repeat for all 7 engines in pipeline order. After every 2 engines, a l
 - `engines/source/SPEC.md` — the source engine specification
 
 **For the source engine project:**
-- `STEERING.md` — project overview
+- `reference/archive/STEERING.md` — project overview
 - `KNOWLEDGE_INTEGRITY.md` — corruption threats
 - `SILENT_FAILURES.md` — silent failure patterns
 - `reference/DOMAIN.md` — Islamic studies domain

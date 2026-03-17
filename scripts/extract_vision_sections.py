@@ -18,8 +18,8 @@ from pathlib import Path
 
 def find_vision():
     for p in [
-        Path(__file__).resolve().parent.parent / "VISION.md",
-        Path("VISION.md"),
+        Path(__file__).resolve().parent.parent / "reference" / "archive" / "VISION.md",
+        Path("reference/archive/VISION.md"),
     ]:
         if p.exists():
             return p

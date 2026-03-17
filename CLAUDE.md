@@ -2,7 +2,7 @@
 
 **The library IS the user's knowledge. An error here is an error in his mind.**
 
-Concise context: `STEERING.md`. Development process: `skills/shared/ENGINE_PROTOCOL.md`. Test architecture: `reference/TESTING_FRAMEWORK.md`. Quality target: `reference/ENTRY_EXAMPLE.md`. Full spec: `VISION.md` (47K tokens — never read whole, use `scripts/extract_vision_sections.py`).
+Concise context: `reference/archive/STEERING.md`. Development process: `skills/shared/ENGINE_PROTOCOL.md`. Test architecture: `reference/TESTING_FRAMEWORK.md`. Quality target: `reference/ENTRY_EXAMPLE.md`. Full spec: `reference/archive/VISION.md` (47K tokens — never read whole, use `scripts/extract_vision_sections.py`).
 
 ## Development Priority — Pipeline First
 

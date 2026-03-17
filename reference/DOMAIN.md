@@ -508,7 +508,7 @@ The architect must understand the MAGNITUDE of what KR aims to process:
 
 - **Number of extant works:** Estimated 500,000+ unique titles across all Islamic sciences. Many are multi-volume (المغني is 15 volumes, المبسوط is 30 volumes).
 - **Digitally available:** ~40,000-50,000 works (Shamela alone has ~17,000). Growing rapidly.
-- **Sciences:** 30+ recognized disciplines (see VISION §1.2), deeply interconnected.
+- **Sciences:** 30+ recognized disciplines (see `reference/archive/VISION.md` §1.2), deeply interconnected.
 - **Scholars:** Tens of thousands across 14 centuries. Major figures have 50+ works each.
 - **Schools:** 4 Sunni madhahib in fiqh, 3+ major aqidah schools, 2 major grammar schools (Basra/Kufa), plus non-school-aligned scholars.
 - **Time span:** From the 1st century AH (~7th century CE) to the present. 1400 years of continuous scholarly production.

@@ -755,7 +755,7 @@ The Decision Playbook captures every heuristic, pattern, and domain rule that Cl
 
 - `NEXT.md` — Point to ENGINE_FACTORY.md as the starting point
 - Each engine's `CLAUDE.md` — Add factory-compatible status section
-- `STEERING.md` — Add reference to ENGINE_FACTORY.md
+- `reference/archive/STEERING.md` — Add reference to ENGINE_FACTORY.md
 - `.pre-commit-config.yaml` (NEW) — black + mypy + quality scripts
 
 ---
@@ -992,7 +992,7 @@ Evaluated from `reference/RESOURCES.md` (667 lines, 45+ tools), `reference/IDEAS
 | **DSPy** (Stanford/Databricks) | EVALUATED, not yet adopted | Step 2 Research for engines 4-7 (LLM-dependent). MIPROv2 optimizer can auto-tune prompts for scholarly classification tasks. | HIGH — could significantly improve LLM accuracy on atomization, excerpting, taxonomy, synthesis tasks. Evaluate in Engine 4 Step 2. |
 | **desloppify** | IN INBOX, HIGH PRIORITY | Reviewer agent's toolkit. Run on every Builder output during Step 3. | MEDIUM — catches LLM-generated code quality issues. Evaluate before normalization build starts. |
 | **DeepEval** (Apache 2.0) | EVALUATED | Step 4 (Prove) for all engines. GEval, correctness, bias metrics. pytest integration. | MEDIUM — supplements existing quality scripts with LLM-specific evaluation metrics. |
-| **Swan-Large** (NYUAD) | EVALUATED, STEERING.md outdated | Any engine needing Arabic embeddings (taxonomy, synthesis, deduplication). SOTA on ArabicMTEB. | ACTION: Update STEERING.md from "arabic-e5-base" to "Swan-Large (recommended)". |
+| **Swan-Large** (NYUAD) | EVALUATED, reference/archive/STEERING.md outdated | Any engine needing Arabic embeddings (taxonomy, synthesis, deduplication). SOTA on ArabicMTEB. | ACTION: Update reference/archive/STEERING.md from "arabic-e5-base" to "Swan-Large (recommended)". |
 | **usul-data** (seemorg, MIT) | EVALUATED, ready to bundle | Verifier agent's scholarly verification. 40K+ scholars with multilingual names, Hijri death dates, book metadata. | HIGH — dramatically improves Verifier's ability to cross-reference scholarly claims. Bundle with KR. |
 | **Instructor** | ADOPTED, in use | All engines — structured LLM output with Pydantic. Already integrated. | Already delivering value. |
 | **LiteLLM** | ADOPTED, in use | All engines — provider abstraction. Already integrated. | Already delivering value. |
@@ -1001,9 +1001,9 @@ Evaluated from `reference/RESOURCES.md` (667 lines, 45+ tools), `reference/IDEAS
 
 | Tool | Status | Integration Point | Priority |
 |------|--------|------------------|----------|
-| **QARI-OCR** | EVALUATED, recommended | Core OCR for classical Arabic with diacritics. CER 0.061, WER 0.160. Runs locally with 8-bit quantization on user's GPU. | HIGH — primary OCR choice (already in STEERING.md). Stage 2 for photo/scan formats. |
+| **QARI-OCR** | EVALUATED, recommended | Core OCR for classical Arabic with diacritics. CER 0.061, WER 0.160. Runs locally with 8-bit quantization on user's GPU. | HIGH — primary OCR choice (already in reference/archive/STEERING.md). Stage 2 for photo/scan formats. |
 | **Baseer** (Misraj AI) | EVALUATED | Secondary OCR for complex layouts (multi-column, tables, footnotes). MARS 68.13 SOTA. | MEDIUM — Stage 2 for complex formats. |
-| **Mistral OCR 3** | EVALUATED, in STEERING.md | Fallback OCR. API-based, $2/1000 pages. Strong Arabic. | LOW for Stage 1 (Shamela HTML doesn't need OCR). Stage 2 fallback. |
+| **Mistral OCR 3** | EVALUATED, in reference/archive/STEERING.md | Fallback OCR. API-based, $2/1000 pages. Strong Arabic. | LOW for Stage 1 (Shamela HTML doesn't need OCR). Stage 2 fallback. |
 | **PaddleOCR-VL 1.5** (Baidu) | EVALUATED | Fast first-pass OCR (0.9B model). Requires Flash Attention 2. | LOW — Stage 2 fast-pass option. |
 | **Docling** (IBM) | EVALUATED | PDF/DOCX conversion. Arabic support experimental. | MEDIUM — evaluate for Word doc handling in Stage 2. |
 | **Source format hunting** (IDEAS.md) | IDEA, not yet implemented | Before OCR on difficult format, check if source exists in better format (HTML, EPUB). Smart optimization for normalization pipeline. | HIGH IDEA — reduces OCR errors by finding better sources. Add to normalization SPEC as optional pre-processing step. |
@@ -1093,12 +1093,12 @@ Evaluated from `reference/RESOURCES.md` (667 lines, 45+ tools), `reference/IDEAS
 - AI Agent frameworks (13 items) — OpenClaw already selected as coordinator
 - Social links, general tools — reference only
 
-### STEERING.md Correction Required
+### reference/archive/STEERING.md Correction Required
 
 **Current (wrong):** `Embeddings: arabic-e5-base or GTE-multilingual-base`
 **Should be:** `Embeddings: Swan-Large (NYUAD SOTA on ArabicMTEB) or Arabic-STS-Matryoshka for efficiency`
 
-This is a factual error that RESOURCES.md (March 2026 survey) already corrected but STEERING.md wasn't updated.
+This is a factual error that RESOURCES.md (March 2026 survey) already corrected but reference/archive/STEERING.md wasn't updated.
 
 ---
 
@@ -1134,7 +1134,7 @@ This is a factual error that RESOURCES.md (March 2026 survey) already corrected 
 
 12. **Set up Telegram notifications** — Simple bot for Tier 2 owner sanity check notifications.
 
-13. **Fix STEERING.md embedding recommendation** — Update from "arabic-e5-base" to "Swan-Large (NYUAD SOTA)".
+13. **Fix reference/archive/STEERING.md embedding recommendation** — Update from "arabic-e5-base" to "Swan-Large (NYUAD SOTA)".
 
 14. **Resolve IDEAS.md RAG question** — Document the decision: 7-engine architecture confirmed, RAG is supplementary.
 
@@ -1175,7 +1175,7 @@ This is a factual error that RESOURCES.md (March 2026 survey) already corrected 
 ### Critical files to update
 - `NEXT.md` (UPDATE — point to factory)
 - `engines/*/CLAUDE.md` x6 (UPDATE — add factory status sections)
-- `STEERING.md` (UPDATE — reference ENGINE_FACTORY.md, fix embedding recommendation)
+- `reference/archive/STEERING.md` (UPDATE — reference ENGINE_FACTORY.md, fix embedding recommendation)
 
 ### Existing files to reuse (not modify)
 - `skills/shared/ENGINE_PROTOCOL.md` — The authoritative process (factory codifies this)

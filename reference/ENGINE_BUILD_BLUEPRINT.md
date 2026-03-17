@@ -1087,7 +1087,7 @@ Rounds 1-2 as above, plus:
 - Round 4: Verify source labels (pass-through vs. inferred vs. extracted)
 - Round 5: Apply all corrections, update summary tables, verify totals
 
-**The Session A example.** `PHASE_D_SESSION_A_REPORT.md` is the gold
+**The Session A example.** `reference/archive/sessions/phase_d/PHASE_D_SESSION_A_REPORT.md` is the gold
 standard. Round 3 caught a protocol violation (no web_fetch performed).
 Round 4 caught wrong death date source labels on 3 books. Round 5
 applied corrections that changed 6 books' data and rewrote Round 3 to
