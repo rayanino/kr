@@ -41,6 +41,8 @@ For each item, classify the A-B pair:
 | UNVERIFIABLE | PLAUSIBLE | **AGREEMENT_UNCERTAIN** — both lack strong evidence |
 | FLAG | UNVERIFIABLE | **SOFT_DISAGREEMENT** — investigate |
 | UNVERIFIABLE | FLAG | **SOFT_DISAGREEMENT** — investigate |
+| FLAG | PLAUSIBLE | **SOFT_DISAGREEMENT** — investigate |
+| PLAUSIBLE | FLAG | **SOFT_DISAGREEMENT** — investigate |
 
 ### Step 2: Handle Agreements
 

@@ -538,7 +538,7 @@ Primary text: قال المصنف (١) في هذه المسألة (2)
 
 ### ADV-025 boundary_value — Arabic character ratio at exactly 70%
 
-**SPEC rule:** "Character distribution must be plausible for Arabic text: >70% Arabic characters (excluding whitespace and punctuation)."
+**SPEC rule:** "Character distribution must be plausible for Arabic text: ≥70% Arabic characters (excluding whitespace and punctuation)."
 **Adversarial input:** Page text with exactly 70.0% Arabic characters:
 ```
 المبتدأ هو الاسم المرفوع - The nominative noun - والخبر هو المرفوع المسند
