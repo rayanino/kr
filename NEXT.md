@@ -1,34 +1,51 @@
-# NEXT — Engine Factory Design Session
+# NEXT — Engine Build Blueprint
 
-## Current position: Source engine COMPLETE → Design the autonomous build system
-## What to do: Discuss and improve reference/ENGINE_FACTORY_PLAN.md
-## Context: Source engine done (reference/SOURCE_ENGINE_COMPLETION.md). 6 engines remaining. The plan exists but needs critical review and refinement before implementation.
-## Owner action needed: YES — This is a discussion session (Claude Chat + owner)
+## Current position: Source engine COMPLETE → Create repeatable build process
+## What to do: Trace the entire source engine journey and distill it into a specific, repeatable blueprint
+## Context: Source engine done. 6 engines remaining. Before building anything, we need the blueprint that makes every engine build systematic instead of improvised.
+## Owner action needed: YES — This is a Claude Chat session (architect + owner)
 
-**CRITICAL CONTEXT:** The owner is an Islamic studies STUDENT who has NOT
-studied Islamic texts yet. KR exists to CREATE that study environment.
-The owner CANNOT validate domain correctness. All "human gate" and "owner
-review" steps mean the owner triggers AI-assisted research (via Oracle or
-Claude Chat), NOT that the owner independently evaluates scholarly metadata.
-The ENGINE_FACTORY_PLAN.md was written with this understanding (see the
-Oracle section and three-tier gate model).
+## Deliverable sequence (strict order)
 
-## Key documents to read
-- `reference/ENGINE_FACTORY_PLAN.md` — the current plan (~800 lines)
-- `reference/SOURCE_ENGINE_COMPLETION.md` — what we just finished
-- `KNOWLEDGE_INTEGRITY.md` — corruption threats the factory must prevent
+### 1. Blueprint (`reference/ENGINE_BUILD_BLUEPRINT.md`)
+Trace the full source engine history (git log, lesson files, evaluation
+reports, bug patterns) and distill into a concrete, step-by-step recipe
+for building any engine. NOT abstract protocol — specific actions,
+specific quality checks, specific handoff formats.
+
+**Critical requirement:** Every step that produces output must include a
+mandatory critical self-review protocol. Minimum 2 rounds. Clear
+instructions for what the review checks. No raw output accepted without
+structured verification. This was learned the hard way — the source
+engine's worst bugs were self-review failures.
+
+### 2. Decision Playbook (`reference/DECISION_PLAYBOOK.md`)
+Every pattern, heuristic, domain rule, and anti-pattern accumulated
+during the source engine build. This is the institutional memory that
+makes future agents (or Claude Chat sessions) effective without
+re-learning everything from scratch.
+
+### 3. Repo cleanup
+Remove stale files, archive completed work, ensure the repo is clean
+and navigable for the normalization engine project.
+
+### After these three: discuss agent team architecture for autonomous building.
+
+## Key source material for the Blueprint chat
+- Git log: 160+ commits tracing the full journey
+- `engines/source/review/PHASE_A_LESSONS.md` — deterministic phase lessons
+- `tests/results/source_engine/phase_c/PHASE_C_LESSONS.md` — LLM phase lessons
+- `tests/results/source_engine/phase_d/PHASE_D_LESSONS.md` — calibration lessons
+- `PHASE_D_AGGREGATION_REPORT.md` — evaluation methodology
+- `PHASE_D_CRITICAL_REVIEW.md` — adversarial review of results
+- `PHASE_D_PATTERN_ANALYSIS.md` — systematic patterns found
+- `reference/SOURCE_ENGINE_COMPLETION.md` — what the finished engine looks like
+- `reference/PRE_BATCH_EXECUTION_PROTOCOL.md` — the hardening process
+- `reference/PRE_BATCH_VERIFICATION_PLAN.md` — verification methodology
+- `SILENT_FAILURES.md` — failure modes discovered
+- `skills/shared/ENGINE_PROTOCOL.md` — the existing abstract protocol
+- `KNOWLEDGE_INTEGRITY.md` — corruption threats
 - `RESULT_PRESERVATION.md` — how results feed downstream
-
-## Questions for the discussion
-1. Is the multi-agent architecture (Builder/Reviewer/Verifier/Oracle) the
-   right approach, or is it over-engineered?
-2. Should we start with Option A (Claude Code native) or go straight to
-   Option B (OpenClaw)?
-3. Is the Decision Playbook the right way to transfer Claude Chat's
-   accumulated knowledge to the Oracle?
-4. Are the quality gates realistic or will they create bottlenecks?
-5. What's the minimum viable factory — what can we cut without sacrificing
-   correctness?
 
 ## Budget
 - Spent: €30.60
