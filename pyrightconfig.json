@@ -1,0 +1,17 @@
+{
+  "include": ["engines", "shared", "scripts"],
+  "exclude": ["**/node_modules", "**/__pycache__", "tests/fixtures"],
+  "pythonVersion": "3.13",
+  "pythonPlatform": "Windows",
+  "typeCheckingMode": "basic",
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false,
+  "reportUnusedImport": true,
+  "reportUnusedVariable": true,
+  "reportUndefinedVariable": true,
+  "reportMissingParameterType": true,
+  "reportReturnType": true,
+  "reportGeneralClassIssues": true,
+  "reportOptionalMemberAccess": true,
+  "reportOptionalSubscript": true
+}

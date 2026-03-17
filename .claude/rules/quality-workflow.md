@@ -1,0 +1,7 @@
+- After writing or editing Python source code (`engines/*/src/`, `shared/*/src/`), check for type errors by running `python -m pyright <file>` on the modified file. Fix any errors before moving on.
+- After writing or editing Python source code, run `python -m pytest` on the affected engine's test directory (`engines/<n>/tests/` or `shared/<n>/tests/`) with `-x -q` flags. Fix any failures before moving on.
+- After modifying any `contracts.py` file, run `python3 scripts/verify_metadata_flow.py` to check boundary alignment.
+- After modifying any `SPEC.md` file, run `python3 scripts/check_spec_quality.py <path>` on the modified SPEC.
+- Before claiming any implementation is complete, run the full test suite for the active engine: `python -m pytest engines/<n>/tests/ -v --tb=short`.
+- For complex debugging, use the `mcp__sequential-thinking__sequentialthinking` tool to structure reasoning step-by-step before proposing a fix.
+- For multi-step design decisions (SPEC design, architecture choices), use sequential thinking to evaluate alternatives before committing to an approach.

@@ -129,6 +129,39 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pyright-check.sh\"",
+            "timeout": 30,
+            "statusMessage": "Type-checking with pyright..."
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/auto-test.sh\"",
+            "timeout": 120,
+            "statusMessage": "Running tests..."
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/boundary-check.sh\"",
+            "timeout": 30,
+            "statusMessage": "Validating contract boundaries..."
+          }
+        ]
       }
     ],
     "SessionStart": [
