@@ -1,5 +1,5 @@
 ---
-name: integrity-checker
+name: library-integrity-checker
 description: Verifies library data integrity across all engines. Checks referential integrity, metadata completeness, and schema conformance of library contents. Use after pipeline runs or periodically.
 tools: Bash, Read, Glob, Grep
 model: sonnet

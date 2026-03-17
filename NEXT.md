@@ -1,9 +1,8 @@
-# NEXT — Fix All Agent Definitions, Adversarial Catalog, and Architecture Gaps
+# NEXT — Architect re-review of fix session, then Probe 2 transition gate
 
-## Current position: Architect review of 7 new agent definitions + SPEC adversary catalog found 15 findings (3 HIGH, 8 MEDIUM, 4 LOW). Transition to Probe 2 BLOCKED until all fixed.
-## What to do: Fix every finding. No shortcuts. No deferrals. This is a pure fix session — no engine building, no pipeline running.
-## Context: The 7 new agents (Verification Team + Red Team) are well-crafted but the review exposed: (1) architecture-level bugs in the quality gate, (2) Build Team agents that predate the architecture and lack threat awareness, (3) gaps in the adversarial catalog, and (4) a SPEC inconsistency. All must be fixed before the normalization engine build begins.
-## Owner action needed: NO — this is a Claude Code task.
+## Current position: All 15 review findings fixed (14 applied, 1 skipped — Fix Group N model strings invalid for short-name-only field). Pending Architect re-verification.
+## What to do: Architect re-runs the review checklist and transition gate.
+## Owner action needed: YES — start a new Claude Chat session for Architect review.
 
 ---
 

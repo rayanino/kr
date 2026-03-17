@@ -74,6 +74,8 @@ After checking all items individually:
 
 ### Check Group 5: Engine-Specific Checks
 
+**IMPORTANT:** Apply ONLY the checks under the engine name matching your current task. Ignore all other engine-specific subsections. If the engine you are triaging does not have a subsection below, skip Check Group 5 entirely — engine-specific checks will be added when that engine is built.
+
 **Normalization engine:**
 - Content unit count vs source page_count (±10% tolerance)
 - Diacritics present in output if present in source

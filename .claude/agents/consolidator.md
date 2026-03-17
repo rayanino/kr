@@ -34,12 +34,21 @@ For each item, classify the A-B pair:
 | FLAG | VERIFIED | **HARD_DISAGREEMENT** — investigate urgently |
 | Any | ESCALATE | **ESCALATION** — forward to Architect |
 | ESCALATE | Any | **ESCALATION** — forward to Architect |
+| UNVERIFIABLE | UNVERIFIABLE | **AGREEMENT_UNVERIFIABLE** — consistent lack of evidence |
+| VERIFIED | UNVERIFIABLE | **SOFT_DISAGREEMENT** — investigate |
+| UNVERIFIABLE | VERIFIED | **SOFT_DISAGREEMENT** — investigate |
+| PLAUSIBLE | UNVERIFIABLE | **AGREEMENT_UNCERTAIN** — both lack strong evidence |
+| UNVERIFIABLE | PLAUSIBLE | **AGREEMENT_UNCERTAIN** — both lack strong evidence |
+| FLAG | UNVERIFIABLE | **SOFT_DISAGREEMENT** — investigate |
+| UNVERIFIABLE | FLAG | **SOFT_DISAGREEMENT** — investigate |
 
 ### Step 2: Handle Agreements
 
 **AGREEMENT_VERIFIED:** Final verdict = VERIFIED. Confidence = min(A_confidence, B_confidence).
 **AGREEMENT_PLAUSIBLE:** Final verdict = PLAUSIBLE. Both verifiers lacked strong evidence.
 **AGREEMENT_FLAG:** Final verdict = FLAG. High priority for remediation.
+**AGREEMENT_UNVERIFIABLE:** Final verdict = UNVERIFIABLE. Neither verifier found evidence. Not an error — it means the item cannot be independently confirmed.
+**AGREEMENT_UNCERTAIN:** Final verdict = PLAUSIBLE. When one says PLAUSIBLE and the other says UNVERIFIABLE, upgrade to PLAUSIBLE (some evidence > no evidence).
 
 ### Step 3: Investigate Disagreements
 
@@ -91,7 +100,7 @@ After producing final verdicts for the batch:
 | Check | Pass Condition | Fail Action |
 |-------|---------------|-------------|
 | Format | All verdicts have 14 required fields | Halt, fix verifier prompt |
-| Sources | Verifier B: web_fetch count ≥ 1 per item | Halt, escalate to Architect |
+| Sources | **Structural engines:** Verifier B raw source pages inspected ≥ 3 per item. **Knowledge engines:** Verifier B web_fetch count ≥ 1 per item. **Hybrid engines:** Both conditions. | Halt, escalate to Architect |
 | Distribution | Not >90% VERIFIED (suspicious) | Flag for Architect |
 | A-B Agreement | 60-95% agreement rate | <60% or >95%: Flag for Architect |
 | Drift | Error rate vs pilot baseline ±15% | Halt, recalibrate |

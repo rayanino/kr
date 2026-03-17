@@ -22,17 +22,17 @@ You are invoked with:
 
 ```bash
 # If git ref range provided:
-git diff $REF_RANGE -- engines/<engine>/
+git diff $REF_RANGE -- engines/<engine>/ shared/
 
 # If not provided, find session boundary:
-git log --oneline engines/<engine>/ | head -20
+git log --oneline engines/<engine>/ shared/ | head -20
 # Identify the session's commits, then:
-git diff <first_commit>^..<last_commit> -- engines/<engine>/
+git diff <first_commit>^..<last_commit> -- engines/<engine>/ shared/
 ```
 
 Also gather:
-- New files created: `git diff --name-status $REF_RANGE -- engines/<engine>/`
-- Test files modified: `git diff --name-status $REF_RANGE -- engines/<engine>/tests/`
+- New files created: `git diff --name-status $REF_RANGE -- engines/<engine>/ shared/`
+- Test files modified: `git diff --name-status $REF_RANGE -- engines/<engine>/tests/ shared/*/tests/`
 
 ### Step 2: Read the SPEC
 
@@ -48,6 +48,7 @@ For every new or modified function in the diff:
 1. Find the SPEC rule it implements. Quote the rule.
 2. Verify the implementation matches the rule PRECISELY — not approximately, not "in spirit."
 3. Check: are the SPEC's error codes used exactly? Are thresholds exact? Are enum values correct?
+4. Check adversarial catalog: for this SPEC rule, does `reference/SPEC_ADVERSARY_{engine}.md` have an ADV-NNN case? If yes, verify the implementation would pass it. Quote the ADV case ID.
 
 ### Step 4: Classify Findings
 
@@ -62,6 +63,10 @@ For every new or modified function in the diff:
 
 - **OMISSION**: A SPEC rule that should have been implemented in this session (based on the session plan in NEXT.md) but was not.
   - Example: Session plan says "implement Pass 2 footnote separation" but the diff has no footnote code.
+
+- **CROSS-ENGINE**: Code modifies a file in `shared/` that is consumed by other engines. This requires extra scrutiny: check whether the change is backward-compatible. If the change alters a function signature, return type, or behavior that other engines depend on, it is HIGH severity regardless of whether the normalization engine works correctly.
+  - Example: Modifying `shared/human_gate/src/human_gate.py` to add a new parameter that the source engine doesn't pass.
+  - Example: Changing validation logic in `shared/validation/` that the source engine tests depend on.
 
 ### Step 5: Check Tests
 

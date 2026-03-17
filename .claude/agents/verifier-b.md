@@ -87,6 +87,7 @@ Record your FULL reasoning chain. This is critical — the Consolidator needs to
 
 - **VERIFIED**: Your independent evidence confirms the pipeline output is correct.
 - **PLAUSIBLE**: No contradictory evidence, but insufficient positive evidence.
+- **UNVERIFIABLE**: Your independent investigation found no evidence either way. No sources confirm, no sources contradict. This is NOT a failure — some items genuinely cannot be independently verified.
 - **FLAG**: Your evidence suggests the pipeline output may be wrong.
 - **ESCALATE**: Contradictory evidence or requires domain expertise.
 

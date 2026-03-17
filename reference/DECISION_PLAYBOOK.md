@@ -90,6 +90,25 @@ organized by someone else (compiler-as-muhaqiq pattern).
 **VERIFIED BY:** ERR-02 (السراج المنير attributed to السيوطي when
 compiler was عصام موسى هادي).
 
+### 1.5 Arabic Name Matching Criteria
+
+These rules define when two Arabic names refer to the same person vs. different people. Used during evaluation and verification.
+
+**MATCH (same person):**
+- Shorter/longer form of the same name (e.g., "ابن تيمية" vs "أحمد بن عبد الحليم بن تيمية")
+- Kunyah vs ism (e.g., "أبو حنيفة" vs "النعمان بن ثابت")
+- With/without nisbah or laqab (e.g., "الشافعي" vs "محمد بن إدريس")
+- Death date differs by ≤10 years (allows for hijri/miladi conversion uncertainty and source disagreement)
+
+**MISMATCH (different person):**
+- Completely different person sharing a common element (e.g., two scholars both called "ابن عبد البر")
+- Compiler confused with author (e.g., modern editor listed as author of a classical text)
+- Sharh author confused with matn author (e.g., النووي listed as author of صحيح مسلم)
+- Father confused with son (e.g., ابن حجر العسقلاني vs his father)
+- Death date differs by >30 years (strong signal of different person, unless one date is known to be disputed)
+
+**Source:** Extracted from scholarly-verifier.md evaluation criteria, validated across 204 source engine evaluations.
+
 ---
 
 ## §2. Death Dates

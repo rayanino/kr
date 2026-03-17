@@ -193,7 +193,7 @@ rolls back to the appropriate earlier state.
 | Check | Pass condition | Fail action |
 |-------|---------------|-------------|
 | Format | All verdicts have 14 required fields | Halt, fix verifier prompt |
-| Sources | Verifier B: web_fetch count ≥ 1 per item | Halt, escalate to Architect |
+| Sources | **Structural engines:** Verifier B raw source pages inspected ≥ 3 per item. **Knowledge engines:** Verifier B web_fetch count ≥ 1 per item. **Hybrid engines:** Both conditions. | Halt, escalate to Architect |
 | Distribution | Not >90% VERIFIED (suspicious) | Flag for Architect review |
 | A-B agreement | 60-95% agreement rate | <60%: something wrong. >95%: checking same thing |
 | Drift | Error rate vs pilot baseline ±15% | Halt, recalibrate |
@@ -332,3 +332,28 @@ research) and the Architect (at 5 checkpoints per engine).
 3. **Full library population** — Tier 3 production run (deferred until all engines proven)
 4. **Cross-engine optimization** — performance tuning across the pipeline
 5. **The science tree prerequisite** — needed before taxonomy engine, separate work item
+
+---
+
+## 10. Open Items
+
+### 10.1 Verdict Field Enumeration (MUST-FIX before Probe 3)
+
+The quality gate (§4.1) references "14 required fields" in each verdict but does not enumerate them. Before Probe 3 (Verification Team), define these fields explicitly. Proposed list (to be validated against actual verification output during Probe 2):
+
+1. item_id
+2. verdict (VERIFIED / PLAUSIBLE / UNVERIFIABLE / FLAG / ESCALATE)
+3. confidence (0.0–1.0)
+4. evidence (array of specific evidence points)
+5. source_pages_inspected (array of unit_index values, for structural engines)
+6. web_sources (array of URLs, for knowledge engines)
+7. reasoning_chain (array of reasoning steps)
+8. playbook_rules_applied (Verifier A only; null for Verifier B)
+9. playbook_influence (Verifier A only; null for Verifier B)
+10. novel_observations (Verifier B only; null for Verifier A)
+11. triage_risk (LOW / MEDIUM / HIGH, from Triage Analyst)
+12. engine_name
+13. batch_number
+14. verifier_id (verifier_a or verifier_b)
+
+This list is a PROPOSAL. Finalize during Probe 2 build prep, before Probe 3 begins.

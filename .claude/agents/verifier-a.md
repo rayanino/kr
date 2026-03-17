@@ -88,6 +88,7 @@ For knowledge engines, run 2-3 web searches per item.
 
 - **VERIFIED**: Evidence confirms the pipeline output is correct. Playbook rules support the finding.
 - **PLAUSIBLE**: No contradictory evidence, but insufficient positive evidence to confirm. Playbook has no relevant rules.
+- **UNVERIFIABLE**: No evidence found either for or against. Cannot confirm or deny. This is distinct from PLAUSIBLE — PLAUSIBLE means weak positive evidence, UNVERIFIABLE means no evidence at all.
 - **FLAG**: Evidence suggests the pipeline output may be wrong. Document the discrepancy.
 - **ESCALATE**: Contradictory evidence or requires domain expertise beyond your capability.
 

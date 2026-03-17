@@ -1480,7 +1480,7 @@ The normalization engine's output determines the quality ceiling for every downs
 
 3. **Text extraction verification.** For each content unit:
    - `primary_text` must be non-empty (except for `is_blank` pages).
-   - Character distribution must be plausible for Arabic text: >70% Arabic characters (excluding whitespace and punctuation). A page with <70% Arabic characters is flagged as potentially corrupted.
+   - Character distribution must be plausible for Arabic text: ≥70% Arabic characters (excluding whitespace and punctuation). A page with <70% Arabic characters is flagged as potentially corrupted.
    - No runs of >20 identical characters (suggests OCR garbage).
    - No mojibake patterns (common UTF-8 decoding errors for Arabic).
 
