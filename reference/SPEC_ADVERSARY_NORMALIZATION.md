@@ -69,6 +69,7 @@
 **Correct behavior:** `width="95%"` — the regex captures `95` from `95%`. The `%` character is NOT part of the `\d{2,3}` group, so `95` IS captured and IS in range 80-100. This SHOULD be treated as a footnote separator.
 **Wrong behavior (naive impl):** (a) Strips `%` before parsing and works correctly — acceptable. (b) Rejects because the value contains non-numeric character — incorrectly keeps all text as primary.
 **Why it matters:** Tests regex precision. The SPEC's regex is intentionally designed to handle this case because `\d{2,3}` stops at the `%`.
+**SPEC-AMBIGUITY NOTE:** The SPEC says "numeric value between 80 and 100" without clarifying whether this applies only to pixel values or also to percentage values. `width="95%"` means 95% of container width, semantically different from `width="95"` (95 pixels). The regex captures `95` from both. Current behavior (match both) is safer — missing a footnote separator is worse than a false positive split. The SPEC should clarify this during build.
 **Detection:** Assert footnotes array has 1 entry with text "ثبت المسح في أحاديث كثيرة".
 
 ---

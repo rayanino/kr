@@ -90,8 +90,8 @@ After producing final verdicts for the batch:
 
 | Check | Pass Condition | Fail Action |
 |-------|---------------|-------------|
-| Format | All verdicts have required fields | Halt, fix |
-| Sources | Verifier B cited web evidence for applicable items | Halt, B didn't do web research |
+| Format | All verdicts have 14 required fields | Halt, fix verifier prompt |
+| Sources | Verifier B: web_fetch count ≥ 1 per item | Halt, escalate to Architect |
 | Distribution | Not >90% VERIFIED (suspicious) | Flag for Architect |
 | A-B Agreement | 60-95% agreement rate | <60% or >95%: Flag for Architect |
 | Drift | Error rate vs pilot baseline ±15% | Halt, recalibrate |
