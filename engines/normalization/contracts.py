@@ -653,6 +653,10 @@ class NormalizedManifest(BaseModel):
         description="Layers present in this source. Single-layer sources have one entry."
     )
     structural_format: StructuralFormat
+    structural_format_proposed: Optional[StructuralFormat] = Field(
+        None,
+        description="Normalizer's proposed format when auto-detection disagrees with source engine"
+    )
     text_fidelity_summary: TextFidelitySummary
     verse_detection: bool = Field(
         default=False,
