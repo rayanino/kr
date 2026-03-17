@@ -114,6 +114,7 @@ For each verdict, answer:
 |---------|-------|------------|
 | VERIFIED | [N] | [%] |
 | PLAUSIBLE | [N] | [%] |
+| UNVERIFIABLE | [N] | [%] |
 | FLAG | [N] | [%] |
 | ESCALATE | [N] | [%] |
 
@@ -121,7 +122,7 @@ For each verdict, answer:
 
 ### Item [identifier]
 **Triage risk:** [LOW/MEDIUM/HIGH]
-**Verdict:** [VERIFIED/PLAUSIBLE/FLAG/ESCALATE]
+**Verdict:** [VERIFIED/PLAUSIBLE/UNVERIFIABLE/FLAG/ESCALATE]
 **Confidence:** [0.0–1.0]
 **Evidence:**
 - [specific evidence point 1]

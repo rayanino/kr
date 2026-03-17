@@ -106,6 +106,7 @@ Record your FULL reasoning chain. This is critical — the Consolidator needs to
 |---------|-------|------------|
 | VERIFIED | [N] | [%] |
 | PLAUSIBLE | [N] | [%] |
+| UNVERIFIABLE | [N] | [%] |
 | FLAG | [N] | [%] |
 | ESCALATE | [N] | [%] |
 
@@ -113,7 +114,7 @@ Record your FULL reasoning chain. This is critical — the Consolidator needs to
 
 ### Item [identifier]
 **Triage risk:** [LOW/MEDIUM/HIGH]
-**Verdict:** [VERIFIED/PLAUSIBLE/FLAG/ESCALATE]
+**Verdict:** [VERIFIED/PLAUSIBLE/UNVERIFIABLE/FLAG/ESCALATE]
 **Confidence:** [0.0–1.0]
 **Reasoning chain:**
 1. [First observation from pipeline output]
