@@ -500,8 +500,8 @@ unless the book is clearly devoted to a single field.
    USE CAUTIOUSLY for genre and metadata verification (circular).
    Useful for confirming author names and finding related works.
 
-8. **ketabonline.com, turath.io, waqfeya.net** — All part of the
-   Shamela ecosystem. Count collectively as ONE source with shamela.ws.
+10. **ketabonline.com, turath.io, waqfeya.net** — All part of the
+    Shamela ecosystem. Count collectively as ONE source with shamela.ws.
 
 ### 6.2 Independence Rules
 
@@ -693,13 +693,16 @@ violations — Sessions A and B both caught drift during self-review.
 
 ### 9.1 What the Consensus Module Actually Checks
 
-**Inferred behavior (not confirmed by code reading):** The consensus
-module appears to compare the author_identification objects between
-models. This is inferred from observing that all 14 Phase D
-disagreements correlate with differences in this object, not from
-reading the consensus module code. It does NOT check genre, ML, or
-science_scope agreement — this is confirmed by the 39 genre
-disagreements that all have consensus.agreed=True.
+**Confirmed behavior (verified by code reading, consensus.py lines
+343-346):** The consensus module's `agreed` field reflects ONLY author
+identification agreement (via `make_author_agreement_fn`). It does NOT
+check genre, ML, or science_scope — these fields have no agreement
+function. This is confirmed by the absence of any genre/ML/science
+comparison in `engines/source/src/consensus.py` (4 functions: author
+agreement, work agreement, attribution status comparison, canonical
+result selection) and by `shared/consensus/src/consensus.py` line 343
+which calls `agreement_fn` — set to the author agreement function for
+the source engine.
 
 **Consequence:** Genre and ML errors pass through the consensus check
 silently. BUG-03 override provides a safety net for ML. There is NO

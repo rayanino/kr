@@ -44,15 +44,15 @@ Before writing any SPEC text, verify the input contract:
 1. Read the upstream engine's `contracts.py` output classes
 2. Read this engine's `contracts.py` input classes
 3. Run `scripts/verify_metadata_flow.py` if available (caveat: this
-   script had 22 false positives during source engine hardening from
-   matching enum value names as field names — manually verify each
-   flagged field before treating it as a real gap)
+   script can produce false positives from matching enum value names
+   as field names — manually verify each flagged field before treating
+   it as a real gap)
 4. For each field this engine expects: confirm the upstream engine
    produces it, with the same name, same type, same optionality
 5. Document any gaps in `reference/CONTRACT_VERIFICATION_REPORT.md`
 6. Fix gaps BEFORE proceeding (update contracts.py on both sides)
 
-**Evidence from source engine:** 4 contract defects were found at the
+**Evidence from source engine:** 5 contract defects were found at the
 source→normalization boundary during pre-batch hardening (Step 3C of
 the execution protocol). Each would have caused silent failures if
 discovered during normalization engine development instead.
@@ -171,10 +171,10 @@ For every capability in §4:
 - **Deferred:** This extends the core but the engine works without it
 
 **Evidence from source engine:** The initial SPEC had ~40 capabilities
-in §4. After core extraction, the source engine shipped with ~15 core
-capabilities. The deferred capabilities did not block any downstream
-engine. Attempting to build all 40 would have tripled the build time
-and budget.
+in §4. After core extraction, the source engine shipped with 10 core
+capabilities (§4.A.1 through §4.A.10). The deferred capabilities did
+not block any downstream engine. Attempting to build all 40 would have
+tripled the build time and budget.
 
 **Rule:** When uncertain whether something is core, ask: "Does the
 downstream engine's SPEC reference this capability's output?" If no,
@@ -802,7 +802,8 @@ zero-cost verification method:
    code. Do they describe the same behavior? Evidence from source
    engine: 3 inconsistencies found where the code had evolved past
    the SPEC (check 5c was downgraded from gate to warning in code
-   but SPEC still said gate).
+   but SPEC still said gate) (since fixed in commit 473a7a9 — code
+   now matches SPEC).
 
 3. **Contract boundary re-verification** — After fixes, re-run
    `verify_metadata_flow.py`. Did the fixes create any new gaps?
@@ -957,8 +958,8 @@ always contains:
 ## Owner action needed: {yes/no, what}
 ```
 
-**Evidence from source engine:** The source engine build spanned ~117
-commits touching engine code, across many sessions. Every session started by reading
+**Evidence from source engine:** The source engine build spanned ~118
+commits touching the source engine directory (engines/source/), across many sessions. Every session started by reading
 NEXT.md. Sessions that diverged from NEXT.md's directive wasted time.
 Sessions that updated NEXT.md before ending enabled clean handoffs.
 
@@ -1040,7 +1041,9 @@ both engines. If it doesn't, the engine has a bug — fix and re-test.
 input but does not hard-block. Fix: after 3 days with no comments,
 proceed with best assessment, mark domain-dependent decisions as
 `[OWNER REVIEW PENDING]`, and add cross-provider verification for
-those decisions.
+those decisions. This does NOT apply to preference gates (edition
+choice, curriculum decisions), which block until the owner responds
+per KNOWLEDGE_INTEGRITY.md Invariant 5.
 
 **Misleading error messages during pipeline runs.** Evidence from
 source engine: BUG-C03 was initially reported as "Command A
@@ -1144,9 +1147,10 @@ based on what the source engine learned about their needs.
   learned that genre boundaries (risalah/matn/other) are fuzzy.
   Normalization should not assume genre is always correct — use genre
   as a hint, not a gate.
-- **Contract boundary:** 10 fields verified in
-  `reference/CONTRACT_VERIFICATION_REPORT.md`. Death dates available
-  via `confidence_scores` path, not `author.death_date_hijri`.
+- **Contract boundary:** 12 fields verified (9 declared + 3 undeclared
+  dependencies) in `reference/CONTRACT_VERIFICATION_REPORT.md`. Death
+  dates available via `confidence_scores` path, not
+  `author.death_date_hijri`.
 
 ### Subsequent Engines
 
@@ -1163,11 +1167,14 @@ based on what the source engine learned about their needs.
 
 ## What This Blueprint Does NOT Cover
 
-1. **Stage 2 expansion** — Adding non-core capabilities. Governed by
-   a future Stage 2 protocol.
+1. **Stage 2 expansion** — Adding non-core capabilities. To be
+   defined. Extension hooks documented in each engine's §4.B.
 2. **Agent team architecture** — Autonomous builder + researcher
-   agents. To be discussed after Blueprint + Playbook + repo cleanup.
+   agents. Discussion pending. See NEXT.md.
 3. **The abstract ENGINE_PROTOCOL** — This Blueprint is the concrete
-   implementation. ENGINE_PROTOCOL remains as the governing framework.
-4. **The ENGINE_FACTORY_PLAN** — A previous attempt (~1,260 lines)
-   that was deemed too abstract and over-engineered. Deferred.
+   implementation. ENGINE_PROTOCOL (`skills/shared/ENGINE_PROTOCOL.md`)
+   remains as the governing framework. Note: ENGINE_PROTOCOL defines
+   4 steps where the Blueprint uses 5 — the Blueprint elevates
+   completion documentation to its own Step 5.
+4. **The ENGINE_FACTORY_PLAN** — Deferred as over-engineered.
+   Previous draft archived.

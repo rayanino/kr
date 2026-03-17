@@ -107,7 +107,7 @@ Same structure as Phase C, in `phase_d/`. The manifest covers all ~200 books. Ph
 
 **This is the final validation step for the source engine.** After Step 4 results are verified:
 - The source engine is validated — proven correct and reliable on ~273 diverse books across two independent runs.
-- A MASTER_MANIFEST.json is produced mapping every processed book to its result, regardless of which phase produced it.
+- A `tests/results/source_engine/MASTER_MANIFEST.json` maps every processed book to its result, regardless of which phase produced it.
 - The verified results become the normalization engine's development input. The normalization engine builds and tests against real source engine output — not synthetic data, not a separate "production run."
 - The source engine code is ready to process any Shamela book reliably. Actual library population happens later, after all 7 engines are proven end-to-end.
 
