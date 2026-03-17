@@ -3,8 +3,8 @@
 **Authority:** Concrete implementation of `skills/shared/ENGINE_PROTOCOL.md`.
 ENGINE_PROTOCOL defines the 4-step framework; this Blueprint fills in
 exactly how each step is executed, grounded in what actually happened
-during the source engine build (March 2026, ~500 commits across the
-full repo history, €30.60, 582 tests, 204 validated books).
+during the source engine build (March 2026, €30.60 spent, 379 test
+functions (some parametrized → 500+ test cases), 204 validated books).
 
 **Audience:** Claude Chat (architect/evaluator), Claude Code (builder),
 and any future agent assigned to build an engine. Every step specifies
@@ -43,7 +43,10 @@ Before writing any SPEC text, verify the input contract:
 
 1. Read the upstream engine's `contracts.py` output classes
 2. Read this engine's `contracts.py` input classes
-3. Run `scripts/verify_metadata_flow.py` if available
+3. Run `scripts/verify_metadata_flow.py` if available (caveat: this
+   script had 22 false positives during source engine hardening from
+   matching enum value names as field names — manually verify each
+   flagged field before treating it as a real gap)
 4. For each field this engine expects: confirm the upstream engine
    produces it, with the same name, same type, same optionality
 5. Document any gaps in `reference/CONTRACT_VERIFICATION_REPORT.md`
@@ -318,23 +321,73 @@ Commit with message: "{descriptive message}"
   build? Any place where Claude Code would need to make a judgment
   call not covered by the SPEC?
 
+**Concrete example (adapted from source engine Fix 1 handoff):**
+
+```markdown
+# Claude Code — Source Engine Genre Enum Fix
+
+## Context
+Post-evaluation fix. The Genre enum is missing 2 values that LLMs
+correctly produce, causing valid output to silently fall back to "other".
+
+## Read First (in this order)
+1. `engines/source/CLAUDE.md` — module orientation
+2. `engines/source/SPEC_CORE.md` §4.A.4 — genre classification rules
+3. `engines/source/contracts.py` Genre class — current enum values
+4. `engines/source/src/metadata_inference.py` validate_enum_value() —
+   the function that silently falls back
+
+## Implement
+1. Add RIHLAH="rihlah" and USUL_AL_FIQH="usul_al_fiqh" to Genre enum
+   in contracts.py
+2. Add both genres to the prompt enum list in prompts/inference_v1.py
+3. Add Arabic synonyms to library/config/genre_synonyms.json:
+   "رحلة"→"rihlah", "أصول الفقه"→"usul_al_fiqh"
+4. Add logging to validate_enum_value when falling back to default
+   (SPEC requires this, currently missing)
+
+## Tests to Write
+- Test: genre="rihlah" passes validation without fallback
+- Test: genre="usul_al_fiqh" passes validation without fallback
+- Test: Arabic synonym "رحلة" maps to "rihlah"
+- Test: Arabic synonym "أصول الفقه" maps to "usul_al_fiqh"
+
+## Do NOT Change
+- shared/consensus/src/consensus.py — consensus module is working
+  correctly; this is an enum bug, not a consensus resolution bug
+- _select_canonical() in metadata_inference.py — do not modify the
+  canonical selection logic
+
+## Verification
+Run: pytest engines/source/tests/test_metadata_inference.py -v
+Run: mypy engines/source/src/ --ignore-missing-imports
+Expected: 0 failures, 0 type errors, new tests pass
+
+## After Implementation
+Commit with message: "Fix missing genre enum values (rihlah, usul_al_fiqh)"
+```
+
 ### 2c. Incremental Build Order
 
 Build from the outside in: contracts first, then extraction/parsing
 (deterministic), then LLM inference, then validation, then the engine
 orchestrator that ties it all together.
 
-**Recommended session sequence:**
+**Recommended session sequence (source engine example — adapt categories per engine):**
 
-| Session | What | Tests | Depends on |
-|---------|------|-------|------------|
-| 1 | Contracts (Pydantic models) | Schema validation, serialization round-trip | Nothing |
-| 2 | Deterministic processing (extraction, parsing, hashing) | Per-format extraction, edge cases, Arabic text handling | Session 1 |
-| 3 | LLM prompt templates + inference parsing | Prompt rendering, response parsing, confidence extraction | Session 1 |
-| 4 | Consensus integration | Agreement/disagreement handling, fallback paths | Session 3 |
-| 5 | Validation checks | Every check from SPEC §5, including error paths | Sessions 1-4 |
-| 6 | Engine orchestrator (ties everything together) | End-to-end on fixtures, resume mode, result persistence | Sessions 1-5 |
-| 7 | Integration tests + mypy cleanup | Full pipeline on test fixtures, type safety | Sessions 1-6 |
+The specific modules change per engine, but the DEPENDENCY STRUCTURE
+is universal: contracts first → deterministic processing → LLM
+inference → consensus → validation → orchestrator → integration.
+
+| Session | Source Engine Example | Adapt to... | Depends on |
+|---------|---------------------|-------------|------------|
+| 1 | Contracts (Pydantic models) | Same for all engines | Nothing |
+| 2 | Deterministic processing (extraction, parsing, hashing) | Normalization: format detection + text normalization. Passaging: boundary detection rules. | Session 1 |
+| 3 | LLM prompt templates + inference parsing | Any engine with LLM inference | Session 1 |
+| 4 | Consensus integration | Same for any multi-model engine | Session 3 |
+| 5 | Validation checks | Same structure, engine-specific checks | Sessions 1-4 |
+| 6 | Engine orchestrator | Same for all engines | Sessions 1-5 |
+| 7 | Integration tests + mypy cleanup | Same for all engines | Sessions 1-6 |
 
 **Evidence from source engine:** Session 6 (13-fixture integration)
 found 4 bugs that unit tests missed because integration tests exercise
@@ -380,6 +433,36 @@ Every engine must have:
 - Round 3: Check Arabic text fields character-by-character against
   the original source. A single wrong diacritic invalidates the
   baseline.
+
+### 2e. Code Audit (Claude Chat, before any pipeline run)
+
+After Claude Code finishes the build but BEFORE running books through
+the pipeline, a Claude Chat session reads every module against the SPEC.
+
+**Why this step exists:** The source engine code audit (roadmap Step 1,
+commit 4b51718) found 6 bugs that 768 passing unit tests missed. Tests
+written by the same agent as the code tend to test what the code does,
+not what the SPEC says it should do. A fresh pair of eyes reading code
+against the SPEC catches different bugs than tests do.
+
+**Procedure:**
+1. Read the full SPEC §4.A (core processing rules)
+2. For each rule, read the implementing function in src/
+3. Check: does the code do what the SPEC says? Not "is the code
+   reasonable?" but "does the code match the SPEC?"
+4. Check error handling: does every branch that can fail have a
+   defined recovery?
+5. Check data flow: are all required fields propagated through the
+   processing chain?
+6. Document findings as a numbered list with file, function, and
+   the specific discrepancy
+
+**Self-review (2 rounds):**
+- Round 1: For each "no issues found" module, re-read the most
+  complex function and trace one edge-case input through it.
+- Round 2: Count total findings. If <3 across the entire engine,
+  you are reviewing too superficially. The source engine audit found
+  6 bugs in ~1,500 lines of code — roughly 1 per 250 lines.
 
 ### Step 2 Completion Criteria
 
@@ -483,14 +566,21 @@ boundaries), Layer 3 replaces web search with manual inspection of
 the structural decisions against the source text. The risk-tier
 structure and self-review protocol remain the same.
 
-**Session structure (from Phase D):**
+**Session structure — define risk tiers per engine, then assign sessions.**
 
-| Session | Books | Selection criterion |
-|---------|-------|---------------------|
-| A | 10-15 | Highest risk: consensus disagreements, confirmed errors |
-| B | 15-20 | Author uncertainty: no extracted author, low confidence, death date disagreement |
-| C | 10-15 | Structural flags: ML-affecting genre disagreements, genre-structure inconsistencies, new multi-layer books |
-| D | 10-15 | Random calibration: stratified random from unflagged books. If ANY error found, expand sample. |
+The source engine used these tiers; other engines define their own:
+
+| Session | Source Engine Tiers | Generalized Principle |
+|---------|--------------------|-----------------------|
+| A | Consensus disagreements, confirmed errors | **Highest risk:** Items where the pipeline's internal mechanisms disagreed or where Layer 1 found confirmed errors |
+| B | No extracted author, low confidence, death date disagreement | **Input uncertainty:** Items where the engine had to infer heavily from sparse input |
+| C | ML-affecting genre disagreements, genre-structure inconsistencies | **Structural flags:** Items where the output structure may be internally inconsistent |
+| D | Stratified random from unflagged books | **Random calibration:** Unbiased sample. If ANY error found, expand. |
+
+**For the normalization engine,** tiers might be: (A) format detection
+failures or fidelity warnings, (B) multi-layer text processing
+results, (C) genre-specific normalization strategy choices, (D) random.
+**Define the tiers after Layer 1 triage reveals the actual risk distribution.**
 
 **Per-book evaluation procedure:**
 
@@ -601,6 +691,13 @@ GO/NO-GO recommendation.
 6. **GO/NO-GO decision** — Against the gate criteria defined in the
    evaluation protocol
 
+**On NO-GO:** Return to the appropriate step. If errors are in SPEC
+design → Step 1. If errors are in implementation → Step 2 (with
+specific bug fix specs from Step 4a). If errors are in evaluation
+coverage → expand Layer 3 scope. Per ENGINE_PROTOCOL Rule 8: do not
+patch code without updating the SPEC. A NO-GO is not a failure — it
+means the evaluation caught problems before they corrupted the library.
+
 **Mandatory: adversarial review of GO verdict.**
 
 After writing the aggregation report and GO recommendation, a SEPARATE
@@ -635,7 +732,7 @@ death date fix scope.
 Evaluation is complete when:
 - [ ] Layer 1 programmatic checks run on ALL processed books
 - [ ] Layer 2 pattern analysis covers all significant flag cohorts
-- [ ] Layer 3 per-book verification covers ≥25% of processed books
+- [ ] Layer 3 per-book verification covers ≥25% of processed books, with ALL Layer 1 flagged books verified before any random sampling begins
 - [ ] Layer 4 aggregation includes adversarial review
 - [ ] Error classification has clear severity for every finding
 - [ ] GO/NO-GO verdict is supported by evidence, not judgment alone
@@ -776,6 +873,12 @@ Hardening is complete when:
 
 ## Step 5: Prove Complete
 
+**Note:** ENGINE_PROTOCOL includes completion documentation as the final
+substep of Step 4. The Blueprint elevates it to its own step because the
+source engine showed this work is substantial — the completion report,
+lessons learned, and institutional memory updates took a full session
+and benefited from their own self-review.
+
 **Who:** Claude Chat writes completion report. Owner acknowledges.
 **Duration:** 1 session.
 **Input:** All evaluation reports, fix verification, test results.
@@ -854,8 +957,8 @@ always contains:
 ## Owner action needed: {yes/no, what}
 ```
 
-**Evidence from source engine:** The source engine build used 160+
-commits across many sessions. Every session started by reading
+**Evidence from source engine:** The source engine build spanned ~117
+commits touching engine code, across many sessions. Every session started by reading
 NEXT.md. Sessions that diverged from NEXT.md's directive wasted time.
 Sessions that updated NEXT.md before ending enabled clean handoffs.
 
@@ -893,6 +996,58 @@ Apply everywhere Arabic text is processed:
 5. Encoding is always UTF-8
 6. Test with adversarial inputs: mixed diacritics, rare codepoints,
    zero-width joiners
+
+### When Things Go Wrong
+
+Recovery paths for common failure states. If none apply, document the
+situation in the engine's LESSONS.md and escalate to the owner.
+
+**Contract incompatibility between adjacent engines.** Not a field name
+mismatch (fixable) but a fundamental schema shape disagreement — one
+produces a flat record, the other expects a nested tree. Fix: update
+the SPEC of the engine with the less-justified design. Re-verify the
+boundary. Do not proceed until the boundary passes Pydantic validation.
+
+**LLM accuracy <70% on a core task (discovered in Step 2 or Step 3).**
+The SPEC's approach doesn't work. Fix: redesign — options include a
+different prompt strategy, a two-stage pipeline (LLM proposes, rules
+verify), a lookup table for known values, or reclassifying the task as
+always-human-gated. If no approach reaches 70% after 3 attempts,
+escalate: "This task cannot be reliably automated. Accept the error
+rate with mandatory review?"
+
+**Claude Code session exhausts context mid-build.** Fix: before
+context gets tight (>70% usage), commit all work, write a handoff
+file at `engines/{engine}/docs/HANDOFF_{date}.md` describing: what's
+built, what's tested, what's next, what decisions were made.
+
+**Step 3 evaluation produces NO-GO verdict.** This means confirmed
+errors in core functionality. Fix: return to the appropriate step.
+If the error is in SPEC design → Step 1 (write a comment, resolve,
+update SPEC). If the error is in implementation → Step 2 (fix code).
+If the error is in validation coverage → expand Step 3 scope. Do not
+patch code without updating the SPEC (ENGINE_PROTOCOL Rule 8).
+Evidence from source engine: ERR-01 (hashiyah/ML validation gap) was
+a SPEC-level fix; Fix-1 (missing genre enum) was an implementation
+fix; both were identified in evaluation and fixed in Step 4.
+
+**Pipeline integration test fails.** The engine's output breaks the
+downstream stub. Fix: first verify the output matches its own
+contracts.py. If it does, the boundary contract is wrong — update
+both engines. If it doesn't, the engine has a bug — fix and re-test.
+
+**Owner not providing domain comments.** Step 1b benefits from owner
+input but does not hard-block. Fix: after 3 days with no comments,
+proceed with best assessment, mark domain-dependent decisions as
+`[OWNER REVIEW PENDING]`, and add cross-provider verification for
+those decisions.
+
+**Misleading error messages during pipeline runs.** Evidence from
+source engine: BUG-C03 was initially reported as "Command A
+unavailable" based on stderr timeout messages. Actual data showed
+67/73 books used Command A successfully — the timeouts were retries
+on a minority of attempts. Fix: always verify error claims against
+actual output data (check the files, not the logs).
 
 ---
 

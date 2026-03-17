@@ -124,9 +124,15 @@ SRC_DEATH_DATE_UNVERIFIED to needs_review_fields.
 **IF** CA provides a specific death date AND extraction contains an
 approximate century designation ("ت ق 4هـ", "ت ق 6هـ")
 **THEN** CA may have fabricated a specific year from the century.
-Example: "ت ق 4هـ" (4th century = 301-400) → CA says 400 AH.
-"ت ق 6هـ" (6th century = 501-600) → CA says 460 AH (wrong century!).
-**Action:** FLAG if the specific date doesn't match the century range.
+The problem is INVENTED PRECISION — turning "sometime in the Xth
+century" into a specific year.
+Example 1: "ت ق 4هـ" (4th century = 301-400) → CA says 400 AH. The
+year happens to fall within range, but the precision is fabricated —
+the source only says "4th century," not "year 400."
+Example 2: "ت ق 6هـ" (6th century = 501-600) → CA says 460 AH. This
+is both fabricated precision AND the wrong century (460 is 5th century).
+**Action:** FLAG if a specific year appears alongside a century
+designation. Both fabricated precision and century errors are problems.
 
 **IF** both models disagree on death date AND the book has multiple
 author candidates
@@ -158,10 +164,12 @@ embedded in author_raw text? If yes → extracted from raw text.
 
 ## §3. Genre Classification
 
-### 3.1 Genre Definitions (Boundary-Sensitive)
+### 3.1 Genre Definitions (All 20 Values)
 
-These genres cause the most confusion. The definitions here are the
-SPEC-authoritative meanings:
+The Genre enum has 20 values. The first group causes the most boundary
+confusion; the second group is generally unambiguous.
+
+**Boundary-sensitive genres (most evaluation issues):**
 
 **risalah** — A focused treatise on a specific topic. Typically short.
 Single-author, standalone. Example: أحكام الاضطباع والرمل في الطواف.
@@ -181,10 +189,54 @@ structure (matn + sharh). Example: الروضة الندية شرح الدرر �
 (matn → sharh → hashiyah). Example: تكملة حاشية ابن عابدين
 (تنوير الأبصار → الدر المختار → رد المحتار).
 
+**hadith_collection** — Compilations of prophetic traditions. Ranges
+from canonical collections (البخاري, مسلم) to small manuscript
+fragments (أجزاء حديثية). Boundary issue: small hadith compilations
+(16-page juz') can be classified as either hadith_collection or
+risalah — both are defensible.
+
+**tafsir** — Quranic exegesis. Standalone tafsir (one author
+commenting on the Quran) → ML=false. Commentary on another scholar's
+tafsir → ML=true. This distinction was flagged in Phase D.
+
+**Generally unambiguous genres:**
+
 **rihlah** — Travel literature. Example: ملء العيبة (رحلة ابن رشيد).
 
 **usul_al_fiqh** — Islamic legal theory/methodology. Example:
 إعلام الموقعين عن رب العالمين (ابن القيم).
+
+**mukhtasar** — Abridgment of a longer work. Multi-layer by
+definition (original + abridgment).
+
+**nazm** — Versified text (didactic poetry). Example: نظم اختيارات
+ابن تيمية. Structural format should be "verse."
+
+**taqrirat** — Lecture notes or dictated lessons.
+
+**mawsuah** — Encyclopedia. Often institutional authorship. Example:
+الموسوعة الفقهية الكويتية.
+
+**fatawa** — Legal rulings/responses. Can be individual fatwas or
+compiled collections.
+
+**mujam** — Dictionary or biographical dictionary of scholars/
+teachers. Example: معجم الشيوخ لابن عساكر.
+
+**tabaqat** — Biographical dictionaries organized by generation/era.
+Boundary: tabaqat vs tarikh for biographical works — tabaqat is
+generation-organized, tarikh is chronologically organized.
+
+**fiqh_comparative** — Comparative Islamic jurisprudence across
+schools. Example: أحكام الأحوال الشخصية في الشريعة الإسلامية.
+
+**sirah** — Prophetic biography specifically. NOT biographical
+dictionaries (those are tabaqat/tarikh). DO NOT use sirah for
+non-prophetic biographical works.
+
+**tarikh** — Historical works, chronicles. Broad category.
+
+**adab** — Literary works, belles-lettres, ethics/conduct.
 
 ### 3.2 Trigger→Action Rules
 
@@ -251,9 +303,12 @@ all classified as "PROMPT BOUNDARY ISSUE, NOT ENGINE BUG."
 **IF** Opus says ML=true AND the only non-matn layer is tahqiq_note
 **THEN** this is the Opus tahqiq-note bias (BUG-03). The pipeline's
 override correctly sets ML=false.
-**VERIFIED BY:** 12/12 Phase D cases, plus الأدب المفرد, الرسالة
-للشافعي, مسند أحمد, السراج المنير, مختصر صحيح مسلم, and القسم
-الثالث من المعجم الأوسط.
+**VERIFIED BY:** All 12 Phase D books with tahqiq_note layers were
+handled correctly. 6 had tahqiq_note as sole non-matn layer → override
+fired → ML=false (الأدب المفرد, الرسالة للشافعي, مسند أحمد, السراج
+المنير, مختصر صحيح مسلم, القسم الثالث من المعجم الأوسط). The other
+6 had genuine scholarly layers alongside tahqiq_note → override
+correctly did NOT fire → ML=true.
 **Action:** VERIFIED (override working correctly).
 
 **IF** Opus says ML=true AND there is a genuine scholarly layer
@@ -339,12 +394,6 @@ which reduces trust score. But the works are often high-quality.
 Example: الموسوعة الفقهية الكويتية — trust=flagged, but it's one of
 the most authoritative fiqh references.
 
-**IF** attribution_status shows disagreement (definitive vs traditional)
-**THEN** the pipeline resolves to "traditional" per SPEC §6.3. This
-is correct and intentional — 47/47 cases in Phase D resolved
-correctly. Both values are defensible for well-known classical works.
-NOT a quality issue.
-
 ### 5.2 Anti-Patterns
 
 **DO NOT** write "trust=flagged is correct per SPEC rules" without
@@ -353,6 +402,64 @@ tracing the mechanism.
 specific factors that caused flagging matter for the verdict.
 **FIX:** State which factor(s) caused the flagging: missing death
 date? Missing muhaqiq? Unknown publisher? Low confidence?
+
+### 5.3 Attribution Status
+
+**IF** attribution_status shows disagreement (definitive vs traditional)
+**THEN** the pipeline resolves to "traditional" per SPEC §6.3. This
+is correct and intentional — 47/47 cases in Phase D resolved
+correctly. Both values are defensible for well-known classical works.
+NOT a quality issue.
+
+**IF** attribution_status = "disputed"
+**THEN** this reflects genuine scholarly controversy about authorship,
+not pipeline uncertainty. Example: الإبانة عن أصول الديانة —
+attributed to الأشعري by classical majority, but modern scholars
+debate text fidelity. "Disputed" is the more precise label.
+**Action:** VERIFIED if web sources confirm the dispute exists.
+
+**IF** both models agree on "definitive"
+**THEN** "definitive" is the correct output — the SPEC default of
+"traditional" only applies when the LLM disagrees or doesn't return
+a value. Dual-model agreement overrides the default.
+
+---
+
+## §5b. Science Scope
+
+104/204 books (51%) had science_scope disagreements in Phase D.
+The consensus module does NOT check science_scope agreement.
+
+### 5b.1 Trigger→Action Rules
+
+**IF** both models agree on the primary science but differ on
+secondary sciences
+**THEN** this is normal variance in scope list granularity. Example:
+one model says ['fiqh'], the other says ['fiqh', 'usul_al_fiqh'].
+**Action:** PLAUSIBLE. The primary science is correct.
+
+**IF** a science term appears imprecise for the work type
+**THEN** check the domain meaning carefully.
+**Key distinction:** 'sirah' means prophetic biography ONLY. A
+biographical dictionary is 'tarikh' or 'tarajim', NOT 'sirah.'
+This error was caught during Phase C and added to the Quick Reference.
+**Action:** If the imprecise term is from one model and the other
+has a more precise term, note it. Not FLAG-worthy unless it would
+change downstream processing.
+
+**IF** science_scope includes a science that seems unrelated to the
+genre
+**THEN** investigate rather than accept. Example: a nahw (grammar)
+book with 'tafsir' in scope might be a grammatical analysis of
+Quranic verses (legitimate) or a misclassification (error).
+
+### 5b.2 Anti-Patterns
+
+**DO NOT** VERIFY science_scope based on web search alone.
+**WHY:** Science scope is a nuanced scholarly judgment. Wikipedia
+may classify a book under one science while scholars would list
+three. PLAUSIBLE is the appropriate ceiling for science_scope
+unless the book is clearly devoted to a single field.
 
 ---
 
@@ -378,10 +485,18 @@ date? Missing muhaqiq? Unknown publisher? Low confidence?
    obscure scholars. Often cites classical biographical sources
    (الذهبي, ابن حجر, etc.).
 
-6. **noor-book.com** — Semi-independent. Book catalog with author
+6. **dorar.net (الدرر السنية)** — Independent. Biographical database
+   for modern scholars. Useful for death date verification of
+   contemporary scholars where Opus is hallucination-prone.
+
+7. **noor-book.com** — Semi-independent. Book catalog with author
    data.
 
-7. **shamela.ws** — Shamela ecosystem. Same data source as the input.
+8. **Government/institutional sites** — bohoth.awqaf.gov.kw (Kuwaiti
+   awqaf), alalbany.org (official Albani center), university library
+   catalogs. Independent and authoritative for their specific domains.
+
+9. **shamela.ws** — Shamela ecosystem. Same data source as the input.
    USE CAUTIOUSLY for genre and metadata verification (circular).
    Useful for confirming author names and finding related works.
 
@@ -483,6 +598,28 @@ field stability analysis confirmed this is cosmetic variation.
 
 ## §8. Evaluation Methodology
 
+### 8.0 Pipeline Data Sources (per-book)
+
+Every evaluation reads these files for each book. Know which file
+each field comes from — mixing them up is a recurring error.
+
+| File | Contains | Critical notes |
+|------|----------|---------------|
+| result.json | Final pipeline output (success books) | author.confidence is always 1.0 (BUG-02) — do NOT use |
+| extraction.json | Raw extraction from Shamela HTML | Check author_raw for embedded death dates |
+| consensus.json | Agreement/disagreement + canonical model | consensus.agreed only checks author_identification, not genre/ML |
+| llm_responses/opus_4_6.json | Full Opus output | Real author confidence here. Death dates here. |
+| llm_responses/command_a.json | Full CA output | Compare against Opus for disagreements |
+| **prompt_sent.json** | **What fields the LLM actually received** | **Critical for understanding WHY the LLM made decisions. If author_raw was absent, the LLM had to infer.** |
+
+**prompt_sent.json is the most underused data source.** It reveals
+which extraction fields were present vs. absent in the LLM prompt.
+Examples from evaluations: صحيح سنن النسائي had EMPTY author_raw but
+muhaqiq=الألباني → LLMs correctly inferred الألباني as functional
+author. الأحاديث التي سقطت had EMPTY author_raw but muhaqiq=سعد
+الحميد → same pattern. Without checking prompt_sent.json, you cannot
+explain WHY a model made a particular attribution decision.
+
 ### 8.1 Verdict Definitions (Strict)
 
 Only these 5 verdicts exist. No variations, no combinations.
@@ -535,14 +672,34 @@ Reading result.json genre and assuming it came from Opus is an error.
 web_fetch per book is required by protocol. Phase D Session A found
 this violation in Round 3 self-review.
 
+### 8.4 Mid-Session Quality Gate
+
+After evaluating 60-70% of the books in a session, STOP. Re-read the
+Evaluation Quick Reference (or this section). Ask yourself:
+
+- Am I still doing web_fetch, or did I start relying on search snippets?
+- Am I still checking both models in llm_responses/, or just reading result.json?
+- Am I still writing death date source labels (pass-through/inferred)?
+- Is my verdict format still complete, or am I abbreviating?
+- For ML=true books: am I still verifying layer chains, or just noting "both agree"?
+
+If any answer is "I drifted," go back and fix the affected books
+before continuing. Evaluation drift is the #1 cause of protocol
+violations — Sessions A and B both caught drift during self-review.
+
 ---
 
 ## §9. Consensus Module Behavior
 
 ### 9.1 What the Consensus Module Actually Checks
 
-The consensus module compares the author_identification objects between
-models. It does NOT check genre, ML, or science_scope agreement.
+**Inferred behavior (not confirmed by code reading):** The consensus
+module appears to compare the author_identification objects between
+models. This is inferred from observing that all 14 Phase D
+disagreements correlate with differences in this object, not from
+reading the consensus module code. It does NOT check genre, ML, or
+science_scope agreement — this is confirmed by the 39 genre
+disagreements that all have consensus.agreed=True.
 
 **Consequence:** Genre and ML errors pass through the consensus check
 silently. BUG-03 override provides a safety net for ML. There is NO
@@ -624,6 +781,16 @@ classical scholars, but modern scholars debate whether the surviving
 text has been altered. Both "disputed" and "definitive" are correct
 depending on perspective. The SPEC resolves to the more conservative
 value.
+
+### 10.8 The تخريج (Takhrij) Pattern
+A takhrij is a work where one scholar authenticates/traces hadith
+chains cited in another scholar's collection. Example: أمالي الأذكار
+is ابن حجر's takhrij of النووي's الأذكار. Genre is ambiguous — it
+has elements of both sharh (ابن حجر explains/discusses النووي's
+hadiths) and hadith_collection (the content is hadith analysis).
+ML=true is defensible because the work IS structured as commentary on
+another scholar's text. Phase D Session C classified this as PLAUSIBLE
+for both genre and ML — neither sharh nor hadith_collection is wrong.
 
 ---
 
