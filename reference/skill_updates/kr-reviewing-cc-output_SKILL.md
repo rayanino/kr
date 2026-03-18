@@ -53,6 +53,7 @@ The minimum set of cross-references:
 2. The engine's contracts.py — do data structures align?
 3. reference/AGENT_ARCHITECTURE.md — does the deliverable fit the agent/phase structure?
 4. The upstream and downstream engine contracts — does the deliverable preserve contract boundaries?
+5. KNOWLEDGE_INTEGRITY.md threats T-1 through T-7 — for each code change, does it introduce or fail to prevent: T-1 (silent text corruption), T-2 (attribution error), T-3 (taxonomic misplacement), T-4 (context loss), T-5 (synthesis hallucination), T-6 (metadata poisoning), T-7 (duplication)? This check is not optional — a code change that passes all tests but introduces a T-2 path (wrong author attribution) is MORE dangerous than one that crashes.
 
 Criteria: any misalignment is a finding, even if the deliverable "looks correct." The governing documents define correct — not the reviewer's impression.
 

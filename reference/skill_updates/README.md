@@ -4,7 +4,7 @@ These files contain updated or new Claude Chat skills that fix gaps identified i
 
 ## How to install
 
-In Claude.ai Settings → Skills → find the skill → Edit → replace content with the file below.
+In Claude.ai project settings → Skills → find the skill → Edit → replace content with the file below.
 
 For the new skill, create it: Settings → Skills → Create → paste the content.
 
@@ -34,6 +34,14 @@ For the new skill, create it: Settings → Skills → Create → paste the conte
 
 **Install:** Create a new skill named `kr-session-retrospective` with this content.
 
+### 4. `kr-spec-review_SKILL.md` — DESCRIPTION FIX
+
+**Problem:** Line 8 described the owner as having "deep domain knowledge." Memory #6 says the owner "has NOT studied Islamic texts yet — KR exists to CREATE that environment." This mismatch could cause the architect to over-trust the owner's domain comments rather than independently verifying them.
+
+**Fix:** Changed description from "deep domain knowledge but no technical background" to "has NOT yet studied Islamic texts — KR exists to CREATE that study environment. He has domain intuitions and access to scholars and resources, but his comments are hypotheses, not expert assertions." Added guidance to ask the owner to consult scholars or provide samples when verification is needed.
+
+**Install:** Replace the existing `kr-spec-review` skill content.
+
 ## After installing
 
-Delete this directory (`reference/skill_updates/`) once all three skills are installed. The files are archived in git history if ever needed.
+Delete this directory (`reference/skill_updates/`) once all four skills are installed. The files are archived in git history if ever needed.
