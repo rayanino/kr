@@ -28,8 +28,8 @@ __pycache__/
 vision_excerpt.md
 session_bundle.md
 
-# ─── Shamela export samples (5.8GB, local only) ─────────────────────
-shamela export samples/
+# ─── Shamela export samples (local only) ─────────────────────
+shamela-export-samples/
 
 # ─── Serena IDE config (personal, not shared) ────────────────────────
 .serena/

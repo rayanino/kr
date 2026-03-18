@@ -190,17 +190,20 @@ class TestDivisionNodeValidation:
     """DivisionNode field constraints are enforced."""
 
     def test_heading_level_min(self):
+        """heading_level=-1 is invalid (ge=0 for volume boundaries at level 0)."""
         with pytest.raises(ValidationError, match="heading_level"):
-            _make_division_node(heading_level=0)
+            _make_division_node(heading_level=-1)
 
     def test_heading_level_max(self):
         with pytest.raises(ValidationError, match="heading_level"):
             _make_division_node(heading_level=11)
 
     def test_heading_level_boundary_valid(self):
-        """Boundaries 1 and 10 are valid."""
+        """Boundaries 0 (volume) and 10 are valid."""
+        node_vol = _make_division_node(heading_level=0)
         node_min = _make_division_node(heading_level=1)
         node_max = _make_division_node(heading_level=10)
+        assert node_vol.heading_level == 0
         assert node_min.heading_level == 1
         assert node_max.heading_level == 10
 

@@ -481,11 +481,16 @@ class ShamelaNormalizer(BaseNormalizer):
         # Pass 3: Clean HTML and produce text
         cleaned = self._pass3_clean(separated)
 
-        # Passes 4–6: NOT YET IMPLEMENTED (Sessions 3–5)
+        # Pass 4: Structure discovery
+        division_tree, page_markers, div_counts, struct_confidence = \
+            self._pass4_discover_structure(cleaned, metadata)
+
+        # Passes 5–6: NOT YET IMPLEMENTED (Sessions 4–5)
         raise NotImplementedError(
-            "Passes 4–6 not yet implemented. "
-            f"Pass 1–3 produced {len(cleaned)} cleaned pages "
-            f"from {len(htm_files)} file(s)."
+            "Passes 5–6 not yet implemented. "
+            f"Pass 4 discovered {sum(div_counts.values())} divisions "
+            f"({struct_confidence.value} confidence) "
+            f"from {len(cleaned)} pages."
         )
 
     # ──────────────────────────────────────────────────────────────
@@ -911,6 +916,28 @@ class ShamelaNormalizer(BaseNormalizer):
         return merged, preamble, fn_format, known
 
     # ──────────────────────────────────────────────────────────────
+    # Pass 4 — Structure Discovery
+    # ──────────────────────────────────────────────────────────────
+
+    def _pass4_discover_structure(
+        self,
+        cleaned: list[CleanedPage],
+        metadata: SourceMetadata,
+    ) -> tuple:
+        """SPEC §4.A.6: 4-tier heading detection + division tree construction.
+
+        Returns (division_tree, page_markers, division_count_by_tier, overall_confidence).
+        """
+        from engines.normalization.src.structure_discovery import discover_structure
+
+        result = discover_structure(cleaned, metadata.source_id, metadata.genre)
+        return (
+            result.division_tree,
+            result.page_markers,
+            result.quality_counts,
+            result.overall_confidence,
+        )
+
     # Pass 3 — HTML Stripping and Text Cleaning
     # ──────────────────────────────────────────────────────────────
 

@@ -45,6 +45,7 @@ class HeadingConfidence(str, Enum):
     HIGH = "high"               # Strong keyword + context signals
     MEDIUM = "medium"           # Keyword match but weak context
     LOW = "low"                 # LLM-inferred or single weak signal
+    MINIMAL = "minimal"         # <3 divisions in 50+ pages; passaging creates own boundaries
 
 
 class HeadingDetectionMethod(str, Enum):
@@ -190,7 +191,7 @@ class StructuralMarkers(BaseModel):
     """Heading detection results for a content unit (SPEC §4.A.6)."""
     heading_detected: bool = False
     heading_text: Optional[str] = None
-    heading_level: Optional[int] = Field(None, ge=1, le=10)
+    heading_level: Optional[int] = Field(None, ge=0, le=10)
     heading_detection_method: Optional[HeadingDetectionMethod] = None
     heading_confidence: Optional[HeadingConfidence] = None
 
@@ -487,7 +488,7 @@ class DivisionNode(BaseModel):
         None, description="Parsed from heading keyword. None if no keyword match."
     )
     heading_text: str
-    heading_level: int = Field(ge=1, le=10)
+    heading_level: int = Field(ge=0, le=10)
     start_unit_index: int = Field(ge=0)
     end_unit_index: int = Field(ge=0, description="Inclusive end")
     detection_method: HeadingDetectionMethod
