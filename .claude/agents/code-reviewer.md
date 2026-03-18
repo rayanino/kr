@@ -41,7 +41,10 @@ For each behavioral rule in the relevant SPEC section:
 - [ ] No `.lower()`, `.upper()`, or `.strip()` called on Arabic text variables.
 - [ ] No Unicode normalization (NFC/NFD/NFKC/NFKD) applied to Arabic text.
 - [ ] ZWNJ (U+200C) is preserved, not stripped as whitespace.
-- [ ] Diacritics in the Unicode Arabic range (U+064B–U+0652, U+0670, U+0640) are never removed.
+- [ ] Diacritics in the Unicode Arabic range (U+064B–U+0653, U+0670, U+0656–U+065F) are never removed.
+- [ ] Regex uses `[0-9]` not `\d` when matching ASCII-only digits (Python `\d` matches Arabic-Indic ٠-٩).
+- [ ] Regex uses `[a-zA-Z]` not `\w` when matching Latin-only characters (Python `\w` matches Arabic letters).
+- [ ] Diacritics range boundaries are inclusive of maddah U+0653 (common off-by-one with exclusive `range()`).
 
 ### Data Integrity (D-023)
 - [ ] Metadata from upstream is preserved in output — nothing stripped.

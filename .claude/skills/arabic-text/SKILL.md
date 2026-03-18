@@ -36,6 +36,13 @@ Arabic scholarly text has properties that break naive string processing. Every d
 - Word boundaries are not always clear. Prepositions and conjunctions attach to words: والكتاب = و + ال + كتاب
 - This affects: tokenization, search, passage boundary detection, atom detection.
 
+### Regex Patterns
+- `\d` matches Arabic-Indic digits (٠-٩) in Python 3. Use `[0-9]` for ASCII-only digit matching. This is the #1 source of silent bugs in Arabic text processing.
+- `\w` matches Arabic letters. Use `[a-zA-Z]` or `[a-zA-Z0-9]` for Latin-only word characters.
+- `\b` (word boundary) does NOT work reliably at Arabic word boundaries — clitics (ال, و, ب) don't create `\b` boundaries.
+- `\s` is generally safe but verify ZWNJ (U+200C), ZWSP (U+200B), ZWJ (U+200D) are preserved — they are NOT whitespace in Python 3 but future versions could change.
+- Prefer explicit Unicode ranges: `[\u0600-\u06FF]` for Arabic block, `[\u0750-\u077F]` for supplement.
+
 ## Code Patterns
 
 ### Safe String Comparison

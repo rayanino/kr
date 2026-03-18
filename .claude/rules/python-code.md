@@ -5,6 +5,7 @@ globs: ["engines/*/src/**/*.py", "shared/*/src/**/*.py", "scripts/**/*.py"]
 - Pydantic models for all data contracts. Use `model_validator` for cross-field validation.
 - Errors fail loud: raise specific exceptions, never return None for failures, never bare `except:`.
 - Arabic text: NEVER use `.lower()`, `.upper()`, `.strip()`, or `.replace()` on Arabic strings without checking `.claude/skills/arabic-text/SKILL.md`.
+- Regex in Arabic contexts: NEVER use `\d` for ASCII digits — Python `\d` matches Arabic-Indic (٠-٩). Use `[0-9]`. See `.claude/rules/regex-arabic-digits.md`.
 - Metadata preservation (D-023): every function that transforms data must pass through ALL upstream metadata fields.
 - Use `from __future__ import annotations` in all new files.
 - Prefer `pathlib.Path` over `os.path`.
