@@ -1,102 +1,305 @@
-# NEXT — Write Session 3 handoff (Architect session)
+# NEXT — Build Session 3: Structure Discovery (Pass 4)
 
-## Current position: Session 2 COMPLETE and ACCEPTED (commit 79a4e76). Shamela Passes 1–3 implemented: 1,115 lines, 65 tests, all 10 ADV-001–010 pass, 13 real fixtures parse successfully, 4,160 pages/sec on 1,720-page multi-volume.
-## What to do: Write Build Session 3 NEXT.md for Claude Code — Structure Discovery (4-tier heading detection, division tree construction).
-## Context: Session 3 implements Pass 4 of the Shamela normalizer. It consumes the `title_spans`, `pagehead_text`, `starts_with_zwnj_heading`, and `primary_text` fields from Session 2's `CleanedPage` output and produces the `division_tree` (manifest) and `structural_markers` (per content unit). The ABD `discover_structure.py` (2,896 lines) provides behavioral reference. Tier 3 LLM decision is MADE: stub with clean interface (see below).
-## Owner action needed: YES after — to give the Session 3 handoff to CC.
+## Current position: Session 2 COMPLETE and ACCEPTED (commit 6a882ca). Shamela Passes 1–3 implemented: 1,115 lines shamela.py, 724 lines contracts.py, 130 lines errors.py, 56 lines base.py. 106 tests passing, 22 skipped. All 10 ADV-001–010 pass. 13 real fixtures + 1 hand-crafted (ibn_aqil) parse successfully. 4,160 pages/sec on 1,720-page multi-volume.
+## What to do: Implement Pass 4 — Structure Discovery. New module `structure_discovery.py` implementing 4-tier heading detection + division tree construction. Called from `shamela.py._pass4_discover_structure()`.
+## Context: Pass 4 consumes `CleanedPage` output from Session 2 (title_spans, starts_with_zwnj_heading, primary_text, unit_index) and produces: (a) per-page `StructuralMarkers` (heading_detected, heading_text, heading_level, detection_method, confidence) for each content unit, and (b) the manifest-level `division_tree` (nested `DivisionNode` array) + `QualityReport.division_count_by_tier` and `overall_confidence`. The ABD `discover_structure.py` (2,896 lines) provides behavioral reference but uses different data structures — KR's `DivisionNode` has 9 fields (not ABD's ~18), nested `children` (not flat parent_id/child_ids), and follows SPEC §4.A.6 thresholds (not ABD's different ones).
+## Owner action needed: YES after — to give Session 3 handoff to CC in plan mode, then implementation.
 
 ---
 
-## Session 2 Deliverables (what's already built)
-
-Session 2 produced `CleanedPage` objects that carry all signals Pass 4 needs:
-
-| Field | Source | What Pass 4 does with it |
-|-------|--------|--------------------------|
-| `title_spans: list[str]` | Pass 1 — double-quote `<span class="title">` | Tier 1 headings (confirmed, html_tagged) |
-| `pagehead_text: Optional[str]` | Pass 1 — PageHead div text | Record in `structural_markers.heading_text` |
-| `starts_with_zwnj_heading: bool` | Pass 3 — double ZWNJ at line start | Tier 2 signal (high confidence) |
-| `primary_text: str` | Pass 3 — cleaned text | Tier 2 keyword scanning (باب, فصل, مبحث, etc.) |
-| `unit_index: int` | Pass 1 — monotonic | Division node `start_unit_index` / `end_unit_index` |
-
-Code location: `engines/normalization/src/normalizers/shamela.py` (1,115 lines).
-
 ## Read First (in this order)
 
-1. `engines/normalization/CLAUDE.md` (105L) — Engine orientation, module map. Session 3 row says: "Structure discovery (4-tier headings, division tree) | §4.A.6, structural_patterns.yaml".
+1. `engines/normalization/CLAUDE.md` (104L) — Engine orientation. Session 3 row: "Structure discovery (4-tier headings, division tree) | §4.A.6, structural_patterns.yaml". Module map shows `src/structure_discovery.py` as a separate module.
 
-2. `engines/normalization/SPEC.md` lines 200–207 — §4.A.2 Pass 4 overview (already read in Session 2 prep but re-read for Pass 4 specifics). Key: Tier 1 from frozen HTML, Tier 1.5 TOC, Tier 2 keyword heuristics, Tier 3 LLM, output = division tree + structural_markers.
+2. `engines/normalization/SPEC.md` lines 200–207 — §4.A.2 Pass 4 overview. Describes 4 tiers, outputs, integration point.
 
-3. `engines/normalization/SPEC.md` lines 564–654 — §4.A.6 complete structure discovery specification. This is the behavioral authority. Covers: division tree format, heading text in primary_text rules, the 4-tier confidence architecture, TOC cross-referencing, hierarchy inference rules, structure confidence scoring, concrete example.
+3. `engines/normalization/SPEC.md` lines 564–616 — §4.A.6 complete structure discovery specification. Behavioral authority for: division tree format, heading text rules, 4-tier confidence architecture, TOC cross-referencing, hierarchy inference rules, structure confidence scoring, concrete example. **This is the law — when ABD code disagrees with this, SPEC wins.**
 
-4. `engines/normalization/reference/structural_patterns.yaml` (340L) — Arabic heading keyword patterns. Quote-style differentiator (already used by Session 2), tagged headings, keyword patterns for باب/فصل/etc., ordinal detection, ZWNJ heading patterns.
+4. `engines/normalization/SPEC.md` lines 1488–1492 — §5 check 5 division tree validity. Four invariants that `_check_division_tree()` will enforce (Session 6 implementation). Pass 4 must produce trees that satisfy these invariants NOW.
 
-5. `reference/archive/abd_code/normalization/discover_structure.py` (2,896L) — ABD 4-tier structure discovery. MASSIVE reference. Read selectively: class architecture, Tier 1 extraction, Tier 2 keyword logic, hierarchy construction. The KR upgrade adds: DivisionNode output format, §5 validation, integration with Session 2's CleanedPage.
+5. `engines/normalization/contracts.py` — Read these specific types:
+   - `HeadingConfidence` enum (lines 42–47): `CONFIRMED`, `HIGH`, `MEDIUM`, `LOW`
+   - `HeadingDetectionMethod` enum (lines 50–57): `HTML_TAGGED`, `KEYWORD_HEURISTIC`, `LLM_DISCOVERED`, `TOC_INFERRED`, `HUMAN_OVERRIDE`, `LAYOUT_DETECTED`
+   - `StructuralMarkers` (lines 189–196): 5 fields, all Optional with defaults. One heading per content unit.
+   - `DivisionNode` (lines 483–495): 9 fields. Nested `children: list[DivisionNode]`.
+   - `DivisionType` enum (lines 466–480): 13 values including Arabic structural types.
+   - `QualityReport` (lines 528–539): `division_count_by_tier` dict, `overall_confidence`.
+   - `NormalizedManifest.division_tree` (line 670): `list[DivisionNode]`, top-level divisions.
 
-6. `engines/normalization/contracts.py` — `DivisionNode` (lines 483–495), `DivisionType` enum (lines 466–480), `StructuralMarkers` (lines 189–196), `HeadingConfidence` enum (lines 42–47), `HeadingDetectionMethod` enum (lines 50–57), `QualityReport.division_count_by_tier` (line 532).
+6. `engines/normalization/reference/structural_patterns.yaml` (340L) — Arabic heading keyword patterns. Load with PyYAML. Key sections: `keyword_patterns` (hierarchy levels), `ordinal_patterns`, `hierarchy_rules`, `inline_division_patterns`. This file drives Tier 2 keyword detection.
 
-7. `engines/normalization/src/normalizers/shamela.py` (1,115L) — Session 2 implementation. Session 3 adds a `_pass4_discover_structure()` method that takes `list[CleanedPage]` and returns structure data to attach to each page's `structural_markers` and a top-level `division_tree`.
+7. `engines/normalization/src/normalizers/shamela.py` (1,104L) — Session 2 implementation. Read `CleanedPage` class (lines 229–259) for available fields. Read `normalize()` method (lines 460–489) for the integration point — Pass 4 replaces the `NotImplementedError` at line 484. Pass 4 receives `list[CleanedPage]` and `metadata: SourceMetadata`.
 
-8. `reference/SPEC_ADVERSARY_NORMALIZATION.md` — ADV-016 (باب in name, not heading), ADV-017 (child extends beyond parent), ADV-018 (Tier 1 + Tier 2 duplicate detection). These are mandatory tests for Session 3.
+8. `reference/archive/abd_code/normalization/discover_structure.py` (2,896L) — ABD behavioral reference. Read SELECTIVELY (it's huge):
+   - `HeadingCandidate` dataclass (lines 78–93) — internal intermediate structure
+   - `CITATION_PREFIXES` (lines 66–71) — prevents false positive keyword detection
+   - `pass1_extract_html_headings()` (lines 271–392) — Tier 1 logic. BUT: KR doesn't re-parse HTML; it uses `CleanedPage.title_spans` already extracted by Session 2. Study the dedup and ordering logic, not the HTML parsing.
+   - `pass1_5_parse_toc()` (lines 404–478) — TOC dot-leader parsing.
+   - `pass2_keyword_scan()` (lines 496–667) — Tier 2 keyword detection. Core algorithm to adapt. Study: line-start anchoring, citation prefix filtering, confidence assignment, dedup with Pass 1 headings, inline heading detection.
+   - `build_hierarchical_tree()` (lines 1199–1451) — Tree construction with iterative range computation. Study: sibling range computation, parent-child containment validation, detachment of out-of-range children.
+   - `compute_structure_confidence()` (lines 2203–2216) — ABD confidence uses DIFFERENT thresholds than SPEC. **USE SPEC THRESHOLDS (§4.A.6 lines 589–593), NOT ABD'S.**
+   - `cross_reference_toc()` (lines 1458–1533) — TOC matching and heading promotion.
+   - `normalize_arabic_for_match()` (lines 204–218) — Arabic text normalization for dedup (strip diacritics, normalize alef/ya for matching only).
 
-9. `reference/protocols/REVIEW_PROTOCOL.md` — Mandatory two-pass review protocol. Read before reviewing CC output.
+9. `engines/normalization/src/errors.py` (130L) — Error codes. `NORM_SPARSE_STRUCTURE` (line 32, severity WARNING) is the relevant code for Tier 3 stub.
 
-10. `reference/protocols/PRE_HANDOFF_VERIFICATION.md` — Mandatory foundation verification before committing handoffs.
+10. `reference/SPEC_ADVERSARY_NORMALIZATION.md` — Read ADV-016, ADV-017, ADV-018 (search for these IDs). These are mandatory tests for Session 3.
 
-11. `reference/protocols/DECISION_DISCIPLINE.md` — Make decisions immediately, don't defer.
+11. `engines/normalization/MUSTFIX_RESOLUTIONS.md` (121L) — MF-1 explains why `DivisionNode` has 9 fields (not ABD's ~18). Critical context for understanding field differences.
 
-## Tier 3 Scoping Decision: DECIDED — Option B (stub with hook)
+12. `engines/source/contracts.py` — `SourceMetadata` class. Pass 4 needs `source_id` (for div_id generation) and `genre` (passed through to structure discovery for future Tier 3). Already imported in shamela.py from Session 2.
 
-**Decision:** Build Tiers 1, 1.5, 2 fully. Tier 3 gets a clean interface that raises `NotImplementedError` and logs `NORM_SPARSE_STRUCTURE` when Tiers 1-2 find insufficient headings.
+---
 
-**Evidence:** Empirical analysis of all 13 fixtures shows zero would trigger Tier 3. Every fixture has ≥3 Tier 1 headings per 50 pages. The smallest ratio is fixture 02_nahw_muhaqiq (19 headings / 296 pages). Fixture 07_balagha has 146 Tier 1 + 34 Tier 2 headings across 288 pages. Passaging engine development needs division trees — Tiers 1-2 provide sufficient structure for all test data.
+## What to Build
 
-**Tier 3 hook interface** (for Session 3 to stub):
+### Deliverable 1: `engines/normalization/src/structure_discovery.py` — New module
+
+The core structure discovery logic. Called from `shamela.py` but designed to be normalizer-agnostic in its tree-building and hierarchy inference (keyword detection is Shamela-specific).
+
+**Internal data structure** (not in contracts.py — internal to this module):
+
 ```python
-def _tier3_llm_discover(
-    self,
-    candidates: list[HeadingCandidate],
-    genre: str,
-    existing_headings: list[DivisionNode],
-    text_windows: list[str],
-) -> list[HeadingCandidate]:
-    """Tier 3: LLM semantic judgment for ambiguous headings.
-    NOT YET IMPLEMENTED — stubbed with NORM_SPARSE_STRUCTURE logging."""
-    raise NotImplementedError("Tier 3 LLM structure discovery")
+@dataclass
+class HeadingCandidate:
+    """Intermediate heading found by Tier 1, 1.5, or 2. Not exported."""
+    heading_text: str
+    unit_index: int
+    detection_method: HeadingDetectionMethod  # from contracts.py enum
+    confidence: HeadingConfidence  # from contracts.py enum
+    keyword_type: Optional[DivisionType] = None  # parsed structural type
+    ordinal: Optional[int] = None
+    document_position: int = 0  # ordering within same page (0, 1, 2...)
+    is_inline: bool = False
 ```
 
-## Adversarial Cases for Session 3
+**Functions to implement:**
 
-| ADV | Type | What it tests |
-|-----|------|---------------|
-| ADV-016 | arabic_trap | "باب" in scholar name, not at line start → no heading |
-| ADV-017 | format_edge_case | Division tree child page range extends beyond parent |
-| ADV-018 | multi_signal_conflict | Tier 1 heading also matches Tier 2 keyword → one node, not two |
+1. `discover_structure(pages: list[CleanedPage], source_id: str, genre: str) -> StructureResult`
+   - Orchestrator. Calls Tier 1 → Tier 1.5 → Tier 2 → dedup → hierarchy inference → tree construction → confidence scoring.
+   - Returns a `StructureResult` (internal dataclass) containing: `division_tree: list[DivisionNode]`, `page_markers: dict[int, StructuralMarkers]` (keyed by unit_index), `quality_counts: dict[str, int]` (division count by tier for QualityReport), `overall_confidence: HeadingConfidence`.
 
-## Key Complexity Notes
+2. `_tier1_html_tagged(pages: list[CleanedPage]) -> tuple[list[HeadingCandidate], list[int]]`
+   - Extracts headings from `CleanedPage.title_spans`. Each title_span → one HeadingCandidate with `method=HTML_TAGGED`, `confidence=CONFIRMED`.
+   - Multiple title_spans per page → multiple candidates with same unit_index but incrementing document_position.
+   - Detect TOC headings by exact match against فهرس/فهرس الموضوعات/المحتويات/etc. (see ABD `toc_exact_titles` set, line 368). Return TOC page unit_indices as second element.
+   - Parse `keyword_type` from heading text (does it start with باب, فصل, etc.?).
 
-1. **Hierarchy inference.** كتاب > باب > فصل > مبحث > مطلب > فائدة/تنبيه/قاعدة. Ordinal sequences are siblings. Ambiguous levels need context. The ABD code has extensive logic for this — study it carefully.
+3. `_tier1_5_toc_parse(pages: list[CleanedPage], toc_unit_indices: list[int]) -> list[TOCEntry]`
+   - Parse dot-leader lines from TOC pages. Regex: `r"^(.+?)\s*[\.·…]{3,}\s*([٠-٩0-9]+)\s*$"` (verified).
+   - Scan from first TOC page through up to 10 pages after last TOC page. Stop after 3 consecutive pages with no entries.
+   - Return `TOCEntry` list (internal dataclass: title, page_number, indent_level).
 
-2. **Division node page ranges.** Each `DivisionNode` has `start_unit_index` and `end_unit_index` (inclusive). Computing these requires knowing where the NEXT heading at the same or higher level appears. This is a two-pass problem: first detect headings, then build the tree with ranges.
+4. `_tier1_5_toc_crossref(candidates: list[HeadingCandidate], toc_entries: list[TOCEntry], pages: list[CleanedPage]) -> list[HeadingCandidate]`
+   - Match TOC entries to existing candidates by fuzzy title comparison (study ABD `_toc_match_score`, line 1534).
+   - Matching entries: promote confidence to HIGH if currently MEDIUM.
+   - Unmatched TOC entries: create new HeadingCandidate with `method=TOC_INFERRED`, `confidence=MEDIUM`, at the unit_index closest to the TOC-listed page number.
 
-3. **`structural_markers` vs `division_tree`.** Each content unit gets `structural_markers` (was a heading detected on this page?). The manifest gets `division_tree` (the full hierarchy). These must be consistent — every heading in the division tree must correspond to a `structural_markers.heading_detected = True` on the corresponding page.
+5. `_tier2_keyword_scan(pages: list[CleanedPage], tier1_headings: list[HeadingCandidate]) -> list[HeadingCandidate]`
+   - Load keyword patterns from `structural_patterns.yaml` (path: `engines/normalization/reference/structural_patterns.yaml`).
+   - For each page, scan each line of `primary_text` for keyword matches.
+   - **Keyword regex:** `r"^(kw1|kw2|...)(?=[\s:؛\-–—]|$)"` anchored to line start, lookahead for word boundary (verified).
+   - **Include both indefinite AND definite forms** (باب AND الباب, فصل AND الفصل, etc.). Build keyword list from `structural_patterns.yaml` entries.
+   - **ZWNJ detection:** If a line starts with `\u200c\u200c` (double ZWNJ), strip the ZWNJ prefix and check the remaining text for keyword match. Confidence = HIGH for ZWNJ-prefixed keywords.
+   - **Citation prefix filtering:** Before accepting a keyword match, check the PRECEDING line's tail (last 40 chars) for citation prefixes: `["قال في", "ذكر في", "كما في", "انظر", "ارجع إلى", "راجع", "في كتاب", "في باب", "في فصل", "ورد في", "جاء في", "نقل في"]`. Skip if found. (See ABD lines 626–638.)
+   - **TOC line rejection:** Skip lines matching dot-leader pattern (verified regex).
+   - **Confidence assignment** (follow ABD logic, lines 588–626):
+     - KEYWORD + ORDINAL + `:` or `؛` → HIGH (max 120 chars)
+     - KEYWORD + ORDINAL alone → HIGH (max 60 chars)
+     - KEYWORD + ORDINAL + TITLE → HIGH (max 120 chars)
+     - KEYWORD + `:` or `في` → MEDIUM (max 100 chars)
+     - KEYWORD alone → MEDIUM (max 30 chars)
+     - KEYWORD + `-` or `:` + content → MEDIUM, inline=True (max 400 chars)
+   - **Dedup with Tier 1:** Build index of `(unit_index, normalized_title_prefix[:30])` from Tier 1 headings. Skip any Tier 2 match that collides. This prevents ADV-018 (duplicate heading).
 
-4. **TOC cross-referencing (Tier 1.5).** If `is_toc_page` is detected in content_flags (from Session 5, not yet built), TOC entries can validate/promote other headings. For Session 3, TOC detection can be stubbed — it's a refinement, not the foundation.
+6. `_tier3_llm_discover(candidates, genre, existing_headings, text_windows) -> list[HeadingCandidate]`
+   - **STUB ONLY.** Raise `NotImplementedError("Tier 3 LLM structure discovery")`.
+   - **Trigger condition:** Check BEFORE raising: if total candidates < 3 AND total pages >= 50, log `NORM_SPARSE_STRUCTURE` warning with page count and candidate count. Then raise.
+   - The calling code must catch `NotImplementedError` and continue with Tiers 1-2 results only.
+
+7. `_infer_hierarchy(candidates: list[HeadingCandidate]) -> list[HeadingCandidate]`
+   - Assign `heading_level` (1–10) to each candidate based on keyword_type.
+   - **Standard hierarchy** (SPEC §4.A.6 line 583): `كتاب(1) > باب(2) > فصل(3) > مبحث(4) > مطلب(5) > فائدة/تنبيه/قاعدة(6)`.
+   - Ordinal sequences are siblings (SPEC §4.A.6 line 585): consecutive candidates with same keyword_type and sequential ordinals → same level.
+   - `مقدمة` → level 2 (within a كتاب) or level 1 (at start of book).
+   - `خاتمة` → same level as the divisions it concludes.
+   - `volume` → level 0.
+   - `implicit` (no keyword match) → assign level based on these rules IN ORDER:
+     1. If the heading is between two headings of the same level, assign that level (it's a sibling).
+     2. If the heading follows a heading of level N and precedes a heading of level N+1, assign level N (it's a section at the same level).
+     3. If none of the above apply, assign level = (deepest level seen so far + 1), capped at 10.
+     4. Fallback: level 3 (generic mid-level).
+   - HTML_TAGGED headings without keyword match: same rules as `implicit` above.
+
+8. `_build_division_tree(candidates: list[HeadingCandidate], total_pages: int, source_id: str) -> list[DivisionNode]`
+   - Sort candidates by (unit_index, document_position).
+   - Dedup exact duplicates: same (unit_index, normalized_title_prefix[:40]).
+   - Build tree using heading_level: lower level = parent, same level = sibling.
+   - **Page range computation** (critical — study ABD `_compute_sibling_ranges`, lines 1352–1370):
+     - Siblings: each runs from its start_unit_index to (next sibling's start - 1). Last sibling extends to parent's end.
+     - Root nodes: last root extends to total_pages - 1.
+     - **Iterative containment enforcement**: After computing ranges, verify children are within parent bounds. Detach any child whose start falls outside parent range. Recompute. Repeat up to 5 iterations until stable.
+     - Hard invariant: `end_unit_index >= start_unit_index` always.
+   - Generate `div_id` in format `div_{source_id}_{depth}_{running_index}` where depth = heading_level, running_index = zero-padded sequential within that depth.
+   - Map `keyword_type` → `DivisionType` enum value. `None` if no keyword match.
+   - Return `list[DivisionNode]` — top-level nodes with nested children.
+
+9. `_compute_confidence(divisions: list[DivisionNode], total_pages: int) -> HeadingConfidence`
+   - **Use SPEC thresholds** (§4.A.6 lines 589–593), NOT ABD's:
+     - Count "high-confidence" divisions: those with confidence CONFIRMED or HIGH.
+     - Ratio = high_confidence_count / total_division_count.
+     - ratio > 0.80 → HeadingConfidence.HIGH (overall)
+     - 0.50 <= ratio <= 0.80 → HeadingConfidence.MEDIUM
+     - ratio < 0.50 → HeadingConfidence.LOW
+     - total divisions < 3 AND total_pages >= 50 → HeadingConfidence.LOW (minimal case — log NORM_SPARSE_STRUCTURE)
+
+10. `_build_page_markers(candidates: list[HeadingCandidate]) -> dict[int, StructuralMarkers]`
+    - Group candidates by unit_index.
+    - For each page with >= 1 candidate: create `StructuralMarkers` from the FIRST candidate (lowest document_position) on that page.
+    - `heading_detected=True`, `heading_text=candidate.heading_text`, `heading_level=candidate.heading_level`, `heading_detection_method=candidate.detection_method`, `heading_confidence=candidate.confidence`.
+
+11. `normalize_arabic_for_match(text: str) -> str`
+    - Strip diacritics (U+064B–U+0652, U+0670, U+0640), normalize alef forms (أ/إ/آ → ا), normalize ya (ى → ي), strip ZWNJ/ZWJ. For matching/dedup only — never applied to stored text.
+
+### Deliverable 2: Integration in `shamela.py`
+
+1. Add `_pass4_discover_structure(self, cleaned: list[CleanedPage], metadata: SourceMetadata) -> tuple[list[DivisionNode], dict[int, StructuralMarkers], dict[str, int], HeadingConfidence]`
+   - Calls `structure_discovery.discover_structure()`.
+   - Returns (division_tree, page_markers, division_count_by_tier, overall_confidence).
+
+2. Update `normalize()` method (line 484): Replace `NotImplementedError` with Pass 4 call. Wire results into a local variable for use by Passes 5–6 (still NotImplementedError after Pass 4).
+   ```python
+   # Pass 4: Structure discovery
+   division_tree, page_markers, div_counts, struct_confidence = \
+       self._pass4_discover_structure(cleaned, metadata)
+
+   # Passes 5–6: NOT YET IMPLEMENTED (Sessions 4–5)
+   raise NotImplementedError(
+       "Passes 5–6 not yet implemented. "
+       f"Pass 4 discovered {sum(div_counts.values())} divisions "
+       f"({struct_confidence.value} confidence) "
+       f"from {len(cleaned)} pages."
+   )
+   ```
+
+### Deliverable 3: Tests — `engines/normalization/tests/test_structure_discovery.py`
+
+**Test strategy:** Use real fixtures to test end-to-end structure discovery. Pass fixtures through Passes 1–3 first (call the existing normalizer methods), then pass the `list[CleanedPage]` to Pass 4.
+
+**Mandatory tests:**
+
+1. **ADV-016 (arabic_trap):** Construct a `CleanedPage` where `primary_text` contains "باب" mid-line in a scholar name. Assert `heading_detected == False` for that page.
+
+2. **ADV-017 (tree_validity):** After building a division tree from any real fixture, verify ALL four §5 check 5 invariants:
+   - Every node: `start_unit_index <= end_unit_index`
+   - Siblings: no overlapping page ranges
+   - Children: contained within parent's range
+   - Coverage: no unit_index gaps (every page is inside at least one division)
+
+3. **ADV-018 (dedup):** Construct a `CleanedPage` where `title_spans=["باب الطهارة"]` AND `primary_text` starts with `باب الطهارة`. Assert exactly ONE DivisionNode with `detection_method=HTML_TAGGED`, not two.
+
+4. **Real fixture: 07_balagha** — Run Passes 1–4 on the balagha fixture. Verify:
+   - `division_tree` is non-empty
+   - All DivisionNodes have valid `div_id` format
+   - `overall_confidence` is `CONFIRMED` or `HIGH` (this book has 146+ Tier 1 headings)
+   - Pages with multiple `title_spans` (33 pages) don't produce duplicate nodes
+
+5. **Real fixture: 01_nahw_simple** — A simpler book. Verify basic tree structure.
+
+6. **Multi-volume: 12_multi_muq** — Verify volume boundary handling.
+
+7. **Keyword detection basics:** Construct pages with known keyword lines. Verify correct `DivisionType` assignment, confidence levels, and ordinal detection.
+
+8. **Citation prefix rejection:** Construct a page with "كما في باب الصلاة" (citation, not heading). Assert no heading detected.
+
+9. **ZWNJ heading detection:** Construct a page with `primary_text` starting with `\u200c\u200cباب الوضوء`. Assert heading detected with confidence HIGH.
+
+10. **TOC detection and parsing:** If any fixture has a TOC (check the last few pages for فهرس/المحتويات in title_spans), verify TOC entries are parsed. If no fixture has TOC, construct a synthetic one.
+
+11. **Empty/minimal books:** Verify that a book with <3 headings and >= 50 pages triggers `NORM_SPARSE_STRUCTURE` warning (Tier 3 stub path).
+
+12. **Confidence scoring thresholds:** Parameterized test with known heading distributions verifying SPEC thresholds (>80% = HIGH, 50-80% = MEDIUM, <50% = LOW).
+
+---
+
+## Critical Design Decisions (already made — implement as specified)
+
+### D1: StructuralMarkers records ONE heading per page
+`StructuralMarkers` has singular fields (one heading_text, one heading_level, etc.). When a page has multiple headings (11.5% of balagha fixture has 2-4 title_spans per page), `StructuralMarkers` records the FIRST heading (lowest document_position). The division tree records ALL headings — it is the complete record. This matches the contract.
+
+### D2: pagehead_text is NOT a heading source
+`CleanedPage.pagehead_text` is Shamela navigation metadata (the current chapter label), not a new heading detection. It persists across consecutive pages in the same section. Do NOT use `pagehead_text` to set `heading_detected = True`. Only `title_spans` (Tier 1) and keyword/ZWNJ matches in `primary_text` (Tier 2) create headings.
+
+### D3: Tier 3 is a stub with clean interface
+Tier 3 raises `NotImplementedError`. The calling code catches it and continues with Tiers 1–2 results. Log `NORM_SPARSE_STRUCTURE` when the trigger condition is met (< 3 headings in >= 50 pages).
+
+### D4: Tier 1.5 TOC — implement detection + parsing + basic cross-referencing
+TOC pages are detected from `title_spans` matching exact titles (فهرس, فهرس الموضوعات, المحتويات, etc.). Entries are parsed via dot-leader regex. Cross-referencing promotes matching headings and creates new TOC_INFERRED candidates. Follow ABD code structure.
+
+### D5: SPEC thresholds override ABD thresholds
+ABD `compute_structure_confidence` uses 70%/30% thresholds and only counts `html_tagged`. SPEC §4.A.6 uses 80%/50% thresholds and counts both `CONFIRMED` and `HIGH`. **Follow SPEC.**
+
+### D6: Keyword list includes both indefinite and definite forms
+Load keywords from `structural_patterns.yaml` and also include definite forms (الباب, الفصل, المبحث, etc.). The yaml file has both forms documented. Build regex dynamically from yaml entries.
+
+---
 
 ## Do NOT Do
 
-- Do NOT modify Session 2 code (`shamela.py` Passes 1–3) except to add the Pass 4 method call.
-- Do NOT implement Pass 5 (layer detection) or Pass 6 (output assembly).
-- Do NOT implement `content_flags` detection (that's Pass 6 / Session 5).
-- Do NOT modify `contracts.py` unless a genuine gap is found.
+- **Do NOT modify Passes 1–3 code** in shamela.py except to add the Pass 4 integration call in `normalize()`.
+- **Do NOT modify contracts.py** unless a genuine gap is discovered (the 9-field DivisionNode and StructuralMarkers are sufficient).
+- **Do NOT implement Pass 5 (layer detection)** or Pass 6 (output assembly).
+- **Do NOT implement §5 validation checks** — those are Session 6. But DO ensure your output would pass §5 check 5.
+- **Do NOT implement content_flags detection** — that is Session 5.
+- **Do NOT implement the Tier 3 LLM** — stub only.
+- **Do NOT apply Unicode normalization (NFC/NFD) to Arabic text.** The `normalize_arabic_for_match()` function is for matching/dedup only, never stored text.
+- **Do NOT use ABD's `DivisionNode` fields** (parent_id, child_ids, digestible, editor_inserted, etc.). Use KR's `DivisionNode` from contracts.py (9 fields, nested children).
+- **Do NOT re-parse the HTML file** for Tier 1. Session 2 already extracted `title_spans`. Use those.
 
-## After Writing
+---
 
-**Before committing the handoff:** Follow `reference/protocols/PRE_HANDOFF_VERIFICATION.md` — verify every regex, trace all data flows through intermediate structures, test parser behavior empirically. Do NOT commit until verification is complete.
+## Verification
 
-**When CC finishes Session 3:** Follow `reference/protocols/REVIEW_PROTOCOL.md` — mandatory two-pass review. Pass 1 structural, Pass 2 adversarial with probing scripts and fixture spot-checks. Report cumulative build metrics.
+### Pass criteria (all must be true):
 
-Commit the Session 3 NEXT.md. Owner gives it to CC in plan mode first, then implementation.
+1. `pytest engines/normalization/tests/ -v` — ALL tests pass (existing + new), zero failures.
+2. ADV-016, ADV-017, ADV-018 all pass as explicit named tests.
+3. At least 3 real fixtures produce non-empty `division_tree` with valid tree structure.
+4. `div_id` format matches `div_{source_id}_{depth}_{index}` on all nodes.
+5. No `StructuralMarkers` has `heading_detected=True` with `heading_text=None` (consistency).
+6. For fixture 07_balagha: `overall_confidence` is `CONFIRMED` or `HIGH`.
+7. The `normalize()` method calls Pass 4 and reaches the new `NotImplementedError` for Passes 5–6 (not the old one for Passes 4–6).
+8. `NORM_SPARSE_STRUCTURE` is logged when Tier 3 trigger condition is met.
+
+### Commands to verify:
+
+```bash
+# Run all tests
+cd /path/to/kr
+python -m pytest engines/normalization/tests/ -v --tb=short
+
+# Verify structure discovery on a real fixture (quick smoke test)
+python -c "
+from engines.normalization.src.structure_discovery import discover_structure
+# ... load fixture, call discover, print summary
+"
+```
+
+---
+
+## After This
+
+1. **Build Prober:** After CC finishes, invoke `build-prober` agent on Session 3 diff.
+2. **Architect review:** Two-pass review per `reference/protocols/REVIEW_PROTOCOL.md`:
+   - Pass 1: Read every file, run all tests, SPEC cross-reference.
+   - Pass 2: 3–5 interaction probes (constructed edge cases), 2–3 fixture semantic spot-checks.
+3. **Cumulative metrics update** (target after Session 3):
+   ```
+   Implementation: ~2,800-3,200 lines (shamela.py ~1,150, structure_discovery.py ~600-800, contracts.py 724, errors.py 130, base.py 56)
+   Tests: ~1,800-2,100 lines (existing 1,274 + new ~500-800)
+   Test count: ~140-160 passing
+   ADV covered: 13/51 (ADV-001–010 + ADV-016–018)
+   ```
 
 ---
 
@@ -114,7 +317,6 @@ Performance:     4,160 pages/sec on 1,720-page multi-volume
 
 ## Known Limitations (from Session 2)
 
-See `engines/normalization/KNOWN_LIMITATIONS.md` for details:
-- **L-001:** Bare-number and unnumbered footnotes classified but not parsed (105 pages across 3 fixtures). Text preserved in preamble, no data loss. Fix point: Session 5.
-- **L-002:** ضياء السالك commentary numbering collision (1 book). Fix point: Session 4 (layer detection).
-
+See `engines/normalization/KNOWN_LIMITATIONS.md`:
+- **L-001:** Bare-number and unnumbered footnotes classified but not parsed (105 pages, 3 fixtures). Fix: Session 5.
+- **L-002:** ضياء السالك commentary numbering collision (1 book). Fix: Session 4 (layer detection).
