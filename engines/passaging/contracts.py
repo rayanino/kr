@@ -134,7 +134,7 @@ class DivisionPathEntry(BaseModel):
     """One node in the division path from root to passage (SPEC §3)."""
     div_id: str = Field(description="Passaging-engine-generated ID: div_{source_id}_{depth}_{index}")
     heading_text: str
-    heading_level: int = Field(ge=1, le=10)
+    heading_level: int = Field(ge=0, le=10)
 
 
 class UnitRange(BaseModel):

@@ -565,7 +565,7 @@ Detection reasoning: "قوله:" (marker, confidence ≥ 0.90 → transition to 
 
 Structure discovery identifies the source's internal organizational hierarchy — headings, chapters, divisions. This is the normalization engine's job because structural signals are format-specific and are lost after normalization.
 
-**The division tree.** Output is a tree of division nodes. Each node: `div_id` (format: `div_{source_id}_{depth}_{index}`), `division_type` (one of: `كتاب`, `باب`, `فصل`, `مبحث`, `مطلب`, `فائدة`, `تنبيه`, `قاعدة`, `خاتمة`, `مقدمة`, `implicit`, `volume`, `root`; null if heading doesn't match a known keyword), `heading_text`, `heading_level` (1–10), `start_unit_index`, `end_unit_index` (inclusive), `detection_method`, `confidence`, `children` (nested `DivisionNode` array forming the tree).
+**The division tree.** Output is a tree of division nodes. Each node: `div_id` (format: `div_{source_id}_{depth}_{index}`), `division_type` (one of: `كتاب`, `باب`, `فصل`, `مبحث`, `مطلب`, `فائدة`, `تنبيه`, `قاعدة`, `خاتمة`, `مقدمة`, `implicit`, `volume`, `root`; null if heading doesn't match a known keyword), `heading_text`, `heading_level` (0–10, where 0 = volume boundary per line 587), `start_unit_index`, `end_unit_index` (inclusive), `detection_method`, `confidence`, `children` (nested `DivisionNode` array forming the tree).
 
 **Heading text in primary_text.** Whether heading text appears in `primary_text` depends on the source type:
 - **Shamela HTML:** `PageHead` elements are Shamela's navigation metadata (the current chapter label), NOT part of the author's text. They are recorded in `structural_markers` but EXCLUDED from `primary_text`. Inline headings detected by keyword heuristics within the page text ARE part of the text and remain in `primary_text`.

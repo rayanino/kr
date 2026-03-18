@@ -54,6 +54,8 @@ class DivisionNode(BaseModel):
     )
     heading_text: str
     heading_level: int = Field(ge=1, le=10)
+    # NOTE: Session 3 widened to ge=0 for volume boundaries (SPEC §4.A.6 line 587).
+    # Actual contract in contracts.py is now: heading_level: int = Field(ge=0, le=10)
     start_unit_index: int = Field(ge=0)
     end_unit_index: int = Field(ge=0, description="Inclusive end")
     detection_method: HeadingDetectionMethod
