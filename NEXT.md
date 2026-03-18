@@ -68,22 +68,26 @@ class HeadingCandidate:
     detection_method: HeadingDetectionMethod  # from contracts.py enum
     confidence: HeadingConfidence  # from contracts.py enum
     keyword_type: Optional[DivisionType] = None  # parsed structural type
+    keyword_raw: Optional[str] = None  # raw keyword from yaml (for non-enum types like تقسيم)
     ordinal: Optional[int] = None
+    heading_level: Optional[int] = None  # assigned by _infer_hierarchy (1–10)
     document_position: int = 0  # ordering within same page (0, 1, 2...)
     is_inline: bool = False
 ```
 
 **Functions to implement:**
 
-1. `discover_structure(pages: list[CleanedPage], source_id: str, genre: str) -> StructureResult`
+1. `discover_structure(pages: list[CleanedPage], source_id: str, genre: Genre) -> StructureResult`
    - Orchestrator. Calls Tier 1 → Tier 1.5 → Tier 2 → dedup → hierarchy inference → tree construction → confidence scoring.
    - Returns a `StructureResult` (internal dataclass) containing: `division_tree: list[DivisionNode]`, `page_markers: dict[int, StructuralMarkers]` (keyed by unit_index), `quality_counts: dict[str, int]` (division count by tier for QualityReport), `overall_confidence: HeadingConfidence`.
+   - Import `Genre` from `engines.source.contracts`.
 
 2. `_tier1_html_tagged(pages: list[CleanedPage]) -> tuple[list[HeadingCandidate], list[int]]`
    - Extracts headings from `CleanedPage.title_spans`. Each title_span → one HeadingCandidate with `method=HTML_TAGGED`, `confidence=CONFIRMED`.
+   - **CRITICAL: Strip leading ZWNJ (U+200C) from title_span text.** Session 2's Pass 1 decoded `&#8204;` entities to U+200C characters. Title spans like `\u200cالباب الأول` must become `الباب الأول` in heading_text. Invisible characters in heading_text corrupt downstream display and matching. Empirically verified: 07_balagha fixture title_spans start with U+200C.
    - Multiple title_spans per page → multiple candidates with same unit_index but incrementing document_position.
    - Detect TOC headings by exact match against فهرس/فهرس الموضوعات/المحتويات/etc. (see ABD `toc_exact_titles` set, line 368). Return TOC page unit_indices as second element.
-   - Parse `keyword_type` from heading text (does it start with باب, فصل, etc.?).
+   - Parse `keyword_type` from heading text (does it start with باب, فصل, etc.?). Also store raw keyword in `keyword_raw` for non-enum types.
 
 3. `_tier1_5_toc_parse(pages: list[CleanedPage], toc_unit_indices: list[int]) -> list[TOCEntry]`
    - Parse dot-leader lines from TOC pages. Regex: `r"^(.+?)\s*[\.·…]{3,}\s*([٠-٩0-9]+)\s*$"` (verified).
@@ -100,6 +104,11 @@ class HeadingCandidate:
    - For each page, scan each line of `primary_text` for keyword matches.
    - **Keyword regex:** `r"^(kw1|kw2|...)(?=[\s:؛\-–—]|$)"` anchored to line start, lookahead for word boundary (verified).
    - **Include both indefinite AND definite forms** (باب AND الباب, فصل AND الفصل, etc.). Build keyword list from `structural_patterns.yaml` entries.
+   - **Plural/dual form mapping:** تنبيهات/تنبيهان → DivisionType.TANBIH, فوائد → DivisionType.FAIDAH, قواعد → DivisionType.QAIDAH, حواشي → None (layer marker, see below).
+   - **EXCLUDE layer markers from Tier 2 heading detection:** حاشية, حواشي, شرح, الشرح are commentary LAYER markers, not structural divisions (yaml notes: "NOT a structural division in the same sense as باب/فصل — it's a commentary layer marker"). Do NOT detect these as headings. They are handled by Pass 5 (layer detection, Session 4).
+   - **EXCLUDE supplementary non-structural markers:** تقاريظ (reviews), خطبة (rhetorical dedication). These may be flagged for `content_flags` (Session 5) but are not structural divisions.
+   - **Indefinite كتاب strictness** (ABD STRICT_INDEFINITE pattern, line 554): Indefinite كتاب (without ال prefix) is a common Arabic noun. Only treat it as a heading if: (a) it has an ordinal (كتاب الأول), OR (b) the line is very short (≤ 20 chars). Without either signal, skip — it's likely a reference ("في كتاب كذا"), not a heading.
+   - **Non-enum keywords:** تقسيم, مدخل, إعراب, مسألة, فرع, تتمة are valid structural keywords from the yaml but have no `DivisionType` enum value. Detect them with `keyword_type=None` and `keyword_raw="تقسيم"` (etc.). The hierarchy inference uses `keyword_raw` to assign levels.
    - **ZWNJ detection:** If a line starts with `\u200c\u200c` (double ZWNJ), strip the ZWNJ prefix and check the remaining text for keyword match. Confidence = HIGH for ZWNJ-prefixed keywords.
    - **Citation prefix filtering:** Before accepting a keyword match, check the PRECEDING line's tail (last 40 chars) for citation prefixes: `["قال في", "ذكر في", "كما في", "انظر", "ارجع إلى", "راجع", "في كتاب", "في باب", "في فصل", "ورد في", "جاء في", "نقل في"]`. Skip if found. (See ABD lines 626–638.)
    - **TOC line rejection:** Skip lines matching dot-leader pattern (verified regex).
@@ -114,16 +123,27 @@ class HeadingCandidate:
 
 6. `_tier3_llm_discover(candidates, genre, existing_headings, text_windows) -> list[HeadingCandidate]`
    - **STUB ONLY.** Raise `NotImplementedError("Tier 3 LLM structure discovery")`.
-   - **Trigger condition:** Check BEFORE raising: if total candidates < 3 AND total pages >= 50, log `NORM_SPARSE_STRUCTURE` warning with page count and candidate count. Then raise.
+   - **Trigger condition:** Check BEFORE raising: if total candidates < `structure_llm_threshold` (default 3) AND total pages >= `structure_min_pages_for_llm` (default 50), log `NORM_SPARSE_STRUCTURE` warning with page count and candidate count. Then raise.
+   - **NOTE: SPEC line 578 says "100+ pages" but §4.A.2 line 205 and the §8 config table (line 1618) say 50 pages. The config table is authoritative — use 50.**
    - The calling code must catch `NotImplementedError` and continue with Tiers 1-2 results only.
 
 7. `_infer_hierarchy(candidates: list[HeadingCandidate]) -> list[HeadingCandidate]`
-   - Assign `heading_level` (1–10) to each candidate based on keyword_type.
-   - **Standard hierarchy** (SPEC §4.A.6 line 583): `كتاب(1) > باب(2) > فصل(3) > مبحث(4) > مطلب(5) > فائدة/تنبيه/قاعدة(6)`.
+   - Assign `heading_level` (1–10) to each candidate based on keyword_type and keyword_raw. Modifies candidates in place (sets heading_level field).
+   - **Complete level assignment table** (covers ALL yaml keywords):
+     ```
+     Level 0: volume (المجلد, الجزء) — created by volume detection, not keyword scan
+     Level 1: كتاب / الكتاب
+     Level 2: باب / الباب
+     Level 3: فصل / الفصل, تقسيم / التقسيم
+     Level 4: مبحث / المبحث, مدخل / المدخل, إعراب / الإعراب
+     Level 5: مطلب / المطلب, مسألة / المسألة, فرع / الفرع
+     Level 6: فائدة / فوائد, تنبيه / تنبيهات / تنبيهان, قاعدة / قواعد, تتمة
+     Level 2: مقدمة (at book start, before any كتاب/باب) OR same level as preceding division (within a section)
+     Level same-as-surrounding: خاتمة — same level as the divisions it concludes
+     ```
+     Use `keyword_type` (DivisionType enum) when available. Fall back to `keyword_raw` for non-enum types.
+   - **Volume boundary detection (F-9):** Before keyword-based hierarchy, scan candidates by unit_index order. When `CleanedPage.volume` changes between consecutive pages, insert a synthetic HeadingCandidate with `keyword_type=DivisionType.VOLUME`, `heading_level=0`, `confidence=CONFIRMED`, `detection_method=HTML_TAGGED`, `heading_text=f"المجلد {volume_number}"`. Insert at the unit_index of the first page of the new volume.
    - Ordinal sequences are siblings (SPEC §4.A.6 line 585): consecutive candidates with same keyword_type and sequential ordinals → same level.
-   - `مقدمة` → level 2 (within a كتاب) or level 1 (at start of book).
-   - `خاتمة` → same level as the divisions it concludes.
-   - `volume` → level 0.
    - `implicit` (no keyword match) → assign level based on these rules IN ORDER:
      1. If the heading is between two headings of the same level, assign that level (it's a sibling).
      2. If the heading follows a heading of level N and precedes a heading of level N+1, assign level N (it's a section at the same level).
@@ -140,8 +160,9 @@ class HeadingCandidate:
      - Root nodes: last root extends to total_pages - 1.
      - **Iterative containment enforcement**: After computing ranges, verify children are within parent bounds. Detach any child whose start falls outside parent range. Recompute. Repeat up to 5 iterations until stable.
      - Hard invariant: `end_unit_index >= start_unit_index` always.
+   - **Full coverage enforcement (§5 check 5):** After computing ranges, if the first root-level division's `start_unit_index > 0`, extend it to 0. This ensures pages before the first heading are covered. The SPEC concrete example (line 609) shows `start_unit_index: 0` confirming this behavior. Without this fix, pages 0 through (first_heading - 1) would violate §5 check 5 ("the tree covers the entire source").
    - Generate `div_id` in format `div_{source_id}_{depth}_{running_index}` where depth = heading_level, running_index = zero-padded sequential within that depth.
-   - Map `keyword_type` → `DivisionType` enum value. `None` if no keyword match.
+   - Map `keyword_type` → `DivisionType` enum value. `None` if no keyword match (including non-enum keywords like تقسيم — they get `division_type=None` per SPEC §4.A.6 line 568).
    - Return `list[DivisionNode]` — top-level nodes with nested children.
 
 9. `_compute_confidence(divisions: list[DivisionNode], total_pages: int) -> HeadingConfidence`
@@ -219,6 +240,16 @@ class HeadingCandidate:
 11. **Empty/minimal books:** Verify that a book with <3 headings and >= 50 pages triggers `NORM_SPARSE_STRUCTURE` warning (Tier 3 stub path).
 
 12. **Confidence scoring thresholds:** Parameterized test with known heading distributions verifying SPEC thresholds (>80% = HIGH, 50-80% = MEDIUM, <50% = LOW).
+
+13. **ZWNJ stripping from title_spans (F-2):** Construct a page with `title_spans=["\u200cالباب الأول"]`. Assert the resulting DivisionNode has `heading_text="الباب الأول"` (no ZWNJ prefix). Assert StructuralMarkers.heading_text also lacks ZWNJ.
+
+14. **Full coverage — pages before first heading (F-3):** Construct 20 pages where the first heading is at page 5. Assert the first root division's `start_unit_index == 0` (not 5). All pages 0-19 must be inside at least one division.
+
+15. **Non-enum keyword detection:** Construct a page with `primary_text` starting with `التقسيم الأول`. Assert heading detected with `keyword_type=None`, `keyword_raw="تقسيم"`, `heading_level=3`.
+
+16. **Layer marker exclusion:** Construct a page with `primary_text` starting with `حاشية` or `شرح`. Assert `heading_detected == False` (these are layer markers, not structural headings).
+
+17. **Volume boundary detection:** Construct pages with volume changing from 1 to 2 at page 10. Assert a volume-level DivisionNode exists at page 10 with `division_type=VOLUME`, `heading_level=0`.
 
 ---
 
