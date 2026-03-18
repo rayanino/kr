@@ -73,8 +73,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && python3 scripts/session_quality_gate.py 2>&1 | tail -15",
-            "timeout": 30
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo '=== PRE-PUSH VERIFICATION ===' && python -m pytest engines/*/tests/ shared/*/tests/ -x -q --tb=short 2>&1 && echo 'All tests pass — push allowed.' || { echo 'BLOCKED: Tests failing. Fix before pushing.'; exit 1; }",
+            "timeout": 120
           }
         ]
       },
@@ -170,7 +170,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo '=== POST-COMPACTION RECOVERY ===' && echo '' && echo '--- NEXT.md (current task) ---' && head -15 NEXT.md 2>/dev/null && echo '' && echo '--- Active engine state ---' && for d in engines/*/CLAUDE.md; do if head -30 \"$d\" 2>/dev/null | grep -q 'IN PROGRESS'; then echo \"ACTIVE: $d\" && head -25 \"$d\" 2>/dev/null | grep -E '(Session|COMPLETE|IN PROGRESS|NEXT)'; fi; done && echo '' && echo '--- INVARIANTS (non-negotiable) ---' && echo '(1) Library IS the users knowledge — errors propagate into his mind' && echo '(2) Accuracy > Protection > Intelligence (D-006)' && echo '(3) Metadata never deleted, only enriched (D-023)' && echo '(4) Errors fail loud — never silent default (D-033)' && echo '(5) Multi-model consensus for ALL content decisions (D-041)' && echo '(6) Arabic: NEVER .lower()/.upper()/.strip() on Arabic strings' && echo '(7) Primary text bytes NEVER modified after extraction (D-004)' && echo '(8) Never implement spec errors — fix the spec first' && echo '' && echo 'Read the active engines CLAUDE.md + principles.md in memory/ for full context.'"
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo '=== POST-COMPACTION RECOVERY ===' && echo '' && echo '--- NEXT.md (current task) ---' && head -15 NEXT.md 2>/dev/null && echo '' && echo '--- Active engine state ---' && for d in engines/*/CLAUDE.md; do if head -30 \"$d\" 2>/dev/null | grep -q 'IN PROGRESS'; then echo \"ACTIVE: $d\" && head -25 \"$d\" 2>/dev/null | grep -E '(Session|COMPLETE|IN PROGRESS|NEXT)'; fi; done && echo '' && echo '--- INVARIANTS (non-negotiable) ---' && echo '(1) Library IS the users knowledge — errors propagate into his mind' && echo '(2) Accuracy > Protection > Intelligence (D-006)' && echo '(3) Metadata never deleted, only enriched (D-023)' && echo '(4) Errors fail loud — never silent default (D-033)' && echo '(5) Multi-model consensus for ALL content decisions (D-041)' && echo '(6) Arabic: NEVER .lower()/.upper()/.strip() on Arabic strings' && echo '(7) Primary text bytes NEVER modified after extraction (D-004)' && echo '(8) Never implement spec errors — fix the spec first' && echo '' && echo '--- EASILY FORGOTTEN AFTER COMPACTION ---' && echo '(9) Result preservation: every API call persists output + update COST_LOG.json' && echo '(10) Temperature=0 for ALL consensus LLM calls' && echo '(11) Shared concept changes: grep ALL consumers before modifying enums/statuses' && echo '(12) Tests: every function needs real Arabic fixture test (no transliteration)' && echo '(13) After modifying engines/*/src/ or contracts.py: dispatch code-reviewer agent' && echo '' && echo 'Read the active engines CLAUDE.md + principles.md in memory/ for full context.'"
           }
         ]
       },

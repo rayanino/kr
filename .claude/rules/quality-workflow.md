@@ -3,5 +3,6 @@
 - After modifying any `contracts.py` file, run `python3 scripts/verify_metadata_flow.py` to check boundary alignment.
 - After modifying any `SPEC.md` file, run `python3 scripts/check_spec_quality.py <path>` on the modified SPEC.
 - Before claiming any implementation is complete, run the full test suite for the active engine: `python -m pytest engines/<n>/tests/ -v --tb=short`.
+- After completing any task that modifies `engines/*/src/` or `contracts.py`, dispatch the `code-reviewer` agent before committing. Self-review is insufficient (Principle 34 — the same mental model that produced the work reviews it). Provide the reviewer with: which files changed, what SPEC section governs the change, and any deliberate trade-offs made.
 - For complex debugging, use the `mcp__sequential-thinking__sequentialthinking` tool to structure reasoning step-by-step before proposing a fix.
 - For multi-step design decisions (SPEC design, architecture choices), use sequential thinking to evaluate alternatives before committing to an approach.
