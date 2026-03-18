@@ -10,6 +10,10 @@
 
 **RULE 3: CROSS-ENGINE BOUNDARY CHECK.** When a CC session modifies any contract type (Pydantic model, enum, field constraint), the reviewer MUST open every file that imports or references that type across ALL engines. Run `grep -rn "TypeName\|field_name" engines/ --include="*.py"` and verify every consumer accepts the new shape. This is mandatory, not optional. The Session 3 `heading_level ge=1 → ge=0` change in normalization would have crashed passaging at runtime — discovered only because the owner forced a deeper review.
 
+**RULE 4: REVIEW PRODUCES A COMMITTED ARTIFACT.** Every review fills `reference/protocols/REVIEW_CHECKLIST_TEMPLATE.md` (copy to `reference/archive/sessions/reviews/review_session_N.md`), checks every box, and commits it BEFORE delivering the verdict. An unfilled checklist = an incomplete review. This is the ONLY structural enforcement of review steps. The checklist is the authority on what was done — not the chat message.
+
+**SKILL OVERRIDE:** The `kr-reviewing-cc-output` skill offers "ACCEPT WITH FIXES" and "non-blocking fixes" as valid options. **This protocol OVERRIDES that skill.** The only valid verdicts are ACCEPT (zero unfixed findings) and BLOCKED (findings exist). The skill triggers the workflow; this protocol defines the rules.
+
 ---
 
 ## Pass 1 (Structural): Read all code, run tests, check SPEC refs
