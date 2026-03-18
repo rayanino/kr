@@ -75,6 +75,7 @@ Define these as dataclasses or Pydantic models INSIDE `engines/normalization/src
 - `footnote_preamble: str` — Text before first `(N)` marker in footnote section.
 - `known_fn_numbers: set[int]` — Set of footnote numbers found, for reference stripping guard.
 - `has_footnote_separator: bool` — Whether `<hr width=80-100>` was found on this page.
+- `is_image_only: bool` — Carried from RawPage. If True, primary_html and footnote_html are empty.
 - `bold_spans: list[tuple[int, int, str]]` — Carried from RawPage.
 - `font_size_spans: list[tuple[int, int, str, str]]` — Carried from RawPage.
 - `title_spans: list[str]` — Carried from RawPage.
@@ -103,6 +104,8 @@ Define these as dataclasses or Pydantic models INSIDE `engines/normalization/src
 - `has_verse: bool` — Verse/poetry detected (hemistich separator or star markers).
 - `has_tables: bool` — HTML tables found and converted to text.
 - `is_blank: bool` — No extractable text content after cleaning.
+- `is_image_only: bool` — Carried from RawPage. Image-only pages produce CleanedPage with empty primary_text.
+- `has_footnote_separator: bool` — Whether the page had a footnote separator. Carried from SeparatedPage. Needed by Pass 6 to compute `no_footnote_apparatus` quality flag.
 - `starts_with_zwnj_heading: bool` — Text starts with double ZWNJ (U+200C U+200C).
 - `bold_spans: list[tuple[int, int, str]]` — Carried through for Pass 5.
 - `font_size_spans: list[tuple[int, int, str, str]]` — Carried through for Pass 5.
@@ -120,9 +123,9 @@ Implement as a method `_pass1_parse(self, html_text: str, volume: int, seq_offse
 
 2. For each page block, search for page number `(ص: N)` with Arabic-Indic digits. Regex: `\(ص:\s*([٠-٩]+)\s*\)`. Convert Arabic-Indic → integer using the mapping in SHAMELA_HTML_REFERENCE §3.3.
 
-3. Pages with no page number → metadata pages. Set `is_metadata_page = True`. Do NOT create a content unit for these — skip them. Record in warnings.
+3. **Metadata page detection** (not the same as "no page number"): Metadata pages appear at the START of each file, before any content pages. They have no `(ص: N)` page number AND they contain metadata labels (single-quote `<span class='title'>` elements with labels like القسم:, المؤلف:, الكتاب:). Detection: track whether you've seen any page with a page number yet. Pages before the first numbered page that lack a page number → metadata pages. Set `is_metadata_page = True`. Skip them (no content unit). HOWEVER: a page that has no page number but appears AFTER content pages (i.e., after the first numbered page has been seen) is NOT a metadata page — it's a content page with a missing page number. Produce a content unit with `page_number_display: None`, `page_number_int: None`. This matches ADV-008. Record `NORM_SUSPICIOUS_PAGEHEAD` warning for such pages.
 
-4. ADV-008/ADV-009 exception: pages WITH a page number but no extractable text → blank pages. These DO produce content units. Set `is_blank` downstream.
+4. ADV-009: pages WITH a page number but no extractable text content → blank pages. These DO produce content units with `is_blank = True` set downstream in Pass 3.
 
 5. Detect image-only pages: remove PageHead, remove `<img>` tags, strip HTML tags — if <10 chars remain, it's image-only. Set `is_image_only = True`.
 
@@ -146,9 +149,9 @@ Implement as `_pass2_separate(self, pages: list[RawPage]) -> list[SeparatedPage]
 
 **Behavioral rules (SPEC §4.A.2 Pass 2):**
 
-1. Skip metadata pages and image-only pages from Pass 1.
+1. Skip metadata pages from Pass 1 (they do NOT produce content units). For image-only pages, create a minimal SeparatedPage with empty `primary_html`, empty `footnote_html`, no footnotes, and `has_footnote_separator = False`. These flow through to Pass 3 as CleanedPage with `is_image_only = True` and `is_blank = True`.
 
-2. For each remaining page, search for footnote separator. SPEC regex: `<hr\s+[^>]*width\s*=\s*['"]?(\d{2,3})['"]?[^>]*>` where captured group is 80–100 (inclusive). The ABD code uses the simpler `<hr\s+width='95'[^>]*>` — you MUST use the SPEC regex which is more general and handles: no quotes, double quotes, extra attributes, self-closing, percentage values. See ADV-001 through ADV-004 for edge cases.
+2. For each remaining page, search for footnote separator. SPEC regex: `<hr\s+[^>]*width\s*=\s*['"]?(\d{2,3})['"]?[^>]*>` — this regex captures ANY 2-3 digit number, so after matching you MUST verify `80 <= int(captured_group) <= 100`. The regex alone will match width=50, width=79, width=101 — only the post-capture range check makes these non-separators. The ABD code uses the simpler `<hr\s+width='95'[^>]*>` — you MUST use the SPEC regex which is more general and handles: no quotes, double quotes, extra attributes, self-closing, percentage values. See ADV-001 (width=79, must NOT match), ADV-002 (width=101, must NOT match), ADV-003, ADV-004 for edge cases.
 
 3. If separator found: everything before it = primary HTML, everything after = footnote HTML. If not found: entire content = primary HTML, footnote HTML = "". Log `NORM_FOOTNOTE_SEPARATOR_ABSENT` for pages without separator. If >30% of pages lack it, set `no_footnote_apparatus` flag.
 
