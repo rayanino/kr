@@ -1,92 +1,176 @@
-# NEXT — Probe 2 build prep (Architect session)
+# NEXT — Normalization Engine Build Session 1: Contracts Alignment
 
-## Current position: Probe 1 COMPLETE. All 17 findings resolved (15 original + 2 from deep review). Probe 1→2 transition gate APPROVED (commit c966e93). Ready to prepare for building the normalization engine.
-## What to do: Architect runs build preparation per ENGINE_BUILD_BLUEPRINT.md §2a — core extraction, MUST-FIX resolution, technology survey, module architecture, and CC handoff.
-## Context: Probe 2 = Build Team probe. The deliverable is a BUILT normalization engine with tests. This session prepares everything CC needs to start building. No CC involvement until the handoff is written at the end.
-## Owner action needed: NO during this session. YES after — to give the build handoff to CC.
+## Current position: Probe 2 build prep complete. Architect has classified core vs deferred (CORE_EXTRACTION.md), designed MUST-FIX resolutions (MUSTFIX_RESOLUTIONS.md), surveyed technology, defined module architecture, and rewritten CLAUDE.md. Ready to build.
+## What to do: Implement MF-1 (DivisionNode expansion) and MF-2 (LayerMapEntry rename) in contracts.py, complete the error code registry in errors.py, update SPEC field list and examples, and write contract round-trip tests.
+## Context: This is Session 1 of 7. Contracts are the foundation — every subsequent session imports from contracts.py and errors.py. Getting these right before writing any processing logic prevents cascading type errors across sessions.
+## Owner action needed: NO during this session. YES after — to give Session 2 handoff to CC.
 
 ---
 
 ## Read First (in this order)
 
-1. `reference/AGENT_ARCHITECTURE.md` (360L) — §5 defines Probe 2: "Build the normalization engine (5-7 sessions)." §2.2 defines Build Team agents. §6 has normalization-specific notes.
-2. `reference/ENGINE_BUILD_BLUEPRINT.md` — §2a (Build Preparation) is the governing procedure. Read the full section, not just the summary.
-3. `engines/normalization/SPEC.md` (2049L) — The full SPEC. You will classify every §4 capability as core vs deferred. §4.A is "Core Processing" (10 subsections). §4.B is "Transformative Capabilities" (10 subsections). Not everything in §4.A is necessarily core, and some §4.B capabilities (especially §4.B.2 structural format detection and §4.B.4 footnote classification) may belong in core — investigate each one.
-4. `reference/SPEC_INTEGRITY_AUDIT_NORMALIZATION.md` — The integrity audit (CONDITIONAL PASS). Contains 3 MUST-FIX items that must be resolved before build begins. See below for descriptions.
-5. `engines/normalization/contracts.py` (697L) — Current Pydantic schemas. The MUST-FIX items involve contract changes.
-6. `engines/source/contracts.py` — Upstream boundary. Needed for contract alignment verification.
-7. `engines/normalization/CLAUDE.md` (37L) — Exists but is stale. You will rewrite it after core extraction.
-8. `engines/normalization/src/` — Pre-existing stub files (dispatcher, shamela normalizer, layer detector, content census, writer, validation, errors). Assess against the SPEC after core extraction — keep what aligns, flag what doesn't.
-9. `engines/passaging/SPEC.md` (1037L) — The downstream engine. Skim its §2 Input Contract to identify which normalization output fields the passaging engine actually consumes. This determines whether §4.B.2 (structural_format), §4.B.8 (boundary_continuity), and other §4.B capabilities are core.
-10. `engines/passaging/contracts.py` (556L) — The passaging engine's Pydantic input models. Cross-reference with normalization output contract for field alignment.
-11. `reference/SPEC_ADVERSARY_NORMALIZATION.md` (861L) — 51 adversarial test cases. NOTE: ADV-043/044 (§4.B.2) and ADV-046 (§4.B.9) have deferred annotations — their core/deferred status depends on the core extraction you'll do in Task 1.
+1. `engines/normalization/CLAUDE.md` (104L) — Engine orientation. Read the Architecture and Critical Rules sections.
+2. `engines/normalization/MUSTFIX_RESOLUTIONS.md` (121L) — The exact changes to make. Follow these designs precisely — they are pre-verified against upstream and downstream contracts.
+3. `engines/normalization/contracts.py` (702L) — The file you will modify. Read it fully before making any changes.
+4. `engines/normalization/src/errors.py` (108L) — The file you will expand. Currently has 20 error codes; needs 31.
+5. `engines/normalization/SPEC.md` §7 (lines 1562–1608) — The authoritative error code table. Every code, severity, trigger, and recovery action.
+6. `engines/normalization/SPEC.md` §4.A.6 (lines 564–621) — Division tree specification. Read the field list at line 568 and the concrete example at lines 604–620.
+7. `engines/source/contracts.py` (1050L) — Upstream boundary. Read `SourceMetadata` (around line 730) to understand what fields flow into normalization.
+8. `engines/passaging/contracts.py` (556L) — Downstream boundary. Read `DivisionPathEntry` (line 133) to verify `div_id` format alignment.
 
-## The 3 MUST-FIX Items (from integrity audit)
+## What to Build
 
-These are contract alignment issues, not redesign. All must be resolved before CC starts building.
+### 1. Expand DivisionNode (MF-1)
 
-**MF-1 (M-14): DivisionNode field count.** The SPEC's DivisionNode has 7 fields in one place and 14 in another. Resolve by deciding the correct field set and updating both the SPEC §9.1 and contracts.py. This is the only one requiring a design decision — the others are mechanical.
+Per MUSTFIX_RESOLUTIONS.md, update `DivisionNode` in `contracts.py` from 7 to 9 fields:
 
-**MF-2 (M-13): LayerMapEntry field name mismatch.** The SPEC says one name, contracts.py says another. Rename in contracts.py to match the SPEC, and add the `markers` field that the SPEC references but contracts.py doesn't have.
+**Add new enum:**
+```python
+class DivisionType(str, Enum):
+    """Arabic structural division types (SPEC §4.A.6 hierarchy)."""
+    KITAB = "كتاب"
+    BAB = "باب"
+    FASL = "فصل"
+    MABHATH = "مبحث"
+    MATLAB = "مطلب"
+    FAIDAH = "فائدة"
+    TANBIH = "تنبيه"
+    QAIDAH = "قاعدة"
+    KHATIMAH = "خاتمة"
+    MUQADDIMAH = "مقدمة"
+    IMPLICIT = "implicit"
+    VOLUME = "volume"
+    ROOT = "root"
+```
 
-**MF-3 (M-09): §5 check 14 vocalization_level.** Check 14 references a `vocalization_level` field that the upstream source engine doesn't produce. Either add the field to the source engine contracts (ripple effect — check carefully) or change the check to derive vocalization from data the normalizer already has.
+**Expand DivisionNode:**
+- Add `div_id: str` with Field description `"Format: div_{source_id}_{depth}_{index}"`
+- Add `division_type: Optional[DivisionType] = Field(None, ...)`
+- Keep all 7 existing fields unchanged
+- See MUSTFIX_RESOLUTIONS.md for the complete model definition
 
-## Tasks (in dependency order)
+### 2. Fix LayerMapEntry (MF-2)
 
-### Task 1: Core extraction (use kr-core-extract)
+Per MUSTFIX_RESOLUTIONS.md:
+- Rename `detection_confidence` → `confidence` in `LayerMapEntry`
+- Add `markers: list[str] = Field(default_factory=list, ...)`
 
-Classify every §4 capability. The SPEC has §4.A.1 through §4.A.10 and §4.B.1 through §4.B.10. For each: is it CORE (engine cannot fulfill its fundamental purpose without it) or DEFERRED (extends core but engine works without it)?
+### 3. Update SPEC §4.A.6
 
-Key judgment calls to investigate:
-- **§4.B.2 (Structural Format Auto-Detection):** The passaging engine may need `structural_format` to choose passage boundary strategies. Check `engines/passaging/SPEC.md` §2 and `engines/passaging/contracts.py` for references to this field. If consumed downstream, this is core.
-- **§4.B.4 (Footnote Apparatus Classification):** Coarse classification (tahqiq vs author) is in §4.A already. Fine-grained classification (variant_reading, hadith_takhrij, etc.) may or may not be needed by the passaging engine. Investigate.
-- **§4.B.8 (Cross-Page Continuity):** The passaging engine almost certainly needs `boundary_continuity` to join pages. Check `engines/passaging/contracts.py` for this field. If consumed downstream, this is core.
-- **§4.B.5 (Content Census):** Several other §4.B capabilities depend on census data. If any dependent capability is core, census may need to be core too.
+Update line 568 field list. The current SPEC says `title`, `level` — change to `heading_text`, `heading_level` to match the Pydantic model. Remove the 5 dropped fields (`parent_div_id`, `child_div_ids`, `page_hint_start`, `page_hint_end`, `digestible`, `editor_inserted`). Add `div_id` format description and `division_type`.
 
-Produce a classification table. Owner reviews it (quick yes/no — the owner trusts your judgment on technical classification).
+Update the concrete example at lines 604–620 to match the 9-field model. The example should look like:
+```json
+{
+  "div_id": "div_fiqh_mughni_001_1_000",
+  "division_type": "كتاب",
+  "heading_text": "كتاب الطهارة",
+  "heading_level": 1,
+  "start_unit_index": 0,
+  "end_unit_index": 142,
+  "detection_method": "html_tagged",
+  "confidence": "confirmed",
+  "children": ["..."]
+}
+```
 
-### Task 2: Resolve MUST-FIX items
+IMPORTANT: Only update the field list at line 568 and the concrete example. Do NOT rewrite any processing rules, detection tiers, hierarchy inference rules, or confidence scoring in §4.A.6 — that content has been through PRECISION and HARDENING passes.
 
-After core extraction (because MF-1's field set depends on which capabilities are core), resolve MF-1, MF-2, MF-3. For each: describe the exact change, which files are affected, and verify no ripple effects.
+### 4. Update passaging SPEC §2
 
-### Task 3: Technology survey (use kr-research for anything uncertain)
+At line 28, where it says "This `div_id` is generated by the passaging engine, not stored in the normalization output", change to: "If normalization provides `div_id` on `DivisionNode`, the passaging engine uses it directly. Otherwise, it generates `div_{source_id}_{depth}_{index}` during tree traversal (backward compatibility)."
 
-For each CORE capability that involves external tools or libraries, verify the tool exists, works for Arabic, and has the API the SPEC assumes. The Blueprint warns: "This is NOT optional. Evidence: the source engine's initial SPEC referenced sentence-transformers for Arabic semantic search; actual Arabic support was poor."
+### 5. Complete error code registry
 
-Key areas to survey for the normalization engine:
-- HTML parsing (BeautifulSoup — well-known, but verify Arabic entity handling)
-- Arabic morphological analysis (if any core capability needs it)
-- Any OCR-related tools (likely deferred, but verify)
+Add the following 11 CORE error codes to `errors.py` (with correct severities from SPEC §7):
 
-### Task 4: Module architecture and stubs
+| Code | Severity |
+|------|----------|
+| `NORM_DIACRITICS_ENTITY_CORRUPTION` | Fatal |
+| `NORM_ENRICHMENT_WRITEBACK_FAILED` | Warning |
+| `NORM_ORPHAN_FOOTNOTE_REF` | Info |
+| `NORM_SUSPICIOUS_PAGEHEAD` | Warning |
+| `NORM_CONTINUITY_INCONSISTENT` | Warning |
+| `NORM_CONTINUITY_UNKNOWN` | Info |
+| `NORM_MIDWORD_BREAK` | Warning |
+| `NORM_VOLUME_MISMATCH` | Warning |
+| `NORM_VOLUME_NUMBER_UNPARSEABLE` | Warning |
+| `NORM_WRITE_RECOVERY` | Info |
+| `NORM_FOOTNOTE_CLASSIFICATION_FAILED` | Info |
 
-Design the module structure. Pre-existing stubs in `engines/normalization/src/` exist — assess each against the core-extracted SPEC. Keep what aligns, restructure what doesn't. Write complete type signatures referencing SPEC sections.
+Do NOT add deferred error codes (OCR-specific, fingerprint, discourse, PDF). Those will be added when their capabilities are built. The complete list of deferred codes: `NORM_OCR_COHERENCE_FAILURE`, `NORM_OCR_DIACRITICS_HALLUCINATION`, `NORM_ORIENTATION_UNCERTAIN`, `NORM_ORDERING_UNCERTAIN`, `NORM_FINGERPRINT_INVALID`, `NORM_LAYER_FINGERPRINT_INVERSION`, `NORM_DISCOURSE_INCONSISTENT`, `NORM_TABLE_STRUCTURE_LOST`, `NORM_TRACK_CHANGES_DETECTED`, `NORM_PDF_PARSE_FAILED`, `NORM_PDF_ARABIC_GARBLED`.
 
-### Task 5: Rewrite CLAUDE.md
+Update the `ERROR_SEVERITY` mapping dict for all new codes.
 
-The current CLAUDE.md is 37 lines and stale. Rewrite it as the CC orientation doc (<200 lines) reflecting the core-only SPEC, the module architecture, and the build session plan.
+## Tests to Write
 
-### Task 6: Write Build Session 1 NEXT.md
+Create `engines/normalization/tests/test_contracts.py`:
 
-Following the Blueprint §2b template (handoff prompt), write the first CC build session directive. Session 1 should be: contracts alignment (MUST-FIX resolution) + core Pydantic model updates. This is the foundation everything else builds on.
+1. **DivisionNode round-trip.** Create a DivisionNode with all 9 fields (including Arabic `division_type` value), serialize to JSON, deserialize, verify equality. Test with nested `children`.
+2. **DivisionNode validation.** Verify `heading_level` constraints (ge=1, le=10). Verify `start_unit_index` and `end_unit_index` constraints (ge=0).
+3. **DivisionType enum.** Verify all 13 values serialize/deserialize correctly (especially Arabic values through JSON).
+4. **LayerMapEntry round-trip.** Create with `confidence` (not `detection_confidence`) and `markers`. Serialize/deserialize. Verify the JSON key is `"confidence"` not `"detection_confidence"`.
+5. **LayerMapEntry backward incompatibility check.** Verify that JSON with key `"detection_confidence"` does NOT deserialize into the new model (this confirms the rename is real and old data would be caught).
+6. **NormalizedManifest with expanded DivisionNode.** Create a full `NormalizedManifest` with the 9-field `DivisionNode` in `division_tree`. Serialize to JSON and back.
+7. **Error code completeness.** Verify every code in `NormErrorCode` enum has an entry in `ERROR_SEVERITY` dict.
 
 ## Do NOT Do
 
-- Do NOT start implementing engine code. This session produces PLANS and HANDOFFS, not code.
-- Do NOT modify contracts.py or any source files. The MUST-FIX resolutions are DESIGNED here and IMPLEMENTED by CC.
-- Do NOT skip the technology survey. The Blueprint says it's not optional.
-- Do NOT rewrite §4.A SPEC content — CLAUDE.md warns this has been through PRECISION and HARDENING.
-- Do NOT classify all §4.B as deferred by default. Some §4.B capabilities may be needed by downstream engines and belong in core. Investigate each one.
+- Do NOT modify any `src/*.py` files other than `errors.py`. Processing logic comes in Sessions 2+.
+- Do NOT add deferred error codes (OCR, fingerprint, discourse, PDF — listed above).
+- Do NOT modify §4.A processing rules in SPEC.md. Only update the §4.A.6 field list (line 568) and concrete example (lines 604–620).
+- Do NOT touch the `tracer.py` file. It is ABD reference code.
+- Do NOT add fields to `ContentUnit`, `NormalizedManifest`, or other models beyond what MF-1 and MF-2 require. Other §9.1 items (M-09, M-10, M-11, M-12, M-18, M-20) are deferred.
+- Do NOT update §4.B content in SPEC.md.
 
 ## Verification
 
-This session produces files that the Architect commits to the repo:
-- [ ] Core extraction classification table (in SPEC.md or a separate reference doc)
-- [ ] MUST-FIX resolution designs (can be in NEXT.md for CC or a separate doc)
-- [ ] Technology survey results (documented)
-- [ ] Updated CLAUDE.md (<200 lines, reflects core-only scope)
-- [ ] Build Session 1 NEXT.md for CC (follows Blueprint §2b template)
+Run before committing:
+
+```bash
+# 1. All tests pass
+cd /home/user/kr && python -m pytest engines/normalization/tests/test_contracts.py -v
+
+# 2. contracts.py imports cleanly
+python -c "from engines.normalization.contracts import DivisionNode, DivisionType, LayerMapEntry, NormalizedManifest; print('OK')"
+
+# 3. errors.py imports cleanly
+python -c "from engines.normalization.src.errors import NormErrorCode, ERROR_SEVERITY; assert len(NormErrorCode) >= 31; assert len(ERROR_SEVERITY) == len(NormErrorCode); print(f'OK: {len(NormErrorCode)} codes, all mapped')"
+
+# 4. DivisionType Arabic values survive JSON round-trip
+python -c "
+from engines.normalization.contracts import DivisionNode, DivisionType, HeadingDetectionMethod, HeadingConfidence
+import json
+node = DivisionNode(
+    div_id='div_test_1_0',
+    division_type=DivisionType.KITAB,
+    heading_text='كتاب الطهارة',
+    heading_level=1,
+    start_unit_index=0,
+    end_unit_index=100,
+    detection_method=HeadingDetectionMethod.HTML_TAGGED,
+    confidence=HeadingConfidence.CONFIRMED,
+)
+j = node.model_dump_json()
+node2 = DivisionNode.model_validate_json(j)
+assert node2.division_type == DivisionType.KITAB
+assert node2.div_id == 'div_test_1_0'
+print('DivisionNode round-trip OK')
+"
+
+# 5. LayerMapEntry uses 'confidence' not 'detection_confidence'
+python -c "
+from engines.normalization.contracts import LayerMapEntry, LayerType
+import json
+entry = LayerMapEntry(layer_type=LayerType.MATN, confidence=0.9, markers=['bold'])
+d = json.loads(entry.model_dump_json())
+assert 'confidence' in d and 'detection_confidence' not in d
+print('LayerMapEntry field rename OK')
+"
+```
+
+All 5 verification commands must succeed with no errors.
 
 ## After This
 
-Owner gives Build Session 1 NEXT.md to CC. CC begins building. The Architect is not involved until CC finishes Session 1, at which point the Architect reviews (use kr-reviewing-cc-output) and writes Session 2's handoff.
+Architect reviews the commit (use kr-reviewing-cc-output). If ACCEPT: write Session 2 handoff (Shamela Passes 1–3). If BLOCKED: fix directive back to CC.
