@@ -25,6 +25,9 @@ Triage into `RESOURCES.md` (or discard) during `technology-survey` skill session
 - https://agents.md/ — Agent specification standard
 - https://github.com/jrcruciani/obsidian-memory-for-ai — Obsidian vault as AI memory source
 - https://gist.github.com/a-c-m/f4cead5ca125d2eaad073dfd71efbcfc — Claude configuration gist
+- [Reddit - The heart of the internet](https://www.reddit.com/r/ClaudeCode/comments/1rw5g7c/claude_code_recursive_selfimprovement_of_code_is/)
+- [Reddit - The heart of the internet](https://www.reddit.com/r/ClaudeAI/comments/1rv1wsc/i_built_a_registry_of_156_productionready_skills/)
+- 
 
 ## AI Agent & Research Frameworks
 
