@@ -2,7 +2,7 @@
 
 ## Current position: Session 2 COMPLETE and ACCEPTED (commit 79a4e76). Shamela Passes 1–3 implemented: 1,115 lines, 65 tests, all 10 ADV-001–010 pass, 13 real fixtures parse successfully, 4,160 pages/sec on 1,720-page multi-volume.
 ## What to do: Write Build Session 3 NEXT.md for Claude Code — Structure Discovery (4-tier heading detection, division tree construction).
-## Context: Session 3 implements Pass 4 of the Shamela normalizer. It consumes the `title_spans`, `pagehead_text`, `starts_with_zwnj_heading`, and `primary_text` fields from Session 2's `CleanedPage` output and produces the `division_tree` (manifest) and `structural_markers` (per content unit). The ABD `discover_structure.py` (2,896 lines) provides behavioral reference. This session has a key scoping decision: whether Tier 3 (LLM-assisted detection) is built now or stubbed.
+## Context: Session 3 implements Pass 4 of the Shamela normalizer. It consumes the `title_spans`, `pagehead_text`, `starts_with_zwnj_heading`, and `primary_text` fields from Session 2's `CleanedPage` output and produces the `division_tree` (manifest) and `structural_markers` (per content unit). The ABD `discover_structure.py` (2,896 lines) provides behavioral reference. Tier 3 LLM decision is MADE: stub with clean interface (see below).
 ## Owner action needed: YES after — to give the Session 3 handoff to CC.
 
 ---
@@ -39,20 +39,31 @@ Code location: `engines/normalization/src/normalizers/shamela.py` (1,115 lines).
 
 8. `reference/SPEC_ADVERSARY_NORMALIZATION.md` — ADV-016 (باب in name, not heading), ADV-017 (child extends beyond parent), ADV-018 (Tier 1 + Tier 2 duplicate detection). These are mandatory tests for Session 3.
 
-## Key Scoping Decision
+9. `reference/protocols/REVIEW_PROTOCOL.md` — Mandatory two-pass review protocol. Read before reviewing CC output.
 
-**Tier 3 (LLM-assisted heading detection):** The SPEC marks all of §4.A.6 as CORE. But Tier 3 requires:
-- LLM API calls (cost, latency)
-- Prompt templates in `prompts/` directory
-- Genre-aware context window construction
-- Confidence mapping from LLM output
+10. `reference/protocols/PRE_HANDOFF_VERIFICATION.md` — Mandatory foundation verification before committing handoffs.
 
-Options to evaluate:
-- **A: Full Tier 3 now.** Build the LLM prompt, API integration, confidence mapping. ~200-300 extra lines. Adds API dependency to tests (mock or real calls).
-- **B: Tier 3 stub with hook.** Build Tiers 1, 1.5, 2 fully. Tier 3 gets a clear interface (`_tier3_llm_discover(candidates, genre, existing_headings) -> list[HeadingCandidate]`) that raises `NotImplementedError`. The stub logs `NORM_SPARSE_STRUCTURE` when Tiers 1-2 find insufficient headings.
-- **C: Tier 3 in a separate session.** Session 3 does Tiers 1-2 + tree construction. Session 3.5 adds Tier 3. Cleanest separation but adds a session.
+11. `reference/protocols/DECISION_DISCIPLINE.md` — Make decisions immediately, don't defer.
 
-The Architect should decide based on: does the passaging engine NEED Tier 3 headings for its development, or can it work with Tiers 1-2 during its own build? If Tiers 1-2 are sufficient for passaging development, option B is safest — build Tier 3 when we have real data showing where it's needed.
+## Tier 3 Scoping Decision: DECIDED — Option B (stub with hook)
+
+**Decision:** Build Tiers 1, 1.5, 2 fully. Tier 3 gets a clean interface that raises `NotImplementedError` and logs `NORM_SPARSE_STRUCTURE` when Tiers 1-2 find insufficient headings.
+
+**Evidence:** Empirical analysis of all 13 fixtures shows zero would trigger Tier 3. Every fixture has ≥3 Tier 1 headings per 50 pages. The smallest ratio is fixture 02_nahw_muhaqiq (19 headings / 296 pages). Fixture 07_balagha has 146 Tier 1 + 34 Tier 2 headings across 288 pages. Passaging engine development needs division trees — Tiers 1-2 provide sufficient structure for all test data.
+
+**Tier 3 hook interface** (for Session 3 to stub):
+```python
+def _tier3_llm_discover(
+    self,
+    candidates: list[HeadingCandidate],
+    genre: str,
+    existing_headings: list[DivisionNode],
+    text_windows: list[str],
+) -> list[HeadingCandidate]:
+    """Tier 3: LLM semantic judgment for ambiguous headings.
+    NOT YET IMPLEMENTED — stubbed with NORM_SPARSE_STRUCTURE logging."""
+    raise NotImplementedError("Tier 3 LLM structure discovery")
+```
 
 ## Adversarial Cases for Session 3
 
@@ -81,4 +92,29 @@ The Architect should decide based on: does the passaging engine NEED Tier 3 head
 
 ## After Writing
 
+**Before committing the handoff:** Follow `reference/protocols/PRE_HANDOFF_VERIFICATION.md` — verify every regex, trace all data flows through intermediate structures, test parser behavior empirically. Do NOT commit until verification is complete.
+
+**When CC finishes Session 3:** Follow `reference/protocols/REVIEW_PROTOCOL.md` — mandatory two-pass review. Pass 1 structural, Pass 2 adversarial with probing scripts and fixture spot-checks. Report cumulative build metrics.
+
 Commit the Session 3 NEXT.md. Owner gives it to CC in plan mode first, then implementation.
+
+---
+
+## Cumulative Build Metrics (after Session 2)
+
+```
+Implementation:  2,014 lines (shamela.py 1104, contracts.py 724, errors.py 130, base.py 56)
+Tests:           1,274 lines (test_shamela_passes.py 788, test_contracts.py 486)
+Test count:      106 passing, 22 skipped (placeholders for full pipeline)
+Test-to-code:    0.63 ratio, 5.2 tests per 100 impl lines
+ADV covered:     10/51 (ADV-001 through ADV-010, Passes 1-3)
+Fixtures:        13 real + 1 hand-crafted (ibn_aqil)
+Performance:     4,160 pages/sec on 1,720-page multi-volume
+```
+
+## Known Limitations (from Session 2)
+
+See `engines/normalization/KNOWN_LIMITATIONS.md` for details:
+- **L-001:** Bare-number and unnumbered footnotes classified but not parsed (105 pages across 3 fixtures). Text preserved in preamble, no data loss. Fix point: Session 5.
+- **L-002:** ضياء السالك commentary numbering collision (1 book). Fix point: Session 4 (layer detection).
+

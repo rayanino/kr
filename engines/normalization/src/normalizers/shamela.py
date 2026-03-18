@@ -682,7 +682,7 @@ class ShamelaNormalizer(BaseNormalizer):
             title_spans: list[str] = []
             if not is_image_only:
                 for m in TITLE_SPAN_DOUBLE_RE.finditer(block):
-                    span_text = strip_tags(m.group(1)).strip()
+                    span_text = decode_entities(strip_tags(m.group(1))).strip()
                     if span_text:
                         title_spans.append(span_text)
 
@@ -736,7 +736,7 @@ class ShamelaNormalizer(BaseNormalizer):
         for regex in (PAGEHEAD_PARTNAME_RE, PAGEHEAD_TITLE_RE):
             m = regex.search(head_html)
             if m:
-                text = strip_tags(m.group(1)).strip()
+                text = decode_entities(strip_tags(m.group(1))).strip()
                 if text:
                     return text
         return None
