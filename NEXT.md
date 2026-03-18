@@ -95,12 +95,14 @@ class HeadingCandidate:
    - Return `TOCEntry` list (internal dataclass: title, page_number, indent_level).
 
 4. `_tier1_5_toc_crossref(candidates: list[HeadingCandidate], toc_entries: list[TOCEntry], pages: list[CleanedPage]) -> list[HeadingCandidate]`
+   - **Page number → unit_index mapping:** Build a dict from `{page.page_number_int: page.unit_index for page in pages if page.page_number_int is not None}`. For multi-volume books, key on `(volume, page_number_int)`. TOC page numbers may be Arabic-Indic digits — the TOC parser should output integers (use `arabic_to_int` from shamela.py for `٠-٩` digits, or `int()` for Western digits). When looking up a TOC page number, find the nearest `page_number_int` match if exact match is missing (page number gaps are common — 29.8% of Shamela has non-sequential numbering).
    - Match TOC entries to existing candidates by fuzzy title comparison (study ABD `_toc_match_score`, line 1534).
    - Matching entries: promote confidence to HIGH if currently MEDIUM.
-   - Unmatched TOC entries: create new HeadingCandidate with `method=TOC_INFERRED`, `confidence=MEDIUM`, at the unit_index closest to the TOC-listed page number.
+   - Unmatched TOC entries: create new HeadingCandidate with `method=TOC_INFERRED`, `confidence=MEDIUM`, at the unit_index from the page number lookup.
 
 5. `_tier2_keyword_scan(pages: list[CleanedPage], tier1_headings: list[HeadingCandidate]) -> list[HeadingCandidate]`
    - Load keyword patterns from `structural_patterns.yaml` (path: `engines/normalization/reference/structural_patterns.yaml`).
+   - **YAML loading:** Study ABD `load_ordinals()` (line 220) and `load_keywords()` (line 232) for correct parsing. Ordinals use `|`-separated variants (`الأوَّل|الأول`) → split on `|`, map each variant to its ordinal integer (1-indexed by list position). Keywords span 4 hierarchy levels (`top_level`, `mid_level`, `low_level`, `supplementary`) with `keyword`, `definite_form`, `plural`, `dual` fields per entry. Build both dicts once and pass to the scan function.
    - For each page, scan each line of `primary_text` for keyword matches.
    - **Keyword regex:** `r"^(kw1|kw2|...)(?=[\s:؛\-–—]|$)"` anchored to line start, lookahead for word boundary (verified).
    - **Include both indefinite AND definite forms** (باب AND الباب, فصل AND الفصل, etc.). Build keyword list from `structural_patterns.yaml` entries.
@@ -150,6 +152,7 @@ class HeadingCandidate:
      3. If none of the above apply, assign level = (deepest level seen so far + 1), capped at 10.
      4. Fallback: level 3 (generic mid-level).
    - HTML_TAGGED headings without keyword match: same rules as `implicit` above.
+   - **Post-condition:** After _infer_hierarchy completes, assert ALL candidates have `heading_level is not None`. Any candidate still at None → set `heading_level = 3` (mid-level fallback) and log a warning. This prevents a Pydantic validation crash in DivisionNode (heading_level has `ge=1, le=10` constraint — None would fail).
 
 8. `_build_division_tree(candidates: list[HeadingCandidate], total_pages: int, source_id: str) -> list[DivisionNode]`
    - Sort candidates by (unit_index, document_position).
@@ -160,10 +163,12 @@ class HeadingCandidate:
      - Root nodes: last root extends to total_pages - 1.
      - **Iterative containment enforcement**: After computing ranges, verify children are within parent bounds. Detach any child whose start falls outside parent range. Recompute. Repeat up to 5 iterations until stable.
      - Hard invariant: `end_unit_index >= start_unit_index` always.
+   - **Same-page sibling resolution:** If two candidates at the same heading_level share the same unit_index (two headings on one page at the same level), the second one becomes a CHILD of the first rather than a sibling. This prevents sibling overlap at the shared page (§5 check 5 violation). Empirically 0 occurrences across all 13 fixtures, but must be handled.
    - **Full coverage enforcement (§5 check 5):** After computing ranges, if the first root-level division's `start_unit_index > 0`, extend it to 0. This ensures pages before the first heading are covered. The SPEC concrete example (line 609) shows `start_unit_index: 0` confirming this behavior. Without this fix, pages 0 through (first_heading - 1) would violate §5 check 5 ("the tree covers the entire source").
    - Generate `div_id` in format `div_{source_id}_{depth}_{running_index}` where depth = heading_level, running_index = zero-padded sequential within that depth.
    - Map `keyword_type` → `DivisionType` enum value. `None` if no keyword match (including non-enum keywords like تقسيم — they get `division_type=None` per SPEC §4.A.6 line 568).
    - Return `list[DivisionNode]` — top-level nodes with nested children.
+   - **Zero-heading fallback:** If after all tiers produce zero candidates, create a single ROOT DivisionNode: `div_id=f"div_{source_id}_0_000"`, `division_type=DivisionType.ROOT`, `heading_text="[untitled]"`, `heading_level=1`, `start_unit_index=0`, `end_unit_index=total_pages-1`, `detection_method=HeadingDetectionMethod.KEYWORD_HEURISTIC`, `confidence=HeadingConfidence.LOW`, `children=[]`. This satisfies §5 check 5 (full coverage). Fixture 13_format_b (0 title spans, 1 page) will exercise this path.
 
 9. `_compute_confidence(divisions: list[DivisionNode], total_pages: int) -> HeadingConfidence`
    - **Use SPEC thresholds** (§4.A.6 lines 589–593), NOT ABD's:
@@ -172,7 +177,9 @@ class HeadingCandidate:
      - ratio > 0.80 → HeadingConfidence.HIGH (overall)
      - 0.50 <= ratio <= 0.80 → HeadingConfidence.MEDIUM
      - ratio < 0.50 → HeadingConfidence.LOW
-     - total divisions < 3 AND total_pages >= 50 → HeadingConfidence.LOW (minimal case — log NORM_SPARSE_STRUCTURE)
+     - total divisions < 3 AND total_pages >= 50 → HeadingConfidence.MINIMAL (log NORM_SPARSE_STRUCTURE)
+     - total divisions == 0 → HeadingConfidence.MINIMAL (regardless of page count)
+     - total divisions == 1 AND that division is a ROOT fallback node → HeadingConfidence.MINIMAL
 
 10. `_build_page_markers(candidates: list[HeadingCandidate]) -> dict[int, StructuralMarkers]`
     - Group candidates by unit_index.
@@ -180,7 +187,7 @@ class HeadingCandidate:
     - `heading_detected=True`, `heading_text=candidate.heading_text`, `heading_level=candidate.heading_level`, `heading_detection_method=candidate.detection_method`, `heading_confidence=candidate.confidence`.
 
 11. `normalize_arabic_for_match(text: str) -> str`
-    - Strip diacritics (U+064B–U+0652, U+0670, U+0640), normalize alef forms (أ/إ/آ → ا), normalize ya (ى → ي), strip ZWNJ/ZWJ. For matching/dedup only — never applied to stored text.
+    - Strip diacritics (U+064B–U+0655 inclusive — covers harakat, tanwin, sukun, shadda, maddah above, hamza above, hamza below; also U+0670 superscript alef), strip tatweel/kashida (U+0640), normalize alef forms (أ/إ/آ/ٱ → ا), normalize ya (ى → ي), strip ZWNJ (U+200C)/ZWJ (U+200D), collapse whitespace. For matching/dedup only — never applied to stored text. Study ABD `normalize_arabic_for_match()` (line 204) which covers the same range.
 
 ### Deliverable 2: Integration in `shamela.py`
 
@@ -251,6 +258,10 @@ class HeadingCandidate:
 
 17. **Volume boundary detection:** Construct pages with volume changing from 1 to 2 at page 10. Assert a volume-level DivisionNode exists at page 10 with `division_type=VOLUME`, `heading_level=0`.
 
+18. **Zero-heading fallback (F-12):** Run structure discovery on fixture 13_format_b (0 title spans, 1 page). Assert: division_tree has exactly 1 ROOT node covering page 0, `overall_confidence` is `MINIMAL`, and §5 check 5 invariants still hold.
+
+19. **Heading level None guard (F-14):** Construct an HTML_TAGGED heading with text that matches no keyword (e.g., a scholar name used as a section title). Assert heading_level is assigned (not None) and DivisionNode construction succeeds without Pydantic validation error.
+
 ---
 
 ## Critical Design Decisions (already made — implement as specified)
@@ -279,6 +290,7 @@ Load keywords from `structural_patterns.yaml` and also include definite forms (�
 
 - **Do NOT modify Passes 1–3 code** in shamela.py except to add the Pass 4 integration call in `normalize()`.
 - **Do NOT modify contracts.py** unless a genuine gap is discovered (the 9-field DivisionNode and StructuralMarkers are sufficient).
+  - **EXCEPTION (genuine gap): Add `MINIMAL = "minimal"` to `HeadingConfidence` enum.** SPEC §4.A.6 lines 589-593 defines four structure confidence levels: high, medium, low, minimal. The passaging SPEC (line 460) reads `structure_confidence: "minimal"` to trigger implicit structure discovery. The current enum has CONFIRMED/HIGH/MEDIUM/LOW — no MINIMAL. `QualityReport.overall_confidence` is typed as `HeadingConfidence` and must be able to represent this value. Add the enum value; it's a one-line additive change with zero risk.
 - **Do NOT implement Pass 5 (layer detection)** or Pass 6 (output assembly).
 - **Do NOT implement §5 validation checks** — those are Session 6. But DO ensure your output would pass §5 check 5.
 - **Do NOT implement content_flags detection** — that is Session 5.
@@ -295,13 +307,15 @@ Load keywords from `structural_patterns.yaml` and also include definite forms (�
 
 1. `pytest engines/normalization/tests/ -v` — ALL tests pass (existing + new), zero failures.
 2. ADV-016, ADV-017, ADV-018 all pass as explicit named tests.
-3. Tests #13–17 (from self-review findings) all pass.
+3. Tests #13–19 (from self-review findings) all pass.
 4. At least 3 real fixtures produce non-empty `division_tree` with valid tree structure.
 5. `div_id` format matches `div_{source_id}_{depth}_{index}` on all nodes.
 6. No `StructuralMarkers` has `heading_detected=True` with `heading_text=None` (consistency).
 7. For fixture 07_balagha: `overall_confidence` is `CONFIRMED` or `HIGH`.
-8. The `normalize()` method calls Pass 4 and reaches the new `NotImplementedError` for Passes 5–6 (not the old one for Passes 4–6).
-9. `NORM_SPARSE_STRUCTURE` is logged when Tier 3 trigger condition is met.
+8. For fixture 13_format_b: `overall_confidence` is `MINIMAL`, division_tree has 1 ROOT node.
+9. The `normalize()` method calls Pass 4 and reaches the new `NotImplementedError` for Passes 5–6 (not the old one for Passes 4–6).
+10. `NORM_SPARSE_STRUCTURE` is logged when Tier 3 trigger condition is met.
+11. `HeadingConfidence.MINIMAL` exists in contracts.py enum.
 
 ### Commands to verify:
 
@@ -327,9 +341,9 @@ from engines.normalization.src.structure_discovery import discover_structure
    - Pass 2: 3–5 interaction probes (constructed edge cases), 2–3 fixture semantic spot-checks.
 3. **Cumulative metrics update** (target after Session 3):
    ```
-   Implementation: ~2,800-3,200 lines (shamela.py ~1,150, structure_discovery.py ~600-800, contracts.py 724, errors.py 130, base.py 56)
-   Tests: ~1,800-2,100 lines (existing 1,274 + new ~500-800)
-   Test count: ~140-160 passing
+   Implementation: ~2,900-3,400 lines (shamela.py ~1,150, structure_discovery.py ~700-900, contracts.py ~730, errors.py 130, base.py 56)
+   Tests: ~2,000-2,400 lines (existing 1,274 + new ~700-1,100 for 19 test categories)
+   Test count: ~150-175 passing
    ADV covered: 13/51 (ADV-001–010 + ADV-016–018)
    ```
 
