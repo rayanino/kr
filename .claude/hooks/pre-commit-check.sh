@@ -62,7 +62,20 @@ if [ -n "$MODIFIED_PY" ]; then
     done
 fi
 
-# 4. Advisory: SPEC quality check
+# 4. ADVISORY: Regex \d in engine source (matches Arabic-Indic digits)
+if [ -n "$MODIFIED_PY" ]; then
+    for pyfile in $MODIFIED_PY; do
+        # Look for \d in regex patterns (r-strings containing \d)
+        UNSAFE_D=$(grep -nE "r['\"].*\\\\d" "$pyfile" 2>/dev/null | grep -v '# safe:' | grep -v '\[0-9\]')
+        if [ -n "$UNSAFE_D" ]; then
+            echo "  WARNING: $pyfile uses \\d in regex — Python \\d matches Arabic-Indic digits (٠-٩)."
+            echo "           Use [0-9] for ASCII-only. Add '# safe:' comment if intentional."
+            echo "$UNSAFE_D" | head -5
+        fi
+    done
+fi
+
+# 5. Advisory: SPEC quality check
 MODIFIED_SPECS=$(git diff --cached --name-only | grep "SPEC.md$")
 if [ -n "$MODIFIED_SPECS" ]; then
     for spec in $MODIFIED_SPECS; do
