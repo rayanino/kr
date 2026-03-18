@@ -46,11 +46,11 @@ For each item, classify the A-B pair:
 
 ### Step 2: Handle Agreements
 
-**AGREEMENT_VERIFIED:** Final verdict = VERIFIED. Confidence = min(A_confidence, B_confidence).
-**AGREEMENT_PLAUSIBLE:** Final verdict = PLAUSIBLE. Both verifiers lacked strong evidence.
-**AGREEMENT_FLAG:** Final verdict = FLAG. High priority for remediation.
-**AGREEMENT_UNVERIFIABLE:** Final verdict = UNVERIFIABLE. Neither verifier found evidence. Not an error — it means the item cannot be independently confirmed.
-**AGREEMENT_UNCERTAIN:** Final verdict = PLAUSIBLE. When one says PLAUSIBLE and the other says UNVERIFIABLE, upgrade to PLAUSIBLE (some evidence > no evidence).
+**AGREEMENT_VERIFIED:** Final verdict = VERIFIED. Confidence = min(A_confidence, B_confidence). Conservative — uses the weaker evidence assessment.
+**AGREEMENT_PLAUSIBLE:** Final verdict = PLAUSIBLE. Confidence = min(A_confidence, B_confidence). Both verifiers lacked strong evidence — use the more cautious assessment.
+**AGREEMENT_FLAG:** Final verdict = FLAG. Confidence = max(A_confidence, B_confidence). Both found problems — the stronger evidence drives the confidence in the flag. High priority for remediation.
+**AGREEMENT_UNVERIFIABLE:** Final verdict = UNVERIFIABLE. Confidence = 0.5 (neutral baseline). Neither verifier found evidence for or against — confidence has no evidential grounding, so it defaults to neutral. Not an error — it means the item cannot be independently confirmed.
+**AGREEMENT_UNCERTAIN:** Final verdict = PLAUSIBLE. Confidence = the PLAUSIBLE verifier's confidence. When one says PLAUSIBLE and the other says UNVERIFIABLE, upgrade to PLAUSIBLE (some evidence > no evidence). The evidence-holder's confidence is the only one with grounding.
 
 ### Step 3: Investigate Disagreements
 

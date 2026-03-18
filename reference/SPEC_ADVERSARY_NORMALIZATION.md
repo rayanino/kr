@@ -299,6 +299,8 @@ Layer segments: [
 
 ---
 
+> **NOTE:** ADV-046 targets §4.B.9 (Authorial Voice Fingerprint), a deferred capability. Implement this test when §4.B.9 is built. It is placed here (in the §4.A.5 section) because the fingerprint validates layer detection results from §4.A.5.
+
 ### ADV-046 silent_corruption — Layer fingerprint inversion (NORM_LAYER_FINGERPRINT_INVERSION)
 
 **SPEC rule (§4.B.9):** "If the 'matn' fingerprint has sentence_length.mean > 22 AND connective_frequency > 0.08 AND the 'sharh' layer has sentence_length.mean < 16 AND connective_frequency < 0.06, the inversion signal is strong — trigger human gate review."
@@ -705,6 +707,8 @@ The page image contains visible Arabic text (pixel variance > threshold).
 ---
 
 ## §4.B.2 — Structural Format Auto-Detection (T-3 defense)
+
+> **NOTE:** ADV-043 and ADV-044 target §4.B.2 (Structural Format Auto-Detection), which may be classified as core or deferred during build prep (core-extraction classification). If deferred, implement these tests when §4.B.2 is built. If core, implement during the build session that implements §4.B.2.
 
 ### ADV-043 boundary_value — Q&A format detection at exactly 30% threshold
 
