@@ -463,11 +463,29 @@ class ContentUnit(BaseModel):
 # Division Tree — structural hierarchy
 # ──────────────────────────────────────────────────────────────────
 
-class DivisionNode(BaseModel):
-    """A node in the division tree (SPEC §4.A.6, manifest.division_tree).
+class DivisionType(str, Enum):
+    """Arabic structural division types (SPEC §4.A.6 hierarchy)."""
+    KITAB = "كتاب"
+    BAB = "باب"
+    FASL = "فصل"
+    MABHATH = "مبحث"
+    MATLAB = "مطلب"
+    FAIDAH = "فائدة"
+    TANBIH = "تنبيه"
+    QAIDAH = "قاعدة"
+    KHATIMAH = "خاتمة"
+    MUQADDIMAH = "مقدمة"
+    IMPLICIT = "implicit"
+    VOLUME = "volume"
+    ROOT = "root"
 
-    Represents a structural division (chapter, section, etc.) in the source.
-    """
+
+class DivisionNode(BaseModel):
+    """A node in the division tree (SPEC §4.A.6, manifest.division_tree)."""
+    div_id: str = Field(description="Format: div_{source_id}_{depth}_{index}")
+    division_type: Optional[DivisionType] = Field(
+        None, description="Parsed from heading keyword. None if no keyword match."
+    )
     heading_text: str
     heading_level: int = Field(ge=1, le=10)
     start_unit_index: int = Field(ge=0)
@@ -488,7 +506,11 @@ class LayerMapEntry(BaseModel):
         None, description="sch_XXXXX reference; null if author unknown"
     )
     author_name_arabic: Optional[str] = None
-    detection_confidence: float = Field(ge=0.0, le=1.0)
+    confidence: float = Field(ge=0.0, le=1.0)
+    markers: list[str] = Field(
+        default_factory=list,
+        description="Layer detection markers found (e.g., 'bold', 'brackets', 'قال المصنف')"
+    )
 
 
 # ──────────────────────────────────────────────────────────────────

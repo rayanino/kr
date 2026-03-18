@@ -565,7 +565,7 @@ Detection reasoning: "قوله:" (marker, confidence ≥ 0.90 → transition to 
 
 Structure discovery identifies the source's internal organizational hierarchy — headings, chapters, divisions. This is the normalization engine's job because structural signals are format-specific and are lost after normalization.
 
-**The division tree.** Output is a tree of division nodes. Each node: `div_id`, `type` (one of: `كتاب`, `باب`, `فصل`, `مبحث`, `مطلب`, `فائدة`, `تنبيه`, `قاعدة`, `خاتمة`, `مقدمة`, `implicit`, `volume`, `root`), `title`, `level`, `detection_method`, `confidence`, `start_unit_index`, `end_unit_index`, `parent_div_id`, `child_div_ids`, `page_hint_start`, `page_hint_end`, `digestible` (whether content is extractable), `editor_inserted` (whether heading was added by an editor, not the original author).
+**The division tree.** Output is a tree of division nodes. Each node: `div_id` (format: `div_{source_id}_{depth}_{index}`), `division_type` (one of: `كتاب`, `باب`, `فصل`, `مبحث`, `مطلب`, `فائدة`, `تنبيه`, `قاعدة`, `خاتمة`, `مقدمة`, `implicit`, `volume`, `root`; null if heading doesn't match a known keyword), `heading_text`, `heading_level` (1–10), `start_unit_index`, `end_unit_index` (inclusive), `detection_method`, `confidence`, `children` (nested `DivisionNode` array forming the tree).
 
 **Heading text in primary_text.** Whether heading text appears in `primary_text` depends on the source type:
 - **Shamela HTML:** `PageHead` elements are Shamela's navigation metadata (the current chapter label), NOT part of the author's text. They are recorded in `structural_markers` but EXCLUDED from `primary_text`. Inline headings detected by keyword heuristics within the page text ARE part of the text and remain in `primary_text`.
@@ -603,20 +603,15 @@ Input signals detected across pages of كتاب المغني لابن قدامة
 Output division tree (excerpt):
 ```json
 {
-  "div_id": "kitab_tahara",
-  "type": "كتاب",
-  "title": "كتاب الطهارة",
-  "level": 1,
-  "detection_method": "html_tagged",
-  "confidence": "confirmed",
+  "div_id": "div_fiqh_mughni_001_1_000",
+  "division_type": "كتاب",
+  "heading_text": "كتاب الطهارة",
+  "heading_level": 1,
   "start_unit_index": 0,
   "end_unit_index": 142,
-  "parent_div_id": "root",
-  "child_div_ids": ["bab_wudu", "fasl_mash_khuff", "fasl_tayammum"],
-  "page_hint_start": 1,
-  "page_hint_end": 143,
-  "digestible": true,
-  "editor_inserted": false
+  "detection_method": "html_tagged",
+  "confidence": "confirmed",
+  "children": ["..."]
 }
 ```
 
