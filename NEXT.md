@@ -1,176 +1,51 @@
-# NEXT — Normalization Engine Build Session 1: Contracts Alignment
+# NEXT — Write Session 2 handoff (Architect session)
 
-## Current position: Probe 2 build prep complete. Architect has classified core vs deferred (CORE_EXTRACTION.md), designed MUST-FIX resolutions (MUSTFIX_RESOLUTIONS.md), surveyed technology, defined module architecture, and rewritten CLAUDE.md. Ready to build.
-## What to do: Implement MF-1 (DivisionNode expansion) and MF-2 (LayerMapEntry rename) in contracts.py, complete the error code registry in errors.py, update SPEC field list and examples, and write contract round-trip tests.
-## Context: This is Session 1 of 7. Contracts are the foundation — every subsequent session imports from contracts.py and errors.py. Getting these right before writing any processing logic prevents cascading type errors across sessions.
-## Owner action needed: NO during this session. YES after — to give Session 2 handoff to CC.
+## Current position: Normalization engine Build Session 1 COMPLETE (commit e2d6043). Contracts aligned (MF-1, MF-2), 31 error codes, 40 tests passing. Architect reviewed and ACCEPTED.
+## What to do: Write Build Session 2 NEXT.md for Claude Code — Shamela normalizer Passes 1–3 (HTML parsing → footnote separation → text cleaning).
+## Context: Session 2 is the most complex build session. It implements the core text extraction pipeline that every other session builds on. The ABD reference code (1,123 lines) provides behavioral insight but must be rebuilt to match SPEC.md. Careful handoff is critical.
+## Owner action needed: YES after — to give the Session 2 handoff to CC.
 
 ---
 
 ## Read First (in this order)
 
-1. `engines/normalization/CLAUDE.md` (104L) — Engine orientation. Read the Architecture and Critical Rules sections.
-2. `engines/normalization/MUSTFIX_RESOLUTIONS.md` (121L) — The exact changes to make. Follow these designs precisely — they are pre-verified against upstream and downstream contracts.
-3. `engines/normalization/contracts.py` (702L) — The file you will modify. Read it fully before making any changes.
-4. `engines/normalization/src/errors.py` (108L) — The file you will expand. Currently has 20 error codes; needs 31.
-5. `engines/normalization/SPEC.md` §7 (lines 1562–1608) — The authoritative error code table. Every code, severity, trigger, and recovery action.
-6. `engines/normalization/SPEC.md` §4.A.6 (lines 564–621) — Division tree specification. Read the field list at line 568 and the concrete example at lines 604–620.
-7. `engines/source/contracts.py` (1050L) — Upstream boundary. Read `SourceMetadata` (around line 730) to understand what fields flow into normalization.
-8. `engines/passaging/contracts.py` (556L) — Downstream boundary. Read `DivisionPathEntry` (line 133) to verify `div_id` format alignment.
+1. `engines/normalization/CLAUDE.md` (104L) — Engine orientation, module map, build session plan.
+2. `engines/normalization/SPEC.md` §4.A.2 (lines 183–280) — Shamela normalizer specification, all 6 passes. Focus on Passes 1–3 for this session.
+3. `engines/normalization/SPEC.md` §4.A.8 (lines 655–663) — Diacritics and Arabic text handling rules. Critical for Pass 3.
+4. `reference/archive/abd_code/normalization/normalize_shamela.py` (1,123L) — ABD-era Shamela normalizer. REFERENCE ONLY — build fresh code matching SPEC.md.
+5. `engines/normalization/reference/SHAMELA_HTML_REFERENCE.md` — Shamela HTML format documentation.
+6. `engines/normalization/reference/structural_patterns.yaml` (340L) — The quote-style differentiator (line 12) is critical for Pass 1: single-quote `class='title'` = metadata page, double-quote `class="title"` = content heading.
+7. `engines/normalization/contracts.py` (now ~720L) — Updated Pydantic models from Session 1. Session 2 code must produce data matching these schemas.
+8. `engines/normalization/src/normalizers/shamela.py` (80L) — Existing stub. Session 2 fills in Passes 1–3.
+9. `engines/normalization/src/errors.py` (130L) — Error codes available for Session 2 to raise.
+10. `tests/fixtures/shamela_real/` — 11 real Shamela book fixtures for testing.
+11. `engines/normalization/tests/fixtures/shamela_ibn_aqil.htm` — Multi-layer commentary fixture.
+12. `reference/SPEC_ADVERSARY_NORMALIZATION.md` — Adversarial test cases. ADV-001 through ADV-010 target Passes 1–3.
 
-## What to Build
+## Pre-Session Fix
 
-### 1. Expand DivisionNode (MF-1)
+Before writing the Session 2 handoff, update `engines/normalization/SPEC.md` §9.1 (lines 2041–2042): mark M-13 and M-14 as RESOLVED with commit reference e2d6043. They currently still say "Rename..." and "[OPEN]" — this is stale after Session 1.
 
-Per MUSTFIX_RESOLUTIONS.md, update `DivisionNode` in `contracts.py` from 7 to 9 fields:
+## Handoff Writing Guidance
 
-**Add new enum:**
-```python
-class DivisionType(str, Enum):
-    """Arabic structural division types (SPEC §4.A.6 hierarchy)."""
-    KITAB = "كتاب"
-    BAB = "باب"
-    FASL = "فصل"
-    MABHATH = "مبحث"
-    MATLAB = "مطلب"
-    FAIDAH = "فائدة"
-    TANBIH = "تنبيه"
-    QAIDAH = "قاعدة"
-    KHATIMAH = "خاتمة"
-    MUQADDIMAH = "مقدمة"
-    IMPLICIT = "implicit"
-    VOLUME = "volume"
-    ROOT = "root"
-```
+Use `kr-preparing-cc-handoffs` skill. Key considerations for Session 2:
 
-**Expand DivisionNode:**
-- Add `div_id: str` with Field description `"Format: div_{source_id}_{depth}_{index}"`
-- Add `division_type: Optional[DivisionType] = Field(None, ...)`
-- Keep all 7 existing fields unchanged
-- See MUSTFIX_RESOLUTIONS.md for the complete model definition
+1. **Scope boundary.** Passes 1–3 produce INTERMEDIATE data structures (parsed pages, separated footnotes, cleaned text). They do NOT produce the final ContentUnit output — that's Pass 6 (Session 5). Session 2's output is internal data that Passes 4–6 consume.
 
-### 2. Fix LayerMapEntry (MF-2)
+2. **ABD code relationship.** The ABD `normalize_shamela.py` handles Passes 1–3 in ~800 lines. CC should read it for Shamela HTML quirk awareness (the metadata page detection, the footnote separator regex, the whitespace rules) but implement fresh code matching SPEC.md's upgraded rules.
 
-Per MUSTFIX_RESOLUTIONS.md:
-- Rename `detection_confidence` → `confidence` in `LayerMapEntry`
-- Add `markers: list[str] = Field(default_factory=list, ...)`
+3. **Test fixtures are real.** The 11 books in `tests/fixtures/shamela_real/` are actual Shamela exports. Tests should parse these and verify extraction correctness against known content.
 
-### 3. Update SPEC §4.A.6
+4. **Context budget.** SPEC.md is 2,049 lines — CC cannot read all of it. The handoff must specify EXACTLY which SPEC sections to read (§4.A.2 Passes 1–3, §4.A.8, relevant §7 error codes) and which to skip.
 
-Update line 568 field list. The current SPEC says `title`, `level` — change to `heading_text`, `heading_level` to match the Pydantic model. Remove the 5 dropped fields (`parent_div_id`, `child_div_ids`, `page_hint_start`, `page_hint_end`, `digestible`, `editor_inserted`). Add `div_id` format description and `division_type`.
-
-Update the concrete example at lines 604–620 to match the 9-field model. The example should look like:
-```json
-{
-  "div_id": "div_fiqh_mughni_001_1_000",
-  "division_type": "كتاب",
-  "heading_text": "كتاب الطهارة",
-  "heading_level": 1,
-  "start_unit_index": 0,
-  "end_unit_index": 142,
-  "detection_method": "html_tagged",
-  "confidence": "confirmed",
-  "children": ["..."]
-}
-```
-
-IMPORTANT: Only update the field list at line 568 and the concrete example. Do NOT rewrite any processing rules, detection tiers, hierarchy inference rules, or confidence scoring in §4.A.6 — that content has been through PRECISION and HARDENING passes.
-
-### 4. Update passaging SPEC §2
-
-At line 28, where it says "This `div_id` is generated by the passaging engine, not stored in the normalization output", change to: "If normalization provides `div_id` on `DivisionNode`, the passaging engine uses it directly. Otherwise, it generates `div_{source_id}_{depth}_{index}` during tree traversal (backward compatibility)."
-
-### 5. Complete error code registry
-
-Add the following 11 CORE error codes to `errors.py` (with correct severities from SPEC §7):
-
-| Code | Severity |
-|------|----------|
-| `NORM_DIACRITICS_ENTITY_CORRUPTION` | Fatal |
-| `NORM_ENRICHMENT_WRITEBACK_FAILED` | Warning |
-| `NORM_ORPHAN_FOOTNOTE_REF` | Info |
-| `NORM_SUSPICIOUS_PAGEHEAD` | Warning |
-| `NORM_CONTINUITY_INCONSISTENT` | Warning |
-| `NORM_CONTINUITY_UNKNOWN` | Info |
-| `NORM_MIDWORD_BREAK` | Warning |
-| `NORM_VOLUME_MISMATCH` | Warning |
-| `NORM_VOLUME_NUMBER_UNPARSEABLE` | Warning |
-| `NORM_WRITE_RECOVERY` | Info |
-| `NORM_FOOTNOTE_CLASSIFICATION_FAILED` | Info |
-
-Do NOT add deferred error codes (OCR-specific, fingerprint, discourse, PDF). Those will be added when their capabilities are built. The complete list of deferred codes: `NORM_OCR_COHERENCE_FAILURE`, `NORM_OCR_DIACRITICS_HALLUCINATION`, `NORM_ORIENTATION_UNCERTAIN`, `NORM_ORDERING_UNCERTAIN`, `NORM_FINGERPRINT_INVALID`, `NORM_LAYER_FINGERPRINT_INVERSION`, `NORM_DISCOURSE_INCONSISTENT`, `NORM_TABLE_STRUCTURE_LOST`, `NORM_TRACK_CHANGES_DETECTED`, `NORM_PDF_PARSE_FAILED`, `NORM_PDF_ARABIC_GARBLED`.
-
-Update the `ERROR_SEVERITY` mapping dict for all new codes.
-
-## Tests to Write
-
-Create `engines/normalization/tests/test_contracts.py`:
-
-1. **DivisionNode round-trip.** Create a DivisionNode with all 9 fields (including Arabic `division_type` value), serialize to JSON, deserialize, verify equality. Test with nested `children`.
-2. **DivisionNode validation.** Verify `heading_level` constraints (ge=1, le=10). Verify `start_unit_index` and `end_unit_index` constraints (ge=0).
-3. **DivisionType enum.** Verify all 13 values serialize/deserialize correctly (especially Arabic values through JSON).
-4. **LayerMapEntry round-trip.** Create with `confidence` (not `detection_confidence`) and `markers`. Serialize/deserialize. Verify the JSON key is `"confidence"` not `"detection_confidence"`.
-5. **LayerMapEntry backward incompatibility check.** Verify that JSON with key `"detection_confidence"` does NOT deserialize into the new model (this confirms the rename is real and old data would be caught).
-6. **NormalizedManifest with expanded DivisionNode.** Create a full `NormalizedManifest` with the 9-field `DivisionNode` in `division_tree`. Serialize to JSON and back.
-7. **Error code completeness.** Verify every code in `NormErrorCode` enum has an entry in `ERROR_SEVERITY` dict.
+5. **Intermediate data structures.** Session 2 needs to define what Passes 1–3 produce internally — likely a list of `RawPage` objects (page number, raw HTML, separated primary text, separated footnotes, volume info) that later passes consume. These are internal to the Shamela normalizer, not part of the public contracts.
 
 ## Do NOT Do
 
-- Do NOT modify any `src/*.py` files other than `errors.py`. Processing logic comes in Sessions 2+.
-- Do NOT add deferred error codes (OCR, fingerprint, discourse, PDF — listed above).
-- Do NOT modify §4.A processing rules in SPEC.md. Only update the §4.A.6 field list (line 568) and concrete example (lines 604–620).
-- Do NOT touch the `tracer.py` file. It is ABD reference code.
-- Do NOT add fields to `ContentUnit`, `NormalizedManifest`, or other models beyond what MF-1 and MF-2 require. Other §9.1 items (M-09, M-10, M-11, M-12, M-18, M-20) are deferred.
-- Do NOT update §4.B content in SPEC.md.
+- Do NOT implement Passes 4–6. Those are Sessions 3–5.
+- Do NOT implement the plain text normalizer. That's Session 6.
+- Do NOT modify contracts.py or errors.py (unless a genuine gap is found — document it, don't improvise).
 
-## Verification
+## After Writing
 
-Run before committing:
-
-```bash
-# 1. All tests pass
-cd /home/user/kr && python -m pytest engines/normalization/tests/test_contracts.py -v
-
-# 2. contracts.py imports cleanly
-python -c "from engines.normalization.contracts import DivisionNode, DivisionType, LayerMapEntry, NormalizedManifest; print('OK')"
-
-# 3. errors.py imports cleanly
-python -c "from engines.normalization.src.errors import NormErrorCode, ERROR_SEVERITY; assert len(NormErrorCode) >= 31; assert len(ERROR_SEVERITY) == len(NormErrorCode); print(f'OK: {len(NormErrorCode)} codes, all mapped')"
-
-# 4. DivisionType Arabic values survive JSON round-trip
-python -c "
-from engines.normalization.contracts import DivisionNode, DivisionType, HeadingDetectionMethod, HeadingConfidence
-import json
-node = DivisionNode(
-    div_id='div_test_1_0',
-    division_type=DivisionType.KITAB,
-    heading_text='كتاب الطهارة',
-    heading_level=1,
-    start_unit_index=0,
-    end_unit_index=100,
-    detection_method=HeadingDetectionMethod.HTML_TAGGED,
-    confidence=HeadingConfidence.CONFIRMED,
-)
-j = node.model_dump_json()
-node2 = DivisionNode.model_validate_json(j)
-assert node2.division_type == DivisionType.KITAB
-assert node2.div_id == 'div_test_1_0'
-print('DivisionNode round-trip OK')
-"
-
-# 5. LayerMapEntry uses 'confidence' not 'detection_confidence'
-python -c "
-from engines.normalization.contracts import LayerMapEntry, LayerType
-import json
-entry = LayerMapEntry(layer_type=LayerType.MATN, confidence=0.9, markers=['bold'])
-d = json.loads(entry.model_dump_json())
-assert 'confidence' in d and 'detection_confidence' not in d
-print('LayerMapEntry field rename OK')
-"
-```
-
-All 5 verification commands must succeed with no errors.
-
-## After This
-
-Architect reviews the commit (use kr-reviewing-cc-output). If ACCEPT: write Session 2 handoff (Shamela Passes 1–3). If BLOCKED: fix directive back to CC.
+Commit the Session 2 NEXT.md. Owner gives it to CC.
