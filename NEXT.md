@@ -9,7 +9,7 @@
 
 ## Read First (in this order)
 
-1. `engines/normalization/CLAUDE.md` (109L) — Engine orientation. Session 5 row: "Pass 6 assembly (boundary continuity, flagging, output) | §4.B.8, §4.A.9, §4.A.2 Pass 6".
+1. `engines/normalization/CLAUDE.md` (108L) — Engine orientation. Session 5 row: "Pass 6 assembly (boundary continuity, flagging, output) | §4.B.8, §4.A.9, §4.A.2 Pass 6".
 
 2. `engines/normalization/SPEC.md` lines 219–233 — §4.A.2 Pass 6 overview. Lists all enrichment steps in dependency order. **Core steps for Session 5: #1 (content flagging §4.A.9) and #7 (cross-page continuity §4.B.8). All other steps are DEFERRED — leave those manifest fields as `None`.**
 
@@ -25,7 +25,8 @@
    - `ContentUnit` (line 427): the output record — all fields that must be populated
    - `PhysicalPage` (line 101): volume, page_number_display, page_number_int
    - `Footnote` (line 168): the contract footnote type (vs `ParsedFootnote` internal type)
-   - `FootnoteType` (line 148): enum with coarse types (tahqiq_editor, author_original, unknown)
+   - `FootnoteType` (line 61): enum with coarse types (tahqiq_editor, author_original, unknown)
+   - `TextFidelityLevel` (line 24): enum (very_low, low, medium, high)
    - `StructuralMarkers` (line 190): heading_detected, heading_text, heading_level, etc.
    - `NormalizedManifest` (line 660): all manifest fields
    - `QualityReport` (line 529): quality metrics
@@ -109,7 +110,19 @@ def classify_boundary(
 
 2. **Check structural heading.** If `next_markers` has `heading_detected=True` → `section_break`, confidence from heading_confidence mapping (confirmed/high → 0.95, medium → 0.85, low → 0.75), method `structural_marker`. **Heading ALWAYS overrides punctuation and argument analysis** (SPEC signal priority rule).
 
-3. **Check argument flow.** Scan last 200 chars of `current_page.primary_text` for opening markers (SPEC table: `والدليل`, `لقوله تعالى`, `ودليله`, `واحتجوا بـ`, `واستدلوا بـ`, `وذهب ... إلى`, `والمذهب أن`, `القول الأول`, `واعترض عليه بأن`, `وأُشكل عليه`, `فإن قيل`). If found AND no corresponding closing marker on the same page → `mid_argument`, confidence 0.60–0.80, method `argument_flow`, continuation_hint describes the opened marker.
+3. **Check argument flow.** Scan last 200 chars of `current_page.primary_text` for opening markers from the SPEC table. **Match the SPECIFIC phrases listed below — not the full SPEC table.** The SPEC's conditional reasoning markers (`إذا`, `ولو أن`, `فإن كان`) are excluded from the initial implementation because they're common Arabic words that fire on 15-19% of fiqh pages as false positives (see D7). The `وذهب ... إلى` pattern means: match the word `وذهب` (the `...` in the SPEC represents a scholar name that varies).
+
+   **Opening markers to implement:**
+   - Evidence chain: `والدليل`, `لقوله تعالى`, `ودليله`, `واحتجوا بـ`, `واستدلوا بـ`
+   - Position statement: `وذهب`, `والمذهب أن`, `القول الأول`
+   - Objection-response: `واعترض عليه بأن`, `وأُشكل عليه`, `فإن قيل`
+
+   **Closing markers (checked on same page to cancel mid_argument):**
+   - Evidence chain closers: `ونوقش بأن`, `ورُدّ بأن`, `والجواب`
+   - Position statement closers: `القول الثاني`, `والراجح`, `والصحيح`
+   - Objection-response closers: `فالجواب`, `قلنا`, `والجواب عنه`
+
+   Matching is category-specific: an evidence chain opener is only cancelled by an evidence chain closer on the same page. If opener found AND no matching-category closer on the same page → `mid_argument`, confidence 0.70, method `argument_flow`, continuation_hint describes the opened marker and its category.
 
 4. **Punctuation analysis (fallback).** Check last non-whitespace character of `current_page.primary_text`:
    - Terminal punctuation (`.`, `۔`, `؟`, `!`, `؛`) present → `mid_paragraph`, confidence 0.75, method `punctuation_analysis`.
@@ -123,12 +136,12 @@ def classify_boundary(
 ```python
 @dataclass
 class _ArgumentMarker:
-    category: str  # "evidence_chain", "position_statement", "objection_response", "conditional"
+    category: str  # "evidence_chain", "position_statement", "objection_response"
     opening_patterns: list[str]
     closing_patterns: list[str]
 ```
 
-Populate from the SPEC §4.B.8 marker table. The matching is plain-text `in` check on the last 200 chars (no regex needed — these are fixed Arabic phrases).
+Populate from the opening/closing marker lists above (3 categories, NOT the SPEC's conditional category — see D7). The matching is plain-text `in` check on the last 200 chars of primary_text (no regex needed — these are fixed Arabic phrases). Closing marker check scans the ENTIRE page's primary_text, not just the tail.
 
 **Tests:** 15+ tests. Must include:
 - ADV-026 (mid_sentence with terminal punctuation — construct a page ending with `.` and verify classification is NOT mid_sentence)
@@ -146,7 +159,7 @@ Replace the `NotImplementedError` at line 498 with Pass 6 that:
 
 1. **Thread TOC page indices** — modify `_pass4_discover_structure` to also return `toc_indices`. Add `toc_page_indices: list[int] = field(default_factory=list)` to `StructureResult` in `structure_discovery.py`. Pass these to the content flagger. (D3)
 
-2. **Compute content flags** — call `compute_content_flags(page, is_toc=page.unit_index in toc_set)` for each page.
+2. **Compute content flags** — call `compute_content_flags(page, is_toc_page=page.unit_index in toc_set)` for each page.
 
 3. **Compute boundary continuity** — for each consecutive page pair, call `classify_boundary(...)`. Detect volume boundaries by comparing `cleaned[i].volume != cleaned[i+1].volume`. Pass structural markers from `page_markers` dict.
 
@@ -196,9 +209,9 @@ Replace the `NotImplementedError` at line 498 with Pass 6 that:
 
 8. **Return `NormalizedPackage(manifest=manifest, content_units=content_units)`.**
 
-**Tests for assembly:** 5+ tests.
-- Full pipeline test on ibn_aqil fixture: run normalize() end-to-end, verify it returns a NormalizedPackage (not raises NotImplementedError), verify content_units count matches expected pages, verify each content_unit has full coverage text_layers.
-- Full pipeline test on 01_nahw_simple (single-layer, 73 pages): verify all content_units are MATN at confidence 1.0.
+**Tests for assembly:** 5+ tests. **Fixture paths for `normalize(frozen_path, metadata)`:** ibn_aqil → `Path("engines/normalization/tests/fixtures/shamela_ibn_aqil.htm")` (single file). 01_nahw_simple → `Path("tests/fixtures/shamela_real/01_nahw_simple")` (directory, contains `book.htm`). Both work with `_resolve_input_files`.
+- Full pipeline test on ibn_aqil fixture: construct metadata with `is_multi_layer=True`, `text_layers=[matn+sharh]`, `structural_format="prose"`, `source_format="shamela_html"`. Run normalize() end-to-end. Verify it returns a NormalizedPackage (not raises NotImplementedError). Verify content_units count matches expected pages (5). Verify each content_unit has full coverage text_layers.
+- Full pipeline test on 01_nahw_simple (single-layer, 73 pages): construct metadata with `is_multi_layer=False`, `structural_format="prose"`, `source_format="shamela_html"`. Verify all content_units are MATN at confidence 1.0.
 - Spot-check footnote conversion on a fixture with footnotes.
 - Verify manifest fields are populated correctly.
 - Verify boundary_continuity is None for the last content_unit.
@@ -218,6 +231,8 @@ Replace the `NotImplementedError` at line 498 with Pass 6 that:
 **D5: Blank/image-only page assembly.** Blank and image-only pages still produce ContentUnits (SPEC completeness rule). They get: empty primary_text, empty text_layers, content_flags.is_blank=True, boundary_continuity=None (no text to analyze).
 
 **D6: `TextFidelityLevel` for Shamela.** All Shamela pages get `TextFidelityLevel.HIGH`. This is hardcoded — Shamela is digital-born text, not OCR.
+
+**D7: Conditional reasoning markers excluded.** The SPEC §4.B.8 argument marker table lists conditional reasoning openers: `إذا`, `ولو أن`, `فإن كان`. Empirical testing on real fixtures shows `إذا` appears in the last 200 chars of 15-19% of pages — it's a common Arabic word meaning "if/when," not a reliable argument marker. `ولو أن` and `فإن كان` are similarly common. Exclude all three from the initial implementation. Document as L-008 in KNOWN_LIMITATIONS.md. The conditional reasoning closers (`وإلا`, `فحينئذ`, `فالحكم`) are also excluded since they have no openers. Fix point: add these markers with additional context requirements (sentence-initial position, specific syntactic patterns) when real mid-argument false negative data is available.
 
 ---
 
