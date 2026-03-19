@@ -54,4 +54,20 @@ For the new skill, create it: Settings → Skills → Create → paste the conte
 
 **NOTE:** This is the THIRD version of this skill. v1 had "ACCEPT WITH FIXES." v2 fixed verdicts but allowed single-response reviews. v3 enforces multi-round. The progression shows the same pattern: each failure mode gets patched after it costs real review quality.
 
-Delete this directory (`reference/skill_updates/`) once all five skills are installed. The files are archived in git history if ever needed.
+Delete this directory (`reference/skill_updates/`) once all seven skills are installed. The files are archived in git history if ever needed.
+
+### 6. `kr-preparing-cc-handoffs_SKILL_v2.md` — MULTI-ROUND ENFORCEMENT (March 2026)
+
+**Problem:** The original skill runs Steps 1-5 in a single response. A bad handoff means CC builds the wrong thing and nobody catches it. Session 4's NEXT.md required two adversarial rounds to find 22 issues — proving single-response handoffs miss problems.
+
+**Fix:** Split into Round 1 (draft + preliminary checks, commit, end response) and Round 2 (adversarial re-read as CC, data flow trace, fix and re-commit). Added QUALITY AXIOM reference. Removed any language implying the owner checks the handoff.
+
+**Install:** Replace the existing `kr-preparing-cc-handoffs` skill content.
+
+### 7. `kr-gating-transitions_SKILL_v2.md` — TOOL-BASED VERIFICATION (March 2026)
+
+**Problem:** The original skill's Step 4 ("adversarial self-check") asks "am I feeling momentum pressure?" and "would a fresh architect approve?" — introspective questions that don't work. The architect always answers "yes, I'm being thorough" and "yes, a fresh architect would approve." Session 3's transition was approved twice with unfixed findings.
+
+**Fix:** Replaced introspective self-check with tool-based verification: list every output, verify each exists with tool calls, trace failure paths concretely. Replaced DEFERRED verdict with only APPROVED/BLOCKED. Added missing-test check (Rule 5 generalized). Every prerequisite verification requires a tool call citation.
+
+**Install:** Replace the existing `kr-gating-transitions` skill content.

@@ -83,3 +83,21 @@ to "open checklist → execute steps → fill evidence → fix findings → then
 
 The system prompt change makes this the DEFINED workflow, not a document
 the architect may or may not read from the repo.
+
+## 4. QUALITY_AXIOM.md — new governing document
+
+A new protocol document `reference/protocols/QUALITY_AXIOM.md` establishes the foundational principle:
+the architect is the sole quality gate, the owner is not a safety net. It defines what mechanisms
+actually work (tool-based verification, context breaks, checklists, failure documentation) and what
+doesn't (aspirational "be careful," introspective self-review, owner-dependent checks).
+
+The QUALITY_AXIOM is referenced by: REVIEW_PROTOCOL.md, kr-reviewing-cc-output skill v3,
+kr-preparing-cc-handoffs skill v2, kr-gating-transitions skill v2.
+
+**Add to `<quality_standards>` in project instructions:**
+```
+When reviewing any output, first read reference/protocols/QUALITY_AXIOM.md — the architect is
+the sole quality gate. The owner says "continue" and does not check output. Every error the
+architect makes reaches the pipeline. Quality enforcement must be tool-based and structural,
+never aspirational or owner-dependent.
+```

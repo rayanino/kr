@@ -9,6 +9,8 @@ When Claude Code finishes a task, the Architect's review is the quality gate bet
 
 **CRITICAL: REVIEW_PROTOCOL.md (in the repo) is the AUTHORITY. This skill triggers the workflow; the protocol defines the rules. Always pull the repo and read the protocol before starting. If this skill and the protocol conflict, the protocol wins.**
 
+**QUALITY AXIOM:** The architect is the sole quality gate. The owner is not a safety net. The owner says "continue" and does not check output. Every error the architect misses reaches the pipeline. See `reference/protocols/QUALITY_AXIOM.md`.
+
 ## When this skill activates
 
 Whenever Claude Code completes any deliverable: a probe, a build session, agent definitions, SPEC revisions, or any committed work. The trigger is the owner saying "Claude Code finished" or "it's done" or the Architect seeing new commits.

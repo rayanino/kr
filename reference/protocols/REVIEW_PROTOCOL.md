@@ -1,6 +1,8 @@
 # KR Review Protocol — Mandatory Three-Pass Review
 
-**Authority:** This protocol overrides single-pass reviews. Every CC review MUST follow all three passes across multiple owner interactions (RULE 8). Learned from Session 2 normalization engine review (March 2026): single-pass review read 1,900 lines of code, found one marginal test-input style issue, nearly blocked incorrectly. Deep second pass found the ضياء السالك commentary collision, verified `[0-9]` vs `\d` correctness, and confirmed Format B handling — real substantive findings the first pass missed entirely.
+**Governing principle:** `reference/protocols/QUALITY_AXIOM.md` — The architect is the sole quality gate. The owner is not a safety net. Every error the architect makes reaches the pipeline.
+
+**Authority:** This protocol overrides single-pass reviews. Every CC review MUST follow all three passes across multiple responses (RULE 8). Learned from Session 2 normalization engine review (March 2026): single-pass review read 1,900 lines of code, found one marginal test-input style issue, nearly blocked incorrectly. Deep second pass found the ضياء السالك commentary collision, verified `[0-9]` vs `\d` correctness, and confirmed Format B handling — real substantive findings the first pass missed entirely.
 
 **SESSION 3 ADDENDUM (March 2026):** The architect approved Session 3 twice with unfixed findings. A SPEC inconsistency was labeled "architect action item" instead of a finding. A cross-engine contract break (passaging `DivisionPathEntry.heading_level ge=1` vs normalization's new `ge=0`) was missed entirely because the review never opened downstream engine contracts. The three rules below exist because of this failure.
 
