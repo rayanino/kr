@@ -20,12 +20,14 @@
 
 **RULE 7: FULL FILE READ ENFORCEMENT.** When the `view` tool truncates a file, the reviewer MUST request the truncated range before proceeding. After reading any file, the reviewer states: "File X: [N] functions/patterns/classes." Then verifies that count with `grep -c` or equivalent. If the count doesn't match, re-read. This rule exists because Session 4's truncated read caused a factual error that survived into the committed review artifact.
 
-**RULE 8: MULTI-ROUND REVIEW STRUCTURE.** Reviews are split across multiple owner interactions, never crammed into one response. The structure is:
-- **Round 1:** Pass 1 (structural read, tests, SPEC cross-reference, cross-engine check). Deliver Pass 1 findings. STOP. Wait for owner to say "continue."
-- **Round 2:** Pass 2 (adversarial probes, fixture spot-checks, SPEC example trace). Deliver Pass 2 findings. STOP. Wait for owner.
-- **Round 3:** Pass 3 (self-review — verify every claim in Rounds 1-2 against the code, check for rationalization patterns, verify Notes). Fill checklist. Commit. Deliver verdict.
+**RULE 8: MULTI-ROUND REVIEW STRUCTURE.** Reviews are split across multiple responses, never crammed into one. Each round uses a structurally different verification method. The purpose is to force the architect to approach the code from different angles — not to wait for owner input. The owner typically says "continue" between rounds; the quality improvement comes from the context switch and the mandatory verification in each round, not from owner redirection.
 
-The owner can add direction between rounds ("also check X", "that finding looks wrong", "skip ahead"). The architect NEVER delivers a verdict in the same response as the last probe. A cooling-off period between probing and judging prevents momentum from overriding rigor. This rule exists because Session 4 ran 16 probes and delivered "ACCEPT, zero findings" in one response — then a second honest look found three gaps.
+Structure:
+- **Round 1 (structural):** Read all code, run tests, SPEC cross-reference, cross-engine check. Produce findings. End the response.
+- **Round 2 (adversarial):** Construct probing inputs, run them empirically. Trace every SPEC concrete example (RULE 5). Fixture spot-checks with printed Arabic. Produce findings. End the response.
+- **Round 3 (self-verification):** Verify every factual claim from Rounds 1-2 with tool calls (RULE 6). Re-read every "not a finding" conclusion and ask: "am I rationalizing?" Draft Notes with code-verified facts only. Fill checklist. Commit. Deliver verdict.
+
+The architect NEVER delivers a verdict in the same response as Pass 2 probes. This is not about giving the owner a chance to redirect (though they can) — it's about forcing the architect to re-enter the review fresh in Round 3, with the specific task of attacking their own conclusions from Rounds 1-2. Session 4 proved that same-context self-review is performative: the architect must break context between probing and judging.
 
 **SKILL OVERRIDE:** The `kr-reviewing-cc-output` skill offers "ACCEPT WITH FIXES" and "non-blocking fixes" as valid options. **This protocol OVERRIDES that skill.** The only valid verdicts are ACCEPT (zero unfixed findings) and BLOCKED (findings exist). The skill triggers the workflow; this protocol defines the rules.
 

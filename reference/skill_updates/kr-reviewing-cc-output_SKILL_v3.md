@@ -26,7 +26,7 @@ Reviews are NEVER crammed into one response. The structure is enforced:
 5. SPEC cross-reference: every function traces to a § rule.
 6. Cross-engine boundary check for every modified contract type.
 
-**→ Deliver Pass 1 findings. STOP. Wait for owner to say "continue."**
+**→ End response. Context switch forces fresh eyes for adversarial probing.**
 
 ### Round 2 → Pass 2 (Adversarial)
 
@@ -36,7 +36,7 @@ Reviews are NEVER crammed into one response. The structure is enforced:
 4. Cross-engine data flow verification.
 5. Edge case probes.
 
-**→ Deliver Pass 2 findings. STOP. Wait for owner to say "continue."**
+**→ End response. Verdict is NEVER in the same response as probes.**
 
 ### Round 3 → Pass 3 (Self-Verification + Verdict)
 
@@ -60,7 +60,9 @@ BANNED: "ACCEPT WITH FIXES", "non-blocking", "architect action item", "maintenan
 
 ## Session 4 lesson (why 3 rounds exist)
 
-Session 4 review ran 16 adversarial probes and delivered "ACCEPT, zero findings" in a single response. When the owner forced a self-review, three gaps were found: (1) factual error in review notes from reading a truncated file, (2) never traced the SPEC's own concrete example — the most obvious test — missing a real T-2 limitation (L-007), (3) no cooling-off period between probing and judging. The review LOOKED thorough but wasn't. Multi-round structure prevents this by giving the owner visibility into each pass and forcing a self-verification step before the verdict.
+Session 4 review ran 16 adversarial probes and delivered "ACCEPT, zero findings" in a single response. When forced to self-review, three gaps were found: (1) factual error in review notes from reading a truncated file, (2) never traced the SPEC's own concrete example — the most obvious test — missing a real T-2 limitation (L-007), (3) no cooling-off period between probing and judging. The review LOOKED thorough but wasn't.
+
+The multi-round structure works because each round uses a structurally different verification method, and the context break between rounds forces the architect to re-enter fresh rather than continuing in the same frame of mind that produced the initial conclusions. The owner just says "continue" — the quality comes from the architect's mandatory self-verification in Round 3, not from owner intervention.
 
 ## After the review
 

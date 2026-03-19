@@ -23,23 +23,26 @@ Step 2: ROUND 1 — Pass 1 (Structural). Do NOT skip ahead to probing or verdict
   - After reading each file, state function/pattern count. Verify by grep.
   - Run ALL tests
   - CROSS-ENGINE: grep every modified contract type across ALL engines. Run tools/check_cross_engine_contracts.py
-  - Deliver Pass 1 findings. STOP. Wait for owner to say "continue."
+  - Deliver Pass 1 findings. End the response. (Context switch forces fresh eyes.)
 
-Step 3: ROUND 2 — Pass 2 (Adversarial). Only after owner says "continue."
+Step 3: ROUND 2 — Pass 2 (Adversarial). After owner says "continue."
   - 3+ probing scripts with constructed inputs
   - 2+ fixture semantic spot-checks with printed Arabic text
   - SPEC CONCRETE EXAMPLE TRACE: for every SPEC section with a worked example, trace it through the implementation. Print actual output. Compare field-by-field.
   - Cross-engine data flow test
-  - Deliver Pass 2 findings. STOP. Wait for owner.
+  - Deliver Pass 2 findings. End the response. Verdict is NEVER here.
 
-Step 4: ROUND 3 — Pass 3 (Self-Verification + Verdict). Only after owner says "continue."
+Step 4: ROUND 3 — Pass 3 (Self-Verification + Verdict). After owner says "continue."
   - Verify every factual claim from Passes 1-2 (grep counts, existence checks, re-read functions)
   - Check for rationalization patterns in your own conclusions
   - Draft Notes — each verified against code before writing
   - Fill the checklist. Commit. Push.
   - Deliver verdict ONLY now.
 
-CRITICAL: The verdict is NEVER in the same response as Pass 2 probes.
+CRITICAL: The architect drives the quality — the owner just says "continue."
+Each round uses a structurally different verification method. The context break
+between rounds forces the architect to re-enter fresh. The verdict is NEVER
+in the same response as Pass 2 probes.
 The kr-reviewing-cc-output skill offers "ACCEPT WITH FIXES" — that verdict DOES NOT EXIST.
 The only verdicts are ACCEPT (zero unfixed findings, repo clean) and BLOCKED.
 reference/protocols/REVIEW_PROTOCOL.md overrides the skill.
@@ -70,7 +73,7 @@ The Session 4 failure trace:
 3. Owner says "do a critical review" → architect finds 3 real gaps (factual error, missed SPEC trace, undocumented L-007)
 4. Owner: "your review quality is pretty bad, fix the environment"
 
-**Pattern:** The architect produces thorough-LOOKING work that doesn't withstand scrutiny. Multi-round structure (Rule 8) gives the owner visibility into each pass and forces a self-verification step. The owner should never have to be the one who says "look harder."
+**Pattern:** The architect produces thorough-LOOKING work that doesn't withstand scrutiny. Multi-round structure (Rule 8) forces the architect to use structurally different verification in each round. The context break between rounds prevents momentum from overriding rigor. The owner says "continue" — the quality comes from the architect's mandatory self-verification in Round 3, not from owner intervention. The architect is the quality gate, not the owner.
 
 Root cause: the architect's first action after "it's done" was reading code.
 It should have been: copy the checklist template.

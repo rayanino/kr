@@ -22,7 +22,7 @@
   - Modified types: `[list them]`
   - Consumers checked: `[list engines/files]`
 
-**→ STOP after Pass 1. Deliver findings. Wait for owner to say "continue." (RULE 8)**
+**→ End response after Pass 1. Context switch forces fresh eyes for Pass 2. (RULE 8)**
 
 ## Pass 2: Adversarial
 - [ ] 3+ probing scripts run with constructed inputs — findings:
@@ -39,7 +39,7 @@
   - [ ] Each divergence classified as: finding / documented deferred capability
 - [ ] Edge case probes with constructed inputs: `[N]` run, `[findings]`
 
-**→ STOP after Pass 2. Deliver findings. Wait for owner to say "continue." (RULE 8)**
+**→ End response after Pass 2. Verdict is NEVER in the same response as probes. (RULE 8)**
 
 ## Pass 3: Self-verification (RULES 6-7)
 - [ ] Every factual claim in Passes 1-2 verified against code with tool calls:
