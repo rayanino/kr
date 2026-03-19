@@ -103,7 +103,7 @@ Pass 3 is mandatory. It cannot be performed in the same response as Pass 2 (RULE
 - "Architect action item" — banned. This is "non-blocking" in a different costume.
 - "Maintenance item" / "future cleanup" / "next pass" — banned. Fix it now or it's a finding.
 
-After a genuine two-pass review:
+After a genuine three-pass review:
 - Finding nothing material IS valid — rigor comes from depth of probing, not number of findings
 - Finding something marginal and elevating it to blocking to look thorough is DISHONEST — it's "blocking manufacture," the inverse of the "non-blocking rationalization" failure
 - Finding a real behavioral interaction bug is the expected outcome — bugs hide between functions, not inside them
