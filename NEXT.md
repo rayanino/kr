@@ -287,9 +287,19 @@ from pathlib import Path
 - Every `ContentUnit` has full text_layer coverage (start=0, end=len(primary_text))
 - Content flags on `05_tafsir` pages detect Quran citations
 - SPEC §4.A.9 and §4.B.8 concrete examples traced through implementation
+- ADV-026-inspired test passes (classifier never produces `mid_sentence` when terminal punctuation is present — the classifier itself should return `mid_paragraph`. The §5 post-hoc validation check is Session 6.)
+- ADV-024/050/051 tests pass (non-standard Quran/hadith patterns, TOC detection)
 
 ---
 
 ## After This
 
-Architect reviews in a new chat using kr-reviewing-cc-output (3-round protocol). Then Session 6: §5 validation checks 1-10 + atomic writer + plain text normalizer.
+**Post-build sequence (3 steps before Session 6):**
+
+1. **Build Prober** — Owner starts a new CC session: "Run the Build Prober on Session 5. Agent: `.claude/agents/build-prober.md`. Engine: normalization. Git range: from the last commit before Session 5 to HEAD." The Build Prober maps every new function to a SPEC rule and flags deviations, improvisations, and omissions. Its report feeds the architect review.
+
+2. **Architect review** — New Claude Chat session using kr-reviewing-cc-output (3-round protocol: Pass 1 structural, Pass 2 adversarial with SPEC example traces, Pass 3 self-verification + verdict). Build Prober report is available as input.
+
+3. **Session 6** — §5 validation checks 1-10 + atomic writer + plain text normalizer.
+
+**Agent architecture deviation (documented):** AGENT_ARCHITECTURE.md §2.2 prescribes test-engineer, code-reviewer, and boundary-validator as CC sub-agents during BUILD. Sessions 1–4 built successfully without sub-agents — the architect's 3-round review protocol serves the same function as code-reviewer, and tests are written alongside implementation (satisfying the test-engineer role). Sub-agent invocation will be evaluated during Probe 2 (Build Team) on a future engine. For the normalization engine build, the existing architect-supervised workflow continues.
