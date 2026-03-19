@@ -82,12 +82,14 @@ The ABD code is REFERENCE, not implementation. Build fresh code that matches SPE
 | 1 | Contracts alignment (MF-1, MF-2) + complete error codes | contracts.py, errors.py, §7 | ✅ Done |
 | 2 | Shamela Passes 1–3 (HTML parse → footnotes → clean) | §4.A.2 Passes 1–3 | ✅ Done |
 | 3 | Structure discovery (4-tier headings, division tree) | §4.A.6, structural_patterns.yaml | ✅ Done |
-| 4 | Layer detection (typographic signals for Shamela) | §4.A.5 |  |
+| 4 | Layer detection (typographic signals for Shamela) | §4.A.5 | ✅ Done |
 | 5 | Pass 6 assembly (boundary continuity, flagging, output) | §4.B.8, §4.A.9, §4.A.2 Pass 6 |  |
 | 6 | Validation + writer + plain text normalizer | §5 checks 1–10, §4.A.4c |  |
 | 7 | Integration testing on fixtures | Full pipeline, adversarial cases |  |
 
-**Build metrics after Session 3:** 3,266 impl lines, 1,919 test lines, 125 tests passing, 13/51 ADV covered (ADV-001–010 + ADV-016–018). Known limitations: L-001 (bare-number footnotes), L-002 (ضياء السالك collision), L-003 (same-page heading chaining).
+**Build metrics after Session 4:** ~4,100 impl lines, ~2,800 test lines, 171 tests passing, 18/51 ADV covered (ADV-001–015 + ADV-016–018). Known limitations: L-001 (bare-number footnotes), L-002 (ضياء السالك collision), L-003 (same-page heading chaining), L-004 (Arabic conjunction prefixes), L-005 (bold threshold 50 vs SPEC 80).
+
+**Test factory:** `_make_source_metadata(**overrides)` in `tests/test_layer_detection.py` builds a valid `SourceMetadata` with all 23+ required fields. Reuse in Sessions 5–7 test files.
 
 ## Critical Rules
 

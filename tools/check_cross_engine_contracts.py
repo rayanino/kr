@@ -139,7 +139,7 @@ def find_cross_references() -> dict[str, list[str]]:
                     consumer_engine = parts[0]
                 
                 if consumer_engine and consumer_engine != source_engine and imported:
-                    refs[f"{source_engine} → {consumer_engine}"].append(
+                    refs[f"{source_engine} -> {consumer_engine}"].append(
                         f"{imported.strip()} (in {py_file.relative_to(REPO_ROOT)})"
                     )
     

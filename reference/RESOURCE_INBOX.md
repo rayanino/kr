@@ -26,7 +26,11 @@ Triage into `RESOURCES.md` (or discard) during `technology-survey` skill session
 - https://github.com/jrcruciani/obsidian-memory-for-ai — Obsidian vault as AI memory source
 - https://gist.github.com/a-c-m/f4cead5ca125d2eaad073dfd71efbcfc — Claude configuration gist
 - [Reddit - The heart of the internet](https://www.reddit.com/r/ClaudeCode/comments/1rw5g7c/claude_code_recursive_selfimprovement_of_code_is/)
-- [Reddit - The heart of the internet](https://www.reddit.com/r/ClaudeAI/comments/1rv1wsc/i_built_a_registry_of_156_productionready_skills/)
+- [Reddit - The heart of the internet[GitHub - jnemargut/better-plan-mode: An AI coding skill that transforms project planning into visual, interactive HTML decision documents · GitHub](https://github.com/jnemargut/better-plan-mode)](https://www.reddit.com/r/ClaudeAI/comments/1rv1wsc/i_built_a_registry_of_156_productionready_skills/)
+- [GitHub - jnemargut/better-plan-mode: An AI coding skill that transforms project planning into visual, interactive HTML decision documents · GitHub](https://github.com/jnemargut/better-plan-mode)
+- [[FEATURE] Built-in Personal Knowledge Base with Semantic RAG · Issue #28196 · anthropics/claude-code · GitHub](https://github.com/anthropics/claude-code/issues/28196)
+- [GitHub - karanb192/reddit-mcp-buddy: Clean, LLM-optimized Reddit MCP server. Browse posts, search content, analyze users. No fluff, just Reddit data. · GitHub](https://github.com/karanb192/reddit-mcp-buddy)
+- [GLM Coding Plan — AI Coding Powered by GLM-5, GLM-5-Turbo &amp; GLM-4.7 for Agents &amp; IDEs](https://z.ai/subscribe)
 - 
 
 ## AI Agent & Research Frameworks

@@ -8,3 +8,5 @@
 - After implementing a major module and before writing the test suite, run a quick smoke test on real fixtures. This catches structural issues early before they propagate into dozens of failing tests.
 - For complex debugging, use the `mcp__sequential-thinking__sequentialthinking` tool to structure reasoning step-by-step before proposing a fix.
 - For multi-step design decisions (SPEC design, architecture choices), use sequential thinking to evaluate alternatives before committing to an approach.
+- If the user requests immediate commit while the code reviewer is still running, commit as requested and apply reviewer findings as a separate follow-up commit. Do not block the user's commit request on reviewer completion.
+- The cross-engine contract test (`test_cross_engine.py`) requires `PYTHONIOENCODING=utf-8` on Windows. Run directly: `PYTHONIOENCODING=utf-8 python tools/check_cross_engine_contracts.py`.

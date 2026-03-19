@@ -10,3 +10,5 @@ globs: ["engines/*/src/**/*.py", "shared/*/src/**/*.py", "scripts/**/*.py"]
 - Use `from __future__ import annotations` in all new files.
 - Prefer `pathlib.Path` over `os.path`.
 - Run `black` before committing. Line length 88.
+- Pyright + Pydantic: When constructing Pydantic models, always pass explicit `None` for Optional fields with `Field(None, ...)` defaults. Pyright cannot infer the default from `Field()`. Example: `TextLayerSegment(layer_type=..., author_canonical_id=None, start=..., end=..., confidence=...)`.
+- Lazy imports (inside function bodies) for circular dependency avoidance: when the lazy-imported types appear in the function's return type annotation, add them under `if TYPE_CHECKING:` at the module top level. This lets pyright check the types without triggering runtime circular imports.
