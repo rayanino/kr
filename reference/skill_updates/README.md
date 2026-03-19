@@ -44,4 +44,14 @@ For the new skill, create it: Settings → Skills → Create → paste the conte
 
 ## After installing
 
-Delete this directory (`reference/skill_updates/`) once all four skills are installed. The files are archived in git history if ever needed.
+### 5. `kr-reviewing-cc-output_SKILL_v3.md` — MULTI-ROUND ENFORCEMENT (March 2026)
+
+**Problem:** The skill (even after v2 fix) allowed the architect to cram the entire review into one response — 16 probes, verdict, all in one shot. Session 4 proved this pattern misses real gaps: factual error from truncated file read, never traced the SPEC's own worked example, no cooling-off period before verdict.
+
+**Fix:** Complete rewrite to enforce 3-pass multi-round structure (RULE 8). Pass 1 → STOP, wait for owner. Pass 2 (including mandatory SPEC example trace per RULE 5) → STOP, wait. Pass 3 (self-verify per RULES 6-7) → verdict. Added: RULE 5 (SPEC example trace), RULE 6 (verify own claims by grep), RULE 7 (no truncated reads). Session 4 failure documented as permanent lesson.
+
+**Install:** Replace the existing `kr-reviewing-cc-output` skill content with this file.
+
+**NOTE:** This is the THIRD version of this skill. v1 had "ACCEPT WITH FIXES." v2 fixed verdicts but allowed single-response reviews. v3 enforces multi-round. The progression shows the same pattern: each failure mode gets patched after it costs real review quality.
+
+Delete this directory (`reference/skill_updates/`) once all five skills are installed. The files are archived in git history if ever needed.

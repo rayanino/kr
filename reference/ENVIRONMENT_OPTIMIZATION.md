@@ -17,55 +17,41 @@ Step 1: Copy checklist.
   cp reference/protocols/REVIEW_CHECKLIST_TEMPLATE.md reference/archive/sessions/reviews/review_session_N.md
   Open the copy. Fill each section as you complete it. This is your working document.
 
-Step 2: Follow the checklist sequentially. Do NOT skip ahead to the verdict.
+Step 2: ROUND 1 — Pass 1 (Structural). Do NOT skip ahead to probing or verdict.
   - Pull repo, read diff, inventory deliverables
-  - Read EVERY file CC modified (full content, not skim)
+  - Read EVERY file CC modified (FULL content — if view truncates, request the rest)
+  - After reading each file, state function/pattern count. Verify by grep.
   - Run ALL tests
   - CROSS-ENGINE: grep every modified contract type across ALL engines. Run tools/check_cross_engine_contracts.py
-  - Pass 2 adversarial: 3+ probing scripts, 2+ fixture semantic spot-checks, cross-engine data flow test
-  - Fix ALL findings — commit fixes to repo
+  - Deliver Pass 1 findings. STOP. Wait for owner to say "continue."
 
-Step 3: Fill the verdict line in the checklist ONLY after every checkbox is checked and every finding is fixed.
+Step 3: ROUND 2 — Pass 2 (Adversarial). Only after owner says "continue."
+  - 3+ probing scripts with constructed inputs
+  - 2+ fixture semantic spot-checks with printed Arabic text
+  - SPEC CONCRETE EXAMPLE TRACE: for every SPEC section with a worked example, trace it through the implementation. Print actual output. Compare field-by-field.
+  - Cross-engine data flow test
+  - Deliver Pass 2 findings. STOP. Wait for owner.
 
-Step 4: Commit the filled checklist to the repo.
+Step 4: ROUND 3 — Pass 3 (Self-Verification + Verdict). Only after owner says "continue."
+  - Verify every factual claim from Passes 1-2 (grep counts, existence checks, re-read functions)
+  - Check for rationalization patterns in your own conclusions
+  - Draft Notes — each verified against code before writing
+  - Fill the checklist. Commit. Push.
+  - Deliver verdict ONLY now.
 
-Step 5: Deliver the verdict to the owner.
-
-CRITICAL: The kr-reviewing-cc-output skill offers "ACCEPT WITH FIXES" — that verdict DOES NOT EXIST. The only verdicts are ACCEPT (zero unfixed findings, repo clean) and BLOCKED. reference/protocols/REVIEW_PROTOCOL.md overrides the skill.
+CRITICAL: The verdict is NEVER in the same response as Pass 2 probes.
+The kr-reviewing-cc-output skill offers "ACCEPT WITH FIXES" — that verdict DOES NOT EXIST.
+The only verdicts are ACCEPT (zero unfixed findings, repo clean) and BLOCKED.
+reference/protocols/REVIEW_PROTOCOL.md overrides the skill.
 ```
 
 ## 2. Update skill: kr-reviewing-cc-output
 
-Replace the Step 5 verdict template with:
+Replace the ENTIRE skill content with the file at:
+`reference/skill_updates/kr-reviewing-cc-output_SKILL_v3.md`
 
-```
-### Step 5: Verdict
-
-**The REVIEW_PROTOCOL.md is the authority on verdicts, not this skill.**
-
-Two verdicts only: ACCEPT or BLOCKED.
-
-ACCEPT means: zero unfixed findings in the repo. All fixes committed and pushed.
-The review checklist (reference/archive/sessions/reviews/review_session_N.md) is
-filled and committed. The repo is clean RIGHT NOW.
-
-BLOCKED means: at least one finding exists that couldn't be fixed. State what
-must be fixed. Prepare a fix directive.
-
-BANNED: "ACCEPT WITH FIXES", "non-blocking", "architect action item",
-"maintenance item", "future cleanup". These are all the same pattern:
-find problem → defer it → move on. Fix before verdict.
-```
-
-And replace the "After the review" section with:
-
-```
-## After the review
-
-If ACCEPT: commit the filled review checklist, then invoke kr-gating-transitions.
-If BLOCKED: tell the owner to send Claude Code the specific fixes, then re-review
-  (start a fresh checklist for the re-review).
-```
+This is v3 of the skill. Changes from v2: enforces 3-pass multi-round structure,
+mandatory SPEC example trace, self-verification pass, no truncated file reads.
 
 ## 3. Why these changes matter
 
@@ -77,6 +63,14 @@ The Session 3 failure trace:
 5. Owner pushes back → architect fixes SPEC + passaging contract
 6. Owner pushes back → architect adds rules
 7. Owner: "are the rules even read?"
+
+The Session 4 failure trace:
+1. Owner says "review Session 4"
+2. Architect runs 16 probes in one response → "ACCEPT, zero findings"
+3. Owner says "do a critical review" → architect finds 3 real gaps (factual error, missed SPEC trace, undocumented L-007)
+4. Owner: "your review quality is pretty bad, fix the environment"
+
+**Pattern:** The architect produces thorough-LOOKING work that doesn't withstand scrutiny. Multi-round structure (Rule 8) gives the owner visibility into each pass and forces a self-verification step. The owner should never have to be the one who says "look harder."
 
 Root cause: the architect's first action after "it's done" was reading code.
 It should have been: copy the checklist template.
