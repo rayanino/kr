@@ -46,3 +46,13 @@ Tracked limitations discovered during build. Not bugs (code matches SPEC), but b
 **Chosen threshold:** >=50 chars. Safety margin of 10 chars above highest observed emphasis bold.
 **Affected range:** Bold spans between 50-79 chars are classified as layer indicators under this threshold but would be excluded under the SPEC threshold of 80. This could produce false positives for emphasis bold in the 50-79 char range on sources other than ibn_aqil.
 **Fix point:** Revisit when more multi-layer fixtures are available. If emphasis bold in the 50-79 range is observed in real data, raise the threshold toward 80 and accept the false negatives on short matn verses (which would fall through to the conservative default as SHARH — safe direction).
+
+## L-006: Hashiyah quotation detection not implemented (SPEC step 7)
+
+**Discovered:** Session 4 architect review (March 2026).
+**SPEC reference:** §4.A.5 step 7, NEXT.md D5.
+**Affected:** 3-layer hashiyah sources where the hashiyah author quotes the sharh author.
+**Behavior:** Explicit quotation markers ("وعبارته:", "ونصه:", "قال في الشرح:") are not detected. In 3-layer sources, sharh text quoted within the hashiyah layer remains attributed to the hashiyah author.
+**Impact:** T-2 risk for 3-layer sources — sharh quotations are misattributed to the hashiyah author. 2-layer sources are unaffected. The `قال الشارح:` simple transition marker IS implemented (added during review), which partially mitigates the gap for cases where the hashiyah explicitly names the sharh author.
+**Root cause:** Step 7 requires bounded quotation detection (start marker → end signal), which is more complex than simple transition markers and has no 3-layer fixture to test against.
+**Fix point:** Session 5 or later, when a real hashiyah fixture (e.g., حاشية ابن قاسم على الروض المربع) is available for testing. Implementation: add `_detect_hashiyah_quotations()` post-processing step after `_build_segments()`, triggered only when `default_commentary_layer == HASHIYAH`.

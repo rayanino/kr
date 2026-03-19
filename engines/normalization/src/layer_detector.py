@@ -67,6 +67,12 @@ TRANSITION_MARKER_PATTERNS: list[_MarkerPattern] = [
         plain_texts=["قال المصنف:"],
     ),
     _MarkerPattern(
+        regex=re.compile(r"(?:^|\s)(قال\s+الشارح\s*:)"),
+        target_layer=LayerType.SHARH,
+        confidence=0.90,
+        plain_texts=["قال الشارح:"],
+    ),
+    _MarkerPattern(
         regex=re.compile(r"(?:^|\s)(قوله\s*:)"),
         target_layer=LayerType.MATN,
         confidence=0.90,

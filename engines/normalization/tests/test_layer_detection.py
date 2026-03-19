@@ -606,6 +606,17 @@ class TestTransitionMarkerDetection:
         boundaries = _detect_transition_markers(text, LayerType.SHARH)
         assert len(boundaries) == 0
 
+    def test_qal_al_sharih_detected(self):
+        """'قال الشارح:' → transition to SHARH (for 3-layer hashiyah sources)."""
+        text = "والمسألة هنا قال الشارح: النص المنسوب إلى الشارح"
+        boundaries = _detect_transition_markers(text, LayerType.HASHIYAH)
+        sharih_matches = [b for b in boundaries if "الشارح" in b.marker_text]
+        assert len(sharih_matches) == 1
+        assert sharih_matches[0].to_layer == LayerType.SHARH
+        assert sharih_matches[0].confidence == 0.90
+        # char_offset is after "قال الشارح: "
+        assert text[sharih_matches[0].char_offset:].startswith("النص")
+
 
 # ══════════════════════════════════════════════════════════════════════
 # #9: Bracket detection
