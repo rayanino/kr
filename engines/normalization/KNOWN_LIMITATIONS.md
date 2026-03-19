@@ -67,3 +67,21 @@ Tracked limitations discovered during build. Not bugs (code matches SPEC), but b
 **Mitigating factors:** The `marker_state` design is correct for its intended purpose (Pattern B: marker opens MATN, bold is WITHIN the MATN region). The limitation is for Pattern A (bold IS the matn boundary, commentary resumes after bold). Distinguishing Pattern A from B requires content-based inference (§4.A.5 signal #3, deferred).
 **Test coverage:** Test #19 (marker_state persistence) verifies Pattern B behavior. Pattern A is not tested because the only multi-layer fixture (ibn_aqil) does not trigger standalone `قوله:` markers — the word always appears embedded (`بقوله`) or without colon (`قوله «...»`).
 **Fix point:** Content-based inference (SPEC signal #3) or a heuristic that checks whether bold_exit coincides with a sentence boundary (terminal punctuation) to distinguish Pattern A from B. Requires additional multi-layer fixtures for calibration.
+
+## L-008: Conditional reasoning markers excluded from boundary continuity
+
+**Discovered:** Session 5 boundary continuity design (March 2026).
+**SPEC reference:** §4.B.8 argument flow detection, D7.
+**Affected:** Fiqh and usul sources where `إذا` appears in 15-19% of pages.
+**Behavior:** All 3 conditional reasoning openers (`إذا`, `لو`, `إن`) and their closers (`فالحكم`, `فيجب`, `وجب`) are excluded from argument flow detection. They fire too frequently to be useful boundary markers.
+**Impact:** Argument flow detection relies on evidence chains, position statements, and objection-response patterns only. Conditional reasoning across page boundaries falls through to punctuation analysis (mid_sentence/mid_paragraph).
+**Fix point:** Add conditional markers with sentence-initial position requirement: only trigger when `إذا` appears at the start of a sentence (after terminal punctuation or at page start), not mid-sentence.
+
+## L-009: Guillemet hadith distance heuristic
+
+**Discovered:** Session 5 content flagger design (March 2026).
+**SPEC reference:** §4.A.9 hadith citation detection, D8.
+**Affected:** Pages where `«...»` guillemet-quoted text appears with `قال` further than 50 characters before.
+**Behavior:** The pattern `قال.{0,50}«Arabic text»` requires `قال` within 50 characters before the opening guillemet. This is a design decision balancing precision (avoiding false positives from non-hadith guillemet usage) against recall (catching hadith citations with longer introductions).
+**Impact:** Hadith citations introduced with long chains of narrator names (`حدثنا فلان عن فلان عن فلان قال`) where the distance exceeds 50 characters will not trigger the guillemet pattern. They may still be caught by the other 3 hadith detection patterns (ﷺ, صلى الله عليه وسلم, رواه + collector).
+**Fix point:** If too tight, increase the distance to 80 characters. Monitor false positive and false negative rates on the full Shamela corpus.

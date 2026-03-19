@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import logging
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
@@ -102,6 +102,7 @@ class StructureResult:
     page_markers: dict[int, StructuralMarkers]
     quality_counts: dict[str, int]
     overall_confidence: HeadingConfidence
+    toc_page_indices: list[int] = field(default_factory=list)
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -1209,4 +1210,5 @@ def discover_structure(
         page_markers=page_markers,
         quality_counts=quality_counts,
         overall_confidence=overall_confidence,
+        toc_page_indices=toc_indices,
     )

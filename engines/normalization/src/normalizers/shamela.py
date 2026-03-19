@@ -31,7 +31,13 @@ from pydantic import BaseModel, Field
 from engines.normalization.contracts import NormalizedPackage
 
 if TYPE_CHECKING:
-    from engines.normalization.contracts import LayerMapEntry, TextLayerSegment
+    from engines.normalization.contracts import (
+        DivisionNode,
+        HeadingConfidence,
+        LayerMapEntry,
+        StructuralMarkers,
+        TextLayerSegment,
+    )
 from engines.normalization.src.errors import NormalizationError, NormErrorCode
 from engines.normalization.src.normalizers.base import BaseNormalizer
 from engines.source.contracts import SourceMetadata
@@ -485,19 +491,23 @@ class ShamelaNormalizer(BaseNormalizer):
         cleaned = self._pass3_clean(separated)
 
         # Pass 4: Structure discovery
-        _division_tree, _page_markers, div_counts, struct_confidence = \
+        division_tree, page_markers, div_counts, struct_confidence, toc_indices = \
             self._pass4_discover_structure(cleaned, metadata)
 
         # Pass 5: Layer detection
-        _text_layers, layer_map = self._pass5_detect_layers(cleaned, metadata)
+        per_page_segments, layer_map = self._pass5_detect_layers(cleaned, metadata)
 
-        # Pass 6: NOT YET IMPLEMENTED (Session 5)
-        raise NotImplementedError(
-            "Pass 6 not yet implemented. "
-            f"Pass 4 discovered {sum(div_counts.values())} divisions "
-            f"({struct_confidence.value} confidence). "
-            f"Pass 5 detected {len(layer_map)} layer types "
-            f"from {len(cleaned)} pages."
+        # Pass 6: Output assembly
+        return self._pass6_assemble(
+            cleaned=cleaned,
+            metadata=metadata,
+            division_tree=division_tree,
+            page_markers=page_markers,
+            div_counts=div_counts,
+            struct_confidence=struct_confidence,
+            toc_indices=toc_indices,
+            per_page_segments=per_page_segments,
+            layer_map=layer_map,
         )
 
     # ──────────────────────────────────────────────────────────────
@@ -933,7 +943,8 @@ class ShamelaNormalizer(BaseNormalizer):
     ) -> tuple:
         """SPEC §4.A.6: 4-tier heading detection + division tree construction.
 
-        Returns (division_tree, page_markers, division_count_by_tier, overall_confidence).
+        Returns (division_tree, page_markers, division_count_by_tier,
+                 overall_confidence, toc_page_indices).
         """
         from engines.normalization.src.structure_discovery import discover_structure
 
@@ -943,6 +954,7 @@ class ShamelaNormalizer(BaseNormalizer):
             result.page_markers,
             result.quality_counts,
             result.overall_confidence,
+            result.toc_page_indices,
         )
 
     # ──────────────────────────────────────────────────────────────
@@ -1030,6 +1042,202 @@ class ShamelaNormalizer(BaseNormalizer):
                     )
 
         return all_segments, layer_map
+
+    # ──────────────────────────────────────────────────────────────
+    # Pass 6 — Output Assembly
+    # ──────────────────────────────────────────────────────────────
+
+    def _pass6_assemble(
+        self,
+        cleaned: list[CleanedPage],
+        metadata: SourceMetadata,
+        division_tree: list["DivisionNode"],
+        page_markers: dict[int, "StructuralMarkers"],
+        div_counts: dict[str, int],
+        struct_confidence: "HeadingConfidence",
+        toc_indices: list[int],
+        per_page_segments: list[list["TextLayerSegment"]],
+        layer_map: list["LayerMapEntry"],
+    ) -> NormalizedPackage:
+        """SPEC §4.A.2 Pass 6: Assemble NormalizedPackage from pipeline results.
+
+        Converts internal data structures into contract-defined output:
+        ContentUnit per page, NormalizedManifest with quality report.
+        Deferred §4.B fields are None (D1).
+        """
+        from datetime import datetime, timezone
+
+        from engines.normalization.contracts import (
+            BoundaryContinuity,
+            ContentUnit,
+            FootnoteType,
+            Footnote,
+            NormalizedManifest,
+            PhysicalPage,
+            QualityReport,
+            StructuralFormat,
+            StructuralMarkers,
+            TextFidelity,
+            TextFidelityLevel,
+            TextFidelitySummary,
+        )
+        from engines.normalization.src.content_flagger import compute_content_flags
+        from engines.normalization.src.boundary_continuity import classify_boundary
+
+        toc_set = set(toc_indices)
+
+        # Map source fidelity to contract enum
+        fidelity_level = TextFidelityLevel.UNKNOWN
+        if metadata.text_fidelity:
+            fidelity_str = metadata.text_fidelity
+            try:
+                fidelity_level = TextFidelityLevel(fidelity_str)
+            except ValueError:
+                pass
+
+        # Build content units
+        content_units: list[ContentUnit] = []
+        pages_with_warnings = 0
+        layer_transition_count = 0
+        unclassified_fn_count = 0
+
+        for i, page in enumerate(cleaned):
+            # Content flags
+            flags = compute_content_flags(page, page.unit_index in toc_set)
+
+            # Boundary continuity — None for last page and blank/image pages
+            boundary: BoundaryContinuity | None = None
+            if not flags.is_blank and i < len(cleaned) - 1:
+                next_page = cleaned[i + 1]
+                cur_markers = page_markers.get(page.unit_index)
+                nxt_markers = page_markers.get(next_page.unit_index)
+                is_vol_boundary = next_page.volume != page.volume
+                boundary = classify_boundary(
+                    page, next_page, cur_markers, nxt_markers, is_vol_boundary,
+                )
+
+            # Footnote conversion: ParsedFootnote → Footnote
+            footnotes: list[Footnote] = []
+            for pf in page.footnotes:
+                try:
+                    fn_type = FootnoteType(pf.footnote_type)
+                except ValueError:
+                    fn_type = FootnoteType.UNKNOWN
+                footnotes.append(Footnote(
+                    ref_marker=str(pf.number),
+                    text=pf.text,
+                    footnote_type=fn_type,
+                    confidence=pf.classification_confidence,
+                ))
+                if fn_type == FootnoteType.UNKNOWN:
+                    unclassified_fn_count += 1
+
+            # Structural markers
+            markers = page_markers.get(
+                page.unit_index,
+                StructuralMarkers(
+                    heading_detected=False,
+                    heading_text=None,
+                    heading_level=None,
+                    heading_detection_method=None,
+                    heading_confidence=None,
+                ),
+            )
+
+            # Text layers for this page
+            segments = per_page_segments[i] if i < len(per_page_segments) else []
+
+            # Layer transition count
+            for j in range(1, len(segments)):
+                if segments[j].layer_type != segments[j - 1].layer_type:
+                    layer_transition_count += 1
+
+            # Page warnings
+            if page.warnings:
+                pages_with_warnings += 1
+
+            # Physical page
+            physical_page = PhysicalPage(
+                volume=page.volume,
+                page_number_display=page.page_number_display,
+                page_number_int=page.page_number_int,
+            )
+
+            # Text fidelity (per-page)
+            text_fidelity = TextFidelity(
+                score=fidelity_level,
+                ocr_confidence=None,
+                warnings=list(page.warnings),
+            )
+
+            content_units.append(ContentUnit(
+                source_id=metadata.source_id,
+                unit_index=page.unit_index,
+                physical_page=physical_page,
+                primary_text=page.primary_text,
+                text_layers=segments,
+                footnotes=footnotes,
+                structural_markers=markers,
+                content_flags=flags,
+                text_fidelity=text_fidelity,
+                boundary_continuity=boundary,
+                # Deferred §4.B fields
+                verse_info=None,
+                discourse_flow=None,
+            ))
+
+        # Quality report
+        quality_report = QualityReport(
+            division_count_by_tier=dict(div_counts),
+            layer_transition_count=layer_transition_count,
+            pages_with_warnings=pages_with_warnings,
+            high_fidelity_pct=1.0,  # Shamela sources are digital text, always high fidelity
+            unclassified_footnote_count=unclassified_fn_count,
+            overall_confidence=struct_confidence,
+        )
+
+        # Text fidelity summary
+        fidelity_summary = TextFidelitySummary(
+            mean_ocr_confidence=None,
+            character_level_fidelity_estimate=None,
+            pages_with_warnings=pages_with_warnings,
+            total_pages=len(content_units),
+        )
+
+        # Detect verse presence
+        has_verse = any(page.has_verse for page in cleaned)
+
+        # Structural format — use source metadata, map to contract enum
+        try:
+            structural_format = StructuralFormat(metadata.structural_format)
+        except ValueError:
+            structural_format = StructuralFormat.PROSE
+
+        # Manifest
+        manifest = NormalizedManifest(
+            source_id=metadata.source_id,
+            normalizer_id="kr.normalization.shamela_v2",
+            normalization_utc=datetime.now(timezone.utc).isoformat(),
+            division_tree=division_tree,
+            layer_map=layer_map,
+            structural_format=structural_format,
+            structural_format_proposed=None,
+            text_fidelity_summary=fidelity_summary,
+            verse_detection=has_verse,
+            verse_numbering_scheme=None,
+            total_content_units=len(content_units),
+            quality_report=quality_report,
+            # Deferred §4.B fields (D1)
+            content_census=None,
+            tahqiq_topology=None,
+            layer_fingerprints=None,
+            discourse_flow_summary=None,
+        )
+
+        return NormalizedPackage(
+            manifest=manifest,
+            content_units=content_units,
+        )
 
     # Pass 3 — HTML Stripping and Text Cleaning
     # ──────────────────────────────────────────────────────────────
