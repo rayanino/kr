@@ -1,6 +1,6 @@
 # NEXT — Build Session 5: Pass 6 Assembly (Content Flagging, Boundary Continuity, Output)
 
-## Current position: Session 4 COMPLETE and ACCEPTED (commits through 8bcaf49, review at reference/archive/sessions/reviews/review_session_4.md). Layer detection implemented: 752 lines, 46 tests, 18/51 ADV, L-001–L-007. Cumulative: 4,580 impl lines, 3,137 test lines, 172 tests passing.
+## Current position: Session 4 COMPLETE and ACCEPTED (commits through 8bcaf49, review at reference/archive/sessions/reviews/review_session_4.md). Layer detection implemented: 752 lines, 46 tests, 18/51 ADV, L-001–L-007. Cumulative: 4,580 impl lines, 3,137 test lines, 173 tests passing.
 ## What to do: Implement Pass 6 — the final Shamela pipeline pass. Three deliverables: content flagger (§4.A.9), boundary continuity classifier (§4.B.8), and output assembly that replaces the NotImplementedError in `normalize()` and returns a `NormalizedPackage`.
 ## Context: Session 5 completes the Shamela normalizer's 6-pass pipeline. After this session, `normalize()` returns a fully populated `NormalizedPackage` in memory. Session 6 adds §5 validation checks and the atomic disk writer. Session 7 runs integration tests on all fixtures.
 ## Owner action needed: NO — this is a pure CC build session.
@@ -148,7 +148,7 @@ class _ArgumentMarker:
     closing_patterns: list[str]
 ```
 
-Populate from the opening/closing marker lists above (3 categories, NOT the SPEC's conditional category — see D7). The matching is plain-text `in` check on the last 200 chars of primary_text (no regex needed — these are fixed Arabic phrases). Closing marker check scans the ENTIRE page's primary_text, not just the tail.
+Populate from the opening/closing marker lists above (3 categories, NOT the SPEC's conditional category — see D7). The matching is plain-text `in` check on the last 200 chars of primary_text (no regex needed — these are fixed Arabic phrases), EXCEPT for `وذهب` which requires a word-boundary check: after finding `وذهب` via `in`, verify the next character is a space, punctuation (`.؟!؛:،`), or end of string. Without this, conjugated forms like `وذهبت` (grammar) and `وذهب عقله` (literal "his mind went") produce false positives — confirmed on real fixtures. Closing marker check scans the ENTIRE page's primary_text, not just the tail.
 
 **Tests:** 15+ tests. Must include:
 - ADV-026 (mid_sentence with terminal punctuation — construct a page ending with `.` and verify classification is NOT mid_sentence)
@@ -249,6 +249,8 @@ Replace the `NotImplementedError` at line 498 with Pass 6 that:
 
 **D7: Conditional reasoning markers excluded.** The SPEC §4.B.8 argument marker table lists conditional reasoning openers: `إذا`, `ولو أن`, `فإن كان`. Empirical testing on real fixtures shows `إذا` appears in the last 200 chars of 15-19% of pages — it's a common Arabic word meaning "if/when," not a reliable argument marker. `ولو أن` and `فإن كان` are similarly common. Exclude all three from the initial implementation. Document as L-008 in KNOWN_LIMITATIONS.md. The conditional reasoning closers (`وإلا`, `فحينئذ`, `فالحكم`) are also excluded since they have no openers. Fix point: add these markers with additional context requirements (sentence-initial position, specific syntactic patterns) when real mid-argument false negative data is available.
 
+**D8: Guillemet hadith distance heuristic.** The `«...»` guillemet + `قال` within 50 chars hadith detection pattern is a design decision, not a SPEC-mandated value. The SPEC §4.A.9 says "hadith citation patterns detected" without specifying a character distance. 50 chars is a reasonable heuristic — typical hadith introductions (`عن فلان قال: قال رسول الله ﷺ: «...»`) fit within ~40 chars between `قال` and the opening guillemet. If empirical testing shows 50 is too tight (missing valid hadith with longer isnads), increase to 80. Document in KNOWN_LIMITATIONS.md as L-009 if adjusted.
+
 ---
 
 ## Do NOT Do
@@ -280,7 +282,7 @@ from pathlib import Path
 ```
 
 **Pass criteria:**
-- 172 existing tests still pass (zero regressions)
+- 173 existing tests still pass (zero regressions)
 - 32+ new tests pass (content_flagger ~10, boundary_continuity ~15, assembly ~7)
 - Cross-engine contracts: PASS
 - `normalize()` returns a `NormalizedPackage` for ibn_aqil fixture
