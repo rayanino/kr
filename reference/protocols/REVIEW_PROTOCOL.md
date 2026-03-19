@@ -1,8 +1,10 @@
-# KR Review Protocol — Mandatory Two-Pass Review
+# KR Review Protocol — Mandatory Three-Pass Review
 
-**Authority:** This protocol overrides single-pass reviews. Every CC review MUST follow both passes. Learned from Session 2 normalization engine review (March 2026): single-pass review read 1,900 lines of code, found one marginal test-input style issue, nearly blocked incorrectly. Deep second pass found the ضياء السالك commentary collision, verified `[0-9]` vs `\d` correctness, and confirmed Format B handling — real substantive findings the first pass missed entirely.
+**Authority:** This protocol overrides single-pass reviews. Every CC review MUST follow all three passes across multiple owner interactions (RULE 8). Learned from Session 2 normalization engine review (March 2026): single-pass review read 1,900 lines of code, found one marginal test-input style issue, nearly blocked incorrectly. Deep second pass found the ضياء السالك commentary collision, verified `[0-9]` vs `\d` correctness, and confirmed Format B handling — real substantive findings the first pass missed entirely.
 
 **SESSION 3 ADDENDUM (March 2026):** The architect approved Session 3 twice with unfixed findings. A SPEC inconsistency was labeled "architect action item" instead of a finding. A cross-engine contract break (passaging `DivisionPathEntry.heading_level ge=1` vs normalization's new `ge=0`) was missed entirely because the review never opened downstream engine contracts. The three rules below exist because of this failure.
+
+**SESSION 4 ADDENDUM (March 2026):** The architect ran 16 adversarial probes and delivered "ACCEPT, zero findings" in a single response. When forced to self-review, found: (1) a factual error in the review notes ("قال الشارح: not implemented" — false, it's line 70), caused by reading a truncated file view; (2) never traced the SPEC's own concrete example through the implementation, missing a design limitation (L-007 marker_state over-extension); (3) delivered the verdict in the same response as the last probe with no cooling-off period. Rules 5–8 below exist because of this failure. The pattern: the review LOOKED thorough (16 probes!) but skipped the most obvious test (does the code match the SPEC's worked example?) and didn't verify its own claims.
 
 **RULE 1: NO DEFERRED FINDINGS.** "Architect action item," "maintenance item," "future cleanup," and "next SPEC pass" are BANNED labels. They are "non-blocking finding" in disguise. If something is wrong, fix it now or classify it as a finding that blocks. There is no third option.
 
@@ -11,6 +13,19 @@
 **RULE 3: CROSS-ENGINE BOUNDARY CHECK.** When a CC session modifies any contract type (Pydantic model, enum, field constraint), the reviewer MUST open every file that imports or references that type across ALL engines. Run `grep -rn "TypeName\|field_name" engines/ --include="*.py"` and verify every consumer accepts the new shape. This is mandatory, not optional. The Session 3 `heading_level ge=1 → ge=0` change in normalization would have crashed passaging at runtime — discovered only because the owner forced a deeper review.
 
 **RULE 4: REVIEW PRODUCES A COMMITTED ARTIFACT.** Every review fills `reference/protocols/REVIEW_CHECKLIST_TEMPLATE.md` (copy to `reference/archive/sessions/reviews/review_session_N.md`), checks every box, and commits it BEFORE delivering the verdict. An unfilled checklist = an incomplete review. This is the ONLY structural enforcement of review steps. The checklist is the authority on what was done — not the chat message.
+
+**RULE 5: SPEC CONCRETE EXAMPLE TRACE.** For every SPEC section that has a concrete example with expected output, trace that example through the implementation and print the actual output. Compare field-by-field. Divergences are either (a) findings (the code is wrong) or (b) documented deferred capabilities. Either way, the trace must appear in the checklist. This rule exists because Session 4's initial review never ran the SPEC's own hashiyah example — the most obvious test possible — and missed a design limitation (L-007) that a 5-minute trace would have found.
+
+**RULE 6: VERIFY OWN REVIEW CLAIMS.** Before committing the checklist, every factual claim in the Notes section must be verified against the code with a tool call. "Not implemented" requires `grep` proof. "N patterns" requires a counted `grep` or `wc`. "Function does X" requires reading the function. This rule exists because Session 4's review stated "قال الشارح: not implemented" — factually false (it's pattern #2 of 4 at line 70). The reviewer read a truncated file view and miscounted.
+
+**RULE 7: FULL FILE READ ENFORCEMENT.** When the `view` tool truncates a file, the reviewer MUST request the truncated range before proceeding. After reading any file, the reviewer states: "File X: [N] functions/patterns/classes." Then verifies that count with `grep -c` or equivalent. If the count doesn't match, re-read. This rule exists because Session 4's truncated read caused a factual error that survived into the committed review artifact.
+
+**RULE 8: MULTI-ROUND REVIEW STRUCTURE.** Reviews are split across multiple owner interactions, never crammed into one response. The structure is:
+- **Round 1:** Pass 1 (structural read, tests, SPEC cross-reference, cross-engine check). Deliver Pass 1 findings. STOP. Wait for owner to say "continue."
+- **Round 2:** Pass 2 (adversarial probes, fixture spot-checks, SPEC example trace). Deliver Pass 2 findings. STOP. Wait for owner.
+- **Round 3:** Pass 3 (self-review — verify every claim in Rounds 1-2 against the code, check for rationalization patterns, verify Notes). Fill checklist. Commit. Deliver verdict.
+
+The owner can add direction between rounds ("also check X", "that finding looks wrong", "skip ahead"). The architect NEVER delivers a verdict in the same response as the last probe. A cooling-off period between probing and judging prevents momentum from overriding rigor. This rule exists because Session 4 ran 16 probes and delivered "ACCEPT, zero findings" in one response — then a second honest look found three gaps.
 
 **SKILL OVERRIDE:** The `kr-reviewing-cc-output` skill offers "ACCEPT WITH FIXES" and "non-blocking fixes" as valid options. **This protocol OVERRIDES that skill.** The only valid verdicts are ACCEPT (zero unfixed findings) and BLOCKED (findings exist). The skill triggers the workflow; this protocol defines the rules.
 
@@ -45,13 +60,28 @@ Pass 2 is mandatory. It cannot be skipped. Pass 2 tests what Pass 1 cannot see: 
 
 **E. Cross-engine data flow.** For data that flows to downstream engines (division_tree → passaging, StructuralMarkers → passaging, quality_report → passaging): construct a realistic output from the current session and verify it would deserialize into the downstream engine's contract types without error. This prevents the Session 3 failure where normalization produced `heading_level=0` but passaging's `DivisionPathEntry` rejected it.
 
+**F. SPEC concrete example trace (RULE 5).** For EVERY SPEC section that has a worked example with expected output, trace that exact example through the implementation. Print the actual output. Compare field-by-field against the SPEC. Document divergences as either findings or documented deferred capabilities. This is the single most obvious test and must never be skipped. Session 4 missed a T-2 limitation because this test was never run.
+
 ### Pass 2 success criteria:
 
 - At least 3 probing scripts run with concrete inputs
 - At least 2 fixture pages spot-checked with printed output
 - Cross-engine compatibility verified for every modified contract type
+- **Every SPEC concrete example traced through implementation (RULE 5)**
 - If Pass 2 finds nothing after genuine probing, that is a valid outcome — do NOT manufacture findings
 - If Pass 2 finds something, it blocks. No "non-blocking" classification.
+
+---
+
+## Pass 3 (Self-Verification): Verify your own review
+
+Pass 3 is mandatory. It cannot be performed in the same response as Pass 2 (RULE 8). Pass 3 catches errors in the REVIEW ITSELF — factual claims, missed probes, rationalization patterns.
+
+1. **Verify factual claims (RULE 6).** For every claim in Passes 1-2 (pattern counts, "not implemented" assertions, behavior descriptions), run a tool call to verify. `grep -c` for counts. `grep` for existence. Re-read function for behavior.
+2. **Check for rationalization.** Re-read every "not a finding" or "expected behavior" conclusion. Ask: am I explaining this away because fixing it is hard? If any doubt, re-probe.
+3. **Draft Notes.** Every Note must be verified against code before writing. No claims from memory.
+4. **Fill checklist.** Every checkbox must be checked. Commit the checklist.
+5. **Deliver verdict.**
 
 ---
 
