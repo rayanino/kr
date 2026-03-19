@@ -482,14 +482,18 @@ class ShamelaNormalizer(BaseNormalizer):
         cleaned = self._pass3_clean(separated)
 
         # Pass 4: Structure discovery
-        division_tree, page_markers, div_counts, struct_confidence = \
+        _division_tree, _page_markers, div_counts, struct_confidence = \
             self._pass4_discover_structure(cleaned, metadata)
 
-        # Passes 5–6: NOT YET IMPLEMENTED (Sessions 4–5)
+        # Pass 5: Layer detection
+        _text_layers, layer_map = self._pass5_detect_layers(cleaned, metadata)
+
+        # Pass 6: NOT YET IMPLEMENTED (Session 5)
         raise NotImplementedError(
-            "Passes 5–6 not yet implemented. "
+            "Pass 6 not yet implemented. "
             f"Pass 4 discovered {sum(div_counts.values())} divisions "
-            f"({struct_confidence.value} confidence) "
+            f"({struct_confidence.value} confidence). "
+            f"Pass 5 detected {len(layer_map)} layer types "
             f"from {len(cleaned)} pages."
         )
 
@@ -937,6 +941,92 @@ class ShamelaNormalizer(BaseNormalizer):
             result.quality_counts,
             result.overall_confidence,
         )
+
+    # ──────────────────────────────────────────────────────────────
+    # Pass 5 — Multi-Layer Text Detection
+    # ──────────────────────────────────────────────────────────────
+
+    def _pass5_detect_layers(
+        self,
+        cleaned: list[CleanedPage],
+        metadata: SourceMetadata,
+    ) -> tuple[list[list], list]:
+        """SPEC §4.A.5: Multi-layer text detection.
+
+        10-page pre-scan detects unmarked multi-layer sources (D7/ADV-015).
+        Per-page dispatch via detect_layers(). Aggregates source-level layer_map.
+        Logs NORM_LAYER_UNCERTAIN for metadata override and matn >40%.
+
+        Returns (per_page_segments, source_layer_map).
+        """
+        from engines.normalization.src.layer_detector import (
+            PageDetectionResult,
+            _build_layer_map,
+            _resolve_default_commentary_layer,
+            detect_layers,
+            pre_scan_multi_layer,
+        )
+        from engines.normalization.contracts import LayerType
+
+        is_multi_layer = metadata.is_multi_layer
+
+        # D7/ADV-015: 10-page pre-scan for unmarked multi-layer sources
+        if not is_multi_layer:
+            if pre_scan_multi_layer(cleaned):
+                is_multi_layer = True
+                logger.warning(
+                    "%s: metadata says single-layer but pre-scan detected "
+                    "multi-layer signals; forcing multi-layer detection",
+                    NormErrorCode.LAYER_UNCERTAIN.value,
+                )
+
+        default_commentary_layer = _resolve_default_commentary_layer(metadata)
+
+        # Per-page detection
+        all_segments: list[list] = []
+        all_markers: dict[str, set[str]] = {}
+
+        for page in cleaned:
+            if page.is_blank or page.is_image_only:
+                all_segments.append([])
+                continue
+
+            result: PageDetectionResult = detect_layers(
+                page, metadata, is_multi_layer, default_commentary_layer
+            )
+            all_segments.append(result.segments)
+
+            # Aggregate markers across pages
+            for layer_key, markers in result.markers_used.items():
+                all_markers.setdefault(layer_key, set()).update(markers)
+
+        # Build source-level layer_map (D12)
+        layer_map = _build_layer_map(all_segments, metadata, all_markers)
+
+        # Matn proportion warning (40% threshold)
+        if is_multi_layer:
+            total_chars = sum(
+                len(p.primary_text)
+                for p in cleaned
+                if not p.is_blank and not p.is_image_only
+            )
+            matn_chars = sum(
+                seg.end - seg.start
+                for page_segs in all_segments
+                for seg in page_segs
+                if seg.layer_type == LayerType.MATN
+            )
+            if total_chars > 0:
+                matn_ratio = matn_chars / total_chars
+                if matn_ratio > 0.40:
+                    logger.warning(
+                        "%s: matn proportion %.1f%% exceeds 40%% threshold "
+                        "for a multi-layer source — verify layer detection",
+                        NormErrorCode.LAYER_UNCERTAIN.value,
+                        matn_ratio * 100,
+                    )
+
+        return all_segments, layer_map
 
     # Pass 3 — HTML Stripping and Text Cleaning
     # ──────────────────────────────────────────────────────────────

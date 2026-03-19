@@ -28,3 +28,12 @@ Tracked limitations discovered during build. Not bugs (code matches SPEC), but b
 **Root cause:** The SPEC's division model operates at page-level granularity. Multiple same-level headings on one page cannot have non-overlapping page ranges. This is inherent to page-level divisions, not an implementation bug.
 **SPEC compliance:** Compliant — §5 check 5 passes. The chaining avoids sibling overlap while preserving all detected headings in the tree.
 **Fix point:** Sub-page division ranges (character-offset based) would resolve this but require a SPEC-level design change to DivisionNode's range model. Alternatively, Tier 3 LLM context could suppress false positive headings from embedded section lists (03_fiqh page 1 pattern).
+
+## L-004: Arabic conjunction prefixes not detected on transition markers
+
+**Discovered:** Session 4 layer detection design (March 2026).
+**Affected:** Multi-layer sources where markers appear with Arabic conjunction prefixes (و, ف) directly attached to the marker word.
+**Behavior:** The transition marker regex uses `(?:^|\s)` as a word boundary, requiring whitespace before the marker word. Arabic conjunction prefixes (وقال المصنف:, وقوله:, فأي:) attach directly to the marker word without whitespace, so these are not detected.
+**Impact:** Missed markers default to the current layer (typically commentary). Per SPEC conservative default, this is the safe direction — misattributing commentary to the commentator is less harmful than attributing it to the matn author (T-2). The missed markers do not cause misattribution of matn text.
+**SPEC compliance:** Compliant — the SPEC's conservative default handles missed markers safely.
+**Fix point:** Extend regex with optional Arabic prefix handling `(?:[وف])?` after validation against 20K Shamela samples to ensure no false positives from legitimate words starting with و or ف.
