@@ -37,7 +37,7 @@
 
 8. `reference/SPEC_ADVERSARY_NORMALIZATION.md` — Search for ADV-011 through ADV-015. All 5 are mandatory tests for Session 4.
 
-9. `engines/normalization/KNOWN_LIMITATIONS.md` (30L) — L-002 (ضياء السالك commentary numbering collision). Session 4 should address this architecturally: once layers are separated, commentary-region `(N)` markers can be distinguished from footnote refs.
+9. `engines/normalization/KNOWN_LIMITATIONS.md` (30L) — L-002 (ضياء السالك commentary numbering collision). Note: L-002 cannot be resolved in Session 4 (requires Pass 2/3 changes). Layer separation enables the fix in principle, but the actual disambiguation happens later.
 
 10. `engines/normalization/src/errors.py` (130L) — Error codes. `NORM_LAYER_UNCERTAIN` (line 31, severity WARNING) is the relevant code for low-confidence layer detection.
 
@@ -70,11 +70,11 @@ class LayerDetectionResult:
 
 **Functions to implement:**
 
-1. `detect_layers(page: CleanedPage, metadata: SourceMetadata) -> LayerDetectionResult`
+1. `detect_layers(page: CleanedPage, metadata: SourceMetadata, force_multi_layer: bool = False) -> LayerDetectionResult`
    - Orchestrator. Dispatches to single-layer or multi-layer path.
-   - **Single-layer path** (`is_multi_layer=False` AND no multi-layer signals detected): return one `TextLayerSegment` covering `[0, len(primary_text))` with `layer_type` from metadata (default MATN if no text_layers in metadata), `confidence=1.0`.
-   - **Multi-layer path** (`is_multi_layer=True` OR multi-layer signals detected): run full detection algorithm.
-   - **Multi-layer signal detection** (for single-layer metadata override, ADV-015): scan first 10 pages for bold spans covering >10% of text AND transition markers. If both are found, treat as multi-layer even if metadata says single-layer. Log `NORM_LAYER_UNCERTAIN` warning.
+   - **Single-layer path** (`is_multi_layer=False` AND `force_multi_layer=False`): return one `TextLayerSegment` covering `[0, len(primary_text))` with `layer_type` from metadata (default MATN if no text_layers in metadata), `confidence=1.0`.
+   - **Multi-layer path** (`is_multi_layer=True` OR `force_multi_layer=True`): run full detection algorithm.
+   - NOTE: The 10-page multi-layer signal detection (ADV-015, D7) runs in `_pass5_detect_layers` BEFORE per-page calls. `detect_layers()` receives the resolved decision via `force_multi_layer`.
 
 2. `_map_bold_to_primary(bold_spans: list[tuple[int, int, str]], primary_text: str) -> list[tuple[int, int]]`
    - Maps bold_span HTML text to primary_text character offsets.
@@ -88,9 +88,9 @@ class LayerDetectionResult:
    - Markers and their layer transitions:
      - `"قال المصنف"` / `"قال المصنف:"` → transition to MATN, confidence 0.90
      - `"قال الشارح"` / `"قال الشارح:"` → transition to SHARH, confidence 0.90
-     - `"قوله:"` / `"قوله :"` → transition to MATN (quoting original text), confidence 0.85
-     - `"أقول:"` / `"أقول :"` → confirms current speaker, confidence 0.80
-     - `"أي:"` / `"أي :"` → transition to commentary (SHARH or HASHIYAH depending on source type), confidence 0.80
+     - `"قوله:"` / `"قوله :"` → transition to MATN (quoting original text), confidence 0.90 (SPEC §4.A.5: explicit transition marker ≥ 0.90; concrete example confirms 0.90)
+     - `"أقول:"` / `"أقول :"` → confirms current speaker, confidence 0.90 (SPEC §4.A.5: explicit transition marker ≥ 0.90)
+     - `"أي:"` / `"أي :"` → transition to commentary (SHARH or HASHIYAH depending on source type), confidence 0.80 (NOT an explicit transition marker per SPEC — it's an explanatory marker with lower confidence, consistent with SPEC concrete example)
      - `"وعبارته:"` / `"ونصه:"` / `"قال في الشرح:"` → hashiyah quoting sharh (3-layer sources only), confidence 0.85
    - Return LayerBoundary for each marker found, with char_offset = position in primary_text.
 
@@ -99,30 +99,33 @@ class LayerDetectionResult:
    - **Exclude short brackets** (< 15 chars between `[` and `]`) — these are typically Quran verse references like `[التحريم: 5]` or editorial insertions, NOT matn markers.
    - Return list of (start, end) character offset tuples for bracket content.
 
-5. `_classify_bold_signal(bold_regions: list[tuple[int, int]], primary_text: str, transition_markers: list[LayerBoundary]) -> str`
-   - Implements the SPEC two-factor bold classification:
+5. `_classify_bold_signal(bold_regions: list[tuple[int, int]], primary_text: str, transition_markers: list[LayerBoundary]) -> tuple[str, list[tuple[int, int]]]`
+   - Implements the SPEC two-factor bold classification. Returns `(classification, layer_bold_regions)`.
    - Calculate `bold_percentage = sum(end - start for start, end in bold_regions) / len(primary_text)`.
-   - If `bold_percentage < 0.05` → return `"emphasis"` (too little bold to be a layer signal).
-   - If `bold_percentage > 0.60` → return `"emphasis"` (too much bold — emphasis, not layer).
-   - For each bold region, apply the two-factor test: `char_count >= 80 AND no transition marker inside the span`. Both conditions met → `"layer_indicator"`. Either condition fails → `"uncertain"`.
-   - If ALL bold regions pass the two-factor test → return `"layer_indicator"`.
-   - If ANY bold region fails → return `"mixed"` (some bold is layer, some is emphasis).
+   - If `bold_percentage < 0.05` → return `("emphasis", [])` (too little bold to be a layer signal).
+   - If `bold_percentage > 0.60` → return `("emphasis", [])` (too much bold — emphasis, not layer).
+   - For each bold region, apply the two-factor test: `char_count >= 80 AND no transition marker inside the span`. Bold regions that pass are collected into `layer_bold_regions`.
+   - If ALL pass → return `("layer_indicator", layer_bold_regions)`.
+   - If SOME pass, SOME fail → return `("mixed", layer_bold_regions)` (only the passing regions are in the list).
+   - If NONE pass → return `("emphasis", [])`.
 
-6. `_build_segments(primary_text: str, bold_regions: list[tuple[int, int]], markers: list[LayerBoundary], brackets: list[tuple[int, int]], bold_classification: str, metadata: SourceMetadata) -> list[TextLayerSegment]`
-   - The core segmentation algorithm (SPEC §4.A.5 detection algorithm steps 2–6).
-   - **Step 1:** Collect all boundaries: marker positions + bold region edges + bracket edges.
+6. `_build_segments(primary_text: str, layer_bold_regions: list[tuple[int, int]], markers: list[LayerBoundary], brackets: list[tuple[int, int]], bold_classification: str, metadata: SourceMetadata) -> list[TextLayerSegment]`
+   - The core segmentation algorithm (SPEC §4.A.5 detection algorithm steps 2–7).
+   - **NOTE:** `layer_bold_regions` contains ONLY bold regions that passed the two-factor test (returned from `_classify_bold_signal`). When classification is "emphasis", this list is empty. When "mixed", it contains the subset that passed. When "layer_indicator", it contains all bold regions.
+   - **Step 1:** Collect all boundaries: marker positions + `layer_bold_regions` edges + bracket edges.
    - **Step 2:** Sort boundaries by character offset.
-   - **Step 3:** Between consecutive boundaries, assign the layer type based on signals:
-     - Inside a bold region (when bold_classification is "layer_indicator") → MATN
-     - After a `"قوله:"` marker → MATN (until next non-MATN signal)
-     - After a `"قال الشارح:"` or `"أي:"` marker → SHARH (or HASHIYAH for 3-layer sources)
-     - Inside brackets (when brackets qualify as layer markers) → MATN
-     - Default (no signal) → the source's default commentary layer (SHARH for sharh, HASHIYAH for hashiyah)
-   - **Step 4:** Fill gaps — any region between 0 and len(primary_text) not covered by a boundary assignment gets the default layer.
-   - **Step 5:** Merge adjacent segments with the same layer_type.
+   - **Step 3:** Between consecutive boundaries, assign the layer type based on signals. **Confidence values per signal type** (SPEC §4.A.5: typographic signals 0.60–0.85, markers ≥ 0.90):
+     - Inside a `layer_bold_region` → MATN, **confidence 0.75** (typographic signal, mid-range)
+     - After a `"قوله:"` marker → MATN (until next non-MATN signal), **confidence from marker** (0.90)
+     - After a `"قال الشارح:"` or `"أي:"` marker → SHARH (or HASHIYAH for 3-layer sources), **confidence from marker** (0.90 / 0.80 respectively)
+     - Inside brackets (when brackets qualify as layer markers) → MATN, **confidence 0.65** (typographic signal, lower range — brackets are less reliable than bold)
+     - Default (no signal) → the source's default commentary layer (SHARH for sharh, HASHIYAH for hashiyah), **confidence 0.60**
+   - **Step 4:** Fill gaps — any region between 0 and len(primary_text) not covered by a boundary assignment gets the default layer at confidence 0.60.
+   - **Step 5:** Merge adjacent segments with the same layer_type. Merged confidence = minimum of constituent confidences.
    - **Step 6:** Validate full coverage: every character in [0, len(primary_text)) is in exactly one segment. If not → fill with UNCERTAIN at confidence 0.30.
    - Get `author_canonical_id` from `metadata.text_layers` by matching layer_type.
    - **Conservative default** (SPEC §4.A.5): When confidence < 0.50, attribute to commentary (Layer 2 in sharh, Layer 3 in hashiyah), not matn. Misattributing commentary to the commentator is less harmful than attributing verbose explanation to the matn author.
+   - NOTE: The 40% matn proportion check (SPEC §4.A.5 step 6) is a SOURCE-LEVEL aggregate check, not per-page. It runs in `_pass5_detect_layers` after all pages are processed (see Deliverable 2).
 
 7. `_build_layer_map(segments: list[TextLayerSegment], signals_found: list[str]) -> list[LayerMapEntry]`
    - Build manifest-level layer_map from detected segments.
@@ -133,9 +136,11 @@ class LayerDetectionResult:
 ### Deliverable 2: Integration in `shamela.py`
 
 1. Add `_pass5_detect_layers(self, cleaned: list[CleanedPage], metadata: SourceMetadata) -> tuple[dict[int, list[TextLayerSegment]], list[LayerMapEntry]]`
-   - For each CleanedPage, calls `layer_detector.detect_layers()`.
+   - **Pre-scan (ADV-015, D7):** If `metadata.is_multi_layer=False`, scan first `min(10, len(cleaned))` pages for multi-layer signals. For each page: check if bold spans cover >10% of primary_text AND check for transition markers (any of the §4.A.5 marker list). If BOTH conditions are met on ANY scanned page, set `force_multi_layer=True` and log `NORM_LAYER_UNCERTAIN` warning. Otherwise `force_multi_layer=False`.
+   - For each CleanedPage, calls `layer_detector.detect_layers(page, metadata, force_multi_layer)`.
    - Returns: `(page_layers: dict[int, list[TextLayerSegment]], layer_map: list[LayerMapEntry])`.
-   - For single-layer sources, still produces one-segment-per-page output.
+   - For single-layer sources (when force_multi_layer is also False), still produces one-segment-per-page output.
+   - **After all pages processed (multi-layer sources only):** Calculate aggregate matn ratio: `total_matn_chars / total_primary_chars` across all pages. If ratio > `layer_matn_max_ratio` (default 0.40, from SPEC §4.A.5 step 6), log `NORM_LAYER_UNCERTAIN` warning: "Layer 1 (matn) is {ratio:.0%} of total text, exceeding {threshold:.0%} threshold — possible bulk misdetection." This is a WARNING only — segments are NOT modified (human review decides). This catches the T-2 scenario where bold-as-emphasis is misclassified as bold-as-layer across the entire source.
 
 2. Update `normalize()` method (line 488): Replace NotImplementedError with Pass 5 call.
    ```python
@@ -186,6 +191,8 @@ class LayerDetectionResult:
 
 16. **Author canonical_id mapping:** For ibn_aqil, verify that MATN segments carry the matn author's canonical_id (from `metadata.text_layers` where `layer_type=="matn"`), and SHARH segments carry the sharh author's canonical_id.
 
+17. **Matn proportion validation (SPEC §4.A.5 step 6, aggregate):** Construct a multi-layer source with 5 pages where bold covers 55% of text on each page (all classified as MATN). Run `_pass5_detect_layers`. Assert `NORM_LAYER_UNCERTAIN` warning is logged mentioning "exceeding" and "40%". Assert page-level segments are NOT modified (warning only, human reviews).
+
 ---
 
 ## Critical Design Decisions
@@ -208,6 +215,15 @@ SPEC §4.A.5 step 7 describes hashiyah quoting sharh. For core build: detect exp
 ### D6: Empty text_layers with is_multi_layer=True
 When `metadata.is_multi_layer=True` but `metadata.text_layers` is empty (source engine flagged multi-layer but couldn't identify specific layers), use `author_canonical_id=None` for all segments until markers determine layer. Default layer is SHARH (commentary) per SPEC conservative default. Do NOT skip layer detection — the typographic signals may still identify layers even without metadata guidance.
 
+### D7: Multi-layer signal detection threshold (not in SPEC — new design decision)
+The SPEC says the normalizer should detect layers "even when the source engine didn't flag it" but doesn't specify how. Implementation: scan first 10 pages; if bold spans cover >10% of text on any page AND transition markers are found, treat as multi-layer. These thresholds (10 pages, 10% bold) are provisional calibration values — adjust against real multi-layer Shamela fixtures when available.
+
+### D8: Font size signal — DEFERRED
+SPEC §4.A.5 lists font size as a Shamela typographic signal. HOWEVER: 0 of 13 test fixtures have font_size_spans. The SPEC itself says "A minority of Shamela exports use <font size> tags." Without test data, implementing font size detection would be untested code. Deferred until a real fixture with font_size_spans is available. `CleanedPage.font_size_spans` is already captured by Pass 1 — the data is there when the detector is ready.
+
+### D9: ADV-015 "enrichment write-back" scope
+ADV-015 describes "writes back a multi-layer discovery to source metadata as an enrichment." The normalization engine does NOT modify source metadata (D-023 metadata pass-through). The enrichment is captured in the normalization manifest's `layer_map` field (which reflects detected layers), NOT as a source metadata write-back. The ADV's intent (detect multi-layer when metadata misses it) is fully covered; the mechanism is layer_map, not source modification.
+
 ---
 
 ## Do NOT Do
@@ -219,6 +235,7 @@ When `metadata.is_multi_layer=True` but `metadata.text_layers` is empty (source 
 - **Do NOT implement Pass 6** (output assembly).
 - **Do NOT apply Unicode normalization** on Arabic text during bold text cleaning — use the same functions Pass 3 uses (strip_tags, decode_entities, normalize_whitespace).
 - **Do NOT treat all brackets as matn markers** — short brackets (< 15 chars) are typically Quran verse refs.
+- **Do NOT implement font_size detection** — deferred per D8 (no test fixtures available). font_size_spans data exists in CleanedPage but is not consumed by Pass 5 yet.
 
 ---
 
@@ -235,6 +252,7 @@ When `metadata.is_multi_layer=True` but `metadata.text_layers` is empty (source 
 7. The `normalize()` method calls Pass 5 and reaches the new NotImplementedError for Pass 6 (not "Passes 5–6").
 8. For ibn_aqil pages 0 and 2: bold text mapped to MATN segments with confidence ≥ 0.60.
 9. NORM_LAYER_UNCERTAIN logged when multi-layer signals detected in single-layer metadata source.
+10. NORM_LAYER_UNCERTAIN logged when matn proportion exceeds 40% on a multi-layer source (test 17).
 
 ---
 
@@ -244,8 +262,8 @@ When `metadata.is_multi_layer=True` but `metadata.text_layers` is empty (source 
 2. **Cumulative metrics update** (target after Session 4):
    ```
    Implementation: ~4,000-4,500 lines (+700-1,200)
-   Tests: ~2,500-2,800 lines (+600-900 for 16 test categories)
-   Test count: ~145-165 passing
+   Tests: ~2,500-2,800 lines (+600-900 for 17 test categories)
+   Test count: ~145-170 passing
    ADV covered: 18/51 (ADV-001–018)
    ```
 
@@ -264,5 +282,5 @@ Known limitations: L-001 (bare-number footnotes), L-002 (ضياء السالك c
 ## Known Limitations (from Sessions 2–3)
 
 - **L-001:** Bare-number/unnumbered footnotes classified but not parsed. Fix: Session 5.
-- **L-002:** ضياء السالك commentary numbering collision. Session 4 should address architecturally — once layers are separated, commentary `(N)` markers are distinguishable from footnote refs.
+- **L-002:** ضياء السالك commentary numbering collision. Layer separation (Pass 5) makes commentary `(N)` markers distinguishable from footnote refs in PRINCIPLE — but the actual fix requires Pass 2/3 changes (footnote parsing), which Session 4 cannot modify. L-002 remains open; Session 5 or later addresses it with layer-aware footnote disambiguation.
 - **L-003:** Same-page heading chaining (214 instances/7 fixtures). Inherent page-level granularity limit.
