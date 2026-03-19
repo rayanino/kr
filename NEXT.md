@@ -37,12 +37,12 @@
    - `normalize()` method (lines 463–505): the NotImplementedError to replace
    - `CleanedPage` class (lines 232–265): all fields — these are Pass 6 inputs
    - `ParsedFootnote` class (lines 167–182): internal footnote type — must be converted to contract `Footnote`
-   - `_pass4_discover_structure()` (lines 929–948): returns (division_tree, page_markers, div_counts, struct_confidence). **page_markers is a `dict[int, StructuralMarkers]`** — unit_index → heading info for that page.
+   - `_pass4_discover_structure()` (lines 929–948): currently returns 4-tuple (division_tree, page_markers, div_counts, struct_confidence). **D3 adds a 5th element: toc_page_indices.** `page_markers` is a `dict[int, StructuralMarkers]` — unit_index → heading info for that page.
    - `_pass5_detect_layers()` (lines 952–1036): returns (per_page_segments `list[list[TextLayerSegment]]`, layer_map `list[LayerMapEntry]`)
 
 7. `engines/normalization/src/structure_discovery.py` — Read:
    - `StructureResult` (line 97): note `page_markers: dict[int, StructuralMarkers]`
-   - `_tier1_html_tagged()` (line 296): returns `(candidates, toc_indices)` — **toc_indices is a `list[int]` of unit_index values for TOC pages**, but it's NOT currently in StructureResult. See D3 below.
+   - `_tier1_html_tagged()` (line 290): returns `(candidates, toc_indices)` — **toc_indices is a `list[int]` of unit_index values for TOC pages**, but it's NOT currently in StructureResult. See D3 below.
    - `TOC_EXACT_TITLES` (line 50): the frozenset of TOC heading keywords
 
 8. `engines/normalization/src/errors.py` (130L) — Error codes. Relevant: `CONTINUITY_INCONSISTENT` (line 48, WARNING), `CONTINUITY_UNKNOWN` (line 49, INFO). No new error codes needed — these already exist.
@@ -83,14 +83,14 @@ def compute_content_flags(
   - `«...»` guillemets containing Arabic text AND preceded by `قال` within 50 chars (hadith quotation pattern)
   - Any ONE of these is sufficient for `True`.
 - `is_toc_page`: Use the `is_toc_page` parameter (from structure discovery — see D3).
-- `is_index_page`: Scan `page.primary_text` first 200 chars OR structural heading for index keywords: `فهرس الأعلام`, `فهرس الأحاديث`, `فهرس الآيات`, `فهرس المصادر`, `فهرس الأبيات`. NOT `فهرس الموضوعات` (that's TOC, not index).
+- `is_index_page`: Scan `page.primary_text` first 200 chars AND `page.title_spans` for index keywords: `فهرس الأعلام`, `فهرس الأحاديث`, `فهرس الآيات`, `فهرس المصادر`, `فهرس الأبيات`. NOT `فهرس الموضوعات` (that's TOC, not index). Match if ANY keyword appears in either the first 200 chars of primary_text or in any title_span string.
 - `is_blank`: Use `page.is_blank` OR `page.is_image_only` OR `len(page.primary_text.strip()) == 0`.
 
-**Tests:** 10+ tests. Test each flag independently with constructed Arabic text. Test the SPEC concrete example (§4.A.9 lines 676–700). Test negative cases (pages without Quran/hadith). Test at least 2 real fixture pages that have Quran citations (fixture `05_tafsir` has 37 pages with Quran markers) and 2 that have hadith citations (fixture `10_no_author` has 111 pages with hadith patterns).
+**Tests:** 10+ tests. Test each flag independently with constructed Arabic text. Test the SPEC concrete example (§4.A.9 lines 676–700). Test negative cases (pages without Quran/hadith). Test at least 2 real fixture pages that have Quran citations (fixture `05_tafsir` — 48 pages, most contain Quran markers) and 2 that have hadith citations (fixture `10_no_author` — 141 pages, most contain hadith patterns).
 
 ### Deliverable 2: `engines/normalization/src/boundary_continuity.py` — New module (~150-200 lines)
 
-Classify every page boundary. Receives pairs of consecutive pages. Returns `BoundaryContinuity` or `None` (last page).
+Classify every page boundary. Receives pairs of consecutive pages. Always returns a `BoundaryContinuity` (the assembly loop handles None for last page and blank current pages — see Deliverable 3 step 3).
 
 **Function:**
 
@@ -106,14 +106,16 @@ def classify_boundary(
 
 **Detection algorithm (SPEC §4.B.8 signal priority):**
 
+0. **Short-circuit for blank/image-only next page.** If `next_page.is_blank` or `next_page.is_image_only` → return `BoundaryContinuity(type=unknown, confidence=0.30, method=punctuation_analysis, continuation_hint="next page is blank/image-only")`. Log `NORM_CONTINUITY_UNKNOWN`. **Note:** blank/image-only CURRENT pages are handled in the assembly loop — the assembly code skips calling `classify_boundary` entirely for those pages and sets `boundary_continuity=None` directly.
+
 1. **Check volume boundary first.** If `is_volume_boundary` is True → `division_break`, confidence 0.95, method `structural_marker`.
 
-2. **Check structural heading.** If `next_markers` has `heading_detected=True` → `section_break`, confidence from heading_confidence mapping (confirmed/high → 0.95, medium → 0.85, low → 0.75), method `structural_marker`. **Heading ALWAYS overrides punctuation and argument analysis** (SPEC signal priority rule).
+2. **Check structural heading.** If `next_markers` has `heading_detected=True` → `section_break`, confidence from heading_confidence mapping (confirmed/high → 0.95, medium → 0.85, low → 0.75, minimal → 0.65), method `structural_marker`. **Heading ALWAYS overrides punctuation and argument analysis** (SPEC signal priority rule).
 
 3. **Check argument flow.** Scan last 200 chars of `current_page.primary_text` for opening markers from the SPEC table. **Match the SPECIFIC phrases listed below — not the full SPEC table.** The SPEC's conditional reasoning markers (`إذا`, `ولو أن`, `فإن كان`) are excluded from the initial implementation because they're common Arabic words that fire on 15-19% of fiqh pages as false positives (see D7). The `وذهب ... إلى` pattern means: match the word `وذهب` (the `...` in the SPEC represents a scholar name that varies).
 
    **Opening markers to implement:**
-   - Evidence chain: `والدليل`, `لقوله تعالى`, `ودليله`, `واحتجوا بـ`, `واستدلوا بـ`
+   - Evidence chain: `والدليل`, `لقوله تعالى`, `ودليله`, `واحتجوا بـ`, `واستدلوا بـ`, `ولنا`
    - Position statement: `وذهب`, `والمذهب أن`, `القول الأول`
    - Objection-response: `واعترض عليه بأن`, `وأُشكل عليه`, `فإن قيل`
 
@@ -127,7 +129,7 @@ def classify_boundary(
 4. **Punctuation analysis (fallback).** Check last non-whitespace character of `current_page.primary_text`:
    - Terminal punctuation (`.`, `۔`, `؟`, `!`, `؛`) present → `mid_paragraph`, confidence 0.75, method `punctuation_analysis`.
    - No terminal punctuation → `mid_sentence`, confidence 0.90, method `punctuation_analysis`.
-   - **Additional Shamela signal:** if next page starts with connective (و, ف, ثم) as first word after any heading → confirms mid-sentence/mid-paragraph.
+   - **Shamela connective boost:** After the above classification, if `next_markers` is None or `heading_detected=False`, check the first non-whitespace word of `next_page.primary_text`. If it starts with a connective (و, ف, ثم), add to `continuation_hint` (e.g., `"next page starts with connective 'و'"`) but do NOT change the type or confidence — the connective confirms the existing classification.
 
 5. **If no signal at all** (should be rare) → `unknown`, confidence 0.30, method `punctuation_analysis`. Log `NORM_CONTINUITY_UNKNOWN`.
 
@@ -145,23 +147,28 @@ Populate from the opening/closing marker lists above (3 categories, NOT the SPEC
 
 **Tests:** 15+ tests. Must include:
 - ADV-026 (mid_sentence with terminal punctuation — construct a page ending with `.` and verify classification is NOT mid_sentence)
-- SPEC concrete example (§4.B.8 lines 1219–1240: page ending with `قال:` + `ولنا حديث` → mid_argument)
+- SPEC concrete example (§4.B.8 lines 1184–1212: page ending with `قال:` + `ولنا حديث` → mid_argument)
 - Volume boundary → division_break
 - Heading at next page start → section_break (overrides punctuation)
 - Argument marker opened but closed on same page → NOT mid_argument
 - Plain mid-sentence (no punctuation, no markers)
 - Mid-paragraph (punctuation present, no heading)
+- Blank/image-only next page → `unknown` with confidence 0.30
+- Each HeadingConfidence level maps to the correct float (confirmed→0.95, minimal→0.65)
 - At least 2 real fixture boundary spot-checks with printed Arabic text
 
 ### Deliverable 3: Output assembly in `shamela.py` (~100-150 lines added to `normalize()`)
 
 Replace the `NotImplementedError` at line 498 with Pass 6 that:
 
-1. **Thread TOC page indices** — modify `_pass4_discover_structure` to also return `toc_indices`. Add `toc_page_indices: list[int] = field(default_factory=list)` to `StructureResult` in `structure_discovery.py`. Pass these to the content flagger. (D3)
+1. **Thread TOC page indices** — implement D3 (see Design Decisions). Build `toc_set = set(toc_indices)` for O(1) lookup in content flagger.
 
 2. **Compute content flags** — call `compute_content_flags(page, is_toc_page=page.unit_index in toc_set)` for each page.
 
-3. **Compute boundary continuity** — for each consecutive page pair, call `classify_boundary(...)`. Detect volume boundaries by comparing `cleaned[i].volume != cleaned[i+1].volume`. Pass structural markers from `page_markers` dict.
+3. **Compute boundary continuity** — for each consecutive page pair `(cleaned[i], cleaned[i+1])`:
+   - If `cleaned[i].is_blank` or `cleaned[i].is_image_only` → set `boundary_continuity = None` (no text to analyze). Do NOT call `classify_boundary`.
+   - If this is the last page (no `cleaned[i+1]`) → set `boundary_continuity = None`.
+   - Otherwise → call `classify_boundary(current_page=cleaned[i], next_page=cleaned[i+1], current_markers=page_markers.get(cleaned[i].unit_index), next_markers=page_markers.get(cleaned[i+1].unit_index), is_volume_boundary=(cleaned[i].volume != cleaned[i+1].volume))`.
 
 4. **Convert `ParsedFootnote` → contract `Footnote`** for each page:
    ```python
@@ -189,32 +196,35 @@ Replace the `NotImplementedError` at line 498 with Pass 6 that:
 
 6. **Assemble `NormalizedManifest`:**
    - `normalizer_id` = "kr.normalization.shamela_v2"
-   - `normalization_utc` = current UTC ISO 8601
+   - `normalization_utc` = current UTC ISO 8601 (use `datetime.now(timezone.utc).isoformat()`)
    - `division_tree` = from Pass 4
    - `layer_map` = from Pass 5
-   - `structural_format` = StructuralFormat(metadata.structural_format)
-   - `text_fidelity_summary` = computed from all pages
+   - `structural_format` = `StructuralFormat(metadata.structural_format.value)` (note: `.value` extracts the string from the source engine's `StructuralFormat` enum to construct the normalization engine's `StructuralFormat` enum — they are separate types with identical values)
+   - `text_fidelity_summary` = `TextFidelitySummary(mean_ocr_confidence=None, character_level_fidelity_estimate=None, pages_with_warnings=sum(1 for cu in content_units if cu.text_fidelity.warnings), total_pages=len(content_units))`
    - `verse_detection` = any(page.has_verse for page in cleaned)
    - `total_content_units` = len(content_units)
    - `quality_report` = computed (see below)
-   - Deferred optional fields = None
+   - `normalization_warnings` = empty list `[]` (pipeline-level warnings are logged via error codes, not aggregated into manifest in core build)
+   - Deferred optional fields = None: `content_census`, `tahqiq_topology`, `layer_fingerprints`, `discourse_flow_summary`, `structural_format_proposed`, `verse_numbering_scheme`
 
 7. **Compute `QualityReport`:**
    - `division_count_by_tier` = div_counts from Pass 4
    - `layer_transition_count` = count of layer type changes across all segments
-   - `pages_with_warnings` = count of pages with non-empty warnings
+   - `pages_with_warnings` = count of `CleanedPage` objects with non-empty `.warnings` list (normalization-level warnings like orphan refs — NOT `TextFidelity.warnings` which are always empty for Shamela)
    - `high_fidelity_pct` = 1.0 (Shamela = always high)
    - `unclassified_footnote_count` = count of footnotes with type UNKNOWN
    - `overall_confidence` = struct_confidence from Pass 4
 
 8. **Return `NormalizedPackage(manifest=manifest, content_units=content_units)`.**
 
-**Tests for assembly:** 5+ tests. **Fixture paths for `normalize(frozen_path, metadata)`:** ibn_aqil → `Path("engines/normalization/tests/fixtures/shamela_ibn_aqil.htm")` (single file). 01_nahw_simple → `Path("tests/fixtures/shamela_real/01_nahw_simple")` (directory, contains `book.htm`). Both work with `_resolve_input_files`.
+**Tests for assembly:** 7+ tests. **Fixture paths for `normalize(frozen_path, metadata)`:** ibn_aqil → `Path("engines/normalization/tests/fixtures/shamela_ibn_aqil.htm")` (single file). 01_nahw_simple → `Path("tests/fixtures/shamela_real/01_nahw_simple")` (directory, contains `book.htm`). Both work with `_resolve_input_files`.
 - Full pipeline test on ibn_aqil fixture: construct metadata with `is_multi_layer=True`, `text_layers=[matn+sharh]`, `structural_format="prose"`, `source_format="shamela_html"`. Run normalize() end-to-end. Verify it returns a NormalizedPackage (not raises NotImplementedError). Verify content_units count matches expected pages (5). Verify each content_unit has full coverage text_layers.
 - Full pipeline test on 01_nahw_simple (single-layer, 73 pages): construct metadata with `is_multi_layer=False`, `structural_format="prose"`, `source_format="shamela_html"`. Verify all content_units are MATN at confidence 1.0.
-- Spot-check footnote conversion on a fixture with footnotes.
-- Verify manifest fields are populated correctly.
+- Spot-check footnote conversion on a fixture with footnotes. Verify `ref_marker` is a string (not int), `footnote_type` is a valid `FootnoteType` enum member, `confidence` is a float.
+- Verify manifest fields are populated correctly: `normalizer_id`, `structural_format`, `total_content_units`, `text_fidelity_summary.total_pages`, `normalization_warnings` is a list, all deferred Optional fields are None.
 - Verify boundary_continuity is None for the last content_unit.
+- Verify blank/image-only pages have `boundary_continuity=None` and `content_flags.is_blank=True`.
+- Verify `quality_report.division_count_by_tier` matches Pass 4 output.
 
 ---
 
@@ -224,7 +234,7 @@ Replace the `NotImplementedError` at line 498 with Pass 6 that:
 
 **D2: `verse_info` field.** The `VerseInfo` contract type exists but verse line/hemistich parsing is not implemented (only `has_verse` boolean from Pass 3). Set `verse_info = None` on all ContentUnits. `has_verse` in `content_flags` is the surface-level signal.
 
-**D3: TOC page indices threading.** Add `toc_page_indices: list[int] = field(default_factory=list)` to `StructureResult` in `structure_discovery.py`. Update `discover_structure()` to populate it from the existing `toc_indices` local variable (line 1165). Update `_pass4_discover_structure()` in `shamela.py` to return it. This is a backwards-compatible addition (default empty list). Pass the set to the content flagger.
+**D3: TOC page indices threading.** Update `from dataclasses import dataclass` to `from dataclasses import dataclass, field` in `structure_discovery.py`. Add `toc_page_indices: list[int] = field(default_factory=list)` to `StructureResult` (line 99). Update `discover_structure()` to populate it from the existing `toc_indices` local variable (line 1165): set `toc_page_indices=toc_indices` in the `StructureResult(...)` constructor at line 1207. Update `_pass4_discover_structure()` in `shamela.py` to return `toc_page_indices` as a fifth element. Update the call site at `normalize()` line 488 to unpack 5 values: `_division_tree, _page_markers, div_counts, struct_confidence, toc_indices = ...`. Pass `set(toc_indices)` to the content flagger. This is a backwards-compatible addition (default empty list).
 
 **D4: Index page detection.** Index pages (فهرس الأعلام, فهرس الأحاديث) are distinct from TOC pages (فهرس الموضوعات). Detect by keyword match in first 200 chars of primary_text. If no fixture has index pages, test with constructed text only.
 
@@ -266,7 +276,7 @@ from pathlib import Path
 
 **Pass criteria:**
 - 172 existing tests still pass (zero regressions)
-- 30+ new tests pass (content_flagger ~10, boundary_continuity ~15, assembly ~5)
+- 32+ new tests pass (content_flagger ~10, boundary_continuity ~15, assembly ~7)
 - Cross-engine contracts: PASS
 - `normalize()` returns a `NormalizedPackage` for ibn_aqil fixture
 - Every `ContentUnit` has full text_layer coverage (start=0, end=len(primary_text))
