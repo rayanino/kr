@@ -1,11 +1,15 @@
-# NEXT — Build Session 5: Pass 6 Assembly (Content Flagging, Boundary Continuity, Output)
+# NEXT — Review Session 5: Pass 6 Assembly (Content Flagging, Boundary Continuity, Output)
 
-## Current position: Session 4 COMPLETE and ACCEPTED (commits through 8bcaf49, review at reference/archive/sessions/reviews/review_session_4.md). Layer detection implemented: 752 lines, 46 tests, 18/51 ADV, L-001–L-007. Cumulative: 4,580 impl lines, 3,137 test lines, 173 tests passing.
-## What to do: Implement Pass 6 — the final Shamela pipeline pass. Three deliverables: content flagger (§4.A.9), boundary continuity classifier (§4.B.8), and output assembly that replaces the NotImplementedError in `normalize()` and returns a `NormalizedPackage`.
-## Context: Session 5 completes the Shamela normalizer's 6-pass pipeline. After this session, `normalize()` returns a fully populated `NormalizedPackage` in memory. Session 6 adds §5 validation checks and the atomic disk writer. Session 7 runs integration tests on all fixtures.
-## Owner action needed: NO — this is a pure CC build session.
+## Current position: Session 5 BUILD COMPLETE (commit d1f9cb3). CC implemented Pass 6: content flagger, boundary continuity, output assembly. 253 tests passing (173 existing + 80 new). 10 files changed, +1689/-190 lines.
+## What to do: Review CC's Session 5 output using kr-reviewing-cc-output (3-round protocol per reference/protocols/REVIEW_PROTOCOL.md).
+## Context: CC built the three deliverables described below. The review verifies correctness against SPEC, traces concrete examples through the implementation, and checks cross-engine compatibility. After ACCEPT, the Build Prober runs, then Session 6.
+## Owner action needed: NO — start new Claude Chat session for review.
+## Git range for review: `1329dce..d1f9cb3` (1 CC commit)
 
 ---
+
+## Session 5 Build Instructions (what CC was asked to do — reference for reviewer)
+
 
 ## Read First (in this order)
 
