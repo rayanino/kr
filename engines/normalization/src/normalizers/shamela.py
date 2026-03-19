@@ -23,12 +23,15 @@ import html as html_lib
 import logging
 import re
 from pathlib import Path
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from bs4 import BeautifulSoup
 from pydantic import BaseModel, Field
 
 from engines.normalization.contracts import NormalizedPackage
+
+if TYPE_CHECKING:
+    from engines.normalization.contracts import LayerMapEntry, TextLayerSegment
 from engines.normalization.src.errors import NormalizationError, NormErrorCode
 from engines.normalization.src.normalizers.base import BaseNormalizer
 from engines.source.contracts import SourceMetadata
@@ -950,7 +953,7 @@ class ShamelaNormalizer(BaseNormalizer):
         self,
         cleaned: list[CleanedPage],
         metadata: SourceMetadata,
-    ) -> tuple[list[list], list]:
+    ) -> tuple[list[list[TextLayerSegment]], list[LayerMapEntry]]:
         """SPEC §4.A.5: Multi-layer text detection.
 
         10-page pre-scan detects unmarked multi-layer sources (D7/ADV-015).

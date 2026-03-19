@@ -37,3 +37,12 @@ Tracked limitations discovered during build. Not bugs (code matches SPEC), but b
 **Impact:** Missed markers default to the current layer (typically commentary). Per SPEC conservative default, this is the safe direction — misattributing commentary to the commentator is less harmful than attributing it to the matn author (T-2). The missed markers do not cause misattribution of matn text.
 **SPEC compliance:** Compliant — the SPEC's conservative default handles missed markers safely.
 **Fix point:** Extend regex with optional Arabic prefix handling `(?:[وف])?` after validation against 20K Shamela samples to ensure no false positives from legitimate words starting with و or ف.
+
+## L-005: Bold character threshold 50 deviates from SPEC provisional 80
+
+**Discovered:** Session 4 layer detection calibration (March 2026).
+**SPEC reference:** §4.A.5 two-factor test, [AUDIT FIX M-03]: "Threshold 80 chars is provisional — calibrate against KR test fixtures."
+**Calibration data:** The ibn_aqil multi-layer fixture (the only multi-layer fixture available) has bold matn verses of 79 and 71 characters. The SPEC threshold of >=80 produces false negatives on both verses. Typical emphasis bold (hadith quotes, Quran refs) in the fixture range from 10-40 chars.
+**Chosen threshold:** >=50 chars. Safety margin of 10 chars above highest observed emphasis bold.
+**Affected range:** Bold spans between 50-79 chars are classified as layer indicators under this threshold but would be excluded under the SPEC threshold of 80. This could produce false positives for emphasis bold in the 50-79 char range on sources other than ibn_aqil.
+**Fix point:** Revisit when more multi-layer fixtures are available. If emphasis bold in the 50-79 range is observed in real data, raise the threshold toward 80 and accept the false negatives on short matn verses (which would fall through to the conservative default as SHARH — safe direction).

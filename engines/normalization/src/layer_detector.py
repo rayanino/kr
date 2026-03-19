@@ -24,6 +24,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from engines.normalization.contracts import LayerMapEntry, LayerType, TextLayerSegment
+from engines.normalization.src.errors import NormErrorCode
 from engines.normalization.src.normalizers.shamela import (
     CleanedPage,
     decode_entities,
@@ -151,7 +152,10 @@ def _map_bold_to_primary(page: CleanedPage) -> list[tuple[int, int]]:
         pos = page.primary_text.find(cleaned, search_start)
         if pos == -1:
             logger.warning(
-                "Bold text not found in primary_text at search_start=%d: %.40s...",
+                "%s: bold text not found in primary_text (unit_index=%d, "
+                "search_start=%d): %.40s...",
+                NormErrorCode.LAYER_UNCERTAIN.value,
+                page.unit_index,
                 search_start,
                 cleaned,
             )
@@ -729,10 +733,9 @@ def pre_scan_multi_layer(
 
         has_signal = False
 
-        # Check bold coverage > 10%
+        # Check bold coverage > 10% (fast proxy using raw inner_html length)
         if page.bold_spans:
-            bold_regions = _map_bold_to_primary(page)
-            total_bold = sum(e - s for s, e in bold_regions)
+            total_bold = sum(len(inner) for _, _, inner in page.bold_spans)
             if total_bold / text_len > 0.10:
                 has_signal = True
 
