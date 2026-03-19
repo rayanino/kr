@@ -15,7 +15,7 @@
 
 3. `engines/normalization/SPEC.md` lines 660–700 — §4.A.9 Content Flagging. 7 boolean flags. Concrete example with expected output. Detection patterns for each flag.
 
-4. `engines/normalization/SPEC.md` lines 1129–1240 — §4.B.8 Cross-Page Continuity Intelligence. Full specification: 6 boundary types, argument flow marker table, signal priority rule (heading > argument > punctuation), format-specific signals (Shamela: punctuation analysis + connectives), concrete example with expected output, edge cases.
+4. `engines/normalization/SPEC.md` lines 1129–1221 — §4.B.8 Cross-Page Continuity Intelligence. Full specification: 6 boundary types, argument flow marker table, signal priority rule (heading > argument > punctuation), format-specific signals (Shamela: punctuation analysis + connectives), concrete example with expected output, edge cases. Ends at `[NOT YET IMPLEMENTED]` marker.
 
 5. `engines/normalization/contracts.py` — Read these types:
    - `ContentFlags` (line 216): 7 boolean fields
@@ -47,7 +47,12 @@
 
 8. `engines/normalization/src/errors.py` (130L) — Error codes. Relevant: `CONTINUITY_INCONSISTENT` (line 48, WARNING), `CONTINUITY_UNKNOWN` (line 49, INFO). No new error codes needed — these already exist.
 
-9. `reference/SPEC_ADVERSARY_NORMALIZATION.md` — Search for ADV-026 (mid_sentence with terminal punctuation — tests boundary continuity internal consistency). This is the only mandatory ADV test for Session 5.
+9. `reference/SPEC_ADVERSARY_NORMALIZATION.md` — Search for these Session 5 ADV tests:
+   - ADV-026 (mid_sentence with terminal punctuation — boundary continuity consistency check)
+   - ADV-024 (Quran citation without standard prefix — content flagger pattern coverage)
+   - ADV-050 (hadith citation with non-standard introduction — content flagger pattern coverage)
+   - ADV-051 (TOC page detection — content flagger integration with structure discovery)
+   ADV-024 and ADV-050 test whether the existing patterns catch non-standard introductions. The adversarial inputs in both cases contain markers that our patterns already detect (curly braces for ADV-024, ﷺ for ADV-050), so they should pass. ADV-051 tests is_toc_page via structure discovery's TOC detection. Include at least one test per ADV case.
 
 10. `engines/normalization/tests/test_layer_detection.py` — Read the test infrastructure section (lines 66–215). Reuse `_make_source_metadata()`, `_make_cleaned_page()`, `_make_text_layers_sharh()`, `_full_pipeline()`, `_wrap_page()`, `_make_html()`. Either import from this file or extract to a shared `conftest.py`.
 
@@ -86,7 +91,7 @@ def compute_content_flags(
 - `is_index_page`: Scan `page.primary_text` first 200 chars AND `page.title_spans` for index keywords: `فهرس الأعلام`, `فهرس الأحاديث`, `فهرس الآيات`, `فهرس المصادر`, `فهرس الأبيات`. NOT `فهرس الموضوعات` (that's TOC, not index). Match if ANY keyword appears in either the first 200 chars of primary_text or in any title_span string.
 - `is_blank`: Use `page.is_blank` OR `page.is_image_only` OR `len(page.primary_text.strip()) == 0`.
 
-**Tests:** 10+ tests. Test each flag independently with constructed Arabic text. Test the SPEC concrete example (§4.A.9 lines 676–700). Test negative cases (pages without Quran/hadith). Test at least 2 real fixture pages that have Quran citations (fixture `05_tafsir` — 48 pages, most contain Quran markers) and 2 that have hadith citations (fixture `10_no_author` — 141 pages, most contain hadith patterns).
+**Tests:** 10+ tests. Test each flag independently with constructed Arabic text. Test the SPEC concrete example (§4.A.9 lines 674–696). Test negative cases (pages without Quran/hadith). Test at least 2 real fixture pages that have Quran citations (fixture `05_tafsir` — 48 pages, most contain Quran markers) and 2 that have hadith citations (fixture `10_no_author` — 141 pages, most contain hadith patterns).
 
 ### Deliverable 2: `engines/normalization/src/boundary_continuity.py` — New module (~150-200 lines)
 
@@ -124,7 +129,7 @@ def classify_boundary(
    - Position statement closers: `القول الثاني`, `والراجح`, `والصحيح`
    - Objection-response closers: `فالجواب`, `قلنا`, `والجواب عنه`
 
-   Matching is category-specific: an evidence chain opener is only cancelled by an evidence chain closer on the same page. If opener found AND no matching-category closer on the same page → `mid_argument`, confidence 0.70, method `argument_flow`, continuation_hint describes the opened marker and its category.
+   Matching is category-specific: an evidence chain opener is only cancelled by an evidence chain closer on the same page. If opener found AND no matching-category closer on the same page → `mid_argument`, method `argument_flow`, continuation_hint describes the opened marker and its category. **Confidence depends on punctuation corroboration** (SPEC §4.B.8 line 1174: "mid_argument subsumes mid_sentence when both are detected"): check last non-whitespace character of `current_page.primary_text` — if NO terminal punctuation (`.`, `۔`, `؟`, `!`, `؛`), both signals agree the content continues → confidence **0.90**. If terminal punctuation IS present (sentence ended but argument not closed), only argument signal → confidence **0.70**. This matches the SPEC concrete example (lines 1184–1212) which produces 0.90 when `ولنا حديث` + colon (no terminal punctuation) co-occur.
 
 4. **Punctuation analysis (fallback).** Check last non-whitespace character of `current_page.primary_text`:
    - Terminal punctuation (`.`, `۔`, `؟`, `!`, `؛`) present → `mid_paragraph`, confidence 0.75, method `punctuation_analysis`.
@@ -209,7 +214,7 @@ Replace the `NotImplementedError` at line 498 with Pass 6 that:
 
 7. **Compute `QualityReport`:**
    - `division_count_by_tier` = div_counts from Pass 4
-   - `layer_transition_count` = count of layer type changes across all segments
+   - `layer_transition_count` = total within-page layer type changes across all segments (for each page's segment list, count consecutive pairs where `segments[j].layer_type != segments[j+1].layer_type`; sum across all pages. A single-layer page contributes 0. Blank pages contribute 0.)
    - `pages_with_warnings` = count of `CleanedPage` objects with non-empty `.warnings` list (normalization-level warnings like orphan refs — NOT `TextFidelity.warnings` which are always empty for Shamela)
    - `high_fidelity_pct` = 1.0 (Shamela = always high)
    - `unclassified_footnote_count` = count of footnotes with type UNKNOWN
