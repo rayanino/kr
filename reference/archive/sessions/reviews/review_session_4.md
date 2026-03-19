@@ -92,13 +92,19 @@ No findings. All 16 adversarial probes pass. All 9 review concerns verified with
 Implementation: 4,580 lines (+1,314 this session)
 Tests: 172 passing (+46 this session)
 ADV covered: 18/51 (ADV-011 through ADV-015 new this session)
-Known limitations: L-001, L-002, L-003, L-004, L-005
+Known limitations: L-001, L-002, L-003, L-004, L-005, L-006, L-007
 ```
 
 ## Notes (not findings)
 
 1. **20K Shamela sample scan (Concern #9):** The threshold calibration (50 chars) is based on one multi-layer fixture (ibn_aqil). A scan of the 20K local samples would validate the threshold more broadly. This is a recommended CC task for a future session — not a finding, because the code is correct per the documented threshold and L-005 already tracks this as provisional.
 
-2. **"قال الشارح:" not implemented:** SPEC lists this as an explicit transition marker but it's hashiyah-context only (3-layer sources, SPEC step 7). Session 4 correctly scopes to 2-layer detection. Not a finding — intentionally deferred per NEXT.md D6.
+2. **~~"قال الشارح:" not implemented~~ CORRECTION:** "قال الشارح:" IS implemented (line 70 of layer_detector.py, pattern #2 of 4). The original review miscounted the patterns during a truncated file read. L-006 (added by CC) correctly states this. The implementation handles 3-layer hashiyah sources by transitioning to SHARH when this marker is detected.
 
 3. **API design improvements over NEXT.md:** CC simplified `detect_layers` signature (single `is_multi_layer` parameter instead of NEXT.md's `force_multi_layer`; `default_commentary_layer` passed as parameter instead of recomputed per-page). CC also renamed `LayerDetectionResult` to `PageDetectionResult` and moved layer_map computation to source level. All improvements — cleaner, more testable code. No correctness concerns.
+
+4. **SPEC concrete example divergence (documented in adversarial self-review):** The SPEC §4.A.5 concrete example (hashiyah source: حاشية ابن قاسم) produces different output than the implementation. Implementation: 3 segments (HASHIYAH [0,6) + MATN [6,105) + HASHIYAH [105,139)). SPEC: 4 segments (SHARH [0,5) + MATN [6,35) + SHARH [36,94) + HASHIYAH [95,143)). Divergences: (a) pre-marker text is HASHIYAH (implementation default) vs SHARH (requires step 7 hashiyah quotation detection, deferred per L-006); (b) MATN extends to أي: offset instead of stopping at position 35 (requires content-based inference, SPEC signal #3, deferred). Both divergences are from intentionally deferred capabilities. The SPEC example describes end-state behavior after ALL 7 algorithm steps.
+
+5. **"أي:" marker addition (design decision):** "أي:" is not in the SPEC's formal explicit marker list (signal #1, confidence ≥ 0.90) but IS used in the SPEC's concrete example reasoning. Added at confidence 0.80 (below the ≥ 0.90 threshold for explicit markers) to reflect its weaker signaling value. This is an architect design decision, not a SPEC prescription.
+
+6. **L-007 added (adversarial self-review finding):** marker_state persistence after bold_exit can over-extend MATN regions. See KNOWN_LIMITATIONS.md L-007 for full analysis. Not a code bug — the state machine correctly implements the approved design (R1 resolution). The limitation is that Pattern A (bold IS the matn boundary) and Pattern B (bold within larger matn region) require content inference to distinguish.

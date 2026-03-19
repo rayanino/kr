@@ -87,7 +87,7 @@ The ABD code is REFERENCE, not implementation. Build fresh code that matches SPE
 | 6 | Validation + writer + plain text normalizer | §5 checks 1–10, §4.A.4c |  |
 | 7 | Integration testing on fixtures | Full pipeline, adversarial cases |  |
 
-**Build metrics after Session 4 (ACCEPTED):** 4,580 impl lines, 3,137 test lines, 172 tests passing, 18/51 ADV covered (ADV-001–015 + ADV-016–018). Known limitations: L-001 (bare-number footnotes), L-002 (ضياء السالك collision), L-003 (same-page heading chaining), L-004 (Arabic conjunction prefixes), L-005 (bold threshold 50 vs SPEC 80). Review: `reference/archive/sessions/reviews/review_session_4.md`.
+**Build metrics after Session 4 (ACCEPTED):** 4,580 impl lines, 3,137 test lines, 172 tests passing, 18/51 ADV covered (ADV-001–015 + ADV-016–018). Known limitations: L-001 (bare-number footnotes), L-002 (ضياء السالك collision), L-003 (same-page heading chaining), L-004 (Arabic conjunction prefixes), L-005 (bold threshold 50 vs SPEC 80), L-006 (hashiyah quotation detection deferred), L-007 (marker_state over-extension after bold_exit). Review: `reference/archive/sessions/reviews/review_session_4.md`.
 
 **Test factory:** `_make_source_metadata(**overrides)` in `tests/test_layer_detection.py` builds a valid `SourceMetadata` with all 23+ required fields. Reuse in Sessions 5–7 test files.
 
