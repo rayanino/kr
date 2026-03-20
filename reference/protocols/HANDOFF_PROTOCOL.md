@@ -5,6 +5,7 @@
 **Failure history:**
 - Session 2: handoff committed without verification → 4 foundation bugs (regex range, metadata page conflation, missing CleanedPage field, image-only pages dropped). All caught by pre-commit tool-based review.
 - Session 5: improvised review produced 25 findings but skipped formal protocol → missed worst bug (confidence 0.70 vs SPEC 0.90) until 3rd pass after owner pushback. Volume of findings ≠ completeness.
+- Session 6: completed all 9 steps, declared ready. Owner-forced deep review found 8 issues (1 HIGH — CRLF splitting breaks plain text on Windows). Root cause: the protocol tests specification-level issues but not assumption-level issues (platform, import chains, data flow, silent drops). Steps 6 and 8 updated to close this gap.
 
 **Rule:** Follow steps 1–9 in order. Do not skip, reorder, or "cover the spirit" without following the letter. Reading this protocol then improvising is NOT following it.
 
@@ -53,6 +54,8 @@ Check: false positive rate (S5: إذا at 12.6% → excluded), substring collisi
 
 Also from Session 2: for any regex, construct match/no-match/edge-case inputs and run them. For any parser/library, test the exact use case with Arabic text (diacritics, entities, Unicode).
 
+**Even if no new detection logic was added:** run the pipeline end-to-end on ALL repo fixtures (shamela_real + shamela_extended) as a smoke test. This catches integration failures, import errors, and assumption bugs that unit tests miss. S6: the CRLF bug would have been caught by running the plain text normalizer on a single Windows-encoded fixture.
+
 ## Step 7: Automated + manual checks
 
 Run automated validation:
@@ -85,6 +88,7 @@ Re-read NEXT.md as CC seeing it for the first time:
 4. Could CC follow instructions and produce wrong output that passes verification?
 5. Any unverified claim about fixtures or SPEC values?
 6. Any missing test helpers CC will need?
+7. What platform assumptions does this code make? (CRLF line endings, path separators, encoding defaults, OS-specific behavior.) The owner is on Windows. S6: `'\r\n\r\n'.split('\n\n')` returns 1 part — a HIGH-severity bug missed by questions 1-6.
 
 ## Step 9: Commit and declare
 
