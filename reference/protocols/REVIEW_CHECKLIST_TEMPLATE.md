@@ -78,3 +78,8 @@ Tests: [N] passing (+[M] this session)
 ADV covered: [N]/51
 Known limitations: [list]
 ```
+
+## Post-ACCEPT housekeeping (only if verdict is ACCEPT)
+- [ ] `CLAUDE.md` build session table updated (mark session ✅, update build metrics)
+- [ ] Any SPEC inconsistencies found → documented as SPEC-NOTEs above
+- [ ] NEXT.md updated for next session (or handoff prepared in new chat)
