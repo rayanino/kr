@@ -29,8 +29,10 @@ from engines.normalization.contracts import (
 )
 from engines.normalization.src.boundary_continuity import (
     _check_argument_flow,
+    _find_argument_marker,
     _has_terminal_punct,
     _has_word_boundary_after,
+    _has_word_boundary_before,
     classify_boundary,
 )
 from engines.normalization.tests.conftest import (
@@ -189,6 +191,25 @@ class TestWordBoundary:
     def test_word_at_end(self) -> None:
         """Word at end of string → boundary present."""
         assert _has_word_boundary_after("وذهب", 4) is True
+
+
+# ══════════════════════════════════════════════════════════════════════
+# Leading word boundary checks (Finding 2 fix — reject substring matches)
+# ══════════════════════════════════════════════════════════════════════
+
+
+class TestLeadingWordBoundary:
+    def test_leading_boundary_rejects_substring(self) -> None:
+        """فقولنا should NOT trigger ولنا — leading boundary rejects substring."""
+        assert _find_argument_marker("فقولنا في المسألة", ["ولنا"]) is False
+
+    def test_leading_boundary_accepts_standalone(self) -> None:
+        """ولنا preceded by space SHOULD trigger — proper word boundary."""
+        assert _find_argument_marker("والمسألة ولنا حديث", ["ولنا"]) is True
+
+    def test_closer_leading_boundary(self) -> None:
+        """فقلنا should NOT trigger قلنا closer — closers also check leading boundary."""
+        assert _find_argument_marker("فقلنا ذلك", ["قلنا"]) is False
 
 
 # ══════════════════════════════════════════════════════════════════════

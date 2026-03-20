@@ -64,7 +64,7 @@ _ARGUMENT_CATEGORIES: list[_ArgumentCategory] = [
     _ArgumentCategory(
         name="evidence_chain",
         opening_patterns=[
-            "ولنا", "واستدل", "والدليل", "لأن", "بدليل",
+            "ولنا", "واستدل", "والدليل", "بدليل",
             "ودليله", "واحتجوا",
         ],
         closing_patterns=[
@@ -75,7 +75,7 @@ _ARGUMENT_CATEGORIES: list[_ArgumentCategory] = [
     _ArgumentCategory(
         name="position_statement",
         opening_patterns=[
-            "وذهب", "وقال", "ومذهب", "واختار",
+            "وذهب", "ومذهب", "واختار",
             "القول الأول",
         ],
         closing_patterns=[
@@ -103,17 +103,29 @@ def _has_word_boundary_after(text: str, match_end: int) -> bool:
     return ch in (" ", "\t", "\n", "\r") or ch in _TERMINAL_PUNCT or ch in ("،", ":", "؛")
 
 
+def _has_word_boundary_before(text: str, match_start: int) -> bool:
+    """Check that the character before match_start is space, punct, or start.
+
+    Mirrors _has_word_boundary_after for leading boundary detection.
+    """
+    if match_start <= 0:
+        return True
+    ch = text[match_start - 1]
+    return ch in (" ", "\t", "\n", "\r") or ch in _TERMINAL_PUNCT or ch in ("،", ":", "؛")
+
+
 def _find_argument_marker(
     text: str, patterns: list[str],
 ) -> bool:
-    """Check if any pattern appears in text with proper word boundary."""
+    """Check if any pattern appears in text with proper word boundaries."""
     for pattern in patterns:
         idx = 0
         while True:
             pos = text.find(pattern, idx)
             if pos == -1:
                 break
-            if _has_word_boundary_after(text, pos + len(pattern)):
+            if (_has_word_boundary_before(text, pos) and
+                    _has_word_boundary_after(text, pos + len(pattern))):
                 return True
             idx = pos + 1
     return False
