@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-03-20T19:27:15.058494+00:00",
+  "branch": "master",
+  "active_engine": "normalization",
+  "modified_files": [
+    ".claude/agents/build-prober.md",
+    ".claude/agents/code-reviewer.md",
+    ".claude/commands/catchup.md",
+    ".claude/hooks/arabic-safety-check.sh",
+    ".claude/hooks/auto-test.sh",
+    ".claude/hooks/pre-commit-check.sh",
+    ".claude/hooks/pyright-check.sh",
+    ".claude/rules/quality-workflow.md",
+    ".claude/settings.json",
+    "engines/normalization/CLAUDE.md"
+  ],
+  "uncommitted_summary": ".claude/agents/build-prober.md       | 24 +++++++++++++++++++++---\n .claude/agents/code-reviewer.md      | 22 +++++++++++++++++++++-\n .claude/commands/catchup.md          |  7 +++++++\n .claude/hooks/arabic-safety-check.sh | 15 +++++++++++++++\n .claude/hooks/auto-test.sh           |  7 +++++--\n .claude/hooks/pre-commit-check.sh    | 26 ++++++++++++++++++++++++++\n .claude/hooks/pyright-check.sh       | 15 ++++++++++++++-\n .claude/rules/quality-workflow.md    |  3 +++\n .claude/settings.json                | 11 +++++++++++\n engines/normalization/CLAUDE.md      |  2 +-\n 10 files changed, 124 insertions(+), 8 deletions(-)",
+  "next_md_head": "# NEXT — Fix Session 5 Review Findings (2 findings in boundary_continuity.py)\n\n## Current position: Session 5 review BLOCKED (commit dbb8982). Two findings in `engines/normalization/src/boundary_continuity.py`. Content flagger and output assembly are clean. 253 tests passing.\n## What to do: Fix both findings, update tests, re-verify.\n## Context: Architect review found (1) over-broad argument markers not in SPEC and (2) missing leading word boundary check causing 13.7% substring false positives. Both are in the boundary continuity module only.\n## Owner action needed: NO — start new CC session for fix.\n## Git range for review: from `dbb8982` to HEAD after fix.\n\n---\n\n## Read First\n\n1. `engines/normalization/src/boundary_continuity.py` (266L) — The file being fixed.\n2. `reference/archive/sessions/reviews/review_session_5.md` — Full review checklist with evidence for both findings.\n3. `engines/normalization/tests/test_boundary_continuity.py` (335L) — Tests to update.",
+  "recent_commits": "e07ac6e fix: remove over-broad markers and add leading word boundary check (Session 5 review)\nd717a5a chore: NEXT.md â€” fix directive for Session 5 review findings\ndbb8982 review: Session 5 Pass 6 â€” BLOCKED (2 findings in boundary_continuity.py)\n4489c29 chore: update NEXT.md for review phase â€” build complete, review next\nd1f9cb3 feat: Session 5 â€” Pass 6 assembly completes Shamela normalize() pipeline"
+}

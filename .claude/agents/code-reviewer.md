@@ -62,8 +62,22 @@ For each behavioral rule in the relevant SPEC section:
 
 ## Output Format
 
+Wrap all output in the standard agent handoff envelope (see `reference/protocols/AGENT_HANDOFF_FORMAT.md`):
+
 ```
-### Code Review: [engine/section]
+## Code Reviewer Report — [Engine] [Section]
+
+**Date:** [ISO 8601]
+**Agent:** code-reviewer.md
+**Scope:** [files reviewed]
+
+### Summary
+
+- HIGH: [count] — [one-line each]
+- MEDIUM: [count]
+- LOW: [count]
+
+### Findings
 
 **SPEC Fidelity:** [N/M rules correctly implemented]
 **Test Coverage:** [N test functions covering M rules]
@@ -80,6 +94,12 @@ For each behavioral rule in the relevant SPEC section:
 
 #### Recommendations
 [Architectural or style improvements]
+
+### Downstream Context
+
+For next agent: [key findings, risk areas, files needing scrutiny]
+Unresolved: [open questions]
+Files to re-examine: [paths]
 ```
 
 ## Rules

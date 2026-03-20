@@ -4,6 +4,13 @@ allowed-tools: Bash(git diff:*), Bash(git log:*), Bash(git status:*), Bash(cat:*
 ---
 Quickly reload project context. Do ALL of these:
 
+0. If `.claude/session_state.json` exists, read it first and report:
+   - When the last session ended (timestamp)
+   - Which engine was active
+   - What files were modified
+   - Any uncommitted changes
+   Then continue with the remaining steps for live verification.
+
 1. Show current git branch and status: `git branch --show-current && git status --short`
 2. Show recent commits: `git log --oneline -10`
 3. Show uncommitted changes summary: `git diff --stat`

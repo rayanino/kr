@@ -77,15 +77,27 @@ For each SPEC rule implemented in this session:
 
 ## Output Format
 
-```
-# Build Probe Report — [Engine] Session [N]
+Wrap all output in the standard agent handoff envelope (see `reference/protocols/AGENT_HANDOFF_FORMAT.md`).
 
-**Date:** [date]
+```
+## Build Prober Report — [Engine] Session [N]
+
+**Date:** [ISO 8601]
+**Agent:** build-prober.md
+**Scope:** [git range, files reviewed]
+
+### Summary
+
+- HIGH: [count] — [one-line each, maps to DEVIATION + critical OMISSION]
+- MEDIUM: [count] — [maps to IMPROVISATION with risk + minor OMISSION]
+- LOW: [count] — [maps to acceptable IMPROVISATION]
+
 **Git range:** [ref range]
 **Files changed:** [count] ([count] source, [count] test)
 **Lines changed:** +[added] / -[removed]
 
-## Summary
+### Findings
+
 - DEVIATION: [N] findings
 - IMPROVISATION: [N] findings
 - OMISSION: [N] findings
@@ -134,6 +146,12 @@ For each SPEC rule implemented in this session:
 - CLEAN: 0 deviations, ≤2 improvisations (all infrastructure), 0 omissions
 - MINOR_DRIFT: 1-2 deviations (threshold/enum), or ≤3 improvisations with SPEC gaps
 - SIGNIFICANT_DRIFT: 3+ deviations, or any deviation in a high-integrity area (layer detection, text fidelity, metadata pass-through)
+
+### Downstream Context
+
+For next agent: [key deviations, drift status, high-risk areas]
+Unresolved: [SPEC gaps that need owner decision]
+Files to re-examine: [paths with deviations or improvisations]
 ```
 
 ## Rules

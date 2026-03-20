@@ -85,6 +85,32 @@ if [ -n "$MODIFIED_SPECS" ]; then
     done
 fi
 
+# 6. Advisory: SPEC value validation (I-4)
+if [ -n "$MODIFIED_SRC" ]; then
+    CHECKED_ENGINE=""
+    for src_file in $MODIFIED_SRC; do
+        ENGINE_DIR=$(echo "$src_file" | grep -oE 'engines/[^/]+')
+        if [ -n "$ENGINE_DIR" ] && [ -z "$CHECKED_ENGINE" ] && [ -f "$ENGINE_DIR/SPEC.md" ]; then
+            echo ""
+            echo "--- SPEC value validation: $ENGINE_DIR ---"
+            python3 scripts/validate_spec_values.py "$ENGINE_DIR" 2>/dev/null | head -15
+            CHECKED_ENGINE="$ENGINE_DIR"
+        fi
+    done
+fi
+
+# 7. Advisory: print() detection in engine source files
+if [ -n "$MODIFIED_PY" ]; then
+    for pyfile in $MODIFIED_PY; do
+        # Find bare print() calls, excluding test files and # safe: comments
+        PRINTS=$(grep -nE '^\s*print\s*\(' "$pyfile" 2>/dev/null | grep -v '# safe:' | grep -v 'def.*print')
+        if [ -n "$PRINTS" ]; then
+            echo "  WARNING: $pyfile has print() statements — use logging.getLogger(__name__) instead"
+            echo "$PRINTS" | head -3
+        fi
+    done
+fi
+
 echo "=== End Pre-Commit ==="
 
 if [ $BLOCK -ne 0 ]; then
