@@ -76,8 +76,8 @@
 
 | # | File | Finding | Fix | Fixed? |
 |---|------|---------|-----|--------|
-| 1 | `src/boundary_continuity.py` | Over-broad markers `لأن` (evidence_chain) and `وقال` (position_statement) not in SPEC table, fire on 4.1–17% of fixture pages, account for 82% of all opener hits. Inflates mid_argument classifications. | Remove `لأن` from evidence_chain.opening_patterns. Remove `وقال` from position_statement.opening_patterns. | [ ] |
-| 2 | `src/boundary_continuity.py` | `_find_argument_marker` only checks trailing word boundary (`_has_word_boundary_after`), not leading. 29/211 occurrences (13.7%) are substring false positives (e.g., `ولنا` inside `فقولنا`). | Add `_has_word_boundary_before(text, match_start)` check: verify `pos == 0 or text[pos-1]` is space/punct/line boundary. Apply to all marker matches alongside existing trailing check. | [ ] |
+| 1 | `src/boundary_continuity.py` | Over-broad markers `لأن` (evidence_chain) and `وقال` (position_statement) not in SPEC table, fire on 4.1–17% of fixture pages, account for 82% of all opener hits. Inflates mid_argument classifications. | Remove `لأن` from evidence_chain.opening_patterns. Remove `وقال` from position_statement.opening_patterns. | [x] Fixed in e07ac6e. Post-fix rates: fiqh 11.8%, tafsir 0%, nahw 1.0–1.4%. |
+| 2 | `src/boundary_continuity.py` | `_find_argument_marker` only checks trailing word boundary (`_has_word_boundary_after`), not leading. 29/211 occurrences (13.7%) are substring false positives (e.g., `ولنا` inside `فقولنا`). | Add `_has_word_boundary_before(text, match_start)` check: verify `pos == 0 or text[pos-1]` is space/punct/line boundary. Apply to all marker matches alongside existing trailing check. | [x] Fixed in e07ac6e. فقولنا/ولنا returns False, standalone ولنا returns True, فقلنا/قلنا returns False. 3 new tests. |
 
 ## SPEC notes (for SPEC maintenance — not code fixes)
 
@@ -85,10 +85,10 @@
 - **SPEC-NOTE-2:** §4.B.8 concrete example uses `ولنا حديث` as evidence opener but `ولنا` is absent from the SPEC marker table. Add to SPEC table.
 
 ## Fixes committed
-- [ ] ALL findings above have `Fixed? [x]`
-- [ ] Fix commits pushed to repo
-- [ ] Tests re-run after fixes: `[N] passed`
-- [ ] `python tools/check_cross_engine_contracts.py` re-run after fixes → `[PASS/FAIL]`
+- [x] ALL findings above have `Fixed? [x]`
+- [x] Fix commits pushed to repo (commit e07ac6e)
+- [x] Tests re-run after fixes: `256 passed, 22 skipped, 0 failed`
+- [x] `python tools/check_cross_engine_contracts.py` re-run after fixes → `PASS`
 
 ## Verdict
 > Fill this line ONLY after Passes 1, 2, AND 3 are complete, every checkbox is checked, and every finding is fixed.
@@ -97,13 +97,13 @@
 > **BLOCKED** = findings exist that couldn't be fixed in this review.  
 > "ACCEPT WITH FIXES" does not exist. "Non-blocking" does not exist.
 
-**Verdict: BLOCKED — 2 findings in boundary_continuity.py (over-broad markers, missing leading word boundary). Content flagger and output assembly are clean.**
+**Verdict: ACCEPT — Both findings fixed in e07ac6e. Re-verified: 256 tests pass, false positive rate eliminated, SPEC §4.A.9 and §4.B.8 concrete examples trace correctly, ibn_aqil boundary types now semantically correct, cross-engine contracts PASS.**
 
 ## Build metrics (cumulative)
 ```
-Implementation: ~6,269 lines (+~621 net new this session)
-Tests: 253 passing (+80 this session)
-Test-to-code ratio: ~4.0 tests per 100 impl lines (this session: 12.9 per 100)
+Implementation: ~6,285 lines (+~637 net new this session including fix)
+Tests: 256 passing (+83 this session)
+Test-to-code ratio: ~4.1 tests per 100 impl lines
 ADV covered: ADV-001–018, ADV-024, ADV-026, ADV-050, ADV-051 (22/51)
 Known limitations: L-001 through L-009
 SPEC sections implemented: §4.A.1–§4.A.9, §4.B.1, §4.B.8
