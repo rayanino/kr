@@ -45,6 +45,8 @@ Replace the stub. Implement `validate_package()` which calls individual check fu
 
 **`validate_package(package: NormalizedPackage, metadata: SourceMetadata) -> ValidationResult`**
 
+NOTE: The existing stub has a third parameter `source_html: str | None = None`. **Remove it.** Check 8 (diacritics) runs inside each normalizer per D6-1, not in validate_package. The function signature changes from the stub.
+
 Calls checks 1-7 and 10 sequentially. Any fatal error stops processing (no point running further checks). Warnings accumulate. Returns the ValidationResult with `passed`, `warnings`, `fatal_errors`.
 
 Individual checks — implement EXACTLY per SPEC §5 lines 1472-1505:
@@ -76,7 +78,7 @@ For multi-layer sources only (check `metadata.is_multi_layer`):
 
 **Check 5 — Division tree validity (SPEC lines 1488-1492):**
 - Recursive check on each `DivisionNode`: `start_unit_index <= end_unit_index`.
-- Sibling divisions (nodes at the same level under the same parent): no overlap. For siblings sorted by start_unit_index, verify `sibling[i].end_unit_index < sibling[i+1].start_unit_index` (or `<=` if using inclusive end — check DivisionNode: `end_unit_index` is inclusive). Actually DivisionNode has `end_unit_index: int = Field(ge=0, description="Inclusive end")` — so siblings must not have overlapping [start, end] ranges.
+- Sibling divisions (children of the same parent, sorted by `start_unit_index`): no overlap. Because `end_unit_index` is **inclusive** (from contracts.py: `description="Inclusive end"`), the overlap check is: `sibling[i].end_unit_index >= sibling[i+1].start_unit_index` → overlap detected. Example: [0,5] and [5,10] overlap (page 5 is in both); [0,5] and [6,10] do not overlap.
 - Child divisions: for each child, verify `parent.start_unit_index <= child.start_unit_index` and `child.end_unit_index <= parent.end_unit_index`.
 - Full coverage: union of top-level divisions covers `[0, total_content_units - 1]`. Warning (not fatal) if gaps exist — sparse structure is valid per L-003.
 
@@ -162,10 +164,10 @@ New file. Implements `BaseNormalizer` for `SourceFormat.PLAIN_TEXT`.
 
 Processing steps:
 1. **Read source file.** If frozen_path is a directory, concatenate all .txt files sorted by name with `'\n\n'` between them. Handle encoding: try UTF-8 first (`errors='strict'`). On UnicodeDecodeError, fall back to `charset_normalizer.detect()`. If that also fails → `NORM_ENCODING_ERROR` (warning), try UTF-8 with `errors='replace'` and set fidelity to `low`.
-2. **Split into content units.** Per D6-6: split at `'\n\n'`, merge short segments, split long segments at ~2000 chars on whitespace boundaries.
+2. **Split into content units.** Per D6-6: normalize CRLF first (`text.replace('\r\n', '\n').replace('\r', '\n')`), then split at `'\n\n'`, merge short segments, split long segments at ~2000 chars on whitespace boundaries.
 3. **Assign unit_index.** Sequential 0-based.
 4. **Diacritics check (§5 check 8).** For each unit, call `check_diacritics_page(source_segment, unit.primary_text)`. Since plain text has no HTML processing, the only potential drift source is encoding conversion. If drift detected → `NORM_DIACRITICS_DRIFT` (fatal).
-5. **Structure discovery.** Call `discover_structure(pages, source_id, genre)` from `src/structure_discovery.py` (line 1144). Signature: `discover_structure(pages: list[CleanedPage], source_id: str, genre: Optional[Genre]) -> StructureResult`. Returns `StructureResult` with `division_tree`, `page_markers`, `quality_counts`, `overall_confidence`, `toc_page_indices`. The function needs `CleanedPage` objects — create them for each content unit segment using `_make_cleaned_page()` pattern (empty bold_spans, title_spans, etc.). Import `Genre` from `engines.source.contracts`. Structure discovery uses keyword heuristics (Tier 2) on the text content; Tier 1 (HTML) won't fire for plain text; Tier 3 (LLM) is a stub.
+5. **Structure discovery.** Call `discover_structure(pages, source_id, genre)` from `src/structure_discovery.py` (line 1144). Signature: `discover_structure(pages: list[CleanedPage], source_id: str, genre: Optional[Genre]) -> StructureResult`. Returns `StructureResult` with `division_tree`, `page_markers`, `quality_counts`, `overall_confidence`, `toc_page_indices`. The function needs `CleanedPage` objects — construct them directly: `CleanedPage(unit_index=i, volume=1, primary_text=segment_text, bold_spans=[], font_size_spans=[], title_spans=[])`. Import `CleanedPage` from `engines.normalization.src.normalizers.shamela` — this is where all shared modules import it from (verified: structure_discovery line 33, content_flagger line 24, boundary_continuity line 35). Import `Genre` from `engines.source.contracts`. Structure discovery uses keyword heuristics (Tier 2) on the text content; Tier 1 (HTML) won't fire for plain text; Tier 3 (LLM) is a stub.
 6. **Layer detection.** Always single-layer. For each unit, create one `TextLayerSegment(layer_type=LayerType.SHARH, start=0, end=len(primary_text), confidence=1.0)`. If `metadata.is_multi_layer` is True, still create single-layer segments but add a warning — plain text cannot detect layers from formatting. The segment `layer_type` should be `MATN` if `not metadata.is_multi_layer`, `SHARH` if `metadata.is_multi_layer` (conservative default per SPEC — commentary layer is the safe attribution for unknown).
 7. **Content flags.** Call `compute_content_flags(page, is_toc_page)` from `src/content_flagger.py` (line 131). Signature: `compute_content_flags(page: CleanedPage, is_toc_page: bool) -> ContentFlags`. Pass `is_toc_page=False` for all plain text units.
 8. **Boundary continuity.** Call `classify_boundary(current_page, next_page, current_markers, next_markers, is_volume_boundary)` from `src/boundary_continuity.py` (line 201). All args are `CleanedPage` or `StructuralMarkers` — use the ones from structure discovery. Set `is_volume_boundary=False` for plain text.
@@ -196,6 +198,10 @@ _NORMALIZER_REGISTRY: dict[SourceFormat, type[BaseNormalizer]] = {
 **Add `normalize_and_write()` function:**
 
 ```python
+import logging
+
+logger = logging.getLogger(__name__)
+
 def normalize_and_write(
     frozen_path: Path,
     metadata: SourceMetadata,
@@ -220,6 +226,14 @@ def normalize_and_write(
 
     # §5 Layer 1 validation
     result = validate_package(package, metadata)
+
+    # Log warnings (they're non-fatal but must not be silently discarded)
+    for warning in result.warnings:
+        logger.warning("[%s] §5 validation warning: %s", metadata.source_id, warning)
+
+    # Propagate warnings into manifest.normalization_warnings for persistence
+    package.manifest.normalization_warnings.extend(result.warnings)
+
     if not result.passed:
         # Collect error messages for diagnostics
         error_msgs = "; ".join(e.message for e in result.fatal_errors)
@@ -331,6 +345,7 @@ Create three new test files + unskip relevant tests in `test_kr_output.py`.
 **`engines/normalization/tests/test_plain_text.py`** (NEW FILE) — Tests for plain text normalizer:
 - Test: simple .txt file produces valid NormalizedPackage (schema validates).
 - Test: paragraph splitting at `\n\n` boundaries.
+- Test: CRLF line endings (`\r\n\r\n`) split correctly into paragraphs (D6-6 step 0). This is critical — owner is on Windows, all local .txt files have CRLF.
 - Test: long paragraph (> 3000 chars) split at ~2000 char whitespace boundary.
 - Test: consecutive short paragraphs (< 1000 chars each) merged.
 - Test: single short text (< 1000 chars) → one content unit.
@@ -341,7 +356,7 @@ Create three new test files + unskip relevant tests in `test_kr_output.py`.
 - Test: validate_input rejects non-existent path with `NORM_MISSING_FROZEN`.
 - Test: validate_input rejects empty file.
 - Test: normalizer_id is `"kr.normalization.plain_text_v1"`.
-- **Minimum: 12 test functions.**
+- **Minimum: 13 test functions.**
 
 **`engines/normalization/tests/test_kr_output.py` — Unskip and implement:**
 - `TestValidation` (5 tests): valid package passes, empty content rejected, missing manifest fields rejected, unit_index gaps detected, metadata passthrough verified (D-023: source_id preserved).
@@ -349,6 +364,22 @@ Create three new test files + unskip relevant tests in `test_kr_output.py`.
 - `TestDispatcher` (2 tests): SHAMELA_HTML routes to ShamelaNormalizer, unknown format raises NORM_UNKNOWN_SOURCE_FORMAT.
 - Leave skipped: `TestContentCensus`, `TestContentFlagger` (3 tests), `TestShamelaNormalizer` (8 tests) — Session 7.
 - **Unskip total: 10 tests.**
+
+### 7. `tools/smoke_test_validation.py` — Empirical Validation Smoke Test
+
+New script. Runs `normalize_source()` → `validate_package()` on all available real fixtures. This is the empirical check that unit tests cannot provide — it catches false positives (validation rejecting valid books) on real data.
+
+The script should:
+1. Iterate over `tests/fixtures/shamela_real/` (13 fixtures) and `tests/fixtures/shamela_extended/` (50 fixtures).
+2. For each fixture, construct a `SourceMetadata` with `source_format="shamela_html"` and sensible defaults.
+3. Call `normalize_source(frozen_path, metadata)` to get a `NormalizedPackage`.
+4. Call `validate_package(package, metadata)` to get a `ValidationResult`.
+5. Print per-fixture: name, PASS/WARN/FATAL, warning count, fatal error details.
+6. If `shamela-export-samples/` directory exists at the repo root (the owner's local 20K collection, gitignored), randomly sample 50 `.htm` files and run the same pipeline. This tests at scale on data the build was never calibrated against.
+7. Print summary: `{passed}/{total} passed, {warnings} warnings, {fatals} fatals`.
+8. Exit 0 if zero fatals on original+extended fixtures. Exit 1 if any fatals.
+
+Use `_make_source_metadata()` pattern for constructing metadata (import from conftest or inline). Handle exceptions per fixture (catch, report, continue — don't abort on first failure).
 
 ---
 
@@ -374,6 +405,7 @@ Pass 2 separates footnotes from primary_html BEFORE Pass 3 processes the HTML. S
 Add `raw_decoded_text: str` field to `CleanedPage`. Populate in `_pass3_clean()` at line 1305 — immediately after `text = decode_entities(strip_tags(html))` and BEFORE verse marker cleanup (line 1308), footnote ref replacement (line 1311), or whitespace normalization (line 1321). Set `raw_decoded_text = text` right after line 1305. Pass it to the CleanedPage constructor at line 1337. Note: `raw_decoded_text` contains the primary text area only — footnotes were already separated in Pass 2.
 
 **D6-6: Plain text content unit splitting algorithm.**
+0. Normalize line endings FIRST: `text = text.replace('\r\n', '\n').replace('\r', '\n')`. The owner is on Windows — plain text files WILL have CRLF. Without this, `'\r\n\r\n'.split('\n\n')` returns 1 part instead of 3 (verified empirically).
 1. Split input text at double newline boundaries (`\n\n`). Single newlines are NOT unit boundaries.
 2. If a resulting segment is > 3000 characters, split at the whitespace nearest to 2000 characters.
 3. If consecutive segments are each < 1000 characters, merge them (join with `\n\n`).
@@ -440,20 +472,56 @@ python -m pytest engines/normalization/tests/ -v --tb=short
 
 # Step 2: Cross-engine contracts
 python tools/check_cross_engine_contracts.py
+
+# Step 3: Empirical validation smoke test (NON-NEGOTIABLE)
+# After all unit tests pass, run this script to verify validation
+# doesn't false-positive on real Shamela data.
+python tools/smoke_test_validation.py
 ```
 
-**Pass criteria:**
+**Step 3 details — write `tools/smoke_test_validation.py`:**
+
+This script runs `normalize_source()` → `validate_package()` on real fixtures and reports results. It catches false positives (validation rejecting valid books) and false negatives (validation passing corrupt data) that unit tests cannot find.
+
+```python
+"""Smoke test: run normalize + validate on all available fixtures.
+
+Run after Session 6 build to verify validation doesn't false-positive
+on real Shamela data.
+
+Sources:
+  1. tests/fixtures/shamela_real/ (13 original fixtures)
+  2. tests/fixtures/shamela_extended/ (50 extended fixtures)
+  3. shamela-export-samples/ (20K+ local samples — if directory exists, sample 50 randomly)
+"""
+```
+
+The script should:
+1. For each fixture directory, construct a `SourceMetadata` with `source_format="shamela_html"` and sensible defaults (use `_make_source_metadata()` pattern).
+2. Call `normalize_source(frozen_path, metadata)` to get a `NormalizedPackage`.
+3. Call `validate_package(package, metadata)` to get a `ValidationResult`.
+4. Print per-fixture results: PASS/WARN/FATAL, warning count, any fatal errors.
+5. If `shamela-export-samples/` exists (the owner's local 20K collection), randomly sample 50 .htm files and run the same pipeline. This tests at scale.
+6. Print summary: `{N}/{total} passed, {W} warnings, {F} fatals`.
+
+**Pass criteria for Step 3:**
+- All 13 original fixtures: validation PASS (zero fatal errors).
+- All 50 extended fixtures: validation PASS (zero fatal errors). Warnings are acceptable and expected (some fixtures have sparse structure, low Arabic ratio on metadata pages, etc.).
+- Local 20K sample (if available): ≥90% validation PASS. Any fatal errors must be investigated — they indicate a validation bug on real data, not a corpus problem. Report the fatal error codes and affected fixtures.
+
+**Pass criteria (all steps):**
 - 256 existing tests still pass (zero regressions).
-- 35+ new tests pass across test_validation.py (25+), test_writer.py (10+), test_plain_text.py (12+).
+- 48+ new tests pass across test_validation.py (25+), test_writer.py (10+), test_plain_text.py (13+).
 - 10 previously-skipped tests in test_kr_output.py are unskipped and passing.
 - Cross-engine contracts: PASS.
 - All 8 ADV cases listed above have dedicated tests.
+- Smoke test: 63/63 original+extended fixtures pass validation. 20K sample ≥90% pass.
 - `normalize_source()` returns validated package for both Shamela HTML and plain text.
 - `normalize_and_write()` validates + writes manifest.json + content.jsonl atomically.
 - `recover_interrupted_write()` handles ADV-047 scenario.
 - `check_diacritics_page()` utility detects single-diacritic drift (ADV-045).
 
-**Minimum total new test count: 47** (25 validation + 10 writer + 12 plain text). Plus 10 unskipped from test_kr_output.py = 57 total new passing tests. If you have fewer than 47 NEW tests, you missed cases.
+**Minimum total new test count: 48** (25 validation + 10 writer + 13 plain text). Plus 10 unskipped from test_kr_output.py = 58 total new passing tests. If you have fewer than 48 NEW tests, you missed cases.
 
 ---
 
