@@ -11,7 +11,24 @@ from typing import Any
 
 import pytest
 
-from engines.normalization.contracts import LayerType, TextLayerSegment
+from engines.normalization.contracts import (
+    ContentFlags,
+    ContentUnit,
+    DivisionNode,
+    HeadingConfidence,
+    HeadingDetectionMethod,
+    LayerMapEntry,
+    LayerType,
+    NormalizedManifest,
+    NormalizedPackage,
+    PhysicalPage,
+    QualityReport,
+    StructuralFormat,
+    TextFidelity,
+    TextFidelityLevel,
+    TextFidelitySummary,
+    TextLayerSegment,
+)
 from engines.normalization.src.normalizers.shamela import (
     CleanedPage,
     ShamelaNormalizer,
@@ -133,6 +150,115 @@ def _make_cleaned_page(
     }
     fields.update(overrides)
     return CleanedPage(**fields)
+
+
+def _make_content_unit(
+    primary_text: str = "بسم الله الرحمن الرحيم وبعد فهذا كتاب في النحو",
+    unit_index: int = 0,
+    source_id: str = "src_test0001",
+    **overrides: Any,
+) -> ContentUnit:
+    """Create a minimal valid ContentUnit for testing.
+
+    Builds text_layers covering [0, len(primary_text)) automatically.
+    """
+    fields: dict[str, Any] = {
+        "source_id": source_id,
+        "unit_index": unit_index,
+        "physical_page": PhysicalPage(volume=1, page_number_display=None, page_number_int=None),
+        "primary_text": primary_text,
+        "text_layers": [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=0,
+                end=len(primary_text),
+                confidence=1.0,
+            ),
+        ],
+        "footnotes": [],
+        "content_flags": ContentFlags(),
+        "text_fidelity": TextFidelity(score=TextFidelityLevel.HIGH, ocr_confidence=None),
+        "boundary_continuity": None,
+        "verse_info": None,
+        "discourse_flow": None,
+    }
+    fields.update(overrides)
+    return ContentUnit(**fields)
+
+
+def _make_normalized_package(
+    num_units: int = 1,
+    primary_text: str = "بسم الله الرحمن الرحيم وبعد فهذا كتاب في النحو",
+    source_id: str = "src_test0001",
+    **overrides: Any,
+) -> NormalizedPackage:
+    """Factory for a minimal valid NormalizedPackage.
+
+    Builds N content units with contiguous unit_index, a single-entry
+    layer_map, a root division covering [0, N-1], and a valid manifest.
+    Tests override individual fields via overrides or by mutating the result.
+
+    Supported overrides:
+      - content_units: replace auto-generated units
+      - manifest: replace auto-generated manifest
+      - Any NormalizedManifest field: applied to the generated manifest
+    """
+    # Build content units unless overridden
+    content_units = overrides.pop("content_units", None)
+    if content_units is None:
+        content_units = [
+            _make_content_unit(
+                primary_text=primary_text,
+                unit_index=i,
+                source_id=source_id,
+            )
+            for i in range(num_units)
+        ]
+
+    # Build manifest unless overridden
+    manifest = overrides.pop("manifest", None)
+    if manifest is None:
+        manifest_fields: dict[str, Any] = {
+            "source_id": source_id,
+            "normalizer_id": "kr.normalization.test_v1",
+            "normalization_utc": "2026-01-01T00:00:00+00:00",
+            "division_tree": [
+                DivisionNode(
+                    div_id=f"div_{source_id}_0_0",
+                    division_type=None,
+                    heading_text="root",
+                    heading_level=0,
+                    start_unit_index=0,
+                    end_unit_index=max(0, len(content_units) - 1),
+                    detection_method=HeadingDetectionMethod.KEYWORD_HEURISTIC,
+                    confidence=HeadingConfidence.HIGH,
+                ),
+            ],
+            "layer_map": [
+                LayerMapEntry(
+                    layer_type=LayerType.SHARH,
+                    author_canonical_id=None,
+                    confidence=1.0,
+                ),
+            ],
+            "structural_format": StructuralFormat.PROSE,
+            "text_fidelity_summary": TextFidelitySummary(
+                mean_ocr_confidence=None,
+                character_level_fidelity_estimate=None,
+                pages_with_warnings=0,
+                total_pages=len(content_units),
+            ),
+            "total_content_units": len(content_units),
+            "quality_report": QualityReport(),
+        }
+        manifest_fields.update(overrides)
+        manifest = NormalizedManifest(**manifest_fields)
+
+    return NormalizedPackage(
+        manifest=manifest,
+        content_units=content_units,
+    )
 
 
 @pytest.fixture

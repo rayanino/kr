@@ -266,6 +266,7 @@ class CleanedPage(BaseModel):
     title_spans: list[str] = Field(default_factory=list)
     pagehead_text: Optional[str] = None
     warnings: list[str] = Field(default_factory=list)
+    raw_decoded_text: str = Field(default="", description="Tag-stripped, entity-decoded source text for §5 check 8")
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -498,7 +499,7 @@ class ShamelaNormalizer(BaseNormalizer):
         per_page_segments, layer_map = self._pass5_detect_layers(cleaned, metadata)
 
         # Pass 6: Output assembly
-        return self._pass6_assemble(
+        package = self._pass6_assemble(
             cleaned=cleaned,
             metadata=metadata,
             division_tree=division_tree,
@@ -509,6 +510,11 @@ class ShamelaNormalizer(BaseNormalizer):
             per_page_segments=per_page_segments,
             layer_map=layer_map,
         )
+
+        # §5 check 8: diacritics preservation verification (D6-1)
+        self._verify_diacritics_preservation(cleaned, package)
+
+        return package
 
     # ──────────────────────────────────────────────────────────────
     # Input resolution
@@ -1239,6 +1245,38 @@ class ShamelaNormalizer(BaseNormalizer):
             content_units=content_units,
         )
 
+    # ──────────────────────────────────────────────────────────────
+    # §5 Check 8 — Diacritics Preservation Verification (D6-1)
+    # ──────────────────────────────────────────────────────────────
+
+    def _verify_diacritics_preservation(
+        self,
+        cleaned: list[CleanedPage],
+        package: NormalizedPackage,
+    ) -> None:
+        """§5 check 8: Verify no diacritics were lost during normalization."""
+        from engines.normalization.src.validation import check_diacritics_page
+
+        for i, page in enumerate(cleaned):
+            if page.is_blank or page.is_image_only:
+                continue
+            # Source text = raw decoded primary HTML (D6-4, D6-5)
+            source_text = page.raw_decoded_text
+            # Output text = primary_text only (NOT footnotes — D6-4)
+            cu = package.content_units[i]
+            output_text = cu.primary_text
+            if not check_diacritics_page(source_text, output_text):
+                raise NormalizationError(
+                    code=NormErrorCode.DIACRITICS_DRIFT,
+                    message=(
+                        f"Diacritics count mismatch on page unit_index={cu.unit_index}: "
+                        f"source and output differ"
+                    ),
+                    source_id=cu.source_id,
+                    unit_index=cu.unit_index,
+                    recovery="Investigate which processing step is modifying diacritics.",
+                )
+
     # Pass 3 — HTML Stripping and Text Cleaning
     # ──────────────────────────────────────────────────────────────
 
@@ -1304,6 +1342,9 @@ class ShamelaNormalizer(BaseNormalizer):
             # D2g+h: Strip remaining tags and decode entities
             text = decode_entities(strip_tags(html))
 
+            # §5 check 8: capture raw decoded text BEFORE further processing
+            raw_decoded_text = text
+
             # D2i: Clean verse markers (* text * → text)
             text = VERSE_STAR_RE.sub(r"\1", text)
 
@@ -1357,6 +1398,7 @@ class ShamelaNormalizer(BaseNormalizer):
                 title_spans=page.title_spans,
                 pagehead_text=page.pagehead_text,
                 warnings=warnings,
+                raw_decoded_text=raw_decoded_text,
             ))
 
         return result
