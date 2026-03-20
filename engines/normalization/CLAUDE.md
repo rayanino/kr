@@ -84,12 +84,19 @@ The ABD code is REFERENCE, not implementation. Build fresh code that matches SPE
 | 3 | Structure discovery (4-tier headings, division tree) | §4.A.6, structural_patterns.yaml | ✅ Done |
 | 4 | Layer detection (typographic signals for Shamela) | §4.A.5 | ✅ Done (ACCEPTED) |
 | 5 | Pass 6 assembly (boundary continuity, flagging, output) | §4.B.8, §4.A.9, §4.A.2 Pass 6 | ✅ Done (ACCEPTED) |
-| 6 | Validation + writer + plain text normalizer | §5 checks 1–10, §4.A.4c |  |
+| 6 | Validation + writer + plain text normalizer + dispatcher wiring | §5 checks 1–10, §4.A.4c, §4.A.1 | ✅ Done |
 | 7 | Integration testing on fixtures | Full pipeline, adversarial cases |  |
 
-**Build metrics after Session 5 (ACCEPTED):** ~6,285 impl lines, 256 tests passing, 22/51 ADV covered (ADV-001–018, ADV-024, ADV-026, ADV-050, ADV-051). Known limitations: L-001 through L-009. `normalize()` returns `NormalizedPackage` end-to-end for Shamela sources. Review: `reference/archive/sessions/reviews/review_session_5.md`.
+**Build metrics after Session 6:** ~7,500 impl lines, 334 tests passing (12 skipped), 26/51 ADV covered (ADV-001–018, ADV-024, ADV-026, ADV-047, ADV-050, ADV-051 + validation ADV cases). Known limitations: L-001 through L-010. `normalize_and_write()` end-to-end for Shamela sources. Smoke test: 63/63 PASS on real + extended fixtures, 50/50 on local 20K samples.
 
-**Test factory:** Shared test infra in `tests/conftest.py`: `_make_source_metadata(**overrides)`, `_make_cleaned_page()`, `_make_text_layers_sharh()`, `_full_pipeline()`, `_wrap_page()`, `_make_html()`, `_assert_full_coverage()`, path constants. All new test files import from conftest.
+**Session 6 modules built:**
+- `validation.py` (§5) — 10 self-validation checks (page count, Arabic ratio, structure, matn proportion, division overlap, layer coverage, footnote integrity, diacritics preservation, fidelity, boundary continuity)
+- `writer.py` (§4.A.2) — Atomic write (temp dir → manifest.json + content.jsonl → rename → cleanup) with ADV-047 recovery
+- `plain_text.py` (§4.A.4c) — Paragraph splitting, CRLF normalization, keyword structure discovery
+- `dispatcher.py` updates (§4.A.1) — `normalize_and_write()` wiring, format registry
+- `shamela.py` changes — Diacritics integration (D6-3), check 8 constant, 4 minimal edits
+
+**Test factory:** Shared test infra in `tests/conftest.py`: `_make_source_metadata(**overrides)`, `_make_cleaned_page()`, `_make_text_layers_sharh()`, `_full_pipeline()`, `_wrap_page()`, `_make_html()`, `_assert_full_coverage()`, `_make_normalized_package(**overrides)`, `_make_content_unit(**overrides)`, path constants. All new test files import from conftest.
 
 ## Critical Rules
 

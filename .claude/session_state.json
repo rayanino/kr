@@ -1,20 +1,13 @@
 {
-  "timestamp": "2026-03-20T19:27:15.058494+00:00",
+  "timestamp": "2026-03-20T21:42:47.737950+00:00",
   "branch": "master",
   "active_engine": "normalization",
   "modified_files": [
-    ".claude/agents/build-prober.md",
-    ".claude/agents/code-reviewer.md",
-    ".claude/commands/catchup.md",
-    ".claude/hooks/arabic-safety-check.sh",
-    ".claude/hooks/auto-test.sh",
-    ".claude/hooks/pre-commit-check.sh",
-    ".claude/hooks/pyright-check.sh",
-    ".claude/rules/quality-workflow.md",
-    ".claude/settings.json",
-    "engines/normalization/CLAUDE.md"
+    ".claude/session_state.json",
+    "engines/normalization/CLAUDE.md",
+    "engines/normalization/KNOWN_LIMITATIONS.md"
   ],
-  "uncommitted_summary": ".claude/agents/build-prober.md       | 24 +++++++++++++++++++++---\n .claude/agents/code-reviewer.md      | 22 +++++++++++++++++++++-\n .claude/commands/catchup.md          |  7 +++++++\n .claude/hooks/arabic-safety-check.sh | 15 +++++++++++++++\n .claude/hooks/auto-test.sh           |  7 +++++--\n .claude/hooks/pre-commit-check.sh    | 26 ++++++++++++++++++++++++++\n .claude/hooks/pyright-check.sh       | 15 ++++++++++++++-\n .claude/rules/quality-workflow.md    |  3 +++\n .claude/settings.json                | 11 +++++++++++\n engines/normalization/CLAUDE.md      |  2 +-\n 10 files changed, 124 insertions(+), 8 deletions(-)",
-  "next_md_head": "# NEXT — Fix Session 5 Review Findings (2 findings in boundary_continuity.py)\n\n## Current position: Session 5 review BLOCKED (commit dbb8982). Two findings in `engines/normalization/src/boundary_continuity.py`. Content flagger and output assembly are clean. 253 tests passing.\n## What to do: Fix both findings, update tests, re-verify.\n## Context: Architect review found (1) over-broad argument markers not in SPEC and (2) missing leading word boundary check causing 13.7% substring false positives. Both are in the boundary continuity module only.\n## Owner action needed: NO — start new CC session for fix.\n## Git range for review: from `dbb8982` to HEAD after fix.\n\n---\n\n## Read First\n\n1. `engines/normalization/src/boundary_continuity.py` (266L) — The file being fixed.\n2. `reference/archive/sessions/reviews/review_session_5.md` — Full review checklist with evidence for both findings.\n3. `engines/normalization/tests/test_boundary_continuity.py` (335L) — Tests to update.",
-  "recent_commits": "e07ac6e fix: remove over-broad markers and add leading word boundary check (Session 5 review)\nd717a5a chore: NEXT.md â€” fix directive for Session 5 review findings\ndbb8982 review: Session 5 Pass 6 â€” BLOCKED (2 findings in boundary_continuity.py)\n4489c29 chore: update NEXT.md for review phase â€” build complete, review next\nd1f9cb3 feat: Session 5 â€” Pass 6 assembly completes Shamela normalize() pipeline"
+  "uncommitted_summary": ".claude/session_state.json                 | 19 +++++--------------\n engines/normalization/CLAUDE.md            | 13 ++++++++++---\n engines/normalization/KNOWN_LIMITATIONS.md | 11 +++++++++++\n 3 files changed, 26 insertions(+), 17 deletions(-)",
+  "next_md_head": "# NEXT — Session 6: Validation + Writer + Plain Text Normalizer + Dispatcher Wiring\n\n## Current position: Normalization engine build Session 6 of 7. Sessions 1-5 ✅ ACCEPTED (commit f8255e2). 256 tests passing, 22 skipped. Shamela normalize() returns NormalizedPackage end-to-end. This session adds the validation layer, disk writer, plain text normalizer, and dispatcher registry population.\n\n## What to do: Implement §5 validation checks 1-8 + check 10, the atomic disk writer, the plain text normalizer (§4.A.4c), and wire the dispatcher registry. This makes the normalization engine a complete, callable system for two source formats.\n\n## Context: The Shamela normalizer produces a NormalizedPackage but it is not yet validated or written to disk. The validation checks (§5) catch internal inconsistencies that would silently corrupt downstream engines. The writer atomically commits the package to disk. The plain text normalizer handles .txt files. The dispatcher routes source_format to the correct normalizer. After this session, `normalize_source()` returns a validated package, and `normalize_and_write()` validates + writes atomically.\n\n## Owner action needed: NO — start new CC session. CC reads this file.\n\n## Git range for review: from `f8255e2` to HEAD after build.\n\n---\n\n## Read First",
+  "recent_commits": "344cd5d feat: Session 6 â€” validation, writer, plain text normalizer, dispatcher wiring\nfb0447a fix: NEXT.md Session 6 â€” deep review hardening (8 findings)\n6e056ef chore: NEXT.md Session 6 â€” validation + writer + plain text normalizer + dispatcher wiring\n2a875af chore: add 50 extended Shamela fixtures + review tools + SPEC errata\n4da147f chore: add accumulated config, commands, scripts, and protocol docs"
 }

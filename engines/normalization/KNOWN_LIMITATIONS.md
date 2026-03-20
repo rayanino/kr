@@ -85,3 +85,14 @@ Tracked limitations discovered during build. Not bugs (code matches SPEC), but b
 **Behavior:** The pattern `قال.{0,50}«Arabic text»` requires `قال` within 50 characters before the opening guillemet. This is a design decision balancing precision (avoiding false positives from non-hadith guillemet usage) against recall (catching hadith citations with longer introductions).
 **Impact:** Hadith citations introduced with long chains of narrator names (`حدثنا فلان عن فلان عن فلان قال`) where the distance exceeds 50 characters will not trigger the guillemet pattern. They may still be caught by the other 3 hadith detection patterns (ﷺ, صلى الله عليه وسلم, رواه + collector).
 **Fix point:** If too tight, increase the distance to 80 characters. Monitor false positive and false negative rates on the full Shamela corpus.
+
+## L-010: Division tree overlap downgraded from fatal to warning
+
+**Discovered:** Session 6 validation implementation + smoke test (March 2026).
+**SPEC reference:** §5 check 5 — "Sibling divisions do not overlap in their page ranges."
+**Affected fixtures:** 7/50 extended fixtures (14%) — ext_01, ext_10, ext_19, ext_20, ext_26, ext_42, ext_44. All same-page heading collisions from L-003.
+**Behavior:** Structure discovery produces overlapping sibling divisions when headings at different tiers share the same page, creating DivisionNodes with identical `[start, end]` ranges. Validation check 5 reports these as WARNING (NORM_DIVISION_OVERLAP) instead of FATAL.
+**Impact:** Division tree metadata is advisory — content units are unaffected. The passaging engine uses `unit_index` adjacency for page joining, not the division tree. No content corruption or misattribution.
+**Root cause:** L-003 (same-page same-level headings) propagates overlapping ranges into the division tree. Structure_discovery.py is frozen per NEXT.md Session 6 constraints — cannot be modified.
+**SPEC compliance:** Partial deviation — SPEC asserts no overlap without specifying severity. WARNING is justified because content integrity is preserved. SPEC should explicitly classify as WARNING in §7 error code table.
+**Fix point:** Structure_discovery should deduplicate headings that produce same-range divisions, or DivisionNode should support sub-page character-offset ranges. Either fix requires a SPEC-level design change.
