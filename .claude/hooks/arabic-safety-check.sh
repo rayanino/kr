@@ -61,6 +61,21 @@ if grep -nE "encoding=['\"]?(ascii|latin|iso-8859|windows-1256)" "$FILE" 2>/dev/
     WARNINGS="${WARNINGS}WARNING: Non-UTF-8 encoding found — KR requires UTF-8 for all text. Verify this is intentional (e.g., converting FROM this encoding).\n${LINES}\n\n"
 fi
 
+# Check 6: re.DOTALL on regex patterns with . quantifiers (I-5)
+# Patterns with .{0,N} or .* applied to primary_text may miss newlines without DOTALL
+if grep -nE "re\.compile\(.*\.[\*\+\{]" "$FILE" 2>/dev/null | grep -v 'DOTALL' | grep -v '# safe:' > /dev/null; then
+    LINES=$(grep -nE "re\.compile\(.*\.[\*\+\{]" "$FILE" 2>/dev/null | grep -v 'DOTALL' | grep -v '# safe:' | head -3)
+    WARNINGS="${WARNINGS}WARNING: regex with . quantifier may need re.DOTALL if text contains newlines.\n${LINES}\n\n"
+fi
+
+# Check 7: \d in regex patterns — matches Arabic-Indic digits (٠-٩)
+# Python 3's \d matches Unicode digits including U+0660-0669 and U+06F0-06F9.
+# Use [0-9] for ASCII-only digit matching.
+UNSAFE_D=$(grep -nE "r['\"].*\\\\d" "$FILE" 2>/dev/null | grep -v '# safe:' | grep -v '\[0-9\]')
+if [ -n "$UNSAFE_D" ]; then
+    WARNINGS="${WARNINGS}WARNING: \\d in regex — Python \\d matches Arabic-Indic digits (٠-٩). Use [0-9] for ASCII-only.\n$(echo "$UNSAFE_D" | head -3)\n\n"
+fi
+
 # Output warnings if any
 if [ -n "$WARNINGS" ]; then
     echo -e "ARABIC SAFETY CHECK — $FILE\n$WARNINGS" >&2
