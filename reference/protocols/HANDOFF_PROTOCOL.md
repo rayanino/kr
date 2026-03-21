@@ -6,6 +6,7 @@
 - Session 2: handoff committed without verification → 4 foundation bugs (regex range, metadata page conflation, missing CleanedPage field, image-only pages dropped). All caught by pre-commit tool-based review.
 - Session 5: improvised review produced 25 findings but skipped formal protocol → missed worst bug (confidence 0.70 vs SPEC 0.90) until 3rd pass after owner pushback. Volume of findings ≠ completeness.
 - Session 6: completed all 9 steps, declared ready. Owner-forced deep review found 8 issues (1 HIGH — CRLF splitting breaks plain text on Windows). Root cause: the protocol tests specification-level issues but not assumption-level issues (platform, import chains, data flow, silent drops). Steps 6 and 8 updated to close this gap.
+- Session 7: completed all 9 steps including S6 improvements, declared ready. Owner-forced critical review found 4 issues (1 HIGH — parametrized test couldn't detect silent page loss, 2 MEDIUM — boundary continuity and plain text normalizer had zero integration coverage, 1 MEDIUM — Do NOT Do contradicted Verification). Root cause: protocol asks "is the handoff correct?" but not "is the handoff complete?" Steps 8.8, 8.9, and 8b added.
 
 **Rule:** Follow steps 1–9 in order. Do not skip, reorder, or "cover the spirit" without following the letter. Reading this protocol then improvising is NOT following it.
 
@@ -89,6 +90,21 @@ Re-read NEXT.md as CC seeing it for the first time:
 5. Any unverified claim about fixtures or SPEC values?
 6. Any missing test helpers CC will need?
 7. What platform assumptions does this code make? (CRLF line endings, path separators, encoding defaults, OS-specific behavior.) The owner is on Windows. S6: `'\r\n\r\n'.split('\n\n')` returns 1 part — a HIGH-severity bug missed by questions 1-6.
+8. Do the "Do NOT Do" items contradict anything in the Verification section? S7: "Do NOT run against shamela-export-samples/" contradicted the smoke test verification command which samples from that directory.
+9. For every test assertion: what BROKEN implementation would still pass it? If it checks only internal consistency (field A matches field B, both set by the same code), it's tautological. S7: `manifest.total_content_units == len(content_units)` would not catch silent page loss — both values set by the same code path.
+
+## Step 8b: Coverage completeness (integration/final sessions only)
+
+For each prior build session (1..N-1), name the specific integration test that exercises that session's primary output. If none exists, add one. This step exists because S7's handoff had zero integration coverage for Session 5 (boundary continuity) and Session 6 (plain text normalizer) — caught only when the owner forced a deep critical review.
+
+| Prior Session | Primary Output | Integration Test |
+|---|---|---|
+| Session 1 | contracts.py | (tested by all integration tests that use contracts) |
+| Session 2 | Passes 1-3 | test_content_preservation, test_footnote_separation |
+| Session 3 | Structure discovery | test_structure_discovery |
+| Session 4 | Layer detection | test_multi_layer_detection |
+| Session 5 | Boundary continuity | ??? ← if empty, add one |
+| Session 6 | Plain text normalizer | ??? ← if empty, add one |
 
 ## Step 9: Commit and declare
 
