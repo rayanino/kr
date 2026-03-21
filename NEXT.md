@@ -48,7 +48,14 @@ python -m pytest engines/source/tests/ -x -q 2>&1 | tail -3
 
 Write down the test counts (e.g., "439 passed, 14 skipped" for normalization, "503 passed" for source). You will need these for before/after comparison in later phases.
 
-**If tests are already failing:** Do NOT try to fix them. Document the failures in `results/BASELINE_FAILURES.md`, commit, and proceed with the phases. The architect will handle pre-existing failures.
+**If tests are already failing:** Do NOT try to fix them. Document the failures in `results/BASELINE_FAILURES.md`, commit, push, and proceed with the phases. The architect will handle pre-existing failures.
+
+```bash
+# Only if there are failures:
+git add results/BASELINE_FAILURES.md
+git commit -m "report: Baseline test failures found before overnight work"
+git push
+```
 
 ---
 
