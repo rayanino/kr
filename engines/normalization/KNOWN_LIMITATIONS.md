@@ -96,3 +96,12 @@ Tracked limitations discovered during build. Not bugs (code matches SPEC), but b
 **Root cause:** L-003 (same-page same-level headings) propagates overlapping ranges into the division tree. Structure_discovery.py is frozen per NEXT.md Session 6 constraints — cannot be modified.
 **SPEC compliance:** Partial deviation — SPEC asserts no overlap without specifying severity. WARNING is justified because content integrity is preserved. SPEC should explicitly classify as WARNING in §7 error code table.
 **Fix point:** Structure_discovery should deduplicate headings that produce same-range divisions, or DivisionNode should support sub-page character-offset ranges. Either fix requires a SPEC-level design change.
+
+## L-011: Writer recovery does not handle prev-only orphan state
+
+**Discovered:** Session 6 deep review (March 2026).
+**SPEC reference:** §4.A.2 lines 235-237, atomic write procedure + interrupted write recovery.
+**Scenario:** If `temp_dir.rename(final_dir)` AND the `shutil.move` fallback both fail AFTER `final_dir.rename(prev_dir)` succeeded, the exception handler cleans up temp but leaves prev orphaned. `recover_interrupted_write` only checks for temp dirs — if no temp dirs exist, it returns False. The prev dir is stuck with no normalized/ and no temp to trigger recovery.
+**Practical risk:** Near-zero. Requires both Path.rename and shutil.move to fail on a same-filesystem operation where a previous rename just succeeded. The failure itself IS raised as NORM_WRITE_FAILED (loud, not silent).
+**Impact:** The book would need full re-processing. No corrupt data enters the library. This is a durability gap, not a correctness gap. No T-1 through T-7 threat applies.
+**Fix:** Add a case in `recover_interrupted_write`: if no temp dirs AND no `normalized/` AND prev dirs exist → restore from latest prev. See CC fix instructions in Session 6 review.
