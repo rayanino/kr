@@ -1,13 +1,11 @@
 {
-  "timestamp": "2026-03-20T21:42:47.737950+00:00",
+  "timestamp": "2026-03-21T06:49:41.079899+00:00",
   "branch": "master",
   "active_engine": "normalization",
   "modified_files": [
-    ".claude/session_state.json",
-    "engines/normalization/CLAUDE.md",
-    "engines/normalization/KNOWN_LIMITATIONS.md"
+    ".claude/session_state.json"
   ],
-  "uncommitted_summary": ".claude/session_state.json                 | 19 +++++--------------\n engines/normalization/CLAUDE.md            | 13 ++++++++++---\n engines/normalization/KNOWN_LIMITATIONS.md | 11 +++++++++++\n 3 files changed, 26 insertions(+), 17 deletions(-)",
-  "next_md_head": "# NEXT — Session 6: Validation + Writer + Plain Text Normalizer + Dispatcher Wiring\n\n## Current position: Normalization engine build Session 6 of 7. Sessions 1-5 ✅ ACCEPTED (commit f8255e2). 256 tests passing, 22 skipped. Shamela normalize() returns NormalizedPackage end-to-end. This session adds the validation layer, disk writer, plain text normalizer, and dispatcher registry population.\n\n## What to do: Implement §5 validation checks 1-8 + check 10, the atomic disk writer, the plain text normalizer (§4.A.4c), and wire the dispatcher registry. This makes the normalization engine a complete, callable system for two source formats.\n\n## Context: The Shamela normalizer produces a NormalizedPackage but it is not yet validated or written to disk. The validation checks (§5) catch internal inconsistencies that would silently corrupt downstream engines. The writer atomically commits the package to disk. The plain text normalizer handles .txt files. The dispatcher routes source_format to the correct normalizer. After this session, `normalize_source()` returns a validated package, and `normalize_and_write()` validates + writes atomically.\n\n## Owner action needed: NO — start new CC session. CC reads this file.\n\n## Git range for review: from `f8255e2` to HEAD after build.\n\n---\n\n## Read First",
-  "recent_commits": "344cd5d feat: Session 6 â€” validation, writer, plain text normalizer, dispatcher wiring\nfb0447a fix: NEXT.md Session 6 â€” deep review hardening (8 findings)\n6e056ef chore: NEXT.md Session 6 â€” validation + writer + plain text normalizer + dispatcher wiring\n2a875af chore: add 50 extended Shamela fixtures + review tools + SPEC errata\n4da147f chore: add accumulated config, commands, scripts, and protocol docs"
+  "uncommitted_summary": ".claude/session_state.json | 10 ++++------\n 1 file changed, 4 insertions(+), 6 deletions(-)",
+  "next_md_head": "# NEXT — Session 7: Integration Testing & ADV Gap Closure\n\n## Current Position\n\n- **Phase:** Build → Session 7 of 7 (final build session)\n- **Previous:** Session 6 ACCEPTED at commit `760b5f4` (validation, writer, plain text normalizer, dispatcher)\n- **Test baseline:** `335 passed, 12 skipped` (pytest engines/normalization/tests/)\n- **Smoke test:** 63/63 PASS (13 real + 50 extended fixtures)\n- **ADV coverage:** 29/51 implemented (9 remaining core, 13 deferred)\n- **Known limitations:** L-001 through L-011 documented\n- **SPEC errata:** SPEC-NOTE-1 through SPEC-NOTE-3 documented\n\n## What to Do\n\nThis is the **final normalization engine build session**. Focus: integration testing on real fixtures, unskip deferred tests, close remaining core ADV gaps.",
+  "recent_commits": "26a5ed2 feat: Session 7 â€” integration tests, ADV gap closure, L-012\nc69af30 chore: Session 7 handoff â€” integration testing & ADV gap closure\nf37babe chore: Session 6 complete â€” NEXT.md for S7, CLAUDE.md metrics, review checklist\n760b5f4 fix: Session 6 review fixes â€” L-011 recovery, comment, smoke test multi-layer\n7878ec2 chore: Session 6 review addendum â€” L-011, SPEC-NOTE-3, deep analysis findings"
 }
