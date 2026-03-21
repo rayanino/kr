@@ -407,6 +407,12 @@ def main():
     )
     parser.add_argument("--limit", type=int, default=0, help="Max books to process (0=all)")
     parser.add_argument("--resume", action="store_true", help="Skip books already in results")
+    parser.add_argument(
+        "--book-list",
+        type=Path,
+        default=None,
+        help="Text file with book names (one per line). Only process books in this list.",
+    )
     args = parser.parse_args()
 
     # Discover books
@@ -414,6 +420,22 @@ def main():
     if not books:
         print(f"No books found in {args.collection_dir}")
         sys.exit(1)
+
+    # Filter by book list if provided
+    if args.book_list:
+        allowed = set()
+        for line in args.book_list.read_text(encoding="utf-8").splitlines():
+            stripped = line.strip()
+            if stripped and not stripped.startswith("#"):
+                # Normalize: discover_books() uses item.stem for .htm files
+                # but manifests may store names with .htm extension
+                if stripped.endswith(".htm"):
+                    allowed.add(stripped[:-4])  # without extension
+                    allowed.add(stripped)       # with extension (in case discover_books uses it)
+                else:
+                    allowed.add(stripped)
+        books = [(name, path) for name, path in books if name in allowed]
+        print(f"Filtered to {len(books)} books from {args.book_list} (of {len(allowed)} requested)")
 
     if args.limit > 0:
         books = books[:args.limit]

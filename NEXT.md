@@ -57,15 +57,36 @@ books = list(phase_e.get("books", {}).keys())
 print(f"Phase E books: {len(books)}")
 ```
 
-### Step 2.2: Run normalization sweep on Phase E books
+### Step 2.2: Write a book list file and run normalization sweep
 
-The normalization sweep script may not support `--book-list`. If not, write a small wrapper (`scripts/run_normalization_subset.py`) that:
-1. Reads a book list file
-2. Creates a temp directory with symlinks to matching books in `shamela-export-samples/`
-3. Runs `normalization_corpus_sweep.py` on that temp directory
-4. Copies results to output directory
+Write the Phase E book names to a file (one per line):
 
-Output to `results/cross_engine_validation/`.
+```python
+import json
+from pathlib import Path
+
+phase_e = json.loads(Path("tests/results/source_engine/phase_e/PHASE_E_MANIFEST.json").read_text())
+books = list(phase_e.get("books", {}).keys())
+
+book_list_path = Path("results/cross_engine_validation/phase_e_books.txt")
+book_list_path.parent.mkdir(parents=True, exist_ok=True)
+book_list_path.write_text("\n".join(books), encoding="utf-8")
+print(f"Wrote {len(books)} book names to {book_list_path}")
+```
+
+Then run the sweep with `--book-list`:
+
+```bash
+python scripts/normalization_corpus_sweep.py \
+    --collection-dir shamela-export-samples \
+    --output-dir results/cross_engine_validation \
+    --book-list results/cross_engine_validation/phase_e_books.txt \
+    --resume
+```
+
+The `--book-list` flag filters the discovered books to only those in the file. It handles `.htm` extension mismatches automatically.
+
+Output goes to `results/cross_engine_validation/`.
 
 ### Step 2.3: Analyze and write `results/CROSS_ENGINE_VALIDATION.md`
 
@@ -78,7 +99,8 @@ Output to `results/cross_engine_validation/`.
 ### Step 2.4: Commit and push
 
 ```bash
-git add results/cross_engine_validation/ results/CROSS_ENGINE_VALIDATION.md scripts/run_normalization_subset.py
+git add results/cross_engine_validation/
+git add results/CROSS_ENGINE_VALIDATION.md
 git commit -m "validate: Cross-engine normalization on 70 Phase E books"
 git push
 ```
