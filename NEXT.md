@@ -1,66 +1,150 @@
-# NEXT — Normalization Engine Transition Gate
+# NEXT — Autonomous Hardening: Corpus Sweeps on Source + Normalization Engines
 
 ## Current Position
 
-- **Phase:** Step 3 → Step 5 transition (Evaluate → Prove Complete) from `reference/ENGINE_BUILD_BLUEPRINT.md`
-- **Previous:** Evaluation **GO** (this session). All 4 layers passed. Zero CORE GAPs, zero ENGINE BUGs. SPEC errata (SPEC-NOTE-1 through SPEC-NOTE-3) resolved.
-- **Engine state:** 420 tests passing (14 skipped), 37/51 ADV, L-001–L-012 documented. SPEC.md updated with errata fixes.
+- **Phase:** Post-evaluation hardening (between normalization evaluation GO and transition gate)
+- **Mode:** AUTONOMOUS DATA COLLECTION — no architect interaction available
+- **Previous:** Normalization evaluation GO at commit `7f81052`. Source engine complete. Both engines stable.
+- **Purpose:** Stress-test both engines on the full 20K+ Shamela collection. Collect data. Report findings. Do NOT fix anything.
+
+## Rules for This Session
+
+**READ THESE CAREFULLY — they override normal build procedures.**
+
+1. **DO NOT modify any engine source code** (`engines/source/src/`, `engines/normalization/src/`). Not even small fixes. Report bugs in your output files — the architect fixes them.
+2. **DO NOT modify any SPEC** (`SPEC.md`, `SPEC_CORE.md`). Report inconsistencies in your output files.
+3. **DO NOT modify contracts.py** in any engine. Report contract issues.
+4. **DO NOT make architectural decisions.** If you find something ambiguous, document it and move on.
+5. **You MAY modify scripts** (in `scripts/`) to fix crashes in the sweep scripts themselves. This is expected — the sweep scripts were written for the 63-fixture scale and may need adaptation for 20K.
+6. **You MAY create new files** in `results/` for output data.
+7. **You MAY add test fixtures** if you find interesting edge cases — put them in `tests/fixtures/shamela_edge_cases/`.
+8. **Commit periodically** (every major task completion). Use commit messages prefixed with `sweep:`.
 
 ## What to Do
 
-**Run the transition gate in a NEW session** (context degradation rules apply — do NOT gate in the same session that produced the evaluation).
+### Task A: Normalization Corpus Sweep (PRIMARY — do this first)
 
-### Transition Gate Procedure
+**Script:** `scripts/normalization_corpus_sweep.py`
+**Input:** `shamela-export-samples/` (20K+ .htm files on local filesystem)
+**Output:** `results/normalization_sweep/corpus_sweep.jsonl` + `CORPUS_SWEEP_SUMMARY.md`
 
-1. **Skill:** `use kr-gating-transitions`
-2. **Read:** `reference/protocols/QUALITY_AXIOM.md`, then `reference/ENGINE_BUILD_BLUEPRINT.md` §3 completion criteria
-3. **Verify prerequisites with tool calls** (not memory):
-   - [ ] Layer 1 programmatic checks run on ALL 63 fixtures → `engines/normalization/eval_layer1_results.json`
-   - [ ] Layer 2 pattern analysis covers all 12 limitations → `engines/normalization/EVALUATION_REPORT.md` Layer 2
-   - [ ] Layer 3 manual inspection on 5 diverse fixtures → `engines/normalization/EVALUATION_REPORT.md` Layer 3
-   - [ ] Layer 4 GO verdict supported by evidence → `engines/normalization/EVALUATION_REPORT.md` Layer 4
-   - [ ] SPEC errata resolved → `reference/SPEC_ERRATA.md` (all 3 RESOLVED)
-   - [ ] LESSONS.md written → `engines/normalization/LESSONS.md`
-   - [ ] All tests still pass → `pytest engines/normalization/tests/ -q`
-   - [ ] Contract alignment with passaging verified → Evaluation Layer 2, all 12 limitations assessed
-4. **Adversarial round** (R2): worst-case trace, missing-test check, "what could still be wrong?"
-5. **Verdict:** APPROVED (all prerequisites met) or BLOCKED (any prerequisite unmet)
+1. Verify the script can import correctly:
+   ```
+   python -c "from scripts.normalization_corpus_sweep import discover_books; print('OK')"
+   ```
 
-### After Gate Approval
+2. Install dependencies if needed:
+   ```
+   pip install beautifulsoup4 lxml pydantic pyyaml
+   ```
 
-Update NEXT.md to point to passaging engine SPEC design:
-- Read `engines/passaging/SPEC.md` (existing draft)
-- Read `engines/normalization/LESSONS.md` (recommendations for passaging)
-- Begin Step 1 (SPEC Design) for the passaging engine per ENGINE_BUILD_BLUEPRINT.md
+3. Test on a small sample first (10 books):
+   ```
+   python scripts/normalization_corpus_sweep.py --collection-dir shamela-export-samples --limit 10
+   ```
 
-### Owner Action Needed
+4. If the small sample works, run the full sweep:
+   ```
+   python scripts/normalization_corpus_sweep.py --collection-dir shamela-export-samples
+   ```
+   This will take 1-2 hours. The script streams results to JSONL, so partial results are saved even if interrupted. Use `--resume` to continue after interruption.
 
-Start a new chat for the transition gate. The architect handles everything — the owner just provides the new session.
+5. After completion, read `results/normalization_sweep/CORPUS_SWEEP_SUMMARY.md` and write your analysis in `results/normalization_sweep/CC_ANALYSIS.md`. Focus on:
+   - **Crash patterns:** What types of books crash? Are there common HTML structures that break the parser?
+   - **Warning patterns at scale:** Do the same warning types dominate? Any new warning types?
+   - **Multi-layer auto-upgrade rate:** What percentage of books auto-upgrade? Is this reasonable?
+   - **Passaging contract alignment:** What percentage fail passaging checks? Which checks?
+   - **Anomalies:** Any books with surprising metrics (very high page loss, zero diacritics, extremely low Arabic ratio)?
+   - **Edge cases:** Save 3-5 interesting crash-causing or anomalous books as test fixtures in `tests/fixtures/shamela_edge_cases/`
+
+6. Commit results:
+   ```
+   git add results/normalization_sweep/ tests/fixtures/shamela_edge_cases/
+   git commit -m "sweep: Normalization corpus sweep on 20K+ books"
+   ```
+
+### Task B: Source Engine Deterministic Sweep
+
+**Script:** `scripts/phases/run_phase_a.py` (already implemented)
+**Input:** Same `shamela-export-samples/` directory
+**Output:** Output directory specified via `--output-dir`
+
+1. Test on a small sample (10 books):
+   ```
+   python scripts/phases/run_phase_a.py shamela-export-samples --output-dir results/source_sweep --limit 10
+   ```
+
+2. If the small sample works, run the full sweep:
+   ```
+   python scripts/phases/run_phase_a.py shamela-export-samples --output-dir results/source_sweep
+   ```
+
+3. Analyze the results. Focus on:
+   - **Format detection accuracy:** How many are detected as shamela_html vs other?
+   - **Extraction success rate:** What percentage extract cleanly?
+   - **Crash patterns:** What HTML structures cause crashes?
+   - **Hashing:** Any duplicate hashes (identical content across different books)?
+
+4. Write analysis in `results/source_sweep/CC_ANALYSIS.md`.
+
+5. Commit:
+   ```
+   git add results/source_sweep/
+   git commit -m "sweep: Source engine deterministic sweep on 20K+ books"
+   ```
+
+### Task C: Cross-Engine Findings Report (if time remains)
+
+After Tasks A and B, write `results/CROSS_ENGINE_FINDINGS.md` analyzing:
+- Books that succeed in source but crash in normalization (or vice versa)
+- Common failure patterns across both engines
+- Corpus statistics useful for passaging design (size distribution, footnote density, multi-layer frequency)
+- Top 10 most unusual books and why they're unusual
+
+Commit:
+```
+git add results/CROSS_ENGINE_FINDINGS.md
+git commit -m "sweep: Cross-engine findings report"
+```
+
+## Read First
+
+1. This file (NEXT.md)
+2. `engines/normalization/CLAUDE.md` — normalization engine orientation
+3. `engines/normalization/EVALUATION_REPORT.md` — what we already know
+4. `scripts/normalization_corpus_sweep.py` — understand the script before running
+5. `scripts/phases/run_phase_a.py` — understand the source sweep script
+
+## Do NOT Do
+
+1. **Do NOT modify engine source code.** Even if you find obvious bugs. Document them.
+2. **Do NOT modify SPECs or contracts.** Document issues.
+3. **Do NOT start building the passaging engine.** This session is data collection only.
+4. **Do NOT run any LLM API calls.** Both sweeps are fully deterministic (€0 cost).
+5. **Do NOT delete or overwrite any existing test fixtures.** Only ADD new edge cases.
+6. **Do NOT push results that are larger than 100MB per file.** The JSONL files may get large — that's fine for local storage but check size before committing to git. If corpus_sweep.jsonl is too large, commit only the summary .md files and a note about where to find the full data.
+
+## Verification
+
+After each task, verify:
+- [ ] Script ran to completion (or saved partial results with --resume capability)
+- [ ] Summary report is written and readable
+- [ ] CC_ANALYSIS.md documents findings, not fixes
+- [ ] No engine source code was modified (check with `git diff engines/`)
+- [ ] Results committed with `sweep:` prefix
+
+## After This
+
+When the owner returns:
+1. The architect reads CC_ANALYSIS.md files and CORPUS_SWEEP_SUMMARY.md
+2. Decides which findings are CORE GAPs vs LESSON LEARNEDs
+3. Creates fix tasks if needed (before or after transition gate)
+4. Proceeds with the normalization transition gate in a separate session
 
 ## Context
 
-### Evaluation Summary
+The normalization engine has 420 tests passing on 63 fixtures. The evaluation found zero CORE GAPs and zero ENGINE BUGs. But 63 fixtures is a small sample. The full Shamela collection has 20K+ books spanning every genre, era, and formatting style. This sweep finds what 63 fixtures can't — edge cases in HTML structure, encoding, heading patterns, footnote formats, and multi-layer detection that only manifest at scale.
 
-| Layer | Scope | Verdict |
-|-------|-------|---------|
-| 1: Programmatic | 63 fixtures, zero fatals | PASS |
-| 2: Pattern analysis | L-001 through L-012, all assessed | PASS (0 BLOCKING) |
-| 3: Manual inspection | 5 diverse fixtures, Arabic text printed | PASS (1 LESSON LEARNED) |
-| 4: GO/NO-GO | All criteria met | **GO** |
+The source engine has been validated on 204 books with LLM calls. The deterministic sweep (format detection + extraction + hashing without LLM) has never run on the full collection. This is Step 2 on the source engine validation roadmap.
 
-### Findings (4 total, all non-blocking)
-
-| # | Finding | Category |
-|---|---------|----------|
-| F-1 | ext_50 auto-upgrade false positive on bracket-heavy text | LESSON LEARNED |
-| F-2 | 03_fiqh L-003 heading chains on TOC page | LESSON LEARNED |
-| F-3 | 5/63 fixtures have division overlap warnings (L-010) | LESSON LEARNED |
-| F-4 | ext_41 identical character run warnings | LESSON LEARNED |
-
-### Post-Protocol Adversarial Findings (5 monitoring items)
-
-1. Real multi-layer texts beyond ibn_aqil untested → spot-check first full-collection run
-2. Plain text normalizer untested on real data → spot-check if encountered
-3. Very large texts (>1000 pages) untested → monitor first large-text run
-4. CRLF on actual Windows data untested → verify during deterministic sweep
-5. Footnote renumbering with bare-number pages → very low risk, passaging fallback handles it
+Both sweeps cost €0 (no LLM calls) and produce data that directly strengthens the foundation for the passaging engine build.
