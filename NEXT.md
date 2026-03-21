@@ -37,17 +37,36 @@ Work through 5 phases sequentially. Commit and push after each phase. Do NOT ask
 
 ---
 
+## Phase 0: Baseline Smoke Test (5 minutes)
+
+Before starting any work, verify the test suite passes and record the baseline:
+
+```bash
+python -m pytest engines/normalization/tests/ -x -q 2>&1 | tail -3
+python -m pytest engines/source/tests/ -x -q 2>&1 | tail -3
+```
+
+Write down the test counts (e.g., "439 passed, 14 skipped" for normalization, "503 passed" for source). You will need these for before/after comparison in later phases.
+
+**If tests are already failing:** Do NOT try to fix them. Document the failures in `results/BASELINE_FAILURES.md`, commit, and proceed with the phases. The architect will handle pre-existing failures.
+
+---
+
 ## Phase 1: Test Fixture Expansion
 
 **Time estimate: 1-2 hours**
 
-Follow `reference/archive/sessions/weekend/TASK_5_NEXT.md` exactly.
+Follow `reference/archive/sessions/weekend/TASK_5_NEXT.md` for Steps 1-5 (selection, fixture creation, test writing, tautology check, test suite run).
 
-1. Select 10-15 edge cases from sweep results
-2. Create fixtures in `tests/fixtures/shamela_edge_cases/` with companion .json
-3. Write regression tests (non-tautological — independent ground truth)
-4. Run full test suite, zero regressions
-5. Commit and push: `harden: Add N edge-case fixtures + M regression tests from weekend sweep`
+**Override Task 5's Step 6 (commit) with this:**
+```bash
+git add tests/fixtures/shamela_edge_cases/
+git add engines/normalization/tests/
+git add engines/source/tests/
+git commit -m "harden: Add N edge-case fixtures + M regression tests from weekend sweep"
+git push
+```
+**The `git push` is critical. Do NOT skip it. If you crash later, pushed work is safe.**
 
 **Read first:** `reference/archive/sessions/weekend/TASK_5_NEXT.md`
 
@@ -127,36 +146,53 @@ git push
 
 **Time estimate: 2-3 hours**
 
-Produce analysis the architect needs for the source engine transition gate. This is NOT a summary — it's original analysis that requires reading per-book results and computing new metrics.
+Produce analysis the architect needs for the source engine transition gate. This is NOT a summary — it's original analysis computing new metrics from per-book result files.
+
+**CRITICAL: Write Python aggregation scripts. Do NOT read files one by one with your file tool.** There are 347 books across 3 phases (C/D/E), each with 3-5 JSON files. That's 1,000+ files. Reading them individually will fill your context and stall you. Write a script, run it, read the output.
 
 ### Step 3.1: Gate Abort Deep Dive
 
-Read every gate_abort result from Phase C, D, and E. Write `results/GATE_ABORT_ANALYSIS.md`:
-- Total gate_abort count across all phases
-- Group by trigger reason (what gate error caused the abort?)
-- For each group: is the gate correct? Would accepting these books introduce wrong metadata?
-- Which gate_abort books have the richest extraction data (author_name_raw present, etc.) — these are candidates for threshold adjustment
-- Recommendation: which gates are too strict, which are correctly strict?
+Write `scripts/analyze_gate_aborts.py` that:
+1. Walks `tests/results/source_engine/phase_c/`, `phase_d/`, `phase_e/`
+2. For each book dir, reads `result.json`
+3. Filters for `status == "gate_abort"`
+4. Extracts: book name, phase, `error_code`, `gate_errors` list, and checks if `extraction.json` has `author_name_raw`
+5. Groups by gate error reason
+6. Outputs a markdown report to `results/GATE_ABORT_ANALYSIS.md`
+
+Run it: `python scripts/analyze_gate_aborts.py`
+
+The report should include per-group analysis: is the gate correct? Which books are candidates for threshold adjustment?
 
 ### Step 3.2: Consensus Disagreement Analysis
 
-Read every `consensus.json` across all 274 books. Write `results/CONSENSUS_ANALYSIS.md`:
-- How many books had model disagreement?
-- Which fields disagree most often? (genre, author, is_multi_layer, etc.)
-- When models disagree, which model (Opus, Command A) was typically right? (compare against ground truth where available)
-- Pattern: do disagreements cluster in certain categories or book types?
+Write `scripts/analyze_consensus.py` that:
+1. Walks all 3 phase directories
+2. Reads each `consensus.json` — checks `agreed` field
+3. For books where `agreed == false`: reads both files in `llm_responses/`, extracts `parsed` dict from each
+4. Compares fields: `genre`, `is_multi_layer`, `author_identification.canonical_name_ar`, `structural_format`, `science_scope`
+5. Tallies which fields disagree most
+6. Outputs `results/CONSENSUS_ANALYSIS.md`
+
+Run it: `python scripts/analyze_consensus.py`
+
+Data point: there are 27 disagreements across all phases (6 in C, 14 in D, 7 in E). The script only needs to deep-read LLM responses for those 27 books.
 
 ### Step 3.3: Field Coverage and Quality Matrix
 
-Read all `extraction.json` and `result.json` across 274 books. Write `results/FIELD_QUALITY_MATRIX.md`:
-- Per-field: extraction coverage rate → LLM inference rate → final coverage rate
-- Which fields have the biggest extraction→inference improvement? (LLM adding value)
-- Which fields does the LLM struggle with? (low confidence, high disagreement)
-- Per-category breakdown: are some genres harder for the pipeline?
+Write `scripts/analyze_field_coverage.py` that:
+1. Walks all 3 phase directories
+2. For each book: reads `extraction.json` (deterministic fields) and `result.json` (LLM-inferred fields)
+3. For each metadata field: counts how many books have it from extraction vs from final result
+4. Computes extraction→inference improvement rates
+5. Outputs `results/FIELD_QUALITY_MATRIX.md` with per-field coverage table
+
+Run it: `python scripts/analyze_field_coverage.py`
 
 ### Step 3.4: Commit and push
 
 ```bash
+git add scripts/analyze_gate_aborts.py scripts/analyze_consensus.py scripts/analyze_field_coverage.py
 git add results/GATE_ABORT_ANALYSIS.md results/CONSENSUS_ANALYSIS.md results/FIELD_QUALITY_MATRIX.md
 git commit -m "analysis: Deep dive on 274 LLM-probed books — gate aborts, consensus, field quality"
 git push
@@ -170,16 +206,20 @@ git push
 
 **Time estimate: 1-2 hours**
 
+**Note:** If Phase 3 was blocked, write these reports using raw data files directly (MASTER_MANIFEST, COST_LOG, CALIBRATION_REPORT, VERIFICATION_REPORT, EVALUATION_REPORT). Do not block on missing Phase 3 outputs — produce what you can.
+
 ### Step 4.1: Source Engine Completion Report
 
 Write `results/SOURCE_ENGINE_COMPLETION_REPORT.md`:
 
+Data sources: `tests/results/source_engine/MASTER_MANIFEST.json`, `tests/results/source_engine/COST_LOG.json`, `tests/results/source_engine/phase_d/PHASE_D_LESSONS.md`, `tests/results/source_engine/phase_e/PHASE_E_LESSONS.md`, `results/source_sweep/CC_ANALYSIS.md`, and Phase 3 outputs if they exist.
+
 1. **Executive Summary**
 2. **Validation Coverage** — Phase A (7,475 deterministic), C (73), D (204), E (70). Total.
-3. **Quality Metrics** — success rates, gate abort analysis (reference Phase 3 deep dive), field coverage
+3. **Quality Metrics** — success rates, gate abort analysis (from Phase 3 if available, or compute from manifests), field coverage
 4. **Genre Coverage** — per-category counts, remaining blind spots
 5. **Known Limitations** — gate aborts, name parsing gaps, thin categories
-6. **Cost Summary** — per-phase breakdown, total lifetime spend
+6. **Cost Summary** — per-phase breakdown from COST_LOG.json, total lifetime spend
 7. **Downstream Impact** — what normalization/passaging receives
 8. **Transition Gate Readiness Checklist** — evidence-backed
 
@@ -187,12 +227,14 @@ Write `results/SOURCE_ENGINE_COMPLETION_REPORT.md`:
 
 Write `results/NORMALIZATION_TRANSITION_DATA.md`:
 
-1. Build Metrics — test count, impl lines, L-001 to L-012
-2. Corpus Sweep — 7,475 books calibration summary
-3. Bug Fix Impact — Task 2/3 before/after
-4. Passaging Contract Readiness — check pass rates
-5. Edge Cases — fixtures from Phase 1
-6. SPEC Errata — SPEC-NOTE-1, 2, 3
+Data sources: `engines/normalization/KNOWN_LIMITATIONS.md` (L-001 to L-012), `reference/SPEC_ERRATA.md` (SPEC-NOTE-1 to 3), `results/CALIBRATION_REPORT.md`, `results/VERIFICATION_REPORT.md`, `engines/normalization/EVALUATION_REPORT.md`.
+
+1. Build Metrics — test count (from pytest), limitations from `engines/normalization/KNOWN_LIMITATIONS.md`
+2. Corpus Sweep — 7,475 books calibration summary from `results/CALIBRATION_REPORT.md`
+3. Bug Fix Impact — Task 2/3 before/after from `results/VERIFICATION_REPORT.md`
+4. Passaging Contract Readiness — check pass rates from `results/CALIBRATION_REPORT.md` section B.8
+5. Edge Cases — fixtures from Phase 1 (list what was added)
+6. SPEC Errata — from `reference/SPEC_ERRATA.md`
 7. Open Questions for architect
 
 ### Step 4.3: Capture test suite output
