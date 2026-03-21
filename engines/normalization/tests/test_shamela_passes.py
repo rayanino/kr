@@ -37,6 +37,7 @@ from engines.normalization.src.errors import NormalizationError, NormErrorCode
 
 FIXTURES_REAL = Path("tests/fixtures/shamela_real")
 FIXTURES_ENGINE = Path("engines/normalization/tests/fixtures")
+FIXTURES_EDGE = Path("tests/fixtures/shamela_edge_cases")
 IBN_AQIL = FIXTURES_ENGINE / "shamela_ibn_aqil.htm"
 
 
@@ -786,3 +787,106 @@ class TestMonotonicMerge:
         assert sep[0].footnotes[1].number == 2
         # The merged (1) is appended to footnote 2's text
         assert "مرجع داخلي" in sep[0].footnotes[1].text
+
+
+# ══════════════════════════════════════════════════════════════════════
+# Sweep bug fixes
+# ══════════════════════════════════════════════════════════════════════
+
+
+class TestSweepBugFixes:
+    """Fixes for bugs discovered during the 7,475-book corpus sweep."""
+
+    def test_pageless_book_produces_content(
+        self, normalizer: ShamelaNormalizer
+    ) -> None:
+        """Books without (ص: N) page numbers must not drop all content.
+
+        Root cause: _pass1_parse() classifies pages as metadata when
+        page_int is None AND not seen_numbered_page. Books without any
+        page numbers never set seen_numbered_page=True, so ALL pages
+        (including content pages) are classified as metadata and skipped
+        by Pass 2. 48 books in the corpus have this pattern.
+
+        Fixture: zero_content_hadith_dhunnun.htm — 6 pages of hadith
+        text with full diacritization, zero page numbers.
+        """
+        fixture = FIXTURES_EDGE / "zero_content_hadith_dhunnun.htm"
+        assert fixture.exists(), f"Missing fixture: {fixture}"
+        html = fixture.read_text(encoding="utf-8")
+
+        raw = normalizer._pass1_parse(html, volume=1, seq_offset=0)
+
+        # Must have content pages (not all metadata)
+        content_pages = [p for p in raw if not p.is_metadata_page]
+        assert len(content_pages) >= 5, (
+            f"Expected >= 5 content pages, got {len(content_pages)}. "
+            f"All pages classified as metadata — pageless book bug."
+        )
+
+        # Content pages must have sequential unit_index starting at 0
+        indices = [p.unit_index for p in content_pages]
+        assert indices == list(range(len(content_pages)))
+
+    def test_pageless_book_full_pipeline(
+        self, normalizer: ShamelaNormalizer
+    ) -> None:
+        """Full pipeline on pageless book produces non-empty content."""
+        fixture = FIXTURES_EDGE / "zero_content_hadith_dhunnun.htm"
+        html = fixture.read_text(encoding="utf-8")
+
+        pages = _full_pipeline(normalizer, html)
+
+        # Must have non-blank content pages with Arabic text
+        non_blank = [p for p in pages if not p.is_blank]
+        assert len(non_blank) >= 4, (
+            f"Expected >= 4 non-blank pages, got {len(non_blank)}."
+        )
+        # Content pages must have substantial Arabic text
+        total_chars = sum(len(p.primary_text) for p in non_blank)
+        assert total_chars > 1000, (
+            f"Expected > 1000 total chars, got {total_chars}. "
+            f"Pageless book content not being extracted."
+        )
+
+    def test_pageless_book_large_fixture(
+        self, normalizer: ShamelaNormalizer
+    ) -> None:
+        """Large pageless book (546 pages) produces content units."""
+        fixture = FIXTURES_EDGE / "zero_content_musnad_546pages.htm"
+        if not fixture.exists():
+            pytest.skip("Large fixture not available")
+        html = fixture.read_text(encoding="utf-8")
+
+        raw = normalizer._pass1_parse(html, volume=1, seq_offset=0)
+
+        content_pages = [p for p in raw if not p.is_metadata_page]
+        # 546 raw pages, first is metadata → at least 500 content pages
+        assert len(content_pages) >= 500, (
+            f"Expected >= 500 content pages from 546-page book, "
+            f"got {len(content_pages)}."
+        )
+
+    def test_numbered_book_metadata_unchanged(
+        self, normalizer: ShamelaNormalizer
+    ) -> None:
+        """Books WITH page numbers must not change metadata detection.
+
+        Regression test: the pageless book fix must not affect books that
+        have (ص: N) page numbers.
+        """
+        # Build a book with metadata page + 2 numbered content pages
+        html = _make_html(
+            _wrap_page(
+                "<span class='title'>كتاب النحو</span>"
+                "<p>القسم: علوم اللغة العربية"
+            ),  # No page number → metadata
+            _wrap_page("المبتدأ هو الاسم المرفوع", page_num="١"),
+            _wrap_page("والخبر هو الجزء المتمم للفائدة", page_num="٢"),
+        )
+        raw = normalizer._pass1_parse(html, volume=1, seq_offset=0)
+
+        metadata = [p for p in raw if p.is_metadata_page]
+        content = [p for p in raw if not p.is_metadata_page]
+        assert len(metadata) == 1, "First page should be metadata"
+        assert len(content) == 2, "Two numbered pages should be content"

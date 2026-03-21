@@ -627,6 +627,11 @@ class ShamelaNormalizer(BaseNormalizer):
         seen_page_numbers: dict[int, int] = {}  # page_num → first unit_index
         pages: list[RawPage] = []
 
+        # Pre-scan: check if ANY block has a page number.
+        # Pageless books (48 in Shamela corpus) should not have all
+        # pages classified as metadata — only the first (info) page.
+        any_numbered_page = any(PAGE_NUM_RE.search(b) for b in blocks)
+
         for block in blocks:
             warnings: list[str] = []
 
@@ -642,17 +647,23 @@ class ShamelaNormalizer(BaseNormalizer):
 
             # B3: Metadata page detection
             if page_int is None and not seen_numbered_page:
-                # No page number AND before first numbered page → metadata
-                pages.append(RawPage(
-                    unit_index=-1,
-                    volume=volume,
-                    page_number_display=None,
-                    page_number_int=None,
-                    raw_html=block,
-                    is_metadata_page=True,
-                    warnings=warnings,
-                ))
-                continue
+                # Normal case (any_numbered_page=True): classify all pages
+                # before the first numbered page as metadata.
+                # Pageless case (any_numbered_page=False): only the first
+                # page is metadata (book info). Subsequent pages fall
+                # through to content processing below.
+                if any_numbered_page or not pages:
+                    pages.append(RawPage(
+                        unit_index=-1,
+                        volume=volume,
+                        page_number_display=None,
+                        page_number_int=None,
+                        raw_html=block,
+                        is_metadata_page=True,
+                        warnings=warnings,
+                    ))
+                    continue
+                # Pageless book, not first page: fall through to content
 
             if page_int is not None:
                 seen_numbered_page = True
