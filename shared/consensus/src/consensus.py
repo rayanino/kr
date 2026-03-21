@@ -32,8 +32,8 @@ DEFAULT_CONSENSUS_MODELS = [
         "api_key_env": "OPENROUTER_API_KEY",
     },
     {
-        "provider_model": "openrouter/anthropic/claude-opus-4-6",
-        "api_key_env": "OPENROUTER_API_KEY",
+        "provider_model": "anthropic/claude-opus-4-6",
+        "api_key_env": "ANTHROPIC_API_KEY",
     },
 ]
 
