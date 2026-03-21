@@ -1,0 +1,65 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.126058700028807,
+  "parsed": {
+    "genre": "other",
+    "genre_confidence": 0.78,
+    "genre_chain": {
+      "relation_type": "cites",
+      "base_work_title": "الموضوعات",
+      "base_work_author": "أبو الفرج عبد الرحمن بن علي ابن الجوزي"
+    },
+    "genre_chain_confidence": 0.72,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "ulum_al_hadith",
+      "hadith"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "specialist",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "شمس الدين أبو عبد الله محمد بن أحمد بن عثمان بن قايماز الذهبي",
+      "known_as": [
+        "الذهبي",
+        "الإمام الذهبي",
+        "شمس الدين الذهبي"
+      ],
+      "death_date_hijri": 748,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث ناقد"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أكبر حفاظ الحديث ونقاده، ومن أبرز المؤرخين في الإسلام، صاحب سير أعلام النبلاء وميزان الاعتدال وتاريخ الإسلام",
+      "methodological_stance": "ناقد متشدد في الجرح والتعديل، يعتمد منهج المحدثين في نقد الرجال والأسانيد"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال الذهبي في النقد الحديثي، ألفه في القرن الثامن الهجري",
+      "composition_date_hijri": null,
+      "tradition_position": "عمل نقدي يتعقب فيه الذهبي كتب الموضوعات للجورقاني وابن الجوزي، فيختار أحاديث حكما عليها بالوضع وينتقد بعض أحكامهما أو يؤيدها",
+      "known_textual_issues": [],
+      "historical_significance": "يمثل نقد الذهبي لمنهج ابن الجوزي والجورقاني في الحكم على الأحاديث بالوضع، وهو من الأعمال المتخصصة في علل الحديث ونقد المرويات",
+      "muhaqiq_reputation": "عبد الرحمن الفريوائي محقق هندي معروف بتحقيقاته في كتب الحديث وعلومه",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

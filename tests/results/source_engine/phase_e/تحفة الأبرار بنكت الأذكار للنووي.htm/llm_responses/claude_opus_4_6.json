@@ -1,0 +1,73 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.04176870000083,
+  "parsed": {
+    "genre": "hashiyah",
+    "genre_confidence": 0.85,
+    "genre_chain": {
+      "relation_type": "hashiyah_on",
+      "base_work_title": "الأذكار",
+      "base_work_author": "محيي الدين النووي"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.92,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "محيي الدين النووي"
+      },
+      {
+        "layer_type": "hashiyah",
+        "author_name": "جلال الدين السيوطي"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.88,
+    "level": "advanced",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "عبد الرحمن بن أبي بكر جلال الدين السيوطي",
+      "known_as": [
+        "السيوطي",
+        "جلال الدين السيوطي"
+      ],
+      "death_date_hijri": 911,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث حافظ"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم علماء القرن التاسع والعاشر الهجري، موسوعي غزير التأليف في شتى العلوم الإسلامية، لقب بابن الكتب لكثرة مؤلفاته",
+      "methodological_stance": "جامع بين الحديث والفقه، يعتمد كثيراً على النقل والجمع من مصادر متعددة مع إضافة تعليقات نقدية"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مؤلفات السيوطي المتأخرة، وهي نكت وتعليقات على كتاب الأذكار للنووي مستفادة من أمالي ابن حجر العسقلاني على الأذكار مع إضافات",
+      "composition_date_hijri": null,
+      "tradition_position": "تعليقات تخريجية ونقدية على كتاب الأذكار للنووي، تعتمد بشكل رئيسي على أمالي ابن حجر العسقلاني على نفس الكتاب، مما يجعلها حلقة وصل بين عمل النووي وتعليقات ابن حجر",
+      "known_textual_issues": [],
+      "historical_significance": "يكشف عن منهج السيوطي في الاستفادة من أمالي ابن حجر العسقلاني وإضافة فوائد حديثية وفقهية عليها، ويعد مصدراً مهماً لتخريج أحاديث كتاب الأذكار",
+      "muhaqiq_reputation": "محيي الدين مستو محقق سوري معروف بتحقيقاته الجيدة للتراث الإسلامي",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

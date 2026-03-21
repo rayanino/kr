@@ -1,0 +1,133 @@
+{
+  "source_id": "src_4b6f3d5b",
+  "work_id": "wrk_abd_al_ghny_bn_abd_a_al_thany_mn_al_msbah",
+  "human_label": "al_thany_mn_al_msbah",
+  "title_arabic": "الثاني من المصباح في عيون الصحاح",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد الغني بن عبد الواحد بن علي بن سرور المقدسي الجماعيلي الدمشقي الحنبلي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": {
+    "relation_type": "mukhtasar_of",
+    "base_work_title": "صحيح مسلم",
+    "base_work_author": "مسلم بن الحجاج النيسابوري",
+    "base_work_id": null,
+    "confidence": 0.82
+  },
+  "level": "intermediate",
+  "publisher": "مخطوط نُشر في برنامج جوامع الكلم المجاني التابع لموقع الشبكة الإسلامية",
+  "edition_number": 1,
+  "publication_year_hijri": null,
+  "publication_year_miladi": 2004,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 69,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.6925,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 600 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 600 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مخطوط نُشر في برنامج جوامع الكلم المجاني التابع لموقع الشبكة الإسلامية"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.693 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.92,
+    "science_scope": 0.95,
+    "level": 0.65,
+    "structural_format": 0.95,
+    "authority_level": 0.88,
+    "multi_layer": 0.9,
+    "genre_chain": 0.82,
+    "author": 0.85
+  },
+  "needs_review_fields": [
+    "level"
+  ],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp0rp4pucb\\library\\sources\\src_4b6f3d5b\\frozen",
+  "frozen_hash": "4b6f3d5b3bddc64fb74eb37aeb3809411db9e8fac6abb1efaf2245ba453e80d0",
+  "frozen_file_hashes": {
+    "الثاني من المصباح في عيون الصحاح.htm": "020154788de65980e18a3c0bd84d72784abe7a3cac0274c4b8ea23fccd33573c"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 2004",
+    "author_short": "عبد الغني المقدسي"
+  },
+  "scholarly_context": {
+    "composition_period": "أواخر القرن السادس الهجري، من مصنفات الحافظ عبد الغني المقدسي في الحديث",
+    "composition_date_hijri": null,
+    "tradition_position": "كتاب المصباح في عيون الصحاح يجمع أحاديث أفراد مسلم (ما انفرد به مسلم عن البخاري)، وهذا الجزء الثاني منه مخصص لأفراد مسلم بن الحجاج. يندرج ضمن مصنفات المقدسي الحديثية التي تعنى بانتقاء الصحيح",
+    "known_textual_issues": [],
+    "historical_significance": "من المصنفات المتخصصة في أفراد مسلم عن البخاري، وهو جزء من مشروع الحافظ عبد الغني في خدمة الصحيحين",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": "نُشر كمخطوط ضمن برنامج جوامع الكلم الإلكتروني، وليس تحقيقاً علمياً بالمعنى الاصطلاحي",
+    "edition_known_issues": [
+      "نشر إلكتروني من مخطوط دون تحقيق علمي متكامل"
+    ],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:53:31.947915+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 16.28
+}

@@ -1,0 +1,638 @@
+{
+  "phase": "E",
+  "pipeline_version": "d4aeb44",
+  "timestamp": "2026-03-21T20:55:30.331635+00:00",
+  "total_books": 70,
+  "books": {
+    "القسم الثاني من المعجم الأوسط للطبراني": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/القسم الثاني من المعجم الأوسط للطبراني/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 18.78
+    },
+    "أخبار قبائل الخزرج": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أخبار قبائل الخزرج/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 18.0
+    },
+    "تسمية الإخوة الذين روي عنهم الحديث.htm": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/تسمية الإخوة الذين روي عنهم الحديث.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 15.73
+    },
+    "نهاية الأرب في معرفة أنساب العرب.htm": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/نهاية الأرب في معرفة أنساب العرب.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 14.95
+    },
+    "أثر الدعوة الوهابية في الإصلاح الديني والعمراني في جزيرة العرب وغيرها.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أثر الدعوة الوهابية في الإصلاح الديني والعمراني في جزيرة العرب وغيرها.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 14.17
+    },
+    "آيات متشابهات الألفاظ في القرآن الكريم وكيف التمييز بينها.htm": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/آيات متشابهات الألفاظ في القرآن الكريم وكيف التمييز بينها.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 12.63
+    },
+    "الوافي في كيفية ترتيل القرآن الكريم.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/الوافي في كيفية ترتيل القرآن الكريم.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.81
+    },
+    "ورد الطائف في شرح روضة الطرائف في رسم المصحف.htm": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/ورد الطائف في شرح روضة الطرائف في رسم المصحف.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 17.77
+    },
+    "أحاديث القصاص - ت الصباغ.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أحاديث القصاص - ت الصباغ.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.74
+    },
+    "تحفة الأبرار بنكت الأذكار للنووي.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/تحفة الأبرار بنكت الأذكار للنووي.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 17.1
+    },
+    "نقد «نصوص حديثية في الثقافة العامة».htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/نقد «نصوص حديثية في الثقافة العامة».htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 15.87
+    },
+    "أبراج الزجاج في سيرة الحجاج.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أبراج الزجاج في سيرة الحجاج.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 13.69
+    },
+    "تاريخ بغداد - ت بشار": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/تاريخ بغداد - ت بشار/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 20.33
+    },
+    "آداب الأكل.htm": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/آداب الأكل.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 20.29
+    },
+    "تعس عبد الشهوات.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/تعس عبد الشهوات.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 9.2
+    },
+    "يقظة أولي الاعتبار.htm": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/يقظة أولي الاعتبار.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.41
+    },
+    "آداب الحسبة.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/آداب الحسبة.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 19.4
+    },
+    "النظام القضائي في الفقه الإسلامي.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/النظام القضائي في الفقه الإسلامي.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 12.4
+    },
+    "وظيفة القضاء في التعامل مع الإرهاب.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/وظيفة القضاء في التعامل مع الإرهاب.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 11.66
+    },
+    "أخلاق النبي وآدابه - أبو الشيخ الأصبهاني": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أخلاق النبي وآدابه - أبو الشيخ الأصبهاني/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 15.61
+    },
+    "جمع الوسائل في شرح الشمائل": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/جمع الوسائل في شرح الشمائل/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.56
+    },
+    "يوم في بيت الرسول.htm": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/يوم في بيت الرسول.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 12.16
+    },
+    "[شرح] تسهيل العقيدة الإسلامية - ط ٢": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/[شرح] تسهيل العقيدة الإسلامية - ط ٢/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 13.47
+    },
+    "تحذير المسلمين من السب والاستهزاء بالدين.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/تحذير المسلمين من السب والاستهزاء بالدين.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 11.75
+    },
+    "أحاديث مختارة من موضوعات الجورقاني وابن الجوزي.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أحاديث مختارة من موضوعات الجورقاني وابن الجوزي.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 17.24
+    },
+    "تدارك بقية العمر في تدبير سورة النصر": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/تدارك بقية العمر في تدبير سورة النصر/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.28
+    },
+    "شرح الوصية الكبرى لابن تيمية - الراجحي": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/شرح الوصية الكبرى لابن تيمية - الراجحي/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 14.14
+    },
+    "فتح الباقي على منظومة المراقي": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/فتح الباقي على منظومة المراقي/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 15.93
+    },
+    "السواك وسنن الفطرة - المقدم": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/السواك وسنن الفطرة - المقدم/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 13.49
+    },
+    "أصول أهل السنة والجماعة": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أصول أهل السنة والجماعة/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 11.15
+    },
+    "ألقاب الشعراء ومن يعرف منهم بأمه - ضمن نوادر المخطوطات": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/ألقاب الشعراء ومن يعرف منهم بأمه - ضمن نوادر المخطوطات/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.5
+    },
+    "الفوائد الأصولية - ضمن «آثار المعلمي»": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/الفوائد الأصولية - ضمن «آثار المعلمي»/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 17.09
+    },
+    "حصول المأمول بشرح ثلاثة الأصول": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/حصول المأمول بشرح ثلاثة الأصول/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 14.47
+    },
+    "شرح العقيدة الطحاوية - ناصر العقل": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/شرح العقيدة الطحاوية - ناصر العقل/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 13.7
+    },
+    "إرشاد العباد إلى معاني لمعة الاعتقاد": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/إرشاد العباد إلى معاني لمعة الاعتقاد/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.7
+    },
+    "أصل الزراري شرح صحيح البخاري - مخطوط": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/أصل الزراري شرح صحيح البخاري - مخطوط/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 17.97
+    },
+    "مزيد فتح الباري بشرح البخاري - مخطوط": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/مزيد فتح الباري بشرح البخاري - مخطوط/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 17.79
+    },
+    "حاشية الخلوتي على منتهى الإرادات": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/حاشية الخلوتي على منتهى الإرادات/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 14.3
+    },
+    "السيل الجرار المتدفق على حدائق الأزهار": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/السيل الجرار المتدفق على حدائق الأزهار/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 17.21
+    },
+    "حاشية الصبان على شرح الأشمونى لألفية ابن مالك": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/حاشية الصبان على شرح الأشمونى لألفية ابن مالك/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.2
+    },
+    "أحاديث المناديلي.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أحاديث المناديلي.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 12.79
+    },
+    "أحاديث منصور بن عمار.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أحاديث منصور بن عمار.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 15.84
+    },
+    "أحاديث يزيد بن أبي حبيب المصري - ضمن «أحاديث الشيوخ الكبار».htm": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/أحاديث يزيد بن أبي حبيب المصري - ضمن «أحاديث الشيوخ الكبار».htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 13.73
+    },
+    "أحكام النساء - من «الجامع» للخلال.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أحكام النساء - من «الجامع» للخلال.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.32
+    },
+    "أحكام عصاة المؤمنين من كلام شيخ الإسلام ابن تيمية - كجك.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أحكام عصاة المؤمنين من كلام شيخ الإسلام ابن تيمية - كجك.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.46
+    },
+    "أخبار في النحو = أخبار النحويين - أبو طاهر بن أبي هاشم - ت الدالي.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أخبار في النحو = أخبار النحويين - أبو طاهر بن أبي هاشم - ت الدالي.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.06
+    },
+    "أربعون حديثا عن أربعين شيخا في أربعين لابن المقرب.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/أربعون حديثا عن أربعين شيخا في أربعين لابن المقرب.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 12.58
+    },
+    "آداب العلماء والمتعلمين.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/آداب العلماء والمتعلمين.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 13.43
+    },
+    "آداب العمرة وأحكامها - حطيبة": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/آداب العمرة وأحكامها - حطيبة/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 10.78
+    },
+    "آراء السمعاني العقدية.htm": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/آراء السمعاني العقدية.htm/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 11.31
+    },
+    "الجامع الصغير وزيادته": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/الجامع الصغير وزيادته/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 19.07
+    },
+    "الشرح الصوتي لزاد المستقنع - ابن عثيمين": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/الشرح الصوتي لزاد المستقنع - ابن عثيمين/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 18.44
+    },
+    "موسوعة الرقائق والأدب - ياسر الحمداني": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/موسوعة الرقائق والأدب - ياسر الحمداني/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 13.8
+    },
+    "الروض الأنيق في فضل الصديق": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/الروض الأنيق في فضل الصديق/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 14.44
+    },
+    "الطبقات للنسائي": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/الطبقات للنسائي/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 15.38
+    },
+    "الفسخ بالإعسار - ضمن «آثار المعلمي»": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/الفسخ بالإعسار - ضمن «آثار المعلمي»/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 15.97
+    },
+    "منتهى الإرادات في جمع المقنع مع التنقيح وزيادات - ت التركي": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/منتهى الإرادات في جمع المقنع مع التنقيح وزيادات - ت التركي/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 20.17
+    },
+    "قواعد ابن رجب - ط الخانجي": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/قواعد ابن رجب - ط الخانجي/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 17.24
+    },
+    "الأول من الخلعيات": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/الأول من الخلعيات/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.75
+    },
+    "الخامس عشر من الخلعيات": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/الخامس عشر من الخلعيات/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 20.86
+    },
+    "الرابع من معجم شيوخ الدمياطي": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/الرابع من معجم شيوخ الدمياطي/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.8
+    },
+    "الثاني من المصباح في عيون الصحاح": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/الثاني من المصباح في عيون الصحاح/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 16.28
+    },
+    "حديث ذي النون المصري": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/حديث ذي النون المصري/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 15.98
+    },
+    "فوائد ابن دحيم": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/فوائد ابن دحيم/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 14.28
+    },
+    "حديث عباس الترقفي": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/حديث عباس الترقفي/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 14.61
+    },
+    "آثار حجج التوحيد في مؤاخذة العبيد": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/آثار حجج التوحيد في مؤاخذة العبيد/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 12.45
+    },
+    "التقصي لما في الموطأ من حديث النبي صلى الله عليه وسلم = تجريد التمهيد لما في الموطأ من المعاني والأسانيد": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/التقصي لما في الموطأ من حديث النبي صلى الله عليه وسلم = تجريد التمهيد لما في الموطأ من المعاني والأسانيد/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 18.52
+    },
+    "المسلم في عالم الاقتصاد": {
+      "status": "gate_abort",
+      "needs_rerun": false,
+      "result_path": "phase_e/المسلم في عالم الاقتصاد/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 15.56
+    },
+    "حكم الغناء في مذهب المالكية": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/حكم الغناء في مذهب المالكية/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 12.26
+    },
+    "فقه الصيام والحج من دليل الطالب": {
+      "status": "success",
+      "needs_rerun": false,
+      "result_path": "phase_e/فقه الصيام والحج من دليل الطالب/result.json",
+      "ground_truth_available": false,
+      "ground_truth_match": null,
+      "cost_estimate_eur": 0.1,
+      "processing_time_seconds": 14.6
+    }
+  }
+}

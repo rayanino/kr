@@ -1,0 +1,72 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 8.827247200009879,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "صحيح البخاري",
+      "base_work_author": "محمد بن إسماعيل البخاري"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "محمد بن إسماعيل البخاري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "إبراهيم بن علي برهان الدين النعماني الشافعي"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "advanced",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "إبراهيم بن علي برهان الدين النعماني الشافعي",
+      "known_as": [
+        "النعماني",
+        "برهان الدين"
+      ],
+      "death_date_hijri": 898,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم وفقيه شافعي بارز، له إسهامات في شرح الحديث والفقه",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "شرح مهم على صحيح البخاري، يُظهر عمق فهم المؤلف للحديث والفقه",
+      "known_textual_issues": [],
+      "historical_significance": "يُعتبر من الشروح المهمة على صحيح البخاري، خاصة في المذهب الشافعي",
+      "muhaqiq_reputation": "دار الكمال المتحدة معروفة بتحقيقاتها الجيدة في التراث الإسلامي",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

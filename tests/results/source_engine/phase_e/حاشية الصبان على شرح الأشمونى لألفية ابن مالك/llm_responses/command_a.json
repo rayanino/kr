@@ -1,0 +1,75 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 11.926553999946918,
+  "parsed": {
+    "genre": "hashiyah",
+    "genre_confidence": 1.0,
+    "genre_chain": {
+      "relation_type": "hashiyah_on",
+      "base_work_title": "شرح الأشمونى لألفية ابن مالك",
+      "base_work_author": "علي بن محمد الأشموني"
+    },
+    "genre_chain_confidence": 1.0,
+    "structural_format": "commentary",
+    "structural_format_confidence": 1.0,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 1.0,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "ابن مالك"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "علي بن محمد الأشموني"
+      },
+      {
+        "layer_type": "hashiyah",
+        "author_name": "محمد بن علي الصبان"
+      }
+    ],
+    "science_scope": [
+      "nahw",
+      "sarf"
+    ],
+    "science_scope_confidence": 1.0,
+    "level": "advanced",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 1.0,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن علي الصبان الشافعي",
+      "known_as": [
+        "الصبان",
+        "أبو العرفان"
+      ],
+      "death_date_hijri": 1206,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم موسوعي متخصص في العلوم العقلية والنقلية، معروف بتحقيقاته الدقيقة في النحو والصرف والبلاغة",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 1.0,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "حاشية الصبان من أهم الشروح على شرح الأشموني، وتعتبر مرجعاً أساسياً في دراسة النحو والصرف",
+      "known_textual_issues": [],
+      "historical_significance": "تتميز الحاشية بدقتها في التحقيق والمناقشات النحوية والصرفية، ولها تأثير كبير في تدريس النحو",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

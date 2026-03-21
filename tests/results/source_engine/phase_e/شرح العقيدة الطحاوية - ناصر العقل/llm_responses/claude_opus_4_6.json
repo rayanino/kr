@@ -1,0 +1,74 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.437618099967949,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.92,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "العقيدة الطحاوية",
+      "base_work_author": "أبو جعفر الطحاوي"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أبو جعفر الطحاوي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "ابن أبي العز الحنفي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "ناصر بن عبد الكريم العقل"
+      }
+    ],
+    "science_scope": [
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.98,
+    "level": "intermediate",
+    "level_confidence": 0.8,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.82,
+    "author_identification": {
+      "canonical_name_ar": "ناصر بن عبد الكريم العلي العقل",
+      "known_as": [
+        "ناصر العقل"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "aqidah": "أهل السنة والجماعة - سلفي",
+        "fiqh": "حنبلي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "أستاذ العقيدة بجامعة الإمام محمد بن سعود الإسلامية، من العلماء المعاصرين المعروفين في مجال العقيدة",
+      "methodological_stance": "منهج سلفي أثري في تقرير مسائل العقيدة، يعتمد على الكتاب والسنة وفهم السلف الصالح"
+    },
+    "author_identification_confidence": 0.92,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "عمل معاصر، دروس ومحاضرات ألقاها الشيخ ناصر العقل في شرح العقيدة الطحاوية",
+      "composition_date_hijri": null,
+      "tradition_position": "شرح معاصر على شرح العقيدة الطحاوية لابن أبي العز الحنفي، يقدم تعليقات وتوضيحات من منظور سلفي على الشرح الكلاسيكي",
+      "known_textual_issues": [],
+      "historical_significance": "من الشروح المعاصرة المتداولة في الأوساط العلمية السلفية لتدريس العقيدة الطحاوية",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

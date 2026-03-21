@@ -1,0 +1,71 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.568754700012505,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "لمعة الاعتقاد الهادي إلى سبيل الرشاد",
+      "base_work_author": "عبد الله بن أحمد بن محمد بن قدامة المقدسي"
+    },
+    "genre_chain_confidence": 0.98,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.93,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.95,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "عبد الله بن أحمد بن محمد بن قدامة المقدسي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "عبد الرحمن بن ناصر بن براك بن إبراهيم البراك"
+      }
+    ],
+    "science_scope": [
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.99,
+    "level": "beginner",
+    "level_confidence": 0.85,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.82,
+    "author_identification": {
+      "canonical_name_ar": "عبد الرحمن بن ناصر بن براك بن إبراهيم البراك",
+      "known_as": [
+        "الشيخ البراك",
+        "عبد الرحمن البراك"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "aqidah": "أثري سلفي",
+        "fiqh": "حنبلي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم سعودي معاصر بارز في العقيدة، من كبار علماء المملكة العربية السعودية، معروف بشروحه على متون العقيدة والتفسير",
+      "methodological_stance": "منهج أثري سلفي على طريقة أهل السنة والجماعة في باب الاعتقاد"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "شرح معاصر ألقي في مسجد الخليفي بحي الفاروق بالرياض في قرابة ثلاثين مجلساً، ثم فُرّغ من التسجيل الصوتي وأُخرج في كتاب",
+      "composition_date_hijri": 1433,
+      "tradition_position": "شرح معاصر على متن لمعة الاعتقاد لابن قدامة، وهو من الشروح المتعددة التي وضعها علماء معاصرون على هذا المتن المشهور في العقيدة الأثرية",
+      "known_textual_issues": [],
+      "historical_significance": "شرح من عالم سعودي كبير على متن عقدي حنبلي أثري مشهور، يُدرَّس في الحلقات العلمية والمعاهد الشرعية",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "أعده عبد الله بن محمد السحيم بتفريغ الشرح الصوتي ثم ترتيبه وتصحيحه وتهذيبه وتنسيقه",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

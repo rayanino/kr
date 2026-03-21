@@ -1,0 +1,17 @@
+{
+  "book": "الفوائد الأصولية - ضمن «آثار المعلمي»",
+  "status": "gate_abort",
+  "processing_time_seconds": 17.09,
+  "cost_estimate_eur": 0.1,
+  "error_code": "SRC_LOW_CONFIDENCE",
+  "error_message": "Validation gate: 1 issue(s) require human review",
+  "gate_errors": [
+    "Author's known sciences {'hadith', 'fiqh'} don't overlap with source sciences {'usul_al_fiqh'}"
+  ],
+  "partial_data": {
+    "extraction_completed": true,
+    "inference_completed": true,
+    "metadata_assembled": true,
+    "metadata_returned": false
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.78433249995578,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.85,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.85,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "specialist",
+    "level_confidence": 0.8,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.75,
+    "author_identification": {
+      "canonical_name_ar": "منصور بن عمار بن كثير السلمي الخراساني",
+      "known_as": [
+        "منصور بن عمار",
+        "أبو السري"
+      ],
+      "death_date_hijri": 200,
+      "school_affiliations": {
+        "hadith": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "واعظ بليغ مشهور، ضعيف في الحديث، قال عنه أبو حاتم: ليس بالقوي، وقال ابن عدي: حديثه منكر",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.75,
+    "attribution_status": "traditional",
+    "attribution_notes": "الأحاديث مروية عن منصور بن عمار، والجزء من جمع أبي بكر الذكواني محمد بن أحمد بن عبد الرحمن الأصبهاني، فالمؤلف الأصلي هو الراوي منصور بن عمار والجامع هو الذكواني",
+    "scholarly_context": {
+      "composition_period": "الجزء من جمع أبي بكر الذكواني (من علماء القرن الرابع/الخامس الهجري)، والأحاديث مروية عن منصور بن عمار المتوفى حوالي 200 هـ",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي صغير يجمع مرويات منصور بن عمار، وهو من أجزاء الحديث المسندة التي تُروى بالإسناد المتصل",
+      "known_textual_issues": [],
+      "historical_significance": "جزء حديثي نادر يحفظ مرويات واعظ مشهور ضعيف في الحديث، له قيمة في دراسة الوعظ والتذكير في القرن الثاني الهجري",
+      "muhaqiq_reputation": "نبيل سعد الدين جرار باحث أردني متخصص في تحقيق المخطوطات الحديثية",
+      "tahqiq_methodology_note": "اعتمد المحقق على نسختين خطيتين: نسخة من مجموع جامعة الإمام ونسخة أصل من مكتبة شهيد علي",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

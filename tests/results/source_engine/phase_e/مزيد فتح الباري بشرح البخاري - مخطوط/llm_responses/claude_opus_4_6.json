@@ -1,0 +1,76 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.631198399991263,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "صحيح البخاري",
+      "base_work_author": "محمد بن إسماعيل البخاري"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.97,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "محمد بن إسماعيل البخاري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "إبراهيم بن علي برهان الدين النعماني الشافعي"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "advanced",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "إبراهيم بن علي بن أحمد برهان الدين النعماني الشافعي",
+      "known_as": [
+        "برهان الدين النعماني",
+        "سبط ابن العجمي"
+      ],
+      "death_date_hijri": 898,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم شافعي من علماء القرن التاسع الهجري، تلميذ ابن حجر العسقلاني، اشتهر بشرحه على صحيح البخاري المسمى مزيد فتح الباري الذي يعد تكملة وزيادة على فتح الباري لشيخه ابن حجر",
+      "methodological_stance": "يعتمد على منهج شيخه ابن حجر العسقلاني في شرح الحديث مع إضافات وزيادات"
+    },
+    "author_identification_confidence": 0.82,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "القرن التاسع الهجري، من أواخر حياة المؤلف",
+      "composition_date_hijri": 880,
+      "tradition_position": "شرح على صحيح البخاري يُعدّ تكملة وزيادة على فتح الباري لابن حجر العسقلاني، ويُشير المؤلف إلى شيخه ابن حجر بقوله (قال شيخنا)، مما يدل على اعتماده الكبير على فتح الباري مع إضافات خاصة به",
+      "known_textual_issues": [
+        "العمل مخطوط ولم يُحقق تحقيقاً علمياً كاملاً"
+      ],
+      "historical_significance": "من الشروح المتأخرة على صحيح البخاري التي تستفيد من فتح الباري لابن حجر وتضيف عليه، وهو عمل نادر لتلميذ ابن حجر",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "النص مخطوط منشور عبر موسوعة صحيح البخاري الإلكترونية (bukhari-pedia.net) بإشراف دار الكمال المتحدة",
+      "edition_known_issues": [
+        "النص مخطوط وليس محققاً تحقيقاً علمياً تقليدياً"
+      ],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

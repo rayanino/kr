@@ -1,0 +1,58 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.847702500002924,
+  "parsed": {
+    "genre": "adab",
+    "genre_confidence": 0.85,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "nahw",
+      "adab",
+      "tarikh"
+    ],
+    "science_scope_confidence": 0.8,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "أبو طاهر عبد الواحد بن عمر بن أبي هاشم",
+      "known_as": [
+        "أبو طاهر بن أبي هاشم"
+      ],
+      "death_date_hijri": 349,
+      "school_affiliations": {
+        "nahw": "الكوفيين"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "مقرئ وثقة، من أعلام القراء والنحويين في القرن الرابع الهجري",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "عمل يجمع بين النحو والأدب والتاريخ، يعكس اهتمامات المؤلف في القراءات والنحو",
+      "known_textual_issues": [],
+      "historical_significance": "يعد من المصادر المهمة في تاريخ النحو والقراءات، ويحتوي على أخبار نادرة عن النحويين",
+      "muhaqiq_reputation": "الدكتور محمد أحمد الدالي معروف بتحقيقاته الدقيقة في التراث اللغوي والنحوي",
+      "tahqiq_methodology_note": "تضمن التحقيق مقدمة عن المؤلف وشيوخه وتلامذته، مع تعليقات على الأخبار وترجمة للرواة",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

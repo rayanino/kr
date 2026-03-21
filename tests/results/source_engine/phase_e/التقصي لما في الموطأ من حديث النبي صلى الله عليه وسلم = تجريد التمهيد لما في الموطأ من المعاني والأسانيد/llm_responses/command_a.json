@@ -1,0 +1,49 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.043349199986551,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "الموطأ",
+      "base_work_author": "مالك بن أنس"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "advanced",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو عمر يوسف بن عبد الله بن محمد بن عبد البر النمري القرطبي",
+      "known_as": [
+        "ابن عبد البر",
+        "الحافظ"
+      ],
+      "death_date_hijri": 463,
+      "school_affiliations": {
+        "fiqh": "maliki"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "أحد كبار علماء الحديث والفقه في الأندلس، له مصنفات مشهورة في الحديث وعلومه",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": null
+  }
+}

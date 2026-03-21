@@ -1,0 +1,156 @@
+{
+  "source_id": "src_e5624ada",
+  "work_id": "wrk_suyuti_thfh_al_abrar_bnkt_a",
+  "human_label": "thfh_al_abrar_bnkt_a",
+  "title_arabic": "تحفة الأبرار بنكت الأذكار للنووي",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد الرحمن بن أبي بكر جلال الدين السيوطي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "محيي الدين مستو",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hashiyah",
+  "genre_chain": {
+    "relation_type": "hashiyah_on",
+    "base_work_title": "الأذكار",
+    "base_work_author": "محيي الدين النووي",
+    "base_work_id": null,
+    "confidence": 0.95
+  },
+  "level": "advanced",
+  "publisher": "مكتبة دار التراث، المدينة المنورة",
+  "edition_number": 1,
+  "publication_year_hijri": 1407,
+  "publication_year_miladi": 1987,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "commentary",
+  "language": "ar",
+  "page_count": 80,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00003",
+        "name_arabic": "محيي الدين النووي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "hashiyah",
+      "author": {
+        "canonical_id": "sch_00004",
+        "name_arabic": "جلال الدين السيوطي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "verified",
+  "trust_score": 0.77,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 911 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: محيي الدين مستو"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.75,
+      "reason": "Known publisher: دار التراث (score 0.75)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.770 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.85,
+    "science_scope": 0.88,
+    "level": 0.8,
+    "structural_format": 0.9,
+    "authority_level": 0.85,
+    "multi_layer": 0.92,
+    "genre_chain": 0.95,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpdnpvk5g2\\library\\sources\\src_e5624ada\\frozen",
+  "frozen_hash": "e5624adaddb2e42df67a969beb620f776112d46bdd883592e46740731edce340",
+  "frozen_file_hashes": {
+    "تحفة الأبرار بنكت الأذكار للنووي.htm": "e7e4b868e454423fc0d8d2694bac07bcbca21ad83e58809749dde37562fdd8bb"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التخريج والأطراف",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1407 هـ - 1987 م",
+    "page_count_raw": "103",
+    "author_short": "الجلال السيوطي",
+    "physical_page_count": 103
+  },
+  "scholarly_context": {
+    "composition_period": "من مؤلفات السيوطي المتأخرة، وهي نكت وتعليقات على كتاب الأذكار للنووي مستفادة من أمالي ابن حجر العسقلاني على الأذكار مع إضافات",
+    "composition_date_hijri": null,
+    "tradition_position": "تعليقات تخريجية ونقدية على كتاب الأذكار للنووي، تعتمد بشكل رئيسي على أمالي ابن حجر العسقلاني على نفس الكتاب، مما يجعلها حلقة وصل بين عمل النووي وتعليقات ابن حجر",
+    "known_textual_issues": [],
+    "historical_significance": "يكشف عن منهج السيوطي في الاستفادة من أمالي ابن حجر العسقلاني وإضافة فوائد حديثية وفقهية عليها، ويعد مصدراً مهماً لتخريج أحاديث كتاب الأذكار",
+    "muhaqiq_reputation": "محيي الدين مستو محقق سوري معروف بتحقيقاته الجيدة للتراث الإسلامي",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:40:07.795287+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 17.1
+}

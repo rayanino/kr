@@ -1,0 +1,124 @@
+{
+  "source_id": "src_a6bc2dbb",
+  "work_id": "wrk_suyuti_al_rwd_al_anyq_fy_fd",
+  "human_label": "al_rwd_al_anyq_fy_fd",
+  "title_arabic": "الروض الأنيق في فضل الصديق",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد الرحمن بن أبي بكر بن محمد جلال الدين السيوطي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "فضائل الصحابة"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": "beginner",
+  "publisher": null,
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 3,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.6925,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 911 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 911 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.693 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.85,
+    "science_scope": 0.92,
+    "level": 0.8,
+    "structural_format": 0.92,
+    "authority_level": 0.9,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpcs8swp47\\library\\sources\\src_a6bc2dbb\\frozen",
+  "frozen_hash": "a6bc2dbbba4be93a94d9d5e0b59ccbeb16cb3beefb7b705e12d93ca610aa4faa",
+  "frozen_file_hashes": {
+    "الروض الأنيق في فضل الصديق.htm": "2e21c5ad9848b2d8587985a285bfa87e008d5334f098581d304cb4aa8840587e"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التراجم والطبقات",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "page_count_raw": "3",
+    "author_short": "الجلال السيوطي",
+    "physical_page_count": 3
+  },
+  "scholarly_context": {
+    "composition_period": "من مؤلفات السيوطي المتأخرة، وهو جزء حديثي صغير في فضائل أبي بكر الصديق رضي الله عنه",
+    "composition_date_hijri": null,
+    "tradition_position": "جزء حديثي من نوع الأربعينيات في فضائل أبي بكر الصديق، يندرج ضمن تقليد تصنيف الأربعينيات الحديثية",
+    "known_textual_issues": [],
+    "historical_significance": "رسالة مختصرة في أربعين حديثاً في فضل أبي بكر الصديق، تعكس غزارة إنتاج السيوطي في الأجزاء الحديثية الصغيرة",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:51:12.433605+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 14.44
+}

@@ -1,0 +1,70 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.932969100016635,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "روضة الطرائف في رسم المصاحف",
+      "base_work_author": "برهان الدين الجعبري"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.95,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "برهان الدين الجعبري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "محمد عبد الله إبراهيم البركاتي"
+      }
+    ],
+    "science_scope": [
+      "ulum_al_quran",
+      "rasm_al_mushaf"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "specialist",
+    "level_confidence": 0.88,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "محمد عبد الله إبراهيم البركاتي",
+      "known_as": [
+        "البركاتي"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "qiraat": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "باحث معاصر متخصص في القراءات وعلوم القرآن، حاصل على الماجستير من كلية القرآن الكريم بجامعة جدة",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.9,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "عمل معاصر أصله رسالة ماجستير نوقشت عام 1442 هـ",
+      "composition_date_hijri": 1442,
+      "tradition_position": "شرح وتحقيق لنظم الجعبري في رسم المصحف، والذي هو بدوره نظم على عقيلة أتراب القصائد للشاطبي في الرسم العثماني",
+      "known_textual_issues": [],
+      "historical_significance": "يضيف إلى المكتبة القرآنية دراسة وتحقيقاً وشرحاً لنظم مهم في علم رسم المصحف لم يكن محققاً من قبل",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "أصل الكتاب رسالة ماجستير أكاديمية من قسم القراءات بكلية القرآن الكريم بجامعة جدة، تحت إشراف أ.د. الصافي صالح الصافي",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

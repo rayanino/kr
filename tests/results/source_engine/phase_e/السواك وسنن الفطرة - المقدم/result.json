@@ -1,0 +1,132 @@
+{
+  "source_id": "src_26e02ed3",
+  "work_id": "wrk_mhmd_ahmd_ismaayl_al_al_swak_wsnn_al_ftrh",
+  "human_label": "al_swak_wsnn_al_ftrh",
+  "title_arabic": "السواك وسنن الفطرة",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد أحمد إسماعيل المقدم",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": "beginner",
+  "publisher": null,
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 17,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.4325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.432 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.75,
+    "science_scope": 0.92,
+    "level": 0.8,
+    "structural_format": 0.95,
+    "authority_level": 0.88,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 6,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmphffjb0gt\\library\\sources\\src_26e02ed3\\frozen",
+  "frozen_hash": "26e02ed3d896b03cea6a3c911d3d2c3d460b749e2cb50ca461197e595ef6b016",
+  "frozen_file_hashes": {
+    "001.htm": "88da3ac88adfc6840a8959cd37f0d5dcaf47462d529f6243383cc1b21cd2db1a",
+    "002.htm": "ea3c5182d0643bf17bb0cba78977c8ab3df706fc959fccea451f3f57a87087c0",
+    "003.htm": "05b5fa38d7425a5a2ee1217a4d24d9b232648a73f5e61147d4b827da89a0ede1",
+    "004.htm": "56337cbae6b506067bcaba9bcd20cd5b2ce435b1b47b60c324caec7561948966",
+    "005.htm": "c0e431374fe40c091a31573b9ffac3a0d7493c6174fe0ba1d6cfda06e348ab4c",
+    "006.htm": "e0c75a542d4a1b40c9058c6e609ad179d412ec4b9989b8cf861b4a4a60a32b04"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "مسائل فقهية",
+    "shamela_publish_date": "15 جُمادَى الآخرة 1432",
+    "source_note": "دروس صوتية قام بتفريغها موقع الشبكة الإسلامية",
+    "author_short": "محمد إسماعيل المقدم",
+    "extra_card_fields": {
+      "http": "//www.islamweb.net"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": "معاصر، من محاضرات الشيخ المفرغة",
+    "composition_date_hijri": null,
+    "tradition_position": "محاضرة دعوية تعليمية في مسائل فقهية تتعلق بسنن الفطرة والسواك، ضمن سلسلة دروس الشيخ المقدم",
+    "known_textual_issues": [],
+    "historical_significance": "من المحاضرات المفرغة المنتشرة للشيخ المقدم، تخدم غرضاً دعوياً تعليمياً أكثر من كونها مرجعاً فقهياً متخصصاً",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [
+      "يبدو أن النص مفرغ من محاضرة صوتية، وقد يحتوي على أسلوب شفهي"
+    ],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:44:53.925017+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 13.49
+}

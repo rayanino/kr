@@ -1,0 +1,128 @@
+{
+  "source_id": "src_dd8edba7",
+  "work_id": "wrk_abd_al_rhmn_bn_sayd__abraj_al_zjaj_fy_syr",
+  "human_label": "abraj_al_zjaj_fy_syr",
+  "title_arabic": "أبراج الزجاج في سيرة الحجاج",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد الرحمن بن سعيد بن علي بن وهف القحطاني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د. سعيد بن علي بن وهف القحطاني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "sirah",
+    "tarikh"
+  ],
+  "genre": "sirah",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "مطبعة سفير، الرياض",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 117,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.59,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1422 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: د. سعيد بن علي بن وهف القحطاني"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مطبعة سفير، الرياض"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.590 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.9,
+    "level": null,
+    "structural_format": 0.9,
+    "authority_level": 0.9,
+    "multi_layer": 1.0,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpw6cq2km6\\library\\sources\\src_dd8edba7\\frozen",
+  "frozen_hash": "dd8edba7d0de22bc34b3f828b9fe812d58cc04c9a7632b92d51774316ba04696",
+  "frozen_file_hashes": {
+    "أبراج الزجاج في سيرة الحجاج.htm": "8c68deb242ce18ad386edea02b310ccfb8c4e294bc954f5444059ee73881670a"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التراجم والطبقات",
+    "shamela_publish_date": "17 ذو القعدة 1433",
+    "distributor": "مؤسسة الجريسي للتوزيع والإعلان، الرياض",
+    "page_count_raw": "130",
+    "author_short": "عبد الرحمن بن وهف القحطاني",
+    "physical_page_count": 130
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": 1420,
+    "tradition_position": null,
+    "known_textual_issues": [],
+    "historical_significance": "A biographical study of al-Hajjaj ibn Yusuf, a controversial figure in Islamic history",
+    "muhaqiq_reputation": "The editor, Dr. Saeed bin Ali bin Wahf al-Qahtani, is the author's father and a respected scholar",
+    "tahqiq_methodology_note": "The editor compared the text with the original manuscript and added a brief biography of the author",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": []
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:40:37.361740+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 13.69
+}

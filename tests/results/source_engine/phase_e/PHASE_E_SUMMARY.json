@@ -1,0 +1,44 @@
+{
+  "phase": "C",
+  "pipeline_version": "d4aeb44",
+  "timestamp": "2026-03-21T20:55:30.332726+00:00",
+  "total_books": 70,
+  "successful": 54,
+  "gate_abort": 16,
+  "failed": 0,
+  "total_cost_eur": 7.0,
+  "avg_cost_per_book_eur": 0.1,
+  "avg_processing_time_seconds": 15.5,
+  "field_coverage": {
+    "genre": {
+      "present": 0,
+      "high_confidence": 0
+    },
+    "author": {
+      "present": 0,
+      "high_confidence": 0
+    },
+    "is_multi_layer": {
+      "present": 0,
+      "high_confidence": 0
+    }
+  },
+  "ground_truth_results": {
+    "total_compared": 0
+  },
+  "edition_groups": [],
+  "sanity_check_summary": {
+    "total_flags": 12,
+    "by_severity": {
+      "error": 0,
+      "warning": 1,
+      "info": 11
+    },
+    "by_check": {
+      "muhaqiq_not_in_context": 11,
+      "genre_title_mismatch": 1
+    },
+    "clean_books": 58
+  },
+  "errors": []
+}

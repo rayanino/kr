@@ -1,0 +1,132 @@
+{
+  "source_id": "src_0516db99",
+  "work_id": "wrk_abw_abd_al_lh_mhmd_b_adab_al_hsbh_mtbwaat",
+  "human_label": "adab_al_hsbh_mtbwaat",
+  "title_arabic": "آداب الحسبة [مطبوعات معهد العلوم العليا المغربية - الجزء 21]",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو عبد الله محمد بن أبي محمد السقطي المالقي الأندلسي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "ليفي بروفنسال - كولان",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh",
+    "usul_al_fiqh"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "مطبعة إرنست لورو - باريس",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": 1931,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 73,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.5375,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: ليفي بروفنسال - كولان"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مطبعة إرنست لورو - باريس"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.537 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.85,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpr4zwc8z9\\library\\sources\\src_0516db99\\frozen",
+  "frozen_hash": "0516db990e90c1a38127034d1402a77af43f964fc8728dbab38bf8e49cdbdff5",
+  "frozen_file_hashes": {
+    "آداب الحسبة.htm": "afb880bd982ab07f4151c82f06a635337993225dcb66ad0b1a76268a5cbe61b8"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "السياسة الشرعية والقضاء",
+    "shamela_publish_date": "21 ربيع الآخر 1439",
+    "publication_year_raw": "1931",
+    "page_count_raw": "72",
+    "author_short": "السقطي المالقي",
+    "preparer": "مركز المحتسب http //almohtasb.com",
+    "physical_page_count": 72
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "A practical guide on the role and duties of the market inspector (muhtasib) within the Maliki legal tradition.",
+    "known_textual_issues": [],
+    "historical_significance": "One of the notable works on hisba (market inspection) from the Islamic West, reflecting Andalusi concerns with public morality and economic fairness.",
+    "muhaqiq_reputation": "Levi-Provençal and Collin are respected early 20th-century Orientalist editors, though their philological methods may not meet contemporary standards.",
+    "tahqiq_methodology_note": "Early 20th-century European academic edition, likely relying on available manuscripts without extensive collation.",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "methodological_stance"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:42:03.067185+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 19.4
+}

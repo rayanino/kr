@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.383031799981836,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.85,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "فضائل الصحابة"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "beginner",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "عبد الرحمن بن أبي بكر بن محمد جلال الدين السيوطي",
+      "known_as": [
+        "السيوطي",
+        "جلال الدين السيوطي"
+      ],
+      "death_date_hijri": 911,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث متوسع"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم علماء القرن التاسع والعاشر الهجري، موسوعي غزير التأليف في شتى العلوم الإسلامية، بلغت مؤلفاته المئات",
+      "methodological_stance": "جامع موسوعي يميل إلى الجمع والتصنيف، مكثر من التأليف في الأجزاء الحديثية والأربعينيات"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من مؤلفات السيوطي المتأخرة، وهو جزء حديثي صغير في فضائل أبي بكر الصديق رضي الله عنه",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي من نوع الأربعينيات في فضائل أبي بكر الصديق، يندرج ضمن تقليد تصنيف الأربعينيات الحديثية",
+      "known_textual_issues": [],
+      "historical_significance": "رسالة مختصرة في أربعين حديثاً في فضل أبي بكر الصديق، تعكس غزارة إنتاج السيوطي في الأجزاء الحديثية الصغيرة",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

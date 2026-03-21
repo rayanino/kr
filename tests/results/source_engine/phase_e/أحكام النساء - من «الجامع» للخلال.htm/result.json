@@ -1,0 +1,141 @@
+{
+  "source_id": "src_c998d9d6",
+  "work_id": "wrk_abw_bkr_ahmd_bn_mhmd_ahkam",
+  "human_label": "ahkam",
+  "title_arabic": "أحكام النساء عن الإمام أبي عبد الله أحمد بن حنبل",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو بكر أحمد بن محمد بن هارون الخلال",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "عمرو عبد المنعم سليم",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh"
+  ],
+  "genre": "fatawa",
+  "genre_chain": {
+    "relation_type": "mukhtasar_of",
+    "base_work_title": "الجامع لمسائل الإمام أحمد بن حنبل",
+    "base_work_author": "أبو بكر الخلال",
+    "base_work_id": null,
+    "confidence": 0.88
+  },
+  "level": "intermediate",
+  "publisher": "مؤسسة الريان للنشر والتوزيع - بيروت، لبنان",
+  "edition_number": 1,
+  "publication_year_hijri": 1423,
+  "publication_year_miladi": 2002,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "qa_format",
+  "language": "ar",
+  "page_count": 44,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 311 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: عمرو عبد المنعم سليم"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مؤسسة الريان للنشر والتوزيع - بيروت، لبنان"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.72,
+    "science_scope": 0.95,
+    "level": 0.65,
+    "structural_format": 0.78,
+    "authority_level": 0.82,
+    "multi_layer": 0.82,
+    "genre_chain": 0.88,
+    "author": 0.85
+  },
+  "needs_review_fields": [
+    "author",
+    "level"
+  ],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpkvnwb445\\library\\sources\\src_c998d9d6\\frozen",
+  "frozen_hash": "c998d9d62e3439df61d720dc76ffc9b72fa5d4d1c7abb4fc85739dac1829400e",
+  "frozen_file_hashes": {
+    "أحكام النساء - من «الجامع» للخلال.htm": "695cca999d7313d722dec0dcd7eab1b573281d8fa57ba0931ce32dfc62fe9caa"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الفقه الحنبلي",
+    "shamela_publish_date": "28 ربيع الأول 1433",
+    "riwayah": "أبي بكر الخلال",
+    "edition_raw": "الأولى، 1423 هـ - 2002 م",
+    "page_count_raw": "63",
+    "author_short": "أبو بكر الخلال",
+    "physical_page_count": 63
+  },
+  "scholarly_context": {
+    "composition_period": "أوائل القرن الرابع الهجري، من أعمال الخلال في جمع مسائل الإمام أحمد",
+    "composition_date_hijri": 300,
+    "tradition_position": "جزء من الجامع الكبير للخلال وهو أهم مصدر لجمع مسائل الإمام أحمد بن حنبل وفتاواه، وهذا الجزء مختص بأحكام النساء المتعلقة بالنظر والحجاب",
+    "known_textual_issues": [
+      "الطبعة السابقة بتحقيق عبد القادر أحمد عطا (1406 هـ) حذفت مسائل كثيرة وأدخلت أبوابًا ليست من الجزء وأسقطت أبوابًا كاملة"
+    ],
+    "historical_significance": "جزء نادر من الجامع الكبير للخلال، وهو المصدر الأساسي لمعرفة فقه الإمام أحمد في مسائل النساء والحجاب",
+    "muhaqiq_reputation": "عمرو عبد المنعم سليم محقق مصري معاصر له عناية بتحقيق كتب الحنابلة والحديث",
+    "tahqiq_methodology_note": "اعتمد على الأصول المخطوطة مع بيان تحريفات الطبعة السابقة، وأضاف تراجم لرواة الأسانيد ودراسة فقهية حديثية مقارنة",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:48:45.954142+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 16.32
+}

@@ -1,0 +1,126 @@
+{
+  "source_id": "src_6e37e36e",
+  "work_id": "wrk_yasr_bn_ahmd_bn_mhmw_mwswah_al_rqaiq_wala",
+  "human_label": "mwswah_al_rqaiq_wala",
+  "title_arabic": "موسوعة الرقائق والأدب",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "ياسر بن أحمد بن محمود بن أحمد بن أبي الحمد الكويس الحمداني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "adab",
+    "tasawwuf",
+    "aqidah"
+  ],
+  "genre": "mawsuah",
+  "genre_chain": null,
+  "level": null,
+  "publisher": null,
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 8320,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.4325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.432 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.8,
+    "level": null,
+    "structural_format": 0.85,
+    "authority_level": 0.9,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpsn09crkm\\library\\sources\\src_6e37e36e\\frozen",
+  "frozen_hash": "6e37e36e4e404b3107d30bf0c879d86c2baf63c83b086e4b798089aa9d719226",
+  "frozen_file_hashes": {
+    "موسوعة الرقائق والأدب - ياسر الحمداني.htm": "2f05ea4296eddb72b705c9a59390555fc0a7428599e7670bf0f2303ed5c4dc93"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الرقائق والآداب والأذكار",
+    "shamela_publish_date": "8 صفر 1433",
+    "page_count_raw": "8447",
+    "author_short": "ياسر الحمداني",
+    "physical_page_count": 8447
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "A modern compilation of ethical and spiritual teachings, reflecting contemporary concerns and issues.",
+    "known_textual_issues": [],
+    "historical_significance": "Part of the modern trend in Islamic literature to compile and present classical ethical and spiritual teachings in an accessible format.",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "composition_period",
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:50:57.910605+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 13.8
+}

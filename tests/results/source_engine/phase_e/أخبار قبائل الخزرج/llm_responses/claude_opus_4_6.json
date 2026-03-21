@@ -1,0 +1,62 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.918219599989243,
+  "parsed": {
+    "genre": "other",
+    "genre_confidence": 0.75,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "ansab",
+      "tarikh",
+      "sirah"
+    ],
+    "science_scope_confidence": 0.85,
+    "level": "specialist",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.88,
+    "author_identification": {
+      "canonical_name_ar": "أبو محمد شرف الدين عبد المؤمن بن خلف بن أبي الحسن الدمياطي",
+      "known_as": [
+        "الدمياطي",
+        "الحافظ الدمياطي",
+        "ابن خلف الدمياطي"
+      ],
+      "death_date_hijri": 705,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث حافظ"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "حافظ محدث نسّابة مشهور، من كبار حفاظ الحديث في القرن السابع الهجري، عُرف بتبحره في الأنساب والتاريخ والحديث",
+      "methodological_stance": "محدث متقن عُني بالأنساب والتاريخ، جمع بين الرواية والدراية"
+    },
+    "author_identification_confidence": 0.93,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "أُلّف في النصف الثاني من القرن السابع الهجري، في فترة نضج المؤلف العلمي",
+      "composition_date_hijri": null,
+      "tradition_position": "من المصنفات المتخصصة في أنساب الأنصار وأخبار قبائل الخزرج، يعد مرجعاً في بابه",
+      "known_textual_issues": [],
+      "historical_significance": "كتاب متخصص في أنساب وأخبار قبائل الخزرج من الأنصار، يجمع بين علم الأنساب والسيرة والتاريخ، ألفه أحد أبرز النسابين المحدثين في القرن السابع",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "صدر عن عمادة البحث العلمي بالجامعة الإسلامية بالمدينة المنورة، مما يشير إلى تحكيم علمي",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

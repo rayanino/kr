@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.663130500004627,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.82,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.88,
+    "layers": null,
+    "science_scope": [
+      "ulum_al_hadith",
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.88,
+    "level": "intermediate",
+    "level_confidence": 0.7,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "تقي الدين أبو العباس أحمد بن عبد الحليم بن عبد السلام ابن تيمية الحراني",
+      "known_as": [
+        "ابن تيمية",
+        "شيخ الإسلام ابن تيمية"
+      ],
+      "death_date_hijri": 728,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "aqidah": "أثري سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز علماء الإسلام وأكثرهم تأثيراً، مجتهد مطلق، شيخ الإسلام عند أهل السنة، له مؤلفات غزيرة في العقيدة والفقه والحديث والتفسير وغيرها",
+      "methodological_stance": "أثري سلفي، يعتمد على الكتاب والسنة وآثار السلف، ينتقد التقليد المذهبي والتأويل الكلامي والفلسفي"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "أواخر القرن السابع أو أوائل القرن الثامن الهجري، من رسائل ابن تيمية في نقد الأحاديث الموضوعة والضعيفة",
+      "composition_date_hijri": null,
+      "tradition_position": "رسالة مختصرة في تخريج ونقد الأحاديث التي يرويها القصاص على المنابر والمجالس، وبيان حكمها من حيث الصحة والضعف والوضع، مع تصحيح المعاني العقدية المتعلقة بها",
+      "known_textual_issues": [],
+      "historical_significance": "رسالة مهمة في بيان الأحاديث الموضوعة والمكذوبة التي شاعت على ألسنة القصاص والوعاظ، تجمع بين علم الحديث والعقيدة",
+      "muhaqiq_reputation": "د. محمد بن لطفي الصباغ عالم سوري معروف بتحقيقاته لرسائل ابن تيمية وابن القيم، من المحققين الموثوقين",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

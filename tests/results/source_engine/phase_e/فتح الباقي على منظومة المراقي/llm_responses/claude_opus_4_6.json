@@ -1,0 +1,72 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.818282500025816,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "مراقي السعود لمبتغي الرقي والصعود",
+      "base_work_author": "عبد الله بن الحاج إبراهيم العلوي الشنقيطي"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.95,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "عبد الله بن الحاج إبراهيم العلوي الشنقيطي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "محمد بن محمد محمود بن محمد المصطفى بن ديَّ اليعقوبي الأعمامي"
+      }
+    ],
+    "science_scope": [
+      "usul_al_fiqh"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "intermediate",
+    "level_confidence": 0.75,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.8,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن محمد محمود بن محمد المصطفى بن ديَّ اليعقوبي الأعمامي",
+      "known_as": [
+        "الأعمامي",
+        "اليعقوبي"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": "مالكي",
+        "usul_al_fiqh": "مالكي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم شنقيطي معاصر من أهل العلم في موريتانيا، ينتسب إلى التقليد العلمي المحظري الشنقيطي",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.65,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "معاصر، من إنتاج المدرسة الشنقيطية الحديثة في شرح مراقي السعود",
+      "composition_date_hijri": null,
+      "tradition_position": "أحد الشروح المتأخرة على نظم مراقي السعود في أصول الفقه، يضاف إلى سلسلة طويلة من الشروح الشنقيطية على هذا النظم المشهور، ويعتمد على شرح الناظم نفسه (نشر البنود) وشروح أخرى كشرح الشيخ آب وشرح الشيخ اباه",
+      "known_textual_issues": [],
+      "historical_significance": "يمثل استمرار التقليد الشنقيطي في خدمة نظم مراقي السعود، مع الرجوع إلى مصادر أصولية متنوعة كتنقيح الفصول للقرافي وإرشاد الفحول للشوكاني",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "author_identification"
+      ]
+    }
+  }
+}

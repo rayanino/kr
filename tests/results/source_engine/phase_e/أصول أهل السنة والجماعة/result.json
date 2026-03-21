@@ -1,0 +1,138 @@
+{
+  "source_id": "src_7ad454c7",
+  "work_id": "wrk_abw_al_ashbal_hsn_al_aswl_ahl_al_snh_walj",
+  "human_label": "aswl_ahl_al_snh_walj",
+  "title_arabic": "أصول أهل السنة والجماعة",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو الأشبال حسن الزهيري آل مندوه المنصوري المصري",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "aqidah"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": null,
+  "publisher": null,
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 9,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.5,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.500 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.9,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.85,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.8
+  },
+  "needs_review_fields": [],
+  "volume_count": 9,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpqe807xjt\\library\\sources\\src_7ad454c7\\frozen",
+  "frozen_hash": "7ad454c7007e77cd82b051133ac9c7bee6922a40b0da5cf80822a29184029fab",
+  "frozen_file_hashes": {
+    "001.htm": "cf367765a9453be15068e4943efeee51aa8fbae9eef505bd0281ecc22fcc957b",
+    "002.htm": "326b5f585f1e2b1a5ca664110c8f6c1f6e4ea43fae07451c021446416d3c491e",
+    "003.htm": "100ac9e8b889bbfb3a4e06fb1639de01432e511c0949a3c4a165a36bfc518d9d",
+    "004.htm": "15b5e16c03ff87eba27ba45e264d0d3cb7098ae5150e60dbf62721418468910e",
+    "005.htm": "a48093cc83f9c94f033ba0d7c8102deb10f6dc0b05395cbf0f4946f73bd4e9b6",
+    "006.htm": "a214856a7688506a34ada878ce1e6fc5adfb4f6df4a128afd3efbdc154c8ff48",
+    "007.htm": "c2f35ecdc98182193422605ef43499587252070edf2f21e74f6432ad8844f882",
+    "008.htm": "9ba707ef26a83086c6dc4b0c3acd8a571535c3f84dfc2ffded7cd50cce071d2a",
+    "009.htm": "8630e9ffd927ee510a95f0d335211b8ee5b37a60eef9dcb1a79d725d6fe31c15"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "العقيدة",
+    "shamela_publish_date": "9 رجب 1432",
+    "source_note": "دروس صوتية قام بتفريغها موقع الشبكة الإسلامية",
+    "author_short": "حسن أبو الأشبال الزهيري",
+    "extra_card_fields": {
+      "http": "//www.islamweb.net"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": null,
+    "known_textual_issues": [],
+    "historical_significance": null,
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "composition_period",
+      "composition_date_hijri",
+      "tradition_position",
+      "historical_significance",
+      "muhaqiq_reputation",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:45:05.089092+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 11.15
+}

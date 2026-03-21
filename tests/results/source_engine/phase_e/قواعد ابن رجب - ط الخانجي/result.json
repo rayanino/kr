@@ -1,0 +1,128 @@
+{
+  "source_id": "src_3cc5ace0",
+  "work_id": "wrk_zyn_al_dyn_abd_al_rh_al_qwaad_labn_rjb",
+  "human_label": "al_qwaad_labn_rjb",
+  "title_arabic": "القواعد لابن رجب",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "زين الدين عبد الرحمن بن أحمد بن رجب بن الحسن السَلامي البغدادي ثم الدمشقي الحنبلي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh",
+    "usul_al_fiqh"
+  ],
+  "genre": "matn",
+  "genre_chain": null,
+  "level": "advanced",
+  "publisher": "مكتبة الخانجي، مصر (وصورتها دار الكتب العلمية ودار الفكر ودار المعرفة وغيرهم)",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 422,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7225,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 795 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 795 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Known publisher: دار الفكر (score 0.6)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.723 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.88,
+    "science_scope": 0.95,
+    "level": 0.9,
+    "structural_format": 0.95,
+    "authority_level": 0.95,
+    "multi_layer": 0.93,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpsb3poucb\\library\\sources\\src_3cc5ace0\\frozen",
+  "frozen_hash": "3cc5ace0b40613b7b9dc13a22987be367a27287cf7096a816a2a49054b33189f",
+  "frozen_file_hashes": {
+    "قواعد ابن رجب - ط الخانجي.htm": "4b4fb47fc62ee7064bec08171b0f2e223b684b86c3a0dc1d4273f2ae8b4a6eba"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "علوم الفقه والقواعد الفقهية",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "page_count_raw": "424",
+    "author_short": "ابن رجب الحنبلي",
+    "physical_page_count": 424
+  },
+  "scholarly_context": {
+    "composition_period": "من أواخر مؤلفات ابن رجب، ألفه في أيام يسيرة كما ذكر في مقدمته",
+    "composition_date_hijri": null,
+    "tradition_position": "من أهم كتب القواعد الفقهية في المذهب الحنبلي، وهو مرجع أساسي في تخريج الفروع على القواعد عند الحنابلة، ويُعدّ من أوائل المصنفات المنهجية في القواعد الفقهية الحنبلية",
+    "known_textual_issues": [
+      "الكتاب لم يتمه المؤلف على الوجه الذي أراده بسبب الاستعجال كما أشار في مقدمته"
+    ],
+    "historical_significance": "من أمهات كتب القواعد الفقهية في الفقه الإسلامي عموماً والحنبلي خصوصاً، أثّر في كثير من المصنفات اللاحقة في القواعد الفقهية",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": "طبعة مكتبة الخانجي بمصر، وهي من الطبعات المبكرة للكتاب، صوّرتها عدة دور نشر أخرى",
+    "edition_known_issues": [
+      "طبعة قديمة صوّرتها دور نشر متعددة (دار الكتب العلمية، دار الفكر، دار المعرفة)، وقد ظهرت طبعات محققة أفضل لاحقاً"
+    ],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:52:21.212075+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 17.24
+}

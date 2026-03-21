@@ -1,0 +1,56 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.90026109997416,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "لمعة الاعتقاد",
+      "base_work_author": "عبد الله بن أحمد بن محمد بن قدامة المقدسي"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "عبد الله بن أحمد بن محمد بن قدامة المقدسي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "عبد الرحمن بن ناصر بن براك بن إبراهيم البراك"
+      }
+    ],
+    "science_scope": [
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "intermediate",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "عبد الرحمن بن ناصر بن براك بن إبراهيم البراك",
+      "known_as": [
+        "البراك"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "aqidah": "Sunni"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "معاصر، من كبار علماء العقيدة في العصر الحديث",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": null
+  }
+}

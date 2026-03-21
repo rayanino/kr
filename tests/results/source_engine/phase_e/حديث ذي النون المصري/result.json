@@ -1,0 +1,123 @@
+{
+  "source_id": "src_6b7377c4",
+  "work_id": "wrk_dhw_al_nwn_al_msry_t_hdyth_dhy_al_nwn_al_",
+  "human_label": "hdyth_dhy_al_nwn_al_",
+  "title_arabic": "حديث ذي النون المصري",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "ذُوْ النُّوْنِ المِصْرِيُّ ثَوْبَانُ بنُ إِبْرَاهِيْمَ",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "مخطوط نُشر في برنامج جوامع الكلم المجاني التابع لموقع الشبكة الإسلامية",
+  "edition_number": 1,
+  "publication_year_hijri": null,
+  "publication_year_miladi": 2004,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 5,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.6925,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 248 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 248 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مخطوط نُشر في برنامج جوامع الكلم المجاني التابع لموقع الشبكة الإسلامية"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.693 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.95,
+    "level": null,
+    "structural_format": 0.9,
+    "authority_level": 0.9,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp541br5k_\\library\\sources\\src_6b7377c4\\frozen",
+  "frozen_hash": "6b7377c49e993f83ea8a7d6e90fb9e3239620b08edbce70a0de5c3050a8eeb02",
+  "frozen_file_hashes": {
+    "حديث ذي النون المصري.htm": "c70ae8563dafd11be14931d0814c73e203352223186651ada600e4ebfdaaba11"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 2004",
+    "author_short": "ذو النون المصري"
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "Part of the early Sufi and hadith literature",
+    "known_textual_issues": [],
+    "historical_significance": "Contains narrations attributed to Dhul-Nun al-Misri, an important figure in early Islamic mysticism",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "composition_period",
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:53:47.946115+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 15.98
+}

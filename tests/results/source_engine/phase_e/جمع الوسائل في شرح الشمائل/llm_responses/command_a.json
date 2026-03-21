@@ -1,0 +1,72 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 10.678182400006335,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "الشمائل النبوية",
+      "base_work_author": "محمد بن عيسى الترمذي"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "محمد بن عيسى الترمذي"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "علي بن سلطان محمد القاري"
+      }
+    ],
+    "science_scope": [
+      "sirah",
+      "hadith"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "intermediate",
+    "level_confidence": 0.8,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "علي بن سلطان محمد القاري الحنفي",
+      "known_as": [
+        "القاري",
+        "ملا علي القاري"
+      ],
+      "death_date_hijri": 1014,
+      "school_affiliations": {
+        "fiqh": "حنفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "محدث وفقيه حنفي بارز، له العديد من الشروح والتعليقات على كتب الحديث والفقه",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "شرح مهم على كتاب الشمائل النبوية للترمذي، يُعتبر من الشروح الأساسية في السيرة النبوية",
+      "known_textual_issues": [],
+      "historical_significance": "يُعد من أهم الشروح على الشمائل النبوية، ويتميز بأسلوبه الواضح واهتمامه بالجوانب الأخلاقية والسلوكية للنبي صلى الله عليه وسلم",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

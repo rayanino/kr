@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 11.60902969999006,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.88,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.97,
+    "layers": null,
+    "science_scope": [
+      "siyasah_shariyyah",
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": "intermediate",
+    "level_confidence": 0.65,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.82,
+    "author_identification": {
+      "canonical_name_ar": "ناصر بن إبراهيم المحيميد",
+      "known_as": [
+        "د. ناصر المحيميد"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": "حنبلي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "قاضٍ سعودي معاصر، رئيس محاكم منطقة عسير، وخبير الفقه والقضاء بجامعة الدول العربية",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.82,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "معاصر، أوائل القرن الخامس عشر الهجري",
+      "composition_date_hijri": null,
+      "tradition_position": "بحث تطبيقي معاصر في السياسة الشرعية يتناول دور القضاء الإسلامي في مواجهة الإرهاب",
+      "known_textual_issues": [],
+      "historical_significance": "بحث متخصص يعكس اهتمام القضاء السعودي بمعالجة قضايا الإرهاب من منظور شرعي",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [
+        "منشور على موقع وزارة الأوقاف السعودية بدون بيانات نشر كاملة"
+      ],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "school_affiliations"
+      ]
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "source_id": "src_42e39ed8",
+  "work_id": "wrk_ibn_taymiyyah_ahadyth_al_qsas",
+  "human_label": "ahadyth_al_qsas",
+  "title_arabic": "أحاديث القصاص",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "تقي الدين أبو العباس أحمد بن عبد الحليم بن عبد السلام ابن تيمية الحراني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د. محمد بن لطفي الصباغ",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "ulum_al_hadith",
+    "aqidah"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": "intermediate",
+  "publisher": "المكتب الإسلامي، بيروت - لبنان",
+  "edition_number": 2,
+  "publication_year_hijri": 1405,
+  "publication_year_miladi": 1985,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 78,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.77,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 728 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: د. محمد بن لطفي الصباغ"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.75,
+      "reason": "Known publisher: المكتب الإسلامي (score 0.75)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.770 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.82,
+    "science_scope": 0.88,
+    "level": 0.7,
+    "structural_format": 0.92,
+    "authority_level": 0.92,
+    "multi_layer": 0.88,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp003oq075\\library\\sources\\src_42e39ed8\\frozen",
+  "frozen_hash": "42e39ed8ada64f1966757ea4dd5d45548ad7bfad0bde53e3d34b47c1f7f9139e",
+  "frozen_file_hashes": {
+    "أحاديث القصاص - ت الصباغ.htm": "682fb913846b2011f195ed81b74b040a83576d58f2f630ca84463f627ef3e104"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التخريج والأطراف",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "editorial_note": "أضيفت في حاشية هذه النسخة (الإلكترونية) بعض الفروق من طبعة دار الآثار (القاهرة)، الطبعة الأولى 1425 هـ - 2004 م، حققها وخرج أحاديثها: محمد بن مصطفى أبو العلا.",
+    "edition_raw": "الثانية، 1405 هـ - 1985 م",
+    "page_count_raw": "94",
+    "author_short": "ابن تيمية",
+    "physical_page_count": 94
+  },
+  "scholarly_context": {
+    "composition_period": "أواخر القرن السابع أو أوائل القرن الثامن الهجري، من رسائل ابن تيمية في نقد الأحاديث الموضوعة والضعيفة",
+    "composition_date_hijri": null,
+    "tradition_position": "رسالة مختصرة في تخريج ونقد الأحاديث التي يرويها القصاص على المنابر والمجالس، وبيان حكمها من حيث الصحة والضعف والوضع، مع تصحيح المعاني العقدية المتعلقة بها",
+    "known_textual_issues": [],
+    "historical_significance": "رسالة مهمة في بيان الأحاديث الموضوعة والمكذوبة التي شاعت على ألسنة القصاص والوعاظ، تجمع بين علم الحديث والعقيدة",
+    "muhaqiq_reputation": "د. محمد بن لطفي الصباغ عالم سوري معروف بتحقيقاته لرسائل ابن تيمية وابن القيم، من المحققين الموثوقين",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:39:50.694458+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 16.74
+}

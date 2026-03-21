@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.861096899956465,
+  "parsed": {
+    "genre": "other",
+    "genre_confidence": 0.82,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "ansab",
+      "tarikh"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "specialist",
+    "level_confidence": 0.8,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.88,
+    "author_identification": {
+      "canonical_name_ar": "أبو العباس أحمد بن علي بن أحمد القلقشندي",
+      "known_as": [
+        "القلقشندي",
+        "أبو العباس القلقشندي"
+      ],
+      "death_date_hijri": 821,
+      "school_affiliations": {
+        "fiqh": "شافعي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "موسوعي مصري شهير، صاحب صبح الأعشى في صناعة الإنشا، من أبرز علماء الدواوين والإدارة في العصر المملوكي",
+      "methodological_stance": "منهج موسوعي جامع يعتمد على تصنيف المعلومات وترتيبها من مصادر متعددة"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر مؤلفات القلقشندي، ألفه في العصر المملوكي بمصر",
+      "composition_date_hijri": null,
+      "tradition_position": "مرجع مهم في علم الأنساب العربية، يُعدّ مختصراً ومرتباً لمادة الأنساب من مصادر متعددة، ويُستخدم كمرجع أساسي في معرفة قبائل العرب وأنسابهم",
+      "known_textual_issues": [],
+      "historical_significance": "من أهم المراجع المختصرة في أنساب العرب، جمع فيه القلقشندي مادة غزيرة من مصادر الأنساب المتقدمة ورتبها ترتيباً أبجدياً مما سهّل الرجوع إليها",
+      "muhaqiq_reputation": "إبراهيم الإبياري (ت 1414 هـ) محقق مصري معروف بتحقيقاته الكثيرة للتراث العربي والإسلامي",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tahqiq_methodology_note"
+      ]
+    }
+  }
+}

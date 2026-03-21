@@ -1,0 +1,129 @@
+{
+  "source_id": "src_deb22f28",
+  "work_id": "wrk_ahmd_htybh_ahkam",
+  "human_label": "ahkam",
+  "title_arabic": "آداب العمرة وأحكامها",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أحمد حطيبة",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh"
+  ],
+  "genre": "taqrirat",
+  "genre_chain": null,
+  "level": "beginner",
+  "publisher": null,
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 10,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.4325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.432 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.65,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.95,
+    "authority_level": 0.88,
+    "multi_layer": 0.82,
+    "genre_chain": null,
+    "author": 0.82
+  },
+  "needs_review_fields": [
+    "genre"
+  ],
+  "volume_count": 3,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpdju91u87\\library\\sources\\src_deb22f28\\frozen",
+  "frozen_hash": "deb22f2897a1868238105704cac150295e75ebfea9dd9170b77ee2855091d2a2",
+  "frozen_file_hashes": {
+    "001.htm": "eacf9b1048188c66c75bbe00b5a73a24e5c6750c5563ef9bf5ae140c0f213754",
+    "002.htm": "1835bef535fccf8ae9889c564b51ea68fef13da0f480715ca361b265f9b92544",
+    "003.htm": "a5f835839b643180012c8f5865d81ce1c0ef23081cae837169e058d068b77963"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الفقه العام",
+    "shamela_publish_date": "15 جُمادَى الآخرة 1432",
+    "source_note": "دروس صوتية قام بتفريغها موقع الشبكة الإسلامية",
+    "author_short": "أحمد حطيبة",
+    "extra_card_fields": {
+      "http": "//www.islamweb.net"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": "معاصر - دروس ومحاضرات مفرغة",
+    "composition_date_hijri": null,
+    "tradition_position": "دروس تعليمية موجهة لعامة المسلمين في أحكام العمرة والحج",
+    "known_textual_issues": [],
+    "historical_significance": "دروس تعليمية شعبية تهدف لتبسيط أحكام المناسك للعامة",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:49:55.294394+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 10.78
+}

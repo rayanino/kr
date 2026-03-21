@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.925535799993668,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.93,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "advanced",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "عبد الرحمن بن يحيى المعلمي اليماني",
+      "known_as": [
+        "المعلمي اليماني",
+        "المعلمي"
+      ],
+      "death_date_hijri": 1386,
+      "school_affiliations": {
+        "fiqh": "مجتهد مستقل (ميل إلى الظاهرية والأثرية)",
+        "hadith": "أثري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "محدث ومحقق كبير من أعلام القرن الرابع عشر الهجري، عُرف بتحقيقاته النقدية وعلمه بالحديث والرجال، وعمل أمينًا لمكتبة الحرم المكي",
+      "methodological_stance": "منهج أثري نقدي، يميل إلى الاجتهاد والاستدلال بالنصوص مع التحقيق العلمي الدقيق"
+    },
+    "author_identification_confidence": 0.98,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال المعلمي المتأخرة، ضمن رسائله الفقهية التي جُمعت في آثاره",
+      "composition_date_hijri": null,
+      "tradition_position": "رسالة فقهية تبحث مسألة الفسخ بالإعسار في النكاح بمنهج اجتهادي مقارن، تعكس منهج المعلمي في الاستدلال الفقهي المبني على القياس والنظر",
+      "known_textual_issues": [],
+      "historical_significance": "جزء من مجموعة آثار المعلمي التي تكشف عن جوانب فقهية واجتهادية لعالم اشتهر أكثر بعلم الحديث والتحقيق",
+      "muhaqiq_reputation": "محمد عزير شمس محقق معروف متخصص في تراث المعلمي اليماني، أشرف على إخراج آثاره الكاملة",
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "composition_period"
+      ]
+    }
+  }
+}

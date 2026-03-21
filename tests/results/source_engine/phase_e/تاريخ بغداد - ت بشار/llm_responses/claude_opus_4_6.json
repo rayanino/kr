@@ -1,0 +1,63 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 20.104287200025283,
+  "parsed": {
+    "genre": "tarikh",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "tarikh",
+      "ulum_al_hadith",
+      "tarajim"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر أحمد بن علي بن ثابت الخطيب البغدادي",
+      "known_as": [
+        "الخطيب البغدادي",
+        "الخطيب"
+      ],
+      "death_date_hijri": 463,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أكابر أئمة الحديث والتاريخ، يُلقَّب بأمير المؤمنين في الحديث، وهو مؤسس علم مصطلح الحديث بمؤلفاته المتعددة، وصاحب أشهر تاريخ لمدينة بغداد",
+      "methodological_stance": "محدّث ناقد متقن، يعتمد منهج الإسناد والجرح والتعديل، ويجمع بين الرواية والدراية"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أواخر مؤلفات الخطيب البغدادي، ألّفه في النصف الأول من القرن الخامس الهجري",
+      "composition_date_hijri": 460,
+      "tradition_position": "أعظم كتاب في تاريخ بغداد وتراجم علمائها ومحدثيها، وهو المرجع الأساسي في بابه، ولم يُؤلَّف مثله في تاريخ مدينة إسلامية، وقد ذيّل عليه عدد من العلماء",
+      "known_textual_issues": [
+        "وقع في بعض النسخ المخطوطة سقط وتحريف في الأسانيد",
+        "بعض التراجم وردت مكررة أو مختصرة في بعض النسخ"
+      ],
+      "historical_significance": "أهم مصدر لتراجم علماء بغداد ومحدثيها من القرن الثاني إلى منتصف القرن الخامس الهجري، ومرجع لا غنى عنه في علم الرجال والجرح والتعديل",
+      "muhaqiq_reputation": "الدكتور بشار عواد معروف من أبرز المحققين العراقيين المعاصرين، متخصص في تحقيق كتب التراجم والحديث، وله تحقيقات عديدة معتمدة",
+      "tahqiq_methodology_note": "اعتمد على نسخ خطية متعددة مع مقابلة دقيقة، وأضاف فهارس شاملة وتعليقات علمية، وتُعدّ هذه الطبعة من أفضل طبعات الكتاب",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

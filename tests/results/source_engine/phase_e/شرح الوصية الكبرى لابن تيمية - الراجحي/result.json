@@ -1,0 +1,162 @@
+{
+  "source_id": "src_759d12e2",
+  "work_id": "wrk_abd_al_azyz_bn_abd_a_sharh",
+  "human_label": "sharh",
+  "title_arabic": "شرح الوصية الكبرى لابن تيمية",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد العزيز بن عبد الله بن عبد الرحمن الراجحي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "aqidah"
+  ],
+  "genre": "sharh",
+  "genre_chain": {
+    "relation_type": "sharh_of",
+    "base_work_title": "الوصية الكبرى",
+    "base_work_author": "أحمد بن عبد الحليم بن عبد السلام ابن تيمية",
+    "base_work_id": null,
+    "confidence": 0.98
+  },
+  "level": "intermediate",
+  "publisher": null,
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "commentary",
+  "language": "ar",
+  "page_count": 22,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00002",
+        "name_arabic": "أحمد بن عبد الحليم بن عبد السلام ابن تيمية",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "sharh",
+      "author": {
+        "canonical_id": "sch_00003",
+        "name_arabic": "عبد العزيز بن عبد الله بن عبد الرحمن الراجحي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "flagged",
+  "trust_score": 0.4325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.432 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.97,
+    "science_scope": 0.95,
+    "level": 0.75,
+    "structural_format": 0.95,
+    "authority_level": 0.85,
+    "multi_layer": 0.97,
+    "genre_chain": 0.98,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 13,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpqswram31\\library\\sources\\src_759d12e2\\frozen",
+  "frozen_hash": "759d12e24c2711e03985af1e5413b21c6580bfcbe9b4991d614ec9bce81c3f51",
+  "frozen_file_hashes": {
+    "001.htm": "2cad972b72872541a77364605d6551f39d1137e8ef1054f8007ebc5cdb73c505",
+    "002.htm": "c1ec605d875459dc54dbd57cc073f9859fce40a8352891c8387fdf1ffcb16e06",
+    "003.htm": "6840eb2a6429ee1425af28e5b3777a6bf0493b07133486b60989b62c4892d4c5",
+    "004.htm": "f038e21a374d2c171e7a3aef001af522dc1698a77de067d56e2c54a365d5b2f2",
+    "005.htm": "1367a8d03f04f3775d88f87ded486a3715993ed0a62c04d7f5e551ba60e2582c",
+    "006.htm": "a204319719d0dd5a42a65472325ec3a9670b84084c404d7a8eaaed5b3ade6c5e",
+    "007.htm": "ae778d41bb9ce749d1795e020744f2145e64cca8d595c2e5cbb584c878f193fc",
+    "008.htm": "fe8d86ce731d6d6b805e7fb93cb55829ac7faa94284736e0c8ad835210e6b81c",
+    "009.htm": "36540d7ab0fd8e455fd5af3a67d396fbf1dc59cf9709fe0689d774d8cc109607",
+    "010.htm": "ea7bec22211f0cbda4a616f68720018e82a41922d5919995c0634b6c634700b8",
+    "011.htm": "ae5f46e92317f51c14aad1aad7c973a2220bd7b76be39e265fe08043dbf6b813",
+    "012.htm": "0cf5cb535ff9025736039b3ea24cf73b07b50167d1d6f4771923bedd86313c72",
+    "013.htm": "214731e63a4e22df654ed2b666af40c4eb033096a07cfdbfa27ee1e374db9e0e"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "العقيدة",
+    "shamela_publish_date": "15 جُمادَى الآخرة 1432",
+    "source_note": "دروس صوتية قام بتفريغها موقع الشبكة الإسلامية",
+    "author_short": "عبد العزيز بن عبد الله الراجحي",
+    "extra_card_fields": {
+      "http": "//www.islamweb.net"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": "معاصر، من دروس الشيخ الراجحي العلمية",
+    "composition_date_hijri": null,
+    "tradition_position": "شرح معاصر على رسالة ابن تيمية الموجهة للمنتسبين إلى الشيخ عدي بن مسافر، ضمن جهود الشيخ الراجحي في شرح تراث ابن تيمية",
+    "known_textual_issues": [],
+    "historical_significance": "الوصية الكبرى لابن تيمية من رسائله المهمة في العقيدة والسلوك، وشرح الراجحي من الشروح المعاصرة المتداولة عليها",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:44:24.479321+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 14.14
+}

@@ -1,0 +1,53 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 9.313400300045032,
+  "parsed": {
+    "genre": "sirah",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 1.0,
+    "layers": null,
+    "science_scope": [
+      "sirah",
+      "tarikh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "عبد الرحمن بن سعيد بن علي بن وهف القحطاني",
+      "known_as": [
+        "عبد الرحمن القحطاني"
+      ],
+      "death_date_hijri": 1422,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Student and author of a biographical work on al-Hajjaj ibn Yusuf",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": 1420,
+      "tradition_position": null,
+      "known_textual_issues": [],
+      "historical_significance": "A biographical study of al-Hajjaj ibn Yusuf, a controversial figure in Islamic history",
+      "muhaqiq_reputation": "The editor, Dr. Saeed bin Ali bin Wahf al-Qahtani, is the author's father and a respected scholar",
+      "tahqiq_methodology_note": "The editor compared the text with the original manuscript and added a brief biography of the author",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": []
+    }
+  }
+}

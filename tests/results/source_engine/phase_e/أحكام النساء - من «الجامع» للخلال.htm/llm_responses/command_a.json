@@ -1,0 +1,56 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.102531199983787,
+  "parsed": {
+    "genre": "matn",
+    "genre_confidence": 0.9,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.9,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر الخلال",
+      "known_as": [
+        "الخلال"
+      ],
+      "death_date_hijri": 311,
+      "school_affiliations": {
+        "fiqh": "حنبلي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "محدث وفقيه حنبلي بارز، من تلامذة الإمام أحمد بن حنبل",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.9,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "جزء من الجامع للخلال، وهو عمل مهم في الفقه الحنبلي",
+      "known_textual_issues": [],
+      "historical_significance": "جزء مهم من تراث الفقه الحنبلي، يركز على أحكام النساء",
+      "muhaqiq_reputation": "عمرو عبد المنعم سليم معروف بتحقيقاته الدقيقة في الفقه الحنبلي",
+      "tahqiq_methodology_note": "شمل التحقيق دراسة وافية للكتاب، وأصوله المخطوطة، وبيان ما حرف من نصوصه",
+      "edition_known_issues": [
+        "الطبعة السابقة (1406 هـ) احتوت على حذف وتغيير في الأبواب والنصوص"
+      ],
+      "context_richness": "partial",
+      "uncertain_dimensions": []
+    }
+  }
+}

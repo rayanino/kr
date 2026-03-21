@@ -1,0 +1,68 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 18.68549089995213,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.92,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "mixed",
+    "structural_format_confidence": 0.8,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.88,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "جلال الدين السيوطي"
+      },
+      {
+        "layer_type": "tahqiq_note",
+        "author_name": "محمد ناصر الدين الألباني"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "specialist",
+    "level_confidence": 0.8,
+    "authority_level": "reference",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "عبد الرحمن بن أبي بكر بن محمد جلال الدين السيوطي",
+      "known_as": [
+        "السيوطي",
+        "جلال الدين السيوطي"
+      ],
+      "death_date_hijri": 911,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث حافظ"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أعظم علماء الإسلام تصنيفاً وأغزرهم إنتاجاً، حافظ محدث مفسر لغوي فقيه، بلغت مؤلفاته المئات في شتى العلوم",
+      "methodological_stance": "جامع موسوعي يميل إلى الاستقصاء والجمع، مع اهتمام بتخريج الأحاديث وبيان درجاتها"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال السيوطي المتأخرة في القرن التاسع الهجري",
+      "composition_date_hijri": null,
+      "tradition_position": "الجامع الصغير من أشهر كتب الحديث الجامعة، يضم أحاديث مرتبة على حروف المعجم مع عزوها لمصادرها. وهذه النسخة تضم زيادة الجامع الصغير أيضاً، مع أحكام الألباني على الأحاديث وتخريجاته المفصلة",
+      "known_textual_issues": [],
+      "historical_significance": "من أوسع الجوامع الحديثية انتشاراً، اعتمده العلماء مرجعاً سهل الاستعمال للوقوف على الأحاديث النبوية مع عزوها لمصادرها الأصلية، وقد خدمه المناوي بشرحين: فيض القدير والتيسير",
+      "muhaqiq_reputation": "الشيخ محمد ناصر الدين الألباني (ت 1420هـ) من أبرز محدثي العصر الحديث، اشتهر بتصحيح الأحاديث وتضعيفها",
+      "tahqiq_methodology_note": "أضاف الألباني أحكامه على الأحاديث (صحيح/ضعيف) مع إحالات إلى كتبه كصحيح الجامع والسلسلة الصحيحة، مع تخريجات مفصلة ومناقشة للأسانيد",
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

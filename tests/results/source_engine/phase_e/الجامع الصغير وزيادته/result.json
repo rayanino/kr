@@ -1,0 +1,127 @@
+{
+  "source_id": "src_9ec63089",
+  "work_id": "wrk_suyuti_shyh_wdayf_al_jama_a",
+  "human_label": "shyh_wdayf_al_jama_a",
+  "title_arabic": "صحيح وضعيف الجامع الصغير وزيادته",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد الرحمن بن أبي بكر بن محمد جلال الدين السيوطي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "ulum_al_hadith"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": "specialist",
+  "publisher": null,
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "reference",
+  "structural_format": "mixed",
+  "language": "ar",
+  "page_count": 14587,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.655,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 911 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 911 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "No publisher information"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.6,
+      "reason": "Reference work"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.655 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.92,
+    "science_scope": 0.95,
+    "level": 0.8,
+    "structural_format": 0.8,
+    "authority_level": 0.9,
+    "multi_layer": 0.88,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp69lrdt3r\\library\\sources\\src_9ec63089\\frozen",
+  "frozen_hash": "9ec63089cb14326efc912afe3e41f927b1ed00189669f46d3dd96473932f2849",
+  "frozen_file_hashes": {
+    "الجامع الصغير وزيادته.htm": "5003519bf90212d5397a46ba2608f299a00b31941f555ede59ec0a812405f5cb"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "page_count_raw": "14587",
+    "author_short": "الجلال السيوطي",
+    "physical_page_count": 14587,
+    "extra_card_fields": {
+      "مع الكتاب": "أحكام محمد ناصر الدين الألباني"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": "من أعمال السيوطي المتأخرة في القرن التاسع الهجري",
+    "composition_date_hijri": null,
+    "tradition_position": "الجامع الصغير من أشهر كتب الحديث الجامعة، يضم أحاديث مرتبة على حروف المعجم مع عزوها لمصادرها. وهذه النسخة تضم زيادة الجامع الصغير أيضاً، مع أحكام الألباني على الأحاديث وتخريجاته المفصلة",
+    "known_textual_issues": [],
+    "historical_significance": "من أوسع الجوامع الحديثية انتشاراً، اعتمده العلماء مرجعاً سهل الاستعمال للوقوف على الأحاديث النبوية مع عزوها لمصادرها الأصلية، وقد خدمه المناوي بشرحين: فيض القدير والتيسير",
+    "muhaqiq_reputation": "الشيخ محمد ناصر الدين الألباني (ت 1420هـ) من أبرز محدثي العصر الحديث، اشتهر بتصحيح الأحاديث وتضعيفها",
+    "tahqiq_methodology_note": "أضاف الألباني أحكامه على الأحاديث (صحيح/ضعيف) مع إحالات إلى كتبه كصحيح الجامع والسلسلة الصحيحة، مع تخريجات مفصلة ومناقشة للأسانيد",
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:50:25.717886+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 19.07
+}

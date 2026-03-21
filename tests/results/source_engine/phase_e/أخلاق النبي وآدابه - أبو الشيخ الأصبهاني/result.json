@@ -1,0 +1,136 @@
+{
+  "source_id": "src_12af7f2d",
+  "work_id": "wrk_abw_mhmd_abd_al_lh_b_akhlaq_al_nby_wadabh",
+  "human_label": "akhlaq_al_nby_wadabh",
+  "title_arabic": "أخلاق النبي وآدابه",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو محمد عبد الله بن محمد بن جعفر بن حيان الأصبهاني المعروف بأبي الشيخ",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د صالح بن محمد الونيان",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "sirah",
+    "hadith",
+    "adab"
+  ],
+  "genre": "hadith_collection",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار المسلم، الرياض - السعودية",
+  "edition_number": 1,
+  "publication_year_hijri": 1418,
+  "publication_year_miladi": 1998,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 205,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 369 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: د صالح بن محمد الونيان"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار المسلم، الرياض - السعودية"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.82,
+    "science_scope": 0.9,
+    "level": null,
+    "structural_format": 0.95,
+    "authority_level": 0.92,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 4,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpx_ah_rn1\\library\\sources\\src_12af7f2d\\frozen",
+  "frozen_hash": "12af7f2db5edbbb22794468a0d93adcab5c08b0e61cc07c4907a9486bbfd4adb",
+  "frozen_file_hashes": {
+    "001.htm": "d7e44975dc63da127e727159bbd44392c80f5020dd6a5bd21c4a088b735d96f5",
+    "002.htm": "dd2a4efc080ebf6158f7ace59a8f8c4e43233b38862a1ee0f7449c936d7274ee",
+    "003.htm": "616b8caa2874b157cb51f69158243c97b0a8c50180b42f5396f56079785b89b8",
+    "004.htm": "86076e66ee0c08dc3a7d58ab12510a69adadae272d797cb7b140608f9f6c3c90"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "السيرة النبوية",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1418 هـ - 1998 م",
+    "author_short": "أبو الشيخ الأصبهاني"
+  },
+  "scholarly_context": {
+    "composition_period": "من مؤلفات أبي الشيخ في النصف الثاني من القرن الرابع الهجري",
+    "composition_date_hijri": null,
+    "tradition_position": "من المصنفات المتخصصة في جمع الأحاديث والآثار المتعلقة بأخلاق النبي صلى الله عليه وسلم وآدابه وشمائله، يقع في سياق مصنفات الشمائل النبوية كشمائل الترمذي وغيرها",
+    "known_textual_issues": [
+      "وصل الكتاب ناقصاً، ولم يصل كاملاً"
+    ],
+    "historical_significance": "من أوائل المصنفات المسندة المتخصصة في أخلاق النبي وآدابه، يتميز بجمع الروايات بالأسانيد في أبواب تفصيلية عن صفاته الخُلُقية",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "muhaqiq_reputation",
+      "known_textual_issues"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:42:42.778421+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 15.61
+}

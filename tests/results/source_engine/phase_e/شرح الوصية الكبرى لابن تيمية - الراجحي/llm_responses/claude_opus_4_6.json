@@ -1,0 +1,71 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.951092300005257,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.97,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "الوصية الكبرى",
+      "base_work_author": "أحمد بن عبد الحليم بن عبد السلام ابن تيمية"
+    },
+    "genre_chain_confidence": 0.98,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.97,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أحمد بن عبد الحليم بن عبد السلام ابن تيمية"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "عبد العزيز بن عبد الله بن عبد الرحمن الراجحي"
+      }
+    ],
+    "science_scope": [
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "intermediate",
+    "level_confidence": 0.75,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "عبد العزيز بن عبد الله بن عبد الرحمن الراجحي",
+      "known_as": [
+        "الراجحي",
+        "الشيخ الراجحي"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "aqidah": "أثري سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "عالم سعودي معاصر معروف بشروحه على كتب العقيدة والحديث، أستاذ بجامعة الإمام محمد بن سعود الإسلامية",
+      "methodological_stance": "منهج سلفي أثري على طريقة ابن تيمية وابن عبد الوهاب"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "معاصر، من دروس الشيخ الراجحي العلمية",
+      "composition_date_hijri": null,
+      "tradition_position": "شرح معاصر على رسالة ابن تيمية الموجهة للمنتسبين إلى الشيخ عدي بن مسافر، ضمن جهود الشيخ الراجحي في شرح تراث ابن تيمية",
+      "known_textual_issues": [],
+      "historical_significance": "الوصية الكبرى لابن تيمية من رسائله المهمة في العقيدة والسلوك، وشرح الراجحي من الشروح المعاصرة المتداولة عليها",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

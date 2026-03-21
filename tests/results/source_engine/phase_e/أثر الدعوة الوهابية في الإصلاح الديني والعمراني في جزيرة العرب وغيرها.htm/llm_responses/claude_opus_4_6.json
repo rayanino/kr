@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 14.105715200013947,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.82,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.97,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.97,
+    "layers": null,
+    "science_scope": [
+      "tarikh",
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.85,
+    "level": "beginner",
+    "level_confidence": 0.7,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.82,
+    "author_identification": {
+      "canonical_name_ar": "محمد حامد الفقي",
+      "known_as": [
+        "محمد حامد الفقي",
+        "الفقي"
+      ],
+      "death_date_hijri": 1378,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "aqidah": "سلفي/أثري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "مؤسس جماعة أنصار السنة المحمدية في مصر، من أبرز دعاة المنهج السلفي في القرن الرابع عشر الهجري، محقق ومحرر لكثير من كتب ابن تيمية وابن القيم",
+      "methodological_stance": "سلفي أثري، متأثر بدعوة الشيخ محمد بن عبد الوهاب وابن تيمية، داعية إلى التوحيد ومحاربة البدع"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "ألّف في النصف الأول من القرن الرابع عشر الهجري، في فترة نشاط الدعوة السلفية في مصر",
+      "composition_date_hijri": 1354,
+      "tradition_position": "رسالة دفاعية تعريفية بالدعوة الوهابية موجهة للعالم الإسلامي لتصحيح المفاهيم الخاطئة عنها، تمثل موقف أنصار السنة المحمدية في مصر من الدعوة النجدية",
+      "known_textual_issues": [],
+      "historical_significance": "من أوائل الكتابات المصرية المؤيدة للدعوة الوهابية، صدرت في فترة كانت فيها الدعوة محل جدل واسع في العالم الإسلامي",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

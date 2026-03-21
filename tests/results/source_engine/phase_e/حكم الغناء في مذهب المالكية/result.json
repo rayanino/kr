@@ -1,0 +1,124 @@
+{
+  "source_id": "src_5fb08bf4",
+  "work_id": "wrk_abw_sfyan_mstfa_bahw_hkm_al_ghna_fy_mdhhb",
+  "human_label": "hkm_al_ghna_fy_mdhhb",
+  "title_arabic": "حكم الغناء في مذهب المالكية",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو سفيان مصطفى باحو السلاوي المغربي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": "intermediate",
+  "publisher": "جريدة السبيل",
+  "edition_number": 2,
+  "publication_year_hijri": 1428,
+  "publication_year_miladi": 2007,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 56,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.4325,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.3,
+      "reason": "Unknown/contemporary author (no death date)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.35,
+      "reason": "No muhaqiq, author death date unknown"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: جريدة السبيل"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.432 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.9,
+    "science_scope": 0.95,
+    "level": 0.75,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpq257skfw\\library\\sources\\src_5fb08bf4\\frozen",
+  "frozen_hash": "5fb08bf42809eccbb3388d6d5f058240ce1be08128d8d751ff4cb23616ceecb3",
+  "frozen_file_hashes": {
+    "حكم الغناء في مذهب المالكية.htm": "60ac743f0105c725c0bc843cf6b541f8ca2f10bc657fe8eb62498e2d0a5748b5"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "مسائل فقهية",
+    "shamela_publish_date": "7 صفر 1434",
+    "edition_raw": "الثانية، ذو القعدة 1428 - ديسمبر 2007",
+    "page_count_raw": "59",
+    "author_short": "مصطفى باحو",
+    "physical_page_count": 59
+  },
+  "scholarly_context": {
+    "composition_period": "عمل معاصر، الطبعة الأولى قبل 1428هـ والثانية في ذي القعدة 1428هـ",
+    "composition_date_hijri": 1427,
+    "tradition_position": "رسالة معاصرة تجمع نصوص علماء المالكية في تحريم الغناء وآلات اللهو، تعتمد على مصادر مخطوطة ومطبوعة من التراث المالكي",
+    "known_textual_issues": [],
+    "historical_significance": "تجمع نصوصاً من كتب مالكية مخطوطة لم تُنشر بعد، مثل كتاب ابن المدني كنون في الزجر والإقماع",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:55:15.674834+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 12.26
+}

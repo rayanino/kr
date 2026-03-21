@@ -1,0 +1,60 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 13.407843699969817,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.75,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.95,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.92,
+    "level": "beginner",
+    "level_confidence": 0.8,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.88,
+    "author_identification": {
+      "canonical_name_ar": "محمد أحمد إسماعيل المقدم",
+      "known_as": [
+        "محمد المقدم",
+        "الشيخ المقدم"
+      ],
+      "death_date_hijri": null,
+      "school_affiliations": {
+        "fiqh": null,
+        "aqidah": "سلفي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "داعية وعالم سلفي معاصر من الإسكندرية، من مؤسسي المدرسة السلفية بالإسكندرية، له دروس ومحاضرات كثيرة مفرغة",
+      "methodological_stance": "منهج سلفي أثري، يعتمد على الكتاب والسنة وأقوال السلف"
+    },
+    "author_identification_confidence": 0.95,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "معاصر، من محاضرات الشيخ المفرغة",
+      "composition_date_hijri": null,
+      "tradition_position": "محاضرة دعوية تعليمية في مسائل فقهية تتعلق بسنن الفطرة والسواك، ضمن سلسلة دروس الشيخ المقدم",
+      "known_textual_issues": [],
+      "historical_significance": "من المحاضرات المفرغة المنتشرة للشيخ المقدم، تخدم غرضاً دعوياً تعليمياً أكثر من كونها مرجعاً فقهياً متخصصاً",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [
+        "يبدو أن النص مفرغ من محاضرة صوتية، وقد يحتوي على أسلوب شفهي"
+      ],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

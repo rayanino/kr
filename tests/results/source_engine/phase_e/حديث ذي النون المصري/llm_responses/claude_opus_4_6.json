@@ -1,0 +1,62 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.941733099985868,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.85,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "hadith",
+      "tasawwuf"
+    ],
+    "science_scope_confidence": 0.82,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.82,
+    "author_identification": {
+      "canonical_name_ar": "ذو النون المصري ثوبان بن إبراهيم الإخميمي",
+      "known_as": [
+        "ذو النون المصري",
+        "ذو النون الإخميمي"
+      ],
+      "death_date_hijri": 245,
+      "school_affiliations": {
+        "tasawwuf": "من أوائل أعلام التصوف"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أكابر الزهاد والعارفين في القرن الثالث الهجري، يُعدّ من رواد التصوف الإسلامي المبكر ومن أوائل من تكلم في المعرفة والأحوال",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.88,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "جزء حديثي مروي بالإسناد عن ذي النون المصري، جُمعت مروياته في هذا الجزء",
+      "composition_date_hijri": null,
+      "tradition_position": "جزء حديثي صغير يجمع بعض مرويات ذي النون المصري، وهو من الأجزاء الحديثية المسندة التي تحفظ مرويات أعلام الزهد والتصوف المبكر",
+      "known_textual_issues": [],
+      "historical_significance": "يحفظ مرويات أحد أبرز أعلام التصوف المبكر بالأسانيد، وهو مصدر نادر لمرويات ذي النون المصري",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": "نُشر من مخطوط ضمن برنامج جوامع الكلم الإلكتروني، وليس تحقيقاً علمياً بالمعنى الدقيق",
+      "edition_known_issues": [
+        "نشر إلكتروني من مخطوط دون تحقيق علمي متكامل",
+        "صغر حجم النص (5 صفحات) يشير إلى جزء حديثي مختصر"
+      ],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tradition_position"
+      ]
+    }
+  }
+}

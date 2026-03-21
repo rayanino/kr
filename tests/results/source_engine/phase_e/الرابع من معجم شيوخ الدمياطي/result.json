@@ -1,0 +1,125 @@
+{
+  "source_id": "src_0f5fd02a",
+  "work_id": "wrk_abd_al_mumn_bn_khlf__al_raba_mn_majm_shyw",
+  "human_label": "al_raba_mn_majm_shyw",
+  "title_arabic": "الرابع من معجم شيوخ الدمياطي",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "عبد المؤمن بن خلف بن أبي الحسن الدمياطي، أبو محمد، شرف الدين",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "ulum_al_hadith",
+    "hadith"
+  ],
+  "genre": "mujam",
+  "genre_chain": null,
+  "level": "specialist",
+  "publisher": "مخطوط نُشر في برنامج جوامع الكلم المجاني التابع لموقع الشبكة الإسلامية",
+  "edition_number": 1,
+  "publication_year_hijri": null,
+  "publication_year_miladi": 2004,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 68,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.6925,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 705 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 705 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مخطوط نُشر في برنامج جوامع الكلم المجاني التابع لموقع الشبكة الإسلامية"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.693 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.9,
+    "authority_level": 0.95,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp7zx49wml\\library\\sources\\src_0f5fd02a\\frozen",
+  "frozen_hash": "0f5fd02a603c6eeeefd8e084955e90a0bbe8ef782e2efda7a3847159882a2c6f",
+  "frozen_file_hashes": {
+    "الرابع من معجم شيوخ الدمياطي.htm": "4a6be7b7d70636f734819e7371165419ea6deba080132bc7fa9f8f72995cf34c"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "كتب السنة",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 2004",
+    "author_short": "عبد المؤمن بن خلف الدمياطي"
+  },
+  "scholarly_context": {
+    "composition_period": "من أعمال الدمياطي المتأخرة، ألّفه في أواخر القرن السابع الهجري حيث يذكر شيوخه الذين سمع منهم",
+    "composition_date_hijri": null,
+    "tradition_position": "معجم شيوخ يندرج ضمن تقليد المحدّثين في توثيق مشيخاتهم وأسانيدهم، وهو من المعاجم المهمة لمعرفة شيوخ الدمياطي وأسانيده",
+    "known_textual_issues": [],
+    "historical_significance": "يوثّق شيوخ الحافظ الدمياطي وأسانيده، وهو مصدر مهم لمعرفة طبقة شيوخ الحديث في القرن السابع الهجري بمصر والشام",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": "نُشر كمخطوط ضمن برنامج جوامع الكلم الإلكتروني، وليس تحقيقاً علمياً بالمعنى الدقيق",
+    "edition_known_issues": [
+      "نشر إلكتروني من مخطوط دون تحقيق علمي متكامل"
+    ],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:53:15.633833+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 16.8
+}

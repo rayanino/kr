@@ -1,0 +1,137 @@
+{
+  "source_id": "src_81f5dfc9",
+  "work_id": "wrk_shms_al_dyn_abw_abd__ahadyth_mkhtarh_mn_m",
+  "human_label": "ahadyth_mkhtarh_mn_m",
+  "title_arabic": "أحاديث مختارة من موضوعات الجورقاني وابن الجوزي",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "شمس الدين أبو عبد الله محمد بن أحمد بن عثمان بن قايماز الذهبي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "عبد الرحمن بن عبد الجبار الفريوائي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "ulum_al_hadith",
+    "hadith"
+  ],
+  "genre": "other",
+  "genre_chain": {
+    "relation_type": "cites",
+    "base_work_title": "الموضوعات",
+    "base_work_author": "أبو الفرج عبد الرحمن بن علي ابن الجوزي",
+    "base_work_id": null,
+    "confidence": 0.72
+  },
+  "level": "specialist",
+  "publisher": "مكتبة الدار - المدينة المنورة",
+  "edition_number": 1,
+  "publication_year_hijri": 1404,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 129,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 748 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: عبد الرحمن بن عبد الجبار الفريوائي"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مكتبة الدار - المدينة المنورة"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.78,
+    "science_scope": 0.95,
+    "level": 0.9,
+    "structural_format": 0.92,
+    "authority_level": 0.85,
+    "multi_layer": 0.9,
+    "genre_chain": 0.72,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpdz6sfyp8\\library\\sources\\src_81f5dfc9\\frozen",
+  "frozen_hash": "81f5dfc9dad7eea3f9f29273207b00ab1f9839573a2318ac09426c13ba61fd0d",
+  "frozen_file_hashes": {
+    "أحاديث مختارة من موضوعات الجورقاني وابن الجوزي.htm": "4ba940348074f667e26386d91dd9a5901ee9e05196e4a17b4a5eb7f8c23c48b3"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "العلل والسؤلات الحديثية",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى، 1404 هـ",
+    "page_count_raw": "151",
+    "author_short": "شمس الدين الذهبي",
+    "physical_page_count": 151
+  },
+  "scholarly_context": {
+    "composition_period": "من أعمال الذهبي في النقد الحديثي، ألفه في القرن الثامن الهجري",
+    "composition_date_hijri": null,
+    "tradition_position": "عمل نقدي يتعقب فيه الذهبي كتب الموضوعات للجورقاني وابن الجوزي، فيختار أحاديث حكما عليها بالوضع وينتقد بعض أحكامهما أو يؤيدها",
+    "known_textual_issues": [],
+    "historical_significance": "يمثل نقد الذهبي لمنهج ابن الجوزي والجورقاني في الحكم على الأحاديث بالوضع، وهو من الأعمال المتخصصة في علل الحديث ونقد المرويات",
+    "muhaqiq_reputation": "عبد الرحمن الفريوائي محقق هندي معروف بتحقيقاته في كتب الحديث وعلومه",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:43:53.993683+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 17.24
+}

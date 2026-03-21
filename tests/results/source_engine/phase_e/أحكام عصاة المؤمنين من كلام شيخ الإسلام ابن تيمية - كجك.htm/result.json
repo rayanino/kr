@@ -1,0 +1,134 @@
+{
+  "source_id": "src_8e503779",
+  "work_id": "wrk_tqy_al_dyn_ahmd_bn_a_ahkam",
+  "human_label": "ahkam",
+  "title_arabic": "أحكام عصاة المؤمنين - شيخ الإسلام ابن تيمية",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "تقي الدين أحمد بن عبد الحليم بن تيمية",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": "الكتاب تجميع حديث لأقوال ابن تيمية في موضوع أحكام عصاة المؤمنين، جمعه وقدم له مروان كجك. المادة الأصلية لابن تيمية لكن الترتيب والتبويب من عمل الجامع.",
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "aqidah",
+    "fiqh"
+  ],
+  "genre": "other",
+  "genre_chain": null,
+  "level": "intermediate",
+  "publisher": "دار الكلمة الطيبة - القاهرة",
+  "edition_number": 1,
+  "publication_year_hijri": 1405,
+  "publication_year_miladi": 1985,
+  "source_format": "shamela_html",
+  "authority_level": "modern_compilation",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 133,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.625,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 728 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 728 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الكلمة الطيبة - القاهرة"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Modern compilation"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.625 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.65,
+    "science_scope": 0.82,
+    "level": 0.6,
+    "structural_format": 0.92,
+    "authority_level": 0.92,
+    "multi_layer": 0.88,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [
+    "author",
+    "death_date_hijri",
+    "genre",
+    "level"
+  ],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp3cspw394\\library\\sources\\src_8e503779\\frozen",
+  "frozen_hash": "8e5037792045546471249b1a49944c908cbafaf6ea4e20872c524c1be97390ec",
+  "frozen_file_hashes": {
+    "أحكام عصاة المؤمنين من كلام شيخ الإسلام ابن تيمية - كجك.htm": "7a27d897107d030e3f47cb2946925e469433316a15d64ca8d78f762d84ff0ca1"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "مسائل فقهية",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الأولى 1405 هـ - 1985 م",
+    "page_count_raw": "118",
+    "author_short": "مروان كجك",
+    "physical_page_count": 118,
+    "extra_card_fields": {
+      "جمع وتقديم": "مروان كجك"
+    }
+  },
+  "scholarly_context": {
+    "composition_period": "تجميع حديث صدر عام 1405 هـ، والمادة الأصلية من القرن الثامن الهجري",
+    "composition_date_hijri": 1405,
+    "tradition_position": "يندرج ضمن حركة إحياء تراث ابن تيمية في العصر الحديث، ويعالج مسألة التكفير والحكم على عصاة المؤمنين وهي مسألة حساسة في الفكر الإسلامي المعاصر",
+    "known_textual_issues": [],
+    "historical_significance": "يعكس اهتمام الحركة السلفية المعاصرة بنقل أقوال ابن تيمية في مسائل الإيمان والتكفير، خاصة في سياق الصحوة الإسلامية في الثمانينيات",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "muhaqiq_reputation",
+      "tahqiq_methodology_note"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:49:02.364179+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 16.46
+}

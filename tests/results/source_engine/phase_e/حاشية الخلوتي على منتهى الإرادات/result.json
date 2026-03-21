@@ -1,0 +1,163 @@
+{
+  "source_id": "src_2a9ca66b",
+  "work_id": "wrk_mhmd_bn_ahmd_bn_aly__hashiyah",
+  "human_label": "hashiyah",
+  "title_arabic": "حاشية الخلوتي على منتهى الإرادات",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد بن أحمد بن علي البهوتي الْخَلْوَتي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "د سامي بن محمد بن عبد الله الصقير، د محمد بن عبد الله بن صالح اللحيدان",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh"
+  ],
+  "genre": "hashiyah",
+  "genre_chain": {
+    "relation_type": "hashiyah_on",
+    "base_work_title": "منتهى الإرادات في جمع المقنع مع التنقيح، وزيادات",
+    "base_work_author": "محمد بن أحمد الفتوحي ابن النجار",
+    "base_work_id": null,
+    "confidence": 1.0
+  },
+  "level": "advanced",
+  "publisher": "دار النوادر، سوريا",
+  "edition_number": 1,
+  "publication_year_hijri": 1432,
+  "publication_year_miladi": 2011,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "commentary",
+  "language": "ar",
+  "page_count": 518,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00003",
+        "name_arabic": "محمد بن أحمد الفتوحي ابن النجار",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "hashiyah",
+      "author": {
+        "canonical_id": "sch_00004",
+        "name_arabic": "محمد بن أحمد بن علي البهوتي الْخَلْوَتي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "verified",
+  "trust_score": 0.6575,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1088 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: د سامي بن محمد بن عبد الله الصقير، د محمد بن عبد الله بن صالح اللحيدان"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار النوادر، سوريا"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.657 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 1.0,
+    "science_scope": 1.0,
+    "level": 0.9,
+    "structural_format": 1.0,
+    "authority_level": 1.0,
+    "multi_layer": 1.0,
+    "genre_chain": 1.0,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 7,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpafwep1n4\\library\\sources\\src_2a9ca66b\\frozen",
+  "frozen_hash": "2a9ca66b2cdf024dfa33c2931b34b631f29dcdff795a2c3945eea5e2c5f52c53",
+  "frozen_file_hashes": {
+    "001.htm": "97890534c72c97ab3a204e17ef072454181eef65b072caab5f6e1f7de2d05a38",
+    "002.htm": "bfdc4e1ef584bdaea9975fcc929f8e265de30050b600892b4758bb06867ac062",
+    "003.htm": "28d09f3fee2fc2149ee28d2c82142d35d7160e5d88ecbfb620ea920ac9f2a840",
+    "004.htm": "75d06e4edfe9e395a57205828755e6bf5ac57d671df48b3be67d4bacfd150bd8",
+    "005.htm": "bfe3153fc21c860c1d71be379464cd696246b70731053912b6f04e25baef20ef",
+    "006.htm": "e7ec1d690bdd5480f9f8fd4453e11f47298837461c40a3e1e5d98bfbffef8330",
+    "007.htm": "72ebb8b3f9000f156a510b3c5c8df71a63b459fd0fd51da0d3f785adb778ed4e",
+    "مقدمة.htm": "d482df22e3f95e25e90f553f32e9876ca0551c26ad5ba9d3a9a1c69a239e59c4"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الفقه الحنبلي",
+    "shamela_publish_date": "21 محرم 1437",
+    "volume_count_raw": "7",
+    "edition_raw": "الأولى، 1432 هـ - 2011 م",
+    "author_short": "الخلوتي",
+    "preparer": "فريق رابطة النساخ برعاية (مركز النخب العلمية)",
+    "_tahqiq_origin": "أطروحتا دكتوراة للمحققَيْن",
+    "metadata_volume_count": 7
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "حاشية مهمة على أحد المتون الفقهية الأساسية في المذهب الحنبلي، تساهم في توضيح وتفصيل المسائل الفقهية",
+    "known_textual_issues": [],
+    "historical_significance": "تعتبر من المصادر الأساسية في دراسة الفقه الحنبلي، وتساهم في فهم تطور المذهب",
+    "muhaqiq_reputation": "المحققان من المعروفين في مجال التحقيق العلمي للنصوص الفقهية، ولديهما العديد من الأعمال المحققة في الفقه الإسلامي",
+    "tahqiq_methodology_note": "يبدو أن التحقيق اعتمد على نسخ خطية متعددة مع مقارنتها وتوثيق الفروق، بالإضافة إلى التعليقات التوضيحية",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:47:13.812545+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 14.3
+}

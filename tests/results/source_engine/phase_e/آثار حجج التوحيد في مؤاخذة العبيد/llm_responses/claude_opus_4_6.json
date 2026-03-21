@@ -1,0 +1,57 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 12.36772259999998,
+  "parsed": {
+    "genre": "risalah",
+    "genre_confidence": 0.82,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.93,
+    "layers": null,
+    "science_scope": [
+      "aqidah"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "intermediate",
+    "level_confidence": 0.65,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.85,
+    "author_identification": {
+      "canonical_name_ar": "أبو يوسف مدحت بن حسن آل فراج المصري",
+      "known_as": [
+        "مدحت حسن الفراج"
+      ],
+      "death_date_hijri": 1435,
+      "school_affiliations": {
+        "aqidah": "سلفي أثري"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "باحث معاصر في العقيدة، من أهل الحديث والأثر، نشر عدة مؤلفات في التوحيد والعقيدة",
+      "methodological_stance": "سلفي أثري، يعتمد على نقول العلماء المتقدمين في إقامة الحجة في مسائل التوحيد"
+    },
+    "author_identification_confidence": 0.78,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "مؤلف معاصر، ألّف الكتاب قبل 1416هـ حيث صدرت الطبعة الأولى في ذلك العام",
+      "composition_date_hijri": 1415,
+      "tradition_position": "رسالة في بيان إقامة الحجة على العباد في التوحيد وقطع المعذرة، تجمع نقولاً من كلام العلماء المتقدمين في الموضوع",
+      "known_textual_issues": [],
+      "historical_significance": "كتاب في موضوع إقامة الحجة في التوحيد، قدّم له الشيخ عبد الله بن عبد الرحمن الجبرين",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "tradition_position"
+      ]
+    }
+  }
+}

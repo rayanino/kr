@@ -1,0 +1,71 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.792752999986988,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.85,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أبو القاسم سليمان بن أحمد الطبراني"
+      },
+      {
+        "layer_type": "tahqiq_note",
+        "author_name": "محمود محمد محمد عمارة السعدني"
+      }
+    ],
+    "science_scope": [
+      "hadith",
+      "ulum_al_hadith"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.95,
+    "author_identification": {
+      "canonical_name_ar": "أبو القاسم سليمان بن أحمد بن أيوب الطبراني",
+      "known_as": [
+        "الطبراني",
+        "محدث الإسلام"
+      ],
+      "death_date_hijri": 360,
+      "school_affiliations": {
+        "fiqh": "شافعي",
+        "hadith": "محدث حافظ"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أكابر حفاظ الحديث، صاحب المعاجم الثلاثة (الكبير والأوسط والصغير)، رحّال جوّال في طلب الحديث، من المعمّرين",
+      "methodological_stance": "يروي بالأسانيد العالية والنازلة، ويُعنى بالتفرد والغرائب في المعجم الأوسط"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال الطبراني المتأخرة، ألّفه في أصبهان حيث استقر",
+      "composition_date_hijri": null,
+      "tradition_position": "المعجم الأوسط من أهم مصادر الحديث النبوي، يُرتَّب على أسماء شيوخ الطبراني، ويُعنى بذكر الغرائب والتفردات، وهو أحد المعاجم الثلاثة للطبراني",
+      "known_textual_issues": [],
+      "historical_significance": "من أهم دواوين السنة المسندة، يحتوي على أحاديث كثيرة لا توجد في غيره، ويُعدّ مرجعاً أساسياً في تخريج الأحاديث",
+      "muhaqiq_reputation": "رسالة ماجستير أكاديمية، المحقق باحث في الحديث وعلومه بكلية الدراسات الإسلامية والعربية بالزقازيق",
+      "tahqiq_methodology_note": "تحقيق ودراسة أكاديمية مع ملاحظة أحكام الطبراني على الأحاديث بالتفرد، تحت إشراف أساتذة متخصصين في الحديث",
+      "edition_known_issues": [
+        "هذا القسم الثاني فقط (أحاديث 401-650) وليس الكتاب كاملاً، وهو رسالة ماجستير وليس تحقيقاً تجارياً شاملاً"
+      ],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "muhaqiq_reputation"
+      ]
+    }
+  }
+}

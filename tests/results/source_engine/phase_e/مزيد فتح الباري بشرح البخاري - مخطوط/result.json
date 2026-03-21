@@ -1,0 +1,159 @@
+{
+  "source_id": "src_8baffd68",
+  "work_id": "wrk_ibrahym_bn_aly_brhan_sharh",
+  "human_label": "sharh",
+  "title_arabic": "مزيد فتح الباري بشرح البخاري",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "إبراهيم بن علي برهان الدين النعماني الشافعي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "دار الكمال المتحدة",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "hadith",
+    "fiqh"
+  ],
+  "genre": "sharh",
+  "genre_chain": {
+    "relation_type": "sharh_of",
+    "base_work_title": "صحيح البخاري",
+    "base_work_author": "محمد بن إسماعيل البخاري",
+    "base_work_id": null,
+    "confidence": 0.95
+  },
+  "level": "advanced",
+  "publisher": "عطاءات العلم - موسوعة صحيح البخاري،  https //bukhari-pedia.net",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "commentary",
+  "language": "ar",
+  "page_count": 565,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00003",
+        "name_arabic": "محمد بن إسماعيل البخاري",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "sharh",
+      "author": {
+        "canonical_id": "sch_00004",
+        "name_arabic": "إبراهيم بن علي برهان الدين النعماني الشافعي",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "verified",
+  "trust_score": 0.7175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 898 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.5,
+      "reason": "Unknown muhaqiq: دار الكمال المتحدة"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: عطاءات العلم - موسوعة صحيح البخاري،  https //bukhari-pedia.net"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.718 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.9,
+    "level": 0.8,
+    "structural_format": 0.9,
+    "authority_level": 0.9,
+    "multi_layer": 0.9,
+    "genre_chain": 0.95,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp92koo1yq\\library\\sources\\src_8baffd68\\frozen",
+  "frozen_hash": "8baffd68f3df36107c51d1e0cd7cd3e10515a982015c99acbd9d0c1edd29993f",
+  "frozen_file_hashes": {
+    "مزيد فتح الباري بشرح البخاري - مخطوط.htm": "192645d6e260f151cd5ef360d6bfd0e11a29453100bb85f3323e8839e4bfc384"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "شروح الحديث",
+    "shamela_publish_date": "22 صفر 1443",
+    "author_short": "إبراهيم بن علي النعماني",
+    "preparer": "«عطاءات العلم» جزاهم الله خيرًا",
+    "extra_card_fields": {
+      "النشرة": "الأولى، 1440 هـ",
+      "عدد أوراق المخطوط": "283",
+      "عمل المعتني بالكتاب": "تم تنضيد القطعة الموجودة من الكتاب عن أصلها الخطي، ومقابلتها، ويجري العمل في مراجعة على مصادره، كما نسعى للحصول على قطعة مكتبة قاريونس من الكتاب."
+    }
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": "شرح مهم على صحيح البخاري، يُظهر عمق فهم المؤلف للحديث والفقه",
+    "known_textual_issues": [],
+    "historical_significance": "يُعتبر من الشروح المهمة على صحيح البخاري، خاصة في المذهب الشافعي",
+    "muhaqiq_reputation": "دار الكمال المتحدة معروفة بتحقيقاتها الجيدة في التراث الإسلامي",
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_period",
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:46:59.500317+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 17.79
+}

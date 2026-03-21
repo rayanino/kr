@@ -1,0 +1,67 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.67835450003622,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "روضة الطرائف في رسم المصحف",
+      "base_work_author": "برهان الدين الجعبري"
+    },
+    "genre_chain_confidence": 0.9,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.9,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "برهان الدين الجعبري"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "محمد عبد الله إبراهيم البركاتي"
+      }
+    ],
+    "science_scope": [
+      "ulum_al_quran",
+      "tajwid"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "modern_compilation",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "محمد عبد الله إبراهيم البركاتي",
+      "known_as": [],
+      "death_date_hijri": null,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Contemporary scholar specializing in Quranic studies and tajwid, with a focus on manuscript investigation and commentary.",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.9,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "A modern scholarly contribution to the study of Quranic script, building upon classical works like those of al-Ja'bari.",
+      "known_textual_issues": [],
+      "historical_significance": "Represents contemporary engagement with classical Quranic sciences, particularly the preservation and transmission of the Quranic text.",
+      "muhaqiq_reputation": "The author, as both investigator and commentator, demonstrates meticulous attention to detail and deep engagement with the source material.",
+      "tahqiq_methodology_note": "Based on a master's thesis, indicating rigorous academic standards and supervised research methodology.",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri",
+        "methodological_stance"
+      ]
+    }
+  }
+}

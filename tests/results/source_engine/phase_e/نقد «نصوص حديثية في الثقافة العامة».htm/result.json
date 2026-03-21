@@ -1,0 +1,131 @@
+{
+  "source_id": "src_8965e6b9",
+  "work_id": "wrk_mhmd_nasr_al_dyn_al__nqd_nsws_hdythyh_fy_",
+  "human_label": "nqd_nsws_hdythyh_fy_",
+  "title_arabic": "نقد «نصوص حديثية في الثقافة العامة» جمع وتصنيف محمد المنتصر الكتاني أستاذ الحديث",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد ناصر الدين الألباني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "ulum_al_hadith",
+    "hadith"
+  ],
+  "genre": "other",
+  "genre_chain": {
+    "relation_type": "responds_to",
+    "base_work_title": "نصوص حديثية في الثقافة العامة",
+    "base_work_author": "محمد المنتصر الكتاني",
+    "base_work_id": null,
+    "confidence": 0.95
+  },
+  "level": "specialist",
+  "publisher": "مطبعة الترقي - دمشق",
+  "edition_number": null,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 57,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.6075,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1420 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.3,
+      "reason": "No muhaqiq, modern author (d. 1420 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: مطبعة الترقي - دمشق"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.608 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.8,
+    "science_scope": 0.95,
+    "level": 0.85,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 0.92,
+    "genre_chain": 0.95,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmpevxhkccd\\library\\sources\\src_8965e6b9\\frozen",
+  "frozen_hash": "8965e6b97ce982cc00d606016b22cd49ed5dca7f966480abdda68a302ca2303b",
+  "frozen_file_hashes": {
+    "نقد «نصوص حديثية في الثقافة العامة».htm": "5707d9910d47383bc72984aa34ec6c4ea81ac943f9bf60fc87c25b51ad997149"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التخريج والأطراف",
+    "shamela_publish_date": "2 ربيع الأول 1440",
+    "page_count_raw": "58",
+    "author_short": "ناصر الدين الألباني",
+    "preparer": "محمد المنصور",
+    "physical_page_count": 58
+  },
+  "scholarly_context": {
+    "composition_period": "من أعماله المبكرة، نُشرت في مجلة التمدن الإسلامي بدمشق في المجلدين 33 و34",
+    "composition_date_hijri": null,
+    "tradition_position": "نموذج من أعمال الألباني النقدية في مجال التخريج والتصحيح والتضعيف، يمثل منهجه في نقد المؤلفات الحديثية المعاصرة التي لا تلتزم بقواعد علم الحديث",
+    "known_textual_issues": [],
+    "historical_significance": "رسالة نقدية تعكس منهج الألباني في الدعوة إلى تطبيق قواعد علم الحديث في التأليف والتدريس الجامعي، وتمثل جانباً من نشاطه العلمي في نقد المعاصرين",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:40:23.669896+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 15.87
+}

@@ -1,0 +1,59 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.67665759997908,
+  "parsed": {
+    "genre": "tabaqat",
+    "genre_confidence": 0.72,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.92,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "ulum_al_hadith",
+      "ansab"
+    ],
+    "science_scope_confidence": 0.88,
+    "level": "specialist",
+    "level_confidence": 0.88,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.92,
+    "author_identification": {
+      "canonical_name_ar": "أبو داود سليمان بن الأشعث السجستاني",
+      "known_as": [
+        "أبو داود",
+        "أبو داود السجستاني"
+      ],
+      "death_date_hijri": 275,
+      "school_affiliations": {
+        "fiqh": "حنبلي",
+        "hadith": "أهل الحديث"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أئمة الحديث الكبار، صاحب السنن أحد الكتب الستة، إمام في الجرح والتعديل وعلل الحديث",
+      "methodological_stance": "محدث ناقد، من أصحاب المنهج النقدي في رواية الحديث وتصنيف الرواة"
+    },
+    "author_identification_confidence": 0.97,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "القرن الثالث الهجري، من مصنفات أبي داود المتوفى سنة 275 هـ",
+      "composition_date_hijri": null,
+      "tradition_position": "من المصنفات المبكرة في تسمية الإخوة من الرواة، وهو من كتب علوم الحديث المتعلقة بمعرفة أنساب الرواة وعلاقاتهم",
+      "known_textual_issues": [],
+      "historical_significance": "كتاب متخصص في ذكر الإخوة من رواة الحديث، يعد من المصنفات النادرة في بابه، ويكمل كتاب علي ابن المديني في الموضوع نفسه",
+      "muhaqiq_reputation": "باسم فيصل الجوابرة، محقق سعودي له عدة تحقيقات في كتب الحديث والتراجم",
+      "tahqiq_methodology_note": "اعتمد المحقق على تحقيق النص بالرجوع إلى كتب التراجم، وترجم لجميع الرواة ترجمة موجزة مستفيداً من تقريب التهذيب وغيره، وذكر أقوال النقاد في إثبات الأخوة",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

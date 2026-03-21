@@ -1,0 +1,133 @@
+{
+  "source_id": "src_2a063d80",
+  "work_id": "wrk_abw_jafr_mhmd_bn_hby_ktab_alqab_al_shara_",
+  "human_label": "ktab_alqab_al_shara_",
+  "title_arabic": "كتاب ألقاب الشعراء ومن يعرف منهم بأمه، لأبى جعفر محمد بن حبيب",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو جعفر محمد بن حبيب البغدادي",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "traditional",
+  "attribution_notes": null,
+  "muhaqiq": {
+    "canonical_id": "sch_00002",
+    "name_arabic": "عبد السلام هارون",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "additional_authors": [],
+  "science_scope": [
+    "adab",
+    "lughah",
+    "tarikh"
+  ],
+  "genre": "tabaqat",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "شركة مكتبة ومطبعة مصطفى البابي الحلبي وأولاده بمصر",
+  "edition_number": 2,
+  "publication_year_hijri": 1393,
+  "publication_year_miladi": 1972,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "dictionary",
+  "language": "ar",
+  "page_count": 32,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "verified",
+  "trust_score": 0.8175,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.9,
+      "reason": "Classical scholar (d. 245 AH, ≤ 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.9,
+      "reason": "Recognized muhaqiq: عبد السلام هارون (matched عبد السلام هارون)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: شركة مكتبة ومطبعة مصطفى البابي الحلبي وأولاده بمصر"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.818 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.75,
+    "science_scope": 0.85,
+    "level": null,
+    "structural_format": 0.75,
+    "authority_level": 0.9,
+    "multi_layer": 0.95,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [
+    "death_date_hijri"
+  ],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmppx3tt9rt\\library\\sources\\src_2a063d80\\frozen",
+  "frozen_hash": "2a063d80d28d625b022672688b5e6e2d482eaab5d22c16b2471cdf15dadaa39a",
+  "frozen_file_hashes": {
+    "ألقاب الشعراء ومن يعرف منهم بأمه - ضمن نوادر المخطوطات.htm": "752b11a32ff1585e1c0a93be14b27a74a49a86b4d4f697e9813f566682ca32f1"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "التراجم والطبقات",
+    "shamela_publish_date": "5 محرم 1444",
+    "edition_raw": "الثانية، 1393 هـ‍ - 1972 م",
+    "page_count_raw": "32",
+    "author_short": "محمد بن حبيب",
+    "physical_page_count": 32
+  },
+  "scholarly_context": {
+    "composition_period": "النصف الأول من القرن الثالث الهجري",
+    "composition_date_hijri": null,
+    "tradition_position": "رسالة قصيرة في ألقاب الشعراء وكناهم، من نوادر المخطوطات التي نشرها عبد السلام هارون ضمن مجموعته المعروفة",
+    "known_textual_issues": [],
+    "historical_significance": "من الرسائل النادرة في معرفة ألقاب الشعراء العرب وأنسابهم، يعد مصدراً مهماً في الأدب والأنساب",
+    "muhaqiq_reputation": "عبد السلام هارون من أبرز المحققين المصريين في القرن العشرين، اشتهر بتحقيقاته الدقيقة للتراث العربي",
+    "tahqiq_methodology_note": "اعتمد على نسختين خطيتين: نسخة مكتبة عاشر (ا) ونسخة مكتبة الشنقيطي (ب)، مع إثبات أرقام صفحات النسخة المصورة على الهوامش",
+    "edition_known_issues": [],
+    "context_richness": "partial",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:45:21.648707+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 16.5
+}

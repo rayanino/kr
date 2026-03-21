@@ -1,0 +1,63 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 15.816845000023022,
+  "parsed": {
+    "genre": "other",
+    "genre_confidence": 0.8,
+    "genre_chain": {
+      "relation_type": "responds_to",
+      "base_work_title": "نصوص حديثية في الثقافة العامة",
+      "base_work_author": "محمد المنتصر الكتاني"
+    },
+    "genre_chain_confidence": 0.95,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.92,
+    "layers": null,
+    "science_scope": [
+      "ulum_al_hadith",
+      "hadith"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "specialist",
+    "level_confidence": 0.85,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "محمد ناصر الدين الألباني",
+      "known_as": [
+        "الألباني",
+        "الشيخ الألباني"
+      ],
+      "death_date_hijri": 1420,
+      "school_affiliations": {
+        "hadith": "أهل الحديث",
+        "fiqh": "لا مذهبي - يتبع الدليل"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز علماء الحديث في العصر الحديث، محدث الشام، له جهود واسعة في تخريج الأحاديث والحكم عليها تصحيحاً وتضعيفاً",
+      "methodological_stance": "سلفي المنهج، يعتمد على منهج المحدثين في نقد الأسانيد والمتون، يدعو إلى ترك التقليد المذهبي واتباع الدليل من الكتاب والسنة"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعماله المبكرة، نُشرت في مجلة التمدن الإسلامي بدمشق في المجلدين 33 و34",
+      "composition_date_hijri": null,
+      "tradition_position": "نموذج من أعمال الألباني النقدية في مجال التخريج والتصحيح والتضعيف، يمثل منهجه في نقد المؤلفات الحديثية المعاصرة التي لا تلتزم بقواعد علم الحديث",
+      "known_textual_issues": [],
+      "historical_significance": "رسالة نقدية تعكس منهج الألباني في الدعوة إلى تطبيق قواعد علم الحديث في التأليف والتدريس الجامعي، وتمثل جانباً من نشاطه العلمي في نقد المعاصرين",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

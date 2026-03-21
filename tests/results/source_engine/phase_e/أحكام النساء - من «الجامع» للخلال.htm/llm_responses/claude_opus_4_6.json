@@ -1,0 +1,63 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 16.248177399975248,
+  "parsed": {
+    "genre": "fatawa",
+    "genre_confidence": 0.72,
+    "genre_chain": {
+      "relation_type": "mukhtasar_of",
+      "base_work_title": "الجامع لمسائل الإمام أحمد بن حنبل",
+      "base_work_author": "أبو بكر الخلال"
+    },
+    "genre_chain_confidence": 0.88,
+    "structural_format": "qa_format",
+    "structural_format_confidence": 0.78,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.82,
+    "layers": null,
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": "intermediate",
+    "level_confidence": 0.65,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.82,
+    "author_identification": {
+      "canonical_name_ar": "أبو بكر أحمد بن محمد بن هارون الخلال",
+      "known_as": [
+        "الخلال",
+        "أبو بكر الخلال"
+      ],
+      "death_date_hijri": 311,
+      "school_affiliations": {
+        "fiqh": "حنبلي"
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز أصحاب الإمام أحمد، جمع مسائله وفقهه في كتابه الجامع الكبير، وهو المرجع الأساسي لنقل فقه الإمام أحمد",
+      "methodological_stance": "جامع لمسائل الإمام أحمد بن حنبل عن طريق الرواية والإسناد"
+    },
+    "author_identification_confidence": 0.93,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "أوائل القرن الرابع الهجري، من أعمال الخلال في جمع مسائل الإمام أحمد",
+      "composition_date_hijri": 300,
+      "tradition_position": "جزء من الجامع الكبير للخلال وهو أهم مصدر لجمع مسائل الإمام أحمد بن حنبل وفتاواه، وهذا الجزء مختص بأحكام النساء المتعلقة بالنظر والحجاب",
+      "known_textual_issues": [
+        "الطبعة السابقة بتحقيق عبد القادر أحمد عطا (1406 هـ) حذفت مسائل كثيرة وأدخلت أبوابًا ليست من الجزء وأسقطت أبوابًا كاملة"
+      ],
+      "historical_significance": "جزء نادر من الجامع الكبير للخلال، وهو المصدر الأساسي لمعرفة فقه الإمام أحمد في مسائل النساء والحجاب",
+      "muhaqiq_reputation": "عمرو عبد المنعم سليم محقق مصري معاصر له عناية بتحقيق كتب الحنابلة والحديث",
+      "tahqiq_methodology_note": "اعتمد على الأصول المخطوطة مع بيان تحريفات الطبعة السابقة، وأضاف تراجم لرواة الأسانيد ودراسة فقهية حديثية مقارنة",
+      "edition_known_issues": [],
+      "context_richness": "partial",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

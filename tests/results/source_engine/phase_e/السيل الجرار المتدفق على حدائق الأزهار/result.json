@@ -1,0 +1,149 @@
+{
+  "source_id": "src_1c283975",
+  "work_id": "wrk_mhmd_bn_aly_bn_mhmd__al_syl_al_jrar_al_mt",
+  "human_label": "al_syl_al_jrar_al_mt",
+  "title_arabic": "السيل الجرار المتدفق على حدائق الأزهار",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "محمد بن علي بن محمد بن عبد الله الشوكاني اليمني",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "fiqh"
+  ],
+  "genre": "sharh",
+  "genre_chain": {
+    "relation_type": "sharh_of",
+    "base_work_title": "حدائق الأزهار",
+    "base_work_author": "أحمد بن يحيى المرتضى",
+    "base_work_id": null,
+    "confidence": 0.92
+  },
+  "level": "advanced",
+  "publisher": "دار ابن حزم",
+  "edition_number": 1,
+  "publication_year_hijri": null,
+  "publication_year_miladi": null,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "commentary",
+  "language": "ar",
+  "page_count": 1078,
+  "is_multi_layer": true,
+  "text_layers": [
+    {
+      "layer_type": "matn",
+      "author": {
+        "canonical_id": "sch_00002",
+        "name_arabic": "أحمد بن يحيى المرتضى",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    },
+    {
+      "layer_type": "sharh",
+      "author": {
+        "canonical_id": "sch_00003",
+        "name_arabic": "محمد بن علي الشوكاني",
+        "confidence": 1.0,
+        "source_of_identification": "extracted"
+      }
+    }
+  ],
+  "trust_tier": "verified",
+  "trust_score": 0.6775,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1250 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.4,
+      "reason": "No muhaqiq, pre-modern author (d. 1250 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.7,
+      "reason": "Known publisher: دار ابن حزم (score 0.7)"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.677 >= 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.97,
+    "level": 0.9,
+    "structural_format": 0.95,
+    "authority_level": 0.9,
+    "multi_layer": 0.95,
+    "genre_chain": 0.92,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp8vkto690\\library\\sources\\src_1c283975\\frozen",
+  "frozen_hash": "1c283975f0210a614202edba012848ff7ff8573d474b57326b751c6329f4caa3",
+  "frozen_file_hashes": {
+    "السيل الجرار المتدفق على حدائق الأزهار.htm": "9f3ae91edf5a68211518b9f0b97f07ec9b3458c193f4f92271d78e2ff2a212bf"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "الفقه العام",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "edition_raw": "الطبعة الأولى",
+    "page_count_raw": "992",
+    "author_short": "الشوكاني",
+    "physical_page_count": 992
+  },
+  "scholarly_context": {
+    "composition_period": "من أعمال الشوكاني المتأخرة في الفقه المقارن، ألفه بعد نضجه العلمي",
+    "composition_date_hijri": null,
+    "tradition_position": "يمثل هذا الكتاب نقداً اجتهادياً لمتن زيدي من منظور أهل الحديث، حيث يعلق الشوكاني على كتاب الأزهار الزيدي مرجحاً بالأدلة من الكتاب والسنة، وهو من أهم كتب الفقه المقارن في التراث اليمني",
+    "known_textual_issues": [],
+    "historical_significance": "من أهم مؤلفات الشوكاني الفقهية، يُظهر منهجه الاجتهادي في نقد الفقه الزيدي والترجيح بالدليل، ويعد مرجعاً في الفقه المقارن بين المذاهب خاصة في السياق اليمني",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "rich",
+    "uncertain_dimensions": [
+      "composition_date_hijri"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:47:31.019606+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 17.21
+}

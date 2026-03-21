@@ -1,0 +1,55 @@
+{
+  "model_id": "openrouter/cohere/command-a",
+  "provider": "openrouter",
+  "parse_success": true,
+  "error": null,
+  "latency": 9.180091399990488,
+  "parsed": {
+    "genre": "hadith_collection",
+    "genre_confidence": 0.95,
+    "genre_chain": null,
+    "genre_chain_confidence": null,
+    "structural_format": "prose",
+    "structural_format_confidence": 0.9,
+    "is_multi_layer": false,
+    "multi_layer_confidence": 0.9,
+    "layers": null,
+    "science_scope": [
+      "hadith"
+    ],
+    "science_scope_confidence": 0.95,
+    "level": null,
+    "level_confidence": null,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "أَبُو جَعْفَرٍ مُحَمَّدُ بنُ عَلِيِّ بنِ دُحَيْمٍ الشَّيْبَانِيُّ، الكُوْفِيُّ",
+      "known_as": [
+        "ابْنُ دُحَيْمٍ"
+      ],
+      "death_date_hijri": 352,
+      "school_affiliations": {},
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "Hadith scholar and narrator from Kufa, known for his collection of hadith",
+      "methodological_stance": null
+    },
+    "author_identification_confidence": 0.9,
+    "attribution_status": "traditional",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": null,
+      "composition_date_hijri": null,
+      "tradition_position": "A collection of hadith narrations by a 4th-century AH scholar from Kufa",
+      "known_textual_issues": [],
+      "historical_significance": "Part of the broader hadith literature, contributing to the preservation of prophetic traditions",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "minimal",
+      "uncertain_dimensions": [
+        "composition_period",
+        "composition_date_hijri"
+      ]
+    }
+  }
+}

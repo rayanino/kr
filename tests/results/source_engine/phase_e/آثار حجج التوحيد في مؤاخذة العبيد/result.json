@@ -1,0 +1,126 @@
+{
+  "source_id": "src_3f1aa39d",
+  "work_id": "wrk_abw_ywsf_mdht_bn_hsn_athar_hjj_al_twhyd_f",
+  "human_label": "athar_hjj_al_twhyd_f",
+  "title_arabic": "آثار حجج التوحيد في مؤاخذة العبيد",
+  "title_transliterated": null,
+  "author": {
+    "canonical_id": "sch_00001",
+    "name_arabic": "أبو يوسف مدحت بن حسن آل فراج المصري",
+    "confidence": 1.0,
+    "source_of_identification": "extracted"
+  },
+  "attribution_status": "definitive",
+  "attribution_notes": null,
+  "muhaqiq": null,
+  "additional_authors": [],
+  "science_scope": [
+    "aqidah"
+  ],
+  "genre": "risalah",
+  "genre_chain": null,
+  "level": null,
+  "publisher": "دار الكتاب والسنة، كراتشي - باكستان، مكتبة دار الحميضي، الرياض - المملكة العربية السعودية",
+  "edition_number": 1,
+  "publication_year_hijri": 1416,
+  "publication_year_miladi": 1995,
+  "source_format": "shamela_html",
+  "authority_level": "primary",
+  "structural_format": "prose",
+  "language": "ar",
+  "page_count": 218,
+  "is_multi_layer": false,
+  "text_layers": [],
+  "trust_tier": "flagged",
+  "trust_score": 0.6075,
+  "trust_factors": [
+    {
+      "name": "author_standing",
+      "weight": 0.3,
+      "score": 0.7,
+      "reason": "Post-classical scholar (d. 1435 AH, > 1000)"
+    },
+    {
+      "name": "tahqiq_quality",
+      "weight": 0.25,
+      "score": 0.3,
+      "reason": "No muhaqiq, modern author (d. 1435 AH)"
+    },
+    {
+      "name": "publisher_reputation",
+      "weight": 0.15,
+      "score": 0.4,
+      "reason": "Unknown publisher: دار الكتاب والسنة، كراتشي - باكستان، مكتبة دار الحميضي، الرياض - المملكة العربية السعودية"
+    },
+    {
+      "name": "source_authority",
+      "weight": 0.15,
+      "score": 0.85,
+      "reason": "Primary source"
+    },
+    {
+      "name": "text_fidelity",
+      "weight": 0.15,
+      "score": 0.9,
+      "reason": "High text fidelity"
+    }
+  ],
+  "trust_reason": "Trust score 0.608 < 0.65 threshold",
+  "text_fidelity": "high",
+  "text_fidelity_reason": "Shamela structured HTML text",
+  "confidence_scores": {
+    "genre": 0.95,
+    "science_scope": 0.9,
+    "level": null,
+    "structural_format": 0.9,
+    "authority_level": 0.9,
+    "multi_layer": 0.9,
+    "genre_chain": null,
+    "author": 0.85
+  },
+  "needs_review_fields": [],
+  "volume_count": 1,
+  "volumes": [],
+  "volumes_missing": [],
+  "frozen_path": "C:\\Users\\Rayane\\AppData\\Local\\Temp\\tmp7ue4nxdy\\library\\sources\\src_3f1aa39d\\frozen",
+  "frozen_hash": "3f1aa39d587b2342f1dccae5c3532a671a396b5f0d277a0e4557150676809791",
+  "frozen_file_hashes": {
+    "آثار حجج التوحيد في مؤاخذة العبيد.htm": "6917f45c9d2ffb2fe197bb7465548f2b1b75996bedcbc69825e16581a8260eac"
+  },
+  "format_specific_metadata": {
+    "shamela_category": "العقيدة",
+    "shamela_publish_date": "27 جُمادَى الآخرة 1436",
+    "foreword_by": "عبد الله بن عبد الرحمن الجبرين",
+    "edition_raw": "الأولى، 1416 هـ - 1995 م",
+    "page_count_raw": "227",
+    "author_short": "مدحت آل فراج",
+    "physical_page_count": 227
+  },
+  "scholarly_context": {
+    "composition_period": null,
+    "composition_date_hijri": null,
+    "tradition_position": null,
+    "known_textual_issues": [],
+    "historical_significance": "A contemporary work focusing on the establishment of the argument for monotheism and the accountability of human beings before God.",
+    "muhaqiq_reputation": null,
+    "tahqiq_methodology_note": null,
+    "edition_known_issues": [],
+    "context_richness": "minimal",
+    "uncertain_dimensions": [
+      "composition_date_hijri",
+      "tradition_position"
+    ]
+  },
+  "work_relationships": [],
+  "status": "success",
+  "intake_timestamp": "2026-03-21T20:54:29.273572+00:00",
+  "acquisition_path": "manual",
+  "metadata_history": [],
+  "enrichment_sources": [],
+  "enrichment_tracking": null,
+  "owner_authored_type": null,
+  "compositional_profile": null,
+  "difficulty_prediction": null,
+  "tahqiq_fingerprint": null,
+  "processing_time_seconds": 12.45
+}

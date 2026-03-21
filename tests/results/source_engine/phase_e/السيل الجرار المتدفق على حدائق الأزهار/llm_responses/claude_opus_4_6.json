@@ -1,0 +1,71 @@
+{
+  "model_id": "anthropic/claude-opus-4-6",
+  "provider": "anthropic",
+  "parse_success": true,
+  "error": null,
+  "latency": 17.00212499999907,
+  "parsed": {
+    "genre": "sharh",
+    "genre_confidence": 0.95,
+    "genre_chain": {
+      "relation_type": "sharh_of",
+      "base_work_title": "حدائق الأزهار",
+      "base_work_author": "أحمد بن يحيى المرتضى"
+    },
+    "genre_chain_confidence": 0.92,
+    "structural_format": "commentary",
+    "structural_format_confidence": 0.95,
+    "is_multi_layer": true,
+    "multi_layer_confidence": 0.95,
+    "layers": [
+      {
+        "layer_type": "matn",
+        "author_name": "أحمد بن يحيى المرتضى"
+      },
+      {
+        "layer_type": "sharh",
+        "author_name": "محمد بن علي الشوكاني"
+      }
+    ],
+    "science_scope": [
+      "fiqh"
+    ],
+    "science_scope_confidence": 0.97,
+    "level": "advanced",
+    "level_confidence": 0.9,
+    "authority_level": "primary",
+    "authority_level_confidence": 0.9,
+    "author_identification": {
+      "canonical_name_ar": "محمد بن علي بن محمد بن عبد الله الشوكاني اليمني",
+      "known_as": [
+        "الشوكاني",
+        "الإمام الشوكاني"
+      ],
+      "death_date_hijri": 1250,
+      "school_affiliations": {
+        "fiqh": "مجتهد مستقل (لا يتقيد بمذهب)",
+        "hadith": null
+      },
+      "sectarian_tradition": "sunni",
+      "scholarly_standing": "من أبرز علماء اليمن ومجتهدي القرن الثالث عشر الهجري، قاضي قضاة صنعاء، جمع بين الفقه والحديث والتفسير والأصول، وعُرف بنقده للتقليد ودعوته للاجتهاد",
+      "methodological_stance": "مجتهد مطلق يرفض التقليد المذهبي ويدعو إلى الاستدلال بالكتاب والسنة مباشرة، متأثر بمنهج ابن تيمية وابن القيم مع نشأة زيدية"
+    },
+    "author_identification_confidence": 0.99,
+    "attribution_status": "definitive",
+    "attribution_notes": null,
+    "scholarly_context": {
+      "composition_period": "من أعمال الشوكاني المتأخرة في الفقه المقارن، ألفه بعد نضجه العلمي",
+      "composition_date_hijri": null,
+      "tradition_position": "يمثل هذا الكتاب نقداً اجتهادياً لمتن زيدي من منظور أهل الحديث، حيث يعلق الشوكاني على كتاب الأزهار الزيدي مرجحاً بالأدلة من الكتاب والسنة، وهو من أهم كتب الفقه المقارن في التراث اليمني",
+      "known_textual_issues": [],
+      "historical_significance": "من أهم مؤلفات الشوكاني الفقهية، يُظهر منهجه الاجتهادي في نقد الفقه الزيدي والترجيح بالدليل، ويعد مرجعاً في الفقه المقارن بين المذاهب خاصة في السياق اليمني",
+      "muhaqiq_reputation": null,
+      "tahqiq_methodology_note": null,
+      "edition_known_issues": [],
+      "context_richness": "rich",
+      "uncertain_dimensions": [
+        "composition_date_hijri"
+      ]
+    }
+  }
+}
