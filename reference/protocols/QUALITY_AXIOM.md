@@ -78,3 +78,25 @@ These apply to every KR session, every response, every decision:
 5. **Never attribute quality enforcement to the owner.** If a sentence starts with "the owner can..." or "the owner should..." in a quality context, rewrite it. The architect does it.
 
 6. **When uncertain whether something needs verification: verify.** The cost of unnecessary verification is time. The cost of insufficient verification is wrong knowledge in the owner's mind.
+
+7. **After completing ANY protocol, run an unconstrained adversarial pass.** The protocol catches known failure modes. The adversarial pass catches unknown ones. Ask: "What is the protocol NOT checking?" Do NOT use a checklist for this — the point is to think outside all existing checklists. S6: protocol passed, adversarial pass found CRLF. S7: protocol passed, adversarial pass found tautological tests + 2 missing coverage gaps + 1 contradiction. This has caught HIGH-severity issues in every session it was applied. It is the single most effective quality mechanism after tool-based verification.
+
+8. **Never review your own output in the same chat that produced it.** Context degradation is real. The quality of the last output in a long conversation is always the worst. Start a new chat for reviews, transition gates, and any verification of your own work. If uncertain whether context is degraded: start a new chat.
+
+9. **At session start, scan what resources exist — don't rely on memory.** Run `ls /mnt/skills/user/` to see available skills. Read `ls reference/protocols/` to see available protocols. Memory entries mapping tasks to skills may be stale. The filesystem is the truth.
+
+10. **When the owner pushes back, that IS the signal.** The owner doesn't check technical work — but the owner observes the process. When the owner says "are you sure?" or "look again" or "take your time," the correct response is not "what should I look at?" but: run the full unconstrained adversarial pass (standing order 7). The owner sees something you don't. Every time this has happened, real issues were found.
+
+---
+
+## Protocol Compliance ≠ Quality
+
+This section was added after Session 7 (March 2026) because the pattern persisted across Sessions 5, 6, and 7 despite accumulating protocol improvements after each session.
+
+**The pattern:** The architect follows the protocol. The protocol passes. The architect declares ready. The owner pushes back. The architect runs a deeper analysis. Real issues are found.
+
+**Why protocols are necessary but not sufficient:** A protocol is a checklist of known failure modes. Each time a new failure mode is discovered, a new checklist item is added. But the failures that slip through are always novel — they're the things no checklist item covers yet. A protocol can never be complete because the failure space is unbounded.
+
+**The complementary mechanism:** After protocol completion, the architect runs an unconstrained adversarial pass (standing order 7). This is not "more protocol" — it's the opposite. It's deliberately unstructured thinking aimed at finding what the structured thinking missed. The question is "what am I NOT checking?" not "did I check everything?"
+
+**Why this works:** The protocol ensures a floor (known failure modes are caught). The adversarial pass explores above the floor (unknown failure modes are sought). Together, they produce robustness that neither achieves alone. The protocol without the adversarial pass creates false confidence. The adversarial pass without the protocol is inefficient (reinventing known checks). Both are mandatory.
