@@ -152,7 +152,7 @@ class TestContentCensus:
 
     def test_census_on_synthetic_content(self):
         """Census produces expected statistics from synthetic content units."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("§4.B.5 DEFERRED — content census not in core build (CORE_EXTRACTION.md)")
 
 
 class TestContentFlagger:
@@ -160,15 +160,15 @@ class TestContentFlagger:
 
     def test_quran_verse_detection(self):
         """Quran verse patterns detected and flagged."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("Superseded by test_integration.py::TestContentFlagger::test_quran_verse_detection — Session 7")
 
     def test_hadith_marker_detection(self):
         """Hadith narration patterns detected and flagged."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("Superseded by test_integration.py::TestContentFlagger::test_hadith_marker_detection — Session 7")
 
     def test_poetry_verse_detection(self):
         """Poetry meter patterns detected and flagged."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("Superseded by test_integration.py::TestContentFlagger::test_poetry_verse_detection — Session 7")
 
 
 # ============================================================
@@ -186,35 +186,35 @@ class TestShamelaNormalizer:
 
     def test_output_schema_compliance(self):
         """Shamela normalizer output validates against NormalizedManifest model."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("Superseded by test_integration.py::TestShamelaNormalizer::test_output_schema_compliance — Session 7")
 
     def test_content_preservation_arabic_text(self):
         """Arabic text preserved byte-for-byte through normalization."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("Superseded by test_integration.py::TestShamelaNormalizer::test_content_preservation_arabic_text — Session 7")
 
     def test_footnote_separation(self):
         """Footnotes correctly separated from primary text."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("Superseded by test_integration.py::TestShamelaNormalizer::test_footnote_separation — Session 7")
 
     def test_multi_layer_detection(self):
         """Matn/sharh layers detected in commentary text."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("Superseded by test_integration.py::TestShamelaNormalizer::test_multi_layer_detection — Session 7")
 
     def test_diacritics_preservation(self):
         """Tashkeel diacritics preserved through normalization."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("Superseded by test_integration.py::TestShamelaNormalizer::test_diacritics_preservation — Session 7")
 
     def test_page_boundaries(self):
         """Page breaks correctly identified from Shamela PageText divs."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("Superseded by test_integration.py::TestShamelaNormalizer::test_page_boundaries — Session 7")
 
     def test_structure_discovery(self):
         """Chapter/section headings detected from Shamela markup."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("Superseded by test_integration.py::TestShamelaNormalizer::test_structure_discovery — Session 7")
 
     def test_content_flags(self):
         """Quran, hadith, poetry markers detected in content."""
-        pytest.skip("Not yet implemented — Session 7")
+        pytest.skip("Superseded by test_integration.py::TestShamelaNormalizer::test_content_flags — Session 7")
 
 
 # Additional normalizer test classes added here as normalizers are built:

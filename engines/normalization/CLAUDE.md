@@ -85,9 +85,9 @@ The ABD code is REFERENCE, not implementation. Build fresh code that matches SPE
 | 4 | Layer detection (typographic signals for Shamela) | §4.A.5 | ✅ Done (ACCEPTED) |
 | 5 | Pass 6 assembly (boundary continuity, flagging, output) | §4.B.8, §4.A.9, §4.A.2 Pass 6 | ✅ Done (ACCEPTED) |
 | 6 | Validation + writer + plain text normalizer + dispatcher wiring | §5 checks 1–10, §4.A.4c, §4.A.1 | ✅ Done (ACCEPTED) |
-| 7 | Integration testing on fixtures | Full pipeline, adversarial cases |  |
+| 7 | Integration testing on fixtures | Full pipeline, adversarial cases | ✅ Done |
 
-**Build metrics after Session 6:** ~7,797 impl lines, 335 tests passing (12 skipped), 30/51 ADV covered (ADV-001–018, ADV-021, ADV-024–026, ADV-028–029, ADV-033, ADV-045, ADV-047, ADV-050, ADV-051). Known limitations: L-001 through L-011. `normalize_and_write()` end-to-end for Shamela + plain text sources. Smoke test: 63/63 PASS on real + extended fixtures (includes multi-layer check 4 on 02_nahw_muhaqiq).
+**Build metrics after Session 7:** ~7,797 impl lines + ~400 integration test lines. 420 tests passing (14 skipped), 37/51 ADV covered (Session 6: ADV-001–018, ADV-021, ADV-024–026, ADV-028–029, ADV-033, ADV-045, ADV-047, ADV-050, ADV-051; Session 7: ADV-019, ADV-020, ADV-022, ADV-034, ADV-038 documented, ADV-040, ADV-048, ADV-049). Known limitations: L-001 through L-012. Smoke test: 63/63 PASS. Integration tests: 85 passed on all 63 fixtures with silent page loss check.
 
 **Session 6 modules built:**
 - `validation.py` (§5) — 10 self-validation checks (page count, Arabic ratio, structure, matn proportion, division overlap, layer coverage, footnote integrity, diacritics preservation, fidelity, boundary continuity)

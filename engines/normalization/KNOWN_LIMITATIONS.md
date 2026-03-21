@@ -105,3 +105,15 @@ Tracked limitations discovered during build. Not bugs (code matches SPEC), but b
 **Practical risk:** Near-zero. Requires both Path.rename and shutil.move to fail on a same-filesystem operation where a previous rename just succeeded. The failure itself IS raised as NORM_WRITE_FAILED (loud, not silent).
 **Impact:** The book would need full re-processing. No corrupt data enters the library. This is a durability gap, not a correctness gap. No T-1 through T-7 threat applies.
 **Fix:** Add a case in `recover_interrupted_write`: if no temp dirs AND no `normalized/` AND prev dirs exist → restore from latest prev. See CC fix instructions in Session 6 review.
+
+## L-012: Arabic-Indic digit footnote markers not parsed
+
+**Discovered:** Session 7 ADV gap analysis (March 2026).
+**SPEC reference:** ADV-023.
+**Behavior:** Footnote regex uses [0-9] (ASCII only). Arabic-Indic markers (١, ٢, ٣)
+in format (١) are NOT detected as footnote references.
+**Rationale:** Arabic-Indic digits in parentheses commonly appear as hadith/verse
+numbers. Matching them as footnote markers introduces false positives. ASCII-only is a
+precision-over-recall design choice documented in shamela.py line 115-122.
+**Fix point:** If corpus analysis finds Shamela exports using Arabic-Indic footnote
+markers, add a configurable detection mode.
