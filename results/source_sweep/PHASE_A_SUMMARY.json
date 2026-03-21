@@ -1,0 +1,191 @@
+{
+  "run_timestamp": "2026-03-21T17:31:31.014226+00:00",
+  "collection_path": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples",
+  "total_items": 7475,
+  "processed": 7475,
+  "successful": 7475,
+  "errors": 0,
+  "errors_by_code": {},
+  "format_counts": {
+    "shamela_html": 7475
+  },
+  "field_coverage": {
+    "is_multi_volume": {
+      "count": 7475,
+      "pct": 100.0
+    },
+    "volume_count": {
+      "count": 7475,
+      "pct": 100.0
+    },
+    "has_muqaddima": {
+      "count": 7475,
+      "pct": 100.0
+    },
+    "display_title": {
+      "count": 7475,
+      "pct": 100.0
+    },
+    "author_short": {
+      "count": 7475,
+      "pct": 100.0
+    },
+    "shamela_category": {
+      "count": 7475,
+      "pct": 100.0
+    },
+    "title_full": {
+      "count": 7475,
+      "pct": 100.0
+    },
+    "shamela_publish_date": {
+      "count": 7475,
+      "pct": 100.0
+    },
+    "body_page_count": {
+      "count": 7475,
+      "pct": 100.0
+    },
+    "page_count": {
+      "count": 7475,
+      "pct": 100.0
+    },
+    "text_sample": {
+      "count": 7474,
+      "pct": 100.0
+    },
+    "author_name_raw": {
+      "count": 7212,
+      "pct": 96.5
+    },
+    "publisher": {
+      "count": 6510,
+      "pct": 87.1
+    },
+    "page_count_raw": {
+      "count": 5286,
+      "pct": 70.7
+    },
+    "edition_raw": {
+      "count": 5252,
+      "pct": 70.3
+    },
+    "edition_number": {
+      "count": 5143,
+      "pct": 68.8
+    },
+    "edition_year_hijri": {
+      "count": 4785,
+      "pct": 64.0
+    },
+    "author_name_clean": {
+      "count": 4445,
+      "pct": 59.5
+    },
+    "author_death_hijri": {
+      "count": 4233,
+      "pct": 56.6
+    },
+    "edition_year_miladi": {
+      "count": 4127,
+      "pct": 55.2
+    },
+    "muhaqiq_name_raw": {
+      "count": 3468,
+      "pct": 46.4
+    },
+    "volume_count_raw": {
+      "count": 1723,
+      "pct": 23.1
+    },
+    "preparer": {
+      "count": 1059,
+      "pct": 14.2
+    },
+    "author_birth_hijri": {
+      "count": 396,
+      "pct": 5.3
+    },
+    "muhaqiq_name_clean": {
+      "count": 341,
+      "pct": 4.6
+    },
+    "muhaqiq_death_hijri": {
+      "count": 325,
+      "pct": 4.3
+    },
+    "publication_year_raw": {
+      "count": 312,
+      "pct": 4.2
+    },
+    "editorial_note": {
+      "count": 212,
+      "pct": 2.8
+    },
+    "source_note": {
+      "count": 194,
+      "pct": 2.6
+    },
+    "foreword_by": {
+      "count": 156,
+      "pct": 2.1
+    },
+    "distributor": {
+      "count": 104,
+      "pct": 1.4
+    },
+    "supervisor": {
+      "count": 78,
+      "pct": 1.0
+    },
+    "thesis_info": {
+      "count": 71,
+      "pct": 0.9
+    },
+    "original_author_name_raw": {
+      "count": 46,
+      "pct": 0.6
+    },
+    "riwayah": {
+      "count": 45,
+      "pct": 0.6
+    },
+    "compiler_name_raw": {
+      "count": 44,
+      "pct": 0.6
+    },
+    "commentator_name_raw": {
+      "count": 42,
+      "pct": 0.6
+    },
+    "translator": {
+      "count": 9,
+      "pct": 0.1
+    }
+  },
+  "multi_volume_count": 1899,
+  "single_file_count": 5576,
+  "duplicate_groups": [
+    {
+      "hash": "0eef3482b7d73e3976cc6549af01be75400f733b0b11b33d79f15555bb522787",
+      "sources": [
+        "النكت على شرح النووي على صحيح مسلم",
+        "النكت على شرح النووي على صحيح مسلم.htm"
+      ]
+    }
+  ],
+  "quality_issue_counts": {
+    "page_count_mismatch": 158,
+    "truncation_with_mismatch": 47,
+    "content_minimal": 16,
+    "high_empty_ratio": 1
+  },
+  "timing": {
+    "total_seconds": 124.5,
+    "avg_per_book_ms": 16.7,
+    "slowest_book": {
+      "name": "فتاوى الشبكة الإسلامية",
+      "ms": 910.1
+    }
+  }
+}
