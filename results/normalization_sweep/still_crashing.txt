@@ -1,0 +1,10 @@
+0 crashes — no rerun needed
+
+The single crash book (مواقف النبي - صلى الله عليه وسلم - في الدعوة إلى الله تعالى)
+was verified via its fixture (crash_diacritics_entity_mismatch.htm). After the
+diacritics canary tolerance fix, the book normalizes successfully:
+90 non-blank pages, 79,732 total characters.
+
+Original book not found in shamela-export-samples/ for rerun_crash_books.py
+(likely moved during collection management). Fixture-based verification confirms
+the fix.
