@@ -148,9 +148,9 @@ git commit -m "sweep: Verification + calibration report"
 
 ## Verification
 
-- [ ] VERIFICATION_REPORT.md has before/after comparison
-- [ ] VERIFICATION_REPORT.md states rationale for re-sweep scope (crash-only vs full)
-- [ ] CALIBRATION_REPORT.md has all 9 sections (B.1-B.9)
-- [ ] analyze_sweep_results.py is committed and produces the report when run
-- [ ] No engine source code modified
-- [ ] All commits use `sweep:` prefix
+- [x] VERIFICATION_REPORT.md has before/after comparison
+- [x] VERIFICATION_REPORT.md states rationale for re-sweep scope (full — both fixes are logic changes)
+- [x] CALIBRATION_REPORT.md has all 9 sections (B.1-B.9)
+- [x] analyze_sweep_results.py is committed and produces the report when run
+- [x] No engine source code modified
+- [x] All commits use `sweep:` prefix
