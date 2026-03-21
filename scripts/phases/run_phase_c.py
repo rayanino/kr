@@ -94,8 +94,6 @@ def parse_args() -> argparse.Namespace:
 
 def check_env() -> None:
     missing = []
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        missing.append("ANTHROPIC_API_KEY")
     if not os.environ.get("OPENROUTER_API_KEY"):
         missing.append("OPENROUTER_API_KEY")
     if missing:
