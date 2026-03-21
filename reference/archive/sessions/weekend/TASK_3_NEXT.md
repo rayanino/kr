@@ -1,131 +1,139 @@
-# NEXT — Weekend Task 3: Verification Re-Sweep + Calibration Report
+# NEXT — Weekend Task 3: Verification + Calibration Report
 
 ## Current Position
 
 - **Phase:** Post-fix verification + data analysis
 - **Mode:** AUTONOMOUS DATA COLLECTION AND ANALYSIS — no architect interaction needed
-- **Previous:** Task 1 (corpus sweeps) complete. Task 2 (bug fix sprint) complete. Crashes fixed with tests. Some books may still crash (documented in still_crashing.txt).
-- **Purpose:** (1) Verify that bug fixes actually resolved crashes at scale. (2) Produce the calibration report the architect needs for the normalization transition gate.
+- **Previous:** Task 1 (corpus sweeps) complete. Task 2 (bug fix sprint) complete.
+- **Purpose:** (1) Verify bug fixes resolved crashes. (2) Produce the calibration report the architect needs for the normalization transition gate.
 
 ## Rules for This Session
 
 1. **Do NOT modify any engine source code.** Task 2 handled fixes. This task is data collection only.
 2. **Do NOT modify any SPEC or contracts.**
-3. **You MAY modify scripts** in `scripts/` to support re-sweep and analysis.
-4. **You MAY create new analysis scripts** in `scripts/` or `results/`.
-5. **Budget: €0.** No LLM API calls.
+3. **You MAY modify or create scripts** in `scripts/` for analysis.
+4. **Budget: €0.** No LLM API calls.
 
 ## What to Do
 
-### Part A: Verification Re-Sweep (1 hour)
+### Part A: Verify Bug Fixes (30-60 minutes)
 
-**Goal:** Re-run the full normalization corpus sweep to get clean numbers post-fixes.
+**Step 1:** Determine re-sweep scope by checking what Task 2 changed.
 
-1. **Re-run the normalization sweep on the FULL collection** (not just crash books):
-   ```bash
-   # Fresh output directory — don't mix with Task 1 results
-   python scripts/normalization_corpus_sweep.py --collection-dir shamela-export-samples --output-dir results/normalization_sweep_v2
-   ```
-   
-   This re-run uses the FIXED engine code from Task 2. It should take the same time as Task 1 (~1-2 hours).
-
-2. **While that runs, re-run the source sweep if Task 2 fixed any source engine bugs:**
-   ```bash
-   python scripts/phases/run_phase_a.py shamela-export-samples --output-dir results/source_sweep_v2
-   ```
-   If Task 2 made no source engine changes, skip this — use Task 1 results.
-
-3. **Compare before/after:**
-   ```markdown
-   | Metric | Task 1 (before fixes) | Task 3 (after fixes) | Delta |
-   |--------|----------------------|---------------------|-------|
-   | Total books | | | |
-   | OK | | | |
-   | CRASH | | | |
-   | VALIDATION_FAILED | | | |
-   | Crash rate | | | |
-   ```
-
-4. Write comparison in `results/VERIFICATION_REPORT.md`.
-
-### Part B: Calibration Report (1 hour)
-
-**Goal:** Analyze the sweep data (use Task 3 v2 results if available, otherwise Task 1 results) to produce distributions and baselines for the transition gate.
-
-Create `results/CALIBRATION_REPORT.md` with these sections:
-
-#### B.1: Corpus Statistics
-- Total books processed
-- Success rate
-- Processing time distribution (mean, median, p95, max)
-- Book size distribution (pages: mean, median, p95, max)
-
-#### B.2: Multi-Layer Detection at Scale
-- Books where auto-upgrade triggered (count and percentage)
-- Of auto-upgraded books: distribution of multi-layer unit counts
-- Of auto-upgraded books: mean/median matn confidence scores
-- **KEY QUESTION:** What percentage of auto-upgraded books have mean matn confidence < 0.70? (These are likely false positives per EVALUATION_REPORT.md F-1)
-- List the top 20 auto-upgraded books by multi-layer unit count (name, unit count, mean matn confidence)
-
-#### B.3: Division Tree
-- Distribution of division count per book (mean, median, p95, max)
-- Books with zero divisions (count, percentage — these are flat-structure books)
-- Books with division overlap warnings (count, percentage — L-010 rate at scale)
-
-#### B.4: Boundary Continuity
-- Mean BC coverage across all books
-- BC type distribution across all pages (% mid_sentence, % mid_paragraph, % mid_argument, % section_break, % unknown)
-- Books with 0% BC coverage (count, percentage, reason — likely 1-page books)
-
-#### B.5: Content Flags
-- Total hadith pages across corpus
-- Total quran pages across corpus
-- Total verse pages across corpus
-- Books with zero content flags (count — these are non-Islamic-text books or content flagger gaps)
-
-#### B.6: Arabic Text Quality
-- Arabic ratio distribution (mean, median, min, p5)
-- Books with arabic_ratio < 70% (count, list top 20 by lowest ratio)
-- Diacritic density distribution (diacritics per 1000 Arabic chars: mean, median, p95)
-- Books with zero diacritics (count — likely printed texts without tashkeel)
-
-#### B.7: Warning Patterns at Scale
-- Warning type distribution (sorted by frequency)
-- Top 10 most-warned books (name, warning count, dominant warning type)
-
-#### B.8: Passaging Contract Alignment
-- Books failing check 4 (count mismatch): count
-- Books failing check 5 (ordering/gaps): count
-- Books failing check 6 (division inconsistency): count
-- **Any book failing checks 4 or 5 is a potential engine bug — list them by name**
-
-#### B.9: Footnote Distribution
-- Books with structured footnotes (count, percentage)
-- Mean footnote pages per book (across books that have any)
-- This tells us what percentage of the passaging workload involves footnote renumbering
-
-### Part C: Analysis Script
-
-Write the analysis as a reusable Python script:
-```
-scripts/analyze_sweep_results.py --input results/normalization_sweep_v2/corpus_sweep.jsonl --output results/CALIBRATION_REPORT.md
+Run:
+```bash
+git log --oneline --all | grep "fix:" | head -20
+# Then for each fix commit:
+git diff COMMIT~1 COMMIT --name-only -- engines/normalization/src/ engines/source/src/
 ```
 
-This makes it re-runnable after future sweeps. Commit the script alongside the report.
+Classify each changed file:
 
-### Step 4: Commit Everything
+- **Error-path-only changes** (added None guard, added try/except, fixed missing key check): These only affect books that previously CRASHED. A crash-only re-run is sufficient.
+- **Logic changes** (modified regex, changed parsing behavior, altered threshold, changed control flow): These could affect ALL books. A full re-sweep is needed.
+
+**Step 2a:** If ALL changes are error-path-only → crash-only verification:
+
+```bash
+python scripts/rerun_crash_books.py results/normalization_sweep/crash_books.txt shamela-export-samples results/normalization_sweep/rerun_subset
+python scripts/normalization_corpus_sweep.py --collection-dir results/normalization_sweep/rerun_subset --output-dir results/normalization_sweep/rerun_results --resume
+```
+
+Write `results/VERIFICATION_REPORT.md`:
+```markdown
+# Verification Report
+
+## Re-sweep Scope: Crash books only
+**Rationale:** All Task 2 fixes are error-path-only (None guards, try/except). Non-crashing books are unaffected.
+
+| Metric | Task 1 (before) | Rerun (after) |
+|--------|-----------------|---------------|
+| Crash books tested | N | N |
+| Still crashing | — | M |
+| Now OK | — | K |
+```
+
+**Step 2b:** If ANY change touches core logic → full re-sweep:
+
+```bash
+python scripts/normalization_corpus_sweep.py --collection-dir shamela-export-samples --output-dir results/normalization_sweep_v2 --resume
+```
+
+Write `results/VERIFICATION_REPORT.md` with full before/after comparison table.
+
+### Part B: Calibration Report (1-2 hours)
+
+**Use Task 1 results for calibration** unless you did a full re-sweep in Step 2b, in which case use v2 results. Filter out CRASH entries — the calibration is about healthy books.
+
+Create a reusable analysis script AND the report:
+
+```bash
+python scripts/analyze_sweep_results.py --input results/normalization_sweep/corpus_sweep.jsonl --output results/CALIBRATION_REPORT.md
+```
+
+The script reads the JSONL and produces `CALIBRATION_REPORT.md` with these sections:
+
+**B.1: Corpus Statistics**
+- Total books processed, success rate, crash rate
+- Processing time: mean, median, p95, max
+- Book size (content_units): mean, median, p95, max
+- Total pages across corpus
+
+**B.2: Multi-Layer Detection at Scale**
+- Books where `auto_upgraded_multi == true`: count and percentage
+- Of auto-upgraded: distribution of `multi_layer_units` counts
+- **KEY METRIC:** What percentage of auto-upgraded books look like false positives? (Heuristic: multi_layer_units > 50% of content_units AND all from bracket detection)
+- Top 20 auto-upgraded books by multi_layer_units (name, count)
+
+**B.3: Division Tree**
+- `division_count` distribution: mean, median, p95, max
+- Books with zero divisions: count, percentage
+- Books with division overlap warnings: count, percentage
+- Compare overlap rate to 63-fixture rate (14% in evaluation)
+
+**B.4: Boundary Continuity**
+- Mean `bc_coverage` across all OK books
+- Aggregate `bc_types` distribution: % mid_sentence, mid_paragraph, mid_argument, section_break, unknown
+- Books with 0% BC coverage: count, percentage
+
+**B.5: Content Flags**
+- Total has_hadith / has_quran / has_verse pages across corpus
+- Books with zero content flags: count
+- Percentage of corpus pages with each flag
+
+**B.6: Arabic Text Quality**
+- `arabic_ratio` distribution: mean, median, p5 (bottom 5%), min
+- Books with arabic_ratio < 70%: count, list top 20 by lowest ratio
+- Diacritic density (diacritic_count / total_chars × 1000): mean, median, p95
+- Books with zero diacritics: count
+
+**B.7: Warning Patterns at Scale**
+- Warning type distribution from `warn_categories` (sorted by frequency)
+- Total warnings across corpus
+- Top 10 most-warned books
+
+**B.8: Passaging Contract Alignment**
+- Books failing `check4_count_match`: count — **list all by name** (potential engine bug)
+- Books failing `check5_ordered` or `check5_no_gaps`: count — **list all by name** (potential engine bug)
+- Books failing `check6_division_consistent`: count, percentage
+- Books passing ALL checks: count, percentage
+
+**B.9: Page Loss**
+- `page_loss` distribution: mean, median, p95, max
+- Books with page_loss > 5: count, list by name
+- Books with page_loss == 0: percentage (perfect preservation rate)
+
+### Part C: Commit
 
 ```bash
 git add results/VERIFICATION_REPORT.md results/CALIBRATION_REPORT.md scripts/analyze_sweep_results.py
-# Do NOT add the full v2 sweep JSONL if >100MB — add only summary files
-git add results/normalization_sweep_v2/CORPUS_SWEEP_SUMMARY.md
-git commit -m "sweep: Verification re-sweep + calibration report"
+git commit -m "sweep: Verification + calibration report"
 ```
 
 ## Read First
 
 1. This file (NEXT.md)
-2. `results/SWEEP_FIX_SUMMARY.md` — what was fixed in Task 2
+2. `results/SWEEP_FIX_SUMMARY.md` — what was fixed in Task 2 (determines re-sweep scope)
 3. `results/normalization_sweep/CORPUS_SWEEP_SUMMARY.md` — Task 1 baseline
 4. `engines/normalization/EVALUATION_REPORT.md` — what the 63-fixture evaluation found
 5. `engines/normalization/KNOWN_LIMITATIONS.md` — known limitations to expect at scale
@@ -136,12 +144,13 @@ git commit -m "sweep: Verification re-sweep + calibration report"
 2. **Do NOT modify SPECs or contracts.**
 3. **Do NOT run LLM API calls.**
 4. **Do NOT commit per-book JSON/JSONL files >100MB to git.**
-5. **Do NOT interpret findings.** Report numbers and distributions. The architect interprets.
+5. **Do NOT interpret findings beyond reporting numbers.** The architect interprets.
 
 ## Verification
 
-- [ ] VERIFICATION_REPORT.md has before/after comparison table
+- [ ] VERIFICATION_REPORT.md has before/after comparison
+- [ ] VERIFICATION_REPORT.md states rationale for re-sweep scope (crash-only vs full)
 - [ ] CALIBRATION_REPORT.md has all 9 sections (B.1-B.9)
-- [ ] analyze_sweep_results.py is committed and executable
+- [ ] analyze_sweep_results.py is committed and produces the report when run
 - [ ] No engine source code modified
 - [ ] All commits use `sweep:` prefix

@@ -9,14 +9,17 @@
 
 ## Rules for This Session
 
+**These rules override normal build procedures including `.claude/rules/quality-workflow.md` and `.claude/rules/session-discipline.md` (one-engine-per-session does not apply — this session fixes bugs in both engines).**
+
 1. **You MAY modify engine source code** (`engines/source/src/`, `engines/normalization/src/`) to fix bugs found during the sweeps. Every fix MUST have a new or modified test that proves the fix.
 2. **Do NOT modify any SPEC** (`SPEC.md`, `SPEC_CORE.md`). If a fix would conflict with the SPEC, document it in SWEEP_ARCHITECT_REVIEW.md and skip the fix.
-3. **Do NOT modify contracts.py** unless a field type is clearly wrong (e.g., Optional that should be required). Document any contract changes in your commit message.
+3. **Do NOT modify contracts.py.** If you find a contract field type that seems wrong, document it in SWEEP_ARCHITECT_REVIEW.md. The architect fixes contracts.
 4. **Do NOT make architectural decisions.** If a fix requires judgment about the right approach, document both options in SWEEP_ARCHITECT_REVIEW.md and skip it.
 5. **You MAY add test fixtures** from edge cases found during sweeps.
 6. **Commit each fix separately** with descriptive messages prefixed with `fix:`. Include the crash count and pattern in the commit message.
-7. **Run full test suite after EVERY fix** — zero regressions allowed.
+7. **Run full test suite after EVERY fix** — zero regressions allowed. Run pyright on modified files.
 8. **Budget: €0.** Do NOT run any LLM API calls.
+9. **Skip code-reviewer dispatch.** These are small crash fixes (None guards, try/except). The architect reviews ALL fixes when reviewing Task 2 output. Per-fix code-reviewer dispatch is unnecessary overhead for this session.
 
 ## What to Do
 
@@ -98,37 +101,37 @@ If no bugs need architect review, write: "No bugs required architect review. All
 
 ### Step 5: Collect Crash Book Lists for Re-Sweep
 
-Create these files (Task 3 needs them):
+**If Task 1 found ZERO crashes** (errors.jsonl is empty or all entries are non-CRASH): create an empty `crash_books.txt`, write "0 crashes — no rerun needed" in `still_crashing.txt`, and skip the rest of Step 5. Proceed to Step 6.
 
-**`results/normalization_sweep/crash_books.txt`** — one book directory name per line, for books that CRASHED (not VALIDATION_FAILED) in the normalization sweep. Extract from `errors.jsonl`:
+**If Task 1 found crashes:**
+
+Create `results/normalization_sweep/crash_books.txt` — one book directory name per line:
 ```python
 import json
+names = []
 with open("results/normalization_sweep/errors.jsonl") as f:
-    names = [json.loads(line)["name"] for line in f if json.loads(line)["status"] == "CRASH"]
+    for line in f:
+        line = line.strip()
+        if not line:
+            continue
+        record = json.loads(line)
+        if record["status"] == "CRASH":
+            names.append(record["name"])
+names = sorted(set(names))
 with open("results/normalization_sweep/crash_books.txt", "w") as f:
-    f.write("\n".join(sorted(set(names))))
+    f.write("\n".join(names))
+print(f"Wrote {len(names)} crash book names")
 ```
 
-**`results/normalization_sweep/still_crashing.txt`** — same format, but only books that STILL crash after fixes. Re-run the crash_books list through the normalization sweep to check:
+Use the pre-existing `scripts/rerun_crash_books.py` to copy crash books and re-run the sweep:
 ```bash
-# Create a temporary directory with just the crash books
-python -c "
-import shutil, pathlib
-books = pathlib.Path('results/normalization_sweep/crash_books.txt').read_text().strip().split('\n')
-out = pathlib.Path('results/normalization_sweep/rerun_subset')
-out.mkdir(exist_ok=True)
-base = pathlib.Path('shamela-export-samples')
-for b in books:
-    src = base / b
-    if src.exists():
-        dst = out / b
-        if not dst.exists():
-            dst.symlink_to(src)  # symlink to avoid copying
-"
-python scripts/normalization_corpus_sweep.py --collection-dir results/normalization_sweep/rerun_subset --output-dir results/normalization_sweep/rerun_results
+python scripts/rerun_crash_books.py results/normalization_sweep/crash_books.txt shamela-export-samples results/normalization_sweep/rerun_subset
+python scripts/normalization_corpus_sweep.py --collection-dir results/normalization_sweep/rerun_subset --output-dir results/normalization_sweep/rerun_results --resume
 ```
 
-Compare crash counts before and after. Record the delta.
+Create `results/normalization_sweep/still_crashing.txt` from the rerun results — list books that STILL crash after fixes.
+
+Compare crash counts before and after. Record the delta in SWEEP_FIX_SUMMARY.md.
 
 ### Step 6: Commit Everything
 

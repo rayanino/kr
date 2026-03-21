@@ -45,9 +45,34 @@
 
 4. If the small sample works, run the full sweep:
    ```
-   python scripts/normalization_corpus_sweep.py --collection-dir shamela-export-samples
+   python scripts/normalization_corpus_sweep.py --collection-dir shamela-export-samples --resume
    ```
-   This will take 1-2 hours. The script streams results to JSONL, so partial results are saved even if interrupted. Use `--resume` to continue after interruption.
+   **Always use `--resume`** — on a fresh run it's a no-op, but if the sweep crashes and you restart, it skips already-processed books instead of creating duplicates in the JSONL. This will take 1-2 hours. The script streams results to JSONL, so partial results are saved even if interrupted.
+   
+   **Expected timing:** ~1-3 books/sec depending on size. Progress is printed every 100 books. If no output appears for >5 minutes, a single book may be extremely large or hanging. Use Ctrl+C to interrupt — all previously completed results are saved in the JSONL.
+   
+   **If a book hangs:** Ctrl+C, then check which book was being processed (it's the one AFTER the last line in `corpus_sweep.jsonl`). Manually add a skip entry for that book:
+   ```python
+   python -c "
+   import json
+   with open('results/normalization_sweep/corpus_sweep.jsonl') as f:
+       lines = f.readlines()
+   last = json.loads(lines[-1])['name'] if lines else '(none)'
+   print(f'Last completed: {last}')
+   "
+   ```
+   Then add a TIMEOUT entry so --resume skips it:
+   ```python
+   python -c "
+   import json
+   # Replace BOOK_NAME with the hanging book's directory name
+   entry = {'name': 'BOOK_NAME', 'status': 'CRASH', 'error_type': 'Timeout', 'error_message': 'Manual skip — book hung during processing', 'elapsed_seconds': -1}
+   with open('results/normalization_sweep/corpus_sweep.jsonl', 'a') as f:
+       f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+   print('Added skip entry')
+   "
+   ```
+   Then restart with `--resume`. The hung book is now in the JSONL and will be skipped.
 
 5. After completion, read `results/normalization_sweep/CORPUS_SWEEP_SUMMARY.md` and write your analysis in `results/normalization_sweep/CC_ANALYSIS.md`. Focus on:
    - **Crash patterns:** What types of books crash? Are there common HTML structures that break the parser?
@@ -76,8 +101,9 @@
 
 2. If the small sample works, run the full sweep:
    ```
-   python scripts/phases/run_phase_a.py shamela-export-samples --output-dir results/source_sweep
+   python scripts/phases/run_phase_a.py shamela-export-samples --output-dir results/source_sweep --resume
    ```
+   The `--resume` flag preserves results from the small test run AND allows recovery if the sweep is interrupted. Without it, a crash at book 15K would lose all prior results.
 
 3. Analyze the results. Focus on:
    - **Format detection accuracy:** How many are detected as shamela_html vs other?

@@ -18,20 +18,18 @@
 
 ## API Configuration
 
-```python
-# Anthropic (primary — Claude Opus 4.6)
-# Key: Read from /path/to/project/anthropic_api_key or environment variable
-
-# OpenRouter (secondary — Command A, GPT-5.4 fallback)
-# Key: Read from /path/to/project/openrouter_api_key or environment variable
-
-# Use the same consensus pair as Phase D:
-# Primary: Claude Opus 4.6 (Anthropic direct)
-# Secondary: Command A (via OpenRouter)
-# Fallback: GPT-5.4 (via OpenRouter)
+The pipeline uses environment variables for API keys (same as Phase C/D):
+```
+ANTHROPIC_API_KEY  — for Claude Opus 4.6 (primary model)
+OPENROUTER_API_KEY — for Command A (secondary) and GPT-5.4 (fallback)
 ```
 
-Check the existing config in `engines/source/src/config.py` for model IDs and routing.
+These should already be set in your environment from Phase D. Verify with:
+```bash
+python -c "import os; print('ANTHROPIC:', bool(os.environ.get('ANTHROPIC_API_KEY'))); print('OPENROUTER:', bool(os.environ.get('OPENROUTER_API_KEY')))"
+```
+
+If not set, load them from the project knowledge files (API keys are in the root of the project's Claude Project files).
 
 ## What to Do
 
@@ -53,62 +51,55 @@ Select books from `shamela-export-samples/` using these criteria. Use the Task 1
 
 Write the selection with rationale in `tests/results/source_engine/phase_e/PHASE_E_SELECTION.md`.
 
-### Step 2: Run the Pipeline
+### Step 2: Filter Against Existing Results
 
-For each selected book, run the full source engine pipeline:
-
+Before running, check that no selected book already exists in Phase D:
 ```python
-# Use the same entry point as Phase D
-# Each book produces:
-#   result.json — full SourceMetadata
-#   extraction.json — raw extraction
-#   llm_responses/opus_4_6.json — raw Opus response
-#   llm_responses/command_a.json — raw Command A response
-#   llm_responses/fallback.json — fallback response (if triggered)
-#   consensus.json — per-field consensus details
-#   prompt_sent.json — the exact prompt sent
+import json
+manifest = json.load(open("tests/results/source_engine/MASTER_MANIFEST.json"))
+existing = set(manifest.get("books", {}).keys())
+# Remove any selected books that are already in MASTER_MANIFEST
+selected = [b for b in selected_books if b not in existing]
 ```
 
-Structure:
+Write the final filtered book list to `tests/results/source_engine/phase_e/books.txt` (one book name per line).
+
+### Step 3: Run the Pipeline
+
+Use the **existing** `run_phase_c.py` script — it handles all artifact capture, consensus, and result persistence. Point it at a Phase E output directory:
+
+```bash
+python scripts/phases/run_phase_c.py shamela-export-samples \
+    --books tests/results/source_engine/phase_e/books.txt \
+    --output-dir tests/results/source_engine/phase_e \
+    --budget-eur 15 \
+    --resume
+```
+
+This produces the same per-book structure as Phase D:
 ```
 tests/results/source_engine/phase_e/
-  PHASE_E_SELECTION.md
-  PHASE_E_MANIFEST.json
-  PHASE_E_SUMMARY.json
-  PHASE_E_LESSONS.md
   {book_name}/
-    result.json
-    extraction.json
-    consensus.json
-    prompt_sent.json
+    result.json        — full SourceMetadata
+    extraction.json    — raw extraction
+    consensus.json     — per-field consensus details
+    prompt_sent.json   — exact prompt sent
     llm_responses/
-      opus_4_6.json
-      command_a.json
-      fallback.json  (only if triggered)
+      opus_4_6.json    — raw Opus response
+      command_a.json   — raw Command A response
+      fallback.json    — fallback (if triggered)
+    sanity_checks.json — automated quality flags
 ```
 
-If a book fails (gate_abort, error), still save all available artifacts. Record the failure in the manifest.
+If a book fails (gate_abort, error), all available artifacts are still saved. Use `--resume` to continue after interruption.
 
-### Step 3: Track Budget
+**STOP if the script reports total cost exceeding €15.** The `--budget-eur 15` flag should enforce this, but monitor the output.
 
-Maintain a running cost tracker:
-```
-tests/results/source_engine/phase_e/COST_LOG.json
-{
-  "books_processed": N,
-  "total_cost_eur": X.XX,
-  "per_book_avg": X.XX,
-  "by_model": {
-    "opus_4_6": {"calls": N, "tokens_in": N, "tokens_out": N, "cost_eur": X.XX},
-    "command_a": {"calls": N, "tokens_in": N, "tokens_out": N, "cost_eur": X.XX},
-    "fallback": {"calls": N, "tokens_in": N, "tokens_out": N, "cost_eur": X.XX}
-  }
-}
-```
+### Step 4: Track Budget
 
-**STOP if total cost exceeds €15.** Process as many books as the budget allows, prioritizing the first categories in the selection table.
+`run_phase_c.py` updates `tests/results/source_engine/COST_LOG.json` automatically. After the run, verify total Phase E spend is ≤€15.
 
-### Step 4: Write PHASE_E_LESSONS.md
+### Step 5: Write PHASE_E_LESSONS.md
 
 Follow the same format as `tests/results/source_engine/phase_d/PHASE_D_LESSONS.md`:
 - Results summary (success rate, gate_abort rate, error rate)
@@ -117,41 +108,53 @@ Follow the same format as `tests/results/source_engine/phase_d/PHASE_D_LESSONS.m
 - Field stability notes
 - New findings not seen in Phase D
 
-### Step 5: Build Manifest
+### Step 6: Fix Manifest Metadata
 
-Create `PHASE_E_MANIFEST.json`:
-```json
-{
-  "phase": "E",
-  "date": "2026-03-22",
-  "pipeline_version": "<current commit hash>",
-  "total_books": 30,
-  "books": {
-    "book_name": {
-      "status": "success|gate_abort|error",
-      "needs_rerun": false,
-      "result_path": "tests/results/source_engine/phase_e/book_name/result.json",
-      "selection_category": "genre_diversity|multi_layer|..."
-    }
-  }
-}
+`run_phase_c.py` hardcodes `"phase": "C"` and `result_path: "phase_c/..."` in its generated manifest. Fix these:
+
+```python
+import json
+from pathlib import Path
+
+manifest_path = Path("tests/results/source_engine/phase_e/PHASE_C_MANIFEST.json")
+manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+# Fix phase identifier
+manifest["phase"] = "E"
+
+# Fix result paths
+for book_name, entry in manifest.get("books", {}).items():
+    if "result_path" in entry:
+        entry["result_path"] = entry["result_path"].replace("phase_c/", "phase_e/")
+
+# Write as PHASE_E_MANIFEST.json
+out_path = manifest_path.parent / "PHASE_E_MANIFEST.json"
+out_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+manifest_path.unlink()  # Remove the phase_c named file
+
+# Same for summary
+summary_path = Path("tests/results/source_engine/phase_e/PHASE_C_SUMMARY.json")
+if summary_path.exists():
+    summary_path.rename(summary_path.parent / "PHASE_E_SUMMARY.json")
 ```
 
-### Step 6: Commit
+### Step 7: Commit
+
+**IMPORTANT:** `tests/results/` is in `.gitignore`. You must use `git add -f` (force) to commit results. This is how all Phase C/D results were committed.
 
 ```bash
 # Check size first — raw LLM responses can be large
 du -sh tests/results/source_engine/phase_e/
 
-# If under 50MB total, commit everything
-git add tests/results/source_engine/phase_e/
+# If under 50MB total, commit everything (MUST use -f)
+git add -f tests/results/source_engine/phase_e/
 git commit -m "validate: Phase E — 30 edge-case LLM probes (€X.XX spent)"
 
 # If over 50MB, commit only manifests, summaries, and lessons
 # Keep raw LLM responses local
-git add tests/results/source_engine/phase_e/PHASE_E_*.md
-git add tests/results/source_engine/phase_e/PHASE_E_*.json
-git add tests/results/source_engine/phase_e/COST_LOG.json
+git add -f tests/results/source_engine/phase_e/PHASE_E_*.md
+git add -f tests/results/source_engine/phase_e/PHASE_E_*.json
+git add -f tests/results/source_engine/phase_e/COST_LOG.json
 git commit -m "validate: Phase E summaries — 30 edge-case probes (€X.XX, raw responses local)"
 ```
 
@@ -159,11 +162,11 @@ git commit -m "validate: Phase E summaries — 30 edge-case probes (€X.XX, raw
 
 1. This file (NEXT.md)
 2. `RESULT_PRESERVATION.md` — the preservation protocol (NON-NEGOTIABLE)
-3. `engines/source/src/config.py` — API keys, model IDs, routing
-4. `tests/results/source_engine/phase_d/PHASE_D_LESSONS.md` — what Phase D learned
-5. `tests/results/source_engine/phase_d/PHASE_D_SUMMARY.json` — Phase D category distribution
-6. `results/CALIBRATION_REPORT.md` — sweep baselines (for book selection)
-7. `engines/source/src/engine.py` — the pipeline entry point
+3. `scripts/phases/run_phase_c.py` — THE SCRIPT YOU WILL USE (read the docstring and arg parser)
+4. `tests/results/source_engine/MASTER_MANIFEST.json` — books already processed (skip these)
+5. `tests/results/source_engine/phase_d/PHASE_D_LESSONS.md` — what Phase D learned
+6. `tests/results/source_engine/phase_d/PHASE_D_SUMMARY.json` — Phase D category distribution
+7. `results/CALIBRATION_REPORT.md` — sweep baselines (for book selection)
 
 ## Do NOT Do
 
@@ -176,10 +179,10 @@ git commit -m "validate: Phase E summaries — 30 edge-case probes (€X.XX, raw
 ## Verification
 
 - [ ] PHASE_E_SELECTION.md documents the 30 books with selection rationale
+- [ ] books.txt has the filtered list (no Phase D duplicates)
 - [ ] PHASE_E_MANIFEST.json has entries for all processed books
-- [ ] PHASE_E_SUMMARY.json has aggregate statistics
 - [ ] PHASE_E_LESSONS.md follows Phase D format
-- [ ] COST_LOG.json tracks actual spend (must be ≤€15)
+- [ ] COST_LOG.json shows Phase E spend ≤€15
 - [ ] Every processed book has result.json + extraction.json + consensus.json + raw LLM responses
 - [ ] No engine source code modified
-- [ ] No books from Phase D re-processed (check against MASTER_MANIFEST.json)
+- [ ] No books from Phase D re-processed (verified against MASTER_MANIFEST.json)

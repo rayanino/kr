@@ -23,7 +23,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 # Add project root to path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from engines.source.contracts import SourceMetadata
 from engines.source.src.config import SourceEngineConfig
