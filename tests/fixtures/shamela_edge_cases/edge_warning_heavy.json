@@ -1,0 +1,9 @@
+{
+  "file": "edge_warning_heavy.htm",
+  "original_book": "ديوان الضعفاء",
+  "category": "warning",
+  "description": "Extract of first 30 pages from the most warning-heavy book (393 total warnings).",
+  "discovered_in": "weekend_sweep_task1",
+  "key_feature": "High warning density - tests validation warning handling at scale",
+  "expected_behavior": "Pipeline completes with many warnings but no fatals"
+}

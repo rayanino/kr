@@ -1,0 +1,9 @@
+{
+  "file": "edge_extreme_small_2kb.htm",
+  "original_book": "بحوث لبعض النوازل الفقهية المعاصرة (volume 1)",
+  "category": "extreme",
+  "description": "Extremely small book volume (2KB, ~2 pages). Tests minimum viable input.",
+  "discovered_in": "weekend_sweep_task1",
+  "key_feature": "Tests pipeline behavior with minimal input - only 1-2 content units expected",
+  "expected_behavior": "Pipeline completes without crash, produces 1-2 content units"
+}

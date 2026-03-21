@@ -1,0 +1,9 @@
+{
+  "file": "edge_nahw_grammar.htm",
+  "original_book": "الأنشوطة في النحو",
+  "category": "extreme",
+  "description": "Medium grammar text (25 units). No content flags.",
+  "discovered_in": "weekend_sweep_task1",
+  "key_feature": "Pure grammar with no triggering patterns - tests baseline pipeline behavior",
+  "expected_behavior": "Pipeline completes, all content flags false, validation passes"
+}

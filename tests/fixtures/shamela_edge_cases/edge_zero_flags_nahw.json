@@ -1,0 +1,9 @@
+{
+  "file": "edge_zero_flags_nahw.htm",
+  "original_book": "البرعومة في النحو",
+  "category": "extreme",
+  "description": "Pure grammar text with zero content flags (no hadith, quran, or verse).",
+  "discovered_in": "weekend_sweep_task1",
+  "key_feature": "Tests pipeline handles books with no content flag triggers gracefully",
+  "expected_behavior": "Pipeline completes, content flags all false, validation passes"
+}

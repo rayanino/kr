@@ -1,0 +1,9 @@
+{
+  "file": "edge_high_page_loss.htm",
+  "original_book": "أدب الاختلاف في الإسلام",
+  "category": "extreme",
+  "description": "Book with high page loss (13 pages lost between raw divs and content units).",
+  "discovered_in": "weekend_sweep_task1",
+  "key_feature": "Tests page loss tolerance - 157 raw pages to 144 content units",
+  "expected_behavior": "Pipeline completes, validation notes page loss in warnings"
+}

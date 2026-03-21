@@ -1,0 +1,9 @@
+{
+  "file": "edge_low_arabic_ratio.htm",
+  "original_book": "تخريج أحاديث شواهد التوضيح وملاحظات على طبعة فؤاد عبد الباقي - ضمن «آثار المعلمي»",
+  "category": "extreme",
+  "description": "Book with very low Arabic ratio (55.4%). High proportion of isnad chains and numbers.",
+  "discovered_in": "weekend_sweep_task1",
+  "key_feature": "Tests Arabic ratio validation at the threshold boundary",
+  "expected_behavior": "Pipeline completes with low_arabic_ratio warnings on many pages"
+}

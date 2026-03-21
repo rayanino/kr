@@ -1,0 +1,9 @@
+{
+  "file": "edge_zero_diacritics_hadith.htm",
+  "original_book": "الأربعون المختارة من حديث الإمام أبي حنيفة",
+  "category": "extreme",
+  "description": "Hadith collection with zero diacritical marks. 52 content units.",
+  "discovered_in": "weekend_sweep_task1",
+  "key_feature": "Zero diacritics in hadith text - tests content flag detection without diacritics",
+  "expected_behavior": "Pipeline produces ~52 units, has_hadith detected, diacritics check passes"
+}

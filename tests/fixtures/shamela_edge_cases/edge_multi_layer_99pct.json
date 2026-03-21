@@ -1,0 +1,9 @@
+{
+  "file": "edge_multi_layer_99pct.htm",
+  "original_book": "إعراب القرآن العظيم المنسوب لزكريا الانصارى",
+  "category": "multi_layer",
+  "description": "Extract of first 20 pages from a 99.3% multi-layer book.",
+  "discovered_in": "weekend_sweep_task1",
+  "key_feature": "Nearly all content units are multi-layer - tests layer detection at extreme ratio",
+  "expected_behavior": "Pipeline produces ~20 units with very high multi-layer detection rate"
+}

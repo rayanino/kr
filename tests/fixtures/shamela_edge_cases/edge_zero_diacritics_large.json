@@ -1,0 +1,9 @@
+{
+  "file": "edge_zero_diacritics_large.htm",
+  "original_book": "أحوال الرجال",
+  "category": "extreme",
+  "description": "Large book (361 units) with zero diacritical marks. Rijal text.",
+  "discovered_in": "weekend_sweep_task1",
+  "key_feature": "Zero diacritics at scale - tests diacritics check with large corpus",
+  "expected_behavior": "Pipeline produces ~361 units, diacritics check passes"
+}

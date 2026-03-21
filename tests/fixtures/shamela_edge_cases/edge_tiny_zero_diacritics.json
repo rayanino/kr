@@ -1,0 +1,9 @@
+{
+  "file": "edge_tiny_zero_diacritics.htm",
+  "original_book": "أسامي الضعفاء - أبو زرعة الرازي - ت الهاشمي (volume 1)",
+  "category": "extreme",
+  "description": "Tiny book (3 pages) with zero diacritical marks. Double edge case.",
+  "discovered_in": "weekend_sweep_task1",
+  "key_feature": "Zero diacritics combined with extreme small size",
+  "expected_behavior": "Pipeline completes, diacritics check passes (0 diacritics is valid)"
+}
