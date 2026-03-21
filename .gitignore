@@ -54,3 +54,4 @@ library/logs/*.jsonl
 phase_c_collection/
 phase_d_collection/
 combined_collection/
+eval_stderr.log

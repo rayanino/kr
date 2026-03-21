@@ -1158,7 +1158,7 @@ No existing Islamic text tool provides this. Current systems treat every page br
 
 | Marker Category | Opening Patterns | Closing/Continuation Patterns |
 |---|---|---|
-| Evidence chain | `والدليل`, `لقوله تعالى`, `ودليله`, `واحتجوا بـ`, `واستدلوا بـ` | `ونوقش بأن`, `ورُدّ بأن`, `والجواب` |
+| Evidence chain | `والدليل`, `لقوله تعالى`, `ودليله`, `واحتجوا بـ`, `واستدلوا بـ`, `ولنا` | `ونوقش بأن`, `ورُدّ بأن`, `والجواب` |
 | Position statement | `وذهب ... إلى`, `والمذهب أن`, `القول الأول` | `القول الثاني`, `والراجح`, `والصحيح` |
 | Objection-response | `واعترض عليه بأن`, `وأُشكل عليه`, `فإن قيل` | `فالجواب`, `قلنا`, `والجواب عنه` |
 | Conditional reasoning | `إذا`, `ولو أن`, `فإن كان` | `وإلا`, `فحينئذ`, `فالحكم` |
@@ -1196,8 +1196,8 @@ Page 235 begins:
 
 Continuity analysis:
 - Page 234 last text: ends with colon (`:`) after "قال:" — introducing a quotation that hasn't appeared yet. No terminal punctuation. → `mid_sentence`, confidence 0.95, detection_method: `punctuation_analysis`.
-- Additionally: "ولنا حديث" is an evidence-chain opening marker → confirms `mid_argument`, confidence 0.85, detection_method: `argument_flow`.
-- Final classification: `mid_argument` (higher semantic level subsumes `mid_sentence`), confidence 0.90.
+- Additionally: "ولنا حديث" is an evidence-chain opening marker → confirms `mid_argument`, confidence 0.80, detection_method: `argument_flow`.
+- Final classification: `mid_argument` (higher semantic level subsumes `mid_sentence`), confidence 0.80.
 - `continuation_hint`: `"Evidence chain: 'ولنا حديث' — hadith quotation started, not completed"`
 
 Output:
@@ -1205,7 +1205,7 @@ Output:
 {
   "boundary_continuity": {
     "type": "mid_argument",
-    "confidence": 0.90,
+    "confidence": 0.80,
     "detection_method": "argument_flow",
     "continuation_hint": "Evidence chain: 'ولنا حديث' — hadith quotation started, not completed"
   }
@@ -1481,7 +1481,7 @@ The normalization engine's output determines the quality ceiling for every downs
 
 4. **Layer consistency check.** For multi-layer sources:
    - Every character in `primary_text` is covered by exactly one `text_layers` segment.
-   - Layer proportions are plausible: Layer 1 (matn) should be <40% of text in a sharh. Layer 2 (sharh) should be the majority in a sharh.
+   - Layer proportions are plausible: Layer 1 (matn) should be <40% of text in a sharh. Layer 2 (sharh) should be the majority in a sharh. **Note:** The sharh-majority check is currently implemented only as a matn-ratio check (matn < 40%). For 2-layer sources this is equivalent (matn < 40% implies sharh > 60%). For 3-layer sources (matn + sharh + hashiyah), sharh could be < 50% while matn is < 40%, and no warning fires. This gap is inert until L-006 (hashiyah detection) is resolved — all current multi-layer sources produce only matn + sharh segments. When L-006 is implemented, add: if genre is sharh/hashiyah AND sharh_ratio < 0.50, warn.
    - Layer transitions are not excessive: >20 transitions per page suggests misdetection.
    - Layer `author_canonical_id` values match the source metadata's layer specification.
 
