@@ -1,5 +1,19 @@
 # NEXT — Overnight Autonomous Work Program (8+ hours, €0)
 
+## CRITICAL CONTEXT — READ THIS FIRST
+
+You are running unattended for 8+ hours overnight. The owner is asleep. The architect is unavailable. **No one can help you, unstick you, or answer questions until morning.**
+
+This means:
+- **If you get stuck, the entire night is wasted.** There is no retry. Every hour you spend stuck on one problem is an hour of productive work lost forever.
+- **If you ask a question, no one will answer.** You will sit idle until morning. That is the worst possible outcome.
+- **If you hit an error, you must route around it.** Document it, commit what you have, and move to the next phase. A completed Phase 3 with a blocked Phase 2 is infinitely better than being stuck on Phase 2 all night.
+- **The 30-minute stuck rule is absolute.** If something isn't working after 30 minutes of trying: stop. Write `results/PHASE_X_BLOCKED.md` explaining what happened. Commit. Move on. The architect will handle it tomorrow with fresh context.
+- **Commit and push constantly.** Every piece of work pushed is saved. Work that exists only in your context is lost if anything goes wrong.
+- **Run `/compact` between phases.** Your context will degrade over 8 hours. Fresh context per phase keeps quality high.
+
+Your goal: wake up the owner to find 5 phases of committed, pushed, high-quality work in the repo. Partial completion of all 5 phases beats perfect completion of 2 phases.
+
 ## Mode
 
 **FULLY AUTONOMOUS — owner is asleep, architect is unavailable.**
