@@ -867,6 +867,34 @@ class TestSweepBugFixes:
             f"got {len(content_pages)}."
         )
 
+    def test_diacritics_canary_spec_aligned(
+        self, normalizer: ShamelaNormalizer
+    ) -> None:
+        """Diacritics canary must not crash on SPEC-compliant diacritics.
+
+        Root cause: _ARABIC_DIACRITICS used 20 codepoints (including
+        U+0653 maddah and U+0656-U+065F extended marks) while the SPEC
+        defines only 10 (U+064B-U+0652, U+0670, U+0640). The broader
+        range caused false positive canary failures when regex and BS4
+        handle extended diacritics differently.
+
+        Fixture: crash_diacritics_entity_mismatch.htm — the single book
+        that crashed during the 7,475-book corpus sweep.
+        """
+        fixture = FIXTURES_EDGE / "crash_diacritics_entity_mismatch.htm"
+        assert fixture.exists(), f"Missing fixture: {fixture}"
+        html = fixture.read_text(encoding="utf-8")
+
+        # Must not raise NormalizationError
+        pages = _full_pipeline(normalizer, html)
+
+        # Should produce content (this is a 92-page book)
+        non_blank = [p for p in pages if not p.is_blank]
+        assert len(non_blank) >= 50, (
+            f"Expected >= 50 non-blank pages from 92-page book, "
+            f"got {len(non_blank)}."
+        )
+
     def test_numbered_book_metadata_unchanged(
         self, normalizer: ShamelaNormalizer
     ) -> None:
