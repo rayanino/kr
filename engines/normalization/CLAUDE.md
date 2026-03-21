@@ -84,10 +84,10 @@ The ABD code is REFERENCE, not implementation. Build fresh code that matches SPE
 | 3 | Structure discovery (4-tier headings, division tree) | §4.A.6, structural_patterns.yaml | ✅ Done |
 | 4 | Layer detection (typographic signals for Shamela) | §4.A.5 | ✅ Done (ACCEPTED) |
 | 5 | Pass 6 assembly (boundary continuity, flagging, output) | §4.B.8, §4.A.9, §4.A.2 Pass 6 | ✅ Done (ACCEPTED) |
-| 6 | Validation + writer + plain text normalizer + dispatcher wiring | §5 checks 1–10, §4.A.4c, §4.A.1 | ✅ Done |
+| 6 | Validation + writer + plain text normalizer + dispatcher wiring | §5 checks 1–10, §4.A.4c, §4.A.1 | ✅ Done (ACCEPTED) |
 | 7 | Integration testing on fixtures | Full pipeline, adversarial cases |  |
 
-**Build metrics after Session 6:** ~7,500 impl lines, 334 tests passing (12 skipped), 26/51 ADV covered (ADV-001–018, ADV-024, ADV-026, ADV-047, ADV-050, ADV-051 + validation ADV cases). Known limitations: L-001 through L-010. `normalize_and_write()` end-to-end for Shamela sources. Smoke test: 63/63 PASS on real + extended fixtures, 50/50 on local 20K samples.
+**Build metrics after Session 6:** ~7,797 impl lines, 335 tests passing (12 skipped), 30/51 ADV covered (ADV-001–018, ADV-021, ADV-024–026, ADV-028–029, ADV-033, ADV-045, ADV-047, ADV-050, ADV-051). Known limitations: L-001 through L-011. `normalize_and_write()` end-to-end for Shamela + plain text sources. Smoke test: 63/63 PASS on real + extended fixtures (includes multi-layer check 4 on 02_nahw_muhaqiq).
 
 **Session 6 modules built:**
 - `validation.py` (§5) — 10 self-validation checks (page count, Arabic ratio, structure, matn proportion, division overlap, layer coverage, footnote integrity, diacritics preservation, fidelity, boundary continuity)
@@ -110,6 +110,7 @@ The ABD code is REFERENCE, not implementation. Build fresh code that matches SPE
 
 ## Test Fixtures Available
 
-- `tests/fixtures/shamela_real/` — 11 real Shamela books (nahw, fiqh, hadith, tafsir, usul, balagha, edge cases)
+- `tests/fixtures/shamela_real/` — 13 real Shamela books (nahw, fiqh, hadith, tafsir, usul, balagha, edge cases)
+- `tests/fixtures/shamela_extended/` — 50 extended Shamela fixtures (7,460 pages)
 - `engines/normalization/tests/fixtures/shamela_ibn_aqil.htm` — Multi-layer commentary fixture
 - `reference/SPEC_ADVERSARY_NORMALIZATION.md` — 51 adversarial test cases (~47 core)
