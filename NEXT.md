@@ -1,183 +1,174 @@
-# NEXT — Autonomous Hardening: Corpus Sweeps on Source + Normalization Engines
+# NEXT — Weekend Task 2: Sweep Bug Fix Sprint
 
 ## Current Position
 
-- **Phase:** Post-evaluation hardening (between normalization evaluation GO and transition gate)
-- **Mode:** AUTONOMOUS DATA COLLECTION — no architect interaction available
-- **Previous:** Normalization evaluation GO at commit `7f81052`. Source engine complete. Both engines stable.
-- **Purpose:** Stress-test both engines on the full 20K+ Shamela collection. Collect data. Report findings. Do NOT fix anything.
+- **Phase:** Post-sweep hardening
+- **Mode:** AUTONOMOUS BUG FIXING — architect unavailable for design decisions
+- **Previous:** Corpus sweeps complete (Task 1). Normalization sweep on 20K+ books. Source engine deterministic sweep on 20K+ books. Cross-engine findings report written.
+- **Purpose:** Fix every crash and obvious bug found in the sweeps. Each fix requires a test. Document anything needing architect judgment.
 
 ## Rules for This Session
 
-**READ THESE CAREFULLY — they override normal build procedures.**
+**These rules override normal build procedures including `.claude/rules/quality-workflow.md` and `.claude/rules/session-discipline.md` (one-engine-per-session does not apply — this session fixes bugs in both engines).**
 
-1. **DO NOT modify any engine source code** (`engines/source/src/`, `engines/normalization/src/`). Not even small fixes. Report bugs in your output files — the architect fixes them.
-2. **DO NOT modify any SPEC** (`SPEC.md`, `SPEC_CORE.md`). Report inconsistencies in your output files.
-3. **DO NOT modify contracts.py** in any engine. Report contract issues.
-4. **DO NOT make architectural decisions.** If you find something ambiguous, document it and move on.
-5. **You MAY modify scripts** (in `scripts/`) to fix crashes in the sweep scripts themselves. This is expected — the sweep scripts were written for the 63-fixture scale and may need adaptation for 20K.
-6. **You MAY create new files** in `results/` for output data.
-7. **You MAY add test fixtures** if you find interesting edge cases — put them in `tests/fixtures/shamela_edge_cases/`.
-8. **Commit periodically** (every major task completion). Use commit messages prefixed with `sweep:`.
+1. **You MAY modify engine source code** (`engines/source/src/`, `engines/normalization/src/`) to fix bugs found during the sweeps. Every fix MUST have a new or modified test that proves the fix.
+2. **Do NOT modify any SPEC** (`SPEC.md`, `SPEC_CORE.md`). If a fix would conflict with the SPEC, document it in SWEEP_ARCHITECT_REVIEW.md and skip the fix.
+3. **Do NOT modify contracts.py.** If you find a contract field type that seems wrong, document it in SWEEP_ARCHITECT_REVIEW.md. The architect fixes contracts.
+4. **Do NOT make architectural decisions.** If a fix requires judgment about the right approach, document both options in SWEEP_ARCHITECT_REVIEW.md and skip it.
+5. **You MAY add test fixtures** from edge cases found during sweeps.
+6. **Commit each fix separately** with descriptive messages prefixed with `fix:`. Include the crash count and pattern in the commit message.
+7. **Run full test suite after EVERY fix** — zero regressions allowed. Run pyright on modified files.
+8. **Budget: €0.** Do NOT run any LLM API calls.
+9. **Skip code-reviewer dispatch.** These are small crash fixes (None guards, try/except). The architect reviews ALL fixes when reviewing Task 2 output. Per-fix code-reviewer dispatch is unnecessary overhead for this session.
 
 ## What to Do
 
-### Task A: Normalization Corpus Sweep (PRIMARY — do this first)
+### Step 1: Read the Sweep Results
 
-**Script:** `scripts/normalization_corpus_sweep.py`
-**Input:** `shamela-export-samples/` (20K+ .htm files on local filesystem)
-**Output:** `results/normalization_sweep/corpus_sweep.jsonl` + `CORPUS_SWEEP_SUMMARY.md`
+Read these files (produced by Task 1):
+- `results/normalization_sweep/CC_ANALYSIS.md`
+- `results/normalization_sweep/CORPUS_SWEEP_SUMMARY.md`
+- `results/source_sweep/CC_ANALYSIS.md` (if exists)
+- `results/source_sweep/PHASE_A_SUMMARY.json` (if exists)
+- `results/CROSS_ENGINE_FINDINGS.md` (if exists)
 
-1. Verify the script can import correctly:
-   ```
-   python -c "from scripts.normalization_corpus_sweep import discover_books; print('OK')"
-   ```
+From the normalization sweep, extract:
+- Every CRASH pattern (group by error type and traceback root cause)
+- Every VALIDATION_FAILED pattern
+- Books with anomalous metrics (page_loss > 10, arabic_ratio < 50%, zero content_units)
 
-2. Install dependencies if needed:
-   ```
-   pip install beautifulsoup4 lxml pydantic pyyaml
-   ```
+From the source sweep, extract:
+- Every error pattern EXCEPT `SRC_UNSUPPORTED_FORMAT` (those are non-book items in the directory, not real errors)
+- Books with missing critical fields (no title_full, no source_format detection)
 
-3. Test on a small sample first (10 books):
-   ```
-   python scripts/normalization_corpus_sweep.py --collection-dir shamela-export-samples --limit 10
-   ```
+### Step 2: Triage Crashes by Fixability
 
-4. If the small sample works, run the full sweep:
-   ```
-   python scripts/normalization_corpus_sweep.py --collection-dir shamela-export-samples --resume
-   ```
-   **Always use `--resume`** — on a fresh run it's a no-op, but if the sweep crashes and you restart, it skips already-processed books instead of creating duplicates in the JSONL. This will take 1-2 hours. The script streams results to JSONL, so partial results are saved even if interrupted.
-   
-   **Expected timing:** ~1-3 books/sec depending on size. Progress is printed every 100 books. If no output appears for >5 minutes, a single book may be extremely large or hanging. Use Ctrl+C to interrupt — all previously completed results are saved in the JSONL.
-   
-   **If a book hangs:** Ctrl+C, then check which book was being processed (it's the one AFTER the last line in `corpus_sweep.jsonl`). Manually add a skip entry for that book:
-   ```python
-   python -c "
-   import json
-   with open('results/normalization_sweep/corpus_sweep.jsonl') as f:
-       lines = f.readlines()
-   last = json.loads(lines[-1])['name'] if lines else '(none)'
-   print(f'Last completed: {last}')
-   "
-   ```
-   Then add a TIMEOUT entry so --resume skips it:
-   ```python
-   python -c "
-   import json
-   # Replace BOOK_NAME with the hanging book's directory name
-   entry = {'name': 'BOOK_NAME', 'status': 'CRASH', 'error_type': 'Timeout', 'error_message': 'Manual skip — book hung during processing', 'elapsed_seconds': -1}
-   with open('results/normalization_sweep/corpus_sweep.jsonl', 'a') as f:
-       f.write(json.dumps(entry, ensure_ascii=False) + '\n')
-   print('Added skip entry')
-   "
-   ```
-   Then restart with `--resume`. The hung book is now in the JSONL and will be skipped.
+For each crash pattern, classify as:
+- **FIX NOW:** Root cause is clear, fix is localized (changes ≤50 lines in ≤2 files), test is obvious. Examples: missing None check, regex not handling a character class, encoding error on specific input.
+- **ARCHITECT REVIEW:** Root cause is clear but fix requires a design choice (e.g., should we skip this HTML structure or support it?). Or fix touches >50 lines or >2 files. Or fix might change behavior for non-crashing books.
+- **DEFER:** Crash affects <5 books AND the books have unusual/corrupt HTML that isn't worth supporting.
 
-5. After completion, read `results/normalization_sweep/CORPUS_SWEEP_SUMMARY.md` and write your analysis in `results/normalization_sweep/CC_ANALYSIS.md`. Focus on:
-   - **Crash patterns:** What types of books crash? Are there common HTML structures that break the parser?
-   - **Warning patterns at scale:** Do the same warning types dominate? Any new warning types?
-   - **Multi-layer auto-upgrade rate:** What percentage of books auto-upgrade? Is this reasonable?
-   - **Passaging contract alignment:** What percentage fail passaging checks? Which checks?
-   - **Anomalies:** Any books with surprising metrics (very high page loss, zero diacritics, extremely low Arabic ratio)?
-   - **Edge cases:** Save 3-5 interesting crash-causing or anomalous books as test fixtures in `tests/fixtures/shamela_edge_cases/`
-
-6. Commit results:
-   ```
-   git add results/normalization_sweep/ tests/fixtures/shamela_edge_cases/
-   git commit -m "sweep: Normalization corpus sweep on 20K+ books"
-   ```
-
-### Task B: Source Engine Deterministic Sweep
-
-**Script:** `scripts/phases/run_phase_a.py` (already implemented)
-**Input:** Same `shamela-export-samples/` directory
-**Output:** Output directory specified via `--output-dir`
-
-1. Test on a small sample (10 books):
-   ```
-   python scripts/phases/run_phase_a.py shamela-export-samples --output-dir results/source_sweep --limit 10
-   ```
-
-2. If the small sample works, run the full sweep:
-   ```
-   python scripts/phases/run_phase_a.py shamela-export-samples --output-dir results/source_sweep --resume
-   ```
-   The `--resume` flag preserves results from the small test run AND allows recovery if the sweep is interrupted. Without it, a crash at book 15K would lose all prior results.
-
-3. Analyze the results. Focus on:
-   - **Format detection accuracy:** How many are detected as shamela_html vs other?
-   - **Extraction success rate:** What percentage extract cleanly?
-   - **Crash patterns:** What HTML structures cause crashes?
-   - **Hashing:** Any duplicate hashes (identical content across different books)?
-
-4. Write analysis in `results/source_sweep/CC_ANALYSIS.md`.
-
-5. **IMPORTANT — git commit rules for source sweep:**
-   The source sweep produces one JSON file per item (20K+ files). Do NOT commit per-book JSON files to git — the repo cannot handle 20K+ files.
-   
-   Commit ONLY summary files:
-   ```
-   git add results/source_sweep/PHASE_A_SUMMARY.json results/source_sweep/CC_ANALYSIS.md
-   git commit -m "sweep: Source engine deterministic sweep on 20K+ books (summaries only, per-book JSON local)"
-   ```
-   
-   The per-book JSON files stay on disk for local analysis but are NOT pushed to git.
-
-6. **Note on UNSUPPORTED_FORMAT errors:** The source sweep iterates ALL items in the collection directory, including non-book items (metadata files, etc.). These will produce `SRC_UNSUPPORTED_FORMAT` errors — that is expected and correct. In your CC_ANALYSIS.md, separate these from genuine extraction errors. Report the error count EXCLUDING unsupported format errors.
-
-### Task C: Cross-Engine Findings Report (if time remains)
-
-After Tasks A and B, write `results/CROSS_ENGINE_FINDINGS.md` analyzing:
-- Books that succeed in source but crash in normalization (or vice versa)
-- Common failure patterns across both engines
-- Corpus statistics useful for passaging design (size distribution, footnote density, multi-layer frequency)
-- Top 10 most unusual books and why they're unusual
-
-Commit:
+Document the triage in `results/SWEEP_BUG_TRIAGE.md`:
+```markdown
+| # | Engine | Crash Pattern | Error Type | Books Affected | Classification | Rationale |
+|---|--------|---------------|------------|----------------|----------------|-----------|
 ```
-git add results/CROSS_ENGINE_FINDINGS.md
-git commit -m "sweep: Cross-engine findings report"
+
+### Step 3: Fix Every FIX NOW Bug
+
+For each FIX NOW bug, in order from most-affected to least-affected:
+
+1. **Write a failing test FIRST.** Use one of the crashing books as a fixture if it's small (<500KB). Otherwise, create a minimal reproducing HTML fixture that triggers the same crash.
+2. Implement the fix.
+3. Run pytest — verify the new test passes AND zero regressions on existing tests.
+4. Run pyright — no new type errors.
+5. Commit: `fix: [engine] description (N books affected)`
+
+### Step 4: Write Summary Reports
+
+**`results/SWEEP_FIX_SUMMARY.md`** — REQUIRED:
+```markdown
+# Sweep Fix Summary
+
+## Normalization Engine
+- Crashes found: N
+- Crashes fixed (FIX NOW): N (with test coverage)
+- Crashes deferred: N
+- Crashes for architect review: N
+- Test count before fixes: [run pytest --co -q and count]
+- Test count after fixes: [run pytest --co -q and count]
+
+## Source Engine
+- Errors found (excluding UNSUPPORTED_FORMAT): N
+- Errors fixed: N
+- ...
+
+## Crash Books List
+[List the book names that crashed, grouped by fix status]
+```
+
+**`results/SWEEP_ARCHITECT_REVIEW.md`** — REQUIRED even if empty:
+For each ARCHITECT REVIEW bug:
+- Crash pattern and traceback
+- Root cause analysis
+- Option A: [describe fix approach + trade-offs]
+- Option B: [describe alternative fix + trade-offs]
+- CC recommendation: [which option and why]
+- Affected book count
+- Affected book names (first 10)
+
+If no bugs need architect review, write: "No bugs required architect review. All crashes were either FIX NOW (fixed with tests) or DEFER (<5 books with corrupt HTML)."
+
+### Step 5: Collect Crash Book Lists for Re-Sweep
+
+**If Task 1 found ZERO crashes** (errors.jsonl is empty or all entries are non-CRASH): create an empty `crash_books.txt`, write "0 crashes — no rerun needed" in `still_crashing.txt`, and skip the rest of Step 5. Proceed to Step 6.
+
+**If Task 1 found crashes:**
+
+Create `results/normalization_sweep/crash_books.txt` — one book directory name per line:
+```python
+import json
+names = []
+with open("results/normalization_sweep/errors.jsonl") as f:
+    for line in f:
+        line = line.strip()
+        if not line:
+            continue
+        record = json.loads(line)
+        if record["status"] == "CRASH":
+            names.append(record["name"])
+names = sorted(set(names))
+with open("results/normalization_sweep/crash_books.txt", "w") as f:
+    f.write("\n".join(names))
+print(f"Wrote {len(names)} crash book names")
+```
+
+Use the pre-existing `scripts/rerun_crash_books.py` to copy crash books and re-run the sweep:
+```bash
+python scripts/rerun_crash_books.py results/normalization_sweep/crash_books.txt shamela-export-samples results/normalization_sweep/rerun_subset
+python scripts/normalization_corpus_sweep.py --collection-dir results/normalization_sweep/rerun_subset --output-dir results/normalization_sweep/rerun_results --resume
+```
+
+Create `results/normalization_sweep/still_crashing.txt` from the rerun results — list books that STILL crash after fixes.
+
+Compare crash counts before and after. Record the delta in SWEEP_FIX_SUMMARY.md.
+
+### Step 6: Commit Everything
+
+```bash
+git add results/SWEEP_BUG_TRIAGE.md results/SWEEP_FIX_SUMMARY.md results/SWEEP_ARCHITECT_REVIEW.md
+git add results/normalization_sweep/crash_books.txt results/normalization_sweep/still_crashing.txt
+git commit -m "sweep: Bug fix sprint summary — N fixed, M remaining"
 ```
 
 ## Read First
 
 1. This file (NEXT.md)
-2. `engines/normalization/CLAUDE.md` — normalization engine orientation
-3. `engines/normalization/EVALUATION_REPORT.md` — what we already know
-4. `scripts/normalization_corpus_sweep.py` — understand the script before running
-5. `scripts/phases/run_phase_a.py` — understand the source sweep script
+2. `results/normalization_sweep/CC_ANALYSIS.md`
+3. `results/normalization_sweep/CORPUS_SWEEP_SUMMARY.md`
+4. `results/source_sweep/CC_ANALYSIS.md` (if exists)
+5. `results/CROSS_ENGINE_FINDINGS.md` (if exists)
+6. `engines/normalization/KNOWN_LIMITATIONS.md` — don't re-discover known issues
 
 ## Do NOT Do
 
-1. **Do NOT modify engine source code.** Even if you find obvious bugs. Document them.
-2. **Do NOT modify SPECs or contracts.** Document issues.
-3. **Do NOT start building the passaging engine.** This session is data collection only.
-4. **Do NOT run any LLM API calls.** Both sweeps are fully deterministic (€0 cost).
-5. **Do NOT delete or overwrite any existing test fixtures.** Only ADD new edge cases.
-6. **Do NOT push results that are larger than 100MB per file.** The JSONL files may get large — that's fine for local storage but check size before committing to git. If corpus_sweep.jsonl is too large, commit only the summary .md files and a note about where to find the full data.
+1. **Do NOT rewrite large modules.** If a fix requires changing >50 lines in one file, classify as ARCHITECT REVIEW.
+2. **Do NOT add new detection heuristics** (new markers, new thresholds). Only fix existing logic that crashes.
+3. **Do NOT run any LLM API calls.** This session is €0.
+4. **Do NOT modify SPECs or contracts.**
+5. **Do NOT delete existing test fixtures.** Only ADD new ones.
+6. **Do NOT fix bugs classified as ARCHITECT REVIEW.** Document them and move on.
+7. **Do NOT spend more than 30 minutes on any single bug.** If a fix isn't clear after 30 minutes, it's ARCHITECT REVIEW.
 
 ## Verification
 
-After each task, verify:
-- [ ] Script ran to completion (or saved partial results with --resume capability)
-- [ ] Summary report is written and readable
-- [ ] CC_ANALYSIS.md documents findings, not fixes
-- [ ] No engine source code was modified (check with `git diff engines/`)
-- [ ] Results committed with `sweep:` prefix
-
-## After This
-
-When the owner returns:
-1. The architect reads CC_ANALYSIS.md files and CORPUS_SWEEP_SUMMARY.md
-2. Decides which findings are CORE GAPs vs LESSON LEARNEDs
-3. Creates fix tasks if needed (before or after transition gate)
-4. Proceeds with the normalization transition gate in a separate session
-
-## Context
-
-The normalization engine has 420 tests passing on 63 fixtures. The evaluation found zero CORE GAPs and zero ENGINE BUGs. But 63 fixtures is a small sample. The full Shamela collection has 20K+ books spanning every genre, era, and formatting style. This sweep finds what 63 fixtures can't — edge cases in HTML structure, encoding, heading patterns, footnote formats, and multi-layer detection that only manifest at scale.
-
-The source engine has been validated on 204 books with LLM calls. The deterministic sweep (format detection + extraction + hashing without LLM) has never run on the full collection. This is Step 2 on the source engine validation roadmap.
-
-Both sweeps cost €0 (no LLM calls) and produce data that directly strengthens the foundation for the passaging engine build.
+After all fixes:
+- [ ] Full pytest passes (both engines) with zero regressions
+- [ ] Pyright clean (or no NEW errors)
+- [ ] Every fix has at least one new test
+- [ ] SWEEP_BUG_TRIAGE.md documents every crash pattern
+- [ ] SWEEP_FIX_SUMMARY.md has before/after crash counts and test counts
+- [ ] SWEEP_ARCHITECT_REVIEW.md exists (even if "no bugs needed review")
+- [ ] crash_books.txt and still_crashing.txt exist
+- [ ] No SPEC or contract files modified: `git diff engines/*/SPEC*.md engines/*/contracts.py` returns empty
+- [ ] All fix commits use `fix:` prefix
