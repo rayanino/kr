@@ -5,7 +5,7 @@
 - **Phase:** Source engine hardening — extending ground truth
 - **Mode:** AUTONOMOUS LLM VALIDATION — architect unavailable
 - **Previous:** Tasks 1-3 complete. Sweeps done, bugs fixed, calibration report produced.
-- **Purpose:** Run 30 edge-case books through the full source engine pipeline with LLM inference. Extend ground truth beyond the 204 Phase D books.
+- **Purpose:** Run ~70 strategically selected books through the full source engine pipeline with LLM inference. Extend ground truth beyond the 204 Phase D books with maximum coverage of gaps.
 
 ## Rules for This Session
 
@@ -33,23 +33,24 @@ If not set, load them from the project knowledge files (API keys are in the root
 
 ## What to Do
 
-### Step 1: Select 30 Books
+### Step 1: Select ~70 Books
 
-Select books from `shamela-export-samples/` using these criteria. Use the Task 1 sweep results (`results/source_sweep/PHASE_A_SUMMARY.json` or per-book JSONs) and normalization sweep results to identify candidates.
+Select books from `shamela-export-samples/` targeting 6 strategic categories. Use the Task 1 sweep results (`results/source_sweep/PHASE_A_SUMMARY.json` or per-book JSONs on disk), normalization sweep results, and Phase D data to identify candidates.
 
-**Selection criteria (aim for exactly 30 books):**
+**Selection criteria (~70 books total):**
 
 | Category | Count | Selection Method |
 |----------|-------|-----------------|
-| Source extraction anomalies | 8 | Books where source sweep succeeded but had unusual extraction: missing author_name_raw, missing title_full, unusual card format, many extra_card_fields |
-| Genre diversity gaps | 8 | Books from Shamela categories NOT well-represented in Phase D's 204 books. Check `tests/results/source_engine/PHASE_D_CATEGORY_DISTRIBUTION.json` for the category distribution. Phase D is heavy on كتب السنة (77), كتب عامة (21), التفسير (18) — look for underrepresented categories like العقيدة, التاريخ, الرقائق, الفقه الحنبلي, الفقه المالكي, المواعظ والرقائق, or categories with 0-2 books in Phase D. |
-| Multi-layer candidates | 5 | Books that auto-upgraded to multi-layer in the normalization sweep (from CALIBRATION_REPORT.md section B.2 top list) |
-| Extreme metrics | 5 | Largest books (most pages), smallest non-trivial books (3-10 pages), highest diacritic density |
-| Previously unknown | 4 | Books with names/titles that don't appear in Phase D results at all |
+| Genre diversity gaps | 20-25 | **Priority 1.** Phase D has 12 categories with ≤2 books each (الفقه الشافعي, الطبراني, الفقه المالكي, الفقه الحنبلي, الغريب والمعاجم, الرقائق والآداب والأذكار, التاريخ, السيرة النبوية, الجوامع, التراجم والطبقات, مسائل فقهية, الفقه الحنفي). Pick 2-3 per thin category to reach minimum 3 each. **Also:** scan the full corpus (`shamela-export-samples/`) for Shamela categories that have ZERO books in Phase D — these are complete blind spots. Pick 2-3 from each discovered zero-coverage category. Use `tests/results/source_engine/PHASE_D_CATEGORY_DISTRIBUTION.json` and per-book extraction JSONs from source sweep (on local disk at `results/source_sweep/`) for category data. |
+| Multi-layer candidates | 15 | Books that auto-upgraded to multi-layer in the normalization sweep (from `results/CALIBRATION_REPORT.md` section B.2 top list, or from `results/normalization_sweep_v2/corpus_sweep.jsonl` filtering for `auto_upgraded_multi=true`). Pick diverse multi-layer rates (some 30%, some 60%, some 85%+) to test the LLM's `is_multi_layer` field against normalization auto-detection. |
+| Source extraction anomalies | 10 | Books where source sweep succeeded but metadata is sparse: missing `author_name_raw` (263 books lack it), or missing `title_full`, or having many extra card fields. These stress-test the LLM's ability to infer from limited extraction data. Use per-book JSONs from `results/source_sweep/` on local disk. |
+| Extreme metrics | 8 | 3 largest books (most pages/content units), 3 smallest non-trivial books (3-10 pages), 2 with highest diacritic density. Tests pipeline at scale extremes. |
+| Formerly zero-content books | 8 | Books from the 48 that were fixed in Task 2 (now producing content after the pageless-books fix). These are hadith compilations without page numbers — verify their LLM metadata inference works. Pick 8 diverse ones from the zero-content list in `results/normalization_sweep/CC_ANALYSIS.md` §3. |
+| Previously unknown | 5 | Books whose names don't appear in Phase D results at all AND don't fit the above categories. Aims for maximum novelty. |
 
-**Important:** Do NOT select books that CRASHED in the source sweep (format detection failed). Those can't go through LLM inference because extraction didn't produce output.
+**Important:** Do NOT select books that CRASHED in the source sweep (format detection failed). Those can't go through LLM inference because extraction didn't produce output. Source sweep had 0 crashes, so this is not a concern for this corpus.
 
-Write the selection with rationale in `tests/results/source_engine/phase_e/PHASE_E_SELECTION.md`.
+Write the selection with rationale in `tests/results/source_engine/phase_e/PHASE_E_SELECTION.md`. For each book, state: (a) which category it fills, (b) why this specific book was chosen over alternatives, (c) its Shamela category.
 
 ### Step 2: Filter Against Existing Results
 
@@ -98,7 +99,7 @@ python scripts/phases/run_phase_c.py shamela-export-samples \
     --resume
 ```
 
-**Note on --budget-eur 200:** This is set high intentionally. The script's pre-flight check adds `already_spent` (€30.60 from all prior phases) to `estimated` (30 × €0.15 = €4.50). With `--budget-eur 15`, the script would abort immediately because €35.10 > €15. The €200 ceiling gives ample headroom. Actual spend will be ~€3-5 for 30 books.
+**Note on --budget-eur 200:** This is set high intentionally. The script's pre-flight check adds `already_spent` (€30.60 from all prior phases) to `estimated`. With a low ceiling, the script aborts before processing anything. The €200 ceiling gives ample headroom. Actual spend will be ~€7-10 for ~70 books at €0.10/book.
 
 This produces the same per-book structure as Phase D:
 ```
@@ -125,6 +126,9 @@ Follow the same format as `tests/results/source_engine/phase_d/PHASE_D_LESSONS.m
 - What worked / what to watch
 - Field stability notes
 - New findings not seen in Phase D
+- **New section: Genre coverage analysis** — which categories now have ≥3 books? Which are still thin?
+- **New section: Multi-layer LLM vs normalization comparison** — does LLM `is_multi_layer` agree with normalization auto-detection? List disagreements.
+- **New section: Formerly zero-content books** — did LLM inference work on the hadith compilations that were fixed in Task 2?
 
 ### Step 6: Fix Manifest Metadata + Restore Cost Log + Update Master Manifest
 
@@ -226,7 +230,7 @@ du -sh tests/results/source_engine/phase_e/
 git add -f tests/results/source_engine/phase_e/
 git add -f tests/results/source_engine/MASTER_MANIFEST.json
 git add -f tests/results/source_engine/COST_LOG.json
-git commit -m "validate: Phase E — 30 edge-case LLM probes (€X.XX spent)"
+git commit -m "validate: Phase E — ~70 edge-case LLM probes (€X.XX spent)"
 
 # If over 50MB, commit only manifests, summaries, and lessons
 # Keep raw LLM responses local
@@ -234,7 +238,7 @@ git add -f tests/results/source_engine/phase_e/PHASE_E_*.md
 git add -f tests/results/source_engine/phase_e/PHASE_E_*.json
 git add -f tests/results/source_engine/MASTER_MANIFEST.json
 git add -f tests/results/source_engine/COST_LOG.json
-git commit -m "validate: Phase E summaries — 30 edge-case probes (€X.XX, raw responses local)"
+git commit -m "validate: Phase E summaries — ~70 edge-case probes (€X.XX, raw responses local)"
 ```
 
 ## Read First
@@ -246,6 +250,7 @@ git commit -m "validate: Phase E summaries — 30 edge-case probes (€X.XX, raw
 5. `tests/results/source_engine/phase_d/PHASE_D_LESSONS.md` — what Phase D learned
 6. `tests/results/source_engine/PHASE_D_CATEGORY_DISTRIBUTION.json` — Phase D category distribution (for genre gap selection)
 7. `results/CALIBRATION_REPORT.md` — sweep baselines (for book selection)
+8. `results/normalization_sweep/CC_ANALYSIS.md` — zero-content book list (for formerly zero-content selection)
 
 ## Do NOT Do
 
@@ -257,12 +262,12 @@ git commit -m "validate: Phase E summaries — 30 edge-case probes (€X.XX, raw
 
 ## Verification
 
-- [ ] PHASE_E_SELECTION.md documents the 30 books with selection rationale
+- [ ] PHASE_E_SELECTION.md documents all selected books with per-book rationale and category assignment
 - [ ] books.txt has the filtered list (no Phase D duplicates)
 - [ ] PHASE_E_MANIFEST.json has entries for all processed books (NOT named PHASE_C_MANIFEST.json)
-- [ ] PHASE_E_LESSONS.md follows Phase D format
+- [ ] PHASE_E_LESSONS.md follows Phase D format PLUS new sections (genre coverage, multi-layer comparison, zero-content books)
 - [ ] COST_LOG.json has BOTH Phase C (73 books, €7.00) AND Phase E data as separate entries — Phase C was NOT overwritten
-- [ ] MASTER_MANIFEST.json has 204 + N Phase E books (where N ≤ 30)
+- [ ] MASTER_MANIFEST.json has 204 + N Phase E books
 - [ ] Every processed book has result.json + extraction.json + consensus.json + raw LLM responses
 - [ ] No engine source code modified
 - [ ] No books from Phase D re-processed (verified against MASTER_MANIFEST.json)
