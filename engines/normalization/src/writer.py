@@ -190,6 +190,29 @@ def recover_interrupted_write(
     prev_dirs = sorted(base_dir.glob("normalized_prev_*"))
 
     if not temp_dirs:
+        # L-011: prev-only orphan state — final_dir was renamed to prev but
+        # temp→final rename failed and exception handler cleaned up temp.
+        if not final_dir.exists() and prev_dirs:
+            latest_prev = max(
+                prev_dirs,
+                key=lambda p: _parse_timestamp_from_dirname(
+                    p.name, "normalized_prev_"
+                ),
+            )
+            try:
+                latest_prev.rename(final_dir)
+            except OSError:
+                shutil.move(str(latest_prev), str(final_dir))
+            # Clean up remaining prevs
+            for pd in prev_dirs:
+                if pd.exists():
+                    shutil.rmtree(pd, ignore_errors=True)
+            logger.info(
+                "[%s] NORM_WRITE_RECOVERY: restored from orphaned prev '%s'",
+                source_id,
+                latest_prev.name,
+            )
+            return True
         return False
 
     # Case: temp exists but normalized/ already exists → orphaned temp

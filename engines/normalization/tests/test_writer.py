@@ -198,3 +198,17 @@ class TestRecoverInterruptedWrite:
         """Base dir doesn't exist → returns False."""
         result = recover_interrupted_write("src_nonexistent", tmp_path)
         assert result is False
+
+    def test_l011_prev_only_orphan_recovery(self, tmp_path: Path):
+        """L-011: no temp, no normalized/, but prev exists → restore from prev."""
+        base = tmp_path / "sources" / "src_test0001"
+        prev = base / "normalized_prev_20260317T115500"
+        prev.mkdir(parents=True)
+        (prev / "manifest.json").write_text('{"source_id": "test"}', encoding="utf-8")
+        (prev / "content.jsonl").write_text('{"unit_index": 0}\n', encoding="utf-8")
+
+        # No temp dirs, no normalized/ — just the orphaned prev
+        result = recover_interrupted_write("src_test0001", tmp_path)
+        assert result is True
+        assert (base / "normalized").exists()
+        assert not prev.exists()

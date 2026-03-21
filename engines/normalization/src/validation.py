@@ -116,7 +116,7 @@ def validate_package(
     if not result.passed:
         return result
 
-    # Non-fatal checks accumulate warnings
+    # Remaining checks (may add warnings or fatals, but don't short-circuit)
     _check_coverage(package, metadata, result)
     _check_text_extraction(package, result)
     _check_layer_consistency(package, metadata, result)

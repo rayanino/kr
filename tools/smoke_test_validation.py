@@ -37,7 +37,7 @@ from engines.source.contracts import (
 )
 
 
-def _make_smoke_metadata(source_id: str) -> SourceMetadata:
+def _make_smoke_metadata(source_id: str, is_multi_layer: bool = False) -> SourceMetadata:
     """Build a SourceMetadata with sensible defaults for smoke testing."""
     return SourceMetadata(
         source_id=source_id,
@@ -55,7 +55,7 @@ def _make_smoke_metadata(source_id: str) -> SourceMetadata:
         source_format="shamela_html",
         authority_level="primary",
         structural_format="prose",
-        is_multi_layer=False,
+        is_multi_layer=is_multi_layer,
         text_layers=[],
         trust_tier="verified",
         trust_score=0.85,
@@ -79,13 +79,13 @@ def _make_smoke_metadata(source_id: str) -> SourceMetadata:
     )
 
 
-def run_fixture(fixture_path: Path, source_id: str) -> tuple[str, str, int, str]:
+def run_fixture(fixture_path: Path, source_id: str, is_multi_layer: bool = False) -> tuple[str, str, int, str]:
     """Run normalize + validate on a single fixture.
 
     Returns: (source_id, status, warning_count, error_detail)
     """
     try:
-        metadata = _make_smoke_metadata(source_id)
+        metadata = _make_smoke_metadata(source_id, is_multi_layer=is_multi_layer)
         package = normalize_source(fixture_path, metadata)
         result = validate_package(package, metadata)
 
@@ -124,7 +124,9 @@ def main() -> int:
             if not htm_files:
                 print(f"  {fdir.name}: SKIP (no .htm file)")
                 continue
-            source_id, status, warns, error = run_fixture(htm_files[0], fdir.name)
+            multi_layer_fixtures = {"02_nahw_muhaqiq"}
+            is_multi = fdir.name in multi_layer_fixtures
+            source_id, status, warns, error = run_fixture(htm_files[0], fdir.name, is_multi)
             results.append((source_id, status, warns, error))
             marker = {"PASS": "OK", "WARN": "!!", "FATAL": "XX", "ERROR": "EE"}[status]
             line = f"  [{marker}] {source_id}: {status}"
