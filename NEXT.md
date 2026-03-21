@@ -1,273 +1,311 @@
-# NEXT — Weekend Task 4: Source Engine LLM Edge-Case Probes
+# NEXT — Overnight Autonomous Work Program (8+ hours)
 
-## Current Position
+## Mode
 
-- **Phase:** Source engine hardening — extending ground truth
-- **Mode:** AUTONOMOUS LLM VALIDATION — architect unavailable
-- **Previous:** Tasks 1-3 complete. Sweeps done, bugs fixed, calibration report produced.
-- **Purpose:** Run ~70 strategically selected books through the full source engine pipeline with LLM inference. Extend ground truth beyond the 204 Phase D books with maximum coverage of gaps.
+**FULLY AUTONOMOUS — owner is asleep, architect is unavailable.**
 
-## Rules for This Session
+You will work through 5 phases sequentially. Commit after each phase. Do NOT ask questions — make reasonable decisions and document your reasoning. If something is ambiguous, pick the safer option and note it in your output files.
 
-1. **You MAY run LLM API calls.** Budget is unlimited — quality and coverage matter, not cost. Track actual spend in COST_LOG.json for accounting purposes, but do NOT stop due to cost.
-2. **Follow RESULT_PRESERVATION.md strictly.** Every API call persists full structured output. Raw LLM responses saved per-model. No unsaved calls.
-3. **Do NOT modify engine source code.** If a bug causes a book to fail, log it and continue. Do not fix it.
-4. **Do NOT modify SPECs or contracts.**
-5. **Use the source engine's existing pipeline** — `engines/source/src/engine.py` or the equivalent run script.
-6. **Commit results to `tests/results/source_engine/phase_e/`** following the Phase D structure.
+**If you finish all 5 phases and have time remaining, re-run the full test suite one final time and write `results/OVERNIGHT_SUMMARY.md` with everything you accomplished.**
 
-## API Configuration
+## Rules (apply to ALL phases)
 
-The pipeline uses environment variables for API keys (same as Phase C/D):
-```
-ANTHROPIC_API_KEY  — for Claude Opus 4.6 (primary model)
-OPENROUTER_API_KEY — for Command A (secondary) and GPT-5.4 (fallback)
-```
+1. **Do NOT modify engine source code** (`engines/*/src/`) EXCEPT in Phase 1 where Task 5 explicitly allows test-only changes.
+2. **Do NOT modify SPECs or contracts.**
+3. **Do NOT make any LLM API calls.** All phases are €0.
+4. **Commit after EVERY phase** with descriptive messages. Use `git push` after each commit.
+5. **If a phase fails or gets stuck**, document what happened in a `PHASE_X_BLOCKED.md` file, commit it, and move to the next phase. Do NOT spin on errors.
+6. **Do NOT ask questions.** Make the best decision you can and document your reasoning.
+7. **Run `/compact` between phases** if your context is getting large. This keeps you sharp for the full run.
 
-These should already be set in your environment from Phase D. Verify with:
-```bash
-python -c "import os; print('ANTHROPIC:', bool(os.environ.get('ANTHROPIC_API_KEY'))); print('OPENROUTER:', bool(os.environ.get('OPENROUTER_API_KEY')))"
-```
+---
 
-If not set, load them from the project knowledge files (API keys are in the root of the project's Claude Project files).
+## Phase 1: Test Fixture Expansion (Task 5)
 
-## What to Do
+**Time estimate: 1-2 hours**
 
-### Step 1: Select ~70 Books
+Follow the pre-written Task 5 directive exactly. The full instructions are in `reference/archive/sessions/weekend/TASK_5_NEXT.md` — read that file, not this summary.
 
-Select books from `shamela-export-samples/` targeting 6 strategic categories. Use the Task 1 sweep results (`results/source_sweep/PHASE_A_SUMMARY.json` or per-book JSONs on disk), normalization sweep results, and Phase D data to identify candidates.
+**Key steps:**
+1. Select 10-15 edge cases from sweep results
+2. Create fixtures in `tests/fixtures/shamela_edge_cases/` with companion .json
+3. Write regression tests (non-tautological — check against independent ground truth)
+4. Run full test suite, verify zero regressions
+5. Commit: `harden: Add N edge-case fixtures + M regression tests from weekend sweep`
 
-**Selection criteria (~70 books total):**
+**Read first:** `reference/archive/sessions/weekend/TASK_5_NEXT.md` (the full directive)
 
-| Category | Count | Selection Method |
-|----------|-------|-----------------|
-| Genre diversity gaps | 20-25 | **Priority 1.** Phase D has 12 categories with ≤2 books each (الفقه الشافعي, الطبراني, الفقه المالكي, الفقه الحنبلي, الغريب والمعاجم, الرقائق والآداب والأذكار, التاريخ, السيرة النبوية, الجوامع, التراجم والطبقات, مسائل فقهية, الفقه الحنفي). Pick 2-3 per thin category to reach minimum 3 each. **Also:** scan the full corpus (`shamela-export-samples/`) for Shamela categories that have ZERO books in Phase D — these are complete blind spots. Pick 2-3 from each discovered zero-coverage category. Use `tests/results/source_engine/PHASE_D_CATEGORY_DISTRIBUTION.json` and per-book extraction JSONs from source sweep (on local disk at `results/source_sweep/`) for category data. |
-| Multi-layer candidates | 15 | Books that auto-upgraded to multi-layer in the normalization sweep (from `results/CALIBRATION_REPORT.md` section B.2 top list, or from `results/normalization_sweep_v2/corpus_sweep.jsonl` filtering for `auto_upgraded_multi=true`). Pick diverse multi-layer rates (some 30%, some 60%, some 85%+) to test the LLM's `is_multi_layer` field against normalization auto-detection. |
-| Source extraction anomalies | 10 | Books where source sweep succeeded but metadata is sparse: missing `author_name_raw` (263 books lack it), or missing `title_full`, or having many extra card fields. These stress-test the LLM's ability to infer from limited extraction data. Use per-book JSONs from `results/source_sweep/` on local disk. |
-| Extreme metrics | 8 | 3 largest books (most pages/content units), 3 smallest non-trivial books (3-10 pages), 2 with highest diacritic density. Tests pipeline at scale extremes. |
-| Formerly zero-content books | 8 | Books from the 48 that were fixed in Task 2 (now producing content after the pageless-books fix). These are hadith compilations without page numbers — verify their LLM metadata inference works. Pick 8 diverse ones from the zero-content list in `results/normalization_sweep/CC_ANALYSIS.md` §3. |
-| Previously unknown | 5 | Books whose names don't appear in Phase D results at all AND don't fit the above categories. Aims for maximum novelty. |
+---
 
-**Important:** Do NOT select books that CRASHED in the source sweep (format detection failed). Those can't go through LLM inference because extraction didn't produce output. Source sweep had 0 crashes, so this is not a concern for this corpus.
+## Phase 2: Cross-Engine Normalization Validation
 
-Write the selection with rationale in `tests/results/source_engine/phase_e/PHASE_E_SELECTION.md`. For each book, state: (a) which category it fills, (b) why this specific book was chosen over alternatives, (c) its Shamela category.
+**Time estimate: 1-2 hours**
 
-### Step 2: Filter Against Existing Results
+Run the normalization pipeline on the 70 Phase E books to verify cross-engine compatibility. The source engine produced SourceMetadata for these books — now verify the normalization engine can process their raw HTML too.
 
-Before running, check that no selected book already exists in Phase D:
+### Step 2.1: Identify Phase E books on disk
+
 ```python
 import json
-manifest = json.load(open("tests/results/source_engine/MASTER_MANIFEST.json"))
-existing = set(manifest.get("books", {}).keys())
-# Remove any selected books that are already in MASTER_MANIFEST
-selected = [b for b in selected_books if b not in existing]
-```
-
-Write the final filtered book list to `tests/results/source_engine/phase_e/books.txt` (one book name per line).
-
-### Step 3: Back Up COST_LOG.json
-
-**CRITICAL — do this BEFORE running the pipeline.**
-
-`run_phase_c.py` hardcodes `cost_log["phases"]["C"]` when updating the cost log. Running it for Phase E will **overwrite Phase C's real data** (73 books, €7.00). Back up the cost log so we can restore it:
-
-```python
-import json, shutil
 from pathlib import Path
 
-cost_log_path = Path("tests/results/source_engine/COST_LOG.json")
-backup_path = Path("tests/results/source_engine/COST_LOG_BACKUP_PRE_PHASE_E.json")
-shutil.copy2(cost_log_path, backup_path)
-print(f"Backed up COST_LOG.json to {backup_path}")
-
-# Verify backup
-original = json.loads(cost_log_path.read_text())
-backup = json.loads(backup_path.read_text())
-assert original == backup, "Backup mismatch!"
-print(f"Phase C data to preserve: {original['phases']['C']}")
+phase_e_manifest = json.loads(Path("tests/results/source_engine/phase_e/PHASE_E_MANIFEST.json").read_text())
+phase_e_books = list(phase_e_manifest.get("books", {}).keys())
+print(f"Phase E books: {len(phase_e_books)}")
 ```
 
-### Step 4: Run the Pipeline
+### Step 2.2: Run normalization sweep on Phase E books only
 
-Use the **existing** `run_phase_c.py` script — it handles all artifact capture, consensus, and result persistence. Point it at a Phase E output directory:
+Create a temporary directory with symlinks to Phase E books from `shamela-export-samples/`, then run the normalization sweep:
 
 ```bash
-python scripts/phases/run_phase_c.py shamela-export-samples \
-    --books tests/results/source_engine/phase_e/books.txt \
-    --output-dir tests/results/source_engine/phase_e \
-    --budget-eur 200 \
+python scripts/normalization_corpus_sweep.py \
+    --collection-dir shamela-export-samples \
+    --output-dir results/cross_engine_validation \
+    --book-list results/cross_engine_phase_e_books.txt \
     --resume
 ```
 
-**Note on --budget-eur 200:** This is set high intentionally. The script's pre-flight check adds `already_spent` (€30.60 from all prior phases) to `estimated`. With a low ceiling, the script aborts before processing anything. The €200 ceiling gives ample headroom. Actual spend will be ~€7-10 for ~70 books at €0.10/book.
+If `--book-list` is not a supported flag, write a small wrapper script (`scripts/run_normalization_subset.py`) that:
+1. Reads a book list file (one name per line)
+2. Creates a temp directory with symlinks to matching books in `shamela-export-samples/`
+3. Runs the normalization sweep on that temp directory
+4. Copies results to the output directory
 
-This produces the same per-book structure as Phase D:
-```
-tests/results/source_engine/phase_e/
-  {book_name}/
-    result.json        — full SourceMetadata
-    extraction.json    — raw extraction
-    consensus.json     — per-field consensus details
-    prompt_sent.json   — exact prompt sent
-    llm_responses/
-      opus_4_6.json    — raw Opus response
-      command_a.json   — raw Command A response
-      fallback.json    — fallback (if triggered)
-    sanity_checks.json — automated quality flags
-```
+### Step 2.3: Analyze cross-engine results
 
-If a book fails (gate_abort, error), all available artifacts are still saved. Use `--resume` to continue after interruption.
+Write `results/CROSS_ENGINE_VALIDATION.md`:
+- How many Phase E books normalize successfully?
+- Do any crash? (These are books the source engine handled fine)
+- For books where source engine said `is_multi_layer=true` (LLM inference), does normalization auto-detect multi-layer?
+- Are there Phase E gate_abort books where normalization reveals content issues?
+- Compare normalization content_unit counts with source engine page_count
 
-### Step 5: Write PHASE_E_LESSONS.md
-
-Follow the same format as `tests/results/source_engine/phase_d/PHASE_D_LESSONS.md`:
-- Results summary (success rate, gate_abort rate, error rate)
-- Patterns observed (new extraction patterns, inference quality, consensus disagreements)
-- What worked / what to watch
-- Field stability notes
-- New findings not seen in Phase D
-- **New section: Genre coverage analysis** — which categories now have ≥3 books? Which are still thin?
-- **New section: Multi-layer LLM vs normalization comparison** — does LLM `is_multi_layer` agree with normalization auto-detection? List disagreements.
-- **New section: Formerly zero-content books** — did LLM inference work on the hadith compilations that were fixed in Task 2?
-
-### Step 6: Fix Manifest Metadata + Restore Cost Log + Update Master Manifest
-
-`run_phase_c.py` hardcodes Phase C identifiers in several outputs. Fix all of them:
-
-**6a. Fix phase manifest and summary filenames:**
-
-```python
-import json
-from pathlib import Path
-
-# Fix manifest
-manifest_path = Path("tests/results/source_engine/phase_e/PHASE_C_MANIFEST.json")
-manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-
-# Fix phase identifier
-manifest["phase"] = "E"
-
-# Fix result paths
-for book_name, entry in manifest.get("books", {}).items():
-    if "result_path" in entry:
-        entry["result_path"] = entry["result_path"].replace("phase_c/", "phase_e/")
-
-# Write as PHASE_E_MANIFEST.json
-out_path = manifest_path.parent / "PHASE_E_MANIFEST.json"
-out_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
-manifest_path.unlink()  # Remove the phase_c named file
-
-# Same for summary
-summary_path = Path("tests/results/source_engine/phase_e/PHASE_C_SUMMARY.json")
-if summary_path.exists():
-    summary_path.rename(summary_path.parent / "PHASE_E_SUMMARY.json")
-```
-
-**6b. Restore COST_LOG.json — fix Phase C overwrite:**
-
-```python
-import json
-from pathlib import Path
-
-cost_log_path = Path("tests/results/source_engine/COST_LOG.json")
-backup_path = Path("tests/results/source_engine/COST_LOG_BACKUP_PRE_PHASE_E.json")
-
-# Load both
-current = json.loads(cost_log_path.read_text(encoding="utf-8"))
-backup = json.loads(backup_path.read_text(encoding="utf-8"))
-
-# The script overwrote phases["C"] with Phase E data. Extract Phase E data first.
-phase_e_data = current["phases"]["C"].copy()
-
-# Restore Phase C from backup
-current["phases"]["C"] = backup["phases"]["C"]
-
-# Write Phase E data to correct key
-current["phases"]["E"] = phase_e_data
-current["phases"]["E"]["status"] = "complete"
-
-# Recalculate total
-total = sum(p.get("cost_eur", 0) for p in current["phases"].values())
-current["total_eur"] = round(total, 2)
-
-cost_log_path.write_text(json.dumps(current, ensure_ascii=False, indent=2), encoding="utf-8")
-
-print(f"Restored Phase C: {current['phases']['C']}")
-print(f"Phase E: {current['phases']['E']}")
-print(f"New total: {current['total_eur']} EUR")
-```
-
-**6c. Merge Phase E books into MASTER_MANIFEST.json:**
-
-```python
-import json
-from pathlib import Path
-
-master_path = Path("tests/results/source_engine/MASTER_MANIFEST.json")
-phase_e_manifest_path = Path("tests/results/source_engine/phase_e/PHASE_E_MANIFEST.json")
-
-master = json.loads(master_path.read_text(encoding="utf-8"))
-phase_e = json.loads(phase_e_manifest_path.read_text(encoding="utf-8"))
-
-# Merge Phase E books into master
-for book_name, entry in phase_e.get("books", {}).items():
-    entry["phase"] = "E"
-    master["books"][book_name] = entry
-
-master_path.write_text(json.dumps(master, ensure_ascii=False, indent=2), encoding="utf-8")
-print(f"Master manifest: {len(master['books'])} books (was 204, added {len(phase_e.get('books', {}))})")
-```
-
-### Step 7: Commit
-
-**IMPORTANT:** `tests/results/` is in `.gitignore`. You must use `git add -f` (force) to commit results. This is how all Phase C/D results were committed.
+### Step 2.4: Commit
 
 ```bash
-# Check size first — raw LLM responses can be large
-du -sh tests/results/source_engine/phase_e/
-
-# If under 50MB total, commit everything (MUST use -f)
-git add -f tests/results/source_engine/phase_e/
-git add -f tests/results/source_engine/MASTER_MANIFEST.json
-git add -f tests/results/source_engine/COST_LOG.json
-git commit -m "validate: Phase E — ~70 edge-case LLM probes (€X.XX spent)"
-
-# If over 50MB, commit only manifests, summaries, and lessons
-# Keep raw LLM responses local
-git add -f tests/results/source_engine/phase_e/PHASE_E_*.md
-git add -f tests/results/source_engine/phase_e/PHASE_E_*.json
-git add -f tests/results/source_engine/MASTER_MANIFEST.json
-git add -f tests/results/source_engine/COST_LOG.json
-git commit -m "validate: Phase E summaries — ~70 edge-case probes (€X.XX, raw responses local)"
+git add results/cross_engine_validation/ results/CROSS_ENGINE_VALIDATION.md scripts/run_normalization_subset.py
+git commit -m "validate: Cross-engine normalization on 70 Phase E books"
+git push
 ```
+
+---
+
+## Phase 3: Source Engine Completion Report
+
+**Time estimate: 1-2 hours**
+
+Write a comprehensive report that an architect can use for the transition gate. This saves the architect hours of manual analysis.
+
+### Step 3.1: Gather all data
+
+Read and synthesize:
+- `tests/results/source_engine/MASTER_MANIFEST.json` (274 books)
+- `tests/results/source_engine/COST_LOG.json` (spending history)
+- `tests/results/source_engine/phase_d/PHASE_D_LESSONS.md`
+- `tests/results/source_engine/phase_e/PHASE_E_LESSONS.md`
+- `results/source_sweep/CC_ANALYSIS.md` (7,475-book deterministic sweep)
+- `results/CALIBRATION_REPORT.md` (normalization calibration)
+- `results/VERIFICATION_REPORT.md` (post-fix verification)
+- `results/CROSS_ENGINE_FINDINGS.md`
+- Phase E selection rationale and results
+
+### Step 3.2: Write `results/SOURCE_ENGINE_COMPLETION_REPORT.md`
+
+Structure:
+1. **Executive Summary** — what the source engine does, current state, recommendation
+2. **Validation Coverage**
+   - Phase A: 7,475 deterministic (100% success)
+   - Phase C: 73 LLM (100% after reruns)
+   - Phase D: 204 LLM (100% success)
+   - Phase E: 70 LLM (success/gate_abort/error breakdown)
+   - Total: 274 books with full LLM metadata, 7,475 with deterministic extraction
+3. **Quality Metrics**
+   - Success rates across phases
+   - Gate abort analysis (what triggers them, are they correct?)
+   - Sanity check flag patterns
+   - Consensus disagreement analysis
+   - Field coverage (which metadata fields are populated at what rates)
+4. **Genre Coverage**
+   - Per-category book counts (Phase D + E combined)
+   - Remaining blind spots
+5. **Known Limitations**
+   - Books that gate_abort (and why)
+   - author_name_clean coverage gap (59.5%)
+   - muhaqiq_name_clean coverage gap (4.6%)
+   - Categories with <3 books
+6. **Cost Summary**
+   - Per-phase cost breakdown
+   - Cost per book
+   - Total lifetime spend
+7. **Downstream Impact**
+   - What the normalization engine receives
+   - What the passaging engine needs to know
+   - Remaining human gate queue
+8. **Transition Gate Readiness Checklist**
+   - [ ] All engine code passing tests
+   - [ ] Full corpus deterministic sweep: pass rate, crash rate
+   - [ ] LLM validation on diverse sample
+   - [ ] Cross-engine compatibility validated
+   - [ ] Edge case regression tests in place
+   - [ ] Known limitations documented
+   - [ ] SPEC errata documented
+
+### Step 3.3: Commit
+
+```bash
+git add results/SOURCE_ENGINE_COMPLETION_REPORT.md
+git commit -m "report: Source engine completion report for transition gate"
+git push
+```
+
+---
+
+## Phase 4: Normalization Engine Transition Preparation
+
+**Time estimate: 1-2 hours**
+
+Prepare data and analysis the architect needs for the normalization engine transition gate.
+
+### Step 4.1: Write `results/NORMALIZATION_TRANSITION_DATA.md`
+
+Synthesize all normalization data into one architect-ready document:
+
+1. **Build Metrics** — test count, impl lines, ADV coverage, limitations L-001 through L-012
+2. **Corpus Sweep Results** — from CALIBRATION_REPORT.md, but summarized with architect-relevant conclusions
+3. **Evaluation Results** — from `engines/normalization/EVALUATION_REPORT.md`
+4. **Bug Fix Impact** — Task 2 fixes, Task 3 verification, before/after numbers
+5. **Passaging Contract Readiness**
+   - What percentage of books pass all passaging input checks?
+   - Which checks fail and why?
+   - What does the passaging engine need to handle gracefully?
+6. **Edge Cases Discovered** — from sweep, now with test fixtures
+7. **SPEC Errata** — SPEC-NOTE-1, SPEC-NOTE-2, SPEC-NOTE-3 (from evaluation)
+8. **Open Questions for Architect**
+   - Should SPEC diacritics range include extended marks? (SWEEP_ARCHITECT_REVIEW.md)
+   - Should pageless books get a quality flag?
+   - Division overlap handling strategy for passaging
+
+### Step 4.2: Run full normalization test suite and capture output
+
+```bash
+python -m pytest engines/normalization/tests/ -v --tb=short > results/normalization_test_output.txt 2>&1
+echo "Exit code: $?" >> results/normalization_test_output.txt
+```
+
+Count: total tests, passed, failed, skipped, warnings.
+
+### Step 4.3: Commit
+
+```bash
+git add results/NORMALIZATION_TRANSITION_DATA.md results/normalization_test_output.txt
+git commit -m "report: Normalization transition data for architect review"
+git push
+```
+
+---
+
+## Phase 5: Test Coverage Analysis + Gap Filling
+
+**Time estimate: 2-3 hours**
+
+### Step 5.1: Analyze test coverage gaps
+
+For both engines, identify what's tested and what isn't:
+
+```bash
+# Normalization engine
+python -m pytest engines/normalization/tests/ --co -q > results/normalization_test_inventory.txt 2>&1
+
+# Source engine
+python -m pytest engines/source/tests/ --co -q > results/source_test_inventory.txt 2>&1
+```
+
+Read both inventories. Identify:
+- Functions/modules with zero test coverage
+- Edge cases from sweeps that don't have regression tests yet
+- Contract boundary tests (do normalized outputs conform to passaging input requirements?)
+- Error path coverage (do error codes get raised correctly?)
+
+### Step 5.2: Write gap-filling tests
+
+Write additional tests targeting identified gaps. Focus on:
+1. **Contract boundary tests** — verify normalization output matches passaging input contracts
+2. **Error path tests** — verify specific error codes are raised for known bad inputs
+3. **Edge case regression** — any sweep findings not already covered by Phase 1 fixtures
+4. **Anti-tautological** — every assertion checks against independent ground truth
+
+Place new tests in appropriate test files. Use existing conftest helpers.
+
+### Step 5.3: Run full test suite (both engines)
+
+```bash
+python -m pytest engines/normalization/tests/ engines/source/tests/ -v --tb=short
+```
+
+Zero regressions. Document final test count.
+
+### Step 5.4: Commit
+
+```bash
+git add engines/normalization/tests/ engines/source/tests/ results/normalization_test_inventory.txt results/source_test_inventory.txt
+git commit -m "harden: Test coverage gap analysis + N new tests"
+git push
+```
+
+---
+
+## When All Phases Complete
+
+Write `results/OVERNIGHT_SUMMARY.md`:
+
+```markdown
+# Overnight Work Summary
+
+**Date:** [date]
+**Duration:** [start time] to [end time]
+**Phases completed:** [list]
+
+## Per-Phase Results
+[summary of each phase — commits, key metrics, any issues]
+
+## Test Count
+- Before: [count from start of overnight]
+- After: [final count]
+- New tests added: [delta]
+
+## Files Modified
+[list of all files added/modified across all phases]
+
+## Issues for Architect
+[anything that needs architect attention, ordered by priority]
+
+## Commits
+[list of all commits made overnight, with hashes]
+```
+
+```bash
+git add results/OVERNIGHT_SUMMARY.md
+git commit -m "report: Overnight work summary — N phases completed"
+git push
+```
+
+---
 
 ## Read First
 
 1. This file (NEXT.md)
-2. `RESULT_PRESERVATION.md` — the preservation protocol (NON-NEGOTIABLE)
-3. `scripts/phases/run_phase_c.py` — THE SCRIPT YOU WILL USE (read the docstring and arg parser)
-4. `tests/results/source_engine/MASTER_MANIFEST.json` — books already processed (skip these)
-5. `tests/results/source_engine/phase_d/PHASE_D_LESSONS.md` — what Phase D learned
-6. `tests/results/source_engine/PHASE_D_CATEGORY_DISTRIBUTION.json` — Phase D category distribution (for genre gap selection)
-7. `results/CALIBRATION_REPORT.md` — sweep baselines (for book selection)
-8. `results/normalization_sweep/CC_ANALYSIS.md` — zero-content book list (for formerly zero-content selection)
+2. `reference/archive/sessions/weekend/TASK_5_NEXT.md` — Phase 1 full instructions
+3. `results/CALIBRATION_REPORT.md` — normalization calibration data
+4. `engines/normalization/tests/conftest.py` — test helper patterns
+5. `tests/results/source_engine/phase_e/PHASE_E_LESSONS.md` — latest findings
+6. `results/CROSS_ENGINE_FINDINGS.md` — cross-engine analysis
 
 ## Do NOT Do
 
-1. **Do NOT modify engine source code.** Log bugs, don't fix them.
+1. **Do NOT modify engine source code** (except adding tests in Phase 1/5).
 2. **Do NOT modify SPECs or contracts.**
-3. **Do NOT re-process books already in Phase D.** Check MASTER_MANIFEST.json.
-4. **Do NOT discard any LLM response.** Every call is persisted per RESULT_PRESERVATION.md.
-5. **Do NOT skip the COST_LOG.json backup in Step 3.** The pipeline script will overwrite Phase C data without it.
-
-## Verification
-
-- [ ] PHASE_E_SELECTION.md documents all selected books with per-book rationale and category assignment
-- [ ] books.txt has the filtered list (no Phase D duplicates)
-- [ ] PHASE_E_MANIFEST.json has entries for all processed books (NOT named PHASE_C_MANIFEST.json)
-- [ ] PHASE_E_LESSONS.md follows Phase D format PLUS new sections (genre coverage, multi-layer comparison, zero-content books)
-- [ ] COST_LOG.json has BOTH Phase C (73 books, €7.00) AND Phase E data as separate entries — Phase C was NOT overwritten
-- [ ] MASTER_MANIFEST.json has 204 + N Phase E books
-- [ ] Every processed book has result.json + extraction.json + consensus.json + raw LLM responses
-- [ ] No engine source code modified
-- [ ] No books from Phase D re-processed (verified against MASTER_MANIFEST.json)
+3. **Do NOT make LLM API calls.** All phases are €0.
+4. **Do NOT ask questions.** Decide and document.
+5. **Do NOT spend more than 3 hours on any single phase.** If stuck, write PHASE_X_BLOCKED.md and move on.
+6. **Do NOT skip committing and pushing between phases.** Progress must be saved.
