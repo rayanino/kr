@@ -6,70 +6,119 @@
 
 ---
 
-## Task Files Location
+## The CC Work Cycle (Every Task)
 
-All pre-written NEXT.md files are at:
 ```
-reference/archive/sessions/weekend/
-  TASK_2_NEXT.md  — Bug Fix Sprint
-  TASK_3_NEXT.md  — Verification Re-Sweep + Calibration
-  TASK_4_NEXT.md  — Source Engine LLM Probes  
-  TASK_5_NEXT.md  — Test Fixture Expansion
+┌─ PLAN ───────────────────────────────────────┐
+│ 1. You tell CC: "Read NEXT.md, use /plan"    │
+│ 2. CC produces execution plan                 │
+│ 3. You paste the plan to Architect chat       │
+│ 4. Architect reviews → approve or comment     │
+│ 5. You relay to CC → CC executes              │
+└──────────────────────────────────────────────┘
+           ↓ CC finishes ↓
+┌─ REVIEW ─────────────────────────────────────┐
+│ 6. You skim CC's output summary              │
+│ 7. You paste summary to Architect chat       │
+│ 8. Architect reviews → approve or fix list   │
+│ 9. If fixes needed: you relay to CC          │
+│ 10. Task done → start next cycle             │
+└──────────────────────────────────────────────┘
 ```
 
-## When CC Finishes a Task
+**Why /plan first:** CC's plan reveals misunderstandings of the task BEFORE it spends 2 hours going the wrong direction. S5 lesson: "review the plan before execution, not the code after."
+
+---
+
+## Starting Each Task
+
+### What to tell CC:
+
+**For Task 1 (first task, NEXT.md already in repo):**
+```
+Read NEXT.md carefully — it was updated since last commit. Pay special attention to 
+Task B step 5 (git commit rules) and step 6 (UNSUPPORTED_FORMAT note). 
+Use /plan to show me your execution plan before starting. Do NOT execute yet.
+```
+
+**For Tasks 2-5 (after swapping NEXT.md):**
+```
+Read NEXT.md. Use /plan to show me your execution plan before starting. Do NOT execute yet.
+```
+
+### What to paste to Architect:
+
+Copy CC's entire plan output. Preface it with:
+```
+KR Weekend — CC produced this plan for Task N. Review and approve or comment:
+
+[paste CC's plan]
+```
+
+### After Architect approves:
+
+Tell CC:
+```
+Plan approved. Execute.
+```
+
+Or if Architect has comments:
+```
+Architect comments on your plan:
+[paste architect comments]
+
+Revise plan, then execute.
+```
+
+---
+
+## After CC Finishes Executing
 
 ### Step 1: Read CC's final message (30 seconds)
 
 Look for:
-- "Done" / "Complete" → proceed
+- "Done" / "Complete" → proceed to review
 - "Stuck on X" / "Need clarification" → paste the question to architect chat
 - Error/crash in CC itself → restart CC, tell it to `--resume`
 
-### Step 2: Check the output (1 minute)
+### Step 2: Skim the key output (1 minute)
 
-Each task produces a key summary file. Skim it for red flags:
+| Task | Key File to Skim | Red Flags |
+|------|-----------------|-----------|
+| 1 (Sweeps) | `results/normalization_sweep/CC_ANALYSIS.md` | Crash rate > 5% |
+| 2 (Bug Fix) | `results/SWEEP_FIX_SUMMARY.md` + `results/SWEEP_ARCHITECT_REVIEW.md` | ARCHITECT REVIEW items |
+| 3 (Re-Sweep) | `results/VERIFICATION_REPORT.md` + `results/CALIBRATION_REPORT.md` | Remaining crash rate > 1% |
+| 4 (LLM Probes) | `tests/results/source_engine/phase_e/PHASE_E_LESSONS.md` | Gate abort rate > 20%, cost > €15 |
+| 5 (Fixtures) | CC's final message (test count) | Test count decreased |
 
-| Task | Key File | Red Flags |
-|------|----------|-----------|
-| 1 (Sweeps) | `results/normalization_sweep/CC_ANALYSIS.md` | Crash rate > 5%, any "needs architect decision" |
-| 2 (Bug Fix) | `results/SWEEP_ARCHITECT_REVIEW.md` | Any bugs classified as ARCHITECT REVIEW |
-| 3 (Re-Sweep) | `results/VERIFICATION_REPORT.md` | Remaining crash rate > 1% |
-| 4 (LLM Probes) | `tests/results/source_engine/phase_e/PHASE_E_LESSONS.md` | Gate abort rate > 20% |
-| 5 (Fixtures) | Check test count: last line of CC output | Test count decreased |
+### Step 3: Send to Architect for review
 
-### Step 3: Decide — Green Light or Check With Architect
+Paste to Architect chat:
+```
+KR Weekend — CC finished Task N. Here's the summary:
 
-**GREEN LIGHT** (proceed to next task without architect):
-- CC says "Done"
-- No ARCHITECT REVIEW items
-- No red flags in summary
-- No questions from CC
+[paste key output file]
 
-**CHECK WITH ARCHITECT** (paste summary to a new Claude Chat):
-- CC flagged items needing design decisions
-- Crash rate unexpectedly high
-- CC asked questions
-- Anything that surprises you
+[if relevant: paste SWEEP_ARCHITECT_REVIEW.md]
+```
 
-### Step 4: Swap NEXT.md and Start CC (2 minutes)
+### Step 4: Architect responds with verdict
+
+- **"Approved — move to Task N+1"** → proceed to swap NEXT.md
+- **"Fixes needed: [list]"** → relay fixes to CC, wait for CC to complete, then re-check
+- **"I need to see [specific file]"** → paste that file to architect
+
+### Step 5: Swap NEXT.md for next task
 
 ```powershell
 # On your Windows machine, in the kr repo directory:
-
-# Copy the next task's NEXT.md
 copy reference\archive\sessions\weekend\TASK_N_NEXT.md NEXT.md
-
-# Commit and push
 git add NEXT.md
 git commit -m "chore: NEXT.md for Weekend Task N"
 git push
-
-# Start CC
-# Tell CC: "Start on NEXT.md"
 ```
 
-Replace N with the next task number (2, 3, 4, or 5).
+Then start the cycle again (tell CC to read NEXT.md and /plan).
 
 ---
 
@@ -79,17 +128,32 @@ Replace N with the next task number (2, 3, 4, or 5).
 Task 1 (Sweeps) → Task 2 (Bug Fix) → Task 3 (Re-Sweep) → Task 4 (LLM Probes) → Task 5 (Fixtures)
 ```
 
-If time runs short, cut from the end. Tasks 1-3 are the highest value.
+If time runs short, cut from the end. Tasks 1-3 are the core value.
 
-## Emergency: CC Gets Stuck Mid-Task
+---
 
-Tell CC:
-> Save your progress, commit what you have with the prefix "wip:", and write a brief status in results/CC_STATUS.md. Then stop.
+## Task Files Location
 
-Then paste CC_STATUS.md to the architect chat.
+All pre-written NEXT.md files:
+```
+reference/archive/sessions/weekend/
+  TASK_2_NEXT.md  — Bug Fix Sprint
+  TASK_3_NEXT.md  — Verification Re-Sweep + Calibration
+  TASK_4_NEXT.md  — Source Engine LLM Probes  
+  TASK_5_NEXT.md  — Test Fixture Expansion
+```
 
-## Emergency: CC Modifies Files It Shouldn't
+---
 
-Check with: `git diff engines/*/SPEC*.md engines/*/contracts.py`
-If any of these are modified, tell CC:
-> Revert changes to SPEC and contracts files: git checkout engines/*/SPEC*.md engines/*/contracts.py
+## Emergency Procedures
+
+**CC gets stuck mid-task:**
+Tell CC: "Save your progress, commit what you have with prefix 'wip:', write status in results/CC_STATUS.md, then stop."
+Paste CC_STATUS.md to architect.
+
+**CC modifies files it shouldn't:**
+Check: `git diff engines/*/SPEC*.md engines/*/contracts.py`
+If modified: `git checkout engines/*/SPEC*.md engines/*/contracts.py`
+
+**CC exceeds budget (Task 4):**
+CC should self-enforce the €15 cap. If you notice it running for >3 hours on Task 4, check in.
