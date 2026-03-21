@@ -87,11 +87,18 @@
 
 4. Write analysis in `results/source_sweep/CC_ANALYSIS.md`.
 
-5. Commit:
+5. **IMPORTANT — git commit rules for source sweep:**
+   The source sweep produces one JSON file per item (20K+ files). Do NOT commit per-book JSON files to git — the repo cannot handle 20K+ files.
+   
+   Commit ONLY summary files:
    ```
-   git add results/source_sweep/
-   git commit -m "sweep: Source engine deterministic sweep on 20K+ books"
+   git add results/source_sweep/PHASE_A_SUMMARY.json results/source_sweep/CC_ANALYSIS.md
+   git commit -m "sweep: Source engine deterministic sweep on 20K+ books (summaries only, per-book JSON local)"
    ```
+   
+   The per-book JSON files stay on disk for local analysis but are NOT pushed to git.
+
+6. **Note on UNSUPPORTED_FORMAT errors:** The source sweep iterates ALL items in the collection directory, including non-book items (metadata files, etc.). These will produce `SRC_UNSUPPORTED_FORMAT` errors — that is expected and correct. In your CC_ANALYSIS.md, separate these from genuine extraction errors. Report the error count EXCLUDING unsupported format errors.
 
 ### Task C: Cross-Engine Findings Report (if time remains)
 
