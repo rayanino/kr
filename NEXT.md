@@ -10,7 +10,7 @@
 - **SPEC Outline: ✅ COMPLETE** (`engines/excerpting/SPEC_OUTLINE.md`)
 - **Step 0 (evaluation): ✅** — Architect independently verified EVALUATION.md findings by reading Arabic text
 - **Step 1 (outline): ✅** — 763-line outline with source mapping, finding resolution, data model decision
-- **Step 2 (section writing): IN PROGRESS** — 9/12 sections complete (1970 lines). Session 3 handoff: `reference/archive/sessions/excerpting_spec_session3_handoff.md`
+- **Step 2 (section writing): ✅ COMPLETE** — 12/12 sections, 2343 lines. Coherence review passed. Session 4 handoff: `reference/archive/sessions/excerpting_spec_session4_handoff.md`
 
 ## What to Do — Step 2: Write Sections in Dependency Order
 
@@ -153,7 +153,8 @@ Update this after each section is committed. The next session (if context forces
 - [x] §7 Phase 3: Metadata Enrichment
 - [x] §2.2 Output Contract
 - [x] §8 Error Handling and Configuration
-- [ ] §1 Purpose and Scope
-- [ ] §9 Deferred Capabilities
-- [ ] §10 Test Requirements
+- [x] §1 Purpose and Scope
+- [x] §9 Deferred Capabilities
+- [x] §10 Test Requirements
+- [x] Coherence review pass (fix 7 scrambled error triggers)
 - [ ] Step 3: Update contracts.py and CLAUDE.md
