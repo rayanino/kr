@@ -15,9 +15,13 @@
 
 ### Before Writing: Setup (first prompt only)
 
-The old BLOCKED SPEC.md (1038 lines, written for 7-engine architecture) is still at `engines/excerpting/SPEC.md`. Before writing the first section:
+Two old SPEC files exist and must be archived before writing:
+- `engines/excerpting/SPEC.md` (1038 lines) — the ORIGINAL old SPEC, written for 7-engine architecture
+- `engines/excerpting/SPEC_CORE.md` (868 lines) — a BLOCKED rewrite attempt (16 findings, commit 5b71749)
 
-1. Archive it: `cp engines/excerpting/SPEC.md reference/archive/abd_code/excerpting/SPEC_old_blocked.md`
+Before writing the first section:
+
+1. Archive both: `mv engines/excerpting/SPEC.md reference/archive/abd_code/excerpting/SPEC_old_original.md` and `mv engines/excerpting/SPEC_CORE.md reference/archive/abd_code/excerpting/SPEC_old_blocked.md`
 2. Create the new SPEC.md with just a file header (title, date, version, status)
 3. Each subsequent section is appended to the new file in writing order
 4. The file will not read top-to-bottom until §1 (Purpose) is written last — that's intentional
@@ -62,32 +66,38 @@ Write `engines/excerpting/SPEC.md` section by section. The outline (`SPEC_OUTLIN
 
 ## Read First (per section)
 
+After the archive step, old SPECs are at these paths:
+- Old passaging SPEC: `engines/passaging/SPEC.md` (not moved — passaging engine dir stays)
+- Old atomization SPEC: `engines/atomization/SPEC.md` (not moved)
+- Old excerpting SPEC (original): `reference/archive/abd_code/excerpting/SPEC_old_original.md` (moved during setup)
+- Old excerpting SPEC (blocked attempt): `reference/archive/abd_code/excerpting/SPEC_old_blocked.md` (moved during setup)
+
 **For §2.3 + §2.1:**
 - `engines/normalization/contracts.py` — authoritative input schema
 - `experiments/architecture_test/run_tests.py` — validated experiment schemas
 
 **For §3:**
 - `KNOWLEDGE_INTEGRITY.md` — T-4 (Context Loss)
-- Old excerpting SPEC §5 — quality layers
+- Old excerpting SPEC §5 (at archive path above) — quality layers
 
 **For §4:**
-- Old passaging SPEC §4.A.1–§4.A.10 — Phase 1 source material
+- `engines/passaging/SPEC.md` §4.A.1–§4.A.10 — Phase 1 source material
 - `experiments/architecture_test/extract_divisions.py` — validated prototype
 
 **For §5:**
-- Old atomization SPEC §4.A.1–§4.A.5 — classification taxonomy
+- `engines/atomization/SPEC.md` §4.A.1–§4.A.5 — classification taxonomy
 - `experiments/architecture_test/run_tests.py` — validated prompts + schemas
 
 **For §6:**
-- Old excerpting SPEC §4.A.2–§4.A.7 — domain design
-- Evaluation workbook — verse-commentary empirical results
+- Old excerpting SPEC §4.A.2–§4.A.7 (at archive path above) — domain design
+- `experiments/format_diversity_test/EVALUATION_WORKBOOK.md` — verse-commentary empirical results
 
 **For §7:**
-- Old excerpting SPEC §4.A.1 Phase 3 — metadata enrichment
+- Old excerpting SPEC §4.A.1 Phase 3 (at archive path above) — metadata enrichment
 - `KNOWLEDGE_INTEGRITY.md` — consensus and gates
 
 **For §8-§10:**
-- Old SPECs §7-§8 and §10 — error handling, config, test patterns
+- Old SPECs §7-§8 and §10 (all at paths above) — error handling, config, test patterns
 - Normalization engine patterns for consistency
 
 ## Context Management
@@ -128,7 +138,7 @@ At session start, explicitly invoke ALL of these:
 
 Update this after each section is committed. The next session (if context forces a new chat) continues from the first unchecked item.
 
-- [ ] Setup: archive old SPEC, create new file header
+- [ ] Setup: archive old SPEC.md + SPEC_CORE.md, create new file header
 - [ ] §2.3 Internal Data Model
 - [ ] §2.1 Input Contract
 - [ ] §3 Self-Containment Standard
