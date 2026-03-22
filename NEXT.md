@@ -13,6 +13,17 @@
 
 ## What to Do — Step 2: Write Sections in Dependency Order
 
+### Before Writing: Setup (first prompt only)
+
+The old BLOCKED SPEC.md (1038 lines, written for 7-engine architecture) is still at `engines/excerpting/SPEC.md`. Before writing the first section:
+
+1. Archive it: `cp engines/excerpting/SPEC.md reference/archive/abd_code/excerpting/SPEC_old_blocked.md`
+2. Create the new SPEC.md with just a file header (title, date, version, status)
+3. Each subsequent section is appended to the new file in writing order
+4. The file will not read top-to-bottom until §1 (Purpose) is written last — that's intentional
+
+### Section Writing
+
 Write `engines/excerpting/SPEC.md` section by section. The outline (`SPEC_OUTLINE.md`) defines the section structure, content, source material, and writing order.
 
 **Writing order (dependency-driven):**
@@ -112,3 +123,22 @@ At session start, explicitly invoke ALL of these:
 - Do NOT include §4.B capabilities in core sections (separate §9)
 - Do NOT defer findings within a section — fix before moving to next
 - Do NOT skip the outline's dependency order — sections depend on each other
+
+## Progress Tracker
+
+Update this after each section is committed. The next session (if context forces a new chat) continues from the first unchecked item.
+
+- [ ] Setup: archive old SPEC, create new file header
+- [ ] §2.3 Internal Data Model
+- [ ] §2.1 Input Contract
+- [ ] §3 Self-Containment Standard
+- [ ] §4 Phase 1: Deterministic Preprocessing
+- [ ] §5 Phase 2: Teaching Unit Extraction
+- [ ] §6 Domain-Specific Rules
+- [ ] §7 Phase 3: Metadata Enrichment
+- [ ] §2.2 Output Contract
+- [ ] §8 Error Handling and Configuration
+- [ ] §1 Purpose and Scope
+- [ ] §9 Deferred Capabilities
+- [ ] §10 Test Requirements
+- [ ] Step 3: Update contracts.py and CLAUDE.md
