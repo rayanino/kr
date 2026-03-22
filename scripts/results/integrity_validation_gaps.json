@@ -1,0 +1,169 @@
+{
+  "check": "validation_gaps",
+  "summary": {
+    "total_books": 7475,
+    "books_with_fatals": 0,
+    "books_with_warnings": 1892,
+    "warning_category_totals": {
+      "char_run": 8260,
+      "low_arabic_ratio": 4530,
+      "division_overlap": 2544,
+      "other": 79
+    }
+  },
+  "threat": "CLEAN",
+  "fatal_books": [],
+  "top_warning_books": [
+    {
+      "name": "موسوعة الرقائق والأدب - ياسر الحمداني",
+      "warnings": 1812,
+      "categories": {
+        "char_run": 1719,
+        "low_arabic_ratio": 93
+      }
+    },
+    {
+      "name": "تفسير الجلالين",
+      "warnings": 692,
+      "categories": {
+        "low_arabic_ratio": 692
+      }
+    },
+    {
+      "name": "شرح الزرقاني على الموطأ",
+      "warnings": 482,
+      "categories": {
+        "char_run": 482
+      }
+    },
+    {
+      "name": "ديوان الضعفاء",
+      "warnings": 393,
+      "categories": {
+        "low_arabic_ratio": 393
+      }
+    },
+    {
+      "name": "غاية المريد شرح كتاب التوحيد",
+      "warnings": 339,
+      "categories": {
+        "low_arabic_ratio": 1,
+        "char_run": 337,
+        "division_overlap": 1
+      }
+    },
+    {
+      "name": "إحكام الأحكام شرح عمدة الأحكام",
+      "warnings": 330,
+      "categories": {
+        "char_run": 330
+      }
+    },
+    {
+      "name": "القول المفيد على كتاب التوحيد",
+      "warnings": 249,
+      "categories": {
+        "char_run": 249
+      }
+    },
+    {
+      "name": "أصل صفة صلاة النبي صلى الله عليه وسلم",
+      "warnings": 226,
+      "categories": {
+        "char_run": 226
+      }
+    },
+    {
+      "name": "شرح التصريح على التوضيح أو التصريح بمضمون التوضيح في النحو",
+      "warnings": 223,
+      "categories": {
+        "char_run": 222,
+        "division_overlap": 1
+      }
+    },
+    {
+      "name": "كتاب التوحيد وقرة عيون الموحدين في تحقيق دعوة الأنبياء والمرسلين",
+      "warnings": 222,
+      "categories": {
+        "char_run": 222
+      }
+    },
+    {
+      "name": "شرح الزرقاني على المواهب اللدنية بالمنح المحمدية",
+      "warnings": 188,
+      "categories": {
+        "char_run": 187,
+        "division_overlap": 1
+      }
+    },
+    {
+      "name": "معجم شيوخ الطبري",
+      "warnings": 184,
+      "categories": {
+        "low_arabic_ratio": 183,
+        "char_run": 1
+      }
+    },
+    {
+      "name": "فتوح الغيب في الكشف عن قناع الريب (حاشية الطيبي على الكشاف)",
+      "warnings": 162,
+      "categories": {
+        "char_run": 162
+      }
+    },
+    {
+      "name": "رواية صحيح مسلم من طريق ابن ماهان مقارنة برواية ابن سفيان",
+      "warnings": 153,
+      "categories": {
+        "char_run": 150,
+        "division_overlap": 3
+      }
+    },
+    {
+      "name": "فتح المعين بشرح قرة العين بمهمات الدين",
+      "warnings": 139,
+      "categories": {
+        "char_run": 138,
+        "division_overlap": 1
+      }
+    },
+    {
+      "name": "التبيان في تفسير غريب القرآن",
+      "warnings": 128,
+      "categories": {
+        "low_arabic_ratio": 128
+      }
+    },
+    {
+      "name": "سؤالات البرذعي لأبي زرعة الرازي - ت الأزهري",
+      "warnings": 128,
+      "categories": {
+        "low_arabic_ratio": 128
+      }
+    },
+    {
+      "name": "الاحتجاج بالأثر على من أنكر المهدي المنتظر",
+      "warnings": 124,
+      "categories": {
+        "char_run": 124
+      }
+    },
+    {
+      "name": "أسامي الضعفاء - أبو زرعة الرازي - ت الأزهري",
+      "warnings": 122,
+      "categories": {
+        "low_arabic_ratio": 122
+      }
+    },
+    {
+      "name": "ورد الطائف في شرح روضة الطرائف في رسم المصحف",
+      "warnings": 121,
+      "categories": {
+        "char_run": 119,
+        "division_overlap": 2
+      }
+    }
+  ],
+  "generated_at": "2026-03-22T23:26:00.807212+00:00",
+  "script": "scripts/verify_normalized_integrity.py"
+}

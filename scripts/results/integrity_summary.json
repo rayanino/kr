@@ -1,0 +1,22 @@
+{
+  "check": "integrity_summary",
+  "total_records": 7475,
+  "sweep_file": "results\\normalization_sweep_v2\\corpus_sweep.jsonl",
+  "checks_run": [
+    "zero_content",
+    "diacritics",
+    "layer_coverage",
+    "referential",
+    "validation_gaps"
+  ],
+  "all_clean": true,
+  "reports": [
+    "scripts\\results\\integrity_zero_content.json",
+    "scripts\\results\\integrity_diacritics.json",
+    "scripts\\results\\integrity_layer_coverage.json",
+    "scripts\\results\\integrity_referential.json",
+    "scripts\\results\\integrity_validation_gaps.json"
+  ],
+  "generated_at": "2026-03-22T23:26:00.807794+00:00",
+  "script": "scripts/verify_normalized_integrity.py"
+}

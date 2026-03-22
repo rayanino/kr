@@ -1,0 +1,731 @@
+{
+  "check": "diacritics_drift",
+  "summary": {
+    "books_analyzed": 7471,
+    "undiacritized_books": 39,
+    "sparse_diacritics_books": 243,
+    "corpus_avg_ratio": 0.116298,
+    "corpus_min_ratio": 0.0,
+    "corpus_max_ratio": 0.401261
+  },
+  "threat": "INFORMATIONAL",
+  "note": "Low diacritics is normal for modern scholarly editions. This data helps downstream engines know which texts rely on diacritical precision.",
+  "undiacritized_books": [
+    {
+      "name": "أحوال الرجال",
+      "path": "shamela-export-samples\\أحوال الرجال.htm",
+      "diacritic_count": 0,
+      "total_chars": 43393,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "الأربعون المختارة من حديث الإمام أبي حنيفة",
+      "path": "shamela-export-samples\\الأربعون المختارة من حديث الإمام أبي حنيفة.htm",
+      "diacritic_count": 0,
+      "total_chars": 20542,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "الأصل لمحمد بن الحسن - ت الأفغاني",
+      "path": "shamela-export-samples\\الأصل لمحمد بن الحسن - ت الأفغاني\\001.htm",
+      "diacritic_count": 0,
+      "total_chars": 336006,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "الإكليل في المتشابه والتأويل",
+      "path": "shamela-export-samples\\الإكليل في المتشابه والتأويل.htm",
+      "diacritic_count": 0,
+      "total_chars": 42352,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "الثالث والثمانون من الفوائد الأفراد",
+      "path": "shamela-export-samples\\الثالث والثمانون من الفوائد الأفراد\\001.htm",
+      "diacritic_count": 0,
+      "total_chars": 5493,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "الجمل في المنطق",
+      "path": "shamela-export-samples\\الجمل في المنطق.htm",
+      "diacritic_count": 0,
+      "total_chars": 12248,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "الحسبة لابن المبرد",
+      "path": "shamela-export-samples\\الحسبة لابن المبرد.htm",
+      "diacritic_count": 0,
+      "total_chars": 8717,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "القرآن وإعجازه العلمي",
+      "path": "shamela-export-samples\\القرآن وإعجازه العلمي.htm",
+      "diacritic_count": 0,
+      "total_chars": 194680,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "المدينة المنورة النبوية فضلها، فضل ساكنيها، زيارتها",
+      "path": "shamela-export-samples\\المدينة المنورة النبوية فضلها، فضل ساكنيها، زيارتها.htm",
+      "diacritic_count": 0,
+      "total_chars": 2255,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "المعجم اللطيف",
+      "path": "shamela-export-samples\\المعجم اللطيف.htm",
+      "diacritic_count": 0,
+      "total_chars": 37043,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "المنخول من تعليقات الأصول",
+      "path": "shamela-export-samples\\المنخول من تعليقات الأصول.htm",
+      "diacritic_count": 0,
+      "total_chars": 281970,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "الناسخ والمنسوخ - ابن حزم",
+      "path": "shamela-export-samples\\الناسخ والمنسوخ - ابن حزم.htm",
+      "diacritic_count": 0,
+      "total_chars": 55059,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "بيان خطا البخاري في تاريخه",
+      "path": "shamela-export-samples\\بيان خطا البخاري في تاريخه\\001.htm",
+      "diacritic_count": 0,
+      "total_chars": 114703,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "تذكرة الأريب في تفسير الغريب",
+      "path": "shamela-export-samples\\تذكرة الأريب في تفسير الغريب.htm",
+      "diacritic_count": 0,
+      "total_chars": 269818,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "ثقافة العولمة بوصفها خطابا متطرفا",
+      "path": "shamela-export-samples\\ثقافة العولمة بوصفها خطابا متطرفا.htm",
+      "diacritic_count": 0,
+      "total_chars": 23985,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "جزء يشتمل على ثمانية وخمسين حديثا",
+      "path": "shamela-export-samples\\جزء يشتمل على ثمانية وخمسين حديثا.htm",
+      "diacritic_count": 0,
+      "total_chars": 26254,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "حلية الأولياء وطبقات الأصفياء - ط السعادة",
+      "path": "shamela-export-samples\\حلية الأولياء وطبقات الأصفياء - ط السعادة\\001.htm",
+      "diacritic_count": 0,
+      "total_chars": 615201,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "خصائص مسند الإمام أحمد",
+      "path": "shamela-export-samples\\خصائص مسند الإمام أحمد.htm",
+      "diacritic_count": 0,
+      "total_chars": 10854,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "دراسات في الديانات الهندية",
+      "path": "shamela-export-samples\\دراسات في الديانات الهندية\\006.htm",
+      "diacritic_count": 0,
+      "total_chars": 3860,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "ذكر من يعتمد قوله في الجرح والتعديل",
+      "path": "shamela-export-samples\\ذكر من يعتمد قوله في الجرح والتعديل.htm",
+      "diacritic_count": 0,
+      "total_chars": 36966,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "روضة المحدثين",
+      "path": "shamela-export-samples\\روضة المحدثين\\001.htm",
+      "diacritic_count": 0,
+      "total_chars": 110441,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "سؤالات السلفي لخميس الحوزي",
+      "path": "shamela-export-samples\\سؤالات السلفي لخميس الحوزي.htm",
+      "diacritic_count": 0,
+      "total_chars": 43519,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "عوالي أبي حنيفة",
+      "path": "shamela-export-samples\\عوالي أبي حنيفة.htm",
+      "diacritic_count": 0,
+      "total_chars": 9576,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "عوالي مالك رواية هشام بن عمار",
+      "path": "shamela-export-samples\\عوالي مالك رواية هشام بن عمار.htm",
+      "diacritic_count": 0,
+      "total_chars": 6222,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "فتح العزيز بشرح الوجيز = الشرح الكبير للرافعي",
+      "path": "shamela-export-samples\\فتح العزيز بشرح الوجيز = الشرح الكبير للرافعي\\001.htm",
+      "diacritic_count": 0,
+      "total_chars": 197649,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "فقه الواقع - الألباني",
+      "path": "shamela-export-samples\\فقه الواقع - الألباني.htm",
+      "diacritic_count": 0,
+      "total_chars": 17205,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "فوائد ابن الصلت وأبي أحمد الفرضي",
+      "path": "shamela-export-samples\\فوائد ابن الصلت وأبي أحمد الفرضي.htm",
+      "diacritic_count": 0,
+      "total_chars": 20764,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "فوائد ابن بجير",
+      "path": "shamela-export-samples\\فوائد ابن بجير.htm",
+      "diacritic_count": 0,
+      "total_chars": 6593,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "قاعدة في الجرح والتعديل",
+      "path": "shamela-export-samples\\قاعدة في الجرح والتعديل.htm",
+      "diacritic_count": 0,
+      "total_chars": 19847,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "قاعدة في المؤرخين",
+      "path": "shamela-export-samples\\قاعدة في المؤرخين.htm",
+      "diacritic_count": 0,
+      "total_chars": 5371,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "لباب النقول",
+      "path": "shamela-export-samples\\لباب النقول.htm",
+      "diacritic_count": 0,
+      "total_chars": 303851,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "مختصر القدوري",
+      "path": "shamela-export-samples\\مختصر القدوري.htm",
+      "diacritic_count": 0,
+      "total_chars": 218689,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "مذكرات أحمد باي",
+      "path": "shamela-export-samples\\مذكرات أحمد باي.htm",
+      "diacritic_count": 0,
+      "total_chars": 75830,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "مسند عثمان بن عفان لأبي القاسم البغوي",
+      "path": "shamela-export-samples\\مسند عثمان بن عفان لأبي القاسم البغوي.htm",
+      "diacritic_count": 0,
+      "total_chars": 2018,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "معجزة القرآن",
+      "path": "shamela-export-samples\\معجزة القرآن.htm",
+      "diacritic_count": 0,
+      "total_chars": 89478,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "مناهل السرور لمبتغى الحساب بالكسور - ط إسطنبول",
+      "path": "shamela-export-samples\\مناهل السرور لمبتغى الحساب بالكسور - ط إسطنبول.htm",
+      "diacritic_count": 0,
+      "total_chars": 6705,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "منتخب الأحكام لابن أبي زمنين",
+      "path": "shamela-export-samples\\منتخب الأحكام لابن أبي زمنين\\001.htm",
+      "diacritic_count": 0,
+      "total_chars": 94936,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "منهج الطلاب في فقه الإمام الشافعي رضي الله عنه",
+      "path": "shamela-export-samples\\منهج الطلاب في فقه الإمام الشافعي رضي الله عنه.htm",
+      "diacritic_count": 0,
+      "total_chars": 230540,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    },
+    {
+      "name": "نونية القحطاني",
+      "path": "shamela-export-samples\\نونية القحطاني.htm",
+      "diacritic_count": 0,
+      "total_chars": 38279,
+      "ratio": 0.0,
+      "classification": "undiacritized"
+    }
+  ],
+  "sparse_diacritics_books": [
+    {
+      "name": "آداب الحسبة",
+      "path": "shamela-export-samples\\آداب الحسبة.htm",
+      "diacritic_count": 39,
+      "total_chars": 91612,
+      "ratio": 0.000426,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أثر دعوة الشيخ محمد بن عبد الوهاب في حركة عثمان بن فودي الإصلاحية في غرب أفريقيا (مطبوع ضمن بحوث ندوة دعوة الشيخ محمد بن عبد الوهاب)",
+      "path": "shamela-export-samples\\أثر دعوة الشيخ محمد بن عبد الوهاب في حركة عثمان بن فودي الإصلاحية في غرب أفريقيا (مطبوع ضمن بحوث ندوة دعوة الشيخ محمد بن عبد الوهاب).htm",
+      "diacritic_count": 15,
+      "total_chars": 29127,
+      "ratio": 0.000515,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أجوبة محققة عن أسئلة مفرقة - ط إسطنبول",
+      "path": "shamela-export-samples\\أجوبة محققة عن أسئلة مفرقة - ط إسطنبول.htm",
+      "diacritic_count": 22,
+      "total_chars": 31910,
+      "ratio": 0.000689,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أحكام القرآن لإسماعيل القاضي",
+      "path": "shamela-export-samples\\أحكام القرآن لإسماعيل القاضي.htm",
+      "diacritic_count": 101,
+      "total_chars": 113846,
+      "ratio": 0.000887,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أخبار الدجال لعبد الغني المقدسي",
+      "path": "shamela-export-samples\\أخبار الدجال لعبد الغني المقدسي.htm",
+      "diacritic_count": 56,
+      "total_chars": 66351,
+      "ratio": 0.000844,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أدب الطلب ومنتهى الأرب - ت الخشت",
+      "path": "shamela-export-samples\\أدب الطلب ومنتهى الأرب - ت الخشت.htm",
+      "diacritic_count": 136,
+      "total_chars": 243753,
+      "ratio": 0.000558,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أسامي مشايخ البخاري لابن مندة",
+      "path": "shamela-export-samples\\أسامي مشايخ البخاري لابن مندة.htm",
+      "diacritic_count": 5,
+      "total_chars": 20071,
+      "ratio": 0.000249,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أسد الغابة في معرفة الصحابة - المطبعة الوهبية",
+      "path": "shamela-export-samples\\أسد الغابة في معرفة الصحابة - المطبعة الوهبية\\001.htm",
+      "diacritic_count": 1,
+      "total_chars": 776383,
+      "ratio": 1e-06,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أصناف المغرورين",
+      "path": "shamela-export-samples\\أصناف المغرورين.htm",
+      "diacritic_count": 36,
+      "total_chars": 36721,
+      "ratio": 0.00098,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أضواء على المذاهب الهدامة",
+      "path": "shamela-export-samples\\أضواء على المذاهب الهدامة\\006.htm",
+      "diacritic_count": 4,
+      "total_chars": 9203,
+      "ratio": 0.000435,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أطواق الحمامة في حمل الصحابة على السلامة",
+      "path": "shamela-export-samples\\أطواق الحمامة في حمل الصحابة على السلامة.htm",
+      "diacritic_count": 11,
+      "total_chars": 12975,
+      "ratio": 0.000848,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "ألفية أم المؤمنين عائشة - الروضة الأنيقة في نصرة العفيفة الصديقة",
+      "path": "shamela-export-samples\\ألفية أم المؤمنين عائشة - الروضة الأنيقة في نصرة العفيفة الصديقة.htm",
+      "diacritic_count": 2,
+      "total_chars": 53042,
+      "ratio": 3.8e-05,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أمالي المحاملي رواية ابن الصلت",
+      "path": "shamela-export-samples\\أمالي المحاملي رواية ابن الصلت.htm",
+      "diacritic_count": 16,
+      "total_chars": 16282,
+      "ratio": 0.000983,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "أنساب الأشراف - ت حميد الله",
+      "path": "shamela-export-samples\\أنساب الأشراف - ت حميد الله\\الكتاب.htm",
+      "diacritic_count": 1,
+      "total_chars": 786581,
+      "ratio": 1e-06,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "إعانة الطالبين على حل ألفاظ فتح المعين",
+      "path": "shamela-export-samples\\إعانة الطالبين على حل ألفاظ فتح المعين\\001.htm",
+      "diacritic_count": 614,
+      "total_chars": 1014168,
+      "ratio": 0.000605,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "إعلام الأعلام بأحكام الإقرار العام - ط إسطنبول",
+      "path": "shamela-export-samples\\إعلام الأعلام بأحكام الإقرار العام - ط إسطنبول.htm",
+      "diacritic_count": 2,
+      "total_chars": 38262,
+      "ratio": 5.2e-05,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "إكمال تهذيب الكمال - ط الفاروق",
+      "path": "shamela-export-samples\\إكمال تهذيب الكمال - ط الفاروق\\001.htm",
+      "diacritic_count": 58,
+      "total_chars": 258356,
+      "ratio": 0.000224,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "إلى الإسلام من جديد",
+      "path": "shamela-export-samples\\إلى الإسلام من جديد.htm",
+      "diacritic_count": 168,
+      "total_chars": 176391,
+      "ratio": 0.000952,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "إيضاح المحصول من برهان الأصول",
+      "path": "shamela-export-samples\\إيضاح المحصول من برهان الأصول.htm",
+      "diacritic_count": 402,
+      "total_chars": 828728,
+      "ratio": 0.000485,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "اختلاف الفقهاء لابن جرير",
+      "path": "shamela-export-samples\\اختلاف الفقهاء لابن جرير.htm",
+      "diacritic_count": 218,
+      "total_chars": 295064,
+      "ratio": 0.000739,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "استدراك الزيادات على كتاب الرحلة",
+      "path": "shamela-export-samples\\استدراك الزيادات على كتاب الرحلة.htm",
+      "diacritic_count": 6,
+      "total_chars": 29322,
+      "ratio": 0.000205,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الآداب النافعة بالألفاظ المختارة الجامعة",
+      "path": "shamela-export-samples\\الآداب النافعة بالألفاظ المختارة الجامعة.htm",
+      "diacritic_count": 34,
+      "total_chars": 131531,
+      "ratio": 0.000258,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الأجوبة العراقية على الأسئلة اللاهورية",
+      "path": "shamela-export-samples\\الأجوبة العراقية على الأسئلة اللاهورية.htm",
+      "diacritic_count": 59,
+      "total_chars": 69223,
+      "ratio": 0.000852,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الأربعون حديثا في حق الفقراء لأبي طاهر السلفي",
+      "path": "shamela-export-samples\\الأربعون حديثا في حق الفقراء لأبي طاهر السلفي.htm",
+      "diacritic_count": 1,
+      "total_chars": 2020,
+      "ratio": 0.000495,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الأربعون في التصوف للسلمي",
+      "path": "shamela-export-samples\\الأربعون في التصوف للسلمي.htm",
+      "diacritic_count": 8,
+      "total_chars": 17519,
+      "ratio": 0.000457,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الأصل لمحمد بن الحسن - ت شحاته",
+      "path": "shamela-export-samples\\الأصل لمحمد بن الحسن - ت شحاته.htm",
+      "diacritic_count": 2,
+      "total_chars": 197617,
+      "ratio": 1e-05,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الأمر بالمعروف والنهي عن المنكر - عبد الغني المقدسي",
+      "path": "shamela-export-samples\\الأمر بالمعروف والنهي عن المنكر - عبد الغني المقدسي.htm",
+      "diacritic_count": 33,
+      "total_chars": 55535,
+      "ratio": 0.000594,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الأمور الميسرة لقيام الليل",
+      "path": "shamela-export-samples\\الأمور الميسرة لقيام الليل.htm",
+      "diacritic_count": 9,
+      "total_chars": 28909,
+      "ratio": 0.000311,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الإحكام في أصول الأحكام - ابن حزم",
+      "path": "shamela-export-samples\\الإحكام في أصول الأحكام - ابن حزم\\001.htm",
+      "diacritic_count": 1,
+      "total_chars": 223630,
+      "ratio": 4e-06,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الإسعاف فى أحكام الأوقاف",
+      "path": "shamela-export-samples\\الإسعاف فى أحكام الأوقاف.htm",
+      "diacritic_count": 151,
+      "total_chars": 218261,
+      "ratio": 0.000692,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الإسلام والحكم",
+      "path": "shamela-export-samples\\الإسلام والحكم.htm",
+      "diacritic_count": 2,
+      "total_chars": 20708,
+      "ratio": 9.7e-05,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الاقتراح في أصول النحو ط البيروتي",
+      "path": "shamela-export-samples\\الاقتراح في أصول النحو ط البيروتي.htm",
+      "diacritic_count": 88,
+      "total_chars": 129225,
+      "ratio": 0.000681,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الاقتراح في أصول النحو ط القلم",
+      "path": "shamela-export-samples\\الاقتراح في أصول النحو ط القلم.htm",
+      "diacritic_count": 105,
+      "total_chars": 126696,
+      "ratio": 0.000829,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "الانتصار لسيبويه على المبرد",
+      "path": "shamela-export-samples\\الانتصار لسيبويه على المبرد.htm",
+      "diacritic_count": 179,
+      "total_chars": 266777,
+      "ratio": 0.000671,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "البدور الزاهرة في القراءات العشر المتواترة - عبد الفتاح القاضي",
+      "path": "shamela-export-samples\\البدور الزاهرة في القراءات العشر المتواترة - عبد الفتاح القاضي\\001.htm",
+      "diacritic_count": 43,
+      "total_chars": 560263,
+      "ratio": 7.7e-05,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "البلغة في تراجم أئمة النحو واللغة",
+      "path": "shamela-export-samples\\البلغة في تراجم أئمة النحو واللغة.htm",
+      "diacritic_count": 72,
+      "total_chars": 211492,
+      "ratio": 0.00034,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "البيان المغرب في أخبار الأندلس والمغرب",
+      "path": "shamela-export-samples\\البيان المغرب في أخبار الأندلس والمغرب\\001.htm",
+      "diacritic_count": 359,
+      "total_chars": 414301,
+      "ratio": 0.000867,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "البيان في مداخل الشيطان",
+      "path": "shamela-export-samples\\البيان في مداخل الشيطان.htm",
+      "diacritic_count": 1,
+      "total_chars": 173763,
+      "ratio": 6e-06,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التبيان في آداب حملة القرآن",
+      "path": "shamela-export-samples\\التبيان في آداب حملة القرآن.htm",
+      "diacritic_count": 4,
+      "total_chars": 123913,
+      "ratio": 3.2e-05,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التبيين لأسماء المدلسين",
+      "path": "shamela-export-samples\\التبيين لأسماء المدلسين.htm",
+      "diacritic_count": 4,
+      "total_chars": 33523,
+      "ratio": 0.000119,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التحفة الربانية في شرح الأربعين حديثا النووية",
+      "path": "shamela-export-samples\\التحفة الربانية في شرح الأربعين حديثا النووية.htm",
+      "diacritic_count": 2,
+      "total_chars": 77775,
+      "ratio": 2.6e-05,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التحفة الوسيمة شرح على الدرة اليتيمة",
+      "path": "shamela-export-samples\\التحفة الوسيمة شرح على الدرة اليتيمة.htm",
+      "diacritic_count": 5,
+      "total_chars": 56858,
+      "ratio": 8.8e-05,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التحقيق والبيان في شرح البرهان في أصول الفقه",
+      "path": "shamela-export-samples\\التحقيق والبيان في شرح البرهان في أصول الفقه\\001.htm",
+      "diacritic_count": 27,
+      "total_chars": 378252,
+      "ratio": 7.1e-05,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التعريف بالمصطلح الشريف",
+      "path": "shamela-export-samples\\التعريف بالمصطلح الشريف.htm",
+      "diacritic_count": 140,
+      "total_chars": 319499,
+      "ratio": 0.000438,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التفسير البياني لما في سورة النحل من دقائق المعاني",
+      "path": "shamela-export-samples\\التفسير البياني لما في سورة النحل من دقائق المعاني.htm",
+      "diacritic_count": 246,
+      "total_chars": 527796,
+      "ratio": 0.000466,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التقريب لحد المنطق والمدخل إليه بالألفاظ العامية والأمثلة الفقهية",
+      "path": "shamela-export-samples\\التقريب لحد المنطق والمدخل إليه بالألفاظ العامية والأمثلة الفقهية.htm",
+      "diacritic_count": 168,
+      "total_chars": 353772,
+      "ratio": 0.000475,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التقييد لمعرفة رواة السنن والمسانيد",
+      "path": "shamela-export-samples\\التقييد لمعرفة رواة السنن والمسانيد.htm",
+      "diacritic_count": 109,
+      "total_chars": 571858,
+      "ratio": 0.000191,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التقييد والإيضاح شرح مقدمة ابن الصلاح",
+      "path": "shamela-export-samples\\التقييد والإيضاح شرح مقدمة ابن الصلاح.htm",
+      "diacritic_count": 150,
+      "total_chars": 304429,
+      "ratio": 0.000493,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التكملة لوفيات النقلة",
+      "path": "shamela-export-samples\\التكملة لوفيات النقلة\\001.htm",
+      "diacritic_count": 7,
+      "total_chars": 344952,
+      "ratio": 2e-05,
+      "classification": "sparse_diacritics"
+    },
+    {
+      "name": "التنبيه والإيقاظ",
+      "path": "shamela-export-samples\\التنبيه والإيقاظ.htm",
+      "diacritic_count": 2,
+      "total_chars": 173636,
+      "ratio": 1.2e-05,
+      "classification": "sparse_diacritics"
+    }
+  ],
+  "generated_at": "2026-03-22T23:26:00.793086+00:00",
+  "script": "scripts/verify_normalized_integrity.py"
+}

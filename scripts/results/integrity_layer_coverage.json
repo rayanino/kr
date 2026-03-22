@@ -1,0 +1,138 @@
+{
+  "check": "layer_coverage",
+  "summary": {
+    "total_books": 7475,
+    "inconsistent_count": 0,
+    "auto_upgraded_count": 401,
+    "layer_count_distribution": {
+      "layer_count_1": 7074,
+      "layer_count_2": 401
+    }
+  },
+  "threat": "CLEAN",
+  "inconsistent_books": [],
+  "auto_upgraded_books": [
+    {
+      "name": "أحكام القرآن للكيا الهراسي",
+      "path": "shamela-export-samples\\أحكام القرآن للكيا الهراسي\\001.htm",
+      "layer_count": 2,
+      "multi_layer_units": 107
+    },
+    {
+      "name": "أحكام تمني الموت (مطبوع ضمن مؤلفات الشيخ محمد بن عبد الوهاب، الجزء الثالث)",
+      "path": "shamela-export-samples\\أحكام تمني الموت (مطبوع ضمن مؤلفات الشيخ محمد بن عبد الوهاب، الجزء الثالث).htm",
+      "layer_count": 2,
+      "multi_layer_units": 8
+    },
+    {
+      "name": "أخبار أبي القاسم الزجاجي",
+      "path": "shamela-export-samples\\أخبار أبي القاسم الزجاجي.htm",
+      "layer_count": 2,
+      "multi_layer_units": 21
+    },
+    {
+      "name": "أدب الخلاف - ياسر برهامي",
+      "path": "shamela-export-samples\\أدب الخلاف - ياسر برهامي\\001.htm",
+      "layer_count": 2,
+      "multi_layer_units": 4
+    },
+    {
+      "name": "أربع قواعد تدور الأحكام عليها ويليها نبذة في اتباع النصوص مع احترام العلماء (مطبوع ضمن مؤلفات الشيخ محمد بن عبد الوهاب، الجزء الثالث)",
+      "path": "shamela-export-samples\\أربع قواعد تدور الأحكام عليها ويليها نبذة في اتباع النصوص مع احترام العلماء (مطبوع ضمن مؤلفات الشيخ محمد بن عبد الوهاب، الجزء الثالث).htm",
+      "layer_count": 2,
+      "multi_layer_units": 5
+    },
+    {
+      "name": "أزمات الشباب أسباب وحلول",
+      "path": "shamela-export-samples\\أزمات الشباب أسباب وحلول.htm",
+      "layer_count": 2,
+      "multi_layer_units": 5
+    },
+    {
+      "name": "أسرار البيان في التعبير القرآني - كتاب",
+      "path": "shamela-export-samples\\أسرار البيان في التعبير القرآني - كتاب.htm",
+      "layer_count": 2,
+      "multi_layer_units": 12
+    },
+    {
+      "name": "أصل الزراري شرح صحيح البخاري - مخطوط",
+      "path": "shamela-export-samples\\أصل الزراري شرح صحيح البخاري - مخطوط.htm",
+      "layer_count": 2,
+      "multi_layer_units": 641
+    },
+    {
+      "name": "أصول أهل السنة والجماعة",
+      "path": "shamela-export-samples\\أصول أهل السنة والجماعة\\001.htm",
+      "layer_count": 2,
+      "multi_layer_units": 3
+    },
+    {
+      "name": "أصول الدعوة - جامعة المدينة",
+      "path": "shamela-export-samples\\أصول الدعوة - جامعة المدينة.htm",
+      "layer_count": 2,
+      "multi_layer_units": 17
+    },
+    {
+      "name": "أصول الدعوة وطرقها ٢ - جامعة المدينة",
+      "path": "shamela-export-samples\\أصول الدعوة وطرقها ٢ - جامعة المدينة.htm",
+      "layer_count": 2,
+      "multi_layer_units": 44
+    },
+    {
+      "name": "أصول العقيدة - عبد الرحيم السلمي",
+      "path": "shamela-export-samples\\أصول العقيدة - عبد الرحيم السلمي\\001.htm",
+      "layer_count": 2,
+      "multi_layer_units": 3
+    },
+    {
+      "name": "أصول النحو ١ - جامعة المدينة",
+      "path": "shamela-export-samples\\أصول النحو ١ - جامعة المدينة.htm",
+      "layer_count": 2,
+      "multi_layer_units": 36
+    },
+    {
+      "name": "أضواء البيان في إيضاح القرآن بالقرآن - ط عطاءات العلم",
+      "path": "shamela-export-samples\\أضواء البيان في إيضاح القرآن بالقرآن - ط عطاءات العلم\\001.htm",
+      "layer_count": 2,
+      "multi_layer_units": 179
+    },
+    {
+      "name": "أعلام القرآن",
+      "path": "shamela-export-samples\\أعلام القرآن\\001.htm",
+      "layer_count": 2,
+      "multi_layer_units": 3
+    },
+    {
+      "name": "أغلو في بعض القرابة وجفاء في الأنبياء والصحابة",
+      "path": "shamela-export-samples\\أغلو في بعض القرابة وجفاء في الأنبياء والصحابة.htm",
+      "layer_count": 2,
+      "multi_layer_units": 4
+    },
+    {
+      "name": "ألقاب الشعراء ومن يعرف منهم بأمه - ضمن نوادر المخطوطات",
+      "path": "shamela-export-samples\\ألقاب الشعراء ومن يعرف منهم بأمه - ضمن نوادر المخطوطات.htm",
+      "layer_count": 2,
+      "multi_layer_units": 16
+    },
+    {
+      "name": "أنموذج جليل في أسئلة وأجوبة عن غرائب آي التنزيل",
+      "path": "shamela-export-samples\\أنموذج جليل في أسئلة وأجوبة عن غرائب آي التنزيل.htm",
+      "layer_count": 2,
+      "multi_layer_units": 106
+    },
+    {
+      "name": "إرشاد العباد إلى معاني لمعة الاعتقاد",
+      "path": "shamela-export-samples\\إرشاد العباد إلى معاني لمعة الاعتقاد.htm",
+      "layer_count": 2,
+      "multi_layer_units": 90
+    },
+    {
+      "name": "إرشاد القاصي والداني إلى تراجم شيوخ الطبراني",
+      "path": "shamela-export-samples\\إرشاد القاصي والداني إلى تراجم شيوخ الطبراني.htm",
+      "layer_count": 2,
+      "multi_layer_units": 9
+    }
+  ],
+  "generated_at": "2026-03-22T23:26:00.797769+00:00",
+  "script": "scripts/verify_normalized_integrity.py"
+}

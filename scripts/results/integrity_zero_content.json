@@ -1,0 +1,112 @@
+{
+  "check": "zero_content",
+  "summary": {
+    "total_books": 7475,
+    "zero_content_total": 0,
+    "parser_bugs": 0,
+    "genuinely_empty": 0,
+    "low_content_books": 16
+  },
+  "threat": "CLEAN",
+  "zero_content_details": [],
+  "low_content_details": [
+    {
+      "name": "أسامي الضعفاء - أبو زرعة الرازي - ت الهاشمي",
+      "path": "shamela-export-samples\\أسامي الضعفاء - أبو زرعة الرازي - ت الهاشمي\\001.htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "الأربعون حديثا في حق الفقراء لأبي طاهر السلفي",
+      "path": "shamela-export-samples\\الأربعون حديثا في حق الفقراء لأبي طاهر السلفي.htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "الأول من الخلعيات",
+      "path": "shamela-export-samples\\الأول من الخلعيات.htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "الكلام على حديث الإستلقاء لأبي موسى المديني",
+      "path": "shamela-export-samples\\الكلام على حديث الإستلقاء لأبي موسى المديني.htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "الورقة النحوية",
+      "path": "shamela-export-samples\\الورقة النحوية.htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "بحوث لبعض النوازل الفقهية المعاصرة",
+      "path": "shamela-export-samples\\بحوث لبعض النوازل الفقهية المعاصرة\\001.htm",
+      "content_units": 1,
+      "status": "OK"
+    },
+    {
+      "name": "ترجمة الإمام مسلم ورواة صحيحه",
+      "path": "shamela-export-samples\\ترجمة الإمام مسلم ورواة صحيحه.htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "تسوية الصفوف والفهم الخاطئ له",
+      "path": "shamela-export-samples\\تسوية الصفوف والفهم الخاطئ له.htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "جزء في طرق حديث لا تسبوا أصحابي",
+      "path": "shamela-export-samples\\جزء في طرق حديث لا تسبوا أصحابي.htm",
+      "content_units": 1,
+      "status": "OK"
+    },
+    {
+      "name": "حديث الضب الذي تكلم بين يدي النبي للطبراني",
+      "path": "shamela-export-samples\\حديث الضب الذي تكلم بين يدي النبي للطبراني.htm",
+      "content_units": 1,
+      "status": "OK"
+    },
+    {
+      "name": "حديث المصافحة للسلفي",
+      "path": "shamela-export-samples\\حديث المصافحة للسلفي.htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "سؤالات البرذعي لأبي زرعة الرازي - ت الهاشمي",
+      "path": "shamela-export-samples\\سؤالات البرذعي لأبي زرعة الرازي - ت الهاشمي\\001.htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "مسند عثمان بن عفان لأبي القاسم البغوي",
+      "path": "shamela-export-samples\\مسند عثمان بن عفان لأبي القاسم البغوي.htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "معالم بيانية في آيات قرآنية",
+      "path": "shamela-export-samples\\معالم بيانية في آيات قرآنية\\001.htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "نصيحة لطالب الحق - ضمن «آثار المعلمي»",
+      "path": "shamela-export-samples\\نصيحة لطالب الحق - ضمن «آثار المعلمي».htm",
+      "content_units": 2,
+      "status": "OK"
+    },
+    {
+      "name": "نواقض الإسلام",
+      "path": "shamela-export-samples\\نواقض الإسلام.htm",
+      "content_units": 2,
+      "status": "OK"
+    }
+  ],
+  "generated_at": "2026-03-22T23:26:00.789460+00:00",
+  "script": "scripts/verify_normalized_integrity.py"
+}
