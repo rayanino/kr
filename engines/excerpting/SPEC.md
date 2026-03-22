@@ -2,9 +2,9 @@
 
 **Engine:** Excerpting (محرك الاقتباس)
 **Version:** 2.0.0
-**Date:** 2026-03-22
+**Date:** 2026-03-23
 **Author:** Claude Chat (Architect)
-**Status:** DRAFT — writing section by section per SPEC_OUTLINE.md dependency order
+**Status:** COMPLETE — 12 sections, 2343 lines. Ready for kr-integrity audit and contracts.py update.
 
 **Supersedes:** `reference/archive/abd_code/excerpting/SPEC_old_original.md` (1038 lines, 7-engine architecture — BLOCKED)
 and `reference/archive/abd_code/excerpting/SPEC_old_blocked.md` (868 lines, rewrite attempt — BLOCKED, 16 findings)
@@ -2168,13 +2168,13 @@ I-AC-1 through I-AC-7 define `AssembledChunk` structural constraints. Each invar
 
 | Error Code | Trigger Condition for Test |
 |-----------|---------------------------|
-| EX-A-002 | Division tree references non-existent content unit index |
-| EX-A-003 | Cross-page assembly produces text with encoding errors |
-| EX-A-004 | Heading alignment filter cannot match any division heading to content |
-| EX-A-005 | Content flag aggregation finds contradictory flags (same unit: is_toc_page AND has scholarly content) |
-| EX-A-006 | Splitting oversized division finds no structural markers (fallback to word-count split) |
-| EX-A-010 | V-P1 fatal check failed |
-| EX-A-011 | Division tree is completely empty (0 leaves) |
+| EX-A-002 | Division's content unit range is empty (start_unit_index > end_unit_index or no content units in range) |
+| EX-A-003 | Text layer rebasing produces non-contiguous coverage (gap between layer segments after assembly) |
+| EX-A-004 | Layer segment end exceeds content unit primary_text length (requires clamping) |
+| EX-A-005 | Assembled footnotes contain duplicate ref_marker values across constituent content units |
+| EX-A-006 | Heading text from division tree does not align with first content unit text (heading mismatch) |
+| EX-A-010 | Empty division_tree — source has 0 leaf divisions to process |
+| EX-A-011 | Content unit not found for a unit_index in the declared range (missing content unit) |
 
 Each error code test must verify: (a) the error is emitted with the correct code, (b) the error message contains actionable context, and (c) the appropriate recovery strategy from §8.2 is followed.
 
@@ -2206,11 +2206,11 @@ For each V-P2 check, the test must:
 
 | Error Code | Trigger Condition for Test |
 |-----------|---------------------------|
-| EX-C-001 | LLM classification response fails schema validation |
-| EX-C-002 | LLM classification produces 0 segments for a non-empty chunk |
-| EX-C-003 | LLM grouping produces overlapping unit segment ranges |
-| EX-C-004 | LLM grouping leaves segments unassigned to any unit |
-| EX-C-005 | LLM response timeout or rate limit after all retries exhausted |
+| EX-C-001 | Classification LLM call fails after all retries (timeout, schema validation failure, API error) |
+| EX-C-002 | Grouping LLM call fails after all retries |
+| EX-C-003 | Offset normalization fails — cannot align LLM word boundaries to actual token boundaries |
+| EX-C-004 | Segment coverage invariant violated after offset repair (gap in coverage persists) |
+| EX-C-005 | Unit coverage invariant violated after repair (unassigned segments persist) |
 
 **Invariant coverage:** I-CS-1 through I-CS-6 and I-TU-1 through I-TU-9 must each have a test that verifies violation detection. The test constructs a mock LLM response that produces output violating exactly one invariant and verifies the validation code catches it.
 
@@ -2234,17 +2234,17 @@ For each V-P2 check, the test must:
 
 | Error Code | Trigger Condition for Test |
 |-----------|---------------------------|
-| EX-M-001 | LLM enrichment call returns invalid JSON |
-| EX-M-002 | Consensus verification disagrees on a critical field (attribution) |
-| EX-M-003 | Enrichment model and verification model agree, but value contradicts source metadata (e.g., school mismatch) |
+| EX-M-001 | Attribution ambiguous — LA-3 triggered (no layer has ≥80% coverage, or 3+ layers present with <60% dominant) |
+| EX-M-002 | LLM enrichment call fails after all retries (timeout, validation failure, API error) |
+| EX-M-003 | School attribution disagreement between enrichment model and verification model |
 | EX-M-004 | Excerpt has null `primary_author_layer` after full Phase 3 |
 | EX-M-005 | Topic keyword count outside 1–3 range |
 | EX-M-006 | Self-containment level vs. `context_hint` mismatch |
 | EX-M-007 | Invalid Quran reference |
 | EX-M-008 | Gate entry write fails — **critical**: verify retry and halt behavior |
-| EX-M-009 | Footnote misattribution |
+| EX-M-009 | Footnote ref_marker offset falls outside excerpt's character range (orphan footnote) |
 | EX-M-010 | Unknown content type |
-| EX-V-001 | Output schema validation fails (ExcerptRecord doesn't match §2.2) |
+| EX-V-001 | Phase 1 self-validation check failed (any V-P1 fatal check) |
 | EX-V-002 | Primary text integrity check fails |
 | EX-G-001 | Attribution disagreement (3 models disagree) → gate queue entry |
 | EX-G-002 | DEPENDENT self-containment after consensus → gate queue entry |
