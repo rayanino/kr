@@ -94,7 +94,8 @@ After all 12 sections: final coherence review pass, then update contracts.py and
 
 §1 is the easiest section — it summarizes everything above. Read:
 1. **`engines/excerpting/SPEC.md` section headers** — `grep "^## §\|^### §" engines/excerpting/SPEC.md` for the complete structure
-2. **`engines/excerpting/SPEC_OUTLINE.md` lines 1–50** — the outline's §1 section
+2. **`engines/excerpting/SPEC_OUTLINE.md` lines 52–70** — the outline's §1 section (Purpose and Scope)
+3. **`experiments/architecture_test/ARCHITECTURE_DECISION.md`** — pipeline position and absorption rationale
 
 No external source material needed. §1 introduces the engine's purpose, scope, and relationship to other engines.
 
@@ -102,8 +103,8 @@ No external source material needed. §1 introduces the engine's purpose, scope, 
 
 §9 catalogs deferred capabilities from all three old SPECs.
 
-1. **`engines/excerpting/SPEC_OUTLINE.md` lines 545–580** — the outline's §9 section with the deferred capabilities table
-2. **`reference/archive/abd_code/excerpting/SPEC_old_original.md`** — search for "§4.B" sections
+1. **`engines/excerpting/SPEC_OUTLINE.md` lines 536–565** — the outline's §9 section with the deferred capabilities table
+2. **`reference/archive/abd_code/excerpting/SPEC_old_original.md` lines 566–850** — old SPEC §4.B.1 through §4.B.8 (Transformative Capabilities)
 3. **`engines/passaging/SPEC.md`** — search for "§4.B" sections
 4. **`engines/atomization/SPEC.md`** — search for "§4.B" sections
 
@@ -113,11 +114,14 @@ The outline already has the complete deferred capabilities table. §9 mainly nee
 
 §10 defines test requirements — what must be tested, at what level (unit/integration/evaluation), and with what fixtures.
 
-1. **All verification checks:** V-P1-1–6, V-P2-1–19, V-P3-1–9 — these are the unit test targets
+1. **`engines/excerpting/SPEC_OUTLINE.md` lines 567–627** — the outline's §10 section (§10.1–§10.5 with test categories and adversarial cases)
+2. **All verification checks:** V-P1-1–6, V-P2-1–19, V-P3-1–9 — these are the unit test targets
 2. **All invariants:** I-AC-*, I-CS-*, I-TU-*, I-ER-* — structural constraints to verify
 3. **All error codes:** 27 codes — each needs at least one test that triggers it
 4. **`experiments/architecture_test/`** — experiment fixtures that become integration test inputs
 5. **Normalization engine test patterns:** `engines/normalization/tests/` for conftest.py patterns, fixture organization, factory helpers
+6. **Old excerpting SPEC §10:** `reference/archive/abd_code/excerpting/SPEC_old_original.md` line 986+ — old test requirements (adapt to new architecture)
+7. **Old atomization SPEC §10:** `engines/atomization/SPEC.md` line 1148+ — atomization test requirements (relevant for Phase 2 classification testing)
 
 ---
 
