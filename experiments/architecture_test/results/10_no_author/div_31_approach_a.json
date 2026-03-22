@@ -1,0 +1,241 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 5,
+      "text_snippet": "بابُ صلاة الجماعة والإمامة",
+      "description_arabic": "عنوان باب صلاة الجماعة والإمامة، وهو انتقال هيكلي لموضوع جديد",
+      "primary_function": "structural_transition",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 6,
+      "end_word": 60,
+      "text_snippet": "عن ابن عمر رضي الله تعالى عنهما أن رسول الله صلى الله عليه وسلم قال: «صلاة الجماعة أفضل",
+      "description_arabic": "حديث ابن عمر وأبي هريرة وأبي سعيد في فضل صلاة الجماعة على صلاة الفذ بسبع وعشرين أو خمس وعشرين درجة",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 61,
+      "end_word": 130,
+      "text_snippet": "عن أبي هريرة رضي الله عنه، أن رسول الله صلى الله عليه وسلم قال: «والذي نفسي بيده لقد هممت",
+      "description_arabic": "حديث أبي هريرة في همّ النبي بتحريق بيوت المتخلفين عن صلاة الجماعة، دليل على وجوبها أو تأكدها",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 131,
+      "end_word": 168,
+      "text_snippet": "وعنه رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم. «أثقل الصلاة على المنافقين صلاة ال",
+      "description_arabic": "حديث أبي هريرة في أن أثقل الصلاة على المنافقين صلاة العشاء والفجر وفضل حضورهما",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": "الضمير 'وعنه' يعود على أبي هريرة المذكور في الحديث السابق، لكن السياق واضح"
+    },
+    {
+      "unit_index": 4,
+      "start_word": 169,
+      "end_word": 222,
+      "text_snippet": "وعنه رضي الله عنه قال: أتى النبي صلى الله عليه وسلم رجلٌ أعمى فقال: يا رسول الله إنه ليس ل",
+      "description_arabic": "حديث الأعمى الذي استأذن النبي في التخلف عن الجماعة فلم يرخص له لسماعه النداء، دليل على وجوب الجماعة",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": "الضمير 'وعنه' يعود على أبي هريرة"
+    },
+    {
+      "unit_index": 5,
+      "start_word": 223,
+      "end_word": 320,
+      "text_snippet": "عن أنس رضي الله عنه قال: سقط النبي صلى الله عليه وسلم عن فرسٍ فجحش شقه الأيمن فدخلنا عليه",
+      "description_arabic": "حديث أنس في صلاة النبي قاعداً بعد سقوطه عن الفرس وبيان أحكام الائتمام بالإمام في التكبير والسجود والقعود",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 321,
+      "end_word": 355,
+      "text_snippet": "عن أبي سعيد الخدري رضي الله عنه أن رسول الله صلى الله عليه وسلم رأى في أصحابه تأخراً فقال:",
+      "description_arabic": "حديث أبي سعيد الخدري في أمر النبي بالتقدم والائتمام به وائتمام من بعدهم بهم",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 356,
+      "end_word": 400,
+      "text_snippet": "عن زيد بن ثابت رضي الله عنه قال احتجر رسول الله صلى الله عليه وسلم حجرةً مخصَّفةً فصلَّى في",
+      "description_arabic": "حديث زيد بن ثابت في أن أفضل صلاة المرء في بيته إلا المكتوبة، وفيه فضل النافلة في البيت",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 401,
+      "end_word": 460,
+      "text_snippet": "عن جابر رضي الله عنه قال: صلَّى معاذُ بأصحابه العشاء، فطوَّل عليهم، فقال النبي صلى الله علي",
+      "description_arabic": "حديث جابر في إنكار النبي على معاذ التطويل في الصلاة وبيان السور المناسبة للإمام في صلاة العشاء",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 461,
+      "end_word": 520,
+      "text_snippet": "عن عائشة رضي الله تعالى عنها، في قصة صلاة رسول الله صلى الله عليه وسلم بالناس وهو مريض، قال",
+      "description_arabic": "حديث عائشة في صلاة النبي جالساً في مرضه وأبو بكر يقتدي به والناس يقتدون بأبي بكر",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 521,
+      "end_word": 565,
+      "text_snippet": "عن أبي هريرة رضي الله عنه أن النبي صلى الله عليه وسلم قال: «إذا أمَّ أحدكم الناس فلْيُخفف",
+      "description_arabic": "حديث أبي هريرة في أمر الإمام بالتخفيف مراعاة للضعيف والصغير والكبير وذي الحاجة",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 566,
+      "end_word": 625,
+      "text_snippet": "عن عمرو بن سلمة رضي الله عنه قال: قال أبي جئتكم من عند النبي صلى الله عليه وسلم حقاً، قال:",
+      "description_arabic": "حديث عمرو بن سلمة في أن أكثرهم قرآناً يؤمهم وتقديمه إماماً وهو ابن ست أو سبع سنين",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 626,
+      "end_word": 710,
+      "text_snippet": "عن ابن مسعود رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: «يؤم القوم أقرؤهم لكتاب ا",
+      "description_arabic": "حديث ابن مسعود في ترتيب الأولوية في الإمامة: الأقرأ ثم الأعلم بالسنة ثم الأقدم هجرة ثم سناً، وعدم إمامة الرجل في سلطان غيره",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 13,
+      "start_word": 711,
+      "end_word": 745,
+      "text_snippet": "عن أبي هريرة رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: «خير صفوف الرجال أولها وشره",
+      "description_arabic": "حديث أبي هريرة في بيان خير صفوف الرجال والنساء وشرها",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 14,
+      "start_word": 746,
+      "end_word": 790,
+      "text_snippet": "عن ابن عباس رضي الله تعالى عنهما قال: «صلَّيت مع رسول الله صلى الله عليه وسلم ذات ليلةٍ فقم",
+      "description_arabic": "حديث ابن عباس في أن النبي أداره من يساره إلى يمينه، بيان موقف المأموم الواحد عن يمين الإمام",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 15,
+      "start_word": 791,
+      "end_word": 820,
+      "text_snippet": "عن أنس رضي الله عنه قال: «صلَّى رسول الله صلى الله عليه وسلم، فقمت أنا ويتيمٌ خلفه وأم سُلَ",
+      "description_arabic": "حديث أنس في بيان موقف الرجلين خلف الإمام والمرأة خلفهم في صلاة الجماعة",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 16,
+      "start_word": 821,
+      "end_word": 880,
+      "text_snippet": "عن أبي بكرة رضي الله عنه أنه انتهى إلى النبي صلى الله عليه وسلم هو راكع، فركع قبل أن يصل إل",
+      "description_arabic": "حديث أبي بكرة في ركوعه قبل الوصول إلى الصف وقول النبي له زادك الله حرصاً ولا تعد",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 17,
+      "start_word": 881,
+      "end_word": 930,
+      "text_snippet": "عن أبي هريرة رضي الله عنه، عن النبي صلى الله عليه وسلم قال: «إذا سمعتم الإقامة فامشوا إلى ال",
+      "description_arabic": "حديث أبي هريرة في المشي إلى الصلاة بسكينة ووقار وعدم الإسراع وإتمام ما فات",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 18,
+  "notes": "هذا الباب من كتاب حديثي (يبدو أنه بلوغ المرام أو ما شابهه) يجمع أحاديث صلاة الجماعة والإمامة. كل حديث يمثل وحدة تعليمية مستقلة تتضمن حكماً فقهياً مستنبطاً من الحديث."
+}

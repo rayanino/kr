@@ -1,0 +1,324 @@
+{
+  "schema_version": "normalized_package_v2.0",
+  "source_id": "src_test0001",
+  "normalizer_id": "kr.normalization.shamela_v2",
+  "normalization_utc": "2026-03-22T10:42:05.385154+00:00",
+  "division_tree": [
+    {
+      "div_id": "div_src_test0001_2_000",
+      "division_type": "باب",
+      "heading_text": "باب ذكر أقل أصول الأسماء وأكثر أصولها",
+      "heading_level": 2,
+      "start_unit_index": 0,
+      "end_unit_index": 7,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_001",
+      "division_type": "باب",
+      "heading_text": "باب \"ذكر أقل أصول الأفعال وأكثر أصولها",
+      "heading_level": 2,
+      "start_unit_index": 8,
+      "end_unit_index": 8,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_002",
+      "division_type": "باب",
+      "heading_text": "باب: \"ذكر أقل أصول الحروف وأكثر أصولها",
+      "heading_level": 2,
+      "start_unit_index": 9,
+      "end_unit_index": 9,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_003",
+      "division_type": "باب",
+      "heading_text": "باب \"حروف زائدة",
+      "heading_level": 2,
+      "start_unit_index": 10,
+      "end_unit_index": 15,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_004",
+          "division_type": "باب",
+          "heading_text": "باب \"حروف زائدة\"",
+          "heading_level": 2,
+          "start_unit_index": 10,
+          "end_unit_index": 15,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_2_005",
+      "division_type": "باب",
+      "heading_text": "باب \"حروف البدل",
+      "heading_level": 2,
+      "start_unit_index": 16,
+      "end_unit_index": 19,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_006",
+          "division_type": "باب",
+          "heading_text": "باب \"حروف البدل\"",
+          "heading_level": 2,
+          "start_unit_index": 16,
+          "end_unit_index": 19,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_2_007",
+      "division_type": "باب",
+      "heading_text": "باب \"ذكر أبنية الأسماء الثنائية والمزيدة منها",
+      "heading_level": 2,
+      "start_unit_index": 20,
+      "end_unit_index": 27,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_008",
+      "division_type": null,
+      "heading_text": "أبنية المضاعف من الثنائي:",
+      "heading_level": 2,
+      "start_unit_index": 28,
+      "end_unit_index": 43,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_009",
+      "division_type": "باب",
+      "heading_text": "باب \"ذكر أبنية الأسماء الثلاثية",
+      "heading_level": 2,
+      "start_unit_index": 44,
+      "end_unit_index": 44,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_010",
+      "division_type": null,
+      "heading_text": "الثلاثي الصحيح",
+      "heading_level": 2,
+      "start_unit_index": 45,
+      "end_unit_index": 62,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_011",
+      "division_type": null,
+      "heading_text": "أبنية المصادر",
+      "heading_level": 2,
+      "start_unit_index": 63,
+      "end_unit_index": 80,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_012",
+      "division_type": null,
+      "heading_text": "أسماء الفاعلين والمفعولين",
+      "heading_level": 2,
+      "start_unit_index": 81,
+      "end_unit_index": 109,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_013",
+      "division_type": null,
+      "heading_text": "[من أبنية الجمع]",
+      "heading_level": 2,
+      "start_unit_index": 110,
+      "end_unit_index": 173,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_014",
+      "division_type": null,
+      "heading_text": "استعمال الصيغ",
+      "heading_level": 2,
+      "start_unit_index": 174,
+      "end_unit_index": 202,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_015",
+      "division_type": "باب",
+      "heading_text": "باب ذكر الأسماء الرباعية وأبنيتها",
+      "heading_level": 2,
+      "start_unit_index": 203,
+      "end_unit_index": 226,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_016",
+      "division_type": "باب",
+      "heading_text": "باب ذكر أبنية الأسماء الخماسية",
+      "heading_level": 2,
+      "start_unit_index": 227,
+      "end_unit_index": 228,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_017",
+      "division_type": null,
+      "heading_text": "زيادة الهاء",
+      "heading_level": 2,
+      "start_unit_index": 229,
+      "end_unit_index": 230,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_018",
+      "division_type": "باب",
+      "heading_text": "باب ما أعربت العرب من الأسماء الأعجمية",
+      "heading_level": 2,
+      "start_unit_index": 231,
+      "end_unit_index": 234,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_019",
+      "division_type": "باب",
+      "heading_text": "باب ذكر أبنية الأفعال الثلاثية",
+      "heading_level": 2,
+      "start_unit_index": 235,
+      "end_unit_index": 249,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_020",
+      "division_type": null,
+      "heading_text": "(باب الأفعال الرباعية)",
+      "heading_level": 2,
+      "start_unit_index": 250,
+      "end_unit_index": 294,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_3_000",
+          "division_type": "فصل",
+          "heading_text": "فصل",
+          "heading_level": 3,
+          "start_unit_index": 250,
+          "end_unit_index": 258,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_001",
+          "division_type": "فصل",
+          "heading_text": "فصل",
+          "heading_level": 3,
+          "start_unit_index": 259,
+          "end_unit_index": 270,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_002",
+          "division_type": "فصل",
+          "heading_text": "فصل",
+          "heading_level": 3,
+          "start_unit_index": 271,
+          "end_unit_index": 294,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "layer_map": [
+    {
+      "layer_type": "sharh",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 0.6,
+      "markers": [
+        "أي:"
+      ]
+    },
+    {
+      "layer_type": "matn",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 0.7,
+      "markers": [
+        "brackets",
+        "قوله:"
+      ]
+    }
+  ],
+  "structural_format": "prose",
+  "structural_format_proposed": null,
+  "text_fidelity_summary": {
+    "mean_ocr_confidence": null,
+    "character_level_fidelity_estimate": null,
+    "pages_with_warnings": 295,
+    "total_pages": 295
+  },
+  "verse_detection": true,
+  "verse_numbering_scheme": null,
+  "total_content_units": 295,
+  "quality_report": {
+    "division_count_by_tier": {
+      "confirmed": 19,
+      "high": 2,
+      "medium": 3
+    },
+    "layer_transition_count": 9,
+    "pages_with_warnings": 295,
+    "high_fidelity_pct": 1.0,
+    "unclassified_footnote_count": 0,
+    "overall_confidence": "high"
+  },
+  "normalization_warnings": [],
+  "content_census": null,
+  "tahqiq_topology": null,
+  "layer_fingerprints": null,
+  "discourse_flow_summary": null
+}

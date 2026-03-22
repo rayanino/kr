@@ -1,0 +1,509 @@
+{
+  "segments": [
+    {
+      "segment_index": 1,
+      "start_word": 0,
+      "end_word": 6,
+      "text_snippet": "باب \"ذكر أبنية الأسماء الثنائية والمزيدة منها\"",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 2,
+      "start_word": 7,
+      "end_word": 80,
+      "text_snippet": "اعلم أن أول ما يلزم الطالب لهذا العلم، معرفة الزائد والأصلي، ومعرفة ذلك أن تعلم أن العرب جعلت الفاء والعين واللام مثالا تزن به سائر كلامها",
+      "scholarly_function": "definition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 3,
+      "start_word": 81,
+      "end_word": 120,
+      "text_snippet": "مثال ذلك أن وزن حسن (فعل) فقد خفيت الحاء تحت الفاء، والسين تحت العين والنون تحت اللام",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 4,
+      "start_word": 121,
+      "end_word": 145,
+      "text_snippet": "وأن وزن مستحسن (مستفعل) فظهرت الميم والسين والتاء، فعلم أنهن زوائد. وكذلك سائر الكلام.",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 5,
+      "start_word": 146,
+      "end_word": 180,
+      "text_snippet": "فالثنائي: ما كان على حرفين من حروف السلامة، ولا تبال أن تتكرر فاؤه أو عينه، أو يلحق بالثلاثي",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 6,
+      "start_word": 181,
+      "end_word": 210,
+      "text_snippet": "ما يكون الحرفان أصله، نحو من وما. ومن الحروف نحو من وعن، ومنه ما يخفف من المضاعف نحو رب خفيفة الباء",
+      "scholarly_function": "example",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 7,
+      "start_word": 211,
+      "end_word": 237,
+      "text_snippet": "ومن الفعل ما كان مضاعفا نحو رد ومد وعد وعدد وتعدد. وإذا دخلته الزوادئ، نحو استعد واستمد وشبهه.",
+      "scholarly_function": "example",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 8,
+      "start_word": 238,
+      "end_word": 244,
+      "text_snippet": "وإذا تكرر نحو بربر وجرجر.",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 9,
+      "start_word": 245,
+      "end_word": 290,
+      "text_snippet": "وفيما أظهر تضعيفه نحو العدد والمدد، ونحو شججي للعقعق وحطايط اسم رجل، ويلندد للبخيل",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 10,
+      "start_word": 291,
+      "end_word": 315,
+      "text_snippet": "وكذلك ما جاء على (فعفل) نحو ربرب، وسبب، وعلعل وهو اسم للذكر إذا أنعظ.",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 11,
+      "start_word": 316,
+      "end_word": 337,
+      "text_snippet": "و(فعفل) نحو بلبل، وجلجل، وعلعل، للذكر من القنابر، والذكر إذا أنعظ.",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 12,
+      "start_word": 338,
+      "end_word": 380,
+      "text_snippet": "و(فعفل) نحو نقنق اللظليم، وخمخم، وحمحم، بالخاء والحاء، لضرب من النبات، وجرجر للغول",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 13,
+      "start_word": 381,
+      "end_word": 430,
+      "text_snippet": "وقد اختلف العلماء في وزن الثنائي المكرر من الاسم والفعل، فقال الخليل ومن تابعه، من البصريين والكوفيين، وزنه (فعفل)",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.94
+    },
+    {
+      "segment_index": 14,
+      "start_word": 431,
+      "end_word": 480,
+      "text_snippet": "وقال سيبويه، وأصحابه، وبعض الكوفيين، وزنه (فعل) أصله رببب وسببب فلما اجتمعت ثلاثة",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.94
+    },
+    {
+      "segment_index": 15,
+      "start_word": 481,
+      "end_word": 510,
+      "text_snippet": "وقال الفراء، وكثير من النحويين، وزنه (فعفع) تكررت فاؤه وعينه، وكذلك فعلوا في الفعل المكرر",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.94
+    },
+    {
+      "segment_index": 16,
+      "start_word": 511,
+      "end_word": 535,
+      "text_snippet": "فأما (فعلل) من الرباعي، نحو جعفر و (فعلل) نحو قنفذ و (فعلل) نحو زئبر",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 17,
+      "start_word": 536,
+      "end_word": 548,
+      "text_snippet": "ومن الفعل، نحو دحرج وقرطس فلا خلاف في وزنه عندهم.",
+      "scholarly_function": "evidence_ijma",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 18,
+      "start_word": 549,
+      "end_word": 580,
+      "text_snippet": "ويجيء على (فعفال) نحو جرجار ورمرام وبسباس، وهي نبات. ودأداء وهي آخر الشهر",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 19,
+      "start_word": 581,
+      "end_word": 594,
+      "text_snippet": "وعلى (فعفال) نحو عرعار لعبة للصبيان.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 20,
+      "start_word": 595,
+      "end_word": 635,
+      "text_snippet": "وعلى (فعفال) نحو زلزال، وقلقال، ودئداء لآخر الشهر. ولا سبيل أن تكون الهمزة الواقعة بعد الألف منقلبة",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 21,
+      "start_word": 636,
+      "end_word": 648,
+      "text_snippet": "ولم يأت للعرب اسم على (فعفال) من المضاعف.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 22,
+      "start_word": 649,
+      "end_word": 664,
+      "text_snippet": "وعلى (فعفولٍ) نحو (13/أ) قرقور للسفينة، وجرجور للعظام من الإبل.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 23,
+      "start_word": 665,
+      "end_word": 679,
+      "text_snippet": "وعلى (فعفيلٍ) نحو همهيم من الهمهمة، وجرجير وهو نبات.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 24,
+      "start_word": 680,
+      "end_word": 687,
+      "text_snippet": "وعلى (فعفيل) نحو جرجير، لغة",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 25,
+      "start_word": 688,
+      "end_word": 700,
+      "text_snippet": "وعلى (فعفلانَ) نحو رحرحان، اسم موضع، ورقرقان للبراق.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 26,
+      "start_word": 701,
+      "end_word": 712,
+      "text_snippet": "وعلى (فعفلانٍ) نحو جلجلان، وقلقلان وهو نبت.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 27,
+      "start_word": 713,
+      "end_word": 722,
+      "text_snippet": "وعلى (فعفليلٍ) نحو قرقرير، لصوت القمري.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 28,
+      "start_word": 723,
+      "end_word": 742,
+      "text_snippet": "وعلى (فيفيعلٍ) نحو زيزيرم، وهو حكاية صوت الجن، قال الراجز:تسمع للجن به زيزيزما",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 29,
+      "start_word": 743,
+      "end_word": 751,
+      "text_snippet": "وعلى (فيفيعلٍ) نحو زيزيزم لغة.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 30,
+      "start_word": 752,
+      "end_word": 766,
+      "text_snippet": "وعلى (فعيفل) نحو بغيبغ، وهو التيس السمين من الظباء.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 31,
+      "start_word": 767,
+      "end_word": 785,
+      "text_snippet": "وعلى (فعفل) نحو (زلزل) لأسفل القميص، وخزخز، للبعير القوي، وضلضل للأرض الصلبة.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 32,
+      "start_word": 786,
+      "end_word": 797,
+      "text_snippet": "وعلى (فعفلٍ) نحو ضلضل، لغة، وزلزل للأثاث.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 33,
+      "start_word": 798,
+      "end_word": 811,
+      "text_snippet": "وعلى (فعنفلٍ) نحو كعنكع للغول، وزونزى للقصير.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 34,
+      "start_word": 812,
+      "end_word": 820,
+      "text_snippet": "وعلى (فعنفلٍ) نحو دحندح، اسم دويبة.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 35,
+      "start_word": 821,
+      "end_word": 840,
+      "text_snippet": "وعلى (فعلفل) نحو حباحب، وقباقب، وجلاجل، (13/ب) أسماء لمواضع، وقضاقض للأسد.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 36,
+      "start_word": 841,
+      "end_word": 860,
+      "text_snippet": "وعلى (فعافل) نحو رعارع الناس، لسفلتهم، والجزاجز للمذاكير، ولا واحد لها من لفظها.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 37,
+      "start_word": 861,
+      "end_word": 868,
+      "text_snippet": "وعلى (فعفلى) نحو قرقرى، للظهر.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 38,
+      "start_word": 869,
+      "end_word": 879,
+      "text_snippet": "وعلى (فعيفلان) نحو قعيقعان، لجيل بمكة.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 39,
+      "start_word": 880,
+      "end_word": 889,
+      "text_snippet": "وعلى (فعفلى) نحو قرقرى، اسم موضع.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 40,
+      "start_word": 890,
+      "end_word": 898,
+      "text_snippet": "وعلى (أفعفل) نحة ألملم، اسم موضع.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 41,
+      "start_word": 899,
+      "end_word": 903,
+      "text_snippet": "وعلي يفعفل، يلملم.",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 42,
+      "start_word": 904,
+      "end_word": 917,
+      "text_snippet": "وعلى (فعفل) قال كأن مهواها على الكلكل وهو الصدر.",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 43,
+      "start_word": 918,
+      "end_word": 927,
+      "text_snippet": "وعلى (فعفل) نحو قمقم، للعدد الكبير.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 44,
+      "start_word": 928,
+      "end_word": 944,
+      "text_snippet": "وعلى (فهعيل) نحو صهميم، وهو الخالص في الخير والشر، مثل الصمم.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 45,
+      "start_word": 945,
+      "end_word": 955,
+      "text_snippet": "وعلى (فنعيل) نحو صنديد، وصنتيت، للسيد الكريم",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 46,
+      "start_word": 956,
+      "end_word": 965,
+      "text_snippet": "وعلى (فعفل) نحو جمجم، للحمام الوحشي.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 47,
+      "start_word": 966,
+      "end_word": 980,
+      "text_snippet": "وعلى (فعفل) نحو رورى، للمتحذلق، وهو مثل رونرى أيضا.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 48,
+      "start_word": 981,
+      "end_word": 983,
+      "text_snippet": "زيادة الهاء:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 49,
+      "start_word": 984,
+      "end_word": 1001,
+      "text_snippet": "يجيء الاسم على (فَعْفَلَة) نحو امرأة رأرأة العين، إذا كانت سريعة الحركة",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 50,
+      "start_word": 1002,
+      "end_word": 1014,
+      "text_snippet": "وتجيء على (فَعْفِلَةٍ) نحو غرغرة الجيل، وهي أعلاه.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 51,
+      "start_word": 1015,
+      "end_word": 1023,
+      "text_snippet": "وعلى (فِعفِلَةٍ) نحو (14/أ) كركرة الجمل",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 52,
+      "start_word": 1024,
+      "end_word": 1036,
+      "text_snippet": "وعلى (فَعَفِلَةٍ) نحو ضلضلة للأرض الصلبة، ذات الحجارة.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 53,
+      "start_word": 1037,
+      "end_word": 1055,
+      "text_snippet": "وعلى (فعَفَالَةٍ) نحو كتيبة رجراجة، للتي تمخض، ولا تكاد تسير، لكثرتها",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 54,
+      "start_word": 1056,
+      "end_word": 1065,
+      "text_snippet": "وعلى (فعُفُولَةٍ) نحو جرجيرة لواجد الجرجير.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 55,
+      "start_word": 1066,
+      "end_word": 1074,
+      "text_snippet": "وعلى (فُعَافِلةٍ) نحو قدور زؤازئة.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 56,
+      "start_word": 1075,
+      "end_word": 1084,
+      "text_snippet": "وعلى فَعَافِلَةٍ نحو قدور زءازنة وسواسوة.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 57,
+      "start_word": 1085,
+      "end_word": 1091,
+      "text_snippet": "وعلى (فَعَافُلَةٍ) نحو سواسوة.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 58,
+      "start_word": 1092,
+      "end_word": 1108,
+      "text_snippet": "وعلى (فُعَيفِلَةٍ) نحو البغيبغة، ضيعة باليمن لآل جعفر، ودحيدحة للقصيرة.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 59,
+      "start_word": 1109,
+      "end_word": 1118,
+      "text_snippet": "وعلى (فُعفُلَانةَ) نحو القطقانة، اسم واد.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 60,
+      "start_word": 1119,
+      "end_word": 1125,
+      "text_snippet": "وعلى (فَعفَلَانَةٍ) نحو رَفْرقَانَة.",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 61,
+      "start_word": 1126,
+      "end_word": 1128,
+      "text_snippet": "ومن المنسوب",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 62,
+      "start_word": 1129,
+      "end_word": 1170,
+      "text_snippet": "نحو صرصراني، لضرب من السمك، والصرصرانيات، للنجاتي والإبل العراب، وسمساني، للرجل الخفيف",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 63,
+      "start_word": 1171,
+      "end_word": 1195,
+      "text_snippet": "فجميع ما ذكرته، تجوز فيه الأقوال الثلاثة، فيكون وزنه على ثلاثة أمثلة.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    }
+  ],
+  "total_segments": 63
+}

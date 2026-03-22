@@ -1,0 +1,229 @@
+{
+  "segments": [
+    {
+      "segment_index": 1,
+      "start_word": 0,
+      "end_word": 1,
+      "text_snippet": "الايجاز",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 2,
+      "start_word": 2,
+      "end_word": 3,
+      "text_snippet": "تعريفه:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 3,
+      "start_word": 4,
+      "end_word": 18,
+      "text_snippet": "الايجاز- لغة-: التقصير، تقول: أوجزت الكلام، أى: قصرته وكلام موجز من أوجز.",
+      "scholarly_function": "definition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 4,
+      "start_word": 19,
+      "end_word": 37,
+      "text_snippet": "والايجاز- اصطلاحا- أن يكون اللفظ أقل من المعنى، مع الوفاء به وإلّا كان إخلالا يفسد الكلام.",
+      "scholarly_function": "definition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 5,
+      "start_word": 38,
+      "end_word": 100,
+      "text_snippet": "وهذا الأسلوب من أهم خصائص اللغة العربية فى القديم، فقد كان العرب لا يميلون إلى الاطالة والشرح والإسهاب، وكانوا يعدون الإيجاز هو البلاغة، فأكثم بن صيفى يرى أنّ البلاغة هى الايجاز",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.75
+    },
+    {
+      "segment_index": 6,
+      "start_word": 101,
+      "end_word": 118,
+      "text_snippet": "وكان جعفر بن يحيى يقول لكتّابه: «إن قدرتم أن تجعلوا كتبكم توقيعات فافعلوا»",
+      "scholarly_function": "narration",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 7,
+      "start_word": 119,
+      "end_word": 140,
+      "text_snippet": "وفعلوا مثل ذلك فى القصائد، وقد قيل لبعضهم: مالك لا تزيد على أربعة واثنين؟",
+      "scholarly_function": "narration",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 8,
+      "start_word": 141,
+      "end_word": 162,
+      "text_snippet": "قال: هنّ بالقلوب أوقع وإلى الحفظ أسرع وبالألسن أعلق، وللمعانى أجمع وصاحبها أبلغ وأوجز.",
+      "scholarly_function": "narration",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 9,
+      "start_word": 163,
+      "end_word": 170,
+      "text_snippet": "وقيل لآخر: ألا تطيل القصائد، فقال:",
+      "scholarly_function": "narration",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 10,
+      "start_word": 171,
+      "end_word": 230,
+      "text_snippet": "أبى لى أن أطيل الشعر قصدى … إلى المعنى وعلمى بالصواب وإيجازى بمختصر قريب … حذفت به الفضول من الجواب",
+      "scholarly_function": "example",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 11,
+      "start_word": 231,
+      "end_word": 290,
+      "text_snippet": "وفى هذه الأبيات خلاصة لأغراض الإيجاز، فبه يصل المتكلم إلى هدفه من غير تمهيد أو زيادة لا يقتضيها المعنى",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 12,
+      "start_word": 291,
+      "end_word": 330,
+      "text_snippet": "وبه يأتى الكلام قصيرا يسهل حفظه وروايته، وهذا ما يبدو واضحا فى الأمثال والخطب والشعر، وبهذا الأسلوب أيضا تصل المعانى إلى القلب",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 13,
+      "start_word": 331,
+      "end_word": 365,
+      "text_snippet": "وكان لهذه الصفة التى أولع بها العرب أن اهتم البلاغيون والنقاد بأسلوب الايجاز، ووضعوا له حدودا وأقساما، وبينوا مواضعه",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.78
+    },
+    {
+      "segment_index": 14,
+      "start_word": 366,
+      "end_word": 380,
+      "text_snippet": "لأنّه ليس بمحمود فى كل موضع ولا بمختار فى كل كتاب بل لكل مقام مقال",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 15,
+      "start_word": 381,
+      "end_word": 420,
+      "text_snippet": "وإلى ذلك أشار ابن قتيبة بقوله: «ولو كان الإيجاز محمودا فى كل الأحوال لجرّده الله تعالى فى القرآن، ولم يفعل الله ذلك ولكنه أطال تارة للتوكيد، وحذف تارة للايجاز، وكرر تارة للافهام»",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 16,
+      "start_word": 421,
+      "end_word": 470,
+      "text_snippet": "وقال ابن جنى إنّ الإطالة والإيجاز هما فى كل كلام مقيد مستقل بنفسه ولو بلغ الإيجاز غايته لم يكن له بدّ من أن يعطيك تمامه وفائدته",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 17,
+      "start_word": 471,
+      "end_word": 500,
+      "text_snippet": "وقال إنّ العرب إلى «الايجاز أقبل وعن الإكثار أبعد»، وضرب مثلا بالقرآن الكريم وما فيه من الحذف الذى يجعل الكلام موجزا",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 18,
+      "start_word": 501,
+      "end_word": 520,
+      "text_snippet": "ومعنى ذلك أنّ هذا الأسلوب ضرورى كغيره إذا أراد المتكلم أن يكون مطابقا لمقتضى الحال",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 19,
+      "start_word": 521,
+      "end_word": 580,
+      "text_snippet": "ولذلك يقول أبو هلال العسكرى: «إنّ الإيجاز والإطناب يحتاج إليهما فى جميع الكلام وكل نوع منه، ولكل واحد منهما موضع",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 20,
+      "start_word": 581,
+      "end_word": 610,
+      "text_snippet": "وتحدث ابن رشيق عن الإيجاز وذكر تعريف الرمانى وهو: «الإيجاز هو العبارة عن الغرض بأقل ما يمكن من الحروف»",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 21,
+      "start_word": 611,
+      "end_word": 618,
+      "text_snippet": "وقسّمه إلى نوعيه المعروفين",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.75
+    },
+    {
+      "segment_index": 22,
+      "start_word": 619,
+      "end_word": 660,
+      "text_snippet": "وعقد ابن سنان له بحثا وسمّاه «الإشارة» وقال عنه: «هو أن يكون المعنى زائدا على اللفظ، أى أنّه لفظ موجز يدل على معنى طويل على وجه الإشارة واللمحة»",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 23,
+      "start_word": 661,
+      "end_word": 715,
+      "text_snippet": "والمختار عنده فى الفصاحة والدال على البلاغة هو أن يكون المعنى مساويا للفظ أو زائدا عليه، أى أن يكون اللفظ القليل يدل على الكثير دلالة واضحة ظاهرة",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 24,
+      "start_word": 716,
+      "end_word": 735,
+      "text_snippet": "وعرّف الرازى الإيجاز بقوله: «وحده أنّه العبارة عن الغرض بأقل ما يمكن من الحروف من غير إخلال»",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 25,
+      "start_word": 736,
+      "end_word": 790,
+      "text_snippet": "وقال السكاكى إنّ الإيجاز والإطناب- كما سبق- من الأمور النسبية كالأبوة والبنوة وهى التى يتوقف تعقلها على تعقل غيرها",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 26,
+      "start_word": 791,
+      "end_word": 830,
+      "text_snippet": "وتحدث عنه ابن الأثير وعقد له فصلا فى «المثل السائر» وفصلا فى «الجامع الكبير» وقال فى تعريفه: «هو حذف زيادات الألفاظ»",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 27,
+      "start_word": 831,
+      "end_word": 850,
+      "text_snippet": "وهذا النوع من الأساليب شريف لا يتعلق به إلّا فرسان البلاغة، وذلك لعلو منزلته وبعد مناله.",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 28,
+      "start_word": 851,
+      "end_word": 868,
+      "text_snippet": "ثم قال بعد أن مهد لبحثه: «حد الإيجاز هو دلالة اللفظ",
+      "scholarly_function": "definition",
+      "confidence": 0.9
+    }
+  ],
+  "total_segments": 28
+}

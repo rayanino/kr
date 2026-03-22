@@ -1,0 +1,270 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 5,
+      "text_snippet": "كتاب البيوع\n‌‌باب شروطه وما نُهي عَنْهُ",
+      "description_arabic": "عنوان كتاب البيوع وباب شروط البيع وما نُهي عنه من البيوع",
+      "primary_function": "structural_transition",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 6,
+      "end_word": 95,
+      "text_snippet": "365 - عن جابر رضي الله عنه أنه سمع رسول الله صلى الله عليه وسلم يقول عام الفتح، وهو بمكة",
+      "description_arabic": "حديث جابر في تحريم بيع الخمر والميتة والخنزير والأصنام وتحريم شحوم الميتة ولعن اليهود لتحايلهم على تحريم الشحوم",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 96,
+      "end_word": 120,
+      "text_snippet": "366 - عن أبي مسعود الأنصاري رضي الله عنه أن رسول الله صلى الله عليه وسلم نهى «عن ثمن الكلب",
+      "description_arabic": "حديث أبي مسعود في النهي عن ثمن الكلب ومهر البغي وحلوان الكاهن",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 121,
+      "end_word": 222,
+      "text_snippet": "367 - عن جابر رضي الله عنه أنه كان على جملٍ له قد أَعْيَا، فأراد أن يسيِّبهُ. قال فلحِقني",
+      "description_arabic": "حديث جابر في بيع الجمل للنبي صلى الله عليه وسلم واشتراط حملانه وجواز اشتراط المنفعة في البيع",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "condition_exception",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 223,
+      "end_word": 260,
+      "text_snippet": "368 - وعنه رضي الله عنه قال: «أعتق رجل منَّا عبداً له عن دُبُرٍ ولم يكن له مالٌ غيره. فدع",
+      "description_arabic": "حديث جابر في بيع النبي صلى الله عليه وسلم للمدبَّر الذي لا مال لصاحبه غيره",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 261,
+      "end_word": 302,
+      "text_snippet": "369 - عن ميمونة زوج النبي صلى الله عليه وسلم أن فأرةً وقعت في سمن، فماتت فيه، فسُئل النبي",
+      "description_arabic": "حديث ميمونة في الفأرة التي وقعت في السمن وحكم إلقائها وما حولها وأكل الباقي",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 303,
+      "end_word": 332,
+      "text_snippet": "370 - عن أبي الزبير قال: سألت جابراً رضي الله عنه عن ثمن السَّنوَّر والكلب فقال: «زجر النبي",
+      "description_arabic": "حديث جابر في زجر النبي صلى الله عليه وسلم عن ثمن الهر والكلب",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 333,
+      "end_word": 520,
+      "text_snippet": "371 - عن عائشة رضي الله تعالى عنها قالت: جاءتني بريرةُ. فقالت: إني كاتبت أهلي على تسع أواق",
+      "description_arabic": "حديث عائشة في قصة بريرة واشتراط الولاء وبطلان الشروط المخالفة لكتاب الله وأن الولاء لمن أعتق",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 521,
+      "end_word": 555,
+      "text_snippet": "372 - عن جابر رضي الله عنه قال: «نهى رسول الله صلى الله عليه وسلم عن بيع فضل الماء» رواه مس",
+      "description_arabic": "حديث جابر في النهي عن بيع فضل الماء وبيع ضراب الجمل",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 556,
+      "end_word": 578,
+      "text_snippet": "373 - عن ابن عمر رضي الله تعالى عنهما قال: «نهى رسول الله صلى الله عليه وسلم عن عسب الفحل» ر",
+      "description_arabic": "حديث ابن عمر في النهي عن أخذ أجرة عسب الفحل (ضراب الذكر)",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 579,
+      "end_word": 627,
+      "text_snippet": "374 - وعنه رضي الله عنه أن رسول الله صلى الله عليه وسلم «نهى عن بيع حبل الحبلة، وكان بيعاً ي",
+      "description_arabic": "حديث ابن عمر في النهي عن بيع حبل الحبلة مع بيان صورته في الجاهلية",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "definition",
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 628,
+      "end_word": 652,
+      "text_snippet": "375 - عن أبي هريرة رضي الله عنه قال: «نهى رسول الله صلى الله عليه وسلم عن بيع الحصاة وعن بيع",
+      "description_arabic": "حديث أبي هريرة في النهي عن بيع الحصاة وبيع الغرر",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 653,
+      "end_word": 680,
+      "text_snippet": "376 - وعنه رضي الله عنه أن رسول الله صلى الله عليه وسلم قال: «من اشترى طعاماً فلا يبعه حتى ي",
+      "description_arabic": "حديث أبي هريرة في النهي عن بيع الطعام قبل اكتياله (قبضه)",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 13,
+      "start_word": 681,
+      "end_word": 702,
+      "text_snippet": "377 - عن ابن عمر رضي الله تعالى عنهما قال: «نهى رسول الله صلى الله عليه وسلم عن النجش» متفق ع",
+      "description_arabic": "حديث ابن عمر في النهي عن النجش (الزيادة في السلعة بلا رغبة في شرائها)",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 14,
+      "start_word": 703,
+      "end_word": 727,
+      "text_snippet": "378 - عن أنس رضي الله عنه قال: «نهى رسول الله صلى الله عليه وسلم عن المحاقلة، والمخاضرة، والم",
+      "description_arabic": "حديث أنس في النهي عن المحاقلة والمخاضرة والملامسة والمنابذة والمزابنة",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 15,
+      "start_word": 728,
+      "end_word": 778,
+      "text_snippet": "379 - عن طاووس عن ابن عباس رضي الله تعالى عنهما قال: قال رسول الله صلى الله عليه وسلم: «لا تل",
+      "description_arabic": "حديث ابن عباس في النهي عن تلقي الركبان وبيع الحاضر للبادي مع تفسير ابن عباس أنه السمسرة",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement",
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 16,
+      "start_word": 779,
+      "end_word": 815,
+      "text_snippet": "380 - عن أبي هريرة رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: «لا تلقُّوا الجلب، فمن",
+      "description_arabic": "حديث أبي هريرة في النهي عن تلقي الجلب وإثبات الخيار لصاحب السلعة إذا أتى السوق",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 17,
+      "start_word": 816,
+      "end_word": 876,
+      "text_snippet": "381 - وعنه رضي الله عنه قال: «نهى رسول الله صلى الله عليه وسلم أن يبيع حاضر لبادٍ، ولا تناجش",
+      "description_arabic": "حديث أبي هريرة الجامع في النهي عن بيع الحاضر للبادي والتناجش والبيع على بيع الأخ والخطبة على خطبته وسؤال المرأة طلاق أختها",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 18,
+      "start_word": 877,
+      "end_word": 900,
+      "text_snippet": "382 - عن معمر بن عبد الله رضي الله عنه عن رسول الله صلى الله عليه وسلم قال: «لا يَحتكِرُ إلا",
+      "description_arabic": "حديث معمر بن عبد الله في تحريم الاحتكار وأنه لا يحتكر إلا خاطئ",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 19,
+      "start_word": 901,
+      "end_word": 945,
+      "text_snippet": "383 - عن أبي هريرة رضي الله عنه عن النبي صلى الله عليه وسلم قال: «لا تصروا الإبل والغنم فمن ا",
+      "description_arabic": "حديث أبي هريرة في النهي عن التصرية وإثبات الخيار لمن اشترى المصراة بعد حلبها",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement",
+        "condition_exception"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "الحديث مبتور في نهايته ولم يكتمل نصه في هذا القسم"
+    }
+  ],
+  "total_units": 20,
+  "notes": "هذا الباب يجمع أحاديث شروط البيع وما نُهي عنه من البيوع، وكل حديث يمثل وحدة تعليمية مستقلة تتضمن حكماً فقهياً في البيوع. الحديث الأخير (383) مبتور ولم يكتمل في النص المعطى."
+}

@@ -1,0 +1,373 @@
+{
+  "segments": [
+    {
+      "segment_index": 1,
+      "start_word": 0,
+      "end_word": 3,
+      "text_snippet": "فصل فِي أَحْكَام الْمُفْتِينَ",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 2,
+      "start_word": 4,
+      "end_word": 5,
+      "text_snippet": "فِيهِ مسَائِل",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 3,
+      "start_word": 6,
+      "end_word": 37,
+      "text_snippet": "إِحْدَاهَا الْإِفْتَاء فرض كِفَايَة فَإِذا استفتي وَلَيْسَ فِي",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 4,
+      "start_word": 38,
+      "end_word": 46,
+      "text_snippet": "أصَحهمَا لَا يتَعَيَّن لما سبق عَن ابْن أبي ليلى",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 5,
+      "start_word": 47,
+      "end_word": 49,
+      "text_snippet": "وَالثَّانِي يتَعَيَّن",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 6,
+      "start_word": 50,
+      "end_word": 67,
+      "text_snippet": "وهما كالوجهين فِي مثله فِي الشَّهَادَة وَلَو سَأَلَ عَامي",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 7,
+      "start_word": 68,
+      "end_word": 113,
+      "text_snippet": "الثَّانِيَة إِذا أفتى بِشَيْء ثمَّ رَجَعَ عَنهُ فَإِن علم",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 8,
+      "start_word": 114,
+      "end_word": 145,
+      "text_snippet": "وَإِن كَانَ عمل قبل رُجُوعه فَإِن خَالف دَلِيلا قَاطعا لز",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 9,
+      "start_word": 146,
+      "end_word": 157,
+      "text_snippet": "وَهَذَا التَّفْصِيل ذكره الصَّيْمَرِيّ والخطيب وَأَبُو عَمْرو",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 10,
+      "start_word": 158,
+      "end_word": 168,
+      "text_snippet": "وَمَا ذكره الْغَزالِيّ والرازي لَيْسَ فِيهِ تَصْرِيح بِخِلَاف",
+      "scholarly_function": "refutation",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 11,
+      "start_word": 169,
+      "end_word": 207,
+      "text_snippet": "قَالَ أَبُو عَمْرو وَإِذا كَانَ يُفتي على مَذْهَب إمامٍ فَر",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 12,
+      "start_word": 208,
+      "end_word": 231,
+      "text_snippet": "أما إِذا لم يعلم المستفتي بِرُجُوع الْمُفْتِي فحال المستف",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 13,
+      "start_word": 232,
+      "end_word": 275,
+      "text_snippet": "وَإِذا عمل بفتواه فِي إِتْلَاف فَبَان خطأه وَأَنهخَالف الْق",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 14,
+      "start_word": 276,
+      "end_word": 305,
+      "text_snippet": "وَهُوَ مُشكِلٌ وَيَنْبَغِي أَن يخرج الضَّمَان على قولي الْغ",
+      "scholarly_function": "refutation",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 15,
+      "start_word": 306,
+      "end_word": 318,
+      "text_snippet": "الثَّالِثَة يحرم التساهل فِي الْفَتْوَى وَمن عرف بِهِ حرم",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 16,
+      "start_word": 319,
+      "end_word": 349,
+      "text_snippet": "فَمن التساهل أَن لَا يتثبت ويُسرِع بالفتوى قبل اسْتِيفَاء",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 17,
+      "start_word": 350,
+      "end_word": 376,
+      "text_snippet": "وَمن التساهل أَن تحمله الْأَغْرَاض الْفَاسِدَة على تتبعالْح",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 18,
+      "start_word": 377,
+      "end_word": 399,
+      "text_snippet": "وَأما مَنْ صَحَّ قَصده فاحتسب فِي طَلَبِ حيلةٍ لَا شُبْهَة",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 19,
+      "start_word": 400,
+      "end_word": 422,
+      "text_snippet": "وَعَلِيهِ يحمل مَا جَاءَ عَن بعض السّلف من نَحْو هَذَا كَقَ",
+      "scholarly_function": "narration",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 20,
+      "start_word": 423,
+      "end_word": 437,
+      "text_snippet": "وَمن الْحِيَل الَّتِي فِيهَا شُبْهَة ويذم فاعلها الْحِيلَة",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 21,
+      "start_word": 438,
+      "end_word": 479,
+      "text_snippet": "الرَّابِعَة يَنْبَغِي أَن لَا يُفْتِي فِي حَال تغيُّر خُلُق",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 22,
+      "start_word": 480,
+      "end_word": 500,
+      "text_snippet": "فَإِن أفتى فِي بعض الْأَحْوَال وَهُوَ يَرَى أَنه لم يخرج ع",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 23,
+      "start_word": 501,
+      "end_word": 530,
+      "text_snippet": "الْخَامِسَة الْمُخْتَار للمتصدِّي للْفَتْوَى أَن يتبرعَ بذل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 24,
+      "start_word": 531,
+      "end_word": 555,
+      "text_snippet": "ثمَّ إِن كَانَ لَهُ رزقٌ لم يجز أَخذ أُجْرَة أصلا وَإِن لم",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 25,
+      "start_word": 556,
+      "end_word": 582,
+      "text_snippet": "واحتال الشَّيْخ أَبُو حَاتِم الْقزْوِينِي من أَصْحَابنَا فَ",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 26,
+      "start_word": 583,
+      "end_word": 601,
+      "text_snippet": "قَالَ الصَّيْمَرِيّ والخطيب لَو اتّفق أهل الْبَلَد فَجعلُوا",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 27,
+      "start_word": 602,
+      "end_word": 618,
+      "text_snippet": "أما الْهَدِيَّة فَقَالَ أَبُو مظفر السَّمعاني لَهُ قبُولهَا",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 28,
+      "start_word": 619,
+      "end_word": 643,
+      "text_snippet": "قَالَ أَبُو عَمْرو يَنْبَغِي أَن يحرم قبُولهَا إِن كَانَ ر",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 29,
+      "start_word": 644,
+      "end_word": 672,
+      "text_snippet": "قَالَ الْخَطِيب وعَلى الإِمَام أَن يفْرض لمن نصب نَفسه لتد",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 30,
+      "start_word": 673,
+      "end_word": 693,
+      "text_snippet": "ثمَّ روى بِإِسْنَادِهِ أَن عمر بن الْخطاب رضي الله عنه أعْط",
+      "scholarly_function": "narration",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 31,
+      "start_word": 694,
+      "end_word": 724,
+      "text_snippet": "السَّادِسَة لَا يجوز أَن يُفْتِي فِي الْأَيْمَان وَالْإِقْر",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 32,
+      "start_word": 725,
+      "end_word": 770,
+      "text_snippet": "السَّابِعَة لَا يجوز لمن كَانَت فتواه نقلا لمَذْهَب إِمَام",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 33,
+      "start_word": 771,
+      "end_word": 808,
+      "text_snippet": "فَإِن وثق بِأَن أصل التصنيف بِهَذِهِ الصّفة لَكِن لم تكن ه",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 34,
+      "start_word": 809,
+      "end_word": 876,
+      "text_snippet": "فَإِن لم يجده إِلَّا فِي نُسْخَة غير موثوق بهَا فَقَالَ أَب",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 35,
+      "start_word": 877,
+      "end_word": 905,
+      "text_snippet": "وَإِن لم يكن أَهلا لتخريج مثله لم يجز لَهُ ذَلِك فَإِن سَب",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 36,
+      "start_word": 906,
+      "end_word": 920,
+      "text_snippet": "وَله أَن يذكرهُ لَا على سَبِيل الْفَتْوَى مُفصِحاً بِحَالهِ",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 37,
+      "start_word": 921,
+      "end_word": 968,
+      "text_snippet": "قلتُ لَا يجوز لمفتٍ على مَذْهَب الشَّافِعِي إِذا اعْتمد الن",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 38,
+      "start_word": 969,
+      "end_word": 1003,
+      "text_snippet": "لِأَن هَذَا الْمُفْتِي الْمَذْكُور إِنَّمَا ينْقل مَذْهَب ا",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 39,
+      "start_word": 1004,
+      "end_word": 1040,
+      "text_snippet": "بل قد يجْزم نَحْو عشرَة من المصنفين بِشَيْء وَهُوَ شاذٌ بِ",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 40,
+      "start_word": 1041,
+      "end_word": 1067,
+      "text_snippet": "وسترى فِي هَذَا الشَّرْح إِن شَاءَ الله تَعَالَى أَمْثِلَة",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 41,
+      "start_word": 1068,
+      "end_word": 1118,
+      "text_snippet": "الثَّامِنَة إِذا أفتى فِي حَادِثَة ثمَّ حدثت مثلهَافَإِن ذك",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 42,
+      "start_word": 1119,
+      "end_word": 1143,
+      "text_snippet": "وَإِن ذكرهَا وَلم يذكر دليلها وَلَا طَرَأَ مايوجب رُجُوعه ف",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 43,
+      "start_word": 1144,
+      "end_word": 1168,
+      "text_snippet": "وَمثله القَاضِي إِذا حكم بِالِاجْتِهَادِ ثمَّ وَقعت الْمَسْ",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 44,
+      "start_word": 1169,
+      "end_word": 1200,
+      "text_snippet": "قَالَ القَاضِي أَبُو الطّيب فِي تَعْلِيقه فِي آخر بَاب اسْت",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 45,
+      "start_word": 1201,
+      "end_word": 1222,
+      "text_snippet": "قَالَ إِلَّا أَن تكون مَسْأَلَة يكثر وُقُوعهَا ويشق عَلَيْه",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 46,
+      "start_word": 1223,
+      "end_word": 1232,
+      "text_snippet": "التَّاسِعَة يَنْبَغِي أَن لايقتصر فِي فتواه على قَوْله",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    }
+  ],
+  "total_segments": 46
+}

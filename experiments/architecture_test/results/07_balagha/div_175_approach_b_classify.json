@@ -1,0 +1,261 @@
+{
+  "segments": [
+    {
+      "segment_index": 1,
+      "start_word": 0,
+      "end_word": 4,
+      "text_snippet": "الفصل الرابع الفصل والوصل",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 2,
+      "start_word": 5,
+      "end_word": 15,
+      "text_snippet": "قيل للفارسى: ما البلاغة؟ قال: معرفة الفصل من الوصل.",
+      "scholarly_function": "narration",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 3,
+      "start_word": 16,
+      "end_word": 75,
+      "text_snippet": "وذهب كثير من بلاغيى العرب إلى ما ذهب إليه الفارسى، وعدّوا الفصل",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 4,
+      "start_word": 76,
+      "end_word": 112,
+      "text_snippet": "ولكن آخرين كالقزوينى قال: «وما قصرها عليه لأن الأمر كذلك، وإنما",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 5,
+      "start_word": 113,
+      "end_word": 143,
+      "text_snippet": "والوصل عطف بعض الجمل على البعض والفصل تركه، ولذلك نرى أن يبحث",
+      "scholarly_function": "definition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 6,
+      "start_word": 144,
+      "end_word": 189,
+      "text_snippet": "قال العلوى: «ولسنا نريد بتلك الأسرار واللطائف ما يكون متعلقا بعلو",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 7,
+      "start_word": 190,
+      "end_word": 230,
+      "text_snippet": "تكلم الجاحظ وغيره من أوائل النقاد على الفصل والوصل، ووقف عنده أبو",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.8
+    },
+    {
+      "segment_index": 8,
+      "start_word": 231,
+      "end_word": 260,
+      "text_snippet": "من ذلك أن المأمون قال لبعضهم: من أبلغ الناس؟ فقال: من قرب الأمر ال",
+      "scholarly_function": "narration",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 9,
+      "start_word": 261,
+      "end_word": 315,
+      "text_snippet": "قال: ما عدل سهمك عن الغرض، ولكن البليغ من كان كلامه فى مقدار حاجت",
+      "scholarly_function": "narration",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 10,
+      "start_word": 316,
+      "end_word": 360,
+      "text_snippet": "وبحث أبو هلال فى هذا الفصل، ما يتصل بفصول القصيدة ومقاطعها، وهم ي",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 11,
+      "start_word": 361,
+      "end_word": 385,
+      "text_snippet": "وقال إنّ من حسن المقطع جودة الفاصلة وحسن موقعها وتمكنها فى موضعها",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 12,
+      "start_word": 386,
+      "end_word": 420,
+      "text_snippet": "الأول: أن يضيق على الشاعر موضع القافية فيأتى بلفظ قليل الحروف فيت",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 13,
+      "start_word": 421,
+      "end_word": 440,
+      "text_snippet": "وأعلم ما فى اليوم والأمس قبله … ولكنّنى عن علم ما فى غد عمى",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 14,
+      "start_word": 441,
+      "end_word": 458,
+      "text_snippet": "وقول النابغة الذبيانى: كالأقحوان غداة غبّ سمائه … جفت أعاليه وأسف",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 15,
+      "start_word": 459,
+      "end_word": 484,
+      "text_snippet": "وقوله: لا مرحبا بغد ولا أهلا به … إن كان تفريق الأحبة فى غد أفد",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 16,
+      "start_word": 485,
+      "end_word": 525,
+      "text_snippet": "الثانى: أن يضيق به المكان أيضا ويعجز عن إيراد كلمة سالمة تحتاج إل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 17,
+      "start_word": 526,
+      "end_word": 546,
+      "text_snippet": "صحا القلب عن سلمى وقد كاد لا يسلو … وأقفر من سلمى التعانيق فالثق",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 18,
+      "start_word": 547,
+      "end_word": 568,
+      "text_snippet": "ثم قال: وقد كنت من سلمى سنينا ثمانيا … على صير أمر ما يمر وما يحل",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 19,
+      "start_word": 569,
+      "end_word": 612,
+      "text_snippet": "الثالث: أن تكون الفاصلة لائقة بما تقدمها من ألفاظ الجزء من الرسالة",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 20,
+      "start_word": 613,
+      "end_word": 640,
+      "text_snippet": "كقوله تعالى: «وَأَنَّهُ هُوَ أَضْحَكَ وَأَبْكى. وَأَنَّهُ هُوَ أ",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 21,
+      "start_word": 641,
+      "end_word": 656,
+      "text_snippet": "وقوله: «وَلَلْآخِرَةُ خَيْرٌ لَكَ مِنَ الْأُولى. وَلَسَوْفَ يُعْ",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 22,
+      "start_word": 657,
+      "end_word": 695,
+      "text_snippet": "ف «أبكى» مع «أضحك» و «أحيا» مع «أمات» و «الأنثى» مع «الذكر» و «ال",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.8
+    },
+    {
+      "segment_index": 23,
+      "start_word": 696,
+      "end_word": 714,
+      "text_snippet": "ومن الشعر قول الحطيئة: هم القوم الذين إذا ألمّت … من الأيام مظلمة",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 24,
+      "start_word": 715,
+      "end_word": 735,
+      "text_snippet": "وقول أبى نواس: إذا امتحن الدنيا لبيب تكشّفت … له عن عدو فى ثياب ص",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 25,
+      "start_word": 736,
+      "end_word": 752,
+      "text_snippet": "و «الصديق» هنا جيد الموقع، لأن معنى البيت يقتضيه، وهو محتاج إليه.",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 26,
+      "start_word": 753,
+      "end_word": 790,
+      "text_snippet": "ودراسة أبى هلال وغيره من البلاغيين والنقاد لهذا الموضوع تختلف عن در",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 27,
+      "start_word": 791,
+      "end_word": 825,
+      "text_snippet": "وقد أجمل مواضع الفصل والوصل بقوله: «إنّ الجمل على ثلاثة أضرب:",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 28,
+      "start_word": 826,
+      "end_word": 856,
+      "text_snippet": "- جملة حالها مع التى قبلها حال الصفة مع الموصوف والتأكيد مع المؤكد",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 29,
+      "start_word": 857,
+      "end_word": 900,
+      "text_snippet": "- وجملة حالها مع التى قبلها حال الاسم يكون غير الذى قبله إلّا أنه ي",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 30,
+      "start_word": 901,
+      "end_word": 955,
+      "text_snippet": "- وجملة ليست فى شئ من الحالين، بل سبيلها مع التى قبلها سبيل الاسم م",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 31,
+      "start_word": 956,
+      "end_word": 982,
+      "text_snippet": "فترك العطف يكون إمّا للاتصال إلى الغاية، أو الانفصال إلى الغاية، و",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 32,
+      "start_word": 983,
+      "end_word": 1020,
+      "text_snippet": "وعلى هذا الأساس وضع عبد القاهر أصول بحث الفصل والوصل، وقوانينه، وذ",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.85
+    }
+  ],
+  "total_segments": 32
+}

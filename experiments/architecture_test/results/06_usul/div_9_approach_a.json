@@ -1,0 +1,185 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 15,
+      "text_snippet": "مسَائِل الْأَحْكَام الشَّرْعِيَّة\nوَقَالَ شُرَيْح أَنا أَقْْضِي وَلَا أُفْتِي\n‌‌فصل فِي أَقسَام الْمُفْتِينَ",
+      "description_arabic": "عنوان الفصل في أقسام المفتين مع أثر شريح في التفريق بين القضاء والإفتاء",
+      "primary_function": "structural_transition",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 16,
+      "end_word": 145,
+      "text_snippet": "قَالَ أَبُو عَمْرو ابْن الصّلاح الْمفْتُون قِسْمَانِ مُسْتَقل وَغَيره\nفالمستقل شرطُه مَعَ مَا ذكرنَا أَن يكون",
+      "description_arabic": "بيان شروط المفتي المستقل من معرفة أدلة الأحكام وأصول الفقه وعلوم القرآن والحديث والنحو واللغة وغيرها حتى يكون مجتهداً مطلقاً",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "rule_statement",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": "يشير إلى شروط سابقة بقوله 'مع ما ذكرنا' لكن المضمون مفهوم بذاته"
+    },
+    {
+      "unit_index": 2,
+      "start_word": 146,
+      "end_word": 215,
+      "text_snippet": "قَالَ أَبُو عَمْرو وَمَا شرطناه من حفظه لمسائل الْفِقْه لم يشْتَرط فِي كثير من الْكتب الْمَشْهُورَة لكَونه",
+      "description_arabic": "مناقشة اشتراط حفظ مسائل الفقه للمفتي المستقل والخلاف فيه بين الأصوليين مع بيان أنه يكفي حفظ المعظم",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "condition_exception",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 216,
+      "end_word": 243,
+      "text_snippet": "وَهل يشْتَرط أَن يعرف من الْحساب مَا يصحح بِهِ الْمسَائِل الحسابية الْفِقْهِيَّة\nحكى أَبُو إِسْحَاق وَأَبُو",
+      "description_arabic": "مسألة اشتراط معرفة الحساب للمفتي في المسائل الحسابية الفقهية والخلاف فيه والأصح اشتراطه",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 244,
+      "end_word": 300,
+      "text_snippet": "ثمَّ إِنَّمَا يشْتَرط اجْتِمَاع الْعُلُوم الْمَذْكُورَة فِي مُفتٍ مُطلق فِي جَمِيع أَبْوَاب الشَّرْع فَأَما مُفتٍ",
+      "description_arabic": "جواز الإفتاء في باب خاص كالمناسك والفرائض دون اشتراط الإحاطة بجميع العلوم والخلاف في ذلك",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 301,
+      "end_word": 370,
+      "text_snippet": "الْقسم الثَّانِي الْمُفْتِي الَّذِي لَيْسَ بمستقل وَمندهر طَوِيل عُدِم الْمُفْتِي المستقل وصَارت الْفَتْوَى",
+      "description_arabic": "بيان القسم الثاني وهو المفتي غير المستقل المنتسب إلى أئمة المذاهب وأن له أربعة أحوال",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 371,
+      "end_word": 500,
+      "text_snippet": "أَحدهَا أَن لَا يكون مُقَلدًا لإمامه لَا فِي الْمَذْهَب وَلَا فِي دَلِيله لاتصافه بِصفة المستقل وَإِنَّمَا يَنْسب",
+      "description_arabic": "الحالة الأولى: المنتسب غير المقلد الذي يسلك طريق إمامه في الاجتهاد مع دعوى الأسفراييني والسنجي وتعليق المصنف",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "narration",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 501,
+      "end_word": 555,
+      "text_snippet": "قَالَ أَبُو عَمرو دَعْوَى انْتِفَاء التَّقْلِيد عَنْهُم مُطلقًا لَا يَسْتَقِيم وَلَا يلائم الْمَعْلُوم من حَالهم",
+      "description_arabic": "نقد ابن الصلاح لدعوى انتفاء التقليد عن أصحاب الشافعي مطلقاً وبيان حكم فتوى هذه الحالة",
+      "primary_function": "refutation",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": "يحتاج لمعرفة السياق السابق عن دعوى الأسفراييني لكنه مفهوم بذاته"
+    },
+    {
+      "unit_index": 8,
+      "start_word": 556,
+      "end_word": 720,
+      "text_snippet": "الْحَالة الثَّانِيَة أَن يكون مُجْتَهدا مقيَّداً فِي مَذْهَب إِمَامه مُسْتقِلّا بتقرير أُصُوله بِالدَّلِيلِ غير",
+      "description_arabic": "الحالة الثانية: المجتهد المقيد في مذهب إمامه وشروطه وصفته وأنه صفة أصحاب الوجوه وحكم فتواه وتأدي فرض الكفاية به",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "rule_statement",
+        "condition_exception",
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 721,
+      "end_word": 850,
+      "text_snippet": "وَله أَن يُفْتِي فِيمَا لَا نصَّ فِيهِ لإمامه بِمَا يُخرجهُ على أُصُوله هَذَا هُوَ الصَّحِيح الَّذِي عَلَيْهِ",
+      "description_arabic": "حكم إفتاء المجتهد المقيد فيما لا نص فيه لإمامه بالتخريج على أصوله وأن المستفتي مقلد للإمام لا للمخرِّج وخلاف نسبة المخرَّج للإمام",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 851,
+      "end_word": 935,
+      "text_snippet": "ثمَّ تَارَة يخرِّج من نَص معِين لإمامه وَتارَة لَا يجده فيخرّج على أُصُوله بِأَن يجد دَلِيلا على شَرطمَا يحْتَج",
+      "description_arabic": "بيان أنواع التخريج: من نص معين للإمام أو على أصوله، وشرط التخريج بالقول المخرج وعدم إمكان الفرق بين النصين",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 936,
+      "end_word": 1040,
+      "text_snippet": "الْحَالة الثَّالِثَة أَن لَا يبلغ رُتْبَة أَصْحَاب الْوُجُوه لكنه فَقِيه النَّفس حَافظ مَذْهَب إِمَامه عَارِف",
+      "description_arabic": "الحالة الثالثة: من دون أصحاب الوجوه وهو فقيه حافظ للمذهب عارف بأدلته لكنه قاصر عن التخريج وصفة المتأخرين المصنفين",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "rule_statement",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 1041,
+      "end_word": 1130,
+      "text_snippet": "الْحَالة الرَّابِعَة أَن يقوم بِحِفْظ الْمَذْهَب وَنَقله وفهمه فِي الواضحات والمشكلات وَلَكِن عِنْده ضعف فِي",
+      "description_arabic": "الحالة الرابعة: حافظ المذهب الضعيف في تقرير الأدلة يفتي بالمنقول ويلحق ما لا نص فيه إذا كان واضح المعنى أو مندرجاً تحت ضابط ممهد",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "rule_statement",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 13,
+  "notes": "النص من كتاب في أصول الفقه يتناول فصل أقسام المفتين بتفصيل أحوالهم الأربعة، ويعتمد بشكل رئيسي على كلام ابن الصلاح مع تعليقات المصنف (النووي على الأرجح)"
+}

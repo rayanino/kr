@@ -1,0 +1,149 @@
+{
+  "segments": [
+    {
+      "segment_index": 1,
+      "start_word": 1,
+      "end_word": 4,
+      "text_snippet": "بابُ صلاة الجماعة والإمامة",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 2,
+      "start_word": 5,
+      "end_word": 46,
+      "text_snippet": "162 - عن ابن عمر رضي الله تعالى عنهما أن رسول الله صلى الله عليه وسلم قال: «صلاة الجماعة أفضل من صلاة الفذِّ بسبع وعشرين درجة» متفق عليه. ولهما عن أبي هريرة: «بخمس وعشرين جزءاً» وكذا للبخاري عن أبي سعيد الخدري، وقال: «درجة».",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 3,
+      "start_word": 47,
+      "end_word": 110,
+      "text_snippet": "163 - عن أبي هريرة رضي الله عنه، أن رسول الله صلى الله عليه وسلم قال: «والذي نفسي بيده لقد هممت أن آمر بحطب فيُحتطب",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 4,
+      "start_word": 111,
+      "end_word": 143,
+      "text_snippet": "164 - وعنه رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم. «أثقل الصلاة على المنافقين صلاة العشاء وصلاة الفجر",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 5,
+      "start_word": 144,
+      "end_word": 186,
+      "text_snippet": "165 - وعنه رضي الله عنه قال: أتى النبي صلى الله عليه وسلم رجلٌ أعمى فقال: يا رسول الله إنه ليس لي قائدٌ يقودُني",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 6,
+      "start_word": 187,
+      "end_word": 260,
+      "text_snippet": "166 - عن أنس رضي الله عنه قال: سقط النبي صلى الله عليه وسلم عن فرسٍ فجحش شقه الأيمن فدخلنا عليه نعوده",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 7,
+      "start_word": 261,
+      "end_word": 290,
+      "text_snippet": "167 - عن أبي سعيد الخدري رضي الله عنه أن رسول الله صلى الله عليه وسلم رأى في أصحابه تأخراً فقال: «تقدموا",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 8,
+      "start_word": 291,
+      "end_word": 327,
+      "text_snippet": "168 - عن زيد بن ثابت رضي الله عنه قال احتجر رسول الله صلى الله عليه وسلم حجرةً مخصَّفةً فصلَّى فيها",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 9,
+      "start_word": 328,
+      "end_word": 378,
+      "text_snippet": "169 - عن جابر رضي الله عنه قال: صلَّى معاذُ بأصحابه العشاء، فطوَّل عليهم، فقال النبي صلى الله عليه وسلم",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 10,
+      "start_word": 379,
+      "end_word": 424,
+      "text_snippet": "170 - عن عائشة رضي الله تعالى عنها، في قصة صلاة رسول الله صلى الله عليه وسلم بالناس وهو مريض",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 11,
+      "start_word": 425,
+      "end_word": 462,
+      "text_snippet": "171 - عن أبي هريرة رضي الله عنه أن النبي صلى الله عليه وسلم قال: «إذا أمَّ أحدكم الناس فلْيُخفف",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 12,
+      "start_word": 463,
+      "end_word": 514,
+      "text_snippet": "172 - عن عمرو بن سلمة رضي الله عنه قال: قال أبي جئتكم من عند النبي صلى الله عليه وسلم حقاً",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 13,
+      "start_word": 515,
+      "end_word": 575,
+      "text_snippet": "173 - عن ابن مسعود رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: «يؤم القوم أقرؤهم لكتاب الله",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 14,
+      "start_word": 576,
+      "end_word": 601,
+      "text_snippet": "174 - عن أبي هريرة رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: «خير صفوف الرجال أولها",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 15,
+      "start_word": 602,
+      "end_word": 636,
+      "text_snippet": "175 - عن ابن عباس رضي الله تعالى عنهما قال: «صلَّيت مع رسول الله صلى الله عليه وسلم ذات ليلةٍ",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 16,
+      "start_word": 637,
+      "end_word": 661,
+      "text_snippet": "176 - عن أنس رضي الله عنه قال: «صلَّى رسول الله صلى الله عليه وسلم، فقمت أنا ويتيمٌ خلفه",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 17,
+      "start_word": 662,
+      "end_word": 706,
+      "text_snippet": "177 - عن أبي بكرة رضي الله عنه أنه انتهى إلى النبي صلى الله عليه وسلم هو راكع، فركع قبل أن يصل",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    },
+    {
+      "segment_index": 18,
+      "start_word": 707,
+      "end_word": 740,
+      "text_snippet": "178 - عن أبي هريرة رضي الله عنه، عن النبي صلى الله عليه وسلم قال: «إذا سمعتم الإقامة فامشوا إلى الصلاة",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.99
+    }
+  ],
+  "total_segments": 18
+}

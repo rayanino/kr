@@ -1,0 +1,406 @@
+{
+  "schema_version": "normalized_package_v2.0",
+  "source_id": "src_test0001",
+  "normalizer_id": "kr.normalization.shamela_v2",
+  "normalization_utc": "2026-03-22T10:42:05.070149+00:00",
+  "division_tree": [
+    {
+      "div_id": "div_src_test0001_2_000",
+      "division_type": "مقدمة",
+      "heading_text": "مقدمة",
+      "heading_level": 2,
+      "start_unit_index": 0,
+      "end_unit_index": 101,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_5_000",
+          "division_type": "مطلب",
+          "heading_text": "المطلب الأول: تعريف الاضطباع والرمل.",
+          "heading_level": 5,
+          "start_unit_index": 1,
+          "end_unit_index": 2,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": [
+            {
+              "div_id": "div_src_test0001_5_001",
+              "division_type": "مطلب",
+              "heading_text": "المطلب الثاني: دليل مشروعية الاضطباع والرمل.",
+              "heading_level": 5,
+              "start_unit_index": 1,
+              "end_unit_index": 2,
+              "detection_method": "keyword_heuristic",
+              "confidence": "high",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_5_002",
+                  "division_type": "مطلب",
+                  "heading_text": "المطلب الثالث: الحكمة من مشروعية الاضطباع والرمل.",
+                  "heading_level": 5,
+                  "start_unit_index": 1,
+                  "end_unit_index": 2,
+                  "detection_method": "keyword_heuristic",
+                  "confidence": "high",
+                  "children": [
+                    {
+                      "div_id": "div_src_test0001_5_003",
+                      "division_type": "مطلب",
+                      "heading_text": "المطلب الرابع: حكم الاضطباع والرمل.",
+                      "heading_level": 5,
+                      "start_unit_index": 1,
+                      "end_unit_index": 2,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "high",
+                      "children": [
+                        {
+                          "div_id": "div_src_test0001_5_004",
+                          "division_type": "مطلب",
+                          "heading_text": "المطلب الخامس: وقت الاضطباع والرمل.",
+                          "heading_level": 5,
+                          "start_unit_index": 1,
+                          "end_unit_index": 2,
+                          "detection_method": "keyword_heuristic",
+                          "confidence": "high",
+                          "children": [
+                            {
+                              "div_id": "div_src_test0001_5_005",
+                              "division_type": "مطلب",
+                              "heading_text": "المطلب السادس: الطواف الذي يُشرع فيه الاضطباع والرمل ،",
+                              "heading_level": 5,
+                              "start_unit_index": 1,
+                              "end_unit_index": 2,
+                              "detection_method": "keyword_heuristic",
+                              "confidence": "high",
+                              "children": [
+                                {
+                                  "div_id": "div_src_test0001_5_006",
+                                  "division_type": "مطلب",
+                                  "heading_text": "المطلب السابع: من يُشرع له الاضطباع والرمل.",
+                                  "heading_level": 5,
+                                  "start_unit_index": 1,
+                                  "end_unit_index": 2,
+                                  "detection_method": "keyword_heuristic",
+                                  "confidence": "high",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_5_007",
+          "division_type": null,
+          "heading_text": "التمهيد:",
+          "heading_level": 5,
+          "start_unit_index": 3,
+          "end_unit_index": 3,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_008",
+          "division_type": "مطلب",
+          "heading_text": "المطلب الأول: تعريف الاضطباع والرمل",
+          "heading_level": 5,
+          "start_unit_index": 4,
+          "end_unit_index": 9,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_009",
+          "division_type": "مطلب",
+          "heading_text": "المطلب الثاني: دليل مشروعية الاضطباع والرمل",
+          "heading_level": 5,
+          "start_unit_index": 10,
+          "end_unit_index": 11,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_010",
+          "division_type": "مطلب",
+          "heading_text": "المطلب الثالث: الحكمة من مشروعية الاضطباع والرمل",
+          "heading_level": 5,
+          "start_unit_index": 12,
+          "end_unit_index": 14,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_011",
+          "division_type": "مطلب",
+          "heading_text": "المطلب الرابع: حكم الاضطباع والرمل",
+          "heading_level": 5,
+          "start_unit_index": 15,
+          "end_unit_index": 33,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_012",
+          "division_type": "مطلب",
+          "heading_text": "المطلب الخامس: وقت الاضطباع والرمل",
+          "heading_level": 5,
+          "start_unit_index": 34,
+          "end_unit_index": 36,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_013",
+          "division_type": null,
+          "heading_text": "الفرع الأول: وقت الاضطباع.",
+          "heading_level": 5,
+          "start_unit_index": 37,
+          "end_unit_index": 38,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_014",
+          "division_type": null,
+          "heading_text": "الفرع الثاني: الاضطباع في الصلاة.",
+          "heading_level": 5,
+          "start_unit_index": 39,
+          "end_unit_index": 41,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_015",
+          "division_type": null,
+          "heading_text": "الفرع الثالث: موضع الرمل من البيت.",
+          "heading_level": 5,
+          "start_unit_index": 42,
+          "end_unit_index": 46,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_016",
+          "division_type": null,
+          "heading_text": "الفرع الرابع: قَدْر الرمل من الطواف.",
+          "heading_level": 5,
+          "start_unit_index": 47,
+          "end_unit_index": 50,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_017",
+          "division_type": "مطلب",
+          "heading_text": "المطلب السادس: الطواف الذي يُشرع فيه الاضطباع والرمل",
+          "heading_level": 5,
+          "start_unit_index": 51,
+          "end_unit_index": 58,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_5_018",
+              "division_type": null,
+              "heading_text": "الفرع الأول: هل الاضطباع والرمل خاصان بالطواف الأول؟",
+              "heading_level": 5,
+              "start_unit_index": 51,
+              "end_unit_index": 58,
+              "detection_method": "keyword_heuristic",
+              "confidence": "high",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_5_019",
+          "division_type": null,
+          "heading_text": "الفرع الثاني: هل يُشرع تكرار الاضطباع والرمل في الحج؟",
+          "heading_level": 5,
+          "start_unit_index": 59,
+          "end_unit_index": 60,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_020",
+          "division_type": null,
+          "heading_text": "الفرع الثالث: الاضطباع والرمل من غير إحرام.",
+          "heading_level": 5,
+          "start_unit_index": 61,
+          "end_unit_index": 63,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_021",
+          "division_type": null,
+          "heading_text": "الفرع الرابع: كيف يصنع من زُحِم في الطواف؟",
+          "heading_level": 5,
+          "start_unit_index": 64,
+          "end_unit_index": 70,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_022",
+          "division_type": null,
+          "heading_text": "الفرع الخامس: قضاء الاضطباع والرمل.",
+          "heading_level": 5,
+          "start_unit_index": 71,
+          "end_unit_index": 71,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": [
+            {
+              "div_id": "div_src_test0001_5_023",
+              "division_type": null,
+              "heading_text": "المسألة الأولى: قضاء الاضطباع.",
+              "heading_level": 5,
+              "start_unit_index": 71,
+              "end_unit_index": 71,
+              "detection_method": "keyword_heuristic",
+              "confidence": "high",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_5_024",
+          "division_type": null,
+          "heading_text": "المسألة الثانية: قضاء الرمل.",
+          "heading_level": 5,
+          "start_unit_index": 72,
+          "end_unit_index": 75,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_025",
+          "division_type": "مطلب",
+          "heading_text": "المطلب السابع: من يُشرع له الاضطباع والرمل",
+          "heading_level": 5,
+          "start_unit_index": 76,
+          "end_unit_index": 77,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_026",
+          "division_type": null,
+          "heading_text": "الفرع الأول: الاضطباع والرمل للصبي.",
+          "heading_level": 5,
+          "start_unit_index": 78,
+          "end_unit_index": 79,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_027",
+          "division_type": null,
+          "heading_text": "الفرع الثاني: الاضطباع والرمل لأهل مكة.",
+          "heading_level": 5,
+          "start_unit_index": 80,
+          "end_unit_index": 82,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_028",
+          "division_type": null,
+          "heading_text": "الفرع الثالث: الاضطباع والرمل للراكب، والمحمول 2.",
+          "heading_level": 5,
+          "start_unit_index": 83,
+          "end_unit_index": 87,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_029",
+          "division_type": "خاتمة",
+          "heading_text": "الخاتمة",
+          "heading_level": 5,
+          "start_unit_index": 88,
+          "end_unit_index": 101,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_6_000",
+              "division_type": null,
+              "heading_text": "مصادر ومراجع",
+              "heading_level": 6,
+              "start_unit_index": 93,
+              "end_unit_index": 101,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layer_map": [
+    {
+      "layer_type": "matn",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 1.0,
+      "markers": []
+    }
+  ],
+  "structural_format": "prose",
+  "structural_format_proposed": null,
+  "text_fidelity_summary": {
+    "mean_ocr_confidence": null,
+    "character_level_fidelity_estimate": null,
+    "pages_with_warnings": 45,
+    "total_pages": 102
+  },
+  "verse_detection": true,
+  "verse_numbering_scheme": null,
+  "total_content_units": 102,
+  "quality_report": {
+    "division_count_by_tier": {
+      "confirmed": 11,
+      "high": 21
+    },
+    "layer_transition_count": 0,
+    "pages_with_warnings": 45,
+    "high_fidelity_pct": 1.0,
+    "unclassified_footnote_count": 9,
+    "overall_confidence": "high"
+  },
+  "normalization_warnings": [],
+  "content_census": null,
+  "tahqiq_topology": null,
+  "layer_fingerprints": null,
+  "discourse_flow_summary": null
+}

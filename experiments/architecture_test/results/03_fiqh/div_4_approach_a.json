@@ -1,0 +1,149 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 30,
+      "text_snippet": "المطلب الأول: تعريف الاضطباع والرمل.\nقبل الشروع في بيان أدلة مشروعية الاضطباع والرمل، ومعرفة الحكمة من",
+      "description_arabic": "مقدمة تمهيدية للمطلب الأول تبين أنه سيتناول تعريف الاضطباع والرمل قبل بيان أدلتهما وأحكامهما",
+      "primary_function": "structural_transition",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 31,
+      "end_word": 195,
+      "text_snippet": "* الفرع الأول: تعريف الاضطباع ⌜1⌝ .\nالاضطباع، افتعال من الضَّبْع بإسكان الباء، وهو العَضُد. وقيل: الن",
+      "description_arabic": "تعريف الاضطباع لغةً من حيث اشتقاقه من الضَّبْع وبيان معانيه المختلفة كالعضد والإبط ومد اليد، مع ذكر أقوال ابن فارس والجوهري",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 196,
+      "end_word": 260,
+      "text_snippet": "قال ابن فارس: ((الضاد، والباء، والعين، أصل صحيح، يدل على معان ثلاثة: أحدها: جنس الحيوان. والآخر: عضو",
+      "description_arabic": "نقل كلام ابن فارس في أصول مادة (ض ب ع) وأنها تدل على ثلاثة معانٍ: الحيوان والعضو وصفة النوق",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 261,
+      "end_word": 320,
+      "text_snippet": "واضطبع الشيء: أدخله تحت ضَبْعَيه. ويُقال للاضطباع أيضاً: التَّأبُّط، والتَّوشُّح. ويُقال له أيضاً:",
+      "description_arabic": "بيان معنى اضطبع الشيء وأسمائه الأخرى كالتأبط والتوشح واليابطة، وبيان أصله الصرفي وسبب قلب التاء طاءً",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 321,
+      "end_word": 390,
+      "text_snippet": "والاضطباع في الصلاة: اشتمال الصماء. وقد جاء ذلك مفسراً في حديث أبي سعيد (: ((نهى رسول الله (عن لبْستي",
+      "description_arabic": "بيان معنى الاضطباع في الصلاة وأنه اشتمال الصماء، مع الاستدلال بحديث أبي سعيد في النهي عن لبستين",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 391,
+      "end_word": 470,
+      "text_snippet": "والاضطباع في الطواف: أن يجعل وسط ردائه من تحت إبطه الأيمن، ويُغطي به عاتقه الأيسر. ويكون المنكب الأيم",
+      "description_arabic": "تعريف الاضطباع في الطواف اصطلاحاً بأنه جعل وسط الرداء تحت الإبط الأيمن وتغطية العاتق الأيسر مع كشف المنكب الأيمن، ونقل قول الشافعي وصاحب إرشاد الساري",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 471,
+      "end_word": 530,
+      "text_snippet": "* الفرع الثاني: تعريف الرَّمَل ⌜1⌝ .\nالرَّمَل، بفتح الراء والميم، سُرْعة المشي. قال ابن الأثير: ((يُق",
+      "description_arabic": "تعريف الرَّمَل لغةً بأنه سرعة المشي مع هز المنكبين، ونقل قول ابن الأثير في ضبطه وتصريفه",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 531,
+      "end_word": 640,
+      "text_snippet": "ورَمَل الحصير يَرْمُلُه رَمْلاً، ورَمَّلَه، وأَرْمَلَه، إذا سَخَّف نَسْجَه. والرُّمَال ما رُمِل. أي",
+      "description_arabic": "بيان المعاني اللغوية المتعددة لمادة (رمل): رمل الحصير والمطر القليل والشعر المهزول والمُرمِل الذي لا زاد معه",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 641,
+      "end_word": 730,
+      "text_snippet": "وأَرْمَلَت المرأة: إذا مات زوجها. فهي أرْمَلَة. سُمِّيت بذلك لذهاب زادها، وفقد كاسبها.\nورجل أرمل، وا",
+      "description_arabic": "بيان معنى الأرملة والأرمل لغةً وأنه يقع على الذكور والنساء، مع شاهد شعري من جرير وذكر معانٍ أخرى للرمل",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 731,
+      "end_word": 780,
+      "text_snippet": "وقال ابن فارس: ((الراء، والميم، واللام، أصل يدل على رِقَّة في شيء يتضام بعضه إلى بعض))",
+      "description_arabic": "نقل كلام ابن فارس في أصل مادة (ر م ل) وأنها تدل على رقة في شيء يتضام بعضه إلى بعض",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 781,
+      "end_word": 870,
+      "text_snippet": "والرَّمَل في الطواف: الإسْرَاع في المشي مع تقارب الْخُطى (3) ، من غيروثْبٍ ولا عَدْوٍ ⌜1⌝ ، ويهز الك",
+      "description_arabic": "تعريف الرمل في الطواف اصطلاحاً بأنه الإسراع في المشي مع تقارب الخطى وهز الكتفين دون وثب ولا عدو، مع نقل أقوال ابن عبد البر وصديق خان",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "opinion_statement",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 11,
+  "notes": "هذا المطلب يتناول تعريف الاضطباع والرمل لغةً واصطلاحاً في فرعين مستقلين، مع استعراض المعاني اللغوية المتعددة لكل مادة ونقل أقوال العلماء في التعريف الاصطلاحي"
+}

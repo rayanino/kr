@@ -1,0 +1,113 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 40,
+      "text_snippet": "الفرع الرابع: كيف يصنع من زُحِم في الطواف؟ من لم يتمكن من الرمل بسبب الزحام. فهل يُشرع",
+      "description_arabic": "مقدمة الفرع الرابع وطرح مسألة ما يصنعه من زُحم في الطواف عن الرمل وهل يقف أو يبتعد عن البيت",
+      "primary_function": "structural_transition",
+      "secondary_functions": [],
+      "self_contained": false,
+      "self_containment_notes": "هذا تمهيد للمسألة يحتاج إلى ما بعده من أقوال وأدلة"
+    },
+    {
+      "unit_index": 1,
+      "start_word": 41,
+      "end_word": 117,
+      "text_snippet": "اتفق العلماء رحمهم الله على أن القرب من البيت مع الرمل أولى، ليجمع بين الرمل والقرب",
+      "description_arabic": "بيان اتفاق العلماء على أن القرب من البيت مع الرمل أولى وأنه يقف لينتظر الفرجة إن أمكن دون إيذاء مع نقل كلام النووي",
+      "primary_function": "evidence_ijma",
+      "secondary_functions": [
+        "condition_exception",
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 119,
+      "end_word": 245,
+      "text_snippet": "واتفقوا أيضاً: على أن البُعد من البيت مع الرمل، أولى من القرب منه مع عدمه",
+      "description_arabic": "بيان اتفاق العلماء على أن البعد مع الرمل أولى من القرب بلا رمل مع تعليل النووي والشافعي وقاعدة تقديم هيئة العبادة على مكانها",
+      "primary_function": "evidence_ijma",
+      "secondary_functions": [
+        "evidence_rational",
+        "opinion_statement",
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 246,
+      "end_word": 425,
+      "text_snippet": "قال شيخ الإسلام ابن تيمية: \" قال أصحابنا يُستحب للطائف الدنو من البيت في الطواف إلا أن",
+      "description_arabic": "نقل كلام ابن تيمية في ترتيب الأولويات بين القرب والرمل والوقوف مع إشارة بعض الحنابلة إلى تأخير الطواف وحالة وجود النساء في الحاشية",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 426,
+      "end_word": 515,
+      "text_snippet": "وهل يسقط عنه الرمل في مثل هذه الحال التي لم يتمكن من الرمل فيها على الصفة المشروعة",
+      "description_arabic": "القول الأول في حكم من لم يتمكن من الرمل: أنه يتركه ويمشي على عادته وهو مذهب الحنفية",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 516,
+      "end_word": 550,
+      "text_snippet": "القول الثاني: إنه يرمل حسب قدرته وطاقته، فإن تعذّر ذلك، مشى مشياً معتاداً على سجيته",
+      "description_arabic": "القول الثاني: الرمل حسب القدرة والطاقة فإن تعذر مشى على سجيته وهو مذهب المالكية والحنابلة",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 551,
+      "end_word": 688,
+      "text_snippet": "القول الثالث: إنه إن لم يتمكن من الرمل، تحرك في مشيه، ليُري من نفسه أنه لو أمكنه الر",
+      "description_arabic": "القول الثالث: التحرك في المشي ليُري من نفسه أنه لو أمكنه لرمل وهو مذهب الشافعية مع نقل كلام الماوردي في تفصيل الحالات",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 689,
+      "end_word": 945,
+      "text_snippet": "الرأي المختار: بتأمل هذه الأقوال والنظر فيها، نجد أن أصحاب القول الأول، رأوا أن الرمل",
+      "description_arabic": "الترجيح بين الأقوال الثلاثة بالأدلة من القرآن والسنة والقياس مع رد القول الثالث بالتحرك واختيار سقوط الرمل عند العجز والمشي على السجية",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "evidence_quran",
+        "evidence_hadith",
+        "evidence_qiyas",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 8,
+  "notes": "النص يتناول فرعاً فقهياً واحداً هو حكم من زُحم عن الرمل في الطواف، ويتضمن مقدمة ومسائل اتفاقية ثم خلافية ثم ترجيحاً. تم تجميع الأقوال المتفق عليها مع أدلتها، وكل قول خلافي مع نسبته، ثم الترجيح مع أدلته في وحدة واحدة."
+}

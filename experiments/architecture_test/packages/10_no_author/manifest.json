@@ -1,0 +1,1323 @@
+{
+  "schema_version": "normalized_package_v2.0",
+  "source_id": "src_test0001",
+  "normalizer_id": "kr.normalization.shamela_v2",
+  "normalization_utc": "2026-03-22T10:42:05.493461+00:00",
+  "division_tree": [
+    {
+      "div_id": "div_src_test0001_2_000",
+      "division_type": "مقدمة",
+      "heading_text": "المقدمة",
+      "heading_level": 2,
+      "start_unit_index": 0,
+      "end_unit_index": 2,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_3_000",
+          "division_type": null,
+          "heading_text": "تمهيد",
+          "heading_level": 3,
+          "start_unit_index": 1,
+          "end_unit_index": 2,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_000",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الطهارة",
+      "heading_level": 1,
+      "start_unit_index": 3,
+      "end_unit_index": 11,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_001",
+          "division_type": "باب",
+          "heading_text": "باب المياه",
+          "heading_level": 2,
+          "start_unit_index": 3,
+          "end_unit_index": 3,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_002",
+              "division_type": "باب",
+              "heading_text": "باب الآنية",
+              "heading_level": 2,
+              "start_unit_index": 3,
+              "end_unit_index": 3,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_003",
+          "division_type": null,
+          "heading_text": "بابُ إزالة النجاسة وبيانها",
+          "heading_level": 2,
+          "start_unit_index": 4,
+          "end_unit_index": 4,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_004",
+          "division_type": "باب",
+          "heading_text": "باب الوضوء",
+          "heading_level": 2,
+          "start_unit_index": 5,
+          "end_unit_index": 5,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_005",
+          "division_type": "باب",
+          "heading_text": "باب المسح على الخفين",
+          "heading_level": 2,
+          "start_unit_index": 6,
+          "end_unit_index": 6,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_006",
+          "division_type": "باب",
+          "heading_text": "باب نواقض الوُضوء",
+          "heading_level": 2,
+          "start_unit_index": 7,
+          "end_unit_index": 7,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_007",
+          "division_type": "باب",
+          "heading_text": "باب قضاء الحاجة",
+          "heading_level": 2,
+          "start_unit_index": 8,
+          "end_unit_index": 8,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_008",
+          "division_type": "باب",
+          "heading_text": "باب الغسل وحكم الجنب",
+          "heading_level": 2,
+          "start_unit_index": 9,
+          "end_unit_index": 9,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_009",
+          "division_type": "باب",
+          "heading_text": "باب التيمُّم",
+          "heading_level": 2,
+          "start_unit_index": 10,
+          "end_unit_index": 10,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_010",
+          "division_type": "باب",
+          "heading_text": "باب الحيض",
+          "heading_level": 2,
+          "start_unit_index": 11,
+          "end_unit_index": 11,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_001",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الصلاة",
+      "heading_level": 1,
+      "start_unit_index": 12,
+      "end_unit_index": 42,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_011",
+          "division_type": "باب",
+          "heading_text": "باب المواقيت",
+          "heading_level": 2,
+          "start_unit_index": 12,
+          "end_unit_index": 12,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_012",
+          "division_type": "باب",
+          "heading_text": "باب الأذان",
+          "heading_level": 2,
+          "start_unit_index": 13,
+          "end_unit_index": 14,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_013",
+          "division_type": null,
+          "heading_text": "بابُ شروط الصلاة",
+          "heading_level": 2,
+          "start_unit_index": 15,
+          "end_unit_index": 16,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_014",
+          "division_type": null,
+          "heading_text": "بابُ سترَةِ المُصلِّي",
+          "heading_level": 2,
+          "start_unit_index": 17,
+          "end_unit_index": 17,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_015",
+              "division_type": null,
+              "heading_text": "بابُ الحثِّ على الخشوع في الصلاة",
+              "heading_level": 2,
+              "start_unit_index": 17,
+              "end_unit_index": 17,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_016",
+          "division_type": null,
+          "heading_text": "بابُ المساجد",
+          "heading_level": 2,
+          "start_unit_index": 18,
+          "end_unit_index": 18,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_017",
+          "division_type": "باب",
+          "heading_text": "باب صِفَةُ الصلاة",
+          "heading_level": 2,
+          "start_unit_index": 19,
+          "end_unit_index": 25,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_018",
+          "division_type": "باب",
+          "heading_text": "باب سجود السهو وغيره",
+          "heading_level": 2,
+          "start_unit_index": 26,
+          "end_unit_index": 26,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_019",
+          "division_type": null,
+          "heading_text": "بابُ صلاة التطوُّع",
+          "heading_level": 2,
+          "start_unit_index": 27,
+          "end_unit_index": 30,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_020",
+          "division_type": null,
+          "heading_text": "بابُ صلاة الجماعة والإمامة",
+          "heading_level": 2,
+          "start_unit_index": 31,
+          "end_unit_index": 33,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_021",
+          "division_type": null,
+          "heading_text": "بابُ صلاة المسافر والمريض",
+          "heading_level": 2,
+          "start_unit_index": 34,
+          "end_unit_index": 36,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_022",
+              "division_type": null,
+              "heading_text": "بابُ الجُمُعَةِ",
+              "heading_level": 2,
+              "start_unit_index": 34,
+              "end_unit_index": 36,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_023",
+          "division_type": "باب",
+          "heading_text": "باب صلاة الخوف",
+          "heading_level": 2,
+          "start_unit_index": 37,
+          "end_unit_index": 37,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_024",
+          "division_type": "باب",
+          "heading_text": "باب صلاة العيدين",
+          "heading_level": 2,
+          "start_unit_index": 38,
+          "end_unit_index": 38,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_025",
+          "division_type": "باب",
+          "heading_text": "باب صلاة الكسوف",
+          "heading_level": 2,
+          "start_unit_index": 39,
+          "end_unit_index": 39,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_026",
+          "division_type": "باب",
+          "heading_text": "باب صلاة الاستسقاء",
+          "heading_level": 2,
+          "start_unit_index": 40,
+          "end_unit_index": 42,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_001",
+              "division_type": null,
+              "heading_text": "بابُ اللباس",
+              "heading_level": 3,
+              "start_unit_index": 41,
+              "end_unit_index": 42,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_002",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الجنائز",
+      "heading_level": 1,
+      "start_unit_index": 43,
+      "end_unit_index": 47,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_003",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الزَّكَاة",
+      "heading_level": 1,
+      "start_unit_index": 48,
+      "end_unit_index": 49,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_004",
+      "division_type": null,
+      "heading_text": "بَابُ صَدَقَةِ الفِطرِ",
+      "heading_level": 1,
+      "start_unit_index": 50,
+      "end_unit_index": 50,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_1_005",
+          "division_type": null,
+          "heading_text": "بَابُ صَدَقَةِ التَّطوُّع",
+          "heading_level": 1,
+          "start_unit_index": 50,
+          "end_unit_index": 50,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_006",
+      "division_type": null,
+      "heading_text": "بَابُ قِسم الصَّدَقات",
+      "heading_level": 1,
+      "start_unit_index": 51,
+      "end_unit_index": 52,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_007",
+      "division_type": null,
+      "heading_text": "كِتَاب ُالصِّيَام",
+      "heading_level": 1,
+      "start_unit_index": 53,
+      "end_unit_index": 54,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_008",
+      "division_type": null,
+      "heading_text": "بَابُ صوم التَّطَوْع وما نُهي عن صَوْمِه",
+      "heading_level": 1,
+      "start_unit_index": 55,
+      "end_unit_index": 56,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_009",
+      "division_type": null,
+      "heading_text": "بَابُ الاعْتَكاَف وقِيَامِ رمَضان",
+      "heading_level": 1,
+      "start_unit_index": 57,
+      "end_unit_index": 57,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_010",
+      "division_type": null,
+      "heading_text": "كتِابُ الحَجْ",
+      "heading_level": 1,
+      "start_unit_index": 58,
+      "end_unit_index": 58,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_1_011",
+          "division_type": null,
+          "heading_text": "باَبُ فَضِيلة وَبيَانُ من فُرض عَلَيْهِ",
+          "heading_level": 1,
+          "start_unit_index": 58,
+          "end_unit_index": 58,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_012",
+      "division_type": null,
+      "heading_text": "بَابُ المَواقيت",
+      "heading_level": 1,
+      "start_unit_index": 59,
+      "end_unit_index": 59,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_1_013",
+          "division_type": null,
+          "heading_text": "بَابُ وجُوه الإحْراَم وصِفَتُه",
+          "heading_level": 1,
+          "start_unit_index": 59,
+          "end_unit_index": 59,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_014",
+      "division_type": null,
+      "heading_text": "بَابُ الإحْراَم وما يتعلق به",
+      "heading_level": 1,
+      "start_unit_index": 60,
+      "end_unit_index": 61,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_015",
+      "division_type": null,
+      "heading_text": "بَابُ صِفَة الحجّ ودُخُول مكّة",
+      "heading_level": 1,
+      "start_unit_index": 62,
+      "end_unit_index": 66,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_016",
+      "division_type": null,
+      "heading_text": "بَابُ الفوَات والإحصَارِ",
+      "heading_level": 1,
+      "start_unit_index": 67,
+      "end_unit_index": 67,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_017",
+      "division_type": "كتاب",
+      "heading_text": "كتاب البيوع",
+      "heading_level": 1,
+      "start_unit_index": 68,
+      "end_unit_index": 83,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_027",
+          "division_type": "باب",
+          "heading_text": "باب شروطه وما نُهي عَنْهُ",
+          "heading_level": 2,
+          "start_unit_index": 68,
+          "end_unit_index": 70,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_028",
+          "division_type": "باب",
+          "heading_text": "باب الخيار",
+          "heading_level": 2,
+          "start_unit_index": 71,
+          "end_unit_index": 71,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_029",
+          "division_type": null,
+          "heading_text": "بَابُ الرِّبَا",
+          "heading_level": 2,
+          "start_unit_index": 72,
+          "end_unit_index": 72,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_030",
+          "division_type": "باب",
+          "heading_text": "باب الرخصة في العرايا، وبيع الأصول والثمار",
+          "heading_level": 2,
+          "start_unit_index": 73,
+          "end_unit_index": 74,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_031",
+          "division_type": "باب",
+          "heading_text": "باب التَّفِليسِ والحَجْرِ",
+          "heading_level": 2,
+          "start_unit_index": 75,
+          "end_unit_index": 75,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_032",
+          "division_type": "باب",
+          "heading_text": "باب الصلح",
+          "heading_level": 2,
+          "start_unit_index": 76,
+          "end_unit_index": 76,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_033",
+              "division_type": "باب",
+              "heading_text": "باب الحوالة والضَّمان",
+              "heading_level": 2,
+              "start_unit_index": 76,
+              "end_unit_index": 76,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_2_034",
+                  "division_type": "باب",
+                  "heading_text": "باب الشَّرِكة والوكالة",
+                  "heading_level": 2,
+                  "start_unit_index": 76,
+                  "end_unit_index": 76,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_035",
+          "division_type": "باب",
+          "heading_text": "باب الغصب",
+          "heading_level": 2,
+          "start_unit_index": 77,
+          "end_unit_index": 77,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_036",
+              "division_type": "باب",
+              "heading_text": "باب الغصب ⌜1⌝",
+              "heading_level": 2,
+              "start_unit_index": 77,
+              "end_unit_index": 77,
+              "detection_method": "keyword_heuristic",
+              "confidence": "high",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_037",
+          "division_type": "باب",
+          "heading_text": "باب الشُّفْعَة",
+          "heading_level": 2,
+          "start_unit_index": 78,
+          "end_unit_index": 78,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_038",
+              "division_type": "باب",
+              "heading_text": "باب المساقاة والإجارة",
+              "heading_level": 2,
+              "start_unit_index": 78,
+              "end_unit_index": 78,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_2_039",
+                  "division_type": "باب",
+                  "heading_text": "باب المساقاة والإجارة ⌜1⌝",
+                  "heading_level": 2,
+                  "start_unit_index": 78,
+                  "end_unit_index": 78,
+                  "detection_method": "keyword_heuristic",
+                  "confidence": "high",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_040",
+          "division_type": "باب",
+          "heading_text": "باب إحياءِ الموات",
+          "heading_level": 2,
+          "start_unit_index": 79,
+          "end_unit_index": 79,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_041",
+          "division_type": "باب",
+          "heading_text": "باب الوقف",
+          "heading_level": 2,
+          "start_unit_index": 80,
+          "end_unit_index": 81,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_042",
+              "division_type": "باب",
+              "heading_text": "باب الهِبَةُ",
+              "heading_level": 2,
+              "start_unit_index": 80,
+              "end_unit_index": 81,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_043",
+          "division_type": "باب",
+          "heading_text": "باب الُّلقطةِ",
+          "heading_level": 2,
+          "start_unit_index": 82,
+          "end_unit_index": 82,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_044",
+              "division_type": "باب",
+              "heading_text": "باب الفرائض",
+              "heading_level": 2,
+              "start_unit_index": 82,
+              "end_unit_index": 82,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_045",
+          "division_type": "باب",
+          "heading_text": "باب الوصايا",
+          "heading_level": 2,
+          "start_unit_index": 83,
+          "end_unit_index": 83,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_018",
+      "division_type": "كتاب",
+      "heading_text": "كتاب النكاح",
+      "heading_level": 1,
+      "start_unit_index": 84,
+      "end_unit_index": 92,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_1_019",
+          "division_type": "كتاب",
+          "heading_text": "كتاب النكاح ⌜1⌝",
+          "heading_level": 1,
+          "start_unit_index": 84,
+          "end_unit_index": 92,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_046",
+              "division_type": "باب",
+              "heading_text": "باب الكفاءةِ والخيار",
+              "heading_level": 2,
+              "start_unit_index": 87,
+              "end_unit_index": 88,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_2_047",
+                  "division_type": "باب",
+                  "heading_text": "باب عِشْرَةِ النساء",
+                  "heading_level": 2,
+                  "start_unit_index": 87,
+                  "end_unit_index": 88,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_2_048",
+              "division_type": "باب",
+              "heading_text": "باب الصَّداق",
+              "heading_level": 2,
+              "start_unit_index": 89,
+              "end_unit_index": 89,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_2_049",
+              "division_type": "باب",
+              "heading_text": "باب الوليمة",
+              "heading_level": 2,
+              "start_unit_index": 90,
+              "end_unit_index": 90,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_2_050",
+              "division_type": "باب",
+              "heading_text": "باب القَسْمِ",
+              "heading_level": 2,
+              "start_unit_index": 91,
+              "end_unit_index": 91,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_2_051",
+              "division_type": "باب",
+              "heading_text": "باب الخلْع",
+              "heading_level": 2,
+              "start_unit_index": 92,
+              "end_unit_index": 92,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_020",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الطلاق",
+      "heading_level": 1,
+      "start_unit_index": 93,
+      "end_unit_index": 99,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_052",
+          "division_type": "باب",
+          "heading_text": "باب الرجعة",
+          "heading_level": 2,
+          "start_unit_index": 94,
+          "end_unit_index": 95,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_053",
+              "division_type": "باب",
+              "heading_text": "باب الإيلاء، والظِّهار، والكفَّارة",
+              "heading_level": 2,
+              "start_unit_index": 94,
+              "end_unit_index": 95,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_2_054",
+                  "division_type": "باب",
+                  "heading_text": "باب اللعان",
+                  "heading_level": 2,
+                  "start_unit_index": 94,
+                  "end_unit_index": 95,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_055",
+          "division_type": "باب",
+          "heading_text": "باب العدَّة، والإحداد",
+          "heading_level": 2,
+          "start_unit_index": 96,
+          "end_unit_index": 97,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_056",
+          "division_type": "باب",
+          "heading_text": "باب الرَّضاع",
+          "heading_level": 2,
+          "start_unit_index": 98,
+          "end_unit_index": 98,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_057",
+          "division_type": "باب",
+          "heading_text": "باب النفقات",
+          "heading_level": 2,
+          "start_unit_index": 99,
+          "end_unit_index": 99,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_058",
+              "division_type": "باب",
+              "heading_text": "باب الحضانة",
+              "heading_level": 2,
+              "start_unit_index": 99,
+              "end_unit_index": 99,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_021",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الجنايات",
+      "heading_level": 1,
+      "start_unit_index": 100,
+      "end_unit_index": 103,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_059",
+          "division_type": "باب",
+          "heading_text": "باب الدِّيات",
+          "heading_level": 2,
+          "start_unit_index": 101,
+          "end_unit_index": 101,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_060",
+              "division_type": "باب",
+              "heading_text": "باب دعوى الدَّم والقَسَامة",
+              "heading_level": 2,
+              "start_unit_index": 101,
+              "end_unit_index": 101,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_061",
+          "division_type": "باب",
+          "heading_text": "باب قتال أهلِ البغي",
+          "heading_level": 2,
+          "start_unit_index": 102,
+          "end_unit_index": 103,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_062",
+              "division_type": "باب",
+              "heading_text": "باب قتال الجاني، وقتل المرتد",
+              "heading_level": 2,
+              "start_unit_index": 102,
+              "end_unit_index": 103,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_022",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الحدود",
+      "heading_level": 1,
+      "start_unit_index": 104,
+      "end_unit_index": 108,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_1_023",
+          "division_type": null,
+          "heading_text": "بابُ حدَّ الزاني",
+          "heading_level": 1,
+          "start_unit_index": 104,
+          "end_unit_index": 108,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_063",
+              "division_type": "باب",
+              "heading_text": "باب حدِّ القذف",
+              "heading_level": 2,
+              "start_unit_index": 106,
+              "end_unit_index": 106,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_2_064",
+                  "division_type": "باب",
+                  "heading_text": "باب حدِّ السَّرقة",
+                  "heading_level": 2,
+                  "start_unit_index": 106,
+                  "end_unit_index": 106,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_2_065",
+              "division_type": "باب",
+              "heading_text": "باب حدِّ الشَّارب وبيان المُسكر",
+              "heading_level": 2,
+              "start_unit_index": 107,
+              "end_unit_index": 107,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_2_066",
+              "division_type": "باب",
+              "heading_text": "باب التعزير، وحكم الصائل",
+              "heading_level": 2,
+              "start_unit_index": 108,
+              "end_unit_index": 108,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_024",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الجهاد",
+      "heading_level": 1,
+      "start_unit_index": 109,
+      "end_unit_index": 114,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_067",
+          "division_type": "باب",
+          "heading_text": "باب الجزية والهُدنة",
+          "heading_level": 2,
+          "start_unit_index": 112,
+          "end_unit_index": 112,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_068",
+          "division_type": "باب",
+          "heading_text": "باب السَّبق والرَّمي",
+          "heading_level": 2,
+          "start_unit_index": 113,
+          "end_unit_index": 114,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_025",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الأطعمة",
+      "heading_level": 1,
+      "start_unit_index": 115,
+      "end_unit_index": 118,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_069",
+          "division_type": "باب",
+          "heading_text": "باب الصَّيد والذَّبائح",
+          "heading_level": 2,
+          "start_unit_index": 115,
+          "end_unit_index": 117,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_070",
+          "division_type": "باب",
+          "heading_text": "باب الأضاحي",
+          "heading_level": 2,
+          "start_unit_index": 118,
+          "end_unit_index": 118,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_026",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الأيمان والنذور",
+      "heading_level": 1,
+      "start_unit_index": 119,
+      "end_unit_index": 121,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_027",
+      "division_type": "كتاب",
+      "heading_text": "كتاب القضاء",
+      "heading_level": 1,
+      "start_unit_index": 122,
+      "end_unit_index": 124,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_071",
+          "division_type": "باب",
+          "heading_text": "باب الشهادات",
+          "heading_level": 2,
+          "start_unit_index": 122,
+          "end_unit_index": 122,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_072",
+          "division_type": "باب",
+          "heading_text": "باب الدَّعوى والبيِّنات",
+          "heading_level": 2,
+          "start_unit_index": 123,
+          "end_unit_index": 124,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_028",
+      "division_type": "كتاب",
+      "heading_text": "كتاب العتق",
+      "heading_level": 1,
+      "start_unit_index": 125,
+      "end_unit_index": 126,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_073",
+          "division_type": "باب",
+          "heading_text": "باب المدبَّر، والمكاتب، وأُمِّ الولد",
+          "heading_level": 2,
+          "start_unit_index": 125,
+          "end_unit_index": 126,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_029",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الجامع",
+      "heading_level": 1,
+      "start_unit_index": 127,
+      "end_unit_index": 138,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_2_074",
+          "division_type": "باب",
+          "heading_text": "باب الأدب",
+          "heading_level": 2,
+          "start_unit_index": 127,
+          "end_unit_index": 128,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_075",
+          "division_type": "باب",
+          "heading_text": "باب البِرِّ والصِّلة",
+          "heading_level": 2,
+          "start_unit_index": 129,
+          "end_unit_index": 129,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_076",
+          "division_type": "باب",
+          "heading_text": "باب الزهد والورع",
+          "heading_level": 2,
+          "start_unit_index": 130,
+          "end_unit_index": 130,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_077",
+          "division_type": "باب",
+          "heading_text": "باب الترهيب من مساوئ الأخلاق",
+          "heading_level": 2,
+          "start_unit_index": 131,
+          "end_unit_index": 133,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_078",
+          "division_type": "باب",
+          "heading_text": "باب الترغيب في مكارم الأخلاق",
+          "heading_level": 2,
+          "start_unit_index": 134,
+          "end_unit_index": 134,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_079",
+          "division_type": "باب",
+          "heading_text": "باب الذكر والدعاء",
+          "heading_level": 2,
+          "start_unit_index": 135,
+          "end_unit_index": 137,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_080",
+          "division_type": "خاتمة",
+          "heading_text": "الخاتمة",
+          "heading_level": 2,
+          "start_unit_index": 138,
+          "end_unit_index": 138,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "layer_map": [
+    {
+      "layer_type": "matn",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 1.0,
+      "markers": []
+    }
+  ],
+  "structural_format": "prose",
+  "structural_format_proposed": null,
+  "text_fidelity_summary": {
+    "mean_ocr_confidence": null,
+    "character_level_fidelity_estimate": null,
+    "pages_with_warnings": 134,
+    "total_pages": 139
+  },
+  "verse_detection": true,
+  "verse_numbering_scheme": null,
+  "total_content_units": 139,
+  "quality_report": {
+    "division_count_by_tier": {
+      "confirmed": 110,
+      "high": 3
+    },
+    "layer_transition_count": 0,
+    "pages_with_warnings": 134,
+    "high_fidelity_pct": 1.0,
+    "unclassified_footnote_count": 1,
+    "overall_confidence": "high"
+  },
+  "normalization_warnings": [],
+  "content_census": null,
+  "tahqiq_topology": null,
+  "layer_fingerprints": null,
+  "discourse_flow_summary": null
+}

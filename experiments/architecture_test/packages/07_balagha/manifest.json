@@ -1,0 +1,1672 @@
+{
+  "schema_version": "normalized_package_v2.0",
+  "source_id": "src_test0001",
+  "normalizer_id": "kr.normalization.shamela_v2",
+  "normalization_utc": "2026-03-22T10:42:05.163045+00:00",
+  "division_tree": [
+    {
+      "div_id": "div_src_test0001_2_000",
+      "division_type": "مقدمة",
+      "heading_text": "المقدمة",
+      "heading_level": 2,
+      "start_unit_index": 0,
+      "end_unit_index": 2,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_000",
+      "division_type": "كتاب",
+      "heading_text": "الكتاب الأول الفصاحة والبلاغة",
+      "heading_level": 1,
+      "start_unit_index": 3,
+      "end_unit_index": 56,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_3_000",
+          "division_type": "فصل",
+          "heading_text": "الفصل الأول الفصاحة",
+          "heading_level": 3,
+          "start_unit_index": 4,
+          "end_unit_index": 4,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_001",
+              "division_type": null,
+              "heading_text": "فى اللغة:",
+              "heading_level": 3,
+              "start_unit_index": 4,
+              "end_unit_index": 4,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_002",
+          "division_type": null,
+          "heading_text": "فى القرآن والحديث:",
+          "heading_level": 3,
+          "start_unit_index": 5,
+          "end_unit_index": 5,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_003",
+          "division_type": null,
+          "heading_text": "الجاحظ",
+          "heading_level": 3,
+          "start_unit_index": 6,
+          "end_unit_index": 9,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_004",
+          "division_type": null,
+          "heading_text": "ابن قتيبة:",
+          "heading_level": 3,
+          "start_unit_index": 10,
+          "end_unit_index": 12,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_005",
+          "division_type": null,
+          "heading_text": "المبرد:",
+          "heading_level": 3,
+          "start_unit_index": 13,
+          "end_unit_index": 13,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_006",
+              "division_type": null,
+              "heading_text": "ثعلب:",
+              "heading_level": 3,
+              "start_unit_index": 13,
+              "end_unit_index": 13,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_3_007",
+                  "division_type": null,
+                  "heading_text": "ابن المعتز:",
+                  "heading_level": 3,
+                  "start_unit_index": 13,
+                  "end_unit_index": 13,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": [
+                    {
+                      "div_id": "div_src_test0001_3_008",
+                      "division_type": null,
+                      "heading_text": "قدامة:",
+                      "heading_level": 3,
+                      "start_unit_index": 13,
+                      "end_unit_index": 13,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_009",
+          "division_type": null,
+          "heading_text": "ابن وهب:",
+          "heading_level": 3,
+          "start_unit_index": 14,
+          "end_unit_index": 14,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_010",
+          "division_type": null,
+          "heading_text": "العسكرى:",
+          "heading_level": 3,
+          "start_unit_index": 15,
+          "end_unit_index": 15,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_011",
+          "division_type": null,
+          "heading_text": "ابن سنان:",
+          "heading_level": 3,
+          "start_unit_index": 16,
+          "end_unit_index": 23,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_012",
+          "division_type": null,
+          "heading_text": "عبد القاهر:",
+          "heading_level": 3,
+          "start_unit_index": 24,
+          "end_unit_index": 29,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_013",
+          "division_type": null,
+          "heading_text": "الرازى:",
+          "heading_level": 3,
+          "start_unit_index": 30,
+          "end_unit_index": 30,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_014",
+          "division_type": null,
+          "heading_text": "ابن الأثير:",
+          "heading_level": 3,
+          "start_unit_index": 31,
+          "end_unit_index": 33,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_015",
+          "division_type": null,
+          "heading_text": "السكاكى:",
+          "heading_level": 3,
+          "start_unit_index": 34,
+          "end_unit_index": 34,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_016",
+          "division_type": null,
+          "heading_text": "ابن مالك:",
+          "heading_level": 3,
+          "start_unit_index": 35,
+          "end_unit_index": 43,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_017",
+              "division_type": null,
+              "heading_text": "القزوينى:",
+              "heading_level": 3,
+              "start_unit_index": 35,
+              "end_unit_index": 43,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_018",
+          "division_type": "فصل",
+          "heading_text": "الفصل الثانى البلاغة",
+          "heading_level": 3,
+          "start_unit_index": 44,
+          "end_unit_index": 56,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_4_000",
+              "division_type": null,
+              "heading_text": "فى اللغة:",
+              "heading_level": 4,
+              "start_unit_index": 44,
+              "end_unit_index": 44,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_4_001",
+                  "division_type": null,
+                  "heading_text": "فى القرآن:",
+                  "heading_level": 4,
+                  "start_unit_index": 44,
+                  "end_unit_index": 44,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_4_002",
+              "division_type": null,
+              "heading_text": "فى الحديث:",
+              "heading_level": 4,
+              "start_unit_index": 45,
+              "end_unit_index": 46,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_4_003",
+                  "division_type": null,
+                  "heading_text": "فى التراث:",
+                  "heading_level": 4,
+                  "start_unit_index": 45,
+                  "end_unit_index": 46,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_4_004",
+              "division_type": null,
+              "heading_text": "الجاحظ:",
+              "heading_level": 4,
+              "start_unit_index": 47,
+              "end_unit_index": 47,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_4_005",
+                  "division_type": null,
+                  "heading_text": "المبرد:",
+                  "heading_level": 4,
+                  "start_unit_index": 47,
+                  "end_unit_index": 47,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_4_006",
+              "division_type": null,
+              "heading_text": "العسكرى:",
+              "heading_level": 4,
+              "start_unit_index": 48,
+              "end_unit_index": 48,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_007",
+              "division_type": null,
+              "heading_text": "ابن سنان:",
+              "heading_level": 4,
+              "start_unit_index": 49,
+              "end_unit_index": 49,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_008",
+              "division_type": null,
+              "heading_text": "عبد القاهر:",
+              "heading_level": 4,
+              "start_unit_index": 50,
+              "end_unit_index": 50,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_009",
+              "division_type": null,
+              "heading_text": "الرازى:",
+              "heading_level": 4,
+              "start_unit_index": 51,
+              "end_unit_index": 51,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_4_010",
+                  "division_type": null,
+                  "heading_text": "ابن الأثير:",
+                  "heading_level": 4,
+                  "start_unit_index": 51,
+                  "end_unit_index": 51,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": [
+                    {
+                      "div_id": "div_src_test0001_4_011",
+                      "division_type": null,
+                      "heading_text": "السكاكى:",
+                      "heading_level": 4,
+                      "start_unit_index": 51,
+                      "end_unit_index": 51,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_4_012",
+              "division_type": null,
+              "heading_text": "القزوينى",
+              "heading_level": 4,
+              "start_unit_index": 52,
+              "end_unit_index": 52,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_013",
+              "division_type": null,
+              "heading_text": "رأى:",
+              "heading_level": 4,
+              "start_unit_index": 53,
+              "end_unit_index": 56,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_001",
+      "division_type": "كتاب",
+      "heading_text": "الكتاب الثانى [المعاني]",
+      "heading_level": 1,
+      "start_unit_index": 57,
+      "end_unit_index": 287,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_3_019",
+          "division_type": "فصل",
+          "heading_text": "الفصل الأول علم المعانى",
+          "heading_level": 3,
+          "start_unit_index": 58,
+          "end_unit_index": 58,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_020",
+          "division_type": null,
+          "heading_text": "نظرية النظم:",
+          "heading_level": 3,
+          "start_unit_index": 59,
+          "end_unit_index": 62,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_021",
+          "division_type": null,
+          "heading_text": "تطور النظرية:",
+          "heading_level": 3,
+          "start_unit_index": 63,
+          "end_unit_index": 65,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_022",
+          "division_type": null,
+          "heading_text": "جمود النظرية:",
+          "heading_level": 3,
+          "start_unit_index": 66,
+          "end_unit_index": 68,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_023",
+          "division_type": null,
+          "heading_text": "نقد المنهج:",
+          "heading_level": 3,
+          "start_unit_index": 69,
+          "end_unit_index": 76,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_024",
+          "division_type": "فصل",
+          "heading_text": "الفصل الثانى الخبر والانشاء",
+          "heading_level": 3,
+          "start_unit_index": 77,
+          "end_unit_index": 79,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_025",
+              "division_type": null,
+              "heading_text": "[ظهور دراسته]",
+              "heading_level": 3,
+              "start_unit_index": 77,
+              "end_unit_index": 79,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_026",
+          "division_type": null,
+          "heading_text": "الخبر",
+          "heading_level": 3,
+          "start_unit_index": 80,
+          "end_unit_index": 80,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_027",
+              "division_type": null,
+              "heading_text": "تعريفه:",
+              "heading_level": 3,
+              "start_unit_index": 80,
+              "end_unit_index": 80,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_028",
+          "division_type": null,
+          "heading_text": "أضربه:",
+          "heading_level": 3,
+          "start_unit_index": 81,
+          "end_unit_index": 83,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_029",
+          "division_type": null,
+          "heading_text": "مؤكداته:",
+          "heading_level": 3,
+          "start_unit_index": 84,
+          "end_unit_index": 89,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_030",
+          "division_type": null,
+          "heading_text": "أغراضه:",
+          "heading_level": 3,
+          "start_unit_index": 90,
+          "end_unit_index": 92,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_031",
+          "division_type": null,
+          "heading_text": "الأغراض المجازية:",
+          "heading_level": 3,
+          "start_unit_index": 93,
+          "end_unit_index": 97,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_032",
+          "division_type": null,
+          "heading_text": "الانشاء",
+          "heading_level": 3,
+          "start_unit_index": 98,
+          "end_unit_index": 100,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_033",
+              "division_type": null,
+              "heading_text": "تعريفه:",
+              "heading_level": 3,
+              "start_unit_index": 98,
+              "end_unit_index": 100,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_3_034",
+                  "division_type": null,
+                  "heading_text": "أقسامه:",
+                  "heading_level": 3,
+                  "start_unit_index": 98,
+                  "end_unit_index": 100,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_035",
+          "division_type": null,
+          "heading_text": "الإنشاء الطلبى:",
+          "heading_level": 3,
+          "start_unit_index": 101,
+          "end_unit_index": 106,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_036",
+              "division_type": null,
+              "heading_text": "الأول: الأمر:",
+              "heading_level": 3,
+              "start_unit_index": 101,
+              "end_unit_index": 106,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_037",
+          "division_type": null,
+          "heading_text": "الثانى النهى:",
+          "heading_level": 3,
+          "start_unit_index": 107,
+          "end_unit_index": 108,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_038",
+          "division_type": null,
+          "heading_text": "الثالث: الاستفهام:",
+          "heading_level": 3,
+          "start_unit_index": 109,
+          "end_unit_index": 110,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_039",
+          "division_type": null,
+          "heading_text": "الثالث التمنى:",
+          "heading_level": 3,
+          "start_unit_index": 111,
+          "end_unit_index": 116,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_040",
+          "division_type": null,
+          "heading_text": "الرابع- التمنى:",
+          "heading_level": 3,
+          "start_unit_index": 117,
+          "end_unit_index": 118,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_041",
+          "division_type": null,
+          "heading_text": "الخامس: النداء:",
+          "heading_level": 3,
+          "start_unit_index": 119,
+          "end_unit_index": 122,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_042",
+          "division_type": "فصل",
+          "heading_text": "الفصل الثالث أحوال الجملة",
+          "heading_level": 3,
+          "start_unit_index": 123,
+          "end_unit_index": 123,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_043",
+              "division_type": null,
+              "heading_text": "تعريفها:",
+              "heading_level": 3,
+              "start_unit_index": 123,
+              "end_unit_index": 123,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_044",
+          "division_type": null,
+          "heading_text": "المسند إليه",
+          "heading_level": 3,
+          "start_unit_index": 124,
+          "end_unit_index": 126,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_045",
+          "division_type": null,
+          "heading_text": "المسند:",
+          "heading_level": 3,
+          "start_unit_index": 127,
+          "end_unit_index": 133,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_046",
+          "division_type": null,
+          "heading_text": "التعريف",
+          "heading_level": 3,
+          "start_unit_index": 134,
+          "end_unit_index": 135,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_047",
+              "division_type": null,
+              "heading_text": "والتعريف مختلف ويكون بوسائل هى:",
+              "heading_level": 3,
+              "start_unit_index": 134,
+              "end_unit_index": 135,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_3_048",
+                  "division_type": null,
+                  "heading_text": "الأول: الإضمار، وذلك:",
+                  "heading_level": 3,
+                  "start_unit_index": 134,
+                  "end_unit_index": 135,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_049",
+          "division_type": null,
+          "heading_text": "الثانى: العلمية، وذلك:",
+          "heading_level": 3,
+          "start_unit_index": 136,
+          "end_unit_index": 136,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_050",
+          "division_type": null,
+          "heading_text": "الثالث: الموصولية، ويكون ذلك لأسباب منها:",
+          "heading_level": 3,
+          "start_unit_index": 137,
+          "end_unit_index": 137,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_051",
+          "division_type": null,
+          "heading_text": "[الرابع: الإشارة",
+          "heading_level": 3,
+          "start_unit_index": 138,
+          "end_unit_index": 140,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_052",
+          "division_type": null,
+          "heading_text": "[الخامس: التعريف باللام",
+          "heading_level": 3,
+          "start_unit_index": 141,
+          "end_unit_index": 142,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_053",
+          "division_type": null,
+          "heading_text": "[تعريف المسند]",
+          "heading_level": 3,
+          "start_unit_index": 143,
+          "end_unit_index": 145,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_054",
+          "division_type": null,
+          "heading_text": "التنكير",
+          "heading_level": 3,
+          "start_unit_index": 146,
+          "end_unit_index": 146,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_055",
+          "division_type": null,
+          "heading_text": "[تنكير المسند اليه]",
+          "heading_level": 3,
+          "start_unit_index": 147,
+          "end_unit_index": 147,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_056",
+          "division_type": null,
+          "heading_text": "[تنكير المسند]",
+          "heading_level": 3,
+          "start_unit_index": 148,
+          "end_unit_index": 149,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_057",
+          "division_type": null,
+          "heading_text": "الذكر",
+          "heading_level": 3,
+          "start_unit_index": 150,
+          "end_unit_index": 150,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_058",
+          "division_type": null,
+          "heading_text": "[ذكر المسند]",
+          "heading_level": 3,
+          "start_unit_index": 151,
+          "end_unit_index": 155,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_059",
+              "division_type": null,
+              "heading_text": "الحذف:",
+              "heading_level": 3,
+              "start_unit_index": 151,
+              "end_unit_index": 155,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_060",
+          "division_type": null,
+          "heading_text": "[قرينته]",
+          "heading_level": 3,
+          "start_unit_index": 156,
+          "end_unit_index": 156,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_061",
+          "division_type": null,
+          "heading_text": "[حذف المفعول]",
+          "heading_level": 3,
+          "start_unit_index": 157,
+          "end_unit_index": 158,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_062",
+              "division_type": null,
+              "heading_text": "[اغراضه]",
+              "heading_level": 3,
+              "start_unit_index": 157,
+              "end_unit_index": 158,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_063",
+          "division_type": null,
+          "heading_text": "التقديم والتأخير",
+          "heading_level": 3,
+          "start_unit_index": 159,
+          "end_unit_index": 159,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_064",
+              "division_type": null,
+              "heading_text": "[احوال المعاني]",
+              "heading_level": 3,
+              "start_unit_index": 159,
+              "end_unit_index": 159,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_065",
+          "division_type": null,
+          "heading_text": "[وجها التقديم]",
+          "heading_level": 3,
+          "start_unit_index": 160,
+          "end_unit_index": 161,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_066",
+              "division_type": null,
+              "heading_text": "[تقديم المسند اليه]",
+              "heading_level": 3,
+              "start_unit_index": 160,
+              "end_unit_index": 161,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_067",
+          "division_type": null,
+          "heading_text": "[تقديم المسند]",
+          "heading_level": 3,
+          "start_unit_index": 162,
+          "end_unit_index": 162,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_068",
+          "division_type": null,
+          "heading_text": "[انواع من التقديم]",
+          "heading_level": 3,
+          "start_unit_index": 163,
+          "end_unit_index": 166,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_069",
+          "division_type": null,
+          "heading_text": "القصر",
+          "heading_level": 3,
+          "start_unit_index": 167,
+          "end_unit_index": 167,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_070",
+              "division_type": null,
+              "heading_text": "تعريفه:",
+              "heading_level": 3,
+              "start_unit_index": 167,
+              "end_unit_index": 167,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_3_071",
+                  "division_type": null,
+                  "heading_text": "طرفاه:",
+                  "heading_level": 3,
+                  "start_unit_index": 167,
+                  "end_unit_index": 167,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_072",
+          "division_type": null,
+          "heading_text": "أنواعه:",
+          "heading_level": 3,
+          "start_unit_index": 168,
+          "end_unit_index": 170,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_073",
+          "division_type": null,
+          "heading_text": "شروطه:",
+          "heading_level": 3,
+          "start_unit_index": 171,
+          "end_unit_index": 174,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_074",
+              "division_type": null,
+              "heading_text": "طرقه:",
+              "heading_level": 3,
+              "start_unit_index": 171,
+              "end_unit_index": 174,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_075",
+          "division_type": "فصل",
+          "heading_text": "الفصل الرابع الفصل والوصل",
+          "heading_level": 3,
+          "start_unit_index": 175,
+          "end_unit_index": 178,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_076",
+          "division_type": null,
+          "heading_text": "مواضع الفصل:",
+          "heading_level": 3,
+          "start_unit_index": 179,
+          "end_unit_index": 184,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_077",
+          "division_type": null,
+          "heading_text": "مواضع الوصل:",
+          "heading_level": 3,
+          "start_unit_index": 185,
+          "end_unit_index": 187,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_078",
+          "division_type": null,
+          "heading_text": "اقتران الجملة الحالية بالواو:",
+          "heading_level": 3,
+          "start_unit_index": 188,
+          "end_unit_index": 189,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_079",
+          "division_type": null,
+          "heading_text": "محسنات الوصل:",
+          "heading_level": 3,
+          "start_unit_index": 190,
+          "end_unit_index": 193,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_080",
+              "division_type": "فصل",
+              "heading_text": "الفصل والوصل فى المفردات:",
+              "heading_level": 3,
+              "start_unit_index": 190,
+              "end_unit_index": 193,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_081",
+          "division_type": "فصل",
+          "heading_text": "الفصل الخامس الايجاز والاطناب",
+          "heading_level": 3,
+          "start_unit_index": 194,
+          "end_unit_index": 196,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_082",
+          "division_type": null,
+          "heading_text": "الايجاز",
+          "heading_level": 3,
+          "start_unit_index": 197,
+          "end_unit_index": 199,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_083",
+              "division_type": null,
+              "heading_text": "تعريفه:",
+              "heading_level": 3,
+              "start_unit_index": 197,
+              "end_unit_index": 199,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_084",
+          "division_type": null,
+          "heading_text": "أقسامه:",
+          "heading_level": 3,
+          "start_unit_index": 200,
+          "end_unit_index": 201,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_085",
+              "division_type": null,
+              "heading_text": "الإيجاز ضربان:",
+              "heading_level": 3,
+              "start_unit_index": 200,
+              "end_unit_index": 201,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_3_086",
+                  "division_type": null,
+                  "heading_text": "[الأول: إيجاز القصر:]",
+                  "heading_level": 3,
+                  "start_unit_index": 200,
+                  "end_unit_index": 201,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_087",
+          "division_type": null,
+          "heading_text": "[الايجاز بالحذف:]",
+          "heading_level": 3,
+          "start_unit_index": 202,
+          "end_unit_index": 202,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_088",
+          "division_type": null,
+          "heading_text": "أدلة الحذف:",
+          "heading_level": 3,
+          "start_unit_index": 203,
+          "end_unit_index": 204,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_089",
+          "division_type": null,
+          "heading_text": "[النوع الأول: حذف جزء جملة]",
+          "heading_level": 3,
+          "start_unit_index": 205,
+          "end_unit_index": 213,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_090",
+          "division_type": null,
+          "heading_text": "[النوع الثانى: حذف الجمل]",
+          "heading_level": 3,
+          "start_unit_index": 214,
+          "end_unit_index": 219,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_091",
+          "division_type": null,
+          "heading_text": "الاطناب",
+          "heading_level": 3,
+          "start_unit_index": 220,
+          "end_unit_index": 221,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_092",
+              "division_type": null,
+              "heading_text": "تعريفه:",
+              "heading_level": 3,
+              "start_unit_index": 220,
+              "end_unit_index": 221,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_093",
+          "division_type": null,
+          "heading_text": "أقسامه:",
+          "heading_level": 3,
+          "start_unit_index": 222,
+          "end_unit_index": 223,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_094",
+              "division_type": null,
+              "heading_text": "الإيضاح بعد الإبهام:]",
+              "heading_level": 3,
+              "start_unit_index": 222,
+              "end_unit_index": 223,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_095",
+          "division_type": null,
+          "heading_text": "ذكر الخاص بعد العام:]",
+          "heading_level": 3,
+          "start_unit_index": 224,
+          "end_unit_index": 224,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_096",
+          "division_type": null,
+          "heading_text": "ذكر العام بعد الخاص:]",
+          "heading_level": 3,
+          "start_unit_index": 225,
+          "end_unit_index": 226,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_097",
+              "division_type": null,
+              "heading_text": "التكرير:]",
+              "heading_level": 3,
+              "start_unit_index": 225,
+              "end_unit_index": 226,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_098",
+          "division_type": null,
+          "heading_text": "الإيغال:]",
+          "heading_level": 3,
+          "start_unit_index": 227,
+          "end_unit_index": 229,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_3_099",
+              "division_type": null,
+              "heading_text": "التذييل:]",
+              "heading_level": 3,
+              "start_unit_index": 227,
+              "end_unit_index": 229,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_100",
+          "division_type": null,
+          "heading_text": "التكميل:]",
+          "heading_level": 3,
+          "start_unit_index": 230,
+          "end_unit_index": 231,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_101",
+          "division_type": null,
+          "heading_text": "التتميم:]",
+          "heading_level": 3,
+          "start_unit_index": 232,
+          "end_unit_index": 232,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_102",
+          "division_type": null,
+          "heading_text": "الاعتراض:]",
+          "heading_level": 3,
+          "start_unit_index": 233,
+          "end_unit_index": 235,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_103",
+          "division_type": null,
+          "heading_text": "المساواة",
+          "heading_level": 3,
+          "start_unit_index": 236,
+          "end_unit_index": 236,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_104",
+          "division_type": null,
+          "heading_text": "[امثله]",
+          "heading_level": 3,
+          "start_unit_index": 237,
+          "end_unit_index": 238,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_105",
+          "division_type": "فصل",
+          "heading_text": "الفصل السادس الخروج على مقتضى الظاهر",
+          "heading_level": 3,
+          "start_unit_index": 239,
+          "end_unit_index": 287,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_4_014",
+              "division_type": null,
+              "heading_text": "وضع المضمر موضع المظهر:",
+              "heading_level": 4,
+              "start_unit_index": 239,
+              "end_unit_index": 239,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_015",
+              "division_type": null,
+              "heading_text": "وضع المظهر موضع المضمر:",
+              "heading_level": 4,
+              "start_unit_index": 240,
+              "end_unit_index": 241,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_016",
+              "division_type": null,
+              "heading_text": "[اسباب الخروج]",
+              "heading_level": 4,
+              "start_unit_index": 242,
+              "end_unit_index": 246,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_017",
+              "division_type": null,
+              "heading_text": "القلب:",
+              "heading_level": 4,
+              "start_unit_index": 247,
+              "end_unit_index": 253,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_4_018",
+                  "division_type": null,
+                  "heading_text": "[تعريفه]",
+                  "heading_level": 4,
+                  "start_unit_index": 247,
+                  "end_unit_index": 253,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": [
+                    {
+                      "div_id": "div_src_test0001_4_019",
+                      "division_type": null,
+                      "heading_text": "[الآراء فيه]",
+                      "heading_level": 4,
+                      "start_unit_index": 247,
+                      "end_unit_index": 253,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_4_020",
+              "division_type": null,
+              "heading_text": "[اقسامه]",
+              "heading_level": 4,
+              "start_unit_index": 254,
+              "end_unit_index": 255,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_021",
+              "division_type": null,
+              "heading_text": "[الاسلوب الحكيم]",
+              "heading_level": 4,
+              "start_unit_index": 256,
+              "end_unit_index": 256,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_4_022",
+                  "division_type": null,
+                  "heading_text": "[قسماه]",
+                  "heading_level": 4,
+                  "start_unit_index": 256,
+                  "end_unit_index": 256,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_4_023",
+              "division_type": null,
+              "heading_text": "التغليب:",
+              "heading_level": 4,
+              "start_unit_index": 257,
+              "end_unit_index": 259,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_4_024",
+                  "division_type": null,
+                  "heading_text": "[تعريفه]",
+                  "heading_level": 4,
+                  "start_unit_index": 257,
+                  "end_unit_index": 259,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": [
+                    {
+                      "div_id": "div_src_test0001_4_025",
+                      "division_type": null,
+                      "heading_text": "[انواعه]",
+                      "heading_level": 4,
+                      "start_unit_index": 257,
+                      "end_unit_index": 259,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_4_026",
+              "division_type": null,
+              "heading_text": "الالتفات:",
+              "heading_level": 4,
+              "start_unit_index": 260,
+              "end_unit_index": 265,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_4_027",
+                  "division_type": null,
+                  "heading_text": "[تعريفه]",
+                  "heading_level": 4,
+                  "start_unit_index": 260,
+                  "end_unit_index": 265,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_4_028",
+              "division_type": null,
+              "heading_text": "[اقسامه]",
+              "heading_level": 4,
+              "start_unit_index": 266,
+              "end_unit_index": 275,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_029",
+              "division_type": null,
+              "heading_text": "أساليب أخرى:",
+              "heading_level": 4,
+              "start_unit_index": 276,
+              "end_unit_index": 278,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_030",
+              "division_type": null,
+              "heading_text": "المصادر والمراجع",
+              "heading_level": 4,
+              "start_unit_index": 279,
+              "end_unit_index": 285,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_031",
+              "division_type": null,
+              "heading_text": "للمؤلف",
+              "heading_level": 4,
+              "start_unit_index": 286,
+              "end_unit_index": 286,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_4_032",
+                  "division_type": null,
+                  "heading_text": "أولا: الدراسات:",
+                  "heading_level": 4,
+                  "start_unit_index": 286,
+                  "end_unit_index": 286,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": [
+                    {
+                      "div_id": "div_src_test0001_4_033",
+                      "division_type": null,
+                      "heading_text": "ثانيا: التحقيق:",
+                      "heading_level": 4,
+                      "start_unit_index": 286,
+                      "end_unit_index": 286,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_4_034",
+              "division_type": null,
+              "heading_text": "ثالثا: المدرسية:",
+              "heading_level": 4,
+              "start_unit_index": 287,
+              "end_unit_index": 287,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layer_map": [
+    {
+      "layer_type": "matn",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 1.0,
+      "markers": []
+    }
+  ],
+  "structural_format": "prose",
+  "structural_format_proposed": null,
+  "text_fidelity_summary": {
+    "mean_ocr_confidence": null,
+    "character_level_fidelity_estimate": null,
+    "pages_with_warnings": 249,
+    "total_pages": 288
+  },
+  "verse_detection": true,
+  "verse_numbering_scheme": null,
+  "total_content_units": 288,
+  "quality_report": {
+    "division_count_by_tier": {
+      "confirmed": 144
+    },
+    "layer_transition_count": 0,
+    "pages_with_warnings": 249,
+    "high_fidelity_pct": 1.0,
+    "unclassified_footnote_count": 255,
+    "overall_confidence": "high"
+  },
+  "normalization_warnings": [],
+  "content_census": null,
+  "tahqiq_topology": null,
+  "layer_fingerprints": null,
+  "discourse_flow_summary": null
+}

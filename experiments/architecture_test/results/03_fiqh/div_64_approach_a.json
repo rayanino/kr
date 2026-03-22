@@ -1,0 +1,171 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 8,
+      "text_snippet": "الفرع الرابع: كيف يصنع من زُحِم في الطواف؟",
+      "description_arabic": "عنوان الفرع الرابع المتعلق بحكم من زُحم في الطواف وكيفية تصرفه",
+      "primary_function": "structural_transition",
+      "secondary_functions": [],
+      "self_contained": false,
+      "self_containment_notes": "عنوان تمهيدي يحتاج إلى ما بعده لفهم المضمون"
+    },
+    {
+      "unit_index": 1,
+      "start_word": 9,
+      "end_word": 120,
+      "text_snippet": "من لم يتمكن من الرمل بسبب الزحام. فهل يُشرع له الوقوف، ليتمكن من الرمل؟ وهل يكون البُعْد عن البيت أ",
+      "description_arabic": "بيان اتفاق العلماء على أن القرب من البيت مع الرمل أولى، وجواز الوقوف لانتظار فرجة إن لم يؤذِ أحداً",
+      "primary_function": "evidence_ijma",
+      "secondary_functions": [
+        "rule_statement",
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 121,
+      "end_word": 180,
+      "text_snippet": "واتفقوا أيضاً: على أن البُعد من البيت مع الرمل، أولى من القرب منه مع عدمه 3. قال النووي: \" لأن فضيل",
+      "description_arabic": "بيان اتفاق العلماء على أن البُعد مع الرمل أولى من القرب بلا رمل، مع تعليل النووي بأن هيئة العبادة مقدمة على هيئة مكانها",
+      "primary_function": "evidence_ijma",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 181,
+      "end_word": 240,
+      "text_snippet": "قال الشافعي: \" فإذا كان زحام لا يمكن معه أن يَخُبَّ، فكان إن وقف، وجد فرجة، وقف. فإذا وجد الفرجة ر",
+      "description_arabic": "نقل نص الشافعي في كيفية تصرف المزحوم: الوقوف لانتظار فرجة أو الخروج إلى حاشية المطاف للرمل",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 241,
+      "end_word": 380,
+      "text_snippet": "وقالوا: المحافظة على فضيلة تتعلق بنفس العبادة، أولى من المحافظة على فضيلة تتعلق بمكانها، أو زمانها2.",
+      "description_arabic": "نقل كلام شيخ الإسلام ابن تيمية عن الحنابلة في ترتيب الأولويات بين القرب من البيت والرمل عند الزحام",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 381,
+      "end_word": 420,
+      "text_snippet": "وأشار بعض الحنابلة إلى أنه إن كان يتمكن من الرمل، أو الدنو من البيت بتأخير الطواف، دون تضرر به، أو ب",
+      "description_arabic": "إشارة بعض الحنابلة إلى استحباب تأخير الطواف إن أمكن الرمل أو الدنو بالتأخير مع التعقب عليه",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 421,
+      "end_word": 455,
+      "text_snippet": "فإن كان لا يتمكن من الرمل مع البُعْد، أو كان في حاشية المطاف نساء، ويخشى أن يتضرر، أو يتضررن من ذلك",
+      "description_arabic": "بيان حكم من لا يتمكن من الرمل مع البُعد أو وجود نساء في حاشية المطاف فيكون الدنو أولى",
+      "primary_function": "condition_exception",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 456,
+      "end_word": 510,
+      "text_snippet": "وهل يسقط عنه الرمل في مثل هذه الحال التي لم يتمكن من الرمل فيها على الصفة المشروعة حسب السنة، أو يرمل",
+      "description_arabic": "طرح مسألة الخلاف: هل يسقط الرمل عند العجز أم يرمل بقدر طاقته أم يتحرك في مشيه؟ مع بيان وجود ثلاثة أقوال",
+      "primary_function": "structural_transition",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 511,
+      "end_word": 545,
+      "text_snippet": "القول الأول: إنه إن لم يتمكن من الرمل على الصفة المشروعة، كما جاءت بها السنة، ترك الرمل، ومشى على عاد",
+      "description_arabic": "القول الأول للحنفية: إن تعذر الرمل على الصفة المشروعة تركه ومشى على عادته",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 546,
+      "end_word": 585,
+      "text_snippet": "القول الثاني: إنه يرمل حسب قدرته وطاقته، فإن تعذّر ذلك، مشى مشياً معتاداً على سجيته.\nوإلى هذا القول",
+      "description_arabic": "القول الثاني للمالكية والحنابلة: يرمل حسب قدرته فإن تعذر مشى على سجيته",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 586,
+      "end_word": 625,
+      "text_snippet": "القول الثالث: إنه إن لم يتمكن من الرمل، تحرك في مشيه، ليُري من نفسه أنه لو أمكنه الرمل، لرمل.\nوإلى ه",
+      "description_arabic": "القول الثالث للشافعية: يتحرك في مشيه ليُري من نفسه أنه لو أمكنه الرمل لرمل",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 626,
+      "end_word": 740,
+      "text_snippet": "قال الماوردي: \" الرمل مسنون، والدنو من البيت مستحب. فإذا أمكنه الرمل والدنو من البيت، فعلهما معاً، وإ",
+      "description_arabic": "نقل كلام الماوردي في تفصيل حالات المزحوم بين الوقوف والبُعد عن البيت للرمل",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "condition_exception",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 741,
+      "end_word": 960,
+      "text_snippet": "الرأي المختار:\nبتأمل هذه الأقوال والنظر فيها، نجد أن أصحاب القول الأول، رأوا أن الرمل هيئة مستحبة في",
+      "description_arabic": "الترجيح بين الأقوال الثلاثة: اختيار أن المزحوم يرمل بقدر استطاعته فإن تعذر مشى على سجيته، مع تضعيف قول التحرك في المشي والاستدلال بنص للشافعي يوافق ذلك",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "refutation",
+        "evidence_quran",
+        "evidence_hadith",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 13,
+  "notes": "النص يتناول مسألة فقهية تفصيلية في أحكام الطواف عند الزحام، ويعرض اتفاقات العلماء ثم خلافهم في ثلاثة أقوال مع الترجيح"
+}

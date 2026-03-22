@@ -1,0 +1,285 @@
+{
+  "segments": [
+    {
+      "segment_index": 1,
+      "start_word": 0,
+      "end_word": 3,
+      "text_snippet": "المطلب الأول: تعريف الاضطباع والرمل.",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 2,
+      "start_word": 4,
+      "end_word": 30,
+      "text_snippet": "قبل الشروع في بيان أدلة مشروعية الاضطباع والرمل، ومعرفة",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 3,
+      "start_word": 31,
+      "end_word": 37,
+      "text_snippet": "* الفرع الأول: تعريف الاضطباع ⌜1⌝ .",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 4,
+      "start_word": 38,
+      "end_word": 80,
+      "text_snippet": "الاضطباع، افتعال من الضَّبْع بإسكان الباء، وهو العَضُد.",
+      "scholarly_function": "definition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 5,
+      "start_word": 81,
+      "end_word": 105,
+      "text_snippet": "قال ابن فارس: اشتقاقها من ضَبْع اليد، وهو المد. والجم",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 6,
+      "start_word": 106,
+      "end_word": 115,
+      "text_snippet": "والضَّبْع والضِّبَاع: رفع اليدين في الدعاء.",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 7,
+      "start_word": 116,
+      "end_word": 145,
+      "text_snippet": "والضَّبُع: بضم الباء الموحدة، وسكونها، أخبث السِّباع. و",
+      "scholarly_function": "definition",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 8,
+      "start_word": 146,
+      "end_word": 163,
+      "text_snippet": "ومنه قول عباس بن مرداس: با خُرَاشَةَ أَمَّا أنت ذا نَفَ",
+      "scholarly_function": "example",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 9,
+      "start_word": 164,
+      "end_word": 177,
+      "text_snippet": "وضَبَعَت الناقة تَضْبَع ضَبْعاً وضَبَعَةً: إذا أرادت ال",
+      "scholarly_function": "definition",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 10,
+      "start_word": 178,
+      "end_word": 215,
+      "text_snippet": "قال ابن فارس: ((الضاد، والباء، والعين، أصل صحيح، يدل عل",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 11,
+      "start_word": 216,
+      "end_word": 250,
+      "text_snippet": "واضطبع الشيء: أدخله تحت ضَبْعَيه. ويُقال للاضطباع أيضاً",
+      "scholarly_function": "definition",
+      "confidence": 0.96
+    },
+    {
+      "segment_index": 12,
+      "start_word": 251,
+      "end_word": 274,
+      "text_snippet": "وأصله: اضتباع. وإنما قُلِبت التاء طاء، لمجاورة حرف الاس",
+      "scholarly_function": "definition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 13,
+      "start_word": 275,
+      "end_word": 283,
+      "text_snippet": "والاضطباع في الصلاة: اشتمال الصماء.",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 14,
+      "start_word": 284,
+      "end_word": 325,
+      "text_snippet": "وقد جاء ذلك مفسراً في حديث أبي سعيد (: ((نهى رسول الله",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 15,
+      "start_word": 326,
+      "end_word": 356,
+      "text_snippet": "والاضطباع في الطواف: أن يجعل وسط ردائه من تحت إبطه الأيم",
+      "scholarly_function": "definition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 16,
+      "start_word": 357,
+      "end_word": 384,
+      "text_snippet": "قال الإمام الشافعي: ((الاضطباع أن يشتمل بردائه على منكبه",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 17,
+      "start_word": 385,
+      "end_word": 404,
+      "text_snippet": "وقال في إرشاد الساري: ((أي: على هيئة أرباب الشَّجَاعة، إ",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 18,
+      "start_word": 405,
+      "end_word": 411,
+      "text_snippet": "* الفرع الثاني: تعريف الرَّمَل ⌜1⌝ .",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 19,
+      "start_word": 412,
+      "end_word": 422,
+      "text_snippet": "الرَّمَل، بفتح الراء والميم، سُرْعة المشي.",
+      "scholarly_function": "definition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 20,
+      "start_word": 423,
+      "end_word": 447,
+      "text_snippet": "قال ابن الأثير: ((يُقال: رَمَل يَرْمُل ـ بضم الميم ـ رَ",
+      "scholarly_function": "definition",
+      "confidence": 0.96
+    },
+    {
+      "segment_index": 21,
+      "start_word": 448,
+      "end_word": 475,
+      "text_snippet": "ورَمَل الحصير يَرْمُلُه رَمْلاً، ورَمَّلَه، وأَرْمَلَه،",
+      "scholarly_function": "definition",
+      "confidence": 0.94
+    },
+    {
+      "segment_index": 22,
+      "start_word": 476,
+      "end_word": 494,
+      "text_snippet": "قال الزمخشري: ((ونظيره الْحُطَام، والرُّكَام، لما حُطِم",
+      "scholarly_function": "definition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 23,
+      "start_word": 495,
+      "end_word": 510,
+      "text_snippet": "والرَّمَل: القليل الضعيف من المطر، وجمعه أرمال. وترمَّل",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 24,
+      "start_word": 511,
+      "end_word": 522,
+      "text_snippet": "والرَّمَل من الشَّعْر، كل شَعْر مهزول غير مؤْتَلِف البن",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 25,
+      "start_word": 523,
+      "end_word": 553,
+      "text_snippet": "والمُرْمِل: الذي لا زاد معه، سُمِّي بذلك لأحد شيئين: إم",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 26,
+      "start_word": 554,
+      "end_word": 572,
+      "text_snippet": "وأَرْمَلَت المرأة: إذا مات زوجها. فهي أرْمَلَة. سُمِّيت",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 27,
+      "start_word": 573,
+      "end_word": 604,
+      "text_snippet": "ورجل أرمل، وامرأة أرْمَلَة: محتاجة. والأرامل يقع على ال",
+      "scholarly_function": "definition",
+      "confidence": 0.94
+    },
+    {
+      "segment_index": 28,
+      "start_word": 605,
+      "end_word": 618,
+      "text_snippet": "قال جرير: هذي الأرامل قد قضَّيْت حاجتها … فمن لحاجة هذا",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 29,
+      "start_word": 619,
+      "end_word": 627,
+      "text_snippet": "والأرْمَل من الشاء: الذي اسودَّت قوائمه كلها.",
+      "scholarly_function": "definition",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 30,
+      "start_word": 628,
+      "end_word": 650,
+      "text_snippet": "والرَّمْل: نوع من التراب. وجمعه رِمَال. قال الجوهري: ((ا",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 31,
+      "start_word": 651,
+      "end_word": 674,
+      "text_snippet": "وقال ابن فارس: ((الراء، والميم، واللام، أصل يدل على رِقَّ",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 32,
+      "start_word": 675,
+      "end_word": 710,
+      "text_snippet": "والرَّمَل في الطواف: الإسْرَاع في المشي مع تقارب الْخُطى",
+      "scholarly_function": "definition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 33,
+      "start_word": 711,
+      "end_word": 735,
+      "text_snippet": "قال ابن عبد البر: ((وأما الرَّمَل، فهو المشي خبباً، يشتد",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 34,
+      "start_word": 736,
+      "end_word": 746,
+      "text_snippet": "وهيأته أن يُحرك منكبيه لشدة الحركة في مشيه))",
+      "scholarly_function": "definition",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 35,
+      "start_word": 747,
+      "end_word": 775,
+      "text_snippet": "قال صديق خان: ((ومعنى الرمل: الإسراع في المشي مع تقارب ال",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    }
+  ],
+  "total_segments": 35
+}

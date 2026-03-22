@@ -1,0 +1,346 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 75,
+      "text_snippet": "باب \"ذكر أبنية الأسماء الثنائية والمزيدة منها\"\nاعلم أن أول ما يلزم الطالب لهذا العلم، معرفة",
+      "description_arabic": "مقدمة في كيفية معرفة الحروف الأصلية والزائدة في الكلمات العربية باستخدام ميزان الفاء والعين واللام مع أمثلة توضيحية",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example",
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 76,
+      "end_word": 115,
+      "text_snippet": "فالثنائي: ما كان على حرفين من حروف السلامة، ولا تبال أن تتكرر فاؤه أو عينه، أو يلحق بالثلاثي",
+      "description_arabic": "تعريف الاسم الثنائي بأنه ما كان على حرفين من حروف السلامة وبيان أنه ينقسم إلى أقسام متعددة",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 116,
+      "end_word": 155,
+      "text_snippet": "ما يكون الحرفان أصله، نحو من وما. ومن الحروف نحو من وعن، ومنه ما يخفف من المضاعف نحو رب",
+      "description_arabic": "القسم الأول من الثنائي: ما يكون الحرفان أصله من الأسماء والحروف مع أمثلة كـ(من) و(ما) و(رب)",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على تعريف الثنائي في الوحدة السابقة"
+    },
+    {
+      "unit_index": 3,
+      "start_word": 156,
+      "end_word": 190,
+      "text_snippet": "ومن الفعل ما كان مضاعفا نحو رد ومد وعد وعدد وتعدد. وإذا دخلته الزوادئ، نحو استعد واستمد",
+      "description_arabic": "الثنائي من الأفعال المضاعفة مع أمثلة على دخول الزوائد عليها وتكرارها",
+      "primary_function": "example",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق تعريف الثنائي"
+    },
+    {
+      "unit_index": 4,
+      "start_word": 191,
+      "end_word": 260,
+      "text_snippet": "وفيما أظهر تضعيفه نحو العدد والمدد، ونحو شججي للعقعق وحطايط اسم رجل، ويلندد للبخيل",
+      "description_arabic": "أمثلة على الثنائي الذي أُظهر تضعيفه مع بيان معاني الألفاظ كشججي ويلندد وخصيصاء",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق الثنائي المكرر"
+    },
+    {
+      "unit_index": 5,
+      "start_word": 261,
+      "end_word": 310,
+      "text_snippet": "وكذلك ما جاء على (فعفل) نحو ربرب، وسبب، وعلعل وهو اسم للذكر إذا أنعظ.\nو(فعفل) نحو بلبل",
+      "description_arabic": "أوزان الثنائي المكرر على فَعْفَل وفُعْفُل وفَعْفِل مع أمثلة وبيان معانيها",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أبنية الثنائي"
+    },
+    {
+      "unit_index": 6,
+      "start_word": 311,
+      "end_word": 365,
+      "text_snippet": "و(فعفل) نحو نقنق اللظليم، وخمخم، وحمحم، بالخاء والحاء، لضرب من النبات، وجرجر للغول، وعلعل",
+      "description_arabic": "وزن فِعْفِل من الثنائي المكرر مع أمثلة متعددة كنقنق وخمخم وجرجر وضئضئ",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي المكرر"
+    },
+    {
+      "unit_index": 7,
+      "start_word": 366,
+      "end_word": 470,
+      "text_snippet": "وقد اختلف العلماء في وزن الثنائي المكرر من الاسم والفعل، فقال الخليل ومن تابعه، من البصريين",
+      "description_arabic": "خلاف العلماء في وزن الثنائي المكرر: قول الخليل (فعفل) وقول سيبويه (فعل بإبدال) وقول الفراء (فعفع) مع بيان حجة كل فريق",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 471,
+      "end_word": 500,
+      "text_snippet": "فأما (فعلل) من الرباعي، نحو جعفر و (فعلل) نحو قنفذ و (فعلل) نحو زئبر\nومن الفعل، نحو دحرج",
+      "description_arabic": "بيان أن وزن فَعْلَل من الرباعي كجعفر ودحرج لا خلاف فيه بين العلماء",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_ijma",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 501,
+      "end_word": 570,
+      "text_snippet": "ويجيء على (فعفال) نحو جرجار ورمرام وبسباس، وهي نبات. ودأداء وهي آخر الشهر، وغوغاء وضوضاء",
+      "description_arabic": "وزن فَعْفَال من الثنائي المكرر مع أمثلة كجرجار ورمرام وبسباس وغوغاء وفحفاح",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي المكرر"
+    },
+    {
+      "unit_index": 10,
+      "start_word": 571,
+      "end_word": 590,
+      "text_snippet": "وعلى (فعفال) نحو عرعار لعبة للصبيان.\nوعلى (فعفال) نحو زلزال، وقلقال، ودئداء لآخر",
+      "description_arabic": "وزنا فُعْفَال وفِعْفَال من الثنائي المكرر مع أمثلة كعرعار وزلزال وقلقال",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي"
+    },
+    {
+      "unit_index": 11,
+      "start_word": 591,
+      "end_word": 640,
+      "text_snippet": "ولا سبيل أن تكون الهمزة الواقعة بعد الألف منقلبة عن ياء، أو واو، فتكون كعلباء، لأنه كان",
+      "description_arabic": "قاعدة صرفية: الهمزة بعد الألف في فعفال المضاعف ليست منقلبة عن ياء أو واو لأن فعفال لا يأتي من غير المضاعف",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 641,
+      "end_word": 655,
+      "text_snippet": "ولم يأت للعرب اسم على (فعفال) من المضاعف.",
+      "description_arabic": "بيان عدم ورود وزن فُعْفُال من المضاعف في كلام العرب",
+      "primary_function": "rule_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 13,
+      "start_word": 656,
+      "end_word": 700,
+      "text_snippet": "وعلى (فعفولٍ) نحو قرقور للسفينة، وجرجور للعظام من الإبل.\nوعلى (فعفيلٍ) نحو همهيم من",
+      "description_arabic": "أوزان فَعْفُول وفَعْفِيل من الثنائي المكرر مع أمثلة كقرقور وهمهيم وجرجير",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي"
+    },
+    {
+      "unit_index": 14,
+      "start_word": 701,
+      "end_word": 740,
+      "text_snippet": "وعلى (فعفيل) نحو جرجير، لغة\nوعلى (فعفلانَ) نحو رحرحان، اسم موضع، ورقرقان للبراق",
+      "description_arabic": "أوزان فُعْفِيل وفَعْفَلان وفُعْفُلان من الثنائي المكرر مع أمثلة كجرجير ورحرحان وجلجلان",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي"
+    },
+    {
+      "unit_index": 15,
+      "start_word": 741,
+      "end_word": 800,
+      "text_snippet": "وعلى (فعفليلٍ) نحو قرقرير، لصوت القمري.\nوعلى (فيفيعلٍ) نحو زيزيرم، وهو حكاية صوت الجن",
+      "description_arabic": "أوزان فَعْفَلِيل وفِيفِيعَل من الثنائي المكرر مع أمثلة كقرقرير وزيزيرم وشاهد شعري",
+      "primary_function": "example",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي"
+    },
+    {
+      "unit_index": 16,
+      "start_word": 801,
+      "end_word": 870,
+      "text_snippet": "وعلى (فيفيعلٍ) نحو زيزيزم لغة.\nوعلى (فعيفل) نحو بغيبغ، وهو التيس السمين من الظباء",
+      "description_arabic": "أوزان فَيْفِيعَل وفُعَيْفِل وفَعْفَل وفُعْفُل من الثنائي المكرر مع أمثلة كبغيبغ وزلزل وخزخز وضلضل",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي"
+    },
+    {
+      "unit_index": 17,
+      "start_word": 871,
+      "end_word": 930,
+      "text_snippet": "وعلى (فعنفلٍ) نحو كعنكع للغول، وزونزى للقصير.\nوعلى (فعنفلٍ) نحو دحندح، اسم دويبة",
+      "description_arabic": "أوزان فُعَنْفُل وفَعَنْفَل وفَعَافِل من الثنائي المكرر مع أمثلة كالكعنكع والحباحب والقضاقض",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي"
+    },
+    {
+      "unit_index": 18,
+      "start_word": 931,
+      "end_word": 990,
+      "text_snippet": "وعلى (فعافل) نحو رعارع الناس، لسفلتهم، والجزاجز للمذاكير، ولا واحد لها من لفظها.\nوعلى",
+      "description_arabic": "أوزان فَعَافِل وفَعْفَلَى وفُعَيْفِعَان وأُفْعُفُل ويَفْعَفُل من الثنائي المكرر مع أمثلة متنوعة",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي"
+    },
+    {
+      "unit_index": 19,
+      "start_word": 991,
+      "end_word": 1050,
+      "text_snippet": "وعلى (فعفل) قال\nكأن مهواها على الكلكل\nوهو الصدر.\nوعلى (فعفل) نحو قمقم، للعدد الكبير",
+      "description_arabic": "أوزان فَعْفَل وفُعْفُل وفَهْعِيل وفَنْعِيل وفُعْفُل من الثنائي مع أمثلة كالكلكل والقمقم والصهميم والصنديد",
+      "primary_function": "example",
+      "secondary_functions": [
+        "narration",
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي"
+    },
+    {
+      "unit_index": 20,
+      "start_word": 1051,
+      "end_word": 1080,
+      "text_snippet": "وعلى (فعفل) نحو جمجم، للحمام الوحشي.\nوعلى (فعفل) نحو رورى، للمتحذلق، وهو مثل رونرى",
+      "description_arabic": "وزنا فُعْفُل وفَعْفَل من الثنائي المكرر مع أمثلة كجمجم ورورى",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي"
+    },
+    {
+      "unit_index": 21,
+      "start_word": 1081,
+      "end_word": 1100,
+      "text_snippet": "زيادة الهاء:\nيجيء الاسم على (فَعْفَلَة) نحو امرأة رأرأة العين، إذا كانت سريعة الحركة",
+      "description_arabic": "بداية باب زيادة الهاء في الثنائي المكرر مع وزن فَعْفَلَة وأمثلته",
+      "primary_function": "example",
+      "secondary_functions": [
+        "structural_transition",
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي المكرر"
+    },
+    {
+      "unit_index": 22,
+      "start_word": 1101,
+      "end_word": 1180,
+      "text_snippet": "وتجيء على (فَعْفِلَةٍ) نحو غرغرة الجيل، وهي أعلاه.\nوعلى (فِعفِلَةٍ) نحو كركرة الجمل",
+      "description_arabic": "أوزان الثنائي المكرر بزيادة الهاء: فَعْفِلَة وفِعْفِلَة وفَعَفِلَة وفَعْفَالَة وفَعْفُولَة وفُعَافِلَة مع أمثلة",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق زيادة الهاء في الثنائي"
+    },
+    {
+      "unit_index": 23,
+      "start_word": 1181,
+      "end_word": 1250,
+      "text_snippet": "وعلى فَعَافِلَةٍ نحو قدور زءازنة وسواسوة.\nوعلى (فَعَافُلَةٍ) نحو سواسوة.\nوعلى (فُعَيفِلَةٍ)",
+      "description_arabic": "أوزان إضافية بزيادة الهاء: فَعَافِلَة وفَعَافُلَة وفُعَيْفِلَة وفُعْفُلَانَة وفَعْفَلَانَة مع أمثلة",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق زيادة الهاء في الثنائي"
+    },
+    {
+      "unit_index": 24,
+      "start_word": 1251,
+      "end_word": 1320,
+      "text_snippet": "ومن المنسوب\nنحو صرصراني، لضرب من السمك، والصرصرانيات، للنجاتي والإبل العراب، وسمساني",
+      "description_arabic": "أوزان النسب من الثنائي المكرر مع أمثلة كصرصراني وسمساني وفعفعي وبهبهى وقلقلاني",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على سياق أوزان الثنائي المكرر"
+    },
+    {
+      "unit_index": 25,
+      "start_word": 1321,
+      "end_word": 1340,
+      "text_snippet": "فجميع ما ذكرته، تجوز فيه الأقوال الثلاثة، فيكون وزنه على ثلاثة أمثلة.",
+      "description_arabic": "خاتمة الباب: بيان أن جميع الأوزان المذكورة تجوز فيها الأقوال الثلاثة في وزن الثنائي المكرر",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "cross_reference"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يحيل إلى الأقوال الثلاثة المذكورة سابقاً (الخليل وسيبويه والفراء)"
+    }
+  ],
+  "total_units": 26,
+  "notes": "هذا الباب يتناول أبنية الأسماء الثنائية والمزيدة منها، ويبدأ بتعريف الأصلي والزائد ثم يعرّف الثنائي ويسرد أوزانه المتعددة مع الخلاف في وزن المكرر بين الخليل وسيبويه والفراء. معظم الوحدات التعليمية هي سرد أوزان مع أمثلة وتعتمد على السياق العام للباب."
+}

@@ -1,0 +1,170 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 6,
+      "text_snippet": "باب \"ذكر أبنية الأسماء الثنائية والمزيدة منها\"",
+      "description_arabic": "عنوان الباب: ذكر أبنية الأسماء الثنائية والمزيدة منها",
+      "primary_function": "structural_transition",
+      "secondary_functions": [],
+      "self_contained": false,
+      "self_containment_notes": "عنوان باب فقط، يحتاج إلى ما بعده لفهم المحتوى"
+    },
+    {
+      "unit_index": 1,
+      "start_word": 7,
+      "end_word": 145,
+      "text_snippet": "اعلم أن أول ما يلزم الطالب لهذا العلم، معرفة الزائد والأصلي، ومعرفة ذلك أن تعلم أن العرب جعلت الفاء والعين واللام مثالا تزن به",
+      "description_arabic": "تعريف الميزان الصرفي وكيفية التمييز بين الحروف الأصلية والزائدة بالأمثلة كحسن ومستحسن",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 146,
+      "end_word": 237,
+      "text_snippet": "فالثنائي: ما كان على حرفين من حروف السلامة، ولا تبال أن تتكرر فاؤه أو عينه، أو يلحق بالثلاثي",
+      "description_arabic": "تعريف الاسم الثنائي وأقسامه من الأسماء والحروف والأفعال مع أمثلة كمن وما ورد ومد",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 238,
+      "end_word": 380,
+      "text_snippet": "وإذا تكرر نحو بربر وجرجر.",
+      "description_arabic": "أمثلة الثنائي المكرر وأوزانه المختلفة كفعفل وفعفل وفعفل مع شواهد متعددة",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 381,
+      "end_word": 510,
+      "text_snippet": "وقد اختلف العلماء في وزن الثنائي المكرر من الاسم والفعل، فقال الخليل ومن تابعه، من البصريين والكوفيين، وزنه (فعفل)",
+      "description_arabic": "خلاف العلماء في وزن الثنائي المكرر: قول الخليل بفعفل وقول سيبويه بفعلل وقول الفراء بفعفع",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "refutation",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 511,
+      "end_word": 548,
+      "text_snippet": "فأما (فعلل) من الرباعي، نحو جعفر و (فعلل) نحو قنفذ و (فعلل) نحو زئبر",
+      "description_arabic": "بيان أن وزن الرباعي كجعفر ودحرج لا خلاف فيه بين العلماء",
+      "primary_function": "evidence_ijma",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 549,
+      "end_word": 648,
+      "text_snippet": "ويجيء على (فعفال) نحو جرجار ورمرام وبسباس، وهي نبات. ودأداء وهي آخر الشهر",
+      "description_arabic": "أوزان الثنائي المزيد بالألف: فعفال وفِعفال وفُعفال مع بيان عدم مجيء فَعفال من المضاعف",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 649,
+      "end_word": 751,
+      "text_snippet": "وعلى (فعفولٍ) نحو (13/أ) قرقور للسفينة، وجرجور للعظام من الإبل.",
+      "description_arabic": "أوزان الثنائي المزيد: فعفول وفعفيل وفعفلان وفعفليل وفيفيعل مع أمثلة لكل وزن",
+      "primary_function": "example",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 752,
+      "end_word": 820,
+      "text_snippet": "وعلى (فعيفل) نحو بغيبغ، وهو التيس السمين من الظباء.",
+      "description_arabic": "أوزان ثنائية مزيدة أخرى: فعيفل وفعفل وفعفل وفعنفل مع أمثلتها",
+      "primary_function": "example",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 821,
+      "end_word": 903,
+      "text_snippet": "وعلى (فعلفل) نحو حباحب، وقباقب، وجلاجل، (13/ب) أسماء لمواضع، وقضاقض للأسد.",
+      "description_arabic": "أوزان ثنائية مزيدة: فعلفل وفعافل وفعفلى وفعيفلان وأفعفل ويفعفل مع أمثلتها",
+      "primary_function": "example",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 904,
+      "end_word": 980,
+      "text_snippet": "وعلى (فعفل) قال كأن مهواها على الكلكل وهو الصدر.",
+      "description_arabic": "أوزان ثنائية متنوعة: فعفل وفعفل وفهعيل وفنعيل وفعفل مع شواهدها",
+      "primary_function": "example",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 981,
+      "end_word": 1125,
+      "text_snippet": "زيادة الهاء: يجيء الاسم على (فَعْفَلَة) نحو امرأة رأرأة العين، إذا كانت سريعة الحركة",
+      "description_arabic": "أوزان الثنائي المكرر المزيد بالهاء: فعفلة وفعفلة وفعفالة وفعفولة وفعيفلة وفعفلانة مع أمثلة",
+      "primary_function": "example",
+      "secondary_functions": [
+        "structural_transition",
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 1126,
+      "end_word": 1195,
+      "text_snippet": "ومن المنسوب نحو صرصراني، لضرب من السمك، والصرصرانيات، للنجاتي والإبل العراب",
+      "description_arabic": "أوزان الثنائي المكرر المنسوب مع بيان أن جميع ما ذُكر تجوز فيه الأقوال الثلاثة في الوزن",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": "يشير إلى الأقوال الثلاثة المذكورة سابقاً في الخلاف بين الخليل وسيبويه والفراء"
+    }
+  ],
+  "total_units": 13,
+  "notes": "النص يتناول باب أبنية الأسماء الثنائية والمزيدة منها، ويبدأ بتعريف الميزان الصرفي ثم الثنائي وأقسامه، ثم يعرض الخلاف في وزن المكرر، ثم يسرد الأوزان المختلفة مع أمثلتها. تم تجميع الأوزان المتقاربة في وحدات تعليمية متماسكة."
+}

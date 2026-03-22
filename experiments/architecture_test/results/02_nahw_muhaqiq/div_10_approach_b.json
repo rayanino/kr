@@ -1,0 +1,151 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 15,
+      "text_snippet": "‌‌باب \"حروف زائدة\" وهي عشرة، يجمعها قولك: اليوم تنساه. وسنذكر مواقعها في الأسم",
+      "description_arabic": "تعريف حروف الزيادة العشرة وجمعها في عبارة \"اليوم تنساه\" مع التمهيد لبيان مواقعها",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 16,
+      "end_word": 75,
+      "text_snippet": "فالهمزة: تزاد أولا (7/ب) في الاسم والفعل، نحو أفعل وأحمر، وثانية في شأمل، وثال",
+      "description_arabic": "بيان مواقع زيادة الهمزة في الأسماء والأفعال من الموقع الأول إلى الثامن مع الأمثلة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 76,
+      "end_word": 140,
+      "text_snippet": "واللام: تلحق في الأسماء والأفعال، إلا أنها تلحق الاسم ثانية، في قلفع وهو ما تشق",
+      "description_arabic": "بيان مواقع زيادة اللام في الأسماء والأفعال مع ذكر لام التعريف والقسم والأمثلة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 141,
+      "end_word": 245,
+      "text_snippet": "والياء: تلحق أولا في الاسم والفعل، نحو يرمع للحجر الرخو، ويعملة للناقة السريغة،",
+      "description_arabic": "بيان مواقع زيادة الياء في الأسماء والأفعال من الأول إلى السابع مع التصغير والنسب",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 246,
+      "end_word": 305,
+      "text_snippet": "والواو: تلحق فى الاسم والفعل، إلا أنها لا تلحق أولا إلا في القسم البتة، وتلحق",
+      "description_arabic": "بيان مواقع زيادة الواو في الأسماء والأفعال مع التنبيه على عدم لحوقها أولاً إلا في القسم",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 306,
+      "end_word": 345,
+      "text_snippet": "والميم: تلحق أولا في منسج ومسلم ومدحرج، وثانية فى دملص، وثالثة فى دلمص، وهو ال",
+      "description_arabic": "بيان مواقع زيادة الميم في الأسماء والأفعال من الأول إلى الخامس مع الأمثلة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 346,
+      "end_word": 430,
+      "text_snippet": "والتاء: تزاد (8/ب) أولا في الأسماء والأفعال، نحو تنضب لضرب من الشجر، وتتفل لول",
+      "description_arabic": "بيان مواقع زيادة التاء في الأسماء والأفعال من الأول إلى السابع مع تاء التأنيث وتاء الجمع",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 431,
+      "end_word": 520,
+      "text_snippet": "والنون: تلحق أولا في الاسم والفعل، نحو نرجس، وثانية في جندب، وعنصر وثالثة في أ",
+      "description_arabic": "بيان مواقع زيادة النون في الأسماء والأفعال مع نون التثنية والجمع والتنوين",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 521,
+      "end_word": 585,
+      "text_snippet": "والسين: تلحق الأسماء والأفعال، إلا أنها تلحق الاسم ثالثة، في عبسور وهي الناقة ا",
+      "description_arabic": "بيان مواقع زيادة السين في الأسماء والأفعال مع ذكر باب استفعل وأمثلته",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 586,
+      "end_word": 635,
+      "text_snippet": "والألف: لا تلحق أولا لسكونها، وتلحق ثانية في الاسم والفعل، نحو ضارب وقاتل، وثا",
+      "description_arabic": "بيان مواقع زيادة الألف في الأسماء والأفعال مع التعليل بعدم لحوقها أولاً لسكونها",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 636,
+      "end_word": 730,
+      "text_snippet": "والهاء: تزاد أولا في هبلع، وثانية في صهتم، للتام. وزهلق (9/ب) للذي ينزل قبل أن",
+      "description_arabic": "بيان مواقع زيادة الهاء في الأسماء والأفعال مع هاء التأنيث وهاء بيان الحركة والندبة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 11,
+  "notes": "الباب يتناول حروف الزيادة العشرة المجموعة في \"اليوم تنساه\"، وكل وحدة تعليمية تختص بحرف واحد مع بيان مواقع زيادته في الأسماء والأفعال والأمثلة على كل موقع."
+}

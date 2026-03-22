@@ -1,0 +1,183 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 5,
+      "text_snippet": "فصل فِي أَحْكَام الْمُفْتِينَ فِيهِ مسَائِل",
+      "description_arabic": "عنوان الفصل المتعلق بأحكام المفتين وبيان أنه يتضمن مسائل متعددة",
+      "primary_function": "structural_transition",
+      "secondary_functions": [],
+      "self_contained": false,
+      "self_containment_notes": "مجرد عنوان تمهيدي للمسائل التالية"
+    },
+    {
+      "unit_index": 1,
+      "start_word": 6,
+      "end_word": 67,
+      "text_snippet": "إِحْدَاهَا الْإِفْتَاء فرض كِفَايَة فَإِذا استفتي وَلَيْسَ فِي النَّاحِيَة غَيره تعيَّن عَلَيْهِ",
+      "description_arabic": "بيان حكم الإفتاء أنه فرض كفاية ومتى يتعين على المفتي الجواب والخلاف في ذلك مع القياس على الشهادة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 68,
+      "end_word": 168,
+      "text_snippet": "الثَّانِيَة إِذا أفتى بِشَيْء ثمَّ رَجَعَ عَنهُ فَإِن علم المستفتي بِرُجُوعِهِ وَلم يكن عمل بِالْأولِ",
+      "description_arabic": "حكم رجوع المفتي عن فتواه وأثره على المستفتي قبل العمل وبعده والتفصيل بين مخالفة الدليل القاطع ومحل الاجتهاد",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "cross_reference",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 169,
+      "end_word": 231,
+      "text_snippet": "قَالَ أَبُو عَمْرو وَإِذا كَانَ يُفتي على مَذْهَب إمامٍ فَرجع لكَونه بَان لَهُ قطعا مُخَالفَة نَص",
+      "description_arabic": "حكم رجوع المفتي المنتسب لمذهب إمام عن فتواه وحال المستفتي إذا لم يعلم بالرجوع ووجوب إعلامه",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 232,
+      "end_word": 305,
+      "text_snippet": "وَإِذا عمل بفتواه فِي إِتْلَاف فَبَان خطأه وَأَنهخَالف الْقَاطِع فَعَن الْأُسْتَاذ أبي إِسْحَاق",
+      "description_arabic": "مسألة ضمان المفتي إذا عمل المستفتي بفتواه في إتلاف فبان خطؤه ومناقشة قول الأسفراييني وتخريج الضمان على قولي الغرور",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "refutation",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 306,
+      "end_word": 437,
+      "text_snippet": "الثَّالِثَة يحرم التساهل فِي الْفَتْوَى وَمن عرف بِهِ حرم استفتاؤه",
+      "description_arabic": "تحريم التساهل في الفتوى وبيان صوره كالإسراع وتتبع الحيل المحرمة واستثناء الحيل المشروعة لتخليص من ورطة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "condition_exception",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 438,
+      "end_word": 500,
+      "text_snippet": "الرَّابِعَة يَنْبَغِي أَن لَا يُفْتِي فِي حَال تغيُّر خُلُقه وتشغل قلبه وتمنعه التَّأَمُّل كغضب",
+      "description_arabic": "بيان الأحوال التي ينبغي للمفتي أن لا يفتي فيها كالغضب والجوع والمرض وحكم الفتوى إن أفتى مع ذلك",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 501,
+      "end_word": 693,
+      "text_snippet": "الْخَامِسَة الْمُخْتَار للمتصدِّي للْفَتْوَى أَن يتبرعَ بذلك وَيجوز أَن يَأْخُذ عَلَيْهِ رزقا من",
+      "description_arabic": "حكم أخذ المفتي الأجرة والرزق من بيت المال وقبول الهدية وحيلة أبي حاتم القزويني ووجوب فرض الإمام للمفتي ما يغنيه",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "condition_exception",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 694,
+      "end_word": 724,
+      "text_snippet": "السَّادِسَة لَا يجوز أَن يُفْتِي فِي الْأَيْمَان وَالْإِقْرَار وَنَحْوهمَا مِمَّا يتَعَلَّق بالألف",
+      "description_arabic": "اشتراط معرفة المفتي بعرف أهل بلد اللافظ وألفاظهم في مسائل الأيمان والإقرار ونحوها",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 725,
+      "end_word": 920,
+      "text_snippet": "السَّابِعَة لَا يجوز لمن كَانَت فتواه نقلا لمَذْهَب إِمَام إِذا اعْتمد الْكتب أَن يعْتَمد إِلَّا عل",
+      "description_arabic": "شروط اعتماد الكتب في الفتوى النقلية وحكم النسخ غير الموثوقة وكيفية التعامل معها والتفصيل بين الأهل للتخريج وغيره",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 921,
+      "end_word": 1067,
+      "text_snippet": "قلتُ لَا يجوز لمفتٍ على مَذْهَب الشَّافِعِي إِذا اعْتمد النَّقْل أَن يَكْتَفِي بمصنَّفٍ ومصنفين وَ",
+      "description_arabic": "رأي النووي في عدم جواز الاكتفاء بمصنف أو مصنفين في نقل مذهب الشافعي لكثرة الاختلاف بين المصنفين وبيان أن الجزم قد يخالف الراجح",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "editorial_note"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 1068,
+      "end_word": 1222,
+      "text_snippet": "الثَّامِنَة إِذا أفتى فِي حَادِثَة ثمَّ حدثت مثلهَافَإِن ذكر الْفَتْوَى الأولى ودليلها بِالنِّسْبَة",
+      "description_arabic": "حكم تكرار الفتوى في حادثة مماثلة والخلاف في وجوب تجديد النظر وقياسه على القاضي والتيمم والقبلة واستثناء المسائل كثيرة الوقوع",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "cross_reference",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 1223,
+      "end_word": 1232,
+      "text_snippet": "التَّاسِعَة يَنْبَغِي أَن لايقتصر فِي فتواه على قَوْله",
+      "description_arabic": "بداية المسألة التاسعة في أنه ينبغي للمفتي عدم الاقتصار في فتواه على مجرد القول",
+      "primary_function": "rule_statement",
+      "secondary_functions": [],
+      "self_contained": false,
+      "self_containment_notes": "النص مبتور ولم يكتمل بيان المسألة التاسعة"
+    }
+  ],
+  "total_units": 13,
+  "notes": "النص يتناول فصلاً كاملاً في أحكام المفتين يحتوي على تسع مسائل، المسألة التاسعة مبتورة. تم تجميع كل مسألة مع أدلتها وتفصيلاتها في وحدة تعليمية واحدة، مع فصل المسألة الثانية إلى وحدتين لاختلاف محتواها بين حكم الرجوع العام وحكم الرجوع للمنتسب لمذهب."
+}

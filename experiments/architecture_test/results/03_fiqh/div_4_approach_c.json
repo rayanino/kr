@@ -1,0 +1,93 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 37,
+      "text_snippet": "المطلب الأول: تعريف الاضطباع والرمل. قبل الشروع في بيان أدلة مشروعية الاضطباع والرمل",
+      "description_arabic": "مقدمة تمهيدية للمطلب الأول توضح أهمية البدء بتعريف الاضطباع والرمل قبل بيان أحكامهما",
+      "primary_function": "structural_transition",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 31,
+      "end_word": 215,
+      "text_snippet": "* الفرع الأول: تعريف الاضطباع ⌜1⌝ . الاضطباع، افتعال من الضَّبْع بإسكان الباء، وهو",
+      "description_arabic": "تعريف الاضطباع لغةً ببيان اشتقاقه من الضَّبْع وذكر معانيه المتعددة ونقل أقوال أهل اللغة كابن فارس والجوهري مع الشواهد الشعرية",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 216,
+      "end_word": 274,
+      "text_snippet": "واضطبع الشيء: أدخله تحت ضَبْعَيه. ويُقال للاضطباع أيضاً: التَّأبُّط، والتَّوشُّح",
+      "description_arabic": "بيان المعنى اللغوي لفعل اضطبع وأسمائه الأخرى كالتأبط والتوشح واليابطة مع بيان التصريف الصرفي لأصل الكلمة",
+      "primary_function": "definition",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 275,
+      "end_word": 325,
+      "text_snippet": "والاضطباع في الصلاة: اشتمال الصماء. وقد جاء ذلك مفسراً في حديث أبي سعيد (: ((نهى",
+      "description_arabic": "بيان معنى الاضطباع في الصلاة وهو اشتمال الصماء مع الاستدلال بحديث أبي سعيد الخدري في النهي عن لبستين",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 326,
+      "end_word": 404,
+      "text_snippet": "والاضطباع في الطواف: أن يجعل وسط ردائه من تحت إبطه الأيمن، ويُغطي به عاتقه الأيس",
+      "description_arabic": "تعريف الاضطباع في الطواف اصطلاحاً بأنه جعل وسط الرداء تحت الإبط الأيمن وتغطية العاتق الأيسر مع نقل قول الشافعي وإرشاد الساري",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 405,
+      "end_word": 674,
+      "text_snippet": "* الفرع الثاني: تعريف الرَّمَل ⌜1⌝ . الرَّمَل، بفتح الراء والميم، سُرْعة المشي.",
+      "description_arabic": "تعريف الرَّمَل لغةً ببيان اشتقاقه ومعانيه المتعددة كسرعة المشي ونسج الحصير والمطر الضعيف والأرملة مع نقل أقوال أهل اللغة والشواهد الشعرية",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 675,
+      "end_word": 775,
+      "text_snippet": "والرَّمَل في الطواف: الإسْرَاع في المشي مع تقارب الْخُطى (3) ، من غيروثْبٍ ولا",
+      "description_arabic": "تعريف الرَّمَل في الطواف اصطلاحاً بأنه الإسراع في المشي مع تقارب الخطى وهز المنكبين مع نقل أقوال ابن عبد البر وصديق خان",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 7,
+  "notes": "النص بأكمله يتناول المطلب الأول وهو تعريف الاضطباع والرمل لغةً واصطلاحاً، وقد قُسِّم إلى وحدات تعليمية بحسب الموضوع: مقدمة، تعريف الاضطباع لغةً، ألفاظه الأخرى، معناه في الصلاة، معناه في الطواف، تعريف الرمل لغةً، ومعناه في الطواف."
+}

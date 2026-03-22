@@ -1,0 +1,125 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 38,
+      "text_snippet": "الفرع الرابع: كيف يصنع من زُحِم في الطواف؟ من لم يتمكن من الرمل بسبب الزحام. فهل يُشرع",
+      "description_arabic": "تقديم مسألة حكم من زُحِم في الطواف ولم يتمكن من الرمل وبيان الأسئلة المتفرعة عنها",
+      "primary_function": "structural_transition",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 39,
+      "end_word": 112,
+      "text_snippet": "اتفق العلماء رحمهم الله على أن القرب من البيت مع الرمل أولى، ليجمع بين الرمل والقرب",
+      "description_arabic": "بيان اتفاق العلماء على أن القرب من البيت مع الرمل أولى مع شرط عدم الإيذاء ونقل قول النووي في ذلك",
+      "primary_function": "evidence_ijma",
+      "secondary_functions": [
+        "condition_exception",
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 113,
+      "end_word": 162,
+      "text_snippet": "واتفقوا أيضاً: على أن البُعد من البيت مع الرمل، أولى من القرب منه مع عدمه. قال النوو",
+      "description_arabic": "بيان اتفاق العلماء على تقديم البُعد مع الرمل على القرب بدونه وتعليل النووي بأن فضيلة الرمل هيئة في نفس العبادة",
+      "primary_function": "evidence_ijma",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 163,
+      "end_word": 355,
+      "text_snippet": "قال الشافعي: \" فإذا كان زحام لا يمكن معه أن يَخُبَّ، فكان إن وقف، وجد فرجة، وقف. ف",
+      "description_arabic": "نقل أقوال الشافعي وابن تيمية وغيرهم في تفصيل أحوال المزحوم بين الوقوف والتباعد والقاعدة في تقديم فضيلة نفس العبادة على مكانها",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "rule_statement",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 356,
+      "end_word": 413,
+      "text_snippet": "وأشار بعض الحنابلة إلى أنه إن كان يتمكن من الرمل، أو الدنو من البيت بتأخير الطواف،",
+      "description_arabic": "بيان رأي بعض الحنابلة في تأخير الطواف للتمكن من الرمل وحكم من لا يتمكن من الرمل مع البُعد أو وجود نساء",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 414,
+      "end_word": 502,
+      "text_snippet": "وهل يسقط عنه الرمل في مثل هذه الحال التي لم يتمكن من الرمل فيها على الصفة المشروعة",
+      "description_arabic": "عرض القول الأول في حكم من لم يتمكن من الرمل: ترك الرمل والمشي على عادته وهو مذهب الحنفية",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 503,
+      "end_word": 535,
+      "text_snippet": "القول الثاني: إنه يرمل حسب قدرته وطاقته، فإن تعذّر ذلك، مشى مشياً معتاداً على سجيت",
+      "description_arabic": "عرض القول الثاني: الرمل حسب القدرة والطاقة وهو مذهب المالكية والحنابلة",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 536,
+      "end_word": 668,
+      "text_snippet": "القول الثالث: إنه إن لم يتمكن من الرمل، تحرك في مشيه، ليُري من نفسه أنه لو أمكنه ا",
+      "description_arabic": "عرض القول الثالث للشافعية بالتحرك في المشي عند العجز عن الرمل مع نقل تفصيل الماوردي لأحوال المزحوم",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 669,
+      "end_word": 924,
+      "text_snippet": "الرأي المختار: بتأمل هذه الأقوال والنظر فيها، نجد أن أصحاب القول الأول، رأوا أن الرم",
+      "description_arabic": "ترجيح المؤلف بين الأقوال الثلاثة مع تضعيف القول بالتحرك والاستدلال بالقرآن والحديث ونص الشافعي المخالف لمذهب أصحابه",
+      "primary_function": "refutation",
+      "secondary_functions": [
+        "evidence_quran",
+        "evidence_hadith",
+        "evidence_qiyas",
+        "evidence_rational",
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 9,
+  "notes": "The main text is a complete فرع (sub-section) dealing with what a pilgrim should do when crowded during ṭawāf and unable to perform ramal. It begins with a structural heading and ends with the author's chosen opinion. The text is self-contained at both ends."
+}

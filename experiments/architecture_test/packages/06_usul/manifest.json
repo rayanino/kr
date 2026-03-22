@@ -1,0 +1,142 @@
+{
+  "schema_version": "normalized_package_v2.0",
+  "source_id": "src_test0001",
+  "normalizer_id": "kr.normalization.shamela_v2",
+  "normalization_utc": "2026-03-22T10:42:05.259674+00:00",
+  "division_tree": [
+    {
+      "div_id": "div_src_test0001_3_000",
+      "division_type": null,
+      "heading_text": "مُقَدّمَة فِي أهمية الْإِفْتَاء وَعظم خطره وفضله",
+      "heading_level": 3,
+      "start_unit_index": 0,
+      "end_unit_index": 3,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_001",
+      "division_type": "فصل",
+      "heading_text": "فصل فِي معرفَة من يصلح للْفَتْوَى",
+      "heading_level": 3,
+      "start_unit_index": 4,
+      "end_unit_index": 4,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_002",
+      "division_type": "فصل",
+      "heading_text": "فصل فِي وجوب ورع الْمُفْتِي وديانته",
+      "heading_level": 3,
+      "start_unit_index": 5,
+      "end_unit_index": 5,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_003",
+      "division_type": "فصل",
+      "heading_text": "فصل فِي شُرُوط الْمُفْتِي",
+      "heading_level": 3,
+      "start_unit_index": 6,
+      "end_unit_index": 8,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_004",
+      "division_type": "فصل",
+      "heading_text": "فصل فِي أَقسَام الْمُفْتِينَ",
+      "heading_level": 3,
+      "start_unit_index": 9,
+      "end_unit_index": 17,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_005",
+      "division_type": "فصل",
+      "heading_text": "فصل فِي بعض مسَائِل أَهْلِيَّة الْمُفْتِي",
+      "heading_level": 3,
+      "start_unit_index": 18,
+      "end_unit_index": 21,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_006",
+      "division_type": "فصل",
+      "heading_text": "فصل فِي أَحْكَام الْمُفْتِينَ",
+      "heading_level": 3,
+      "start_unit_index": 22,
+      "end_unit_index": 30,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_007",
+      "division_type": "فصل",
+      "heading_text": "فصل فِي آدَاب الْفَتْوَى",
+      "heading_level": 3,
+      "start_unit_index": 31,
+      "end_unit_index": 57,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_008",
+      "division_type": "فصل",
+      "heading_text": "فصل فِي آدَاب المستفتي وَصفته وَأَحْكَامه",
+      "heading_level": 3,
+      "start_unit_index": 58,
+      "end_unit_index": 73,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    }
+  ],
+  "layer_map": [
+    {
+      "layer_type": "matn",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 1.0,
+      "markers": []
+    }
+  ],
+  "structural_format": "prose",
+  "structural_format_proposed": null,
+  "text_fidelity_summary": {
+    "mean_ocr_confidence": null,
+    "character_level_fidelity_estimate": null,
+    "pages_with_warnings": 74,
+    "total_pages": 74
+  },
+  "verse_detection": false,
+  "verse_numbering_scheme": null,
+  "total_content_units": 74,
+  "quality_report": {
+    "division_count_by_tier": {
+      "confirmed": 9
+    },
+    "layer_transition_count": 0,
+    "pages_with_warnings": 74,
+    "high_fidelity_pct": 1.0,
+    "unclassified_footnote_count": 0,
+    "overall_confidence": "high"
+  },
+  "normalization_warnings": [],
+  "content_census": null,
+  "tahqiq_topology": null,
+  "layer_fingerprints": null,
+  "discourse_flow_summary": null
+}

@@ -1,0 +1,160 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 35,
+      "text_snippet": "‌‌الايجاز\n‌‌تعريفه:\nالايجاز- لغة-: التقصير، تقول: أوجزت الكلام، أى: قصرته وكلام موجز من أوجز.",
+      "description_arabic": "تعريف الإيجاز لغةً بأنه التقصير مع بيان الاستعمال اللغوي",
+      "primary_function": "definition",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 35,
+      "end_word": 55,
+      "text_snippet": "والايجاز- اصطلاحا- أن يكون اللفظ أقل من المعنى، مع الوفاء به وإلّا كان إخلالا يفسد الكلام.",
+      "description_arabic": "تعريف الإيجاز اصطلاحاً بأنه كون اللفظ أقل من المعنى مع الوفاء بالمراد",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 55,
+      "end_word": 200,
+      "text_snippet": "وهذا الأسلوب من أهم خصائص اللغة العربية فى القديم، فقد كان العرب لا يميلون إلى الاطالة",
+      "description_arabic": "بيان أن الإيجاز من أهم خصائص العربية وأن العرب كانوا يعدونه البلاغة مع شواهد من أقوال أكثم بن صيفي وجعفر بن يحيى وغيرهم",
+      "primary_function": "narration",
+      "secondary_functions": [
+        "evidence_rational",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 200,
+      "end_word": 290,
+      "text_snippet": "وفى هذه الأبيات خلاصة لأغراض الإيجاز، فبه يصل المتكلم إلى هدفه من غير تمهيد أو زيادة",
+      "description_arabic": "بيان أغراض الإيجاز وفوائده من سهولة الحفظ والرواية وسرعة التأثير في القلب",
+      "primary_function": "evidence_rational",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": "يشير إلى أبيات سابقة لكن المعنى العام مفهوم"
+    },
+    {
+      "unit_index": 4,
+      "start_word": 290,
+      "end_word": 390,
+      "text_snippet": "وكان لهذه الصفة التى أولع بها العرب أن اهتم البلاغيون والنقاد بأسلوب الايجاز، ووضعوا له",
+      "description_arabic": "بيان أن الإيجاز ليس محموداً في كل موضع بل لكل مقام مقال مع نقل قول ابن قتيبة في ذلك",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 390,
+      "end_word": 460,
+      "text_snippet": "وقال ابن جنى إنّ الإطالة والإيجاز هما فى كل كلام مقيد مستقل بنفسه ولو بلغ الإيجاز غاي",
+      "description_arabic": "نقل رأي ابن جني في أن الإيجاز لا بد أن يعطي تمام الفائدة مع تركيب الجملة وأن العرب أميل إليه",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 460,
+      "end_word": 540,
+      "text_snippet": "ومعنى ذلك أنّ هذا الأسلوب ضرورى كغيره إذا أراد المتكلم أن يكون مطابقا لمقتضى الحال ول",
+      "description_arabic": "نقل قول أبي هلال العسكري في أن الإيجاز والإطناب كلاهما مطلوب في موضعه وأن استعمال أحدهما في موضع الآخر خطأ",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 540,
+      "end_word": 575,
+      "text_snippet": "وتحدث ابن رشيق عن الإيجاز وذكر تعريف الرمانى وهو: «الإيجاز هو العبارة عن الغرض بأقل",
+      "description_arabic": "نقل تعريف الرماني للإيجاز بأنه العبارة عن الغرض بأقل ما يمكن من الحروف عبر ابن رشيق",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 575,
+      "end_word": 660,
+      "text_snippet": "وعقد ابن سنان له بحثا وسمّاه «الإشارة» وقال عنه: «هو أن يكون المعنى زائدا على اللفظ،",
+      "description_arabic": "نقل رأي ابن سنان في الإيجاز وتسميته بالإشارة وبيان أن المختار أن يكون اللفظ القليل دالاً على الكثير دلالة واضحة",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "definition",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 660,
+      "end_word": 685,
+      "text_snippet": "وعرّف الرازى الإيجاز بقوله: «وحده أنّه العبارة عن الغرض بأقل ما يمكن من الحروف من غير",
+      "description_arabic": "تعريف الرازي للإيجاز بأنه العبارة عن الغرض بأقل الحروف من غير إخلال",
+      "primary_function": "definition",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 685,
+      "end_word": 740,
+      "text_snippet": "وقال السكاكى إنّ الإيجاز والإطناب- كما سبق- من الأمور النسبية كالأبوة والبنوة وهى التى",
+      "description_arabic": "نقل رأي السكاكي في أن الإيجاز والإطناب من الأمور النسبية التي يتوقف تعقلها على القياس إلى كلام آخر",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 740,
+      "end_word": 810,
+      "text_snippet": "وتحدث عنه ابن الأثير وعقد له فصلا فى «المثل السائر» وفصلا فى «الجامع الكبير» وقال فى",
+      "description_arabic": "نقل تعريف ابن الأثير للإيجاز بأنه حذف زيادات الألفاظ ودلالة اللفظ على المعنى مع بيان شرف هذا الأسلوب",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "definition",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 12,
+  "notes": "هذا القسم يتناول تعريف الإيجاز لغةً واصطلاحاً ثم ينقل آراء العلماء المختلفين فيه من ابن قتيبة وابن جني والعسكري والرماني وابن سنان والرازي والسكاكي وابن الأثير، مع بيان أهميته في العربية وشروط استعماله"
+}

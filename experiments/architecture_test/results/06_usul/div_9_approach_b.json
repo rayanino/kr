@@ -1,0 +1,186 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 9,
+      "text_snippet": "مسَائِل الْأَحْكَام الشَّرْعِيَّة وَقَالَ شُرَيْح أَنا أَقْْضِي وَلَا أُفْتِي",
+      "description_arabic": "مقدمة في مسائل الأحكام الشرعية مع أثر شريح في التفريق بين القضاء والفتوى",
+      "primary_function": "structural_transition",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "مقدمة تمهيدية تحتاج إلى ما بعدها لفهم السياق"
+    },
+    {
+      "unit_index": 1,
+      "start_word": 10,
+      "end_word": 138,
+      "text_snippet": "فصل فِي أَقسَام الْمُفْتِينَ قَالَ أَبُو عَمْرو ابْن الصّلاح الْمفْتُون قِسْمَانِ مُسْتَقل وَغَيره فالمستقل شرطُه",
+      "description_arabic": "تعريف المفتي المستقل وشروطه من معرفة أدلة الأحكام والعلوم المطلوبة وبيان أنه يستقل بالأدلة بغير تقليد",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "rule_statement",
+        "evidence_rational",
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 139,
+      "end_word": 230,
+      "text_snippet": "قَالَ أَبُو عَمْرو وَمَا شرطناه من حفظه لمسائل الْفِقْه لم يشْتَرط فِي كثير من الْكتب",
+      "description_arabic": "الخلاف في اشتراط حفظ مسائل الفقه للمفتي المستقل مع بيان أقوال الأستاذ أبي إسحاق وأبي منصور والراجح في ذلك",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 231,
+      "end_word": 256,
+      "text_snippet": "وَهل يشْتَرط أَن يعرف من الْحساب مَا يصحح بِهِ الْمسَائِل الحسابية الْفِقْهِيَّة",
+      "description_arabic": "مسألة اشتراط معرفة الحساب للمفتي والخلاف فيه مع ترجيح الاشتراط",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 257,
+      "end_word": 310,
+      "text_snippet": "ثمَّ إِنَّمَا يشْتَرط اجْتِمَاع الْعُلُوم الْمَذْكُورَة فِي مُفتٍ مُطلق فِي جَمِيع أَبْوَاب",
+      "description_arabic": "حكم تجزؤ الاجتهاد وجواز الإفتاء في باب خاص دون اشتراط جميع العلوم مع بيان الخلاف والراجح",
+      "primary_function": "condition_exception",
+      "secondary_functions": [
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 311,
+      "end_word": 363,
+      "text_snippet": "الْقسم الثَّانِي الْمُفْتِي الَّذِي لَيْسَ بمستقل وَمندهر طَوِيل عُدِم الْمُفْتِي المستقل",
+      "description_arabic": "بيان القسم الثاني وهو المفتي غير المستقل المنتسب إلى مذهب إمام وتقسيم أحواله إلى أربعة مع بيان الحالة الأولى",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 364,
+      "end_word": 558,
+      "text_snippet": "وَادّعى الْأُسْتَاذ أَبُو إِسْحَاق الأسفراييني هَذِه الصّفة لِأَصْحَابِنَا فحَكَى عَن أَصْحَاب",
+      "description_arabic": "مناقشة دعوى الأسفراييني انتفاء التقليد عن أصحاب الشافعي ورد ابن الصلاح عليها وبيان حكم فتوى هذا المفتي",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "refutation",
+        "rule_statement",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 559,
+      "end_word": 700,
+      "text_snippet": "الْحَالة الثَّانِيَة أَن يكون مُجْتَهدا مقيَّداً فِي مَذْهَب إِمَامه مُسْتقِلّا بتقرير",
+      "description_arabic": "تعريف المجتهد المقيد في مذهب إمامه وشروطه وصفته وبيان أن العامل بفتواه مقلد لإمامه لا له وحكم تأدي فرض الكفاية به",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "condition_exception",
+        "rule_statement",
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 701,
+      "end_word": 767,
+      "text_snippet": "ثمَّ ظَاهر كَلَام الْأَصْحَاب أنَّ من هَذَا حَاله لَا يتأدَّى بِهِ فرض الْكِفَايَة",
+      "description_arabic": "الخلاف في تأدي فرض الكفاية بالمجتهد المقيد مع رأي ابن الصلاح ودليله وبيان إمكان استقلاله في مسألة خاصة",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "condition_exception"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يحتاج إلى معرفة تعريف المجتهد المقيد من الوحدة السابقة"
+    },
+    {
+      "unit_index": 9,
+      "start_word": 768,
+      "end_word": 848,
+      "text_snippet": "وَله أَن يُفْتِي فِيمَا لَا نصَّ فِيهِ لإمامه بِمَا يُخرجهُ على أُصُوله هَذَا هُوَ",
+      "description_arabic": "حكم إفتاء المجتهد المقيد بالتخريج على أصول إمامه وبيان أن المستفتي مقلد للإمام لا للمخرِّج والخلاف في نسبة المخرَّج للإمام",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 849,
+      "end_word": 944,
+      "text_snippet": "ثمَّ تَارَة يخرِّج من نَص معِين لإمامه وَتارَة لَا يجده فيخرّج على أُصُوله بِأَن يجد",
+      "description_arabic": "بيان أنواع التخريج وشروطه وتعريف القول المخرَّج وشرط عدم وجود الفرق بين النصين مع بيان الخلاف في إمكان الفرق",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "definition",
+        "condition_exception",
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 945,
+      "end_word": 1055,
+      "text_snippet": "الْحَالة الثَّالِثَة أَن لَا يبلغ رُتْبَة أَصْحَاب الْوُجُوه لكنه فَقِيه النَّفس حَافظ",
+      "description_arabic": "تعريف الحالة الثالثة للمفتي المنتسب وهو الفقيه الحافظ للمذهب القاصر عن رتبة أصحاب الوجوه وبيان صفة المتأخرين وفتاويهم",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 1056,
+      "end_word": 1145,
+      "text_snippet": "الْحَالة الرَّابِعَة أَن يقوم بِحِفْظ الْمَذْهَب وَنَقله وفهمه فِي الواضحات والمشكلات",
+      "description_arabic": "تعريف الحالة الرابعة وهو حافظ المذهب الضعيف في التقرير وبيان ما يجوز له الإفتاء به وشروط إلحاق غير المنقول بالمنقول",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "rule_statement",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 13,
+  "notes": "النص يتناول فصلاً كاملاً في أقسام المفتين من كتاب أصولي، يبدأ بتقسيم المفتين إلى مستقل وغير مستقل، ثم يفصل شروط كل قسم وأحوال المفتي المنتسب الأربعة. تم تجميع الأجزاء المتعلقة بكل حالة في وحدة واحدة مع مراعاة الترابط المنطقي."
+}

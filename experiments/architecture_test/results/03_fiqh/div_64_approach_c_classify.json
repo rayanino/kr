@@ -1,0 +1,253 @@
+{
+  "segments": [
+    {
+      "segment_index": 1,
+      "start_word": 0,
+      "end_word": 7,
+      "text_snippet": "الفرع الرابع: كيف يصنع من زُحِم في الطواف؟",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 2,
+      "start_word": 8,
+      "end_word": 38,
+      "text_snippet": "من لم يتمكن من الرمل بسبب الزحام. فهل يُشرع له الوق",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 3,
+      "start_word": 39,
+      "end_word": 58,
+      "text_snippet": "اتفق العلماء رحمهم الله على أن القرب من البيت مع الرم",
+      "scholarly_function": "evidence_ijma",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 4,
+      "start_word": 59,
+      "end_word": 82,
+      "text_snippet": "حتى ولو كان عند البيت زحام يسير يتمكن من الوقوف أثنا",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 5,
+      "start_word": 83,
+      "end_word": 112,
+      "text_snippet": "قال النووي: \" القُرب من البيت مستحب للطائف، ولو تعذر",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 6,
+      "start_word": 113,
+      "end_word": 130,
+      "text_snippet": "واتفقوا أيضاً: على أن البُعد من البيت مع الرمل، أولى",
+      "scholarly_function": "evidence_ijma",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 7,
+      "start_word": 131,
+      "end_word": 162,
+      "text_snippet": "قال النووي: \" لأن فضيلة الرمل هيئة للعبادة في نفسها،",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 8,
+      "start_word": 163,
+      "end_word": 226,
+      "text_snippet": "قال الشافعي: \" فإذا كان زحام لا يمكن معه أن يَخُبَّ،",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 9,
+      "start_word": 227,
+      "end_word": 243,
+      "text_snippet": "وقالوا: المحافظة على فضيلة تتعلق بنفس العبادة، أولى",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 10,
+      "start_word": 244,
+      "end_word": 355,
+      "text_snippet": "قال شيخ الإسلام ابن تيمية: \" قال أصحابنا يُستحب للطائ",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 11,
+      "start_word": 356,
+      "end_word": 383,
+      "text_snippet": "وأشار بعض الحنابلة إلى أنه إن كان يتمكن من الرمل، أو",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 12,
+      "start_word": 384,
+      "end_word": 413,
+      "text_snippet": "فإن كان لا يتمكن من الرمل مع البُعْد، أو كان في حاشي",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 13,
+      "start_word": 414,
+      "end_word": 460,
+      "text_snippet": "وهل يسقط عنه الرمل في مثل هذه الحال التي لم يتمكن من",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 14,
+      "start_word": 461,
+      "end_word": 467,
+      "text_snippet": "اختلف العلماء في ذلك على ثلاثة أقوال:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 15,
+      "start_word": 468,
+      "end_word": 494,
+      "text_snippet": "القول الأول: إنه إن لم يتمكن من الرمل على الصفة المشر",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 16,
+      "start_word": 495,
+      "end_word": 502,
+      "text_snippet": "وإلى هذا القول ذهب: الحنفية",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 17,
+      "start_word": 503,
+      "end_word": 525,
+      "text_snippet": "القول الثاني: إنه يرمل حسب قدرته وطاقته، فإن تعذّر ذ",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 18,
+      "start_word": 526,
+      "end_word": 535,
+      "text_snippet": "وإلى هذا القول ذهب: المالكية، والحنابلة",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 19,
+      "start_word": 536,
+      "end_word": 560,
+      "text_snippet": "القول الثالث: إنه إن لم يتمكن من الرمل، تحرك في مشيه،",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 20,
+      "start_word": 561,
+      "end_word": 568,
+      "text_snippet": "وإلى هذا القول ذهب: الشافعية",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 21,
+      "start_word": 569,
+      "end_word": 668,
+      "text_snippet": "قال الماوردي: \" الرمل مسنون، والدنو من البيت مستحب. ف",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 22,
+      "start_word": 669,
+      "end_word": 671,
+      "text_snippet": "الرأي المختار:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 23,
+      "start_word": 672,
+      "end_word": 714,
+      "text_snippet": "بتأمل هذه الأقوال والنظر فيها، نجد أن أصحاب القول الأ",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 24,
+      "start_word": 715,
+      "end_word": 752,
+      "text_snippet": "وأن من قال بالرمل حسب طاقته وقدرته، فإنهم يتفقون مع",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 25,
+      "start_word": 753,
+      "end_word": 762,
+      "text_snippet": "نحو قوله تعالى: {فَاتَّقُوا اللَّهَ مَا اسْتَطَعْتُم",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 26,
+      "start_word": 763,
+      "end_word": 775,
+      "text_snippet": "وقوله صلى الله عليه وسلم: {لا يُكَلِّفُ اللَّهُ نَفْ",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 27,
+      "start_word": 776,
+      "end_word": 790,
+      "text_snippet": "وقوله صلى الله عليه وسلم: \"إذا أمرتكم بأمر فأتوا منه",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 28,
+      "start_word": 791,
+      "end_word": 808,
+      "text_snippet": "وأن هذا نحو ما ذكره العلماء من استحباب إمرار الموسى ع",
+      "scholarly_function": "evidence_qiyas",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 29,
+      "start_word": 809,
+      "end_word": 849,
+      "text_snippet": "أمّا ما ذهب إليه أصحاب القول الثالث، من التحرك حال الم",
+      "scholarly_function": "refutation",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 30,
+      "start_word": 850,
+      "end_word": 899,
+      "text_snippet": "وإن كان النووي وغيره من علماء الشافعية قد نصوا على أن",
+      "scholarly_function": "refutation",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 31,
+      "start_word": 900,
+      "end_word": 924,
+      "text_snippet": "فهذا القول فيه موافقة لظاهر السنة، ويتفق مع أقوال الم",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    }
+  ],
+  "total_segments": 31
+}
