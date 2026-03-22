@@ -142,7 +142,7 @@ Update this after each section is committed. The next session (if context forces
 - [x] §2.3 Internal Data Model
 - [x] §2.1 Input Contract
 - [x] §3 Self-Containment Standard
-- [ ] §4 Phase 1: Deterministic Preprocessing
+- [x] §4 Phase 1: Deterministic Preprocessing
 - [ ] §5 Phase 2: Teaching Unit Extraction
 - [ ] §6 Domain-Specific Rules
 - [ ] §7 Phase 3: Metadata Enrichment
