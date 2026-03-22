@@ -545,3 +545,445 @@ After all chunks are produced, run these validation checks before passing to Pha
 
 **Validation output:** A list of validation results (pass/fail/warning per check) written to the source's processing log. If any fatal check fails, Phase 1 output is not passed to Phase 2. The source is flagged with `EX-V-001` for investigation.
 
+---
+
+## §5 — Phase 2: LLM Teaching Unit Extraction
+
+Phase 2 transforms each `AssembledChunk` (§2.3.2) into a list of `TeachingUnit` objects (§2.3.4) via two sequential LLM calls. This is the engine's inference core — the only phase that calls an LLM. Every other phase is fully deterministic.
+
+The approach is **Approach B (classify-then-group)**, validated across 23 divisions in 7 formats (experiments `run_tests.py` and `format_diversity_test`). Approach A (single-call extraction) was also validated but rejected because Approach B provides more architectural control points: classification results can be validated independently before grouping, and the two-step design enables targeted retries (retry classification without re-doing grouping, or vice versa).
+
+**D-011 enforcement (structural):** Phase 2 processes one `AssembledChunk` at a time. The LLM receives only that chunk's `assembled_text` — it has no access to text from other chunks. Cross-chunk teaching units are therefore impossible by construction, not by validation. This is the primary defense against T-4 (Context Loss) at the structural level.
+
+### §5.1 — Processing Overview
+
+For each `AssembledChunk` produced by Phase 1, Phase 2 executes:
+
+1. **Phase 2a — Segment Classification (§5.2):** The LLM classifies the chunk's text into `ClassifiedSegment` objects, each spanning a contiguous run of words serving a single scholarly function.
+
+2. **Offset Normalization (§5.4.1):** The raw LLM-produced word offsets are remapped to the canonical tokenization (`assembled_text.split()`), using `text_snippet` fields as alignment anchors.
+
+3. **Coverage Verification — Segments (§5.4.2):** Verify that the normalized segments satisfy invariants I-CS-1 through I-CS-6.
+
+4. **Phase 2b — Teaching Unit Grouping (§5.3):** The LLM groups the classified segments into `TeachingUnit` objects — self-contained pedagogical units that each teach one distinct concept, ruling, or argument.
+
+5. **Coverage Verification — Units (§5.4.3):** Verify that the teaching units satisfy invariants I-TU-1 through I-TU-9.
+
+Steps 1–3 must succeed before step 4 begins. If classification fails after retries, the chunk is flagged with `EX-C-001` and excluded from further processing. If grouping fails after retries, the chunk is flagged with `EX-C-002`.
+
+**Per-source ordering:** Chunks from the same source are processed sequentially (by `div_id` order). Chunks from different sources may be processed in parallel.
+
+### §5.2 — Phase 2a: Segment Classification
+
+Phase 2a sends the chunk's assembled text to the LLM and receives back a list of classified segments covering the full text.
+
+#### §5.2.1 — Input
+
+The LLM receives:
+- The full `assembled_text` of the `AssembledChunk`
+- The chunk's `structural_format` (for contextual awareness — the LLM adapts its segmentation granularity to the format)
+
+#### §5.2.2 — LLM System Prompt
+
+The classification prompt is adapted from the experiment's `APPROACH_B_CLASSIFY_SYSTEM`, with production additions marked. The full prompt text:
+
+```
+You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).
+
+Classify each sentence or closely bonded group of sentences in this Arabic text
+by scholarly function. The scholarly function types are:
+
+  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,
+  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,
+  condition_exception, cross_reference, narration, editorial_note,
+  structural_transition, unclassified
+
+Segment boundary rules:
+- An isnad chain + its matn = one segment (narration or evidence_hadith)
+- A position marker ("قال X") + the stated position = one segment
+- Each Quran citation with its introduction = one segment
+- A condition + its result ("إذا ... فـ") = one segment
+- Each distinct sentence or bonded group gets exactly one classification
+- Consecutive sentences serving the same function may form one segment
+  if they are tightly bonded (e.g., a two-sentence definition)
+
+For each segment, provide:
+- segment_index: 0-based position in the sequence
+- start_word: approximate start word offset in the text
+- end_word: approximate end word offset in the text (inclusive)
+- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY
+  from the input — preserve all diacritics, punctuation, and whitespace precisely.
+  This field is used for alignment; exact copying is critical.
+- scholarly_function: one of the 16 types listed above
+- confidence: your classification confidence from 0.0 to 1.0
+
+The text format is: {structural_format}
+```
+
+**Adaptation notes (differences from experiment prompt):**
+- Added: `confidence` field instruction (experiment schema had it but prompt didn't explicitly request it)
+- Added: condition + result bonded rule (from atomization SPEC §4.A.2 AB-2; experiment relied on implicit LLM understanding)
+- Added: consecutive-sentences-same-function rule (clarifies that segments can span multiple sentences)
+- Added: structural_format context (the experiment tested per-division; production includes format as context)
+- Preserved: all original experiment boundary rules exactly
+- Removed: nothing from experiment prompt
+
+#### §5.2.3 — User Message
+
+The user message contains only the assembled text, wrapped for clarity:
+
+```
+<text>
+{assembled_text}
+</text>
+```
+
+No additional context is provided. The system prompt carries all instructions. The text is the sole input.
+
+#### §5.2.4 — Response Schema
+
+The LLM returns structured output enforced via a Pydantic model (using the Instructor library or equivalent structured output enforcement). The schema:
+
+**ClassificationResult:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `segments` | `list[ClassifiedSegment]` | The classified segments, ordered by position. |
+| `total_segments` | `int` | Count of segments (must equal `len(segments)`). |
+
+**ClassifiedSegment** fields match §2.3.3. The LLM produces raw offsets in its own tokenization; these become canonical after offset normalization (§5.4.1).
+
+On schema validation failure (missing fields, wrong types, values outside enum), the structured output library retries automatically with the validation error message appended. Up to 2 retries per chunk (§5.5).
+
+#### §5.2.5 — Model and Parameters
+
+| Parameter | Value | Rationale |
+|-----------|-------|-----------|
+| Model | `anthropic/claude-opus-4.6` via OpenRouter | Highest classification accuracy. Validated in experiment. |
+| Temperature | `0` | Deterministic classification. |
+| MAX_TOKENS | Dynamic — see §5.5.1 | Classification output scales with input length. |
+
+### §5.3 — Phase 2b: Teaching Unit Grouping
+
+Phase 2b receives the classified segments (post-normalization) and the original text, then groups segments into self-contained teaching units.
+
+#### §5.3.1 — Input
+
+The LLM receives:
+- The full `assembled_text` of the `AssembledChunk`
+- The classification result: a summary of each segment (index, word range, function, snippet)
+- The chunk's `structural_format`
+
+The classification summary is formatted as a structured list in the user message (§5.3.3), not embedded in the system prompt. This keeps the system prompt stable across chunks.
+
+#### §5.3.2 — LLM System Prompt
+
+The grouping prompt is adapted from the experiment's `APPROACH_B_GROUP_SYSTEM`, with production additions for self-containment evaluation, segment index tracking, and decontextualization prevention. The full prompt text:
+
+```
+You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).
+
+You previously classified segments of this Arabic text by scholarly function.
+Now group these classified segments into TEACHING UNITS — self-contained
+scholarly segments that each teach one distinct concept, ruling, or argument.
+A teaching unit is the smallest segment a student could study and learn
+something complete from.
+
+GROUPING RULES:
+- A position (opinion_statement) + its evidence + any counter-evidence
+  + conclusion = one unit
+- A definition + its examples = one unit
+- A hadith + its chain + commentary = one unit
+- A question and its answer belong in the same unit
+- A rule_statement + its condition_exception(s) = one unit
+- Never group unrelated content (e.g., two different مسائل) into one unit
+- structural_transition segments may be grouped with the content they introduce,
+  or stand alone if they serve as section markers
+
+DECONTEXTUALIZATION PREVENTION (critical):
+- A reported position ("قال أبو حنيفة...") and its refutation
+  ("ورد عليه بأن...") MUST be in the same unit
+- A counter-argument MUST include enough of the original argument to be
+  understood on its own
+- Evidence cited for a ruling MUST stay with the ruling
+- A condition and its exception (rule + إلا clause) belong together
+
+SELF-CONTAINMENT EVALUATION:
+For each teaching unit, evaluate self-containment against these criteria:
+
+C-SC-1 (Term Resolution): Every technical term is either defined within the
+  unit, is standard terminology any student of the science would know, or is
+  flagged as requiring external knowledge.
+
+C-SC-2 (Reference Resolution): Every pronoun, demonstrative, or anaphoric
+  reference (هذا، المذكور، ما تقدم) resolves within the unit. No dangling
+  references to text outside the unit.
+
+C-SC-3 (Evidence Completeness): Every evidence citation either includes its
+  text, is a universally known citation identifiable by its opening words
+  (e.g., حديث "إنما الأعمال بالنيات"), or is flagged.
+
+C-SC-4 (Argument Completeness): The unit's argument, ruling, or teaching is
+  complete — not a fragment whose premise or conclusion is elsewhere.
+
+C-SC-5 (Dialogue Completeness): If the unit responds to another scholar's
+  position, enough of that position is included to understand the response.
+
+Assign self_containment as:
+- FULL: All five criteria met. The unit stands alone.
+- PARTIAL: Most criteria met, but some context would help. Populate
+  self_containment_notes describing what's missing.
+- DEPENDENT: Cannot be understood alone. Populate self_containment_notes
+  explaining the dependency.
+
+For each teaching unit, provide:
+- unit_index: 0-based position in the sequence
+- segment_indices: list of segment_index values composing this unit
+  (must be a contiguous ascending sequence, e.g. [3, 4, 5])
+- start_word: the start_word of the first constituent segment
+- end_word: the end_word of the last constituent segment
+- text_snippet: the FIRST 80 CHARACTERS of this unit's text, copied EXACTLY
+  from the input — preserve all diacritics, punctuation, and whitespace.
+- primary_function: the dominant scholarly function (must be a function present
+  in the constituent segments)
+- secondary_functions: other functions present in the unit (may be empty)
+- description_arabic: a brief Arabic description of what this unit teaches,
+  5 to 35 Arabic words. Write it as a student-facing summary.
+- self_containment: FULL, PARTIAL, or DEPENDENT
+- self_containment_notes: present and non-empty for PARTIAL/DEPENDENT;
+  absent or null for FULL
+
+The text format is: {structural_format}
+```
+
+**Adaptation notes (differences from experiment prompt):**
+- Added: `segment_indices` field instruction (new field — experiment had only word ranges)
+- Added: full self-containment criteria C-SC-1–5 (experiment had one-sentence instruction; production embeds the formal criteria)
+- Added: `self_containment` 3-level enum (experiment used binary `self_contained`)
+- Added: `description_arabic` target range 5–35 words (experiment said "10-30"; relaxed per §2.3 Finding 2)
+- Added: decontextualization prevention rules (from §6.1, embedded here because the LLM needs them during grouping)
+- Added: structural_transition grouping guidance
+- Added: structural_format context
+- Changed: self_containment_notes requirement aligned with I-TU-6/I-TU-7 (must be absent for FULL)
+- Preserved: all original experiment grouping rules
+
+#### §5.3.3 — User Message
+
+The user message contains the text and the classification summary:
+
+```
+<text>
+{assembled_text}
+</text>
+
+<classified_segments>
+{for each segment:}
+Segment {segment_index}: words {start_word}–{end_word}, function={scholarly_function}, snippet="{text_snippet}"
+{end for}
+</classified_segments>
+```
+
+The segment summary uses the **post-normalization** word offsets (canonical tokenization). The LLM sees the segments anchored to the actual text via both word ranges and snippets.
+
+#### §5.3.4 — Response Schema
+
+**ExtractionResult:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `teaching_units` | `list[TeachingUnit]` | The grouped teaching units, ordered by position. |
+| `total_units` | `int` | Count of units (must equal `len(teaching_units)`). |
+| `notes` | `str` (optional) | LLM notes on grouping decisions, if any. |
+
+**TeachingUnit** fields match §2.3.4. The `start_word` and `end_word` are derived from the constituent segments' normalized offsets — the LLM references the segments by index and the engine computes the word ranges from the segment data.
+
+On schema validation failure, same retry policy as §5.2.4.
+
+#### §5.3.5 — Model and Parameters
+
+| Parameter | Value | Rationale |
+|-----------|-------|-----------|
+| Model | `anthropic/claude-opus-4.6` via OpenRouter | Consistent with classification. Grouping requires understanding scholarly argument structure. |
+| Temperature | `0` | Deterministic grouping. |
+| MAX_TOKENS | `16384` | Grouping output is smaller than classification (fewer objects, each with more fields). 16384 is sufficient for the largest validated case (41 units at 3111 words). |
+
+### §5.4 — Coverage Verification and Offset Normalization
+
+This section specifies how the raw LLM output is validated and transformed into the canonical representation that downstream phases depend on. It has three parts: offset normalization (§5.4.1), segment verification (§5.4.2), and unit verification (§5.4.3).
+
+#### §5.4.1 — Offset Normalization
+
+**The problem:** The experiment revealed that the LLM produces word offsets using its own internal tokenization, which does not match Python's `text.split()`. The offsets are internally consistent — across 162 segment boundaries in the Taysir div_661 test (3111 words), there were 0 gaps between consecutive segment boundaries. But the LLM's final offset (4172) exceeded the Python token count (3643) by 14.5%. The LLM's offsets are self-consistent but not directly usable for text extraction.
+
+**The solution:** Use `text_snippet` fields as alignment anchors to remap LLM offsets to the canonical tokenization.
+
+**Canonical tokenization:** `assembled_text.split()` — Python whitespace split. This produces a list of tokens indexed 0 through `total_tokens - 1`. All word offsets in `ClassifiedSegment` and `TeachingUnit` (§2.3.3, §2.3.4) use this coordinate system after normalization.
+
+**Algorithm:**
+
+The normalization processes the segments in order (by `segment_index`) and maps each segment's start position to a canonical token index using its `text_snippet` as an anchor.
+
+**Step 1 — Build token-to-character mapping.** Split `assembled_text` by whitespace. For each token, record its character start and end offset in the original string. This creates a lookup from character position to token index.
+
+**Step 2 — Anchor each segment.** For each segment `s` in order (0, 1, 2, ...):
+
+(a) Take `s.text_snippet` (the first 50 characters of the segment's text, as copied by the LLM from the input).
+
+(b) Search for `s.text_snippet` in `assembled_text` starting from `search_start_char` (initially 0, updated after each successful match). The search must find the snippet at or after the previous segment's matched position. This left-to-right constraint prevents misalignment from duplicate snippets.
+
+(c) If the snippet is found at character position `match_char`:
+   - Find the token whose character range contains `match_char`. That token's index is the segment's canonical `start_word`.
+   - Update `search_start_char` to `match_char + 1` for the next segment.
+
+(d) If the snippet is not found with exact matching, attempt **whitespace-normalized matching**: collapse runs of whitespace in both the snippet and the search region to single spaces, then retry. Arabic text may have inconsistent whitespace around diacritics or punctuation.
+
+(e) If the snippet is still not found, the normalization has failed for this segment. See failure handling below.
+
+**Step 3 — Infer boundaries from contiguity.** After all segments are anchored:
+- `segment[0].start_word` is set from its anchor (must be 0 — validated in §5.4.2).
+- For each pair of consecutive segments `s[i]` and `s[i+1]`: `s[i].end_word = s[i+1].start_word - 1`.
+- `segment[-1].end_word = total_tokens - 1`.
+
+This leverages the LLM's internal contiguity (verified empirically) to infer exact boundaries from anchor positions. The anchor locates the start; contiguity determines the end.
+
+**Step 4 — Validate invariants.** Run the checks in §5.4.2. If any invariant is violated, the normalization result is rejected.
+
+**Failure handling:**
+- If any segment's snippet cannot be located (step 2e), the entire classification result is rejected. The chunk is retried with the classification prompt (up to 2 retries total per §5.5). The retry includes an error feedback message: "The previous classification produced a text_snippet that could not be located in the source text. Ensure each text_snippet is copied exactly from the input."
+- If step 3 produces a negative word range (a segment's end_word < start_word), the result is rejected and retried.
+- If all retries are exhausted, the chunk is flagged with `EX-C-003` (offset normalization failure) and excluded from Phase 2b.
+
+**Design rationale:** This algorithm assumes the LLM's segment ordering matches the text's reading order (left-to-right, top-to-bottom). The experiment confirmed this: across all 23 validated divisions, the LLM always produced segments in text order with monotonically increasing offsets. The left-to-right search constraint (step 2b) is both a correctness guarantee and a disambiguation mechanism for duplicate snippets.
+
+#### §5.4.2 — Segment Coverage Verification
+
+After offset normalization, verify the invariants from §2.3.3:
+
+**V-P2-1 (Segment ordering):** `segment_index` values form the sequence 0, 1, 2, ..., N-1 (I-CS-1). Fatal if violated.
+
+**V-P2-2 (Segment contiguity):** For every consecutive pair `s[i]`, `s[i+1]`: `s[i+1].start_word == s[i].end_word + 1` (I-CS-2). Fatal if violated. (Note: this is guaranteed by the step 3 boundary inference, but verified explicitly as a consistency check.)
+
+**V-P2-3 (First segment starts at 0):** `segments[0].start_word == 0` (I-CS-3). If the first segment's anchor resolves to a token other than 0, the text before the anchor is unclassified — this is a classification gap. Fatal.
+
+**V-P2-4 (Last segment covers end):** `segments[-1].end_word == total_tokens - 1` (I-CS-4). Guaranteed by step 3 but verified explicitly. Fatal if violated.
+
+**V-P2-5 (Full coverage):** The union of all segment word ranges covers `[0, total_tokens - 1]` (I-CS-5). This is a logical consequence of V-P2-2 + V-P2-3 + V-P2-4 but verified explicitly as the master check. Fatal if violated.
+
+**V-P2-6 (Confidence range):** Every segment's `confidence` is in `[0.0, 1.0]` (I-CS-6). Enforced by schema validation. Warning if violated (clamp to range).
+
+**V-P2-7 (Non-empty segments):** Every segment's `end_word >= start_word` (at least one token). Fatal if violated.
+
+**V-P2-8 (Scholarly function validity):** Every segment's `scholarly_function` is a valid `ScholarlyFunction` enum value. Enforced by schema validation. Fatal if violated.
+
+**V-P2-9 (Total segments consistency):** `total_segments == len(segments)`. Warning if mismatched (use actual list length).
+
+On any fatal violation: reject the classification result, retry per §5.5.
+
+#### §5.4.3 — Teaching Unit Coverage Verification
+
+After Phase 2b produces teaching units, verify the invariants from §2.3.4:
+
+**V-P2-10 (Unit ordering):** `unit_index` values form the sequence 0, 1, 2, ..., M-1 (I-TU-1). Fatal if violated.
+
+**V-P2-11 (Segment indices contiguous):** Each unit's `segment_indices` is a contiguous ascending sequence (I-TU-2). No gaps (e.g., `[3, 5]` is invalid) and no reversals. Fatal if violated.
+
+**V-P2-12 (Complete segment assignment):** The union of all `segment_indices` across all units equals `{0, 1, ..., total_segments - 1}` (I-TU-3). Every segment is assigned to exactly one unit. Fatal if violated.
+
+**V-P2-13 (Unit contiguity):** For consecutive units `u[i]`, `u[i+1]`: `u[i+1].start_word == u[i].end_word + 1` (I-TU-4). Fatal if violated.
+
+**V-P2-14 (Word range consistency):** Each unit's `start_word` equals the `start_word` of its first constituent segment, and its `end_word` equals the `end_word` of its last constituent segment (I-TU-5). Fatal if violated. The implementation should derive these from the segment data rather than trusting the LLM's values.
+
+**V-P2-15 (Self-containment notes consistency):** If `self_containment` is `FULL`, then `self_containment_notes` must be null/absent (I-TU-6). If `self_containment` is `PARTIAL` or `DEPENDENT`, then `self_containment_notes` must be present and non-empty (I-TU-7). Warning if violated (auto-repair: set notes to null for FULL; set to "No notes provided" for PARTIAL/DEPENDENT — but flag for review).
+
+**V-P2-16 (Description range):** `description_arabic` contains 5–35 Arabic words (I-TU-8). Warning if outside range (do not reject — the field is informational).
+
+**V-P2-17 (Primary function grounding):** The unit's `primary_function` is one of the `scholarly_function` values present in its constituent segments (I-TU-9). Warning if violated (the LLM may have synthesized a higher-level function; log but do not reject).
+
+**V-P2-18 (Total units consistency):** `total_units == len(teaching_units)`. Warning if mismatched (use actual list length).
+
+**V-P2-19 (Non-empty units):** Every unit has at least one segment in `segment_indices`. Fatal if violated.
+
+On any fatal violation: reject the grouping result, retry Phase 2b per §5.5. Classification results are reused — only the grouping call is retried.
+
+### §5.5 — Operational Constraints
+
+#### §5.5.1 — MAX_TOKENS Scaling
+
+The classification call's output size scales with input length (more text → more segments). The experiment validated:
+
+| Input words | Classify segments | Teaching units (group) | MAX_TOKENS needed |
+|-------------|-------------------|----------------------|-------------------|
+| 451–1270 | Not measured (< classify for 2500w range) | 8–21 | < 8192 (classify fits in default) |
+| 2513–3111 | 125–166 | 19–41 | ≥ 32768 (classify output requires it) |
+
+The classify call produces significantly more objects than the group call (125–166 segments vs. 19–41 units for the 2500–3100w range). The MAX_TOKENS constraint is driven by the classify call, not the group call.
+
+**Scaling rule:**
+- Chunks with `word_count <= 2000`: MAX_TOKENS = `8192`
+- Chunks with `word_count > 2000`: MAX_TOKENS = `32768`
+- Chunks with `word_count > 4000`: MAX_TOKENS = `32768` (provisionally — must be tested during build; if classify output truncates at this size, escalate to `65536`)
+
+The grouping call uses a fixed MAX_TOKENS of `16384`. The largest validated grouping output was 41 units (Taysir div_661 at 3111 words), well within this limit.
+
+**Design extension note:** The `word_count > 4000` threshold is untested — no experiment division exceeded 3111 words. Phase 1 splits divisions at 5000 Arabic words (§4.5), so chunks of 4000–5000 words are possible. Build evaluation must test MAX_TOKENS sufficiency for these cases.
+
+#### §5.5.2 — Retry Policy
+
+Each LLM call (classify and group, independently) is retried up to **2 times** on failure, for a maximum of 3 attempts per call per chunk.
+
+**Retry triggers:**
+- Schema validation failure (structured output library handles automatically)
+- Offset normalization failure (§5.4.1 step 2e — snippet not found)
+- Coverage verification failure (§5.4.2 or §5.4.3 fatal checks)
+- API error (timeout, rate limit, server error)
+
+**Retry behavior:**
+- Schema failure: the structured output library appends the validation error to the next attempt's prompt automatically.
+- Offset normalization failure: append the error feedback message specified in §5.4.1.
+- Coverage failure: append a message describing which invariant was violated (e.g., "Previous output had a gap between segments 4 and 5 — ensure all text is covered").
+- API error: exponential backoff — wait 2^attempt seconds (2s, 4s) before retrying.
+
+**After all retries exhausted:**
+- Classification failure: flag chunk with `EX-C-001` (classification failed). No Phase 2b attempted.
+- Offset normalization failure: flag chunk with `EX-C-003` (normalization failed). No Phase 2b attempted.
+- Segment coverage failure: flag chunk with `EX-C-004` (segment coverage invariant violated after retries).
+- Grouping failure: flag chunk with `EX-C-002` (grouping failed). Classification result is preserved (it may be useful for diagnostics).
+- Unit coverage failure: flag chunk with `EX-C-005` (unit coverage invariant violated after retries).
+
+Flagged chunks are logged with full diagnostic information (the raw LLM responses, the specific invariant that failed, the chunk's assembled_text length) and excluded from Phase 3.
+
+#### §5.5.3 — API Configuration
+
+| Parameter | Value |
+|-----------|-------|
+| Provider | OpenRouter |
+| API key | From environment variable (`OPENROUTER_API_KEY`) |
+| Model string | `anthropic/claude-opus-4.6` |
+| Temperature | `0` (both calls) |
+| Timeout | `120` seconds per call |
+| Rate limiting | Respect OpenRouter rate limits; back off on 429 responses |
+
+#### §5.5.4 — Telemetry
+
+Each LLM call logs (for monitoring, not for behavioral decisions):
+- `source_id`, `chunk_id`
+- Call type (`classify` or `group`)
+- Input token count, output token count
+- Latency (seconds)
+- Retry count (0 if first attempt succeeded)
+- Success/failure status
+
+This data enables cost tracking and performance monitoring but does not affect processing logic. No behavioral decisions are made based on telemetry.
+
+#### §5.5.5 — Over-Segmentation Awareness
+
+The experiment revealed that Approach B's two-step design can over-segment compared to Approach A, particularly for longer texts with structural repetition. The most extreme case: Taysir div_661 (3111 words) produced 41 B-units vs. 24 A-units (ratio 1.71x), driven by a repeated hadith-benefits pattern.
+
+The average teaching unit size across all 13 validated divisions ranged from 45 words (Q&A format, 451w input) to 126 words (fiqh prose, 2513w input). The median was approximately 80–90 words per unit.
+
+**The SPEC does not commit a minimum teaching unit size.** The appropriate threshold depends on the downstream taxonomy and synthesis engines' needs, which are not yet specified. The concern is documented here; the threshold is calibrated during build evaluation (the 30-book probe, source engine roadmap Step 3). During build, the implementation should log unit size distribution statistics per chunk to enable calibration.
+
+**What the SPEC does commit:** If a future minimum threshold is established, it will be enforced as a **post-grouping merge** step (merging adjacent small units) rather than as a constraint in the LLM prompt. Modifying the grouping prompt to enforce minimum sizes risks degrading self-containment assessment quality — the LLM should group by scholarly structure, and size optimization is a separate concern.
+
+---
+
