@@ -2,8 +2,7 @@
 
 **Date:** 2026-03-22
 **Purpose:** Validate that Architecture C (merge atomization+excerpting, keep passaging, soften D-011) is viable before committing to it.
-**Cost estimate:** ~€3-5 in LLM calls
-**Duration:** 2 sessions (CC: produce packages + extraction script | Architect: create gold reference + run tests + evaluate)
+**Duration:** 2 sessions (CC: produce packages + run tests | Architect: evaluate results in fresh chat)
 
 ---
 
@@ -217,10 +216,10 @@ Run Approach C only on divisions where `boundary_continuity_last.type == "mid_ar
 
 ### Configuration
 
-- Model: Claude Opus 4.6 (via Anthropic API, key from project files)
+- Model: `anthropic/claude-opus-4.6` via OpenRouter
 - Temperature: 0 (deterministic)
-- Max tokens: 4096
-- Retries: 1 (if structured output validation fails)
+- Max tokens: 8192
+- Retries: 2 (if structured output validation fails)
 - All results saved to `experiments/architecture_test/results/{fixture_name}/{div_index}_{approach}.json`
 
 ---
@@ -282,10 +281,10 @@ Discovery: 40-60% of leaf divisions have content that doesn't match their headin
 Mitigation: CC's extract_divisions.py enforces strict alignment. Architect verifies visually in the evaluation workbook.
 
 **Risk: Gold reference is created by an LLM (the architect), compared against LLM output.**
-Mitigation: This IS a limitation. However: the architect (Opus, careful analysis) creates references in a separate session with full context. The test LLM (Sonnet, prompt-constrained) operates under more constraints. If Sonnet matches Opus's careful analysis at F1 ≥ 0.70, the approach is viable. This is a floor test, not a precision benchmark.
+Mitigation: This IS a limitation. However: the architect (Opus in this chat, careful analysis) creates references in a separate session with full context. The test LLM (Opus via OpenRouter, prompt-constrained) operates under structured output constraints. The evaluation is primarily qualitative — the architect reads the Arabic and judges whether boundaries are sensible.
 
 **Risk: 10 divisions is too small a sample.**
-Mitigation: This is a viability test, not a final evaluation. If it passes, the full engine build will have its own evaluation with 50+ gold baselines per the Blueprint. If it fails, we saved months.
+Mitigation: This is a viability test, not a final evaluation. If it passes, the full engine build will have its own evaluation with 50+ gold baselines per the Blueprint. If it fails, we avoided building the wrong architecture.
 
 **Risk: Fixtures are small books, not representative of المغني (2.5M words).**
 Mitigation: We're testing per-division extraction. Division size (300-2000 words) is representative regardless of book size.
@@ -293,5 +292,5 @@ Mitigation: We're testing per-division extraction. Division size (300-2000 words
 **Risk: Bibliography/index divisions pass the word count filter.**
 Mitigation: CC's selection algorithm excludes divisions whose heading contains مصادر, مراجع, فهرس.
 
-**Risk: Claude Opus evaluating Claude Sonnet output introduces model-family bias.**
+**Risk: Same model family for test and evaluation.**
 Mitigation: The evaluation is structured and qualitative — the architect reads Arabic text and judges whether unit boundaries are sensible. Quantitative metrics are secondary. If boundary placements are clearly wrong to a careful reader, no metric can save them.

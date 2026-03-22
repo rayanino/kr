@@ -201,11 +201,23 @@ This readable file is the PRIMARY input for the architect's evaluation. It must 
 Write `experiments/architecture_test/run_tests.py`.
 
 **API Configuration:**
-- Read API key from `ANTHROPIC_API_KEY` environment variable. If not set, raise clear error.
-- Model: `claude-sonnet-4-20250514`
+- All LLM calls go through OpenRouter. Read the API key from the `OPENROUTER_API_KEY` environment variable. If not set, raise a clear error.
+- Use the OpenAI SDK with OpenRouter's base URL:
+  ```python
+  import openai
+  import instructor
+  
+  client = instructor.from_openai(
+      openai.OpenAI(
+          base_url="https://openrouter.ai/api/v1",
+          api_key=os.environ["OPENROUTER_API_KEY"],
+      )
+  )
+  ```
+- Model: `anthropic/claude-opus-4.6` (best available model — no shortcuts)
 - Temperature: 0
-- Max tokens: 4096
-- Dependencies: `pip install anthropic instructor pydantic --break-system-packages`
+- Max tokens: 8192
+- Dependencies: `pip install openai instructor pydantic --break-system-packages`
 
 **Pydantic output schemas:**
 
@@ -373,7 +385,7 @@ Save each result as the Pydantic model's `.model_dump_json(indent=2)`.
 
 **After all runs, write `experiments/architecture_test/results/RUN_SUMMARY.md`:**
 - Per-division: fixture, heading, word count, approach A units, approach B units, approach C units (if run), any errors
-- Total: API calls made, tokens used, estimated cost (input × $3/MTok + output × $15/MTok for Sonnet)
+- Total: API calls made, total tokens used (input + output)
 - Any divisions that failed all retries
 
 ---
@@ -428,22 +440,20 @@ This workbook MUST be complete — every division, every approach result, full A
 
 ## Design Decisions
 
-**DD-1: Sonnet not Opus.** Floor test. If Sonnet works, Opus will work better.
+**DD-1: Strict alignment check.** L-003 causes 40-60% of divisions to have misaligned headings. Only divisions where heading matches content are usable. The `strip_arabic_noise` + first 100 chars check is empirically validated by the architect.
 
-**DD-2: Strict alignment check.** L-003 causes 40-60% of divisions to have misaligned headings. Only divisions where heading matches content are usable. The `strip_arabic_noise` + first 100 chars check is empirically validated by the architect.
+**DD-2: Full run, not verification-only.** CC runs all approaches on all divisions. The architect evaluates in a separate chat with all results available.
 
-**DD-3: Full run, not verification-only.** CC runs all approaches on all divisions. The architect evaluates in a separate chat with all results available.
+**DD-3: text_snippet in output schema.** The LLM returns the first 80 chars of each teaching unit's text. This lets the architect verify unit boundaries without re-reading the full text.
 
-**DD-4: text_snippet in output schema.** The LLM returns the first 80 chars of each teaching unit's text. This lets the architect verify unit boundaries without re-reading the full text.
-
-**DD-5: No consensus.** Single-model calls. Consensus is orthogonal to the architecture question.
+**DD-4: No consensus in the experiment.** Single-model calls. Consensus is orthogonal to the architecture question — it can be added to any architecture.
 
 ## Do NOT Do
 
 1. Do NOT modify any normalization engine code or tests.
 2. Do NOT create gold references — that is the architect's job.
-3. Do NOT evaluate LLM output quality — save results, report counts and costs.
-4. Do NOT use Opus — use Sonnet (`claude-sonnet-4-20250514`).
+3. Do NOT evaluate LLM output quality — save results, report counts.
+4. Do NOT use any API other than OpenRouter. All LLM calls go through OpenRouter.
 5. Do NOT skip the alignment check. Misaligned divisions produce garbage results.
 6. Do NOT truncate Arabic text in the evaluation workbook. Full text is required.
 
