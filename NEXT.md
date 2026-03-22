@@ -138,8 +138,8 @@ At session start, explicitly invoke ALL of these:
 
 Update this after each section is committed. The next session (if context forces a new chat) continues from the first unchecked item.
 
-- [ ] Setup: archive old SPEC.md + SPEC_CORE.md, create new file header
-- [ ] §2.3 Internal Data Model
+- [x] Setup: archive old SPEC.md + SPEC_CORE.md, create new file header
+- [x] §2.3 Internal Data Model
 - [ ] §2.1 Input Contract
 - [ ] §3 Self-Containment Standard
 - [ ] §4 Phase 1: Deterministic Preprocessing
