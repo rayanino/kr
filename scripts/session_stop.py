@@ -82,6 +82,52 @@ def read_next_md_head(cwd: Path, lines: int = 15) -> str:
         return ""
 
 
+def detect_active_spec_section(project_dir: Path) -> str | None:
+    """Detect which SPEC section was last modified from recent commits."""
+    log = run_git(["log", "--oneline", "-10"], project_dir)
+    for line in log.split("\n"):
+        line_lower = line.lower()
+        if "spec" in line_lower and "§" in line:
+            # Extract section reference like "§7" or "§2.3"
+            import re
+            match = re.search(r"§[0-9]+(?:\.[0-9]+)?", line)
+            if match:
+                return match.group(0)
+    return None
+
+
+def get_last_committed_file(project_dir: Path) -> str | None:
+    """Get the most recently committed file from the last commit."""
+    files = run_git(["diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"], project_dir)
+    if files:
+        file_list = files.strip().split("\n")
+        return file_list[0] if file_list else None
+    return None
+
+
+def get_pending_decisions(project_dir: Path) -> list[str]:
+    """Read pending decisions log if it exists."""
+    log_file = project_dir / ".claude" / "pending_decisions.log"
+    if not log_file.exists():
+        return []
+    try:
+        lines = log_file.read_text(encoding="utf-8", errors="ignore").strip().split("\n")
+        return lines[-5:]  # Last 5 entries
+    except OSError:
+        return []
+
+
+def get_plan_file(project_dir: Path) -> str | None:
+    """Find the active plan file if one exists."""
+    plans_dir = project_dir / ".claude" / "plans"
+    if not plans_dir.exists():
+        return None
+    plan_files = sorted(plans_dir.glob("*.md"), key=lambda p: p.stat().st_mtime, reverse=True)
+    if plan_files:
+        return str(plan_files[0].relative_to(project_dir))
+    return None
+
+
 def main() -> int:
     cwd = Path.cwd()
     git_root = run_git(["rev-parse", "--show-toplevel"], cwd)
@@ -94,10 +140,14 @@ def main() -> int:
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "branch": run_git(["branch", "--show-current"], project_dir),
         "active_engine": detect_active_engine(project_dir),
+        "active_spec_section": detect_active_spec_section(project_dir),
+        "last_committed_file": get_last_committed_file(project_dir),
+        "active_plan": get_plan_file(project_dir),
         "modified_files": get_modified_files(project_dir),
         "uncommitted_summary": get_uncommitted_summary(project_dir),
         "next_md_head": read_next_md_head(project_dir),
         "recent_commits": run_git(["log", "--oneline", "-5"], project_dir),
+        "pending_decisions": get_pending_decisions(project_dir),
     }
 
     output_path = project_dir / ".claude" / "session_state.json"

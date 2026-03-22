@@ -1,0 +1,2 @@
+[2026-03-23 00:15] DEFERRED: QuranHub MCP installation. Free Quran cross-referencing tool. Useful for taxonomy engine phase (Quran verse validation, mutashabihat detection). Not needed until that phase. Install when taxonomy engine work begins.
+[2026-03-23 00:30] DEFERRED: Compaction recovery hook improvement needs settings.json edit. Want to add SPEC section awareness and limitation fix progress reminder to the compact SessionStart hook. Cannot edit settings.json during autonomous session.

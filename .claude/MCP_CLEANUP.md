@@ -1,5 +1,8 @@
 # MCP Server Cleanup — Manual Action Required
 
+> **Updated 2026-03-23:** See also `.claude/MCP_ACTION_PLAN.md` for the complete action plan
+> including duplicate MCP removal and plugin cleanup (additional ~16 tools beyond the ~74 below).
+
 These MCP servers are configured at the global level and cannot be removed from the project config. The user should disable them in the Claude desktop app or global settings.
 
 ## Remove (dead weight for KR)

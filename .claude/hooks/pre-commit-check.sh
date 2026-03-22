@@ -15,6 +15,17 @@ BLOCK=0
 
 echo "=== KR Pre-Commit Checks ==="
 
+# 0. BLOCKING: Frozen source integrity (Principle 18 — frozen sources are immutable)
+FROZEN_FILES=$(git diff --cached --name-only | grep -E 'library/sources/[^/]+/(frozen/|source\.)' 2>/dev/null)
+if [ -n "$FROZEN_FILES" ]; then
+    echo "BLOCKED: Attempting to modify frozen/immutable source files (Principle 18):"
+    echo "$FROZEN_FILES"
+    echo ""
+    echo "Frozen sources are NEVER modified after extraction. If the source is wrong,"
+    echo "re-extract and create a new version — do not edit in place."
+    BLOCK=1
+fi
+
 # 1. Session quality gate (advisory)
 python3 scripts/session_quality_gate.py 2>/dev/null
 
