@@ -1803,3 +1803,167 @@ After Phase 3 completes for a chunk, the following checks are run before the `Ex
 
 ---
 
+## §8 — Error Handling and Configuration
+
+Every error is loud. No silent data loss. No silent defaults. When the engine cannot process an input correctly, it emits a structured error code, logs the context, and either recovers with a degraded output or skips the unit and flags it for reprocessing. The owner never encounters a silently wrong result — only a visibly flagged one.
+
+### §8.1 — Error Code Catalog
+
+All error codes follow the KR convention: `EX-{category}-{number}`.
+
+**Categories:**
+- `EX-A-*`: Phase 1 assembly errors
+- `EX-C-*`: Phase 2 classification/grouping errors
+- `EX-M-*`: Phase 3 metadata enrichment errors
+- `EX-V-*`: Cross-phase validation errors
+- `EX-G-*`: Human gate triggers (not errors — epistemic uncertainty requiring owner review)
+
+Each code is defined exactly once in the section where its triggering condition is specified. This catalog lists every code with its definition location, severity, and recovery strategy. Codes are NOT redefined here — only cataloged.
+
+**Phase 1 — Assembly (EX-A-*):**
+
+| Code | Trigger | Severity | Recovery | Defined In |
+|------|---------|----------|----------|------------|
+| `EX-A-002` | Division's content unit range is empty | ERROR | Skip division | §4.2 |
+| `EX-A-003` | Text layer rebasing produces non-contiguous coverage | WARNING | Clamp and log | §4.6 |
+| `EX-A-004` | Layer segment end exceeds content unit text length | WARNING | Clamp to text length | §4.6 |
+| `EX-A-005` | Duplicate footnote `ref_marker` in assembled footnotes | WARNING | Deduplicate, keep first | §4.7 |
+| `EX-A-006` | Heading text does not align with first content unit | WARNING | Process chunk anyway | §4.8 |
+| `EX-A-010` | Empty `division_tree` — no divisions to process | ERROR | Skip source | §4.9 |
+| `EX-A-011` | Content unit not found for declared unit index | ERROR | Skip division | §4.9 |
+
+**Phase 2 — Classification and Grouping (EX-C-*):**
+
+| Code | Trigger | Severity | Recovery | Defined In |
+|------|---------|----------|----------|------------|
+| `EX-C-001` | Classification LLM call failed after all retries | ERROR | Skip chunk, flag for reprocessing | §5.1 |
+| `EX-C-002` | Grouping LLM call failed after all retries | ERROR | Skip chunk, flag for reprocessing | §5.1 |
+| `EX-C-003` | Offset normalization failed — cannot align LLM offsets to canonical tokenization | ERROR | Skip chunk, flag for reprocessing | §5.4.1 |
+| `EX-C-004` | Segment coverage invariant violated after repair attempts | ERROR | Skip chunk, flag for reprocessing | §5.4.2 |
+| `EX-C-005` | Unit coverage invariant violated after repair attempts | ERROR | Skip chunk, flag for reprocessing | §5.4.3 |
+
+**Phase 3 — Metadata Enrichment (EX-M-*):**
+
+| Code | Trigger | Severity | Recovery | Defined In |
+|------|---------|----------|----------|------------|
+| `EX-M-001` | Attribution ambiguous — LA-3 triggered (no layer ≥80%, ambiguous overlap) | WARNING | Escalate to consensus verification (§7.3) | §6.2 |
+| `EX-M-002` | LLM enrichment call failed after all retries | WARNING | Produce excerpt with deterministic metadata only; set `llm_enrichment_failed` flag | §7.2.5 |
+| `EX-M-003` | School attribution disagreement between enrichment and verification models | WARNING | Use enrichment model's value with low confidence; set `school_consensus_disagreement` flag | §7.3.3 |
+| `EX-M-004` | Excerpt has null `primary_author_layer` after Phase 3 | ERROR | Should not occur — indicates a bug. Log full excerpt context. | §7.4 (V-P3-3) |
+| `EX-M-005` | Topic keyword count outside 1–3 range when LLM enrichment succeeded | WARNING | Log; excerpt still produced | §7.4 (V-P3-4) |
+| `EX-M-006` | Self-containment metadata inconsistency (level vs. context_hint mismatch) | WARNING | Log; do not auto-correct — the mismatch signals a bug | §7.4 (V-P3-5) |
+| `EX-M-007` | Invalid Quran reference (surah or ayah out of range) | WARNING | Keep reference but flag as invalid | §7.4 (V-P3-6) |
+| `EX-M-008` | Gate entry not written despite gate trigger | CRITICAL | Retry write. If retry fails, halt source processing — the uncertainty is now invisible. | §7.4 (V-P3-7) |
+| `EX-M-009` | Footnote `ref_marker` offset outside excerpt's character range | WARNING | Remove footnote from this excerpt's `footnotes_relevant` | §7.4 (V-P3-8) |
+| `EX-M-010` | Unknown content type in `content_types` set | WARNING | Log; likely indicates a new scholarly function type not in the enum | §7.4 (V-P3-9) |
+
+**Validation (EX-V-*):**
+
+| Code | Trigger | Severity | Recovery | Defined In |
+|------|---------|----------|----------|------------|
+| `EX-V-001` | Phase 1 self-validation check failed | Varies per check | Per check (§4.9) | §4.9 |
+| `EX-V-002` | Primary text integrity check failed — extracted text doesn't match snippet | ERROR | Do not produce excerpt. Log full context for debugging. | §7.4 (V-P3-2) |
+
+**Human Gate Triggers (EX-G-*):**
+
+| Code | Trigger | Severity | Recovery | Defined In |
+|------|---------|----------|----------|------------|
+| `EX-G-001` | Author attribution: 3 models all disagree | GATE | Write to gate queue; excerpt produced with provisional attribution | §7.3.3 |
+| `EX-G-002` | Self-containment DEPENDENT after consensus verification | GATE | Write to gate queue; owner decides: keep with note, merge, or exclude | §7.3.4 |
+| `EX-G-003` | School attribution disagreement AND source school conflicts with both models | GATE | Write to gate queue; owner decides school | §7.3.4 |
+
+**Severity definitions:**
+- **CRITICAL**: Processing must halt for this source. Continuing would produce invisible errors.
+- **ERROR**: The affected unit (division, chunk, or excerpt) cannot be produced. Skip and flag.
+- **WARNING**: The affected unit is produced with degraded quality. Logged and flagged.
+- **GATE**: Not an error. An epistemic uncertainty requiring human judgment.
+
+### §8.2 — Recovery Strategies
+
+Recovery follows a consistent pattern: retry → degrade → skip → flag.
+
+**LLM call failures (EX-C-001, EX-C-002, EX-M-002):**
+1. Retry up to `RETRY_COUNT` times (default 2) with exponential backoff (1s, 4s).
+2. On schema validation failure, the structured output library (Instructor) automatically retries with the validation error appended to the prompt.
+3. If all retries exhausted:
+   - Phase 2 failures (EX-C-001, EX-C-002): skip the entire chunk. No teaching units are produced for this chunk. The chunk is flagged for reprocessing in the processing log.
+   - Phase 3 enrichment failure (EX-M-002): produce the excerpt with deterministic metadata only (§7.1). LLM-enriched fields default to empty/null. The excerpt is structurally valid but informationally incomplete.
+
+**Offset normalization failures (EX-C-003):**
+1. The normalization algorithm (§5.4.1) attempts snippet-based alignment as fallback.
+2. If alignment fails, skip the chunk. Flag for reprocessing with diagnostic data (the LLM's raw offsets and the canonical tokenization).
+
+**Coverage violations (EX-C-004, EX-C-005):**
+1. Attempt repair: merge uncovered word ranges into the nearest adjacent segment or unit.
+2. If repair restores coverage → proceed with repaired data and log the repair.
+3. If repair fails → skip the chunk. Flag for reprocessing.
+
+**Phase 1 assembly failures (EX-A-002, EX-A-010, EX-A-011):**
+1. Skip the affected division (or source for EX-A-010).
+2. Continue with remaining divisions. Phase 1 failures are per-division independent — one bad division does not affect others.
+
+**Gate trigger failures (EX-M-008):**
+1. Retry the gate queue file write once.
+2. If retry fails → halt processing for this source. Rationale: a missing gate entry means an uncertainty becomes invisible, violating the core guarantee that every low-confidence decision creates a checkpoint. This is the only non-LLM error that halts source processing.
+
+**Reprocessing:** Chunks flagged for reprocessing are recorded in the processing log with their error codes and diagnostic context. Reprocessing is triggered manually or by a scheduled retry job. Reprocessed chunks go through the full pipeline from Phase 1 — there is no partial re-entry (this is simpler and defends against stale intermediate state).
+
+### §8.3 — Configuration
+
+All configuration parameters are collected here with their defaults, valid ranges, and the SPEC section that defines their behavioral impact.
+
+**Phase 1 parameters:**
+
+| Parameter | Type | Default | Range | Description | SPEC Reference |
+|-----------|------|---------|-------|-------------|----------------|
+| `TINY_DIVISION_WORDS` | int | 50 | 10–200 | Minimum word count for a standalone division. Below this → merge with sibling. | §4.4 |
+| `OVERSIZED_DIVISION_WORDS` | int | 5000 | 2000–10000 | Maximum word count for a single chunk. Above this → split into multiple chunks. | §4.5 |
+
+**Phase 2 parameters:**
+
+| Parameter | Type | Default | Range | Description | SPEC Reference |
+|-----------|------|---------|-------|-------------|----------------|
+| `CLASSIFY_MODEL` | str | `anthropic/claude-opus-4.6` | — | LLM model for segment classification. Via OpenRouter. | §5.2.5 |
+| `GROUP_MODEL` | str | `anthropic/claude-opus-4.6` | — | LLM model for teaching unit grouping. Via OpenRouter. | §5.3.5 |
+| `LLM_TEMPERATURE` | float | 0 | 0.0–0.3 | Temperature for all LLM calls (classification, grouping, enrichment). | §5.2.5, §5.3.5, §7.2.5 |
+| `CLASSIFY_MAX_TOKENS` | dynamic | See §5.5.1 | — | MAX_TOKENS for classify call. Scales with input word count. | §5.5.1 |
+| `GROUP_MAX_TOKENS` | int | 16384 | 8192–32768 | MAX_TOKENS for group call. | §5.3.5 |
+| `RETRY_COUNT` | int | 2 | 1–5 | Maximum retries for LLM calls (excluding schema validation retries). | §5.5.2 |
+| `TIMEOUT_SECONDS` | int | 120 | 30–300 | Per-call timeout for LLM API requests. | §5.5.3 |
+
+**Phase 3 parameters:**
+
+| Parameter | Type | Default | Range | Description | SPEC Reference |
+|-----------|------|---------|-------|-------------|----------------|
+| `ENRICH_MODEL` | str | `anthropic/claude-opus-4.6` | — | LLM model for metadata enrichment. Via OpenRouter. | §7.2.5 |
+| `ENRICH_MAX_TOKENS` | int | 16384 | 8192–32768 | MAX_TOKENS for enrichment call. | §7.2.5 |
+| `VERIFY_MODEL` | str | `openai/gpt-4.1` | — | LLM model for consensus verification. Via OpenRouter. Must be from a different provider family than ENRICH_MODEL. | §7.3.2 |
+| `VERIFY_MAX_TOKENS` | int | 8192 | 4096–16384 | MAX_TOKENS for verification call. | §7.3.2 |
+| `ESCALATION_MODEL` | str | `cohere/command-a-03-2025` | — | Third model for 3-way escalation when enrichment and verification disagree on attribution. Via OpenRouter. | §7.3.3 |
+
+**Human gate parameters:**
+
+| Parameter | Type | Default | Description | SPEC Reference |
+|-----------|------|---------|-------------|----------------|
+| `GATE_ON_DEPENDENT` | bool | true | Trigger human gate for DEPENDENT self-containment after consensus. | §7.3.4 (EX-G-002) |
+| `GATE_ON_ATTRIBUTION_DISAGREEMENT` | bool | true | Trigger human gate when all 3 attribution models disagree. | §7.3.4 (EX-G-001) |
+| `GATE_ON_SCHOOL_CONFLICT` | bool | true | Trigger human gate when school attribution conflicts with source metadata and models disagree. | §7.3.4 (EX-G-003) |
+
+**Telemetry parameters:**
+
+| Parameter | Type | Default | Description | SPEC Reference |
+|-----------|------|---------|-------------|----------------|
+| `LOG_LEVEL` | str | `INFO` | Minimum log level: DEBUG, INFO, WARNING, ERROR. | §5.5.4 |
+| `TELEMETRY_ENABLED` | bool | true | Collect per-chunk timing, token usage, error counts. | §5.5.4 |
+
+**Configuration loading order:**
+1. Built-in defaults (the values in the tables above).
+2. Engine configuration file: `engines/excerpting/config.yaml` (overrides defaults).
+3. Per-source overrides: `library/sources/{source_id}/excerpting_config.yaml` (overrides engine config for this source — useful for sources requiring different thresholds).
+
+Per-source overrides are designed for edge cases. For example, a very short source (under 10 divisions) might lower `TINY_DIVISION_WORDS` to avoid over-merging. A source with known poor layer detection might lower the LA-1 threshold from 80% to 70%. Per-source overrides are logged in the processing log.
+
+**All LLM calls go through OpenRouter.** Model strings in this configuration are OpenRouter model identifiers. Direct API calls to Anthropic, OpenAI, Cohere, or Mistral are not permitted (KR routing rule).
+
+---
+
