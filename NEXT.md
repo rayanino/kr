@@ -146,7 +146,7 @@ Update this after each section is committed. The next session (if context forces
 - [x] §3 Self-Containment Standard
 - [x] §4 Phase 1: Deterministic Preprocessing
 - [x] §5 Phase 2: Teaching Unit Extraction
-- [ ] §6 Domain-Specific Rules
+- [x] §6 Domain-Specific Rules
 - [ ] §7 Phase 3: Metadata Enrichment
 - [ ] §2.2 Output Contract
 - [ ] §8 Error Handling and Configuration
