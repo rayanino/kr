@@ -10,13 +10,13 @@
 - **SPEC Outline: ✅ COMPLETE** (`engines/excerpting/SPEC_OUTLINE.md`)
 - **Step 0 (evaluation): ✅** — Architect independently verified EVALUATION.md findings by reading Arabic text
 - **Step 1 (outline): ✅** — 763-line outline with source mapping, finding resolution, data model decision
-- **Step 2 (section writing): IN PROGRESS** — 6/12 sections complete (1145 lines). Session 2 handoff: `reference/archive/sessions/excerpting_spec_session2_handoff.md`
+- **Step 2 (section writing): IN PROGRESS** — 9/12 sections complete (1970 lines). Session 3 handoff: `reference/archive/sessions/excerpting_spec_session3_handoff.md`
 
 ## What to Do — Step 2: Write Sections in Dependency Order
 
 ### Before Writing: Setup ✅ DONE (Session 1)
 
-Old SPECs archived to `reference/archive/abd_code/excerpting/`. New SPEC.md created with header. Sessions 1–2 wrote 6 sections (§2.3, §2.1, §3, §4, §5, §6).
+Old SPECs archived to `reference/archive/abd_code/excerpting/`. New SPEC.md created with header. Sessions 1–3 wrote 9 sections (§2.3, §2.1, §2.2, §3, §4, §5, §6, §7, §8).
 
 ### Continuing from a Previous Session
 
@@ -24,6 +24,7 @@ If this is NOT the first session writing sections:
 1. Read the latest session handoff (check `reference/archive/sessions/` for most recent):
    - Session 1: `reference/archive/sessions/excerpting_spec_session1_handoff.md`
    - Session 2: `reference/archive/sessions/excerpting_spec_session2_handoff.md`
+   - Session 3: `reference/archive/sessions/excerpting_spec_session3_handoff.md`
 2. Read `engines/excerpting/SPEC_OUTLINE.md` in full — it's the architectural blueprint
 3. Read the current `engines/excerpting/SPEC.md` section headers (`grep "^## §\|^### §" engines/excerpting/SPEC.md`) to see what's written
 4. Check the progress tracker at the bottom of this file for the next unchecked section
@@ -149,9 +150,9 @@ Update this after each section is committed. The next session (if context forces
 - [x] §4 Phase 1: Deterministic Preprocessing
 - [x] §5 Phase 2: Teaching Unit Extraction
 - [x] §6 Domain-Specific Rules
-- [ ] §7 Phase 3: Metadata Enrichment
-- [ ] §2.2 Output Contract
-- [ ] §8 Error Handling and Configuration
+- [x] §7 Phase 3: Metadata Enrichment
+- [x] §2.2 Output Contract
+- [x] §8 Error Handling and Configuration
 - [ ] §1 Purpose and Scope
 - [ ] §9 Deferred Capabilities
 - [ ] §10 Test Requirements
