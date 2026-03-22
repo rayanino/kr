@@ -1142,3 +1142,512 @@ Q&A format (سؤال وجواب) and masala format (مسألة enumerated legal 
 
 ---
 
+## §7 — Phase 3: Metadata Enrichment
+
+Phase 3 transforms `TeachingUnit` objects (§2.3.4) into `ExcerptRecord` objects (§2.2) by adding attribution, topic classification, evidence references, and cross-reference metadata. Phase 3 operates on one `AssembledChunk` at a time, enriching all teaching units within that chunk.
+
+Phase 3 has three stages, executed in order:
+1. **Deterministic assembly** (§7.1): fields computable from the data model without any LLM call.
+2. **LLM enrichment** (§7.2): fields requiring inference — topic classification, school attribution, scholar resolution, takhrij extraction, terminology variants, cross-references, and context hints.
+3. **Consensus verification** (§7.3): cross-provider verification for high-epistemic-impact decisions, plus human gate triggers for unresolvable uncertainty.
+
+**Design decision — LLM call granularity:** Phase 3 issues **one LLM enrichment call per chunk** (not per-unit). Rationale: inter-unit context improves quality — when unit 5 references "as mentioned above," the LLM can see unit 3 and resolve the reference. School attribution is more consistent when the LLM sees all units from the same textual context. Topic keywords benefit from seeing the chunk's thematic scope. The per-chunk failure risk is mitigated by deterministic fallback (§7.1 fields survive LLM failure).
+
+**Design decision — no `proposed_leaf`:** The old excerpting SPEC included a `proposed_leaf` field where the LLM proposed a taxonomy tree path. This field is **removed** in the new architecture. The excerpting engine produces `excerpt_topic` (1–3 Arabic topic keywords). The taxonomy engine is responsible for mapping topics to tree positions. Rationale: the taxonomy engine owns the classification tree and may restructure it — pre-proposed paths would be invalidated. Topic keywords are stable, content-descriptive, and useful regardless of tree structure. This maintains a clean engine boundary: excerpting knows content, taxonomy knows structure.
+
+### §7.1 — Deterministic Metadata Assembly
+
+For each `TeachingUnit` in the chunk, Phase 3 computes the following fields without any LLM call. Each field is defined with its computation algorithm and source data.
+
+**F-DET-1: `excerpt_id`**
+
+Globally unique identifier for the excerpt. Format: `exc_{source_id}_{div_id}_{unit_index}`.
+
+- `source_id`: from the `AssembledChunk.source_id` field.
+- `div_id`: from the `AssembledChunk.div_id` field (the division that produced this chunk).
+- `unit_index`: from the `TeachingUnit.unit_index` field.
+
+Example: `exc_12345_div_3_2_7` for unit 7 of division 3.2 in source 12345.
+
+Uniqueness invariant: no two excerpts in the library share an `excerpt_id`. This is guaranteed by the combination of unique source_id (from the source engine), unique div_id within a source (from the normalization manifest), and unique unit_index within a chunk (from Phase 2).
+
+**F-DET-2: `primary_text`**
+
+The teaching unit's full Arabic text, extracted from `assembled_text` using the unit's word offsets.
+
+Algorithm: split `assembled_text` on whitespace into words. Extract words from `start_word` to `end_word` (inclusive). Join with single space.
+
+This text is **immutable** — it is written once and never modified by subsequent processing or engines. It is the text the owner reads in the final library. Correctness depends on the offset normalization guarantee from §5.4.
+
+**F-DET-3: `primary_author_layer`**
+
+The text layer (and therefore author) to which this teaching unit is attributed. Computed by applying the layer attribution rules from §6.2 (LA-1 through LA-4) to the unit's character range within `assembled_text`.
+
+Algorithm:
+1. Convert the unit's word offsets (`start_word`, `end_word`) to character offsets in `assembled_text`.
+2. For each `text_layer` segment in `AssembledChunk.text_layers`, compute the character overlap with the unit's character range.
+3. Compute each layer's coverage percentage: `overlap_chars / unit_total_chars`.
+4. Apply rules in order:
+   - **LA-4:** If one layer has 100% coverage, attribute to that layer's author. (Checked first because it's the most specific case.)
+   - **LA-1:** If one layer has ≥80% coverage, attribute to that layer's author.
+   - **LA-2:** If no layer has ≥80% but the unit spans exactly two layers, attribute to the outermost (highest-layer) author.
+   - **LA-3:** If no layer has ≥80% and either (a) three or more layers are present, or (b) the dominant layer has <60% coverage, emit `EX-M-001` (attribution ambiguous). Mark for consensus verification (§7.3).
+
+Output: `{layer_id, author_id, coverage_pct, rule_applied}`. The `rule_applied` field records which rule (LA-1/LA-2/LA-3/LA-4) determined the attribution — this supports auditability and debugging.
+
+For single-layer sources (no sharh/hashiyah), this step is trivial: 100% coverage of the single layer, LA-4 applies. The rule still runs to maintain uniform processing.
+
+**F-DET-4: `content_types`**
+
+Aggregated scholarly function types present in the teaching unit's constituent segments.
+
+Algorithm: collect `scholarly_function` from each `ClassifiedSegment` whose `segment_index` is in the `TeachingUnit.segment_indices`. Deduplicate. The result is a set of `ScholarlyFunction` values (e.g., `{rule_statement, evidence_quran, evidence_rational}`).
+
+This field supports downstream filtering (e.g., "show me all teaching units that contain hadith evidence").
+
+**F-DET-5: `evidence_refs` (structural)**
+
+Structured evidence references detected by pattern matching in the unit's `primary_text`. This is the deterministic component of evidence extraction; §7.2 adds LLM-assisted extraction for partial quotes and hadith details.
+
+Quran references (EV-1 partial):
+1. Scan `primary_text` for ﴿...﴾ delimiters.
+2. Extract the text between delimiters.
+3. Attempt canonical lookup against a pre-loaded Quran text reference (surah/ayah mapping). The reference data is a build-time artifact.
+4. If matched: `{type: "quran", surah: int, ayah_start: int, ayah_end: int, text_snippet: str}`.
+5. If no match (partial quote, paraphrase, or allusion): `{type: "quran", surah: null, ayah_start: null, ayah_end: null, text_snippet: str}` — the snippet is preserved for LLM resolution in §7.2.
+
+Hadith markers (EV-2 partial):
+1. Scan `primary_text` for hadith citation patterns: رواه, أخرجه, في الصحيحين, متفق عليه, في صحيح, في سنن.
+2. If found: `{type: "hadith", marker_text: str, detail: null}` — the `detail` field is populated by LLM enrichment in §7.2 (takhrij_data).
+
+Consensus markers (EV-3 partial):
+1. Scan `primary_text` for consensus patterns: أجمعوا, إجماع, لا خلاف, اتفق العلماء, بالاتفاق.
+2. If found: `{type: "ijma", marker_text: str, scope: null}` — the `scope` field is populated by LLM enrichment.
+
+Pattern matching uses word-boundary-aware search (the lesson from normalization engine S4/S5 — short Arabic stems produce false positives without boundary checks). Each pattern requires the marker to appear at a word boundary (preceded by whitespace/start-of-text and followed by whitespace/punctuation/end-of-text).
+
+**F-DET-6: `physical_pages`**
+
+The physical page range this teaching unit spans in the original printed edition.
+
+Algorithm: the `AssembledChunk.assembly_metadata` contains `page_ranges` — a mapping from character offset ranges in `assembled_text` to physical page numbers. Convert the unit's character range to page numbers using this mapping.
+
+Output: `{start_page: int, end_page: int, volume: int | null}`. If page information is unavailable (some Shamela exports lack it), this field is `null`.
+
+**F-DET-7: `div_path`**
+
+The heading hierarchy path from the source's table of contents to the division containing this chunk.
+
+Source: `AssembledChunk.assembly_metadata.heading_path` — a list of heading strings from the manifest's division tree, root to leaf.
+
+Output: `list[str]` — e.g., `["كتاب الطهارة", "باب الوضوء", "فصل في فرائض الوضوء"]`.
+
+**F-DET-8: `footnotes_relevant`**
+
+The subset of the chunk's footnotes that have reference markers appearing within this teaching unit's text range.
+
+Algorithm:
+1. The `AssembledChunk.footnotes` contains all footnotes for the chunk, each with a `ref_marker` (e.g., "(1)", "¹") and its character offset in `assembled_text`.
+2. Select footnotes whose `ref_marker` character offset falls within the unit's character range.
+3. Return the selected footnotes with their full text.
+
+Footnotes outside the unit's range are excluded — they belong to other teaching units from the same chunk. No footnote is dropped from the chunk-level data (D-023 metadata passthrough); the filtering is per-excerpt for relevance.
+
+**F-DET-9: `quoted_scholars` (structural)**
+
+Other text layer authors whose text appears within this teaching unit but who are NOT the `primary_author_layer`.
+
+Algorithm: from the layer overlap computation in F-DET-3, identify all layers with >0% coverage that are not the primary layer. For each, record `{author_id, layer_id, role}` where `role` is determined by the layer relationship:
+- If the non-primary layer is the matn layer in a sharh unit → `role: "classification_frame"` (the matn text is the frame being commented on).
+- If the non-primary layer is a higher layer (hashiyah quoting sharh) → `role: "quoted_opinion"`.
+- Default → `role: "quoted_opinion"`.
+
+This is structural quoted-scholar detection (from layer metadata). §7.2 adds LLM-detected quoted scholars from the text content (e.g., "قال أبو حنيفة" when Abu Hanifa is not a layer author).
+
+### §7.2 — LLM-Driven Metadata Enrichment
+
+For each chunk, a single LLM call enriches all teaching units with fields that require inference. The call receives the full assembled text, all unit boundaries with their deterministic metadata, and source-level context.
+
+#### §7.2.1 — Input
+
+The LLM receives:
+- The full `assembled_text` of the `AssembledChunk`
+- Source metadata: author name, work title, science/discipline, school affiliation (from the normalization engine's manifest)
+- For each teaching unit: unit_index, word range, text_snippet, primary_function, self_containment level, self_containment_notes, and the deterministic `evidence_refs` (so the LLM can resolve partial references rather than re-detecting them)
+
+#### §7.2.2 — LLM System Prompt
+
+The enrichment prompt specifies each output field with instructions and constraints. Full prompt text:
+
+```
+You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).
+
+You are enriching teaching units extracted from this Arabic text with semantic
+metadata. Each teaching unit has already been identified, classified, and
+partially annotated. Your task is to add inferred metadata that requires
+scholarly understanding of the text.
+
+For EACH teaching unit listed in the input, provide these fields:
+
+1. TOPIC KEYWORDS (excerpt_topic): 1 to 3 Arabic keywords or short phrases
+   identifying the specific topic taught in this unit. Use standard Arabic
+   terminology from the science of this text.
+   Examples: "شروط الوضوء", "حكم الربا", "إعراب المبتدأ والخبر"
+   Choose keywords that distinguish this unit's topic from other units in the
+   same chapter. Avoid overly broad terms (e.g., "فقه" alone is too broad).
+
+2. SCHOOL ATTRIBUTION (school): If this unit presents a position from a specific
+   madhhab or school, identify it. Values:
+   - A school name: "حنفي", "مالكي", "شافعي", "حنبلي", "ظاهري"
+   - "cross_school" if the unit compares multiple schools' positions
+   - null if no school attribution is identifiable (grammar, tafsir, etc.)
+   CRITICAL DISTINCTION: The author's own school (provided in source metadata)
+   is not necessarily the school of the position being presented. An author from
+   the Hanbali school may present the Shafi'i position for comparison. Attribute
+   the POSITION, not the AUTHOR, unless the author is presenting their own
+   school's view.
+
+3. QUOTED SCHOLAR RESOLUTION (resolved_scholars): For each scholar mentioned
+   by name or epithet in the unit's text, provide:
+   - mention_text: the exact Arabic text used to refer to the scholar
+   - resolved_name: the scholar's full conventional name (الاسم المشهور)
+     if you can identify them. Use standard scholarly naming (e.g.,
+     "أحمد بن حنبل" not just "أحمد").
+   - role: one of:
+     * "quoted_opinion" — the unit quotes this scholar's view as content
+     * "classification_frame" — the unit quotes this scholar's text as the
+       frame being commented on (matn author in a sharh excerpt)
+     * "refuted_position" — the unit quotes this scholar to refute their view
+   - confidence: 0.0 to 1.0
+
+   EPITHET RESOLUTION: Common epithets are context-dependent:
+   - "الإمام" → in Hanbali texts usually Ahmad ibn Hanbal; in Shafi'i texts
+     usually al-Shafi'i; in Hanafi texts usually Abu Hanifa; in Maliki texts
+     usually Malik
+   - "الشيخ" → varies by author and era; use source metadata for context
+   - "صاحب الكتاب" / "المصنف" → the author of the current work
+   Use the source school metadata provided to resolve ambiguous epithets.
+   If resolution is uncertain, set confidence < 0.5 and provide your best guess.
+   Never silently drop an unresolvable mention — include it with low confidence.
+
+4. TAKHRIJ DATA (takhrij_data): For teaching units containing hadith citations,
+   extract from the text AND from the footnotes provided:
+   - hadith_text_snippet: first 30 characters of the hadith matn
+   - collections: list of hadith collection names mentioned (e.g., "صحيح البخاري",
+     "سنن أبي داود")
+   - hadith_numbers: list of hadith numbers if mentioned (may be empty)
+   - grade: the stated authenticity grade ("صحيح", "حسن", "ضعيف", etc.) or null
+   - grade_source: who stated the grade ("المؤلف", "المحقق", "الألباني", etc.)
+     or null
+   Do NOT invent or infer grades. Record ONLY what the text or footnotes
+   explicitly state. If no grade is mentioned, set grade and grade_source to null.
+   Omit this field entirely for units with no hadith content.
+
+5. TERMINOLOGY VARIANTS (terminology_variants): Arabic technical terms in this
+   unit that are known to have alternative names in other scholarly traditions.
+   - term: the term as used in this text
+   - variants: list of known alternative Arabic terms for the same concept
+   Example: {"term": "القراض", "variants": ["المضاربة"]}
+   Example: {"term": "الحدث", "variants": ["النجاسة الحكمية"]}
+   Only include genuine terminology equivalences. Empty list is acceptable
+   for units with no notable term variants.
+
+6. CROSS-REFERENCES (cross_references): If the unit contains references to
+   other parts of the same work ("كما تقدم", "المذكور آنفاً", "ما سيأتي في باب"),
+   provide:
+   - reference_text: the exact reference phrase in the unit
+   - target_description: what the reference points to, if determinable
+   - resolved: true if you can identify the target from the division path
+     and text context, false otherwise
+   When the reference cannot be resolved (IR-3 from §6.4), set resolved to false.
+   Unresolved references support self-containment assessment (the unit stays at
+   PARTIAL) and downstream linking.
+
+7. CONTEXT HINT (context_hint): For units with self_containment = PARTIAL,
+   provide a brief Arabic phrase (10 to 30 Arabic words) that supplies the
+   missing context identified in self_containment_notes. This hint will be
+   displayed alongside the excerpt to help the reader.
+   Provide ONLY for units where self_containment is PARTIAL.
+   Set to null for FULL and DEPENDENT units.
+
+Respond with a JSON array containing one enrichment object per teaching unit,
+in the same order as the input units.
+```
+
+**Adaptation notes:**
+- Adapted from: old excerpting SPEC §4.A.1 Phase 3 metadata enrichment, plus domain rules from §6.2–§6.4 of this SPEC.
+- Added: explicit school-vs-position distinction (from §6.2 Layer Attribution design, where author school ≠ position school).
+- Added: epithet resolution instructions with per-school defaults (from §6.4 IR-2).
+- Added: hadith grade fabrication prohibition (from §6.3 EV-2 — "do NOT independently assess hadith authenticity").
+- Added: cross-reference field (from §6.4 IR-1 intra-source cross-reference).
+- Added: context_hint tied to self_containment level (from §3.3 PARTIAL definition).
+- Added: terminology_variants (from old excerpting SPEC enrichment list).
+- Removed: `proposed_leaf` — taxonomy placement is the taxonomy engine's responsibility (design decision documented above).
+- Removed: `atom_ids`, `core_atom_ids`, `context_atom_ids` — the atom-based data model is eliminated in this architecture.
+
+#### §7.2.3 — User Message
+
+The user message contains the text, source metadata, and unit summaries with their deterministic annotations:
+
+```
+<source_metadata>
+Author: {author_name}
+Work: {work_title}
+Science: {science}
+School: {source_school}
+</source_metadata>
+
+<text>
+{assembled_text}
+</text>
+
+<teaching_units>
+{for each unit:}
+Unit {unit_index}: words {start_word}–{end_word}
+  snippet: "{text_snippet}"
+  function: {primary_function}
+  self_containment: {self_containment}
+  self_containment_notes: {self_containment_notes | "none"}
+  evidence_detected: {summary of F-DET-5 evidence_refs for this unit, or "none"}
+  footnotes: {footnotes_relevant text, or "none"}
+{end for}
+</teaching_units>
+```
+
+The `evidence_detected` summary includes the pattern-matched evidence references from §7.1 (F-DET-5), so the LLM can refine and complete them (e.g., resolving a partial Quran quote to surah/ayah) rather than re-detecting from scratch.
+
+The `footnotes` field includes the full text of relevant footnotes (F-DET-8), because the LLM needs footnote content for takhrij extraction (EV-2) and evidence grading.
+
+#### §7.2.4 — Response Schema
+
+The LLM returns structured output enforced via a Pydantic model. The schema:
+
+**EnrichmentResult:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `enrichments` | `list[UnitEnrichment]` | One enrichment per teaching unit, same order as input. |
+| `total_units` | `int` | Count of enrichments (must equal input unit count). |
+
+**UnitEnrichment:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `unit_index` | `int` | yes | Must match the input `unit_index`. |
+| `excerpt_topic` | `list[str]` | yes | 1–3 Arabic topic keywords. |
+| `school` | `str \| null` | yes | School attribution or null. |
+| `resolved_scholars` | `list[ResolvedScholar]` | yes | May be empty if no scholars mentioned. |
+| `takhrij_data` | `list[TakhrijEntry]` | no | Present only for units with hadith content. |
+| `terminology_variants` | `list[TermVariant]` | yes | May be empty. |
+| `cross_references` | `list[CrossReference]` | yes | May be empty. |
+| `context_hint` | `str \| null` | yes | Non-null only when self_containment is PARTIAL. |
+
+**ResolvedScholar:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `mention_text` | `str` | Exact Arabic text referring to the scholar. |
+| `resolved_name` | `str \| null` | Full conventional name, or null if unresolvable. |
+| `role` | `str` | One of: `quoted_opinion`, `classification_frame`, `refuted_position`. |
+| `confidence` | `float` | 0.0–1.0. |
+
+**TakhrijEntry:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `hadith_text_snippet` | `str` | First 30 characters of the hadith matn. |
+| `collections` | `list[str]` | Hadith collection names. |
+| `hadith_numbers` | `list[str]` | Hadith numbers if mentioned (may be empty). |
+| `grade` | `str \| null` | Stated grade or null. |
+| `grade_source` | `str \| null` | Who stated the grade, or null. |
+
+**TermVariant:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `term` | `str` | The term as used in this text. |
+| `variants` | `list[str]` | Known alternative Arabic terms. |
+
+**CrossReference:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `reference_text` | `str` | The exact reference phrase. |
+| `target_description` | `str \| null` | What the reference points to. |
+| `resolved` | `bool` | Whether the target was identified. |
+
+On schema validation failure (missing fields, wrong types, invalid enum values), the structured output library retries automatically with the validation error appended. Up to 2 retries per chunk (same retry policy as Phase 2 — §5.5.2).
+
+#### §7.2.5 — Model and Parameters
+
+| Parameter | Value | Rationale |
+|-----------|-------|-----------|
+| Model | `anthropic/claude-opus-4.6` via OpenRouter | Highest enrichment quality. School attribution and scholar resolution require deep domain knowledge. |
+| Temperature | `0` | Deterministic enrichment. |
+| MAX_TOKENS | `16384` | Enrichment output is structured metadata, not full text. 16384 is sufficient for the largest validated case (41 units, each with ~7 enrichment fields). |
+
+**LLM enrichment failure handling:** If the enrichment call fails after retries (timeout, validation failure, API error), emit `EX-M-002` (enrichment failed). The excerpt is produced with deterministic metadata only (§7.1 fields) plus a review flag `llm_enrichment_failed: true`. Enrichment can be retried later without re-running Phases 1–2. The `ExcerptRecord` is structurally valid with only deterministic fields — the LLM-enriched fields have defaults (empty lists, null values) that downstream engines handle gracefully.
+
+### §7.3 — Consensus Verification and Human Gates
+
+Not every Phase 3 decision requires cross-provider verification. Consensus is reserved for high-epistemic-impact decisions where a wrong answer is silent and dangerous — the owner learns something false without any visible error signal.
+
+#### §7.3.1 — What Requires Consensus
+
+**Consensus required:**
+
+| Decision | Trigger | Rationale |
+|----------|---------|-----------|
+| School attribution | `school` is non-null in §7.2 output | T-2 defense: wrong school attribution silently corrupts the owner's understanding of which tradition a position belongs to. |
+| Author attribution (LA-3) | `EX-M-001` emitted in §7.1 (F-DET-3) | T-2 defense: ambiguous layer coverage means the deterministic rule cannot confidently attribute. A second model provides an independent assessment. |
+| Self-containment (PARTIAL/DEPENDENT) | `self_containment` is not FULL | T-4 defense: a false FULL rating is caught by the Phase 2b evaluation. But PARTIAL/DEPENDENT ratings determine what context is shown to the owner — verifying these with a second model catches cases where Phase 2b was too conservative or too lenient. |
+
+**Consensus NOT required:**
+
+| Decision | Rationale |
+|----------|-----------|
+| Topic classification (`excerpt_topic`) | Validated by the taxonomy engine downstream — an independent structural check. |
+| Evidence extraction (`evidence_refs`, `takhrij_data`) | Validated by structured reference matching (Quran verse lookup, hadith collection verification). Pattern-based, not subjective. |
+| Author attribution (LA-1, LA-2, LA-4) | Deterministic — computed from character overlap with text layers, not inferred. |
+| Self-containment FULL | Phase 2b's FULL assessment is accepted. FULL is the common case; verifying every FULL unit would be prohibitively expensive with minimal benefit. |
+| Quoted scholar resolution | Low epistemic risk — a wrong scholar resolution is visible to the owner (the name appears in the text) and correctable. |
+| Terminology variants | Informational — variants are suggestions, not authoritative claims. |
+
+#### §7.3.2 — Verification Call
+
+When a chunk contains units requiring consensus, Phase 3 issues a **single verification call per chunk** to a different model provider. The call includes only the units needing verification, not all units.
+
+**Verification model:** Configurable. Default: `openai/gpt-4.1` via OpenRouter. The verification model MUST be from a different provider family than the enrichment model (Layer 3.5 of KNOWLEDGE_INTEGRITY.md). Since the enrichment model is Anthropic (Opus), the verifier must be from OpenAI, Cohere, Mistral, or another non-Anthropic provider.
+
+**Verification prompt:**
+
+```
+You are verifying metadata decisions made by another model on Arabic Islamic
+scholarly text. For each item below, independently assess whether the decision
+is correct.
+
+Source context:
+- Author: {author_name}
+- Work: {work_title}
+- Science: {science}
+- School: {source_school}
+
+{for each item needing verification:}
+
+ITEM {n}: {verification_type}
+Text: "{unit primary_text, truncated to 500 chars}"
+Decision: {the claim being verified}
+Your assessment: agree or disagree, with brief reasoning in Arabic or English.
+If you disagree, provide your alternative.
+
+{end for}
+```
+
+The verification types are:
+- `SCHOOL_ATTRIBUTION`: "School attributed as {school}. Is this correct given the text content?"
+- `AUTHOR_ATTRIBUTION`: "Unit attributed to {author} (layer {layer_id}, {coverage_pct}% coverage, rule LA-3). Is this attribution correct, or should it be attributed differently?"
+- `SELF_CONTAINMENT`: "Unit assessed as {level}. Notes: {notes}. Is this assessment correct?"
+
+**Verification response schema:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `items` | `list[VerificationItem]` | One per verification item. |
+
+**VerificationItem:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `item_index` | `int` | Matches the item number from the prompt. |
+| `agrees` | `bool` | Whether the verifier agrees with the decision. |
+| `alternative` | `str \| null` | The verifier's alternative if it disagrees. |
+| `reasoning` | `str` | Brief explanation. |
+
+**Verification model parameters:**
+
+| Parameter | Value |
+|-----------|-------|
+| Model | Configurable — default `openai/gpt-4.1` via OpenRouter |
+| Temperature | `0` |
+| MAX_TOKENS | `8192` |
+
+#### §7.3.3 — Disagreement Resolution
+
+When the enrichment model and verification model disagree:
+
+**School attribution disagreement:**
+1. Record both assessments: `{enrichment_school, verifier_school, verifier_reasoning}`.
+2. If the verifier proposes a specific alternative school → use the **conservative** choice: set `school_confidence` to the lower of the two models' confidences, and add review flag `school_consensus_disagreement`.
+3. Emit `EX-M-003` (school attribution disagreement).
+4. The excerpt is produced with the enrichment model's `school` value but flagged for human review.
+
+**Author attribution disagreement (LA-3 cases):**
+1. Record both assessments.
+2. Escalate: issue a **third verification call** using a second alternative provider (configurable, default `cohere/command-a-03-2025` via OpenRouter). The third model sees the text and both prior assessments.
+3. If 2 of 3 models agree → use the majority attribution.
+4. If all 3 disagree → emit `EX-G-001` (attribution requires human review). Set `primary_author_layer` to the enrichment model's assessment with `attribution_confidence: 0.0`. The human gate triggers.
+
+**Self-containment disagreement:**
+1. Use the **more conservative** (lower) assessment. If the enrichment model said PARTIAL but the verifier says DEPENDENT, use DEPENDENT. If the verifier says FULL but Phase 2b said PARTIAL, keep PARTIAL.
+2. Record the disagreement in the excerpt's metadata: `{phase2_assessment, verifier_assessment}`.
+3. If downgraded to DEPENDENT → the human gate triggers (§7.3.4).
+
+Rationale for conservatism: underestimating self-containment (marking as PARTIAL when it's really FULL) costs the owner a context hint they don't need. Overestimating self-containment (marking as FULL when it's really PARTIAL) means the owner studies an excerpt without needed context and potentially misunderstands the teaching. The asymmetry of harm favors conservatism.
+
+#### §7.3.4 — Human Gate Triggers
+
+The following conditions trigger human gate entries. A gate entry is a record in the gate queue that requires the owner's review before the excerpt is considered fully validated.
+
+| Gate Code | Trigger | What the Owner Sees |
+|-----------|---------|---------------------|
+| `EX-G-001` | Author attribution: 3 models all disagree (§7.3.3) | The excerpt text, the 3 proposed attributions with reasoning, and a prompt: "Which author wrote this passage?" |
+| `EX-G-002` | Self-containment DEPENDENT after consensus (§7.3.3) | The excerpt text, the dependency notes, and a prompt: "This excerpt cannot stand alone. Should it be: (a) kept with a context note, (b) merged with adjacent content, or (c) excluded?" |
+| `EX-G-003` | School attribution disagreement AND source_school conflicts with both models (§7.3.3) | The excerpt text, the proposed schools, and a prompt: "Which school does this position belong to?" |
+
+**Gate queue format:** Each gate entry is a JSON line in `library/sources/{source_id}/excerpts/gate_queue.jsonl`:
+
+```json
+{
+  "excerpt_id": "exc_12345_div_3_2_7",
+  "gate_code": "EX-G-001",
+  "timestamp": "2026-03-22T14:30:00Z",
+  "context": {
+    "primary_text_snippet": "...",
+    "assessments": [...],
+    "source_metadata": {...}
+  },
+  "status": "pending"
+}
+```
+
+Gate entries with `status: "pending"` block the excerpt from appearing in the owner's study view but do NOT block downstream processing. The taxonomy engine can process gated excerpts (using the enrichment model's assessment as provisional) and update when the gate is resolved. This prevents the human gate queue from becoming a pipeline bottleneck.
+
+**Gate entry does NOT trigger for:**
+- LLM enrichment failure (`EX-M-002`) — this is an operational error, not an epistemic uncertainty. The excerpt is produced with deterministic metadata and can be re-enriched later.
+- Low-confidence quoted scholar resolution — visible to the owner in the text and self-correcting.
+- Unresolved cross-references — informational, not dangerous.
+
+### §7.4 — Phase 3 Self-Validation
+
+After Phase 3 completes for a chunk, the following checks are run before the `ExcerptRecord` objects are written.
+
+**V-P3-1 (Excerpt ID uniqueness):** Every `excerpt_id` produced in this chunk is unique. No duplicate IDs within the chunk. Cross-chunk uniqueness is guaranteed by the ID format (includes div_id and unit_index).
+
+**V-P3-2 (Primary text integrity):** For each excerpt, `primary_text` extracted via word offsets matches `text_snippet` (first 80 chars). If they diverge, something went wrong in offset handling. Emit `EX-V-002`.
+
+**V-P3-3 (Author attribution completeness):** Every excerpt has a `primary_author_layer` value. No excerpt has `null` attribution — even LA-3 (ambiguous) cases produce an attribution (with the ambiguity flagged). If any excerpt lacks attribution, emit `EX-M-004`.
+
+**V-P3-4 (Topic keyword validity):** Every excerpt has 1–3 `excerpt_topic` keywords (from LLM enrichment) or an empty list (if LLM enrichment failed). Keywords with 0 or >3 entries when LLM enrichment succeeded → emit `EX-M-005` (topic extraction anomaly). The excerpt is still produced; the anomaly is logged.
+
+**V-P3-5 (Self-containment consistency):** The `self_containment` level on the `ExcerptRecord` matches the consensus-resolved level from §7.3. If the `context_hint` field is non-null but `self_containment` is not PARTIAL, or if `self_containment` is PARTIAL but `context_hint` is null (and LLM enrichment succeeded), emit `EX-M-006` (self-containment metadata inconsistency).
+
+**V-P3-6 (Evidence reference integrity):** For each `evidence_refs` entry with `type: "quran"` and a resolved surah/ayah, verify that the surah number is 1–114 and the ayah number is within the surah's ayah count (from the canonical reference). Invalid references → emit `EX-M-007` (invalid Quran reference). The reference is kept but flagged.
+
+**V-P3-7 (Gate queue integrity):** Every gate trigger (EX-G-001, EX-G-002, EX-G-003) resulted in a gate queue entry being written. Read back the gate queue file and verify the entry exists. Missing entry → emit `EX-M-008` (gate entry not written — critical, because the uncertainty becomes invisible).
+
+**V-P3-8 (Footnote relevance):** For each excerpt with `footnotes_relevant`, verify that every footnote's `ref_marker` offset falls within the excerpt's character range. Orphan footnotes (ref_marker outside the excerpt) → emit `EX-M-009` (footnote misattribution). The footnote is removed from this excerpt's `footnotes_relevant` (it belongs to a different excerpt).
+
+**V-P3-9 (Content type consistency):** The `content_types` set (F-DET-4) must be a subset of the `ScholarlyFunction` enum values. Unknown function types → emit `EX-M-010` (unknown content type).
+
+---
+
