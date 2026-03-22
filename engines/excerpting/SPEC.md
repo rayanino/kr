@@ -211,3 +211,87 @@ The full field specification is in §2.2, written after all processing phases ar
 
 **Immutability:** `assembled_text` is write-once at Phase 1 and never modified by subsequent phases. Phase 2 and Phase 3 add metadata — they never alter the text. This defends against T-1 (Silent Text Corruption): the text the owner reads in a final excerpt is exactly the text that was assembled from the normalized content units.
 
+---
+
+## §2.1 — Input Contract
+
+The excerpting engine consumes one `NormalizedPackage` at a time — the output of the normalization engine for a single source. The authoritative schema is `engines/normalization/contracts.py`. This section specifies which fields the excerpting engine reads, which it passes through, and what pre-conditions must hold.
+
+### §2.1.1 — Input Files
+
+For each source with `source_id`:
+
+| File | Schema | Description |
+|------|--------|-------------|
+| `library/sources/{source_id}/normalized/manifest.json` | `NormalizedManifest` | Source-level metadata, division tree, layer map, quality report. |
+| `library/sources/{source_id}/normalized/content.jsonl` | `ContentUnit` (one per line) | Page-level content. One record per physical page, ordered by `unit_index`. |
+
+The engine reads both files at startup for the source being processed. The manifest is loaded fully into memory. Content units are loaded on demand per division (by `unit_index` range).
+
+### §2.1.2 — Manifest Fields Used
+
+| Field | Type | Used By | How |
+|-------|------|---------|-----|
+| `source_id` | `str` | All phases | Propagated to every intermediate and output type. |
+| `division_tree` | `list[DivisionNode]` | Phase 1 (§4.2) | Walked to identify leaf divisions. Each `DivisionNode` provides `div_id`, `heading_text`, `heading_level`, `start_unit_index`, `end_unit_index` (inclusive), `children`, `division_type`, `confidence`. |
+| `layer_map` | `list[LayerMapEntry]` | Phase 3 (§7.1) | Maps layer types to authors. Used for attribution: `layer_type` → `author_canonical_id` / `author_name_arabic`. Single-layer sources have one entry. |
+| `structural_format` | `StructuralFormat` | Phase 1 (§4.1) | Inherited by every `AssembledChunk`. Informs domain-specific handling in §6. The confirmed format, not `structural_format_proposed`. |
+| `total_content_units` | `int` | Phase 1 validation (§4.9) | Used by V-P1-2 to verify full coverage: union of all chunks' content units must equal `{0, ..., total_content_units - 1}`. |
+| `verse_detection` | `bool` | Phase 1 (§4) | Informational flag. When `true`, the source contains versified text. Does not change Phase 1 behavior (verse-commentary handling is LLM-driven in Phase 2, not structural in Phase 1). |
+| `quality_report` | `QualityReport` | Logging | `overall_confidence` logged at start. Sources with `MINIMAL` heading confidence are flagged for potential quality issues (few divisions → large chunks). Not a processing gate. |
+| `text_fidelity_summary` | `TextFidelitySummary` | Logging | `high_fidelity_pct` logged. Not a processing gate — the excerpting engine processes all sources regardless of fidelity. |
+
+**Manifest fields consulted when present (optional):**
+
+| Field | Type | Used By | How |
+|-------|------|---------|-----|
+| `content_census` | `ContentCensus` (nullable) | Phase 1 (§4.5) | When present, `structural_depth.division_count` informs splitting threshold adjustment for books with minimal division trees. Absent for sources where §4.B.5 was not run. |
+| `discourse_flow_summary` | `dict` (nullable) | Phase 3 (§7.2) | When present, `dominant_discourse_type` provides a hint for topic classification. Absent for sources where §4.B.10 was not run. |
+
+**Manifest fields passed through (D-023):**
+
+Every manifest field not listed above is passed through to the output untouched. The excerpting engine never modifies or drops manifest-level metadata. Specifically: `schema_version`, `normalizer_id`, `normalization_utc`, `structural_format_proposed`, `verse_numbering_scheme`, `normalization_warnings`, `tahqiq_topology`, `layer_fingerprints` — all preserved in the per-source output summary for downstream engines.
+
+### §2.1.3 — ContentUnit Fields Used
+
+Each `ContentUnit` corresponds to one physical page. The excerpting engine reads these fields during Phase 1 assembly:
+
+| Field | Type | Used By | How |
+|-------|------|---------|-----|
+| `unit_index` | `int` | Phase 1 (§4.3) | Identifies which units belong to a division. Units are selected by `[start_unit_index, end_unit_index]` range from the `DivisionNode`. |
+| `primary_text` | `str` | Phase 1 (§4.3) | Concatenated across pages to form `assembled_text`. All diacritics preserved exactly. No Unicode normalization applied. |
+| `text_layers` | `list[TextLayerSegment]` | Phase 1 (§4.6) | Rebased from per-page character offsets to assembled-text character offsets. Each segment's `layer_type`, `author_canonical_id`, `start`, `end`, `confidence` are preserved. |
+| `footnotes` | `list[Footnote]` | Phase 1 (§4.7) | Collected from all constituent pages, deduplicated by `ref_marker`. All fields preserved: `ref_marker`, `text`, `footnote_type`, `confidence`, plus type-specific data when present. |
+| `structural_markers` | `StructuralMarkers` | Phase 1 (§4.5, §4.8) | `heading_detected`, `heading_text` used for split-point detection in oversized divisions. `heading_text` used for heading alignment verification. |
+| `boundary_continuity` | `BoundaryContinuity` (nullable) | Phase 1 (§4.3) | Determines separator between consecutive pages during assembly. `type` field maps to separator string. Null on last unit and non-paginated sources — treated as `"\n"` separator. |
+| `content_flags` | `ContentFlags` | Phase 1 (§4.7) | OR-aggregated across pages into chunk-level flags. `is_toc_page` and `is_index_page` used by §4.2 to skip non-content divisions. |
+| `physical_page` | `PhysicalPage` | Phase 1 (§4.7) | Collected into chunk's `physical_pages` list for citation support. |
+| `verse_info` | `VerseInfo` (nullable) | Accessible | Not carried on `AssembledChunk` directly. Accessible by re-reading the constituent `ContentUnit` records via `assembly_metadata.constituent_unit_indices`. Reserved for deferred §6.5 verse-commentary alignment. |
+| `text_fidelity` | `TextFidelity` | Logging | Per-page fidelity logged. Not a processing gate. |
+
+**ContentUnit fields consulted when present (optional):**
+
+| Field | Type | Used By | How |
+|-------|------|---------|-----|
+| `discourse_flow` | `DiscourseFlow` (nullable) | Phase 1 (§4.5) | When present, `section_break` boundaries in discourse segments provide split-point candidates for oversized divisions (second preference after heading markers). Absent for pages with <100 characters. |
+
+### §2.1.4 — Pre-conditions
+
+The excerpting engine does **not** re-validate the normalization output against its schema. The normalization engine is responsible for producing valid output (Layer 1 self-validation per `KNOWLEDGE_INTEGRITY.md`). The excerpting engine trusts that:
+
+1. `manifest.json` conforms to the `NormalizedManifest` schema.
+2. Every line in `content.jsonl` conforms to the `ContentUnit` schema.
+3. `unit_index` values are contiguous from 0 to `total_content_units - 1`.
+4. `text_layers` on every `ContentUnit` cover `[0, len(primary_text))` with no gaps and no overlaps.
+5. `DivisionNode.start_unit_index` and `end_unit_index` refer to valid `unit_index` values.
+6. `DivisionNode` ranges do not overlap at the same tree level.
+
+If any of these pre-conditions is violated, the excerpting engine will produce incorrect output or crash. This is by design — the normalization boundary guarantees validity, and re-validating 725 lines of schema on every excerpting run would be wasteful. Boundary violations are caught by `tools/check_cross_engine_contracts.py` during integration testing, not at runtime.
+
+**Exception:** The excerpting engine does perform lightweight defensive checks at the point of use:
+- Empty `division_tree` → emit `EX-A-010` (no divisions to process), skip source.
+- `ContentUnit` not found for a `unit_index` in the declared range → emit `EX-A-011`, skip division.
+- `boundary_continuity` is null on a non-terminal unit → treat as `unknown` type, emit warning.
+
+These are defensive checks against data corruption, not schema re-validation.
+
