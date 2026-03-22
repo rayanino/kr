@@ -1,87 +1,76 @@
-# NEXT — Excerpting Engine SPEC Review (Adversarial)
+# NEXT — Excerpting Engine SPEC Rewrite (Section-by-Section)
 
 ## Current Position
 
-- Source engine: validation in progress (Step 2 — deterministic sweep)
 - Normalization engine: ✅ COMPLETE (420 tests, 7797 impl lines)
-- Architecture: COMMITTED (5 engines: Source → Normalization → **Excerpting** → Taxonomy → Synthesis)
-- Architecture C experiment: ✅ PASS (10 prose divisions, 5 genres)
-- Format diversity experiment: ✅ PASS (13 divisions: verse-commentary + longer prose + masala + QA)
-- **Excerpting engine SPEC_CORE.md: DRAFTED (77.6KB, all 10 sections complete)**
-- **This session: Adversarial review of the SPEC before build**
+- Architecture: COMMITTED at 5636ceb (5 engines: Source ✅ → Normalization ✅ → Excerpting → Taxonomy → Synthesis)
+- Architecture C experiment: ✅ 23 divisions tested (10 original + 13 format diversity)
+- Format diversity experiment: ✅ verse-commentary + longer prose validated (commit 0cd57a6)
+- **Excerpting SPEC review: BLOCKED** — 16 findings, 3 CRITICAL (architecture mismatch)
 
-## Session Start Protocol
+## What Happened
 
-1. Clone or pull the repo
-2. Read this file (NEXT.md)
-3. `git log --oneline -5`
-4. Read the protocol file: `reference/protocols/QUALITY_AXIOM.md` (this is a review/design task)
-5. **Scan skills:** Run `ls /mnt/skills/user/` and choose ALL relevant skills by name. Key skills for this task: `kr-integrity`, `critical-review`, `thinking-frameworks`. Do NOT rely on memory for skill names.
+The excerpting engine SPEC (98KB) was written for the old 7-engine architecture where passaging and atomization were separate upstream engines. The committed 5-engine architecture absorbed both into excerpting, but the SPEC was never restructured. Full review: `reference/archive/sessions/reviews/excerpting_spec_review.md`.
+
+The domain knowledge in the SPEC (decontextualization prevention, multi-layer handling, evidence handling, implicit references, verse format, adversarial test cases) is excellent. The structural framework is wrong.
 
 ## What to Do
 
-Review `engines/excerpting/SPEC_CORE.md` — the governing specification for the excerpting engine. This SPEC was written in a prior session and MUST be reviewed in a fresh context per QUALITY_AXIOM.md.
+**Section-by-section SPEC rewrite.** Each section is analyzed deeply, not scanned. For each section ask:
 
-**This is a SPEC review session, not a design or build session.**
+1. Does this align with the committed architecture (normalized packages as input, three-phase internal model)?
+2. Is this the best possible design, or can it be improved?
+3. Will this cause future regrets when building or extending the engine?
+4. Is every claim grounded in evidence (experiment results, normalization contracts, domain research)?
+5. Are there edge cases or failure modes not covered?
 
-The review must be adversarial — the goal is to find what's wrong, not to confirm what's right. The SPEC author flagged 5 concerns (see §3 of the handoff file). The reviewer must investigate those AND find concerns the author missed.
+### Rewrite Order
 
-## Read First (in this exact order)
+Process sections in dependency order — later sections depend on earlier ones being correct:
 
-1. `reference/protocols/QUALITY_AXIOM.md` — the quality standard this review must meet
-2. `reference/archive/sessions/excerpting_spec_handoff.md` — **THE HANDOFF FROM THE DESIGN SESSION** (contains: what was done, 8 design decisions with reasoning + challenge angles, 5 flagged concerns, 6 standard review checks, session retrospective)
-3. `engines/excerpting/SPEC_CORE.md` — **THE SPEC TO REVIEW** (all 10 sections, 77.6KB)
-4. `engines/normalization/SPEC.md` §3 — the input contract (does the SPEC consume it correctly?)
-5. `engines/normalization/contracts.py` — the Pydantic models (does the SPEC reference fields that exist?)
-6. `engines/taxonomy/SPEC.md` §2 — the output contract (does the SPEC produce what taxonomy expects?)
-7. `engines/excerpting/contracts.py` — the OLD schema (was the migration done correctly?)
-8. `KNOWLEDGE_INTEGRITY.md` — corruption threats (does the SPEC defend against all 7?)
-9. `experiments/architecture_test/run_tests.py` — the validated LLM schemas (does the SPEC match?)
+1. **§1 Purpose and Scope** — Align with 5-engine architecture. Define what this engine absorbs.
+2. **§2 Input Contract** — Replace atom streams with normalized packages. Reference normalization contracts.py directly.
+3. **§4.A.1 Processing Model** — Replace atom-grouping three-phase with architecture decision's three-phase: (a) Deterministic Preprocessing/passaging, (b) LLM classify-then-group, (c) Metadata Enrichment.
+4. **§5 Quality & Self-Containment Standard** — Define §5.1 (self-containment standard), §5.2 (completeness), §5.3 (cross-topic rules) as formal referenceable sections.
+5. **§4.A.2–§4.A.7 Domain Handling** — Adapt decontextualization, multi-layer, evidence, implicit refs, cross-topic, verse format to new processing model. These sections are domain-correct but reference atoms/passages.
+6. **§3 Output Contract** — Redesign excerpt record for new architecture (div_id not passage_id, segment references not atom references). Separate core vs §4.B fields.
+7. **§4.B Transformative Capabilities** — Review which are still relevant, remove atomization-engine dependencies, mark clearly as deferred.
+8. **§6–§8 Consensus, Errors, Config** — Adapt to new model.
+9. **§9–§10 Implementation State, Test Requirements** — Rewrite for correct starting point and test plan.
 
-## Review Protocol
+### One section per prompt
 
-Use `kr-integrity` for the review. The review has three rounds:
+Each section gets its own deep analysis response. The architect reads the current SPEC section, the relevant governing documents (normalization contracts, architecture decision, experiment results), and produces a rewritten section with full reasoning for every design choice.
 
-**Round 1 — Structural audit (one response).** Read the full SPEC. For each section, check:
-- Every field the SPEC consumes from upstream: does it exist in normalization contracts.py?
-- Every field the SPEC produces for downstream: does taxonomy SPEC §2.1 expect it?
-- **Internal consistency: do the §3.4 guarantees, §5 validation checks, and §7 error codes all reference the same fields that §3.1 defines?** A guarantee that promises a field not in the schema is a phantom guarantee.
-- Every error code: does it have a concrete trigger scenario?
-- Every processing rule: can a pass/fail test be written for it?
-- Every numerical threshold: is it justified by evidence or is it a guess?
-- Deliver findings. End the response.
+## Read First (Fresh Session)
 
-**Round 2 — Adversarial probes (separate response, after owner says continue).** For each of the 5 flagged concerns in the handoff, investigate independently:
-- Concern 1 (taxonomy contract mismatch): grep taxonomy SPEC for `atom_ids`, determine scope of update
-- Concern 2 (old contracts.py still exists): check if any code imports from it
-- Concern 3 (Phase 3 prompts untested): compare against experiment prompts, identify risk
-- Concern 4 (evidence detection patterns): check Arabic marker patterns against normalization's known false positive lessons
-- Concern 5 (concrete example untraced): trace the §4.A.1 example through the SPEC rules step by step
+1. `reference/archive/sessions/reviews/excerpting_spec_review.md` — the 16 findings
+2. `experiments/architecture_test/ARCHITECTURE_DECISION.md` — committed architecture + three-phase internal model
+3. `engines/normalization/contracts.py` — the ACTUAL input (NormalizedManifest, ContentUnit, DivisionNode)
+4. `experiments/architecture_test/run_tests.py` — the VALIDATED LLM approach (Approach B prompts + schemas)
+5. `experiments/format_diversity_test/results/RUN_SUMMARY.md` — MAX_TOKENS finding + segment count data
+6. `experiments/architecture_test/extract_divisions.py` — the VALIDATED division assembly logic
+7. `engines/excerpting/SPEC.md` — current SPEC (to be rewritten section by section)
+8. `engines/excerpting/contracts.py` — current contracts (to be updated after SPEC rewrite)
+9. `KNOWLEDGE_INTEGRITY.md` — T-1 through T-7 threats (every section must defend against these)
 
-Then: run the unconstrained adversarial pass (QUALITY_AXIOM standing order 7). Ask: "What is the review NOT checking?" Find at least 2 concerns the author did not flag.
+## Design Decisions Already Made
 
-**Round 3 — Verdict (separate response, after owner says continue).**
-- Verify every factual claim from Rounds 1-2 with a tool call
-- Fill severity for each finding: MUST-FIX (blocks build) or SHOULD-FIX (fix during build)
-- Deliver verdict: ACCEPT (zero MUST-FIX findings) or BLOCKED (any MUST-FIX findings)
-- If BLOCKED: list the MUST-FIX items with specific resolution guidance
-
-## Skills to Use
-
-- `kr-integrity` — 8-lens SPEC audit including T-1–T-7, silent failures, phantom metadata
-- `critical-review` — self-review with KR-specific verification questions
-- `thinking-frameworks` — multi-angle analysis for adversarial probes
+- **5-engine pipeline.** Source → Normalization → Excerpting → Taxonomy → Synthesis.
+- **Passaging absorbed.** Division assembly, merging (<50w), splitting (>5000w) are internal Phase 1.
+- **Atomization absorbed.** LLM classify-then-group (Approach B) is internal Phase 2.
+- **D-011 = division containment.** Excerpts cannot span division/chunk boundaries.
+- **Two-phase LLM validated.** Approach B ≥ A in 23/23 tested divisions across 7 genres.
+- **MAX_TOKENS = 32768+** for classify step on >2000w divisions.
+- **All LLM calls through OpenRouter.** Model: anthropic/claude-opus-4.6.
+- **Multi-model consensus** for self-containment and school attribution.
+- **§4.B capabilities are deferred.** Core engine first, transformative capabilities later.
 
 ## Do NOT Do
 
-1. Do NOT write implementation code
-2. Do NOT redesign the SPEC — identify problems, don't solve them (the design session solves them)
-3. Do NOT approve the SPEC in Round 1 or Round 2 — verdict is ONLY in Round 3
-4. Do NOT use "ACCEPT WITH FIXES" — that verdict does not exist
-5. Do NOT trust the author's self-assessment — review independently
-6. Do NOT skip reading the handoff file — it contains the author's flagged concerns AND the reasoning behind every design decision (which you need to challenge)
-
-## After This
-
-If ACCEPT: proceed to build prep (kr-build-prep) in the same or next session.
-If BLOCKED: return to a design session to fix MUST-FIX items, then re-review.
+- Do NOT review the SPEC as a whole in a single pass — section by section only.
+- Do NOT preserve the atom-as-input model. The input is normalized packages.
+- Do NOT keep passage_id. The processing unit is division (or chunk).
+- Do NOT write implementation code. The SPEC defines behavior; CC implements.
+- Do NOT skip domain research. Every scholarly convention claim must be verified.
+- Do NOT defer findings. Every issue in a section is fixed before moving to the next.
