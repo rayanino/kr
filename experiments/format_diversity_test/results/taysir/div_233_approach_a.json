@@ -1,0 +1,265 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 75,
+      "text_snippet": "بَابُ صَلَاةِ العيدَين\nسمي عيداً لأنه يعود ويتكرر، والأعياد قديمة في الأمم، لكل مناسبة كبيرة",
+      "description_arabic": "تعريف العيد لغة وبيان أن الأعياد قديمة في الأمم وأن أعياد غير المسلمين مادية بحتة",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 76,
+      "end_word": 155,
+      "text_snippet": "وأمد الله أمة محمد صلى الله عليه وسلم بعيد الفطر، وعيد الأضحى. يتوسعون فيهما بالمباحات",
+      "description_arabic": "بيان مشروعية عيدي الفطر والأضحى وحكمتهما من شكر الله على نعمة الصيام وأداء المناسك والاجتماع للصلاة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 156,
+      "end_word": 180,
+      "text_snippet": "وتحقق هذه الاجتماعات الإسلامية من المصالح الدينية والدنيوية ما يدل على أن الإسلام هو الدستور",
+      "description_arabic": "بيان أن اجتماعات العيد تحقق مصالح دينية ودنيوية تدل على كمال الإسلام",
+      "primary_function": "evidence_rational",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 181,
+      "end_word": 330,
+      "text_snippet": "قال ابن القيم في الهدى ما خلاصته: كان يصلي العيدين في المصلى دائماً ولم يصل في المسجد إلا",
+      "description_arabic": "نقل ملخص من زاد المعاد لابن القيم في صفة صلاة العيد النبوية من حيث المكان واللباس والأكل والاغتسال والخطبة والطريق",
+      "primary_function": "narration",
+      "secondary_functions": [
+        "cross_reference",
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 331,
+      "end_word": 390,
+      "text_snippet": "قال ابن دقيق العيد لا خلاف في أن صلاة العيدين من الشعائر المطلوبة شرعاً وقد تواتر بها النقل",
+      "description_arabic": "نقل إجماع العلماء على مشروعية صلاة العيدين وتواتر النقل فيها وبيان أول صلاة عيد في الإسلام",
+      "primary_function": "evidence_ijma",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 391,
+      "end_word": 470,
+      "text_snippet": "الحديث الأول\nعَنْ عَبدِ الله بن عُمَرَ رضي الله عنهما قَال: كَانَ النَبيُّ صلى الله عليه وسلم",
+      "description_arabic": "حديث ابن عمر في تقديم صلاة العيد على الخطبة مع بيان معناه الإجمالي وأن هذا كان سنة النبي وخلفائه",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 471,
+      "end_word": 730,
+      "text_snippet": "الحديث الثاني\nعَن البَرَاءِ بن عَازبٍ رضي الله عنهما قَالَ: خَطَبَنَا النَّبيُّ صلى الله عليه",
+      "description_arabic": "حديث البراء بن عازب في خطبة النبي يوم الأضحى وبيان وقت الذبح وقصة أبي بردة مع شرح الغريب والمعنى الإجمالي",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "narration",
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 731,
+      "end_word": 1000,
+      "text_snippet": "ما يؤخذ من الحديث:\n1- فيه تقديم الصلاة على الخطبة في صلاة العيد، وأن هذا هو سنة النبي صلى الله",
+      "description_arabic": "استنباط الأحكام من حديث البراء: تقديم الصلاة على الخطبة ووقت الذبح وعدم إجزاء ما دون السنة من المعز وقاعدة عدم العذر بالجهل في المأمورات",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception",
+        "evidence_rational"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على حديث البراء بن عازب المذكور قبله"
+    },
+    {
+      "unit_index": 8,
+      "start_word": 1001,
+      "end_word": 1140,
+      "text_snippet": "الحديث الثالث\nعَنْ جُنْدُب بن عَبْدِ الله البجَليِّ رضي الله عنهما قَالَ: صَلَّى رَسُولُ الله صلى",
+      "description_arabic": "حديث جندب البجلي في ترتيب يوم النحر: الصلاة ثم الخطبة ثم الذبح مع شرح الغريب والمعنى الإجمالي",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "definition",
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 1141,
+      "end_word": 1240,
+      "text_snippet": "خلاف العلماء:\nذهب أبو حنيفة ومالك والثوري إلى أن الأضحية واجبة على الموسر لقوله تعالى: {فصل لربك",
+      "description_arabic": "خلاف العلماء في حكم الأضحية بين الوجوب عند أبي حنيفة ومالك والسنة المؤكدة عند الجمهور مع أدلة كل فريق",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_quran",
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 1241,
+      "end_word": 1530,
+      "text_snippet": "الحديث الرابع\nعَنْ جَابر رضي الله عنه قال: \" شَهِدْتُ مَع رَسُولَ الله صلى الله عليه وسلم يومَ",
+      "description_arabic": "حديث جابر في صفة صلاة العيد: البدء بالصلاة بلا أذان ولا إقامة ثم الخطبة ثم وعظ النساء وأمرهن بالصدقة مع شرح الغريب والمعنى الإجمالي",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "narration",
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 1531,
+      "end_word": 1780,
+      "text_snippet": "ما يؤخذ من الحديث:\n1- البداءة بصلاة العيد قبل الخطبة، وتقدم.\n2- أنه ليس لصلاة العيد أذان ولا إقا",
+      "description_arabic": "استنباط ستة عشر حكماً من حديث جابر منها: عدم الأذان والإقامة لصلاة العيد وإفراد النساء بموعظة وكونهن أكثر أهل النار وجواز تصدق المرأة من مالها",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception",
+        "evidence_rational"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على حديث جابر المذكور قبله في استنباط الأحكام"
+    },
+    {
+      "unit_index": 12,
+      "start_word": 1781,
+      "end_word": 1960,
+      "text_snippet": "الحديث الخامس\nعَنْ أمِّ عَطِيَّة نُسيبة الأنصاريَّة رضي الله عنها قالت: أمرنا تعني النبي صلى الله",
+      "description_arabic": "حديث أم عطية في الأمر بإخراج النساء والعواتق والحيض لصلاة العيد مع اعتزال الحيض المصلى وشرح الغريب والمعنى الإجمالي",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "definition",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 13,
+      "start_word": 1961,
+      "end_word": 2250,
+      "text_snippet": "اختلاف العلماء:\nاختلف العلماء في حكم صلاة العيد.\nفذهب الإمام \" أحمد \" في المشهور عنه إلى أنها فرض",
+      "description_arabic": "خلاف العلماء في حكم صلاة العيد بين فرض كفاية عند أحمد وسنة مؤكدة عند مالك والشافعي وفرض عين عند أبي حنيفة وابن تيمية مع أدلة كل قول ومناقشتها",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_quran",
+        "evidence_hadith",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 14,
+      "start_word": 2251,
+      "end_word": 2340,
+      "text_snippet": "ما يؤخذ من الحديث:\n1- وجوب صلاة العيد حتى على النساء في ظاهر الحديث. على شرط ألا يخرجن متبرجات",
+      "description_arabic": "استنباط أحكام من حديث أم عطية: وجوب صلاة العيد على النساء واجتناب الحائض المسجد وفضل يوم العيد وجواز ذكر الله للحائض",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على حديث أم عطية المذكور قبله"
+    },
+    {
+      "unit_index": 15,
+      "start_word": 2341,
+      "end_word": 2470,
+      "text_snippet": "التكبير في العيدين\nوهو ملخص من كلام شيخ الإسلام ابن تيمية.\nوقته: أصح الأقوال في التكبير الذي عليه جمه",
+      "description_arabic": "بيان وقت التكبير في العيدين من فجر يوم عرفة إلى آخر أيام التشريق عقب كل صلاة باتفاق الأئمة الأربعة نقلاً عن ابن تيمية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_ijma",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 16,
+      "start_word": 2471,
+      "end_word": 2680,
+      "text_snippet": "صفته: وصفة التكبير المنقول عن أكثر الصحابة ما روي مرفوعاً إلى النبي صلى الله عليه وسلم: \" الله أكبر",
+      "description_arabic": "بيان صفات التكبير المنقولة عن الصحابة والأئمة مع قاعدة ابن تيمية في التنويع بين صفات العبادات المأثورة وعدم الجمع بينها",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "narration",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 17,
+      "start_word": 2681,
+      "end_word": 2920,
+      "text_snippet": "التكبير عند الأمور الهامة\nقال رحمه الله: إذا كانت السنة قد جاءت بالتكبير في عيد النحر في صلاته وخطب",
+      "description_arabic": "بيان مشروعية التكبير عند الأمور الكبيرة والعظيمة نقلاً عن ابن تيمية مع ذكر المواضع التي شرع فيها التكبير وحكمته من إظهار كبرياء الله",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "evidence_rational",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 18,
+      "start_word": 2921,
+      "end_word": 2970,
+      "text_snippet": "ولهذا فإني أهيب بجميع المسلمين أن يفزعوا إلى التكبير عندما يعجبهم أمر، فهذا سنة نبيهم، وليس",
+      "description_arabic": "دعوة المؤلف المسلمين إلى التكبير عند الإعجاب بأمر بدلاً من التصفيق المأخوذ من غير المسلمين",
+      "primary_function": "editorial_note",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 19,
+  "notes": "هذا باب صلاة العيدين يتضمن مقدمة تعريفية ثم خمسة أحاديث مع شروحها واستنباطاتها الفقهية وخلافات العلماء، ويختم بمبحث التكبير في العيدين نقلاً عن ابن تيمية"
+}

@@ -1,0 +1,542 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 58,
+      "text_snippet": "كِتاب الأيمَان والنذور الأيمان- لغة- بفتح الهمزة جمع (يمين) . واليمين خلاف",
+      "description_arabic": "تعريف الأيمان لغة وشرعاً وبيان الأصل فيها من الكتاب والسنة والإجماع",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "structural_transition",
+        "evidence_quran",
+        "evidence_ijma",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 59,
+      "end_word": 103,
+      "text_snippet": "فأما الكتاب، فقوله تعالى: {لا يُؤاخِذُكُمُ الله بالل",
+      "description_arabic": "أدلة مشروعية اليمين من الكتاب والسنة والإجماع",
+      "primary_function": "evidence_quran",
+      "secondary_functions": [
+        "cross_reference",
+        "evidence_ijma"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 104,
+      "end_word": 163,
+      "text_snippet": "ولا ينبغي الإكثار من الحلف، ويشرع مع الحاجة لإزالة ش",
+      "description_arabic": "حكم الإكثار من الحلف ومشروعيته عند الحاجة مع الأدلة القرآنية على حلف النبي",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 164,
+      "end_word": 306,
+      "text_snippet": "والحلف أنواع، جاء في الأحاديث التي ذكرها المؤلف (الي",
+      "description_arabic": "بيان أنواع الحلف وتعريف لغو اليمين بنوعيه وحكمه مع الدليل من حديث عائشة",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "editorial_note",
+        "evidence_hadith",
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 307,
+      "end_word": 413,
+      "text_snippet": "الحديث الأول عِنْ عَبْدِ الرَّحْمنِ بْنِ سَمُرةَ قَالَ: قَالَ رَ",
+      "description_arabic": "حديث عبد الرحمن بن سمرة وحديث أبي موسى في النهي عن طلب الإمارة والحنث في اليمين إذا رأى خيراً منها",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 414,
+      "end_word": 752,
+      "text_snippet": "المعنى الإجمالي: يرشد النبي صلى الله عليه وسلم عبد الرحمن بن سمرة، وه",
+      "description_arabic": "شرح المعنى الإجمالي لحديثي عبد الرحمن بن سمرة وأبي موسى في طلب الإمارة والحنث في اليمين مع التعليل",
+      "primary_function": "editorial_note",
+      "secondary_functions": [
+        "evidence_rational",
+        "rule_statement"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على فهم الحديثين الأول والثاني المذكورين قبله"
+    },
+    {
+      "unit_index": 6,
+      "start_word": 753,
+      "end_word": 907,
+      "text_snippet": "ما يستفاد من الحديثين 1- كراهة طلب الإمارة، والمراد بها، الولايات والوظائف ك",
+      "description_arabic": "فوائد الحديثين: كراهة طلب الإمارة وأن من جاءته بلا طلب أُعين عليها ومناسبة ذكر اليمين",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "evidence_rational"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يحتاج لسياق الحديثين الأول والثاني"
+    },
+    {
+      "unit_index": 7,
+      "start_word": 991,
+      "end_word": 1058,
+      "text_snippet": "4- أن من حلف أن لا يفعل كذا، أو أن يفعله، ثم رأى الخ",
+      "description_arabic": "حكم من حلف ثم رأى الخير في غير ما حلف عليه وأحوال الحنث من وجوب واستحباب وتحريم وإباحة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 1059,
+      "end_word": 1117,
+      "text_snippet": "5- عند جمهور العلماء أن الكفارة رخصة شرعها الله تعالى",
+      "description_arabic": "حكم تقديم الكفارة قبل الحنث عند الجمهور وأقوال العلماء في ذلك",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 1118,
+      "end_word": 1222,
+      "text_snippet": "6- أن هذا التشريع، كما هو أمر النبي صلى الله عليه وسل",
+      "description_arabic": "بيان أن تشريع الكفارة تخفيف من الله ورحمة مع مقارنة بالأمم السابقة وقصة أيوب عليه السلام",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "example",
+        "editorial_note"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 1223,
+      "end_word": 1356,
+      "text_snippet": "الحديث الثالث عَنْ عُمَرَ بْن الخَطَّابِ رضي الله عنه قَالَ: قالَ",
+      "description_arabic": "حديث عمر في النهي عن الحلف بالآباء مع رواياته وشرح غريب ألفاظه وملاحظات إسنادية",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "narration",
+        "definition",
+        "editorial_note",
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 1390,
+      "end_word": 1612,
+      "text_snippet": "المعنى الإجمالي: الحلف: معناه تأكيد الفعل أو الترك، بذكر المعظم في الن",
+      "description_arabic": "شرح المعنى الإجمالي لحديث النهي عن الحلف بالآباء وبيان أنه شرك وموقف الصحابة من ذلك",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "rule_statement",
+        "evidence_rational",
+        "evidence_hadith",
+        "narration"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على حديث عمر المذكور قبله"
+    },
+    {
+      "unit_index": 12,
+      "start_word": 1613,
+      "end_word": 1706,
+      "text_snippet": "ما يستفاد من الحديث: 1- تحريم الحلف بالآباء، لأنه الأصل في النهي. والنهي ع",
+      "description_arabic": "تحريم الحلف بغير الله مطلقاً سواء بالآباء أو النبي أو الكعبة وأن الله وحده يقسم بما شاء",
+      "primary_function": "rule_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 13,
+      "start_word": 1707,
+      "end_word": 1756,
+      "text_snippet": "2- أن من أراد الحلف بغير اللَه فليلزم الصمت، فإنه أسل",
+      "description_arabic": "وجوب الصمت عن الحلف بغير الله وعلة النهي أن التعظيم المطلق لا يكون إلا لله",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 14,
+      "start_word": 1757,
+      "end_word": 1830,
+      "text_snippet": "وصرفه لغيره كفر كما جاء في حديث ابن عمر. ولكنه كفر لا",
+      "description_arabic": "بيان أن الحلف بغير الله كفر أصغر والجواب عن إشكال قوله أفلح وأبيه إن صدق",
+      "primary_function": "refutation",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 15,
+      "start_word": 1831,
+      "end_word": 1862,
+      "text_snippet": "5- فضيلة عمر رضي الله عنه، بسرعة امتثاله وحسن فهمه وت",
+      "description_arabic": "فضيلة عمر في سرعة امتثاله للنهي عن الحلف بغير الله وتورعه حتى في الحكاية",
+      "primary_function": "editorial_note",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يحتاج لسياق حديث عمر"
+    },
+    {
+      "unit_index": 16,
+      "start_word": 1863,
+      "end_word": 1928,
+      "text_snippet": "6- إنما خصَّ النهي عن الحلف بالآباء، مع أنه عامُّ في",
+      "description_arabic": "بيان سبب تخصيص النهي بالآباء مع عمومه لكل ما سوى الله لأنها عادة جاهلية",
+      "primary_function": "evidence_rational",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 17,
+      "start_word": 1929,
+      "end_word": 2090,
+      "text_snippet": "الحديث الرابع عَنْ أبي هُرَيرةَ رضي الله عنه عَنِ النَبي صلى الله ع",
+      "description_arabic": "حديث سليمان بن داود في الاستثناء بالمشيئة مع شرح غريب ألفاظه",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "structural_transition",
+        "editorial_note",
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 18,
+      "start_word": 2091,
+      "end_word": 2330,
+      "text_snippet": "المعنى الإجمالي: سليمان عليه السلام نبي من أنبياء الله تعالى إلى بنى إس",
+      "description_arabic": "شرح قصة سليمان عليه السلام وبيان أن ترك الاستثناء بالمشيئة حرمه من تحقيق مراده",
+      "primary_function": "editorial_note",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على نص الحديث الرابع"
+    },
+    {
+      "unit_index": 19,
+      "start_word": 2331,
+      "end_word": 2395,
+      "text_snippet": "ما يستفاد من الحديث: 1- أن الاستثناء في اليمين، وهو قول الحالف (إن شاء الل",
+      "description_arabic": "فائدة الاستثناء بالمشيئة في اليمين وأن المستثني لا يحنث",
+      "primary_function": "rule_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 20,
+      "start_word": 2396,
+      "end_word": 2445,
+      "text_snippet": "3- في هذا الحديث، عبرة وعظة وقعت لنبي من أنبياء الله",
+      "description_arabic": "العبرة من قصة سليمان أن القرب من الله لا يغني عن ذكر المشيئة",
+      "primary_function": "editorial_note",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يحتاج لسياق قصة سليمان"
+    },
+    {
+      "unit_index": 21,
+      "start_word": 2446,
+      "end_word": 2536,
+      "text_snippet": "4- أن عادات أنبياء الله وأوليائه، تكون بسبب نيا تهم ال",
+      "description_arabic": "بيان أن عادات الأنبياء والأولياء تصير عبادات بالنية الصالحة بخلاف الغافلين",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "editorial_note"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 22,
+      "start_word": 2537,
+      "end_word": 2571,
+      "text_snippet": "5- يُجْرِى الله تعالى ويُقدر مثل هذه الأمور على الكَم",
+      "description_arabic": "حكمة إجراء الله مثل هذه الأمور على الكُمَّل ليعلم الناس تفرده بالتدبير",
+      "primary_function": "evidence_rational",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 23,
+      "start_word": 2572,
+      "end_word": 2610,
+      "text_snippet": "6- قال ابن دقيق العيد: وقد يؤخذ من الحديث جواز الإخبا",
+      "description_arabic": "رأي ابن دقيق العيد في جواز الإخبار عن الشيء بناء على الظن من حديث سليمان",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 24,
+      "start_word": 2611,
+      "end_word": 2720,
+      "text_snippet": "الحديث الخامس عَنْ عَبْدِ اللَه بْنِ مَسْعُودٍ رضي الله عنه قالَ: ق",
+      "description_arabic": "حديث ابن مسعود في الوعيد الشديد لمن حلف يمين صبر كاذبة ليقتطع مال مسلم مع شرح غريبه",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "evidence_quran",
+        "definition",
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 25,
+      "start_word": 2721,
+      "end_word": 2937,
+      "text_snippet": "المعنى الإجمالي: في هذا الحديث وعيد شديد لمن اقتطع مال امرئ بغير حق.",
+      "description_arabic": "شرح المعنى الإجمالي لحديث يمين الصبر وتفسير الآية المتعلقة بها وبيان خطورة أكل أموال الناس بالباطل",
+      "primary_function": "editorial_note",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على نص الحديث الخامس"
+    },
+    {
+      "unit_index": 26,
+      "start_word": 2938,
+      "end_word": 3031,
+      "text_snippet": "ما يستفاد هن الحديث: 1-تحريم أخذ أموال الناس بالدعاوى الفاجرة والأيمان الكا",
+      "description_arabic": "فوائد حديث يمين الصبر: تحريم أخذ أموال الناس بالأيمان الكاذبة وشروط العقاب والتوبة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception",
+        "evidence_ijma"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 27,
+      "start_word": 3032,
+      "end_word": 3073,
+      "text_snippet": "4- قوله: - (هو فيها فاجر) ليخرج الناسي والجاهل، فإن ا",
+      "description_arabic": "اشتراط العمد في يمين الصبر وإثبات صفة الغضب لله تعالى على وجه يليق بجلاله",
+      "primary_function": "condition_exception",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 28,
+      "start_word": 3074,
+      "end_word": 3137,
+      "text_snippet": "6- تفسير هذه الآية الكريمة بهذه القضية، وهو تفسير مرفو",
+      "description_arabic": "تفسير آية اشتراء العهد بثمن قليل وبيان أنه تفسير مرفوع مع ملخص معناها",
+      "primary_function": "editorial_note",
+      "secondary_functions": [
+        "evidence_quran"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يحتاج لسياق الحديث الخامس والآية"
+    },
+    {
+      "unit_index": 29,
+      "start_word": 3138,
+      "end_word": 3237,
+      "text_snippet": "الحديث السادس عَنِ الأشْعَثِ بْن قَيْس قَالَ: كَانَ بيني وَبَيْنَ",
+      "description_arabic": "حديث الأشعث بن قيس في الخصومة والقضاء بالبينة واليمين مع إحالة على شرح الحديث السابق",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "cross_reference",
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 30,
+      "start_word": 3238,
+      "end_word": 3300,
+      "text_snippet": "1- أن البينة على المدعي واليمين على من أنكر، هي القاعد",
+      "description_arabic": "قاعدة البينة على المدعي واليمين على المنكر وثبوت الحق بالشاهدين",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 31,
+      "start_word": 3301,
+      "end_word": 3354,
+      "text_snippet": "3- تحريم اليمين (الغموس) وهي الكاذبة، التي تقتطع بها ح",
+      "description_arabic": "تحريم اليمين الغموس وأن حكم الحاكم يرفع الخلاف الظاهر فقط دون الباطن",
+      "primary_function": "rule_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 32,
+      "start_word": 3355,
+      "end_word": 3430,
+      "text_snippet": "5- أن يمين الفاجر تُسقطُ عنه الدعوى وأن فجوره في دينه",
+      "description_arabic": "أحكام قضائية: يمين الفاجر تسقط الدعوى وترتيب سماع الحاكم وموعظة الخصوم",
+      "primary_function": "rule_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 33,
+      "start_word": 3431,
+      "end_word": 3479,
+      "text_snippet": "8- تغليظ حقوق المسلمين، في قليل الحق وكثيره.",
+      "description_arabic": "تغليظ حقوق المسلمين وأن اليمين الغموس لا كفارة فيها بل لا بد من التوبة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 34,
+      "start_word": 3480,
+      "end_word": 3590,
+      "text_snippet": "الحديث السابع عَنْ ثَابِتِ بن الضَّحَّاكِ الأنصَارِي ِّ: أنهُ بايَ",
+      "description_arabic": "حديث ثابت بن الضحاك في الحلف بملة غير الإسلام وقتل النفس والنذر فيما لا يملك مع رواياته",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 35,
+      "start_word": 3591,
+      "end_word": 3822,
+      "text_snippet": "المعنى الإجمالي: روى ثابت بن الضحاك الأنصاري- أحد المبايعين تحت الشجرة",
+      "description_arabic": "شرح المعنى الإجمالي لحديث ثابت بن الضحاك في أحكام الحلف بغير الإسلام وقتل النفس واللعن والدعاوى الكاذبة والنذر",
+      "primary_function": "editorial_note",
+      "secondary_functions": [
+        "evidence_rational",
+        "rule_statement"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على نص الحديث السابع"
+    },
+    {
+      "unit_index": 36,
+      "start_word": 3823,
+      "end_word": 3910,
+      "text_snippet": "ما يستفاد من الحديث: 1- تغليظ التحريم على من حلف بشريعة غير الإسلام.",
+      "description_arabic": "تحريم الحلف بملة غير الإسلام والخلاف في وجوب الكفارة بين المذاهب الأربعة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 37,
+      "start_word": 3911,
+      "end_word": 3955,
+      "text_snippet": "2- تحريم قتل الإنسان نفسه، فإن إثمه كإثم القاتل لغيره",
+      "description_arabic": "تحريم الانتحار وأن لعن المؤمن كقتله في الإثم وإن لم يستويا في القدر",
+      "primary_function": "rule_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 38,
+      "start_word": 3956,
+      "end_word": 4015,
+      "text_snippet": "4- تحريم ادعاء الإنسان ما ليس فيه، من علم، أو نسب، أو",
+      "description_arabic": "تحريم ادعاء الإنسان ما ليس فيه من علم أو نسب وأن من فعله رياء لم يزده الله إلا ذلة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 39,
+      "start_word": 4016,
+      "end_word": 4044,
+      "text_snippet": "5- أن النذر لا ينعقد فيما لا يملكه الناذر، فإن النذر ط",
+      "description_arabic": "حكم النذر فيما لا يملكه الناذر وأنه لا ينعقد لأنه لم يقع موقعه",
+      "primary_function": "rule_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 40,
+      "start_word": 4045,
+      "end_word": 4172,
+      "text_snippet": "6- ظاهر قوله في الحديث: (فهو كما قال) أن الحالف بغير م",
+      "description_arabic": "بيان معنى الوعيد في الحديث ومسلك ابن تيمية في أحاديث الوعيد من اشتراط وجود الأسباب وانتفاء الموانع",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 41,
+  "notes": "النص يشمل كتاب الأيمان والنذور ويتضمن سبعة أحاديث مع شروحها وفوائدها. تم تجميع الوحدات بحيث تضم كل وحدة موضوعاً متكاملاً: الحديث مع شرحه أو مجموعة الفوائد المتصلة ببعضها."
+}

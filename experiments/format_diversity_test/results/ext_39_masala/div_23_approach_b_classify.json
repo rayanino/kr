@@ -1,0 +1,389 @@
+{
+  "segments": [
+    {
+      "segment_index": 1,
+      "start_word": 0,
+      "end_word": 3,
+      "text_snippet": "10-‌‌ غسل الميت",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 2,
+      "start_word": 4,
+      "end_word": 40,
+      "text_snippet": "28 - فإذا مات الميت وجب على طائفة من الناس أن يبادروا إلى غسله أما المبادرة فقد سبق دليلها في الفصل الثالث",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 3,
+      "start_word": 41,
+      "end_word": 68,
+      "text_snippet": "الأول: قوله صلى الله عليه وسلم في المحرم الذي وقصته ناقته: اغسلوه بماء وسدر. . . الحديث. وقد مضى بتمامه",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 4,
+      "start_word": 69,
+      "end_word": 96,
+      "text_snippet": "الثاني: قوله صلى الله عليه وسلم في ابنته زينب رضي الله عنها: اغسلنها ثلاثا أو خمسا أو سبعا. . . أو أكثر من ذلك",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 5,
+      "start_word": 97,
+      "end_word": 103,
+      "text_snippet": "ويأتي بتمامه في المسألة التالية",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 6,
+      "start_word": 104,
+      "end_word": 112,
+      "text_snippet": "29 - ويراعى في غسله الأمور الآتية:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 7,
+      "start_word": 113,
+      "end_word": 125,
+      "text_snippet": "أولا: غسله ثلاثا فأكثر على ما يرى القائمون على غسله.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 8,
+      "start_word": 126,
+      "end_word": 131,
+      "text_snippet": "ثانيا: أن تكون الغسلات وترا.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 9,
+      "start_word": 132,
+      "end_word": 148,
+      "text_snippet": "ثالثا: أن يقرن مع بعضها سدر أو ما يقوم مقامه في التنظيف كالأشنان والصابون.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 10,
+      "start_word": 149,
+      "end_word": 164,
+      "text_snippet": "رابعا: أن يخلط مع آخر غسلة منها شيء من الطيب والكافور أولى.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 11,
+      "start_word": 165,
+      "end_word": 172,
+      "text_snippet": "خامسا: نقض الضفائر وغسلها جيدا.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 12,
+      "start_word": 173,
+      "end_word": 176,
+      "text_snippet": "سادسا: تسريح شعره.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 13,
+      "start_word": 177,
+      "end_word": 187,
+      "text_snippet": "سابعا: جعله ثلاث ضفائر للمرأة وإلقاؤها خلفها.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 14,
+      "start_word": 188,
+      "end_word": 195,
+      "text_snippet": "ثامنا: البدء بميامنه ومواضع الوضوء منه.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 15,
+      "start_word": 196,
+      "end_word": 215,
+      "text_snippet": "تاسعا: أن يتولى غسل الذكر الرجال والأنثى النساء إلا ما استثنى كما يأتي بيانه.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 16,
+      "start_word": 216,
+      "end_word": 228,
+      "text_snippet": "والدليل على هذه الأمور حديث أم عطية رضي الله عنها قالت:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 17,
+      "start_word": 229,
+      "end_word": 340,
+      "text_snippet": "صحيح دخل علينا النبي صلى الله عليه وسلم ونحن نغسل ابنته زينب فقال: اغسلنها ثلاثا أو خمسا أو سبعا",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 18,
+      "start_word": 341,
+      "end_word": 380,
+      "text_snippet": "عاشرا: أن يغسل بخرقة أو نحوها تحت ساتر لجسمه بعد تجريده من ثيابه كلها فإنه كذلك كان العمل على عهد النبي",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 19,
+      "start_word": 381,
+      "end_word": 455,
+      "text_snippet": "لما أرادوا غسل النبي صلى الله عليه وسلم قالوا: والله ما ندري أنجرد رسول الله",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 20,
+      "start_word": 456,
+      "end_word": 472,
+      "text_snippet": "وكانت عائشة تقول: لو استقبلت من أمري ما استدبرت ما غسله إلا نساؤه.",
+      "scholarly_function": "narration",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 21,
+      "start_word": 473,
+      "end_word": 504,
+      "text_snippet": "حادي عشر: حسن والغرض من ستر جسمه واستعمال الخرقة أن لا يطلع على عورته ولا تمس وعورة الرجل من السرة إلى الركبة",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 22,
+      "start_word": 505,
+      "end_word": 517,
+      "text_snippet": "لقوله صلى الله عليه وسلم: \"ما بين السرة والركبة عورة\"",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 23,
+      "start_word": 518,
+      "end_word": 527,
+      "text_snippet": "صحيح وقوله صلى الله عليه وسلم: \"القخد عورة\"",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 24,
+      "start_word": 528,
+      "end_word": 590,
+      "text_snippet": "وأما المرأة مع المرأة المسلمة - طبعا - فهي عورة إلا مواطن الزينة منها هي الرأس والأذن والنحر",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 25,
+      "start_word": 591,
+      "end_word": 640,
+      "text_snippet": "{وَلا يُبْدِينَ زِينَتَهُنَّ إِلَّا مَا ظَهَرَ مِنْهَا وَلْيَضْرِبْنَ بِخُمُرِهِنَّ عَلَى جُيُوبِهِنَّ",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 26,
+      "start_word": 641,
+      "end_word": 680,
+      "text_snippet": "ثاني عشر: ويستثنى مما ذكر في رابعا المحرم فإنه لا يجوز تطييبه لقوله في الحديث",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 27,
+      "start_word": 681,
+      "end_word": 703,
+      "text_snippet": "لا تحنطوه وفي رواية: ولا تطيبوه. . فإنه يبعث يوم القيامة ملبيا.",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 28,
+      "start_word": 704,
+      "end_word": 735,
+      "text_snippet": "ثالث عشر: ويستثنى أيضا مما ورد في تاسعا الزوجان فغنه يجوزك لكل منهما أن يتولى غسل الآخر إذ لا دليل يمنع",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 29,
+      "start_word": 736,
+      "end_word": 762,
+      "text_snippet": "الأول: صحيح قول عائشة رضي الله عنها في حديثها المتقدم: لو كنت استقبلت من أمري ما استدبرت",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 30,
+      "start_word": 763,
+      "end_word": 808,
+      "text_snippet": "الثاني: عنها أيضا قالت: رجع إلي رسول الله صلى الله عليه وسلم من جنازة بالبقيع وأنا أجد صداعا",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 31,
+      "start_word": 809,
+      "end_word": 840,
+      "text_snippet": "رابع عشر: أن يتولى غسله من كان أعرف بسنة الغسل لا سيما إذا كان من أهله وأقاربه",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 32,
+      "start_word": 841,
+      "end_word": 878,
+      "text_snippet": "غسلت رسول الله صلى الله عليه وسلم فجعلت أنظر ما يكون من الميت فلم أر شيئا وكان طيبا حيا وميتا",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 33,
+      "start_word": 879,
+      "end_word": 890,
+      "text_snippet": "30 - ولمن تولى غسله أجر عظيم بشرطين اثنين:",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 34,
+      "start_word": 891,
+      "end_word": 910,
+      "text_snippet": "الأول: أن يستر عليه ولا يحدث بما قد يرى من المكروه لقوله صلى الله عليه وسلم:",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 35,
+      "start_word": 911,
+      "end_word": 944,
+      "text_snippet": "من غسل مسلما فكتم عليه غفر له الله أربعين مرة ومن حفر له فأجنه أجري عليه كأجر مسكن",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 36,
+      "start_word": 945,
+      "end_word": 990,
+      "text_snippet": "الثاني: أن يبتغي بذلك وجه الله لا يريد به جزاء ولا شكورا ولا شيئا من أمور الدنيا لما تقرر في الشرع",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 37,
+      "start_word": 991,
+      "end_word": 1020,
+      "text_snippet": "الأول: قوله تبارك وتعالى: {قُلْ إِنَّمَا أَنَا بَشَرٌ مِثْلُكُمْ يُوحَى إِلَيَّ أَنَّمَا إِلَهُكُمْ إِلَهٌ وَاحِدٌ",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 38,
+      "start_word": 1021,
+      "end_word": 1033,
+      "text_snippet": "أي: لا يقصد بها غير وجه الله تعالى.",
+      "scholarly_function": "definition",
+      "confidence": 0.8
+    },
+    {
+      "segment_index": 39,
+      "start_word": 1034,
+      "end_word": 1072,
+      "text_snippet": "الثاني: قوله صلى الله عليه وسلم: \"إنما الأعمال بالنيات وإنما لكل امرئ ما نوى فمن كانت هجرته",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 40,
+      "start_word": 1073,
+      "end_word": 1088,
+      "text_snippet": "31 - ويستحب لمن غسله أن يغتسل لقوله صلى الله عليه وسلم:",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 41,
+      "start_word": 1089,
+      "end_word": 1100,
+      "text_snippet": "\"من غسل ميتا فليغتسل ومن حمله فليتوضأ\".",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 42,
+      "start_word": 1101,
+      "end_word": 1112,
+      "text_snippet": "وظاهر الأمر يفيد الوجوب وإنما لم نقل به لحديثين:",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 43,
+      "start_word": 1113,
+      "end_word": 1137,
+      "text_snippet": "الأول: قوله صلى الله عليه وسلم: \"ليس عليكم في غسل ميتكم غسل إذا غسلتموه فإن ميتكم ليس بنجس",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 44,
+      "start_word": 1138,
+      "end_word": 1155,
+      "text_snippet": "الثاني: قول ابن عمر رضي الله عنه: كنا نغسل الميت فمنا من يغتسل ومنا من لا يغتسل.",
+      "scholarly_function": "narration",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 45,
+      "start_word": 1156,
+      "end_word": 1176,
+      "text_snippet": "32 - ولا يشرع غسل الشهيد قتيل المعركة ولو اتفق أنه كان جنبا وفي ذلك أحاديث:",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 46,
+      "start_word": 1177,
+      "end_word": 1248,
+      "text_snippet": "الأول: عن جابر قال: قال النبي صلى الله عليه وسلم: ادفنوهم في دمائهم يعني يوم أحد ولم يغسلهم",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 47,
+      "start_word": 1249,
+      "end_word": 1327,
+      "text_snippet": "الثاني: عن أبي برزه أن النبي صلى الله عليه وسلم كان في مغزى له فأفاء الله عليه فقال لأصحابه:",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 48,
+      "start_word": 1328,
+      "end_word": 1385,
+      "text_snippet": "الثالث: صحيح عن عبد الله بن الزبير في قصة أحد واستشهاد حنظلة بن أبي عامر قال: فقال رسول الله",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.97
+    }
+  ],
+  "total_segments": 48
+}

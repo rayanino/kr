@@ -1,0 +1,280 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 87,
+      "text_snippet": "بَابُ الإمَامَة هذا باب يذكر فيه آداب الإمام والمأموم، وما يجب على كُل منهما، ويستحب",
+      "description_arabic": "مقدمة باب الإمامة وبيان مقاصدها من الطاعة والنظام والمساواة والعبادة",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "structural_transition",
+        "evidence_rational",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 88,
+      "end_word": 180,
+      "text_snippet": "الحديث الأول عَنْ أبي هُريرة رضي الله عنه أنَّ النَبيَّ صلى الله عليه وس",
+      "description_arabic": "حديث أبي هريرة في الوعيد على من يرفع رأسه قبل الإمام مع شرح غريب ألفاظه",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "definition",
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 181,
+      "end_word": 260,
+      "text_snippet": "المعنى الإجمالي: إنما جعل الإمام في الصلاة ليقتدى به ويؤتم به، بحيث تقع تنقل",
+      "description_arabic": "شرح المعنى الإجمالي لحديث تحريم مسابقة الإمام والوعيد على ذلك بالمسخ",
+      "primary_function": "evidence_rational",
+      "secondary_functions": [],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على نص الحديث الأول المذكور قبله"
+    },
+    {
+      "unit_index": 3,
+      "start_word": 261,
+      "end_word": 365,
+      "text_snippet": "اختلاف العلماء في السبق: اتفق العلماء على تحريم مسابقة المأموم للإمام لهذا الوعيد الشد",
+      "description_arabic": "اختلاف العلماء في بطلان صلاة من سابق الإمام مع ذكر أقوال الجمهور وأحمد وابن تيمية والترجيح",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_ijma",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 366,
+      "end_word": 575,
+      "text_snippet": "الاستنباطات من الحديث: 1- تحريم رفع الرأس في السجود قبل الإمام والوعيد فيه دليل على",
+      "description_arabic": "استنباطات الحديث الأول من تحريم المسابقة ووجوب المتابعة والجزاء من جنس العمل واحتمال المسخ",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "opinion_statement"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على حديث أبي هريرة الأول في مسابقة الإمام"
+    },
+    {
+      "unit_index": 5,
+      "start_word": 576,
+      "end_word": 640,
+      "text_snippet": "الحديث الثاني عَنْ أبي هريرة رضي الله عنه عَنِ النبي صلى الله عليه وسلم قَ",
+      "description_arabic": "حديث أبي هريرة في بيان أن الإمام جُعل ليؤتم به وصفة متابعة المأموم له في أفعال الصلاة",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 641,
+      "end_word": 803,
+      "text_snippet": "الحديث الثالث عَنْ عَائِشَةَ رضي الله عنها قالَتْ: \"صَلى رَسُولُ الله صلى",
+      "description_arabic": "حديث عائشة في صلاة النبي جالساً وأمره المأمومين بالجلوس مع شرح غريب ألفاظه",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "definition",
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 804,
+      "end_word": 975,
+      "text_snippet": "المعنى الإجمالي: في هذين الحديثين بيان صفة اقتداء المأموم بالإمام، ومتابعته له",
+      "description_arabic": "المعنى الإجمالي للحديثين الثاني والثالث في صفة الاقتداء بالإمام والمتابعة في أفعال الصلاة",
+      "primary_function": "evidence_rational",
+      "secondary_functions": [
+        "narration",
+        "editorial_note"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على نصي الحديثين الثاني والثالث"
+    },
+    {
+      "unit_index": 8,
+      "start_word": 976,
+      "end_word": 1155,
+      "text_snippet": "اختلاف العلماء: اختلف العلماء في صحة ائتمام المفترض بالمتنفل.",
+      "description_arabic": "خلاف العلماء في صحة ائتمام المفترض بالمتنفل مع أدلة كل فريق والمناقشة",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "evidence_rational",
+        "refutation",
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 1156,
+      "end_word": 1596,
+      "text_snippet": "واختلفوا أيضاً في صلاة المأمومين جلوسا مع القدرة على القيام خ",
+      "description_arabic": "خلاف العلماء في صلاة المأمومين جلوساً خلف الإمام العاجز عن القيام مع ذكر أقوال الظاهرية والشافعي وأحمد والترجيح بالجمع",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "refutation",
+        "rule_statement",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 1597,
+      "end_word": 1920,
+      "text_snippet": "ما يؤخذ من الحديثين: 1- وجوب متابعة المأموم للإمام في الصلاة وتحريم المسابقة.",
+      "description_arabic": "الأحكام المستنبطة من الحديثين الثاني والثالث في المتابعة والمخالفة والجلوس خلف الإمام والإشارة وطاعة ولاة الأمر",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "editorial_note",
+        "evidence_quran"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على الحديثين الثاني والثالث في باب الإمامة"
+    },
+    {
+      "unit_index": 11,
+      "start_word": 1921,
+      "end_word": 2060,
+      "text_snippet": "الحديث الرابع عَنْ عَبْدِ الله بْنِ يَزِيدَ الْخَطْمِيِّ الأنْصارِيّ رضي ا",
+      "description_arabic": "حديث البراء بن عازب في صفة متابعة الصحابة للنبي في السجود مع شرح غريبه ومعناه الإجمالي",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "definition",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 2061,
+      "end_word": 2165,
+      "text_snippet": "ما يؤخذ من الحديث: 1- صفة متابعة الصحابة للرسول في الصلاة، وأنهم لا ينتقلون من ا",
+      "description_arabic": "الأحكام المستنبطة من حديث البراء في صفة المتابعة وطول الطمأنينة وكراهة الموافقة إلا في تكبيرة الإحرام",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على حديث البراء بن عازب الرابع"
+    },
+    {
+      "unit_index": 13,
+      "start_word": 2166,
+      "end_word": 2280,
+      "text_snippet": "الحديث الخامس عَنْ أبي هُريرةَ رضي الله عنه أنَّ رَسُولَ الله صلى الله عليه",
+      "description_arabic": "حديث أبي هريرة في التأمين خلف الإمام وموافقة تأمين الملائكة وغفران الذنوب مع شرح معناه",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 14,
+      "start_word": 2281,
+      "end_word": 2390,
+      "text_snippet": "وهذه غنيمة جليلة وفرصة ثمينة، ألا وهى غفران الذنوب بأيسر الأس",
+      "description_arabic": "خلاف العلماء في مشروعية التأمين للإمام بين مالك والشافعي وأحمد والظاهرية",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "editorial_note",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 15,
+      "start_word": 2391,
+      "end_word": 2590,
+      "text_snippet": "ما يؤخذ من الحديث من الأحكام: 1- مشروعية التأمين للإمام، والمأموم، والمنفرد.",
+      "description_arabic": "الأحكام المستنبطة من حديث التأمين في مشروعيته وفضله وتأمين الملائكة وجهر الإمام وحضور القلب",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception",
+        "opinion_statement"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على حديث التأمين الخامس"
+    },
+    {
+      "unit_index": 16,
+      "start_word": 2591,
+      "end_word": 2710,
+      "text_snippet": "الحديث السادس عن أبي هريرة رضي الله عنه أنَ رَسُولَ الله صلى الله عليه وسلم",
+      "description_arabic": "حديثا أبي هريرة وأبي مسعود في وجوب تخفيف صلاة الجماعة ومراعاة الضعفاء وذوي الحاجات",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 17,
+      "start_word": 2711,
+      "end_word": 2835,
+      "text_snippet": "المعنى الإجمالي: جاءت هذه الشريعة السمحة، باليسر والسهولة، وَنَفْى العَنَتِ وا",
+      "description_arabic": "المعنى الإجمالي لحديثي التخفيف في الصلاة وبيان حكمة التخفيف ومراعاة أحوال المأمومين",
+      "primary_function": "evidence_rational",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على الحديثين السادس والسابع"
+    },
+    {
+      "unit_index": 18,
+      "start_word": 2836,
+      "end_word": 3050,
+      "text_snippet": "اختلاف العلماء: هناك أحاديث صحيحة تصف صلاة النبي صلى الله عليه وسلم بالطول، بح",
+      "description_arabic": "الجمع بين أحاديث التطويل والتخفيف في الصلاة وبيان أن التخفيف والتطويل أمران نسبيان",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "evidence_rational",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 19,
+      "start_word": 3051,
+      "end_word": 3175,
+      "text_snippet": "ما يؤخذ من الحديثين: 1- وجوب تخفيف صلاة الجماعة مع الإئتمام.",
+      "description_arabic": "الأحكام المستنبطة من حديثي التخفيف في وجوب التخفيف وجواز تطويل المنفرد ومراعاة العاجزين وتسهيل الخير",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يعتمد على الحديثين السادس والسابع في التخفيف"
+    }
+  ],
+  "total_units": 20,
+  "notes": "تم تقسيم النص إلى عشرين وحدة تعليمية تغطي باب الإمامة بأحاديثه السبعة. كل حديث مع شرحه يشكل وحدة أو أكثر، ومسائل الخلاف الفقهي المستقلة فُصلت في وحدات خاصة."
+}

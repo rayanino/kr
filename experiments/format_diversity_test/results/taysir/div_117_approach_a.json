@@ -1,0 +1,288 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 75,
+      "text_snippet": "‌‌بَابُ الإمَامَة\nهذا باب يذكر فيه آداب الإمام والمأموم، وما يجب على كُل منهما، ويستحب",
+      "description_arabic": "مقدمة باب الإمامة وبيان مقاصدها من الطاعة والنظام والمساواة والتعبد لله تعالى",
+      "primary_function": "structural_transition",
+      "secondary_functions": [
+        "definition",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 76,
+      "end_word": 260,
+      "text_snippet": "الحديث الأول\nعَنْ أبي هُريرة رضي الله عنه أنَّ النَبيَّ صلى الله عليه وسلم قَالَ: \" أما يَخْشَى",
+      "description_arabic": "حديث أبي هريرة في الوعيد الشديد لمن يرفع رأسه قبل الإمام بالمسخ إلى صورة حمار مع شرح غريبه ومعناه الإجمالي",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "definition",
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 261,
+      "end_word": 380,
+      "text_snippet": "اختلاف العلماء في السبق:\nاتفق العلماء على تحريم مسابقة المأموم للإمام لهذا الوعيد الشديد.",
+      "description_arabic": "اختلاف العلماء في بطلان صلاة من سابق الإمام بين الجمهور والإمام أحمد وابن تيمية مع الترجيح",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "refutation",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 381,
+      "end_word": 560,
+      "text_snippet": "الاستنباطات من الحديث:\n1- تحريم رفع الرأس في السجود قبل الإمام والوعيد فيه دليل على منعه",
+      "description_arabic": "استنباطات حديث مسابقة الإمام من تحريم السبق ووجوب المتابعة وأن الجزاء من جنس العمل وبيان غباء المسابق",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": "يحتاج لمعرفة الحديث الأول لكنه يشير إليه بوضوح"
+    },
+    {
+      "unit_index": 4,
+      "start_word": 561,
+      "end_word": 700,
+      "text_snippet": "الحديث الثاني\nعَنْ أبي هريرة رضي الله عنه عَنِ النبي صلى الله عليه وسلم قَال: \"إِنَّمَا جُعِل",
+      "description_arabic": "حديث أبي هريرة في بيان صفة متابعة المأموم للإمام في التكبير والركوع والسجود والجلوس",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 701,
+      "end_word": 830,
+      "text_snippet": "الحديث الثالث\nعَنْ عَائِشَةَ رضي الله عنها قالَتْ: \"صَلى رَسُولُ الله صلى الله عليه وسلم في بَيْتِهِ",
+      "description_arabic": "حديث عائشة في صلاة النبي جالساً لمرضه وأمره الصحابة بالجلوس خلفه تحقيقاً للمتابعة",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 831,
+      "end_word": 920,
+      "text_snippet": "الغريب:\n1- \"الفاء الواقعة في (فكبروا) و (فاركعوا) … إلخ \": للترتيب والتعقيب، ومعنى الترتيب",
+      "description_arabic": "شرح غريب الحديثين الثاني والثالث من معاني الفاء وجعل وأجمعون وشاك",
+      "primary_function": "definition",
+      "secondary_functions": [],
+      "self_contained": false,
+      "self_containment_notes": "يحتاج لقراءة الحديثين السابقين لفهم الألفاظ المشروحة"
+    },
+    {
+      "unit_index": 7,
+      "start_word": 921,
+      "end_word": 1080,
+      "text_snippet": "المعنى الإجمالي:\nفي هذين الحديثين بيان صفة اقتداء المأموم بالإمام، ومتابعته له.",
+      "description_arabic": "المعنى الإجمالي لحديثي أبي هريرة وعائشة في صفة متابعة المأموم للإمام وحكمة الاقتداء",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 1081,
+      "end_word": 1310,
+      "text_snippet": "اختلاف العلماء:\nاختلف العلماء في صحة ائتمام المفترض بالمتنفل.\nفذهب المالكية والحنفية، والمشهور",
+      "description_arabic": "اختلاف العلماء في صحة ائتمام المفترض بالمتنفل مع أدلة كل فريق من حديث معاذ وصلاة الخوف والرد على المانعين",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 1311,
+      "end_word": 1680,
+      "text_snippet": "واختلفوا أيضاً في صلاة المأمومين جلوسا مع القدرة على القيام خلف الإمام العاجز عن القيام.",
+      "description_arabic": "اختلاف العلماء في صلاة المأمومين جلوساً خلف الإمام العاجز عن القيام مع أدلة كل مذهب ودعوى النسخ والتخصيص والجمع بين الأحاديث",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "refutation",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 1681,
+      "end_word": 1920,
+      "text_snippet": "ما يؤخذ من الحديثين:\n1- وجوب متابعة المأموم للإمام في الصلاة وتحريم المسابقة.",
+      "description_arabic": "الأحكام المستنبطة من حديثي المتابعة من وجوب المتابعة وتحريم المخالفة وجواز الإشارة في الصلاة وتقديم المتابعة على القيام",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 1921,
+      "end_word": 2100,
+      "text_snippet": "الحديث الرابع\nعَنْ عَبْدِ الله بْنِ يَزِيدَ الْخَطْمِيِّ الأنْصارِيّ رضي الله عنه قَالَ: حَدَثَني",
+      "description_arabic": "حديث البراء بن عازب في صفة متابعة الصحابة للنبي في الانتقال من القيام إلى السجود مع شرح غريبه ومعناه",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "narration",
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 2101,
+      "end_word": 2230,
+      "text_snippet": "ما يؤخذ من الحديث:\n1- صفة متابعة الصحابة للرسول في الصلاة، وأنهم لا ينتقلون من القيام إلى السجود",
+      "description_arabic": "أحكام مستنبطة من حديث البراء في صفة المتابعة وكراهة الموافقة وطول الطمأنينة بعد الركوع وحكم تكبيرة الإحرام",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 13,
+      "start_word": 2231,
+      "end_word": 2330,
+      "text_snippet": "الحديث الخامس\nعَنْ أبي هُريرةَ رضي الله عنه أنَّ رَسُولَ الله صلى الله عليه وسلم قَالَ: \"إذَا أمّنَ",
+      "description_arabic": "حديث أبي هريرة في فضل التأمين بعد الإمام وموافقة تأمين الملائكة وغفران الذنوب مع معناه الإجمالي",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 14,
+      "start_word": 2331,
+      "end_word": 2460,
+      "text_snippet": "اختلاف العلماء:\nذهب مالك في إحدى الروايتين عنه، إلى أن التأمين لا يشرع في حق الإمام",
+      "description_arabic": "اختلاف العلماء في مشروعية التأمين للإمام بين مالك والشافعي وأحمد والظاهرية",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 15,
+      "start_word": 2461,
+      "end_word": 2680,
+      "text_snippet": "ما يؤخذ من الحديث من الأحكام:\n1- مشروعية التأمين للإمام، والمأموم، والمنفرد.",
+      "description_arabic": "أحكام مستنبطة من حديث التأمين من مشروعيته وفضله وتأمين الملائكة وجهر الإمام به وآداب الدعاء",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 16,
+      "start_word": 2681,
+      "end_word": 2810,
+      "text_snippet": "الحديث السادس\nعن أبي هريرة رضي الله عنه أنَ رَسُولَ الله صلى الله عليه وسلم قَالَ: \"إِذَا صَلى أحَدكُ",
+      "description_arabic": "حديث أبي هريرة في أمر الإمام بتخفيف الصلاة لأجل الضعيف والسقيم وإباحة التطويل للمنفرد",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 17,
+      "start_word": 2811,
+      "end_word": 2940,
+      "text_snippet": "الحديث السابع\nعَنْ أبي مَسْعُودٍ الأنصاري رضي الله عنه قَال: جَاءَ رَجُل إِلى رسُولَ الله صلى الله",
+      "description_arabic": "حديث أبي مسعود في غضب النبي على من يطيل الصلاة وينفر الناس وأمره بالإيجاز",
+      "primary_function": "evidence_hadith",
+      "secondary_functions": [
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 18,
+      "start_word": 2941,
+      "end_word": 3060,
+      "text_snippet": "المعنى الإجمالي:\nجاءت هذه الشريعة السمحة، باليسر والسهولة، وَنَفْى العَنَتِ والحرج.",
+      "description_arabic": "المعنى الإجمالي لحديثي التخفيف في الصلاة وبيان يسر الشريعة ومراعاة أحوال المأمومين",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 19,
+      "start_word": 3061,
+      "end_word": 3270,
+      "text_snippet": "اختلاف العلماء:\nهناك أحاديث صحيحة تصف صلاة النبي صلى الله عليه وسلم بالطول، بحيث يكبر، فيذهب",
+      "description_arabic": "الجمع بين أحاديث التطويل والتخفيف في الصلاة وبيان أن التخفيف والتطويل أمران نسبيان",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 20,
+      "start_word": 3271,
+      "end_word": 3430,
+      "text_snippet": "ما يؤخذ من الحديثين:\n1- وجوب تخفيف صلاة الجماعة مع الإئتمام.",
+      "description_arabic": "أحكام مستنبطة من حديثي التخفيف من وجوب التخفيف وجواز التطويل للمنفرد ومراعاة العاجزين وتسهيل طريق الخير",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 21,
+  "notes": "هذا باب الإمامة من كتاب فقهي حديثي يشرح أحاديث متعلقة بأحكام الإمامة والمتابعة، ويتضمن سبعة أحاديث مع شروحها واختلاف العلماء واستنباطات الأحكام"
+}

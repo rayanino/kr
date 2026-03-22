@@ -1,0 +1,140 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 95,
+      "text_snippet": "28 - فإذا مات الميت وجب على طائفة من الناس أن يبادروا إلى غسله أما المبادرة فقد سبق دليلها",
+      "description_arabic": "بيان وجوب غسل الميت على طائفة من المسلمين والمبادرة إليه مع الاستدلال بأحاديث أمره صلى الله عليه وسلم بالغسل",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 96,
+      "end_word": 380,
+      "text_snippet": "29 - ويراعى في غسله الأمور الآتية: أولا: غسله ثلاثا فأكثر على ما يرى القائمون على غسله.",
+      "description_arabic": "بيان الأمور التسعة المراعاة في غسل الميت من العدد والوتر والسدر والكافور والضفائر والبدء بالميامن مع الاستدلال بحديث أم عطية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 381,
+      "end_word": 490,
+      "text_snippet": "عاشرا: أن يغسل بخرقة أو نحوها تحت ساتر لجسمه بعد تجريده من ثيابه كلها فإنه كذلك كان الع",
+      "description_arabic": "حكم تجريد الميت من ثيابه وغسله بخرقة تحت ساتر مع الاستدلال بحديث عائشة في غسل النبي صلى الله عليه وسلم",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 491,
+      "end_word": 650,
+      "text_snippet": "حادي عشر: حسن والغرض من ستر جسمه واستعمال الخرقة أن لا يطلع على عورته ولا تمس وعورة الرجل",
+      "description_arabic": "بيان حدود عورة الرجل والمرأة عند الغسل مع الاستدلال بالأحاديث وآية سورة النور في إبداء الزينة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 651,
+      "end_word": 695,
+      "text_snippet": "ثاني عشر: ويستثنى مما ذكر في رابعا المحرم فإنه لا يجوز تطييبه لقوله في الحديث الذي سبقت",
+      "description_arabic": "استثناء المحرم من التطييب عند الغسل لأنه يبعث يوم القيامة ملبياً",
+      "primary_function": "condition_exception",
+      "secondary_functions": [
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 696,
+      "end_word": 820,
+      "text_snippet": "ثالث عشر: ويستثنى أيضا مما ورد في تاسعا الزوجان فغنه يجوزك لكل منهما أن يتولى غسل الآخر",
+      "description_arabic": "جواز غسل كل من الزوجين للآخر مع الاستدلال بحديث عائشة في غسل النبي وحديث وارأساه",
+      "primary_function": "condition_exception",
+      "secondary_functions": [
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 821,
+      "end_word": 890,
+      "text_snippet": "رابع عشر: أن يتولى غسله من كان أعرف بسنة الغسل لا سيما إذا كان من أهله وأقاربه لأن الذين",
+      "description_arabic": "استحباب تولي الأعرف بسنة الغسل من أهل الميت وأقاربه مع الاستدلال بفعل علي رضي الله عنه",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 891,
+      "end_word": 1050,
+      "text_snippet": "30 - ولمن تولى غسله أجر عظيم بشرطين اثنين: الأول: أن يستر عليه ولا يحدث بما قد يرى من الم",
+      "description_arabic": "بيان شرطي نيل الأجر العظيم لمن غسل الميت: الستر عليه وإخلاص النية لله تعالى مع الأدلة من الكتاب والسنة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 1051,
+      "end_word": 1145,
+      "text_snippet": "31 - ويستحب لمن غسله أن يغتسل لقوله صلى الله عليه وسلم: \"من غسل ميتا فليغتسل ومن حمله فلي",
+      "description_arabic": "حكم الاغتسال لمن غسل الميت وبيان أنه مستحب لا واجب مع الجمع بين الأحاديث الواردة في ذلك",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 1146,
+      "end_word": 1450,
+      "text_snippet": "32 - ولا يشرع غسل الشهيد قتيل المعركة ولو اتفق أنه كان جنبا وفي ذلك أحاديث: الأول: عن جا",
+      "description_arabic": "عدم مشروعية غسل الشهيد قتيل المعركة ولو كان جنباً مع الاستدلال بثلاثة أحاديث منها قصة شهداء أحد وجليبيب وحنظلة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 10,
+  "notes": "هذا الفصل يتناول أحكام غسل الميت من كتاب فقهي يعتمد على الأدلة من الكتاب والسنة، ويتضمن الأحكام الأساسية وشروطها واستثناءاتها مع أدلتها"
+}

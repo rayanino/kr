@@ -1,0 +1,182 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 150,
+      "text_snippet": "‌‌العلم ⌜1⌝ اسم يعين المسمى مطلقا … علمه كجعفر وخرنقا وقرن وعدن ولاحق وشذقم وهيلة ووا",
+      "description_arabic": "تعريف العلم بأنه الاسم الذي يعين مسماه مطلقاً بلا قيد التكلم أو الخطاب أو الغيبة مع أمثلة من أعلام الأناسي وغيرهم",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 151,
+      "end_word": 220,
+      "text_snippet": "واسما أتى وكنية ولقبا … وأخرن ذا إن سواه صحبا ينقسم العلم إلى ثلاثة أقسام: إلى اسم وك",
+      "description_arabic": "تقسيم العلم إلى اسم وكنية ولقب مع تعريف كل قسم وأمثلته",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "rule_statement",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 221,
+      "end_word": 420,
+      "text_snippet": "وأشار بقوله وأخرن ذا إلخ إلى أن اللقب إذا صحب الاسم وجب تأخيره كزيد أنف الناقة ولا يجو",
+      "description_arabic": "حكم ترتيب اللقب مع الاسم والكنية ووجوب تأخير اللقب عن الاسم وجواز التقديم والتأخير مع الكنية مع مناقشة ظاهر كلام المصنف",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception",
+        "example",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 421,
+      "end_word": 560,
+      "text_snippet": "ويوجد في بعض النسخ بدل قوله وأخرن ذا إن سواه صحبا: وذا اجعل آخرا إذا اسما صحبا وهو أحس",
+      "description_arabic": "ملاحظة تحريرية حول اختلاف النسخ في بيت تأخير اللقب وترجيح النسخة الأدق لفظاً",
+      "primary_function": "editorial_note",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يحتاج إلى سياق البيت الأصلي ومسألة تأخير اللقب المذكورة قبله"
+    },
+    {
+      "unit_index": 4,
+      "start_word": 561,
+      "end_word": 620,
+      "text_snippet": "وإن يكونا مفردين فأضف … حتما وإلا أتبع الذي ردف إذا اجتمع الاسم واللقب فإما أن يكونا مف",
+      "description_arabic": "بيان حالات اجتماع الاسم واللقب من حيث الإفراد والتركيب وتقسيمها إلى أربع صور",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 621,
+      "end_word": 715,
+      "text_snippet": "فإن كانا مفردين وجب عند البصريين الإضافة نحو هذا سعيد كرز ورأيت سعيد كرز ومررت بسعيد كر",
+      "description_arabic": "حكم اجتماع الاسم واللقب المفردين: مذهب البصريين بوجوب الإضافة ومذهب الكوفيين بجواز الإتباع وموافقة المصنف للكوفيين",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "example",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 716,
+      "end_word": 930,
+      "text_snippet": "وإن لم يكونا مفردين بأن كانا مركبين نحو عبد الله أنف الناقة أو مركبا ومفردا نحو عبد الله",
+      "description_arabic": "حكم اجتماع الاسم واللقب إذا لم يكونا مفردين: وجوب الإتباع وجواز القطع إلى الرفع أو النصب مع بيان التقدير",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 931,
+      "end_word": 1075,
+      "text_snippet": "ومنه منقول كفضل وأسد … وذو ارتجال كسعاد وأدد وجملة وما بمزج ركبا ذا إن بغير ويه تم أعر",
+      "description_arabic": "تقسيم العلم إلى مرتجل ومنقول مع تعريف كل منهما وبيان أنواع النقل من صفة ومصدر واسم جنس",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 1076,
+      "end_word": 1115,
+      "text_snippet": "أو من جملة ك قام زيد وزيد قائم وحكمها أنها تحكى فتقول جاءني زيد قائم ورأيت زيد قائم ومرر",
+      "description_arabic": "حكم العلم المنقول من جملة وأنه يُحكى على لفظه في جميع حالات الإعراب",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 1116,
+      "end_word": 1320,
+      "text_snippet": "ومنها أيضا ما ركب تركيب مزج كبعلبك ومعدي كرب وسيبويه وذكر المصنف أن المركب تركيب مزج إن",
+      "description_arabic": "أحكام العلم المركب تركيب مزج: إعرابه كغير المنصرف إن لم يُختم بويه وبناؤه على الكسر إن خُتم بويه مع ذكر الأوجه الجائزة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 1321,
+      "end_word": 1345,
+      "text_snippet": "وأجاز بعضهم إعرابه إعراب ما لا ينصرف نحو جاءني سيبويه ورأيت سيبويه",
+      "description_arabic": "قول بعض النحاة بجواز إعراب المختوم بويه إعراب ما لا ينصرف",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يحتاج إلى سياق حكم المختوم بويه المذكور قبله"
+    },
+    {
+      "unit_index": 11,
+      "start_word": 1346,
+      "end_word": 1465,
+      "text_snippet": "ومنها: ما ركب تركيب إضافة كعبد شمس وأبي قحافة وهو معرب فتقول جاءني عبد شمس وأبو قحافة ور",
+      "description_arabic": "حكم العلم المركب تركيب إضافة وإعرابه مع التنبيه على أن الجزء الأول يُعرب بالحركات أو الحروف والثاني منصرف أو غير منصرف",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "editorial_note"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 1436,
+      "end_word": 1720,
+      "text_snippet": "ووضعوا لبعض الأجناس علم … كعلم الأشخاص لفظا وهو عم من ذاك أم عريط للعقرب وهكذا ثعالة لل",
+      "description_arabic": "بيان علم الجنس وتقسيم العلم إلى علم شخص وعلم جنس مع بيان الحكم اللفظي والمعنوي لكل منهما وأمثلة علم الجنس للشخص وللمعنى",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "rule_statement",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 13,
+  "notes": "النص يتناول باب العلم من شرح ألفية ابن مالك، ويشمل: تعريف العلم، أقسامه (اسم وكنية ولقب)، ترتيب اللقب مع الاسم والكنية، أحكام اجتماع الاسم واللقب، تقسيم العلم إلى مرتجل ومنقول وأنواع التركيب، وعلم الجنس وعلم الشخص."
+}

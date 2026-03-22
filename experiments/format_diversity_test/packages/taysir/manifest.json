@@ -1,0 +1,2224 @@
+{
+  "schema_version": "normalized_package_v2.0",
+  "source_id": "src_test0001",
+  "normalizer_id": "kr.normalization.shamela_v2",
+  "normalization_utc": "2026-03-22T16:06:09.889760+00:00",
+  "division_tree": [
+    {
+      "div_id": "div_src_test0001_1_000",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الطهارة",
+      "heading_level": 1,
+      "start_unit_index": 0,
+      "end_unit_index": 278,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_7_000",
+          "division_type": null,
+          "heading_text": "النية وأحكامها",
+          "heading_level": 7,
+          "start_unit_index": 0,
+          "end_unit_index": 1,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_000",
+          "division_type": "فائدة",
+          "heading_text": "فائدة: ذكر ابن رجب أن العمل لغير الله على أقسام:",
+          "heading_level": 6,
+          "start_unit_index": 2,
+          "end_unit_index": 19,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_001",
+          "division_type": null,
+          "heading_text": "بَاب دخول الخلاءَ والاستِطَابة",
+          "heading_level": 6,
+          "start_unit_index": 20,
+          "end_unit_index": 28,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_002",
+          "division_type": "فائدة",
+          "heading_text": "فائدة",
+          "heading_level": 6,
+          "start_unit_index": 29,
+          "end_unit_index": 29,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_003",
+          "division_type": null,
+          "heading_text": "بَابُ السّوَاك",
+          "heading_level": 6,
+          "start_unit_index": 30,
+          "end_unit_index": 33,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_004",
+          "division_type": null,
+          "heading_text": "بَاب المسْح عَلى الخفّين",
+          "heading_level": 6,
+          "start_unit_index": 34,
+          "end_unit_index": 36,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_005",
+          "division_type": null,
+          "heading_text": "بَاب في المذي وغَيره",
+          "heading_level": 6,
+          "start_unit_index": 37,
+          "end_unit_index": 39,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_006",
+          "division_type": "فائدة",
+          "heading_text": "فائدة",
+          "heading_level": 6,
+          "start_unit_index": 40,
+          "end_unit_index": 43,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_007",
+          "division_type": "فائدة",
+          "heading_text": "فائدة: الختان الشرعي هو قطع القلفة الساترة لحشفة الذكر.",
+          "heading_level": 6,
+          "start_unit_index": 44,
+          "end_unit_index": 61,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": [
+            {
+              "div_id": "div_src_test0001_7_001",
+              "division_type": null,
+              "heading_text": "بَاب الغُسْل مِنَ الجنَابة",
+              "heading_level": 7,
+              "start_unit_index": 45,
+              "end_unit_index": 54,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_002",
+              "division_type": null,
+              "heading_text": "بَابُ التيمّم",
+              "heading_level": 7,
+              "start_unit_index": 55,
+              "end_unit_index": 60,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_003",
+              "division_type": null,
+              "heading_text": "بَابُ الحَيْض",
+              "heading_level": 7,
+              "start_unit_index": 61,
+              "end_unit_index": 61,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_000",
+          "division_type": "باب",
+          "heading_text": "باب حكم المستحاضة",
+          "heading_level": 2,
+          "start_unit_index": 62,
+          "end_unit_index": 66,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_001",
+          "division_type": null,
+          "heading_text": "كِتَابُ الصلاة",
+          "heading_level": 2,
+          "start_unit_index": 67,
+          "end_unit_index": 87,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_002",
+              "division_type": null,
+              "heading_text": "بَابُ المَواقِيت",
+              "heading_level": 2,
+              "start_unit_index": 67,
+              "end_unit_index": 87,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_2_003",
+                  "division_type": "مقدمة",
+                  "heading_text": "مقدمة",
+                  "heading_level": 2,
+                  "start_unit_index": 67,
+                  "end_unit_index": 87,
+                  "detection_method": "keyword_heuristic",
+                  "confidence": "medium",
+                  "children": [
+                    {
+                      "div_id": "div_src_test0001_6_008",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 69,
+                      "end_unit_index": 71,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_009",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 72,
+                      "end_unit_index": 74,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_010",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 75,
+                      "end_unit_index": 78,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_011",
+                      "division_type": null,
+                      "heading_text": "بَاب في شيء مِن مَكرُوهَات الصَّلاة",
+                      "heading_level": 6,
+                      "start_unit_index": 79,
+                      "end_unit_index": 80,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_012",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 81,
+                      "end_unit_index": 83,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_013",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 84,
+                      "end_unit_index": 87,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_004",
+          "division_type": "باب",
+          "heading_text": "باب فضْل صَلاة الجماعَةِ وَوجوبها",
+          "heading_level": 2,
+          "start_unit_index": 88,
+          "end_unit_index": 270,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_7_004",
+              "division_type": null,
+              "heading_text": "بَابُ حضُور النساء المسْجِد",
+              "heading_level": 7,
+              "start_unit_index": 94,
+              "end_unit_index": 95,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_005",
+              "division_type": null,
+              "heading_text": "بَابُ سنَن الراتبة",
+              "heading_level": 7,
+              "start_unit_index": 96,
+              "end_unit_index": 97,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_006",
+              "division_type": null,
+              "heading_text": "بَابُ الآذَان والإقامة",
+              "heading_level": 7,
+              "start_unit_index": 98,
+              "end_unit_index": 104,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_014",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 105,
+              "end_unit_index": 105,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_015",
+              "division_type": null,
+              "heading_text": "بَاب استقبال القبْلَة",
+              "heading_level": 6,
+              "start_unit_index": 106,
+              "end_unit_index": 110,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_016",
+              "division_type": null,
+              "heading_text": "بَابُ الصّفُوف",
+              "heading_level": 6,
+              "start_unit_index": 111,
+              "end_unit_index": 116,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_017",
+              "division_type": null,
+              "heading_text": "بَابُ الإمَامَة",
+              "heading_level": 6,
+              "start_unit_index": 117,
+              "end_unit_index": 126,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_018",
+              "division_type": null,
+              "heading_text": "بَابُ صفَة صَلاة النَّبي صلى الله عليه وسلم",
+              "heading_level": 6,
+              "start_unit_index": 127,
+              "end_unit_index": 140,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_019",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 141,
+              "end_unit_index": 141,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_020",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 142,
+              "end_unit_index": 145,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_021",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 146,
+              "end_unit_index": 146,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_022",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 147,
+              "end_unit_index": 148,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_023",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 149,
+              "end_unit_index": 151,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_7_007",
+                  "division_type": null,
+                  "heading_text": "بَابُ وجُوب الطّمَأنينة في الركوع والسجود",
+                  "heading_level": 7,
+                  "start_unit_index": 151,
+                  "end_unit_index": 151,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_4_000",
+              "division_type": "مبحث",
+              "heading_text": "المبحث الأول: في خلاف العلماء.",
+              "heading_level": 4,
+              "start_unit_index": 152,
+              "end_unit_index": 152,
+              "detection_method": "keyword_heuristic",
+              "confidence": "high",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_001",
+              "division_type": "مبحث",
+              "heading_text": "المبحث الثاني: في كيفية الاستدلال بهذا الحديث على الواجبات في الصلاة وغير الواجبات.",
+              "heading_level": 4,
+              "start_unit_index": 153,
+              "end_unit_index": 270,
+              "detection_method": "keyword_heuristic",
+              "confidence": "high",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_4_002",
+                  "division_type": "مبحث",
+                  "heading_text": "المبحث الثالث: في الأحكام المأخوذة من هذا الحديث.",
+                  "heading_level": 4,
+                  "start_unit_index": 153,
+                  "end_unit_index": 270,
+                  "detection_method": "keyword_heuristic",
+                  "confidence": "high",
+                  "children": [
+                    {
+                      "div_id": "div_src_test0001_7_008",
+                      "division_type": null,
+                      "heading_text": "بَابُ القِراءَة في الصَّلاة",
+                      "heading_level": 7,
+                      "start_unit_index": 155,
+                      "end_unit_index": 162,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_7_009",
+                      "division_type": null,
+                      "heading_text": "بَابُ سُجُود السَهْو",
+                      "heading_level": 7,
+                      "start_unit_index": 163,
+                      "end_unit_index": 167,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_7_010",
+                      "division_type": null,
+                      "heading_text": "بَابُ المرُور بَيْن يَدَي المصَلّي",
+                      "heading_level": 7,
+                      "start_unit_index": 168,
+                      "end_unit_index": 172,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_7_011",
+                      "division_type": null,
+                      "heading_text": "بَابٌ جَامع",
+                      "heading_level": 7,
+                      "start_unit_index": 173,
+                      "end_unit_index": 173,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_024",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 173,
+                      "end_unit_index": 173,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_025",
+                      "division_type": null,
+                      "heading_text": "بَابُ تحيَّة المسْجِد",
+                      "heading_level": 6,
+                      "start_unit_index": 174,
+                      "end_unit_index": 175,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_026",
+                      "division_type": null,
+                      "heading_text": "بَابُ النّهي عَن الكَلام في الصَّلاة",
+                      "heading_level": 6,
+                      "start_unit_index": 176,
+                      "end_unit_index": 178,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_027",
+                      "division_type": null,
+                      "heading_text": "بَابُ الإبراد في الظهر من شدّة الحَر",
+                      "heading_level": 6,
+                      "start_unit_index": 179,
+                      "end_unit_index": 179,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_028",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 180,
+                      "end_unit_index": 181,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_029",
+                      "division_type": null,
+                      "heading_text": "بَابُ قضَاء الصَّلاة الفائتة وتعجيلها",
+                      "heading_level": 6,
+                      "start_unit_index": 182,
+                      "end_unit_index": 186,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_030",
+                      "division_type": null,
+                      "heading_text": "باَب حكم ستر أحد العَاتقين في الصلاة",
+                      "heading_level": 6,
+                      "start_unit_index": 187,
+                      "end_unit_index": 187,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_031",
+                      "division_type": null,
+                      "heading_text": "بَاب ما جَاء في الثوم والبصل ونحوهما",
+                      "heading_level": 6,
+                      "start_unit_index": 188,
+                      "end_unit_index": 188,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_032",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 189,
+                      "end_unit_index": 189,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_033",
+                      "division_type": null,
+                      "heading_text": "بَابُ التشهد",
+                      "heading_level": 6,
+                      "start_unit_index": 190,
+                      "end_unit_index": 191,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": [
+                        {
+                          "div_id": "div_src_test0001_6_034",
+                          "division_type": "فائدة",
+                          "heading_text": "فائدة:",
+                          "heading_level": 6,
+                          "start_unit_index": 190,
+                          "end_unit_index": 191,
+                          "detection_method": "keyword_heuristic",
+                          "confidence": "medium",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_035",
+                      "division_type": null,
+                      "heading_text": "بَابُ كَيفية الصَّلَاة على النبي صلى الله عليه وسلم",
+                      "heading_level": 6,
+                      "start_unit_index": 192,
+                      "end_unit_index": 192,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_036",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 193,
+                      "end_unit_index": 195,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_037",
+                      "division_type": null,
+                      "heading_text": "بَابُ الدّعاء بعد التشهد الأخير",
+                      "heading_level": 6,
+                      "start_unit_index": 196,
+                      "end_unit_index": 198,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_038",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 199,
+                      "end_unit_index": 200,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_039",
+                      "division_type": null,
+                      "heading_text": "بَابُ الوِتر",
+                      "heading_level": 6,
+                      "start_unit_index": 201,
+                      "end_unit_index": 203,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_040",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 204,
+                      "end_unit_index": 205,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_041",
+                      "division_type": null,
+                      "heading_text": "بَابُ الذكر عَقب الصَّلاة",
+                      "heading_level": 6,
+                      "start_unit_index": 206,
+                      "end_unit_index": 211,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_042",
+                      "division_type": null,
+                      "heading_text": "بَابُ الخشُوع في الصَّلاةِ",
+                      "heading_level": 6,
+                      "start_unit_index": 212,
+                      "end_unit_index": 213,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_043",
+                      "division_type": null,
+                      "heading_text": "بَابُ الجَمْع بين الصلاتين في السفر",
+                      "heading_level": 6,
+                      "start_unit_index": 214,
+                      "end_unit_index": 215,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_044",
+                      "division_type": "فائدة",
+                      "heading_text": "فوائد:",
+                      "heading_level": 6,
+                      "start_unit_index": 216,
+                      "end_unit_index": 217,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_045",
+                      "division_type": null,
+                      "heading_text": "بَابُ قصْر الصَّلاة في السفر",
+                      "heading_level": 6,
+                      "start_unit_index": 218,
+                      "end_unit_index": 220,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_046",
+                      "division_type": null,
+                      "heading_text": "بَابُ الجُمعَة",
+                      "heading_level": 6,
+                      "start_unit_index": 221,
+                      "end_unit_index": 226,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_047",
+                      "division_type": "فائدة",
+                      "heading_text": "فائدة:",
+                      "heading_level": 6,
+                      "start_unit_index": 227,
+                      "end_unit_index": 232,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_048",
+                      "division_type": null,
+                      "heading_text": "بَابُ صَلَاةِ العيدَين",
+                      "heading_level": 6,
+                      "start_unit_index": 233,
+                      "end_unit_index": 242,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_049",
+                      "division_type": null,
+                      "heading_text": "بَابُ صَلَاة الكسوف",
+                      "heading_level": 6,
+                      "start_unit_index": 243,
+                      "end_unit_index": 246,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_050",
+                      "division_type": "تنبيه",
+                      "heading_text": "تنبيه:",
+                      "heading_level": 6,
+                      "start_unit_index": 247,
+                      "end_unit_index": 250,
+                      "detection_method": "keyword_heuristic",
+                      "confidence": "medium",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_051",
+                      "division_type": null,
+                      "heading_text": "بَابُ الاستِسقَاء",
+                      "heading_level": 6,
+                      "start_unit_index": 251,
+                      "end_unit_index": 254,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_052",
+                      "division_type": null,
+                      "heading_text": "بَابُ صَلَاة الخوف",
+                      "heading_level": 6,
+                      "start_unit_index": 255,
+                      "end_unit_index": 259,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_053",
+                      "division_type": null,
+                      "heading_text": "كِتاب الجَنَائز",
+                      "heading_level": 6,
+                      "start_unit_index": 260,
+                      "end_unit_index": 260,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_054",
+                      "division_type": null,
+                      "heading_text": "بَابٌ في الصَّلَاة على الغائب وعلى القبر",
+                      "heading_level": 6,
+                      "start_unit_index": 261,
+                      "end_unit_index": 263,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    },
+                    {
+                      "div_id": "div_src_test0001_6_055",
+                      "division_type": null,
+                      "heading_text": "بَابٌ في الكفن",
+                      "heading_level": 6,
+                      "start_unit_index": 264,
+                      "end_unit_index": 270,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": [
+                        {
+                          "div_id": "div_src_test0001_6_056",
+                          "division_type": "فائدة",
+                          "heading_text": "فائدة:",
+                          "heading_level": 6,
+                          "start_unit_index": 264,
+                          "end_unit_index": 270,
+                          "detection_method": "keyword_heuristic",
+                          "confidence": "medium",
+                          "children": [
+                            {
+                              "div_id": "div_src_test0001_7_012",
+                              "division_type": null,
+                              "heading_text": "بَاب في صفة تغسيل الميّت وتشييع الجنازة",
+                              "heading_level": 7,
+                              "start_unit_index": 265,
+                              "end_unit_index": 269,
+                              "detection_method": "html_tagged",
+                              "confidence": "confirmed",
+                              "children": []
+                            },
+                            {
+                              "div_id": "div_src_test0001_7_013",
+                              "division_type": null,
+                              "heading_text": "بَابٌ في مَوقِف الإمام من الميت",
+                              "heading_level": 7,
+                              "start_unit_index": 270,
+                              "end_unit_index": 270,
+                              "detection_method": "html_tagged",
+                              "confidence": "confirmed",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_005",
+          "division_type": "باب",
+          "heading_text": "باب في تحْريم التسخط بالفعل والقول",
+          "heading_level": 2,
+          "start_unit_index": 271,
+          "end_unit_index": 278,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_6_057",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 271,
+              "end_unit_index": 278,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_001",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الزكاة",
+      "heading_level": 1,
+      "start_unit_index": 279,
+      "end_unit_index": 577,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_6_058",
+          "division_type": "فائدة",
+          "heading_text": "فائدة:",
+          "heading_level": 6,
+          "start_unit_index": 292,
+          "end_unit_index": 292,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_059",
+          "division_type": null,
+          "heading_text": "بَابُ صدقة الفِطر",
+          "heading_level": 6,
+          "start_unit_index": 293,
+          "end_unit_index": 295,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_060",
+          "division_type": null,
+          "heading_text": "كِتاب الصيَام",
+          "heading_level": 6,
+          "start_unit_index": 296,
+          "end_unit_index": 308,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_061",
+          "division_type": null,
+          "heading_text": "بَاب الصَّوم في السَّفر",
+          "heading_level": 6,
+          "start_unit_index": 309,
+          "end_unit_index": 312,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_062",
+          "division_type": "فائدة",
+          "heading_text": "فائدة:",
+          "heading_level": 6,
+          "start_unit_index": 313,
+          "end_unit_index": 316,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_063",
+          "division_type": "فائدة",
+          "heading_text": "فائدة:",
+          "heading_level": 6,
+          "start_unit_index": 317,
+          "end_unit_index": 341,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": [
+            {
+              "div_id": "div_src_test0001_7_014",
+              "division_type": null,
+              "heading_text": "بَابُ أفضَل الصِّيامِ وَغَيرِه",
+              "heading_level": 7,
+              "start_unit_index": 321,
+              "end_unit_index": 330,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_015",
+              "division_type": null,
+              "heading_text": "بَابُ لَيلَة القَدْرِ",
+              "heading_level": 7,
+              "start_unit_index": 331,
+              "end_unit_index": 333,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_016",
+              "division_type": null,
+              "heading_text": "بَاب الاعتِكَاف",
+              "heading_level": 7,
+              "start_unit_index": 334,
+              "end_unit_index": 339,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_017",
+              "division_type": null,
+              "heading_text": "كِتَابِ الحَجّ",
+              "heading_level": 7,
+              "start_unit_index": 340,
+              "end_unit_index": 341,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_006",
+          "division_type": "باب",
+          "heading_text": "باب المواقيت",
+          "heading_level": 2,
+          "start_unit_index": 342,
+          "end_unit_index": 409,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_6_064",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 346,
+              "end_unit_index": 348,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_065",
+              "division_type": null,
+              "heading_text": "بَابُ مَا يَلبسُه المحْرم من الثياب",
+              "heading_level": 6,
+              "start_unit_index": 349,
+              "end_unit_index": 351,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_6_066",
+                  "division_type": "فائدة",
+                  "heading_text": "فائدة:",
+                  "heading_level": 6,
+                  "start_unit_index": 349,
+                  "end_unit_index": 351,
+                  "detection_method": "keyword_heuristic",
+                  "confidence": "medium",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_6_067",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 352,
+              "end_unit_index": 353,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_068",
+              "division_type": null,
+              "heading_text": "بَابُ التلبيَة",
+              "heading_level": 6,
+              "start_unit_index": 354,
+              "end_unit_index": 356,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_069",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 357,
+              "end_unit_index": 357,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_070",
+              "division_type": null,
+              "heading_text": "بَاب سَفر المَرأة بدُون محْرم",
+              "heading_level": 6,
+              "start_unit_index": 358,
+              "end_unit_index": 359,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_071",
+              "division_type": null,
+              "heading_text": "بَاب الفِديَة",
+              "heading_level": 6,
+              "start_unit_index": 360,
+              "end_unit_index": 362,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_072",
+              "division_type": null,
+              "heading_text": "بَابُ حرمَة مَكة",
+              "heading_level": 6,
+              "start_unit_index": 363,
+              "end_unit_index": 365,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_073",
+              "division_type": "تنبيه",
+              "heading_text": "تنبيه:",
+              "heading_level": 6,
+              "start_unit_index": 366,
+              "end_unit_index": 409,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_7_018",
+                  "division_type": null,
+                  "heading_text": "بَابُ مَا يجُوز قَتْله",
+                  "heading_level": 7,
+                  "start_unit_index": 372,
+                  "end_unit_index": 373,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                },
+                {
+                  "div_id": "div_src_test0001_7_019",
+                  "division_type": null,
+                  "heading_text": "بَاب دُخول مَكةَ والبيت",
+                  "heading_level": 7,
+                  "start_unit_index": 374,
+                  "end_unit_index": 377,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                },
+                {
+                  "div_id": "div_src_test0001_7_020",
+                  "division_type": null,
+                  "heading_text": "بَابُ الطَّواف وأدَبه",
+                  "heading_level": 7,
+                  "start_unit_index": 378,
+                  "end_unit_index": 384,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                },
+                {
+                  "div_id": "div_src_test0001_7_021",
+                  "division_type": null,
+                  "heading_text": "بَابُ التمتّع",
+                  "heading_level": 7,
+                  "start_unit_index": 385,
+                  "end_unit_index": 393,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                },
+                {
+                  "div_id": "div_src_test0001_7_022",
+                  "division_type": null,
+                  "heading_text": "بَابُ الهَدْي",
+                  "heading_level": 7,
+                  "start_unit_index": 394,
+                  "end_unit_index": 399,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                },
+                {
+                  "div_id": "div_src_test0001_7_023",
+                  "division_type": null,
+                  "heading_text": "بَابُ الغسْل لِلمُحرم",
+                  "heading_level": 7,
+                  "start_unit_index": 400,
+                  "end_unit_index": 401,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                },
+                {
+                  "div_id": "div_src_test0001_7_024",
+                  "division_type": null,
+                  "heading_text": "بَابُ فَسخ الحَج إلى العمْرة",
+                  "heading_level": 7,
+                  "start_unit_index": 402,
+                  "end_unit_index": 409,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_007",
+          "division_type": "باب",
+          "heading_text": "باب حكم تقديم الرمي",
+          "heading_level": 2,
+          "start_unit_index": 410,
+          "end_unit_index": 412,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_008",
+              "division_type": "باب",
+              "heading_text": "باب حكم تقديم الرمي ⌜1⌝",
+              "heading_level": 2,
+              "start_unit_index": 410,
+              "end_unit_index": 412,
+              "detection_method": "keyword_heuristic",
+              "confidence": "high",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_009",
+          "division_type": "باب",
+          "heading_text": "باب كيف ترمى جمرة العقبة",
+          "heading_level": 2,
+          "start_unit_index": 413,
+          "end_unit_index": 414,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_010",
+          "division_type": "باب",
+          "heading_text": "باب فضل الحلق وجواز التقصير",
+          "heading_level": 2,
+          "start_unit_index": 415,
+          "end_unit_index": 415,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_011",
+          "division_type": "باب",
+          "heading_text": "باب طواف الإفاضة والوداع",
+          "heading_level": 2,
+          "start_unit_index": 416,
+          "end_unit_index": 418,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_012",
+          "division_type": "باب",
+          "heading_text": "باب وجوب المبيت بمنى",
+          "heading_level": 2,
+          "start_unit_index": 419,
+          "end_unit_index": 419,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_2_013",
+              "division_type": "باب",
+              "heading_text": "باب وجوب المبيت بمنى ⌜1⌝",
+              "heading_level": 2,
+              "start_unit_index": 419,
+              "end_unit_index": 419,
+              "detection_method": "keyword_heuristic",
+              "confidence": "high",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_014",
+          "division_type": "باب",
+          "heading_text": "باب جمع المغرب والعشاء في مزدلفة",
+          "heading_level": 2,
+          "start_unit_index": 420,
+          "end_unit_index": 422,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_015",
+          "division_type": "باب",
+          "heading_text": "باب المحرم يأكل من صيد الحلال",
+          "heading_level": 2,
+          "start_unit_index": 423,
+          "end_unit_index": 445,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_7_025",
+              "division_type": null,
+              "heading_text": "كِتَابُ البيوع",
+              "heading_level": 7,
+              "start_unit_index": 430,
+              "end_unit_index": 434,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_026",
+              "division_type": null,
+              "heading_text": "بَابُ مَا نهى الله عنه من البيوع",
+              "heading_level": 7,
+              "start_unit_index": 435,
+              "end_unit_index": 443,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_074",
+              "division_type": "قاعدة",
+              "heading_text": "قاعدة في المعاملات المحرمة ملخصة",
+              "heading_level": 6,
+              "start_unit_index": 444,
+              "end_unit_index": 445,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_016",
+          "division_type": "باب",
+          "heading_text": "باب النهي عن بيع الثمرة",
+          "heading_level": 2,
+          "start_unit_index": 446,
+          "end_unit_index": 451,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_017",
+          "division_type": null,
+          "heading_text": "باَب الْعرَايا",
+          "heading_level": 2,
+          "start_unit_index": 452,
+          "end_unit_index": 454,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_018",
+          "division_type": "باب",
+          "heading_text": "باب بيع النخل بعد التأبير",
+          "heading_level": 2,
+          "start_unit_index": 455,
+          "end_unit_index": 548,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_7_027",
+              "division_type": null,
+              "heading_text": "بَابُ نهي المشتري عن بيع الطعام قبل قبضه",
+              "heading_level": 7,
+              "start_unit_index": 457,
+              "end_unit_index": 460,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_028",
+              "division_type": null,
+              "heading_text": "بَابُ تحْريم بَيْع الخبائث",
+              "heading_level": 7,
+              "start_unit_index": 461,
+              "end_unit_index": 464,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_029",
+              "division_type": null,
+              "heading_text": "بابُ السَّلَم",
+              "heading_level": 7,
+              "start_unit_index": 465,
+              "end_unit_index": 466,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_030",
+              "division_type": null,
+              "heading_text": "بَابُ الشروط في البَيْع",
+              "heading_level": 7,
+              "start_unit_index": 467,
+              "end_unit_index": 476,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_075",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 477,
+              "end_unit_index": 477,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_076",
+              "division_type": null,
+              "heading_text": "بَابُ الرِّبا والصَّرْف",
+              "heading_level": 6,
+              "start_unit_index": 478,
+              "end_unit_index": 488,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_077",
+              "division_type": null,
+              "heading_text": "بَابُ الرَّهن",
+              "heading_level": 6,
+              "start_unit_index": 489,
+              "end_unit_index": 490,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_078",
+              "division_type": null,
+              "heading_text": "بَابُ الحَوَالة",
+              "heading_level": 6,
+              "start_unit_index": 491,
+              "end_unit_index": 493,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_079",
+              "division_type": null,
+              "heading_text": "بَابُ مَنْ وَجَد سلْعَته عند رجل قد أفلس",
+              "heading_level": 6,
+              "start_unit_index": 494,
+              "end_unit_index": 496,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_080",
+              "division_type": null,
+              "heading_text": "باَبُ الشفعَة",
+              "heading_level": 6,
+              "start_unit_index": 497,
+              "end_unit_index": 498,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_081",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 499,
+              "end_unit_index": 501,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_082",
+              "division_type": null,
+              "heading_text": "بَابُ أحْكام الجوَار",
+              "heading_level": 6,
+              "start_unit_index": 502,
+              "end_unit_index": 504,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_083",
+              "division_type": null,
+              "heading_text": "بَابُ الغصْبِ",
+              "heading_level": 6,
+              "start_unit_index": 505,
+              "end_unit_index": 505,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_084",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 506,
+              "end_unit_index": 506,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_085",
+              "division_type": null,
+              "heading_text": "بَابُ المساقاة والمزارعة",
+              "heading_level": 6,
+              "start_unit_index": 507,
+              "end_unit_index": 511,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_086",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 512,
+              "end_unit_index": 512,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_087",
+              "division_type": null,
+              "heading_text": "بَاب في جَواز كراء الأرض بالشيء المعْلوم",
+              "heading_level": 6,
+              "start_unit_index": 513,
+              "end_unit_index": 514,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_088",
+              "division_type": null,
+              "heading_text": "بَابُ الوَقف",
+              "heading_level": 6,
+              "start_unit_index": 515,
+              "end_unit_index": 520,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_089",
+              "division_type": null,
+              "heading_text": "باَبُ الهِبَة",
+              "heading_level": 6,
+              "start_unit_index": 521,
+              "end_unit_index": 522,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_090",
+              "division_type": null,
+              "heading_text": "بَابُ العَدل بَيْن الأولاد في العطِية",
+              "heading_level": 6,
+              "start_unit_index": 523,
+              "end_unit_index": 523,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_091",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 524,
+              "end_unit_index": 524,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_092",
+              "division_type": null,
+              "heading_text": "بَابُ هِبَة العمرى",
+              "heading_level": 6,
+              "start_unit_index": 525,
+              "end_unit_index": 526,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_093",
+              "division_type": null,
+              "heading_text": "باَبُ اللُّقَطَة",
+              "heading_level": 6,
+              "start_unit_index": 527,
+              "end_unit_index": 529,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_094",
+              "division_type": null,
+              "heading_text": "كتَابُ الوَصَايَا",
+              "heading_level": 6,
+              "start_unit_index": 530,
+              "end_unit_index": 532,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_095",
+              "division_type": null,
+              "heading_text": "بَاب الفرائض",
+              "heading_level": 6,
+              "start_unit_index": 533,
+              "end_unit_index": 542,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_096",
+              "division_type": null,
+              "heading_text": "كِتَاب الّنَكَاح",
+              "heading_level": 6,
+              "start_unit_index": 543,
+              "end_unit_index": 547,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_097",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 548,
+              "end_unit_index": 548,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_019",
+          "division_type": "باب",
+          "heading_text": "باب المحرمات من النكاح",
+          "heading_level": 2,
+          "start_unit_index": 549,
+          "end_unit_index": 577,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_6_098",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 552,
+              "end_unit_index": 552,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_099",
+              "division_type": null,
+              "heading_text": "بَابُ الشروط في النكاح",
+              "heading_level": 6,
+              "start_unit_index": 553,
+              "end_unit_index": 555,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_100",
+              "division_type": "فائدة",
+              "heading_text": "فائدة:",
+              "heading_level": 6,
+              "start_unit_index": 556,
+              "end_unit_index": 557,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_101",
+              "division_type": null,
+              "heading_text": "بَابُ ما جاء في الاستئمار وَالاستئذان",
+              "heading_level": 6,
+              "start_unit_index": 558,
+              "end_unit_index": 560,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_102",
+              "division_type": null,
+              "heading_text": "بَابُ لا ينكح مطَلقته ثَلاثاً حتى تنكح زوجاً غيره",
+              "heading_level": 6,
+              "start_unit_index": 561,
+              "end_unit_index": 566,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_6_103",
+                  "division_type": null,
+                  "heading_text": "تتمة:",
+                  "heading_level": 6,
+                  "start_unit_index": 561,
+                  "end_unit_index": 566,
+                  "detection_method": "keyword_heuristic",
+                  "confidence": "medium",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "div_id": "div_src_test0001_6_104",
+              "division_type": null,
+              "heading_text": "باَبُ عشرَة النسَاء",
+              "heading_level": 6,
+              "start_unit_index": 567,
+              "end_unit_index": 567,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_105",
+              "division_type": "تنبيه",
+              "heading_text": "تنبيه:",
+              "heading_level": 6,
+              "start_unit_index": 568,
+              "end_unit_index": 568,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_106",
+              "division_type": null,
+              "heading_text": "بَابُ النّهي عن الخلْوَة بِالأجنبية",
+              "heading_level": 6,
+              "start_unit_index": 569,
+              "end_unit_index": 577,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_6_107",
+                  "division_type": "فائدة",
+                  "heading_text": "فائدة:",
+                  "heading_level": 6,
+                  "start_unit_index": 569,
+                  "end_unit_index": 577,
+                  "detection_method": "keyword_heuristic",
+                  "confidence": "medium",
+                  "children": [
+                    {
+                      "div_id": "div_src_test0001_7_031",
+                      "division_type": null,
+                      "heading_text": "بَابُ الصَّدَاق",
+                      "heading_level": 7,
+                      "start_unit_index": 571,
+                      "end_unit_index": 577,
+                      "detection_method": "html_tagged",
+                      "confidence": "confirmed",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_002",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الطلاق",
+      "heading_level": 1,
+      "start_unit_index": 578,
+      "end_unit_index": 604,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_7_032",
+          "division_type": null,
+          "heading_text": "بَابُ العِدَّة",
+          "heading_level": 7,
+          "start_unit_index": 584,
+          "end_unit_index": 585,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_108",
+          "division_type": "فائدة",
+          "heading_text": "فائدة:",
+          "heading_level": 6,
+          "start_unit_index": 586,
+          "end_unit_index": 604,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": [
+            {
+              "div_id": "div_src_test0001_7_033",
+              "division_type": null,
+              "heading_text": "بَابُ تحريم إحداد المَرْأة أكثر من ثلاثة إلا على زوج",
+              "heading_level": 7,
+              "start_unit_index": 587,
+              "end_unit_index": 587,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_034",
+              "division_type": null,
+              "heading_text": "بَابُ مَا تجتنبه الحَاد",
+              "heading_level": 7,
+              "start_unit_index": 588,
+              "end_unit_index": 591,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_035",
+              "division_type": null,
+              "heading_text": "كِتَابُ اللِّعَان",
+              "heading_level": 7,
+              "start_unit_index": 592,
+              "end_unit_index": 596,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_036",
+              "division_type": null,
+              "heading_text": "بَابُ لحَاق النَّسب",
+              "heading_level": 7,
+              "start_unit_index": 597,
+              "end_unit_index": 604,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_003",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الرَّضَاع",
+      "heading_level": 1,
+      "start_unit_index": 605,
+      "end_unit_index": 705,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_6_109",
+          "division_type": "فائدة",
+          "heading_text": "فائدة:",
+          "heading_level": 6,
+          "start_unit_index": 610,
+          "end_unit_index": 613,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_6_110",
+          "division_type": "فائدة",
+          "heading_text": "فائدة:",
+          "heading_level": 6,
+          "start_unit_index": 614,
+          "end_unit_index": 644,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": [
+            {
+              "div_id": "div_src_test0001_7_037",
+              "division_type": null,
+              "heading_text": "كِتَابُ القِصَاص",
+              "heading_level": 7,
+              "start_unit_index": 618,
+              "end_unit_index": 633,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_7_038",
+              "division_type": null,
+              "heading_text": "كتابُ الحُدُود",
+              "heading_level": 7,
+              "start_unit_index": 634,
+              "end_unit_index": 644,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_2_020",
+          "division_type": "باب",
+          "heading_text": "باب حدِّ السَّرقة",
+          "heading_level": 2,
+          "start_unit_index": 645,
+          "end_unit_index": 648,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_2_021",
+          "division_type": "باب",
+          "heading_text": "باب في إنكار الشفاعة في الحدود",
+          "heading_level": 2,
+          "start_unit_index": 649,
+          "end_unit_index": 705,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_7_039",
+              "division_type": null,
+              "heading_text": "بَابُ حد الخمْر",
+              "heading_level": 7,
+              "start_unit_index": 652,
+              "end_unit_index": 652,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_111",
+              "division_type": "تنبيه",
+              "heading_text": "تنبيه:",
+              "heading_level": 6,
+              "start_unit_index": 652,
+              "end_unit_index": 655,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_112",
+              "division_type": null,
+              "heading_text": "بَابُ التعزير",
+              "heading_level": 6,
+              "start_unit_index": 656,
+              "end_unit_index": 660,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_113",
+              "division_type": null,
+              "heading_text": "كِتاب الأيمَان والنذور",
+              "heading_level": 6,
+              "start_unit_index": 661,
+              "end_unit_index": 671,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_114",
+              "division_type": null,
+              "heading_text": "بَابُ النَّذر",
+              "heading_level": 6,
+              "start_unit_index": 672,
+              "end_unit_index": 676,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_115",
+              "division_type": null,
+              "heading_text": "كِتَابُ القَضَاء",
+              "heading_level": 6,
+              "start_unit_index": 677,
+              "end_unit_index": 686,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_116",
+              "division_type": null,
+              "heading_text": "كِتَابُ الأطعمة",
+              "heading_level": 6,
+              "start_unit_index": 687,
+              "end_unit_index": 688,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_6_117",
+              "division_type": "فائدة",
+              "heading_text": "فوائد:",
+              "heading_level": 6,
+              "start_unit_index": 689,
+              "end_unit_index": 705,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_7_040",
+                  "division_type": null,
+                  "heading_text": "بَابُ الصَّيْد",
+                  "heading_level": 7,
+                  "start_unit_index": 696,
+                  "end_unit_index": 702,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                },
+                {
+                  "div_id": "div_src_test0001_7_041",
+                  "division_type": null,
+                  "heading_text": "بَابُ الأضاحي",
+                  "heading_level": 7,
+                  "start_unit_index": 703,
+                  "end_unit_index": 705,
+                  "detection_method": "html_tagged",
+                  "confidence": "confirmed",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_004",
+      "division_type": "كتاب",
+      "heading_text": "كتاب الأشربة",
+      "heading_level": 1,
+      "start_unit_index": 706,
+      "end_unit_index": 740,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_7_042",
+          "division_type": null,
+          "heading_text": "كِتابُ اللبَاس",
+          "heading_level": 7,
+          "start_unit_index": 709,
+          "end_unit_index": 714,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_7_043",
+          "division_type": null,
+          "heading_text": "كِتابُ الجِهَاد",
+          "heading_level": 7,
+          "start_unit_index": 715,
+          "end_unit_index": 733,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_7_044",
+          "division_type": null,
+          "heading_text": "كِتابُ العِتق",
+          "heading_level": 7,
+          "start_unit_index": 734,
+          "end_unit_index": 734,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_4_003",
+          "division_type": "مبحث",
+          "heading_text": "المبحث الثاني: نعى بعض أعداء الدين الإسلامي إقرار الشريعة الإسلامية الرق الذي هو- في نظرهم- من الأعمال الهمجية جملة.",
+          "heading_level": 4,
+          "start_unit_index": 734,
+          "end_unit_index": 740,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": [
+            {
+              "div_id": "div_src_test0001_7_045",
+              "division_type": null,
+              "heading_text": "بَابُ بَيْع المدبَّر",
+              "heading_level": 7,
+              "start_unit_index": 739,
+              "end_unit_index": 740,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layer_map": [
+    {
+      "layer_type": "matn",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 1.0,
+      "markers": []
+    }
+  ],
+  "structural_format": "prose",
+  "structural_format_proposed": null,
+  "text_fidelity_summary": {
+    "mean_ocr_confidence": null,
+    "character_level_fidelity_estimate": null,
+    "pages_with_warnings": 607,
+    "total_pages": 741
+  },
+  "verse_detection": true,
+  "verse_numbering_scheme": null,
+  "total_content_units": 741,
+  "quality_report": {
+    "division_count_by_tier": {
+      "confirmed": 136,
+      "medium": 53,
+      "high": 6
+    },
+    "layer_transition_count": 0,
+    "pages_with_warnings": 607,
+    "high_fidelity_pct": 1.0,
+    "unclassified_footnote_count": 95,
+    "overall_confidence": "medium"
+  },
+  "normalization_warnings": [],
+  "content_census": null,
+  "tahqiq_topology": null,
+  "layer_fingerprints": null,
+  "discourse_flow_summary": null
+}

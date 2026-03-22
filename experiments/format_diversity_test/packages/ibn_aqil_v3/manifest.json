@@ -1,0 +1,364 @@
+{
+  "schema_version": "normalized_package_v2.0",
+  "source_id": "src_test0001",
+  "normalizer_id": "kr.normalization.shamela_v2",
+  "normalization_utc": "2026-03-22T16:06:09.662096+00:00",
+  "division_tree": [
+    {
+      "div_id": "div_src_test0001_3_000",
+      "division_type": null,
+      "heading_text": "حروف الجر",
+      "heading_level": 3,
+      "start_unit_index": 0,
+      "end_unit_index": 37,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_001",
+      "division_type": null,
+      "heading_text": "الإضافة",
+      "heading_level": 3,
+      "start_unit_index": 38,
+      "end_unit_index": 82,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_002",
+      "division_type": null,
+      "heading_text": "المضاف إلى ياء المتكلم",
+      "heading_level": 3,
+      "start_unit_index": 83,
+      "end_unit_index": 87,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_003",
+      "division_type": null,
+      "heading_text": "إعمال المصدر",
+      "heading_level": 3,
+      "start_unit_index": 88,
+      "end_unit_index": 100,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_004",
+      "division_type": null,
+      "heading_text": "إعمال اسم الفاعل",
+      "heading_level": 3,
+      "start_unit_index": 101,
+      "end_unit_index": 117,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_005",
+      "division_type": null,
+      "heading_text": "أبنية المصادر",
+      "heading_level": 3,
+      "start_unit_index": 118,
+      "end_unit_index": 128,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_006",
+      "division_type": null,
+      "heading_text": "أبنية أسماء الفاعلين والمفعولين (والصفات المشبهات بها)",
+      "heading_level": 3,
+      "start_unit_index": 129,
+      "end_unit_index": 134,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_007",
+      "division_type": null,
+      "heading_text": "الصفة المشبهة باسم الفاعل",
+      "heading_level": 3,
+      "start_unit_index": 135,
+      "end_unit_index": 141,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_008",
+      "division_type": null,
+      "heading_text": "التعجب",
+      "heading_level": 3,
+      "start_unit_index": 142,
+      "end_unit_index": 152,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_009",
+      "division_type": null,
+      "heading_text": "نعم وبئس وما جرى مجراهما",
+      "heading_level": 3,
+      "start_unit_index": 153,
+      "end_unit_index": 165,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_010",
+      "division_type": null,
+      "heading_text": "أفعل التفضيل",
+      "heading_level": 3,
+      "start_unit_index": 166,
+      "end_unit_index": 181,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_011",
+      "division_type": null,
+      "heading_text": "(التوابع)النعت",
+      "heading_level": 3,
+      "start_unit_index": 182,
+      "end_unit_index": 197,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_012",
+      "division_type": null,
+      "heading_text": "التوكيد",
+      "heading_level": 3,
+      "start_unit_index": 198,
+      "end_unit_index": 209,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_013",
+      "division_type": null,
+      "heading_text": "العطف",
+      "heading_level": 3,
+      "start_unit_index": 210,
+      "end_unit_index": 215,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_014",
+      "division_type": null,
+      "heading_text": "عطف النسق",
+      "heading_level": 3,
+      "start_unit_index": 216,
+      "end_unit_index": 237,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_015",
+      "division_type": null,
+      "heading_text": "البدل",
+      "heading_level": 3,
+      "start_unit_index": 238,
+      "end_unit_index": 244,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_016",
+      "division_type": null,
+      "heading_text": "النداء",
+      "heading_level": 3,
+      "start_unit_index": 245,
+      "end_unit_index": 255,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_3_017",
+      "division_type": "فصل",
+      "heading_text": "فصل",
+      "heading_level": 3,
+      "start_unit_index": 256,
+      "end_unit_index": 327,
+      "detection_method": "keyword_heuristic",
+      "confidence": "medium",
+      "children": [
+        {
+          "div_id": "div_src_test0001_4_000",
+          "division_type": null,
+          "heading_text": "المنادى المضاف إلى ياء المتكلم",
+          "heading_level": 4,
+          "start_unit_index": 263,
+          "end_unit_index": 265,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_4_001",
+          "division_type": null,
+          "heading_text": "أسماء لازمت النداء",
+          "heading_level": 4,
+          "start_unit_index": 266,
+          "end_unit_index": 267,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_4_002",
+          "division_type": null,
+          "heading_text": "الاستغاثة",
+          "heading_level": 4,
+          "start_unit_index": 268,
+          "end_unit_index": 269,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_4_003",
+          "division_type": null,
+          "heading_text": "الندبة",
+          "heading_level": 4,
+          "start_unit_index": 270,
+          "end_unit_index": 274,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_4_004",
+          "division_type": null,
+          "heading_text": "الترخيم",
+          "heading_level": 4,
+          "start_unit_index": 275,
+          "end_unit_index": 283,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_4_005",
+          "division_type": null,
+          "heading_text": "الاختصاص",
+          "heading_level": 4,
+          "start_unit_index": 284,
+          "end_unit_index": 285,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_4_006",
+          "division_type": null,
+          "heading_text": "التحذير والإغراء",
+          "heading_level": 4,
+          "start_unit_index": 286,
+          "end_unit_index": 288,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_4_007",
+          "division_type": null,
+          "heading_text": "أسماء الأفعال والأصوات",
+          "heading_level": 4,
+          "start_unit_index": 289,
+          "end_unit_index": 294,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_4_008",
+          "division_type": null,
+          "heading_text": "نونا التوكيد",
+          "heading_level": 4,
+          "start_unit_index": 295,
+          "end_unit_index": 306,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_4_009",
+          "division_type": null,
+          "heading_text": "ما لا ينصرف",
+          "heading_level": 4,
+          "start_unit_index": 307,
+          "end_unit_index": 327,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "layer_map": [
+    {
+      "layer_type": "sharh",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 0.6,
+      "markers": [
+        "أي:"
+      ]
+    },
+    {
+      "layer_type": "matn",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 0.9,
+      "markers": [
+        "قوله:"
+      ]
+    }
+  ],
+  "structural_format": "prose",
+  "structural_format_proposed": null,
+  "text_fidelity_summary": {
+    "mean_ocr_confidence": null,
+    "character_level_fidelity_estimate": null,
+    "pages_with_warnings": 328,
+    "total_pages": 328
+  },
+  "verse_detection": true,
+  "verse_numbering_scheme": null,
+  "total_content_units": 328,
+  "quality_report": {
+    "division_count_by_tier": {
+      "confirmed": 27,
+      "medium": 1
+    },
+    "layer_transition_count": 42,
+    "pages_with_warnings": 328,
+    "high_fidelity_pct": 1.0,
+    "unclassified_footnote_count": 0,
+    "overall_confidence": "high"
+  },
+  "normalization_warnings": [],
+  "content_census": null,
+  "tahqiq_topology": null,
+  "layer_fingerprints": null,
+  "discourse_flow_summary": null
+}

@@ -1,0 +1,168 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 5,
+      "text_snippet": "11-‌‌ تكفين الميت.",
+      "description_arabic": "عنوان فصل تكفين الميت",
+      "primary_function": "structural_transition",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 6,
+      "end_word": 42,
+      "text_snippet": "33 - وبعد الفراغ من غسل الميت يجب تكفينه لأمر النبي صلى الله عليه وسلم بذلك في حديث المحرم",
+      "description_arabic": "بيان وجوب تكفين الميت بعد غسله مع الاستدلال بحديث المحرم الذي وقصته الناقة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 43,
+      "end_word": 130,
+      "text_snippet": "34 - والكفن أو ثمنه من مال الميت ولو لم يخلف غيره لحديث خباب بن الأرت قال: صحيح هاجرنا مع",
+      "description_arabic": "بيان أن الكفن يكون من مال الميت ولو لم يخلف غيره مع الاستدلال بحديث خباب في قصة مصعب بن عمير",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 131,
+      "end_word": 220,
+      "text_snippet": "35 - وينبغي أن يكون الكفن طائلا سابغا يستر جميع بدنه لحديث جابر بن عبد الله رضي الله عنه:",
+      "description_arabic": "استحباب أن يكون الكفن سابغاً ساتراً لجميع البدن مع حديث جابر وتفسير العلماء لإحسان الكفن",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 221,
+      "end_word": 275,
+      "text_snippet": "36 - فإن ضاق الكفن عن ذلك ولم يتيسر السابغ ستر به رأسه وما طال من جسده وما بقي منه مكشوفا",
+      "description_arabic": "حكم ما إذا ضاق الكفن عن ستر جميع البدن: يُستر الرأس ويُجعل الإذخر على الباقي",
+      "primary_function": "condition_exception",
+      "secondary_functions": [
+        "evidence_hadith",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 276,
+      "end_word": 390,
+      "text_snippet": "37 - وإذا قلت الأكفان وكثرت الموتى جاز تكفين الجماعة منهم في الكفن الواحد بأن يقسم بينهم وي",
+      "description_arabic": "جواز تكفين الجماعة في كفن واحد عند قلة الأكفان وتقديم أكثرهم قرآناً مع حديث أنس في شهداء أحد",
+      "primary_function": "condition_exception",
+      "secondary_functions": [
+        "evidence_hadith",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 391,
+      "end_word": 420,
+      "text_snippet": "38 - ولا يجوز نزع ثياب الشهيد التي قتل فيها بل يدفن وهي عليه لقوله صلى الله عليه وسلم في قت",
+      "description_arabic": "حكم دفن الشهيد في ثيابه التي قُتل فيها وعدم جواز نزعها مع حديث قتلى أحد",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 421,
+      "end_word": 450,
+      "text_snippet": "39 - ويستحب تكفينه بثوب واحد أو أكثر فوق ثيابه كما فعل رسول الله صلى الله عليه وسلم بمصعب بن",
+      "description_arabic": "استحباب تكفين الشهيد بثوب أو أكثر فوق ثيابه كما فُعل بمصعب بن عمير",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": "يحتاج لمعرفة أن السياق عن الشهيد من المسألة السابقة"
+    },
+    {
+      "unit_index": 8,
+      "start_word": 451,
+      "end_word": 490,
+      "text_snippet": "40 - والمحرم يكفن في ثوبيه اللذين مات فيهما لقوله صلى الله عليه وسلم في المحرم الذي وقصته الن",
+      "description_arabic": "حكم تكفين المحرم في ثوبيه اللذين أحرم فيهما مع الاستدلال بحديث المحرم الذي وقصته الناقة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "cross_reference"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 491,
+      "end_word": 620,
+      "text_snippet": "41 - ويستحب في الكفن أمور: الأول: البياض لقوله صلى الله عليه وسلم: \"البسوا من ثيابكم البياض فإ",
+      "description_arabic": "بيان المستحبات في الكفن: البياض، وكونه ثلاثة أثواب، وثوب حبرة، والتبخير ثلاثاً مع أدلة كل منها واستثناء المحرم من التطييب",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 621,
+      "end_word": 740,
+      "text_snippet": "42 - ولا يجوز المغالاة في الكفن ولا الزيادة فيه على الثلاثة لأنه خلاف ما كفن فيه رسول الله صل",
+      "description_arabic": "النهي عن المغالاة في الكفن والزيادة على ثلاثة أثواب مع الاستدلال بفعل النبي والنهي عن إضاعة المال وقول أبي بكر الصديق",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_hadith",
+        "evidence_rational",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 741,
+      "end_word": 755,
+      "text_snippet": "43 - والمرأة في ذلك كالرجل إذ لا دليل على التفريق.",
+      "description_arabic": "بيان أن المرأة كالرجل في أحكام التكفين لعدم وجود دليل على التفريق",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": "يُفهم أن المقصود أحكام التكفين من السياق العام للفصل"
+    }
+  ],
+  "total_units": 12,
+  "notes": "هذا الفصل يتناول أحكام تكفين الميت من كتاب فقهي حديثي، يعتمد على الاستدلال بالأحاديث النبوية مع إحالات متعددة لمسائل سابقة. المسائل مرقمة من 33 إلى 43."
+}

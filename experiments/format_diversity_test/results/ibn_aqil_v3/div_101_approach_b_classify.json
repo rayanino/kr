@@ -1,0 +1,549 @@
+{
+  "segments": [
+    {
+      "segment_index": 1,
+      "start_word": 0,
+      "end_word": 2,
+      "text_snippet": "إعمال اسم الفاعل",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 2,
+      "start_word": 3,
+      "end_word": 13,
+      "text_snippet": "كفعله اسم فاعل في العمل … إن كان عن مضيه بمعزل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 3,
+      "start_word": 14,
+      "end_word": 55,
+      "text_snippet": "لا يخلو اسم الفاعل من أن يكون معرفا بأل أو مجر",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 4,
+      "start_word": 56,
+      "end_word": 93,
+      "text_snippet": "وإنما عمل لجريانه على الفعل الذي هو بمعناه وهو ال",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 5,
+      "start_word": 94,
+      "end_word": 130,
+      "text_snippet": "وإن كان بمعنى الماضي لم يعمل لعدم جريانه على الفع",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 6,
+      "start_word": 131,
+      "end_word": 148,
+      "text_snippet": "وأجاز الكسائي إعماله وجعل منه قوله تعالى: {وَكَلْ",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 7,
+      "start_word": 149,
+      "end_word": 157,
+      "text_snippet": "إف ذراعيه منصوب ب باسط وهو ماض",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 8,
+      "start_word": 158,
+      "end_word": 166,
+      "text_snippet": "وخرجه غيره على أنه حكاية حال ماضية.",
+      "scholarly_function": "refutation",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 9,
+      "start_word": 167,
+      "end_word": 180,
+      "text_snippet": "وولى استفهاما أو حرف ندا … أو نفيا أو جا صفة أو",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 10,
+      "start_word": 181,
+      "end_word": 207,
+      "text_snippet": "أشار بهذا البيت إلى أن اسم الفاعل لا يعمل إلا إذا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 11,
+      "start_word": 208,
+      "end_word": 230,
+      "text_snippet": "كأن يقع بعد الاستفهام نحو أضارب زيد عمرا أو حرف",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 12,
+      "start_word": 231,
+      "end_word": 260,
+      "text_snippet": "أو يقع نعتا نحو مررت برجل ضارب زيدا أو حالا نحو ج",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 13,
+      "start_word": 261,
+      "end_word": 310,
+      "text_snippet": "وقوله أو مسندا معناه أنه يعمل إذا وقع خبرا وهذا يش",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 14,
+      "start_word": 311,
+      "end_word": 322,
+      "text_snippet": "وقد يكون نعت محذوف عرف … فيستحق العمل الذي وصف",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 15,
+      "start_word": 323,
+      "end_word": 345,
+      "text_snippet": "قد يعتمد اسم الفاعل على موصوف مقدر فيعمل عمل فعله",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 16,
+      "start_word": 346,
+      "end_word": 370,
+      "text_snippet": "256 - وكم مالئ عينيه من شيء غيره … إذا راح نحو الج",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 17,
+      "start_word": 371,
+      "end_word": 396,
+      "text_snippet": "فـ \"عينيه\" منصوب بـ \"مالئ\" ومالئ صفة لموصوف محذوف",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 18,
+      "start_word": 397,
+      "end_word": 415,
+      "text_snippet": "257 - كناطح صخرة يوما ليوهنها … فلم يضرها وأوهى قر",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 19,
+      "start_word": 416,
+      "end_word": 421,
+      "text_snippet": "التقدير كوعل ناطح صخرة.",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 20,
+      "start_word": 422,
+      "end_word": 434,
+      "text_snippet": "وإن يكن صلة أل ففي المضى … وغيره إعماله قد ارتضى",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 21,
+      "start_word": 435,
+      "end_word": 468,
+      "text_snippet": "إذا وقع اسم الفاعل صلة للألف واللام عمل ماضيا ومست",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 22,
+      "start_word": 469,
+      "end_word": 487,
+      "text_snippet": "فتقول هذا الضارب زيدا الآن أو غدا أو أمس هذا هو ال",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 23,
+      "start_word": 488,
+      "end_word": 517,
+      "text_snippet": "وزعم جماعة من النحويين منهم الرماني أنه إذا وقع صلة",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 24,
+      "start_word": 518,
+      "end_word": 537,
+      "text_snippet": "وزعم بعضهم أنه لا يعمل مطلقا وأن المنصوب بعده منصو",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 25,
+      "start_word": 538,
+      "end_word": 570,
+      "text_snippet": "والعجب أن هذين المذهبين ذكرهما المصنف في التسهيل وز",
+      "scholarly_function": "refutation",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 26,
+      "start_word": 571,
+      "end_word": 594,
+      "text_snippet": "وقال بعد هذا أيضا ارتضى جميع النحويين إعماله يعني إ",
+      "scholarly_function": "evidence_ijma",
+      "confidence": 0.75
+    },
+    {
+      "segment_index": 27,
+      "start_word": 595,
+      "end_word": 610,
+      "text_snippet": "فعال أو مفعال أو فعول … في كثرة عن فاعل بديل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 28,
+      "start_word": 611,
+      "end_word": 623,
+      "text_snippet": "فيستحق ماله من عمل … وفي فعيل قل ذا وفعل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 29,
+      "start_word": 624,
+      "end_word": 660,
+      "text_snippet": "يصاغ للكثرة فعال ومفعال وفعول وفعيل وفعل فيعمل عمل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 30,
+      "start_word": 661,
+      "end_word": 688,
+      "text_snippet": "فمن إعمال فعال ما سمعه سيبويه من قول بعضهم: أما الع",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 31,
+      "start_word": 689,
+      "end_word": 710,
+      "text_snippet": "وقول الشاعر:258 - أخا الحرب لباسا إليها جلالها … و",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 32,
+      "start_word": 711,
+      "end_word": 724,
+      "text_snippet": "فـ \"العسل\" منصوب بـ \"شراب\" و\"جلالها\" منصوب بـ \"لبا",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 33,
+      "start_word": 725,
+      "end_word": 744,
+      "text_snippet": "ومن إعمال مفعال قول بعض العرب: إنه لمنحار بوائكها ف",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 34,
+      "start_word": 745,
+      "end_word": 775,
+      "text_snippet": "ومن إعمال فعول قول الشاعر:\n259 - عشية سعدى لو تراء",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 35,
+      "start_word": 776,
+      "end_word": 793,
+      "text_snippet": "قلى دينه واهتاج للشوق إنها … على الشوق إخوان العزا",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 36,
+      "start_word": 794,
+      "end_word": 804,
+      "text_snippet": "فـ \"إخوان\" منصوب بـ \"هيوج\"",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 37,
+      "start_word": 805,
+      "end_word": 824,
+      "text_snippet": "ومن إعمال فعيل قول بعض العرب: إن الله سميع دعاء من",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 38,
+      "start_word": 825,
+      "end_word": 838,
+      "text_snippet": "ومن إعمال فعل ما أنشده سيبويه:\n260 - حذر أمورا لا ت",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 39,
+      "start_word": 839,
+      "end_word": 855,
+      "text_snippet": "وقوله:\n261 - أتاني أنهم مزقون عرضى … جحاش الكرملين",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 40,
+      "start_word": 856,
+      "end_word": 870,
+      "text_snippet": "فـ \"أمورا\" منصوب بـ \"حذر\" وعرضى منصوب بـ \"مزق\".",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 41,
+      "start_word": 871,
+      "end_word": 883,
+      "text_snippet": "وما سوى المفرد مثله جعل … في الحكم والشروط حيثما ع",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 42,
+      "start_word": 884,
+      "end_word": 916,
+      "text_snippet": "ما سوى المفرد هو المثنى والمجموع نحو الضاربين والضا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 43,
+      "start_word": 917,
+      "end_word": 935,
+      "text_snippet": "فتقول هذان الضاربان زيدا وهؤلاء القاتلون بكرا وكذلك",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 44,
+      "start_word": 936,
+      "end_word": 945,
+      "text_snippet": "262 - أوالفا مكة من ورق الحمى",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 45,
+      "start_word": 946,
+      "end_word": 950,
+      "text_snippet": "أصله الحمام وقوله",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.8
+    },
+    {
+      "segment_index": 46,
+      "start_word": 951,
+      "end_word": 965,
+      "text_snippet": "263 - ثم زادوا أنهم في قومهم … غفر ذنبهم غير فخر",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 47,
+      "start_word": 966,
+      "end_word": 978,
+      "text_snippet": "وانصب بذى الإعمال تلوا واخفض … وهو لنصب ما سواه مق",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 48,
+      "start_word": 979,
+      "end_word": 1010,
+      "text_snippet": "يجوز في اسم الفاعل العامل إضافته إلى ما يليه من مفع",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 49,
+      "start_word": 1011,
+      "end_word": 1033,
+      "text_snippet": "فإن كان له مفعولان وأضفته إلى أحدهما وجب نصب الآخر",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 50,
+      "start_word": 1034,
+      "end_word": 1047,
+      "text_snippet": "واجرر أو انصب تابع الذي انخفض … كـ \"مبتغى جاه ومال",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 51,
+      "start_word": 1048,
+      "end_word": 1063,
+      "text_snippet": "يجوز في تابع معمول اسم الفاعل المجرور بالإضافة الجر",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 52,
+      "start_word": 1064,
+      "end_word": 1076,
+      "text_snippet": "نحو:هذا ضارب زيد وعمرو وعمرا فالجر مراعاة للفظ",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 53,
+      "start_word": 1077,
+      "end_word": 1098,
+      "text_snippet": "والنصب على إضمار فعل وهو الصحيح والتقدير ويضرب عمرا",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 54,
+      "start_word": 1099,
+      "end_word": 1118,
+      "text_snippet": "وقد روى بالوجهين قوله:\n264 - الواهب المائة الهجان",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 55,
+      "start_word": 1119,
+      "end_word": 1127,
+      "text_snippet": "بنصب عبد وجره وقال الآخر:",
+      "scholarly_function": "example",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 56,
+      "start_word": 1128,
+      "end_word": 1146,
+      "text_snippet": "265 - هل أنت باعث دينار لحاجتنا … أو عبد رب أخا عو",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 57,
+      "start_word": 1147,
+      "end_word": 1170,
+      "text_snippet": "بنصب عبد عطفا على محل دينار أو على إضمار فعل والتقد",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 58,
+      "start_word": 1171,
+      "end_word": 1183,
+      "text_snippet": "وكل ما قرر لأسم فاعل … يعطى اسم مفعول بلا تفاضل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 59,
+      "start_word": 1184,
+      "end_word": 1196,
+      "text_snippet": "فهو كفعل صيغ للمفعول في … معناه ك المعطى كفافا يكتف",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 60,
+      "start_word": 1197,
+      "end_word": 1240,
+      "text_snippet": "جميع ما تقدم في اسم الفاعل من أنه إن كان مجردا عمل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 61,
+      "start_word": 1241,
+      "end_word": 1268,
+      "text_snippet": "فتقول أمضروب الزيدان الآن أو غدا أو جاء المضروب أبو",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 62,
+      "start_word": 1269,
+      "end_word": 1296,
+      "text_snippet": "وحكمه في المعنى والعمل حكم الفعل المبني للمفعول فيرف",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 63,
+      "start_word": 1297,
+      "end_word": 1316,
+      "text_snippet": "وإن كان له مفعولان رفع أحدهما ونصب الآخر نحو: المعط",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 64,
+      "start_word": 1317,
+      "end_word": 1340,
+      "text_snippet": "فالمفعول الأول ضمير مستتر عائد على الألف واللام وهو",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 65,
+      "start_word": 1341,
+      "end_word": 1355,
+      "text_snippet": "وقد يضاف ذا إلى اسم مرتفع … معنى كـ \"محمود المقاصد",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 66,
+      "start_word": 1356,
+      "end_word": 1387,
+      "text_snippet": "يجوز في اسم المفعول أن يضاف إلى ما كان مرفوعا به فت",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 67,
+      "start_word": 1388,
+      "end_word": 1410,
+      "text_snippet": "ومثله الورع محمود المقاصد والأصل الورع محمود مقاصده",
+      "scholarly_function": "example",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 68,
+      "start_word": 1411,
+      "end_word": 1432,
+      "text_snippet": "ولا يجوز ذلك في اسم الفاعل فلا تقول مررت برجل ضارب",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    }
+  ],
+  "total_segments": 68
+}

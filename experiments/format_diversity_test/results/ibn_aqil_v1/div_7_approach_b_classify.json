@@ -1,0 +1,485 @@
+{
+  "segments": [
+    {
+      "segment_index": 1,
+      "start_word": 0,
+      "end_word": 4,
+      "text_snippet": "بسم الله الرحمن الرحيم",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 2,
+      "start_word": 5,
+      "end_word": 10,
+      "text_snippet": "‌‌الكلام وما يتألف منه",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 3,
+      "start_word": 11,
+      "end_word": 30,
+      "text_snippet": "قال محمد هو ابن مالك … أحمد ربي الله خير مالك (1)\nمصليا على النبي المصطفى",
+      "scholarly_function": "narration",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 4,
+      "start_word": 31,
+      "end_word": 68,
+      "text_snippet": "وأستعين الله في ألفيه … مقاصد النحو بها محويه (1)\nتقرب الأقصى بلفظ موجز",
+      "scholarly_function": "narration",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 5,
+      "start_word": 69,
+      "end_word": 95,
+      "text_snippet": "وهو بسبق حائز تفضيلا … مستوجب ثنائي الجميلا (1)\nوالله يقضي بهبات وافره",
+      "scholarly_function": "narration",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 6,
+      "start_word": 96,
+      "end_word": 101,
+      "text_snippet": "الكلام وما يتألف منه ⌜1⌝",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 7,
+      "start_word": 102,
+      "end_word": 126,
+      "text_snippet": "كلامنا لفظ مفيد كاستقم … واسم وفعل ثم حرف الكلم (2)\nواحده كلمة والقول عم",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 8,
+      "start_word": 127,
+      "end_word": 213,
+      "text_snippet": "الكلام المصطلح عليه عند النحاة: عبارة عن اللفظ المفيد فائدة يحسن السكوت",
+      "scholarly_function": "definition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 9,
+      "start_word": 214,
+      "end_word": 280,
+      "text_snippet": "ولا يتركب الكلام إلا من اسمين نحو زيد قائم أو من فعل واسم كـ\" قام زيد\"",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 10,
+      "start_word": 281,
+      "end_word": 325,
+      "text_snippet": "وإنما قال المصنف كلامنا ليعلم أن التعريف إنما هو للكلام في اصطلاح النحويين",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 11,
+      "start_word": 326,
+      "end_word": 385,
+      "text_snippet": "والكلم: اسم جنس (1) واحده كلمة وهي إما اسم وإما فعل وإما حرف لأنها إن دلت",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 12,
+      "start_word": 386,
+      "end_word": 401,
+      "text_snippet": "والكلم: ما تركب من ثلاث كلمات فأكثر كقولك إن قام زيد.",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 13,
+      "start_word": 402,
+      "end_word": 430,
+      "text_snippet": "والكلمة: هي اللفظ الموضوع لمعنى مفرد فقولنا الموضوع لمعنى أخرج المهمل كديز",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 14,
+      "start_word": 431,
+      "end_word": 470,
+      "text_snippet": "ثم ذكر المصنف رحمه الله تعالى أن القول يعم الجميع والمراد أنه يقع على الكلام",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 15,
+      "start_word": 471,
+      "end_word": 487,
+      "text_snippet": "وزعم بعضهم أن الأصل استعماله في المفرد",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 16,
+      "start_word": 488,
+      "end_word": 520,
+      "text_snippet": "ثم ذكر المصنف أن الكلمة قد يقصد بها الكلام كقولهم في لا إله إلا الله كلمة",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 17,
+      "start_word": 521,
+      "end_word": 580,
+      "text_snippet": "وقد يجتمع الكلام والكلم في الصدق وقد ينفرد أحدهما فمثال اجتماعهما قد قام زيد",
+      "scholarly_function": "example",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 18,
+      "start_word": 581,
+      "end_word": 598,
+      "text_snippet": "بالجر والتنوين والندا وأل … ومسند للاسم تمييز حصل (3)",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 19,
+      "start_word": 599,
+      "end_word": 612,
+      "text_snippet": "ذكر المصنف رحمه الله تعالى في هذا البيت علامات الاسم.",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 20,
+      "start_word": 613,
+      "end_word": 660,
+      "text_snippet": "فمنها الجر: وهو يشمل الجر بالحرف والإضافة والتبعية نحو مررت بغلام زيد الفاضل",
+      "scholarly_function": "definition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 21,
+      "start_word": 661,
+      "end_word": 688,
+      "text_snippet": "وهو أشمل من قول غيره بحرف الجر لأن هذا لايتناول الجر بالإضافة ولا الجر بالتبعية",
+      "scholarly_function": "refutation",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 22,
+      "start_word": 689,
+      "end_word": 700,
+      "text_snippet": "ومنهما التنوين: وهو (1) على أربعة أقسام: (1)",
+      "scholarly_function": "definition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 23,
+      "start_word": 701,
+      "end_word": 730,
+      "text_snippet": "تنوين التمكين: وهو اللاحق للأسماء المعربة كزيد ورجل إلا جمع المؤنث السالم",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 24,
+      "start_word": 731,
+      "end_word": 755,
+      "text_snippet": "وتنوين التنكير: وهو اللاحق للأسماء المبنية فرقا بين معرفتها ونكرتها نحو مررت",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 25,
+      "start_word": 756,
+      "end_word": 783,
+      "text_snippet": "وتنوين المقابلة وهو اللاحق لجمع المؤنث السالم نحو مسلمات فإنه في مقابلة النون",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 26,
+      "start_word": 784,
+      "end_word": 793,
+      "text_snippet": "وتنوين العوض وهو على ثلاثة أقسام:",
+      "scholarly_function": "definition",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 27,
+      "start_word": 794,
+      "end_word": 832,
+      "text_snippet": "عوض عن جملة: وهو الذي يلحق إذ عوضا عن جملة تكون بعدها كقوله تعالى: {وأنْتُمْ",
+      "scholarly_function": "definition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 28,
+      "start_word": 833,
+      "end_word": 870,
+      "text_snippet": "وقسم يكون عوضا عن اسم وهو اللاحق لكل عوضا عما تضاف إليه نحو كل قائم أي كل",
+      "scholarly_function": "definition",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 29,
+      "start_word": 871,
+      "end_word": 910,
+      "text_snippet": "وقسم يكون عوضا عن حرف: وهو اللاحق لجوار وغواش ونحوهما رفعا وجرا نحو هؤلاء",
+      "scholarly_function": "definition",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 30,
+      "start_word": 911,
+      "end_word": 950,
+      "text_snippet": "وتنوين الترنم (1) : وهو الذي يلحق القوافي المطلقة بحرف علة كقوله:\n1 - أقلى",
+      "scholarly_function": "definition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 31,
+      "start_word": 951,
+      "end_word": 980,
+      "text_snippet": "فجيءبالتنوين بدلا من الألف لأجل الترنم وكقوله:\n2 - أزف الترحل غير أن ركابنا",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 32,
+      "start_word": 981,
+      "end_word": 1005,
+      "text_snippet": "والتنوين الغالي: وأثبته الأخفش وهو الذي يلحق القوافي المقيدة كقوله:\n3 - وقاتم",
+      "scholarly_function": "definition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 33,
+      "start_word": 1006,
+      "end_word": 1046,
+      "text_snippet": "وظاهر كلام المصنف أن التنوين كله من خواص الاسم وليس كذلك بل الذي يختص به الاسم",
+      "scholarly_function": "refutation",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 34,
+      "start_word": 1047,
+      "end_word": 1074,
+      "text_snippet": "ومن خواص الاسم: النداء نحو يا زيد والألف واللام نحو الرجل والإسناد إليه نحو",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 35,
+      "start_word": 1075,
+      "end_word": 1102,
+      "text_snippet": "فمعنى البيت حصل للاسم تمييز عن الفعل والحرف بالجر والتنوين والنداء والألف واللام",
+      "scholarly_function": "definition",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 36,
+      "start_word": 1103,
+      "end_word": 1130,
+      "text_snippet": "واستعمل المصنف أل مكان الألف واللام وقد وقع ذلك في عبارة بعض المتقدمين وهو الخليل",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 37,
+      "start_word": 1131,
+      "end_word": 1150,
+      "text_snippet": "بتا فعلت وأتت ويا أفعلي … ونون أقبلن فعل ينجلي ⌜1⌝",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 38,
+      "start_word": 1151,
+      "end_word": 1210,
+      "text_snippet": "ثم ذكر المصنف أن الفعل يمتاز عن الاسم والحرف بتاء فعلت والمراد بها تاء الفاعل",
+      "scholarly_function": "definition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 39,
+      "start_word": 1211,
+      "end_word": 1270,
+      "text_snippet": "ويمتاز أيضا بتاء أتت والمراد بها تاء التأنيث الساكنة نحو نعمت وبئست فاحترزنا",
+      "scholarly_function": "definition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 40,
+      "start_word": 1271,
+      "end_word": 1300,
+      "text_snippet": "ويمتاز أيضا بياء أفعلي والمراد بها ياء الفاعلة وتلحق فعل الأمر نحو اضربي والفعل",
+      "scholarly_function": "definition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 41,
+      "start_word": 1301,
+      "end_word": 1360,
+      "text_snippet": "وإنما قال المصنف يا أفعلي ولم يقل ياء الضمير لأن هذه تدخل فيها ياء المتكلم وهي",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 42,
+      "start_word": 1361,
+      "end_word": 1395,
+      "text_snippet": "ومما يميز الفعل نون أقبلن والمراد بها نون التوكيد خفيفة كانت أو ثقيلة فالخفيفة",
+      "scholarly_function": "definition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 43,
+      "start_word": 1396,
+      "end_word": 1407,
+      "text_snippet": "والثقيلة نحو قوله تعالى: {لَنُخْرِجَنَّكَ يَا شُعَيْبُ}",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 44,
+      "start_word": 1408,
+      "end_word": 1428,
+      "text_snippet": "فمعنى البيت ينجلي الفعل بتاء الفاعل وتاء التأنيث الساكنة وياء الفاعلة ونون التوكيد",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 45,
+      "start_word": 1429,
+      "end_word": 1455,
+      "text_snippet": "سواهما الحرف كهل وفي ولم … فعل مضارع يلي لم كيشم (2)",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 46,
+      "start_word": 1456,
+      "end_word": 1474,
+      "text_snippet": "وماضي الأفعال بالتا مز وسم … بالنون فعل الأمر إن أمر فهم (1)",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 47,
+      "start_word": 1475,
+      "end_word": 1510,
+      "text_snippet": "يشير إلى أن الحرف يمتاز عن الاسم والفعل بخلوه عن علامات الأسماء وعلامات الأفعال",
+      "scholarly_function": "definition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 48,
+      "start_word": 1511,
+      "end_word": 1560,
+      "text_snippet": "ثم مثل بهل وفي ولم منبها على أن الحرف ينقسم إلى قسمين مختص وغير مختص فأشار بهل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 49,
+      "start_word": 1561,
+      "end_word": 1620,
+      "text_snippet": "ثم شرع في تبيين أن الفعل ينقسم إلى ماض ومضارع وأمر فجعل علامةالمضارع صحة دخول",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 50,
+      "start_word": 1621,
+      "end_word": 1670,
+      "text_snippet": "ثم أشار إلى ما يميز الفعل الماضي بقوله وماضي الأفعال بالتا مز أي ميز ماضي الأفعال",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 51,
+      "start_word": 1671,
+      "end_word": 1720,
+      "text_snippet": "ثم ذكر في بقية البيت أن علامة فعل الأمر قبول نون التوكيد والدلالة على الأمر بصيغته",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 52,
+      "start_word": 1721,
+      "end_word": 1740,
+      "text_snippet": "فإن دلت الكلمة على الأمر ولم تقبل نون التوكيد فهي اسم فعل",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 53,
+      "start_word": 1741,
+      "end_word": 1762,
+      "text_snippet": "وإلى ذلك أشار بقوله:\nوالأمر إن لم يك للنون محل … فيه هو اسم نحو صه وحيهل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 54,
+      "start_word": 1763,
+      "end_word": 1820,
+      "text_snippet": "فصه وحيهل اسمان وإن دلا على الأمر لعدم قبولهما نون التوكيد فلا تقول صهن ولا حيهلن",
+      "scholarly_function": "example",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 55,
+      "start_word": 1821,
+      "end_word": 1920,
+      "text_snippet": "= المضارع في جوابه، فتقول: انزل فأحدثك، ولا يجوز نصب المضارع في جواب اسم الفعل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 56,
+      "start_word": 1921,
+      "end_word": 1970,
+      "text_snippet": "والسادس: أن أسماء الافعال غير متصرفة، فلا تختلف أبنيتها لاختلاف الزمان، بخلاف",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 57,
+      "start_word": 1971,
+      "end_word": 2010,
+      "text_snippet": "والسابع: أنها لا تقبل علامات الافعال كالنواصب والجوازم ونون التوكيد وياء المخاطبة",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 58,
+      "start_word": 2011,
+      "end_word": 2060,
+      "text_snippet": "الفائدة الثالثة، اختلف النحاة في أسماء الافعال، فقال جمهور البصريين: هي أسما قامت",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 59,
+      "start_word": 2061,
+      "end_word": 2110,
+      "text_snippet": "وقال جمهور الكوفيين: إنها أفعال، لانها تدل على الحدث والزمان، كل ما في الباب أنها",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 60,
+      "start_word": 2111,
+      "end_word": 2160,
+      "text_snippet": "وقال أبو جعفر بن صابر: هي نوع خاص من أنواع الكلمة، فليست أفعالا وليست أسماء",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    }
+  ],
+  "total_segments": 60
+}

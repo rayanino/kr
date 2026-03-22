@@ -1,0 +1,199 @@
+{
+  "schema_version": "normalized_package_v2.0",
+  "source_id": "src_test0001",
+  "normalizer_id": "kr.normalization.shamela_v2",
+  "normalization_utc": "2026-03-22T16:06:09.568355+00:00",
+  "division_tree": [
+    {
+      "div_id": "div_src_test0001_2_000",
+      "division_type": "مقدمة",
+      "heading_text": "مقدمة الطبعة الثانية",
+      "heading_level": 2,
+      "start_unit_index": 0,
+      "end_unit_index": 6,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_001",
+      "division_type": null,
+      "heading_text": "الكلام وما يتألف منه",
+      "heading_level": 2,
+      "start_unit_index": 7,
+      "end_unit_index": 24,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_002",
+      "division_type": null,
+      "heading_text": "المعرب والمبني",
+      "heading_level": 2,
+      "start_unit_index": 25,
+      "end_unit_index": 82,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_003",
+      "division_type": null,
+      "heading_text": "النكرة والمعرفة",
+      "heading_level": 2,
+      "start_unit_index": 83,
+      "end_unit_index": 114,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_004",
+      "division_type": null,
+      "heading_text": "العلم",
+      "heading_level": 2,
+      "start_unit_index": 115,
+      "end_unit_index": 126,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_005",
+      "division_type": null,
+      "heading_text": "اسم الإشارة",
+      "heading_level": 2,
+      "start_unit_index": 127,
+      "end_unit_index": 133,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_006",
+      "division_type": null,
+      "heading_text": "الموصول",
+      "heading_level": 2,
+      "start_unit_index": 134,
+      "end_unit_index": 173,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_007",
+      "division_type": null,
+      "heading_text": "المعرف بأداة التعريف",
+      "heading_level": 2,
+      "start_unit_index": 174,
+      "end_unit_index": 184,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_008",
+      "division_type": null,
+      "heading_text": "الابتداء",
+      "heading_level": 2,
+      "start_unit_index": 185,
+      "end_unit_index": 257,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_2_009",
+      "division_type": null,
+      "heading_text": "كان وأخواتها",
+      "heading_level": 2,
+      "start_unit_index": 258,
+      "end_unit_index": 389,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_3_000",
+          "division_type": "فصل",
+          "heading_text": "فصل في ما ولا ولات وإن المشبهات بليس",
+          "heading_level": 3,
+          "start_unit_index": 298,
+          "end_unit_index": 389,
+          "detection_method": "html_tagged",
+          "confidence": "confirmed",
+          "children": [
+            {
+              "div_id": "div_src_test0001_4_000",
+              "division_type": null,
+              "heading_text": "أفعال المقاربة",
+              "heading_level": 4,
+              "start_unit_index": 319,
+              "end_unit_index": 341,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_4_001",
+              "division_type": null,
+              "heading_text": "إن وأخواتها",
+              "heading_level": 4,
+              "start_unit_index": 342,
+              "end_unit_index": 389,
+              "detection_method": "html_tagged",
+              "confidence": "confirmed",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layer_map": [
+    {
+      "layer_type": "sharh",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 0.6,
+      "markers": [
+        "أي:"
+      ]
+    },
+    {
+      "layer_type": "matn",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 0.9,
+      "markers": [
+        "قوله:"
+      ]
+    }
+  ],
+  "structural_format": "prose",
+  "structural_format_proposed": null,
+  "text_fidelity_summary": {
+    "mean_ocr_confidence": null,
+    "character_level_fidelity_estimate": null,
+    "pages_with_warnings": 92,
+    "total_pages": 390
+  },
+  "verse_detection": true,
+  "verse_numbering_scheme": null,
+  "total_content_units": 390,
+  "quality_report": {
+    "division_count_by_tier": {
+      "confirmed": 13
+    },
+    "layer_transition_count": 48,
+    "pages_with_warnings": 92,
+    "high_fidelity_pct": 1.0,
+    "unclassified_footnote_count": 92,
+    "overall_confidence": "high"
+  },
+  "normalization_warnings": [],
+  "content_census": null,
+  "tahqiq_topology": null,
+  "layer_fingerprints": null,
+  "discourse_flow_summary": null
+}

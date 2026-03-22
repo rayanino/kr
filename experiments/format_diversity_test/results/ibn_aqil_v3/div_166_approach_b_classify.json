@@ -1,0 +1,549 @@
+{
+  "segments": [
+    {
+      "segment_index": 1,
+      "start_word": 0,
+      "end_word": 1,
+      "text_snippet": "أفعل التفضيل",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 2,
+      "start_word": 2,
+      "end_word": 13,
+      "text_snippet": "صغ من مصوغ منه للتعجب … أفعل للتفضيل وأب اللذ أبى",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 3,
+      "start_word": 14,
+      "end_word": 47,
+      "text_snippet": "يصاغ من الأفعال التي يجوز التعجب منها للدلالة على التفضيل وصف على وزن",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 4,
+      "start_word": 48,
+      "end_word": 62,
+      "text_snippet": "فتقول زيد أفضل من عمرو وأكرم من خالد كما تقول ما أفضل",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 5,
+      "start_word": 63,
+      "end_word": 107,
+      "text_snippet": "وما امتنع بناء فعل التعجب منه امتنع بناء أفعل التفضيل منه فلا يبنى من فعل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 6,
+      "start_word": 108,
+      "end_word": 163,
+      "text_snippet": "كنعم وبئس ولا من فعللا يقبل المفاضلة كمات وفنى ولا من فعل ناقص ككان",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 7,
+      "start_word": 164,
+      "end_word": 207,
+      "text_snippet": "وشذ منه قولهم هو أخصر من كذا فبنوا أفعل التفضيل من اختصر وهو زائد على",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 8,
+      "start_word": 208,
+      "end_word": 222,
+      "text_snippet": "وما به إلى تعجب وصل … لمانع به إلى التفضيل صل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 9,
+      "start_word": 223,
+      "end_word": 262,
+      "text_snippet": "تقدم في باب التعجب أنه يتوصل إلى التعجب من الأفعال التي لم تستكمل الشروط",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 10,
+      "start_word": 263,
+      "end_word": 290,
+      "text_snippet": "وأشار هنا إلى أنه يتوصل إلى التفضيل من الأفعال التي لم تستكمل الشروط بما",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 11,
+      "start_word": 291,
+      "end_word": 327,
+      "text_snippet": "فكما تقول ما أشد استخراجه تقول هو أشد استخراجا من زيد وكما تقول ما أشد حمرته",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 12,
+      "start_word": 328,
+      "end_word": 349,
+      "text_snippet": "لكن المصدر ينتصب في باب التعجب بعد أشد مفعولا وههنا ينتصب تمييزا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 13,
+      "start_word": 350,
+      "end_word": 363,
+      "text_snippet": "وأفعل التفضيل صله أبدا … تقديرا أو لفظا بمن إن جردا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 14,
+      "start_word": 364,
+      "end_word": 378,
+      "text_snippet": "لا يخلو أفعل التفضيل عن أحد ثلاثة أحوال: الأول: أن يكون مجردا الثاني:",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 15,
+      "start_word": 379,
+      "end_word": 413,
+      "text_snippet": "فإن كان مجردا فلا بد أن يتصل به من لفظا أو تقديرا جارة للمفضل نحو زيد",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 16,
+      "start_word": 414,
+      "end_word": 437,
+      "text_snippet": "وقد تحذف من ومجرورها للدلالة عليهما كقوله تعالى: {أَنَا أَكْثَرُ مِنْكَ",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 17,
+      "start_word": 438,
+      "end_word": 472,
+      "text_snippet": "وفهم من كلامه أن أفعل التفضيل إذا كان بأل أو مضافا لا تصحبه من فلا تقول",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 18,
+      "start_word": 473,
+      "end_word": 498,
+      "text_snippet": "وأكثر ما يكون ذلك إذا كان أفعل التفضيل خبرا كالآية الكريمة ونحوها وهو كثير",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 19,
+      "start_word": 499,
+      "end_word": 530,
+      "text_snippet": "وقد تحذف منه وهو غير خبر كقوله: 279 - دنوت وقد خلناك كالبدر أجملا … فظل فؤادي",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 20,
+      "start_word": 531,
+      "end_word": 567,
+      "text_snippet": "فـ \"أجمل\" أفعل تفضيل وهو منصوب على الحال من التاء في دنوت وحذفت منه من",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 21,
+      "start_word": 568,
+      "end_word": 588,
+      "text_snippet": "ويلزم أفعل التفضيل المجرد الإفراد والتذكير وكذلك المضاف إلى نكرة وإلى هذا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 22,
+      "start_word": 589,
+      "end_word": 601,
+      "text_snippet": "وإن لمنكور يضف أو جردا … ألزم تذكيرا وأن يوحدا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 23,
+      "start_word": 602,
+      "end_word": 672,
+      "text_snippet": "فتقول زيد أفضل من عمرو وأفضل رجل وهند أفضل من عمرو وأفضل امرأة والزيدان",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 24,
+      "start_word": 673,
+      "end_word": 694,
+      "text_snippet": "فيكون أفعل في هاتين الحالتين مذكرا ومفردا ولا يؤنث ولا يثنى ولا يجمع",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 25,
+      "start_word": 695,
+      "end_word": 720,
+      "text_snippet": "وتلو أل طبق وما لمعرفه … أضيف ذو وجهين عن ذي معرفههذا إذا نويت معنى من وإن",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 26,
+      "start_word": 721,
+      "end_word": 770,
+      "text_snippet": "إذا كان أفعل التفضيل ب أل لزمت مطابقته لما قبله في الإفراد والتذكير وغيرهما",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 27,
+      "start_word": 771,
+      "end_word": 808,
+      "text_snippet": "فتقول زيد الأفضل والزيدان الأفضلان والزيدون الأفضلون وهند الفضلى والهندان",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 28,
+      "start_word": 809,
+      "end_word": 843,
+      "text_snippet": "ولا يجوز عدم مطابقته لما قبله فلا تقول الزيدون الأفضل ولا الزيدان الأفضل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 29,
+      "start_word": 844,
+      "end_word": 862,
+      "text_snippet": "ولا يجوز أن تقترن به من فلا تقول زيد الأفضل من عمرو",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 30,
+      "start_word": 863,
+      "end_word": 882,
+      "text_snippet": "فأما قوله:280 - ولست بالأكثر منهم حصى … وإنما العزة للكاثر",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 31,
+      "start_word": 883,
+      "end_word": 924,
+      "text_snippet": "فيخرج على زيادة الالف واللام، والاصل: ولست بأكثر منهم، أو جعل \" منهم \" متعلقا",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 32,
+      "start_word": 925,
+      "end_word": 955,
+      "text_snippet": "وأشار بقوله وما لمعرفة أضيف إلخ إلى أن أفعل التفضيل إذا أضيف إلى معرفة",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 33,
+      "start_word": 956,
+      "end_word": 993,
+      "text_snippet": "أحدهما: استعماله كالمجرد فلا يطابق ما قبله فتقول الزيدان أفضل القوم والزيدون",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 34,
+      "start_word": 994,
+      "end_word": 1044,
+      "text_snippet": "والثاني: استعماله كالمقرون بالألف واللام فتجب مطابقته لما قبله فتقول الزيدان",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 35,
+      "start_word": 1045,
+      "end_word": 1058,
+      "text_snippet": "ولا يتعين الاستعمال الأول خلافا لابن السراج",
+      "scholarly_function": "refutation",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 36,
+      "start_word": 1059,
+      "end_word": 1082,
+      "text_snippet": "وقد ورد الاستعمالان في القرآن فمن استعماله غير مطابق قوله تعالى: {وَلَتَجِدَنَّهُمْ",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 37,
+      "start_word": 1083,
+      "end_word": 1100,
+      "text_snippet": "ومن استعماله مطابقا قوله تعالى: {وَكَذَلِكَ جَعَلْنَا فِي كُلِّ قَرْيَةٍ أَكَابِرَ",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 38,
+      "start_word": 1101,
+      "end_word": 1133,
+      "text_snippet": "وقد اجتمع الاستعمالان في قوله صلى الله عليه وسلم: \" ألا أخبركم بأحبكم إلي",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 39,
+      "start_word": 1134,
+      "end_word": 1163,
+      "text_snippet": "والذين أجازوا الوجهين قالوا الأفصح المطابقة ولهذا عيب على صاحب الفصيح في",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 40,
+      "start_word": 1164,
+      "end_word": 1189,
+      "text_snippet": "فإن لم يقصد التفضيل تعينت المطابقة كقولهم الناقص والأشج أعدلا بني مروان أي",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 41,
+      "start_word": 1190,
+      "end_word": 1237,
+      "text_snippet": "وإلى ما ذكرناه من قصد التفضيل وعدم قصده أشار المصنف بقوله هذا إذا نويت معنى",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 42,
+      "start_word": 1238,
+      "end_word": 1268,
+      "text_snippet": "قيل ومن استعمال صيغة أفعل التفضيل قوله تعالى: {وَهُوَ الَّذِي يَبْدأُ الْخَلْقَ",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 43,
+      "start_word": 1269,
+      "end_word": 1283,
+      "text_snippet": "وقوله تعالى: {رَبُّكُمْ أَعْلَمُ بِكُمْ} أي وهو هين عليه وربكم عالم بكم",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 44,
+      "start_word": 1284,
+      "end_word": 1310,
+      "text_snippet": "وقول الشاعر: وإن مدت الأيدي إلى الزاد لم أكن … بأعجلهم إذ أجشع القوم أعجل",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 45,
+      "start_word": 1311,
+      "end_word": 1327,
+      "text_snippet": "أي لم أكن بعجلهم وقوله: 281 - إن الذي سمك السماء بنى لنا",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 46,
+      "start_word": 1328,
+      "end_word": 1345,
+      "text_snippet": "أي دعائمه عزيزة طويلة وهل ينقاس ذلك أم لا قال المبرد ينقاس",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 47,
+      "start_word": 1346,
+      "end_word": 1354,
+      "text_snippet": "وقال غيره لا ينقاس وهو الصحيح",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 48,
+      "start_word": 1355,
+      "end_word": 1404,
+      "text_snippet": "وذكر صاحب الواضح أن النحويين لا يرون ذلك وأن أبا عبيدة قال في قوله تعالى:",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 49,
+      "start_word": 1405,
+      "end_word": 1427,
+      "text_snippet": "وإن النحويين ردوا على أبي عبيدة ذلك وقالوا لا حجة في ذلك له",
+      "scholarly_function": "refutation",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 50,
+      "start_word": 1428,
+      "end_word": 1445,
+      "text_snippet": "وإن تكن بتلو من مستفهما … فلهما كن أبدا مقدما كمثل ممن أنت خير",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 51,
+      "start_word": 1446,
+      "end_word": 1505,
+      "text_snippet": "تقدم أن أفعل التفضيل إذا كان مجردا جيء بعده بمن جارة للمفضل عليه نحو زيد",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 52,
+      "start_word": 1506,
+      "end_word": 1540,
+      "text_snippet": "إلا إذا كان المجرور بها اسم استفهام أو مضافا إلى اسم استفهام فإنه يجب حينئذ",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 53,
+      "start_word": 1541,
+      "end_word": 1562,
+      "text_snippet": "نحو ممن أنت خير ومن أيهم أنت أفضل ومن غلام أيهم أنت أفضل",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 54,
+      "start_word": 1563,
+      "end_word": 1583,
+      "text_snippet": "وقد ورد التقديم شذوذا في غير الاستفهام وإليه أشار بقوله: ولدى إخبار التقديم",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 55,
+      "start_word": 1584,
+      "end_word": 1607,
+      "text_snippet": "ومن ذلك قوله: 282 - فقالت لنا أهلا وسهلا وزودت … جنى النحل بل ما",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 56,
+      "start_word": 1608,
+      "end_word": 1621,
+      "text_snippet": "والتقدير بل ما زودت أطيب منه",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 57,
+      "start_word": 1622,
+      "end_word": 1651,
+      "text_snippet": "وقول ذي الرمة يصف نسوة بالسمن والكسل: 285 - ولا عيب فيها غير أن سريعها",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 58,
+      "start_word": 1652,
+      "end_word": 1664,
+      "text_snippet": "التقدير وأن لا شيء أكسل منهن وقوله:",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 59,
+      "start_word": 1665,
+      "end_word": 1688,
+      "text_snippet": "284 - إذا سايرت أسماء يوما ظعينة … فأسماء من تلك الظعينة أملح التقدير فأسماء",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 60,
+      "start_word": 1689,
+      "end_word": 1710,
+      "text_snippet": "ورفعه الظاهر نزر ومتى … عاقب فعلا فكثيرا ثبتا كلن ترى في الناس من رفيق",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 61,
+      "start_word": 1711,
+      "end_word": 1733,
+      "text_snippet": "لا يخلو أفعل التفضيل من أن يصلح لوقوع فعل بمعناه موقعه أولا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 62,
+      "start_word": 1734,
+      "end_word": 1758,
+      "text_snippet": "فإن لم يصلح لوقوع فعل بمعناه موقعه لم يرفع ظاهرا وإنما يرفع ضميرا مستترا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 63,
+      "start_word": 1759,
+      "end_word": 1786,
+      "text_snippet": "فلا تقول مررت برجل أفضل منه أبوه فترفع أبوه ب أفضل إلا في لغة ضعيفة حكاها",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 64,
+      "start_word": 1787,
+      "end_word": 1826,
+      "text_snippet": "فإن صلح لوقوع فعل بمعناه موقعه صح أن يرفع ظاهرا قياسا مطردا وذلك في كل موضع",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 65,
+      "start_word": 1827,
+      "end_word": 1862,
+      "text_snippet": "نحو ما رأيت رجلا أحسن في عينه الكحل منه في عين زيد ف الكحل مرفوع ب أحسن",
+      "scholarly_function": "example",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 66,
+      "start_word": 1863,
+      "end_word": 1893,
+      "text_snippet": "ومثله قوله صلى الله عليه وسلم ما من أيام أحب إلى الله فيها الصوم منه في عشر",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 67,
+      "start_word": 1894,
+      "end_word": 1926,
+      "text_snippet": "وقول الشاعر أنشده سيبويه: 285 - مررت على وادي السباع ولا أرى … كوادي السباع",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 68,
+      "start_word": 1927,
+      "end_word": 1957,
+      "text_snippet": "فـ \"ركب\" مرفوع بأقل فقول المصنف ورفعه الظاهر نزر إشارة إلى الحالة الأولى",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.85
+    }
+  ],
+  "total_segments": 68
+}

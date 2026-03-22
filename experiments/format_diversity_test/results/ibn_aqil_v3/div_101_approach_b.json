@@ -1,0 +1,144 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 166,
+      "text_snippet": "‌‌إعمال اسم الفاعل كفعله اسم فاعل في العمل … إن كان عن مضيه بمعزل لا يخلو اسم الفاعل",
+      "description_arabic": "بيان حكم إعمال اسم الفاعل المجرد من أل: يعمل إن كان بمعنى الحال أو الاستقبال دون الماضي، مع ذكر خلاف الكسائي والرد عليه",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "opinion_statement",
+        "refutation",
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 167,
+      "end_word": 310,
+      "text_snippet": "وولى استفهاما أو حرف ندا … أو نفيا أو جا صفة أو مسندا أشار بهذا البيت إلى أن اسم",
+      "description_arabic": "شروط إعمال اسم الفاعل المجرد: الاعتماد على استفهام أو نداء أو نفي أو وقوعه صفة أو خبراً، مع الأمثلة التوضيحية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 311,
+      "end_word": 421,
+      "text_snippet": "وقد يكون نعت محذوف عرف … فيستحق العمل الذي وصف قد يعتمد اسم الفاعل على موصوف مقدر",
+      "description_arabic": "جواز اعتماد اسم الفاعل على موصوف محذوف مقدر فيعمل عمل فعله، مع شواهد شعرية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 422,
+      "end_word": 594,
+      "text_snippet": "وإن يكن صلة أل ففي المضى … وغيره إعماله قد ارتضى إذا وقع اسم الفاعل صلة للألف وال",
+      "description_arabic": "حكم إعمال اسم الفاعل المقترن بأل: يعمل مطلقاً في الماضي والحال والاستقبال على المشهور، مع ذكر خلاف الرماني وغيره",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "refutation",
+        "evidence_ijma",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 595,
+      "end_word": 870,
+      "text_snippet": "فعال أو مفعال أو فعول … في كثرة عن فاعل بديل فيستحق ماله من عمل … وفي فعيل قل ذا",
+      "description_arabic": "إعمال صيغ المبالغة (فعّال ومفعال وفعول وفعيل وفَعِل) عمل اسم الفاعل، مع شواهد سماعية لكل صيغة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 871,
+      "end_word": 965,
+      "text_snippet": "وما سوى المفرد مثله جعل … في الحكم والشروط حيثما عمل ما سوى المفرد هو المثنى وال",
+      "description_arabic": "حكم المثنى والمجموع من اسم الفاعل: يعمل بنفس شروط المفرد وأحكامه، مع شواهد شعرية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 966,
+      "end_word": 1033,
+      "text_snippet": "وانصب بذى الإعمال تلوا واخفض … وهو لنصب ما سواه مقتضى يجوز في اسم الفاعل العامل",
+      "description_arabic": "جواز إضافة اسم الفاعل إلى مفعوله أو نصبه، وإذا كان له مفعولان وأضيف لأحدهما وجب نصب الآخر",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 1034,
+      "end_word": 1170,
+      "text_snippet": "واجرر أو انصب تابع الذي انخفض … كـ \"مبتغى جاه ومالا من نهض\" يجوز في تابع معمول",
+      "description_arabic": "حكم تابع معمول اسم الفاعل المجرور بالإضافة: يجوز جره مراعاة للفظ ونصبه مراعاة للمحل أو بإضمار فعل، مع الشواهد",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "opinion_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 1171,
+      "end_word": 1340,
+      "text_snippet": "وكل ما قرر لأسم فاعل … يعطى اسم مفعول بلا تفاضل فهو كفعل صيغ للمفعول في … معناه",
+      "description_arabic": "إعمال اسم المفعول: يأخذ جميع أحكام اسم الفاعل وشروطه، ويعمل عمل الفعل المبني للمجهول فيرفع نائب الفاعل وينصب المفعول الثاني",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 1341,
+      "end_word": 1432,
+      "text_snippet": "وقد يضاف ذا إلى اسم مرتفع … معنى كـ \"محمود المقاصد الورع\" يجوز في اسم المفعول أن",
+      "description_arabic": "جواز إضافة اسم المفعول إلى مرفوعه (نائب الفاعل)، وعدم جواز ذلك في اسم الفاعل",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 10,
+  "notes": "النص يتناول باب إعمال اسم الفاعل واسم المفعول من ألفية ابن مالك مع شرحها. تم تقسيمه إلى عشر وحدات تعليمية تغطي: شرط الزمن، شرط الاعتماد، الموصوف المحذوف، اسم الفاعل المقترن بأل، صيغ المبالغة، المثنى والجمع، الإضافة والنصب، تابع المجرور، اسم المفعول، وإضافة اسم المفعول لمرفوعه."
+}

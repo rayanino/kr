@@ -1,0 +1,155 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 75,
+      "text_snippet": "المعرف بأداة التعريف\nأل حرف تعريف أو اللام فقط … فنمط عرفت قل فيه النمط ⌜1⌝\nاختلف النحويون في حرف",
+      "description_arabic": "الخلاف بين الخليل وسيبويه في حرف التعريف هل هو أل أو اللام وحدها وما يترتب على ذلك من حكم الهمزة",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 75,
+      "end_word": 155,
+      "text_snippet": "والألف واللام المعرفة تكون للعهد كقولك لقيت رجلا فأكرمت الرجل وقوله تعالى: {كَمَا أَرْسَلْنَا إِلَى",
+      "description_arabic": "بيان أقسام أل المعرفة: العهدية والاستغراقية ولتعريف الحقيقة مع الأمثلة والشواهد القرآنية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_quran",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 155,
+      "end_word": 185,
+      "text_snippet": "والنمط ضرب من البسط والجمع أنماط مثل سبب وأسباب والنمط أيضا الجماعة من الناس الذين أمرهم واحد",
+      "description_arabic": "شرح معنى كلمة النمط لغوياً وبيان جمعها ومعانيها المتعددة نقلاً عن الجوهري",
+      "primary_function": "definition",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 185,
+      "end_word": 310,
+      "text_snippet": "وقد تزاد لازما: كاللات … والآن والذين ثم اللات (1)\nولاضطرار: كبنات الأوبر … كذا وطبت النفس يا قيس",
+      "description_arabic": "بيان أن أل تأتي زائدة وتقسيمها إلى زائدة لازمة وغير لازمة مع التمثيل لكل قسم",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 310,
+      "end_word": 395,
+      "text_snippet": "ثم مثل الزائدة اللازمة ب اللات (1) وهو اسم صنم كان بمكة وب الآن وهو ظرف زمان مبني على الفتح (2)",
+      "description_arabic": "شرح أل الزائدة اللازمة في اللات والآن والخلاف في أل الداخلة على الآن هل هي للتعريف أم زائدة",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "definition",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 395,
+      "end_word": 510,
+      "text_snippet": "ومثل أيضا ب الذين واللات والمراد بهما ما دخل عليه أل من الموصولات وهو مبني على أن تعريف الموصول",
+      "description_arabic": "الخلاف في أل الداخلة على الموصولات هل هي زائدة أم معرفة وحكم حذفها في قراءة صراط لذين",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "refutation",
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 510,
+      "end_word": 660,
+      "text_snippet": "وأما الزائدة غير اللازمة فهي الداخلة اضطرارا على العلم كقولهم في بنات أوبر علم لضرب من الكمأة بنات",
+      "description_arabic": "بيان أل الزائدة غير اللازمة الداخلة اضطراراً على العلم والتمييز مع الشواهد الشعرية والخلاف فيها بين البصريين والكوفيين",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "opinion_statement",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 660,
+      "end_word": 810,
+      "text_snippet": "وبعض الأعلام عليه دخلا … للمح ما قد كان عنه نقلا (1)\nكالفضل والحارث والنعمان … فذكر ذا وحذفه سيان",
+      "description_arabic": "بيان أل التي تدخل على الأعلام المنقولة للمح الصفة الأصلية وأنها تدخل على المنقول من صفة أو مصدر أو اسم جنس",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 810,
+      "end_word": 940,
+      "text_snippet": "وحاصله أنك إذا أردت بالمنقول من صفة ⌜1⌝ ونحوه أنه إنما سمي به تفاؤلا بمعناه أتيت بالألف واللام للدلا",
+      "description_arabic": "تفصيل فائدة أل في لمح الصفة وأنها ليست زائدة بل تفيد معنى التفاؤل والرد على من زعم أن الحذف والإثبات سواء",
+      "primary_function": "refutation",
+      "secondary_functions": [
+        "rule_statement",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": "يحتاج لمعرفة ما سبق من أمثلة الأعلام المنقولة لكنه يشرح المسألة بشكل كافٍ"
+    },
+    {
+      "unit_index": 9,
+      "start_word": 940,
+      "end_word": 1060,
+      "text_snippet": "وقد يصير علما بالغلبه … مضاف أو مصحوب أل كالعقه (2)\nوحذف أل ذي إن تناد أو تضف",
+      "description_arabic": "بيان أل التي للغلبة كالمدينة والكتاب وحكم حذفها في النداء والإضافة وجوازه شذوذاً في غيرهما",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 1060,
+      "end_word": 1140,
+      "text_snippet": "وقد يكون العلم بالغلبة أيضا مضافا كابن عمر وابن عباس وابن\nمسعود",
+      "description_arabic": "بيان العلم بالغلبة المضاف كابن عمر وابن عباس وأن إضافته لا تفارقه في نداء ولا غيره",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 11,
+  "notes": "النص يتناول أحكام أل التعريف وأقسامها: المعرفة (عهدية، استغراقية، لتعريف الحقيقة)، والزائدة (لازمة وغير لازمة)، وللمح الصفة، وللغلبة. وهو من شرح ألفية ابن مالك في باب المعرف بأداة التعريف."
+}

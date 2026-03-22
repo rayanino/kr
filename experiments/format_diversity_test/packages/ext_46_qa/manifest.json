@@ -1,0 +1,530 @@
+{
+  "schema_version": "normalized_package_v2.0",
+  "source_id": "src_test0001",
+  "normalizer_id": "kr.normalization.shamela_v2",
+  "normalization_utc": "2026-03-22T16:06:10.122439+00:00",
+  "division_tree": [
+    {
+      "div_id": "div_src_test0001_3_000",
+      "division_type": null,
+      "heading_text": "المقدمات",
+      "heading_level": 3,
+      "start_unit_index": 0,
+      "end_unit_index": 49,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_5_000",
+          "division_type": null,
+          "heading_text": "المسألة الثانية",
+          "heading_level": 5,
+          "start_unit_index": 15,
+          "end_unit_index": 18,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_001",
+          "division_type": null,
+          "heading_text": "المسألة الثالثة",
+          "heading_level": 5,
+          "start_unit_index": 19,
+          "end_unit_index": 24,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": [
+            {
+              "div_id": "div_src_test0001_6_000",
+              "division_type": "تنبيه",
+              "heading_text": "تنبيهان:",
+              "heading_level": 6,
+              "start_unit_index": 21,
+              "end_unit_index": 24,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_5_002",
+          "division_type": null,
+          "heading_text": "المسألة الرابعة",
+          "heading_level": 5,
+          "start_unit_index": 25,
+          "end_unit_index": 28,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_003",
+          "division_type": null,
+          "heading_text": "المسألة الخامسة",
+          "heading_level": 5,
+          "start_unit_index": 29,
+          "end_unit_index": 31,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_004",
+          "division_type": null,
+          "heading_text": "المسألة السادسة",
+          "heading_level": 5,
+          "start_unit_index": 32,
+          "end_unit_index": 35,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_005",
+          "division_type": null,
+          "heading_text": "المسألة السابعة",
+          "heading_level": 5,
+          "start_unit_index": 36,
+          "end_unit_index": 40,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_006",
+          "division_type": null,
+          "heading_text": "المسألة الثامنة",
+          "heading_level": 5,
+          "start_unit_index": 41,
+          "end_unit_index": 43,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_007",
+          "division_type": null,
+          "heading_text": "المسألة التاسعة",
+          "heading_level": 5,
+          "start_unit_index": 44,
+          "end_unit_index": 46,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_5_008",
+          "division_type": null,
+          "heading_text": "المسألة العاشرة",
+          "heading_level": 5,
+          "start_unit_index": 47,
+          "end_unit_index": 49,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_000",
+      "division_type": "كتاب",
+      "heading_text": "الكتاب الأول",
+      "heading_level": 1,
+      "start_unit_index": 50,
+      "end_unit_index": 139,
+      "detection_method": "keyword_heuristic",
+      "confidence": "high",
+      "children": [
+        {
+          "div_id": "div_src_test0001_6_001",
+          "division_type": "تنبيه",
+          "heading_text": "تنبيه",
+          "heading_level": 6,
+          "start_unit_index": 53,
+          "end_unit_index": 57,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_001",
+          "division_type": "فصل",
+          "heading_text": "فصل",
+          "heading_level": 3,
+          "start_unit_index": 58,
+          "end_unit_index": 72,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_002",
+          "division_type": "فصل",
+          "heading_text": "فصل",
+          "heading_level": 3,
+          "start_unit_index": 73,
+          "end_unit_index": 117,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": [
+            {
+              "div_id": "div_src_test0001_5_009",
+              "division_type": null,
+              "heading_text": "الفرع الثاني",
+              "heading_level": 5,
+              "start_unit_index": 82,
+              "end_unit_index": 93,
+              "detection_method": "keyword_heuristic",
+              "confidence": "high",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_5_010",
+              "division_type": null,
+              "heading_text": "الفرع الرابع",
+              "heading_level": 5,
+              "start_unit_index": 94,
+              "end_unit_index": 117,
+              "detection_method": "keyword_heuristic",
+              "confidence": "high",
+              "children": [
+                {
+                  "div_id": "div_src_test0001_6_002",
+                  "division_type": "فائدة",
+                  "heading_text": "فائدة",
+                  "heading_level": 6,
+                  "start_unit_index": 105,
+                  "end_unit_index": 117,
+                  "detection_method": "keyword_heuristic",
+                  "confidence": "medium",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "div_id": "div_src_test0001_3_003",
+          "division_type": "فصل",
+          "heading_text": "فصل",
+          "heading_level": 3,
+          "start_unit_index": 118,
+          "end_unit_index": 133,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_004",
+          "division_type": "خاتمة",
+          "heading_text": "خاتمة",
+          "heading_level": 3,
+          "start_unit_index": 134,
+          "end_unit_index": 139,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": [
+            {
+              "div_id": "div_src_test0001_6_003",
+              "division_type": "تنبيه",
+              "heading_text": "تنبيه",
+              "heading_level": 6,
+              "start_unit_index": 135,
+              "end_unit_index": 139,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_001",
+      "division_type": "كتاب",
+      "heading_text": "الكتاب الثاني",
+      "heading_level": 1,
+      "start_unit_index": 140,
+      "end_unit_index": 154,
+      "detection_method": "keyword_heuristic",
+      "confidence": "high",
+      "children": [
+        {
+          "div_id": "div_src_test0001_3_005",
+          "division_type": "فصل",
+          "heading_text": "فصل",
+          "heading_level": 3,
+          "start_unit_index": 148,
+          "end_unit_index": 154,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_002",
+      "division_type": "كتاب",
+      "heading_text": "الكتاب الثالث",
+      "heading_level": 1,
+      "start_unit_index": 155,
+      "end_unit_index": 325,
+      "detection_method": "keyword_heuristic",
+      "confidence": "high",
+      "children": [
+        {
+          "div_id": "div_src_test0001_3_006",
+          "division_type": "فصل",
+          "heading_text": "فصل",
+          "heading_level": 3,
+          "start_unit_index": 162,
+          "end_unit_index": 162,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_007",
+          "division_type": "فصل",
+          "heading_text": "الفصل الأول",
+          "heading_level": 3,
+          "start_unit_index": 163,
+          "end_unit_index": 189,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_008",
+          "division_type": "فصل",
+          "heading_text": "الفصل الثاني",
+          "heading_level": 3,
+          "start_unit_index": 190,
+          "end_unit_index": 193,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_009",
+          "division_type": "فصل",
+          "heading_text": "الفصل الثالث",
+          "heading_level": 3,
+          "start_unit_index": 194,
+          "end_unit_index": 197,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_010",
+          "division_type": "فصل",
+          "heading_text": "الفصل الرابع",
+          "heading_level": 3,
+          "start_unit_index": 198,
+          "end_unit_index": 245,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        },
+        {
+          "div_id": "div_src_test0001_3_011",
+          "division_type": "خاتمة",
+          "heading_text": "خاتمة",
+          "heading_level": 3,
+          "start_unit_index": 246,
+          "end_unit_index": 325,
+          "detection_method": "keyword_heuristic",
+          "confidence": "medium",
+          "children": [
+            {
+              "div_id": "div_src_test0001_6_004",
+              "division_type": "تنبيه",
+              "heading_text": "تنبيه",
+              "heading_level": 6,
+              "start_unit_index": 308,
+              "end_unit_index": 315,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_5_011",
+              "division_type": null,
+              "heading_text": "مسألة في الدور",
+              "heading_level": 5,
+              "start_unit_index": 316,
+              "end_unit_index": 318,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_5_012",
+              "division_type": null,
+              "heading_text": "مسألة",
+              "heading_level": 5,
+              "start_unit_index": 319,
+              "end_unit_index": 320,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_5_013",
+              "division_type": null,
+              "heading_text": "مسألة",
+              "heading_level": 5,
+              "start_unit_index": 321,
+              "end_unit_index": 322,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_5_014",
+              "division_type": null,
+              "heading_text": "مسألة",
+              "heading_level": 5,
+              "start_unit_index": 323,
+              "end_unit_index": 323,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            },
+            {
+              "div_id": "div_src_test0001_5_015",
+              "division_type": "خاتمة",
+              "heading_text": "خاتمة",
+              "heading_level": 5,
+              "start_unit_index": 324,
+              "end_unit_index": 325,
+              "detection_method": "keyword_heuristic",
+              "confidence": "medium",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_003",
+      "division_type": "كتاب",
+      "heading_text": "الكتاب الرابع",
+      "heading_level": 1,
+      "start_unit_index": 326,
+      "end_unit_index": 332,
+      "detection_method": "keyword_heuristic",
+      "confidence": "high",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_004",
+      "division_type": null,
+      "heading_text": "أدلة شتى",
+      "heading_level": 1,
+      "start_unit_index": 333,
+      "end_unit_index": 351,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_1_005",
+          "division_type": "كتاب",
+          "heading_text": "الكتاب الخامس",
+          "heading_level": 1,
+          "start_unit_index": 333,
+          "end_unit_index": 351,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": []
+        }
+      ]
+    },
+    {
+      "div_id": "div_src_test0001_1_006",
+      "division_type": "كتاب",
+      "heading_text": "الكتاب السادس",
+      "heading_level": 1,
+      "start_unit_index": 352,
+      "end_unit_index": 392,
+      "detection_method": "keyword_heuristic",
+      "confidence": "high",
+      "children": []
+    },
+    {
+      "div_id": "div_src_test0001_1_007",
+      "division_type": null,
+      "heading_text": "أحوال مستنبط هذا العلم",
+      "heading_level": 1,
+      "start_unit_index": 393,
+      "end_unit_index": 404,
+      "detection_method": "html_tagged",
+      "confidence": "confirmed",
+      "children": [
+        {
+          "div_id": "div_src_test0001_1_008",
+          "division_type": "كتاب",
+          "heading_text": "الكتاب السابع",
+          "heading_level": 1,
+          "start_unit_index": 393,
+          "end_unit_index": 404,
+          "detection_method": "keyword_heuristic",
+          "confidence": "high",
+          "children": [
+            {
+              "div_id": "div_src_test0001_5_016",
+              "division_type": null,
+              "heading_text": "المسألة الأولى",
+              "heading_level": 5,
+              "start_unit_index": 394,
+              "end_unit_index": 404,
+              "detection_method": "keyword_heuristic",
+              "confidence": "high",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layer_map": [
+    {
+      "layer_type": "matn",
+      "author_canonical_id": null,
+      "author_name_arabic": null,
+      "confidence": 1.0,
+      "markers": []
+    }
+  ],
+  "structural_format": "prose",
+  "structural_format_proposed": null,
+  "text_fidelity_summary": {
+    "mean_ocr_confidence": null,
+    "character_level_fidelity_estimate": null,
+    "pages_with_warnings": 405,
+    "total_pages": 405
+  },
+  "verse_detection": true,
+  "verse_numbering_scheme": null,
+  "total_content_units": 405,
+  "quality_report": {
+    "division_count_by_tier": {
+      "confirmed": 3,
+      "high": 23,
+      "medium": 17
+    },
+    "layer_transition_count": 0,
+    "pages_with_warnings": 405,
+    "high_fidelity_pct": 1.0,
+    "unclassified_footnote_count": 0,
+    "overall_confidence": "medium"
+  },
+  "normalization_warnings": [],
+  "content_census": null,
+  "tahqiq_topology": null,
+  "layer_fingerprints": null,
+  "discourse_flow_summary": null
+}

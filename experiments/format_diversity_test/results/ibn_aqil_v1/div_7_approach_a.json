@@ -1,0 +1,225 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 55,
+      "text_snippet": "بسم الله الرحمن الرحيم\n‌‌الكلام وما يتألف منه\nقال محمد هو ابن مالك … أحمد ربي الله خير مالك",
+      "description_arabic": "مقدمة ابن مالك لألفيته بحمد الله والصلاة على النبي وبيان أن الألفية تحوي مقاصد النحو بلفظ موجز وأنها تفوق ألفية ابن معطي",
+      "primary_function": "structural_transition",
+      "secondary_functions": [
+        "editorial_note"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 56,
+      "end_word": 230,
+      "text_snippet": "كلامنا لفظ مفيد كاستقم … واسم وفعل ثم حرف الكلم\nواحده كلمة والقول عم … وكلمة بها كلام",
+      "description_arabic": "تعريف الكلام في اصطلاح النحاة بأنه اللفظ المفيد فائدة يحسن السكوت عليها، وبيان أنه لا يتركب إلا من اسمين أو فعل واسم، مع التمثيل",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example",
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 231,
+      "end_word": 270,
+      "text_snippet": "وإنما قال المصنف كلامنا ليعلم أن التعريف إنما هو للكلام في اصطلاح النحويين لا في اصطلاح",
+      "description_arabic": "بيان الفرق بين الكلام في اصطلاح النحويين واللغويين، فهو عند اللغويين اسم لكل ما يتكلم به مفيداً أو غير مفيد",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 271,
+      "end_word": 340,
+      "text_snippet": "والكلم: اسم جنس (1) واحده كلمة وهي إما اسم وإما فعل وإما حرف لأنها إن دلت على معنى في",
+      "description_arabic": "تعريف الكلم بأنه اسم جنس واحده كلمة، وبيان أقسام الكلمة الثلاثة: اسم وفعل وحرف، مع ضابط كل قسم",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 341,
+      "end_word": 380,
+      "text_snippet": "والكلم: ما تركب من ثلاث كلمات فأكثر كقولك إن قام زيد.\nوالكلمة: هي اللفظ الموضوع لمعنى",
+      "description_arabic": "تعريف الكلم بأنه ما تركب من ثلاث كلمات فأكثر، وتعريف الكلمة بأنها اللفظ الموضوع لمعنى مفرد مع بيان القيود",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 381,
+      "end_word": 480,
+      "text_snippet": "ثم ذكر المصنف رحمه الله تعالى أن القول يعم الجميع والمراد أنه يقع على الكلام أنه قول",
+      "description_arabic": "بيان أن القول يعم الكلام والكلم والكلمة، وأن الكلمة قد يراد بها الكلام، مع بيان اجتماع الكلام والكلم وانفراد كل منهما بالأمثلة",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 481,
+      "end_word": 580,
+      "text_snippet": "بالجر والتنوين والندا وأل … ومسند للاسم تمييز حصل (3)\nذكر المصنف رحمه الله تعالى في هذا",
+      "description_arabic": "بيان علامات الاسم: الجر بأنواعه الثلاثة (بالحرف والإضافة والتبعية) مع التمثيل وبيان شمول عبارة المصنف",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 581,
+      "end_word": 700,
+      "text_snippet": "ومنهما التنوين: وهو (1) على أربعة أقسام: (1)\nتنوين التمكين: وهو اللاحق للأسماء المعربة كزيد",
+      "description_arabic": "بيان أقسام التنوين الأربعة: تنوين التمكين والتنكير والمقابلة والعوض، مع تعريف كل قسم والتمثيل له",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example",
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 701,
+      "end_word": 790,
+      "text_snippet": "وتنوين العوض وهو على ثلاثة أقسام:\nعوض عن جملة: وهو الذي يلحق إذ عوضا عن جملة تكون بعده",
+      "description_arabic": "تفصيل أقسام تنوين العوض الثلاثة: عوض عن جملة (إذ)، وعوض عن اسم (كل)، وعوض عن حرف (جوار وغواش)، مع الأمثلة القرآنية",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example",
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 791,
+      "end_word": 880,
+      "text_snippet": "وتنوين الترنم (1) : وهو الذي يلحق القوافي المطلقة بحرف علة كقوله:\n1 - أقلى اللوم عاذل",
+      "description_arabic": "بيان تنوين الترنم الذي يلحق القوافي المطلقة والتنوين الغالي الذي يلحق القوافي المقيدة مع الشواهد الشعرية",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 881,
+      "end_word": 930,
+      "text_snippet": "وظاهر كلام المصنف أن التنوين كله من خواص الاسم وليس كذلك بل الذي يختص به الاسم إنما هو",
+      "description_arabic": "تنبيه على أن التنوين المختص بالاسم هو أربعة أنواع فقط، أما تنوين الترنم والغالي فيدخلان على الاسم والفعل والحرف",
+      "primary_function": "condition_exception",
+      "secondary_functions": [
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": "يحتاج لمعرفة أقسام التنوين المذكورة سابقاً لكنه مفهوم بذاته"
+    },
+    {
+      "unit_index": 11,
+      "start_word": 931,
+      "end_word": 1010,
+      "text_snippet": "ومن خواص الاسم: النداء نحو يا زيد والألف واللام نحو الرجل والإسناد إليه نحو زيد قائم",
+      "description_arabic": "بيان بقية علامات الاسم: النداء وأل والإسناد إليه، مع إيضاح استعمال المصنف لأل بدل الألف واللام ومسند بدل الإسناد",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "editorial_note"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 1011,
+      "end_word": 1190,
+      "text_snippet": "بتا فعلت وأتت ويا أفعلي … ونون أقبلن فعل ينجلي ⌜1⌝\nثم ذكر المصنف أن الفعل يمتاز عن الاسم",
+      "description_arabic": "بيان علامات الفعل الأربع: تاء الفاعل بأنواعها، وتاء التأنيث الساكنة، وياء الفاعلة، ونون التوكيد بنوعيها، مع التمثيل والاحتراز",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "definition",
+        "example",
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 13,
+      "start_word": 1191,
+      "end_word": 1340,
+      "text_snippet": "سواهما الحرف كهل وفي ولم … فعل مضارع يلي لم كيشم (2)وماضي الأفعال بالتا مز وسم … بالنون",
+      "description_arabic": "بيان أن الحرف يمتاز بخلوه من علامات الأسماء والأفعال وأقسامه (مختص وغير مختص)، ثم بيان أقسام الفعل الثلاثة وعلامة كل منها",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "definition",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 14,
+      "start_word": 1341,
+      "end_word": 1500,
+      "text_snippet": "والأمر إن لم يك للنون محل … فيه هو اسم نحو صه وحيهل (2)فصه وحيهل اسمان وإن دلا على الأمر",
+      "description_arabic": "بيان الفارق بين فعل الأمر واسم الفعل: وهو قبول نون التوكيد، فما دل على الأمر ولم يقبلها فهو اسم فعل كصه وحيهل",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "definition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 15,
+      "start_word": 1501,
+      "end_word": 1720,
+      "text_snippet": "= المضارع في جوابه، فتقول: انزل فأحدثك، ولا يجوز نصب المضارع في جواب اسم الفعل ولو كان",
+      "description_arabic": "فوائد تفصيلية في الفروق بين أسماء الأفعال والأفعال من حيث نصب المضارع في الجواب والعمل مضمرة ومتأخرة وعدم التصرف وعدم قبول العلامات، مع بيان خلاف النحاة في حقيقتها",
+      "primary_function": "editorial_note",
+      "secondary_functions": [
+        "rule_statement",
+        "opinion_statement",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": "هذه حاشية تفصيلية تبين فروقاً إضافية بين أسماء الأفعال والأفعال مع ذكر مذاهب النحاة"
+    }
+  ],
+  "total_units": 16,
+  "notes": "النص يشمل مقدمة ألفية ابن مالك وشرح باب الكلام وما يتألف منه، ويتضمن تعريفات الكلام والكلم والكلمة والقول، ثم علامات الاسم والفعل والحرف، مع حاشية مطولة في أسماء الأفعال."
+}

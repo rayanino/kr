@@ -1,0 +1,1309 @@
+{
+  "segments": [
+    {
+      "segment_index": 0,
+      "start_word": 0,
+      "end_word": 3,
+      "text_snippet": "كِتاب الأيمَان والنذور",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 1,
+      "start_word": 4,
+      "end_word": 30,
+      "text_snippet": "الأيمان- لغة- بفتح الهمزة جمع (يمين) . واليمين خلاف",
+      "scholarly_function": "definition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 2,
+      "start_word": 31,
+      "end_word": 50,
+      "text_snippet": "وتعريفه شرعاً: تحقيق الأمر المحتمل أو تأكيده، بذكر",
+      "scholarly_function": "definition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 3,
+      "start_word": 51,
+      "end_word": 58,
+      "text_snippet": "والأصل فيه، الكتاب، والسنة، والإجماع.",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 4,
+      "start_word": 59,
+      "end_word": 78,
+      "text_snippet": "فأما الكتاب، فقوله تعالى: {لا يُؤاخِذُكُمُ الله بالل",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 5,
+      "start_word": 79,
+      "end_word": 93,
+      "text_snippet": "والسنة، شهيرة بذلك، ومنه ما يأتي من الأحاديث إن شاء",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 6,
+      "start_word": 94,
+      "end_word": 103,
+      "text_snippet": "وقد أجمعت الأمة على مشروعيه اليمين، وثبوت أحكامها.",
+      "scholarly_function": "evidence_ijma",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 7,
+      "start_word": 104,
+      "end_word": 122,
+      "text_snippet": "ولا ينبغي الإكثار من الحلف، ويشرع مع الحاجة لإزالة ش",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 8,
+      "start_word": 123,
+      "end_word": 163,
+      "text_snippet": "فقد أمر الله تعالى نبيه محمدا صلى الله عليه وسلم أن ي",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 9,
+      "start_word": 164,
+      "end_word": 188,
+      "text_snippet": "والحلف أنواع، جاء في الأحاديث التي ذكرها المؤلف (الي",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 10,
+      "start_word": 189,
+      "end_word": 204,
+      "text_snippet": "ولم يذكر المؤلف [لَغوَ اليمين] وأحسن ما فسر به نوعان",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 11,
+      "start_word": 205,
+      "end_word": 244,
+      "text_snippet": "الأول: أنها اليمين التي لا يقصدها الحالف، بل تجرى عل",
+      "scholarly_function": "definition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 12,
+      "start_word": 245,
+      "end_word": 270,
+      "text_snippet": "كما جاء عن عائشة أن رسول الله صلى الله عليه وسلم قال:",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 13,
+      "start_word": 271,
+      "end_word": 290,
+      "text_snippet": "الثاني: أن يعقد الحالف اليمين ظانًّا صدق نفسه، ثم يت",
+      "scholarly_function": "definition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 14,
+      "start_word": 291,
+      "end_word": 306,
+      "text_snippet": "فهذان النوعان من لَغْوِ اليمين، ليس على صاحبها إثم و",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 15,
+      "start_word": 307,
+      "end_word": 309,
+      "text_snippet": "الحديث الأول",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 16,
+      "start_word": 310,
+      "end_word": 367,
+      "text_snippet": "عِنْ عَبْدِ الرَّحْمنِ بْنِ سَمُرةَ قَالَ: قَالَ رَ",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 17,
+      "start_word": 368,
+      "end_word": 370,
+      "text_snippet": "الحديث الثاني",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 18,
+      "start_word": 371,
+      "end_word": 413,
+      "text_snippet": "عَنْ أبي مُوسىَ رضي الله عنه قَال: قَالَ رسول الله صل",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 19,
+      "start_word": 414,
+      "end_word": 416,
+      "text_snippet": "المعنى الإجمالي:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 20,
+      "start_word": 417,
+      "end_word": 440,
+      "text_snippet": "يرشد النبي صلى الله عليه وسلم عبد الرحمن بن سمرة، وه",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.8
+    },
+    {
+      "segment_index": 21,
+      "start_word": 441,
+      "end_word": 460,
+      "text_snippet": "فيقول: لا تطلب الإمارة، والولايات والوظائف عامة، وتحر",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 22,
+      "start_word": 461,
+      "end_word": 476,
+      "text_snippet": "فإن وليتها عن هذا الطريق، فإنك ستُوكَلُ إلى جهدك وقو",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 23,
+      "start_word": 477,
+      "end_word": 498,
+      "text_snippet": "وأنت- بلا عَوْنِ الله تعالى وتوفيقه- ضعيف قاصر. ولذا",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.8
+    },
+    {
+      "segment_index": 24,
+      "start_word": 499,
+      "end_word": 530,
+      "text_snippet": "وذلك إنك اتَّكَلْتَ على جهدك، وجئت العمل عن غرور وع",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 25,
+      "start_word": 531,
+      "end_word": 541,
+      "text_snippet": "ولأنك غالبا ما طلبتها إلا لأغراضك الخاصة.",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 26,
+      "start_word": 542,
+      "end_word": 570,
+      "text_snippet": "وستكون أغراضك من مال أو جاهٍ، أو غيرهما، هي مقصود ك",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 27,
+      "start_word": 571,
+      "end_word": 596,
+      "text_snippet": "أما إن جاءتك من غير مسألة ولا طلب، فالغالب أنك- حين",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 28,
+      "start_word": 597,
+      "end_word": 625,
+      "text_snippet": "وهذا سيدعوك إلى الالتجاء إلى الله تعالى بطلب مدده وع",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 29,
+      "start_word": 626,
+      "end_word": 672,
+      "text_snippet": "ثم ذكر أنه قد يفرط منك يمين، بسبب الامتناع عن الإمار",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 30,
+      "start_word": 673,
+      "end_word": 710,
+      "text_snippet": "وإن كان الأحسن هو فعل المحلوف على تركه، أو ترك المحل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 31,
+      "start_word": 711,
+      "end_word": 752,
+      "text_snippet": "وكما أن هذا أمره، فهو فعله الرشيد أيضاً، كما بينه في",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 32,
+      "start_word": 753,
+      "end_word": 757,
+      "text_snippet": "ما يستفاد من الحديثين",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 33,
+      "start_word": 758,
+      "end_word": 826,
+      "text_snippet": "1- كراهة طلب الإمارة، والمراد بها، الولايات والوظائف ك",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 34,
+      "start_word": 827,
+      "end_word": 845,
+      "text_snippet": "\"من ابتغى القضاء وسأله وكل إلى نفسه، ومن كره عليه أن",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 35,
+      "start_word": 846,
+      "end_word": 907,
+      "text_snippet": "ولما في ذلك من تعريض نفسه لعمل قد لا يقوم بحقوقه فيك",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 36,
+      "start_word": 908,
+      "end_word": 955,
+      "text_snippet": "2- أن من جاءته الولاية بلا طلب ولا استشراف، فَسَيُعَا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 37,
+      "start_word": 956,
+      "end_word": 990,
+      "text_snippet": "3- مناسبة هذه الفقرة في الحديث لما بعدها، ولعلها تكون",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 38,
+      "start_word": 991,
+      "end_word": 1032,
+      "text_snippet": "4- أن من حلف أن لا يفعل كذا، أو أن يفعله، ثم رأى الخ",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 39,
+      "start_word": 1033,
+      "end_word": 1058,
+      "text_snippet": "فقد يكون الحنث واجباً، وقد يكون مستحبا، وقد يكون حرا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 40,
+      "start_word": 1059,
+      "end_word": 1117,
+      "text_snippet": "5- عند جمهور العلماء أن الكفارة رخصة شرعها الله تعالى",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 41,
+      "start_word": 1118,
+      "end_word": 1157,
+      "text_snippet": "6- أن هذا التشريع، كما هو أمر النبي صلى الله عليه وسل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 42,
+      "start_word": 1158,
+      "end_word": 1172,
+      "text_snippet": "وهذا هو عين المصلحة، وهو تخفيف من ربنا ورحمة.",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 43,
+      "start_word": 1173,
+      "end_word": 1190,
+      "text_snippet": "وكانت الأمم السابقة، ليس عندهم تحليل وتكفير، فلا بد م",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 44,
+      "start_word": 1191,
+      "end_word": 1222,
+      "text_snippet": "ولذا فإن أيوب عليه السلام، لما حلف أن يضرب زوجته، وت",
+      "scholarly_function": "example",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 45,
+      "start_word": 1223,
+      "end_word": 1225,
+      "text_snippet": "الحديث الثالث",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 46,
+      "start_word": 1226,
+      "end_word": 1258,
+      "text_snippet": "عَنْ عُمَرَ بْن الخَطَّابِ رضي الله عنه قَالَ: قالَ",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 47,
+      "start_word": 1259,
+      "end_word": 1278,
+      "text_snippet": "ولـ\"مسلم \": \"فَمَنْ كَانَ حَالِفاً (2) فَلْيَحْلِفْ",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 48,
+      "start_word": 1279,
+      "end_word": 1316,
+      "text_snippet": "وفي رواية: قالَ عُمَرُ: فوالله مَا حَلَفْتُ بِهَا مُ",
+      "scholarly_function": "narration",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 49,
+      "start_word": 1317,
+      "end_word": 1318,
+      "text_snippet": "الغريب:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 50,
+      "start_word": 1319,
+      "end_word": 1327,
+      "text_snippet": "ليصمت: بضم الميم وكسرها.",
+      "scholarly_function": "definition",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 51,
+      "start_word": 1328,
+      "end_word": 1332,
+      "text_snippet": "ذاكراً: يعني عامداً.",
+      "scholarly_function": "definition",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 52,
+      "start_word": 1333,
+      "end_word": 1356,
+      "text_snippet": "آثرا: بهمزة ممدودة، فثاء مثلثة مكسورة. يعنى حاكياً عن",
+      "scholarly_function": "definition",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 53,
+      "start_word": 1357,
+      "end_word": 1389,
+      "text_snippet": "ومنه الزيادة ثابتة في صحيح (البخاري) أيضا من حديث ابن",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 54,
+      "start_word": 1390,
+      "end_word": 1392,
+      "text_snippet": "المعنى الإجمالي:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 55,
+      "start_word": 1393,
+      "end_word": 1425,
+      "text_snippet": "الحلف: معناه تأكيد الفعل أو الترك، بذكر المعظم في الن",
+      "scholarly_function": "definition",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 56,
+      "start_word": 1426,
+      "end_word": 1445,
+      "text_snippet": "وصرفها لغيره، أو صرف بعضها، شرك. لهذا ذكر النبي صلى",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 57,
+      "start_word": 1446,
+      "end_word": 1490,
+      "text_snippet": "وأمرنا- إذا حلفنا- أن لا نحلف إلا بالله تعالى، لأنه",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 58,
+      "start_word": 1491,
+      "end_word": 1520,
+      "text_snippet": "وإن لم نكن حالفين بالله فَلْنَصْمُتْ وَلنسكتْ عن الح",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 59,
+      "start_word": 1521,
+      "end_word": 1540,
+      "text_snippet": "من حديث ابن عمر: (من حلف بغير الله كفر)",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 60,
+      "start_word": 1541,
+      "end_word": 1564,
+      "text_snippet": "ولما علم الصحابة رضي الله عنهم بالنهي عن ذلك، انتهوا",
+      "scholarly_function": "narration",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 61,
+      "start_word": 1565,
+      "end_word": 1600,
+      "text_snippet": "ولذا قال عمر رضى الله عنه: (فو الله ما حلفت بها منذ س",
+      "scholarly_function": "narration",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 62,
+      "start_word": 1601,
+      "end_word": 1612,
+      "text_snippet": "كل هذا احتراز من الوقوع في المحظور وابتعاد عنه.",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 63,
+      "start_word": 1613,
+      "end_word": 1618,
+      "text_snippet": "ما يستفاد من الحديث:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 64,
+      "start_word": 1619,
+      "end_word": 1644,
+      "text_snippet": "1- تحريم الحلف بالآباء، لأنه الأصل في النهي. والنهي ع",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 65,
+      "start_word": 1645,
+      "end_word": 1664,
+      "text_snippet": "فلا يحل لمخلوق- كائنا ً من كان- أن يقسم ويحلف بغير ا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 66,
+      "start_word": 1665,
+      "end_word": 1678,
+      "text_snippet": "أما الله سبحانه وتعالى فله أن يقسم بما شاء من مخلوقات",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 67,
+      "start_word": 1679,
+      "end_word": 1706,
+      "text_snippet": "ولهذا، فلا يحلْ الحلف بغير الله تعالى وصفاته، مهما كا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 68,
+      "start_word": 1707,
+      "end_word": 1724,
+      "text_snippet": "2- أن من أراد الحلف بغير اللَه فليلزم الصمت، فإنه أسل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 69,
+      "start_word": 1725,
+      "end_word": 1756,
+      "text_snippet": "3- وعلة النهى: أن الحلف يراد به التأكيد بذكر أعظم شيء",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 70,
+      "start_word": 1757,
+      "end_word": 1779,
+      "text_snippet": "وصرفه لغيره كفر كما جاء في حديث ابن عمر. ولكنه كفر لا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 71,
+      "start_word": 1780,
+      "end_word": 1830,
+      "text_snippet": "4- وأما ما وقع مما يخالف هذا النهى من قوله صلى الله عل",
+      "scholarly_function": "refutation",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 72,
+      "start_word": 1831,
+      "end_word": 1862,
+      "text_snippet": "5- فضيلة عمر رضي الله عنه، بسرعة امتثاله وحسن فهمه وت",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 73,
+      "start_word": 1863,
+      "end_word": 1907,
+      "text_snippet": "6- إنما خصَّ النهي عن الحلف بالآباء، مع أنه عامُّ في",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 74,
+      "start_word": 1908,
+      "end_word": 1928,
+      "text_snippet": "فقد أدرك النبي صلى الله عليه وسلم عمر بن الخطاب مع رَ",
+      "scholarly_function": "narration",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 75,
+      "start_word": 1929,
+      "end_word": 1931,
+      "text_snippet": "الحديث الرابع",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 76,
+      "start_word": 1932,
+      "end_word": 2003,
+      "text_snippet": "عَنْ أبي هُرَيرةَ رضي الله عنه عَنِ النَبي صلى الله ع",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 77,
+      "start_word": 2004,
+      "end_word": 2019,
+      "text_snippet": "قوله: \" قيل له: قُلْ: إنْ شَاءَ الله \" يَعْني قال لَ",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 78,
+      "start_word": 2020,
+      "end_word": 2021,
+      "text_snippet": "الغريب:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 79,
+      "start_word": 2022,
+      "end_word": 2044,
+      "text_snippet": "لأطوفن: اللام واقعة في جواب قسم مقّدر محذوف، كأنه قال",
+      "scholarly_function": "definition",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 80,
+      "start_word": 2045,
+      "end_word": 2057,
+      "text_snippet": "وطاف بنسائه: ألَم بِهنَّ وقاربهن، والمراد به المجامعة",
+      "scholarly_function": "definition",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 81,
+      "start_word": 2058,
+      "end_word": 2079,
+      "text_snippet": "دَرَكاً لحاجته: بفتح الدال المهملة والراء، اسم مصدر ل",
+      "scholarly_function": "definition",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 82,
+      "start_word": 2080,
+      "end_word": 2090,
+      "text_snippet": "والملك: بفتح الميم واللام، أحد الملائكْة.",
+      "scholarly_function": "definition",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 83,
+      "start_word": 2091,
+      "end_word": 2093,
+      "text_snippet": "المعنى الإجمالي:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 84,
+      "start_word": 2094,
+      "end_word": 2122,
+      "text_snippet": "سليمان عليه السلام نبي من أنبياء الله تعالى إلى بنى إس",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 85,
+      "start_word": 2123,
+      "end_word": 2175,
+      "text_snippet": "وكان من حرصه ورغبته في الخير وإعلاء كلمة الله بجهاد أ",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 86,
+      "start_word": 2176,
+      "end_word": 2218,
+      "text_snippet": "فأذهله ذلك، وأنساه عن الاستثناء بيمينه بأن يقول: (إن",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 87,
+      "start_word": 2219,
+      "end_word": 2268,
+      "text_snippet": "فطاف بهن، فلم تلد له منهن إلا واحدة جاءت بنصف إنسان،",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 88,
+      "start_word": 2269,
+      "end_word": 2299,
+      "text_snippet": "فليس لنبي ولا لملك ولا لغيرهما مشاركة معه في ملكه وتص",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 89,
+      "start_word": 2300,
+      "end_word": 2330,
+      "text_snippet": "فلو أن سليمان عليه السلام، استثنى في يمينه بمشيئة الله",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 90,
+      "start_word": 2331,
+      "end_word": 2340,
+      "text_snippet": "ما يستفاد من الحديث:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 91,
+      "start_word": 2341,
+      "end_word": 2376,
+      "text_snippet": "1- أن الاستثناء في اليمين، وهو قول الحالف (إن شاء الل",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 92,
+      "start_word": 2377,
+      "end_word": 2395,
+      "text_snippet": "2- أن المستثنى لا يحنث في يمينه، إذا علقه على مشيئة ا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 93,
+      "start_word": 2396,
+      "end_word": 2445,
+      "text_snippet": "3- في هذا الحديث، عبرة وعظة وقعت لنبي من أنبياء الله",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 94,
+      "start_word": 2446,
+      "end_word": 2497,
+      "text_snippet": "4- أن عادات أنبياء الله وأوليائه، تكون بسبب نيا تهم ال",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 95,
+      "start_word": 2498,
+      "end_word": 2536,
+      "text_snippet": "أما الغافلون فعباداتهم كعاداتهم. فهم يأتون المساجد لل",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 96,
+      "start_word": 2537,
+      "end_word": 2571,
+      "text_snippet": "5- يُجْرِى الله تعالى ويُقدر مثل هذه الأمور على الكَم",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 97,
+      "start_word": 2572,
+      "end_word": 2610,
+      "text_snippet": "6- قال ابن دقيق العيد: وقد يؤخذ من الحديث جواز الإخبا",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 98,
+      "start_word": 2611,
+      "end_word": 2613,
+      "text_snippet": "الحديث الخامس",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 99,
+      "start_word": 2614,
+      "end_word": 2665,
+      "text_snippet": "عَنْ عَبْدِ اللَه بْنِ مَسْعُودٍ رضي الله عنه قالَ: ق",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 100,
+      "start_word": 2666,
+      "end_word": 2685,
+      "text_snippet": "و َنَزَلَت {إنَّ الَذِيَنَ يَشتَرُونَ بِعَهْدِ الله",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 101,
+      "start_word": 2686,
+      "end_word": 2687,
+      "text_snippet": "الغريب:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 102,
+      "start_word": 2688,
+      "end_word": 2720,
+      "text_snippet": "يمين صبر: بإضافة يمين إلى صبر، و (صَبْر) هو بفتح الص",
+      "scholarly_function": "definition",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 103,
+      "start_word": 2721,
+      "end_word": 2723,
+      "text_snippet": "المعنى الإجمالي:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 104,
+      "start_word": 2724,
+      "end_word": 2741,
+      "text_snippet": "في هذا الحديث وعيد شديد لمن اقتطع مال امرئ بغير حق.",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 105,
+      "start_word": 2742,
+      "end_word": 2758,
+      "text_snippet": "وإنما اقتطعه وأخذه بخصومته الفاجرة، ويمينه الكاذبة ال",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 106,
+      "start_word": 2759,
+      "end_word": 2776,
+      "text_snippet": "فهذا يلقي الله وهو عليه غضبان، ومن غضب اللَه عليه فهو",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 107,
+      "start_word": 2777,
+      "end_word": 2800,
+      "text_snippet": "ثم تلا النبي صلى الله عليه وسلم هذه الآية الكريمة، مص",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 108,
+      "start_word": 2801,
+      "end_word": 2870,
+      "text_snippet": "وبيانها: أن الذين يعتاضون ويستبدلون بعهد الله عليهم وب",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 109,
+      "start_word": 2871,
+      "end_word": 2893,
+      "text_snippet": "وهذه صفات اليهود، الذين يتهالكون على المادة بكل طريق و",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.8
+    },
+    {
+      "segment_index": 110,
+      "start_word": 2894,
+      "end_word": 2920,
+      "text_snippet": "فمن أحب أن يتصف بصفاتهم، ويتلطخ بأخلاقهم، ويسلك مسلك",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.8
+    },
+    {
+      "segment_index": 111,
+      "start_word": 2921,
+      "end_word": 2937,
+      "text_snippet": "فالناس مراتبهم عنده بأعمالهم. نسأل الله تعالى سلوك الط",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.8
+    },
+    {
+      "segment_index": 112,
+      "start_word": 2938,
+      "end_word": 2943,
+      "text_snippet": "ما يستفاد هن الحديث:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 113,
+      "start_word": 2944,
+      "end_word": 2975,
+      "text_snippet": "1-تحريم أخذ أموال الناس بالدعاوى الفاجرة والأيمان الكا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 114,
+      "start_word": 2976,
+      "end_word": 2995,
+      "text_snippet": "2- التقييد (بالمسلم) من باب التعبير بالغالب، وإلا فمثله",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 115,
+      "start_word": 2996,
+      "end_word": 3017,
+      "text_snippet": "3- شرط العقاب على مرتكب هذه اليمين، ما لم يتب ويتحلل",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 116,
+      "start_word": 3018,
+      "end_word": 3031,
+      "text_snippet": "فإن تاب، فالتوبة تَجُبُّ ما قبلها، وهو إجماع العلماء.",
+      "scholarly_function": "evidence_ijma",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 117,
+      "start_word": 3032,
+      "end_word": 3052,
+      "text_snippet": "4- قوله: - (هو فيها فاجر) ليخرج الناسي والجاهل، فإن ا",
+      "scholarly_function": "condition_exception",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 118,
+      "start_word": 3053,
+      "end_word": 3073,
+      "text_snippet": "5- إثبات صفة الغضب لله تعالى على وجه يليق بجلاله تعالى",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 119,
+      "start_word": 3074,
+      "end_word": 3097,
+      "text_snippet": "6- تفسير هذه الآية الكريمة بهذه القضية، وهو تفسير مرفو",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 120,
+      "start_word": 3098,
+      "end_word": 3137,
+      "text_snippet": "7- ملخص معنى الآية الكريمة: أن من استبدل بأيمانه- بالل",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 121,
+      "start_word": 3138,
+      "end_word": 3140,
+      "text_snippet": "الحديث السادس",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 122,
+      "start_word": 3141,
+      "end_word": 3207,
+      "text_snippet": "عَنِ الأشْعَثِ بْن قَيْس قَالَ: كَانَ بيني وَبَيْنَ",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 123,
+      "start_word": 3208,
+      "end_word": 3213,
+      "text_snippet": "ما يستفاد من الحديث:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 124,
+      "start_word": 3214,
+      "end_word": 3237,
+      "text_snippet": "المعنى المقصود في هذا الحديث، تقدم شرحه في الحديث الس",
+      "scholarly_function": "cross_reference",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 125,
+      "start_word": 3238,
+      "end_word": 3268,
+      "text_snippet": "1- أن البينة على المدعي واليمين على من أنكر، هي القاعد",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 126,
+      "start_word": 3269,
+      "end_word": 3278,
+      "text_snippet": "{وآتيناه الحِكْمَةَ وَفَصْلَ الْخِطَابِ}",
+      "scholarly_function": "evidence_quran",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 127,
+      "start_word": 3279,
+      "end_word": 3300,
+      "text_snippet": "2- ثبوت الحق بالشاهدين. فإن لم توجد البينة عند المدعِي",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 128,
+      "start_word": 3301,
+      "end_word": 3325,
+      "text_snippet": "3- تحريم اليمين (الغموس) وهي الكاذبة، التي تقتطع بها ح",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 129,
+      "start_word": 3326,
+      "end_word": 3354,
+      "text_snippet": "4- أن حكم الحاكم يرفع الخلاف الظاهر فقط، أما الباطن،",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 130,
+      "start_word": 3355,
+      "end_word": 3387,
+      "text_snippet": "5- أن يمين الفاجر تُسقطُ عنه الدعوى وأن فجوره في دينه",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 131,
+      "start_word": 3388,
+      "end_word": 3418,
+      "text_snippet": "6- البداءة بسماع الحاكم من المدعى، ثم من المدعى عليه: ه",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 132,
+      "start_word": 3419,
+      "end_word": 3430,
+      "text_snippet": "7- فيه موعظة الحاكم للخصوم، خصوصاً عند إرادة الحلف.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 133,
+      "start_word": 3431,
+      "end_word": 3441,
+      "text_snippet": "8- تغليظ حقوق المسلمين، في قليل الحق وكثيره.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 134,
+      "start_word": 3442,
+      "end_word": 3466,
+      "text_snippet": "9- أن اليمين الغموس ونقض العهد، لا كفارة فيهما لأنهما",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 135,
+      "start_word": 3467,
+      "end_word": 3479,
+      "text_snippet": "فلا بد من التوبة النصوح والتخلص من حقوق العباد.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 136,
+      "start_word": 3480,
+      "end_word": 3482,
+      "text_snippet": "الحديث السابع",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.97
+    },
+    {
+      "segment_index": 137,
+      "start_word": 3483,
+      "end_word": 3548,
+      "text_snippet": "عَنْ ثَابِتِ بن الضَّحَّاكِ الأنصَارِي ِّ: أنهُ بايَ",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.98
+    },
+    {
+      "segment_index": 138,
+      "start_word": 3549,
+      "end_word": 3570,
+      "text_snippet": "وفِى رواية \" وَلَعْنُ الْمُؤمِنِ كَقَتْلِهِ \".",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 139,
+      "start_word": 3571,
+      "end_word": 3590,
+      "text_snippet": "وفي رواية \" مَن ادَّعَى دَعْوَى كَذِبةً لِيَتَكَثَّر",
+      "scholarly_function": "evidence_hadith",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 140,
+      "start_word": 3591,
+      "end_word": 3593,
+      "text_snippet": "المعنى الإجمالي:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 141,
+      "start_word": 3594,
+      "end_word": 3636,
+      "text_snippet": "روى ثابت بن الضحاك الأنصاري- أحد المبايعين تحت الشجرة",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 142,
+      "start_word": 3637,
+      "end_word": 3660,
+      "text_snippet": "ومن قتل نفسه بشيء، كسيف، أو سكين، أو رصاص، أو غير ذل",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 143,
+      "start_word": 3661,
+      "end_word": 3688,
+      "text_snippet": "وذلك لأن نفسه ليست ملكا له، وإنما هي ملك للَه تعالى، و",
+      "scholarly_function": "evidence_rational",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 144,
+      "start_word": 3689,
+      "end_word": 3702,
+      "text_snippet": "فالجزاء من جنس العمل، فاستحق العذاب والقصاص، بمثل ما",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 145,
+      "start_word": 3703,
+      "end_word": 3724,
+      "text_snippet": "ومن لعن مؤمنا،فكأنما قتله، لاشتراك اللاعن والقاتل، با",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 146,
+      "start_word": 3725,
+      "end_word": 3770,
+      "text_snippet": "ومن تكبر وتكثر بالدعاوى الكاذبة، التي ليست فيه، من مال",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 147,
+      "start_word": 3771,
+      "end_word": 3789,
+      "text_snippet": "وأعظمها أن يقصْد بدعاويه الحيلة لأكل أموال الناس بالب",
+      "scholarly_function": "editorial_note",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 148,
+      "start_word": 3790,
+      "end_word": 3822,
+      "text_snippet": "ومن نذر شيئاً لم يملكه- كأن ينذر عتق عبد فلان، أو الت",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 149,
+      "start_word": 3823,
+      "end_word": 3828,
+      "text_snippet": "ما يستفاد من الحديث:",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.95
+    },
+    {
+      "segment_index": 150,
+      "start_word": 3829,
+      "end_word": 3843,
+      "text_snippet": "1- تغليظ التحريم على من حلف بشريعة غير الإسلام.",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 151,
+      "start_word": 3844,
+      "end_word": 3854,
+      "text_snippet": "وقد اختلف العلماء. هل لها كفارة أم لا؟.",
+      "scholarly_function": "structural_transition",
+      "confidence": 0.82
+    },
+    {
+      "segment_index": 152,
+      "start_word": 3855,
+      "end_word": 3878,
+      "text_snippet": "فالمشهور من مذهبنا أن فيها الكفارة، وهو مذهب الحنفية و",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 153,
+      "start_word": 3879,
+      "end_word": 3910,
+      "text_snippet": "ومذهب مالك، والشافعي: ليس فيها كفارة، وهو رواية عن الإ",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 154,
+      "start_word": 3911,
+      "end_word": 3935,
+      "text_snippet": "2- تحريم قتل الإنسان نفسه، فإن إثمه كإثم القاتل لغيره",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 155,
+      "start_word": 3936,
+      "end_word": 3955,
+      "text_snippet": "3- وأن لعن الإنسان كقتله في المشاركة في الإثم، وإن لم",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 156,
+      "start_word": 3956,
+      "end_word": 3993,
+      "text_snippet": "4- تحريم ادعاء الإنسان ما ليس فيه، من علم، أو نسب، أو",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.92
+    },
+    {
+      "segment_index": 157,
+      "start_word": 3994,
+      "end_word": 4015,
+      "text_snippet": "ومن فعله رياء وتكبرا، لم يزده الله تعالى إلا ذِلة، فا",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 158,
+      "start_word": 4016,
+      "end_word": 4044,
+      "text_snippet": "5- أن النذر لا ينعقد فيما لا يملكه الناذر، فإن النذر ط",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.93
+    },
+    {
+      "segment_index": 159,
+      "start_word": 4045,
+      "end_word": 4090,
+      "text_snippet": "6- ظاهر قوله في الحديث: (فهو كما قال) أن الحالف بغير م",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.85
+    },
+    {
+      "segment_index": 160,
+      "start_word": 4091,
+      "end_word": 4118,
+      "text_snippet": "ولشيخ الإسلام \" ابن تيميه \" في مثل هذه الأحاديث مسلك،",
+      "scholarly_function": "opinion_statement",
+      "confidence": 0.9
+    },
+    {
+      "segment_index": 161,
+      "start_word": 4119,
+      "end_word": 4145,
+      "text_snippet": "فإذا رتب الوعيد على فعل شيء، كان فعله سبباً من أسباب",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    },
+    {
+      "segment_index": 162,
+      "start_word": 4146,
+      "end_word": 4172,
+      "text_snippet": "فإن انتفت الموانع من ذلك وقع، وإن عارض السبب مانع اند",
+      "scholarly_function": "rule_statement",
+      "confidence": 0.88
+    }
+  ],
+  "total_segments": 163
+}

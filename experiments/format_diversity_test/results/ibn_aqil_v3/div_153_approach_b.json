@@ -1,0 +1,217 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 82,
+      "text_snippet": "‌‌نعم وبئس وما جرى مجراهما فعلان غير متصرفين … نعم وبئس رافعان اسمين مقارنى أل أو مضافين",
+      "description_arabic": "تعريف نعم وبئس بأنهما فعلان غير متصرفين مع بيان مذهب الجمهور والكوفيين في فعليتهما واسميتهما",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "structural_transition",
+        "rule_statement",
+        "example",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 83,
+      "end_word": 185,
+      "text_snippet": "وذهب جماعة من الكوفيين ومنهم الفراء إلى أنهما اسمان واستدلوا بدخول حرف الجر عليهما",
+      "description_arabic": "مذهب الكوفيين في اسمية نعم وبئس مع أدلتهم من دخول حرف الجر والرد عليهم بالتخريج النحوي",
+      "primary_function": "refutation",
+      "secondary_functions": [
+        "opinion_statement",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 186,
+      "end_word": 233,
+      "text_snippet": "وهذان الفعلان لا يتصرفان فلا يستعمل منهما غير الماضي ولا بد لهما من مرفوع هو الفاعل",
+      "description_arabic": "بيان القسم الأول من فاعل نعم وبئس وهو المحلى بالألف واللام مع الشاهد القرآني",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 234,
+      "end_word": 295,
+      "text_snippet": "واختلف في هذه اللام فقال قوم هي للجنس حقيقة فمدحت الجنس كله من أجل زيد ثم خصصت",
+      "description_arabic": "الخلاف في اللام الداخلة على فاعل نعم وبئس هل هي للجنس حقيقة أو مجازاً أو للعهد",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 296,
+      "end_word": 321,
+      "text_snippet": "الثاني: أن يكون مضافا إلى ما فيه أل كقوله نعم عقبى الكرما ومنه قوله تعالى",
+      "description_arabic": "بيان القسم الثاني من فاعل نعم وبئس وهو المضاف إلى ما فيه أل مع الشاهد القرآني",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 322,
+      "end_word": 436,
+      "text_snippet": "الثالث: أن يكون مضمرا مفسرا بنكرة بعده منصوبة على التمييز نحونعم قوما معشره ففي نعم ضمير",
+      "description_arabic": "بيان القسم الثالث من فاعل نعم وبئس وهو الضمير المفسر بتمييز مع الخلاف فيه والشواهد القرآنية والشعرية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "evidence_quran",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 437,
+      "end_word": 575,
+      "text_snippet": "وجمع تميز وفاعل ظهر … فيه خلاف عنهم قد اشتهر اختلف النحويون في جواز الجمع بين",
+      "description_arabic": "مسألة الجمع بين التمييز والفاعل الظاهر في نعم وأخواتها مع عرض الأقوال والشواهد الشعرية",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "narration",
+        "evidence_ijma",
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 576,
+      "end_word": 682,
+      "text_snippet": "وما مميز وقيل فاعل … في نحونعم ما يقول الفاضل تقع ما بعد نعم وبئس فتقول نعم ما",
+      "description_arabic": "حكم (ما) الواقعة بعد نعم وبئس والخلاف في كونها تمييزاً أو فاعلاً مع الشواهد القرآنية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 683,
+      "end_word": 833,
+      "text_snippet": "ويذكر المخصوص بعد مبتدأ … أو خبر أسم ليس يبدو أبدا يذكر بعد نعم وبئس وفاعلهما",
+      "description_arabic": "بيان المخصوص بالمدح أو الذم بعد نعم وبئس وإعرابه على الأوجه المشهورة من الابتداء أو الخبرية",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "opinion_statement",
+        "example",
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 834,
+      "end_word": 912,
+      "text_snippet": "وإن يقدم مشعر به كفى … كـ \"العلم نعم المقتنى والمقتفى\" إذا تقدم ما يدل على المخصوص",
+      "description_arabic": "حكم حذف المخصوص بالمدح أو الذم إذا تقدم ما يدل عليه مع الشاهد القرآني من سورة ص",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_quran",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 913,
+      "end_word": 998,
+      "text_snippet": "واجعل كبئس \"ساء\" واجعل فعلا … من ذي ثلاثة كنعم مسجلا تستعمل ساء في الذم استعمال",
+      "description_arabic": "بيان أن ساء تستعمل في الذم استعمال بئس مع أنواع فاعلها والشاهد القرآني وذكر المخصوص بعدها",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "evidence_quran"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 999,
+      "end_word": 1180,
+      "text_snippet": "وأشار بقوله واجعل فعلا إلى أن كل فعل ثلاثي يجوز أن يبنى منه فعل على فعل لقصد المدح",
+      "description_arabic": "جواز بناء فُعُل من كل ثلاثي للمدح أو الذم مع الخلاف في الأفعال المكسورة العين كعلم وجهل وسمع",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "opinion_statement",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 12,
+      "start_word": 1181,
+      "end_word": 1350,
+      "text_snippet": "ومثل نعم حبذا الفاعل ذا … وإن ترد ذما فقل لا حبذا يقال في المدح حبذا زيد وفي الذم",
+      "description_arabic": "بيان حبذا ولا حبذا في المدح والذم مع الخلاف في إعرابها بين الفارسي والمبرد وابن درستويه",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 13,
+      "start_word": 1351,
+      "end_word": 1465,
+      "text_snippet": "وأول ذا المخصوص أيا كان لا … تعدل بذا فهو يضاهى المثلا أي أوقع المخصوص بالمدح أو",
+      "description_arabic": "حكم لزوم ذا الإفراد والتذكير مع تغير المخصوص لمشابهتها المثل مع الأمثلة التوضيحية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 14,
+      "start_word": 1466,
+      "end_word": 1582,
+      "text_snippet": "وما سوى ذا أرفع بحب أو فجر … بالبا ودون ذا انضمام الحا كثر يعني أنه إذا وقع بعد حب",
+      "description_arabic": "حكم ما يقع بعد حبّ من غير ذا من حيث الرفع أو الجر بالباء وأصل حبّ وحركة الحاء مع الشاهد الشعري",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "narration"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 15,
+  "notes": "النص يتناول باب نعم وبئس وما جرى مجراهما من ساء وحبذا، وقد قُسّم إلى وحدات تعليمية تغطي: تعريف نعم وبئس، أنواع فاعلهما الثلاثة، الخلاف في الجمع بين التمييز والفاعل، حكم (ما)، المخصوص بالمدح والذم، ساء، بناء فُعُل من الثلاثي، وحبذا بأحكامها."
+}

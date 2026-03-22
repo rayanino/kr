@@ -1,0 +1,179 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 0,
+      "end_word": 62,
+      "text_snippet": "أفعل التفضيل صغ من مصوغ منه للتعجب … أفعل للتفضيل وأب اللذ أبى يصاغ من الأ",
+      "description_arabic": "بيان أن أفعل التفضيل يُصاغ من الأفعال التي يجوز التعجب منها على وزن أفعل مع أمثلة توضيحية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "structural_transition",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 63,
+      "end_word": 207,
+      "text_snippet": "وما امتنع بناء فعل التعجب منه امتنع بناء أفعل التفضيل منه فلا يبنى من فعل",
+      "description_arabic": "بيان الأفعال التي يمتنع بناء أفعل التفضيل منها كالزائد على ثلاثة أحرف وغير المتصرف والناقص مع ذكر ما شذ من ذلك",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 208,
+      "end_word": 349,
+      "text_snippet": "وما به إلى تعجب وصل … لمانع به إلى التفضيل صل تقدم في باب التعجب أنه يتوص",
+      "description_arabic": "التوصل إلى التفضيل من الأفعال التي لم تستكمل الشروط بأشد ونحوها مع بيان الفرق بين نصب المصدر في التعجب والتفضيل",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "cross_reference",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 350,
+      "end_word": 472,
+      "text_snippet": "وأفعل التفضيل صله أبدا … تقديرا أو لفظا بمن إن جردا لا يخلو أفعل التفضيل",
+      "description_arabic": "أحوال أفعل التفضيل الثلاثة وحكم المجرد منها في لزوم اتصاله بمن لفظاً أو تقديراً مع شاهد قرآني على حذف من",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "evidence_quran",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 473,
+      "end_word": 567,
+      "text_snippet": "وأكثر ما يكون ذلك إذا كان أفعل التفضيل خبرا كالآية الكريمة ونحوها وهو كثير",
+      "description_arabic": "بيان أن حذف من يكثر إذا كان أفعل التفضيل خبراً وقد يحذف في غير الخبر مع شاهد شعري",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يحتاج إلى سياق القاعدة السابقة عن حذف من"
+    },
+    {
+      "unit_index": 5,
+      "start_word": 568,
+      "end_word": 694,
+      "text_snippet": "ويلزم أفعل التفضيل المجرد الإفراد والتذكير وكذلك المضاف إلى نكرة وإلى هذا",
+      "description_arabic": "حكم أفعل التفضيل المجرد والمضاف إلى نكرة في لزوم الإفراد والتذكير مع أمثلة تفصيلية لجميع الأحوال",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 695,
+      "end_word": 924,
+      "text_snippet": "وتلو أل طبق وما لمعرفه … أضيف ذو وجهين عن ذي معرفههذا إذا نويت معنى من وإ",
+      "description_arabic": "حكم أفعل التفضيل المقترن بأل في وجوب المطابقة وحكم المضاف إلى معرفة في جواز الوجهين مع شاهد شعري على اقتران أل بمن",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "opinion_statement",
+        "condition_exception"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 925,
+      "end_word": 1163,
+      "text_snippet": "وأشار بقوله وما لمعرفة أضيف إلخ إلى أن أفعل التفضيل إذا أضيف إلى معرفة",
+      "description_arabic": "تفصيل الوجهين في أفعل التفضيل المضاف إلى معرفة مع شواهد قرآنية وحديثية وبيان أن الأفصح المطابقة وخلاف ابن السراج",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example",
+        "evidence_quran",
+        "evidence_hadith",
+        "opinion_statement",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 1164,
+      "end_word": 1237,
+      "text_snippet": "فإن لم يقصد التفضيل تعينت المطابقة كقولهم الناقص والأشج أعدلا بني مروان أي",
+      "description_arabic": "بيان أنه إذا لم يُقصد التفضيل تعينت المطابقة مع التفريق بين نية معنى من وعدمها",
+      "primary_function": "condition_exception",
+      "secondary_functions": [
+        "rule_statement",
+        "example"
+      ],
+      "self_contained": false,
+      "self_containment_notes": "يحتاج إلى سياق قاعدة المضاف إلى معرفة السابقة"
+    },
+    {
+      "unit_index": 9,
+      "start_word": 1238,
+      "end_word": 1427,
+      "text_snippet": "قيل ومن استعمال صيغة أفعل التفضيل قوله تعالى: {وَهُوَ الَّذِي يَبْدأُ الْخَ",
+      "description_arabic": "مسألة استعمال أفعل التفضيل بمعنى اسم الفاعل دون قصد التفضيل مع شواهد قرآنية وشعرية وخلاف المبرد وغيره في القياس",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_quran",
+        "example",
+        "refutation"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 10,
+      "start_word": 1428,
+      "end_word": 1688,
+      "text_snippet": "وإن تكن بتلو من مستفهما … فلهما كن أبدا مقدما كمثل ممن أنت خير ولدى … إخب",
+      "description_arabic": "حكم تقديم من ومجرورها على أفعل التفضيل: وجوبه مع الاستفهام وشذوذه في الخبر مع شواهد شعرية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 11,
+      "start_word": 1689,
+      "end_word": 1957,
+      "text_snippet": "ورفعه الظاهر نزر ومتى … عاقب فعلا فكثيرا ثبتا كلن ترى في الناس من رفيق",
+      "description_arabic": "حكم رفع أفعل التفضيل للاسم الظاهر: ندرته في غير المعاقب للفعل وكثرته إذا عاقب فعلاً مع شواهد حديثية وشعرية",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception",
+        "example",
+        "evidence_hadith",
+        "editorial_note"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 12,
+  "notes": "النص يتناول باب أفعل التفضيل من كتاب نحوي شرحي، ويشمل شروط صياغته وأحواله الثلاثة (المجرد والمضاف والمقترن بأل) وأحكام كل حالة مع الشواهد القرآنية والحديثية والشعرية"
+}

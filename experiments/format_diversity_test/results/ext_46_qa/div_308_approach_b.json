@@ -1,0 +1,139 @@
+{
+  "teaching_units": [
+    {
+      "unit_index": 0,
+      "start_word": 1,
+      "end_word": 119,
+      "text_snippet": "تنبيه قال ابن الأنباري: ذهب قوم إلى أنه لا يجب على السائل ترتيب الأسئلة بل له أن يوردها كيفما شاء",
+      "description_arabic": "بيان الخلاف في وجوب ترتيب الأسئلة على السائل وبيان ترتيبها عند من أوجبه من فساد الاعتبار إلى المعارضة مع التعليل",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "evidence_rational",
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 1,
+      "start_word": 120,
+      "end_word": 138,
+      "text_snippet": "تذنيب قال ابن الأنباري: السؤال طلب الجواب بأداته، ومبناه على سائل ومسئول به ومسئول منه ومسؤل عنه.",
+      "description_arabic": "تعريف السؤال وبيان أركانه الأربعة: السائل والمسئول به والمسئول منه والمسئول عنه",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "structural_transition"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 2,
+      "start_word": 139,
+      "end_word": 165,
+      "text_snippet": "فالسائل: ينبغي له أن يقصد قصد المستفهم، ولهذا قال قوم: إنه ليس له مذهب والجمهور على أنه لابد",
+      "description_arabic": "بيان شرط السائل في قصد الاستفهام والخلاف في اشتراط أن يكون له مذهب",
+      "primary_function": "opinion_statement",
+      "secondary_functions": [
+        "rule_statement"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 3,
+      "start_word": 166,
+      "end_word": 199,
+      "text_snippet": "وأن يسأل عما يثبت فيه الاستفهام فقد قيل: ما ثبت فيه الاستبهام صح عنه الاستفهام كأن يسأل عن حد",
+      "description_arabic": "شرط أن يسأل السائل عما يثبت فيه الاستبهام مع مثال صحيح ومثال فاسد",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 4,
+      "start_word": 200,
+      "end_word": 230,
+      "text_snippet": "وأن لا يسأل إلا عن ما يلائم مذهبه فإن سأل عما لا يلائم مذهبه لم يسمع منه كأن يسأل الكوفي عن",
+      "description_arabic": "شرط أن يسأل السائل عما يلائم مذهبه مع مثال سؤال الكوفي عن عمل الابتداء",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 5,
+      "start_word": 231,
+      "end_word": 241,
+      "text_snippet": "وأن لا ينتقل من سؤال إلى سؤال فإن انتقل عد منقطعا.",
+      "description_arabic": "شرط عدم انتقال السائل من سؤال إلى آخر وإلا عُدّ منقطعاً",
+      "primary_function": "rule_statement",
+      "secondary_functions": [],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 6,
+      "start_word": 242,
+      "end_word": 291,
+      "text_snippet": "والمسئول به أدوات الاستفهام المعروفة وليكن مفهوما غير مبهم كأن يقول ما تقول في اشتقاق الاسم؟",
+      "description_arabic": "بيان شرط المسئول به وهو أدوات الاستفهام واشتراط كونه مفهوماً غير مبهم مع أمثلة",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "condition_exception",
+        "example",
+        "evidence_rational"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 7,
+      "start_word": 292,
+      "end_word": 368,
+      "text_snippet": "والمسئول منه شرطه كونه أهلا بأن يكون السؤال من أهل فن السؤال كالنحوي عن النحو والتصريفي عن",
+      "description_arabic": "بيان شروط المسئول منه من كونه أهلاً وحكم سكوته عن الجواب أو الدليل والخلاف في عدّه منقطعاً",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "opinion_statement",
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 8,
+      "start_word": 369,
+      "end_word": 400,
+      "text_snippet": "والمسئول عنه ينبغي أن يكون مما يمكن إدراكه كأنواع الحركات فإن كان لا يمكن إدراكه كأعداد جميع",
+      "description_arabic": "بيان شرط المسئول عنه وهو إمكان إدراكه مع أمثلة للصحيح والفاسد",
+      "primary_function": "rule_statement",
+      "secondary_functions": [
+        "example"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    },
+    {
+      "unit_index": 9,
+      "start_word": 401,
+      "end_word": 474,
+      "text_snippet": "والجواب: هو المطابق للسؤال من غير زيادة ولا نقصان فإن كان السؤال عاما وجب أن يكون الجواب عاما.",
+      "description_arabic": "تعريف الجواب بأنه المطابق للسؤال والخلاف في جواز الفرض في بعض الصور في الجواب والدليل",
+      "primary_function": "definition",
+      "secondary_functions": [
+        "opinion_statement",
+        "editorial_note"
+      ],
+      "self_contained": true,
+      "self_containment_notes": null
+    }
+  ],
+  "total_units": 10,
+  "notes": "النص ينقسم إلى قسمين رئيسيين: تنبيه في ترتيب الأسئلة، وتذنيب في أركان السؤال وشروطه. التذنيب يتفرع إلى وحدات تعليمية حسب كل ركن من أركان السؤال الأربعة مع إضافة وحدة عن الجواب."
+}
