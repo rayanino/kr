@@ -1,66 +1,78 @@
-# NEXT — Excerpting Engine SPEC Design
+# NEXT — Excerpting Engine SPEC Review (Adversarial)
 
 ## Current Position
 
 - Source engine: validation in progress (Step 2 — deterministic sweep)
 - Normalization engine: ✅ COMPLETE (420 tests, 7797 impl lines)
-- Architecture: COMMITTED at 5636ceb (5 engines: Source → Normalization → Excerpting → Taxonomy → Synthesis)
-- Architecture C experiment: ✅ 10 prose divisions validated (536-1040w)
-- Format diversity experiment: ✅ 13 divisions validated (6 verse-commentary, 4 longer prose, 2 masala, 1 QA)
-  - Verse-commentary: PASS — no Phase 1 restructuring needed (pure verse deferred to Step 3)
-  - Longer divisions: PASS for well-structured text (2500-3100w); marker-free long text untested
-  - Evaluation: `experiments/format_diversity_test/EVALUATION.md` (v2, with self-review findings)
+- Architecture: COMMITTED (5 engines: Source → Normalization → **Excerpting** → Taxonomy → Synthesis)
+- Architecture C experiment: ✅ PASS (10 prose divisions, 5 genres)
+- Format diversity experiment: ✅ PASS (13 divisions: verse-commentary + longer prose + masala + QA)
+- **Excerpting engine SPEC_CORE.md: DRAFTED (77.6KB, all 10 sections complete)**
+- **This session: Adversarial review of the SPEC before build**
 
 ## What to Do
 
-Design the excerpting engine SPEC. This is the third engine in the pipeline (Source → Normalization → **Excerpting** → Taxonomy → Synthesis).
+Review `engines/excerpting/SPEC_CORE.md` — the governing specification for the excerpting engine. This SPEC was written in a prior session and MUST be reviewed in a fresh context per QUALITY_AXIOM.md.
 
-The excerpting engine takes normalized text divisions and produces teaching units — self-contained passages that each teach one concept, rule, or topic. These teaching units are the atoms that feed into the taxonomy and synthesis engines.
+**This is a SPEC review session, not a design or build session.**
 
-## Empirically Validated Facts (from experiments)
+The review must be adversarial — the goal is to find what's wrong, not to confirm what's right. The SPEC author flagged 5 concerns (see §3 of the handoff file). The reviewer must investigate those AND find concerns the author missed.
 
-These are genuinely validated and safe to build on:
+## Read First (in this exact order)
 
-1. **Two-phase extraction works.** Both Approach A (single-call) and Approach B (classify-then-group) produce correct teaching unit boundaries across 23 divisions in 2 experiments. Neither is strictly superior — the SPEC decides which to use.
-2. **MAX_TOKENS=32768 for classify phase** on divisions >2000 words. Default 8192 is insufficient.
-3. **Full coverage verification required.** Union of teaching unit word ranges must equal total division text. No gaps or overlaps.
-4. **Verse-commentary Phase 1 handler: DEFERRED.** Not architecturally required. Can be added if Step 3 or engine evaluation reveals edge cases.
-5. **Phase 1 splitting threshold: 5000w supported for well-structured text.** No degradation observed up to 3100w WITH explicit markers. 96.8% of Shamela divisions are ≤2000w.
+1. `reference/protocols/QUALITY_AXIOM.md` — the quality standard this review must meet
+2. `reference/archive/sessions/excerpting_spec_handoff.md` — **THE HANDOFF FROM THE DESIGN SESSION** (contains: what was done, decisions made with reasoning, flagged concerns, and what the review must check)
+3. `engines/excerpting/SPEC_CORE.md` — **THE SPEC TO REVIEW** (all 10 sections, 77.6KB)
+4. `engines/normalization/SPEC.md` §3 — the input contract (does the SPEC consume it correctly?)
+5. `engines/normalization/contracts.py` — the Pydantic models (does the SPEC reference fields that exist?)
+6. `engines/taxonomy/SPEC.md` §2 — the output contract (does the SPEC produce what taxonomy expects?)
+7. `engines/excerpting/contracts.py` — the OLD schema (was the migration done correctly?)
+8. `KNOWLEDGE_INTEGRITY.md` — corruption threats (does the SPEC defend against all 7?)
+9. `experiments/architecture_test/run_tests.py` — the validated LLM schemas (does the SPEC match?)
 
-## Open Design Questions (from experiments + architecture gaps)
+## Review Protocol
 
-These need decisions during SPEC design:
+Use `kr-integrity` for the review. The review has three rounds:
 
-1. **Approach selection:** Which approach (A, B, or hybrid) is primary? B provides finer granularity and more control points. A produces larger, more self-contained units. Trade-offs depend on downstream requirements.
-2. **Minimum teaching unit size.** B produces units as small as 20-40 words at longer lengths. A minimum is needed but the threshold requires calibration. ~50w is a starting hypothesis, not a validated number.
-3. **Marker-free long divisions.** All tested long divisions had explicit structural markers. Should the splitting threshold be lower for marker-free text? How does the engine detect marker presence?
-4. **Input/output contracts.** What does the excerpting engine receive from normalization and produce for taxonomy?
-5. **Error codes and error handling.** What error taxonomy does the excerpting engine define?
-6. **Teaching unit storage schema.** Format, relationship to source divisions, fields.
-7. **Quality gates between Phase 1 and Phase 2.**
-8. **Divisions too short for teaching units (<50 words).** Merge strategy.
-9. **Very long divisions (>5000w) that need splitting.** Split strategy.
-10. **Books with empty/minimal division trees (Gap 4).** 5,901 Shamela books with <5 headings. What does the engine do when it receives an empty or near-empty normalized package?
-11. **Same-model evaluation bias (Gap 3).** The architect must design structural mitigations for the 30-book probe and engine evaluation — e.g., adversarial probes with known boundaries, different model for spot-checks, mechanical criteria. Owner spot-checks supplement but do not replace architect-designed verification.
+**Round 1 — Structural audit (one response).** Read the full SPEC. For each section, check:
+- Every field the SPEC consumes from upstream: does it exist in normalization contracts.py?
+- Every field the SPEC produces for downstream: does taxonomy SPEC §2.1 expect it?
+- Every error code: does it have a concrete trigger scenario?
+- Every processing rule: can a pass/fail test be written for it?
+- Every numerical threshold: is it justified by evidence or is it a guess?
+- Deliver findings. End the response.
 
-## Read First
+**Round 2 — Adversarial probes (separate response, after owner says continue).** For each of the 5 flagged concerns in the handoff, investigate independently:
+- Concern 1 (taxonomy contract mismatch): grep taxonomy SPEC for `atom_ids`, determine scope of update
+- Concern 2 (old contracts.py still exists): check if any code imports from it
+- Concern 3 (Phase 3 prompts untested): compare against experiment prompts, identify risk
+- Concern 4 (evidence detection patterns): check Arabic marker patterns against normalization's known false positive lessons
+- Concern 5 (concrete example untraced): trace the §4.A.1 example through the SPEC rules step by step
 
-1. `experiments/format_diversity_test/EVALUATION.md` — the evaluation you're building on (read v2 with self-review)
-2. `experiments/architecture_test/ARCHITECTURE_DECISION.md` — the architecture that committed to this design
-3. `reference/archive/sessions/architecture_decision_handoff.md` — the 4 gaps and session lessons
-4. `experiments/architecture_test/EVALUATION_WORKBOOK.md` — original 10-division evaluation
-5. `experiments/format_diversity_test/EVALUATION_WORKBOOK.md` — 13-division evaluation (verse-commentary + longer prose)
-6. `SPEC_CORE.md` — source engine SPEC (for contract patterns)
-7. `engines/normalization/SPEC.md` — normalization SPEC (for input contract)
-8. `KNOWLEDGE_INTEGRITY.md` — corruption threats T-1 through T-7
-9. `reference/ENGINE_BUILD_BLUEPRINT.md` — build process
+Then: run the unconstrained adversarial pass (QUALITY_AXIOM standing order 7). Ask: "What is the review NOT checking?" Find at least 2 concerns the author did not flag.
 
-## Design Approach
+**Round 3 — Verdict (separate response, after owner says continue).**
+- Verify every factual claim from Rounds 1-2 with a tool call
+- Fill severity for each finding: MUST-FIX (blocks build) or SHOULD-FIX (fix during build)
+- Deliver verdict: ACCEPT (zero MUST-FIX findings) or BLOCKED (any MUST-FIX findings)
+- If BLOCKED: list the MUST-FIX items with specific resolution guidance
 
-Use `kr-research` for deep research on teaching unit extraction from Arabic scholarly text. Use `thinking-frameworks` for multi-angle analysis of architectural decisions. Use `kr-integrity` to audit the SPEC for silent failure patterns.
+## Skills to Use
 
-The SPEC should follow the same structure as SPEC_CORE.md (source engine) and the normalization SPEC.
+- `kr-integrity` — 8-lens SPEC audit including T-1–T-7, silent failures, phantom metadata
+- `critical-review` — self-review with KR-specific verification questions
+- `thinking-frameworks` — multi-angle analysis for adversarial probes
+
+## Do NOT Do
+
+1. Do NOT write implementation code
+2. Do NOT redesign the SPEC — identify problems, don't solve them (the design session solves them)
+3. Do NOT approve the SPEC in Round 1 or Round 2 — verdict is ONLY in Round 3
+4. Do NOT use "ACCEPT WITH FIXES" — that verdict does not exist
+5. Do NOT trust the author's self-assessment — review independently
+6. Do NOT skip reading the handoff file — it contains the author's flagged concerns AND the reasoning behind every design decision (which you need to challenge)
 
 ## After This
 
-Once the SPEC is designed and reviewed, Claude Code builds the engine following the ENGINE_BUILD_BLUEPRINT.md process.
+If ACCEPT: proceed to build prep (kr-build-prep) in the same or next session.
+If BLOCKED: return to a design session to fix MUST-FIX items, then re-review.
