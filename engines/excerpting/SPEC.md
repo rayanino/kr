@@ -1967,3 +1967,80 @@ Per-source overrides are designed for edge cases. For example, a very short sour
 
 ---
 
+## §9 — Deferred Capabilities
+
+This section catalogs capabilities that are **not part of the core excerpting engine** but are designed to plug into its architecture. Each capability is listed with: what it does, which processing phase it extends, and what ExcerptRecord fields or processing steps it would add. The core engine preserves extension hooks for each — nullable fields, empty arrays, or config flags — so these capabilities can be added without schema migration.
+
+**Principle:** Every deferred capability was specified in the old 7-engine SPECs (passaging §4.B, atomization §4.B, excerpting §4.B). The 5-engine architecture absorbed passaging and atomization into excerpting as internal phases, but it did NOT absorb their transformative capabilities. These remain deferred until the core engine is proven and the pipeline is flowing.
+
+**Extension hook contract:** A deferred capability may add nullable fields to `ExcerptRecord` (§2.2), add optional processing steps within an existing phase, or add new configuration parameters (§8.3). It must NOT change the type or semantics of any existing core field. It must NOT change the ordering or skip conditions of existing processing steps. It must NOT require a different LLM model for core operations. Violations of these rules require a SPEC revision, not just a capability activation.
+
+### §9.1 — Deferred Capabilities Catalog
+
+| ID | Capability | Source | Phase | Extension Hook | Depends On |
+|----|-----------|--------|-------|----------------|------------|
+| DC-01 | Argumentative discourse mapping | excerpting §4.B.1 | Phase 3 | `argument_role: str \| null`, `argument_map: list \| null` on ExcerptRecord | Core: `content_types`, `primary_function` |
+| DC-02 | Cross-source semantic deduplication | excerpting §4.B.2 | Post-Phase 3 (batch) | `semantic_duplicates: list \| null` on ExcerptRecord | DC-08 (fingerprints), taxonomy placement |
+| DC-03 | Scholarly argument completeness | excerpting §4.B.3 | Post-Phase 3 | `argument_completeness: object \| null` on ExcerptRecord | DC-01 (argument roles) |
+| DC-04 | Mas'ala boundary detection | excerpting §4.B.4 | Phase 3 | `masala_analysis: object \| null` on ExcerptRecord | Core: `excerpt_topic`, source science |
+| DC-05 | Evidence chain reconstruction | excerpting §4.B.5 | Phase 3 | `evidence_chain: object \| null` on ExcerptRecord | Core: `evidence_refs`, `content_types` |
+| DC-06 | Cross-excerpt dialogue detection | excerpting §4.B.6 | Post-Phase 3 (incremental) | `dialogue_links: list \| null` on ExcerptRecord | DC-01, DC-05, taxonomy placement |
+| DC-07 | Self-containment repair suggestions | excerpting §4.B.7 | Post-Phase 3 | `repair_suggestions: list \| null` on ExcerptRecord | Core: `self_containment`, adjacent chunk context |
+| DC-08 | Cross-source textual resonance | excerpting §4.B.8 | Post-Phase 3 (incremental) | `resonance_links: list \| null` on ExcerptRecord | DC-05, DC-08 (fingerprints), taxonomy placement |
+| DC-09 | Rhetorical structure analysis | atomization §4.B.1 | Phase 2b (post-grouping) | `rhetorical_pattern: str \| null` on TeachingUnit | Core: `scholarly_function` sequence |
+| DC-10 | Scholarly attribution chain resolution | atomization §4.B.4 | Phase 3 | `attribution_chain: list \| null` on ExcerptRecord | Core: `quoted_scholars`, `primary_author_layer` |
+| DC-11 | Semantic fingerprinting | atomization §4.B.5 | Post-Phase 2 | `fingerprint: object \| null` on ExcerptRecord | Core: `primary_text` |
+| DC-12 | Passage quality prediction | passaging §4.B.1 | Post-Phase 1 | `quality_prediction: object \| null` on AssembledChunk | Core: `assembled_text`, embeddings |
+| DC-13 | Implicit structure discovery | passaging §4.B.2 | Phase 1 (pre-splitting) | Supplementary division tree for sources with `structure_confidence: "minimal"` | Normalization: `structure_confidence` |
+| DC-14 | Discourse-aware boundary optimization | passaging §4.B.7 | Phase 1 (splitting) | `discourse_transition_cost: float \| null` on split boundaries | Core: `assembled_text`, embeddings |
+| DC-15 | Completeness forecast | passaging §4.B.8 | Post-Phase 1 | `completeness_forecast: object \| null` on AssembledChunk | Normalization: `discourse_flow` (if available) |
+| DC-16 | Verse-commentary explicit alignment | evaluation finding C-5 | Phase 1 | `verse_alignment: list \| null` on AssembledChunk for verse-commentary sources | Core: `text_layers`, VC domain rules (§6.5) |
+
+### §9.2 — Extension Hook Descriptions
+
+**DC-01 through DC-08 (old excerpting §4.B):** These capabilities extend Phase 3 metadata enrichment or run as post-Phase 3 batch operations. Their full specifications are preserved in `reference/archive/abd_code/excerpting/SPEC_old_original.md` §4.B.1–§4.B.8. The core engine's `ExcerptRecord` fields (`content_types`, `evidence_refs`, `quoted_scholars`, `excerpt_topic`, `self_containment`, `primary_author_layer`) provide the foundation each capability builds upon.
+
+Post-Phase 3 capabilities (DC-02, DC-03, DC-06, DC-07, DC-08) run AFTER Phase 3 produces complete `ExcerptRecord` objects. They add fields to already-valid records. If a post-Phase 3 capability fails, the core ExcerptRecord remains valid — the deferred field stays null.
+
+Cross-source capabilities (DC-02, DC-06, DC-08) require taxonomy placement to determine which excerpts share a leaf. These are inherently incremental — they run when a new source is added to an existing library, comparing new excerpts against previously placed excerpts. During initial bulk loading, they run as a batch job after all sources are excerpted and placed.
+
+**DC-09 (rhetorical structure):** Extends Phase 2b by adding a post-grouping pattern matching step. After teaching units are grouped, a pattern matcher examines the sequence of `scholarly_function` values across a chunk's units and annotates recognized rhetorical patterns. The field `rhetorical_pattern` on `TeachingUnit` records the matched pattern name (e.g., `"masala_tarjih"`, `"definition_example"`) or null. This is purely informational — it does not change unit boundaries.
+
+**DC-10 (attribution chain):** Extends Phase 3 LLM enrichment to resolve multi-layer scholarly attribution chains. Where the core engine identifies `primary_author_layer` and `quoted_scholars`, this capability reconstructs the full chain: who quotes whom, in what capacity, across how many layers of commentary. The `attribution_chain` field is a list of `{scholar_id, role, layer, quotes}` objects tracing the scholarly lineage of each teaching unit's content.
+
+**DC-11 (semantic fingerprinting):** Adds a post-Phase 2 step that computes a semantic fingerprint for each teaching unit's `primary_text`. The fingerprint includes: a text hash (for exact duplicate detection), key terms (for terminological matching), and an embedding vector (for semantic similarity). This fingerprint is the foundation for DC-02 (deduplication) and DC-08 (resonance detection).
+
+**DC-12 through DC-16 (old passaging/atomization §4.B):** These capabilities extend Phase 1 (deterministic preprocessing) or run as post-Phase 1 analysis. Their full specifications are preserved in `engines/passaging/SPEC.md` §4.B and `engines/atomization/SPEC.md` §4.B. The core engine's Phase 1 output (`AssembledChunk` with `assembled_text`, `text_layers`, `word_count`) provides the foundation.
+
+DC-13 (implicit structure discovery) is the most architecturally significant: it provides an alternative division tree for sources where the normalization engine reported `structure_confidence: "minimal"`. This supplementary tree guides Phase 1 splitting without modifying the normalization engine's output. It would be activated by a configuration flag (`ENABLE_IMPLICIT_STRUCTURE: bool, default false`).
+
+### §9.3 — Activation Model
+
+Deferred capabilities are activated per-engine-run via configuration flags in `engines/excerpting/config.yaml`. Each capability has a boolean flag (`ENABLE_DC_01: bool`, etc.) defaulting to `false`. When a capability is activated:
+
+1. Its nullable fields are populated on applicable records (instead of remaining null).
+2. Its processing steps execute within the designated phase.
+3. Its error codes (defined in the capability's full specification) are added to the error catalog.
+4. Its configuration parameters (model strings, thresholds) are added to §8.3.
+
+Capabilities with dependencies (the `Depends On` column in §9.1) cannot be activated unless their dependencies are also active. The engine validates capability dependencies at startup and emits a configuration error if an unsatisfied dependency is detected.
+
+### §9.4 — What Is NOT Deferred
+
+The following capabilities from the old SPECs are **absorbed into the core engine** (not deferred):
+
+| Old Capability | Absorbed Into | Rationale |
+|---------------|---------------|-----------|
+| Atomization §4.A (classification) | Phase 2a (§5.2) | Core: segment classification is the engine's primary function |
+| Atomization §4.B.2 (implicit layer transition) | §6.2 (LA rules) | Partially absorbed: LA-2 and LA-3 handle explicit and ambiguous layer transitions; implicit detection remains deferred (DC-09 pattern matching covers the remaining cases) |
+| Atomization §4.B.6 (argument completeness) | Subsumed by DC-03 | Old atomization version operated at atom level; DC-03 operates at excerpt level (more useful) |
+| Passaging §4.A (all core steps) | Phase 1 (§4) | Core: cross-page assembly, merging, splitting are the preprocessor |
+| Passaging §4.B.3 (commentary alignment) | DC-16 + §6.5 (VC rules) | VC rules handle core verse-commentary detection; precision alignment is deferred |
+| Passaging §4.B.5 (adaptive passaging) | Not needed | Content census adaptation was for a separate passaging engine; Phase 1 operates within the excerpting engine's context and uses simpler thresholds |
+| Passaging §4.B.6 (argument boundary detection) | Phase 2b (§5.3) | Core: teaching unit grouping inherently detects argument boundaries through self-containment evaluation |
+| Atomization §4.B.3 (distribution analytics) | Not deferred — dropped | Analytics capability, not a processing capability; can be implemented as a post-hoc analysis script outside the engine |
+| Atomization §4.B.7 (terminological concordance) | Not deferred — dropped | Cross-source concordance is better handled at the taxonomy/synthesis layer |
+| Atomization §4.B.8 (evidence quality signals) | §6.3 (EV rules) | EV-1 through EV-3 handle evidence detection and reference extraction; quality signal detection is covered |
+
+---
+
