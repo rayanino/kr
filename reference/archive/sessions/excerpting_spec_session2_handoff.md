@@ -85,9 +85,9 @@ These registries help the next session maintain consistency. All IDs verified pr
 - QM-1 through QM-3 (Q&A/masala format)
 
 The next session adds:
-- V-P3-* checks for Phase 3 validation (§7)
-- EX-M-002+ for additional Phase 3 errors (§8.1)
-- EX-G-* for human gate trigger codes (§7.3, §8.1)
+- V-P3-* checks for Phase 3 validation (to be defined in §7)
+- Additional EX-M-* codes for Phase 3 errors (to be defined in §7 and §8.1, continuing from EX-M-001)
+- EX-G-* for human gate trigger codes (to be defined in §7.3 and §8.1)
 
 ---
 
@@ -143,9 +143,59 @@ From the progress tracker (6 remaining):
 
 ---
 
+## Design Decisions the Next Session Must Make
+
+These are real architectural decisions that §7 forces. They cannot be deferred — §7 defines the processing, and the processing depends on these choices.
+
+**Decision 1: Phase 3 LLM call granularity.**
+One call per teaching unit? Per chunk (batch all units in a chunk)? Per source?
+- Per-unit: simplest, but potentially expensive (a 40-unit chunk = 40 API calls)
+- Per-chunk: efficient (1 call with all units), but the prompt gets large for chunks with many units
+- The old SPEC is silent on this. The experiment didn't test Phase 3. Make the decision with reasoning.
+
+**Decision 2: Does `proposed_leaf` belong in excerpting or taxonomy?**
+The old SPEC has the LLM propose a taxonomy leaf path during Phase 3. But the taxonomy engine is downstream and will have its own classification logic. Options:
+- Excerpting proposes, taxonomy validates/corrects → useful signal, low risk
+- Excerpting provides topic keywords only, taxonomy does all placement → cleaner separation
+- Decide based on: what does the taxonomy engine need as input?
+
+**Decision 3: Which models for consensus verification?**
+KNOWLEDGE_INTEGRITY.md Layer 3.5 says the same provider must never both generate AND verify. Phase 2 uses Opus. So Phase 3 consensus verification must use a DIFFERENT provider.
+- Options: GPT-5.4 (via OpenRouter), Command A (via OpenRouter), Mistral (via OpenRouter)
+- All LLM calls go through OpenRouter (KR routing rule). Model strings must be specified.
+- The old SPEC says consensus uses 2 models. Layer 3.5 escalation uses 3+.
+
+**Decision 4: Can §2.3.5 ExcerptRecord be updated when writing §2.2?**
+Yes. §2.3.5 is currently a placeholder. When §2.2 is written (after §7), it becomes the authoritative definition. §2.3.5 should then be updated to match or simply reference §2.2. The next session has license to modify §2.3.5.
+
+---
+
 ## §7 Reading Instructions (for next session)
 
 §7 is moderately complex — it defines how teaching units become fully enriched excerpt records.
+
+**Phase 3 field inventory (what §7 must define enrichment steps for):**
+
+Deterministic (no LLM needed):
+- `primary_author_layer` — from text_layers overlap (LA-1–LA-4 in §6.2)
+- `quoted_scholars` — other authors detected in the unit
+- `content_types` — aggregated from constituent segment scholarly functions
+- `evidence_refs` — Quran ayah, hadith references (EV-1–EV-3 in §6.3)
+- `physical_pages` — from AssembledChunk assembly_metadata
+- `div_path` — heading hierarchy from AssembledChunk
+- `footnotes_relevant` — subset of chunk footnotes with markers in the unit text
+- `excerpt_id` — computed from source_id, div_id, unit_index
+
+LLM-driven:
+- `excerpt_topic` — 1–3 Arabic topic keywords for taxonomy placement
+- `school` — madhhab/school attribution (when identifiable)
+- `quoted_scholars` (resolution) — resolving scholar names to canonical IDs (IR-2 in §6.4)
+- `takhrij_data` — hadith collection/number/grade from footnotes (EV-2 in §6.3)
+- `terminology_variants` — alternative Arabic terms for the same concept
+- `cross_references` — resolved implicit references (IR-1 in §6.4)
+- `context_hint` — added for PARTIAL self-containment cases (§3.3)
+
+Design decision needed: whether `proposed_leaf` (taxonomy placement path) belongs here or in the taxonomy engine. See trap #5 below.
 
 Read these files IN THIS ORDER before writing:
 
