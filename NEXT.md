@@ -10,21 +10,22 @@
 - **SPEC Outline: ✅ COMPLETE** (`engines/excerpting/SPEC_OUTLINE.md`)
 - **Step 0 (evaluation): ✅** — Architect independently verified EVALUATION.md findings by reading Arabic text
 - **Step 1 (outline): ✅** — 763-line outline with source mapping, finding resolution, data model decision
+- **Step 2 (section writing): IN PROGRESS** — 4/12 sections complete (547 lines). Session 1 handoff: `reference/archive/sessions/excerpting_spec_session1_handoff.md`
 
 ## What to Do — Step 2: Write Sections in Dependency Order
 
-### Before Writing: Setup (first prompt only)
+### Before Writing: Setup ✅ DONE (Session 1)
 
-Two old SPEC files exist and must be archived before writing:
-- `engines/excerpting/SPEC.md` (1038 lines) — the ORIGINAL old SPEC, written for 7-engine architecture
-- `engines/excerpting/SPEC_CORE.md` (868 lines) — a BLOCKED rewrite attempt (16 findings, commit 5b71749)
+Old SPECs archived to `reference/archive/abd_code/excerpting/`. New SPEC.md created with header. 4 sections written and committed.
 
-Before writing the first section:
+### Continuing from a Previous Session
 
-1. Archive both: `mv engines/excerpting/SPEC.md reference/archive/abd_code/excerpting/SPEC_old_original.md` and `mv engines/excerpting/SPEC_CORE.md reference/archive/abd_code/excerpting/SPEC_old_blocked.md`
-2. Create the new SPEC.md with just a file header (title, date, version, status)
-3. Each subsequent section is appended to the new file in writing order
-4. The file will not read top-to-bottom until §1 (Purpose) is written last — that's intentional
+If this is NOT the first session writing sections:
+1. Read `reference/archive/sessions/excerpting_spec_session1_handoff.md` (or the latest session handoff)
+2. Read `engines/excerpting/SPEC_OUTLINE.md` in full — it's the architectural blueprint
+3. Read the current `engines/excerpting/SPEC.md` section headers (`grep "^## §\|^### §" engines/excerpting/SPEC.md`) to see what's written
+4. Check the progress tracker at the bottom of this file for the next unchecked section
+5. Read ONLY the source material for that section (listed in the outline and in the handoff)
 
 ### Section Writing
 
@@ -85,6 +86,7 @@ After the archive step, old SPECs are at these paths:
 - `experiments/architecture_test/extract_divisions.py` — validated prototype
 
 **For §5:**
+- **Session 1 handoff** `reference/archive/sessions/excerpting_spec_session1_handoff.md` — critical findings: LLM offset normalization, reading order, traps
 - `engines/atomization/SPEC.md` §4.A.1–§4.A.5 — classification taxonomy
 - `experiments/architecture_test/run_tests.py` — validated prompts + schemas
 
