@@ -10,6 +10,14 @@
 - **Excerpting engine SPEC_CORE.md: DRAFTED (77.6KB, all 10 sections complete)**
 - **This session: Adversarial review of the SPEC before build**
 
+## Session Start Protocol
+
+1. Clone or pull the repo
+2. Read this file (NEXT.md)
+3. `git log --oneline -5`
+4. Read the protocol file: `reference/protocols/QUALITY_AXIOM.md` (this is a review/design task)
+5. **Scan skills:** Run `ls /mnt/skills/user/` and choose ALL relevant skills by name. Key skills for this task: `kr-integrity`, `critical-review`, `thinking-frameworks`. Do NOT rely on memory for skill names.
+
 ## What to Do
 
 Review `engines/excerpting/SPEC_CORE.md` — the governing specification for the excerpting engine. This SPEC was written in a prior session and MUST be reviewed in a fresh context per QUALITY_AXIOM.md.
@@ -21,7 +29,7 @@ The review must be adversarial — the goal is to find what's wrong, not to conf
 ## Read First (in this exact order)
 
 1. `reference/protocols/QUALITY_AXIOM.md` — the quality standard this review must meet
-2. `reference/archive/sessions/excerpting_spec_handoff.md` — **THE HANDOFF FROM THE DESIGN SESSION** (contains: what was done, decisions made with reasoning, flagged concerns, and what the review must check)
+2. `reference/archive/sessions/excerpting_spec_handoff.md` — **THE HANDOFF FROM THE DESIGN SESSION** (contains: what was done, 8 design decisions with reasoning + challenge angles, 5 flagged concerns, 6 standard review checks, session retrospective)
 3. `engines/excerpting/SPEC_CORE.md` — **THE SPEC TO REVIEW** (all 10 sections, 77.6KB)
 4. `engines/normalization/SPEC.md` §3 — the input contract (does the SPEC consume it correctly?)
 5. `engines/normalization/contracts.py` — the Pydantic models (does the SPEC reference fields that exist?)
@@ -37,6 +45,7 @@ Use `kr-integrity` for the review. The review has three rounds:
 **Round 1 — Structural audit (one response).** Read the full SPEC. For each section, check:
 - Every field the SPEC consumes from upstream: does it exist in normalization contracts.py?
 - Every field the SPEC produces for downstream: does taxonomy SPEC §2.1 expect it?
+- **Internal consistency: do the §3.4 guarantees, §5 validation checks, and §7 error codes all reference the same fields that §3.1 defines?** A guarantee that promises a field not in the schema is a phantom guarantee.
 - Every error code: does it have a concrete trigger scenario?
 - Every processing rule: can a pass/fail test be written for it?
 - Every numerical threshold: is it justified by evidence or is it a guess?
