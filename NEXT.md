@@ -1,90 +1,126 @@
-# NEXT — Passaging Engine SPEC Design
+# NEXT — Large-Work Division Size Analysis
 
 ## Context
 
-Architecture C has been committed (see `experiments/architecture_test/ARCHITECTURE_DECISION.md`).
+Architecture decision in progress. The Architect needs empirical data on division sizes in large multi-volume Islamic scholarly works to finalize the architecture for remaining engines. The hypothesis: most divisions in the Shamela collection are ≤ 2000 Arabic words, making a separate passaging engine unnecessary. But this has only been tested on 5 small books (228 divisions). We need to verify on the full 20K+ collection, especially the largest reference works.
 
-The pipeline is now 6 engines total, 4 remaining:
+**This is a data-gathering task, not a build task.** No engine code, no SPEC changes. Just analysis and output.
+
+## What To Do
+
+Write and run `experiments/architecture_test/analyze_shamela_divisions.py` that:
+
+### Step 1: Scan all .htm files in `shamela-export-samples/`
+
+For each `.htm` file:
+1. Count pages: `<div class='PageText'>` or `<div class="PageText">` occurrences
+2. Find headings: `<span class='title'>` or `<span class="title">` content, filtering OUT:
+   - Metadata fields: spans containing الكتاب, المؤلف, الناشر, الطبعة, عدد الصفحات, القسم, تاريخ النشر بالشاملة
+   - Book title: spans containing `&nbsp;` (the first title span is usually the book title with trailing spaces)
+   - Very short spans (< 3 chars after cleaning)
+3. Clean heading text: strip HTML tags, replace `&#8204;` and `\u200c` (ZWNJ) with empty string, strip whitespace
+4. Extract text between headings (primary_text from PageText divs, stripped of HTML tags)
+5. Count Arabic words per division: split on whitespace, count tokens with at least one char in `\u0600-\u06FF`
+
+### Step 2: Compute per-book statistics
+
+For each book with ≥ 5 headings (books with fewer headings aren't structurally divided):
+- Book identifier: filename or first heading text
+- Total pages (PageText count)
+- Total headings found
+- Total Arabic words
+- Division sizes: min, max, median, mean
+- Count of divisions in each bucket: <50w, 50-299w, 300-800w, 801-2000w, 2001-5000w, >5000w
+- File size in bytes
+
+### Step 3: Compute collection-wide statistics
+
+- Total books scanned
+- Total books with ≥ 5 headings
+- Total divisions across all books
+- Collection-wide division size distribution (same buckets)
+- % of divisions that need no splitting at 2000w ceiling
+- % of divisions that need no splitting at 5000w ceiling
+- List ALL divisions > 5000w with book name and heading text
+
+### Step 4: Focus analysis on the 20 largest books
+
+Sort by file size descending. For the top 20:
+- Full per-book statistics (Step 2)
+- Count of divisions > 2000w and > 5000w
+- Largest single division (word count + heading text)
+
+### Step 5: Output
+
+Write results to `experiments/architecture_test/SHAMELA_DIVISION_ANALYSIS.md`:
+
+```markdown
+# Shamela Division Size Analysis — [date]
+
+## Collection Summary
+[Total books, total divisions, distribution table]
+
+## Division Size Distribution (all books with ≥5 headings)
+[Bucket counts and percentages]
+[% needing no splitting at 2000w / 5000w ceilings]
+
+## Top 20 Largest Books
+[Per-book table with key metrics]
+
+## Oversized Divisions (>5000w)
+[List with book name, heading, word count]
+
+## Format Observations
+[Any notable patterns: verse books, Q&A books, etc.]
 ```
-Source ✅ → Normalization ✅ → Passaging → Excerpting → Taxonomy → Synthesis
-```
 
-The passaging engine is the next engine to build. It is **deterministic** (no LLM calls) and **simplified** under Architecture C — it no longer needs argument detection, completeness forecasting, or discourse_flow dependency.
+Also write the raw data as `experiments/architecture_test/shamela_division_data.json` — a JSON array with one entry per book containing all computed metrics.
 
-## Your Task
+## Technical Notes
 
-Design the passaging engine SPEC (`engines/passaging/SPEC_CORE.md`).
+### Shamela HTML Structure
+- Pages: `<div class='PageText'>` or `<div class="PageText">`
+- Headings: `<span class='title'>` or `<span class="title">` (content may start with ZWNJ `&#8204;` / `\u200c`)
+- Page headers: `<div class='PageHead'>` — ignore these, they're running headers not content
+- Footnotes: `<div class='footnote'>` — exclude from word counts
+- The first PageText div is usually metadata (book title, author, publisher) — skip it
 
-### What the Passaging Engine Does
+### Path
+- `shamela-export-samples/` in the repo root (gitignored, local only)
+- Files may be directly in the folder or in subdirectories
+- Find all `.htm` files recursively
 
-Takes normalized content units (from normalization engine output) and assembles them into **passages** — contiguous text segments that are the input to the excerpting engine.
+### Encoding
+- Most Shamela files are UTF-8, but some older exports may be Windows-1256
+- Try UTF-8 first, fall back to `cp1256`, fall back to `utf-8` with `errors='replace'`
+- Log which encoding was used if not UTF-8
 
-Core responsibilities:
-1. **Cross-page assembly:** Join content units that belong to the same division across page boundaries, using boundary_continuity signals to determine join behavior (mid_word → no space, mid_sentence → space, mid_paragraph → newline, section_break → double newline)
-2. **Passage sizing:** Target a passage size range appropriate for LLM processing (experiment showed 300-2000 Arabic words works well for excerpting). Split oversized divisions into passages; keep small divisions as single passages.
-3. **Boundary placement:** Place passage boundaries at natural structural breaks (section headers, paragraph breaks, topic transitions). D-011 (hard): never split mid-teaching-unit. Enforce via structural heuristics — break at headings, numbered items, explicit topic markers — not by LLM inference.
-4. **Format-specific handling:** Different text types (hadith collections, commentary, fiqh مسائل, grammatical catalogs) have different natural chunking points. The passaging engine must handle these differently.
-5. **Metadata assembly:** Each passage carries forward its source metadata, division path, text layer information, content flags, and boundary_continuity signals for the excerpting engine's benefit.
+### Performance
+- 20K+ files, some very large (multi-MB)
+- Use streaming HTML parsing, not loading entire files into memory for regex
+- Show progress every 500 files
+- If a file fails to parse, log and skip — don't crash
 
-### What the Passaging Engine Does NOT Do
+## Do NOT Do
 
-- **No LLM calls.** Passaging is entirely deterministic.
-- **No argument detection.** This was moved to the excerpting engine under Architecture C.
-- **No completeness forecasting.** The excerpting engine handles self-containment evaluation.
-- **No discourse_flow dependency.** This field is `None` in all normalization output and will remain so.
+1. Do NOT modify any engine code
+2. Do NOT run the normalization pipeline
+3. Do NOT make any LLM calls
+4. Do NOT commit the raw shamela-export-samples data
+5. Do NOT spend time on edge cases in HTML parsing — approximate word counts are fine. We need distribution data, not exact numbers.
 
-### Design Approach
+## Verification
 
-Use `kr-research` and `thinking-frameworks` (DEEP tier — this is the SPEC for the next engine to build).
+Run the script. Check the output makes sense:
+- Total books should be ~20,000+
+- Largest books should be recognizable Islamic reference works
+- Division sizes should mostly be in the hundreds-to-low-thousands range
+- The SHAMELA_DIVISION_ANALYSIS.md should be readable and complete
 
-1. **Read the normalization engine's output contracts.** The passaging engine's input IS the normalization engine's output. Read:
-   - `engines/normalization/SPEC_CORE.md` — especially the output schema (§5, §6)
-   - `engines/normalization/tests/` — understand what the normalized packages look like
-   - `experiments/architecture_test/packages/` — real normalized packages from the experiment
-
-2. **Read the original passaging SPEC if it exists.** There may be a draft at `engines/passaging/SPEC_CORE.md`. If so, read it and decide what to keep vs discard under Architecture C.
-
-3. **Study the experiment's division extraction script.** `experiments/architecture_test/extract_divisions.py` already implements basic cross-page assembly and passage construction. This is a prototype of the passaging engine's core logic. Read it for patterns and edge cases.
-
-4. **Research passage boundary heuristics.** What structural signals in Arabic scholarly text indicate natural break points? Headings, numbered مسائل, hadith boundaries (عن... عن...), paragraph breaks, verse markers, etc. Search broadly.
-
-5. **Write the SPEC.** Follow the established SPEC format from normalization engine:
-   - §1: Purpose and scope
-   - §2: Input contracts (what normalization engine provides)
-   - §3: Output contracts (what the excerpting engine needs)
-   - §4: Processing rules (the actual passaging logic)
-   - §5: Error handling
-   - §6: Known limitations
-
-### Constraints
-
-- D-011 stays HARD. Never split a passage mid-teaching-unit. Enforce with structural heuristics.
-- Target passage size: 300-2000 Arabic words (validated in Architecture C experiment).
-- Must handle multi-layer texts (sharh/matn) — layers may need independent passage boundary placement.
-- Must preserve ALL upstream metadata fields (D-023: never delete, always pass through).
-- CRLF normalization — owner is on Windows.
-- Error codes must follow the SPEC §7 pattern from normalization engine.
-
-### Skills to Use
-
-- `kr-research` (study normalization output contracts, passage boundary heuristics)
-- `thinking-frameworks` (DEEP tier — engine-level architectural decisions)
-- `critical-review` (verify SPEC before delivering)
-- `kr-integrity` (audit SPEC for silent failure patterns and knowledge corruption threats)
-
-### Do NOT Do
-
-1. Do NOT write implementation code. The SPEC is the deliverable. Claude Code builds from the SPEC.
-2. Do NOT modify normalization or source engine code.
-3. Do NOT relax D-011. It stays hard per the architecture decision.
-4. Do NOT assume discourse_flow will ever be populated. It won't.
-5. Do NOT design for LLM-assisted passaging. This engine is deterministic.
+Commit the script AND the output files. Push.
 
 ## Read First
 
 1. This file (NEXT.md)
-2. `experiments/architecture_test/ARCHITECTURE_DECISION.md` — the architecture commitment
-3. `engines/normalization/SPEC_CORE.md` — input contracts
-4. `experiments/architecture_test/extract_divisions.py` — passaging prototype
-5. `reference/ENGINE_BUILD_BLUEPRINT.md` — engine build process
-6. `KNOWLEDGE_INTEGRITY.md` — corruption threats to design against
+2. `experiments/architecture_test/extract_divisions.py` — reference for how division extraction works on normalized packages (different input format, but same concepts)
+3. `tests/fixtures/shamela_extended/ext_01/book.htm` — example of Shamela HTML format
