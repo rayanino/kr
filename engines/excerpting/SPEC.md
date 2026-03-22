@@ -381,3 +381,167 @@ The old excerpting SPEC used a continuous 0.0–1.0 `self_containment_score`. Th
 - Cross-model spot checks: during the 30-book probe, a different model evaluates 10% of self-containment assessments.
 - Owner spot-checks: the owner reviews 5 excerpts per session during the probe, with specific attention to "does this make sense on its own?"
 
+---
+
+## §4 — Phase 1: Deterministic Preprocessing
+
+Phase 1 transforms a `NormalizedPackage` into a list of `AssembledChunk` objects (§2.3.2). It is fully deterministic — no LLM calls, no randomness, no external dependencies beyond the input files. Every behavior is independently unit-testable. This phase absorbs the core of the old passaging engine (cross-page assembly, text joining, validation) but eliminates format-specific passaging strategies — those are handled by the LLM in Phase 2.
+
+### §4.1 — Processing Overview
+
+Phase 1 proceeds in seven sequential steps:
+
+1. **Walk division tree** (§4.2): Identify leaf divisions from `manifest.division_tree`. Skip non-content divisions.
+2. **Assemble text** (§4.3): For each leaf division, join `primary_text` across content units using `boundary_continuity` separator mapping.
+3. **Merge tiny divisions** (§4.4): Merge adjacent leaf divisions with <50 Arabic words.
+4. **Split oversized divisions** (§4.5): Split divisions with >5000 Arabic words at structural boundaries.
+5. **Rebase text layers** (§4.6): Translate per-page `text_layers` character offsets to assembled-text coordinates.
+6. **Aggregate metadata** (§4.7): OR-aggregate content flags, collect footnotes and physical pages.
+7. **Validate** (§4.9): Run self-validation checks (V-P1-1 through V-P1-6).
+
+The heading alignment filter (§4.8) runs during step 2 as a quality flag but does not gate processing.
+
+The engine processes one source at a time. Each leaf division (or merged/split result) produces one `AssembledChunk`. The output is a list of chunks ready for Phase 2.
+
+**No format-specific strategies.** Unlike the old passaging SPEC, Phase 1 does not apply different strategies for prose, verse, Q&A, or masala formats. The `structural_format` field is inherited by each chunk for Phase 2's reference, but Phase 1 treats all text identically: assemble, merge/split, validate. Format-aware processing happens in Phase 2 (the LLM understands format natively) and §6 (domain-specific rules).
+
+### §4.2 — Division Tree Walking
+
+**Input:** `manifest.division_tree` — a list of `DivisionNode` objects forming a tree.
+
+**Leaf identification:** A leaf division is a `DivisionNode` with an empty `children` list. The engine recursively walks the tree and collects all leaves with their heading path (the list of `heading_text` values from root to leaf). Validated implementation: `find_leaf_divisions()` in `experiments/architecture_test/extract_divisions.py`.
+
+**Skip criteria:** A leaf division is skipped (produces no chunk) if ANY of the following hold:
+- All content units in its range have `content_flags.is_toc_page == true`.
+- All content units in its range have `content_flags.is_index_page == true`.
+- All content units in its range have `content_flags.is_blank == true`.
+- Its `heading_text` matches any of the bibliography/index exclusion keywords: مصادر, مراجع, فهرس, ثبت المصادر, المراجع (match is substring, case-insensitive after Arabic noise stripping).
+- Its content unit range is empty: `start_unit_index > end_unit_index` or no content units exist in the range. Emit `EX-A-002` (empty division), log, and skip.
+
+Skipped divisions are logged with reason codes. They are NOT errors — TOC and index pages are expected.
+
+**Multi-volume sources:** Division nodes with `division_type == "volume"` are structural containers, not content divisions. The engine walks through them to reach leaf divisions. Volume nodes never produce chunks themselves.
+
+**Minimal division trees (C-8):** Sources with <5 leaf divisions after filtering produce very large chunks. This is handled naturally by §4.5 (oversized splitting). Sources with zero leaf divisions after filtering: emit `EX-A-010`, skip entire source.
+
+**Single-root sources:** Sources where `division_tree` contains a single root node with no children: the entire source text is one leaf division. It becomes one chunk (or multiple chunks if oversized per §4.5).
+
+### §4.3 — Cross-Page Text Assembly
+
+For each leaf division, assemble the full text by joining `ContentUnit.primary_text` across pages.
+
+**Content unit selection:** Select all content units with `unit_index` in the range `[division.start_unit_index, division.end_unit_index]` (both inclusive). Content units with `is_toc_page`, `is_index_page`, or `is_blank` true within this range are skipped during assembly — their `unit_index` is still recorded in `assembly_metadata.constituent_unit_indices` for coverage tracking, but their text is not included.
+
+**Separator mapping:** Between consecutive content units N and N+1, the separator is determined by unit N's `boundary_continuity.type`:
+
+| `boundary_continuity.type` | Separator | Rationale |
+|---------------------------|-----------|-----------|
+| `mid_sentence` | `""` (empty) | Text continues mid-word or mid-sentence across page boundary. |
+| `mid_paragraph` | `"\n"` | New sentence within same paragraph. |
+| `mid_argument` | `"\n"` | Argument continues but new logical segment. |
+| `section_break` | `"\n\n"` | Major topic transition. |
+| `division_break` | `"\n\n"` | Division-level break (should not occur within a leaf division's range, but handled defensively). |
+| `unknown` | `"\n"` | Conservative default. |
+| null (absent) | `"\n"` | Boundary continuity not computed. |
+
+This mapping is validated in the prototype (`BC_JOIN_MAP` in `extract_divisions.py`).
+
+**Boundary continuity is on unit N:** The `boundary_continuity` field on unit N describes the boundary AFTER unit N (between N and N+1). When joining unit N and unit N+1, read `boundary_continuity` from unit N.
+
+**Arabic word joining at mid_sentence:** When `boundary_continuity.type == "mid_sentence"`, the last character of unit N and the first character of unit N+1 may form parts of the same Arabic word. In this case, the empty separator produces correct joining. If the last character of unit N is a word-final form (taa marbuta ة, alif maqsura ى, tanwin diacritics ً/ٌ/ٍ) AND the first character of unit N+1 is a word-initial character, insert a single space instead of empty — the word boundary was at the page break. This refinement applies only when `boundary_continuity.type == "mid_sentence"` and the character analysis suggests word-final + word-initial rather than a word split across pages.
+
+**Diacritics preservation:** All Arabic diacritics (U+064B–U+0652, U+0670) are preserved exactly. No Unicode normalization (NFC/NFD/NFKC/NFKD) is applied at any point. This is an absolute rule — violating it risks T-1 (Silent Text Corruption), since a single diacritic change can reverse meaning (حَرَّمَ "forbade" vs حَرَمَ "deprived").
+
+**Footnote reference markers:** The `⌜N⌝` markers in `primary_text` are preserved inline during assembly. Footnote renumbering (if `ref_marker` values collide across pages) is handled in §4.7.
+
+**Assembly output:** The assembled text, plus an `AssemblyMetadata` record containing `constituent_unit_indices` and `join_points` (one `JoinPoint` per page boundary, recording the units, separator, and character offset).
+
+### §4.4 — Tiny Division Merging
+
+Divisions with very few words produce low-quality LLM inputs — the model lacks sufficient context for meaningful classification. These are merged with adjacent siblings.
+
+**Threshold:** `TINY_DIVISION_WORDS = 50` Arabic words (configurable, §8.3). This captures 29.1% of raw Shamela divisions per the division size analysis.
+
+**Merge algorithm:**
+1. After assembling all leaf divisions under the same parent node, identify those with `word_count < TINY_DIVISION_WORDS`.
+2. For each tiny division, merge with the **next sibling** under the same parent. If no next sibling exists, merge with the **previous sibling**.
+3. If the division is an only child (no siblings), process as-is regardless of size — there is nothing to merge with.
+4. Merging combines the assembled texts with a `"\n\n"` separator between them (they are separate divisions, so a section break is appropriate).
+5. The merged chunk's `div_id` is the first division's `div_id`. The merged chunk's `merge_history` records all merged `div_id` values.
+6. The merged chunk's `div_path` is the first division's path (the heading hierarchy).
+7. Repeat merging: if the result of a merge is still below threshold, merge again with the next sibling. This is recursive but bounded by the finite number of siblings.
+
+**Invariant preserved:** I-AC-6 requires `merge_history` to contain ≥2 entries with the first being `div_id`. The merge algorithm guarantees this.
+
+### §4.5 — Oversized Division Splitting
+
+Divisions with too many words produce LLM inputs that exceed token limits or degrade classification quality. These are split at structural boundaries.
+
+**Threshold:** `OVERSIZED_DIVISION_WORDS = 5000` Arabic words (configurable, §8.3). This affects ~0.9% of Shamela divisions per division size analysis.
+
+**Split point selection (priority order):**
+1. **Heading markers within the division:** If any content unit in the range has `structural_markers.heading_detected == true`, split at that unit. The heading starts a new chunk. This is the highest-quality split because the heading indicates a natural topic boundary.
+2. **Discourse section breaks:** If `discourse_flow` data is available on content units and contains segments with type boundaries corresponding to `section_break`, split at those boundaries. Second preference because discourse flow is a normalization §4.B feature that may not be present.
+3. **Paragraph breaks:** Find the `"\n\n"` nearest the midpoint of the assembled text. Split there. This is reliable because paragraph breaks exist in almost all texts.
+4. **Sentence boundary:** Find the sentence boundary (terminal punctuation `.` `؟` `!` followed by whitespace) nearest the midpoint. Last resort.
+
+**Splitting produces:** Multiple chunks from one division, each with `split_info` populated (§2.3.2 `SplitInfo`). Chunk IDs: `{div_id}_chunk_0`, `{div_id}_chunk_1`, etc.
+
+**Recursive splitting:** If a split result still exceeds the threshold, split again. Bounded by text length — eventually each chunk will be below threshold.
+
+**Text layer and footnote handling for split chunks:** Each chunk gets the text layers and footnotes corresponding to its text range only. Text layers are sliced at the split point character offset — a layer segment that spans the split point is divided into two segments, one per chunk. Footnotes are assigned to the chunk that contains their `⌜N⌝` marker.
+
+**Content unit assignment for split chunks:** All chunks from the same split share the same `constituent_unit_indices` (the original division's full range) because splitting operates on the assembled text, not on content units. The `assembled_text` of each chunk is a substring of the original assembly. Per I-AC-4, this is the correct behavior.
+
+### §4.6 — Text Layer Rebasing
+
+Normalization provides `text_layers` per content unit with character offsets relative to that unit's `primary_text`. After cross-page assembly, these offsets must be translated to the assembled-text coordinate system.
+
+**Rebasing algorithm:** For each content unit in the assembly order, add the cumulative character offset (including separators) to each layer segment's `start` and `end` values. Validated implementation: `rebase_text_layers()` in `extract_divisions.py`.
+
+**Layer segment merging:** After rebasing, if two adjacent segments (from consecutive content units) have the same `layer_type` and `author_canonical_id`, merge them into a single segment spanning both ranges. This reduces segment count and simplifies downstream processing.
+
+**Validation (I-AC-2):** After rebasing, verify that the union of all segment character ranges exactly covers `[0, len(assembled_text))`. No gaps, no overlaps. If this invariant fails, emit `EX-A-003` (layer coverage failure) — this indicates a bug in rebasing or a malformed normalization output.
+
+**Clamping:** If a layer segment's `end` exceeds its content unit's `primary_text` length, clamp to the text length and emit `EX-A-004` (layer segment overflow, warning). This handles edge cases where normalization produced slightly off offsets.
+
+### §4.7 — Content Flag and Footnote Aggregation
+
+**Content flags:** OR-aggregate across all constituent content units. If any unit in the chunk has `has_verse == true`, the chunk has `has_verse == true`. Same for all boolean flags. Validated implementation: `aggregate_content_flags()` in `extract_divisions.py`.
+
+**Footnotes:** Collect all `Footnote` objects from constituent content units in order. Deduplicate by `ref_marker` — if two units have a footnote with the same `ref_marker`, keep the first occurrence and emit `EX-A-005` (duplicate footnote marker, warning).
+
+**Footnote renumbering:** When assembling text across pages, footnote reference markers may collide (two pages both have `⌜1⌝`). If collisions exist, renumber footnotes sequentially by order of first appearance in the assembled text. Update both the `⌜N⌝` markers in `assembled_text` and the `ref_marker` fields in the `footnotes` list. Record the old→new mapping in `assembly_metadata` for traceability.
+
+**Physical pages:** Collect `PhysicalPage` records from all constituent content units in `unit_index` order. No deduplication — each page contributes one record.
+
+### §4.8 — Heading Alignment Filter
+
+From the experiment: heading-content misalignment (where a division's heading does not match its actual content) produces garbage LLM results. The heading alignment filter detects this.
+
+**Algorithm:** Strip Arabic noise (ZWNJ, ZWJ, diacritics, tatweel) from both the division's `heading_text` and the first 200 characters of `assembled_text`. Check if the first 30 stripped characters of the heading appear within the first 200 stripped characters of the assembled text. Validated implementation: `strip_arabic_noise()` in `extract_divisions.py`.
+
+**Result:** Sets `heading_alignment_ok` on the `AssembledChunk`:
+- `true`: heading aligns with content.
+- `false`: heading does not align. Emit `EX-A-006` (heading misalignment, warning). The chunk is still processed — this is a quality flag, not a gate. Phase 2 may produce lower-quality results for misaligned chunks, but skipping them would mean data loss.
+
+**Threshold note:** The experiment found 40–60% rejection rates with strict alignment (15 chars in first 100 chars). The relaxed check (30 chars in first 200 chars) is used here to avoid excessive flagging. The threshold may be calibrated during build evaluation.
+
+### §4.9 — Phase 1 Self-Validation
+
+After all chunks are produced, run these validation checks before passing to Phase 2. Validation failures are categorized as fatal (processing stops) or warning (processing continues with flags).
+
+**V-P1-1 (Division coverage):** Every leaf division in the division tree maps to ≥1 `AssembledChunk`, or is explicitly listed as skipped with a reason code. Fatal if a division is neither processed nor skipped — indicates a bug in tree walking.
+
+**V-P1-2 (Content unit coverage):** The union of all chunks' `constituent_unit_indices` covers all non-skipped content units. Specifically: for every `unit_index` from 0 to `total_content_units - 1`, the unit is either (a) in at least one chunk's `constituent_unit_indices`, or (b) belongs to a skipped division, or (c) its content flags indicate it should be skipped (`is_toc_page`, `is_index_page`, `is_blank`). Fatal if any content unit is silently lost — this is data loss.
+
+**V-P1-3 (No empty chunks):** Every `AssembledChunk` has `word_count > 0`. Warning if violated (indicates a merge/split edge case).
+
+**V-P1-4 (No oversized chunks):** Every `AssembledChunk` has `word_count <= OVERSIZED_DIVISION_WORDS`. Warning if violated (indicates a splitting failure).
+
+**V-P1-5 (Layer coverage):** For every `AssembledChunk`, the text layer invariant I-AC-2 holds: every character in `assembled_text` is covered by exactly one `text_layers` segment. Fatal if violated — downstream phases depend on layer attribution.
+
+**V-P1-6 (Word count consistency):** For every `AssembledChunk`, `word_count` equals the Arabic word counter applied to `assembled_text`, and `total_tokens` equals `len(assembled_text.split())`. Fatal if violated — indicates a computation bug.
+
+**Validation output:** A list of validation results (pass/fail/warning per check) written to the source's processing log. If any fatal check fails, Phase 1 output is not passed to Phase 2. The source is flagged with `EX-V-001` for investigation.
+
