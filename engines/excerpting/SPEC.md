@@ -987,3 +987,158 @@ The average teaching unit size across all 13 validated divisions ranged from 45 
 
 ---
 
+## §6 — Domain-Specific Processing Rules
+
+This section defines cross-cutting rules that govern how the engine handles specific patterns in Islamic scholarly texts. These rules apply across multiple phases — Phase 2a (classification), Phase 2b (grouping), and Phase 3 (enrichment) each implement the subset relevant to their scope.
+
+The rules here preserve the domain design from the original excerpting SPEC (§4.A.2–§4.A.7), translated into the new architecture. The old SPEC operated on atoms produced by a separate atomization engine; the new design operates on segments and teaching units produced by the LLM in Phase 2. The domain knowledge is the same; the enforcement mechanism changes from deterministic post-processing to LLM prompt constraints plus deterministic verification.
+
+**Relationship to §5:** Several rules from this section are embedded in the Phase 2b grouping prompt (§5.3.2) as behavioral constraints. §6 is the formal specification — the prompt implements it. If the prompt and §6 ever conflict, §6 governs.
+
+### §6.1 — Decontextualization Prevention
+
+Decontextualized quotation is the highest-risk failure in the excerpting engine. It occurs when a fragment that looks complete actually depends on or responds to content outside the excerpt. The owner reads "Scholar A says X" when the original text says "Scholar A reports Scholar B's view X, but Scholar A disagrees." The excerpt misattributes X to Scholar A — a T-2 (Attribution Error) with epistemic consequences.
+
+**Phase enforcement:**
+
+Phase 2b (grouping) is the primary defense. The following patterns MUST be grouped into a single teaching unit:
+
+**DP-1 (Position + Refutation):** A reported position ("قال أبو حنيفة: لا يجب الترتيب في الوضوء") and its refutation ("ولنا قوله تعالى..." or "ورد عليه بأن...") belong in the same teaching unit. Splitting them means either: (a) the reported position is excerpted without the refutation, making it appear to be the source author's view, or (b) the refutation is excerpted without the position, making "ورد عليه" an unintelligible fragment.
+
+**DP-2 (Question + Answer):** A question ("سؤال: هل يجب الترتيب؟") and its answer ("الجواب: نعم يجب") belong in the same teaching unit. This includes formal Q&A format (فإن قيل / قلنا) and informal dialogue.
+
+**DP-3 (Rule + Exception):** A rule statement and its exception ("يجب الوضوء ... إلا إذا ...") belong in the same teaching unit. An exception without its rule is meaningless; a rule without its exception is misleading.
+
+**DP-4 (Evidence + Ruling):** Evidence cited for a ruling must stay with the ruling. An evidence citation ("لقوله تعالى...") without the ruling it supports is decontextualized — the owner sees a Quranic verse cited but doesn't know what it's evidence for.
+
+**DP-5 (Counter-argument + Original):** A counter-argument must include enough of the original argument to be understood. An excerpt that opens with "وأما قول الشافعي فليس بصحيح لأن..." must include al-Shafi'i's position (or a sufficient summary of it) to make the refutation intelligible. This is C-SC-5 (Dialogue Completeness) from §3.
+
+**DP-6 (Condition + Result):** A conditional statement ("إذا نوى المتوضئ رفع الحدث واستباحة الصلاة أجزأه") is one unit. The condition and its result are semantically bonded — splitting them produces two meaningless fragments.
+
+**Phase 3 responsibility:** When Phase 2b assigns `self_containment: PARTIAL` or `DEPENDENT` due to a decontextualization concern, Phase 3 adds a `context_hint` explaining the dependency (e.g., "This excerpt responds to a position stated in the preceding teaching unit").
+
+**Verification:** The DP rules are not independently verifiable by deterministic checks — they depend on Arabic semantic understanding. However, the unit coverage checks (§5.4.3) ensure structural consistency. The 30-book probe (source engine roadmap Step 3) will include adversarial spot-checks where the owner reads excerpts containing reported positions and verifies that the context is preserved.
+
+### §6.2 — Multi-Layer Text Handling
+
+Multi-layer sources (sharh, hashiyah, muhashshah) contain interleaved text from different authors. Correct layer attribution is critical — a wrong author attribution is T-2 (Attribution Error): the owner studies a sharh author's analysis believing it was the matn author's original statement.
+
+**Phase 1 responsibility:** Text layers are rebased to `assembled_text` character offsets (§4.6). Every character in the assembled text is attributed to exactly one layer (I-AC-2). The layer information is available on the `AssembledChunk` but is NOT passed to the Phase 2 LLM. The LLM classifies based on content, not on markup metadata.
+
+**Design rationale for not passing layers to the LLM:** The LLM already understands scholarly text structure — it recognizes "قال ابن مالك" as a matn quotation and "يريد أن الكلام..." as commentary without being told which layer is which. Passing layer metadata would risk the LLM deferring to the metadata rather than analyzing the text, which would mask cases where the layer boundaries are incorrect (the normalization engine's layer detection has known limitations, L-001 through L-012).
+
+**Phase 3 responsibility — Attribution rules:**
+
+For each teaching unit, Phase 3 determines author attribution by overlapping the unit's character range with the `text_layers` segments:
+
+**LA-1 (Single-layer dominance):** If ≥80% of the unit's character range falls within a single layer, attribute the unit to that layer's author. The 80% threshold allows for brief inline quotations (a matn fragment cited within a sharh explanation) without flipping the attribution.
+
+**LA-2 (Mixed-layer default):** If no layer covers ≥80% of the unit, attribute to the sharh/hashiyah author — the commentary author is the one doing the teaching. The matn text is being quoted as context. Specifically: attribute to the outermost (highest-layer) author present in the unit.
+
+**LA-3 (Attribution uncertainty):** If the unit spans text from three or more layers, or if the dominant layer has <60% coverage (neither sharh nor matn clearly dominates), flag the unit with `EX-M-001` (attribution ambiguous) for multi-model consensus verification. The human gate triggers if models disagree.
+
+**LA-4 (Pure matn units):** If 100% of the unit falls within the matn layer (no sharh commentary), the unit is attributed to the matn author. This is correct and expected — some teaching units are pure matn text (e.g., a definition in the Alfiyya that stands alone). These are less common in sharh texts but valid.
+
+**Phase 3 output fields:** The attribution produces `primary_author_layer` (which text layer the unit is attributed to) and `quoted_scholars` (other authors whose text appears within the unit). The `quoted_scholars` field distinguishes:
+- `quoted_opinion`: the unit quotes another scholar's view as content
+- `classification_frame`: the unit quotes another author's text as the frame being commented on (matn verse in a sharh excerpt)
+- `refuted_position`: the unit quotes another scholar's view in order to refute it
+
+**T-2 defense:** Attribution errors are the most dangerous silent failure in multi-layer texts. Structural mitigations:
+- The layer attribution is deterministic (character overlap computation), not LLM-inferred — reducing the attack surface to the normalization engine's layer detection accuracy.
+- The 80% threshold (LA-1) is conservative — it requires clear dominance.
+- Ambiguous cases (LA-3) trigger multi-model consensus and human gate rather than silent default.
+
+### §6.3 — Evidence and Hadith Handling
+
+Fiqh, hadith, and usul al-fiqh texts have specific evidence citation patterns that affect both segmentation (Phase 2a) and metadata enrichment (Phase 3).
+
+**Phase 2a responsibility:** The classify prompt recognizes five evidence types as scholarly functions: `evidence_quran`, `evidence_hadith`, `evidence_ijma`, `evidence_qiyas`, `evidence_rational`. The LLM classifies each evidence citation as a segment with the appropriate function type.
+
+**Phase 2b responsibility:** Evidence segments are grouped with their associated rulings (DP-4). The experiment validated this grouping across all fiqh divisions — the LLM correctly keeps evidence with its ruling without special prompting.
+
+**Phase 2b — Hadith commentary pattern:** In hadith sharh texts (e.g., Taysir al-Allam), hadith discussion often follows a stereotyped sequence: الحديث (the hadith text) → الغريب (unusual vocabulary) → المعنى الإجمالي (overall meaning) → ما يُستفاد (lessons derived). All segments in this sequence concerning the same hadith should be grouped as one teaching unit. The experiment confirmed both Approach A and Approach B correctly handle this pattern.
+
+**Phase 3 responsibility — Evidence extraction:**
+
+For each teaching unit containing evidence segments:
+
+**EV-1 (Quran references):** When a segment has function `evidence_quran`, Phase 3 attempts to identify the surah and ayah. The identification method is pattern-based:
+- Look for ﴿...﴾ delimiters in the segment text
+- Match the contained text against a canonical Quran text lookup (pre-loaded reference data)
+- If matched, record `{surah, ayah_start, ayah_end}` in `evidence_refs`
+- If no match (partial quotation, paraphrase, or allusion), record the segment as Quran evidence with `quran_detail: null` and the `text_snippet` for manual identification
+
+**EV-2 (Hadith references):** When a segment has function `evidence_hadith`, Phase 3 extracts:
+- Narrator name(s) from isnad patterns ("عن X عن Y عن Z")
+- Collection name if mentioned ("رواه البخاري", "في الصحيحين", "أخرجه مسلم")
+- Hadith number if mentioned
+- Grade if stated in the text or in associated footnotes ("صحيح", "حسن", "ضعيف")
+- The grade source (who stated the grade: the author, the editor, a cited scholar)
+
+The engine does NOT independently assess hadith authenticity. It records the grades stated in the source text and editor apparatus, with attribution to who stated the grade. Fabricating or inferring grades would be scholarly overreach — a T-1 (Fabrication) violation.
+
+**EV-3 (Consensus references):** When a segment has function `evidence_ijma`, Phase 3 records the scope of the claimed consensus (who is said to agree: all scholars? a specific school? the companions?) from the text.
+
+**Evidence extraction is LLM-assisted:** The surah/ayah identification for well-known verses can be deterministic (pattern match). For less common verses, partial quotations, or hadith identification, the Phase 3 LLM call handles extraction. The structured output includes evidence reference fields.
+
+### §6.4 — Implicit Reference Resolution
+
+Islamic scholarly texts use implicit references extensively: "كما تقدم" (as previously mentioned), "المذكور آنفاً" (the aforementioned), "الإمام" (the Imam — context-dependent), "صاحب الكتاب" (the author of the book). These create self-containment gaps (C-SC-2 violations) that must be detected and, where possible, resolved.
+
+**Phase 2b responsibility:** When the LLM detects an unresolvable reference within a teaching unit, it should mark the unit as `PARTIAL` self-containment (not `FULL`) with the reference noted in `self_containment_notes`. The grouping prompt (§5.3.2) instructs the LLM to evaluate C-SC-2 (Reference Resolution) for this purpose.
+
+**Phase 3 responsibility — Resolution attempts:**
+
+**IR-1 (Intra-source cross-reference):** If an implicit reference points to another division in the same source (e.g., "كما تقدم في باب الطهارة"), Phase 3 attempts to resolve it by searching the division tree headings. If a matching division is found, a `cross_reference` is added to the excerpt's metadata: `{target_div_id, reference_text, confidence}`. The self-containment level may be upgraded from `PARTIAL` to `FULL` if the cross-reference makes the unit independently navigable (the owner can follow the link).
+
+**IR-2 (Scholar epithet resolution):** Common scholarly epithets are context-dependent:
+- "الإمام" → Ahmad ibn Hanbal in Hanbali texts, al-Shafi'i in Shafi'i texts, Abu Hanifa in Hanafi texts, Malik in Maliki texts
+- "الشيخ" → varies by author and context
+- "صاحب الكتاب" → the matn author (in sharh texts)
+- "المصنف" → the author of the current work
+
+Phase 3 resolves these using source metadata (school affiliation from the source engine's metadata, work relationships from the manifest). When resolution succeeds, the resolved scholar is added to `quoted_scholars`. When resolution fails, the epithet is preserved as-is with a `confidence: null` entry — never silently dropped (D-033, fail-loud).
+
+**IR-3 (Unresolvable references):** When a reference cannot be resolved (e.g., "كما ذكره بعض أصحابنا" — "as some of our companions mentioned" — with no specific source identifiable), Phase 3 records the reference in the excerpt's metadata as an unresolved implicit reference. The self-containment level stays at `PARTIAL`.
+
+**Design extension note:** A scholar authority registry mapping epithets to canonical IDs per school/context is described in the old excerpting SPEC (§4.A.5). This registry is a build-time artifact — populated during the source engine's scholar disambiguation phase and loaded by the excerpting engine. The SPEC defines the lookup behavior; the registry data is populated incrementally as the library grows. For the initial build, the registry contains only the well-known epithet mappings (الإمام per school, المصنف/صاحب الكتاب per work relationship). Must be validated during build evaluation.
+
+### §6.5 — Verse-Commentary (نظم) Handling
+
+Versified texts (المنظومات) and their commentaries (e.g., Ibn Aqil on the Alfiyya) have specific patterns. A بيت (verse line) is a self-contained unit in the scholarly tradition — scholars cite by line number, and each verse typically encodes one grammatical or legal rule.
+
+**Experiment validation:** The LLM correctly handles verse-commentary text without explicit verse identification. Across 6 verse-commentary divisions in the experiment (ibn_aqil_v1 and ibn_aqil_v3 fixtures), both Approach A and Approach B correctly grouped verses with their commentary as coherent teaching units. The Alfiyya verses function as natural topic delimiters that the LLM recognizes from content.
+
+**Phase 1 responsibility:** No special handling. Text assembly works identically for verse-commentary. The `content_flags.has_verse` field and any `verse_info` from content units are passed through on the `AssembledChunk` but are not used for splitting or merging decisions.
+
+**Phase 2 responsibility:** The LLM naturally groups verse + commentary as one teaching unit. The `structural_format` field provides context (if the source is identified as verse-commentary format), but no special prompting is needed.
+
+**VC-1 (Verse + commentary unity):** A verse (matn) and its immediately following commentary (sharh) form one teaching unit. The verse provides the rule; the commentary provides the explanation. Splitting them produces an unexplained verse and an orphaned commentary.
+
+**VC-2 (Standalone verse validity):** In pure verse texts (no commentary layer), a single verse may constitute a valid self-contained teaching unit if it encodes a complete rule. The self-containment standard (§3) applies: the verse is `FULL` if a student of the science can understand what it teaches; `PARTIAL` if it references another verse or concept not included.
+
+**VC-3 (Multi-verse grouping):** When consecutive verses address the same topic, they may form a single teaching unit. The LLM determines the boundary — a topic shift to a new grammatical or legal concept signals a new unit. The experiment showed the LLM makes reasonable boundary decisions: the Ibn Aqil العلم division (865 words, Approach A: 8 units, Approach B: 13 units) was correctly split at topic boundaries.
+
+**DEFERRED:** Explicit verse-commentary alignment (a Phase 1 preprocessor that identifies verse lines by `verse_info` and ensures each is grouped with its commentary). This is evaluation constraint C-5 — not architecturally required because the LLM handles it, but a quality optimization that could be added if the 30-book probe reveals edge cases where the LLM misgroups verse and commentary.
+
+### §6.6 — Q&A and Masala-Format Handling
+
+Q&A format (سؤال وجواب) and masala format (مسألة enumerated legal issues) have predictable structures that the LLM handles naturally.
+
+**Experiment validation:** The experiment tested 3 divisions with these formats (ext_39_masala and ext_46_qa fixtures). Both approaches correctly identified Q&A pairs and masala blocks as self-contained units.
+
+**Phase 1 responsibility:** Text assembly preserves structural markers — مسألة numbers, سؤال/فأجاب markers, أولا/ثانيا ordinals. These markers appear in the `assembled_text` and help the Phase 2 LLM identify unit boundaries.
+
+**Phase 2 responsibility:**
+
+**QM-1 (Q&A pairs):** A question and its answer form one teaching unit (this is also DP-2 from §6.1). The LLM classifies the question as one segment and the answer as one or more segments, then groups them.
+
+**QM-2 (Masala blocks):** Each مسألة (legal issue) forms one teaching unit if it is self-contained. A masala typically contains: the issue statement, the ruling(s), and supporting evidence. The مسألة marker signals the unit boundary.
+
+**QM-3 (Cross-masala references):** If a masala references a previous masala ("كما في المسألة السابقة"), the reference creates a self-containment gap (C-SC-2). Phase 2b marks the unit as `PARTIAL` and notes the dependency. Phase 3 attempts to resolve the reference to a specific masala (IR-1 from §6.4).
+
+**No special handling beyond marker preservation.** The Q&A and masala formats are well-structured enough that the LLM's general segment classification and grouping produce correct results without format-specific prompting.
+
+---
+
