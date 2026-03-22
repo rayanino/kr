@@ -140,7 +140,7 @@ Update this after each section is committed. The next session (if context forces
 
 - [x] Setup: archive old SPEC.md + SPEC_CORE.md, create new file header
 - [x] §2.3 Internal Data Model
-- [ ] §2.1 Input Contract
+- [x] §2.1 Input Contract
 - [ ] §3 Self-Containment Standard
 - [ ] §4 Phase 1: Deterministic Preprocessing
 - [ ] §5 Phase 2: Teaching Unit Extraction

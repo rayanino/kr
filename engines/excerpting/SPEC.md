@@ -295,3 +295,89 @@ If any of these pre-conditions is violated, the excerpting engine will produce i
 
 These are defensive checks against data corruption, not schema re-validation.
 
+---
+
+## §3 — Self-Containment Standard
+
+Self-containment is the excerpting engine's primary quality criterion. An excerpt that fails self-containment delivers an incomplete piece of knowledge to the owner — a fragment that looks like a complete teaching but is actually missing its premise, its evidence, or its conclusion. This is T-4 (Context Loss) from `KNOWLEDGE_INTEGRITY.md`: the owner reads something that appears self-sufficient but silently depends on context that was stripped during extraction.
+
+This section defines the standard formally. It is referenced by Phase 2b (§5.3, which evaluates it), Phase 3 (§7, which repairs `PARTIAL` cases), §6 (domain rules that defend it), and §10 (tests that verify it).
+
+### §3.1 — Definition
+
+An excerpt is **self-contained** if a student with general familiarity of the Islamic science (عِلم) covered by the source — but no familiarity with this specific source or its surrounding text — can understand:
+
+1. **What** is being taught (the concept, ruling, argument, or narration).
+2. **Whose** position this represents (which scholar, school, or the author themselves).
+3. **Why** this position is held (what evidence or reasoning supports it, if the excerpt presents a justified claim).
+
+"General familiarity" means the student knows the basic terminology and structure of the science. For example: a student of fiqh knows what a حكم (ruling) is, what the مذاهب (schools) are, and what constitutes دليل (evidence). The student does NOT know the specific topic being discussed, the arguments made earlier in the book, or the scholarly debates surrounding this particular issue — those must be contained within the excerpt or explicitly flagged as missing.
+
+### §3.2 — Formal Criteria
+
+Five criteria must all hold for an excerpt to be `FULL` self-contained. These are evaluated by the LLM during Phase 2b (§5.3) and re-checked during Phase 3 (§7.3).
+
+**C-SC-1 (Term Resolution):** Every technical term used in the excerpt is either:
+  - (a) defined within the excerpt,
+  - (b) a standard term of the science that any student of that science would know (e.g., واجب in fiqh, مبتدأ in nahw), or
+  - (c) flagged in `self_containment_notes` as requiring external knowledge.
+
+**C-SC-2 (Reference Resolution):** Every pronoun, demonstrative, or anaphoric reference resolves within the excerpt. No dangling هذا, المذكور, ما تقدم, or similar references pointing to text outside the excerpt. If the LLM detects an unresolvable reference, the excerpt cannot be `FULL`.
+
+**C-SC-3 (Evidence Completeness):** Every evidence citation (Quran, hadith, athar, scholarly precedent) either:
+  - (a) includes its text within the excerpt, or
+  - (b) is a well-known citation identifiable by its opening words alone (e.g., حديث "إنما الأعمال بالنيات" — any student would recognize it), or
+  - (c) is flagged in `self_containment_notes`.
+
+**C-SC-4 (Argument Completeness):** The excerpt's argument, ruling, or teaching is complete — not a fragment of a larger argument whose premise or conclusion is elsewhere. An excerpt that states "ورد عليه بأن..." (and it was countered with...) without the original position being countered cannot be `FULL`. An excerpt that presents evidence without stating what it is evidence for cannot be `FULL`.
+
+**C-SC-5 (Dialogue Completeness):** If the excerpt quotes or responds to another scholar's position, enough of that position is included to understand the response. An excerpt that says "وأما قول الشافعي فليس بصحيح لأن..." must include enough of al-Shafi'i's stated position to understand why it is being rejected. The position need not be quoted in full — a sufficient summary within the excerpt satisfies this criterion.
+
+### §3.3 — Self-Containment Levels
+
+Each `TeachingUnit` (§2.3.4) receives one of three self-containment levels:
+
+**FULL** — All five criteria (C-SC-1 through C-SC-5) are met. The excerpt stands alone. No repair, no flagging, no human gate. This is the target state for every excerpt.
+
+**PARTIAL** — Most criteria are met, but the excerpt would benefit from additional context. Specifically: the excerpt teaches something coherent, but a reference, term, or piece of evidence is not fully resolved. This corresponds to the experiment's `self_contained=true` with `self_containment_notes` populated — the excerpt is usable but not perfect.
+
+Phase 3 action: Add `context_hint` — a brief note explaining what context is missing and where to find it (e.g., "References a position stated in the باب preceding this one"). The taxonomy engine receives the excerpt with the hint attached; the synthesis engine can incorporate the hint when building entries.
+
+Phase 3 also attempts to resolve the gap:
+- If C-SC-2 fails (dangling reference) and the reference points to a known division, add a `cross_reference` linking to that division.
+- If C-SC-3 fails (evidence not included) and the evidence is identifiable (e.g., a known hadith), add the reference in `evidence_refs`.
+
+After Phase 3 repair, the level may be upgraded from `PARTIAL` to `FULL` if all criteria are now satisfied. If repair fails, the level stays `PARTIAL`.
+
+**DEPENDENT** — The excerpt cannot be understood alone. It depends on adjacent content in a way that no context hint can repair. This typically means C-SC-4 fails (argument is a fragment) or C-SC-5 fails (response to an unknown position).
+
+Phase 3 action: Flag for human gate review. Write to `gate_queue.jsonl` with the full context (the excerpt, its adjacent teaching units in the same chunk, and the specific criteria that failed). The owner decides: accept with a note, merge with an adjacent excerpt, or reject.
+
+**Gate design:** Per `KNOWLEDGE_INTEGRITY.md` Layer 4, the owner may respond "yes" (accept), "no" (reject), or "I'm not sure" (triggers elevated Layer 3.5 cross-provider verification with 3+ models). A `DEPENDENT` excerpt never auto-promotes to `FULL` — it either stays `DEPENDENT` with an owner-accepted note, gets merged into an adjacent unit, or is rejected.
+
+### §3.4 — Relationship to Domain Rules
+
+The domain rules in §6 are enforcement mechanisms for self-containment:
+
+- §6.1 (Decontextualization Prevention) defends C-SC-4 and C-SC-5: a position and its refutation must stay together, a question and its answer must stay together.
+- §6.2 (Multi-Layer Handling) defends the "whose position" requirement: correct attribution prevents the owner from studying a sharh author's opinion thinking it is the matn author's.
+- §6.3 (Evidence Handling) defends C-SC-3: hadith and evidence grouped with their rulings.
+- §6.4 (Implicit Reference Resolution) defends C-SC-2: كما تقدم references are flagged or resolved.
+
+Self-containment is not a separate evaluation pass — it is embedded in the Phase 2b grouping decision. When the LLM groups segments into teaching units, it evaluates self-containment simultaneously. The domain rules (§6) are encoded in the Phase 2b prompt as explicit grouping constraints.
+
+### §3.5 — Measurement and Calibration
+
+The old excerpting SPEC used a continuous 0.0–1.0 `self_containment_score`. The new design uses a 3-level enum. The rationale:
+
+- A continuous score creates false precision. The LLM cannot reliably distinguish 0.65 from 0.72 — both mean "probably fine but something might be missing."
+- The 3-level system maps directly to actions: no action (`FULL`), automated repair (`PARTIAL`), human gate (`DEPENDENT`). Every level has a defined response.
+- The experiment's binary flag plus notes naturally maps to this 3-level system (see §2.3 `SelfContainmentLevel` design extension note).
+
+**Calibration during build:** The boundary between `PARTIAL` and `DEPENDENT` is the critical calibration point. Too strict (many `DEPENDENT`) overwhelms the human gate queue. Too lenient (many `PARTIAL` that should be `DEPENDENT`) lets incomplete arguments through. The 30-book probe (source engine roadmap Step 3) calibrates this boundary empirically. The SPEC defines the criteria; the build determines the prompt calibration that maps criteria to levels.
+
+**Same-model evaluation bias (C-7 mitigation):** Opus 4.6 both extracts teaching units and evaluates self-containment. Structural mitigations:
+- Mechanical checks (C-SC-2 can be partially verified by searching for unresolved demonstratives; C-SC-3 can be partially verified by checking evidence segment presence).
+- Cross-model spot checks: during the 30-book probe, a different model evaluates 10% of self-containment assessments.
+- Owner spot-checks: the owner reviews 5 excerpts per session during the probe, with specific attention to "does this make sense on its own?"
+
