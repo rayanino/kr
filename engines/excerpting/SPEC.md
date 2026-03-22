@@ -199,7 +199,7 @@ An `ExcerptRecord` contains all `TeachingUnit` fields plus Phase 3 enrichment:
 - Context hint: added text for `PARTIAL` self-containment cases
 - Human gate flags: which decisions need owner review
 
-The full field specification is in §2.2, written after all processing phases are defined.
+The full field specification is in §2.2 (Output Contract) — 33 fields across 7 categories, with complete type definitions, sub-object schemas, and 7 output invariants (I-ER-1 through I-ER-7).
 
 ### §2.3.6 — Design Constraints
 
@@ -294,6 +294,158 @@ If any of these pre-conditions is violated, the excerpting engine will produce i
 - `boundary_continuity` is null on a non-terminal unit → treat as `unknown` type, emit warning.
 
 These are defensive checks against data corruption, not schema re-validation.
+
+---
+
+## §2.2 — Output Contract
+
+The excerpting engine produces one `ExcerptRecord` per teaching unit. The output is a JSONL file per source: `library/sources/{source_id}/excerpts/excerpts.jsonl`. Each line is a complete JSON object representing one `ExcerptRecord`.
+
+The taxonomy engine (downstream consumer) reads these files. Every field documented here is part of the cross-engine contract — removing or renaming a field is a breaking change.
+
+### §2.2.1 — Output File Structure
+
+**Primary output:** `library/sources/{source_id}/excerpts/excerpts.jsonl`
+- One JSON line per `ExcerptRecord`.
+- Records are ordered by `div_id` (string sort), then by `chunk_index` (numeric), then by `unit_index` (numeric). This ordering preserves the text's reading order within the source.
+- Encoding: UTF-8. No BOM. Line separator: `\n`.
+
+**Gate queue (side output):** `library/sources/{source_id}/excerpts/gate_queue.jsonl`
+- One JSON line per human gate entry (§7.3.4). Present only if at least one gate was triggered.
+
+**Processing log (side output):** `library/sources/{source_id}/excerpts/processing_log.jsonl`
+- Structured log of all warnings, errors, and telemetry for this source's excerpting run.
+
+### §2.2.2 — ExcerptRecord Fields
+
+Every field is listed with its type, whether it is required, its source (which processing step produces it), and traceability to the SPEC section that defines its computation.
+
+**Identification and context:**
+
+| Field | Type | Required | Source | SPEC Reference |
+|-------|------|----------|--------|----------------|
+| `excerpt_id` | `str` | yes | Deterministic | §7.1 F-DET-1 |
+| `source_id` | `str` | yes | Passthrough | §2.1 (from AssembledChunk) |
+| `div_id` | `str` | yes | Passthrough | §2.1 (from AssembledChunk) |
+| `chunk_index` | `int` | yes | Passthrough | §4 (from AssembledChunk) |
+| `unit_index` | `int` | yes | Inherited | §2.3.4 (from TeachingUnit) |
+| `div_path` | `list[str]` | yes | Deterministic | §7.1 F-DET-7 |
+
+**Text content:**
+
+| Field | Type | Required | Source | SPEC Reference |
+|-------|------|----------|--------|----------------|
+| `primary_text` | `str` | yes | Deterministic | §7.1 F-DET-2 |
+| `text_snippet` | `str` | yes | Inherited | §2.3.4 (from TeachingUnit) |
+| `start_word` | `int` | yes | Inherited | §2.3.4 (from TeachingUnit) |
+| `end_word` | `int` | yes | Inherited | §2.3.4 (from TeachingUnit) |
+| `segment_indices` | `list[int]` | yes | Inherited | §2.3.4 (from TeachingUnit) |
+| `physical_pages` | `PageRange \| null` | no | Deterministic | §7.1 F-DET-6 |
+
+**Classification:**
+
+| Field | Type | Required | Source | SPEC Reference |
+|-------|------|----------|--------|----------------|
+| `primary_function` | `ScholarlyFunction` | yes | Inherited | §2.3.4 (from TeachingUnit) |
+| `secondary_functions` | `list[ScholarlyFunction]` | yes | Inherited | §2.3.4 (from TeachingUnit) |
+| `content_types` | `list[ScholarlyFunction]` | yes | Deterministic | §7.1 F-DET-4 |
+| `description_arabic` | `str` | yes | Inherited | §2.3.4 (from TeachingUnit) |
+
+**Self-containment:**
+
+| Field | Type | Required | Source | SPEC Reference |
+|-------|------|----------|--------|----------------|
+| `self_containment` | `SelfContainmentLevel` | yes | Inherited + consensus | §2.3.4 + §7.3 |
+| `self_containment_notes` | `str \| null` | conditional | Inherited | §2.3.4 (from TeachingUnit) |
+| `context_hint` | `str \| null` | conditional | LLM enrichment | §7.2 |
+
+Conditional rules: `self_containment_notes` is required (non-null, non-empty) when `self_containment` is PARTIAL or DEPENDENT, and must be null when FULL (I-TU-6, I-TU-7). `context_hint` is non-null only when `self_containment` is PARTIAL.
+
+**Attribution:**
+
+| Field | Type | Required | Source | SPEC Reference |
+|-------|------|----------|--------|----------------|
+| `primary_author_layer` | `AuthorAttribution` | yes | Deterministic | §7.1 F-DET-3 |
+| `attribution_confidence` | `float \| null` | no | Consensus | §7.3 |
+| `quoted_scholars` | `list[ScholarAttribution]` | yes | Deterministic + LLM | §7.1 F-DET-9 + §7.2 |
+| `school` | `str \| null` | yes | LLM enrichment | §7.2 |
+| `school_confidence` | `float \| null` | no | Consensus | §7.3 |
+
+`AuthorAttribution` structure: `{layer_id: str, author_id: str, coverage_pct: float, rule_applied: str}`. The `rule_applied` field is one of LA-1, LA-2, LA-3, LA-4 (§6.2).
+
+`ScholarAttribution` structure: `{mention_text: str, resolved_name: str | null, role: str, confidence: float, source: str}`. The `source` field distinguishes structural detection (`"layer_overlap"` from F-DET-9) from LLM resolution (`"llm_enrichment"` from §7.2). The `role` field is one of: `quoted_opinion`, `classification_frame`, `refuted_position`.
+
+**Topic and taxonomy:**
+
+| Field | Type | Required | Source | SPEC Reference |
+|-------|------|----------|--------|----------------|
+| `excerpt_topic` | `list[str]` | yes | LLM enrichment | §7.2 |
+| `terminology_variants` | `list[TermVariant]` | yes | LLM enrichment | §7.2 |
+
+`TermVariant` structure: `{term: str, variants: list[str]}`.
+
+`excerpt_topic` may be empty (zero keywords) only when LLM enrichment failed (review flag `llm_enrichment_failed` is set). Otherwise it must have 1–3 entries.
+
+**Evidence and references:**
+
+| Field | Type | Required | Source | SPEC Reference |
+|-------|------|----------|--------|----------------|
+| `evidence_refs` | `list[EvidenceRef]` | yes | Deterministic + LLM | §7.1 F-DET-5 + §7.2 |
+| `takhrij_data` | `list[TakhrijEntry] \| null` | no | LLM enrichment | §7.2 |
+| `cross_references` | `list[CrossReference]` | yes | LLM enrichment | §7.2 |
+| `footnotes_relevant` | `list[Footnote]` | yes | Deterministic | §7.1 F-DET-8 |
+
+`EvidenceRef` structure: `{type: str, surah: int | null, ayah_start: int | null, ayah_end: int | null, text_snippet: str, marker_text: str | null, scope: str | null}`. The `type` is one of: `quran`, `hadith`, `ijma`. Fields not applicable to the type are null.
+
+`TakhrijEntry` structure: `{hadith_text_snippet: str, collections: list[str], hadith_numbers: list[str], grade: str | null, grade_source: str | null}`.
+
+`CrossReference` structure: `{reference_text: str, target_description: str | null, target_div_id: str | null, resolved: bool}`.
+
+`Footnote` structure: inherited from the normalization engine's footnote schema. Includes `ref_marker`, `text`, and `footnote_type`.
+
+**Metadata and flags:**
+
+| Field | Type | Required | Source | SPEC Reference |
+|-------|------|----------|--------|----------------|
+| `consensus_metadata` | `ConsensusRecord \| null` | no | Consensus | §7.3 |
+| `gate_flags` | `list[str]` | yes | Consensus/gates | §7.3.4 |
+| `review_flags` | `list[str]` | yes | Various | §7.2, §7.3, §7.4 |
+
+`ConsensusRecord` structure: `{decisions: list[ConsensusDecision]}`. Each `ConsensusDecision`: `{decision_type: str, enrichment_value: str, verifier_value: str | null, verifier_agrees: bool | null, escalation_value: str | null, final_value: str, resolution_method: str}`.
+
+`gate_flags` is a list of EX-G-* codes that triggered. Empty list if no gates triggered.
+
+`review_flags` is a list of string flags for operational issues. Known flags: `llm_enrichment_failed`, `school_consensus_disagreement`, `attribution_consensus_escalated`. Empty list if no flags.
+
+### §2.2.3 — Output Invariants
+
+**I-ER-1 (Excerpt ID uniqueness):** No two `ExcerptRecord` objects in the entire library share an `excerpt_id`. Within a source, uniqueness is guaranteed by the ID format (`exc_{source_id}_{div_id}_{unit_index}`).
+
+**I-ER-2 (Primary text immutability):** `primary_text` is exactly the text extracted from `assembled_text` using word offsets. It is never modified after extraction — no "cleanup," no Unicode normalization, no diacritics alteration. The owner reads exactly what the source contains.
+
+**I-ER-3 (Reading order):** Records within a source's JSONL file appear in reading order: sorted by `div_id`, then `chunk_index`, then `unit_index`. This allows sequential reading of the source's excerpts.
+
+**I-ER-4 (Self-containment consistency):** The self-containment level, notes, and context_hint are mutually consistent per I-TU-6 and I-TU-7. FULL → no notes, no context_hint. PARTIAL → notes present, context_hint present (if LLM enrichment succeeded). DEPENDENT → notes present, no context_hint (context hints cannot save DEPENDENT units).
+
+**I-ER-5 (Attribution completeness):** Every excerpt has `primary_author_layer` with a non-null `layer_id` and `author_id`. Even ambiguous cases (LA-3) produce an attribution — the ambiguity is expressed in `attribution_confidence` and `gate_flags`, not in missing data.
+
+**I-ER-6 (No orphan fields):** Every field in the ExcerptRecord is produced by a defined processing step (column "Source" in §2.2.2 tables). No field exists without a producer. No processing step produces a field not listed in §2.2.2.
+
+**I-ER-7 (D-023 compliance):** Source metadata fields (`source_id`, `div_id`) are passed through without modification. No upstream metadata is dropped.
+
+### §2.2.4 — Downstream Consumer Contract
+
+The taxonomy engine consumes `ExcerptRecord` objects with these expectations:
+
+**Required for taxonomy placement:** `excerpt_id`, `excerpt_topic`, `primary_function`, `content_types`, `school`, `source_id`.
+
+**Required for display:** `primary_text`, `description_arabic`, `div_path`, `physical_pages`, `primary_author_layer`, `footnotes_relevant`.
+
+**Required for quality gates:** `self_containment`, `gate_flags`, `review_flags`.
+
+**Informational (used if present):** `evidence_refs`, `takhrij_data`, `cross_references`, `terminology_variants`, `context_hint`, `quoted_scholars`, `consensus_metadata`.
+
+The taxonomy engine MUST handle null/empty values gracefully for all optional/conditional fields. When `llm_enrichment_failed` is in `review_flags`, LLM-derived fields (`excerpt_topic`, `school`, `takhrij_data`, `terminology_variants`, `cross_references`, `context_hint`) may be empty/null.
 
 ---
 
