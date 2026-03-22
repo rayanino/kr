@@ -10,18 +10,20 @@
 - **SPEC Outline: ✅ COMPLETE** (`engines/excerpting/SPEC_OUTLINE.md`)
 - **Step 0 (evaluation): ✅** — Architect independently verified EVALUATION.md findings by reading Arabic text
 - **Step 1 (outline): ✅** — 763-line outline with source mapping, finding resolution, data model decision
-- **Step 2 (section writing): IN PROGRESS** — 4/12 sections complete (547 lines). Session 1 handoff: `reference/archive/sessions/excerpting_spec_session1_handoff.md`
+- **Step 2 (section writing): IN PROGRESS** — 6/12 sections complete (1145 lines). Session 2 handoff: `reference/archive/sessions/excerpting_spec_session2_handoff.md`
 
 ## What to Do — Step 2: Write Sections in Dependency Order
 
 ### Before Writing: Setup ✅ DONE (Session 1)
 
-Old SPECs archived to `reference/archive/abd_code/excerpting/`. New SPEC.md created with header. 4 sections written and committed.
+Old SPECs archived to `reference/archive/abd_code/excerpting/`. New SPEC.md created with header. Sessions 1–2 wrote 6 sections (§2.3, §2.1, §3, §4, §5, §6).
 
 ### Continuing from a Previous Session
 
 If this is NOT the first session writing sections:
-1. Read `reference/archive/sessions/excerpting_spec_session1_handoff.md` (or the latest session handoff)
+1. Read the latest session handoff (check `reference/archive/sessions/` for most recent):
+   - Session 1: `reference/archive/sessions/excerpting_spec_session1_handoff.md`
+   - Session 2: `reference/archive/sessions/excerpting_spec_session2_handoff.md`
 2. Read `engines/excerpting/SPEC_OUTLINE.md` in full — it's the architectural blueprint
 3. Read the current `engines/excerpting/SPEC.md` section headers (`grep "^## §\|^### §" engines/excerpting/SPEC.md`) to see what's written
 4. Check the progress tracker at the bottom of this file for the next unchecked section
