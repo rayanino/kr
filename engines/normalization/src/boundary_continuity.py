@@ -9,7 +9,8 @@ Classifies the boundary between consecutive content units:
   - unknown: insufficient signal
 
 Signal priority: heading > argument > punctuation.
-D7: Conditional reasoning markers (إذا) excluded — too frequent (L-008).
+D7: Conditional reasoning markers (إذا, لو, إن) re-enabled with
+sentence-initial filter (L-008 fix). Only fire at sentence start.
 
 Arabic-safe rules: no \\b, no \\d, no \\w for Arabic text.
 """
@@ -90,6 +91,39 @@ _ARGUMENT_CATEGORIES: list[_ArgumentCategory] = [
     ),
 ]
 
+# ──────────────────────────────────────────────────────────────────
+# L-008 fix: Conditional reasoning markers with sentence-initial filter
+# ──────────────────────────────────────────────────────────────────
+
+# Conditional reasoning openers — only valid at sentence start (L-008)
+_CONDITIONAL_OPENERS = ("إذا", "لو", "إن")
+_CONDITIONAL_CLOSERS = ("فالحكم", "فيجب", "وجب")
+
+
+def _is_sentence_initial(text: str, pos: int) -> bool:
+    """Check if position is at the start of a sentence.
+
+    Looks backward from pos for terminal punctuation. The marker at pos
+    is sentence-initial if:
+    - pos == 0 (start of text)
+    - preceded only by whitespace back to terminal punctuation
+    - preceded only by whitespace back to start of text
+
+    This prevents false positives from mid-sentence occurrences like
+    "يجب إذا كان..." where إذا is a subordinating conjunction, not
+    a conditional reasoning opener.
+    """
+    if pos == 0:
+        return True
+    for i in range(pos - 1, max(pos - 10, -1), -1):
+        ch = text[i]
+        if ch in _TERMINAL_PUNCT:
+            return True
+        if not ch.isspace():
+            return False
+    # Reached scan limit or start — treat as sentence-initial if we only saw whitespace
+    return pos <= 10
+
 
 def _has_word_boundary_after(text: str, match_end: int) -> bool:
     """Check that the character after match_end is space, punct, or end.
@@ -131,6 +165,27 @@ def _find_argument_marker(
     return False
 
 
+def _find_sentence_initial_conditional(text: str) -> bool:
+    """Check if any conditional opener appears at sentence-initial position.
+
+    L-008 fix: conditional markers (إذا, لو, إن) are only relevant when
+    at the start of a sentence, not mid-sentence where they're common
+    subordinating conjunctions.
+    """
+    for opener in _CONDITIONAL_OPENERS:
+        idx = 0
+        while True:
+            pos = text.find(opener, idx)
+            if pos == -1:
+                break
+            if (_has_word_boundary_before(text, pos) and
+                    _has_word_boundary_after(text, pos + len(opener)) and
+                    _is_sentence_initial(text, pos)):
+                return True
+            idx = pos + 1
+    return False
+
+
 def _check_argument_flow(
     current_text: str,
 ) -> str | None:
@@ -145,6 +200,12 @@ def _check_argument_flow(
             # Check if there's a closer ANYWHERE on the page
             if not _find_argument_marker(current_text, cat.closing_patterns):
                 return cat.name
+
+    # L-008 fix: conditional reasoning with sentence-initial filter
+    if _find_sentence_initial_conditional(tail):
+        if not _find_argument_marker(current_text, list(_CONDITIONAL_CLOSERS)):
+            return "conditional_reasoning"
+
     return None
 
 

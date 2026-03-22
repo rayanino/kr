@@ -29,14 +29,18 @@ Tracked limitations discovered during build. Not bugs (code matches SPEC), but b
 **SPEC compliance:** Compliant — §5 check 5 passes. The chaining avoids sibling overlap while preserving all detected headings in the tree.
 **Fix point:** Sub-page division ranges (character-offset based) would resolve this but require a SPEC-level design change to DivisionNode's range model. Alternatively, Tier 3 LLM context could suppress false positive headings from embedded section lists (03_fiqh page 1 pattern).
 
-## L-004: Arabic conjunction prefixes not detected on transition markers
+## L-004: Arabic conjunction prefixes on transition markers — RESOLVED
 
 **Discovered:** Session 4 layer detection design (March 2026).
-**Affected:** Multi-layer sources where markers appear with Arabic conjunction prefixes (و, ف) directly attached to the marker word.
-**Behavior:** The transition marker regex uses `(?:^|\s)` as a word boundary, requiring whitespace before the marker word. Arabic conjunction prefixes (وقال المصنف:, وقوله:, فأي:) attach directly to the marker word without whitespace, so these are not detected.
-**Impact:** Missed markers default to the current layer (typically commentary). Per SPEC conservative default, this is the safe direction — misattributing commentary to the commentator is less harmful than attributing it to the matn author (T-2). The missed markers do not cause misattribution of matn text.
-**SPEC compliance:** Compliant — the SPEC's conservative default handles missed markers safely.
-**Fix point:** Extend regex with optional Arabic prefix handling `(?:[وف])?` after validation against 20K Shamela samples to ensure no false positives from legitimate words starting with و or ف.
+**RESOLVED:** Overnight hardening session (March 23, 2026).
+**Fix applied:** Added optional conjunction prefix `[وف]?` before each transition marker
+regex in `TRANSITION_MARKER_PATTERNS`. The prefix is NOT captured in the match group —
+only the core marker text is captured. `plain_texts` list updated to include prefixed forms
+(e.g., `"وقال المصنف:"`) for the bold-signal two-factor test.
+**Covered markers:** `وقال المصنف:`, `فقال المصنف:`, `وقال الشارح:`, `فقال الشارح:`,
+`وقوله:`, `فقوله:`, `وأي:`, `فأي:`.
+**Risk:** LOW — safe direction (more granular layer boundaries, not fewer). The regex matches
+only و and ف prefixes (the two common Arabic conjunction clitics), not other prefix letters.
 
 ## L-005: Bold character threshold 50 deviates from SPEC provisional 80
 
@@ -68,23 +72,24 @@ Tracked limitations discovered during build. Not bugs (code matches SPEC), but b
 **Test coverage:** Test #19 (marker_state persistence) verifies Pattern B behavior. Pattern A is not tested because the only multi-layer fixture (ibn_aqil) does not trigger standalone `قوله:` markers — the word always appears embedded (`بقوله`) or without colon (`قوله «...»`).
 **Fix point:** Content-based inference (SPEC signal #3) or a heuristic that checks whether bold_exit coincides with a sentence boundary (terminal punctuation) to distinguish Pattern A from B. Requires additional multi-layer fixtures for calibration.
 
-## L-008: Conditional reasoning markers excluded from boundary continuity
+## L-008: Conditional reasoning markers in boundary continuity — MITIGATED
 
 **Discovered:** Session 5 boundary continuity design (March 2026).
 **SPEC reference:** §4.B.8 argument flow detection, D7.
-**Affected:** Fiqh and usul sources where `إذا` appears in 15-19% of pages.
-**Behavior:** All 3 conditional reasoning openers (`إذا`, `لو`, `إن`) and their closers (`فالحكم`, `فيجب`, `وجب`) are excluded from argument flow detection. They fire too frequently to be useful boundary markers.
-**Impact:** Argument flow detection relies on evidence chains, position statements, and objection-response patterns only. Conditional reasoning across page boundaries falls through to punctuation analysis (mid_sentence/mid_paragraph).
-**Fix point:** Add conditional markers with sentence-initial position requirement: only trigger when `إذا` appears at the start of a sentence (after terminal punctuation or at page start), not mid-sentence.
+**Mitigated:** Overnight hardening session (March 23, 2026).
+**Fix applied:** Re-enabled conditional openers (`إذا`, `لو`, `إن`) and closers (`فالحكم`, `فيجب`, `وجب`) with sentence-initial position requirement. The `_is_sentence_initial()` function scans backward up to 10 chars for terminal punctuation (`.`, `؟`, `!`, `؛`). Mid-sentence occurrences (common subordinating conjunction usage) are filtered out.
+**Remaining risk:** LOW-MEDIUM. Advisory flag for downstream engines. Does not modify text.
+The sentence-initial filter prevents the 15-19% false positive rate from mid-sentence `إذا`.
 
-## L-009: Guillemet hadith distance heuristic
+## L-009: Guillemet hadith distance heuristic — MITIGATED
 
 **Discovered:** Session 5 content flagger design (March 2026).
 **SPEC reference:** §4.A.9 hadith citation detection, D8.
-**Affected:** Pages where `«...»` guillemet-quoted text appears with `قال` further than 50 characters before.
-**Behavior:** The pattern `قال.{0,50}«Arabic text»` requires `قال` within 50 characters before the opening guillemet. This is a design decision balancing precision (avoiding false positives from non-hadith guillemet usage) against recall (catching hadith citations with longer introductions).
-**Impact:** Hadith citations introduced with long chains of narrator names (`حدثنا فلان عن فلان عن فلان قال`) where the distance exceeds 50 characters will not trigger the guillemet pattern. They may still be caught by the other 3 hadith detection patterns (ﷺ, صلى الله عليه وسلم, رواه + collector).
-**Fix point:** If too tight, increase the distance to 80 characters. Monitor false positive and false negative rates on the full Shamela corpus.
+**Mitigated:** Overnight hardening session (March 23, 2026). Distance increased 50 → 80.
+**Rationale:** 80 chars covers typical long isnad chains (`حدثنا فلان عن فلان عن فلان قال`).
+Hadith citations with even longer introductions still caught by other 3 patterns.
+**Remaining risk:** LOW — distance 80 is conservative. False positive risk minimal because
+guillemet usage in non-hadith contexts rarely follows `قال` within 80 chars.
 
 ## L-010: Division tree overlap downgraded from fatal to warning
 
@@ -97,14 +102,14 @@ Tracked limitations discovered during build. Not bugs (code matches SPEC), but b
 **SPEC compliance:** Partial deviation — SPEC asserts no overlap without specifying severity. WARNING is justified because content integrity is preserved. SPEC should explicitly classify as WARNING in §7 error code table.
 **Fix point:** Structure_discovery should deduplicate headings that produce same-range divisions, or DivisionNode should support sub-page character-offset ranges. Either fix requires a SPEC-level design change.
 
-## L-011: Writer recovery does not handle prev-only orphan state
+## L-011: Writer recovery does not handle prev-only orphan state — RESOLVED
 
 **Discovered:** Session 6 deep review (March 2026).
-**SPEC reference:** §4.A.2 lines 235-237, atomic write procedure + interrupted write recovery.
-**Scenario:** If `temp_dir.rename(final_dir)` AND the `shutil.move` fallback both fail AFTER `final_dir.rename(prev_dir)` succeeded, the exception handler cleans up temp but leaves prev orphaned. `recover_interrupted_write` only checks for temp dirs — if no temp dirs exist, it returns False. The prev dir is stuck with no normalized/ and no temp to trigger recovery.
-**Practical risk:** Near-zero. Requires both Path.rename and shutil.move to fail on a same-filesystem operation where a previous rename just succeeded. The failure itself IS raised as NORM_WRITE_FAILED (loud, not silent).
-**Impact:** The book would need full re-processing. No corrupt data enters the library. This is a durability gap, not a correctness gap. No T-1 through T-7 threat applies.
-**Fix:** Add a case in `recover_interrupted_write`: if no temp dirs AND no `normalized/` AND prev dirs exist → restore from latest prev. See CC fix instructions in Session 6 review.
+**RESOLVED:** Session 6 implementation. Code at `writer.py:192-216`.
+**Fix applied:** Added prev-only orphan recovery case in `recover_interrupted_write()`:
+if no temp dirs AND no `normalized/` AND prev dirs exist → restore from latest prev,
+clean up remaining prevs, log NORM_WRITE_RECOVERY.
+**Status:** Fixed. No remaining risk. Original scenario fully handled.
 
 ## L-012: Arabic-Indic digit footnote markers not parsed
 

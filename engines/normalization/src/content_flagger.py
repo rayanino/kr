@@ -77,10 +77,11 @@ _HADITH_RAWAHU = re.compile(
     r"رواه\s+(?:" + "|".join(re.escape(c) for c in _HADITH_COLLECTORS) + r")"
 )
 
-# Pattern 4: «Arabic text» with قال within 50 chars before (D8, L-009)
+# Pattern 4: «Arabic text» with قال within 80 chars before (D8, L-009 fix)
+# Distance 80 catches long isnad chains: حدثنا فلان عن فلان عن فلان قال
 # re.DOTALL: قال and « may be on different lines in primary_text
 _HADITH_GUILLEMET = re.compile(
-    r"قال.{0,50}«[\u0600-\u06FF\s]{3,}»",
+    r"قال.{0,80}«[\u0600-\u06FF\s]{3,}»",
     re.DOTALL,
 )
 

@@ -59,30 +59,38 @@ class _MarkerPattern:
 # Both _detect_transition_markers and _classify_bold_signal use this list.
 # "أقول:" is intentionally NOT included — it confirms current layer's
 # author speaking, not a layer transition (SPEC §4.A.5).
+#
+# L-004 fix: Arabic conjunction prefixes (و, ف) are optionally matched
+# before markers. These attach directly without whitespace, e.g.:
+# "وقال المصنف:" → same as "قال المصنف:"
+# "فقوله:" → same as "قوله:"
+# The prefix itself is NOT captured in the match group — only the core marker.
+_CONJUNCTION_PREFIX = r"[وف]?"  # Optional waw or fa prefix (L-004)
+
 TRANSITION_MARKER_PATTERNS: list[_MarkerPattern] = [
     _MarkerPattern(
-        regex=re.compile(r"(?:^|\s)(قال\s+المصنف\s*:)"),
+        regex=re.compile(r"(?:^|\s)" + _CONJUNCTION_PREFIX + r"(قال\s+المصنف\s*:)"),
         target_layer=LayerType.MATN,
         confidence=0.90,
-        plain_texts=["قال المصنف:"],
+        plain_texts=["قال المصنف:", "وقال المصنف:", "فقال المصنف:"],
     ),
     _MarkerPattern(
-        regex=re.compile(r"(?:^|\s)(قال\s+الشارح\s*:)"),
+        regex=re.compile(r"(?:^|\s)" + _CONJUNCTION_PREFIX + r"(قال\s+الشارح\s*:)"),
         target_layer=LayerType.SHARH,
         confidence=0.90,
-        plain_texts=["قال الشارح:"],
+        plain_texts=["قال الشارح:", "وقال الشارح:", "فقال الشارح:"],
     ),
     _MarkerPattern(
-        regex=re.compile(r"(?:^|\s)(قوله\s*:)"),
+        regex=re.compile(r"(?:^|\s)" + _CONJUNCTION_PREFIX + r"(قوله\s*:)"),
         target_layer=LayerType.MATN,
         confidence=0.90,
-        plain_texts=["قوله:"],
+        plain_texts=["قوله:", "وقوله:", "فقوله:"],
     ),
     _MarkerPattern(
-        regex=re.compile(r"(?:^|\s)(أي\s*:)"),
+        regex=re.compile(r"(?:^|\s)" + _CONJUNCTION_PREFIX + r"(أي\s*:)"),
         target_layer=None,  # → default_commentary_layer at runtime
         confidence=0.80,
-        plain_texts=["أي:"],
+        plain_texts=["أي:", "وأي:", "فأي:"],
     ),
 ]
 
