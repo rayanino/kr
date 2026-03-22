@@ -1,2 +1,7 @@
 [2026-03-23 00:15] DEFERRED: QuranHub MCP installation. Free Quran cross-referencing tool. Useful for taxonomy engine phase (Quran verse validation, mutashabihat detection). Not needed until that phase. Install when taxonomy engine work begins.
 [2026-03-23 00:30] DEFERRED: Compaction recovery hook improvement needs settings.json edit. Want to add SPEC section awareness and limitation fix progress reminder to the compact SessionStart hook. Cannot edit settings.json during autonomous session.
+[2026-03-23 02:00] PHASE 3 NOTES: 
+- SPEC quality: normalization=10 defects (9 in §4.B deferred), excerpting=44 (still being written), source=16. Architect's domain — no fixes applied.
+- Cross-engine contracts: consistent for built engines. Legacy contracts for unbuilt engines expected to have mismatches.
+- Bare except audit: CLEAN — 0 bare except: handlers found in engines/, shared/, scripts/.
+- D-023 metadata flow: static analysis shows expected gaps at unbuilt engine boundaries.
