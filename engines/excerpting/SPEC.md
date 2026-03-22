@@ -13,6 +13,69 @@ and `reference/archive/abd_code/excerpting/SPEC_old_blocked.md` (868 lines, rewr
 
 ---
 
+## §1 — Purpose and Scope
+
+### §1.1 — What This Engine Does
+
+The excerpting engine transforms normalized scholarly text into self-contained, attributed teaching units — the building blocks of the knowledge library. A teaching unit is the smallest segment of text from which a student can learn a complete scholarly thought: a definition, a ruling with its evidence, a position with its refutation, a grammatical rule with its example.
+
+**Pipeline position:**
+
+```
+Source ✅ → Normalization ✅ → Excerpting → Taxonomy → Synthesis
+```
+
+The excerpting engine receives a `NormalizedPackage` (frozen source text with structure, metadata, and text layers) and produces a stream of `ExcerptRecord` objects (self-contained excerpts with full attribution, topic keywords, evidence references, and self-containment evaluation). The taxonomy engine consumes these records to place excerpts in the knowledge tree. The synthesis engine consumes placed excerpts to produce encyclopedic entries.
+
+### §1.2 — Three-Phase Architecture
+
+The engine operates in three sequential phases:
+
+**Phase 1 — Deterministic Preprocessing (§4):** Assembles content units into processable chunks. Handles cross-page text joining, tiny division merging, oversized division splitting, text layer rebasing, and content flag aggregation. Fully deterministic — no LLM calls. Absorbs the functionality of the former passaging engine.
+
+**Phase 2 — LLM Teaching Unit Extraction (§5):** Classifies text segments by scholarly function (Phase 2a) and groups segments into teaching units with self-containment evaluation (Phase 2b). This is the engine's core intellectual operation — identifying where one scholarly thought ends and another begins. Absorbs the functionality of the former atomization engine.
+
+**Phase 3 — Metadata Enrichment (§7):** Adds attribution, topic keywords, evidence references, school classification, and cross-references to each teaching unit, producing the final `ExcerptRecord`. Uses LLM enrichment with multi-model consensus verification for high-stakes fields (attribution, school).
+
+### §1.3 — Architecture Absorption
+
+This engine absorbs two former engines from the original 7-engine architecture:
+
+**Passaging** (deterministic text chunking) is absorbed as Phase 1. Rationale: 96.8% of Shamela divisions need no splitting; the remaining 3.2% require ~500 lines of deterministic code — not engine-worthy. Full analysis: `experiments/architecture_test/ARCHITECTURE_DECISION.md`.
+
+**Atomization** (LLM segment classification) is absorbed as Phase 2. Rationale: the Architecture C experiment validated that an LLM can identify teaching units directly from division-level text without a separate atom-level intermediate representation. Two-phase (classify-then-group) outperformed single-phase in 10/10 experiment divisions across 5 genres. Full results: `experiments/format_diversity_test/EVALUATION_WORKBOOK.md`.
+
+### §1.4 — D-011: Division Containment
+
+**D-011 constraint:** No excerpt spans a division or chunk boundary. This is the fundamental structural invariant. The LLM sees one chunk at a time and produces teaching units only from that chunk's text. This constraint is STRONGER than the original D-011 (which was passage containment): divisions are the author's own organizational structure, while passages were artificial boundaries.
+
+D-011 is enforced structurally (§5.5.1): the LLM prompt receives one chunk's text, and the grouping response's word offsets are validated against that chunk's boundaries. There is no mechanism by which a teaching unit could span chunks — the constraint is not checked after the fact but made impossible by construction.
+
+### §1.5 — Scope Exclusions
+
+The excerpting engine does NOT:
+
+- **Cross source boundaries.** Each source is excerpted independently. Cross-source operations (deduplication, dialogue detection, resonance) are deferred capabilities (§9).
+- **Place excerpts in the taxonomy tree.** The engine produces `excerpt_topic` keywords; the taxonomy engine maps topics to tree positions. Clean engine boundary: excerpting knows content, taxonomy knows structure.
+- **Synthesize entries.** The engine produces individual excerpts; the synthesis engine combines excerpts into encyclopedic entries.
+- **Modify source text.** The engine reads frozen normalized text. It never writes back to normalization output.
+- **Perform cross-division operations.** Each division/chunk is processed independently. Context from adjacent divisions is available for self-containment evaluation (§3) but not for content modification.
+
+### §1.6 — Knowledge Integrity
+
+Every excerpt this engine produces becomes a belief in the owner's mind. A wrong attribution means the owner studies a text believing it was written by the wrong person. A decontextualized refutation means the owner believes a scholar endorses a position he actually rejects. A lost hadith grading means the owner cannot assess the strength of evidence.
+
+The engine defends against the 7 corruption threats defined in `KNOWLEDGE_INTEGRITY.md`:
+- T-1 (Silent text corruption): Offset validation (V-P2-1–5), primary text integrity (V-P3-2)
+- T-2 (Attribution error): Multi-model consensus (§7.3), human gates (EX-G-001, EX-G-003)
+- T-3 (Taxonomic misplacement): Deferred to taxonomy engine; excerpting provides topic keywords only
+- T-4 (Context loss): Self-containment standard (§3), decontextualization prevention (§6.1)
+- T-5 (Synthesis hallucination): Deferred to synthesis engine
+- T-6 (Metadata poisoning): Schema validation (I-ER-1–7), evidence reference integrity (V-P3-6)
+- T-7 (Duplication): Excerpt ID uniqueness (V-P3-1), deferred deduplication (DC-02)
+
+---
+
 ## §2.3 — Internal Data Model
 
 The excerpting engine transforms a `NormalizedPackage` (from `engines/normalization/contracts.py`) into a stream of `ExcerptRecord` objects. Three intermediate representations flow between the engine's internal phases:
