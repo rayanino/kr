@@ -1,0 +1,82 @@
+{
+  "source_name": "مختصر في قواعد التفسير.htm",
+  "source_path_relative": "مختصر في قواعد التفسير.htm",
+  "status": "success",
+  "source_format": "shamela_html",
+  "composite_hash": "28005a44c9aa1906aca94f20da85b2a2c04528830094fb7aba183a3baccb104c",
+  "file_hashes": {
+    "مختصر في قواعد التفسير.htm": "9e5f127ae9828704220f798c0dd0d5c0877f557251255dbf60b91a083f63c594"
+  },
+  "extracted_metadata": {
+    "is_multi_volume": false,
+    "volume_count": 1,
+    "has_muqaddima": false,
+    "display_title": "مختصر في قواعد التفسير",
+    "author_short": "خالد السبت",
+    "shamela_category": "علوم القرآن وأصول التفسير",
+    "title_full": "مختصر في قواعد التفسير",
+    "_field_source_title_full": "الكتاب",
+    "author_name_raw": "خالد بن عثمان السبت",
+    "_field_source_author_name_raw": "المؤلف",
+    "publisher": "دار ابن القيم- دار ابن عفان",
+    "_field_source_publisher": "الناشر",
+    "edition_raw": "الأولى 1426هـ/ 2005",
+    "_field_source_edition_raw": "الطبعة",
+    "page_count_raw": "3",
+    "_field_source_page_count_raw": "عدد الصفحات",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "_field_source_shamela_publish_date": "تاريخ النشر بالشاملة",
+    "_physical_page_count": 3,
+    "edition_number": 1,
+    "edition_year_hijri": 1426,
+    "body_page_count": 46,
+    "page_count": 46,
+    "text_sample": "‌‌المقصد الأول: نزول القرآن وما يتعلق به‌‌القسم الأول: في القواعد المتعلقة بأسباب النزولقاعدة:القول في الأسباب موقوف على النقل والسماع.قاعدة:سبب النزول له حكم الرفع.قاعدة:نزول القرآن تارة يكون مع تقرير الحكم، وتارة يكون قبله، والعكس.قاعدة:الأصل عدم تكرار النزول.قاعدة:قد يكون سبب النزول واحدًا والآيات النازلة متفرقة، والعكس.قاعدة:إذا تعددت المرويات في سبب النزول، نُظر إلى الثبوت، فاقتُصر على الصحيح، ثم العبارة، فاقتُصر على الصريح، فإن تقارب الزمان حُمل على الجميع، وإن تباعد حُكم بتكرار النزول أو الترجيح.\n‌‌القسم الثاني: القواعد المتعلقة بمكان النزول \"المكي والمدني\"قاعدة: إنما يُعرف المكي والمدني بنقل من شاهدوا التنزيل.قاعدة: المدني من السور يكون منزَّلًا في الفهم على المكي، وكذا المكي بعضه مع بعض، والمدني بعضه مع بعض، على حسب ترتيبه في التنزيل.\n‌‌القسم الثالث: القواعد المتعلقة بالأحرف والقراءات التي نزل عليها القرآنقاعدة: كل قراءة وافقت العربية ولو بوجه، ووافقت أحد المصاحف العثمانية ولو احتمالًا، وصح سندها، فهي القراءة الصحيحة. ومتى اختلّ ركن من هذه الأركان الثلاثة أُطلق عليها: ضعيفة، أو شاذة، أو باطلة.قاعدة: تنوع القراءات بمنزلة تعدد الآيات.قاعدة: القراءتان إذا اختلف معناهما، ولم يظهر تعارضهما، وعادتا إلى ذات واحدة كان ذلك من الزيادة في الحكم لهذه الذات.قاعدة: القراءات يبين بعضها بعضًا.قاعدة: يُعمَل بالقراءة الشاذة -إذا صح سندها- تنزيلًا لها منزلة خبر الآحاد.قاعدة: القراءة الشاذة إن خالفت القراءة المتواترة المجمع عليها، ولم يمكن الجمع فهي باطلة.قاعدة: القراءة سنة متبعة يلزم قبولها والمصير إليها، فإذا ثبتت لم يردها قياس عربية، ولا فشوّ لغة.قاعدة: البسملة نزلت مع السورة في بعض الأحرف السبعة، فمن قرأ بحرف نزلت فيه عدها، ومن قرأ بغير ذلك لم يعدها.قاعدة: إذا ثبتت القراءتان لم ترجح إحداهما -في التوجيه- ترجيحًا يكاد يسقط الأخرى، وإذا اختلف الإعرابان لم يفضل إعراب على إعراب، كما لا يقال بأن إحدى القراءتين أجود من الأخرى.\n‌‌القسم الرابع: ترتيب الآيات والسورقاعدة: الترتيب توقيفي في الآيات دون السور.\n‌‌المقصد الثاني: طريقة التفسيرقاعدة: التفسير إما بنقل ثابت أو رأي صائب، وما سواهما فباطل.\"ذكر بعض القواعد المتعلقة بالتفسير النبوي\":قاعدة: إذا عرف التفسير من جهة النبي صلى الله عل",
+    "_quality_issues": [
+      {
+        "check": "page_count_mismatch",
+        "severity": "info",
+        "detail": "Digital pages (46) exceed claimed physical pages (3) by 15.3x — likely metadata error"
+      },
+      {
+        "check": "truncation_with_mismatch",
+        "severity": "warning",
+        "detail": "Last page ends without sentence-ending punctuation AND page count is inconsistent — strongly suggests truncated export"
+      }
+    ],
+    "format_specific_metadata": {
+      "shamela_category": "علوم القرآن وأصول التفسير",
+      "shamela_publish_date": "8 ذو الحجة 1431",
+      "edition_raw": "الأولى 1426هـ/ 2005",
+      "page_count_raw": "3",
+      "author_short": "خالد السبت",
+      "physical_page_count": 3,
+      "quality_issues": [
+        {
+          "check": "page_count_mismatch",
+          "severity": "info",
+          "detail": "Digital pages (46) exceed claimed physical pages (3) by 15.3x — likely metadata error"
+        },
+        {
+          "check": "truncation_with_mismatch",
+          "severity": "warning",
+          "detail": "Last page ends without sentence-ending punctuation AND page count is inconsistent — strongly suggests truncated export"
+        }
+      ]
+    }
+  },
+  "quality_issues": [
+    {
+      "check": "page_count_mismatch",
+      "severity": "info",
+      "detail": "Digital pages (46) exceed claimed physical pages (3) by 15.3x — likely metadata error"
+    },
+    {
+      "check": "truncation_with_mismatch",
+      "severity": "warning",
+      "detail": "Last page ends without sentence-ending punctuation AND page count is inconsistent — strongly suggests truncated export"
+    }
+  ],
+  "processing_time_ms": 23.5,
+  "error": null
+}

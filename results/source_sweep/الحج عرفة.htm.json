@@ -1,0 +1,84 @@
+{
+  "source_name": "الحج عرفة.htm",
+  "source_path_relative": "الحج عرفة.htm",
+  "status": "success",
+  "source_format": "shamela_html",
+  "composite_hash": "2812879c8537e6b10c7091095f92e352e769a425e58592ca3780fc71d50592d8",
+  "file_hashes": {
+    "الحج عرفة.htm": "cb4f432033991109df9c15755a034af978a35d7ca1b11c2588ff21d23b28fc08"
+  },
+  "extracted_metadata": {
+    "is_multi_volume": false,
+    "volume_count": 1,
+    "has_muqaddima": false,
+    "display_title": "الحج عرفة",
+    "author_short": "محمد أمان الجامي",
+    "shamela_category": "الفقه العام",
+    "title_full": "الحج عرفة",
+    "_field_source_title_full": "الكتاب",
+    "author_name_raw": "أبو أحمد محمد أمان بن علي جامي علي (ت 1415هـ)",
+    "_field_source_author_name_raw": "المؤلف",
+    "publisher": "الجامعة الإسلامية بالمدينة المنورة",
+    "_field_source_publisher": "الناشر",
+    "edition_raw": "السنة الحادية عشرة, العدد الثاني غرة ذي الحجة عام 1398هـ",
+    "_field_source_edition_raw": "الطبعة",
+    "page_count_raw": "153",
+    "_field_source_page_count_raw": "عدد الصفحات",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "_field_source_shamela_publish_date": "تاريخ النشر بالشاملة",
+    "author_death_hijri": 1415,
+    "author_name_clean": "أبو أحمد محمد أمان بن علي جامي علي",
+    "_physical_page_count": 153,
+    "edition_number": 2,
+    "edition_year_hijri": 1398,
+    "body_page_count": 17,
+    "page_count": 17,
+    "text_sample": "‌‌الحج عرفةلفضيلة الشيخ محمد أمان بن علي الجامي عميد كلية الحديث الشريف والدراسات الإسلاميةالحمد لله المنعم المتفضل وصلاة الله وسلامه وبركاته على أكرم الرسل محمد بن عبد الله وآله وصحبه..الحج عرفةتعبدنا الله العليم الحكيم بأنواع عديدة من العبادات منها ما هو بدني محض كالصلاة والصيام ومنها ما هو مالي محض كالزكاة وسائر النفقات..وهناك عبادة يقوم العبد بأدائها ببدنه مع إنفاق المال فيها فيقال لها عبادة لها عبادة مالية وبدنية وهي عبادة حج بيت الله الحرام التي ينفق فيها الإنسان المسلم من أنفس أمواله ويكابد فيها متاعب السفر ومشقته ومن أجزاء هذه العبادة - إن صح التعبير- الوقوف وبعرفة حيث تعبدنا الله تعالى لحكمة يعلمها أن تقف عشية اليوم التاسع من شهر ذي الحجة في أرض فسيحة محدودة بحدود معروفة قديماً وحديثاً تسمى- أرض عرفه-\nنقف في وسط تلك الأرض نعبد الله وحده بعبادة شرعها الله لنا على لسان من اختاره وأرسله إلينا ليبلغنا دين الله وهو محمد بن عبد الله النبي الأمي الهاشمي عليه الصلاة والسلام وتلك العبادة ذكر الله تعالى ذكراً كثيراً من التهليل والاستغفار والتسبيح والثناء عليه سبحانه والتضرع إليه ويبوء العبد هناك بذنبه ليتوب عليه ويبوء بنعمه التي لا تعد ولا تحصى ويطلب المزيد من فضله ويكثر من هذه العبادة وهذا الثناء التضرع يكرر والدعاء ويلح لعل الله يجعله من عتقاء ذلك اليوم العظيم الذي من الله به على عباده، هكذا يظل الحاج في عبادة ربه والاعتراف بذنبه من بعد زوال شمس يوم عرفة إلى الليل.\n‌‌حدود الموقفوهذه البقعة التي سوف نقف فيها في اليوم التاسع من شهر ذي الحجة يحسن بنا أن نعرف حدودها ولو على وجه التقريب.ويحد عرفة شرقاً الجبل العالي شمال جبل الرحمة، ويحدها من الجنوب الجبال المقابلة له ويحدها من الشمال والغرب بطن وادي عرنة الذي يمتد من الشمال إلى الجنوب وهو الحد من الشمال والغرب، والمسجد نفسه في وادي عرنة ونمرة غربي عرفة وكلتاهما ليستا من عرفة وأما نمرة في الأصل قرية غربي عرفات وهي الآن خراب ما ذكر ذلك غير واحد من أهل العلم، وعرنة في الأصل جبل عليه أنصاب الحرم (علاماته) أما الآن فليس هناك جبل بل كلها أرض مستوية ولعل الجبل المذكور كان عبارة عن تل من الرمال زال مع الزمن، والله أعلم..وإذا تجاوز الحاج منطقة نمرة وارتفع في بطن وادي عرنة فليقف حيث تيسر له الوقوف، أما رسول الله عليه الصلاة والسل",
+    "_quality_issues": [
+      {
+        "check": "page_count_mismatch",
+        "severity": "warning",
+        "detail": "Digital pages (17) are 11% of claimed physical pages (153) — likely partial export"
+      },
+      {
+        "check": "truncation_with_mismatch",
+        "severity": "warning",
+        "detail": "Last page ends without sentence-ending punctuation AND page count is inconsistent — strongly suggests truncated export"
+      }
+    ],
+    "format_specific_metadata": {
+      "shamela_category": "الفقه العام",
+      "shamela_publish_date": "8 ذو الحجة 1431",
+      "edition_raw": "السنة الحادية عشرة, العدد الثاني غرة ذي الحجة عام 1398هـ",
+      "page_count_raw": "153",
+      "author_short": "محمد أمان الجامي",
+      "physical_page_count": 153,
+      "quality_issues": [
+        {
+          "check": "page_count_mismatch",
+          "severity": "warning",
+          "detail": "Digital pages (17) are 11% of claimed physical pages (153) — likely partial export"
+        },
+        {
+          "check": "truncation_with_mismatch",
+          "severity": "warning",
+          "detail": "Last page ends without sentence-ending punctuation AND page count is inconsistent — strongly suggests truncated export"
+        }
+      ]
+    }
+  },
+  "quality_issues": [
+    {
+      "check": "page_count_mismatch",
+      "severity": "warning",
+      "detail": "Digital pages (17) are 11% of claimed physical pages (153) — likely partial export"
+    },
+    {
+      "check": "truncation_with_mismatch",
+      "severity": "warning",
+      "detail": "Last page ends without sentence-ending punctuation AND page count is inconsistent — strongly suggests truncated export"
+    }
+  ],
+  "processing_time_ms": 1.6,
+  "error": null
+}

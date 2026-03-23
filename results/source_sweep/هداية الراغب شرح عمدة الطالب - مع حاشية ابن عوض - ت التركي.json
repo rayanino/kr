@@ -1,0 +1,64 @@
+{
+  "source_name": "هداية الراغب شرح عمدة الطالب - مع حاشية ابن عوض - ت التركي",
+  "source_path_relative": "هداية الراغب شرح عمدة الطالب - مع حاشية ابن عوض - ت التركي",
+  "status": "success",
+  "source_format": "shamela_html",
+  "composite_hash": "170b566a7b3b79e73b00ebceb782591c39650f266958111605d863023fa2fb44",
+  "file_hashes": {
+    "001.htm": "80463fcdf8b324d6b7a0191acaf9d6259bf30eb6549e1e04cd7370f515b5599d",
+    "002.htm": "798a9949e5bd40605842b422b357f1501f3db1fc24b4f8dbabf6ce74e7d04904",
+    "003.htm": "d5949dc0c2ef275123d189775e48e2e4f62cf9d28ea32ab9263a4a8c9e88364e",
+    "المقدمة.htm": "01725ffbe8b47d7212c8f9e82415f77c0e2c62322c90de567b5c235161781dc7"
+  },
+  "extracted_metadata": {
+    "is_multi_volume": true,
+    "volume_count": 3,
+    "has_muqaddima": true,
+    "display_title": "هداية الراغب شرح عمدة الطالب - مع حاشية ابن عوض - ت التركي",
+    "author_short": "ابن قائد - ابن عوض",
+    "shamela_category": "الفقه الحنبلي",
+    "title_full": "هداية الراغب لشرح عمدة الطالب لنيل المآرب",
+    "_field_source_title_full": "الكتاب",
+    "author_name_raw": "عثمان بن أحمد بن سعيد النجدي، الشهير بابن قائد [ت 1097 هـ]",
+    "_field_source_author_name_raw": "المؤلف",
+    "_extra_card_fields": {
+      "مع": "حاشية «فتح مولى المواهب على هداية الراغب» لأحمد بن محمد بن عوض المرداوي النابلسي، وابنه أحمد"
+    },
+    "muhaqiq_name_raw": "د عبد الله بن عبد المحسن التركي",
+    "_field_source_muhaqiq_name_raw": "تحقيق",
+    "publisher": "مؤسسة الرسالة - بيروت",
+    "_field_source_publisher": "الناشر",
+    "edition_raw": "الأولى، 1428 هـ - 2007 م",
+    "_field_source_edition_raw": "الطبعة",
+    "volume_count_raw": "3",
+    "_field_source_volume_count_raw": "عدد الأجزاء",
+    "editorial_note": "هذه الطبعة تشتمل على المجلد الأول فقط من «حاشية ابن عوض» كما نَبّه عليه المحقق، وأفاد د. العثيمين أنه رأى الثالث منها؛ في تعليقه على «السحب الوابلة» 1/ 241",
+    "_field_source_editorial_note": "تنبيه",
+    "shamela_publish_date": "9 ربيع الأول 1445",
+    "_field_source_shamela_publish_date": "تاريخ النشر بالشاملة",
+    "edition_number": 1,
+    "edition_year_hijri": 1428,
+    "edition_year_miladi": 2007,
+    "_metadata_volume_count": 3,
+    "body_page_count": 514,
+    "page_count": 514,
+    "text_sample": "",
+    "_quality_issues": [],
+    "format_specific_metadata": {
+      "shamela_category": "الفقه الحنبلي",
+      "shamela_publish_date": "9 ربيع الأول 1445",
+      "editorial_note": "هذه الطبعة تشتمل على المجلد الأول فقط من «حاشية ابن عوض» كما نَبّه عليه المحقق، وأفاد د. العثيمين أنه رأى الثالث منها؛ في تعليقه على «السحب الوابلة» 1/ 241",
+      "volume_count_raw": "3",
+      "edition_raw": "الأولى، 1428 هـ - 2007 م",
+      "author_short": "ابن قائد - ابن عوض",
+      "has_muqaddima": true,
+      "metadata_volume_count": 3,
+      "extra_card_fields": {
+        "مع": "حاشية «فتح مولى المواهب على هداية الراغب» لأحمد بن محمد بن عوض المرداوي النابلسي، وابنه أحمد"
+      }
+    }
+  },
+  "quality_issues": [],
+  "processing_time_ms": 32.6,
+  "error": null
+}

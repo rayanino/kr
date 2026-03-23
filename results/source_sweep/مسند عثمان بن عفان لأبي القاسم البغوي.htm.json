@@ -1,0 +1,87 @@
+{
+  "source_name": "مسند عثمان بن عفان لأبي القاسم البغوي.htm",
+  "source_path_relative": "مسند عثمان بن عفان لأبي القاسم البغوي.htm",
+  "status": "success",
+  "source_format": "shamela_html",
+  "composite_hash": "8677060ab259b3036085dc209a7756f1d97f00d2547d08284b8540e9ad968a5f",
+  "file_hashes": {
+    "مسند عثمان بن عفان لأبي القاسم البغوي.htm": "dcdfc22af5be91b34ff7adcd1c9e7422f75afb92fb4fd8a2e2710109f4c8e3a3"
+  },
+  "extracted_metadata": {
+    "is_multi_volume": false,
+    "volume_count": 1,
+    "has_muqaddima": false,
+    "display_title": "مسند عثمان بن عفان لأبي القاسم البغوي",
+    "author_short": "أبو القاسم البغوي",
+    "shamela_category": "كتب السنة",
+    "title_full": "مسند عثمان بن عفان لأبي القاسم البغوي (وهو مطبوع ضمن كتاب الفوائد)",
+    "_field_source_title_full": "الكتاب",
+    "author_name_raw": "أبو القاسم عبد الله بن محمد بن عبد العزيز بن المَرْزُبان بن سابور بن شاهنشاه البغوي (ت 317هـ)",
+    "_field_source_author_name_raw": "المؤلف",
+    "muhaqiq_name_raw": "خلاف محمود عبد السميع",
+    "_field_source_muhaqiq_name_raw": "المحقق",
+    "publisher": "دار الكتب العلمية، بيروت - لبنان",
+    "_field_source_publisher": "الناشر",
+    "edition_raw": "الأولى، 1423 هـ - 2002 م",
+    "_field_source_edition_raw": "الطبعة",
+    "page_count_raw": "153",
+    "_field_source_page_count_raw": "عدد الصفحات",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "_field_source_shamela_publish_date": "تاريخ النشر بالشاملة",
+    "author_death_hijri": 317,
+    "author_name_clean": "أبو القاسم عبد الله بن محمد بن عبد العزيز بن المَرْزُبان بن سابور بن شاهنشاه البغوي",
+    "_physical_page_count": 153,
+    "edition_number": 1,
+    "edition_year_hijri": 1423,
+    "edition_year_miladi": 2002,
+    "body_page_count": 2,
+    "page_count": 2,
+    "text_sample": "‌‌(1) حدثنا أحمد بن عباد الفرغاني (1) : حدثنا يعقوب بن محمد الزهري: حدثنا المغيرة بن عبد الرحمن بن الحارث بن عبد الله بن عباس، عن خالد بن إياس، عن إسماعيل بن عمرو بن سعيد بن العاص، عن عثمان بن عبد الله بن الحكم، عن عثمان بن عفان، أن رسول الله صلى الله عليه وسلم صلى على عثمان بن مظعون، فكبر عليه أربع تكبيرات.‌‌(2) حدثني محمد بن إسحاق: حدثنا يعقوب بن محمد: حدثنا المغيرة بن عبد الرحمن، عن خالد بن إياس، عن عثمان بن عبد الله بن الحارث، عن عثمان بن عفان، عن النبي صلى الله عليه وسلم مثله.‌‌(3) حدثنا يوسف بن موسى: حدثنا سلمة بن الفضل الأبرش: حدثنا إسماعيل بن مسلم عن عبد الملك بن جريج، عن عبد العزيز بن عبد الله بن خالد بن أسيد قال: أرسل عثمان بن عفان إلى رجل فأتاه، فقال: إنه بلغني أنك تقول الشعر؟ قال: نعم قال: فلا تفعل، فإني سمعت رسول الله صلى الله عليه وسلم يقول: لأن يمتلأ جوف أحدكم قيحا خير له من أن يمتلأ شعرا يريه يعني يحرق جوفه.‌‌(4) حدثني محمد بن سنان: حدثنا أبو عاصم، عن عثمان بن عبد الملك، عن الفرافصة، عن عثمان بن عفان قال: قال رسول الله صلى الله عليه وسلم: عليكم بالكحل، فإنه ينبت الشعر ويشد العين.\n‌‌(5) حدثنا محمد بن الحسين: حدثنا عمرو بن طلحة القناد: حدثنا حسين بن عيسى، عن أبيه، عن علي بن عمرو بن صالح، عن أبي يحيى، أو يحيى، مولى معاذ بن عفراء الأنصاري قال: خطب عثمان بن عفان رضي الله عنه الناس وأنا شاهد فقال: إن رسول الله صلى الله عليه وسلم كان يؤثر بني هاشم على من سواهم.‌‌(6) حدثني ابن زنجويه وإبراهيم بن هانئ قالا: حدثنا أبو صالح كاتب الليث: حدثني أبو أيوب، عن عبيد الله بن المغيرة، عن منقذ مولى ابن سراقة، عن عثمان، أن رسول الله صلى الله عليه وسلم قال: يا عثمان، إذا ابتعت فاكتل، وإذا بعت فكل.‌‌(7) حدثني أبو موسى هارون بن عبد الله: حدثنا وهب بن جرير: حدثنا أبي، سمعت النعمان يحدث عن الزهري، عن أبي عبيد قال: خرج بنا عمر رحمة الله عليه يوم الفطر أو النحر فصلى بنا ركعتين بلا أذان ولا إقامة، وقال: سمعت / رسول الله صلى الله عليه وسلم ينهى عن صيام هذين اليومين، أما هذا اليوم فيوم نسككم فكلوا من نسككم، ثم شهدت عثمان بن عفان رضي الله عنه فعل مثل ما فعل عمر رضي الله عنه. قال أبو القاسم: ولم يسنده عن عثمان رضي الله عنه غيره. آخر المسندالحمد لله أولا وآخرا وظاهرا وباطناحسبنا الله ",
+    "_quality_issues": [
+      {
+        "check": "content_minimal",
+        "severity": "info",
+        "detail": "Only 2 content pages"
+      },
+      {
+        "check": "page_count_mismatch",
+        "severity": "warning",
+        "detail": "Digital pages (2) are 1% of claimed physical pages (153) — likely partial export"
+      }
+    ],
+    "format_specific_metadata": {
+      "shamela_category": "كتب السنة",
+      "shamela_publish_date": "8 ذو الحجة 1431",
+      "edition_raw": "الأولى، 1423 هـ - 2002 م",
+      "page_count_raw": "153",
+      "author_short": "أبو القاسم البغوي",
+      "physical_page_count": 153,
+      "quality_issues": [
+        {
+          "check": "content_minimal",
+          "severity": "info",
+          "detail": "Only 2 content pages"
+        },
+        {
+          "check": "page_count_mismatch",
+          "severity": "warning",
+          "detail": "Digital pages (2) are 1% of claimed physical pages (153) — likely partial export"
+        }
+      ]
+    }
+  },
+  "quality_issues": [
+    {
+      "check": "content_minimal",
+      "severity": "info",
+      "detail": "Only 2 content pages"
+    },
+    {
+      "check": "page_count_mismatch",
+      "severity": "warning",
+      "detail": "Digital pages (2) are 1% of claimed physical pages (153) — likely partial export"
+    }
+  ],
+  "processing_time_ms": 1.5,
+  "error": null
+}

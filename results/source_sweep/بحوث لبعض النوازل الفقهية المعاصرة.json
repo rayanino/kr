@@ -1,0 +1,84 @@
+{
+  "source_name": "بحوث لبعض النوازل الفقهية المعاصرة",
+  "source_path_relative": "بحوث لبعض النوازل الفقهية المعاصرة",
+  "status": "success",
+  "source_format": "shamela_html",
+  "composite_hash": "c468e2362e648206a7a517a8b3de71efb54ead415321728c3ee1c427464d6111",
+  "file_hashes": {
+    "001.htm": "b8320d901507273312451d8560114d939d0176119ab5954475353b9c2bea4355",
+    "002.htm": "d7e4e83c004371df1f9f58a901a702ca81b25a13a486d303fd24770ed0e6ac62",
+    "003.htm": "29df0927bd2529088cefae22fc324764aa3f76974e49d9b0ea6f67f9e25f5ec2",
+    "004.htm": "584e481f00b099bb93e5710e02447cee344cac1a73a3662b9693ba3afa25de55",
+    "005.htm": "ed198e21d9149f15055039b1cd5e09aa5dd114e5e7d6482b90f5b8c36835ba09",
+    "006.htm": "b11b1173b414e33a6f518a6ee3127fb6ca4d3a4f1a117a80eb27a945e885bddd",
+    "007.htm": "b056980461db7323ec965250e57a56f0436fe0e67d133dc47a1515d7ab8e15c7",
+    "008.htm": "8dd6678691594064f703dc5026baabe5ecb0b39ba21f9937dd8667ec2e69db53",
+    "009.htm": "602be9a39d68aeade805e9dd418825fedec59758b86deabf11b03fddeba1eba8",
+    "010.htm": "56718e2c21c02970d05c41b481b28ffdf13e089ad60cd8055877d9dddd1ea01c",
+    "011.htm": "c84d1988b2ea50a1edc33ea8b7bca67093991cec8ebc5cf99785010004ce2200",
+    "012.htm": "bfab0e19fd336e5f36427fd3fc07a8128eec52bd6337c85f17aaf483e1f48e49",
+    "013.htm": "8f6ab26435940ba925e1cc62a2c1bd2ee23e92cb04ac01ea0b5d77bb9ec038fc",
+    "014.htm": "c41c23ff4140c027842f3ab99c85b817a0771a27956b9a2ac2bb98c7c6617992",
+    "015.htm": "905ed550028728bf4c66580456cea815c82f8a8b507f70310284f48302ef7b4b",
+    "016.htm": "9851c0727717554fbb68407d6b0098cf1f34d0dc2f48f99182c9abf5d27593f9",
+    "017.htm": "dab1d7a972e78bb920a75d9c1aabd401486955f0b061a453415ff2d953566549",
+    "018.htm": "67e3f02181962e1dc1bc3f68f68cd3008f16194d9aead92e1df66eba91e7328e",
+    "019.htm": "b1ce55d2e674f7c0db704f7a54721803018600c7b1c91ac55aa03e5795458e67",
+    "020.htm": "4fa55a166af97ffafc1b30602e52853c2bf8594cfccfa9d57dbab6e00e2dd79e",
+    "021.htm": "2a3661ffc97360f2e9ab4c8b7ad43917cfaa21a107f69fd12c47711a62ec8a31",
+    "022.htm": "bb5dda540f6f84679cce7299d9529c31218ff75009f9027d22acd6bd407e1e83",
+    "023.htm": "9e923ec3215f7800218e43c3531f4f35a32f30e70217f80ed69b2b950b5bf85f",
+    "024.htm": "a6cb993e68d95af29175b13cdd45672b62032bee5ef0e36e27205f797e176067",
+    "025.htm": "383824c410afd2f00a751cb76c3cbf3076735167fc400bc1625e967ff07711e3",
+    "026.htm": "0a706059a2fb08817572ba3a5ac19207c0e7b762594ce53af6842c247439d47d",
+    "027.htm": "62d5c23c1fa454b4d7ca37d1f33e06300886a14d2e87d98dee8f1892924dbc93",
+    "028.htm": "75f58b74261d5643479823fefa65e290559eaa5eb059c28e95bf881518fb527b",
+    "029.htm": "bc32c066d6eee27c23986e18aaee35c3eb2abe96c23e42e5a25cfae2f8783e5e",
+    "030.htm": "2db7ba4862bb3be4c096d0143d274f0200274f024c9c0153532043d7371402ef"
+  },
+  "extracted_metadata": {
+    "is_multi_volume": true,
+    "volume_count": 30,
+    "has_muqaddima": false,
+    "display_title": "بحوث لبعض النوازل الفقهية المعاصرة",
+    "author_short": "-",
+    "shamela_category": "مسائل فقهية",
+    "title_full": "بحوث لبعض النوازل الفقهية المعاصرة",
+    "_field_source_title_full": "الكتاب",
+    "author_name_raw": "بعض طلبة العلم",
+    "_field_source_author_name_raw": "المؤلف",
+    "shamela_publish_date": "8 ذو الحجة 1431",
+    "_field_source_shamela_publish_date": "تاريخ النشر بالشاملة",
+    "body_page_count": 1,
+    "page_count": 1,
+    "text_sample": "بحوث لبعض النوازل الفقهية المعاصرةكتبها: أحد طلبة العلم",
+    "_quality_issues": [
+      {
+        "check": "content_minimal",
+        "severity": "info",
+        "detail": "Only 1 content pages"
+      }
+    ],
+    "format_specific_metadata": {
+      "shamela_category": "مسائل فقهية",
+      "shamela_publish_date": "8 ذو الحجة 1431",
+      "author_short": "-",
+      "quality_issues": [
+        {
+          "check": "content_minimal",
+          "severity": "info",
+          "detail": "Only 1 content pages"
+        }
+      ]
+    }
+  },
+  "quality_issues": [
+    {
+      "check": "content_minimal",
+      "severity": "info",
+      "detail": "Only 1 content pages"
+    }
+  ],
+  "processing_time_ms": 17.8,
+  "error": null
+}
