@@ -2,14 +2,77 @@
 
 **Engine:** Excerpting (محرك الاقتباس)
 **Version:** 2.0.0
-**Date:** 2026-03-22
+**Date:** 2026-03-23
 **Author:** Claude Chat (Architect)
-**Status:** DRAFT — writing section by section per SPEC_OUTLINE.md dependency order
+**Status:** COMPLETE — 12 sections, 2343 lines. Ready for kr-integrity audit and contracts.py update.
 
 **Supersedes:** `reference/archive/abd_code/excerpting/SPEC_old_original.md` (1038 lines, 7-engine architecture — BLOCKED)
 and `reference/archive/abd_code/excerpting/SPEC_old_blocked.md` (868 lines, rewrite attempt — BLOCKED, 16 findings)
 
 **Governing documents:** `KNOWLEDGE_INTEGRITY.md`, `SPEC_OUTLINE.md`, `ARCHITECTURE_DECISION.md`
+
+---
+
+## §1 — Purpose and Scope
+
+### §1.1 — What This Engine Does
+
+The excerpting engine transforms normalized scholarly text into self-contained, attributed teaching units — the building blocks of the knowledge library. A teaching unit is the smallest segment of text from which a student can learn a complete scholarly thought: a definition, a ruling with its evidence, a position with its refutation, a grammatical rule with its example.
+
+**Pipeline position:**
+
+```
+Source ✅ → Normalization ✅ → Excerpting → Taxonomy → Synthesis
+```
+
+The excerpting engine receives a `NormalizedPackage` (frozen source text with structure, metadata, and text layers) and produces a stream of `ExcerptRecord` objects (self-contained excerpts with full attribution, topic keywords, evidence references, and self-containment evaluation). The taxonomy engine consumes these records to place excerpts in the knowledge tree. The synthesis engine consumes placed excerpts to produce encyclopedic entries.
+
+### §1.2 — Three-Phase Architecture
+
+The engine operates in three sequential phases:
+
+**Phase 1 — Deterministic Preprocessing (§4):** Assembles content units into processable chunks. Handles cross-page text joining, tiny division merging, oversized division splitting, text layer rebasing, and content flag aggregation. Fully deterministic — no LLM calls. Absorbs the functionality of the former passaging engine.
+
+**Phase 2 — LLM Teaching Unit Extraction (§5):** Classifies text segments by scholarly function (Phase 2a) and groups segments into teaching units with self-containment evaluation (Phase 2b). This is the engine's core intellectual operation — identifying where one scholarly thought ends and another begins. Absorbs the functionality of the former atomization engine.
+
+**Phase 3 — Metadata Enrichment (§7):** Adds attribution, topic keywords, evidence references, school classification, and cross-references to each teaching unit, producing the final `ExcerptRecord`. Uses LLM enrichment with multi-model consensus verification for high-stakes fields (attribution, school).
+
+### §1.3 — Architecture Absorption
+
+This engine absorbs two former engines from the original 7-engine architecture:
+
+**Passaging** (deterministic text chunking) is absorbed as Phase 1. Rationale: 96.8% of Shamela divisions need no splitting; the remaining 3.2% require ~500 lines of deterministic code — not engine-worthy. Full analysis: `experiments/architecture_test/ARCHITECTURE_DECISION.md`.
+
+**Atomization** (LLM segment classification) is absorbed as Phase 2. Rationale: the Architecture C experiment validated that an LLM can identify teaching units directly from division-level text without a separate atom-level intermediate representation. Two-phase (classify-then-group) outperformed single-phase in 10/10 experiment divisions across 5 genres. Full results: `experiments/format_diversity_test/EVALUATION_WORKBOOK.md`.
+
+### §1.4 — D-011: Division Containment
+
+**D-011 constraint:** No excerpt spans a division or chunk boundary. This is the fundamental structural invariant. The LLM sees one chunk at a time and produces teaching units only from that chunk's text. This constraint is STRONGER than the original D-011 (which was passage containment): divisions are the author's own organizational structure, while passages were artificial boundaries.
+
+D-011 is enforced structurally (§5.5.1): the LLM prompt receives one chunk's text, and the grouping response's word offsets are validated against that chunk's boundaries. There is no mechanism by which a teaching unit could span chunks — the constraint is not checked after the fact but made impossible by construction.
+
+### §1.5 — Scope Exclusions
+
+The excerpting engine does NOT:
+
+- **Cross source boundaries.** Each source is excerpted independently. Cross-source operations (deduplication, dialogue detection, resonance) are deferred capabilities (§9).
+- **Place excerpts in the taxonomy tree.** The engine produces `excerpt_topic` keywords; the taxonomy engine maps topics to tree positions. Clean engine boundary: excerpting knows content, taxonomy knows structure.
+- **Synthesize entries.** The engine produces individual excerpts; the synthesis engine combines excerpts into encyclopedic entries.
+- **Modify source text.** The engine reads frozen normalized text. It never writes back to normalization output.
+- **Perform cross-division operations.** Each division/chunk is processed independently. Context from adjacent divisions is available for self-containment evaluation (§3) but not for content modification.
+
+### §1.6 — Knowledge Integrity
+
+Every excerpt this engine produces becomes a belief in the owner's mind. A wrong attribution means the owner studies a text believing it was written by the wrong person. A decontextualized refutation means the owner believes a scholar endorses a position he actually rejects. A lost hadith grading means the owner cannot assess the strength of evidence.
+
+The engine defends against the 7 corruption threats defined in `KNOWLEDGE_INTEGRITY.md`:
+- T-1 (Silent text corruption): Offset validation (V-P2-1–5), primary text integrity (V-P3-2)
+- T-2 (Attribution error): Multi-model consensus (§7.3), human gates (EX-G-001, EX-G-003)
+- T-3 (Taxonomic misplacement): Deferred to taxonomy engine; excerpting provides topic keywords only
+- T-4 (Context loss): Self-containment standard (§3), decontextualization prevention (§6.1)
+- T-5 (Synthesis hallucination): Deferred to synthesis engine
+- T-6 (Metadata poisoning): Schema validation (I-ER-1–7), evidence reference integrity (V-P3-6)
+- T-7 (Duplication): Excerpt ID uniqueness (V-P3-1), deferred deduplication (DC-02)
 
 ---
 
@@ -1964,6 +2027,316 @@ All configuration parameters are collected here with their defaults, valid range
 Per-source overrides are designed for edge cases. For example, a very short source (under 10 divisions) might lower `TINY_DIVISION_WORDS` to avoid over-merging. A source with known poor layer detection might lower the LA-1 threshold from 80% to 70%. Per-source overrides are logged in the processing log.
 
 **All LLM calls go through OpenRouter.** Model strings in this configuration are OpenRouter model identifiers. Direct API calls to Anthropic, OpenAI, Cohere, or Mistral are not permitted (KR routing rule).
+
+---
+
+## §9 — Deferred Capabilities
+
+This section catalogs capabilities that are **not part of the core excerpting engine** but are designed to plug into its architecture. Each capability is listed with: what it does, which processing phase it extends, and what ExcerptRecord fields or processing steps it would add. The core engine preserves extension hooks for each — nullable fields, empty arrays, or config flags — so these capabilities can be added without schema migration.
+
+**Principle:** Every deferred capability was specified in the old 7-engine SPECs (passaging §4.B, atomization §4.B, excerpting §4.B). The 5-engine architecture absorbed passaging and atomization into excerpting as internal phases, but it did NOT absorb their transformative capabilities. These remain deferred until the core engine is proven and the pipeline is flowing.
+
+**Extension hook contract:** A deferred capability may add nullable fields to `ExcerptRecord` (§2.2), add optional processing steps within an existing phase, or add new configuration parameters (§8.3). It must NOT change the type or semantics of any existing core field. It must NOT change the ordering or skip conditions of existing processing steps. It must NOT require a different LLM model for core operations. Violations of these rules require a SPEC revision, not just a capability activation.
+
+### §9.1 — Deferred Capabilities Catalog
+
+| ID | Capability | Source | Phase | Extension Hook | Depends On |
+|----|-----------|--------|-------|----------------|------------|
+| DC-01 | Argumentative discourse mapping | excerpting §4.B.1 | Phase 3 | `argument_role: str \| null`, `argument_map: list \| null` on ExcerptRecord | Core: `content_types`, `primary_function` |
+| DC-02 | Cross-source semantic deduplication | excerpting §4.B.2 | Post-Phase 3 (batch) | `semantic_duplicates: list \| null` on ExcerptRecord | DC-08 (fingerprints), taxonomy placement |
+| DC-03 | Scholarly argument completeness | excerpting §4.B.3 | Post-Phase 3 | `argument_completeness: object \| null` on ExcerptRecord | DC-01 (argument roles) |
+| DC-04 | Mas'ala boundary detection | excerpting §4.B.4 | Phase 3 | `masala_analysis: object \| null` on ExcerptRecord | Core: `excerpt_topic`, source science |
+| DC-05 | Evidence chain reconstruction | excerpting §4.B.5 | Phase 3 | `evidence_chain: object \| null` on ExcerptRecord | Core: `evidence_refs`, `content_types` |
+| DC-06 | Cross-excerpt dialogue detection | excerpting §4.B.6 | Post-Phase 3 (incremental) | `dialogue_links: list \| null` on ExcerptRecord | DC-01, DC-05, taxonomy placement |
+| DC-07 | Self-containment repair suggestions | excerpting §4.B.7 | Post-Phase 3 | `repair_suggestions: list \| null` on ExcerptRecord | Core: `self_containment`, adjacent chunk context |
+| DC-08 | Cross-source textual resonance | excerpting §4.B.8 | Post-Phase 3 (incremental) | `resonance_links: list \| null` on ExcerptRecord | DC-05, DC-08 (fingerprints), taxonomy placement |
+| DC-09 | Rhetorical structure analysis | atomization §4.B.1 | Phase 2b (post-grouping) | `rhetorical_pattern: str \| null` on TeachingUnit | Core: `scholarly_function` sequence |
+| DC-10 | Scholarly attribution chain resolution | atomization §4.B.4 | Phase 3 | `attribution_chain: list \| null` on ExcerptRecord | Core: `quoted_scholars`, `primary_author_layer` |
+| DC-11 | Semantic fingerprinting | atomization §4.B.5 | Post-Phase 2 | `fingerprint: object \| null` on ExcerptRecord | Core: `primary_text` |
+| DC-12 | Passage quality prediction | passaging §4.B.1 | Post-Phase 1 | `quality_prediction: object \| null` on AssembledChunk | Core: `assembled_text`, embeddings |
+| DC-13 | Implicit structure discovery | passaging §4.B.2 | Phase 1 (pre-splitting) | Supplementary division tree for sources with `structure_confidence: "minimal"` | Normalization: `structure_confidence` |
+| DC-14 | Discourse-aware boundary optimization | passaging §4.B.7 | Phase 1 (splitting) | `discourse_transition_cost: float \| null` on split boundaries | Core: `assembled_text`, embeddings |
+| DC-15 | Completeness forecast | passaging §4.B.8 | Post-Phase 1 | `completeness_forecast: object \| null` on AssembledChunk | Normalization: `discourse_flow` (if available) |
+| DC-16 | Verse-commentary explicit alignment | evaluation finding C-5 | Phase 1 | `verse_alignment: list \| null` on AssembledChunk for verse-commentary sources | Core: `text_layers`, VC domain rules (§6.5) |
+
+### §9.2 — Extension Hook Descriptions
+
+**DC-01 through DC-08 (old excerpting §4.B):** These capabilities extend Phase 3 metadata enrichment or run as post-Phase 3 batch operations. Their full specifications are preserved in `reference/archive/abd_code/excerpting/SPEC_old_original.md` §4.B.1–§4.B.8. The core engine's `ExcerptRecord` fields (`content_types`, `evidence_refs`, `quoted_scholars`, `excerpt_topic`, `self_containment`, `primary_author_layer`) provide the foundation each capability builds upon.
+
+Post-Phase 3 capabilities (DC-02, DC-03, DC-06, DC-07, DC-08) run AFTER Phase 3 produces complete `ExcerptRecord` objects. They add fields to already-valid records. If a post-Phase 3 capability fails, the core ExcerptRecord remains valid — the deferred field stays null.
+
+Cross-source capabilities (DC-02, DC-06, DC-08) require taxonomy placement to determine which excerpts share a leaf. These are inherently incremental — they run when a new source is added to an existing library, comparing new excerpts against previously placed excerpts. During initial bulk loading, they run as a batch job after all sources are excerpted and placed.
+
+**DC-09 (rhetorical structure):** Extends Phase 2b by adding a post-grouping pattern matching step. After teaching units are grouped, a pattern matcher examines the sequence of `scholarly_function` values across a chunk's units and annotates recognized rhetorical patterns. The field `rhetorical_pattern` on `TeachingUnit` records the matched pattern name (e.g., `"masala_tarjih"`, `"definition_example"`) or null. This is purely informational — it does not change unit boundaries.
+
+**DC-10 (attribution chain):** Extends Phase 3 LLM enrichment to resolve multi-layer scholarly attribution chains. Where the core engine identifies `primary_author_layer` and `quoted_scholars`, this capability reconstructs the full chain: who quotes whom, in what capacity, across how many layers of commentary. The `attribution_chain` field is a list of `{scholar_id, role, layer, quotes}` objects tracing the scholarly lineage of each teaching unit's content.
+
+**DC-11 (semantic fingerprinting):** Adds a post-Phase 2 step that computes a semantic fingerprint for each teaching unit's `primary_text`. The fingerprint includes: a text hash (for exact duplicate detection), key terms (for terminological matching), and an embedding vector (for semantic similarity). This fingerprint is the foundation for DC-02 (deduplication) and DC-08 (resonance detection).
+
+**DC-12 through DC-16 (old passaging/atomization §4.B):** These capabilities extend Phase 1 (deterministic preprocessing) or run as post-Phase 1 analysis. Their full specifications are preserved in `engines/passaging/SPEC.md` §4.B and `engines/atomization/SPEC.md` §4.B. The core engine's Phase 1 output (`AssembledChunk` with `assembled_text`, `text_layers`, `word_count`) provides the foundation.
+
+DC-13 (implicit structure discovery) is the most architecturally significant: it provides an alternative division tree for sources where the normalization engine reported `structure_confidence: "minimal"`. This supplementary tree guides Phase 1 splitting without modifying the normalization engine's output. It would be activated by a configuration flag (`ENABLE_IMPLICIT_STRUCTURE: bool, default false`).
+
+### §9.3 — Activation Model
+
+Deferred capabilities are activated per-engine-run via configuration flags in `engines/excerpting/config.yaml`. Each capability has a boolean flag (`ENABLE_DC_01: bool`, etc.) defaulting to `false`. When a capability is activated:
+
+1. Its nullable fields are populated on applicable records (instead of remaining null).
+2. Its processing steps execute within the designated phase.
+3. Its error codes (defined in the capability's full specification) are added to the error catalog.
+4. Its configuration parameters (model strings, thresholds) are added to §8.3.
+
+Capabilities with dependencies (the `Depends On` column in §9.1) cannot be activated unless their dependencies are also active. The engine validates capability dependencies at startup and emits a configuration error if an unsatisfied dependency is detected.
+
+### §9.4 — What Is NOT Deferred
+
+The following capabilities from the old SPECs are **absorbed into the core engine** (not deferred):
+
+| Old Capability | Absorbed Into | Rationale |
+|---------------|---------------|-----------|
+| Atomization §4.A (classification) | Phase 2a (§5.2) | Core: segment classification is the engine's primary function |
+| Atomization §4.B.2 (implicit layer transition) | §6.2 (LA rules) | Partially absorbed: LA-2 and LA-3 handle explicit and ambiguous layer transitions; implicit detection remains deferred (DC-09 pattern matching covers the remaining cases) |
+| Atomization §4.B.6 (argument completeness) | Subsumed by DC-03 | Old atomization version operated at atom level; DC-03 operates at excerpt level (more useful) |
+| Passaging §4.A (all core steps) | Phase 1 (§4) | Core: cross-page assembly, merging, splitting are the preprocessor |
+| Passaging §4.B.3 (commentary alignment) | DC-16 + §6.5 (VC rules) | VC rules handle core verse-commentary detection; precision alignment is deferred |
+| Passaging §4.B.5 (adaptive passaging) | Not needed | Content census adaptation was for a separate passaging engine; Phase 1 operates within the excerpting engine's context and uses simpler thresholds |
+| Passaging §4.B.6 (argument boundary detection) | Phase 2b (§5.3) | Core: teaching unit grouping inherently detects argument boundaries through self-containment evaluation |
+| Atomization §4.B.3 (distribution analytics) | Not deferred — dropped | Analytics capability, not a processing capability; can be implemented as a post-hoc analysis script outside the engine |
+| Atomization §4.B.7 (terminological concordance) | Not deferred — dropped | Cross-source concordance is better handled at the taxonomy/synthesis layer |
+| Atomization §4.B.8 (evidence quality signals) | §6.3 (EV rules) | EV-1 through EV-3 handle evidence detection and reference extraction; quality signal detection is covered |
+
+---
+
+## §10 — Test Requirements
+
+This section specifies **what must be tested**, not how. The builder (Claude Code) writes the actual test code; this section defines the coverage targets, fixture requirements, and adversarial cases that the test suite must satisfy.
+
+**Coverage rule:** Every verification check (34 total: V-P1-1–6, V-P2-1–19, V-P3-1–9), every invariant (29 total: I-AC-1–7, I-CS-1–6, I-TU-1–9, I-ER-1–7), every error code (27 total: EX-A/C/M/V/G), and every domain rule (22 total: DP-1–6, LA-1–4, EV-1–3, IR-1–3, VC-1–3, QM-1–3) requires at least one test that exercises it. A test that only checks the happy path does not count — each test must verify the specific behavior described by the ID it claims to cover.
+
+### §10.1 — Test Fixtures
+
+**Existing fixtures (from experiments — regression baselines):**
+
+The architecture experiments produced validated outputs for real Shamela divisions. These become regression baselines: future engine runs on the same inputs must produce equivalent or better outputs (measured by teaching unit boundary quality and self-containment accuracy). Fixture locations:
+
+- `experiments/format_diversity_test/fixtures/ibn_aqil/` — verse-commentary (نظم) format, multi-layer (matn/sharh/hashiyah)
+- `experiments/format_diversity_test/fixtures/taysir_al_ilam/` — prose format, single-layer
+- `experiments/architecture_test/` — 10 divisions from 5 genres (nahw, fiqh, usul, balagha, hadith)
+
+**Required new fixtures (builder must create):**
+
+The following fixture types are needed for unit testing and are NOT covered by experiment fixtures:
+
+| Fixture Type | Purpose | Minimum Count |
+|-------------|---------|---------------|
+| Tiny division (<50 words) | Test merging logic (§4.4) | 3 (single, consecutive pair, triple) |
+| Oversized division (>5000 words) | Test splitting logic (§4.5) | 2 (with structural markers, without) |
+| Multi-page division | Test cross-page assembly (§4.3) | 2 (2-page, 5-page) |
+| Empty division (0 content units) | Test skip logic (§4.2) | 1 |
+| Single-sentence division (<10 words) | Test minimal-content handling | 1 |
+| Multi-layer source (matn/sharh) | Test LA-1 through LA-4, text layer rebasing (§4.6) | 2 (clean layers, ambiguous layers) |
+| Source with footnotes | Test footnote aggregation (§4.7) | 1 (with ref_markers spanning multiple units) |
+| Hadith-heavy text | Test EV-1 through EV-3 | 1 |
+| Verse-commentary (نظم) | Test VC-1 through VC-3 | 1 (from existing ibn_aqil fixtures) |
+| Q&A / masala format | Test QM-1 through QM-3 | 1 |
+| Source with reported positions | Test DP-1, DP-2 (decontextualization prevention) | 2 |
+
+All fixtures must use real Arabic text from Shamela exports. Synthetic Arabic text is not acceptable for domain rule testing — the markers and patterns must be authentic.
+
+**Fixture construction pattern:** Follow normalization engine conventions (`engines/normalization/tests/conftest.py`). Use factory helpers: `_make_source_metadata(**overrides)` for SourceMetadata, `_make_normalized_package(**overrides)` for NormalizedPackage. Each fixture includes the NormalizedPackage input and (where applicable) the expected output for regression comparison.
+
+### §10.2 — Phase 1 Unit Tests
+
+Phase 1 is fully deterministic — every behavior is testable without LLM calls.
+
+**Verification check coverage:**
+
+| Check | What the test must verify |
+|-------|--------------------------|
+| V-P1-1 (Division coverage) | Every leaf division produces ≥1 chunk or is explicitly skipped. Test: create a division tree with 5 leaves; verify 5 chunks (or documented skips). |
+| V-P1-2 (Content unit coverage) | All content units appear in some chunk. Test: 10 content units across 3 divisions; verify union of `constituent_unit_indices` covers 0–9. |
+| V-P1-3 (No empty chunks) | Every chunk has `word_count > 0`. Test: merge two tiny divisions (one with 10 words, one with 5); verify merged chunk has word_count=15. |
+| V-P1-4 (No oversized chunks) | Every chunk has `word_count <= OVERSIZED_DIVISION_WORDS`. Test: input a 7000-word division; verify it splits into chunks ≤5000 words each. |
+| V-P1-5 (Layer coverage) | Every character in `assembled_text` is covered by exactly one `text_layers` segment. Test: multi-page division with 3 layers; verify continuous coverage after assembly. |
+| V-P1-6 (Word count consistency) | `word_count` matches actual Arabic word count. Test: known text with 47 Arabic words; verify `word_count == 47`. |
+
+**Invariant coverage:**
+
+I-AC-1 through I-AC-7 define `AssembledChunk` structural constraints. Each invariant must have a dedicated test that constructs an AssembledChunk violating exactly that invariant and verifies the validation code detects it.
+
+**Error code coverage (Phase 1):**
+
+| Error Code | Trigger Condition for Test |
+|-----------|---------------------------|
+| EX-A-002 | Division's content unit range is empty (start_unit_index > end_unit_index or no content units in range) |
+| EX-A-003 | Text layer rebasing produces non-contiguous coverage (gap between layer segments after assembly) |
+| EX-A-004 | Layer segment end exceeds content unit primary_text length (requires clamping) |
+| EX-A-005 | Assembled footnotes contain duplicate ref_marker values across constituent content units |
+| EX-A-006 | Heading text from division tree does not align with first content unit text (heading mismatch) |
+| EX-A-010 | Empty division_tree — source has 0 leaf divisions to process |
+| EX-A-011 | Content unit not found for a unit_index in the declared range (missing content unit) |
+
+Each error code test must verify: (a) the error is emitted with the correct code, (b) the error message contains actionable context, and (c) the appropriate recovery strategy from §8.2 is followed.
+
+### §10.3 — Phase 2 Integration Tests
+
+Phase 2 requires LLM calls. Tests at this level use either (a) recorded LLM responses (golden fixtures) or (b) mock LLM responses with known outputs for deterministic testing.
+
+**Verification check coverage:**
+
+Phase 2a (classification, V-P2-1 through V-P2-9) and Phase 2b (grouping, V-P2-10 through V-P2-19) checks are tested together because grouping depends on classification output.
+
+For each V-P2 check, the test must:
+1. Construct an `AssembledChunk` with known text.
+2. Provide a mock or recorded LLM response that produces known `ClassifiedSegment[]` and `TeachingUnit[]`.
+3. Verify the specific V-P2 check passes on valid input.
+4. Verify the specific V-P2 check detects a violation on deliberately invalid input.
+
+**Key integration tests (using experiment regression baselines):**
+
+| Test | Input | Expected Behavior |
+|------|-------|-------------------|
+| Prose classification | Architecture experiment prose division (~500 words) | Segments with valid scholarly functions, full coverage (V-P2-5) |
+| Verse-commentary classification | Ibn Aqil fixture division | VC-1 through VC-3 rules applied; verse segments get `verse_statement` function |
+| Multi-topic grouping | Division with 2 distinct topics | ≥2 teaching units; no unit spans both topics |
+| Self-containment evaluation | Division with a dependent excerpt (references prior context) | At least one unit with `self_containment: DEPENDENT` |
+| Offset normalization | LLM response with approximate word boundaries | §5.4 normalization produces exact token-aligned boundaries |
+
+**Error code coverage (Phase 2):**
+
+| Error Code | Trigger Condition for Test |
+|-----------|---------------------------|
+| EX-C-001 | Classification LLM call fails after all retries (timeout, schema validation failure, API error) |
+| EX-C-002 | Grouping LLM call fails after all retries |
+| EX-C-003 | Offset normalization fails — cannot align LLM word boundaries to actual token boundaries |
+| EX-C-004 | Segment coverage invariant violated after offset repair (gap in coverage persists) |
+| EX-C-005 | Unit coverage invariant violated after repair (unassigned segments persist) |
+
+**Invariant coverage:** I-CS-1 through I-CS-6 and I-TU-1 through I-TU-9 must each have a test that verifies violation detection. The test constructs a mock LLM response that produces output violating exactly one invariant and verifies the validation code catches it.
+
+### §10.4 — Phase 3 and Output Tests
+
+**Verification check coverage:**
+
+| Check | What the test must verify |
+|-------|--------------------------|
+| V-P3-1 (Excerpt ID uniqueness) | Two units in the same chunk produce different `excerpt_id` values. |
+| V-P3-2 (Primary text integrity) | `primary_text` extracted via word offsets matches `text_snippet` (first 80 chars). Test with known text and known offsets. |
+| V-P3-3 (Author attribution completeness) | Every excerpt has a non-null `primary_author_layer`. Test: construct a chunk from a multi-layer source; verify all excerpts are attributed. |
+| V-P3-4 (Topic keyword validity) | Excerpts have 1–3 topic keywords after successful LLM enrichment. Test with mock LLM returning 0 keywords → EX-M-005 emitted. |
+| V-P3-5 (Self-containment consistency) | PARTIAL excerpt has non-null `context_hint`; FULL excerpt has null `context_hint`. Test both valid and invalid combinations. |
+| V-P3-6 (Evidence reference integrity) | Quran references have valid surah (1–114) and ayah numbers. Test with surah 115 → EX-M-007. |
+| V-P3-7 (Gate queue integrity) | Every gate trigger writes a gate queue entry. Test: trigger EX-G-001; verify gate file contains the entry. |
+| V-P3-8 (Footnote relevance) | Footnote `ref_marker` offsets fall within the excerpt's character range. Test with orphan footnote → EX-M-009. |
+| V-P3-9 (Content type consistency) | `content_types` set contains only valid `ScholarlyFunction` values. Test with an unknown type → EX-M-010. |
+
+**Error code coverage (Phase 3):**
+
+| Error Code | Trigger Condition for Test |
+|-----------|---------------------------|
+| EX-M-001 | Attribution ambiguous — LA-3 triggered (no layer has ≥80% coverage, or 3+ layers present with <60% dominant) |
+| EX-M-002 | LLM enrichment call fails after all retries (timeout, validation failure, API error) |
+| EX-M-003 | School attribution disagreement between enrichment model and verification model |
+| EX-M-004 | Excerpt has null `primary_author_layer` after full Phase 3 |
+| EX-M-005 | Topic keyword count outside 1–3 range |
+| EX-M-006 | Self-containment level vs. `context_hint` mismatch |
+| EX-M-007 | Invalid Quran reference |
+| EX-M-008 | Gate entry write fails — **critical**: verify retry and halt behavior |
+| EX-M-009 | Footnote ref_marker offset falls outside excerpt's character range (orphan footnote) |
+| EX-M-010 | Unknown content type |
+| EX-V-001 | Phase 1 self-validation check failed (any V-P1 fatal check) |
+| EX-V-002 | Primary text integrity check fails |
+| EX-G-001 | Attribution disagreement (3 models disagree) → gate queue entry |
+| EX-G-002 | DEPENDENT self-containment after consensus → gate queue entry |
+| EX-G-003 | School conflict unresolved → gate queue entry |
+
+**Output invariant coverage:** I-ER-1 through I-ER-7 must each have a dedicated test.
+
+### §10.5 — Domain Rule Tests
+
+Each domain rule (§6) requires a test with authentic Arabic text demonstrating the rule's activation. These tests verify that the LLM prompt + post-processing correctly applies the domain rule.
+
+**Decontextualization prevention (DP-1 through DP-6):**
+
+- DP-1 (Reported position inclusion): Input text with وقال الشافعي + author response. Verify excerpt contains both.
+- DP-2 (Refutation context): Input text with ورد عليه بأن. Verify the refuted position is included.
+- DP-3 (Conditional endorsement): Input text with وهذا القول حسن لولا... Verify both the praise and qualification are in one unit.
+- DP-4 (Evidence-ruling binding): Hadith + its ruling. Verify they are in the same unit.
+- DP-5 (Definition-example binding): Definition + immediately following example. Verify they are grouped.
+- DP-6 (Prerequisite inclusion): Term used without definition, but definition is in a prior segment. Verify context is preserved.
+
+**Multi-layer handling (LA-1 through LA-4):**
+
+- LA-1 (Layer attribution): Multi-layer text with 80%+ from one layer → `primary_author_layer` is that layer.
+- LA-2 (Layer transition markers): Text containing قال المصنف. Verify layer boundary is detected.
+- LA-3 (Ambiguous layers): Text where no layer reaches 80%. Verify consensus verification is triggered.
+- LA-4 (Editor footnotes): Substantive editor footnote. Verify it is treated as scholarly commentary, not silently merged.
+
+**Evidence handling (EV-1 through EV-3), implicit references (IR-1 through IR-3), verse-commentary (VC-1 through VC-3), Q&A format (QM-1 through QM-3):** Each rule requires at least one test with authentic Arabic text exercising the specific behavior the rule describes.
+
+### §10.6 — Adversarial Test Cases
+
+Adversarial cases verify that specific knowledge corruption paths are blocked. Each case describes a scenario where corruption WOULD occur without the prevention mechanism.
+
+**ADV-E-01 (Dangling refutation):** Input: text containing ورد عليه بأن (refutation) WITHOUT the position being refuted (it was in a prior division). Expected: self-containment evaluates as DEPENDENT; `self_containment_notes` identifies the missing position; review flag `decontextualization_risk` is present. The engine does NOT silently produce a FULL excerpt that contains only the refutation.
+
+**ADV-E-02 (Implicit reference chain):** Input: text containing كما تقدم → which references another كما تقدم → which eventually resolves to a concrete statement. Expected: IR-1 applies; `self_containment` is PARTIAL (not FULL); `context_hint` describes the unresolved reference chain. The engine does NOT treat a chain of unresolved references as self-contained.
+
+**ADV-E-03 (Multi-layer boundary collision):** Input: matn verse ends mid-sharh paragraph (the verse boundary does not align with a paragraph boundary in the commentary layer). Expected: Phase 2 respects the verse boundary (VC-1) and the sharh paragraph boundary independently; the resulting teaching unit contains the complete verse + its complete commentary paragraph, even if this means one segment spans both boundary types. The engine does NOT split the commentary mid-paragraph to align with the verse boundary.
+
+**ADV-E-04 (Decontextualized evidence):** Input: a hadith cited with its full isnad but WITHOUT the ruling it supports (the ruling is in the next division). Expected: EV-2 (evidence-context binding) flags the isolation; `self_containment` is PARTIAL; `context_hint` notes the missing ruling context. The engine does NOT produce a FULL excerpt containing only the hadith citation without its scholarly application.
+
+**ADV-E-05 (Mixed-attribution unit):** Input: a teaching unit where the first segment is matn (Ibn Malik) and the second segment is sharh (Ibn Aqil) and the third is hashiyah (al-Khudari). Expected: LA-1 assigns `primary_author_layer` based on the dominant layer (most words). `quoted_scholars` includes the non-dominant layer authors with appropriate roles. The engine does NOT attribute the entire unit to one author and silently drop the others.
+
+**ADV-E-06 (Empty division):** Input: a division with 0 content units (e.g., a heading-only division). Expected: Phase 1 skips this division with a documented reason (§4.2 empty division handling). No AssembledChunk is produced. V-P1-1 is satisfied (skip is explicit). The engine does NOT crash or produce an empty chunk.
+
+**ADV-E-07 (Single-sentence division):** Input: a division with <10 words (e.g., a single بسم الله الرحمن الرحيم line). Expected: Phase 1 merges this with an adjacent sibling (§4.4). If no mergeable sibling exists, the tiny division passes through as a single-segment, single-unit chunk. The engine does NOT silently drop it.
+
+**ADV-E-08 (Massive division):** Input: a division with >10,000 words (e.g., an entire dictionary letter under one heading). Expected: Phase 1 splits it into chunks of ≤ OVERSIZED_DIVISION_WORDS, preferring structural markers (§4.5). If no structural markers exist, falls back to word-count splitting with EX-A-006 warning. The engine does NOT send >10K words to the LLM in a single call.
+
+**ADV-E-09 (Overlapping LLM segments):** Input: mock LLM response where segment 3 has `end_word: 50` and segment 4 has `start_word: 48` (overlap of 2 tokens). Expected: §5.4 offset normalization detects the overlap and adjusts boundaries to eliminate it. V-P2-2 (contiguity) passes after normalization. The engine does NOT silently accept overlapping segments (which would cause double-counting in downstream analysis).
+
+**ADV-E-10 (LLM produces 0 segments):** Input: mock LLM response with an empty segments list for a non-empty chunk. Expected: EX-C-002 is emitted. The retry strategy (§8.2) re-attempts classification. If retries are exhausted, the chunk is flagged with `classification_failed` and a single fallback segment covering the entire chunk is produced with `scholarly_function: "unclassified"` and `confidence: 0.0`. The engine does NOT silently drop the chunk's content.
+
+**ADV-E-11 (Gate write failure):** Input: trigger a gate condition (EX-G-001), but the gate file write fails (simulate I/O error). Expected: EX-M-008 is emitted. The engine retries the write. If the retry fails, the engine HALTS processing for this source (§8.2 — invisible uncertainty is more dangerous than a visible stop). The engine does NOT continue processing with an unwritten gate entry.
+
+**ADV-E-12 (Consensus verification timeout):** Input: trigger consensus verification where the verification model times out on all retries. Expected: the enrichment model's result is kept with a `verification_skipped` flag. The excerpt is produced but with reduced confidence. The engine does NOT discard the excerpt just because verification failed — deterministic fields (F-DET-1–9) are still valid.
+
+### §10.7 — Cross-Engine Contract Tests
+
+These tests verify that the excerpting engine correctly consumes normalization output and produces output that downstream engines can consume.
+
+**Upstream (normalization → excerpting):**
+
+- Read a real `NormalizedPackage` from normalization engine test output. Verify Phase 1 accepts it without schema errors.
+- Verify every `source_id` in the input appears in the output excerpts' `source_id` fields.
+- Verify all `div_id` references in output excerpts exist in the input `division_tree`.
+- Verify `text_layers` in each excerpt are a valid subset of the normalization `layer_map`.
+- Verify no field from normalization is silently dropped — every metadata field present in the `ContentUnit` is either used by the engine or passed through to the ExcerptRecord. This is the D-023 test.
+
+**Downstream (excerpting → taxonomy):**
+
+- Produce ExcerptRecords from a test run. Verify they validate against the output schema (§2.2).
+- Verify every required field listed in §2.2.4 (downstream consumer contract) is present and non-null.
+- Verify the `excerpt_id` format matches the specification.
+
+**End-to-end provenance:**
+
+- Trace one excerpt from `source_id` → `div_id` → `chunk` → `teaching_unit` → `ExcerptRecord`. Verify the provenance chain is unbroken: every ID reference resolves to an actual object.
+
+### §10.8 — Evaluation Methodology (C-7 Mitigation)
+
+C-7 (same-model evaluation bias) is a concern because Claude Opus 4.6 both produces excerpts (Phases 2–3) and may evaluate them. The test suite must structurally mitigate this.
+
+**Mechanical verification (model-independent):** Coverage checks (V-P1-*, V-P2-*, V-P3-*), schema validation, word-count verification, offset consistency, invariant verification — all run without LLM involvement. These catch structural failures regardless of model bias.
+
+**Known-boundary test set:** The architect defines correct teaching unit boundaries for ≥10 divisions (from experiment baselines). Automated tests compare engine output against these known boundaries. Boundary accuracy metric: ≥80% of engine-produced units must overlap ≥80% (by word count) with a known-correct unit. This metric is model-independent because the ground truth was established by human evaluation, not by the same model.
+
+**Cross-model spot checks:** During the evaluation probes (not in the unit test suite, but during the build evaluation phase), 10% of self-containment evaluations are re-run with a different model (the verification model, `openai/gpt-4.1`). Agreement rate between the primary model and the spot-check model is tracked. If agreement drops below 80%, the self-containment evaluation prompt needs revision.
+
+**Owner spot-checks:** During evaluation, the owner reviews 5 excerpts per session for domain-level quality: Is the teaching unit a complete scholarly thought? Is the attribution correct? Does the self-containment level feel right? These checks are model-independent because they rely on domain judgment.
+
+**Regression testing:** All gold baselines (experiment fixtures + owner-verified excerpts from evaluation) are re-run when: the LLM model string changes, a prompt template is modified, a configuration threshold is adjusted, or the consensus verification logic is modified. Regressions in boundary accuracy or self-containment accuracy block the change.
 
 ---
 

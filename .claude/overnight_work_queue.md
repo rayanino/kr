@@ -29,12 +29,12 @@ Mark tasks [x] when complete. Commit after each task.
   Output: scripts/results/full_corpus_fix_impact.json
   Acceptance: Report shows delta for hadith, mid_argument, multi_layer across all books
 
-- [ ] **T4: Write adversarial test for L-004 — words starting with وق that are NOT markers**
+- [x] **T4: Write adversarial test for L-004 — words starting with وق that are NOT markers**
   Example: وقف (waqf - endowment) should NOT trigger marker detection
   File: engines/normalization/tests/test_layer_detection.py
   Acceptance: Test passes, proves no false positives from common و-initial words
 
-- [ ] **T5: Write test for L-008 edge case — إذا after Arabic semicolon (؛)**
+- [x] **T5: Write test for L-008 edge case — إذا after Arabic semicolon (؛)**
   Arabic semicolon (؛) is terminal punctuation in SPEC but less standard
   File: engines/normalization/tests/test_boundary_continuity.py
   Acceptance: إذا after ؛ is correctly detected as sentence-initial

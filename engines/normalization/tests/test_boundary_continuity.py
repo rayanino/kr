@@ -212,6 +212,23 @@ class TestSentenceInitialDetection:
         pos = text.index("إذا")
         assert _is_sentence_initial(text, pos) is False
 
+    def test_after_arabic_semicolon(self) -> None:
+        """After Arabic semicolon (؛) → sentence-initial.
+
+        The Arabic semicolon (؛, U+061B) is listed in _TERMINAL_PUNCT.
+        It functions as a sentence boundary in scholarly Arabic text,
+        especially in fiqh where it separates independent rulings.
+        """
+        text = "يجب الغسل عند الجنابة؛ إذا ثبت هذا فالحكم واضح"
+        pos = text.index("إذا")
+        assert _is_sentence_initial(text, pos) is True
+
+    def test_after_exclamation(self) -> None:
+        """After exclamation mark → sentence-initial."""
+        text = "سبحان الله! إذا تأمل المسلم في ذلك"
+        pos = text.index("إذا")
+        assert _is_sentence_initial(text, pos) is True
+
 
 class TestConditionalReasoning:
     """L-008: Conditional reasoning markers in argument flow detection."""

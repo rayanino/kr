@@ -532,6 +532,63 @@ class TestConjunctionPrefixMarkers:
         assert len(boundaries) == 0
 
 
+class TestConjunctionPrefixAdversarial:
+    """Adversarial tests: Arabic words starting with وق or فق that are NOT markers.
+
+    The L-004 regex `[وف]?(قال...)` must not match ordinary words that
+    happen to start with these letter combinations. This class tests
+    common Arabic words that could cause false positives.
+    """
+
+    @pytest.mark.parametrize("text,description", [
+        # وقف (waqf) — endowment/stopping. Very common in fiqh texts.
+        ("وقف المسلم على ماله في سبيل الله", "وقف (waqf/endowment)"),
+        # وقع (waqa'a) — occurred/happened. Extremely common.
+        ("وقع خلاف بين العلماء في هذه المسألة", "وقع (occurred/happened)"),
+        # وقت (waqt) — time. Common in fiqh of prayer.
+        ("وقت الصلاة يدخل بزوال الشمس", "وقت (time)"),
+        # فقط (faqat) — only/just. Very common.
+        ("يجوز فقط في حالة الضرورة", "فقط (only/just)"),
+        # فقه (fiqh) — jurisprudence. The word itself!
+        ("وهذا من فقه العبادات المقرر في المذهب", "فقه (jurisprudence)"),
+        # فقد (faqad) — indeed/already. Extremely common.
+        ("فقد ذكر الإمام في كتابه هذا الحكم", "فقد (indeed/already)"),
+        # وقاية (wiqaya) — prevention/protection.
+        ("الوقاية خير من العلاج في أمور الدين", "وقاية (prevention)"),
+        # فقير (faqir) — poor person. Common in zakat texts.
+        ("يعطى الفقير من مال الزكاة", "فقير (poor person)"),
+    ])
+    def test_common_waq_faq_words_not_matched(
+        self, text: str, description: str
+    ) -> None:
+        """Common Arabic words starting with وق/فق must NOT trigger markers."""
+        boundaries = _detect_transition_markers(text, LayerType.SHARH)
+        assert len(boundaries) == 0, (
+            f"False positive: '{description}' triggered marker detection"
+        )
+
+    def test_waqala_with_space_IS_matched(self) -> None:
+        """Sanity check: 'و قال المصنف:' (with space) IS a valid marker.
+
+        The conjunction و followed by space + قال المصنف: should match.
+        This confirms the prefix regex isn't too restrictive.
+        """
+        text = "والشرح هنا وقال المصنف: المتن الأصلي"
+        boundaries = _detect_transition_markers(text, LayerType.SHARH)
+        matn = [b for b in boundaries if b.to_layer == LayerType.MATN]
+        assert len(matn) == 1
+
+    def test_mixed_text_with_waqf_and_real_marker(self) -> None:
+        """Text with both وقف (false positive candidate) AND real marker.
+
+        Only the real marker should be detected.
+        """
+        text = "وقف الإمام على هذا الحديث ثم قال المصنف: نص المتن"
+        boundaries = _detect_transition_markers(text, LayerType.SHARH)
+        assert len(boundaries) == 1
+        assert boundaries[0].to_layer == LayerType.MATN
+
+
 # ══════════════════════════════════════════════════════════════════════
 # #9: Bracket detection
 # ══════════════════════════════════════════════════════════════════════
