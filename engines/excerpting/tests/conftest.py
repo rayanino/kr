@@ -196,6 +196,75 @@ def _make_excerpt_record(**overrides: Any) -> ExcerptRecord:
 
 
 # ═══════════════════════════════════════════════════════════════════
+# Phase 2 test helpers (Session 2)
+# ═══════════════════════════════════════════════════════════════════
+
+
+def _make_mock_instructor_client(
+    return_value: Any = None,
+    side_effect: Any = None,
+) -> Any:
+    """Return a MagicMock configured as an instructor client.
+
+    Mocks ``client.chat.completions.create()`` to return *return_value*
+    or raise via *side_effect*.
+    """
+    from unittest.mock import MagicMock
+
+    client = MagicMock()
+    create_mock = client.chat.completions.create
+    if side_effect is not None:
+        create_mock.side_effect = side_effect
+    elif return_value is not None:
+        create_mock.return_value = return_value
+    return client
+
+
+def _make_classification_result(
+    assembled_text: str,
+    n_segments: int = 3,
+) -> "ClassificationResult":
+    """Build a valid ClassificationResult with *n_segments* segments.
+
+    Each segment's ``text_snippet`` is extracted from *assembled_text*
+    at evenly spaced positions so that ``normalize_offsets`` can anchor them.
+    """
+    from engines.excerpting.contracts import ClassificationResult
+
+    tokens = assembled_text.split()
+    total = len(tokens)
+    segments: list[ClassifiedSegment] = []
+
+    for i in range(n_segments):
+        # Compute approximate start token for each segment
+        tok_start = (total * i) // n_segments
+        # Find character position for this token
+        char_pos = 0
+        for t_idx, tok in enumerate(tokens):
+            if t_idx == tok_start:
+                break
+            char_pos = assembled_text.index(tok, char_pos) + len(tok)
+        char_pos = assembled_text.index(tokens[tok_start], char_pos)
+        snippet = assembled_text[char_pos : char_pos + 50]
+
+        segments.append(
+            ClassifiedSegment(
+                segment_index=i,
+                start_word=tok_start * 2,  # deliberately wrong (LLM offsets)
+                end_word=tok_start * 2 + 10,
+                text_snippet=snippet,
+                scholarly_function=ScholarlyFunction.DEFINITION,
+                confidence=0.9,
+            )
+        )
+
+    return ClassificationResult(
+        segments=segments,
+        total_segments=n_segments,
+    )
+
+
+# ═══════════════════════════════════════════════════════════════════
 # Phase 1 factory helpers (Session 1)
 # ═══════════════════════════════════════════════════════════════════
 
