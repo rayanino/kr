@@ -20,10 +20,24 @@ from engines.excerpting.contracts import (
     TeachingUnit,
 )
 from engines.normalization.contracts import (
+    BoundaryContinuity,
+    BoundaryContinuityType,
+    ContinuityDetectionMethod,
     ContentFlags,
+    ContentUnit,
+    DivisionNode,
+    HeadingConfidence,
+    HeadingDetectionMethod,
+    LayerMapEntry,
     LayerType,
+    NormalizedManifest,
+    NormalizedPackage,
     PhysicalPage,
+    QualityReport,
     StructuralFormat,
+    TextFidelity,
+    TextFidelityLevel,
+    TextFidelitySummary,
     TextLayerSegment,
 )
 
@@ -182,3 +196,195 @@ def _make_excerpt_record(**overrides: Any) -> ExcerptRecord:
     }
     defaults.update(overrides)
     return ExcerptRecord(**defaults)
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Phase 1 factory helpers (Session 1)
+# ═══════════════════════════════════════════════════════════════════
+
+_DEFAULT_CU_TEXT = "بسم الله الرحمن الرحيم وبعد فهذا كتاب في النحو"
+
+
+def _make_content_unit(**overrides: Any) -> ContentUnit:
+    """ContentUnit factory with valid defaults. One per physical page.
+
+    Auto-generates a single MATN text_layer covering [0, len(primary_text)).
+    Default: no boundary_continuity, no footnotes, no flags.
+    """
+    primary_text = overrides.pop("primary_text", _DEFAULT_CU_TEXT)
+    fields: dict[str, Any] = {
+        "source_id": "src_test",
+        "unit_index": 0,
+        "physical_page": PhysicalPage(
+            volume=1, page_number_display=None, page_number_int=None
+        ),
+        "primary_text": primary_text,
+        "text_layers": [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id=None,
+                start=0,
+                end=len(primary_text),
+                confidence=1.0,
+            )
+        ],
+        "footnotes": [],
+        "content_flags": ContentFlags(),
+        "text_fidelity": TextFidelity(
+            score=TextFidelityLevel.HIGH, ocr_confidence=None
+        ),
+        "boundary_continuity": None,
+        "verse_info": None,
+        "discourse_flow": None,
+    }
+    fields.update(overrides)
+    return ContentUnit(**fields)
+
+
+def _make_division_node(**overrides: Any) -> DivisionNode:
+    """DivisionNode factory with valid defaults."""
+    defaults: dict[str, Any] = {
+        "div_id": "div_test_1_0",
+        "division_type": None,
+        "heading_text": "باب الاختبار",
+        "heading_level": 1,
+        "start_unit_index": 0,
+        "end_unit_index": 0,
+        "detection_method": HeadingDetectionMethod.KEYWORD_HEURISTIC,
+        "confidence": HeadingConfidence.HIGH,
+        "children": [],
+    }
+    defaults.update(overrides)
+    return DivisionNode(**defaults)
+
+
+def _make_normalized_package(**overrides: Any) -> NormalizedPackage:
+    """Minimal valid NormalizedPackage: 1 division, 2 content units.
+
+    Builds content_units and manifest unless overridden.
+    Root division covering all units.
+    """
+    source_id = overrides.pop("source_id", "src_test")
+    num_units = overrides.pop("num_units", 2)
+    primary_text = overrides.pop("primary_text", _DEFAULT_CU_TEXT)
+
+    # Build content units unless overridden
+    content_units = overrides.pop("content_units", None)
+    if content_units is None:
+        content_units = [
+            _make_content_unit(
+                primary_text=primary_text,
+                unit_index=i,
+                source_id=source_id,
+            )
+            for i in range(num_units)
+        ]
+
+    # Build manifest unless overridden
+    manifest = overrides.pop("manifest", None)
+    if manifest is None:
+        division_tree = overrides.pop(
+            "division_tree",
+            [
+                DivisionNode(
+                    div_id=f"div_{source_id}_0_0",
+                    division_type=None,
+                    heading_text="باب الاختبار",
+                    heading_level=0,
+                    start_unit_index=0,
+                    end_unit_index=max(0, len(content_units) - 1),
+                    detection_method=HeadingDetectionMethod.KEYWORD_HEURISTIC,
+                    confidence=HeadingConfidence.HIGH,
+                ),
+            ],
+        )
+        manifest_fields: dict[str, Any] = {
+            "source_id": source_id,
+            "normalizer_id": "kr.normalization.test_v1",
+            "normalization_utc": "2026-01-01T00:00:00+00:00",
+            "division_tree": division_tree,
+            "layer_map": [
+                LayerMapEntry(
+                    layer_type=LayerType.MATN,
+                    author_canonical_id=None,
+                    confidence=1.0,
+                ),
+            ],
+            "structural_format": StructuralFormat.PROSE,
+            "text_fidelity_summary": TextFidelitySummary(
+                mean_ocr_confidence=None,
+                character_level_fidelity_estimate=None,
+                pages_with_warnings=0,
+                total_pages=len(content_units),
+            ),
+            "total_content_units": len(content_units),
+            "quality_report": QualityReport(),
+        }
+        manifest_fields.update(overrides)
+        manifest = NormalizedManifest(**manifest_fields)
+
+    return NormalizedPackage(
+        manifest=manifest,
+        content_units=content_units,
+    )
+
+
+def _make_division_tree(
+    leaf_count: int,
+    source_id: str = "src_test",
+    total_units: int = 10,
+) -> list[DivisionNode]:
+    """Generate a division tree with one root and leaf_count child leaves.
+
+    Each leaf covers a proportional range of unit_indices.
+    """
+    if leaf_count <= 0:
+        return []
+
+    if leaf_count == 1:
+        return [
+            DivisionNode(
+                div_id=f"div_{source_id}_0_0",
+                division_type=None,
+                heading_text="باب الاختبار",
+                heading_level=0,
+                start_unit_index=0,
+                end_unit_index=max(0, total_units - 1),
+                detection_method=HeadingDetectionMethod.KEYWORD_HEURISTIC,
+                confidence=HeadingConfidence.HIGH,
+            )
+        ]
+
+    # Multiple leaves under one root
+    units_per_leaf = max(1, total_units // leaf_count)
+    children: list[DivisionNode] = []
+    for i in range(leaf_count):
+        start = i * units_per_leaf
+        end = min(start + units_per_leaf - 1, total_units - 1)
+        if i == leaf_count - 1:
+            end = total_units - 1  # Last leaf gets remainder
+        children.append(
+            DivisionNode(
+                div_id=f"div_{source_id}_1_{i}",
+                division_type=None,
+                heading_text=f"فصل {i + 1}",
+                heading_level=1,
+                start_unit_index=start,
+                end_unit_index=end,
+                detection_method=HeadingDetectionMethod.KEYWORD_HEURISTIC,
+                confidence=HeadingConfidence.HIGH,
+            )
+        )
+
+    root = DivisionNode(
+        div_id=f"div_{source_id}_0_0",
+        division_type=None,
+        heading_text="كتاب الاختبار",
+        heading_level=0,
+        start_unit_index=0,
+        end_unit_index=total_units - 1,
+        detection_method=HeadingDetectionMethod.KEYWORD_HEURISTIC,
+        confidence=HeadingConfidence.HIGH,
+        children=children,
+    )
+    return [root]
