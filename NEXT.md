@@ -88,7 +88,7 @@ Collect `scholarly_function` from each ClassifiedSegment whose index is in `unit
 ### Function 5: `detect_evidence_refs(primary_text) → list[EvidenceRef]` (F-DET-5)
 Pattern matching for three evidence types:
 
-**Quran (EV-1):** Scan for `﴿...﴾` delimiters (U+FD3E and U+FD3F). Extract text between them. Return `EvidenceRef(type="quran", surah=None, ayah_start=None, ayah_end=None, text_snippet=<extracted>)`. Canonical Quran lookup is deferred (DD-S3-3).
+**Quran (EV-1):** Scan for `﴿...﴾` delimiters (﴿ = U+FD3F opening, ﴾ = U+FD3E closing). Extract text between them. Return `EvidenceRef(type="quran", surah=None, ayah_start=None, ayah_end=None, text_snippet=<extracted>)`. Canonical Quran lookup is deferred (DD-S3-3).
 
 **Hadith (EV-2):** Scan for markers: `رواه`, `أخرجه`, `في الصحيحين`, `متفق عليه`, `في صحيح`, `في سنن`. Short markers (`رواه`, `أخرجه`) require word boundary. Multi-word phrases are safe without. Return `EvidenceRef(type="hadith", text_snippet=<50 chars around marker>, marker_text=<matched pattern>)`.
 
