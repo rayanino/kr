@@ -20,11 +20,11 @@ Mark tasks [x] when complete. Commit after each task.
   Input: Pick 5 diverse books from results/normalization_sweep_v2/corpus_sweep.jsonl
   Acceptance: New check reads content.jsonl, verifies text_layers span full primary_text
 
-- [ ] **T2: Full corpus re-sweep (all 7,475 books) with L-009/L-008/L-004 fixes**
+- [x] **T2: Full corpus re-sweep (all 7,475 books) with L-009/L-008/L-004 fixes**
   Command: `PYTHONIOENCODING=utf-8 python scripts/normalization_corpus_sweep.py --output-dir results/normalization_sweep_v3`
   Acceptance: All 7,475 OK, results persisted
 
-- [ ] **T3: Compare v2 vs v3 sweep — measure full corpus impact of limitation fixes**
+- [x] **T3: Compare v2 vs v3 sweep — measure full corpus impact of limitation fixes**
   Input: results/normalization_sweep_v2/ vs results/normalization_sweep_v3/
   Output: scripts/results/full_corpus_fix_impact.json
   Acceptance: Report shows delta for hadith, mid_argument, multi_layer across all books
@@ -51,12 +51,12 @@ Mark tasks [x] when complete. Commit after each task.
   Output: scripts/results/warning_deep_analysis.json
   Acceptance: Root cause each warning category, determine if any are actionable
 
-- [ ] **T8: Wire safety hooks into settings.json (if owner approved)**
+- [BLOCKED: settings.json edit triggers user prompt — owner must wire manually] **T8: Wire safety hooks into settings.json (if owner approved)**
   Check: Read .claude/pending_decisions.log for owner approval
   If approved: Edit settings.json with JSON from HOOK_WIRING.md
   If not approved: Skip, mark BLOCKED
 
-- [ ] **T9: Run full 7,475-book integrity check**
+- [x] **T9: Run full 7,475-book integrity check**
   Command: `PYTHONIOENCODING=utf-8 python scripts/verify_normalized_integrity.py --sweep results/normalization_sweep_v3/corpus_sweep.jsonl`
   Acceptance: All checks CLEAN or INFORMATIONAL on v3 data
 

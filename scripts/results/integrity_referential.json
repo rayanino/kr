@@ -10,6 +10,6 @@
   "threat": "CLEAN",
   "orphaned_records": [],
   "division_issues": [],
-  "generated_at": "2026-03-22T23:26:00.802006+00:00",
+  "generated_at": "2026-03-23T06:10:15.230850+00:00",
   "script": "scripts/verify_normalized_integrity.py"
 }

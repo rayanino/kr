@@ -1,7 +1,7 @@
 {
   "check": "integrity_summary",
   "total_records": 7475,
-  "sweep_file": "results\\normalization_sweep_v2\\corpus_sweep.jsonl",
+  "sweep_file": "results\\normalization_sweep_v3\\corpus_sweep.jsonl",
   "checks_run": [
     "zero_content",
     "diacritics",
@@ -17,6 +17,6 @@
     "scripts\\results\\integrity_referential.json",
     "scripts\\results\\integrity_validation_gaps.json"
   ],
-  "generated_at": "2026-03-22T23:26:00.807794+00:00",
+  "generated_at": "2026-03-23T06:10:15.237316+00:00",
   "script": "scripts/verify_normalized_integrity.py"
 }

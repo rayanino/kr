@@ -1,0 +1,59 @@
+{
+  "comparison": "normalization_sweep_v2 vs normalization_sweep_v3",
+  "generated_at": "2026-03-23T06:09:54.888763+00:00",
+  "matched_books": 7467,
+  "fixes_applied": [
+    "L-009 (guillemet 50->80)",
+    "L-008 (conditional reasoning)",
+    "L-004 (conjunction prefix)"
+  ],
+  "content_flags": {
+    "has_hadith": {
+      "v2": 7117,
+      "v3": 7121,
+      "delta": 4
+    },
+    "has_quran": {
+      "v2": 6746,
+      "v3": 6746,
+      "delta": 0
+    },
+    "has_verse": {
+      "v2": 6270,
+      "v3": 6270,
+      "delta": 0
+    },
+    "multi_layer": {
+      "v2": 399,
+      "v3": 496,
+      "delta": 97
+    }
+  },
+  "boundary_continuity": {
+    "mid_argument": {
+      "v2": 25800,
+      "v3": 33461,
+      "delta": 7661
+    },
+    "mid_paragraph": {
+      "v2": 523425,
+      "v3": 520061,
+      "delta": -3364
+    },
+    "mid_sentence": {
+      "v2": 959302,
+      "v3": 955005,
+      "delta": -4297
+    },
+    "section_break": {
+      "v2": 541017,
+      "v3": 541017,
+      "delta": 0
+    },
+    "unknown": {
+      "v2": 66,
+      "v3": 66,
+      "delta": 0
+    }
+  }
+}

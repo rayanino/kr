@@ -3,20 +3,32 @@
   "summary": {
     "total_books": 7475,
     "inconsistent_count": 0,
-    "auto_upgraded_count": 401,
+    "auto_upgraded_count": 498,
     "layer_count_distribution": {
-      "layer_count_1": 7074,
-      "layer_count_2": 401
+      "layer_count_1": 6977,
+      "layer_count_2": 498
     }
   },
   "threat": "CLEAN",
   "inconsistent_books": [],
   "auto_upgraded_books": [
     {
+      "name": "أثر الشك والوسواس في وجود الله عز وجل على عقيدة المسلم",
+      "path": "shamela-export-samples\\أثر الشك والوسواس في وجود الله عز وجل على عقيدة المسلم.htm",
+      "layer_count": 2,
+      "multi_layer_units": 7
+    },
+    {
+      "name": "أجوبة محققة عن أسئلة مفرقة - ط إسطنبول",
+      "path": "shamela-export-samples\\أجوبة محققة عن أسئلة مفرقة - ط إسطنبول.htm",
+      "layer_count": 2,
+      "multi_layer_units": 4
+    },
+    {
       "name": "أحكام القرآن للكيا الهراسي",
       "path": "shamela-export-samples\\أحكام القرآن للكيا الهراسي\\001.htm",
       "layer_count": 2,
-      "multi_layer_units": 107
+      "multi_layer_units": 130
     },
     {
       "name": "أحكام تمني الموت (مطبوع ضمن مؤلفات الشيخ محمد بن عبد الوهاب، الجزء الثالث)",
@@ -25,10 +37,22 @@
       "multi_layer_units": 8
     },
     {
+      "name": "أحوال المحتضر",
+      "path": "shamela-export-samples\\أحوال المحتضر.htm",
+      "layer_count": 2,
+      "multi_layer_units": 11
+    },
+    {
       "name": "أخبار أبي القاسم الزجاجي",
       "path": "shamela-export-samples\\أخبار أبي القاسم الزجاجي.htm",
       "layer_count": 2,
-      "multi_layer_units": 21
+      "multi_layer_units": 23
+    },
+    {
+      "name": "أخلاق الشباب المسلم",
+      "path": "shamela-export-samples\\أخلاق الشباب المسلم.htm",
+      "layer_count": 2,
+      "multi_layer_units": 7
     },
     {
       "name": "أدب الخلاف - ياسر برهامي",
@@ -40,7 +64,7 @@
       "name": "أربع قواعد تدور الأحكام عليها ويليها نبذة في اتباع النصوص مع احترام العلماء (مطبوع ضمن مؤلفات الشيخ محمد بن عبد الوهاب، الجزء الثالث)",
       "path": "shamela-export-samples\\أربع قواعد تدور الأحكام عليها ويليها نبذة في اتباع النصوص مع احترام العلماء (مطبوع ضمن مؤلفات الشيخ محمد بن عبد الوهاب، الجزء الثالث).htm",
       "layer_count": 2,
-      "multi_layer_units": 5
+      "multi_layer_units": 6
     },
     {
       "name": "أزمات الشباب أسباب وحلول",
@@ -49,16 +73,28 @@
       "multi_layer_units": 5
     },
     {
+      "name": "أسباب المغفرة",
+      "path": "shamela-export-samples\\أسباب المغفرة.htm",
+      "layer_count": 2,
+      "multi_layer_units": 3
+    },
+    {
+      "name": "أسرار البلاغة - ت محمود شاكر",
+      "path": "shamela-export-samples\\أسرار البلاغة - ت محمود شاكر.htm",
+      "layer_count": 2,
+      "multi_layer_units": 100
+    },
+    {
       "name": "أسرار البيان في التعبير القرآني - كتاب",
       "path": "shamela-export-samples\\أسرار البيان في التعبير القرآني - كتاب.htm",
       "layer_count": 2,
-      "multi_layer_units": 12
+      "multi_layer_units": 13
     },
     {
       "name": "أصل الزراري شرح صحيح البخاري - مخطوط",
       "path": "shamela-export-samples\\أصل الزراري شرح صحيح البخاري - مخطوط.htm",
       "layer_count": 2,
-      "multi_layer_units": 641
+      "multi_layer_units": 694
     },
     {
       "name": "أصول أهل السنة والجماعة",
@@ -85,54 +121,18 @@
       "multi_layer_units": 3
     },
     {
+      "name": "أصول الفقه - أسامة سليمان",
+      "path": "shamela-export-samples\\أصول الفقه - أسامة سليمان\\001.htm",
+      "layer_count": 2,
+      "multi_layer_units": 1
+    },
+    {
       "name": "أصول النحو ١ - جامعة المدينة",
       "path": "shamela-export-samples\\أصول النحو ١ - جامعة المدينة.htm",
       "layer_count": 2,
-      "multi_layer_units": 36
-    },
-    {
-      "name": "أضواء البيان في إيضاح القرآن بالقرآن - ط عطاءات العلم",
-      "path": "shamela-export-samples\\أضواء البيان في إيضاح القرآن بالقرآن - ط عطاءات العلم\\001.htm",
-      "layer_count": 2,
-      "multi_layer_units": 179
-    },
-    {
-      "name": "أعلام القرآن",
-      "path": "shamela-export-samples\\أعلام القرآن\\001.htm",
-      "layer_count": 2,
-      "multi_layer_units": 3
-    },
-    {
-      "name": "أغلو في بعض القرابة وجفاء في الأنبياء والصحابة",
-      "path": "shamela-export-samples\\أغلو في بعض القرابة وجفاء في الأنبياء والصحابة.htm",
-      "layer_count": 2,
-      "multi_layer_units": 4
-    },
-    {
-      "name": "ألقاب الشعراء ومن يعرف منهم بأمه - ضمن نوادر المخطوطات",
-      "path": "shamela-export-samples\\ألقاب الشعراء ومن يعرف منهم بأمه - ضمن نوادر المخطوطات.htm",
-      "layer_count": 2,
-      "multi_layer_units": 16
-    },
-    {
-      "name": "أنموذج جليل في أسئلة وأجوبة عن غرائب آي التنزيل",
-      "path": "shamela-export-samples\\أنموذج جليل في أسئلة وأجوبة عن غرائب آي التنزيل.htm",
-      "layer_count": 2,
-      "multi_layer_units": 106
-    },
-    {
-      "name": "إرشاد العباد إلى معاني لمعة الاعتقاد",
-      "path": "shamela-export-samples\\إرشاد العباد إلى معاني لمعة الاعتقاد.htm",
-      "layer_count": 2,
-      "multi_layer_units": 90
-    },
-    {
-      "name": "إرشاد القاصي والداني إلى تراجم شيوخ الطبراني",
-      "path": "shamela-export-samples\\إرشاد القاصي والداني إلى تراجم شيوخ الطبراني.htm",
-      "layer_count": 2,
-      "multi_layer_units": 9
+      "multi_layer_units": 52
     }
   ],
-  "generated_at": "2026-03-22T23:26:00.797769+00:00",
+  "generated_at": "2026-03-23T06:10:15.191517+00:00",
   "script": "scripts/verify_normalized_integrity.py"
 }
