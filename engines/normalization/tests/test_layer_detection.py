@@ -471,6 +471,67 @@ class TestTransitionMarkerDetection:
         assert text[sharih_matches[0].char_offset:].startswith("النص")
 
 
+class TestConjunctionPrefixMarkers:
+    """L-004 fix: Arabic conjunction prefixes (و, ف) on transition markers.
+
+    In Arabic, conjunction clitics attach directly to the next word without
+    whitespace: "وقال المصنف:" = "and said the author:". These should be
+    detected as transition markers just like the unprefixed versions.
+    """
+
+    def test_waw_qal_al_musannif(self) -> None:
+        """وقال المصنف: (waw + qala al-musannif) → MATN transition."""
+        text = "وهذا شرح طويل وقال المصنف: النص الأصلي هنا"
+        boundaries = _detect_transition_markers(text, LayerType.SHARH)
+        matn_matches = [b for b in boundaries if b.to_layer == LayerType.MATN]
+        assert len(matn_matches) == 1
+        assert matn_matches[0].confidence == 0.90
+
+    def test_fa_qal_al_musannif(self) -> None:
+        """فقال المصنف: (fa + qala al-musannif) → MATN transition."""
+        text = "ثم بعد ذلك فقال المصنف: هذا هو المتن"
+        boundaries = _detect_transition_markers(text, LayerType.SHARH)
+        matn_matches = [b for b in boundaries if b.to_layer == LayerType.MATN]
+        assert len(matn_matches) == 1
+
+    def test_waw_qawluhu(self) -> None:
+        """وقوله: (waw + qawluhu) → MATN transition."""
+        text = "والمراد وقوله: هذا نص المصنف الأصلي"
+        boundaries = _detect_transition_markers(text, LayerType.SHARH)
+        matn_matches = [b for b in boundaries if b.to_layer == LayerType.MATN]
+        assert len(matn_matches) >= 1
+
+    def test_waw_ay(self) -> None:
+        """وأي: (waw + ay) → default commentary transition."""
+        text = "والكلام هنا وأي: المعنى المراد هو كذا"
+        boundaries = _detect_transition_markers(text, LayerType.SHARH)
+        # أي: targets default_commentary_layer (SHARH)
+        assert len(boundaries) >= 1
+
+    def test_waw_qal_al_sharih(self) -> None:
+        """وقال الشارح: (waw prefix on sharh marker)."""
+        text = "في هذا الموضع وقال الشارح: التفسير هنا"
+        boundaries = _detect_transition_markers(text, LayerType.HASHIYAH)
+        sharih_matches = [b for b in boundaries if b.to_layer == LayerType.SHARH]
+        assert len(sharih_matches) == 1
+
+    def test_regular_waw_word_not_matched(self) -> None:
+        """Regular Arabic words starting with و should NOT trigger markers.
+
+        'وقال' is a conjunction prefix on 'قال', but 'وهذا' is just 'and this'.
+        The regex requires the full marker pattern after the prefix.
+        """
+        text = "وهذا كلام عادي ليس فيه علامات انتقال"
+        boundaries = _detect_transition_markers(text, LayerType.SHARH)
+        assert len(boundaries) == 0
+
+    def test_fa_regular_word_not_matched(self) -> None:
+        """فهذا should NOT trigger — ف prefix on non-marker word."""
+        text = "فهذا النص من الشرح الطويل والكلام المفصل"
+        boundaries = _detect_transition_markers(text, LayerType.SHARH)
+        assert len(boundaries) == 0
+
+
 # ══════════════════════════════════════════════════════════════════════
 # #9: Bracket detection
 # ══════════════════════════════════════════════════════════════════════

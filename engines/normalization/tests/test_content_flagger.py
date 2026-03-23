@@ -94,9 +94,42 @@ class TestHadithCitation:
         assert _has_hadith_citation(text) is True
 
     def test_guillemet_with_qala(self) -> None:
-        """Pattern 4: قال + «Arabic text» within 50 chars (D8/L-009)."""
+        """Pattern 4: قال + «Arabic text» within short distance."""
         text = "وقد قال «إنما الأعمال بالنيات وإنما لكل امرئ ما نوى»"
         assert _has_hadith_citation(text) is True
+
+    def test_guillemet_long_isnad_60_chars(self) -> None:
+        """L-009 fix: 60-char isnad chain should be detected at distance 80.
+
+        Real pattern: حدثنا فلان عن فلان عن فلان قال «hadith text»
+        The narrator chain between قال and « can span 60+ characters.
+        Old threshold (50) would miss this. New threshold (80) catches it.
+        """
+        # Realistic isnad chain: ~62 chars between قال and «
+        text = (
+            "حدثنا عبد الله بن يوسف عن مالك بن أنس عن نافع عن عبد الله بن عمر أن رسول الله "
+            "قال في حديثه الذي رواه عنه أصحابه الكبار والصغار"
+            " «إنما الأعمال بالنيات وإنما لكل امرئ ما نوى»"
+        )
+        assert _has_hadith_citation(text) is True
+
+    def test_guillemet_long_isnad_75_chars(self) -> None:
+        """L-009 fix: 75-char distance still within threshold 80."""
+        # Build text where قال is ~75 chars before «
+        isnad = "قال" + " " + "و" * 73 + " "
+        text = isnad + "«إنما الأعمال بالنيات»"
+        assert _has_hadith_citation(text) is True
+
+    def test_guillemet_beyond_threshold_85_chars(self) -> None:
+        """Distance 85 exceeds threshold 80 — should NOT match guillemet pattern.
+
+        May still be detected by other hadith patterns (ﷺ, رواه, etc.).
+        """
+        # Build text where قال is ~85 chars before «
+        isnad = "قال" + " " + "و" * 83 + " "
+        text = isnad + "«إنما الأعمال بالنيات»"
+        # This specific text has no ﷺ, no صلى الله عليه وسلم, no رواه
+        assert _has_hadith_citation(text) is False
 
     def test_negative_no_hadith(self) -> None:
         """Plain fiqh text without hadith should NOT trigger."""

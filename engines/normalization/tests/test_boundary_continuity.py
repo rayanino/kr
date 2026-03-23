@@ -30,9 +30,11 @@ from engines.normalization.contracts import (
 from engines.normalization.src.boundary_continuity import (
     _check_argument_flow,
     _find_argument_marker,
+    _find_sentence_initial_conditional,
     _has_terminal_punct,
     _has_word_boundary_after,
     _has_word_boundary_before,
+    _is_sentence_initial,
     classify_boundary,
 )
 from engines.normalization.tests.conftest import (
@@ -172,6 +174,94 @@ class TestArgumentFlow:
             is_volume_boundary=False,
         )
         assert result.type == BoundaryContinuityType.SECTION_BREAK
+
+
+# ══════════════════════════════════════════════════════════════════════
+# L-008: Conditional reasoning markers with sentence-initial filter
+# ══════════════════════════════════════════════════════════════════════
+
+
+class TestSentenceInitialDetection:
+    """Unit tests for _is_sentence_initial (L-008 helper)."""
+
+    def test_start_of_text(self) -> None:
+        """Position 0 is always sentence-initial."""
+        assert _is_sentence_initial("إذا كان الماء", 0) is True
+
+    def test_after_period(self) -> None:
+        """After terminal period + whitespace → sentence-initial."""
+        text = "وهذا حكم صحيح. إذا كان الماء قلتين"
+        pos = text.index("إذا")
+        assert _is_sentence_initial(text, pos) is True
+
+    def test_after_arabic_question(self) -> None:
+        """After Arabic question mark → sentence-initial."""
+        text = "هل هذا صحيح؟ إذا ثبت ذلك"
+        pos = text.index("إذا")
+        assert _is_sentence_initial(text, pos) is True
+
+    def test_mid_sentence(self) -> None:
+        """Mid-sentence إذا as subordinating conjunction → NOT sentence-initial."""
+        text = "يجب الغسل إذا كان الماء قليلا"
+        pos = text.index("إذا")
+        assert _is_sentence_initial(text, pos) is False
+
+    def test_after_comma(self) -> None:
+        """After comma (not terminal punct) → NOT sentence-initial."""
+        text = "والماء، إذا كان كثيرا"
+        pos = text.index("إذا")
+        assert _is_sentence_initial(text, pos) is False
+
+
+class TestConditionalReasoning:
+    """L-008: Conditional reasoning markers in argument flow detection."""
+
+    def test_sentence_initial_conditional_detected(self) -> None:
+        """Sentence-initial إذا at end of page → mid_argument (conditional)."""
+        # Fiqh text: "This is a ruling. If the water reaches two qullas..."
+        text = "وهذا الحكم ثابت بالأدلة المتقدمة. إذا بلغ الماء قلتين فإنه"
+        result = _check_argument_flow(text)
+        assert result == "conditional_reasoning"
+
+    def test_mid_sentence_conditional_not_detected(self) -> None:
+        """Mid-sentence إذا should NOT trigger conditional reasoning."""
+        # The إذا here is a subordinating conjunction, not opening a conditional argument
+        text = "يجب على المسلم إذا أراد الصلاة أن يتوضأ ويتطهر من النجاسة"
+        result = _check_argument_flow(text)
+        assert result is None
+
+    def test_conditional_with_closer_not_detected(self) -> None:
+        """Conditional opener + closer on same page → not mid_argument."""
+        # Both opener and closer present
+        text = "والحكم في هذا واضح. إذا ثبت هذا فيجب العمل به في كل حال"
+        result = _check_argument_flow(text)
+        assert result is None
+
+    def test_conditional_lo_sentence_initial(self) -> None:
+        """لو at sentence start → conditional_reasoning."""
+        text = "وهذا القول صحيح. لو قيل بخلافه لزم التناقض في الأحكام"
+        result = _check_argument_flow(text)
+        assert result == "conditional_reasoning"
+
+    def test_conditional_in_with_closer(self) -> None:
+        """إن at sentence start with closer فالحكم → not mid_argument (closed)."""
+        text = "وهذا حكم ثابت. إن ثبت هذا الحديث فالحكم كما ذكرنا"
+        # إن has closer فالحكم on same page
+        result = _check_argument_flow(text)
+        assert result is None  # Closed by فالحكم
+
+    def test_real_fiqh_conditional_pattern(self) -> None:
+        """Real fiqh pattern: conditional argument spanning page boundary."""
+        # This simulates a real fiqh discussion where إذا opens a conditional
+        # ruling that continues on the next page
+        text = (
+            "مسألة في أحكام الطهارة: الماء إذا تغير لا يجوز التطهر به. "
+            "والراجح عندنا خلاف ذلك. إذا بلغ الماء قلتين لم يحمل خبثا كما في"
+        )
+        cur = _make_cleaned_page(text)
+        nxt = _make_cleaned_page("الحديث الصحيح المعروف عن النبي")
+        result = classify_boundary(cur, nxt, None, _markers(), is_volume_boundary=False)
+        assert result.type == BoundaryContinuityType.MID_ARGUMENT
 
 
 # ══════════════════════════════════════════════════════════════════════
