@@ -98,6 +98,36 @@ Audited in 2 chunks across 5 responses (2 audit chunks + 3 fix responses):
 
 **What went wrong:** My first edit pass accidentally created duplicate blocks (duplicate context_hint repair section, duplicate EX-A-012 in catalog). These were caught in the final consistency sweep, not by the edit process itself. Root cause: when applying multiple fixes to the same file region, the str_replace tool can match broader patterns than intended if the old_str isn't precise enough. Fix: after each batch of edits, run a duplicate-detection check before committing.
 
-**Stale memory entries:** Update "KR EXCERPTING ENGINE STATE" — SPEC is now 2381 lines with 28 error codes. Integrity audit complete.
+**Stale memory entries:** Update "KR EXCERPTING ENGINE STATE" — SPEC is now 2387 lines with 28 error codes. Integrity audit + deep review complete.
 
 **Protocol changes:** Add to audit protocol: "After all edits, run a duplicate-detection sweep: grep for repeated section headers, repeated error codes, and repeated block-level phrases before committing."
+
+---
+
+## Post-Audit Deep Review (same session, owner-requested)
+
+Owner requested a deep critical review after the audit fixes were pushed. Despite context degradation risk (same-chat review per standing order 8), the review used tool-grounded verification (fresh clone, grep-based tracing, end-to-end data flow analysis) and found 4 additional issues the 8-lens audit missed:
+
+### Additional Findings (Fixed)
+
+| # | Severity | Section | Description | Fix |
+|---|----------|---------|-------------|-----|
+| R-1 | HIGH | §7.1 F-DET-2, V-P3-2 | F-DET-2 split+rejoin destroys paragraph breaks in primary_text, violating I-ER-2 and causing false V-P3-2 failures | Changed to substring extraction; made V-P3-2 whitespace-robust |
+| R-2 | MEDIUM | §4.4 | Merge of tiny (45w) + large sibling (4960w) = 5005w triggers split, violating I-AC-7 mutual exclusivity | Added merge size guard |
+| R-3 | MEDIUM | §7.1 F-DET-9 | ScholarAttribution field mapping unspecified (3 missing fields, no dedup rule with §7.2) | Added full field conversion and deduplication |
+| R-4 | MEDIUM | §2.2.2, §7.1 F-DET-5, §6.3 | evidence_refs source claimed "Deterministic + LLM" but §7.2 never produces evidence_refs | Changed to "Deterministic"; clarified scope in F-DET-5 and §6.3 |
+
+### Why The Audit Missed These
+
+- **R-1:** The 8-lens audit reads each section independently. F-DET-2's split+rejoin looks correct in isolation. The bug only appears when tracing the *exact bytes* from assembled_text (which has \n\n) through F-DET-2 (which collapses whitespace) to V-P3-2 (which compares against a snippet preserving \n\n). This is a cross-section data flow bug that requires end-to-end tracing.
+- **R-2:** The merge and split sections are read separately. The interaction only surfaces when you construct a concrete scenario with specific word counts that bridge both thresholds.
+- **R-3/R-4:** Both involve checking whether the output schema fields have actual producers — this is Lens 5 (Contract Consistency) but at a more granular level than the audit applied. The audit checked that fields exist; the review checked that field *values* are actually computed.
+
+### Observation: layer_split_points may be dead infrastructure
+
+After splitting, each chunk's text_layers cover [0, len(chunk.assembled_text)). The split point is the *boundary* between chunks, not a position within any chunk. D-011 prevents teaching units from crossing chunk boundaries. Therefore, no teaching unit can ever encounter a split-induced layer boundary. The `layer_split_points` field and the F-DET-3 merge logic are likely dead code. Flagged for CC awareness during build — tests should verify this reasoning.
+
+### Updated SPEC Metrics
+
+- Lines: 2387 (was 2381 after audit, was 2343 original)
+- Total findings fixed: 10 HIGH + 12 MEDIUM + 2 LOW (audit) + 1 HIGH + 3 MEDIUM (review) = **11 HIGH, 15 MEDIUM, 2 LOW**

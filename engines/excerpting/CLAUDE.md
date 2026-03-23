@@ -13,7 +13,7 @@ Architecture rationale: `experiments/architecture_test/ARCHITECTURE_DECISION.md`
 
 ## SPEC
 
-**`engines/excerpting/SPEC.md`** — 2381 lines, 12 sections, COMPLETE.
+**`engines/excerpting/SPEC.md`** — 2387 lines, 12 sections, COMPLETE.
 
 | Section | What It Specifies |
 |---------|-------------------|
@@ -26,7 +26,7 @@ Architecture rationale: `experiments/architecture_test/ARCHITECTURE_DECISION.md`
 | §5 | Phase 2 — LLM teaching unit extraction: classify (2a) + group (2b), offset normalization (V-P2-1–19) |
 | §6 | Domain-specific rules: 22 rules across DP/LA/EV/IR/VC/QM categories |
 | §7 | Phase 3 — metadata enrichment: 9 deterministic fields, LLM enrichment, consensus verification (V-P3-1–9) |
-| §8 | Error handling (27 codes) and configuration (20 parameters) |
+| §8 | Error handling (28 codes) and configuration (19 parameters) |
 | §9 | Deferred capabilities: 16 capabilities (DC-01–DC-16) with extension hooks |
 | §10 | Test requirements: fixture specs, adversarial cases (ADV-E-01–12), C-7 mitigation |
 
@@ -84,7 +84,7 @@ Schema: `engines/excerpting/contracts.py`
 
 ## Current State
 
-- **SPEC:** COMPLETE (2381 lines, 12 sections). Pending: kr-integrity audit → contracts.py update → implementation.
+- **SPEC:** COMPLETE (2387 lines, 12 sections). Pending: kr-integrity audit → contracts.py update → implementation.
 - **Contracts:** Stale — written for old 7-engine architecture. Needs rewrite to match new SPEC (§2.3 data model + §2.2 output contract).
 - **Code:** None. ABD-era files in `reference/archive/abd_code/excerpting/` are historical reference only.
 - **Tests:** None.
@@ -100,7 +100,7 @@ When building tests, follow normalization conventions:
 ## Required Reading
 
 1. `NEXT.md` — current task directive
-2. `engines/excerpting/SPEC.md` — **the behavioral authority** (2381 lines)
+2. `engines/excerpting/SPEC.md` — **the behavioral authority** (2387 lines)
 3. `engines/excerpting/SPEC_OUTLINE.md` — architectural blueprint and source mapping
 4. `engines/normalization/contracts.py` — upstream schema (what this engine receives)
 5. `KNOWLEDGE_INTEGRITY.md` — the 7 threats this engine must defend against
