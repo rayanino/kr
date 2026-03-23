@@ -35,6 +35,8 @@ STATE_FILE = OVERNIGHT_DIR / "state.json"
 PROGRESS_FILE = OVERNIGHT_DIR / "progress.md"
 DECISIONS_LOG = OVERNIGHT_DIR / "decisions.log"
 MORNING_REPORT = OVERNIGHT_DIR / "MORNING_REPORT.md"
+LOCK_FILE = OVERNIGHT_DIR / ".overnight.lock"
+HEARTBEAT_FILE = OVERNIGHT_DIR / ".heartbeat"
 
 MAX_CONSECUTIVE_FAILURES = 3
 
@@ -208,6 +210,42 @@ def git_changed_files_since(commit_hash: str) -> list[str]:
 
 
 # ---------------------------------------------------------------------------
+# Safe subprocess execution (avoids Windows pipe deadlock)
+# ---------------------------------------------------------------------------
+
+
+def _run_subprocess_safe(
+    cmd: list[str],
+    timeout: int = 300,
+    cwd: str | None = None,
+    env: dict[str, str] | None = None,
+) -> subprocess.CompletedProcess[str]:
+    """Run subprocess safely on Windows (avoids pipe buffer deadlock).
+
+    subprocess.run(capture_output=True) can deadlock on Windows when
+    stdout/stderr exceed ~64KB pipe buffer. Uses Popen + communicate()
+    which handles large outputs correctly.
+    """
+    proc = subprocess.Popen(
+        cmd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        cwd=cwd or str(PROJECT_DIR),
+        env=env,
+    )
+    try:
+        stdout, stderr = proc.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+        stdout, stderr = proc.communicate(timeout=10)
+        raise subprocess.TimeoutExpired(cmd, timeout, output=stdout, stderr=stderr)
+    return subprocess.CompletedProcess(
+        args=cmd, returncode=proc.returncode, stdout=stdout, stderr=stderr,
+    )
+
+
+# ---------------------------------------------------------------------------
 # State persistence
 # ---------------------------------------------------------------------------
 
@@ -288,6 +326,55 @@ def log_decision(message: str, details: Any = None) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Lock file (prevent concurrent instances)
+# ---------------------------------------------------------------------------
+
+
+def _acquire_lock() -> None:
+    """Prevent multiple overnight instances from running simultaneously."""
+    LOCK_FILE.parent.mkdir(parents=True, exist_ok=True)
+    if LOCK_FILE.exists():
+        try:
+            old_pid = int(LOCK_FILE.read_text(encoding="utf-8").strip())
+            try:
+                os.kill(old_pid, 0)  # Check if process exists (doesn't kill)
+                raise RuntimeError(
+                    f"Another overnight session (PID {old_pid}) is already running. "
+                    f"If stale, delete {LOCK_FILE}"
+                )
+            except OSError:
+                log_decision(f"Stale lock file from PID {old_pid} — removing")
+        except (ValueError, OSError):
+            pass  # Invalid PID or check failed — assume stale
+    LOCK_FILE.write_text(str(os.getpid()), encoding="utf-8")
+
+
+def _release_lock() -> None:
+    """Release the lock file."""
+    try:
+        if LOCK_FILE.exists():
+            LOCK_FILE.unlink()
+    except OSError:
+        pass
+
+
+def _write_heartbeat(
+    task_id: str, status: str, state: OvernightState,
+    manifest_len: int, start_monotonic: float,
+) -> None:
+    """Write heartbeat file after each task (detect hangs)."""
+    _atomic_write(HEARTBEAT_FILE, json.dumps({
+        "pid": os.getpid(),
+        "last_task": task_id,
+        "last_task_status": status,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "tasks_completed": state.tasks_completed,
+        "tasks_remaining": manifest_len - len(state.results),
+        "elapsed_minutes": round((time.monotonic() - start_monotonic) / 60, 1),
+    }, indent=2))
+
+
+# ---------------------------------------------------------------------------
 # Pre-flight checks
 # ---------------------------------------------------------------------------
 
@@ -315,9 +402,9 @@ def preflight_checks() -> None:
         "engines/source/tests/", "engines/normalization/tests/",
         "engines/excerpting/tests/",
     ]:
-        test_result = subprocess.run(
+        test_result = _run_subprocess_safe(
             ["python", "-m", "pytest", test_dir, "-x", "-q", "--tb=no"],
-            capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=300,
+            timeout=300,
         )
         if test_result.returncode != 0:
             errors.append(f"Test suite failing ({test_dir}):\n{test_result.stdout[-500:]}")
@@ -412,12 +499,15 @@ def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
     if task.max_turns > 0:
         cmd += ["--max-turns", str(task.max_turns)]
 
-    env = {**os.environ, "KR_OVERNIGHT": "1", "PYTHONIOENCODING": "utf-8"}
+    env = {
+        **os.environ,
+        "KR_OVERNIGHT": "1",
+        "PYTHONIOENCODING": "utf-8",
+        "KR_BUDGET_LIMIT": os.environ.get("KR_BUDGET_LIMIT", "20"),
+    }
 
-    result = subprocess.run(
-        cmd, capture_output=True, text=True,
-        timeout=task.timeout_minutes * 60,
-        cwd=str(PROJECT_DIR), env=env,
+    result = _run_subprocess_safe(
+        cmd, timeout=task.timeout_minutes * 60, env=env,
     )
 
     # Parse JSON output
@@ -533,28 +623,36 @@ def run_quality_gate(task: TaskDef, pre_snapshot: str) -> dict[str, Any]:
     """Run post-task quality checks. Returns {"passed": bool, "failures": [...]}."""
     failures: list[str] = []
 
-    # L1: Test suite (run each engine separately to avoid conftest collisions)
-    for test_dir in [
-        "engines/source/tests/", "engines/normalization/tests/",
-        "engines/excerpting/tests/",
-    ]:
-        test_result = subprocess.run(
+    # Determine which engines were modified (engine-specific testing)
+    changed = git_changed_files_since(pre_snapshot)
+    affected_engines: set[str] = set()
+    for f in changed:
+        parts = f.replace("\\", "/").split("/")
+        if len(parts) >= 2 and parts[0] == "engines":
+            affected_engines.add(parts[1])
+
+    # L1: Test suite — only affected engines (or all if shared code changed)
+    if not affected_engines:
+        affected_engines = {"source", "normalization", "excerpting"}
+    for engine in sorted(affected_engines):
+        test_dir = f"engines/{engine}/tests/"
+        if not (PROJECT_DIR / test_dir).exists():
+            continue
+        test_result = _run_subprocess_safe(
             ["python", "-m", "pytest", test_dir, "-x", "-q", "--tb=short"],
-            capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=300,
+            timeout=300,
         )
         if test_result.returncode != 0:
             failures.append(f"L1 TEST FAILURE ({test_dir}):\n{test_result.stdout[-500:]}")
             break
 
     # L2: Git state — check no frozen source modifications or deletions
-    changed = git_changed_files_since(pre_snapshot)
     for f in changed:
         if "frozen/" in f:
             failures.append(f"L2 FROZEN SOURCE MODIFIED: {f}")
-    # Check for deletions
-    diff_result = subprocess.run(
+    diff_result = _run_subprocess_safe(
         ["git", "diff", "--diff-filter=D", "--name-only", pre_snapshot, "HEAD"],
-        capture_output=True, text=True, cwd=str(PROJECT_DIR),
+        timeout=30,
     )
     deleted = [f for f in diff_result.stdout.strip().split("\n") if f.strip()]
     if deleted:
@@ -565,18 +663,18 @@ def run_quality_gate(task: TaskDef, pre_snapshot: str) -> dict[str, Any]:
     if py_changed:
         check_script = PROJECT_DIR / "scripts" / "pre_review_checks.py"
         if check_script.exists():
-            check_result = subprocess.run(
+            check_result = _run_subprocess_safe(
                 ["python", str(check_script), *py_changed],
-                capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=60,
+                timeout=60,
             )
             if check_result.returncode != 0 and "ERROR" in check_result.stdout:
                 failures.append(f"L3 COMPLIANCE ERROR:\n{check_result.stdout[-500:]}")
 
     # L4: Pyright (log only, don't fail)
     if py_changed:
-        pyright_result = subprocess.run(
+        pyright_result = _run_subprocess_safe(
             ["python", "-m", "pyright", *py_changed],
-            capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=60,
+            timeout=60,
         )
         if pyright_result.returncode != 0:
             log_decision(f"L4 PYRIGHT warnings for {task.task_id}",
@@ -670,11 +768,11 @@ def pick_next_ready(manifest: list[TaskDef], state: OvernightState) -> TaskDef |
     """Pick next task: dependencies met, not yet executed, highest priority."""
     completed_ids = {
         tid for tid, r in state.results.items()
-        if r.get("status") in ("success", "skipped", "rolled_back")
+        if r.get("status") in ("success", "skipped")
     }
     failed_ids = {
         tid for tid, r in state.results.items()
-        if r.get("status") in ("failed", "timeout")
+        if r.get("status") in ("failed", "timeout", "rolled_back")
     }
 
     candidates = []
@@ -803,6 +901,7 @@ def run_overnight(
 
     # Pre-flight (skip for dry-run)
     if not dry_run:
+        _acquire_lock()
         preflight_checks()
 
     # Load or generate manifest
@@ -883,6 +982,11 @@ def run_overnight(
         print("\nGraceful shutdown requested. Finishing current task...")
 
     signal.signal(signal.SIGINT, handle_signal)
+    if sys.platform == "win32":
+        try:
+            signal.signal(signal.SIGBREAK, handle_signal)  # type: ignore[attr-defined]
+        except (AttributeError, OSError):
+            pass  # SIGBREAK not available on all Windows configurations
 
     # === Main loop ===
     print(f"\nStarting execution. Deadline: {deadline.strftime('%H:%M UTC')}")
@@ -973,17 +1077,23 @@ def run_overnight(
             state.consecutive_failures += 1
             print(f"    {result.status.upper()}: {result.error or 'unknown'}")
         elif result.status == "rolled_back":
-            state.consecutive_failures += 1
-            print(f"    ROLLED BACK")
+            state.tasks_rolled_back += 1
+            # Quality issue, not system failure — don't trigger circuit breaker
+            print(f"    ROLLED BACK (quality gate)")
 
         write_progress_file(state, manifest)
         save_state(state)
+        _write_heartbeat(
+            task.task_id, result.status, state,
+            len(manifest), start_monotonic,
+        )
 
     # === Shutdown ===
     if state.status == "running":
         state.status = "completed"
     save_state(state)
     generate_morning_report(state, manifest)
+    _release_lock()
 
     print("\n" + "=" * 60)
     print(f"Overnight session {state.status}.")

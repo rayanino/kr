@@ -6,6 +6,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 export KR_OVERNIGHT=1
 export PYTHONIOENCODING=utf-8
+export KR_BUDGET_LIMIT="${KR_BUDGET_LIMIT:-20}"
 
 echo "=== KR Overnight Session Launcher ==="
 echo "Project: $(pwd)"
