@@ -36,8 +36,8 @@ After all 6 deliverables, use `critical-review` to self-verify before committing
 In this order:
 1. `NEXT.md` — current task directive (153 lines)
 2. `engines/excerpting/CLAUDE.md` — engine orientation (109 lines, you'll update this)
-3. `engines/excerpting/SPEC.md` §4 (lines 601–764) — Phase 1 deterministic preprocessing
-4. `engines/excerpting/SPEC.md` §2.3.2 (lines 143–200) — AssembledChunk fields + invariants
+3. `engines/excerpting/SPEC.md` §4 (lines 609–778) — Phase 1 deterministic preprocessing
+4. `engines/excerpting/SPEC.md` §2.3.2 (lines 136–195) — AssembledChunk fields + invariants
 5. `engines/excerpting/contracts.py` — all types (1111 lines, skim for signatures)
 6. `engines/normalization/contracts.py` — upstream types: NormalizedPackage, DivisionNode, ContentUnit (725 lines)
 7. `reference/ENGINE_BUILD_BLUEPRINT.md` §2a (lines 206–280) — build prep requirements

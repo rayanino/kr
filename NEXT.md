@@ -81,8 +81,8 @@ Reflect current state. Keep under 200 lines.
 
 1. **`NEXT.md`** — this file (current directive)
 2. **`engines/excerpting/CLAUDE.md`** — engine orientation (109 lines, needs update)
-3. **`engines/excerpting/SPEC.md` §4** (lines 601–764) — Phase 1 (first build target)
-4. **`engines/excerpting/SPEC.md` §2.3.2`** (lines 143–200) — AssembledChunk (Phase 1 output)
+3. **`engines/excerpting/SPEC.md` §4** (lines 609–778) — Phase 1 (first build target)
+4. **`engines/excerpting/SPEC.md` §2.3.2** (lines 136–195) — AssembledChunk (Phase 1 output)
 5. **`engines/excerpting/contracts.py`** — all types (1111 lines, skim for type signatures)
 6. **`engines/normalization/contracts.py`** — upstream types consumed by Phase 1 (725 lines, focus on NormalizedPackage, DivisionNode, ContentUnit)
 7. **`reference/ENGINE_BUILD_BLUEPRINT.md` §2a** (lines 206–280) — build preparation requirements
