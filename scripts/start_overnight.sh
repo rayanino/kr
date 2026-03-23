@@ -46,7 +46,7 @@ echo ""
 python scripts/overnight_orchestrator.py \
     --manifest "$MANIFEST" \
     --hours 8.5 \
-    --max-cost-usd 150.0
+    --max-cost-usd 30.0
 
 echo ""
 echo "Overnight session complete. See overnight/MORNING_REPORT.md"
