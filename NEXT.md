@@ -1,201 +1,278 @@
-# NEXT — Excerpting Engine: CC Build Session 1 (Phase 1)
+# NEXT — Excerpting Engine: Session 1 Fix (F-1 + F-2)
 
 ## Current Position
 
-- Excerpting SPEC: ✅ COMPLETE (2387 lines, 12 sections)
-- contracts.py: ✅ COMPLETE (1111 lines, independently reviewed)
-- conftest.py: ✅ 4 factories (AssembledChunk, ClassifiedSegment, TeachingUnit, ExcerptRecord)
-- Module stubs: ✅ All 9 stub files written with type signatures
-- Test baseline: **0 tests** (conftest.py only, no test files)
-- HEAD commit: (see `git log --oneline -3`)
+- Excerpting Phase 1: implemented in commit 1ae4a991
+- Architect review: **BLOCKED** — 2 findings
+- Test baseline: **81 passed** (excerpting), 503 passed (normalization)
+- Review checklist: `reference/archive/sessions/reviews/review_excerpting_session_1.md`
 
 ## What to Do
 
-**Build Phase 1: Deterministic Preprocessing (§4).**
+Fix two findings from the architect's 3-round review. Both are surgical — no new features, no SPEC changes.
 
-Fill the stub `engines/excerpting/src/phase1_assembly.py` with implementation code. Write tests alongside code. Phase 1 is fully deterministic — no LLM calls, no external dependencies beyond the input NormalizedPackage.
+### F-1: Stale join_point offsets after footnote renumbering
 
-This session covers all 7 steps from §4.1:
-1. Division tree walking (§4.2)
-2. Cross-page text assembly (§4.3)
-3. Tiny division merging (§4.4)
-4. Oversized division splitting (§4.5)
-5. Metadata aggregation + footnote renumbering (§4.7)
-6. Text layer rebasing (§4.6)
-7. Heading alignment filter (§4.8)
-8. Self-validation V-P1-1 through V-P1-6 (§4.9)
+**Bug:** `renumber_footnotes()` can change `assembled_text` length (e.g., `⌜1⌝` → `⌜10⌝` adds 1 char per marker). But `assembly_metadata.join_points` are never updated. `rebase_text_layers()` uses these stale offsets, producing silently wrong layer attribution coordinates.
 
-## Context
+**Confirmed on real data:** 03_fiqh fixture, `div_src_test0001_5_011`: 19 pages each with `⌜1⌝`. After renumbering, markers 10–19 become 2-digit → 10-char text growth. 9 join points have stale offsets (drift 1–9 chars). All 6 validation checks pass silently.
 
-Phase 1 absorbs the old passaging engine's core: cross-page assembly, division merging, splitting. But unlike the old passaging, Phase 1 does NOT apply format-specific strategies — it treats all text identically. Format-aware processing is Phase 2's job (the LLM understands format natively).
+**Fix (3 parts):**
 
-The validated reference implementations in `experiments/architecture_test/extract_divisions.py` are your guide for the core algorithms. These are tested, working implementations — adapt them (don't copy blindly — the experiment operates on raw dicts, but production code uses Pydantic models).
+#### Part 1: Add helper function
 
-**CRITICAL ORDER:** Step 5 (footnote renumbering) modifies `assembled_text` and therefore changes character offsets. It MUST run before step 6 (text layer rebasing). §4.1 is explicit about this ordering.
-
-## Read First (in this order)
-
-1. **`engines/excerpting/SPEC.md` §4** (lines 609–778) — Phase 1 specification. THE AUTHORITY.
-2. **`engines/excerpting/SPEC.md` §2.3.2** (lines 136–195) — AssembledChunk fields + invariants I-AC-1 through I-AC-7.
-3. **`engines/excerpting/src/phase1_assembly.py`** — Stub file with all function signatures, types, and SPEC references. Fill this.
-4. **`engines/excerpting/contracts.py`** — All types used by Phase 1 (AssembledChunk, JoinPoint, AssemblyMetadata, SplitInfo, ExcerptingConfig, ExcerptingErrorCodes). Skim lines 218–360, 670–760.
-5. **`engines/normalization/contracts.py`** — Upstream types consumed: NormalizedPackage (line 716), DivisionNode (line 484), ContentUnit (line 427), ContentFlags (line 216), TextLayerSegment (line 110), BoundaryContinuity (line 257), Footnote (line 168), PhysicalPage (line 101).
-6. **`engines/excerpting/tests/conftest.py`** — Existing test factories. You'll ADD new ones here.
-7. **`experiments/architecture_test/extract_divisions.py`** — Validated reference implementations: `find_leaf_divisions()`, `assemble_text()`, `rebase_text_layers()`, `aggregate_content_flags()`, `strip_arabic_noise()`, `arabic_word_count()`. BC_JOIN_MAP at line 27.
-8. **`engines/excerpting/docs/testing.md`** — Test categories per file. Follow this structure.
-
-Do NOT read the full 2387-line SPEC. §4 and §2.3.2 are all you need.
-
-## What to Build
-
-### Implementation (`engines/excerpting/src/phase1_assembly.py`)
-
-Fill every function stub. The stub has complete type signatures and SPEC references — follow them exactly. Key implementation notes:
-
-**§4.2 — Division tree walking:**
-- Recursive walk. Leaf = empty `children` list.
-- Skip criteria: all-TOC, all-index, all-blank, bibliography keywords (word-boundary-aware), empty range.
-- Word-boundary matching for exclude keywords: keyword preceded by start-of-string or whitespace, followed by end-of-string or whitespace. Use `strip_arabic_noise()` on the heading before matching.
-- "مصادر الأحكام" must NOT match (it's a content chapter, not bibliography).
-
-**§4.3 — Cross-page text assembly:**
-- Separator mapping in BC_SEPARATOR_MAP constant (already in stub).
-- Mid-sentence word-final detection: check last char of prev unit (after stripping whitespace). Word-final indicators: taa marbuta (ة), alif maqsura (ى), tanwin diacritics (ً/ٌ/ٍ as last combining char), whitespace. If word-final → insert space. Otherwise → empty (mid-word).
-- Skip content units with is_toc_page/is_index_page/is_blank (but record their unit_index in constituent_unit_indices per I-AC-4).
-- Record one JoinPoint per page boundary.
-
-**§4.4 — Tiny division merging:**
-- Operate on sibling groups (same parent in division tree).
-- Merge with next sibling. If no next, merge with previous.
-- Size guard: combined must not exceed OVERSIZED_DIVISION_WORDS.
-- Separator between merged chunks: `"\n\n"`.
-- merge_history = [first_div_id, second_div_id, ...]. I-AC-6.
-- Recursive: if result still tiny, merge again with next sibling.
-
-**§4.5 — Oversized division splitting:**
-- Split point priority: heading_markers > section_breaks > paragraph_breaks > sentence_boundary.
-- Heading: any content unit with `structural_markers.heading_detected == true`.
-- Section: `"\n\n"` nearest midpoint.
-- Paragraph: `"\n\n"` nearest midpoint (same as section in practice).
-- Sentence: terminal punctuation (`.` `؟` `!`) + whitespace nearest midpoint.
-- Recursive: if split result still oversized, split again.
-- chunk_id: `{div_id}_chunk_0`, `{div_id}_chunk_1`, etc.
-- All split chunks share same constituent_unit_indices (I-AC-4).
-- Text layers sliced at split point. layer_split_points recorded.
-
-**§4.7 — Metadata aggregation:**
-- Content flags: OR-aggregate. Simple boolean per flag.
-- Footnotes: collect in order, dedup by ref_marker (keep first, EX-A-005 for dups).
-- Footnote renumbering: if same ref_marker from different pages, renumber sequentially. Update both ⌜N⌝ in text AND ref_marker in footnotes. Record old→new map.
-- **THIS MODIFIES assembled_text.** Run BEFORE text layer rebasing.
-
-**§4.6 — Text layer rebasing:**
-- For each content unit: add cumulative offset to each layer segment's start/end.
-- Cumulative offset = sum of (separator length + previous unit text length).
-- After rebasing: merge adjacent segments with same layer_type + author_canonical_id.
-- Validate I-AC-2: union covers [0, len(assembled_text)). Use `validate_layer_coverage()` from contracts.py.
-- Clamp overflowing segments (EX-A-004). Gap detection (EX-A-003).
-
-**§4.8 — Heading alignment:**
-- `strip_arabic_noise()`: remove U+200C, U+200D, U+0640, U+064B–U+0652, U+0670. Collapse whitespace.
-- Check if first 30 stripped chars of heading appear in first 200 stripped chars of text.
-- Sets `heading_alignment_ok`. Quality flag only — does not gate processing.
-
-**§4.9 — Validation:**
-- 6 checks. Fatal checks raise. Warning checks log.
-- Use `validate_ac_invariants()` and `validate_layer_coverage()` from contracts.py.
-
-### Tests
-
-Write tests alongside implementation. Follow the structure in `engines/excerpting/docs/testing.md`. **Session 1 test files:**
-
-1. `test_phase1_tree_walk.py` — 12 tests per testing.md
-2. `test_phase1_assembly.py` — 9 tests
-3. `test_phase1_merge.py` — 7 tests
-4. `test_phase1_split.py` — 9 tests
-5. `test_phase1_layers.py` — 6 tests
-6. `test_phase1_metadata.py` — 7 tests
-7. `test_phase1_alignment.py` — 4 tests
-8. `test_phase1_validation.py` — 6 tests
-
-**Minimum: 55 tests total.** Actual count may be higher — each test category in testing.md is a minimum.
-
-### conftest.py additions
-
-Add these factories to `engines/excerpting/tests/conftest.py`:
+Add this function in phase1_assembly.py, in the "Utility Functions" section (after `_should_insert_space_mid_sentence`, before the `§4.2` section header):
 
 ```python
-def _make_content_unit(**overrides) -> ContentUnit:
-    """ContentUnit with valid defaults. One per physical page."""
+def _adjust_join_points_after_renumber(
+    old_text: str,
+    new_text: str,
+    join_points: list[JoinPoint],
+) -> list[JoinPoint]:
+    """Adjust join_point char_offset_in_assembled after footnote renumbering.
 
-def _make_division_node(**overrides) -> DivisionNode:
-    """DivisionNode with valid defaults."""
+    When renumbering changes marker lengths (e.g., ⌜1⌝→⌜10⌝), character
+    offsets downstream of the change shift. This recomputes offsets to match
+    the renumbered text.
 
-def _make_normalized_package(**overrides) -> NormalizedPackage:
-    """Minimal valid NormalizedPackage: 1 division, 2 content units."""
+    Returns join_points unchanged if text length didn't change.
+    """
+    if len(old_text) == len(new_text) or not join_points:
+        return join_points
 
-def _make_division_tree(leaf_count: int) -> list[DivisionNode]:
-    """Generate a division tree with specified leaf count under one root."""
+    # Find all marker positions in old and new text
+    old_markers = list(_FOOTNOTE_MARKER_RE.finditer(old_text))
+    new_markers = list(_FOOTNOTE_MARKER_RE.finditer(new_text))
+
+    # Build cumulative delta table
+    # Each entry: (position_in_old_text after this marker, cumulative_shift)
+    deltas: list[tuple[int, int]] = []
+    cumulative = 0
+    for om, nm in zip(old_markers, new_markers):
+        delta = (nm.end() - nm.start()) - (om.end() - om.start())
+        if delta != 0:
+            cumulative += delta
+            deltas.append((om.end(), cumulative))
+
+    if not deltas:
+        return join_points
+
+    # Adjust each join_point's char_offset_in_assembled
+    adjusted: list[JoinPoint] = []
+    for jp in join_points:
+        shift = 0
+        for pos, cum_delta in deltas:
+            if jp.char_offset_in_assembled >= pos:
+                shift = cum_delta
+        if shift != 0:
+            adjusted.append(
+                JoinPoint(
+                    after_unit_index=jp.after_unit_index,
+                    before_unit_index=jp.before_unit_index,
+                    boundary_type=jp.boundary_type,
+                    separator_used=jp.separator_used,
+                    char_offset_in_assembled=jp.char_offset_in_assembled + shift,
+                )
+            )
+        else:
+            adjusted.append(jp)
+
+    return adjusted
 ```
 
-Follow patterns from normalization conftest.py. Use real Arabic text from `_DEFAULT_AC_TEXT` for content units.
+#### Part 2: Apply in run_phase1
 
-## Design Decisions (pre-resolved — do NOT re-decide)
+In `run_phase1()`, replace the step 4 loop (the `for chunk in merged_chunks:` block, lines ~1396–1429) with the following. The key changes are marked with `# F-1 fix`:
 
-1. **BC_SEPARATOR_MAP** is the source of truth for separator mapping. Already in the stub as a constant.
-2. **Word-final detection** for mid_sentence boundaries uses taa marbuta, alif maqsura, tanwin, and whitespace. These are the SPEC-defined indicators.
-3. **Merge size guard**: combined word count, NOT character count. `_count_arabic_words()` from contracts.py.
-4. **Split point search**: search for `"\n\n"` nearest midpoint, NOT first occurrence. "Nearest midpoint" means: find all occurrences, pick the one whose char offset is closest to `len(text) // 2`.
-5. **Footnote marker format**: `⌜N⌝` where N is the ref_marker string. The regex pattern is `r'⌜([^⌝]+)⌝'`.
-6. **All LLM calls go through OpenRouter.** Not relevant for Phase 1 (no LLM calls), but do not add any LLM code.
+```python
+    for chunk in merged_chunks:
+        indices = chunk.assembly_metadata.constituent_unit_indices
+        flags = aggregate_content_flags(content_units, indices)
+        all_fn = aggregate_footnotes(content_units, indices)
+
+        # Filter footnotes to only those whose markers appear in this chunk's text
+        chunk_fn = [
+            fn for fn in all_fn if f"⌜{fn.ref_marker}⌝" in chunk.assembled_text
+        ]
+
+        new_text, new_fn, rmap = renumber_footnotes(chunk.assembled_text, chunk_fn)
+
+        # F-1 fix: adjust join_points for renumbering-induced offset shifts
+        adjusted_jps = _adjust_join_points_after_renumber(
+            chunk.assembled_text, new_text,
+            chunk.assembly_metadata.join_points,
+        )
+
+        # Save ADJUSTED join_points for split chunk layer rebasing (step 6)
+        original_join_points[chunk.div_id] = adjusted_jps
+
+        pages = collect_physical_pages(content_units, indices)
+        wc = _count_arabic_words(new_text)
+        tt = len(new_text.split())
+
+        finalized.append(
+            chunk.model_copy(
+                update={
+                    "assembled_text": new_text,
+                    "word_count": wc,
+                    "total_tokens": tt,
+                    "footnotes": new_fn,
+                    "content_flags": flags,
+                    "physical_pages": pages,
+                    "assembly_metadata": chunk.assembly_metadata.model_copy(
+                        update={
+                            "footnote_renumber_map": rmap,
+                            "join_points": adjusted_jps,  # F-1 fix
+                        }
+                    ),
+                }
+            )
+        )
+```
+
+Key changes vs current code:
+1. `_adjust_join_points_after_renumber()` called after `renumber_footnotes()`
+2. `original_join_points[chunk.div_id]` now stores ADJUSTED join_points (moved AFTER renumbering — was BEFORE)
+3. Finalized chunk's `assembly_metadata.join_points` explicitly set to `adjusted_jps`
+
+#### Part 3: Add regression test
+
+Add to `engines/excerpting/tests/test_phase1_metadata.py`, at the end of the file:
+
+```python
+class TestJoinPointAdjustmentAfterRenumber:
+    """Regression test for F-1: stale join_points after footnote renumbering."""
+
+    def test_join_points_adjusted_for_multi_digit_renumbering(self) -> None:
+        """15 pages each with ⌜1⌝ → markers 10-15 become 2-digit.
+
+        Join_point offsets must reflect the renumbered text, not the original.
+        """
+        from engines.excerpting.contracts import ExcerptingConfig
+        from engines.excerpting.src.phase1_assembly import run_phase1
+        from engines.excerpting.tests.conftest import (
+            _make_content_unit,
+            _make_normalized_package,
+        )
+        from engines.normalization.contracts import (
+            BoundaryContinuity,
+            BoundaryContinuityType,
+            ContinuityDetectionMethod,
+            Footnote,
+            FootnoteType,
+        )
+
+        # Build 15 content units, each with ⌜1⌝ in text and one footnote
+        units = []
+        for i in range(15):
+            bc = None
+            if i < 14:  # All but last have boundary_continuity
+                bc = BoundaryContinuity(
+                    type=BoundaryContinuityType.MID_PARAGRAPH,
+                    confidence=0.9,
+                    detection_method=ContinuityDetectionMethod.PUNCTUATION_ANALYSIS,
+                    continuation_hint=None,
+                )
+            units.append(
+                _make_content_unit(
+                    unit_index=i,
+                    primary_text=f"نص الصفحة رقم {i + 1} في الكتاب ⌜1⌝ وبقية النص هنا",
+                    boundary_continuity=bc,
+                    footnotes=[
+                        Footnote(
+                            ref_marker="1",
+                            text=f"حاشية الصفحة {i + 1}",
+                            footnote_type=FootnoteType.AUTHOR_ORIGINAL,
+                            confidence=0.9,
+                        )
+                    ],
+                )
+            )
+
+        pkg = _make_normalized_package(
+            content_units=units,
+            num_units=15,
+        )
+        config = ExcerptingConfig()
+        chunks, results = run_phase1(pkg, config)
+
+        assert len(chunks) >= 1
+        # All validation must pass
+        for r in results:
+            assert r["status"] in ("pass", "warning"), (
+                f"{r['check']} failed: {r['detail']}"
+            )
+
+        # The chunk should have renumbered markers (10+ are 2-digit)
+        chunk = chunks[0]
+        assert "⌜10⌝" in chunk.assembled_text, (
+            "Marker 10 should be 2-digit after renumbering"
+        )
+        assert "⌜15⌝" in chunk.assembled_text, (
+            "Marker 15 should be 2-digit after renumbering"
+        )
+
+        # Verify join_points: each offset must point to the correct position
+        # in the RENUMBERED assembled_text
+        for jp in chunk.assembly_metadata.join_points:
+            offset = jp.char_offset_in_assembled
+            sep = jp.separator_used
+            assert offset <= len(chunk.assembled_text), (
+                f"JP offset {offset} exceeds text length "
+                f"{len(chunk.assembled_text)}"
+            )
+            # The separator should appear at the offset position
+            if sep:
+                actual = chunk.assembled_text[offset : offset + len(sep)]
+                assert actual == sep, (
+                    f"JP at offset {offset}: expected separator "
+                    f"{repr(sep)}, got {repr(actual)}"
+                )
+```
+
+### F-2: Unused imports (lint not clean)
+
+Run:
+```bash
+ruff check --fix engines/excerpting/tests/
+```
+
+This auto-removes all 17 unused imports.
+
+## Read First
+
+1. `engines/excerpting/src/phase1_assembly.py` — the file you're modifying
+2. `engines/excerpting/tests/test_phase1_metadata.py` — where the new test goes
+3. `reference/archive/sessions/reviews/review_excerpting_session_1.md` — the review findings
 
 ## Do NOT Do
 
-- Do NOT modify `contracts.py`. It was independently reviewed and accepted.
-- Do NOT modify the existing `conftest.py` factories — only ADD new ones below the existing code.
-- Do NOT implement Phase 2 or Phase 3 code. Phase 1 only.
-- Do NOT modify the stub files for Phase 2/3 (phase2_classify.py, phase2_group.py, etc.).
-- Do NOT apply Unicode normalization (NFC/NFD/NFKC/NFKD) to Arabic text. Preserve diacritics exactly.
-- Do NOT delete the `tracer.py` file — it's a historical artifact, leave it.
-- Do NOT read the full SPEC — only §4 and §2.3.2.
+- Do NOT modify `contracts.py`.
+- Do NOT modify any existing test — only ADD the new test class.
+- Do NOT change `renumber_footnotes()` signature or return type.
+- Do NOT change any other function behavior — only `run_phase1()` and the new helper.
+- Do NOT run CC self-review — just run pytest. The architect will re-verify.
 
-## Verification (run before committing)
+## Verification
 
 ```bash
-# 1. All tests pass
+# 1. All tests pass (expect 82+ after adding the new test)
 python -m pytest engines/excerpting/tests/ -v --tb=short
 
-# 2. Test count >= 55
-python -m pytest engines/excerpting/tests/ -v --tb=short 2>&1 | grep "passed"
-
-# 3. No import errors
-python -c "from engines.excerpting.src.phase1_assembly import run_phase1; print('OK')"
-
-# 4. Lint clean
+# 2. Lint clean
 ruff check engines/excerpting/src/phase1_assembly.py engines/excerpting/tests/
 
-# 5. Type check on stub interface preserved
-python -c "
-from engines.excerpting.src.phase1_assembly import run_phase1
-from engines.normalization.contracts import NormalizedPackage
-from engines.excerpting.contracts import ExcerptingConfig
-import inspect
-sig = inspect.signature(run_phase1)
-params = list(sig.parameters.keys())
-assert params == ['package', 'config'], f'Unexpected params: {params}'
-print('Interface preserved')
-"
+# 3. Normalization regression
+python -m pytest engines/normalization/tests/ --tb=short
+
+# 4. F-1 specific: run the regression test in isolation
+python -m pytest engines/excerpting/tests/test_phase1_metadata.py::TestJoinPointAdjustmentAfterRenumber -v --tb=long
 ```
-
-## Expected Outcome
-
-After this session:
-- `engines/excerpting/src/phase1_assembly.py` fully implemented (~800–1200 lines)
-- 8 test files in `engines/excerpting/tests/` with ≥55 tests
-- All tests pass
-- conftest.py has 4 new factories (8 total)
-- Phase 1 correctly transforms NormalizedPackage → list[AssembledChunk]
 
 ## After This
 
-Architect reviews CC output (kr-reviewing-cc-output protocol). Then CC Session 2: Phase 2 (classification + grouping).
+Push the fix commit. Architect will do abbreviated re-verification:
+1. Re-run the F-1 trigger test on 03_fiqh's 19-marker division
+2. Confirm join_point offsets are now correct
+3. Re-run lint
+4. Deliver final ACCEPT or BLOCKED
