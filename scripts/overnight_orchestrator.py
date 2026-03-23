@@ -486,7 +486,7 @@ def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
         "claude", "-p", task.prompt,
         "--output-format", "json",
         "--model", task.model,
-        "--permission-mode", task.permission_mode,
+        "--dangerously-skip-permissions",
         "--no-session-persistence",
         "--append-system-prompt", safety_prompt,
     ]
