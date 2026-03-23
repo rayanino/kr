@@ -2,7 +2,7 @@
 
 **Date:** 2026-03-23
 **Session scope:** §9 (Deferred Capabilities) + §10 (Test Requirements) + §1 (Purpose and Scope) + Coherence Review
-**Commits:** `11c1eee` through `ea82cfb` (3 section commits + coherence fix + progress update)
+**Commits:** `11c1eee` through `a6068f6` (3 section commits + coherence fix + CLAUDE.md + NEXT.md rewrite)
 **SPEC status:** 2343 lines, 12/12 sections COMPLETE. Status updated from DRAFT to COMPLETE.
 
 ---
@@ -15,6 +15,8 @@
 | §10 Test Requirements | 233 | `58aff02` | Coverage rule for 34 checks + 29 invariants + 27 errors + 22 domain rules; 12 adversarial cases (ADV-E-01–12); C-7 mitigation; cross-engine contracts |
 | §1 Purpose and Scope | 63 | `ac1c241` | Pipeline position, 3-phase architecture, D-011 structural enforcement, T-1–T-7 defense mapping, 5 scope exclusions |
 | Coherence review | — | `ea82cfb` | Fixed 7 scrambled error code trigger conditions in §10 (EX-A-002–011, EX-C-001–005, EX-M-001–002, EX-V-001); status DRAFT→COMPLETE |
+| CLAUDE.md update | 108 | `567c039` | Rewritten to reflect complete SPEC: 12-section reference table, current state, test patterns |
+| NEXT.md rewrite | 110 | `a6068f6` | Rewritten for post-SPEC phase: integrity audit → contracts.py → build prep |
 
 **Coherence review findings (all fixed):**
 - 7 error code trigger descriptions in §10 did not match §8 catalog (scrambled during writing — descriptions were plausible but assigned to wrong codes)
@@ -61,37 +63,23 @@ All IDs verified programmatically against the SPEC (2343 lines, 12 sections).
 
 ---
 
-## What's Next — Step 3: contracts.py and CLAUDE.md
+## What's Next — Step 3: Integrity Audit → contracts.py → Build Prep
 
-NEXT.md Step 3 requires two updates before the SPEC is ready for kr-integrity audit:
+NEXT.md has been rewritten with full instructions. The sequence is:
 
-### 1. Update `engines/excerpting/contracts.py`
+### 1. kr-integrity Audit (Architect — 1 session, new chat)
 
-The existing `contracts.py` (22KB) was written for the old blocked SPEC. It needs to be rewritten to match the new SPEC's data model:
+Run the 8-lens audit on the complete SPEC. Audit in chunks (§1–§3, §4–§5, §6–§8, §9–§10) to avoid context degradation. Every finding blocks. Fix findings before proceeding.
 
-- `AssembledChunk` (§2.3.2): 12 fields + 7 invariants
-- `ClassifiedSegment` (§2.3.3): 7 fields + 6 invariants
-- `TeachingUnit` (§2.3.4): 11 fields + 9 invariants
-- `ExcerptRecord` (§2.2.2): 33 fields + 7 invariants
-- Enumerations: `ScholarlyFunction` (16 types), `SelfContainmentLevel` (3 levels), `StructuralFormat` (7 types)
-- Error codes: all 27 as an enum or constants
+### 2. Rewrite `engines/excerpting/contracts.py` (CC task — 1 session)
 
-This is a CC task — delegate via kr-preparing-cc-handoffs.
+The existing `contracts.py` (557 lines) was written for the old blocked SPEC. Prepare a CC handoff via kr-preparing-cc-handoffs after the integrity audit passes.
 
-### 2. Update `engines/excerpting/CLAUDE.md`
+### 3. Build Prep (Architect — 1 session)
 
-CLAUDE.md is the module guide for CC. It needs to reflect:
-- The 3-phase architecture
-- File locations and what each module does
-- Which SPEC sections are authoritative for which modules
-- Testing patterns (conftest.py helpers, fixture locations)
-- The D-011 constraint as a structural invariant
+Run kr-build-prep: technology survey, architecture stubs, test skeleton, CLAUDE.md with implementation guidance.
 
-This can be drafted by the architect and committed directly (it's prose, not code).
-
-### 3. kr-integrity audit
-
-After contracts.py and CLAUDE.md are updated, run the kr-integrity 8-lens audit on the complete SPEC. This is the quality gate before the SPEC is declared implementation-ready.
+**CLAUDE.md** — ✅ DONE (updated in this session to reflect complete SPEC).
 
 ---
 
@@ -107,4 +95,4 @@ After contracts.py and CLAUDE.md are updated, run the kr-integrity 8-lens audit 
 
 **Protocol changes to propose:** Add a "copy from source" step to the section writing protocol: before writing any section that references IDs from another section, open that section and keep it visible. This prevents the scrambled-description class of errors.
 
-**What next session needs:** A new Claude Chat session. Start by cloning the repo, reading NEXT.md, reading this handoff file. Tasks: (1) Draft CLAUDE.md update, (2) Prepare CC handoff for contracts.py rewrite, (3) Run kr-integrity 8-lens audit on complete SPEC. If all three complete, the SPEC is implementation-ready and the engine moves to the build phase.
+**What next session needs:** A new Claude Chat session. Start by cloning the repo, reading NEXT.md, reading this handoff file. Task: run kr-integrity 8-lens audit on the complete SPEC (2343 lines). Audit in 2–4 chunks to avoid context degradation. Fix all findings. Then prepare CC handoff for contracts.py rewrite.
