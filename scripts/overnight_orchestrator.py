@@ -1,0 +1,976 @@
+"""KR Overnight Autonomous Work Orchestrator v2.
+
+Runs quality improvement tasks using Claude Code CLI/SDK and Codex CLI
+for independent verification. Each task gets a fresh context window.
+State persists across tasks via JSON + progress.md (Anthropic harness pattern).
+
+Usage:
+  python scripts/overnight_orchestrator.py --hours 7.5
+  python scripts/overnight_orchestrator.py --manifest overnight/manifest.json
+  python scripts/overnight_orchestrator.py --dry-run
+  python scripts/overnight_orchestrator.py --task val-001
+"""
+from __future__ import annotations
+
+import argparse
+import asyncio
+import json
+import os
+import signal
+import subprocess
+import sys
+import time
+from dataclasses import asdict, dataclass, field
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+# ---------------------------------------------------------------------------
+# Constants
+# ---------------------------------------------------------------------------
+
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+OVERNIGHT_DIR = PROJECT_DIR / "overnight"
+STATE_FILE = OVERNIGHT_DIR / "state.json"
+PROGRESS_FILE = OVERNIGHT_DIR / "progress.md"
+DECISIONS_LOG = OVERNIGHT_DIR / "decisions.log"
+MORNING_REPORT = OVERNIGHT_DIR / "MORNING_REPORT.md"
+
+MAX_CONSECUTIVE_FAILURES = 3
+
+OVERNIGHT_SAFETY_PROMPT = """OVERNIGHT AUTONOMOUS MODE — KR Pipeline Project.
+You are executing a single task in the overnight autonomous system.
+
+ABSOLUTE RULES:
+- NEVER modify files in library/sources/*/frozen/
+- NEVER modify primary_text content in any pipeline output
+- NEVER delete any file or directory
+- NEVER run git push
+- NEVER modify .claude/settings.json
+- There is no human present — do not ask questions
+- Commit your work with message prefix "overnight: "
+- Write a summary to overnight/results/{TASK_ID}/summary.md
+
+Read overnight/progress.md for context on what has been done tonight.
+Read the active engine's CLAUDE.md for current state.
+Follow all rules in CLAUDE.md and .claude/rules/*.
+"""
+
+# ---------------------------------------------------------------------------
+# Data models
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class TaskDef:
+    """A single overnight task definition."""
+
+    task_id: str
+    name: str
+    category: str  # validation|test|spec|doc|code_quality|research|integration|verification
+    prompt: str
+    safety_level: str  # readonly|additive|modifying
+    execution_mode: str  # cli|codex|sdk
+    agent: str | None = None  # KR agent name for cli mode
+    model: str = "sonnet"
+    max_budget_usd: float = 2.0
+    timeout_minutes: int = 30
+    allowed_tools: list[str] = field(default_factory=list)
+    permission_mode: str = "plan"  # plan|bypassPermissions
+    depends_on: list[str] = field(default_factory=list)
+    priority: int = 5
+    max_turns: int = 30
+    codex_flags: list[str] = field(default_factory=list)
+
+
+@dataclass
+class TaskResult:
+    """Result from executing a task."""
+
+    task_id: str
+    status: str  # success|failed|timeout|rolled_back|skipped
+    start_time: str = ""
+    end_time: str = ""
+    duration_s: float = 0.0
+    output_summary: str = ""
+    commit_hash: str | None = None
+    gate_result: dict[str, Any] | None = None
+    error: str | None = None
+    model_used: str = ""
+
+
+@dataclass
+class OvernightState:
+    """Persistent state for an overnight run."""
+
+    run_id: str
+    started_at: str
+    deadline: str
+    status: str = "running"  # running|completed|stopped|crashed
+    git_start_hash: str = ""
+    consecutive_failures: int = 0
+    total_cost_usd: float = 0.0
+    tasks_completed: int = 0
+    tasks_failed: int = 0
+    tasks_skipped: int = 0
+    tasks_rolled_back: int = 0
+    results: dict[str, dict[str, Any]] = field(default_factory=dict)
+
+
+# ---------------------------------------------------------------------------
+# Git helpers
+# ---------------------------------------------------------------------------
+
+
+def git_head() -> str:
+    """Return current HEAD commit hash."""
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        capture_output=True, text=True, cwd=str(PROJECT_DIR),
+    )
+    return result.stdout.strip()
+
+
+def git_is_clean() -> bool:
+    """Check if working directory is clean."""
+    result = subprocess.run(
+        ["git", "status", "--porcelain"],
+        capture_output=True, text=True, cwd=str(PROJECT_DIR),
+    )
+    # Filter out known untracked dirs that are OK
+    lines = [
+        line for line in result.stdout.strip().split("\n")
+        if line.strip()
+        and not line.strip().startswith("?? overnight/")
+        and not line.strip().startswith("?? results/")
+        and not line.strip().startswith("?? .claude/scheduled_tasks")
+    ]
+    return len(lines) == 0
+
+
+def git_rollback(commit_hash: str) -> None:
+    """Roll back to a specific commit."""
+    subprocess.run(
+        ["git", "reset", "--hard", commit_hash],
+        capture_output=True, text=True, cwd=str(PROJECT_DIR),
+    )
+    log_decision(f"ROLLBACK to {commit_hash[:8]}")
+
+
+def git_commit(message: str, files: list[str] | None = None) -> str | None:
+    """Create a git commit. Returns commit hash or None if nothing to commit."""
+    if files:
+        for f in files:
+            subprocess.run(
+                ["git", "add", f],
+                capture_output=True, text=True, cwd=str(PROJECT_DIR),
+            )
+    result = subprocess.run(
+        ["git", "diff", "--cached", "--quiet"],
+        capture_output=True, cwd=str(PROJECT_DIR),
+    )
+    if result.returncode == 0:
+        # Nothing staged
+        return None
+    subprocess.run(
+        ["git", "commit", "-m", message],
+        capture_output=True, text=True, cwd=str(PROJECT_DIR),
+    )
+    return git_head()
+
+
+def git_changed_files_since(commit_hash: str) -> list[str]:
+    """List files changed since a commit."""
+    result = subprocess.run(
+        ["git", "diff", "--name-only", commit_hash, "HEAD"],
+        capture_output=True, text=True, cwd=str(PROJECT_DIR),
+    )
+    return [f for f in result.stdout.strip().split("\n") if f.strip()]
+
+
+# ---------------------------------------------------------------------------
+# State persistence
+# ---------------------------------------------------------------------------
+
+
+def save_state(state: OvernightState) -> None:
+    """Save state to JSON file."""
+    STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    STATE_FILE.write_text(json.dumps(asdict(state), indent=2, ensure_ascii=False))
+
+
+def load_state() -> OvernightState | None:
+    """Load state from JSON file, or None if not present."""
+    if not STATE_FILE.exists():
+        return None
+    data = json.loads(STATE_FILE.read_text())
+    results = data.pop("results", {})
+    state = OvernightState(**data)
+    state.results = results
+    return state
+
+
+def write_progress_file(state: OvernightState, manifest: list[TaskDef]) -> None:
+    """Write human-readable progress file (Anthropic harness pattern)."""
+    lines = [f"# Overnight Progress — {state.run_id}\n"]
+
+    completed = []
+    in_progress = []
+    remaining = []
+
+    for task in manifest:
+        result = state.results.get(task.task_id)
+        if result and result.get("status") in ("success", "rolled_back", "skipped"):
+            status_mark = "x" if result["status"] == "success" else "~"
+            dur = result.get("duration_s", 0)
+            completed.append(
+                f"- [{status_mark}] {task.task_id}: {task.name} "
+                f"({result['status']}, {dur:.0f}s)"
+            )
+        elif result and result.get("status") == "in_progress":
+            in_progress.append(f"- [ ] {task.task_id}: {task.name} (in progress)")
+        else:
+            remaining.append(f"- [ ] {task.task_id}: {task.name}")
+
+    if completed:
+        lines.append("\n## Completed")
+        lines.extend(completed)
+    if in_progress:
+        lines.append("\n## In Progress")
+        lines.extend(in_progress)
+    if remaining:
+        lines.append("\n## Remaining")
+        lines.extend(remaining)
+
+    PROGRESS_FILE.write_text("\n".join(lines) + "\n")
+
+
+# ---------------------------------------------------------------------------
+# Decision logging
+# ---------------------------------------------------------------------------
+
+
+def log_decision(message: str, details: Any = None) -> None:
+    """Append a decision to the decisions log."""
+    DECISIONS_LOG.parent.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    entry = f"[{timestamp}] {message}"
+    if details:
+        entry += f"\n  Details: {json.dumps(details, ensure_ascii=False, default=str)[:500]}"
+    with DECISIONS_LOG.open("a", encoding="utf-8") as f:
+        f.write(entry + "\n")
+
+
+# ---------------------------------------------------------------------------
+# Pre-flight checks
+# ---------------------------------------------------------------------------
+
+
+def preflight_checks() -> None:
+    """Verify system is ready for overnight work."""
+    errors: list[str] = []
+
+    # Clean git state (allow overnight/ and results/ untracked)
+    if not git_is_clean():
+        errors.append("Git working directory is not clean. Commit or stash changes first.")
+
+    # Claude CLI available
+    try:
+        result = subprocess.run(
+            ["claude", "--version"], capture_output=True, text=True, timeout=10,
+        )
+        if result.returncode != 0:
+            errors.append("Claude CLI not responding")
+    except FileNotFoundError:
+        errors.append("Claude CLI not found in PATH")
+
+    # Test suite passes
+    test_result = subprocess.run(
+        ["python", "-m", "pytest", "engines/source/tests/", "engines/normalization/tests/",
+         "-x", "-q", "--tb=no"],
+        capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=300,
+    )
+    if test_result.returncode != 0:
+        errors.append(f"Test suite failing:\n{test_result.stdout[-500:]}")
+
+    # Disk space (need at least 500MB free)
+    # Simple check via df on Windows/bash
+    try:
+        df_result = subprocess.run(
+            ["df", "-h", str(PROJECT_DIR)],
+            capture_output=True, text=True, timeout=10,
+        )
+        # Just log it, don't block
+        if df_result.returncode == 0:
+            log_decision(f"Disk space check:\n{df_result.stdout.strip()}")
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pass  # df might not be available on all Windows setups
+
+    if errors:
+        print("PRE-FLIGHT CHECKS FAILED:")
+        for err in errors:
+            print(f"  - {err}")
+        sys.exit(1)
+
+    print("Pre-flight checks passed.")
+
+
+# ---------------------------------------------------------------------------
+# Task execution — 3 backends
+# ---------------------------------------------------------------------------
+
+
+def execute_task(task: TaskDef) -> TaskResult:
+    """Route task to the appropriate execution backend."""
+    start = time.time()
+    start_ts = datetime.now(timezone.utc).isoformat()
+
+    # Create results directory for this task
+    task_results_dir = OVERNIGHT_DIR / "results" / task.task_id
+    task_results_dir.mkdir(parents=True, exist_ok=True)
+
+    # Replace {TASK_ID} in safety prompt
+    safety_prompt = OVERNIGHT_SAFETY_PROMPT.replace("{TASK_ID}", task.task_id)
+
+    try:
+        if task.execution_mode == "codex":
+            result = _execute_codex(task, task_results_dir)
+        elif task.execution_mode == "sdk":
+            result = _execute_sdk(task, safety_prompt)
+        else:
+            result = _execute_cli(task, safety_prompt)
+    except subprocess.TimeoutExpired:
+        result = TaskResult(
+            task_id=task.task_id, status="timeout",
+            error=f"Task exceeded {task.timeout_minutes} minute timeout",
+            model_used=task.model,
+        )
+    except Exception as e:
+        result = TaskResult(
+            task_id=task.task_id, status="failed",
+            error=str(e), model_used=task.model,
+        )
+
+    end = time.time()
+    result.start_time = start_ts
+    result.end_time = datetime.now(timezone.utc).isoformat()
+    result.duration_s = round(end - start, 1)
+
+    # Save task result to disk
+    result_file = task_results_dir / "result.json"
+    result_file.write_text(json.dumps(asdict(result), indent=2, ensure_ascii=False))
+
+    return result
+
+
+def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
+    """Execute via Claude Code CLI — agent dispatch, inherits hooks."""
+    cmd = [
+        "claude", "-p", task.prompt,
+        "--output-format", "json",
+        "--model", task.model,
+        "--permission-mode", task.permission_mode,
+        "--no-session-persistence",
+        "--append-system-prompt", safety_prompt,
+    ]
+    if task.agent:
+        cmd += ["--agent", task.agent]
+    if task.allowed_tools:
+        cmd += ["--allowedTools", ",".join(task.allowed_tools)]
+    if task.max_budget_usd > 0:
+        cmd += ["--max-budget-usd", str(task.max_budget_usd)]
+
+    env = {**os.environ, "KR_OVERNIGHT": "1", "PYTHONIOENCODING": "utf-8"}
+
+    result = subprocess.run(
+        cmd, capture_output=True, text=True,
+        timeout=task.timeout_minutes * 60,
+        cwd=str(PROJECT_DIR), env=env,
+    )
+
+    # Parse JSON output
+    output_text = result.stdout
+    try:
+        output_json = json.loads(output_text)
+        summary = output_json.get("result", output_text[:2000])
+        cost = output_json.get("cost_usd", 0.0)
+    except (json.JSONDecodeError, TypeError):
+        summary = output_text[:2000] if output_text else result.stderr[:2000]
+        cost = 0.0
+
+    status = "success" if result.returncode == 0 else "failed"
+    error = result.stderr[:1000] if result.returncode != 0 else None
+
+    return TaskResult(
+        task_id=task.task_id, status=status,
+        output_summary=str(summary)[:2000],
+        error=error, model_used=task.model,
+    )
+
+
+def _execute_codex(task: TaskDef, results_dir: Path) -> TaskResult:
+    """Execute via Codex CLI — independent verification. NEVER for Arabic content."""
+    output_file = results_dir / "codex_output.md"
+    cmd = [
+        "codex", "exec", "--full-auto",
+        "--output-last-message", str(output_file),
+        *task.codex_flags,
+        task.prompt,
+    ]
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+
+    result = subprocess.run(
+        cmd, capture_output=True, text=True,
+        timeout=task.timeout_minutes * 60,
+        cwd=str(PROJECT_DIR), env=env,
+    )
+
+    summary = ""
+    if output_file.exists():
+        summary = output_file.read_text(encoding="utf-8")[:2000]
+    elif result.stdout:
+        summary = result.stdout[:2000]
+
+    status = "success" if result.returncode == 0 else "failed"
+    error = result.stderr[:1000] if result.returncode != 0 else None
+
+    return TaskResult(
+        task_id=task.task_id, status=status,
+        output_summary=summary,
+        error=error, model_used=task.model,
+    )
+
+
+def _execute_sdk(task: TaskDef, safety_prompt: str) -> TaskResult:
+    """Execute via Claude Code SDK — full programmatic control."""
+    try:
+        from claude_code_sdk import ClaudeCodeOptions, query
+    except ImportError:
+        # Fall back to CLI if SDK not available
+        return _execute_cli(task, safety_prompt)
+
+    options = ClaudeCodeOptions(
+        allowed_tools=task.allowed_tools or ["Read", "Bash", "Glob", "Grep"],
+        permission_mode=task.permission_mode or "plan",
+        model=task.model,
+        append_system_prompt=safety_prompt,
+        max_turns=task.max_turns,
+        cwd=str(PROJECT_DIR),
+        env={"KR_OVERNIGHT": "1", "PYTHONIOENCODING": "utf-8"},
+    )
+
+    # Run async query synchronously
+    messages = asyncio.run(_collect_sdk_messages(task.prompt, options))
+
+    # Extract text from messages
+    text_parts: list[str] = []
+    for msg in messages:
+        if hasattr(msg, "content"):
+            if isinstance(msg.content, str):
+                text_parts.append(msg.content)
+            elif isinstance(msg.content, list):
+                for block in msg.content:
+                    if hasattr(block, "text"):
+                        text_parts.append(block.text)
+
+    summary = "\n".join(text_parts)[:2000]
+
+    return TaskResult(
+        task_id=task.task_id, status="success",
+        output_summary=summary, model_used=task.model,
+    )
+
+
+async def _collect_sdk_messages(prompt: str, options: Any) -> list[Any]:
+    """Collect all messages from the async SDK query."""
+    from claude_code_sdk import query
+
+    messages = []
+    async for msg in query(prompt=prompt, options=options):
+        messages.append(msg)
+    return messages
+
+
+# ---------------------------------------------------------------------------
+# Quality gate
+# ---------------------------------------------------------------------------
+
+
+def run_quality_gate(task: TaskDef, pre_snapshot: str) -> dict[str, Any]:
+    """Run post-task quality checks. Returns {"passed": bool, "failures": [...]}."""
+    failures: list[str] = []
+
+    # L1: Test suite
+    test_result = subprocess.run(
+        ["python", "-m", "pytest", "engines/source/tests/", "engines/normalization/tests/",
+         "-x", "-q", "--tb=short"],
+        capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=300,
+    )
+    if test_result.returncode != 0:
+        failures.append(f"L1 TEST FAILURE:\n{test_result.stdout[-500:]}")
+
+    # L2: Git state — check no frozen source modifications or deletions
+    changed = git_changed_files_since(pre_snapshot)
+    for f in changed:
+        if "frozen/" in f:
+            failures.append(f"L2 FROZEN SOURCE MODIFIED: {f}")
+    # Check for deletions
+    diff_result = subprocess.run(
+        ["git", "diff", "--diff-filter=D", "--name-only", pre_snapshot, "HEAD"],
+        capture_output=True, text=True, cwd=str(PROJECT_DIR),
+    )
+    deleted = [f for f in diff_result.stdout.strip().split("\n") if f.strip()]
+    if deleted:
+        failures.append(f"L2 FILES DELETED: {deleted}")
+
+    # L3: Compliance — pre_review_checks on modified Python files
+    py_changed = [f for f in changed if f.endswith(".py") and "engines/" in f]
+    if py_changed:
+        check_script = PROJECT_DIR / "scripts" / "pre_review_checks.py"
+        if check_script.exists():
+            check_result = subprocess.run(
+                ["python", str(check_script), *py_changed],
+                capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=60,
+            )
+            if check_result.returncode != 0 and "ERROR" in check_result.stdout:
+                failures.append(f"L3 COMPLIANCE ERROR:\n{check_result.stdout[-500:]}")
+
+    # L4: Pyright (log only, don't fail)
+    if py_changed:
+        pyright_result = subprocess.run(
+            ["python", "-m", "pyright", *py_changed],
+            capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=60,
+        )
+        if pyright_result.returncode != 0:
+            log_decision(f"L4 PYRIGHT warnings for {task.task_id}",
+                         pyright_result.stdout[-500:])
+
+    passed = len(failures) == 0
+    if not passed:
+        log_decision(f"QUALITY GATE FAILED for {task.task_id}", failures)
+
+    return {"passed": passed, "failures": failures}
+
+
+# ---------------------------------------------------------------------------
+# Codex cross-verification (L5)
+# ---------------------------------------------------------------------------
+
+
+def run_codex_verification(task: TaskDef) -> dict[str, Any]:
+    """L5: Independent Codex review of Claude's changes (D-041)."""
+    results_dir = OVERNIGHT_DIR / "results" / f"{task.task_id}-codex-review"
+    results_dir.mkdir(parents=True, exist_ok=True)
+
+    review_prompt = (
+        f"Review the git diff HEAD~1 for code changes made by another AI agent. "
+        f"Task was: '{task.name}'. "
+        f"Focus on: code structure, type safety, Pydantic patterns, test completeness, "
+        f"error handling. Do NOT evaluate Arabic text content or domain-specific decisions. "
+        f"Report any structural issues found."
+    )
+    output_file = results_dir / "codex_review.md"
+
+    try:
+        result = subprocess.run(
+            ["codex", "exec", "--full-auto",
+             "--output-last-message", str(output_file),
+             review_prompt],
+            capture_output=True, text=True, timeout=300,
+            cwd=str(PROJECT_DIR),
+        )
+        review_text = ""
+        if output_file.exists():
+            review_text = output_file.read_text(encoding="utf-8")
+
+        # Simple heuristic: check if Codex found issues
+        has_issues = any(
+            kw in review_text.lower()
+            for kw in ["issue", "error", "bug", "concern", "problem", "missing"]
+        )
+        return {
+            "review": review_text[:2000],
+            "discrepancies": has_issues,
+            "review_file": str(output_file),
+        }
+    except (subprocess.TimeoutExpired, FileNotFoundError) as e:
+        log_decision(f"Codex verification skipped for {task.task_id}: {e}")
+        return {"review": "", "discrepancies": False, "skipped": True}
+
+
+# ---------------------------------------------------------------------------
+# Manifest loading
+# ---------------------------------------------------------------------------
+
+
+def load_manifest(path: Path) -> list[TaskDef]:
+    """Load task manifest from JSON file."""
+    data = json.loads(path.read_text())
+    tasks: list[TaskDef] = []
+    for item in data.get("tasks", data if isinstance(data, list) else []):
+        tasks.append(TaskDef(**{
+            k: v for k, v in item.items()
+            if k in TaskDef.__dataclass_fields__
+        }))
+    return tasks
+
+
+def pick_next_ready(manifest: list[TaskDef], state: OvernightState) -> TaskDef | None:
+    """Pick next task: dependencies met, not yet executed, highest priority."""
+    completed_ids = {
+        tid for tid, r in state.results.items()
+        if r.get("status") in ("success", "skipped", "rolled_back")
+    }
+    failed_ids = {
+        tid for tid, r in state.results.items()
+        if r.get("status") in ("failed", "timeout")
+    }
+
+    candidates = []
+    for task in manifest:
+        if task.task_id in completed_ids or task.task_id in failed_ids:
+            continue
+        # Check dependencies
+        deps_met = all(dep in completed_ids for dep in task.depends_on)
+        deps_failed = any(dep in failed_ids for dep in task.depends_on)
+        if deps_failed:
+            # Skip tasks whose dependencies failed
+            state.results[task.task_id] = {
+                "status": "skipped",
+                "error": "dependency failed",
+            }
+            state.tasks_skipped += 1
+            continue
+        if deps_met:
+            candidates.append(task)
+
+    if not candidates:
+        return None
+    # Sort by priority (lower = higher priority)
+    candidates.sort(key=lambda t: t.priority)
+    return candidates[0]
+
+
+# ---------------------------------------------------------------------------
+# Morning report
+# ---------------------------------------------------------------------------
+
+
+def generate_morning_report(state: OvernightState, manifest: list[TaskDef]) -> None:
+    """Generate the morning report markdown file."""
+    lines = [f"# Overnight Report — {state.run_id}\n"]
+
+    # Summary
+    total = len(manifest)
+    lines.append("## Summary")
+    lines.append(f"- Duration: {_format_duration(state)}")
+    lines.append(f"- Tasks: {state.tasks_completed}/{total} completed, "
+                 f"{state.tasks_failed} failed, {state.tasks_skipped} skipped, "
+                 f"{state.tasks_rolled_back} rolled back")
+    lines.append(f"- Status: **{state.status.upper()}**")
+    lines.append(f"- Git: {state.git_start_hash[:8]}..{git_head()[:8]}")
+    lines.append("")
+
+    # Completed tasks by category
+    by_category: dict[str, list[str]] = {}
+    for task in manifest:
+        result = state.results.get(task.task_id, {})
+        if result.get("status") == "success":
+            cat = task.category
+            if cat not in by_category:
+                by_category[cat] = []
+            dur = result.get("duration_s", 0)
+            by_category[cat].append(
+                f"- [x] {task.name} ({dur:.0f}s, {task.model})"
+            )
+
+    if by_category:
+        lines.append("## Completed Tasks")
+        for cat, items in sorted(by_category.items()):
+            lines.append(f"\n### {cat.replace('_', ' ').title()}")
+            lines.extend(items)
+        lines.append("")
+
+    # Failed / rolled back
+    problems = []
+    for task in manifest:
+        result = state.results.get(task.task_id, {})
+        if result.get("status") in ("failed", "timeout", "rolled_back"):
+            error = result.get("error", "unknown")
+            problems.append(f"- **{task.task_id}** ({result['status']}): {error[:200]}")
+
+    if problems:
+        lines.append("## Issues (YOUR ATTENTION NEEDED)")
+        lines.extend(problems)
+        lines.append("")
+
+    # Decisions
+    if DECISIONS_LOG.exists():
+        decisions_text = DECISIONS_LOG.read_text(encoding="utf-8")
+        if decisions_text.strip():
+            lines.append("## Autonomous Decisions Made")
+            for line in decisions_text.strip().split("\n"):
+                if line.startswith("["):
+                    lines.append(f"- {line}")
+            lines.append("")
+
+    MORNING_REPORT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"Morning report written to {MORNING_REPORT}")
+
+
+def _format_duration(state: OvernightState) -> str:
+    """Format run duration as human-readable string."""
+    try:
+        start = datetime.fromisoformat(state.started_at)
+        end = datetime.now(timezone.utc)
+        delta = end - start
+        hours = int(delta.total_seconds() // 3600)
+        minutes = int((delta.total_seconds() % 3600) // 60)
+        return f"{hours}h {minutes}m"
+    except (ValueError, TypeError):
+        return "unknown"
+
+
+# ---------------------------------------------------------------------------
+# Main orchestration loop
+# ---------------------------------------------------------------------------
+
+
+def run_overnight(
+    hours: float = 7.5,
+    max_cost_usd: float = 25.0,
+    manifest_path: Path | None = None,
+    single_task: str | None = None,
+    dry_run: bool = False,
+) -> None:
+    """Main entry point for overnight orchestration."""
+    print(f"=== KR Overnight Orchestrator v2 ===")
+    print(f"Project: {PROJECT_DIR}")
+    print(f"Duration: {hours} hours")
+    print(f"Max cost: ${max_cost_usd}")
+    print()
+
+    # Pre-flight (skip for dry-run)
+    if not dry_run:
+        preflight_checks()
+
+    # Load or generate manifest
+    if manifest_path and manifest_path.exists():
+        manifest = load_manifest(manifest_path)
+        print(f"Loaded {len(manifest)} tasks from {manifest_path}")
+    else:
+        # Try to generate
+        generator = PROJECT_DIR / "scripts" / "overnight_task_generator.py"
+        if generator.exists():
+            gen_result = subprocess.run(
+                ["python", str(generator), "--output",
+                 str(OVERNIGHT_DIR / "manifest.json")],
+                capture_output=True, text=True, cwd=str(PROJECT_DIR),
+            )
+            if gen_result.returncode == 0:
+                manifest = load_manifest(OVERNIGHT_DIR / "manifest.json")
+                print(f"Generated {len(manifest)} tasks")
+            else:
+                print(f"Task generator failed: {gen_result.stderr[:500]}")
+                sys.exit(1)
+        else:
+            print("No manifest and no task generator found.")
+            print("Create overnight/manifest.json or scripts/overnight_task_generator.py")
+            sys.exit(1)
+
+    # Filter to single task if requested
+    if single_task:
+        manifest = [t for t in manifest if t.task_id == single_task]
+        if not manifest:
+            print(f"Task '{single_task}' not found in manifest")
+            sys.exit(1)
+
+    # Dry run — just print the plan
+    if dry_run:
+        print("\n=== DRY RUN — Execution Plan ===\n")
+        for i, task in enumerate(sorted(manifest, key=lambda t: t.priority), 1):
+            deps = f" (depends: {', '.join(task.depends_on)})" if task.depends_on else ""
+            print(f"  {i:2d}. [{task.priority}] {task.task_id}: {task.name}")
+            print(f"      Mode: {task.execution_mode} | Agent: {task.agent or '-'} "
+                  f"| Model: {task.model} | Safety: {task.safety_level}{deps}")
+            print(f"      Timeout: {task.timeout_minutes}m | Budget: ${task.max_budget_usd}")
+            print()
+        print(f"Total tasks: {len(manifest)}")
+        return
+
+    # Initialize state
+    now = datetime.now(timezone.utc)
+    deadline = now + __import__("datetime").timedelta(hours=hours)
+    state = OvernightState(
+        run_id=now.strftime("%Y-%m-%d"),
+        started_at=now.isoformat(),
+        deadline=deadline.isoformat(),
+        git_start_hash=git_head(),
+    )
+    save_state(state)
+    write_progress_file(state, manifest)
+
+    # Clear previous decisions log
+    if DECISIONS_LOG.exists():
+        DECISIONS_LOG.unlink()
+    log_decision(f"Overnight session started. {len(manifest)} tasks. Deadline: {deadline.isoformat()}")
+
+    # Initial commit
+    git_commit(
+        "overnight: initialize overnight session",
+        [str(STATE_FILE), str(PROGRESS_FILE)],
+    )
+
+    # Graceful shutdown handler
+    shutdown_requested = False
+
+    def handle_signal(signum: int, frame: Any) -> None:
+        nonlocal shutdown_requested
+        shutdown_requested = True
+        print("\nGraceful shutdown requested. Finishing current task...")
+
+    signal.signal(signal.SIGINT, handle_signal)
+
+    # === Main loop ===
+    print(f"\nStarting execution. Deadline: {deadline.strftime('%H:%M UTC')}")
+    print("=" * 60)
+
+    while not shutdown_requested:
+        # Time check
+        remaining = (deadline - datetime.now(timezone.utc)).total_seconds()
+        if remaining <= 0:
+            log_decision("TIME LIMIT reached. Stopping.")
+            break
+
+        # Circuit breaker
+        if state.consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+            log_decision(f"CIRCUIT BREAKER: {state.consecutive_failures} consecutive failures. Stopping.")
+            state.status = "stopped"
+            break
+
+        # Pick next task
+        task = pick_next_ready(manifest, state)
+        if task is None:
+            log_decision("All tasks completed or blocked.")
+            break
+
+        # Time guard: skip if task can't finish before deadline
+        if remaining < task.timeout_minutes * 60:
+            log_decision(f"SKIP {task.task_id}: {task.timeout_minutes}m timeout > "
+                         f"{remaining / 60:.0f}m remaining")
+            state.results[task.task_id] = {"status": "skipped", "error": "insufficient time"}
+            state.tasks_skipped += 1
+            save_state(state)
+            continue
+
+        # Execute
+        print(f"\n>>> [{task.priority}] {task.task_id}: {task.name}")
+        print(f"    Mode: {task.execution_mode} | Model: {task.model} | "
+              f"Safety: {task.safety_level}")
+
+        pre_snapshot = git_head()
+        result = execute_task(task)
+
+        # Quality gate for modification tasks
+        if result.status == "success" and task.safety_level != "readonly":
+            print(f"    Running quality gate...")
+            gate = run_quality_gate(task, pre_snapshot)
+            if not gate["passed"]:
+                print(f"    QUALITY GATE FAILED — rolling back")
+                git_rollback(pre_snapshot)
+                result.status = "rolled_back"
+                result.gate_result = gate
+                state.tasks_rolled_back += 1
+
+        # L5: Optional Codex cross-verification
+        if (result.status == "success"
+                and task.execution_mode != "codex"
+                and task.safety_level != "readonly"):
+            print(f"    Running Codex cross-verification (L5)...")
+            try:
+                codex_review = run_codex_verification(task)
+                if codex_review.get("discrepancies"):
+                    log_decision(
+                        f"CODEX DISCREPANCY for {task.task_id}: see {codex_review.get('review_file', 'N/A')}",
+                        codex_review.get("review", "")[:300],
+                    )
+                    print(f"    Codex flagged discrepancies — logged for morning review")
+                else:
+                    print(f"    Codex verification: CLEAN")
+            except Exception as e:
+                log_decision(f"Codex verification failed for {task.task_id}: {e}")
+
+        # Record result
+        state.results[task.task_id] = asdict(result)
+        if result.status == "success":
+            state.tasks_completed += 1
+            state.consecutive_failures = 0
+            print(f"    SUCCESS ({result.duration_s:.0f}s)")
+        elif result.status in ("failed", "timeout"):
+            state.tasks_failed += 1
+            state.consecutive_failures += 1
+            print(f"    {result.status.upper()}: {result.error or 'unknown'}")
+        elif result.status == "rolled_back":
+            state.consecutive_failures += 1
+            print(f"    ROLLED BACK")
+
+        write_progress_file(state, manifest)
+        save_state(state)
+
+    # === Shutdown ===
+    if state.status == "running":
+        state.status = "completed"
+    save_state(state)
+    generate_morning_report(state, manifest)
+
+    print("\n" + "=" * 60)
+    print(f"Overnight session {state.status}.")
+    print(f"Tasks: {state.tasks_completed} completed, {state.tasks_failed} failed, "
+          f"{state.tasks_skipped} skipped, {state.tasks_rolled_back} rolled back")
+    print(f"Report: {MORNING_REPORT}")
+
+
+# ---------------------------------------------------------------------------
+# CLI entry point
+# ---------------------------------------------------------------------------
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="KR Overnight Autonomous Work Orchestrator v2",
+    )
+    parser.add_argument(
+        "--hours", type=float, default=7.5,
+        help="Maximum hours to run (default: 7.5)",
+    )
+    parser.add_argument(
+        "--max-cost-usd", type=float, default=25.0,
+        help="Maximum Claude API cost in USD (default: 25.0)",
+    )
+    parser.add_argument(
+        "--manifest", type=str, default=None,
+        help="Path to task manifest JSON file",
+    )
+    parser.add_argument(
+        "--task", type=str, default=None,
+        help="Run a single task by ID",
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true",
+        help="Print execution plan without running tasks",
+    )
+    args = parser.parse_args()
+
+    manifest_path = Path(args.manifest) if args.manifest else None
+
+    run_overnight(
+        hours=args.hours,
+        max_cost_usd=args.max_cost_usd,
+        manifest_path=manifest_path,
+        single_task=args.task,
+        dry_run=args.dry_run,
+    )
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,153 @@
+{
+  "tasks": [
+    {
+      "task_id": "val-test-regression",
+      "name": "Test suite regression check",
+      "category": "validation",
+      "prompt": "Run the full test suite for all completed engines:\n  python -m pytest engines/source/tests/ engines/normalization/tests/ -v --tb=short\nReport: total tests, passed, failed, skipped, any error details.\nDo NOT modify any files.",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "sonnet",
+      "max_budget_usd": 0.5,
+      "timeout_minutes": 10,
+      "allowed_tools": [
+        "Bash",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "permission_mode": "plan",
+      "depends_on": [],
+      "priority": 1,
+      "max_turns": 30,
+      "codex_flags": []
+    },
+    {
+      "task_id": "val-contracts",
+      "name": "Cross-engine contract and D-023 metadata flow verification",
+      "category": "validation",
+      "prompt": "Run the metadata flow verification:\n  python3 scripts/verify_metadata_flow.py\nAlso check cross-engine contracts:\n  PYTHONIOENCODING=utf-8 python tools/check_cross_engine_contracts.py\nReport findings to overnight/results/val-contracts/boundaries.md",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": "boundary-validator",
+      "model": "sonnet",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 10,
+      "allowed_tools": [
+        "Read",
+        "Bash",
+        "Glob",
+        "Grep"
+      ],
+      "permission_mode": "plan",
+      "depends_on": [
+        "val-test-regression"
+      ],
+      "priority": 3,
+      "max_turns": 30,
+      "codex_flags": []
+    },
+    {
+      "task_id": "test-coverage-normalization",
+      "name": "Analyze test coverage gaps in normalization engine",
+      "category": "test",
+      "prompt": "Read engines/normalization/SPEC.md section 4 and extract every behavioral rule (numbered items, MUST/SHALL statements). Then read all test files in engines/normalization/tests/ and match each SPEC rule to its test(s). Write a coverage matrix to overnight/results/test-coverage-normalization/coverage.md showing which rules have tests and which lack tests. Current test count: 517.",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "sonnet",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 20,
+      "allowed_tools": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Bash"
+      ],
+      "permission_mode": "plan",
+      "depends_on": [
+        "val-test-regression"
+      ],
+      "priority": 4,
+      "max_turns": 30,
+      "codex_flags": []
+    },
+    {
+      "task_id": "test-coverage-source",
+      "name": "Analyze test coverage gaps in source engine",
+      "category": "test",
+      "prompt": "Read engines/source/SPEC.md section 4 and extract every behavioral rule (numbered items, MUST/SHALL statements). Then read all test files in engines/source/tests/ and match each SPEC rule to its test(s). Write a coverage matrix to overnight/results/test-coverage-source/coverage.md showing which rules have tests and which lack tests. Current test count: 566.",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "sonnet",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 20,
+      "allowed_tools": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Bash"
+      ],
+      "permission_mode": "plan",
+      "depends_on": [
+        "val-test-regression"
+      ],
+      "priority": 4,
+      "max_turns": 30,
+      "codex_flags": []
+    },
+    {
+      "task_id": "cq-scan",
+      "name": "Code quality scan (Arabic-Indic digit trap (\\d): 2 instances)",
+      "category": "code_quality",
+      "prompt": "Scan all Python files in engines/*/src/ for:\n1. Regex using \\d instead of [0-9] (Arabic-Indic digit safety)\n2. .lower()/.upper()/.strip() called on variables that might contain Arabic\n3. Bare except: handlers\n4. Missing type hints on function signatures\n5. Pydantic Field(None) pattern compliance\nWrite findings to overnight/results/cq-scan/scan.md with file:line for each issue.",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "sonnet",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 15,
+      "allowed_tools": [
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "permission_mode": "plan",
+      "depends_on": [
+        "val-test-regression"
+      ],
+      "priority": 6,
+      "max_turns": 30,
+      "codex_flags": []
+    },
+    {
+      "task_id": "res-tech-survey",
+      "name": "Technology survey for excerpting engine capabilities",
+      "category": "research",
+      "prompt": "Research technology options for the excerpting engine. Read NEXT.md for context. The excerpting engine needs: 1. Arabic word/character offset handling libraries 2. Self-containment assessment approaches 3. Arabic sentence boundary detection Search the web for options. For each library found, check if it supports Arabic text (Unicode ranges, diacritics, RTL). Write the survey to overnight/results/res-tech-survey/survey.md",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": "deep-researcher",
+      "model": "sonnet",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 20,
+      "allowed_tools": [
+        "Read",
+        "Bash",
+        "Glob",
+        "Grep",
+        "WebSearch",
+        "WebFetch"
+      ],
+      "permission_mode": "plan",
+      "depends_on": [
+        "val-test-regression"
+      ],
+      "priority": 8,
+      "max_turns": 30,
+      "codex_flags": []
+    }
+  ]
+}
