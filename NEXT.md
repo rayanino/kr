@@ -1,31 +1,34 @@
-# NEXT — Excerpting Engine Session 2: Phase 2 (LLM Classification + Grouping)
+# NEXT — Excerpting Engine Session 3: Phase 3 Deterministic Metadata Assembly
+
+**STATUS: DRAFT — Requires adversarial review by architect before sending to CC.**
 
 ## Current Position
 
-- **Excerpting Phase 1:** ACCEPTED (commit `28a188ad`), all errata resolved
-- **HEAD:** `83ea23ef` on `master`
-- **Test baseline:** 77 passed (excerpting), 503 passed (normalization)
-- **Open SPEC errata:** None (SPEC-NOTE-4–7 all resolved)
-- **Phase 1 output:** `run_phase1()` produces `list[AssembledChunk]` with validated coverage, offsets, and layer attribution
+- **Excerpting Phase 1:** ACCEPTED (commit `28a188ad`). 77 tests.
+- **Excerpting Phase 2:** ACCEPTED (commit `46bdb20d`). 147 tests.
+- **HEAD:** `df25561f` on `master`
+- **Test baseline:** 147 passed, 2 skipped (excerpting)
+- **Open SPEC errata:** None
+- **Phase 2 output:** `run_phase2a()` produces `dict[chunk_id → list[ClassifiedSegment]]`; `run_phase2b()` produces `dict[chunk_id → list[TeachingUnit]]`
 
 ## What to Do
 
-Implement Phase 2: LLM Teaching Unit Extraction (SPEC §5). This fills the stubs in `phase2_classify.py` and `phase2_group.py`. Phase 2 is the engine's inference core — the only phase that calls an LLM.
+Implement Phase 3 Stage 1: Deterministic Metadata Assembly (SPEC §7.1). This fills the stubs in `phase3_deterministic.py`. These are the 10 functions that compute ExcerptRecord fields from data alone — no LLM calls.
 
-**Processing flow (§5.1):**
-1. Phase 2a — Segment Classification: LLM classifies chunk text into `ClassifiedSegment` objects
-2. Offset Normalization: Remap LLM word offsets to canonical tokenization using `text_snippet` anchors
-3. Coverage Verification — Segments: Verify invariants I-CS-1 through I-CS-6
-4. Phase 2b — Teaching Unit Grouping: LLM groups segments into `TeachingUnit` objects
-5. Coverage Verification — Units: Verify invariants I-TU-1 through I-TU-9
-
-Steps 1–3 must succeed before step 4. Failed chunks are flagged and excluded.
+**Processing flow (§7.1):**
+For each `AssembledChunk` + its `list[TeachingUnit]`:
+1. For each TeachingUnit, compute 9 deterministic fields (F-DET-1 through F-DET-9)
+2. Assemble a partial `ExcerptRecord` with these fields + passthrough fields from TeachingUnit
+3. LLM-enriched fields (`excerpt_topic`, `school`, `takhrij_data`, etc.) are set to empty/null defaults — Session 4 fills them
 
 ## Context
 
-Phase 2 is LLM-driven, so testing is fundamentally different from Phase 1. The architecture was validated experimentally: the experiment in `experiments/architecture_test/run_tests.py` tested Approach B (classify-then-group) on 23 divisions across 7 genres with real LLM calls. All 23 passed. The SPEC prompts (§5.2.2, §5.3.2) are production-adapted versions of the experiment prompts.
+Phase 3 deterministic is pure algorithmic code — no LLM, no external calls, fully testable. The hardest parts are:
+- **F-DET-3 (layer attribution):** 4-rule cascade (LA-1–LA-4) with character overlap computation and layer_split_point merging
+- **F-DET-5 (evidence detection):** Pattern matching for Quran (﴿...﴾), hadith (رواه, أخرجه, etc.), and ijma markers with word-boundary checking
+- **F-DET-8 (footnote filtering):** Matching `⌜{ref_marker}⌝` patterns within a unit's character range
 
-**The hardest algorithm is offset normalization (§5.4.1).** The LLM produces internally consistent word offsets but using its own tokenization (which differs from Python's `text.split()` by ~14.5%). The normalization uses `text_snippet` fields as alignment anchors to remap to canonical offsets. This algorithm is fully deterministic and thoroughly testable without LLM calls.
+A shared `_word_to_char_range` helper is needed: F-DET-2, F-DET-3, F-DET-6, and F-DET-8 all need to convert (start_word, end_word) to character offsets. Phase 2's `_build_token_char_map` does exactly this. Import it from `phase2_classify.py` — do NOT duplicate.
 
 ## Owner Action Needed
 
@@ -35,202 +38,176 @@ None. This is a pure implementation session.
 
 | File | Lines | What |
 |------|-------|------|
-| `engines/excerpting/SPEC.md` | §5 (785–1226) | **Governing spec for Phase 2.** Read ALL of §5. |
-| `engines/excerpting/SPEC.md` | §2.3.3 (196–223) | ClassifiedSegment contract + invariants I-CS-1–6 |
-| `engines/excerpting/SPEC.md` | §2.3.4 (225–251) | TeachingUnit contract + invariants I-TU-1–9 |
-| `engines/excerpting/SPEC.md` | §6.1 (1237–1259) | Decontextualization Prevention rules DP-1–6 |
-| `engines/excerpting/contracts.py` | 359–427 | ClassifiedSegment, TeachingUnit models |
-| `engines/excerpting/contracts.py` | 634–647 | ClassificationResult, ExtractionResult LLM response schemas |
-| `engines/excerpting/contracts.py` | 726–759 | ExcerptingConfig (Phase 2 parameters) |
-| `engines/excerpting/contracts.py` | 860–1033 | validate_cs_invariants (860), validate_tu_invariants (919) — already implemented |
-| `engines/excerpting/src/phase2_classify.py` | all | Stubs to fill (5 functions) |
-| `engines/excerpting/src/phase2_group.py` | all | Stubs to fill (3 functions) |
+| `engines/excerpting/SPEC.md` | §7.1 (1397–1518) | **Governing spec for Phase 3 deterministic.** Read ALL of §7.1. |
+| `engines/excerpting/SPEC.md` | §6.2 (1260–1340) | Layer Attribution rules LA-1 through LA-4 |
+| `engines/excerpting/SPEC.md` | §2.2 (365–520) | ExcerptRecord output contract — the target shape |
+| `engines/excerpting/contracts.py` | 87–200 | Sub-models: PageRange, AuthorAttribution, ScholarAttribution, EvidenceRef, TakhrijEntry, CrossReference, TermVariant |
+| `engines/excerpting/contracts.py` | 440–530 | ExcerptRecord model fields |
+| `engines/excerpting/contracts.py` | 1036–1100 | `validate_er_invariants()` — already implemented |
+| `engines/excerpting/src/phase3_deterministic.py` | all | Stubs to fill (10 functions) |
+| `engines/excerpting/src/phase2_classify.py` | 105–123 | `_build_token_char_map` — reuse for word→char conversion |
 | `engines/excerpting/tests/conftest.py` | all | Existing factory helpers |
-| `experiments/architecture_test/run_tests.py` | 109–135 | Experiment prompts (APPROACH_B_CLASSIFY_SYSTEM, APPROACH_B_GROUP_SYSTEM) |
-| `experiments/architecture_test/run_tests.py` | 157–171 | Instructor + OpenRouter client setup pattern |
 
 ## What to Build
 
-### Module 1: `phase2_classify.py` — Classification + Offset Normalization (§5.2, §5.4.1–2)
+### Shared Helper
 
-**Function 1: `classify_chunk(chunk, client, config) → ClassificationResult`**
-- Construct system prompt from §5.2.2 (SPEC lines 825–856). The prompt text is a constant string with one format variable: `{structural_format}`. Copy the SPEC prompt VERBATIM — do not rewrite or "improve" it.
-- Construct user message from §5.2.3 (SPEC lines 870–878): `<text>\n{assembled_text}\n</text>`
-- Call LLM via `client.chat.completions.create()` with `response_model=ClassificationResult`, model from `config.CLASSIFY_MODEL`, temperature from `config.LLM_TEMPERATURE`, max_tokens from `_compute_classify_max_tokens(chunk.word_count)`, `max_retries=0` (DD-S2-8: all retries handled in outer loop).
-- Return the raw ClassificationResult (offsets are in LLM tokenization, not canonical yet).
+**`_word_to_char_range(assembled_text, start_word, end_word) → tuple[int, int]`**
+Converts word offsets to a character range in `assembled_text`. Uses `_build_token_char_map` from phase2_classify.py.
+Returns `(char_start, char_end)` where `char_start` is the first character of token `start_word` and `char_end` is one past the last character of token `end_word` (Python-style exclusive end). So `assembled_text[char_start:char_end]` gives the substring.
 
-**Function 2: `normalize_offsets(segments, assembled_text, total_tokens) → list[ClassifiedSegment]`**
-This is the most complex function. Implements §5.4.1 exactly:
+**Critical off-by-one detail:** `_build_token_char_map` returns spans as `(start, end)` where `end` is exclusive. So `char_start = spans[start_word][0]` and `char_end = spans[end_word][1]`. Do NOT add +1 to char_end — the span end is already exclusive.
 
-Step 1 — Build token-to-character mapping:
-- `tokens = assembled_text.split()` → canonical tokenization
-- For each token, record its character start position in the original string. Build a list `token_char_starts` where `token_char_starts[i]` is the character index where token `i` starts.
+### Function 1: `compute_excerpt_id(source_id, div_id, chunk_index, unit_index) → str` (F-DET-1)
+Format: `exc_{source_id}_{div_id}_{chunk_index}_{unit_index}`
+`chunk_index` comes from `chunk.split_info.chunk_index` if split_info exists, else `0`.
 
-Step 2 — Anchor each segment using text_snippet:
-For each segment in order (by segment_index):
-- (a) Take `segment.text_snippet` (first 50 chars of segment text, as copied by LLM)
-- (b) Search for snippet in `assembled_text` starting from `search_start_char`
-- (c) If found at `match_char`: find the token whose character range contains `match_char` → that's the segment's canonical `start_word`. Update `search_start_char = match_char + 1`.
-- (d) If exact match fails: try whitespace-normalized matching (collapse whitespace runs to single space in both snippet and search region). If this succeeds, map the match position back to the original text's character position.
-- (d2) If whitespace match fails: try diacritic-stripped matching (strip U+064B–U+0652, U+0670 from both). If this succeeds, emit warning `EX-A-012`. Map match position back to original text.
-- (e) If all three matching attempts fail: raise ValueError (caller handles retry).
+### Function 2: `extract_primary_text(assembled_text, start_word, end_word) → str` (F-DET-2)
+Substring extraction using `_word_to_char_range`. Returns `assembled_text[char_start:char_end]`.
+**CRITICAL:** This is a substring, NOT `' '.join(tokens[start:end+1])`. The difference: substring preserves internal `\n\n` paragraph breaks and multiple spaces. Split-and-rejoin collapses them. The SPEC explicitly warns about this (§7.1 F-DET-2 Note).
 
-**Critical implementation detail for fallback matching:** When matching in normalized/stripped space, you must map the match position back to the original text's character position. Build a mapping array during normalization: for each position in the normalized string, store the corresponding position in the original string. Use this to convert `normalized_match_pos → original_char_pos → token_index`.
+### Function 3: `compute_layer_attribution(assembled_text, text_layers, start_word, end_word, assembly_metadata) → AuthorAttribution` (F-DET-3)
+The most complex function. Implements §7.1 F-DET-3 + §6.2 LA-1–LA-4:
 
-Step 3 — Infer boundaries from contiguity:
-- `segment[0].start_word` = its anchor position (must be 0 — validated in step 4)
-- For each consecutive pair: `segment[i].end_word = segment[i+1].start_word - 1`
-- `segment[-1].end_word = total_tokens - 1`
+Step 1: Convert word range to character range via `_word_to_char_range`.
+Step 2: **Merge split layer segments.** Before computing coverage, merge consecutive `text_layers` segments with identical `(layer_type, author_canonical_id)` that are separated by offsets in `assembly_metadata.layer_split_points`. Use `layer_split_points[i].char_offset_in_assembled` to detect split boundaries. Two segments are "separated by a split point" if the first segment's end equals the split point and the second segment's start follows immediately.
+Step 3: Compute each (merged) layer's character overlap with the unit range. `overlap = max(0, min(layer_end, unit_end) - max(layer_start, unit_start))`. Coverage = `overlap / unit_length`.
+Step 4: Apply rules in order:
+- **LA-4:** Any layer has 100% coverage → attribute to that layer.
+- **LA-1:** Any layer has ≥80% coverage → attribute to that layer.
+- **LA-2:** No layer has ≥80% AND exactly 2 layers → attribute to the outermost (highest layer_type level: hashiyah > sharh > matn).
+- **LA-3:** No layer has ≥80% AND (3+ layers OR dominant <60%) → emit `EX-M-001` warning, return attribution for the highest-coverage layer with `rule_applied="LA-3"`.
 
-Return a NEW list of ClassifiedSegment objects with canonical offsets. Do not mutate the originals.
+Return: `AuthorAttribution(layer_id=..., author_id=..., coverage_pct=..., rule_applied="LA-N")`.
+For `layer_id`: use the layer_type value as a string identifier (e.g., `"matn"`, `"sharh"`).
+For `author_id`: use `layer.author_canonical_id` if available, else `"unknown"`.
 
-**Function 3: `verify_segments(segments, total_tokens) → None`**
-Thin wrapper around `validate_cs_invariants()` from contracts.py. Raises ValueError on any fatal violation.
+### Function 4: `compute_content_types(segments, unit_segment_indices) → list[ScholarlyFunction]` (F-DET-4)
+Collect `scholarly_function` from each ClassifiedSegment whose index is in `unit_segment_indices`. Deduplicate. Return as a list (order doesn't matter).
 
-**Function 4: `_compute_classify_max_tokens(word_count) → int`**
-From §5.5.1:
-- `word_count <= 2000` → 8192
-- `word_count > 2000` → 32768
-- `word_count > 4000` → 32768 (provisional; log a warning that this threshold is untested)
+### Function 5: `detect_evidence_refs(primary_text) → list[EvidenceRef]` (F-DET-5)
+Pattern matching for three evidence types:
 
-**Function 5: `run_phase2a(chunks, client, config) → dict[str, list[ClassifiedSegment]]`**
-Orchestrator: for each chunk, classify → normalize → verify, with retry logic per §5.5.2:
-- Up to 2 retries (3 total attempts) per chunk, controlled by `config.RETRY_COUNT`
-- On offset normalization failure: retry the classify call with error feedback appended to user message: `"\n\nNote: The previous classification produced a text_snippet that could not be located in the source text. Ensure each text_snippet is copied exactly from the input."`
-- On coverage verification failure: retry with message describing which invariant failed
-- On API error: exponential backoff (2^attempt seconds)
-- After all retries exhausted: flag with appropriate error code (EX-C-001, EX-C-003, EX-C-004), log diagnostic info (chunk_id, error code, assembled_text length, raw LLM response), exclude chunk from result
-- Return: `dict[chunk_id → list[ClassifiedSegment]]` for chunks that succeeded. Failed chunks are absent (logged, not silently dropped).
+**Quran (EV-1):** Scan for `﴿...﴾` delimiters (U+FD3E and U+FD3F). Extract text between them. Return `EvidenceRef(type="quran", surah=None, ayah_start=None, ayah_end=None, text_snippet=<extracted>)`. Canonical Quran lookup is deferred (DD-S3-3).
 
-### Module 2: `phase2_group.py` — Teaching Unit Grouping (§5.3, §5.4.3)
+**Hadith (EV-2):** Scan for markers: `رواه`, `أخرجه`, `في الصحيحين`, `متفق عليه`, `في صحيح`, `في سنن`. Short markers (`رواه`, `أخرجه`) require word boundary. Multi-word phrases are safe without. Return `EvidenceRef(type="hadith", text_snippet=<50 chars around marker>, marker_text=<matched pattern>)`.
 
-**Function 1: `group_chunk(chunk, segments, client, config) → ExtractionResult`**
-- Construct system prompt from §5.3.2 (SPEC lines 920–993). Copy verbatim with `{structural_format}` format variable.
-- Construct user message from §5.3.3 (SPEC lines 1011–1021): text wrapped in `<text>` tags + segment summary in `<classified_segments>` tags. The segment summary uses POST-NORMALIZATION offsets and snippets. Format each segment as: `Segment {segment_index}: words {start_word}–{end_word}, function={scholarly_function.value}, snippet="{text_snippet}"`
-- Call LLM via `client.chat.completions.create()` with `response_model=ExtractionResult`, max_tokens from `config.GROUP_MAX_TOKENS`.
+**Ijma (EV-3):** Scan for markers: `أجمعوا`, `إجماع`, `لا خلاف`, `اتفق العلماء`, `بالاتفاق`. Short markers (`أجمعوا`, `إجماع`, `بالاتفاق`) require word boundary. Multi-word phrases safe without. Return `EvidenceRef(type="ijma", marker_text=<matched>, text_snippet=<50 chars around marker>)`.
 
-**Function 2: `verify_units(units, segments, total_tokens) → list[TeachingUnit]`**
-This is NOT just a thin wrapper — it does auto-repairs before calling `validate_tu_invariants`:
-- **V-P2-14 auto-derivation:** For each unit, DERIVE `start_word` from `segments[unit.segment_indices[0]].start_word` and `end_word` from `segments[unit.segment_indices[-1]].end_word`. If the LLM's values differ, log the discrepancy as a warning but ALWAYS use the derived values. Replace in the unit before validation.
-- **V-P2-15 auto-repair:** If `self_containment == FULL` and `self_containment_notes` is not None, set notes to None. If `self_containment` is PARTIAL/DEPENDENT and notes is missing/empty, set to `"No notes provided"`. Log both as warnings.
-- After auto-repairs, delegate to `validate_tu_invariants()`. Raises ValueError on any fatal violation.
-- Return the (possibly repaired) list of TeachingUnit objects.
+**Word boundary check:** A marker has a word boundary if the character before it (if any) is whitespace or start-of-text, AND the character after it (if any) is whitespace, punctuation, or end-of-text. Arabic punctuation includes: `،` `؛` `؟` `٪` `.` `,` `:` `(` `)`.
 
-**Function 3: `run_phase2b(chunks, classified, client, config) → dict[str, list[TeachingUnit]]`**
-Orchestrator: for each chunk_id in `classified` dict, group → verify, with retry logic:
-- Same retry policy as Phase 2a (config.RETRY_COUNT retries)
-- On unit coverage failure: retry Phase 2b only (reuse existing classification)
-- On API error: exponential backoff
-- After retries exhausted: flag with EX-C-002 or EX-C-005
-- Return: `dict[chunk_id → list[TeachingUnit]]`
+### Function 6: `compute_page_range(physical_pages, join_points, char_start, char_end) → Optional[PageRange]` (F-DET-6)
+If `physical_pages` is empty, return `None`.
+Use `join_points[i].char_offset_in_assembled` to determine which physical pages overlap with `[char_start, char_end)`.
+Return `PageRange(volume=..., start_page=min_page, end_page=max_page)`.
 
-### Module 3: Tests
+### Function 7: `compute_word_offsets(start_word, end_word) → tuple[int, int]` (F-DET-7)
+Trivial passthrough — returns `(start_word, end_word)`. Exists to make the field-computation pattern uniform.
 
-**File: `tests/test_phase2_normalize.py`** — Offset normalization tests (pure algorithm, no LLM):
-- Happy path: 3 segments with findable snippets → correct canonical offsets
-- Whitespace fallback: snippet with collapsed whitespace → still anchors correctly
-- Diacritic fallback: snippet missing a diacritic → anchors with EX-A-012 warning
-- Duplicate snippet: two identical substrings → left-to-right search picks correct one
-- Snippet not found: snippet absent → raises ValueError
-- Single segment: one segment covering all text
-- First segment not at position 0: snippet anchors to non-zero → should still produce start_word=0 if that's where it matches, or fail V-P2-3 if it doesn't
-- Token-to-char mapping edge cases: ZWNJ characters, multiple consecutive spaces
-- Target: ≥10 test functions
+### Function 8: `filter_relevant_footnotes(primary_text, assembled_text, all_footnotes, char_start, char_end) → list[Footnote]` (F-DET-8)
+For each footnote in `all_footnotes`:
+1. Search `assembled_text` for the pattern `⌜{footnote.ref_marker}⌝` (Unicode characters U+231C and U+231D).
+2. If found AND the match position falls within `[char_start, char_end)`, the footnote is relevant.
+3. If not found anywhere in `assembled_text`, log a warning (orphaned footnote marker).
+Return the list of relevant footnotes.
 
-**File: `tests/test_phase2_classify.py`** — Classification LLM call + retry tests:
-- Prompt construction: verify system prompt text, user message format, MAX_TOKENS
-- Mock client returns valid ClassificationResult → verify flow
-- Mock raises on first call, succeeds on second → retry works
-- Mock raises on all attempts → correct error code flagged
-- Coverage verification failure → retry with error feedback
-- _compute_classify_max_tokens: parametrized (500→8192, 2000→8192, 2001→32768, 4001→32768)
-- Target: ≥10 test functions
+### Function 9: `compute_quoted_scholars(text_layers, unit_char_start, unit_char_end, primary_layer) → list[ScholarAttribution]` (F-DET-9)
+From the layer overlap in F-DET-3, identify layers with >0% coverage that are NOT the primary layer.
+For each, create `ScholarAttribution(mention_text="[structural: {layer_type}]", resolved_name=layer.author_canonical_id, role=<computed>, confidence=1.0, source="layer_overlap")`.
+Role: if the non-primary layer is MATN in a sharh unit → `"classification_frame"`. Otherwise → `"quoted_opinion"`.
 
-**File: `tests/test_phase2_group.py`** — Grouping LLM call + verify_units tests:
-- Prompt construction: verify segment summary format
-- Mock client returns valid ExtractionResult → verify flow
-- V-P2-14: LLM produces wrong word offsets → verify derivation from segments
-- V-P2-15: FULL with notes → notes set to None; PARTIAL without notes → fallback string
-- Retry on grouping failure
-- Target: ≥10 test functions
+### Function 10: `build_deterministic_excerpts(chunk, units, segments) → list[ExcerptRecord]` (Orchestrator)
+For each TeachingUnit:
+1. Compute chunk_index from `chunk.split_info`
+2. Call F-DET-1 through F-DET-9
+3. Assemble a partial ExcerptRecord:
+   - Deterministic fields from F-DET-1–9
+   - Passthrough fields from TeachingUnit: `text_snippet`, `primary_function`, `secondary_functions`, `description_arabic`, `self_containment`, `self_containment_notes`
+   - `div_path` from `chunk.div_path`
+   - **LLM fields set to defaults:** `excerpt_topic=[]`, `school=None`, `school_confidence=None`, `takhrij_data=None`, `terminology_variants=[]`, `cross_references=[]`, `context_hint=None`, `consensus_metadata=None`
+   - **Gate/review flags:** `gate_flags=[]`, `review_flags=[]`
+4. Return the list of ExcerptRecords.
 
-**File: `tests/test_phase2_integration.py`** — Real LLM integration tests (gated):
-- `@pytest.mark.skipif(not os.environ.get("OPENROUTER_API_KEY"), reason="No API key")`
-- Classify small Arabic text (~100 words), verify offset normalization produces valid canonical segments
-- Classify + group small text, verify teaching units pass all invariants
-- Target: 2 test functions
+**DD-S3-1: `school` field requires explicit None.**
+The ExcerptRecord model has `school: Optional[str]` with NO default (DD8 Pattern 1 from contracts review). The orchestrator MUST pass `school=None` explicitly — omitting it will raise a validation error.
+
+### Module: Tests
+
+**File: `tests/test_phase3_deterministic.py`**
+
+**Test categories:**
+
+1. **F-DET-1 excerpt_id:** basic format, split chunk (chunk_index > 0), unsplit chunk (chunk_index = 0)
+2. **F-DET-2 primary_text:** substring extraction preserves internal whitespace (`\n\n`), single-word unit, full-text unit
+3. **F-DET-3 layer attribution:** LA-4 (100% single layer), LA-1 (≥80% dominant), LA-2 (two layers, neither ≥80%), LA-3 (three layers → EX-M-001), layer_split_point merging
+4. **F-DET-4 content_types:** deduplication, single function, multiple functions
+5. **F-DET-5 evidence_refs:** Quran ﴿...﴾ detection, hadith marker detection, ijma marker detection, word boundary false positive prevention, no false positives on conjugated forms
+6. **F-DET-6 page_range:** single page, multi-page span, null when no pages
+7. **F-DET-8 footnote_filtering:** relevant footnote included, irrelevant excluded, orphan marker warning
+8. **F-DET-9 quoted_scholars:** non-primary layer detected, role computation, primary layer excluded
+9. **Orchestrator:** happy path (single unit), multi-unit, school=None explicit, passthrough fields correct
 
 **Conftest additions:**
 ```python
-def _make_mock_instructor_client(return_value=None, side_effect=None):
-    """Returns a MagicMock configured as an instructor client."""
+def _make_multi_layer_chunk(**overrides) -> AssembledChunk:
+    """AssembledChunk with MATN + SHARH layers for attribution testing."""
     ...
 
-def _make_classification_result(assembled_text, n_segments=3):
-    """Build ClassificationResult with N segments having valid snippets from text."""
+def _make_chunk_with_footnotes(**overrides) -> AssembledChunk:
+    """AssembledChunk with footnotes containing ⌜N⌝ markers in the text."""
     ...
 ```
 
-**Expected total: 77 + ≥36 = ≥113 passed tests.**
+**Expected total: 147 + ≥30 = ≥177 passed tests.**
 
 ## Design Decisions (Pre-Resolved)
 
-**DD-S2-1: Prompt text is SPEC-owned, not CC-owned.**
-The system prompts in §5.2.2 and §5.3.2 are copied as string constants (with `{structural_format}` as the only format variable). CC does NOT rewrite, condense, or "improve" prompt text. If a prompt issue is found during testing, it is escalated to the architect.
+**DD-S3-1: `school` field requires explicit None.**
+See Function 10 above. The ExcerptRecord model requires `school` to be explicitly passed. Omitting it raises ValidationError.
 
-**DD-S2-2: LLM client creation is the caller's responsibility.**
-Functions accept `client: instructor.Instructor` as a parameter. Client creation pattern (from experiment code):
-```python
-import instructor, openai
-client = instructor.from_openai(
-    openai.OpenAI(
-        base_url="https://openrouter.ai/api/v1",
-        api_key=os.environ["OPENROUTER_API_KEY"],
-    ),
-    mode=instructor.Mode.JSON,
-)
-```
+**DD-S3-2: Import `_build_token_char_map` from phase2_classify.py.**
+Do NOT duplicate the token-to-character mapping logic. Import `from engines.excerpting.src.phase2_classify import _build_token_char_map`. Build a `_word_to_char_range` wrapper in phase3_deterministic.py that calls it.
 
-**DD-S2-3: Offset normalization returns NEW objects, does not mutate.**
-`normalize_offsets()` creates new `ClassifiedSegment` objects with canonical offsets. The originals are not modified.
+**DD-S3-3: Quran canonical lookup is deferred.**
+F-DET-5 detects ﴿...﴾ delimiters and extracts the text, but does NOT resolve surah/ayah numbers. The canonical Quran reference data is a build-time artifact not yet available. Return `surah=None, ayah_start=None, ayah_end=None` for all Quran evidence refs.
 
-**DD-S2-4: verify_units does auto-repairs BEFORE delegating to validate_tu_invariants.**
-V-P2-14 (derive word ranges) and V-P2-15 (fix notes consistency) are repairs. The function modifies TeachingUnit objects, then validates. Returns the repaired list.
+**DD-S3-4: Evidence detection uses word boundary checks for short markers.**
+Hadith markers `رواه` and `أخرجه` and ijma markers `أجمعوا`, `إجماع`, `بالاتفاق` require word-boundary checking (lesson from normalization S4/S5 — short Arabic verb stems false-positive on conjugated forms). Multi-word phrases (`في الصحيحين`, `متفق عليه`, `لا خلاف`, `اتفق العلماء`, `في صحيح`, `في سنن`) are safe without boundary checks — the multi-word match is already specific enough.
 
-**DD-S2-5: Retry error feedback goes in user message, not system prompt.**
-When retrying after offset normalization or coverage failure, append the error feedback to the user message (after the text block). The system prompt stays constant across retries.
+**DD-S3-5: LLM-enriched fields get safe defaults.**
+The orchestrator sets all LLM-enriched fields to empty/null defaults. These are structurally valid — the ExcerptRecord model accepts them. Session 4 will populate them. The `review_flags` list does NOT include `llm_enrichment_failed` at this stage — that flag is set by Session 4 when the actual LLM call fails.
 
-**DD-S2-6: Telemetry via standard logging.**
-Each LLM call logs (per §5.5.4): source_id, chunk_id, call_type, latency, retry_count, success/failure. Use `logging.getLogger(__name__)` at INFO level.
+**DD-S3-6: `attribution_confidence` is None for LA-1/LA-2/LA-4, set by consensus for LA-3.**
+The SPEC says: "Null for deterministic LA-1/2/4. 0.67 for 2-of-3 consensus (LA-3). 0.0 for all-3-disagree." Session 3 sets `attribution_confidence=None` for all rules. Session 4's consensus step fills it for LA-3 cases.
 
-**DD-S2-7: Mock testing strategy.**
-Tests mock `client.chat.completions.create` directly. The mock returns pre-built Pydantic model instances. Integration tests with real LLM are gated behind `OPENROUTER_API_KEY`.
-
-**DD-S2-8: Retry architecture — single outer loop, no instructor automatic retries.**
-Set `max_retries=0` in the `client.chat.completions.create()` call to disable Instructor's automatic schema validation retries. ALL retries (schema failure, offset normalization failure, coverage failure, API error) are handled in the outer loop in `run_phase2a`/`run_phase2b`. This gives precise control over the total attempt count: exactly `1 + config.RETRY_COUNT` attempts per chunk (3 total with default RETRY_COUNT=2). If instructor raises a validation error, catch it and retry just like any other failure. The error message from the validation error is useful for logging but NOT appended to the next attempt's prompt (schema errors are structural, not content-related — the LLM needs a fresh attempt, not error feedback).
+**DD-S3-7: Layer split point merging algorithm.**
+Two consecutive text_layer segments should be merged if:
+(a) They have identical `layer_type` AND `author_canonical_id`, AND
+(b) There exists a `layer_split_point` in `assembly_metadata.layer_split_points` whose `char_offset_in_assembled` equals the first segment's `end` value.
+After merging, the combined segment has `start` = first segment's `start`, `end` = second segment's `end`. Process all merge pairs before computing coverage.
 
 ## Do NOT Do
 
-1. **Do NOT modify prompt text.** Prompts in §5.2.2 and §5.3.2 are architect-designed.
-2. **Do NOT implement Phase 3** (enrichment, consensus, deterministic fields).
-3. **Do NOT modify `contracts.py`** unless you find a bug.
-4. **Do NOT modify `phase1_assembly.py`**. Phase 1 is frozen.
-5. **Do NOT use direct Anthropic/OpenAI API.** ALL LLM calls go through OpenRouter via the passed-in client.
-6. **Do NOT call the real LLM in unit tests.** Mock the instructor client.
-7. **Do NOT invent error codes.** Use only codes from `ExcerptingErrorCodes`.
-8. **Do NOT implement `pipeline.py` or `load_config()`**.
+1. **Do NOT implement §7.2 (LLM enrichment)** — that's Session 4.
+2. **Do NOT implement §7.3 (consensus verification)** — that's Session 4.
+3. **Do NOT implement §7.4 (validation)** — that's Session 5.
+4. **Do NOT modify `contracts.py`** unless you find a bug.
+5. **Do NOT modify Phase 1 or Phase 2 code.**
+6. **Do NOT implement Quran canonical lookup** in F-DET-5. Just detect delimiters.
+7. **Do NOT call any LLM.** Phase 3 deterministic is pure algorithmic code.
+8. **Do NOT invent error codes.** Use only codes from `ExcerptingErrorCodes`.
 
 ## Verification
 
-1. `python -m pytest engines/excerpting/tests/ -v --tb=short` → **≥113 passed** (77 + ≥36 new), 0 failed
-2. `grep -r "raise NotImplementedError" engines/excerpting/src/phase2_classify.py engines/excerpting/src/phase2_group.py` → empty output
-3. Offset normalization has ≥8 test functions (verify: `grep -c "def test_" engines/excerpting/tests/test_phase2_normalize.py`)
-4. Retry logic has ≥5 test functions across classify and group test files
-5. System prompt constants match SPEC §5.2.2 and §5.3.2 text (spot-check first 100 chars)
+1. `python -m pytest engines/excerpting/tests/ -v --tb=short` → **≥177 passed** (147 + ≥30 new), 0 failed
+2. `grep -r "raise NotImplementedError" engines/excerpting/src/phase3_deterministic.py` → empty output
+3. `grep -c "def test_" engines/excerpting/tests/test_phase3_deterministic.py` → ≥30
+4. Layer attribution tests cover all 4 rules (LA-1–LA-4): `grep -c "LA-" engines/excerpting/tests/test_phase3_deterministic.py` → ≥4
+5. Evidence detection tests include word-boundary false positive prevention
 6. `grep -r "import anthropic" engines/excerpting/src/` → empty (no direct API imports)
-7. All new test files import factory helpers from conftest (no duplicate factories)
-8. `pip install instructor openai --break-system-packages` before running tests (add to requirements if not present)
+7. `primary_text` extraction test verifies `\n\n` preservation (not split-and-rejoin)
+8. All new test files import factory helpers from conftest
 
 ## After This
 
-Session 3 will implement Phase 3 (deterministic fields + LLM enrichment + consensus verification). That is the final implementation session before integration testing.
+Session 4 will implement Phase 3 Stage 2 (§7.2 LLM enrichment) and Stage 3 (§7.3 consensus verification). That session will require real LLM calls and cross-provider consensus.
