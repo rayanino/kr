@@ -3,7 +3,11 @@
 # ─── Claude Code local settings (personal, not shared) ──────────────
 .claude/settings.local.json
 .claude/changes.log
+.claude/scheduled_tasks.lock
 global-settings.json
+
+# ─── Overnight system (regenerated each run) ─────────────────────────
+overnight/decisions.log
 
 # ─── Frozen source files ─────────────────────────────────────────────
 # Source files are large and frozen at intake time. They are stored locally
