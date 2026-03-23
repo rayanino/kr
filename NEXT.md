@@ -78,7 +78,7 @@ Step 3: Compute each (merged) layer's character overlap with the unit range. `ov
 Step 4: Apply rules in order:
 - **LA-4:** Any layer has 100% coverage → attribute to that layer.
 - **LA-1:** Any layer has ≥80% coverage → attribute to that layer.
-- **LA-2:** No layer has ≥80% AND exactly 2 layers → attribute to the outermost (highest layer_type level: hashiyah > sharh > matn).
+- **LA-2:** No layer has ≥80% AND exactly 2 layers → attribute to the outermost (highest layer_type level). Full ordering: `TAHQIQ_NOTE > HASHIYAH > SHARH > MATN > UNCERTAIN`. In practice, the common case is sharh > matn (commentator vs. original author).
 - **LA-3:** No layer has ≥80% AND (3+ layers OR dominant <60%) → emit `EX-M-001` warning, return attribution for the highest-coverage layer with `rule_applied="LA-3"`.
 
 Return: `AuthorAttribution(layer_id=..., author_id=..., coverage_pct=..., rule_applied="LA-N")`.
@@ -109,8 +109,8 @@ Use `join_points[i].char_offset_in_assembled` to determine which physical pages 
 Return `PageRange(volume=volume, start_page=min_page, end_page=max_page)`.
 If an overlapping PhysicalPage has `page_number_int=None`, skip it for start/end computation. If ALL overlapping pages have `page_number_int=None`, return `None`.
 
-### Function 7: `compute_word_offsets(start_word, end_word) → tuple[int, int]` (F-DET-7)
-Trivial passthrough — returns `(start_word, end_word)`. Exists to make the field-computation pattern uniform.
+### Function 7: `compute_word_offsets(start_word, end_word) → tuple[int, int]`
+Trivial passthrough — returns `(start_word, end_word)`. Exists to make the field-computation pattern uniform. **Note:** This is NOT SPEC F-DET-7 (which is `div_path`, handled as a chunk passthrough in Function 10). This function provides the `start_word`/`end_word` fields on ExcerptRecord.
 
 ### Function 8: `filter_relevant_footnotes(primary_text, assembled_text, all_footnotes, char_start, char_end) → list[Footnote]` (F-DET-8)
 For each footnote in `all_footnotes`:
@@ -119,9 +119,12 @@ For each footnote in `all_footnotes`:
 3. If not found anywhere in `assembled_text`, log a warning (orphaned footnote marker).
 Return the list of relevant footnotes.
 
-### Function 9: `compute_quoted_scholars(text_layers, unit_char_start, unit_char_end, primary_layer) → list[ScholarAttribution]` (F-DET-9)
-From the layer overlap in F-DET-3, identify layers with >0% coverage that are NOT the primary layer.
-For each, create `ScholarAttribution(mention_text="[structural: {layer_type}]", resolved_name=layer.author_canonical_id, role=<computed>, confidence=1.0, source="layer_overlap")`.
+### Function 9: `compute_quoted_scholars(text_layers, unit_char_start, unit_char_end, primary_layer, assembly_metadata) → list[ScholarAttribution]` (F-DET-9)
+Identify layers with >0% coverage of the unit's character range that are NOT the primary layer. **Compute overlap independently** using the same formula as Function 3 Step 3 (`max(0, min(layer_end, unit_end) - max(layer_start, unit_start))`). You must also perform the same layer segment merging as Function 3 Step 2 (merge at `assembly_metadata.layer_split_points`) before computing overlap — otherwise artificial split boundaries create false layer transitions.
+
+**Implementation note:** Consider extracting the overlap computation + layer merging into a shared helper that both Function 3 and Function 9 call — this avoids duplicating ~15 lines of logic. E.g., `_compute_layer_coverages(text_layers, char_start, char_end, assembly_metadata) → list[tuple[TextLayerSegment, float]]`.
+
+For each non-primary layer with >0% coverage, create `ScholarAttribution(mention_text="[structural: {layer_type}]", resolved_name=layer.author_canonical_id, role=<computed>, confidence=1.0, source="layer_overlap")`.
 Role: if the non-primary layer is MATN in a sharh unit → `"classification_frame"`. Otherwise → `"quoted_opinion"`.
 
 ### Function 10: `build_deterministic_excerpts(chunk, units, segments) → list[ExcerptRecord]` (Orchestrator)
@@ -129,11 +132,11 @@ For each TeachingUnit:
 1. Compute chunk_index from `chunk.split_info`
 2. Call F-DET-1 through F-DET-9
 3. Assemble a partial ExcerptRecord:
-   - Deterministic fields from F-DET-1–9: `excerpt_id`, `primary_text`, `primary_author_layer`, `content_types`, `evidence_refs`, `physical_pages`, `start_word`/`end_word` (F-DET-7), `footnotes_relevant`, `quoted_scholars`
+   - Deterministic fields from Functions 1–9: `excerpt_id`, `primary_text`, `primary_author_layer`, `content_types`, `evidence_refs`, `physical_pages`, `start_word`/`end_word`, `footnotes_relevant`, `quoted_scholars`
    - **Direct from chunk:** `source_id=chunk.source_id`, `div_id=chunk.div_id`, `div_path=chunk.div_path`
    - **Direct from TeachingUnit:** `unit_index=unit.unit_index`, `segment_indices=unit.segment_indices`, `text_snippet=unit.text_snippet`, `primary_function=unit.primary_function`, `secondary_functions=unit.secondary_functions`, `description_arabic=unit.description_arabic`, `self_containment=unit.self_containment`, `self_containment_notes=unit.self_containment_notes`
    - **Computed:** `chunk_index` from `chunk.split_info.chunk_index` (or 0 if None)
-   - **LLM fields set to defaults:** `excerpt_topic=[]`, `school=None`, `school_confidence=None`, `takhrij_data=None`, `terminology_variants=[]`, `cross_references=[]`, `context_hint=None`, `consensus_metadata=None`
+   - **LLM fields set to defaults:** `excerpt_topic=[]`, `school=None`, `school_confidence=None`, `attribution_confidence=None` (DD-S3-6), `takhrij_data=None`, `terminology_variants=[]`, `cross_references=[]`, `context_hint=None`, `consensus_metadata=None`
    - **Gate/review flags:** `gate_flags=[]`, `review_flags=[]`
 4. Return the list of ExcerptRecords.
 
