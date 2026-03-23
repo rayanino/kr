@@ -6,7 +6,7 @@
 - Excerpting SPEC: ✅ COMPLETE (2387 lines, 28 error codes, 29 invariants)
 - kr-integrity audit: ✅ PASS (11 HIGH, 15 MEDIUM, 2 LOW — all fixed)
 - Post-audit deep review: ✅ PASS (1 HIGH, 3 MEDIUM — all fixed)
-- HEAD commit: `073f078` (SPEC cleanup: phantom EvidenceRef fields + PARTIAL scope)
+- HEAD commit: `452edcd` (start prompt for independent handoff audit session)
 - **Excerpting contracts.py: STALE — 557 lines, old 7-engine architecture. DELETE AND REWRITE.**
 - Excerpting tests: 0 existing tests passing (no build work done yet)
 
@@ -41,7 +41,7 @@ None — this is a CC-only task.
 3. **`engines/excerpting/SPEC.md` §2.2** (lines 365–521) — output contract: ExcerptRecord (33 fields, 7 categories), sub-type definitions (PageRange, AuthorAttribution, ScholarAttribution, EvidenceRef, TakhrijEntry, CrossReference, TermVariant, ConsensusRecord, ConsensusDecision), output invariants I-ER-1 through I-ER-7
 4. **`engines/excerpting/SPEC.md` §3.2** (lines 539–558) — self-containment formal criteria (C-SC-1 through C-SC-5), referenced by invariants
 5. **`engines/excerpting/SPEC.md` §8.1** (lines 1915–1986) — error code catalog (28 codes in 5 categories)
-6. **`engines/excerpting/SPEC.md` §8.3** (lines 2018–2074) — configuration parameters (20 parameters)
+6. **`engines/excerpting/SPEC.md` §8.3** (lines 2018–2074) — configuration parameters (19 total: 18 static in ExcerptingConfig + 1 dynamic CLASSIFY_MAX_TOKENS)
 7. **`engines/excerpting/SPEC.md` §7.2.4** (lines 1669–1728) — LLM enrichment response schema (EnrichmentResult, UnitEnrichment, ResolvedScholar, TakhrijEntry, TermVariant, CrossReference)
 8. **`engines/excerpting/SPEC.md` §7.3.2** (lines 1765–1824) — verification response schema (VerificationResult, VerificationItem)
 9. **`engines/excerpting/SPEC.md` §5.2.4** (lines 874–887) — Phase 2a classification response schema (ClassificationResult wrapping ClassifiedSegment)
@@ -266,13 +266,53 @@ These are used for structured output parsing via `instructor` + Pydantic. Define
 - `ExtractionResult` (3 fields: `teaching_units: list[TeachingUnit]`, `total_units: int`, `notes: Optional[str] = None`)
 
 **From §7.2.4 (enrichment):**
-- `ResolvedScholar` (4 fields: mention_text, resolved_name, role, confidence)
-- `UnitEnrichment` (9 fields including `school_confidence` — NEW from audit)
-- `EnrichmentResult` (2 fields: `enrichments: list[UnitEnrichment]`, `total_units: int`)
+
+`ResolvedScholar` (4 fields):
+```
+mention_text: str
+resolved_name: str | null
+role: str              # one of "quoted_opinion", "classification_frame", "refuted_position"
+confidence: float      # 0.0–1.0
+```
+
+`UnitEnrichment` (9 fields):
+```
+unit_index: int
+excerpt_topic: list[str]                       # 1–3 Arabic keywords
+school: str | null                             # required=yes, nullable (same DD8 pattern 1 as ExcerptRecord)
+school_confidence: float | null                # required=yes, nullable (differs from ExcerptRecord which is required=no)
+resolved_scholars: list[ResolvedScholar]       # may be empty
+takhrij_data: list[TakhrijEntry] = []          # required=no, NOT nullable — empty list default, NOT None
+terminology_variants: list[TermVariant]        # may be empty
+cross_references: list[CrossReference]         # may be empty
+context_hint: str | null                       # non-null only when self_containment is PARTIAL
+```
+
+**CRITICAL optionality note:** `UnitEnrichment.takhrij_data` is `list[TakhrijEntry]` with default `[]` (non-nullable, optional field). This DIFFERS from `ExcerptRecord.takhrij_data` which is `list[TakhrijEntry] | null` with default `None` (nullable). The LLM returns an empty list (not null) when no hadith content exists. The engine code maps UnitEnrichment's empty list → ExcerptRecord's null when appropriate.
+
+**CRITICAL optionality note:** `UnitEnrichment.school_confidence` is required=**yes** with nullable type (SPEC §7.2.4 line 1687: `float | null, required=yes`). This means `Optional[float]` with NO default — the LLM must always produce this field. This differs from `ExcerptRecord.school_confidence` which is required=**no** (`Optional[float] = None`).
+
+`EnrichmentResult` (2 fields):
+```
+enrichments: list[UnitEnrichment]
+total_units: int
+```
 
 **From §7.3.2 (verification):**
-- `VerificationItem` (5 fields including `confidence` — NEW from audit)
-- `VerificationResult` (1 field: `items: list[VerificationItem]`)
+
+`VerificationItem` (5 fields):
+```
+item_index: int
+agrees: bool
+alternative: str | null
+confidence: float       # 0.0–1.0 — NEW from audit
+reasoning: str
+```
+
+`VerificationResult` (1 field):
+```
+items: list[VerificationItem]
+```
 
 ### 6. Error Codes (from §8.1)
 
@@ -324,18 +364,54 @@ Write standalone validator functions called by the engine at phase boundaries. E
 - `validate_ac_invariants(chunk: AssembledChunk)` — checks I-AC-1, I-AC-5, I-AC-6, I-AC-7
 - `validate_layer_coverage(text_layers: list, assembled_text_len: int)` — checks I-AC-2 (layer coverage exactness)
 
+See SPEC §2.3.2 lines 188–194 for full invariant definitions:
+- I-AC-1: `word_count` = Arabic tokens count, `total_tokens` = `len(assembled_text.split())`
+- I-AC-2: `text_layers` character ranges cover `[0, len(assembled_text))` exactly
+- I-AC-5: if `split_info`, `chunk_id` ends with `_chunk_{split_info.chunk_index}`
+- I-AC-6: if `merge_history`, len ≥ 2 and first element == `div_id`
+- I-AC-7: `merge_history` and `split_info` mutually exclusive
+
 **ClassifiedSegment validators (I-CS-*):**
 - `validate_cs_invariants(segments: list[ClassifiedSegment], total_tokens: int)` — checks I-CS-1 through I-CS-6
 
+See SPEC §2.3.3 lines 216–221 for full invariant definitions:
+- I-CS-1: `segment_index` values equal list positions (0, 1, 2, ...)
+- I-CS-2: contiguous — `s[i+1].start_word == s[i].end_word + 1`
+- I-CS-3: first segment starts at word 0
+- I-CS-4: last segment ends at `total_tokens - 1`
+- I-CS-5: full coverage — union of word ranges = `[0, total_tokens - 1]`
+- I-CS-6: `confidence` in `[0.0, 1.0]`
+
 **TeachingUnit validators (I-TU-*):**
 - `validate_tu_invariants(units: list[TeachingUnit], segments: list[ClassifiedSegment], total_tokens: int)` — checks I-TU-1 through I-TU-9
-- **Important:** I-TU-8 (description_arabic word count 5–35) is a WARNING per SPEC §2.3.4, NOT a rejection. The validator should log a warning, not raise ValueError. All other I-TU invariants are hard failures.
+- **Important:** I-TU-8 (description_arabic word count 5–35) is a WARNING per SPEC §2.3.4 line 250, NOT a rejection. Use `logging.getLogger(__name__).warning(...)` (same pattern as normalization engine). All other I-TU invariants are hard failures that raise `ValueError`.
+
+See SPEC §2.3.4 lines 243–251 for full invariant definitions:
+- I-TU-1: `unit_index` values equal list positions (0, 1, 2, ...)
+- I-TU-2: `segment_indices` is contiguous ascending (e.g., `[3, 4, 5]`)
+- I-TU-3: every segment assigned to exactly one unit — union of all `segment_indices` = `{0, ..., total_segments - 1}`
+- I-TU-4: units contiguous in word space — `u[i+1].start_word == u[i].end_word + 1`
+- I-TU-5: `start_word == segments[segment_indices[0]].start_word` and `end_word == segments[segment_indices[-1]].end_word`
+- I-TU-6: FULL → `self_containment_notes` must be None
+- I-TU-7: PARTIAL or DEPENDENT → `self_containment_notes` must be present and non-empty
+- I-TU-8: `description_arabic` 5–35 Arabic words (WARNING only, not rejection)
+- I-TU-9: `primary_function` must be one of the constituent segments' functions
 
 **ExcerptRecord validators (I-ER-*):**
 - `validate_er_invariants(record: ExcerptRecord)` — checks I-ER-4, I-ER-5
 - `validate_er_collection_invariants(records: list[ExcerptRecord])` — checks I-ER-1 (uniqueness) and I-ER-3 (ordering)
 
-Note: I-AC-3 (footnote ref_marker in assembled_text) and I-AC-4 (constituent_unit_indices contiguous ascending) are checked at runtime during Phase 1, not in contracts validators — they require access to the assembled text and division tree, which validators do not have.
+See SPEC §2.2.3 lines 493–505 for full invariant definitions:
+- I-ER-1: no duplicate `excerpt_id` values
+- I-ER-3: records ordered by `div_id`, then `chunk_index`, then `unit_index`
+- I-ER-4: self-containment consistency. FULL → no notes, no context_hint. PARTIAL → notes present; context_hint present **unless** `"llm_enrichment_failed" in record.review_flags` (in which case context_hint may be None). DEPENDENT → notes present, no context_hint.
+- I-ER-5: `primary_author_layer.layer_id` and `primary_author_layer.author_id` must be non-null
+
+**Excluded from contracts validators (checked at runtime):**
+- I-AC-3 (footnote ref_marker in assembled_text) and I-AC-4 (constituent_unit_indices contiguous ascending) — require access to the assembled text and division tree, which validators do not have. Checked during Phase 1.
+- I-ER-2 (primary text immutability) — runtime guarantee, requires access to assembled_text at extraction time. Checked in Phase 3.
+- I-ER-6 (no orphan fields) — SPEC structural property verified by design, not by code.
+- I-ER-7 (D-023 compliance) — runtime check requiring input data for comparison. Checked in Phase 3.
 
 ### 8. Configuration Constants (from §8.3)
 
@@ -386,14 +462,35 @@ Each factory returns a valid instance with all required fields populated with se
 The `_make_assembled_chunk` factory must produce a chunk where:
 - `assembled_text` is a real Arabic sentence (e.g., `"بسم الله الرحمن الرحيم الحمد لله رب العالمين"`)
 - `word_count` and `total_tokens` are computed from that text (I-AC-1 consistency)
-- `text_layers` covers [0, len(assembled_text)) with a single segment (I-AC-2 consistency)
+- `text_layers` covers [0, len(assembled_text)) with a single segment (I-AC-2 consistency). Use `LayerType.MATN` as the default layer type.
 - `physical_pages` has at least one PhysicalPage entry
 - `assembly_metadata` has valid `constituent_unit_indices`, empty `join_points`, empty `layer_split_points`, null `footnote_renumber_map`
 - `merge_history` and `split_info` are both None (I-AC-7)
 
+The `_make_classified_segment` factory defaults:
+- `segment_index=0`, `start_word=0`, `end_word=4`, `text_snippet="بسم الله الرحمن الرحيم الحمد"[:50]`
+- `scholarly_function=ScholarlyFunction.DEFINITION`, `confidence=0.9`
+
+The `_make_teaching_unit` factory defaults:
+- `unit_index=0`, `segment_indices=[0]`, `start_word=0`, `end_word=4`
+- `text_snippet="بسم الله الرحمن الرحيم الحمد لله رب العالمين"[:80]`
+- `primary_function=ScholarlyFunction.DEFINITION`, `secondary_functions=[]`
+- `description_arabic="وصف عربي قصير للاختبار يتضمن عدة كلمات"` (≥5 Arabic words for I-TU-8)
+- `self_containment=SelfContainmentLevel.FULL`, `self_containment_notes=None` (I-TU-6 satisfied)
+
+The `_make_excerpt_record` factory defaults (**CRITICAL — must satisfy I-ER-4, I-ER-5, DD8**):
+- **Identification:** `excerpt_id="exc_src_test_div_test_0_0"`, `source_id="src_test"`, `div_id="div_test"`, `chunk_index=0`, `unit_index=0`, `div_path=["باب الاختبار"]`
+- **Text:** `primary_text="بسم الله الرحمن الرحيم"`, `text_snippet="بسم الله الرحمن الرحيم"[:80]`, `start_word=0`, `end_word=3`, `segment_indices=[0]`, `physical_pages=None` (DD8 pattern 2)
+- **Classification:** `primary_function=ScholarlyFunction.DEFINITION`, `secondary_functions=[]`, `content_types=[ScholarlyFunction.DEFINITION]`, `description_arabic="وصف عربي قصير للاختبار يتضمن عدة كلمات"`
+- **Self-containment:** `self_containment=SelfContainmentLevel.FULL`, `self_containment_notes=None`, `context_hint=None` (I-ER-4: FULL → no notes, no hint)
+- **Attribution:** `primary_author_layer=AuthorAttribution(layer_id="layer_matn", author_id="sch_test", coverage_pct=1.0, rule_applied="LA-1")` (I-ER-5), `attribution_confidence=None` (DD8 pattern 2), `quoted_scholars=[]`, `school=None` (**DD8 pattern 1 — must be explicitly passed, no default**), `school_confidence=None` (DD8 pattern 2)
+- **Topic:** `excerpt_topic=["اختبار"]`, `terminology_variants=[]`
+- **Evidence:** `evidence_refs=[]`, `takhrij_data=None` (DD8 pattern 2), `cross_references=[]`, `footnotes_relevant=[]`
+- **Metadata:** `consensus_metadata=None` (DD8 pattern 2), `gate_flags=[]`, `review_flags=[]`
+
 ## Design Decisions (pre-resolved — CC does not need to decide these)
 
-1. **Normalization types are imported, not redefined.** `StructuralFormat`, `TextLayerSegment`, `Footnote`, `ContentFlags`, `PhysicalPage`, `BoundaryContinuityType` — all imported from `engines.normalization.contracts`. If CC needs a type that exists in normalization contracts, import it.
+1. **Normalization types are imported, not redefined.** `StructuralFormat`, `TextLayerSegment`, `Footnote`, `ContentFlags`, `PhysicalPage`, `BoundaryContinuityType`, `LayerType` — all imported from `engines.normalization.contracts`. If CC needs a type that exists in normalization contracts, import it.
 
 2. **Error codes as a class with string constants, not an Enum.** Error codes are logged as string values ("EX-A-002"), compared as strings, and never used as Pydantic field types. A class with string constants is simpler than an Enum for this use case.
 
@@ -434,20 +531,7 @@ Run these commands before committing:
 # 1. Contracts import cleanly
 python -c "from engines.excerpting.contracts import *; print('imports OK')"
 
-# 2. All types are instantiable (factories work)
-python -c "
-from engines.excerpting.tests.conftest import (
-    _make_assembled_chunk, _make_classified_segment,
-    _make_teaching_unit, _make_excerpt_record,
-)
-ac = _make_assembled_chunk()
-cs = _make_classified_segment()
-tu = _make_teaching_unit()
-er = _make_excerpt_record()
-print(f'factories OK: AC={type(ac).__name__}, CS={type(cs).__name__}, TU={type(tu).__name__}, ER={type(er).__name__}')
-"
-
-# 3. Validators work on valid data
+# 2. All types are instantiable AND factories produce invariant-valid objects
 python -c "
 from engines.excerpting.contracts import (
     validate_ac_invariants, validate_cs_invariants,
@@ -458,44 +542,95 @@ from engines.excerpting.tests.conftest import (
     _make_teaching_unit, _make_excerpt_record,
 )
 ac = _make_assembled_chunk()
+cs = _make_classified_segment()
+tu = _make_teaching_unit()
+er = _make_excerpt_record()
+# Validate factory outputs pass their own invariants
 validate_ac_invariants(ac)
-print('validators pass on valid data')
+validate_er_invariants(er)
+print(f'factories + validators OK: AC={type(ac).__name__}, CS={type(cs).__name__}, TU={type(tu).__name__}, ER={type(er).__name__}')
 "
 
-# 4. Error code count matches SPEC
+# 3. ALL 4 validator families work on valid data
+python -c "
+from engines.excerpting.contracts import (
+    validate_ac_invariants, validate_layer_coverage,
+    validate_cs_invariants, validate_tu_invariants,
+    validate_er_invariants, validate_er_collection_invariants,
+)
+from engines.excerpting.tests.conftest import (
+    _make_assembled_chunk, _make_classified_segment,
+    _make_teaching_unit, _make_excerpt_record,
+)
+ac = _make_assembled_chunk()
+validate_ac_invariants(ac)
+validate_layer_coverage(ac.text_layers, len(ac.assembled_text))
+cs = _make_classified_segment()
+validate_cs_invariants([cs], ac.total_tokens)
+tu = _make_teaching_unit()
+validate_tu_invariants([tu], [cs], ac.total_tokens)
+er = _make_excerpt_record()
+validate_er_invariants(er)
+validate_er_collection_invariants([er])
+print('all 6 validator functions pass on valid data')
+"
+
+# 4. Error code count AND string values match SPEC
 python -c "
 from engines.excerpting.contracts import ExcerptingErrorCodes
-codes = [v for k, v in vars(ExcerptingErrorCodes).items() if k.startswith('EX_')]
-print(f'Error codes: {len(codes)} (expected: 28)')
-assert len(codes) == 28, f'Expected 28, got {len(codes)}'
-print('error code count correct')
+codes = {v for k, v in vars(ExcerptingErrorCodes).items() if k.startswith('EX_')}
+expected = {
+    'EX-A-002','EX-A-003','EX-A-004','EX-A-005','EX-A-006','EX-A-010','EX-A-011','EX-A-012',
+    'EX-C-001','EX-C-002','EX-C-003','EX-C-004','EX-C-005',
+    'EX-M-001','EX-M-002','EX-M-003','EX-M-004','EX-M-005','EX-M-006','EX-M-007','EX-M-008','EX-M-009','EX-M-010',
+    'EX-V-001','EX-V-002',
+    'EX-G-001','EX-G-002','EX-G-003',
+}
+missing = expected - codes
+extra = codes - expected
+assert not missing, f'Missing error codes: {missing}'
+assert not extra, f'Extra error codes: {extra}'
+assert len(codes) == 28
+print('all 28 error code strings match SPEC exactly')
 "
 
-# 5. Enum value counts match SPEC
+# 5. Enum values match SPEC exactly (both enums)
 python -c "
 from engines.excerpting.contracts import ScholarlyFunction, SelfContainmentLevel
-print(f'ScholarlyFunction: {len(ScholarlyFunction)} (expected: 16)')
-print(f'SelfContainmentLevel: {len(SelfContainmentLevel)} (expected: 3)')
-assert len(ScholarlyFunction) == 16
-assert len(SelfContainmentLevel) == 3
-print('enum counts correct')
+# ScholarlyFunction
+sf_expected = {'definition', 'rule_statement', 'evidence_quran', 'evidence_hadith',
+    'evidence_ijma', 'evidence_qiyas', 'evidence_rational', 'opinion_statement',
+    'refutation', 'example', 'condition_exception', 'cross_reference',
+    'narration', 'editorial_note', 'structural_transition', 'unclassified'}
+sf_actual = {sf.value for sf in ScholarlyFunction}
+assert sf_expected == sf_actual, f'ScholarlyFunction mismatch: missing={sf_expected-sf_actual}, extra={sf_actual-sf_expected}'
+# SelfContainmentLevel
+sc_expected = {'FULL', 'PARTIAL', 'DEPENDENT'}
+sc_actual = {sc.value for sc in SelfContainmentLevel}
+assert sc_expected == sc_actual, f'SelfContainmentLevel mismatch: missing={sc_expected-sc_actual}, extra={sc_actual-sc_expected}'
+print('both enum value sets match SPEC exactly')
 "
 
-# 6. Cross-engine import (normalization types resolve)
+# 6. Cross-engine imports resolve AND field types are correct
 python -c "
 from engines.excerpting.contracts import AssembledChunk
-import inspect
-hints = inspect.get_annotations(AssembledChunk)
-print(f'AssembledChunk fields: {len(hints)}')
-print('cross-engine imports resolve')
+from engines.normalization.contracts import TextLayerSegment, PhysicalPage
+import typing
+hints = typing.get_type_hints(AssembledChunk)
+assert len(hints) == 16, f'AssembledChunk: expected 16 fields, got {len(hints)}'
+# Verify key field types reference normalization types
+tl_hint = str(hints.get('text_layers', ''))
+pp_hint = str(hints.get('physical_pages', ''))
+assert 'TextLayerSegment' in tl_hint, f'text_layers type wrong: {tl_hint}'
+assert 'PhysicalPage' in pp_hint, f'physical_pages type wrong: {pp_hint}'
+print('cross-engine imports resolve with correct types')
 "
 
-# 7. Invariant validators reject invalid data
+# 7. Invariant validators reject invalid data (I-AC-7 AND I-AC-1)
 python -c "
-from engines.excerpting.contracts import validate_ac_invariants
+from engines.excerpting.contracts import validate_ac_invariants, SplitInfo
 from engines.excerpting.tests.conftest import _make_assembled_chunk
-from engines.excerpting.contracts import SplitInfo
-# I-AC-7: merge_history and split_info both present should fail
+# I-AC-7: merge + split mutually exclusive
 try:
     ac = _make_assembled_chunk(
         merge_history=['div_test_1_0', 'div_test_1_1'],
@@ -505,33 +640,67 @@ try:
     print('FAIL: I-AC-7 not enforced')
 except (ValueError, Exception) as e:
     print(f'I-AC-7 correctly rejects: {type(e).__name__}')
-"
-# 8. ExcerptRecord has exactly 33 fields (SPEC §2.2.2)
-python -c "
-from engines.excerpting.contracts import ExcerptRecord
-fields = ExcerptRecord.model_fields
-print(f'ExcerptRecord fields: {len(fields)} (expected: 33)')
-assert len(fields) == 33, f'Expected 33 fields, got {len(fields)}: {sorted(fields.keys())}'
-print('ExcerptRecord field count correct')
+# I-AC-1: word_count mismatch
+try:
+    ac = _make_assembled_chunk(word_count=999)
+    validate_ac_invariants(ac)
+    print('FAIL: I-AC-1 not enforced')
+except (ValueError, Exception) as e:
+    print(f'I-AC-1 correctly rejects: {type(e).__name__}')
 "
 
-# 9. I-TU validators reject invalid data
+# 8. ExcerptRecord field names match SPEC exactly
+python -c "
+from engines.excerpting.contracts import ExcerptRecord
+expected_fields = {
+    'excerpt_id', 'source_id', 'div_id', 'chunk_index', 'unit_index', 'div_path',
+    'primary_text', 'text_snippet', 'start_word', 'end_word', 'segment_indices', 'physical_pages',
+    'primary_function', 'secondary_functions', 'content_types', 'description_arabic',
+    'self_containment', 'self_containment_notes', 'context_hint',
+    'primary_author_layer', 'attribution_confidence', 'quoted_scholars', 'school', 'school_confidence',
+    'excerpt_topic', 'terminology_variants',
+    'evidence_refs', 'takhrij_data', 'cross_references', 'footnotes_relevant',
+    'consensus_metadata', 'gate_flags', 'review_flags',
+}
+actual_fields = set(ExcerptRecord.model_fields.keys())
+missing = expected_fields - actual_fields
+extra = actual_fields - expected_fields
+assert not missing, f'Missing ExcerptRecord fields: {missing}'
+assert not extra, f'Extra ExcerptRecord fields: {extra}'
+assert len(actual_fields) == 33
+print('ExcerptRecord: all 33 field names match SPEC exactly')
+"
+
+# 9. I-TU-6 AND I-TU-7 both enforced
 python -c "
 from engines.excerpting.contracts import TeachingUnit, SelfContainmentLevel, ScholarlyFunction
-# I-TU-6: FULL with notes present should fail
+# I-TU-6: FULL with notes should fail
 try:
     tu = TeachingUnit(
         unit_index=0, segment_indices=[0], start_word=0, end_word=5,
         text_snippet='test', primary_function=ScholarlyFunction.DEFINITION,
-        secondary_functions=[], description_arabic='وصف عربي قصير للاختبار',
+        secondary_functions=[], description_arabic='وصف عربي قصير للاختبار يتضمن عدة كلمات',
         self_containment=SelfContainmentLevel.FULL,
         self_containment_notes='should not be here',
     )
     print('FAIL: I-TU-6 not enforced')
 except (ValueError, Exception) as e:
     print(f'I-TU-6 correctly rejects: {type(e).__name__}')
+# I-TU-7: PARTIAL without notes should fail
+try:
+    tu = TeachingUnit(
+        unit_index=0, segment_indices=[0], start_word=0, end_word=5,
+        text_snippet='test', primary_function=ScholarlyFunction.DEFINITION,
+        secondary_functions=[], description_arabic='وصف عربي قصير للاختبار يتضمن عدة كلمات',
+        self_containment=SelfContainmentLevel.PARTIAL,
+        self_containment_notes=None,
+    )
+    print('FAIL: I-TU-7 not enforced')
+except (ValueError, Exception) as e:
+    print(f'I-TU-7 correctly rejects: {type(e).__name__}')
 "
-# 10. ScholarlyFunction enum values match SPEC exactly
+
+# 10. ScholarlyFunction enum values match SPEC exactly (dedicated check)
 python -c "
 from engines.excerpting.contracts import ScholarlyFunction
 expected = {'definition', 'rule_statement', 'evidence_quran', 'evidence_hadith',
@@ -546,40 +715,108 @@ assert not extra, f'Extra ScholarlyFunction values: {extra}'
 print('ScholarlyFunction values match SPEC exactly')
 "
 
-# 11. Critical sub-type field counts
+# 11. Sub-type field counts AND key field names
 python -c "
 from engines.excerpting.contracts import (
     PageRange, AuthorAttribution, ScholarAttribution, EvidenceRef,
     AssemblyMetadata, SplitInfo, JoinPoint, CrossReference,
 )
 checks = [
-    ('PageRange', PageRange, 3),
-    ('AuthorAttribution', AuthorAttribution, 4),
-    ('ScholarAttribution', ScholarAttribution, 5),
-    ('EvidenceRef', EvidenceRef, 7),
-    ('AssemblyMetadata', AssemblyMetadata, 4),
-    ('SplitInfo', SplitInfo, 4),
-    ('JoinPoint', JoinPoint, 5),
-    ('CrossReference', CrossReference, 4),
+    ('PageRange', PageRange, 3, {'volume', 'start_page', 'end_page'}),
+    ('AuthorAttribution', AuthorAttribution, 4, {'layer_id', 'author_id', 'coverage_pct', 'rule_applied'}),
+    ('ScholarAttribution', ScholarAttribution, 5, {'mention_text', 'resolved_name', 'role', 'confidence', 'source'}),
+    ('EvidenceRef', EvidenceRef, 7, {'type', 'surah', 'ayah_start', 'ayah_end', 'text_snippet', 'marker_text', 'scope'}),
+    ('AssemblyMetadata', AssemblyMetadata, 4, None),
+    ('SplitInfo', SplitInfo, 4, None),
+    ('JoinPoint', JoinPoint, 5, None),
+    ('CrossReference', CrossReference, 4, {'reference_text', 'target_description', 'target_div_id', 'resolved'}),
+]
+for name, cls, expected_count, expected_names in checks:
+    actual = set(cls.model_fields.keys())
+    assert len(actual) == expected_count, f'{name}: expected {expected_count} fields, got {len(actual)}: {actual}'
+    if expected_names:
+        assert actual == expected_names, f'{name}: field names mismatch. Missing={expected_names-actual}, Extra={actual-expected_names}'
+print('All sub-type field counts and names correct')
+"
+
+# 12. DD8 nullable/optionality correctness (CRITICAL)
+python -c "
+from engines.excerpting.contracts import ExcerptRecord
+from pydantic import ValidationError
+# DD8 pattern 1: school is required=yes (no default) — omitting must fail
+try:
+    # Build with all required fields EXCEPT school
+    ExcerptRecord(
+        excerpt_id='exc_test_div_test_0_0', source_id='src_test', div_id='div_test',
+        chunk_index=0, unit_index=0, div_path=['test'],
+        primary_text='test', text_snippet='test', start_word=0, end_word=0,
+        segment_indices=[0],
+        primary_function='definition', secondary_functions=[], content_types=['definition'],
+        description_arabic='وصف عربي قصير للاختبار يتضمن عدة كلمات',
+        self_containment='FULL',
+        primary_author_layer={'layer_id': 'l', 'author_id': 'a', 'coverage_pct': 1.0, 'rule_applied': 'LA-1'},
+        quoted_scholars=[], excerpt_topic=['test'], terminology_variants=[],
+        evidence_refs=[], cross_references=[], footnotes_relevant=[],
+        gate_flags=[], review_flags=[],
+        # school intentionally OMITTED — should fail
+    )
+    print('FAIL: DD8 pattern 1 not enforced — school has a default when it should not')
+except (ValidationError, TypeError) as e:
+    print(f'DD8 pattern 1 correct: school is required (no default)')
+"
+
+# 13. CrossReference.target_div_id defaults to None (shared with LLM schema)
+python -c "
+from engines.excerpting.contracts import CrossReference
+# target_div_id omitted — should default to None, not raise
+cr = CrossReference(reference_text='كما تقدم', target_description=None, resolved=False)
+assert cr.target_div_id is None, f'target_div_id should default to None, got {cr.target_div_id}'
+print('CrossReference.target_div_id correctly defaults to None')
+"
+
+# 14. LLM response schema field counts
+python -c "
+from engines.excerpting.contracts import (
+    ClassificationResult, ExtractionResult,
+    EnrichmentResult, UnitEnrichment, ResolvedScholar,
+    VerificationResult, VerificationItem,
+)
+checks = [
+    ('ClassificationResult', ClassificationResult, 2),
+    ('ExtractionResult', ExtractionResult, 3),
+    ('EnrichmentResult', EnrichmentResult, 2),
+    ('UnitEnrichment', UnitEnrichment, 9),
+    ('ResolvedScholar', ResolvedScholar, 4),
+    ('VerificationResult', VerificationResult, 1),
+    ('VerificationItem', VerificationItem, 5),
 ]
 for name, cls, expected in checks:
     actual = len(cls.model_fields)
-    assert actual == expected, f'{name}: expected {expected} fields, got {actual}'
-print('All sub-type field counts correct')
+    assert actual == expected, f'{name}: expected {expected} fields, got {actual}: {sorted(cls.model_fields.keys())}'
+print('All 7 LLM schema field counts correct')
+"
+
+# 15. Config default sentinel values
+python -c "
+from engines.excerpting.contracts import ExcerptingConfig
+cfg = ExcerptingConfig()
+assert cfg.RETRY_COUNT == 2, f'RETRY_COUNT: expected 2, got {cfg.RETRY_COUNT}'
+assert cfg.LLM_TEMPERATURE == 0.0, f'LLM_TEMPERATURE: expected 0.0, got {cfg.LLM_TEMPERATURE}'
+assert cfg.VERIFY_MODEL == 'openai/gpt-4.1', f'VERIFY_MODEL: expected openai/gpt-4.1, got {cfg.VERIFY_MODEL}'
+assert cfg.TIMEOUT_SECONDS == 120, f'TIMEOUT_SECONDS: expected 120, got {cfg.TIMEOUT_SECONDS}'
+assert cfg.GATE_ON_DEPENDENT is True, f'GATE_ON_DEPENDENT: expected True, got {cfg.GATE_ON_DEPENDENT}'
+print('config default sentinel values match SPEC')
 "
 ```
 
-All 11 checks must pass. If any fail, fix before committing.
+All 15 checks must pass. If any fail, fix before committing.
 
 **Additional verification (run manually, not scripted):**
 
-After all 11 checks pass, open `contracts.py` and visually verify:
-- Every ScholarlyFunction enum value matches the 16 values listed in §2.3.1 table (exact strings, not close approximations)
-- Every error code string matches the SPEC (e.g., "EX-A-002" not "EX-A-2" or "EXA002")
-- PageRange has exactly 3 fields (volume, start_page, end_page)
-- AuthorAttribution has exactly 4 fields (layer_id, author_id, coverage_pct, rule_applied)
-- ScholarAttribution has exactly 5 fields (mention_text, resolved_name, role, confidence, source)
-- EvidenceRef has exactly 7 fields (type, surah, ayah_start, ayah_end, text_snippet, marker_text, scope)
+After all 15 checks pass, open `contracts.py` and visually verify:
+- Every error code string matches the SPEC dash format (e.g., "EX-A-002" not "EX-A-2" or "EXA002") — spot-check 5 codes
+- DD8 pattern 1 fields: `school` has no default. DD8 pattern 2 fields: `physical_pages`, `attribution_confidence`, `school_confidence`, `takhrij_data`, `consensus_metadata` all have `= None`
+- Review the `_make_excerpt_record` factory defaults satisfy I-ER-4 (FULL → no notes/hint) and I-ER-5 (primary_author_layer has non-null layer_id/author_id)
 
 ## Critical Audit Artifacts
 
@@ -624,7 +861,7 @@ New contracts define the 5-engine architecture data model:
   VerificationItem)
 - 28 error codes (EX-A/C/M/V/G)
 - Invariant validators for 29 invariants (I-AC/CS/TU/ER)
-- 20 configuration parameters
+- 18 static configuration parameters
 - 4 test factory helpers in conftest.py
 ```
 
@@ -638,7 +875,7 @@ For next steps after this CC task:
 
 - Session 0: SPEC_OUTLINE.md evaluation
 - Session 1–4: Write all 12 SPEC sections (2387 lines)
-- Session 5: kr-integrity audit (10 HIGH, 12 MEDIUM, 2 LOW — all fixed)
+- Session 5: kr-integrity audit (11 HIGH, 15 MEDIUM, 2 LOW — all fixed)
 - Session 6: Deep review (1 HIGH, 3 MEDIUM — all fixed) + SPEC cleanup
 - **Session 7 (this): contracts.py rewrite handoff**
 

@@ -26,7 +26,7 @@ Architecture rationale: `experiments/architecture_test/ARCHITECTURE_DECISION.md`
 | §5 | Phase 2 — LLM teaching unit extraction: classify (2a) + group (2b), offset normalization (V-P2-1–19) |
 | §6 | Domain-specific rules: 22 rules across DP/LA/EV/IR/VC/QM categories |
 | §7 | Phase 3 — metadata enrichment: 9 deterministic fields, LLM enrichment, consensus verification (V-P3-1–9) |
-| §8 | Error handling (27 codes) and configuration (20 parameters) |
+| §8 | Error handling (28 codes) and configuration (19 parameters) |
 | §9 | Deferred capabilities: 16 capabilities (DC-01–DC-16) with extension hooks |
 | §10 | Test requirements: fixture specs, adversarial cases (ADV-E-01–12), C-7 mitigation |
 
