@@ -952,6 +952,16 @@ def validate_tu_invariants(
 
         all_segment_indices.update(si)
 
+        # Bounds check: segment_indices must reference valid segments.
+        # Checked here (before I-TU-5 and I-TU-9 access segments[]) so that
+        # out-of-range indices produce a clear ValueError, not an IndexError.
+        # I-TU-3 (after the loop) checks completeness; this checks validity.
+        if si[0] < 0 or si[-1] >= len(segments):
+            raise ValueError(
+                f"I-TU-3: unit {i} segment_indices {si} references "
+                f"out-of-range segments (valid range: 0-{len(segments) - 1})"
+            )
+
         # I-TU-5: start_word/end_word match segment boundaries
         expected_start = segments[si[0]].start_word
         expected_end = segments[si[-1]].end_word
