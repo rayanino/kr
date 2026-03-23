@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from engines.excerpting.src.phase1_assembly import (
     _get_bc_separator,
-    _should_insert_space_mid_sentence,
     assemble_text,
 )
 from engines.excerpting.tests.conftest import _make_content_unit
@@ -36,7 +35,7 @@ class TestGetBcSeparator:
 
     def test_separator_mapping(self) -> None:
         """Each boundary_continuity type maps to correct separator."""
-        assert _get_bc_separator(_bc(BoundaryContinuityType.MID_SENTENCE)) == ""
+        assert _get_bc_separator(_bc(BoundaryContinuityType.MID_SENTENCE)) == " "
         assert _get_bc_separator(_bc(BoundaryContinuityType.MID_PARAGRAPH)) == "\n"
         assert _get_bc_separator(_bc(BoundaryContinuityType.MID_ARGUMENT)) == "\n"
         assert _get_bc_separator(_bc(BoundaryContinuityType.SECTION_BREAK)) == "\n\n"
@@ -49,38 +48,24 @@ class TestGetBcSeparator:
 
 
 # ═══════════════════════════════════════════════════════════════════
-# _should_insert_space_mid_sentence
+# mid_sentence separator (§4.3, SPEC-NOTE-4)
 # ═══════════════════════════════════════════════════════════════════
 
 
-class TestMidSentenceSpace:
-    """Tests for _should_insert_space_mid_sentence (§4.3)."""
+class TestMidSentenceSeparator:
+    """Verify mid_sentence always uses space separator (SPEC-NOTE-4 fix).
 
-    def test_word_final_taa_marbuta(self) -> None:
-        """taa marbuta (ة) → space inserted (word complete)."""
-        assert _should_insert_space_mid_sentence("الصلاة", "والزكاة") is True
+    Shamela page breaks always fall between complete words (Arabic print
+    does not split words across pages). Empirically verified: 0/294
+    genuine mid-word splits across all fixture packages. The old
+    word-final heuristic (ة, ى, tanwin) produced 92% word-merge
+    corruption and has been removed.
+    """
 
-    def test_word_final_alif_maqsura(self) -> None:
-        """alif maqsura (ى) → space inserted."""
-        assert _should_insert_space_mid_sentence("موسى", "عليه") is True
-
-    def test_word_final_tanwin(self) -> None:
-        """tanwin diacritic as last char → space inserted."""
-        # "كتابٌ" ends with dammatan (U+064C) as the last code point
-        assert _should_insert_space_mid_sentence("كتابٌ", "جديد") is True
-
-    def test_connecting_letter(self) -> None:
-        """Connecting letter → no separator (word continues)."""
-        # Letter "ب" is a connecting letter (middle of a word)
-        assert _should_insert_space_mid_sentence("كتا", "ب الله") is False
-
-    def test_trailing_whitespace(self) -> None:
-        """Original text ending with whitespace → space inserted."""
-        assert _should_insert_space_mid_sentence("كتاب ", "الله") is True
-
-    def test_empty_prev(self) -> None:
-        """Empty prev_text → no space."""
-        assert _should_insert_space_mid_sentence("", "الله") is False
+    def test_separator_map_mid_sentence_is_space(self) -> None:
+        """BC_SEPARATOR_MAP["mid_sentence"] must be a single space."""
+        from engines.excerpting.src.phase1_assembly import BC_SEPARATOR_MAP
+        assert BC_SEPARATOR_MAP["mid_sentence"] == " "
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -186,19 +171,24 @@ class TestAssembleText:
         assert text == "الصلاة والزكاة"
         assert jps[0].separator_used == " "
 
-    def test_mid_sentence_connecting_no_space(self) -> None:
-        """Mid-sentence with connecting letter → empty separator."""
+    def test_mid_sentence_always_space(self) -> None:
+        """Mid-sentence always inserts space (SPEC-NOTE-4 fix).
+
+        Even text ending with a connecting letter gets a space — Shamela
+        page breaks never split words. The old heuristic that used empty
+        separator for connecting letters produced 92% word-merge corruption.
+        """
         units = [
             _make_content_unit(
                 unit_index=0,
-                primary_text="كتا",
+                primary_text="كتاب",
                 boundary_continuity=_bc(BoundaryContinuityType.MID_SENTENCE),
             ),
-            _make_content_unit(unit_index=1, primary_text="ب الله"),
+            _make_content_unit(unit_index=1, primary_text="الله"),
         ]
         text, jps, _ = assemble_text(units, 0, 1)
         assert text == "كتاب الله"
-        assert jps[0].separator_used == ""
+        assert jps[0].separator_used == " "
 
     def test_missing_content_unit_ex_a_011(self) -> None:
         """Missing content unit → EX-A-011 warning, skipped gracefully."""

@@ -659,7 +659,7 @@ For each leaf division, assemble the full text by joining `ContentUnit.primary_t
 
 | `boundary_continuity.type` | Separator | Rationale |
 |---------------------------|-----------|-----------|
-| `mid_sentence` | `""` (empty) | Text continues mid-word or mid-sentence across page boundary. |
+| `mid_sentence` | `" "` (space) | Text continues across page boundary; always between complete words (see below). |
 | `mid_paragraph` | `"\n"` | New sentence within same paragraph. |
 | `mid_argument` | `"\n"` | Argument continues but new logical segment. |
 | `section_break` | `"\n\n"` | Major topic transition. |
@@ -671,11 +671,9 @@ This mapping is validated in the prototype (`BC_JOIN_MAP` in `extract_divisions.
 
 **Boundary continuity is on unit N:** The `boundary_continuity` field on unit N describes the boundary AFTER unit N (between N and N+1). When joining unit N and unit N+1, read `boundary_continuity` from unit N.
 
-**Arabic word joining at mid_sentence:** When `boundary_continuity.type == "mid_sentence"`, the last character of unit N's `primary_text` and the first character of unit N+1's `primary_text` may form parts of the same Arabic word (split across a page break). The default empty separator handles this case correctly (the two halves join into one word). However, if the boundary falls at a natural word boundary (the page break happened to fall between words), the empty separator would incorrectly merge two separate words. To distinguish:
-- Strip trailing whitespace from unit N's text and leading whitespace from unit N+1's text.
-- If unit N's stripped text ends with a word-final indicator — taa marbuta (ة), alif maqsura (ى), any tanwin diacritic (ً/ٌ/ٍ) as the last base or combining character, or any whitespace character — insert a single space separator. These characters signal a complete word.
-- Otherwise (unit N ends with a connecting letter form or a diacritic other than tanwin), use the empty separator — the text continues mid-word across the page break.
-- This refinement applies ONLY when `boundary_continuity.type == "mid_sentence"`. All other boundary types use their fixed separator from the mapping table above.
+**Arabic word joining at mid_sentence:** When `boundary_continuity.type == "mid_sentence"`, the separator is a single space `" "`. Shamela digitizes printed Arabic books page-by-page, and Arabic typography does not split words across page boundaries (there is no Arabic hyphenation convention). Every Shamela page break inherently falls between complete words. Empirically verified: 0 of 294 mid_sentence boundaries across all 5 fixture packages contained a genuine mid-word split; 100% were between complete words.
+
+The previous heuristic (empty separator with word-final character detection for ة, ى, tanwin) was removed because it produced 92% word-merge corruption — 270 of 294 boundaries merged two separate Arabic words into unreadable text (e.g., "للخطأوَلِهَذَا" instead of "للخطأ وَلِهَذَا"). See SPEC-NOTE-4 in reference/SPEC_ERRATA.md.
 
 **Diacritics preservation:** All Arabic diacritics (U+064B–U+0652, U+0670) are preserved exactly. No Unicode normalization (NFC/NFD/NFKC/NFKD) is applied at any point. This is an absolute rule — violating it risks T-1 (Silent Text Corruption), since a single diacritic change can reverse meaning (حَرَّمَ "forbade" vs حَرَمَ "deprived").
 

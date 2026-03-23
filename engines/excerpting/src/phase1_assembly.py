@@ -56,8 +56,12 @@ logger = logging.getLogger(__name__)
 # ═══════════════════════════════════════════════════════════════════
 
 # §4.3: Boundary continuity → separator mapping
+# mid_sentence uses space (not empty): Shamela page breaks always fall between
+# complete words (Arabic print does not split words across pages). Empirically
+# verified: 0/294 genuine mid-word splits across all fixture packages.
+# See SPEC-NOTE-4 in reference/SPEC_ERRATA.md.
 BC_SEPARATOR_MAP: dict[Optional[str], str] = {
-    "mid_sentence": "",
+    "mid_sentence": " ",
     "mid_paragraph": "\n",
     "mid_argument": "\n",
     "section_break": "\n\n",
@@ -77,11 +81,6 @@ EXCLUDE_KEYWORDS: list[str] = [
 
 # §4.8: Arabic noise characters for comparison stripping
 _ARABIC_NOISE_RE = re.compile(r"[\u064B-\u0652\u0670\u0640\u200C\u200D]")
-
-# §4.3: Word-final indicators for mid_sentence separator detection
-# taa marbuta, alif maqsura, tanwin diacritics
-_WORD_FINAL_CHARS = set("ةى")
-_TANWIN_DIACRITICS = {"\u064B", "\u064C", "\u064D"}  # fathatan, dammatan, kasratan
 
 # §4.7: Footnote marker pattern in primary_text
 _FOOTNOTE_MARKER_RE = re.compile(r"⌜([^⌝]+)⌝")
@@ -115,32 +114,6 @@ def _get_bc_separator(boundary: Optional[BoundaryContinuity]) -> str:
     if boundary is None:
         return BC_SEPARATOR_MAP[None]
     return BC_SEPARATOR_MAP.get(boundary.type.value, "\n")
-
-
-def _should_insert_space_mid_sentence(
-    prev_text: str, next_text: str
-) -> bool:
-    """Determine if a space should be inserted for mid_sentence boundaries (§4.3).
-
-    Returns True if prev_text ends with a word-final indicator
-    (taa marbuta, alif maqsura, tanwin diacritic, or whitespace),
-    indicating the page break fell between complete words.
-    """
-    if not prev_text:
-        return False
-    # Original text ends with whitespace → natural word boundary
-    if prev_text[-1].isspace():
-        return True
-    # Strip trailing whitespace and check last character
-    stripped = prev_text.rstrip()
-    if not stripped:
-        return False
-    last_char = stripped[-1]
-    if last_char in _WORD_FINAL_CHARS:
-        return True
-    if last_char in _TANWIN_DIACRITICS:
-        return True
-    return False
 
 
 def _adjust_join_points_after_renumber(
@@ -338,7 +311,6 @@ def assemble_text(
     join_points: list[JoinPoint] = []
     cumulative_offset = 0
     prev_unit: Optional[ContentUnit] = None
-    prev_text: str = ""
 
     for idx in constituent_unit_indices:
         cu = cu_map.get(idx)
@@ -365,16 +337,6 @@ def assemble_text(
             # Determine separator from PREVIOUS unit's boundary_continuity
             separator = _get_bc_separator(prev_unit.boundary_continuity)
 
-            # Mid-sentence refinement: check word-final to decide "" vs " "
-            if (
-                separator == ""
-                and prev_unit.boundary_continuity is not None
-                and prev_unit.boundary_continuity.type
-                == BoundaryContinuityType.MID_SENTENCE
-            ):
-                if _should_insert_space_mid_sentence(prev_text, text):
-                    separator = " "
-
             # Determine boundary type for the JoinPoint
             bc_type = BoundaryContinuityType.UNKNOWN
             if prev_unit.boundary_continuity is not None:
@@ -396,7 +358,6 @@ def assemble_text(
         parts.append(text)
         cumulative_offset += len(text)
         prev_unit = cu
-        prev_text = text
 
     assembled_text = "".join(parts)
     return assembled_text, join_points, constituent_unit_indices
