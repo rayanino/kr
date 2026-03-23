@@ -459,9 +459,9 @@ class ExcerptRecord(BaseModel):
 
     # ── Text (6) ──────────────────────────────────────────────────
     primary_text: str = Field(
-        description="Extracted from assembled_text via word offsets (F-DET-2). "
-        "Never modified after extraction. "
-        "Substring: ' '.join(assembled_text.split()[start_word:end_word+1])"
+        description="Extracted from assembled_text via character-offset substring "
+        "(F-DET-2). Preserves internal whitespace including paragraph breaks. "
+        "Never modified after extraction."
     )
     text_snippet: str = Field(description="First 80 chars of this unit's text")
     start_word: int = Field(

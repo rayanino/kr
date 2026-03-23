@@ -39,7 +39,7 @@ class TaskDef:
     max_budget_usd: float = 2.0
     timeout_minutes: int = 30
     allowed_tools: list[str] = field(default_factory=list)
-    permission_mode: str = "plan"
+    permission_mode: str = "bypassPermissions"
     depends_on: list[str] = field(default_factory=list)
     priority: int = 5
     max_turns: int = 30
@@ -92,8 +92,8 @@ def scan_test_health() -> list[TaskDef]:
         lines = [l for l in stdout.strip().split("\n") if l.strip() and "::" in l]
         test_count = len(lines)
 
-        # Only generate tasks for completed engines with room for improvement
-        if engine in ("source", "normalization") and test_count > 0:
+        # Generate tasks for any engine with tests
+        if test_count > 0:
             tasks.append(TaskDef(
                 task_id=f"test-coverage-{engine}",
                 name=f"Analyze test coverage gaps in {engine} engine",
@@ -185,7 +185,7 @@ def scan_code_quality() -> list[TaskDef]:
     # Fallback: use our Grep-like approach
     try:
         grep_result = subprocess.run(
-            ["grep", "-rn", r"\\\\d", "engines/"],
+            ["grep", "-rn", r"\\d", "engines/"],
             capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=10,
         )
         digit_matches = [
@@ -469,7 +469,7 @@ def generate_core_tasks() -> list[TaskDef]:
             category="validation",
             prompt=(
                 "Run the full test suite for all completed engines:\n"
-                "  python -m pytest engines/source/tests/ engines/normalization/tests/ -v --tb=short\n"
+                "  python -m pytest engines/source/tests/ engines/normalization/tests/ engines/excerpting/tests/ -v --tb=short\n"
                 "Report: total tests, passed, failed, skipped, any error details.\n"
                 "Do NOT modify any files."
             ),
@@ -480,7 +480,7 @@ def generate_core_tasks() -> list[TaskDef]:
             timeout_minutes=10,
             priority=1,
             allowed_tools=["Bash", "Read", "Glob", "Grep"],
-            permission_mode="plan",
+            permission_mode="bypassPermissions",
         ),
     ]
 

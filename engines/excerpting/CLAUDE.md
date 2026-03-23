@@ -53,22 +53,22 @@ Output: `writer.py` → `excerpts.jsonl` + `gate_queue.jsonl`.
 ## Current State
 
 - **SPEC:** COMPLETE (2387 lines)
-- **Contracts:** COMPLETE (1111 lines, independently reviewed, F-1 fixed)
-- **Phase 1:** COMPLETE — Session 1 ACCEPTED (commit `28a188ad`). 77 tests. SPEC-NOTE-4–7 resolved.
-- **Phase 2:** COMPLETE — Session 2 ACCEPTED (commit `46bdb20d`). 147 tests (+70). F-1 DD-S2-8 + F-2 IndexError guard fixed in `bd3734ce`.
-- **Phase 3:** Stubs only (4 modules: phase3_deterministic.py, phase3_enrichment.py, phase3_consensus.py, phase3_validation.py)
-- **Pipeline/Writer:** Stubs only
+- **Contracts:** COMPLETE (1111 lines, independently reviewed)
+- **Phase 1:** COMPLETE (77 tests, 1,531 lines) — deterministic assembly
+- **Phase 2:** COMPLETE (72 tests, 854 lines) — LLM classification + grouping (review findings F-1/F-2 fixed)
+- **Phase 3:** STUBS (next target) — 4 stub files, 0 implementation
+- **Total:** 149 tests, 2,970 impl lines, 0 failures
 
 ## Build Metrics Target
 
-| Session | Scope | Est. impl lines | Est. tests | Status |
-|---------|-------|-----------------|-----------|--------|
-| 1 | Phase 1 (§4) | 800–1200 | ≥55 | ✅ 77 tests |
-| 2 | Phase 2 (§5) | 600–900 | ≥40 | ✅ 147 tests (+70) |
-| 3 | Phase 3 deterministic (§7.1) | 400–600 | ≥30 | NEXT |
-| 4 | Phase 3 LLM + consensus (§7.2–3) | 600–800 | ≥30 | |
-| 5 | Pipeline + writer + validation (§7.4) | 300–500 | ≥25 | |
-| 6 | Integration + cross-engine | — | ≥20 | |
+| Session | Scope | Est. impl lines | Est. tests |
+|---------|-------|-----------------|-----------|
+| 1 | Phase 1 (§4) | 800–1200 | ≥55 |
+| 2 | Phase 2 (§5) | 600–900 | ≥40 |
+| 3 | Phase 3 deterministic (§7.1) | 400–600 | ≥30 |
+| 4 | Phase 3 LLM + consensus (§7.2–3) | 600–800 | ≥30 |
+| 5 | Pipeline + writer + validation (§7.4) | 300–500 | ≥25 |
+| 6 | Integration + cross-engine | — | ≥20 |
 
 ## Test Patterns
 

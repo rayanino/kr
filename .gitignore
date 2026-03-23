@@ -8,6 +8,13 @@ global-settings.json
 
 # ─── Overnight system (regenerated each run) ─────────────────────────
 overnight/decisions.log
+overnight/state.json
+overnight/state.json.tmp
+overnight/progress.md
+overnight/progress.md.tmp
+overnight/MORNING_REPORT.md
+overnight/MORNING_REPORT.md.tmp
+overnight/results/
 
 # ─── Frozen source files ─────────────────────────────────────────────
 # Source files are large and frozen at intake time. They are stored locally
