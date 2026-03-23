@@ -768,7 +768,31 @@ def load_manifest(path: Path) -> list[TaskDef]:
 
 
 def pick_next_ready(manifest: list[TaskDef], state: OvernightState) -> TaskDef | None:
-    """Pick next task: dependencies met, not yet executed, highest priority."""
+    """Pick next task: dependencies met, not yet executed, highest priority.
+
+    Propagates skips transitively: if A fails and B depends on A, B is skipped.
+    If C depends on B, C is also skipped (not stuck in limbo).
+    """
+    # Propagate dependency-failed skips transitively until stable
+    changed = True
+    while changed:
+        changed = False
+        failed_ids = {
+            tid for tid, r in state.results.items()
+            if r.get("status") in ("failed", "timeout", "rolled_back")
+        }
+        for task in manifest:
+            if task.task_id in state.results:
+                continue
+            if any(dep in failed_ids for dep in task.depends_on):
+                state.results[task.task_id] = {
+                    "status": "skipped",
+                    "error": "dependency failed",
+                }
+                state.tasks_skipped += 1
+                changed = True
+
+    # Now find candidates with all deps met
     completed_ids = {
         tid for tid, r in state.results.items()
         if r.get("status") in ("success", "skipped")
@@ -777,28 +801,15 @@ def pick_next_ready(manifest: list[TaskDef], state: OvernightState) -> TaskDef |
         tid for tid, r in state.results.items()
         if r.get("status") in ("failed", "timeout", "rolled_back")
     }
-
     candidates = []
     for task in manifest:
         if task.task_id in completed_ids or task.task_id in failed_ids:
             continue
-        # Check dependencies
-        deps_met = all(dep in completed_ids for dep in task.depends_on)
-        deps_failed = any(dep in failed_ids for dep in task.depends_on)
-        if deps_failed:
-            # Skip tasks whose dependencies failed
-            state.results[task.task_id] = {
-                "status": "skipped",
-                "error": "dependency failed",
-            }
-            state.tasks_skipped += 1
-            continue
-        if deps_met:
+        if all(dep in completed_ids for dep in task.depends_on):
             candidates.append(task)
 
     if not candidates:
         return None
-    # Sort by priority (lower = higher priority)
     candidates.sort(key=lambda t: t.priority)
     return candidates[0]
 
@@ -965,9 +976,10 @@ def run_overnight(
     save_state(state)
     write_progress_file(state, manifest)
 
-    # Clear previous decisions log
-    if DECISIONS_LOG.exists():
-        DECISIONS_LOG.unlink()
+    # Clear stale state from any previous run
+    for stale in [STATE_FILE, PROGRESS_FILE, DECISIONS_LOG, HEARTBEAT_FILE]:
+        if stale.exists():
+            stale.unlink()
     log_decision(f"Overnight session started. {len(manifest)} tasks. Deadline: {deadline.isoformat()}")
 
     # Initial commit
@@ -1093,7 +1105,10 @@ def run_overnight(
 
     # === Shutdown ===
     if state.status == "running":
-        state.status = "completed"
+        if state.tasks_completed == 0 and (state.tasks_failed > 0 or state.tasks_skipped > 0):
+            state.status = "failed"
+        else:
+            state.status = "completed"
     save_state(state)
     generate_morning_report(state, manifest)
     _release_lock()
