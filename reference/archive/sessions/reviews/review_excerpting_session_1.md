@@ -69,8 +69,8 @@
 
 | # | File | Finding | Fix | Fixed? |
 |---|------|---------|-----|--------|
-| F-1 | phase1_assembly.py (run_phase1, lines 1390–1429) | Stale join_point char_offset_in_assembled after footnote renumbering. Renumbering can change text length (⌜1⌝→⌜10⌝), shifting character offsets. Join_points are never updated. Rebase uses stale offsets → silent T-2 layer misattribution. Confirmed on 03_fiqh: 10-char growth, 9 stale JPs, all validation passes. | CC fix: add `_adjust_join_points_after_renumber()` helper. Apply in run_phase1 step 4 after renumbering. Update both chunk join_points and original_join_points. Add regression test. | [ ] |
-| F-2 | conftest.py, test_phase1_assembly.py, test_phase1_tree_walk.py, test_phase1_validation.py | 17 unused imports (F401). NEXT.md verification step 4 requires lint clean. | CC fix: `ruff check --fix engines/excerpting/tests/` | [ ] |
+| F-1 | phase1_assembly.py (run_phase1, lines 1390–1429) | Stale join_point char_offset_in_assembled after footnote renumbering. Renumbering can change text length (⌜1⌝→⌜10⌝), shifting character offsets. Join_points are never updated. Rebase uses stale offsets → silent T-2 layer misattribution. Confirmed on 03_fiqh: 10-char growth, 9 stale JPs, all validation passes. | CC fix: add `_adjust_join_points_after_renumber()` helper. Apply in run_phase1 step 4 after renumbering. Update both chunk join_points and original_join_points. Add regression test. | [x] Fixed in 2ebac25a. Verified: all 18 JPs correct on real 03_fiqh data. |
+| F-2 | conftest.py, test_phase1_assembly.py, test_phase1_tree_walk.py, test_phase1_validation.py | 17 unused imports (F401). NEXT.md verification step 4 requires lint clean. | CC fix: `ruff check --fix engines/excerpting/tests/` | [x] Fixed in 2ebac25a. `ruff check` → "All checks passed!" |
 
 ## SPEC Errata documented (architect-owned, not CC findings)
 
@@ -80,21 +80,23 @@
 - SPEC-NOTE-7: SPEC §4.2 says "word-boundary-aware" but implementation uses exact match. Exact match is correct (prevents "مصادر الأحكام" false positive). SPEC wording should say "exact match after noise stripping."
 
 ## Fixes committed
-- [ ] ALL findings above have `Fixed? [x]`
-- [ ] Fix commits pushed to repo
-- [ ] Tests re-run after fixes: `[N] passed`
-- [ ] `python tools/check_cross_engine_contracts.py` re-run after fixes → `[PASS/FAIL]`
+- [x] ALL findings above have `Fixed? [x]`
+- [x] Fix commits pushed to repo (2ebac25a)
+- [x] Tests re-run after fixes: 82 passed, 0 failed
+- [x] `python tools/check_cross_engine_contracts.py` re-run after fixes → PASS
 
 ## Verdict
 
-**Verdict: BLOCKED — 2 findings (F-1, F-2). Fix directive prepared in NEXT.md.**
+**Verdict: ACCEPT — zero unfixed findings. Repo clean at commit 2ebac25a.**
+
+F-1 (stale join_points) fixed and verified on real 03_fiqh 19-marker division: all 18 adjusted JPs point to correct positions in renumbered text. F-2 (lint) fixed: "All checks passed!" Normalization regression: 503 passed.
 
 ## Build metrics (cumulative)
 ```
-Excerpting engine:
-  Implementation: ~1505 lines (+1182 this session)
-  Tests: 81 passing (+81 this session, baseline was 0)
-  Test-to-code ratio: 5.4 tests per 100 impl lines
+Excerpting engine (Session 1 — ACCEPTED):
+  Implementation: ~1560 lines (+1240 this session, including fix)
+  Tests: 82 passing (+82 this session, baseline was 0)
+  Test-to-code ratio: 5.3 tests per 100 impl lines
   conftest factories: 8 (4 original + 4 new)
   SPEC sections implemented: §4.2, §4.3, §4.4, §4.5, §4.6, §4.7, §4.8, §4.9
   SPEC sections remaining: §5 (Phase 2), §6 (Phase 3), §7, §8, §9
