@@ -55,3 +55,23 @@ All errata resolved during normalization engine evaluation (March 2026).
 **Problem:** SPEC §4.2 said keyword matching is "word-boundary-aware" but also said "مصادر الأحكام" must NOT match. Word-boundary matching on "مصادر" WOULD match "مصادر الأحكام" (the keyword is a word within the heading). CC correctly resolved by using exact-match (full heading must equal keyword after noise stripping), which prevents the false positive.
 **Resolution:** SPEC §4.2 reworded to "exact match after Arabic noise stripping" with explicit rationale for why word-boundary matching is insufficient.
 **Fixed in:** Phase 2 handoff prep session.
+
+## SPEC-NOTE-8: §7.1 F-DET-5 word-boundary matching overridden by DD-S3-8 — OPEN
+
+**Found:** Excerpting Session 3 planning (March 2026).
+**Severity:** CORRECTNESS. SPEC text is wrong; implementation follows DD-S3-8.
+**Problem:** SPEC §7.1 F-DET-5 line 1469 says "Pattern matching uses word-boundary-aware search (the lesson from normalization engine S4/S5 — short Arabic stems produce false positives without boundary checks)." This is incorrect for evidence markers. The normalization S4/S5 lesson was about Arabic verb conjugations (genuinely different words, e.g. وذهب matching وذهبت). Evidence markers are nouns/verbs that routinely appear with Arabic proclitic prefixes (ال, و, ف, ب, ل, ك) attached directly without whitespace. Word-boundary checks reject valid matches catastrophically:
+- `إجماع`: boundary check rejects 124/163 (76%) — الإجماع, بالإجماع, للإجماع are all valid
+- `أخرجه`: boundary check rejects 62/503 (12%) — وأخرجه, فأخرجه are valid prefixed forms
+- `رواه`: boundary check rejects 39/511 (7.6%) — only 2 genuine FPs (0.13%) from أرواه
+**Empirical data:** 66 fixtures, 16.7M characters. False positive rate without boundary checks: <0.2%. False NEGATIVE rate WITH boundary checks: up to 76%.
+**Resolution:** Implementation uses plain substring matching (DD-S3-8). SPEC §7.1 F-DET-5 line 1469 should be updated to: "Pattern matching uses plain substring search. Word-boundary checks are explicitly NOT used — see DD-S3-8."
+**Status:** SPEC text not yet updated. Implementation correct per DD-S3-8.
+
+## SPEC-NOTE-9: §7.1 F-DET-9 references nonexistent `author_name_arabic` field — OPEN
+
+**Found:** Excerpting Session 3 planning (March 2026).
+**Severity:** Documentation. Implementation uses available field.
+**Problem:** SPEC §7.1 F-DET-9 says `resolved_name: layer_map[layer_id].author_name_arabic`. However, `TextLayerSegment` has no `author_name_arabic` field — only `author_canonical_id` (a string like "sch_XXXXX"). The scholar registry that resolves canonical IDs to Arabic display names is not yet built.
+**Resolution:** Implementation uses `resolved_name=layer.author_canonical_id` as a placeholder. This will be replaced when the scholar registry provides Arabic name resolution. SPEC §7.1 F-DET-9 should be updated to reference `author_canonical_id` with a note that Arabic name resolution is deferred.
+**Status:** SPEC text not yet updated. Implementation correct per DD-S3-9.

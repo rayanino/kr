@@ -23,6 +23,8 @@ from engines.normalization.contracts import (
     ContentFlags,
     ContentUnit,
     DivisionNode,
+    Footnote,
+    FootnoteType,
     HeadingConfidence,
     HeadingDetectionMethod,
     LayerMapEntry,
@@ -454,3 +456,143 @@ def _make_division_tree(
         children=children,
     )
     return [root]
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Phase 3 test helpers (Session 3)
+# ═══════════════════════════════════════════════════════════════════
+
+# Real Arabic text for multi-layer testing: matn + sharh
+_MATN_TEXT = "قال ابن مالك كلامنا لفظ مفيد كاستقم"
+_SHARH_TEXT = "يريد أن الكلام في اصطلاح النحويين هو اللفظ المفيد فائدة يحسن السكوت عليها"
+_MULTI_LAYER_TEXT = _MATN_TEXT + " " + _SHARH_TEXT
+_MATN_END = len(_MATN_TEXT)
+_SHARH_START = _MATN_END + 1  # +1 for the space between
+
+
+def _make_multi_layer_chunk(**overrides: Any) -> AssembledChunk:
+    """AssembledChunk with MATN + SHARH layers for attribution testing.
+
+    Default text: matn (40%) + sharh (60%), two layer segments,
+    both with author_canonical_id set.
+    """
+    text = overrides.pop("assembled_text", _MULTI_LAYER_TEXT)
+    tokens = text.split()
+    total = len(tokens)
+    word_count = sum(
+        1 for t in tokens if any("\u0600" <= c <= "\u06FF" for c in t)
+    )
+
+    matn_end = overrides.pop("matn_end", _MATN_END)
+    sharh_start = overrides.pop("sharh_start", _SHARH_START)
+
+    defaults: dict[str, Any] = {
+        "chunk_id": "div_ml_test_0",
+        "source_id": "src_ml_test",
+        "div_id": "div_ml_test_0",
+        "div_path": ["كتاب الألفية", "باب الكلام"],
+        "assembled_text": text,
+        "word_count": word_count,
+        "total_tokens": total,
+        "text_layers": [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_ibn_malik",
+                start=0,
+                end=matn_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_ibn_aqeel",
+                start=sharh_start,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ],
+        "footnotes": [],
+        "content_flags": ContentFlags(),
+        "physical_pages": [
+            PhysicalPage(volume=1, page_number_display="١", page_number_int=1)
+        ],
+        "structural_format": StructuralFormat.PROSE,
+        "heading_alignment_ok": True,
+        "assembly_metadata": AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        ),
+        "merge_history": None,
+        "split_info": None,
+    }
+    defaults.update(overrides)
+    return AssembledChunk(**defaults)
+
+
+# Text with embedded footnote markers for F-DET-8 testing
+_FN_TEXT = "وقال النبي صلى الله عليه وسلم ⌜1⌝ من توضأ فأحسن الوضوء ⌜2⌝ خرجت خطاياه"
+_FN_TOKENS = _FN_TEXT.split()
+
+
+def _make_chunk_with_footnotes(**overrides: Any) -> AssembledChunk:
+    """AssembledChunk with ⌜1⌝ and ⌜2⌝ footnote markers in the text.
+
+    Default: two footnotes with ref_marker="1" and "2" matching
+    markers embedded in assembled_text.
+    """
+    text = overrides.pop("assembled_text", _FN_TEXT)
+    tokens = text.split()
+    total = len(tokens)
+    word_count = sum(
+        1 for t in tokens if any("\u0600" <= c <= "\u06FF" for c in t)
+    )
+
+    defaults: dict[str, Any] = {
+        "chunk_id": "div_fn_test_0",
+        "source_id": "src_fn_test",
+        "div_id": "div_fn_test_0",
+        "div_path": ["باب الطهارة"],
+        "assembled_text": text,
+        "word_count": word_count,
+        "total_tokens": total,
+        "text_layers": [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id=None,
+                start=0,
+                end=len(text),
+                confidence=1.0,
+            )
+        ],
+        "footnotes": [
+            Footnote(
+                ref_marker="1",
+                text="متفق عليه من حديث عثمان رضي الله عنه",
+                footnote_type=FootnoteType.HADITH_TAKHRIJ,
+                confidence=0.95,
+            ),
+            Footnote(
+                ref_marker="2",
+                text="أي أتم أركانه وشروطه",
+                footnote_type=FootnoteType.LINGUISTIC_NOTE,
+                confidence=0.90,
+            ),
+        ],
+        "content_flags": ContentFlags(),
+        "physical_pages": [
+            PhysicalPage(volume=1, page_number_display="٥", page_number_int=5)
+        ],
+        "structural_format": StructuralFormat.PROSE,
+        "heading_alignment_ok": True,
+        "assembly_metadata": AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        ),
+        "merge_history": None,
+        "split_info": None,
+    }
+    defaults.update(overrides)
+    return AssembledChunk(**defaults)
