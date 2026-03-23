@@ -60,7 +60,7 @@ Mark tasks [x] when complete. Commit after each task.
   Command: `PYTHONIOENCODING=utf-8 python scripts/verify_normalized_integrity.py --sweep results/normalization_sweep_v3/corpus_sweep.jsonl`
   Acceptance: All checks CLEAN or INFORMATIONAL on v3 data
 
-- [ ] **T10: Update memory and session state**
+- [x] **T10: Update memory and session state**
   Update overnight_session_march22.md in memory with full results
   Update KNOWN_LIMITATIONS.md with calibration data from v3 sweep
   Commit everything, run final verification

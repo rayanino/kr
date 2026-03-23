@@ -41,6 +41,8 @@ only the core marker text is captured. `plain_texts` list updated to include pre
 `وقوله:`, `فقوله:`, `وأي:`, `فأي:`.
 **Risk:** LOW — safe direction (more granular layer boundaries, not fewer). The regex matches
 only و and ف prefixes (the two common Arabic conjunction clitics), not other prefix letters.
+**v3 calibration (7,475 books):** +97 multi-layer books detected (399→496).
+10 adversarial false-positive tests pass (وقف, وقع, وقت, فقط, فقه, فقد, وقاية, فقير).
 
 ## L-005: Bold character threshold 50 deviates from SPEC provisional 80
 
@@ -80,6 +82,8 @@ only و and ف prefixes (the two common Arabic conjunction clitics), not other p
 **Fix applied:** Re-enabled conditional openers (`إذا`, `لو`, `إن`) and closers (`فالحكم`, `فيجب`, `وجب`) with sentence-initial position requirement. The `_is_sentence_initial()` function scans backward up to 10 chars for terminal punctuation (`.`, `؟`, `!`, `؛`). Mid-sentence occurrences (common subordinating conjunction usage) are filtered out.
 **Remaining risk:** LOW-MEDIUM. Advisory flag for downstream engines. Does not modify text.
 The sentence-initial filter prevents the 15-19% false positive rate from mid-sentence `إذا`.
+**v3 calibration (7,475 books):** +7,661 mid_argument boundaries (25,800→33,461, +29.7%).
+Reclassified from mid_paragraph (-3,364) and mid_sentence (-4,297).
 
 ## L-009: Guillemet hadith distance heuristic — MITIGATED
 
@@ -90,6 +94,7 @@ The sentence-initial filter prevents the 15-19% false positive rate from mid-sen
 Hadith citations with even longer introductions still caught by other 3 patterns.
 **Remaining risk:** LOW — distance 80 is conservative. False positive risk minimal because
 guillemet usage in non-hadith contexts rarely follows `قال` within 80 chars.
+**v3 calibration (7,475 books):** +4 additional hadith detections across full corpus.
 
 ## L-010: Division tree overlap downgraded from fatal to warning
 
