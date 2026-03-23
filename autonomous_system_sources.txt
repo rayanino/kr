@@ -18,3 +18,7 @@ https://github.com/YaoApp/yao
 
 https://github.com/RayVentura/ShortGPT
 
+https://github.com/frankbria/ralph-claude-code
+
+
+

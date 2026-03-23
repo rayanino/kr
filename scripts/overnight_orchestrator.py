@@ -50,6 +50,8 @@ ABSOLUTE RULES:
 - There is no human present — do not ask questions
 - Commit your work with message prefix "overnight: "
 - Write a summary to overnight/results/{TASK_ID}/summary.md
+- ALL LLM calls within the pipeline go through OpenRouter ONLY
+- Use OPENROUTER_API_KEY — never direct Anthropic or OpenAI endpoints
 
 Read overnight/progress.md for context on what has been done tonight.
 Read the active engine's CLAUDE.md for current state.
@@ -76,7 +78,7 @@ class TaskDef:
     max_budget_usd: float = 2.0
     timeout_minutes: int = 30
     allowed_tools: list[str] = field(default_factory=list)
-    permission_mode: str = "plan"  # plan|bypassPermissions
+    permission_mode: str = "bypassPermissions"  # bypassPermissions|plan
     depends_on: list[str] = field(default_factory=list)
     priority: int = 5
     max_turns: int = 30
@@ -97,6 +99,7 @@ class TaskResult:
     gate_result: dict[str, Any] | None = None
     error: str | None = None
     model_used: str = ""
+    cost_usd: float = 0.0
 
 
 @dataclass
@@ -132,26 +135,39 @@ def git_head() -> str:
 
 
 def git_is_clean() -> bool:
-    """Check if working directory is clean."""
+    """Check if working directory is clean (ignoring overnight/transient files)."""
     result = subprocess.run(
         ["git", "status", "--porcelain"],
         capture_output=True, text=True, cwd=str(PROJECT_DIR),
     )
-    # Filter out known untracked dirs that are OK
-    lines = [
-        line for line in result.stdout.strip().split("\n")
-        if line.strip()
-        and not line.strip().startswith("?? overnight/")
-        and not line.strip().startswith("?? results/")
-        and not line.strip().startswith("?? .claude/scheduled_tasks")
-    ]
+    # Filter out overnight state files and transient paths regardless of status
+    IGNORED_PREFIXES = (
+        "overnight/", "results/", ".claude/scheduled_tasks",
+        ".claude/session_state",
+    )
+    lines = []
+    for line in result.stdout.strip().split("\n"):
+        if not line.strip():
+            continue
+        # Extract the file path (status chars are first 2 chars + space)
+        path_part = line[3:] if len(line) > 3 else line.strip()
+        if not any(path_part.startswith(p) for p in IGNORED_PREFIXES):
+            lines.append(line)
     return len(lines) == 0
 
 
 def git_rollback(commit_hash: str) -> None:
-    """Roll back to a specific commit."""
-    subprocess.run(
+    """Roll back to a specific commit and clean untracked files."""
+    result = subprocess.run(
         ["git", "reset", "--hard", commit_hash],
+        capture_output=True, text=True, cwd=str(PROJECT_DIR),
+    )
+    if result.returncode != 0:
+        log_decision(f"ROLLBACK FAILED: {result.stderr[:500]}")
+        raise RuntimeError(f"Git rollback failed: {result.stderr[:200]}")
+    # Clean untracked files created by the failed task (preserve overnight/)
+    subprocess.run(
+        ["git", "clean", "-fd", "--exclude=overnight/"],
         capture_output=True, text=True, cwd=str(PROJECT_DIR),
     )
     log_decision(f"ROLLBACK to {commit_hash[:8]}")
@@ -173,7 +189,8 @@ def git_commit(message: str, files: list[str] | None = None) -> str | None:
         # Nothing staged
         return None
     subprocess.run(
-        ["git", "commit", "-m", message],
+        ["git", "commit", "-m", message,
+         "--author", "KR Overnight <overnight@kr.local>"],
         capture_output=True, text=True, cwd=str(PROJECT_DIR),
     )
     return git_head()
@@ -193,17 +210,24 @@ def git_changed_files_since(commit_hash: str) -> list[str]:
 # ---------------------------------------------------------------------------
 
 
+def _atomic_write(path: Path, content: str) -> None:
+    """Write content to file atomically (write-to-temp-then-rename)."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text(content, encoding="utf-8")
+    tmp.replace(path)
+
+
 def save_state(state: OvernightState) -> None:
-    """Save state to JSON file."""
-    STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    STATE_FILE.write_text(json.dumps(asdict(state), indent=2, ensure_ascii=False))
+    """Save state to JSON file (atomic write)."""
+    _atomic_write(STATE_FILE, json.dumps(asdict(state), indent=2, ensure_ascii=False))
 
 
 def load_state() -> OvernightState | None:
     """Load state from JSON file, or None if not present."""
     if not STATE_FILE.exists():
         return None
-    data = json.loads(STATE_FILE.read_text())
+    data = json.loads(STATE_FILE.read_text(encoding="utf-8"))
     results = data.pop("results", {})
     state = OvernightState(**data)
     state.results = results
@@ -242,7 +266,7 @@ def write_progress_file(state: OvernightState, manifest: list[TaskDef]) -> None:
         lines.append("\n## Remaining")
         lines.extend(remaining)
 
-    PROGRESS_FILE.write_text("\n".join(lines) + "\n")
+    _atomic_write(PROGRESS_FILE, "\n".join(lines) + "\n")
 
 
 # ---------------------------------------------------------------------------
@@ -284,10 +308,10 @@ def preflight_checks() -> None:
     except FileNotFoundError:
         errors.append("Claude CLI not found in PATH")
 
-    # Test suite passes
+    # Test suite passes (all completed engines)
     test_result = subprocess.run(
         ["python", "-m", "pytest", "engines/source/tests/", "engines/normalization/tests/",
-         "-x", "-q", "--tb=no"],
+         "engines/excerpting/tests/", "-x", "-q", "--tb=no"],
         capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=300,
     )
     if test_result.returncode != 0:
@@ -356,9 +380,9 @@ def execute_task(task: TaskDef) -> TaskResult:
     result.end_time = datetime.now(timezone.utc).isoformat()
     result.duration_s = round(end - start, 1)
 
-    # Save task result to disk
+    # Save task result to disk (atomic write)
     result_file = task_results_dir / "result.json"
-    result_file.write_text(json.dumps(asdict(result), indent=2, ensure_ascii=False))
+    _atomic_write(result_file, json.dumps(asdict(result), indent=2, ensure_ascii=False))
 
     return result
 
@@ -379,6 +403,8 @@ def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
         cmd += ["--allowedTools", ",".join(task.allowed_tools)]
     if task.max_budget_usd > 0:
         cmd += ["--max-budget-usd", str(task.max_budget_usd)]
+    if task.max_turns > 0:
+        cmd += ["--max-turns", str(task.max_turns)]
 
     env = {**os.environ, "KR_OVERNIGHT": "1", "PYTHONIOENCODING": "utf-8"}
 
@@ -405,6 +431,7 @@ def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
         task_id=task.task_id, status=status,
         output_summary=str(summary)[:2000],
         error=error, model_used=task.model,
+        cost_usd=cost,
     )
 
 
@@ -451,7 +478,7 @@ def _execute_sdk(task: TaskDef, safety_prompt: str) -> TaskResult:
 
     options = ClaudeCodeOptions(
         allowed_tools=task.allowed_tools or ["Read", "Bash", "Glob", "Grep"],
-        permission_mode=task.permission_mode or "plan",
+        permission_mode=task.permission_mode or "bypassPermissions",
         model=task.model,
         append_system_prompt=safety_prompt,
         max_turns=task.max_turns,
@@ -500,10 +527,10 @@ def run_quality_gate(task: TaskDef, pre_snapshot: str) -> dict[str, Any]:
     """Run post-task quality checks. Returns {"passed": bool, "failures": [...]}."""
     failures: list[str] = []
 
-    # L1: Test suite
+    # L1: Test suite (all completed engines)
     test_result = subprocess.run(
         ["python", "-m", "pytest", "engines/source/tests/", "engines/normalization/tests/",
-         "-x", "-q", "--tb=short"],
+         "engines/excerpting/tests/", "-x", "-q", "--tb=short"],
         capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=300,
     )
     if test_result.returncode != 0:
@@ -604,14 +631,28 @@ def run_codex_verification(task: TaskDef) -> dict[str, Any]:
 
 
 def load_manifest(path: Path) -> list[TaskDef]:
-    """Load task manifest from JSON file."""
-    data = json.loads(path.read_text())
+    """Load task manifest from JSON file with validation."""
+    data = json.loads(path.read_text(encoding="utf-8"))
+    items = data.get("tasks", data if isinstance(data, list) else [])
+    known_fields = set(TaskDef.__dataclass_fields__)
+
     tasks: list[TaskDef] = []
-    for item in data.get("tasks", data if isinstance(data, list) else []):
-        tasks.append(TaskDef(**{
-            k: v for k, v in item.items()
-            if k in TaskDef.__dataclass_fields__
-        }))
+    for item in items:
+        # Warn on unknown fields (typo detection)
+        unknown = set(item.keys()) - known_fields
+        if unknown:
+            raise ValueError(
+                f"Unknown fields in task '{item.get('task_id', '?')}': {unknown}. "
+                f"Valid fields: {sorted(known_fields)}"
+            )
+        tasks.append(TaskDef(**item))
+
+    # Check for duplicate task IDs
+    ids = [t.task_id for t in tasks]
+    dupes = {x for x in ids if ids.count(x) > 1}
+    if dupes:
+        raise ValueError(f"Duplicate task IDs in manifest: {dupes}")
+
     return tasks
 
 
@@ -714,7 +755,7 @@ def generate_morning_report(state: OvernightState, manifest: list[TaskDef]) -> N
                     lines.append(f"- {line}")
             lines.append("")
 
-    MORNING_REPORT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    _atomic_write(MORNING_REPORT, "\n".join(lines) + "\n")
     print(f"Morning report written to {MORNING_REPORT}")
 
 
@@ -801,6 +842,8 @@ def run_overnight(
     # Initialize state
     now = datetime.now(timezone.utc)
     deadline = now + __import__("datetime").timedelta(hours=hours)
+    start_monotonic = time.monotonic()
+    max_seconds = hours * 3600
     state = OvernightState(
         run_id=now.strftime("%Y-%m-%d"),
         started_at=now.isoformat(),
@@ -836,10 +879,16 @@ def run_overnight(
     print("=" * 60)
 
     while not shutdown_requested:
-        # Time check
-        remaining = (deadline - datetime.now(timezone.utc)).total_seconds()
+        # Time check (monotonic — immune to sleep/NTP drift)
+        elapsed = time.monotonic() - start_monotonic
+        remaining = max_seconds - elapsed
         if remaining <= 0:
             log_decision("TIME LIMIT reached. Stopping.")
+            break
+
+        # Budget check
+        if state.total_cost_usd >= max_cost_usd:
+            log_decision(f"BUDGET LIMIT reached: ${state.total_cost_usd:.2f} >= ${max_cost_usd:.2f}")
             break
 
         # Circuit breaker
@@ -899,6 +948,9 @@ def run_overnight(
                     print(f"    Codex verification: CLEAN")
             except Exception as e:
                 log_decision(f"Codex verification failed for {task.task_id}: {e}")
+
+        # Track cost
+        state.total_cost_usd += result.cost_usd
 
         # Record result
         state.results[task.task_id] = asdict(result)

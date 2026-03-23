@@ -1,20 +1,17 @@
 {
-  "timestamp": "2026-03-23T08:19:31.720875+00:00",
+  "timestamp": "2026-03-23T20:25:19.182397+00:00",
   "branch": "master",
   "active_engine": "excerpting",
   "active_spec_section": null,
-  "last_committed_file": ".claude/overnight_work_queue.md",
+  "last_committed_file": "engines/excerpting/src/phase2_classify.py",
   "active_plan": null,
   "modified_files": [
     ".claude/session_state.json",
-    "NEXT.md",
-    "engines/excerpting/CLAUDE.md",
-    "engines/excerpting/SPEC.md",
-    "reference/archive/sessions/excerpting_integrity_audit_handoff.md"
+    "autonomous_system_sources.txt"
   ],
-  "uncommitted_summary": ".claude/session_state.json | 26 ++++++++++++++++++++------\n 1 file changed, 20 insertions(+), 6 deletions(-)",
-  "next_md_head": "# NEXT — Excerpting Engine: SPEC Complete → Integrity Audit → Build Prep\n\n## Current Position\n\n- Normalization engine: ✅ COMPLETE (420 tests, 7797 impl lines)\n- Architecture: COMMITTED at 5636ceb (Source ✅ → Normalization ✅ → Excerpting → Taxonomy → Synthesis)\n- Experiments: ✅ 23 divisions validated across 7 formats\n- Format diversity evaluation: ✅ PASS (commit 1690cdf, revised 8035e01)\n- **SPEC: ✅ COMPLETE** — 2381 lines, 12 sections. Coherence review passed.\n- **CLAUDE.md: ✅ UPDATED** — reflects complete SPEC\n- **contracts.py: STALE** — written for old 7-engine architecture, needs rewrite\n\n## What to Do — Step 3: Integrity Audit → contracts.py → Build Prep\n\n### Step 3a: kr-integrity Audit (Architect — 1 session)",
-  "recent_commits": "06db7fd infra: wire 3 safety hooks into settings.json (T8)\n52919a6 docs: KNOWN_LIMITATIONS.md updated with v3 corpus calibration data\ncad24ad data: full corpus v3 sweep (7,475 books) + impact analysis + integrity verified\n16476e9 data: T6 undiacritized investigation + T7 warning deep analysis\ne0ec153 test: adversarial L-004 tests + L-008 edge cases (T4+T5)",
+  "uncommitted_summary": ".claude/session_state.json    | 15 ++++++---------\n autonomous_system_sources.txt |  4 ++++\n 2 files changed, 10 insertions(+), 9 deletions(-)",
+  "next_md_head": "# NEXT — Excerpting Engine Session 2: Phase 2 (LLM Classification + Grouping)\n\n## Current Position\n\n- **Excerpting Phase 1:** ACCEPTED (commit `28a188ad`), all errata resolved\n- **HEAD:** `83ea23ef` on `master`\n- **Test baseline:** 77 passed (excerpting), 503 passed (normalization)\n- **Open SPEC errata:** None (SPEC-NOTE-4–7 all resolved)\n- **Phase 1 output:** `run_phase1()` produces `list[AssembledChunk]` with validated coverage, offsets, and layer attribution\n\n## What to Do\n\nImplement Phase 2: LLM Teaching Unit Extraction (SPEC §5). This fills the stubs in `phase2_classify.py` and `phase2_group.py`. Phase 2 is the engine's inference core — the only phase that calls an LLM.\n\n**Processing flow (§5.1):**",
+  "recent_commits": "bd3734ce fix: architect review â€” ValidationError feedback + V-P2-14 IndexError guard\n4d4648f7 review: BLOCKED excerpting Session 2 â€” F-1 DD-S2-8 validation feedback, F-2 IndexError path\nf965de87 feat: implement Phase 2 â€” LLM classification + grouping (excerpting engine)\n922dc6d0 handoff: excerpting Session 2 â€” Phase 2 LLM classification + grouping\n83ea23ef fix: resolve SPEC-NOTE-6 (expanded keyword list) and SPEC-NOTE-7 (exact match, not word-boundary)",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",

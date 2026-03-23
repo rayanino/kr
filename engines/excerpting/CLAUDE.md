@@ -52,10 +52,11 @@ Output: `writer.py` → `excerpts.jsonl` + `gate_queue.jsonl`.
 ## Current State
 
 - **SPEC:** COMPLETE (2387 lines)
-- **Contracts:** COMPLETE (1111 lines, independently reviewed, F-1 fixed)
-- **Stubs:** 9 module stubs with exact type signatures
-- **Tests:** conftest.py factories only (0 test files)
-- **Implementation:** NONE — build prep complete, ready for CC Session 1
+- **Contracts:** COMPLETE (1111 lines, independently reviewed)
+- **Phase 1:** COMPLETE (77 tests, 1,531 lines) — deterministic assembly
+- **Phase 2:** COMPLETE (72 tests, 854 lines) — LLM classification + grouping (review findings F-1/F-2 fixed)
+- **Phase 3:** STUBS (next target) — 4 stub files, 0 implementation
+- **Total:** 149 tests, 2,970 impl lines, 0 failures
 
 ## Build Metrics Target
 
