@@ -15,7 +15,7 @@ Mark tasks [x] when complete. Commit after each task.
 
 ## Queue
 
-- [ ] **T1: Deep integrity — read actual content.jsonl for 5 books and verify layer coverage char-by-char**
+- [x] **T1: Deep integrity — read actual content.jsonl for 5 books and verify layer coverage char-by-char**
   Files: `scripts/verify_normalized_integrity.py` (add new check)
   Input: Pick 5 diverse books from results/normalization_sweep_v2/corpus_sweep.jsonl
   Acceptance: New check reads content.jsonl, verifies text_layers span full primary_text

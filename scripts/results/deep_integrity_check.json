@@ -1,0 +1,68 @@
+{
+  "check": "deep_integrity",
+  "books_checked": 5,
+  "all_clean": true,
+  "generated_at": "2026-03-23T05:22:51.508262+00:00",
+  "results": [
+    {
+      "name": "آداب الحوار من خلال سيرة مصعب بن عمير رضي الله عنه",
+      "status": "CLEAN",
+      "content_units": 26,
+      "total_chars": 23928,
+      "total_diacritics": 464,
+      "diacritic_ratio": 0.019392,
+      "layer_count": 1,
+      "issues": [],
+      "issue_count": 0,
+      "elapsed": 0.04
+    },
+    {
+      "name": "آداب الحسبة",
+      "status": "CLEAN",
+      "content_units": 72,
+      "total_chars": 91612,
+      "total_diacritics": 39,
+      "diacritic_ratio": 0.000426,
+      "layer_count": 1,
+      "issues": [],
+      "issue_count": 0,
+      "elapsed": 0.08
+    },
+    {
+      "name": "أحكام القرآن للكيا الهراسي",
+      "status": "CLEAN",
+      "content_units": 274,
+      "total_chars": 270030,
+      "total_diacritics": 15377,
+      "diacritic_ratio": 0.056946,
+      "layer_count": 2,
+      "issues": [],
+      "issue_count": 0,
+      "elapsed": 0.3
+    },
+    {
+      "name": "آداب البحث والمناظرة",
+      "status": "CLEAN",
+      "content_units": 374,
+      "total_chars": 340949,
+      "total_diacritics": 9440,
+      "diacritic_ratio": 0.027687,
+      "layer_count": 1,
+      "issues": [],
+      "issue_count": 0,
+      "elapsed": 0.26
+    },
+    {
+      "name": "آداب الأكل",
+      "status": "CLEAN",
+      "content_units": 75,
+      "total_chars": 95772,
+      "total_diacritics": 7695,
+      "diacritic_ratio": 0.080347,
+      "layer_count": 1,
+      "issues": [],
+      "issue_count": 0,
+      "elapsed": 0.09
+    }
+  ]
+}
