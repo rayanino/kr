@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import pytest
 
 from engines.excerpting.contracts import ExcerptingErrorCodes
 from engines.excerpting.src.phase1_assembly import (

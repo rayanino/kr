@@ -20,9 +20,6 @@ from engines.excerpting.contracts import (
     TeachingUnit,
 )
 from engines.normalization.contracts import (
-    BoundaryContinuity,
-    BoundaryContinuityType,
-    ContinuityDetectionMethod,
     ContentFlags,
     ContentUnit,
     DivisionNode,

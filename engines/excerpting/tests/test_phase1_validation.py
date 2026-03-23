@@ -7,25 +7,11 @@ import pytest
 from engines.excerpting.contracts import (
     AssemblyMetadata,
     ExcerptingConfig,
-    SplitInfo,
-    _count_arabic_words,
 )
 from engines.excerpting.src.phase1_assembly import run_phase1, validate_phase1
 from engines.excerpting.tests.conftest import (
     _make_assembled_chunk,
-    _make_content_unit,
-    _make_division_node,
-    _make_division_tree,
     _make_normalized_package,
-)
-from engines.normalization.contracts import (
-    ContentFlags,
-    DivisionNode,
-    HeadingConfidence,
-    HeadingDetectionMethod,
-    LayerType,
-    StructuralFormat,
-    TextLayerSegment,
 )
 
 

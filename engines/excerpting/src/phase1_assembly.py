@@ -143,6 +143,62 @@ def _should_insert_space_mid_sentence(
     return False
 
 
+def _adjust_join_points_after_renumber(
+    old_text: str,
+    new_text: str,
+    join_points: list[JoinPoint],
+) -> list[JoinPoint]:
+    """Adjust join_point char_offset_in_assembled after footnote renumbering.
+
+    When renumbering changes marker lengths (e.g., ⌜1⌝→⌜10⌝), character
+    offsets downstream of the change shift. This recomputes offsets to match
+    the renumbered text.
+
+    Returns join_points unchanged if text length didn't change.
+    """
+    if len(old_text) == len(new_text) or not join_points:
+        return join_points
+
+    # Find all marker positions in old and new text
+    old_markers = list(_FOOTNOTE_MARKER_RE.finditer(old_text))
+    new_markers = list(_FOOTNOTE_MARKER_RE.finditer(new_text))
+
+    # Build cumulative delta table
+    # Each entry: (position_in_old_text after this marker, cumulative_shift)
+    deltas: list[tuple[int, int]] = []
+    cumulative = 0
+    for om, nm in zip(old_markers, new_markers):
+        delta = (nm.end() - nm.start()) - (om.end() - om.start())
+        if delta != 0:
+            cumulative += delta
+            deltas.append((om.end(), cumulative))
+
+    if not deltas:
+        return join_points
+
+    # Adjust each join_point's char_offset_in_assembled
+    adjusted: list[JoinPoint] = []
+    for jp in join_points:
+        shift = 0
+        for pos, cum_delta in deltas:
+            if jp.char_offset_in_assembled >= pos:
+                shift = cum_delta
+        if shift != 0:
+            adjusted.append(
+                JoinPoint(
+                    after_unit_index=jp.after_unit_index,
+                    before_unit_index=jp.before_unit_index,
+                    boundary_type=jp.boundary_type,
+                    separator_used=jp.separator_used,
+                    char_offset_in_assembled=jp.char_offset_in_assembled + shift,
+                )
+            )
+        else:
+            adjusted.append(jp)
+
+    return adjusted
+
+
 # ═══════════════════════════════════════════════════════════════════
 # §4.2 — Division Tree Walking
 # ═══════════════════════════════════════════════════════════════════
@@ -1394,10 +1450,6 @@ def run_phase1(
     finalized: list[AssembledChunk] = []
 
     for chunk in merged_chunks:
-        original_join_points[chunk.div_id] = list(
-            chunk.assembly_metadata.join_points
-        )
-
         indices = chunk.assembly_metadata.constituent_unit_indices
         flags = aggregate_content_flags(content_units, indices)
         all_fn = aggregate_footnotes(content_units, indices)
@@ -1408,6 +1460,16 @@ def run_phase1(
         ]
 
         new_text, new_fn, rmap = renumber_footnotes(chunk.assembled_text, chunk_fn)
+
+        # F-1 fix: adjust join_points for renumbering-induced offset shifts
+        adjusted_jps = _adjust_join_points_after_renumber(
+            chunk.assembled_text, new_text,
+            chunk.assembly_metadata.join_points,
+        )
+
+        # Save ADJUSTED join_points for split chunk layer rebasing (step 6)
+        original_join_points[chunk.div_id] = adjusted_jps
+
         pages = collect_physical_pages(content_units, indices)
         wc = _count_arabic_words(new_text)
         tt = len(new_text.split())
@@ -1422,7 +1484,10 @@ def run_phase1(
                     "content_flags": flags,
                     "physical_pages": pages,
                     "assembly_metadata": chunk.assembly_metadata.model_copy(
-                        update={"footnote_renumber_map": rmap}
+                        update={
+                            "footnote_renumber_map": rmap,
+                            "join_points": adjusted_jps,  # F-1 fix
+                        }
                     ),
                 }
             )

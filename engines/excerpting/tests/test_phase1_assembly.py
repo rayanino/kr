@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from engines.excerpting.contracts import ExcerptingErrorCodes
 from engines.excerpting.src.phase1_assembly import (
     _get_bc_separator,
     _should_insert_space_mid_sentence,

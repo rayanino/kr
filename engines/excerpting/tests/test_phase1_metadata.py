@@ -173,3 +173,93 @@ class TestCollectPhysicalPages:
         assert len(result) == 2
         assert result[0].page_number_int == 1
         assert result[1].page_number_int == 2
+
+
+class TestJoinPointAdjustmentAfterRenumber:
+    """Regression test for F-1: stale join_points after footnote renumbering."""
+
+    def test_join_points_adjusted_for_multi_digit_renumbering(self) -> None:
+        """15 pages each with ⌜1⌝ → markers 10-15 become 2-digit.
+
+        Join_point offsets must reflect the renumbered text, not the original.
+        """
+        from engines.excerpting.contracts import ExcerptingConfig
+        from engines.excerpting.src.phase1_assembly import run_phase1
+        from engines.excerpting.tests.conftest import (
+            _make_content_unit,
+            _make_normalized_package,
+        )
+        from engines.normalization.contracts import (
+            BoundaryContinuity,
+            BoundaryContinuityType,
+            ContinuityDetectionMethod,
+            Footnote,
+            FootnoteType,
+        )
+
+        # Build 15 content units, each with ⌜1⌝ in text and one footnote
+        units = []
+        for i in range(15):
+            bc = None
+            if i < 14:  # All but last have boundary_continuity
+                bc = BoundaryContinuity(
+                    type=BoundaryContinuityType.MID_PARAGRAPH,
+                    confidence=0.9,
+                    detection_method=ContinuityDetectionMethod.PUNCTUATION_ANALYSIS,
+                    continuation_hint=None,
+                )
+            units.append(
+                _make_content_unit(
+                    unit_index=i,
+                    primary_text=f"نص الصفحة رقم {i + 1} في الكتاب ⌜1⌝ وبقية النص هنا",
+                    boundary_continuity=bc,
+                    footnotes=[
+                        Footnote(
+                            ref_marker="1",
+                            text=f"حاشية الصفحة {i + 1}",
+                            footnote_type=FootnoteType.AUTHOR_ORIGINAL,
+                            confidence=0.9,
+                        )
+                    ],
+                )
+            )
+
+        pkg = _make_normalized_package(
+            content_units=units,
+            num_units=15,
+        )
+        config = ExcerptingConfig()
+        chunks, results = run_phase1(pkg, config)
+
+        assert len(chunks) >= 1
+        # All validation must pass
+        for r in results:
+            assert r["status"] in ("pass", "warning"), (
+                f"{r['check']} failed: {r['detail']}"
+            )
+
+        # The chunk should have renumbered markers (10+ are 2-digit)
+        chunk = chunks[0]
+        assert "⌜10⌝" in chunk.assembled_text, (
+            "Marker 10 should be 2-digit after renumbering"
+        )
+        assert "⌜15⌝" in chunk.assembled_text, (
+            "Marker 15 should be 2-digit after renumbering"
+        )
+
+        # Verify join_points: each offset must point to the correct position
+        # in the RENUMBERED assembled_text
+        for jp in chunk.assembly_metadata.join_points:
+            offset = jp.char_offset_in_assembled
+            sep = jp.separator_used
+            assert offset <= len(chunk.assembled_text), (
+                f"JP offset {offset} exceeds text length "
+                f"{len(chunk.assembled_text)}"
+            )
+            # The separator should appear at the offset position
+            if sep:
+                actual = chunk.assembled_text[offset : offset + len(sep)]
+                assert actual == sep, (
+                    f"JP at offset {offset}: expected separator "
+                    f"{repr(sep)}, got {repr(actual)}"
+                )
