@@ -151,6 +151,8 @@ def git_is_clean() -> bool:
             continue
         # Extract the file path (status chars are first 2 chars + space)
         path_part = line[3:] if len(line) > 3 else line.strip()
+        # Normalize Windows backslashes for consistent prefix matching
+        path_part = path_part.replace("\\", "/")
         if not any(path_part.startswith(p) for p in IGNORED_PREFIXES):
             lines.append(line)
     return len(lines) == 0
