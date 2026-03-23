@@ -291,7 +291,7 @@ def assemble_text(
 
     Skips content units with is_toc_page, is_index_page, or is_blank.
     Joins using boundary_continuity separator mapping.
-    Handles mid_sentence word-final detection.
+    mid_sentence boundaries always use space (SPEC-NOTE-4).
     Preserves all Arabic diacritics exactly.
 
     Returns:

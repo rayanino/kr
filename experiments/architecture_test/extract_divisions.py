@@ -25,7 +25,7 @@ EXCLUDE_KEYWORDS = ["مصادر", "مراجع", "فهرس", "ثبت المصاد
 
 # BoundaryContinuityType → join separator mapping
 BC_JOIN_MAP: dict[Optional[str], str] = {
-    "mid_sentence": "",        # no separator
+    "mid_sentence": " ",        # space (SPEC-NOTE-4: Arabic pages never split words)
     "mid_paragraph": "\n",     # single newline
     "mid_argument": "\n",      # single newline
     "section_break": "\n\n",   # double newline

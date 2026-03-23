@@ -675,6 +675,8 @@ This mapping is validated in the prototype (`BC_JOIN_MAP` in `extract_divisions.
 
 The previous heuristic (empty separator with word-final character detection for ة, ى, tanwin) was removed because it produced 92% word-merge corruption — 270 of 294 boundaries merged two separate Arabic words into unreadable text (e.g., "للخطأوَلِهَذَا" instead of "للخطأ وَلِهَذَا"). See SPEC-NOTE-4 in reference/SPEC_ERRATA.md.
 
+**Future mid-word boundaries:** The normalization SPEC §4.B.8 documents that OCR sources or corrupt Shamela exports may produce genuine mid-word `mid_sentence` boundaries (logged as `NORM_MIDWORD_BREAK`). When such sources are implemented, the `continuation_hint` field on `BoundaryContinuity` can signal the excerpting engine to use empty separator for those cases. Until then, the always-space rule applies — an unwanted space in a word is visible and correctable, while 92% silent word-merging is not.
+
 **Diacritics preservation:** All Arabic diacritics (U+064B–U+0652, U+0670) are preserved exactly. No Unicode normalization (NFC/NFD/NFKC/NFKD) is applied at any point. This is an absolute rule — violating it risks T-1 (Silent Text Corruption), since a single diacritic change can reverse meaning (حَرَّمَ "forbade" vs حَرَمَ "deprived").
 
 **Footnote reference markers:** The `⌜N⌝` markers in `primary_text` are preserved inline during assembly. Footnote renumbering (if `ref_marker` values collide across pages) is handled in §4.7.
