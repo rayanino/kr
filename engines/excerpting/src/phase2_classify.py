@@ -418,9 +418,7 @@ def run_phase2a(
                 # must be caught first (DD-S2-8: catch instructor
                 # validation errors and retry).
                 last_error_code = ExcerptingErrorCodes.EX_C_001
-                error_feedback = (
-                    f"\n\nPrevious output had validation error: {e}"
-                )
+                error_feedback = None  # DD-S2-8: schema errors are structural, not content
                 logger.warning(
                     "Chunk %s attempt %d/%d validation error: %s",
                     chunk.chunk_id,

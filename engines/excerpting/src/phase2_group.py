@@ -203,8 +203,15 @@ def verify_units(
     for unit in units:
         # V-P2-14: Derive word ranges from constituent segments
         if unit.segment_indices:
-            derived_start = segments[unit.segment_indices[0]].start_word
-            derived_end = segments[unit.segment_indices[-1]].end_word
+            try:
+                derived_start = segments[unit.segment_indices[0]].start_word
+                derived_end = segments[unit.segment_indices[-1]].end_word
+            except IndexError:
+                raise ValueError(
+                    f"V-P2-14: unit {unit.unit_index} references segment index "
+                    f"{unit.segment_indices[0]} or {unit.segment_indices[-1]}, "
+                    f"but only {len(segments)} segments exist"
+                )
             if unit.start_word != derived_start:
                 logger.warning(
                     "V-P2-14: unit %d start_word %d != derived %d "
@@ -321,9 +328,7 @@ def run_phase2b(
             except ValidationError as e:
                 # ValidationError is subclass of ValueError — catch first.
                 last_error_code = ExcerptingErrorCodes.EX_C_002
-                error_feedback = (
-                    f"\n\nPrevious output had validation error: {e}"
-                )
+                error_feedback = None  # DD-S2-8: schema errors are structural, not content
                 logger.warning(
                     "Chunk %s attempt %d/%d validation error: %s",
                     chunk.chunk_id,
