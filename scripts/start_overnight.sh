@@ -12,10 +12,20 @@ echo "Project: $(pwd)"
 echo "Time: $(date -u '+%Y-%m-%d %H:%M UTC')"
 echo ""
 
-# Pre-flight: verify clean git state
-if [ -n "$(git status --porcelain -- ':!overnight/' ':!results/' ':!.claude/scheduled_tasks')" ]; then
+# Pre-flight: verify clean git state (Python check — matches orchestrator's git_is_clean)
+DIRTY=$(git status --porcelain | python -c "
+import sys
+ignored = ('overnight/', 'results/', '.claude/scheduled_tasks', '.claude/session_state')
+for line in sys.stdin:
+    line = line.rstrip()
+    if not line: continue
+    path = line[3:] if len(line) > 3 else line.strip()
+    if not any(path.startswith(p) for p in ignored):
+        print(path)
+")
+if [ -n "$DIRTY" ]; then
     echo "ERROR: Uncommitted changes detected. Commit or stash before starting."
-    echo "$(git status --short | head -10)"
+    echo "$DIRTY"
     exit 1
 fi
 
