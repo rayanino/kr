@@ -461,7 +461,7 @@ Conditional rules: `self_containment_notes` is required (non-null, non-empty) wh
 
 | Field | Type | Required | Source | SPEC Reference |
 |-------|------|----------|--------|----------------|
-| `evidence_refs` | `list[EvidenceRef]` | yes | Deterministic + LLM | §7.1 F-DET-5 + §7.2 |
+| `evidence_refs` | `list[EvidenceRef]` | yes | Deterministic | §7.1 F-DET-5. Note: F-DET-5 performs structural pattern matching only (﴿...﴾ delimiters for Quran, hadith citation markers, consensus patterns). Unresolved references (e.g., partial Quran quotes with `surah: null`) remain null in core. LLM-assisted resolution of partial evidence references is a deferred capability — the §7.2 enrichment call does not update `evidence_refs`. The `takhrij_data` field (§7.2) provides LLM-extracted hadith detail separately. |
 | `takhrij_data` | `list[TakhrijEntry] \| null` | no | LLM enrichment | §7.2 |
 | `cross_references` | `list[CrossReference]` | yes | LLM enrichment | §7.2 |
 | `footnotes_relevant` | `list[Footnote]` | yes | Deterministic | §7.1 F-DET-8 |
@@ -691,12 +691,12 @@ Divisions with very few words produce low-quality LLM inputs — the model lacks
 
 **Merge algorithm:**
 1. After assembling all leaf divisions under the same parent node, identify those with `word_count < TINY_DIVISION_WORDS`.
-2. For each tiny division, merge with the **next sibling** under the same parent. If no next sibling exists, merge with the **previous sibling**.
-3. If the division is an only child (no siblings), process as-is regardless of size — there is nothing to merge with.
+2. For each tiny division, merge with the **next sibling** under the same parent. If no next sibling exists, merge with the **previous sibling**. **Merge size guard:** before merging, check whether the combined word count would exceed `OVERSIZED_DIVISION_WORDS`. If so, do NOT merge — leave the tiny division as a standalone chunk (same behavior as the only-child case in step 3). This prevents a merge→split sequence that would produce a chunk with both `merge_history` and `split_info`, violating I-AC-7.
+3. If the division is an only child (no siblings), or if all eligible siblings would exceed the size guard, process as-is regardless of size — there is nothing safe to merge with.
 4. Merging combines the assembled texts with a `"\n\n"` separator between them (they are separate divisions, so a section break is appropriate).
 5. The merged chunk's `div_id` is the first division's `div_id`. The merged chunk's `merge_history` records all merged `div_id` values.
 6. The merged chunk's `div_path` is the first division's path (the heading hierarchy).
-7. Repeat merging: if the result of a merge is still below threshold, merge again with the next sibling. This is recursive but bounded by the finite number of siblings.
+7. Repeat merging: if the result of a merge is still below threshold, merge again with the next sibling (subject to the size guard). This is recursive but bounded by the finite number of siblings.
 
 **Invariant preserved:** I-AC-6 requires `merge_history` to contain ≥2 entries with the first being `div_id`. The merge algorithm guarantees this.
 
@@ -1313,7 +1313,7 @@ The engine does NOT independently assess hadith authenticity. It records the gra
 
 **EV-3 (Consensus references):** When a segment has function `evidence_ijma`, Phase 3 records the scope of the claimed consensus (who is said to agree: all scholars? a specific school? the companions?) from the text.
 
-**Evidence extraction is LLM-assisted:** The surah/ayah identification for well-known verses can be deterministic (pattern match). For less common verses, partial quotations, or hadith identification, the Phase 3 LLM call handles extraction. The structured output includes evidence reference fields.
+**Evidence extraction scope:** Surah/ayah identification for well-known Quranic verses is deterministic (pattern match against ﴿...﴾ delimiters + canonical text lookup in F-DET-5). For less common verses, partial quotations, or detailed hadith identification (collection, number, grade), the §7.2 enrichment call produces `takhrij_data` entries. However, the §7.2 call does not update the `evidence_refs` list itself — unresolved references in `evidence_refs` (with `surah: null` or `scope: null`) remain in their partial state. Full LLM-assisted evidence resolution is a deferred capability.
 
 ### §6.4 — Implicit Reference Resolution
 
@@ -1407,9 +1407,11 @@ Uniqueness invariant: no two excerpts in the library share an `excerpt_id`. This
 
 **F-DET-2: `primary_text`**
 
-The teaching unit's full Arabic text, extracted from `assembled_text` using the unit's word offsets.
+The teaching unit's full Arabic text, extracted from `assembled_text` as a substring preserving all original whitespace.
 
-Algorithm: split `assembled_text` on whitespace into words. Extract words from `start_word` to `end_word` (inclusive). Join with single space.
+Algorithm: use the same word-to-character offset conversion defined in F-DET-3 step 1 (split `assembled_text` by whitespace, record each token's character start and end positions). Extract `primary_text = assembled_text[char_start : char_end + 1]` where `char_start` is the character position of the first character of token `start_word` and `char_end` is the character position of the last character of token `end_word`. This preserves all original whitespace (newlines, paragraph breaks, multiple spaces) within the unit's text range.
+
+**Note:** The extraction is a substring, not a split-and-rejoin. The difference matters: `assembled_text` may contain `\n\n` between paragraphs. Substring extraction preserves this structure. Split-and-rejoin would collapse it to a single space, violating I-ER-2 and losing structural information the owner needs for reading.
 
 This text is **immutable** — it is written once and never modified by subsequent processing or engines. It is the text the owner reads in the final library. Correctness depends on the offset normalization guarantee from §5.4.
 
@@ -1441,7 +1443,7 @@ This field supports downstream filtering (e.g., "show me all teaching units that
 
 **F-DET-5: `evidence_refs` (structural)**
 
-Structured evidence references detected by pattern matching in the unit's `primary_text`. This is the deterministic component of evidence extraction; §7.2 adds LLM-assisted extraction for partial quotes and hadith details.
+Structured evidence references detected by pattern matching in the unit's `primary_text`. This is purely deterministic — no LLM involvement. Unresolved references (partial Quran quotes with `surah: null`, hadith markers with `detail: null`) remain in their partial state. The §7.2 enrichment call produces separate `takhrij_data` entries for hadith details but does not update `evidence_refs` entries. Full LLM-assisted evidence resolution (completing partial Quran references, identifying hadith collections from partial quotes) is a deferred capability.
 
 Quran references (EV-1 partial):
 1. Scan `primary_text` for ﴿...﴾ delimiters.
@@ -1497,10 +1499,14 @@ Footnotes outside the unit's range are excluded — they belong to other teachin
 
 Other text layer authors whose text appears within this teaching unit but who are NOT the `primary_author_layer`.
 
-Algorithm: from the layer overlap computation in F-DET-3, identify all layers with >0% coverage that are not the primary layer. For each, record `{author_id, layer_id, role}` where `role` is determined by the layer relationship:
+Algorithm: from the layer overlap computation in F-DET-3, identify all layers with >0% coverage that are not the primary layer. For each, determine `role` by the layer relationship:
 - If the non-primary layer is the matn layer in a sharh unit → `role: "classification_frame"` (the matn text is the frame being commented on).
 - If the non-primary layer is a higher layer (hashiyah quoting sharh) → `role: "quoted_opinion"`.
 - Default → `role: "quoted_opinion"`.
+
+**Convert to `ScholarAttribution` format:** Each structural detection produces `{mention_text: "[structural: {layer_type}]", resolved_name: layer_map[layer_id].author_name_arabic, role: <as above>, confidence: 1.0, source: "layer_overlap"}`. The `mention_text` uses a synthetic marker (not Arabic text) to distinguish structural detections from LLM-detected text mentions. The `confidence` is 1.0 because attribution is deterministic from layer data. The `resolved_name` comes from the manifest's `layer_map` entry for that layer.
+
+**Deduplication with §7.2 LLM detections:** After §7.2 enrichment adds LLM-detected `resolved_scholars`, merge the two lists. If both F-DET-9 and §7.2 identify the same scholar (matching on `resolved_name`), keep the LLM entry (it has a real `mention_text` from the text and potentially a more specific `role`) and discard the structural entry. If F-DET-9 finds a layer author that §7.2 did not detect, the structural entry is preserved. This ensures every layer author with text in the unit appears in `quoted_scholars`, while avoiding duplicates.
 
 This is structural quoted-scholar detection (from layer metadata). §7.2 adds LLM-detected quoted scholars from the text content (e.g., "قال أبو حنيفة" when Abu Hanifa is not a layer author).
 
@@ -1884,7 +1890,7 @@ After Phase 3 completes for a chunk, the following checks are run before the `Ex
 
 **V-P3-1 (Excerpt ID uniqueness):** Every `excerpt_id` produced in this chunk is unique. No duplicate IDs within the chunk. Cross-chunk uniqueness is guaranteed by the ID format (includes div_id and unit_index).
 
-**V-P3-2 (Primary text integrity):** For each excerpt, `primary_text` extracted via word offsets matches `text_snippet` (first 80 chars). If they diverge, something went wrong in offset handling. Emit `EX-V-002`.
+**V-P3-2 (Primary text integrity):** For each excerpt, verify that the first 80 characters of `primary_text` match `text_snippet`. The comparison is whitespace-normalized: collapse runs of whitespace to a single space in both strings before comparing, because the LLM may normalize whitespace when copying the snippet. If they differ even after whitespace normalization, something went wrong in offset handling. Emit `EX-V-002`.
 
 **V-P3-3 (Author attribution completeness):** Every excerpt has a `primary_author_layer` value. No excerpt has `null` attribution — even LA-3 (ambiguous) cases produce an attribution (with the ambiguity flagged). If any excerpt lacks attribution, emit `EX-M-004`.
 
@@ -2260,7 +2266,7 @@ For each V-P2 check, the test must:
 | Check | What the test must verify |
 |-------|--------------------------|
 | V-P3-1 (Excerpt ID uniqueness) | Two units in the same chunk produce different `excerpt_id` values. |
-| V-P3-2 (Primary text integrity) | `primary_text` extracted via word offsets matches `text_snippet` (first 80 chars). Test with known text and known offsets. |
+| V-P3-2 (Primary text integrity) | `primary_text` first 80 characters match `text_snippet` after whitespace normalization (collapse runs of whitespace to single space in both). Test with known text containing `\n\n` paragraph breaks and known offsets; verify the comparison passes despite whitespace differences. Also test a genuine mismatch (wrong offsets) → EX-V-002. |
 | V-P3-3 (Author attribution completeness) | Every excerpt has a non-null `primary_author_layer`. Test: construct a chunk from a multi-layer source; verify all excerpts are attributed. |
 | V-P3-4 (Topic keyword validity) | Excerpts have 1–3 topic keywords after successful LLM enrichment. Test with mock LLM returning 0 keywords → EX-M-005 emitted. |
 | V-P3-5 (Self-containment consistency) | PARTIAL excerpt has non-null `context_hint`; FULL excerpt has null `context_hint`. Test both valid and invalid combinations. |

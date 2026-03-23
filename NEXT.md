@@ -6,7 +6,7 @@
 - Architecture: COMMITTED at 5636ceb (Source ✅ → Normalization ✅ → Excerpting → Taxonomy → Synthesis)
 - Experiments: ✅ 23 divisions validated across 7 formats
 - Format diversity evaluation: ✅ PASS (commit 1690cdf, revised 8035e01)
-- **SPEC: ✅ COMPLETE** — 2381 lines, 12 sections. Coherence review passed.
+- **SPEC: ✅ COMPLETE** — 2387 lines, 12 sections. Coherence review passed.
 - **CLAUDE.md: ✅ UPDATED** — reflects complete SPEC
 - **contracts.py: STALE** — written for old 7-engine architecture, needs rewrite
 
@@ -96,7 +96,7 @@ Estimated: 5–7 build sessions + 1 code audit + 3-probe evaluation.
 - Session 3: §7, §2.2, §8 (3 sections, 826 lines)
 - Session 4: §9, §10, §1 + coherence review + CLAUDE.md update (3 sections, 373 lines)
 
-Total: 4 sessions, 12 sections, 2381 lines.
+Total: 4 sessions, 12 sections, 2387 lines.
 
 ## Progress Tracker
 
