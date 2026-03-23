@@ -1,0 +1,40 @@
+{
+  "comparison": "pre-fix (normalization_sweep_v2) vs post-fix (post_fix_sweep)",
+  "sample_size": 100,
+  "generated_at": "2026-03-23T05:16:41.689575+00:00",
+  "fixes_applied": [
+    "L-009 (guillemet 50->80)",
+    "L-008 (conditional reasoning)",
+    "L-004 (conjunction prefix)"
+  ],
+  "results": {
+    "hadith_citations": {
+      "before": 97,
+      "after": 97,
+      "delta": 0,
+      "note": "L-009 impact may be in different books"
+    },
+    "mid_argument_boundaries": {
+      "before": 290,
+      "after": 365,
+      "delta": 75,
+      "note": "L-008 conditional reasoning now detected"
+    },
+    "mid_paragraph_boundaries": {
+      "before": 5660,
+      "after": 5626,
+      "delta": -34
+    },
+    "mid_sentence_boundaries": {
+      "before": 8234,
+      "after": 8193,
+      "delta": -41
+    },
+    "section_break_boundaries": {
+      "before": 5628,
+      "after": 5628,
+      "delta": 0
+    }
+  },
+  "interpretation": "+75 mid_argument from L-008 conditional reasoning. 75 boundaries previously classified as mid_paragraph/mid_sentence now correctly identified as mid_argument. This is the expected safe-direction improvement."
+}
