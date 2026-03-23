@@ -39,13 +39,13 @@ Mark tasks [x] when complete. Commit after each task.
   File: engines/normalization/tests/test_boundary_continuity.py
   Acceptance: إذا after ؛ is correctly detected as sentence-initial
 
-- [ ] **T6: Investigate the 39 undiacritized books — are any hadith/Quran texts?**
+- [x] **T6: Investigate the 39 undiacritized books — are any hadith/Quran texts?**
   Input: scripts/results/integrity_diacritics.json
   Check: Cross-reference with genre data from source sweep
   Output: Log findings to .claude/pending_decisions.log
   Acceptance: Determine if any undiacritized books are classical texts where diacritics are expected
 
-- [ ] **T7: Investigate the 1,892 books with validation warnings**
+- [x] **T7: Investigate the 1,892 books with validation warnings**
   Input: scripts/results/integrity_validation_gaps.json
   Analyze: char_run (8,260 warnings), low_arabic_ratio (4,530), division_overlap (2,544)
   Output: scripts/results/warning_deep_analysis.json

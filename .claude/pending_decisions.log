@@ -5,3 +5,19 @@
 - Cross-engine contracts: consistent for built engines. Legacy contracts for unbuilt engines expected to have mismatches.
 - Bare except audit: CLEAN — 0 bare except: handlers found in engines/, shared/, scripts/.
 - D-023 metadata flow: static analysis shows expected gaps at unbuilt engine boundaries.
+[2026-03-23 03:00] T6 FINDING: 39 undiacritized books investigated.
+4 books with potential concern:
+  - الأربعون المختارة من حديث الإمام أبي حنيفة (HADITH, 20K chars, 0 diacritics)
+  - القرآن وإعجازه العلمي (QURAN topic, 195K chars, 0 diacritics)
+  - تذكرة الأريب في تفسير الغريب (TAFSIR, 270K chars, 0 diacritics)
+  - جزء يشتمل على ثمانية وخمسين حديثا (HADITH collection, 26K chars, 0 diacritics)
+
+Assessment: These are likely MODERN EDITIONS that were published without diacritics.
+Not a normalization bug — the source text genuinely has no diacritics.
+However, downstream engines should be aware that hadith/Quran texts without diacritics
+need extra care for disambiguation (e.g., يجب vs يَجِبُ).
+
+The other 35 books are modern scholarly works, histories, and reference texts where
+zero diacritics is completely normal.
+
+VERDICT: INFORMATIONAL. No action needed. Downstream awareness noted.
