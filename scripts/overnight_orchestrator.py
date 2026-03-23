@@ -148,7 +148,7 @@ def git_is_clean() -> bool:
         ".claude/session_state", ".claude/plans/",
     )
     lines = []
-    for line in result.stdout.strip().split("\n"):
+    for line in result.stdout.splitlines():
         if not line.strip():
             continue
         # Extract the file path (status chars are first 2 chars + space)
