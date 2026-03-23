@@ -1,4 +1,4 @@
-# NEXT — Excerpting Engine SPEC: Section-by-Section Writing
+# NEXT — Excerpting Engine: SPEC Complete → Integrity Audit → Build Prep
 
 ## Current Position
 
@@ -6,155 +6,105 @@
 - Architecture: COMMITTED at 5636ceb (Source ✅ → Normalization ✅ → Excerpting → Taxonomy → Synthesis)
 - Experiments: ✅ 23 divisions validated across 7 formats
 - Format diversity evaluation: ✅ PASS (commit 1690cdf, revised 8035e01)
-- SPEC review: BLOCKED → driving rewrite (16 findings in `reference/archive/sessions/reviews/excerpting_spec_review.md`)
-- **SPEC Outline: ✅ COMPLETE** (`engines/excerpting/SPEC_OUTLINE.md`)
-- **Step 0 (evaluation): ✅** — Architect independently verified EVALUATION.md findings by reading Arabic text
-- **Step 1 (outline): ✅** — 763-line outline with source mapping, finding resolution, data model decision
-- **Step 2 (section writing): ✅ COMPLETE** — 12/12 sections, 2343 lines. Coherence review passed. Session 4 handoff: `reference/archive/sessions/excerpting_spec_session4_handoff.md`
+- **SPEC: ✅ COMPLETE** — 2343 lines, 12 sections. Coherence review passed.
+- **CLAUDE.md: ✅ UPDATED** — reflects complete SPEC
+- **contracts.py: STALE** — written for old 7-engine architecture, needs rewrite
 
-## What to Do — Step 2: Write Sections in Dependency Order
+## What to Do — Step 3: Integrity Audit → contracts.py → Build Prep
 
-### Before Writing: Setup ✅ DONE (Session 1)
+### Step 3a: kr-integrity Audit (Architect — 1 session)
 
-Old SPECs archived to `reference/archive/abd_code/excerpting/`. New SPEC.md created with header. Sessions 1–3 wrote 9 sections (§2.3, §2.1, §2.2, §3, §4, §5, §6, §7, §8).
+Run the kr-integrity 8-lens audit on the complete SPEC. This is the quality gate between "SPEC is written" and "SPEC is implementation-ready."
 
-### Continuing from a Previous Session
+**How:**
+1. Invoke `kr-integrity` skill
+2. Read `KNOWLEDGE_INTEGRITY.md` and `SILENT_FAILURES.md`
+3. Audit the SPEC in chunks to avoid context degradation:
+   - Chat 1: §1–§3 (Purpose, Contracts, Self-Containment)
+   - Chat 2: §4–§5 (Phase 1, Phase 2 — the longest sections)
+   - Chat 3: §6–§8 (Domain Rules, Phase 3, Error Handling)
+   - Chat 4: §9–§10 (Deferred, Tests)
+4. Every finding blocks. Fix findings in the SPEC before proceeding.
 
-If this is NOT the first session writing sections:
-1. Read the latest session handoff (check `reference/archive/sessions/` for most recent):
-   - Session 1: `reference/archive/sessions/excerpting_spec_session1_handoff.md`
-   - Session 2: `reference/archive/sessions/excerpting_spec_session2_handoff.md`
-   - Session 3: `reference/archive/sessions/excerpting_spec_session3_handoff.md`
-2. Read `engines/excerpting/SPEC_OUTLINE.md` in full — it's the architectural blueprint
-3. Read the current `engines/excerpting/SPEC.md` section headers (`grep "^## §\|^### §" engines/excerpting/SPEC.md`) to see what's written
-4. Check the progress tracker at the bottom of this file for the next unchecked section
-5. Read ONLY the source material for that section (listed in the outline and in the handoff)
+**Gate:** 0 unresolved findings from kr-integrity audit.
 
-### Section Writing
+### Step 3b: Rewrite contracts.py (CC task — 1 session)
 
-Write `engines/excerpting/SPEC.md` section by section. The outline (`SPEC_OUTLINE.md`) defines the section structure, content, source material, and writing order.
+After the SPEC passes integrity audit, rewrite `engines/excerpting/contracts.py` to match the new SPEC. This is a CC task — prepare a handoff via kr-preparing-cc-handoffs.
 
-**Writing order (dependency-driven):**
+**What contracts.py must define:**
+- Enumerations: `ScholarlyFunction` (16 types from §2.3.1), `SelfContainmentLevel` (3 levels), `StructuralFormat` (7 types)
+- Internal types: `AssembledChunk` (§2.3.2, 12 fields), `ClassifiedSegment` (§2.3.3, 7 fields), `TeachingUnit` (§2.3.4, 11 fields)
+- Output type: `ExcerptRecord` (§2.2.2, 33 fields)
+- Error codes: all 27 (EX-A/C/M/V/G) as constants or enum
+- Invariant validators: functions that check I-AC-*, I-CS-*, I-TU-*, I-ER-*
 
-1. **§2.3** Internal Data Model — everything else references these types
-2. **§2.1** Input Contract — what we receive
-3. **§3** Self-Containment Standard — the quality criterion
-4. **§4** Phase 1: Deterministic Preprocessing — read old passaging SPEC §4.A.2–§4.A.10
-5. **§5** Phase 2: Teaching Unit Extraction — read old atomization SPEC §4.A + experiment run_tests.py
-6. **§6** Domain-Specific Rules — read old excerpting SPEC §4.A.2–§4.A.7
-7. **§7** Phase 3: Metadata Enrichment — read old excerpting SPEC Phase 3
-8. **§2.2** Output Contract — now fully specified by Phase 3 output
-9. **§8** Error Handling and Configuration
-10. **§1** Purpose and Scope — written last, after all content known
-11. **§9** Deferred Capabilities
-12. **§10** Test Requirements
+**CC must also:**
+- Keep Pydantic models for schema validation
+- Ensure ExcerptRecord validates against §2.2.3 output invariants
+- Add factory helpers for tests (following normalization `conftest.py` patterns)
 
-**One section per prompt.** For each section:
-1. Read the relevant old SPEC sections + normalization contracts + experiment data
-2. Analyze: alignment with architecture? best design? future regrets? evidence-grounded? edge cases?
-3. Write the new section
-4. Commit to `engines/excerpting/SPEC.md`
-5. Fix everything within a section before moving to the next
+### Step 3c: Build Prep (Architect — 1 session)
 
-## Key Design Decisions (already made in outline)
+After contracts.py is updated, run `kr-build-prep` to prepare for implementation:
+- Technology survey (what libraries for offset handling, Arabic word counting, etc.)
+- Architecture stubs with type hints and docstrings
+- Initial test skeleton (conftest.py, fixture structure)
+- Updated CLAUDE.md with implementation guidance
 
-**Internal data model: Option C (Hybrid)**
-- Phase 1 → `AssembledChunk` (assembled text + metadata from division/chunk)
-- Phase 2a → `ClassifiedSegment[]` (word offsets + 16-type scholarly function)
-- Phase 2b → `TeachingUnit[]` (grouped segments + self-containment)
-- Phase 3 → `ExcerptRecord` (enriched teaching unit with all metadata)
+**Gate:** NEXT.md updated to a build-phase directive for CC.
 
-**Self-containment: 3-level system** (FULL / PARTIAL / DEPENDENT) — extends the experiment's binary flag with actionable levels for Phase 3 and human gates. Design extension, must be validated in build.
+## After Step 3 — Build Phase
 
-**D-011: Division/chunk containment** — structurally enforced (LLM only sees one chunk).
+The excerpting engine build follows the normalization engine pattern:
+- Session-based: one processing phase per CC session
+- Phase 1 first (deterministic, unit-testable without LLM)
+- Phase 2 after Phase 1 passes (requires mock LLM for testing)
+- Phase 3 after Phase 2 passes (requires mock LLM + consensus logic)
+- Integration testing after all 3 phases
 
-## Read First (per section)
+Estimated: 5–7 build sessions + 1 code audit + 3-probe evaluation.
 
-After the archive step, old SPECs are at these paths:
-- Old passaging SPEC: `engines/passaging/SPEC.md` (not moved — passaging engine dir stays)
-- Old atomization SPEC: `engines/atomization/SPEC.md` (not moved)
-- Old excerpting SPEC (original): `reference/archive/abd_code/excerpting/SPEC_old_original.md` (moved during setup)
-- Old excerpting SPEC (blocked attempt): `reference/archive/abd_code/excerpting/SPEC_old_blocked.md` (moved during setup)
+## Key Design Decisions (finalized in SPEC)
 
-**For §2.3 + §2.1:**
-- `engines/normalization/contracts.py` — authoritative input schema
-- `experiments/architecture_test/run_tests.py` — validated experiment schemas
-
-**For §3:**
-- `KNOWLEDGE_INTEGRITY.md` — T-4 (Context Loss)
-- Old excerpting SPEC §5 (at archive path above) — quality layers
-
-**For §4:**
-- `engines/passaging/SPEC.md` §4.A.1–§4.A.10 — Phase 1 source material
-- `experiments/architecture_test/extract_divisions.py` — validated prototype
-
-**For §5:**
-- **Session 1 handoff** `reference/archive/sessions/excerpting_spec_session1_handoff.md` — critical findings: LLM offset normalization, reading order, traps
-- `engines/atomization/SPEC.md` §4.A.1–§4.A.5 — classification taxonomy
-- `experiments/architecture_test/run_tests.py` — validated prompts + schemas
-
-**For §6:**
-- Old excerpting SPEC §4.A.2–§4.A.7 (at archive path above) — domain design
-- `experiments/format_diversity_test/EVALUATION_WORKBOOK.md` — verse-commentary empirical results
-
-**For §7:**
-- Old excerpting SPEC §4.A.1 Phase 3 (at archive path above) — metadata enrichment
-- `KNOWLEDGE_INTEGRITY.md` — consensus and gates
-
-**For §8-§10:**
-- Old SPECs §7-§8 and §10 (all at paths above) — error handling, config, test patterns
-- Normalization engine patterns for consistency
-
-## Context Management
-
-The source material exceeds 400KB (passaging 148KB + atomization 178KB + excerpting 98KB). Read ONLY what the current section needs. **Do NOT front-load all reading.**
-
-If context degrades past prompt 6-7 in a chat, **start a new chat**. The SPEC_OUTLINE.md ensures continuity — the new session reads the outline and continues from the next section.
+- **Internal data model: Option C (Hybrid)** — Phase 1→AssembledChunk, Phase 2a→ClassifiedSegment[], Phase 2b→TeachingUnit[], Phase 3→ExcerptRecord
+- **Self-containment: 3-level** — FULL/PARTIAL/DEPENDENT
+- **D-011: Division/chunk containment** — structurally enforced (LLM sees one chunk)
+- **Phase 3 LLM: Per-chunk enrichment call** — inter-unit context improves quality
+- **No proposed_leaf** — topic keywords only, taxonomy engine does placement
+- **Consensus models:** enrichment=Opus 4.6, verification=GPT-4.1, escalation=Command A
 
 ## Critical Constraints
 
 - **Budget: UNLIMITED.** Never mention cost as a factor.
 - **All LLM calls through OpenRouter.** Model: anthropic/claude-opus-4.6.
 - **D-011 = division/chunk containment.** Excerpts cannot span boundaries.
-- **§4.B capabilities are deferred.** Core engine first (§9 in new SPEC).
-- **No implementation code.** Stubs with type hints acceptable.
+- **§4.B capabilities are deferred.** Core engine first (§9 in SPEC).
+- **SPEC is behavioral authority.** When code and SPEC conflict, SPEC governs.
 
 ## Skills to Invoke
 
-At session start, explicitly invoke ALL of these:
-- `kr-spec-review` — for analyzing old SPEC sections being absorbed
-- `kr-research` — for domain research on design choices (8+ searches per decision)
-- `thinking-frameworks` — for multi-angle analysis (3+ perspectives per design decision)
-- `kr-integrity` — for T-1 through T-7 threat analysis on each section
-- `critical-review` — for self-verification of produced sections
-- `prompt-engineer` — for Phase 2 LLM prompt specification
+- For integrity audit: `kr-integrity` + `critical-review`
+- For CC handoff: `kr-preparing-cc-handoffs` + `critical-review`
+- For build prep: `kr-build-prep` + `kr-research` + `thinking-frameworks`
 
-## Do NOT Do
+## Session History
 
-- Do NOT "rewrite the old SPEC" — write a NEW SPEC that synthesizes three old SPECs + experiments
-- Do NOT read all 400KB of source material at session start
-- Do NOT preserve passage_id, atom_ids, or the atom-as-input model
-- Do NOT write implementation code
-- Do NOT include §4.B capabilities in core sections (separate §9)
-- Do NOT defer findings within a section — fix before moving to next
-- Do NOT skip the outline's dependency order — sections depend on each other
+- Session 0: SPEC_OUTLINE.md evaluation (Step 0)
+- Session 1: §2.3, §2.1, §3, §4, §5 (5 sections, 1316 lines)
+- Session 2: §6 (1 section, 155 lines)
+- Session 3: §7, §2.2, §8 (3 sections, 826 lines)
+- Session 4: §9, §10, §1 + coherence review + CLAUDE.md update (3 sections, 373 lines)
+
+Total: 4 sessions, 12 sections, 2343 lines.
 
 ## Progress Tracker
 
-Update this after each section is committed. The next session (if context forces a new chat) continues from the first unchecked item.
-
-- [x] Setup: archive old SPEC.md + SPEC_CORE.md, create new file header
-- [x] §2.3 Internal Data Model
-- [x] §2.1 Input Contract
-- [x] §3 Self-Containment Standard
-- [x] §4 Phase 1: Deterministic Preprocessing
-- [x] §5 Phase 2: Teaching Unit Extraction
-- [x] §6 Domain-Specific Rules
-- [x] §7 Phase 3: Metadata Enrichment
-- [x] §2.2 Output Contract
-- [x] §8 Error Handling and Configuration
-- [x] §1 Purpose and Scope
-- [x] §9 Deferred Capabilities
-- [x] §10 Test Requirements
-- [x] Coherence review pass (fix 7 scrambled error triggers)
-- [ ] Step 3: Update contracts.py and CLAUDE.md
+- [x] Step 0: Evaluate SPEC_OUTLINE.md
+- [x] Step 1: Write SPEC_OUTLINE.md
+- [x] Step 2: Write all 12 SPEC sections + coherence review
+- [x] Step 2 bonus: Update CLAUDE.md
+- [ ] Step 3a: kr-integrity audit
+- [ ] Step 3b: Rewrite contracts.py (CC task)
+- [ ] Step 3c: Build prep (architecture stubs, test skeleton)
+- [ ] Step 4+: Build (Phase 1 → Phase 2 → Phase 3 → integration)
