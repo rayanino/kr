@@ -1,102 +1,646 @@
-# NEXT — Excerpting Engine: SPEC Complete → Integrity Audit → Build Prep
+# NEXT — Excerpting Engine: Rewrite contracts.py from Scratch
 
 ## Current Position
 
 - Normalization engine: ✅ COMPLETE (420 tests, 7797 impl lines)
-- Architecture: COMMITTED at 5636ceb (Source ✅ → Normalization ✅ → Excerpting → Taxonomy → Synthesis)
-- Experiments: ✅ 23 divisions validated across 7 formats
-- Format diversity evaluation: ✅ PASS (commit 1690cdf, revised 8035e01)
-- **SPEC: ✅ COMPLETE** — 2387 lines, 12 sections. Coherence review passed.
-- **CLAUDE.md: ✅ UPDATED** — reflects complete SPEC
-- **contracts.py: STALE** — written for old 7-engine architecture, needs rewrite
+- Excerpting SPEC: ✅ COMPLETE (2387 lines, 28 error codes, 29 invariants)
+- kr-integrity audit: ✅ PASS (11 HIGH, 15 MEDIUM, 2 LOW — all fixed)
+- Post-audit deep review: ✅ PASS (1 HIGH, 3 MEDIUM — all fixed)
+- HEAD commit: `073f078` (SPEC cleanup: phantom EvidenceRef fields + PARTIAL scope)
+- **Excerpting contracts.py: STALE — 557 lines, old 7-engine architecture. DELETE AND REWRITE.**
+- Excerpting tests: 0 existing tests passing (no build work done yet)
 
-## What to Do — Step 3: Integrity Audit → contracts.py → Build Prep
+## What to Do
 
-### Step 3a: kr-integrity Audit (Architect — 1 session)
+Delete `engines/excerpting/contracts.py` and write it from scratch. The new file defines ALL Pydantic models for the excerpting engine's data pipeline:
 
-Run the kr-integrity 8-lens audit on the complete SPEC. This is the quality gate between "SPEC is written" and "SPEC is implementation-ready."
+```
+NormalizedPackage (input — from engines/normalization/contracts.py, DO NOT redefine)
+  → AssembledChunk (Phase 1 output)
+    → ClassifiedSegment (Phase 2a output)
+      → TeachingUnit (Phase 2b output)
+        → ExcerptRecord (Phase 3 output / engine output)
+```
 
-**How:**
-1. Invoke `kr-integrity` skill
-2. Read `KNOWLEDGE_INTEGRITY.md` and `SILENT_FAILURES.md`
-3. Audit the SPEC in chunks to avoid context degradation:
-   - Chat 1: §1–§3 (Purpose, Contracts, Self-Containment)
-   - Chat 2: §4–§5 (Phase 1, Phase 2 — the longest sections)
-   - Chat 3: §6–§8 (Domain Rules, Phase 3, Error Handling)
-   - Chat 4: §9–§10 (Deferred, Tests)
-4. Every finding blocks. Fix findings in the SPEC before proceeding.
+Plus: enumerations, sub-types, LLM response schemas, error codes, invariant validators, configuration constants, and test factory helpers.
 
-**Gate:** 0 unresolved findings from kr-integrity audit.
+## Context
 
-### Step 3b: Rewrite contracts.py (CC task — 1 session)
+The old `contracts.py` defines types like `LifecycleStage`, `ContextAtomRole`, `ExcerptStatus` that no longer exist. The new SPEC uses a completely different data model (3 intermediate types + 1 output type instead of the old single-ExcerptRecord model). A patch would be more work than a rewrite and would leave dead code.
 
-After the SPEC passes integrity audit, rewrite `engines/excerpting/contracts.py` to match the new SPEC. This is a CC task — prepare a handoff via kr-preparing-cc-handoffs.
+The integrity audit (commits `10537ce` + `2ae92ac`) and a follow-up cleanup (`073f078`) introduced 12 new artifacts that must appear in the new contracts.py. These are listed explicitly in the Critical Audit Artifacts table below.
 
-**What contracts.py must define:**
-- Enumerations: `ScholarlyFunction` (16 types from §2.3.1), `SelfContainmentLevel` (3 levels), `StructuralFormat` (7 types)
-- Internal types: `AssembledChunk` (§2.3.2, 12 fields), `ClassifiedSegment` (§2.3.3, 7 fields), `TeachingUnit` (§2.3.4, 11 fields)
-- Output type: `ExcerptRecord` (§2.2.2, 33 fields)
-- Error codes: all 27 (EX-A/C/M/V/G) as constants or enum
-- Invariant validators: functions that check I-AC-*, I-CS-*, I-TU-*, I-ER-*
+## Owner Action Needed
 
-**CC must also:**
-- Keep Pydantic models for schema validation
-- Ensure ExcerptRecord validates against §2.2.3 output invariants
-- Add factory helpers for tests (following normalization `conftest.py` patterns)
+None — this is a CC-only task.
 
-### Step 3c: Build Prep (Architect — 1 session)
+## Read First (in this order)
 
-After contracts.py is updated, run `kr-build-prep` to prepare for implementation:
-- Technology survey (what libraries for offset handling, Arabic word counting, etc.)
-- Architecture stubs with type hints and docstrings
-- Initial test skeleton (conftest.py, fixture structure)
-- Updated CLAUDE.md with implementation guidance
+1. **`engines/excerpting/CLAUDE.md`** — engine orientation (109 lines)
+2. **`engines/excerpting/SPEC.md` §2.3** (lines 79–278) — internal data model: enumerations, AssembledChunk, ClassifiedSegment, TeachingUnit, ExcerptRecord summary, design constraints
+3. **`engines/excerpting/SPEC.md` §2.2** (lines 365–521) — output contract: ExcerptRecord (33 fields, 7 categories), sub-type definitions (PageRange, AuthorAttribution, ScholarAttribution, EvidenceRef, TakhrijEntry, CrossReference, TermVariant, ConsensusRecord, ConsensusDecision), output invariants I-ER-1 through I-ER-7
+4. **`engines/excerpting/SPEC.md` §3.2** (lines 539–558) — self-containment formal criteria (C-SC-1 through C-SC-5), referenced by invariants
+5. **`engines/excerpting/SPEC.md` §8.1** (lines 1915–1986) — error code catalog (28 codes in 5 categories)
+6. **`engines/excerpting/SPEC.md` §8.3** (lines 2018–2074) — configuration parameters (20 parameters)
+7. **`engines/excerpting/SPEC.md` §7.2.4** (lines 1669–1728) — LLM enrichment response schema (EnrichmentResult, UnitEnrichment, ResolvedScholar, TakhrijEntry, TermVariant, CrossReference)
+8. **`engines/excerpting/SPEC.md` §7.3.2** (lines 1765–1824) — verification response schema (VerificationResult, VerificationItem)
+9. **`engines/excerpting/SPEC.md` §5.2.4** (lines 874–887) — Phase 2a classification response schema (ClassificationResult wrapping ClassifiedSegment)
+10. **`engines/excerpting/SPEC.md` §5.3.4** (lines 1019–1031) — Phase 2b grouping response schema (ExtractionResult wrapping TeachingUnit)
+11. **`engines/normalization/contracts.py`** — reference implementation for Pydantic patterns (725 lines). Follow the same style: `str, Enum` for enums, `BaseModel` for models, `Field(...)` with descriptions, `model_validator` for cross-field checks, sectioned with `# ═══` comment blocks
+12. **`engines/normalization/tests/conftest.py`** (lines 1–120) — factory helper patterns: `_make_source_metadata(**overrides)` as the template for `_make_assembled_chunk(**overrides)`, `_make_teaching_unit(**overrides)`, `_make_excerpt_record(**overrides)` factories
 
-**Gate:** NEXT.md updated to a build-phase directive for CC.
+Do NOT read the entire SPEC. The SPEC is 2387 lines; the sections listed above contain everything contracts.py needs. Sections §4–§7 contain implementation logic (algorithms, prompts, processing steps) that belongs in the engine code, not in contracts.
 
-## After Step 3 — Build Phase
+## What to Build
 
-The excerpting engine build follows the normalization engine pattern:
-- Session-based: one processing phase per CC session
-- Phase 1 first (deterministic, unit-testable without LLM)
-- Phase 2 after Phase 1 passes (requires mock LLM for testing)
-- Phase 3 after Phase 2 passes (requires mock LLM + consensus logic)
-- Integration testing after all 3 phases
+### 1. Enumerations (from §2.3.1)
 
-Estimated: 5–7 build sessions + 1 code audit + 3-probe evaluation.
+**`ScholarlyFunction`** — 16 values: `definition`, `rule_statement`, `evidence_quran`, `evidence_hadith`, `evidence_ijma`, `evidence_qiyas`, `evidence_rational`, `opinion_statement`, `refutation`, `example`, `condition_exception`, `cross_reference`, `narration`, `editorial_note`, `structural_transition`, `unclassified`.
 
-## Key Design Decisions (finalized in SPEC)
+**`SelfContainmentLevel`** — 3 values: `FULL`, `PARTIAL`, `DEPENDENT`.
 
-- **Internal data model: Option C (Hybrid)** — Phase 1→AssembledChunk, Phase 2a→ClassifiedSegment[], Phase 2b→TeachingUnit[], Phase 3→ExcerptRecord
-- **Self-containment: 3-level** — FULL/PARTIAL/DEPENDENT
-- **D-011: Division/chunk containment** — structurally enforced (LLM sees one chunk)
-- **Phase 3 LLM: Per-chunk enrichment call** — inter-unit context improves quality
-- **No proposed_leaf** — topic keywords only, taxonomy engine does placement
-- **Consensus models:** enrichment=Opus 4.6, verification=GPT-4.1, escalation=Command A
+**`StructuralFormat`** — 7 values. **DO NOT redefine.** Import from `engines.normalization.contracts`. The excerpting engine inherits this enum, it does not own it.
 
-## Critical Constraints
+### 2. Sub-types (from §2.2.2 and §2.3.2)
 
-- **Budget: UNLIMITED.** Never mention cost as a factor.
-- **All LLM calls through OpenRouter.** Model: anthropic/claude-opus-4.6.
-- **D-011 = division/chunk containment.** Excerpts cannot span boundaries.
-- **§4.B capabilities are deferred.** Core engine first (§9 in SPEC).
-- **SPEC is behavioral authority.** When code and SPEC conflict, SPEC governs.
+These are referenced by the main types. Define them first.
+
+**`PageRange`** (new from integrity audit):
+```
+volume: int | null
+start_page: int
+end_page: int
+```
+
+**`AuthorAttribution`**:
+```
+layer_id: str
+author_id: str
+coverage_pct: float  # 0.0–1.0
+rule_applied: str    # one of "LA-1", "LA-2", "LA-3", "LA-4"
+```
+
+**`ScholarAttribution`**:
+```
+mention_text: str
+resolved_name: str | null
+role: str            # one of "quoted_opinion", "classification_frame", "refuted_position"
+confidence: float    # 0.0–1.0
+source: str          # one of "layer_overlap", "llm_enrichment"
+```
+
+**`EvidenceRef`**:
+```
+type: str            # one of "quran", "hadith", "ijma"
+surah: int | null
+ayah_start: int | null
+ayah_end: int | null
+text_snippet: str
+marker_text: str | null
+scope: str | null
+```
+
+**`TakhrijEntry`**:
+```
+hadith_text_snippet: str
+collections: list[str]
+hadith_numbers: list[str]    # may be empty
+grade: str | null
+grade_source: str | null
+```
+
+**`CrossReference`**:
+```
+reference_text: str
+target_description: str | null
+target_div_id: str | null = None    # MUST default to None — see note below
+resolved: bool
+```
+
+**IMPORTANT:** `target_div_id` must have a default of `None` (not just nullable without a default). Reason: this type is shared between the ExcerptRecord (§2.2.2, which has `target_div_id`) and the LLM response schema (§7.2.4, which does NOT produce `target_div_id`). Phase 3 deterministic processing (division tree heading search) populates `target_div_id` after LLM enrichment. If `target_div_id` is required-without-default, `instructor` will reject the LLM response for the missing field.
+
+**`TermVariant`**:
+```
+term: str
+variants: list[str]
+```
+
+**`ConsensusDecision`**:
+```
+decision_type: str
+enrichment_value: str
+verifier_value: str | null
+verifier_agrees: bool | null
+escalation_value: str | null
+final_value: str
+resolution_method: str
+```
+
+**`ConsensusRecord`**:
+```
+decisions: list[ConsensusDecision]
+```
+
+**`JoinPoint`** (sub-type of AssemblyMetadata):
+```
+after_unit_index: int
+before_unit_index: int
+boundary_type: BoundaryContinuityType  # imported from normalization contracts
+separator_used: str
+char_offset_in_assembled: int
+```
+
+**`AssemblyMetadata`**:
+```
+constituent_unit_indices: list[int]
+join_points: list[JoinPoint]
+layer_split_points: list[int]           # NEW from audit — empty for unsplit
+footnote_renumber_map: dict[str, str] | null  # NEW from audit — null when no renumbering
+```
+
+**`SplitInfo`**:
+```
+original_div_id: str
+chunk_index: int    # 0-based
+total_chunks: int
+split_method: str   # one of "heading_marker", "section_break", "paragraph_break", "sentence_boundary"
+```
+
+### 3. Intermediate Types (from §2.3.2–§2.3.4)
+
+**`AssembledChunk`** (Phase 1 output, §2.3.2, 16 fields):
+```
+chunk_id: str
+source_id: str
+div_id: str
+div_path: list[str]
+assembled_text: str
+word_count: int
+total_tokens: int
+text_layers: list[TextLayerSegment]       # imported from normalization contracts
+footnotes: list[Footnote]                 # imported from normalization contracts
+content_flags: ContentFlags               # imported from normalization contracts
+physical_pages: list[PhysicalPage]        # imported from normalization contracts
+structural_format: StructuralFormat       # imported from normalization contracts
+heading_alignment_ok: bool
+assembly_metadata: AssemblyMetadata
+merge_history: list[str] | null           # present only when merged
+split_info: SplitInfo | null              # present only when split
+```
+
+Validators on AssembledChunk:
+- I-AC-1: `word_count` and `total_tokens` consistent with `assembled_text`
+  - word_count = count of whitespace-delimited tokens containing ≥1 Arabic char (U+0600–U+06FF)
+  - total_tokens = `len(assembled_text.split())`
+- I-AC-5: if `split_info` present, `chunk_id` must end with `_chunk_{split_info.chunk_index}`
+- I-AC-6: if `merge_history` present, len ≥ 2 and first element == `div_id`
+- I-AC-7: `merge_history` and `split_info` are mutually exclusive (not both non-None)
+
+**`ClassifiedSegment`** (Phase 2a output, §2.3.3, 6 fields):
+```
+segment_index: int
+start_word: int       # 0-based, inclusive
+end_word: int         # 0-based, inclusive
+text_snippet: str     # first 50 chars from assembled_text
+scholarly_function: ScholarlyFunction
+confidence: float     # 0.0–1.0
+```
+
+Validators on ClassifiedSegment:
+- I-CS-6: confidence in [0.0, 1.0]
+
+**`TeachingUnit`** (Phase 2b output, §2.3.4, 10 fields):
+```
+unit_index: int
+segment_indices: list[int]
+start_word: int       # 0-based, inclusive
+end_word: int         # 0-based, inclusive
+text_snippet: str     # first 80 chars from assembled_text
+primary_function: ScholarlyFunction
+secondary_functions: list[ScholarlyFunction]
+description_arabic: str
+self_containment: SelfContainmentLevel
+self_containment_notes: str | null
+```
+
+Validators on TeachingUnit:
+- I-TU-6: if `self_containment` is FULL, `self_containment_notes` must be None
+- I-TU-7: if `self_containment` is PARTIAL or DEPENDENT, `self_containment_notes` must be present and non-empty
+
+### 4. Output Type (from §2.2.2, 33 fields across 7 categories)
+
+**`ExcerptRecord`** — the engine's final output. See §2.2.2 for the complete specification. All fields listed there.
+
+Key fields by category:
+
+**Identification (6):** `excerpt_id`, `source_id`, `div_id`, `chunk_index`, `unit_index`, `div_path`
+
+**Text (6):** `primary_text`, `text_snippet`, `start_word`, `end_word`, `segment_indices`, `physical_pages` (PageRange | null)
+
+**Classification (4):** `primary_function`, `secondary_functions`, `content_types`, `description_arabic`
+
+**Self-containment (3):** `self_containment`, `self_containment_notes`, `context_hint`
+
+**Attribution (5):** `primary_author_layer`, `attribution_confidence`, `quoted_scholars`, `school`, `school_confidence`
+
+`attribution_confidence` semantics (from §2.2.2): `null` for deterministic attribution (LA-1/LA-2/LA-4), `0.67` for 2-of-3 consensus (LA-3), `0.0` for all-3-disagree (EX-G-001). Document these in the field description.
+
+**Topic/taxonomy (2):** `excerpt_topic`, `terminology_variants`
+
+**Evidence/references (4):** `evidence_refs`, `takhrij_data`, `cross_references`, `footnotes_relevant`
+
+**Metadata/flags (3):** `consensus_metadata`, `gate_flags`, `review_flags`
+
+Validators on ExcerptRecord:
+- I-ER-4: self-containment consistency (FULL → no notes, no context_hint; PARTIAL → notes present, context_hint if LLM succeeded; DEPENDENT → notes present, no context_hint)
+- I-ER-5: `primary_author_layer` must have non-null `layer_id` and `author_id`
+
+### 5. LLM Response Schemas (from §5.2.4, §5.3.4, §7.2.4, §7.3.2)
+
+These are used for structured output parsing via `instructor` + Pydantic. Define them in a separate section of contracts.py (after the main types).
+
+**From §5.2.4 (Phase 2a classification):**
+- `ClassificationResult` (2 fields: `segments: list[ClassifiedSegment]`, `total_segments: int`)
+
+**From §5.3.4 (Phase 2b grouping):**
+- `ExtractionResult` (3 fields: `teaching_units: list[TeachingUnit]`, `total_units: int`, `notes: Optional[str] = None`)
+
+**From §7.2.4 (enrichment):**
+- `ResolvedScholar` (4 fields: mention_text, resolved_name, role, confidence)
+- `UnitEnrichment` (9 fields including `school_confidence` — NEW from audit)
+- `EnrichmentResult` (2 fields: `enrichments: list[UnitEnrichment]`, `total_units: int`)
+
+**From §7.3.2 (verification):**
+- `VerificationItem` (5 fields including `confidence` — NEW from audit)
+- `VerificationResult` (1 field: `items: list[VerificationItem]`)
+
+### 6. Error Codes (from §8.1)
+
+Define as a class with string constants (not an enum — error codes are logged as strings, not used as field types):
+
+```python
+class ExcerptingErrorCodes:
+    """All 28 error codes from SPEC §8.1."""
+    # Phase 1 — Assembly
+    EX_A_002 = "EX-A-002"  # Empty content unit range
+    EX_A_003 = "EX-A-003"  # Layer rebasing gap
+    EX_A_004 = "EX-A-004"  # Layer segment overflow
+    EX_A_005 = "EX-A-005"  # Duplicate footnote ref_marker
+    EX_A_006 = "EX-A-006"  # Heading misalignment
+    EX_A_010 = "EX-A-010"  # Empty division tree
+    EX_A_011 = "EX-A-011"  # Content unit not found
+    EX_A_012 = "EX-A-012"  # Diacritic-mismatched snippet (NEW from audit)
+    # Phase 2 — Classification and Grouping
+    EX_C_001 = "EX-C-001"  # Classification LLM failed
+    EX_C_002 = "EX-C-002"  # Grouping LLM failed
+    EX_C_003 = "EX-C-003"  # Offset normalization failed
+    EX_C_004 = "EX-C-004"  # Segment coverage violated
+    EX_C_005 = "EX-C-005"  # Unit coverage violated
+    # Phase 3 — Metadata Enrichment
+    EX_M_001 = "EX-M-001"  # Attribution ambiguous (LA-3)
+    EX_M_002 = "EX-M-002"  # LLM enrichment failed
+    EX_M_003 = "EX-M-003"  # School disagreement
+    EX_M_004 = "EX-M-004"  # Null primary_author after Phase 3
+    EX_M_005 = "EX-M-005"  # Topic count outside 1–3
+    EX_M_006 = "EX-M-006"  # Self-containment metadata inconsistency
+    EX_M_007 = "EX-M-007"  # Invalid Quran reference
+    EX_M_008 = "EX-M-008"  # Gate entry not written (CRITICAL)
+    EX_M_009 = "EX-M-009"  # Footnote offset outside excerpt range
+    EX_M_010 = "EX-M-010"  # Unknown content type
+    # Validation
+    EX_V_001 = "EX-V-001"  # Phase 1 self-validation failed
+    EX_V_002 = "EX-V-002"  # Primary text integrity check failed
+    # Human Gate Triggers
+    EX_G_001 = "EX-G-001"  # 3 models all disagree on attribution
+    EX_G_002 = "EX-G-002"  # DEPENDENT self-containment
+    EX_G_003 = "EX-G-003"  # School conflict with source metadata
+```
+
+### 7. Invariant Validator Functions
+
+Write standalone validator functions called by the engine at phase boundaries. Each function takes the relevant objects and raises `ValueError` with the invariant code if violated. Group by phase:
+
+**AssembledChunk validators (I-AC-*):**
+- `validate_ac_invariants(chunk: AssembledChunk)` — checks I-AC-1, I-AC-5, I-AC-6, I-AC-7
+- `validate_layer_coverage(text_layers: list, assembled_text_len: int)` — checks I-AC-2 (layer coverage exactness)
+
+**ClassifiedSegment validators (I-CS-*):**
+- `validate_cs_invariants(segments: list[ClassifiedSegment], total_tokens: int)` — checks I-CS-1 through I-CS-6
+
+**TeachingUnit validators (I-TU-*):**
+- `validate_tu_invariants(units: list[TeachingUnit], segments: list[ClassifiedSegment], total_tokens: int)` — checks I-TU-1 through I-TU-9
+- **Important:** I-TU-8 (description_arabic word count 5–35) is a WARNING per SPEC §2.3.4, NOT a rejection. The validator should log a warning, not raise ValueError. All other I-TU invariants are hard failures.
+
+**ExcerptRecord validators (I-ER-*):**
+- `validate_er_invariants(record: ExcerptRecord)` — checks I-ER-4, I-ER-5
+- `validate_er_collection_invariants(records: list[ExcerptRecord])` — checks I-ER-1 (uniqueness) and I-ER-3 (ordering)
+
+Note: I-AC-3 (footnote ref_marker in assembled_text) and I-AC-4 (constituent_unit_indices contiguous ascending) are checked at runtime during Phase 1, not in contracts validators — they require access to the assembled text and division tree, which validators do not have.
+
+### 8. Configuration Constants (from §8.3)
+
+Define as a Pydantic model with defaults matching §8.3:
+
+```python
+class ExcerptingConfig(BaseModel):
+    # Phase 1
+    TINY_DIVISION_WORDS: int = 50
+    OVERSIZED_DIVISION_WORDS: int = 5000
+    # Phase 2
+    CLASSIFY_MODEL: str = "anthropic/claude-opus-4.6"
+    GROUP_MODEL: str = "anthropic/claude-opus-4.6"
+    LLM_TEMPERATURE: float = 0.0
+    GROUP_MAX_TOKENS: int = 16384
+    RETRY_COUNT: int = 2
+    TIMEOUT_SECONDS: int = 120
+    # Phase 3
+    ENRICH_MODEL: str = "anthropic/claude-opus-4.6"
+    ENRICH_MAX_TOKENS: int = 16384
+    VERIFY_MODEL: str = "openai/gpt-4.1"
+    VERIFY_MAX_TOKENS: int = 8192
+    ESCALATION_MODEL: str = "cohere/command-a-03-2025"
+    # Human gates
+    GATE_ON_DEPENDENT: bool = True
+    GATE_ON_ATTRIBUTION_DISAGREEMENT: bool = True
+    GATE_ON_SCHOOL_CONFLICT: bool = True
+    # Telemetry
+    LOG_LEVEL: str = "INFO"
+    TELEMETRY_ENABLED: bool = True
+```
+
+Note: `CLASSIFY_MAX_TOKENS` is dynamic (scales with input word count per §5.5.1) and is NOT a static config value. Do not include it.
+
+### 9. Factory Helpers for Tests
+
+Create `engines/excerpting/tests/conftest.py`:
+
+```python
+def _make_assembled_chunk(**overrides) -> AssembledChunk: ...
+def _make_classified_segment(**overrides) -> ClassifiedSegment: ...
+def _make_teaching_unit(**overrides) -> TeachingUnit: ...
+def _make_excerpt_record(**overrides) -> ExcerptRecord: ...
+```
+
+Each factory returns a valid instance with all required fields populated with sensible test defaults. Tests pass only the fields they care about via `**overrides`. Follow the exact pattern in `engines/normalization/tests/conftest.py` lines 59–120 (`defaults` dict + `defaults.update(overrides)` + `return Model(**defaults)`).
+
+The `_make_assembled_chunk` factory must produce a chunk where:
+- `assembled_text` is a real Arabic sentence (e.g., `"بسم الله الرحمن الرحيم الحمد لله رب العالمين"`)
+- `word_count` and `total_tokens` are computed from that text (I-AC-1 consistency)
+- `text_layers` covers [0, len(assembled_text)) with a single segment (I-AC-2 consistency)
+- `physical_pages` has at least one PhysicalPage entry
+- `assembly_metadata` has valid `constituent_unit_indices`, empty `join_points`, empty `layer_split_points`, null `footnote_renumber_map`
+- `merge_history` and `split_info` are both None (I-AC-7)
+
+## Design Decisions (pre-resolved — CC does not need to decide these)
+
+1. **Normalization types are imported, not redefined.** `StructuralFormat`, `TextLayerSegment`, `Footnote`, `ContentFlags`, `PhysicalPage`, `BoundaryContinuityType` — all imported from `engines.normalization.contracts`. If CC needs a type that exists in normalization contracts, import it.
+
+2. **Error codes as a class with string constants, not an Enum.** Error codes are logged as string values ("EX-A-002"), compared as strings, and never used as Pydantic field types. A class with string constants is simpler than an Enum for this use case.
+
+3. **Invariant validators are standalone functions, not model validators.** Some invariants require cross-object checks (e.g., I-TU-3 requires all segments and all units). These cannot be `model_validator` methods on a single model. Standalone functions called at phase boundaries are the right pattern. Per-instance validators (I-TU-6, I-TU-7, I-AC-5, I-AC-6, I-AC-7) CAN be `model_validator` methods AND also checked in the standalone function — defense in depth.
+
+4. **LLM response schemas are separate from engine data types.** `UnitEnrichment` (the LLM response) has different fields than the `ExcerptRecord` (the engine output). Do not conflate them. The engine code maps from response schemas to engine types.
+
+5. **`rule_applied` on AuthorAttribution is a plain string, not an enum.** The values ("LA-1" through "LA-4") are documented in §6.2 and are unlikely to change. An enum would create coupling between contracts.py and the domain rules.
+
+6. **`review_flags` and `gate_flags` are `list[str]`, not enums.** The known flags are documented in §2.2.2, but new flags may be added during build. String lists are extensible without contract changes.
+
+7. **PageRange is a Pydantic model, not a TypedDict.** Consistency with the rest of the file. All structured types are Pydantic models.
+
+8. **Nullable field Pydantic mapping (CRITICAL).** The SPEC §2.2.2 "Required" column has three distinct patterns for nullable types. Map them to Pydantic exactly as follows:
+
+   | SPEC Pattern | Pydantic Code | Fields |
+   |---|---|---|
+   | `type \| null`, required=**yes** | `field: Optional[type]` — no default, field must be explicitly passed even if value is None | `school` |
+   | `type \| null`, required=**no** | `field: Optional[type] = None` — field may be omitted entirely, defaults to None | `physical_pages`, `attribution_confidence`, `school_confidence`, `takhrij_data`, `consensus_metadata` |
+   | `type \| null`, **conditional** | `field: Optional[type] = None` + model_validator enforcing when it must be non-null | `self_containment_notes` (non-null when PARTIAL/DEPENDENT), `context_hint` (non-null when PARTIAL + LLM succeeded) |
+
+   Getting these wrong breaks JSON round-tripping: a required=yes field with a default allows silently omitting it; a required=no field without a default forces callers to always specify it.
+
+## Do NOT Do
+
+- **No implementation logic.** contracts.py defines types, validators, and constants. No Phase 1/2/3 processing code. No text assembly. No LLM calls. No offset normalization.
+- **No LLM prompt text.** Prompts stay in the SPEC and will be implemented in engine code, not in contracts.
+- **No test files beyond conftest.py.** Test files for the actual engine come in build prep (Step 3c). The conftest.py factories are created now because they validate that the Pydantic models are instantiable.
+- **No changes to normalization contracts.** If a type is needed from normalization, import it. Do not modify `engines/normalization/contracts.py`.
+- **No changes to the SPEC.** If you find something in the SPEC that seems wrong, note it in a comment. Do not modify `engines/excerpting/SPEC.md`.
+- **Do not invent fields not in the SPEC.** Every field on every model must trace to a specific SPEC section. If the SPEC does not define it, do not add it.
+
+## Verification
+
+Run these commands before committing:
+
+```bash
+# 1. Contracts import cleanly
+python -c "from engines.excerpting.contracts import *; print('imports OK')"
+
+# 2. All types are instantiable (factories work)
+python -c "
+from engines.excerpting.tests.conftest import (
+    _make_assembled_chunk, _make_classified_segment,
+    _make_teaching_unit, _make_excerpt_record,
+)
+ac = _make_assembled_chunk()
+cs = _make_classified_segment()
+tu = _make_teaching_unit()
+er = _make_excerpt_record()
+print(f'factories OK: AC={type(ac).__name__}, CS={type(cs).__name__}, TU={type(tu).__name__}, ER={type(er).__name__}')
+"
+
+# 3. Validators work on valid data
+python -c "
+from engines.excerpting.contracts import (
+    validate_ac_invariants, validate_cs_invariants,
+    validate_tu_invariants, validate_er_invariants,
+)
+from engines.excerpting.tests.conftest import (
+    _make_assembled_chunk, _make_classified_segment,
+    _make_teaching_unit, _make_excerpt_record,
+)
+ac = _make_assembled_chunk()
+validate_ac_invariants(ac)
+print('validators pass on valid data')
+"
+
+# 4. Error code count matches SPEC
+python -c "
+from engines.excerpting.contracts import ExcerptingErrorCodes
+codes = [v for k, v in vars(ExcerptingErrorCodes).items() if k.startswith('EX_')]
+print(f'Error codes: {len(codes)} (expected: 28)')
+assert len(codes) == 28, f'Expected 28, got {len(codes)}'
+print('error code count correct')
+"
+
+# 5. Enum value counts match SPEC
+python -c "
+from engines.excerpting.contracts import ScholarlyFunction, SelfContainmentLevel
+print(f'ScholarlyFunction: {len(ScholarlyFunction)} (expected: 16)')
+print(f'SelfContainmentLevel: {len(SelfContainmentLevel)} (expected: 3)')
+assert len(ScholarlyFunction) == 16
+assert len(SelfContainmentLevel) == 3
+print('enum counts correct')
+"
+
+# 6. Cross-engine import (normalization types resolve)
+python -c "
+from engines.excerpting.contracts import AssembledChunk
+import inspect
+hints = inspect.get_annotations(AssembledChunk)
+print(f'AssembledChunk fields: {len(hints)}')
+print('cross-engine imports resolve')
+"
+
+# 7. Invariant validators reject invalid data
+python -c "
+from engines.excerpting.contracts import validate_ac_invariants
+from engines.excerpting.tests.conftest import _make_assembled_chunk
+from engines.excerpting.contracts import SplitInfo
+# I-AC-7: merge_history and split_info both present should fail
+try:
+    ac = _make_assembled_chunk(
+        merge_history=['div_test_1_0', 'div_test_1_1'],
+        split_info=SplitInfo(original_div_id='div_test_1_0', chunk_index=0, total_chunks=2, split_method='paragraph_break'),
+    )
+    validate_ac_invariants(ac)
+    print('FAIL: I-AC-7 not enforced')
+except (ValueError, Exception) as e:
+    print(f'I-AC-7 correctly rejects: {type(e).__name__}')
+"
+# 8. ExcerptRecord has exactly 33 fields (SPEC §2.2.2)
+python -c "
+from engines.excerpting.contracts import ExcerptRecord
+fields = ExcerptRecord.model_fields
+print(f'ExcerptRecord fields: {len(fields)} (expected: 33)')
+assert len(fields) == 33, f'Expected 33 fields, got {len(fields)}: {sorted(fields.keys())}'
+print('ExcerptRecord field count correct')
+"
+
+# 9. I-TU validators reject invalid data
+python -c "
+from engines.excerpting.contracts import TeachingUnit, SelfContainmentLevel, ScholarlyFunction
+# I-TU-6: FULL with notes present should fail
+try:
+    tu = TeachingUnit(
+        unit_index=0, segment_indices=[0], start_word=0, end_word=5,
+        text_snippet='test', primary_function=ScholarlyFunction.DEFINITION,
+        secondary_functions=[], description_arabic='وصف عربي قصير للاختبار',
+        self_containment=SelfContainmentLevel.FULL,
+        self_containment_notes='should not be here',
+    )
+    print('FAIL: I-TU-6 not enforced')
+except (ValueError, Exception) as e:
+    print(f'I-TU-6 correctly rejects: {type(e).__name__}')
+"
+# 10. ScholarlyFunction enum values match SPEC exactly
+python -c "
+from engines.excerpting.contracts import ScholarlyFunction
+expected = {'definition', 'rule_statement', 'evidence_quran', 'evidence_hadith',
+            'evidence_ijma', 'evidence_qiyas', 'evidence_rational', 'opinion_statement',
+            'refutation', 'example', 'condition_exception', 'cross_reference',
+            'narration', 'editorial_note', 'structural_transition', 'unclassified'}
+actual = {sf.value for sf in ScholarlyFunction}
+missing = expected - actual
+extra = actual - expected
+assert not missing, f'Missing ScholarlyFunction values: {missing}'
+assert not extra, f'Extra ScholarlyFunction values: {extra}'
+print('ScholarlyFunction values match SPEC exactly')
+"
+
+# 11. Critical sub-type field counts
+python -c "
+from engines.excerpting.contracts import (
+    PageRange, AuthorAttribution, ScholarAttribution, EvidenceRef,
+    AssemblyMetadata, SplitInfo, JoinPoint, CrossReference,
+)
+checks = [
+    ('PageRange', PageRange, 3),
+    ('AuthorAttribution', AuthorAttribution, 4),
+    ('ScholarAttribution', ScholarAttribution, 5),
+    ('EvidenceRef', EvidenceRef, 7),
+    ('AssemblyMetadata', AssemblyMetadata, 4),
+    ('SplitInfo', SplitInfo, 4),
+    ('JoinPoint', JoinPoint, 5),
+    ('CrossReference', CrossReference, 4),
+]
+for name, cls, expected in checks:
+    actual = len(cls.model_fields)
+    assert actual == expected, f'{name}: expected {expected} fields, got {actual}'
+print('All sub-type field counts correct')
+"
+```
+
+All 11 checks must pass. If any fail, fix before committing.
+
+**Additional verification (run manually, not scripted):**
+
+After all 11 checks pass, open `contracts.py` and visually verify:
+- Every ScholarlyFunction enum value matches the 16 values listed in §2.3.1 table (exact strings, not close approximations)
+- Every error code string matches the SPEC (e.g., "EX-A-002" not "EX-A-2" or "EXA002")
+- PageRange has exactly 3 fields (volume, start_page, end_page)
+- AuthorAttribution has exactly 4 fields (layer_id, author_id, coverage_pct, rule_applied)
+- ScholarAttribution has exactly 5 fields (mention_text, resolved_name, role, confidence, source)
+- EvidenceRef has exactly 7 fields (type, surah, ayah_start, ayah_end, text_snippet, marker_text, scope)
+
+## Critical Audit Artifacts
+
+The integrity audit and deep review introduced these items that the new contracts.py MUST include:
+
+| # | Artifact | Where in contracts.py | SPEC Reference |
+|---|----------|----------------------|----------------|
+| 1 | `chunk_index` in `excerpt_id` format | ExcerptRecord.excerpt_id docstring | §7.1 line 1397 |
+| 2 | `chunk_index` derivation (0 unsplit, split_info.chunk_index split) | ExcerptRecord.chunk_index field description | §2.2.2 line 395 |
+| 3 | `PageRange` type definition | New model class | §2.2.2 line 410 |
+| 4 | `layer_split_points` on AssemblyMetadata | AssemblyMetadata.layer_split_points field | §2.3.2 line 165 |
+| 5 | `footnote_renumber_map` on AssemblyMetadata | AssemblyMetadata.footnote_renumber_map field | §2.3.2 line 166 |
+| 6 | `school_confidence` on UnitEnrichment | UnitEnrichment.school_confidence field | §7.2.4 line 1687 |
+| 7 | `confidence` on VerificationItem | VerificationItem.confidence field | §7.3.2 line 1814 |
+| 8 | `decontextualization_risk` review flag | ExcerptRecord.review_flags docstring | §2.2.2 line 489 |
+| 9 | `verification_skipped` review flag | ExcerptRecord.review_flags docstring | §2.2.2 line 489 |
+| 10 | `EX-A-012` error code | ExcerptingErrorCodes.EX_A_012 | §8.1 line 1939 |
+| 11 | F-DET-2 substring extraction note | ExcerptRecord.primary_text docstring | §7.1 lines 1412–1414 |
+| 12 | F-DET-9 ScholarAttribution `source` field | ScholarAttribution.source field | §7.1 line 1507 |
+
+## After This
+
+After CC pushes the contracts.py rewrite:
+1. **Architect reviews** via `kr-reviewing-cc-output` (1 session)
+2. **Step 3c: Build prep** — technology survey, architecture stubs, test skeleton, CLAUDE.md update
+3. **Build phase** — implementation sessions (Phase 1 → Phase 2 → Phase 3 → integration)
+
+## Commit Message
+
+```
+rewrite excerpting contracts.py: all types from SPEC §2.2/§2.3/§5/§7/§8
+
+Delete old 7-engine-era contracts.py (557 lines) and rewrite from scratch.
+New contracts define the 5-engine architecture data model:
+
+- 2 enums (ScholarlyFunction 16 values, SelfContainmentLevel 3 values)
+- 12 sub-types (PageRange, AuthorAttribution, ScholarAttribution, etc.)
+- 4 main types (AssembledChunk 16 fields, ClassifiedSegment 6 fields,
+  TeachingUnit 10 fields, ExcerptRecord 33 fields)
+- 7 LLM response schemas (ClassificationResult, ExtractionResult,
+  EnrichmentResult, UnitEnrichment, ResolvedScholar, VerificationResult,
+  VerificationItem)
+- 28 error codes (EX-A/C/M/V/G)
+- Invariant validators for 29 invariants (I-AC/CS/TU/ER)
+- 20 configuration parameters
+- 4 test factory helpers in conftest.py
+```
 
 ## Skills to Invoke
 
-- For integrity audit: `kr-integrity` + `critical-review`
-- For CC handoff: `kr-preparing-cc-handoffs` + `critical-review`
+For next steps after this CC task:
+- For architect review: `kr-reviewing-cc-output` + `critical-review`
 - For build prep: `kr-build-prep` + `kr-research` + `thinking-frameworks`
 
 ## Session History
 
-- Session 0: SPEC_OUTLINE.md evaluation (Step 0)
-- Session 1: §2.3, §2.1, §3, §4, §5 (5 sections, 1316 lines)
-- Session 2: §6 (1 section, 155 lines)
-- Session 3: §7, §2.2, §8 (3 sections, 826 lines)
-- Session 4: §9, §10, §1 + coherence review + CLAUDE.md update (3 sections, 373 lines)
-
-Total: 4 sessions, 12 sections, 2387 lines.
+- Session 0: SPEC_OUTLINE.md evaluation
+- Session 1–4: Write all 12 SPEC sections (2387 lines)
+- Session 5: kr-integrity audit (10 HIGH, 12 MEDIUM, 2 LOW — all fixed)
+- Session 6: Deep review (1 HIGH, 3 MEDIUM — all fixed) + SPEC cleanup
+- **Session 7 (this): contracts.py rewrite handoff**
 
 ## Progress Tracker
 
@@ -104,7 +648,7 @@ Total: 4 sessions, 12 sections, 2387 lines.
 - [x] Step 1: Write SPEC_OUTLINE.md
 - [x] Step 2: Write all 12 SPEC sections + coherence review
 - [x] Step 2 bonus: Update CLAUDE.md
-- [x] Step 3a: kr-integrity audit (10 HIGH, 12 MEDIUM, 2 LOW findings — all fixed, 28 error codes)
-- [ ] Step 3b: Rewrite contracts.py (CC task)
+- [x] Step 3a: kr-integrity audit (28 error codes after fix)
+- [ ] **Step 3b: Rewrite contracts.py (CC task — THIS HANDOFF)**
 - [ ] Step 3c: Build prep (architecture stubs, test skeleton)
 - [ ] Step 4+: Build (Phase 1 → Phase 2 → Phase 3 → integration)
