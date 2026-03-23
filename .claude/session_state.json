@@ -1,11 +1,25 @@
 {
-  "timestamp": "2026-03-21T06:49:41.079899+00:00",
+  "timestamp": "2026-03-23T08:19:31.720875+00:00",
   "branch": "master",
-  "active_engine": "normalization",
+  "active_engine": "excerpting",
+  "active_spec_section": null,
+  "last_committed_file": ".claude/overnight_work_queue.md",
+  "active_plan": null,
   "modified_files": [
-    ".claude/session_state.json"
+    ".claude/session_state.json",
+    "NEXT.md",
+    "engines/excerpting/CLAUDE.md",
+    "engines/excerpting/SPEC.md",
+    "reference/archive/sessions/excerpting_integrity_audit_handoff.md"
   ],
-  "uncommitted_summary": ".claude/session_state.json | 10 ++++------\n 1 file changed, 4 insertions(+), 6 deletions(-)",
-  "next_md_head": "# NEXT — Session 7: Integration Testing & ADV Gap Closure\n\n## Current Position\n\n- **Phase:** Build → Session 7 of 7 (final build session)\n- **Previous:** Session 6 ACCEPTED at commit `760b5f4` (validation, writer, plain text normalizer, dispatcher)\n- **Test baseline:** `335 passed, 12 skipped` (pytest engines/normalization/tests/)\n- **Smoke test:** 63/63 PASS (13 real + 50 extended fixtures)\n- **ADV coverage:** 29/51 implemented (9 remaining core, 13 deferred)\n- **Known limitations:** L-001 through L-011 documented\n- **SPEC errata:** SPEC-NOTE-1 through SPEC-NOTE-3 documented\n\n## What to Do\n\nThis is the **final normalization engine build session**. Focus: integration testing on real fixtures, unskip deferred tests, close remaining core ADV gaps.",
-  "recent_commits": "26a5ed2 feat: Session 7 â€” integration tests, ADV gap closure, L-012\nc69af30 chore: Session 7 handoff â€” integration testing & ADV gap closure\nf37babe chore: Session 6 complete â€” NEXT.md for S7, CLAUDE.md metrics, review checklist\n760b5f4 fix: Session 6 review fixes â€” L-011 recovery, comment, smoke test multi-layer\n7878ec2 chore: Session 6 review addendum â€” L-011, SPEC-NOTE-3, deep analysis findings"
+  "uncommitted_summary": ".claude/session_state.json | 26 ++++++++++++++++++++------\n 1 file changed, 20 insertions(+), 6 deletions(-)",
+  "next_md_head": "# NEXT — Excerpting Engine: SPEC Complete → Integrity Audit → Build Prep\n\n## Current Position\n\n- Normalization engine: ✅ COMPLETE (420 tests, 7797 impl lines)\n- Architecture: COMMITTED at 5636ceb (Source ✅ → Normalization ✅ → Excerpting → Taxonomy → Synthesis)\n- Experiments: ✅ 23 divisions validated across 7 formats\n- Format diversity evaluation: ✅ PASS (commit 1690cdf, revised 8035e01)\n- **SPEC: ✅ COMPLETE** — 2381 lines, 12 sections. Coherence review passed.\n- **CLAUDE.md: ✅ UPDATED** — reflects complete SPEC\n- **contracts.py: STALE** — written for old 7-engine architecture, needs rewrite\n\n## What to Do — Step 3: Integrity Audit → contracts.py → Build Prep\n\n### Step 3a: kr-integrity Audit (Architect — 1 session)",
+  "recent_commits": "06db7fd infra: wire 3 safety hooks into settings.json (T8)\n52919a6 docs: KNOWN_LIMITATIONS.md updated with v3 corpus calibration data\ncad24ad data: full corpus v3 sweep (7,475 books) + impact analysis + integrity verified\n16476e9 data: T6 undiacritized investigation + T7 warning deep analysis\ne0ec153 test: adversarial L-004 tests + L-008 edge cases (T4+T5)",
+  "pending_decisions": [
+    "",
+    "The other 35 books are modern scholarly works, histories, and reference texts where",
+    "zero diacritics is completely normal.",
+    "",
+    "VERDICT: INFORMATIONAL. No action needed. Downstream awareness noted."
+  ]
 }
