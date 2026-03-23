@@ -570,7 +570,7 @@ Phase 3 also attempts to resolve the gap:
 - If C-SC-2 fails (dangling reference) and the reference points to a known division, add a `cross_reference` linking to that division.
 - If C-SC-3 fails (evidence not included) and the evidence is identifiable (e.g., a known hadith), add the reference in `evidence_refs`.
 
-After Phase 3 repair, the level may be upgraded from `PARTIAL` to `FULL` if all criteria are now satisfied. If repair fails, the level stays `PARTIAL`.
+After Phase 3 repair, the level could in principle be upgraded from `PARTIAL` to `FULL` if all criteria are now satisfied. However, **the core engine does not implement automatic re-evaluation** — re-evaluating C-SC-1 through C-SC-5 after repair would require an additional LLM call per unit. In core, the level stays `PARTIAL` and the context_hint provides value even when the underlying gap has been resolved by a cross-reference or evidence addition. Automatic self-containment re-evaluation after Phase 3 repair is a quality optimization (candidate for DC-07, Self-containment repair suggestions). If repair fails, the level stays `PARTIAL`.
 
 **DEPENDENT** — The excerpt cannot be understood alone. It depends on adjacent content in a way that no context hint can repair. This typically means C-SC-4 fails (argument is a fragment) or C-SC-5 fails (response to an unknown position).
 
@@ -1300,7 +1300,7 @@ For each teaching unit containing evidence segments:
 - Look for ﴿...﴾ delimiters in the segment text
 - Match the contained text against a canonical Quran text lookup (pre-loaded reference data)
 - If matched, record `{surah, ayah_start, ayah_end}` in `evidence_refs`
-- If no match (partial quotation, paraphrase, or allusion), record the segment as Quran evidence with `quran_detail: null` and the `text_snippet` for manual identification
+- If no match (partial quotation, paraphrase, or allusion), record the segment as Quran evidence with `{type: "quran", surah: null, ayah_start: null, ayah_end: null, text_snippet: <the quoted text>}` for potential future resolution
 
 **EV-2 (Hadith references):** When a segment has function `evidence_hadith`, Phase 3 extracts:
 - Narrator name(s) from isnad patterns ("عن X عن Y عن Z")
@@ -1443,7 +1443,7 @@ This field supports downstream filtering (e.g., "show me all teaching units that
 
 **F-DET-5: `evidence_refs` (structural)**
 
-Structured evidence references detected by pattern matching in the unit's `primary_text`. This is purely deterministic — no LLM involvement. Unresolved references (partial Quran quotes with `surah: null`, hadith markers with `detail: null`) remain in their partial state. The §7.2 enrichment call produces separate `takhrij_data` entries for hadith details but does not update `evidence_refs` entries. Full LLM-assisted evidence resolution (completing partial Quran references, identifying hadith collections from partial quotes) is a deferred capability.
+Structured evidence references detected by pattern matching in the unit's `primary_text`. This is purely deterministic — no LLM involvement. Unresolved references (partial Quran quotes with `surah: null`, hadith markers with only `marker_text` populated) remain in their partial state. The §7.2 enrichment call produces separate `takhrij_data` entries for hadith details but does not update `evidence_refs` entries. Full LLM-assisted evidence resolution (completing partial Quran references, identifying hadith collections from partial quotes) is a deferred capability.
 
 Quran references (EV-1 partial):
 1. Scan `primary_text` for ﴿...﴾ delimiters.
@@ -1454,7 +1454,7 @@ Quran references (EV-1 partial):
 
 Hadith markers (EV-2 partial):
 1. Scan `primary_text` for hadith citation patterns: رواه, أخرجه, في الصحيحين, متفق عليه, في صحيح, في سنن.
-2. If found: `{type: "hadith", marker_text: str, detail: null}` — the `detail` field is populated by LLM enrichment in §7.2 (takhrij_data).
+2. If found: `{type: "hadith", surah: null, ayah_start: null, ayah_end: null, text_snippet: <matching text region>, marker_text: <the matched pattern>, scope: null}`. The Quran-specific fields are null for hadith evidence. Detailed hadith information (collection, number, grade) is extracted by the §7.2 enrichment call into `takhrij_data`, not into `evidence_refs`.
 
 Consensus markers (EV-3 partial):
 1. Scan `primary_text` for consensus patterns: أجمعوا, إجماع, لا خلاف, اتفق العلماء, بالاتفاق.
