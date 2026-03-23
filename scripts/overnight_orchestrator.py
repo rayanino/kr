@@ -490,6 +490,9 @@ def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
         "--no-session-persistence",
         "--append-system-prompt", safety_prompt,
     ]
+    # Maximum thinking effort for opus tasks
+    if task.model == "opus":
+        cmd += ["--effort", "max"]
     if task.agent:
         cmd += ["--agent", task.agent]
     if task.allowed_tools:
