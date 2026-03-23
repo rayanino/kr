@@ -51,7 +51,7 @@ Mark tasks [x] when complete. Commit after each task.
   Output: scripts/results/warning_deep_analysis.json
   Acceptance: Root cause each warning category, determine if any are actionable
 
-- [BLOCKED: settings.json edit triggers user prompt — owner must wire manually] **T8: Wire safety hooks into settings.json (if owner approved)**
+- [x] **T8: Wire safety hooks into settings.json (owner approved and present)**
   Check: Read .claude/pending_decisions.log for owner approval
   If approved: Edit settings.json with JSON from HOOK_WIRING.md
   If not approved: Skip, mark BLOCKED
