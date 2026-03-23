@@ -101,19 +101,19 @@
 
 | # | File | Finding | Fix | Fixed? |
 |---|------|---------|-----|--------|
-| F-1 | `phase2_classify.py:421` + `phase2_group.py:324` | DD-S2-8 violation: ValidationError handlers set `error_feedback` to include the error message. DD-S2-8 explicitly says "NOT appended to the next attempt's prompt." | Set `error_feedback = None` in both `except ValidationError` blocks. | [ ] |
-| F-2 | `phase2_group.py:206` | `verify_units` accesses `segments[unit.segment_indices[0]]` without bounds checking. Out-of-range indices from LLM raise `IndexError` caught by generic `except Exception` handler → wrong error code (EX_C_002 vs EX_C_005), unnecessary backoff, no LLM feedback. | Wrap V-P2-14 derivation in `try: ... except IndexError: raise ValueError(f"V-P2-14: segment index {unit.segment_indices[0]} out of range for {len(segments)} segments")`. | [ ] |
+| F-1 | `phase2_classify.py:421` + `phase2_group.py:324` | DD-S2-8 violation: ValidationError handlers set `error_feedback` to include the error message. DD-S2-8 explicitly says "NOT appended to the next attempt's prompt." | Set `error_feedback = None` in both `except ValidationError` blocks. | [x] Fixed in `bd3734ce` |
+| F-2 | `phase2_group.py:206` | `verify_units` accesses `segments[unit.segment_indices[0]]` without bounds checking. Out-of-range indices from LLM raise `IndexError` caught by generic `except Exception` handler → wrong error code (EX_C_002 vs EX_C_005), unnecessary backoff, no LLM feedback. | Wrap V-P2-14 derivation in `try: ... except IndexError: raise ValueError(...)`. | [x] Fixed in `bd3734ce` |
 
 ## Fixes committed
-- [ ] ALL findings above have `Fixed? [x]`
-- [ ] Fix commits pushed to repo
-- [ ] Tests re-run after fixes: `[N] passed`
+- [x] ALL findings above have `Fixed? [x]`
+- [x] Fix commits pushed to repo: `bd3734ce`
+- [x] Tests re-run after fixes: `147 passed, 2 skipped, 0 failed`
 
 ## Verdict
 
-**Verdict: BLOCKED**
+**Verdict: ACCEPT**
 
-Two findings (F-1, F-2) require fixes before ACCEPT.
+Zero unfixed findings. F-1 and F-2 fixed in `bd3734ce`, verified by re-running tests (147 passed) and empirical probe (IndexError → ValueError conversion confirmed).
 
 ## Build metrics (cumulative)
 

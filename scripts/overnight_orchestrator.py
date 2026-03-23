@@ -308,14 +308,18 @@ def preflight_checks() -> None:
     except FileNotFoundError:
         errors.append("Claude CLI not found in PATH")
 
-    # Test suite passes (all completed engines)
-    test_result = subprocess.run(
-        ["python", "-m", "pytest", "engines/source/tests/", "engines/normalization/tests/",
-         "engines/excerpting/tests/", "-x", "-q", "--tb=no"],
-        capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=300,
-    )
-    if test_result.returncode != 0:
-        errors.append(f"Test suite failing:\n{test_result.stdout[-500:]}")
+    # Test suite passes (run each engine separately to avoid conftest collisions)
+    for test_dir in [
+        "engines/source/tests/", "engines/normalization/tests/",
+        "engines/excerpting/tests/",
+    ]:
+        test_result = subprocess.run(
+            ["python", "-m", "pytest", test_dir, "-x", "-q", "--tb=no"],
+            capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=300,
+        )
+        if test_result.returncode != 0:
+            errors.append(f"Test suite failing ({test_dir}):\n{test_result.stdout[-500:]}")
+            break
 
     # Disk space (need at least 500MB free)
     # Simple check via df on Windows/bash
@@ -527,14 +531,18 @@ def run_quality_gate(task: TaskDef, pre_snapshot: str) -> dict[str, Any]:
     """Run post-task quality checks. Returns {"passed": bool, "failures": [...]}."""
     failures: list[str] = []
 
-    # L1: Test suite (all completed engines)
-    test_result = subprocess.run(
-        ["python", "-m", "pytest", "engines/source/tests/", "engines/normalization/tests/",
-         "engines/excerpting/tests/", "-x", "-q", "--tb=short"],
-        capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=300,
-    )
-    if test_result.returncode != 0:
-        failures.append(f"L1 TEST FAILURE:\n{test_result.stdout[-500:]}")
+    # L1: Test suite (run each engine separately to avoid conftest collisions)
+    for test_dir in [
+        "engines/source/tests/", "engines/normalization/tests/",
+        "engines/excerpting/tests/",
+    ]:
+        test_result = subprocess.run(
+            ["python", "-m", "pytest", test_dir, "-x", "-q", "--tb=short"],
+            capture_output=True, text=True, cwd=str(PROJECT_DIR), timeout=300,
+        )
+        if test_result.returncode != 0:
+            failures.append(f"L1 TEST FAILURE ({test_dir}):\n{test_result.stdout[-500:]}")
+            break
 
     # L2: Git state — check no frozen source modifications or deletions
     changed = git_changed_files_since(pre_snapshot)
