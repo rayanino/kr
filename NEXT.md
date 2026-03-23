@@ -30,6 +30,8 @@ A shared `_word_to_char_range` helper is needed: F-DET-2, F-DET-3, F-DET-6, and 
 
 **Note on Quran detection:** Shamela exports do NOT use Unicode ornate parentheses ﴿﴾. Testing across 66 fixtures / 16.7M characters found zero ﴿﴾ hits. Quran delimiter detection will be zero-fire on current fixtures. This is expected and not blocking — LLM enrichment in Session 4 handles Quran reference detection from context signals (قال تعالى had 302 hits, قوله تعالى had 1,323 hits across the same fixtures). The ﴿﴾ detector is still implemented for correctness if future sources use these delimiters.
 
+**Known docstring discrepancy:** The `ExcerptRecord.primary_text` field description in `contracts.py` (line 461) says `' '.join(assembled_text.split()[start_word:end_word+1])` — the split-and-rejoin approach. This is WRONG. The SPEC §7.1 F-DET-2 Note explicitly requires substring extraction to preserve internal `\n\n` paragraph breaks. Follow the SPEC and Function 2 above, NOT the contracts.py docstring. Fix the docstring while implementing: change it to `"Extracted from assembled_text via character-offset substring (F-DET-2). Preserves internal whitespace including paragraph breaks."` This qualifies as a documentation bug under "Do NOT modify contracts.py unless you find a bug."
+
 ## Owner Action Needed
 
 None. This is a pure implementation session.
@@ -71,7 +73,7 @@ Substring extraction using `_word_to_char_range`. Returns `assembled_text[char_s
 The most complex function. Implements §7.1 F-DET-3 + §6.2 LA-1–LA-4:
 
 Step 1: Convert word range to character range via `_word_to_char_range`.
-Step 2: **Merge split layer segments.** Before computing coverage, merge consecutive `text_layers` segments with identical `(layer_type, author_canonical_id)` that are separated by offsets in `assembly_metadata.layer_split_points`. Use `layer_split_points[i].char_offset_in_assembled` to detect split boundaries. Two segments are "separated by a split point" if the first segment's end equals the split point and the second segment's start follows immediately.
+Step 2: **Merge split layer segments.** Before computing coverage, merge consecutive `text_layers` segments with identical `(layer_type, author_canonical_id)` that are separated by offsets in `assembly_metadata.layer_split_points`. Note: `layer_split_points` is `list[int]` — plain character offsets, NOT objects. Check `if segment.end in assembly_metadata.layer_split_points`. Two segments are "separated by a split point" if the first segment's end equals one of the split point values and the second segment's start follows immediately.
 Step 3: Compute each (merged) layer's character overlap with the unit range. `overlap = max(0, min(layer_end, unit_end) - max(layer_start, unit_start))`. Coverage = `overlap / unit_length`.
 Step 4: Apply rules in order:
 - **LA-4:** Any layer has 100% coverage → attribute to that layer.
@@ -127,9 +129,10 @@ For each TeachingUnit:
 1. Compute chunk_index from `chunk.split_info`
 2. Call F-DET-1 through F-DET-9
 3. Assemble a partial ExcerptRecord:
-   - Deterministic fields from F-DET-1–9
-   - Passthrough fields from TeachingUnit: `text_snippet`, `primary_function`, `secondary_functions`, `description_arabic`, `self_containment`, `self_containment_notes`
-   - `div_path` from `chunk.div_path`
+   - Deterministic fields from F-DET-1–9: `excerpt_id`, `primary_text`, `primary_author_layer`, `content_types`, `evidence_refs`, `physical_pages`, `start_word`/`end_word` (F-DET-7), `footnotes_relevant`, `quoted_scholars`
+   - **Direct from chunk:** `source_id=chunk.source_id`, `div_id=chunk.div_id`, `div_path=chunk.div_path`
+   - **Direct from TeachingUnit:** `unit_index=unit.unit_index`, `segment_indices=unit.segment_indices`, `text_snippet=unit.text_snippet`, `primary_function=unit.primary_function`, `secondary_functions=unit.secondary_functions`, `description_arabic=unit.description_arabic`, `self_containment=unit.self_containment`, `self_containment_notes=unit.self_containment_notes`
+   - **Computed:** `chunk_index` from `chunk.split_info.chunk_index` (or 0 if None)
    - **LLM fields set to defaults:** `excerpt_topic=[]`, `school=None`, `school_confidence=None`, `takhrij_data=None`, `terminology_variants=[]`, `cross_references=[]`, `context_hint=None`, `consensus_metadata=None`
    - **Gate/review flags:** `gate_flags=[]`, `review_flags=[]`
 4. Return the list of ExcerptRecords.
@@ -189,7 +192,7 @@ The SPEC says: "Null for deterministic LA-1/2/4. 0.67 for 2-of-3 consensus (LA-3
 **DD-S3-7: Layer split point merging algorithm.**
 Two consecutive text_layer segments should be merged if:
 (a) They have identical `layer_type` AND `author_canonical_id`, AND
-(b) There exists a `layer_split_point` in `assembly_metadata.layer_split_points` whose `char_offset_in_assembled` equals the first segment's `end` value.
+(b) There exists a value in `assembly_metadata.layer_split_points` (which is `list[int]`, NOT objects) that equals the first segment's `end` value. Check: `first_segment.end in assembly_metadata.layer_split_points`.
 After merging, the combined segment has `start` = first segment's `start`, `end` = second segment's `end`. Process all merge pairs before computing coverage.
 
 **DD-S3-8: Evidence detection uses plain substring matching — NO word-boundary checks.**
