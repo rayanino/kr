@@ -6,7 +6,7 @@
 - Architecture: COMMITTED at 5636ceb (Source ✅ → Normalization ✅ → Excerpting → Taxonomy → Synthesis)
 - Experiments: ✅ 23 divisions validated across 7 formats
 - Format diversity evaluation: ✅ PASS (commit 1690cdf, revised 8035e01)
-- **SPEC: ✅ COMPLETE** — 2343 lines, 12 sections. Coherence review passed.
+- **SPEC: ✅ COMPLETE** — 2381 lines, 12 sections. Coherence review passed.
 - **CLAUDE.md: ✅ UPDATED** — reflects complete SPEC
 - **contracts.py: STALE** — written for old 7-engine architecture, needs rewrite
 
@@ -96,7 +96,7 @@ Estimated: 5–7 build sessions + 1 code audit + 3-probe evaluation.
 - Session 3: §7, §2.2, §8 (3 sections, 826 lines)
 - Session 4: §9, §10, §1 + coherence review + CLAUDE.md update (3 sections, 373 lines)
 
-Total: 4 sessions, 12 sections, 2343 lines.
+Total: 4 sessions, 12 sections, 2381 lines.
 
 ## Progress Tracker
 
@@ -104,7 +104,7 @@ Total: 4 sessions, 12 sections, 2343 lines.
 - [x] Step 1: Write SPEC_OUTLINE.md
 - [x] Step 2: Write all 12 SPEC sections + coherence review
 - [x] Step 2 bonus: Update CLAUDE.md
-- [ ] Step 3a: kr-integrity audit
+- [x] Step 3a: kr-integrity audit (10 HIGH, 12 MEDIUM, 2 LOW findings — all fixed, 28 error codes)
 - [ ] Step 3b: Rewrite contracts.py (CC task)
 - [ ] Step 3c: Build prep (architecture stubs, test skeleton)
 - [ ] Step 4+: Build (Phase 1 → Phase 2 → Phase 3 → integration)
