@@ -638,7 +638,13 @@ The engine processes one source at a time. Each leaf division (or merged/split r
 - All content units in its range have `content_flags.is_toc_page == true`.
 - All content units in its range have `content_flags.is_index_page == true`.
 - All content units in its range have `content_flags.is_blank == true`.
-- Its `heading_text` matches any of the bibliography/index exclusion keywords: مصادر, مراجع, فهرس, ثبت المصادر, المراجع. Match is word-boundary-aware after Arabic noise stripping (same stripping as §4.8): the keyword must appear as a standalone word or phrase (preceded by start-of-string or whitespace, followed by end-of-string or whitespace). This prevents false positives on content chapters like "مصادر الأحكام" (sources of rulings). Note: Arabic has no case distinction; "case-insensitive" does not apply.
+- Its `heading_text` matches any of the bibliography/index exclusion keywords. Match is **exact match after Arabic noise stripping** (same stripping as §4.8): the full stripped heading must equal the full stripped keyword. This prevents false positives on content chapters like "مصادر الأحكام" (sources of rulings) — word-boundary matching would incorrectly match "مصادر" within such headings. Note: Arabic has no case distinction; "case-insensitive" does not apply. The complete keyword list (validated on 322 headings across 5 fixture packages with zero false positives):
+  - Base forms: مصادر, مراجع, فهرس
+  - With definite article: المصادر, المراجع
+  - Construct phrases: ثبت المصادر
+  - Compound forms: مصادر ومراجع, المصادر والمراجع
+  - Index compounds: فهرس المصادر, فهرس المراجع
+  - List compounds: قائمة المراجع, قائمة المصادر, قائمة المصادر والمراجع
 - Its content unit range is empty: `start_unit_index > end_unit_index` or no content units exist in the range. Emit `EX-A-002` (empty division), log, and skip.
 
 Skipped divisions are logged with reason codes. They are NOT errors — TOC and index pages are expected.

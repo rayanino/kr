@@ -40,16 +40,18 @@ All errata resolved during normalization engine evaluation (March 2026).
 **Resolution:** Subsumed by SPEC-NOTE-4 fix. The word-final heuristic was removed entirely — mid_sentence now always inserts space. This edge case no longer exists.
 **Fixed in:** Same commit as SPEC-NOTE-4.
 
-## SPEC-NOTE-6: §4.2 EXCLUDE_KEYWORDS expanded beyond SPEC list — OPEN
+## SPEC-NOTE-6: §4.2 EXCLUDE_KEYWORDS expanded beyond SPEC list — RESOLVED
 
 **Found:** Excerpting Session 1 review (March 2026).
 **Severity:** Documentation. No functional impact (zero false positives, one additional true positive).
-**Problem:** SPEC §4.2 lists 5 bibliography exclusion keywords (مصادر, مراجع, فهرس, ثبت المصادر, المراجع). CC's implementation expanded to 13 keywords, adding compound forms: المصادر, مصادر ومراجع, المصادر والمراجع, فهرس المصادر, فهرس المراجع, قائمة المراجع, قائمة المصادر, قائمة المصادر والمراجع. Tested against all 322 headings across 5 fixture packages: zero false positives, one additional true positive ("المصادر والمراجع" in 07_balagha).
-**Status:** SPEC §4.2 should be updated to include the expanded list.
+**Problem:** SPEC §4.2 listed 5 bibliography exclusion keywords (مصادر, مراجع, فهرس, ثبت المصادر, المراجع). CC's implementation expanded to 13 keywords, adding compound forms. Tested against all 322 headings across 5 fixture packages: zero false positives, one additional true positive ("المصادر والمراجع" in 07_balagha).
+**Resolution:** Updated SPEC §4.2 to list all 13 keywords with zero-false-positive validation note.
+**Fixed in:** Phase 2 handoff prep session.
 
-## SPEC-NOTE-7: §4.2 "word-boundary-aware" wording contradicts example — OPEN
+## SPEC-NOTE-7: §4.2 "word-boundary-aware" wording contradicts example — RESOLVED
 
 **Found:** Excerpting Session 1 review (March 2026).
 **Severity:** Documentation.
-**Problem:** SPEC §4.2 says keyword matching is "word-boundary-aware" but also says "مصادر الأحكام" must NOT match. Word-boundary matching on "مصادر" WOULD match "مصادر الأحكام" (the keyword is a word within the heading). CC correctly resolves by using exact-match (full heading must equal keyword after noise stripping), which prevents the false positive.
-**Status:** SPEC §4.2 should be reworded: "exact match after noise stripping" instead of "word-boundary-aware."
+**Problem:** SPEC §4.2 said keyword matching is "word-boundary-aware" but also said "مصادر الأحكام" must NOT match. Word-boundary matching on "مصادر" WOULD match "مصادر الأحكام" (the keyword is a word within the heading). CC correctly resolved by using exact-match (full heading must equal keyword after noise stripping), which prevents the false positive.
+**Resolution:** SPEC §4.2 reworded to "exact match after Arabic noise stripping" with explicit rationale for why word-boundary matching is insufficient.
+**Fixed in:** Phase 2 handoff prep session.
