@@ -162,6 +162,8 @@ One `AssembledChunk` represents a processable unit of text: one leaf division (o
 |-------|------|-------------|
 | `constituent_unit_indices` | `list[int]` | The `unit_index` values of all `ContentUnit` objects that were assembled into this chunk, in order. |
 | `join_points` | `list[JoinPoint]` | One entry per page boundary within this chunk. |
+| `layer_split_points` | `list[int]` | Character offsets in `assembled_text` where text layer segments were artificially divided by §4.5 splitting. Empty for unsplit chunks. Phase 3 attribution (§7.1 F-DET-3) treats split-induced layer boundaries as non-meaningful — consecutive segments with the same `layer_type` and `author_canonical_id` separated only by a split point are treated as a single attribution span. |
+| `footnote_renumber_map` | `dict[str, str] \| null` | When footnote renumbering occurred (§4.7), maps old `ref_marker` → new `ref_marker`. Null when no renumbering was needed. |
 
 **JoinPoint** (sub-type):
 
@@ -254,7 +256,7 @@ One `ExcerptRecord` is the engine's final output: a `TeachingUnit` enriched with
 
 An `ExcerptRecord` contains all `TeachingUnit` fields plus Phase 3 enrichment:
 
-- `excerpt_id`: globally unique identifier (`exc_{source_id}_{div_id}_{unit_index}`)
+- `excerpt_id`: globally unique identifier (`exc_{source_id}_{div_id}_{chunk_index}_{unit_index}`)
 - Attribution metadata: author layer(s), school, confidence
 - Topic classification: 1–3 topic keywords for taxonomy placement
 - Evidence references: structured Quran/hadith citations extracted from the text
@@ -390,7 +392,7 @@ Every field is listed with its type, whether it is required, its source (which p
 | `excerpt_id` | `str` | yes | Deterministic | §7.1 F-DET-1 |
 | `source_id` | `str` | yes | Passthrough | §2.1 (from AssembledChunk) |
 | `div_id` | `str` | yes | Passthrough | §2.1 (from AssembledChunk) |
-| `chunk_index` | `int` | yes | Passthrough | §4 (from AssembledChunk) |
+| `chunk_index` | `int` | yes | Deterministic | §7.1 F-DET-1. For unsplit chunks (no `split_info`), `chunk_index = 0`. For split chunks, `chunk_index = split_info.chunk_index`. |
 | `unit_index` | `int` | yes | Inherited | §2.3.4 (from TeachingUnit) |
 | `div_path` | `list[str]` | yes | Deterministic | §7.1 F-DET-7 |
 
@@ -404,6 +406,8 @@ Every field is listed with its type, whether it is required, its source (which p
 | `end_word` | `int` | yes | Inherited | §2.3.4 (from TeachingUnit) |
 | `segment_indices` | `list[int]` | yes | Inherited | §2.3.4 (from TeachingUnit) |
 | `physical_pages` | `PageRange \| null` | no | Deterministic | §7.1 F-DET-6 |
+
+`PageRange` structure: `{volume: int | null, start_page: int, end_page: int}`. Null when physical page information is unavailable (some Shamela exports lack it). Derived from the `AssembledChunk.physical_pages` list in §7.1 F-DET-6.
 
 **Classification:**
 
@@ -432,7 +436,11 @@ Conditional rules: `self_containment_notes` is required (non-null, non-empty) wh
 | `attribution_confidence` | `float \| null` | no | Consensus | §7.3 |
 | `quoted_scholars` | `list[ScholarAttribution]` | yes | Deterministic + LLM | §7.1 F-DET-9 + §7.2 |
 | `school` | `str \| null` | yes | LLM enrichment | §7.2 |
-| `school_confidence` | `float \| null` | no | Consensus | §7.3 |
+| `school_confidence` | `float \| null` | no | LLM enrichment + Consensus | §7.2 + §7.3 |
+
+`attribution_confidence` values: For non-LA-3 cases (deterministic attribution via LA-1, LA-2, or LA-4), `attribution_confidence` is `null` — the attribution is deterministic and confidence is not applicable. For LA-3 cases resolved by 2-of-3 consensus, `attribution_confidence` is `0.67`. For LA-3 cases where all 3 disagree (EX-G-001), `attribution_confidence` is `0.0`.
+
+`school_confidence` values: The enrichment LLM produces a `school_confidence` value (0.0–1.0) alongside `school` in the §7.2 response. When consensus is not triggered (school is null, or verifier agrees), this value passes through. When the verifier disagrees (§7.3.3), `school_confidence` is set to the lower of the enrichment and verifier confidence values. When school is null, `school_confidence` is null.
 
 `AuthorAttribution` structure: `{layer_id: str, author_id: str, coverage_pct: float, rule_applied: str}`. The `rule_applied` field is one of LA-1, LA-2, LA-3, LA-4 (§6.2).
 
@@ -478,11 +486,11 @@ Conditional rules: `self_containment_notes` is required (non-null, non-empty) wh
 
 `gate_flags` is a list of EX-G-* codes that triggered. Empty list if no gates triggered.
 
-`review_flags` is a list of string flags for operational issues. Known flags: `llm_enrichment_failed`, `school_consensus_disagreement`, `attribution_consensus_escalated`. Empty list if no flags.
+`review_flags` is a list of string flags for operational issues. Known flags: `llm_enrichment_failed`, `school_consensus_disagreement`, `attribution_consensus_escalated`, `decontextualization_risk` (set when Phase 2b assigns DEPENDENT due to C-SC-4 or C-SC-5 failure from DP-1–DP-6 patterns), `verification_skipped` (set when consensus verification model fails on all retries and enrichment model's assessment is used without verification). Empty list if no flags.
 
 ### §2.2.3 — Output Invariants
 
-**I-ER-1 (Excerpt ID uniqueness):** No two `ExcerptRecord` objects in the entire library share an `excerpt_id`. Within a source, uniqueness is guaranteed by the ID format (`exc_{source_id}_{div_id}_{unit_index}`).
+**I-ER-1 (Excerpt ID uniqueness):** No two `ExcerptRecord` objects in the entire library share an `excerpt_id`. Within a source, uniqueness is guaranteed by the ID format (`exc_{source_id}_{div_id}_{chunk_index}_{unit_index}`). For split divisions, different chunks have different `chunk_index` values, preventing ID collisions.
 
 **I-ER-2 (Primary text immutability):** `primary_text` is exactly the text extracted from `assembled_text` using word offsets. It is never modified after extraction — no "cleanup," no Unicode normalization, no diacritics alteration. The owner reads exactly what the source contains.
 
@@ -610,8 +618,8 @@ Phase 1 proceeds in seven sequential steps:
 2. **Assemble text** (§4.3): For each leaf division, join `primary_text` across content units using `boundary_continuity` separator mapping.
 3. **Merge tiny divisions** (§4.4): Merge adjacent leaf divisions with <50 Arabic words.
 4. **Split oversized divisions** (§4.5): Split divisions with >5000 Arabic words at structural boundaries.
-5. **Rebase text layers** (§4.6): Translate per-page `text_layers` character offsets to assembled-text coordinates.
-6. **Aggregate metadata** (§4.7): OR-aggregate content flags, collect footnotes and physical pages.
+5. **Aggregate metadata and renumber footnotes** (§4.7): OR-aggregate content flags, collect footnotes (including renumbering if `ref_marker` collisions exist — this modifies `assembled_text`), collect physical pages. Footnote renumbering MUST complete before step 6 because it changes character offsets.
+6. **Rebase text layers** (§4.6): Translate per-page `text_layers` character offsets to assembled-text coordinates. Runs on the final `assembled_text` (after any footnote renumbering from step 5).
 7. **Validate** (§4.9): Run self-validation checks (V-P1-1 through V-P1-6).
 
 The heading alignment filter (§4.8) runs during step 2 as a quality flag but does not gate processing.
@@ -630,7 +638,7 @@ The engine processes one source at a time. Each leaf division (or merged/split r
 - All content units in its range have `content_flags.is_toc_page == true`.
 - All content units in its range have `content_flags.is_index_page == true`.
 - All content units in its range have `content_flags.is_blank == true`.
-- Its `heading_text` matches any of the bibliography/index exclusion keywords: مصادر, مراجع, فهرس, ثبت المصادر, المراجع (match is substring, case-insensitive after Arabic noise stripping).
+- Its `heading_text` matches any of the bibliography/index exclusion keywords: مصادر, مراجع, فهرس, ثبت المصادر, المراجع. Match is word-boundary-aware after Arabic noise stripping (same stripping as §4.8): the keyword must appear as a standalone word or phrase (preceded by start-of-string or whitespace, followed by end-of-string or whitespace). This prevents false positives on content chapters like "مصادر الأحكام" (sources of rulings). Note: Arabic has no case distinction; "case-insensitive" does not apply.
 - Its content unit range is empty: `start_unit_index > end_unit_index` or no content units exist in the range. Emit `EX-A-002` (empty division), log, and skip.
 
 Skipped divisions are logged with reason codes. They are NOT errors — TOC and index pages are expected.
@@ -663,7 +671,11 @@ This mapping is validated in the prototype (`BC_JOIN_MAP` in `extract_divisions.
 
 **Boundary continuity is on unit N:** The `boundary_continuity` field on unit N describes the boundary AFTER unit N (between N and N+1). When joining unit N and unit N+1, read `boundary_continuity` from unit N.
 
-**Arabic word joining at mid_sentence:** When `boundary_continuity.type == "mid_sentence"`, the last character of unit N and the first character of unit N+1 may form parts of the same Arabic word. In this case, the empty separator produces correct joining. If the last character of unit N is a word-final form (taa marbuta ة, alif maqsura ى, tanwin diacritics ً/ٌ/ٍ) AND the first character of unit N+1 is a word-initial character, insert a single space instead of empty — the word boundary was at the page break. This refinement applies only when `boundary_continuity.type == "mid_sentence"` and the character analysis suggests word-final + word-initial rather than a word split across pages.
+**Arabic word joining at mid_sentence:** When `boundary_continuity.type == "mid_sentence"`, the last character of unit N's `primary_text` and the first character of unit N+1's `primary_text` may form parts of the same Arabic word (split across a page break). The default empty separator handles this case correctly (the two halves join into one word). However, if the boundary falls at a natural word boundary (the page break happened to fall between words), the empty separator would incorrectly merge two separate words. To distinguish:
+- Strip trailing whitespace from unit N's text and leading whitespace from unit N+1's text.
+- If unit N's stripped text ends with a word-final indicator — taa marbuta (ة), alif maqsura (ى), any tanwin diacritic (ً/ٌ/ٍ) as the last base or combining character, or any whitespace character — insert a single space separator. These characters signal a complete word.
+- Otherwise (unit N ends with a connecting letter form or a diacritic other than tanwin), use the empty separator — the text continues mid-word across the page break.
+- This refinement applies ONLY when `boundary_continuity.type == "mid_sentence"`. All other boundary types use their fixed separator from the mapping table above.
 
 **Diacritics preservation:** All Arabic diacritics (U+064B–U+0652, U+0670) are preserved exactly. No Unicode normalization (NFC/NFD/NFKC/NFKD) is applied at any point. This is an absolute rule — violating it risks T-1 (Silent Text Corruption), since a single diacritic change can reverse meaning (حَرَّمَ "forbade" vs حَرَمَ "deprived").
 
@@ -704,7 +716,7 @@ Divisions with too many words produce LLM inputs that exceed token limits or deg
 
 **Recursive splitting:** If a split result still exceeds the threshold, split again. Bounded by text length — eventually each chunk will be below threshold.
 
-**Text layer and footnote handling for split chunks:** Each chunk gets the text layers and footnotes corresponding to its text range only. Text layers are sliced at the split point character offset — a layer segment that spans the split point is divided into two segments, one per chunk. Footnotes are assigned to the chunk that contains their `⌜N⌝` marker.
+**Text layer and footnote handling for split chunks:** Each chunk gets the text layers and footnotes corresponding to its text range only. Text layers are sliced at the split point character offset — a layer segment that spans the split point is divided into two segments, one per chunk. Both halves inherit the original segment's `layer_type`, `author_canonical_id`, and `confidence`. The split point character offset is recorded in `assembly_metadata.layer_split_points` (see §2.3.2 AssemblyMetadata). Phase 3 attribution logic (§7.1 F-DET-3) MUST treat split-point layer boundaries as non-meaningful — consecutive layer segments with the same `layer_type` and `author_canonical_id` separated only by a recorded split point are treated as a single attribution span, preventing artificial attribution transitions at split boundaries. Footnotes are assigned to the chunk that contains their `⌜N⌝` marker.
 
 **Content unit assignment for split chunks:** All chunks from the same split share the same `constituent_unit_indices` (the original division's full range) because splitting operates on the assembled text, not on content units. The `assembled_text` of each chunk is a substring of the original assembly. Per I-AC-4, this is the correct behavior.
 
@@ -726,7 +738,9 @@ Normalization provides `text_layers` per content unit with character offsets rel
 
 **Footnotes:** Collect all `Footnote` objects from constituent content units in order. Deduplicate by `ref_marker` — if two units have a footnote with the same `ref_marker`, keep the first occurrence and emit `EX-A-005` (duplicate footnote marker, warning).
 
-**Footnote renumbering:** When assembling text across pages, footnote reference markers may collide (two pages both have `⌜1⌝`). If collisions exist, renumber footnotes sequentially by order of first appearance in the assembled text. Update both the `⌜N⌝` markers in `assembled_text` and the `ref_marker` fields in the `footnotes` list. Record the old→new mapping in `assembly_metadata` for traceability.
+**Footnote renumbering:** When assembling text across pages, footnote reference markers may collide (two pages both have `⌜1⌝`). If collisions exist, renumber footnotes sequentially by order of first appearance in the assembled text. Update both the `⌜N⌝` markers in `assembled_text` and the `ref_marker` fields in the `footnotes` list. Record the old→new mapping in `assembly_metadata.footnote_renumber_map` for traceability.
+
+**CRITICAL ORDERING:** Footnote renumbering modifies `assembled_text` (changing character offsets when marker lengths change, e.g., `⌜1⌝` → `⌜12⌝`). This step runs as part of step 5 (§4.1), BEFORE text layer rebasing (step 6). Layer rebasing operates on the final `assembled_text` — the version after footnote renumbering. If renumbering changes any character offsets, the `word_count` and `total_tokens` are also recomputed from the final text. The `assembled_text` is write-once after this step — no subsequent phase may modify it (§2.3.6 Immutability).
 
 **Physical pages:** Collect `PhysicalPage` records from all constituent content units in `unit_index` order. No deduplication — each page contributes one record.
 
@@ -734,7 +748,7 @@ Normalization provides `text_layers` per content unit with character offsets rel
 
 From the experiment: heading-content misalignment (where a division's heading does not match its actual content) produces garbage LLM results. The heading alignment filter detects this.
 
-**Algorithm:** Strip Arabic noise (ZWNJ, ZWJ, diacritics, tatweel) from both the division's `heading_text` and the first 200 characters of `assembled_text`. Check if the first 30 stripped characters of the heading appear within the first 200 stripped characters of the assembled text. Validated implementation: `strip_arabic_noise()` in `extract_divisions.py`.
+**Algorithm:** Strip Arabic noise characters from both the division's `heading_text` and the first 200 characters of `assembled_text` for comparison purposes only. The stripped characters are: U+200C (ZWNJ), U+200D (ZWJ), U+0640 (tatweel/kashida), and Arabic diacritics U+064B–U+0652 (fathatan through sukun) and U+0670 (superscript alef). This stripping is applied to temporary copies — the actual `assembled_text` and `heading_text` are never modified (this does not conflict with §4.3's diacritics preservation rule, which governs the stored text). The canonical stripping function is `strip_arabic_noise()` in `extract_divisions.py`. Check if the first 30 stripped characters of the heading appear within the first 200 stripped characters of the assembled text.
 
 **Result:** Sets `heading_alignment_ok` on the `AssembledChunk`:
 - `true`: heading aligns with content.
@@ -842,6 +856,8 @@ The text format is: {structural_format}
 - Added: structural_format context (the experiment tested per-division; production includes format as context)
 - Preserved: all original experiment boundary rules exactly
 - Removed: nothing from experiment prompt
+
+**Implementation note:** The word "approximate" in the prompt (for `start_word` and `end_word`) is deliberate — it reduces LLM effort on offset precision, which the normalization algorithm (§5.4.1) handles post-hoc using `text_snippet` as the alignment anchor. CC should not attempt to improve offset accuracy in the prompt. The `text_snippet` field is the critical alignment input, not the offset numbers.
 
 #### §5.2.3 — User Message
 
@@ -1010,7 +1026,7 @@ The segment summary uses the **post-normalization** word offsets (canonical toke
 | `total_units` | `int` | Count of units (must equal `len(teaching_units)`). |
 | `notes` | `str` (optional) | LLM notes on grouping decisions, if any. |
 
-**TeachingUnit** fields match §2.3.4. The `start_word` and `end_word` are derived from the constituent segments' normalized offsets — the LLM references the segments by index and the engine computes the word ranges from the segment data.
+**TeachingUnit** fields match §2.3.4. The engine always computes `start_word` and `end_word` from the constituent segments' normalized offsets — it does not use the LLM's values for these fields. The LLM references segments by index; the engine derives `start_word = segments[segment_indices[0]].start_word` and `end_word = segments[segment_indices[-1]].end_word`. V-P2-14 compares the LLM's values against the derived values as a sanity check (warning, not fatal — see §5.4.3).
 
 On schema validation failure, same retry policy as §5.2.4.
 
@@ -1052,7 +1068,9 @@ The normalization processes the segments in order (by `segment_index`) and maps 
 
 (d) If the snippet is not found with exact matching, attempt **whitespace-normalized matching**: collapse runs of whitespace in both the snippet and the search region to single spaces, then retry. Arabic text may have inconsistent whitespace around diacritics or punctuation.
 
-(e) If the snippet is still not found, the normalization has failed for this segment. See failure handling below.
+(d2) If the whitespace-normalized match also fails, attempt **diacritic-stripped matching**: strip Arabic diacritics (U+064B–U+0652, U+0670) from both the snippet and the search region, then retry. The LLM may occasionally drop or add a diacritic in the copied snippet despite being instructed to copy exactly. If this match succeeds, use the match position but emit a warning `EX-A-012` (diacritic-mismatched snippet) for quality monitoring. This warning does not affect processing — the match position is correct.
+
+(e) If the snippet is still not found after all three matching attempts, the normalization has failed for this segment. See failure handling below.
 
 **Step 3 — Infer boundaries from contiguity.** After all segments are anchored:
 - `segment[0].start_word` is set from its anchor (must be 0 — validated in §5.4.2).
@@ -1106,7 +1124,7 @@ After Phase 2b produces teaching units, verify the invariants from §2.3.4:
 
 **V-P2-13 (Unit contiguity):** For consecutive units `u[i]`, `u[i+1]`: `u[i+1].start_word == u[i].end_word + 1` (I-TU-4). Fatal if violated.
 
-**V-P2-14 (Word range consistency):** Each unit's `start_word` equals the `start_word` of its first constituent segment, and its `end_word` equals the `end_word` of its last constituent segment (I-TU-5). Fatal if violated. The implementation should derive these from the segment data rather than trusting the LLM's values.
+**V-P2-14 (Word range consistency):** Each unit's `start_word` equals the `start_word` of its first constituent segment, and its `end_word` equals the `end_word` of its last constituent segment (I-TU-5). Warning if the LLM's values differ from the derived values (log the discrepancy for monitoring LLM reliability, but always use the derived values). The implementation derives these from the segment data rather than trusting the LLM's values.
 
 **V-P2-15 (Self-containment notes consistency):** If `self_containment` is `FULL`, then `self_containment_notes` must be null/absent (I-TU-6). If `self_containment` is `PARTIAL` or `DEPENDENT`, then `self_containment_notes` must be present and non-empty (I-TU-7). Warning if violated (auto-repair: set notes to null for FULL; set to "No notes provided" for PARTIAL/DEPENDENT — but flag for review).
 
@@ -1374,17 +1392,18 @@ Phase 3 has three stages, executed in order:
 
 For each `TeachingUnit` in the chunk, Phase 3 computes the following fields without any LLM call. Each field is defined with its computation algorithm and source data.
 
-**F-DET-1: `excerpt_id`**
+**F-DET-1: `excerpt_id` and `chunk_index`**
 
-Globally unique identifier for the excerpt. Format: `exc_{source_id}_{div_id}_{unit_index}`.
+Globally unique identifier for the excerpt. Format: `exc_{source_id}_{div_id}_{chunk_index}_{unit_index}`.
 
 - `source_id`: from the `AssembledChunk.source_id` field.
 - `div_id`: from the `AssembledChunk.div_id` field (the division that produced this chunk).
+- `chunk_index`: for unsplit chunks (no `split_info`), `chunk_index = 0`. For split chunks, `chunk_index = split_info.chunk_index`. This field is also written to the ExcerptRecord as a top-level field.
 - `unit_index`: from the `TeachingUnit.unit_index` field.
 
-Example: `exc_12345_div_3_2_7` for unit 7 of division 3.2 in source 12345.
+Example: `exc_12345_div_3_2_0_7` for unit 7, chunk 0 of division 3.2 in source 12345. For a split division: `exc_12345_div_3_2_1_3` for unit 3 of chunk 1.
 
-Uniqueness invariant: no two excerpts in the library share an `excerpt_id`. This is guaranteed by the combination of unique source_id (from the source engine), unique div_id within a source (from the normalization manifest), and unique unit_index within a chunk (from Phase 2).
+Uniqueness invariant: no two excerpts in the library share an `excerpt_id`. This is guaranteed by the combination of unique source_id (from the source engine), unique div_id within a source (from the normalization manifest), unique chunk_index within a division (from Phase 1 splitting), and unique unit_index within a chunk (from Phase 2). The chunk_index component is critical for split divisions — without it, chunks 0 and 1 of the same division would produce identical IDs for matching unit_index values.
 
 **F-DET-2: `primary_text`**
 
@@ -1399,8 +1418,8 @@ This text is **immutable** — it is written once and never modified by subseque
 The text layer (and therefore author) to which this teaching unit is attributed. Computed by applying the layer attribution rules from §6.2 (LA-1 through LA-4) to the unit's character range within `assembled_text`.
 
 Algorithm:
-1. Convert the unit's word offsets (`start_word`, `end_word`) to character offsets in `assembled_text`.
-2. For each `text_layer` segment in `AssembledChunk.text_layers`, compute the character overlap with the unit's character range.
+1. Convert the unit's word offsets (`start_word`, `end_word`) to character offsets in `assembled_text`. **Character offset conversion:** split `assembled_text` by whitespace, recording each token's start and end character positions in the original string. Word offset `w` corresponds to character range `[token_char_start[w], token_char_end[w]]`. The unit's character range is `[token_char_start[start_word], token_char_end[end_word]]`. This same conversion is used by F-DET-6 and F-DET-8.
+2. For each `text_layer` segment in `AssembledChunk.text_layers`, compute the character overlap with the unit's character range. **Layer split point handling:** before computing coverage, merge consecutive layer segments that have identical `layer_type` and `author_canonical_id` AND are separated by a character offset listed in `assembly_metadata.layer_split_points`. These segments were artificially divided by §4.5 splitting and represent a single continuous attribution span. Failure to merge them would create false attribution transitions at split boundaries (T-2 risk).
 3. Compute each layer's coverage percentage: `overlap_chars / unit_total_chars`.
 4. Apply rules in order:
    - **LA-4:** If one layer has 100% coverage, attribute to that layer's author. (Checked first because it's the most specific case.)
@@ -1445,15 +1464,19 @@ Pattern matching uses word-boundary-aware search (the lesson from normalization 
 
 The physical page range this teaching unit spans in the original printed edition.
 
-Algorithm: the `AssembledChunk.assembly_metadata` contains `page_ranges` — a mapping from character offset ranges in `assembled_text` to physical page numbers. Convert the unit's character range to page numbers using this mapping.
+Algorithm:
+1. Convert the unit's word offsets to character offsets (same conversion as F-DET-3 step 1).
+2. The `AssembledChunk.physical_pages` list contains one `PhysicalPage` record per constituent content unit, in order. The `assembly_metadata.join_points` list records the `char_offset_in_assembled` for each page boundary.
+3. Identify which physical pages overlap with the unit's character range by comparing the unit's character range against the join point offsets. The physical page before the first join point covers characters 0 to `join_points[0].char_offset_in_assembled - 1`; the page between join points covers the range between consecutive offsets; and so on.
+4. From the overlapping physical pages, extract the minimum and maximum page numbers and volume.
 
-Output: `{start_page: int, end_page: int, volume: int | null}`. If page information is unavailable (some Shamela exports lack it), this field is `null`.
+Output: `PageRange: {volume: int | null, start_page: int, end_page: int}` (type defined in §2.2.2). If physical page information is unavailable (some Shamela exports lack it, or the `physical_pages` list is empty), this field is `null`.
 
 **F-DET-7: `div_path`**
 
 The heading hierarchy path from the source's table of contents to the division containing this chunk.
 
-Source: `AssembledChunk.assembly_metadata.heading_path` — a list of heading strings from the manifest's division tree, root to leaf.
+Source: `AssembledChunk.div_path` — a list of heading strings from the manifest's division tree, root to leaf (defined in §2.3.2).
 
 Output: `list[str]` — e.g., `["كتاب الطهارة", "باب الوضوء", "فصل في فرائض الوضوء"]`.
 
@@ -1462,9 +1485,11 @@ Output: `list[str]` — e.g., `["كتاب الطهارة", "باب الوضوء"
 The subset of the chunk's footnotes that have reference markers appearing within this teaching unit's text range.
 
 Algorithm:
-1. The `AssembledChunk.footnotes` contains all footnotes for the chunk, each with a `ref_marker` (e.g., "(1)", "¹") and its character offset in `assembled_text`.
-2. Select footnotes whose `ref_marker` character offset falls within the unit's character range.
-3. Return the selected footnotes with their full text.
+1. The `AssembledChunk.footnotes` contains all footnotes for the chunk, each with a `ref_marker` field. The `Footnote` object does not carry a pre-computed character offset in `assembled_text`. Instead, locate each footnote's position by searching `assembled_text` for the pattern `⌜{ref_marker}⌝`.
+2. Convert the unit's word offsets to character offsets (same conversion as F-DET-3 step 1).
+3. For each footnote, if the pattern `⌜{ref_marker}⌝` is found in `assembled_text` and the match's character position falls within the unit's character range, the footnote is relevant to this unit.
+4. If a footnote's marker pattern is not found anywhere in `assembled_text`, this indicates a data integrity issue (the footnote was collected but its marker is missing from the text) — log a warning but do not include the orphaned footnote.
+5. Return the selected footnotes with their full text.
 
 Footnotes outside the unit's range are excluded — they belong to other teaching units from the same chunk. No footnote is dropped from the chunk-level data (D-023 metadata passthrough); the filtering is per-excerpt for relevance.
 
@@ -1511,11 +1536,13 @@ For EACH teaching unit listed in the input, provide these fields:
    Choose keywords that distinguish this unit's topic from other units in the
    same chapter. Avoid overly broad terms (e.g., "فقه" alone is too broad).
 
-2. SCHOOL ATTRIBUTION (school): If this unit presents a position from a specific
-   madhhab or school, identify it. Values:
+2. SCHOOL ATTRIBUTION (school, school_confidence): If this unit presents a
+   position from a specific madhhab or school, identify it. Values:
    - A school name: "حنفي", "مالكي", "شافعي", "حنبلي", "ظاهري"
    - "cross_school" if the unit compares multiple schools' positions
    - null if no school attribution is identifiable (grammar, tafsir, etc.)
+   Also provide school_confidence (0.0 to 1.0) for your attribution. Set to
+   null when school is null.
    CRITICAL DISTINCTION: The author's own school (provided in source metadata)
    is not necessarily the school of the position being presented. An author from
    the Hanbali school may present the Shafi'i position for comparison. Attribute
@@ -1651,6 +1678,7 @@ The LLM returns structured output enforced via a Pydantic model. The schema:
 | `unit_index` | `int` | yes | Must match the input `unit_index`. |
 | `excerpt_topic` | `list[str]` | yes | 1–3 Arabic topic keywords. |
 | `school` | `str \| null` | yes | School attribution or null. |
+| `school_confidence` | `float \| null` | yes | Confidence for school attribution (0.0–1.0). Null when `school` is null. |
 | `resolved_scholars` | `list[ResolvedScholar]` | yes | May be empty if no scholars mentioned. |
 | `takhrij_data` | `list[TakhrijEntry]` | no | Present only for units with hadith content. |
 | `terminology_variants` | `list[TermVariant]` | yes | May be empty. |
@@ -1754,6 +1782,7 @@ Text: "{unit primary_text, truncated to 500 chars}"
 Decision: {the claim being verified}
 Your assessment: agree or disagree, with brief reasoning in Arabic or English.
 If you disagree, provide your alternative.
+Provide your confidence (0.0 to 1.0) in your own assessment.
 
 {end for}
 ```
@@ -1776,6 +1805,7 @@ The verification types are:
 | `item_index` | `int` | Matches the item number from the prompt. |
 | `agrees` | `bool` | Whether the verifier agrees with the decision. |
 | `alternative` | `str \| null` | The verifier's alternative if it disagrees. |
+| `confidence` | `float` | The verifier's confidence in its own assessment (0.0–1.0). Used for school_confidence computation in §7.3.3. |
 | `reasoning` | `str` | Brief explanation. |
 
 **Verification model parameters:**
@@ -1792,7 +1822,7 @@ When the enrichment model and verification model disagree:
 
 **School attribution disagreement:**
 1. Record both assessments: `{enrichment_school, verifier_school, verifier_reasoning}`.
-2. If the verifier proposes a specific alternative school → use the **conservative** choice: set `school_confidence` to the lower of the two models' confidences, and add review flag `school_consensus_disagreement`.
+2. If the verifier proposes a specific alternative school → use the **conservative** choice: set `school_confidence` to the lower of the enrichment model's `school_confidence` and the verifier's `confidence`, and add review flag `school_consensus_disagreement`.
 3. Emit `EX-M-003` (school attribution disagreement).
 4. The excerpt is produced with the enrichment model's `school` value but flagged for human review.
 
@@ -1806,6 +1836,12 @@ When the enrichment model and verification model disagree:
 1. Use the **more conservative** (lower) assessment. If the enrichment model said PARTIAL but the verifier says DEPENDENT, use DEPENDENT. If the verifier says FULL but Phase 2b said PARTIAL, keep PARTIAL.
 2. Record the disagreement in the excerpt's metadata: `{phase2_assessment, verifier_assessment}`.
 3. If downgraded to DEPENDENT → the human gate triggers (§7.3.4).
+
+**Post-consensus context_hint repair (critical):** Because §7.2 (enrichment) runs BEFORE §7.3 (consensus), the `context_hint` produced by the LLM may be inconsistent with the consensus-resolved self-containment level. This repair step runs immediately after §7.3 consensus resolution, before V-P3-5 (self-containment consistency) validation.
+- If consensus **downgrades** FULL → PARTIAL: the enrichment LLM did not produce a `context_hint` (it saw FULL). Repair: generate a `context_hint` from `self_containment_notes` — use the notes text directly as the hint. If `self_containment_notes` is also absent (Phase 2b said FULL), set `context_hint` to the verifier's reasoning text from the disagreement record. This ensures I-ER-4 is satisfied (PARTIAL → context_hint present).
+- If consensus **downgrades** FULL → DEPENDENT or PARTIAL → DEPENDENT: set `context_hint` to null (DEPENDENT units do not receive context hints per §3.3). The human gate handles DEPENDENT units.
+- If consensus **upgrades** PARTIAL → FULL: this case cannot occur. The conservative rule (§7.3.3) means consensus never upgrades — it only keeps or downgrades. This eliminates the PARTIAL→FULL case by design.
+- If consensus **keeps** the same level: no repair needed — the enrichment LLM's context_hint (or lack thereof) is consistent.
 
 Rationale for conservatism: underestimating self-containment (marking as PARTIAL when it's really FULL) costs the owner a context hint they don't need. Overestimating self-containment (marking as FULL when it's really PARTIAL) means the owner studies an excerpt without needed context and potentially misunderstands the teaching. The asymmetry of harm favors conservatism.
 
@@ -1888,12 +1924,13 @@ Each code is defined exactly once in the section where its triggering condition 
 | Code | Trigger | Severity | Recovery | Defined In |
 |------|---------|----------|----------|------------|
 | `EX-A-002` | Division's content unit range is empty | ERROR | Skip division | §4.2 |
-| `EX-A-003` | Text layer rebasing produces non-contiguous coverage | WARNING | Clamp and log | §4.6 |
+| `EX-A-003` | Text layer rebasing produces non-contiguous coverage (gap between segments) | WARNING | Attempt repair: extend the preceding segment's `end` to cover gaps ≤5 characters (likely rounding errors). If gap >5 characters, escalate to Fatal via V-P1-5. Log gap size and location. | §4.6 |
 | `EX-A-004` | Layer segment end exceeds content unit text length | WARNING | Clamp to text length | §4.6 |
 | `EX-A-005` | Duplicate footnote `ref_marker` in assembled footnotes | WARNING | Deduplicate, keep first | §4.7 |
 | `EX-A-006` | Heading text does not align with first content unit | WARNING | Process chunk anyway | §4.8 |
 | `EX-A-010` | Empty `division_tree` — no divisions to process | ERROR | Skip source | §4.9 |
 | `EX-A-011` | Content unit not found for declared unit index | ERROR | Skip division | §4.9 |
+| `EX-A-012` | Offset normalization snippet matched only after diacritic stripping (§5.4.1 step d2) | WARNING | Use match position; log for quality monitoring | §5.4.1 |
 
 **Phase 2 — Classification and Grouping (EX-C-*):**
 
@@ -1957,9 +1994,10 @@ Recovery follows a consistent pattern: retry → degrade → skip → flag.
 2. If alignment fails, skip the chunk. Flag for reprocessing with diagnostic data (the LLM's raw offsets and the canonical tokenization).
 
 **Coverage violations (EX-C-004, EX-C-005):**
-1. Attempt repair: merge uncovered word ranges into the nearest adjacent segment or unit.
-2. If repair restores coverage → proceed with repaired data and log the repair.
-3. If repair fails → skip the chunk. Flag for reprocessing.
+1. On coverage invariant violation (§5.4.2 or §5.4.3), first attempt **repair**: merge uncovered word ranges into the nearest adjacent segment or unit. Re-validate after repair.
+2. If repair restores coverage → proceed with repaired data and log the repair. No retry needed.
+3. If repair fails (violation persists) → reject the LLM result and **retry** the LLM call per §5.5.2 (up to RETRY_COUNT retries). The retry includes an error feedback message describing which invariant was violated.
+4. If all retries are exhausted and coverage is still violated → skip the chunk. Flag with EX-C-004 (segments) or EX-C-005 (units) for reprocessing.
 
 **Phase 1 assembly failures (EX-A-002, EX-A-010, EX-A-011):**
 1. Skip the affected division (or source for EX-A-010).
@@ -2050,7 +2088,7 @@ This section catalogs capabilities that are **not part of the core excerpting en
 | DC-06 | Cross-excerpt dialogue detection | excerpting §4.B.6 | Post-Phase 3 (incremental) | `dialogue_links: list \| null` on ExcerptRecord | DC-01, DC-05, taxonomy placement |
 | DC-07 | Self-containment repair suggestions | excerpting §4.B.7 | Post-Phase 3 | `repair_suggestions: list \| null` on ExcerptRecord | Core: `self_containment`, adjacent chunk context |
 | DC-08 | Cross-source textual resonance | excerpting §4.B.8 | Post-Phase 3 (incremental) | `resonance_links: list \| null` on ExcerptRecord | DC-05, DC-08 (fingerprints), taxonomy placement |
-| DC-09 | Rhetorical structure analysis | atomization §4.B.1 | Phase 2b (post-grouping) | `rhetorical_pattern: str \| null` on TeachingUnit | Core: `scholarly_function` sequence |
+| DC-09 | Rhetorical structure analysis | atomization §4.B.1 | Phase 2b (post-grouping) → Phase 3 (passthrough) | `rhetorical_pattern: str \| null` on ExcerptRecord (computed after grouping, carried through Phase 3) | Core: `scholarly_function` sequence |
 | DC-10 | Scholarly attribution chain resolution | atomization §4.B.4 | Phase 3 | `attribution_chain: list \| null` on ExcerptRecord | Core: `quoted_scholars`, `primary_author_layer` |
 | DC-11 | Semantic fingerprinting | atomization §4.B.5 | Post-Phase 2 | `fingerprint: object \| null` on ExcerptRecord | Core: `primary_text` |
 | DC-12 | Passage quality prediction | passaging §4.B.1 | Post-Phase 1 | `quality_prediction: object \| null` on AssembledChunk | Core: `assembled_text`, embeddings |
@@ -2067,7 +2105,7 @@ Post-Phase 3 capabilities (DC-02, DC-03, DC-06, DC-07, DC-08) run AFTER Phase 3 
 
 Cross-source capabilities (DC-02, DC-06, DC-08) require taxonomy placement to determine which excerpts share a leaf. These are inherently incremental — they run when a new source is added to an existing library, comparing new excerpts against previously placed excerpts. During initial bulk loading, they run as a batch job after all sources are excerpted and placed.
 
-**DC-09 (rhetorical structure):** Extends Phase 2b by adding a post-grouping pattern matching step. After teaching units are grouped, a pattern matcher examines the sequence of `scholarly_function` values across a chunk's units and annotates recognized rhetorical patterns. The field `rhetorical_pattern` on `TeachingUnit` records the matched pattern name (e.g., `"masala_tarjih"`, `"definition_example"`) or null. This is purely informational — it does not change unit boundaries.
+**DC-09 (rhetorical structure):** Extends Phase 2b by adding a post-grouping pattern matching step. After teaching units are grouped, a pattern matcher examines the sequence of `scholarly_function` values across a chunk's units and annotates recognized rhetorical patterns. The field `rhetorical_pattern` on `ExcerptRecord` records the matched pattern name (e.g., `"masala_tarjih"`, `"definition_example"`) or null. The value is computed after Phase 2b grouping and carried through Phase 3 deterministic assembly. This is purely informational — it does not change unit boundaries.
 
 **DC-10 (attribution chain):** Extends Phase 3 LLM enrichment to resolve multi-layer scholarly attribution chains. Where the core engine identifies `primary_author_layer` and `quoted_scholars`, this capability reconstructs the full chain: who quotes whom, in what capacity, across how many layers of commentary. The `attribution_chain` field is a list of `{scholar_id, role, layer, quotes}` objects tracing the scholarly lineage of each teaching unit's content.
 
@@ -2111,7 +2149,7 @@ The following capabilities from the old SPECs are **absorbed into the core engin
 
 This section specifies **what must be tested**, not how. The builder (Claude Code) writes the actual test code; this section defines the coverage targets, fixture requirements, and adversarial cases that the test suite must satisfy.
 
-**Coverage rule:** Every verification check (34 total: V-P1-1–6, V-P2-1–19, V-P3-1–9), every invariant (29 total: I-AC-1–7, I-CS-1–6, I-TU-1–9, I-ER-1–7), every error code (27 total: EX-A/C/M/V/G), and every domain rule (22 total: DP-1–6, LA-1–4, EV-1–3, IR-1–3, VC-1–3, QM-1–3) requires at least one test that exercises it. A test that only checks the happy path does not count — each test must verify the specific behavior described by the ID it claims to cover.
+**Coverage rule:** Every verification check (34 total: V-P1-1–6, V-P2-1–19, V-P3-1–9), every invariant (29 total: I-AC-1–7, I-CS-1–6, I-TU-1–9, I-ER-1–7), every error code (28 total: EX-A/C/M/V/G), and every domain rule (22 total: DP-1–6, LA-1–4, EV-1–3, IR-1–3, VC-1–3, QM-1–3) requires at least one test that exercises it. A test that only checks the happy path does not count — each test must verify the specific behavior described by the ID it claims to cover.
 
 ### §10.1 — Test Fixtures
 
@@ -2175,6 +2213,7 @@ I-AC-1 through I-AC-7 define `AssembledChunk` structural constraints. Each invar
 | EX-A-006 | Heading text from division tree does not align with first content unit text (heading mismatch) |
 | EX-A-010 | Empty division_tree — source has 0 leaf divisions to process |
 | EX-A-011 | Content unit not found for a unit_index in the declared range (missing content unit) |
+| EX-A-012 | Offset normalization snippet matched only after diacritic stripping (§5.4.1 step d2) |
 
 Each error code test must verify: (a) the error is emitted with the correct code, (b) the error message contains actionable context, and (c) the appropriate recovery strategy from §8.2 is followed.
 
@@ -2197,7 +2236,7 @@ For each V-P2 check, the test must:
 | Test | Input | Expected Behavior |
 |------|-------|-------------------|
 | Prose classification | Architecture experiment prose division (~500 words) | Segments with valid scholarly functions, full coverage (V-P2-5) |
-| Verse-commentary classification | Ibn Aqil fixture division | VC-1 through VC-3 rules applied; verse segments get `verse_statement` function |
+| Verse-commentary classification | Ibn Aqil fixture division | VC-1 through VC-3 rules applied; verse segments classified with appropriate scholarly functions from §2.3.1 (typically `rule_statement` for Alfiyya verses encoding grammar rules, or `definition`); verse + commentary grouped as single teaching unit per VC-1 |
 | Multi-topic grouping | Division with 2 distinct topics | ≥2 teaching units; no unit spans both topics |
 | Self-containment evaluation | Division with a dependent excerpt (references prior context) | At least one unit with `self_containment: DEPENDENT` |
 | Offset normalization | LLM response with approximate word boundaries | §5.4 normalization produces exact token-aligned boundaries |
@@ -2296,7 +2335,7 @@ Adversarial cases verify that specific knowledge corruption paths are blocked. E
 
 **ADV-E-09 (Overlapping LLM segments):** Input: mock LLM response where segment 3 has `end_word: 50` and segment 4 has `start_word: 48` (overlap of 2 tokens). Expected: §5.4 offset normalization detects the overlap and adjusts boundaries to eliminate it. V-P2-2 (contiguity) passes after normalization. The engine does NOT silently accept overlapping segments (which would cause double-counting in downstream analysis).
 
-**ADV-E-10 (LLM produces 0 segments):** Input: mock LLM response with an empty segments list for a non-empty chunk. Expected: EX-C-002 is emitted. The retry strategy (§8.2) re-attempts classification. If retries are exhausted, the chunk is flagged with `classification_failed` and a single fallback segment covering the entire chunk is produced with `scholarly_function: "unclassified"` and `confidence: 0.0`. The engine does NOT silently drop the chunk's content.
+**ADV-E-10 (LLM produces 0 segments):** Input: mock LLM response with an empty segments list for a non-empty chunk. Expected: V-P2-5 (full coverage) fails because there are no segments. The retry strategy (§5.5.2) re-attempts classification with error feedback. If all retries are exhausted, `EX-C-001` (classification failed) is emitted and the chunk is skipped — no teaching units are produced. The chunk is flagged for reprocessing in the processing log. The engine does NOT silently drop the chunk without flagging, and does NOT produce fallback segments with artificial classifications.
 
 **ADV-E-11 (Gate write failure):** Input: trigger a gate condition (EX-G-001), but the gate file write fails (simulate I/O error). Expected: EX-M-008 is emitted. The engine retries the write. If the retry fails, the engine HALTS processing for this source (§8.2 — invisible uncertainty is more dangerous than a visible stop). The engine does NOT continue processing with an unwritten gate entry.
 
