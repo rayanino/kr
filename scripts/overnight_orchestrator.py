@@ -145,7 +145,7 @@ def git_is_clean() -> bool:
     # Filter out overnight state files and transient paths regardless of status
     IGNORED_PREFIXES = (
         "overnight/", "results/", ".claude/scheduled_tasks",
-        ".claude/session_state",
+        ".claude/session_state", ".claude/plans/",
     )
     lines = []
     for line in result.stdout.strip().split("\n"):
@@ -901,8 +901,8 @@ def run_overnight(
 
     # Pre-flight (skip for dry-run)
     if not dry_run:
-        _acquire_lock()
         preflight_checks()
+        _acquire_lock()
 
     # Load or generate manifest
     if manifest_path and manifest_path.exists():
