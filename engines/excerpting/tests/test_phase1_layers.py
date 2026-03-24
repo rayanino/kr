@@ -191,10 +191,10 @@ class TestRebaseTextLayers:
         result = rebase_text_layers(units, [0], [], len(text))
         assert result[0].end == len(text)  # Clamped to text length
 
-    def test_gap_detection(self) -> None:
-        """Missing coverage within a unit → EX-A-003 raises ValueError."""
-        text = "كتاب الله"
-        # Two non-contiguous layers with a gap between them
+    def test_small_gap_repaired(self, caplog: pytest.LogCaptureFixture) -> None:
+        """EX-A-003: gap ≤5 chars → repair by extending previous segment + warning."""
+        text = "كتاب الله"  # 9 chars
+        # Two non-contiguous layers with a 2-char gap at [3, 5)
         units = [
             _make_content_unit(
                 unit_index=0,
@@ -210,7 +210,51 @@ class TestRebaseTextLayers:
                     TextLayerSegment(
                         layer_type=LayerType.SHARH,
                         author_canonical_id=None,
-                        start=5,  # Gap at [3, 5)
+                        start=5,  # Gap at [3, 5) — 2 chars, ≤5 → repaired
+                        end=len(text),
+                        confidence=1.0,
+                    ),
+                ],
+            )
+        ]
+        import logging
+
+        with caplog.at_level(logging.WARNING):
+            result = rebase_text_layers(units, [0], [], len(text))
+        # Should NOT crash — gap was repaired
+        assert len(result) == 2
+        # First segment extended from end=3 to end=5 to close the gap
+        assert result[0].start == 0
+        assert result[0].end == 5
+        assert result[0].layer_type == LayerType.MATN
+        # Second segment unchanged
+        assert result[1].start == 5
+        assert result[1].end == len(text)
+        assert result[1].layer_type == LayerType.SHARH
+        # EX-A-003 warning was emitted
+        assert any("EX-A-003" in rec.message for rec in caplog.records)
+        assert any("small gap of 2 chars" in rec.message for rec in caplog.records)
+
+    def test_large_gap_fatal(self) -> None:
+        """EX-A-003: gap >5 chars → not repaired, validate_layer_coverage raises I-AC-2."""
+        text = "بسم الله الرحمن الرحيم"  # 21 chars
+        # Two layers with a 10-char gap at [5, 15) — too large to repair
+        units = [
+            _make_content_unit(
+                unit_index=0,
+                primary_text=text,
+                text_layers=[
+                    TextLayerSegment(
+                        layer_type=LayerType.MATN,
+                        author_canonical_id=None,
+                        start=0,
+                        end=5,
+                        confidence=1.0,
+                    ),
+                    TextLayerSegment(
+                        layer_type=LayerType.SHARH,
+                        author_canonical_id=None,
+                        start=15,  # Gap at [5, 15) — 10 chars, >5 → fatal
                         end=len(text),
                         confidence=1.0,
                     ),
@@ -219,3 +263,36 @@ class TestRebaseTextLayers:
         ]
         with pytest.raises(ValueError, match="I-AC-2"):
             rebase_text_layers(units, [0], [], len(text))
+
+    def test_no_gap_no_exa003_warning(self, caplog: pytest.LogCaptureFixture) -> None:
+        """Perfect tiling → no EX-A-003 emitted."""
+        text = "كتاب الله"  # 9 chars
+        units = [
+            _make_content_unit(
+                unit_index=0,
+                primary_text=text,
+                text_layers=[
+                    TextLayerSegment(
+                        layer_type=LayerType.MATN,
+                        author_canonical_id=None,
+                        start=0,
+                        end=4,
+                        confidence=1.0,
+                    ),
+                    TextLayerSegment(
+                        layer_type=LayerType.SHARH,
+                        author_canonical_id=None,
+                        start=4,  # No gap — perfectly contiguous
+                        end=len(text),
+                        confidence=1.0,
+                    ),
+                ],
+            )
+        ]
+        import logging
+
+        with caplog.at_level(logging.WARNING):
+            result = rebase_text_layers(units, [0], [], len(text))
+        assert len(result) == 2
+        # No EX-A-003 warnings
+        assert not any("EX-A-003" in rec.message for rec in caplog.records)

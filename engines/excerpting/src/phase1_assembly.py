@@ -1044,6 +1044,47 @@ def rebase_text_layers(
         else:
             merged.append(seg)
 
+    # EX-A-003: Detect and repair small gaps in layer coverage
+    # SPEC §4.6 + §8.1: gaps ≤5 chars → repair (extend previous end), WARNING
+    # gaps >5 chars → leave for validate_layer_coverage to Fatal
+    if merged:
+        repaired: list[TextLayerSegment] = [merged[0]]
+        for i in range(1, len(merged)):
+            gap = merged[i].start - repaired[-1].end
+            if gap > 0 and gap <= 5:
+                # Small gap — repair by extending previous segment
+                logger.warning(
+                    "%s: small gap of %d chars at position %d-%d between segments "
+                    "(repaired by extending previous segment). This may indicate "
+                    "rounding in normalization layer offsets.",
+                    ExcerptingErrorCodes.EX_A_003,
+                    gap,
+                    repaired[-1].end,
+                    merged[i].start,
+                )
+                repaired[-1] = TextLayerSegment(
+                    layer_type=repaired[-1].layer_type,
+                    author_canonical_id=repaired[-1].author_canonical_id,
+                    start=repaired[-1].start,
+                    end=merged[i].start,  # extend to close gap
+                    confidence=repaired[-1].confidence,
+                )
+                repaired.append(merged[i])
+            elif gap > 5:
+                # Large gap — log but leave for validate_layer_coverage to catch
+                logger.error(
+                    "%s: large gap of %d chars at position %d-%d between segments "
+                    "(too large to repair, will fail I-AC-2 validation).",
+                    ExcerptingErrorCodes.EX_A_003,
+                    gap,
+                    repaired[-1].end,
+                    merged[i].start,
+                )
+                repaired.append(merged[i])
+            else:
+                repaired.append(merged[i])
+        merged = repaired
+
     # Validate I-AC-2 coverage
     validate_layer_coverage(merged, assembled_text_len)
 
