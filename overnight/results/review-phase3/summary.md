@@ -1,33 +1,44 @@
-# Overnight Review: Phase 3.1 Deterministic Metadata Assembly
+# Overnight Review: Phase 3.1 Deterministic Metadata Assembly (Pass 2)
 
-**Task:** Thorough code review of Phase 3.1 deterministic metadata assembly
+**Task:** Deep independent code review of Phase 3.1 deterministic metadata assembly
 **Status:** COMPLETE
 **Date:** 2026-03-24
+**Reviewer:** Claude Opus 4.6 (second-pass independent review)
 
 ## Result
 
-**PASS with minor findings.** No critical bugs. 1 HIGH, 5 MEDIUM, 6 LOW findings.
+**PASS with findings.** No critical bugs. 2 HIGH, 7 MEDIUM, 8 LOW findings.
+All 37 tests passing. Pass 2 confirmed all Pass 1 findings and added 4 new ones.
 
 ## Key Findings
 
-### HIGH (1)
-- **H-1:** Missing adjacency check in `_compute_layer_coverages` split-point merge (line 125-129). DD-S3-7 requires `layer.start == merged[-1][2]`. Inert for valid input but deviates from design spec. One-line fix.
+### HIGH (2)
+- **H-1 (confirmed):** Missing adjacency check in `_compute_layer_coverages` split-point merge. DD-S3-7 requires `layer.start == merged[-1][2]`. One-line fix.
+- **H-2 (NEW):** Interleaved same-type layers (MATN-SHARH-MATN) inflate LA rule layer count. Triggers LA-3 instead of LA-1/LA-2 for genuinely 2-layer texts. Conservative outcome (flags for review, no corruption).
 
-### MEDIUM (5)
-- **M-1:** `review_flags=["llm_enrichment_failed"]` set for DEPENDENT units unnecessarily (only needed for PARTIAL)
-- **M-2:** Multi-layer fixture has 1-char gap between MATN and SHARH layers, violating I-AC-2
-- **M-3:** Magic sentinel `char_end + 1_000_000` in F-DET-6 instead of named constant
-- **M-4:** SPEC tension — LA-2 catches 2-layer cases that LA-3 condition (b) would flag
-- **M-5:** Test name `test_la2_even_with_dominant_below_60pct` — dominant is actually 63%
+### MEDIUM (7) — 2 new
+- **M-1:** review_flags for DEPENDENT unnecessary
+- **M-2:** Test fixture I-AC-2 gap (1 char between layers)
+- **M-3:** Magic sentinel in page range
+- **M-4:** SPEC LA-2/LA-3 condition (b) unreachable
+- **M-5:** Test name misleading (dominant is 63%, not below 60%)
+- **M-6 (NEW):** Unused `primary_text` parameter in `filter_relevant_footnotes`
+- **M-7 (NEW):** No test for `author_canonical_id=None` → `"unknown"` fallback
 
 ### What Passed Review
-- All 10 functions (F-DET-1 through F-DET-9 + orchestrator) correctly implement SPEC 7.1
-- LA rule cascade order correct (LA-4 -> LA-1 -> LA-2 -> LA-3)
-- No Arabic text safety violations
-- No off-by-one errors in word-to-char conversion
-- D-023 metadata pass-through complete (all 33 ExcerptRecord fields)
+- All 10 functions implement SPEC §7.1 correctly
+- LA rule cascade order: LA-4 → LA-1 → LA-2 → LA-3
+- Arabic text safety: no `.lower()`, `.strip()`, `\d` violations
+- Off-by-one: exclusive-end convention consistent throughout
+- D-023: all 33 ExcerptRecord fields explicitly populated
 - SPEC deviations documented (SPEC-NOTE-8, SPEC-NOTE-9)
-- 37 test functions covering all functions and all 4 LA rules
+- 37 tests covering all functions and all 4 LA rules
+
+## Action Items
+
+- **Before Session 4:** Fix H-1 (adjacency check)
+- **Before transition gate:** Fix M-1 through M-7
+- **Track:** H-2 in KNOWN_LIMITATIONS.md, L-1 through L-8
 
 ## Detailed Report
 
@@ -39,8 +50,9 @@ See `overnight/results/review-phase3/review.md` for the full review with code re
 |------|-------|---------|
 | `engines/excerpting/src/phase3_deterministic.py` | 637 | Implementation |
 | `engines/excerpting/tests/test_phase3_deterministic.py` | 739 | Tests |
-| `engines/excerpting/tests/conftest.py` | 598 | Fixtures (Phase 3 additions) |
-| `engines/excerpting/contracts.py` | excerpts | ExcerptRecord model, validators |
-| `engines/excerpting/SPEC.md` | 6.2, 7.1 | Governing spec |
+| `engines/excerpting/tests/conftest.py` | 598 | Fixtures |
+| `engines/excerpting/contracts.py` | selected | ExcerptRecord, validators, sub-models |
+| `engines/excerpting/src/phase2_classify.py` | 105-123 | `_build_token_char_map` |
+| `engines/excerpting/SPEC.md` | §6.2, §7.1 | Governing spec |
 | `NEXT.md` | all | Design decisions DD-S3-1 through DD-S3-9 |
 | `reference/SPEC_ERRATA.md` | all | SPEC-NOTE-8, SPEC-NOTE-9 |
