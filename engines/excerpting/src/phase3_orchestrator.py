@@ -117,7 +117,7 @@ def run_phase3(
                 source_metadata=source_metadata,
             )
         except Exception as exc:
-            if isinstance(exc, (TypeError, AttributeError, NameError, KeyError)):
+            if isinstance(exc, (TypeError, AttributeError, NameError, KeyError, IndexError, ZeroDivisionError, StopIteration)):
                 raise  # Programming bugs must crash
             logger.error(
                 "%s: LLM enrichment failed — degrading to deterministic-only: %s",

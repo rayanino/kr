@@ -120,7 +120,7 @@ def run_excerpting(
             classified = run_phase2a(chunks, enrich_client, config)
             grouped = run_phase2b(chunks, classified, enrich_client, config)
         except Exception as exc:
-            if isinstance(exc, (TypeError, AttributeError, NameError, KeyError)):
+            if isinstance(exc, (TypeError, AttributeError, NameError, KeyError, IndexError, ZeroDivisionError, StopIteration)):
                 raise  # Programming bugs must crash
             logger.error("Phase 2 failed for %s: %s", source_id, exc)
             result.errors.append(f"PHASE2_FATAL: {exc}")
@@ -153,7 +153,7 @@ def run_excerpting(
             source_metadata=source_metadata,
         )
     except Exception as exc:
-        if isinstance(exc, (TypeError, AttributeError, NameError, KeyError)):
+        if isinstance(exc, (TypeError, AttributeError, NameError, KeyError, IndexError, ZeroDivisionError, StopIteration)):
             raise  # Programming bugs must crash
         logger.error("Phase 3 failed for %s: %s", source_id, exc)
         result.errors.append(f"PHASE3_FATAL: {exc}")

@@ -850,3 +850,26 @@ class TestPipelineCatchesPhase3Fatal:
                     config=config,
                     enrich_client=MagicMock(),
                 )
+
+    def test_phase3_indexerror_propagates(self) -> None:
+        """Phase 3 IndexError → pipeline re-raises (programming bug, not LLM failure)."""
+        package = _make_normalized_package()
+        config = ExcerptingConfig()
+
+        with patch(
+            "engines.excerpting.src.pipeline.run_phase2a"
+        ) as mock_2a, patch(
+            "engines.excerpting.src.pipeline.run_phase2b"
+        ) as mock_2b, patch(
+            "engines.excerpting.src.pipeline.run_phase3",
+            side_effect=IndexError("off by one in enrichment"),
+        ):
+            mock_2a.return_value = {}
+            mock_2b.return_value = {}
+
+            with pytest.raises(IndexError, match="off by one"):
+                run_excerpting(
+                    package=package,
+                    config=config,
+                    enrich_client=MagicMock(),
+                )
