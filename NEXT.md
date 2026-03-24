@@ -1,17 +1,15 @@
-# NEXT — Excerpting Session 4 Fixes (Corrected After CC Adversarial Audit)
+# NEXT — Excerpting Session 4 Fixes APPLIED → Ready for Architect Review
 
 ## Current Position
 
-- **Excerpting Phase 3.2 (LLM enrichment):** COMPLETE. 27 tests. 442 impl lines.
-- **Excerpting Phase 3.3 (consensus verification):** COMPLETE. 33 tests. 767 impl lines.
-- **Test baseline:** 437 passed, 2 skipped, 0 failed (excerpting)
-- **Review status:** Round 1 BLOCKED — findings from architect review + CC adversarial audit
+- **Excerpting Phase 3.2 (LLM enrichment):** COMPLETE. 31 tests. 451 impl lines.
+- **Excerpting Phase 3.3 (consensus verification):** COMPLETE. 52 tests. 793 impl lines.
+- **Test results:** 542 passed, 0 failed (excerpting)
+- **Review status:** 9 fixes applied (commit `78a46587`) → READY FOR ROUND 2 ARCHITECT REVIEW
 
-## What to Do
+## What Was Done
 
-Fix bugs found during architect review (commit `4a7f71e9`) and independently confirmed by CC adversarial audit. Fixes are in `phase3_consensus.py` and `phase3_enrichment.py`. No changes to `contracts.py`.
-
-After fixing: **≥ 465 passed tests** (437 + ≥28 new).
+All 9 bugs from architect review (commit `4a7f71e9`) + CC adversarial audit applied. Fixes in `phase3_consensus.py` and `phase3_enrichment.py`. No changes to `contracts.py`. 23 new tests added.
 
 ---
 
