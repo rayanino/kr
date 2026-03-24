@@ -280,6 +280,12 @@ def apply_enrichment(
         context_hint: Optional[str] = None
         if exc.self_containment == SelfContainmentLevel.PARTIAL:
             context_hint = ue.context_hint
+            # Fallback: if LLM omitted context_hint, generate from notes
+            if context_hint is None and exc.self_containment_notes:
+                context_hint = exc.self_containment_notes
+            # Last resort: generic hint (better than I-ER-4 crash)
+            if context_hint is None:
+                context_hint = "يحتاج سياقاً إضافياً لفهم المحتوى"
 
         # Remove llm_enrichment_failed flag since enrichment succeeded
         review_flags = [
@@ -371,12 +377,15 @@ def run_phase3_enrichment(
     chunk_map: dict[str, AssembledChunk] = {c.chunk_id: c for c in chunks}
     excerpts_by_chunk: dict[str, list[ExcerptRecord]] = defaultdict(list)
     for exc in excerpts:
-        # Try to find the matching chunk
         chunk_id = exc.div_id
-        for cid in chunk_map:
-            if cid.startswith(exc.div_id):
-                chunk_id = cid
-                break
+        if chunk_id not in chunk_map:
+            split_id = f"{exc.div_id}_chunk_{exc.chunk_index}"
+            if split_id in chunk_map:
+                chunk_id = split_id
+            else:
+                alt_id = f"{exc.div_id}_{exc.chunk_index}"
+                if alt_id in chunk_map:
+                    chunk_id = alt_id
         excerpts_by_chunk[chunk_id].append(exc)
 
     all_results: list[ExcerptRecord] = []

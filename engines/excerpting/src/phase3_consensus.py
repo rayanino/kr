@@ -223,17 +223,18 @@ def resolve_consensus(
         review_flags.extend(new_flags)
         gate_codes.extend(new_gates)
 
+    # Set consensus_metadata FIRST — _repair_context_hint reads it
+    if decisions:
+        updates["consensus_metadata"] = ConsensusRecord(decisions=decisions)
+
     # Apply context_hint repair after all consensus decisions
     updates = _repair_context_hint(excerpt, updates)
 
     updates["review_flags"] = review_flags
-    if decisions:
-        updates["consensus_metadata"] = ConsensusRecord(decisions=decisions)
 
     updated = excerpt.model_copy(update=updates)
-    consensus_record = ConsensusRecord(decisions=decisions) if decisions else None
-
-    return updated, consensus_record, gate_codes
+    # consensus_record already in updates; return None for backward compat
+    return updated, None, gate_codes
 
 
 def _resolve_school(
@@ -287,7 +288,7 @@ def _resolve_school(
             source_school
             and source_school != excerpt.school
             and vi.alternative
-            and vi.alternative != excerpt.school
+            and vi.alternative != source_school
         ):
             gates.append(ExcerptingErrorCodes.EX_G_003)
 
@@ -327,19 +328,29 @@ def _resolve_attribution(
             )
 
         enrichment_val = excerpt.primary_author_layer.author_id
-        verifier_val = vi.alternative or "unknown"
+        verifier_val = vi.alternative  # None if no alternative provided
 
         if escalation_value is not None:
-            # 2-of-3 majority
-            votes = [enrichment_val, verifier_val, escalation_value]
-            majority = _find_majority(votes)
+            # Filter out None votes for majority calculation
+            real_votes = [v for v in [enrichment_val, verifier_val, escalation_value] if v is not None]
+            if len(real_votes) >= 2:
+                majority = _find_majority_flexible(real_votes)
+            else:
+                majority = None
 
             if majority is not None:
                 updates["attribution_confidence"] = 0.67
+                if majority != enrichment_val:
+                    updates["primary_author_layer"] = excerpt.primary_author_layer.model_copy(
+                        update={
+                            "author_id": majority,
+                            "rule_applied": "LA-3_consensus",
+                        }
+                    )
                 decision = ConsensusDecision(
                     decision_type="author_attribution",
                     enrichment_value=enrichment_val,
-                    verifier_value=verifier_val,
+                    verifier_value=verifier_val or "abstained",
                     verifier_agrees=False,
                     escalation_value=escalation_value,
                     final_value=majority,
@@ -352,7 +363,7 @@ def _resolve_attribution(
                 decision = ConsensusDecision(
                     decision_type="author_attribution",
                     enrichment_value=enrichment_val,
-                    verifier_value=verifier_val,
+                    verifier_value=verifier_val or "abstained",
                     verifier_agrees=False,
                     escalation_value=escalation_value,
                     final_value=enrichment_val,
@@ -364,7 +375,7 @@ def _resolve_attribution(
             decision = ConsensusDecision(
                 decision_type="author_attribution",
                 enrichment_value=enrichment_val,
-                verifier_value=verifier_val,
+                verifier_value=verifier_val or "abstained",
                 verifier_agrees=False,
                 final_value=enrichment_val,
                 resolution_method="no_escalation_enrichment_kept",
@@ -427,6 +438,16 @@ def _find_majority(votes: list[str]) -> Optional[str]:
         return votes[0]
     if votes[1] == votes[2]:
         return votes[1]
+    return None
+
+
+def _find_majority_flexible(votes: list[str]) -> Optional[str]:
+    """Find majority among 2 or 3 real votes. Returns None if no majority."""
+    from collections import Counter
+    counts = Counter(votes)
+    for val, count in counts.most_common():
+        if count >= 2:
+            return val
     return None
 
 
@@ -493,8 +514,16 @@ def _parse_self_containment(text: Optional[str]) -> Optional[SelfContainmentLeve
         return None
     text_upper = text.strip().upper()
     for level in SelfContainmentLevel:
-        if level.value in text_upper:
+        if text_upper == level.value:
             return level
+    _LEVEL_ORDER = {
+        SelfContainmentLevel.FULL: 2,
+        SelfContainmentLevel.PARTIAL: 1,
+        SelfContainmentLevel.DEPENDENT: 0,
+    }
+    matches = [level for level in SelfContainmentLevel if level.value in text_upper]
+    if matches:
+        return min(matches, key=lambda l: _LEVEL_ORDER.get(l, 1))
     return None
 
 
@@ -581,8 +610,15 @@ def check_gate_triggers(
         and excerpt.school != source_school
         and "school_consensus_disagreement" in excerpt.review_flags
     ):
-        if ExcerptingErrorCodes.EX_G_003 not in excerpt.gate_flags:
-            gates.append(ExcerptingErrorCodes.EX_G_003)
+        verifier_also_conflicts = True  # Conservative default
+        if excerpt.consensus_metadata:
+            for d in excerpt.consensus_metadata.decisions:
+                if d.decision_type == "school_attribution" and d.verifier_value is not None:
+                    verifier_also_conflicts = (d.verifier_value != source_school)
+                    break
+        if verifier_also_conflicts:
+            if ExcerptingErrorCodes.EX_G_003 not in excerpt.gate_flags:
+                gates.append(ExcerptingErrorCodes.EX_G_003)
 
     return gates
 
@@ -600,12 +636,25 @@ def _build_gate_entry(
     """Build a gate queue entry per §7.3.4 format."""
     import datetime
 
+    assessments: list[dict[str, str]] = []
+    if excerpt.consensus_metadata:
+        for d in excerpt.consensus_metadata.decisions:
+            assessments.append({
+                "decision_type": d.decision_type,
+                "enrichment_value": d.enrichment_value,
+                "verifier_value": d.verifier_value or "",
+                "escalation_value": d.escalation_value or "",
+                "final_value": d.final_value,
+                "resolution_method": d.resolution_method,
+            })
+
     return {
         "excerpt_id": excerpt.excerpt_id,
         "gate_code": gate_code,
         "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "context": {
             "primary_text_snippet": excerpt.primary_text[:200],
+            "assessments": assessments,
             "source_metadata": source_metadata,
             "self_containment": excerpt.self_containment.value,
             "school": excerpt.school,
@@ -641,10 +690,14 @@ def run_consensus(
     excerpts_by_chunk: dict[str, list[ExcerptRecord]] = defaultdict(list)
     for exc in excerpts:
         chunk_id = exc.div_id
-        for cid in chunk_map:
-            if cid.startswith(exc.div_id):
-                chunk_id = cid
-                break
+        if chunk_id not in chunk_map:
+            split_id = f"{exc.div_id}_chunk_{exc.chunk_index}"
+            if split_id in chunk_map:
+                chunk_id = split_id
+            else:
+                alt_id = f"{exc.div_id}_{exc.chunk_index}"
+                if alt_id in chunk_map:
+                    chunk_id = alt_id
         excerpts_by_chunk[chunk_id].append(exc)
 
     all_results: list[ExcerptRecord] = []
@@ -711,18 +764,25 @@ def run_consensus(
 
         # Resolve per-unit consensus
         vr_result, excerpts_with_items = verification_result
-        vi_iter = iter(vr_result.items)
 
-        # Build mapping from excerpt to its verification items
+        vi_by_index: dict[int, VerificationItem] = {
+            vi.item_index: vi for vi in vr_result.items
+        }
+
         excerpt_to_vi: dict[int, list[tuple[VerificationItem, str]]] = {}
+        item_index = 0
         for exc, items in excerpts_with_items:
             vis: list[tuple[VerificationItem, str]] = []
             for item in items:
-                try:
-                    vi = next(vi_iter)
+                vi = vi_by_index.get(item_index)
+                if vi is not None:
                     vis.append((vi, item["verification_type"]))
-                except StopIteration:
-                    break
+                else:
+                    logger.warning(
+                        "Missing verification item %d for excerpt %s",
+                        item_index, exc.excerpt_id,
+                    )
+                item_index += 1
             excerpt_to_vi[exc.unit_index] = vis
 
         for exc in chunk_excerpts:

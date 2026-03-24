@@ -541,3 +541,98 @@ class TestRunPhase3Enrichment:
         assert len(result) == 2
         # One call per chunk
         assert client.chat.completions.create.call_count == 2
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Fix 2 Tests: PARTIAL context_hint None fallback
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestPartialContextHintFallback:
+    """Fix 2: PARTIAL + None hint → fallback chain prevents I-ER-4 crash."""
+
+    def test_apply_partial_with_none_hint_uses_notes_fallback(self) -> None:
+        """PARTIAL + notes + LLM hint=None → uses notes as hint."""
+        exc = _make_excerpt_record(
+            unit_index=0,
+            self_containment=SelfContainmentLevel.PARTIAL,
+            self_containment_notes="يعتمد على ما سبق",
+            context_hint="placeholder",
+            review_flags=["llm_enrichment_failed"],
+        )
+        ue = _make_unit_enrichment(
+            unit_index=0,
+            context_hint=None,  # LLM omitted it
+        )
+        enrichment = EnrichmentResult(enrichments=[ue], total_units=1)
+
+        result = apply_enrichment([exc], enrichment)
+        assert result[0].context_hint == "يعتمد على ما سبق"
+
+    def test_apply_partial_with_none_hint_no_notes_uses_generic(self) -> None:
+        """PARTIAL + notes present + LLM hint=None → fallback to notes, roundtrip OK."""
+        exc = _make_excerpt_record(
+            unit_index=0,
+            self_containment=SelfContainmentLevel.PARTIAL,
+            self_containment_notes="needed",
+            context_hint="placeholder",
+            review_flags=["llm_enrichment_failed"],
+        )
+        ue = _make_unit_enrichment(
+            unit_index=0,
+            context_hint=None,
+        )
+        enrichment = EnrichmentResult(enrichments=[ue], total_units=1)
+
+        result = apply_enrichment([exc], enrichment)
+        assert result[0].context_hint is not None
+        # Roundtrip: model_validate MUST NOT raise
+        ExcerptRecord.model_validate(result[0].model_dump())
+
+    def test_apply_partial_roundtrip_after_enrichment(self) -> None:
+        """ACID TEST: PARTIAL → apply_enrichment with hint=None → roundtrip MUST NOT raise."""
+        exc = _make_excerpt_record(
+            unit_index=0,
+            self_containment=SelfContainmentLevel.PARTIAL,
+            self_containment_notes="يحتاج سياقاً",
+            context_hint="placeholder",
+            review_flags=["llm_enrichment_failed"],
+        )
+        ue = _make_unit_enrichment(
+            unit_index=0,
+            context_hint=None,
+        )
+        enrichment = EnrichmentResult(enrichments=[ue], total_units=1)
+
+        result = apply_enrichment([exc], enrichment)
+        # Roundtrip validation MUST NOT raise
+        ExcerptRecord.model_validate(result[0].model_dump())
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Fix 4 Tests: Split chunk matching (enrichment side)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestSplitChunkEnrichmentMatching:
+    """Fix 4: Split chunks matched by exact div_id + chunk_index."""
+
+    def test_split_chunk_matched_correctly(self) -> None:
+        """Split chunk div_1_chunk_1 matched via split_id fallback."""
+        chunk = _make_assembled_chunk(
+            chunk_id="div_1_chunk_1", div_id="div_1",
+        )
+        exc = _make_excerpt_record(
+            div_id="div_1", chunk_index=1,
+            excerpt_topic=[], school=None,
+        )
+        er = _make_enrichment_result(1)
+        client = _make_mock_instructor_client(return_value=er)
+        config = ExcerptingConfig()
+
+        result = run_phase3_enrichment([exc], [chunk], client, config, _SOURCE_META)
+
+        assert len(result) == 1
+        # Should have been enriched (not kept as-is)
+        assert result[0].excerpt_topic == ["شروط الوضوء"]
+        assert client.chat.completions.create.call_count == 1
