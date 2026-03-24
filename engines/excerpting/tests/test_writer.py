@@ -162,11 +162,11 @@ class TestWriteGateQueue:
         content = path.read_text(encoding="utf-8")
         assert "مراجعة بشرية" in content
 
-    def test_empty_gate_queue(self, tmp_path) -> None:
-        """Empty gate entries → creates empty file."""
+    def test_empty_gate_queue_skips_file(self, tmp_path) -> None:
+        """Empty gate entries → returns path but does NOT create file (Fix 11)."""
         path = write_gate_queue([], tmp_path)
-        assert path.exists()
-        assert path.read_text(encoding="utf-8") == ""
+        assert path == tmp_path / "gate_queue.jsonl"
+        assert not path.exists()
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -187,8 +187,8 @@ class TestVerifyGateQueue:
         errors = verify_gate_queue(entries, path)
         assert errors == []
 
-    def test_missing_entry_raises_halt(self, tmp_path) -> None:
-        """Missing gate entry → GateQueueVerificationError (EX-M-008)."""
+    def test_retry_succeeds_after_initial_failure(self, tmp_path) -> None:
+        """Missing entry on first pass → retry re-writes → success (Fix 7)."""
         entries_written = [
             {"excerpt_id": "exc_v_0_0_0", "gate_code": "EX-G-001"},
         ]
@@ -197,6 +197,25 @@ class TestVerifyGateQueue:
             {"excerpt_id": "exc_v_0_0_1", "gate_code": "EX-G-002"},
         ]
         path = write_gate_queue(entries_written, tmp_path)
+        # Retry re-writes with entries_expected → second pass finds all entries
+        errors = verify_gate_queue(entries_expected, path)
+        assert errors == []
+
+    def test_retry_fails_then_halts(self, tmp_path, monkeypatch) -> None:
+        """Missing entry after retry → GateQueueVerificationError (Fix 7)."""
+        entries_written = [
+            {"excerpt_id": "exc_v_0_0_0", "gate_code": "EX-G-001"},
+        ]
+        entries_expected = [
+            {"excerpt_id": "exc_v_0_0_0", "gate_code": "EX-G-001"},
+            {"excerpt_id": "exc_v_0_0_1", "gate_code": "EX-G-002"},
+        ]
+        path = write_gate_queue(entries_written, tmp_path)
+        # Make retry write a no-op so the file stays wrong
+        monkeypatch.setattr(
+            "engines.excerpting.src.writer.write_gate_queue",
+            lambda entries, output_dir: path,
+        )
         with pytest.raises(GateQueueVerificationError) as exc_info:
             verify_gate_queue(entries_expected, path)
         assert ExcerptingErrorCodes.EX_M_008 in str(exc_info.value)
@@ -214,8 +233,8 @@ class TestVerifyGateQueue:
         errors = verify_gate_queue([], tmp_path / "irrelevant.jsonl")
         assert errors == []
 
-    def test_corrupt_file_entries_skipped(self, tmp_path) -> None:
-        """Corrupt JSON lines don't crash, but missing entries still halt."""
+    def test_corrupt_file_recovered_by_retry(self, tmp_path) -> None:
+        """Corrupt JSON lines → retry re-writes clean data → success (Fix 7)."""
         path = tmp_path / "gate_queue.jsonl"
         # Write one valid + one corrupt line
         with open(path, "w", encoding="utf-8") as f:
@@ -226,8 +245,9 @@ class TestVerifyGateQueue:
             {"excerpt_id": "exc_a", "gate_code": "EX-G-001"},
             {"excerpt_id": "exc_b", "gate_code": "EX-G-002"},
         ]
-        with pytest.raises(GateQueueVerificationError):
-            verify_gate_queue(entries, path)
+        # Retry re-writes with both entries cleanly → success
+        errors = verify_gate_queue(entries, path)
+        assert errors == []
 
     def test_round_trip_gate_queue(self, tmp_path) -> None:
         """Full round-trip: write → verify → success."""

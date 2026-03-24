@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import logging
 import re
+from typing import Optional
 
 from engines.excerpting.contracts import (
     ExcerptRecord,
@@ -65,14 +66,16 @@ def _normalize_whitespace(text: str) -> str:
 
 def validate_excerpt(
     excerpt: ExcerptRecord,
-) -> tuple[ExcerptRecord, list[str]]:
+) -> tuple[Optional[ExcerptRecord], list[str]]:
     """Run per-excerpt V-P3 checks (§7.4).
 
-    Returns (possibly modified excerpt, list of emitted error codes).
+    Returns (possibly modified excerpt or None if dropped, list of emitted error codes).
+    Returns None when V-P3-2 fails — corrupt excerpts must not reach output.
     V-P3-1 and V-P3-7 are batch-level checks — not run here.
     """
     errors: list[str] = []
     modified = excerpt
+    drop = False
 
     # V-P3-2: Primary text integrity
     # First 80 chars of primary_text should match text_snippet after
@@ -80,9 +83,10 @@ def validate_excerpt(
     snippet_normalized = _normalize_whitespace(excerpt.text_snippet)
     primary_first80 = _normalize_whitespace(excerpt.primary_text[:80])
     if snippet_normalized != primary_first80:
+        drop = True
         errors.append(ExcerptingErrorCodes.EX_V_002)
-        logger.warning(
-            "%s: Text integrity check failed for %s. "
+        logger.error(
+            "%s: Text integrity check failed for %s — excerpt will be DROPPED. "
             "snippet=%r vs primary_first80=%r",
             ExcerptingErrorCodes.EX_V_002,
             excerpt.excerpt_id,
@@ -177,8 +181,9 @@ def validate_excerpt(
                     )
 
     # V-P3-8: Footnote relevance — remove orphan footnotes
-    # Check if ⌜ref_marker⌝ pattern appears in primary_text.
-    # If not, the footnote belongs to a different excerpt.
+    # DD-S56-1: Uses marker substring search (⌜ref_marker⌝ in primary_text)
+    # instead of offset range check. Correct because Phase 1 assembly embeds
+    # footnote markers at their positions in primary_text.
     if excerpt.footnotes_relevant:
         kept = []
         removed = False
@@ -202,7 +207,15 @@ def validate_excerpt(
 
     # V-P3-9: Content type consistency
     for ct in excerpt.content_types:
-        if ct.value not in _VALID_SCHOLARLY_FUNCTIONS:
+        if not isinstance(ct, ScholarlyFunction):
+            errors.append(ExcerptingErrorCodes.EX_M_010)
+            logger.warning(
+                "%s: Non-enum content type %r in %s.",
+                ExcerptingErrorCodes.EX_M_010,
+                ct,
+                excerpt.excerpt_id,
+            )
+        elif ct.value not in _VALID_SCHOLARLY_FUNCTIONS:
             errors.append(ExcerptingErrorCodes.EX_M_010)
             logger.warning(
                 "%s: Unknown content type %s in %s.",
@@ -210,6 +223,9 @@ def validate_excerpt(
                 ct.value,
                 excerpt.excerpt_id,
             )
+
+    if drop:
+        return None, errors
 
     return modified, errors
 
@@ -231,6 +247,8 @@ def validate_batch(
     validated: list[ExcerptRecord] = []
 
     # V-P3-1: Excerpt ID uniqueness
+    # DD-S56-2: Batch-level check (exceeds SPEC's per-chunk requirement —
+    # catches cross-chunk duplicates too).
     seen_ids: set[str] = set()
     duplicate_ids: set[str] = set()
     for exc in excerpts:
@@ -239,17 +257,25 @@ def validate_batch(
         seen_ids.add(exc.excerpt_id)
 
     if duplicate_ids:
-        error_code = ExcerptingErrorCodes.EX_V_002
-        all_errors.append(error_code)
-        logger.error(
-            "V-P3-1: Duplicate excerpt IDs found: %s",
-            duplicate_ids,
+        raise ValueError(
+            f"V-P3-1: Duplicate excerpt IDs detected — "
+            f"this is a bug in the ID generation algorithm: {duplicate_ids}"
         )
 
     # Per-excerpt checks (V-P3-2 through V-P3-9, except V-P3-7)
+    dropped_count = 0
     for exc in excerpts:
         modified_exc, exc_errors = validate_excerpt(exc)
-        validated.append(modified_exc)
         all_errors.extend(exc_errors)
+        if modified_exc is not None:
+            validated.append(modified_exc)
+        else:
+            dropped_count += 1
+
+    if dropped_count > 0:
+        logger.error(
+            "V-P3-2: Dropped %d excerpts with text integrity failure.",
+            dropped_count,
+        )
 
     return validated, all_errors

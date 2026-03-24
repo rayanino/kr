@@ -100,12 +100,7 @@ def run_excerpting(
 
     # ── Phase 1: Deterministic preprocessing ──────────────────────
     t0 = time.monotonic()
-    try:
-        chunks, _p1_validation = run_phase1(package, config)
-    except Exception as exc:
-        logger.error("Phase 1 failed for %s: %s", source_id, exc)
-        result.errors.append(f"PHASE1_FATAL: {exc}")
-        return result
+    chunks, _p1_validation = run_phase1(package, config)
     result.timings["phase1"] = time.monotonic() - t0
     logger.info(
         "Phase 1: %d chunks from %d content units (%.2fs).",
@@ -125,6 +120,8 @@ def run_excerpting(
             classified = run_phase2a(chunks, enrich_client, config)
             grouped = run_phase2b(chunks, classified, enrich_client, config)
         except Exception as exc:
+            if isinstance(exc, (TypeError, AttributeError, NameError, KeyError)):
+                raise  # Programming bugs must crash
             logger.error("Phase 2 failed for %s: %s", source_id, exc)
             result.errors.append(f"PHASE2_FATAL: {exc}")
             return result
@@ -144,16 +141,23 @@ def run_excerpting(
 
     # ── Phase 3: Enrichment pipeline ──────────────────────────────
     t2 = time.monotonic()
-    phase3_result: Phase3Result = run_phase3(
-        chunks=chunks,
-        teaching_units=grouped,
-        classified=classified,
-        config=config,
-        enrich_client=enrich_client,
-        verify_client=verify_client,
-        escalation_client=escalation_client,
-        source_metadata=source_metadata,
-    )
+    try:
+        phase3_result: Phase3Result = run_phase3(
+            chunks=chunks,
+            teaching_units=grouped,
+            classified=classified,
+            config=config,
+            enrich_client=enrich_client,
+            verify_client=verify_client,
+            escalation_client=escalation_client,
+            source_metadata=source_metadata,
+        )
+    except Exception as exc:
+        if isinstance(exc, (TypeError, AttributeError, NameError, KeyError)):
+            raise  # Programming bugs must crash
+        logger.error("Phase 3 failed for %s: %s", source_id, exc)
+        result.errors.append(f"PHASE3_FATAL: {exc}")
+        return result
     result.excerpts = phase3_result.excerpts
     result.gate_entries = phase3_result.gate_entries
     result.errors.extend(phase3_result.errors)
@@ -174,7 +178,8 @@ def run_excerpting(
             result.output_paths["gate_queue"] = gate_path
 
             # V-P3-7: Paranoid verification
-            verify_gate_queue(result.gate_entries, gate_path)
+            gate_errors = verify_gate_queue(result.gate_entries, gate_path)
+            result.errors.extend(gate_errors)
         else:
             logger.info("No gate entries — skipping gate_queue.jsonl write.")
 

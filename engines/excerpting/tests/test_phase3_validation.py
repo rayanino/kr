@@ -49,31 +49,34 @@ class TestNormalizeWhitespace:
 
 
 class TestVP31IdUniqueness:
-    """V-P3-1: Duplicate excerpt IDs detected at batch level."""
+    """V-P3-1: Duplicate excerpt IDs → ValueError (deterministic IDs = bug)."""
 
     def test_unique_ids_no_error(self) -> None:
-        """All unique IDs → no V-P3-1 error."""
+        """All unique IDs → no ValueError raised."""
         excerpts = [
             _make_excerpt_record(excerpt_id="exc_a_0_0_0"),
             _make_excerpt_record(excerpt_id="exc_a_0_0_1", unit_index=1),
         ]
         validated, errors = validate_batch(excerpts)
         assert len(validated) == 2
-        # No duplicate-related error
-        assert ExcerptingErrorCodes.EX_V_002 not in errors or all(
-            e != ExcerptingErrorCodes.EX_V_002
-            for e in errors
-            if errors.count(ExcerptingErrorCodes.EX_V_002) == 0
-        )
 
-    def test_duplicate_ids_detected(self) -> None:
-        """Duplicate excerpt IDs → EX-V-002 emitted."""
+    def test_duplicate_ids_raises_valueerror(self) -> None:
+        """Duplicate excerpt IDs → ValueError (programming bug)."""
         excerpts = [
             _make_excerpt_record(excerpt_id="exc_dup_0_0_0"),
             _make_excerpt_record(excerpt_id="exc_dup_0_0_0"),
         ]
-        validated, errors = validate_batch(excerpts)
-        assert ExcerptingErrorCodes.EX_V_002 in errors
+        with pytest.raises(ValueError, match="V-P3-1"):
+            validate_batch(excerpts)
+
+    def test_valueerror_includes_duplicate_ids(self) -> None:
+        """ValueError message includes the duplicate ID strings."""
+        excerpts = [
+            _make_excerpt_record(excerpt_id="exc_dup_xyz"),
+            _make_excerpt_record(excerpt_id="exc_dup_xyz"),
+        ]
+        with pytest.raises(ValueError, match="exc_dup_xyz"):
+            validate_batch(excerpts)
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -105,13 +108,14 @@ class TestVP32TextIntegrity:
         _, errors = validate_excerpt(exc)
         assert ExcerptingErrorCodes.EX_V_002 not in errors
 
-    def test_mismatch_emits_error(self) -> None:
-        """Genuine mismatch → EX-V-002."""
+    def test_mismatch_drops_excerpt(self) -> None:
+        """Genuine mismatch → excerpt dropped (None), EX-V-002 emitted."""
         exc = _make_excerpt_record(
             primary_text="بسم الله الرحمن الرحيم",
             text_snippet="هذا نص مختلف تماما",
         )
-        _, errors = validate_excerpt(exc)
+        result, errors = validate_excerpt(exc)
+        assert result is None
         assert ExcerptingErrorCodes.EX_V_002 in errors
 
 
@@ -351,6 +355,7 @@ class TestVP38FootnoteRelevance:
             footnotes_relevant=[fn],
         )
         modified, errors = validate_excerpt(exc)
+        assert modified is not None
         assert len(modified.footnotes_relevant) == 1
         assert ExcerptingErrorCodes.EX_M_009 not in errors
 
@@ -369,6 +374,7 @@ class TestVP38FootnoteRelevance:
             footnotes_relevant=[fn],
         )
         modified, errors = validate_excerpt(exc)
+        assert modified is not None
         assert len(modified.footnotes_relevant) == 0
         assert ExcerptingErrorCodes.EX_M_009 in errors
 
@@ -393,6 +399,7 @@ class TestVP38FootnoteRelevance:
             footnotes_relevant=[fn_valid, fn_orphan],
         )
         modified, errors = validate_excerpt(exc)
+        assert modified is not None
         assert len(modified.footnotes_relevant) == 1
         assert modified.footnotes_relevant[0].ref_marker == "1"
         assert ExcerptingErrorCodes.EX_M_009 in errors
@@ -467,3 +474,79 @@ class TestValidateBatch:
         _, errors = validate_batch([exc1, exc2])
         # Both should have EX-M-005 (topic count)
         assert errors.count(ExcerptingErrorCodes.EX_M_005) == 2
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Fix 1: V-P3-2 drops corrupt excerpts
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestVP32DropBehavior:
+    """Fix 1: V-P3-2 failure drops excerpt instead of passing it through."""
+
+    def test_mismatch_returns_none(self) -> None:
+        """validate_excerpt returns (None, [EX_V_002]) on text mismatch."""
+        exc = _make_excerpt_record(
+            primary_text="بسم الله الرحمن الرحيم",
+            text_snippet="هذا نص مختلف تماما",
+        )
+        result, errors = validate_excerpt(exc)
+        assert result is None
+        assert ExcerptingErrorCodes.EX_V_002 in errors
+
+    def test_batch_excludes_dropped_excerpts(self) -> None:
+        """validate_batch excludes None entries from result list."""
+        good = _make_excerpt_record(
+            excerpt_id="exc_good_0_0_0",
+        )
+        bad = _make_excerpt_record(
+            excerpt_id="exc_bad_0_0_1",
+            unit_index=1,
+            primary_text="بسم الله الرحمن الرحيم",
+            text_snippet="هذا نص مختلف تماما",
+        )
+        validated, errors = validate_batch([good, bad])
+        assert len(validated) == 1
+        assert validated[0].excerpt_id == "exc_good_0_0_0"
+        assert ExcerptingErrorCodes.EX_V_002 in errors
+
+    def test_valid_excerpt_not_dropped(self) -> None:
+        """Valid excerpts are NOT dropped (regression guard)."""
+        exc = _make_excerpt_record()
+        result, errors = validate_excerpt(exc)
+        assert result is not None
+        assert ExcerptingErrorCodes.EX_V_002 not in errors
+
+    def test_dropped_count_logged(self, caplog: pytest.LogCaptureFixture) -> None:
+        """Dropped count is logged at error level."""
+        import logging
+
+        good = _make_excerpt_record(excerpt_id="exc_log_0_0_0")
+        bad = _make_excerpt_record(
+            excerpt_id="exc_log_0_0_1",
+            unit_index=1,
+            primary_text="بسم الله الرحمن الرحيم",
+            text_snippet="هذا نص مختلف تماما",
+        )
+        with caplog.at_level(logging.ERROR):
+            validate_batch([good, bad])
+        assert any("Dropped 1 excerpts" in msg for msg in caplog.messages)
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Fix 10: V-P3-9 non-enum content type
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestVP39NonEnumContentType:
+    """Fix 10: Raw strings in content_types emit EX-M-010, don't crash."""
+
+    def test_raw_string_content_type_emits_error(self) -> None:
+        """Inject raw string via model_copy → EX-M-010, no AttributeError."""
+        exc = _make_excerpt_record()
+        # Bypass Pydantic validation to inject raw string
+        corrupt = exc.model_copy(update={"content_types": ["not_an_enum"]})
+        result, errors = validate_excerpt(corrupt)
+        assert ExcerptingErrorCodes.EX_M_010 in errors
+        # Should not crash — result can be None or non-None depending on V-P3-2
+        # The key assertion is no AttributeError was raised

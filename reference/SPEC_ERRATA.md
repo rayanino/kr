@@ -75,3 +75,27 @@ All errata resolved during normalization engine evaluation (March 2026).
 **Problem:** SPEC §7.1 F-DET-9 says `resolved_name: layer_map[layer_id].author_name_arabic`. However, `TextLayerSegment` has no `author_name_arabic` field — only `author_canonical_id` (a string like "sch_XXXXX"). The scholar registry that resolves canonical IDs to Arabic display names is not yet built.
 **Resolution:** Implementation uses `resolved_name=layer.author_canonical_id` as a placeholder. This will be replaced when the scholar registry provides Arabic name resolution. SPEC §7.1 F-DET-9 should be updated to reference `author_canonical_id` with a note that Arabic name resolution is deferred.
 **Status:** SPEC text not yet updated. Implementation correct per DD-S3-9.
+
+## SPEC-NOTE-10: §7.4 V-P3-1 has no error code — RESOLVED
+
+**Found:** Session 5/6 dual-reviewer audit (March 2026).
+**Severity:** Documentation.
+**Problem:** V-P3-1 (excerpt ID uniqueness) does not specify an error code in §7.4.
+**Resolution:** V-P3-1 violation is a programming bug (IDs are deterministic). Implementation raises ValueError instead of emitting an error code.
+**Fixed in:** Session 5/6 triage fix commit.
+
+## SPEC-NOTE-11: §7.4 V-P3-8 implementation uses substring search — RESOLVED
+
+**Found:** Session 5/6 dual-reviewer audit (March 2026).
+**Severity:** Documentation.
+**Problem:** SPEC §7.4 says "ref_marker offset falls within character range." Implementation uses ⌜ref_marker⌝ substring search in primary_text.
+**Resolution:** Equivalent because Phase 1 assembly embeds markers in text at their positions. Documented as DD-S56-1.
+**Fixed in:** Session 5/6 triage fix commit.
+
+## SPEC-NOTE-12: §7.4 V-P3-1 batch scope vs per-chunk scope — RESOLVED
+
+**Found:** Session 5/6 dual-reviewer audit (March 2026).
+**Severity:** Documentation.
+**Problem:** SPEC §7.4 says validation runs "for a chunk." V-P3-1 runs at batch level.
+**Resolution:** Batch-level is strictly more thorough (catches cross-chunk duplicates). Documented as DD-S56-2.
+**Fixed in:** Session 5/6 triage fix commit.

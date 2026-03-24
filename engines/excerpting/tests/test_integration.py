@@ -53,20 +53,35 @@ def _make_chunk_and_units(
     source_id: str = "src_test",
     n_units: int = 2,
 ) -> tuple[AssembledChunk, list[TeachingUnit], list[ClassifiedSegment]]:
-    """Create a matched chunk + teaching units + classified segments."""
+    """Create a matched chunk + teaching units + classified segments.
+
+    Each unit's text_snippet matches what extract_primary_text produces
+    for its word range, so V-P3-2 passes.
+    """
+    from engines.excerpting.src.phase3_deterministic import extract_primary_text
+
     chunk = _make_assembled_chunk(
         chunk_id=chunk_id,
         source_id=source_id,
         div_id=chunk_id,
     )
-    units = [
-        _make_teaching_unit(unit_index=i, start_word=i * 2, end_word=i * 2 + 2)
-        for i in range(n_units)
-    ]
-    segments = [
-        _make_classified_segment(segment_index=i, start_word=i * 2, end_word=i * 2 + 2)
-        for i in range(n_units)
-    ]
+    units: list[TeachingUnit] = []
+    segments: list[ClassifiedSegment] = []
+    for i in range(n_units):
+        sw = i * 2
+        ew = i * 2 + 2
+        primary_text = extract_primary_text(chunk.assembled_text, sw, ew)
+        units.append(
+            _make_teaching_unit(
+                unit_index=i,
+                start_word=sw,
+                end_word=ew,
+                text_snippet=primary_text[:80],
+            )
+        )
+        segments.append(
+            _make_classified_segment(segment_index=i, start_word=sw, end_word=ew)
+        )
     return chunk, units, segments
 
 
@@ -142,8 +157,8 @@ class TestPhase3Orchestrator:
         # Excerpts still produced from deterministic stage
         assert len(result.excerpts) > 0
 
-    def test_consensus_failure_degrades_gracefully(self) -> None:
-        """Consensus exception → enriched excerpts survive without consensus."""
+    def test_consensus_crash_propagates(self) -> None:
+        """Consensus exception propagates through run_phase3 (Fix 2a)."""
         chunk, units, segments = _make_chunk_and_units()
         config = ExcerptingConfig()
         mock_client = MagicMock()
@@ -154,8 +169,8 @@ class TestPhase3Orchestrator:
         ), patch(
             "engines.excerpting.src.phase3_orchestrator.run_consensus",
             side_effect=RuntimeError("Consensus model timeout"),
-        ):
-            result = run_phase3(
+        ), pytest.raises(RuntimeError, match="Consensus model timeout"):
+            run_phase3(
                 chunks=[chunk],
                 teaching_units={chunk.chunk_id: units},
                 classified={chunk.chunk_id: segments},
@@ -163,9 +178,6 @@ class TestPhase3Orchestrator:
                 enrich_client=mock_client,
                 verify_client=mock_client,
             )
-
-        assert ExcerptingErrorCodes.EX_M_004 in result.errors
-        assert len(result.excerpts) > 0
 
     def test_multi_chunk_processing(self) -> None:
         """Multiple chunks → all processed, excerpts collected."""
@@ -288,38 +300,21 @@ class TestPhase3Orchestrator:
         assert result.timings["consensus"] == 0.0
         assert len(result.excerpts) > 0
 
-    def test_deterministic_error_captured(self) -> None:
-        """Exception in deterministic assembly → error captured, other chunks proceed."""
-        chunk_good, units_good, segs_good = _make_chunk_and_units(
-            chunk_id="div_good", source_id="src_test"
-        )
-        chunk_bad = _make_assembled_chunk(chunk_id="div_bad", source_id="src_test")
-        bad_unit = _make_teaching_unit(
-            unit_index=0, start_word=0, end_word=999  # Invalid end_word
-        )
+    def test_deterministic_crash_propagates(self) -> None:
+        """Exception in deterministic assembly propagates (Fix 3 — bugs crash)."""
+        chunk, units, segments = _make_chunk_and_units()
         config = ExcerptingConfig()
 
-        # Patch to make bad chunk fail
-        original_build = run_phase3.__module__
         with patch(
             "engines.excerpting.src.phase3_orchestrator.build_deterministic_excerpts",
-            side_effect=lambda chunk, units, segments: (
-                (_ for _ in ()).throw(ValueError("Bad chunk"))
-                if chunk.chunk_id == "div_bad"
-                else []
-            ),
-        ):
-            # This won't work well — let's just verify error accumulation works
-            pass
-
-        # Simpler: just test with a valid setup that error list accumulates
-        result = run_phase3(
-            chunks=[chunk_good],
-            teaching_units={chunk_good.chunk_id: units_good},
-            classified={chunk_good.chunk_id: segs_good},
-            config=config,
-        )
-        assert isinstance(result.errors, list)
+            side_effect=ValueError("Bug in deterministic code"),
+        ), pytest.raises(ValueError, match="Bug in deterministic code"):
+            run_phase3(
+                chunks=[chunk],
+                teaching_units={chunk.chunk_id: units},
+                classified={chunk.chunk_id: segments},
+                config=config,
+            )
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -737,11 +732,14 @@ class TestCrossPhaseBoundary:
 
     def test_div_path_preserved(self) -> None:
         """Division path from chunk preserved in excerpt."""
+        from engines.excerpting.src.phase3_deterministic import extract_primary_text
+
         chunk = _make_assembled_chunk(
             chunk_id="div_path_test",
             div_path=["كتاب الطهارة", "باب الوضوء"],
         )
-        units = [_make_teaching_unit()]
+        primary_text = extract_primary_text(chunk.assembled_text, 0, 4)
+        units = [_make_teaching_unit(text_snippet=primary_text[:80])]
         segments = [_make_classified_segment()]
 
         result = run_phase3(
@@ -795,3 +793,60 @@ class TestCrossPhaseBoundary:
         second = json.loads(lines[1])
         assert first["div_id"] == "div_a"
         assert second["div_id"] == "div_b"
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Fix 2: Pipeline catches Phase 3 crash
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestPipelineCatchesPhase3Fatal:
+    """Fix 2: run_excerpting catches Phase 3 crash, returns PHASE3_FATAL."""
+
+    def test_phase3_runtime_error_caught(self) -> None:
+        """Phase 3 RuntimeError → pipeline returns result with PHASE3_FATAL."""
+        package = _make_normalized_package()
+        config = ExcerptingConfig()
+
+        with patch(
+            "engines.excerpting.src.pipeline.run_phase2a"
+        ) as mock_2a, patch(
+            "engines.excerpting.src.pipeline.run_phase2b"
+        ) as mock_2b, patch(
+            "engines.excerpting.src.pipeline.run_phase3",
+            side_effect=RuntimeError("Consensus crashed"),
+        ):
+            mock_2a.return_value = {}
+            mock_2b.return_value = {}
+
+            result = run_excerpting(
+                package=package,
+                config=config,
+                enrich_client=MagicMock(),
+            )
+
+        assert any("PHASE3_FATAL" in e for e in result.errors)
+        assert result.excerpts == []
+
+    def test_phase3_programming_bug_propagates(self) -> None:
+        """Phase 3 TypeError → pipeline re-raises (programming bug)."""
+        package = _make_normalized_package()
+        config = ExcerptingConfig()
+
+        with patch(
+            "engines.excerpting.src.pipeline.run_phase2a"
+        ) as mock_2a, patch(
+            "engines.excerpting.src.pipeline.run_phase2b"
+        ) as mock_2b, patch(
+            "engines.excerpting.src.pipeline.run_phase3",
+            side_effect=TypeError("Bug in code"),
+        ):
+            mock_2a.return_value = {}
+            mock_2b.return_value = {}
+
+            with pytest.raises(TypeError, match="Bug in code"):
+                run_excerpting(
+                    package=package,
+                    config=config,
+                    enrich_client=MagicMock(),
+                )

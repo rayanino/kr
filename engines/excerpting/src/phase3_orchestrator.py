@@ -90,17 +90,8 @@ def run_phase3(
             )
             continue
 
-        try:
-            excerpts = build_deterministic_excerpts(chunk, units, segments)
-            all_excerpts.extend(excerpts)
-        except Exception as exc:
-            logger.error(
-                "%s: Deterministic assembly failed for chunk %s: %s",
-                ExcerptingErrorCodes.EX_V_001,
-                chunk_id,
-                exc,
-            )
-            result.errors.append(ExcerptingErrorCodes.EX_V_001)
+        excerpts = build_deterministic_excerpts(chunk, units, segments)
+        all_excerpts.extend(excerpts)
 
     result.timings["deterministic"] = time.monotonic() - t0
     logger.info(
@@ -126,6 +117,8 @@ def run_phase3(
                 source_metadata=source_metadata,
             )
         except Exception as exc:
+            if isinstance(exc, (TypeError, AttributeError, NameError, KeyError)):
+                raise  # Programming bugs must crash
             logger.error(
                 "%s: LLM enrichment failed — degrading to deterministic-only: %s",
                 ExcerptingErrorCodes.EX_M_002,
@@ -144,24 +137,16 @@ def run_phase3(
     # ── Stage 3: Consensus verification (graceful degradation) ────
     if enrich_client is not None and verify_client is not None:
         t2 = time.monotonic()
-        try:
-            all_excerpts, gate_entries = run_consensus(
-                excerpts=all_excerpts,
-                chunks=chunks,
-                enrich_client=enrich_client,
-                verify_client=verify_client,
-                escalation_client=escalation_client,
-                config=config,
-                source_metadata=source_metadata,
-            )
-            result.gate_entries.extend(gate_entries)
-        except Exception as exc:
-            logger.error(
-                "%s: Consensus verification failed — proceeding without consensus: %s",
-                ExcerptingErrorCodes.EX_M_004,
-                exc,
-            )
-            result.errors.append(ExcerptingErrorCodes.EX_M_004)
+        all_excerpts, gate_entries = run_consensus(
+            excerpts=all_excerpts,
+            chunks=chunks,
+            enrich_client=enrich_client,
+            verify_client=verify_client,
+            escalation_client=escalation_client,
+            config=config,
+            source_metadata=source_metadata,
+        )
+        result.gate_entries.extend(gate_entries)
         result.timings["consensus"] = time.monotonic() - t2
         logger.info(
             "Phase 3 consensus: %d gate entries (%.2fs).",
@@ -169,7 +154,11 @@ def run_phase3(
             result.timings["consensus"],
         )
     else:
-        logger.info("Phase 3 consensus: SKIPPED (no verify client).")
+        logger.info(
+            "Phase 3 consensus: SKIPPED (enrich_client=%s, verify_client=%s).",
+            enrich_client is not None,
+            verify_client is not None,
+        )
         result.timings["consensus"] = 0.0
 
     # ── Stage 4: Validation (V-P3-1 through V-P3-9) ──────────────

@@ -81,6 +81,10 @@ def write_gate_queue(
 
     Returns the path to the written file.
     """
+    if not gate_entries:
+        logger.info("No gate entries — skipping gate_queue.jsonl creation.")
+        return output_dir / "gate_queue.jsonl"
+
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / "gate_queue.jsonl"
 
@@ -141,49 +145,60 @@ def verify_gate_queue(
             "Invisible uncertainty — halting processing."
         )
 
-    # Parse all lines from the file
-    written_entries: list[dict[str, object]] = []
-    with open(gate_path, "r", encoding="utf-8") as f:
-        for line_num, line in enumerate(f, 1):
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                written_entries.append(json.loads(line))
-            except json.JSONDecodeError as e:
-                logger.error(
-                    "Corrupt gate queue entry at line %d: %s",
-                    line_num,
-                    e,
-                )
+    def _find_missing(path: Path) -> list[tuple[str, str]]:
+        """Read gate_queue.jsonl and return (excerpt_id, gate_code) pairs not found."""
+        written_entries: list[dict[str, object]] = []
+        with open(path, "r", encoding="utf-8") as f:
+            for line_num, raw_line in enumerate(f, 1):
+                raw_line = raw_line.strip()
+                if not raw_line:
+                    continue
+                try:
+                    written_entries.append(json.loads(raw_line))
+                except json.JSONDecodeError as e:
+                    logger.error(
+                        "Corrupt gate queue entry at line %d: %s",
+                        line_num,
+                        e,
+                    )
 
-    # Build lookup of written entries by (excerpt_id, gate_code)
-    written_keys: set[tuple[str, str]] = set()
-    for entry in written_entries:
-        eid = str(entry.get("excerpt_id", ""))
-        code = str(entry.get("gate_code", ""))
-        if eid and code:
-            written_keys.add((eid, code))
+        written_keys: set[tuple[str, str]] = set()
+        for entry in written_entries:
+            eid = str(entry.get("excerpt_id", ""))
+            code = str(entry.get("gate_code", ""))
+            if eid and code:
+                written_keys.add((eid, code))
 
-    # Check each expected entry
-    missing: list[tuple[str, str]] = []
-    for entry in gate_entries:
-        eid = str(entry.get("excerpt_id", ""))
-        code = str(entry.get("gate_code", ""))
-        if (eid, code) not in written_keys:
-            missing.append((eid, code))
+        result: list[tuple[str, str]] = []
+        for entry in gate_entries:
+            eid = str(entry.get("excerpt_id", ""))
+            code = str(entry.get("gate_code", ""))
+            if (eid, code) not in written_keys:
+                result.append((eid, code))
+        return result
+
+    missing = _find_missing(gate_path)
+
+    if missing:
+        # SPEC §8.1 EX-M-008 recovery: "Retry write. If retry fails, halt."
+        logger.warning(
+            "V-P3-7: %d missing entries — retrying write + verify.",
+            len(missing),
+        )
+        write_gate_queue(gate_entries, gate_path.parent)
+        missing = _find_missing(gate_path)
 
     if missing:
         errors.append(ExcerptingErrorCodes.EX_M_008)
         logger.critical(
-            "%s: %d gate entries missing after write-back verification: %s",
+            "%s: %d gate entries missing after retry verification: %s",
             ExcerptingErrorCodes.EX_M_008,
             len(missing),
             missing,
         )
         raise GateQueueVerificationError(
             f"{ExcerptingErrorCodes.EX_M_008}: {len(missing)} gate entries "
-            f"not found in {gate_path}: {missing}. "
+            f"not found in {gate_path} after retry: {missing}. "
             "Invisible uncertainty — halting processing."
         )
 
