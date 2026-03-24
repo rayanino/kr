@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-24T00:14:55.922976+00:00",
+  "timestamp": "2026-03-24T06:07:51.514784+00:00",
   "branch": "master",
   "active_engine": "excerpting",
   "active_spec_section": null,
@@ -7,12 +7,12 @@
   "active_plan": null,
   "modified_files": [
     ".claude/session_state.json",
-    "engines/excerpting/CLAUDE.md",
-    "engines/excerpting/docs/llm_trustworthiness_defenses.md"
+    "overnight/manifest.json",
+    "overnight/progress.md"
   ],
-  "uncommitted_summary": ".claude/session_state.json | 13 +++++++------\n 1 file changed, 7 insertions(+), 6 deletions(-)",
-  "next_md_head": "# NEXT — Excerpting Engine Session 3: Phase 3 Deterministic Metadata Assembly\n\n## Current Position\n\n- **Excerpting Phase 1:** ACCEPTED (commit `28a188ad`). 77 tests.\n- **Excerpting Phase 2:** ACCEPTED (commit `46bdb20d`). 147 tests.\n- **HEAD:** `38791dca` on `master`\n- **Test baseline:** 147 existing tests passing, 2 skipped (excerpting)\n- **Open SPEC errata:** None\n- **Phase 2 output:** `run_phase2a()` produces `dict[chunk_id → list[ClassifiedSegment]]`; `run_phase2b()` produces `dict[chunk_id → list[TeachingUnit]]`\n\n## What to Do\n\nImplement Phase 3 Stage 1: Deterministic Metadata Assembly (SPEC §7.1). This fills the stubs in `phase3_deterministic.py`. These are the 10 functions that compute ExcerptRecord fields from data alone — no LLM calls.\n",
-  "recent_commits": "36fdb99e fix: strip ANTHROPIC_API_KEY from spawned env â€” use Max subscription auth\nd3c545a4 overnight: review Phase 3.1 deterministic metadata assembly\n1ba51951 fix: overnight system â€” remove redundant gate, fix skip propagation, triple timeouts\ndeb9e763 fix: git_is_clean strip() was eating leading space from porcelain output\n0a888cd6 fix: use --dangerously-skip-permissions to prevent overnight hangs",
+  "uncommitted_summary": ".claude/session_state.json |  12 ++---\n overnight/manifest.json    | 126 +++++++++++++++++++++++++++++----------------\n overnight/progress.md      |   2 +-\n 3 files changed, 88 insertions(+), 52 deletions(-)",
+  "next_md_head": "# NEXT — Excerpting Engine Session 6: Phase 3 Orchestrator + Integration\n\n## Current Position\n\n- **Excerpting Phase 1:** COMPLETE. 117 tests (incl. hardening).\n- **Excerpting Phase 2:** COMPLETE. 141 tests (incl. hardening).\n- **Excerpting Phase 3.1:** COMPLETE. 86 tests, 637 lines. Deterministic metadata assembly.\n- **Excerpting Phase 3.2:** COMPLETE. 27 tests, ~300 lines. LLM enrichment.\n- **Excerpting Phase 3.3:** COMPLETE. 33 tests, ~450 lines. Consensus verification + human gates.\n- **Excerpting Phase 3.4:** COMPLETE. 50 tests, ~350 lines. Validation (V-P3-1–9) + output writer.\n- **Test baseline:** 488 tests passing, 0 failures (excerpting)\n- **Open SPEC errata:** None\n\n## What to Do\n",
+  "recent_commits": "c62fdfbe fix: overnight system â€” 4 bug fixes + hardening-only redesign\na15082a2 feat: implement Phase 3 orchestrator + full pipeline integration (Session 6)\n2343c0d3 feat: implement Phase 3 validation (V-P3-1â€“9) + output writer (Â§7.4, Â§2.2.1)\n03ae2279 fix: F-DET-9 identity matching â€” exclude primary (type+author), not entire type\n4a7f71e9 feat: implement Phase 3 LLM enrichment + consensus verification (Â§7.2â€“7.3)",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",
