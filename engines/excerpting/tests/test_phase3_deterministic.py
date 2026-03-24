@@ -12,6 +12,7 @@ from typing import Any
 import pytest
 
 from engines.excerpting.contracts import (
+    AssembledChunk,
     AssemblyMetadata,
     AuthorAttribution,
     ClassifiedSegment,
@@ -39,10 +40,12 @@ from engines.excerpting.src.phase3_deterministic import (
 )
 from engines.normalization.contracts import (
     BoundaryContinuityType,
+    ContentFlags,
     Footnote,
     FootnoteType,
     LayerType,
     PhysicalPage,
+    StructuralFormat,
     TextLayerSegment,
 )
 
@@ -1917,3 +1920,856 @@ class TestAdversarialFootnotes:
         # char_end exactly at marker position -> excluded
         result = filter_relevant_footnotes(text, text, [fn], 0, marker_pos)
         assert result == []
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Phase 3.1 Edge Case Hardening — Pass 3 (overnight impl-phase3-edge)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestLABoundaryPrecision:
+    """Exact threshold boundary tests for LA rule dispatch.
+
+    The LA cascade uses >= 0.8 for LA-1. These tests verify the exact
+    boundary: 80.0% triggers LA-1, anything below does not.
+    """
+
+    def test_la1_exactly_80_percent(self) -> None:
+        """Exactly 80.0% coverage triggers LA-1 (>= 0.8, not > 0.8).
+
+        10-char single-token text. SHARH covers [0,8) = 80%, MATN [8,10) = 20%.
+        """
+        text = "أبجدهوزحطي"  # 10 chars, 1 token
+        assert len(text) == 10
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_s",
+                start=0,
+                end=8,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_m",
+                start=8,
+                end=10,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        result = compute_layer_attribution(text, layers, 0, 0, meta)
+        assert result.rule_applied == "LA-1"
+        assert result.layer_id == "sharh"
+        assert result.coverage_pct == 0.8
+
+    def test_just_below_80_triggers_la2(self) -> None:
+        """70% coverage with 2 layers triggers LA-2, not LA-1.
+
+        10-char text. SHARH covers [0,7) = 70%, MATN covers [7,10) = 30%.
+        """
+        text = "أبجدهوزحطي"
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_s",
+                start=0,
+                end=7,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_m",
+                start=7,
+                end=10,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        result = compute_layer_attribution(text, layers, 0, 0, meta)
+        # 70% < 80% -> not LA-1; 2 layers -> LA-2
+        assert result.rule_applied == "LA-2"
+        # SHARH (level 2) > MATN (level 1) -> outermost wins
+        assert result.layer_id == "sharh"
+
+    def test_la4_exactly_100_percent_single_layer(self) -> None:
+        """100% coverage with single layer triggers LA-4."""
+        text = "بسم الله الرحمن"
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_m",
+                start=0,
+                end=len(text),
+                confidence=1.0,
+            )
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(text, layers, 0, len(tokens) - 1, meta)
+        assert result.rule_applied == "LA-4"
+        assert result.coverage_pct >= 1.0
+
+
+class TestEmptyLayerCoverage:
+    """Tests for the empty/no-coverage error path in compute_layer_attribution."""
+
+    def test_no_layers_raises_value_error(self) -> None:
+        """Empty text_layers -> ValueError (violates I-AC-2)."""
+        text = "بسم الله الرحمن الرحيم"
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        with pytest.raises(ValueError, match="I-AC-2"):
+            compute_layer_attribution(text, [], 0, len(tokens) - 1, meta)
+
+    def test_layers_outside_unit_range_raises(self) -> None:
+        """Layers exist but none overlap the unit range -> ValueError."""
+        text = "بسم الله الرحمن الرحيم"
+        # Layer covers [0, 5) but unit is [10, 20) — no overlap
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_m",
+                start=0,
+                end=5,
+                confidence=1.0,
+            )
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        # Words 3-3 = "الرحيم" which is at char positions beyond where layer ends
+        tokens = text.split()
+        with pytest.raises(ValueError, match="I-AC-2"):
+            compute_layer_attribution(text, layers, 3, len(tokens) - 1, meta)
+
+
+class TestUncertainAndTahqiqLayers:
+    """Layer type priority in LA-2: _LAYER_LEVEL ordering."""
+
+    def test_uncertain_loses_to_matn_in_la2(self) -> None:
+        """UNCERTAIN (level 0) vs MATN (level 1) -> MATN wins in LA-2."""
+        text = "أبجدهوزحطي"  # 10 chars, 1 token
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.UNCERTAIN,
+                author_canonical_id="sch_u",
+                start=0,
+                end=5,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_m",
+                start=5,
+                end=10,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        result = compute_layer_attribution(text, layers, 0, 0, meta)
+        assert result.rule_applied == "LA-2"
+        assert result.layer_id == "matn"
+
+    def test_tahqiq_note_beats_hashiyah_in_la2(self) -> None:
+        """TAHQIQ_NOTE (level 4) vs HASHIYAH (level 3) -> TAHQIQ_NOTE wins."""
+        text = "أبجدهوزحطي"
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.HASHIYAH,
+                author_canonical_id="sch_h",
+                start=0,
+                end=5,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.TAHQIQ_NOTE,
+                author_canonical_id="sch_t",
+                start=5,
+                end=10,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        result = compute_layer_attribution(text, layers, 0, 0, meta)
+        assert result.rule_applied == "LA-2"
+        assert result.layer_id == "tahqiq_note"
+
+    def test_uncertain_layer_in_la4(self) -> None:
+        """UNCERTAIN layer at 100% still triggers LA-4."""
+        text = "بسم الله"
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.UNCERTAIN,
+                author_canonical_id=None,
+                start=0,
+                end=len(text),
+                confidence=1.0,
+            )
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(text, layers, 0, len(tokens) - 1, meta)
+        assert result.rule_applied == "LA-4"
+        assert result.layer_id == "uncertain"
+        assert result.author_id == "unknown"
+
+
+class TestAuthorNoneAllLAPaths:
+    """M-7 extended: author_canonical_id=None -> 'unknown' in LA-2 and LA-3."""
+
+    def test_author_none_la2(self) -> None:
+        """Both layers have author=None -> 'unknown' in LA-2 result."""
+        text = "أبجدهوزحطي"
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id=None,
+                start=0,
+                end=5,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=5,
+                end=10,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        result = compute_layer_attribution(text, layers, 0, 0, meta)
+        assert result.rule_applied == "LA-2"
+        assert result.author_id == "unknown"
+
+    def test_author_none_la3(self, caplog: pytest.LogCaptureFixture) -> None:
+        """Three layers all with author=None -> 'unknown' in LA-3 result."""
+        text = "أبجدهوزحطيكلمنس"  # 15 chars
+        assert len(text) == 15
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id=None,
+                start=0,
+                end=5,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=5,
+                end=10,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.HASHIYAH,
+                author_canonical_id=None,
+                start=10,
+                end=15,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        with caplog.at_level(logging.WARNING):
+            result = compute_layer_attribution(text, layers, 0, 0, meta)
+        assert result.rule_applied == "LA-3"
+        assert result.author_id == "unknown"
+        assert ExcerptingErrorCodes.EX_M_001 in caplog.text
+
+
+class TestPageRangeExtended:
+    """Extended page range tests: volume changes, partial overlaps."""
+
+    def test_volume_changes_across_pages(self) -> None:
+        """Unit spans pages from different volumes -> first volume used."""
+        pages = [
+            PhysicalPage(volume=1, page_number_display="٢٤٠", page_number_int=240),
+            PhysicalPage(volume=2, page_number_display="١", page_number_int=1),
+        ]
+        join_pts = [
+            JoinPoint(
+                after_unit_index=0,
+                before_unit_index=1,
+                boundary_type=BoundaryContinuityType.MID_PARAGRAPH,
+                separator_used="\n",
+                char_offset_in_assembled=50,
+            )
+        ]
+        # Unit spans chars [30, 70), crossing the volume boundary at 50
+        result = compute_page_range(pages, join_pts, 30, 70)
+        assert result is not None
+        assert result.volume == 1  # First overlapping page's volume
+        assert result.start_page == 1
+        assert result.end_page == 240
+
+    def test_first_page_volume_none_second_has_volume(self) -> None:
+        """First overlapping page volume=None, second has volume -> second used.
+
+        The code sets first_volume from the first page (None), but since
+        first_volume is still None on the second iteration, the second
+        page's volume overwrites it. Effectively: first non-None volume.
+        """
+        pages = [
+            PhysicalPage(volume=None, page_number_display=None, page_number_int=5),
+            PhysicalPage(volume=2, page_number_display="١", page_number_int=1),
+        ]
+        join_pts = [
+            JoinPoint(
+                after_unit_index=0,
+                before_unit_index=1,
+                boundary_type=BoundaryContinuityType.MID_PARAGRAPH,
+                separator_used="\n",
+                char_offset_in_assembled=50,
+            )
+        ]
+        result = compute_page_range(pages, join_pts, 30, 70)
+        assert result is not None
+        # first_volume = None (page 0), then overwritten to 2 (page 1)
+        # because `if first_volume is None:` is still True
+        assert result.volume == 2
+        assert result.start_page == 1
+        assert result.end_page == 5
+
+    def test_unit_at_very_end_of_multi_page(self) -> None:
+        """Unit range at the very end of a 3-page chunk -> last page only."""
+        pages = [
+            PhysicalPage(volume=1, page_number_display="١", page_number_int=1),
+            PhysicalPage(volume=1, page_number_display="٢", page_number_int=2),
+            PhysicalPage(volume=1, page_number_display="٣", page_number_int=3),
+        ]
+        join_pts = [
+            JoinPoint(
+                after_unit_index=0,
+                before_unit_index=1,
+                boundary_type=BoundaryContinuityType.MID_PARAGRAPH,
+                separator_used="\n",
+                char_offset_in_assembled=100,
+            ),
+            JoinPoint(
+                after_unit_index=1,
+                before_unit_index=2,
+                boundary_type=BoundaryContinuityType.MID_PARAGRAPH,
+                separator_used="\n",
+                char_offset_in_assembled=200,
+            ),
+        ]
+        # Unit at chars [220, 280) -> only page 3 (starts at 200)
+        result = compute_page_range(pages, join_pts, 220, 280)
+        assert result is not None
+        assert result.start_page == 3
+        assert result.end_page == 3
+
+
+class TestContentTypesExtended:
+    """Edge cases for F-DET-4 compute_content_types."""
+
+    def test_empty_segment_indices(self) -> None:
+        """No segment indices -> empty content types."""
+        segments = [
+            _make_classified_segment(
+                segment_index=0, scholarly_function=ScholarlyFunction.DEFINITION
+            )
+        ]
+        result = compute_content_types(segments, [])
+        assert result == []
+
+    def test_segments_outside_indices_excluded(self) -> None:
+        """Only segments in unit_segment_indices are included."""
+        segments = [
+            _make_classified_segment(
+                segment_index=0, scholarly_function=ScholarlyFunction.DEFINITION
+            ),
+            _make_classified_segment(
+                segment_index=1, scholarly_function=ScholarlyFunction.EVIDENCE_HADITH
+            ),
+            _make_classified_segment(
+                segment_index=2, scholarly_function=ScholarlyFunction.EXAMPLE
+            ),
+        ]
+        # Only include segments 0 and 2
+        result = compute_content_types(segments, [0, 2])
+        assert len(result) == 2
+        assert ScholarlyFunction.DEFINITION in result
+        assert ScholarlyFunction.EXAMPLE in result
+        assert ScholarlyFunction.EVIDENCE_HADITH not in result
+
+    def test_insertion_order_preserved(self) -> None:
+        """Scholarly functions returned in segment order, not sorted."""
+        segments = [
+            _make_classified_segment(
+                segment_index=0, scholarly_function=ScholarlyFunction.EXAMPLE
+            ),
+            _make_classified_segment(
+                segment_index=1, scholarly_function=ScholarlyFunction.DEFINITION
+            ),
+            _make_classified_segment(
+                segment_index=2, scholarly_function=ScholarlyFunction.RULE_STATEMENT
+            ),
+        ]
+        result = compute_content_types(segments, [0, 1, 2])
+        assert result == [
+            ScholarlyFunction.EXAMPLE,
+            ScholarlyFunction.DEFINITION,
+            ScholarlyFunction.RULE_STATEMENT,
+        ]
+
+
+class TestEvidenceOverlappingMarkers:
+    """Evidence detection with markers that could overlap or interact."""
+
+    def test_both_fi_sahih_and_fi_sunan_detected(self) -> None:
+        """'في صحيح البخاري' and 'في سنن أبي داود' — both markers found."""
+        text = "ثبت في صحيح البخاري وأيضاً في سنن أبي داود"
+        result = detect_evidence_refs(text)
+        hadith_refs = [r for r in result if r.type == "hadith"]
+        markers = {r.marker_text for r in hadith_refs}
+        assert "في صحيح" in markers
+        assert "في سنن" in markers
+
+    def test_fi_sahihain_and_fi_sahih_both_detected(self) -> None:
+        """'في الصحيحين' text also contains 'في صحيح' — they match at different positions."""
+        text = "ثبت هذا في الصحيحين وكذلك في صحيح مسلم"
+        result = detect_evidence_refs(text)
+        hadith_refs = [r for r in result if r.type == "hadith"]
+        markers = {r.marker_text for r in hadith_refs}
+        # في الصحيحين matches "في الصحيحين" marker
+        assert "في الصحيحين" in markers
+        # في صحيح also matches separately in "في صحيح مسلم"
+        assert "في صحيح" in markers
+
+    def test_all_evidence_types_in_one_text(self) -> None:
+        """Quran + hadith + ijma all in same text -> all detected."""
+        text = (
+            "قال تعالى ﴿وأقيموا الصلاة﴾ "
+            "وقد رواه البخاري "
+            "وانعقد الإجماع على وجوبها"
+        )
+        result = detect_evidence_refs(text)
+        types = {r.type for r in result}
+        assert types == {"quran", "hadith", "ijma"}
+
+    def test_marker_at_position_zero(self) -> None:
+        """Marker starts at the very first character of text."""
+        text = "رواه مسلم في صحيحه"
+        result = detect_evidence_refs(text)
+        hadith_refs = [r for r in result if r.type == "hadith"]
+        assert len(hadith_refs) >= 1
+        # Verify snippet clamping doesn't go negative
+        for ref in hadith_refs:
+            assert ref.text_snippet is not None
+
+    def test_empty_text_no_evidence(self) -> None:
+        """Empty string -> no evidence refs."""
+        result = detect_evidence_refs("")
+        assert result == []
+
+
+class TestQuotedScholarsExtended:
+    """Extended tests for F-DET-9 quoted scholars."""
+
+    def test_secondary_layer_author_none(self) -> None:
+        """Secondary layer with author_canonical_id=None -> resolved_name=None."""
+        text = "بسم الله الرحمن الرحيم الحمد لله"
+        mid = len(text) // 2
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_known",
+                start=0,
+                end=mid,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=mid,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+        primary = AuthorAttribution(
+            layer_id="matn",
+            author_id="sch_known",
+            coverage_pct=0.5,
+            rule_applied="LA-2",
+        )
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        result = compute_quoted_scholars(layers, 0, len(text), primary, meta)
+        assert len(result) == 1
+        assert result[0].resolved_name is None
+
+    def test_three_non_primary_layers(self) -> None:
+        """Three secondary layers -> three quoted scholars."""
+        text = "أبجدهوزحطيكلمنسعفصقر"  # 20 chars
+        assert len(text) == 20
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_matn",
+                start=0,
+                end=5,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh",
+                start=5,
+                end=10,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.HASHIYAH,
+                author_canonical_id="sch_hashiyah",
+                start=10,
+                end=15,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.TAHQIQ_NOTE,
+                author_canonical_id="sch_muhaqqiq",
+                start=15,
+                end=20,
+                confidence=1.0,
+            ),
+        ]
+        # Primary is SHARH
+        primary = AuthorAttribution(
+            layer_id="sharh",
+            author_id="sch_sharh",
+            coverage_pct=0.25,
+            rule_applied="LA-3",
+        )
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        result = compute_quoted_scholars(layers, 0, 20, primary, meta)
+        # 3 non-primary layers: MATN, HASHIYAH, TAHQIQ_NOTE
+        assert len(result) == 3
+        layer_types = {s.mention_text for s in result}
+        assert "[structural: matn]" in layer_types
+        assert "[structural: hashiyah]" in layer_types
+        assert "[structural: tahqiq_note]" in layer_types
+
+    def test_matn_in_sharh_primary_is_classification_frame(self) -> None:
+        """MATN in SHARH-primary unit -> role='classification_frame'."""
+        text = "بسم الله الرحمن الرحيم الحمد لله"
+        mid = len(text) // 2
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_m",
+                start=0,
+                end=mid,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_s",
+                start=mid,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+        primary = AuthorAttribution(
+            layer_id="sharh",
+            author_id="sch_s",
+            coverage_pct=0.5,
+            rule_applied="LA-2",
+        )
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        result = compute_quoted_scholars(layers, 0, len(text), primary, meta)
+        assert len(result) == 1
+        assert result[0].role == "classification_frame"
+
+    def test_hashiyah_in_matn_primary_is_quoted_opinion(self) -> None:
+        """HASHIYAH in MATN-primary unit -> role='quoted_opinion'."""
+        text = "بسم الله الرحمن الرحيم الحمد لله"
+        mid = len(text) // 2
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_m",
+                start=0,
+                end=mid,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.HASHIYAH,
+                author_canonical_id="sch_h",
+                start=mid,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+        primary = AuthorAttribution(
+            layer_id="matn",
+            author_id="sch_m",
+            coverage_pct=0.5,
+            rule_applied="LA-2",
+        )
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        result = compute_quoted_scholars(layers, 0, len(text), primary, meta)
+        assert len(result) == 1
+        assert result[0].role == "quoted_opinion"
+
+
+class TestOrchestratorIntegration:
+    """Full integration: orchestrator with multi-layer + footnotes + split."""
+
+    def test_multi_layer_split_chunk_with_footnotes(self) -> None:
+        """Complete path: split chunk, multi-layer, footnotes, multi-unit.
+
+        Exercises all deterministic functions simultaneously through the
+        orchestrator to verify they compose correctly.
+        """
+        # Build text with footnote markers and multi-layer
+        matn = "قال ابن مالك كلامنا لفظ مفيد ⌜1⌝ كاستقم"
+        sharh = "يريد أن الكلام في اصطلاح النحويين هو اللفظ المفيد ⌜2⌝ فائدة يحسن السكوت"
+        text = matn + " " + sharh
+        matn_end = len(matn)
+        sharh_start = matn_end + 1
+
+        tokens = text.split()
+        total = len(tokens)
+        word_count = sum(
+            1 for t in tokens if any("\u0600" <= c <= "\u06FF" for c in t)
+        )
+
+        chunk = AssembledChunk(
+            chunk_id="div_test_1_0_chunk_2",
+            source_id="src_alfiyya",
+            div_id="div_alfiyya_1_0",
+            div_path=["كتاب الألفية", "باب الكلام"],
+            assembled_text=text,
+            word_count=word_count,
+            total_tokens=total,
+            text_layers=[
+                TextLayerSegment(
+                    layer_type=LayerType.MATN,
+                    author_canonical_id="sch_ibn_malik",
+                    start=0,
+                    end=matn_end,
+                    confidence=1.0,
+                ),
+                TextLayerSegment(
+                    layer_type=LayerType.SHARH,
+                    author_canonical_id="sch_ibn_aqeel",
+                    start=sharh_start,
+                    end=len(text),
+                    confidence=1.0,
+                ),
+            ],
+            footnotes=[
+                Footnote(
+                    ref_marker="1",
+                    text="أي مستقيم",
+                    footnote_type=FootnoteType.LINGUISTIC_NOTE,
+                    confidence=0.95,
+                ),
+                Footnote(
+                    ref_marker="2",
+                    text="أي يصح سكوت المتكلم عليها",
+                    footnote_type=FootnoteType.LINGUISTIC_NOTE,
+                    confidence=0.90,
+                ),
+            ],
+            content_flags=ContentFlags(),
+            physical_pages=[
+                PhysicalPage(volume=1, page_number_display="٥", page_number_int=5),
+                PhysicalPage(volume=1, page_number_display="٦", page_number_int=6),
+            ],
+            structural_format=StructuralFormat.PROSE,
+            heading_alignment_ok=True,
+            assembly_metadata=AssemblyMetadata(
+                constituent_unit_indices=[0, 1],
+                join_points=[
+                    JoinPoint(
+                        after_unit_index=0,
+                        before_unit_index=1,
+                        boundary_type=BoundaryContinuityType.MID_PARAGRAPH,
+                        separator_used=" ",
+                        char_offset_in_assembled=sharh_start,
+                    )
+                ],
+                layer_split_points=[],
+                footnote_renumber_map=None,
+            ),
+            merge_history=None,
+            split_info=SplitInfo(
+                original_div_id="div_alfiyya_1_0",
+                chunk_index=2,
+                total_chunks=5,
+                split_method="paragraph_break",
+            ),
+        )
+
+        mid_token = total // 2
+        unit0 = _make_teaching_unit(
+            unit_index=0,
+            start_word=0,
+            end_word=mid_token - 1,
+            segment_indices=[0],
+            text_snippet=text[:50],
+        )
+        unit1 = _make_teaching_unit(
+            unit_index=1,
+            start_word=mid_token,
+            end_word=total - 1,
+            segment_indices=[1],
+            text_snippet=text[50:100],
+            self_containment=SelfContainmentLevel.PARTIAL,
+            self_containment_notes="يشير إلى تعريف الكلام السابق",
+        )
+        seg0 = _make_classified_segment(
+            segment_index=0, scholarly_function=ScholarlyFunction.DEFINITION
+        )
+        seg1 = _make_classified_segment(
+            segment_index=1, scholarly_function=ScholarlyFunction.EVIDENCE_HADITH
+        )
+
+        result = build_deterministic_excerpts(chunk, [unit0, unit1], [seg0, seg1])
+
+        # ── Basic structure ──
+        assert len(result) == 2
+
+        # ── F-DET-1: excerpt_id with split chunk_index=2 ──
+        assert result[0].excerpt_id == "exc_src_alfiyya_div_alfiyya_1_0_2_0"
+        assert result[1].excerpt_id == "exc_src_alfiyya_div_alfiyya_1_0_2_1"
+        assert result[0].chunk_index == 2
+        assert result[1].chunk_index == 2
+
+        # ── F-DET-2: primary_text is a substring ──
+        assert result[0].primary_text in text
+        assert result[1].primary_text in text
+
+        # ── F-DET-3: layer attribution ──
+        # Unit 0 starts from word 0 (in MATN region)
+        assert result[0].primary_author_layer is not None
+        assert result[0].primary_author_layer.rule_applied in ("LA-1", "LA-2", "LA-4")
+
+        # ── F-DET-4: content_types ──
+        assert result[0].content_types == [ScholarlyFunction.DEFINITION]
+        assert result[1].content_types == [ScholarlyFunction.EVIDENCE_HADITH]
+
+        # ── F-DET-6: page range (crosses join point) ──
+        # At minimum one record should have a page range
+        has_pages = any(r.physical_pages is not None for r in result)
+        assert has_pages
+
+        # ── Self-containment flags ──
+        assert result[0].review_flags == []  # FULL
+        assert "llm_enrichment_failed" in result[1].review_flags  # PARTIAL
+
+        # ── DD-S3-1: school explicitly None ──
+        assert result[0].school is None
+        assert result[1].school is None
+
+        # ── D-023: all passthrough fields present ──
+        for rec in result:
+            assert rec.source_id == "src_alfiyya"
+            assert rec.div_id == "div_alfiyya_1_0"
+            assert rec.div_path == ["كتاب الألفية", "باب الكلام"]
+
+    def test_orchestrator_with_evidence_and_no_footnotes(self) -> None:
+        """Chunk with hadith evidence markers but no footnotes."""
+        text = "قال النبي صلى الله عليه وسلم وقد رواه البخاري ومسلم في صحيحهما متفق عليه"
+        tokens = text.split()
+        chunk = _make_assembled_chunk(
+            assembled_text=text,
+            total_tokens=len(tokens),
+            word_count=len(tokens),
+            text_layers=[
+                TextLayerSegment(
+                    layer_type=LayerType.MATN,
+                    author_canonical_id="sch_author",
+                    start=0,
+                    end=len(text),
+                    confidence=1.0,
+                )
+            ],
+            footnotes=[],
+        )
+        unit = _make_teaching_unit(
+            start_word=0,
+            end_word=len(tokens) - 1,
+            segment_indices=[0],
+            text_snippet=text[:50],
+        )
+        seg = _make_classified_segment(
+            segment_index=0, scholarly_function=ScholarlyFunction.EVIDENCE_HADITH
+        )
+        result = build_deterministic_excerpts(chunk, [unit], [seg])
+        assert len(result) == 1
+        # F-DET-5: should detect hadith markers
+        hadith_refs = [r for r in result[0].evidence_refs if r.type == "hadith"]
+        assert len(hadith_refs) >= 1
+        markers = {r.marker_text for r in hadith_refs}
+        assert "رواه" in markers
+        # F-DET-8: no footnotes
+        assert result[0].footnotes_relevant == []

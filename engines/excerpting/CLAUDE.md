@@ -54,10 +54,13 @@ Output: `writer.py` → `excerpts.jsonl` + `gate_queue.jsonl`.
 
 - **SPEC:** COMPLETE (2387 lines)
 - **Contracts:** COMPLETE (1111 lines, independently reviewed)
-- **Phase 1:** COMPLETE (77 tests, 1,531 lines) — deterministic assembly
-- **Phase 2:** COMPLETE (72 tests, 854 lines) — LLM classification + grouping (review findings F-1/F-2 fixed)
-- **Phase 3:** STUBS (next target) — 4 stub files, 0 implementation
-- **Total:** 149 tests, 2,970 impl lines, 0 failures
+- **Phase 1:** COMPLETE (117 tests, 1,531 lines) — deterministic assembly + hardening
+- **Phase 2:** COMPLETE (141 tests, 854 lines) — LLM classification + grouping + hardening
+- **Phase 3.1:** COMPLETE (86 tests, 637 lines) — deterministic metadata assembly (10 functions, review + bugfix + hardening)
+- **Phase 3.2:** COMPLETE (27 tests, ~300 impl lines) — LLM enrichment (enrich_chunk, apply_enrichment, run_phase3_enrichment, _merge_scholars)
+- **Phase 3.3:** COMPLETE (33 tests, ~450 impl lines) — Consensus verification + human gates (verify_chunk, resolve_consensus, check_gate_triggers, run_consensus)
+- **Phase 3.4:** STUBS (next target) — validation + writer
+- **Total:** 438 tests, ~4,200 impl lines, 0 failures
 
 ## Build Metrics Target
 

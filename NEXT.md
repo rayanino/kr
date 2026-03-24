@@ -1,235 +1,138 @@
-# NEXT — Excerpting Engine Session 3: Phase 3 Deterministic Metadata Assembly
+# NEXT — Excerpting Engine Session 5: Phase 3 Validation + Output Writer
 
 ## Current Position
 
-- **Excerpting Phase 1:** ACCEPTED (commit `28a188ad`). 77 tests.
-- **Excerpting Phase 2:** ACCEPTED (commit `46bdb20d`). 147 tests.
-- **HEAD:** `38791dca` on `master`
-- **Test baseline:** 147 existing tests passing, 2 skipped (excerpting)
+- **Excerpting Phase 1:** COMPLETE. 117 tests (incl. hardening).
+- **Excerpting Phase 2:** COMPLETE. 141 tests (incl. hardening).
+- **Excerpting Phase 3.1:** COMPLETE. 86 tests, 637 lines. Deterministic metadata assembly.
+- **Excerpting Phase 3.2:** COMPLETE. 27 tests, ~300 lines. LLM enrichment (enrich_chunk, apply_enrichment, run_phase3_enrichment).
+- **Excerpting Phase 3.3:** COMPLETE. 33 tests, ~450 lines. Consensus verification + human gates (verify_chunk, resolve_consensus, check_gate_triggers, run_consensus).
+- **Test baseline:** 438 tests passing, 0 failures (excerpting)
 - **Open SPEC errata:** None
-- **Phase 2 output:** `run_phase2a()` produces `dict[chunk_id → list[ClassifiedSegment]]`; `run_phase2b()` produces `dict[chunk_id → list[TeachingUnit]]`
 
 ## What to Do
 
-Implement Phase 3 Stage 1: Deterministic Metadata Assembly (SPEC §7.1). This fills the stubs in `phase3_deterministic.py`. These are the 10 functions that compute ExcerptRecord fields from data alone — no LLM calls.
+Implement Phase 3 Stage 4 (§7.4 Self-Validation) and the output writer (`writer.py`). This completes Phase 3 and produces the final output files.
 
-**Processing flow (§7.1):**
-For each `AssembledChunk` + its `list[TeachingUnit]`:
-1. For each TeachingUnit, compute 9 deterministic fields (F-DET-1 through F-DET-9)
-2. Assemble a partial `ExcerptRecord` with these fields + passthrough fields from TeachingUnit
-3. LLM-enriched fields (`excerpt_topic`, `school`, `takhrij_data`, etc.) are set to empty/null defaults — Session 4 fills them
+**Processing flow:**
+1. After consensus resolution, run 9 validation checks (V-P3-1 through V-P3-9) on each excerpt
+2. Write validated excerpts to `excerpts.jsonl` (one line per ExcerptRecord)
+3. Write gate entries to `gate_queue.jsonl` (one line per gate trigger)
+4. Produce processing summary/manifest
 
 ## Context
 
-Phase 3 deterministic is pure algorithmic code — no LLM, no external calls, fully testable. The hardest parts are:
-- **F-DET-3 (layer attribution):** 4-rule cascade (LA-1–LA-4) with character overlap computation and layer_split_point merging
-- **F-DET-5 (evidence detection):** Pattern matching for Quran (﴿...﴾), hadith (رواه, أخرجه, etc.), and ijma markers via plain substring matching (see DD-S3-8)
-- **F-DET-8 (footnote filtering):** Matching `⌜{ref_marker}⌝` patterns within a unit's character range
+This is the final build session for Phase 3. After this, all three phases are complete and Session 6 does integration + cross-engine testing.
 
-A shared `_word_to_char_range` helper is needed: F-DET-2, F-DET-3, F-DET-6, and F-DET-8 all need to convert (start_word, end_word) to character offsets. Phase 2's `_build_token_char_map` does exactly this. Import it from `phase2_classify.py` — do NOT duplicate.
-
-**Note on Quran detection:** Shamela exports do NOT use Unicode ornate parentheses ﴿﴾. Testing across 66 fixtures / 16.7M characters found zero ﴿﴾ hits. Quran delimiter detection will be zero-fire on current fixtures. This is expected and not blocking — LLM enrichment in Session 4 handles Quran reference detection from context signals (قال تعالى had 302 hits, قوله تعالى had 1,323 hits across the same fixtures). The ﴿﴾ detector is still implemented for correctness if future sources use these delimiters.
-
-**Known docstring discrepancy:** The `ExcerptRecord.primary_text` field description in `contracts.py` (line 461) says `' '.join(assembled_text.split()[start_word:end_word+1])` — the split-and-rejoin approach. This is WRONG. The SPEC §7.1 F-DET-2 Note explicitly requires substring extraction to preserve internal `\n\n` paragraph breaks. Follow the SPEC and Function 2 above, NOT the contracts.py docstring. Fix the docstring while implementing: change it to `"Extracted from assembled_text via character-offset substring (F-DET-2). Preserves internal whitespace including paragraph breaks."` This qualifies as a documentation bug under "Do NOT modify contracts.py unless you find a bug."
-
-## Owner Action Needed
-
-None. This is a pure implementation session.
+Key patterns:
+- **Validation is not correction.** V-P3 checks detect problems and emit error codes. They do NOT auto-correct (exception: V-P3-8 removes orphan footnotes). Mismatches signal bugs.
+- **Gate queue integrity (V-P3-7) is CRITICAL.** Missing gate entry = invisible uncertainty → halt processing (EX-M-008).
+- **Writer produces JSONL.** One JSON object per line, no pretty-printing. ExcerptRecord serialized via Pydantic `.model_dump(mode="json")`.
 
 ## Read First
 
 | File | Lines | What |
 |------|-------|------|
-| `engines/excerpting/SPEC.md` | §7.1 (1397–1518) | **Governing spec for Phase 3 deterministic.** Read ALL of §7.1. |
-| `engines/excerpting/SPEC.md` | §6.2 (1260–1340) | Layer Attribution rules LA-1 through LA-4 |
-| `engines/excerpting/SPEC.md` | §2.2 (365–520) | ExcerptRecord output contract — the target shape |
-| `engines/excerpting/contracts.py` | 87–200 | Sub-models: PageRange, AuthorAttribution, ScholarAttribution, EvidenceRef, TakhrijEntry, CrossReference, TermVariant |
-| `engines/excerpting/contracts.py` | 440–530 | ExcerptRecord model fields |
-| `engines/excerpting/contracts.py` | 1036–1100 | `validate_er_invariants()` — already implemented |
-| `engines/excerpting/contracts.py` | 675–740 | `ExcerptingErrorCodes` — all 28 error codes. F-DET-3 emits `EX_M_001`. Do NOT invent codes. |
-| `engines/excerpting/src/phase3_deterministic.py` | all | Stubs to fill (10 functions) |
-| `engines/excerpting/src/phase2_classify.py` | 105–123 | `_build_token_char_map` — reuse for word→char conversion |
+| `engines/excerpting/SPEC.md` | §7.4 (1893–1913) | **Validation checks V-P3-1 through V-P3-9.** |
+| `engines/excerpting/SPEC.md` | §3 (367–395) | **Output format.** excerpts.jsonl + gate_queue.jsonl paths and structure. |
+| `engines/excerpting/SPEC.md` | §8.1 (1957–1970) | **Error codes EX-M-004 through EX-M-010.** Triggered by validation checks. |
+| `engines/excerpting/SPEC.md` | §10.6 (2274–2279) | **Test examples for V-P3 checks.** |
+| `engines/excerpting/contracts.py` | 440–530 | `ExcerptRecord` — the type being validated and serialized |
+| `engines/excerpting/contracts.py` | 675–740 | `ExcerptingErrorCodes` — EX-M-004 through EX-M-010, EX-V-002 |
+| `engines/excerpting/src/phase3_enrichment.py` | all | Upstream: enrichment output to validate |
+| `engines/excerpting/src/phase3_consensus.py` | all | Upstream: consensus output + gate entries to validate and write |
 | `engines/excerpting/tests/conftest.py` | all | Existing factory helpers |
 
 ## What to Build
 
-### Shared Helper
+### Module 1: `phase3_validation.py` (§7.4)
 
-**`_word_to_char_range(assembled_text, start_word, end_word) → tuple[int, int]`**
-Converts word offsets to a character range in `assembled_text`. Uses `_build_token_char_map` from phase2_classify.py.
-Returns `(char_start, char_end)` where `char_start` is the first character of token `start_word` and `char_end` is one past the last character of token `end_word` (Python-style exclusive end). So `assembled_text[char_start:char_end]` gives the substring.
+**Function 1: `validate_excerpt(excerpt) → tuple[ExcerptRecord, list[str]]`**
+Run V-P3-1 through V-P3-9 on a single excerpt. Return the (possibly modified) excerpt and a list of emitted error codes.
 
-**Critical off-by-one detail:** `_build_token_char_map` returns spans as `(start, end)` where `end` is exclusive. So `char_start = spans[start_word][0]` and `char_end = spans[end_word][1]`. Do NOT add +1 to char_end — the span end is already exclusive.
+Validation checks:
+- **V-P3-1 (ID uniqueness):** Checked at batch level, not per-excerpt.
+- **V-P3-2 (Primary text integrity):** First 80 chars of `primary_text` match `text_snippet` after whitespace normalization.
+- **V-P3-3 (Author attribution completeness):** `primary_author_layer` is not null. Emit EX-M-004 if null.
+- **V-P3-4 (Topic keyword validity):** 1–3 `excerpt_topic` keywords when LLM enrichment succeeded (no `llm_enrichment_failed` flag). Emit EX-M-005 if violated.
+- **V-P3-5 (Self-containment consistency):** PARTIAL → context_hint non-null (unless llm_enrichment_failed). FULL/DEPENDENT → context_hint null. Emit EX-M-006 if mismatched.
+- **V-P3-6 (Evidence reference integrity):** Quran refs have valid surah (1–114) and ayah in range. Emit EX-M-007 if invalid.
+- **V-P3-7 (Gate queue integrity):** Checked at writer level after writing.
+- **V-P3-8 (Footnote relevance):** Remove footnotes with ref_marker offset outside excerpt range. Emit EX-M-009.
+- **V-P3-9 (Content type consistency):** All content_types are valid ScholarlyFunction values. Emit EX-M-010 if unknown.
 
-### Function 1: `compute_excerpt_id(source_id, div_id, chunk_index, unit_index) → str` (F-DET-1)
-Format: `exc_{source_id}_{div_id}_{chunk_index}_{unit_index}`
-`chunk_index` comes from `chunk.split_info.chunk_index` if split_info exists, else `0`.
+**Function 2: `validate_batch(excerpts) → tuple[list[ExcerptRecord], list[str]]`**
+Run validate_excerpt on each excerpt. Also check V-P3-1 (ID uniqueness) at batch level. Return validated excerpts and all error codes.
 
-### Function 2: `extract_primary_text(assembled_text, start_word, end_word) → str` (F-DET-2)
-Substring extraction using `_word_to_char_range`. Returns `assembled_text[char_start:char_end]`.
-**CRITICAL:** This is a substring, NOT `' '.join(tokens[start:end+1])`. The difference: substring preserves internal `\n\n` paragraph breaks and multiple spaces. Split-and-rejoin collapses them. The SPEC explicitly warns about this (§7.1 F-DET-2 Note).
+### Module 2: `writer.py` (§3)
 
-### Function 3: `compute_layer_attribution(assembled_text, text_layers, start_word, end_word, assembly_metadata) → AuthorAttribution` (F-DET-3)
-The most complex function. Implements §7.1 F-DET-3 + §6.2 LA-1–LA-4:
+**Function 1: `write_excerpts(excerpts, output_dir) → Path`**
+Write validated ExcerptRecords to `excerpts.jsonl`. One JSON line per record.
 
-Step 1: Convert word range to character range via `_word_to_char_range`.
-Step 2: **Merge split layer segments.** Before computing coverage, merge consecutive `text_layers` segments with identical `(layer_type, author_canonical_id)` that are separated by offsets in `assembly_metadata.layer_split_points`. Note: `layer_split_points` is `list[int]` — plain character offsets, NOT objects. Check `if segment.end in assembly_metadata.layer_split_points`. Two segments are "separated by a split point" if the first segment's end equals one of the split point values and the second segment's start follows immediately.
-Step 3: Compute each (merged) layer's character overlap with the unit range. `overlap = max(0, min(layer_end, unit_end) - max(layer_start, unit_start))`. Coverage = `overlap / unit_length`.
-Step 4: Apply rules in order:
-- **LA-4:** Any layer has 100% coverage → attribute to that layer.
-- **LA-1:** Any layer has ≥80% coverage → attribute to that layer.
-- **LA-2:** No layer has ≥80% AND exactly 2 layers → attribute to the outermost (highest layer_type level). Full ordering: `TAHQIQ_NOTE > HASHIYAH > SHARH > MATN > UNCERTAIN`. In practice, the common case is sharh > matn (commentator vs. original author).
-- **LA-3:** No layer has ≥80% AND (3+ layers OR dominant <60%) → emit `EX-M-001` warning, return attribution for the highest-coverage layer with `rule_applied="LA-3"`.
+**Function 2: `write_gate_queue(gate_entries, output_dir) → Path`**
+Write gate entries to `gate_queue.jsonl`. One JSON line per entry.
 
-Return: `AuthorAttribution(layer_id=..., author_id=..., coverage_pct=..., rule_applied="LA-N")`.
-For `layer_id`: use the layer_type value as a string identifier (e.g., `"matn"`, `"sharh"`).
-For `author_id`: use `layer.author_canonical_id` if available, else `"unknown"`.
-
-### Function 4: `compute_content_types(segments, unit_segment_indices) → list[ScholarlyFunction]` (F-DET-4)
-Collect `scholarly_function` from each ClassifiedSegment whose index is in `unit_segment_indices`. Deduplicate. Return as a list (order doesn't matter).
-
-### Function 5: `detect_evidence_refs(primary_text) → list[EvidenceRef]` (F-DET-5)
-Pattern matching for three evidence types. All markers use **plain substring matching** — no word-boundary checks (see DD-S3-8 for why).
-
-**Quran (EV-1):** Scan for `﴿...﴾` delimiters (﴿ = U+FD3F opening, ﴾ = U+FD3E closing). Extract text between them. Return `EvidenceRef(type="quran", surah=None, ayah_start=None, ayah_end=None, text_snippet=<extracted>)`. Canonical Quran lookup is deferred (DD-S3-3).
-
-**Hadith (EV-2):** Scan for markers: `رواه`, `أخرجه`, `في الصحيحين`, `متفق عليه`, `في صحيح`, `في سنن`. Plain substring match for all. Return `EvidenceRef(type="hadith", text_snippet=<50 chars around marker>, marker_text=<matched pattern>)`.
-
-**Ijma (EV-3):** Scan for markers: `أجمعوا`, `إجماع`, `لا خلاف`, `اتفق العلماء`, `بالاتفاق`. Plain substring match for all. Return `EvidenceRef(type="ijma", marker_text=<matched>, text_snippet=<50 chars around marker>)`.
-
-**Snippet boundary clamping:** "50 chars around marker" means `primary_text[max(0, pos-25) : min(len(primary_text), pos+len(marker)+25)]`. Clamp to text boundaries — do not raise on markers near start/end.
-
-**Deduplication:** If the same marker matches at the same position from overlapping patterns, deduplicate. But multiple hits of the same marker at _different_ positions are all valid — each is a separate evidence reference.
-
-### Function 6: `compute_page_range(physical_pages, join_points, char_start, char_end) → Optional[PageRange]` (F-DET-6)
-If `physical_pages` is empty, return `None`.
-Use `join_points[i].char_offset_in_assembled` to determine which physical pages overlap with `[char_start, char_end)`.
-`volume`: take from the first overlapping `PhysicalPage.volume` (teaching units rarely span volumes).
-`start_page` / `end_page`: use `PhysicalPage.page_number_int` from the min/max overlapping pages.
-Return `PageRange(volume=volume, start_page=min_page, end_page=max_page)`.
-If an overlapping PhysicalPage has `page_number_int=None`, skip it for start/end computation. If ALL overlapping pages have `page_number_int=None`, return `None`.
-
-### Function 7: `compute_word_offsets(start_word, end_word) → tuple[int, int]`
-Trivial passthrough — returns `(start_word, end_word)`. Exists to make the field-computation pattern uniform. **Note:** This is NOT SPEC F-DET-7 (which is `div_path`, handled as a chunk passthrough in Function 10). This function provides the `start_word`/`end_word` fields on ExcerptRecord.
-
-### Function 8: `filter_relevant_footnotes(primary_text, assembled_text, all_footnotes, char_start, char_end) → list[Footnote]` (F-DET-8)
-For each footnote in `all_footnotes`:
-1. Search `assembled_text` for the pattern `⌜{footnote.ref_marker}⌝` (Unicode characters U+231C and U+231D).
-2. If found AND the match position falls within `[char_start, char_end)`, the footnote is relevant.
-3. If not found anywhere in `assembled_text`, log a warning (orphaned footnote marker).
-Return the list of relevant footnotes.
-
-### Function 9: `compute_quoted_scholars(text_layers, unit_char_start, unit_char_end, primary_layer, assembly_metadata) → list[ScholarAttribution]` (F-DET-9)
-Identify layers with >0% coverage of the unit's character range that are NOT the primary layer. **Compute overlap independently** using the same formula as Function 3 Step 3 (`max(0, min(layer_end, unit_end) - max(layer_start, unit_start))`). You must also perform the same layer segment merging as Function 3 Step 2 (merge at `assembly_metadata.layer_split_points`) before computing overlap — otherwise artificial split boundaries create false layer transitions.
-
-**Implementation note:** Consider extracting the overlap computation + layer merging into a shared helper that both Function 3 and Function 9 call — this avoids duplicating ~15 lines of logic. E.g., `_compute_layer_coverages(text_layers, char_start, char_end, assembly_metadata) → list[tuple[TextLayerSegment, float]]`.
-
-For each non-primary layer with >0% coverage, create `ScholarAttribution(mention_text="[structural: {layer_type}]", resolved_name=layer.author_canonical_id, role=<computed>, confidence=1.0, source="layer_overlap")`.
-Role: if the non-primary layer is MATN in a sharh unit → `"classification_frame"`. Otherwise → `"quoted_opinion"`.
-
-### Function 10: `build_deterministic_excerpts(chunk, units, segments) → list[ExcerptRecord]` (Orchestrator)
-For each TeachingUnit:
-1. Compute chunk_index from `chunk.split_info`
-2. Call F-DET-1 through F-DET-9
-3. Assemble a partial ExcerptRecord:
-   - Deterministic fields from Functions 1–9: `excerpt_id`, `primary_text`, `primary_author_layer`, `content_types`, `evidence_refs`, `physical_pages`, `start_word`/`end_word`, `footnotes_relevant`, `quoted_scholars`
-   - **Direct from chunk:** `source_id=chunk.source_id`, `div_id=chunk.div_id`, `div_path=chunk.div_path`
-   - **Direct from TeachingUnit:** `unit_index=unit.unit_index`, `segment_indices=unit.segment_indices`, `text_snippet=unit.text_snippet`, `primary_function=unit.primary_function`, `secondary_functions=unit.secondary_functions`, `description_arabic=unit.description_arabic`, `self_containment=unit.self_containment`, `self_containment_notes=unit.self_containment_notes`
-   - **Computed:** `chunk_index` from `chunk.split_info.chunk_index` (or 0 if None)
-   - **LLM fields set to defaults:** `excerpt_topic=[]`, `school=None`, `school_confidence=None`, `attribution_confidence=None` (DD-S3-6), `takhrij_data=None`, `terminology_variants=[]`, `cross_references=[]`, `context_hint=None`, `consensus_metadata=None`
-   - **Gate/review flags:** `gate_flags=[]`, `review_flags=[]`
-4. Return the list of ExcerptRecords.
-
-**DD-S3-1: `school` field requires explicit None.**
-The ExcerptRecord model has `school: Optional[str]` with NO default (DD8 Pattern 1 from contracts review). The orchestrator MUST pass `school=None` explicitly — omitting it will raise a validation error.
+**Function 3: `verify_gate_queue(gate_entries, gate_path) → list[str]`**
+V-P3-7: Read back `gate_queue.jsonl` and verify each expected gate entry exists. Emit EX-M-008 if any missing.
 
 ### Module: Tests
 
-**File: `engines/excerpting/tests/test_phase3_deterministic.py`**
+**File: `engines/excerpting/tests/test_phase3_validation.py`**
 
-**Test categories:**
+Test each V-P3 check individually:
+1. V-P3-1: Duplicate IDs detected
+2. V-P3-2: Text integrity pass and fail (EX-V-002)
+3. V-P3-3: Null attribution → EX-M-004
+4. V-P3-4: Topic count violations → EX-M-005
+5. V-P3-5: Self-containment/hint mismatches → EX-M-006
+6. V-P3-6: Invalid Quran refs → EX-M-007
+7. V-P3-8: Orphan footnotes removed → EX-M-009
+8. V-P3-9: Unknown content types → EX-M-010
 
-1. **F-DET-1 excerpt_id:** basic format, split chunk (chunk_index > 0), unsplit chunk (chunk_index = 0)
-2. **F-DET-2 primary_text:** substring extraction preserves internal whitespace (`\n\n`), single-word unit, full-text unit
-3. **F-DET-3 layer attribution:** LA-4 (100% single layer), LA-1 (≥80% dominant), LA-2 (two layers, neither ≥80%), LA-3 (three layers → EX-M-001), layer_split_point merging
-4. **F-DET-4 content_types:** deduplication, single function, multiple functions
-5. **F-DET-5 evidence_refs:** Quran ﴿...﴾ detection, hadith marker detection, ijma marker detection, valid prefixed forms detected (الإجماع, وأخرجه, فرواه), multi-word phrase detection
-6. **F-DET-6 page_range:** single page, multi-page span, null when no pages
-7. **F-DET-8 footnote_filtering:** relevant footnote included, irrelevant excluded, orphan marker warning
-8. **F-DET-9 quoted_scholars:** non-primary layer detected, role computation, primary layer excluded
-9. **Orchestrator:** happy path (single unit), multi-unit, school=None explicit, passthrough fields correct
+**File: `engines/excerpting/tests/test_writer.py`**
 
-**Conftest additions:**
-```python
-def _make_multi_layer_chunk(**overrides) -> AssembledChunk:
-    """AssembledChunk with MATN + SHARH layers for attribution testing."""
-    ...
+1. JSONL format correctness (parseable, one object per line)
+2. Round-trip: write → read → compare
+3. Gate queue write + V-P3-7 verification
+4. Empty inputs handled
+5. EX-M-008 on missing gate entry
 
-def _make_chunk_with_footnotes(**overrides) -> AssembledChunk:
-    """AssembledChunk with footnotes containing ⌜N⌝ markers in the text."""
-    ...
-```
-
-**Expected total: 147 + ≥30 = ≥177 passed tests.**
+**Expected total: 438 + ≥25 = ≥463 passed tests.**
 
 ## Design Decisions (Pre-Resolved)
 
-**DD-S3-1: `school` field requires explicit None.**
-See Function 10 above. The ExcerptRecord model requires `school` to be explicitly passed. Omitting it raises ValidationError.
+**DD-S5-1: Validation does not auto-correct (except V-P3-8).**
+V-P3 checks emit error codes and log. They do NOT change data — with the sole exception of V-P3-8, which removes orphan footnotes (because keeping them is more wrong than removing them).
 
-**DD-S3-2: Import `_build_token_char_map` from phase2_classify.py.**
-Do NOT duplicate the token-to-character mapping logic. Import `from engines.excerpting.src.phase2_classify import _build_token_char_map`. Build a `_word_to_char_range` wrapper in phase3_deterministic.py that calls it.
+**DD-S5-2: JSONL output via Pydantic.**
+Use `exc.model_dump(mode="json")` + `json.dumps(ensure_ascii=False)` for each line. `ensure_ascii=False` preserves Arabic characters without escaping.
 
-**DD-S3-3: Quran canonical lookup is deferred.**
-F-DET-5 detects ﴿...﴾ delimiters and extracts the text, but does NOT resolve surah/ayah numbers. The canonical Quran reference data is a build-time artifact not yet available. Return `surah=None, ayah_start=None, ayah_end=None` for all Quran evidence refs.
+**DD-S5-3: Gate queue verification reads back the file.**
+V-P3-7 is paranoid by design: it writes the gate queue, then reads it back and checks. This catches filesystem failures, encoding issues, etc.
 
-**DD-S3-4: SUPERSEDED by DD-S3-8.**
-See DD-S3-8 below. The original DD-S3-4 mandated word-boundary checks for short Arabic evidence markers. Empirical testing on 66 fixtures / 16.7M characters proved this catastrophically wrong for Arabic. Kept as tombstone to prevent re-introduction.
-
-**DD-S3-5: LLM-enriched fields get safe defaults.**
-The orchestrator sets all LLM-enriched fields to empty/null defaults. These are structurally valid — the ExcerptRecord model accepts them. Session 4 will populate them. The `review_flags` list does NOT include `llm_enrichment_failed` at this stage — that flag is set by Session 4 when the actual LLM call fails.
-
-**DD-S3-6: `attribution_confidence` is None for LA-1/LA-2/LA-4, set by consensus for LA-3.**
-The SPEC says: "Null for deterministic LA-1/2/4. 0.67 for 2-of-3 consensus (LA-3). 0.0 for all-3-disagree." Session 3 sets `attribution_confidence=None` for all rules. Session 4's consensus step fills it for LA-3 cases.
-
-**DD-S3-7: Layer split point merging algorithm.**
-Two consecutive text_layer segments should be merged if:
-(a) They have identical `layer_type` AND `author_canonical_id`, AND
-(b) There exists a value in `assembly_metadata.layer_split_points` (which is `list[int]`, NOT objects) that equals the first segment's `end` value. Check: `first_segment.end in assembly_metadata.layer_split_points`.
-After merging, the combined segment has `start` = first segment's `start`, `end` = second segment's `end`. Process all merge pairs before computing coverage.
-
-**DD-S3-8: Evidence detection uses plain substring matching — NO word-boundary checks.**
-The normalization engine S4/S5 lesson (وذهب matching وذهبت) does NOT apply to evidence markers. That lesson was about Arabic verb conjugations (genuinely different words). Evidence markers are nouns and verbs that routinely appear with Arabic proclitic prefixes (ال, و, ف, ب, ل, ك). These prefixes attach directly to the word with no whitespace. Word-boundary checks reject valid matches:
-- `إجماع`: boundary check rejects 124/163 (76%) — الإجماع, بالإجماع, للإجماع are all valid
-- `أخرجه`: boundary check rejects 62/503 (12%) — وأخرجه, فأخرجه are valid prefixed forms
-- `رواه`: boundary check rejects 39/511 (7.6%) — only 2 genuine FPs (0.13%) from أرواه (different root)
-Empirical evidence: 66 fixtures, 16.7M characters. The false positive rate without boundary checks is negligible (<0.2%); the false NEGATIVE rate WITH boundary checks is catastrophic (up to 76%). File SPEC-NOTE-8.
-
-**DD-S3-9: `resolved_name` in F-DET-9 uses `author_canonical_id` as placeholder.**
-SPEC §7.1 F-DET-9 says `resolved_name: layer_map[layer_id].author_name_arabic`. However, `TextLayerSegment` has no `author_name_arabic` field — only `author_canonical_id`. The scholar registry that resolves canonical IDs to Arabic display names is not yet built. For now, `resolved_name=layer.author_canonical_id` (the canonical ID string). This will be replaced when the scholar registry provides Arabic name resolution. File SPEC-NOTE-9.
+**DD-S5-4: EX-M-008 halts processing.**
+If gate verification fails (missing entry), the writer MUST raise an exception. Invisible uncertainty > visible stop. This is CRITICAL severity in §8.1.
 
 ## Do NOT Do
 
-1. **Do NOT implement §7.2 (LLM enrichment)** — that's Session 4.
-2. **Do NOT implement §7.3 (consensus verification)** — that's Session 4.
-3. **Do NOT implement §7.4 (validation)** — that's Session 5.
-4. **Do NOT modify `contracts.py`** unless you find a bug.
-5. **Do NOT modify Phase 1 or Phase 2 code.**
-6. **Do NOT implement Quran canonical lookup** in F-DET-5. Just detect delimiters.
-7. **Do NOT call any LLM.** Phase 3 deterministic is pure algorithmic code.
-8. **Do NOT invent error codes.** Use only codes from `ExcerptingErrorCodes`.
+1. **Do NOT implement the Phase 3 orchestrator** that chains all stages — that's Session 6.
+2. **Do NOT modify Phase 1, Phase 2, or Phase 3.1–3.3 code.**
+3. **Do NOT modify `contracts.py`** unless you find a bug.
+4. **Do NOT make real LLM calls.** All tests are deterministic.
+5. **Do NOT invent error codes.** Use only codes from `ExcerptingErrorCodes`.
+6. **Do NOT pretty-print JSONL.** One compact JSON object per line.
 
 ## Verification
 
-1. `python -m pytest engines/excerpting/tests/ -v --tb=short` → **≥177 passed** (147 + ≥30 new), 0 failed
-2. `grep -r "raise NotImplementedError" engines/excerpting/src/phase3_deterministic.py` → empty output
-3. `grep -c "def test_" engines/excerpting/tests/test_phase3_deterministic.py` → ≥30
-4. Layer attribution tests cover all 4 rules (LA-1–LA-4): `grep -c "LA-" engines/excerpting/tests/test_phase3_deterministic.py` → ≥4
-5. Evidence detection tests verify no false negatives on valid Arabic prefixed forms (e.g., الإجماع, وأخرجه, فرواه) — NO word-boundary checks (DD-S3-8)
-6. `grep -r "import anthropic" engines/excerpting/src/` → empty (no direct API imports)
-7. `primary_text` extraction test verifies `\n\n` preservation (not split-and-rejoin)
-8. All new test files import factory helpers from conftest
+1. `python -m pytest engines/excerpting/tests/ -v --tb=short` → **≥463 passed**, 0 failed
+2. `grep -r "raise NotImplementedError" engines/excerpting/src/phase3_validation.py` → empty
+3. `grep -r "raise NotImplementedError" engines/excerpting/src/writer.py` → empty
+4. `grep -c "def test_" engines/excerpting/tests/test_phase3_validation.py` → ≥15
+5. `grep -c "def test_" engines/excerpting/tests/test_writer.py` → ≥10
+6. All 9 V-P3 checks have at least one test
+7. Gate queue round-trip tested
+8. EX-M-008 halt behavior tested
 
 ## After This
 
-Session 4 will implement Phase 3 Stage 2 (§7.2 LLM enrichment) and Stage 3 (§7.3 consensus verification). That session will require real LLM calls and cross-provider consensus.
+Session 6 will implement the Phase 3 orchestrator that chains all stages (deterministic → enrichment → consensus → validation → writer) and run cross-engine integration tests.
