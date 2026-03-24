@@ -80,14 +80,14 @@
 | F-R1 | MEDIUM | `phase3_orchestrator.py:120`, `pipeline.py:123,156` | isinstance re-raise list missing `IndexError`, `ZeroDivisionError`, `StopIteration`. These programming bugs are silently swallowed and misdiagnosed as LLM failures (EX-M-002/PHASE2_FATAL/PHASE3_FATAL). Violates SPEC §8 "Every error is loud." Independently confirmed by CC audit (F-A8) and empirically demonstrated in Probe C. | Add 3 exception types to all 3 isinstance tuples. Add 1 test. |
 
 ## Fixes committed
-- [ ] F-R1 fixed
-- [ ] Fix commits pushed to repo
-- [ ] Tests re-run after fixes
-- [ ] Cross-engine contracts re-verified
+- [x] F-R1 fixed (commit 7751b30d)
+- [x] Fix commits pushed to repo
+- [x] Tests re-run after fixes: 550 passed, 2 skipped, 0 failed
+- [x] Cross-engine contracts re-verified (no contract changes)
 
 ## Verdict
 
-**Verdict: BLOCKED**
+**Verdict: ACCEPT** (F-R1 fixed in commit 7751b30d, re-verified by Probe C rerun)
 
 One finding (F-R1): isinstance re-raise list incomplete. Fix directive follows.
 
