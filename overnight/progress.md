@@ -2,7 +2,7 @@
 
 
 ## Completed
-- [x] probe-la-none-authors: Probe: LA rules with all-None author_canonical_id — NO BUG FOUND, 5 tests added (519 total)
+- [x] probe-la-none-authors: Probe: LA rules with all-None author_canonical_id (success, 2225s)
 
 ## Remaining
 - [ ] probe-split-boundary-merge: Probe: layer merge at chunk split boundaries

@@ -61,7 +61,8 @@ Output: `writer.py` → `excerpts.jsonl` + `gate_queue.jsonl`.
 - **Phase 3.3:** COMPLETE (33 tests, ~450 impl lines) — Consensus verification + human gates (verify_chunk, resolve_consensus, check_gate_triggers, run_consensus)
 - **Phase 3.4:** COMPLETE (50 tests, ~350 impl lines) — validation (V-P3-1–9) + output writer (excerpts.jsonl, gate_queue.jsonl, V-P3-7 paranoid verification)
 - **Phase 3 Orchestrator:** COMPLETE (25 integration tests, ~300 impl lines) — phase3_orchestrator.py + pipeline.py + end-to-end tests
-- **Total:** 514 tests, ~4,850 impl lines, 0 failures
+- **Overnight Hardening:** 40+ additional edge case tests across all phases
+- **Total:** 519 tests, ~4,850 impl lines, 0 failures
 
 ## Build Metrics Target
 

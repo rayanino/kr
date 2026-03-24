@@ -1,18 +1,24 @@
 {
-  "timestamp": "2026-03-24T06:07:51.514784+00:00",
+  "timestamp": "2026-03-24T06:52:38.238078+00:00",
   "branch": "master",
   "active_engine": "excerpting",
   "active_spec_section": null,
-  "last_committed_file": "scripts/overnight_orchestrator.py",
+  "last_committed_file": "engines/excerpting/tests/test_phase3_deterministic.py",
   "active_plan": null,
   "modified_files": [
     ".claude/session_state.json",
-    "overnight/manifest.json",
-    "overnight/progress.md"
+    "NEXT.md",
+    "engines/excerpting/CLAUDE.md",
+    "overnight/.heartbeat",
+    "overnight/progress.md",
+    "reference/archive/sessions/NEXT_session5_original.md",
+    "reference/archive/sessions/handoff_review_session4.md",
+    "reference/archive/sessions/reviews/review_excerpting_session3.md",
+    "reference/archive/sessions/reviews/review_excerpting_session4.md"
   ],
-  "uncommitted_summary": ".claude/session_state.json |  12 ++---\n overnight/manifest.json    | 126 +++++++++++++++++++++++++++++----------------\n overnight/progress.md      |   2 +-\n 3 files changed, 88 insertions(+), 52 deletions(-)",
-  "next_md_head": "# NEXT — Excerpting Engine Session 6: Phase 3 Orchestrator + Integration\n\n## Current Position\n\n- **Excerpting Phase 1:** COMPLETE. 117 tests (incl. hardening).\n- **Excerpting Phase 2:** COMPLETE. 141 tests (incl. hardening).\n- **Excerpting Phase 3.1:** COMPLETE. 86 tests, 637 lines. Deterministic metadata assembly.\n- **Excerpting Phase 3.2:** COMPLETE. 27 tests, ~300 lines. LLM enrichment.\n- **Excerpting Phase 3.3:** COMPLETE. 33 tests, ~450 lines. Consensus verification + human gates.\n- **Excerpting Phase 3.4:** COMPLETE. 50 tests, ~350 lines. Validation (V-P3-1–9) + output writer.\n- **Test baseline:** 488 tests passing, 0 failures (excerpting)\n- **Open SPEC errata:** None\n\n## What to Do\n",
-  "recent_commits": "c62fdfbe fix: overnight system â€” 4 bug fixes + hardening-only redesign\na15082a2 feat: implement Phase 3 orchestrator + full pipeline integration (Session 6)\n2343c0d3 feat: implement Phase 3 validation (V-P3-1â€“9) + output writer (Â§7.4, Â§2.2.1)\n03ae2279 fix: F-DET-9 identity matching â€” exclude primary (type+author), not entire type\n4a7f71e9 feat: implement Phase 3 LLM enrichment + consensus verification (Â§7.2â€“7.3)",
+  "uncommitted_summary": ".claude/session_state.json   | 20 +++++----\n NEXT.md                      | Unmerged\n NEXT.md                      | 99 ++++++++++++--------------------------------\n engines/excerpting/CLAUDE.md |  3 +-\n overnight/.heartbeat         | 12 +++---\n overnight/progress.md        |  2 +-\n 5 files changed, 48 insertions(+), 88 deletions(-)",
+  "next_md_head": "# NEXT — Excerpting Engine Complete → Taxonomy Engine\n\n## Current Position\n\n- **Source Engine:** COMPLETE. 566 tests, 0 failures. Transition gate approved.\n- **Normalization Engine:** COMPLETE. 503 tests, 0 failures. Transition gate approved.\n- **Excerpting Engine:** COMPLETE. 519 tests, 0 failures. All 3 phases built + orchestrator + integration.\n\n## Excerpting Summary\n\n| Phase | Module | Tests | Lines |\n|-------|--------|-------|-------|\n| 1 — Deterministic Assembly | `phase1_assembly.py` | 117 | ~1,531 |\n| 2 — LLM Classification + Grouping | `phase2_classify.py`, `phase2_group.py` | 141 | ~854 |\n| 3.1 — Deterministic Metadata | `phase3_deterministic.py` | 86 | ~637 |",
+  "recent_commits": "d6d6bdf6 overnight: probe LA rules with all-None author_canonical_id â€” no bug found\n2dec5e2f overnight: initialize overnight session\ncfe59c8a docs: overnight README + knowledge corruption probe manifest\nc62fdfbe fix: overnight system â€” 4 bug fixes + hardening-only redesign\na15082a2 feat: implement Phase 3 orchestrator + full pipeline integration (Session 6)",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",
