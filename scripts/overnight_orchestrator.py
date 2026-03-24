@@ -490,9 +490,9 @@ def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
         "--no-session-persistence",
         "--append-system-prompt", safety_prompt,
     ]
-    # Maximum thinking effort for opus tasks
+    # Maximum thinking effort for opus tasks + fallback for rate limits
     if task.model == "opus":
-        cmd += ["--effort", "max"]
+        cmd += ["--effort", "max", "--fallback-model", "sonnet"]
     if task.agent:
         cmd += ["--agent", task.agent]
     if task.allowed_tools:
@@ -508,6 +508,8 @@ def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
         "PYTHONIOENCODING": "utf-8",
         "KR_BUDGET_LIMIT": os.environ.get("KR_BUDGET_LIMIT", "20"),
     }
+    # Remove API key so CLI uses Max subscription auth (OAuth), not API billing
+    env.pop("ANTHROPIC_API_KEY", None)
 
     result = _run_subprocess_safe(
         cmd, timeout=task.timeout_minutes * 60, env=env,
