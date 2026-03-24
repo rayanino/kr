@@ -1,8 +1,10 @@
 # Overnight Progress — 2026-03-24
 
 
+## Completed
+- [x] probe-la-none-authors: Probe: LA rules with all-None author_canonical_id — NO BUG FOUND, 5 tests added (519 total)
+
 ## Remaining
-- [ ] probe-la-none-authors: Probe: LA rules with all-None author_canonical_id
 - [ ] probe-split-boundary-merge: Probe: layer merge at chunk split boundaries
 - [ ] probe-json-arabic-roundtrip: Probe: Pydantic JSON serialization preserves Arabic byte-for-byte
 - [ ] probe-quoted-scholars-dedup: Probe: quoted scholars with identical (type, author) pairs

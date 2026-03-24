@@ -2822,3 +2822,289 @@ class TestOrchestratorIntegration:
         assert "رواه" in markers
         # F-DET-8: no footnotes
         assert result[0].footnotes_relevant == []
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Knowledge Corruption Probe: LA rules with all-None author_canonical_id
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestNoneAuthorLayerAttribution:
+    """Probe: verify LA rules when ALL layers have author_canonical_id=None.
+
+    Corruption vector: if _compute_layer_coverages merges layers with
+    different layer_types because both share author_canonical_id=None,
+    the merge would collapse distinct scholarly layers into one entry,
+    causing LA-4 (100% single layer) to fire instead of LA-3 (ambiguous,
+    needs consensus gate). This suppresses EX-M-001 and human gate.
+
+    The merge key is (layer_type, author_canonical_id). Different types
+    must never merge regardless of shared None author.
+    """
+
+    def test_three_layers_all_none_authors_fires_la3(
+        self, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """Three layers (MATN, SHARH, HASHIYAH) all with None author -> LA-3.
+
+        This is the critical corruption scenario: if _compute_layer_coverages
+        merges these because None == None, the system produces WRONG
+        attribution with NO EX-M-001 warning and NO human gate.
+        """
+        # Real Arabic: matn (original text), sharh (commentary), hashiyah (gloss)
+        matn_text = "كلامنا لفظ مفيد كاستقم"
+        sharh_text = "يريد أن الكلام في اصطلاح النحويين"
+        hashiyah_text = "أقول معنى قوله يريد أن الكلام"
+        text = matn_text + " " + sharh_text + " " + hashiyah_text
+        text_len = len(text)
+
+        matn_end = len(matn_text)
+        sharh_start = matn_end + 1
+        sharh_end = sharh_start + len(sharh_text)
+        hashiyah_start = sharh_end + 1
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id=None,
+                start=0,
+                end=matn_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=sharh_start,
+                end=sharh_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.HASHIYAH,
+                author_canonical_id=None,
+                start=hashiyah_start,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        with caplog.at_level(logging.WARNING):
+            result = compute_layer_attribution(
+                text, layers, 0, len(tokens) - 1, meta
+            )
+
+        # MUST be LA-3 (3+ ambiguous layers), NOT LA-4 (single dominant)
+        assert result.rule_applied == "LA-3", (
+            f"Expected LA-3 for 3 distinct layers with None authors, "
+            f"got {result.rule_applied}. This means distinct layer types "
+            f"were incorrectly merged because author_canonical_id=None matched."
+        )
+        # EX-M-001 warning MUST be emitted for human review
+        assert ExcerptingErrorCodes.EX_M_001 in caplog.text, (
+            "EX-M-001 warning missing — ambiguous attribution was silenced"
+        )
+        # author_id should fall back to "unknown" for None
+        assert result.author_id == "unknown"
+
+    def test_two_different_types_none_authors_at_split_not_merged(self) -> None:
+        """Two layers (MATN, SHARH) both None at split point -> NOT merged.
+
+        Even though both share author_canonical_id=None and meet at a
+        split point, they have different layer_types and must remain
+        as 2 separate coverage entries. LA-2 should fire, not LA-4.
+        """
+        matn_text = "قال المصنف في هذا الباب"
+        sharh_text = "يشير إلى أن المراد بالباب"
+        text = matn_text + sharh_text  # No space — they abut at split
+        split_point = len(matn_text)
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id=None,
+                start=0,
+                end=split_point,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=split_point,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[split_point],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(
+            text, layers, 0, len(tokens) - 1, meta
+        )
+
+        # Two different-type layers must NOT merge -> LA-2
+        assert result.rule_applied == "LA-2", (
+            f"Expected LA-2 for 2 different-type layers with None authors "
+            f"at split point, got {result.rule_applied}. Different layer types "
+            f"were incorrectly merged because None == None."
+        )
+        # SHARH > MATN in _LAYER_LEVEL -> SHARH wins
+        assert result.layer_id == "sharh"
+        assert result.author_id == "unknown"
+
+    def test_single_layer_none_author_fires_la4(self) -> None:
+        """Single layer with None author -> LA-4 correctly fires.
+
+        This IS the legitimate single-layer case. Unlike the 3-layer scenario,
+        one layer covering 100% genuinely triggers LA-4.
+        """
+        text = "بسم الله الرحمن الرحيم الحمد لله رب العالمين"
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id=None,
+                start=0,
+                end=len(text),
+                confidence=1.0,
+            )
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(
+            text, layers, 0, len(tokens) - 1, meta
+        )
+
+        assert result.rule_applied == "LA-4"
+        assert result.coverage_pct == 1.0
+        assert result.layer_id == "matn"
+        assert result.author_id == "unknown"
+
+    def test_same_type_none_authors_at_split_merge_correctly(self) -> None:
+        """DD-S3-7: Same-type None-author layers at split point DO merge.
+
+        This is the CORRECT merge case: two SHARH(None) segments split
+        by a page boundary. Merging them into one 100% coverage entry
+        is right because the normalization engine saw them as one continuous
+        layer across pages. LA-4 is the correct outcome here.
+
+        This test guards against over-correction: if someone "fixes" the
+        None-author merge to prevent ALL None-author merges, this test
+        catches the regression.
+        """
+        text = "يريد أن الكلام في اصطلاح النحويين هو اللفظ المفيد"
+        split_point = len(text) // 2
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=0,
+                end=split_point,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=split_point,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[split_point],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(
+            text, layers, 0, len(tokens) - 1, meta
+        )
+
+        # Same type + same None author at split -> merge -> 100% -> LA-4
+        assert result.rule_applied == "LA-4"
+        assert result.coverage_pct == 1.0
+        assert result.author_id == "unknown"
+
+    def test_three_none_authors_quoted_scholars_all_distinct(self) -> None:
+        """F-DET-9: Three None-author layers produce correct quoted_scholars.
+
+        When all layers have None authors, the primary layer (largest coverage)
+        should be excluded from quoted_scholars, and the other two should
+        appear as distinct entries — NOT collapsed into one.
+        """
+        matn_text = "كلامنا لفظ مفيد كاستقم"
+        sharh_text = "يريد أن الكلام في اصطلاح النحويين هو اللفظ المفيد"
+        hashiyah_text = "أقول معنى قوله يريد أن المراد بالكلام"
+        text = matn_text + " " + sharh_text + " " + hashiyah_text
+        text_len = len(text)
+
+        matn_end = len(matn_text)
+        sharh_start = matn_end + 1
+        sharh_end = sharh_start + len(sharh_text)
+        hashiyah_start = sharh_end + 1
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id=None,
+                start=0,
+                end=matn_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=sharh_start,
+                end=sharh_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.HASHIYAH,
+                author_canonical_id=None,
+                start=hashiyah_start,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+
+        # Primary is whichever has largest coverage
+        # SHARH has the most chars, so it's the primary
+        primary = AuthorAttribution(
+            layer_id="sharh",
+            author_id="unknown",
+            coverage_pct=0.4,
+            rule_applied="LA-3",
+        )
+
+        result = compute_quoted_scholars(
+            layers, 0, text_len, primary, meta
+        )
+
+        # Should have 2 quoted scholars (MATN + HASHIYAH), NOT 0 or 1
+        assert len(result) == 2, (
+            f"Expected 2 quoted scholars for 3-layer None-author unit, "
+            f"got {len(result)}. Layers may have been incorrectly merged."
+        )
+        layer_types = {r.mention_text for r in result}
+        assert "[structural: matn]" in layer_types
+        assert "[structural: hashiyah]" in layer_types
