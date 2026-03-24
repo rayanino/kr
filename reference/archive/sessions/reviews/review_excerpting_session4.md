@@ -2,69 +2,79 @@
 
 ## Pre-review
 - [x] Repo pulled, commit diff read (`git diff 789d95d9..4a7f71e9`)
-- [x] Handoff review doc read (`reference/archive/sessions/handoff_review_session4.md`)
+- [x] Handoff review doc read
 - [x] REVIEW_PROTOCOL.md and QUALITY_AXIOM.md re-read
 
-## Pass 1: Structural (Deep — multi-angle analysis)
-- [x] Every CC-modified file opened and read **in full**:
+## Pass 1: Structural (Deep — 20+ analysis angles + CC adversarial audit)
+- [x] Every CC-modified file read in full (RULE 7 — no truncation)
   - [x] `phase3_enrichment.py` — 5 functions (grep verified)
   - [x] `phase3_consensus.py` — 14 functions (grep verified)
-  - [x] `test_phase3_enrichment.py` — 27 test functions (grep verified)
-  - [x] `test_phase3_consensus.py` — 33 test functions (grep verified)
-  - RULE 7: All files read in full, no truncation.
+  - [x] `test_phase3_enrichment.py` — 27 tests (grep verified)
+  - [x] `test_phase3_consensus.py` — 33 tests (grep verified)
 - [x] All tests run: 437 passed, 2 skipped, 0 failed
-- [x] SPEC cross-reference: enrichment §7.2, consensus §7.3, error codes §8.1
-- [x] Cross-engine boundary check: contracts.py NOT modified → no boundary risk
-- [x] Config values verified exact match against SPEC §7.2.5, §7.3.2
+- [x] SPEC cross-reference: §7.2, §7.3, §8.1
+- [x] Cross-engine: contracts.py NOT modified → no boundary risk
+- [x] Config exact SPEC match verified ✓
 - [x] Provider independence: Anthropic/OpenAI/Cohere ✓
-- [x] OpenRouter model string format ✓
+- [x] CC adversarial audit completed (8 findings, see cc_adversarial_audit_session4.md)
 
-### Analysis Angles Applied (20 total)
-1. Data flow enrichment→consensus: review_flags, context_hint, takhrij_data mappings ✓
-2. Iterator fragility in verification mapping → F-5
-3. Scholar merge edge cases: duplicate LLM scholars, None resolved_names → weak but acceptable
-4. SPEC concrete example trace (§10.4): test expectations checked
-5. Error code coverage: all Session 4 codes tested at least once ✓
-6. Verification count mismatch: partial response silently drops verification → design note
-7. Tautological test detection → found 3 weak tests, F-4's test is tautological
-8. Self-containment parsing ambiguity → F-6
-9. Config values exact SPEC match ✓
-10. Instructor max_retries=0 vs orchestrator retry → design tradeoff, not bug
-11. Attribution majority application → F-4 (CRITICAL)
-12. EnrichmentResult.total_units not cross-checked → design note
-13. Order preservation through enrichment/consensus → design note for Session 6
+### Architect Analysis Angles (20)
+1. Data flow enrichment→consensus ✓
+2. Iterator fragility → F-5/CC-F2
+3. Scholar merge edge cases → acceptable
+4. SPEC §10.4 test expectations
+5. Error code coverage ✓
+6. Verification count mismatch → design note
+7. Tautological test detection → found 3+ weak tests
+8. Self-containment parsing → F-6
+9. Config values exact match ✓
+10. Instructor retry semantics → design tradeoff
+11. Attribution majority → F-4/CC-F1 (CRITICAL)
+12. EnrichmentResult.total_units unenforced → note
+13. Order preservation → Session 6 note
 14. Gate entry completeness → F-7
-15. Consensus metadata double-write → dead code, not bug
-16. Ordering of consensus_metadata vs _repair_context_hint → F-8 (affects Fix 1)
-17. Double-add structural analysis → proven impossible in current code
-18. llm_enrichment_failed excerpts through consensus → correct behavior
-19. PARTIAL→DEPENDENT with existing data → validated OK
-20. AuthorAttribution accepts "LA-3_consensus" → confirmed (free-form string)
+15. ConsensusRecord ordering → F-8
+16. Retry loop double-add → proven impossible
+17. llm_enrichment_failed through consensus → correct
+18. PARTIAL→DEPENDENT existing data → correct
+19. AuthorAttribution accepts "LA-3_consensus" ✓
+20. check_gate_triggers standalone usage → safe default
 
-### Tier 1 LLM Trustworthiness Defenses
-- Not implemented (expected — Session 4 had no architect handoff)
-- Defenses 1B, 1C, 2A deferred to evaluation phase
-- Not blocking — these are quality improvements, not correctness bugs
+### CC Adversarial Audit Cross-Reference
+| CC Finding | My Finding | Status |
+|-----------|-----------|--------|
+| CC-F1 (majority not applied) | F-4 | CONFIRMED — identical trace |
+| CC-F2 (positional iterator) | F-5 | CONFIRMED — identical trace |
+| CC-F3 (PARTIAL + None hint) | **NEW** | CONFIRMED CRASH — real path |
+| CC-F4 (takhrij []→None) | Noted in Angle 1 | LOW — not fixing |
+| CC-F5 (FULL→PARTIAL dead code) | **CORRECTS my F-1** | My F-1 was false alarm |
+| CC-F6 (phantom "unknown" voter) | **NEW** | CONFIRMED — unnecessary gates |
+| CC-F7 (school↔confidence) | **NEW** | LOW — contracts.py change needed |
+| CC-F8 (duplicate ConsensusRecord) | Noted in Angle 15 | LOW — dead code |
 
-## Findings
+## Findings (Final — corrected after CC audit)
 
-| # | Severity | File | Finding | Fixed? |
-|---|----------|------|---------|--------|
-| F-1 | HIGH | consensus.py:501 | FULL→PARTIAL/DEPENDENT crash: missing self_containment_notes on downgrade | [ ] |
-| F-2 | MEDIUM | consensus.py:290,575 | EX-G-003 over-triggers: wrong condition (verifier≠enrichment instead of verifier≠source) | [ ] |
-| F-3 | MEDIUM | enrichment.py:377, consensus.py:644 | startswith chunk matching false-matches similar div_ids | [ ] |
-| F-4 | CRITICAL | consensus.py:332 | Attribution majority not applied to excerpt — owner sees wrong author (T-2) | [ ] |
-| F-5 | MEDIUM | consensus.py:714 | Verification item mapping ignores item_index — positional fragility | [ ] |
-| F-6 | LOW-MED | consensus.py:490 | _parse_self_containment substring order: "DEPENDENT (partially)" → PARTIAL | [ ] |
-| F-7 | MEDIUM | consensus.py:595 | Gate entry missing assessments list per SPEC §7.3.4 | [ ] |
-| F-8 | HIGH | consensus.py:226-231 | _repair_context_hint reads consensus_metadata before it's set (always None) | [ ] |
+| # | Severity | File | Finding | Fix # |
+|---|----------|------|---------|-------|
+| 1 | CRITICAL | consensus.py:332 | Attribution majority not applied (T-2 silent wrong author) | Fix 1 |
+| 2 | HIGH | enrichment.py:279 | PARTIAL + None hint from LLM → I-ER-4 crash | Fix 2 |
+| 3 | MED-HIGH | consensus.py:714 | Verification items matched positionally, not by index | Fix 5 |
+| 4 | MEDIUM | consensus.py:290,575 | EX-G-003 over-triggers | Fix 3 |
+| 5 | MEDIUM | enrichment.py:377 | startswith chunk matching | Fix 4 |
+| 6 | MEDIUM | consensus.py:595 | Gate entry missing assessments | Fix 7 |
+| 7 | MEDIUM | consensus.py:226 | consensus_metadata ordering bug | Fix 8 |
+| 8 | LOW-MED | consensus.py:490 | _parse_self_containment order | Fix 6 |
+| 9 | LOW-MED | consensus.py:330 | Phantom "unknown" voter | Fix 9 |
+
+### Downgraded
+- Former F-1 (FULL→PARTIAL crash): DEAD CODE — path unreachable (CC-F5)
 
 ## Verdict
-**BLOCKED — 8 findings. Fix directive in NEXT.md.**
+**BLOCKED — 9 findings across 9 fixes. Fix directive in NEXT.md.**
 
-Passes 2-3 will be in a new chat after CC fixes all findings.
+Passes 2-3 in new chat after CC fixes.
 
-## Build metrics (cumulative)
+## Build metrics
 ```
 Implementation: ~3,745 lines (+~1,209 this session)
 Tests: 437 passing (+60 this session)
