@@ -477,8 +477,9 @@ def compute_quoted_scholars(
 
     result: list[ScholarAttribution] = []
     for layer, _coverage in coverages:
-        # Skip the primary layer
-        if layer.layer_type.value == primary_layer.layer_id:
+        # Skip the primary layer (match on type AND author, not type alone)
+        if (layer.layer_type.value == primary_layer.layer_id
+                and (layer.author_canonical_id or "unknown") == primary_layer.author_id):
             continue
 
         # Determine role: MATN in a non-MATN primary unit = classification_frame

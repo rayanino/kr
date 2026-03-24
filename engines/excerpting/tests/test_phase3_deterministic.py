@@ -628,6 +628,55 @@ class TestQuotedScholars:
         assert len(sharh_scholars) == 1
         assert sharh_scholars[0].role == "quoted_opinion"
 
+    def test_multi_author_same_type_secondary_kept(self) -> None:
+        """Two SHARH authors: primary sharh_A excluded, secondary sharh_B kept."""
+        text = "قال الشارح الأول شرحه يريد أن الكلام وقال الشارح الثاني وأما قوله"
+        text_len = len(text)
+        third = text_len // 3
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh_A",
+                start=0,
+                end=third,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh_B",
+                start=third,
+                end=2 * third,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_matn",
+                start=2 * third,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        primary = AuthorAttribution(
+            layer_id="sharh",
+            author_id="sch_sharh_A",
+            coverage_pct=0.33,
+            rule_applied="LA-3",
+        )
+        result = compute_quoted_scholars(layers, 0, text_len, primary, meta)
+        # sharh_B should NOT be excluded (different author, same type)
+        sharh_b = [s for s in result if s.resolved_name == "sch_sharh_B"]
+        assert len(sharh_b) == 1, "Secondary sharh author must appear in quoted_scholars"
+        assert sharh_b[0].role == "quoted_opinion"
+        # matn should still appear
+        matn_scholars = [s for s in result if "matn" in s.mention_text]
+        assert len(matn_scholars) == 1
+
 
 # ═══════════════════════════════════════════════════════════════════
 # F10: build_deterministic_excerpts (Orchestrator)
