@@ -1,17 +1,18 @@
 {
-  "timestamp": "2026-03-23T20:25:19.182397+00:00",
+  "timestamp": "2026-03-24T00:14:55.922976+00:00",
   "branch": "master",
   "active_engine": "excerpting",
   "active_spec_section": null,
-  "last_committed_file": "engines/excerpting/src/phase2_classify.py",
+  "last_committed_file": "scripts/overnight_orchestrator.py",
   "active_plan": null,
   "modified_files": [
     ".claude/session_state.json",
-    "autonomous_system_sources.txt"
+    "engines/excerpting/CLAUDE.md",
+    "engines/excerpting/docs/llm_trustworthiness_defenses.md"
   ],
-  "uncommitted_summary": ".claude/session_state.json    | 15 ++++++---------\n autonomous_system_sources.txt |  4 ++++\n 2 files changed, 10 insertions(+), 9 deletions(-)",
-  "next_md_head": "# NEXT — Excerpting Engine Session 2: Phase 2 (LLM Classification + Grouping)\n\n## Current Position\n\n- **Excerpting Phase 1:** ACCEPTED (commit `28a188ad`), all errata resolved\n- **HEAD:** `83ea23ef` on `master`\n- **Test baseline:** 77 passed (excerpting), 503 passed (normalization)\n- **Open SPEC errata:** None (SPEC-NOTE-4–7 all resolved)\n- **Phase 1 output:** `run_phase1()` produces `list[AssembledChunk]` with validated coverage, offsets, and layer attribution\n\n## What to Do\n\nImplement Phase 2: LLM Teaching Unit Extraction (SPEC §5). This fills the stubs in `phase2_classify.py` and `phase2_group.py`. Phase 2 is the engine's inference core — the only phase that calls an LLM.\n\n**Processing flow (§5.1):**",
-  "recent_commits": "bd3734ce fix: architect review â€” ValidationError feedback + V-P2-14 IndexError guard\n4d4648f7 review: BLOCKED excerpting Session 2 â€” F-1 DD-S2-8 validation feedback, F-2 IndexError path\nf965de87 feat: implement Phase 2 â€” LLM classification + grouping (excerpting engine)\n922dc6d0 handoff: excerpting Session 2 â€” Phase 2 LLM classification + grouping\n83ea23ef fix: resolve SPEC-NOTE-6 (expanded keyword list) and SPEC-NOTE-7 (exact match, not word-boundary)",
+  "uncommitted_summary": ".claude/session_state.json | 13 +++++++------\n 1 file changed, 7 insertions(+), 6 deletions(-)",
+  "next_md_head": "# NEXT — Excerpting Engine Session 3: Phase 3 Deterministic Metadata Assembly\n\n## Current Position\n\n- **Excerpting Phase 1:** ACCEPTED (commit `28a188ad`). 77 tests.\n- **Excerpting Phase 2:** ACCEPTED (commit `46bdb20d`). 147 tests.\n- **HEAD:** `38791dca` on `master`\n- **Test baseline:** 147 existing tests passing, 2 skipped (excerpting)\n- **Open SPEC errata:** None\n- **Phase 2 output:** `run_phase2a()` produces `dict[chunk_id → list[ClassifiedSegment]]`; `run_phase2b()` produces `dict[chunk_id → list[TeachingUnit]]`\n\n## What to Do\n\nImplement Phase 3 Stage 1: Deterministic Metadata Assembly (SPEC §7.1). This fills the stubs in `phase3_deterministic.py`. These are the 10 functions that compute ExcerptRecord fields from data alone — no LLM calls.\n",
+  "recent_commits": "36fdb99e fix: strip ANTHROPIC_API_KEY from spawned env â€” use Max subscription auth\nd3c545a4 overnight: review Phase 3.1 deterministic metadata assembly\n1ba51951 fix: overnight system â€” remove redundant gate, fix skip propagation, triple timeouts\ndeb9e763 fix: git_is_clean strip() was eating leading space from porcelain output\n0a888cd6 fix: use --dangerously-skip-permissions to prevent overnight hangs",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",
