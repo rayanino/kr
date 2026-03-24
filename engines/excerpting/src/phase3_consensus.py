@@ -367,7 +367,7 @@ def _resolve_attribution(
                     verifier_agrees=False,
                     escalation_value=escalation_value,
                     final_value=enrichment_val,
-                    resolution_method="all_3_disagree_gate",
+                    resolution_method="no_majority_gate",
                 )
         else:
             # No escalation client — treat as 2-model disagreement, use enrichment
@@ -428,17 +428,6 @@ def _call_escalation(
             "Escalation call failed for %s: %s", excerpt.excerpt_id, str(e)
         )
         return None
-
-
-def _find_majority(votes: list[str]) -> Optional[str]:
-    """Find 2-of-3 majority. Returns None if all 3 differ."""
-    if votes[0] == votes[1]:
-        return votes[0]
-    if votes[0] == votes[2]:
-        return votes[0]
-    if votes[1] == votes[2]:
-        return votes[1]
-    return None
 
 
 def _find_majority_flexible(votes: list[str]) -> Optional[str]:
@@ -691,13 +680,23 @@ def run_consensus(
     for exc in excerpts:
         chunk_id = exc.div_id
         if chunk_id not in chunk_map:
+            # DD-PE-4: Defensive chunk ID fallback for split chunks.
+            # Phase 1 may produce chunk_id as "div_id_chunk_N" for splits.
             split_id = f"{exc.div_id}_chunk_{exc.chunk_index}"
             if split_id in chunk_map:
                 chunk_id = split_id
+                logger.info(
+                    "DD-PE-4: Using split_id fallback %s for %s.",
+                    split_id, exc.excerpt_id,
+                )
             else:
                 alt_id = f"{exc.div_id}_{exc.chunk_index}"
                 if alt_id in chunk_map:
                     chunk_id = alt_id
+                    logger.warning(
+                        "DD-PE-4: Using alt_id fallback %s for %s.",
+                        alt_id, exc.excerpt_id,
+                    )
         excerpts_by_chunk[chunk_id].append(exc)
 
     all_results: list[ExcerptRecord] = []

@@ -99,3 +99,11 @@ All errata resolved during normalization engine evaluation (March 2026).
 **Problem:** SPEC §7.4 says validation runs "for a chunk." V-P3-1 runs at batch level.
 **Resolution:** Batch-level is strictly more thorough (catches cross-chunk duplicates). Documented as DD-S56-2.
 **Fixed in:** Session 5/6 triage fix commit.
+
+## SPEC-NOTE-13: Pipeline-level error strings are not §8.1 codes — RESOLVED
+
+**Found:** Session 4 review, PE-5 (March 2026).
+**Severity:** Documentation.
+**Problem:** `pipeline.py` uses `PHASE2_FATAL`, `PHASE2_SKIPPED`, `PHASE3_FATAL` as error strings in `ExcerptingResult.errors`. These are not in SPEC §8.1's error code table.
+**Resolution:** These are pipeline-level operational diagnostics, not per-excerpt validation errors. SPEC §8.1 defines per-excerpt codes (EX-A-*, EX-C-*, EX-M-*, EX-V-*, EX-G-*). Pipeline failures affect the entire source and don't have per-excerpt scope. The ad-hoc strings include the exception message for debugging.
+**Fixed in:** PE-5 documentation (no code change).

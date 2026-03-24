@@ -666,6 +666,16 @@ class VerificationResult(BaseModel):
 
     items: list[VerificationItem]
 
+    @model_validator(mode="after")
+    def _check_item_index_uniqueness(self) -> "VerificationResult":
+        indices = [item.item_index for item in self.items]
+        if len(indices) != len(set(indices)):
+            dupes = [i for i in indices if indices.count(i) > 1]
+            raise ValueError(
+                f"Duplicate item_index values in VerificationResult: {set(dupes)}"
+            )
+        return self
+
 
 # ═══════════════════════════════════════════════════════════════════
 # Error Codes

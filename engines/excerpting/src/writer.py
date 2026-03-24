@@ -208,3 +208,42 @@ def verify_gate_queue(
         gate_path,
     )
     return errors
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Function 4: write_processing_log (§2.2.1)
+# ═══════════════════════════════════════════════════════════════════
+
+
+def write_processing_log(
+    source_id: str,
+    errors: list[str],
+    timings: dict[str, float],
+    excerpt_count: int,
+    gate_count: int,
+    output_dir: Path,
+) -> Path:
+    """Write processing log to processing_log.jsonl (§2.2.1).
+
+    Single JSON line with run metadata for debugging and telemetry.
+    """
+    import datetime
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / "processing_log.jsonl"
+
+    entry = {
+        "source_id": source_id,
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "excerpt_count": excerpt_count,
+        "gate_count": gate_count,
+        "error_count": len(errors),
+        "errors": errors,
+        "timings": timings,
+    }
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+
+    logger.info("Wrote processing log to %s", output_path)
+    return output_path

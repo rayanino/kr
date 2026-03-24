@@ -26,6 +26,7 @@ from engines.excerpting.src.writer import (
     verify_gate_queue,
     write_excerpts,
     write_gate_queue,
+    write_processing_log,
 )
 from engines.normalization.contracts import NormalizedPackage
 
@@ -184,6 +185,18 @@ def run_excerpting(
             logger.info("No gate entries — skipping gate_queue.jsonl write.")
 
         result.timings["writer"] = time.monotonic() - t3
+
+    # Write processing log (§2.2.1)
+    if output_dir is not None:
+        log_path = write_processing_log(
+            source_id=source_id,
+            errors=result.errors,
+            timings=result.timings,
+            excerpt_count=len(result.excerpts),
+            gate_count=len(result.gate_entries),
+            output_dir=output_dir,
+        )
+        result.output_paths["processing_log"] = log_path
 
     logger.info(
         "Excerpting complete for %s: %d excerpts, %d gate entries, %d errors.",

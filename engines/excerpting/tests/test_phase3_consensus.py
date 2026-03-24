@@ -26,7 +26,6 @@ from engines.excerpting.contracts import (
 )
 from engines.excerpting.src.phase3_consensus import (
     _build_gate_entry,
-    _find_majority,
     _find_majority_flexible,
     _needs_consensus,
     _parse_self_containment,
@@ -302,14 +301,6 @@ class TestAttributionEscalation:
 
         assert result.attribution_confidence == 0.0
         assert ExcerptingErrorCodes.EX_G_001 in gates
-
-    def test_find_majority_2_of_3(self) -> None:
-        assert _find_majority(["a", "b", "a"]) == "a"
-        assert _find_majority(["b", "a", "b"]) == "b"
-        assert _find_majority(["a", "a", "b"]) == "a"
-
-    def test_find_majority_all_different(self) -> None:
-        assert _find_majority(["a", "b", "c"]) is None
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -1068,3 +1059,28 @@ class TestPhantomVoterRemoved:
         # real_votes=["sch_a", "sch_b"] → no majority → EX-G-001
         assert result.attribution_confidence == 0.0
         assert ExcerptingErrorCodes.EX_G_001 in gates
+
+
+# ═══════════════════════════════════════════════════════════════════
+# PE-1: VerificationResult duplicate item_index validator
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestVerificationResultValidator:
+    """PE-1: VerificationResult rejects duplicate item_index."""
+
+    def test_unique_indices_accepted(self) -> None:
+        """Non-duplicate indices → valid."""
+        result = VerificationResult(items=[
+            VerificationItem(item_index=0, agrees=True, confidence=0.9, reasoning="ok"),
+            VerificationItem(item_index=1, agrees=True, confidence=0.9, reasoning="ok"),
+        ])
+        assert len(result.items) == 2
+
+    def test_duplicate_indices_rejected(self) -> None:
+        """Duplicate item_index → ValidationError."""
+        with pytest.raises(Exception, match="Duplicate item_index"):
+            VerificationResult(items=[
+                VerificationItem(item_index=0, agrees=True, confidence=0.9, reasoning="ok"),
+                VerificationItem(item_index=0, agrees=False, confidence=0.8, reasoning="no"),
+            ])

@@ -379,13 +379,23 @@ def run_phase3_enrichment(
     for exc in excerpts:
         chunk_id = exc.div_id
         if chunk_id not in chunk_map:
+            # DD-PE-4: Defensive chunk ID fallback for split chunks.
+            # Phase 1 may produce chunk_id as "div_id_chunk_N" for splits.
             split_id = f"{exc.div_id}_chunk_{exc.chunk_index}"
             if split_id in chunk_map:
                 chunk_id = split_id
+                logger.info(
+                    "DD-PE-4: Using split_id fallback %s for %s.",
+                    split_id, exc.excerpt_id,
+                )
             else:
                 alt_id = f"{exc.div_id}_{exc.chunk_index}"
                 if alt_id in chunk_map:
                     chunk_id = alt_id
+                    logger.warning(
+                        "DD-PE-4: Using alt_id fallback %s for %s.",
+                        alt_id, exc.excerpt_id,
+                    )
         excerpts_by_chunk[chunk_id].append(exc)
 
     all_results: list[ExcerptRecord] = []

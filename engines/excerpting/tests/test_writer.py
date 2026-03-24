@@ -273,3 +273,50 @@ class TestVerifyGateQueue:
         path = write_gate_queue(entries, tmp_path)
         errors = verify_gate_queue(entries, path)
         assert errors == []
+
+
+# ═══════════════════════════════════════════════════════════════════
+# write_processing_log (PE-6)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestWriteProcessingLog:
+    """PE-6: processing_log.jsonl output."""
+
+    def test_writes_valid_jsonl(self, tmp_path) -> None:
+        """Processing log contains all required fields."""
+        from engines.excerpting.src.writer import write_processing_log
+
+        path = write_processing_log(
+            source_id="src_test",
+            errors=["EX-M-005", "EX-M-002"],
+            timings={"phase1": 0.5, "phase2": 1.2},
+            excerpt_count=10,
+            gate_count=2,
+            output_dir=tmp_path,
+        )
+        assert path.exists()
+        content = json.loads(path.read_text(encoding="utf-8").strip())
+        assert content["source_id"] == "src_test"
+        assert content["excerpt_count"] == 10
+        assert content["gate_count"] == 2
+        assert content["error_count"] == 2
+        assert content["errors"] == ["EX-M-005", "EX-M-002"]
+        assert "timestamp" in content
+        assert content["timings"]["phase1"] == 0.5
+
+    def test_empty_errors_and_timings(self, tmp_path) -> None:
+        """Empty errors and timings produce valid log."""
+        from engines.excerpting.src.writer import write_processing_log
+
+        path = write_processing_log(
+            source_id="src_empty",
+            errors=[],
+            timings={},
+            excerpt_count=0,
+            gate_count=0,
+            output_dir=tmp_path,
+        )
+        content = json.loads(path.read_text(encoding="utf-8").strip())
+        assert content["error_count"] == 0
+        assert content["errors"] == []
