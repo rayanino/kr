@@ -44,6 +44,7 @@ class TaskDef:
     priority: int = 5
     max_turns: int = 30
     codex_flags: list[str] = field(default_factory=list)
+    bookend: bool = False  # Always-run task: skips dependency propagation, runs last
 
 
 # ---------------------------------------------------------------------------
@@ -113,7 +114,7 @@ def scan_test_health() -> list[TaskDef]:
                 timeout_minutes=20,
                 priority=4,
                 allowed_tools=["Read", "Glob", "Grep", "Bash"],
-                depends_on=["val-test-regression"],
+                depends_on=[],
             ))
 
     return tasks
@@ -162,7 +163,7 @@ def scan_spec_quality() -> list[TaskDef]:
                 timeout_minutes=20,
                 priority=5,
                 allowed_tools=["Read", "Glob", "Grep"],
-                depends_on=["val-test-regression"],
+                depends_on=[],
             ))
 
     return tasks
@@ -232,7 +233,7 @@ def scan_code_quality() -> list[TaskDef]:
             timeout_minutes=15,
             priority=6,
             allowed_tools=["Read", "Glob", "Grep"],
-            depends_on=["val-test-regression"],
+            depends_on=[],
         ))
 
     return tasks
@@ -274,7 +275,7 @@ def scan_corpus_integrity() -> list[TaskDef]:
                 timeout_minutes=60,
                 priority=2,
                 allowed_tools=["Read", "Bash", "Glob", "Grep"],
-                depends_on=["val-test-regression"],
+                depends_on=[],
             ))
     else:
         # No sweep found at all
@@ -293,7 +294,7 @@ def scan_corpus_integrity() -> list[TaskDef]:
             timeout_minutes=15,
             priority=2,
             allowed_tools=["Read", "Bash", "Glob", "Grep"],
-            depends_on=["val-test-regression"],
+            depends_on=[],
         ))
 
     return tasks
@@ -328,7 +329,7 @@ def scan_contract_boundaries() -> list[TaskDef]:
             timeout_minutes=10,
             priority=3,
             allowed_tools=["Read", "Bash", "Glob", "Grep"],
-            depends_on=["val-test-regression"],
+            depends_on=[],
         ))
 
     return tasks
@@ -365,7 +366,7 @@ def scan_known_limitations() -> list[TaskDef]:
                 timeout_minutes=20,
                 priority=7,
                 allowed_tools=["Read", "Bash", "Glob", "Grep"],
-                depends_on=["val-test-regression"],
+                depends_on=[],
             ))
 
     return tasks
@@ -403,7 +404,7 @@ def scan_documentation() -> list[TaskDef]:
                 timeout_minutes=15,
                 priority=7,
                 allowed_tools=["Read", "Bash", "Glob", "Grep"],
-                depends_on=["val-test-regression"],
+                depends_on=[],
             ))
 
     return tasks
@@ -414,42 +415,177 @@ def scan_documentation() -> list[TaskDef]:
 # ---------------------------------------------------------------------------
 
 
-def scan_research_needs() -> list[TaskDef]:
-    """Check NEXT.md for upcoming engine work that needs research."""
+def scan_recent_changes() -> list[TaskDef]:
+    """Generate code review and hardening tasks for recently modified code."""
     tasks: list[TaskDef] = []
 
-    next_md = PROJECT_DIR / "NEXT.md"
-    if not next_md.exists():
+    # Find recently modified engine source files (last 24h)
+    recent_files: list[str] = []
+    for src_dir in sorted(PROJECT_DIR.glob("engines/*/src")):
+        engine = src_dir.parent.name
+        for py_file in src_dir.glob("*.py"):
+            age = _file_age_hours(py_file)
+            if age is not None and age < 24:
+                recent_files.append(f"engines/{engine}/src/{py_file.name}")
+
+    if not recent_files:
         return tasks
 
-    content = next_md.read_text(encoding="utf-8")
+    # Group by engine
+    by_engine: dict[str, list[str]] = {}
+    for f in recent_files:
+        engine = f.split("/")[1]
+        by_engine.setdefault(engine, []).append(f)
 
-    # Look for references to technology surveys or research
-    if "technology survey" in content.lower() or "research" in content.lower():
-        # Check which engine is next
-        if "excerpting" in content.lower() and "build prep" in content.lower():
+    for engine, files in by_engine.items():
+        file_list = "\n".join(f"  - {f}" for f in files)
+
+        # Task 1: Code review (readonly)
+        tasks.append(TaskDef(
+            task_id=f"review-recent-{engine}",
+            name=f"Review recently modified {engine} code ({len(files)} files)",
+            category="review",
+            prompt=(
+                f"TASK: Code review of recently modified {engine} engine source files.\n\n"
+                f"Read engines/{engine}/CLAUDE.md for context.\n"
+                f"Read the SPEC section governing these files.\n\n"
+                f"Files modified in the last 24 hours:\n{file_list}\n\n"
+                f"Review for:\n"
+                f"1. SPEC compliance — does the code match the behavioral rules?\n"
+                f"2. Arabic text safety — no .lower()/.upper()/.strip() on Arabic, no \\d in regex\n"
+                f"3. D-023 metadata pass-through — all upstream fields preserved\n"
+                f"4. Error handling — fails loudly with SPEC error codes?\n"
+                f"5. Edge cases that lack test coverage\n\n"
+                f"Write detailed findings to overnight/results/review-recent-{engine}/review.md\n"
+                f"Do NOT modify any source files. This is a READ-ONLY review."
+            ),
+            safety_level="readonly",
+            execution_mode="cli",
+            model="opus",
+            timeout_minutes=45,
+            priority=1,
+            max_turns=30,
+            allowed_tools=["Read", "Glob", "Grep", "Bash"],
+        ))
+
+        # Task 2: Edge case hardening tests (modifying, depends on review)
+        tasks.append(TaskDef(
+            task_id=f"harden-recent-{engine}",
+            name=f"Edge case hardening for recent {engine} changes",
+            category="test",
+            prompt=(
+                f"TASK: Write edge case and hardening tests for recently modified {engine} code.\n\n"
+                f"Read engines/{engine}/CLAUDE.md for context.\n"
+                f"Read the review at overnight/results/review-recent-{engine}/review.md for findings.\n"
+                f"Read existing tests in engines/{engine}/tests/.\n\n"
+                f"Recently modified files:\n{file_list}\n\n"
+                f"For each finding in the review (especially HIGH and MEDIUM):\n"
+                f"1. Write a targeted test that exercises the edge case\n"
+                f"2. Use real Arabic text from tests/fixtures/ wherever possible\n"
+                f"3. Follow conftest factory patterns\n\n"
+                f"Rules: use [0-9] not \\d. Never .lower()/.upper()/.strip() on Arabic.\n"
+                f"Run: python -m pytest engines/{engine}/tests/ -x -v --tb=short\n"
+                f"All existing + new tests must pass."
+            ),
+            safety_level="modifying",
+            execution_mode="cli",
+            model="opus",
+            timeout_minutes=45,
+            priority=2,
+            max_turns=40,
+            allowed_tools=["Read", "Write", "Edit", "Bash", "Glob", "Grep"],
+            depends_on=[f"review-recent-{engine}"],
+        ))
+
+    return tasks
+
+
+# ---------------------------------------------------------------------------
+# Scanner 9: Knowledge Integrity Probes (T-1 through T-7)
+# ---------------------------------------------------------------------------
+
+
+def scan_knowledge_integrity() -> list[TaskDef]:
+    """Generate knowledge corruption probes for active engines.
+
+    Targets the 7 threat categories from KNOWLEDGE_INTEGRITY.md:
+    T-1: Attribution corruption (wrong scholar)
+    T-2: Evidence corruption (wrong references)
+    T-3: Text corruption (altered primary text)
+    T-4: Boundary corruption (wrong excerpt range)
+    T-5: Metadata loss (D-023 violations)
+    T-6: Consensus bypass (single-model decisions)
+    T-7: Gate corruption (wrong human gate entries)
+    """
+    tasks: list[TaskDef] = []
+
+    # Only probe engines that have implementation (src/ directory with .py files)
+    for engine_dir in sorted(PROJECT_DIR.glob("engines/*/src")):
+        engine = engine_dir.parent.name
+        py_files = list(engine_dir.glob("*.py"))
+        if not py_files:
+            continue
+
+        # Check which Phase 3 files exist (knowledge-sensitive code)
+        phase3_files = [f.name for f in py_files if "phase3" in f.name]
+        has_writer = any(f.name == "writer.py" for f in py_files)
+
+        if not phase3_files:
+            continue  # Only excerpting has Phase 3
+
+        # Probe 1: Attribution corruption (T-1)
+        tasks.append(TaskDef(
+            task_id=f"ki-attribution-{engine}",
+            name=f"Knowledge integrity: attribution corruption probe ({engine})",
+            category="test",
+            prompt=(
+                f"KNOWLEDGE CORRUPTION PROBE — T-1: Attribution Corruption\n\n"
+                f"Read engines/{engine}/src/phase3_deterministic.py, focusing on "
+                f"_compute_layer_coverages() and compute_layer_attribution().\n\n"
+                f"Hunt for scenarios where layer attribution produces WRONG RESULTS:\n"
+                f"1. All layers have author_canonical_id=None — does merging collapse distinct layers?\n"
+                f"2. Two layers with same (type, author) but different scholarly functions\n"
+                f"3. LA rule cascade with exact boundary values (80.0%, 100.0%)\n"
+                f"4. compute_quoted_scholars excluding correct layers or including wrong ones\n\n"
+                f"For EACH scenario found, write a targeted test with real Arabic text.\n"
+                f"If you find a bug, FIX IT and explain why it corrupts knowledge.\n"
+                f"Run: python -m pytest engines/{engine}/tests/ -x -v --tb=short"
+            ),
+            safety_level="modifying",
+            execution_mode="cli",
+            model="opus",
+            timeout_minutes=40,
+            priority=1,
+            max_turns=30,
+            allowed_tools=["Read", "Write", "Edit", "Bash", "Glob", "Grep"],
+        ))
+
+        # Probe 2: Text integrity (T-3)
+        if has_writer:
             tasks.append(TaskDef(
-                task_id="res-tech-survey",
-                name="Technology survey for excerpting engine capabilities",
-                category="research",
+                task_id=f"ki-text-integrity-{engine}",
+                name=f"Knowledge integrity: Arabic text round-trip probe ({engine})",
+                category="test",
                 prompt=(
-                    "Research technology options for the excerpting engine. "
-                    "Read NEXT.md for context. The excerpting engine needs: "
-                    "1. Arabic word/character offset handling libraries "
-                    "2. Self-containment assessment approaches "
-                    "3. Arabic sentence boundary detection "
-                    "Search the web for options. For each library found, check "
-                    "if it supports Arabic text (Unicode ranges, diacritics, RTL). "
-                    "Write the survey to overnight/results/res-tech-survey/survey.md"
+                    f"KNOWLEDGE CORRUPTION PROBE — T-3: Text Corruption\n\n"
+                    f"Read engines/{engine}/src/writer.py.\n\n"
+                    f"Verify Arabic text survives serialization BYTE-FOR-BYTE:\n"
+                    f"1. Text with full tashkeel (diacritics) — fathah, dammah, kasrah, shadda, sukun\n"
+                    f"2. ZWNJ (U+200C) between Arabic letters\n"
+                    f"3. Tatweel (U+0640) inside words\n"
+                    f"4. Superscript alef (U+0670)\n"
+                    f"5. Paragraph breaks (\\n\\n) in primary_text\n\n"
+                    f"Write to JSONL, read back, verify byte-identical.\n"
+                    f"If Pydantic or JSON serialization alters any byte, this is CRITICAL.\n"
+                    f"Run: python -m pytest engines/{engine}/tests/ -x -v --tb=short"
                 ),
-                safety_level="readonly",
+                safety_level="modifying",
                 execution_mode="cli",
-                agent="deep-researcher",
-                model="sonnet",
-                timeout_minutes=20,
-                priority=8,
-                allowed_tools=["Read", "Bash", "Glob", "Grep", "WebSearch", "WebFetch"],
-                depends_on=["val-test-regression"],
+                model="opus",
+                timeout_minutes=35,
+                priority=1,
+                max_turns=25,
+                allowed_tools=["Read", "Write", "Edit", "Bash", "Glob", "Grep"],
             ))
 
     return tasks
@@ -463,14 +599,18 @@ def scan_research_needs() -> list[TaskDef]:
 def generate_core_tasks() -> list[TaskDef]:
     """Tasks that always run in every overnight session."""
     return [
+        # Regression test is a bookend — always runs last regardless of other failures
         TaskDef(
             task_id="val-test-regression",
             name="Test suite regression check",
             category="validation",
             prompt=(
-                "Run the full test suite for all completed engines:\n"
-                "  python -m pytest engines/source/tests/ engines/normalization/tests/ engines/excerpting/tests/ -v --tb=short\n"
+                "Run the full test suite for all completed engines SEPARATELY:\n"
+                "  python -m pytest engines/source/tests/ -v --tb=short\n"
+                "  python -m pytest engines/normalization/tests/ -v --tb=short\n"
+                "  python -m pytest engines/excerpting/tests/ -v --tb=short\n"
                 "Report: total tests, passed, failed, skipped, any error details.\n"
+                "Write report to overnight/results/val-test-regression/summary.md\n"
                 "Do NOT modify any files."
             ),
             safety_level="readonly",
@@ -478,9 +618,11 @@ def generate_core_tasks() -> list[TaskDef]:
             model="sonnet",
             max_budget_usd=0.50,
             timeout_minutes=10,
-            priority=1,
+            priority=99,  # Runs last
+            max_turns=15,
             allowed_tools=["Bash", "Read", "Glob", "Grep"],
             permission_mode="bypassPermissions",
+            bookend=True,  # Always runs regardless of other task failures
         ),
     ]
 
@@ -536,6 +678,8 @@ def generate_manifest(output_path: Path | None = None, dry_run: bool = False) ->
 
     # Scanner tasks
     scanners = [
+        ("Knowledge Integrity", scan_knowledge_integrity),
+        ("Recent Changes", scan_recent_changes),
         ("Test Health", scan_test_health),
         ("SPEC Quality", scan_spec_quality),
         ("Code Quality", scan_code_quality),
@@ -543,7 +687,6 @@ def generate_manifest(output_path: Path | None = None, dry_run: bool = False) ->
         ("Contract Boundaries", scan_contract_boundaries),
         ("Known Limitations", scan_known_limitations),
         ("Documentation", scan_documentation),
-        ("Research", scan_research_needs),
     ]
 
     for name, scanner_fn in scanners:
@@ -554,6 +697,14 @@ def generate_manifest(output_path: Path | None = None, dry_run: bool = False) ->
                 print(f"  {name}: {len(found)} tasks")
         except Exception as e:
             print(f"  {name}: FAILED ({e})")
+
+    # Category enforcement — hardening only, no implementation or research
+    ALLOWED_CATEGORIES = {"review", "test", "validation", "spec", "doc", "code_quality", "verification"}
+    rejected = [t for t in all_tasks if t.category not in ALLOWED_CATEGORIES]
+    if rejected:
+        for t in rejected:
+            print(f"  REJECTED (category '{t.category}'): {t.task_id}")
+        all_tasks = [t for t in all_tasks if t.category in ALLOWED_CATEGORIES]
 
     # Auto-append Codex verifications
     all_tasks = add_codex_verifications(all_tasks)

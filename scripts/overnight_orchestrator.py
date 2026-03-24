@@ -16,7 +16,9 @@ import argparse
 import asyncio
 import json
 import os
+import re
 import signal
+import shutil
 import subprocess
 import sys
 import time
@@ -43,7 +45,7 @@ MAX_CONSECUTIVE_FAILURES = 3
 OVERNIGHT_SAFETY_PROMPT = """OVERNIGHT AUTONOMOUS MODE — KR Pipeline Project.
 You are executing a single task in the overnight autonomous system.
 
-ABSOLUTE RULES:
+ABSOLUTE RULES — SAFETY:
 - NEVER modify files in library/sources/*/frozen/
 - NEVER modify primary_text content in any pipeline output
 - NEVER delete any file or directory
@@ -54,6 +56,14 @@ ABSOLUTE RULES:
 - Write a summary to overnight/results/{TASK_ID}/summary.md
 - ALL LLM calls within the pipeline go through OpenRouter ONLY
 - Use OPENROUTER_API_KEY — never direct Anthropic or OpenAI endpoints
+
+ABSOLUTE RULES — HARDENING ONLY:
+- NEVER implement new features, new modules, or new capabilities
+- NEVER create new source files under engines/*/src/
+- Only MODIFY existing source files to fix confirmed bugs found during THIS session
+- Your job is to FIND problems and WRITE TESTS, not to build new functionality
+- Allowed work: code review, edge case tests, bug fixes, spec audits, validation, documentation
+- Forbidden work: new engine phases, new pipeline stages, feature implementation
 
 Read overnight/progress.md for context on what has been done tonight.
 Read the active engine's CLAUDE.md for current state.
@@ -85,6 +95,7 @@ class TaskDef:
     priority: int = 5
     max_turns: int = 30
     codex_flags: list[str] = field(default_factory=list)
+    bookend: bool = False  # Always-run task: skips dependency propagation, runs last
 
 
 @dataclass
@@ -410,6 +421,13 @@ def preflight_checks() -> None:
             errors.append(f"Test suite failing ({test_dir}):\n{test_result.stdout[-500:]}")
             break
 
+    # Codex CLI availability (L5 quality gate)
+    if not shutil.which("codex"):
+        os.environ["KR_SKIP_CODEX"] = "1"
+        print("  [info] Codex CLI not found — L5 verification disabled for this run")
+    else:
+        os.environ.pop("KR_SKIP_CODEX", None)
+
     # Disk space (need at least 500MB free)
     # Simple check via df on Windows/bash
     try:
@@ -520,10 +538,22 @@ def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
     try:
         output_json = json.loads(output_text)
         summary = output_json.get("result", output_text[:2000])
-        cost = output_json.get("cost_usd", 0.0)
+        cost = output_json.get("total_cost_usd", 0.0)  # Claude Code uses total_cost_usd
+        # Detect max_turns truncation — task completed but was cut short
+        subtype = output_json.get("subtype", "")
+        if subtype == "error_max_turns":
+            log_decision(
+                f"WARNING: {task.task_id} hit max_turns limit ({task.max_turns}) "
+                f"— output may be incomplete"
+            )
     except (json.JSONDecodeError, TypeError):
         summary = output_text[:2000] if output_text else result.stderr[:2000]
         cost = 0.0
+        # Fallback: extract cost from raw output via regex
+        if output_text:
+            match = re.search(r'"total_cost_usd":\s*([0-9.]+)', output_text)
+            if match:
+                cost = float(match.group(1))
 
     status = "success" if result.returncode == 0 else "failed"
     error = result.stderr[:1000] if result.returncode != 0 else None
@@ -775,18 +805,22 @@ def pick_next_ready(manifest: list[TaskDef], state: OvernightState) -> TaskDef |
     Propagates skips transitively: if A fails and B depends on A, B is skipped.
     If C depends on B, C is also skipped (not stuck in limbo).
     """
-    # Propagate dependency-failed skips transitively until stable
+    # Propagate dependency-failed skips transitively until stable.
+    # Include "skipped" in the propagation set so A→B→C chains fully propagate:
+    # if A fails, B is skipped; then C (which depends on B) is also skipped.
+    # Bookend tasks are exempt from dependency propagation — they always run.
     changed = True
     while changed:
         changed = False
-        failed_ids = {
+        blocked_ids = {
             tid for tid, r in state.results.items()
-            if r.get("status") in ("failed", "timeout", "rolled_back")
+            if r.get("status") in ("failed", "timeout", "rolled_back", "skipped")
         }
+        bookend_ids = {t.task_id for t in manifest if t.bookend}
         for task in manifest:
-            if task.task_id in state.results:
+            if task.task_id in state.results or task.task_id in bookend_ids:
                 continue
-            if any(dep in failed_ids for dep in task.depends_on):
+            if any(dep in blocked_ids for dep in task.depends_on):
                 state.results[task.task_id] = {
                     "status": "skipped",
                     "error": "dependency failed",
@@ -794,22 +828,36 @@ def pick_next_ready(manifest: list[TaskDef], state: OvernightState) -> TaskDef |
                 state.tasks_skipped += 1
                 changed = True
 
-    # Now find candidates with all deps met
+    # Now find candidates with all deps met (only truly successful deps count)
     completed_ids = {
         tid for tid, r in state.results.items()
-        if r.get("status") in ("success", "skipped")
+        if r.get("status") == "success"
     }
-    failed_ids = {
+    blocked_ids = {
         tid for tid, r in state.results.items()
-        if r.get("status") in ("failed", "timeout", "rolled_back")
+        if r.get("status") in ("failed", "timeout", "rolled_back", "skipped")
     }
-    candidates = []
-    for task in manifest:
-        if task.task_id in completed_ids or task.task_id in failed_ids:
-            continue
-        if all(dep in completed_ids for dep in task.depends_on):
-            candidates.append(task)
+    # Regular tasks: deps must be successful
+    regular_candidates = []
+    # Bookend tasks: run after all non-bookend tasks are resolved
+    bookend_candidates = []
+    all_resolved = {tid for tid in state.results}
+    non_bookend_tasks = [t for t in manifest if not t.bookend]
+    all_non_bookend_resolved = all(t.task_id in all_resolved for t in non_bookend_tasks)
 
+    for task in manifest:
+        if task.task_id in completed_ids or task.task_id in blocked_ids:
+            continue
+        if task.task_id in all_resolved:
+            continue
+        if task.bookend:
+            if all_non_bookend_resolved:
+                bookend_candidates.append(task)
+        else:
+            if all(dep in completed_ids for dep in task.depends_on):
+                regular_candidates.append(task)
+
+    candidates = regular_candidates or bookend_candidates
     if not candidates:
         return None
     candidates.sort(key=lambda t: t.priority)
@@ -821,9 +869,31 @@ def pick_next_ready(manifest: list[TaskDef], state: OvernightState) -> TaskDef |
 # ---------------------------------------------------------------------------
 
 
+def _extract_task_cost(result_data: dict[str, Any]) -> float:
+    """Extract actual cost from a task's output_summary JSON."""
+    summary = result_data.get("output_summary", "")
+    if not summary:
+        return result_data.get("cost_usd", 0.0)
+    try:
+        parsed = json.loads(summary)
+        return parsed.get("total_cost_usd", 0.0)
+    except (json.JSONDecodeError, TypeError):
+        match = re.search(r'"total_cost_usd":\s*([0-9.]+)', summary)
+        return float(match.group(1)) if match else result_data.get("cost_usd", 0.0)
+
+
 def generate_morning_report(state: OvernightState, manifest: list[TaskDef]) -> None:
     """Generate the morning report markdown file."""
     lines = [f"# Overnight Report — {state.run_id}\n"]
+
+    # Compute actual costs from output summaries
+    total_actual_cost = 0.0
+    task_costs: dict[str, float] = {}
+    for task in manifest:
+        result = state.results.get(task.task_id, {})
+        cost = _extract_task_cost(result)
+        task_costs[task.task_id] = cost
+        total_actual_cost += cost
 
     # Summary
     total = len(manifest)
@@ -833,10 +903,12 @@ def generate_morning_report(state: OvernightState, manifest: list[TaskDef]) -> N
                  f"{state.tasks_failed} failed, {state.tasks_skipped} skipped, "
                  f"{state.tasks_rolled_back} rolled back")
     lines.append(f"- Status: **{state.status.upper()}**")
+    lines.append(f"- Cost: **${total_actual_cost:.2f}**"
+                 + (f" (tracked: ${state.total_cost_usd:.2f})" if state.total_cost_usd != total_actual_cost else ""))
     lines.append(f"- Git: {state.git_start_hash[:8]}..{git_head()[:8]}")
     lines.append("")
 
-    # Completed tasks by category
+    # Completed tasks by category (with costs)
     by_category: dict[str, list[str]] = {}
     for task in manifest:
         result = state.results.get(task.task_id, {})
@@ -845,8 +917,10 @@ def generate_morning_report(state: OvernightState, manifest: list[TaskDef]) -> N
             if cat not in by_category:
                 by_category[cat] = []
             dur = result.get("duration_s", 0)
+            cost = task_costs.get(task.task_id, 0.0)
+            cost_str = f", ${cost:.2f}" if cost > 0 else ""
             by_category[cat].append(
-                f"- [x] {task.name} ({dur:.0f}s, {task.model})"
+                f"- [x] {task.name} ({dur:.0f}s, {task.model}{cost_str})"
             )
 
     if by_category:
@@ -867,6 +941,21 @@ def generate_morning_report(state: OvernightState, manifest: list[TaskDef]) -> N
     if problems:
         lines.append("## Issues (YOUR ATTENTION NEEDED)")
         lines.extend(problems)
+        lines.append("")
+
+    # Review first — prioritized list for the architect
+    review_items: list[str] = []
+    for task in manifest:
+        result = state.results.get(task.task_id, {})
+        if result.get("status") == "success" and task.category == "review":
+            results_dir = OVERNIGHT_DIR / "results" / task.task_id
+            review_file = results_dir / "review.md"
+            if review_file.exists():
+                review_items.append(f"- `{review_file.relative_to(PROJECT_DIR)}` — {task.name}")
+    if review_items:
+        lines.append("## Review First")
+        lines.append("These review outputs need architect attention:")
+        lines.extend(review_items)
         lines.append("")
 
     # Decisions
@@ -964,6 +1053,11 @@ def run_overnight(
         print(f"Total tasks: {len(manifest)}")
         return
 
+    # Clear stale state from any previous run (BEFORE initializing new state)
+    for stale in [STATE_FILE, PROGRESS_FILE, DECISIONS_LOG, HEARTBEAT_FILE]:
+        if stale.exists():
+            stale.unlink()
+
     # Initialize state
     now = datetime.now(timezone.utc)
     deadline = now + __import__("datetime").timedelta(hours=hours)
@@ -975,14 +1069,9 @@ def run_overnight(
         deadline=deadline.isoformat(),
         git_start_hash=git_head(),
     )
+    log_decision(f"Overnight session started. {len(manifest)} tasks. Deadline: {deadline.isoformat()}")
     save_state(state)
     write_progress_file(state, manifest)
-
-    # Clear stale state from any previous run
-    for stale in [STATE_FILE, PROGRESS_FILE, DECISIONS_LOG, HEARTBEAT_FILE]:
-        if stale.exists():
-            stale.unlink()
-    log_decision(f"Overnight session started. {len(manifest)} tasks. Deadline: {deadline.isoformat()}")
 
     # Initial commit
     git_commit(
@@ -1031,6 +1120,35 @@ def run_overnight(
         # Pick next task
         task = pick_next_ready(manifest, state)
         if task is None:
+            # Recycling: if time remains, generate more hardening tasks
+            min_recycle_seconds = 30 * 60  # Need at least 30 min for recycling
+            if remaining > min_recycle_seconds:
+                generator = PROJECT_DIR / "scripts" / "overnight_task_generator.py"
+                if generator.exists():
+                    log_decision(f"All manifest tasks resolved. {remaining / 60:.0f}m remaining — recycling.")
+                    gen_result = subprocess.run(
+                        ["python", str(generator), "--output",
+                         str(OVERNIGHT_DIR / "manifest_recycled.json")],
+                        capture_output=True, text=True, cwd=str(PROJECT_DIR),
+                    )
+                    if gen_result.returncode == 0:
+                        recycled_path = OVERNIGHT_DIR / "manifest_recycled.json"
+                        try:
+                            new_tasks = load_manifest(recycled_path)
+                            # Only add tasks not already in manifest
+                            existing_ids = {t.task_id for t in manifest}
+                            added = 0
+                            for nt in new_tasks:
+                                if nt.task_id not in existing_ids and nt.task_id not in state.results:
+                                    manifest.append(nt)
+                                    existing_ids.add(nt.task_id)
+                                    added += 1
+                            if added > 0:
+                                log_decision(f"Recycled: {added} new tasks added from task generator.")
+                                write_progress_file(state, manifest)
+                                continue  # Re-enter loop to pick from new tasks
+                        except (ValueError, json.JSONDecodeError) as e:
+                            log_decision(f"Recycled manifest invalid: {e}")
             log_decision("All tasks completed or blocked.")
             break
 
@@ -1062,10 +1180,11 @@ def run_overnight(
                 result.gate_result = gate
                 state.tasks_rolled_back += 1
 
-        # L5: Optional Codex cross-verification
+        # L5: Optional Codex cross-verification (skip if Codex unavailable)
         if (result.status == "success"
                 and task.execution_mode != "codex"
-                and task.safety_level != "readonly"):
+                and task.safety_level != "readonly"
+                and not os.environ.get("KR_SKIP_CODEX")):
             print(f"    Running Codex cross-verification (L5)...")
             try:
                 codex_review = run_codex_verification(task)
