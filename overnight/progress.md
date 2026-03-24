@@ -3,9 +3,9 @@
 
 ## Completed
 - [x] review-phase3: Code review of Phase 3.1 deterministic implementation (success, 2202s)
-- [x] impl-phase3-edge: 22 adversarial tests added, 86 total Phase 3 tests, 235 total excerpting (0 failures)
+- [x] harden-phase1: Phase 1 edge case hardening tests (success, 1678s)
+- [~] val-test-final: Final regression test after all modifications (skipped, 0s)
 
 ## Remaining
-- [ ] harden-phase1: Phase 1 edge case hardening tests
-- [ ] harden-phase2: Phase 2 edge case hardening tests
-- [ ] val-test-final: Final regression test after all modifications
+- [ ] impl-phase3-edge: Phase 3.1 edge case and adversarial tests
+- [x] harden-phase2: Phase 2 edge case hardening tests (success, 24 new tests, 76 total)
