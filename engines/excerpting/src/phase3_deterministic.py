@@ -127,6 +127,7 @@ def _compute_layer_coverages(
             and merged[-1][0].layer_type == layer.layer_type
             and merged[-1][0].author_canonical_id == layer.author_canonical_id
             and merged[-1][2] in split_set
+            and layer.start == merged[-1][2]  # H-1: adjacency check (DD-S3-7)
         ):
             # Merge: extend previous segment's end
             prev_rep, prev_start, _prev_end = merged[-1]

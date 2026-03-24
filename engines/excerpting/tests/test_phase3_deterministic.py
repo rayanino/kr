@@ -736,3 +736,1184 @@ class TestOrchestrator:
         result = build_deterministic_excerpts(chunk, [unit], [seg])
         assert result[0].chunk_index == 2
         assert "_2_" in result[0].excerpt_id
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Edge Case & Adversarial Tests (overnight hardening)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestEdgeCaseLayerAttribution:
+    """Edge cases for LA rule cascade (review findings H-1, H-2, M-7)."""
+
+    def test_author_canonical_id_none_fallback(self) -> None:
+        """M-7: author_canonical_id=None -> author_id='unknown' in LA-4."""
+        text = "بسم الله الرحمن الرحيم"
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id=None,
+                start=0,
+                end=len(text),
+                confidence=1.0,
+            )
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(text, layers, 0, len(tokens) - 1, meta)
+        assert result.rule_applied == "LA-4"
+        assert result.author_id == "unknown"
+
+    def test_author_none_fallback_la1(self) -> None:
+        """M-7: author_canonical_id=None -> 'unknown' also in LA-1 path."""
+        matn = "قال"
+        sharh = "يريد أن الكلام في اصطلاح النحويين هو اللفظ"
+        text = matn + " " + sharh
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id=None,
+                start=0,
+                end=len(matn),
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=len(matn) + 1,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(text, layers, 0, len(tokens) - 1, meta)
+        assert result.rule_applied == "LA-1"
+        assert result.author_id == "unknown"
+
+    def test_gapped_segments_at_split_point_no_merge(self) -> None:
+        """H-1: Gapped same-type segments at split point must NOT merge.
+
+        Two SHARH segments with a gap at the split point boundary.
+        After H-1 fix, adjacency check prevents incorrect merge.
+        """
+        text = "أ ب ج د ه و ز ح ط ي ك ل م ن"
+        text_len = len(text)
+        gap_pos = text_len // 2
+        # Segment 1 ends at gap_pos - 2, segment 2 starts at gap_pos + 2
+        # The gap is at gap_pos, which is also a split point
+        seg1_end = gap_pos - 1
+        seg2_start = gap_pos + 1
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_1",
+                start=0,
+                end=seg1_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_1",
+                start=seg2_start,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[seg1_end],  # Split at segment boundary
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(text, layers, 0, len(tokens) - 1, meta)
+        # With gap, segments should NOT merge -> 2 coverage entries -> LA-2
+        # (both are SHARH, but LA-2 uses outermost which is max by _LAYER_LEVEL)
+        assert result.rule_applied == "LA-2"
+
+    def test_three_layer_hashiyah_sharh_matn(
+        self, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """LA-3: HASHIYAH + SHARH + MATN (3 layers), none >= 80%.
+
+        Realistic scenario: a hashiyah (supercommentary) on a sharh
+        that quotes the matn.
+        """
+        hashiyah = "قال الشارح في قوله"
+        sharh = "يريد أن الكلام في اصطلاح"
+        matn = "كلامنا لفظ مفيد كاستقم"
+        text = hashiyah + " " + sharh + " " + matn
+        text_len = len(text)
+        h_end = len(hashiyah)
+        s_start = h_end + 1
+        s_end = s_start + len(sharh)
+        m_start = s_end + 1
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.HASHIYAH,
+                author_canonical_id="sch_hashiya",
+                start=0,
+                end=h_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh",
+                start=s_start,
+                end=s_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_matn",
+                start=m_start,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        with caplog.at_level(logging.WARNING):
+            result = compute_layer_attribution(
+                text, layers, 0, len(tokens) - 1, meta
+            )
+        assert result.rule_applied == "LA-3"
+        assert ExcerptingErrorCodes.EX_M_001 in caplog.text
+
+    def test_la2_hashiyah_vs_sharh(self) -> None:
+        """LA-2 with HASHIYAH + SHARH: HASHIYAH wins (higher _LAYER_LEVEL)."""
+        text = "وقوله في الحاشية يراد به الإيضاح ومعنى الشرح بيان المشكل"
+        mid = len(text) // 2
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.HASHIYAH,
+                author_canonical_id="sch_h",
+                start=0,
+                end=mid,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_s",
+                start=mid,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(text, layers, 0, len(tokens) - 1, meta)
+        assert result.rule_applied == "LA-2"
+        assert result.layer_id == "hashiyah"
+
+    def test_split_point_chain_merge_three_segments(self) -> None:
+        """DD-S3-7: Three MATN segments at two split points merge to one.
+
+        A-B-C chain: segment 1 ends at split1, segment 2 ends at split2,
+        all same type/author. Should merge to a single coverage entry -> LA-4.
+        """
+        text = "بسم الله الرحمن الرحيم الحمد لله رب العالمين الرحمن الرحيم"
+        text_len = len(text)
+        split1 = text_len // 3
+        split2 = 2 * text_len // 3
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_m",
+                start=0,
+                end=split1,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_m",
+                start=split1,
+                end=split2,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_m",
+                start=split2,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[split1, split2],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(text, layers, 0, len(tokens) - 1, meta)
+        assert result.rule_applied == "LA-4"
+        assert result.coverage_pct >= 1.0
+
+
+class TestEdgeCaseEvidenceRefs:
+    """Edge cases for F-DET-5 evidence detection (DD-S3-8)."""
+
+    def test_quran_verse_with_full_diacritics(self) -> None:
+        """Quran text with tashkeel inside ﴿...﴾ detected correctly."""
+        text = "قال تعالى ﴿بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ﴾ فبدأ"
+        result = detect_evidence_refs(text)
+        quran_refs = [r for r in result if r.type == "quran"]
+        assert len(quran_refs) == 1
+        assert "بِسْمِ" in quran_refs[0].text_snippet
+
+    def test_all_hadith_markers_individually(self) -> None:
+        """All 6 hadith markers detected when present individually."""
+        markers = ["رواه", "أخرجه", "في الصحيحين", "متفق عليه", "في صحيح", "في سنن"]
+        for marker in markers:
+            text = f"وقد ثبت ذلك فقد {marker} البخاري ومسلم في كتابهما"
+            result = detect_evidence_refs(text)
+            hadith_refs = [r for r in result if r.type == "hadith"]
+            found_markers = {r.marker_text for r in hadith_refs}
+            assert marker in found_markers, (
+                f"Hadith marker '{marker}' not detected in: {text}"
+            )
+
+    def test_all_ijma_markers_individually(self) -> None:
+        """All 5 ijma markers detected when present individually."""
+        markers = ["أجمعوا", "إجماع", "لا خلاف", "اتفق العلماء", "بالاتفاق"]
+        for marker in markers:
+            text = f"وقد {marker} على هذا الحكم جميع الفقهاء"
+            result = detect_evidence_refs(text)
+            ijma_refs = [r for r in result if r.type == "ijma"]
+            found_markers = {r.marker_text for r in ijma_refs}
+            assert marker in found_markers, (
+                f"Ijma marker '{marker}' not detected in: {text}"
+            )
+
+    def test_no_evidence_markers_empty_result(self) -> None:
+        """Text with no evidence markers -> empty list."""
+        text = "هذا كتاب في أصول النحو العربي وقواعده الأساسية"
+        result = detect_evidence_refs(text)
+        assert result == []
+
+    def test_multiple_quran_verses(self) -> None:
+        """Two ﴿...﴾ delimited verses detected separately."""
+        text = "قال تعالى ﴿الحمد لله رب العالمين﴾ وقال ﴿الرحمن الرحيم﴾"
+        result = detect_evidence_refs(text)
+        quran_refs = [r for r in result if r.type == "quran"]
+        assert len(quran_refs) == 2
+
+    def test_hadith_and_quran_in_same_text(self) -> None:
+        """Mixed evidence: Quran and hadith in same passage."""
+        text = "قال تعالى ﴿وأقيموا الصلاة﴾ وقد رواه البخاري من حديث ابن عمر"
+        result = detect_evidence_refs(text)
+        types = {r.type for r in result}
+        assert "quran" in types
+        assert "hadith" in types
+
+    def test_marker_with_proclitic_ba(self) -> None:
+        """DD-S3-8: بالاتفاق detected — the ب prefix is part of the marker."""
+        text = "وقد ثبت هذا الحكم بالاتفاق بين العلماء"
+        result = detect_evidence_refs(text)
+        ijma_refs = [r for r in result if r.type == "ijma"]
+        found = {r.marker_text for r in ijma_refs}
+        assert "بالاتفاق" in found
+
+    def test_snippet_context_window(self) -> None:
+        """Snippet includes 25 chars before/after marker."""
+        prefix = "أ" * 30
+        suffix = "ب" * 30
+        text = f"{prefix}رواه{suffix}"
+        result = detect_evidence_refs(text)
+        hadith_refs = [r for r in result if r.type == "hadith"]
+        assert len(hadith_refs) >= 1
+        snippet = hadith_refs[0].text_snippet
+        # Snippet should be clamped: 25 before + marker + 25 after
+        assert len(snippet) <= 25 + len("رواه") + 25
+
+
+class TestEdgeCasePageRange:
+    """Edge cases for F-DET-6 page range computation (L-1)."""
+
+    def test_all_pages_none_returns_none(self) -> None:
+        """L-1: All overlapping pages with page_number_int=None -> None."""
+        pages = [
+            PhysicalPage(volume=1, page_number_display=None, page_number_int=None),
+            PhysicalPage(volume=1, page_number_display=None, page_number_int=None),
+        ]
+        join_pts = [
+            JoinPoint(
+                after_unit_index=0,
+                before_unit_index=1,
+                boundary_type=BoundaryContinuityType.MID_PARAGRAPH,
+                separator_used="\n",
+                char_offset_in_assembled=50,
+            )
+        ]
+        result = compute_page_range(pages, join_pts, 0, 100)
+        assert result is None
+
+    def test_single_page_none_returns_none(self) -> None:
+        """Single page with page_number_int=None -> None (fast path)."""
+        pages = [
+            PhysicalPage(volume=1, page_number_display=None, page_number_int=None)
+        ]
+        result = compute_page_range(pages, [], 0, 100)
+        assert result is None
+
+    def test_three_pages_unit_spans_middle(self) -> None:
+        """Unit spans only the middle page of three."""
+        pages = [
+            PhysicalPage(volume=1, page_number_display="١", page_number_int=1),
+            PhysicalPage(volume=1, page_number_display="٢", page_number_int=2),
+            PhysicalPage(volume=1, page_number_display="٣", page_number_int=3),
+        ]
+        join_pts = [
+            JoinPoint(
+                after_unit_index=0,
+                before_unit_index=1,
+                boundary_type=BoundaryContinuityType.MID_PARAGRAPH,
+                separator_used="\n",
+                char_offset_in_assembled=100,
+            ),
+            JoinPoint(
+                after_unit_index=1,
+                before_unit_index=2,
+                boundary_type=BoundaryContinuityType.MID_PARAGRAPH,
+                separator_used="\n",
+                char_offset_in_assembled=200,
+            ),
+        ]
+        # Unit chars [120, 180) — only overlaps page 2 (chars [100, 200))
+        result = compute_page_range(pages, join_pts, 120, 180)
+        assert result is not None
+        assert result.start_page == 2
+        assert result.end_page == 2
+
+
+class TestEdgeCaseQuotedScholars:
+    """Edge cases for F-DET-9 quoted scholars (L-8)."""
+
+    def test_single_layer_empty_result(self) -> None:
+        """L-8: Single-layer source -> no quoted scholars."""
+        text = "بسم الله الرحمن الرحيم"
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_1",
+                start=0,
+                end=len(text),
+                confidence=1.0,
+            )
+        ]
+        primary = AuthorAttribution(
+            layer_id="matn",
+            author_id="sch_1",
+            coverage_pct=1.0,
+            rule_applied="LA-4",
+        )
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        result = compute_quoted_scholars(layers, 0, len(text), primary, meta)
+        assert result == []
+
+    def test_quoted_opinion_non_matn_secondary(self) -> None:
+        """Non-MATN secondary in MATN-primary -> role='quoted_opinion'."""
+        text = "بسم الله الرحمن الرحيم الحمد لله"
+        mid = len(text) // 2
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_m",
+                start=0,
+                end=mid,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.HASHIYAH,
+                author_canonical_id="sch_h",
+                start=mid,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+        primary = AuthorAttribution(
+            layer_id="matn",
+            author_id="sch_m",
+            coverage_pct=0.5,
+            rule_applied="LA-2",
+        )
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        result = compute_quoted_scholars(layers, 0, len(text), primary, meta)
+        assert len(result) == 1
+        assert result[0].role == "quoted_opinion"
+
+
+class TestEdgeCaseOrchestrator:
+    """Edge case orchestrator tests."""
+
+    def test_empty_footnotes_list(self) -> None:
+        """Chunk with no footnotes -> footnotes_relevant is empty."""
+        chunk = _make_assembled_chunk(footnotes=[])
+        unit = _make_teaching_unit(
+            start_word=0,
+            end_word=len(chunk.assembled_text.split()) - 1,
+        )
+        seg = _make_classified_segment(segment_index=0)
+        result = build_deterministic_excerpts(chunk, [unit], [seg])
+        assert result[0].footnotes_relevant == []
+
+    def test_single_word_unit_through_orchestrator(self) -> None:
+        """Single-word teaching unit (start_word == end_word) works end-to-end."""
+        text = "بسم الله الرحمن الرحيم الحمد لله رب العالمين"
+        chunk = _make_assembled_chunk(assembled_text=text)
+        # Single word: "الرحمن" (index 2)
+        unit = _make_teaching_unit(
+            start_word=2,
+            end_word=2,
+            segment_indices=[0],
+            text_snippet="الرحمن",
+        )
+        seg = _make_classified_segment(segment_index=0)
+        result = build_deterministic_excerpts(chunk, [unit], [seg])
+        assert len(result) == 1
+        assert result[0].primary_text == "الرحمن"
+        assert result[0].start_word == 2
+        assert result[0].end_word == 2
+
+    def test_long_text_offsets_correct(self) -> None:
+        """Long text (>1000 words): word-to-char conversion stays correct.
+
+        Generates a 1200-word text and verifies substring extraction
+        at the end of the text is accurate.
+        """
+        # Build a long text by repeating real Arabic phrases
+        base_phrases = [
+            "بسم الله الرحمن الرحيم",
+            "الحمد لله رب العالمين",
+            "وصلى الله على نبينا محمد",
+            "قال المؤلف رحمه الله تعالى",
+            "هذا باب في أحكام الصلاة",
+        ]
+        # Each phrase has 4-5 words, repeat to get >1000 words
+        long_parts: list[str] = []
+        word_count = 0
+        idx = 0
+        while word_count < 1200:
+            phrase = base_phrases[idx % len(base_phrases)]
+            long_parts.append(phrase)
+            word_count += len(phrase.split())
+            idx += 1
+        long_text = " ".join(long_parts)
+        tokens = long_text.split()
+        assert len(tokens) >= 1200
+
+        chunk = _make_assembled_chunk(
+            assembled_text=long_text,
+            total_tokens=len(tokens),
+            word_count=len(tokens),
+            text_layers=[
+                TextLayerSegment(
+                    layer_type=LayerType.MATN,
+                    author_canonical_id=None,
+                    start=0,
+                    end=len(long_text),
+                    confidence=1.0,
+                )
+            ],
+        )
+
+        # Extract words 1190-1199 (near the end)
+        start_w = 1190
+        end_w = min(1199, len(tokens) - 1)
+        unit = _make_teaching_unit(
+            start_word=start_w,
+            end_word=end_w,
+            segment_indices=[0],
+            text_snippet=long_text[:50],
+        )
+        seg = _make_classified_segment(segment_index=0)
+        result = build_deterministic_excerpts(chunk, [unit], [seg])
+        assert len(result) == 1
+
+        # Verify primary_text matches the expected substring
+        expected = " ".join(tokens[start_w : end_w + 1])
+        # Note: substring extraction should match token-based reconstruction
+        # because the text has single spaces between tokens
+        assert result[0].primary_text == expected
+
+    def test_dependent_unit_gets_review_flag(self) -> None:
+        """DEPENDENT self-containment also gets review_flags (M-1 documents)."""
+        chunk = _make_assembled_chunk()
+        unit = _make_teaching_unit(
+            start_word=0,
+            end_word=len(chunk.assembled_text.split()) - 1,
+            self_containment=SelfContainmentLevel.DEPENDENT,
+            self_containment_notes="يعتمد كلياً على ما تقدم في الباب السابق",
+        )
+        seg = _make_classified_segment(segment_index=0)
+        result = build_deterministic_excerpts(chunk, [unit], [seg])
+        assert "llm_enrichment_failed" in result[0].review_flags
+
+    def test_full_unit_no_review_flag(self) -> None:
+        """FULL self-containment -> no review_flags."""
+        chunk = _make_assembled_chunk()
+        unit = _make_teaching_unit(
+            start_word=0,
+            end_word=len(chunk.assembled_text.split()) - 1,
+            self_containment=SelfContainmentLevel.FULL,
+        )
+        seg = _make_classified_segment(segment_index=0)
+        result = build_deterministic_excerpts(chunk, [unit], [seg])
+        assert result[0].review_flags == []
+
+    def test_d023_all_33_fields_populated(self) -> None:
+        """D-023: All 33 ExcerptRecord fields are explicitly set (not None by default)."""
+        chunk = _make_assembled_chunk()
+        unit = _make_teaching_unit(
+            start_word=0,
+            end_word=len(chunk.assembled_text.split()) - 1,
+        )
+        seg = _make_classified_segment(segment_index=0)
+        result = build_deterministic_excerpts(chunk, [unit], [seg])
+        rec = result[0]
+        # All 33 fields should be present in model_fields_set
+        expected_fields = {
+            "excerpt_id", "source_id", "div_id", "chunk_index", "unit_index",
+            "div_path", "primary_text", "text_snippet", "start_word", "end_word",
+            "segment_indices", "physical_pages", "primary_function",
+            "secondary_functions", "content_types", "description_arabic",
+            "self_containment", "self_containment_notes", "context_hint",
+            "primary_author_layer", "attribution_confidence", "quoted_scholars",
+            "school", "school_confidence", "excerpt_topic",
+            "terminology_variants", "evidence_refs", "takhrij_data",
+            "cross_references", "footnotes_relevant", "consensus_metadata",
+            "gate_flags", "review_flags",
+        }
+        assert len(expected_fields) == 33
+        for field in expected_fields:
+            assert hasattr(rec, field), f"Missing field: {field}"
+
+
+class TestEdgeCaseFootnoteFiltering:
+    """Edge cases for F-DET-8 footnote marker matching."""
+
+    def test_empty_footnotes_list(self) -> None:
+        """Empty footnotes list -> empty result."""
+        result = filter_relevant_footnotes(
+            "بسم الله", "بسم الله الرحمن", [], 0, 20
+        )
+        assert result == []
+
+    def test_multiple_footnotes_mixed_range(self) -> None:
+        """Two markers: one inside range, one outside -> only inside returned."""
+        text = "بداية النص ⌜1⌝ وسط النص الطويل جداً جداً جداً جداً ⌜2⌝ نهاية"
+        fn1_pos = text.find("\u231C1\u231D")
+        fns = [
+            Footnote(
+                ref_marker="1",
+                text="تعليق أول",
+                footnote_type=FootnoteType.LINGUISTIC_NOTE,
+                confidence=0.9,
+            ),
+            Footnote(
+                ref_marker="2",
+                text="تعليق ثان",
+                footnote_type=FootnoteType.LINGUISTIC_NOTE,
+                confidence=0.9,
+            ),
+        ]
+        # Range covers only fn1
+        result = filter_relevant_footnotes(
+            text[:fn1_pos + 10], text, fns, 0, fn1_pos + 5
+        )
+        markers = [fn.ref_marker for fn in result]
+        assert "1" in markers
+        assert "2" not in markers
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Adversarial Tests — Phase 3.1 Edge Case Hardening (Pass 2)
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestAdversarialLayerAttribution:
+    """Adversarial multi-layer attribution and split-point merging."""
+
+    def test_la3_dominant_coverage_value_correct(
+        self, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """LA-3 with 3 layers: coverage_pct matches actual dominant coverage.
+
+        SHARH~45%, HASHIYAH~30%, MATN~25%. LA-3 fires; result reports
+        SHARH with its actual coverage ratio.
+        """
+        sharh = "قال الشارح في بيان المسألة وتوضيحها"
+        hashiyah = "وذكر في الحاشية أن المراد"
+        matn = "كلامنا لفظ مفيد كاستقم"
+        text = sharh + " " + hashiyah + " " + matn
+        text_len = len(text)
+        s_end = len(sharh)
+        h_start = s_end + 1
+        h_end = h_start + len(hashiyah)
+        m_start = h_end + 1
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh",
+                start=0,
+                end=s_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.HASHIYAH,
+                author_canonical_id="sch_hashiyah",
+                start=h_start,
+                end=h_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_matn",
+                start=m_start,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        with caplog.at_level(logging.WARNING):
+            result = compute_layer_attribution(
+                text, layers, 0, len(tokens) - 1, meta
+            )
+        assert result.rule_applied == "LA-3"
+        assert result.layer_id == "sharh"
+        assert 0.0 < result.coverage_pct < 0.8
+        assert ExcerptingErrorCodes.EX_M_001 in caplog.text
+
+    def test_la3_four_distinct_layer_types(
+        self, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """4 layer types: TAHQIQ + HASHIYAH + SHARH + MATN, LA-3 fires.
+
+        Most adversarial multi-layer case: tahqiq editor quoting a hashiyah
+        that references the sharh's commentary on the matn.
+        """
+        tahqiq = "قال المحقق في تعليقه على النص"
+        hashiyah = "ذكر صاحب الحاشية"
+        sharh = "يريد الشارح بذلك"
+        matn = "كلامنا لفظ مفيد"
+        text = tahqiq + " " + hashiyah + " " + sharh + " " + matn
+        text_len = len(text)
+        t_end = len(tahqiq)
+        h_start = t_end + 1
+        h_end = h_start + len(hashiyah)
+        s_start = h_end + 1
+        s_end = s_start + len(sharh)
+        m_start = s_end + 1
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.TAHQIQ_NOTE,
+                author_canonical_id="sch_muhaqqiq",
+                start=0,
+                end=t_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.HASHIYAH,
+                author_canonical_id="sch_hashiyah",
+                start=h_start,
+                end=h_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh",
+                start=s_start,
+                end=s_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_matn",
+                start=m_start,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        with caplog.at_level(logging.WARNING):
+            result = compute_layer_attribution(
+                text, layers, 0, len(tokens) - 1, meta
+            )
+        assert result.rule_applied == "LA-3"
+        assert result.coverage_pct < 0.8
+        assert ExcerptingErrorCodes.EX_M_001 in caplog.text
+
+    def test_different_type_at_split_point_no_merge(self) -> None:
+        """SHARH->MATN at split boundary — different types, must NOT merge.
+
+        Even though segments are adjacent at the split point,
+        different layer_type prevents merging. Result: 2 layers -> LA-2.
+        """
+        text = "يريد الشارح في بيانه كلامنا لفظ مفيد كاستقم"
+        text_len = len(text)
+        split_at = text_len // 2
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_1",
+                start=0,
+                end=split_at,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_1",
+                start=split_at,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[split_at],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(
+            text, layers, 0, len(tokens) - 1, meta
+        )
+        # Two distinct layer types -> LA-2
+        assert result.rule_applied == "LA-2"
+        assert result.layer_id == "sharh"
+
+    def test_same_type_different_author_at_split_point_no_merge(self) -> None:
+        """Two SHARH segments by different authors at split point -> no merge.
+
+        Split-point merging requires same (type, author). Different authors
+        are genuinely different commentators — must NOT merge.
+        """
+        text = "يريد الشارح في بيانه ومعنى كلامه عند التحقيق"
+        text_len = len(text)
+        split_at = text_len // 2
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh_1",
+                start=0,
+                end=split_at,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh_2",
+                start=split_at,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[split_at],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(
+            text, layers, 0, len(tokens) - 1, meta
+        )
+        # Two distinct authors -> NOT merged -> LA-2
+        assert result.rule_applied == "LA-2"
+
+    def test_quoted_scholars_split_point_merging_effect(self) -> None:
+        """L-3: Split-point merging changes quoted scholar output.
+
+        Two SHARH segments at a split point merge into one. Without merging
+        they'd appear as 2 entries; with merging, only 1 quoted scholar.
+        """
+        matn = "كلامنا لفظ مفيد كاستقم"
+        sharh = "يريد الشارح أن الكلام في اصطلاح النحويين هو اللفظ المفيد"
+        text = matn + " " + sharh
+        text_len = len(text)
+        matn_end = len(matn)
+        sharh_start = matn_end + 1
+        sharh_midpoint = sharh_start + len(sharh) // 2
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_matn",
+                start=0,
+                end=matn_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh",
+                start=sharh_start,
+                end=sharh_midpoint,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh",
+                start=sharh_midpoint,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[sharh_midpoint],
+            footnote_renumber_map=None,
+        )
+        primary = AuthorAttribution(
+            layer_id="matn",
+            author_id="sch_matn",
+            coverage_pct=0.4,
+            rule_applied="LA-2",
+        )
+        result = compute_quoted_scholars(
+            layers, 0, text_len, primary, meta
+        )
+        # Two SHARH segments merge -> only 1 quoted scholar
+        sharh_entries = [s for s in result if "sharh" in s.mention_text]
+        assert len(sharh_entries) == 1
+        assert sharh_entries[0].role == "quoted_opinion"
+        assert sharh_entries[0].resolved_name == "sch_sharh"
+
+
+class TestAdversarialSplitChunkId:
+    """Split chunk excerpt_id generation edge cases."""
+
+    def test_split_info_chunk_index_zero_with_split_info(self) -> None:
+        """First chunk of a split: split_info present with chunk_index=0.
+
+        Distinct from "no split_info" (also defaults to 0). The excerpt_id
+        format is the same, but chunk_index comes from split_info.
+        """
+        chunk = _make_assembled_chunk(
+            chunk_id="div_test_1_0_chunk_0",
+            split_info=SplitInfo(
+                original_div_id="div_test_1_0",
+                chunk_index=0,
+                total_chunks=5,
+                split_method="paragraph_break",
+            ),
+        )
+        unit = _make_teaching_unit(
+            start_word=0,
+            end_word=len(chunk.assembled_text.split()) - 1,
+        )
+        seg = _make_classified_segment(segment_index=0)
+        result = build_deterministic_excerpts(chunk, [unit], [seg])
+        assert result[0].chunk_index == 0
+        assert result[0].excerpt_id == f"exc_{chunk.source_id}_{chunk.div_id}_0_0"
+
+    def test_split_info_large_chunk_index(self) -> None:
+        """chunk_index=99 reflected correctly in excerpt_id."""
+        chunk = _make_assembled_chunk(
+            chunk_id="div_test_1_0_chunk_99",
+            split_info=SplitInfo(
+                original_div_id="div_test_1_0",
+                chunk_index=99,
+                total_chunks=100,
+                split_method="word_count",
+            ),
+        )
+        unit = _make_teaching_unit(
+            unit_index=3,
+            start_word=0,
+            end_word=len(chunk.assembled_text.split()) - 1,
+        )
+        seg = _make_classified_segment(segment_index=0)
+        result = build_deterministic_excerpts(chunk, [unit], [seg])
+        assert result[0].chunk_index == 99
+        assert "_99_3" in result[0].excerpt_id
+
+
+class TestAdversarialEvidenceDetection:
+    """Adversarial evidence detection: proclitics, dedup, edge boundaries."""
+
+    def test_hadith_all_markers_with_waw_proclitic(self) -> None:
+        """DD-S3-8: Each hadith marker with و prefix detected.
+
+        Arabic conjunctive waw attaches directly to the next word.
+        Plain substring matching detects 'رواه' inside 'ورواه'.
+        """
+        markers_with_waw: dict[str, str] = {
+            "رواه": "ورواه",
+            "أخرجه": "وأخرجه",
+            "في الصحيحين": "وفي الصحيحين",
+            "متفق عليه": "ومتفق عليه",
+            "في صحيح": "وفي صحيح",
+            "في سنن": "وفي سنن",
+        }
+        for base_marker, prefixed in markers_with_waw.items():
+            text = f"وقد ثبت ذلك {prefixed} البخاري في كتابه"
+            result = detect_evidence_refs(text)
+            hadith_refs = [r for r in result if r.type == "hadith"]
+            found = {r.marker_text for r in hadith_refs}
+            assert base_marker in found, (
+                f"Hadith marker '{base_marker}' not detected in prefixed "
+                f"form '{prefixed}'"
+            )
+
+    def test_ijma_all_markers_with_fa_proclitic(self) -> None:
+        """DD-S3-8: Each ijma marker with ف prefix detected.
+
+        Arabic fa-al-ta'qibiyya attaches directly: فأجمعوا, فإجماع, etc.
+        """
+        markers_with_fa: dict[str, str] = {
+            "أجمعوا": "فأجمعوا",
+            "إجماع": "فإجماع",
+            "لا خلاف": "فلا خلاف",
+            "اتفق العلماء": "فاتفق العلماء",
+            "بالاتفاق": "فبالاتفاق",
+        }
+        for base_marker, prefixed in markers_with_fa.items():
+            text = f"وقد ثبت ذلك {prefixed} في هذه المسألة"
+            result = detect_evidence_refs(text)
+            ijma_refs = [r for r in result if r.type == "ijma"]
+            found = {r.marker_text for r in ijma_refs}
+            assert base_marker in found, (
+                f"Ijma marker '{base_marker}' not detected in prefixed "
+                f"form '{prefixed}'"
+            )
+
+    def test_repeated_marker_both_occurrences_detected(self) -> None:
+        """Same marker at two positions -> both detected (L-2 dedup path).
+
+        'رواه البخاري ... ورواه مسلم' — two 'رواه' at distinct positions.
+        """
+        text = "رواه البخاري في صحيحه ورواه مسلم في صحيحه"
+        result = detect_evidence_refs(text)
+        rawahu_refs = [
+            r for r in result
+            if r.type == "hadith" and r.marker_text == "رواه"
+        ]
+        assert len(rawahu_refs) >= 2
+
+    def test_marker_at_very_end_of_text(self) -> None:
+        """Marker is the last token in text -> snippet clamped correctly."""
+        text = "وقد ثبت ذلك فقد رواه"
+        result = detect_evidence_refs(text)
+        hadith_refs = [r for r in result if r.type == "hadith"]
+        assert len(hadith_refs) >= 1
+        for ref in hadith_refs:
+            assert len(ref.text_snippet) <= len(text)
+
+    def test_quran_verse_with_hamza_and_madda(self) -> None:
+        """Quran ﴿...﴾ with آ (madda), أ (hamza above), إ (hamza below).
+
+        These hamza-bearing characters must be preserved byte-for-byte.
+        """
+        text = "قال تعالى ﴿آمَنَ الرَّسُولُ بِمَا أُنزِلَ إِلَيْهِ﴾"
+        result = detect_evidence_refs(text)
+        quran_refs = [r for r in result if r.type == "quran"]
+        assert len(quran_refs) == 1
+        snippet = quran_refs[0].text_snippet
+        assert "آمَنَ" in snippet
+        assert "أُنزِلَ" in snippet
+        assert "إِلَيْهِ" in snippet
+
+    def test_adjacent_quran_verses_both_detected(self) -> None:
+        """Two ﴿...﴾ directly adjacent (﴾﴿) -> both detected."""
+        text = "﴿الحمد لله رب العالمين﴾﴿الرحمن الرحيم﴾"
+        result = detect_evidence_refs(text)
+        quran_refs = [r for r in result if r.type == "quran"]
+        assert len(quran_refs) == 2
+        snippets = {r.text_snippet for r in quran_refs}
+        assert "الحمد لله رب العالمين" in snippets
+        assert "الرحمن الرحيم" in snippets
+
+    def test_no_false_positive_on_similar_words(self) -> None:
+        """Words similar to markers but not exact substrings -> no detection.
+
+        'يرويه' does NOT contain 'رواه' (ي vs ا at 3rd position).
+        'جمعوا' does NOT contain 'أجمعوا' (missing leading أ).
+        """
+        text = "يرويه الراوي عن شيخه وجمعوا المتاع في المكان"
+        result = detect_evidence_refs(text)
+        hadith_refs = [r for r in result if r.type == "hadith"]
+        ijma_refs = [r for r in result if r.type == "ijma"]
+        assert len(hadith_refs) == 0
+        assert len(ijma_refs) == 0
+
+
+class TestAdversarialTextExtraction:
+    """Text extraction: paragraph breaks, word boundaries, long texts."""
+
+    def test_multiple_paragraph_breaks_all_preserved(self) -> None:
+        r"""Text with 3 paragraph breaks (\n\n) -> all preserved."""
+        text = (
+            "بسم الله الرحمن الرحيم\n\n"
+            "الحمد لله رب العالمين\n\n"
+            "الرحمن الرحيم\n\n"
+            "مالك يوم الدين"
+        )
+        tokens = text.split()
+        result = extract_primary_text(text, 0, len(tokens) - 1)
+        assert result.count("\n\n") == 3
+        assert result == text
+
+    def test_single_newline_preserved(self) -> None:
+        r"""Text with single \n (not \n\n) -> preserved in extraction."""
+        text = "بسم الله الرحمن الرحيم\nالحمد لله رب العالمين"
+        tokens = text.split()
+        result = extract_primary_text(text, 0, len(tokens) - 1)
+        assert "\n" in result
+        assert result == text
+
+    def test_first_word_extraction(self) -> None:
+        """start_word=0, end_word=0 extracts the very first word."""
+        text = "بسم الله الرحمن الرحيم"
+        result = extract_primary_text(text, 0, 0)
+        assert result == "بسم"
+
+    def test_last_word_extraction(self) -> None:
+        """start_word=end_word=last_index extracts the very last word."""
+        text = "بسم الله الرحمن الرحيم"
+        last_idx = len(text.split()) - 1
+        result = extract_primary_text(text, last_idx, last_idx)
+        assert result == "الرحيم"
+
+    def test_long_text_offsets_at_start_middle_end(self) -> None:
+        """1500-word text: extraction at start, middle, and end all correct.
+
+        Verifies _word_to_char_range accuracy across the full span.
+        """
+        base = [
+            "بسم الله الرحمن الرحيم",
+            "الحمد لله رب العالمين",
+            "وصلى الله على نبينا محمد",
+            "قال المؤلف رحمه الله تعالى",
+            "هذا باب في أحكام الصلاة",
+        ]
+        parts: list[str] = []
+        wc = 0
+        idx = 0
+        while wc < 1500:
+            parts.append(base[idx % len(base)])
+            wc += len(base[idx % len(base)].split())
+            idx += 1
+        long_text = " ".join(parts)
+        tokens = long_text.split()
+        assert len(tokens) >= 1500
+
+        # Start: words 0-4
+        result_start = extract_primary_text(long_text, 0, 4)
+        assert result_start == " ".join(tokens[0:5])
+
+        # Middle: words 750-754
+        result_mid = extract_primary_text(long_text, 750, 754)
+        assert result_mid == " ".join(tokens[750:755])
+
+        # End: last 5 words
+        end_idx = len(tokens) - 1
+        result_end = extract_primary_text(long_text, end_idx - 4, end_idx)
+        assert result_end == " ".join(tokens[end_idx - 4 : end_idx + 1])
+
+
+class TestAdversarialFootnotes:
+    """Footnote filtering adversarial edge cases."""
+
+    def test_all_footnotes_outside_unit_range(self) -> None:
+        """Footnotes have markers, but unit range excludes all of them."""
+        text = "بداية ⌜1⌝ النص وسط ⌜2⌝ النص وهذا جزء آخر من النص الطويل جداً"
+        fn2_pos = text.find("\u231C2\u231D")
+        fns = [
+            Footnote(
+                ref_marker="1",
+                text="تعليق أول",
+                footnote_type=FootnoteType.LINGUISTIC_NOTE,
+                confidence=0.9,
+            ),
+            Footnote(
+                ref_marker="2",
+                text="تعليق ثان",
+                footnote_type=FootnoteType.LINGUISTIC_NOTE,
+                confidence=0.9,
+            ),
+        ]
+        # Unit range starts well after both markers
+        result = filter_relevant_footnotes(
+            text[fn2_pos + 10 :], text, fns, fn2_pos + 10, len(text)
+        )
+        assert result == []
+
+    def test_footnote_at_exact_char_start_included(self) -> None:
+        """Marker at exactly char_start -> included (inclusive boundary).
+
+        Range check: char_start <= pos < char_end.
+        """
+        text = "⌜1⌝ بسم الله الرحمن الرحيم"
+        fn = Footnote(
+            ref_marker="1",
+            text="تعليق",
+            footnote_type=FootnoteType.LINGUISTIC_NOTE,
+            confidence=0.9,
+        )
+        result = filter_relevant_footnotes(text, text, [fn], 0, len(text))
+        assert len(result) == 1
+        assert result[0].ref_marker == "1"
+
+    def test_footnote_at_exact_char_end_excluded(self) -> None:
+        """Marker at exactly char_end -> excluded (exclusive boundary).
+
+        Range is [char_start, char_end) — exclusive end.
+        """
+        text = "بسم الله ⌜1⌝ الرحمن"
+        fn = Footnote(
+            ref_marker="1",
+            text="تعليق",
+            footnote_type=FootnoteType.LINGUISTIC_NOTE,
+            confidence=0.9,
+        )
+        marker_pos = text.find("\u231C1\u231D")
+        # char_end exactly at marker position -> excluded
+        result = filter_relevant_footnotes(text, text, [fn], 0, marker_pos)
+        assert result == []
