@@ -205,7 +205,7 @@ def write_processing_log(
 ```
 
 2. In `pipeline.py`, add `write_processing_log` to the imports from writer.
-3. At the end of `run_excerpting`, before the final log and return (around line 187), add:
+3. At the end of `run_excerpting`, add a NEW if-block AFTER the existing `if output_dir is not None and result.excerpts:` block (line 170) and BEFORE the `logger.info("Excerpting complete...")` line (line 188). This must NOT be nested inside the existing block — the processing log should be written even when excerpt_count is 0:
 ```python
     # Write processing log (§2.2.1)
     if output_dir is not None:
