@@ -382,8 +382,12 @@ def compute_page_range(
     offsets = [jp.char_offset_in_assembled for jp in join_points]
 
     # Find overlapping pages
+    # Defensive: clamp to pages addressable by join_points.
+    # After the split fix, len(physical_pages) == len(offsets) + 1 always holds.
+    # This guard prevents IndexError if a future code path breaks that invariant.
+    n_pages = min(len(physical_pages), len(offsets) + 1)
     overlapping_indices: list[int] = []
-    for i in range(len(physical_pages)):
+    for i in range(n_pages):
         # Compute this page's char range
         page_start = offsets[i - 1] if i > 0 else 0
         page_end = offsets[i] if i < len(offsets) else char_end + 1_000_000

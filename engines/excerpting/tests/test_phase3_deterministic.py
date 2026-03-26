@@ -502,6 +502,60 @@ class TestPageRange:
         result = compute_page_range([], [], 0, 100)
         assert result is None
 
+    def test_split_chunk_dimensions(self) -> None:
+        """Correctly-partitioned split chunk (40 pages, 39 join_points)."""
+        pages = [
+            PhysicalPage(
+                volume=1,
+                page_number_display=str(10 + i),
+                page_number_int=10 + i,
+            )
+            for i in range(40)
+        ]
+        join_pts = [
+            JoinPoint(
+                after_unit_index=i,
+                before_unit_index=i + 1,
+                boundary_type=BoundaryContinuityType.MID_PARAGRAPH,
+                separator_used="\n",
+                char_offset_in_assembled=100 * (i + 1),
+            )
+            for i in range(39)
+        ]
+        # Unit spanning pages 15-17 (char range 500-1700)
+        result = compute_page_range(pages, join_pts, 500, 1700)
+        assert result is not None
+        assert result.volume == 1
+        assert result.start_page == 15
+        assert result.end_page == 26
+
+    def test_defensive_guard_mismatched_lengths(self) -> None:
+        """Defensive guard: more physical_pages than join_points + 1 (pre-fix state)."""
+        # 73 pages but only 39 join_points (the broken state from ibn_aqil_v1)
+        pages = [
+            PhysicalPage(
+                volume=1,
+                page_number_display=str(i + 1),
+                page_number_int=i + 1,
+            )
+            for i in range(73)
+        ]
+        join_pts = [
+            JoinPoint(
+                after_unit_index=i,
+                before_unit_index=i + 1,
+                boundary_type=BoundaryContinuityType.MID_PARAGRAPH,
+                separator_used="\n",
+                char_offset_in_assembled=100 * (i + 1),
+            )
+            for i in range(39)
+        ]
+        # Should not crash — returns a result using the first 40 addressable pages
+        result = compute_page_range(pages, join_pts, 50, 150)
+        assert result is not None
+        assert result.start_page >= 1
+        assert result.end_page <= 40  # Clamped to addressable pages
+
 
 # ═══════════════════════════════════════════════════════════════════
 # F-DET-7: compute_word_offsets

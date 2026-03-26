@@ -5,12 +5,15 @@ from __future__ import annotations
 from engines.excerpting.contracts import (
     AssemblyMetadata,
     ExcerptingConfig,
+    JoinPoint,
     _count_arabic_words,
 )
 from engines.excerpting.src.phase1_assembly import split_oversized_division
 from engines.excerpting.tests.conftest import _make_assembled_chunk, _make_content_unit
 from engines.normalization.contracts import (
+    BoundaryContinuityType,
     LayerType,
+    PhysicalPage,
     StructuralMarkers,
     TextLayerSegment,
 )
@@ -219,3 +222,81 @@ class TestSplitOversizedDivision:
         for c in result:
             if c.split_info:
                 assert c.split_info.split_method in valid_methods
+
+    def test_physical_pages_partitioned_on_split(self) -> None:
+        """Split chunks get partitioned physical_pages matching join_points.
+
+        Verifies the invariant: len(physical_pages) == len(join_points) + 1
+        for each split chunk, with boundary page overlap.
+        """
+        config = ExcerptingConfig(OVERSIZED_DIVISION_WORDS=100)
+        text = _oversized_text(300)
+        text_len = len(text)
+
+        # 10 pages numbered 50-59, 9 join_points evenly spaced
+        pages = [
+            PhysicalPage(
+                volume=1,
+                page_number_display=str(50 + i),
+                page_number_int=50 + i,
+            )
+            for i in range(10)
+        ]
+        join_points = [
+            JoinPoint(
+                after_unit_index=i,
+                before_unit_index=i + 1,
+                boundary_type=BoundaryContinuityType.MID_PARAGRAPH,
+                separator_used="\n",
+                char_offset_in_assembled=int(text_len * (i + 1) / 10),
+            )
+            for i in range(9)
+        ]
+
+        chunk = _make_assembled_chunk(
+            assembled_text=text,
+            word_count=_count_arabic_words(text),
+            total_tokens=len(text.split()),
+            physical_pages=pages,
+            assembly_metadata=AssemblyMetadata(
+                constituent_unit_indices=list(range(10)),
+                join_points=join_points,
+                layer_split_points=[],
+                footnote_renumber_map=None,
+            ),
+            text_layers=[
+                TextLayerSegment(
+                    layer_type=LayerType.MATN,
+                    author_canonical_id=None,
+                    start=0,
+                    end=text_len,
+                    confidence=1.0,
+                )
+            ],
+        )
+
+        result = split_oversized_division(chunk, [], config)
+        assert len(result) >= 2
+
+        # Invariant: len(physical_pages) == len(join_points) + 1 for each chunk
+        for c in result:
+            n_jp = len(c.assembly_metadata.join_points)
+            n_pp = len(c.physical_pages)
+            assert n_pp == n_jp + 1, (
+                f"chunk {c.chunk_id}: {n_pp} pages but {n_jp} join_points "
+                f"(expected {n_jp + 1} pages)"
+            )
+
+        # Boundary overlap: last page of chunk i == first page of chunk i+1
+        for i in range(len(result) - 1):
+            assert result[i].physical_pages[-1] == result[i + 1].physical_pages[0], (
+                f"No boundary overlap between chunk {i} and {i+1}"
+            )
+
+        # Union covers the full original page range
+        all_page_nums = set()
+        for c in result:
+            for p in c.physical_pages:
+                assert p.page_number_int is not None
+                all_page_nums.add(p.page_number_int)
+        assert all_page_nums == set(range(50, 60))

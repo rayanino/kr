@@ -733,6 +733,13 @@ def split_oversized_division(
 
     shared_indices = chunk.assembly_metadata.constituent_unit_indices
 
+    # Partition physical_pages to match join_point partitioning.
+    # jp_0 covers the first N page boundaries → first N+1 pages.
+    # The boundary page (index len(jp_0)) is shared between both halves
+    # so that teaching units near the split boundary get correct page refs.
+    pages_0 = chunk.physical_pages[:len(jp_0) + 1]
+    pages_1 = chunk.physical_pages[len(jp_0):]
+
     # Placeholder layers (replaced during step 6)
     placeholder_0 = [
         TextLayerSegment(
@@ -764,7 +771,7 @@ def split_oversized_division(
         text_layers=placeholder_0,
         footnotes=[],
         content_flags=chunk.content_flags,
-        physical_pages=chunk.physical_pages,
+        physical_pages=pages_0,
         structural_format=chunk.structural_format,
         heading_alignment_ok=chunk.heading_alignment_ok,
         assembly_metadata=AssemblyMetadata(
@@ -792,7 +799,7 @@ def split_oversized_division(
         text_layers=placeholder_1,
         footnotes=[],
         content_flags=chunk.content_flags,
-        physical_pages=chunk.physical_pages,
+        physical_pages=pages_1,
         structural_format=chunk.structural_format,
         heading_alignment_ok=chunk.heading_alignment_ok,
         assembly_metadata=AssemblyMetadata(
