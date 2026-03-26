@@ -1,5 +1,5 @@
 ---
-description: Chain specialized agents in sequence with structured handoffs. Usage /orchestrate <chain> <engine>. Chains are post-build and verify.
+description: Chain specialized agents in sequence with structured handoffs. Usage /orchestrate <chain> <engine>. Chains are post-build, verify, eval-prep, and arabic-review.
 allowed-tools: Bash(python *), Bash(python3 *), Bash(git *), Read, Glob, Grep
 ---
 Orchestrate a chain of agents with structured handoffs.
@@ -55,3 +55,56 @@ Run during evaluation phases. Sequence:
 6. Present final consolidated verdicts.
 
 Pass `### Downstream Context` from each agent's output as input to the next agent.
+
+## Chain C: `eval-prep`
+
+Run before starting evaluation to verify prerequisites. Sequence:
+
+1. **evaluation-prep** — dispatch with:
+   - Engine name from arguments
+   - Phase letter (C, D, or E) based on engine progress
+   - Context: "Pre-flight check for <engine> Phase <X>"
+
+2. Wait for evaluation-prep to complete.
+
+3. **If READY:** proceed with Chain B (verify) automatically.
+   **If BLOCKED:** report blocking issues and stop. Do NOT proceed to verification.
+   **If WARN:** report warnings, ask user whether to proceed.
+
+4. **Combined report:**
+   ```
+   ## Evaluation Preparation Report — <engine>
+
+   ### Pre-Flight: [READY/BLOCKED/WARN]
+   [evaluation-prep summary]
+
+   ### Next Steps
+   - If READY: "Run /orchestrate verify <engine> to start evaluation"
+   - If BLOCKED: [list of issues to resolve]
+   - If WARN: [warnings + recommendation]
+   ```
+
+## Chain D: `arabic-review`
+
+Run after modifying code that touches Arabic text. Sequence:
+
+1. **arabic-reviewer** — dispatch with:
+   - Changed files: `git diff --name-only HEAD~3..HEAD -- engines/<engine>/ shared/`
+   - Context: "Arabic text safety review for <engine>"
+
+2. Wait for arabic-reviewer to complete.
+
+3. **If Critical findings:** report and recommend blocking commit.
+   **If Warnings only:** report and recommend addressing before next phase.
+   **If Clean:** confirm Arabic text handling is safe.
+
+4. **Report format:**
+   ```
+   ## Arabic Review Report — <engine>
+
+   ### Safety: [CLEAN/WARNINGS/CRITICAL]
+   [arabic-reviewer summary with threat citations]
+
+   ### Action Items
+   [Prioritized fixes if any]
+   ```
