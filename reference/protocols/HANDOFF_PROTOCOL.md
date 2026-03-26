@@ -106,8 +106,14 @@ For each prior build session (1..N-1), name the specific integration test that e
 | Session 5 | Boundary continuity | ??? ← if empty, add one |
 | Session 6 | Plain text normalizer | ??? ← if empty, add one |
 
+## Step 8c: CC plan-mode analysis (MANDATORY)
+
+Before telling the owner to switch CC to implementation mode, the architect writes a CC plan-mode prompt and says **"Relay this to CC in plan mode:"**. CC analyzes the NEXT.md independently — checking for import conflicts, contract violations, edge cases, and anything the architect missed. The owner pastes CC's plan analysis back. The architect cross-verifies CC's claims (NEVER trust CC empirical data — verify with tools). Only after CC's plan analysis is reviewed does the architect say "tell CC to implement."
+
+This step exists because CC's plan-mode analysis of the preamble fix verified 13 structural checks the architect couldn't run locally, while the architect caught CC's fabricated test count ("572" vs actual 570). Neither alone was sufficient.
+
 ## Step 9: Commit and declare
 
-Only after Steps 1–8 complete. Run `python tools/validate_handoff.py` one final time on the committed version. Push. State commit hash.
+Only after Steps 1–8c complete. Run `python tools/validate_handoff.py` one final time on the committed version. Push. State commit hash.
 
 **The momentum trap:** The urge to declare "ready" is strongest after finding many issues. That feeling is the signal to re-check Steps 5–7, not to commit.

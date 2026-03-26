@@ -31,6 +31,14 @@ Structure:
 
 The architect NEVER delivers a verdict in the same response as Pass 2 probes. This is not about giving the owner a chance to redirect (though they can) — it's about forcing the architect to re-enter the review fresh in Round 3, with the specific task of attacking their own conclusions from Rounds 1-2. Session 4 proved that same-context self-review is performative: the architect must break context between probing and judging.
 
+**RULE 9: CC CONCURRENT REVIEW (MANDATORY).** The architect does NOT review alone. At every pass boundary, the architect writes a CC prompt and says **"Relay this to CC:"** — the owner pastes it to CC, CC analyzes independently, owner pastes CC output back. The architect then cross-references CC's findings against their own. **NEVER trust CC's empirical claims** (test counts, line numbers) — verify every one with a tool call. CC fabricated "572 tests passed" when actual was 570 (preamble fix session, March 2026). But CC catches structural issues the architect misses, and vice versa. Trigger points where a CC prompt is MANDATORY:
+
+- **After Pass 1:** Give CC a targeted adversarial audit prompt covering the specific code changed.
+- **After Pass 2 (before Pass 3):** If any finding is ambiguous, give CC a verification prompt.
+- **Before any ACCEPT verdict:** CC must have independently analyzed the same commit. If CC found zero issues AND architect found zero issues, confidence is high. If either found something, it blocks.
+
+This rule exists because neither reviewer alone catches everything. S4: architect found F-4, CC found CC-F3 + CC-F5. Preamble session: architect caught CC's fabricated test count; CC verified 13 structural checks architect couldn't run. The owner's role is relay — they paste prompts and outputs. The architect writes every CC prompt.
+
 **SKILL OVERRIDE:** The `kr-reviewing-cc-output` skill offers "ACCEPT WITH FIXES" and "non-blocking fixes" as valid options. **This protocol OVERRIDES that skill.** The only valid verdicts are ACCEPT (zero unfixed findings) and BLOCKED (findings exist). The skill triggers the workflow; this protocol defines the rules.
 
 ---
