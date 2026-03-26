@@ -634,6 +634,8 @@ The engine processes one source at a time. Each leaf division (or merged/split r
 
 **Leaf identification:** A leaf division is a `DivisionNode` with an empty `children` list. The engine recursively walks the tree and collects all leaves with their heading path (the list of `heading_text` values from root to leaf). Validated implementation: `find_leaf_divisions()` in `experiments/architecture_test/extract_divisions.py`.
 
+**Parent preamble content (tree completion):** The normalization engine produces division trees where parent nodes may have content units not covered by any child. This is the standard Arabic scholarly text pattern: a chapter (باب) starts with introductory text before its sub-sections (فصول). Before walking the tree, the engine calls `_complete_division_tree()` which inserts synthetic leaf nodes for uncovered ranges. Three gap types are handled: preamble (content before the first child), inter-child (content between consecutive children), and trailing (content after the last child). Synthetic preamble leaves use `DivisionType.MUQADDIMAH` with `heading_text="مقدمة"`. Synthetic div_ids use `{parent_div_id}_pre`, `_gap_{N}`, or `_post` suffixes. Empirically, all 5 test packages exhibit only preamble gaps (zero inter-child, zero trailing). Without tree completion, 2–29% of content units per source would be silently lost.
+
 **Skip criteria:** A leaf division is skipped (produces no chunk) if ANY of the following hold:
 - All content units in its range have `content_flags.is_toc_page == true`.
 - All content units in its range have `content_flags.is_index_page == true`.

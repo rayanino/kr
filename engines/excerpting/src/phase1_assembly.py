@@ -40,7 +40,10 @@ from engines.normalization.contracts import (
     ContentFlags,
     ContentUnit,
     DivisionNode,
+    DivisionType,
     Footnote,
+    HeadingConfidence,
+    HeadingDetectionMethod,
     LayerType,
     NormalizedManifest,
     NormalizedPackage,
@@ -204,6 +207,107 @@ def find_leaf_divisions(
         return results
 
     return _walk(division_tree, [])
+
+
+def _complete_division_tree(
+    nodes: list[DivisionNode],
+) -> list[DivisionNode]:
+    """Insert synthetic leaf nodes for parent content not covered by children.
+
+    When a parent DivisionNode has children, the children may not cover the
+    parent's full [start_unit_index, end_unit_index] range. This is normal
+    in Arabic scholarly texts — a chapter (باب) often starts with introductory
+    text before its sub-sections (فصول). These uncovered units would cause
+    EX-V-001 (uncovered unit indices) in validation.
+
+    This function recursively walks the tree and inserts synthetic leaf nodes
+    to fill three types of gap:
+    - Preamble: units in [parent.start, first_child.start - 1]
+    - Inter-child: units in [child_n.end + 1, child_n+1.start - 1]
+    - Trailing: units in [last_child.end + 1, parent.end]
+
+    Empirically, all 5 test packages have ONLY preamble gaps (zero inter-child,
+    zero trailing), but inter-child and trailing are handled defensively.
+
+    Synthetic nodes use div_id suffixes (_pre, _gap_N, _post) that cannot
+    collide with normalization-generated IDs (format: div_{source_id}_{depth}_{index}).
+
+    Returns a NEW tree. Input nodes are not mutated.
+    """
+    result: list[DivisionNode] = []
+    for node in nodes:
+        if not node.children:
+            result.append(node)
+            continue
+
+        # Recursively complete children first
+        completed_children = _complete_division_tree(node.children)
+
+        # Sort children by start_unit_index (defensive — should already be sorted)
+        sorted_children = sorted(completed_children, key=lambda c: c.start_unit_index)
+
+        # Determine heading_level for synthetic leaves (same as first child)
+        child_level = sorted_children[0].heading_level
+
+        new_children: list[DivisionNode] = []
+
+        # 1. Preamble gap: [parent.start, first_child.start - 1]
+        first_child_start = sorted_children[0].start_unit_index
+        if node.start_unit_index < first_child_start:
+            synthetic = DivisionNode(
+                div_id=f"{node.div_id}_pre",
+                division_type=DivisionType.MUQADDIMAH,
+                heading_text="مقدمة",
+                heading_level=child_level,
+                start_unit_index=node.start_unit_index,
+                end_unit_index=first_child_start - 1,
+                detection_method=HeadingDetectionMethod.KEYWORD_HEURISTIC,
+                confidence=HeadingConfidence.HIGH,
+                children=[],
+            )
+            new_children.append(synthetic)
+
+        # 2. Walk through children, inserting inter-child gap synthetics
+        for i, child in enumerate(sorted_children):
+            new_children.append(child)
+            if i < len(sorted_children) - 1:
+                next_child = sorted_children[i + 1]
+                gap_start = child.end_unit_index + 1
+                gap_end = next_child.start_unit_index - 1
+                if gap_start <= gap_end:
+                    synthetic = DivisionNode(
+                        div_id=f"{node.div_id}_gap_{i}",
+                        division_type=None,
+                        heading_text=node.heading_text,
+                        heading_level=child_level,
+                        start_unit_index=gap_start,
+                        end_unit_index=gap_end,
+                        detection_method=HeadingDetectionMethod.KEYWORD_HEURISTIC,
+                        confidence=HeadingConfidence.HIGH,
+                        children=[],
+                    )
+                    new_children.append(synthetic)
+
+        # 3. Trailing gap: [last_child.end + 1, parent.end]
+        last_child_end = sorted_children[-1].end_unit_index
+        if last_child_end < node.end_unit_index:
+            synthetic = DivisionNode(
+                div_id=f"{node.div_id}_post",
+                division_type=None,
+                heading_text=node.heading_text,
+                heading_level=child_level,
+                start_unit_index=last_child_end + 1,
+                end_unit_index=node.end_unit_index,
+                detection_method=HeadingDetectionMethod.KEYWORD_HEURISTIC,
+                confidence=HeadingConfidence.HIGH,
+                children=[],
+            )
+            new_children.append(synthetic)
+
+        # Create new node with updated children (do NOT mutate original)
+        result.append(node.model_copy(update={"children": new_children}))
+
+    return result
 
 
 def should_skip_division(
@@ -1134,6 +1238,7 @@ def validate_phase1(
     manifest: NormalizedManifest,
     skipped_divisions: dict[str, str],
     config: ExcerptingConfig,
+    completed_tree: list[DivisionNode] | None = None,
 ) -> list[dict]:
     """Run V-P1-1 through V-P1-6 validation checks (§4.9).
 
@@ -1151,7 +1256,8 @@ def validate_phase1(
     fatal_failures: list[str] = []
 
     # V-P1-1: Division coverage
-    all_leaves = find_leaf_divisions(manifest.division_tree)
+    tree = completed_tree if completed_tree is not None else _complete_division_tree(manifest.division_tree)
+    all_leaves = find_leaf_divisions(tree)
     all_leaf_ids = {node.div_id for node, _ in all_leaves}
 
     # Collect div_ids covered by chunks (including merge_history and split_info)
@@ -1359,8 +1465,11 @@ def run_phase1(
     manifest = package.manifest
     content_units = package.content_units
 
+    # ── Step 0: Complete division tree (handle preamble gaps) ─────
+    completed_tree = _complete_division_tree(manifest.division_tree)
+
     # ── Step 1: Walk division tree ────────────────────────────────
-    leaves = find_leaf_divisions(manifest.division_tree)
+    leaves = find_leaf_divisions(completed_tree)
 
     if not leaves:
         logger.warning(
@@ -1432,10 +1541,10 @@ def run_phase1(
 
     if not proto_chunks:
         # All divisions skipped
-        return [], validate_phase1([], manifest, skipped_divisions, config)
+        return [], validate_phase1([], manifest, skipped_divisions, config, completed_tree=completed_tree)
 
     # ── Step 3: Merge tiny divisions (grouped by parent) ──────────
-    parent_map = _build_parent_map(manifest.division_tree)
+    parent_map = _build_parent_map(completed_tree)
     groups: dict[str, list[AssembledChunk]] = defaultdict(list)
     for chunk in proto_chunks:
         pid = parent_map.get(chunk.div_id, "root")
@@ -1566,7 +1675,8 @@ def run_phase1(
 
     # ── Step 7: Validate ──────────────────────────────────────────
     validation_results = validate_phase1(
-        split_results, manifest, skipped_divisions, config
+        split_results, manifest, skipped_divisions, config,
+        completed_tree=completed_tree,
     )
 
     return split_results, validation_results
