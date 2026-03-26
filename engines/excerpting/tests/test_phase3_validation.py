@@ -118,6 +118,27 @@ class TestVP32TextIntegrity:
         assert result is None
         assert ExcerptingErrorCodes.EX_V_002 in errors
 
+    def test_shorter_snippet_matches_primary_prefix(self) -> None:
+        """LLM-length snippet (<80 chars) that matches primary prefix → passes."""
+        primary = (
+            "بسم الله الرحمن الرحيم الحمد لله رب العالمين الرحمن الرحيم "
+            "مالك يوم الدين إياك نعبد وإياك نستعين"
+        )
+        snippet = primary[:51]  # LLM produced 51 chars instead of 80
+        exc = _make_excerpt_record(primary_text=primary, text_snippet=snippet)
+        result, errors = validate_excerpt(exc)
+        assert result is not None
+        assert ExcerptingErrorCodes.EX_V_002 not in errors
+
+    def test_pathologically_short_snippet_dropped(self) -> None:
+        """Snippet shorter than 20 chars → dropped as suspicious."""
+        primary = "بسم الله الرحمن الرحيم الحمد لله رب العالمين"
+        snippet = primary[:10]  # Pathologically short
+        exc = _make_excerpt_record(primary_text=primary, text_snippet=snippet)
+        result, errors = validate_excerpt(exc)
+        assert result is None
+        assert ExcerptingErrorCodes.EX_V_002 in errors
+
 
 # ═══════════════════════════════════════════════════════════════════
 # V-P3-3: Author attribution completeness

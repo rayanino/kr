@@ -68,8 +68,8 @@ def _make_chunk_and_units(
     units: list[TeachingUnit] = []
     segments: list[ClassifiedSegment] = []
     for i in range(n_units):
-        sw = i * 2
-        ew = i * 2 + 2
+        sw = i * 4
+        ew = i * 4 + 3
         primary_text = extract_primary_text(chunk.assembled_text, sw, ew)
         units.append(
             _make_teaching_unit(

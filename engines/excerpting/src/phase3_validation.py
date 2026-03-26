@@ -78,20 +78,28 @@ def validate_excerpt(
     drop = False
 
     # V-P3-2: Primary text integrity
-    # First 80 chars of primary_text should match text_snippet after
-    # whitespace normalization (collapse runs to single space).
+    # Compare text_snippet against primary_text prefix after whitespace
+    # normalization. LLMs cannot count Unicode codepoints precisely in
+    # Arabic (diacritics are separate codepoints), so text_snippet length
+    # varies (typically 51-74 chars instead of the requested 80). Compare
+    # at the shorter of the two lengths, with a 20-char minimum threshold.
     snippet_normalized = _normalize_whitespace(excerpt.text_snippet)
-    primary_first80 = _normalize_whitespace(excerpt.primary_text[:80])
-    if snippet_normalized != primary_first80:
+    primary_normalized = _normalize_whitespace(excerpt.primary_text[:80])
+    compare_len = min(len(snippet_normalized), len(primary_normalized))
+    if compare_len < 20 or snippet_normalized[:compare_len] != primary_normalized[:compare_len]:
         drop = True
         errors.append(ExcerptingErrorCodes.EX_V_002)
         logger.error(
-            "%s: Text integrity check failed for %s — excerpt will be DROPPED. "
-            "snippet=%r vs primary_first80=%r",
+            "%s: Text integrity check failed for %s — DROPPED. "
+            "snippet_len=%d primary80_len=%d compare_len=%d "
+            "snippet=%r primary=%r",
             ExcerptingErrorCodes.EX_V_002,
             excerpt.excerpt_id,
-            snippet_normalized[:40],
-            primary_first80[:40],
+            len(snippet_normalized),
+            len(primary_normalized),
+            compare_len,
+            snippet_normalized[:80],
+            primary_normalized[:80],
         )
 
     # V-P3-3: Author attribution completeness
