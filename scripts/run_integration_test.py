@@ -426,6 +426,7 @@ def run_pipeline(
     output_dir: Path,
     source_metadata: Optional[dict[str, str]],
     mock: bool,
+    max_chunks: Optional[int] = None,
 ) -> int:
     """Execute the full excerpting pipeline and save all artifacts.
 
@@ -558,6 +559,16 @@ def run_pipeline(
     timings["phase1"] = round(time.monotonic() - t0, 3)
     logger.info("Phase 1 produced %d chunks", len(chunks))
     _serialize_chunks(chunks, output_dir)
+
+    # Truncate chunk list for LLM phases if --max-chunks is set.
+    # Phase 1 artifacts (phase1_chunks.json) already serialized above with ALL chunks.
+    if max_chunks is not None:
+        original_count = len(chunks)
+        chunks = chunks[:max_chunks]
+        logger.info(
+            "--max-chunks=%d: processing %d of %d chunks in Phases 2-3",
+            max_chunks, len(chunks), original_count,
+        )
 
     if not chunks:
         logger.warning("Phase 1 produced 0 chunks — nothing to process")
@@ -870,6 +881,13 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
         help="Use mock clients instead of real LLM calls "
         "(tests file-writing infrastructure)",
     )
+    parser.add_argument(
+        "--max-chunks",
+        type=int,
+        default=None,
+        help="Limit Phase 2/3 processing to the first N chunks from Phase 1. "
+        "Default: None (process all). Useful for smoke-testing LLM calls.",
+    )
     args = parser.parse_args(argv)
 
     # Default output dir with timestamp
@@ -902,6 +920,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     print(f"Package path:    {args.package_path.resolve()}")
     print(f"Output dir:      {args.output_dir.resolve()}")
     print(f"Mock mode:       {args.mock}")
+    print(f"Max chunks:      {args.max_chunks or 'all'}")
     print(
         f"Source metadata: "
         f"{json.dumps(args.source_metadata, ensure_ascii=False) if args.source_metadata else 'None'}"
@@ -919,6 +938,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         output_dir=args.output_dir,
         source_metadata=args.source_metadata,
         mock=args.mock,
+        max_chunks=args.max_chunks,
     )
 
 
