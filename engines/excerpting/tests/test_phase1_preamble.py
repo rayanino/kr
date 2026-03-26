@@ -11,17 +11,27 @@ from pathlib import Path
 
 import pytest
 
-from engines.excerpting.contracts import ExcerptingConfig
+from engines.excerpting.contracts import (
+    AssembledChunk,
+    ExcerptingConfig,
+    _count_arabic_words,
+)
 from engines.excerpting.src.phase1_assembly import (
     _complete_division_tree,
     run_phase1,
+    split_oversized_division,
 )
-from engines.excerpting.tests.conftest import _make_division_node
+from engines.excerpting.tests.conftest import (
+    _make_assembled_chunk,
+    _make_division_node,
+)
 from engines.normalization.contracts import (
     ContentUnit,
     DivisionType,
+    LayerType,
     NormalizedManifest,
     NormalizedPackage,
+    TextLayerSegment,
 )
 
 
@@ -300,6 +310,78 @@ class TestCompleteDivisionTree:
 
         assert len(result) == 1
         assert result[0].children == []
+
+    def test_preamble_heading_alignment_ok_true(self) -> None:
+        """F-1: Synthetic preamble chunks must have heading_alignment_ok=True.
+
+        Preamble nodes get heading "مقدمة" assigned by _complete_division_tree,
+        which won't match the assembled text. The F-1 fix skips the heading
+        alignment check for _pre nodes so they always pass.
+        """
+        pkg_path = PACKAGES_DIR / "ibn_aqil_v1"
+        if not pkg_path.exists():
+            pytest.skip("ibn_aqil_v1 package not available")
+
+        pkg = _load_package(pkg_path)
+        chunks, _ = run_phase1(pkg, ExcerptingConfig())
+
+        preamble_chunks = [c for c in chunks if "_pre" in c.div_id]
+        assert len(preamble_chunks) > 0, "Expected at least one preamble chunk"
+        for chunk in preamble_chunks:
+            assert chunk.heading_alignment_ok is True, (
+                f"Preamble chunk {chunk.chunk_id} should have "
+                f"heading_alignment_ok=True (F-1 fix)"
+            )
+
+    def test_preamble_oversized_split(self) -> None:
+        """F-3: Preamble chunks split correctly when oversized.
+
+        Constructs a ~6000-word preamble chunk and verifies that
+        split_oversized_division produces correct chunk_ids with _pre
+        prefix preserved, and that each split chunk passes I-AC-5 validation.
+        """
+        # Generate ~6000 Arabic words using scholarly vocabulary cycle
+        base_words = [
+            "وقال", "المؤلف", "رحمه", "الله", "تعالى", "في", "كتابه",
+            "العظيم", "الذي", "صنفه", "في", "علم", "الفقه", "والأصول",
+            "والنحو", "والصرف", "والبلاغة", "والمنطق", "والحديث", "والتفسير",
+        ]
+        words: list[str] = []
+        while len(words) < 6000:
+            words.extend(base_words)
+        words = words[:6000]
+        # Insert paragraph break at midpoint for a reliable split point
+        mid = len(words) // 2
+        text = " ".join(words[:mid]) + "\n\n" + " ".join(words[mid:])
+
+        wc = _count_arabic_words(text)
+        chunk = _make_assembled_chunk(
+            chunk_id="div_test_0_0_pre",
+            div_id="div_test_0_0_pre",
+            assembled_text=text,
+            word_count=wc,
+            total_tokens=len(text.split()),
+            text_layers=[
+                TextLayerSegment(
+                    layer_type=LayerType.MATN,
+                    author_canonical_id=None,
+                    start=0,
+                    end=len(text),
+                    confidence=1.0,
+                )
+            ],
+        )
+
+        config = ExcerptingConfig(OVERSIZED_DIVISION_WORDS=5000)
+        result = split_oversized_division(chunk, [], config)
+
+        assert len(result) >= 2, f"Expected split, got {len(result)} chunks"
+        assert result[0].chunk_id == "div_test_0_0_pre_chunk_0"
+        assert result[0].split_info is not None
+
+        # Re-validate each split chunk through Pydantic (I-AC-5)
+        for split_chunk in result:
+            AssembledChunk.model_validate(split_chunk.model_dump())
 
 
 # ═══════════════════════════════════════════════════════════════════

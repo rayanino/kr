@@ -1502,7 +1502,12 @@ def run_phase1(
             skipped_divisions[node.div_id] = "empty_assembled_text"
             continue
 
-        heading_ok = check_heading_alignment(node.heading_text, text)
+        # F-1: Synthetic preamble nodes have assigned heading "مقدمة" that
+        # won't appear in assembled text — skip alignment check (not a real mismatch)
+        if node.div_id.endswith("_pre"):
+            heading_ok = True
+        else:
+            heading_ok = check_heading_alignment(node.heading_text, text)
         wc = _count_arabic_words(text)
         tt = len(text.split())
 
