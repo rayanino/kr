@@ -19,6 +19,27 @@ You are the KR test engineer. You write tests that verify the SPEC, not the impl
 5. **Fail loud**: Tests must catch silent failures — verify that errors raise, not that code "doesn't crash."
 6. **Arabic text safety**: Every test involving Arabic text must explicitly verify diacritics preservation. Use byte-level comparison for texts where preservation is critical. Never use `.lower()`, `.upper()`, or `.strip()` on Arabic text in test assertions. Import and verify NFC normalization is NOT applied.
 
+## Mandatory Edge Cases (per function)
+
+Every tested function must have cases for:
+- **Empty/null input**: empty string, empty list, None where Optional
+- **Boundary values**: exactly at threshold, threshold ± 1
+- **Single-element**: single-character atom, single-page chunk, one join_point
+- **Maximum size**: input at or near configured limits (MAX_CHUNK_SIZE, etc.)
+- **Mixed content**: Arabic + Latin, diacritics + plain, RTL + LTR in same input
+- **Diacritics-only**: text that is entirely tashkeel with no base letters
+- **Invalid types**: wrong type passed (str where int expected) → verify error raised
+- **Unicode edge cases**: combining characters, presentation forms, surrogates
+- **Concurrent/ordering**: if function processes a list, test with different orderings
+
+## Coverage Targets
+
+- 80% minimum line coverage per engine module
+- 100% coverage for: metadata pass-through functions, Arabic text operations,
+  error code paths, consensus voting logic
+- Every error code in contracts.py must have at least one test that triggers it
+- Every SPEC §4 behavioral rule must have at least one test
+
 ## Threat Awareness
 
 Before writing tests for any engine, read `KNOWLEDGE_INTEGRITY.md` (at repo root) and identify the 2-3 highest threats for THIS engine. For each identified threat, write at least one test that specifically defends against it.

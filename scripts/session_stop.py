@@ -9,6 +9,7 @@ Usage:
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -136,6 +137,58 @@ def main() -> int:
 
     project_dir = Path(git_root)
 
+    # Cost tracking — parse COST_LOG.json for budget status
+    cost_summary: dict[str, float] | None = None
+    cost_log_path = project_dir / "tests" / "results" / "source_engine" / "COST_LOG.json"
+    if cost_log_path.exists():
+        try:
+            cost_data = json.loads(cost_log_path.read_text(encoding="utf-8"))
+            total = sum(
+                phase.get("cost_eur", 0)
+                for phase in cost_data.values()
+                if isinstance(phase, dict)
+            )
+            budget = float(os.environ.get("KR_BUDGET_LIMIT", "100"))
+            cost_summary = {
+                "total_eur": round(total, 2),
+                "budget_eur": budget,
+                "remaining_eur": round(budget - total, 2),
+            }
+        except (json.JSONDecodeError, OSError, ValueError):
+            pass
+
+    # Circuit breaker history — last 5 triggers
+    cb_triggers: list[str] = []
+    cb_log = project_dir / ".claude" / "circuit_breaker.log"
+    if cb_log.exists():
+        try:
+            lines = cb_log.read_text(encoding="utf-8", errors="ignore").strip().split("\n")
+            cb_triggers = [line for line in lines[-5:] if line.strip()]
+        except OSError:
+            pass
+
+    # Print detection — find leftover print() in modified engine/shared source
+    modified = get_modified_files(project_dir)
+    print_warnings: list[str] = []
+    for f in modified:
+        if f.endswith(".py") and ("/src/" in f) and ("engines/" in f or "shared/" in f):
+            fpath = project_dir / f
+            if fpath.exists():
+                try:
+                    for i, line in enumerate(
+                        fpath.read_text(encoding="utf-8", errors="ignore").split("\n"),
+                        1,
+                    ):
+                        stripped = line.lstrip()
+                        if stripped.startswith("print(") and "# safe:" not in line:
+                            print_warnings.append(f"{f}:{i}")
+                            if len(print_warnings) >= 10:
+                                break
+                except OSError:
+                    pass
+            if len(print_warnings) >= 10:
+                break
+
     state = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "branch": run_git(["branch", "--show-current"], project_dir),
@@ -143,11 +196,14 @@ def main() -> int:
         "active_spec_section": detect_active_spec_section(project_dir),
         "last_committed_file": get_last_committed_file(project_dir),
         "active_plan": get_plan_file(project_dir),
-        "modified_files": get_modified_files(project_dir),
+        "modified_files": modified,
         "uncommitted_summary": get_uncommitted_summary(project_dir),
         "next_md_head": read_next_md_head(project_dir),
         "recent_commits": run_git(["log", "--oneline", "-5"], project_dir),
         "pending_decisions": get_pending_decisions(project_dir),
+        "cost_summary": cost_summary,
+        "circuit_breaker_triggers": cb_triggers,
+        "print_warnings": print_warnings,
     }
 
     output_path = project_dir / ".claude" / "session_state.json"

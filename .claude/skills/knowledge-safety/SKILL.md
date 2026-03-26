@@ -66,9 +66,61 @@ GAP: [what's missing]
 RECOMMENDATION: [specific fix]
 ```
 
+## Implementation Patterns Per Threat
+
+### T-1 Defense: Text Integrity Verification
+```python
+# After ANY text transformation, verify:
+assert len([c for c in output if '\u0600' <= c <= '\u06FF']) >= \
+       len([c for c in input if '\u0600' <= c <= '\u06FF']), \
+       "Arabic letter count decreased — possible corruption"
+
+# Diacritic preservation check:
+DIACRITICS = set(range(0x064B, 0x0654)) | {0x0670}
+input_diacritics = sum(1 for c in input if ord(c) in DIACRITICS)
+output_diacritics = sum(1 for c in output if ord(c) in DIACRITICS)
+assert output_diacritics == input_diacritics, "Diacritic count changed"
+```
+**Test pattern**: For every function that touches Arabic text, write a test with fully diacritized input and verify byte-identical output where no transformation is intended.
+
+### T-2 Defense: Attribution Verification
+```python
+# Multi-model consensus for attribution (D-041):
+results = [model.classify(text) for model in consensus_models]
+if all(r.author == results[0].author for r in results):
+    confidence = min(r.confidence for r in results)
+else:
+    confidence = 0.0  # Disagreement → human gate
+    flag_for_review(reason="Model disagreement on attribution")
+```
+**Test pattern**: Create test cases with known authors (from test fixtures) and verify the pipeline attributes correctly. Include adversarial cases: same-name scholars, unknown authors, multi-author compilations.
+
+### T-3 Defense: Taxonomy Placement Validation
+**Test pattern**: Place a well-known text (e.g., صحيح البخاري) and verify it lands under hadith, not fiqh. Place a comparative fiqh text and verify it doesn't land under a single school. Create edge cases: a text that discusses both nahw and fiqh.
+
+### T-4 Defense: Self-Containment Check
+**Test pattern**: For every excerpt, verify a domain expert could understand it WITHOUT reading the surrounding text. If the excerpt starts with "وكذلك" (and likewise) or references "المذكور أعلاه" (mentioned above) without context, it fails self-containment.
+
+### T-5 Defense: Grounding Verification
+**Test pattern**: For every synthesis output, verify every claim has a grounding_type tag. Verify every source_grounded claim maps to a real excerpt ID. Create a test with a fabricated excerpt ID and verify the system rejects it.
+
+### T-6 Defense: Metadata Integrity
+```python
+# D-023: Verify no metadata fields are dropped
+input_fields = set(input_metadata.model_fields_set)
+output_fields = set(output_metadata.model_fields_set)
+assert input_fields.issubset(output_fields), \
+    f"Metadata fields lost: {input_fields - output_fields}"
+```
+**Test pattern**: Pass metadata through every engine boundary and verify no fields are dropped. Include edge cases: empty optional fields, very long values, Arabic text in metadata.
+
+### T-7 Defense: Deduplication Check
+**Test pattern**: Process the same book twice and verify the system detects the duplicate. Process two different editions of the same work and verify they are linked, not duplicated.
+
 ## Rules
 
 - Never say "no risks found" without checking every threat.
 - If you're unsure whether a threat applies, assume it does.
 - Always recommend the conservative option — false alarms are cheap, undetected errors are catastrophic.
 - Reference specific KNOWLEDGE_INTEGRITY.md sections in your recommendations.
+- For each threat, suggest at least one CONCRETE test case, not just a review checkbox.

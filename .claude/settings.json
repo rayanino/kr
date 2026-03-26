@@ -59,11 +59,21 @@
   "hooks": {
     "PreToolUse": [
       {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/config-protection.sh\"",
+            "timeout": 5
+          }
+        ]
+      },
+      {
         "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "input=$(cat); CMD=$(echo \"$input\" | jq -r '.tool_input.command // empty' 2>/dev/null); if echo \"$CMD\" | grep -qE '^rm\\s+-rf\\s+(/|~|\\.)' || echo \"$CMD\" | grep -qE 'git\\s+push\\s+--force.*(main|master)'; then echo '{\"decision\":\"block\",\"reason\":\"Blocked: destructive rm -rf or force-push to main. Use a safer alternative.\"}'; fi",
+            "command": "input=$(cat); CMD=$(echo \"$input\" | jq -r '.tool_input.command // empty' 2>/dev/null); if echo \"$CMD\" | grep -qE '^rm\\s+-rf\\s+(/|~|\\.)' || echo \"$CMD\" | grep -qE 'git\\s+push\\s+--force.*(main|master)' || echo \"$CMD\" | grep -qE 'git\\s+(commit|push)\\s+.*--no-verify'; then echo '{\"decision\":\"block\",\"reason\":\"Blocked: destructive rm -rf, force-push to main, or --no-verify bypass. Use a safer alternative.\"}'; fi",
             "timeout": 5
           }
         ]
@@ -125,7 +135,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "FILE=\"$CLAUDE_TOOL_FILE_PATH\"; if [ -z \"$FILE\" ]; then exit 0; fi; if echo \"$FILE\" | grep -qE '\\.py$'; then black \"$FILE\" 2>/dev/null || true; fi",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/ruff-format.sh\"",
             "timeout": 15
           }
         ]
@@ -192,6 +202,27 @@
             "statusMessage": "Validating contract boundaries..."
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/diacritic-preservation.sh\"",
+            "timeout": 10,
+            "statusMessage": "Checking Arabic diacritic preservation..."
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/spec-coverage-check.sh\"",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "Stop": [
@@ -211,7 +242,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo '=== POST-COMPACTION RECOVERY ===' && echo '' && echo '--- NEXT.md (current task) ---' && head -15 NEXT.md 2>/dev/null && echo '' && echo '--- Active engine state ---' && for d in engines/*/CLAUDE.md; do if head -30 \"$d\" 2>/dev/null | grep -q 'IN PROGRESS'; then echo \"ACTIVE: $d\" && head -25 \"$d\" 2>/dev/null | grep -E '(Session|COMPLETE|IN PROGRESS|NEXT)'; fi; done && echo '' && echo '--- INVARIANTS (non-negotiable) ---' && echo '(1) Library IS the users knowledge — errors propagate into his mind' && echo '(2) Accuracy > Protection > Intelligence (D-006)' && echo '(3) Metadata never deleted, only enriched (D-023)' && echo '(4) Errors fail loud — never silent default (D-033)' && echo '(5) Multi-model consensus for ALL content decisions (D-041)' && echo '(6) Arabic: NEVER .lower()/.upper()/.strip() on Arabic strings' && echo '(7) Primary text bytes NEVER modified after extraction (D-004)' && echo '(8) Never implement spec errors — fix the spec first' && echo '' && echo '--- EASILY FORGOTTEN AFTER COMPACTION ---' && echo '(9) Result preservation: every API call persists output + update COST_LOG.json' && echo '(10) Temperature=0 for ALL consensus LLM calls' && echo '(11) Shared concept changes: grep ALL consumers before modifying enums/statuses' && echo '(12) Tests: every function needs real Arabic fixture test (no transliteration)' && echo '(13) After modifying engines/*/src/ or contracts.py: dispatch code-reviewer agent' && echo '' && echo 'Read the active engines CLAUDE.md + principles.md in memory/ for full context.'"
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo '=== POST-COMPACTION RECOVERY ===' && echo '' && echo '--- NEXT.md (current task) ---' && head -15 NEXT.md 2>/dev/null && echo '' && echo '--- Active engine state ---' && for d in engines/*/CLAUDE.md; do if head -30 \"$d\" 2>/dev/null | grep -q 'IN PROGRESS'; then echo \"ACTIVE: $d\" && head -25 \"$d\" 2>/dev/null | grep -E '(Session|COMPLETE|IN PROGRESS|NEXT)'; fi; done && echo '' && echo '--- INVARIANTS (non-negotiable) ---' && echo '(1) Library IS the users knowledge — errors propagate into his mind' && echo '(2) Accuracy > Protection > Intelligence (D-006)' && echo '(3) Metadata never deleted, only enriched (D-023)' && echo '(4) Errors fail loud — never silent default (D-033)' && echo '(5) Multi-model consensus for ALL content decisions (D-041)' && echo '(6) Arabic: NEVER .lower()/.upper()/.strip() on Arabic strings' && echo '(7) Primary text bytes NEVER modified after extraction (D-004)' && echo '(8) Never implement spec errors — fix the spec first' && echo '' && echo '--- EASILY FORGOTTEN AFTER COMPACTION ---' && echo '(9) Result preservation: every API call persists output + update COST_LOG.json' && echo '(10) Temperature=0 for ALL consensus LLM calls' && echo '(11) Shared concept changes: grep ALL consumers before modifying enums/statuses' && echo '(12) Tests: every function needs real Arabic fixture test (no transliteration)' && echo '(13) After modifying engines/*/src/ or contracts.py: dispatch code-reviewer agent' && echo '' && echo '--- session state ---' && python3 -c \"import json; s=json.load(open('.claude/session_state.json')); c=s.get('cost_summary'); print(f'Budget: EUR {c[\"total_eur\"]}/{c[\"budget_eur\"]}') if c else None; t=s.get('circuit_breaker_triggers',[]); print(f'CB triggers: {len(t)} recent') if t else None; p=s.get('print_warnings',[]); print(f'Print warnings: {len(p)}') if p else None\" 2>/dev/null && echo '' && echo 'Read the active engines CLAUDE.md + principles.md in memory/ for full context.'"
           }
         ]
       },
@@ -220,7 +251,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo '--- git status ---' && git branch --show-current && git status --short | head -10 && echo '--- recent commits ---' && git log --oneline -5 && echo '' && echo '--- NEXT.md (first 15 lines) ---' && head -15 NEXT.md 2>/dev/null",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo '--- git status ---' && git branch --show-current && git status --short | head -10 && echo '--- recent commits ---' && git log --oneline -5 && echo '' && echo '--- NEXT.md (first 15 lines) ---' && head -15 NEXT.md 2>/dev/null && echo '' && echo '--- budget status ---' && python3 -c \"import json,os; d=json.load(open('tests/results/source_engine/COST_LOG.json')); t=sum(v.get('cost_eur',0) for v in d.values() if isinstance(v,dict)); b=float(os.environ.get('KR_BUDGET_LIMIT','100')); print(f'Budget: EUR {t:.2f}/{b:.2f} ({t/b*100:.0f}%% used, EUR {b-t:.2f} remaining)')\" 2>/dev/null || echo 'Cost log not available'",
             "timeout": 10
           }
         ]

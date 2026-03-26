@@ -20,3 +20,8 @@ Quickly reload project context. Do ALL of these:
 7. Count verdicts issued: grep for `Verdict:` across `PHASE_C_SESSION*_REPORT.md` files if they exist.
 8. Read `PHASE_C_ERRATA.md` first 5 lines if it exists — remind yourself of the correction titles before starting evaluation work.
 9. Summarize: what branch are we on, what task is active, what's the current state, budget status, verdicts so far, what's the next action.
+10. From session_state.json, also report if available:
+    - Budget: EUR X/Y (Z% used, EUR remaining)
+    - Circuit breaker triggers: N recent (show last trigger if any)
+    - Print warnings: N leftover print() statements in engine src/
+    - Session learning: any patterns captured from previous session

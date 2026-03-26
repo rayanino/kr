@@ -16,5 +16,11 @@ Steps:
    - `test(engine): description` — adding or fixing tests
    - `chore(scope): description` — tooling, config, dependency changes
 4. Commit messages must be specific. BAD: "Update source engine". GOOD: "feat(source): add Shamela HTML format detection via magic-byte sniffing"
+5. Validate each commit message before executing:
+   - Must match pattern: `^(feat|fix|refactor|docs|test|chore|perf|handoff|review|protocol)\([a-z/_-]+\): .+`
+   - First line must not exceed 72 characters
+   - If the message doesn't match, rewrite it to comply before committing
+   - When test counts are relevant (fix/feat touching src/), include: `(NNN pass, N skip)`
+   - Reference SPEC section when the change implements or fixes a behavioral rule
 
 If $ARGUMENTS is provided, use it as guidance for the commit scope/message.

@@ -1,0 +1,8 @@
+- Use conventional commit format: `type(scope): description`
+- Valid types: feat, fix, refactor, test, docs, chore, perf
+- Valid KR-specific types: handoff (session handoff notes), review (code review actions), protocol (process changes)
+- Scope should be the engine name or shared module: fix(excerpting), feat(normalization), test(source), chore(hooks), docs(spec), refactor(shared/consensus)
+- First line max 72 characters. Use body for details.
+- Reference SPEC section if applicable: `fix(excerpting): §4.A.3 handle empty join_points`
+- Include test count in fix/feat commits when relevant: `(588 pass, 2 skip)`
+- Multi-file commits: group related changes. One commit per logical change, not one per file.

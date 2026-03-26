@@ -11,3 +11,9 @@ globs: ["engines/*/tests/**/*.py", "shared/*/tests/**/*.py", "tests/**/*.py"]
 - **No function is "done" until tested against at least one real Arabic fixture** from `tests/fixtures/`. Synthetic inputs (English text, placeholder Arabic, transliteration) are never acceptable as the ONLY test data.
 - Every commit touching `engines/*/src/` or `shared/*/src/` code MUST include or update a test that exercises the changed code with real fixture data.
 - When verifying scholarly claims (author attributions, genre classifications, science scope), cross-reference against Usul.ai (https://usul.ai) when available.
+- Target 80% line coverage per engine module. 100% for: Arabic text operations, metadata pass-through (D-023), error code paths, consensus voting logic.
+- Use `@pytest.mark.parametrize` for table-driven tests when a rule applies to multiple inputs (e.g., different Arabic formats, different page counts).
+- Flaky test protocol: if a test fails intermittently, mark with `@pytest.mark.flaky(reason="...")` and file a fix ticket. Never delete flaky tests — they indicate real instability.
+- Integration tests that depend on external services (LLM APIs) go in a separate `test_llm_inference.py` with `@pytest.mark.skipif` for offline runs.
+- After any test failure, check if the failure is the test's fault or the code's fault BEFORE modifying the test. Tests that guard SPEC rules must not be weakened to make them pass.
+- Test isolation: each test must be independent. No test should depend on another test's side effects or execution order.

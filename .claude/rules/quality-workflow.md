@@ -13,3 +13,16 @@
 - The cross-engine contract test (`test_cross_engine.py`) requires `PYTHONIOENCODING=utf-8` on Windows. Run directly: `PYTHONIOENCODING=utf-8 python tools/check_cross_engine_contracts.py`.
 - When the implementation plan identifies independent steps (marked with "independent", "parallel", or showing no dependencies between them), use worktree agents to execute them in parallel: (1) Read the plan's dependency graph, (2) Identify steps with no dependencies between them, (3) Launch each independent step as a worktree agent with `isolation: "worktree"`, (4) Wait for all to complete, (5) Merge results and continue with dependent steps.
 - Before dispatching the `code-reviewer` agent, run `python3 scripts/pre_review_checks.py <files> --engine <name>` to catch common issues (Pydantic Field(None), re.DOTALL, SPEC ranges, logging) that would waste reviewer time.
+- Findings severity classification:
+  - CRITICAL (blocks everything): security vulnerabilities, data corruption, Arabic text damage, silent metadata loss, frozen source modification
+  - HIGH (blocks commit): wrong behavior vs SPEC, missing error handling, test failures, type errors
+  - MEDIUM (advisory warning): style issues, missing tests for non-critical paths, long functions, missing docstrings
+  - LOW (informational): performance suggestions, refactoring opportunities
+- Pre-merge checklist (before any commit touching engine src/):
+  - [ ] pyright passes on modified files
+  - [ ] engine tests pass (pytest -x -q)
+  - [ ] no Arabic safety violations (hook output clean)
+  - [ ] no leftover print() statements
+  - [ ] D-023 metadata preserved (if contracts.py touched)
+  - [ ] commit message follows conventional format
+- When multiple findings exist, address CRITICAL and HIGH before committing. MEDIUM and LOW can be tracked as follow-up tasks.

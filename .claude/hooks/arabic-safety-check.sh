@@ -76,6 +76,22 @@ if [ -n "$UNSAFE_D" ]; then
     WARNINGS="${WARNINGS}WARNING: \\d in regex — Python \\d matches Arabic-Indic digits (٠-٩). Use [0-9] for ASCII-only.\n$(echo "$UNSAFE_D" | head -3)\n\n"
 fi
 
+# 8. Invisible Unicode detection (WARNING) — zero-width spaces, BOM, bidi overrides
+# These can silently corrupt Arabic scholarly text at ingestion boundaries
+INVISIBLE=$(python3 -c "
+import sys
+with open(sys.argv[1], encoding='utf-8', errors='ignore') as f:
+    for i, line in enumerate(f, 1):
+        for c in line:
+            if ord(c) in (0x200B, 0x200E, 0x200F, 0xFEFF, 0x2060, 0x00AD) or 0x202A <= ord(c) <= 0x202E:
+                if '# safe:' not in line:
+                    print(f'  {sys.argv[1]}:{i}: invisible U+{ord(c):04X}')
+                    break
+" "$FILE" 2>/dev/null)
+if [ -n "$INVISIBLE" ]; then
+    WARNINGS="${WARNINGS}WARNING: Invisible Unicode characters found (may corrupt Arabic text):\n${INVISIBLE}\n\n"
+fi
+
 # Output warnings if any
 if [ -n "$WARNINGS" ]; then
     echo -e "ARABIC SAFETY CHECK — $FILE\n$WARNINGS" >&2

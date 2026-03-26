@@ -1,3 +1,17 @@
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 addopts = "--import-mode=importlib"
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+# F=pyflakes (unused imports/vars), E/W=pycodestyle, I=isort,
+# UP=pyupgrade, B=bugbear, SIM=simplify
+select = ["F", "E", "W", "I", "UP", "B", "SIM"]
+ignore = ["E501"]  # line length handled by black
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["B011"]  # allow assert False in tests
+"experiments/**" = ["F401", "E402"]  # relaxed for experiments

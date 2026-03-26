@@ -12,6 +12,10 @@ Before compacting, do ALL of these:
    - Decisions made
    - Open blockers
    - Exact next action
+   - Session cost (EUR spent, from COST_LOG.json if available)
+   - Circuit breaker triggers this session (from .claude/circuit_breaker.log)
+   - Print warnings in modified files
+   - Recent hook failures or warnings
 
 2. **Update MEMORY.md** if any stable facts changed (new session complete, new test count milestone, new architecture decision).
 

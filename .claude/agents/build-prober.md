@@ -68,6 +68,20 @@ For every new or modified function in the diff:
   - Example: Modifying `shared/human_gate/src/human_gate.py` to add a new parameter that the source engine doesn't pass.
   - Example: Changing validation logic in `shared/validation/` that the source engine tests depend on.
 
+- **PERFORMANCE**: Code introduces O(n^2) or worse complexity on data that scales
+  with book size (pages, chunks, join_points). This becomes critical when processing
+  large books (1000+ pages).
+  - Example: Nested loop iterating all chunks × all pages inside compute_page_range.
+  - Example: String concatenation in a loop instead of list join.
+  - Severity: HIGH if the collection could exceed 100 items in production data.
+
+- **FLAKY_TEST**: A new test that depends on timing, ordering, or external state
+  that may vary between runs.
+  - Example: Test that asserts on dictionary ordering without sorted().
+  - Example: Test with hardcoded datetime that will fail after a date passes.
+  - Example: Test comparing floating-point results without tolerance.
+  - Severity: MEDIUM — flaky tests erode trust in the entire suite.
+
 ### Step 5: Check Tests
 
 For each SPEC rule implemented in this session:

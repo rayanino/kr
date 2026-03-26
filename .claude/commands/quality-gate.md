@@ -14,6 +14,11 @@ Run these checks in sequence, capturing pass/fail for each:
 6. **Metadata flow:** `python3 scripts/verify_metadata_flow.py` (skip if script missing)
 7. **Build metrics:** `python3 scripts/update_build_metrics.py engines/$ARGUMENTS` (skip if script missing)
 
+8. **Function complexity:** Scan engine src/ for functions >50 lines:
+   `python3 -c "import ast,sys,glob; [print(f'{f}:{n.lineno}: {n.name}() = {n.end_lineno-n.lineno+1} lines') for f in glob.glob(f'engines/{sys.argv[1]}/src/*.py') for n in ast.walk(ast.parse(open(f).read())) if isinstance(n,(ast.FunctionDef,ast.AsyncFunctionDef)) and n.end_lineno-n.lineno+1>50]" $ARGUMENTS` (skip if no src/ files)
+9. **Test coverage ratio:** Count SPEC rules vs test functions:
+   `echo "SPEC rules: $(grep -c '§4\.' engines/$ARGUMENTS/SPEC.md 2>/dev/null || echo 0)" && echo "Test functions: $(grep -c 'def test_' engines/$ARGUMENTS/tests/*.py 2>/dev/null || echo 0)"`
+
 After all checks complete, produce a summary table:
 
 ```
@@ -25,6 +30,9 @@ After all checks complete, produce a summary table:
   Pydantic:        PASS | SKIPPED | FAIL
   Metadata flow:   PASS | SKIPPED | FAIL
   Build metrics:   PASS | SKIPPED | FAIL
+
+  Complexity:      PASS | WARN (N functions >50 lines)
+  Coverage ratio:  N tests / M rules = X%
 
   Overall: PASS | FAIL
 ```

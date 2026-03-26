@@ -1,0 +1,64 @@
+---
+globs: ["engines/*/src/**/*.py", "shared/*/src/**/*.py"]
+---
+- **Bismillah handling:** بسم الله الرحمن الرحيم at position 0 of a book or volume is structural prose — part of the muqaddimah (author's introduction), NOT a Quranic citation. It is followed by the hamdala (الحمد لله رب العالمين...) which is the author's own prose praising God, then the sababiyyah (أما بعد / وبعد) transitioning to the book's subject. Treat the entire opening sequence (bismillah + hamdala + sababiyyah) as a single structural unit belonging to the muqaddimah. Do not tag the opening bismillah as `quranic_text: true` unless it appears within Quranic brackets ﴿ ﴾ or after a citation formula (قال تعالى).
+- **Hamdala patterns:** The opening hamdala varies in length from a single line (الحمد لله رب العالمين) to multiple paragraphs praising God, invoking blessings on the Prophet, and stating the book's purpose. The transition marker is أما بعد or وبعد (the sababiyyah), which signals the end of the hamdala and the beginning of the author's actual introduction. Everything before أما بعد is formulaic preamble. Everything after it until the first chapter heading (كتاب, باب, فصل) is the author's muqaddimah prose.
+- **Colophon patterns:** The colophon (خاتمة) appears at the end of a book or manuscript copy. Extract date and attribution data from these formulas:
+  - تم الكتاب بحمد الله / تم بحمد الله تعالى — completion marker
+  - فرغ من تأليفه — the author finished composing (gives authorship date)
+  - فرغ من نسخه / كتبه — the copyist finished transcribing (gives manuscript date, NOT authorship date)
+  - كتبه العبد الفقير [name] — copyist self-identification (NOT the author)
+  - وكان الفراغ منه في شهر [month] سنة [year] — completion date in Hijri calendar
+  - نقله من خط المؤلف — copied from the author's handwriting (high-authority manuscript)
+  - بلغ مقابلة بأصله — has been collated against its source (critical edition signal)
+  - **Critical trap:** The name after كتبه is the COPYIST (ناسخ), not the author (مؤلف). The name after ألفه/صنفه is the author. Confusing these corrupts author attribution.
+- **Scholarly abbreviations — preserve as-is, never expand or normalize:**
+  - صلى الله عليه وسلم — blessings on the Prophet. May appear as the Unicode ligature ﷺ (U+FDFA), or as صلعم, or written in full. Preserve whichever form the source uses. Do NOT normalize between forms.
+  - رضي الله عنه / عنها / عنهم / عنهما — divine pleasure on Companions. May abbreviate as رضه or رض. The gender/number suffix (عنه/عنها/عنهم/عنهما) carries information about the referenced person — preserve it.
+  - رحمه الله / رحمها الله — divine mercy on deceased scholars. May abbreviate as رحه. Presence of this formula after a scholar's name confirms they are deceased — useful for death date estimation.
+  - عز وجل / سبحانه وتعالى / جل جلاله — divine glorification formulas after God's name. Multiple forms exist; preserve whichever the source uses.
+  - عليه السلام / عليها السلام — peace upon prophets and certain revered figures. Do NOT confuse with صلى الله عليه وسلم which is reserved for Prophet Muhammad specifically.
+- **Honorific patterns preceding scholar names:** These titles indicate scholarly status and specialization, NOT authorship. They appear before a scholar's name when cited:
+  - الشيخ — general scholarly title, broadly applied
+  - الإمام — leader in a science; implies foundational authority (e.g., الإمام أحمد = Imam Ahmad ibn Hanbal)
+  - العلامة — polymath; implies breadth across multiple sciences
+  - الحافظ — hadith memorizer; has memorized a threshold number of hadith with chains (e.g., الحافظ ابن حجر)
+  - شيخ الإسلام — highest scholarly honor; historically specific (e.g., شيخ الإسلام ابن تيمية in Hanbali tradition)
+  - حجة الإسلام — proof of Islam; used especially in Shafi'i tradition (e.g., حجة الإسلام الغزالي)
+  - القاضي — judge; indicates the scholar held judicial office
+  - المحقق — verifier/critical scholar; distinct from محقق as tahqiq editor
+  - **Processing rule:** When extracting author names from text, strip leading honorifics to get the base name for matching. But PRESERVE honorifics in the displayed/stored name — they carry scholarly status information.
+- **Cross-reference formulas — internal navigation within a work:**
+  - كما تقدم / كما سبق / كما مر / تقدم ذكره — "as mentioned earlier" — backward reference
+  - سيأتي / يأتي / سيأتي بيانه / كما سيأتي — "will come later" — forward reference
+  - انظر / راجع / ارجع إلى — "see / refer to" — may reference another section of the same work or an external work
+  - في ما سبق من كتاب [X] / في باب [X] — references a specific chapter/section
+  - **Processing rule:** These formulas indicate the text has an internal cross-reference structure. During excerpting, preserve cross-reference formulas in the excerpt even if the referenced target is in a different excerpt — they are part of the author's argument structure.
+- **School (madhab) attribution signals — detect the author's or text's legal school:**
+  - وعندنا / ومذهبنا / والصحيح عندنا — "our school holds" — identifies the author's own madhab
+  - وعند الشافعي / وقال أبو حنيفة / وذهب مالك / وقال أحمد — attributes a position to a specific school founder or major scholar
+  - والمذهب / والأصح / والمعتمد — "the madhab position / the most correct / the relied-upon" — the school's official position
+  - والراجح — "the preponderant view" — may be the author's own preference, not necessarily the school's official position
+  - **School-specific terminology:**
+    - Hanafi: يجوز/لا يجوز, ظاهر الرواية (the apparent transmitted ruling), and often cites أبو حنيفة and صاحباه (his two students: أبو يوسف and محمد)
+    - Maliki: المشهور (the well-known view), الراجح, المعتمد, and cites مالك and ابن القاسم
+    - Shafi'i: الأصح, المذهب, القول الجديد/القديم (new/old position), and cites الشافعي, النووي, الرافعي
+    - Hanbali: الصحيح من المذهب, المذهب, وعنه (another narration from Ahmad), and cites أحمد, ابن قدامة, ابن تيمية
+- **Marginal note indicators — editorial apparatus, not author content:**
+  - هامش / في الهامش — marginal note
+  - حاشية — marginal gloss (also a genre name for super-commentaries; context disambiguates)
+  - في الأصل — "in the original [manuscript]" — critical apparatus indicating manuscript reading
+  - نسخة / في نسخة — "variant reading" or "in [another] copy" — manuscript variant
+  - كذا في المطبوع — "thus in the printed edition" — editor's note about the printed text
+  - لعله / ولعل الصواب — "perhaps [the correct reading is]" — editor's conjectural emendation
+  - بياض في الأصل — "blank in the original" — lacuna in the manuscript
+  - **Processing rule:** Marginal notes and critical apparatus are EDITORIAL content, not the author's original text. Tag them as `layer_type: editorial` and do NOT attribute them to the book's author. They may carry the muhaqqiq's name as their source.
+- **Transmission formulas — hadith and text transmission indicators:**
+  - أخبرنا — "he informed us" — lower-grade hearing (some schools equate with حدثنا)
+  - حدثنا — "he narrated to us" — direct oral transmission (highest grade in most schools)
+  - أنبأنا — "he reported to us" — sometimes equivalent to أخبرنا, sometimes lower
+  - سمعت — "I heard" — direct audition, first person
+  - قرأت على — "I read to" — student reads to teacher for correction (عرض method)
+  - أجاز لي / أجازني — "he gave me permission" — license to transmit without direct reading (إجازة)
+  - ناولني — "he handed to me" — physical transmission of the text (مناولة)
+  - **Processing rule:** A chain of these formulas constitutes an isnad. Isnads must be kept as atomic units — never split across passages or excerpts. The presence of transmission formulas indicates hadith or athar content, not the author's own composition.

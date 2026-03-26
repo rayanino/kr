@@ -1,0 +1,7 @@
+- Use /smart-compact proactively at ~60% context rather than waiting for auto-compaction at 80%. Controlled compaction preserves more state.
+- After compaction, ALWAYS re-read: (1) active engine CLAUDE.md, (2) active SPEC section, (3) NEXT.md. These are compaction-fragile.
+- MCP tools consume context. Keep enabled MCP servers to <=5. Current active: context7, tavily, memory. Do not add without removing.
+- Prefer Bash-wrapped CLI tools over MCP for simple operations: `git log` over GitHub MCP, `curl` over fetch MCP.
+- When dispatching subagents, pass OBJECTIVE CONTEXT not raw data. Include: what SPEC section governs the work, what files were changed, what deliberate trade-offs were made. Max 3 retrieval iterations per subagent.
+- Large tool results (>500 lines): note key findings in your response text, since the tool result may be cleared during compaction.
+- When context is filling up, prioritize retaining: (1) SPEC rules being implemented, (2) test failures being debugged, (3) Arabic text handling constraints, (4) D-023 metadata semantics. Deprioritize: verbose tool output, exploratory reads, completed work details.

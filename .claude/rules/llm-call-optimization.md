@@ -1,0 +1,48 @@
+- **Temperature settings for Arabic scholarly analysis:**
+  - `temperature=0` for ALL consensus calls (D-041) — genre classification, author identification, science scope, madhab attribution, death date extraction. These require deterministic, reproducible outputs. Any randomness introduces disagreement noise into the consensus mechanism.
+  - `temperature=0` for structured data extraction — extracting metadata fields, parsing colophons, identifying isnad chains, detecting Quranic citations. Extraction is recall-oriented; creativity adds hallucination risk.
+  - `temperature=0.1-0.3` for generative summary tasks — producing human-readable descriptions, synthesizing teaching units, composing taxonomy node labels. Light creativity improves fluency without sacrificing accuracy.
+  - `temperature=0` for Arabic text classification of any kind. NEVER use temperature > 0 for any classification or attribution task. The risk of hallucinated scholarly claims (T-2 in the threat model) increases sharply with temperature.
+- **Arabic prompt engineering — domain-specific requirements:**
+  - Always include the Arabic text directly in the prompt, never transliteration. LLMs process Arabic natively; transliteration loses diacritics, hamza placement, and taa marbuta distinctions that carry meaning.
+  - Include domain terminology in Arabic alongside English when prompting. Example: "Identify the genre (النوع) of this text — is it sharh (شرح), hashiyah (حاشية), matn (متن), or risalah (رسالة)?" This activates the model's Arabic scholarly knowledge.
+  - Provide few-shot examples using real Arabic text from the KR fixtures, not English approximations. An English example like "Commentary on Book X" teaches the wrong pattern; use "شرح كتاب التوحيد" from actual fixture data.
+  - When asking for author identification, include the full Arabic name with all components (ism, nasab, kunya, laqab, nisba) in the prompt context. Truncated names produce ambiguous matches.
+  - For multi-layer texts, explicitly tell the model about the layer structure in the prompt: "This text is a hashiyah (حاشية) on a sharh (شرح). The matn text appears in [brackets]. The sharh text follows. The hashiyah author's commentary is the unmarked text."
+  - When extracting dates, specify the calendar system expected: "Extract the Hijri death date (تاريخ الوفاة بالهجري). Format as integer year only. Do not convert to Gregorian."
+- **Token management for Arabic text:**
+  - Arabic text tokenizes at roughly 1.5-2x the token count of equivalent English semantic content. A 4K-word Arabic scholarly chapter may consume 8K-12K tokens. Budget accordingly.
+  - For texts exceeding 10K tokens, chunk at natural structural boundaries: chapter breaks (كتاب), section breaks (باب, فصل), or paragraph breaks. NEVER chunk at arbitrary character positions — this risks splitting mid-word, mid-ayah, or mid-isnad.
+  - When chunking, include 200-500 token overlap at boundaries to preserve context for any content that spans the break. The overlap should start at the beginning of the last complete structural unit (paragraph or section) in the previous chunk.
+  - For consensus calls on long texts, send the SAME chunk boundaries to all models. Different chunking produces artificial disagreements that pollute the consensus signal.
+  - Monitor actual token usage from API responses, not estimated counts. Token estimation for Arabic is unreliable due to diacritics, ligatures, and Unicode normalization differences between tokenizers.
+- **Caching and result reuse (D-023 alignment):**
+  - Before making ANY API call, check the phase manifest (`PHASE_X_MANIFEST.json`). If the book entry has `needs_rerun: false`, skip the call entirely and load existing results from `tests/results/source_engine/{phase}/`.
+  - After every API call, immediately write the raw response to `tests/results/source_engine/{phase}/{book_id}/llm_responses/{model}.json`. Never hold responses only in memory.
+  - Update `COST_LOG.json` after every API-calling script completes, recording: timestamp, model name, input tokens, output tokens, estimated EUR cost, book IDs processed.
+  - When a bug fix invalidates previous results, set `needs_rerun: true` ONLY for the specifically affected books in the manifest. Never blanket-invalidate all results — reprocessing the full corpus wastes budget and discards valid data.
+  - Cache keys should include: book_id, phase, model name, and prompt template version hash. A prompt change invalidates cached results for that prompt, not for all prompts.
+- **Multi-model consensus (D-041) — mandatory for content decisions:**
+  - For ALL content classification decisions (genre, author, science scope, madhab, authority level, structural format), use a minimum of 2 independent models. Current consensus pair: Cohere Command A + Claude Opus 4.6.
+  - Both models receive identical prompts with identical context. Do not tailor prompts per model — prompt divergence introduces systematic bias that masquerades as genuine disagreement.
+  - Agreement threshold: 2/2 agreement for high-confidence classification. Any disagreement flags the item for human review via the human_gate system.
+  - When models agree on the primary classification but disagree on secondary fields (e.g., agree on genre=sharh but disagree on science_scope), accept the agreed field and flag only the disagreed field.
+  - Log both raw model outputs and the consensus verdict. The raw outputs are diagnostic data — they reveal which model is more reliable for which classification types, informing future model selection.
+  - NEVER use a single LLM call for content classification, even for "obvious" cases. Obvious cases are where single-model errors are most dangerous — they pass review because humans also think the answer is obvious.
+- **Result persistence — every call is an artifact:**
+  - Every LLM API call persists its full output to `tests/results/source_engine/{phase}/`. Raw responses are never discarded.
+  - Per-book result structure: `result.json` (final verdict), `extraction.json` (structured extracted data), `llm_responses/{model}.json` (raw per-model outputs), `consensus.json` (agreement analysis), `sanity_checks.json` (post-consensus validation).
+  - After each phase run, produce three summary artifacts: `PHASE_X_SUMMARY.json` (aggregate statistics), `PHASE_X_MANIFEST.json` (per-book status and rerun flags), `PHASE_X_LESSONS.md` (patterns observed, calibration notes, edge cases found).
+  - Test results are reusable artifacts, not disposable validation. A phase run that costs EUR 5 in API calls produces data worth EUR 5 — treat it accordingly.
+- **Error recovery — no silent failures:**
+  - On API timeout or HTTP error, retry with exponential backoff: wait 2s, 4s, 8s (max 3 attempts). Use jitter (random 0-1s addition) to avoid thundering herd on rate limits.
+  - Log all failures with: timestamp (ISO 8601), model name, book_id, phase, HTTP status code, error message, retry count. Write to both the console log and `tests/results/source_engine/ERROR_LOG.json`.
+  - After max retries, record the failure in the phase manifest as `status: "api_error"` with the error details. Do NOT silently skip the book — downstream engines must know this book was not successfully processed.
+  - For rate limit errors (HTTP 429), respect the `Retry-After` header. If no header is present, use a minimum 60s backoff before retrying.
+  - After a partial batch failure (some books succeed, some fail), persist all successful results immediately. Never discard successful results because some books in the batch failed.
+- **Cost awareness and budget enforcement:**
+  - Track EUR cost per API call using the model's published pricing. Log to `tests/results/source_engine/COST_LOG.json` with cumulative running total.
+  - Check `KR_BUDGET_LIMIT` environment variable before each batch. If cumulative cost would exceed the limit, abort with a clear message showing current spend, projected batch cost, and the limit.
+  - The `cost-guard.sh` hook provides automatic budget enforcement — do not bypass it. If the hook blocks a call, it means the budget is exhausted. Report to the user; do not retry.
+  - Cost optimization: for exploratory/debugging runs, use a smaller sample (5-10 books) before committing to a full corpus sweep. Validate prompt effectiveness on the sample before spending on the full set.
+  - When choosing between re-running with improved prompts vs. manual correction of edge cases, calculate the cost of each approach. For fewer than 10 affected books, manual correction is almost always cheaper.

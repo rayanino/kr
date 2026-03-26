@@ -53,6 +53,19 @@ Inputs where two detection systems disagree, testing whether the SPEC's conflict
 
 **Pattern:** Signal A says X, signal B says Y → does the code follow the SPEC's precedence rules?
 
+### Category 6: Input Injection / LLM Manipulation
+Inputs crafted to manipulate LLM-based classification or consensus in Phase 2/3.
+
+**Pattern:** Arabic text containing embedded instructions, misleading metadata,
+or content designed to trick genre/author classification into wrong outputs.
+Examples:
+- Book with colophon containing a different author's name than the actual author (T-2 attribution error)
+- Text where commentary (sharh) mimics main text style so closely that layer detection fails
+- Metadata in source HTML that contradicts actual content (metadata poisoning via T-6)
+- Arabic text structured to look like a different genre (e.g., fiqh text with hadith-style chains)
+- Embedded Latin text or transliteration designed to confuse language detection
+- Invisible Unicode characters (U+200B, U+FEFF) inserted at classification-critical boundaries
+
 ## Output Format
 
 ```

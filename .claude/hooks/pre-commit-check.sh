@@ -122,6 +122,54 @@ if [ -n "$MODIFIED_PY" ]; then
     done
 fi
 
+# 8. BLOCKING: Secret/API key detection in staged files
+STAGED_PY=$(git diff --cached --name-only | grep '\.py$')
+if [ -n "$STAGED_PY" ]; then
+    for pyfile in $STAGED_PY; do
+        SECRETS=$(grep -nE '(sk-ant-|sk-or-|sk-[a-zA-Z0-9]{20,}|ANTHROPIC_API_KEY\s*=\s*["\x27]|OPENROUTER.*KEY\s*=\s*["\x27])' "$pyfile" 2>/dev/null | grep -v '# safe:' | grep -v '\.example' | grep -v '\.template')
+        if [ -n "$SECRETS" ]; then
+            echo "BLOCKED: Possible API key/secret in $pyfile"
+            echo "$SECRETS" | head -3
+            BLOCK=1
+        fi
+    done
+fi
+
+# 9. Advisory: Long function detection (>50 lines) in modified src/ files
+if [ -n "$MODIFIED_PY" ]; then
+    for pyfile in $MODIFIED_PY; do
+        LONG_FUNCS=$(python3 -c "
+import ast, sys
+try:
+    with open(sys.argv[1]) as f:
+        tree = ast.parse(f.read())
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            length = node.end_lineno - node.lineno + 1
+            if length > 50:
+                print(f'  {sys.argv[1]}:{node.lineno}: {node.name}() is {length} lines (>50)')
+except Exception:
+    pass
+" "$pyfile" 2>/dev/null)
+        if [ -n "$LONG_FUNCS" ]; then
+            echo "  WARNING: Long functions detected (consider splitting):"
+            echo "$LONG_FUNCS"
+        fi
+    done
+fi
+
+# 10. Advisory: TODO/FIXME/HACK count in modified files
+if [ -n "$MODIFIED_PY" ]; then
+    TODO_COUNT=0
+    for pyfile in $MODIFIED_PY; do
+        COUNT=$(grep -cE '\b(TODO|FIXME|HACK|XXX)\b' "$pyfile" 2>/dev/null || echo 0)
+        TODO_COUNT=$((TODO_COUNT + COUNT))
+    done
+    if [ $TODO_COUNT -gt 0 ]; then
+        echo "  INFO: $TODO_COUNT TODO/FIXME/HACK markers in modified files"
+    fi
+fi
+
 echo "=== End Pre-Commit ==="
 
 if [ $BLOCK -ne 0 ]; then

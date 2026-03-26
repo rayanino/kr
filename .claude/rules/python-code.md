@@ -12,3 +12,9 @@ globs: ["engines/*/src/**/*.py", "shared/*/src/**/*.py", "scripts/**/*.py"]
 - Run `black` before committing. Line length 88.
 - Pyright + Pydantic: When constructing Pydantic models, always pass explicit `None` for Optional fields with `Field(None, ...)` defaults. Pyright cannot infer the default from `Field()`. Example: `TextLayerSegment(layer_type=..., author_canonical_id=None, start=..., end=..., confidence=...)`.
 - Lazy imports (inside function bodies) for circular dependency avoidance: when the lazy-imported types appear in the function's return type annotation, add them under `if TYPE_CHECKING:` at the module top level. This lets pyright check the types without triggering runtime circular imports.
+- Functions should not exceed 50 lines (excluding docstrings/comments). If longer, split into helpers with clear single responsibilities.
+- Functions should not have more than 5 parameters. Use a Pydantic model or dataclass for complex signatures.
+- No mutable default arguments (`def f(x=[])`, `def f(d={})`). Use `None` + conditional assignment.
+- Public functions in engine src/ must have a one-line docstring at minimum.
+- Prefer `logging.getLogger(__name__)` over `print()` in all non-test code.
+- Imports should be organized: stdlib first, then third-party, then local. Use `isort` or `ruff` to enforce.

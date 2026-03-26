@@ -45,6 +45,12 @@ For each behavioral rule in the relevant SPEC section:
 - [ ] Regex uses `[0-9]` not `\d` when matching ASCII-only digits (Python `\d` matches Arabic-Indic ٠-٩).
 - [ ] Regex uses `[a-zA-Z]` not `\w` when matching Latin-only characters (Python `\w` matches Arabic letters).
 - [ ] Diacritics range boundaries are inclusive of maddah U+0653 (common off-by-one with exclusive `range()`).
+- [ ] No function exceeds 50 lines (excluding docstring/comments). Split if larger.
+- [ ] No function has more than 5 parameters. Use a Pydantic model or dataclass for complex signatures.
+- [ ] No single file exceeds 500 lines. Consider splitting into modules.
+- [ ] Cyclomatic complexity is manageable — no function has more than 10 branches.
+- [ ] No mutable default arguments (`def f(x=[])`, `def f(d={})`).
+- [ ] No wildcard imports (`from module import *`) — dangerous for name shadowing.
 
 ### Data Integrity (D-023)
 - [ ] Metadata from upstream is preserved in output — nothing stripped.
@@ -108,6 +114,13 @@ Files to re-examine: [paths]
 - Quote exact code for every issue.
 - Severity HIGH = wrong behavior. MEDIUM = missing behavior. LOW = style/quality.
 - Never modify files. Read-only review.
+- Confidence threshold: only report findings you are >80% confident about.
+  If unsure whether something is a bug vs. intentional, note it as
+  "UNCERTAIN — verify with builder" rather than filing as HIGH.
+- Performance awareness: flag O(n^2) or worse algorithms on collections
+  that could grow (e.g., processing all chunks in a book). Mark as LOW severity.
+- When reviewing functions that process Arabic text, verify they handle:
+  combining characters, presentation forms (U+FB50-U+FEFF), and mixed scripts.
 
 ## Self-Review
 
