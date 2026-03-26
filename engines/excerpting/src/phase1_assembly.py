@@ -1509,9 +1509,9 @@ def run_phase1(
             skipped_divisions[node.div_id] = "empty_assembled_text"
             continue
 
-        # F-1: Synthetic preamble nodes have assigned heading "مقدمة" that
+        # F-1: Synthetic preamble/gap/post nodes have assigned headings that
         # won't appear in assembled text — skip alignment check (not a real mismatch)
-        if node.div_id.endswith("_pre"):
+        if node.div_id.endswith("_pre") or "_gap_" in node.div_id or node.div_id.endswith("_post"):
             heading_ok = True
         else:
             heading_ok = check_heading_alignment(node.heading_text, text)

@@ -62,7 +62,14 @@ Output: `writer.py` → `excerpts.jsonl` + `gate_queue.jsonl`.
 - **Phase 3.4:** COMPLETE (50 tests, ~350 impl lines) — validation (V-P3-1–9) + output writer (excerpts.jsonl, gate_queue.jsonl, V-P3-7 paranoid verification)
 - **Phase 3 Orchestrator:** COMPLETE (25 integration tests, ~300 impl lines) — phase3_orchestrator.py + pipeline.py + end-to-end tests
 - **Overnight Hardening:** 40+ additional edge case tests across all phases
-- **Total:** 519 tests, ~4,850 impl lines, 0 failures
+- **Total:** 593 tests, ~4,860 impl lines, 0 failures
+
+### Recent Sessions (post-overnight hardening)
+- **Preamble gap fix:** `_complete_division_tree()` inserts synthetic leaf nodes for parent content gaps (2-29% content was silently lost). ACCEPTED.
+- **compute_page_range fix:** Partition `physical_pages` alongside `join_points` in split chunks. Defensive guard in `compute_page_range`. ACCEPTED.
+- **EX-V-002 fix:** Compare `text_snippet` at min(snippet_len, 80) instead of fixed 80 — LLMs produce 51-74 chars, not exactly 80.
+- **--max-chunks:** CLI argument for `run_integration_test.py` to limit LLM phases to N chunks.
+- **First real LLM call:** Smoke test passed — 5 excerpts from ibn_aqil_v1 preface, 0 errors, 88s total via OpenRouter/Opus 4.6.
 
 ## Build Metrics Target
 
