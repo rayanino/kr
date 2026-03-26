@@ -16,6 +16,8 @@ from typing import TYPE_CHECKING, Optional
 
 import instructor
 
+from pydantic import ValidationError
+
 from engines.excerpting.contracts import (
     AssembledChunk,
     EnrichmentResult,
@@ -230,7 +232,7 @@ def enrich_chunk(
         model=config.ENRICH_MODEL,
         temperature=config.LLM_TEMPERATURE,
         max_tokens=config.ENRICH_MAX_TOKENS,
-        max_retries=0,
+        max_retries=2,
         response_model=EnrichmentResult,
         messages=[
             {"role": "system", "content": ENRICH_SYSTEM_PROMPT},
@@ -291,6 +293,17 @@ def apply_enrichment(
         review_flags = [
             f for f in exc.review_flags if f != "llm_enrichment_failed"
         ]
+
+        # Cross-check: F-DET-5 detected hadith but LLM found no takhrij
+        has_hadith_evidence = any(er.type == "hadith" for er in exc.evidence_refs)
+        if has_hadith_evidence and not ue.takhrij_data:
+            if "hadith_evidence_no_takhrij" not in review_flags:
+                review_flags.append("hadith_evidence_no_takhrij")
+            logger.warning(
+                "F-DET-5 detected hadith evidence but LLM enrichment returned no "
+                "takhrij_data for unit %d in chunk %s.",
+                exc.unit_index, exc.div_id,
+            )
 
         # Build updated record via model_copy
         updated = exc.model_copy(
@@ -434,14 +447,23 @@ def run_phase3_enrichment(
                 success = True
                 break
 
-            except Exception as e:
+            except ValidationError as e:
+                # Defense-in-depth: with max_retries=2, Instructor handles
+                # schema validation internally. This catches edge cases
+                # where a ValidationError escapes Instructor's retry.
                 logger.warning(
-                    "Phase 3 enrichment attempt %d/%d failed for chunk %s: %s",
-                    attempt + 1,
-                    max_attempts,
-                    chunk_id,
-                    str(e),
+                    "Phase 3 enrichment attempt %d/%d validation error for chunk %s: %s",
+                    attempt + 1, max_attempts, chunk_id, e,
                 )
+
+            except Exception as e:
+                wait_seconds = 2 ** attempt
+                logger.warning(
+                    "Phase 3 enrichment attempt %d/%d API error for chunk %s: %s. "
+                    "Backing off %ds.",
+                    attempt + 1, max_attempts, chunk_id, str(e), wait_seconds,
+                )
+                time.sleep(wait_seconds)
 
         if not success:
             logger.error(

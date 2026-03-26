@@ -340,7 +340,7 @@ def classify_chunk(
         model=config.CLASSIFY_MODEL,
         temperature=config.LLM_TEMPERATURE,
         max_tokens=_compute_classify_max_tokens(chunk.word_count),
-        max_retries=0,
+        max_retries=2,
         response_model=ClassificationResult,
         messages=[
             {"role": "system", "content": system_prompt},

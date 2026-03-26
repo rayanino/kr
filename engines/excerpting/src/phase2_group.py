@@ -169,7 +169,7 @@ def group_chunk(
         model=config.GROUP_MODEL,
         temperature=config.LLM_TEMPERATURE,
         max_tokens=config.GROUP_MAX_TOKENS,
-        max_retries=0,
+        max_retries=2,
         response_model=ExtractionResult,
         messages=[
             {"role": "system", "content": system_prompt},

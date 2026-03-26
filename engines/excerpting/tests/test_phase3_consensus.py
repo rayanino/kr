@@ -509,7 +509,7 @@ class TestNoConsensusPath:
         config = ExcerptingConfig()
 
         result, gates = run_consensus(
-            [exc], [chunk], MagicMock(), verify_client, None, config
+            [exc], [chunk], verify_client, None, config
         )
 
         assert len(result) == 1
@@ -556,7 +556,7 @@ class TestFullConsensusFlow:
         config = ExcerptingConfig()
 
         result, gates = run_consensus(
-            [exc], [chunk], MagicMock(), verify_client, None, config, _SOURCE_META
+            [exc], [chunk], verify_client, None, config, _SOURCE_META
         )
 
         assert len(result) == 1
@@ -576,7 +576,7 @@ class TestFullConsensusFlow:
         config = ExcerptingConfig()
 
         result, gates = run_consensus(
-            [exc], [chunk], MagicMock(), verify_client, None, config
+            [exc], [chunk], verify_client, None, config
         )
 
         assert len(result) == 1
@@ -804,7 +804,7 @@ class TestSplitChunkConsensusMatching:
         config = ExcerptingConfig()
 
         result, gates = run_consensus(
-            [exc], [chunk], MagicMock(), verify_client, None, config, _SOURCE_META
+            [exc], [chunk], verify_client, None, config, _SOURCE_META
         )
 
         assert len(result) == 1
@@ -844,7 +844,7 @@ class TestVerificationItemMapping:
         config = ExcerptingConfig()
 
         result, gates = run_consensus(
-            [exc], [chunk], MagicMock(), verify_client, None, config, _SOURCE_META
+            [exc], [chunk], verify_client, None, config, _SOURCE_META
         )
 
         assert len(result) == 1
@@ -874,7 +874,7 @@ class TestVerificationItemMapping:
 
         with caplog.at_level("WARNING"):
             result, gates = run_consensus(
-                [exc], [chunk], MagicMock(), verify_client, None, config, _SOURCE_META
+                [exc], [chunk], verify_client, None, config, _SOURCE_META
             )
 
         assert "Missing verification item" in caplog.text

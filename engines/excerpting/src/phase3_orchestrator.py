@@ -137,16 +137,31 @@ def run_phase3(
     # ── Stage 3: Consensus verification (graceful degradation) ────
     if enrich_client is not None and verify_client is not None:
         t2 = time.monotonic()
-        all_excerpts, gate_entries = run_consensus(
-            excerpts=all_excerpts,
-            chunks=chunks,
-            enrich_client=enrich_client,
-            verify_client=verify_client,
-            escalation_client=escalation_client,
-            config=config,
-            source_metadata=source_metadata,
-        )
-        result.gate_entries.extend(gate_entries)
+        try:
+            all_excerpts, gate_entries = run_consensus(
+                excerpts=all_excerpts,
+                chunks=chunks,
+                verify_client=verify_client,
+                escalation_client=escalation_client,
+                config=config,
+                source_metadata=source_metadata,
+            )
+            result.gate_entries.extend(gate_entries)
+        except Exception as exc:
+            if isinstance(exc, (TypeError, AttributeError, NameError, KeyError,
+                                IndexError, ZeroDivisionError, StopIteration)):
+                raise  # Programming bugs must crash
+            logger.error(
+                "Consensus verification failed — degrading to enrichment-only: %s", exc,
+            )
+            result.errors.append(f"CONSENSUS_FAILED: {exc}")
+            flagged = []
+            for e in all_excerpts:
+                flags = list(e.review_flags)
+                if "verification_skipped" not in flags:
+                    flags.append("verification_skipped")
+                flagged.append(e.model_copy(update={"review_flags": flags}))
+            all_excerpts = flagged
         result.timings["consensus"] = time.monotonic() - t2
         logger.info(
             "Phase 3 consensus: %d gate entries (%.2fs).",

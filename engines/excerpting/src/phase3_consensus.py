@@ -30,6 +30,12 @@ from engines.excerpting.contracts import (
 
 logger = logging.getLogger(__name__)
 
+_SC_LEVEL_ORDER: dict[SelfContainmentLevel, int] = {
+    SelfContainmentLevel.FULL: 2,
+    SelfContainmentLevel.PARTIAL: 1,
+    SelfContainmentLevel.DEPENDENT: 0,
+}
+
 
 # ═══════════════════════════════════════════════════════════════════
 # §7.3.2 — Verification Prompt
@@ -165,7 +171,7 @@ def verify_chunk(
         model=config.VERIFY_MODEL,
         temperature=config.LLM_TEMPERATURE,
         max_tokens=config.VERIFY_MAX_TOKENS,
-        max_retries=0,
+        max_retries=2,
         response_model=VerificationResult,
         messages=[
             {"role": "system", "content": VERIFY_SYSTEM_PROMPT},
@@ -416,7 +422,7 @@ def _call_escalation(
             model=config.ESCALATION_MODEL,
             temperature=config.LLM_TEMPERATURE,
             max_tokens=1024,
-            max_retries=0,
+            max_retries=2,
             response_model=EscalationResponse,
             messages=[
                 {"role": "user", "content": prompt},
@@ -449,12 +455,6 @@ def _resolve_self_containment(
     flags: list[str] = []
     gates: list[str] = []
 
-    _LEVEL_ORDER = {
-        SelfContainmentLevel.FULL: 2,
-        SelfContainmentLevel.PARTIAL: 1,
-        SelfContainmentLevel.DEPENDENT: 0,
-    }
-
     enrichment_level = excerpt.self_containment
 
     if vi.agrees:
@@ -473,7 +473,7 @@ def _resolve_self_containment(
             verifier_level = enrichment_level
 
         # Use the more conservative (lower) level
-        if _LEVEL_ORDER.get(verifier_level, 1) < _LEVEL_ORDER.get(enrichment_level, 1):
+        if _SC_LEVEL_ORDER.get(verifier_level, 1) < _SC_LEVEL_ORDER.get(enrichment_level, 1):
             final_level = verifier_level
         else:
             final_level = enrichment_level
@@ -505,14 +505,9 @@ def _parse_self_containment(text: Optional[str]) -> Optional[SelfContainmentLeve
     for level in SelfContainmentLevel:
         if text_upper == level.value:
             return level
-    _LEVEL_ORDER = {
-        SelfContainmentLevel.FULL: 2,
-        SelfContainmentLevel.PARTIAL: 1,
-        SelfContainmentLevel.DEPENDENT: 0,
-    }
     matches = [level for level in SelfContainmentLevel if level.value in text_upper]
     if matches:
-        return min(matches, key=lambda l: _LEVEL_ORDER.get(l, 1))
+        return min(matches, key=lambda l: _SC_LEVEL_ORDER.get(l, 1))
     return None
 
 
@@ -660,7 +655,6 @@ def _build_gate_entry(
 def run_consensus(
     excerpts: list[ExcerptRecord],
     chunks: list[AssembledChunk],
-    enrich_client: instructor.Instructor,
     verify_client: instructor.Instructor,
     escalation_client: Optional[instructor.Instructor],
     config: ExcerptingConfig,
@@ -719,6 +713,7 @@ def run_consensus(
 
         # Try verification call
         verification_result = None
+        loop_handled = False
         for attempt in range(max_attempts):
             try:
                 start_time = time.monotonic()
@@ -728,8 +723,8 @@ def run_consensus(
                 latency = time.monotonic() - start_time
 
                 if vr is None:
-                    # No units needed verification
                     all_results.extend(chunk_excerpts)
+                    loop_handled = True
                     break
 
                 verification_result = vr
@@ -741,6 +736,7 @@ def run_consensus(
                     attempt + 1,
                     len(vr[0].items),
                 )
+                loop_handled = True
                 break
 
             except Exception as e:
@@ -752,13 +748,17 @@ def run_consensus(
                     str(e),
                 )
 
-        if verification_result is None:
-            # Verification failed — add flag and keep enrichment values
+        if not loop_handled:
+            # All retry attempts failed — keep enrichment-only with flag
             for exc in chunk_excerpts:
                 flags = list(exc.review_flags)
                 if "verification_skipped" not in flags:
                     flags.append("verification_skipped")
                 all_results.append(exc.model_copy(update={"review_flags": flags}))
+            continue
+
+        if verification_result is None:
+            # verify_chunk returned None — already added in loop
             continue
 
         # Resolve per-unit consensus
@@ -784,10 +784,20 @@ def run_consensus(
                 item_index += 1
             excerpt_to_vi[exc.unit_index] = vis
 
+        units_needing_verification = {exc.unit_index for exc, _ in excerpts_with_items}
+
         for exc in chunk_excerpts:
             vis_for_exc = excerpt_to_vi.get(exc.unit_index, [])
             if not vis_for_exc:
-                all_results.append(exc)
+                if exc.unit_index in units_needing_verification:
+                    # Needed consensus but got no verification items — flag it
+                    flags = list(exc.review_flags)
+                    if "verification_incomplete" not in flags:
+                        flags.append("verification_incomplete")
+                    all_results.append(exc.model_copy(update={"review_flags": flags}))
+                else:
+                    # Didn't need consensus — pass through normally
+                    all_results.append(exc)
                 continue
 
             vi_list = [v[0] for v in vis_for_exc]

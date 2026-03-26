@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import logging
 from enum import Enum
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -121,7 +121,7 @@ class ScholarAttribution(BaseModel):
 
     mention_text: str
     resolved_name: Optional[str] = None
-    role: str = Field(
+    role: Literal["quoted_opinion", "classification_frame", "refuted_position"] = Field(
         description="One of: quoted_opinion, classification_frame, refuted_position"
     )
     confidence: float = Field(ge=0.0, le=1.0)
@@ -589,7 +589,7 @@ class ResolvedScholar(BaseModel):
 
     mention_text: str
     resolved_name: Optional[str] = None
-    role: str = Field(
+    role: Literal["quoted_opinion", "classification_frame", "refuted_position"] = Field(
         description="One of: quoted_opinion, classification_frame, refuted_position"
     )
     confidence: float = Field(ge=0.0, le=1.0)

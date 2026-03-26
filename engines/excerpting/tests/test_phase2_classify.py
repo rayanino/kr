@@ -109,8 +109,8 @@ class TestClassifyChunk:
         assert _TEST_TEXT in messages[1]["content"]
         assert "</text>" in messages[1]["content"]
 
-    def test_max_retries_zero(self) -> None:
-        """DD-S2-8: max_retries=0 on instructor call."""
+    def test_max_retries_two(self) -> None:
+        """DD-H-4: max_retries=2 on instructor call (1 schema retry)."""
         cr = _make_classification_result(_TEST_TEXT, n_segments=1)
         client = _make_mock_instructor_client(return_value=cr)
         config = ExcerptingConfig()
@@ -119,7 +119,7 @@ class TestClassifyChunk:
         classify_chunk(chunk, client, config)
 
         call_kwargs = client.chat.completions.create.call_args
-        assert call_kwargs.kwargs["max_retries"] == 0
+        assert call_kwargs.kwargs["max_retries"] == 2
 
     def test_error_feedback_appended_to_user_message(self) -> None:
         """DD-S2-5: error feedback goes in user message, not system prompt."""

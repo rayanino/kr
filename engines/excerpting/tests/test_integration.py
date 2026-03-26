@@ -157,8 +157,8 @@ class TestPhase3Orchestrator:
         # Excerpts still produced from deterministic stage
         assert len(result.excerpts) > 0
 
-    def test_consensus_crash_propagates(self) -> None:
-        """Consensus exception propagates through run_phase3 (Fix 2a)."""
+    def test_consensus_crash_degrades_gracefully(self) -> None:
+        """FIX-1: Consensus RuntimeError degrades to enrichment-only with flag."""
         chunk, units, segments = _make_chunk_and_units()
         config = ExcerptingConfig()
         mock_client = MagicMock()
@@ -169,8 +169,8 @@ class TestPhase3Orchestrator:
         ), patch(
             "engines.excerpting.src.phase3_orchestrator.run_consensus",
             side_effect=RuntimeError("Consensus model timeout"),
-        ), pytest.raises(RuntimeError, match="Consensus model timeout"):
-            run_phase3(
+        ):
+            result = run_phase3(
                 chunks=[chunk],
                 teaching_units={chunk.chunk_id: units},
                 classified={chunk.chunk_id: segments},
@@ -178,6 +178,11 @@ class TestPhase3Orchestrator:
                 enrich_client=mock_client,
                 verify_client=mock_client,
             )
+
+        # Graceful degradation: excerpts produced with verification_skipped flag
+        assert len(result.excerpts) > 0
+        assert any("verification_skipped" in e.review_flags for e in result.excerpts)
+        assert any("CONSENSUS_FAILED" in err for err in result.errors)
 
     def test_multi_chunk_processing(self) -> None:
         """Multiple chunks → all processed, excerpts collected."""

@@ -189,7 +189,7 @@ class TestGroupChunk:
         assert "Segment 0:" in user_msg
         assert "Segment 1:" in user_msg
 
-    def test_max_retries_zero(self) -> None:
+    def test_max_retries_two(self) -> None:
         segments = _make_two_segments()
         er = _make_valid_extraction_result(segments)
         client = _make_mock_instructor_client(return_value=er)
@@ -199,7 +199,7 @@ class TestGroupChunk:
         group_chunk(chunk, segments, client, config)
 
         call_kwargs = client.chat.completions.create.call_args
-        assert call_kwargs.kwargs["max_retries"] == 0
+        assert call_kwargs.kwargs["max_retries"] == 2
 
     def test_error_feedback_in_user_message(self) -> None:
         segments = _make_two_segments()
