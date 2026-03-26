@@ -182,7 +182,7 @@ class TestPhase3Orchestrator:
         # Graceful degradation: excerpts produced with verification_skipped flag
         assert len(result.excerpts) > 0
         assert any("verification_skipped" in e.review_flags for e in result.excerpts)
-        assert any("CONSENSUS_FAILED" in err for err in result.errors)
+        assert ExcerptingErrorCodes.EX_M_011 in result.errors
 
     def test_multi_chunk_processing(self) -> None:
         """Multiple chunks → all processed, excerpts collected."""

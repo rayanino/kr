@@ -489,14 +489,65 @@ def run_pipeline(
         chunks, _validation_results = run_phase1(package, config)
     except Exception as exc:
         if mock:
-            # In mock mode, Phase 1 validation failures on experimental packages
-            # are expected. Log and continue with an empty run to test file writing.
             logger.warning(
-                "Phase 1 validation failed in mock mode (expected for "
-                "experimental packages): %s", exc,
+                "Phase 1 validation failed in mock mode — generating "
+                "synthetic chunks for infrastructure testing: %s", exc,
             )
             all_errors.append(f"phase1_validation: {exc}")
+            # Generate synthetic chunks so mock mode exercises Phases 2-3
+            from engines.excerpting.contracts import (
+                AssembledChunk,
+                AssemblyMetadata,
+            )
+            from engines.normalization.contracts import (
+                ContentFlags,
+                LayerType,
+                PhysicalPage,
+                StructuralFormat,
+                TextLayerSegment,
+            )
             chunks = []
+            for i, unit in enumerate(package.content_units[:5]):
+                text = unit.primary_text
+                words = text.split()
+                chunk = AssembledChunk(
+                    chunk_id=f"synthetic_{i}",
+                    source_id=package.manifest.source_id,
+                    div_id=f"div_synthetic_{i}",
+                    div_path=["synthetic"],
+                    assembled_text=text,
+                    total_tokens=len(words),
+                    word_count=len(words),
+                    text_layers=[
+                        TextLayerSegment(
+                            layer_type=LayerType.MATN,
+                            author_canonical_id=None,
+                            start=0,
+                            end=len(text),
+                            confidence=1.0,
+                        )
+                    ],
+                    content_flags=ContentFlags(),
+                    physical_pages=[
+                        PhysicalPage(
+                            volume=1,
+                            page_number_display=str(i + 1),
+                            page_number_int=i + 1,
+                        )
+                    ],
+                    structural_format=StructuralFormat.PROSE,
+                    heading_alignment_ok=True,
+                    assembly_metadata=AssemblyMetadata(
+                        constituent_unit_indices=[i],
+                        join_points=[],
+                        layer_split_points=[],
+                        footnote_renumber_map=None,
+                    ),
+                    merge_history=None,
+                    split_info=None,
+                )
+                chunks.append(chunk)
+            logger.info("Generated %d synthetic chunks for mock mode", len(chunks))
         else:
             logger.error("Phase 1 failed: %s", exc)
             all_errors.append(f"phase1_fatal: {exc}")

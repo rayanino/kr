@@ -717,6 +717,7 @@ class ExcerptingErrorCodes:
     EX_M_008 = "EX-M-008"  # Gate entry not written (CRITICAL)
     EX_M_009 = "EX-M-009"  # Footnote offset outside excerpt range
     EX_M_010 = "EX-M-010"  # Unknown content type
+    EX_M_011 = "EX-M-011"  # Consensus verification failed
 
     # Validation (EX-V-*)
     EX_V_001 = "EX-V-001"  # Phase 1 self-validation failed

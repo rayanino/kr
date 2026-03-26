@@ -154,7 +154,7 @@ def run_phase3(
             logger.error(
                 "Consensus verification failed — degrading to enrichment-only: %s", exc,
             )
-            result.errors.append(f"CONSENSUS_FAILED: {exc}")
+            result.errors.append(ExcerptingErrorCodes.EX_M_011)
             flagged = []
             for e in all_excerpts:
                 flags = list(e.review_flags)
