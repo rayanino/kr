@@ -501,7 +501,114 @@ def scan_recent_changes() -> list[TaskDef]:
 
 
 # ---------------------------------------------------------------------------
-# Scanner 9: Knowledge Integrity Probes (T-1 through T-7)
+# Scanner 9: Empirical Validations (Defense 1A data collection)
+# ---------------------------------------------------------------------------
+
+
+def scan_empirical_validations() -> list[TaskDef]:
+    """Check if empirical validation scans need to run."""
+    tasks: list[TaskDef] = []
+
+    script = PROJECT_DIR / "scripts" / "empirical_backrefs.py"
+    if not script.exists():
+        return tasks
+
+    result_file = PROJECT_DIR / "overnight" / "results" / "empirical-backrefs" / "scan.json"
+    age = _file_age_hours(result_file)
+
+    # Run if result doesn't exist or is > 24h old
+    if age is None or age > 24:
+        tasks.append(TaskDef(
+            task_id="empirical-backrefs",
+            name="Empirical scan: Arabic back-reference patterns in fixtures (Defense 1A)",
+            category="validation",
+            prompt=(
+                "Run the empirical back-reference scanner:\n"
+                "  python scripts/empirical_backrefs.py "
+                "--output overnight/results/empirical-backrefs/scan.json\n\n"
+                "Read the output and write a brief interpretation to "
+                "overnight/results/empirical-backrefs/summary.md:\n"
+                "- Which patterns had the most hits?\n"
+                "- Is the hit rate sufficient to justify building Defense 1A?\n"
+                "- What is the recommended decision (PROCEED or SKIP)?"
+            ),
+            safety_level="readonly",
+            execution_mode="cli",
+            model="sonnet",
+            max_budget_usd=2.0,
+            timeout_minutes=15,
+            priority=1,
+            max_turns=15,
+            allowed_tools=["Bash", "Read"],
+        ))
+
+    return tasks
+
+
+# ---------------------------------------------------------------------------
+# Scanner 10: Model Research (NEXT.md research tasks)
+# ---------------------------------------------------------------------------
+
+
+def scan_model_research() -> list[TaskDef]:
+    """Detect if model role assignment research is needed."""
+    tasks: list[TaskDef] = []
+
+    next_md = PROJECT_DIR / "NEXT.md"
+    if not next_md.exists():
+        return tasks
+
+    next_content = next_md.read_text(encoding="utf-8", errors="replace")
+    if "Model Role Assignment Research" not in next_content:
+        return tasks
+
+    # Check if contracts.py still has stale model strings
+    contracts = PROJECT_DIR / "engines" / "excerpting" / "contracts.py"
+    if contracts.exists():
+        contracts_content = contracts.read_text(encoding="utf-8", errors="replace")
+        has_stale = "gpt-4.1" in contracts_content or "command-a" in contracts_content
+        if not has_stale:
+            return tasks  # Already updated
+
+    # Check if research was already done recently
+    findings = PROJECT_DIR / "overnight" / "results" / "model-research" / "findings.md"
+    age = _file_age_hours(findings)
+    if age is not None and age < 24:
+        return tasks  # Recent findings exist
+
+    tasks.append(TaskDef(
+        task_id="model-research",
+        name="Model role assignment research: compare Opus 4.6 / GPT-5.4 / Gemini 3.1 Pro",
+        category="research",
+        prompt=(
+            "Execute the model role assignment research defined in NEXT.md Task 1.\n\n"
+            "You are the model-researcher agent. Follow your research protocol:\n"
+            "1. Load context: NEXT.md, contracts.py:749-761, SPEC.md §7.3\n"
+            "2. Run 8-10+ web searches for Arabic capability benchmarks per model\n"
+            "3. Evaluate each model for Primary, Verifier, and Escalation roles\n"
+            "4. Design an empirical probe with 3 specific chunks\n"
+            "5. Write structured findings to overnight/results/model-research/findings.md\n\n"
+            "The different-provider requirement means Primary and Verifier MUST be "
+            "from different providers (SPEC §7.3).\n"
+            "All models must be available on OpenRouter.\n"
+            "Cite specific URLs and benchmark data for every claim."
+        ),
+        safety_level="readonly",
+        execution_mode="cli",
+        agent="model-researcher",
+        model="opus",
+        max_budget_usd=15.0,
+        timeout_minutes=45,
+        priority=3,
+        max_turns=40,
+        allowed_tools=["Read", "Grep", "Glob", "WebSearch", "WebFetch", "Bash"],
+    ))
+
+    return tasks
+
+
+# ---------------------------------------------------------------------------
+# Scanner 11: Knowledge Integrity Probes (T-1 through T-7)
 # ---------------------------------------------------------------------------
 
 
@@ -687,6 +794,8 @@ def generate_manifest(output_path: Path | None = None, dry_run: bool = False) ->
         ("Contract Boundaries", scan_contract_boundaries),
         ("Known Limitations", scan_known_limitations),
         ("Documentation", scan_documentation),
+        ("Empirical Validations", scan_empirical_validations),
+        ("Model Research", scan_model_research),
     ]
 
     for name, scanner_fn in scanners:
@@ -698,13 +807,19 @@ def generate_manifest(output_path: Path | None = None, dry_run: bool = False) ->
         except Exception as e:
             print(f"  {name}: FAILED ({e})")
 
-    # Category enforcement — hardening only, no implementation or research
-    ALLOWED_CATEGORIES = {"review", "test", "validation", "spec", "doc", "code_quality", "verification"}
+    # Category enforcement — hardening + readonly research, no implementation
+    ALLOWED_CATEGORIES = {"review", "test", "validation", "spec", "doc", "code_quality", "verification", "research"}
     rejected = [t for t in all_tasks if t.category not in ALLOWED_CATEGORIES]
     if rejected:
         for t in rejected:
             print(f"  REJECTED (category '{t.category}'): {t.task_id}")
         all_tasks = [t for t in all_tasks if t.category in ALLOWED_CATEGORIES]
+
+    # Safety net: ensure all tasks have a non-zero budget cap
+    for t in all_tasks:
+        if t.max_budget_usd <= 0:
+            print(f"  WARNING: {t.task_id} has max_budget_usd={t.max_budget_usd}, defaulting to 5.0")
+            t.max_budget_usd = 5.0
 
     # Auto-append Codex verifications
     all_tasks = add_codex_verifications(all_tasks)

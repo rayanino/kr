@@ -70,6 +70,31 @@ Read the active engine's CLAUDE.md for current state.
 Follow all rules in CLAUDE.md and .claude/rules/*.
 """
 
+OVERNIGHT_RESEARCH_PROMPT = """OVERNIGHT AUTONOMOUS MODE — KR Pipeline Project — RESEARCH TASK.
+You are executing a research task in the overnight autonomous system.
+
+ABSOLUTE RULES — SAFETY:
+- NEVER modify any source code files (engines/*/src/, shared/*/src/)
+- NEVER create new files under engines/*/src/
+- NEVER modify .claude/settings.json
+- NEVER run git push or git commit
+- NEVER delete any file or directory
+- There is no human present — do not ask questions
+- Write ALL output to overnight/results/{TASK_ID}/
+
+RESEARCH RULES:
+- Your job is to RESEARCH AND DOCUMENT, not to implement or modify code
+- Use web search extensively — minimum 8 searches per major research question
+- Cite specific URLs, version numbers, benchmark scores for every claim
+- If you cannot find evidence, say so explicitly — never guess or hallucinate
+- All recommendations must include exact implementation steps for the next session
+- Write a structured findings document to overnight/results/{TASK_ID}/findings.md
+
+Read overnight/progress.md for context on what has been done tonight.
+Read NEXT.md for the research questions to answer.
+Follow all rules in CLAUDE.md and .claude/rules/*.
+"""
+
 # ---------------------------------------------------------------------------
 # Data models
 # ---------------------------------------------------------------------------
@@ -131,6 +156,27 @@ class OvernightState:
     tasks_skipped: int = 0
     tasks_rolled_back: int = 0
     results: dict[str, dict[str, Any]] = field(default_factory=dict)
+
+
+# ---------------------------------------------------------------------------
+# Codex CLI detection
+# ---------------------------------------------------------------------------
+
+
+def _find_codex() -> str | None:
+    """Find Codex CLI, checking common Windows npm global locations."""
+    found = shutil.which("codex")
+    if found:
+        return found
+    if sys.platform == "win32":
+        for candidate in [
+            Path(os.environ.get("APPDATA", "")) / "npm" / "codex.cmd",
+            Path(os.environ.get("LOCALAPPDATA", "")) / "npm" / "codex.cmd",
+            Path.home() / "AppData" / "Roaming" / "npm" / "codex.cmd",
+        ]:
+            if candidate.exists():
+                return str(candidate)
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -422,11 +468,14 @@ def preflight_checks() -> None:
             break
 
     # Codex CLI availability (L5 quality gate)
-    if not shutil.which("codex"):
+    codex_path = _find_codex()
+    if not codex_path:
         os.environ["KR_SKIP_CODEX"] = "1"
         print("  [info] Codex CLI not found — L5 verification disabled for this run")
     else:
         os.environ.pop("KR_SKIP_CODEX", None)
+        os.environ["KR_CODEX_PATH"] = codex_path
+        print(f"  [info] Codex CLI found at {codex_path}")
 
     # Disk space (need at least 500MB free)
     # Simple check via df on Windows/bash
@@ -464,8 +513,11 @@ def execute_task(task: TaskDef) -> TaskResult:
     task_results_dir = OVERNIGHT_DIR / "results" / task.task_id
     task_results_dir.mkdir(parents=True, exist_ok=True)
 
-    # Replace {TASK_ID} in safety prompt
-    safety_prompt = OVERNIGHT_SAFETY_PROMPT.replace("{TASK_ID}", task.task_id)
+    # Select safety prompt based on task category
+    if task.category == "research":
+        safety_prompt = OVERNIGHT_RESEARCH_PROMPT.replace("{TASK_ID}", task.task_id)
+    else:
+        safety_prompt = OVERNIGHT_SAFETY_PROMPT.replace("{TASK_ID}", task.task_id)
 
     try:
         if task.execution_mode == "codex":
@@ -515,8 +567,9 @@ def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
         cmd += ["--agent", task.agent]
     if task.allowed_tools:
         cmd += ["--allowedTools", ",".join(task.allowed_tools)]
-    if task.max_budget_usd > 0:
-        cmd += ["--max-budget-usd", str(task.max_budget_usd)]
+    # Always pass budget cap — defense-in-depth: $5 minimum even if manifest says 0
+    effective_budget = task.max_budget_usd if task.max_budget_usd > 0 else 5.0
+    cmd += ["--max-budget-usd", str(effective_budget)]
     if task.max_turns > 0:
         cmd += ["--max-turns", str(task.max_turns)]
 
@@ -569,8 +622,9 @@ def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
 def _execute_codex(task: TaskDef, results_dir: Path) -> TaskResult:
     """Execute via Codex CLI — independent verification. NEVER for Arabic content."""
     output_file = results_dir / "codex_output.md"
+    codex_bin = os.environ.get("KR_CODEX_PATH", "codex")
     cmd = [
-        "codex", "exec", "--full-auto",
+        codex_bin, "exec", "--full-auto",
         "--output-last-message", str(output_file),
         *task.codex_flags,
         task.prompt,
@@ -743,7 +797,7 @@ def run_codex_verification(task: TaskDef) -> dict[str, Any]:
 
     try:
         result = subprocess.run(
-            ["codex", "exec", "--full-auto",
+            [os.environ.get("KR_CODEX_PATH", "codex"), "exec", "--full-auto",
              "--output-last-message", str(output_file),
              review_prompt],
             capture_output=True, text=True, timeout=300,
