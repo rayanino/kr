@@ -54,7 +54,7 @@
       "Bash(sudo rm:*)",
       "Read(.env)"
     ],
-    "defaultMode": "acceptEdits"
+    "defaultMode": "bypassPermissions"
   },
   "hooks": {
     "PreToolUse": [

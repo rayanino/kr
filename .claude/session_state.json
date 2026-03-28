@@ -1,22 +1,20 @@
 {
-  "timestamp": "2026-03-28T18:24:09.467060+00:00",
+  "timestamp": "2026-03-28T23:19:51.044043+00:00",
   "branch": "master",
-  "active_engine": null,
+  "active_engine": "excerpting",
   "active_spec_section": null,
-  "last_committed_file": "overnight/sprint_manifest.json",
+  "last_committed_file": "scripts/overnight_orchestrator.py",
   "active_plan": null,
   "modified_files": [
-    ".claude/rules/session-discipline.md",
     ".claude/session_state.json",
-    ".gitignore",
-    "overnight/.overnight.lock",
-    "overnight/progress.md",
-    "scripts/run_integration_test.py",
-    "scripts/run_pipeline.py"
+    ".claude/settings.json",
+    "overnight/.heartbeat",
+    "overnight/weekend_state.json",
+    "overnight/write_orchestrator_output.log"
   ],
-  "uncommitted_summary": ".claude/rules/session-discipline.md |  1 +\n .claude/session_state.json          | 17 ++++++++-----\n .gitignore                          |  7 +++++\n overnight/.overnight.lock           |  1 -\n overnight/progress.md               |  4 ++-\n scripts/run_integration_test.py     | 50 ++++++++++++++++++++++++++++++++++++\n scripts/run_pipeline.py             | 51 ++++++++++++++++++++++++++++++++++---\n 7 files changed, 119 insertions(+), 12 deletions(-)",
-  "next_md_head": "# NEXT — Timeout Fix + 5-Book Overnight Run Preparation\n\n## Current Position\n\n- **Baseline:** 800 tests passing, 2 skipped (766 excerpting + 34 adapter)\n- **Commit:** `602964d8` (encoding fix) — HEAD is `87c2809b` (this NEXT.md)\n- **Engine:** Excerpting — CLI adapter WORKING\n- **Milestone:** First real CLI integration test succeeded: 23 excerpts, 0 errors, $0 cost (شرح ابن عقيل, 2 chunks)\n- **Blocking issue:** Large chunks (4,936 words) timeout at 120s — must fix before 5-book run\n\n## What Just Happened\n\nThe CLI adapter was implemented, reviewed (3-pass + CC concurrent), and fixed through 3 rounds:\n1. **4 SPEC divergences** fixed (envelope extraction, extract_json return type, missing WARNING log, empty system prompt)\n2. **Windows encoding** fixed (subprocess.run needs `encoding=\"utf-8\"` — cp1252 crashes on Arabic)",
-  "recent_commits": "bf390075 weekend: fix(sprint): $25 budget, skip L5/L6 reviews, dashboard, state fix\nb52d71aa weekend: test(shared/scholar_authority): 19 edge-case tests for name matching\n5e34b9dc weekend: test(shared/consensus): 12 edge-case tests for evaluate() and _call_model\na9f7262e overnight: initialize overnight session\n02493b9d docs: next session prompt for timeout fix + 5-book run prep",
+  "uncommitted_summary": ".claude/session_state.json              |  22 ++-\n .claude/settings.json                   |   2 +-\n overnight/.heartbeat                    |  14 +-\n overnight/weekend_state.json            | 237 +++++++++++++++++++++++++-------\n overnight/write_orchestrator_output.log |  30 ++++\n 5 files changed, 234 insertions(+), 71 deletions(-)",
+  "next_md_head": "# NEXT — Harden Overnight Sprint System for Unmonitored Operation\n\n## Context\n\nThe overnight sprint system (`scripts/weekend_parallel.py` + `scripts/overnight_orchestrator.py`) ran on 2026-03-28 and completed 24/27 readonly tasks but **zero** write tasks. The write orchestrator circuit-breaker triggered after 3 consecutive test-generation timeouts, killing 48 queued tasks. Full diagnosis: `overnight/DIAGNOSIS.md`.\n\n**Goal:** Make this system trustworthy enough to run 8-20 hours completely unmonitored — sleep, leave the house, come back to useful work done.\n\n## Architecture Files (read these first)\n\n| File | Lines | Purpose |\n|------|-------|---------|\n| `scripts/weekend_parallel.py` | 519 | Parallel coordinator — 3 readonly workers + write orchestrator subprocess |\n| `scripts/overnight_orchestrator.py` | 1689 | Sequential write task executor with quality gates, circuit breaker, dependency DAG |\n| `scripts/overnight_task_generator.py` | 878 | 9 scanners that discover hardening tasks from codebase state |",
+  "recent_commits": "8e57f555 fix(overnight): harden sprint system â€” smart breaker, resume, health monitoring\n96cbe175 governance: cross-provider review team â€” non-negotiable rule with S28 proof\n9d44ae6c docs: restore overnight hardening directive to NEXT.md\nf1dd9e7e fix(contracts): add unit_index uniqueness validators to EnrichmentResult + ExtractionResult\n8d7cad75 BLOCKING: NEXT.md â€” unit_index uniqueness validator required before overnight run",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",

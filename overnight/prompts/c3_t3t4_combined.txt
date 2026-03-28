@@ -1,0 +1,41 @@
+You are generating adversarial test data for an Arabic scholarly text processing pipeline. Generate samples for TWO threat types.
+
+PART 1: T-3 Taxonomic Misplacement (3 samples)
+Generate Arabic scholarly excerpts where a concept exists in MULTIPLE Islamic sciences, and the text discusses it in one science but uses terminology common to another. A naive keyword-based classifier would place it in the WRONG science.
+
+Examples:
+- نية (niyyah/intention): exists in عبادات (worship) AND معاملات (contracts) AND جنايات (criminal law)
+- طهارة (tahara/purity): exists in فقه العبادات AND طب (medicine, ritual purity vs medical hygiene)
+- شهادة (shahada): exists in عقيدة (creed) AND قضاء (judicial testimony)
+
+JSON format per sample:
+{
+  "id": "T3-001",
+  "threat": "T-3",
+  "text_arabic": "...(Arabic scholarly text discussing the concept)...",
+  "actual_science": "...(the correct science this belongs to)...",
+  "misleading_science": "...(what a naive classifier would pick)...",
+  "misleading_keywords": ["...", "..."],
+  "disambiguation_signal": "...(what in the text reveals the correct science)...",
+  "correct_placement": "...",
+  "incorrect_placement": "..."
+}
+
+PART 2: T-4 Context Loss (3 samples)
+Generate Arabic scholarly texts where a legal ruling depends on a condition stated 3+ paragraphs earlier. The ruling paragraph uses a back-reference (كما تقدم, كما ذكرنا, كما سبق) but does NOT restate the condition inline.
+
+JSON format per sample:
+{
+  "id": "T4-001",
+  "threat": "T-4",
+  "full_text": "...(4-5 paragraphs, condition in para 1, ruling in para 4)...",
+  "condition_paragraph": 1,
+  "condition_text": "...(the specific condition)...",
+  "ruling_paragraph": 4,
+  "ruling_text": "...(the ruling that depends on the condition)...",
+  "back_reference_phrase": "كما تقدم|كما ذكرنا|كما سبق",
+  "if_excerpted_alone": "...(what a reader understands without the condition — meaningless or misleading)...",
+  "correct_behavior": "Either include condition paragraph in excerpt, or supply it in self_containment_context field"
+}
+
+Output ONLY a JSON array of 6 objects (3 T-3 + 3 T-4). Real Arabic scholarly text only.

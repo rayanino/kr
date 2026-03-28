@@ -1,0 +1,30 @@
+=== KR Overnight Orchestrator v2 ===
+Project: C:\Users\Rayane\Desktop\kr
+Duration: 18.0 hours
+Max cost: $25.0
+
+  [info] Codex CLI found at C:\Users\Rayane\AppData\Roaming\npm\codex.CMD
+  [info] Gemini CLI found at C:\Users\Rayane\AppData\Roaming\npm\gemini.CMD
+Pre-flight checks passed.
+Loaded 51 tasks from C:\Users\Rayane\Desktop\kr\overnight\sprint_write_manifest.json
+
+Starting execution. Deadline: 13:18 UTC
+============================================================
+
+>>> [2] test-consensus-edge-cases: Edge case test suite for shared/consensus module
+    Mode: cli | Model: sonnet | Safety: additive
+    TIMEOUT: Task exceeded 25 minute timeout
+
+>>> [2] test-scholar-name-edge: Edge case test suite for scholar name matching
+    Mode: cli | Model: sonnet | Safety: additive
+    TIMEOUT: Task exceeded 20 minute timeout
+
+>>> [2] test-validation-passthrough: Test suite for shared/validation D-023 passthrough enforcement
+    Mode: cli | Model: sonnet | Safety: additive
+    TIMEOUT: Task exceeded 20 minute timeout
+Morning report written to C:\Users\Rayane\Desktop\kr\overnight\MORNING_REPORT.md
+
+============================================================
+Overnight session stopped.
+Tasks: 0 completed, 3 failed, 0 skipped, 0 rolled back
+Report: C:\Users\Rayane\Desktop\kr\overnight\MORNING_REPORT.md

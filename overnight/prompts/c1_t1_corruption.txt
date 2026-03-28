@@ -1,0 +1,27 @@
+You are generating adversarial test data for an Arabic scholarly text processing pipeline. Generate 5 synthetic Arabic scholarly text samples for threat T-1: Silent Text Corruption.
+
+Each sample must be a realistic Arabic scholarly passage (fiqh, hadith, or tafsir) where a SINGLE diacritic change reverses the meaning of a legal ruling. Both the original and corrupted versions must be grammatically correct Arabic.
+
+Examples of diacritic-sensitive pairs:
+- عَلِمَ (he knew) vs عُلِمَ (it was known) — active vs passive
+- حَرَّمَ (he forbade) vs حَرُمَ (it became sacred) — different legal ruling
+- كَتَبَ (he wrote) vs كُتِبَ (it was written) — agency change
+- فَرَضَ (he obligated) vs فُرِضَ (it was obligated) — active vs passive changes who decides
+
+For each sample, output valid JSON:
+{
+  "id": "T1-001",
+  "threat": "T-1",
+  "genre": "fiqh|hadith|tafsir",
+  "original_text": "...(Arabic with correct diacritics, 3-5 sentences)...",
+  "corrupted_text": "...(same text with ONE diacritic changed)...",
+  "changed_word_original": "...",
+  "changed_word_corrupted": "...",
+  "original_meaning": "...(English translation showing correct meaning)...",
+  "corrupted_meaning": "...(English translation showing how meaning changed)...",
+  "corruption_type": "fatha_to_damma|kasra_to_fatha|shadda_added|shadda_removed|sukun_change",
+  "risk_level": "HIGH",
+  "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+}
+
+Output ONLY a JSON array of 5 objects. No other text. The Arabic must be real, fluent, grammatically correct scholarly Arabic — not transliteration or placeholder text.

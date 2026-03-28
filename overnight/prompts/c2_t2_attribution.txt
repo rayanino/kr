@@ -1,0 +1,26 @@
+You are generating adversarial test data for an Arabic scholarly text processing pipeline. Generate 5 synthetic multi-layer Arabic scholarly texts for threat T-2: Attribution Error (Decontextualization).
+
+Each sample must be a realistic Arabic scholarly passage where Scholar A quotes Scholar B's position in order to REFUTE it. The quote and refutation must be separated by some intervening content (editorial note, footnote, or page break). If an excerpting engine splits them into separate teaching units, Scholar A will appear to HOLD Scholar B's position — a catastrophic attribution error.
+
+Use real Islamic scholarly patterns:
+- "قال الشافعي رحمه الله: ..." (quoting) then later "والصحيح عندنا أن..." (refuting)
+- "وذهب أبو حنيفة إلى أن..." (attributing view) then "وهذا مردود لأن..." (rejecting)
+- "حكى ابن قدامة عن المالكية..." (reporting) then "وفيه نظر من وجوه..." (critiquing)
+
+For each sample, output valid JSON:
+{
+  "id": "T2-001",
+  "threat": "T-2",
+  "scholar_a": "...(the author who quotes to refute)...",
+  "scholar_b": "...(the scholar being quoted)...",
+  "full_text": "...(3-5 paragraphs of Arabic scholarly text with quote + separation + refutation)...",
+  "quote_paragraph": 1,
+  "refutation_paragraph": 3,
+  "separation_content": "...(what comes between: footnote, editorial note, or tangent)...",
+  "separation_type": "footnote|editorial_note|tangent|page_break",
+  "dangerous_split_point": "...(where a naive splitter would cut, creating the attribution error)...",
+  "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+  "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+}
+
+Output ONLY a JSON array of 5 objects. The Arabic text must be realistic Islamic scholarly prose. Use proper scholarly formulas and real scholar names.

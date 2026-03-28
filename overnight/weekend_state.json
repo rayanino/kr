@@ -1,118 +1,253 @@
 {
-  "started_at": "2026-03-28T16:53:39.745575+00:00",
-  "readonly_completed": 10,
-  "readonly_failed": 2,
+  "started_at": "2026-03-28T19:16:31.440894+00:00",
+  "readonly_completed": 24,
+  "readonly_failed": 3,
   "write_completed": 0,
   "write_failed": 0,
   "active_workers": {},
   "results": [
     {
+      "task_id": "contract-sync-audit",
+      "status": "success",
+      "duration_s": 685.3,
+      "error": "",
+      "worker": "readonly-2",
+      "start_time": "2026-03-28T19:16:31.459723+00:00",
+      "end_time": "2026-03-28T19:27:56.753739+00:00"
+    },
+    {
       "task_id": "audit-spec-taxonomy",
       "status": "success",
-      "duration_s": 560.4,
+      "duration_s": 704.1,
       "error": "",
       "worker": "readonly-1",
-      "start_time": "2026-03-28T16:53:39.757889+00:00",
-      "end_time": "2026-03-28T17:03:00.164114+00:00"
+      "start_time": "2026-03-28T19:16:31.453944+00:00",
+      "end_time": "2026-03-28T19:28:15.596949+00:00"
     },
     {
       "task_id": "audit-spec-synthesis",
       "status": "success",
-      "duration_s": 936.8,
+      "duration_s": 758.8,
       "error": "",
       "worker": "readonly-0",
-      "start_time": "2026-03-28T16:53:39.757676+00:00",
-      "end_time": "2026-03-28T17:09:16.594758+00:00"
-    },
-    {
-      "task_id": "contract-sync-audit",
-      "status": "timeout",
-      "duration_s": 1800.1,
-      "error": "Exceeded 30m timeout",
-      "worker": "readonly-2",
-      "start_time": "2026-03-28T16:53:39.758148+00:00",
-      "end_time": "2026-03-28T17:23:39.866430+00:00"
-    },
-    {
-      "task_id": "core-extract-taxonomy",
-      "status": "success",
-      "duration_s": 739.3,
-      "error": "",
-      "worker": "readonly-1",
-      "start_time": "2026-03-28T17:23:39.868760+00:00",
-      "end_time": "2026-03-28T17:35:59.192585+00:00"
-    },
-    {
-      "task_id": "core-extract-synthesis",
-      "status": "success",
-      "duration_s": 771.0,
-      "error": "",
-      "worker": "readonly-0",
-      "start_time": "2026-03-28T17:23:39.868929+00:00",
-      "end_time": "2026-03-28T17:36:30.892302+00:00"
+      "start_time": "2026-03-28T19:16:31.453629+00:00",
+      "end_time": "2026-03-28T19:29:10.255765+00:00"
     },
     {
       "task_id": "audit-stale-artifacts",
-      "status": "timeout",
-      "duration_s": 1200.1,
-      "error": "Exceeded 20m timeout",
+      "status": "success",
+      "duration_s": 694.5,
+      "error": "",
       "worker": "readonly-2",
-      "start_time": "2026-03-28T17:23:39.868860+00:00",
-      "end_time": "2026-03-28T17:43:39.943636+00:00"
+      "start_time": "2026-03-28T19:29:10.259203+00:00",
+      "end_time": "2026-03-28T19:40:44.792558+00:00"
     },
     {
-      "task_id": "boundary-norm-excerpting",
-      "status": "success",
-      "duration_s": 595.6,
-      "error": "",
+      "task_id": "core-extract-taxonomy",
+      "status": "timeout",
+      "duration_s": 1500.1,
+      "error": "Exceeded 25m timeout",
+      "worker": "readonly-1",
+      "start_time": "2026-03-28T19:29:10.259046+00:00",
+      "end_time": "2026-03-28T19:54:10.337396+00:00"
+    },
+    {
+      "task_id": "core-extract-synthesis",
+      "status": "timeout",
+      "duration_s": 1500.1,
+      "error": "Exceeded 25m timeout",
       "worker": "readonly-0",
-      "start_time": "2026-03-28T17:43:39.945813+00:00",
-      "end_time": "2026-03-28T17:53:35.544699+00:00"
+      "start_time": "2026-03-28T19:29:10.259294+00:00",
+      "end_time": "2026-03-28T19:54:10.345641+00:00"
     },
     {
       "task_id": "bughunt-exc-phase1-assembly",
       "status": "success",
-      "duration_s": 820.5,
+      "duration_s": 662.7,
       "error": "",
       "worker": "readonly-2",
-      "start_time": "2026-03-28T17:43:39.945985+00:00",
-      "end_time": "2026-03-28T17:57:20.414454+00:00"
+      "start_time": "2026-03-28T19:54:10.355660+00:00",
+      "end_time": "2026-03-28T20:05:13.036180+00:00"
+    },
+    {
+      "task_id": "boundary-norm-excerpting",
+      "status": "success",
+      "duration_s": 814.7,
+      "error": "",
+      "worker": "readonly-0",
+      "start_time": "2026-03-28T19:54:10.355475+00:00",
+      "end_time": "2026-03-28T20:07:45.031147+00:00"
     },
     {
       "task_id": "validation-spec-review",
       "status": "success",
-      "duration_s": 949.4,
+      "duration_s": 1000.1,
       "error": "",
       "worker": "readonly-1",
-      "start_time": "2026-03-28T17:43:39.945924+00:00",
-      "end_time": "2026-03-28T17:59:29.372015+00:00"
+      "start_time": "2026-03-28T19:54:10.355564+00:00",
+      "end_time": "2026-03-28T20:10:50.504141+00:00"
     },
     {
       "task_id": "bughunt-exc-phase2-group",
       "status": "success",
-      "duration_s": 833.0,
+      "duration_s": 973.6,
       "error": "",
       "worker": "readonly-1",
-      "start_time": "2026-03-28T17:59:29.373405+00:00",
-      "end_time": "2026-03-28T18:13:22.403263+00:00"
-    },
-    {
-      "task_id": "bughunt-exc-phase3-consensus",
-      "status": "success",
-      "duration_s": 862.3,
-      "error": "",
-      "worker": "readonly-2",
-      "start_time": "2026-03-28T17:59:29.373453+00:00",
-      "end_time": "2026-03-28T18:13:51.699948+00:00"
+      "start_time": "2026-03-28T20:10:50.507158+00:00",
+      "end_time": "2026-03-28T20:27:04.119849+00:00"
     },
     {
       "task_id": "bughunt-exc-phase2-classify",
       "status": "success",
-      "duration_s": 862.4,
+      "duration_s": 1163.8,
       "error": "",
       "worker": "readonly-0",
-      "start_time": "2026-03-28T17:59:29.373313+00:00",
-      "end_time": "2026-03-28T18:13:51.728337+00:00"
+      "start_time": "2026-03-28T20:10:50.506992+00:00",
+      "end_time": "2026-03-28T20:30:14.322064+00:00"
+    },
+    {
+      "task_id": "bughunt-exc-phase3-consensus",
+      "status": "success",
+      "duration_s": 1165.4,
+      "error": "",
+      "worker": "readonly-2",
+      "start_time": "2026-03-28T20:10:50.507090+00:00",
+      "end_time": "2026-03-28T20:30:15.931349+00:00"
+    },
+    {
+      "task_id": "bughunt-exc-phase3-enrichment",
+      "status": "success",
+      "duration_s": 949.2,
+      "error": "",
+      "worker": "readonly-1",
+      "start_time": "2026-03-28T20:30:16.061336+00:00",
+      "end_time": "2026-03-28T20:46:05.272118+00:00"
+    },
+    {
+      "task_id": "bughunt-exc-phase3-deterministic",
+      "status": "success",
+      "duration_s": 976.1,
+      "error": "",
+      "worker": "readonly-0",
+      "start_time": "2026-03-28T20:30:16.061136+00:00",
+      "end_time": "2026-03-28T20:46:32.156326+00:00"
+    },
+    {
+      "task_id": "bughunt-exc-phase3-validation",
+      "status": "timeout",
+      "duration_s": 1800.2,
+      "error": "Exceeded 30m timeout",
+      "worker": "readonly-2",
+      "start_time": "2026-03-28T20:30:16.061521+00:00",
+      "end_time": "2026-03-28T21:00:16.247615+00:00"
+    },
+    {
+      "task_id": "bughunt-norm-base-normalizer",
+      "status": "success",
+      "duration_s": 631.7,
+      "error": "",
+      "worker": "readonly-1",
+      "start_time": "2026-03-28T21:00:16.252248+00:00",
+      "end_time": "2026-03-28T21:10:47.938277+00:00"
+    },
+    {
+      "task_id": "bughunt-exc-writer",
+      "status": "success",
+      "duration_s": 986.9,
+      "error": "",
+      "worker": "readonly-0",
+      "start_time": "2026-03-28T21:00:16.252157+00:00",
+      "end_time": "2026-03-28T21:16:43.131058+00:00"
+    },
+    {
+      "task_id": "bughunt-norm-boundary-continuity",
+      "status": "success",
+      "duration_s": 1260.8,
+      "error": "",
+      "worker": "readonly-2",
+      "start_time": "2026-03-28T21:00:16.252405+00:00",
+      "end_time": "2026-03-28T21:21:17.078593+00:00"
+    },
+    {
+      "task_id": "bughunt-norm-dispatcher",
+      "status": "success",
+      "duration_s": 589.7,
+      "error": "",
+      "worker": "readonly-2",
+      "start_time": "2026-03-28T21:21:17.081572+00:00",
+      "end_time": "2026-03-28T21:31:06.815983+00:00"
+    },
+    {
+      "task_id": "bughunt-norm-content-census",
+      "status": "success",
+      "duration_s": 643.8,
+      "error": "",
+      "worker": "readonly-0",
+      "start_time": "2026-03-28T21:21:17.081516+00:00",
+      "end_time": "2026-03-28T21:32:00.851239+00:00"
+    },
+    {
+      "task_id": "bughunt-norm-content-flagger",
+      "status": "success",
+      "duration_s": 793.3,
+      "error": "",
+      "worker": "readonly-1",
+      "start_time": "2026-03-28T21:21:17.081385+00:00",
+      "end_time": "2026-03-28T21:34:30.396880+00:00"
+    },
+    {
+      "task_id": "bughunt-norm-layer-detector",
+      "status": "success",
+      "duration_s": 743.8,
+      "error": "",
+      "worker": "readonly-1",
+      "start_time": "2026-03-28T21:34:30.399090+00:00",
+      "end_time": "2026-03-28T21:46:54.229800+00:00"
+    },
+    {
+      "task_id": "bughunt-norm-errors",
+      "status": "success",
+      "duration_s": 784.3,
+      "error": "",
+      "worker": "readonly-0",
+      "start_time": "2026-03-28T21:34:30.398928+00:00",
+      "end_time": "2026-03-28T21:47:34.691912+00:00"
+    },
+    {
+      "task_id": "bughunt-norm-plain-text",
+      "status": "success",
+      "duration_s": 857.8,
+      "error": "",
+      "worker": "readonly-2",
+      "start_time": "2026-03-28T21:34:30.399175+00:00",
+      "end_time": "2026-03-28T21:48:48.211283+00:00"
+    },
+    {
+      "task_id": "bughunt-norm-validation",
+      "status": "success",
+      "duration_s": 734.5,
+      "error": "",
+      "worker": "readonly-2",
+      "start_time": "2026-03-28T21:48:48.214224+00:00",
+      "end_time": "2026-03-28T22:01:02.692452+00:00"
+    },
+    {
+      "task_id": "bughunt-norm-structure-discovery",
+      "status": "success",
+      "duration_s": 734.5,
+      "error": "",
+      "worker": "readonly-1",
+      "start_time": "2026-03-28T21:48:48.214098+00:00",
+      "end_time": "2026-03-28T22:01:02.698919+00:00"
+    },
+    {
+      "task_id": "bughunt-norm-shamela",
+      "status": "success",
+      "duration_s": 734.7,
+      "error": "",
+      "worker": "readonly-0",
+      "start_time": "2026-03-28T21:48:48.213981+00:00",
+      "end_time": "2026-03-28T22:01:02.906924+00:00"
     }
   ]
 }

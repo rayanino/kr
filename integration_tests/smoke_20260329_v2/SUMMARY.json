@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-03-28T23:18:35.894214+00:00",
+  "output_dir": "integration_tests\\smoke_20260329_v2",
+  "packages": {
+    "ibn_aqil_v1": {
+      "excerpt_count": 10,
+      "error_count": 0,
+      "errors": [],
+      "time_seconds": 122.75,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ibn_aqil_v3": {
+      "excerpt_count": 25,
+      "error_count": 3,
+      "errors": [
+        "EX-M-005",
+        "EX-M-005",
+        "EX-M-005"
+      ],
+      "time_seconds": 336.87,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "taysir": {
+      "excerpt_count": 7,
+      "error_count": 0,
+      "errors": [],
+      "time_seconds": 109.69,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ext_39_masala": {
+      "excerpt_count": 17,
+      "error_count": 0,
+      "errors": [],
+      "time_seconds": 266.17,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ext_46_qa": {
+      "excerpt_count": 10,
+      "error_count": 0,
+      "errors": [],
+      "time_seconds": 867.01,
+      "cost_estimate": 0.0,
+      "status": "success"
+    }
+  },
+  "totals": {
+    "packages_run": 5,
+    "packages_succeeded": 5,
+    "packages_failed": 0,
+    "total_excerpts": 69,
+    "total_errors": 3,
+    "total_time_seconds": 1702.5,
+    "total_cost_estimate": 0.0
+  }
+}
