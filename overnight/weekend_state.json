@@ -1,0 +1,118 @@
+{
+  "started_at": "2026-03-28T16:53:39.745575+00:00",
+  "readonly_completed": 10,
+  "readonly_failed": 2,
+  "write_completed": 0,
+  "write_failed": 0,
+  "active_workers": {},
+  "results": [
+    {
+      "task_id": "audit-spec-taxonomy",
+      "status": "success",
+      "duration_s": 560.4,
+      "error": "",
+      "worker": "readonly-1",
+      "start_time": "2026-03-28T16:53:39.757889+00:00",
+      "end_time": "2026-03-28T17:03:00.164114+00:00"
+    },
+    {
+      "task_id": "audit-spec-synthesis",
+      "status": "success",
+      "duration_s": 936.8,
+      "error": "",
+      "worker": "readonly-0",
+      "start_time": "2026-03-28T16:53:39.757676+00:00",
+      "end_time": "2026-03-28T17:09:16.594758+00:00"
+    },
+    {
+      "task_id": "contract-sync-audit",
+      "status": "timeout",
+      "duration_s": 1800.1,
+      "error": "Exceeded 30m timeout",
+      "worker": "readonly-2",
+      "start_time": "2026-03-28T16:53:39.758148+00:00",
+      "end_time": "2026-03-28T17:23:39.866430+00:00"
+    },
+    {
+      "task_id": "core-extract-taxonomy",
+      "status": "success",
+      "duration_s": 739.3,
+      "error": "",
+      "worker": "readonly-1",
+      "start_time": "2026-03-28T17:23:39.868760+00:00",
+      "end_time": "2026-03-28T17:35:59.192585+00:00"
+    },
+    {
+      "task_id": "core-extract-synthesis",
+      "status": "success",
+      "duration_s": 771.0,
+      "error": "",
+      "worker": "readonly-0",
+      "start_time": "2026-03-28T17:23:39.868929+00:00",
+      "end_time": "2026-03-28T17:36:30.892302+00:00"
+    },
+    {
+      "task_id": "audit-stale-artifacts",
+      "status": "timeout",
+      "duration_s": 1200.1,
+      "error": "Exceeded 20m timeout",
+      "worker": "readonly-2",
+      "start_time": "2026-03-28T17:23:39.868860+00:00",
+      "end_time": "2026-03-28T17:43:39.943636+00:00"
+    },
+    {
+      "task_id": "boundary-norm-excerpting",
+      "status": "success",
+      "duration_s": 595.6,
+      "error": "",
+      "worker": "readonly-0",
+      "start_time": "2026-03-28T17:43:39.945813+00:00",
+      "end_time": "2026-03-28T17:53:35.544699+00:00"
+    },
+    {
+      "task_id": "bughunt-exc-phase1-assembly",
+      "status": "success",
+      "duration_s": 820.5,
+      "error": "",
+      "worker": "readonly-2",
+      "start_time": "2026-03-28T17:43:39.945985+00:00",
+      "end_time": "2026-03-28T17:57:20.414454+00:00"
+    },
+    {
+      "task_id": "validation-spec-review",
+      "status": "success",
+      "duration_s": 949.4,
+      "error": "",
+      "worker": "readonly-1",
+      "start_time": "2026-03-28T17:43:39.945924+00:00",
+      "end_time": "2026-03-28T17:59:29.372015+00:00"
+    },
+    {
+      "task_id": "bughunt-exc-phase2-group",
+      "status": "success",
+      "duration_s": 833.0,
+      "error": "",
+      "worker": "readonly-1",
+      "start_time": "2026-03-28T17:59:29.373405+00:00",
+      "end_time": "2026-03-28T18:13:22.403263+00:00"
+    },
+    {
+      "task_id": "bughunt-exc-phase3-consensus",
+      "status": "success",
+      "duration_s": 862.3,
+      "error": "",
+      "worker": "readonly-2",
+      "start_time": "2026-03-28T17:59:29.373453+00:00",
+      "end_time": "2026-03-28T18:13:51.699948+00:00"
+    },
+    {
+      "task_id": "bughunt-exc-phase2-classify",
+      "status": "success",
+      "duration_s": 862.4,
+      "error": "",
+      "worker": "readonly-0",
+      "start_time": "2026-03-28T17:59:29.373313+00:00",
+      "end_time": "2026-03-28T18:13:51.728337+00:00"
+    }
+  ]
+}

@@ -438,8 +438,12 @@ def run_pipeline(
     mock: bool,
     max_chunks: Optional[int] = None,
     backend: str = "api",
+    traces_dir: Optional[Path] = None,
 ) -> int:
     """Execute the full excerpting pipeline and save all artifacts.
+
+    When *traces_dir* is provided, captures all LLM call traces via
+    recursive-improve for later analysis and improvement.
 
     Returns 0 on success, 1 on failure.
     """
@@ -458,6 +462,26 @@ def run_pipeline(
     config = ExcerptingConfig()
     timings: dict[str, Any] = {}
     all_errors: list[str] = []
+
+    # ── Optional trace capture via recursive-improve ──────────────
+    ri_session = None
+    if traces_dir and not mock:
+        try:
+            import recursive_improve as ri
+
+            ri.patch()  # captures SDK-based calls (OpenRouter/Instructor)
+            ri_session = ri.session(
+                traces_dir=str(traces_dir),
+                metadata={
+                    "engine": "excerpting",
+                    "backend": backend,
+                    "package": str(package_path),
+                },
+            )
+            ri_session.__enter__()
+            logger.info("Traces enabled: %s", traces_dir)
+        except ImportError:
+            logger.warning("recursive-improve not installed, traces disabled")
 
     # ── Load package ──────────────────────────────────────────────
     t0 = time.monotonic()
@@ -499,6 +523,13 @@ def run_pipeline(
             client.on("completion:kwargs", req_hook)
             client.on("completion:response", resp_hook)
             client.on("completion:error", err_hook)
+
+        # Attach ri trace bridge to CLI clients (captures subprocess calls)
+        if ri_session is not None:
+            from shared.llm.ri_trace_bridge import attach as ri_attach
+
+            for client in (enrich_client, verify_client, escalation_client):
+                ri_attach(client, ri_session)
     else:
         logger.info("Creating OpenRouter Instructor clients")
         enrich_client = create_client(timeout=config.TIMEOUT_SECONDS)
@@ -738,6 +769,17 @@ def run_pipeline(
     print(f"  Total time: {total_time:.2f}s")
     print()
 
+    # ── Finalize trace session ────────────────────────────────────
+    if ri_session is not None:
+        ri_session.finish(
+            output=f"excerpts={len(phase3_result.excerpts)} "
+            f"gates={len(phase3_result.gate_entries)} "
+            f"errors={len(all_errors)}",
+            success=len(all_errors) == 0,
+        )
+        ri_session.__exit__(None, None, None)
+        logger.info("Traces written to: %s", traces_dir)
+
     return 0
 
 
@@ -927,6 +969,12 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
         default="api",
         help="LLM backend: 'cli' for CLI tools, 'api' for OpenRouter (default: api)",
     )
+    parser.add_argument(
+        "--traces",
+        type=Path,
+        default=None,
+        help="Directory for recursive-improve traces (enables LLM call tracing)",
+    )
     args = parser.parse_args(argv)
 
     # Default output dir with timestamp
@@ -961,6 +1009,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     print(f"Mock mode:       {args.mock}")
     print(f"Max chunks:      {args.max_chunks or 'all'}")
     print(f"Backend:         {args.backend}")
+    print(f"Traces:          {args.traces or 'disabled'}")
     print(
         f"Source metadata: "
         f"{json.dumps(args.source_metadata, ensure_ascii=False) if args.source_metadata else 'None'}"
@@ -982,6 +1031,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         mock=args.mock,
         max_chunks=args.max_chunks,
         backend=args.backend,
+        traces_dir=args.traces,
     )
 
 

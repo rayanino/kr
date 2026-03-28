@@ -13,3 +13,4 @@ globs: ["**/*"]
   - Arabic text handling rules (diacritics, normalization, encoding)
   - Enum values and their precise definitions (Genre, StructuralFormat, etc.)
   - Multi-model consensus requirements (D-041 — never single LLM for content decisions)
+- **After LLM pipeline sessions:** report trace count, storage location, and whether `recursive-improve eval` was run on them. If traces were captured, include the path in the session summary.

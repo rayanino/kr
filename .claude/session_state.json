@@ -1,18 +1,22 @@
 {
-  "timestamp": "2026-03-28T16:40:31.301432+00:00",
+  "timestamp": "2026-03-28T18:24:09.467060+00:00",
   "branch": "master",
   "active_engine": null,
   "active_spec_section": null,
-  "last_committed_file": "reference/FACTORY_HARDENING_DECISIONS.md",
+  "last_committed_file": "overnight/sprint_manifest.json",
   "active_plan": null,
   "modified_files": [
+    ".claude/rules/session-discipline.md",
     ".claude/session_state.json",
-    "scripts/overnight_orchestrator.py",
-    "scripts/start_sprint.sh"
+    ".gitignore",
+    "overnight/.overnight.lock",
+    "overnight/progress.md",
+    "scripts/run_integration_test.py",
+    "scripts/run_pipeline.py"
   ],
-  "uncommitted_summary": ".claude/session_state.json        |  16 +++---\n scripts/overnight_orchestrator.py |   6 ++-\n scripts/start_sprint.sh           | 100 ++++++++++++++++++--------------------\n 3 files changed, 60 insertions(+), 62 deletions(-)",
-  "next_md_head": "# NEXT — CLI Adapter Fix (4 Review Findings)\n\n## Current Position\n\n- **Baseline:** 796 tests passing, 2 skipped (766 excerpting + 30 adapter)\n- **Commit:** `2a8560b4` (CC implementation) + `9d83bb14` (review checklist)\n- **Review verdict:** BLOCKED — 4 findings (1 CRITICAL, 2 HIGH, 1 MEDIUM)\n- **Root cause:** All 4 findings are SPEC-code divergences caused by building from the pre-amendment SPEC (commit `1f0ee83c`). The SPEC was amended in commit `550d74a2` after the implementation.\n\n## What Just Happened\n\nThe 3-pass architect review + CC concurrent audit found 4 issues. CC's empirical test on the owner's machine confirmed the CRITICAL finding: `claude -p --bare --output-format json` wraps output in a JSON envelope `{\"type\":\"result\",\"result\":\"...model text...\",\"usage\":{...},...}`. The current adapter returns the full envelope as the model's output, causing 100% failure rate on real Claude CLI calls.\n\n## What to Do\n",
-  "recent_commits": "57885166 docs: D-H011 Day 1 Scope FINAL â€” cross-provider challenged (Gemini adversarial)\n602964d8 fix(shared/llm): encoding='utf-8' on all subprocess.run calls â€” Windows cp1252 crash on Arabic text\n012d4a00 docs: D-H010 Adversarial Data FINAL â€” cross-provider challenged (ChatGPT deep research)\n4f30dbc1 fix(shared/llm): 4 blocking defects in CLI adapter (adversarial self-review)\nf9d3230b review: CLI adapter BLOCKED (F-3 upgraded to CRITICAL after empirical envelope confirmation) + fix directive NEXT.md",
+  "uncommitted_summary": ".claude/rules/session-discipline.md |  1 +\n .claude/session_state.json          | 17 ++++++++-----\n .gitignore                          |  7 +++++\n overnight/.overnight.lock           |  1 -\n overnight/progress.md               |  4 ++-\n scripts/run_integration_test.py     | 50 ++++++++++++++++++++++++++++++++++++\n scripts/run_pipeline.py             | 51 ++++++++++++++++++++++++++++++++++---\n 7 files changed, 119 insertions(+), 12 deletions(-)",
+  "next_md_head": "# NEXT — Timeout Fix + 5-Book Overnight Run Preparation\n\n## Current Position\n\n- **Baseline:** 800 tests passing, 2 skipped (766 excerpting + 34 adapter)\n- **Commit:** `602964d8` (encoding fix) — HEAD is `87c2809b` (this NEXT.md)\n- **Engine:** Excerpting — CLI adapter WORKING\n- **Milestone:** First real CLI integration test succeeded: 23 excerpts, 0 errors, $0 cost (شرح ابن عقيل, 2 chunks)\n- **Blocking issue:** Large chunks (4,936 words) timeout at 120s — must fix before 5-book run\n\n## What Just Happened\n\nThe CLI adapter was implemented, reviewed (3-pass + CC concurrent), and fixed through 3 rounds:\n1. **4 SPEC divergences** fixed (envelope extraction, extract_json return type, missing WARNING log, empty system prompt)\n2. **Windows encoding** fixed (subprocess.run needs `encoding=\"utf-8\"` — cp1252 crashes on Arabic)",
+  "recent_commits": "bf390075 weekend: fix(sprint): $25 budget, skip L5/L6 reviews, dashboard, state fix\nb52d71aa weekend: test(shared/scholar_authority): 19 edge-case tests for name matching\n5e34b9dc weekend: test(shared/consensus): 12 edge-case tests for evaluate() and _call_model\na9f7262e overnight: initialize overnight session\n02493b9d docs: next session prompt for timeout fix + 5-book run prep",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",

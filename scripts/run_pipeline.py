@@ -30,12 +30,36 @@ def validate_json_against_model(json_path: Path, model_cls, label: str) -> list[
     return errors
 
 
-def run_pipeline(fixture_path: Path, work_dir: Path) -> dict:
+def run_pipeline(
+    fixture_path: Path,
+    work_dir: Path,
+    traces_dir: Path | None = None,
+) -> dict:
     """Run the full 7-engine pipeline on a fixture.
-    
+
+    When *traces_dir* is provided, wraps the run in a recursive-improve
+    session that captures all LLM call traces for later analysis.
+
     Returns a report dict with results and errors.
     """
     work_dir.mkdir(parents=True, exist_ok=True)
+
+    # ── Optional trace capture via recursive-improve ──────────────
+    ri_session = None
+    if traces_dir:
+        try:
+            import recursive_improve as ri
+
+            ri.patch()  # captures SDK-based LLM calls (consensus, instructor)
+            ri_session = ri.session(
+                traces_dir=str(traces_dir),
+                metadata={"engine": "pipeline", "fixture": str(fixture_path)},
+            )
+            ri_session.__enter__()
+            print(f"  Traces enabled: {traces_dir}")
+        except ImportError:
+            print("  WARNING: recursive-improve not installed, traces disabled")
+
     report = {
         "fixture": str(fixture_path),
         "stages": [],
@@ -202,6 +226,17 @@ def run_pipeline(fixture_path: Path, work_dir: Path) -> dict:
     print(f"  Total errors: {report['total_errors']}")
     print(f"  Overall: {'SUCCESS' if report['success'] else 'FAILED'}")
 
+    # ── Finalize trace session ───────────────────────────────────
+    if ri_session is not None:
+        ri_session.finish(
+            output=json.dumps(
+                {"success": report["success"], "total_errors": report["total_errors"]},
+            ),
+            success=report["success"],
+        )
+        ri_session.__exit__(None, None, None)
+        print(f"\n  Traces written to: {traces_dir}")
+
     # Save report
     report_path = work_dir / "pipeline_report.json"
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -305,6 +340,12 @@ if __name__ == "__main__":
         default="tmp/tracer_run",
         help="Working directory for intermediate outputs",
     )
+    parser.add_argument(
+        "--traces",
+        type=str,
+        default=None,
+        help="Directory for recursive-improve traces (enables LLM call tracing)",
+    )
     args = parser.parse_args()
 
     fixture = Path(args.fixture)
@@ -314,5 +355,9 @@ if __name__ == "__main__":
     if not work.is_absolute():
         work = _root / work
 
-    report = run_pipeline(fixture, work)
+    traces = Path(args.traces) if args.traces else None
+    if traces and not traces.is_absolute():
+        traces = _root / traces
+
+    report = run_pipeline(fixture, work, traces_dir=traces)
     sys.exit(0 if report["success"] else 1)
