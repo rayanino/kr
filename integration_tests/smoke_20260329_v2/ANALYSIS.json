@@ -1,0 +1,180 @@
+{
+  "packages": [
+    {
+      "name": "ext_39_masala",
+      "excerpt_count": 17,
+      "flag_counts": {
+        "verification_skipped": 17
+      },
+      "verification_skipped": 17,
+      "llm_enrichment_failed": 0,
+      "gate_count": 0,
+      "error_count": 0,
+      "errors": [],
+      "timing": {
+        "load_package": 0.005,
+        "phase1": 0.025,
+        "phase2a": 133.492,
+        "phase2a_per_chunk": {
+          "div_src_test0001_2_000_pre": 133.492
+        },
+        "phase2b": 82.637,
+        "phase2b_per_chunk": {
+          "div_src_test0001_2_000_pre": 82.637
+        },
+        "phase3": 48.182,
+        "write_output": 0.004
+      },
+      "total_time_seconds": 264.34,
+      "retry_count": 0,
+      "timeout_errors": 0,
+      "chunk_count": 16,
+      "max_chunk_words": 2703,
+      "min_chunk_words": 107,
+      "mean_chunk_words": 1158
+    },
+    {
+      "name": "ext_46_qa",
+      "excerpt_count": 10,
+      "flag_counts": {
+        "verification_skipped": 10
+      },
+      "verification_skipped": 10,
+      "llm_enrichment_failed": 0,
+      "gate_count": 0,
+      "error_count": 0,
+      "errors": [],
+      "timing": {
+        "load_package": 0.011,
+        "phase1": 0.033,
+        "phase2a": 457.654,
+        "phase2a_per_chunk": {
+          "div_src_test0001_3_000_pre": 457.654
+        },
+        "phase2b": 172.976,
+        "phase2b_per_chunk": {
+          "div_src_test0001_3_000_pre": 172.976
+        },
+        "phase3": 234.66,
+        "write_output": 0.002
+      },
+      "total_time_seconds": 865.34,
+      "retry_count": 0,
+      "timeout_errors": 0,
+      "chunk_count": 38,
+      "max_chunk_words": 3910,
+      "min_chunk_words": 81,
+      "mean_chunk_words": 622
+    },
+    {
+      "name": "ibn_aqil_v1",
+      "excerpt_count": 10,
+      "flag_counts": {},
+      "verification_skipped": 0,
+      "llm_enrichment_failed": 0,
+      "gate_count": 0,
+      "error_count": 0,
+      "errors": [],
+      "timing": {
+        "load_package": 0.013,
+        "phase1": 0.039,
+        "phase2a": 31.719,
+        "phase2a_per_chunk": {
+          "div_src_test0001_2_000": 31.719
+        },
+        "phase2b": 54.289,
+        "phase2b_per_chunk": {
+          "div_src_test0001_2_000": 54.289
+        },
+        "phase3": 34.555,
+        "write_output": 0.004
+      },
+      "total_time_seconds": 120.62,
+      "retry_count": 0,
+      "timeout_errors": 0,
+      "chunk_count": 14,
+      "max_chunk_words": 4936,
+      "min_chunk_words": 364,
+      "mean_chunk_words": 2377
+    },
+    {
+      "name": "ibn_aqil_v3",
+      "excerpt_count": 25,
+      "flag_counts": {
+        "verification_skipped": 25,
+        "hadith_evidence_no_takhrij": 1
+      },
+      "verification_skipped": 25,
+      "llm_enrichment_failed": 0,
+      "gate_count": 0,
+      "error_count": 3,
+      "errors": [
+        "EX-M-005",
+        "EX-M-005",
+        "EX-M-005"
+      ],
+      "timing": {
+        "load_package": 0.02,
+        "phase1": 0.057,
+        "phase2a": 147.135,
+        "phase2a_per_chunk": {
+          "div_src_test0001_3_000": 147.135
+        },
+        "phase2b": 137.147,
+        "phase2b_per_chunk": {
+          "div_src_test0001_3_000": 137.147
+        },
+        "phase3": 47.671,
+        "write_output": 0.002
+      },
+      "total_time_seconds": 332.03,
+      "retry_count": 0,
+      "timeout_errors": 0,
+      "chunk_count": 28,
+      "max_chunk_words": 3748,
+      "min_chunk_words": 83,
+      "mean_chunk_words": 886
+    },
+    {
+      "name": "taysir",
+      "excerpt_count": 7,
+      "flag_counts": {
+        "verification_skipped": 7
+      },
+      "verification_skipped": 7,
+      "llm_enrichment_failed": 0,
+      "gate_count": 0,
+      "error_count": 0,
+      "errors": [],
+      "timing": {
+        "load_package": 0.032,
+        "phase1": 0.264,
+        "phase2a": 17.076,
+        "phase2a_per_chunk": {
+          "div_src_test0001_7_000": 17.076
+        },
+        "phase2b": 57.83,
+        "phase2b_per_chunk": {
+          "div_src_test0001_7_000": 57.83
+        },
+        "phase3": 32.862,
+        "write_output": 0.002
+      },
+      "total_time_seconds": 108.07,
+      "retry_count": 0,
+      "timeout_errors": 0,
+      "chunk_count": 184,
+      "max_chunk_words": 4345,
+      "min_chunk_words": 115,
+      "mean_chunk_words": 1029
+    }
+  ],
+  "totals": {
+    "excerpt_count": 69,
+    "error_count": 3,
+    "gate_count": 0,
+    "retry_count": 0,
+    "timeout_errors": 0,
+    "total_time_seconds": 1690.4
+  }
+}

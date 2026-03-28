@@ -25,6 +25,9 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Optional
 
+# Ensure project root is on sys.path so local imports work without PYTHONPATH
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 if TYPE_CHECKING:
     import instructor
 

@@ -20,6 +20,9 @@ import time
 from pathlib import Path
 from typing import Any
 
+# Ensure project root is on sys.path so local imports work without PYTHONPATH
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 # ---------------------------------------------------------------------------
 # Package configuration
 # ---------------------------------------------------------------------------

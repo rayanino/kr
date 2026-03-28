@@ -229,10 +229,12 @@ def print_summary(
     timing_pkgs = [p for p in packages if p.get("timing")]
     if timing_pkgs:
         print(f"\n{'TIMING BREAKDOWN (seconds)':=^70}")
-        # Collect all phase names
+        # Collect all phase names (skip per-chunk dicts)
         all_phases: set[str] = set()
         for pkg in timing_pkgs:
-            all_phases.update(pkg["timing"].keys())
+            for k, v in pkg["timing"].items():
+                if isinstance(v, (int, float)):
+                    all_phases.add(k)
         phases = sorted(all_phases)
 
         header = f"  {'Package':<20}"
