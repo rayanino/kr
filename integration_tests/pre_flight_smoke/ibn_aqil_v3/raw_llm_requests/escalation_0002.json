@@ -1,0 +1,16 @@
+{
+  "call_id": "escalation_0002",
+  "model": "mistralai/mistral-large-2411",
+  "temperature": 0.0,
+  "max_tokens": 1024,
+  "messages": [
+    {
+      "role": "system",
+      "content": "\n        As a genius expert, your task is to understand the content and provide\n        the parsed objects in json that match the following json_schema:\n\n\n        {\n  \"properties\": {\n    \"author_id\": {\n      \"description\": \"The correct author attribution\",\n      \"title\": \"Author Id\",\n      \"type\": \"string\"\n    },\n    \"reasoning\": {\n      \"description\": \"Brief explanation\",\n      \"title\": \"Reasoning\",\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"author_id\",\n    \"reasoning\"\n  ],\n  \"title\": \"EscalationResponse\",\n  \"type\": \"object\"\n}\n\n        Make sure to return an instance of the JSON, not the schema itself\n"
+    },
+    {
+      "role": "user",
+      "content": "Two models disagree on the author attribution of this Arabic text.\n\nText: \"واستعمل اسما وكذا عن وعلى … من أجل ذا عليهما من دخلا\nاستعمل الكاف اسما قليلا كقوله:\n211 - أتنتهون ولن ينهى ذوي شطط … كالطعن يذهب فيه الزيت والفتل فالكاف اسم مرفوع على الفاعلية والعامل فيه ينهى والتقدير ولن ينهى ذوى شطط مثل الطعن واستعملت على وعن اسمين عند دخول من عليهما وتكون على بمعنى فوق وعن بمعنى جانب ومنه قوله:\n212 - غدت من عليه بعد ما تم ظمؤها … تصل وعن قيض بزيزاء مجهل أي غدت من فوقه وقوله:\n213 - ولقد أراني للرماح دريثة … من عن يميني تارة وأمامي\nأي من جانب يميني.\"\n\nSource: ابن عقيل - شرح ابن عقيل على ألفية ابن مالك\n\nModel 1 says: unknown (layer: sharh)\nModel 2 says: ينبغي إسناده إلى ابن عقيل / طبقة الشرح، لا إلى unknown. (reasoning: النص يبدأ ببيت الألفية ثم يتلوه تفصيل شارح: «استعمل الكاف اسما قليلا... فالكاف اسم مرفوع... والعامل فيه... والتقدير...». هذا تحليل نحوي شارح صريح من ابن عقيل، وليس نصًا مجهول الطبقة. فإسناده إلى unknown غير دقيق.)\n\nWhich attribution is correct? Respond with just the author ID."
+    }
+  ]
+}

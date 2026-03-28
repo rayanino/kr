@@ -1,0 +1,298 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "بسم الله الرحمن الرحيم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 15,
+    "text_snippet": "قال العبد الفقير إلى الله تعالى، عبد الرحمن بن",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 2,
+    "start_word": 16,
+    "end_word": 72,
+    "text_snippet": "الحمد لله الذي أرشد لابتكار هذا النمط وتفضل بالعفو",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 3,
+    "start_word": 73,
+    "end_word": 144,
+    "text_snippet": "هذا كتاب غريب الوضع، عجيب الصنع، لطيف المعنى، طريف",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 4,
+    "start_word": 145,
+    "end_word": 152,
+    "text_snippet": "وقد سميته بـ (الاقتراح في علم أصول النحو)",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 153,
+    "end_word": 157,
+    "text_snippet": "ورتبته على مقدمات وسبعة كتب.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 6,
+    "start_word": 158,
+    "end_word": 220,
+    "text_snippet": "واعلم أني قد استمديت في هذا الكتاب كثيرا من كتاب ال",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 7,
+    "start_word": 221,
+    "end_word": 238,
+    "text_snippet": "ورتبته على نحو ترتيب أصول الفقه في الأبواب والفصول",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 8,
+    "start_word": 239,
+    "end_word": 253,
+    "text_snippet": "ثم بعد تمامه رأيت الكمال ابن الأنباري قال في كتابه",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 9,
+    "start_word": 254,
+    "end_word": 268,
+    "text_snippet": "\" علوم الأدب ثمانية: اللغة، والنحو، والتصريف، والعر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 10,
+    "start_word": 269,
+    "end_word": 322,
+    "text_snippet": "ثم قال: \" وألحقنا بالعلوم الثمانية علمين وضعناهما: ع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 323,
+    "end_word": 324,
+    "text_snippet": "هذه عبارته.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 325,
+    "end_word": 353,
+    "text_snippet": "فتطلبت هذين الكتابين، حتى وقفت عليهما فإذا هما لطيف",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 354,
+    "end_word": 369,
+    "text_snippet": "فأما الذي في أصول النحو، فإنه في كراستين صغيرتين، س",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 14,
+    "start_word": 370,
+    "end_word": 561,
+    "text_snippet": "الأول: في معنى أصول النحو وفائدته.\nالثاني: في أقسام",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 15,
+    "start_word": 562,
+    "end_word": 580,
+    "text_snippet": "وأما الذي في جدل النحو، فإنه في كراسة لطيفة، سماه ب",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 16,
+    "start_word": 581,
+    "end_word": 636,
+    "text_snippet": "الأول: في السؤال.\nالثاني: في وصف السائل.\nالثالث: في",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 17,
+    "start_word": 637,
+    "end_word": 637,
+    "text_snippet": "انتهى.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 638,
+    "end_word": 666,
+    "text_snippet": "وقد أخذت من الكتاب الأول اللباب وأدخلته معزوا إليه",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 19,
+    "start_word": 667,
+    "end_word": 686,
+    "text_snippet": "ولم أنقل من كتابه حرفا إلا مقرونا بالعزو إليه ليعرف",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 20,
+    "start_word": 687,
+    "end_word": 701,
+    "text_snippet": "وإلى الله الضراعة في حسن الختام والقبول، فلا ينفع ال",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 21,
+    "start_word": 702,
+    "end_word": 707,
+    "text_snippet": "الكلام في‌‌ المقدمات\nفيها مسائل الأولى",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 22,
+    "start_word": 708,
+    "end_word": 725,
+    "text_snippet": "أصول النحو: علم يبحث فيه عن أدلة النحو الإجمالية، م",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 23,
+    "start_word": 726,
+    "end_word": 759,
+    "text_snippet": "فقولي (علم) ، أي صناعة فلا يرد ما أورد على التعليل",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 24,
+    "start_word": 760,
+    "end_word": 769,
+    "text_snippet": "وقولي (عن أدلة النحو) يخرج كل صناعة سواه، وسوى النح",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 25,
+    "start_word": 770,
+    "end_word": 773,
+    "text_snippet": "وأدلة النحو الغالبة أربعة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 26,
+    "start_word": 774,
+    "end_word": 786,
+    "text_snippet": "قال ابن جني في الخصائص: \" أدلة النحو ثلاثة: السماع،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 27,
+    "start_word": 787,
+    "end_word": 799,
+    "text_snippet": "وقال ابن الأنباري في أصوله:\" أدلة النحو ثلاثة: نقل،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 28,
+    "start_word": 800,
+    "end_word": 815,
+    "text_snippet": "فزاد الاستصحاب ولم يذكر الإجماع، فكأنه لم ير الاحتج",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 29,
+    "start_word": 816,
+    "end_word": 825,
+    "text_snippet": "وقد تحصل مما ذكراه أربعة، وقد عقدت لها أربعة كتب.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 30,
+    "start_word": 826,
+    "end_word": 852,
+    "text_snippet": "وكل من الإجماع والقياس لا بد له من مستند من السماع كم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 31,
+    "start_word": 853,
+    "end_word": 893,
+    "text_snippet": "وقولي (الإجمالية) احتراز في البحث عن التفصيلية، كالب",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 32,
+    "start_word": 894,
+    "end_word": 954,
+    "text_snippet": "وقولي (من حيث هي أدلته) بيان لجهة البحث عنها، أي الب",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 33,
+    "start_word": 955,
+    "end_word": 992,
+    "text_snippet": "وقولي (وكيفية الاستدلال بها) ، أي عند تعارضها ونحوه،",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 34,
+    "start_word": 993,
+    "end_word": 1018,
+    "text_snippet": "وقولي (وحال المستدل) ، أي المستنبط للمسائل من الأدلة",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1019,
+    "end_word": 1086,
+    "text_snippet": "وبعد أن حررت هذا الحد بفكري وشرحته، وجدت ابن الأنبار",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1087,
+    "end_word": 1094,
+    "text_snippet": "هذا جميع ما ذكره في الفصل الأول بحروفه.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.92
+  }
+]

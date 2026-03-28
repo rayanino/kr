@@ -1,0 +1,186 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "تيسير العلام شرح عمدة الأحكام\nللبسام",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 1,
+    "start_word": 6,
+    "end_word": 9,
+    "text_snippet": "‌‌كتاب الطهارة\n‌‌النية وأحكامها",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 10,
+    "end_word": 63,
+    "text_snippet": "عَنْ أمِيرِ المُؤْمِنِينَ أبي حَفْصِ \" عُمَرَ بْنِ الخَطَاب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 64,
+    "end_word": 65,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 4,
+    "start_word": 66,
+    "end_word": 98,
+    "text_snippet": "1- \" إنما الأعمال بالنيات \" كلمة [إنما] ، تفيد الح",
+    "scholarly_function": "definition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 5,
+    "start_word": 99,
+    "end_word": 138,
+    "text_snippet": "2- \" النية \" لغة: القصد. ووقع بالإفراد في أكثر الرو",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 6,
+    "start_word": 139,
+    "end_word": 151,
+    "text_snippet": "3- \" فمن كانت هجرته … الخ \" مثال يقرر ويوضح القاعد",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 7,
+    "start_word": 152,
+    "end_word": 159,
+    "text_snippet": "4- \" فمن كانت هجرته \" جملة شرطية.",
+    "scholarly_function": "definition",
+    "confidence": 0.7
+  },
+  {
+    "segment_index": 8,
+    "start_word": 160,
+    "end_word": 190,
+    "text_snippet": "5- \"فهجرته إلى الله ورسوله \" جواب الشرط، واتحد الشرط",
+    "scholarly_function": "definition",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 9,
+    "start_word": 191,
+    "end_word": 192,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 193,
+    "end_word": 214,
+    "text_snippet": "هذا حديث عظيم وقاعدة جليلة من قواعد الإسلام هي القي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 11,
+    "start_word": 215,
+    "end_word": 250,
+    "text_snippet": "فإن النبي صلى الله عليه وسلم يخبر أن مدار الأعمال ع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 251,
+    "end_word": 306,
+    "text_snippet": "ثم ضرب رسول الله صلى الله عليه وسلم مثلَا يوضح هذه",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 307,
+    "end_word": 326,
+    "text_snippet": "والنية تمييز العبادة عن العادة، فالغسل - مثلا - يقصد",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 14,
+    "start_word": 327,
+    "end_word": 330,
+    "text_snippet": "وللنية في الشرع حالتان:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 15,
+    "start_word": 331,
+    "end_word": 346,
+    "text_snippet": "أحدها: الإخلاص في العمل لله وحده، هو المعنى الأسمى،",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 16,
+    "start_word": 347,
+    "end_word": 356,
+    "text_snippet": "الثاني: تمييز العبادات بعضها عن بعض، وهذا يتحدث عنه",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 17,
+    "start_word": 357,
+    "end_word": 390,
+    "text_snippet": "وهذا من الأحاديث الجوامع التي يجب الاعتناء بها وتفهم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 18,
+    "start_word": 391,
+    "end_word": 394,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 395,
+    "end_word": 455,
+    "text_snippet": "1- إن مدار الأعمال على النيات، صحة، وفَساداً، وكمالا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 20,
+    "start_word": 456,
+    "end_word": 482,
+    "text_snippet": "2- أن النية شرط أساسي في العمل، ولكن بلا غُلُوّ في ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 21,
+    "start_word": 483,
+    "end_word": 490,
+    "text_snippet": "3- أن النية مَحلُّها القلب، واللفظ بها بدعة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 22,
+    "start_word": 491,
+    "end_word": 506,
+    "text_snippet": "4- وجوب الحذر من الرياء والسمعة والعمل لأجل الدنيا، ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  }
+]

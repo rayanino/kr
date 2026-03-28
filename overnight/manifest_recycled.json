@@ -1,0 +1,319 @@
+{
+  "tasks": [
+    {
+      "task_id": "empirical-backrefs",
+      "name": "Empirical scan: Arabic back-reference patterns in fixtures (Defense 1A)",
+      "category": "validation",
+      "prompt": "Run the empirical back-reference scanner:\n  python scripts/empirical_backrefs.py --output overnight/results/empirical-backrefs/scan.json\n\nRead the output and write a brief interpretation to overnight/results/empirical-backrefs/summary.md:\n- Which patterns had the most hits?\n- Is the hit rate sufficient to justify building Defense 1A?\n- What is the recommended decision (PROCEED or SKIP)?",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "sonnet",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 15,
+      "allowed_tools": [
+        "Bash",
+        "Read"
+      ],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [],
+      "priority": 1,
+      "max_turns": 15,
+      "codex_flags": [],
+      "bookend": false
+    },
+    {
+      "task_id": "ki-attribution-excerpting",
+      "name": "Knowledge integrity: attribution corruption probe (excerpting)",
+      "category": "test",
+      "prompt": "KNOWLEDGE CORRUPTION PROBE — T-1: Attribution Corruption\n\nRead engines/excerpting/src/phase3_deterministic.py, focusing on _compute_layer_coverages() and compute_layer_attribution().\n\nHunt for scenarios where layer attribution produces WRONG RESULTS:\n1. All layers have author_canonical_id=None — does merging collapse distinct layers?\n2. Two layers with same (type, author) but different scholarly functions\n3. LA rule cascade with exact boundary values (80.0%, 100.0%)\n4. compute_quoted_scholars excluding correct layers or including wrong ones\n\nFor EACH scenario found, write a targeted test with real Arabic text.\nIf you find a bug, FIX IT and explain why it corrupts knowledge.\nRun: python -m pytest engines/excerpting/tests/ -x -v --tb=short",
+      "safety_level": "modifying",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "opus",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 40,
+      "allowed_tools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash",
+        "Glob",
+        "Grep"
+      ],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [],
+      "priority": 1,
+      "max_turns": 30,
+      "codex_flags": [],
+      "bookend": false
+    },
+    {
+      "task_id": "ki-attribution-excerpting-verify",
+      "name": "Codex review: Knowledge integrity: attribution corruption probe (excerpting)",
+      "category": "verification",
+      "prompt": "Review the code changes from task 'Knowledge integrity: attribution corruption probe (excerpting)'. Check: type safety, Pydantic patterns, test completeness, error handling. Do NOT evaluate Arabic text or domain logic. Run: git diff HEAD~1",
+      "safety_level": "readonly",
+      "execution_mode": "codex",
+      "agent": null,
+      "model": "gpt-5-codex-mini",
+      "max_budget_usd": 0.5,
+      "timeout_minutes": 10,
+      "allowed_tools": [],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [
+        "ki-attribution-excerpting"
+      ],
+      "priority": 1,
+      "max_turns": 30,
+      "codex_flags": [
+        "--full-auto"
+      ],
+      "bookend": false
+    },
+    {
+      "task_id": "ki-text-integrity-excerpting",
+      "name": "Knowledge integrity: Arabic text round-trip probe (excerpting)",
+      "category": "test",
+      "prompt": "KNOWLEDGE CORRUPTION PROBE — T-3: Text Corruption\n\nRead engines/excerpting/src/writer.py.\n\nVerify Arabic text survives serialization BYTE-FOR-BYTE:\n1. Text with full tashkeel (diacritics) — fathah, dammah, kasrah, shadda, sukun\n2. ZWNJ (U+200C) between Arabic letters\n3. Tatweel (U+0640) inside words\n4. Superscript alef (U+0670)\n5. Paragraph breaks (\\n\\n) in primary_text\n\nWrite to JSONL, read back, verify byte-identical.\nIf Pydantic or JSON serialization alters any byte, this is CRITICAL.\nRun: python -m pytest engines/excerpting/tests/ -x -v --tb=short",
+      "safety_level": "modifying",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "opus",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 35,
+      "allowed_tools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash",
+        "Glob",
+        "Grep"
+      ],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [],
+      "priority": 1,
+      "max_turns": 25,
+      "codex_flags": [],
+      "bookend": false
+    },
+    {
+      "task_id": "ki-text-integrity-excerpting-verify",
+      "name": "Codex review: Knowledge integrity: Arabic text round-trip probe (excerpting)",
+      "category": "verification",
+      "prompt": "Review the code changes from task 'Knowledge integrity: Arabic text round-trip probe (excerpting)'. Check: type safety, Pydantic patterns, test completeness, error handling. Do NOT evaluate Arabic text or domain logic. Run: git diff HEAD~1",
+      "safety_level": "readonly",
+      "execution_mode": "codex",
+      "agent": null,
+      "model": "gpt-5-codex-mini",
+      "max_budget_usd": 0.5,
+      "timeout_minutes": 10,
+      "allowed_tools": [],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [
+        "ki-text-integrity-excerpting"
+      ],
+      "priority": 1,
+      "max_turns": 30,
+      "codex_flags": [
+        "--full-auto"
+      ],
+      "bookend": false
+    },
+    {
+      "task_id": "review-recent-excerpting",
+      "name": "Review recently modified excerpting code (4 files)",
+      "category": "review",
+      "prompt": "TASK: Code review of recently modified excerpting engine source files.\n\nRead engines/excerpting/CLAUDE.md for context.\nRead the SPEC section governing these files.\n\nFiles modified in the last 24 hours:\n  - engines/excerpting/src/phase2_classify.py\n  - engines/excerpting/src/phase2_group.py\n  - engines/excerpting/src/phase3_consensus.py\n  - engines/excerpting/src/phase3_enrichment.py\n\nReview for:\n1. SPEC compliance — does the code match the behavioral rules?\n2. Arabic text safety — no .lower()/.upper()/.strip() on Arabic, no \\d in regex\n3. D-023 metadata pass-through — all upstream fields preserved\n4. Error handling — fails loudly with SPEC error codes?\n5. Edge cases that lack test coverage\n\nWrite detailed findings to overnight/results/review-recent-excerpting/review.md\nDo NOT modify any source files. This is a READ-ONLY review.",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "opus",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 45,
+      "allowed_tools": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Bash"
+      ],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [],
+      "priority": 1,
+      "max_turns": 30,
+      "codex_flags": [],
+      "bookend": false
+    },
+    {
+      "task_id": "harden-recent-excerpting",
+      "name": "Edge case hardening for recent excerpting changes",
+      "category": "test",
+      "prompt": "TASK: Write edge case and hardening tests for recently modified excerpting code.\n\nRead engines/excerpting/CLAUDE.md for context.\nRead the review at overnight/results/review-recent-excerpting/review.md for findings.\nRead existing tests in engines/excerpting/tests/.\n\nRecently modified files:\n  - engines/excerpting/src/phase2_classify.py\n  - engines/excerpting/src/phase2_group.py\n  - engines/excerpting/src/phase3_consensus.py\n  - engines/excerpting/src/phase3_enrichment.py\n\nFor each finding in the review (especially HIGH and MEDIUM):\n1. Write a targeted test that exercises the edge case\n2. Use real Arabic text from tests/fixtures/ wherever possible\n3. Follow conftest factory patterns\n\nRules: use [0-9] not \\d. Never .lower()/.upper()/.strip() on Arabic.\nRun: python -m pytest engines/excerpting/tests/ -x -v --tb=short\nAll existing + new tests must pass.",
+      "safety_level": "modifying",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "opus",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 45,
+      "allowed_tools": [
+        "Read",
+        "Write",
+        "Edit",
+        "Bash",
+        "Glob",
+        "Grep"
+      ],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [
+        "review-recent-excerpting"
+      ],
+      "priority": 2,
+      "max_turns": 40,
+      "codex_flags": [],
+      "bookend": false
+    },
+    {
+      "task_id": "harden-recent-excerpting-verify",
+      "name": "Codex review: Edge case hardening for recent excerpting changes",
+      "category": "verification",
+      "prompt": "Review the code changes from task 'Edge case hardening for recent excerpting changes'. Check: type safety, Pydantic patterns, test completeness, error handling. Do NOT evaluate Arabic text or domain logic. Run: git diff HEAD~1",
+      "safety_level": "readonly",
+      "execution_mode": "codex",
+      "agent": null,
+      "model": "gpt-5-codex-mini",
+      "max_budget_usd": 0.5,
+      "timeout_minutes": 10,
+      "allowed_tools": [],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [
+        "harden-recent-excerpting"
+      ],
+      "priority": 2,
+      "max_turns": 30,
+      "codex_flags": [
+        "--full-auto"
+      ],
+      "bookend": false
+    },
+    {
+      "task_id": "val-contracts",
+      "name": "Cross-engine contract and D-023 metadata flow verification",
+      "category": "validation",
+      "prompt": "Run the metadata flow verification:\n  python3 scripts/verify_metadata_flow.py\nAlso check cross-engine contracts:\n  PYTHONIOENCODING=utf-8 python tools/check_cross_engine_contracts.py\nReport findings to overnight/results/val-contracts/boundaries.md",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": "boundary-validator",
+      "model": "sonnet",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 10,
+      "allowed_tools": [
+        "Read",
+        "Bash",
+        "Glob",
+        "Grep"
+      ],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [],
+      "priority": 3,
+      "max_turns": 30,
+      "codex_flags": [],
+      "bookend": false
+    },
+    {
+      "task_id": "test-coverage-excerpting",
+      "name": "Analyze test coverage gaps in excerpting engine",
+      "category": "test",
+      "prompt": "Read engines/excerpting/SPEC.md section 4 and extract every behavioral rule (numbered items, MUST/SHALL statements). Then read all test files in engines/excerpting/tests/ and match each SPEC rule to its test(s). Write a coverage matrix to overnight/results/test-coverage-excerpting/coverage.md showing which rules have tests and which lack tests. Current test count: 739.",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "sonnet",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 20,
+      "allowed_tools": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Bash"
+      ],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [],
+      "priority": 4,
+      "max_turns": 30,
+      "codex_flags": [],
+      "bookend": false
+    },
+    {
+      "task_id": "test-coverage-normalization",
+      "name": "Analyze test coverage gaps in normalization engine",
+      "category": "test",
+      "prompt": "Read engines/normalization/SPEC.md section 4 and extract every behavioral rule (numbered items, MUST/SHALL statements). Then read all test files in engines/normalization/tests/ and match each SPEC rule to its test(s). Write a coverage matrix to overnight/results/test-coverage-normalization/coverage.md showing which rules have tests and which lack tests. Current test count: 517.",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "sonnet",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 20,
+      "allowed_tools": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Bash"
+      ],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [],
+      "priority": 4,
+      "max_turns": 30,
+      "codex_flags": [],
+      "bookend": false
+    },
+    {
+      "task_id": "test-coverage-source",
+      "name": "Analyze test coverage gaps in source engine",
+      "category": "test",
+      "prompt": "Read engines/source/SPEC.md section 4 and extract every behavioral rule (numbered items, MUST/SHALL statements). Then read all test files in engines/source/tests/ and match each SPEC rule to its test(s). Write a coverage matrix to overnight/results/test-coverage-source/coverage.md showing which rules have tests and which lack tests. Current test count: 566.",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "sonnet",
+      "max_budget_usd": 2.0,
+      "timeout_minutes": 20,
+      "allowed_tools": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Bash"
+      ],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [],
+      "priority": 4,
+      "max_turns": 30,
+      "codex_flags": [],
+      "bookend": false
+    },
+    {
+      "task_id": "val-test-regression",
+      "name": "Test suite regression check",
+      "category": "validation",
+      "prompt": "Run the full test suite for all completed engines SEPARATELY:\n  python -m pytest engines/source/tests/ -v --tb=short\n  python -m pytest engines/normalization/tests/ -v --tb=short\n  python -m pytest engines/excerpting/tests/ -v --tb=short\nReport: total tests, passed, failed, skipped, any error details.\nWrite report to overnight/results/val-test-regression/summary.md\nDo NOT modify any files.",
+      "safety_level": "readonly",
+      "execution_mode": "cli",
+      "agent": null,
+      "model": "sonnet",
+      "max_budget_usd": 0.5,
+      "timeout_minutes": 10,
+      "allowed_tools": [
+        "Bash",
+        "Read",
+        "Glob",
+        "Grep"
+      ],
+      "permission_mode": "bypassPermissions",
+      "depends_on": [],
+      "priority": 99,
+      "max_turns": 15,
+      "codex_flags": [],
+      "bookend": true
+    }
+  ]
+}
