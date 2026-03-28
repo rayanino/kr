@@ -88,8 +88,12 @@ _SNIPPET_NOT_FOUND_FEEDBACK = (
 def _compute_classify_max_tokens(word_count: int) -> int:
     """Compute MAX_TOKENS for classification call based on input size (§5.5.1).
 
-    ≤2000 words → 8192.  >2000 words → 32768.
+    ≤1500 words → 8192.  >1500 words → 32768.
     >4000 words → 32768 (provisional — untested, log warning).
+
+    Threshold empirically adjusted from 2000 to 1500 (2026-03-28):
+    ibn_aqil_v3 حروف الجر chunk (1987 words, 15 layers) exceeded 8192
+    tokens on classification output. Dense multi-layer text needs margin.
     """
     if word_count > 4000:
         logger.warning(
@@ -97,7 +101,7 @@ def _compute_classify_max_tokens(word_count: int) -> int:
             "(provisional §5.5.1). Monitor for output truncation.",
             word_count,
         )
-    if word_count > 2000:
+    if word_count > 1500:
         return 32768
     return 8192
 

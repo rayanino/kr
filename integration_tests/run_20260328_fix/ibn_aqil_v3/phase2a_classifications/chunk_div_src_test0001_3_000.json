@@ -1,0 +1,1186 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "بسم الله الرحمن الرحيم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 5,
+    "text_snippet": "‌‌حروف الجر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 6,
+    "end_word": 31,
+    "text_snippet": "هاك حروف الجر وهي من إلى\n… حتى خلا حاشا عدا في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 3,
+    "start_word": 32,
+    "end_word": 58,
+    "text_snippet": "هذه الحروف العشرون كلها مختصة بالأسماء وهي تعمل فيها",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 4,
+    "start_word": 59,
+    "end_word": 65,
+    "text_snippet": "فأما كي فتكون حرف جر في موضعين",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 5,
+    "start_word": 66,
+    "end_word": 88,
+    "text_snippet": "أحدهما: إذا دخلت على ما الاستفهامية نحو كيمه أي لم",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 6,
+    "start_word": 89,
+    "end_word": 115,
+    "text_snippet": "الثاني: قولك جئت كي أكرم زيدا فأكرم فعل مضارع منص",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 7,
+    "start_word": 116,
+    "end_word": 123,
+    "text_snippet": "وأما لعل فالجر بها لغة عقيل ومنه قوله:",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 8,
+    "start_word": 124,
+    "end_word": 129,
+    "text_snippet": "لعل أبي المغوار منك قريب وقوله:",
+    "scholarly_function": "narration",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 9,
+    "start_word": 130,
+    "end_word": 140,
+    "text_snippet": "197 - لعل الله فضلكم علينا … بشيء أن أمكم شريم",
+    "scholarly_function": "narration",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 10,
+    "start_word": 141,
+    "end_word": 161,
+    "text_snippet": "فـ \"أبي المغوار\" والاسم الكريم مبتدآن وقريب وفضلكم خ",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 11,
+    "start_word": 162,
+    "end_word": 181,
+    "text_snippet": "وقد روى على لغة هؤلاء في لامها الأخيرة الكسر والفتح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 12,
+    "start_word": 182,
+    "end_word": 197,
+    "text_snippet": "وأما متى فالجر بها لغة هذيل ومن كلامهم أخرجها متى ك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 13,
+    "start_word": 198,
+    "end_word": 210,
+    "text_snippet": "198 - شربن بماء البحر ثم ترفعت … متى لجج خضر",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 14,
+    "start_word": 211,
+    "end_word": 232,
+    "text_snippet": "وسيأتي الكلام على بقية العشرين عند كلام المصنف عليها",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 15,
+    "start_word": 233,
+    "end_word": 255,
+    "text_snippet": "ومذهب سيبويه أنها من حروف الجر لكن لا تجر إلا المضم",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 16,
+    "start_word": 256,
+    "end_word": 282,
+    "text_snippet": "وزعم الأخفش أنها في موضع رفع بالابتداء ووضع ضمير ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 17,
+    "start_word": 283,
+    "end_word": 295,
+    "text_snippet": "وزعم المبرد أن هذا التركيب أعني لولاك ونحوه لم يرد ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 18,
+    "start_word": 296,
+    "end_word": 301,
+    "text_snippet": "وهو محجوج بثبوت ذلك عنهم كقوله:",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 19,
+    "start_word": 302,
+    "end_word": 315,
+    "text_snippet": "199 - أتطمع فينا من أراق دماءنا … ولولاك لم يع",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 20,
+    "start_word": 316,
+    "end_word": 329,
+    "text_snippet": "200 - وكم موطن لولاي طحت كما هوى … بأجرامه من ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 21,
+    "start_word": 330,
+    "end_word": 339,
+    "text_snippet": "بالظاهر أخصص منذ مذ وحتى … والكاف والواو ورب والتا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 340,
+    "end_word": 361,
+    "text_snippet": "وأخصص بمذ ومنذ وقتا وبرب … منكرا والتاء لله ورب\nوم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 23,
+    "start_word": 362,
+    "end_word": 383,
+    "text_snippet": "من حروف الجر ما لا يجر إلا الظاهر وهي هذه السبعة ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 24,
+    "start_word": 384,
+    "end_word": 425,
+    "text_snippet": "ولا تجر منذ ومذ من الأسماء الظاهرة إلا أسماء الزمان",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 25,
+    "start_word": 426,
+    "end_word": 438,
+    "text_snippet": "وسيذكر المصنف هذا في آخر الباب وهذا معنى قوله واخصص",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 26,
+    "start_word": 439,
+    "end_word": 448,
+    "text_snippet": "وأما حتى فسيأتي الكلام على مجرورها عند ذكر المصنف ل",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 27,
+    "start_word": 449,
+    "end_word": 453,
+    "text_snippet": "وقد شذ جرها للضمير كقوله:",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 28,
+    "start_word": 454,
+    "end_word": 467,
+    "text_snippet": "201 - فلا والله لا يلفى أناس … فتى حتاك يا ابن",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 29,
+    "start_word": 468,
+    "end_word": 478,
+    "text_snippet": "ولا يقاس على ذلك خلافا لبعضهم ولغة هذيل إبدال حائها",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 30,
+    "start_word": 479,
+    "end_word": 486,
+    "text_snippet": "وقرأ ابن مسعود {فَتَرَبَّصُوا بِهِ حَتَّى حِينٍ}",
+    "scholarly_function": "narration",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 31,
+    "start_word": 487,
+    "end_word": 505,
+    "text_snippet": "وأما الواو فمختصة بالقسم وكذلك التاء ولا يجوز ذكر ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 32,
+    "start_word": 506,
+    "end_word": 530,
+    "text_snippet": "ولا تجر التاء إلا لفظ الله فتقول تالله لأفعلن وقد س",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 33,
+    "start_word": 531,
+    "end_word": 543,
+    "text_snippet": "وسمع أيضا تالرحمن وذكر الخفاف في شرح الكتاب أنهم قا",
+    "scholarly_function": "narration",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 34,
+    "start_word": 544,
+    "end_word": 562,
+    "text_snippet": "ولا تجر رب إلا نكرة نحو رب رجل عالم لقيت وهذا معنى",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 35,
+    "start_word": 563,
+    "end_word": 568,
+    "text_snippet": "وقد شذ جرها ضمير الغيبة كقوله:",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 36,
+    "start_word": 569,
+    "end_word": 581,
+    "text_snippet": "202 - واه رأبت وشيكا صدع أعظمه … وربه عطبا أنقذ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 37,
+    "start_word": 582,
+    "end_word": 587,
+    "text_snippet": "كما شذ جر الكاف له كقوله:",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 38,
+    "start_word": 588,
+    "end_word": 600,
+    "text_snippet": "203 - خلى الذنابات شمالا كثبا … وأم أوعال كها أو",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 39,
+    "start_word": 601,
+    "end_word": 613,
+    "text_snippet": "204 - ولا ترى بعلا ولا حلائلا … كه ولا كهن إلا ح",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 40,
+    "start_word": 614,
+    "end_word": 636,
+    "text_snippet": "وهذا معنى قوله: وما رووا البيت أي والذي روى من جر ر",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 41,
+    "start_word": 637,
+    "end_word": 659,
+    "text_snippet": "بعض وبين وابتدىء في الأمكنة … بمن وقد تأتي لبدء ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 42,
+    "start_word": 660,
+    "end_word": 674,
+    "text_snippet": "تجيء من للتبعيض ولبيان الجنس ولابتداء الغاية في غير ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 43,
+    "start_word": 675,
+    "end_word": 683,
+    "text_snippet": "فمثالها للتبعيض قولك أخذت من الدراهم ومنه قوله تعالى",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 44,
+    "start_word": 684,
+    "end_word": 689,
+    "text_snippet": "{وَمِنَ النَّاسِ مَنْ يَقُولُ آمَنَّا بِاللهِ}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 45,
+    "start_word": 690,
+    "end_word": 698,
+    "text_snippet": "ومثالها لبيان الجنس قوله تعالى: {فَاجْتَنِبُوا الرِّ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 46,
+    "start_word": 699,
+    "end_word": 716,
+    "text_snippet": "ومثالها لابتداء الغاية في المكان قوله تعالى: {سُبْحَا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 47,
+    "start_word": 717,
+    "end_word": 734,
+    "text_snippet": "ومثالها لابتداء الغاية في الزمان قوله تعالى: {لَمَسْج",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 735,
+    "end_word": 750,
+    "text_snippet": "وقول الشاعر: 205 - تخيرن من أزمان يوم حليمة … إلى ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 49,
+    "start_word": 751,
+    "end_word": 763,
+    "text_snippet": "ومثال الزائدة ما جاءني من أحد ولا تزاد عند جمهور الب",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 50,
+    "start_word": 764,
+    "end_word": 769,
+    "text_snippet": "أحدهما: أن يكون المجرور بها نكرة.",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 51,
+    "start_word": 770,
+    "end_word": 790,
+    "text_snippet": "الثاني: أن يسبقها نفي أو شبهه والمراد بشبه النفي الن",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 52,
+    "start_word": 791,
+    "end_word": 806,
+    "text_snippet": "ولا تزاد في الإيجاب ولا يؤتى بها جارة لمعرفة فلا تقو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 53,
+    "start_word": 807,
+    "end_word": 814,
+    "text_snippet": "وجعل منه قوله تعالى: {يَغْفِرْ لَكُمْ مِنْ ذُنُوبِك",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 54,
+    "start_word": 815,
+    "end_word": 832,
+    "text_snippet": "وأجاز الكوفيون زيادتها في الإيجاب بشرط تنكير مجرورها",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 55,
+    "start_word": 833,
+    "end_word": 841,
+    "text_snippet": "للانتهاء حتى ولام وإلى … ومن وباء يفهمان بدلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 56,
+    "start_word": 842,
+    "end_word": 866,
+    "text_snippet": "يدل على انتهاء الغاية إلى وحتى واللام والأصل من هذه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 57,
+    "start_word": 867,
+    "end_word": 878,
+    "text_snippet": "ولا تجر حتى إلا ما كان آخرا أو متصلا بالآخر كقوله ت",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 58,
+    "start_word": 879,
+    "end_word": 883,
+    "text_snippet": "{سَلامٌ هِيَ حَتَّى مَطْلَعِ الْفَجْرِ}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 59,
+    "start_word": 884,
+    "end_word": 893,
+    "text_snippet": "ولا تجر غيرهما فلا تقول سرت البارحة حتى نصف الليل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 60,
+    "start_word": 894,
+    "end_word": 904,
+    "text_snippet": "واستعمال اللام للانتهاء قليل ومنه قوله تعالى: {كُلٌّ ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 61,
+    "start_word": 905,
+    "end_word": 917,
+    "text_snippet": "ويستعمل من والباء بمعنى بدل فمن استعمال من بمعنى بدل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 62,
+    "start_word": 918,
+    "end_word": 925,
+    "text_snippet": "{أرَضِيتُمْ بِالْحَيَاةِ الدُّنْيَا مِنَ الآخِرَةِ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 63,
+    "start_word": 926,
+    "end_word": 937,
+    "text_snippet": "وقوله تعالى: {وَلَوْ نَشَاءُ لَجَعَلْنَا مِنْكُمْ ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 64,
+    "start_word": 938,
+    "end_word": 954,
+    "text_snippet": "وقول الشاعر:\n206 - جاريه لم تأكل المرققا … ولم تذق",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 65,
+    "start_word": 955,
+    "end_word": 972,
+    "text_snippet": "ومن استعمال الباء بمعنى بدل ما ورد في الحديث ما يسرن",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 66,
+    "start_word": 973,
+    "end_word": 983,
+    "text_snippet": "فليت لي بهم قوما إذا ركبوا … شنوا الإغارة فرسانا",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 67,
+    "start_word": 984,
+    "end_word": 1001,
+    "text_snippet": "واللام للملك وشبهه وفي … تعدية أيضا وتعليل قفى\nوزيد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1002,
+    "end_word": 1012,
+    "text_snippet": "تقدم أن اللام تكون للانتهاء وذكر هنا أنها تكون للملك",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1013,
+    "end_word": 1021,
+    "text_snippet": "{لَّهِ مَا فِي السَّمَاوَاتِ وَمَا فِي الأَرْضِ} و",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1022,
+    "end_word": 1028,
+    "text_snippet": "ولشبه الملك نحو الجل للفرس والباب للدار",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1029,
+    "end_word": 1036,
+    "text_snippet": "وللتعدية نحو وهبت لزيد مالا ومنه قوله تعالى:",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1037,
+    "end_word": 1046,
+    "text_snippet": "{فَهَبْ لِي مِنْ لَدُنْكَ وَلِيّاً يَرِثُنِي وَيَر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 73,
+    "start_word": 1047,
+    "end_word": 1051,
+    "text_snippet": "وللتعليل نحو جئتك لإكرامك وقوله:",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 74,
+    "start_word": 1052,
+    "end_word": 1063,
+    "text_snippet": "207 - وإني لتعروني لذكراك هزة … كما انتفض العصفو",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 75,
+    "start_word": 1064,
+    "end_word": 1075,
+    "text_snippet": "وزائدة قياسا نحو لزيد ضربت ومنه قوله تعالى: {إِنْ كُ",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 76,
+    "start_word": 1076,
+    "end_word": 1079,
+    "text_snippet": "وسماعا نحو ضربت لزيد",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 77,
+    "start_word": 1080,
+    "end_word": 1096,
+    "text_snippet": "وأشار بقوله والظرفية استبن إلى آخره إلى معنى الباء و",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 78,
+    "start_word": 1097,
+    "end_word": 1109,
+    "text_snippet": "فمثال الباء للظرفية قوله تعالى: {وَإِنَّكُمْ لَتَمُر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1110,
+    "end_word": 1127,
+    "text_snippet": "ومثالها للسببية قوله تعالى: {فَبِظُلْمٍ مِنَ الَّذِي",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1128,
+    "end_word": 1137,
+    "text_snippet": "ومثال في للظرفية قولك زيد في المسجد وهو الكثير فيها",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1138,
+    "end_word": 1160,
+    "text_snippet": "ومثالها للسببية قوله صلى الله عليه وسلم: \"دخلت امرأة",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1161,
+    "end_word": 1172,
+    "text_snippet": "بالبا استعن وعد عوض ألصق … ومثل مع ومن وعن بها انطق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1173,
+    "end_word": 1188,
+    "text_snippet": "تقدم أن الباء تكون للظرفية وللسببية وذكر هنا أنها تك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 84,
+    "start_word": 1189,
+    "end_word": 1198,
+    "text_snippet": "وللتعدية نحو ذهبت بزيد ومنه قوله تعالى: {ذَهَبَ الله",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 85,
+    "start_word": 1199,
+    "end_word": 1207,
+    "text_snippet": "وللتعويض نحو اشتريت الفرس بألف درهم ومنه قوله تعالى:",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 86,
+    "start_word": 1208,
+    "end_word": 1213,
+    "text_snippet": "{أُولَئِكَ الَّذِينَ اشْتَرَوُا الْحَيَاةَ الدُّنْي",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 87,
+    "start_word": 1214,
+    "end_word": 1226,
+    "text_snippet": "وللإلصاق نحو مررت بزيد وبمعنى مع نحو بعتك الثوب بطر",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 88,
+    "start_word": 1227,
+    "end_word": 1236,
+    "text_snippet": "وبمعنى من كقوله\nشربن بماء البحر\nأي من ماء البحر",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 89,
+    "start_word": 1237,
+    "end_word": 1246,
+    "text_snippet": "وبمعنى عن نحو {سَأَلَ سَائِلٌ بِعَذَابٍ وَاقِعٍ} أ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 90,
+    "start_word": 1247,
+    "end_word": 1258,
+    "text_snippet": "وتكون الباء أيضا للمصاحبة نحو {فَسَبِّحْ بِحَمْدِ ر",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 91,
+    "start_word": 1259,
+    "end_word": 1282,
+    "text_snippet": "علي للاستعلاء ومعنى في وعن … بعن تجاوزا عني من قد فط",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 92,
+    "start_word": 1283,
+    "end_word": 1295,
+    "text_snippet": "تستعمل على للاستعلاء كثيرا نحو زيد على السطح وبمعنى ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 93,
+    "start_word": 1296,
+    "end_word": 1306,
+    "text_snippet": "{وَدَخَلَ الْمَدِينَةَ عَلَى حِينِ غَفْلَةٍ مِنْ أ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 94,
+    "start_word": 1307,
+    "end_word": 1320,
+    "text_snippet": "وتستعمل عن للمجاوزة كثيرا نحو رميت السهم عن القوس وب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 95,
+    "start_word": 1321,
+    "end_word": 1331,
+    "text_snippet": "{لَتَرْكَبُنَّ طَبَقاً عَنْ طَبَقٍ} أي بعد طبق وبم",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 96,
+    "start_word": 1332,
+    "end_word": 1346,
+    "text_snippet": "208 - لاه ابن عمك لا أفضلت في حسب … عني ولا أنت د",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 97,
+    "start_word": 1347,
+    "end_word": 1359,
+    "text_snippet": "أي لا أفضلت في حسب علي كما استعملت على بمعنى عن في ق",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 98,
+    "start_word": 1360,
+    "end_word": 1371,
+    "text_snippet": "209 - إذا رضيت علي بنو قشير … لعمر الله أعجبني رض",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 99,
+    "start_word": 1372,
+    "end_word": 1375,
+    "text_snippet": "أي إذا رضيت عني.",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 100,
+    "start_word": 1376,
+    "end_word": 1385,
+    "text_snippet": "شبه بكاف وبها التعليل قد … يعني وزائدا لتوكيد ورد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 101,
+    "start_word": 1386,
+    "end_word": 1395,
+    "text_snippet": "تأتي الكاف للتشبيه كثيرا كقولك زيد كالأسد وقد تأتى ل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 102,
+    "start_word": 1396,
+    "end_word": 1403,
+    "text_snippet": "كقوله تعالى: {وَاذْكُرُوهُ كَمَا هَدَاكُمْ} أي لهدا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 103,
+    "start_word": 1404,
+    "end_word": 1416,
+    "text_snippet": "وتأتى زائدة للتوكيد وجعل منه قوله تعالى: {لَيْسَ كَم",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 104,
+    "start_word": 1417,
+    "end_word": 1427,
+    "text_snippet": "ومما زيدت فيه قول رؤبة:\n210 - لواحق الأقراب فيها كا",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 105,
+    "start_word": 1428,
+    "end_word": 1446,
+    "text_snippet": "أي فيها المقق أي الطول وما حكاه الفراء أنه قيل لبعض ",
+    "scholarly_function": "narration",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 106,
+    "start_word": 1447,
+    "end_word": 1458,
+    "text_snippet": "واستعمل اسما وكذا عن وعلى … من أجل ذا عليهما من دخل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 107,
+    "start_word": 1459,
+    "end_word": 1463,
+    "text_snippet": "استعمل الكاف اسما قليلا كقوله:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 108,
+    "start_word": 1464,
+    "end_word": 1476,
+    "text_snippet": "211 - أتنتهون ولن ينهى ذوي شطط … كالطعن يذهب فيه ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 109,
+    "start_word": 1477,
+    "end_word": 1491,
+    "text_snippet": "فالكاف اسم مرفوع على الفاعلية والعامل فيه ينهى والتقد",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 110,
+    "start_word": 1492,
+    "end_word": 1508,
+    "text_snippet": "واستعملت على وعن اسمين عند دخول من عليهما وتكون على ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 111,
+    "start_word": 1509,
+    "end_word": 1523,
+    "text_snippet": "212 - غدت من عليه بعد ما تم ظمؤها … تصل وعن قيض ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 112,
+    "start_word": 1524,
+    "end_word": 1528,
+    "text_snippet": "أي غدت من فوقه وقوله:",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 113,
+    "start_word": 1529,
+    "end_word": 1540,
+    "text_snippet": "213 - ولقد أراني للرماح دريثة … من عن يميني تارة و",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 114,
+    "start_word": 1541,
+    "end_word": 1544,
+    "text_snippet": "أي من جانب يميني.",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 115,
+    "start_word": 1545,
+    "end_word": 1568,
+    "text_snippet": "ومذ ومنذ أسمان حيث رفعا … أو أوليا الفعل كجئت مذ دع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 116,
+    "start_word": 1569,
+    "end_word": 1581,
+    "text_snippet": "تستعمل مذ ومنذ اسمين إذا وقع بعدهما الاسم مرفوعا أو ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 117,
+    "start_word": 1582,
+    "end_word": 1606,
+    "text_snippet": "فمثال الأول ما رأيته مذ يوم الجمعة أو مذ شهرنا فمذ ا",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 118,
+    "start_word": 1607,
+    "end_word": 1620,
+    "text_snippet": "ومثال الثاني: جئت مذ دعا فمذ اسم منصوب المحل على الظر",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 119,
+    "start_word": 1621,
+    "end_word": 1657,
+    "text_snippet": "وإن وقع ما بعدهما مجرورا فهما حرفا جر بمعنى من إن كا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 120,
+    "start_word": 1658,
+    "end_word": 1670,
+    "text_snippet": "وبعد من وعن وباء زيد ما … فلم يعق عن عمل قد علما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 121,
+    "start_word": 1671,
+    "end_word": 1682,
+    "text_snippet": "تزاد ما بعد من وعن والباء فلا تكفها عن العمل كقوله تع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 122,
+    "start_word": 1683,
+    "end_word": 1685,
+    "text_snippet": "{مِمَّا خَطِيئَاتِهِمْ أُغْرِقُوا}",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 123,
+    "start_word": 1686,
+    "end_word": 1691,
+    "text_snippet": "وقوله تعالى عما قليل ليصبحن نادمين",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 124,
+    "start_word": 1692,
+    "end_word": 1700,
+    "text_snippet": "وقوله تعالى: {فَبِمَا رَحْمَةٍ مِنَ اللهِ لِنْتَ لَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 125,
+    "start_word": 1701,
+    "end_word": 1711,
+    "text_snippet": "وزيد بعد رب والكاف فكف … وقد تليهما وجر لم يكف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 126,
+    "start_word": 1712,
+    "end_word": 1720,
+    "text_snippet": "تزاد ما بعد الكاف ورب فتكفهما عن العمل كقوله:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 127,
+    "start_word": 1721,
+    "end_word": 1733,
+    "text_snippet": "214\nفإن الحمر من شر المطايا … كما الحبطات شر بني تم",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 128,
+    "start_word": 1734,
+    "end_word": 1743,
+    "text_snippet": "215 - ربما الجامل المؤبل فيهم … وعناجيج بينهن المه",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 129,
+    "start_word": 1744,
+    "end_word": 1753,
+    "text_snippet": "وقد تزاد بعدهما ولا تكفهما عن العمل وهو قليل كقوله:",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 130,
+    "start_word": 1754,
+    "end_word": 1762,
+    "text_snippet": "ماوى لا ربتما غارة … شعواء كاللذعة بالميسم",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 131,
+    "start_word": 1763,
+    "end_word": 1774,
+    "text_snippet": "217 - وننصر مولانا ونعلم أنه … كما الناس مجروم علي",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 132,
+    "start_word": 1775,
+    "end_word": 1786,
+    "text_snippet": "وحذفت رب فجرت بعد بل … والفا وبعد الواو شاع ذا العم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 133,
+    "start_word": 1787,
+    "end_word": 1807,
+    "text_snippet": "لا يجوز حذف حرف الجر وإبقاء عمله إلا في رب بعد الواو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 134,
+    "start_word": 1808,
+    "end_word": 1815,
+    "text_snippet": "فمثاله بعد الواو قوله:\nوقاتم الأعماق خاوى المخترقن",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 135,
+    "start_word": 1816,
+    "end_word": 1832,
+    "text_snippet": "ومثاله بعد الفاء قوله:\n218 - فمثلك حبلى فد طرقت ومر",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 136,
+    "start_word": 1833,
+    "end_word": 1848,
+    "text_snippet": "ومثاله بعد بل قوله:\n219 - بل بلد ملء الفجاج قتمه …",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 137,
+    "start_word": 1849,
+    "end_word": 1865,
+    "text_snippet": "والشائع من ذلك حذفها بعد الواو وقد شذ الجر برب محذوفة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 138,
+    "start_word": 1866,
+    "end_word": 1878,
+    "text_snippet": "220 - رسم دار وقفت في طلله … كدت أقضى الحياة من جل",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 139,
+    "start_word": 1879,
+    "end_word": 1888,
+    "text_snippet": "وقد يجر بسوى رب لدى … حذف وبعضه يرى مطردا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 140,
+    "start_word": 1889,
+    "end_word": 1897,
+    "text_snippet": "الجر بغير رب محذوفا على قسمين مطرد وغير مطرد فغير الم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 141,
+    "start_word": 1898,
+    "end_word": 1914,
+    "text_snippet": "فغير المطرد كقول رؤبة لمن قال له كيف أصبحت خير والحمد",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 142,
+    "start_word": 1915,
+    "end_word": 1927,
+    "text_snippet": "221 - إذا قيل أي الناس شر قبيلة … أشارت كليب بالأ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 143,
+    "start_word": 1928,
+    "end_word": 1932,
+    "text_snippet": "أي أشارت إلى كليب وقوله:",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 144,
+    "start_word": 1933,
+    "end_word": 1944,
+    "text_snippet": "222 - وكريمة من آل قيس ألفته … حتى تبذخ فارتقى الأ",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 145,
+    "start_word": 1945,
+    "end_word": 1948,
+    "text_snippet": "أي فارتقى إلى الأعلام.",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 146,
+    "start_word": 1949,
+    "end_word": 1964,
+    "text_snippet": "والمطرد كقولك بكم درهم اشتريت هذا فدرهم مجرور بمن مح",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 147,
+    "start_word": 1965,
+    "end_word": 1986,
+    "text_snippet": "فعلى مذهب سيبويه والخليل يكون الجار قد حذف وأبقى عمل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  }
+]

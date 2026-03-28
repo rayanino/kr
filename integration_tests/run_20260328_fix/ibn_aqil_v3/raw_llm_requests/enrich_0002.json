@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0002",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 16384,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nYou previously classified segments of this Arabic text by scholarly function.\nNow group these classified segments into TEACHING UNITS — self-contained\nscholarly segments that each teach one distinct concept, ruling, or argument.\nA teaching unit is the smallest segment a student could study and learn\nsomething complete from.\n\nGROUPING RULES:\n- A position (opinion_statement) + its evidence + any count"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nبسم الله الرحمن الرحيم\n‌‌حروف الجر\nهاك حروف الجر وهي من إلى\n… حتى خلا حاشا عدا في عن على\nمذ منذ رب اللام كي واو وتا … والكاف والباء ولعل ومتى\nهذه الحروف العشرون كلها مختصة بالأسماء وهي تعمل فيها الجر وتقدم الكلام على خلا وحاشا وعدا في الاستثناء وقل من ذكر كي ولعل ومتى في حروف الجر\nفأما كي فتكون حرف جر في موضعين\nأحدهما: إذا دخلت على ما الاستفهامية نحو كيمه أي لمه فما استفهامية مجرورة بكى وحذفت ألفها لدخول حرف الجر عليها وجيء بالهاء للسكت الثاني: قولك جئت كي أكرم زيدا فأكرم فعل مضارع منصوب "
+    }
+  ]
+}

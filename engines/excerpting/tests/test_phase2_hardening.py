@@ -1660,16 +1660,18 @@ class TestVP215AllContainmentLevels:
 
 
 class TestMaxTokenBoundaryValues:
-    """_compute_classify_max_tokens boundary conditions at 2000 and 4000.
+    """_compute_classify_max_tokens boundary conditions at 1500 and 4000.
 
-    §5.5.1: <=2000 → 8192, >2000 → 32768, >4000 → 32768 with warning.
+    §5.5.1: <=1500 → 8192, >1500 → 32768, >4000 → 32768 with warning.
+    Threshold lowered from 2000 to 1500 (2026-03-28, ibn_aqil_v3 regression).
     """
 
     @pytest.mark.parametrize(
         "word_count, expected_tokens, expect_warning",
         [
-            (2000, 8192, False),     # exactly 2000 → 8192 (not >2000)
-            (2001, 32768, False),    # just above → 32768, no warning
+            (1500, 8192, False),     # exactly 1500 → 8192 (not >1500)
+            (1501, 32768, False),    # just above → 32768, no warning
+            (1987, 32768, False),    # ibn_aqil_v3 regression case
             (4000, 32768, False),    # exactly 4000 → 32768, no warning
             (4001, 32768, True),     # just above → 32768, with warning
         ],
@@ -1681,7 +1683,7 @@ class TestMaxTokenBoundaryValues:
         expect_warning: bool,
         caplog: pytest.LogCaptureFixture,
     ) -> None:
-        """Verify exact boundary behavior at 2000 and 4000 thresholds."""
+        """Verify exact boundary behavior at 1500 and 4000 thresholds."""
         with caplog.at_level(logging.WARNING):
             result = _compute_classify_max_tokens(word_count)
         assert result == expected_tokens

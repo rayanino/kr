@@ -1,0 +1,16 @@
+{
+  "call_id": "escalation_0003",
+  "model": "mistralai/mistral-large-2411",
+  "temperature": 0.0,
+  "max_tokens": 1024,
+  "messages": [
+    {
+      "role": "system",
+      "content": "\n        As a genius expert, your task is to understand the content and provide\n        the parsed objects in json that match the following json_schema:\n\n\n        {\n  \"properties\": {\n    \"author_id\": {\n      \"description\": \"The correct author attribution\",\n      \"title\": \"Author Id\",\n      \"type\": \"string\"\n    },\n    \"reasoning\": {\n      \"description\": \"Brief explanation\",\n      \"title\": \"Reasoning\",\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"author_id\",\n    \"reasoning\"\n  ],\n  \"title"
+    },
+    {
+      "role": "user",
+      "content": "Two models disagree on the author attribution of this Arabic text.\n\nText: \"وحذفت رب فجرت بعد بل … والفا وبعد الواو شاع ذا العمل لا يجوز حذف حرف الجر وإبقاء عمله إلا في رب بعد الواو وفيما سنذكره وقد ورد حذفها بعد الفاء وبل قليلا فمثاله بعد الواو قوله:\nوقاتم الأعماق خاوى المخترقن\nومثاله بعد الفاء قوله:\n218 - فمثلك حبلى فد طرقت ومرضع … فألهيتها عن ذي تمائم محول ومثاله بعد بل قوله:\n219 - بل بلد ملء الفجاج قتمه … لا يشترى كتانه وجهرمه والشائع من ذلك حذفها بعد الواو وقد شذ الجر برب محذوفة من غير أن يت"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0004",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 16384,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nYou are enriching teaching units extracted from this Arabic text with semantic\nmetadata. Each teaching unit has already been identified, classified, and\npartially annotated. Your task is to add inferred metadata that requires\nscholarly understanding of the text.\n\nFor EACH teaching unit listed in the input, provide these fields:\n\n1. TOPIC KEYWORDS (excerpt_topic): 1 to 3 Arabic keywords or short phra"
+    },
+    {
+      "role": "user",
+      "content": "<source_metadata>\nAuthor: ابن عقيل\nWork: شرح ابن عقيل على ألفية ابن مالك\nScience: نحو\nSchool: unknown\n</source_metadata>\n\n<text>\nبسم الله الرحمن الرحيم\n‌‌حروف الجر\nهاك حروف الجر وهي من إلى\n… حتى خلا حاشا عدا في عن على\nمذ منذ رب اللام كي واو وتا … والكاف والباء ولعل ومتى\nهذه الحروف العشرون كلها مختصة بالأسماء وهي تعمل فيها الجر وتقدم الكلام على خلا وحاشا وعدا في الاستثناء وقل من ذكر كي ولعل ومتى في حروف الجر\nفأما كي فتكون حرف جر في موضعين\nأحدهما: إذا دخلت على ما الاستفهامية نحو كيمه أي لمه فما اس"
+    }
+  ]
+}

@@ -367,8 +367,9 @@ class TestComputeClassifyMaxTokens:
         "word_count, expected",
         [
             (500, 8192),
-            (2000, 8192),
-            (2001, 32768),
+            (1500, 8192),
+            (1501, 32768),
+            (1987, 32768),   # ibn_aqil_v3 regression case
             (3000, 32768),
             (4001, 32768),
         ],

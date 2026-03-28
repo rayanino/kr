@@ -1,0 +1,595 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 58,
+    "text_snippet": "بسم الله الرحمن الرحيم\n‌‌حروف الجر\nهاك حروف الجر وهي من إلى\n… حتى خلا حاشا عدا في",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تعداد حروف الجر العشرين وبيان اختصاصها بالأسماء وعملها فيها الجر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5,
+      6
+    ],
+    "start_word": 59,
+    "end_word": 115,
+    "text_snippet": "فأما كي فتكون حرف جر في موضعين\nأحدهما: إذا دخلت على ما الاستفهامية نحو كيمه أي لم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "بيان موضعي كي كحرف جر: دخولها على ما الاستفهامية ودخولها على الفعل المضارع المنصوب بأن مضمرة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "start_word": 116,
+    "end_word": 181,
+    "text_snippet": "وأما لعل فالجر بها لغة عقيل ومنه قوله:\nلعل أبي المغوار منك قريب وقوله:",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "narration",
+      "example"
+    ],
+    "description_arabic": "بيان أن الجر بلعل لغة عقيل مع شواهد شعرية وإعرابها وذكر الروايات في لامها من كسر وفتح وحذف",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      12,
+      13
+    ],
+    "start_word": 182,
+    "end_word": 210,
+    "text_snippet": "وأما متى فالجر بها لغة هذيل ومن كلامهم أخرجها متى ك",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "بيان أن الجر بمتى لغة هذيل مع شاهد من كلامهم وشاهد شعري",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      14
+    ],
+    "start_word": 211,
+    "end_word": 232,
+    "text_snippet": "وسيأتي الكلام على بقية العشرين عند كلام المصنف عليها",
+    "primary_function": "cross_reference",
+    "secondary_functions": [
+      "editorial_note"
+    ],
+    "description_arabic": "إحالة على مواضع الكلام على بقية حروف الجر وبيان أن كي ولعل ومتى قلّ من ذكرها في حروف الجر",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يحيل على مواضع لاحقة في الكتاب دون تحديدها، ويشير إلى خلا وحاشا وعدا في باب الاستثناء"
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 233,
+    "end_word": 329,
+    "text_snippet": "ومذهب سيبويه أنها من حروف الجر لكن لا تجر إلا المضم",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [
+      "refutation",
+      "narration"
+    ],
+    "description_arabic": "خلاف العلماء في لولا: مذهب سيبويه أنها حرف جر للمضمر، ومذهب الأخفش أنها لا تعمل، وزعم المبرد عدم ورود التركيب والرد عليه بالشواهد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21,
+      22,
+      23
+    ],
+    "start_word": 330,
+    "end_word": 383,
+    "text_snippet": "بالظاهر أخصص منذ مذ وحتى … والكاف والواو ورب والتا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان حروف الجر السبعة المختصة بالاسم الظاهر وهي: منذ ومذ وحتى والكاف والواو ورب والتاء",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      24,
+      25
+    ],
+    "start_word": 384,
+    "end_word": 438,
+    "text_snippet": "ولا تجر منذ ومذ من الأسماء الظاهرة إلا أسماء الزمان",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "cross_reference"
+    ],
+    "description_arabic": "اختصاص مذ ومنذ بجر أسماء الزمان مع بيان معناهما: في للحاضر ومن للماضي",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "start_word": 439,
+    "end_word": 486,
+    "text_snippet": "وأما حتى فسيأتي الكلام على مجرورها عند ذكر المصنف ل",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "cross_reference",
+      "narration",
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان شذوذ جر حتى للضمير مع شاهد شعري وذكر لغة هذيل في إبدال حائها عيناً وقراءة ابن مسعود",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      31,
+      32,
+      33
+    ],
+    "start_word": 487,
+    "end_word": 543,
+    "text_snippet": "وأما الواو فمختصة بالقسم وكذلك التاء ولا يجوز ذكر ف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "أحكام واو القسم وتاء القسم: اختصاصهما بالقسم وعدم ذكر فعل القسم معهما واختصاص التاء بلفظ الله ورب الكعبة وتالرحمن",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      34,
+      35,
+      36
+    ],
+    "start_word": 544,
+    "end_word": 581,
+    "text_snippet": "ولا تجر رب إلا نكرة نحو رب رجل عالم لقيت وهذا معنى",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "narration"
+    ],
+    "description_arabic": "اختصاص رب بجر النكرة وشذوذ جرها ضمير الغيبة مع شاهد شعري",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      37,
+      38,
+      39,
+      40
+    ],
+    "start_word": 582,
+    "end_word": 636,
+    "text_snippet": "كما شذ جر الكاف له كقوله:\n203 - خلى الذنابات شمالا كثبا",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "narration",
+      "editorial_note"
+    ],
+    "description_arabic": "شذوذ جر الكاف للضمير مع شواهد شعرية وتلخيص قلة جر رب والكاف للمضمر",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48
+    ],
+    "start_word": 637,
+    "end_word": 750,
+    "text_snippet": "بعض وبين وابتدىء في الأمكنة … بمن وقد تأتي لبدء ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "evidence_quran",
+      "narration"
+    ],
+    "description_arabic": "معاني من: التبعيض وبيان الجنس وابتداء الغاية في المكان والزمان مع شواهد قرآنية وشعرية لكل معنى",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 13,
+    "segment_indices": [
+      49,
+      50,
+      51,
+      52,
+      53,
+      54
+    ],
+    "start_word": 751,
+    "end_word": 832,
+    "text_snippet": "ومثال الزائدة ما جاءني من أحد ولا تزاد عند جمهور الب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "example",
+      "evidence_quran",
+      "opinion_statement"
+    ],
+    "description_arabic": "أحكام من الزائدة: شرطا زيادتها عند البصريين (تنكير المجرور وسبق النفي أو شبهه) وخلاف الأخفش والكوفيين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 14,
+    "segment_indices": [
+      55,
+      56,
+      57,
+      58,
+      59,
+      60
+    ],
+    "start_word": 833,
+    "end_word": 904,
+    "text_snippet": "للانتهاء حتى ولام وإلى … ومن وباء يفهمان بدلا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "evidence_quran"
+    ],
+    "description_arabic": "دلالة إلى وحتى واللام على انتهاء الغاية مع بيان شرط مجرور حتى وقلة استعمال اللام للانتهاء",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 15,
+    "segment_indices": [
+      61,
+      62,
+      63,
+      64,
+      65,
+      66
+    ],
+    "start_word": 905,
+    "end_word": 983,
+    "text_snippet": "ويستعمل من والباء بمعنى بدل فمن استعمال من بمعنى بدل ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "narration",
+      "evidence_hadith"
+    ],
+    "description_arabic": "استعمال من والباء بمعنى بدل مع شواهد قرآنية وحديثية وشعرية لكل منهما",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 16,
+    "segment_indices": [
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76
+    ],
+    "start_word": 984,
+    "end_word": 1079,
+    "text_snippet": "واللام للملك وشبهه وفي … تعدية أيضا وتعليل قفى\nوزيد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "cross_reference",
+      "evidence_quran",
+      "example",
+      "narration"
+    ],
+    "description_arabic": "معاني اللام: الملك وشبهه والتعدية والتعليل والزيادة قياساً وسماعاً مع شواهد قرآنية وشعرية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 17,
+    "segment_indices": [
+      77,
+      78,
+      79,
+      80,
+      81
+    ],
+    "start_word": 1080,
+    "end_word": 1160,
+    "text_snippet": "وأشار بقوله والظرفية استبن إلى آخره إلى معنى الباء و",
+    "primary_function": "editorial_note",
+    "secondary_functions": [
+      "evidence_quran",
+      "example",
+      "evidence_hadith"
+    ],
+    "description_arabic": "اشتراك الباء وفي في إفادة الظرفية والسببية مع شواهد قرآنية وحديثية لكل معنى",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 18,
+    "segment_indices": [
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90
+    ],
+    "start_word": 1161,
+    "end_word": 1258,
+    "text_snippet": "بالبا استعن وعد عوض ألصق … ومثل مع ومن وعن بها انطق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "evidence_quran"
+    ],
+    "description_arabic": "معاني الباء: الاستعانة والتعدية والتعويض والإلصاق ومعنى مع ومن وعن والمصاحبة مع شواهد قرآنية وأمثلة",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 19,
+    "segment_indices": [
+      91,
+      92,
+      93
+    ],
+    "start_word": 1259,
+    "end_word": 1306,
+    "text_snippet": "علي للاستعلاء ومعنى في وعن … بعن تجاوزا عني من قد فط",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "معاني على: الاستعلاء وبمعنى في مع شاهد قرآني",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 20,
+    "segment_indices": [
+      94,
+      95,
+      96,
+      97,
+      98,
+      99
+    ],
+    "start_word": 1307,
+    "end_word": 1375,
+    "text_snippet": "وتستعمل عن للمجاوزة كثيرا نحو رميت السهم عن القوس وب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "narration",
+      "example"
+    ],
+    "description_arabic": "معاني عن: المجاوزة وبمعنى بعد وبمعنى على، واستعمال على بمعنى عن، مع شواهد قرآنية وشعرية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 21,
+    "segment_indices": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105
+    ],
+    "start_word": 1376,
+    "end_word": 1446,
+    "text_snippet": "شبه بكاف وبها التعليل قد … يعني وزائدا لتوكيد ورد",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran",
+      "narration"
+    ],
+    "description_arabic": "معاني الكاف: التشبيه والتعليل والزيادة للتوكيد مع شواهد قرآنية وشعرية ونقل عن الفراء",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 22,
+    "segment_indices": [
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114
+    ],
+    "start_word": 1447,
+    "end_word": 1544,
+    "text_snippet": "واستعمل اسما وكذا عن وعلى … من أجل ذا عليهما من دخل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration",
+      "example"
+    ],
+    "description_arabic": "استعمال الكاف وعلى وعن أسماء: الكاف بمعنى مثل وعلى بمعنى فوق وعن بمعنى جانب مع شواهد شعرية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 23,
+    "segment_indices": [
+      115,
+      116,
+      117,
+      118,
+      119
+    ],
+    "start_word": 1545,
+    "end_word": 1657,
+    "text_snippet": "ومذ ومنذ أسمان حيث رفعا … أو أوليا الفعل كجئت مذ دع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "أحكام مذ ومنذ: استعمالهما اسمين عند رفع ما بعدهما أو وقوع فعل بعدهما، وحرفي جر عند الجر بمعنى من أو في",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 24,
+    "segment_indices": [
+      120,
+      121,
+      122,
+      123,
+      124
+    ],
+    "start_word": 1658,
+    "end_word": 1700,
+    "text_snippet": "وبعد من وعن وباء زيد ما … فلم يعق عن عمل قد علما",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_quran"
+    ],
+    "description_arabic": "زيادة ما بعد من وعن والباء دون كفها عن العمل مع شواهد قرآنية",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 25,
+    "segment_indices": [
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131
+    ],
+    "start_word": 1701,
+    "end_word": 1774,
+    "text_snippet": "وزيد بعد رب والكاف فكف … وقد تليهما وجر لم يكف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration",
+      "condition_exception"
+    ],
+    "description_arabic": "زيادة ما بعد رب والكاف: الغالب كفهما عن العمل وقد لا تكفهما وهو قليل مع شواهد شعرية للحالتين",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 26,
+    "segment_indices": [
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138
+    ],
+    "start_word": 1775,
+    "end_word": 1878,
+    "text_snippet": "وحذفت رب فجرت بعد بل … والفا وبعد الواو شاع ذا العم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration"
+    ],
+    "description_arabic": "حذف رب وإبقاء عملها بعد الواو (الشائع) وبعد الفاء وبل (القليل) وشذوذ حذفها دون تقدم شيء مع شواهد",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 27,
+    "segment_indices": [
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147
+    ],
+    "start_word": 1879,
+    "end_word": 1986,
+    "text_snippet": "وقد يجر بسوى رب لدى … حذف وبعضه يرى مطردا",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "example",
+      "narration",
+      "opinion_statement"
+    ],
+    "description_arabic": "الجر بحرف جر محذوف غير رب: قسمان مطرد (كم الاستفهامية) وغير مطرد مع أمثلة وشواهد وخلاف سيبويه والزجاج",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

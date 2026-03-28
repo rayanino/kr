@@ -1,0 +1,16 @@
+{
+  "call_id": "verify_0001",
+  "model": "openai/gpt-5.4",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are verifying metadata decisions made by another model on Arabic Islamic\nscholarly text. For each item below, independently assess whether the decision\nis correct.\n\n\n        As a genius expert, your task is to understand the content and provide\n        the parsed objects in json that match the following json_schema:\n\n\n        {\n  \"$defs\": {\n    \"VerificationItem\": {\n      \"description\": \"One verification assessment (SPEC §7.3.2).\",\n      \"properties\": {\n        \"item_index\": {\n          \"tit"
+    },
+    {
+      "role": "user",
+      "content": "Source context:\n- Author: ابن عقيل\n- Work: شرح ابن عقيل على ألفية ابن مالك\n- Science: نحو\n- School: unknown\n\nITEM 0: SELF_CONTAINMENT\nText: \"وسيأتي الكلام على بقية العشرين عند كلام المصنف عليها ولم يعد المصنف في هذا الكتاب لولا من حروف الجر وذكرها في غيره\"\nDecision: Unit assessed as PARTIAL. Notes: يحيل على مواضع لاحقة في الكتاب دون تحديدها، ويشير إلى خلا وحاشا وعدا في باب الاستثناء. Is this assessment correct?\nYour assessment: agree or disagree, with brief reasoning in Arabic or English.\nIf you"
+    }
+  ]
+}

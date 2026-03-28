@@ -1,0 +1,32 @@
+{
+  "call_id": "escalation_0001",
+  "latency_seconds": 2.45,
+  "model": "mistralai/mistral-large-2411",
+  "usage": {
+    "completion_tokens": 130,
+    "prompt_tokens": 817,
+    "total_tokens": 947,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.002414,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.002414,
+      "upstream_inference_prompt_cost": 0.001634,
+      "upstream_inference_completions_cost": 0.00078
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"author_id\": \"ابن عقيل\",\n  \"reasoning\": \"The text is a direct commentary on a grammatical purpose in the main text with examples and evidence, such as «وتستعمل عن...» and «كما استعملت...». The style is that of the commentator himself, and there is no attribution to another speaker. Since the work is the commentary of Ibn Aqil, the original attribution should be to Ibn Aqil, not unknown.\"\n}"
+}

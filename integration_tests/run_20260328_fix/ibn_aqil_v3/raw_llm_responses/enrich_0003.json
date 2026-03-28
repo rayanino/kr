@@ -1,0 +1,32 @@
+{
+  "call_id": "enrich_0003",
+  "latency_seconds": 95.71,
+  "model": "anthropic/claude-4.6-opus-20260205",
+  "usage": {
+    "completion_tokens": 6288,
+    "prompt_tokens": 17895,
+    "total_tokens": 24183,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.246675,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.246675,
+      "upstream_inference_prompt_cost": 0.089475,
+      "upstream_inference_completions_cost": 0.1572
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "\n\n```json\n{\n  \"teaching_units\": [\n    {\n      \"unit_index\": 0,\n      \"segment_indices\": [0, 1, 2, 3],\n      \"start_word\": 0,\n      \"end_word\": 58,\n      \"text_snippet\": \"بسم الله الرحمن الرحيم\\n‌‌حروف الجر\\nهاك حروف الجر وهي من إلى\\n… حتى خلا حاشا عدا في\",\n      \"primary_function\": \"rule_statement\",\n      \"secondary_functions\": [\"structural_transition\"],\n      \"description_arabic\": \"تعداد حروف الجر العشرين وبيان اختصاصها بالأسماء وعملها فيها الجر\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 1,\n      \"segment_indices\": [4, 5, 6],\n      \"start_word\": 59,\n      \"end_word\": 115,\n      \"text_snippet\": \"فأما كي فتكون حرف جر في موضعين\\nأحدهما: إذا دخلت على ما الاستفهامية نحو كيمه أي لم\",\n      \"primary_function\": \"rule_statement\",\n      \"secondary_functions\": [\"example\"],\n      \"description_arabic\": \"بيان موضعي كي كحرف جر: دخولها على ما الاستفهامية ودخولها على الفعل المضارع المنصوب بأن مضمرة\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 2,\n      \"segment_indices\": [7, 8, 9, 10, 11],\n      \"start_word\": 116,\n      \"end_word\": 181,\n      \"text_snippet\": \"وأما لعل فالجر بها لغة عقيل ومنه قوله:\\nلعل أبي المغوار منك قريب وقوله:\",\n      \"primary_function\": \"opinion_statement\",\n      \"secondary_functions\": [\"narration\", \"example\"],\n      \"description_arabic\": \"بيان أن الجر بلعل لغة عقيل مع شواهد شعرية وإعرابها وذكر الروايات في لامها من كسر وفتح وحذف\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 3,\n      \"segment_indices\": [12, 13],\n      \"start_word\": 182,\n      \"end_word\": 210,\n      \"text_snippet\": \"وأما متى فالجر بها لغة هذيل ومن كلامهم أخرجها متى ك\",\n      \"primary_function\": \"opinion_statement\",\n      \"secondary_functions\": [\"narration\"],\n      \"description_arabic\": \"بيان أن الجر بمتى لغة هذيل مع شاهد من كلامهم وشاهد شعري\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n   "
+}

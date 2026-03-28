@@ -1,0 +1,32 @@
+{
+  "call_id": "escalation_0002",
+  "latency_seconds": 3.26,
+  "model": "mistralai/mistral-large-2411",
+  "usage": {
+    "completion_tokens": 106,
+    "prompt_tokens": 876,
+    "total_tokens": 982,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.002388,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.002388,
+      "upstream_inference_prompt_cost": 0.001752,
+      "upstream_inference_completions_cost": 0.000636
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"author_id\": \"ابن عقيل\",\n  \"reasoning\": \"The text begins with a verse from the Alfiyyah followed by a detailed explanation: 'استعمل الكاف اسما...', 'الفاعلية... العامل فيه...'. This is clearly from the layer of commentary attributed to Ibn Aqil, not an unknown author.\"\n}"
+}
