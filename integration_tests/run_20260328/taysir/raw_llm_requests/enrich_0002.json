@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0002",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 16384,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nYou previously classified segments of this Arabic text by scholarly function.\nNow group these classified segments into TEACHING UNITS — self-contained\nscholarly segments that each teach one distinct concept, ruling, or argument.\nA teaching unit is the smallest segment a student could study and learn\nsomething complete from.\n\nGROUPING RULES:\n- A position (opinion_statement) + its evidence + any count"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nتيسير العلام شرح عمدة الأحكام\nللبسام\n\n‌‌كتاب الطهارة\n‌‌النية وأحكامها\nعَنْ أمِيرِ المُؤْمِنِينَ أبي حَفْصِ \" عُمَرَ بْنِ الخَطَاب \" رضي الله عنه قَال: سَمِعت رسُولَ الله صلى الله عليه وسلم يَقُول:\n\"إنَّمَا الأعْمَالُ بَالْنيَاتِ، وَإنَّمَا لِكل امرئ مَا نَوَى، فمَنْ كَانَتْ هِجْرَتهُ إلَى الله وَرَسُولِهِ فَهِجْرَتهُ إلَى الله وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرتُهُ لِدُنيا يُصيبُهَا، أو امْرَأة يَنْكِحُهَا فَهِجْرَتُه إلَى مَا هَاجَرَ إليهِ \".\nغريب الحديث:\n1- \" إنما الأعمال بالنيات \" كلمة "
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0001",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSeg"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nبسم الله الرحمن الرحيم\nإن الحمد لله نحمده ونستعينه ونستغفره ونعوذ بالله من شرور أنفسنا وسيئات أعمالنا من يهده الله فلا مضل له ومن يضلل فلا هادي له وأشهد أن لا إله إلا الله وحده لا شريك له وأشهد ان محمداً عبده ورسوله.\nأما بعد فقد اقتضت مصلحة تيسير المراجعة لأحكام الجنائز أن ألخصها وأقرب أحكامها لمن شاء الرجوع إليها وأخذ فكرة عامة سريعة عنها، وبخاصة عند حلول المناسبة مثل وفاة قريب أو حبيب لديه، فغنه مما لا يخفى أن الرجوع إلى كتابي أحكام الجنائز وبدعتها وقراءته كله والإحاطة بما فيه من الأحكا"
+    }
+  ]
+}

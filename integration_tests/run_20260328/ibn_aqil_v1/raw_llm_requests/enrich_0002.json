@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0002",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 16384,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nYou previously classified segments of this Arabic text by scholarly function.\nNow group these classified segments into TEACHING UNITS — self-contained\nscholarly segments that each teach one distinct concept, ruling, or argument.\nA teaching unit is the smallest segment a student could study and learn\nsomething complete from.\n\nGROUPING RULES:\n- A position (opinion_statement) + its evidence + any count"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n‌‌مقدمة الطبعة الثانية\nبسم الله الرحمن الرحيم\nالحمد لله المنعوت بجميل الصفات، وصلى الله على سيدنا محمد أشرف الكائنات، المبعوث بالهدى ودين الحق ليظهره على الدين كله، وعلى آله وصحبه الذين نصبوا أنفسهم للدفاع عن بيضة الدين حتى رفع الله بهم مناره، وأعلى كلمته،\nوجعله دينه المرضي، وطريقه المستقيم.\nوبعد، فقد كان مما جرى به القضاء أني كتبت منذ أربع سنوات كتاب تعليقات على كتاب الخلاصة (الألفية) الذي صنفه إمام النحاة، أبو عبد الله جمال الدين محمد ابن مالك المولود بجيان سنة ستمائة من الهجرة، والمتوف"
+    }
+  ]
+}

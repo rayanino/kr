@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0002",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 16384,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nYou previously classified segments of this Arabic text by scholarly function.\nNow group these classified segments into TEACHING UNITS — self-contained\nscholarly segments that each teach one distinct concept, ruling, or argument.\nA teaching unit is the smallest segment a student could study and learn\nsomething complete from.\n\nGROUPING RULES:\n- A position (opinion_statement) + its evidence + any count"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nبسم الله الرحمن الرحيم\n\nقال العبد الفقير إلى الله تعالى، عبد الرحمن بن أبي بكر السيوطي:\n\nالحمد لله الذي أرشد لابتكار هذا النمط وتفضل بالعفو عما صدر عن العبد على وجه السهو والغلط، وأشهد أن لا إله إلا الله وحده لا شريك له، شهادة لا وكس فيها ولا شطط، وأشهد أن سيدنا محمدا عبده ورسوله، أفضل من عليه جبرئيل بالوحي هبط، صلى الله عليه وسلم، وعلى آله وصحبه الذين هم لأتباعه خير فرط.\n\nهذا كتاب غريب الوضع، عجيب الصنع، لطيف المعنى، طريف المبنى، لم تسمح قريحة بمثاله، ولم ينسج ناسج على منواله، في علم لم "
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "call_id": "verify_0001",
+  "model": "openai/gpt-5.4",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are verifying metadata decisions made by another model on Arabic Islamic\nscholarly text. For each item below, independently assess whether the decision\nis correct.\n\n\n        As a genius expert, your task is to understand the content and provide\n        the parsed objects in json that match the following json_schema:\n\n\n        {\n  \"$defs\": {\n    \"VerificationItem\": {\n      \"description\": \"One verification assessment (SPEC §7.3.2).\",\n      \"properties\": {\n        \"item_index\": {\n          \"tit"
+    },
+    {
+      "role": "user",
+      "content": "Source context:\n- Author: None\n- Work: None\n- Science: أصول النحو\n- School: unknown\n\nITEM 0: SELF_CONTAINMENT\nText: \"انتهى.\nوقد أخذت من الكتاب الأول اللباب وأدخلته معزوا إليه في خلل هذا الكتاب، وضممت خلاصة الثاني في مباحث العلة.\nوضممت إليه من كتابه الثاني (الأنصاف في مباحث الخلاف) جملة.\nولم أنقل من كتابه حرفا إلا مقرونا بالعزو إليه ليعرف مقام كتاب من كتابه ويتميز عند أولي التمييز جليل نصابه.\nوإلى الله الضراعة في حسن الختام والقبول، فلا ينفع العبد إلا ما من بقبوله، والسلام.\"\nDecision: Unit assess"
+    }
+  ]
+}

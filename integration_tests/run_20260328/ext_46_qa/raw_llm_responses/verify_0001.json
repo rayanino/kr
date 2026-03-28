@@ -1,0 +1,32 @@
+{
+  "call_id": "verify_0001",
+  "latency_seconds": 7.25,
+  "model": "openai/gpt-5.4-20260305",
+  "usage": {
+    "completion_tokens": 436,
+    "prompt_tokens": 1410,
+    "total_tokens": 1846,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.010065,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.010065,
+      "upstream_inference_prompt_cost": 0.003525,
+      "upstream_inference_completions_cost": 0.00654
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"items\":[{\"item_index\":0,\"agrees\":true,\"alternative\":null,\"confidence\":0.95,\"reasoning\":\"النص غير مكتفٍ بذاته تمامًا، لأنه يعتمد على مراجع سابقة مثل \\\"الكتاب الأول\\\" و\\\"الثاني\\\" دون تسمية صريحة داخل المقطع نفسه، وإن كان المعنى العام والخاتمة مفهومين. لذا تصنيف PARTIAL مناسب.\"},{\"item_index\":1,\"agrees\":true,\"alternative\":null,\"confidence\":0.93,\"reasoning\":\"فيه إحالة صريحة إلى عبارة سابقة: \\\"وقولي (الإجمالية)\\\"، فلا يُفهم تمام المراد إلا بالرجوع إلى التعريف السابق، مع بقاء قدر معتبر من المعنى مستقلًا. لذلك PARTIAL صحيح.\"},{\"item_index\":2,\"agrees\":true,\"alternative\":null,\"confidence\":0.96,\"reasoning\":\"المقطع مرتبط بسياق تعريف سابق عبر \\\"وقولي (من حيث هي أدلته)\\\"، وفيه أيضًا إحالة مستقبلية بعبارة \\\"بشرطتها الآتي\\\"؛ فهذا يمنع الاكتفاء التام، لكنه لا يجعله عديم الفهم. لذا PARTIAL مناسب.\"},{\"item_index\":3,\"agrees\":true,\"alternative\":null,\"confidence\":0.94,\"reasoning\":\"النص يعتمد على جزء سابق من تعريف أصول النحو: \\\"وقولي (وكيفية الاستدلال بها)\\\"، ويزيد عليه إحالة تنظيمية إلى \\\"الكتاب السادس\\\". هذا يدل على اعتماد سياقي واضح، مع بقاء المعنى العام مفهومًا، فتصنيف PARTIAL سليم.\"},{\"item_index\":4,\"agrees\":true,\"alternative\":null,\"confidence\":0.95,\"reasoning\":\"المقطع يحيل إلى تعريف سابق بعبارة \\\"وقولي (وحال المستدل)\\\"، كما يربطه بتقسيم الكتاب: \\\"وهذا هو الموضوع له الكتاب السابع\\\". لذلك هو ليس مستقلا تمامًا، لكن معناه الإجمالي ظاهر، فالحكم PARTIAL صحيح.\"}]}"
+}

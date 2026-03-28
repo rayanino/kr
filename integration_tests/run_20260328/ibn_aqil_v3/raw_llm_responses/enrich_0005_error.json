@@ -1,0 +1,5 @@
+{
+  "call_id": "enrich_0005",
+  "error_type": "IncompleteOutputException",
+  "error": "The output is incomplete due to a max_tokens length limit."
+}

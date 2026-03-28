@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0003",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 16384,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nYou are enriching teaching units extracted from this Arabic text with semantic\nmetadata. Each teaching unit has already been identified, classified, and\npartially annotated. Your task is to add inferred metadata that requires\nscholarly understanding of the text.\n\nFor EACH teaching unit listed in the input, provide these fields:\n\n1. TOPIC KEYWORDS (excerpt_topic): 1 to 3 Arabic keywords or short phra"
+    },
+    {
+      "role": "user",
+      "content": "<source_metadata>\nAuthor: عبد الله البسام\nWork: تيسير العلام شرح عمدة الأحكام\nScience: فقه\nSchool: unknown\n</source_metadata>\n\n<text>\nتيسير العلام شرح عمدة الأحكام\nللبسام\n\n‌‌كتاب الطهارة\n‌‌النية وأحكامها\nعَنْ أمِيرِ المُؤْمِنِينَ أبي حَفْصِ \" عُمَرَ بْنِ الخَطَاب \" رضي الله عنه قَال: سَمِعت رسُولَ الله صلى الله عليه وسلم يَقُول:\n\"إنَّمَا الأعْمَالُ بَالْنيَاتِ، وَإنَّمَا لِكل امرئ مَا نَوَى، فمَنْ كَانَتْ هِجْرَتهُ إلَى الله وَرَسُولِهِ فَهِجْرَتهُ إلَى الله وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرتُهُ"
+    }
+  ]
+}

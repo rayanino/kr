@@ -756,9 +756,9 @@ class ExcerptingConfig(BaseModel):
     # Phase 3
     ENRICH_MODEL: str = "anthropic/claude-opus-4.6"
     ENRICH_MAX_TOKENS: int = 16384
-    VERIFY_MODEL: str = "openai/gpt-4.1"
+    VERIFY_MODEL: str = "openai/gpt-5.4"
     VERIFY_MAX_TOKENS: int = 8192
-    ESCALATION_MODEL: str = "cohere/command-a-03-2025"
+    ESCALATION_MODEL: str = "mistralai/mistral-large-2411"
 
     # Human gates
     GATE_ON_DEPENDENT: bool = True

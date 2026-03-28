@@ -1,0 +1,32 @@
+{
+  "call_id": "enrich_0004",
+  "latency_seconds": 119.94,
+  "model": "anthropic/claude-4.6-opus-20260205",
+  "usage": {
+    "completion_tokens": 8192,
+    "prompt_tokens": 8664,
+    "total_tokens": 16856,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.24812,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.24812,
+      "upstream_inference_prompt_cost": 0.04332,
+      "upstream_inference_completions_cost": 0.2048
+    }
+  },
+  "finish_reason": "length",
+  "raw_content": "```json\n{\n  \"segments\": [\n    {\n      \"segment_index\": 0,\n      \"start_word\": 0,\n      \"end_word\": 3,\n      \"text_snippet\": \"بسم الله الرحمن الرحيم\",\n      \"scholarly_function\": \"structural_transition\",\n      \"confidence\": 0.9\n    },\n    {\n      \"segment_index\": 1,\n      \"start_word\": 4,\n      \"end_word\": 5,\n      \"text_snippet\": \"‌‌حروف الجر\",\n      \"scholarly_function\": \"structural_transition\",\n      \"confidence\": 0.95\n    },\n    {\n      \"segment_index\": 2,\n      \"start_word\": 6,\n      \"end_word\": 30,\n      \"text_snippet\": \"هاك حروف الجر وهي من إلى\\n… حتى خلا حاشا عدا في\",\n      \"scholarly_function\": \"definition\",\n      \"confidence\": 0.9\n    },\n    {\n      \"segment_index\": 3,\n      \"start_word\": 31,\n      \"end_word\": 68,\n      \"text_snippet\": \"هذه الحروف العشرون كلها مختصة بالأسماء وهي تعمل فيه\",\n      \"scholarly_function\": \"rule_statement\",\n      \"confidence\": 0.92\n    },\n    {\n      \"segment_index\": 4,\n      \"start_word\": 69,\n      \"end_word\": 77,\n      \"text_snippet\": \"فأما كي فتكون حرف جر في موضعين\",\n      \"scholarly_function\": \"rule_statement\",\n      \"confidence\": 0.9\n    },\n    {\n      \"segment_index\": 5,\n      \"start_word\": 78,\n      \"end_word\": 112,\n      \"text_snippet\": \"أحدهما: إذا دخلت على ما الاستفهامية نحو كيمه أي لم\",\n      \"scholarly_function\": \"example\",\n      \"confidence\": 0.88\n    },\n    {\n      \"segment_index\": 6,\n      \"start_word\": 113,\n      \"end_word\": 155,\n      \"text_snippet\": \"الثاني: قولك جئت كي أكرم زيدا فأكرم فعل مضارع منص\",\n      \"scholarly_function\": \"example\",\n      \"confidence\": 0.88\n    },\n    {\n      \"segment_index\": 7,\n      \"start_word\": 156,\n      \"end_word\": 170,\n      \"text_snippet\": \"وأما لعل فالجر بها لغة عقيل ومنه قوله:\\nلعل أبي\",\n      \"scholarly_function\": \"opinion_statement\",\n      \"confidence\": 0.85\n    },\n    {\n      \"segment_index\": 8,\n      \"start_word\": 171,\n      \"end_word\": 186,\n      \"text_snippet\": \"197 - لعل الله فضلكم علينا … بشيء أن أمكم شريم\",\n      \"scholarly_function\": \"example\",\n      \"confidence\": 0.9\n"
+}

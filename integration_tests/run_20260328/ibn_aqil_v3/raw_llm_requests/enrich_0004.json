@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0004",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSeg"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nبسم الله الرحمن الرحيم\n‌‌حروف الجر\nهاك حروف الجر وهي من إلى\n… حتى خلا حاشا عدا في عن على\nمذ منذ رب اللام كي واو وتا … والكاف والباء ولعل ومتى\nهذه الحروف العشرون كلها مختصة بالأسماء وهي تعمل فيها الجر وتقدم الكلام على خلا وحاشا وعدا في الاستثناء وقل من ذكر كي ولعل ومتى في حروف الجر\nفأما كي فتكون حرف جر في موضعين\nأحدهما: إذا دخلت على ما الاستفهامية نحو كيمه أي لمه فما استفهامية مجرورة بكى وحذفت ألفها لدخول حرف الجر عليها وجيء بالهاء للسكت الثاني: قولك جئت كي أكرم زيدا فأكرم فعل مضارع منصوب "
+    }
+  ]
+}

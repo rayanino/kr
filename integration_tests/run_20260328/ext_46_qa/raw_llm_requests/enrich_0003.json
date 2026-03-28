@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0003",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 16384,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nYou are enriching teaching units extracted from this Arabic text with semantic\nmetadata. Each teaching unit has already been identified, classified, and\npartially annotated. Your task is to add inferred metadata that requires\nscholarly understanding of the text.\n\nFor EACH teaching unit listed in the input, provide these fields:\n\n1. TOPIC KEYWORDS (excerpt_topic): 1 to 3 Arabic keywords or short phra"
+    },
+    {
+      "role": "user",
+      "content": "<source_metadata>\nAuthor: None\nWork: None\nScience: أصول النحو\nSchool: unknown\n</source_metadata>\n\n<text>\nبسم الله الرحمن الرحيم\n\nقال العبد الفقير إلى الله تعالى، عبد الرحمن بن أبي بكر السيوطي:\n\nالحمد لله الذي أرشد لابتكار هذا النمط وتفضل بالعفو عما صدر عن العبد على وجه السهو والغلط، وأشهد أن لا إله إلا الله وحده لا شريك له، شهادة لا وكس فيها ولا شطط، وأشهد أن سيدنا محمدا عبده ورسوله، أفضل من عليه جبرئيل بالوحي هبط، صلى الله عليه وسلم، وعلى آله وصحبه الذين هم لأتباعه خير فرط.\n\nهذا كتاب غريب الوضع"
+    }
+  ]
+}

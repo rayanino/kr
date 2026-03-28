@@ -1,0 +1,330 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "بسم الله الرحمن الرحيم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 42,
+    "text_snippet": "إن الحمد لله نحمده ونستعينه ونستغفره ونعوذ بالل",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 43,
+    "end_word": 302,
+    "text_snippet": "أما بعد فقد اقتضت مصلحة تيسير المراجعة لأحكام ا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 303,
+    "end_word": 341,
+    "text_snippet": "ومن العجب ان يتنبه الرجال الغربيون لمثل هذا الظل",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 4,
+    "start_word": 342,
+    "end_word": 357,
+    "text_snippet": "\"يا عبادي إني حرمت الظلم على نفسي وجعلته بينكم م",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 358,
+    "end_word": 373,
+    "text_snippet": "وقول النبي صلى الله عليه وسلم اتقوا الظلم فإن ال",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 6,
+    "start_word": 374,
+    "end_word": 446,
+    "text_snippet": "ولقد سمعت من بعض المغفلين الذين لا فقه عندهم انه",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 7,
+    "start_word": 447,
+    "end_word": 459,
+    "text_snippet": "{وَيَوْمَ يَعَضُّ الظَّالِمُ عَلَى يَدَيْهِ يَق",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 460,
+    "end_word": 512,
+    "text_snippet": "واعلم أيها القارئ الكريم أنني في هذا التلخيص قد ح",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 9,
+    "start_word": 513,
+    "end_word": 543,
+    "text_snippet": "والله أسأل ان ينفع به المسلمين ويجعله كأصله وسائ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 10,
+    "start_word": 544,
+    "end_word": 554,
+    "text_snippet": "عمان- الأردن 13 جمادى الآخر سنة 1402هـ\nمحمد ناصر",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 555,
+    "end_word": 559,
+    "text_snippet": "1- ما يجب على المريض",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 560,
+    "end_word": 581,
+    "text_snippet": "1 - على المريض أن يرضى بقضاء الله ويصبر على قدره ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 13,
+    "start_word": 582,
+    "end_word": 607,
+    "text_snippet": "\"عجبا لأمر المؤمن إن أمره كله خير وليس ذاك لأحد ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 608,
+    "end_word": 621,
+    "text_snippet": "وقوله صلى الله عليه وسلم: \"لا يموتن أحدكم إلا وه",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 15,
+    "start_word": 622,
+    "end_word": 644,
+    "text_snippet": "2 - وينبغي عليه أن يكون بين الخوف والرجاء يخاف عق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 16,
+    "start_word": 645,
+    "end_word": 693,
+    "text_snippet": "أن النبي صلى الله عليه وسلم دخل على شاب وهو بالم",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 694,
+    "end_word": 705,
+    "text_snippet": "3 - ومهما اشتد به المرض فلا يجوز له أن يتمنى المو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 18,
+    "start_word": 706,
+    "end_word": 725,
+    "text_snippet": "صحيح فإن كان لا بد فاعلا فليقل: اللهم أحييني ما ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 19,
+    "start_word": 726,
+    "end_word": 746,
+    "text_snippet": "4 - وإذا كان عليه حقوق فليؤدها إلى أصحابها إن تيس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 20,
+    "start_word": 747,
+    "end_word": 760,
+    "text_snippet": "5 - ولا بد من الاستعجال بمثل هذه الوصية لقوله صلى",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 21,
+    "start_word": 761,
+    "end_word": 797,
+    "text_snippet": "\"ما حق امرئ مسلم يبيت ليلتين وله شيء يريد أن يوص",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 798,
+    "end_word": 810,
+    "text_snippet": "6 - ويجب أن يوصي للأقربين الذين لا يرثون منه لقول",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 23,
+    "start_word": 811,
+    "end_word": 827,
+    "text_snippet": "{كُتِبَ عَلَيْكُمْ إِذَا حَضَرَ أَحَدَكُمُ الْم",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 24,
+    "start_word": 828,
+    "end_word": 856,
+    "text_snippet": "7 - صحيح وله أن يوصي بالثلث من ماله ولا يجوز الزيا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 25,
+    "start_word": 857,
+    "end_word": 953,
+    "text_snippet": "كنت مع رسول الله صلى الله عليه وسلم في حجة الوداع",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 26,
+    "start_word": 954,
+    "end_word": 978,
+    "text_snippet": "وقول ابن عباس رضي الله عنه:\nوددت أن الناس غضوا من",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 27,
+    "start_word": 979,
+    "end_word": 1008,
+    "text_snippet": "8 - ويشهد على ذلك رجلين عدلين مسلمين فإن لم يوجدا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1009,
+    "end_word": 1109,
+    "text_snippet": "{يَا أَيُّهَا الَّذِينَ آمَنُوا شَهَادَةُ بَيْنِ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1110,
+    "end_word": 1141,
+    "text_snippet": "9 - وأما الوصية للوالدين والأقربين الذين يرثون من ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1142,
+    "end_word": 1152,
+    "text_snippet": "\"إن الله قد أعطى كل ذي حق حقه فلا وصية لوارث\".",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1153,
+    "end_word": 1176,
+    "text_snippet": "10 - ويحرم الإضرار في الوصية كأن يوصي بحرمان بعض ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1177,
+    "end_word": 1211,
+    "text_snippet": "{لِلرِّجَالِ نَصِيبٌ مِمَّا تَرَكَ الْوَالِدَانِ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1212,
+    "end_word": 1228,
+    "text_snippet": "ولقوله صلى الله عليه وسلم:\n\"لا ضرر ولا ضرار من ضا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1229,
+    "end_word": 1239,
+    "text_snippet": "11 - والوصية الجائرة باطلة مردودة لقوله صلى الله ع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1240,
+    "end_word": 1249,
+    "text_snippet": "\"من أحدث في أمرنا هذا ما ليس منه فهو رد\".",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1250,
+    "end_word": 1283,
+    "text_snippet": "12 - ولما كان الغالب على كثير من الناس في هذا الزما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1284,
+    "end_word": 1307,
+    "text_snippet": "{يَا أَيُّهَا الَّذِينَ آمَنُوا قُوا أَنْفُسَكُم",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1308,
+    "end_word": 1330,
+    "text_snippet": "ولذلك كان أصحاب رسول الله صلى الله عليه وسلم يوصو",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1331,
+    "end_word": 1353,
+    "text_snippet": "إذا أنا مت فلا تؤذنوا بي أحدا فإني أخاف أن يكون ",
+    "scholarly_function": "narration",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1354,
+    "end_word": 1379,
+    "text_snippet": "ولهذا قال النووي رحمه الله تعالى في الأذكار:\nويستح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  }
+]

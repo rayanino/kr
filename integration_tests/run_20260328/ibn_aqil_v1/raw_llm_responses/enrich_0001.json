@@ -1,0 +1,32 @@
+{
+  "call_id": "enrich_0001",
+  "latency_seconds": 33.87,
+  "model": "anthropic/claude-4.6-opus-20260205",
+  "usage": {
+    "completion_tokens": 3386,
+    "prompt_tokens": 6482,
+    "total_tokens": 9868,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.11706,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.11706,
+      "upstream_inference_prompt_cost": 0.03241,
+      "upstream_inference_completions_cost": 0.08465
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "```json\n{\n  \"segments\": [\n    {\n      \"segment_index\": 0,\n      \"start_word\": 0,\n      \"end_word\": 2,\n      \"text_snippet\": \"‌‌مقدمة الطبعة الثانية\",\n      \"scholarly_function\": \"structural_transition\",\n      \"confidence\": 0.95\n    },\n    {\n      \"segment_index\": 1,\n      \"start_word\": 3,\n      \"end_word\": 42,\n      \"text_snippet\": \"بسم الله الرحمن الرحيم\\nالحمد لله المنعوت بجميل الصف\",\n      \"scholarly_function\": \"editorial_note\",\n      \"confidence\": 0.85\n    },\n    {\n      \"segment_index\": 2,\n      \"start_word\": 43,\n      \"end_word\": 137,\n      \"text_snippet\": \"وبعد، فقد كان مما جرى به القضاء أني كتبت منذ أ\",\n      \"scholarly_function\": \"editorial_note\",\n      \"confidence\": 0.95\n    },\n    {\n      \"segment_index\": 3,\n      \"start_word\": 138,\n      \"end_word\": 228,\n      \"text_snippet\": \"ثم جرت الأيام بغير ما كنت أرتقب، فإذا الكتاب يرو\",\n      \"scholarly_function\": \"editorial_note\",\n      \"confidence\": 0.95\n    },\n    {\n      \"segment_index\": 4,\n      \"start_word\": 229,\n      \"end_word\": 260,\n      \"text_snippet\": \"والله سبحانه وتعالى! المسئول أن يوفقني إلى مرضاته\",\n      \"scholarly_function\": \"editorial_note\",\n      \"confidence\": 0.9\n    },\n    {\n      \"segment_index\": 5,\n      \"start_word\": 261,\n      \"end_word\": 268,\n      \"text_snippet\": \"كتبه المعتز بالله تعالى\\nمحمد محيي الدين عبد الحميد\",\n      \"scholarly_function\": \"editorial_note\",\n      \"confidence\": 0.95\n    },\n    {\n      \"segment_index\": 6,\n      \"start_word\": 269,\n      \"end_word\": 272,\n      \"text_snippet\": \"مقدمة الطبعة الأولى\",\n      \"scholarly_function\": \"structural_transition\",\n      \"confidence\": 0.95\n    },\n    {\n      \"segment_index\": 7,\n      \"start_word\": 273,\n      \"end_word\": 323,\n      \"text_snippet\": \"بسم الله الرحمن الرحيم\\nالحمد لله على نعمائه، وصلات\",\n      \"scholarly_function\": \"editorial_note\",\n      \"confidence\": 0.85\n    },\n    {\n      \"segment_index\": 8,\n      \"start_word\": 324,\n      \"end_word\": 399,\n      \"text_snippet\": \"ثم أما بعد، فلعلك لا تجد مؤلفا - ممن صنفوا في قوا\",\n    "
+}

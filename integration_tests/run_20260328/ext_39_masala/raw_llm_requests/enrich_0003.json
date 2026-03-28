@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0003",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 16384,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nYou are enriching teaching units extracted from this Arabic text with semantic\nmetadata. Each teaching unit has already been identified, classified, and\npartially annotated. Your task is to add inferred metadata that requires\nscholarly understanding of the text.\n\nFor EACH teaching unit listed in the input, provide these fields:\n\n1. TOPIC KEYWORDS (excerpt_topic): 1 to 3 Arabic keywords or short phra"
+    },
+    {
+      "role": "user",
+      "content": "<source_metadata>\nAuthor: None\nWork: None\nScience: None\nSchool: unknown\n</source_metadata>\n\n<text>\nبسم الله الرحمن الرحيم\nإن الحمد لله نحمده ونستعينه ونستغفره ونعوذ بالله من شرور أنفسنا وسيئات أعمالنا من يهده الله فلا مضل له ومن يضلل فلا هادي له وأشهد أن لا إله إلا الله وحده لا شريك له وأشهد ان محمداً عبده ورسوله.\nأما بعد فقد اقتضت مصلحة تيسير المراجعة لأحكام الجنائز أن ألخصها وأقرب أحكامها لمن شاء الرجوع إليها وأخذ فكرة عامة سريعة عنها، وبخاصة عند حلول المناسبة مثل وفاة قريب أو حبيب لديه، فغنه "
+    }
+  ]
+}

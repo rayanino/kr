@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0001",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSeg"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n‌‌مقدمة الطبعة الثانية\nبسم الله الرحمن الرحيم\nالحمد لله المنعوت بجميل الصفات، وصلى الله على سيدنا محمد أشرف الكائنات، المبعوث بالهدى ودين الحق ليظهره على الدين كله، وعلى آله وصحبه الذين نصبوا أنفسهم للدفاع عن بيضة الدين حتى رفع الله بهم مناره، وأعلى كلمته،\nوجعله دينه المرضي، وطريقه المستقيم.\nوبعد، فقد كان مما جرى به القضاء أني كتبت منذ أربع سنوات كتاب تعليقات على كتاب الخلاصة (الألفية) الذي صنفه إمام النحاة، أبو عبد الله جمال الدين محمد ابن مالك المولود بجيان سنة ستمائة من الهجرة، والمتوف"
+    }
+  ]
+}
