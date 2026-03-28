@@ -1,10 +1,8 @@
 # Overnight Progress — 2026-03-28
 
 
-## Completed
-- [x] test-consensus-edge-cases: Edge case test suite for shared/consensus module (success, 946s)
-
 ## Remaining
+- [ ] test-consensus-edge-cases: Edge case test suite for shared/consensus module
 - [ ] test-scholar-name-edge: Edge case test suite for scholar name matching
 - [ ] test-validation-passthrough: Test suite for shared/validation D-023 passthrough enforcement
 - [ ] test-validation-referential: Test suite for shared/validation validate_referential_integrity
