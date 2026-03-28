@@ -42,9 +42,35 @@ _SC_LEVEL_ORDER: dict[SelfContainmentLevel, int] = {
 # ═══════════════════════════════════════════════════════════════════
 
 VERIFY_SYSTEM_PROMPT = """\
-You are verifying metadata decisions made by another model on Arabic Islamic
-scholarly text. For each item below, independently assess whether the decision
-is correct."""
+You are an expert in classical Islamic scholarly text analysis \
+(تحليل النصوص العلمية الإسلامية), independently verifying metadata \
+decisions made by another model.
+
+For each verification item, you receive the original Arabic text, the \
+decision made, and supporting context. Your task is to independently \
+assess whether each decision is correct.
+
+VERIFICATION METHODOLOGY:
+- Read the Arabic text carefully before looking at the decision
+- Form your own judgment, then compare with the stated decision
+- For SCHOOL_ATTRIBUTION: check whether the position presented matches \
+the attributed school. The source author's school is NOT necessarily the \
+school of every position discussed — authors often present other schools' \
+views for comparison or refutation.
+- For AUTHOR_ATTRIBUTION: check whether the text content matches the \
+attributed author/layer. Look for voice markers (قال, ذكر, المصنف), \
+commentary indicators (أي, يعني, الشرح), and layer boundaries.
+- For SELF_CONTAINMENT: evaluate against these criteria:
+  * C-SC-1: Every technical term is defined or is standard terminology
+  * C-SC-2: Every pronoun/demonstrative resolves within the unit
+  * C-SC-3: Every evidence citation includes its text or is universally known
+  * C-SC-4: The argument/ruling/teaching is complete, not a fragment
+  * C-SC-5: If responding to another scholar, enough of that position is \
+included
+
+Express your assessment as agree or disagree with brief reasoning. \
+If you disagree, provide your alternative. Include your confidence \
+(0.0 to 1.0)."""
 
 
 def _needs_consensus(excerpt: ExcerptRecord) -> list[dict[str, str]]:
@@ -57,18 +83,23 @@ def _needs_consensus(excerpt: ExcerptRecord) -> list[dict[str, str]]:
 
     # School attribution: school is non-null
     if excerpt.school is not None:
-        items.append({
+        item: dict[str, str] = {
             "verification_type": "SCHOOL_ATTRIBUTION",
             "decision_text": (
                 f'School attributed as "{excerpt.school}". '
                 f"Is this correct given the text content?"
             ),
-            "unit_text": excerpt.primary_text[:500],
-        })
+            "unit_text": excerpt.primary_text[:1500],
+        }
+        if excerpt.primary_function is not None:
+            item["scholarly_function"] = excerpt.primary_function.value
+        if excerpt.school_confidence is not None:
+            item["school_confidence"] = str(excerpt.school_confidence)
+        items.append(item)
 
     # Author attribution: LA-3 (ambiguous)
     if excerpt.primary_author_layer.rule_applied == "LA-3":
-        items.append({
+        item = {
             "verification_type": "AUTHOR_ATTRIBUTION",
             "decision_text": (
                 f"Unit attributed to {excerpt.primary_author_layer.author_id} "
@@ -77,23 +108,29 @@ def _needs_consensus(excerpt: ExcerptRecord) -> list[dict[str, str]]:
                 f"rule LA-3). Is this attribution correct, or should it be "
                 f"attributed differently?"
             ),
-            "unit_text": excerpt.primary_text[:500],
-        })
+            "unit_text": excerpt.primary_text[:1500],
+        }
+        if excerpt.primary_function is not None:
+            item["scholarly_function"] = excerpt.primary_function.value
+        items.append(item)
 
     # Self-containment: PARTIAL or DEPENDENT
     if excerpt.self_containment in (
         SelfContainmentLevel.PARTIAL,
         SelfContainmentLevel.DEPENDENT,
     ):
-        items.append({
+        item = {
             "verification_type": "SELF_CONTAINMENT",
             "decision_text": (
                 f"Unit assessed as {excerpt.self_containment.value}. "
                 f"Notes: {excerpt.self_containment_notes or 'none'}. "
                 f"Is this assessment correct?"
             ),
-            "unit_text": excerpt.primary_text[:500],
-        })
+            "unit_text": excerpt.primary_text[:1500],
+        }
+        if excerpt.primary_function is not None:
+            item["scholarly_function"] = excerpt.primary_function.value
+        items.append(item)
 
     return items
 
@@ -117,6 +154,10 @@ def _build_verification_user_message(
         for item in items:
             parts.append(f"ITEM {item_index}: {item['verification_type']}")
             parts.append(f'Text: "{item["unit_text"]}"')
+            if item.get("scholarly_function"):
+                parts.append(f"Scholarly function: {item['scholarly_function']}")
+            if item.get("school_confidence") is not None:
+                parts.append(f"School confidence: {item['school_confidence']}")
             parts.append(f"Decision: {item['decision_text']}")
             parts.append(
                 "Your assessment: agree or disagree, with brief reasoning "

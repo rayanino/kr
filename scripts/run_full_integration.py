@@ -31,7 +31,7 @@ PACKAGES: list[dict[str, Any]] = [
             "author_name": "ابن عقيل",
             "work_title": "شرح ابن عقيل على ألفية ابن مالك",
             "science": "نحو",
-            "school": None,
+            "source_school": None,
         },
     },
     {
@@ -40,7 +40,7 @@ PACKAGES: list[dict[str, Any]] = [
             "author_name": "ابن عقيل",
             "work_title": "شرح ابن عقيل على ألفية ابن مالك",
             "science": "نحو",
-            "school": None,
+            "source_school": None,
         },
     },
     {
@@ -49,7 +49,7 @@ PACKAGES: list[dict[str, Any]] = [
             "author_name": "عبد الله البسام",
             "work_title": "تيسير العلام شرح عمدة الأحكام",
             "science": "فقه",
-            "school": "حنبلي",
+            "source_school": "حنبلي",
         },
     },
     {
@@ -58,7 +58,7 @@ PACKAGES: list[dict[str, Any]] = [
             "author_name": None,
             "work_title": None,
             "science": None,
-            "school": None,
+            "source_school": None,
         },
     },
     {
@@ -67,7 +67,7 @@ PACKAGES: list[dict[str, Any]] = [
             "author_name": None,
             "work_title": None,
             "science": "أصول النحو",
-            "school": None,
+            "source_school": None,
         },
     },
 ]
