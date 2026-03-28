@@ -1,135 +1,141 @@
-# NEXT — Pre-Overnight Preparation (CC Task)
+# NEXT — Harden Overnight Sprint System for Unmonitored Operation
 
 ## Context
 
-The architect has completed a deep audit of the excerpting engine before the 280-chunk overnight integration run. See `reference/archive/sessions/cross_provider_audit/architect_audit_findings.md` for full findings.
+The overnight sprint system (`scripts/weekend_parallel.py` + `scripts/overnight_orchestrator.py`) ran on 2026-03-28 and completed 24/27 readonly tasks but **zero** write tasks. The write orchestrator circuit-breaker triggered after 3 consecutive test-generation timeouts, killing 48 queued tasks. Full diagnosis: `overnight/DIAGNOSIS.md`.
 
-Key facts:
-- HEAD is at `7cf348d5` (timeout fix already landed)
-- 815+ tests expected passing
-- The overnight run uses `--backend cli` (subprocess calls to claude/codex/gemini CLIs)
-- Codex verify path is broken (F-1 in audit) — accepted for first run
-- No code changes needed — this is preparation and validation only
+**Goal:** Make this system trustworthy enough to run 8-20 hours completely unmonitored — sleep, leave the house, come back to useful work done.
 
-## What to Do (in order)
+## Architecture Files (read these first)
 
-### Task 1: Run Full Test Suite
+| File | Lines | Purpose |
+|------|-------|---------|
+| `scripts/weekend_parallel.py` | 519 | Parallel coordinator — 3 readonly workers + write orchestrator subprocess |
+| `scripts/overnight_orchestrator.py` | 1689 | Sequential write task executor with quality gates, circuit breaker, dependency DAG |
+| `scripts/overnight_task_generator.py` | 878 | 9 scanners that discover hardening tasks from codebase state |
+| `scripts/sprint_dashboard.py` | 175 | Real-time monitoring dashboard |
+| `overnight/sprint_manifest.json` | — | Task definitions for the sprint |
+| `overnight/weekend_state.json` | — | Readonly pool state (last run results) |
+| `overnight/DIAGNOSIS.md` | — | Detailed failure analysis from 2026-03-28 run |
 
-```bash
-python -m pytest --tb=short -q 2>&1 | tail -20
-```
+## What to Fix (ordered by impact)
 
-Report: total passed, failed, skipped, errors. If any FAILURES exist, stop and report immediately.
+### FIX-1: Smart Circuit Breaker (CRITICAL)
 
-### Task 2: Phase 1 Discovery — Exact Chunk Counts
+**Problem:** Circuit breaker treats all failures equally. 3 test-generation timeouts (same root cause — task too complex for sonnet) killed 48 unrelated tasks.
 
-Run Phase 1 (deterministic only, no LLM calls) on all 5 packages to get exact chunk counts. This tells us exactly how many LLM calls the overnight run will make.
+**Fix:** Categorize failures and use per-category breakers:
+- `timeout` — task ran out of time (may have partial output)
+- `crash` — subprocess died unexpectedly
+- `quality_gate` — task completed but failed quality checks
+- `max_turns` — hit conversation turn limit
 
-Write and run this script (save as `scripts/phase1_discovery.py`):
+Only `crash` failures should count toward the hard circuit breaker. Timeouts get a softer limit (e.g., 5 consecutive timeouts before pausing that task category). Quality gate failures already don't trigger the breaker (existing behavior).
 
-```python
-"""Phase 1 discovery — get exact chunk counts for overnight run planning."""
-import json
-import sys
-from pathlib import Path
+**Where:** `overnight_orchestrator.py` lines ~924-999 (circuit breaker logic in main loop)
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+### FIX-2: Write Orchestrator Health Monitoring (CRITICAL)
 
-from engines.excerpting.contracts import ExcerptingConfig
-from engines.excerpting.src.phase1_assembly import run_phase1
-from scripts.run_integration_test import load_package
+**Problem:** `weekend_parallel.py` launches the write orchestrator as fire-and-forget `Popen` (line 315-327), then only checks it at the very end via `communicate()` (line 464). If the write orchestrator dies in minute 5, the parent doesn't know until hour 20.
 
-PACKAGES_DIR = Path("experiments/format_diversity_test/packages")
-PACKAGES = [
-    "ibn_aqil_v1",
-    "ibn_aqil_v3",
-    "taysir",
-    "ext_39_masala",
-    "ext_46_qa",
-]
+**Fix:** Monitor write orchestrator health from the parent:
+- Poll `overnight/state.json` or write orchestrator heartbeat every 60 seconds
+- If write orchestrator process has exited, log it immediately and report in dashboard
+- If write orchestrator has been idle (no state change) for 2x the current task's timeout, treat as stalled
+- Dashboard should show write orchestrator status: `running|stalled|dead|completed`
 
-config = ExcerptingConfig()
-total_chunks = 0
-large_chunks = 0
+**Where:** `weekend_parallel.py` lines 400-472 (write orchestrator lifecycle)
 
-results = []
+### FIX-3: Task Ordering — Easy Wins First (HIGH)
 
-for name in PACKAGES:
-    pkg_path = PACKAGES_DIR / name
-    try:
-        package = load_package(pkg_path)
-        chunks, validation = run_phase1(package, config)
-        
-        chunk_words = [c.word_count for c in chunks]
-        large = sum(1 for w in chunk_words if w > 2500)
-        max_words = max(chunk_words) if chunk_words else 0
-        
-        results.append({
-            "package": name,
-            "content_units": len(package.content_units),
-            "chunks": len(chunks),
-            "large_chunks_gt2500": large,
-            "max_words": max_words,
-            "mean_words": round(sum(chunk_words) / len(chunk_words)) if chunk_words else 0,
-        })
-        
-        total_chunks += len(chunks)
-        large_chunks += large
-        
-        print(f"  {name}: {len(chunks)} chunks "
-              f"(large: {large}, max: {max_words} words)")
-        
-    except Exception as exc:
-        print(f"  {name}: FAILED — {exc}")
-        results.append({"package": name, "error": str(exc)})
+**Problem:** First 3 tasks in the write queue were the hardest (12-15 test cases each). All timed out, triggering circuit breaker before any easier task could succeed.
 
-print(f"\nTotal: {total_chunks} chunks, {large_chunks} large (>2500 words)")
-print(f"Estimated LLM calls: ~{total_chunks * 3} (classify + group + enrich)")
-print(f"Estimated time at 131s/chunk: {total_chunks * 131 / 3600:.1f} hours")
+**Fix:** Sort write tasks by estimated complexity, not just priority:
+- Simpler tasks first (fewer tests, shorter prompts, script tasks before test tasks)
+- Mix task types — don't cluster all test-generation tasks together
+- Add `estimated_complexity: "low"|"medium"|"high"` to TaskDef
+- Sort: low-complexity first, then medium, then high — within each priority band
 
-output = Path("reference/archive/sessions/cross_provider_audit/phase1_discovery.json")
-output.parent.mkdir(parents=True, exist_ok=True)
-output.write_text(json.dumps(results, indent=2, ensure_ascii=False))
-print(f"\nSaved to {output}")
-```
+**Where:** `weekend_parallel.py` `split_tasks()` (line 308) and task sorting (line 385)
 
-Run it. Report the exact numbers.
+### FIX-4: Crash Resume (HIGH)
 
-### Task 3: Write Overnight Analysis Script
+**Problem:** If the parent process is killed (Ctrl+C, terminal close, system restart), all in-flight work is lost and there's no way to resume.
 
-Create `scripts/analyze_overnight_run.py` that the owner runs after the overnight completes. It should:
+**Fix:** Implement resume from last known state:
+- On startup, check if `weekend_state.json` exists with `status != "completed"`
+- If so, load it, skip already-completed tasks, resume from the next pending task
+- Add `--resume` flag to the CLI
+- Each task's result is already persisted to `overnight/results/{task_id}/result.json` — use these as source of truth for what's done
 
-1. Accept `--output-dir` argument pointing to the overnight run's output directory
-2. Read SUMMARY.json from the output directory
-3. For each package:
-   - Count excerpts, errors, gate entries
-   - Count `verification_skipped` and `llm_enrichment_failed` flags in excerpts.jsonl
-   - Report timing per phase from timing.json
-   - Count retry attempts (look for duplicate call_ids or attempt patterns in raw_llm_requests/)
-4. For the full run:
-   - Total excerpts, errors, gate entries
-   - Flag distribution table
-   - Any timeout errors
-   - Largest/smallest chunks by word count (from phase1_chunks.json)
-   - Output a clean summary table
+**Where:** `weekend_parallel.py` `run_parallel()` (line 330) — add resume logic before task scheduling
 
-### Task 4: Commit and Report
+### FIX-5: Partial Success Detection (MEDIUM)
 
-Commit all new files with message:
-```
-audit: pre-overnight preparation — phase1 discovery + analysis script
-```
+**Problem:** Tasks that produce 90% of their output but timeout are counted as total failures. The core-extract tasks wrote 22K of useful analysis but were marked "timeout."
 
-Report:
-- Test suite results (pass/fail/skip counts)
-- Phase 1 chunk counts per package
-- Total chunks for overnight run
-- Any issues encountered
+**Fix:** After a timeout, check if the task produced meaningful output:
+- If `findings.json` or `findings.md` exists in the results dir AND has content > 1KB, mark as `partial_success`
+- Partial success does NOT count toward circuit breaker
+- Morning report flags these for human review: "Task X timed out but produced findings — review results/"
 
-## Do NOT Do
+**Where:** `weekend_parallel.py` `execute_readonly_task()` (line 230, timeout handler) and `overnight_orchestrator.py` timeout handler
 
-- Do NOT modify any existing source files
-- Do NOT implement code changes for the audit findings
-- Do NOT run any LLM calls (no --backend cli, no API calls)
-- Do NOT proceed beyond these 4 tasks
-- After completing all tasks, commit, push, and stop
+### FIX-6: Unified Heartbeat (MEDIUM)
+
+**Problem:** Heartbeat is written only by the write orchestrator. The readonly pool writes to a different state file. Monitoring tools see stale heartbeat data.
+
+**Fix:** Single heartbeat file updated by both:
+- Readonly pool: update heartbeat after each task completion with `readonly_completed`, `readonly_active` counts
+- Write orchestrator: update heartbeat with `write_completed`, `write_active` counts
+- Use file locking or atomic writes to avoid corruption
+- Dashboard reads one file to get full picture
+
+**Where:** `weekend_parallel.py` (add heartbeat writes after line 444) and `overnight_orchestrator.py` `_write_heartbeat()` (line ~543)
+
+### FIX-7: Adaptive Timeouts for Write Tasks (MEDIUM)
+
+**Problem:** Test-generation tasks got 20-25 minute timeouts with `sonnet` model. These are insufficient for generating 500+ lines of test code.
+
+**Fix:** Scale timeout with task complexity:
+- If `estimated_complexity == "high"`: timeout *= 1.5, use `opus` model
+- If `estimated_complexity == "low"`: use shorter timeout, `sonnet` is fine
+- After a timeout on a specific task TYPE (e.g., `sprint_test`), automatically increase timeout for remaining tasks of that type by 50%
+- Cap at 45 minutes per task (anything longer should be split)
+
+**Where:** `overnight_orchestrator.py` task execution section (~line 700) and `weekend_parallel.py` `execute_readonly_task()` (line 217)
+
+### FIX-8: Dashboard Shows Write Orchestrator Status (LOW)
+
+**Problem:** Dashboard only shows readonly pool progress. Write orchestrator status is invisible.
+
+**Fix:** `sprint_dashboard.py` should also:
+- Read write orchestrator `state.json` for write task progress
+- Show write orchestrator process status (running/dead/completed)
+- Show last write task attempted and its result
+
+**Where:** `scripts/sprint_dashboard.py` (line ~175)
+
+## Scope Guard
+
+- Do NOT rewrite the overnight system from scratch — improve what exists
+- Do NOT add new task types or scanners
+- Do NOT change the quality gate levels (L1-L6)
+- Do NOT modify the manifest format (keep backwards compatible)
+- Do NOT add external dependencies (no Redis, no SQLite, no message queues)
+- Keep changes within `scripts/weekend_parallel.py`, `scripts/overnight_orchestrator.py`, `scripts/sprint_dashboard.py`
+- Test manually with `--dry-run` and single-task mode (`--task`) before full runs
+
+## Verification
+
+After changes:
+1. `python scripts/weekend_parallel.py --manifest overnight/sprint_manifest.json --dry-run` — should list all tasks with new ordering
+2. `python scripts/weekend_parallel.py --manifest overnight/sprint_manifest.json --task audit-stale-artifacts` — single task should complete successfully
+3. Create a test manifest with 1 task that will timeout (set timeout_minutes: 1) — verify partial success detection works
+4. Kill the process mid-run, restart with `--resume` — verify it picks up where it left off
+
+## After Completing Fixes
+
+Commit with: `fix(overnight): harden sprint system — smart breaker, resume, health monitoring`
+
+Then launch a fresh overnight run to validate everything works unmonitored.
