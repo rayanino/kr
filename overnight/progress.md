@@ -2,7 +2,7 @@
 
 
 ## Remaining
-- [ ] source-boundary-values: Source engine: test ALL threshold boundaries (trust/confidence/empty-ratio)
+- [x] source-boundary-values: Source engine: test ALL threshold boundaries (trust/confidence/empty-ratio) — 25 tests added (566→591)
 - [ ] source-error-codes: Source engine: trigger all 32 SRC_* error codes — verify emission and recovery
 - [ ] norm-boundary-values: Normalization engine: test ALL threshold boundaries (sparse/dense/fingerprint/heading)
 - [ ] norm-error-codes: Normalization engine: trigger all 33 NORM_* error codes — verify severity and recovery
