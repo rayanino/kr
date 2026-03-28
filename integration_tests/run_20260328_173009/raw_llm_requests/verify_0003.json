@@ -1,0 +1,16 @@
+{
+  "call_id": "verify_0003",
+  "model": "openai/gpt-5.4",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية), independently verifying metadata decisions made by another model.\n\nFor each verification item, you receive the original Arabic text, the decision made, and supporting context. Your task is to independently assess whether each decision is correct.\n\nVERIFICATION METHODOLOGY:\n- Read the Arabic text carefully before looking at the decision\n- Form your own judgment, then compare with the stated decision\n- For SCHOOL_ATTRIBUTION: check whether the position presented matches the attributed school. The source author's school is NOT necessarily the school of every position discussed — authors often present other schools' views for comparison or refutation.\n- For AUTHOR_ATTRIBUTION: check whether the text content matches the attributed author/layer. Look for voice markers (قال, ذكر, المصنف), commentary indicators (أي, يعني, الشرح), and layer boundaries.\n- For SELF_CONTAINMENT: evaluate against these criteria:\n  * C-SC-1: Every technical term is defined or is standard terminology\n  * C-SC-2: Every pronoun/demonstrative resolves within the unit\n  * C-SC-3: Every evidence citation includes its text or is universally known\n  * C-SC-4: The argument/ruling/teaching is complete, not a fragment\n  * C-SC-5: If responding to another scholar, enough of that position is included\n\nExpress your assessment as agree or disagree with brief reasoning. If you disagree, provide your alternative. Include your confidence (0.0 to 1.0)."
+    },
+    {
+      "role": "user",
+      "content": "Source context:\n- Author: ابن عقيل\n- Work: شرح ابن عقيل\n- Science: نحو\n- School: \n\nITEM 0: SELF_CONTAINMENT\nText: \"وقد شرح الكتاب - غير هؤلاء - الكثير من العلماء، ولست تجد شرحا من هذه الشروح لم يتناوله العلماء: بالكتابة عليه، وبيان ما فيه من إشارات، وإكمال ما عسى أن يشتمل عليه من نقص، وكل ذلك ببركة صاحب الأصل المشروح،\nوبما ذاع له بين أساطين العلم من شهرة بالفقه في العربية وسعة الباع.\nوهذه الشروح مختلفة، ففيها المختصر، وفيها المطول، فيها المتعقب صاحبه للناظم يتحامل عليه، ويتلمس له المزالق، وفيها المتحيز له، والمصحح لكل ما يجئ به، وفيها الذي اتخذ صاحبه طريقا وسطا بين الإيجاز والإطناب، والتحامل والتحيز.\nومن هؤلاء الذين سلكوا طريقا بين الطريقين بهاء الدين بن عقيل، فإنه لم يعمد إلى الإيجاز حتى يترك بعض القواعد الهامة، ولم يقصد إلى الإطناب، فيجمع من هنا ومن هنا، ويبين جميع مذاهب العلماء ووجوه استدلالهم، ولم يتعسف في نقد الناظم: بحق، وبغير حق، كما لم ينحز له بحيث يتقبل كل ما يجئ به: وافق الصواب، أو لم يوافقه.\nولصاحب هذا الشرح من الشهرة في الفن والبراعة فيه، ومن البركة والإخلاص ما دفع علماء العربية إلى قراءة كتابه والاكتفاء به عن أكثر شروح الخلاصة.\"\nScholarly function: editorial_note\nDecision: Unit assessed as PARTIAL. Notes: يشير إلى 'هؤلاء' في بداية الوحدة وهم الشرّاح المذكورون في الوحدة السابقة، لكن السياق يوضح المراد بدرجة كافية. Is this assessment correct?\nYour assessment: agree or disagree, with brief reasoning in Arabic or English.\nIf you disagree, provide your alternative.\nProvide your confidence (0.0 to 1.0) in your own assessment.\n"
+    }
+  ]
+}

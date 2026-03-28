@@ -1,0 +1,1 @@
+{"source_id": "src_test0001", "timestamp": "2026-03-28T16:30:44.782609+00:00", "excerpt_count": 0, "gate_count": 0, "error_count": 0, "errors": [], "timings": {"load_package": 0.017, "phase1": 0.049, "phase2a": 1387.222, "phase2a_per_chunk": {}, "phase2b": 0.0, "phase2b_per_chunk": {}, "phase3": 0.0}}
