@@ -65,11 +65,27 @@ ABSOLUTE RULES — HARDENING ONLY:
 - Allowed work: code review, edge case tests, bug fixes, spec audits, validation, documentation
 - Forbidden work: new engine phases, new pipeline stages, feature implementation
 
+CORE QUALITY RULES:
+1. Every bug you find MUST be fixed AND regression-tested in the same session.
+   Finding without fixing is half the value. Write a test that fails without the
+   fix and passes with it.
+2. Every test must test exactly ONE behavior. Name it precisely:
+   test_{{what}}_{{condition}}_{{expected}}. No multi-assertion catch-all tests.
+3. Reference the EXACT SPEC section for every test: read the SPEC text, quote
+   the rule, then write the test. Don't paraphrase SPEC rules from memory.
+4. Test QUALITY over QUANTITY. 10 precise boundary tests > 100 shallow smoke tests.
+   Every test must catch a real bug or prove a real invariant.
+5. When done, self-review your work: re-read every test you wrote and ask
+   "Would this test catch the bug if someone introduced it tomorrow?"
+6. Count tests BEFORE and AFTER. Report the delta in findings.json.
+
 FINDINGS PROTOCOL (MANDATORY for every modifying/test task):
 After completing your work, write a structured findings file to:
-  overnight/results/{TASK_ID}/findings.json
+  overnight/results/{{TASK_ID}}/findings.json
 with this exact JSON structure:
 {{
+  "task_status": "success|truncated|failed",
+  "session_id": "{TASK_ID}",
   "bugs_found": [{{"severity": "CRITICAL|HIGH|MEDIUM", "file": "...", "line": 0, "description": "...", "fixed": true}}],
   "tests_added": [{{"name": "test_...", "file": "...", "edge_case": "..."}}],
   "spec_issues": [{{"section": "§...", "issue": "...", "recommendation": "..."}}],
@@ -191,6 +207,22 @@ def _find_codex() -> str | None:
             Path(os.environ.get("APPDATA", "")) / "npm" / "codex.cmd",
             Path(os.environ.get("LOCALAPPDATA", "")) / "npm" / "codex.cmd",
             Path.home() / "AppData" / "Roaming" / "npm" / "codex.cmd",
+        ]:
+            if candidate.exists():
+                return str(candidate)
+    return None
+
+
+def _find_gemini() -> str | None:
+    """Find Gemini CLI, checking common Windows npm global locations."""
+    found = shutil.which("gemini")
+    if found:
+        return found
+    if sys.platform == "win32":
+        for candidate in [
+            Path(os.environ.get("APPDATA", "")) / "npm" / "gemini.cmd",
+            Path(os.environ.get("LOCALAPPDATA", "")) / "npm" / "gemini.cmd",
+            Path.home() / "AppData" / "Roaming" / "npm" / "gemini.cmd",
         ]:
             if candidate.exists():
                 return str(candidate)
@@ -495,6 +527,15 @@ def preflight_checks() -> None:
         os.environ["KR_CODEX_PATH"] = codex_path
         print(f"  [info] Codex CLI found at {codex_path}")
 
+    gemini_path = _find_gemini()
+    if not gemini_path:
+        os.environ["KR_SKIP_GEMINI"] = "1"
+        print("  [info] Gemini CLI not found — L6 adversarial challenge disabled for this run")
+    else:
+        os.environ.pop("KR_SKIP_GEMINI", None)
+        os.environ["KR_GEMINI_PATH"] = gemini_path
+        print(f"  [info] Gemini CLI found at {gemini_path}")
+
     # Disk space (need at least 500MB free)
     # Simple check via df on Windows/bash
     try:
@@ -518,7 +559,7 @@ def preflight_checks() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Task execution — 3 backends
+# Task execution — 4 backends (CLI, Codex, Gemini, SDK)
 # ---------------------------------------------------------------------------
 
 
@@ -540,6 +581,8 @@ def execute_task(task: TaskDef) -> TaskResult:
     try:
         if task.execution_mode == "codex":
             result = _execute_codex(task, task_results_dir)
+        elif task.execution_mode == "gemini":
+            result = _execute_gemini(task, task_results_dir)
         elif task.execution_mode == "sdk":
             result = _execute_sdk(task, safety_prompt)
         else:
@@ -668,6 +711,49 @@ def _execute_codex(task: TaskDef, results_dir: Path) -> TaskResult:
         task_id=task.task_id, status=status,
         output_summary=summary,
         error=error, model_used=task.model,
+    )
+
+
+def _execute_gemini(task: TaskDef, results_dir: Path) -> TaskResult:
+    """Execute via Gemini CLI — adversarial review. Uses -y for auto-approval."""
+    gemini_bin = os.environ.get("KR_GEMINI_PATH", "gemini")
+    output_file = results_dir / "gemini_output.md"
+
+    # Write prompt to file to avoid CLI arg length issues on Windows
+    prompt_file = results_dir / "gemini_prompt.txt"
+    prompt_file.write_text(task.prompt, encoding="utf-8")
+
+    cmd = [
+        gemini_bin, "-p", task.prompt[:8000],  # Gemini -p has arg limits
+        "-o", "text",
+        "-y",  # auto-approve tool calls
+    ]
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+
+    try:
+        result = subprocess.run(
+            cmd, capture_output=True, text=True, encoding="utf-8", errors="replace",
+            timeout=task.timeout_minutes * 60,
+            cwd=str(PROJECT_DIR), env=env,
+        )
+    except subprocess.TimeoutExpired:
+        return TaskResult(
+            task_id=task.task_id, status="timeout",
+            error=f"Gemini timed out after {task.timeout_minutes}m",
+            model_used="gemini",
+        )
+
+    summary = result.stdout[:2000] if result.stdout else ""
+    if summary:
+        output_file.write_text(summary, encoding="utf-8")
+
+    status = "success" if result.returncode == 0 else "failed"
+    error = result.stderr[:1000] if result.returncode != 0 else None
+
+    return TaskResult(
+        task_id=task.task_id, status=status,
+        output_summary=summary,
+        error=error, model_used="gemini",
     )
 
 
@@ -818,7 +904,7 @@ def run_codex_verification(task: TaskDef) -> dict[str, Any]:
             [os.environ.get("KR_CODEX_PATH", "codex"), "exec", "--full-auto",
              "--output-last-message", str(output_file),
              review_prompt],
-            capture_output=True, text=True, timeout=300,
+            capture_output=True, text=True, timeout=600,
             cwd=str(PROJECT_DIR),
         )
         review_text = ""
@@ -838,6 +924,49 @@ def run_codex_verification(task: TaskDef) -> dict[str, Any]:
     except (subprocess.TimeoutExpired, FileNotFoundError) as e:
         log_decision(f"Codex verification skipped for {task.task_id}: {e}")
         return {"review": "", "discrepancies": False, "skipped": True}
+
+
+def run_gemini_adversarial_challenge(task: TaskDef, code_diff: str) -> dict[str, Any]:
+    """L6: Gemini adversarial challenge of overnight changes (D-H002)."""
+    results_dir = OVERNIGHT_DIR / "results" / f"{task.task_id}-gemini-review"
+    results_dir.mkdir(parents=True, exist_ok=True)
+
+    challenge_prompt = (
+        f"You are an adversarial reviewer. A code change was made by an autonomous "
+        f"overnight system for task: '{task.name}'.\n\n"
+        f"Code diff:\n{code_diff[:6000]}\n\n"
+        f"Challenge this change:\n"
+        f"1. What edge cases could still break this code after the change?\n"
+        f"2. What assumptions is the implementation making that could be wrong?\n"
+        f"3. Is the fix/test addressing the root cause or papering over the symptom?\n"
+        f"4. Are the new tests actually testing what they claim to test?\n"
+        f"Report ONLY genuine concerns — not style or cosmetic issues."
+    )
+    output_file = results_dir / "gemini_challenge.md"
+    gemini_bin = os.environ.get("KR_GEMINI_PATH", "gemini")
+
+    try:
+        result = subprocess.run(
+            [gemini_bin, "-p", challenge_prompt[:8000], "-o", "text", "-y"],
+            capture_output=True, text=True, encoding="utf-8", errors="replace",
+            timeout=600, cwd=str(PROJECT_DIR),
+        )
+        challenge_text = result.stdout[:3000] if result.stdout else ""
+        if challenge_text:
+            output_file.write_text(challenge_text, encoding="utf-8")
+
+        has_concerns = any(
+            kw in challenge_text.lower()
+            for kw in ["break", "assumption", "root cause", "symptom", "miss", "fail"]
+        )
+        return {
+            "challenge": challenge_text[:2000],
+            "concerns_raised": has_concerns,
+            "challenge_file": str(output_file),
+        }
+    except (subprocess.TimeoutExpired, FileNotFoundError) as e:
+        log_decision(f"Gemini adversarial challenge skipped for {task.task_id}: {e}")
+        return {"challenge": "", "concerns_raised": False, "skipped": True}
 
 
 # ---------------------------------------------------------------------------
@@ -1289,7 +1418,7 @@ def run_overnight(
 
         # Quality gate for modification tasks
         if result.status == "success" and task.safety_level != "readonly":
-            print(f"    Running quality gate...")
+            print(f"    Running quality gate (L1-L4)...")
             gate = run_quality_gate(task, pre_snapshot)
             if not gate["passed"]:
                 print(f"    QUALITY GATE FAILED — rolling back")
@@ -1297,10 +1426,27 @@ def run_overnight(
                 result.status = "rolled_back"
                 result.gate_result = gate
                 state.tasks_rolled_back += 1
+            else:
+                # Auto-commit guard: if CLI didn't commit, commit for it
+                current_head = git_head()
+                if current_head == pre_snapshot:
+                    uncommitted = subprocess.run(
+                        ["git", "status", "--porcelain", "--", "engines/", "shared/",
+                         "tests/", "overnight/results/"],
+                        capture_output=True, text=True, cwd=str(PROJECT_DIR),
+                    ).stdout.strip()
+                    if uncommitted:
+                        log_decision(
+                            f"AUTO-COMMIT: {task.task_id} left uncommitted changes — committing",
+                        )
+                        git_commit(
+                            f"overnight: {task.task_id} — auto-commit (CLI missed commit step)",
+                        )
+                        print(f"    Auto-committed (CLI missed commit step)")
 
         # L5: Optional Codex cross-verification (skip if Codex unavailable)
         if (result.status == "success"
-                and task.execution_mode != "codex"
+                and task.execution_mode not in ("codex", "gemini")
                 and task.safety_level != "readonly"
                 and not os.environ.get("KR_SKIP_CODEX")):
             print(f"    Running Codex cross-verification (L5)...")
@@ -1316,6 +1462,31 @@ def run_overnight(
                     print(f"    Codex verification: CLEAN")
             except Exception as e:
                 log_decision(f"Codex verification failed for {task.task_id}: {e}")
+
+        # L6: Optional Gemini adversarial challenge (skip if unavailable)
+        if (result.status == "success"
+                and task.execution_mode not in ("codex", "gemini")
+                and task.safety_level != "readonly"
+                and not os.environ.get("KR_SKIP_GEMINI")):
+            print(f"    Running Gemini adversarial challenge (L6)...")
+            try:
+                diff_result = subprocess.run(
+                    ["git", "diff", pre_snapshot, "HEAD"],
+                    capture_output=True, text=True, encoding="utf-8", errors="replace",
+                    cwd=str(PROJECT_DIR),
+                )
+                code_diff = diff_result.stdout[:6000] if diff_result.stdout else "No diff available"
+                gemini_result = run_gemini_adversarial_challenge(task, code_diff)
+                if gemini_result.get("concerns_raised"):
+                    log_decision(
+                        f"GEMINI CONCERN for {task.task_id}: see {gemini_result.get('challenge_file', 'N/A')}",
+                        gemini_result.get("challenge", "")[:300],
+                    )
+                    print(f"    Gemini raised concerns — logged for morning review")
+                else:
+                    print(f"    Gemini adversarial challenge: CLEAN")
+            except Exception as e:
+                log_decision(f"Gemini adversarial challenge failed for {task.task_id}: {e}")
 
         # Track cost
         state.total_cost_usd += result.cost_usd

@@ -35,14 +35,14 @@ class TaskDef:
     safety_level: str = "readonly"
     execution_mode: str = "cli"
     agent: str | None = None
-    model: str = "sonnet"
-    max_budget_usd: float = 2.0
-    timeout_minutes: int = 30
+    model: str = "opus"
+    max_budget_usd: float = 5.0
+    timeout_minutes: int = 35
     allowed_tools: list[str] = field(default_factory=list)
     permission_mode: str = "bypassPermissions"
     depends_on: list[str] = field(default_factory=list)
     priority: int = 5
-    max_turns: int = 30
+    max_turns: int = 40
     codex_flags: list[str] = field(default_factory=list)
     bookend: bool = False  # Always-run task: skips dependency propagation, runs last
 
@@ -761,7 +761,7 @@ def add_codex_verifications(tasks: list[TaskDef]) -> list[TaskDef]:
                 timeout_minutes=10,
                 priority=task.priority,
                 depends_on=[task.task_id],
-                codex_flags=["--full-auto"],
+                codex_flags=[],  # orchestrator already adds --full-auto
                 allowed_tools=[],
             ))
     return tasks + extra
