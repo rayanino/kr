@@ -113,7 +113,7 @@ Factory HUNT Mode
 | Tool | Provider | Subscription | Cost | Quota |
 |------|----------|-------------|------|-------|
 | Claude Code | Anthropic | Max | Owned | Unlimited |
-| Codex CLI | OpenAI | ChatGPT Plus ($20/mo) | $20/mo | 33-168 msg/5hr (GPT-5.4); currently 2x promo |
+| Codex CLI | OpenAI | ChatGPT Plus ($20/mo) | $20/mo | ChatGPT auth: credit-based limits (plan-dependent); API key auth: per-token billing (recommended for factory) |
 | Copilot CLI | GitHub | Student (3yr) | $0 | 300 premium/mo + unlimited 0x models |
 | Gemini CLI | Google | AI Pro ($19.99/mo) | $20/mo | ~1,500 requests/day |
 
@@ -128,7 +128,7 @@ Factory HUNT Mode
 | HUNT | Scholarly review (HIGH) | Codex CLI | GPT-5.4 | Frontier model, AGENTS.md for KR-specific review |
 | HUNT | Adversarial challenge (HIGH+) | Gemini CLI | Gemini 3 Pro | Independent training data, structural adversary |
 | HUNT | CRITICAL escalation | Copilot CLI | Claude Opus 4.5 (3x) | Different Claude version than builder |
-| EVALUATE | Cross-provider consensus | Codex + Gemini + Copilot | Mixed | Three independent reviews on HIGH+ findings |
+| EVALUATE | Cross-provider consensus | Codex + Gemini + Copilot | Mixed | Architect receives union of all three reviews; nothing discarded. No automated consensus algorithm — architect decides. |
 
 **Dispatch pattern:**
 
@@ -136,18 +136,20 @@ Factory HUNT Mode
 # Builder
 # Claude Code — interactive or scripted (existing pattern)
 
-# Bulk reviewer (unlimited)
-copilot -p "$REVIEW_PROMPT" --model gpt-4.1
+# Bulk reviewer (unlimited, structured JSON)
+copilot -p "$REVIEW_PROMPT" --model gpt-4.1 --output-format=json
 
-# Scholarly reviewer (frontier)
+# Scholarly reviewer (frontier, structured JSON)
 codex exec --full-auto "$REVIEW_PROMPT"
 
-# Adversarial challenger
-gemini -p "$CHALLENGE_PROMPT" -o text -y
+# Adversarial challenger (structured JSON)
+gemini -p "$CHALLENGE_PROMPT" --output-format json -y
 
-# CRITICAL escalation
-copilot -p "$ESCALATION_PROMPT" --model claude-opus-4.5
+# CRITICAL escalation (structured JSON)
+copilot -p "$ESCALATION_PROMPT" --model claude-opus-4.5 --output-format=json
 ```
+
+**Codex CLI auth mode for factory:** Use API key auth (`preferred_auth_method = "apikey"` in config.toml or `OPENAI_API_KEY` env var) for factory automation. This gives per-token billing with predictable costs and avoids subscription credit limit uncertainty. ChatGPT auth is for interactive developer use; API key auth is OpenAI's recommendation for programmatic/CI workflows.
 
 **Nightly budget at ~25 findings/night, ~22 nights/month:**
 
@@ -155,7 +157,7 @@ copilot -p "$ESCALATION_PROMPT" --model claude-opus-4.5
 |----------|------------|------|---------------------|
 | LOW (40%) | ~10 | Copilot GPT-4.1 | 0x = free |
 | MEDIUM (35%) | ~9 | Copilot GPT-4.1 | 0x = free |
-| HIGH (20%) | ~5 | Codex (GPT-5.4) + Gemini (3 Pro) | ~110/mo Codex (within window), ~110/mo Gemini (trivial vs 1,500/day) |
+| HIGH (20%) | ~5 | Codex (GPT-5.4) + Gemini (3 Pro) | ~110/mo Codex (API key: per-token, ~$5-15/mo est.), ~110/mo Gemini (trivial vs 1,500/day) |
 | CRITICAL (5%) | ~1 | Copilot (Claude Opus 4.5, 3x) | ~66 premium/mo of 300 |
 
 **Graceful degradation:** If any tool hits limits, Copilot CLI can access multiple model families via `--model`. OpenRouter API is always available as pay-per-token backstop.
@@ -204,6 +206,47 @@ This eliminates Finding 3's concern ("who classifies severity?") — the answer 
 | Copilot SDK | DEFER | If subprocess overhead becomes bottleneck | Adds complexity without clear benefit at current scale |
 | Great Expectations / Pandera | Session 1 | Factory setup | Lightweight data quality expectations mapping to existing invariants |
 
+### D-H006: Severity Escalation Mechanisms
+
+**Decision:** Severity classification (D-H003) is the default routing decision, but two escalation paths exist to catch "hidden CRITICALs" — findings initially classified at lower severity that actually affect knowledge-integrity fields.
+
+**Source:** Independent convergence from ChatGPT deep research and Gemini adversarial challenge on the D-H002 cross-provider review (2026-03-28).
+
+**Path 1 — Pre-review field scan (deterministic):**
+
+Before routing a finding to its classified severity tier, the orchestrator greps the associated diff for CRITICAL-field names: `author`, `attribution`, `school`, `genre`, `multi_layer`, `self_containment`, `primary_text`, `layer_id`. If any are present in the diff, the finding is escalated to at minimum HIGH regardless of its initial classification. This catches cases where a "defensive code" fix in a utility function actually modifies how CRITICAL fields are computed.
+
+**Path 2 — Mid-review escalation interrupt (LLM-signaled):**
+
+All reviewer prompts (LOW through HIGH) include the instruction: "If during your review you discover that this finding affects author attribution, school classification, self-containment, or any other knowledge-integrity field listed in KNOWLEDGE_INTEGRITY.md threats T-1 through T-4, output the signal `ESCALATION_REQUIRED: <reason>` and stop your review."
+
+When the orchestrator detects `ESCALATION_REQUIRED` in a reviewer's output, it:
+1. Logs the escalation with the reviewer's reasoning
+2. Mutates the finding's severity to CRITICAL
+3. Re-queues the finding into the CRITICAL dispatch tier
+4. The re-queued review includes the original reviewer's escalation rationale as context
+
+**Design rationale:** Path 1 is cheap and deterministic — it runs before any LLM call. Path 2 is a safety net for cases Path 1 misses (indirect impact through call chains, data flow effects). Together they close the gap that both ChatGPT and Gemini identified: severity must not be permanently immutable after initial classification.
+
+### D-H007: Shadow Routing Audit (Canary Check)
+
+**Decision:** 5-10% of LOW/MEDIUM findings are duplicated to the HIGH+ review panel nightly as a canary check for systematic blind spots in the primary reviewer (GPT-4.1).
+
+**Source:** Independent convergence — both ChatGPT and Gemini recommended this mechanism without coordination.
+
+**Mechanism:**
+
+Each night, the orchestrator randomly selects ~5-10% of findings classified as LOW or MEDIUM and duplicates them to the HIGH+ tier (Codex + Gemini dual review). The original LOW/MEDIUM review proceeds normally. The shadow reviews are compared offline.
+
+**Disagreement handling:**
+- If the shadow review agrees with GPT-4.1 → no action
+- If the shadow review finds additional issues GPT-4.1 missed → log as a "blind spot" finding in the morning report
+- If blind spot findings cluster around a specific domain (e.g., validation logic, Arabic text handling, Pydantic patterns) → the orchestrator permanently routes that domain to the HIGH+ tier
+
+**Scale:** At ~19 LOW/MEDIUM findings/night, 5-10% = 1-2 shadow reviews/night. Minimal quota impact on Codex and Gemini.
+
+**Timeline:** Session 6+ (orchestrator extension). Not needed for factory Day 1 — this is a maturity mechanism that improves the factory's self-awareness over time.
+
 ---
 
 ## Cross-Provider Consultation Record
@@ -215,6 +258,17 @@ This session used structured cross-provider consultation for every major decisio
 | **Reference data tools** | Found: Wikidata SPARQL (P9929, P1066/P802), Shamela S1.db narrators (18,989), CheckList methodology, Great Expectations, OpenITI mARkdown parsers, Europeana tiered quality model | Verified: usul-data structure (6,159 authors, 15,655 books, 39 genres), CAMeL Tools partial install, Mutmut blocked on Windows | Challenged: Schema mismatch risk (partially valid — fuzzy matching needed, but JSON-LD claim was wrong), silent registry poisoning (valid — firewall rule adopted), network dependency (valid — offline-first adopted) |
 | **Shamela ID join** | N/A | Verified: 89.2% match rate, 7/7 author agreement, 3 false positive modes identified with fixes | N/A |
 | **CLI architecture** | Verified: Codex exec scripted usage on Plus allowed; warned about 5hr window limits (valid but not blocking at our scale) | Verified: all 4 CLIs work programmatically, exact syntax documented | N/A (prompts prepared but not yet sent) |
+| **D-H002 challenge (routing architecture)** | Verified GPT-4.1 adequate for LOW/MEDIUM (SWE-bench 54.6%). Corrected Codex CLI auth model: API key mode recommended for factory. Verified all 4 CLIs have structured JSON output. Documented WSL2 interop risks (path semantics, filesystem perf, interop config). Proposed canary audit lane + auto-escalation. Proposed Usage Ledger architecture for quota tracking. | N/A | Analyzed wrong repository (sparxsystems/krino ≠ rayanino/kr) — 60% of report invalidated. Pipe buffer / deadlock analysis invalid (orchestrator already uses Popen+communicate). DAG proposal overengineered. VALID findings: severity escalation mid-review (adopted as D-H006 Path 2), consensus algorithm underspecification (clarified in D-H002), shadow routing (adopted as D-H007). |
+
+### D-H002 Challenge Verdict (2026-03-28)
+
+**Cross-provider challenge completed.** D-H002's core architecture (four-tool routing, severity-based dispatch, role assignments) **SURVIVES** both challenges. Five additions adopted:
+
+1. **D-H002 updated:** Codex CLI auth mode clarified (API key for factory), dispatch pattern updated with `--output-format json` flags, CRITICAL consensus clarified as architect-reviewed union
+2. **D-H006 added:** Two-path severity escalation (pre-review field scan + mid-review LLM interrupt)
+3. **D-H007 added:** Shadow routing audit (5-10% canary from LOW/MEDIUM to HIGH+ panel)
+4. **Session 3 note:** All four CLIs support structured JSON output — orchestrator must use it
+5. **WSL2 setup note:** Repo must live in WSL2 native filesystem; interop settings must be verified; Codex CLI recommends WSL install
 
 ---
 
@@ -232,12 +286,40 @@ This session used structured cross-provider consultation for every major decisio
 None currently blocking. Session 3 preparation will require:
 - Copilot CLI custom agent (`.agent.md`) design for KR review/adversary roles
 - Codex CLI AGENTS.md design for KR scholarly review context
-- Gemini CLI project context configuration
+- Gemini CLI project context configuration (GEMINI.md)
 - WSL2 interop verification (all tools from within WSL2)
+
+### WSL2 Setup Requirements (from D-H002 challenge)
+
+- **Filesystem:** KR repo must live in WSL2 native filesystem (`/home/...`), NOT on Windows mount (`/mnt/c/...`). Cross-filesystem access degrades performance.
+- **Interop:** Verify `/etc/wsl.conf` has `[interop] enabled=true` and `appendWindowsPath=true`. Document these settings in factory setup script.
+- **Codex CLI:** Install inside WSL2 as Linux binary (official recommendation: "Windows support is experimental, use WSL"). Avoids path translation issues.
+- **Path translation:** If any CLI runs as Windows executable from WSL2, the orchestrator must translate Linux paths to Windows paths before passing them as arguments.
+- **Codex CLI network:** Codex CLI may sandbox network during execution. Factory review prompts must not depend on external network calls during review.
+
+### Structured Output for Session 3 (from D-H002 challenge)
+
+All four CLIs support machine-readable JSON output. The orchestrator MUST use these modes instead of parsing human-readable text:
+- Copilot CLI: `--output-format=json` (JSONL)
+- Claude Code: `--output-format json` (JSON, supports `--json-schema`)
+- Gemini CLI: `--output-format json` (JSON with response + stats including per-model token usage)
+- Codex CLI: `codex exec --full-auto` (structured output; also Codex App Server JSON-RPC for deeper integration)
+
+The orchestrator should define an internal `AgentResult` schema that all tool outputs are normalized into, making dispatch boundaries clean and tool-agnostic.
+
+### Quota Tracking Architecture (from D-H002 challenge)
+
+Three-layer design for Session 6+:
+1. **Usage Ledger** (append-only): keyed by (provider, model, run_id, finding_id). Stores request counts, token counts, latency, errors, cost fields from CLI telemetry.
+2. **Quota Adapters** (per-provider): maps ledger entries to provider quota units — Copilot premium requests/multipliers, Gemini daily request caps, OpenAI API RPM/TPM and token spend, Claude Code per-run budget caps.
+3. **Policy Layer**: implements graceful degradation from D-H002 — routes work away from constrained tools, downgrades to 0x models when premium requests scarce.
+
+Both Copilot CLI and Gemini CLI expose OpenTelemetry-based telemetry, enabling quota tracking based on actual measured usage rather than estimates.
 
 ### Corrections to Apply to v3 Outline
 
 1. FIX mode descriptions: replace tool-specific names with reference to D-H002 routing table
-2. Session 3: rewrite CLI setup for four tools (was designed for three)
+2. Session 3: rewrite CLI setup for four tools (was designed for three), add structured JSON output requirement
 3. Session 4-5 benchmark: include all four tools in benchmark task assignments
-4. Add D-H001 through D-H005 to Design Decisions section
+4. Session 6: add D-H006 escalation mechanisms and D-H007 shadow routing to orchestrator extension scope
+5. Add D-H001 through D-H007 to Design Decisions section
