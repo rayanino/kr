@@ -3,7 +3,7 @@
 ## Current Position
 
 - **Baseline:** 800 tests passing, 2 skipped (766 excerpting + 34 adapter)
-- **Commit:** `602964d8` (encoding fix) — HEAD is `a814099b` after CC sync
+- **Commit:** `602964d8` (encoding fix) — HEAD is `87c2809b` (this NEXT.md)
 - **Engine:** Excerpting — CLI adapter WORKING
 - **Milestone:** First real CLI integration test succeeded: 23 excerpts, 0 errors, $0 cost (شرح ابن عقيل, 2 chunks)
 - **Blocking issue:** Large chunks (4,936 words) timeout at 120s — must fix before 5-book run
@@ -59,7 +59,7 @@ This is a CC task — write the directive, relay to CC.
 ### Step 3: 5-Book Overnight Run Preparation
 
 After the timeout fix lands:
-1. Verify the 5 test packages exist at `integration_tests/packages/`
+1. Verify the 5 test packages exist at `experiments/format_diversity_test/packages/` (ibn_aqil_v1, ibn_aqil_v3, taysir, ext_39_masala, ext_46_qa — all verified 2026-03-28)
 2. Prepare the exact `run_full_integration.py --backend cli` command
 3. Prepare a monitoring checklist (what to check in the morning)
 4. Write the command for the owner to run overnight
@@ -75,7 +75,7 @@ After the timeout fix lands:
 
 | File | Purpose |
 |------|---------|
-| `shared/llm/cli_adapter.py` | The CLI adapter (668 lines, all 3 backends) |
+| `shared/llm/cli_adapter.py` | The CLI adapter (699 lines, all 3 backends) |
 | `shared/llm/CLI_ADAPTER_SPEC.md` | Governing SPEC (14 sections, 7 invariants) |
 | `scripts/run_full_integration.py` | Batch runner for all 5 packages |
 | `scripts/run_integration_test.py` | Per-package runner |
