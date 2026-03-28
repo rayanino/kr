@@ -531,6 +531,7 @@ class _CompletionsNamespace:
             cmd,
             capture_output=True,
             text=True,
+            encoding="utf-8",
             timeout=timeout_seconds,
             env=env,
             check=True,
@@ -604,6 +605,7 @@ class _CompletionsNamespace:
                 cmd,
                 capture_output=True,
                 text=True,
+                encoding="utf-8",
                 timeout=timeout_seconds,
                 check=True,
             )
@@ -647,6 +649,7 @@ class _CompletionsNamespace:
             cmd,
             capture_output=True,
             text=True,
+            encoding="utf-8",
             timeout=timeout_seconds,
             check=True,
         )

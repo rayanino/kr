@@ -432,11 +432,14 @@ subprocess.run(
     command,
     capture_output=True,
     text=True,
+    encoding="utf-8",
     timeout=timeout_seconds,
     env={**os.environ, **extra_env},  # e.g., ANTHROPIC_API_KEY for claude
     check=True,  # raises CalledProcessError on non-zero exit
 )
 ```
+
+**Encoding (§14.5):** `encoding="utf-8"` is **mandatory** on all subprocess calls. On Windows, `text=True` without an explicit encoding defaults to the system code page (typically cp1252/Western European), which cannot decode Arabic text. This causes `UnicodeDecodeError` in the subprocess reader thread before the adapter ever sees the output. Discovered during the first real CLI integration test (2026-03-28).
 
 **Timeout:** Default 120 seconds (from `ExcerptingConfig.TIMEOUT_SECONDS`). Passed through from the `create()` call if the caller provides a custom timeout via kwargs. If not provided, use 120s.
 
@@ -821,3 +824,10 @@ This SPEC was amended after adversarial self-review (commit after initial). Chan
 - §3.1: Added WARNING log on unknown model prefix fallback
 - §3.2: Documented `--output-format json` envelope risk
 
+### §14.5 Windows Subprocess Encoding
+
+On Windows, `subprocess.run(text=True)` decodes stdout/stderr using the system code page (typically cp1252 for Western European locales). Arabic text from the Claude/Gemini/Codex CLI tools contains bytes that cp1252 cannot decode, causing `UnicodeDecodeError` in the subprocess reader thread before the adapter ever sees the output.
+
+**Fix:** All three `subprocess.run()` calls MUST include `encoding="utf-8"` alongside `text=True`. This is explicit in §6.2. On Linux, `encoding="utf-8"` is redundant (the default locale is usually UTF-8) but harmless. On Windows, it is mandatory.
+
+**Discovered:** First real CLI integration test (2026-03-28). All 34 unit tests passed because they mock `subprocess.run` and return Python strings directly, bypassing the real byte-decoding path. This is a class of bug that mocked tests structurally cannot catch.
