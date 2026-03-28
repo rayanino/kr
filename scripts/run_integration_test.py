@@ -63,6 +63,13 @@ def create_client(timeout: int = 120) -> instructor.Instructor:
     )
 
 
+def create_cli_client() -> Any:
+    """Create a CLI adapter client (SPEC §9.1)."""
+    from shared.llm.cli_adapter import CLIInstructorAdapter
+
+    return CLIInstructorAdapter()
+
+
 # ---------------------------------------------------------------------------
 # Instructor hook-based logging
 # ---------------------------------------------------------------------------
@@ -305,6 +312,7 @@ def run_pre_checks(
     package_path: Path,
     output_dir: Path,
     mock: bool,
+    backend: str = "api",
 ) -> bool:
     """Run automated pre-run checks. Returns True if all pass."""
     all_ok = True
@@ -322,9 +330,11 @@ def run_pre_checks(
         print(f"  [FAIL] Package load failed: {exc}")
         return False
 
-    # 2. Test API key (skip in mock mode)
+    # 2. Test API key (skip in mock and CLI mode)
     if mock:
         print("  [SKIP] API key validation (mock mode)")
+    elif backend == "cli":
+        print("  [SKIP] API key validation (CLI backend)")
     else:
         if validate_api_key():
             print("  [PASS] API key validated")
@@ -427,6 +437,7 @@ def run_pipeline(
     source_metadata: Optional[dict[str, str]],
     mock: bool,
     max_chunks: Optional[int] = None,
+    backend: str = "api",
 ) -> int:
     """Execute the full excerpting pipeline and save all artifacts.
 
@@ -462,10 +473,32 @@ def run_pipeline(
         len(package.content_units),
     )
 
+    # ── Config override for CLI backend (SPEC §9.3) ────────────────
+    if backend == "cli":
+        config = config.model_copy(
+            update={"ESCALATION_MODEL": "google/gemini-2.5-pro"}
+        )
+
     # ── Create clients ────────────────────────────────────────────
     if mock:
         logger.info("Mock mode: using MagicMock clients")
         enrich_client, verify_client, escalation_client = create_mock_clients()
+    elif backend == "cli":
+        logger.info("Creating CLI adapter clients")
+        enrich_client = create_cli_client()
+        verify_client = create_cli_client()
+        escalation_client = create_cli_client()
+
+        # Register logging hooks on each client
+        for client, name in [
+            (enrich_client, "enrich"),
+            (verify_client, "verify"),
+            (escalation_client, "escalation"),
+        ]:
+            req_hook, resp_hook, err_hook = make_hook_logger(output_dir, name)
+            client.on("completion:kwargs", req_hook)
+            client.on("completion:response", resp_hook)
+            client.on("completion:error", err_hook)
     else:
         logger.info("Creating OpenRouter Instructor clients")
         enrich_client = create_client(timeout=config.TIMEOUT_SECONDS)
@@ -888,6 +921,12 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
         help="Limit Phase 2/3 processing to the first N chunks from Phase 1. "
         "Default: None (process all). Useful for smoke-testing LLM calls.",
     )
+    parser.add_argument(
+        "--backend",
+        choices=["cli", "api"],
+        default="api",
+        help="LLM backend: 'cli' for CLI tools, 'api' for OpenRouter (default: api)",
+    )
     args = parser.parse_args(argv)
 
     # Default output dir with timestamp
@@ -921,13 +960,16 @@ def main(argv: Optional[list[str]] = None) -> int:
     print(f"Output dir:      {args.output_dir.resolve()}")
     print(f"Mock mode:       {args.mock}")
     print(f"Max chunks:      {args.max_chunks or 'all'}")
+    print(f"Backend:         {args.backend}")
     print(
         f"Source metadata: "
         f"{json.dumps(args.source_metadata, ensure_ascii=False) if args.source_metadata else 'None'}"
     )
 
     # Pre-run checks
-    checks_ok = run_pre_checks(args.package_path, args.output_dir, args.mock)
+    checks_ok = run_pre_checks(
+        args.package_path, args.output_dir, args.mock, args.backend
+    )
     if not checks_ok:
         print("Pre-run checks failed. Aborting.")
         return 1
@@ -939,6 +981,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         source_metadata=args.source_metadata,
         mock=args.mock,
         max_chunks=args.max_chunks,
+        backend=args.backend,
     )
 
 

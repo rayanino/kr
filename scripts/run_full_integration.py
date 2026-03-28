@@ -143,7 +143,7 @@ def read_package_results(pkg_output_dir: Path) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
-def run_batch(output_dir: Path) -> dict[str, Any]:
+def run_batch(output_dir: Path, backend: str = "api") -> dict[str, Any]:
     """Run all packages sequentially and return aggregated results."""
     output_dir.mkdir(parents=True, exist_ok=True)
     results: dict[str, dict[str, Any]] = {}
@@ -177,6 +177,7 @@ def run_batch(output_dir: Path) -> dict[str, Any]:
             "--package-path", str(pkg_path),
             "--output-dir", str(pkg_output),
             "--source-metadata", json.dumps(pkg["metadata"], ensure_ascii=False),
+            "--backend", backend,
         ]
 
         t0 = time.monotonic()
@@ -302,16 +303,26 @@ def main() -> int:
         default=None,
         help="Output directory (default: integration_tests/full_run_{YYYYMMDD}/)",
     )
+    parser.add_argument(
+        "--backend",
+        choices=["cli", "api"],
+        default="api",
+        help="LLM backend passed to run_integration_test.py",
+    )
     args = parser.parse_args()
 
     if args.output_dir is None:
         date_str = datetime.datetime.now().strftime("%Y%m%d")
         args.output_dir = Path("integration_tests") / f"full_run_{date_str}"
 
-    api_key = os.environ.get("OPENROUTER_API_KEY")
-    if not api_key:
-        print("ERROR: OPENROUTER_API_KEY environment variable not set")
-        return 1
+    if args.backend == "api":
+        api_key = os.environ.get("OPENROUTER_API_KEY")
+        if not api_key:
+            print("ERROR: OPENROUTER_API_KEY environment variable not set")
+            return 1
+        api_key_display = f"{'*' * 8}...{api_key[-4:]}"
+    else:
+        api_key_display = "(CLI backend — no API key needed)"
 
     if not PACKAGES_DIR.exists():
         print(f"ERROR: Packages directory not found: {PACKAGES_DIR}")
@@ -319,9 +330,10 @@ def main() -> int:
 
     print(f"Output directory: {args.output_dir.resolve()}")
     print(f"Packages:         {len(PACKAGES)}")
-    print(f"API key:          {'*' * 8}...{api_key[-4:]}")
+    print(f"Backend:          {args.backend}")
+    print(f"API key:          {api_key_display}")
 
-    summary = run_batch(args.output_dir)
+    summary = run_batch(args.output_dir, backend=args.backend)
     print_summary(summary)
 
     summary_path = args.output_dir / "SUMMARY.json"
