@@ -1,0 +1,192 @@
+{
+  "bugs_found": [],
+  "tests_added": [
+    {
+      "name": "test_fathah_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Fathah (U+064E) byte-level roundtrip through write_excerpts → JSONL → json.loads"
+    },
+    {
+      "name": "test_dammah_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Dammah (U+064F) byte-level roundtrip"
+    },
+    {
+      "name": "test_kasrah_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Kasrah (U+0650) byte-level roundtrip"
+    },
+    {
+      "name": "test_sukun_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Sukun (U+0652) byte-level roundtrip"
+    },
+    {
+      "name": "test_shadda_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Shadda (U+0651) byte-level roundtrip"
+    },
+    {
+      "name": "test_tanwin_fath_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Tanwin fath (U+064B) byte-level roundtrip"
+    },
+    {
+      "name": "test_tanwin_damm_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Tanwin damm (U+064C) byte-level roundtrip"
+    },
+    {
+      "name": "test_tanwin_kasr_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Tanwin kasr (U+064D) byte-level roundtrip"
+    },
+    {
+      "name": "test_all_diacritics_combined",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Fully vowelled Quranic verse — all diacritic forms in one text"
+    },
+    {
+      "name": "test_shadda_combined_with_dammah",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Shadda + kasrah stacked on same letter (U+0651 U+0650)"
+    },
+    {
+      "name": "test_zwnj_between_arabic_letters_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "ZWNJ (U+200C) between Arabic letters — byte-level"
+    },
+    {
+      "name": "test_zwnj_not_escaped_as_unicode_escape",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "ZWNJ must appear literally in JSONL, not as \\u200c"
+    },
+    {
+      "name": "test_zwnj_roundtrip_multiple_positions",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "3 ZWNJ chars at different positions — count preserved"
+    },
+    {
+      "name": "test_tatweel_inside_word_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Tatweel (U+0640) multiple occurrences inside word"
+    },
+    {
+      "name": "test_tatweel_not_stripped",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Tatweel not stripped by writer pipeline"
+    },
+    {
+      "name": "test_tatweel_count_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Exact count of tatweel chars preserved after roundtrip"
+    },
+    {
+      "name": "test_superscript_alef_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Superscript alef (U+0670 dagger alef) byte-level roundtrip"
+    },
+    {
+      "name": "test_superscript_alef_not_escaped",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Superscript alef must appear literally, not as \\u0670"
+    },
+    {
+      "name": "test_superscript_alef_distinct_from_alef",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "U+0670 must not be normalized to U+0627 (regular alef)"
+    },
+    {
+      "name": "test_arabic_ligature_bismillah_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "U+FDFD bismillah ligature (presentation form) byte-level roundtrip"
+    },
+    {
+      "name": "test_arabic_letter_alef_wasla_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "U+FB50 alef wasla (presentation form A) byte-level roundtrip"
+    },
+    {
+      "name": "test_arabic_ligature_sallallahu_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "U+FDFA sallallahu ligature byte-level roundtrip"
+    },
+    {
+      "name": "test_presentation_forms_not_normalized_to_base",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Presentation form chars must not be NFKC-normalized to base chars"
+    },
+    {
+      "name": "test_presentation_forms_not_escaped",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "U+FB50+ chars must appear literally in JSONL output"
+    },
+    {
+      "name": "test_text_snippet_byte_level",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "text_snippet field with superscript alef + ZWNJ — byte-level"
+    },
+    {
+      "name": "test_context_hint_byte_level",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "context_hint field with superscript alef — byte-level"
+    },
+    {
+      "name": "test_evidence_refs_text_snippet_byte_level",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "EvidenceRef.text_snippet with full tashkeel — byte-level"
+    },
+    {
+      "name": "test_description_arabic_byte_level",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "description_arabic with full tashkeel — byte-level"
+    },
+    {
+      "name": "test_div_path_arabic_byte_level",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "div_path list with fully-vowelled Arabic headings — byte-level per element"
+    },
+    {
+      "name": "test_gate_queue_tashkeel_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "write_gate_queue: tashkeel in context dict — byte-level"
+    },
+    {
+      "name": "test_gate_queue_zwnj_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "write_gate_queue: ZWNJ in context dict — byte-level"
+    },
+    {
+      "name": "test_gate_queue_presentation_forms_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "write_gate_queue: U+FDFA saws ligature in context dict — byte-level"
+    },
+    {
+      "name": "test_gate_queue_superscript_alef_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "write_gate_queue: superscript alef in context dict — byte-level"
+    },
+    {
+      "name": "test_gate_queue_tatweel_preserved",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "write_gate_queue: tatweel in context dict — count preserved"
+    },
+    {
+      "name": "test_full_corpus_of_special_chars_roundtrip",
+      "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py",
+      "edge_case": "Single record exercises all 5 corruption vectors simultaneously: tashkeel + ZWNJ + tatweel + superscript alef + presentation forms"
+    }
+  ],
+  "spec_issues": [],
+  "dead_code": [],
+  "learnings": [
+    "Pydantic v2 model_dump(mode='json') does NOT apply Unicode normalization — strings pass through as-is. No NFC/NFD/NFKC/NFKD transformation occurs.",
+    "json.dumps(ensure_ascii=False) preserves all Arabic characters including presentation forms (U+FB50–U+FDFF), superscript alef (U+0670), ZWNJ (U+200C), and tatweel (U+0640) without escaping.",
+    "json.loads also preserves these characters when reading back — the full write→disk→read cycle is byte-for-byte safe for all tested Arabic Unicode.",
+    "The writer implementation is correct and does not corrupt Arabic text. The 35 new tests constitute a permanent regression guard for this guarantee.",
+    "Presentation form chars (U+FDFA ﷺ, U+FDFD ﷽, U+FB50) are NOT normalized to base chars by either Pydantic or Python's json module — they are preserved as written.",
+    "All 8 diacritic forms (fathah, dammah, kasrah, sukun, shadda, tanwin fath/damm/kasr) and stacked diacritics survive the full serialization cycle."
+  ],
+  "test_count_before": 704,
+  "test_count_after": 739
+}
