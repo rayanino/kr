@@ -16,8 +16,9 @@ Assessment: **GO with conditions.**
 Repo-wide analysis with line-number citations. 7 questions answered.
 Assessment: **GO with caution, but says "DO NOT go forward" until Codex is fixed.**
 
-### CC — pending
-Empirical: pytest run, Phase 1 discovery (exact chunk counts), analysis script.
+### CC — completed
+Empirical validation: 1,991 tests passing (0 failures, 14 skips). Phase 1 discovery: 280 chunks, 26 large (>2500w). Analysis script delivered.
+Assessment: **No findings. Clean baseline confirmed.**
 
 ### Fresh Claude Chat — pending
 Independent cold-read code audit, 7 targeted questions.
@@ -115,8 +116,12 @@ Running nothing (to fix Codex first) gives us nothing. Codex fix is tracked for 
 4. Monitor disk space for raw_llm_requests/responses accumulation
 
 **Still waiting for:**
-- CC: exact chunk counts (how many >4000 words?), test suite pass confirmation
-- Fresh Claude Chat: independent code audit (may find bugs both of us missed)
+- Fresh Claude Chat: independent code audit (may find bugs both architect and ChatGPT missed)
+
+**CC empirical validation (completed):**
+- 1,991 tests passing (0 failures). Previous "815" was excerpting-only scope. 33 parametrized decorators explain the expansion from 1,747 functions to 1,991 test cases.
+- Phase 1 discovery: 280 chunks, 26 large — matches all prior estimates
+- `analyze_overnight_run.py` delivered and code-verified
 
 ---
 
