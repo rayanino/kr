@@ -65,6 +65,24 @@ ABSOLUTE RULES — HARDENING ONLY:
 - Allowed work: code review, edge case tests, bug fixes, spec audits, validation, documentation
 - Forbidden work: new engine phases, new pipeline stages, feature implementation
 
+FINDINGS PROTOCOL (MANDATORY for every modifying/test task):
+After completing your work, write a structured findings file to:
+  overnight/results/{TASK_ID}/findings.json
+with this exact JSON structure:
+{{
+  "bugs_found": [{{"severity": "CRITICAL|HIGH|MEDIUM", "file": "...", "line": 0, "description": "...", "fixed": true}}],
+  "tests_added": [{{"name": "test_...", "file": "...", "edge_case": "..."}}],
+  "spec_issues": [{{"section": "§...", "issue": "...", "recommendation": "..."}}],
+  "dead_code": [{{"file": "...", "line": 0, "description": "..."}}],
+  "learnings": ["..."],
+  "test_count_before": 0,
+  "test_count_after": 0
+}}
+Count tests BEFORE starting work: python -m pytest engines/excerpting/tests/ --co -q 2>/dev/null | tail -1
+Count tests AFTER finishing: same command.
+This data is aggregated into the morning report and cumulative findings log.
+Every overnight session's findings must be preserved — they represent paid knowledge.
+
 Read overnight/progress.md for context on what has been done tonight.
 Read the active engine's CLAUDE.md for current state.
 Follow all rules in CLAUDE.md and .claude/rules/*.
@@ -1010,6 +1028,52 @@ def generate_morning_report(state: OvernightState, manifest: list[TaskDef]) -> N
         lines.append("## Review First")
         lines.append("These review outputs need architect attention:")
         lines.extend(review_items)
+        lines.append("")
+
+    # Aggregate findings from findings.json files
+    all_bugs: list[dict] = []
+    all_tests: list[dict] = []
+    all_spec_issues: list[dict] = []
+    all_learnings: list[str] = []
+    test_delta = 0
+    for task in manifest:
+        findings_file = OVERNIGHT_DIR / "results" / task.task_id / "findings.json"
+        if findings_file.exists():
+            try:
+                findings = json.loads(findings_file.read_text(encoding="utf-8"))
+                all_bugs.extend(findings.get("bugs_found", []))
+                all_tests.extend(findings.get("tests_added", []))
+                all_spec_issues.extend(findings.get("spec_issues", []))
+                all_learnings.extend(findings.get("learnings", []))
+                before = findings.get("test_count_before", 0)
+                after = findings.get("test_count_after", 0)
+                if before > 0 and after > 0:
+                    test_delta += after - before
+            except (json.JSONDecodeError, TypeError):
+                pass
+
+    if all_bugs or all_tests or all_spec_issues or all_learnings:
+        lines.append("## Findings Summary")
+        if all_bugs:
+            critical = [b for b in all_bugs if b.get("severity") == "CRITICAL"]
+            high = [b for b in all_bugs if b.get("severity") == "HIGH"]
+            medium = [b for b in all_bugs if b.get("severity") == "MEDIUM"]
+            lines.append(f"- **Bugs found:** {len(all_bugs)} "
+                         f"({len(critical)} CRITICAL, {len(high)} HIGH, {len(medium)} MEDIUM)")
+            for bug in critical + high:
+                fixed = "FIXED" if bug.get("fixed") else "UNFIXED"
+                lines.append(f"  - [{bug.get('severity')}] {bug.get('description', '?')} "
+                             f"({bug.get('file', '?')}:{bug.get('line', '?')}) — {fixed}")
+        if all_tests:
+            lines.append(f"- **Tests added:** {len(all_tests)} (net delta: +{test_delta})")
+        if all_spec_issues:
+            lines.append(f"- **SPEC issues:** {len(all_spec_issues)}")
+            for issue in all_spec_issues:
+                lines.append(f"  - {issue.get('section', '?')}: {issue.get('issue', '?')}")
+        if all_learnings:
+            lines.append(f"- **Learnings:** {len(all_learnings)}")
+            for learning in all_learnings[:10]:
+                lines.append(f"  - {learning}")
         lines.append("")
 
     # Decisions
