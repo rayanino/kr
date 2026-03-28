@@ -247,6 +247,241 @@ Each night, the orchestrator randomly selects ~5-10% of findings classified as L
 
 **Timeline:** Session 6+ (orchestrator extension). Not needed for factory Day 1 — this is a maturity mechanism that improves the factory's self-awareness over time.
 
+### D-H008: Morning Report Architecture
+
+**Decision:** The morning report is the primary interface between the factory and the architect/owner. It is restructured to surface CRITICAL findings first, show four-tool routing visibility, and track escalation and shadow routing events.
+
+**Source:** Architect analysis of existing `generate_morning_report()` (lines 1086-1218 of orchestrator v3) against requirements from D-H002 through D-H007.
+
+**Design principles:**
+
+1. **CRITICALs at the top.** The current report buries severity in a "Findings Summary" section. The v3 report opens with a CRITICAL section that appears ONLY when CRITICALs exist — bold, unmissable, with paused scope details. The owner never scrolls past a CRITICAL.
+2. **Four-tool visibility.** Every finding in the report shows which tool(s) reviewed it and which model was used. This makes the routing table (D-H002) auditable nightly.
+3. **Escalation tracking.** Findings that escalated mid-review (D-H006) are explicitly flagged with original severity → escalated severity and the reviewer's escalation rationale.
+4. **Shadow routing results.** Canary audit results (D-H007) get their own section — agreements, blind spots detected, and any domain-level routing adjustments triggered.
+5. **Structured JSON intermediate.** The report is generated from a structured JSON object (`overnight/report_data.json`), not ad-hoc string concatenation. This enables future dashboard consumption (Session 8) without changing the data pipeline.
+
+**Report structure (v3):**
+
+```
+# Overnight Report — {date}
+
+## 🚨 CRITICAL (Architect Action Required)
+[Only appears if CRITICALs exist. Lists: finding ID, affected fields, description,
+reviewing tools, scope pause status. This section is impossible to scroll past.]
+
+## Summary
+- Duration, task counts (completed/failed/skipped/rolled-back), total cost
+- Scope status: active|paused|noise-breaker per engine phase
+- Git range: {start_hash}..{end_hash}
+
+## Findings by Severity
+### CRITICAL ({count}) — Architect must review
+### HIGH ({count}) — Architect must approve fix
+### MEDIUM ({count}) — Auto-fixed, cross-provider reviewed
+### LOW ({count}) — Auto-fixed, self-reviewed
+
+Each finding: ID, affected field(s), description, reviewing tool(s) + model(s),
+fix status, escalation history if applicable
+
+## Escalation Events (D-H006)
+[Only appears if escalations occurred. Lists: finding ID, original severity,
+escalated severity, escalation path (pre-review field scan or mid-review interrupt),
+reviewer that triggered escalation, rationale]
+
+## Shadow Routing Results (D-H007)
+[Only appears after D-H007 is active]
+- Canary checks: {count}, Agreements: {count}, Blind spots: {count}
+- Blind spot details with affected domain
+
+## Tool Performance
+| Tool | Model | Findings Reviewed | Avg Latency | Errors | Escalations |
+[Per-tool breakdown across all four tools]
+
+## Quota Usage
+| Provider | Used | Remaining | Status |
+[From Usage Ledger when available; omitted before Session 6]
+
+## Tests
+- Added: {count}, Net delta: +{n}, Total: {total} passing
+
+## Autonomous Decisions
+[From decisions.log — unchanged from current]
+```
+
+**Alerting (DEFERRED to Session 8):**
+
+Immediate push notification for CRITICAL findings is a convenience, not a safety necessity. The CRITICAL pause mechanism (D-F016) already self-protects — the factory stops hunting the affected phase immediately. No additional CRITICALs can accumulate in that phase during the overnight delay. The owner reads the morning report first thing; the architect acts within hours.
+
+If push alerting is desired later, the simplest approaches (no infrastructure required):
+- Windows notification via PowerShell script checking for `overnight/CRITICAL_ALERT.txt`
+- Telegram bot (single API call, no server needed)
+- Discord webhook (single HTTP POST)
+
+These are Session 8 enhancements, not Day 1 requirements.
+
+**Implementation timeline:** Session 6-7 (orchestrator extension). The JSON intermediate (`report_data.json`) is built in Session 6; the Markdown renderer and the CRITICAL-first layout are built in Session 7.
+
+### D-H009: Orchestrator Extension Design
+
+**Decision:** The existing `scripts/overnight_orchestrator.py` (1,576 lines, four execution backends) is extended — not replaced — with severity-routing, scope management, and mode dispatch capabilities.
+
+**Source:** Architect analysis of current orchestrator architecture against D-H002 through D-H008 requirements.
+
+**Guiding principle:** The orchestrator remains sequential at the top level. At ~25 findings/night, concurrency adds complexity without meaningful throughput gain. Even CRITICAL 3-provider consensus runs three reviews sequentially (~1 CRITICAL/night makes parallelism pointless). This aligns with ChatGPT's recommendation (structured concurrency only if needed) and invalidates Gemini's concurrent-subprocess concern (which doesn't apply to sequential dispatch).
+
+**Extension components (Session 6):**
+
+**1. ScopeManager** — reads/writes `ops_manifest.json`
+- Loads `factory_scope` section at orchestrator start
+- `is_phase_huntable(engine, phase) → bool`
+- `pause_phase(engine, phase, reason)` — writes to manifest, logs decision
+- `noise_check(engine, phase, finding_count) → bool` — pauses on >10 findings/phase/cycle
+- Read-only for status transitions other than pausing — architect unpauses manually
+
+**2. SeverityClassifier** — deterministic field-level rules (D-H003)
+- Input: finding dict (from HUNT task output)
+- Scans `affected_fields` list against CRITICAL fields: `author`, `attribution`, `school`, `genre`, `multi_layer`, `self_containment`, `primary_text`, `layer_id`
+- Also scans for HIGH indicators: crash, contract violation keywords, `ValidationError`, `FATAL` error codes
+- Returns: `CRITICAL | HIGH | MEDIUM | LOW`
+- Pre-review field scan (D-H006 Path 1): greps associated diff for CRITICAL-field names, escalates to minimum HIGH if found
+
+**3. ToolDispatcher** — maps severity to tool invocations (D-H002)
+- `dispatch(finding, severity) → list[ReviewResult]`
+- LOW/MEDIUM: `copilot -p "$PROMPT" --model gpt-4.1 --output-format=json`
+- HIGH: sequential `codex exec` + `gemini --output-format json`
+- CRITICAL: sequential `copilot --model claude-opus-4.5` + `codex exec` + `gemini --output-format json`
+- Each invocation uses structured JSON output; result parsed into internal `ReviewResult` schema
+- On tool failure: log error, skip that tool's review (don't block the finding), note incomplete review in morning report
+
+**4. EscalationDetector** — mid-review interrupt parsing (D-H006 Path 2)
+- After each review result is received, scan for `ESCALATION_REQUIRED` signal
+- If detected: mutate finding severity, re-queue to higher tier, include escalation rationale
+- Log escalation event for morning report
+
+**5. FindingsManager** — aggregation and routing
+- Collects findings from HUNT task outputs (parsed from `findings.json`)
+- Classifies each via SeverityClassifier, routes each via ToolDispatcher
+- Tracks finding status: `pending | reviewing | reviewed | escalated | fixed | architect_hold`
+- Writes `findings_queue.json` for state persistence across restarts
+- Provides data to morning report generator
+
+**6. Morning report v3** — upgrade per D-H008
+- Generate structured JSON intermediate (`overnight/report_data.json`)
+- Render Markdown with CRITICAL-first layout, per-tool performance, escalation events
+
+**Integration with existing main loop:**
+
+```
+while not shutdown:
+    # Phase A: HUNT — existing task execution (unchanged)
+    task = pick_next_ready(manifest, state)
+    result = execute_task(task)
+    quality_gate(task, result)
+
+    # Phase B: CLASSIFY + ROUTE (new)
+    if result.status == "success" and has_findings(task):
+        findings = load_findings(task)
+        for finding in findings:
+            severity = classifier.classify(finding, diff)
+            if scope_manager.noise_check(engine, phase, count):
+                scope_manager.pause_phase(...)
+                break
+            reviews = dispatcher.dispatch(finding, severity)
+            for review in reviews:
+                if escalation_detector.check(review):
+                    finding.severity = CRITICAL
+                    reviews += dispatcher.dispatch(finding, CRITICAL)
+            findings_manager.record(finding, reviews)
+            if severity == CRITICAL:
+                scope_manager.pause_phase(engine, phase, finding.id)
+```
+
+**What is NOT in Session 6:**
+- FIX mode auto-fixing with cross-provider review (Session 7)
+- Shadow routing selection and comparison (Session 7, D-H007)
+- Usage Ledger / quota tracking (Session 9-10)
+- EVALUATE, BENCHMARK, and CROSS-ENGINE modes (Session 7)
+
+**Estimated extension:** ~400-600 new lines. Orchestrator grows from ~1,576 to ~2,100-2,200 lines.
+
+**Exit criteria for Session 6:**
+- `ScopeManager` reads `ops_manifest.json` and pauses phases correctly
+- `SeverityClassifier` classifies a test finding set with 100% accuracy against D-H003 rules
+- `ToolDispatcher` invokes all four tools with `--output-format json` and parses results
+- `EscalationDetector` detects `ESCALATION_REQUIRED` signal in mock output
+- `generate_morning_report()` produces D-H008 layout with CRITICAL-first section
+- All existing tests still pass
+- Dry-run mode (`--dry-run`) shows routing decisions without executing
+
+### D-H010: Synthetic Adversarial Data Strategy
+
+**Decision:** Adversarial test data for Arabic text edge cases is generated through three complementary layers, each targeting different corruption threats at different lifecycle stages.
+
+**Layer 1 — Hypothesis property-based testing (D-H004, Session 2.5+):**
+Arabic-aware generators produce structured adversarial inputs targeting deterministic properties. Already designed:
+- Valid HTML DOM generators with ZWNJ, consecutive tatweels, RTL/LTR override marks
+- Normalization idempotence: `normalize(x) == normalize(normalize(x))`
+- Consensus determinism: any valid input → valid BookRecord OR deterministic error code
+- Contract roundtrip: `model_validate(result.model_dump()) == result`
+
+**Layer 2 — Overnight probe generation (existing, continuous):**
+The overnight orchestrator already generates targeted adversarial tests nightly. Proven track record:
+- `test_pathological_arabic.py`: 40 tests across 8 Unicode edge-case classes (diacritics-only, ZWJ chains, BiDi overrides, etc.)
+- `test_fdet_adversarial.py`: 51 tests for all 9 F-DET deterministic field computations
+- `test_boundary_exhaustive.py`: 16 boundary-value tests for TINY/OVERSIZED thresholds
+- Net effect: 142 adversarial tests added across 3 overnight sessions
+
+This layer continues operating — it's the factory's primary adversarial mechanism.
+
+**Layer 3 — Systematic fixture generation (Session 4.5):**
+Purpose-built adversarial fixture books targeting specific corruption threats. Generated by one tool, processed by the pipeline, evaluated by a different tool (cross-provider). Targets in-scope engines only:
+
+| Threat | Adversarial Fixture Design | Generator | Evaluator |
+|--------|---------------------------|-----------|-----------|
+| T-1 (Text corruption) | Books with near-miss diacritics (حَرَّمَ vs حَرَمَ), encoding edge cases, tatweels within words | Codex/Gemini | CC + pipeline |
+| T-2 (Decontextualization) | Books with refutation→position patterns, والصواب phrases, dense objection cycles | Codex/Gemini | CC + pipeline |
+| T-3 (Wrong attribution) | Multi-layer books with ambiguous sharh/matn boundaries, epithet-heavy sections | Codex/Gemini | CC + pipeline |
+| T-4 (Boundary errors) | Books with critical content at page breaks, mid-sentence divisions, footnote-heavy pages | Codex/Gemini | CC + pipeline |
+
+**Scoping constraint:** T-2 and T-3 adversarial fixtures are only useful after excerpting Phases 2-3 enter factory scope. T-1 and T-4 are testable against Phase 1 immediately. Session 4.5 should prioritize T-1 and T-4 fixtures; T-2 and T-3 fixtures are generated when excerpting Phases 2-3 are tagged testable.
+
+### D-H011: Day 1 Scope — Dynamic Assessment
+
+**Decision:** Factory Day 1 scope is determined by a dynamic gate assessment at launch time, not by the conservative static estimate in the v3 outline.
+
+**Rationale:** The v3 outline (written 2026-03-28) conservatively estimated "Excerpting Phase 1 only" for Day 1. Since then, the excerpting engine has advanced significantly: 768+ tests passing, full 5-book integration run with 308 chunks in progress, pre-flight hardening complete. By factory launch (~week 8-10), excerpting Phases 2-3 are likely stable and tested.
+
+**Gate criteria for including an engine phase in Day 1 scope:**
+
+| Criterion | Evidence Required |
+|-----------|-------------------|
+| Tests passing | All tests for the phase pass with zero failures |
+| Integration tested | At least one multi-book integration run completed |
+| Owner probe | 30-book owner review initiated (NON-NEGOTIABLE for excerpting) |
+| CLAUDE.md current | Module guide reflects actual code, not stale session |
+| SPEC sections covered | Every SPEC section with a worked example has a corresponding test |
+| No known blocking bugs | Zero CRITICAL/HIGH findings open against the phase |
+
+**Assessment schedule:** The architect runs this gate assessment the week before factory launch (Session 7 timeframe). Whatever passes enters Day 1 scope. Whatever doesn't remains `wip` or `partial` in `ops_manifest.json`.
+
+**Conservative fallback (if excerpting delays):** The v3 outline's original scope remains valid:
+
+| Engine | Day 1 Status |
+|--------|-------------|
+| Source | All phases (gate approved a21aab9a) |
+| Normalization | All phases (gate approved) |
+| Excerpting | Phase 1 only (Phases 2-3 excluded) |
+
+**Optimistic scenario (likely by week 8):**
+
+| Engine | Day 1 Status |
+|--------|-------------|
+| Source | All phases |
+| Normalization | All phases |
+| Excerpting | All phases (Phase 1 deterministic + Phases 2-3 LLM) |
+| Cross-engine | source→norm→excerpting boundary testing |
+
 ---
 
 ## Cross-Provider Consultation Record
@@ -276,10 +511,10 @@ This session used structured cross-provider consultation for every major decisio
 
 ### Remaining Aspects to Harden
 
-- **Aspect 3:** Monitoring, alerting, and morning report architecture
-- **Aspect 4:** Orchestrator extension design (extending overnight_orchestrator.py for multi-mode, multi-tool dispatch)
-- **Aspect 5:** Synthetic adversarial data for Arabic text edge cases
-- **Aspect 6:** Day 1 scope expansion (excerpting likely complete by factory launch)
+- **Aspect 3:** RESOLVED — Morning report architecture (D-H008). CRITICALs-first layout, four-tool visibility, escalation tracking, shadow routing section, structured JSON intermediate. Alerting deferred to Session 8.
+- **Aspect 4:** RESOLVED — Orchestrator extension design (D-H009). Sequential dispatch, 6 components (ScopeManager, SeverityClassifier, ToolDispatcher, EscalationDetector, FindingsManager, Morning Report v3). ~400-600 new lines in Session 6.
+- **Aspect 5:** RESOLVED — Synthetic adversarial data strategy (D-H010). Three-layer approach: Hypothesis property-based (D-H004), overnight probe generation (existing), and Session 4.5 systematic fixture generation. T-2/T-3 adversarial data deferred until excerpting Phases 2-3 are in factory scope.
+- **Aspect 6:** RESOLVED — Day 1 scope expansion (D-H011). Dynamic assessment at launch: whatever passes gate criteria enters scope. Excerpting likely full-scope by factory launch. Conservative fallback preserved.
 
 ### Outstanding Relay Prompts (Prepared, Not Sent)
 
