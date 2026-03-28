@@ -129,6 +129,107 @@ Read NEXT.md for the research questions to answer.
 Follow all rules in CLAUDE.md and .claude/rules/*.
 """
 
+# --- Weekend Sprint prompts (broader than hardening, still safe) ---
+
+SPRINT_ANALYSIS_PROMPT = """WEEKEND SPRINT — READONLY ANALYSIS MODE — KR Pipeline Project.
+You are executing a readonly analysis task in the weekend sprint system.
+
+ABSOLUTE RULES — SAFETY:
+- NEVER modify any file in the repository
+- NEVER run git commit or git push
+- NEVER delete any file or directory
+- NEVER modify .claude/settings.json
+- NEVER modify files in library/sources/*/frozen/
+- There is no human present — do not ask questions
+- Write ALL output to overnight/results/{TASK_ID}/
+- You MAY read any file for analysis
+
+CRITICAL PROTECTION:
+- engines/excerpting/src/ is under active CLI backend reformation
+- Analyze but do NOT suggest code modifications to excerpting source files
+
+QUALITY RULES:
+1. Every claim in your analysis must reference specific file paths and line numbers.
+2. When auditing SPECs, quote the exact text of each defect.
+3. When comparing contracts, list exact field names from each side.
+4. Write a structured findings document to overnight/results/{TASK_ID}/findings.md
+5. Write a machine-readable summary to overnight/results/{TASK_ID}/findings.json
+
+Read CLAUDE.md and the relevant engine's CLAUDE.md for context.
+Follow all rules in .claude/rules/*.
+"""
+
+SPRINT_TEST_PROMPT = """WEEKEND SPRINT — TEST WRITING MODE — KR Pipeline Project.
+You are executing a test writing task in the weekend sprint system.
+
+ABSOLUTE RULES — SAFETY:
+- NEVER modify files in library/sources/*/frozen/
+- NEVER modify primary_text content in any pipeline output
+- NEVER delete any file or directory
+- NEVER run git push
+- NEVER modify .claude/settings.json
+- There is no human present — do not ask questions
+- Commit your work with message prefix "weekend: "
+- Write a summary to overnight/results/{TASK_ID}/summary.md
+
+SCOPE RULES — WHAT YOU MAY DO:
+- You MAY create NEW test files under engines/*/tests/ and shared/*/tests/
+- You MAY add new fixtures to existing conftest.py files (append-only)
+- You MAY read any file in the repository for context
+
+SCOPE RULES — WHAT YOU MUST NOT DO:
+- NEVER modify files under engines/*/src/ or shared/*/src/
+- NEVER modify EXISTING test files — only create NEW test files
+- NEVER touch engines/excerpting/src/ (CLI backend reformation in progress)
+
+QUALITY RULES:
+1. Every test must use real Arabic text from tests/fixtures/ — never transliteration.
+2. Every test must test exactly ONE behavior. Name: test_{{what}}_{{condition}}_{{expected}}.
+3. Reference the EXACT SPEC section for every test.
+4. Test QUALITY over QUANTITY. 10 precise tests > 50 shallow ones.
+5. Count tests BEFORE and AFTER. Report the delta in findings.json.
+6. Run pytest -x -q on the affected test directory after writing tests.
+
+Read CLAUDE.md and the relevant engine's CLAUDE.md for context.
+Follow all rules in .claude/rules/*.
+"""
+
+SPRINT_SCRIPT_PROMPT = """WEEKEND SPRINT — QUALITY SCRIPT BUILDING MODE — KR Pipeline Project.
+You are executing a quality tooling task in the weekend sprint system.
+
+ABSOLUTE RULES — SAFETY:
+- NEVER modify files in library/sources/*/frozen/
+- NEVER modify primary_text content in any pipeline output
+- NEVER delete any file or directory
+- NEVER run git push
+- NEVER modify .claude/settings.json
+- There is no human present — do not ask questions
+- Commit your work with message prefix "weekend: "
+- Write a summary to overnight/results/{TASK_ID}/summary.md
+
+SCOPE RULES — WHAT YOU MAY DO:
+- You MAY create NEW files under scripts/ and tools/
+- You MAY create NEW directories under tests/adversarial/
+- You MAY read any file in the repository for context
+
+SCOPE RULES — WHAT YOU MUST NOT DO:
+- NEVER modify existing files — only create NEW files
+- NEVER modify any file under engines/*/src/ or shared/*/src/
+- NEVER modify any file under engines/*/tests/ or shared/*/tests/
+- NEVER touch engines/excerpting/src/ (CLI backend reformation in progress)
+
+QUALITY RULES:
+1. All scripts must have type hints on all function signatures.
+2. All scripts must have a docstring and --help via argparse.
+3. All scripts must handle errors gracefully with clear error messages.
+4. All scripts must produce structured output (JSON or Markdown).
+5. Test your script by running it before committing.
+6. Report what the script does and its output in findings.json.
+
+Read CLAUDE.md for project context.
+Follow all rules in .claude/rules/*.
+"""
+
 # ---------------------------------------------------------------------------
 # Data models
 # ---------------------------------------------------------------------------
@@ -577,6 +678,12 @@ def execute_task(task: TaskDef) -> TaskResult:
     # Select safety prompt based on task category
     if task.category == "research":
         safety_prompt = OVERNIGHT_RESEARCH_PROMPT.replace("{TASK_ID}", task.task_id)
+    elif task.category == "sprint_analysis":
+        safety_prompt = SPRINT_ANALYSIS_PROMPT.replace("{TASK_ID}", task.task_id)
+    elif task.category == "sprint_test":
+        safety_prompt = SPRINT_TEST_PROMPT.replace("{TASK_ID}", task.task_id)
+    elif task.category == "sprint_script":
+        safety_prompt = SPRINT_SCRIPT_PROMPT.replace("{TASK_ID}", task.task_id)
     else:
         safety_prompt = OVERNIGHT_SAFETY_PROMPT.replace("{TASK_ID}", task.task_id)
 
@@ -845,6 +952,8 @@ def run_quality_gate(task: TaskDef, pre_snapshot: str) -> dict[str, Any]:
     for f in changed:
         if "frozen/" in f:
             failures.append(f"L2 FROZEN SOURCE MODIFIED: {f}")
+        if f.replace("\\", "/").startswith("engines/excerpting/src/"):
+            failures.append(f"L2 EXCERPTING SRC PROTECTION: {f}")
     diff_result = _run_subprocess_safe(
         ["git", "diff", "--diff-filter=D", "--name-only", pre_snapshot, "HEAD"],
         timeout=30,
