@@ -442,6 +442,26 @@ def test_retry_on_subprocess_error(
     mock_sleep.assert_called_once_with(1)
 
 
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_timeout_kwarg_forwarded_to_subprocess(
+    mock_run: MagicMock, adapter: CLIInstructorAdapter, valid_json: str,
+    mock_oauth: Any, mock_which: Any,
+) -> None:
+    """Verify that kwargs['timeout'] is forwarded to subprocess.run(timeout=...)."""
+    mock_run.return_value = _make_completed_process(stdout=valid_json)
+
+    adapter.chat.completions.create(
+        model="anthropic/claude-opus-4.6",
+        response_model=SimpleResponse,
+        messages=MESSAGES,
+        timeout=999,
+    )
+
+    # subprocess.run should have been called with timeout=999
+    call_kwargs = mock_run.call_args
+    assert call_kwargs.kwargs.get("timeout") == 999 or call_kwargs[1].get("timeout") == 999
+
+
 # ═══════════════════════════════════════════════════════════════════
 # Tests 17-19: Hook firing
 # ═══════════════════════════════════════════════════════════════════

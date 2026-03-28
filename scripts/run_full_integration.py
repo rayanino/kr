@@ -143,7 +143,12 @@ def read_package_results(pkg_output_dir: Path) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
-def run_batch(output_dir: Path, backend: str = "api") -> dict[str, Any]:
+def run_batch(
+    output_dir: Path,
+    backend: str = "api",
+    max_chunks: int | None = None,
+    per_package_timeout: int = 7200,
+) -> dict[str, Any]:
     """Run all packages sequentially and return aggregated results."""
     output_dir.mkdir(parents=True, exist_ok=True)
     results: dict[str, dict[str, Any]] = {}
@@ -179,10 +184,12 @@ def run_batch(output_dir: Path, backend: str = "api") -> dict[str, Any]:
             "--source-metadata", json.dumps(pkg["metadata"], ensure_ascii=False),
             "--backend", backend,
         ]
+        if max_chunks is not None:
+            cmd.extend(["--max-chunks", str(max_chunks)])
 
         t0 = time.monotonic()
         try:
-            proc = subprocess.run(cmd, timeout=3600)
+            proc = subprocess.run(cmd, timeout=per_package_timeout)
             elapsed_pkg = time.monotonic() - t0
 
             if proc.returncode != 0:
@@ -207,7 +214,7 @@ def run_batch(output_dir: Path, backend: str = "api") -> dict[str, Any]:
                 "status": "error",
                 "excerpt_count": 0,
                 "error_count": 1,
-                "errors": ["Timeout after 3600s"],
+                "errors": [f"Timeout after {per_package_timeout}s"],
                 "time_seconds": round(elapsed_pkg, 2),
                 "cost_estimate": 0.0,
             }
@@ -309,6 +316,18 @@ def main() -> int:
         default="api",
         help="LLM backend passed to run_integration_test.py",
     )
+    parser.add_argument(
+        "--max-chunks",
+        type=int,
+        default=None,
+        help="Limit Phase 2/3 to first N chunks per package (default: all)",
+    )
+    parser.add_argument(
+        "--per-package-timeout",
+        type=int,
+        default=7200,
+        help="Timeout in seconds per package subprocess (default: 7200)",
+    )
     args = parser.parse_args()
 
     if args.output_dir is None:
@@ -333,7 +352,12 @@ def main() -> int:
     print(f"Backend:          {args.backend}")
     print(f"API key:          {api_key_display}")
 
-    summary = run_batch(args.output_dir, backend=args.backend)
+    summary = run_batch(
+        args.output_dir,
+        backend=args.backend,
+        max_chunks=args.max_chunks,
+        per_package_timeout=args.per_package_timeout,
+    )
     print_summary(summary)
 
     summary_path = args.output_dir / "SUMMARY.json"

@@ -751,7 +751,7 @@ class ExcerptingConfig(BaseModel):
     LLM_TEMPERATURE: float = 0.0
     GROUP_MAX_TOKENS: int = 16384
     RETRY_COUNT: int = 2
-    TIMEOUT_SECONDS: int = 120
+    TIMEOUT_SECONDS: int = 300
 
     # Phase 3
     ENRICH_MODEL: str = "anthropic/claude-opus-4.6"
