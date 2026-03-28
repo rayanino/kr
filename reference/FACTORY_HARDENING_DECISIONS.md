@@ -247,60 +247,128 @@ Each night, the orchestrator randomly selects ~5-10% of findings classified as L
 
 **Timeline:** Session 6+ (orchestrator extension). Not needed for factory Day 1 — this is a maturity mechanism that improves the factory's self-awareness over time.
 
-### D-H008: Morning Report Architecture
+### D-H008: Morning Report Architecture — FINAL
 
-**Decision:** The morning report is the primary interface between the factory and the architect/owner. It is restructured to surface CRITICAL findings first, show four-tool routing visibility, and track escalation and shadow routing events.
+**Decision:** The morning report is the primary interface between the factory and the architect/owner. It is restructured around action-orientation, CRITICAL-first visibility, four-tool routing auditability, escalation traceability, trend awareness, and a two-layer data model for long-term operation.
 
-**Source:** Architect analysis of existing `generate_morning_report()` (lines 1086-1218 of orchestrator v3) against requirements from D-H002 through D-H007.
+**Source:** Architect analysis of existing `generate_morning_report()` (lines 1086-1218 of orchestrator) against D-H002 through D-H007 requirements. Cross-provider challenged: ChatGPT deep research (CI/CD report patterns, MLOps monitoring, build-sheriff practices, canary analysis) + Gemini adversarial (mass cascade, tool outage, escalation traceability, alerting delay safety, clean-night UX).
 
 **Design principles:**
 
-1. **CRITICALs at the top.** The current report buries severity in a "Findings Summary" section. The v3 report opens with a CRITICAL section that appears ONLY when CRITICALs exist — bold, unmissable, with paused scope details. The owner never scrolls past a CRITICAL.
-2. **Four-tool visibility.** Every finding in the report shows which tool(s) reviewed it and which model was used. This makes the routing table (D-H002) auditable nightly.
-3. **Escalation tracking.** Findings that escalated mid-review (D-H006) are explicitly flagged with original severity → escalated severity and the reviewer's escalation rationale.
-4. **Shadow routing results.** Canary audit results (D-H007) get their own section — agreements, blind spots detected, and any domain-level routing adjustments triggered.
-5. **Structured JSON intermediate.** The report is generated from a structured JSON object (`overnight/report_data.json`), not ad-hoc string concatenation. This enables future dashboard consumption (Session 8) without changing the data pipeline.
+1. **Actions first, evidence second.** The report opens with what the architect must *do*, not what *happened*. Build-sheriff and SRE practice converge on this: the top of the report is a triage queue, not a situation report. (Source: ChatGPT — Google SRE, Chromium sheriffing, Drake build-cop.)
+2. **CRITICALs bounded, not unbounded.** The CRITICAL section caps at 3 detailed entries + an aggregate count. In a mass cascade (50 CRITICALs across engines), an unbounded top section buries the Summary and becomes unreadable. (Source: Gemini stress test #1.)
+3. **Four-tool visibility with consensus degradation warnings.** Every finding shows which tools reviewed it. If a required reviewer was unavailable (e.g., Gemini down during a 3-provider CRITICAL review), the finding explicitly flags incomplete consensus — the architect must not infer review completeness from tool count alone. (Source: Gemini stress test #2.)
+4. **Escalation provenance embedded in findings.** An escalated finding's full lifecycle (original severity, trigger path, reviewer rationale) is recorded in the finding entry itself, not in a separate section. The Escalation Events section is an aggregate summary (counts, patterns), not the primary record. This eliminates cross-referencing across three report sections. (Source: Gemini stress test #3.)
+5. **Trend awareness via Δ vs previous night.** The report is not an isolated snapshot. Key metrics show delta from the previous run: findings per severity, escalations, shadow disagreements, task failures. This follows canary-analysis and MLOps-monitoring conventions where deviation-from-baseline is the primary signal. (Source: ChatGPT — Spinnaker canary analysis, SageMaker Model Monitor.)
+6. **Clean-night fast path.** When zero CRITICAL/HIGH findings, zero escalations, zero shadow disagreements, and zero task failures: the report opens with "✅ All Clear" and collapses to Summary + Tests + Decisions only. Empty severity headers are dynamically omitted. The architect confirms health in one glance. (Source: ChatGPT + Gemini convergence.)
+7. **Tool performance as exception metric.** Latency is reported only when it breaches a threshold (timeout, >2× historical baseline). Error rates are always shown — they're actionable daily. Nominal latency values are noise for a daily reader. (Source: Gemini stress test #7.)
+8. **Two-layer data model.** Per-run JSON snapshot is necessary but insufficient for months of operation. The factory writes two complementary data stores: (a) an append-only JSONL event ledger for audit trail and trend computation, and (b) a per-run materialized snapshot for reproducible report rendering. (Source: ChatGPT — MLflow metadata stores, TFX ML Metadata, append-only event patterns.)
+
+**Data model:**
+
+```
+overnight/
+├── events.jsonl              # Append-only event ledger (never truncated)
+│   One line per event: finding_detected, review_completed, escalated,
+│   scope_paused, shadow_compared, task_started, task_finished, quota_sampled
+│   Schema: {"ts": ISO-8601, "event": str, "run_id": str, "data": {...}}
+│
+├── report_data.json          # Per-run materialized snapshot (overwritten nightly)
+│   Complete structured representation of the night's results.
+│   Generated from events.jsonl + task outputs at run completion.
+│   Includes: findings with full lifecycle, tool performance, scope status,
+│   delta values (computed from previous archive), action items.
+│
+├── MORNING_REPORT.md         # Human-readable rendering of report_data.json
+│
+├── archive/                  # Preserved per-run snapshots
+│   └── {YYYY-MM-DD}/
+│       ├── report_data.json  # Frozen snapshot
+│       ├── MORNING_REPORT.md # Frozen report
+│       └── findings/         # Per-finding detail bundles
+│
+└── results/                  # Task outputs (existing, unchanged)
+    └── {task_id}/
+```
+
+The event ledger enables: MTTR computation (finding first_seen → resolved_at across runs), trend analysis (findings/night over time), recurring-finding detection (same file+line across runs), and shadow routing calibration. SQLite query cache deferred to Session 8 (dashboard).
 
 **Report structure (v3):**
 
 ```
 # Overnight Report — {date}
 
-## 🚨 CRITICAL (Architect Action Required)
-[Only appears if CRITICALs exist. Lists: finding ID, affected fields, description,
-reviewing tools, scope pause status. This section is impossible to scroll past.]
+## ✅ All Clear                              [ONLY if zero CRITICAL/HIGH, zero
+                                              escalations, zero shadow disagreements,
+                                              zero task failures. Replaces all
+                                              findings/escalation/shadow sections.
+                                              Report collapses to Summary+Tests+Decisions.]
+
+— OR —
+
+## 📋 Actions Required
+[Top-level triage queue. ONLY items requiring human action.
+Each entry: finding ID, concrete next step (review/approve/unpause),
+severity, link to artifact. Ordered by severity then age.
+This is the ONLY section the architect MUST read.]
+
+## 🚨 CRITICAL Findings ({count})
+[Only if CRITICALs exist. Max 3 detailed entries showing:
+finding ID, affected fields, description, reviewing tools + models,
+consensus status (complete/degraded with reason), scope pause status,
+escalation provenance if applicable (original severity → CRITICAL, trigger path,
+reviewer rationale). Remaining CRITICALs: count + paused-phase list only.
+Full details for all CRITICALs in Findings by Severity below.]
 
 ## Summary
 - Duration, task counts (completed/failed/skipped/rolled-back), total cost
 - Scope status: active|paused|noise-breaker per engine phase
 - Git range: {start_hash}..{end_hash}
+- Δ vs previous night: findings by severity, escalations, shadow disagreements
 
 ## Findings by Severity
-### CRITICAL ({count}) — Architect must review
 ### HIGH ({count}) — Architect must approve fix
 ### MEDIUM ({count}) — Auto-fixed, cross-provider reviewed
 ### LOW ({count}) — Auto-fixed, self-reviewed
+[CRITICAL findings also appear here as complete audit records.
+Empty severity tiers dynamically omitted.]
 
-Each finding: ID, affected field(s), description, reviewing tool(s) + model(s),
-fix status, escalation history if applicable
+Each finding entry (unified schema):
+- ID, severity (current), affected field(s), description
+- Reviewing tool(s) + model(s)
+- Consensus status: complete | degraded [⚠ {tool} unavailable — {N}-provider consensus incomplete]
+- Fix status: pending | fixed | architect_hold
+- Escalation provenance (if escalated): original_severity → current_severity,
+  trigger (pre-review field scan | mid-review interrupt), reviewer + rationale
+- first_seen timestamp (for MTTR tracking across runs)
+- Link to artifact (diff, review output, test log)
 
-## Escalation Events (D-H006)
-[Only appears if escalations occurred. Lists: finding ID, original severity,
-escalated severity, escalation path (pre-review field scan or mid-review interrupt),
-reviewer that triggered escalation, rationale]
+## Escalation Summary (D-H006)
+[Only if escalations occurred. Aggregate metrics only — NOT the primary
+record of escalation rationales (those are in finding entries above).]
+- Escalation count, breakdown by trigger path (pre-scan vs mid-review)
+- Pattern notes (e.g., "3 escalations in normalization this week")
 
-## Shadow Routing Results (D-H007)
-[Only appears after D-H007 is active]
+## Shadow Routing Summary (D-H007)
+[Only after D-H007 is active]
 - Canary checks: {count}, Agreements: {count}, Blind spots: {count}
 - Blind spot details with affected domain
+- Δ vs previous night: blind_spots (+N/-N)
+
+## Factory Changes
+[Only if factory committed code during FIX mode.]
+- Files modified (top N with diff stat)
+- Commits in git range (overnight: prefixed only)
+- Mapping: finding ID → commit that fixed it
 
 ## Tool Performance
-| Tool | Model | Findings Reviewed | Avg Latency | Errors | Escalations |
-[Per-tool breakdown across all four tools]
+| Tool | Model | Findings Reviewed | Errors | Escalations Triggered |
+[Per-tool breakdown. Latency shown ONLY if it exceeded 2× baseline
+or caused timeouts — otherwise omitted as noise.]
 
 ## Quota Usage
 | Provider | Used | Remaining | Status |
-[From Usage Ledger when available; omitted before Session 6]
+[From Usage Ledger when available; omitted before Session 9-10]
 
 ## Tests
 - Added: {count}, Net delta: +{n}, Total: {total} passing
@@ -311,16 +379,23 @@ reviewer that triggered escalation, rationale]
 
 **Alerting (DEFERRED to Session 8):**
 
-Immediate push notification for CRITICAL findings is a convenience, not a safety necessity. The CRITICAL pause mechanism (D-F016) already self-protects — the factory stops hunting the affected phase immediately. No additional CRITICALs can accumulate in that phase during the overnight delay. The owner reads the morning report first thing; the architect acts within hours.
+Immediate push notification for CRITICAL findings is a convenience, not a safety necessity. The CRITICAL pause mechanism (D-F016) already self-protects — the factory stops hunting the affected phase immediately. No additional CRITICALs can accumulate in that phase during the overnight delay.
 
-If push alerting is desired later, the simplest approaches (no infrastructure required):
+Gemini challenged this: "pausing hunting doesn't prevent downstream phases from executing on compromised upstream data." This concern is **valid for FIX mode** (an upstream auto-fix could introduce regressions that downstream HUNT tasks then encounter as false positives) but **does not apply to HUNT mode** (HUNT reviews code in isolation, it doesn't run the pipeline to produce downstream data). The FIX-mode variant is addressed in D-H009 (orchestrator) as a cascading-pause consideration, not in the report design.
+
+The owner reads the morning report first thing; the architect acts within hours. If push alerting is desired later:
 - Windows notification via PowerShell script checking for `overnight/CRITICAL_ALERT.txt`
 - Telegram bot (single API call, no server needed)
 - Discord webhook (single HTTP POST)
 
 These are Session 8 enhancements, not Day 1 requirements.
 
-**Implementation timeline:** Session 6-7 (orchestrator extension). The JSON intermediate (`report_data.json`) is built in Session 6; the Markdown renderer and the CRITICAL-first layout are built in Session 7.
+**Implementation timeline:** Session 6-7 (orchestrator extension). The event ledger (`events.jsonl`) and JSON snapshot (`report_data.json`) are built in Session 6. The Markdown renderer with action-first layout, clean-night fast path, and bounded CRITICAL section is built in Session 7. Report archival (`overnight/archive/{date}/`) is Session 6 infrastructure.
+
+**Cross-provider challenge record:**
+- ChatGPT (deep research): Identified 6 gaps — trend/baseline comparison, action queue, MTTR tracking, clean-night fast path, report archival, difference report. Recommended two-layer data model (JSONL + snapshot). All accepted.
+- Gemini (adversarial): Identified 7 stress-test results — mass cascade overflow (accepted: cap at 3), consensus degradation (accepted: inline warning), escalation fragmentation (accepted: embed in finding), cascading downstream pause (partially accepted: valid for FIX mode, noted for D-H009), clean-night template rigidity (accepted: dynamic omission), trend absence (accepted: Δ values), latency noise (accepted: exception-only reporting).
+- Cross-provider convergence: Trend data and clean-night fast path identified independently by both. CRITICAL bounding and consensus degradation unique to Gemini. Action queue, MTTR, archival, and data model unique to ChatGPT.
 
 ### D-H009: Orchestrator Extension Design
 
@@ -511,7 +586,7 @@ This session used structured cross-provider consultation for every major decisio
 
 ### Remaining Aspects to Harden
 
-- **Aspect 3:** RESOLVED — Morning report architecture (D-H008). CRITICALs-first layout, four-tool visibility, escalation tracking, shadow routing section, structured JSON intermediate. Alerting deferred to Session 8.
+- **Aspect 3:** FINAL (cross-provider challenged 2026-03-28) — Morning report architecture (D-H008). Action-first layout, bounded CRITICALs (max 3 detail), clean-night fast path, trend deltas, consensus degradation warnings, embedded escalation provenance, two-layer data model (JSONL ledger + JSON snapshot), exception-only latency reporting, report archival. Alerting deferred to Session 8.
 - **Aspect 4:** RESOLVED — Orchestrator extension design (D-H009). Sequential dispatch, 6 components (ScopeManager, SeverityClassifier, ToolDispatcher, EscalationDetector, FindingsManager, Morning Report v3). ~400-600 new lines in Session 6.
 - **Aspect 5:** RESOLVED — Synthetic adversarial data strategy (D-H010). Three-layer approach: Hypothesis property-based (D-H004), overnight probe generation (existing), and Session 4.5 systematic fixture generation. T-2/T-3 adversarial data deferred until excerpting Phases 2-3 are in factory scope.
 - **Aspect 6:** RESOLVED — Day 1 scope expansion (D-H011). Dynamic assessment at launch: whatever passes gate criteria enters scope. Excerpting likely full-scope by factory launch. Conservative fallback preserved.
