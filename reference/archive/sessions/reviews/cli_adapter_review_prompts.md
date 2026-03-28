@@ -19,7 +19,7 @@ This is a KR review session. CC implemented the CLI adapter (`shared/llm/cli_ada
 - Baseline: 766 passed, 2 skipped. Expected after: 796 passed, 2 skipped.
 
 **Governing documents (read IN FULL before reviewing):**
-1. `shared/llm/CLI_ADAPTER_SPEC.md` — the SPEC CC built from (13 sections, 7 invariants, 30 test cases)
+1. `shared/llm/CLI_ADAPTER_SPEC.md` — the SPEC CC built from (14 sections, 7 invariants, 30 test cases — AMENDED after adversarial self-review)
 2. `docs/superpowers/specs/2026-03-28-cli-backend-review-decisions.md` — the 4-reviewer decision record
 3. `reference/protocols/REVIEW_PROTOCOL.md` — the 3-pass review protocol (9 rules)
 4. `reference/archive/sessions/reviews/review_cli_adapter.md` — pre-populated checklist (fill as you go)
@@ -49,6 +49,11 @@ This is a KR review session. CC implemented the CLI adapter (`shared/llm/cli_ada
 - Does JSON extraction handle nested `{` correctly (e.g., JSON with string values containing braces)?
 - Is the subprocess `env` constructed correctly (inherits os.environ + adds ANTHROPIC_API_KEY)?
 - Does `--backend api` path remain byte-for-byte identical to pre-CC code?
+- **[POST-AMENDMENT]** Are hooks fired with correct calling conventions? `completion:kwargs` must use `callback(**kwargs_dict)` (keyword expansion), NOT `callback(kwargs_dict)` (positional). If wrong, the integration test's `on_request(**kwargs)` handler crashes.
+- **[POST-AMENDMENT]** Does the adapter handle messages with NO system role? The escalation call has only a user message — the adapter must create a schema-only system prompt.
+- **[POST-AMENDMENT]** Does `extract_json()` return parsed `dict|list`, not a string? There must be no outer `json.loads()` call.
+- **[POST-AMENDMENT]** Is `json.dump` used (not `json.dumps`) for writing Codex schemas to temp files?
+- **[POST-AMENDMENT]** Is `shared/__init__.py` absent? (It must NOT be created — namespace package.)
 
 Start with Pass 1. End the response after Pass 1 findings. I'll say "continue" for Pass 2.
 ```
@@ -84,6 +89,11 @@ Review checklist — answer each with evidence:
 8. Are temp files (codex schema, codex output) cleaned up in a finally block?
 9. Does `--backend api` in run_integration_test.py preserve the exact original code path?
 10. Run: git diff HEAD~N -- engines/excerpting/ (where N = number of commits). Confirm ZERO changes to engine code.
+11. How are hooks fired for `completion:kwargs`? Is it `callback(**kwargs_dict)` or `callback(kwargs_dict)`? Show the code. It MUST be keyword expansion.
+12. What happens when `messages` contains no system role message? Show how the adapter constructs the system prompt for Claude backend in this case.
+13. Does `extract_json()` return a parsed `dict|list` or a `str`? Show the return type.
+14. Is `json.dump` (not `json.dumps`) used for writing Codex schema to temp file? Show the code.
+15. Does `shared/__init__.py` exist? It must NOT. Run: ls shared/__init__.py
 
 Then run these adversarial probes:
 
@@ -180,6 +190,84 @@ with patch('subprocess.run', side_effect=mock_run):
 print(f"Calls made: {call_count}")
 assert call_count == 3, f"Expected 3 attempts for max_retries=2, got {call_count}"
 print("PASS: retry count correct")
+```
+
+Probe D — Hook firing convention (most dangerous subtle bug):
+```python
+from unittest.mock import patch, MagicMock
+from shared.llm.cli_adapter import CLIInstructorAdapter
+from pydantic import BaseModel
+
+class Simple(BaseModel):
+    answer: str
+
+adapter = CLIInstructorAdapter()
+
+# Register a hook that expects **kwargs (like the integration test does)
+received_kwargs = {}
+def on_request(**kwargs):
+    received_kwargs.update(kwargs)
+
+adapter.on("completion:kwargs", on_request)
+
+# Mock a successful call
+mock_result = MagicMock()
+mock_result.stdout = '{"answer": "test"}'
+mock_result.stderr = ''
+mock_result.returncode = 0
+
+with patch('subprocess.run', return_value=mock_result):
+    with patch('shutil.which', return_value='/usr/bin/claude'):
+        with patch('shared.llm.cli_adapter._get_oauth_token', return_value='fake'):
+            adapter.chat.completions.create(
+                model="anthropic/claude-opus-4.6",
+                response_model=Simple,
+                messages=[{"role": "user", "content": "test"}],
+                max_retries=0,
+            )
+
+assert "model" in received_kwargs, f"Hook not called with kwargs expansion. Got: {received_kwargs}"
+assert received_kwargs["model"] == "anthropic/claude-opus-4.6"
+print("PASS: hook fires with **kwargs expansion")
+```
+
+Probe E — No system message handling:
+```python
+from unittest.mock import patch, MagicMock
+from shared.llm.cli_adapter import CLIInstructorAdapter
+from pydantic import BaseModel, Field
+
+class EscalationResponse(BaseModel):
+    author_id: str
+    reasoning: str
+
+adapter = CLIInstructorAdapter()
+
+mock_result = MagicMock()
+mock_result.stdout = '{"author_id": "ibn_qudama", "reasoning": "test"}'
+mock_result.stderr = ''
+mock_result.returncode = 0
+
+captured_cmds = []
+def capture_run(*args, **kwargs):
+    captured_cmds.append(args[0] if args else kwargs.get('args'))
+    return mock_result
+
+with patch('subprocess.run', side_effect=capture_run):
+    with patch('shutil.which', return_value='/usr/bin/gemini'):
+        # Only user message, no system message (like escalation call)
+        adapter.chat.completions.create(
+            model="google/gemini-2.5-pro",
+            response_model=EscalationResponse,
+            messages=[{"role": "user", "content": "Who is the author?"}],
+            max_retries=0,
+        )
+
+# Verify call didn't crash and schema was still included in prompt
+cmd = captured_cmds[0]
+prompt_text = ' '.join(str(c) for c in cmd)
+assert "JSON SCHEMA" in prompt_text or "json" in prompt_text.lower(), f"Schema missing from prompt: {cmd}"
+print("PASS: no system message handled correctly")
 ```
 
 Report findings. Stop after this task. Do not continue to the next session.

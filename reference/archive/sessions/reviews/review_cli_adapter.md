@@ -31,6 +31,7 @@
 | §2.2 Namespace chain | `_ChatNamespace` / `_CompletionsNamespace` | ☐ |
 | §2.3 `create()` signature | All 6 named params + `**kwargs` | ☐ |
 | §2.4 Hook registration | `.on()` with 3 event names | ☐ |
+| §2.4 Hook firing conventions | kwargs→`**kwargs_dict`, response→positional, error→positional | ☐ |
 | §3.1 Provider routing | Model prefix → backend mapping | ☐ |
 | §3.2 Claude backend | `--bare --no-session-persistence --max-turns 2 --output-format json --model opus` | ☐ |
 | §3.3 Codex backend | `codex exec --output-schema ... -s read-only -o ...` | ☐ |
@@ -40,8 +41,11 @@
 | §4.3 Validation error feedback | Includes field paths + enum values | ☐ |
 | §4.4 JSON parse error feedback | Includes first 500 chars + error msg | ☐ |
 | §4.5 JSON extraction | 3-step: direct parse → find braces → strip fences | ☐ |
+| §4.5 Return type | `extract_json()` returns `dict\|list`, not `str` | ☐ |
 | §5.1 Schema in system prompt (claude/gemini) | JSON schema appended to system message | ☐ |
+| §5.1 No system message case | Schema-only system prompt when messages lack system role | ☐ |
 | §5.2 Schema temp file (codex) | Written to tempfile, cleaned in finally | ☐ |
+| §5.2 json.dump (not json.dumps) | File write uses `json.dump(schema, f)` | ☐ |
 | §5.3 additionalProperties patching | Recursive, all object levels + $defs | ☐ |
 | §6.1 CLIBackendError | Exception with backend + exit_code attrs | ☐ |
 | §6.2 Subprocess invocation | capture_output, text=True, timeout, check=True | ☐ |
@@ -58,6 +62,7 @@
 |---|---|---|
 | INV-1: messages list not mutated | Code read: augmented prompt is new string | ☐ |
 | INV-2: No pipeline code touched | `git diff --name-only` — no files in `engines/` | ☐ |
+| INV-2b: No shared/__init__.py created | `ls shared/__init__.py` must fail (namespace pkg) | ☐ |
 | INV-3: Existing tests unchanged | `git diff engines/excerpting/tests/` — empty | ☐ |
 | INV-4: `--backend api` path untouched | Code read: else branch is original code | ☐ |
 | INV-5: Arabic diacritics | `text=True` in subprocess, no normalize calls | ☐ |
@@ -79,6 +84,9 @@
 | P-10: Provider routing — unknown prefix fallback | | ☐ |
 | P-11: Hook payload shape — matches on_response attribute access | | ☐ |
 | P-12: max_retries=0 → exactly 1 call | | ☐ |
+| P-13: Hook fires with **kwargs expansion (not positional) | | ☐ |
+| P-14: No system message → adapter creates schema-only prompt | | ☐ |
+| P-15: extract_json returns dict/list (not str) | | ☐ |
 
 ## Pass 3: Self-Verification
 - [ ] Every factual claim from Passes 1-2 re-verified with tool call

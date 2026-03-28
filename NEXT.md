@@ -96,6 +96,12 @@ All design decisions are in the SPEC and decision record. Key ones:
 - **DD-7:** OAuth token refresh: on auth error, re-read credentials and retry once within same attempt.
 - **DD-8:** JSON extraction must handle: raw JSON, markdown fences, JSON with surrounding text.
 - **DD-9:** `temperature` accepted but NOT passed to any CLI tool. IS included in hook payloads.
+- **DD-10:** Hook firing conventions differ per event type (SPEC §2.4). `completion:kwargs` → `callback(**kwargs_dict)` (keyword expansion). `completion:response` → `callback(response)` (positional). `completion:error` → `callback(error)` (positional). Getting this wrong crashes the integration test's `on_request(**kwargs)` handler.
+- **DD-11:** `extract_json()` returns `dict | list` (parsed), NOT a string. No outer `json.loads()` needed.
+- **DD-12:** Messages may have NO system role (escalation call site). The adapter must handle this: create a system prompt containing only the schema directive. See SPEC §5.1.
+- **DD-13:** `json.dump(schema, f)` (NOT `json.dumps`) for writing to temp files.
+- **DD-14:** `--output-format json` in Claude CLI may wrap output in a JSON envelope. Test actual format and extract model text if wrapped. See SPEC §3.2.
+- **DD-15:** `shared/` has NO `__init__.py` (namespace package). Do NOT create `shared/__init__.py`. Only create `shared/llm/__init__.py`.
 
 ## Do NOT Do
 
@@ -104,6 +110,7 @@ All design decisions are in the SPEC and decision record. Key ones:
 - **Do NOT add `instructor` as a dependency of the adapter.** The adapter replaces Instructor — it must not import it.
 - **Do NOT use `MagicMock` to implement the namespace chain.** Use real classes (`_ChatNamespace`, `_CompletionsNamespace`).
 - **Do NOT add `--backend` to `run_pipeline.py`.** Only the two integration test scripts.
+- **Do NOT create `shared/__init__.py`.** The `shared/` directory is a namespace package. Other subdirectories depend on this. Only `shared/llm/__init__.py` and `shared/llm/tests/__init__.py` should be created.
 - **Do NOT implement anything beyond what is specified here. After completing all files, run the full test suite, commit and push. Do NOT proceed to the next session.**
 
 ## Verification

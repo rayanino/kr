@@ -90,7 +90,13 @@ def on(self, event: str, callback: Callable) -> None:
     """
 ```
 
-Hooks fire with the same argument shapes the integration test expects (§7).
+Hooks fire with **different calling conventions per event type** — this matches Instructor's internal behavior (verified from `instructor.core.hooks.Hooks` source):
+
+- `"completion:kwargs"` → `callback(**kwargs_dict)` — the dict is **expanded as keyword arguments**. The integration test's `on_request(**kwargs: Any)` handler depends on this.
+- `"completion:response"` → `callback(response)` — single **positional** argument (the `CLIResponse` object).
+- `"completion:error"` → `callback(error)` — single **positional** argument (the exception object).
+
+**CRITICAL:** If `completion:kwargs` passes the dict as a positional arg instead of expanding it, the integration test's `on_request` handler crashes with `TypeError`. This is the most likely hook-related implementation bug.
 
 ---
 
@@ -106,7 +112,7 @@ The `model` string passed to `create()` determines which CLI backend handles the
 | `openai/` | codex | `codex` | `openai/gpt-5.4` |
 | `google/` | gemini | `gemini` | `google/gemini-2.5-pro` |
 
-If the prefix matches none of the above, use `self.default_backend`.
+If the prefix matches none of the above, use `self.default_backend` and log a WARNING: `"Unknown model prefix '{prefix}' for model '{model}', falling back to {default_backend} backend"`. This prevents silent misconfiguration — especially if the escalation model override (§9.3) is accidentally omitted.
 
 ### §3.2 Backend: Claude (`claude -p --bare`)
 
@@ -125,7 +131,7 @@ ANTHROPIC_API_KEY="{oauth_token}" claude -p "{user_prompt}" \
 - `--bare`: Skips hooks/plugins/MCP. Required to avoid Stop hook infinite loop.
 - `--no-session-persistence`: Clean single-shot execution, no session state leaks.
 - `--max-turns 2`: Required — max-turns 1 can produce empty results.
-- `--output-format json`: Requests JSON output from the CLI wrapper itself.
+- `--output-format json`: Requests JSON output from the CLI wrapper. **IMPLEMENTATION NOTE:** The `claude` CLI with `--output-format json` may wrap the model's text response in a JSON envelope (e.g., `{"type": "result", "result": "...model text..."}`). If so, the adapter must extract the model's text from the envelope before passing it to `extract_json()`. CC must test the actual output format of `claude -p --bare --output-format json` and implement extraction accordingly. If the output format turns out to be raw model text (not wrapped), no envelope extraction is needed — `extract_json()` handles it directly.
 - `--model opus`: Routes to Claude Opus via the Claude Code infrastructure.
 
 **OAuth token:** Extracted from `~/.claude/.credentials.json` (see §6.3).
@@ -203,7 +209,7 @@ for attempt in range(max_retries + 1):
 
         raw_output = invoke_subprocess(backend, prompt, system_prompt)
 
-        json_data = json.loads(extract_json(raw_output))
+        json_data = extract_json(raw_output)  # Returns parsed dict/list (see §4.5)
 
         result = response_model.model_validate(json_data)
 
@@ -292,12 +298,19 @@ Output ONLY valid JSON. No markdown, no explanation, no code fences.
 
 ### §4.5 JSON Extraction from Raw Output
 
-CLI tools may produce output with surrounding text (especially Gemini and Codex). The adapter must extract the JSON object/array from the raw output:
+```python
+def extract_json(raw_output: str) -> dict | list:
+    """Extract and parse JSON from CLI output. Returns parsed Python object."""
+```
 
-1. Try `json.loads(raw_output.strip())` directly.
-2. If that fails, look for the first `{` and last `}` (or `[` and `]`) and try parsing that substring.
-3. If that fails, strip markdown code fences (` ```json ... ``` `) and retry.
-4. If all fail, raise `json.JSONDecodeError`.
+CLI tools may produce output with surrounding text (especially Gemini and Codex). The adapter must extract and parse the JSON:
+
+1. Try `json.loads(raw_output.strip())` directly. If it succeeds, return the parsed result.
+2. If that fails, find the first `{` and last `}` in the raw output, extract that substring, and try `json.loads()`. If it fails, try the same with `[` and `]`. Return the parsed result on success.
+3. If that fails, strip markdown code fences (```` ```json ... ``` ```` or ```` ``` ... ``` ````) and try `json.loads()` on the stripped content. Return on success.
+4. If all steps fail, raise `json.JSONDecodeError`.
+
+Note: Step 2's brace-matching is a heuristic — it finds the outermost `{`/`}` pair. This works correctly even when string values contain braces, because `json.loads()` handles the actual parsing. The heuristic only determines the substring boundaries; if the substring isn't valid JSON, the step fails and falls through to step 3.
 
 ---
 
@@ -305,9 +318,17 @@ CLI tools may produce output with surrounding text (especially Gemini and Codex)
 
 ### §5.1 Prompt-Based Schema Embedding (Claude, Gemini)
 
-For Claude and Gemini backends, the JSON schema is embedded in the system prompt:
+For Claude and Gemini backends, the JSON schema is embedded in the system prompt.
 
-**System prompt template:**
+**Message extraction:** The adapter extracts system and user content from `messages`:
+```python
+system_parts = [m["content"] for m in messages if m["role"] == "system"]
+user_parts = [m["content"] for m in messages if m["role"] == "user"]
+original_system = "\n\n".join(system_parts)  # May be empty string
+original_user = "\n\n".join(user_parts)
+```
+
+**System prompt template (when system message exists):**
 ```
 {original_system_message}
 
@@ -316,6 +337,16 @@ OUTPUT FORMAT: You are a JSON API. You MUST output ONLY valid JSON matching this
 JSON SCHEMA:
 {json_schema}
 ```
+
+**System prompt template (when NO system message exists — e.g., escalation calls):**
+```
+OUTPUT FORMAT: You are a JSON API. You MUST output ONLY valid JSON matching this exact schema. No markdown, no explanation, no code fences — just the raw JSON object.
+
+JSON SCHEMA:
+{json_schema}
+```
+
+The adapter MUST handle the no-system-message case because the escalation call site (`phase3_consensus.py` line 468) passes only a user message. For Claude, this means `--system-prompt` contains only the schema directive. For Gemini/Codex, the schema directive is prepended to the combined prompt.
 
 The JSON schema is extracted from the Pydantic `response_model`:
 ```python
@@ -332,7 +363,7 @@ import tempfile
 schema = response_model.model_json_schema()
 schema = patch_additional_properties(schema)  # §5.3
 with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
-    json.dumps(schema, f, indent=2)
+    json.dump(schema, f, indent=2)
     schema_path = f.name
 ```
 
@@ -763,3 +794,30 @@ No other files are created or modified by the adapter implementation itself. The
 **INV-6:** Temp files (Codex schema, Codex output) are always cleaned up, even on error (use `try/finally`).
 
 **INV-7:** The OAuth token is never logged, printed, or included in hook payloads. It appears only in the subprocess environment variable.
+
+---
+
+## §14 Implementation Notes
+
+### §14.1 Prompt Length and Command-Line Limits
+
+The `claude -p "{prompt}"` and `gemini -p "{prompt}"` patterns pass the full prompt as a command-line argument. For the largest chunks (5000+ Arabic words ≈ 30KB text, doubled on retry with error feedback ≈ 60KB), this is well within Linux's ARG_MAX (~2MB). However, if prompts ever approach 500KB, switch to stdin-based passing (`echo "{prompt}" | claude --bare ...`). For the current excerpting engine workload, command-line passing is safe.
+
+### §14.2 Codex Output File May Contain Envelope
+
+Codex writes output to the file specified by `-o`. The output may be raw JSON matching the schema, or it may be wrapped in an envelope. CC must test the actual format and extract accordingly.
+
+### §14.3 `shared/` Is a Namespace Package
+
+The `shared/` directory has no `__init__.py` — it is a PEP 420 implicit namespace package. The `shared/llm/__init__.py` file is needed, but `shared/__init__.py` must NOT be created (other subdirectories rely on namespace package behavior). Verified: `PYTHONPATH=. python -c "from shared.llm.cli_adapter import CLIInstructorAdapter"` works without `shared/__init__.py`.
+
+### §14.4 Post-Review Amendments
+
+This SPEC was amended after adversarial self-review (commit after initial). Changes:
+- §5.2: `json.dumps` → `json.dump` (TypeError crash fix)
+- §2.4: Added exact hook firing conventions per event type (kwargs expansion vs positional arg)
+- §4.2/§4.5: `extract_json` returns `dict | list`, not `str` (removed redundant `json.loads`)
+- §5.1: Added message extraction logic and no-system-message case (escalation call site compatibility)
+- §3.1: Added WARNING log on unknown model prefix fallback
+- §3.2: Documented `--output-format json` envelope risk
+
