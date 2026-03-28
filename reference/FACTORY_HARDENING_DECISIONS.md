@@ -633,9 +633,11 @@ Prompt adversarial fixtures enter scope when LLM-mediated phases enter factory s
 **Cross-provider challenge record:**
 - ChatGPT (deep research): Layer 3 "generate books" reframed to mined seeds + constrained synthesis (accepted). 7 evidence-backed Arabic adversarial attack families identified (accepted). Missing prompt adversarial coverage identified — new Layer 4 (accepted). CheckList-style coverage matrix + differential failure yield as stopping criteria (accepted). Arabic tooling inventory: CAMeL Tools, Arabic WordNet v2/v4.0, UTS #39, QNL OCR Corpus, QALB, SPIRAL (accepted). Mined-fixture lane from real corpus as highest-leverage approach (accepted).
 
-### D-H011: Day 1 Scope — Dynamic Assessment
+### D-H011: Day 1 Scope — Dynamic Assessment — FINAL
 
-**Decision:** Factory Day 1 scope is determined by a dynamic gate assessment at launch time, not by the conservative static estimate in the v3 outline.
+**Decision:** Factory Day 1 scope is determined by a dynamic gate assessment at launch time, not by the conservative static estimate in the v3 outline. Gate criteria cover both engine phases AND factory infrastructure readiness.
+
+**Source:** Architect analysis of v3 outline against current excerpting progress. Cross-provider challenged: Gemini adversarial (infrastructure readiness gaps, owner probe threshold, boundary testing, adversarial coverage, conservative fallback contradiction).
 
 **Rationale:** The v3 outline (written 2026-03-28) conservatively estimated "Excerpting Phase 1 only" for Day 1. Since then, the excerpting engine has advanced significantly: 768+ tests passing, full 5-book integration run with 308 chunks in progress, pre-flight hardening complete. By factory launch (~week 8-10), excerpting Phases 2-3 are likely stable and tested.
 
@@ -645,20 +647,38 @@ Prompt adversarial fixtures enter scope when LLM-mediated phases enter factory s
 |-----------|-------------------|
 | Tests passing | All tests for the phase pass with zero failures |
 | Integration tested | At least one multi-book integration run completed |
-| Owner probe | 30-book owner review initiated (NON-NEGOTIABLE for excerpting) |
+| Owner probe | ≥10 of 30 books reviewed with zero unresolved knowledge-integrity findings on reviewed books. NON-NEGOTIABLE for excerpting — if threshold not met, excerpting is EXCLUDED from Day 1 scope entirely, regardless of technical readiness. Probe continues in parallel; scope expands when threshold met. (Source: Gemini — "initiated" was too weak, 100% too rigid; minimum threshold balances confidence with timeline.) |
+| Cross-engine boundaries | Boundary tests pass for every adjacent engine pair in scope (source→norm, norm→excerpting). Data integrity verified across transitions. (Source: Gemini — individual engine pass ≠ collective stability.) |
+| Adversarial coverage | ≥1 adversarial fixture per threat (from D-H010 coverage matrix) for each in-scope engine. LLM-mediated phases must have prompt adversarial coverage (Layer 4). (Source: Gemini — a phase without adversarial scrutiny is unverified.) |
 | CLAUDE.md current | Module guide reflects actual code, not stale session |
 | SPEC sections covered | Every SPEC section with a worked example has a corresponding test |
 | No known blocking bugs | Zero CRITICAL/HIGH findings open against the phase |
 
+**Factory infrastructure readiness criteria (NEW — Source: Gemini):**
+
+The factory cannot launch if the orchestrator extension (D-H009) or morning report (D-H008) are broken. These criteria must ALL pass before Day 1, independent of which engine phases are in scope:
+
+| Criterion | Evidence Required |
+|-----------|-------------------|
+| Event ledger integrity | JSONL ledger records events without corruption during a full dry-run cycle |
+| Severity classification | SeverityClassifier routes a test finding set with 100% accuracy against D-H003 rules |
+| Tool dispatch | ToolDispatcher successfully invokes all four CLIs and parses structured JSON responses |
+| Morning report | MorningReportRenderer produces D-H008 layout from test `report_data.json` |
+| Dry-run pass | `--dry-run` mode completes a full cycle (classify, route, report) without errors |
+| Crash recovery | Orchestrator survives kill-and-restart, resuming from ledger state |
+| Scope management | ScopeManager correctly reads `ops_manifest.json` and cascading pause propagates through engine DAG |
+
+If any factory infrastructure criterion fails, the factory does not launch regardless of engine readiness.
+
 **Assessment schedule:** The architect runs this gate assessment the week before factory launch (Session 7 timeframe). Whatever passes enters Day 1 scope. Whatever doesn't remains `wip` or `partial` in `ops_manifest.json`.
 
-**Conservative fallback (if excerpting delays):** The v3 outline's original scope remains valid:
+**Conservative fallback (if excerpting delays or owner probe incomplete):**
 
 | Engine | Day 1 Status |
 |--------|-------------|
 | Source | All phases (gate approved a21aab9a) |
 | Normalization | All phases (gate approved) |
-| Excerpting | Phase 1 only (Phases 2-3 excluded) |
+| Excerpting | EXCLUDED if owner probe < 10 books reviewed; Phase 1 only if probe threshold met but Phases 2-3 not ready |
 
 **Optimistic scenario (likely by week 8):**
 
@@ -668,6 +688,9 @@ Prompt adversarial fixtures enter scope when LLM-mediated phases enter factory s
 | Normalization | All phases |
 | Excerpting | All phases (Phase 1 deterministic + Phases 2-3 LLM) |
 | Cross-engine | source→norm→excerpting boundary testing |
+
+**Cross-provider challenge record:**
+- Gemini (adversarial): Factory infrastructure readiness criteria missing (accepted: new infrastructure gate table). "Initiated" threshold too weak (accepted: minimum 10 of 30 books). Cross-engine boundary testing missing (accepted: added to engine gate). Adversarial coverage missing (accepted: added to engine gate). Conservative fallback contradicts non-negotiable owner probe (accepted: excerpting excluded if probe incomplete). Adversarial scenarios (escalation signal masking, shadow routing false confidence, asymmetric autonomous failures) — noted for D-H009/D-H007 implementation, not gate criteria.
 
 ---
 
@@ -701,7 +724,7 @@ This session used structured cross-provider consultation for every major decisio
 - **Aspect 3:** FINAL (cross-provider challenged 2026-03-28) — Morning report architecture (D-H008). Action-first layout, bounded CRITICALs (max 3 detail), clean-night fast path, trend deltas, consensus degradation warnings, embedded escalation provenance, two-layer data model (JSONL ledger + JSON snapshot), exception-only latency reporting, report archival. Alerting deferred to Session 8.
 - **Aspect 4:** FINAL (cross-provider challenged 2026-03-28) — Orchestrator extension design (D-H009). 7 components (ScopeManager with engine DAG, SeverityClassifier as pure function, ToolDispatcher with minimum quorum, EscalationDetector with max_depth=1, FindingStore/RunJournal as persistence spine, ReviewOrchestrator as lifecycle state machine, MorningReportRenderer as pure renderer). Event-sourced persistence. Cross-run fingerprinting for deduplication. Cascading engine-DAG pause. Revised estimate 800-1,200 LOC. Session 6 may split into 6a/6b.
 - **Aspect 5:** FINAL (cross-provider challenged 2026-03-28) — Synthetic adversarial data strategy (D-H010). 4 layers (was 3): Hypothesis property-based, overnight probes, mined seeds + constrained synthesis (was "generate books"), NEW prompt adversarial library. 7 evidence-backed Arabic attack families. Coverage matrix + differential failure yield as stopping criteria. Arabic tooling inventory. Corpus mining as highest-leverage approach.
-- **Aspect 6:** RESOLVED — Day 1 scope expansion (D-H011). Dynamic assessment at launch: whatever passes gate criteria enters scope. Excerpting likely full-scope by factory launch. Conservative fallback preserved.
+- **Aspect 6:** FINAL (cross-provider challenged 2026-03-28) — Day 1 scope dynamic assessment (D-H011). Added factory infrastructure readiness gate (7 criteria). Owner probe threshold: ≥10 of 30 books (was "initiated"). Added cross-engine boundary testing criterion. Added adversarial coverage minimum criterion. Excerpting excluded if owner probe incomplete. Conservative fallback updated.
 
 ### Outstanding Relay Prompts (Prepared, Not Sent)
 
