@@ -2053,7 +2053,7 @@ All configuration parameters are collected here with their defaults, valid range
 | Parameter | Type | Default | Range | Description | SPEC Reference |
 |-----------|------|---------|-------|-------------|----------------|
 | `ENRICH_MODEL` | str | `anthropic/claude-opus-4.6` | — | LLM model for metadata enrichment. Via OpenRouter. | §7.2.5 |
-| `ENRICH_MAX_TOKENS` | int | 16384 | 8192–32768 | MAX_TOKENS for enrichment call. | §7.2.5 |
+| `ENRICH_MAX_TOKENS` | int | dynamic | 16384–32768 | ≤1500 words → 16384, >1500 words → 32768. Mirrors §5.5.1 classify scaling. Empirically calibrated from ibn_aqil_v3 (1987 words, 28 TUs, 14863 completion tokens). | §7.2.5 |
 | `VERIFY_MODEL` | str | `openai/gpt-5.4` | — | LLM model for consensus verification. Via OpenRouter. Must be from a different provider family than ENRICH_MODEL. | §7.3.2 |
 | `VERIFY_MAX_TOKENS` | int | 8192 | 4096–16384 | MAX_TOKENS for verification call. | §7.3.2 |
 | `ESCALATION_MODEL` | str | `mistralai/mistral-large-2411` | — | Third model for 3-way escalation when enrichment and verification disagree on attribution. Via OpenRouter. | §7.3.3 |

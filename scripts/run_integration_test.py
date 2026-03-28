@@ -98,7 +98,7 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
             "messages": [
                 {
                     "role": m.get("role", ""),
-                    "content": m.get("content", "")[:500],
+                    "content": m.get("content", "")[:2000],
                 }
                 for m in kwargs.get("messages", [])
             ],
@@ -126,7 +126,7 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
             finish_reason = response.choices[0].finish_reason
             if hasattr(response.choices[0], "message"):
                 raw_content = (
-                    response.choices[0].message.content[:2000]
+                    response.choices[0].message.content[:50000]
                     if response.choices[0].message.content
                     else None
                 )

@@ -35,6 +35,21 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
+def _compute_enrich_max_tokens(word_count: int) -> int:
+    """Compute MAX_TOKENS for enrichment call based on input size.
+
+    ≤1500 words → 16384.  >1500 words → 32768.
+    Mirrors §5.5.1 scaling logic for classify.
+
+    Empirically calibrated: ibn_aqil_v3 chunk (1987 words, 28 TUs) used
+    14863 completion tokens at 16384 budget. Chunks above ~2500 words
+    would overflow.
+    """
+    if word_count > 1500:
+        return 32768
+    return 16384
+
+
 # ═══════════════════════════════════════════════════════════════════
 # §7.2.2 — System Prompt (exact text from SPEC)
 # ═══════════════════════════════════════════════════════════════════
@@ -89,7 +104,31 @@ For EACH teaching unit listed in the input, provide these fields:
    - "الشيخ" → varies by author and era; use source metadata for context
    - "صاحب الكتاب" / "المصنف" → the author of the current work
    Use the source school metadata provided to resolve ambiguous epithets.
-   If resolution is uncertain, set confidence < 0.5 and provide your best guess.
+
+   Additional high-frequency epithets (resolution depends on science + school):
+   - "شيخ الإسلام" → in Hanbali fiqh/aqeedah: usually Ibn Taymiyyah
+     (تقي الدين أحمد بن عبد الحليم); in other contexts varies by era
+   - "الحافظ" → in hadith sciences: usually Ibn Hajar al-ʿAsqalānī;
+     in other contexts may refer to other hadith scholars
+   - "القاضي" → context-dependent; in Hanbali fiqh often Abu Ya'la;
+     in Maliki fiqh often Ibn al-ʿArabī; do not resolve without clear context
+   - "الشيخان" → in hadith contexts ("رواه الشيخان", "متفق عليه"):
+     al-Bukhārī and Muslim. In Shāfiʿī fiqh: al-Rāfiʿī and al-Nawawī.
+     The SCIENCE field distinguishes these usages.
+   - "متفق عليه" → means reported by both al-Bukhārī and Muslim
+     (treat as a takhrīj reference, not a scholar mention)
+   - Collective references ("أصحابنا", "مشايخنا", "الجمهور"): record
+     as-is in mention_text; set resolved_name to the collective phrase;
+     set role to "quoted_opinion"
+
+   CONSERVATISM RULE: If you cannot confidently resolve an epithet from
+   the science, school, and textual context, set resolved_name to null
+   and confidence below 0.3. A missing resolution is always preferable
+   to a wrong one — wrong attributions become wrong beliefs.
+
+   If resolution is uncertain, set resolved_name to null and confidence
+   below 0.3. Do not guess — a missing resolution is always preferable
+   to a wrong attribution.
    Never silently drop an unresolvable mention — include it with low confidence.
 
 4. TAKHRIJ DATA (takhrij_data): For teaching units containing hadith citations,
@@ -231,7 +270,7 @@ def enrich_chunk(
     return client.chat.completions.create(
         model=config.ENRICH_MODEL,
         temperature=config.LLM_TEMPERATURE,
-        max_tokens=config.ENRICH_MAX_TOKENS,
+        max_tokens=_compute_enrich_max_tokens(chunk.word_count),
         max_retries=2,
         response_model=EnrichmentResult,
         messages=[

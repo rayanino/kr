@@ -63,6 +63,16 @@ DECONTEXTUALIZATION PREVENTION (critical):
   understood on its own
 - Evidence cited for a ruling MUST stay with the ruling
 - A condition and its exception (rule + إلا clause) belong together
+- A verdict/tarjīḥ phrase (والصواب، الراجح، الأصح، المعتمد، الأقوى) that
+  selects among competing positions MUST remain with the alternatives it
+  judges. Without the alternatives, the verdict reads as a standalone
+  ruling and the reader cannot evaluate the reasoning.
+- Qualifications and disclaimers (لكن، غير أن، إلا أن، على خلاف) MUST
+  remain with the statement they qualify. A rule without its qualification
+  is actively misleading.
+- A question (فإن قيل، سؤال، اعترض) and its answer (قلنا، الجواب، وأجيب)
+  MUST be in the same unit — even when multiple question-answer cycles
+  appear in sequence
 
 SELF-CONTAINMENT EVALUATION:
 For each teaching unit, evaluate self-containment against these criteria:
