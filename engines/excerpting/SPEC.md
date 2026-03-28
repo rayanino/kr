@@ -1160,9 +1160,11 @@ The classification call's output size scales with input length (more text → mo
 The classify call produces significantly more objects than the group call (125–166 segments vs. 19–41 units for the 2500–3100w range). The MAX_TOKENS constraint is driven by the classify call, not the group call.
 
 **Scaling rule:**
-- Chunks with `word_count <= 2000`: MAX_TOKENS = `8192`
-- Chunks with `word_count > 2000`: MAX_TOKENS = `32768`
+- Chunks with `word_count <= 1500`: MAX_TOKENS = `8192`
+- Chunks with `word_count > 1500`: MAX_TOKENS = `32768`
 - Chunks with `word_count > 4000`: MAX_TOKENS = `32768` (provisionally — must be tested during build; if classify output truncates at this size, escalate to `65536`)
+
+> **Empirical calibration (2026-03-28):** Threshold lowered from 2000 to 1500. ibn_aqil_v3 حروف الجر chunk (1987 words, 15 layers) exceeded 8192 tokens on classification output at the 2000-word threshold.
 
 The grouping call uses a fixed MAX_TOKENS of `16384`. The largest validated grouping output was 41 units (Taysir div_661 at 3111 words), well within this limit.
 
@@ -1774,7 +1776,7 @@ Not every Phase 3 decision requires cross-provider verification. Consensus is re
 
 When a chunk contains units requiring consensus, Phase 3 issues a **single verification call per chunk** to a different model provider. The call includes only the units needing verification, not all units.
 
-**Verification model:** Configurable. Default: `openai/gpt-4.1` via OpenRouter. The verification model MUST be from a different provider family than the enrichment model (Layer 3.5 of KNOWLEDGE_INTEGRITY.md). Since the enrichment model is Anthropic (Opus), the verifier must be from OpenAI, Cohere, Mistral, or another non-Anthropic provider.
+**Verification model:** Configurable. Default: `openai/gpt-5.4` via OpenRouter. The verification model MUST be from a different provider family than the enrichment model (Layer 3.5 of KNOWLEDGE_INTEGRITY.md). Since the enrichment model is Anthropic (Opus), the verifier must be from OpenAI, Cohere, Mistral, or another non-Anthropic provider.
 
 **Verification prompt:**
 
@@ -1826,7 +1828,7 @@ The verification types are:
 
 | Parameter | Value |
 |-----------|-------|
-| Model | Configurable — default `openai/gpt-4.1` via OpenRouter |
+| Model | Configurable — default `openai/gpt-5.4` via OpenRouter |
 | Temperature | `0` |
 | MAX_TOKENS | `8192` |
 
@@ -1842,7 +1844,7 @@ When the enrichment model and verification model disagree:
 
 **Author attribution disagreement (LA-3 cases):**
 1. Record both assessments.
-2. Escalate: issue a **third verification call** using a second alternative provider (configurable, default `cohere/command-a-03-2025` via OpenRouter). The third model sees the text and both prior assessments.
+2. Escalate: issue a **third verification call** using a second alternative provider (configurable, default `mistralai/mistral-large-2411` via OpenRouter). The third model sees the text and both prior assessments.
 3. If 2 of 3 models agree → use the majority attribution.
 4. If all 3 disagree → emit `EX-G-001` (attribution requires human review). Set `primary_author_layer` to the enrichment model's assessment with `attribution_confidence: 0.0`. The human gate triggers.
 
@@ -2052,9 +2054,9 @@ All configuration parameters are collected here with their defaults, valid range
 |-----------|------|---------|-------|-------------|----------------|
 | `ENRICH_MODEL` | str | `anthropic/claude-opus-4.6` | — | LLM model for metadata enrichment. Via OpenRouter. | §7.2.5 |
 | `ENRICH_MAX_TOKENS` | int | 16384 | 8192–32768 | MAX_TOKENS for enrichment call. | §7.2.5 |
-| `VERIFY_MODEL` | str | `openai/gpt-4.1` | — | LLM model for consensus verification. Via OpenRouter. Must be from a different provider family than ENRICH_MODEL. | §7.3.2 |
+| `VERIFY_MODEL` | str | `openai/gpt-5.4` | — | LLM model for consensus verification. Via OpenRouter. Must be from a different provider family than ENRICH_MODEL. | §7.3.2 |
 | `VERIFY_MAX_TOKENS` | int | 8192 | 4096–16384 | MAX_TOKENS for verification call. | §7.3.2 |
-| `ESCALATION_MODEL` | str | `cohere/command-a-03-2025` | — | Third model for 3-way escalation when enrichment and verification disagree on attribution. Via OpenRouter. | §7.3.3 |
+| `ESCALATION_MODEL` | str | `mistralai/mistral-large-2411` | — | Third model for 3-way escalation when enrichment and verification disagree on attribution. Via OpenRouter. | §7.3.3 |
 
 **Human gate parameters:**
 
@@ -2385,7 +2387,7 @@ C-7 (same-model evaluation bias) is a concern because Claude Opus 4.6 both produ
 
 **Known-boundary test set:** The architect defines correct teaching unit boundaries for ≥10 divisions (from experiment baselines). Automated tests compare engine output against these known boundaries. Boundary accuracy metric: ≥80% of engine-produced units must overlap ≥80% (by word count) with a known-correct unit. This metric is model-independent because the ground truth was established by human evaluation, not by the same model.
 
-**Cross-model spot checks:** During the evaluation probes (not in the unit test suite, but during the build evaluation phase), 10% of self-containment evaluations are re-run with a different model (the verification model, `openai/gpt-4.1`). Agreement rate between the primary model and the spot-check model is tracked. If agreement drops below 80%, the self-containment evaluation prompt needs revision.
+**Cross-model spot checks:** During the evaluation probes (not in the unit test suite, but during the build evaluation phase), 10% of self-containment evaluations are re-run with a different model (the verification model, `openai/gpt-5.4`). Agreement rate between the primary model and the spot-check model is tracked. If agreement drops below 80%, the self-containment evaluation prompt needs revision.
 
 **Owner spot-checks:** During evaluation, the owner reviews 5 excerpts per session for domain-level quality: Is the teaching unit a complete scholarly thought? Is the attribution correct? Does the self-containment level feel right? These checks are model-independent because they rely on domain judgment.
 
