@@ -952,8 +952,10 @@ def run_quality_gate(task: TaskDef, pre_snapshot: str) -> dict[str, Any]:
     for f in changed:
         if "frozen/" in f:
             failures.append(f"L2 FROZEN SOURCE MODIFIED: {f}")
-        if f.replace("\\", "/").startswith("engines/excerpting/src/"):
-            failures.append(f"L2 EXCERPTING SRC PROTECTION: {f}")
+        # Protect ALL excerpting files during CLI transformation (Codex review #6)
+        normalized = f.replace("\\", "/")
+        if normalized.startswith("engines/excerpting/") and not normalized.startswith("engines/excerpting/tests/"):
+            failures.append(f"L2 EXCERPTING PROTECTION: {f}")
     diff_result = _run_subprocess_safe(
         ["git", "diff", "--diff-filter=D", "--name-only", pre_snapshot, "HEAD"],
         timeout=30,

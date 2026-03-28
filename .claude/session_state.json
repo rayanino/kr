@@ -1,18 +1,18 @@
 {
-  "timestamp": "2026-03-28T15:04:31.711087+00:00",
+  "timestamp": "2026-03-28T16:40:31.301432+00:00",
   "branch": "master",
-  "active_engine": "source",
+  "active_engine": null,
   "active_spec_section": null,
-  "last_committed_file": "scripts/run_full_integration.py",
+  "last_committed_file": "reference/FACTORY_HARDENING_DECISIONS.md",
   "active_plan": null,
   "modified_files": [
     ".claude/session_state.json",
-    "overnight/.heartbeat",
-    "scripts/overnight_orchestrator.py"
+    "scripts/overnight_orchestrator.py",
+    "scripts/start_sprint.sh"
   ],
-  "uncommitted_summary": ".claude/session_state.json        |  15 +++---\n overnight/.heartbeat              |   9 ----\n scripts/overnight_orchestrator.py | 109 ++++++++++++++++++++++++++++++++++++++\n 3 files changed, 117 insertions(+), 16 deletions(-)",
-  "next_md_head": "# NEXT — CLI Adapter Implementation\n\n## Current Position\n\n- **Baseline:** 766 tests passing, 2 skipped, 0 failed\n- **Commit:** `d69f8f52` (master HEAD — CLI backend decision record)\n- **Engine:** Excerpting (shared infrastructure)\n- **Milestone:** CLI backend architecture APPROVED by 4-reviewer process. Adapter SPEC written. Ready for implementation.\n\n## What Just Happened\n\nA 4-reviewer architecture review (Claude Chat, ChatGPT 5.4, Gemini CLI, Claude Code) validated the CLI backend transition. 8 blocking findings were identified and resolved. The approved architecture is documented in the decision record. The formal adapter SPEC has been written.\n\n## What to Do\n",
-  "recent_commits": "2a8560b4 feat(shared/llm): implement CLIInstructorAdapter â€” $0 LLM pipeline runs\n41553c76 docs: pre-populated review checklist + session prompts for CLI adapter review\n1f0ee83c docs: CLI adapter SPEC + NEXT.md handoff for CC implementation\n10a30d7b fix(overnight): null-guard L3 compliance check + UTF-8 encoding for subprocess\n478bab7d overnight: test(source): Â§4.A.3/Â§4.A.8/Â§5/Â§8 boundary value tests for all thresholds (566â†’591)",
+  "uncommitted_summary": ".claude/session_state.json        |  16 +++---\n scripts/overnight_orchestrator.py |   6 ++-\n scripts/start_sprint.sh           | 100 ++++++++++++++++++--------------------\n 3 files changed, 60 insertions(+), 62 deletions(-)",
+  "next_md_head": "# NEXT — CLI Adapter Fix (4 Review Findings)\n\n## Current Position\n\n- **Baseline:** 796 tests passing, 2 skipped (766 excerpting + 30 adapter)\n- **Commit:** `2a8560b4` (CC implementation) + `9d83bb14` (review checklist)\n- **Review verdict:** BLOCKED — 4 findings (1 CRITICAL, 2 HIGH, 1 MEDIUM)\n- **Root cause:** All 4 findings are SPEC-code divergences caused by building from the pre-amendment SPEC (commit `1f0ee83c`). The SPEC was amended in commit `550d74a2` after the implementation.\n\n## What Just Happened\n\nThe 3-pass architect review + CC concurrent audit found 4 issues. CC's empirical test on the owner's machine confirmed the CRITICAL finding: `claude -p --bare --output-format json` wraps output in a JSON envelope `{\"type\":\"result\",\"result\":\"...model text...\",\"usage\":{...},...}`. The current adapter returns the full envelope as the model's output, causing 100% failure rate on real Claude CLI calls.\n\n## What to Do\n",
+  "recent_commits": "57885166 docs: D-H011 Day 1 Scope FINAL â€” cross-provider challenged (Gemini adversarial)\n602964d8 fix(shared/llm): encoding='utf-8' on all subprocess.run calls â€” Windows cp1252 crash on Arabic text\n012d4a00 docs: D-H010 Adversarial Data FINAL â€” cross-provider challenged (ChatGPT deep research)\n4f30dbc1 fix(shared/llm): 4 blocking defects in CLI adapter (adversarial self-review)\nf9d3230b review: CLI adapter BLOCKED (F-3 upgraded to CRITICAL after empirical envelope confirmation) + fix directive NEXT.md",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",
