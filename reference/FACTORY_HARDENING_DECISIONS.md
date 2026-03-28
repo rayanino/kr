@@ -397,29 +397,38 @@ These are Session 8 enhancements, not Day 1 requirements.
 - Gemini (adversarial): Identified 7 stress-test results — mass cascade overflow (accepted: cap at 3), consensus degradation (accepted: inline warning), escalation fragmentation (accepted: embed in finding), cascading downstream pause (partially accepted: valid for FIX mode, noted for D-H009), clean-night template rigidity (accepted: dynamic omission), trend absence (accepted: Δ values), latency noise (accepted: exception-only reporting).
 - Cross-provider convergence: Trend data and clean-night fast path identified independently by both. CRITICAL bounding and consensus degradation unique to Gemini. Action queue, MTTR, archival, and data model unique to ChatGPT.
 
-### D-H009: Orchestrator Extension Design
+### D-H009: Orchestrator Extension Design — FINAL
 
-**Decision:** The existing `scripts/overnight_orchestrator.py` (1,576 lines, four execution backends) is extended — not replaced — with severity-routing, scope management, and mode dispatch capabilities.
+**Decision:** The existing `scripts/overnight_orchestrator.py` (1,576 lines, four execution backends) is extended — not replaced — with severity-routing, scope management, event-sourced persistence, and mode dispatch capabilities.
 
-**Source:** Architect analysis of current orchestrator architecture against D-H002 through D-H008 requirements.
+**Source:** Architect analysis of current orchestrator architecture against D-H002 through D-H008 requirements. Cross-provider challenged: ChatGPT deep research (component decomposition, event-sourcing patterns, SARIF baseline comparison, concurrency analysis, line estimates) + Gemini adversarial (cascading failure, deduplication, escalation loops, quorum, crash safety, line estimates).
 
-**Guiding principle:** The orchestrator remains sequential at the top level. At ~25 findings/night, concurrency adds complexity without meaningful throughput gain. Even CRITICAL 3-provider consensus runs three reviews sequentially (~1 CRITICAL/night makes parallelism pointless). This aligns with ChatGPT's recommendation (structured concurrency only if needed) and invalidates Gemini's concurrent-subprocess concern (which doesn't apply to sequential dispatch).
+**Guiding principles:**
 
-**Extension components (Session 6):**
+1. **Sequential at the top level, parallelizable per finding later.** At ~25 findings/night, top-level sequential dispatch is correct for Session 6. However, "parallelism pointless" was too strong in the original draft. For HIGH/CRITICAL findings requiring 2-3 tools, bounded parallelism per finding (run reviewer tools concurrently with per-tool semaphores) provides a favorable complexity/benefit ratio. Session 6 implements sequential; the ReviewOrchestrator interface is designed so per-finding parallelism can be added in Session 7 without restructuring. (Source: ChatGPT — Spinnaker canary pattern, bounded concurrency.)
 
-**1. ScopeManager** — reads/writes `ops_manifest.json`
+2. **Event-sourced persistence.** All state changes are recorded as events in the JSONL ledger (D-H008) before side-effects execute. This gives: crash-recovery safety (resume dispatch from ledger without re-running HUNT), audit trail, and trend computation. The pattern: Ingest → Classify → Persist (always), then Route/Dispatch from persisted state. (Source: ChatGPT — event-sourcing in audit-heavy domains.)
+
+3. **Deterministic fingerprinting for cross-run identity.** Findings need stable identity across nightly runs to avoid duplicate reviews and enable MTTR tracking. Fingerprint = deterministic hash of (file_path, rule_id, normalized_location, invariant_category). Only deterministic inputs — never LLM-produced fields. Matches SARIF's `baselineGuid` + `baselineState` pattern. (Source: ChatGPT — SARIF specification; Gemini — deduplication concern.)
+
+**Extension components (Session 6) — 7 components:**
+
+**1. ScopeManager** — reads/writes `ops_manifest.json`, enforces engine dependency DAG
 - Loads `factory_scope` section at orchestrator start
 - `is_phase_huntable(engine, phase) → bool`
-- `pause_phase(engine, phase, reason)` — writes to manifest, logs decision
+- `pause_phase(engine, phase, reason)` — writes to manifest, logs decision, emits `scope_paused` event
+- **Engine dependency DAG** (static, known at design time): `source → normalization → excerpting`. Pausing any upstream node automatically pauses all downstream nodes. (Source: Gemini stress test #1 — cascading FIX-mode failure; ChatGPT convergence.)
 - `noise_check(engine, phase, finding_count) → bool` — pauses on >10 findings/phase/cycle
 - Read-only for status transitions other than pausing — architect unpauses manually
+- All writes use existing `_atomic_write` pattern
 
-**2. SeverityClassifier** — deterministic field-level rules (D-H003)
-- Input: finding dict (from HUNT task output)
+**2. SeverityClassifier** — pure function, deterministic field-level rules (D-H003)
+- Input: finding dict (from HUNT task output) + associated diff
 - Scans `affected_fields` list against CRITICAL fields: `author`, `attribution`, `school`, `genre`, `multi_layer`, `self_containment`, `primary_text`, `layer_id`
 - Also scans for HIGH indicators: crash, contract violation keywords, `ValidationError`, `FATAL` error codes
-- Returns: `CRITICAL | HIGH | MEDIUM | LOW`
 - Pre-review field scan (D-H006 Path 1): greps associated diff for CRITICAL-field names, escalates to minimum HIGH if found
+- Returns: classification decision + reasons (no I/O, no dispatch, no mutation)
+- Pure function: testable with fixed inputs, no side effects
 
 **3. ToolDispatcher** — maps severity to tool invocations (D-H002)
 - `dispatch(finding, severity) → list[ReviewResult]`
@@ -427,67 +436,118 @@ These are Session 8 enhancements, not Day 1 requirements.
 - HIGH: sequential `codex exec` + `gemini --output-format json`
 - CRITICAL: sequential `copilot --model claude-opus-4.5` + `codex exec` + `gemini --output-format json`
 - Each invocation uses structured JSON output; result parsed into internal `ReviewResult` schema
-- On tool failure: log error, skip that tool's review (don't block the finding), note incomplete review in morning report
+- Each `ReviewResult` records: tool, model, success/failure, latency, parsed output or error reason
+- **Minimum quorum enforcement** (Source: Gemini stress test #4):
+  - CRITICAL: requires ≥2 independent provider reviews. If quorum not met → finding status = `architect_hold`
+  - HIGH: requires ≥1 review
+  - LOW/MEDIUM: requires ≥1 review (single provider)
+- On tool failure: log error, record in `failed_reviews`, emit `review_failed` event. Continue dispatching remaining tools. Check quorum after all dispatches complete.
+- All subprocess calls use the existing `_atomic_write` pattern for any state they persist
 
 **4. EscalationDetector** — mid-review interrupt parsing (D-H006 Path 2)
 - After each review result is received, scan for `ESCALATION_REQUIRED` signal
-- If detected: mutate finding severity, re-queue to higher tier, include escalation rationale
-- Log escalation event for morning report
+- If detected: propose escalation event (original_severity, proposed_severity, reviewer, rationale)
+- **Max escalation depth = 1** (Source: Gemini stress test #3). A finding that has already been escalated once cannot be escalated again. A second `ESCALATION_REQUIRED` signal forces immediate `architect_hold` status. This prevents infinite escalation loops.
+- Does NOT directly mutate finding state — proposes events that ReviewOrchestrator acts on
+- Emits `finding_escalated` event
 
-**5. FindingsManager** — aggregation and routing
-- Collects findings from HUNT task outputs (parsed from `findings.json`)
-- Classifies each via SeverityClassifier, routes each via ToolDispatcher
-- Tracks finding status: `pending | reviewing | reviewed | escalated | fixed | architect_hold`
-- Writes `findings_queue.json` for state persistence across restarts
-- Provides data to morning report generator
+**5. FindingStore (RunJournal)** — persistence spine (D-H008 integration)
+- Owns the **JSONL event ledger** (`overnight/events.jsonl`): single append-only writer interface. All other components emit events through `append_event()`.
+- Owns **per-run snapshot** (`overnight/report_data.json`): materialized view built from events + task outputs at run completion
+- Owns **report archival** (`overnight/archive/{YYYY-MM-DD}/`): copies snapshot + report + finding bundles at end-of-run
+- Owns **finding fingerprint index**: deterministic hash → `{first_seen, last_seen, baseline_state}`. On each run, computes `baseline_state` vs previous archive: `new | unchanged | absent`. Unchanged findings skip re-review and carry forward `first_seen`. (Source: ChatGPT — SARIF baseline comparison.)
+- Owns **trend delta computation**: loads previous archive's snapshot, computes Δ for findings per severity, escalations, shadow disagreements
+- All writes use `_atomic_write` or atomic-append (Source: Gemini stress test #5)
+- Event types: `finding_detected`, `finding_classified`, `review_requested`, `review_completed`, `review_failed`, `finding_escalated`, `scope_paused`, `shadow_compared`, `task_started`, `task_finished`, `quota_sampled`
 
-**6. Morning report v3** — upgrade per D-H008
-- Generate structured JSON intermediate (`overnight/report_data.json`)
-- Render Markdown with CRITICAL-first layout, per-tool performance, escalation events
+**6. ReviewOrchestrator** — routing + lifecycle state machine
+- Ingests raw findings from HUNT task outputs
+- Applies SeverityClassifier (pure function call)
+- Checks FindingStore fingerprint index: if finding is `unchanged` from previous run and still unresolved, transitions directly to `architect_hold` (no re-review). Emits `finding_deduplicated` event.
+- For new or changed findings: creates review plan, calls ToolDispatcher
+- After dispatch: checks EscalationDetector on each ReviewResult. If escalation proposed and depth < max: re-routes. If depth ≥ max: `architect_hold`.
+- Computes `consensus_status` per finding:
+  - `required_reviewers`: tools expected for the severity tier (from D-H002)
+  - `completed_reviews`: tools that returned parsable output
+  - `failed_reviews`: tool failures/timeouts + reason
+  - `consensus_status`: `complete | degraded [⚠ {tool} unavailable]`
+- Checks quorum (ToolDispatcher enforces, ReviewOrchestrator records)
+- Writes events to FindingStore at each state transition
+- Tracks finding lifecycle: `pending | reviewing | reviewed | escalated | deduplicated | fixed | architect_hold`
+- Interface designed for per-finding parallelism in Session 7 (dispatch calls are independent per finding)
 
-**Integration with existing main loop:**
+**7. MorningReportRenderer** — pure renderer, no computation
+- Consumes `report_data.json` (built by FindingStore at end-of-run)
+- Produces `MORNING_REPORT.md` per D-H008 layout: action-first, bounded CRITICALs, clean-night fast path, trend deltas, consensus degradation warnings, embedded escalation provenance
+- Deterministic and testable from fixed JSON input — no data fetching, no computation
+- All computation (deltas, consensus completeness, action queues, age from first_seen) happens in FindingStore's snapshot builder
+
+**Integration with existing main loop (event-driven pattern):**
 
 ```
+# Startup
+finding_store = FindingStore(archive_dir, events_path)
+scope_manager = ScopeManager(manifest, ENGINE_DAG)
+classifier = SeverityClassifier(CRITICAL_FIELDS, HIGH_INDICATORS)
+dispatcher = ToolDispatcher(TOOL_CONFIG, QUORUM_RULES)
+escalation = EscalationDetector(max_depth=1)
+orchestrator = ReviewOrchestrator(classifier, dispatcher, escalation, finding_store, scope_manager)
+
 while not shutdown:
     # Phase A: HUNT — existing task execution (unchanged)
     task = pick_next_ready(manifest, state)
+    finding_store.append_event("task_started", task)
     result = execute_task(task)
     quality_gate(task, result)
+    finding_store.append_event("task_finished", task, result)
 
-    # Phase B: CLASSIFY + ROUTE (new)
+    # Phase B: INGEST → CLASSIFY → PERSIST → DISPATCH (new, event-driven)
     if result.status == "success" and has_findings(task):
         findings = load_findings(task)
         for finding in findings:
-            severity = classifier.classify(finding, diff)
-            if scope_manager.noise_check(engine, phase, count):
-                scope_manager.pause_phase(...)
-                break
-            reviews = dispatcher.dispatch(finding, severity)
-            for review in reviews:
-                if escalation_detector.check(review):
-                    finding.severity = CRITICAL
-                    reviews += dispatcher.dispatch(finding, CRITICAL)
-            findings_manager.record(finding, reviews)
-            if severity == CRITICAL:
-                scope_manager.pause_phase(engine, phase, finding.id)
+            # All state changes recorded as events before side-effects
+            orchestrator.process_finding(finding, task)
+            # process_finding internally:
+            #   1. Classify (pure) → emit finding_classified
+            #   2. Check fingerprint → if unchanged, emit finding_deduplicated, skip
+            #   3. Noise check → if exceeded, emit scope_paused, break
+            #   4. Dispatch reviews → emit review_requested, review_completed/failed
+            #   5. Check escalation → if triggered, emit finding_escalated, re-dispatch
+            #   6. Check quorum → if unmet, set architect_hold
+            #   7. If CRITICAL (original or escalated) → scope_manager.pause_phase (cascading)
+
+# End of run
+finding_store.build_snapshot(scope_manager, previous_archive)
+finding_store.archive_run()
+renderer = MorningReportRenderer(finding_store.snapshot)
+renderer.render()
 ```
 
 **What is NOT in Session 6:**
 - FIX mode auto-fixing with cross-provider review (Session 7)
 - Shadow routing selection and comparison (Session 7, D-H007)
+- Per-finding bounded parallelism for HIGH/CRITICAL dispatch (Session 7)
 - Usage Ledger / quota tracking (Session 9-10)
 - EVALUATE, BENCHMARK, and CROSS-ENGINE modes (Session 7)
 
-**Estimated extension:** ~400-600 new lines. Orchestrator grows from ~1,576 to ~2,100-2,200 lines.
+**Estimated extension:** ~800-1,200 new lines. Orchestrator grows from ~1,576 to ~2,400-2,800 lines. The original estimate of 400-600 was systematically underestimated (both ChatGPT and Gemini converge on this). The "platform spine" — event ledger, fingerprinting, archival, lifecycle tracking, delta computation — is where the real complexity lives. Session 6 may need to be split into 6a (persistence spine + ScopeManager + SeverityClassifier) and 6b (ToolDispatcher + ReviewOrchestrator + MorningReportRenderer).
 
 **Exit criteria for Session 6:**
-- `ScopeManager` reads `ops_manifest.json` and pauses phases correctly
-- `SeverityClassifier` classifies a test finding set with 100% accuracy against D-H003 rules
-- `ToolDispatcher` invokes all four tools with `--output-format json` and parses results
-- `EscalationDetector` detects `ESCALATION_REQUIRED` signal in mock output
-- `generate_morning_report()` produces D-H008 layout with CRITICAL-first section
+- `ScopeManager` reads `ops_manifest.json`, pauses phases correctly, and cascading pause propagates through engine DAG
+- `SeverityClassifier` classifies a test finding set with 100% accuracy against D-H003 rules (pure function, no I/O)
+- `ToolDispatcher` invokes all four tools with structured JSON output, parses results, enforces quorum (CRITICAL ≥2 providers)
+- `EscalationDetector` detects `ESCALATION_REQUIRED` signal in mock output; second escalation → `architect_hold`
+- `FindingStore` appends events to JSONL ledger, builds snapshot, archives to `overnight/archive/{date}/`, computes fingerprints, deduplicates unchanged findings across runs
+- `ReviewOrchestrator` processes a test finding set end-to-end: classify → deduplicate → dispatch → escalate → record
+- `MorningReportRenderer` produces D-H008 layout from fixed `report_data.json` input
 - All existing tests still pass
-- Dry-run mode (`--dry-run`) shows routing decisions without executing
+- Dry-run mode (`--dry-run`) shows routing decisions without executing tool calls
+- Crash recovery: kill orchestrator mid-run, restart, verify it resumes from ledger state
+
+**Cross-provider challenge record:**
+- ChatGPT (deep research): Identified FindingsManager as unstable megaclass (accepted: split into FindingStore + ReviewOrchestrator). Proposed event-driven loop pattern solving escalation-pause bug in original pseudocode (accepted). Referenced SARIF baseline comparison for cross-run fingerprinting (accepted). Recommended bounded parallelism for HIGH/CRITICAL as Session 7 option (accepted as deferred). Estimated 600-1,200 LOC (accepted: revised to 800-1,200). MorningReportRenderer as pure renderer (accepted).
+- Gemini (adversarial): Engine dependency DAG for cascading pause (accepted). Cross-run deduplication via fingerprinting (accepted, converges with ChatGPT's SARIF reference). Escalation loop guard max_depth=1 (accepted). Minimum quorum for CRITICAL reviews ≥2 providers (accepted). Atomic writes for all new state files (accepted). Estimated 1,000-1,200 LOC (accepted: contributes to revised 800-1,200 range).
+- Cross-provider convergence: Deduplication/fingerprinting, line count underestimation, and cascading pause need identified independently by both. Event-sourcing pattern unique to ChatGPT. Escalation loop and quorum guards unique to Gemini.
 
 ### D-H010: Synthetic Adversarial Data Strategy
 
@@ -587,7 +647,7 @@ This session used structured cross-provider consultation for every major decisio
 ### Remaining Aspects to Harden
 
 - **Aspect 3:** FINAL (cross-provider challenged 2026-03-28) — Morning report architecture (D-H008). Action-first layout, bounded CRITICALs (max 3 detail), clean-night fast path, trend deltas, consensus degradation warnings, embedded escalation provenance, two-layer data model (JSONL ledger + JSON snapshot), exception-only latency reporting, report archival. Alerting deferred to Session 8.
-- **Aspect 4:** RESOLVED — Orchestrator extension design (D-H009). Sequential dispatch, 6 components (ScopeManager, SeverityClassifier, ToolDispatcher, EscalationDetector, FindingsManager, Morning Report v3). ~400-600 new lines in Session 6.
+- **Aspect 4:** FINAL (cross-provider challenged 2026-03-28) — Orchestrator extension design (D-H009). 7 components (ScopeManager with engine DAG, SeverityClassifier as pure function, ToolDispatcher with minimum quorum, EscalationDetector with max_depth=1, FindingStore/RunJournal as persistence spine, ReviewOrchestrator as lifecycle state machine, MorningReportRenderer as pure renderer). Event-sourced persistence. Cross-run fingerprinting for deduplication. Cascading engine-DAG pause. Revised estimate 800-1,200 LOC. Session 6 may split into 6a/6b.
 - **Aspect 5:** RESOLVED — Synthetic adversarial data strategy (D-H010). Three-layer approach: Hypothesis property-based (D-H004), overnight probe generation (existing), and Session 4.5 systematic fixture generation. T-2/T-3 adversarial data deferred until excerpting Phases 2-3 are in factory scope.
 - **Aspect 6:** RESOLVED — Day 1 scope expansion (D-H011). Dynamic assessment at launch: whatever passes gate criteria enters scope. Excerpting likely full-scope by factory launch. Conservative fallback preserved.
 
