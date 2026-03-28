@@ -338,6 +338,8 @@ def _run_subprocess_safe(
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
+        encoding="utf-8",
+        errors="replace",
         cwd=cwd or str(PROJECT_DIR),
         env=env,
     )
@@ -860,7 +862,7 @@ def run_quality_gate(task: TaskDef, pre_snapshot: str) -> dict[str, Any]:
                 ["python", str(check_script), *py_changed],
                 timeout=60,
             )
-            if check_result.returncode != 0 and "ERROR" in check_result.stdout:
+            if check_result.returncode != 0 and check_result.stdout and "ERROR" in check_result.stdout:
                 failures.append(f"L3 COMPLIANCE ERROR:\n{check_result.stdout[-500:]}")
 
     # L4: Pyright (log only, don't fail)
