@@ -1,6 +1,7 @@
 # KR Factory Roadmap v2 — الخطة التشغيلية للمصنع
 
 **Authority:** GOVERNING. Supersedes `reference/FACTORY_ROADMAP.md` (v1, archived).
+**Companion document:** `reference/AUTONOMOUS_QUALITY_SYSTEM.md` — defines what the factory does with every minute of runtime (hunting, fixing, evaluating, cross-engine testing). This document covers SETUP. AQS covers OPERATION.
 **Version:** 2.0 — Post-adversarial-review
 **Written:** 2026-03-27
 **Inputs:** Claude Chat adversarial review (7 CRITICAL, 9 HIGH), Claude Code self-critique (21 findings including 3 will-cause-failure), GPT-5.4 independent review (10 failure modes, alternative architecture, benchmark critique, blind-spot analysis). All findings cross-referenced and verified against repo state and official CLI documentation.
@@ -437,6 +438,30 @@ What failure modes do they miss? Propose 3 additional cases per task that Codex 
 
 ---
 
+#### Session 4.5 — Synthetic Adversarial Data Infrastructure
+
+**Type:** CC builder session
+**Goal:** Build the hunting infrastructure described in `reference/AUTONOMOUS_QUALITY_SYSTEM.md`.
+
+**CC prompt:**
+
+> Read `reference/AUTONOMOUS_QUALITY_SYSTEM.md` in full. Execute Session 4.5 exactly as specified.
+>
+> Deliverables:
+> 1. `synthetic_tests/` directory structure per AQS spec.
+> 2. `scripts/synthetic_generator.py` — dispatches Codex/Gemini CLI with threat templates via cli_adapter, validates output JSON, stores in synthetic_library.
+> 3. `scripts/synthetic_runner.py` — takes a synthetic case, formats it as pipeline input, runs through target engine, compares output against ground truth, produces PASS/FAIL with divergence details.
+> 4. `scripts/finding_classifier.py` — auto-classifies findings by threat type (from template), severity (from divergence type), engine, and SPEC section.
+> 5. `findings_db/` directory structure: pending/, in_progress/, resolved/, patterns/, metrics/, synthetic_library/ (with T-1/ through T-7/ subdirs + cross-engine/ + full-pipeline/).
+> 6. `findings_db/templates/` — one JSON template per threat type (T-1 through T-7), plus one cross-engine template for normalization→excerpting, plus one full-pipeline template. Total: 9 templates. Use the exact specifications from AQS Section "Threat templates."
+> 7. Integration test: generate one synthetic T-2 case via Codex → run through excerpting → compare → produce finding → classify → store in findings_db.
+>
+> Exit criteria: End-to-end hunt cycle works (generate → run → compare → classify → store). All 9 templates exist and are valid JSON. findings_db structure matches AQS spec.
+>
+> Do NOT implement anything beyond these deliverables. Commit and push when complete.
+
+---
+
 #### Session 5 — Run Benchmark + Routing Table
 
 **Type:** CC runs benchmark script, architect analyzes
@@ -558,12 +583,14 @@ Same as v1 plus:
 | Now | Excerpting: model role research (NEXT.md Task 1) | Sessions 1-2 (safe, independent) |
 | Week 1-2 | Excerpting: 5-book LLM integration test | Owner: WSL setup (Session 2.5) |
 | Week 3-4 | Excerpting: 30-book owner probe | Session 3 (CLI setup) |
-| Week 5-6 | Excerpting: completion + owner review | Sessions 4-5 (benchmark, using excerpting output) |
-| Week 7-8 | Taxonomy: SPEC design (Claude Chat) | Sessions 6-7 (orchestrator) |
-| Week 9-10 | Taxonomy: factory-built (first real job) | Session 8 (interface) |
-| Week 11-12 | Taxonomy: owner review | Sessions 9-10 (hardening) |
+| Week 5-6 | Excerpting: completion + owner review | Sessions 4, 4.5 (benchmark + synthetic infra) |
+| Week 7-8 | — | Sessions 5, 6 (benchmark run + orchestrator modes) |
+| Week 9-10 | Factory hunts excerpting 24/7 | Session 7 (scheduler) |
+| Week 11-12 | Factory hunts excerpting to Level 3+ | Sessions 8-10 (interface + hardening) |
+| Week 13+ | Taxonomy: SPEC design (Claude Chat) | Factory hunts excerpting continuously |
+| Week 15+ | Taxonomy: factory-built (first real job) | Factory hunts BOTH engines |
 
-**Key constraint:** Sessions 4-5 (benchmark) REQUIRE excerpting to have produced real output. The benchmark tests real KR tasks, not hypothetical ones. This means excerpting completion is on the critical path — it cannot be deferred.
+**The critical insight:** After excerpting is complete, the factory spends weeks hunting it before taxonomy even starts. By the time taxonomy SPEC design begins, excerpting has been stress-tested against hundreds of synthetic adversarial cases. The owner has been reading excerpting output. The factory has been fixing bugs. This is the quality-first sequencing GPT-5.4 called for.
 
 ---
 
