@@ -1,0 +1,42 @@
+[
+  {
+    "package": "ibn_aqil_v1",
+    "content_units": 390,
+    "chunks": 14,
+    "large_chunks_gt2500": 6,
+    "max_words": 4936,
+    "mean_words": 2377
+  },
+  {
+    "package": "ibn_aqil_v3",
+    "content_units": 328,
+    "chunks": 28,
+    "large_chunks_gt2500": 1,
+    "max_words": 3748,
+    "mean_words": 886
+  },
+  {
+    "package": "taysir",
+    "content_units": 741,
+    "chunks": 184,
+    "large_chunks_gt2500": 14,
+    "max_words": 4345,
+    "mean_words": 1029
+  },
+  {
+    "package": "ext_39_masala",
+    "content_units": 90,
+    "chunks": 16,
+    "large_chunks_gt2500": 3,
+    "max_words": 2703,
+    "mean_words": 1158
+  },
+  {
+    "package": "ext_46_qa",
+    "content_units": 405,
+    "chunks": 38,
+    "large_chunks_gt2500": 2,
+    "max_words": 3910,
+    "mean_words": 622
+  }
+]
