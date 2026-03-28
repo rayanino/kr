@@ -611,16 +611,16 @@ def test_json_extraction_strips_markdown() -> None:
     """Raw output wrapped in markdown fences extracted correctly."""
     raw = '```json\n{"answer": "test", "confidence": 0.9}\n```'
     result = extract_json(raw)
-    parsed = json.loads(result)
-    assert parsed["answer"] == "test"
+    assert isinstance(result, dict)
+    assert result["answer"] == "test"
 
 
 def test_json_extraction_finds_object() -> None:
     """Raw output with surrounding text extracts JSON object."""
     raw = 'Here is the result: {"answer": "test", "confidence": 0.5} done.'
     result = extract_json(raw)
-    parsed = json.loads(result)
-    assert parsed["confidence"] == 0.5
+    assert isinstance(result, dict)
+    assert result["confidence"] == 0.5
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -769,3 +769,91 @@ def test_cli_response_usage_is_null() -> None:
     assert response.usage.total_tokens is None
     dump = response.usage.model_dump()
     assert dump["prompt_tokens"] is None
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Tests 31-34: Review finding fixes
+# ═══════════════════════════════════════════════════════════════════
+
+
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_claude_envelope_extraction(
+    mock_run: MagicMock, adapter: CLIInstructorAdapter, mock_oauth: Any, mock_which: Any,
+) -> None:
+    """Claude CLI JSON envelope is correctly unwrapped to extract model text."""
+    model_json = json.dumps({"answer": "test", "confidence": 0.9})
+    envelope = json.dumps({
+        "type": "result",
+        "subtype": "success",
+        "is_error": False,
+        "result": model_json,
+        "usage": {"input_tokens": 100, "output_tokens": 50},
+        "total_cost_usd": 0.01,
+    })
+    mock_run.return_value = _make_completed_process(stdout=envelope)
+    result = adapter.chat.completions.create(
+        model="anthropic/claude-opus-4.6",
+        response_model=SimpleResponse,
+        messages=MESSAGES,
+    )
+    assert result.answer == "test"
+    assert result.confidence == 0.9
+
+
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_claude_envelope_error_raises(
+    mock_run: MagicMock, adapter: CLIInstructorAdapter, mock_oauth: Any, mock_which: Any,
+) -> None:
+    """Claude CLI envelope with is_error=True raises CLIBackendError."""
+    envelope = json.dumps({
+        "type": "result",
+        "subtype": "error",
+        "is_error": True,
+        "result": "Something went wrong",
+    })
+    mock_run.return_value = _make_completed_process(stdout=envelope)
+    with pytest.raises(CLIBackendError, match="error"):
+        adapter.chat.completions.create(
+            model="anthropic/claude-opus-4.6",
+            response_model=SimpleResponse,
+            messages=MESSAGES,
+        )
+
+
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_unknown_prefix_logs_warning(
+    mock_run: MagicMock, valid_json: str, mock_oauth: Any, mock_which: Any,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Unknown model prefix logs WARNING with prefix and model name."""
+    import logging
+    adapter = CLIInstructorAdapter(default_backend="claude")
+    mock_run.return_value = _make_completed_process(stdout=valid_json)
+    with caplog.at_level(logging.WARNING, logger="kr.shared.llm.cli_adapter"):
+        adapter.chat.completions.create(
+            model="mistralai/mistral-large",
+            response_model=SimpleResponse,
+            messages=MESSAGES,
+        )
+    assert "Unknown model prefix" in caplog.text
+    assert "mistralai/" in caplog.text
+
+
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_no_system_message_clean_prompt(
+    mock_run: MagicMock, adapter: CLIInstructorAdapter, valid_json: str,
+    mock_oauth: Any, mock_which: Any,
+) -> None:
+    """When messages have no system role, system prompt starts clean (no leading newlines)."""
+    mock_run.return_value = _make_completed_process(stdout=valid_json)
+    adapter.chat.completions.create(
+        model="anthropic/claude-opus-4.6",
+        response_model=SimpleResponse,
+        messages=[{"role": "user", "content": "Just a user message"}],
+    )
+    cmd = mock_run.call_args[0][0]
+    sp_idx = cmd.index("--system-prompt")
+    system_prompt = cmd[sp_idx + 1]
+    assert system_prompt.startswith("OUTPUT FORMAT:"), (
+        f"System prompt should start with 'OUTPUT FORMAT:', got: {system_prompt[:30]!r}"
+    )

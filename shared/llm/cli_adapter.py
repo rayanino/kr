@@ -143,8 +143,10 @@ def patch_additional_properties(schema: dict[str, Any]) -> dict[str, Any]:
     return schema
 
 
-def extract_json(raw_output: str) -> str:
-    """Extract JSON from raw CLI output (SPEC §4.5).
+def extract_json(raw_output: str) -> dict | list:
+    """Extract and parse JSON from raw CLI output (SPEC §4.5).
+
+    Returns the parsed Python object (dict or list), NOT a string.
 
     Tries in order:
     1. Direct parse of stripped output.
@@ -156,8 +158,7 @@ def extract_json(raw_output: str) -> str:
 
     # Step 1: direct parse
     try:
-        json.loads(stripped)
-        return stripped
+        return json.loads(stripped)
     except json.JSONDecodeError:
         pass
 
@@ -168,8 +169,7 @@ def extract_json(raw_output: str) -> str:
         if first != -1 and last > first:
             candidate = stripped[first : last + 1]
             try:
-                json.loads(candidate)
-                return candidate
+                return json.loads(candidate)
             except json.JSONDecodeError:
                 pass
 
@@ -179,8 +179,7 @@ def extract_json(raw_output: str) -> str:
     if match:
         fenced = match.group(1).strip()
         try:
-            json.loads(fenced)
-            return fenced
+            return json.loads(fenced)
         except json.JSONDecodeError:
             pass
 
@@ -208,6 +207,15 @@ def _resolve_backend(model: str, default_backend: str) -> str:
     for prefix, backend in _PROVIDER_MAP.items():
         if model.startswith(prefix):
             return backend
+    # Extract the prefix for the warning message
+    prefix = model.split("/")[0] + "/" if "/" in model else model
+    logger.warning(
+        "Unknown model prefix '%s' for model '%s', "
+        "falling back to %s backend",
+        prefix,
+        model,
+        default_backend,
+    )
     return default_backend
 
 
@@ -276,12 +284,15 @@ class _CompletionsNamespace:
 
         # Augment system prompt with schema directive (SPEC §5.1)
         schema_directive = (
-            "\n\nOUTPUT FORMAT: You are a JSON API. You MUST output ONLY "
+            "OUTPUT FORMAT: You are a JSON API. You MUST output ONLY "
             "valid JSON matching this exact schema. No markdown, no "
             "explanation, no code fences — just the raw JSON object."
             f"\n\nJSON SCHEMA:\n{schema_str}"
         )
-        system_with_schema = original_system + schema_directive
+        if original_system:
+            system_with_schema = original_system + "\n\n" + schema_directive
+        else:
+            system_with_schema = schema_directive
 
         # Current user prompt (may be augmented on retry)
         current_user = original_user
@@ -320,8 +331,7 @@ class _CompletionsNamespace:
                 )
 
                 # ── Extract and parse JSON ─────────────────────
-                json_str = extract_json(raw_output)
-                json_data = json.loads(json_str)
+                json_data = extract_json(raw_output)
 
                 # ── Validate with Pydantic ─────────────────────
                 result = response_model.model_validate(json_data)
@@ -526,8 +536,26 @@ class _CompletionsNamespace:
             check=True,
         )
 
-        logger.debug("Claude stdout: %s", result.stdout[:200])
-        return result.stdout
+        raw_stdout = result.stdout
+        logger.debug("Claude raw stdout: %s", raw_stdout[:200])
+
+        # Extract model text from CLI JSON envelope (SPEC §3.2)
+        # The claude CLI with --output-format json wraps the model's
+        # response in: {"type":"result","result":"...model text...","usage":{...}}
+        try:
+            envelope = json.loads(raw_stdout)
+            if isinstance(envelope, dict) and "result" in envelope:
+                if envelope.get("is_error"):
+                    raise CLIBackendError(
+                        f"Claude CLI returned error: {envelope.get('result', 'unknown')}",
+                        backend="claude",
+                    )
+                logger.debug("Extracted model text from Claude CLI envelope")
+                return str(envelope["result"])
+        except json.JSONDecodeError:
+            pass  # Not an envelope — return raw stdout
+
+        return raw_stdout
 
     def _invoke_codex(
         self,
