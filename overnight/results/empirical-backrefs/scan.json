@@ -1,0 +1,422 @@
+{
+  "scan_date": "2026-03-28T09:52:44.210049+00:00",
+  "files_scanned": 89,
+  "total_chars": 19097358,
+  "total_chars_millions": 19.1,
+  "decision": "PROCEED",
+  "proceed_patterns": [
+    "كما تقدم",
+    "كما سبق",
+    "ما تقدم",
+    "تقدم ذكره",
+    "سيأتي",
+    "كما سيأتي",
+    "انظر",
+    "راجع"
+  ],
+  "by_type": {
+    "back_reference": {
+      "total_hits": 879,
+      "patterns": 8
+    },
+    "forward_reference": {
+      "total_hits": 420,
+      "patterns": 4
+    },
+    "cross_reference": {
+      "total_hits": 2180,
+      "patterns": 3
+    },
+    "section_reference": {
+      "total_hits": 18,
+      "patterns": 2
+    }
+  },
+  "patterns": {
+    "كما تقدم": {
+      "type": "back_reference",
+      "meaning": "as previously mentioned",
+      "total_hits": 148,
+      "files_with_hits": 17,
+      "hit_rate_per_million_chars": 7.75
+    },
+    "كما سبق": {
+      "type": "back_reference",
+      "meaning": "as preceded",
+      "total_hits": 130,
+      "files_with_hits": 13,
+      "hit_rate_per_million_chars": 6.81
+    },
+    "تقدم أن": {
+      "type": "back_reference",
+      "meaning": "it preceded that",
+      "total_hits": 84,
+      "files_with_hits": 9,
+      "hit_rate_per_million_chars": 4.4
+    },
+    "ما تقدم": {
+      "type": "back_reference",
+      "meaning": "what preceded",
+      "total_hits": 410,
+      "files_with_hits": 37,
+      "hit_rate_per_million_chars": 21.47
+    },
+    "كما مر": {
+      "type": "back_reference",
+      "meaning": "as passed",
+      "total_hits": 51,
+      "files_with_hits": 6,
+      "hit_rate_per_million_chars": 2.67
+    },
+    "المذكور آنفاً": {
+      "type": "back_reference",
+      "meaning": "the aforementioned",
+      "total_hits": 1,
+      "files_with_hits": 1,
+      "hit_rate_per_million_chars": 0.05
+    },
+    "ما سبق ذكره": {
+      "type": "back_reference",
+      "meaning": "what was previously mentioned",
+      "total_hits": 7,
+      "files_with_hits": 5,
+      "hit_rate_per_million_chars": 0.37
+    },
+    "تقدم ذكره": {
+      "type": "back_reference",
+      "meaning": "its mention preceded",
+      "total_hits": 48,
+      "files_with_hits": 18,
+      "hit_rate_per_million_chars": 2.51
+    },
+    "سيأتي": {
+      "type": "forward_reference",
+      "meaning": "will come later",
+      "total_hits": 289,
+      "files_with_hits": 24,
+      "hit_rate_per_million_chars": 15.13
+    },
+    "كما سيأتي": {
+      "type": "forward_reference",
+      "meaning": "as will come",
+      "total_hits": 79,
+      "files_with_hits": 14,
+      "hit_rate_per_million_chars": 4.14
+    },
+    "يأتي بيانه": {
+      "type": "forward_reference",
+      "meaning": "its explanation will come",
+      "total_hits": 48,
+      "files_with_hits": 5,
+      "hit_rate_per_million_chars": 2.51
+    },
+    "سيأتي تفصيله": {
+      "type": "forward_reference",
+      "meaning": "its detail will come",
+      "total_hits": 4,
+      "files_with_hits": 4,
+      "hit_rate_per_million_chars": 0.21
+    },
+    "انظر": {
+      "type": "cross_reference",
+      "meaning": "see/refer to",
+      "total_hits": 1761,
+      "files_with_hits": 39,
+      "hit_rate_per_million_chars": 92.21
+    },
+    "راجع": {
+      "type": "cross_reference",
+      "meaning": "refer back to",
+      "total_hits": 410,
+      "files_with_hits": 49,
+      "hit_rate_per_million_chars": 21.47
+    },
+    "ارجع إلى": {
+      "type": "cross_reference",
+      "meaning": "return to",
+      "total_hits": 9,
+      "files_with_hits": 4,
+      "hit_rate_per_million_chars": 0.47
+    },
+    "في الباب السابق": {
+      "type": "section_reference",
+      "meaning": "in the previous chapter",
+      "total_hits": 18,
+      "files_with_hits": 1,
+      "hit_rate_per_million_chars": 0.94
+    },
+    "في الفصل الآتي": {
+      "type": "section_reference",
+      "meaning": "in the coming section",
+      "total_hits": 0,
+      "files_with_hits": 0,
+      "hit_rate_per_million_chars": 0.0
+    }
+  },
+  "per_file_top20": [
+    {
+      "file": "tests\\fixtures\\shamela_edge_cases\\auto_multilayer_85pct.htm",
+      "total_hits": 773,
+      "chars": 4479320,
+      "patterns_found": [
+        "كما تقدم",
+        "كما سبق",
+        "تقدم أن",
+        "ما تقدم",
+        "كما مر",
+        "ما سبق ذكره",
+        "تقدم ذكره",
+        "سيأتي",
+        "كما سيأتي",
+        "يأتي بيانه",
+        "انظر",
+        "راجع",
+        "ارجع إلى",
+        "في الباب السابق"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_extended\\ext_26\\book.htm",
+      "total_hits": 228,
+      "chars": 106537,
+      "patterns_found": [
+        "كما سبق",
+        "سيأتي",
+        "كما سيأتي",
+        "سيأتي تفصيله",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_extended\\ext_01\\book.htm",
+      "total_hits": 192,
+      "chars": 409081,
+      "patterns_found": [
+        "كما تقدم",
+        "كما سبق",
+        "تقدم أن",
+        "ما تقدم",
+        "تقدم ذكره",
+        "سيأتي",
+        "يأتي بيانه",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_real\\03_fiqh\\book.htm",
+      "total_hits": 183,
+      "chars": 138596,
+      "patterns_found": [
+        "كما تقدم",
+        "كما سبق",
+        "ما تقدم",
+        "كما مر",
+        "سيأتي",
+        "كما سيأتي",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_edge_cases\\high_page_loss_62\\003.htm",
+      "total_hits": 177,
+      "chars": 465232,
+      "patterns_found": [
+        "تقدم ذكره",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_edge_cases\\high_page_loss_62\\004.htm",
+      "total_hits": 166,
+      "chars": 457193,
+      "patterns_found": [
+        "تقدم ذكره",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_edge_cases\\high_page_loss_62\\002.htm",
+      "total_hits": 154,
+      "chars": 458990,
+      "patterns_found": [
+        "ما تقدم",
+        "تقدم ذكره",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_edge_cases\\high_page_loss_62\\001.htm",
+      "total_hits": 151,
+      "chars": 369871,
+      "patterns_found": [
+        "ما تقدم",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_edge_cases\\crash_diacritics_entity_mismatch.htm",
+      "total_hits": 142,
+      "chars": 115528,
+      "patterns_found": [
+        "كما تقدم",
+        "ما تقدم",
+        "انظر"
+      ]
+    },
+    {
+      "file": "experiments\\format_diversity_test\\fixtures\\taysir_al_ilam\\book.htm",
+      "total_hits": 138,
+      "chars": 1140606,
+      "patterns_found": [
+        "كما تقدم",
+        "كما سبق",
+        "تقدم أن",
+        "ما تقدم",
+        "كما مر",
+        "تقدم ذكره",
+        "سيأتي",
+        "كما سيأتي",
+        "يأتي بيانه",
+        "سيأتي تفصيله",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "experiments\\format_diversity_test\\fixtures\\ibn_aqil\\002.htm",
+      "total_hits": 131,
+      "chars": 407433,
+      "patterns_found": [
+        "كما تقدم",
+        "كما سبق",
+        "تقدم أن",
+        "ما تقدم",
+        "تقدم ذكره",
+        "سيأتي",
+        "كما سيأتي",
+        "يأتي بيانه",
+        "سيأتي تفصيله",
+        "انظر",
+        "راجع",
+        "ارجع إلى"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_extended\\ext_49\\book.htm",
+      "total_hits": 123,
+      "chars": 135812,
+      "patterns_found": [
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "experiments\\format_diversity_test\\fixtures\\ibn_aqil\\001.htm",
+      "total_hits": 116,
+      "chars": 596394,
+      "patterns_found": [
+        "كما تقدم",
+        "كما سبق",
+        "تقدم أن",
+        "ما تقدم",
+        "ما سبق ذكره",
+        "تقدم ذكره",
+        "سيأتي",
+        "كما سيأتي",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_extended\\ext_10\\book.htm",
+      "total_hits": 114,
+      "chars": 99140,
+      "patterns_found": [
+        "كما تقدم",
+        "ما تقدم",
+        "المذكور آنفاً",
+        "سيأتي",
+        "كما سيأتي",
+        "سيأتي تفصيله",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_edge_cases\\edge_low_arabic_ratio.htm",
+      "total_hits": 83,
+      "chars": 52487,
+      "patterns_found": [
+        "كما سبق",
+        "ما تقدم",
+        "سيأتي",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_edge_cases\\edge_high_page_loss.htm",
+      "total_hits": 60,
+      "chars": 174949,
+      "patterns_found": [
+        "ما تقدم",
+        "تقدم ذكره",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_extended\\ext_50\\book.htm",
+      "total_hits": 48,
+      "chars": 77323,
+      "patterns_found": [
+        "ما تقدم",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "experiments\\format_diversity_test\\fixtures\\ibn_aqil\\003.htm",
+      "total_hits": 41,
+      "chars": 146958,
+      "patterns_found": [
+        "كما تقدم",
+        "تقدم أن",
+        "ما تقدم",
+        "ما سبق ذكره",
+        "تقدم ذكره",
+        "سيأتي"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_extended\\ext_35\\book.htm",
+      "total_hits": 39,
+      "chars": 39763,
+      "patterns_found": [
+        "ما تقدم",
+        "ما سبق ذكره",
+        "انظر",
+        "راجع"
+      ]
+    },
+    {
+      "file": "tests\\fixtures\\shamela_extended\\ext_22\\book.htm",
+      "total_hits": 37,
+      "chars": 305630,
+      "patterns_found": [
+        "كما تقدم",
+        "كما سبق",
+        "ما تقدم",
+        "انظر",
+        "راجع"
+      ]
+    }
+  ]
+}

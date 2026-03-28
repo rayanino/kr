@@ -1,0 +1,20 @@
+{
+  "bugs_found": [],
+  "tests_added": [],
+  "spec_issues": [],
+  "dead_code": [],
+  "learnings": [
+    "Arabic back-reference patterns appear in 3,497 locations across 89 fixture files (19.1M chars) — Defense 1A is empirically justified.",
+    "Cross-reference type (انظر, راجع) dominates at 2,180 hits (62% of total). These are 'see X' citations that create dangling pointers when an excerpt is extracted without its referent.",
+    "Back-references (ما تقدم, كما تقدم etc.) account for 879 hits (25%) — these create decontextualised excerpts where the reader sees a claim but not its antecedent.",
+    "Forward-references (سيأتي, كما سيأتي) account for 420 hits (12%) — these create broken promises in extracted excerpts.",
+    "8 of 17 scanned patterns qualify for PROCEED threshold (>1/M chars AND present in 10+ files). Strongest: انظر at 92.21/M chars in 39 files.",
+    "راجع appears in 49/89 files (55% of corpus) — the widest coverage of any single pattern. Defense 1A must include this as a primary signal.",
+    "The ibn_aqil fixture (primary excerpting engine test source) contains all 12 major reference patterns across its volumes, confirming that excerpting runs on this source will routinely encounter dangling references.",
+    "Section-references (في الباب السابق, في الفصل الآتي) are too rare (18 hits, 1 file) to prioritise in Defense 1A.",
+    "The detector is LLM-free: the 8 qualifying pattern strings can be used directly as substring matchers on excerpt text, making detection zero-cost.",
+    "Decision: PROCEED. Priority order for Defense 1A: (1) cross-references, (2) back-references, (3) forward-references, (4) section-references deferred."
+  ],
+  "test_count_before": 739,
+  "test_count_after": 739
+}
