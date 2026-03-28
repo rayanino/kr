@@ -3162,3 +3162,411 @@ class TestNoneAuthorLayerAttribution:
         layer_types = {r.mention_text for r in result}
         assert "[structural: matn]" in layer_types
         assert "[structural: hashiyah]" in layer_types
+
+
+# ═══════════════════════════════════════════════════════════════════
+# T-1: Attribution Corruption Probe — Knowledge Integrity
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestT1AttributionCorruptionProbe:
+    """Probe for T-1 knowledge corruption: scenarios where layer
+    attribution produces wrong results, silently drops scholarly
+    voices, or attributes text to the wrong scholar.
+
+    Each test targets a specific corruption vector identified during
+    the overnight knowledge integrity scan (2026-03-28).
+    """
+
+    # ── Shared helpers ──────────────────────────────────────────
+
+    _META_NO_SPLITS = AssemblyMetadata(
+        constituent_unit_indices=[0],
+        join_points=[],
+        layer_split_points=[],
+        footnote_renumber_map=None,
+    )
+
+    # ── BUG FIX: quoted_scholars silent exclusion (T-1.1) ──────
+
+    def test_two_sharh_none_authors_second_preserved(self) -> None:
+        """T-1.1: Two SHARH layers both author=None, second must NOT vanish.
+
+        Real scenario: hashiyah text embeds TWO different sharh commentaries
+        (e.g., one from al-Nawawi, one from al-Rafi'i) but neither author
+        was resolved by normalization. Without the fix, both match
+        (type="sharh", author="unknown") and the second is silently excluded
+        from quoted_scholars — a scholar's voice lost from the record.
+        """
+        # Two distinct sharh commentaries from unresolved authors
+        sharh_a = "يريد بالكلام اللفظ المركب المفيد بالوضع"
+        sharh_b = "وقال الرافعي المراد به كل لفظ دل على معنى"
+        matn = "الكلام هو اللفظ المفيد"
+        text = matn + " " + sharh_a + " " + sharh_b
+
+        matn_end = len(matn)
+        sharh_a_start = matn_end + 1
+        sharh_a_end = sharh_a_start + len(sharh_a)
+        sharh_b_start = sharh_a_end + 1
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id=None,
+                start=0,
+                end=matn_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=sharh_a_start,
+                end=sharh_a_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=sharh_b_start,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+
+        # Primary is SHARH (higher _LAYER_LEVEL than MATN), LA-3
+        primary = AuthorAttribution(
+            layer_id="sharh",
+            author_id="unknown",
+            coverage_pct=0.4,
+            rule_applied="LA-3",
+        )
+
+        result = compute_quoted_scholars(
+            layers, 0, len(text), primary, self._META_NO_SPLITS
+        )
+
+        # MUST have 2 quoted scholars: MATN + the second SHARH
+        # Before fix: only MATN appeared (second SHARH silently dropped)
+        assert len(result) >= 2, (
+            f"T-1.1 CORRUPTION: Expected ≥2 quoted scholars, got {len(result)}. "
+            f"A scholarly voice was silently dropped."
+        )
+        types_and_roles = [(r.mention_text, r.role) for r in result]
+        assert any("[structural: matn]" in t for t, _ in types_and_roles), (
+            "MATN layer missing from quoted_scholars"
+        )
+        assert any(
+            "[structural: sharh]" in t for t, _ in types_and_roles
+        ), "T-1.1: Second SHARH layer silently excluded — scholar voice lost"
+
+    def test_known_author_same_type_all_excluded_correctly(self) -> None:
+        """Regression: two SHARH layers with SAME known author → both excluded.
+
+        When author_canonical_id is resolved (not None), all entries with
+        matching (type, author) ARE the same person and should be excluded.
+        This test ensures the fix for T-1.1 doesn't break this behavior.
+        """
+        sharh_part_a = "قوله كلامنا أي كلام النحاة فهو من باب الإضافة"
+        sharh_part_b = "وإنما خص الكلام لأن موضوع علم النحو الكلام"
+        text = sharh_part_a + " " + sharh_part_b
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_ibn_aqeel",
+                start=0,
+                end=len(sharh_part_a),
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_ibn_aqeel",
+                start=len(sharh_part_a) + 1,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+
+        primary = AuthorAttribution(
+            layer_id="sharh",
+            author_id="sch_ibn_aqeel",
+            coverage_pct=0.6,
+            rule_applied="LA-1",
+        )
+
+        result = compute_quoted_scholars(
+            layers, 0, len(text), primary, self._META_NO_SPLITS
+        )
+
+        # Both are the SAME known author → correctly excluded → empty
+        assert len(result) == 0, (
+            f"Known-author regression: expected 0 quoted scholars, got {len(result)}"
+        )
+
+    def test_primary_unknown_secondary_known_same_type(self) -> None:
+        """T-1.2: Primary is SHARH/unknown, secondary SHARH has known author.
+
+        The known-author SHARH should appear in quoted_scholars regardless
+        of the primary's unknown status.
+        """
+        sharh_unknown = "المراد بالكلام هنا كلام النحاة"
+        sharh_known = "قال النووي والصحيح أن الكلام ما تركب من كلمتين"
+        text = sharh_unknown + " " + sharh_known
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=0,
+                end=len(sharh_unknown),
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_nawawi",
+                start=len(sharh_unknown) + 1,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+
+        primary = AuthorAttribution(
+            layer_id="sharh",
+            author_id="unknown",
+            coverage_pct=0.55,
+            rule_applied="LA-2",
+        )
+
+        result = compute_quoted_scholars(
+            layers, 0, len(text), primary, self._META_NO_SPLITS
+        )
+
+        assert len(result) == 1
+        assert result[0].resolved_name == "sch_nawawi"
+        assert result[0].role == "quoted_opinion"
+
+    # ── LA-2 same-level tie (T-1.3) ────────────────────────────
+
+    def test_la2_same_level_different_known_authors(self) -> None:
+        """T-1.3: Two SHARH layers with different known authors, neither ≥80%.
+
+        LA-2 picks the 'outermost' but both have _LAYER_LEVEL=2 (SHARH).
+        The winner depends on coverage order (max returns first of equals).
+        This test documents the current behavior.
+        """
+        # al-Rafi'i's commentary (55%)
+        rafi = "قال الرافعي اعلم أن الفقه في اللغة الفهم"
+        # al-Nawawi's commentary (45%)
+        nawawi = "قال النووي والأصح عندنا أن الفقه علم"
+        text = rafi + " " + nawawi
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_rafi",
+                start=0,
+                end=len(rafi),
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_nawawi",
+                start=len(rafi) + 1,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+
+        result = compute_layer_attribution(
+            text, layers, 0, len(text.split()) - 1, self._META_NO_SPLITS
+        )
+
+        # LA-2 applies (2 layers, neither ≥80%)
+        assert result.rule_applied == "LA-2"
+        # Higher coverage wins (al-Rafi'i has 55%)
+        assert result.author_id == "sch_rafi"
+        # The other scholar should appear in quoted_scholars
+        quoted = compute_quoted_scholars(
+            layers, 0, len(text), result, self._META_NO_SPLITS
+        )
+        assert len(quoted) == 1
+        assert quoted[0].resolved_name == "sch_nawawi"
+
+    # ── Merge collapse with None authors (T-1.4) ──────────────
+
+    def test_merge_distinct_none_authors_at_split_point(self) -> None:
+        """T-1.4: Two SHARH/None layers at split point merge into one.
+
+        When normalization can't resolve either author, two distinct SHARH
+        segments with author=None at a split point will merge because
+        None==None. This documents the inherent limitation — the pipeline
+        CANNOT distinguish them without author metadata.
+        """
+        text = "شرح الأول هذا ما قاله الشارح الثاني في نفس المسألة"
+        mid = len(text) // 2
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=0,
+                end=mid,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=mid,
+                end=len(text),
+                confidence=1.0,
+            ),
+        ]
+
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[mid],  # split point at boundary
+            footnote_renumber_map=None,
+        )
+
+        result = compute_layer_attribution(
+            text, layers, 0, len(text.split()) - 1, meta
+        )
+
+        # Merged into one layer → LA-4 (100% coverage)
+        # This is correct given the data, but a known limitation:
+        # distinct scholars with unresolved authors are indistinguishable.
+        assert result.rule_applied == "LA-4"
+        assert result.coverage_pct == 1.0
+        assert result.author_id == "unknown"
+
+    # ── Exact boundary values (T-1.5) ─────────────────────────
+
+    @pytest.mark.parametrize(
+        "overlap_chars,total_chars,expected_rule",
+        [
+            (8, 10, "LA-1"),    # 80.0% exactly → LA-1
+            (10, 10, "LA-4"),   # 100.0% exactly → LA-4
+            (79, 100, "LA-2"),  # 79.0% → LA-2 (2 layers)
+            (80, 100, "LA-1"),  # 80.0% → LA-1
+            (81, 100, "LA-1"),  # 81.0% → LA-1
+            (99, 100, "LA-1"),  # 99.0% → LA-1 (not LA-4)
+            (100, 100, "LA-4"), # 100.0% → LA-4
+        ],
+    )
+    def test_la_boundary_integer_precision(
+        self,
+        overlap_chars: int,
+        total_chars: int,
+        expected_rule: str,
+    ) -> None:
+        """T-1.5: LA rule boundaries with integer-derived coverages.
+
+        Verifies that character-based integer arithmetic produces exact
+        floating-point values at the 80% and 100% thresholds.
+        """
+        # Build text with exact total_chars
+        # Use repeated Arabic chars with spaces to control char count
+        text = "ا" * total_chars
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_primary",
+                start=0,
+                end=overlap_chars,
+                confidence=1.0,
+            ),
+        ]
+        if overlap_chars < total_chars:
+            layers.append(
+                TextLayerSegment(
+                    layer_type=LayerType.MATN,
+                    author_canonical_id="sch_secondary",
+                    start=overlap_chars,
+                    end=total_chars,
+                    confidence=1.0,
+                )
+            )
+
+        # Use _compute_layer_coverages directly (avoids word-boundary issues)
+        from engines.excerpting.src.phase3_deterministic import (
+            _compute_layer_coverages,
+        )
+
+        coverages = _compute_layer_coverages(layers, 0, total_chars, [])
+        assert len(coverages) >= 1
+        top_coverage = max(c for _, c in coverages)
+
+        if expected_rule == "LA-4":
+            assert top_coverage >= 1.0
+        elif expected_rule == "LA-1":
+            assert 0.8 <= top_coverage < 1.0
+        else:
+            assert top_coverage < 0.8
+
+    # ── Three unknown SHARH layers — all should be visible (T-1.6) ──
+
+    def test_three_sharh_none_authors_two_in_quoted(self) -> None:
+        """T-1.6: Three SHARH layers all with author=None.
+
+        The primary (highest coverage) is excluded from quoted_scholars,
+        but both remaining layers MUST appear. Before the fix, all three
+        had (type=sharh, author=unknown) and all were excluded.
+        """
+        # Three distinct sharh commentaries
+        sharh_a = "قوله كلامنا أي كلام النحاة لا كلام اللغويين"  # longest
+        sharh_b = "وقيل المراد الكلام عند المتكلمين"
+        sharh_c = "وذهب الكوفيون إلى أن الكلام هو المعنى"
+        text = sharh_a + " " + sharh_b + " " + sharh_c
+        text_len = len(text)
+
+        a_end = len(sharh_a)
+        b_start = a_end + 1
+        b_end = b_start + len(sharh_b)
+        c_start = b_end + 1
+
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=0,
+                end=a_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=b_start,
+                end=b_end,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id=None,
+                start=c_start,
+                end=text_len,
+                confidence=1.0,
+            ),
+        ]
+
+        # Primary = sharh_a (largest coverage)
+        primary = AuthorAttribution(
+            layer_id="sharh",
+            author_id="unknown",
+            coverage_pct=len(sharh_a) / text_len,
+            rule_applied="LA-3",
+        )
+
+        result = compute_quoted_scholars(
+            layers, 0, text_len, primary, self._META_NO_SPLITS
+        )
+
+        # Two of three sharh layers should appear as quoted scholars
+        assert len(result) == 2, (
+            f"T-1.6: Expected 2 quoted scholars from 3 unknown-SHARH layers, "
+            f"got {len(result)}. Scholar voices silently dropped."
+        )
+        for scholar in result:
+            assert scholar.role == "quoted_opinion"
+            assert scholar.source == "layer_overlap"

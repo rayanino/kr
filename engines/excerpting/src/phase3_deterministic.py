@@ -480,11 +480,23 @@ def compute_quoted_scholars(
     )
 
     result: list[ScholarAttribution] = []
+    primary_skipped = False
     for layer, _coverage in coverages:
+        layer_author = layer.author_canonical_id or "unknown"
         # Skip the primary layer (match on type AND author, not type alone)
         if (layer.layer_type.value == primary_layer.layer_id
-                and (layer.author_canonical_id or "unknown") == primary_layer.author_id):
-            continue
+                and layer_author == primary_layer.author_id):
+            if layer_author != "unknown":
+                # Known author: all same-(type, author) entries are the
+                # same person — safe to exclude all.
+                continue
+            # Unknown author: only skip one entry (the primary itself).
+            # Other same-(type, unknown) entries may represent different
+            # scholars — silently excluding them is T-1 attribution
+            # corruption (scholar voice lost from the record).
+            if not primary_skipped:
+                primary_skipped = True
+                continue
 
         # Determine role: MATN in a non-MATN primary unit = classification_frame
         if layer.layer_type == LayerType.MATN and primary_layer.layer_id != "matn":
