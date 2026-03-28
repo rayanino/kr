@@ -249,3 +249,120 @@ class TestExtractionResultNotes:
         }
         result = ExtractionResult.model_validate(data)
         assert result.notes is None
+
+
+def _make_unit_enrichment(unit_index: int) -> dict:
+    """Minimal valid UnitEnrichment data."""
+    return {
+        "unit_index": unit_index,
+        "excerpt_topic": ["فقه"],
+        "school": None,
+        "school_confidence": None,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": None,
+    }
+
+
+def _make_teaching_unit(unit_index: int) -> dict:
+    """Minimal valid TeachingUnit data."""
+    return {
+        "unit_index": unit_index,
+        "segment_indices": [unit_index],
+        "start_word": unit_index * 10,
+        "end_word": unit_index * 10 + 9,
+        "text_snippet": "بسم الله الرحمن الرحيم",
+        "primary_function": "definition",
+        "self_containment": "FULL",
+        "description_arabic": "تعريف المسألة",
+    }
+
+
+class TestEnrichmentResultUnitIndexUniqueness:
+    """Model validator checks for duplicate unit_index in enrichments."""
+
+    def test_unique_unit_indices_accepted(self) -> None:
+        """EnrichmentResult with unique unit_index values → accepted."""
+        data = {
+            "enrichments": [_make_unit_enrichment(0), _make_unit_enrichment(1)],
+            "total_units": 2,
+        }
+        result = EnrichmentResult.model_validate(data)
+        assert len(result.enrichments) == 2
+
+    def test_duplicate_unit_index_raises(self) -> None:
+        """EnrichmentResult with duplicate unit_index → raises ValidationError."""
+        data = {
+            "enrichments": [_make_unit_enrichment(0), _make_unit_enrichment(0)],
+            "total_units": 2,
+        }
+        with pytest.raises(ValidationError, match="Duplicate unit_index"):
+            EnrichmentResult.model_validate(data)
+
+    def test_error_message_includes_duplicate_value(self) -> None:
+        """Error message includes the specific duplicate index value."""
+        data = {
+            "enrichments": [
+                _make_unit_enrichment(3),
+                _make_unit_enrichment(3),
+                _make_unit_enrichment(5),
+            ],
+            "total_units": 3,
+        }
+        with pytest.raises(ValidationError, match=r"\{3\}"):
+            EnrichmentResult.model_validate(data)
+
+    def test_single_enrichment_accepted(self) -> None:
+        """EnrichmentResult with one enrichment → accepted (no duplicates possible)."""
+        data = {
+            "enrichments": [_make_unit_enrichment(0)],
+            "total_units": 1,
+        }
+        result = EnrichmentResult.model_validate(data)
+        assert len(result.enrichments) == 1
+
+
+class TestExtractionResultUnitIndexUniqueness:
+    """Model validator checks for duplicate unit_index in teaching_units."""
+
+    def test_unique_unit_indices_accepted(self) -> None:
+        """ExtractionResult with unique unit_index values → accepted."""
+        data = {
+            "teaching_units": [_make_teaching_unit(0), _make_teaching_unit(1)],
+            "total_units": 2,
+        }
+        result = ExtractionResult.model_validate(data)
+        assert len(result.teaching_units) == 2
+
+    def test_duplicate_unit_index_raises(self) -> None:
+        """ExtractionResult with duplicate unit_index → raises ValidationError."""
+        data = {
+            "teaching_units": [_make_teaching_unit(0), _make_teaching_unit(0)],
+            "total_units": 2,
+        }
+        with pytest.raises(ValidationError, match="Duplicate unit_index"):
+            ExtractionResult.model_validate(data)
+
+    def test_error_message_includes_duplicate_value(self) -> None:
+        """Error message includes the specific duplicate index value."""
+        data = {
+            "teaching_units": [
+                _make_teaching_unit(2),
+                _make_teaching_unit(2),
+                _make_teaching_unit(4),
+            ],
+            "total_units": 3,
+        }
+        with pytest.raises(ValidationError, match=r"\{2\}"):
+            ExtractionResult.model_validate(data)
+
+    def test_single_teaching_unit_accepted(self) -> None:
+        """ExtractionResult with one teaching_unit → accepted."""
+        data = {
+            "teaching_units": [_make_teaching_unit(0)],
+            "total_units": 1,
+        }
+        result = ExtractionResult.model_validate(data)
+        assert len(result.teaching_units) == 1

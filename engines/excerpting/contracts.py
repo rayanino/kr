@@ -630,6 +630,16 @@ class EnrichmentResult(BaseModel):
     enrichments: list[UnitEnrichment]
     total_units: int
 
+    @model_validator(mode="after")
+    def _check_unit_index_uniqueness(self) -> "EnrichmentResult":
+        indices = [ue.unit_index for ue in self.enrichments]
+        if len(indices) != len(set(indices)):
+            dupes = [i for i in indices if indices.count(i) > 1]
+            raise ValueError(
+                f"Duplicate unit_index in enrichments: {set(dupes)}"
+            )
+        return self
+
 
 class ClassificationResult(BaseModel):
     """Phase 2a LLM classification response (SPEC §5.2.4)."""
@@ -644,6 +654,16 @@ class ExtractionResult(BaseModel):
     teaching_units: list[TeachingUnit]
     total_units: int
     notes: Optional[str] = None
+
+    @model_validator(mode="after")
+    def _check_unit_index_uniqueness(self) -> "ExtractionResult":
+        indices = [tu.unit_index for tu in self.teaching_units]
+        if len(indices) != len(set(indices)):
+            dupes = [i for i in indices if indices.count(i) > 1]
+            raise ValueError(
+                f"Duplicate unit_index in teaching_units: {set(dupes)}"
+            )
+        return self
 
 
 class VerificationItem(BaseModel):
