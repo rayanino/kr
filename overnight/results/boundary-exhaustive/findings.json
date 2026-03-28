@@ -1,0 +1,96 @@
+{
+  "bugs_found": [],
+  "tests_added": [
+    {
+      "name": "test_merge_49_words",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "49 words (one below TINY_DIVISION_WORDS=50) MUST merge with sibling"
+    },
+    {
+      "name": "test_merge_50_words_standalone",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "Exactly 50 words must NOT merge (threshold is strictly < 50, inclusive boundary)"
+    },
+    {
+      "name": "test_merge_51_words_standalone",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "51 words (one above threshold) must NOT merge"
+    },
+    {
+      "name": "test_merge_1_word",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "Single-word chunk (trivially tiny) merges with sibling"
+    },
+    {
+      "name": "test_merge_0_words_with_sibling",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "0 Arabic words (non-Arabic content) still triggers merge (0 < 50)"
+    },
+    {
+      "name": "test_split_4999_words_no_split",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "4999 words (one below OVERSIZED_DIVISION_WORDS=5000) must NOT split"
+    },
+    {
+      "name": "test_split_5000_words_no_split",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "Exactly 5000 words must NOT split (threshold is strictly > 5000)"
+    },
+    {
+      "name": "test_split_5001_words_must_split",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "5001 words (one above threshold) MUST split into ≥2 chunks each ≤5000 words"
+    },
+    {
+      "name": "test_split_10001_words_recursive_three_chunks",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "10001 words requires recursive splitting into ≥3 chunks (V-P1-4)"
+    },
+    {
+      "name": "test_la1_at_79_point_9_percent",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "79.9% coverage (799/1000 chars) must NOT trigger LA-1 — falls to LA-2"
+    },
+    {
+      "name": "test_la1_at_80_point_1_percent",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "80.1% coverage (801/1000 chars) MUST trigger LA-1"
+    },
+    {
+      "name": "test_la_two_layers_each_50_percent",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "50%/50% two-layer split → LA-2 (outermost layer wins: SHARH > MATN)"
+    },
+    {
+      "name": "test_la_three_layers_each_33_percent",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "33%/33%/34% three-layer split → LA-3 (ambiguous, flag for consensus)"
+    },
+    {
+      "name": "test_layer_gap_4_chars_repaired",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "4-char gap (< 5) → auto-repair + EX-A-003 WARNING"
+    },
+    {
+      "name": "test_layer_gap_5_chars_repaired",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "5-char gap (= 5, exact boundary) → auto-repair + EX-A-003 WARNING"
+    },
+    {
+      "name": "test_layer_gap_6_chars_fatal",
+      "file": "engines/excerpting/tests/test_boundary_exhaustive.py",
+      "edge_case": "6-char gap (> 5) → NOT repaired → I-AC-2 FATAL (one above repair limit)"
+    }
+  ],
+  "spec_issues": [],
+  "dead_code": [],
+  "learnings": [
+    "All three threshold predicates are strict: merge uses <50 (not <=50), split uses >5000 (not >=5000), gap repair uses <=5 (not <5). The exactly-at-boundary values behave as the non-triggering case for merge/split, and as the triggering case for gap repair.",
+    "Existing tests covered gap=2 (repair) and gap=10 (fatal) but missed the exact boundary gap=5 (repair) and gap=6 (fatal). This session added those.",
+    "Existing LA tests covered exactly 80% and 70% but missed 79.9% and 80.1%. The 79.9% test provides a tighter probe that would catch off-by-one errors in >= vs > comparisons.",
+    "The 0-word merge case (non-Arabic content) confirms that the merge predicate treats non-Arabic content as tiny (0 < 50) — it does not special-case zero-word chunks.",
+    "The 5000-word no-split test is the most valuable new test: it guards against inadvertent changes of the strict > to >=, which would cause valid 5000-word chunks to be split unnecessarily."
+  ],
+  "test_count_before": 597,
+  "test_count_after": 613
+}
