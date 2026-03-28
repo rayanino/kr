@@ -1,77 +1,107 @@
-# NEXT — Model Role Assignment Research + 5-Book LLM Integration Test Prep
+# NEXT — Full 5-Book LLM Integration Run + Post-Run Review
 
 ## Current Position
 
-- **Baseline:** 593 tests passing, 2 skipped, 0 failed
-- **Commit:** `8e5fb12b` (master HEAD)
+- **Baseline:** 737 tests passing, 2 skipped, 0 failed
+- **Commit:** `94972b74` (master HEAD after pre-flight hardening)
 - **Engine:** Excerpting
-- **Milestone:** First real LLM call PASSED — 5 excerpts from ibn_aqil_v1 preface, 0 errors, via OpenRouter/Opus 4.6
+- **Milestone:** Pre-flight gate PASSED. All prompts hardened, all blocking bugs fixed. Ready for full integration run.
 
-## What Just Happened
+## What Just Happened (Pre-Flight Hardening Session)
 
-The excerpting engine's deterministic infrastructure is complete and the first real LLM smoke test succeeded:
-- compute_page_range crash on split chunks: FIXED + ACCEPTED (3-pass review, 7 probes)
-- EX-V-002 false positive (text_snippet length mismatch): FIXED
-- Mock integration: all 5 packages pass
-- Real LLM call: 1 chunk → 5 teaching units, correct descriptions, correct page ranges, 0 validation errors
+9 findings identified during pre-flight review. 8 fixed, 1 accepted (no checkpoint/resume — mitigated by per-package isolation):
 
-## Task 1: Model Role Assignment Research (BLOCKING — do before Task 2)
+1. **source_school key mismatch** — FIXED. Batch script used `"school"` but engine reads `"source_school"`. Taysir's Hanbali school was invisible to enrichment/consensus.
+2. **Verifier prompt too thin** — FIXED. Enhanced from 2 sentences to full methodology with C-SC-1–5 criteria, voice markers, school attribution guidance.
+3. **Response log truncation** — FIXED. Increased from 2000→50000 chars (response) and 500→2000 chars (request).
+4. **ENRICH_MAX_TOKENS overflow** — FIXED. 23 chunks would have exceeded 16384 token budget. Added dynamic scaling (≤1500 words→16384, >1500→32768).
+5. **Tarjīḥ orphaning risk** — FIXED. Added DP bullet: verdict phrases (والصواب, الراجح, الأصح) must stay with alternatives.
+6. **Non-إلا qualifier splitting** — FIXED. Added DP bullet: لكن, غير أن, إلا أن qualifiers must stay with qualified statement.
+7. **Epithet coverage gap** — FIXED. Added guidance for شيخ الإسلام, الحافظ, القاضي, الشيخان, متفق عليه, collectives. 48% of taysir chunks contain شيخ الإسلام.
+8. **"Best guess" instruction** — FIXED. Changed to conservatism rule: prefer null with conf<0.3 over wrong attribution.
+9. **Q&A reinforcement** — FIXED. Added DP bullet reinforcing Q&A grouping for dense objection cycles.
 
-The excerpting engine uses 3 LLM roles in a multi-model consensus architecture:
+**Sources:** CC investigation (findings 1-3), architect analysis (finding 4), ChatGPT 5.4 deep research (findings 5-9, validated against codebase and test data).
 
-| Role | Current Model | Purpose |
-|------|---------------|---------|
-| Primary (classify, group, enrich) | `anthropic/claude-opus-4.6` | Generate structured scholarly extraction |
-| Verify | `openai/gpt-4.1` ← **STALE** | Independently verify high-stakes fields (attribution, school) |
-| Escalation (tiebreaker) | `cohere/command-a-03-2025` ← **STALE** | Break ties when primary and verifier disagree |
+## Task 1: Execute the Full Integration Run
 
-**Problem:** GPT-4.1 is legacy (GPT-5.4 exists). Command A is no longer frontier-tier. The model strings in `engines/excerpting/contracts.py` lines 749-761 need updating.
+### Run Command
 
-**Candidate frontier models (all available on OpenRouter as of March 2026):**
-- `anthropic/claude-opus-4.6` — Opus 4.6
-- `openai/gpt-5.4` — GPT-5.4 ($2.50/$15 per 1M tokens)
-- `google/gemini-3.1-pro-preview` — Gemini 3.1 Pro ($2/$12 per 1M tokens)
+```bash
+cd /path/to/kr
+export OPENROUTER_API_KEY=sk-or-v1-...
+python scripts/run_full_integration.py
+```
 
-**Research questions (answer with evidence, not intuition):**
+### Expected Parameters
 
-1. **Which model is best at understanding classical Arabic scholarly text?** Not general Arabic — specifically matn/sharh/hashiyah structures, isnad chains, tahqiq apparatus, classical terminology. MMLU multilingual doesn't test this. Design a concrete probe.
+| Parameter | Value |
+|-----------|-------|
+| Total chunks | 308 |
+| Packages | 5 (ibn_aqil_v1, ibn_aqil_v3, taysir, ext_39_masala, ext_46_qa) |
+| Estimated time | 8–12 hours |
+| Estimated cost | $97–112 (OpenRouter credits) |
+| LLM calls | ~1200–1400 (with retries) |
+| Primary model | anthropic/claude-opus-4.6 ($5/$25 per 1M tokens) |
+| Verify model | openai/gpt-5.4 ($2.50/$15 per 1M tokens) |
+| Escalation model | mistralai/mistral-large-2411 (~$2/$6 per 1M tokens) |
+| Output directory | integration_tests/full_run_{date}/ |
 
-2. **Which model is best at *catching errors it didn't make*?** The verifier sees the primary's output and must spot wrong attributions, wrong school classifications, decontextualized excerpts. This is a different skill from generation. Research whether any model has demonstrated superior error-detection in structured extraction tasks.
+### Monitoring During Run
 
-3. **Which model is best at adjudicating disagreements?** The escalation model sees "Model A says X, Model B says Y" and must reason about which is correct. This requires strong comparative reasoning on Arabic scholarly content.
+- The batch script prints per-package progress (1/5, 2/5, etc.)
+- Taysir (package 3/5) takes ~6–7 hours — the longest by far (184 chunks)
+- Within a package, progress is logged to stderr (Phase 2a/2b/3 per chunk)
+- If a package fails, the script continues to the next one
+- SUMMARY.json is written at the end with per-package stats
 
-4. **Does role assignment matter empirically?** Run the same 3 chunks through all 3 models as primary, compare output quality. This gives real data on classical Arabic capability, not benchmark proxies.
+### Known Risks
 
-**Design an empirical probe:**
-- Pick 3 chunks from different packages (1 single-layer prose, 1 multi-layer matn/sharh, 1 with footnotes)
-- Run each through all 3 frontier models as primary (classify + group + enrich)
-- Compare: segment boundary quality, teaching unit coherence, attribution accuracy, description quality
-- Use this to assign roles based on actual KR performance, not general benchmarks
+- 5 chunks >4000 words (untested range) — warnings logged, 32768 token budget should suffice
+- 17 chunks have ⌜⌝ footnote markers in first 50 chars — may cause EX-C-003 snippet-not-found
+- ibn_aqil_v1 is densest (64.3% chunks above 1500-word threshold)
 
-**Output:** Updated model strings in `contracts.py` with documented rationale. Commit as a design decision.
+## Task 2: Post-Run Review (next session)
 
-## Task 2: Prepare 5-Book LLM Integration Test
+Follow `reference/protocols/LLM_INTEGRATION_TEST_PROTOCOL.md` — Phase C.
 
-After Task 1 resolves the model config, prepare for the full 5-book test per `reference/protocols/LLM_INTEGRATION_TEST_PROTOCOL.md`.
-
-This involves:
-- Confirming the 5 test packages cover sufficient genre/format diversity
-- Writing a CC handoff to run the full pipeline on all 5 packages with real LLM calls
-- Designing the owner review protocol (which excerpts to spot-check, what to look for)
-
-## Read First
-
-1. `engines/excerpting/contracts.py:749-761` — current model config
-2. `engines/excerpting/SPEC.md` §7.3 — consensus verification design
-3. `reference/protocols/LLM_INTEGRATION_TEST_PROTOCOL.md` — full test protocol
-4. `reference/AGENT_ARCHITECTURE.md` §1.2 P1 — knowledge diversity principle
-5. `experiments/format_diversity_test/packages/` — the 5 test packages
-
-## Session Start Protocol
+### Session Start
 
 1. Clone/pull repo
 2. Read this NEXT.md
-3. `git log --oneline -5`
-4. `ls /mnt/skills/user/` — pick relevant skills (kr-research, thinking-frameworks, deep-research)
-5. Read `reference/protocols/QUALITY_AXIOM.md`
-6. DRIFT CHECK
+3. Read SUMMARY.json from the run output
+4. Read the protocol: `reference/protocols/LLM_INTEGRATION_TEST_PROTOCOL.md`
+5. `ls /mnt/skills/user/` — use kr-evaluate + critical-review
+
+### Review Sequence
+
+**Step 1: Structural Integrity (C.1)** — automated checks, all 5 packages:
+- Pipeline completion (any crashes?)
+- Excerpt count sanity (expected: ~800–1500 total)
+- Offset alignment (V-P3-2)
+- Field completeness
+- Error code audit
+- Gate queue consistency
+
+**Step 2: Per-Excerpt Review (C.2)** — manual, exhaustive for first 3 packages:
+- Boundary quality (DP-1 through DP-9)
+- Classification quality
+- Attribution quality (especially epithet resolution with new conservatism rule)
+- Enrichment quality (topic, school, takhrij, terminology)
+- Self-containment assessment accuracy
+
+**Step 3: Findings Taxonomy (Phase D)** — categorize every finding:
+- CRITICAL: Wrong belief in owner's mind
+- HIGH: Systematic quality gap
+- MEDIUM: Isolated inaccuracy
+- LOW: Suboptimal but not wrong
+
+### Expected Outcomes
+
+This is Round 1 — the first full run. Expect findings. The goal is not zero-defect output; it's discovering the failure modes that unit tests couldn't catch and fixing them before Round 2.
+
+## Do NOT Do
+
+- Do NOT run the batch script in Claude Code — it takes 8–12 hours and must run locally
+- Do NOT modify prompts, code, or SPEC during the run — the run must match the committed code
+- Do NOT skip the post-run structural integrity checks — they catch crashes the summary misses
