@@ -48,7 +48,7 @@ The entire factory roadmap (v1, v2, v3 outline) references "Codex CLI" with `cod
 
 ### Finding 2: CRITICAL — Quota Limits Invalidate "$0/Call" Assumption
 
-**GitHub Copilot CLI:** Owner upgrading to Pro+ = 1,500 premium requests/month. Model multipliers: Opus 4.5 = 3x, GPT-5.x-Codex = 1x, Sonnet 4 = 1x, Haiku 4.5 = 0.33x. GPT-4.1 and base completions are unlimited (0x).
+**Subscription strategy (owner decision):** NOT buying Copilot Pro+. Instead: individual subscriptions per provider (Claude Max already owned, Codex CLI already available, Gemini subscription if needed). This gives higher per-provider limits and genuine cross-provider diversity. The hardening session must determine exactly which subscriptions to buy based on benchmark evidence. The owner has budget for anything needed.
 
 At 1,500/month: if factory uses GPT-5.3-Codex (1x) for reviews, that's 1,500 review interactions. If it uses Opus 4.5 (3x), that's only 500. Factory orchestrator MUST be quota-aware and route by task importance.
 
@@ -115,7 +115,7 @@ Copilot CLI custom agents can encode review vs. adversary behavior. Model select
 - **Claude Code** — Opus 4.6, Max subscription, unlimited usage
 - **Claude Chat** — Opus 4.6 (this tool, the architect)
 - **ChatGPT** — Available for relay, has deep research mode, strong reasoning
-- **Copilot CLI** — Currently Student plan (300 requests), upgrading to Pro+ (1,500)
+- **Copilot CLI** — Currently Student plan (300 requests). NOT upgrading to Pro+ — individual per-provider subscriptions preferred. Hardening session decides which.
 - **Gemini CLI** — Free tier (Flash models only, 60 RPM / 1,000 RPD)
 - **OpenRouter API key** — In repo, per-token access to any model
 - **GitHub Pro** — Free via student pack
