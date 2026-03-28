@@ -29,6 +29,7 @@ OVERNIGHT_DIR = PROJECT_DIR / "overnight"
 RESULTS_DIR = OVERNIGHT_DIR / "results"
 STATE_FILE = OVERNIGHT_DIR / "weekend_state.json"
 PROGRESS_FILE = OVERNIGHT_DIR / "weekend_progress.md"
+HEARTBEAT_FILE = OVERNIGHT_DIR / ".heartbeat"
 
 # Safety prompts (same as in orchestrator, but standalone for readonly workers)
 READONLY_SAFETY = """WEEKEND SPRINT — READONLY ANALYSIS MODE — KR Pipeline Project.
@@ -82,6 +83,11 @@ class TaskDef:
     priority: int = 5
     max_turns: int = 25
     bookend: bool = False
+    estimated_complexity: str = "medium"  # low|medium|high — controls sort order
+
+
+# Complexity sort order: low tasks run before medium, medium before high
+_COMPLEXITY_ORDER = {"low": 0, "medium": 1, "high": 2}
 
 
 @dataclass
@@ -114,11 +120,12 @@ class SprintState:
         self.write_failed: int = 0
         self.results: list[dict] = []
         self.active_workers: dict[str, str] = {}  # worker_id -> task_id
+        self.write_orchestrator_status: str = "not_started"
 
     def record_result(self, result: TaskResult) -> None:
         with self._lock:
             self.results.append(asdict(result))
-            if result.status == "success":
+            if result.status in ("success", "partial_success"):
                 if result.worker.startswith("readonly"):
                     self.readonly_completed += 1
                 else:
@@ -155,10 +162,86 @@ class SprintState:
                 "write_failed": self.write_failed,
                 "active_workers": dict(self.active_workers),
                 "results": list(self.results),
+                "write_orchestrator_status": self.write_orchestrator_status,
             }
         tmp = STATE_FILE.with_suffix(".tmp")
         tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
         tmp.replace(STATE_FILE)
+
+
+# ---------------------------------------------------------------------------
+# Unified heartbeat (FIX-6)
+# ---------------------------------------------------------------------------
+
+
+def _write_unified_heartbeat(
+    state: SprintState, total_readonly: int, total_write: int,
+) -> None:
+    """Write unified heartbeat file for external monitoring."""
+    with state._lock:
+        data = {
+            "source": "parallel_coordinator",
+            "pid": os.getpid(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "readonly_completed": state.readonly_completed,
+            "readonly_failed": state.readonly_failed,
+            "readonly_active": list(state.active_workers.values()),
+            "write_completed": state.write_completed,
+            "write_failed": state.write_failed,
+            "total_readonly": total_readonly,
+            "total_write": total_write,
+        }
+    tmp = HEARTBEAT_FILE.with_suffix(".tmp")
+    try:
+        tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+        tmp.replace(HEARTBEAT_FILE)
+    except OSError:
+        pass  # Ignore file access conflicts on Windows
+
+
+# ---------------------------------------------------------------------------
+# Write orchestrator health monitoring (FIX-2)
+# ---------------------------------------------------------------------------
+
+
+def _monitor_write_orchestrator(
+    proc: subprocess.Popen,
+    state: SprintState,
+    shutdown: threading.Event,
+    poll_interval_s: int = 60,
+) -> None:
+    """Monitor write orchestrator subprocess health (runs as daemon thread)."""
+    last_heartbeat_task: str | None = None
+    last_progress_time = time.time()
+    stall_threshold_s = 50 * 60  # 50 min (2x typical 25m task timeout)
+
+    while not shutdown.is_set():
+        shutdown.wait(timeout=poll_interval_s)
+        if shutdown.is_set():
+            break
+
+        # Check process liveness
+        retcode = proc.poll()
+        if retcode is not None:
+            status = "completed" if retcode == 0 else f"dead (exit {retcode})"
+            print(f"\n  [monitor] Write orchestrator: {status}")
+            state.write_orchestrator_status = status
+            return
+
+        # Check heartbeat for progress
+        try:
+            hb_text = HEARTBEAT_FILE.read_text(encoding="utf-8")
+            hb = json.loads(hb_text)
+            if hb.get("source") == "write_orchestrator":
+                current_task = hb.get("last_task")
+                if current_task != last_heartbeat_task:
+                    last_heartbeat_task = current_task
+                    last_progress_time = time.time()
+                elif time.time() - last_progress_time > stall_threshold_s:
+                    print(f"\n  [monitor] Write orchestrator STALLED on {current_task}")
+                    state.write_orchestrator_status = f"stalled on {current_task}"
+        except (OSError, PermissionError, json.JSONDecodeError):
+            pass  # Heartbeat file may not exist yet or be mid-write
 
 
 # ---------------------------------------------------------------------------
@@ -230,8 +313,15 @@ def execute_readonly_task(
     except subprocess.TimeoutExpired:
         proc.kill()
         proc.communicate()
-        status = "timeout"
-        error = f"Exceeded {task.timeout_minutes}m timeout"
+        # Check for partial output before marking as total failure
+        partial = False
+        for fname in ("findings.json", "findings.md", "summary.md"):
+            f = task_dir / fname
+            if f.exists() and f.stat().st_size > 1024:
+                partial = True
+                break
+        status = "partial_success" if partial else "timeout"
+        error = f"Exceeded {task.timeout_minutes}m timeout" + (" (partial output preserved)" if partial else "")
     except Exception as e:
         status = "failed"
         error = str(e)
@@ -333,6 +423,7 @@ def run_parallel(
     max_readonly_workers: int = 3,
     single_task: str | None = None,
     dry_run: bool = False,
+    resume: bool = False,
 ) -> None:
     """Run the parallel sprint system."""
     tasks = load_manifest(manifest_path)
@@ -344,14 +435,32 @@ def run_parallel(
     print(f"Duration target: {hours} hours")
     print()
 
+    # Resume: skip already-completed tasks from previous run (FIX-4)
+    completed_task_ids: set[str] = set()
+    if resume and STATE_FILE.exists():
+        try:
+            old_state = json.loads(STATE_FILE.read_text(encoding="utf-8"))
+            for r in old_state.get("results", []):
+                if r.get("status") in ("success", "partial_success"):
+                    completed_task_ids.add(r["task_id"])
+            print(f"RESUME: {len(completed_task_ids)} tasks already completed, will skip")
+        except Exception as e:
+            print(f"Resume failed to load state: {e}, starting fresh")
+            completed_task_ids.clear()
+
+    if completed_task_ids:
+        readonly_tasks = [t for t in readonly_tasks if t.task_id not in completed_task_ids]
+        write_tasks = [t for t in write_tasks if t.task_id not in completed_task_ids]
+        print(f"After resume filter: {len(readonly_tasks)} readonly, {len(write_tasks)} write remaining")
+
     if dry_run:
         print("=== DRY RUN ===")
         print(f"\nReadonly tasks ({len(readonly_tasks)}):")
         for i, t in enumerate(readonly_tasks, 1):
-            print(f"  {i:3d}. [{t.priority}] {t.task_id}: {t.name[:70]}")
+            print(f"  {i:3d}. [{t.priority}] {t.task_id}: {t.name[:70]} ({t.estimated_complexity})")
         print(f"\nWrite tasks ({len(write_tasks)}):")
         for i, t in enumerate(write_tasks, 1):
-            print(f"  {i:3d}. [{t.priority}] {t.task_id}: {t.name[:70]}")
+            print(f"  {i:3d}. [{t.priority}] {t.task_id}: {t.name[:70]} ({t.estimated_complexity})")
         return
 
     # Single task mode
@@ -380,9 +489,9 @@ def run_parallel(
 
     signal.signal(signal.SIGINT, handle_signal)
 
-    # Sort by priority (lower = higher priority)
-    readonly_tasks.sort(key=lambda t: (t.priority, t.task_id))
-    write_tasks.sort(key=lambda t: (t.priority, t.task_id))
+    # Sort by priority, then complexity (easy wins first), then task_id
+    readonly_tasks.sort(key=lambda t: (t.priority, _COMPLEXITY_ORDER.get(t.estimated_complexity, 1), t.task_id))
+    write_tasks.sort(key=lambda t: (t.priority, _COMPLEXITY_ORDER.get(t.estimated_complexity, 1), t.task_id))
 
     # Separate bookend tasks — run after pool completes (CC review B-3)
     regular_readonly = [t for t in readonly_tasks if not t.bookend]
@@ -400,6 +509,15 @@ def run_parallel(
     # Launch write orchestrator as background process
     print(f"Launching write orchestrator with {len(write_tasks)} tasks...")
     write_proc = run_write_orchestrator(write_manifest, hours)
+    state.write_orchestrator_status = "running"
+
+    # Start health monitor for write orchestrator (FIX-2)
+    monitor_thread = threading.Thread(
+        target=_monitor_write_orchestrator,
+        args=(write_proc, state, shutdown),
+        daemon=True,
+    )
+    monitor_thread.start()
 
     # Launch readonly pool
     print(f"Launching readonly pool with {max_readonly_workers} workers...")
@@ -436,13 +554,14 @@ def run_parallel(
                 task = futures[future]
                 try:
                     result = future.result()
-                    status_icon = "+" if result.status == "success" else "X"
-                    print(f"\n  [{status_icon}] {task.task_id}: {result.status} ({result.duration_s:.0f}s)")
+                    icon = "+" if result.status in ("success", "partial_success") else "X"
+                    print(f"\n  [{icon}] {task.task_id}: {result.status} ({result.duration_s:.0f}s)")
                 except Exception as e:
                     print(f"\n  [!] {task.task_id}: exception: {e}")
 
                 completed_readonly += 1
                 state.save()
+                _write_unified_heartbeat(state, len(readonly_tasks), len(write_tasks))
                 print_dashboard(state, len(readonly_tasks), len(write_tasks), start_time)
 
             task_idx = batch_end
@@ -454,9 +573,10 @@ def run_parallel(
             if shutdown.is_set() or time.time() > deadline:
                 break
             result = execute_readonly_task(task, "bookend-0", state)
-            status_icon = "+" if result.status == "success" else "X"
-            print(f"  [{status_icon}] {task.task_id}: {result.status} ({result.duration_s:.0f}s)")
+            icon = "+" if result.status in ("success", "partial_success") else "X"
+            print(f"  [{icon}] {task.task_id}: {result.status} ({result.duration_s:.0f}s)")
             state.save()
+            _write_unified_heartbeat(state, len(readonly_tasks), len(write_tasks))
 
     # Wait for write orchestrator
     print("\n\nReadonly pool complete. Waiting for write orchestrator...")
@@ -466,13 +586,20 @@ def run_parallel(
         (OVERNIGHT_DIR / "write_orchestrator_output.log").write_text(
             write_stdout or "(empty)", encoding="utf-8",
         )
+        # Update final write orchestrator status (FIX-2)
+        if write_proc.returncode == 0:
+            state.write_orchestrator_status = "completed"
+        elif write_proc.returncode is not None:
+            state.write_orchestrator_status = f"exited ({write_proc.returncode})"
     except subprocess.TimeoutExpired:
         write_proc.kill()
         write_proc.communicate()
+        state.write_orchestrator_status = "killed (deadline)"
         print("Write orchestrator killed (deadline reached)")
 
     # Final state save
     state.save()
+    _write_unified_heartbeat(state, len(readonly_tasks), len(write_tasks))
 
     # Print summary
     elapsed = time.time() - start_time
@@ -500,6 +627,7 @@ def main() -> None:
     parser.add_argument("--workers", type=int, default=3, help="Number of readonly workers")
     parser.add_argument("--task", help="Run a single task by ID")
     parser.add_argument("--dry-run", action="store_true", help="Show plan without executing")
+    parser.add_argument("--resume", action="store_true", help="Resume from last weekend_state.json")
     args = parser.parse_args()
 
     manifest_path = Path(args.manifest)
@@ -512,6 +640,7 @@ def main() -> None:
         max_readonly_workers=args.workers,
         single_task=args.task,
         dry_run=args.dry_run,
+        resume=args.resume,
     )
 
 

@@ -25,7 +25,10 @@ def fmt_duration(seconds: float) -> str:
 
 
 def status_icon(status: str) -> str:
-    return {"success": "+", "failed": "X", "timeout": "T", "skipped": "-"}.get(status, "?")
+    return {
+        "success": "+", "failed": "X", "timeout": "T", "skipped": "-",
+        "partial_success": "~", "rolled_back": "R",
+    }.get(status, "?")
 
 
 def main() -> None:
@@ -34,6 +37,7 @@ def main() -> None:
     # Load states
     ro_state = load_json(OVERNIGHT / "weekend_state.json") or {}
     wr_state = load_json(OVERNIGHT / "state.json") or {}
+    heartbeat = load_json(OVERNIGHT / ".heartbeat") or {}
 
     # Elapsed time
     started = ro_state.get("started_at")
@@ -59,6 +63,27 @@ def main() -> None:
     wr_cost = wr_state.get("total_cost_usd", 0)
     wr_status = wr_state.get("status", "unknown")
 
+    # Write orchestrator process status from heartbeat + state (FIX-8)
+    wr_proc_status = ro_state.get("write_orchestrator_status", "")
+    wr_last_task = ""
+    wr_last_result = ""
+    if heartbeat.get("source") == "write_orchestrator":
+        if not wr_proc_status or wr_proc_status == "running":
+            wr_proc_status = "running"
+        wr_last_task = heartbeat.get("last_task", "")
+        wr_last_result = heartbeat.get("last_task_status", "")
+        hb_ts = heartbeat.get("timestamp", "")
+        if hb_ts:
+            try:
+                hb_time = datetime.fromisoformat(hb_ts)
+                age_s = (now - hb_time).total_seconds()
+                if age_s > 3600:
+                    wr_proc_status = f"stale ({int(age_s / 60)}m ago)"
+            except ValueError:
+                pass
+    if not wr_proc_status:
+        wr_proc_status = wr_status  # fall back to state.json status
+
     # Combined
     done = ro_done + ro_fail + wr_done + wr_fail
     pct = (done / total_tasks * 100) if total_tasks else 0
@@ -78,11 +103,14 @@ def main() -> None:
     print(f"  [{bar}] {pct:.0f}%")
     print()
 
-    # Worker status
+    # Worker status (two-column layout)
     print("  READONLY POOL" + " " * 20 + "WRITE ORCHESTRATOR")
     print(f"  Done: {ro_done}/{ro_total}" + " " * 22 + f"Done: {wr_done}/{wr_total}")
     print(f"  Fail: {ro_fail}" + " " * 27 + f"Fail: {wr_fail}")
-    print(f"  Active: {len(ro_active)}" + " " * 24 + f"Status: {wr_status}")
+    print(f"  Active: {len(ro_active)}" + " " * 24 + f"Process: {wr_proc_status}")
+    print(" " * 38 + f"Status: {wr_status}")
+    if wr_last_task:
+        print(" " * 38 + f"Last: {wr_last_task} [{wr_last_result}]")
     print(" " * 38 + f"Cost: ${wr_cost:.2f}")
     print()
 
@@ -93,7 +121,7 @@ def main() -> None:
             print(f"    {wid}: {tid}")
         print()
 
-    # Recent completions (last 8)
+    # Recent completions (last 10)
     all_results = []
 
     # Readonly results

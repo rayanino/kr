@@ -40,7 +40,10 @@ MORNING_REPORT = OVERNIGHT_DIR / "MORNING_REPORT.md"
 LOCK_FILE = OVERNIGHT_DIR / ".overnight.lock"
 HEARTBEAT_FILE = OVERNIGHT_DIR / ".heartbeat"
 
-MAX_CONSECUTIVE_FAILURES = 3
+MAX_CONSECUTIVE_FAILURES = 3   # legacy — kept for backwards compat in state.json
+MAX_CONSECUTIVE_CRASHES = 3    # hard stop: subprocess died unexpectedly
+MAX_CONSECUTIVE_TIMEOUTS = 5   # soft stop: tasks running out of time
+MAX_TIMEOUT_MINUTES = 45       # absolute cap for adaptive timeout scaling
 
 OVERNIGHT_SAFETY_PROMPT = """OVERNIGHT AUTONOMOUS MODE — KR Pipeline Project.
 You are executing a single task in the overnight autonomous system.
@@ -256,6 +259,11 @@ class TaskDef:
     max_turns: int = 30
     codex_flags: list[str] = field(default_factory=list)
     bookend: bool = False  # Always-run task: skips dependency propagation, runs last
+    estimated_complexity: str = "medium"  # low|medium|high — controls sort order + timeout scaling
+
+
+# Complexity sort order: low tasks run before medium, medium before high
+_COMPLEXITY_ORDER = {"low": 0, "medium": 1, "high": 2}
 
 
 @dataclass
@@ -284,7 +292,9 @@ class OvernightState:
     deadline: str
     status: str = "running"  # running|completed|stopped|crashed
     git_start_hash: str = ""
-    consecutive_failures: int = 0
+    consecutive_failures: int = 0   # legacy — sum of all failure types
+    consecutive_crashes: int = 0    # subprocess crashes (hard breaker)
+    consecutive_timeouts: int = 0   # task timeouts (soft breaker)
     total_cost_usd: float = 0.0
     tasks_completed: int = 0
     tasks_failed: int = 0
@@ -574,6 +584,7 @@ def _write_heartbeat(
 ) -> None:
     """Write heartbeat file after each task (detect hangs)."""
     _atomic_write(HEARTBEAT_FILE, json.dumps({
+        "source": "write_orchestrator",
         "pid": os.getpid(),
         "last_task": task_id,
         "last_task_status": status,
@@ -702,6 +713,10 @@ def execute_task(task: TaskDef) -> TaskResult:
             error=f"Task exceeded {task.timeout_minutes} minute timeout",
             model_used=task.model,
         )
+        # Check for partial output before marking as total failure
+        if _check_partial_success(task.task_id):
+            result.status = "partial_success"
+            result.error += " (partial output preserved)"
     except Exception as e:
         result = TaskResult(
             task_id=task.task_id, status="failed",
@@ -718,6 +733,18 @@ def execute_task(task: TaskDef) -> TaskResult:
     _atomic_write(result_file, json.dumps(asdict(result), indent=2, ensure_ascii=False))
 
     return result
+
+
+def _check_partial_success(task_id: str) -> bool:
+    """Check if a timed-out task produced meaningful output (> 1KB)."""
+    task_dir = OVERNIGHT_DIR / "results" / task_id
+    if not task_dir.exists():
+        return False
+    for filename in ("findings.json", "findings.md", "summary.md"):
+        f = task_dir / filename
+        if f.exists() and f.stat().st_size > 1024:
+            return True
+    return False
 
 
 def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
@@ -1128,7 +1155,7 @@ def pick_next_ready(manifest: list[TaskDef], state: OvernightState) -> TaskDef |
         changed = False
         blocked_ids = {
             tid for tid, r in state.results.items()
-            if r.get("status") in ("failed", "timeout", "rolled_back", "skipped")
+            if r.get("status") in ("failed", "timeout", "partial_success", "rolled_back", "skipped")
         }
         bookend_ids = {t.task_id for t in manifest if t.bookend}
         for task in manifest:
@@ -1149,7 +1176,7 @@ def pick_next_ready(manifest: list[TaskDef], state: OvernightState) -> TaskDef |
     }
     blocked_ids = {
         tid for tid, r in state.results.items()
-        if r.get("status") in ("failed", "timeout", "rolled_back", "skipped")
+        if r.get("status") in ("failed", "timeout", "partial_success", "rolled_back", "skipped")
     }
     # Regular tasks: deps must be successful
     regular_candidates = []
@@ -1174,7 +1201,7 @@ def pick_next_ready(manifest: list[TaskDef], state: OvernightState) -> TaskDef |
     candidates = regular_candidates or bookend_candidates
     if not candidates:
         return None
-    candidates.sort(key=lambda t: t.priority)
+    candidates.sort(key=lambda t: (t.priority, _COMPLEXITY_ORDER.get(t.estimated_complexity, 1), t.task_id))
     return candidates[0]
 
 
@@ -1356,6 +1383,7 @@ def run_overnight(
     manifest_path: Path | None = None,
     single_task: str | None = None,
     dry_run: bool = False,
+    resume: bool = False,
 ) -> None:
     """Main entry point for overnight orchestration."""
     print(f"=== KR Overnight Orchestrator v2 ===")
@@ -1403,33 +1431,50 @@ def run_overnight(
     # Dry run — just print the plan
     if dry_run:
         print("\n=== DRY RUN — Execution Plan ===\n")
-        for i, task in enumerate(sorted(manifest, key=lambda t: t.priority), 1):
+        for i, task in enumerate(sorted(manifest, key=lambda t: (t.priority, _COMPLEXITY_ORDER.get(t.estimated_complexity, 1), t.task_id)), 1):
             deps = f" (depends: {', '.join(task.depends_on)})" if task.depends_on else ""
             print(f"  {i:2d}. [{task.priority}] {task.task_id}: {task.name}")
             print(f"      Mode: {task.execution_mode} | Agent: {task.agent or '-'} "
                   f"| Model: {task.model} | Safety: {task.safety_level}{deps}")
-            print(f"      Timeout: {task.timeout_minutes}m | Budget: ${task.max_budget_usd}")
+            print(f"      Timeout: {task.timeout_minutes}m | Budget: ${task.max_budget_usd} "
+                  f"| Complexity: {task.estimated_complexity}")
             print()
         print(f"Total tasks: {len(manifest)}")
         return
 
-    # Clear stale state from any previous run (BEFORE initializing new state)
-    for stale in [STATE_FILE, PROGRESS_FILE, DECISIONS_LOG, HEARTBEAT_FILE]:
-        if stale.exists():
-            stale.unlink()
-
-    # Initialize state
+    # Resume or fresh start (FIX-4)
     now = datetime.now(timezone.utc)
     deadline = now + __import__("datetime").timedelta(hours=hours)
     start_monotonic = time.monotonic()
     max_seconds = hours * 3600
-    state = OvernightState(
-        run_id=now.strftime("%Y-%m-%d"),
-        started_at=now.isoformat(),
-        deadline=deadline.isoformat(),
-        git_start_hash=git_head(),
-    )
-    log_decision(f"Overnight session started. {len(manifest)} tasks. Deadline: {deadline.isoformat()}")
+    resumed = False
+
+    if resume:
+        old_state = load_state()
+        if old_state and old_state.status in ("stopped", "crashed", "failed"):
+            state = old_state
+            state.status = "running"
+            state.consecutive_failures = 0
+            state.consecutive_crashes = 0
+            state.consecutive_timeouts = 0
+            state.deadline = deadline.isoformat()
+            resumed = True
+            log_decision(f"RESUMED from previous run. {len(state.results)} tasks already resolved.")
+            print(f"RESUME: {len(state.results)} tasks already resolved, continuing...")
+
+    if not resumed:
+        # Clear stale state from any previous run (BEFORE initializing new state)
+        for stale in [STATE_FILE, PROGRESS_FILE, DECISIONS_LOG, HEARTBEAT_FILE]:
+            if stale.exists():
+                stale.unlink()
+
+        state = OvernightState(
+            run_id=now.strftime("%Y-%m-%d"),
+            started_at=now.isoformat(),
+            deadline=deadline.isoformat(),
+            git_start_hash=git_head(),
+        )
+        log_decision(f"Overnight session started. {len(manifest)} tasks. Deadline: {deadline.isoformat()}")
     save_state(state)
     write_progress_file(state, manifest)
 
@@ -1454,6 +1499,10 @@ def run_overnight(
         except (AttributeError, OSError):
             pass  # SIGBREAK not available on all Windows configurations
 
+    # Adaptive timeout tracking — learn from category timeouts (FIX-7)
+    timeout_overrides: dict[str, float] = {}   # category -> multiplier
+    category_timeouts: dict[str, int] = {}     # category -> consecutive timeout count
+
     # === Main loop ===
     print(f"\nStarting execution. Deadline: {deadline.strftime('%H:%M UTC')}")
     print("=" * 60)
@@ -1471,9 +1520,13 @@ def run_overnight(
             log_decision(f"BUDGET LIMIT reached: ${state.total_cost_usd:.2f} >= ${max_cost_usd:.2f}")
             break
 
-        # Circuit breaker
-        if state.consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
-            log_decision(f"CIRCUIT BREAKER: {state.consecutive_failures} consecutive failures. Stopping.")
+        # Circuit breaker — per-category thresholds
+        if state.consecutive_crashes >= MAX_CONSECUTIVE_CRASHES:
+            log_decision(f"CIRCUIT BREAKER (crash): {state.consecutive_crashes} consecutive crashes. Stopping.")
+            state.status = "stopped"
+            break
+        if state.consecutive_timeouts >= MAX_CONSECUTIVE_TIMEOUTS:
+            log_decision(f"CIRCUIT BREAKER (timeout): {state.consecutive_timeouts} consecutive timeouts. Pausing.")
             state.status = "stopped"
             break
 
@@ -1512,8 +1565,20 @@ def run_overnight(
             log_decision("All tasks completed or blocked.")
             break
 
+        # Adaptive timeout: scale up based on complexity + category history (FIX-7)
+        original_timeout = task.timeout_minutes
+        effective_timeout = task.timeout_minutes
+        multiplier = timeout_overrides.get(task.category, 1.0)
+        if multiplier > 1.0:
+            effective_timeout = int(effective_timeout * multiplier)
+        if task.estimated_complexity == "high":
+            effective_timeout = int(effective_timeout * 1.5)
+        effective_timeout = min(effective_timeout, MAX_TIMEOUT_MINUTES)
+        task.timeout_minutes = effective_timeout
+
         # Time guard: skip if task can't finish before deadline
         if remaining < task.timeout_minutes * 60:
+            task.timeout_minutes = original_timeout  # restore before skip
             log_decision(f"SKIP {task.task_id}: {task.timeout_minutes}m timeout > "
                          f"{remaining / 60:.0f}m remaining")
             state.results[task.task_id] = {"status": "skipped", "error": "insufficient time"}
@@ -1522,12 +1587,14 @@ def run_overnight(
             continue
 
         # Execute
+        timeout_note = f" (scaled {original_timeout}m→{effective_timeout}m)" if effective_timeout != original_timeout else ""
         print(f"\n>>> [{task.priority}] {task.task_id}: {task.name}")
         print(f"    Mode: {task.execution_mode} | Model: {task.model} | "
-              f"Safety: {task.safety_level}")
+              f"Safety: {task.safety_level} | Timeout: {effective_timeout}m{timeout_note}")
 
         pre_snapshot = git_head()
         result = execute_task(task)
+        task.timeout_minutes = original_timeout  # restore after execution
 
         # Quality gate for modification tasks
         if result.status == "success" and task.safety_level != "readonly":
@@ -1609,15 +1676,41 @@ def run_overnight(
         if result.status == "success":
             state.tasks_completed += 1
             state.consecutive_failures = 0
+            state.consecutive_crashes = 0
+            state.consecutive_timeouts = 0
             print(f"    SUCCESS ({result.duration_s:.0f}s)")
-        elif result.status in ("failed", "timeout"):
+        elif result.status == "partial_success":
+            state.tasks_completed += 1
+            state.consecutive_failures = 0
+            state.consecutive_crashes = 0
+            state.consecutive_timeouts = 0
+            print(f"    PARTIAL SUCCESS ({result.duration_s:.0f}s) — output preserved")
+        elif result.status == "timeout":
             state.tasks_failed += 1
             state.consecutive_failures += 1
-            print(f"    {result.status.upper()}: {result.error or 'unknown'}")
+            state.consecutive_timeouts += 1
+            state.consecutive_crashes = 0  # timeout is not a crash
+            print(f"    TIMEOUT: {result.error or 'unknown'}")
+        elif result.status == "failed":
+            state.tasks_failed += 1
+            state.consecutive_failures += 1
+            state.consecutive_crashes += 1
+            state.consecutive_timeouts = 0  # crash is not a timeout
+            print(f"    FAILED: {result.error or 'unknown'}")
         elif result.status == "rolled_back":
             state.tasks_rolled_back += 1
             # Quality issue, not system failure — don't trigger circuit breaker
             print(f"    ROLLED BACK (quality gate)")
+
+        # Adaptive timeout learning (FIX-7): bump timeout for category after timeouts
+        if result.status in ("timeout", "partial_success"):
+            cat = task.category
+            category_timeouts[cat] = category_timeouts.get(cat, 0) + 1
+            # +50% per consecutive timeout in this category, capped at 2.5x
+            timeout_overrides[cat] = 1.0 + 0.5 * min(category_timeouts[cat], 3)
+        elif result.status == "success":
+            category_timeouts.pop(task.category, None)
+            timeout_overrides.pop(task.category, None)
 
         write_progress_file(state, manifest)
         save_state(state)
@@ -1672,6 +1765,10 @@ def main() -> None:
         "--dry-run", action="store_true",
         help="Print execution plan without running tasks",
     )
+    parser.add_argument(
+        "--resume", action="store_true",
+        help="Resume from last state.json instead of starting fresh",
+    )
     args = parser.parse_args()
 
     manifest_path = Path(args.manifest) if args.manifest else None
@@ -1682,6 +1779,7 @@ def main() -> None:
         manifest_path=manifest_path,
         single_task=args.task,
         dry_run=args.dry_run,
+        resume=args.resume,
     )
 
 
