@@ -615,3 +615,222 @@ class TestCombinedArabicCorruptionProbe:
         assert "\u0640" in rt_primary, "Tatweel missing after roundtrip"
         assert "\u0670" in rt_primary, "Superscript alef missing after roundtrip"
         assert "\ufdfa" in rt_primary, "Saws ligature missing after roundtrip"
+
+
+# ═══════════════════════════════════════════════════════════════════
+# 9. Paragraph Breaks (\n\n) in primary_text
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestParagraphBreaksRoundtrip:
+    """Paragraph breaks and newlines in primary_text must survive
+    the write → JSONL → read cycle byte-for-byte.
+
+    JSONL uses \\n as record separator — json.dumps MUST escape \\n
+    inside string values to \\\\n. If it doesn't, the JSONL structure
+    breaks and read-back produces truncated or corrupt records.
+    """
+
+    def test_double_newline_preserved(self, tmp_path: Path) -> None:
+        """Double newline (\\n\\n) paragraph break survives roundtrip."""
+        text = "بسم الله الرحمن الرحيم\n\nالحمد لله رب العالمين"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), (
+            f"Paragraph break corrupted.\n"
+            f"original: {text.encode('utf-8')!r}\n"
+            f"roundtrip: {rt.encode('utf-8')!r}"
+        )
+        assert "\n\n" in rt, "Double newline collapsed or stripped"
+
+    def test_single_newline_preserved(self, tmp_path: Path) -> None:
+        """Single newline (\\n) survives roundtrip."""
+        text = "السطر الأول\nالسطر الثاني"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), "Single newline corrupted"
+        assert "\n" in rt, "Single newline stripped"
+
+    def test_triple_newline_preserved(self, tmp_path: Path) -> None:
+        """Triple newline (\\n\\n\\n) — section gap — survives roundtrip."""
+        text = "نهاية الفصل\n\n\nبداية الفصل التالي"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), "Triple newline corrupted"
+        assert "\n\n\n" in rt, "Triple newline collapsed"
+
+    def test_multiple_paragraphs(self, tmp_path: Path) -> None:
+        """Multi-paragraph scholarly text (3+ paragraphs) survives roundtrip."""
+        text = (
+            "قال الإمام النووي رحمه الله\n\n"
+            "اعلم أن الأمر بالمعروف والنهي عن المنكر "
+            "قد يكون فرض عين وقد يكون فرض كفاية\n\n"
+            "فأما إذا كان في موضع لا يعلم به إلا هو "
+            "تعين عليه"
+        )
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), "Multi-paragraph text corrupted"
+        assert rt.count("\n\n") == 2, (
+            f"Expected 2 paragraph breaks, got {rt.count(chr(10) + chr(10))}"
+        )
+
+    def test_trailing_newline_preserved(self, tmp_path: Path) -> None:
+        """Trailing newline at end of text survives roundtrip."""
+        text = "نص ينتهي بسطر جديد\n"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), "Trailing newline corrupted"
+        assert rt.endswith("\n"), "Trailing newline stripped"
+
+    def test_leading_newline_preserved(self, tmp_path: Path) -> None:
+        """Leading newline at start of text survives roundtrip."""
+        text = "\nنص يبدأ بسطر جديد"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), "Leading newline corrupted"
+        assert rt.startswith("\n"), "Leading newline stripped"
+
+    def test_newlines_in_jsonl_structure(self, tmp_path: Path) -> None:
+        """Newlines inside primary_text do NOT break JSONL line structure.
+
+        If json.dumps fails to escape \\n inside the string,
+        the JSONL file would have extra lines and read-back fails.
+        """
+        text = "أول\n\nثاني\n\nثالث"
+        exc = _make_excerpt_record(primary_text=text, text_snippet=text[:80])
+        path = write_excerpts([exc], tmp_path)
+        # JSONL: exactly 1 line per record + optional trailing newline
+        raw = path.read_text(encoding="utf-8")
+        lines = [l for l in raw.split("\n") if l.strip()]
+        assert len(lines) == 1, (
+            f"JSONL structure broken: expected 1 data line, got {len(lines)}. "
+            "json.dumps likely failed to escape \\n inside primary_text."
+        )
+        # Verify content survives
+        data = json.loads(lines[0])
+        assert _bytes_match(text, data["primary_text"]), (
+            "primary_text corrupted after JSONL structure verification"
+        )
+
+    def test_carriage_return_preserved(self, tmp_path: Path) -> None:
+        """Carriage return (\\r) and CRLF (\\r\\n) survive roundtrip.
+
+        Some OCR sources produce Windows-style line endings.
+        They must not be silently converted to \\n.
+        """
+        text = "سطر أول\r\nسطر ثاني\rسطر ثالث"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), (
+            f"CR/CRLF corrupted.\n"
+            f"original: {text.encode('utf-8')!r}\n"
+            f"roundtrip: {rt.encode('utf-8')!r}"
+        )
+
+    def test_paragraph_breaks_with_tashkeel(self, tmp_path: Path) -> None:
+        """Paragraph breaks combined with full tashkeel survive roundtrip."""
+        text = (
+            "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ\n\n"
+            "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ\n\n"
+            "الرَّحْمَنِ الرَّحِيمِ"
+        )
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), (
+            "Paragraph breaks + tashkeel corrupted"
+        )
+
+    def test_paragraph_breaks_with_zwnj(self, tmp_path: Path) -> None:
+        """Paragraph breaks combined with ZWNJ survive roundtrip."""
+        zwnj = "\u200c"
+        text = f"نص{zwnj}عربي\n\nفقرة{zwnj}ثانية"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), "Paragraph breaks + ZWNJ corrupted"
+        assert rt.count(zwnj) == 2, "ZWNJ count changed with paragraph breaks"
+
+    def test_paragraph_breaks_with_superscript_alef(self, tmp_path: Path) -> None:
+        """Paragraph breaks combined with superscript alef survive roundtrip."""
+        sa = "\u0670"
+        text = f"الرَّحْمَ{sa}نِ\n\nمَالِكِ يَوْمِ الدِّينِ"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), (
+            "Paragraph breaks + superscript alef corrupted"
+        )
+
+    def test_paragraph_breaks_with_tatweel(self, tmp_path: Path) -> None:
+        """Paragraph breaks combined with tatweel survive roundtrip."""
+        text = "كتـاب الفقـه\n\nبـاب الطهـارة"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), "Paragraph breaks + tatweel corrupted"
+
+
+# ═══════════════════════════════════════════════════════════════════
+# 10. NFC Normalization Guard — decomposed Arabic forms
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestNFCNormalizationGuard:
+    """Verify that serialization does NOT apply Unicode NFC normalization.
+
+    NFC would silently compose decomposed Arabic forms:
+    - U+0627 + U+0654 (alef + hamza above) → U+0623 (أ)
+    - U+0627 + U+0655 (alef + hamza below) → U+0625 (إ)
+    - U+0627 + U+0653 (alef + maddah) → U+0622 (آ)
+
+    If sources contain decomposed forms (common in OCR), NFC changes
+    the byte representation, corrupting scholarly text.
+    """
+
+    def test_decomposed_hamza_above_preserved(self, tmp_path: Path) -> None:
+        """Alef + Hamza Above (U+0627 U+0654) NOT composed to U+0623."""
+        import unicodedata
+        # Decomposed form: alef + combining hamza above
+        decomposed = "\u0627\u0654"
+        text = f"ب{decomposed}مر الله"
+        # Verify this IS different from NFC
+        nfc = unicodedata.normalize("NFC", text)
+        assert text != nfc, "Test setup: text already in NFC form"
+        # Roundtrip must preserve decomposed form
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), (
+            f"Decomposed hamza above was NFC-normalized.\n"
+            f"original bytes: {text.encode('utf-8')!r}\n"
+            f"roundtrip bytes: {rt.encode('utf-8')!r}\n"
+            f"NFC would be: {nfc.encode('utf-8')!r}"
+        )
+
+    def test_decomposed_hamza_below_preserved(self, tmp_path: Path) -> None:
+        """Alef + Hamza Below (U+0627 U+0655) NOT composed to U+0625."""
+        import unicodedata
+        decomposed = "\u0627\u0655"
+        text = f"ف{decomposed}ن هذا"
+        nfc = unicodedata.normalize("NFC", text)
+        assert text != nfc, "Test setup: text already in NFC form"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), (
+            f"Decomposed hamza below was NFC-normalized.\n"
+            f"original: {text.encode('utf-8')!r}\n"
+            f"roundtrip: {rt.encode('utf-8')!r}"
+        )
+
+    def test_decomposed_alef_maddah_preserved(self, tmp_path: Path) -> None:
+        """Alef + Maddah (U+0627 U+0653) NOT composed to U+0622 (آ)."""
+        import unicodedata
+        decomposed = "\u0627\u0653"
+        text = f"{decomposed}ية من القرآن"
+        nfc = unicodedata.normalize("NFC", text)
+        assert text != nfc, "Test setup: text already in NFC form"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), (
+            f"Decomposed alef maddah was NFC-normalized.\n"
+            f"original: {text.encode('utf-8')!r}\n"
+            f"roundtrip: {rt.encode('utf-8')!r}"
+        )
+
+    def test_mixed_composed_and_decomposed(self, tmp_path: Path) -> None:
+        """Text with BOTH composed and decomposed forms preserves each."""
+        import unicodedata
+        # Composed أ (U+0623) alongside decomposed (U+0627+U+0654)
+        composed = "\u0623"
+        decomposed = "\u0627\u0654"
+        text = f"{composed}مر الله ب{decomposed}مره"
+        nfc = unicodedata.normalize("NFC", text)
+        # They should differ because of the decomposed form
+        assert text != nfc, "Test setup: text already in NFC"
+        rt = _roundtrip_primary_text(text, tmp_path)
+        assert _bytes_match(text, rt), (
+            "Mixed composed/decomposed hamza corrupted by normalization"
+        )

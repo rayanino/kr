@@ -9,12 +9,12 @@
 - [x] probe-json-arabic-roundtrip: Probe: Pydantic JSON serialization preserves Arabic text byte-for-byte (success, 636s)
 - [x] synthesis-report: Aggregate all findings into permanent cumulative knowledge log (success, 480s)
 - [x] val-test-regression: Full regression test — ALL engines — verify nothing broke (success, 337s)
+- [x] empirical-backrefs: Empirical scan: Arabic back-reference patterns in fixtures (Defense 1A) (success, 523s)
+- [x] ki-attribution-excerpting: Knowledge integrity: attribution corruption probe (excerpting) (success, 576s)
 
 ## Remaining
-- [x] empirical-backrefs: Empirical scan: Arabic back-reference patterns in fixtures (Defense 1A)
-- [ ] ki-attribution-excerpting: Knowledge integrity: attribution corruption probe (excerpting)
 - [ ] ki-attribution-excerpting-verify: Codex review: Knowledge integrity: attribution corruption probe (excerpting)
-- [ ] ki-text-integrity-excerpting: Knowledge integrity: Arabic text round-trip probe (excerpting)
+- [x] ki-text-integrity-excerpting: Knowledge integrity: Arabic text round-trip probe (excerpting) (success, 16 new tests, 768 pass)
 - [ ] ki-text-integrity-excerpting-verify: Codex review: Knowledge integrity: Arabic text round-trip probe (excerpting)
 - [ ] review-recent-excerpting: Review recently modified excerpting code (4 files)
 - [ ] harden-recent-excerpting: Edge case hardening for recent excerpting changes

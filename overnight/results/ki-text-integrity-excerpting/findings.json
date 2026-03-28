@@ -1,0 +1,32 @@
+{
+  "bugs_found": [],
+  "tests_added": [
+    {"name": "test_double_newline_preserved", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "Paragraph break (\\n\\n) in primary_text survives JSONL roundtrip"},
+    {"name": "test_single_newline_preserved", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "Single newline (\\n) in primary_text survives roundtrip"},
+    {"name": "test_triple_newline_preserved", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "Triple newline (\\n\\n\\n) section gap survives roundtrip"},
+    {"name": "test_multiple_paragraphs", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "3+ paragraph scholarly text with multiple \\n\\n survives roundtrip"},
+    {"name": "test_trailing_newline_preserved", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "Trailing newline at end of text preserved"},
+    {"name": "test_leading_newline_preserved", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "Leading newline at start of text preserved"},
+    {"name": "test_newlines_in_jsonl_structure", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "Newlines inside primary_text do NOT break JSONL line structure (structural integrity)"},
+    {"name": "test_carriage_return_preserved", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "CR (\\r) and CRLF (\\r\\n) from OCR sources survive roundtrip"},
+    {"name": "test_paragraph_breaks_with_tashkeel", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "Combined: paragraph breaks + full tashkeel"},
+    {"name": "test_paragraph_breaks_with_zwnj", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "Combined: paragraph breaks + ZWNJ"},
+    {"name": "test_paragraph_breaks_with_superscript_alef", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "Combined: paragraph breaks + superscript alef (U+0670)"},
+    {"name": "test_paragraph_breaks_with_tatweel", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "Combined: paragraph breaks + tatweel (U+0640)"},
+    {"name": "test_decomposed_hamza_above_preserved", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "NFC guard: decomposed alef+hamza above (U+0627 U+0654) NOT composed to U+0623"},
+    {"name": "test_decomposed_hamza_below_preserved", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "NFC guard: decomposed alef+hamza below (U+0627 U+0655) NOT composed to U+0625"},
+    {"name": "test_decomposed_alef_maddah_preserved", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "NFC guard: decomposed alef+maddah (U+0627 U+0653) NOT composed to U+0622"},
+    {"name": "test_mixed_composed_and_decomposed", "file": "engines/excerpting/tests/test_writer_arabic_roundtrip.py", "edge_case": "NFC guard: mixed composed (U+0623) and decomposed (U+0627+U+0654) preserved distinctly"}
+  ],
+  "spec_issues": [],
+  "dead_code": [],
+  "learnings": [
+    "writer.py serialization path (model_dump → json.dumps → UTF-8 file → json.loads) preserves ALL Arabic text byte-for-byte including diacritics, ZWNJ, tatweel, superscript alef, and paragraph breaks",
+    "json.dumps correctly escapes \\n inside string values to \\\\n in JSONL output, preserving line structure",
+    "No NFC normalization occurs anywhere in the Pydantic + json serialization chain — decomposed Arabic forms survive intact",
+    "Windows CRLF (\\r\\n) in primary_text survives roundtrip through json.dumps/loads despite Windows text-mode I/O",
+    "ensure_ascii=False in json.dumps is critical — without it, all Arabic characters would be \\uXXXX-escaped"
+  ],
+  "test_count_before": 752,
+  "test_count_after": 768
+}
