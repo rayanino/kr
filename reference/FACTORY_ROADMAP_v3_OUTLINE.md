@@ -119,8 +119,8 @@ When the factory first runs after Session 7:
 
 | Engine | Phases in Scope | Ground Truth | Notes |
 |--------|----------------|-------------|-------|
-| Source | All | 758 tests + 2,519-book sweep + 365-book LLM results | Owner metadata review pending |
-| Normalization | All | 420 tests | Engine complete |
+| Source | All | 398 tests + 2,519-book sweep + 365-book LLM results + transition gate approved (a21aab9a) | Owner metadata review pending |
+| Normalization | All | 404 tests + transition gate approved | Engine complete |
 | Excerpting | Phase 1 only | ~200 Phase 1 tests + fixtures | Phases 2-3 excluded (active development) |
 | Taxonomy | None | N/A | Not started |
 
@@ -133,7 +133,7 @@ Cross-engine boundaries: source→norm (tested), norm→excerpting Phase 1 (test
 ### Session 1 — Operational Truth + Document Reconciliation
 **Changes from v2:**
 - ADD: `factory_scope` section to `ops_manifest.json` schema
-- ADD: Update source engine status in all docs — "Source ✅ (LLM validated on 365 books, owner review pending)"
+- ADD: Update source engine status in all docs — "Source ✅ (transition gate approved a21aab9a; LLM validated on 365 books including 70 edge-case Phase E books; owner metadata review pending — integrated into excerpting review)"
 - ADD: Create `engines/source/FACTORY_SCOPE.md`, `engines/normalization/FACTORY_SCOPE.md`, `engines/excerpting/FACTORY_SCOPE.md`
 - ADD: Update `VALIDATION_PLAN.md` — mark Phases C, D, E as complete with actual costs
 - ADD: Reconcile `source_engine_roadmap.jsx` project file (remove non-existent Step 5, update costs, mark Steps 2-4 complete)
