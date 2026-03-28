@@ -170,7 +170,7 @@
       "execution_mode": "cli",
       "model": "opus",
       "max_budget_usd": 0,
-      "timeout_minutes": 30,
+      "timeout_minutes": 45,
       "allowed_tools": [
         "Read",
         "Bash",
@@ -238,7 +238,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 20,
       "allowed_tools": [
         "Read",
@@ -263,7 +263,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 20,
       "allowed_tools": [
         "Read",
@@ -288,7 +288,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 20,
       "allowed_tools": [
         "Read",
@@ -313,7 +313,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 20,
       "allowed_tools": [
         "Read",
@@ -338,7 +338,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 25,
       "allowed_tools": [
         "Read",
@@ -363,7 +363,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 20,
       "allowed_tools": [
         "Read",
@@ -388,7 +388,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 25,
       "allowed_tools": [
         "Read",
@@ -413,7 +413,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 25,
       "allowed_tools": [
         "Read",
@@ -438,7 +438,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 25,
       "allowed_tools": [
         "Read",
@@ -463,7 +463,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 25,
       "allowed_tools": [
         "Read",
@@ -488,7 +488,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -513,7 +513,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -538,7 +538,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -563,7 +563,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -588,7 +588,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 30,
       "allowed_tools": [
         "Read",
@@ -613,7 +613,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -638,7 +638,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 30,
       "allowed_tools": [
         "Read",
@@ -663,7 +663,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 30,
       "allowed_tools": [
         "Read",
@@ -688,7 +688,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -713,7 +713,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -738,7 +738,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 45,
       "allowed_tools": [
         "Read",
@@ -763,7 +763,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 40,
       "allowed_tools": [
         "Read",
@@ -788,7 +788,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -813,7 +813,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 40,
       "allowed_tools": [
         "Read",
@@ -838,7 +838,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 40,
       "allowed_tools": [
         "Read",
@@ -863,7 +863,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 40,
       "allowed_tools": [
         "Read",
@@ -888,7 +888,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -913,7 +913,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 40,
       "allowed_tools": [
         "Read",
@@ -938,7 +938,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 30,
       "allowed_tools": [
         "Read",
@@ -963,7 +963,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "sonnet",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 30,
       "allowed_tools": [
         "Read",
@@ -1286,7 +1286,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 25,
       "allowed_tools": [
         "Read",
@@ -1310,7 +1310,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 30,
       "allowed_tools": [
         "Read",
@@ -2025,7 +2025,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2050,7 +2050,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2075,7 +2075,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2100,7 +2100,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2125,7 +2125,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2150,7 +2150,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2175,7 +2175,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2200,7 +2200,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2225,7 +2225,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2250,7 +2250,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2275,7 +2275,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2300,7 +2300,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2325,7 +2325,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2350,7 +2350,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2375,7 +2375,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2400,7 +2400,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2425,7 +2425,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2450,7 +2450,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
@@ -2475,7 +2475,7 @@
       "safety_level": "additive",
       "execution_mode": "cli",
       "model": "opus",
-      "max_budget_usd": 0,
+      "max_budget_usd": 25.0,
       "timeout_minutes": 35,
       "allowed_tools": [
         "Read",
