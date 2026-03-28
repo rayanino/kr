@@ -1,107 +1,145 @@
-# NEXT — Full 5-Book LLM Integration Run + Post-Run Review
+# NEXT — CLI Adapter Implementation
 
 ## Current Position
 
-- **Baseline:** 737 tests passing, 2 skipped, 0 failed
-- **Commit:** `94972b74` (master HEAD after pre-flight hardening)
-- **Engine:** Excerpting
-- **Milestone:** Pre-flight gate PASSED. All prompts hardened, all blocking bugs fixed. Ready for full integration run.
+- **Baseline:** 766 tests passing, 2 skipped, 0 failed
+- **Commit:** `d69f8f52` (master HEAD — CLI backend decision record)
+- **Engine:** Excerpting (shared infrastructure)
+- **Milestone:** CLI backend architecture APPROVED by 4-reviewer process. Adapter SPEC written. Ready for implementation.
 
-## What Just Happened (Pre-Flight Hardening Session)
+## What Just Happened
 
-9 findings identified during pre-flight review. 8 fixed, 1 accepted (no checkpoint/resume — mitigated by per-package isolation):
+A 4-reviewer architecture review (Claude Chat, ChatGPT 5.4, Gemini CLI, Claude Code) validated the CLI backend transition. 8 blocking findings were identified and resolved. The approved architecture is documented in the decision record. The formal adapter SPEC has been written.
 
-1. **source_school key mismatch** — FIXED. Batch script used `"school"` but engine reads `"source_school"`. Taysir's Hanbali school was invisible to enrichment/consensus.
-2. **Verifier prompt too thin** — FIXED. Enhanced from 2 sentences to full methodology with C-SC-1–5 criteria, voice markers, school attribution guidance.
-3. **Response log truncation** — FIXED. Increased from 2000→50000 chars (response) and 500→2000 chars (request).
-4. **ENRICH_MAX_TOKENS overflow** — FIXED. 23 chunks would have exceeded 16384 token budget. Added dynamic scaling (≤1500 words→16384, >1500→32768).
-5. **Tarjīḥ orphaning risk** — FIXED. Added DP bullet: verdict phrases (والصواب, الراجح, الأصح) must stay with alternatives.
-6. **Non-إلا qualifier splitting** — FIXED. Added DP bullet: لكن, غير أن, إلا أن qualifiers must stay with qualified statement.
-7. **Epithet coverage gap** — FIXED. Added guidance for شيخ الإسلام, الحافظ, القاضي, الشيخان, متفق عليه, collectives. 48% of taysir chunks contain شيخ الإسلام.
-8. **"Best guess" instruction** — FIXED. Changed to conservatism rule: prefer null with conf<0.3 over wrong attribution.
-9. **Q&A reinforcement** — FIXED. Added DP bullet reinforcing Q&A grouping for dense objection cycles.
+## What to Do
 
-**Sources:** CC investigation (findings 1-3), architect analysis (finding 4), ChatGPT 5.4 deep research (findings 5-9, validated against codebase and test data).
+Implement `CLIInstructorAdapter` — a drop-in replacement for `instructor.Instructor` that routes LLM calls to CLI backends (`claude -p`, `codex exec`, `gemini -p`). Then update integration test scripts to support `--backend cli`.
 
-## Task 1: Execute the Full Integration Run
+## Read First
 
-### Run Command
+Read these files IN FULL before writing any code:
 
-```bash
-cd /path/to/kr
-export OPENROUTER_API_KEY=sk-or-v1-...
-python scripts/run_full_integration.py
+1. **`shared/llm/CLI_ADAPTER_SPEC.md`** — The formal specification. This is your implementation guide. Every section must be implemented as described. Do not deviate.
+2. **`docs/superpowers/specs/2026-03-28-cli-backend-review-decisions.md`** — The decision record. Background on why things are designed this way. Read §"The Working Recipe" and §"Critical constraints" carefully.
+3. **`engines/excerpting/contracts.py` lines 582-678** — The 6 LLM response schemas the adapter must parse and validate.
+4. **`engines/excerpting/tests/conftest.py` lines 205-222** — The `_make_mock_instructor_client` pattern. Your adapter must be mockable in this same way.
+5. **`scripts/run_integration_test.py` lines 48-63** — Current `create_client()`. Your adapter replaces this when `--backend cli`.
+6. **`scripts/run_integration_test.py` lines 70-160** — Hook-based logging. Your `CLIResponse` dataclass must satisfy every `hasattr` / attribute access in `on_response` (lines 112-146).
+7. **`scripts/run_integration_test.py` lines 460-484** — Client creation + hook registration. Your adapter must support `.on()` with the same event names.
+
+## What to Build
+
+### File 1: `shared/llm/__init__.py`
+Empty file (package marker).
+
+### File 2: `shared/llm/cli_adapter.py`
+The full adapter implementation per the SPEC. Contains:
+
+- `CLIBackendError(Exception)` — Custom exception (SPEC §6.1)
+- `CLIInstructorAdapter` — Main class (SPEC §2)
+  - `__init__(default_backend="claude")` — Constructor
+  - `chat.completions.create(...)` — Via `_ChatNamespace` and `_CompletionsNamespace` (SPEC §2.2)
+  - `on(event, callback)` — Hook registration (SPEC §2.4)
+- `_CLIUsage`, `_CLIMessage`, `_CLIChoice`, `CLIResponse` — Response dataclasses (SPEC §7.1). Note: `_CLIUsage` MUST have a `model_dump()` method returning a dict — the integration test's `on_response` calls `response.usage.model_dump()`.
+- `_get_oauth_token()` — Token extraction (SPEC §6.3)
+- `_check_tool_available(tool_name)` — PATH check (SPEC §6.4)
+- `patch_additional_properties(schema)` — Recursive schema patching for Codex (SPEC §5.3)
+- `extract_json(raw_output)` — JSON extraction from raw CLI output (SPEC §4.5)
+
+### File 3: `shared/llm/tests/__init__.py`
+Empty file (package marker).
+
+### File 4: `shared/llm/tests/test_cli_adapter.py`
+30 unit tests as specified in SPEC §10.2. All tests mock `subprocess.run` — no real CLI calls.
+
+For tests needing a simple Pydantic response model, define a local test model:
+```python
+class SimpleResponse(BaseModel):
+    answer: str
+    confidence: float = Field(ge=0.0, le=1.0)
 ```
 
-### Expected Parameters
+For test 28 (`test_response_model_with_model_validators`), define a model with a `@model_validator`:
+```python
+class ValidatedResponse(BaseModel):
+    value: int
+    label: str
 
-| Parameter | Value |
-|-----------|-------|
-| Total chunks | 308 |
-| Packages | 5 (ibn_aqil_v1, ibn_aqil_v3, taysir, ext_39_masala, ext_46_qa) |
-| Estimated time | 8–12 hours |
-| Estimated cost | $97–112 (OpenRouter credits) |
-| LLM calls | ~1200–1400 (with retries) |
-| Primary model | anthropic/claude-opus-4.6 ($5/$25 per 1M tokens) |
-| Verify model | openai/gpt-5.4 ($2.50/$15 per 1M tokens) |
-| Escalation model | mistralai/mistral-large-2411 (~$2/$6 per 1M tokens) |
-| Output directory | integration_tests/full_run_{date}/ |
+    @model_validator(mode="after")
+    def check_label(self) -> "ValidatedResponse":
+        if self.value > 10 and self.label != "high":
+            raise ValueError("value > 10 requires label='high'")
+        return self
+```
 
-### Monitoring During Run
+### File 5: Changes to `scripts/run_integration_test.py`
+- Add `--backend` argument (SPEC §8.2): `choices=["cli", "api"], default="api"`
+- Add `create_cli_client()` function (SPEC §9.1)
+- Modify client creation block (SPEC §9.2) to branch on `mock` / `cli` / `api`
+- Add config override for CLI escalation model (SPEC §9.3)
+- Pass `backend` variable from args through to the client creation block
 
-- The batch script prints per-package progress (1/5, 2/5, etc.)
-- Taysir (package 3/5) takes ~6–7 hours — the longest by far (184 chunks)
-- Within a package, progress is logged to stderr (Phase 2a/2b/3 per chunk)
-- If a package fails, the script continues to the next one
-- SUMMARY.json is written at the end with per-package stats
+### File 6: Changes to `scripts/run_full_integration.py`
+- Add `--backend` argument (SPEC §8.3)
+- Pass `--backend {value}` to the subprocess call that invokes `run_integration_test.py`
 
-### Known Risks
+## Design Decisions (reference — do not re-derive)
 
-- 5 chunks >4000 words (untested range) — warnings logged, 32768 token budget should suffice
-- 17 chunks have ⌜⌝ footnote markers in first 50 chars — may cause EX-C-003 snippet-not-found
-- ibn_aqil_v1 is densest (64.3% chunks above 1500-word threshold)
+All design decisions are in the SPEC and decision record. Key ones:
 
-## Task 2: Post-Run Review (next session)
-
-Follow `reference/protocols/LLM_INTEGRATION_TEST_PROTOCOL.md` — Phase C.
-
-### Session Start
-
-1. Clone/pull repo
-2. Read this NEXT.md
-3. Read SUMMARY.json from the run output
-4. Read the protocol: `reference/protocols/LLM_INTEGRATION_TEST_PROTOCOL.md`
-5. `ls /mnt/skills/user/` — use kr-evaluate + critical-review
-
-### Review Sequence
-
-**Step 1: Structural Integrity (C.1)** — automated checks, all 5 packages:
-- Pipeline completion (any crashes?)
-- Excerpt count sanity (expected: ~800–1500 total)
-- Offset alignment (V-P3-2)
-- Field completeness
-- Error code audit
-- Gate queue consistency
-
-**Step 2: Per-Excerpt Review (C.2)** — manual, exhaustive for first 3 packages:
-- Boundary quality (DP-1 through DP-9)
-- Classification quality
-- Attribution quality (especially epithet resolution with new conservatism rule)
-- Enrichment quality (topic, school, takhrij, terminology)
-- Self-containment assessment accuracy
-
-**Step 3: Findings Taxonomy (Phase D)** — categorize every finding:
-- CRITICAL: Wrong belief in owner's mind
-- HIGH: Systematic quality gap
-- MEDIUM: Isolated inaccuracy
-- LOW: Suboptimal but not wrong
-
-### Expected Outcomes
-
-This is Round 1 — the first full run. Expect findings. The goal is not zero-defect output; it's discovering the failure modes that unit tests couldn't catch and fixing them before Round 2.
+- **DD-1:** `max_retries=N` means N retries after initial = N+1 total attempts.
+- **DD-2:** Schema enforcement is prompt-based + Pydantic post-validation. NOT constrained decoding.
+- **DD-3:** Retry feedback includes full validation error with field paths and valid enum values.
+- **DD-4:** `--bare` flag mandatory for Claude (avoids Stop hook infinite loop).
+- **DD-5:** `--max-turns 2` mandatory for Claude (max-turns 1 can be empty).
+- **DD-6:** `additionalProperties: false` must be injected recursively into Codex schemas.
+- **DD-7:** OAuth token refresh: on auth error, re-read credentials and retry once within same attempt.
+- **DD-8:** JSON extraction must handle: raw JSON, markdown fences, JSON with surrounding text.
+- **DD-9:** `temperature` accepted but NOT passed to any CLI tool. IS included in hook payloads.
 
 ## Do NOT Do
 
-- Do NOT run the batch script in Claude Code — it takes 8–12 hours and must run locally
-- Do NOT modify prompts, code, or SPEC during the run — the run must match the committed code
-- Do NOT skip the post-run structural integrity checks — they catch crashes the summary misses
+- **Do NOT modify any files in `engines/excerpting/`** — not source, not tests, not contracts. The adapter is a new file in `shared/llm/`. Only the two integration test scripts are modified.
+- **Do NOT run real CLI calls in tests.** All 30 tests mock `subprocess.run`.
+- **Do NOT add `instructor` as a dependency of the adapter.** The adapter replaces Instructor — it must not import it.
+- **Do NOT use `MagicMock` to implement the namespace chain.** Use real classes (`_ChatNamespace`, `_CompletionsNamespace`).
+- **Do NOT add `--backend` to `run_pipeline.py`.** Only the two integration test scripts.
+- **Do NOT implement anything beyond what is specified here. After completing all files, run the full test suite, commit and push. Do NOT proceed to the next session.**
+
+## Verification
+
+After implementation, run:
+
+```bash
+# 1. All existing tests still pass (MUST match baseline exactly)
+PYTHONPATH=. python -m pytest engines/excerpting/tests/ -q --tb=short
+# Expected: 766 passed, 2 skipped
+
+# 2. New adapter tests pass
+PYTHONPATH=. python -m pytest shared/llm/tests/ -v --tb=short
+# Expected: 30 passed
+
+# 3. Combined count
+PYTHONPATH=. python -m pytest engines/excerpting/tests/ shared/llm/tests/ -q --tb=short
+# Expected: 796 passed, 2 skipped
+
+# 4. Import check — adapter is importable
+PYTHONPATH=. python -c "from shared.llm.cli_adapter import CLIInstructorAdapter, CLIBackendError, CLIResponse; print('OK')"
+
+# 5. Interface check — namespace chain works
+PYTHONPATH=. python -c "
+from shared.llm.cli_adapter import CLIInstructorAdapter
+a = CLIInstructorAdapter()
+assert hasattr(a, 'chat')
+assert hasattr(a.chat, 'completions')
+assert callable(a.chat.completions.create)
+assert callable(a.on)
+print('Interface OK')
+"
+```
+
+ALL 5 checks must pass. If any fails, fix before committing.
+
+## After This
+
+The architect reviews CC's implementation using the 3-pass review protocol. Then: a real CLI integration test on 1 package to verify end-to-end.
