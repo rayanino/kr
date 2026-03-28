@@ -58,25 +58,6 @@
       "bookend": false
     },
     {
-      "task_id": "model-research",
-      "name": "Model role assignment research: compare Opus 4.6 / GPT-5.4 / Gemini 3.1 Pro on Arabic scholarly text",
-      "category": "research",
-      "prompt": "Execute the model role assignment research defined in NEXT.md Task 1.\n\nYou are the model-researcher agent. Follow your full research protocol:\n1. Load context: read NEXT.md Task 1, engines/excerpting/contracts.py lines 749-761, SPEC.md §7.3, docs/llm_trustworthiness_defenses.md\n2. Run 8-10+ web searches for Arabic capability benchmarks per model\n3. Evaluate each of the 3 candidates (anthropic/claude-opus-4.6, openai/gpt-5.4, google/gemini-3.1-pro-preview) for the 3 consensus roles:\n   - Primary (structured scholarly extraction)\n   - Verifier (error detection in someone else's output)\n   - Escalation (adjudicate disagreements)\n4. Design an empirical probe with 3 specific chunks from experiments/format_diversity_test/\n5. Write structured findings to overnight/results/model-research/findings.md with:\n   - Model capability matrix (Arabic scores, JSON reliability, pricing)\n   - Recommended role assignments with evidence\n   - Exact model strings for contracts.py\n   - Cost analysis for 5-book run\n   - Empirical probe design\n   - Full evidence log (every search query and URL)\n\nThe different-provider requirement (SPEC §7.3) means Primary and Verifier MUST be from different providers.\nAll models must be available on OpenRouter.\nCite specific URLs and benchmark data for every claim.",
-      "safety_level": "readonly",
-      "execution_mode": "cli",
-      "agent": "model-researcher",
-      "model": "opus",
-      "max_budget_usd": 15.0,
-      "timeout_minutes": 45,
-      "allowed_tools": ["Read", "Grep", "Glob", "WebSearch", "WebFetch", "Bash"],
-      "permission_mode": "bypassPermissions",
-      "depends_on": [],
-      "priority": 3,
-      "max_turns": 40,
-      "codex_flags": [],
-      "bookend": false
-    },
-    {
       "task_id": "probe-split-boundary-merge",
       "name": "Probe: layer merge at chunk split boundaries",
       "category": "test",
