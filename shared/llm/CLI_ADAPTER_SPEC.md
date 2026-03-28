@@ -441,9 +441,9 @@ subprocess.run(
 
 **Encoding (§14.5):** `encoding="utf-8"` is **mandatory** on all subprocess calls. On Windows, `text=True` without an explicit encoding defaults to the system code page (typically cp1252/Western European), which cannot decode Arabic text. This causes `UnicodeDecodeError` in the subprocess reader thread before the adapter ever sees the output. Discovered during the first real CLI integration test (2026-03-28).
 
-**Timeout:** Default 120 seconds (from `ExcerptingConfig.TIMEOUT_SECONDS`). Passed through from the `create()` call if the caller provides a custom timeout via kwargs. If not provided, use 120s.
+**Timeout:** Default 300 seconds (from `ExcerptingConfig.TIMEOUT_SECONDS`). Passed through from the `create()` call if the caller provides a custom timeout via kwargs. If not provided, use 300s.
 
-Note: The `create()` signature does not include `timeout` as a named parameter because the current call sites don't pass it. However, the adapter accepts it via `**kwargs` and uses it if present, defaulting to 120s.
+Note: The `create()` signature does not include `timeout` as a named parameter because the current call sites don't pass it. However, the adapter accepts it via `**kwargs` and uses it if present, defaulting to 300s.
 
 ### §6.3 OAuth Token Management
 

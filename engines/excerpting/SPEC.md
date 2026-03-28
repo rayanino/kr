@@ -2046,7 +2046,7 @@ All configuration parameters are collected here with their defaults, valid range
 | `CLASSIFY_MAX_TOKENS` | dynamic | See §5.5.1 | — | MAX_TOKENS for classify call. Scales with input word count. | §5.5.1 |
 | `GROUP_MAX_TOKENS` | int | 16384 | 8192–32768 | MAX_TOKENS for group call. | §5.3.5 |
 | `RETRY_COUNT` | int | 2 | 1–5 | Maximum retries for LLM calls (excluding schema validation retries). | §5.5.2 |
-| `TIMEOUT_SECONDS` | int | 120 | 30–300 | Per-call timeout for LLM API requests. | §5.5.3 |
+| `TIMEOUT_SECONDS` | int | 300 | 30–600 | Per-call timeout for LLM API requests. | §5.5.3 |
 
 **Phase 3 parameters:**
 

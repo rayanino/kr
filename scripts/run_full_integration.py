@@ -147,7 +147,7 @@ def run_batch(
     output_dir: Path,
     backend: str = "api",
     max_chunks: int | None = None,
-    per_package_timeout: int = 7200,
+    per_package_timeout: int = 28800,
 ) -> dict[str, Any]:
     """Run all packages sequentially and return aggregated results."""
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -325,8 +325,8 @@ def main() -> int:
     parser.add_argument(
         "--per-package-timeout",
         type=int,
-        default=7200,
-        help="Timeout in seconds per package subprocess (default: 7200)",
+        default=28800,
+        help="Per-package subprocess timeout in seconds (default: 28800 = 8h).",
     )
     args = parser.parse_args()
 
@@ -351,6 +351,8 @@ def main() -> int:
     print(f"Packages:         {len(PACKAGES)}")
     print(f"Backend:          {args.backend}")
     print(f"API key:          {api_key_display}")
+    print(f"Max chunks:       {args.max_chunks or 'all'}")
+    print(f"Pkg timeout:      {args.per_package_timeout}s")
 
     summary = run_batch(
         args.output_dir,
