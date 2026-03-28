@@ -1,90 +1,135 @@
-# NEXT — Timeout Fix + 5-Book Overnight Run Preparation
+# NEXT — Pre-Overnight Preparation (CC Task)
 
-## Current Position
+## Context
 
-- **Baseline:** 800 tests passing, 2 skipped (766 excerpting + 34 adapter)
-- **Commit:** `602964d8` (encoding fix) — HEAD is `87c2809b` (this NEXT.md)
-- **Engine:** Excerpting — CLI adapter WORKING
-- **Milestone:** First real CLI integration test succeeded: 23 excerpts, 0 errors, $0 cost (شرح ابن عقيل, 2 chunks)
-- **Blocking issue:** Large chunks (4,936 words) timeout at 120s — must fix before 5-book run
+The architect has completed a deep audit of the excerpting engine before the 280-chunk overnight integration run. See `reference/archive/sessions/cross_provider_audit/architect_audit_findings.md` for full findings.
 
-## What Just Happened
-
-The CLI adapter was implemented, reviewed (3-pass + CC concurrent), and fixed through 3 rounds:
-1. **4 SPEC divergences** fixed (envelope extraction, extract_json return type, missing WARNING log, empty system prompt)
-2. **Windows encoding** fixed (subprocess.run needs `encoding="utf-8"` — cp1252 crashes on Arabic)
-3. **First real test** succeeded: 23 excerpts from شرح ابن عقيل at $0
-
-The envelope extraction was CRITICAL — without it, 100% of Claude CLI calls fail. The encoding fix was equally critical on Windows. Both were invisible to mocked unit tests.
+Key facts:
+- HEAD is at `7cf348d5` (timeout fix already landed)
+- 815+ tests expected passing
+- The overnight run uses `--backend cli` (subprocess calls to claude/codex/gemini CLIs)
+- Codex verify path is broken (F-1 in audit) — accepted for first run
+- No code changes needed — this is preparation and validation only
 
 ## What to Do (in order)
 
-### Step 1: ChatGPT Deep Research — 5-Book Run Risk Analysis (MANDATORY)
+### Task 1: Run Full Test Suite
 
-**Before doing anything else**, send this to ChatGPT 5.4 (deep research mode):
+```bash
+python -m pytest --tb=short -q 2>&1 | tail -20
+```
 
-> You have access to the GitHub repo rayanino/kr. I need a comprehensive risk analysis for the upcoming 5-book overnight integration run (~308 chunks through the excerpting engine via CLI adapter).
->
-> Read these files:
-> - `shared/llm/cli_adapter.py` — the CLI adapter
-> - `shared/llm/CLI_ADAPTER_SPEC.md` — the adapter SPEC
-> - `engines/excerpting/contracts.py` — the response schemas
-> - `scripts/run_full_integration.py` — the batch runner
-> - `scripts/run_integration_test.py` — the per-package runner
-> - `integration_tests/run_20260328_173009/` — the first successful run artifacts
->
-> Questions:
-> 1. **Timeout risk:** Phase 2a classification on a 4,936-word chunk timed out at 120s. What timeout value is safe for Opus on chunks up to 5,000 words? What's the right design — increase default, or make it chunk-size-adaptive?
-> 2. **Retry storm risk:** With max_retries=2 at the adapter level AND retry logic in Phase 2/3 orchestrators, how many total CLI calls can a single failing chunk trigger? Map the full retry cascade. Is there a risk of 18+ minute burns on a single chunk?
-> 3. **Codex verify calls:** The test used 2 chunks. The verify model is `openai/gpt-5.4` routed to `codex exec`. Has this path been tested end-to-end? What happens if Codex's output-schema enforcement rejects a response that Claude accepted?
-> 4. **Gemini escalation calls:** The escalation model is `google/gemini-2.5-pro` routed to `gemini -p`. Has this path been tested? What's the escalation trigger condition?
-> 5. **Error recovery:** If the pipeline fails mid-run (e.g., machine sleeps, network drops), can it resume from where it left off, or does it restart from scratch?
-> 6. **Cost tracking:** The envelope gives us `total_cost_usd` per call. Are we extracting this anywhere? Should we track cumulative cost in the overnight run?
-> 7. **What else could go wrong** in a 10-hour overnight run that the 4-minute test didn't exercise?
->
-> Write an extensive report with specific recommendations for each risk.
+Report: total passed, failed, skipped, errors. If any FAILURES exist, stop and report immediately.
 
-Wait for ChatGPT's report before proceeding. Use it to inform Steps 2-3.
+### Task 2: Phase 1 Discovery — Exact Chunk Counts
 
-### Step 2: Timeout Fix (CC task, ~15 minutes)
+Run Phase 1 (deterministic only, no LLM calls) on all 5 packages to get exact chunk counts. This tells us exactly how many LLM calls the overnight run will make.
 
-Based on ChatGPT's analysis, write a NEXT.md for CC to fix the timeout. The likely fix is:
+Write and run this script (save as `scripts/phase1_discovery.py`):
 
-- Increase default timeout from 120s to 300s for Claude/Gemini backends
-- Or make timeout proportional to chunk word count (e.g., 60s + 0.05s/word)
-- Add a `--timeout` flag to the integration test scripts
+```python
+"""Phase 1 discovery — get exact chunk counts for overnight run planning."""
+import json
+import sys
+from pathlib import Path
 
-This is a CC task — write the directive, relay to CC.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-### Step 3: 5-Book Overnight Run Preparation
+from engines.excerpting.contracts import ExcerptingConfig
+from engines.excerpting.src.phase1_assembly import run_phase1
+from scripts.run_integration_test import load_package
 
-After the timeout fix lands:
-1. Verify the 5 test packages exist at `experiments/format_diversity_test/packages/` (ibn_aqil_v1, ibn_aqil_v3, taysir, ext_39_masala, ext_46_qa — all verified 2026-03-28)
-2. Prepare the exact `run_full_integration.py --backend cli` command
-3. Prepare a monitoring checklist (what to check in the morning)
-4. Write the command for the owner to run overnight
+PACKAGES_DIR = Path("experiments/format_diversity_test/packages")
+PACKAGES = [
+    "ibn_aqil_v1",
+    "ibn_aqil_v3",
+    "taysir",
+    "ext_39_masala",
+    "ext_46_qa",
+]
+
+config = ExcerptingConfig()
+total_chunks = 0
+large_chunks = 0
+
+results = []
+
+for name in PACKAGES:
+    pkg_path = PACKAGES_DIR / name
+    try:
+        package = load_package(pkg_path)
+        chunks, validation = run_phase1(package, config)
+        
+        chunk_words = [c.word_count for c in chunks]
+        large = sum(1 for w in chunk_words if w > 2500)
+        max_words = max(chunk_words) if chunk_words else 0
+        
+        results.append({
+            "package": name,
+            "content_units": len(package.content_units),
+            "chunks": len(chunks),
+            "large_chunks_gt2500": large,
+            "max_words": max_words,
+            "mean_words": round(sum(chunk_words) / len(chunk_words)) if chunk_words else 0,
+        })
+        
+        total_chunks += len(chunks)
+        large_chunks += large
+        
+        print(f"  {name}: {len(chunks)} chunks "
+              f"(large: {large}, max: {max_words} words)")
+        
+    except Exception as exc:
+        print(f"  {name}: FAILED — {exc}")
+        results.append({"package": name, "error": str(exc)})
+
+print(f"\nTotal: {total_chunks} chunks, {large_chunks} large (>2500 words)")
+print(f"Estimated LLM calls: ~{total_chunks * 3} (classify + group + enrich)")
+print(f"Estimated time at 131s/chunk: {total_chunks * 131 / 3600:.1f} hours")
+
+output = Path("reference/archive/sessions/cross_provider_audit/phase1_discovery.json")
+output.parent.mkdir(parents=True, exist_ok=True)
+output.write_text(json.dumps(results, indent=2, ensure_ascii=False))
+print(f"\nSaved to {output}")
+```
+
+Run it. Report the exact numbers.
+
+### Task 3: Write Overnight Analysis Script
+
+Create `scripts/analyze_overnight_run.py` that the owner runs after the overnight completes. It should:
+
+1. Accept `--output-dir` argument pointing to the overnight run's output directory
+2. Read SUMMARY.json from the output directory
+3. For each package:
+   - Count excerpts, errors, gate entries
+   - Count `verification_skipped` and `llm_enrichment_failed` flags in excerpts.jsonl
+   - Report timing per phase from timing.json
+   - Count retry attempts (look for duplicate call_ids or attempt patterns in raw_llm_requests/)
+4. For the full run:
+   - Total excerpts, errors, gate entries
+   - Flag distribution table
+   - Any timeout errors
+   - Largest/smallest chunks by word count (from phase1_chunks.json)
+   - Output a clean summary table
+
+### Task 4: Commit and Report
+
+Commit all new files with message:
+```
+audit: pre-overnight preparation — phase1 discovery + analysis script
+```
+
+Report:
+- Test suite results (pass/fail/skip counts)
+- Phase 1 chunk counts per package
+- Total chunks for overnight run
+- Any issues encountered
 
 ## Do NOT Do
 
-- Do NOT skip the ChatGPT deep research step. It MUST happen before the overnight run.
-- Do NOT start the 5-book run without fixing the timeout.
-- Do NOT prepare the overnight run in the same chat where you fix the timeout — use a fresh chat if context degrades.
-- Do NOT implement the timeout fix yourself — delegate to CC via NEXT.md.
-
-## Key Files
-
-| File | Purpose |
-|------|---------|
-| `shared/llm/cli_adapter.py` | The CLI adapter (699 lines, all 3 backends) |
-| `shared/llm/CLI_ADAPTER_SPEC.md` | Governing SPEC (14 sections, 7 invariants) |
-| `scripts/run_full_integration.py` | Batch runner for all 5 packages |
-| `scripts/run_integration_test.py` | Per-package runner |
-| `integration_tests/run_20260328_173009/` | First successful run artifacts (23 excerpts) |
-| `reference/archive/sessions/reviews/review_cli_adapter.md` | Completed review checklist |
-
-## After This
-
-After the 5-book overnight run:
-1. Evaluate results (invoke `kr-evaluate`)
-2. Owner 30-book review gate — the NON-NEGOTIABLE human review of real Arabic output
-3. If excerpting is proven → Taxonomy engine design begins
+- Do NOT modify any existing source files
+- Do NOT implement code changes for the audit findings
+- Do NOT run any LLM calls (no --backend cli, no API calls)
+- Do NOT proceed beyond these 4 tasks
+- After completing all tasks, commit, push, and stop
