@@ -110,12 +110,28 @@ NOTE: CC reported "768 passed, 0 failed" for excerpting — incorrect. Actual: 7
 
 | # | Finding | Severity | Line(s) | Root Cause |
 |---|---------|----------|---------|------------|
-| F-1 | `extract_json()` returns `str`, SPEC §4.5 says `dict\|list` | BLOCKING | 146, 324 | Pre-fix SPEC |
-| F-2 | `_resolve_backend()` missing WARNING on unknown prefix | BLOCKING | 206-211 | Pre-fix SPEC |
-| F-3 | No Claude `--output-format json` envelope detection | BLOCKING | 530 | Pre-fix SPEC + incomplete |
-| F-4 | Empty system message → leading `\n\n` in prompt | BLOCKING | 278-284 | Pre-fix SPEC |
+| F-1 | `extract_json()` returns `str`, SPEC §4.5 says `dict\|list` | BLOCKING (HIGH) | 146, 324 | Pre-fix SPEC |
+| F-2 | `_resolve_backend()` missing WARNING on unknown prefix | BLOCKING (HIGH) | 206-211 | Pre-fix SPEC |
+| F-3 | No Claude `--output-format json` envelope extraction | **BLOCKING (CRITICAL)** | 530 | Pre-fix SPEC + no empirical test |
+| F-4 | Empty system message → leading `\n\n` in prompt | BLOCKING (MEDIUM) | 278-284 | Pre-fix SPEC |
 
 CC independently found all 4 findings (labeled 1-4 in CC's audit). Zero discrepancy between reviewers on finding identification.
+
+### F-3 Severity Upgrade — Empirical Confirmation (CC Pass 2)
+
+CC ran `claude -p "Say hello" --bare --no-session-persistence --max-turns 2 --output-format json --model opus` on the owner's Windows machine. The actual stdout is a JSON envelope:
+```json
+{"type":"result","subtype":"success","is_error":false,"duration_ms":2543,
+ "result":"hello","stop_reason":"end_turn","total_cost_usd":0.02924625,
+ "usage":{"input_tokens":3,"output_tokens":4,...},...}
+```
+The model's text is at `envelope["result"]`. Without extraction, every Claude CLI call fails permanently (validation error on envelope schema → retry → same envelope → all retries exhausted).
+
+**Bonus:** The envelope provides free metadata we currently hardcode as `None`:
+- `usage.input_tokens` / `usage.output_tokens` → real token counts
+- `total_cost_usd` → per-call cost tracking
+- `duration_api_ms` → precise API latency
+- `stop_reason` → model stop reason
 
 ## Build Metrics
 - Implementation lines: 668 (cli_adapter.py) + 73 (script changes) = 741 total
@@ -126,6 +142,7 @@ CC independently found all 4 findings (labeled 1-4 in CC's audit). Zero discrepa
 
 ## Verdict
 
-**BLOCKED** — 4 findings, all SPEC-code divergences caused by CC building from the pre-amendment SPEC. No logic bugs. No design flaws. All fixes are surgical (< 20 lines total). Fix directive to follow in NEXT.md.
+**BLOCKED** — 4 findings (1 CRITICAL, 2 HIGH, 1 MEDIUM). The CRITICAL finding (F-3) means the Claude backend is completely non-functional in production — every real call fails. All findings are SPEC-code divergences caused by CC building from the pre-amendment SPEC. No logic bugs in what CC built; the code faithfully implements the pre-fix SPEC. Fixes are surgical. Fix directive in NEXT.md.
 
-- Checklist commit: (this commit)
+- Review checklist commit: 9d83bb14
+- Updated checklist commit: (this commit)

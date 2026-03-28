@@ -1,147 +1,367 @@
-# NEXT — CLI Adapter Implementation
+# NEXT — CLI Adapter Fix (4 Review Findings)
 
 ## Current Position
 
-- **Baseline:** 766 tests passing, 2 skipped, 0 failed
-- **Commit:** `d69f8f52` (master HEAD — CLI backend decision record)
-- **Engine:** Excerpting (shared infrastructure)
-- **Milestone:** CLI backend architecture APPROVED by 4-reviewer process. Adapter SPEC written. Ready for implementation.
+- **Baseline:** 796 tests passing, 2 skipped (766 excerpting + 30 adapter)
+- **Commit:** `2a8560b4` (CC implementation) + `9d83bb14` (review checklist)
+- **Review verdict:** BLOCKED — 4 findings (1 CRITICAL, 2 HIGH, 1 MEDIUM)
+- **Root cause:** All 4 findings are SPEC-code divergences caused by building from the pre-amendment SPEC (commit `1f0ee83c`). The SPEC was amended in commit `550d74a2` after the implementation.
 
 ## What Just Happened
 
-A 4-reviewer architecture review (Claude Chat, ChatGPT 5.4, Gemini CLI, Claude Code) validated the CLI backend transition. 8 blocking findings were identified and resolved. The approved architecture is documented in the decision record. The formal adapter SPEC has been written.
+The 3-pass architect review + CC concurrent audit found 4 issues. CC's empirical test on the owner's machine confirmed the CRITICAL finding: `claude -p --bare --output-format json` wraps output in a JSON envelope `{"type":"result","result":"...model text...","usage":{...},...}`. The current adapter returns the full envelope as the model's output, causing 100% failure rate on real Claude CLI calls.
 
 ## What to Do
 
-Implement `CLIInstructorAdapter` — a drop-in replacement for `instructor.Instructor` that routes LLM calls to CLI backends (`claude -p`, `codex exec`, `gemini -p`). Then update integration test scripts to support `--backend cli`.
+Fix all 4 findings. Each fix is surgical (< 15 lines). Then add 4 new tests covering the fixes.
 
-## Read First
+**Read the SPEC amendments first:** `shared/llm/CLI_ADAPTER_SPEC.md` §2.4, §3.1, §3.2, §4.5, §5.1 — these sections were updated after your implementation.
 
-Read these files IN FULL before writing any code:
+---
 
-1. **`shared/llm/CLI_ADAPTER_SPEC.md`** — The formal specification. This is your implementation guide. Every section must be implemented as described. Do not deviate.
-2. **`docs/superpowers/specs/2026-03-28-cli-backend-review-decisions.md`** — The decision record. Background on why things are designed this way. Read §"The Working Recipe" and §"Critical constraints" carefully.
-3. **`engines/excerpting/contracts.py` lines 582-678** — The 6 LLM response schemas the adapter must parse and validate.
-4. **`engines/excerpting/tests/conftest.py` lines 205-222** — The `_make_mock_instructor_client` pattern. Your adapter must be mockable in this same way.
-5. **`scripts/run_integration_test.py` lines 48-63** — Current `create_client()`. Your adapter replaces this when `--backend cli`.
-6. **`scripts/run_integration_test.py` lines 70-160** — Hook-based logging. Your `CLIResponse` dataclass must satisfy every `hasattr` / attribute access in `on_response` (lines 112-146).
-7. **`scripts/run_integration_test.py` lines 460-484** — Client creation + hook registration. Your adapter must support `.on()` with the same event names.
+### Fix 1 (F-3 — CRITICAL): Claude CLI envelope extraction
 
-## What to Build
+**File:** `shared/llm/cli_adapter.py`
+**Function:** `_invoke_claude()` (currently line ~530)
 
-### File 1: `shared/llm/__init__.py`
-Empty file (package marker).
-
-### File 2: `shared/llm/cli_adapter.py`
-The full adapter implementation per the SPEC. Contains:
-
-- `CLIBackendError(Exception)` — Custom exception (SPEC §6.1)
-- `CLIInstructorAdapter` — Main class (SPEC §2)
-  - `__init__(default_backend="claude")` — Constructor
-  - `chat.completions.create(...)` — Via `_ChatNamespace` and `_CompletionsNamespace` (SPEC §2.2)
-  - `on(event, callback)` — Hook registration (SPEC §2.4)
-- `_CLIUsage`, `_CLIMessage`, `_CLIChoice`, `CLIResponse` — Response dataclasses (SPEC §7.1). Note: `_CLIUsage` MUST have a `model_dump()` method returning a dict — the integration test's `on_response` calls `response.usage.model_dump()`.
-- `_get_oauth_token()` — Token extraction (SPEC §6.3)
-- `_check_tool_available(tool_name)` — PATH check (SPEC §6.4)
-- `patch_additional_properties(schema)` — Recursive schema patching for Codex (SPEC §5.3)
-- `extract_json(raw_output)` — JSON extraction from raw CLI output (SPEC §4.5)
-
-### File 3: `shared/llm/tests/__init__.py`
-Empty file (package marker).
-
-### File 4: `shared/llm/tests/test_cli_adapter.py`
-30 unit tests as specified in SPEC §10.2. All tests mock `subprocess.run` — no real CLI calls.
-
-For tests needing a simple Pydantic response model, define a local test model:
+**Current code (BROKEN):**
 ```python
-class SimpleResponse(BaseModel):
-    answer: str
-    confidence: float = Field(ge=0.0, le=1.0)
+        logger.debug("Claude stdout: %s", result.stdout[:200])
+        return result.stdout
 ```
 
-For test 28 (`test_response_model_with_model_validators`), define a model with a `@model_validator`:
+**Replace with:**
 ```python
-class ValidatedResponse(BaseModel):
-    value: int
-    label: str
+        raw_stdout = result.stdout
+        logger.debug("Claude raw stdout: %s", raw_stdout[:200])
 
-    @model_validator(mode="after")
-    def check_label(self) -> "ValidatedResponse":
-        if self.value > 10 and self.label != "high":
-            raise ValueError("value > 10 requires label='high'")
-        return self
+        # Extract model text from CLI JSON envelope (SPEC §3.2)
+        # The claude CLI with --output-format json wraps the model's
+        # response in: {"type":"result","result":"...model text...","usage":{...}}
+        try:
+            envelope = json.loads(raw_stdout)
+            if isinstance(envelope, dict) and "result" in envelope:
+                if envelope.get("is_error"):
+                    raise CLIBackendError(
+                        f"Claude CLI returned error: {envelope.get('result', 'unknown')}",
+                        backend="claude",
+                    )
+                logger.debug("Extracted model text from Claude CLI envelope")
+                return str(envelope["result"])
+        except json.JSONDecodeError:
+            pass  # Not an envelope — return raw stdout
+
+        return raw_stdout
 ```
 
-### File 5: Changes to `scripts/run_integration_test.py`
-- Add `--backend` argument (SPEC §8.2): `choices=["cli", "api"], default="api"`
-- Add `create_cli_client()` function (SPEC §9.1)
-- Modify client creation block (SPEC §9.2) to branch on `mock` / `cli` / `api`
-- Add config override for CLI escalation model (SPEC §9.3)
-- Pass `backend` variable from args through to the client creation block
+**Why:** The Claude CLI wraps model output in a JSON envelope. Without extraction, `extract_json()` parses the envelope (valid JSON) instead of the model's output, then `model_validate()` fails on the envelope schema. The retry loop augments the prompt but the model responds correctly again, the CLI wraps it again, and all retries are wasted on the same structural problem. 100% failure rate.
 
-### File 6: Changes to `scripts/run_full_integration.py`
-- Add `--backend` argument (SPEC §8.3)
-- Pass `--backend {value}` to the subprocess call that invokes `run_integration_test.py`
+---
 
-## Design Decisions (reference — do not re-derive)
+### Fix 2 (F-1 — HIGH): `extract_json()` return type
 
-All design decisions are in the SPEC and decision record. Key ones:
+**File:** `shared/llm/cli_adapter.py`
 
-- **DD-1:** `max_retries=N` means N retries after initial = N+1 total attempts.
-- **DD-2:** Schema enforcement is prompt-based + Pydantic post-validation. NOT constrained decoding.
-- **DD-3:** Retry feedback includes full validation error with field paths and valid enum values.
-- **DD-4:** `--bare` flag mandatory for Claude (avoids Stop hook infinite loop).
-- **DD-5:** `--max-turns 2` mandatory for Claude (max-turns 1 can be empty).
-- **DD-6:** `additionalProperties: false` must be injected recursively into Codex schemas.
-- **DD-7:** OAuth token refresh: on auth error, re-read credentials and retry once within same attempt.
-- **DD-8:** JSON extraction must handle: raw JSON, markdown fences, JSON with surrounding text.
-- **DD-9:** `temperature` accepted but NOT passed to any CLI tool. IS included in hook payloads.
-- **DD-10:** Hook firing conventions differ per event type (SPEC §2.4). `completion:kwargs` → `callback(**kwargs_dict)` (keyword expansion). `completion:response` → `callback(response)` (positional). `completion:error` → `callback(error)` (positional). Getting this wrong crashes the integration test's `on_request(**kwargs)` handler.
-- **DD-11:** `extract_json()` returns `dict | list` (parsed), NOT a string. No outer `json.loads()` needed.
-- **DD-12:** Messages may have NO system role (escalation call site). The adapter must handle this: create a system prompt containing only the schema directive. See SPEC §5.1.
-- **DD-13:** `json.dump(schema, f)` (NOT `json.dumps`) for writing to temp files.
-- **DD-14:** `--output-format json` in Claude CLI may wrap output in a JSON envelope. Test actual format and extract model text if wrapped. See SPEC §3.2.
-- **DD-15:** `shared/` has NO `__init__.py` (namespace package). Do NOT create `shared/__init__.py`. Only create `shared/llm/__init__.py`.
+**Change 1 — Replace the entire `extract_json` function (currently lines ~146-192) with:**
+
+```python
+def extract_json(raw_output: str) -> dict | list:
+    """Extract and parse JSON from raw CLI output (SPEC §4.5).
+
+    Returns the parsed Python object (dict or list), NOT a string.
+
+    Tries in order:
+    1. Direct parse of stripped output.
+    2. Find first { and last } (or [ and ]).
+    3. Strip markdown code fences and retry.
+    4. Raise JSONDecodeError.
+    """
+    stripped = raw_output.strip()
+
+    # Step 1: direct parse
+    try:
+        return json.loads(stripped)
+    except json.JSONDecodeError:
+        pass
+
+    # Step 2: brace extraction
+    for open_char, close_char in [("{", "}"), ("[", "]")]:
+        first = stripped.find(open_char)
+        last = stripped.rfind(close_char)
+        if first != -1 and last > first:
+            candidate = stripped[first : last + 1]
+            try:
+                return json.loads(candidate)
+            except json.JSONDecodeError:
+                pass
+
+    # Step 3: strip markdown fences
+    fence_pattern = re.compile(r"```(?:json)?\s*\n?(.*?)\n?\s*```", re.DOTALL)
+    match = fence_pattern.search(stripped)
+    if match:
+        fenced = match.group(1).strip()
+        try:
+            return json.loads(fenced)
+        except json.JSONDecodeError:
+            pass
+
+    # Step 4: give up
+    raise json.JSONDecodeError(
+        "No valid JSON found in CLI output",
+        stripped[:200],
+        0,
+    )
+```
+
+**Change 2 — In the `create()` method, replace (currently lines ~323-324):**
+```python
+                json_str = extract_json(raw_output)
+                json_data = json.loads(json_str)
+```
+**With:**
+```python
+                json_data = extract_json(raw_output)
+```
+
+**Change 3 — Update the two test functions that call `extract_json` directly:**
+
+Replace `test_json_extraction_strips_markdown`:
+```python
+def test_json_extraction_strips_markdown() -> None:
+    """Raw output wrapped in markdown fences extracted correctly."""
+    raw = '```json\n{"answer": "test", "confidence": 0.9}\n```'
+    result = extract_json(raw)
+    assert isinstance(result, dict)
+    assert result["answer"] == "test"
+```
+
+Replace `test_json_extraction_finds_object`:
+```python
+def test_json_extraction_finds_object() -> None:
+    """Raw output with surrounding text extracts JSON object."""
+    raw = 'Here is the result: {"answer": "test", "confidence": 0.5} done.'
+    result = extract_json(raw)
+    assert isinstance(result, dict)
+    assert result["confidence"] == 0.5
+```
+
+---
+
+### Fix 3 (F-2 — HIGH): `_resolve_backend()` WARNING on unknown prefix
+
+**File:** `shared/llm/cli_adapter.py`
+**Function:** `_resolve_backend()` (currently lines ~206-211)
+
+**Replace the entire function with:**
+```python
+def _resolve_backend(model: str, default_backend: str) -> str:
+    """Map model string prefix to CLI backend name."""
+    for prefix, backend in _PROVIDER_MAP.items():
+        if model.startswith(prefix):
+            return backend
+    # Extract the prefix for the warning message
+    prefix = model.split("/")[0] + "/" if "/" in model else model
+    logger.warning(
+        "Unknown model prefix '%s' for model '%s', "
+        "falling back to %s backend",
+        prefix,
+        model,
+        default_backend,
+    )
+    return default_backend
+```
+
+---
+
+### Fix 4 (F-4 — MEDIUM): Empty system message leading `\n\n`
+
+**File:** `shared/llm/cli_adapter.py`
+**In the `create()` method (currently lines ~278-285)**
+
+**Replace:**
+```python
+        # Augment system prompt with schema directive (SPEC §5.1)
+        schema_directive = (
+            "\n\nOUTPUT FORMAT: You are a JSON API. You MUST output ONLY "
+            "valid JSON matching this exact schema. No markdown, no "
+            "explanation, no code fences — just the raw JSON object."
+            f"\n\nJSON SCHEMA:\n{schema_str}"
+        )
+        system_with_schema = original_system + schema_directive
+```
+
+**With:**
+```python
+        # Augment system prompt with schema directive (SPEC §5.1)
+        schema_directive = (
+            "OUTPUT FORMAT: You are a JSON API. You MUST output ONLY "
+            "valid JSON matching this exact schema. No markdown, no "
+            "explanation, no code fences — just the raw JSON object."
+            f"\n\nJSON SCHEMA:\n{schema_str}"
+        )
+        if original_system:
+            system_with_schema = original_system + "\n\n" + schema_directive
+        else:
+            system_with_schema = schema_directive
+```
+
+---
+
+### New Tests (4 tests)
+
+Add these to `shared/llm/tests/test_cli_adapter.py`:
+
+**Test 31: `test_claude_envelope_extraction`**
+```python
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_claude_envelope_extraction(
+    mock_run: MagicMock, adapter: CLIInstructorAdapter, mock_oauth: Any, mock_which: Any,
+) -> None:
+    """Claude CLI JSON envelope is correctly unwrapped to extract model text."""
+    model_json = json.dumps({"answer": "test", "confidence": 0.9})
+    envelope = json.dumps({
+        "type": "result",
+        "subtype": "success",
+        "is_error": False,
+        "result": model_json,
+        "usage": {"input_tokens": 100, "output_tokens": 50},
+        "total_cost_usd": 0.01,
+    })
+    mock_run.return_value = _make_completed_process(stdout=envelope)
+    result = adapter.chat.completions.create(
+        model="anthropic/claude-opus-4.6",
+        response_model=SimpleResponse,
+        messages=MESSAGES,
+    )
+    assert result.answer == "test"
+    assert result.confidence == 0.9
+```
+
+**Test 32: `test_claude_envelope_error_raises`**
+```python
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_claude_envelope_error_raises(
+    mock_run: MagicMock, adapter: CLIInstructorAdapter, mock_oauth: Any, mock_which: Any,
+) -> None:
+    """Claude CLI envelope with is_error=True raises CLIBackendError."""
+    envelope = json.dumps({
+        "type": "result",
+        "subtype": "error",
+        "is_error": True,
+        "result": "Something went wrong",
+    })
+    mock_run.return_value = _make_completed_process(stdout=envelope)
+    with pytest.raises(CLIBackendError, match="error"):
+        adapter.chat.completions.create(
+            model="anthropic/claude-opus-4.6",
+            response_model=SimpleResponse,
+            messages=MESSAGES,
+        )
+```
+
+**Test 33: `test_unknown_prefix_logs_warning`**
+```python
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_unknown_prefix_logs_warning(
+    mock_run: MagicMock, valid_json: str, mock_oauth: Any, mock_which: Any,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Unknown model prefix logs WARNING with prefix and model name."""
+    import logging
+    adapter = CLIInstructorAdapter(default_backend="claude")
+    mock_run.return_value = _make_completed_process(stdout=valid_json)
+    with caplog.at_level(logging.WARNING, logger="kr.shared.llm.cli_adapter"):
+        adapter.chat.completions.create(
+            model="mistralai/mistral-large",
+            response_model=SimpleResponse,
+            messages=MESSAGES,
+        )
+    assert "Unknown model prefix" in caplog.text
+    assert "mistralai/" in caplog.text
+```
+
+**Test 34: `test_no_system_message_clean_prompt`**
+```python
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_no_system_message_clean_prompt(
+    mock_run: MagicMock, adapter: CLIInstructorAdapter, valid_json: str,
+    mock_oauth: Any, mock_which: Any,
+) -> None:
+    """When messages have no system role, system prompt starts clean (no leading newlines)."""
+    mock_run.return_value = _make_completed_process(stdout=valid_json)
+    adapter.chat.completions.create(
+        model="anthropic/claude-opus-4.6",
+        response_model=SimpleResponse,
+        messages=[{"role": "user", "content": "Just a user message"}],
+    )
+    cmd = mock_run.call_args[0][0]
+    sp_idx = cmd.index("--system-prompt")
+    system_prompt = cmd[sp_idx + 1]
+    assert system_prompt.startswith("OUTPUT FORMAT:"), (
+        f"System prompt should start with 'OUTPUT FORMAT:', got: {system_prompt[:30]!r}"
+    )
+```
+
+---
 
 ## Do NOT Do
 
-- **Do NOT modify any files in `engines/excerpting/`** — not source, not tests, not contracts. The adapter is a new file in `shared/llm/`. Only the two integration test scripts are modified.
-- **Do NOT run real CLI calls in tests.** All 30 tests mock `subprocess.run`.
-- **Do NOT add `instructor` as a dependency of the adapter.** The adapter replaces Instructor — it must not import it.
-- **Do NOT use `MagicMock` to implement the namespace chain.** Use real classes (`_ChatNamespace`, `_CompletionsNamespace`).
-- **Do NOT add `--backend` to `run_pipeline.py`.** Only the two integration test scripts.
-- **Do NOT create `shared/__init__.py`.** The `shared/` directory is a namespace package. Other subdirectories depend on this. Only `shared/llm/__init__.py` and `shared/llm/tests/__init__.py` should be created.
-- **Do NOT implement anything beyond what is specified here. After completing all files, run the full test suite, commit and push. Do NOT proceed to the next session.**
+- **Do NOT modify any files in `engines/excerpting/`** — not source, not tests, not contracts.
+- **Do NOT change the fix logic beyond what is specified above.** These are surgical fixes.
+- **Do NOT extract envelope metadata into CLIResponse fields.** That is a separate enhancement for a future session. The fix only extracts `envelope["result"]` and returns it as a string.
+- **Do NOT refactor other parts of the adapter.** Only touch the specific lines called out in the 4 fixes.
+- **Do NOT implement anything beyond what is specified here. After completing the fixes, run the full test suite, commit and push. Do NOT proceed to the next session.**
 
 ## Verification
 
-After implementation, run:
+After applying all 4 fixes and adding the 4 new tests:
 
 ```bash
-# 1. All existing tests still pass (MUST match baseline exactly)
+# 1. Existing excerpting tests (must match baseline exactly)
 PYTHONPATH=. python -m pytest engines/excerpting/tests/ -q --tb=short
 # Expected: 766 passed, 2 skipped
 
-# 2. New adapter tests pass
+# 2. Adapter tests (30 original + 4 new)
 PYTHONPATH=. python -m pytest shared/llm/tests/ -v --tb=short
-# Expected: 30 passed
+# Expected: 34 passed
 
 # 3. Combined count
 PYTHONPATH=. python -m pytest engines/excerpting/tests/ shared/llm/tests/ -q --tb=short
-# Expected: 796 passed, 2 skipped
+# Expected: 800 passed, 2 skipped
 
-# 4. Import check — adapter is importable
-PYTHONPATH=. python -c "from shared.llm.cli_adapter import CLIInstructorAdapter, CLIBackendError, CLIResponse; print('OK')"
-
-# 5. Interface check — namespace chain works
+# 4. Verify extract_json return type
 PYTHONPATH=. python -c "
+from shared.llm.cli_adapter import extract_json
+result = extract_json('{\"a\": 1}')
+assert isinstance(result, dict), f'Expected dict, got {type(result)}'
+print('extract_json returns dict: OK')
+"
+
+# 5. Verify envelope extraction
+PYTHONPATH=. python -c "
+import json
+from unittest.mock import patch, MagicMock
 from shared.llm.cli_adapter import CLIInstructorAdapter
-a = CLIInstructorAdapter()
-assert hasattr(a, 'chat')
-assert hasattr(a.chat, 'completions')
-assert callable(a.chat.completions.create)
-assert callable(a.on)
-print('Interface OK')
+from pydantic import BaseModel
+
+class T(BaseModel):
+    answer: str
+
+adapter = CLIInstructorAdapter()
+model_json = json.dumps({'answer': 'hello'})
+envelope = json.dumps({'type':'result','result':model_json,'is_error':False})
+
+with patch('shared.llm.cli_adapter.subprocess.run') as m, \
+     patch('shared.llm.cli_adapter._get_oauth_token', return_value='x'), \
+     patch('shared.llm.cli_adapter.shutil.which', return_value='/x'):
+    m.return_value = MagicMock(stdout=envelope, stderr='', returncode=0)
+    r = adapter.chat.completions.create(
+        model='anthropic/claude-opus-4.6',
+        response_model=T,
+        messages=[{'role':'user','content':'test'}],
+    )
+    assert r.answer == 'hello', f'Got {r.answer}'
+    print('Envelope extraction: OK')
 "
 ```
 
@@ -149,4 +369,4 @@ ALL 5 checks must pass. If any fails, fix before committing.
 
 ## After This
 
-The architect reviews CC's implementation using the 3-pass review protocol. Then: a real CLI integration test on 1 package to verify end-to-end.
+Architect re-verifies the fixes (targeted re-review, not full 3-pass). Then: first real CLI integration test on 1 package.
