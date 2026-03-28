@@ -1,7 +1,7 @@
 # KR Factory Roadmap v2 — الخطة التشغيلية للمصنع
 
 **Authority:** GOVERNING. Supersedes `reference/FACTORY_ROADMAP.md` (v1, archived).
-**Companion document:** `reference/AUTONOMOUS_QUALITY_SYSTEM.md` — defines what the factory does with every minute of runtime (hunting, fixing, evaluating, cross-engine testing). This document covers SETUP. AQS covers OPERATION.
+**Companion document:** `reference/AUTONOMOUS_QUALITY_SYSTEM.md` — defines what the factory does with every minute of runtime (hunting, fixing, evaluating, cross-engine testing). `reference/TEAM_ARCHITECTURE.md` — defines how agents collaborate (never solo, always a team). This document covers SETUP. AQS covers OPERATION. Team Architecture covers COLLABORATION.
 **Version:** 2.0 — Post-adversarial-review
 **Written:** 2026-03-27
 **Inputs:** Claude Chat adversarial review (7 CRITICAL, 9 HIGH), Claude Code self-critique (21 findings including 3 will-cause-failure), GPT-5.4 independent review (10 failure modes, alternative architecture, benchmark critique, blind-spot analysis). All findings cross-referenced and verified against repo state and official CLI documentation.
@@ -379,6 +379,8 @@ The owner is an Islamic studies student who hasn't yet studied Islamic texts. KR
 > 4. Create `GEMINI.md` (Gemini project context): Same KR overview and corruption threats, NO Decision Playbook, explicit first-principles instruction. Configure `--disallowedTools` to structurally prevent reading `reference/DECISION_PLAYBOOK.md`.
 > 5. Create `scripts/cli_health_check.py` — tests all 3 CLIs: auth valid, version matches pin, JSON parseable, response within timeout. Returns structured JSON report.
 > 6. Create `scripts/test_cross_provider.py` — integration test: CC makes a trivial change → Codex reviews via `codex exec review --base HEAD~1 --uncommitted` → Gemini challenges → all captured as artifacts with full provenance.
+> 7. Enable Agent Teams: add `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` and `CLAUDE_CODE_SUBAGENT_MODEL=claude-sonnet-4-5-20250929` to `.claude/settings.json` env section. Install tmux in WSL (`sudo apt install tmux`). Verify teams work with a 2-teammate test dispatch.
+> 8. Update `CLAUDE.md` with team operations section per `reference/TEAM_ARCHITECTURE.md`.
 >
 > Exit criteria: All 3 CLIs respond to headless prompts from within WSL. `test_cross_provider.py` passes. AGENTS.md < 32KiB. GEMINI.md excludes Playbook (verified by grep). Codex `review` subcommand used for review tasks.
 >
@@ -497,7 +499,7 @@ What failure modes do they miss? Propose 3 additional cases per task that Codex 
 > 4. Implement degraded operation modes (D-F013) in the orchestrator: health-check each CLI before dispatch, transition modes on failure, log transitions.
 > 5. Add context budget check: estimate tokens for work unit inputs, warn if >500K.
 > 6. Add hook overhead budget: for work units with many expected edits, set `CLAUDE_RAPID_MODE=1` and run tests once at end.
-> 7. Integration test: create a trivial work unit → orchestrator dispatches CC → validates response contract → dispatches Codex review → dispatches Gemini challenge → escalation detection works → all artifacts saved.
+> 7. Integration test: create a trivial work unit → orchestrator dispatches CC **as a team** (lead + implementer + reviewer minimum per TEAM_ARCHITECTURE.md) → validates response contract → reviewer invokes Codex for cross-provider check → escalation detection works → all artifacts saved.
 >
 > Exit criteria: Work unit flows through full cycle. Response contract validated. Escalation detection works. Degraded mode transitions work. Context budget check prevents oversized dispatches.
 >

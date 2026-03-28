@@ -3,6 +3,7 @@
 **Authority:** GOVERNING for factory operational behavior. Complements `FACTORY_ROADMAP_v2.md` (which covers setup). This document covers **ongoing operation** — what the factory does with every minute of runtime, forever.
 **Written:** 2026-03-28
 **Design principle:** The factory is a knowledge guardian that continuously hunts for corruption, tests edge cases, and hardens the pipeline. Building engines is one of its activities, not its identity. When there is nothing to build, the factory does not idle — it hunts.
+**Collaboration model:** Every operation uses a team, never a solo agent. See `reference/TEAM_ARCHITECTURE.md` for team compositions per mode.
 
 ---
 
