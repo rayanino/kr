@@ -1,29 +1,28 @@
 {
-  "timestamp": "2026-03-24T06:52:38.238078+00:00",
+  "timestamp": "2026-03-28T06:19:06.220034+00:00",
   "branch": "master",
-  "active_engine": "excerpting",
+  "active_engine": null,
   "active_spec_section": null,
-  "last_committed_file": "engines/excerpting/tests/test_phase3_deterministic.py",
+  "last_committed_file": "reference/factory_review/PAPERCLIP_EVALUATION_PROMPT.md",
   "active_plan": null,
   "modified_files": [
-    ".claude/session_state.json",
-    "NEXT.md",
-    "engines/excerpting/CLAUDE.md",
-    "overnight/.heartbeat",
-    "overnight/progress.md",
-    "reference/archive/sessions/NEXT_session5_original.md",
-    "reference/archive/sessions/handoff_review_session4.md",
-    "reference/archive/sessions/reviews/review_excerpting_session3.md",
-    "reference/archive/sessions/reviews/review_excerpting_session4.md"
+    ".claude/session_state.json"
   ],
-  "uncommitted_summary": ".claude/session_state.json   | 20 +++++----\n NEXT.md                      | Unmerged\n NEXT.md                      | 99 ++++++++++++--------------------------------\n engines/excerpting/CLAUDE.md |  3 +-\n overnight/.heartbeat         | 12 +++---\n overnight/progress.md        |  2 +-\n 5 files changed, 48 insertions(+), 88 deletions(-)",
-  "next_md_head": "# NEXT — Excerpting Engine Complete → Taxonomy Engine\n\n## Current Position\n\n- **Source Engine:** COMPLETE. 566 tests, 0 failures. Transition gate approved.\n- **Normalization Engine:** COMPLETE. 503 tests, 0 failures. Transition gate approved.\n- **Excerpting Engine:** COMPLETE. 519 tests, 0 failures. All 3 phases built + orchestrator + integration.\n\n## Excerpting Summary\n\n| Phase | Module | Tests | Lines |\n|-------|--------|-------|-------|\n| 1 — Deterministic Assembly | `phase1_assembly.py` | 117 | ~1,531 |\n| 2 — LLM Classification + Grouping | `phase2_classify.py`, `phase2_group.py` | 141 | ~854 |\n| 3.1 — Deterministic Metadata | `phase3_deterministic.py` | 86 | ~637 |",
-  "recent_commits": "d6d6bdf6 overnight: probe LA rules with all-None author_canonical_id â€” no bug found\n2dec5e2f overnight: initialize overnight session\ncfe59c8a docs: overnight README + knowledge corruption probe manifest\nc62fdfbe fix: overnight system â€” 4 bug fixes + hardening-only redesign\na15082a2 feat: implement Phase 3 orchestrator + full pipeline integration (Session 6)",
+  "uncommitted_summary": ".claude/session_state.json | 31 +++++++++++++++----------------\n 1 file changed, 15 insertions(+), 16 deletions(-)",
+  "next_md_head": "# NEXT — Model Role Assignment Research + 5-Book LLM Integration Test Prep\n\n## Current Position\n\n- **Baseline:** 593 tests passing, 2 skipped, 0 failed\n- **Commit:** `8e5fb12b` (master HEAD)\n- **Engine:** Excerpting\n- **Milestone:** First real LLM call PASSED — 5 excerpts from ibn_aqil_v1 preface, 0 errors, via OpenRouter/Opus 4.6\n\n## What Just Happened\n\nThe excerpting engine's deterministic infrastructure is complete and the first real LLM smoke test succeeded:\n- compute_page_range crash on split chunks: FIXED + ACCEPTED (3-pass review, 7 probes)\n- EX-V-002 false positive (text_snippet length mismatch): FIXED\n- Mock integration: all 5 packages pass",
+  "recent_commits": "6ed46575 docs: Paperclip evaluation prompt for CC hands-on testing\nbe1e27a6 docs: Team Architecture â€” never solo, always a team\n685fca74 docs: Autonomous Quality System â€” the factory is a knowledge guardian, not an engine builder\nb66839db docs: FACTORY_ROADMAP v2 â€” post-adversarial-review\nef1f451b docs: add FACTORY_ROADMAP.md for CC adversarial review",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",
     "zero diacritics is completely normal.",
     "",
     "VERDICT: INFORMATIONAL. No action needed. Downstream awareness noted."
-  ]
+  ],
+  "cost_summary": {
+    "total_eur": 0,
+    "budget_eur": 100.0,
+    "remaining_eur": 100.0
+  },
+  "circuit_breaker_triggers": [],
+  "print_warnings": []
 }
