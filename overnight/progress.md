@@ -1,25 +1,12 @@
 # Overnight Progress — 2026-03-28
 
 
-## Completed
-- [x] boundary-exhaustive: Test EVERY frozen threshold at exact boundary values (merge/split/LA/gap) (success, 1094s)
-- [x] pathological-arabic: Pathological Arabic text stress test — crash and corruption hunting in Phase 1 (success, 397s)
-- [x] fdet-deterministic: Adversarial edge cases for F-DET-1..9 deterministic field computations (no LLM dependency) (success, 1110s)
-- [x] phase1-error-codes: Trigger all 8 Phase 1 error codes (EX-A-*) — verify emission, severity, recovery (success, 337s)
-- [x] probe-json-arabic-roundtrip: Probe: Pydantic JSON serialization preserves Arabic text byte-for-byte (success, 636s)
-- [x] synthesis-report: Aggregate all findings into permanent cumulative knowledge log (success, 480s)
-- [x] val-test-regression: Full regression test — ALL engines — verify nothing broke (success, 337s)
-- [x] empirical-backrefs: Empirical scan: Arabic back-reference patterns in fixtures (Defense 1A) (success, 523s)
-- [x] ki-attribution-excerpting: Knowledge integrity: attribution corruption probe (excerpting) (success, 576s)
-
 ## Remaining
-- [ ] ki-attribution-excerpting-verify: Codex review: Knowledge integrity: attribution corruption probe (excerpting)
-- [x] ki-text-integrity-excerpting: Knowledge integrity: Arabic text round-trip probe (excerpting) (success, 16 new tests, 768 pass)
-- [ ] ki-text-integrity-excerpting-verify: Codex review: Knowledge integrity: Arabic text round-trip probe (excerpting)
-- [ ] review-recent-excerpting: Review recently modified excerpting code (4 files)
-- [ ] harden-recent-excerpting: Edge case hardening for recent excerpting changes
-- [ ] harden-recent-excerpting-verify: Codex review: Edge case hardening for recent excerpting changes
-- [ ] val-contracts: Cross-engine contract and D-023 metadata flow verification
-- [ ] test-coverage-excerpting: Analyze test coverage gaps in excerpting engine
-- [ ] test-coverage-normalization: Analyze test coverage gaps in normalization engine
-- [ ] test-coverage-source: Analyze test coverage gaps in source engine
+- [ ] source-boundary-values: Source engine: test ALL threshold boundaries (trust/confidence/empty-ratio)
+- [ ] source-error-codes: Source engine: trigger all 32 SRC_* error codes — verify emission and recovery
+- [ ] norm-boundary-values: Normalization engine: test ALL threshold boundaries (sparse/dense/fingerprint/heading)
+- [ ] norm-error-codes: Normalization engine: trigger all 33 NORM_* error codes — verify severity and recovery
+- [ ] cross-engine-contracts: Stress test cross-engine data contracts: Source→Normalization→Excerpting
+- [ ] excerpting-spec-readonly-audit: Excerpting SPEC audit: find ambiguities, gaps, contradictions (READONLY — no code changes)
+- [ ] synthesis-report: Aggregate all findings into permanent cumulative knowledge log
+- [ ] val-test-regression: Full regression test — ALL engines — verify nothing broke
