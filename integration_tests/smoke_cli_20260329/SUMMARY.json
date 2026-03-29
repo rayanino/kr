@@ -1,0 +1,55 @@
+{
+  "timestamp": "2026-03-29T05:09:18.899828+00:00",
+  "output_dir": "integration_tests\\smoke_cli_20260329",
+  "packages": {
+    "ibn_aqil_v1": {
+      "excerpt_count": 0,
+      "error_count": 0,
+      "errors": [],
+      "time_seconds": 1.94,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ibn_aqil_v3": {
+      "excerpt_count": 0,
+      "error_count": 0,
+      "errors": [],
+      "time_seconds": 1.71,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "taysir": {
+      "excerpt_count": 0,
+      "error_count": 0,
+      "errors": [],
+      "time_seconds": 2.28,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ext_39_masala": {
+      "excerpt_count": 0,
+      "error_count": 0,
+      "errors": [],
+      "time_seconds": 1.77,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ext_46_qa": {
+      "excerpt_count": 0,
+      "error_count": 0,
+      "errors": [],
+      "time_seconds": 1.73,
+      "cost_estimate": 0.0,
+      "status": "success"
+    }
+  },
+  "totals": {
+    "packages_run": 5,
+    "packages_succeeded": 5,
+    "packages_failed": 0,
+    "total_excerpts": 0,
+    "total_errors": 0,
+    "total_time_seconds": 9.43,
+    "total_cost_estimate": 0.0
+  }
+}
