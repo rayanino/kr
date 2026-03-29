@@ -1,53 +1,66 @@
-> Purpose: Preserve the most recent session’s execution context so the next worker does not waste time or repeat mistakes.
-> Authority: Recent context only. This file does not set strategy or override ACTIVE.md.
-> Update when: A session materially advances the work, changes artifacts, or uncovers important traps.
-> Must not contain: Durable project law, primary next-session directive, broad backlog, long-term strategy shifts.
+> Purpose: Leave the next serious session with enough state to resume work without re-deriving the project situation.
+> Authority: Context and resume aid. It can summarize and point, but it cannot override `ACTIVE.md`.
+> Update when: A session materially advances work, changes the recommended resume point, or discovers a meaningful new risk.
+> Must not contain: Duplicate durable law from `CHARTER.md`, multiple conflicting next steps, or broad backlog lists.
 
-# KR Session Handoff
+# KR Handoff
 
-Last updated: 2026-03-29
-Session purpose: Finalize and bootstrap KR's repo-local control plane so future sessions can enter the project cleanly.
+## Session purpose
+Interpret the active frontier exactly and decide whether the next highest-leverage move before the 5-book excerpting campaign is deeper reasoning, deep research, or bounded implementation design.
 
-## Session scope
-This session stress-tested the proposed project-control system across multiple aspects: where the control plane should live, what files it should contain, how authority should be separated, how sessions should start and end, where stale state and shadow governance could arise, and what final hardened form is worth adopting.
+## What this session completed
+Completed the active frontier by writing `reference/EXCERPTING_FULL_BOOK_EVALUATION_BRIEF.md`.
 
-## What was accomplished
-- Adopted a repo-local, quarantined control-plane model under `.kr/` rather than an external or repo-root-first system.
-- Chose a five-file core: `README.md`, `CHARTER.md`, `ACTIVE.md`, `DECISIONS.md`, and `HANDOFF.md`.
-- Hardened the design with explicit laws around one live frontier, same-session propagation, specialist subordination, and bounded read burden.
-- Bootstrapped the initial `.kr/` files with first-pass project law, current frontier, handoff state, and initial durable decisions.
-- Set the post-bootstrap active frontier to the evaluation layer around the upcoming 5-book excerpting campaign.
+That brief locks in:
+- an analyzer-first evaluation workflow;
+- the analyzer's required inputs, lineage/accounting model, metrics, flags, and per-book/campaign outputs;
+- the review-packet exporter's required anomaly buckets and card structure; and
+- the formal full-book testing protocol that turns those outputs into `PASS` / `CONCERN` / `FAIL` interpretation.
 
-## Artifacts touched
-- `.kr/README.md`
-- `.kr/CHARTER.md`
-- `.kr/ACTIVE.md`
-- `.kr/DECISIONS.md`
-- `.kr/HANDOFF.md`
+## Key findings from the historical run
+The current historical artifacts already show why the evaluation layer cannot be postponed:
 
-## Key findings
-- The control plane must be canonical inside the repo, not in a chat product surface.
-- The most dangerous failure modes are stale state, authority leakage, shadow command surfaces, and frontier fragmentation.
-- `ACTIVE.md` must remain the sole authoritative next-session command file.
-- Deep research and Codex are specialist workers that should be commissioned by a primary session, not allowed to redefine project law independently.
-- The next strategically valuable work is not more excerpting tinkering; it is the analyzer-first evaluation layer that will make the full-book campaign genuinely diagnostic.
+1. `taysir` has a real accounting failure:
+   - Phase 2b grouping produced 11 teaching units;
+   - final `excerpts.jsonl` contains 9 excerpts; and
+   - the run logged two `EX-V-002` errors.
+   The analyzer must therefore reconcile grouped units against final excerpts and treat grouped-unit loss as a first-class failure.
 
-## Open unresolved items
-- Root `NEXT.md` still exists and remains a legacy shadow-surface risk until it is explicitly retired or reduced to a redirect.
-- The evaluation brief itself has not yet been written; only the control-plane and frontier have been installed.
-- No implementation tasks have yet been handed to Codex or Claude Code from this new control plane.
+2. `ibn_aqil_v3` has a silent failure signature:
+   - long Phase 2a runtime;
+   - zero final excerpts;
+   - zero logged errors in `processing_log.jsonl` and `run_metadata.json`.
+   The analyzer must therefore detect impossible or contradictory success states rather than trusting run logs blindly.
 
-## Pitfalls and dead ends
-- Do not let `HANDOFF.md` become a second active brief.
-- Do not let `DECISIONS.md` silently become a shadow charter or shadow active file.
-- Do not expand the core control plane into a larger bureaucracy of backlog, research-queue, or session-log files unless a real bottleneck proves the need.
-- Do not allow specialist outputs to become project truth without primary-session synthesis.
+3. `ibn_aqil_v3/raw_llm_responses/enrich_0001.json` ends with `finish_reason = length` and contains classification-shaped content despite the `enrich_` filename.
+   The analyzer must therefore inspect call structure and finish reasons rather than infer semantic phase from filenames alone.
 
-## Recommended resume point
-Resume by reading `.kr/README.md`, `.kr/CHARTER.md`, `.kr/ACTIVE.md`, and this handoff in order. Then work directly on the active frontier: draft the analyzer-first evaluation brief tightly enough that later bounded implementation tasks can be delegated without reopening the strategic question.
+## Decisions made this session
+- The evaluation architecture is now analyzer-first rather than artifact-browser-first.
+- This is durable enough to record as `OPS-DEC-005`.
+- The strategic question is no longer whether KR needs an evaluation layer before the 5-book campaign. It does.
+- The next question is implementation: build analyzer v1 and the first review-packet exporter, then prove them on `integration_tests/run_20260328/`.
 
-## Decision updates
-- OPS-DEC-001 added
-- OPS-DEC-002 added
-- OPS-DEC-003 added
-- OPS-DEC-004 added
+## What did *not* happen
+- No deep research was needed.
+- No Codex or Claude Code implementation was needed for the design brief itself.
+- No prompt tuning or engine redesign was reopened.
+- No dashboard/UI work was started.
+
+## Current resume point
+Resume from `ACTIVE.md`.
+
+The correct next session should be a bounded implementation session that:
+1. builds analyzer ingestion and lineage/accounting;
+2. builds per-book metrics and anomaly flags;
+3. builds campaign aggregation;
+4. builds the first review-packet exporter; and
+5. proves the implementation on `integration_tests/run_20260328/`.
+
+## Recommended first checks in the next session
+- Use `reference/EXCERPTING_FULL_BOOK_EVALUATION_BRIEF.md` as the implementation contract.
+- Treat `taysir` grouped-unit loss and `ibn_aqil_v3` silent-zero/truncation as mandatory regression checks.
+- Keep the implementation tightly scoped to evaluation infrastructure; do not drift into prompt changes or new excerpting features unless the analyzer itself proves a structural need.
+
+## Known caution
+Root-level or non-`.kr/` documents may still exist that look operational. Do not let them become shadow control surfaces. `ACTIVE.md` remains the only authoritative next-session task file.

@@ -8,44 +8,46 @@
 Status: active
 
 ## Frontier
-Design the evaluation layer around the upcoming 5-book excerpting campaign so that the run produces decision-grade evidence instead of an impressionistic pile of artifacts.
+Implement analyzer v1 and the first review-packet exporter for the excerpting evaluation layer, using the completed evaluation brief and the historical run artifacts as the proving ground.
 
 ## Why this is the frontier now
-Excerpting has reached the point where more speculative tuning is lower leverage than sharper measurement. The repo already produces rich run artifacts, and the next major execution step is a full-book campaign. Without a disciplined evaluation layer, that campaign will generate outputs but not enough structured insight about coverage, yield quality, redundancy, failure patterns, and next architectural moves. The highest-value near-term work is therefore to specify how a completed run will be measured, surfaced, and reviewed.
+The strategic question has been decided: KR should use an analyzer-first evaluation workflow for the upcoming 5-book excerpting campaign. The highest-leverage next move is no longer reasoning about whether to have such a layer, but building the bounded implementation that makes the layer real. The historical artifacts under `integration_tests/run_20260328/` already contain enough signal to validate whether the analyzer catches structural failures, silent failures, truncation, and review-worthy cases before the real campaign is run.
 
 ## Exact deliverable
-Produce a design-grade evaluation brief centered on an analyzer-first workflow. The brief should define:
-1. the run analyzer’s required metrics, flags, and per-book / cross-book outputs;
-2. the review-packet exporter’s required samples and anomaly buckets for human inspection; and
-3. the formal full-book testing protocol that interprets those outputs.
+Produce a bounded implementation result that includes:
+1. analyzer v1 that ingests excerpting run directories and produces per-book metrics, accounting, anomaly flags, and book-level statuses;
+2. campaign-level aggregation across the available historical 5-book run; and
+3. a first review-packet exporter that emits bounded human-review packets from analyzer output rather than from ad hoc folder browsing.
 
-The output should be tight enough that a later implementation session can hand bounded coding tasks to Codex or Claude Code without re-deciding the architecture.
+The implementation is successful only if it proves itself on `integration_tests/run_20260328/`.
 
 ## Required inputs
+- `reference/EXCERPTING_FULL_BOOK_EVALUATION_BRIEF.md`
 - `engines/excerpting/SPEC.md`
 - `scripts/run_integration_test.py`
 - `scripts/run_full_integration.py`
-- the most recent excerpting integration artifacts already present under `integration_tests/`
+- `integration_tests/run_20260328/`
 - relevant decision entries in `.kr/DECISIONS.md`
 
 ## Constraints and out of scope
-- Do not spend this session on prompt micro-tuning or engine feature additions.
-- Do not broaden into taxonomy or synthesis design.
-- Do not treat raw specialist output as project law without primary-session synthesis.
-- Keep one live frontier only; other plausible improvements may be mentioned briefly as deferred, not made co-equal.
+- Do not reopen prompt-tuning or excerpt-boundary strategy unless the analyzer directly proves a structural need.
+- Do not expand into taxonomy or synthesis evaluation.
+- Do not build a dashboard or UI surface before analyzer accounting and review packets exist.
+- Keep implementation bounded: analyzer first, exporter second, orchestration glue third.
 
 ## Completion criteria
-This frontier is complete only when there is a single coherent evaluation brief that:
-- defines the analyzer inputs, outputs, and metrics clearly;
-- defines the review-packet exporter’s sampling and anomaly logic clearly;
-- defines pass / concern / fail style interpretation for the upcoming full-book campaign; and
-- leaves no ambiguity about which parts are next suited for bounded implementation versus further reasoning.
+This frontier is complete only when:
+- analyzer v1 runs on `integration_tests/run_20260328/`;
+- it explicitly catches the already observed `taysir` grouped-unit loss and `ibn_aqil_v3` silent-zero/truncation failure;
+- it produces per-book and campaign summaries with clear statuses; and
+- the review-packet exporter emits usable packets for bounded human inspection.
 
 ## Relevant decisions
 - OPS-DEC-001
 - OPS-DEC-002
 - OPS-DEC-003
 - OPS-DEC-004
+- OPS-DEC-005
 
 ## If the session cannot complete the deliverable
-Do not drift into general brainstorming. Instead, isolate the blocker precisely, record which part of the evaluation layer remains unresolved, and leave behind a narrowed follow-up brief that makes the next serious session cheaper and sharper.
+Do not drift back into broad evaluation architecture discussion. Instead, isolate which implementation layer failed to land: ingestion/accounting, anomaly logic, campaign aggregation, or review-packet export. Leave behind a narrowed implementation brief for the next session.

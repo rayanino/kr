@@ -102,3 +102,27 @@ A newly discovered blocking defect that prevents meaningful full-book evaluation
 #### Related artifacts
 - `.kr/ACTIVE.md`
 - `.kr/HANDOFF.md`
+
+### OPS-DEC-005 — Adopt an analyzer-first evaluation architecture for excerpting full-book campaigns
+Status: active
+Date: 2026-03-29
+
+#### Decision
+KR will treat the run analyzer as the authoritative first interpretation layer for excerpting evaluation, and will derive human review packets from analyzer output rather than from ad hoc artifact browsing.
+
+#### Why
+The current repo already emits rich artifacts, but the recent historical run demonstrates that raw artifacts alone are not a trustworthy evaluation surface. `taysir` shows grouped-unit loss between Phase 2b and final excerpts, while `ibn_aqil_v3` shows a silent zero-output run with a truncated LLM response and no logged errors. A disciplined analyzer-first layer is therefore the shortest path from raw run folders to decision-grade evidence.
+
+#### Evidence basis
+Primary-session review of `engines/excerpting/SPEC.md`, the integration runners, and `integration_tests/run_20260328/`, including the observed `taysir` accounting break and `ibn_aqil_v3` silent-zero/truncation failure.
+
+#### Consequences
+Evaluation work should first build lineage/accounting, metrics, anomaly flags, and campaign summaries, then build review-packet export on top of that layer. Manual browsing is still allowed for debugging, but it is not the primary evaluation method and must not become a shadow evaluation surface.
+
+#### What would reverse this
+Evidence that analyzer-first evaluation adds more maintenance cost than interpretive value, or that a different evaluation architecture catches structural and silent failures more reliably with less operational complexity.
+
+#### Related artifacts
+- `reference/EXCERPTING_FULL_BOOK_EVALUATION_BRIEF.md`
+- `.kr/ACTIVE.md`
+- `.kr/HANDOFF.md`
