@@ -1,0 +1,10 @@
+{
+  "load_package": 0.01,
+  "phase1": 0.04,
+  "phase2a": 3489.744,
+  "phase2a_per_chunk": {},
+  "phase2b": 0.0,
+  "phase2b_per_chunk": {},
+  "phase3": 0.0,
+  "write_output": 0.001
+}

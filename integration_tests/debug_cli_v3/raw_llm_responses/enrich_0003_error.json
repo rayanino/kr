@@ -1,0 +1,5 @@
+{
+  "call_id": "enrich_0003",
+  "error_type": "ValidationError",
+  "error": "2 validation errors for ClassificationResult\nsegments\n  Field required [type=missing, input_value={'type': 'result', 'subty...9f884b2e', 'errors': []}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\ntotal_segments\n  Field required [type=missing, input_value={'type': 'result', 'subty...9f884b2e', 'errors': []}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing"
+}
