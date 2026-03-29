@@ -23,7 +23,7 @@ import subprocess
 import sys
 import time
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -759,6 +759,10 @@ def execute_task(task: TaskDef) -> TaskResult:
     result_file = task_results_dir / "result.json"
     _atomic_write(result_file, json.dumps(asdict(result), indent=2, ensure_ascii=False))
 
+    # Update creative run log for cooldown tracking
+    if task.category == "creative":
+        _update_creative_run_log(task.task_id)
+
     return result
 
 
@@ -772,6 +776,21 @@ def _check_partial_success(task_id: str) -> bool:
         if f.exists() and f.stat().st_size > 1024:
             return True
     return False
+
+
+def _update_creative_run_log(task_id: str) -> None:
+    """Record that a creative task ran (for cooldown tracking)."""
+    log_path = OVERNIGHT_DIR / "creative_run_log.json"
+    log_data: dict[str, Any] = {"runs": {}}
+    if log_path.exists():
+        try:
+            log_data = json.loads(log_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    key = task_id.removeprefix("creative-")
+    log_data.setdefault("runs", {})[key] = date.today().isoformat()
+    _atomic_write(log_path, json.dumps(log_data, indent=2, ensure_ascii=False))
 
 
 def _execute_cli(task: TaskDef, safety_prompt: str) -> TaskResult:
