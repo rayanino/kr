@@ -726,6 +726,11 @@ def execute_task(task: TaskDef) -> TaskResult:
         safety_prompt = OVERNIGHT_SAFETY_PROMPT.replace("{TASK_ID}", task.task_id)
 
     try:
+        # Codex/Gemini don't support --append-system-prompt, so prepend safety
+        # prompt directly into the task prompt for those backends
+        if task.execution_mode in ("codex", "gemini"):
+            task = TaskDef(**{**asdict(task), "prompt": safety_prompt + "\n\n" + task.prompt})
+
         if task.execution_mode == "codex":
             result = _execute_codex(task, task_results_dir)
         elif task.execution_mode == "gemini":
@@ -779,7 +784,13 @@ def _check_partial_success(task_id: str) -> bool:
 
 
 def _update_creative_run_log(task_id: str) -> None:
-    """Record that a creative task ran (for cooldown tracking)."""
+    """Record that a creative task ran (for cooldown tracking).
+
+    Key format: task_id with 'creative-' prefix removed. Must stay in sync
+    with creative_log_key() in overnight_task_generator.py. The orchestrator
+    runs tasks sequentially (one at a time) so no lock is needed. Concurrent
+    orchestrator instances are prevented by .overnight.lock.
+    """
     log_path = OVERNIGHT_DIR / "creative_run_log.json"
     log_data: dict[str, Any] = {"runs": {}}
     if log_path.exists():
@@ -874,10 +885,9 @@ def _execute_codex(task: TaskDef, results_dir: Path) -> TaskResult:
     ]
     env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 
-    result = subprocess.run(
-        cmd, capture_output=True, text=True,
-        timeout=task.timeout_minutes * 60,
-        cwd=str(PROJECT_DIR), env=env,
+    # Use _run_subprocess_safe to avoid Windows pipe buffer deadlock (>64KB)
+    result = _run_subprocess_safe(
+        cmd, timeout=task.timeout_minutes * 60, env=env,
     )
 
     summary = ""

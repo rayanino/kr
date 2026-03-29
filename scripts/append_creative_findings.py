@@ -36,13 +36,31 @@ def load_existing_summaries(tracker_text: str) -> set[str]:
 
 
 def collect_actionable_items() -> list[dict]:
-    """Find all actionable.json files from creative runs."""
+    """Find actionable.json files from creative task outputs."""
     items: list[dict] = []
     for f in sorted(OVERNIGHT_RESULTS.rglob("actionable.json")):
+        # Only process creative task outputs (skip hardening task dirs)
+        if "creative" not in f.parent.name and "creative" not in str(f.parent.parent.name):
+            continue
+        # Size guard: skip oversized files (LLM could hallucinate huge output)
+        if f.stat().st_size > 1_000_000:
+            print(f"  WARNING: Skipping oversized {f} ({f.stat().st_size} bytes)")
+            continue
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
             if isinstance(data, list):
-                items.extend(data)
+                for item in data:
+                    # Normalize: accept summary/action/finding as the description
+                    if isinstance(item, dict):
+                        summary = (
+                            item.get("summary")
+                            or item.get("action")
+                            or item.get("finding")
+                            or item.get("description")
+                        )
+                        if summary:
+                            item["summary"] = summary
+                            items.append(item)
         except (json.JSONDecodeError, OSError):
             continue
     return items

@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 from dataclasses import asdict, dataclass, field
@@ -772,8 +773,8 @@ def add_codex_verifications(tasks: list[TaskDef]) -> list[TaskDef]:
 # Creative task scanner
 # ---------------------------------------------------------------------------
 
-CREATIVE_TEMPLATES_DIR = Path("overnight/creative_templates")
-CREATIVE_RUN_LOG = Path("overnight/creative_run_log.json")
+CREATIVE_TEMPLATES_DIR = PROJECT_DIR / "overnight" / "creative_templates"
+CREATIVE_RUN_LOG = PROJECT_DIR / "overnight" / "creative_run_log.json"
 PIPELINE_ORDER = ["source", "normalization", "excerpting", "taxonomy", "synthesis"]
 GEMINI_MAX_PER_RUN = 10
 
@@ -789,13 +790,24 @@ def _load_creative_run_log() -> dict[str, str]:
     return {}
 
 
+def creative_log_key(template_id: str, engine: str) -> str:
+    """Canonical key for creative run log. Used by both scanner and updater.
+
+    Format: template_id with / replaced by - , then - , then engine name.
+    Must stay in sync with _update_creative_run_log() in overnight_orchestrator.py.
+    """
+    return f"{template_id.replace('/', '-')}-{engine}"
+
+
 def _detect_active_engine() -> str:
     """Parse NEXT.md for the active engine name."""
-    next_md = Path("NEXT.md")
+    next_md = PROJECT_DIR / "NEXT.md"
     if next_md.exists():
         text = next_md.read_text(encoding="utf-8")[:500]
-        for engine in PIPELINE_ORDER:
-            if engine.lower() in text.lower():
+        # Reverse order: check longer/more-specific names first
+        # to avoid "source" matching inside "resource"
+        for engine in reversed(PIPELINE_ORDER):
+            if re.search(rf"\b{engine}\b", text, re.IGNORECASE):
                 return engine
     return "excerpting"
 
@@ -838,6 +850,10 @@ def _instantiate_prompt(prompt_template: str, variables: dict[str, str]) -> str:
     for key, value in variables.items():
         result = result.replace(f"{{{key}}}", value)
     result = result.replace("{run_date}", date_type.today().isoformat())
+    # Warn on unreplaced template variables (skip JSON-like patterns with quotes)
+    unreplaced = re.findall(r"(?<!\"){([a-z_]+)}(?!\")", result)
+    if unreplaced:
+        print(f"  WARNING: Unreplaced template variables: {unreplaced}")
     return result
 
 
@@ -858,7 +874,7 @@ def scan_creative() -> list[TaskDef]:
         cooldown = tmpl.get("cooldown_days", 14)
 
         # Check cooldown
-        log_key = f"{template_id.replace('/', '-')}-{active_engine}"
+        log_key = creative_log_key(template_id, active_engine)
         last_run = run_log.get(log_key)
         if last_run and _days_since(last_run) < cooldown:
             continue
@@ -882,18 +898,26 @@ def scan_creative() -> list[TaskDef]:
         # Build task
         task_id = f"creative-{resolved['task_id']}"
 
+        # Enforce tool restrictions based on safety level
+        safety = tmpl.get("safety_level", "readonly")
+        if safety == "readonly":
+            tools = ["Read", "Glob", "Grep", "Bash"]
+        else:
+            tools = ["Read", "Glob", "Grep", "Bash", "Write", "Edit"]
+
         tasks.append(TaskDef(
             task_id=task_id,
             name=tmpl["name"].replace("{target}", active_engine),
             category="creative",
             prompt=prompt,
-            safety_level=tmpl.get("safety_level", "readonly"),
+            safety_level=safety,
             execution_mode=exec_mode,
             model=tmpl.get("model", "opus"),
             max_budget_usd=tmpl.get("max_budget_usd", 5.0),
             timeout_minutes=tmpl.get("timeout_minutes", 30),
             max_turns=tmpl.get("max_turns", 50),
-            priority=2,
+            priority=2,  # Between critical hardening (1) and nice-to-have (3)
+            allowed_tools=tools,
         ))
 
     return tasks
