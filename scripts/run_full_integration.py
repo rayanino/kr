@@ -192,7 +192,8 @@ def run_batch(
 
         t0 = time.monotonic()
         try:
-            proc = subprocess.run(cmd, timeout=per_package_timeout)
+            env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+            proc = subprocess.run(cmd, timeout=per_package_timeout, env=env)
             elapsed_pkg = time.monotonic() - t0
 
             if proc.returncode != 0:

@@ -623,7 +623,7 @@ class _CompletionsNamespace:
             "-p", user_prompt,
             "--bare",
             "--no-session-persistence",
-            "--max-turns", "10",
+            "--max-turns", "2",
             "--output-format", "text",
             "--model", "opus",
             "--system-prompt", system_prompt,

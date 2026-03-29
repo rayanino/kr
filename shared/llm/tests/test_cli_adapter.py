@@ -203,7 +203,7 @@ def test_claude_command_flags(
     assert "--no-session-persistence" in cmd
     assert "--max-turns" in cmd
     mt_idx = cmd.index("--max-turns")
-    assert cmd[mt_idx + 1] == "10"
+    assert cmd[mt_idx + 1] == "2"
     assert "--output-format" in cmd
     of_idx = cmd.index("--output-format")
     assert cmd[of_idx + 1] == "text"

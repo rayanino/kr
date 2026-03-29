@@ -25,6 +25,12 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Optional
 
+# Ensure stdout/stderr can handle Arabic text on Windows (cp1252 default)
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 # Ensure project root is on sys.path so local imports work without PYTHONPATH
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
