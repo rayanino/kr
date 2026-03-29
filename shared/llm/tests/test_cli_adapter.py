@@ -203,10 +203,10 @@ def test_claude_command_flags(
     assert "--no-session-persistence" in cmd
     assert "--max-turns" in cmd
     mt_idx = cmd.index("--max-turns")
-    assert cmd[mt_idx + 1] == "2"
+    assert cmd[mt_idx + 1] == "10"
     assert "--output-format" in cmd
     of_idx = cmd.index("--output-format")
-    assert cmd[of_idx + 1] == "json"
+    assert cmd[of_idx + 1] == "text"
     assert "--model" in cmd
     m_idx = cmd.index("--model")
     assert cmd[m_idx + 1] == "opus"
@@ -1006,3 +1006,57 @@ def test_token_priority_credentials_fallback(tmp_path: Path) -> None:
     ):
         token = _get_oauth_token()
     assert token == "creds-token-val"
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Test 43: Setup-token encoding resilience
+# ═══════════════════════════════════════════════════════════════════
+
+
+def test_setup_token_encoding_error_falls_through(tmp_path: Path) -> None:
+    """Corrupted setup-token file (e.g. UTF-16) falls through to credentials."""
+    from shared.llm.cli_adapter import _get_setup_token
+
+    # Write UTF-16LE content (BOM + ASCII) — mimics Windows PowerShell redirect
+    bad_file = tmp_path / "kr_setup_token.txt"
+    bad_file.write_bytes(b"\xff\xfe" + "sk-ant-fake".encode("utf-16-le"))
+
+    with patch("shared.llm.cli_adapter._SETUP_TOKEN_PATH", bad_file):
+        result = _get_setup_token()
+    assert result is None
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Test 44: CLIBackendError caught in retry loop
+# ═══════════════════════════════════════════════════════════════════
+
+
+@patch("shared.llm.cli_adapter.time.sleep")
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_cli_backend_error_retried(
+    mock_run: MagicMock, mock_sleep: MagicMock,
+    adapter: CLIInstructorAdapter, valid_json: str,
+    mock_oauth: Any, mock_which: Any,
+) -> None:
+    """CLIBackendError from envelope extraction is retried, not silently lost."""
+    # First call: envelope with is_error=true (exit 0, so check=True passes)
+    error_envelope = json.dumps({
+        "type": "result",
+        "is_error": True,
+        "result": "Rate limited",
+    })
+    mock_run.side_effect = [
+        _make_completed_process(stdout=error_envelope),
+        _make_completed_process(stdout=valid_json),
+    ]
+
+    result = adapter.chat.completions.create(
+        model="anthropic/claude-opus-4.6",
+        response_model=SimpleResponse,
+        messages=MESSAGES,
+        max_retries=1,
+    )
+
+    assert result.answer == "test"
+    assert mock_run.call_count == 2
+    mock_sleep.assert_called_once_with(1)

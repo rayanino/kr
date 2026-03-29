@@ -99,7 +99,11 @@ _SETUP_TOKEN_PATH = Path.home() / ".claude" / "kr_setup_token.txt"
 def _get_setup_token() -> str | None:
     """Read long-lived setup-token if available."""
     if _SETUP_TOKEN_PATH.exists():
-        token = _SETUP_TOKEN_PATH.read_text(encoding="utf-8").strip()
+        try:
+            token = _SETUP_TOKEN_PATH.read_text(encoding="utf-8").strip()
+        except (UnicodeDecodeError, OSError) as e:
+            logger.warning("Cannot read setup-token at %s: %s", _SETUP_TOKEN_PATH, e)
+            return None
         if token:
             return token
     return None
@@ -263,9 +267,17 @@ def _extract_claude_result(raw_stdout: str) -> str:
                     f"Claude CLI returned error: {parsed.get('result', 'unknown')}",
                     backend="claude",
                 )
-            if "result" in parsed:
+            # Handle max-turns exceeded (result field missing or None)
+            if parsed.get("subtype") == "error_max_turns":
+                raise CLIBackendError(
+                    f"Claude CLI hit max-turns limit (num_turns={parsed.get('num_turns')}). "
+                    "Model needed more turns to complete.",
+                    backend="claude",
+                )
+            result_text = parsed.get("result")
+            if result_text is not None:
                 logger.debug("Extracted model text from Claude CLI dict envelope")
-                return str(parsed["result"])
+                return str(result_text)
 
     # Case 3: Not an envelope — return as-is
     return raw_stdout
@@ -532,6 +544,20 @@ class _CompletionsNamespace:
                         exit_code=e.returncode,
                     ) from e
 
+            except CLIBackendError as e:
+                last_error = e
+                logger.warning(
+                    "Attempt %d/%d: CLI backend error: %s",
+                    attempt + 1,
+                    max_retries + 1,
+                    e,
+                )
+                if attempt < max_retries:
+                    time.sleep(2**attempt)
+                else:
+                    adapter._fire_hooks("completion:error", e)
+                    raise
+
         # Should not reach here, but satisfy type checker
         raise CLIBackendError(  # pragma: no cover
             "Retry loop exited unexpectedly",
@@ -597,8 +623,8 @@ class _CompletionsNamespace:
             "-p", user_prompt,
             "--bare",
             "--no-session-persistence",
-            "--max-turns", "2",
-            "--output-format", "json",
+            "--max-turns", "10",
+            "--output-format", "text",
             "--model", "opus",
             "--system-prompt", system_prompt,
         ]
@@ -619,6 +645,10 @@ class _CompletionsNamespace:
 
         raw_stdout = result.stdout
         logger.debug("Claude raw stdout: %s", raw_stdout[:200])
+
+        # With --output-format text, raw stdout IS the model text.
+        # Try envelope extraction for backwards compat with json format,
+        # but raw text is the expected case.
         return _extract_claude_result(raw_stdout)
 
     def _invoke_codex(
