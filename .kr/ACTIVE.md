@@ -5,49 +5,33 @@
 
 # KR Active Frontier
 
-Status: active
+Status: completed — ready for next frontier
 
-## Frontier
-Implement analyzer v1 and the first review-packet exporter for the excerpting evaluation layer, using the completed evaluation brief and the historical run artifacts as the proving ground.
+## Previous frontier (completed 2026-03-29)
+Build the excerpting evaluation layer v1 (analyzer, campaign aggregator, review-packet exporter) and patch all 6 observability gaps in the runner.
 
-## Why this is the frontier now
-The strategic question has been decided: KR should use an analyzer-first evaluation workflow for the upcoming 5-book excerpting campaign. The highest-leverage next move is no longer reasoning about whether to have such a layer, but building the bounded implementation that makes the layer real. The historical artifacts under `integration_tests/run_20260328/` already contain enough signal to validate whether the analyzer catches structural failures, silent failures, truncation, and review-worthy cases before the real campaign is run.
+## What was delivered
 
-## Exact deliverable
-Produce a bounded implementation result that includes:
-1. analyzer v1 that ingests excerpting run directories and produces per-book metrics, accounting, anomaly flags, and book-level statuses;
-2. campaign-level aggregation across the available historical 5-book run; and
-3. a first review-packet exporter that emits bounded human-review packets from analyzer output rather than from ad hoc folder browsing.
+### Evaluation layer (8 files)
+- `scripts/excerpting_eval/` shared module (models, ingest, analysis, packet)
+- `scripts/analyze_excerpting_run.py` — per-book analyzer
+- `scripts/analyze_excerpting_campaign.py` — campaign aggregator
+- `scripts/export_excerpting_review_packet.py` — review packet exporter
 
-The implementation is successful only if it proves itself on `integration_tests/run_20260328/`.
+### Observability patches (5 of 6 gaps closed)
+- Runner emits `phase2a_failures.jsonl` and `phase2b_failures.jsonl` (failure ledgers)
+- Runner emits `validation_drops.jsonl` with per-unit drop identity
+- Runner invokes `verify_gate_queue()` after writing gate entries
+- Runner annotates raw traces with `semantic_phase` metadata
+- Runner propagates call-level LLM errors to processing_log
 
-## Required inputs
-- `reference/EXCERPTING_FULL_BOOK_EVALUATION_BRIEF.md`
-- `engines/excerpting/SPEC.md`
-- `scripts/run_integration_test.py`
-- `scripts/run_full_integration.py`
-- `integration_tests/run_20260328/`
-- relevant decision entries in `.kr/DECISIONS.md`
+### Deferred (1 gap remaining)
+- **L-001:** `chunk_id` not in raw traces — requires engine-level change to thread context through `run_phase2a` → `classify_chunk`. See `scripts/excerpting_eval/KNOWN_LIMITATIONS.md`. Fix before first multi-chunk campaign.
 
-## Constraints and out of scope
-- Do not reopen prompt-tuning or excerpt-boundary strategy unless the analyzer directly proves a structural need.
-- Do not expand into taxonomy or synthesis evaluation.
-- Do not build a dashboard or UI surface before analyzer accounting and review packets exist.
-- Keep implementation bounded: analyzer first, exporter second, orchestration glue third.
-
-## Completion criteria
-This frontier is complete only when:
-- analyzer v1 runs on `integration_tests/run_20260328/`;
-- it explicitly catches the already observed `taysir` grouped-unit loss and `ibn_aqil_v3` silent-zero/truncation failure;
-- it produces per-book and campaign summaries with clear statuses; and
-- the review-packet exporter emits usable packets for bounded human inspection.
+## Recommended next frontier
+1. **Run the real 5-book excerpting campaign** — the evaluation layer and observability are ready.
+2. **Fix L-001 (chunk_id in traces)** — if multi-chunk processing is imminent.
+3. **Calibrate concern thresholds** — using campaign data.
 
 ## Relevant decisions
-- OPS-DEC-001
-- OPS-DEC-002
-- OPS-DEC-003
-- OPS-DEC-004
-- OPS-DEC-005
-
-## If the session cannot complete the deliverable
-Do not drift back into broad evaluation architecture discussion. Instead, isolate which implementation layer failed to land: ingestion/accounting, anomaly logic, campaign aggregation, or review-packet export. Leave behind a narrowed implementation brief for the next session.
+- OPS-DEC-001 through OPS-DEC-005

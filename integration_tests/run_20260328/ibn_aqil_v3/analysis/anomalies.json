@@ -1,0 +1,66 @@
+[
+  {
+    "anomaly_id": "ANO-ZERO-OUTPUT",
+    "category": "zero_excerpt_run_with_upstream_activity",
+    "severity": "structural_fail",
+    "evidence_basis": "observed",
+    "summary": "Zero excerpts produced despite upstream processing activity",
+    "observed_facts": [
+      "Final excerpt count: 0",
+      "Phase 1 chunk count: 28",
+      "Phase 2a time: 725.6s",
+      "LLM trace count: 6"
+    ],
+    "inferred_interpretation": "Run consumed 725.6s in phase2a and made 6 LLM call(s) but produced zero excerpts. 6 call-level error(s) detected.",
+    "affected_keys": [],
+    "evidence_paths": [
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/excerpts.jsonl",
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/timing.json",
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/raw_llm_responses/"
+    ]
+  },
+  {
+    "anomaly_id": "ANO-TRUNCATION",
+    "category": "truncated_llm_response",
+    "severity": "structural_fail",
+    "evidence_basis": "observed",
+    "summary": "6 LLM response(s) truncated (finish_reason=length)",
+    "observed_facts": [
+      "6 response(s) with finish_reason=length",
+      "  enrich_0001: model=anthropic/claude-opus-4.6, tokens_out=8192, inferred_phase=classification",
+      "  enrich_0002: model=anthropic/claude-opus-4.6, tokens_out=8192, inferred_phase=classification",
+      "  enrich_0003: model=anthropic/claude-opus-4.6, tokens_out=8192, inferred_phase=classification",
+      "  enrich_0004: model=anthropic/claude-opus-4.6, tokens_out=8192, inferred_phase=classification",
+      "  enrich_0005: model=anthropic/claude-opus-4.6, tokens_out=8192, inferred_phase=classification",
+      "  enrich_0006: model=anthropic/claude-opus-4.6, tokens_out=8192, inferred_phase=classification"
+    ],
+    "inferred_interpretation": "Truncated responses produce incomplete JSON that cannot be parsed into valid classification/grouping output. This directly causes downstream phase failure.",
+    "affected_keys": [],
+    "evidence_paths": [
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/raw_llm_responses/enrich_0001.json",
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/raw_llm_responses/enrich_0002.json",
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/raw_llm_responses/enrich_0003.json",
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/raw_llm_responses/enrich_0004.json",
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/raw_llm_responses/enrich_0005.json",
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/raw_llm_responses/enrich_0006.json"
+    ]
+  },
+  {
+    "anomaly_id": "ANO-CONTRADICTION",
+    "category": "artifact_log_contradiction",
+    "severity": "structural_fail",
+    "evidence_basis": "inferred_high_confidence",
+    "summary": "Zero output + zero logged errors despite substantial activity",
+    "observed_facts": [
+      "excerpt_count: 0",
+      "error_count: 0",
+      "phase2a_time: 725.6s"
+    ],
+    "inferred_interpretation": "The run reports zero errors but also produced zero excerpts after spending significant time in phase2a. This is a contradictory success state — the run appears clean but clearly failed silently.",
+    "affected_keys": [],
+    "evidence_paths": [
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/processing_log.jsonl",
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/run_metadata.json"
+    ]
+  }
+]

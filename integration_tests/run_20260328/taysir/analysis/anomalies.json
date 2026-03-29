@@ -1,0 +1,34 @@
+[
+  {
+    "anomaly_id": "ANO-UNIT-LOSS",
+    "category": "grouped_unit_loss",
+    "severity": "structural_fail",
+    "evidence_basis": "inferred_moderate_confidence",
+    "summary": "2 grouped unit(s) lost between Phase 2b and final excerpts",
+    "observed_facts": [
+      "2 grouped unit(s) missing from final excerpts",
+      "Missing unit indices: [2, 9]",
+      "2 EX-V-002 error(s) in processing_log"
+    ],
+    "inferred_interpretation": "2 EX-V-002 validation error(s) logged, count matches 2 lost unit(s). Loss is plausibly explained by validation rejection, but processing_log does not record which specific unit_indices were affected.",
+    "affected_keys": [
+      {
+        "source_id": "src_test0001",
+        "div_id": "div_src_test0001_7_000",
+        "chunk_index": 0,
+        "unit_index": 2
+      },
+      {
+        "source_id": "src_test0001",
+        "div_id": "div_src_test0001_7_000",
+        "chunk_index": 0,
+        "unit_index": 9
+      }
+    ],
+    "evidence_paths": [
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\taysir/phase2b_groupings/",
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\taysir/excerpts.jsonl",
+      "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\taysir/processing_log.jsonl"
+    ]
+  }
+]

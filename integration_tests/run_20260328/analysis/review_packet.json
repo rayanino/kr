@@ -1,0 +1,695 @@
+{
+  "generated_at": "2026-03-29T18:46:40.228719+00:00",
+  "total_units": 43,
+  "total_excerpts": 41,
+  "total_cards": 17,
+  "books": [
+    {
+      "book_name": "ext_39_masala",
+      "source_id": "src_test0001",
+      "structural_status": "STRUCTURALLY_CLEAN",
+      "excerpt_count": 14,
+      "anomaly_count": 0
+    },
+    {
+      "book_name": "ext_46_qa",
+      "source_id": "src_test0001",
+      "structural_status": "STRUCTURALLY_CLEAN",
+      "excerpt_count": 13,
+      "anomaly_count": 0
+    },
+    {
+      "book_name": "ibn_aqil_v1",
+      "source_id": "src_test0001",
+      "structural_status": "STRUCTURALLY_CLEAN",
+      "excerpt_count": 5,
+      "anomaly_count": 0
+    },
+    {
+      "book_name": "ibn_aqil_v3",
+      "source_id": "src_test0001",
+      "structural_status": "STRUCTURAL_FAIL",
+      "excerpt_count": 0,
+      "anomaly_count": 3
+    },
+    {
+      "book_name": "taysir",
+      "source_id": "src_test0001",
+      "structural_status": "STRUCTURAL_FAIL",
+      "excerpt_count": 9,
+      "anomaly_count": 1
+    }
+  ],
+  "lanes": {
+    "lane_1_observed_failures": {
+      "title": "Lane 1: Mandatory Observed Failures",
+      "selection_rule": "All candidates with observed structural_fail anomalies. No sampling — all included.",
+      "denominator": 43,
+      "selected": 1,
+      "cards": [
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "(book-level:ibn_aqil_v3)",
+            "chunk_index": 0,
+            "unit_index": 0
+          },
+          "bucket_tags": [
+            "zero_output",
+            "book_level_failure"
+          ],
+          "stage_state": "absent",
+          "evidence_basis": "observed",
+          "primary_text": null,
+          "context": {
+            "book_name": "ibn_aqil_v3"
+          },
+          "observed_facts": [
+            "Final excerpt count: 0",
+            "Phase 1 chunk count: 28",
+            "Phase 2a time: 725.6s",
+            "LLM trace count: 6"
+          ],
+          "inferred_interpretation": "Run consumed 725.6s in phase2a and made 6 LLM call(s) but produced zero excerpts. 6 call-level error(s) detected.",
+          "artifact_pointers": [
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/excerpts.jsonl",
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/timing.json",
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ibn_aqil_v3/raw_llm_responses/"
+          ],
+          "review_questions": [
+            "Why did this book produce zero excerpts despite upstream activity?",
+            "Is the root cause truncation, timeout, or a parsing failure?"
+          ],
+          "anomaly_ids": [
+            "ANO-ZERO-OUTPUT"
+          ]
+        }
+      ]
+    },
+    "lane_2_inferred_diagnostics": {
+      "title": "Lane 2: Inferred Diagnostics",
+      "selection_rule": "All candidates with inferred (high/moderate confidence) anomalies. No sampling.",
+      "denominator": 43,
+      "selected": 2,
+      "cards": [
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_7_000",
+            "chunk_index": 0,
+            "unit_index": 2
+          },
+          "bucket_tags": [
+            "anomaly_associated"
+          ],
+          "stage_state": "grouped_only",
+          "evidence_basis": "inferred_moderate_confidence",
+          "primary_text": "عَنْ أمِيرِ المُؤْمِنِينَ أبي حَفْصِ \" عُمَرَ بْنِ الخَطَاب\" رضي الله عنه قَال: سَمِعت رسُولَ الله",
+          "context": {
+            "prev_unit": {
+              "unit_index": 1,
+              "text_snippet": "‌‌كتاب الطهارة\n‌‌النية وأحكامها"
+            },
+            "next_unit": {
+              "unit_index": 3,
+              "text_snippet": "غريب الحديث:\n1- \" إنما الأعمال بالنيات \" كلمة [إنما] ، تفيد الحصر، فهو هنا قصر موصُوف على صفة"
+            }
+          },
+          "observed_facts": [
+            "stage_state: grouped_only",
+            "self_containment: FULL",
+            "Unit present in Phase 2b but absent from final excerpts"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\taysir/phase2b_groupings/chunk_div_src_test0001_7_000.json"
+          ],
+          "review_questions": [],
+          "anomaly_ids": [
+            "ANO-UNIT-LOSS"
+          ]
+        },
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_7_000",
+            "chunk_index": 0,
+            "unit_index": 9
+          },
+          "bucket_tags": [
+            "anomaly_associated"
+          ],
+          "stage_state": "grouped_only",
+          "evidence_basis": "inferred_moderate_confidence",
+          "primary_text": "3- أن النية مَحلُّها القلب، واللفظ بها بدعة.",
+          "context": {
+            "prev_unit": {
+              "unit_index": 8,
+              "text_snippet": "2- أن النية شرط أساسي في العمل، ولكن بلا غُلُوّ في استحضارها يفسد على المتعبد عباد"
+            },
+            "next_unit": {
+              "unit_index": 10,
+              "text_snippet": "4- وجوب الحذر من الرياء والسمعة والعمل لأجل الدنيا، مادام أن شيئاً من ذلك يفسد ال"
+            }
+          },
+          "observed_facts": [
+            "stage_state: grouped_only",
+            "self_containment: FULL",
+            "Unit present in Phase 2b but absent from final excerpts"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\taysir/phase2b_groupings/chunk_div_src_test0001_7_000.json"
+          ],
+          "review_questions": [],
+          "anomaly_ids": [
+            "ANO-UNIT-LOSS"
+          ]
+        }
+      ]
+    },
+    "lane_3_self_containment_risk": {
+      "title": "Lane 3: Self-Containment / Boundary Risk",
+      "selection_rule": "All DEPENDENT units + up to 5 PARTIAL units per book (boundary cases prioritized).",
+      "denominator": 43,
+      "selected": 5,
+      "cards": [
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_2_000_pre",
+            "chunk_index": 0,
+            "unit_index": 6
+          },
+          "bucket_tags": [
+            "partial_self_containment",
+            "near_threshold"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "5 - ولا بد من الاستعجال بمثل هذه الوصية لقوله صلى الله عليه وسلم:\n\"ما حق امرئ مسلم يبيت ليلتين وله شيء يريد أن يوصي فيه إلا ووصيته مكتوبة عند رأسه قال ابن عمر: ما مرت علي ليلة منذ سمعت رسول الله صلى الله عليه وسلم قال ذلك إلا وعندي وصيتي.",
+          "context": {
+            "prev_unit": {
+              "unit_index": 5,
+              "text_snippet": "4 - وإذا كان عليه حقوق فليؤدها إلى أصحابها إن تيسر له ذلك وإلا أوصى لأمره صلى الله"
+            },
+            "next_unit": {
+              "unit_index": 7,
+              "text_snippet": "6 - ويجب أن يوصي للأقربين الذين لا يرثون منه لقوله تبارك وتعالى: {كُتِبَ عَلَيْكُمْ"
+            }
+          },
+          "observed_facts": [
+            "stage_state: final_excerpt",
+            "self_containment: PARTIAL"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_39_masala/phase2b_groupings/chunk_div_src_test0001_2_000_pre.json",
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_39_masala/excerpts.jsonl"
+          ],
+          "review_questions": [],
+          "anomaly_ids": []
+        },
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_2_000_pre",
+            "chunk_index": 0,
+            "unit_index": 9
+          },
+          "bucket_tags": [
+            "partial_self_containment",
+            "near_threshold"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "8 - ويشهد على ذلك رجلين عدلين مسلمين فإن لم يوجدا فرجلين من غير المسلمين على أن يستوثق منهما عند الشك بشهادتهما حسبما جاء بيانه في قول الله تبارك وتعالى: {يَا أَيُّهَا الَّذِينَ آمَنُوا شَهَادَةُ بَيْنِكُمْ إِذَا حَضَرَ أَحَدَكُمُ الْمَوْتُ حِينَ الْوَصِيَّةِ اثْنَانِ ذَوَا عَدْلٍ مِنْكُمْ أَوْ آخَرَانِ مِنْ غَيْرِكُمْ إِنْ أَنْتُمْ ضَرَبْتُمْ فِي الْأَرْضِ فَأَصَابَتْكُمْ مُصِيبَةُ الْمَوْتِ تَحْبِسُونَهُمَا مِنْ بَعْدِ الصَّلاةِ فَيُقْسِمَانِ بِاللَّهِ إِنِ ارْتَبْتُمْ لا نَشْتَرِي بِه ثَمَناً وَلَوْ كَانَ ذَا قُرْبَى وَلا نَكْتُمُ شَهَادَةَ اللَّهِ إِنَّا إِذاً لَمِنَ الْآثِمِينَ فَإِنْ عُثِرَ عَلَى أَنَّهُمَا اسْتَحَقَّا إِثْماً1 فَآخَرَانِ يَقُومَانِ مَقَامَهُمَا مِنَ الَّذِينَ اسْتَحَقَّ عَلَيْهِمُ الْأَوْلَيَانِ فَيُقْسِمَانِ بِاللَّهِ لَشَهَادَتُنَا أَحَقُّ مِنْ شَهَادَتِهِمَا وَمَا اعْتَدَيْنَا إِنَّا إِذاً لَمِنَ الظَّالِمِينَ} . ذَلِكَ أَدْنَى أَنْ يَأْتُوا بِالشَّهَادَةِ عَلَى وَجْهِهَا أَوْ يَخَافُوا أَنْ تُرَدَّ أَيْمَانٌ بَعْدَ أَيْمَانِهِمْ وَاتَّقُوا اللَّهَ وَاسْمَعُوا وَاللَّهُ لا يَهْدِي الْقَوْمَ الْفَاسِقِينَ",
+          "context": {
+            "prev_unit": {
+              "unit_index": 8,
+              "text_snippet": "7 - صحيح وله أن يوصي بالثلث من ماله ولا يجوز الزيادة عليه بل الأفضل أن ينقص منه لحد"
+            },
+            "next_unit": {
+              "unit_index": 10,
+              "text_snippet": "9 - وأما الوصية للوالدين والأقربين الذين يرثون من الموصي فلا تجوز لأنها منسوخة بآية"
+            }
+          },
+          "observed_facts": [
+            "stage_state: final_excerpt",
+            "self_containment: PARTIAL"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_39_masala/phase2b_groupings/chunk_div_src_test0001_2_000_pre.json",
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_39_masala/excerpts.jsonl"
+          ],
+          "review_questions": [],
+          "anomaly_ids": []
+        },
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_3_000_pre",
+            "chunk_index": 0,
+            "unit_index": 5
+          },
+          "bucket_tags": [
+            "partial_self_containment",
+            "near_threshold"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "انتهى.\nوقد أخذت من الكتاب الأول اللباب وأدخلته معزوا إليه في خلل هذا الكتاب، وضممت خلاصة الثاني في مباحث العلة.\nوضممت إليه من كتابه الثاني (الأنصاف في مباحث الخلاف) جملة.\nولم أنقل من كتابه حرفا إلا مقرونا بالعزو إليه ليعرف مقام كتاب من كتابه ويتميز عند أولي التمييز جليل نصابه.\nوإلى الله الضراعة في حسن الختام والقبول، فلا ينفع العبد إلا ما من بقبوله، والسلام.",
+          "context": {
+            "prev_unit": {
+              "unit_index": 4,
+              "text_snippet": "وأما الذي في جدل النحو، فإنه في كراسة لطيفة، سماه بـ (الإغراب في جدل الإعراب) ورتبه"
+            },
+            "next_unit": {
+              "unit_index": 6,
+              "text_snippet": "الكلام في‌‌ المقدمات\nفيها مسائل الأولى\nأصول النحو: علم يبحث فيه عن أدلة النحو الإجمال"
+            }
+          },
+          "observed_facts": [
+            "stage_state: final_excerpt",
+            "self_containment: PARTIAL"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_46_qa/phase2b_groupings/chunk_div_src_test0001_3_000_pre.json",
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_46_qa/excerpts.jsonl"
+          ],
+          "review_questions": [],
+          "anomaly_ids": []
+        },
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_3_000_pre",
+            "chunk_index": 0,
+            "unit_index": 8
+          },
+          "bucket_tags": [
+            "partial_self_containment",
+            "near_threshold"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "وقولي (الإجمالية) احتراز في البحث عن التفصيلية، كالبحث عن دليل خاص بجواز العطف على الضمير المجرور من غير إعادة الجار، وبجواز الإضمار قبل\nالذكر في باب الفاعل والمفعول، وبجواز مجيء التمييز مؤكدا، ونحو ذلك، فهذه وظيفة علم النحو نفسه، لا أصوله.",
+          "context": {
+            "prev_unit": {
+              "unit_index": 7,
+              "text_snippet": "وأدلة النحو الغالبة أربعة.\nقال ابن جني في الخصائص: \" أدلة النحو ثلاثة: السماع، والإ"
+            },
+            "next_unit": {
+              "unit_index": 9,
+              "text_snippet": "وقولي (من حيث هي أدلته) بيان لجهة البحث عنها، أي البحث عن القرآن بأنه حجة في النحو،"
+            }
+          },
+          "observed_facts": [
+            "stage_state: final_excerpt",
+            "self_containment: PARTIAL"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_46_qa/phase2b_groupings/chunk_div_src_test0001_3_000_pre.json",
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_46_qa/excerpts.jsonl"
+          ],
+          "review_questions": [],
+          "anomaly_ids": []
+        },
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_3_000_pre",
+            "chunk_index": 0,
+            "unit_index": 9
+          },
+          "bucket_tags": [
+            "partial_self_containment",
+            "near_threshold"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "وقولي (من حيث هي أدلته) بيان لجهة البحث عنها، أي البحث عن القرآن بأنه حجة في النحو، لأنه أفصح الكلام، سواء كان متواترا أم آحادا، وعن السنة كذلك بشرطتها الآتي، وعن كلام من يوثق بعربيته كذلك وعن إجماع أهل البلين كذلك، أي إن كلا مما ذكر يجوز الاحتجاج به دون غيره، وعن القياس وما يجوز من العلل فيه وما لا يجوز.",
+          "context": {
+            "prev_unit": {
+              "unit_index": 8,
+              "text_snippet": "وقولي (الإجمالية) احتراز في البحث عن التفصيلية، كالبحث عن دليل خاص بجواز العطف على"
+            },
+            "next_unit": {
+              "unit_index": 10,
+              "text_snippet": "وقولي (وكيفية الاستدلال بها) ، أي عند تعارضها ونحوه، كتقديم السماع على القياس واللغة"
+            }
+          },
+          "observed_facts": [
+            "stage_state: final_excerpt",
+            "self_containment: PARTIAL"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_46_qa/phase2b_groupings/chunk_div_src_test0001_3_000_pre.json",
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_46_qa/excerpts.jsonl"
+          ],
+          "review_questions": [],
+          "anomaly_ids": []
+        }
+      ]
+    },
+    "lane_4_sentinel_audit": {
+      "title": "Lane 4: Sentinel Audit Sample",
+      "selection_rule": "Random sample independent of anomaly ranking. seed=42. At least 1 per book, total = max(3, 10% of excerpts).",
+      "denominator": 43,
+      "selected": 4,
+      "cards": [
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_2_000_pre",
+            "chunk_index": 0,
+            "unit_index": 11
+          },
+          "bucket_tags": [
+            "sentinel_audit"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "10 - ويحرم الإضرار في الوصية كأن يوصي بحرمان بعض الورثة من حقهم من الإرث أو يفضل بعضهم على بعض فيه لقوله تبارك وتعالى: {لِلرِّجَالِ نَصِيبٌ مِمَّا تَرَكَ الْوَالِدَانِ وَالْأَقْرَبُونَ. . . . مِمَّا قَلَّ مِنْهُ أَوْ كَثُرَ نَصِيباً مَفْرُوضاً. . .ثم قال: {مِنْ بَعْدِ وَصِيَّةٍ يُوصَى بِهَا أَوْ دَيْنٍ غَيْرَ مُضَارٍّ وَصِيَّةً مِنَ اللَّهِ وَاللَّهُ عَلِيمٌ حَلِيمٌ} .\nولقوله صلى الله عليه وسلم:\n\"لا ضرر ولا ضرار من ضار ضاره الله ومن شاق شاقه الله\".",
+          "context": {
+            "primary_function": "rule_statement",
+            "self_containment": "FULL",
+            "div_path": [
+              "مقدمة",
+              "مقدمة"
+            ]
+          },
+          "observed_facts": [
+            "primary_function: rule_statement",
+            "self_containment: FULL",
+            "word_count: 76"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [],
+          "review_questions": [
+            "Is this excerpt a genuinely useful teaching unit?",
+            "Is the self-containment assessment correct?"
+          ],
+          "anomaly_ids": []
+        },
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_3_000_pre",
+            "chunk_index": 0,
+            "unit_index": 0
+          },
+          "bucket_tags": [
+            "sentinel_audit"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "بسم الله الرحمن الرحيم\n\nقال العبد الفقير إلى الله تعالى، عبد الرحمن بن أبي بكر السيوطي:\n\nالحمد لله الذي أرشد لابتكار هذا النمط وتفضل بالعفو عما صدر عن العبد على وجه السهو والغلط، وأشهد أن لا إله إلا الله وحده لا شريك له، شهادة لا وكس فيها ولا شطط، وأشهد أن سيدنا محمدا عبده ورسوله، أفضل من عليه جبرئيل بالوحي هبط، صلى الله عليه وسلم، وعلى آله وصحبه الذين هم لأتباعه خير فرط.",
+          "context": {
+            "primary_function": "structural_transition",
+            "self_containment": "FULL",
+            "div_path": [
+              "المقدمات",
+              "مقدمة"
+            ]
+          },
+          "observed_facts": [
+            "primary_function: structural_transition",
+            "self_containment: FULL",
+            "word_count: 73"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [],
+          "review_questions": [
+            "Is this excerpt a genuinely useful teaching unit?",
+            "Is the self-containment assessment correct?"
+          ],
+          "anomaly_ids": []
+        },
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_2_000_pre",
+            "chunk_index": 0,
+            "unit_index": 5
+          },
+          "bucket_tags": [
+            "sentinel_audit"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "4 - وإذا كان عليه حقوق فليؤدها إلى أصحابها إن تيسر له ذلك وإلا أوصى لأمره صلى الله عليه وسلم بذلك.",
+          "context": {
+            "primary_function": "rule_statement",
+            "self_containment": "FULL",
+            "div_path": [
+              "مقدمة",
+              "مقدمة"
+            ]
+          },
+          "observed_facts": [
+            "primary_function: rule_statement",
+            "self_containment: FULL",
+            "word_count: 21"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [],
+          "review_questions": [
+            "Is this excerpt a genuinely useful teaching unit?",
+            "Is the self-containment assessment correct?"
+          ],
+          "anomaly_ids": []
+        },
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_7_000",
+            "chunk_index": 0,
+            "unit_index": 0
+          },
+          "bucket_tags": [
+            "sentinel_audit"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "تيسير العلام شرح عمدة الأحكام\nللبسام",
+          "context": {
+            "primary_function": "editorial_note",
+            "self_containment": "FULL",
+            "div_path": [
+              "كتاب الطهارة",
+              "النية وأحكامها"
+            ]
+          },
+          "observed_facts": [
+            "primary_function: editorial_note",
+            "self_containment: FULL",
+            "word_count: 6"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [],
+          "review_questions": [
+            "Is this excerpt a genuinely useful teaching unit?",
+            "Is the self-containment assessment correct?"
+          ],
+          "anomaly_ids": []
+        }
+      ]
+    },
+    "lane_5_positive_controls": {
+      "title": "Lane 5: Stratified Positive Controls",
+      "selection_rule": "Cleanest FULL excerpts with no flags. Up to 2 per book, diverse functions.",
+      "denominator": 43,
+      "selected": 2,
+      "cards": [
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_3_000_pre",
+            "chunk_index": 0,
+            "unit_index": 6
+          },
+          "bucket_tags": [
+            "positive_control"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "الكلام في‌‌ المقدمات\nفيها مسائل الأولى\nأصول النحو: علم يبحث فيه عن أدلة النحو الإجمالية، من حيث هي أدلته، وكيفية الاستدلال بها، وحال المستدل.\n\nفقولي (علم) ، أي صناعة فلا يرد ما أورد على التعليل به في حد أصول الفقه، من كونه يلزم عليه فقده، إذا فقد العالم به، لأنه صناعة مدونة، مقررة وجد العالم به، أم لا.\nوقولي (عن أدلة النحو) يخرج كل صناعة سواه، وسوى النحو.",
+          "context": {
+            "primary_function": "definition",
+            "self_containment": "FULL",
+            "div_path": [
+              "المقدمات",
+              "مقدمة"
+            ]
+          },
+          "observed_facts": [
+            "primary_function: definition",
+            "self_containment: FULL",
+            "word_count: 68"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [],
+          "review_questions": [
+            "Is this excerpt a genuinely useful teaching unit?",
+            "Is the self-containment assessment correct?"
+          ],
+          "anomaly_ids": []
+        },
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_2_000",
+            "chunk_index": 0,
+            "unit_index": 4
+          },
+          "bucket_tags": [
+            "positive_control"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "وقد أردت أن أقوم لهذا الكتاب بعمل أتقرب به إلى الله تعالى، فرأيت - في أول الأمر - أن أتمم ما قصر فيه من البحث: فأبين اختلاف النحويين واستدلالاتهم ثم نظرت فإذا ذلك يخرج بالكتاب عن أصل الغرض منه، وقد يكون الإطناب باعثا على الازورار عنه، ونحن في زمن أقل ما فيه من عاب أنك لا تجد راغبا في علوم العرب إلا في القليل النادر، لأنهم قوم ذهبت مدنيتهم، ودالت دولتهم، وأصبحت الغلبة لغيرهم.\nفاكتفيت بما لا بد منه، من إعراب أبيات الألفية، وشرح الشواهد شرحا وسطا بين الاقتصار والإسهاب، وبيان بعض المباحث التي أشار إليها الشارح أو أغفلها بتة في عبارة واضحة وفي إيجاز دقيق، والتذييل بخلاصة مختصرة في تصريف الأفعال، فإن ابن مالك قد أغفل ذلك في \" ألفيته \"، ووضع له لامية خاصة، سماها \" لامية الأفعال \".\nوأريد أن أنبهك إلى أنني وفقت في تصحيح هذه المطبوعة تصحيحا دقيقا، فإن نسخ الكتاب التي في أيدي الناس - رغم كثرتها، وتعدد طبعها - ليس فيها نسخة بلغت من الإتقان حدا ينفي عنك الريب والتوقف، فإنك لتجد في بعضها زيادة ليست في بعضهما الآخر، وتجد بينها تفاوتا في التعبير، وقد جمع الله تعالى لي بين اثنتي عشرة نسخة مختلفة، في زمان الطبع، ومكانه، ويسر لي - سبحانه! - معارضة بعضها ببعض، فاستخلصت لك من بينها أكملها بيانا، وأصحها تعبيرا، وأدناها إلى ما أحب لك، فجاءت فيما أعتقد خير ما أخرج للناس من مطبوعات هذا الكتاب.\nوقد وضعنا زيادات بعض النسخ بين علامتين هكذا [] .\nوالله سبحانه! المسئول أن ينفع بهذا العمل على قدر العناء فيه، وأن يجعله في سبيل الإخلاص فيه لوجهه، إنه الرب المعين، وعليه التكلان\nمحمد محيي الدين عبد الحميد",
+          "context": {
+            "primary_function": "editorial_note",
+            "self_containment": "FULL",
+            "div_path": [
+              "مقدمة الطبعة الثانية"
+            ]
+          },
+          "observed_facts": [
+            "primary_function: editorial_note",
+            "self_containment: FULL",
+            "word_count: 265"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [],
+          "review_questions": [
+            "Is this excerpt a genuinely useful teaching unit?",
+            "Is the self-containment assessment correct?"
+          ],
+          "anomaly_ids": []
+        }
+      ]
+    },
+    "lane_6_ambiguity": {
+      "title": "Lane 6: Ambiguity / Near-Threshold Cases",
+      "selection_rule": "Consensus disagreement or PARTIAL with context_hint. Up to 3 per book.",
+      "denominator": 43,
+      "selected": 3,
+      "cards": [
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_3_000_pre",
+            "chunk_index": 0,
+            "unit_index": 10
+          },
+          "bucket_tags": [
+            "partial_self_containment",
+            "near_threshold"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "وقولي (وكيفية الاستدلال بها) ، أي عند تعارضها ونحوه، كتقديم السماع على القياس واللغة الحجازية على التميمية إلا لمانع، وأقوى العلتين على أضعفهما، وأخف الأقبحين على أشدهما قبحا، إلى غير ذلك. وهذا هو المعقود له من الكتاب السادس.",
+          "context": {
+            "prev_unit": {
+              "unit_index": 9,
+              "text_snippet": "وقولي (من حيث هي أدلته) بيان لجهة البحث عنها، أي البحث عن القرآن بأنه حجة في النحو،"
+            },
+            "next_unit": {
+              "unit_index": 11,
+              "text_snippet": "وقولي (وحال المستدل) ، أي المستنبط للمسائل من الأدلة المذكورة، أي صفاته وشروطه، وما"
+            }
+          },
+          "observed_facts": [
+            "stage_state: final_excerpt",
+            "self_containment: PARTIAL"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_46_qa/phase2b_groupings/chunk_div_src_test0001_3_000_pre.json",
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_46_qa/excerpts.jsonl"
+          ],
+          "review_questions": [],
+          "anomaly_ids": []
+        },
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_3_000_pre",
+            "chunk_index": 0,
+            "unit_index": 11
+          },
+          "bucket_tags": [
+            "partial_self_containment",
+            "near_threshold"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "وقولي (وحال المستدل) ، أي المستنبط للمسائل من الأدلة المذكورة، أي صفاته وشروطه، وما يتبع ذلك من صفة المقلد والسائل. وهذا هو الموضوع له الكتاب السابع.",
+          "context": {
+            "prev_unit": {
+              "unit_index": 10,
+              "text_snippet": "وقولي (وكيفية الاستدلال بها) ، أي عند تعارضها ونحوه، كتقديم السماع على القياس واللغة"
+            },
+            "next_unit": {
+              "unit_index": 12,
+              "text_snippet": "وبعد أن حررت هذا الحد بفكري وشرحته، وجدت ابن الأنباري قال: \" أصول النحو أدلة النحو ا"
+            }
+          },
+          "observed_facts": [
+            "stage_state: final_excerpt",
+            "self_containment: PARTIAL"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_46_qa/phase2b_groupings/chunk_div_src_test0001_3_000_pre.json",
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\ext_46_qa/excerpts.jsonl"
+          ],
+          "review_questions": [],
+          "anomaly_ids": []
+        },
+        {
+          "canonical_unit_key": {
+            "source_id": "src_test0001",
+            "div_id": "div_src_test0001_7_000",
+            "chunk_index": 0,
+            "unit_index": 3
+          },
+          "bucket_tags": [
+            "partial_self_containment",
+            "near_threshold"
+          ],
+          "stage_state": "final_excerpt",
+          "evidence_basis": "observed",
+          "primary_text": "غريب الحديث:\n1- \" إنما الأعمال بالنيات \" كلمة [إنما] ، تفيد الحصر، فهو هنا قصر موصُوف على صفة، وهو إثبات حكم الأعمال بالنيات، فهو في قوة [ما الأعمال إلا بالنيات] وينفى الحكم عما عداه.\n2- \" النية \" لغة: القصد. ووقع بالإفراد في أكثر الروايات. قال البيضاوي النية عبارة عن انبعاث القلب نحو ما يراه موافقا لغرض من جلب نفع أو دفع ضر ا. هـ. وشرعا: العزم على فعل العبادة تقربا إلى الله تعالى.\n3- \" فمن كانت هجرته … الخ \" مثال يقرر ويوضح القاعدة السابقة.\n4- \" فمن كانت هجرته \" جملة شرطية.\n5- \"فهجرته إلى الله ورسوله \" جواب الشرط، واتحد الشرط والجواب لأنهما على تقدير \" من كانت هجرته إلى الله ورسوله - نية وقصداً- فهجرته إلى الله ورسوله- ثوابا وأجراً \".",
+          "context": {
+            "prev_unit": {
+              "unit_index": 2,
+              "text_snippet": "عَنْ أمِيرِ المُؤْمِنِينَ أبي حَفْصِ \" عُمَرَ بْنِ الخَطَاب\" رضي الله عنه قَال: سَمِعت رسُولَ الله"
+            },
+            "next_unit": {
+              "unit_index": 4,
+              "text_snippet": "المعنى الإجمالي:\nهذا حديث عظيم وقاعدة جليلة من قواعد الإسلام هي القياس الصحيح لوزن الأعمال"
+            }
+          },
+          "observed_facts": [
+            "stage_state: final_excerpt",
+            "self_containment: PARTIAL"
+          ],
+          "inferred_interpretation": null,
+          "artifact_pointers": [
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\taysir/phase2b_groupings/chunk_div_src_test0001_7_000.json",
+            "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\run_20260328\\taysir/excerpts.jsonl"
+          ],
+          "review_questions": [],
+          "anomaly_ids": []
+        }
+      ]
+    }
+  }
+}

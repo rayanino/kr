@@ -88,11 +88,13 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
     Callable[..., None],
     Callable[..., None],
     Callable[..., None],
+    dict[str, Any],
 ]:
     """Create logging hooks for an Instructor client.
 
-    Returns (on_request, on_response, on_error) callables suitable for
-    ``client.on("completion:kwargs", ...)``, etc.
+    Returns (on_request, on_response, on_error, trace_context) where
+    trace_context is a mutable dict the caller can update to annotate
+    traces with ``semantic_phase`` and ``chunk_id`` metadata.
     """
     req_dir = output_dir / "raw_llm_requests"
     resp_dir = output_dir / "raw_llm_responses"
@@ -101,6 +103,10 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
 
     call_counter: dict[str, int] = {"n": 0}
     call_start_time: dict[str, float] = {"t": 0.0}
+    trace_context: dict[str, Any] = {
+        "semantic_phase": None,
+        "chunk_id": None,
+    }
 
     def on_request(**kwargs: Any) -> None:
         call_counter["n"] += 1
@@ -108,6 +114,8 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
         call_id = f"{client_name}_{call_counter['n']:04d}"
         entry: dict[str, Any] = {
             "call_id": call_id,
+            "semantic_phase": trace_context.get("semantic_phase"),
+            "chunk_id": trace_context.get("chunk_id"),
             "model": kwargs.get("model"),
             "temperature": kwargs.get("temperature"),
             "max_tokens": kwargs.get("max_tokens"),
@@ -174,7 +182,7 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
             encoding="utf-8",
         )
 
-    return on_request, on_response, on_error
+    return on_request, on_response, on_error, trace_context
 
 
 # ---------------------------------------------------------------------------
@@ -386,6 +394,13 @@ def run_pre_checks(
 # ---------------------------------------------------------------------------
 
 
+def _write_jsonl(path: Path, records: list[dict[str, Any]]) -> None:
+    """Write a list of dicts as one JSON object per line."""
+    with open(path, "w", encoding="utf-8") as f:
+        for record in records:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
 def _serialize_chunks(chunks: list[Any], output_dir: Path) -> None:
     """Save Phase 1 chunks to phase1_chunks.json."""
     path = output_dir / "phase1_chunks.json"
@@ -513,6 +528,8 @@ def run_pipeline(
         )
 
     # ── Create clients ────────────────────────────────────────────
+    trace_contexts: dict[str, dict[str, Any]] = {}
+
     if mock:
         logger.info("Mock mode: using MagicMock clients")
         enrich_client, verify_client, escalation_client = create_mock_clients()
@@ -528,7 +545,8 @@ def run_pipeline(
             (verify_client, "verify"),
             (escalation_client, "escalation"),
         ]:
-            req_hook, resp_hook, err_hook = make_hook_logger(output_dir, name)
+            req_hook, resp_hook, err_hook, ctx = make_hook_logger(output_dir, name)
+            trace_contexts[name] = ctx
             client.on("completion:kwargs", req_hook)
             client.on("completion:response", resp_hook)
             client.on("completion:error", err_hook)
@@ -551,7 +569,8 @@ def run_pipeline(
             (verify_client, "verify"),
             (escalation_client, "escalation"),
         ]:
-            req_hook, resp_hook, err_hook = make_hook_logger(output_dir, name)
+            req_hook, resp_hook, err_hook, ctx = make_hook_logger(output_dir, name)
+            trace_contexts[name] = ctx
             client.on("completion:kwargs", req_hook)
             client.on("completion:response", resp_hook)
             client.on("completion:error", err_hook)
@@ -661,6 +680,9 @@ def run_pipeline(
 
     # ── Phase 2a: Classification ──────────────────────────────────
     logger.info("=== Phase 2a: Classification ===")
+    # Set semantic_phase on trace contexts before LLM calls
+    for ctx in trace_contexts.values():
+        ctx["semantic_phase"] = "classification"
     chunk_timings_2a: dict[str, float] = {}
     t0 = time.monotonic()
     if mock:
@@ -686,8 +708,31 @@ def run_pipeline(
     )
     _serialize_classifications(classified, output_dir)
 
+    # A1: Write Phase 2a failure ledger
+    phase2a_failures = [
+        {
+            "chunk_id": chunk.chunk_id,
+            "source_id": chunk.source_id,
+            "div_id": chunk.div_id,
+            "word_count": chunk.word_count,
+        }
+        for chunk in chunks
+        if chunk.chunk_id not in classified
+    ]
+    if phase2a_failures:
+        _write_jsonl(output_dir / "phase2a_failures.jsonl", phase2a_failures)
+        all_errors.append(f"phase2a_chunk_failures:{len(phase2a_failures)}")
+        logger.warning(
+            "%d chunk(s) failed Phase 2a: %s",
+            len(phase2a_failures),
+            [f["chunk_id"] for f in phase2a_failures],
+        )
+
     # ── Phase 2b: Grouping ────────────────────────────────────────
     logger.info("=== Phase 2b: Grouping ===")
+    for name, ctx in trace_contexts.items():
+        if name == "enrich":
+            ctx["semantic_phase"] = "grouping"
     chunk_timings_2b: dict[str, float] = {}
     t0 = time.monotonic()
     if mock:
@@ -713,8 +758,30 @@ def run_pipeline(
     )
     _serialize_groupings(grouped, output_dir)
 
+    # A1: Write Phase 2b failure ledger
+    phase2b_failures = [
+        {"chunk_id": chunk_id}
+        for chunk_id in classified
+        if chunk_id not in grouped
+    ]
+    if phase2b_failures:
+        _write_jsonl(output_dir / "phase2b_failures.jsonl", phase2b_failures)
+        all_errors.append(f"phase2b_chunk_failures:{len(phase2b_failures)}")
+        logger.warning(
+            "%d chunk(s) failed Phase 2b: %s",
+            len(phase2b_failures),
+            [f["chunk_id"] for f in phase2b_failures],
+        )
+
     # ── Phase 3: Enrichment + consensus + validation ──────────────
     logger.info("=== Phase 3: Enrichment + consensus + validation ===")
+    for name, ctx in trace_contexts.items():
+        if name == "enrich":
+            ctx["semantic_phase"] = "enrichment"
+        elif name == "verify":
+            ctx["semantic_phase"] = "verification"
+        elif name == "escalation":
+            ctx["semantic_phase"] = "escalation"
     t0 = time.monotonic()
     if mock:
         phase3_result = _mock_phase3(
@@ -754,6 +821,32 @@ def run_pipeline(
         write_excerpts(phase3_result.excerpts, output_dir)
     if phase3_result.gate_entries:
         write_gate_queue(phase3_result.gate_entries, output_dir)
+        # A3: V-P3-7 paranoid gate queue verification
+        from engines.excerpting.src.writer import verify_gate_queue
+        gate_path = output_dir / "gate_queue.jsonl"
+        gate_errors = verify_gate_queue(
+            phase3_result.gate_entries, gate_path
+        )
+        all_errors.extend(gate_errors)
+
+    # A2: Write validation drops
+    if hasattr(phase3_result, "validation_drops") and phase3_result.validation_drops:
+        _write_jsonl(
+            output_dir / "validation_drops.jsonl",
+            phase3_result.validation_drops,
+        )
+        logger.info(
+            "Wrote %d validation drop(s) to validation_drops.jsonl",
+            len(phase3_result.validation_drops),
+        )
+
+    # A5: Count call-level LLM errors and propagate
+    resp_dir = output_dir / "raw_llm_responses"
+    if resp_dir.is_dir():
+        llm_error_count = len(list(resp_dir.glob("*_error.json")))
+        if llm_error_count > 0:
+            all_errors.append(f"llm_call_errors:{llm_error_count}")
+
     write_processing_log(
         source_id=package.manifest.source_id,
         errors=all_errors,

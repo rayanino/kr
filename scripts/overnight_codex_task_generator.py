@@ -160,8 +160,8 @@ def scan_recent_changes() -> list[CodexTaskDef]:
                     "3. Error handling gaps\n"
                     "4. Data-flow / contract preservation risks\n"
                     "5. Unicode / serialization hazards that do not require Arabic domain judgment\n\n"
-                    "Do not propose architecture rewrites. Be a bounded employee: identify concrete, "
-                    "local improvements with file-path evidence."
+                    "Do not propose architecture rewrites. Stay inside the named engine files and "
+                    "their tests only."
                 ),
                 runner_mode="exec",
                 sandbox_mode="read-only",
@@ -187,8 +187,8 @@ def scan_recent_changes() -> list[CodexTaskDef]:
                     "Not allowed:\n"
                     "- feature work\n"
                     "- new orchestrators or runtime systems\n"
-                    "- changes outside the touched engine/tests/shared support needed by the fix\n"
-                    "- edits to docs, specs, .claude, or overnight systems"
+                    "- changes outside engines/{engine}/src/ and engines/{engine}/tests/\n"
+                    "- edits to .kr/, docs/, specs, .claude, integration_tests, or overnight systems"
                 ),
                 runner_mode="exec",
                 sandbox_mode="workspace-write",
@@ -198,6 +198,10 @@ def scan_recent_changes() -> list[CodexTaskDef]:
                 priority=2,
                 estimated_complexity="high",
                 expected_artifact="findings.json",
+                allowed_write_prefixes=[
+                    f"engines/{engine}/src/",
+                    f"engines/{engine}/tests/",
+                ],
             )
         )
     return tasks
@@ -219,6 +223,7 @@ def scan_knowledge_integrity() -> list[CodexTaskDef]:
                     "Focus on byte-preservation and Unicode safety, not Arabic semantic judgment.\n\n"
                     "Write targeted regression tests for any structural risk where serialized output "
                     "could alter bytes, escape significant characters, or drop line breaks. "
+                    "Stay inside engines/excerpting/src/ and engines/excerpting/tests/. "
                     "Fix only a confirmed local bug needed to make the test pass."
                 ),
                 runner_mode="exec",
@@ -228,6 +233,10 @@ def scan_knowledge_integrity() -> list[CodexTaskDef]:
                 priority=1,
                 estimated_complexity="high",
                 expected_artifact="findings.json",
+                allowed_write_prefixes=[
+                    "engines/excerpting/src/",
+                    "engines/excerpting/tests/",
+                ],
             )
         )
     if deterministic.exists():
@@ -244,7 +253,8 @@ def scan_knowledge_integrity() -> list[CodexTaskDef]:
                     "- split-boundary bookkeeping\n"
                     "- duplicate pair handling\n"
                     "- invariant preservation and warning emission\n\n"
-                    "Write regression tests first. Fix only directly confirmed local defects."
+                    "Write regression tests first. Stay inside engines/excerpting/src/ and "
+                    "engines/excerpting/tests/. Fix only directly confirmed local defects."
                 ),
                 runner_mode="exec",
                 sandbox_mode="workspace-write",
@@ -253,6 +263,10 @@ def scan_knowledge_integrity() -> list[CodexTaskDef]:
                 priority=1,
                 estimated_complexity="high",
                 expected_artifact="findings.json",
+                allowed_write_prefixes=[
+                    "engines/excerpting/src/",
+                    "engines/excerpting/tests/",
+                ],
             )
         )
     return tasks

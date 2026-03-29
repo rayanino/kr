@@ -49,6 +49,9 @@ FORBIDDEN_CAPABILITY_FLAGS = {
 }
 FORBIDDEN_EDIT_PREFIXES = (
     ".claude/",
+    ".kr/",
+    "docs/",
+    "integration_tests/",
     "overnight/",
     "overnight_codex/",
     "docs/superpowers/",
@@ -155,6 +158,7 @@ class CodexTaskDef:
     expected_artifact: str = "final_response.json"
     capability_flags: list[str] = field(default_factory=list)
     authority_level: str = "low"
+    allowed_write_prefixes: list[str] = field(default_factory=list)
 
     def validate(self) -> None:
         if self.category not in ALLOWED_CATEGORIES:
@@ -185,6 +189,10 @@ class CodexTaskDef:
         if self.write_policy == "guarded_write" and self.sandbox_mode != "workspace-write":
             raise ValueError(
                 f"Guarded write task {self.task_id} must use sandbox_mode='workspace-write'"
+            )
+        if self.write_policy == "guarded_write" and not self.allowed_write_prefixes:
+            raise ValueError(
+                f"Guarded write task {self.task_id} must declare allowed_write_prefixes"
             )
 
 

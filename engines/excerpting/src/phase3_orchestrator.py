@@ -39,12 +39,14 @@ class Phase3Result:
         gate_entries: Human gate entries to write to gate_queue.jsonl.
         errors: All error codes emitted during Phase 3 processing.
         timings: Per-stage timing in seconds.
+        validation_drops: Excerpts dropped by V-P3-2 validation, with identity.
     """
 
     excerpts: list[ExcerptRecord] = field(default_factory=list)
     gate_entries: list[dict[str, object]] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
     timings: dict[str, float] = field(default_factory=dict)
+    validation_drops: list[dict[str, object]] = field(default_factory=list)
 
 
 def run_phase3(
@@ -182,10 +184,25 @@ def run_phase3(
     result.errors.extend(validation_errors)
     result.excerpts = validated_excerpts
     result.timings["validation"] = time.monotonic() - t3
+
+    # Record exactly which excerpts were dropped (per-unit identity)
+    validated_ids = {e.excerpt_id for e in validated_excerpts}
+    for exc in all_excerpts:
+        if exc.excerpt_id not in validated_ids:
+            result.validation_drops.append({
+                "excerpt_id": exc.excerpt_id,
+                "source_id": exc.source_id,
+                "div_id": exc.div_id,
+                "chunk_index": exc.chunk_index,
+                "unit_index": exc.unit_index,
+                "text_snippet": exc.text_snippet[:80] if exc.text_snippet else "",
+            })
+
     logger.info(
-        "Phase 3 validation: %d excerpts, %d errors (%.2fs).",
+        "Phase 3 validation: %d excerpts, %d errors, %d drops (%.2fs).",
         len(result.excerpts),
         len(validation_errors),
+        len(result.validation_drops),
         result.timings["validation"],
     )
 

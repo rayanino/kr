@@ -1,16 +1,24 @@
 {
-  "timestamp": "2026-03-29T16:00:57.737578+00:00",
+  "timestamp": "2026-03-29T18:47:32.026548+00:00",
   "branch": "master",
-  "active_engine": null,
+  "active_engine": "excerpting",
   "active_spec_section": null,
-  "last_committed_file": "overnight_codex/README.md",
+  "last_committed_file": null,
   "active_plan": null,
   "modified_files": [
-    ".claude/session_state.json"
+    ".claude/session_state.json",
+    ".kr/ACTIVE.md",
+    ".kr/HANDOFF.md",
+    "engines/excerpting/src/phase3_orchestrator.py",
+    "overnight_codex/MORNING_REPORT.md",
+    "scripts/overnight_codex_common.py",
+    "scripts/overnight_codex_orchestrator.py",
+    "scripts/overnight_codex_task_generator.py",
+    "scripts/run_integration_test.py"
   ],
-  "uncommitted_summary": ".claude/session_state.json | 13 +++++++------\n 1 file changed, 7 insertions(+), 6 deletions(-)",
+  "uncommitted_summary": ".claude/session_state.json                    |  16 ++--\n .kr/ACTIVE.md                                 |  65 ++++++---------\n .kr/HANDOFF.md                                | 116 ++++++++++++++------------\n engines/excerpting/src/phase3_orchestrator.py |  19 ++++-\n overnight_codex/MORNING_REPORT.md             |  62 +++++++++++++-\n scripts/overnight_codex_common.py             |   8 ++\n scripts/overnight_codex_orchestrator.py       |  38 +++++++--\n scripts/overnight_codex_task_generator.py     |  24 ++++--\n scripts/run_integration_test.py               | 103 +++++++++++++++++++++--\n 9 files changed, 330 insertions(+), 121 deletions(-)",
   "next_md_head": "# NEXT — Fix Windows cp1252 Crash + Launch Overnight Run\n\n## What's Wrong\n\n`run_integration_test.py` prints Arabic source metadata with `ensure_ascii=False`.\nOn Windows, the console encoding is cp1252, which can't encode Arabic. This crashes\n4 of 5 packages (only `ext_39_masala` with null metadata survives).\n\nError at line ~1018:\n```\nUnicodeEncodeError: 'charmap' codec can't encode characters in position 0-5\n```\n\n## What to Do\n",
-  "recent_commits": "c2a98f82 fix(overnight-codex): add Claude-session detection + queue-only guard\n394d9383 feat(overnight): add overnight codex system state and templates\na8552f5e test(integration): add CLI smoke test artifacts (2026-03-29)\n45d9ed71 feat(scripts): add overnight codex orchestration system\n82660c28 fix(cli-adapter): bump timeout to 600s and max-turns to 10",
+  "recent_commits": "c12e03d8 Merge pull request #3 from rayanino/kr-eval-brief-20260329\nc69cc7ad control(excerpting): add hardened implementation note\n57424d2f docs(excerpting): add hardened evaluation implementation pack\nf31fbecd docs(excerpting): add hardened evaluation implementation pack\n0bc201a5 Merge pull request #2 from rayanino/kr-eval-brief-20260329",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",

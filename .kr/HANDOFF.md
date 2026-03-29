@@ -6,61 +6,45 @@
 # KR Handoff
 
 ## Session purpose
-Interpret the active frontier exactly and decide whether the next highest-leverage move before the 5-book excerpting campaign is deeper reasoning, deep research, or bounded implementation design.
+Build the excerpting evaluation layer v1 and patch all observability gaps in the runner.
 
 ## What this session completed
-Completed the active frontier by writing `reference/EXCERPTING_FULL_BOOK_EVALUATION_BRIEF.md`.
 
-That brief locks in:
-- an analyzer-first evaluation workflow;
-- the analyzer's required inputs, lineage/accounting model, metrics, flags, and per-book/campaign outputs;
-- the review-packet exporter's required anomaly buckets and card structure; and
-- the formal full-book testing protocol that turns those outputs into `PASS` / `CONCERN` / `FAIL` interpretation.
+### Evaluation layer (8 new files)
+- `scripts/excerpting_eval/{__init__, models, ingest, analysis, packet}.py` — shared module
+- `scripts/analyze_excerpting_run.py` — per-book analyzer
+- `scripts/analyze_excerpting_campaign.py` — campaign aggregator
+- `scripts/export_excerpting_review_packet.py` — review packet exporter
 
-## Key findings from the historical run
-The current historical artifacts already show why the evaluation layer cannot be postponed:
+### Runner observability patches (2 files modified)
+- `scripts/run_integration_test.py` — failure ledgers, validation drops, gate verification, trace metadata, call-level error propagation
+- `engines/excerpting/src/phase3_orchestrator.py` — `Phase3Result.validation_drops` field + set-diff computation
 
-1. `taysir` has a real accounting failure:
-   - Phase 2b grouping produced 11 teaching units;
-   - final `excerpts.jsonl` contains 9 excerpts; and
-   - the run logged two `EX-V-002` errors.
-   The analyzer must therefore reconcile grouped units against final excerpts and treat grouped-unit loss as a first-class failure.
+### Analyzer bug fix
+- `scripts/excerpting_eval/packet.py` — book-level key collision fixed (B1)
 
-2. `ibn_aqil_v3` has a silent failure signature:
-   - long Phase 2a runtime;
-   - zero final excerpts;
-   - zero logged errors in `processing_log.jsonl` and `run_metadata.json`.
-   The analyzer must therefore detect impossible or contradictory success states rather than trusting run logs blindly.
+### Analyzer upgrades for new artifacts
+- Consumes `validation_drops.jsonl` → upgrades evidence to OBSERVED
+- Consumes `phase2a/2b_failures.jsonl` → new `detect_phase_failures` detector
+- Reads `semantic_phase` from trace requests when present → skips content inference
 
-3. `ibn_aqil_v3/raw_llm_responses/enrich_0001.json` ends with `finish_reason = length` and contains classification-shaped content despite the `enrich_` filename.
-   The analyzer must therefore inspect call structure and finish reasons rather than infer semantic phase from filenames alone.
+## All 6 regression checks pass
+1. taysir grouped-unit loss (indices [2, 9]) — detected
+2. ibn_aqil_v3 zero-output — detected
+3. truncation finish_reason=length — detected
+4. client-label ambiguity — no false anomaly
+5. semantic phase inference — 4/4 correct
+6. clean books — 3/3 STRUCTURALLY_CLEAN
 
-## Decisions made this session
-- The evaluation architecture is now analyzer-first rather than artifact-browser-first.
-- This is durable enough to record as `OPS-DEC-005`.
-- The strategic question is no longer whether KR needs an evaluation layer before the 5-book campaign. It does.
-- The next question is implementation: build analyzer v1 and the first review-packet exporter, then prove them on `integration_tests/run_20260328/`.
+808 excerpting engine tests pass, 0 failures.
 
-## What did *not* happen
-- No deep research was needed.
-- No Codex or Claude Code implementation was needed for the design brief itself.
-- No prompt tuning or engine redesign was reopened.
-- No dashboard/UI work was started.
+## Deferred flaw: L-001
+
+**chunk_id not in raw LLM traces.** The runner sets `semantic_phase` but cannot set `chunk_id` because phase functions iterate internally. Requires threading `trace_context` through `run_phase2a` → `classify_chunk` and `run_phase2b` → `group_chunk`.
+
+**Documented in:** `scripts/excerpting_eval/KNOWN_LIMITATIONS.md`
+**When to fix:** Before the first campaign that processes >1 chunk per book. The current test data uses 1 chunk per book, so this is dormant.
+**Impact if unfixed:** Analyzer infers chunk association from call sequence — works but fragile for multi-chunk runs.
 
 ## Current resume point
-Resume from `ACTIVE.md`.
-
-The correct next session should be a bounded implementation session that:
-1. builds analyzer ingestion and lineage/accounting;
-2. builds per-book metrics and anomaly flags;
-3. builds campaign aggregation;
-4. builds the first review-packet exporter; and
-5. proves the implementation on `integration_tests/run_20260328/`.
-
-## Recommended first checks in the next session
-- Use `reference/EXCERPTING_FULL_BOOK_EVALUATION_BRIEF.md` as the implementation contract.
-- Treat `taysir` grouped-unit loss and `ibn_aqil_v3` silent-zero/truncation as mandatory regression checks.
-- Keep the implementation tightly scoped to evaluation infrastructure; do not drift into prompt changes or new excerpting features unless the analyzer itself proves a structural need.
-
-## Known caution
-Root-level or non-`.kr/` documents may still exist that look operational. Do not let them become shadow control surfaces. `ACTIVE.md` remains the only authoritative next-session task file.
+Resume from `ACTIVE.md`. The frontier is completed. Owner decision needed on next frontier.
