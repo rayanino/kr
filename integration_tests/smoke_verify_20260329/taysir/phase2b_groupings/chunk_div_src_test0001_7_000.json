@@ -1,0 +1,113 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "تيسير العلام شرح عمدة الأحكام\nللبسام",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الكتاب واسم المؤلف: تيسير العلام شرح عمدة الأحكام للبسام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 6,
+    "end_word": 9,
+    "text_snippet": "‌‌كتاب الطهارة\n‌‌النية وأحكامها",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان كتاب الطهارة وباب النية وأحكامها، وهو تمهيد هيكلي لما يليه من مباحث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 10,
+    "end_word": 63,
+    "text_snippet": "عَنْ أمِيرِ المُؤْمِنِينَ أبي حَفْصِ \" عُمَرَ بْنِ الخَطَاب \" رضي الله عنه قَال: سَمِعت رسُولَ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "حديث عمر بن الخطاب رضي الله عنه في أن الأعمال بالنيات، وهو أصل باب النية بسنده ومتنه كاملاً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 64,
+    "end_word": 190,
+    "text_snippet": "غريب الحديث:\n1- \" إنما الأعمال بالنيات \" كلمة [إنما] ، تفيد الح",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "editorial_note"
+    ],
+    "description_arabic": "شرح غريب حديث النيات: بيان معنى «إنما» وإفادتها الحصر، وتعريف النية لغةً وشرعاً، وتوضيح البنية النحوية لجملة الشرط وجوابه.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير قسم «غريب الحديث» إلى حديث عمر السابق ويقتبس منه عبارات جزئية. وإن كانت الاقتباسات كافية لفهم الشرح اللغوي، إلا أن الإحالة إلى الحديث الكامل (مثل: «القاعدة السابقة» في الفقرة الثالثة) تبقى معلّقة دون النص الكامل."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 191,
+    "end_word": 390,
+    "text_snippet": "المعنى الإجمالي:\nهذا حديث عظيم وقاعدة جليلة من قواعد الإسلام هي الق",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "definition",
+      "editorial_note"
+    ],
+    "description_arabic": "بيان المعنى الإجمالي لحديث النيات: أن مدار الأعمال على النيات قبولاً ورداً، مع التمثيل بالهجرة، وتعريف النية بتمييز العبادة عن العادة، وبيان حالتي النية في الشرع (الإخلاص وتمييز العبادات)، والتنبيه على عظم الحديث.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يبدأ بقوله «هذا حديث عظيم» بضمير إشاري يحيل إلى حديث عمر الوارد في وحدة سابقة. كما يقول «ثم ضرب رسول الله مثلاً» إحالةً إلى نص الحديث. والحديث معروف بفاتحته فيُفهم السياق غالباً، لكن الإحالة تظل غير محلولة داخل الوحدة."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "start_word": 391,
+    "end_word": 506,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- إن مدار الأعمال على النيات، صحة، وفَساداً، وكما",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الفوائد والأحكام المستنبطة من حديث النيات: مدار الأعمال على النيات صحةً وفساداً، واشتراط النية دون غلوّ في استحضارها، وأن محلها القلب والتلفظ بها بدعة، ووجوب الحذر من الرياء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "عنوان القسم «ما يؤخذ من الحديث» يحيل إلى حديث عمر في النيات دون إيراد نصه. والحديث من أشهر الأحاديث النبوية يُعرف بفاتحته، لكن الإحالة الصريحة تظل خارج الوحدة."
+  }
+]

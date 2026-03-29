@@ -1,0 +1,5 @@
+{
+  "call_id": "enrich_0003",
+  "error_type": "JSONDecodeError",
+  "error": "No valid JSON found in CLI output: line 1 column 1 (char 0)"
+}

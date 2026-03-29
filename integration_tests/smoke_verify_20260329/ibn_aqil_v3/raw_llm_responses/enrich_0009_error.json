@@ -1,0 +1,5 @@
+{
+  "call_id": "enrich_0009",
+  "error_type": "TimeoutExpired",
+  "error": "Command '['claude', '-p', '-', '--bare', '--no-session-persistence', '--max-turns', '1', '--output-format', 'text', '--model', 'opus', '--system-prompt', 'You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\\n\\nClassify each sentence or closely bonded group of sentences in this Arabic text\\nby scholarly function. The scholarly function types are:\\n\\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\\n  evidence_qiyas, evidenc"
+}
