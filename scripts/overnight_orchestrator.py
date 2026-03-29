@@ -764,8 +764,9 @@ def execute_task(task: TaskDef) -> TaskResult:
     result_file = task_results_dir / "result.json"
     _atomic_write(result_file, json.dumps(asdict(result), indent=2, ensure_ascii=False))
 
-    # Update creative run log for cooldown tracking
-    if task.category == "creative":
+    # Update creative run log for cooldown tracking (only on success —
+    # failed tasks should retry next run, not be suppressed for 14-21 days)
+    if task.category == "creative" and result.status == "success":
         _update_creative_run_log(task.task_id)
 
     return result

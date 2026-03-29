@@ -25,14 +25,20 @@ SECTION_MAP = {
 }
 
 
-def load_existing_summaries(tracker_text: str) -> set[str]:
-    """Extract existing item summaries to avoid duplicates."""
-    summaries: set[str] = set()
+def _sanitize_markdown(text: str) -> str:
+    """Strip newlines and markdown-breaking characters from a string."""
+    return text.replace("\n", " ").replace("\r", "").replace("[", "(").replace("]", ")").replace("#", "").strip()
+
+
+def load_existing_ids(tracker_text: str) -> set[str]:
+    """Extract existing item IDs to avoid duplicates (by ID, not summary text)."""
+    ids: set[str] = set()
     for line in tracker_text.splitlines():
-        m = re.match(r"^- \[[ x]\] \w+-[0-9]+: (.+)$", line)
+        # Match any ID format: BUG-001, IMP-001, CREATIVE-2026-03-29-001, etc.
+        m = re.match(r"^- \[[ x]\] ([A-Za-z][\w-]+):", line)
         if m:
-            summaries.add(m.group(1).strip())
-    return summaries
+            ids.add(m.group(1).strip())
+    return ids
 
 
 def collect_actionable_items() -> list[dict]:
@@ -73,22 +79,26 @@ def append_to_tracker(items: list[dict]) -> int:
         return 0
 
     tracker_text = FINDINGS_TRACKER.read_text(encoding="utf-8")
-    existing = load_existing_summaries(tracker_text)
+    existing_ids = load_existing_ids(tracker_text)
     added = 0
 
     for item in items:
-        summary = item.get("summary", "").strip()
-        if not summary or summary in existing:
+        summary = _sanitize_markdown(item.get("summary", ""))
+        if not summary:
             continue
 
         category = item.get("category", "IMP")
-        item_id = item.get("id", f"CREATIVE-{added + 1:03d}")
-        effort = item.get("effort", "M")
-        priority = item.get("priority", "MEDIUM")
-        source = item.get("source_report", "")
+        item_id = _sanitize_markdown(item.get("id", f"CREATIVE-{added + 1:03d}"))
+        # Deduplicate by ID (not summary text — avoids re-append on summary format changes)
+        if item_id in existing_ids:
+            continue
+
+        effort = _sanitize_markdown(item.get("effort", "M"))
+        priority = _sanitize_markdown(item.get("priority", "MEDIUM"))
+        source = _sanitize_markdown(item.get("source_report", ""))
 
         section_header = SECTION_MAP.get(category, SECTION_MAP["IMP"])
-        line = f"- [ ] {item_id}: {summary} ({effort} effort, {priority}) [{source}]"
+        line = f"- [ ] {item_id}: {summary} ({effort} effort, {priority}) {source}"
 
         idx = tracker_text.find(section_header)
         if idx == -1:
@@ -105,7 +115,7 @@ def append_to_tracker(items: list[dict]) -> int:
                 + tracker_text[insert_pos:]
             )
 
-        existing.add(summary)
+        existing_ids.add(item_id)
         added += 1
 
     if added > 0:

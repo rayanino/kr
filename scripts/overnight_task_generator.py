@@ -812,6 +812,30 @@ def _detect_active_engine() -> str:
     return "excerpting"
 
 
+_SAFE_TEMPLATE_ID = re.compile(r"^[a-z0-9_]+/[a-z0-9_]+$")
+
+
+def _validate_template(tmpl: dict, path: Path) -> bool:
+    """Validate a creative template has required fields with correct types."""
+    required_str = ["template_id", "name", "prompt_template"]
+    for field_name in required_str:
+        if not isinstance(tmpl.get(field_name), str):
+            print(f"  REJECTED template {path}: missing or non-string '{field_name}'")
+            return False
+    # Reject unsafe template_id (path traversal, backslashes, special chars)
+    tid = tmpl["template_id"]
+    if not _SAFE_TEMPLATE_ID.match(tid):
+        print(f"  REJECTED template {path}: unsafe template_id '{tid}' (must be category/name with [a-z0-9_])")
+        return False
+    # Validate numeric fields
+    for num_field in ["cooldown_days", "timeout_minutes", "max_turns"]:
+        val = tmpl.get(num_field)
+        if val is not None and not isinstance(val, (int, float)):
+            print(f"  REJECTED template {path}: '{num_field}' must be numeric, got {type(val).__name__}")
+            return False
+    return True
+
+
 def _load_creative_templates() -> list[dict]:
     """Load all JSON templates from overnight/creative_templates/."""
     templates = []
@@ -820,7 +844,8 @@ def _load_creative_templates() -> list[dict]:
     for f in sorted(CREATIVE_TEMPLATES_DIR.rglob("*.json")):
         try:
             tmpl = json.loads(f.read_text(encoding="utf-8"))
-            templates.append(tmpl)
+            if _validate_template(tmpl, f):
+                templates.append(tmpl)
         except (json.JSONDecodeError, OSError) as e:
             print(f"  WARNING: Failed to load template {f}: {e}")
     return templates
