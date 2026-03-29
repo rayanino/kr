@@ -1,18 +1,16 @@
 {
-  "timestamp": "2026-03-29T15:19:48.502714+00:00",
+  "timestamp": "2026-03-29T16:00:57.737578+00:00",
   "branch": "master",
   "active_engine": null,
   "active_spec_section": null,
-  "last_committed_file": "shared/llm/cli_adapter.py",
+  "last_committed_file": "overnight_codex/README.md",
   "active_plan": null,
   "modified_files": [
-    ".claude/session_state.json",
-    "shared/llm/cli_adapter.py",
-    "shared/llm/tests/test_cli_adapter.py"
+    ".claude/session_state.json"
   ],
-  "uncommitted_summary": ".claude/session_state.json           | 16 +++++++++-------\n shared/llm/cli_adapter.py            |  4 ++--\n shared/llm/tests/test_cli_adapter.py |  4 ++--\n 3 files changed, 13 insertions(+), 11 deletions(-)",
+  "uncommitted_summary": ".claude/session_state.json | 13 +++++++------\n 1 file changed, 7 insertions(+), 6 deletions(-)",
   "next_md_head": "# NEXT — Fix Windows cp1252 Crash + Launch Overnight Run\n\n## What's Wrong\n\n`run_integration_test.py` prints Arabic source metadata with `ensure_ascii=False`.\nOn Windows, the console encoding is cp1252, which can't encode Arabic. This crashes\n4 of 5 packages (only `ext_39_masala` with null metadata survives).\n\nError at line ~1018:\n```\nUnicodeEncodeError: 'charmap' codec can't encode characters in position 0-5\n```\n\n## What to Do\n",
-  "recent_commits": "d026f0ae fix(cli-adapter): pipe prompt via stdin, timeout 300s\n7b24ca76 fix(cli-adapter): max-turns=1, timeout=180s to prevent spiral\n981a1869 fix(cli-adapter): cp1252 encoding crash + reduce max-turns to 2\na686510d handoff: fix cp1252 crash + launch overnight CLI run\nce53cf20 docs: CLI adapter fix report + remaining debug artifacts",
+  "recent_commits": "c2a98f82 fix(overnight-codex): add Claude-session detection + queue-only guard\n394d9383 feat(overnight): add overnight codex system state and templates\na8552f5e test(integration): add CLI smoke test artifacts (2026-03-29)\n45d9ed71 feat(scripts): add overnight codex orchestration system\n82660c28 fix(cli-adapter): bump timeout to 600s and max-turns to 10",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",
