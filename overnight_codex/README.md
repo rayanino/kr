@@ -19,3 +19,4 @@ Runtime artifacts live here, not under `overnight/`:
 - `FINDINGS_TRACKER.md`
 
 When the main repo is dirty or drifts during a run, guarded-write tasks stay isolated and are queued as patches instead of being auto-applied.
+When a live Claude session is detected, `overnight_codex` also forces queue-only mode to avoid trampling active Claude work.

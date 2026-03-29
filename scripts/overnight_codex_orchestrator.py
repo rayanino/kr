@@ -12,6 +12,7 @@ import subprocess
 import sys
 import time
 from dataclasses import asdict
+from datetime import datetime, timezone
 from datetime import timedelta
 from pathlib import Path
 from typing import Any
@@ -280,6 +281,45 @@ def run_codex_smoke(codex_bin: str) -> bool:
     return payload.get("ok") == "yes"
 
 
+def detect_active_claude_session() -> tuple[bool, list[str]]:
+    """Detect live Claude activity and force queue-only when present."""
+    notes: list[str] = []
+    active = False
+
+    session_state = PROJECT_DIR / ".claude" / "session_state.json"
+    if session_state.exists():
+        try:
+            modified = datetime.fromtimestamp(session_state.stat().st_mtime, tz=timezone.utc)
+            age_s = (utc_now() - modified).total_seconds()
+            if age_s < 30 * 60:
+                active = True
+                notes.append(
+                    ".claude/session_state.json was updated recently; assuming Claude session is active."
+                )
+        except OSError:
+            pass
+
+    try:
+        if sys.platform == "win32":
+            proc_result = _run_subprocess_safe(
+                ["tasklist", "/FI", "IMAGENAME eq claude.exe"],
+                timeout=10,
+            )
+            lines = [line for line in proc_result.stdout.splitlines() if "claude.exe" in line.lower()]
+            if lines:
+                active = True
+                notes.append("Detected running claude.exe processes; forcing queue-only mode.")
+        else:
+            proc_result = _run_subprocess_safe(["pgrep", "-x", "claude"], timeout=10)
+            if proc_result.returncode == 0 and proc_result.stdout.strip():
+                active = True
+                notes.append("Detected running Claude processes; forcing queue-only mode.")
+    except Exception:
+        pass
+
+    return active, notes
+
+
 def determine_apply_mode() -> tuple[str, bool, bool, list[str]]:
     """Determine whether the main worktree can be auto-applied into safely."""
     notes: list[str] = []
@@ -289,7 +329,11 @@ def determine_apply_mode() -> tuple[str, bool, bool, list[str]]:
     baseline_tests_passed = run_baseline_tests()
     if not baseline_tests_passed:
         notes.append("Baseline tests failed at launch; auto-apply disabled.")
+    claude_active, claude_notes = detect_active_claude_session()
+    notes.extend(claude_notes)
     apply_mode = "conditional_auto_apply" if baseline_clean and baseline_tests_passed else "queue_only"
+    if claude_active:
+        apply_mode = "queue_only"
     return apply_mode, baseline_clean, baseline_tests_passed, notes
 
 

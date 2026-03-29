@@ -323,7 +323,11 @@ def git_head(cwd: Path | None = None) -> str:
 
 def git_status_porcelain(
     cwd: Path | None = None,
-    ignore_prefixes: tuple[str, ...] = ("overnight_codex/",),
+    ignore_prefixes: tuple[str, ...] = (
+        "overnight_codex/",
+        ".claude/session_state",
+        ".claude/session_state.json",
+    ),
 ) -> list[str]:
     """Return non-ignored porcelain lines."""
     result = subprocess.run(
