@@ -50,4 +50,9 @@ python scripts/overnight_orchestrator.py \
     --max-cost-usd 60
 
 echo ""
+# Append creative findings to tracker
+echo "Appending creative findings to FINDINGS_TRACKER.md..."
+python scripts/append_creative_findings.py
+
+echo ""
 echo "Overnight session complete. See overnight/MORNING_REPORT.md"
