@@ -808,7 +808,7 @@ def generate_manifest(output_path: Path | None = None, dry_run: bool = False) ->
             print(f"  {name}: FAILED ({e})")
 
     # Category enforcement — hardening + readonly research, no implementation
-    ALLOWED_CATEGORIES = {"review", "test", "validation", "spec", "doc", "code_quality", "verification", "research"}
+    ALLOWED_CATEGORIES = {"review", "test", "validation", "spec", "doc", "code_quality", "verification", "research", "creative"}
     rejected = [t for t in all_tasks if t.category not in ALLOWED_CATEGORIES]
     if rejected:
         for t in rejected:

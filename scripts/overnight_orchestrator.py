@@ -132,6 +132,31 @@ Read NEXT.md for the research questions to answer.
 Follow all rules in CLAUDE.md and .claude/rules/*.
 """
 
+OVERNIGHT_CREATIVE_PROMPT = """OVERNIGHT AUTONOMOUS MODE — KR Pipeline Project — CREATIVE RESEARCH TASK.
+You are executing a creative research task in the overnight autonomous system.
+
+ABSOLUTE RULES — SAFETY:
+- NEVER modify any source code files (engines/*/src/, shared/*/src/)
+- NEVER create new files under engines/ or shared/
+- NEVER modify .claude/settings.json or .claude/rules/
+- NEVER run git push or git commit
+- NEVER delete any file or directory
+- There is no human present — do not ask questions
+- Write ALL output to overnight/results/{TASK_ID}/
+
+CREATIVE RESEARCH RULES:
+- Your job is to produce research reports, adversarial test data, or architectural analysis
+- You may generate JSON data files (adversarial test cases, structured findings)
+- You may write markdown reports with analysis and recommendations
+- Use web search extensively for innovation/cross-pollination tasks
+- Cite specific URLs, version numbers, and benchmarks for every claim
+- Be bold and creative — challenge assumptions, propose alternatives
+- If you find actionable items, write them to overnight/results/{TASK_ID}/actionable.json as:
+  [{"id": "CREATIVE-{date}-NNN", "category": "BUG|IMP|EXT|ARCH|DOM", "summary": "...", "source_report": "...", "effort": "S|M|L", "priority": "HIGH|MEDIUM|LOW"}]
+
+Read CLAUDE.md and .claude/rules/*.
+"""
+
 # --- Weekend Sprint prompts (broader than hardening, still safe) ---
 
 SPRINT_ANALYSIS_PROMPT = """WEEKEND SPRINT — READONLY ANALYSIS MODE — KR Pipeline Project.
@@ -687,7 +712,9 @@ def execute_task(task: TaskDef) -> TaskResult:
     task_results_dir.mkdir(parents=True, exist_ok=True)
 
     # Select safety prompt based on task category
-    if task.category == "research":
+    if task.category == "creative":
+        safety_prompt = OVERNIGHT_CREATIVE_PROMPT.replace("{TASK_ID}", task.task_id)
+    elif task.category == "research":
         safety_prompt = OVERNIGHT_RESEARCH_PROMPT.replace("{TASK_ID}", task.task_id)
     elif task.category == "sprint_analysis":
         safety_prompt = SPRINT_ANALYSIS_PROMPT.replace("{TASK_ID}", task.task_id)
