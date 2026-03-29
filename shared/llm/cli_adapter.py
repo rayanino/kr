@@ -351,7 +351,7 @@ class _CompletionsNamespace:
         """Dispatch an LLM call to a CLI backend (SPEC §2.3, §3, §4)."""
         adapter = self._adapter
         backend = _resolve_backend(model, adapter._default_backend)
-        timeout_seconds: int = kwargs.get("timeout", 180)
+        timeout_seconds: int = kwargs.get("timeout", 300)
 
         # Ensure CLI tool is available (cached per backend)
         if backend not in adapter._tool_checked:
@@ -620,7 +620,7 @@ class _CompletionsNamespace:
 
         cmd = [
             "claude",
-            "-p", user_prompt,
+            "-p", "-",
             "--bare",
             "--no-session-persistence",
             "--max-turns", "1",
@@ -630,11 +630,12 @@ class _CompletionsNamespace:
         ]
 
         logger.info("Claude CLI: model=%s", model)
-        logger.debug("Command: claude -p [prompt] --bare ... --model opus")
+        logger.debug("Command: claude -p - --bare ... --model opus")
 
         env = {**os.environ, "ANTHROPIC_API_KEY": oauth_token}
         result = subprocess.run(
             cmd,
+            input=user_prompt,
             capture_output=True,
             text=True,
             encoding="utf-8",

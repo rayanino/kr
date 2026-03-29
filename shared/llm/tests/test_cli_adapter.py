@@ -343,10 +343,9 @@ def test_retry_on_validation_error(
 
     assert result.confidence == 0.9
     assert mock_run.call_count == 2
-    # Second call should have augmented prompt with error feedback
-    second_cmd = mock_run.call_args_list[1][0][0]
-    second_prompt = second_cmd[2]  # -p argument
-    assert "PREVIOUS ATTEMPT FAILED VALIDATION" in second_prompt
+    # Second call should have augmented prompt with error feedback (via stdin)
+    second_input = mock_run.call_args_list[1][1].get("input", "")
+    assert "PREVIOUS ATTEMPT FAILED VALIDATION" in second_input
 
 
 @patch("shared.llm.cli_adapter.subprocess.run")
@@ -391,9 +390,8 @@ def test_retry_on_json_parse_error(
 
     assert result.answer == "test"
     assert mock_run.call_count == 2
-    second_cmd = mock_run.call_args_list[1][0][0]
-    second_prompt = second_cmd[2]
-    assert "PREVIOUS ATTEMPT PRODUCED INVALID JSON" in second_prompt
+    second_input = mock_run.call_args_list[1][1].get("input", "")
+    assert "PREVIOUS ATTEMPT PRODUCED INVALID JSON" in second_input
 
 
 @patch("shared.llm.cli_adapter.time.sleep")
@@ -738,11 +736,10 @@ def test_response_model_with_model_validators(
     assert result.value == 15
     assert result.label == "high"
     assert mock_run.call_count == 2
-    # Second prompt should include the validator error message
-    second_cmd = mock_run.call_args_list[1][0][0]
-    second_prompt = second_cmd[2]
-    assert "PREVIOUS ATTEMPT FAILED VALIDATION" in second_prompt
-    assert "value > 10 requires label='high'" in second_prompt
+    # Second prompt should include the validator error message (via stdin)
+    second_input = mock_run.call_args_list[1][1].get("input", "")
+    assert "PREVIOUS ATTEMPT FAILED VALIDATION" in second_input
+    assert "value > 10 requires label='high'" in second_input
 
 
 # ═══════════════════════════════════════════════════════════════════
