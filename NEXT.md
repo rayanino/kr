@@ -1,5 +1,9 @@
 # NEXT — Fix Two CLI Adapter Bugs (OAuth + Envelope)
 
+## Research Sprint Findings (2026-03-28)
+
+**See `FINDINGS_TRACKER.md`** — 30+ actionable items from the 19-task research sprint across Claude/Codex/Gemini. Includes 4 unfixed bugs, 4 ready-to-implement optimizations, 6 taxonomy SPEC fixes (blocks next engine), and 5 external integrations.
+
 ## Current Position
 
 - **Test baseline:** 35 adapter tests + 1991 total project tests, 0 failures (as of commit 3cefa8c8)

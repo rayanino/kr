@@ -57,10 +57,10 @@ def normalized_name_similarity(a: str, b: str) -> float:
     norm_a = normalize_arabic_name(a)
     norm_b = normalize_arabic_name(b)
 
-    if norm_a == norm_b:
-        return 1.0
     if not norm_a or not norm_b:
         return 0.0
+    if norm_a == norm_b:
+        return 1.0
 
     tokens_a = _extract_name_tokens(a)
     tokens_b = _extract_name_tokens(b)

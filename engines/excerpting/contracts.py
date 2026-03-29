@@ -95,6 +95,13 @@ class PageRange(BaseModel):
     start_page: int
     end_page: int
 
+    @model_validator(mode="after")
+    def _check_page_order(self) -> "PageRange":
+        if self.start_page > self.end_page:
+            msg = f"start_page ({self.start_page}) > end_page ({self.end_page})"
+            raise ValueError(msg)
+        return self
+
 
 class AuthorAttribution(BaseModel):
     """Author attribution for a teaching unit (SPEC §2.2.2, §6.2).
