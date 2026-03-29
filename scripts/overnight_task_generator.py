@@ -858,7 +858,7 @@ def scan_creative() -> list[TaskDef]:
         cooldown = tmpl.get("cooldown_days", 14)
 
         # Check cooldown
-        log_key = f"{template_id}:{active_engine}"
+        log_key = f"{template_id.replace('/', '-')}-{active_engine}"
         last_run = run_log.get(log_key)
         if last_run and _days_since(last_run) < cooldown:
             continue
