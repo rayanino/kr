@@ -1,0 +1,11 @@
+```json
+{
+  "segments": [
+    {
+      "text_snippet": "bsm allh alrhmn alrhym",
+      "scholarly_function": "Invocation (Basmala) — The opening formulaic benediction 'Bismillāh al-Raḥmān al-Raḥīm' ('In the name of God, the Most Gracious, the Most Merciful'). A standard pious invocation used to commence Islamic texts, serving as a consecrating preamble."
+    }
+  ],
+  "total_segments": 1
+}
+```
