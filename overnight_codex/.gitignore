@@ -1,0 +1,14 @@
+state.json
+progress.md
+decisions.log
+.heartbeat
+.overnight_codex.lock
+manifest.json
+manifest_write.json
+manifest_readonly.json
+results/**
+!results/.gitkeep
+queue/**
+!queue/.gitkeep
+worktrees/**
+!worktrees/.gitkeep

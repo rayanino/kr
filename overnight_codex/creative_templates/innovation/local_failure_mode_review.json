@@ -1,0 +1,18 @@
+{
+  "template_id": "innovation/local_failure_mode_review",
+  "name": "Local Failure-Mode Review for {target}",
+  "description": "Enumerate realistic local failure modes and missing guardrails from existing code and tests only.",
+  "model": "gpt-5.4",
+  "timeout_minutes": 18,
+  "cooldown_days": 10,
+  "priority": 4,
+  "estimated_complexity": "medium",
+  "capability_flags": [],
+  "variables": {
+    "target": {
+      "source": "focus_engine",
+      "fallback": "excerpting"
+    }
+  },
+  "prompt_template": "Review the local {target} engine for failure modes that existing code and tests might miss.\n\nRead:\n- engines/{target}/src/*.py\n- engines/{target}/tests/\n- engines/{target}/contracts.py\n\nLimit yourself to concrete local risks:\n- stale assumptions\n- missing validation branches\n- error paths that likely fail silently\n- test gaps around already-existing behavior\n\nDo not invent Arabic-domain judgments or new product design. Use action_items only for bounded follow-up work."
+}

@@ -1,0 +1,18 @@
+{
+  "template_id": "innovation/local_cost_efficiency",
+  "name": "Local Cost and Throughput Review for {target}",
+  "description": "Review local call sites, loops, and task boundaries for safe throughput gains using only repository evidence.",
+  "model": "gpt-5.4",
+  "timeout_minutes": 20,
+  "cooldown_days": 14,
+  "priority": 3,
+  "estimated_complexity": "medium",
+  "capability_flags": [],
+  "variables": {
+    "target": {
+      "source": "focus_engine",
+      "fallback": "excerpting"
+    }
+  },
+  "prompt_template": "Analyze the local {target} engine for safe throughput and cost improvements using only the repository.\n\nRead:\n- engines/{target}/src/*.py\n- engines/{target}/tests/\n- shared/llm/**/*.py if referenced by the engine\n- relevant scripts that invoke the engine\n\nFocus on bounded, local improvements:\n- avoid repeated work\n- better batching or caching opportunities already supported by the codebase\n- unnecessary serial steps\n- redundant validation or repeated scans\n\nDo not propose new product features, new orchestration systems, or internet-dependent tools. Action items must be implementable by a later low-authority worker."
+}
