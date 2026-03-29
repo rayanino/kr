@@ -15,6 +15,7 @@ import os
 import subprocess
 import sys
 from dataclasses import asdict, dataclass, field
+from datetime import date as date_type
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -768,6 +769,137 @@ def add_codex_verifications(tasks: list[TaskDef]) -> list[TaskDef]:
 
 
 # ---------------------------------------------------------------------------
+# Creative task scanner
+# ---------------------------------------------------------------------------
+
+CREATIVE_TEMPLATES_DIR = Path("overnight/creative_templates")
+CREATIVE_RUN_LOG = Path("overnight/creative_run_log.json")
+PIPELINE_ORDER = ["source", "normalization", "excerpting", "taxonomy", "synthesis"]
+GEMINI_MAX_PER_RUN = 10
+
+
+def _load_creative_run_log() -> dict[str, str]:
+    """Load the creative run log (template_id:target -> last_run_date)."""
+    if CREATIVE_RUN_LOG.exists():
+        try:
+            data = json.loads(CREATIVE_RUN_LOG.read_text(encoding="utf-8"))
+            return data.get("runs", {})
+        except (json.JSONDecodeError, OSError):
+            pass
+    return {}
+
+
+def _detect_active_engine() -> str:
+    """Parse NEXT.md for the active engine name."""
+    next_md = Path("NEXT.md")
+    if next_md.exists():
+        text = next_md.read_text(encoding="utf-8")[:500]
+        for engine in PIPELINE_ORDER:
+            if engine.lower() in text.lower():
+                return engine
+    return "excerpting"
+
+
+def _load_creative_templates() -> list[dict]:
+    """Load all JSON templates from overnight/creative_templates/."""
+    templates = []
+    if not CREATIVE_TEMPLATES_DIR.exists():
+        return templates
+    for f in sorted(CREATIVE_TEMPLATES_DIR.rglob("*.json")):
+        try:
+            tmpl = json.loads(f.read_text(encoding="utf-8"))
+            templates.append(tmpl)
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"  WARNING: Failed to load template {f}: {e}")
+    return templates
+
+
+def _days_since(date_str: str) -> int:
+    """Days since a YYYY-MM-DD date string."""
+    last = date_type.fromisoformat(date_str)
+    return (date_type.today() - last).days
+
+
+def _resolve_variable(var_def: dict, active_engine: str) -> str:
+    """Resolve a single template variable."""
+    source = var_def.get("source", "literal")
+    if source == "active_engine":
+        return active_engine
+    if source == "literal":
+        return var_def.get("value", "")
+    if source == "run_date":
+        return date_type.today().isoformat()
+    return var_def.get("fallback", "unknown")
+
+
+def _instantiate_prompt(prompt_template: str, variables: dict[str, str]) -> str:
+    """Fill template variables in prompt."""
+    result = prompt_template
+    for key, value in variables.items():
+        result = result.replace(f"{{{key}}}", value)
+    result = result.replace("{run_date}", date_type.today().isoformat())
+    return result
+
+
+def scan_creative() -> list[TaskDef]:
+    """Scanner: Generate creative research tasks from templates."""
+    templates = _load_creative_templates()
+    if not templates:
+        return []
+
+    run_log = _load_creative_run_log()
+    active_engine = _detect_active_engine()
+    today = date_type.today().isoformat()
+    tasks: list[TaskDef] = []
+    gemini_count = 0
+
+    for tmpl in templates:
+        template_id = tmpl["template_id"]
+        cooldown = tmpl.get("cooldown_days", 14)
+
+        # Check cooldown
+        log_key = f"{template_id}:{active_engine}"
+        last_run = run_log.get(log_key)
+        if last_run and _days_since(last_run) < cooldown:
+            continue
+
+        # Gemini quota guard
+        exec_mode = tmpl.get("execution_mode", "cli")
+        if exec_mode == "gemini":
+            if gemini_count >= GEMINI_MAX_PER_RUN:
+                continue
+            gemini_count += 1
+
+        # Resolve variables
+        var_defs = tmpl.get("variables", {})
+        resolved = {k: _resolve_variable(v, active_engine) for k, v in var_defs.items()}
+        resolved["run_date"] = today
+        resolved["task_id"] = template_id.replace("/", "-") + "-" + active_engine
+
+        # Instantiate prompt
+        prompt = _instantiate_prompt(tmpl["prompt_template"], resolved)
+
+        # Build task
+        task_id = f"creative-{resolved['task_id']}"
+
+        tasks.append(TaskDef(
+            task_id=task_id,
+            name=tmpl["name"].replace("{target}", active_engine),
+            category="creative",
+            prompt=prompt,
+            safety_level=tmpl.get("safety_level", "readonly"),
+            execution_mode=exec_mode,
+            model=tmpl.get("model", "opus"),
+            max_budget_usd=tmpl.get("max_budget_usd", 5.0),
+            timeout_minutes=tmpl.get("timeout_minutes", 30),
+            max_turns=tmpl.get("max_turns", 50),
+            priority=2,
+        ))
+
+    return tasks
+
+
+# ---------------------------------------------------------------------------
 # Manifest generation
 # ---------------------------------------------------------------------------
 
@@ -796,6 +928,7 @@ def generate_manifest(output_path: Path | None = None, dry_run: bool = False) ->
         ("Documentation", scan_documentation),
         ("Empirical Validations", scan_empirical_validations),
         ("Model Research", scan_model_research),
+        ("Creative Research", scan_creative),
     ]
 
     for name, scanner_fn in scanners:
