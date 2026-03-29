@@ -191,7 +191,7 @@ def test_claude_command_flags(
     mock_run: MagicMock, adapter: CLIInstructorAdapter, valid_json: str,
     mock_oauth: Any, mock_which: Any,
 ) -> None:
-    """Verify --bare, --no-session-persistence, --max-turns 2, etc."""
+    """Verify --bare, --no-session-persistence, --max-turns 10, etc."""
     mock_run.return_value = _make_completed_process(stdout=valid_json)
     adapter.chat.completions.create(
         model="anthropic/claude-opus-4.6",
@@ -203,7 +203,7 @@ def test_claude_command_flags(
     assert "--no-session-persistence" in cmd
     assert "--max-turns" in cmd
     mt_idx = cmd.index("--max-turns")
-    assert cmd[mt_idx + 1] == "1"
+    assert cmd[mt_idx + 1] == "10"
     assert "--output-format" in cmd
     of_idx = cmd.index("--output-format")
     assert cmd[of_idx + 1] == "text"

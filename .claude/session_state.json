@@ -1,16 +1,18 @@
 {
-  "timestamp": "2026-03-29T05:06:14.790825+00:00",
+  "timestamp": "2026-03-29T15:19:48.502714+00:00",
   "branch": "master",
-  "active_engine": "excerpting",
+  "active_engine": null,
   "active_spec_section": null,
-  "last_committed_file": "FINDINGS_TRACKER.md",
+  "last_committed_file": "shared/llm/cli_adapter.py",
   "active_plan": null,
   "modified_files": [
-    ".claude/session_state.json"
+    ".claude/session_state.json",
+    "shared/llm/cli_adapter.py",
+    "shared/llm/tests/test_cli_adapter.py"
   ],
-  "uncommitted_summary": ".claude/session_state.json | 16 ++++++----------\n 1 file changed, 6 insertions(+), 10 deletions(-)",
-  "next_md_head": "# NEXT — Fix Two CLI Adapter Bugs (OAuth + Envelope)\n\n## Research Sprint Findings (2026-03-28)\n\n**See `FINDINGS_TRACKER.md`** — 30+ actionable items from the 19-task research sprint across Claude/Codex/Gemini. Includes 4 unfixed bugs, 4 ready-to-implement optimizations, 6 taxonomy SPEC fixes (blocks next engine), and 5 external integrations.\n\n## Current Position\n\n- **Test baseline:** 35 adapter tests + 1991 total project tests, 0 failures (as of commit 3cefa8c8)\n- **Smoke test:** PASSED (5/5 packages, 69 excerpts, $0.00, 28min)\n- **Overnight run:** FAILED (280 chunks) — two distinct bugs\n\n## Read First\n\n| File | What to look for |",
-  "recent_commits": "ee8f8849 fix(shared,excerpting): operationalize research sprint â€” 2 bugs fixed, 166 tests integrated, tracker created\n07ed999b chore(overnight): exhaustive research sprint â€” 19 tasks across Claude/Codex/Gemini\n129ceeea fix(cli-adapter): robust envelope extraction + setup-token auth\n9667da12 handoff: fix CLI adapter bugs â€” setup-token auth + robust envelope extraction\naaf34f32 handoff: overnight run failed â€” 2 CLI adapter bugs to fix before retry",
+  "uncommitted_summary": ".claude/session_state.json           | 16 +++++++++-------\n shared/llm/cli_adapter.py            |  4 ++--\n shared/llm/tests/test_cli_adapter.py |  4 ++--\n 3 files changed, 13 insertions(+), 11 deletions(-)",
+  "next_md_head": "# NEXT — Fix Windows cp1252 Crash + Launch Overnight Run\n\n## What's Wrong\n\n`run_integration_test.py` prints Arabic source metadata with `ensure_ascii=False`.\nOn Windows, the console encoding is cp1252, which can't encode Arabic. This crashes\n4 of 5 packages (only `ext_39_masala` with null metadata survives).\n\nError at line ~1018:\n```\nUnicodeEncodeError: 'charmap' codec can't encode characters in position 0-5\n```\n\n## What to Do\n",
+  "recent_commits": "d026f0ae fix(cli-adapter): pipe prompt via stdin, timeout 300s\n7b24ca76 fix(cli-adapter): max-turns=1, timeout=180s to prevent spiral\n981a1869 fix(cli-adapter): cp1252 encoding crash + reduce max-turns to 2\na686510d handoff: fix cp1252 crash + launch overnight CLI run\nce53cf20 docs: CLI adapter fix report + remaining debug artifacts",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",
