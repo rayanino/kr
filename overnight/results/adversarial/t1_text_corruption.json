@@ -1,0 +1,379 @@
+OpenAI Codex v0.116.0 (research preview)
+--------
+workdir: C:\Users\Rayane\Desktop\kr
+model: gpt-5.4
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 019d3621-e950-7810-89cc-3a1012d82a1d
+--------
+user
+You are generating adversarial test data for an Arabic scholarly text processing pipeline. Generate 5 synthetic Arabic scholarly text samples for threat T-1: Silent Text Corruption.
+
+Each sample must be a realistic Arabic scholarly passage (fiqh, hadith, or tafsir) where a SINGLE diacritic change reverses the meaning of a legal ruling. Both the original and corrupted versions must be grammatically correct Arabic.
+
+Examples of diacritic-sensitive pairs:
+- عَلِمَ (he knew) vs عُلِمَ (it was known) — active vs passive
+- حَرَّمَ (he forbade) vs حَرُمَ (it became sacred) — different legal ruling
+- كَتَبَ (he wrote) vs كُتِبَ (it was written) — agency change
+- فَرَضَ (he obligated) vs فُرِضَ (it was obligated) — active vs passive changes who decides
+
+For each sample, output valid JSON:
+{
+  "id": "T1-001",
+  "threat": "T-1",
+  "genre": "fiqh|hadith|tafsir",
+  "original_text": "...(Arabic with correct diacritics, 3-5 sentences)...",
+  "corrupted_text": "...(same text with ONE diacritic changed)...",
+  "changed_word_original": "...",
+  "changed_word_corrupted": "...",
+  "original_meaning": "...(English translation showing correct meaning)...",
+  "corrupted_meaning": "...(English translation showing how meaning changed)...",
+  "corruption_type": "fatha_to_damma|kasra_to_fatha|shadda_added|shadda_removed|sukun_change",
+  "risk_level": "HIGH",
+  "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+}
+
+Output ONLY a JSON array of 5 objects. No other text. The Arabic must be real, fluent, grammatically correct scholarly Arabic — not transliteration or placeholder text.
+mcp startup: no servers
+codex
+I’m generating five Arabic scholarly adversarial samples for silent diacritic corruption. I’ll first load the KR repo guidance and the named skill instructions so the examples stay aligned with the repo’s safety and evaluation conventions.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-ChildItem -Force -Name .claude,CLAUDE.md,.claude\\* 2>"'$null' in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw 'C:\\Users\\Rayane\\.codex\\skills\\kr-claude-bridge\\SKILL.md'" in C:\Users\Rayane\Desktop\kr succeeded in 971ms:
+---
+name: kr-claude-bridge
+description: Use when working in the KR repo at C:\Users\Rayane\Desktop\kr on research, spec writing, evaluation, integrity review, boundary checks, Arabic text safety, or scholarly verification, and you should consult the repo's existing .claude guidance without modifying it.
+metadata:
+  short-description: Bridge KR .claude guidance into Codex
+---
+
+# KR Claude Bridge
+
+Use this skill only for KR work in `C:\Users\Rayane\Desktop\kr` or an equivalent KR checkout that contains a `.claude/` folder. The goal is to reuse the repo's Claude-oriented instructions as a read-only companion library for Codex.
+
+If the current workspace is not the KR repo, or there is no `.claude/` folder, do not use this skill.
+
+## Lookup Workflow
+
+Read only the minimum relevant files for the current task, in this order:
+
+1. `.claude/skills/*/SKILL.md`
+2. `.claude/agents/*.md`
+3. `.claude/rules/*.md`
+ succeeded in 2.41s:
+agents
+commands
+hooks
+rules
+skills
+GPT54_USAGE.md
+HOOK_WIRING.md
+MCP_ACTION_PLAN.md
+MCP_CLEANUP.md
+overnight_work_queue.md
+pending_decisions.log
+scheduled_tasks.lock
+session_state.json
+settings.json
+settings.local.json
+CLAUDE.md
+agents
+commands
+hooks
+rules
+codex
+I found the KR bridge guidance. Next I’m reading the repo’s Arabic-text skill so the passages use the repo’s handling conventions without loading unrelated .claude material.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw '.claude\\skills\\arabic-text\\SKILL.md'" in C:\Users\Rayane\Desktop\kr succeeded in 1.52s:
+---
+name: arabic-text
+description: Guidelines for handling Arabic scholarly text in code. Use when writing any code that processes, stores, compares, or displays Arabic text. Covers encoding, directionality, diacritics, morphological complexity, and common pitfalls.
+---
+
+# Arabic Text Handling for KR
+
+Arabic scholarly text has properties that break naive string processing. Every developer (human or AI) working on KR must understand these.
+
+## Critical Properties
+
+### Encoding
+- ALL text in KR is UTF-8. No exceptions. No Latin-1, no Windows-1256, no ISO-8859-6.
+- Shamela exports may use Windows-1256. Convert at normalization. Verify with frozen source after conversion.
+- A single Arabic character may be 2-4 bytes in UTF-8. `len(text)` in Python counts characters, not bytes. Use `len(text.encode('utf-8'))` for byte counts.
+
+### Diacritics (التشكيل)
+- Diacritics are MEANINGFUL in scholarly text. فَعَلَ (fa'ala, he did) vs فُعِلَ (fu'ila, it was done) vs فَعَّلَ (fa''ala, he made do).
+- NEVER strip diacritics from primary_text.
+- For SEARCH and MATCHING: create a separate diacritics-stripped index. Never modify the stored text.
+Reconnecting... 2/5 (stream disconnected before completion: idle timeout waiting for websocket)
+Reconnecting... 3/5 (stream disconnected before completion: idle timeout waiting for websocket)
+codex
+The repo guidance confirms diacritics must be preserved exactly and that real Arabic test text is preferred. I’m reading the domain glossary next so the fiqh, hadith, and tafsir phrasing stays natural and discipline-appropriate.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Raw '.claude\\skills\\domain-glossary\\SKILL.md'" in C:\Users\Rayane\Desktop\kr succeeded in 562ms:
+---
+name: domain-glossary
+description: Comprehensive glossary of Islamic scholarly terminology mapped to KR data models. Use when classifying genres, identifying scholars, processing Arabic text structure, or when uncertain about domain vocabulary.
+---
+
+# KR Domain Glossary — Islamic Scholarly Terminology
+
+This glossary maps Islamic scholarly terms to KR pipeline concepts and data model types. Terms are grouped by domain. Each entry includes: Arabic term, transliteration, precise definition, KR mapping, and common confusion points.
+
+**Usage:** Reference this glossary when implementing genre classification, author identification, commentary hierarchy detection, science scope assignment, or any domain-specific logic. Precision in these terms directly prevents metadata corruption.
+
+---
+
+## 1. Genre Terminology (→ `Genre` enum in contracts.py)
+
+### متن (matn)
+**Definition:** A foundational, standalone text that serves as the base for a scholarly tradition. Other works (sharh, hashiyah, nazm) are built upon it. Typically concise, authoritative, and widely memorized.
+**KR mapping:** `Genre.MATN`
+**Examples:** متن الآجرومية (nahw), عمدة الأحكام (hadith/fiqh), متن ابن عاشر (fiqh maliki)
+**Confusion:** Not every short work is a matn. A matn implies an ecosystem of commentaries built upon it. A modern risalah that nobody commented on is NOT a matn.
+codex
+I have the repo’s Arabic and domain guidance. I’m checking for any existing T-1 schema or prior adversarial examples in the workspace so the JSON fields and failure mode match the local conventions exactly.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg --files . | rg 'adversarial|threat|dataset|fixture|json'" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n 'Silent Text Corruption|T-1|corruption_type|risk_level|ground_truth' ." in C:\Users\Rayane\Desktop\kr succeeded in 500ms:
+.\pyrightconfig.json
+.\overnight\weekend_state.json
+.\overnight\tonight_manifest.json
+.\overnight\sprint_write_manifest.json
+.\overnight\sprint_manifest.json
+.\overnight\parallel_manifest.json
+.\overnight\manifest_recycled.json
+.\overnight\manifest.json
+.\mcp.json
+.\tests\fixtures\waraqat_usul\waraqat.pdf
+.\tests\fixtures\shamela_real\README.md
+.\tests\fixtures\shamela_real\MANIFEST.json
+.\tests\fixtures\alfiyyah_versified\alfiyyah.txt
+.\tests\fixtures\shamela_real\13_format_b\book.htm
+.\scripts\validate_shamela_fixtures.py
+.\experiments\format_diversity_test\results\taysir\div_661_approach_b_classify.json
+.\experiments\format_diversity_test\results\taysir\div_661_approach_b.json
+.\experiments\format_diversity_test\results\taysir\div_661_approach_a.json
+.\experiments\format_diversity_test\results\taysir\div_478_approach_b_classify.json
+.\experiments\format_diversity_test\results\taysir\div_478_approach_b.json
+ succeeded in 657ms:
+.\AGENT_TEAM_HANDOFF.md:105:T-1 Silent text corruption, T-2 Attribution error, T-3 Taxonomic misplacement, T-4 Context loss, T-5 Synthesis hallucination, T-6 Metadata poisoning, T-7 Duplication/contradiction
+.\engines\taxonomy\SPEC.md:682:**Placement validation.** After every placement decision, the engine verifies: (a) the confirmed leaf exists in the active tree, (b) the excerpt's `science_id` matches the tree's science, (c) the excerpt file was written successfully (file existence + size > 0), (d) the coverage analytics were updated, (e) the written file's `primary_text` field matches the input excerpt's `primary_text` byte-for-byte (a round-trip fidelity check that detects serialization corruption of Arabic text — see T-1 in KNOWLEDGE_INTEGRITY.md). Failure of any check triggers `TAX_PLACEMENT_INTEGRITY_ERROR` (fatal — the placement is reverted and the excerpt returns to draft status).
+.\engines\taxonomy\SPEC.md:708:**T-1 (Silent Text Corruption) → Taxonomy vector: serialization corruption during placement write.** The taxonomy engine writes the placed excerpt to disk as JSON. If the JSON serializer mishandles Arabic text (e.g., double-encoding UTF-8, stripping diacritics, normalizing Unicode forms), the `primary_text` in the placed file differs from the input. **Prevention:** (a) Post-write fidelity check in §5.1 — the engine re-reads the written file and compares `primary_text` byte-for-byte against the input. (b) The taxonomy engine never modifies `primary_text` — it is copied verbatim from the draft excerpt. (c) JSON serialization uses `ensure_ascii=False` to preserve Arabic characters without escape sequences. **Residual risk:** LOW — the post-write check catches any serialization corruption before the placement is committed.
+.\engines\taxonomy\SPEC.md:945:Verify: the written file's `primary_text` is byte-identical to the input. No diacritics lost, no Unicode normalization applied, no characters substituted. **Pass criteria:** Post-write fidelity check (§5.1) passes for all four text variants. **Purpose:** Validates T-1 prevention through the placement write path — the most common source of silent Arabic text corruption.
+.\engines\source\VALIDATION_PLAN.md:130:- Per-book directory with `result.json` (full SourceMetadata), `extraction.json`, `llm_responses/` (raw per-model), `consensus.json`, `ground_truth_comparison.json`
+.\engines\synthesis\SPEC.md:727:**T-1 (Silent Text Corruption) → Synthesis vector: corrupted excerpt text enters the entry verbatim.** The engine quotes canonical definitions verbatim (§4.A.4.1 direct quotation policy). If `primary_text` was corrupted upstream, the entry perpetuates the corruption. **Prevention:** (a) The engine does not modify `primary_text` — it quotes or paraphrases what it receives. Corruption is therefore traceable to the frozen source. (b) For verbatim quotes (matn definitions), the entry's citation includes `source_id` + `passage_id` + page reference, enabling the owner to spot-check against the physical book. (c) The self-verification cycle (§4.B.6) may catch corruption that creates incoherence — e.g., a corrupted definition that contradicts its own edge cases. **Residual risk:** HIGH — the engine cannot independently detect single-character corruption in Arabic text. The frozen source chain is the primary mitigation.
+.\KNOWLEDGE_INTEGRITY.md:15:### T-1: Silent Text Corruption
+.\tests\test_llm_inference.py:39:    ground_truth = json.load(open(FIXTURES_DIR / 'GROUND_TRUTH.json', encoding='utf-8'))
+.\tests\test_llm_inference.py:40:    return extracted, ground_truth
+.\tests\test_llm_inference.py:322:    extracted, ground_truth = load_fixtures()
+.\tests\test_llm_inference.py:327:        ground_truth = {k: v for k, v in ground_truth.items() if k == args.fixture}
+.\tests\test_llm_inference.py:364:        scores = score_model_run(predictions, ground_truth)
+.\engines\source\tests\test_trust_evaluator.py:133:    def test_25_all_fixtures_match_ground_truth(
+.\engines\source\TESTING_PROTOCOL.md:73:  "ground_truth": {
+.\engines\source\TESTING_PROTOCOL.md:83:**Why this format:** Every section maps to one pipeline step. The owner can scan `ground_truth` for pass/fail, then drill into whichever section has a mismatch. The `model_a` / `model_b` raw outputs let us debug consensus disagreements without re-running. The `run_cost_usd` tracks spend per book.
+.\engines\source\TESTING_PROTOCOL.md:199:- All books where `ground_truth` fields mismatch (if ground truth exists)
+.\engines\atomization\SPEC.md:501:Hard failures (V-2: offset integrity): trigger re-atomization of the passage with the validation error included in the LLM prompt (up to 2 retries). If all retries fail, the passage is excluded from the atom stream — no atoms are written for this passage. The passage_id is recorded in the source's processing status with error ATOM_OFFSET_INTEGRITY_FAILURE, and the source is flagged for human review. An excluded passage is preferable to atoms with corrupt offsets, because corrupt offsets produce corrupt excerpts downstream (T-1 silent text corruption).
+.\engines\atomization\SPEC.md:894:Knowledge impact if defense fails: Corrupted atom_text enters the atom stream. The excerpting engine builds an excerpt containing garbled Arabic text. The synthesizer produces an entry citing text that doesn't exist in the source. T-1 silent text corruption — the most severe threat.
+.\engines\atomization\SPEC.md:969:4. **Knowledge impact:** Rayane cites a fabricated scholarly position. The error is invisible because the entry reads naturally. This is T-1 (silent text corruption) at its worst — an error that LOOKS correct.
+.\engines\normalization\SPEC.md:198:**Pass 3 — HTML stripping and text cleaning.** Remove all HTML tags (preserving text content). Decode HTML entities. HTML parsing uses BeautifulSoup with the `lxml` backend. The `lxml` backend is chosen for: (1) conservative entity resolution that does not aggressively resolve unterminated entities, (2) fast parsing speed for batch processing, (3) sufficient leniency for machine-generated Shamela HTML. If `lxml` parsing fails (malformed HTML beyond lxml tolerance), fall back to `html5lib` backend with `resolve_entities=True`. Post-parse validation: compare diacritic positions between raw HTML text nodes and parsed output. If any diacritic at a known position is absent or substituted, raise `NORM_DIACRITICS_ENTITY_CORRUPTION` (Fatal, affects T-1). [AUDIT FIX M-22] Normalize line endings and whitespace per ABD rules §4.7–§4.9. Preserve asterisks, ZWNJ characters, and all other source data markers. Preserve all diacritics exactly.
+codex
+I found the repo’s threat references. I’m pulling just the T-1 sections now to mirror the local threat framing and avoid inventing a mismatched corruption pattern.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n -C 6 '"'^### T-1: Silent Text Corruption|single diacritic|diacritic'"' 'KNOWLEDGE_INTEGRITY.md' 'reference\\AUTONOMOUS_QUALITY_SYSTEM.md'" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n -C 4 'diacritic corruption|single diacritic|حَرَّمَ|حَرُمَ' 'engines\\excerpting\\SPEC.md' 'reference\\archive\\sessions\\prompts\\SESSION_LOG.md'" in C:\Users\Rayane\Desktop\kr succeeded in 421ms:
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-140-- The ground truth (what correct processing produces)
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-141-- The failure signature (what incorrect processing produces)
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-142-
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-143-#### T-1: Silent Text Corruption
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-144-
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-145-```
+reference\AUTONOMOUS_QUALITY_SYSTEM.md:146:Template: Generate a 2-page Arabic scholarly text where a single diacritic
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-147-change in paragraph 3 reverses the meaning of a legal ruling.
+reference\AUTONOMOUS_QUALITY_SYSTEM.md:148:Trap: The diacritically-sensitive word is inside a long sentence that reads
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-149-fluently either way.
+reference\AUTONOMOUS_QUALITY_SYSTEM.md:150:Ground truth: The pipeline preserves the exact diacritics from the frozen source.
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-151-Failure signature: Diacritics are dropped or normalized, changing the meaning.
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-152-Variations: test with tashkeel, with hamza variants, with ta marbuta/ha.
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-153-```
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-154-
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-155-#### T-2: Attribution Error (Decontextualization)
+reference\AUTONOMOUS_QUALITY_SYSTEM.md-156-
+--
+KNOWLEDGE_INTEGRITY.md-9----
+KNOWLEDGE_INTEGRITY.md-10-
+ succeeded in 412ms:
+engines\excerpting\SPEC.md-684-The previous heuristic (empty separator with word-final character detection for ة, ى, tanwin) was removed because it produced 92% word-merge corruption — 270 of 294 boundaries merged two separate Arabic words into unreadable text (e.g., "للخطأوَلِهَذَا" instead of "للخطأ وَلِهَذَا"). See SPEC-NOTE-4 in reference/SPEC_ERRATA.md.
+engines\excerpting\SPEC.md-685-
+engines\excerpting\SPEC.md-686-**Future mid-word boundaries:** The normalization SPEC §4.B.8 documents that OCR sources or corrupt Shamela exports may produce genuine mid-word `mid_sentence` boundaries (logged as `NORM_MIDWORD_BREAK`). When such sources are implemented, the `continuation_hint` field on `BoundaryContinuity` can signal the excerpting engine to use empty separator for those cases. Until then, the always-space rule applies — an unwanted space in a word is visible and correctable, while 92% silent word-merging is not.
+engines\excerpting\SPEC.md-687-
+engines\excerpting\SPEC.md:688:**Diacritics preservation:** All Arabic diacritics (U+064B–U+0652, U+0670) are preserved exactly. No Unicode normalization (NFC/NFD/NFKC/NFKD) is applied at any point. This is an absolute rule — violating it risks T-1 (Silent Text Corruption), since a single diacritic change can reverse meaning (حَرَّمَ "forbade" vs حَرَمَ "deprived").
+engines\excerpting\SPEC.md-689-
+engines\excerpting\SPEC.md-690-**Footnote reference markers:** The `⌜N⌝` markers in `primary_text` are preserved inline during assembly. Footnote renumbering (if `ref_marker` values collide across pages) is handled in §4.7.
+engines\excerpting\SPEC.md-691-
+engines\excerpting\SPEC.md-692-**Assembly output:** The assembled text, plus an `AssemblyMetadata` record containing `constituent_unit_indices` and `join_points` (one `JoinPoint` per page boundary, recording the units, separator, and character offset).
+--
+reference\archive\sessions\prompts\SESSION_LOG.md-435-### What Was Done
+reference\archive\sessions\prompts\SESSION_LOG.md-436-- **Contract verification (§2 vs taxonomy §3):** Field-by-field match. Found `school_confidence` missing from synthesis input contract — fixed. Documented `primary_text` implicit preservation. Verified all 7 required and 8 expected fields match.
+reference\archive\sessions\prompts\SESSION_LOG.md-437-- **Adversarial test scenarios designed (10 total):**
+reference\archive\sessions\prompts\SESSION_LOG.md-438-  - 3 attribution-first pipeline scenarios: low self-containment (vacuous entailment attack), metadata-vs-text contradiction (multi-layer misattribution), self-reinforcing hallucination (same-provider parametric knowledge bias)
+reference\archive\sessions\prompts\SESSION_LOG.md:439:  - 7 per-threat scenarios (T-1 through T-7): diacritic corruption, multi-layer misattribution, closely related topic misplacement, forward-reference excerpt, plausible wrong death date, misclassified source type, near-identical editions
+reference\archive\sessions\prompts\SESSION_LOG.md-440-- **Error cascade analysis (2 chains):**
+reference\archive\sessions\prompts\SESSION_LOG.md-441-  - Cascade 1: Metadata resolution failure → unattributed excerpt → lost unique position. Found residual gap: no alert when unattributed excerpt holds a unique position. Fixed with escalation rule.
+reference\archive\sessions\prompts\SESSION_LOG.md-442-  - Cascade 2: Wrong duplicate cluster → merged distinct positions → silently lost position. Found residual gap: no defense against incorrect upstream clustering for different-author excerpts. Fixed with duplicate cluster verification.
+reference\archive\sessions\prompts\SESSION_LOG.md-443-- **Self-audit (5 defects found and fixed):**
+Reconnecting... 2/5 (stream disconnected before completion: idle timeout waiting for websocket)
+Reconnecting... 3/5 (stream disconnected before completion: idle timeout waiting for websocket)
+Reconnecting... 4/5 (stream disconnected before completion: idle timeout waiting for websocket)
+Reconnecting... 5/5 (stream disconnected before completion: idle timeout waiting for websocket)
+warning: Falling back from WebSockets to HTTPS transport. stream disconnected before completion: idle timeout waiting for websocket
+codex
+[
+  {
+    "id": "T1-001",
+    "threat": "T-1",
+    "genre": "fiqh",
+    "original_text": "إِذَا بَقِيَ الْمَاءُ عَلَى أَصْلِ خِلْقَتِهِ، وَلَمْ تُغَيِّرِ النَّجَاسَةُ لَوْنَهُ وَلَا طَعْمَهُ وَلَا رِيحَهُ، فَهُوَ مَاءٌ مُطَهِّرٌ تُرْفَعُ بِهِ الْأَحْدَاثُ وَتُزَالُ بِهِ الْأَخْبَاثُ. وَلِهَذَا جَعَلَ الْفُقَهَاءُ الِاعْتِبَارَ بِبَقَاءِ حَقِيقَةِ الْمَاءِ وَسَلَامَتِهِ مِنَ التَّغَيُّرِ بِالنَّجَاسَةِ. فَإِذَا ثَبَتَ هَذَا الْوَصْفُ صَحَّتِ الطَّهَارَةُ بِهِ.",
+    "corrupted_text": "إِذَا بَقِيَ الْمَاءُ عَلَى أَصْلِ خِلْقَتِهِ، وَلَمْ تُغَيِّرِ النَّجَاسَةُ لَوْنَهُ وَلَا طَعْمَهُ وَلَا رِيحَهُ، فَهُوَ مَاءٌ مُطَهَّرٌ تُرْفَعُ بِهِ الْأَحْدَاثُ وَتُزَالُ بِهِ الْأَخْبَاثُ. وَلِهَذَا جَعَلَ الْفُقَهَاءُ الِاعْتِبَارَ بِبَقَاءِ حَقِيقَةِ الْمَاءِ وَسَلَامَتِهِ مِنَ التَّغَيُّرِ بِالنَّجَاسَةِ. فَإِذَا ثَبَتَ هَذَا الْوَصْفُ صَحَّتِ الطَّهَارَةُ بِهِ.",
+    "changed_word_original": "مُطَهِّرٌ",
+    "changed_word_corrupted": "مُطَهَّرٌ",
+    "original_meaning": "If water remains in its original state and impurity does not alter it, then it is purifying water by which ritual impurity and filth are removed.",
+    "corrupted_meaning": "If water remains in its original state and impurity does not alter it, then it is purified water, shifting the meaning from water that purifies others to water that is merely clean itself.",
+    "corruption_type": "kasra_to_fatha",
+    "risk_level": "HIGH",
+    "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+  },
+  {
+    "id": "T1-002",
+    "threat": "T-1",
+    "genre": "hadith",
+    "original_text": "هَذَا الْحَدِيثُ أَصْلٌ فِي بَابِ الْوَلَاءِ، وَفِيهِ بَيَانُ أَنَّ الْوَلَاءَ لِلْمُعْتِقِ؛ لِأَنَّهُ هُوَ الَّذِي أَزَالَ الرِّقَّ عَنِ الْعَبْدِ. وَبِهَذَا يُرَتَّبُ بَابُ الْمِيرَاثِ وَالْعَقْلِ عِنْدَ عَدَمِ الْعَصَبَةِ. فَلَا يُصْرَفُ هَذَا الْحَقُّ بِالشَّرْطِ وَلَا بِالْهِبَةِ بَعْدَ ثُبُوتِهِ.",
+    "corrupted_text": "هَذَا الْحَدِيثُ أَصْلٌ فِي بَابِ الْوَلَاءِ، وَفِيهِ بَيَانُ أَنَّ الْوَلَاءَ لِلْمُعْتَقِ؛ لِأَنَّهُ هُوَ الَّذِي أَزَالَ الرِّقَّ عَنِ الْعَبْدِ. وَبِهَذَا يُرَتَّبُ بَابُ الْمِيرَاثِ وَالْعَقْلِ عِنْدَ عَدَمِ الْعَصَبَةِ. فَلَا يُصْرَفُ هَذَا الْحَقُّ بِالشَّرْطِ وَلَا بِالْهِبَةِ بَعْدَ ثُبُوتِهِ.",
+    "changed_word_original": "الْمُعْتِقِ",
+    "changed_word_corrupted": "الْمُعْتَقِ",
+    "original_meaning": "This hadith establishes that the legal bond of wala belongs to the emancipator, because he is the one who removed the slave's bondage.",
+    "corrupted_meaning": "This hadith is made to say that the legal bond of wala belongs to the emancipated slave, reversing the owner of that legal right.",
+    "corruption_type": "kasra_to_fatha",
+    "risk_level": "HIGH",
+    "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+  },
+  {
+    "id": "T1-003",
+    "threat": "T-1",
+    "genre": "hadith",
+    "original_text": "وَفِي حَدِيثِ رَفْعِ الْإِكْرَاهِ أَصْلٌ لِهَذَا الْبَابِ، فَإِذَا أَكْرَهَ رَجُلٌ غَيْرَهُ عَلَى إِتْلَافِ مَالٍ مَعْصُومٍ، فَالضَّمَانُ عَلَى الْمُكْرِهِ؛ لِأَنَّهُ السَّبَبُ الْقَاهِرُ، وَالْمُبَاشِرُ هُنَا كَالْآلَةِ. وَلِهَذَا قَالُوا: لَا يُنْسَبُ الْفِعْلُ إِلَى مَنْ زَالَ اخْتِيَارُهُ زَوَالًا مُعْتَبَرًا. وَإِنَّمَا يُنْسَبُ إِلَى الْمُبَاشِرِ إِذَا بَقِيَ لَهُ اخْتِيَارٌ مُؤَثِّرٌ.",
+    "corrupted_text": "وَفِي حَدِيثِ رَفْعِ الْإِكْرَاهِ أَصْلٌ لِهَذَا الْبَابِ، فَإِذَا أَكْرَهَ رَجُلٌ غَيْرَهُ عَلَى إِتْلَافِ مَالٍ مَعْصُومٍ، فَالضَّمَانُ عَلَى الْمُكْرَهِ؛ لِأَنَّهُ السَّبَبُ الْقَاهِرُ، وَالْمُبَاشِرُ هُنَا كَالْآلَةِ. وَلِهَذَا قَالُوا: لَا يُنْسَبُ الْفِعْلُ إِلَى مَنْ زَالَ اخْتِيَارُهُ زَوَالًا مُعْتَبَرًا. وَإِنَّمَا يُنْسَبُ إِلَى الْمُبَاشِرِ إِذَا بَقِيَ لَهُ اخْتِيَارٌ مُؤَثِّرٌ.",
+    "changed_word_original": "الْمُكْرِهِ",
+    "changed_word_corrupted": "الْمُكْرَهِ",
+    "original_meaning": "In cases of coercion, liability falls on the coercer, because he is the overpowering cause while the direct actor is treated like an instrument.",
+    "corrupted_meaning": "In cases of coercion, liability is shifted to the coerced party, reversing who bears legal responsibility.",
+    "corruption_type": "kasra_to_fatha",
+    "risk_level": "HIGH",
+    "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+  },
+  {
+    "id": "T1-004",
+    "threat": "T-1",
+    "genre": "tafsir",
+    "original_text": "وَفِي تَفْسِيرِ آيَةِ التَّحْرِيمِ قَالَ بَعْضُ أَهْلِ الْعِلْمِ: إِنَّهُ إِذَا عَلِمَ أَنَّهُ حَرَامٌ ثُمَّ بَاشَرَهُ أَثِمَ؛ لِأَنَّ الْحُجَّةَ قَدْ قَامَتْ عَلَيْهِ. فَالْمُؤَاخَذَةُ هُنَا مُعَلَّقَةٌ بِقِيَامِ الْعِلْمِ فِي حَقِّ الْمُكَلَّفِ، لَا بِمُجَرَّدِ وُجُودِ النَّصِّ فِي نَفْسِهِ. وَمِنْ ثَمَّ اعْتَبَرُوا الْبَلَاغَ وَفَهْمَ الدَّلَالَةِ قَبْلَ تَرْتِيبِ الْإِثْمِ الْكَامِلِ.",
+    "corrupted_text": "وَفِي تَفْسِيرِ آيَةِ التَّحْرِيمِ قَالَ بَعْضُ أَهْلِ الْعِلْمِ: إِنَّهُ إِذَا عُلِمَ أَنَّهُ حَرَامٌ ثُمَّ بَاشَرَهُ أَثِمَ؛ لِأَنَّ الْحُجَّةَ قَدْ قَامَتْ عَلَيْهِ. فَالْمُؤَاخَذَةُ هُنَا مُعَلَّقَةٌ بِقِيَامِ الْعِلْمِ فِي حَقِّ الْمُكَلَّفِ، لَا بِمُجَرَّدِ وُجُودِ النَّصِّ فِي نَفْسِهِ. وَمِنْ ثَمَّ اعْتَبَرُوا الْبَلَاغَ وَفَهْمَ الدَّلَالَةِ قَبْلَ تَرْتِيبِ الْإِثْمِ الْكَامِلِ.",
+    "changed_word_original": "عَلِمَ",
+    "changed_word_corrupted": "عُلِمَ",
+    "original_meaning": "The exegetical ruling says that if the person knew an act was forbidden and then did it, he is sinful.",
+    "corrupted_meaning": "The exegetical ruling is shifted to say that if it was known generally that the act was forbidden and he then did it, he is sinful, changing the condition from personal knowledge to public known-ness.",
+    "corruption_type": "fatha_to_damma",
+    "risk_level": "HIGH",
+    "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+  },
+  {
+    "id": "T1-005",
+    "threat": "T-1",
+    "genre": "fiqh",
+    "original_text": "إِذَا بَاعَ الْوَكِيلُ السِّلْعَةَ بِإِذْنٍ صَحِيحٍ، فَالثَّمَنُ يَدْخُلُ فِي مِلْكِ الْمُوَكِّلِ؛ لِأَنَّ تَصَرُّفَ الْوَكِيلِ نَافِذٌ عَنْهُ لَا عَنْ نَفْسِهِ. وَتَبْقَى يَدُ الْوَكِيلِ يَدَ أَمَانَةٍ فِيمَا قَبَضَهُ حَتَّى يُسَلِّمَهُ إِلَى صَاحِبِ الْحَقِّ. فَلَا يَجُوزُ لَهُ أَنْ يَخْتَصَّ بِالْعِوَضِ إِلَّا بِعَقْدٍ جَدِيدٍ مُسْتَقِلٍّ.",
+    "corrupted_text": "إِذَا بَاعَ الْوَكِيلُ السِّلْعَةَ بِإِذْنٍ صَحِيحٍ، فَالثَّمَنُ يَدْخُلُ فِي مِلْكِ الْمُوَكَّلِ؛ لِأَنَّ تَصَرُّفَ الْوَكِيلِ نَافِذٌ عَنْهُ لَا عَنْ نَفْسِهِ. وَتَبْقَى يَدُ الْوَكِيلِ يَدَ أَمَانَةٍ فِيمَا قَبَضَهُ حَتَّى يُسَلِّمَهُ إِلَى صَاحِبِ الْحَقِّ. فَلَا يَجُوزُ لَهُ أَنْ يَخْتَصَّ بِالْعِوَضِ إِلَّا بِعَقْدٍ جَدِيدٍ مُسْتَقِلٍّ.",
+    "changed_word_original": "الْمُوَكِّلِ",
+    "changed_word_corrupted": "الْمُوَكَّلِ",
+    "original_meaning": "When an agent sells under valid authorization, the sale price enters the ownership of the principal who appointed the agent.",
+    "corrupted_meaning": "When an agent sells under valid authorization, the sale price is made to enter the ownership of the appointed agent, reversing who owns the proceeds.",
+    "corruption_type": "kasra_to_fatha",
+    "risk_level": "HIGH",
+    "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+  }
+]
+tokens used
+53,478
+[
+  {
+    "id": "T1-001",
+    "threat": "T-1",
+    "genre": "fiqh",
+    "original_text": "إِذَا بَقِيَ الْمَاءُ عَلَى أَصْلِ خِلْقَتِهِ، وَلَمْ تُغَيِّرِ النَّجَاسَةُ لَوْنَهُ وَلَا طَعْمَهُ وَلَا رِيحَهُ، فَهُوَ مَاءٌ مُطَهِّرٌ تُرْفَعُ بِهِ الْأَحْدَاثُ وَتُزَالُ بِهِ الْأَخْبَاثُ. وَلِهَذَا جَعَلَ الْفُقَهَاءُ الِاعْتِبَارَ بِبَقَاءِ حَقِيقَةِ الْمَاءِ وَسَلَامَتِهِ مِنَ التَّغَيُّرِ بِالنَّجَاسَةِ. فَإِذَا ثَبَتَ هَذَا الْوَصْفُ صَحَّتِ الطَّهَارَةُ بِهِ.",
+    "corrupted_text": "إِذَا بَقِيَ الْمَاءُ عَلَى أَصْلِ خِلْقَتِهِ، وَلَمْ تُغَيِّرِ النَّجَاسَةُ لَوْنَهُ وَلَا طَعْمَهُ وَلَا رِيحَهُ، فَهُوَ مَاءٌ مُطَهَّرٌ تُرْفَعُ بِهِ الْأَحْدَاثُ وَتُزَالُ بِهِ الْأَخْبَاثُ. وَلِهَذَا جَعَلَ الْفُقَهَاءُ الِاعْتِبَارَ بِبَقَاءِ حَقِيقَةِ الْمَاءِ وَسَلَامَتِهِ مِنَ التَّغَيُّرِ بِالنَّجَاسَةِ. فَإِذَا ثَبَتَ هَذَا الْوَصْفُ صَحَّتِ الطَّهَارَةُ بِهِ.",
+    "changed_word_original": "مُطَهِّرٌ",
+    "changed_word_corrupted": "مُطَهَّرٌ",
+    "original_meaning": "If water remains in its original state and impurity does not alter it, then it is purifying water by which ritual impurity and filth are removed.",
+    "corrupted_meaning": "If water remains in its original state and impurity does not alter it, then it is purified water, shifting the meaning from water that purifies others to water that is merely clean itself.",
+    "corruption_type": "kasra_to_fatha",
+    "risk_level": "HIGH",
+    "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+  },
+  {
+    "id": "T1-002",
+    "threat": "T-1",
+    "genre": "hadith",
+    "original_text": "هَذَا الْحَدِيثُ أَصْلٌ فِي بَابِ الْوَلَاءِ، وَفِيهِ بَيَانُ أَنَّ الْوَلَاءَ لِلْمُعْتِقِ؛ لِأَنَّهُ هُوَ الَّذِي أَزَالَ الرِّقَّ عَنِ الْعَبْدِ. وَبِهَذَا يُرَتَّبُ بَابُ الْمِيرَاثِ وَالْعَقْلِ عِنْدَ عَدَمِ الْعَصَبَةِ. فَلَا يُصْرَفُ هَذَا الْحَقُّ بِالشَّرْطِ وَلَا بِالْهِبَةِ بَعْدَ ثُبُوتِهِ.",
+    "corrupted_text": "هَذَا الْحَدِيثُ أَصْلٌ فِي بَابِ الْوَلَاءِ، وَفِيهِ بَيَانُ أَنَّ الْوَلَاءَ لِلْمُعْتَقِ؛ لِأَنَّهُ هُوَ الَّذِي أَزَالَ الرِّقَّ عَنِ الْعَبْدِ. وَبِهَذَا يُرَتَّبُ بَابُ الْمِيرَاثِ وَالْعَقْلِ عِنْدَ عَدَمِ الْعَصَبَةِ. فَلَا يُصْرَفُ هَذَا الْحَقُّ بِالشَّرْطِ وَلَا بِالْهِبَةِ بَعْدَ ثُبُوتِهِ.",
+    "changed_word_original": "الْمُعْتِقِ",
+    "changed_word_corrupted": "الْمُعْتَقِ",
+    "original_meaning": "This hadith establishes that the legal bond of wala belongs to the emancipator, because he is the one who removed the slave's bondage.",
+    "corrupted_meaning": "This hadith is made to say that the legal bond of wala belongs to the emancipated slave, reversing the owner of that legal right.",
+    "corruption_type": "kasra_to_fatha",
+    "risk_level": "HIGH",
+    "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+  },
+  {
+    "id": "T1-003",
+    "threat": "T-1",
+    "genre": "hadith",
+    "original_text": "وَفِي حَدِيثِ رَفْعِ الْإِكْرَاهِ أَصْلٌ لِهَذَا الْبَابِ، فَإِذَا أَكْرَهَ رَجُلٌ غَيْرَهُ عَلَى إِتْلَافِ مَالٍ مَعْصُومٍ، فَالضَّمَانُ عَلَى الْمُكْرِهِ؛ لِأَنَّهُ السَّبَبُ الْقَاهِرُ، وَالْمُبَاشِرُ هُنَا كَالْآلَةِ. وَلِهَذَا قَالُوا: لَا يُنْسَبُ الْفِعْلُ إِلَى مَنْ زَالَ اخْتِيَارُهُ زَوَالًا مُعْتَبَرًا. وَإِنَّمَا يُنْسَبُ إِلَى الْمُبَاشِرِ إِذَا بَقِيَ لَهُ اخْتِيَارٌ مُؤَثِّرٌ.",
+    "corrupted_text": "وَفِي حَدِيثِ رَفْعِ الْإِكْرَاهِ أَصْلٌ لِهَذَا الْبَابِ، فَإِذَا أَكْرَهَ رَجُلٌ غَيْرَهُ عَلَى إِتْلَافِ مَالٍ مَعْصُومٍ، فَالضَّمَانُ عَلَى الْمُكْرَهِ؛ لِأَنَّهُ السَّبَبُ الْقَاهِرُ، وَالْمُبَاشِرُ هُنَا كَالْآلَةِ. وَلِهَذَا قَالُوا: لَا يُنْسَبُ الْفِعْلُ إِلَى مَنْ زَالَ اخْتِيَارُهُ زَوَالًا مُعْتَبَرًا. وَإِنَّمَا يُنْسَبُ إِلَى الْمُبَاشِرِ إِذَا بَقِيَ لَهُ اخْتِيَارٌ مُؤَثِّرٌ.",
+    "changed_word_original": "الْمُكْرِهِ",
+    "changed_word_corrupted": "الْمُكْرَهِ",
+    "original_meaning": "In cases of coercion, liability falls on the coercer, because he is the overpowering cause while the direct actor is treated like an instrument.",
+    "corrupted_meaning": "In cases of coercion, liability is shifted to the coerced party, reversing who bears legal responsibility.",
+    "corruption_type": "kasra_to_fatha",
+    "risk_level": "HIGH",
+    "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+  },
+  {
+    "id": "T1-004",
+    "threat": "T-1",
+    "genre": "tafsir",
+    "original_text": "وَفِي تَفْسِيرِ آيَةِ التَّحْرِيمِ قَالَ بَعْضُ أَهْلِ الْعِلْمِ: إِنَّهُ إِذَا عَلِمَ أَنَّهُ حَرَامٌ ثُمَّ بَاشَرَهُ أَثِمَ؛ لِأَنَّ الْحُجَّةَ قَدْ قَامَتْ عَلَيْهِ. فَالْمُؤَاخَذَةُ هُنَا مُعَلَّقَةٌ بِقِيَامِ الْعِلْمِ فِي حَقِّ الْمُكَلَّفِ، لَا بِمُجَرَّدِ وُجُودِ النَّصِّ فِي نَفْسِهِ. وَمِنْ ثَمَّ اعْتَبَرُوا الْبَلَاغَ وَفَهْمَ الدَّلَالَةِ قَبْلَ تَرْتِيبِ الْإِثْمِ الْكَامِلِ.",
+    "corrupted_text": "وَفِي تَفْسِيرِ آيَةِ التَّحْرِيمِ قَالَ بَعْضُ أَهْلِ الْعِلْمِ: إِنَّهُ إِذَا عُلِمَ أَنَّهُ حَرَامٌ ثُمَّ بَاشَرَهُ أَثِمَ؛ لِأَنَّ الْحُجَّةَ قَدْ قَامَتْ عَلَيْهِ. فَالْمُؤَاخَذَةُ هُنَا مُعَلَّقَةٌ بِقِيَامِ الْعِلْمِ فِي حَقِّ الْمُكَلَّفِ، لَا بِمُجَرَّدِ وُجُودِ النَّصِّ فِي نَفْسِهِ. وَمِنْ ثَمَّ اعْتَبَرُوا الْبَلَاغَ وَفَهْمَ الدَّلَالَةِ قَبْلَ تَرْتِيبِ الْإِثْمِ الْكَامِلِ.",
+    "changed_word_original": "عَلِمَ",
+    "changed_word_corrupted": "عُلِمَ",
+    "original_meaning": "The exegetical ruling says that if the person knew an act was forbidden and then did it, he is sinful.",
+    "corrupted_meaning": "The exegetical ruling is shifted to say that if it was known generally that the act was forbidden and he then did it, he is sinful, changing the condition from personal knowledge to public known-ness.",
+    "corruption_type": "fatha_to_damma",
+    "risk_level": "HIGH",
+    "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+  },
+  {
+    "id": "T1-005",
+    "threat": "T-1",
+    "genre": "fiqh",
+    "original_text": "إِذَا بَاعَ الْوَكِيلُ السِّلْعَةَ بِإِذْنٍ صَحِيحٍ، فَالثَّمَنُ يَدْخُلُ فِي مِلْكِ الْمُوَكِّلِ؛ لِأَنَّ تَصَرُّفَ الْوَكِيلِ نَافِذٌ عَنْهُ لَا عَنْ نَفْسِهِ. وَتَبْقَى يَدُ الْوَكِيلِ يَدَ أَمَانَةٍ فِيمَا قَبَضَهُ حَتَّى يُسَلِّمَهُ إِلَى صَاحِبِ الْحَقِّ. فَلَا يَجُوزُ لَهُ أَنْ يَخْتَصَّ بِالْعِوَضِ إِلَّا بِعَقْدٍ جَدِيدٍ مُسْتَقِلٍّ.",
+    "corrupted_text": "إِذَا بَاعَ الْوَكِيلُ السِّلْعَةَ بِإِذْنٍ صَحِيحٍ، فَالثَّمَنُ يَدْخُلُ فِي مِلْكِ الْمُوَكَّلِ؛ لِأَنَّ تَصَرُّفَ الْوَكِيلِ نَافِذٌ عَنْهُ لَا عَنْ نَفْسِهِ. وَتَبْقَى يَدُ الْوَكِيلِ يَدَ أَمَانَةٍ فِيمَا قَبَضَهُ حَتَّى يُسَلِّمَهُ إِلَى صَاحِبِ الْحَقِّ. فَلَا يَجُوزُ لَهُ أَنْ يَخْتَصَّ بِالْعِوَضِ إِلَّا بِعَقْدٍ جَدِيدٍ مُسْتَقِلٍّ.",
+    "changed_word_original": "الْمُوَكِّلِ",
+    "changed_word_corrupted": "الْمُوَكَّلِ",
+    "original_meaning": "When an agent sells under valid authorization, the sale price enters the ownership of the principal who appointed the agent.",
+    "corrupted_meaning": "When an agent sells under valid authorization, the sale price is made to enter the ownership of the appointed agent, reversing who owns the proceeds.",
+    "corruption_type": "kasra_to_fatha",
+    "risk_level": "HIGH",
+    "ground_truth": "Pipeline must preserve exact diacritics from frozen source. Any normalization that strips or changes diacritics will produce a corrupted meaning."
+  }
+]

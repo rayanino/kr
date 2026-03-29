@@ -1,0 +1,337 @@
+OpenAI Codex v0.116.0 (research preview)
+--------
+workdir: C:\Users\Rayane\Desktop\kr
+model: gpt-5.4
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 019d3622-18dc-7822-89f6-a3f71690d23e
+--------
+user
+You are generating adversarial test data for an Arabic scholarly text processing pipeline. Generate samples for TWO threat types.
+
+PART 1: T-3 Taxonomic Misplacement (3 samples)
+Generate Arabic scholarly excerpts where a concept exists in MULTIPLE Islamic sciences, and the text discusses it in one science but uses terminology common to another. A naive keyword-based classifier would place it in the WRONG science.
+
+Examples:
+- نية (niyyah/intention): exists in عبادات (worship) AND معاملات (contracts) AND جنايات (criminal law)
+- طهارة (tahara/purity): exists in فقه العبادات AND طب (medicine, ritual purity vs medical hygiene)
+- شهادة (shahada): exists in عقيدة (creed) AND قضاء (judicial testimony)
+
+JSON format per sample:
+{
+  "id": "T3-001",
+  "threat": "T-3",
+  "text_arabic": "...(Arabic scholarly text discussing the concept)...",
+  "actual_science": "...(the correct science this belongs to)...",
+  "misleading_science": "...(what a naive classifier would pick)...",
+  "misleading_keywords": ["...", "..."],
+  "disambiguation_signal": "...(what in the text reveals the correct science)...",
+  "correct_placement": "...",
+  "incorrect_placement": "..."
+}
+
+PART 2: T-4 Context Loss (3 samples)
+Generate Arabic scholarly texts where a legal ruling depends on a condition stated 3+ paragraphs earlier. The ruling paragraph uses a back-reference (كما تقدم, كما ذكرنا, كما سبق) but does NOT restate the condition inline.
+
+JSON format per sample:
+{
+  "id": "T4-001",
+  "threat": "T-4",
+  "full_text": "...(4-5 paragraphs, condition in para 1, ruling in para 4)...",
+  "condition_paragraph": 1,
+  "condition_text": "...(the specific condition)...",
+  "ruling_paragraph": 4,
+  "ruling_text": "...(the ruling that depends on the condition)...",
+  "back_reference_phrase": "كما تقدم|كما ذكرنا|كما سبق",
+  "if_excerpted_alone": "...(what a reader understands without the condition — meaningless or misleading)...",
+  "correct_behavior": "Either include condition paragraph in excerpt, or supply it in self_containment_context field"
+}
+
+Output ONLY a JSON array of 6 objects (3 T-3 + 3 T-4). Real Arabic scholarly text only.
+mcp startup: no servers
+codex
+أنتج الآن عينات خصومية لنوعي التهديد `T-3` و`T-4` بصياغة عربية علمية، وسأستخدم مهارة `kr-claude-bridge` لأن الطلب داخل مستودع `kr` ويتعلق بتوليد بيانات تقييم عربية مع اعتبارات سلامة وسياق.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Path 'C:\\Users\\Rayane\\.codex\\skills\\kr-claude-bridge\\SKILL.md'" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-ChildItem -Force -Name '.claude','CLAUDE.md','.claude\\*'" in C:\Users\Rayane\Desktop\kr succeeded in 1.94s:
+agents
+commands
+hooks
+rules
+skills
+GPT54_USAGE.md
+HOOK_WIRING.md
+MCP_ACTION_PLAN.md
+MCP_CLEANUP.md
+overnight_work_queue.md
+pending_decisions.log
+scheduled_tasks.lock
+session_state.json
+settings.json
+settings.local.json
+CLAUDE.md
+agents
+commands
+hooks
+rules
+ succeeded in 2.42s:
+---
+name: kr-claude-bridge
+description: Use when working in the KR repo at C:\Users\Rayane\Desktop\kr on research, spec writing, evaluation, integrity review, boundary checks, Arabic text safety, or scholarly verification, and you should consult the repo's existing .claude guidance without modifying it.
+metadata:
+  short-description: Bridge KR .claude guidance into Codex
+---
+
+# KR Claude Bridge
+
+Use this skill only for KR work in `C:\Users\Rayane\Desktop\kr` or an equivalent KR checkout that contains a `.claude/` folder. The goal is to reuse the repo's Claude-oriented instructions as a read-only companion library for Codex.
+
+If the current workspace is not the KR repo, or there is no `.claude/` folder, do not use this skill.
+
+## Lookup Workflow
+
+Read only the minimum relevant files for the current task, in this order:
+
+1. `.claude/skills/*/SKILL.md`
+2. `.claude/agents/*.md`
+3. `.claude/rules/*.md`
+codex
+أراجع الآن مراجع `.claude` المرتبطة مباشرة بالعربية والتقييم حتى تكون العينات منضبطة من جهة الصياغة والتهديد المقصود، من دون تحميل سياق زائد من المستودع.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Path '.claude\\skills\\evaluation-methodology\\SKILL.md'" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Path '.claude\\skills\\scholarly-design\\SKILL.md'" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Path '.claude\\skills\\arabic-text\\SKILL.md'" in C:\Users\Rayane\Desktop\kr succeeded in 3.09s:
+---
+name: scholarly-design
+description: Challenge any KR design decision or feature for scholarly value and transformative potential. Use when designing §4.B capabilities, reviewing engine SPECs, evaluating the pipeline architecture, or when asking "is this ambitious enough?" Forces thinking beyond conventional digital library design toward capabilities that were previously impossible.
+---
+
+# Scholarly Design Challenge
+
+The question is never "does this work?" The question is "would a world-class Islamic scholar look at this and say 'I didn't know that was possible'?"
+
+## The Transformative Feature Test
+
+For any feature or capability, answer ALL of these:
+
+1. **Can a human scholar do this manually?**
+   - If YES and it's fast: this feature has LOW transformative value. It's automation, not innovation.
+   - If YES but it takes weeks/months: this feature has MEDIUM transformative value. Speed is valuable.
+   - If NO: this feature has HIGH transformative value. This is why the system exists.
+
+2. **Has anyone built this for Islamic studies before?**
+   - Search: `[feature description] Islamic studies tool`
+ succeeded in 3.89s:
+---
+name: arabic-text
+description: Guidelines for handling Arabic scholarly text in code. Use when writing any code that processes, stores, compares, or displays Arabic text. Covers encoding, directionality, diacritics, morphological complexity, and common pitfalls.
+---
+
+# Arabic Text Handling for KR
+
+Arabic scholarly text has properties that break naive string processing. Every developer (human or AI) working on KR must understand these.
+
+## Critical Properties
+
+### Encoding
+- ALL text in KR is UTF-8. No exceptions. No Latin-1, no Windows-1256, no ISO-8859-6.
+- Shamela exports may use Windows-1256. Convert at normalization. Verify with frozen source after conversion.
+- A single Arabic character may be 2-4 bytes in UTF-8. `len(text)` in Python counts characters, not bytes. Use `len(text.encode('utf-8'))` for byte counts.
+
+### Diacritics (التشكيل)
+- Diacritics are MEANINGFUL in scholarly text. فَعَلَ (fa'ala, he did) vs فُعِلَ (fu'ila, it was done) vs فَعَّلَ (fa''ala, he made do).
+- NEVER strip diacritics from primary_text.
+- For SEARCH and MATCHING: create a separate diacritics-stripped index. Never modify the stored text.
+ succeeded in 5.37s:
+---
+name: evaluation-methodology
+description: Complete Phase C/D/E evaluation protocol with all errata corrections from calibration and Session 1. Use when evaluating any book's pipeline results. Prevents methodology drift across sessions.
+---
+
+# Evaluation Methodology — Corrected Protocol
+
+This skill is the single authoritative reference for evaluating Phase C/D/E pipeline results. It incorporates all 12 corrections from calibration, all 6 methodology fixes from Session 1, and all strategic analysis insights. **Do NOT read the original framework without also reading this skill** — the framework contains known errors corrected here.
+
+Source documents (read for full expected values table and worked examples):
+- `PHASE_C_EVALUATION_FRAMEWORK.md` — base protocol (Section 7 is inapplicable; field source table replaced below)
+- `PHASE_C_ERRATA.md` — 12 corrections
+- `PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md` — predictions and risk map
+- `NEXT.md` — current session assignment and pre-identified risks
+
+---
+
+## The Six Methodology Rules
+
+These are non-negotiable. Session 1 found 3 violations. Every evaluation must follow all 6.
+codex
+أحتاج فقط إلى مرجع مصطلحي موجز لضبط أسماء العلوم والإشارات الفارقة بين الحقول، ثم سأصوغ المخرجات مباشرة بصيغة JSON المطلوبة.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Path '.claude\\skills\\domain-glossary\\SKILL.md'" in C:\Users\Rayane\Desktop\kr succeeded in 8.56s:
+---
+name: domain-glossary
+description: Comprehensive glossary of Islamic scholarly terminology mapped to KR data models. Use when classifying genres, identifying scholars, processing Arabic text structure, or when uncertain about domain vocabulary.
+---
+
+# KR Domain Glossary — Islamic Scholarly Terminology
+
+This glossary maps Islamic scholarly terms to KR pipeline concepts and data model types. Terms are grouped by domain. Each entry includes: Arabic term, transliteration, precise definition, KR mapping, and common confusion points.
+
+**Usage:** Reference this glossary when implementing genre classification, author identification, commentary hierarchy detection, science scope assignment, or any domain-specific logic. Precision in these terms directly prevents metadata corruption.
+
+---
+
+## 1. Genre Terminology (→ `Genre` enum in contracts.py)
+
+### متن (matn)
+**Definition:** A foundational, standalone text that serves as the base for a scholarly tradition. Other works (sharh, hashiyah, nazm) are built upon it. Typically concise, authoritative, and widely memorized.
+**KR mapping:** `Genre.MATN`
+**Examples:** متن الآجرومية (nahw), عمدة الأحكام (hadith/fiqh), متن ابن عاشر (fiqh maliki)
+**Confusion:** Not every short work is a matn. A matn implies an ecosystem of commentaries built upon it. A modern risalah that nobody commented on is NOT a matn.
+codex
+[
+  {
+    "id": "T3-001",
+    "threat": "T-3",
+    "text_arabic": "والنية في الوقف معتبرة من جهة تعيين المصرف والجهة الموقوف عليها، لا من جهة التعبد المحض؛ فلذلك يذكر الفقهاء فيها قصد القربة والإخلاص، كما يذكرون ذلك في أبواب الوضوء والصلاة. غير أن أثرها هنا يظهر عند اختلاف الواقف والمستحقين فيمن أراده بالتحبيس وتسبيل المنفعة، لا في صحة عبادة بدنية.",
+    "actual_science": "فقه المعاملات",
+    "misleading_science": "فقه العبادات",
+    "misleading_keywords": ["قصد القربة", "الإخلاص", "الوضوء", "الصلاة"],
+    "disambiguation_signal": "ذكر الوقف والواقف والمستحقين والتحبيس وتسبيل المنفعة وتعيين المصرف يدل على أن الكلام في المعاملات لا في العبادات.",
+    "correct_placement": "فقه المعاملات في أبواب الوقف والتبرعات",
+    "incorrect_placement": "فقه العبادات في باب النية"
+  },
+  {
+    "id": "T3-002",
+    "threat": "T-3",
+    "text_arabic": "والشهادة المقصودة في هذا الباب إنما يعتبر فيها تحملها وأداؤها على وجه يطمئن معه القاضي إلى ثبوت الحق، ولهذا اشترطوا العدالة والضبط وانتفاء التهمة. فليست من باب الشهادتين اللتين يدخل بهما العبد في الإسلام، وإن اشترك اللفظ؛ لأن المقصود هنا فصل الخصومات وحفظ الأموال والدماء.",
+    "actual_science": "فقه القضاء",
+    "misleading_science": "العقيدة",
+    "misleading_keywords": ["الشهادتين", "الإسلام", "العبد"],
+    "disambiguation_signal": "اشتراط العدالة والضبط وانتفاء التهمة وذكر القاضي وفصل الخصومات يحدد باب البينات والشهادات القضائية.",
+    "correct_placement": "فقه القضاء في باب البينات والشهادات",
+    "incorrect_placement": "العقيدة في باب الشهادتين"
+  },
+  {
+    "id": "T3-003",
+    "threat": "T-3",
+    "text_arabic": "والطهارة المطلوبة للسالك في هذا المقام ليست غسل الأعضاء وإزالة الحدث الحسي، وإن جرى اللفظ بذلك، وإنما حقيقتها تخليص القلب من دنس الرياء والعجب وسائر كدورات الباطن. فمن اقتصر على جريان الماء ولم يطهر سريرته، لم يحصل له مقصود أهل السلوك.",
+    "actual_science": "التصوف",
+    "misleading_science": "فقه العبادات",
+    "misleading_keywords": ["غسل الأعضاء", "إزالة الحدث", "جريان الماء", "الحدث الحسي"],
+    "disambiguation_signal": "ذكر السالك والقلب والرياء والعجب والباطن والسريرة يدل على أن المراد طهارة معنوية في باب التزكية.",
+    "correct_placement": "التصوف وآداب السلوك في باب تزكية النفس",
+    "incorrect_placement": "فقه العبادات في باب الطهارة"
+  },
+  {
+    "id": "T4-001",
+    "threat": "T-4",
+    "full_text": "إذا تغير الماء بطول مكثه في الحياض، أو بما يسقط فيه عادة من ورق الشجر والتراب اليسير، وكان باقيا على رقته وجريانه، ولم يكن التغير من نجاسة ولا من طاهر قصد خلطه به، فإنه يبقى على أصل الطهورية.\n\nوذلك لأن ما لا يمكن صون الماء عنه في غالب الأحوال يجعل تابعا غير مقصود، فلا يسلب الاسم المطلق. وإنما المؤثر ما غلب على أوصافه حتى صار يسمى باسم آخر، أو كان التغير ناشئا من مخالطة مقصودة.\n\nولهذا فرق أهل المذهب بين ما يرد على الماء بحكم المجاورة والعادة، وبين ما يلقى فيه قصدا للتنظيف أو التلوين أو الطبخ؛ فالأول معفو عنه، والثاني ينظر فيه إلى بقاء اسم الماء وعدمه.\n\nفإذا تقرر هذا، كما سبق، جاز الوضوء والغسل منه، ولا يضر ما يعرض له من كدورة خفيفة أو رائحة مألوفة.",
+    "condition_paragraph": 1,
+    "condition_text": "إذا تغير الماء بطول مكثه في الحياض، أو بما يسقط فيه عادة من ورق الشجر والتراب اليسير، وكان باقيا على رقته وجريانه، ولم يكن التغير من نجاسة ولا من طاهر قصد خلطه به، فإنه يبقى على أصل الطهورية.",
+    "ruling_paragraph": 4,
+    "ruling_text": "فإذا تقرر هذا، كما سبق، جاز الوضوء والغسل منه، ولا يضر ما يعرض له من كدورة خفيفة أو رائحة مألوفة.",
+    "back_reference_phrase": "كما سبق",
+    "if_excerpted_alone": "يفهم القارئ أن كل ماء متغير يجوز التطهر به، ولو كان تغيره بنجاسة أو بمخالط قصد طرحه فيه.",
+    "correct_behavior": "Either include condition paragraph in excerpt, or supply it in self_containment_context field"
+  },
+  {
+    "id": "T4-002",
+    "threat": "T-4",
+    "full_text": "إذا باع الوكيل في حدود ما أذن له الموكل، وكان الثمن ثمن المثل، ولم تقع محاباة لنفسه ولا لمن تلزمه نفقته، صح تصرفه ولزم.\n\nلأن الوكالة نيابة مقيدة، فاعتبارها يدور مع وجود الإذن وانتفاء التهمة. فإذا ظهر ما يقدح في أحدهما لم يكن تصرف النائب جاريا مجرى تصرف الأصيل.\n\nومن هنا شدد الفقهاء في بيع الوكيل لنفسه أو لولده، إذ الغالب ميل الطبع، بخلاف بيعه للأجنبي عند ظهور المصلحة. كما راعوا في تقدير الثمن حال السوق وقت العقد لا مجرد الدعوى بعد التفرق.\n\nوعلى هذا، كما ذكرنا، يمضي البيع ولا تسمع من الموكل دعوى الفساد بعد القبض.",
+    "condition_paragraph": 1,
+    "condition_text": "إذا باع الوكيل في حدود ما أذن له الموكل، وكان الثمن ثمن المثل، ولم تقع محاباة لنفسه ولا لمن تلزمه نفقته، صح تصرفه ولزم.",
+    "ruling_paragraph": 4,
+    "ruling_text": "وعلى هذا، كما ذكرنا، يمضي البيع ولا تسمع من الموكل دعوى الفساد بعد القبض.",
+    "back_reference_phrase": "كما ذكرنا",
+    "if_excerpted_alone": "يظهر للقارئ أن بيع الوكيل لازم على الإطلاق، ولو جاوز الإذن أو باع مع التهمة أو دون ثمن المثل.",
+    "correct_behavior": "Either include condition paragraph in excerpt, or supply it in self_containment_context field"
+  },
+  {
+    "id": "T4-003",
+    "threat": "T-4",
+    "full_text": "إذا كان الواهب في مرض يغلب على الظن اتصاله بالموت، وكان دينه مستغرقا لماله أو أكثره، ثم تبرع بهبة لم يتم قبضها قبل موته، تعلق حق الغرماء والورثة بالنظر في نفاذها.\n\nووجه ذلك أن المرض المخوف يلحقه حكم الوصايا من جهة التبرعات؛ لأن يد المريض تضعف عن التوسع فيما يضر بأصحاب الحقوق. فلا يستوي تصرف الصحيح وتصرف من أشرف على الفوت.\n\nولهذا قدموا قضاء الدين، ثم نظروا في الباقي، فما خرج عن حد الاحتمال والإضرار أمضي، وما كان مظنة إبطال حق لازم لم ينفذ إلا على وجه مخصوص.\n\nفكما تقدم، لا تنفذ الهبة إلا من الثلث بعد قضاء الدين، وما زاد موقوف على إجازة من له الحق.",
+    "condition_paragraph": 1,
+    "condition_text": "إذا كان الواهب في مرض يغلب على الظن اتصاله بالموت، وكان دينه مستغرقا لماله أو أكثره، ثم تبرع بهبة لم يتم قبضها قبل موته، تعلق حق الغرماء والورثة بالنظر في نفاذها.",
+    "ruling_paragraph": 4,
+    "ruling_text": "فكما تقدم، لا تنفذ الهبة إلا من الثلث بعد قضاء الدين، وما زاد موقوف على إجازة من له الحق.",
+    "back_reference_phrase": "كما تقدم",
+    "if_excerpted_alone": "قد يفهم القارئ أن كل هبة في مرض الموت لا تنفذ إلا من الثلث، ولو لم يكن هناك دين مستغرق أو لم تكن الهبة غير مقبوضة.",
+    "correct_behavior": "Either include condition paragraph in excerpt, or supply it in self_containment_context field"
+  }
+]
+tokens used
+23,211
+[
+  {
+    "id": "T3-001",
+    "threat": "T-3",
+    "text_arabic": "والنية في الوقف معتبرة من جهة تعيين المصرف والجهة الموقوف عليها، لا من جهة التعبد المحض؛ فلذلك يذكر الفقهاء فيها قصد القربة والإخلاص، كما يذكرون ذلك في أبواب الوضوء والصلاة. غير أن أثرها هنا يظهر عند اختلاف الواقف والمستحقين فيمن أراده بالتحبيس وتسبيل المنفعة، لا في صحة عبادة بدنية.",
+    "actual_science": "فقه المعاملات",
+    "misleading_science": "فقه العبادات",
+    "misleading_keywords": ["قصد القربة", "الإخلاص", "الوضوء", "الصلاة"],
+    "disambiguation_signal": "ذكر الوقف والواقف والمستحقين والتحبيس وتسبيل المنفعة وتعيين المصرف يدل على أن الكلام في المعاملات لا في العبادات.",
+    "correct_placement": "فقه المعاملات في أبواب الوقف والتبرعات",
+    "incorrect_placement": "فقه العبادات في باب النية"
+  },
+  {
+    "id": "T3-002",
+    "threat": "T-3",
+    "text_arabic": "والشهادة المقصودة في هذا الباب إنما يعتبر فيها تحملها وأداؤها على وجه يطمئن معه القاضي إلى ثبوت الحق، ولهذا اشترطوا العدالة والضبط وانتفاء التهمة. فليست من باب الشهادتين اللتين يدخل بهما العبد في الإسلام، وإن اشترك اللفظ؛ لأن المقصود هنا فصل الخصومات وحفظ الأموال والدماء.",
+    "actual_science": "فقه القضاء",
+    "misleading_science": "العقيدة",
+    "misleading_keywords": ["الشهادتين", "الإسلام", "العبد"],
+    "disambiguation_signal": "اشتراط العدالة والضبط وانتفاء التهمة وذكر القاضي وفصل الخصومات يحدد باب البينات والشهادات القضائية.",
+    "correct_placement": "فقه القضاء في باب البينات والشهادات",
+    "incorrect_placement": "العقيدة في باب الشهادتين"
+  },
+  {
+    "id": "T3-003",
+    "threat": "T-3",
+    "text_arabic": "والطهارة المطلوبة للسالك في هذا المقام ليست غسل الأعضاء وإزالة الحدث الحسي، وإن جرى اللفظ بذلك، وإنما حقيقتها تخليص القلب من دنس الرياء والعجب وسائر كدورات الباطن. فمن اقتصر على جريان الماء ولم يطهر سريرته، لم يحصل له مقصود أهل السلوك.",
+    "actual_science": "التصوف",
+    "misleading_science": "فقه العبادات",
+    "misleading_keywords": ["غسل الأعضاء", "إزالة الحدث", "جريان الماء", "الحدث الحسي"],
+    "disambiguation_signal": "ذكر السالك والقلب والرياء والعجب والباطن والسريرة يدل على أن المراد طهارة معنوية في باب التزكية.",
+    "correct_placement": "التصوف وآداب السلوك في باب تزكية النفس",
+    "incorrect_placement": "فقه العبادات في باب الطهارة"
+  },
+  {
+    "id": "T4-001",
+    "threat": "T-4",
+    "full_text": "إذا تغير الماء بطول مكثه في الحياض، أو بما يسقط فيه عادة من ورق الشجر والتراب اليسير، وكان باقيا على رقته وجريانه، ولم يكن التغير من نجاسة ولا من طاهر قصد خلطه به، فإنه يبقى على أصل الطهورية.\n\nوذلك لأن ما لا يمكن صون الماء عنه في غالب الأحوال يجعل تابعا غير مقصود، فلا يسلب الاسم المطلق. وإنما المؤثر ما غلب على أوصافه حتى صار يسمى باسم آخر، أو كان التغير ناشئا من مخالطة مقصودة.\n\nولهذا فرق أهل المذهب بين ما يرد على الماء بحكم المجاورة والعادة، وبين ما يلقى فيه قصدا للتنظيف أو التلوين أو الطبخ؛ فالأول معفو عنه، والثاني ينظر فيه إلى بقاء اسم الماء وعدمه.\n\nفإذا تقرر هذا، كما سبق، جاز الوضوء والغسل منه، ولا يضر ما يعرض له من كدورة خفيفة أو رائحة مألوفة.",
+    "condition_paragraph": 1,
+    "condition_text": "إذا تغير الماء بطول مكثه في الحياض، أو بما يسقط فيه عادة من ورق الشجر والتراب اليسير، وكان باقيا على رقته وجريانه، ولم يكن التغير من نجاسة ولا من طاهر قصد خلطه به، فإنه يبقى على أصل الطهورية.",
+    "ruling_paragraph": 4,
+    "ruling_text": "فإذا تقرر هذا، كما سبق، جاز الوضوء والغسل منه، ولا يضر ما يعرض له من كدورة خفيفة أو رائحة مألوفة.",
+    "back_reference_phrase": "كما سبق",
+    "if_excerpted_alone": "يفهم القارئ أن كل ماء متغير يجوز التطهر به، ولو كان تغيره بنجاسة أو بمخالط قصد طرحه فيه.",
+    "correct_behavior": "Either include condition paragraph in excerpt, or supply it in self_containment_context field"
+  },
+  {
+    "id": "T4-002",
+    "threat": "T-4",
+    "full_text": "إذا باع الوكيل في حدود ما أذن له الموكل، وكان الثمن ثمن المثل، ولم تقع محاباة لنفسه ولا لمن تلزمه نفقته، صح تصرفه ولزم.\n\nلأن الوكالة نيابة مقيدة، فاعتبارها يدور مع وجود الإذن وانتفاء التهمة. فإذا ظهر ما يقدح في أحدهما لم يكن تصرف النائب جاريا مجرى تصرف الأصيل.\n\nومن هنا شدد الفقهاء في بيع الوكيل لنفسه أو لولده، إذ الغالب ميل الطبع، بخلاف بيعه للأجنبي عند ظهور المصلحة. كما راعوا في تقدير الثمن حال السوق وقت العقد لا مجرد الدعوى بعد التفرق.\n\nوعلى هذا، كما ذكرنا، يمضي البيع ولا تسمع من الموكل دعوى الفساد بعد القبض.",
+    "condition_paragraph": 1,
+    "condition_text": "إذا باع الوكيل في حدود ما أذن له الموكل، وكان الثمن ثمن المثل، ولم تقع محاباة لنفسه ولا لمن تلزمه نفقته، صح تصرفه ولزم.",
+    "ruling_paragraph": 4,
+    "ruling_text": "وعلى هذا، كما ذكرنا، يمضي البيع ولا تسمع من الموكل دعوى الفساد بعد القبض.",
+    "back_reference_phrase": "كما ذكرنا",
+    "if_excerpted_alone": "يظهر للقارئ أن بيع الوكيل لازم على الإطلاق، ولو جاوز الإذن أو باع مع التهمة أو دون ثمن المثل.",
+    "correct_behavior": "Either include condition paragraph in excerpt, or supply it in self_containment_context field"
+  },
+  {
+    "id": "T4-003",
+    "threat": "T-4",
+    "full_text": "إذا كان الواهب في مرض يغلب على الظن اتصاله بالموت، وكان دينه مستغرقا لماله أو أكثره، ثم تبرع بهبة لم يتم قبضها قبل موته، تعلق حق الغرماء والورثة بالنظر في نفاذها.\n\nووجه ذلك أن المرض المخوف يلحقه حكم الوصايا من جهة التبرعات؛ لأن يد المريض تضعف عن التوسع فيما يضر بأصحاب الحقوق. فلا يستوي تصرف الصحيح وتصرف من أشرف على الفوت.\n\nولهذا قدموا قضاء الدين، ثم نظروا في الباقي، فما خرج عن حد الاحتمال والإضرار أمضي، وما كان مظنة إبطال حق لازم لم ينفذ إلا على وجه مخصوص.\n\nفكما تقدم، لا تنفذ الهبة إلا من الثلث بعد قضاء الدين، وما زاد موقوف على إجازة من له الحق.",
+    "condition_paragraph": 1,
+    "condition_text": "إذا كان الواهب في مرض يغلب على الظن اتصاله بالموت، وكان دينه مستغرقا لماله أو أكثره، ثم تبرع بهبة لم يتم قبضها قبل موته، تعلق حق الغرماء والورثة بالنظر في نفاذها.",
+    "ruling_paragraph": 4,
+    "ruling_text": "فكما تقدم، لا تنفذ الهبة إلا من الثلث بعد قضاء الدين، وما زاد موقوف على إجازة من له الحق.",
+    "back_reference_phrase": "كما تقدم",
+    "if_excerpted_alone": "قد يفهم القارئ أن كل هبة في مرض الموت لا تنفذ إلا من الثلث، ولو لم يكن هناك دين مستغرق أو لم تكن الهبة غير مقبوضة.",
+    "correct_behavior": "Either include condition paragraph in excerpt, or supply it in self_containment_context field"
+  }
+]

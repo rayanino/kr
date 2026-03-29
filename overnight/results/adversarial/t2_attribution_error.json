@@ -1,0 +1,300 @@
+OpenAI Codex v0.116.0 (research preview)
+--------
+workdir: C:\Users\Rayane\Desktop\kr
+model: gpt-5.4
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 019d3621-feb8-7d00-9b94-db47ce079c12
+--------
+user
+You are generating adversarial test data for an Arabic scholarly text processing pipeline. Generate 5 synthetic multi-layer Arabic scholarly texts for threat T-2: Attribution Error (Decontextualization).
+
+Each sample must be a realistic Arabic scholarly passage where Scholar A quotes Scholar B's position in order to REFUTE it. The quote and refutation must be separated by some intervening content (editorial note, footnote, or page break). If an excerpting engine splits them into separate teaching units, Scholar A will appear to HOLD Scholar B's position — a catastrophic attribution error.
+
+Use real Islamic scholarly patterns:
+- "قال الشافعي رحمه الله: ..." (quoting) then later "والصحيح عندنا أن..." (refuting)
+- "وذهب أبو حنيفة إلى أن..." (attributing view) then "وهذا مردود لأن..." (rejecting)
+- "حكى ابن قدامة عن المالكية..." (reporting) then "وفيه نظر من وجوه..." (critiquing)
+
+For each sample, output valid JSON:
+{
+  "id": "T2-001",
+  "threat": "T-2",
+  "scholar_a": "...(the author who quotes to refute)...",
+  "scholar_b": "...(the scholar being quoted)...",
+  "full_text": "...(3-5 paragraphs of Arabic scholarly text with quote + separation + refutation)...",
+  "quote_paragraph": 1,
+  "refutation_paragraph": 3,
+  "separation_content": "...(what comes between: footnote, editorial note, or tangent)...",
+  "separation_type": "footnote|editorial_note|tangent|page_break",
+  "dangerous_split_point": "...(where a naive splitter would cut, creating the attribution error)...",
+  "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+  "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+}
+
+Output ONLY a JSON array of 5 objects. The Arabic text must be realistic Islamic scholarly prose. Use proper scholarly formulas and real scholar names.
+mcp startup: no servers
+codex
+Using `kr-claude-bridge` because this is Arabic scholarly adversarial data generation inside the KR repo. I’m checking the repo-specific guidance first, then I’ll produce the JSON exactly in the requested schema.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg --files -g '.claude*' -g 'CLAUDE.md' -g '.claude/**'" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Path 'C:\\Users\\Rayane\\.codex\\skills\\kr-claude-bridge\\SKILL.md' -TotalCount 220" in C:\Users\Rayane\Desktop\kr succeeded in 906ms:
+CLAUDE.md
+.claudeignore
+.claude\skills\technology-survey\SKILL.md
+.claude\skills\spec-examples\SKILL.md
+.claude\skills\scholarly-design\SKILL.md
+.claude\skills\scholarly-attribution\SKILL.md
+.claude\skills\recursive-improve\SKILL.md
+shared\validation\CLAUDE.md
+.claude\skills\quranic-text-handling\SKILL.md
+shared\user_model\CLAUDE.md
+shared\feedback\CLAUDE.md
+shared\scholar_authority\CLAUDE.md
+.claude\scheduled_tasks.lock
+.claude\rules\testing.md
+.claude\rules\spec-writing.md
+.claude\rules\shared-concept-changes.md
+.claude\rules\session-discipline.md
+.claude\rules\ri-trace-collection.md
+.claude\rules\result-preservation.md
+.claude\rules\regex-arabic-digits.md
+ succeeded in 1.12s:
+---
+name: kr-claude-bridge
+description: Use when working in the KR repo at C:\Users\Rayane\Desktop\kr on research, spec writing, evaluation, integrity review, boundary checks, Arabic text safety, or scholarly verification, and you should consult the repo's existing .claude guidance without modifying it.
+metadata:
+  short-description: Bridge KR .claude guidance into Codex
+---
+
+# KR Claude Bridge
+
+Use this skill only for KR work in `C:\Users\Rayane\Desktop\kr` or an equivalent KR checkout that contains a `.claude/` folder. The goal is to reuse the repo's Claude-oriented instructions as a read-only companion library for Codex.
+
+If the current workspace is not the KR repo, or there is no `.claude/` folder, do not use this skill.
+
+## Lookup Workflow
+
+Read only the minimum relevant files for the current task, in this order:
+
+1. `.claude/skills/*/SKILL.md`
+2. `.claude/agents/*.md`
+3. `.claude/rules/*.md`
+codex
+I found the KR guidance and I’m narrowing it to Arabic-text handling plus attribution conventions, since this dataset is specifically about decontextualized scholarly quotation. After that I’ll draft the five passages with clear quote/refutation separation traps.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Path '.claude\\rules\\arabic-scholarly-conventions.md' -TotalCount 220" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Path '.claude\\skills\\scholarly-attribution\\SKILL.md' -TotalCount 220" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -Path '.claude\\skills\\arabic-text\\SKILL.md' -TotalCount 220" in C:\Users\Rayane\Desktop\kr succeeded in 931ms:
+---
+name: arabic-text
+description: Guidelines for handling Arabic scholarly text in code. Use when writing any code that processes, stores, compares, or displays Arabic text. Covers encoding, directionality, diacritics, morphological complexity, and common pitfalls.
+---
+
+# Arabic Text Handling for KR
+
+Arabic scholarly text has properties that break naive string processing. Every developer (human or AI) working on KR must understand these.
+
+## Critical Properties
+
+### Encoding
+- ALL text in KR is UTF-8. No exceptions. No Latin-1, no Windows-1256, no ISO-8859-6.
+- Shamela exports may use Windows-1256. Convert at normalization. Verify with frozen source after conversion.
+- A single Arabic character may be 2-4 bytes in UTF-8. `len(text)` in Python counts characters, not bytes. Use `len(text.encode('utf-8'))` for byte counts.
+
+### Diacritics (التشكيل)
+- Diacritics are MEANINGFUL in scholarly text. فَعَلَ (fa'ala, he did) vs فُعِلَ (fu'ila, it was done) vs فَعَّلَ (fa''ala, he made do).
+- NEVER strip diacritics from primary_text.
+- For SEARCH and MATCHING: create a separate diacritics-stripped index. Never modify the stored text.
+ succeeded in 970ms:
+---
+globs: ["engines/*/src/**/*.py", "shared/*/src/**/*.py"]
+---
+- **Bismillah handling:** بسم الله الرحمن الرحيم at position 0 of a book or volume is structural prose — part of the muqaddimah (author's introduction), NOT a Quranic citation. It is followed by the hamdala (الحمد لله رب العالمين...) which is the author's own prose praising God, then the sababiyyah (أما بعد / وبعد) transitioning to the book's subject. Treat the entire opening sequence (bismillah + hamdala + sababiyyah) as a single structural unit belonging to the muqaddimah. Do not tag the opening bismillah as `quranic_text: true` unless it appears within Quranic brackets ﴿ ﴾ or after a citation formula (قال تعالى).
+- **Hamdala patterns:** The opening hamdala varies in length from a single line (الحمد لله رب العالمين) to multiple paragraphs praising God, invoking blessings on the Prophet, and stating the book's purpose. The transition marker is أما بعد or وبعد (the sababiyyah), which signals the end of the hamdala and the beginning of the author's actual introduction. Everything before أما بعد is formulaic preamble. Everything after it until the first chapter heading (كتاب, باب, فصل) is the author's muqaddimah prose.
+- **Colophon patterns:** The colophon (خاتمة) appears at the end of a book or manuscript copy. Extract date and attribution data from these formulas:
+  - تم الكتاب بحمد الله / تم بحمد الله تعالى — completion marker
+  - فرغ من تأليفه — the author finished composing (gives authorship date)
+  - فرغ من نسخه / كتبه — the copyist finished transcribing (gives manuscript date, NOT authorship date)
+  - كتبه العبد الفقير [name] — copyist self-identification (NOT the author)
+  - وكان الفراغ منه في شهر [month] سنة [year] — completion date in Hijri calendar
+  - نقله من خط المؤلف — copied from the author's handwriting (high-authority manuscript)
+  - بلغ مقابلة بأصله — has been collated against its source (critical edition signal)
+  - **Critical trap:** The name after كتبه is the COPYIST (ناسخ), not the author (مؤلف). The name after ألفه/صنفه is the author. Confusing these corrupts author attribution.
+- **Scholarly abbreviations — preserve as-is, never expand or normalize:**
+  - صلى الله عليه وسلم — blessings on the Prophet. May appear as the Unicode ligature ﷺ (U+FDFA), or as صلعم, or written in full. Preserve whichever form the source uses. Do NOT normalize between forms.
+  - رضي الله عنه / عنها / عنهم / عنهما — divine pleasure on Companions. May abbreviate as رضه or رض. The gender/number suffix (عنه/عنها/عنهم/عنهما) carries information about the referenced person — preserve it.
+  - رحمه الله / رحمها الله — divine mercy on deceased scholars. May abbreviate as رحه. Presence of this formula after a scholar's name confirms they are deceased — useful for death date estimation.
+  - عز وجل / سبحانه وتعالى / جل جلاله — divine glorification formulas after God's name. Multiple forms exist; preserve whichever the source uses.
+  - عليه السلام / عليها السلام — peace upon prophets and certain revered figures. Do NOT confuse with صلى الله عليه وسلم which is reserved for Prophet Muhammad specifically.
+ succeeded in 1.07s:
+---
+name: scholarly-attribution
+description: How to identify, verify, and disambiguate author attributions in Islamic scholarly texts. Use when processing author metadata, verifying attribution claims, implementing scholar matching, or evaluating LLM author identification outputs.
+---
+
+# Scholarly Attribution Heuristics
+
+Incorrect author attribution is threat T-2 — one of the most dangerous knowledge integrity failures. An error here means the owner's mental model attributes ideas to the wrong scholar. This skill provides the heuristics needed to identify, verify, and disambiguate authorship.
+
+---
+
+## 1. Arabic Naming Convention Structure
+
+A full scholarly name follows this pattern (not all elements present in every reference):
+
+```
+كنية (Kunyah)  +  اسم (Ism)  +  نسب (Nasab)  +  لقب (Laqab)  +  نسبة (Nisba)
+أبو عبد الله      محمد         بن إسماعيل      —               البخاري
+```
+
+codex
+[
+  {
+    "id": "T2-001",
+    "threat": "T-2",
+    "scholar_a": "النووي",
+    "scholar_b": "أبو حنيفة",
+    "full_text": "قال الإمام النووي رحمه الله في أثناء الكلام على نواقض الوضوء: وذهب أبو حنيفة رحمه الله إلى أن مس الذكر لا ينقض الوضوء؛ لأنه عضو من الأعضاء، والأصل بقاء الطهارة حتى يثبت ناقل، وقد حكى بعض أصحابه هذا على جهة القياس المحض، فقال: لا معنى لتخصيصه بالنقض دون سائر البدن.\n\n[حاشية المحقق: في بعض النسخ بعد هذا الموضع ورقة ملحقة فيها تخريج حديث بسرة بنت صفوان رضي الله عنها، وفي نسخة أخرى سقطت الحاشية كلها، ثم عاد السياق إلى تحرير مأخذ الخلاف بين الأئمة.]\n\nقلت: وليس ما تقدم مذهبا لنا، وإنما ذكرته حكاية لقول المخالف. والصحيح عندنا أن مس الذكر ببطن الكف ناقض للوضوء، لما صح من حديث بسرة، وهو نص الشافعي رحمه الله، وما اعتل به أبو حنيفة مردود؛ لأن القياس لا يعارض الخبر الثابت، ولأن هذا موضع تعبد لا مدخل للرأي المحض فيه.",
+    "quote_paragraph": 1,
+    "refutation_paragraph": 3,
+    "separation_content": "حاشية تحقيقية عن اختلاف النسخ وتخريج حديث بسرة بنت صفوان",
+    "separation_type": "footnote",
+    "dangerous_split_point": "بعد الفقرة الأولى التي تنتهي بحكاية قول أبي حنيفة، وقبل الفقرة الثالثة التي تبدأ بـ «قلت: وليس ما تقدم مذهبا لنا»",
+    "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+    "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+  },
+  {
+    "id": "T2-002",
+    "threat": "T-2",
+    "scholar_a": "ابن قدامة",
+    "scholar_b": "مالك بن أنس",
+    "full_text": "وحكى ابن قدامة رحمه الله عن مالك رحمه الله في صفة الغسل أنه أوجب الدلك، وقال: لا يجزئ إفاضة الماء على الجسد حتى يمر اليد على البشرة؛ لأن اسم الغسل في لسان العرب يقتضي إمرار الماء مع المعالجة، ولأن الاقتصار على الصب يشبه الرش ولا يبلغ حقيقة الغسل.\n\n[ص: ٢١٤] قال المحقق: هنا انتهت صفحة من الأصل، وفي أعلاها تعليقة بخط متأخر تتعلق بلفظ حديث أم سلمة رضي الله عنها، ثم ابتدأ الناسخ في الصفحة التالية بفصل آخر من الباب نفسه.\n\nوفيه نظر من وجوه: أحدها أن الله تعالى علق الطهارة بجريان الماء لا بالدلك، والثاني أن الأخبار الصحيحة في غسل النبي صلى الله عليه وسلم إنما فيها إفاضة الماء وتخليل الشعر، لا اشتراط إمرار اليد على جميع البدن، والثالث أن الاشتراط حكم زائد لا يثبت إلا بدليل. والصحيح من مذهبنا أن الدلك مستحب في كمال الغسل لا شرط في صحته.",
+    "quote_paragraph": 1,
+    "refutation_paragraph": 3,
+    "separation_content": "فاصل صفحة مع تعليق للمحقق على تعليقة النسخة قبل استئناف المتن",
+    "separation_type": "page_break",
+    "dangerous_split_point": "عند علامة الصفحة «[ص: ٢١٤]» بين حكاية قول مالك والفقرة التي تبدأ بـ «وفيه نظر من وجوه»",
+    "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+    "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+  },
+  {
+    "id": "T2-003",
+    "threat": "T-2",
+    "scholar_a": "السرخسي",
+    "scholar_b": "الشافعي",
+    "full_text": "قال السرخسي رحمه الله في تفسير قوله تعالى: ﴿أو لامستم النساء﴾: قال الشافعي رحمه الله إن مجرد لمس المرأة ينقض الوضوء وإن لم يكن مع شهوة؛ حملا للفظ على ظاهره، وجعل الملامسة حقيقة في مباشرة البشرة للبشرة، فمتى وجد اللمس وجد الحكم.\n\nثم أطال الكلام في استعمال العرب لهذه اللفظة، فذكر أن اللمس والملامسة قد يردان في لسانهم بمعنى الجماع، وقد يردان في مجرد المس، ونبه على اختلاف السياق ودلالة القرائن، وذكر قراءة من قرأ: «أو لمستم» وأن ذلك مما يحتاج إلى جمع الشواهد لا إلى الاقتصار على أول الفهم.\n\nوعندنا أن المراد بالملامسة هاهنا الجماع؛ لأن هذا هو المستعمل في كثير من كلام العرب، ولأن حمله على مجرد اللمس يفضي إلى الحرج وكثرة النقض من غير دليل بين. وما نقلناه عن الشافعي إنما أوردناه ليتبين مأخذه، ثم الصحيح عندنا أن مجرد اللمس لا ينقض الوضوء، وهذا الذي ذهب إليه الشافعي مردود عندنا من هذا الوجه.",
+    "quote_paragraph": 1,
+    "refutation_paragraph": 3,
+    "separation_content": "استطراد لغوي في دلالة لفظ الملامسة وذكر القراءات قبل الرجوع إلى الترجيح",
+    "separation_type": "tangent",
+    "dangerous_split_point": "بعد الفقرة الأولى التي تحكي قول الشافعي، أو بعد الاستطراد اللغوي في الفقرة الثانية، قبل الفقرة الثالثة التي تبدأ بـ «وعندنا»",
+    "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+    "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+  },
+  {
+    "id": "T2-004",
+    "threat": "T-2",
+    "scholar_a": "ابن عبد البر",
+    "scholar_b": "داود بن علي الظاهري",
+    "full_text": "وقال ابن عبد البر رحمه الله في باب النية: وذهب أبو محمد داود بن علي الظاهري رحمه الله إلى أن الوضوء يجزئ بغير نية، وأن من غسل أعضاءه للتبرد أو التنظف فقد ارتفع حدثه، محتجا بأن الآية إنما تضمنت الأمر بالغسل، ولم تذكر النية نصا، فدل على أن وجود الفعل كاف في سقوط الفرض.\n\n[تنبيه من المحقق: وقع في بعض الأصول بعد هذا الموضع نقل عن الخلاف في معنى القربة، وفي نسخة الرباط زيادة ثلاثة أسطر في الفرق بين الوضوء والعادات، وكل ذلك من عمل الناسخ لا من صلب احتجاج المصنف.]\n\nوهذا مردود لأن الأعمال لا تكون عبادات إلا بالنيات، وقد صح الخبر بذلك واستقر عليه عمل الجمهور، ولا يصح إلحاق الوضوء بمجرد التنظف؛ لأنه طهارة شرعية مفتقرة إلى القصد. قال ابن عبد البر رحمه الله: والنية عندنا وعند فقهاء الأمصار أصل في هذا الباب، فمن ألغى اعتبارها فقد أبعد.",
+    "quote_paragraph": 1,
+    "refutation_paragraph": 3,
+    "separation_content": "تنبيه تحقيقي عن زيادات النسخ في معنى القربة والفرق بين العادات والعبادات",
+    "separation_type": "editorial_note",
+    "dangerous_split_point": "بين الفقرة الأولى التي تنقل قول داود والفقرة الثالثة التي تبدأ بـ «وهذا مردود»",
+    "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+    "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+  },
+  {
+    "id": "T2-005",
+    "threat": "T-2",
+    "scholar_a": "ابن دقيق العيد",
+    "scholar_b": "أبو حنيفة",
+    "full_text": "وقال ابن دقيق العيد رحمه الله عند الكلام على حديث القهقهة: وذهب أبو حنيفة رحمه الله إلى أن القهقهة في الصلاة تنقض الوضوء والصلاة جميعا، محتجا بما روي في ذلك من الأخبار، وبأن الحدث الحكمي إذا اقترن بالصلاة كان آكد في المنع وأبلغ في الإفساد.\n\n[حاشية: في بعض النسخ هنا إحالة إلى طرق حديث جابر في القهقهة، ثم تتلوها ورقة فيها أسماء الرواة ومراتبهم، وقد فصل الشارح هناك في علل الإسناد واختلاف ألفاظ النقلة.]\n\nثم قال بعد استيفاء الطرق: وهذه الأحاديث لا يثبت منها شيء تقوم به الحجة، وإذا ضعف المستند بطل الحكم المبني عليه. والذي عليه المحققون أن القهقهة تبطل الصلاة لمنافاة الخشوع والنظم، ولا تنقض الوضوء؛ لأن الطهارة لا ترتفع إلا بناقض ثابت، فقول أبي حنيفة في نقضها للوضوء مردود من هذا الوجه.",
+    "quote_paragraph": 1,
+    "refutation_paragraph": 3,
+    "separation_content": "حاشية حديثية في طرق خبر القهقهة وعلل الأسانيد",
+    "separation_type": "footnote",
+    "dangerous_split_point": "بعد الفقرة الأولى التي تنسب القول إلى أبي حنيفة، وقبل الفقرة الثالثة التي تبدأ بـ «ثم قال بعد استيفاء الطرق»",
+    "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+    "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+  }
+]
+tokens used
+24,754
+[
+  {
+    "id": "T2-001",
+    "threat": "T-2",
+    "scholar_a": "النووي",
+    "scholar_b": "أبو حنيفة",
+    "full_text": "قال الإمام النووي رحمه الله في أثناء الكلام على نواقض الوضوء: وذهب أبو حنيفة رحمه الله إلى أن مس الذكر لا ينقض الوضوء؛ لأنه عضو من الأعضاء، والأصل بقاء الطهارة حتى يثبت ناقل، وقد حكى بعض أصحابه هذا على جهة القياس المحض، فقال: لا معنى لتخصيصه بالنقض دون سائر البدن.\n\n[حاشية المحقق: في بعض النسخ بعد هذا الموضع ورقة ملحقة فيها تخريج حديث بسرة بنت صفوان رضي الله عنها، وفي نسخة أخرى سقطت الحاشية كلها، ثم عاد السياق إلى تحرير مأخذ الخلاف بين الأئمة.]\n\nقلت: وليس ما تقدم مذهبا لنا، وإنما ذكرته حكاية لقول المخالف. والصحيح عندنا أن مس الذكر ببطن الكف ناقض للوضوء، لما صح من حديث بسرة، وهو نص الشافعي رحمه الله، وما اعتل به أبو حنيفة مردود؛ لأن القياس لا يعارض الخبر الثابت، ولأن هذا موضع تعبد لا مدخل للرأي المحض فيه.",
+    "quote_paragraph": 1,
+    "refutation_paragraph": 3,
+    "separation_content": "حاشية تحقيقية عن اختلاف النسخ وتخريج حديث بسرة بنت صفوان",
+    "separation_type": "footnote",
+    "dangerous_split_point": "بعد الفقرة الأولى التي تنتهي بحكاية قول أبي حنيفة، وقبل الفقرة الثالثة التي تبدأ بـ «قلت: وليس ما تقدم مذهبا لنا»",
+    "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+    "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+  },
+  {
+    "id": "T2-002",
+    "threat": "T-2",
+    "scholar_a": "ابن قدامة",
+    "scholar_b": "مالك بن أنس",
+    "full_text": "وحكى ابن قدامة رحمه الله عن مالك رحمه الله في صفة الغسل أنه أوجب الدلك، وقال: لا يجزئ إفاضة الماء على الجسد حتى يمر اليد على البشرة؛ لأن اسم الغسل في لسان العرب يقتضي إمرار الماء مع المعالجة، ولأن الاقتصار على الصب يشبه الرش ولا يبلغ حقيقة الغسل.\n\n[ص: ٢١٤] قال المحقق: هنا انتهت صفحة من الأصل، وفي أعلاها تعليقة بخط متأخر تتعلق بلفظ حديث أم سلمة رضي الله عنها، ثم ابتدأ الناسخ في الصفحة التالية بفصل آخر من الباب نفسه.\n\nوفيه نظر من وجوه: أحدها أن الله تعالى علق الطهارة بجريان الماء لا بالدلك، والثاني أن الأخبار الصحيحة في غسل النبي صلى الله عليه وسلم إنما فيها إفاضة الماء وتخليل الشعر، لا اشتراط إمرار اليد على جميع البدن، والثالث أن الاشتراط حكم زائد لا يثبت إلا بدليل. والصحيح من مذهبنا أن الدلك مستحب في كمال الغسل لا شرط في صحته.",
+    "quote_paragraph": 1,
+    "refutation_paragraph": 3,
+    "separation_content": "فاصل صفحة مع تعليق للمحقق على تعليقة النسخة قبل استئناف المتن",
+    "separation_type": "page_break",
+    "dangerous_split_point": "عند علامة الصفحة «[ص: ٢١٤]» بين حكاية قول مالك والفقرة التي تبدأ بـ «وفيه نظر من وجوه»",
+    "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+    "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+  },
+  {
+    "id": "T2-003",
+    "threat": "T-2",
+    "scholar_a": "السرخسي",
+    "scholar_b": "الشافعي",
+    "full_text": "قال السرخسي رحمه الله في تفسير قوله تعالى: ﴿أو لامستم النساء﴾: قال الشافعي رحمه الله إن مجرد لمس المرأة ينقض الوضوء وإن لم يكن مع شهوة؛ حملا للفظ على ظاهره، وجعل الملامسة حقيقة في مباشرة البشرة للبشرة، فمتى وجد اللمس وجد الحكم.\n\nثم أطال الكلام في استعمال العرب لهذه اللفظة، فذكر أن اللمس والملامسة قد يردان في لسانهم بمعنى الجماع، وقد يردان في مجرد المس، ونبه على اختلاف السياق ودلالة القرائن، وذكر قراءة من قرأ: «أو لمستم» وأن ذلك مما يحتاج إلى جمع الشواهد لا إلى الاقتصار على أول الفهم.\n\nوعندنا أن المراد بالملامسة هاهنا الجماع؛ لأن هذا هو المستعمل في كثير من كلام العرب، ولأن حمله على مجرد اللمس يفضي إلى الحرج وكثرة النقض من غير دليل بين. وما نقلناه عن الشافعي إنما أوردناه ليتبين مأخذه، ثم الصحيح عندنا أن مجرد اللمس لا ينقض الوضوء، وهذا الذي ذهب إليه الشافعي مردود عندنا من هذا الوجه.",
+    "quote_paragraph": 1,
+    "refutation_paragraph": 3,
+    "separation_content": "استطراد لغوي في دلالة لفظ الملامسة وذكر القراءات قبل الرجوع إلى الترجيح",
+    "separation_type": "tangent",
+    "dangerous_split_point": "بعد الفقرة الأولى التي تحكي قول الشافعي، أو بعد الاستطراد اللغوي في الفقرة الثانية، قبل الفقرة الثالثة التي تبدأ بـ «وعندنا»",
+    "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+    "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+  },
+  {
+    "id": "T2-004",
+    "threat": "T-2",
+    "scholar_a": "ابن عبد البر",
+    "scholar_b": "داود بن علي الظاهري",
+    "full_text": "وقال ابن عبد البر رحمه الله في باب النية: وذهب أبو محمد داود بن علي الظاهري رحمه الله إلى أن الوضوء يجزئ بغير نية، وأن من غسل أعضاءه للتبرد أو التنظف فقد ارتفع حدثه، محتجا بأن الآية إنما تضمنت الأمر بالغسل، ولم تذكر النية نصا، فدل على أن وجود الفعل كاف في سقوط الفرض.\n\n[تنبيه من المحقق: وقع في بعض الأصول بعد هذا الموضع نقل عن الخلاف في معنى القربة، وفي نسخة الرباط زيادة ثلاثة أسطر في الفرق بين الوضوء والعادات، وكل ذلك من عمل الناسخ لا من صلب احتجاج المصنف.]\n\nوهذا مردود لأن الأعمال لا تكون عبادات إلا بالنيات، وقد صح الخبر بذلك واستقر عليه عمل الجمهور، ولا يصح إلحاق الوضوء بمجرد التنظف؛ لأنه طهارة شرعية مفتقرة إلى القصد. قال ابن عبد البر رحمه الله: والنية عندنا وعند فقهاء الأمصار أصل في هذا الباب، فمن ألغى اعتبارها فقد أبعد.",
+    "quote_paragraph": 1,
+    "refutation_paragraph": 3,
+    "separation_content": "تنبيه تحقيقي عن زيادات النسخ في معنى القربة والفرق بين العادات والعبادات",
+    "separation_type": "editorial_note",
+    "dangerous_split_point": "بين الفقرة الأولى التي تنقل قول داود والفقرة الثالثة التي تبدأ بـ «وهذا مردود»",
+    "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+    "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+  },
+  {
+    "id": "T2-005",
+    "threat": "T-2",
+    "scholar_a": "ابن دقيق العيد",
+    "scholar_b": "أبو حنيفة",
+    "full_text": "وقال ابن دقيق العيد رحمه الله عند الكلام على حديث القهقهة: وذهب أبو حنيفة رحمه الله إلى أن القهقهة في الصلاة تنقض الوضوء والصلاة جميعا، محتجا بما روي في ذلك من الأخبار، وبأن الحدث الحكمي إذا اقترن بالصلاة كان آكد في المنع وأبلغ في الإفساد.\n\n[حاشية: في بعض النسخ هنا إحالة إلى طرق حديث جابر في القهقهة، ثم تتلوها ورقة فيها أسماء الرواة ومراتبهم، وقد فصل الشارح هناك في علل الإسناد واختلاف ألفاظ النقلة.]\n\nثم قال بعد استيفاء الطرق: وهذه الأحاديث لا يثبت منها شيء تقوم به الحجة، وإذا ضعف المستند بطل الحكم المبني عليه. والذي عليه المحققون أن القهقهة تبطل الصلاة لمنافاة الخشوع والنظم، ولا تنقض الوضوء؛ لأن الطهارة لا ترتفع إلا بناقض ثابت، فقول أبي حنيفة في نقضها للوضوء مردود من هذا الوجه.",
+    "quote_paragraph": 1,
+    "refutation_paragraph": 3,
+    "separation_content": "حاشية حديثية في طرق خبر القهقهة وعلل الأسانيد",
+    "separation_type": "footnote",
+    "dangerous_split_point": "بعد الفقرة الأولى التي تنسب القول إلى أبي حنيفة، وقبل الفقرة الثالثة التي تبدأ بـ «ثم قال بعد استيفاء الطرق»",
+    "correct_behavior": "Keep quote and refutation in same teaching unit, or annotate quote as 'quoted for refutation'",
+    "failure_behavior": "Two separate excerpts: one showing Scholar A 'stating' Scholar B's position, one showing refutation without target"
+  }
+]

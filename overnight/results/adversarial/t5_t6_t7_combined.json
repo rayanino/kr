@@ -1,0 +1,936 @@
+OpenAI Codex v0.116.0 (research preview)
+--------
+workdir: C:\Users\Rayane\Desktop\kr
+model: gpt-5.4
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 019d3622-32e1-7da2-995a-199d25bb3781
+--------
+user
+Generate adversarial test data for THREE threat types in an Arabic scholarly text pipeline. Output ONLY a valid JSON array.
+
+T-5: Synthesis Hallucination (3 samples) - narrative summaries that SOUND scholarly but contain fabricated claims with FALSE attributions or FALSE historical claims.
+
+T-6: Metadata Poisoning (3 samples) - metadata records with VALID-LOOKING but WRONG values (correct author but wrong death date, correct title but wrong genre, correct science but wrong school).
+
+T-7: Duplication/Contradiction (3 samples) - pairs of excerpts from the SAME source with CONTRADICTING metadata (same passage attributed to two different authors, same ruling under two different sciences).
+
+Each object format: {"id": "TX-00N", "threat": "T-5|T-6|T-7", "description": "...", "arabic_content": "...(real Arabic scholarly text)...", "ground_truth": "...", "failure_signature": "...", "data": {...threat-specific fields...}}
+
+Output ONLY the JSON array of 9 objects.
+mcp startup: no servers
+codex
+Using `kr-claude-bridge` for this turn because the request is scholarly/adversarial data generation in the KR repo. I’m checking the repo guidance and existing dataset patterns first so the JSON matches the local conventions and the attributions are defensible.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "T-5|T-6|T-7|adversarial|hallucination|metadata|duplication|contradiction|threat" -S .' in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -TotalCount 200 C:\\Users\\Rayane\\.codex\\skills\\kr-claude-bridge\\SKILL.md" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'Get-ChildItem -Force' in C:\Users\Rayane\Desktop\krwarning: in-process app-server event stream lagged; dropped 118 events
+ succeeded in 2.18s:
+.\AGENT_TEAM_HANDOFF.md:27:- ~8 manual Claude Chat sessions for per-book evaluation PLUS ~6 sessions for pattern analysis, aggregation, and adversarial review (~14 evaluation sessions total)
+.\AGENT_TEAM_HANDOFF.md:33:- `KNOWLEDGE_INTEGRITY.md` — 7 corruption threats with mitigation chains
+.\AGENT_TEAM_HANDOFF.md:43:- Synthesis (930 lines) — generating study entries from excerpts. Most LLM-heavy, highest hallucination risk (T-5).
+.\AGENT_TEAM_HANDOFF.md:50:- `scholarly-verifier.md` (Opus) — verifies author/genre/metadata against web sources. **Source-engine-specific** — checks author attribution, death dates, genre. Would need to be rewritten for each engine's verification needs.
+.\AGENT_TEAM_HANDOFF.md:71:- **LLM APIs** — Claude Opus 4.6, Cohere Command A (via OpenRouter), GPT-5.4 (fallback)
+.\AGENT_TEAM_HANDOFF.md:88:3. **Per-book evaluation** (Claude Chat) — ~8 sessions. THIS WAS THE BOTTLENECK. Each session: read pipeline data for 10-15 books, web-search each book's author/genre/metadata, write structured verdicts, 5-round self-review.
+.\AGENT_TEAM_HANDOFF.md:99:4. Phantom metadata — fields consumed but never produced
+.\AGENT_TEAM_HANDOFF.md:104:And 7 knowledge corruption threats (from KNOWLEDGE_INTEGRITY.md):
+.\AGENT_TEAM_HANDOFF.md:105:T-1 Silent text corruption, T-2 Attribution error, T-3 Taxonomic misplacement, T-4 Context loss, T-5 Synthesis hallucination, T-6 Metadata poisoning, T-7 Duplication/contradiction
+.\AGENT_TEAM_HANDOFF.md:113:- Layer 4 (aggregation + adversarial review, 1-2 sessions): GO/NO-GO decision
+.\AGENT_TEAM_HANDOFF.md:131:- "IF genre=hashiyah AND is_multi_layer=false → THEN internal contradiction, investigate"
+.\AGENT_TEAM_HANDOFF.md:145:- **Synthesis evaluation** is the hardest: verify that synthesized entries don't hallucinate claims not grounded in source excerpts (T-5). This is closer to the source engine's verification challenge.
+.\AGENT_TEAM_HANDOFF.md:157:3. **Build session coordination.** The Blueprint's Step 2 splits the build into focused Claude Code sessions with handoff prompts. Can this be automated? The risk: Claude Code sessions that improvise when the SPEC is ambiguous (the G-2 gap from the adversarial review).
+.\tools\validate_handoff.py:246:        print("      prerequisite checklist, adversarial read). Those require human judgment.")
+.\overnight\tonight_manifest.json:45:      "prompt": "STABLE FOUNDATION HARDENING — Deterministic Field Computation Edge Cases\n\nYou are testing the 9 deterministic field computations (F-DET-1 through F-DET-9). These are PURE FUNCTIONS of text — no LLM dependency. Every test is permanent.\n\nSTEP 1: Read engines/excerpting/SPEC.md §7.1 for F-DET-1 through F-DET-9 rules.\nRead engines/excerpting/src/phase3_deterministic.py — the implementation.\nRead engines/excerpting/tests/test_phase3_deterministic.py for existing coverage.\nRead engines/excerpting/tests/conftest.py for factories.\n\nSTEP 2: Count tests BEFORE.\n\nSTEP 3: Write adversarial edge case tests for EACH F-DET:\n\nF-DET-1 (excerpt_id): What if source_id contains special characters? What if div_id has underscores (ambiguous separator)?\n\nF-DET-2 (primary_text): Word offset at exact start (0) and exact end (last word). What if word offsets are out of bounds? What if assembled_text has trailing whitespace?\n\nF-DET-3 (primary_author_layer):\n- 0 text layers (empty list) → what happens? Should this be an error?\n- 100 layers each covering 1% → LA-3 (ambiguous)\n- All layers with author_canonical_id=None, all DIFFERENT layer_types → verify correct LA rule\n- All layers IDENTICAL (same type AND same author) → merged into one → LA-4\n- Two layers, one covering 80.0% exactly, one 20.0% → LA-1\n\nF-DET-4 (content_types): Empty segments list → empty set? Single segment with UNCLASSIFIED → {UNCLASSIFIED}? 16 segments with all 16 different types → full set?\n\nF-DET-5 (evidence_refs):\n- Hadith marker inside a longer word: رواها (she narrated) vs رواه (he narrated) — false positive?\n- Quran delimiters ﴿﴾ with empty content between them\n- Evidence marker at exact position 0 of text\n- Evidence marker at exact last position of text\n- Multiple overlapping evidence patterns in same text span\n\nF-DET-6 (physical_pages): Unit spanning 0 join_points. Unit spanning 100 join_points. Unit at exact join_point boundary.\n\nF-DET-7 (div_path): Empty heading hierarchy. 10-level deep hierarchy. Heading with only Arabic text. Heading with mixed Arabic/Latin.\n\nF-DET-8 (footnotes_relevant):\n- ref_marker at exact character position 0 (first char of unit)\n- ref_marker at exact last character position\n- ref_marker that appears TWICE in the text range\n- 100 footnotes matching the same unit\n- ref_marker that is a substring of a longer marker\n\nF-DET-9 (quoted_scholars):\n- 50 different quoted scholars from 50 different layers\n- All scholars same as primary author → empty list\n- Scholar with author_canonical_id=None → included or excluded?\n- Duplicate (type, author) pairs across layers\n\nRun: python -m pytest engines/excerpting/tests/ -x -v --tb=short\n\nSTEP 4: Write findings.json.",
+.\SESSION_3_4_BACKLOG.md:10:- **Why:** T-2 (Attribution Error), T-5 (Temporal Corruption). Currently verified manually via `/research` command.
+.\SESSION_3_4_BACKLOG.md:18:- **What:** API wrapper for sunnah.com hadith collection metadata. Enables automated hadith reference verification.
+.\SESSION_3_4_BACKLOG.md:47:- **What:** Pattern-based detector for common LLM hallucination types in Islamic scholarly metadata: invented precision (century→specific year), fabricated scholars, wrong school attribution.
+.\SESSION_3_4_BACKLOG.md:48:- **Why:** T-2, T-5. The Decision Playbook documents 3 specific hallucination patterns (ERR-03) but detection is manual.
+.\SESSION_3_4_BACKLOG.md:49:- **Trigger:** Evaluation corpus of 5+ books reveals repeating hallucination patterns across multiple outputs.
+ succeeded in 2.78s:
+---
+name: kr-claude-bridge
+description: Use when working in the KR repo at C:\Users\Rayane\Desktop\kr on research, spec writing, evaluation, integrity review, boundary checks, Arabic text safety, or scholarly verification, and you should consult the repo's existing .claude guidance without modifying it.
+metadata:
+  short-description: Bridge KR .claude guidance into Codex
+---
+
+# KR Claude Bridge
+
+Use this skill only for KR work in `C:\Users\Rayane\Desktop\kr` or an equivalent KR checkout that contains a `.claude/` folder. The goal is to reuse the repo's Claude-oriented instructions as a read-only companion library for Codex.
+
+If the current workspace is not the KR repo, or there is no `.claude/` folder, do not use this skill.
+
+## Lookup Workflow
+
+Read only the minimum relevant files for the current task, in this order:
+
+1. `.claude/skills/*/SKILL.md`
+2. `.claude/agents/*.md`
+3. `.claude/rules/*.md`
+ succeeded in 3.64s:
+
+    Directory: C:\Users\Rayane\Desktop\kr
+
+[32;1mMode   [0m[32;1m              LastWriteTime[0m [32;1;3m        Length[0m[32;1m Name[0m
+[32;1m----   [0m [32;1m             -------------[0m [32;1m        ------[0m [32;1m----[0m
+d----           22-Mar-26 10:26 PM                [44;1m__pycache__[0m
+d----           28-Mar-26  7:19 PM                [44;1m.claude[0m
+d--h-           28-Mar-26  9:23 PM                [44;1m.git[0m
+d----           23-Mar-26 12:18 AM                [44;1m.github[0m
+d----           16-Mar-26  7:40 PM                [44;1m.mypy_cache[0m
+d----           21-Mar-26  7:54 PM                [44;1m.pytest_cache[0m
+d----           23-Mar-26  3:42 PM                [44;1m.ruff_cache[0m
+d----           10-Mar-26  9:19 AM                [44;1m.serena[0m
+d----           28-Mar-26 11:27 AM                [44;1m.uv-cache[0m
+d----           28-Mar-26  9:13 AM                [44;1m.uv-cache-boundary[0m
+d----           28-Mar-26  9:26 AM                [44;1m.uv-cache-excerpting[0m
+d----           28-Mar-26  6:44 PM                [44;1m.uv-cache-review[0m
+d----           28-Mar-26  6:44 PM                [44;1m.uv-python[0m
+da---           13-Mar-26  5:42 AM                [44;1mcombined_collection[0m
+d----           28-Mar-26 12:56 PM                [44;1mdocs[0m
+codex
+I found the repo’s threat taxonomy. Next I’m pulling only the `.claude` guidance relevant to evaluation, scholarly verification, safety, and Arabic text handling so the samples line up with the repo’s integrity rules rather than improvised assumptions.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -TotalCount 220 .claude\\skills\\evaluation-methodology\\SKILL.md" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -TotalCount 240 .claude\\agents\\scholarly-verifier.md" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -TotalCount 220 .claude\\skills\\knowledge-safety\\SKILL.md" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content -TotalCount 220 .claude\\skills\\arabic-text\\SKILL.md" in C:\Users\Rayane\Desktop\kr exited 1 in 3.03s:
+[31;1mGet-Content: [0m
+[31;1m[36;1mLine |[0m
+[31;1m[36;1m[36;1m   2 | [0m [36;1mGet-Content -TotalCount 240 .claude\agents\scholarly-verifier.md[0m
+[31;1m[36;1m[36;1m[0m[36;1m[0m[36;1m     | [31;1m ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[31;1m[36;1m[36;1m[0m[36;1m[0m[36;1m[31;1m[31;1m[36;1m     | [31;1mCannot find path 'C:\Users\Rayane\Desktop\kr\.claude\agents\scholarly-verifier.md' because it does not exist.[0m
+ succeeded in 3.52s:
+---
+name: knowledge-safety
+description: Audit any engine output, SPEC section, or code for knowledge integrity risks. Use when implementing processing logic, writing tests, reviewing data models, or any time Arabic text or scholarly metadata is involved. Checks against the 7-threat model in KNOWLEDGE_INTEGRITY.md.
+---
+
+# Knowledge Safety Review
+
+You are reviewing KR code or design for knowledge integrity risks. The knowledge in this library IS the user's knowledge — an error here is an error in his mind. The knowledge cannot defend itself.
+
+## Threat Checklist
+
+For every piece of code or design you review, check against ALL seven threats:
+
+### T-1: Silent Text Corruption
+- Does this code transform Arabic text in any way? If yes: does it preserve the exact bytes?
+- Is there any encoding conversion? (UTF-8 must be maintained throughout.)
+- Is there any whitespace normalization that could remove meaningful Arabic characters?
+- Does the code verify text integrity against the frozen source hash after any operation?
+
+### T-2: Attribution Error
+ succeeded in 3.64s:
+---
+name: arabic-text
+description: Guidelines for handling Arabic scholarly text in code. Use when writing any code that processes, stores, compares, or displays Arabic text. Covers encoding, directionality, diacritics, morphological complexity, and common pitfalls.
+---
+
+# Arabic Text Handling for KR
+
+Arabic scholarly text has properties that break naive string processing. Every developer (human or AI) working on KR must understand these.
+
+## Critical Properties
+
+### Encoding
+- ALL text in KR is UTF-8. No exceptions. No Latin-1, no Windows-1256, no ISO-8859-6.
+- Shamela exports may use Windows-1256. Convert at normalization. Verify with frozen source after conversion.
+- A single Arabic character may be 2-4 bytes in UTF-8. `len(text)` in Python counts characters, not bytes. Use `len(text.encode('utf-8'))` for byte counts.
+
+### Diacritics (التشكيل)
+- Diacritics are MEANINGFUL in scholarly text. فَعَلَ (fa'ala, he did) vs فُعِلَ (fu'ila, it was done) vs فَعَّلَ (fa''ala, he made do).
+- NEVER strip diacritics from primary_text.
+- For SEARCH and MATCHING: create a separate diacritics-stripped index. Never modify the stored text.
+ succeeded in 4.79s:
+---
+name: evaluation-methodology
+description: Complete Phase C/D/E evaluation protocol with all errata corrections from calibration and Session 1. Use when evaluating any book's pipeline results. Prevents methodology drift across sessions.
+---
+
+# Evaluation Methodology — Corrected Protocol
+
+This skill is the single authoritative reference for evaluating Phase C/D/E pipeline results. It incorporates all 12 corrections from calibration, all 6 methodology fixes from Session 1, and all strategic analysis insights. **Do NOT read the original framework without also reading this skill** — the framework contains known errors corrected here.
+
+Source documents (read for full expected values table and worked examples):
+- `PHASE_C_EVALUATION_FRAMEWORK.md` — base protocol (Section 7 is inapplicable; field source table replaced below)
+- `PHASE_C_ERRATA.md` — 12 corrections
+- `PHASE_C_SESSION1_STRATEGIC_ANALYSIS.md` — predictions and risk map
+- `NEXT.md` — current session assignment and pre-identified risks
+
+---
+
+## The Six Methodology Rules
+
+These are non-negotiable. Session 1 found 3 violations. Every evaluation must follow all 6.
+codex
+The bridge file for `scholarly-verifier` isn’t present under the expected path, so I’m continuing with the repo’s evaluation/safety guidance plus a quick scan of any local adversarial fixtures or source excerpts I can reuse directly.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "TX-00|adversarial|ground_truth|failure_signature|Synthesis Hallucination|Metadata Poisoning|Duplication/Contradiction" -S .' in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-ChildItem .claude\\agents | Select-Object -ExpandProperty Name" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "ابن خلدون|الرسالة|المقدمة|النظر|الشافعي|النووي|ابن حجر|ابن الصلاح|الموطأ|صحيح مسلم|أصول" -S reference docs eval results shared tests | Select-Object -First 200' in C:\Users\Rayane\Desktop\kr succeeded in 2.48s:
+archived
+arabic-reviewer.md
+audit-comparator.md
+boundary-validator.md
+build-prober.md
+code-reviewer.md
+consolidator.md
+deep-researcher.md
+evaluation-prep.md
+integrity-auditor.md
+library-integrity-checker.md
+model-researcher.md
+quick-check.md
+regression-detector.md
+spec-adversary.md
+spec-auditor-a.md
+spec-auditor-b.md
+spec-writer.md
+test-engineer.md
+triage-analyst.md
+ succeeded in 2.79s:
+.\CLAUDE.md:17:- **Test coverage** — have we proven it works on diverse, adversarial, real-world inputs?
+.\tools\validate_handoff.py:246:        print("      prerequisite checklist, adversarial read). Those require human judgment.")
+.\AGENT_TEAM_HANDOFF.md:27:- ~8 manual Claude Chat sessions for per-book evaluation PLUS ~6 sessions for pattern analysis, aggregation, and adversarial review (~14 evaluation sessions total)
+.\AGENT_TEAM_HANDOFF.md:113:- Layer 4 (aggregation + adversarial review, 1-2 sessions): GO/NO-GO decision
+.\AGENT_TEAM_HANDOFF.md:157:3. **Build session coordination.** The Blueprint's Step 2 splits the build into focused Claude Code sessions with handoff prompts. Can this be automated? The risk: Claude Code sessions that improvise when the SPEC is ambiguous (the G-2 gap from the adversarial review).
+.\tests\test_llm_inference.py:39:    ground_truth = json.load(open(FIXTURES_DIR / 'GROUND_TRUTH.json', encoding='utf-8'))
+.\tests\test_llm_inference.py:40:    return extracted, ground_truth
+.\tests\test_llm_inference.py:322:    extracted, ground_truth = load_fixtures()
+.\tests\test_llm_inference.py:327:        ground_truth = {k: v for k, v in ground_truth.items() if k == args.fixture}
+.\tests\test_llm_inference.py:364:        scores = score_model_run(predictions, ground_truth)
+.\SELF_REVIEW_PROMPT.md:37:List every pipeline data file that EXISTS but was never opened. Open each now and check for findings. Common misses: sanity_checks.json, prompt_sent.json details, consensus.json disagreement specifics, ground_truth_comparison.json.
+.\SELF_REVIEW_PROMPT.md:83:**Tool requirements:** Minimum 10, including: at least 4 web searches (adversarial queries), at least 2 script runs (data cross-checks), at least 1 web_fetch.
+.\shared\llm\CLI_ADAPTER_SPEC.md:819:This SPEC was amended after adversarial self-review (commit after initial). Changes:
+.\tests\eval_harness.py:299:    ground_truth: Dict[str, Dict[str, Any]],
+.\tests\eval_harness.py:306:    for fixture_id, expected in ground_truth.items():
+.\tests\eval_harness.py:323:    n = len(ground_truth)
+.\tests\eval_harness.py:334:        'multi_layer_accuracy': _compute_multi_layer_accuracy(fixture_scores, ground_truth),
+.\tests\eval_harness.py:340:    ground_truth: Dict[str, Dict],
+.\reference\TEAM_ARCHITECTURE.md:99:│agent.   │  │Messages   │  │after     │  │adversarial   │
+.\reference\TEAM_ARCHITECTURE.md:121:5. VALIDATE invokes `codex exec review --base HEAD~1 --uncommitted` to get GPT-5.4's opinion on the code. Invokes `gemini -p "Review this design decision: [decision]. What could go wrong?"` for adversarial challenge. Reports findings to the team.
+ succeeded in 5.20s:
+tests\test_deterministic.py:51:        ("النووي", "النووي", "auto", "Identical names"),
+tests\test_deterministic.py:56:        ("أبو زكريا يحيى بن شرف النووي", "النووي", "gate", "Full vs short name - Nawawi"),
+tests\test_deterministic.py:61:        ("ابن حجر العسقلاني", "ابن حجر الهيتمي", "gate", "Different Ibn Hajar scholars"),
+tests\test_deterministic.py:65:        ("النووي", "ابن تيمية", "new", "Completely different scholars"),
+tests\test_deterministic.py:72:        ("أبو زكريا يحيى بن شرف النووي (631 - 676 هـ)",
+tests\test_deterministic.py:73:         "النووي (631-676 هـ)", "gate", "Fixture 06: Nawawi full vs short"),
+tests\test_deterministic.py:111:    # Test the specific concern: can we distinguish ابن حجر العسقلاني from ابن حجر الهيتمي?
+tests\test_deterministic.py:112:    s = normalized_name_similarity("ابن حجر العسقلاني", "ابن حجر الهيتمي")
+tests\test_deterministic.py:118:        "أبو زكريا محيي الدين يحيى بن شرف النووي",
+tests\test_deterministic.py:119:        "النووي"
+tests\test_deterministic.py:214:            'author_standing': 0.90,   # النووي — one of most recognized scholars (d. 676 AH)
+shared\validation\tests\test_validate_passthrough.py:27:    before = {"genre": "sharh", "title": "المقدمة", "confidence": 0.9}
+shared\validation\tests\test_validate_passthrough.py:28:    after = {"genre": "sharh", "title": "المقدمة", "confidence": 0.9}
+shared\validation\tests\test_validate_passthrough.py:78:    before = {"genre": "sharh", "title": "المقدمة"}
+shared\validation\tests\test_validate_passthrough.py:79:    after = {"title": "المقدمة"}  # 'genre' removed
+shared\validation\tests\test_validate_passthrough.py:121:    before = {"title": "المقدمة", "muhaqiq": None}
+shared\validation\tests\test_validate_passthrough.py:122:    after = {"title": "المقدمة"}  # 'muhaqiq' omitted — was None, so allowed
+shared\validation\tests\test_validate_passthrough.py:138:    before = {"title": "المقدمة", "muhaqiq": None}
+shared\validation\tests\test_validate_passthrough.py:139:    after = {"title": "المقدمة", "muhaqiq": None}
+shared\validation\tests\test_validate_passthrough.py:219:    after = {"genre": "sharh", "title": "المقدمة", "death_year": 911}
+codex
+I have real Arabic excerpts in the repo. I’m checking the fixture manifest and a few source metadata records now so the “wrong” values I inject for T-6/T-7 are wrong in controlled, verifiable ways rather than loosely guessed.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n '\"title\"|\"author_short\"|\"المؤلف\"|\"القسم\"' tests\\fixtures\\shamela_real\\MANIFEST.json tests\\fixtures\\shamela_real -S | Select-Object -First 250" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'Get-Content KNOWLEDGE_INTEGRITY.md -TotalCount 260' in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content tests\\fixtures\\shamela_real\\MANIFEST.json -TotalCount 260" in C:\Users\Rayane\Desktop\kr succeeded in 2.85s:
+tests\fixtures\shamela_real\MANIFEST.json:11:      "author_short": "أبو القاسم الزجاجي",
+tests\fixtures\shamela_real\MANIFEST.json:13:      "المؤلف": "عبد الرحمن بن إسحاق البغدادي النهاوندي الزجاجي، أبو القاسم (ت 337هـ)",
+tests\fixtures\shamela_real\MANIFEST.json:27:      "author_short": "ابن القطاع الصقلي",
+tests\fixtures\shamela_real\MANIFEST.json:29:      "المؤلف": "ابن القَطَّاع الصقلي (ت 515 هـ)",
+tests\fixtures\shamela_real\MANIFEST.json:48:      "author_short": "عبد الله بن إبراهيم الزاحم",
+tests\fixtures\shamela_real\MANIFEST.json:50:      "المؤلف": "عبد الله بن إبراهيم الزاحم",
+tests\fixtures\shamela_real\MANIFEST.json:66:      "author_short": "القاضي إسماعيل المالكي",
+tests\fixtures\shamela_real\MANIFEST.json:68:      "المؤلف": "القاضي أبو إسحاق إسماعيل بن إسحاق بن إسماعيل بن حماد بن زيد الأزدي البصري ثم البغدادي المالكي الجهضمي (ت 282هـ)",
+tests\fixtures\shamela_real\MANIFEST.json:85:      "author_short": "محمد بن عبد الرحمن الخميس",
+tests\fixtures\shamela_real\MANIFEST.json:87:      "المؤلف": "محمد بن عبد الرحمن الخميس",
+tests\fixtures\shamela_real\MANIFEST.json:103:      "author_short": "النووي",
+tests\fixtures\shamela_real\MANIFEST.json:105:      "المؤلف": "أبو زكريا يحيى بن شرف النووي (631 - 676 هـ)",
+tests\fixtures\shamela_real\MANIFEST.json:122:      "author_short": "أحمد مطلوب",
+tests\fixtures\shamela_real\MANIFEST.json:125:      "المؤلف": "أحمد مطلوب أحمد الناصري الصيادي الرفاعي",
+tests\fixtures\shamela_real\MANIFEST.json:141:      "author_short": "أبو عبد الرحمن السلمي",
+tests\fixtures\shamela_real\MANIFEST.json:143:      "المؤلف": "محمد بن الحسين بن محمد بن موسى بن خالد بن سالم النيسابوري، أبو عبد الرحمن السلمي (ت 412هـ)",
+tests\fixtures\shamela_real\MANIFEST.json:160:      "author_short": "عبد الله الرحيلي",
+tests\fixtures\shamela_real\MANIFEST.json:163:      "المؤلف": "عبد الله بن ضيف الله الرحيلي",
+tests\fixtures\shamela_real\MANIFEST.json:178:      "author_short": "ناصر بن سعيد السيف",
+tests\fixtures\shamela_real\MANIFEST.json:197:      "author_short": "الجلال السيوطي",
+ succeeded in 3.91s:
+# Knowledge Integrity Protocol — بروتوكول سلامة المعرفة
+
+This document defines the verification and safety mechanisms that protect Rayane's knowledge from corruption. It is the most important operational document in the repository.
+
+The foundational axiom: **the knowledge cannot defend itself.** Once an error enters the library — a misattributed quote, a wrong school classification, a corrupted text — it becomes part of what Rayane "knows." Unlike a human scholar who might notice inconsistencies, the library has no immune system unless we build one. This is critical.
+
+**Operational context:** The owner is a future Islamic studies student who has not yet studied Islamic texts — KR exists to create that study environment. References to "owner reviews" and "human gate" throughout this document mean the owner triggers an AI-assisted research process (via Claude Chat or a future built-in assistant), not that the owner independently validates domain correctness. The "human" in human gate is the decision authority, not the domain researcher.
+
+---
+
+## Threat Model
+
+Every threat below has happened in real Islamic studies scholarship. These are not hypothetical.
+
+### T-1: Silent Text Corruption
+
+**Vector:** OCR error, encoding issue, normalization bug, or copy corruption changes Arabic text.
+**Consequence:** Rayane cites a scholarly opinion that doesn't exist in the original source.
+**Detection difficulty:** HIGH — a single diacritic change can reverse meaning (حَرَّمَ vs حَرَمَ).
+**Mitigation chain:**
+ succeeded in 5.18s:
+{
+  "01_nahw_simple": {
+    "files": [
+      "book.htm"
+    ],
+    "file_count": 1,
+    "body_pages_in_first_file": 73,
+    "total_size_kb": 429,
+    "metadata": {
+      "display_title": "أخبار أبي القاسم الزجاجي",
+      "author_short": "أبو القاسم الزجاجي",
+      "الكتاب": "أخبار أبي القاسم الزجاجي",
+      "المؤلف": "عبد الرحمن بن إسحاق البغدادي النهاوندي الزجاجي، أبو القاسم (ت 337هـ)",
+      "عدد الصفحات": "73",
+      "تاريخ النشر بالشاملة": "8 ذو الحجة 1431"
+    }
+  },
+  "02_nahw_muhaqiq": {
+    "files": [
+      "book.htm"
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content overnight\\prompts\\c3_t3t4_combined.txt -TotalCount 220" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "hallucination_attack|provenance_loss_attack|structural_corruption_attack|t4_t7_threats" -S tests overnight reference .' in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content overnight\\prompts\\c2_t2_attribution.txt -TotalCount 220" in C:\Users\Rayane\Desktop\kr succeeded in 877ms:
+You are generating adversarial test data for an Arabic scholarly text processing pipeline. Generate 5 synthetic multi-layer Arabic scholarly texts for threat T-2: Attribution Error (Decontextualization).
+
+Each sample must be a realistic Arabic scholarly passage where Scholar A quotes Scholar B's position in order to REFUTE it. The quote and refutation must be separated by some intervening content (editorial note, footnote, or page break). If an excerpting engine splits them into separate teaching units, Scholar A will appear to HOLD Scholar B's position — a catastrophic attribution error.
+
+Use real Islamic scholarly patterns:
+- "قال الشافعي رحمه الله: ..." (quoting) then later "والصحيح عندنا أن..." (refuting)
+- "وذهب أبو حنيفة إلى أن..." (attributing view) then "وهذا مردود لأن..." (rejecting)
+- "حكى ابن قدامة عن المالكية..." (reporting) then "وفيه نظر من وجوه..." (critiquing)
+
+For each sample, output valid JSON:
+{
+  "id": "T2-001",
+  "threat": "T-2",
+  "scholar_a": "...(the author who quotes to refute)...",
+  "scholar_b": "...(the scholar being quoted)...",
+  "full_text": "...(3-5 paragraphs of Arabic scholarly text with quote + separation + refutation)...",
+  "quote_paragraph": 1,
+  "refutation_paragraph": 3,
+  "separation_content": "...(what comes between: footnote, editorial note, or tangent)...",
+  "separation_type": "footnote|editorial_note|tangent|page_break",
+ succeeded in 1.11s:
+You are generating adversarial test data for an Arabic scholarly text processing pipeline. Generate samples for TWO threat types.
+
+PART 1: T-3 Taxonomic Misplacement (3 samples)
+Generate Arabic scholarly excerpts where a concept exists in MULTIPLE Islamic sciences, and the text discusses it in one science but uses terminology common to another. A naive keyword-based classifier would place it in the WRONG science.
+
+Examples:
+- نية (niyyah/intention): exists in عبادات (worship) AND معاملات (contracts) AND جنايات (criminal law)
+- طهارة (tahara/purity): exists in فقه العبادات AND طب (medicine, ritual purity vs medical hygiene)
+- شهادة (shahada): exists in عقيدة (creed) AND قضاء (judicial testimony)
+
+JSON format per sample:
+{
+  "id": "T3-001",
+  "threat": "T-3",
+  "text_arabic": "...(Arabic scholarly text discussing the concept)...",
+  "actual_science": "...(the correct science this belongs to)...",
+  "misleading_science": "...(what a naive classifier would pick)...",
+  "misleading_keywords": ["...", "..."],
+  "disambiguation_signal": "...(what in the text reveals the correct science)...",
+  "correct_placement": "...",
+ succeeded in 2.17s:
+overnight\sprint_write_manifest.json:1015:      "prompt": "WEEKEND SPRINT — T-4 through T-7 Threat Templates\n\nBuild tests/adversarial/t4_t7_threats.py with:\nT-4: context_loss_attack() — excerpts losing meaning without context\nT-5: hallucination_attack() — claims LLMs tend to fabricate\nT-6: structural_corruption_attack() — offset misalignment\nT-7: provenance_loss_attack() — metadata fields commonly dropped\n\n2+ functions per threat (8+ total). Each returns structured data.\nTest: python -c \"from tests.adversarial.t4_t7_threats import *; print('OK')\"",
+overnight\sprint_manifest.json:912:      "prompt": "WEEKEND SPRINT — T-4 through T-7 Threat Templates\n\nBuild tests/adversarial/t4_t7_threats.py with:\nT-4: context_loss_attack() — excerpts losing meaning without context\nT-5: hallucination_attack() — claims LLMs tend to fabricate\nT-6: structural_corruption_attack() — offset misalignment\nT-7: provenance_loss_attack() — metadata fields commonly dropped\n\n2+ functions per threat (8+ total). Each returns structured data.\nTest: python -c \"from tests.adversarial.t4_t7_threats import *; print('OK')\"",
+overnight\results\adversarial\t5_t6_t7_combined.json:307:"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command 'rg -n "hallucination_attack|provenance_loss_attack|structural_corruption_attack|t4_t7_threats" -S tests overnight reference .' in C:\Users\Rayane\Desktop\krexec
+.\overnight\sprint_write_manifest.json:1015:      "prompt": "WEEKEND SPRINT — T-4 through T-7 Threat Templates\n\nBuild tests/adversarial/t4_t7_threats.py with:\nT-4: context_loss_attack() — excerpts losing meaning without context\nT-5: hallucination_attack() — claims LLMs tend to fabricate\nT-6: structural_corruption_attack() — offset misalignment\nT-7: provenance_loss_attack() — metadata fields commonly dropped\n\n2+ functions per threat (8+ total). Each returns structured data.\nTest: python -c \"from tests.adversarial.t4_t7_threats import *; print('OK')\"",
+.\overnight\sprint_manifest.json:912:      "prompt": "WEEKEND SPRINT — T-4 through T-7 Threat Templates\n\nBuild tests/adversarial/t4_t7_threats.py with:\nT-4: context_loss_attack() — excerpts losing meaning without context\nT-5: hallucination_attack() — claims LLMs tend to fabricate\nT-6: structural_corruption_attack() — offset misalignment\nT-7: provenance_loss_attack() — metadata fields commonly dropped\n\n2+ functions per threat (8+ total). Each returns structured data.\nTest: python -c \"from tests.adversarial.t4_t7_threats import *; print('OK')\"",
+codex
+There’s a prior generated artifact for `t5_t6_t7_combined`. I’m checking it as a pattern source only, then I’ll still verify the factual side against the local real-text fixtures before producing the final array.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content overnight\\results\\adversarial\\t5_t6_t7_combined.json -TotalCount 260" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content overnight\\results\\adversarial\\t5_t6_t7_combined.json | Select-Object -Skip 520 -First 260" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content overnight\\results\\adversarial\\t5_t6_t7_combined.json | Select-Object -Skip 260 -First 260" in C:\Users\Rayane\Desktop\kr succeeded in 3.56s:
+
+warning: in-process app-server event stream lagged; dropped 48 events
+ exited 124 in 10.51s:
+OpenAI Codex v0.116.0 (research preview)
+--------
+workdir: C:\Users\Rayane\Desktop\kr
+model: gpt-5.4
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 019d3622-32e1-7da2-995a-199d25bb3781
+--------
+user
+Generate adversarial test data for THREE threat types in an Arabic scholarly text pipeline. Output ONLY a valid JSON array.
+
+T-5: Synthesis Hallucination (3 samples) - narrative summaries that SOUND scholarly but contain fabricated claims with FALSE attributions or FALSE historical claims.
+
+T-6: Metadata Poisoning (3 samples) - metadata records with VALID-LOOKING but WRONG values (correct author but wrong death date, correct title but wrong genre, correct science but wrong school).
+
+T-7: Duplication/Contradiction (3 samples) - pairs of excerpts from the SAME source with CONTRADICTING metadata (same passage attributed to two different authors, same ruling under two different sciences).
+
+ exited 124 in 10.58s:
+tests\fixtures\shamela_real\MANIFEST.json:178:      "author_short": "ناصر بن سعيد السيف",
+tests\fixtures\shamela_real\MANIFEST.json:197:      "author_short": "الجلال السيوطي",
+ succeeded in 3.91s:
+# Knowledge Integrity Protocol — بروتوكول سلامة المعرفة
+
+This document defines the verification and safety mechanisms that protect Rayane's knowledge from corruption. It is the most important operational document in the repository.
+
+The foundational axiom: **the knowledge cannot defend itself.** Once an error enters the library — a misattributed quote, a wrong school classification, a corrupted text — it becomes part of what Rayane "knows." Unlike a human scholar who might notice inconsistencies, the library has no immune system unless we build one. This is critical.
+
+**Operational context:** The owner is a future Islamic studies student who has not yet studied Islamic texts — KR exists to create that study environment. References to "owner reviews" and "human gate" throughout this document mean the owner triggers an AI-assisted research process (via Claude Chat or a future built-in assistant), not that the owner independently validates domain correctness. The "human" in human gate is the decision authority, not the domain researcher.
+
+---
+
+## Threat Model
+
+Every threat below has happened in real Islamic studies scholarship. These are not hypothetical.
+
+### T-1: Silent Text Corruption
+
+**Vector:** OCR error, encoding issue, normalization bug, or copy corruption changes Arabic text.
+codex
+I have enough structure now. I’m pulling a small set of concrete excerpts for the final nine objects: one cluster from `آداب الفتوى`, one from `همع الهوامع`, and a couple of single-volume fixtures where the correct metadata is explicit in the repo.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n \"همع الهوامع|قال المصنف|شرح جمع الجوامع|الحكم|الأصل\" tests\\fixtures\\shamela_real\\11_multi_small -S | Select-Object -First 80" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n \"قَالَ أَبُو عَمْرو|فَإِن قيل|لَا يجوز لمن كَانَت فتواه\" tests\\fixtures\\shamela_real\\06_usul\\book.htm -S" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n \"القصر|التقديم والتأخير|أساليب بلاغية|ويقدم المسند\" tests\\fixtures\\shamela_real\\07_balagha\\book.htm -S | Select-Object -First 80" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "rg -n \"أحاديث الإمام أيوب السختياني|حدثنا|قال إسماعيل|جزء فيه\" tests\\fixtures\\shamela_real\\04_hadith\\book.htm -S | Select-Object -First 80" in C:\Users\Rayane\Desktop\kr succeeded in 2.61s:
+58:</style><title>أساليب بلاغية</title></head><body><div class='Main'>
+59:<div class='PageText'><span class='title'>أساليب بلاغية&nbsp;&nbsp;&nbsp;</span><span class='footnote'>(أحمد مطلوب)</span><p><span class='title'>القسم:</span> البلاغة<hr><p><span class='title'>الكتاب<font color=#be0000>:</font></span> أساليب بلاغية<font color=#be0000>،</font> الفصاحة <font color=#be0000>-</font> البلاغة <font color=#be0000>-</font> المعاني<p><span class='title'>المؤلف<font color=#be0000>:</font></span> أحمد مطلوب أحمد الناصري الصيادي الرفاعي<p><span class='title'>الناشر<font color=#be0000>:</font></span> وكالة المطبوعات <font color=#be0000>-</font> الكويت<p><span class='title'>الطبعة<font color=#be0000>:</font></span> الأولى<font color=#be0000>،</font> 1980 م<p><span class='title'>عدد الصفحات<font color=#be0000>:</font></span> 303<p><font color=#be0000>[</font>ترقيم الكتاب موافق للمطبوع<font color=#be0000>]</font><p><span class='title'>تاريخ النشر بالشاملة<font color=#be0000>:</font></span> 24 شوّال 1436</div>
+60:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ٥)</span><hr/></div>&#8204;<span class="title">&#8204;المقدمة</span></p>بسم الله الرّحمن الرّحيم هذه محاضرات فى علم المعانى أريد بها أن تكمل ما بدأناه فى «فنون بلاغية» وتقدم صورة صادقة للبلاغة العربية وتطور موضوعاتها. وهى محاضرات أخذت من القديم خطوطها واعتمدت على السابقين فى فصولها، ولم ترجع إلى ما أثير فى هذه الأيام، لأن الهدف ليس تجديد البلاغة وإنما تقديم ما عند القدماء بأسلوب يجمع بين عباراتهم وينسّق آراءهم، لتكون منطلقا إلى التجديد.</p>وقد اقتضى المقرر الذى ينبغى أن يلم به طالب اللغة العربية فى مرحلة دراسته الجامعية الأولى أن يكون لأهم أساليب البلاغة نصيب فى هذه المحاضرات التى انقسمت إلى قسمين:</p>الأول: الفصاحة والبلاغة، وهى مقدمة ينبغى أن يعرفها الدارس لأنّها الأساس الذى ينطلق منها إلى أساليب البلاغة وفنونها، بل هى الغاية التى يصل إليها حينما ينهى تطوافه فى الموضوعات التى وضعت لتنير الطريق له فى دراسة الأدب.</p>الثانى: علم المعانى، الذى كان أحد علوم البلاغة العربية حينما قسمها السكاكى إلى البيان والمعانى والمحسنات اللفظية والمعنوية أى البديع.</p>وكان العرب قبل ذلك قد درسوا هذا العلم فى كتب النحو، ولعل كتاب سيبويه أصدق ما وصل إلينا وأقربه إلى ذوق العربية، لأنه عنى بالأساليب إلى جانب عنايته بالقواعد والأصول. وقد سمينا هذا القسم «أساليب</div>
+61:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ٦)</span><hr/></div>بلاغية» لأنه يتصل بأهم وسائل التعبير وصياغة الكلام. وليس أدل على ذلك من أنّ المتحدث أو الأديب لا ينطلق فى تصوير نفسه وعرض أفكاره إلّا من خلالها. فالخبر والإنشاء، والتعريف والتنكير، والذكر والحذف، والتقديم والتأخير، والقصر، والفصل والوصل، والإيجاز والإطناب والمساواة، وخروج الكلام على مقتضى الظاهر- عمدة الكلام وزاد المنشئين.</p>والدرس النحوى أولى بهذه الموضوعات لولا انصراف النحاة إلى العناية بالإعراب والبناء، والعوامل والتقديرات مما أبعد النحو عن هدفه وأحاله قواعد لا روح فيها. وسنظل نؤمن بأن هذه الدراسة من البلاغة حتى تعود إلى النحو أصالته وحتى نجد أساتذة النحو يغيّرون طرق تدريسه ويعنون بالأساليب البلاغية كعنايتهم بالقواعد والإعراب.</p>إنّ دراسة الأساليب والوقوف عندها تفتح السبيل أمام الأديب مادام يكتب باللغة العربية، وهى لغة عريقة تشعبت</p>فنون التعبير فيها وأصبحت طيعة لمن تعمق فيها وفهم أسرارها، ولن يكون المنشئ أديبا إذا نأى عن لغته وضرب عن أساليبها صفحا، وإنّه لمن أعجب العجب إذا لم ير فى الخبر والإنشاء، والتقديم والتأخير، والحذف والذكر، والإيجاز والإطناب وغيرها- فائدة وهى أصل الكلام وعمدة التعبير. ولن يغنى ما تقدّمه الكتب المترجمة والأساليب الغربية عما تتسم به لغة الضاد، وإن كانت تضيف أبعادا جديدة وتفتح آفاقا واسعة. وستبقى الأساليب البلاغية التى عرضت لها هذه المحاضرات خالدة ما دامت اللغة العربية حية فى العقول ونابضة فى القلوب، ولن يقدر على إنكارها من سولت له نفسه وظن أنّه سبق العصر وتخطّى الزمان.</p>لقد سار البحث فى هذه المحاضرات كما سار فى «فنون بلاغية» ويتجلى ذلك فى أمرين:</p>الأول: الوقوف على تعريفات القدماء وتقسيماتهم وآرائهم.</div>
+62:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ٧)</span><hr/></div>الثانى: الأخذ بالأمثلة التى ذكروها لئلا تتجرد القواعد والأصول من روحها التى ارتبطت بها حينما فكّر العرب الأوائل بضبط لغتهم وحفظها من الضياع.</p>ولذلك لم يكن للجديد نصيب فيها، لأنّ فى ذلك ابتعادا عن منهج دراسة القديم وتجنيا على الأدب الحديث الذى خطا خطوات واسعة وكانت له مناهج درس جديرة بالتأمل العميق والنظر السليم والبحث الرصين. ولن يقدر على بحثه إلّا من وطن نفسه وأخلص النية، ووقف على القديم وأساليبه وعرف الحديث وفنونه، وليس ذلك بيسير.</p>هذه ملامح محاضرات «أساليب بلاغية» جاءت كما بناها القدماء ليعرف الجيل الجديد ما كان من هذا العلم الذى لم ينضج ولم يحترق، ولتكون مقدمة لمن يريد أن يخطو باتزان فى طريق التجديد الذى من أول متطلباته قتل القديم درسا.</p>ومن الله العون والتوفيق.</p>الدكتور أحمد مطلوب أستاذ البلاغة والنقد فى كلية الآداب جامعة بغداد</div>
+63:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ٩)</span><hr/></div>&#8204;<span class="title">&#8204;الكتاب الأول الفصاحة والبلاغة</span></div>
+64:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ١١)</span><hr/></div>&#8204;<span class="title">&#8204;الفصل الأول الفصاحة</span></p>&#8204;<span class="title">&#8204;فى اللغة:</span></p>لفظة الفصاحة مما شاع وعرفه العرب بمفهومه اللغوى قبل أن تأخذ الألفاظ دلالتها الفنية. ونجد لها فى المعاجم دلالتين:</p>الأولى: لغوية تقوم على المعنى الأول الذى وضعه العرب واستعملوه قبل أن تظهر علوم البلاغة والنقد. ففى لسان العرب: «يوم مفصح: لا غيم فيه ولا قر. أفصح اللبن: ذهب اللبأ عنه. فصح اللبن: إذا أخذت عنه الرغوة. قال فضلة السلمى:</p>رأوه فاز دروه وهو خرق <font color=#be0000>…</font> وينفع أهله الرجل القبيح</p>فلم يخشوا مصالته عليهم <font color=#be0000>…</font> وتحت الرغوة اللبن الفصيح</p>أفصحت الشاة والناقة: خلص لبنها. أفصح الصبح: بدا ضوؤه واستبان، وكل ما وضح فقد أفصح، وكل واضح مفصح. ويقال: قد فصحك الصبح، أى: بان لك وغلبك ضوؤه. فصحه الصبح: هجم عليه»</p>الثانية: دلالة تقرب من المعنى الاصطلاحى الذى تعارف عليه البلاغيون، ففى اللسان: «الفصاحة: البيان. فصح الرجل فصاحة فهو فصيح من قوم فصحاء وفصاح وفصح، وامرأة فصيحة من نسوة فصاح وفصائح. رجل فصيح وكلام فصيح، أى: بليغ. لسان فصيح، أى: طلق. وقد جاء فى الشعر فى وصف العجم: أفصح، يريد به بيان القول وإن كان بغير العربية، كقول أبى النجم:</p>أعجم فى آذانها فصيحا</p>يعنى: صوت الحمار أنه أعجم، وهو فى آذان الأتن فصيح بين.</div>
+65:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ١٢)</span><hr/></div>وفصح الأعجمى فصاحة: تكلم بالعربية وفهم عنه. وقيل: جادت لغته حتى لا يلحن. أفصح كلامه إفصاحا وأفصح تكلم بالفصاحة، وكذلك الصبى يقال: أفصح الصبى فى منطقه إفصاحا إذا فهمت ما يقول فى أول ما يتكلم.</p>أفصح الأغتم: إذا فهمت كلامه بعد غتمته. أفصح عن الشئ إفصاحا إذا بينه وكشفه. فصح الرجل وتفصح إذا كان عربى اللسان فازداد فصاحة.</p>وقيل: تفصح فى كلامه وتفاصح: تكلف الفصاحة. يقال: ما كان فصيحا ولقد فصح فصاحة وهو البين فى اللسان والبلاغة. التفصح استعمال الفصاحة، وقيل: التشبه بالفصحاء.</p>وقيل: جميع الحيوان ضربان: أعجم وفصيح، فالفصيح كل ناطق، والأعجم كل ما لا ينطق.</p>الفصيح فى اللغة: المنطلق اللسان فى القول الذى يعرف جيد الكلام من رديئه. أفصح الكلام وأفصح به وأفصح</p>عن الأمر. الفصيح فى كلام العامة: المعرب».</p>وفى هذا يتضح معنى البيان والظهور فى كلمة «الفصاحة»، وليس هذا المعنى بعيدا عن الدلالة الأولى ولا عن المعنى الذى اصطلح عليه علماء البلاغة وهو رقة الألفاظ وجمالها، وبيان التعبير ووضوحه.</p>&nbsp;</p>&#8204;<span class="title">&#8204;فى القرآن والحديث:</span></p>ولو مضينا نبحث عن لفظة «الفصاحة» فى تراثنا لرأيناها فى قوله تعالى حكاية عن نبيه موسى- عليه السلام: «وَأَخِي هارُونُ هُوَ أَفْصَحُ مِنِّي لِساناً» (1) وفى الحديث النبوى الشريف: «أنا أفصح العرب بيد أنّى من قريش» (2)، و «غفر له بعدد كل فصيح وأعجم». وفسّره أصحاب<hr width='95' align='right'><div class='footnote'>(1) القصص 34.</p><font color=#be0000>(2)</font> قال عبد الله بن رواحة فى مدح الرسول- صلى الله عليه وسلم:</p>لو لم تكن فيه آيات مبينة <font color=#be0000>…</font> كانت فصاحته تنبيك بالخبر</div></div>
+66:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ١٣)</span><hr/></div>الحديث بأن النبى محمدا- صلى الله عليه وسلم أراد بالفصيح بنى آدم، وبالأعجم البهائم. (1)</p>&nbsp;</p>ولا تخرج لفظة «الفصاحة» فى القرآن الكريم والحديث النبوى الشريف عن معناها اللغوى وهو الظهور والبيان. وحينما دخلت هذه اللفظة الدراسات البلاغية والنقدية ارتبطت بلفظة البلاغة وصارت صنوها، وأصبح رجال البلاغة الأوائل لا يفرقون بينهما، بل لم يروا بأسا من أن يستعملوا إحداهما مكان الأخرى كما فعل أبو عثمان عمرو بن بحر&#8204;<span class="title">&#8204; الجاحظ </span>(هـ) الذى لم يضع حدّا فاصلا بين اللفظتين وإنما أجراهما بمعنى واحد فى مواضع كثيرة من كتابه «البيان والتبيين».</p>الجاحظ:</p>عرف الجاحظ البلاغة بقوله: «وقال بعضهم- وهو أحسن ما اجتبيناه ودوناه-: لا يكون الكلام يستحق اسم البلاغة حتى يسابق معناه لفظه، ولفظه معناه، فلا يكون لفظه إلى سمعك أسبق من معناه إلى قلبك» (2).</p>وفى هذا التعريف التقاء الفصاحة بالبلاغة، والنص على امتزاجهما.</p>والفصاحة- عنده- واسعة المعنى، ولذلك نراه يتحدث عنها وعن الألفاظ كثيرا، وتعتبر إشاراته فى كتابه «البيان والتبيين» من أوسع ما وصل إلينا من عهد التدوين الأول. ويرى أنّ الألفاظ جديرة بالرعاية والاهتمام، يقول: «و</p>قد يستخف الناس ألفاظا ويستعملونها وغيرها أحق بذلك منها، ألا ترى أنّ الله تبارك وتعالى لم يذكر فى القرآن الجوع إلّا فى موضع العقاب أو فى موضع الفقر المدقع والعجز الظاهر. والناس لا يذكرون السّغب ويذكرون الجوع فى حال القدرة والسلامة، وكذلك ذكر المطر، لأنك لا تجد القرآن يلفظ به إلّا فى موضع الانتقام. والعامة وأكثر الخاصة لا يفصلون<hr width='95' align='right'><div class='footnote'>(1) النهاية فى غريب الحديث والأثر، ج 3، ص 450.</p><font color=#be0000>(2)</font> البيان والتبيين، ج 1 ص 115.</div></div>
+67:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ١٤)</span><hr/></div>بين ذكر المطر وبين ذكر الغيت، ولفظ القرآن الذى عليه نزل أنه إذا ذكر الأبصار لم يقل الأسماع، وإذا ذكر سبع سماوات لم يقل الأرضين. ألا تراه لا يجمع الأرض أرضين ولا السمع أسماعا. والجارى على أفواه العامة غير ذلك لا يتفقدون من الألفاظ ما هو أحق بالذكر وأولى بالاستعمال» (1).</p>وتكلم على تنافر الحروف فقال: «فأما فى اقتران الحروف فان الجيم لا تقارن الظاء ولا القاف ولا الطاء ولا الغين بتقديم ولا تأخير، والزاى لا تقارن الظاء ولا السين ولا الضاد ولا الذال بتقديم ولا بتأخير. وهذا باب كبير وقد يكتفى بذكر القليل حتى يستدل به على الغاية التى إليها يجرى» (2)</p>وتحدث عن تنافر الألفاظ فقال: «ومن ألفاظ العرب ألفاظ تتنافر وإن كانت مجموعة فى بيت شعر لم يستطع المنشد إنشادها إلّا ببعض الاستكراه فمن ذلك قول الشاعر:</p>وقبر حرب بمكان قفر <font color=#be0000>…</font> وليس قرب قبر حرب قبر</p>ولما رأى من لا علم له أنّ أحدا لا يستطيع أن ينشد هذا البيت ثلاث مرات فى نسق واحد فلا يتتعتع ولا يتلجلج، وقيل لهم: إنّ ذلك إنما اعتراه إذ كان من أشعار الجن، صدقوا بذلك.</p>ومن ذلك قول ابن يسير:</p>لم يضرها والحمد لله شئ <font color=#be0000>…</font> وانثنت نحو عزف نفس ذهول</p>فتفقّد النصف الأخير من هذا البيت فانك ستجد بعض ألفاظه يتبرأ من بعض» (3).<hr width='95' align='right'><div class='footnote'>(1) البيان، ج 1 ص 20.</p><font color=#be0000>(2)</font> البيان، ج 1 ص 69.</p><font color=#be0000>(3)</font> - البيان، ج 1 ص 65.</div></div>
+68:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ١٥)</span><hr/></div>وينبغى أن تكون الألفاظ متماثلة متلائمة كى لا يقع بينها التنافر فتصبح كأولاد علة، يقول: «وأنشدنى أبو العاصى، قال: أنشدنى خلف الأحمر فى هذا المعنى:</p>وبعض قريض القوم أولاد علة <font color=#be0000>…</font> يكد لسان الناطق المتحفظ (1)</p>وقال أبو العاصى: وأنشدنى فى ذلك أبو البيداء الرياحى:</p>وشعر كبعر الكبش فرّق بينه <font color=#be0000>…</font> لسان دعىّ فى القريض دخيل</p>فانه يقول: إذا كان الشعر مستكرها وكانت ألفاظ البيت من الشعر لا يقع بعضها مماثلا لبعض كان بينها من التنافر ما بين أولاد العلّات. وإذا كانت الكلمة ليس موقعها إلى جنب أختها مرضيا موافقا كان على اللسان عند إنشاد ذلك الشعر مؤونة.</p>قال: وأجود الشعر ما رأيته متلاحم الأجزاء سهل المخارج، فتعلم بذلك أنّه قد أفرغ إفراغا واحدا، وسبك سبكا واحدا، فهو يجرى على اللسان كما يجرى على الدهان.</p>وأما قوله: «كبعر الكبش» فانما ذهب إلى أنّ بعر الكبش يقع متفرقا غير مؤتلف ولا متجاور، وكذلك حروف الكلام وأجزاء البيت من الشعر تراها متفقة ملسا ولينة المعاطف سهلة، وتراها مختلفة متباينة ومتنافرة مستكرهة تشق على اللسان وتكده، والأخرى تراها سهلة لينة ورطبة مواتية، سلسة النظام خفيفة على اللسان حتى كأنّ البيت بأسره كلمة واحدة، وحتى كأنّ الكلمة بأسرها حرف واحد» (2).</p>ويرى أنّ اللفظ كما لا ينبغى أن يكون عاميا وساقطا سوقيا، فكذلك لا ينبغى أن يكون غريبا وحشيا إلّا أن يكون المتكلم بدويا أعرابيا، فان<hr width='95' align='right'><div class='footnote'>(1) أولاد علة: هم بنو رجل واحد من أمهات شتى.</p><font color=#be0000>(2)</font> البيان، ج 1 ص 66.</div></div>
+69:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ١٦)</span><hr/></div>الوحشى من الكلام يفهمه الوحشى من الناس كما يفهم السوقى رطانة السوقى. (1)</p>لقد اهتم الجاحظ بالألفاظ اهتماما عظيما أولاها عناية كبيرة، وقد دفعه هذا الاهتمام إلى أن يقول: «والمعانى مطروحة فى الطريق يعرفها العجمى والعربى والبدوى والقروى والمدنى، وإنما الشأن فى إقامة الوزن، وتخير</p>اللفظ وسهولة المخرج، وكثرة الماء، وفى صحة الطبع وجودة السبك، فانما الشعر صناعة وضرب من النسج، وجنس من التصوير» (2).</p>وظن بعض الباحثين أنّه يميل إلى اللفظ كل الميل، وأنّه لا يرى للمعنى كبير أهمية، والواقع أنّه عنى باللفظ وأعطاه نصيبه من الاهتمام، وشغل بالمعنى والتصوير الأدبى الذى يقول عنه: «فانما الشعر صناعة، وضرب من النسج، وجنس من التصوير»، وهذه نظريته التى شرحها عبد القاهر الجرجانى وسماها «نظرية النظم»، فالجاحظ اهتم بالألفاظ والمعانى والتصوير مع أنّه يروى أنّ بعضهم لا يحفل إلّا بالمعنى وحده كأبى عمرو الشيبانى الذى يرى أنّ المعنى متى كان رائعا حسنا ظل كذلك فى أية عبارة وضع. فالبيتان:</p>لا تحسبنّ الموت موت البلى <font color=#be0000>…</font> فانما الموت سؤال الرجال</p>كلاهما موت ولكنّ ذا <font color=#be0000>…</font> أفظع من ذاك لذل السؤال</p>استحسنهما أبو عمرو على حين ليست عليهما مسحة من جمال سوى الوزن.</p>وعابه الجاحظ ورأى أنّه مسرف فى تقديرهما، وقال: «وأنا رأيت أبا عمرو الشيبانى وقد بلغ من استجادته لهذين البيتين ونحن فى المسجد يوم الجمعة أن كلّف رجلا حتى أحضره دواة وقرطاسا حتى كتبهما له، وأنا أزعم أنّ صاحب هذين البيتين لا يقول شعرا أبدا، ولولا أن أدخل فى الحكم بعض الفتك لزعمت أنّ ابنه لا يقول شعرا أبدا» (3).<hr width='95' align='right'><div class='footnote'>(1) ينظر البيان، ج 1 ص 144.</p><font color=#be0000>(2)</font> الحيوان، ج 3 ص 131.</p><font color=#be0000>(3)</font> الحيوان، ج 3 ص 131.</div></div>
+70:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ١٧)</span><hr/></div>لقد اهتم الجاحظ باللفظ ولكنه لم يهمل المعنى، ولذلك فليس صحيحا ما ذهب إليه بعضهم وهو أنّ الجاحظ كرّس جهوده لخدمة الألفاظ، ولأجله خاض عبد القاهر الجرجانى غمار هذا البحث. ويرى الدكتور محمد مندور أنّ كل آراء عبد القاهر تنحصر فى مسألتين:</p>الأولى: إنكاره لما رآه الجاحظ من أهمية فصاحة الألفاظ باعتبار تلك الفصاحة صنعة فى اللفظ ذاته، ثم ثورته على مذهب أبى هلال العسكرى الذى يرد جودة الكلام إلى محسنات لفظية تقف عند الشكل.</p>الثانية: تعليقة جودة الكلام بخصائص فى النظم. (1)</p>وعبارة الجاحظ «فانما الشعر صناعة، وضرب من النسج، وجنس من التصوير»، وما نقله عبد القاهر من اهتمامه بالصياغة والصناعة، خير ما يفند هذا الرأى، لأنّ عبد القاهر سار على خطا الجاحظ ونقل مصطلحه فى التصوير وقال: «وليس العبارة عن ذلك بالصورة شيئا نحن ابتدأناه فينكره منكر بل هو مستعمل مشهور فى كلام العرب، ويكفيك قول الجاحظ: وإنّما الشعر صناعة، وضرب من التصوير» (2). فالجاحظ من أصحاب الصياغة ولذلك تسقط عنه تهمة الاهتمام بالشكلية والألفاظ، وإن كان كثير الاعتناء باللفظ واختيار ما يؤدى المعنى أداء حسنا، وهذه مهمة الأديب الذى يقدر قيمة الكلام ويبذل فى سبيله أعظم الجهود، وقد كان الجاحظ أديبا كبيرا وعالما قديرا، فعنى بالألفاظ كما عنى بالمعانى وكان له الفضل فى تصوير نظم الكلام.</p>&nbsp;</p>&#8204;<span class="title">&#8204;ابن قتيبة:</span></p>وتحدث ابن قتيبة (- هـ) عن الألفاظ، وذكر أنّ الشعر أربعة أضرب:<hr width='95' align='right'><div class='footnote'>(1) ينظر فى الميزان الجديد، ص 149.</p><font color=#be0000>(2)</font> دلائل الإعجاز، ص 389.</div></div>
+71:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ١٨)</span><hr/></div>- ضرب منه حسن لفظه وجاد معناه، كقول القائل فى بعض بنى أمية (1):</p>فى كفه خيزران ريحه عبق <font color=#be0000>…</font> من كف أروع فى عرنينه شمم</p>يغضى حياء ويغضى من مهابته <font color=#be0000>…</font> فما يكلّم إلا حين يبتسم</p>وكقول أوس بن حجر:</p>أيّتها النفس أجملى جزعا <font color=#be0000>…</font> إنّ الذين تحذرين قد وقعا</p>- وضرب منه حسن لفظه وحلا فاذا أنت فتشته لم تجد هناك فائدة فى المعنى كقول القائل:</p>ولما قضينا من منى كلّ حاجة <font color=#be0000>…</font> ومسّح بالأركان من هو ماسح</p>وشدّت على حدب المهارى رحالنا <font color=#be0000>…</font> ولم ينظر الغادى الذى هو رائح</p>أخذنا بأطراف الأحاديث بيننا <font color=#be0000>…</font> وسالت بأعناق المطّى الأباطح</p>يقول ابن قتيبة: «هذه الألفاظ كما ترى أحسن شئ مخارج ومطالع ومقاطع، وإن نظرت إلى ما تحتها من المعنى</p>وجدته: ولمّا قطعنا أيام منى واستلمنا الأركان وعالينا إبلنا الأنضاء، ومضى الناس لا ينتظر الغادى الرائح ابتدأنا فى الحديث وسارت المطى فى الأباطح» (2). ونحوه قول المعلوط:<hr width='95' align='right'><div class='footnote'>(1) كذا فى الشعر والشعراء، وفى الهامش أنها للحزين الكنانى فى أبيات يمدح بها عبد الله بن عبد الملك بن مروان. والبيتان فى ديوان الفرزدق، ج 2 ص 187 (طبعة مكتبة صادر)، وهما فى مدح زين العابدين رضى الله عنه.</p><font color=#be0000>(2)</font> الشعر والشعراء، ج 1 ص 66. ولعبد القاهر الجرجانى غير هذا الرأى فهر يراها من أبدع الشعر وأعذبه وقد حللها تحليلا جميلا. (ينظر دلائل الإعجاز ص).</div></div>
+72:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ١٩)</span><hr/></div>إنّ الذين غدوا بلبك غادروا <font color=#be0000>…</font> وشلا بعينك لا يزال معينا</p>غيّضن من عبراتهنّ وقلن لى: <font color=#be0000>…</font> ماذا لقيت من الهوى ولقينا (1)</p>- وضرب منه جاد معناه وقصرت ألفاظه عنه كقول لبيد بن ربيعة:</p>ما عاتب المرء الكريم كنفسه <font color=#be0000>…</font> والمرء يصلحه الجليس الصالح</p>- وضرب منه تأخر معناه وتأخر لفظه، كقول الأعشى فى امرأة:</p>وفوها كأقاحى <font color=#be0000>…</font> غذاه دائم الهطل</p>كما شيب براح با <font color=#be0000>…</font> رد من عسل النّحل</p>ولم يشر ابن قتيبة إلى لفظة «الفصاحة» فى كتابه «الشعر والشعراء» ولكنه استعمل كلمة «الألفاظ»، ويرى أنّ المحدث ليس له أن يتبع المتقدم فى استعمال وحشى الكلام ككثير من أبنية سيبويه، ولا أن يسلك فيما يقول الأساليب التى لا تصح فى الوزن ولا تحلو فى الأسماع. يقول:</p>«وهذا يكثر، وفيما ذكرت منه ما دلك على ما أردت من اختيارك أحسن الروىّ وأسهل الألفاظ وأبعدها من التعقيد والاستكراه، وأقربها من أفهام العوام. وكذلك اختار للخطيب إذا خطب والكاتب إذا كتب فانه يقال:</p>«أسير الشعر والكلام المطمع» يراد الذى يطمع فى مثله من سمعه وهو مكان النجم من يد المتناول» (2).</p>وفى كتابه «أدب الكاتب» حديث عن الألفاظ والأبنية، ولكنه لا يسميها «فصاحة» وإنما هى قواعد يستعين بها الكاتب. وعقد فى كتابه «عيون الأخبار» بابا سماه «كتاب العلم والبيان» تحدّث فيه عن الإعراب واللحن والتشادق والغريب والبيان والألفاظ التى تقع فى كتب الأمان والعهود والخطب. وهو فى هذه الأبواب والفصول ليس</p>كالجاحظ الذى أرسى كثيرا من قواعد الفصاحة ووضع أمثلتها التى تتردد فى كتب البلاغة والنقد.<hr width='95' align='right'><div class='footnote'>(1) البيتان فى ديوان جرير، ص 578، وهما من قصيدة فى هجاء الأخطل.</p><font color=#be0000>(2)</font> الشعر والشعراء، ج 1 ص 103.</div></div>
+73:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ٢٠)</span><hr/></div>&#8204;<span class="title">&#8204;المبرد:</span></p>وليس فيما كتب المبرد (- هـ) إشارة إلى الفصاحة وإن كان يفضل أن تكون الألفاظ جزلة. (1)</p>&nbsp;</p>&#8204;<span class="title">&#8204;ثعلب:</span></p>ولا فيما كتب أبو العباس ثعلب (- هـ) الذى أشار إلى جزالة الألفاظ. (2)</p>&nbsp;</p>&#8204;<span class="title">&#8204;ابن المعتز:</span></p>ولا فيما ألّف ابن المعتز (- هـ) صاحب كتاب البديع.</p>&nbsp;</p>&#8204;<span class="title">&#8204;قدامة:</span></p>وتحدث قدامة بن جعفر (- هـ) عن نعت اللفظ، وقال ينبغى أن يكون سمحا، سهل مخارج الحروف من مواضعها، عليه رونق الفصاحة مع الخلو من البشاعة. (3) وذكر عيوب اللفظ وهى:</p>- أن يكون ملحونا وجاريا على غير سبيل الإعراب واللغة.</p>- وأن يركب الشاعر منه ما ليس بمستعمل إلّا فى الفرط.</p>- ولا يتكلم به إلّا شاذا، وذلك هو الوحشى الذى مدح عمر بن الخطاب- رضى الله عنه- زهيرا بمجانبته له وتنكّبه إياه فقال: «لا يتبع حوشىّ الكلام».</p>- ومن عيوب اللفظ المعاظلة، وهى التى وصف عمر بن الخطاب زهيرا بمجانبته لها فقال: «كان لا يعاظل بين الكلام». وهى ليست مداخلة الشئ فى الشئ، لأنه محال أن ينكر مداخلة بعض الكلام فيما يشبهه من<hr width='95' align='right'><div class='footnote'>(1) الكامل، ج 1 ص 43.</p><font color=#be0000>(2)</font> قواعد الشعر، ص 59.</p><font color=#be0000>(3)</font> نقد الشعر، ص 26.</div></div>
+74:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ٢١)</span><hr/></div>بعض أو فيما كان من جنسه، وإنما يكون الإنكار فيما يدخل بعضه فيما ليس من جنسه وما هو غير لائق به. (1)</p>&nbsp;</p>&#8204;<span class="title">&#8204;ابن وهب:</span></p>وفى كتاب «البرهان فى وجوه البيان» (2) لأبى الحسين إسحاق بن ابراهيم بن سليمان بن وهب الكاتب إشارات إلى جزالة اللفظ وسخافته وركاكته. ولم يحدد معانى هذه المصطلحات واكتفى بالتمثيل وقال: «وأما جزالة اللفظ فكقوله:</p>وعلى عدوّك يا ابن عمّ محمد <font color=#be0000>…</font> رصدان: ضوء الشمس والإظلام</p>فاذا تنبه رعته وإذا غفا <font color=#be0000>…</font> سلّت عليه سيوفك الأحلام</p>وأما سخافة اللفظ وركاكته فمثل قول الآخر:</p>يا عتب سيدتى أما لك دين <font color=#be0000>…</font> حتى متى قلبى لديك رهين</p>فأنا الصبور لكل ما حملتنى <font color=#be0000>…</font> وأنا الشقىّ البائس المسكين (3)</p>وقال عن الفصيح: «وأما الفصيح من الكلام، فهو ما وافق لغة العرب ولم يخرج عما عليه أهل الأدب، ولتصحيح ذلك وضع النحو، ولجمعه وضعت الكتب فى اللغة، وذكر المستعمل منها والشاذ والمهمل.</p>وحق من ينشأ فى العرب أن يستعمل الاقتداء بلغتهم، ولا يخرج عن جملة ألفاظهم، ولا يقنع من نفسه بمخالفتهم فيخطئوه ويلحنوه» (4)</p>وليس فى هذه الإشارات ما يوضّح رأى صاحب «البرهان» فى الفصاحة كما عرفها الجاحظ ومعاصروه.<hr width='95' align='right'><div class='footnote'>(1) نقد الشعر، ص 196.</p><font color=#be0000>(2)</font> هو النص الكامل للكتاب المطبوع باسم «نقد النثر» المنسوب إلى قدامة ابن جعفر.</p><font color=#be0000>(3)</font> البرهان فى وجوه البيان، ص 177.</p><font color=#be0000>(4)</font> البرهان، ص 252.</div></div>
+75:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ٢٢)</span><hr/></div>&#8204;<span class="title">&#8204;العسكرى:</span></p>وذكر أبو هلال العسكرى (- هـ) رأيين فى الفصاحة:</p>الأول: إن الفصاحة والبلاغة ترجعان إلى معنى واحد وإن اختلف أصلاهما؛ لأنّ كل واحد منهما هو الإبانة عن المعنى والإظهار له. يقول:</p>«فأما الفصاحة فقد قال قوم: إنّها من قولهم: أفصح فلان عما فى نفسه إذا أظهره، والشاهد على أنّها هى الإظهار قول العرب: أفصح الصبح إذا اضاء. وأفصح اللبن إذا انجلت عنه رغوته فظهر، وفصح أيضا. وأفصح الأعجمى إذا أبان بعد أن لم يكن يفصح ويبين، وفصح اللحان إذا عبر عما فى نفسه وأظهره على جهة الصواب دون الخطأ.</p>وإذا كان الأمر على هذا فالفصاحة والبلاغة ترجعان إلى معنى واحد وإن اختلف أصلاهما» (1).</p>الثانى: أنهما مختلفان، وذلك أنّ الفصاحة تمام آلة البيان فهى مقصورة على اللفظ، لأنّ الآلة تتعلق باللفظ دون المعنى، والبلاغة إنّما هى إنهاء المعنى إلى القلب فكأنّها مقصورة على المعنى. يقول: «وقال بعض علمائنا:</p>الفصاحة تمام آلة البيان، فلهذا لا يجوز أن يسمّى الله تعالى فصيحا إذ كانت الفصاحة تتضمن الآلة، ولا يجوز على الله تعالى الوصف بالآلة ويوصف كلامه بالفصاحة لما يتضمن من تمام البيان. والدليل على ذلك أنّ الألثغ والتمتام لا يسميان فصيحين لنقصان آلتهما عن إقامة الحروف. وقيل:</p>«زياد الأعجم» لنقصان آلة نطقه عن إقامة الحروف، وكان يعبر عن «الحمار» بالهمار، فهو أعجم وشعره فصيح لتمام بيانه» (2).</p>ووضّح الأمر بقوله: «ومن الدليل على أنّ الفصاحة تتضمن اللفظ والبلاغة تتناول المعنى، أنّ الببغاء يسمّى فصيحا ولا يسمى بليغا إذ هو مقيم<hr width='95' align='right'><div class='footnote'>(1) كتاب الصناعتين، ص 7.</p><font color=#be0000>(2)</font> كتاب الصناعتين، ص 7.</div></div>
+76:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ٢٣)</span><hr/></div>الحروف وليس له قصد إلى المعنى الذى يؤديه. وقد يجوز مع هذا أن يسمى الكلام الواحد فصيحا بليغا إذا كان واضح المعنى، سهل اللفظ، جيد السبك، غير مستكره فج ولا متكلف وخم، ولا يمنعه من أحد الاسمين شئ لما فيه من إيضاح المعنى وتقويم الحروف». (1)</p>وهذا هو رأيه، أما الرأى الأول فقد عرضه، لأنّ بعضهم يذهب إلى ذلك. وعقد فصلا فى تمييز الكلام تحدث فيه عن صفات الألفاظ الحسنة، وانتهى إلى أنّ الكلام إذا جمع العذوبة والجزالة والسهولة والرصانة مع السلاسة والنصاعة، واشتمل على الرونق والطلاوة، وسلم من الحيف فى التأليف، وبعد عن سماجة التركيب، وورد على</p>الفهم الثاقب- قبله ولم يرده، وعلى السمع المصيب استوعبه ولم يمجه، والنفس تقبل اللطيف وتنبو عن الغليظ. (2)</p>وأعطى الألفاظ أهمية كبيرة، لأنه ليس الشأن فى إيراد المعانى، لأنّ المعانى يعرفها العربى والعجمى والقروى والبدوى، وإنما هو فى جودة اللفظ وصفائه، وحسنه وبهائه، ونزاهته ونقائه، وكثرة طلاوته ومائه مع صحة السبك والتركيب. وليس يطلب من المعنى إلّا أن يكون على هذه الأوصاف، وهو ما أشار إليه الجاحظ من قبل، ولكنه جعل التصوير أساس البيان.</p>&nbsp;</p>&#8204;<span class="title">&#8204;ابن سنان:</span></p>وعقد ابن سنان الخفاجى (- هـ) فى كتابه «سر الفصاحة» فصولا ضافية تحدث فيها عن صفات الحروف ومخارجها، وفصاحة اللفظة المفردة والألفاظ المؤلفة.<hr width='95' align='right'><div class='footnote'>(1) كتاب الصناعتين، ص 8.</p><font color=#be0000>(2)</font> كتاب الصناعتين، ص 57.</div></div>
+77:<div class='PageText'><div class='PageHead'><span class='PartName'>أساليب بلاغية</span><span class='PageNumber'>(ص: ٢٤)</span><hr/></div>والفصاحة- عنده: «الظهور والبيان» (1)، والفرق بينها وبين البلاغة» أنّ الفصاحة مقصورة على وصف الألفاظ والبلاغة لا تكون إلّا وصفا للألفاظ مع المعانى. لا يقال فى كلمة واحدة لا تدل على معنى يفضل عن مثلها بليغة وإن قيل فيها فصيحة، وكل كلام بليغ فصيح، وليس كل فصيح بليغا» (2).</p>ولكى تكون اللفظة الواحدة فصيحة ينبغى أن تتوفر فيها بعض الشروط قال: «إنّ الفصاحة على ما قدمنا نعت للألفاظ إذا وجدت على شروط عدة ومتى تكاملت تلك الشروط فلا مزيد على فصاحة تلك الألفاظ وبحسب الموجود منها تأخذ القسط من الوصف وبوجود أضدادها تستحق الاطّراح والذم. وتلك الشروط تنقسم قسمين:</p>فالأول منها: يوجد فى اللفظة الواحدة على انفرادها من غير أن ينضم إليها شئ من الألفاظ وتؤلف معه.</p>والقسم الثانى: «يوجد فى الألفاظ المنظومة بعضها مع بعض» (3)</p>فأما الذى يوجد فى اللفظة الواحدة فثمانية أشياء:</p>الأول: أن يكون تأليف تلك اللفظة من حروف متباعدة المخارج، وعلة ذلك أنّ الحروف التى هى أصوات تجرى من السمع مجرى الألوان من البصر، ولا شك فى أنّ الألوان المتباينة إذا جمعت كانت فى المنظر أحسن من</p>الألوان المتقاربة، ولهذا كان البياض مع السواد أحسن منه مع الصفرة.</p>ومثال التأليف من الحروف المتباعدة كثير جل كلام العرب عليه، فأما تأليف الحروف المتقاربة فمثل «الهعخع»، وقد روى أنّ الخليل بن أحمد الفراهيدى قال: «سمعنا كلمة شنعاء هى «الهعخع» وأنكرنا تأليفها.<hr width='95' align='right'><div class='footnote'>(1) سر الفصاحة، ص 59.</p><font color=#be0000>(2)</font> سر الفصاحة، ص 60.</p><font color=#be0000>(3)</font> سر الفصاحة، ص 65.</div></div>
+ succeeded in 2.58s:
+69:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٢٢)</span><hr/></div>مسَائِل الْأَحْكَام الشَّرْعِيَّة</p>وَقَالَ شُرَيْح أَنا أَقْْضِي وَلَا أُفْتِي</p>&#8204;<span class="title">&#8204;فصل فِي أَقسَام الْمُفْتِينَ</span></p>&nbsp;</p>قَالَ أَبُو عَمْرو ابْن الصّلاح الْمفْتُون قِسْمَانِ مُسْتَقل وَغَيره</p>فالمستقل شرطُه مَعَ مَا ذكرنَا أَن يكون قيمًا بِمَعْرِِفَة أَدِلَّة الْأَحْكَام الشَّرْعِيَّة من الْكتاب وَالسّنة وَالْإِجْمَاع وَالْقِيَاس وَمَا الْتحق بهَا على التَّفْصِيل وَقد فُصِّلَت فِي كتب الْفِقْه فتيسرت وَللَّه الْحَمد وَأَن يكون عَالما بِمَا يشْتَرط فِي الْأَدِلَّة ووجوه دلالتها وبكيفية</div>
+70:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٢٣)</span><hr/></div>اقتباس الْأَحْكَام مِنْهَا وَهَذَا يُسْتَفَاد من أصُول الْفِقْه عَارِفًا من عُلُوم الْقُرْآن والْحَدِيث والناسخ والمنسوخ والنحو واللغة والتصريف وَاخْتِلَاف الْعلمَاء واتفاقهم بِالْقدرِ الَّذِي يتَمَكَّن مَعَه من الْوَفَاء بِشُرُوط الْأَدِلَّة والاقتباس مِنْهَا ذَا دربة وارتياض فِي اسْتِعْمَال ذَلِك عَالما بالفقه ضابطاً لأمهات مسَائِله وتفاريعه فَمن جمع هَذِه الْأَوْصَاف فَهُوَ الْمُفْتِي الْمُطلق المستقل الَّذِي يتَأَذَّى بِهِ فرض الْكِفَايَة وَهُوَ الْمُجْتَهد الْمُطلق المستقل لِأَنَّهُ يسْتَقلّ بالأدلة بِغَيْر تَقْلِيد وتقيد بِمذهب أحد</p>قَالَ أَبُو عَمْرو وَمَا شرطناه من حفظه لمسائل الْفِقْه لم يشْتَرط فِي كثير من الْكتب الْمَشْهُورَة لكَونه لَيْسَ شرطا لمنصب الِاجْتِهَاد لِأَن الْفِقْه ثَمَرَته فَيتَأَخَّر عَنهُ وَشرط الشَّيْء لَا يتَأَخَّر عَنهُ وشَرَطَه الْأُسْتَاذ أَبُو إِسْحَاق الإِسْفِرَايِينِيّ وَصَاحبه أَبُو مَنْصُور الْبَغْدَادِيّ وَغَيرهمَا واشتراطه فِي الْمُفْتِي الَّذِي يتَأَدَّى بِهِ فرض الْكِفَايَة هُوَ الصَّحِيح وَإِن لم يكن كَذَلِك فِي الْمُجْتَهد المستقل</div>
+74:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٢٧)</span><hr/></div>وَشَرطه كَونه عَالما بالفقه وأصوله وأدلة الْأَحْكَام تَفْصِيلًا بَصيرًا بمسالك الأقيسة والمعاني تَامّ الارتياض فِي التَّخْرِيج والاستنباط قيمًا بإلحاق مَا لَيْسَ مَنْصُوصا عَلَيْهِ لإمامه بأصوله وَلَا يعرى عَن شوب تَقْلِيد لَهُ لإخلاله بِبَعْض أدوات المستقل بِأَن يُخلَّ بِالْحَدِيثِ أَو الْعَرَبيَّة وَكَثِيرًا مَا أخل بهما المقيَّد ثمَّ يتَّخذ نُصُوص إِمَامه أصولاً يستنبط مِنْهَا كَفعل المستقل بنصوص الشَّرْع وَرُبمَا اكْتفى فِي الحكم بِدَلِيل إِمَامه وَلَا يبْحَث عَن معَارض كَفعل المستقل فِي النُّصُوص وَهَذِه صفة أَصْحَابنَا أَصْحَاب الْوُجُوه وَعَلَيْهَا كَانَ أَئِمَّة أَصْحَابنَا أَو أَكْثَرهم وَالْعَامِل بفتوى هَذَا مقلد لإمامه لَا لَهُ</p>ثمَّ ظَاهر كَلَام الْأَصْحَاب أنَّ من هَذَا حَاله لَا يتأدَّى بِهِ فرض الْكِفَايَة</p>قَالَ أَبُو عَمْرو وَيظْهر تأدي الْفَرْض بِهِ فِي الْفَتْوَى وَإِن لم يتأد فِي إحْيَاء الْعُلُوم الَّتِي مِنْهَا استمداد</div>
+78:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٣١)</span><hr/></div>وَمَا لَيْسَ كَذَلِك يجب إِمْسَاكه عَن الْفَتْوَى فِيهِ وَمثل هَذَا يَقع نَادرا فِي حق الْمَذْكُور إِذْ يبعد كَمَا قَالَ إِمَام الْحَرَمَيْنِ أَن تقع مَسْأَلَة لم ينص عَلَيْهَا فِي الْمَذْهَب وَلَا هِيَ فِي معنى الْمَنْصُوص وَلَا مندرجة تَحت ضَابِط</p>وَشَرطه كَونه فَقِيه النَّفس ذَا حَظّ وافر من الْفِقْه</p>قَالَ أَبُو عَمْرو وَأَن يَكْتَفِي فِي حفظ الْمَذْهَب فِي هَذِه الْحَالة وَالَّتِي قبلهَا بِكَوْن الْمُعظم على ذهنه ويتمكن لدربته من الْوُقُوف على الْبَاقِي على قرب</p>&#8204;<span class="title">&#8204;فصل فِي بعض مسَائِل أَهْلِيَّة الْمُفْتِي</span></p>&nbsp;</p>هَذِه أَصْنَاف الْمُفْتِينَ وَهِي خمسةٌ وكلُّ صنف مِنْهَا يُشترط فِيهِ حفظ الْمَذْهَب وَفقه النَّفس فَمن تصدى للفتيا وَلَيْسَ بِهَذِهِ الصّفة فقد بَاء بِأَمْر عَظِيم</div>
+79:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٣٢)</span><hr/></div>وَلَقَد قطع إِمَام الْحَرَمَيْنِ وَغَيره بِأَن الأصولي الماهر الْمُتَصَرف فِي الْفِقْه لَا يحلُّ لَهُ الْفَتْوَى بِمُجَرَّد ذَلِك وَلَو وَقعت لَهُ وَاقعَة لزمَه أَن يسْأَل عَنْهَا ويلتحق بِهِ الْمُتَصَرف النظَّار البحاث من أَئِمَّة الْخلاف وفحول المناظرين لِأَنَّهُ لَيْسَ أَهلا لإدراك حكم الْوَاقِعَة اسْتِقْلَالا لقُصُور آلَته وَلَا من مَذْهَب إِمَام لعدم حفظه لَهُ على الْوَجْه الْمُعْتَبر</p>فَإِن قيل من حفظ كتابا أَو أَكثر فِي الْمَذْهَب وَهُوَ قَاصِر لم يَتَّصِف بِصفة أحد مِمَّن سبق وَلم يجد الْعَاميّ فِي بَلَده غَيره هَل لَهُ الرُّجُوع إِلَى قَوْله</p>فَالْجَوَاب إِن كَانَ فِي غير بَلَده مُفتٍ يجد السَّبِيل إِلَيْهِ وَجب التَّوَصُّل إِلَيْهِ بِحَسب إِمْكَانه فَإِن تعذر ذكر مَسْأَلته للقاصر فَإِن وجدهَا بِعَينهَا فِي كتاب موثوق بِصِحَّتِهِ وَهُوَ مِمَّن يُقبل خَبره نقل لَهُ حكمهَا بنصه وَكَانَ الْعَاميّ فِيهَا مقلِّداً صَاحب الْمَذْهَب</div>
+80:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٣٣)</span><hr/></div>قَالَ أَبُو عَمْرو وَهَذَا وجدتُّه فِي ضمن كَلَام بَعضهم وَالدَّلِيل يعضده</p>وَإِن لم يجدهَا مسطورة بِعَينهَا لم يقسها على مسطور عِنْده وَإِن اعتقده من قِيَاس لَا فَارق لِأَنَّهُ قد يتَوَهَّم ذَلِك فِي غير مَوْضِعه</p>فَإِن قيل هَل لمقلِّدٍ أَن يُفْتِي بِمَا هُوَ مقلد فِيهِ</p>قُلْنَا قطع أَبُو عبد الله الحَلِيمي وَأَبُو مُحَمَّد الْجُوَيْنِيّ وَأَبُو المحاسن الرّوياني وَغَيرهم بِتَحْرِيمِهِ وَقَالَ الْقفال الْمروزِي يجوز د</p>قَالَ أَبُو عَمْرو قولُ من مَنعه مَعْنَاهُ لَا يذكرهُ على صُورَة من يَقُوله من عِنْد نَفسه بل يضيفه إِلَى إِمَامه الَّذِي قلَّده فعلى هَذَا من عددناه من الْمُفْتِينَ المقلدين لَيْسُوا مفتين حَقِيقَة لَكِن لما قَامُوا مقامهم وأدوا عَنْهُم عدوا مَعَهم وسبيلهم أَن يَقُولُوا مثلا مَذْهَب الشَّافِعِي كَذَا أَو نَحْو هَذَا وَمن ترك مِنْهُم الْإِضَافَة</div>
+83:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٣٦)</span><hr/></div>بِهِ وَكَذَا إِن نكح بفتواه وَاسْتمرّ على نِكَاح بفتواه ثمَّ رَجَعَ لزمَه مفارقتها كَمَا لَو تغير اجْتِهَاد من قلَّده فِي الْقبْلَة فِي أثْنَاء صلَاته وَإِن كَانَ عمل قبل رُجُوعه فَإِن خَالف دَلِيلا قَاطعا لزم المستفتي نقض عمله ذَلِك وَإِن كَانَ فِي مَحل اجْتِهَاد لم يلْزمه نقضه لِأَن الِاجْتِهَاد لَا ينْقض بِالِاجْتِهَادِ وَهَذَا التَّفْصِيل ذكره الصَّيْمَرِيّ والخطيب وَأَبُو عَمْرو وَاتَّفَقُوا عَلَيْهِ وَلَا أعلم خِلَافه وَمَا ذكره الْغَزالِيّ والرازي لَيْسَ فِيهِ تَصْرِيح بِخِلَافِهِ</p>قَالَ أَبُو عَمْرو وَإِذا كَانَ يُفتي على مَذْهَب إمامٍ فَرجع لكَونه بَان لَهُ قطعا مُخَالفَة نَص مَذْهَب إِمَامه وَجب نقضه وَإِن كَانَ فِي مَحل الِاجْتِهَاد لأنَّ نَص مَذْهَب إِمَامه فِي حَقه كنص الشَّارِع فِي حق الْمُجْتَهد المستقل أما إِذا لم يعلم المستفتي بِرُجُوع الْمُفْتِي فحال المستفتي فِي علمه كَمَا قبل الرُّجُوع وَيلْزم الْمُفْتِي إِعْلَامه قبل الْعَمَل وَكَذَا بعده حَيْثُ يجب النَّقْض</p>وَإِذا عمل بفتواه فِي إِتْلَاف فَبَان خطأه وَأَنه</div>
+87:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٤٠)</span><hr/></div>أما الْهَدِيَّة فَقَالَ أَبُو مظفر السَّمعاني لَهُ قبُولهَا بِخِلَاف الْحَاكِم فَإِنَّهُ يلْزم حكمهَا</p>قَالَ أَبُو عَمْرو يَنْبَغِي أَن يحرم قبُولهَا إِن كَانَ رشوة على أَن يفتيه بِمَا يُرِيد كَمَا فِي الْحَاكِم وَسَائِر مَا لَا يُقَابل بعوض</p>قَالَ الْخَطِيب وعَلى الإِمَام أَن يفْرض لمن نصب نَفسه لتدريس الْفِقْه وَالْفَتْوَى فِي الْأَحْكَام مَا يُغْنِيه عَن الاحتراف وَيكون ذَلِك من بَيت المَال ثمَّ روى بِإِسْنَادِهِ أَن عمر بن الْخطاب رضي الله عنه أعْطى كلَّ رجلٍ مِمَّن هَذِه صفته مئة دِينَار فِي السّنة</p>السَّادِسَة لَا يجوز أَن يُفْتِي فِي الْأَيْمَان وَالْإِقْرَار وَنَحْوهمَا مِمَّا يتَعَلَّق بالألفاظ إِلَّا أَن يكون من أهل بلد اللافظ أَو متنَزِّلاً مَنْزِلَتهمْ فِي الْخِبْرَة بمرادهم من ألفاظهم وعرفهم فِيهَا</div>
+88:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٤١)</span><hr/></div>السَّابِعَة لَا يجوز لمن كَانَت فتواه نقلا لمَذْهَب إِمَام إِذا اعْتمد الْكتب أَن يعْتَمد إِلَّا على كتاب موثوقٍ بِصِحَّتِهِ وَبِأَنَّهُ مَذْهَب ذَلِك الإِمَام فَإِن وثق بِأَن أصل التصنيف بِهَذِهِ الصّفة لَكِن لم تكن هَذِه النُّسْخَة مُعْتَمدَة فليستظهر بنسخ مِنْهُ متَّفقة وَقد تحصل لَهُ الثِّقَة من نُسْخَة غير موثوق بهَا فِي بعض الْمسَائِل إِذا رأى الْكَلَام منتظماً وَهُوَ خَبِير فَطِن لَا يخفى عَلَيْهِ لدربته مَوضِع الْإِسْقَاط والتغيير فَإِن لم يجده إِلَّا فِي نُسْخَة غير موثوق بهَا فَقَالَ أَبُو عَمْرو ينظر فَإِن وجده مُوَافقا لأصول الْمَذْهَب وَهُوَ أهل لتخريج مثله فِي الْمَذْهَب لَو لم يجده مَنْقُولًا فَلهُ أَن يُفْتِي بِهِ فَإِن أَرَادَ حكايته عَن قَائِله فَلَا يقل قَالَ الشَّافِعِي مثلا كَذَا وَليقل وَجدتُّ عَن الشَّافِعِي كَذَا أَو بَلغنِي عَنهُ وَنَحْو هَذَا وَإِن لم يكن أَهلا لتخريج مثله لم يجز لَهُ ذَلِك فَإِن سَبيله النَّقْل الْمَحْض وَلم يحصل مَا يجوز لَهُ ذَلِك وَله أَن يذكرهُ لَا على سَبِيل الْفَتْوَى مُفصِحاً بِحَالهِ فَيَقُول وجدته فِي نُسْخَة من الْكتاب الْفُلَانِيّ وَنَحْوه</div>
+100:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٥٣)</span><hr/></div>الدَّم أَو عَلَيْهِ الْقَتْل بل يَقُول إِن صَحَّ هَذَا بِإِقْرَارِهِ أَو بِالْبَيِّنَةِ استتابه السُّلْطَان فَإِن تَابَ قبلت تَوْبَته وَإِن لم يتب فعل بِهِ كَذَا وَكَذَا وَبَالغ فِي ذَلِك وأشبعه</p>قَالَ وَإِن سُئِلَ عَمَّن تكلم بِشَيْء يحْتَمل وُجُوهًا يكفر بِبَعْضِهَا دون بعض قَالَ يسْأَل هَذَا الْقَائِل فَإِن قَالَ أردْت كَذَا فَالْجَوَاب كَذَا</p>وَإِن سُئِلَ عَمَّن قتل أَو قلع عينا أَو غَيرهَا احتاط فَذكر الشُّرُوط الَّتِي يجب بجميعها الْقصاص</p>وَإِن سُئِلَ عَمَّن فعل مَا يُوجب التَّعْزِير ذكر مَا يُعَزّر بِهِ فَيَقُول يضْربهُ السُّلْطَان كَذَا وَكَذَا وَلَا يُزَاد على كَذَا هَذَا كَلَام الصَّيْمَرِيّ والخطيب وَغَيرهمَا</p>قَالَ أَبُو عَمْرو وَلَو كتب عَلَيْهِ الْقصاص أَو التَّعْزِير بِشَرْطِهِ فَلَيْسَ ذَلِك بِإِطْلَاق بل تَقْيِيده بِشَرْطِهِ يحمل الْوَالِي على السُّؤَال عَن شَرطه وَالْبَيَان أولى</div>
+108:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٦١)</span><hr/></div>قَالَ وَله انتهار السَّائِل وزجره وتعريفه قبح مَا أَتَاهُ وَأَنه كَانَ وَاجِبا عَلَيْهِ الْبَحْث عَن أهل الْفَتْوَى وَطلب من هُوَ أهل لذَلِك وَإِن رأى فِيهَا اسْم من لَا يعرفهُ سَأَلَ عَنهُ فَإِن لم يعرفهُ فواسع أَن يمْتَنع من الْفَتْوَى مَعَه خوفًا مِمَّا قُلْنَاهُ</p>قَالَ وَكَانَ بَعضهم فِي مثل هَذَا يكْتب على ظهرهَا</p>قَالَ وَالْأولَى فِي هَذَا الْموضع أَن يشار على صَاحبهَا بإبدالها فَإِن أَبى ذَلِك أَجَابَهُ شفاها</p>قَالَ أَبُو عَمْرو وَإِذا خَافَ فتْنَة من الضَّرْب على فتيا العادم للأهلية وَلم تكن خطأ عدلَ إِلَى الِامْتِنَاع من الْفتيا مَعَه فَإِن غلبت فَتَاوِيهِ لتغلبه على منصبها بجاه أَو تلبيس أَو غير ذَلِك بِحَيْثُ صَار امْتنَاع الْأَهْل من الْفتيا مَعَه ضاراً بالمستفتين فليفت مَعَه فَإِن ذَلِك أَهْون الضررين وليتلطف مَعَ ذَلِك فِي إِظْهَار قصوره لمن يجهله</div>
+120:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٧٣)</span><hr/></div>قَالَ أَبُو عَمْرو وَيَنْبَغِي أَن يشْتَرط فِي الْمخبر أَن يكون عِنْده من الْعلم وَالْبَصَر مَا يُمَيّز بِهِ الملتبس من غَيره وَلَا يعْتَمد فِي ذَلِك على خبر آحَاد الْعَامَّة لِكَثْرَة مَا يتَطَرَّق إِلَيْهِم من التلبيس فِي ذَلِك</p>وَإِذا اجْتمع اثْنَان فَأكْثر مِمَّن يجوز استفتاؤهم فَهَل يجب عَلَيْهِ الِاجْتِهَاد فِي أعيانهم والبحث عَن الأعلم والأورع والأوثق ليقلده دون غَيره فِيهِ وَجْهَان</p>أَحدهمَا لَا يجب بل لَهُ استفتاء من شَاءَ مِنْهُم لِأَن الْجَمِيع أهل وَقد أسقطنا الِاجْتِهَاد عَن الْعَاميّ وَهَذَا الْوَجْه هُوَ الصَّحِيح عِنْد أَصْحَابنَا الْعِرَاقِيّين قَالُوا وَهُوَ قَول أَكثر أَصْحَابنَا</p>وَالثَّانِي يجب ذَلِك لِأَنَّهُ يُمكنهُ هَذَا الْقدر من الِاجْتِهَاد بالبحث وَالسُّؤَال وشواهد الْأَحْوَال وَهَذَا الْوَجْه قَول أبي الْعَبَّاس ابْن سُرَيج وَاخْتِيَار الْقفال الْمروزِي وَهُوَ الصَّحِيح عِنْد القَاضِي حُسَيْن وَالْأول أظهر وَهُوَ الظَّاهِر من حَال الْأَوَّلين</div>
+121:<div class='PageText'><div class='PageHead'><span class='PartName'>آداب الفتوى والمفتي والمستفتي</span><span class='PageNumber'>(ص: ٧٤)</span><hr/></div>قَالَ أَبُو عَمْرو رحمه الله لَكِن مَتى اطلع على الأوثق فَالْأَظْهر أَنه يلْزمه تَقْلِيده كَمَا يجب تَقْدِيم أرجح الدَّلِيلَيْنِ وأوثق الرِّوَايَتَيْنِ فعلى هَذَا يلْزمه تَقْلِيد الأورع من الْعَالمين والأعلم من الورعين فَإِن كَانَ أَحدهمَا أعلم وَالْآخر أورع قلد الأعلم على الْأَصَح</p>وَفِي جَوَاز تَقْلِيد الْمَيِّت وَجْهَان</p>الصَّحِيح جَوَازه لِأَن الْمذَاهب لَا تَمُوت بِمَوْت أَصْحَابهَا وَلِهَذَا يعْتد بهَا بعدهمْ فِي الْإِجْمَاع وَالْخلاف وَلِأَن موت الشَّاهِد قبل الحكم لَا يمْنَع الحكم بِشَهَادَتِهِ بِخِلَاف فسقه</p>وَالثَّانِي لَا يجوز لفَوَات أَهْلِيَّته كالفاسق وَهَذَا ضَعِيف لَا سِيمَا فِي هَذِه الْأَعْصَار</p>الثَّالِث هَل يجوز للعامي أَن يتَخَيَّر ويقلد أَي مَذْهَب شَاءَ</div>
+warning: in-process app-server event stream lagged; dropped 215 events
+warning: in-process app-server event stream lagged; dropped 1 events
+codex
+I need one clean hadith excerpt plus one clean tafsir excerpt for the last metadata/duplication cases. Pulling just those lines now, then I’ll assemble the final array directly without any file edits.
+exec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content tests\\fixtures\\shamela_real\\04_hadith\\book.htm | Select-Object -Skip 60 -First 40" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content tests\\fixtures\\shamela_real\\05_tafsir\\book.htm | Select-Object -Skip 62 -First 10" in C:\Users\Rayane\Desktop\krexec
+"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -Command "Get-Content tests\\fixtures\\shamela_real\\05_tafsir\\book.htm | Select-Object -Skip 98 -First 10" in C:\Users\Rayane\Desktop\kr succeeded in 514ms:
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٢)</span><hr/></div><font color=#be0000>1 -</font> أَخْبَرَنَا الشَّيْخُ الْإِمَامُ مَجْدُ الدِّينِ أَبُو الْفَرَجِ يَحْيَى بْنُ أَبِي الرَّجَا مَحْمُودِ بْنِ أَبِي الْفَرَجِ سَعْدِ بْنِ أَبِي طَاهِرٍ أَحْمَدِ بْنِ مَحْمُودٍ الثَّقَفِيُّ الْأَصْبَهَانِيُّ أَثَابَهُ اللهُ قِرَاءَةً عَلَيْهِ وَنَحْنُ نَسْمَعُ يَوْمَ الثُّلَاثَاءِ النَّصْفَ مِنْ ذِي الْقِعْدَةِ سَنَةَ اثْنَتَيْنِ وَثَمَانِينَ وَخَمْسِمِائَةٍ، قَالَ: أنا أَبُو عَلِيٍّ الْحَسَنُ بْنُ أَحْمَدَ الْحَدَّادُ فِي شَعْبَانَ سَنَةَ خَمْسَ عَشْرَةَ وَخَمْسِمِائَةٍ <font color=#be0000>⦗ص: 26⦘</font> حُضُورًا، قَالَ: أَخْبَرَنَا الشَّيْخُ أَبُو نُعَيْمٍ أَحْمَدُ بْنُ عَبْدِ اللهِ بْنِ أَحْمَدَ قِرَاءَةًُ عَلَيْهِ فَأَقَرَّ ِبِهِ، حَدَّثْنَا أَبُو بَكْرٍ أَحْمَدُ بْنُ يُوسُفُ بِنْ خَلَّادِ النَّصِيبِيُّ الْعَطَّارُ بِبَغْدَادَ <font color=#be0000>⦗ص: 27⦘</font> حَدَّثَنَا إِسْمَاعِيلُ بْنُ إِسْحَاقَ الْقَاضِي، حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، وَعَارِمُ بْنُ الْفَضْلِ، قَالَا: حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، <font color=#be0000>⦗ص: 28⦘</font> عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْمُهَلَّبِ، عَنْ عِمْرَانَ بْنِ الْحُصَيْنِ، أَنَّ النَّبِيَّ صلى الله عليه وسلم كَانَ فِي سَفَرٍ فَسَمِعَ لَعْنَةً، فَقَالَ: " مَا هَذِهِ؟ " قَالُوا: هَذِهِ فُلَانَةُ لَعَنَتْ رَاحِلَتَهَا فَقَالَ: "&#8204;<span class="title">&#8204; ضَعُوا عَنْهَا فَإِنَّهَا مَلْعُونَةٌ </span>" قَالَ: فَوَضَعُوا عَنْهَا قَالَ: كَأَنِّي أَنْظُرُ إِلَيْهَا نَاقَةً وَرْقَاءَ<hr width='95' align='right'><div class='footnote'>إسناد هذا الحديث كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٢٩)</span><hr/></div><font color=#be0000>2 -</font> حَدَّثَنَا إِبْرَاهِيمُ بْنُ الْحَجَّاجِ، حَدَّثَنَا وُهَيْبٌ، حَدَّثَنَا أَيُّوبُ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْمُهَلَّبِ، عَنْ عِمْرَانَ، قَالَ: بَيْنَمَا رَسُولُ اللهِ صلى الله عليه وسلم فِي بَعْضِ أَسْفَارِهِ وَامْرَأَةٌ عَلَى نَاقَةٍ لَهَا فَلَعَنَتْهَا فَقَالَ رَسُولُ اللهِ صلى الله عليه وسلم: "&#8204;<span class="title">&#8204; خُذُوا مَتَاعَكُمْ عَنْهَا وَدَعُوهَا فَإِنَّهَا مَلْعُونَةٌ </span>" قَالَ عِمْرَانُ: فَكَأَنِّي أَنْظُرُ إِلَيْهَا نَاقَةً وَرْقَاءَ تَجُولُ فِي النَّاسِ مَا يَعْرِضُ لَهَا أَحَدٌ<hr width='95' align='right'><div class='footnote'>إسناد هذا الحديث كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٣٠)</span><hr/></div><font color=#be0000>3 -</font> حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، وَعَارِمٌ، قَالَا: حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْمُهَلَّبِ، عَنْ عِمْرَانَ، أَنَّ رَجُلًا&#8204;<span class="title">&#8204; أَعْتَقَ سِتَّةَ أَعْبُدٍ لَهُ عِنْدَ مَوْتِهِ </span>لَمْ يَكُنْ لَهُ مَالٌ غَيْرُهُمْ فَبَلَغَ ذَلِكَ رَسُولَ اللهِ صلى الله عليه وسلم فَقَالَ لِلرَّجُلِ قَوْلًا شَدِيدًا ثُمَّ دَعَاهُمْ فَجَزَّأَهُمْ ثَلَاثَةَ أَجْزَاءٍ فَأَقْرَعَ بَيْنَهُمْ فَأَعْتَقَ اثْنَيْنِ وَأَرَقَّ أَرْبَعَةً لَفْظُ سُلَيْمَانَ (1)</p><font color=#be0000>⦗ص: 31⦘</font> وَقَالَ عَارِمٌ: فَدَعَاهُمْ فَجَزَّأَهُمْ فَأَعْتَقَ اثْنَيْنِ وَرَدَّ أَرْبَعَةً فِي الرِّقِّ، وَقَالَ أَيْضًا إِنَّ رَجُلًا مِنَ الْأَنْصَارِ أَعْتَقَ سِتَّةَ أَعْبُدٍ لَهُ فِي مَرَضِهِ عِنْدَ مَوْتِهِ (2)<hr width='95' align='right'><div class='footnote'>(1) إسناد هذا الحديث كلهم ثقات</p><font color=#be0000>(2)</font> أخرجه مسلم في صحيحه</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٣١)</span><hr/></div><font color=#be0000>4 -</font> حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، حَدَّثَنَا أَيُّوبُ، عَنْ <font color=#be0000>⦗ص: 32⦘</font> أَبِي قِلَابَةَ، عَنْ أَبِي الْمُهَلَّبِ، عَنْ عِمْرَانَ بْنِ الْحُصَيْنِ، قَالَ: كَانَتِ الْعَضْبَاءُ لِرَجُلٍ مِنْ بَنِي عُقَيْلٍ وَكَانَتْ مِنْ سَوَابِقِ الْحَاجِّ فَأُسِرَ فَأَتَى عَلَيْهِ رَسُولُ اللهِ صلى الله عليه وسلم فِي وَثَاقٍ وَرَسُولُ اللهِ صلى الله عليه وسلم عَلَى حِمَارٍ عَلَيْهِ قَطِيفَةٌ فَقَالَ: يَا مُحَمَّدُ عَلَى مَا تَأْخُذُونِي وَتَأْخُذُونَ سَابِقَةَ الْحَاجِّ؟ قَالَ رَسُولُ اللهِ صلى الله عليه وسلم: "&#8204;<span class="title">&#8204; نَأْخُذُكَ بِجَرِيرَةِ حُلَفَائِكَ </span>ثَقِيفٍ " قَالَ: وَكَانَتْ ثَقِيفٌ قَدْ أَسَرُوا رَجُلَيْنِ مِنْ أَصْحَابِ رَسُولِ اللهِ صلى الله عليه وسلم قَالَ: وَقَالَ: أَنَا مُسْلِمٌ<hr width='95' align='right'><div class='footnote'>إسناد هذا الحديث كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٣٣)</span><hr/></div><font color=#be0000>5 -</font> حَدَّثَنَا حَجَّاجُ بْنُ مِنْهَالٍ، حَدَّثَنَا حَمَّادُ بْنُ سَلَمَةَ، عَنْ <font color=#be0000>⦗ص: 34⦘</font> أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْمُهَلَّبِ، عَنْ عِمْرَانَ بْنِ حُصَيْنٍ، أَنَّ رَسُولَ الِلَّهِ صلى الله عليه وسلم أَسَرَ رَجُلًا مِنْ بَنِي عُقَيْلٍ فَأَوْثَقَهُ وَأَلْقَاهُ فِي الْحَرَّةِ فَلَمَّا مَضَى قَالَ: يَا مُحَمَّدُ فَأَتَاهُ فَقَالَ: عَلَى مَا تَأْخُذُونِي وَالْعَضْبَاءَ وَهِيَ سَابِقَةٌ مِنْ سَوَابِقِ الْحَاجِّ؟ فَقَالَ: " لِأَنَّكَ حَلِيفٌ مِنْ بَنِي ثَقِيفٍ " فَلَمَّا مَضَى النَّبِيُّ، صلى الله عليه وسلم دَعَاهُ أَيْضًا فَقَالَ: يَا مُحَمَّدُ، عَلَى مَا تَأْخُذُونِي وَأَنَا مُسْلِمٌ؟ قَالَ: "&#8204;<span class="title">&#8204; لَوْ قُلْتَهَا وَأَنْتَ تَمْلِكُ نَفْسَكَ لَأَفْلَحْتَ كُلَّ الْفَلَاحِ </span>" فَانْصَرَفَ النَّبِيُّ صلى الله عليه وسلم، فَنَادَاهُ: يَا مُحَمَّدُ يَا مُحَمَّدُ، فَرَجَعَ النَّبِيُّ فَقَالَ: إِنَّكَ تَدَعُنِي هَاهُنَا بِغَيْرِ طَعَامٍ وَلَا شَرَابٍ فَقَالَ: " هَذَا أَرَدْتَ " قَالَ: فَفَدَاهُ النَّبِيُّ، صلى الله عليه وسلم، بِرَجُلَيْنِ مِنْ أَصْحَابِهِ كَانَا أَسِيرَيْنِ<hr width='95' align='right'><div class='footnote'>إسناد هذا الحديث ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٣٤)</span><hr/></div><font color=#be0000>6 -</font> حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، أَنَّ رَسُولَ اللهِ صلى الله عليه وسلم قَالَ: " إِنَّ أَخَاكُمُ النَّجَاشِيَّ <font color=#be0000>⦗ص: 35⦘</font> قَدْ مَاتَ فَصَلُّوا عَلَيْهِ " أَوْ قَالَ: " ادْعُوا لَهُ " هَكَذَا رَوَاهُ حَمَّادُ بْنُ زَيْدٍ مُرْسَلًا وَأَسْنَدَهُ غَيْرُهُ<hr width='95' align='right'><div class='footnote'>لم أقف عليه في غير هذا الموضع</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٣٥)</span><hr/></div><font color=#be0000>7 -</font> حَدَّثَنَا مَحْمُودُ بْنُ غَيْلَانَ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ عُلَيَّةَ بْنِ إِبْرَاهِيمَ، حَدَّثَنَا أَيُّوبُ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْمُهَلَّبِ، <font color=#be0000>⦗ص: 36⦘</font> عَنْ عِمْرَانَ بْنِ حُصَيْنٍ، قَالَ: قَالَ رَسُولُ اللهِ صلى الله عليه وسلم: "&#8204;<span class="title">&#8204; إِنَّ أَخَاكُمْ قَدْ مَاتَ فَقُومُوا </span>" يَعْنِي النَّجَاشِيَّ<hr width='95' align='right'><div class='footnote'>أخرجه الإمام أحمد في مسنده</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٣٦)</span><hr/></div><font color=#be0000>8 -</font> حَدَّثَنَا حَجَّاجُ بْنُ مِنْهَالٍ، حَدَّثَنَا حَمَّادُ بْنُ سَلَمَةَ، حَدَّثَنَا أَيُّوبُ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْمُهَلَّبِ، عَنْ عِمْرَانَ بْنِ حُصَيْنٍ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ: "&#8204;<span class="title">&#8204; لَا نَذْرَ فِي مَعْصِيَةِ اللهِ وَلَا نَذْرَ فِي مَا لَا يَمْلِكُ ابْنُ آدَمَ </span>"<hr width='95' align='right'><div class='footnote'>إسناد هذا الحديث رجالة ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٣٧)</span><hr/></div><font color=#be0000>9 -</font> حَدَّثَنَا حَجَّاجُ بْنُ مِنْهَالٍ، حَدَّثَنَا حَمَّادُ بْنُ سَلَمَةَ، حَدَّثَنَا أَيُّوبُ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْمُهَلَّبِ، عَنْ عِمْرَانَ بْنِ حُصَيْنٍ، أَنَّ رَسُولَ اللهِ صلى الله عليه وسلم كَانَ فِي سَفَرٍ فَلَعَنَتِ امْرَأَةٌ نَاقَةً لَهَا فَقَالَ النَّبِيُّ صلى الله عليه وسلم: "&#8204;<span class="title">&#8204; أَلْقُوا عَنْهَا جِهَازَهَا فَإِنَّهَا مَلْعُونَةٌ </span>" قَالَ: فَأُلْقِيَ عَنْهَا جِهَازُهَا كَأَنِّي أَنْظُرُ إِلَيْهَا نَاقَةً وَرْقَاءَ</div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٣٨)</span><hr/></div><font color=#be0000>10 -</font> حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، وَعَارِمٌ، قَالَا: حَدَّثَنَا حَمَّادٌ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْمُهَلَّبِ، عَنْ أُبَيِّ بْنِ كَعْبٍ، قَالَ:&#8204;<span class="title">&#8204; أَمَا تَقْرَأُ فِي ثَمَانٍ</span>؟ يَعْنِي الْقُرْآنَ<hr width='95' align='right'><div class='footnote'>إسناده كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٣٩)</span><hr/></div><font color=#be0000>11 -</font> حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، وَعَارِمٌ، قَالَا: حَدَّثَنَا حَمَّادٌ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْمُهَلَّبِ، قَالَ: شَهِدْتُ عُثْمَانَ أُتِيَ بِرَجُلٍ تَرَكَ امْرَأَتَهُ وَأَبَوَيْنِ فَأَخَذَهَا مِنْ أَرْبَعَةِ أَسْهُمٍ،&#8204;<span class="title">&#8204; جَعَلَ لِلْمَرْأَةِ سَهْمًا وَلِلْأُمِّ سَهْمًا وَلِلْأَبِ سَهْمَيْنِ</span><hr width='95' align='right'><div class='footnote'>إسناده كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٤٠)</span><hr/></div><font color=#be0000>12 -</font> حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي أَسْمَاءَ، عَنْ ثَوْبَانَ، قَالَ: قَالَ رَسُولُ اللهِ صلى الله عليه وسلم: "&#8204;<span class="title">&#8204; أَيُّمَا امْرَأَةٍ سَأَلَتْ زَوْجَهَا الطَّلَاقَ فِي غَيْرِ مَا بَأْسٍ فَحَرَامٌ عَلَيْهَا رَائِحَةُ الْجَنَّةِ </span>" (1)</p>&nbsp;</p><font color=#be0000>13 -</font> حَدَّثَنَا إِبْرَاهِيمُ بْنُ الْحَجَّاجِ، حَدَّثَنَا وُهَيْبٌ، حَدَّثَنَا أَيُّوبُ، عَنْ <font color=#be0000>⦗ص: 41⦘</font> أَبِي قِلَابَةَ، عَنْ أَبِي أَسْمَاءَ، عَنْ ثَوْبَانَ، عَنِ النَّبِيِّ صلى الله عليه وسلم مِثْلَهُ (2)<hr width='95' align='right'><div class='footnote'>(1) إسناده كلهم ثقات</p><font color=#be0000>(2)</font> إسناده كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٤١)</span><hr/></div><font color=#be0000>14 -</font> حَدَّثَنَا حَجَّاجُ بْنُ مِنْهَالٍ، وَعَارِمٌ، قَالَا: حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي أَسْمَاءَ، عَنْ ثَوْبَانَ، قَالَ: قَالَ رَسُولُ اللهِ صلى الله عليه وسلم: "&#8204;<span class="title">&#8204; أَفْضَلُ دِينَارٍ دِينَارٌ يُنْفِقُهُ الرَّجُلُ عَلَى عِيَالِهِ وَدِينَارٌ يُنْفِقُهُ عَلَى دَابَّتِهِ فِي سَبِيلِ اللهِ وَدِينَارٌ يُنْفِقُهُ عَلَى أَصْحَابِهِ فِي سَبِيلِ اللهِ </span>" قَالَ أَبُو قِلَابَةَ: وَبَدَأَ بِالْعِيَالِ وَأَيُّ رَجُلٍ أَعْظَمُ أَجْرًا مِنْ رَجُلٍ يُنْفِقُهُ عَلَى عِيَالٍ صِغَارٍ يَنْفَعُهُمُ اللهُ عز وجل بِهِ (1)</p><font color=#be0000>⦗ص: 42⦘</font></p><font color=#be0000>15 -</font> حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، فَوَقَفَهُ عَلَى ثَوْبَانَ وَلَمْ يَرْفَعْهُ (2)<hr width='95' align='right'><div class='footnote'>(1) إسناده كلهم ثقات</p><font color=#be0000>(2)</font> إسناده كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٤٢)</span><hr/></div><font color=#be0000>16 -</font> حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، وَعَارِمٌ، قَالَا: حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي أَسْمَاءَ، عَنْ ثَوْبَانَ، قَالَ سُلَيْمَانُ: رَفَعَهُ، وَقَالَ عَارِمٌ: رَفَعَ الْحَدِيثَ قَالَ: عَايِدُ الْمَرِيضِ فِي مَخْرَفَةِ <font color=#be0000>⦗ص: 43⦘</font> الْجَنَّةِ (1)</p><font color=#be0000>⦗ص: 44⦘</font></p><font color=#be0000>17 -</font> حَدَّثَنَا حَجَّاجٌ، عَنْ حَمَّادِ بْنِ زَيْدٍ، فَوَقَفَهُ عَلَى حَمَّادٍ وَلَمْ يَرْفَعْهُ<hr width='95' align='right'><div class='footnote'>(1) إسناد الحديث كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٤٤)</span><hr/></div><font color=#be0000>18 -</font> حَدَّثَنَا مُحَمَّدُ بْنُ عُبَيْدِ بْنِ حِسَابٍ، حَدَّثَنَا مُحَمَّدُ بْنُ ثَوْرٍ، عَنْ مَعْمَرٍ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْأَشْعَثِ الصَّنْعَانِيِّ، عَنْ أَبِي أَسْمَاءَ الرَّحَبِيِّ، عَنْ شَدَّادِ بْنِ أَوْسٍ، رَفَعَهُ إِلَى النَّبِيِّ صلى الله عليه وسلم قَالَ: " إِنَّ اللهَ عز وجل زَوَى لِيَ الْأَرْضَ حَتَّى <font color=#be0000>⦗ص: 45⦘</font> رَأَيْتُ مَشَارِقَهَا وَمَغَارِبَهَا وَإِنَّ مُلْكَ أُمَّتِي سَيَبْلُغُ مَا زُوِيَ لِي مِنْهَا وَإِنِّي أُعْطِيتُ الْكَنْزَيْنِ الْأَحْمَرَ وَالْأَبْيَضَ وَإِنِّي سَأَلْتُ رَبِّي عز وجل أَنْ لَا يُهْلِكَ أُمَّتِي بِسَنَةٍ بِعَامَّةٍ وَلَا يَبْسُطَ عَلَيْهِمْ عَدُوًّا فَيُهْلِكُّمْ بِعَامَّةٍ وَلَا يَلْبِسَهُمْ شِيَعًا وَلَا يُذِيقَ بَعْضَهُمْ بَأْسَ بَعْضٍ وَقَالَ: يَا مُحَمَّدُ، إِنِّي إِذَا قَضَيْتُ قَضَاءً فَإِنَّهُ لَا يُرَدُّ، إِنِّي أَعْطَيْتُ أُمَّتَكَ أَنْ لَا أُهْلِكَهُمْ بِسَنَةٍ بِعَامَّةٍ وَلَا <font color=#be0000>⦗ص: 46⦘</font> أُسَلِّطَ عَلَيْهِمْ عَدُوًّا مِنْ سِوَاهُمْ فَيُهْلِكُونَهُمْ بِعَامَّةٍ حَتَّى يَكُونَ بَعْضُهُمْ يُهْلِكُ بَعْضًا وَبَعْضُهُمْ يَقْتُلُ بَعْضًا وَبَعْضُهُمْ يَسْبِي بَعْضًا " قَالَ: وَقَالَ النَّبِيُّ صلى الله عليه وسلم: " إِنِّي لَا أَخَافُ عَلَى أُمَّتِي إِلَّا الْأَئِمَّةَ الْمُضِلِّينَ وَإِذَا وُضِعَ السَّيْفُ فِي أُمَّتِي لَمْ يُرْفَعْ عَنْهُمْ إِلَى يَوْمِ الْقِيَامَةِ " هَكَذَا رَوَاهُ مَعْمَرٌ، أَسْنَدَهُ عَنْ شَدَّادِ بْنِ أَوْسٍ، وَإِنَّمَا هُوَ عَنْ ثَوْبَانَ<hr width='95' align='right'><div class='footnote'>إسناده كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٤٦)</span><hr/></div><font color=#be0000>19 -</font> حَدَّثَنَا بِهِ سُلَيْمَانُ بْنُ حَرْبٍ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، حَدَّثَنَا أَيُّوبُ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي أَسْمَاءَ، عَنْ ثَوْبَانَ، قَالَ: قَالَ رَسُولُ اللهِ صلى الله عليه وسلم: قَالَ: " أُزْوِيَ، أَوْ قَالَ: "&#8204;<span class="title">&#8204; إِنَّ اللهَ عز وجل زَوَى لِي الْأَرْضَ، فَرَأَيْتُ مَشَارِقَهَا وَمَغَارِبَهَا </span>وَإِنَّ مُلْكَ أُمَّتِي سَيَبْلُغُ مَا زُوِيَ لِي مِنْهَا وَأُعْطِيتُ الْكَنْزَيْنِ الْأَحْمَرَ وَالْأَبْيَضَ وَإِنِّي سَأَلْتُ رَبِّي عز وجل لِأُمَّتِي أَنْ لَا يُهْلِكَهَا بِسَنَةٍ بِعَامَّةٍ وَلَا يُسَلَّطَ عَلَيْهِمْ عَدُوًّا مِنْ سِوَى أَنْفُسِهِمْ فَيَسْتَبِيحَ بَيْضَتَهُمْ وَإِنَّ رَبِّي عَزَّ <font color=#be0000>⦗ص: 47⦘</font> وَجَلَّ قَالَ لِي: يَا مُحَمَّدُ إِنِّي قَضَيْتُ قَضَاءً فَإِنَّهُ لَا يُرَدُّ وَلَا أُهْلِكُهُمْ بِسَنَةٍ عَامَّةٍ وَلَا أُسَلِّطُ عَلَيْهِمْ عَدُوًّا مِنْ سِوَى أَنْفُسِهِمْ فَيَسْتَبِيحَ بَيْضَتَهُمْ وَلَوِ اجْتَمَعَ عَلَيْهِمْ مَنْ بَيْنَ أَقْطَارِهَا، أَوْ قَالَ: مَنْ بِأَقْطَارِهَا، حَتَّى يَكُونَ بَعْضُهُمْ يُسْبِي بَعْضًا وَيَكُونَ بَعْضُهُمْ يُهْلِكُ بَعْضًا وَإِنِّي أَخَافُ عَلَى أُمَّتِي الْأَئِمَّةَ الْمُضِلِّينَ، وَإِذَا وُضِعَ السَّيْفُ فِي أُمَّتِي لَمْ يُرْفَعْ عَنْهُمْ إِلَى يَوْمِ الْقِيَامَةِ، وَلَا تَقُومُ السَّاعَةُ حَتَّى تَلْحَقَ قَبَائِلُ مِنْ أُمَّتِي بِالْمُشْرِكِينَ وَحَتَّى تَعْبُدَ قَبَائِلُ مِنْ أُمَّتِي الْأَوْثَانَ وَأَنَّهُ سَيَكُونُ فِي أُمَّتِي كَذَّابُونَ <font color=#be0000>⦗ص: 48⦘</font> ثَلَاثُونَ كُلُّهُمْ يَزْعُمُ أَنَّهُ نَبِيٌّ وَأَنَا خَاتَمُ النَّبِيِّينَ لَا نَبِيَّ بَعْدِي وَلَا تَزَالُ طَائِفَةٌ مِنْ أُمَّتِي عَلَى الْحَقِّ ظَاهِرِينَ لَا يَضُرُّهُمْ مَنْ خَالَفَهُمْ حَتَّى يَأْتِيَ أَمْرُ اللهِ عز وجل "<hr width='95' align='right'><div class='footnote'>إسناده كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٤٨)</span><hr/></div><font color=#be0000>20 -</font> حَدَّثَنَا عَارِمٌ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، حَدَّثَنَا أَيُّوبُ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي أَسْمَاءَ، عَنْ ثَوْبَانَ، قَالَ: قَالَ رَسُولُ اللهِ صلى الله عليه وسلم: "&#8204;<span class="title">&#8204; وَلَنْ تَزَالَ طَائِفَةٌ مِنْ أُمَّتِي عَلَى الْحَقِّ لَا يَضُرُّهُمُ مَنْ خَذَلَهُمْ </span>حَتَّى يَأْتِيَ أَمْرُ <font color=#be0000>⦗ص: 49⦘</font> اللهِ عز وجل "<hr width='95' align='right'><div class='footnote'>إسناده كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٤٩)</span><hr/></div><font color=#be0000>21 -</font> حَدَّثَنَا عَارِمٌ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي أَسْمَاءَ، عَنْ ثَوْبَانَ، عَنِ النَّبِيِّ صلى الله عليه وسلم قَالَ: "&#8204;<span class="title">&#8204; زُوِيَ لِيَ الْأَرْضُ فَرَأَيْتُ مَشَارِقَهَا وَمَغَارِبَهَا </span>وَأَنَّ أُمَّتِي سَيَبْلُغُ مُلْكُهَا مَا زُوِيَ لِي مِنْهَا، وَأُعْطِيتُ الْكَنْزَيْنِ الْأَحْمَرَ وَالْأَبْيَضَ " - قَالَ حَمَّادٌ: وَقَالَ مَرَّةً: " فَأَوَّلْتُهُ فَارِسَ وَالرُّومَ - وَإِنِّي سَأَلْتُ رَبِّي عز وجل لِأُمَّتِي أَنْ لَا يُهْلِكَهَا بِسَنَةٍ وَأَنْ لَا يُسَلِّطَ عَلَيْهِمْ عَدُوًّا مِنْ سِوَى أَنْفُسِهِمْ فَيَسْتَبِيحَ بَيْضَتَهُمْ وَإِنَّ رَبِّي عز وجل قَالَ: يَا مُحَمَّدُ إِذَا <font color=#be0000>⦗ص: 50⦘</font> قَضَيْتُ أَمْرًا فَإِنَّهُ لَا يُرَدُّ وَإِنِّي قَدْ أَعْطَيْتُ لِأُمَّتِكَ أَنْ لَا أُهْلِكَهَا بِسَنَةٍ بِعَامَّةٍ وَلَا أُسَلِّطَ عَلَيْهِمْ عَدُوًّا مِنْ سِوَى أَنْفُسِهِمْ فَيَسْتَبِيحَ بَيْضَتَهُمْ وَلَوِ اجْتَمَعَتْ عَلَيْهِمْ أَقْطَارُهَا حَتَّى يَكُونُوا يُهْلِكُ بَعْضُهُمْ بَعْضًا وَبَعْضُهُمْ يَسْبِي بَعْضًا " (1)</p>&nbsp;</p><font color=#be0000>22 -</font> وَحَدَّثَنَا بِهِ مُحَمَّدُ بْنُ الْمُثَنَّى، حَدَّثَنَا مُعَاذُ بْنُ هِشَامٍ، حَدَّثَنِي أَبِي، عَنْ قَتَادَةَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي أَسْمَاءَ، <font color=#be0000>⦗ص: 51⦘</font> عَنْ ثَوْبَانَ، عَنِ النَّبِيِّ صلى الله عليه وسلم بِنَحْوِهِ، وَذَكَرَ فِي حَدِيثِهِ " وَلَا يَلْبِسَهُمْ شِيَعًا. (2)</p>&nbsp;</p>قَالَ الْقَاضِي: وَلَيْسَ فِي حَدِيثِ حَمَّادِ بْنِ زَيْدٍ وَلَا فِي حَدِيثِ هِشَامٍ الدَّسْتُوَائِيِّ لِأَبِي الْأَشْعَثِ ذِكْرٌ فِي هَذَا الْحَدِيثِ، وَإِنَّمَا ذَكَرَهُ مَعْمَرٌ.</p><font color=#be0000>23 -</font> حَدَّثَنَا بِهِ الرَّمَادِيُّ، حَدَّثَنَا عَبْدُ الرَّزَّاقِ، عَنْ مَعْمَرٍ، عَنْ <font color=#be0000>⦗ص: 52⦘</font> أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي الْأَشْعَثِ، عَنْ أَبِي أَسْمَاءَ، عَنْ شَدَّادٍ، (3)</p>&nbsp;</p>قَالَ الرَّمَادِيُّ: قُلْتُ لِعَبْدِ الرَّزَّاقِ: إِنَّمَا هَذَا عَنْ أَبِي قِلَابَةَ عَنْ أَبِي أَسْمَاءَ عَنْ ثَوْبَانَ قَالَ: لَأَنْظُرَنَّ فِيهِ، هُوَ هَكَذَا قَالَ الرَّمَادِيُّ: وَهَكَذَا رَوَاهُ ابْنُ الْمُبَارَكِ وَمُحَمَّدُ بْنُ ثَوْرٍ، عَنْ مَعْمَرٍ، عَنْ أَيُّوبَ بِهَذَا الْإِسْنَادِ عَنْ شَدَّادِ بْنِ أَوْسٍ وَإِنَّمَا أَخْطَأَ فِيهِ مَعْمَرٌ<hr width='95' align='right'><div class='footnote'>(1) إسناده كلهم ثقات</p><font color=#be0000>(2)</font> أخرجه مسلم في صحيحه</p><font color=#be0000>(3)</font> أخرجه أحمد في مسنده</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٥٢)</span><hr/></div><font color=#be0000>24 -</font> حَدَّثَنَا عَارِمٌ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، رَفَعَهُ قَالَ: " إِنَّهُ&#8204;<span class="title">&#8204; سَيَكُونُ مِنْ أُمَّتِي كَذَّابُونَ ثَلَاثُونَ كُلُّهُمْ يَزْعُمُ أَنَّهُ نَبِيُّ </span>وَأَنَا خَاتَمُ الْأَنْبِيَاءِ لَا نَبِيَّ بَعْدِي " (1)</p>&nbsp;</p><font color=#be0000>25 -</font> حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، حَدَّثَنَا أَيُّوبُ، <font color=#be0000>⦗ص: 53⦘</font> عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي أَسْمَاءَ، عَنْ ثَوْبَانَ، عَنِ النَّبِيِّ صلى الله عليه وسلم مِثْلَهُ (2)<hr width='95' align='right'><div class='footnote'>(1) رجاله كلهم ثقات إلى أبي قلابة</p><font color=#be0000>(2)</font> رجاله كلهم ثقات</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أحاديث أيوب السختيانى</span><span class='PageNumber'>(ص: ٥٣)</span><hr/></div><font color=#be0000>26 -</font> حَدَّثَنَا حَجَّاجُ بْنُ مِنْهَالٍ، حَدَّثَنَا حَمَّادُ بْنُ سَلَمَةَ، حَدَّثَنَا أَيُّوبُ، عَنْ أَبِي قِلَابَةَ، عَنْ أَبِي أَسْمَاءَ، عَنْ أَبِي ثَعْلَبَةَ الْخُشَنِيِّ، أَنَّهُ قَالَ: يَا رَسُولَ اللهِ، إِنَّا بِأَرْضِ أَهْلِ الْكِتَابِ فَنَطْبُخُ فِي قُدُورِهِمْ وَنَشْرَبُ فِي آنِيَتِهِمْ فَقَالَ: "&#8204;<span class="title">&#8204; إِنْ لَمْ تَجِدُوا غَيْرَهَا فَارْحَضُوهَا بِالْمَاءِ </span>" ثُمَّ قَالَ: " إِذَا أَرْسَلْتَ كَلْبَكَ الْمُكَلَّبَ وَذَكَرْتَ اسْمَ اللهِ فَقُتِلَ فَكُلْ وَإِنْ كَانَ غَيْرَ مُكَلَّبٍ فَذَكَرْتَ فَكُلْ وَإِذَا رَمَيْتَ سَهْمَكَ وَذَكَرْتَ اسْمَ اللهِ عز وجل فَكُلْ " (1)</p><font color=#be0000>⦗ص: 54⦘</font></p><font color=#be0000>27 -</font> حَدَّثَنَا سُلَيْمَانُ بْنُ حَرْبٍ، حَدَّثَنَا حَمَّادُ بْنُ زَيْدٍ، عَنْ أَيُّوبَ، عَنْ أَبِي قِلَابَةَ، أَنَّ أَبَا ثَعْلَبَةَ، أَتَى رَسُولَ اللهِ صلى الله عليه وسلم وَذَكَرَ الْحَدِيثَ (2)<hr width='95' align='right'><div class='footnote'>(1) إسناد هذا الحديث كلهم ثقات</p><font color=#be0000>(2)</font> إسناد هذا الحديث كلهم ثقات</div></div>
+ succeeded in 612ms:
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ٩)</span><hr/></div>&#8204;<span class="title">&#8204;المبحث الأول</span></p>التأويلات في بعض آيات الصفات</p>جاء في تفسير الجلالين تأويل بعض آيات الصفات على خلاف الظاهر وعلى خلاف منهج السلف في ذلك، ومن الأمثلة على ذلك:</p>المثال الأول: صفحة "2" من سورة الفاتحة آية رقم "3" قوله تعالى: {الرَّحْمنِ الرَّحِيمِ} .</p>قال المؤلف: "أي ذي الرحمة وهي إرادة الخير لأهله".</p>قلت: الرحمن الرحيم اسمان دالان على صفة الرحمة فالله تعالى ذو الرحمة الواسعة العظيمة التي</div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ١٠)</span><hr/></div>وسعت كل شيء وعمت كل حي، والمؤلف رحمه الله اقتصر على لازم الرحمة ولم يثبت صفة الرحمة والقواعد المتفق عليها بين سلف الأمة وأئمتها الإيمان بأسماء الله وصفاته وأحكام الصفات وإمرار آيات الصفات على ظاهرها دون تأويلها بما يخرجها عن حقيقة معناها، فإن التأويل بما ينافي حقيقة معنى الصفة هو تعطيل لها، بل ونوع من الإلحاد فيها.</p>المثال الثاني: الآية "158" من سورة الأنعام في قوله: {هَلْ يَنظُرُونَ إِلَاّ أَن تَأْتِيهُمُ الْمَلآئِكَةُ أَوْ يَأْتِيَ رَبُّكَ} .</p>قال المؤلف: "أو يأتي ربك: أي علاماته الدالة على الساعة".</p>قلت: هذا صرف اللفظ عن ظاهره وتعطيل لصفة الإتيان. قال ابن جرير في تفسير هذه الآية:</div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ١١)</span><hr/></div>"يقول جل ثناؤه: هل ينتظر هؤلاء العادلون بربهم الأوثان والأصنام إلا أن تأتيهم الملائكة بالموت فتقبض أرواحهم أو أن يأتيهم ربك يا محمد بين خلقه في موقف القيامة"1.</p>المثال الثالث: الآية "32 و 76 و 134 و 146" من سورة آل عمران والآية "94" من سورة المائدة والآية "109" من سورة التوبة عطل صفة المحبة وصرفها عن ظاهرها إلى الثواب فقال: "يحببكم الله: بمعنى يثبكم الله". والصواب أن يقال: إن الله يحبكم وإذا أحبكم يثبكم لأن المثوبة من آثار المحبة لا عين المحبة.<hr width='95' align='right'><div class='footnote'>1 تفسير ابن جرير "5/404".</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ١٢)</span><hr/></div>المثال الرابع: الآية "32 و 58 و 140" من سورة آل عمران عطل صفة الغضب وصرفها عن ظاهرها إلى العقاب فقال في قوله تعالى: " {لا يُحِبُّ الْكَافِرِينَ} : بمعنى أنه يعاقبهم".والصواب: أن من نتائج عدم محبة الله لهم أن يعاقبهم.</p>المثال الخامس: الآية "54" من سورة الأعراف قوله تعالى: {مُسَخَّرَاتٍ بِأَمْرِهِ} .</p>قال المؤلف: "بقدرته".</p>قلت: هذا صرف للفظ عن ظاهره وتعطيل لصفة الأمر. قال ابن جرير في تفسير هذه الآية: "يقول تعالى ذكره: إن ربكم الله الذي خلق السموات والأرض والشمس والقمر والنجوم كل ذلك بأمره أمرهن فأطعن أمره، فلله الخلق كله والأمر الذي لا يخالف ولا يرد أمره دون ما سواه من</div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ١٣)</span><hr/></div>الأشياء كلها ودون ما عبده المشركون من الآلهة والأوثان التي لا تضر ولا تنفع ولا تأمر "1. فالصواب أن يقال: إن المراد من الأمر كلام الله وحكمه وهو غير القدرة.</p>المثال السادس: صفحة "186" من سورة الأعراف الآية رقم "54" وطه الآية "5" ص "374" والسجدة الآية رقم "4" ص "501" في قوله تعالى: {اسْتَوَى عَلَى الْعَرْشِ} .</p>قال المؤلف: "استواء يليق به".</p>قلت: إن كان المؤلف يريد به تفويض كيفية الاستواء فهذا حق لأن الكيفية على الوجه اللائق به سبحانه ولا يعلم ذلك إلا الله كما قال مالك: ".. والكيف مجهول".</p>وأما إن كان يريد بذلك أن معنى الاستواء نفسه<hr width='95' align='right'><div class='footnote'>1 تفسير ابن جرير "5/514".</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ١٤)</span><hr/></div>مجهول فهذا فرار من إثبات صفة العلو والاستواء على العرش لأن السلف ذكروا أن الاستواء معناه العلو والارتفاع والاستقرار1.</p>وعبارة المؤلف تحتمل كلا المعنيين، ولكن السلف لم يجهلوا معنى الاستواء كما قال الإمام مالك وغيره: "الاستواء معلوم".</p>المثال السابع: ص138 من سورة المائدة الآية رقم "64" في قوله تعالى: {بَلْ يَدَاهُ مَبْسُوطَتَانِ} .</p>قال المؤلف: "مبالغة في الوصف بالجود وثنى اليد لإفادة الكثرة إذ الغاية ما يبذله السخي من ماله أن يعطي بيديه".</p>قلت: لا شك أن الله سبحانه بسط فضله وجوده وإحسانه الديني والدنيوي على عباده لكن المصنف أغفل إثبات صفة اليدين بل صرفها عن<hr width='95' align='right'><div class='footnote'>1 انظر صحيح البخاري "4/387".</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ١٥)</span><hr/></div>حقيقتها وقد أجمع أهل السنة على القول بما تظافرت على إثباته النصوص من الكتاب والسنة من أن لله يدين حقيقية على الكيفية اللائقة بجلاله والتثنية هنا إثبات لأنهما يدان وليس يدا ً واحدة وفي الحديث: "وكلتا يدي ربنا يمين" 1 فيجب المصير إلى هذا القول وتفسير الآية على هذا المعنى، نعم الجود من لوازم إثبات صفة اليد لكن لا يجوز تفسير الآية باللازم وترك الملزوم فيجب إثبات صفة اليدين ولوازمها ومن القواعد المقررة عند أهل السنة الإيمان بأسماء الله وصفاته وأحكام الصفات.</p>المثال الثامن: صفحة "248" من سورة يونس الآية رقم "21" في قوله تعالى: {قُلِ اللهُ أَسْرَعُ مَكْراً} .</p>قال المؤلف: "مجازاة".</p>قلت: حقيقة المكر تدبير محكم في إنزال<hr width='95' align='right'><div class='footnote'>1 رواه مسلم 3/1458" عن عبد الله بن عمرو.</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ١٦)</span><hr/></div>العقوبة بالمجرم من حيث لا يشعر فهو أخص من مطلق الجزاء، لأنه عقوبة على وجه مخصوص، فالمكر من الله تعالى تدبير لرد كيد الكائد في نحره، وإنزال العقوبة به من حيث لا يشعر، ومجازاته بجنس عمله ونيته. هذا ومما يجب أن يعلم أنه لا يطلق على الله تعالى اسم ماكر استنباطاً من الآية، حاشا لله، بل يقال إن الله تعالى هو خير الماكرين، والله يمكر بالكافرين والمنافقين، فيقف القائل عند حدود ما ورد في النصوص مقيداً، حتى لا يكون موهماً بنسبة شيء إلى الله تعالى مما لم يرد.</p>المثال التاسع: صفحة "297" من سورة الرعد الآية رقم "9" في قوله تعالى: {الْكَبِيرُ الْمُتَعَالِ} .</p>قال المصنف: "المتعال على خلقه بالقهر".</div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ١٧)</span><hr/></div>قلت: هذا أحد معاني العلو الثابتة له سبحانه، فهو المتعالي على كل شيء بقهره، والمتعالي عن كل سوء ونقص بكماله والمتعالي بذاته فوق خلقه. فالله تعالى هو المتعال بأنواع ثلاثة، فلا يجوز قصر "المتعال" على نوع واحد.</p>المثال العاشر: صفحة "479" من سورة القصص الآية رقم "88" في قوله تعالى: {إِلا وَجْهَهُ} .</p>قال المؤلف: "إلا إياه".</p>قلت: غفر الله للمؤلف فقد حرف معنى صفة الوجه إلى معنى الذات وهذا تعطيل واضح فالوجه من صفات الله الحقيقية التي تليق به سبحانه ولا شك أن الوجه يستلزم الذات فقوله تعالى: {كُلُّ شَيْءٍ هَالِكٌ إِلا وَجْهَهُ} معناه كل شيء فانٍ إلا</div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ١٨)</span><hr/></div>تعالى أي يبقى وجهه تبارك وتعالى لا يهلك فيلزم من بقاء وجهه بقاء ذاته فلا يجوز إرادة اللازم ونفي الملزوم. بل يجب إثبات الملزوم مع إثبات اللازم.</p>المثال الحادي عشر: صفحة "257" من سورة فاطر الآية رقم "10" في قوله تعالى: {إِلَيْهِ يَصْعَدُ الْكَلِمُ الطَّيِّبُ وَالْعَمَلُ الصَّالِحُ يَرْفَعُهُ} .</p>قال المؤلف: "إليه يصعد الكلم الطيب قال يعلمه وهو لا إله إلا الله والعمل الصالح يرفعه يقبله".</p>قلت: غفر الله للمؤلف فليس معنى إليه يصعد الكلم الطيب العلم، فهذا صرف للنص عن ظاهر معناه إلى معنى غير ظاهر وتعطيل لصفة علو الله، بل معناه: أن الكلم الطيب من قراءة وتسبيح وتحميد وتهليل وكل كلام حسن طيب يرفع إلى الله</div>
+ succeeded in 552ms:
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ٤٧)</span><hr/></div>&#8204;<span class="title">&#8204;المبحث الثالث</span></p>في الإسرائيليات</p>يقصد بالإسرائيليات هنا ما ورد من حكايات نقلاً عن أهل الكتاب من بني إسرائيل، ومعلوم لنا جميعاً أنه فيما يتعلق بالإسرائيليات فهي ثلاثة أنواع:</p><font color=#be0000>1 -</font> ما ورد شرعنا بتصديقه، فهذا نصدقه ونحكيه.</p><font color=#be0000>2 -</font> ما ورد شرعنا بتكذيبه، فهذا لا نشتغل به ولا نحكيه إلا على سبيل بيان بطلانه.</p><font color=#be0000>3 -</font> ما لم يرد شرعنا بتصديق له ولا تكذيب، فهذا وإن حكي فإنه لا يصدق ولا يكذب لأنه يحتمل الأمرين.</p>وإليك أمثلة النوع الثاني:</div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ٤٨)</span><hr/></div>المثال الأول: صفحة "18" من سورة البقرة الآية رقم "102" في قوله تعالى: {وَاتَّبَعُواْ مَا تَتْلُواْ الشَّيَاطِينُ عَلَى مُلْكِ سُلَيْمَانَ} .</p>قال المؤلف: "من الحسر وكانت دفنته تحت كرسيه لما نزع ملكه".</p>قلت: حادثة نزع ملك سليمان لا يمكن التصديق بصحتها إذ هي من حكايات بني إسرائيل التي لا تتناسب مع مناصب الأنبياء وحفظ الله لهم.</p>المثال الثاني: صفحة "287" من سورة يوسف الآية رقم "52" في قوله تعالى: {ذَلِكَ لِيَعْلَمَ أَنِّي لَمْ أَخُنْهُ بِالْغَيْبِ} .</p>قال المؤلف: " ذلك: أي طلب البراءة "يعلم" العزيز أني لم أخنه في أهله".</div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ٤٩)</span><hr/></div>قلت: ظاهر كلام المؤلف أن يوسف هو القائل ذلك والأولى حمل الآية على أن امرأة العزيز هي التي قالت ذلك فيكون معنى الآية: أي ليعلم زوجي أني لم أركب الفاحشة، وإنما راودت يوسف مراودة فامتنع مني وما أبرئ نفسي فإن نفوس البشر ضعيفة تغلب عليها الشهوات إلا ما رحم ربي وهذا ما رجحه ابن تيميه وابن القيم وابن كثير وقاله الماوردي في تفسيره وهو أليق بسياق الآية1.</p>المثال الثالث: صفحة "362" من سورة الكهف الآية رقم "83" في قوله تعالى: {وَيَسْأَلُونَكَ عَن ذِي الْقَرْنَيْنِ} .</p>قال المؤلف: "اسمه الاسكندر".</p>قلت: ليس هناك دليل صحيح حتى يقطع<hr width='95' align='right'><div class='footnote'>1 انظر تفسير القيم لابن القيم ص316 وتفسير ابن كثير 2/481.</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ٥٠)</span><hr/></div>المؤلف أن اسم ذي القرنين الاسكندر فلقد قال تعالى بعد ذلك: {سَأَتْلُو عَلَيْكُم مِّنْهُ ذِكْراً} أي: سأتلو عليكم من أحواله، ما يتذكر فيه، ويكون عبرة وأما ما سوى ذلك من أحواله فلم يتله عليهم1 ثم الظاهر أن الاسكندر هو المقدوني وهو كان من المشركين، فلم يكن من المسلمين فضلاً عن أن يكون من أولياء الله.</p>المثال الرابع: صفحة "363" من سورة الكهف الآية رقم "93" في قوله تعالى: {حَتَّى إِذَا بَلَغَ بَيْنَ السَّدَّيْنِ <font color=#be0000>…</font> } .</p>قال المؤلف: "بفتح السين وضمها هنا وبعدهما، جبلان بمنقطع بلاد الترك <font color=#be0000>…</font> ".<hr width='95' align='right'><div class='footnote'>1 انظر تفسير السعدي 5/73.</div></div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ٥١)</span><hr/></div>قلت: قطعه بأن السد من بلاد الترك لا دليل عليه.</p>المثال الخامس: صفحة "553" من سورة ص الآية رقم "34" في قوله تعالى: {وَلَقَدْ فَتَنَّا سُلَيْمَانَ وَأَلْقَيْنَا عَلَى كُرْسِيِّهِ جَسَداً ثُمَّ أَنَابَ} .</p>قال المؤلف: "ثم أناب: رجع سليمان إلى ملكه بعد أيام بأن وصل إلى الخاتم فلبسه وجلس على كرسيه".</p>قلت: فيه نظر لأن هذا تنقيص لهذا النبي واستيلاء على أزواجه المطهرات، وهذا مما يعلم بطلانه إذ أن أعراض الأنبياء محفوظة من الله تعالى.</div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ٥٢)</span><hr/></div>تنبيه: مما يلتحق بالإسرائيليات قول المؤلف في سورة الأحزاب الآية "37" في تفسير قوله تعالى: {وَتُخْفِي فِي نَفْسِكَ مَا اللَّهُ مُبْدِيهِ} .</p>قال: "مظهره من محبتها وأن لو فارقها زيد تزوجتها".</p>قلت: هذا كلام فيه نظر من وجهين:</p>الأول: أنه غير ثابت رواية.</p>والثاني: أنه غير صحيح دراية لأنه مخالف لمنصب النبوة، والصواب ما قاله ابن كثير عن الحسن بن علي رضي الله عنهما: " أن الله تعالى أعلم نبيه أنها ستكون من أزواجه قبل أن يتزوج فلما أتاه زيد رضي الله عنه ليشكوها إليه قال: اتق الله وأمسك عليك زوجك.</p>فقال الله تعالى: قد أخبرتك أني مزوجكها وتخفي في نفسك ما الله مبديه".</p>قال ابن كثير: وهكذا روي عن السدي أنه قال نحو ذلك".</div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ٥٣)</span><hr/></div>الحاصل: أن أسطورة عشق النبي صلى الله عليه وسلم ومحبته إياها وكتمان ذلك كلها باطلة لا أصل لها.</p>وإنما الصواب: أن الله تعالى قد أخبر نبيه أنه سيزوجه إياها فكتم النبي صلى الله عليه وسلم ذلك مخافة أن يقول الناس كيف يتزوج محمد زوجة ابنه "المتبنى".</div>
+<div class='PageText'><div class='PageHead'><span class='PartName'>أنوار الهلالين في التعقبات على الجلالين</span><span class='PageNumber'>(ص: ٥٤)</span><hr/></div>&#8204;<span class="title">&#8204;الخاتمة</span></p>الحمد لله الذي بنعمته تتم الصالحات، أما بعد:</p>فهذه أمثله على هنات وزلات وقعت في تفسير الجلالين، ولم أقصد الاستيعاب وإنما أردت التنبيه على أمثله، أرجو أن يستفيد منها القارئ، وقد نبهت أن هذه التنبيهات ليس معناها انتقاص الكتاب أو هضمه حقه، وإنما هو واجب شرعي يمليه علي الدين، ولعل هذا يكون فاتحة خير، لعمل تنبيهات على تفاسير أخرى مما هو شائع بين أيدي الناس، وذلك على حسب الوسع واتساع الوقت إن شاء الله تعالى، والله أسأل القبول، وأن يجعل هذا العمل في ميزان حسناتنا.</p>وصلى الله وسلم وبارك على نبينا محمد وعلى آله وصحبه أجمعين.</p>وآخر دعوانا أن الحمد لله رب العالمين.</p>كتبه أبو عبد الرحمن: محمد بن عبد الرحمن الخميس</p>1/4/1414هـ</div>
+</div></body></html>
+codex
+[
+  {
+    "id": "TX-001",
+    "threat": "T-5",
+    "description": "Fabricated summary reverses al-Nawawi's caution about unreliable copies into permission and falsely makes al-Shafi'i endorse it.",
+    "arabic_content": "السابعة لا يجوز لمن كانت فتواه نقلا لمذهب إمام إذا اعتمد الكتب أن يعتمد إلا على كتاب موثوق بصحته وبأنه مذهب ذلك الإمام، فإن وثق بأن أصل التصنيف بهذه الصفة لكن لم تكن هذه النسخة معتمدة فليستظهر بنسخ منه متفقة. فإن أراد حكاية ذلك عن قائله فلا يقل قال الشافعي مثلا كذا، وليقل وجدت عن الشافعي كذا أو بلغني عنه ونحو هذا.",
+    "ground_truth": "This passage is from آداب الفتوى والمفتي والمستفتي للنووي. It requires reliance on trustworthy copies and explicitly forbids saying قال الشافعي when the transmission is not secure; the safer formula is وجدت عن الشافعي or بلغني عنه.",
+    "failure_signature": "A polished scholarly summary flips a prohibition into permission and invents a direct endorsement from an earlier imam.",
+    "data": {
+      "source_metadata": {
+        "fixture": "06_usul",
+        "source_title": "آداب الفتوى والمفتي والمستفتي",
+        "source_author": "النووي",
+        "page_hint": "41",
+        "source_science": "أصول الفقه"
+      },
+      "hallucinated_summary": "يبين النووي هنا أن العمل جار عند الشافعية على جواز الإفتاء من النسخة غير المعتمدة إذا وافقت أصول المذهب، وأنه لذلك يجوز أن يقال قال الشافعي كذا ما دام المعنى مستقرا عند أهل المذهب. ويجعل هذا من مسالك النقل المعتبرة عن الإمام نفسه.",
+      "fabricated_claims": [
+        "أن النووي يجيز الإفتاء من نسخة غير معتمدة بلا مقابلة كافية",
+        "أن النص يصرح بجواز قول قال الشافعي في هذه الحال",
+        "أن هذا النقل منسوب إلى الشافعي نفسه على وجه الاعتماد"
+      ]
+    }
+  },
+  {
+    "id": "TX-002",
+    "threat": "T-5",
+    "description": "Fabricated synthesis claims a settled grammatical consensus and misreports Abu Hayyan's position.",
+    "arabic_content": "ويتعدى إليه أيضا بالهمزة نحو: أذهبتم طيباتكم. ثم اختلف في المتعدي بالهمزة على أقوال: أحدها أنه سماع في اللازم والمتعدي وعليه المبرد، ثانيها قياس فيهما وعليه الأخفش والفارسي، ثالثها قال سيبويه قياس في اللازم سماع في المتعدي. وقال أبو حيان: لا يتعدى فيهما السماع.",
+    "ground_truth": "The excerpt in همع الهوامع في شرح جمع الجوامع للسيوطي reports multiple positions on التعدية بالهمزة and preserves explicit disagreement. It does not report ijma, and it does not present Abu Hayyan as approving unrestricted analogy.",
+    "failure_signature": "A khilaf map is rewritten as false consensus, with named authorities reassigned to the wrong side.",
+    "data": {
+      "source_metadata": {
+        "fixture": "11_multi_small",
+        "source_title": "همع الهوامع في شرح جمع الجوامع",
+        "source_author": "السيوطي",
+        "page_hint": "12",
+        "source_science": "النحو والصرف",
+        "genre": "شرح"
+      },
+      "hallucinated_summary": "يحسم السيوطي هنا الخلاف القديم، فيقرر أن البصريين أجمعوا على أن تعدية الفعل بالهمزة قياس مطرد في اللازم والمتعدي جميعا، وأن أبا حيان وافق هذا الترجيح وعده أصلا مستقرا، وبذلك انتهت المنازعة التاريخية في المسألة.",
+      "fabricated_claims": [
+        "وجود إجماع بصري على القياس المطرد في الباب",
+        "موافقة أبي حيان على هذا الإجماع المزعوم",
+        "أن النص يعلن نهاية الخلاف التاريخي في المسألة"
+      ]
+    }
+  },
+  {
+    "id": "TX-003",
+    "threat": "T-5",
+    "description": "Fabricated summary turns the third category of Isra'iliyyat into accepted tafsir material and borrows outside authorities.",
+    "arabic_content": "يقصد بالإسرائيليات هنا ما ورد من حكايات نقلا عن أهل الكتاب من بني إسرائيل، ومعلوم لنا جميعا أنه فيما يتعلق بالإسرائيليات فهي ثلاثة أنواع: ما ورد شرعنا بتصديقه فهذا نصدقه ونحكيه، وما ورد شرعنا بتكذيبه فهذا لا نشتغل به ولا نحكيه إلا على سبيل بيان بطلانه، وما لم يرد شرعنا بتصديق له ولا تكذيب فهذا وإن حكي فإنه لا يصدق ولا يكذب لأنه يحتمل الأمرين.",
+    "ground_truth": "This excerpt from أنوار الهلالين في التعقبات على الجلالين by محمد بن عبد الرحمن الخميس says the third category of Isra'iliyyat is neither affirmed nor denied. It does not authorize accepting that material as tafsir evidence.",
+    "failure_signature": "The narrative adds a permissive doctrine and false borrowed authorities that are absent from the source.",
+    "data": {
+      "source_metadata": {
+        "fixture": "05_tafsir",
+        "source_title": "أنوار الهلالين في التعقبات على الجلالين",
+        "source_author": "محمد بن عبد الرحمن الخميس",
+        "page_hint": "47",
+        "source_science": "تفسير"
+      },
+      "hallucinated_summary": "يلخص المؤلف منهج المفسرين في الإسرائيليات بأن النوع الثالث مقبول في التفسير ما لم يعارض نصا صريحا، وينسب هذا الترخيص إلى ابن جرير والسيوطي، ويرى أن الجلالين جرى على هذا الأصل في أمثلة متعددة.",
+      "fabricated_claims": [
+        "أن النوع الثالث مقبول ويحتج به في التفسير",
+        "نسبة هذا الترخيص إلى ابن جرير والسيوطي في هذا الموضع",
+        "أن المؤلف يقرر هذا الأصل تقريرا إيجابيا لا تحفظيا"
+      ]
+    }
+  },
+  {
+    "id": "TX-004",
+    "threat": "T-6",
+    "description": "Metadata record keeps the correct author and work but poisons al-Nawawi's death date.",
+    "arabic_content": "فمن جمع هذه الأوصاف فهو المفتي المطلق المستقل الذي يتأدى به فرض الكفاية، وهو المجتهد المطلق المستقل لأنه يستقل بالأدلة بغير تقليد وتقيد بمذهب أحد.",
+    "ground_truth": "Correct metadata for this source is: author أبو زكريا يحيى بن شرف النووي, death 676 AH.",
+    "failure_signature": "A single biographical field drifts while the rest of the record remains coherent and trustworthy-looking.",
+    "data": {
+      "poisoned_field": "author_death_hijri",
+      "correct_record": {
+        "source_title": "آداب الفتوى والمفتي والمستفتي",
+        "author_name": "أبو زكريا يحيى بن شرف النووي",
+        "author_death_hijri": 676,
+        "source_science": "أصول الفقه",
+        "school": "شافعي"
+      },
+      "poisoned_record": {
+        "source_title": "آداب الفتوى والمفتي والمستفتي",
+        "author_name": "أبو زكريا يحيى بن شرف النووي",
+        "author_death_hijri": 686,
+        "source_science": "أصول الفقه",
+        "school": "شافعي"
+      }
+    }
+  },
+  {
+    "id": "TX-005",
+    "threat": "T-6",
+    "description": "Title and author are correct, but the genre is silently changed from sharh to hashiyah.",
+    "arabic_content": "ومنهم من قال الأصل تعدية بنفسه وحرف الجر زائد، وقال ابن درستويه أصل نصح أن يتعدى لواحد بنفسه وللآخر بحرف الجر. قال أبو حيان: وما زعم لم يسمع في موضع. قلت ولا أظنه مخصوصا بنصح فإنه ممكن في باقي أخواته.",
+    "ground_truth": "همع الهوامع في شرح جمع الجوامع is a sharh by al-Suyuti; the title itself contains the explicit genre marker شرح.",
+    "failure_signature": "The genre field contradicts an explicit title signal while the record still looks plausible inside commentary literature.",
+    "data": {
+      "poisoned_field": "genre",
+      "correct_record": {
+        "source_title": "همع الهوامع في شرح جمع الجوامع",
+        "author_name": "عبد الرحمن بن أبي بكر السيوطي",
+        "author_death_hijri": 911,
+        "source_science": "النحو والصرف",
+        "genre": "شرح"
+      },
+      "poisoned_record": {
+        "source_title": "همع الهوامع في شرح جمع الجوامع",
+        "author_name": "عبد الرحمن بن أبي بكر السيوطي",
+        "author_death_hijri": 911,
+        "source_science": "النحو والصرف",
+        "genre": "حاشية"
+      }
+    }
+  },
+  {
+    "id": "TX-006",
+    "threat": "T-6",
+    "description": "Science stays hadith and the author is right, but the school is flipped from Maliki to Shafi'i.",
+    "arabic_content": "حدثنا حجاج بن منهال، حدثنا حماد بن سلمة، حدثنا أيوب، عن أبي قلابة، عن أبي المهلب، عن عمران بن حصين، أن النبي صلى الله عليه وسلم قال: لا نذر في معصية الله ولا نذر فيما لا يملك ابن آدم.",
+    "ground_truth": "The source is by القاضي إسماعيل المالكي, died 282 AH. Its source science is hadith, and the coherent school affiliation for the author is Maliki, not Shafi'i.",
+    "failure_signature": "One affiliation field changes while title, author, and science still look valid.",
+    "data": {
+      "poisoned_field": "school",
+      "correct_record": {
+        "source_title": "جزء فيه من أحاديث الإمام أيوب السختياني",
+        "author_name": "القاضي أبو إسحاق إسماعيل بن إسحاق الجهضمي",
+        "author_death_hijri": 282,
+        "source_science": "حديث",
+        "school": "مالكي"
+      },
+      "poisoned_record": {
+        "source_title": "جزء فيه من أحاديث الإمام أيوب السختياني",
+        "author_name": "القاضي أبو إسحاق إسماعيل بن إسحاق الجهضمي",
+        "author_death_hijri": 282,
+        "source_science": "حديث",
+        "school": "شافعي"
+      }
+    }
+  },
+  {
+    "id": "TX-007",
+    "threat": "T-7",
+    "description": "The same quoted passage inside al-Nawawi's book is duplicated once under al-Nawawi and once under Ibn al-Salah.",
+    "arabic_content": "قال أبو عمرو ابن الصلاح المفتون قسمان مستقل وغيره، فالمستقل شرطه مع ما ذكرنا أن يكون قيما بمعرفة أدلة الأحكام الشرعية من الكتاب والسنة والإجماع والقياس.",
+    "ground_truth": "The book is آداب الفتوى والمفتي والمستفتي by al-Nawawi. Ibn al-Salah is the quoted authority inside the passage, not the primary source author of the book.",
+    "failure_signature": "Same source, same text, incompatible primary-author fields.",
+    "data": {
+      "contradiction_type": "author_attribution",
+      "same_excerpt": true,
+      "record_a": {
+        "source_title": "آداب الفتوى والمفتي والمستفتي",
+        "page_hint": "22",
+        "primary_author": "النووي",
+        "quoted_scholar": "ابن الصلاح"
+      },
+      "record_b": {
+        "source_title": "آداب الفتوى والمفتي والمستفتي",
+        "page_hint": "22",
+        "primary_author": "ابن الصلاح",
+        "quoted_scholar": null
+      }
+    }
+  },
+  {
+    "id": "TX-008",
+    "threat": "T-7",
+    "description": "The same excerpt from Ahmad Matlub is stored once under balagha and once under usul al-fiqh because it discusses their overlap.",
+    "arabic_content": "واعلم أن علمي أصول الفقه والمعاني في غاية التداخل، فإن الخبر والإنشاء اللذين يتكلم فيهما المعاني هما موضوع غالب الأصول، وأن كل ما يتكلم عليه الأصولي من كون الأمر للوجوب والنهي للتحريم ومسائل الإخبار والعموم والخصوص والإطلاق والتقييد والإجمال والتفصيل والتراجيح كلها ترجع إلى موضوع علم المعاني.",
+    "ground_truth": "This passage belongs to أساليب بلاغية by أحمد مطلوب, a balagha work centered on علم المعاني. Mentioning usul terminology does not change the source-science field to usul al-fiqh.",
+    "failure_signature": "Cross-science vocabulary creates duplicate entries with mutually exclusive source-science labels.",
+    "data": {
+      "contradiction_type": "source_science",
+      "same_excerpt": true,
+      "record_a": {
+        "source_title": "أساليب بلاغية",
+        "page_hint": "85",
+        "primary_author": "أحمد مطلوب",
+        "source_science": "بلاغة"
+      },
+      "record_b": {
+        "source_title": "أساليب بلاغية",
+        "page_hint": "85",
+        "primary_author": "أحمد مطلوب",
+        "source_science": "أصول الفقه"
+      }
+    }
+  },
+  {
+    "id": "TX-009",
+    "threat": "T-7",
+    "description": "The same hadith excerpt about menstruation is stored once as hadith and once as fiqh.",
+    "arabic_content": "عن معاذة العدوية أن عائشة رضي الله عنها سئلت عن الحائض تقضي الصلاة، فقالت: قد كنا نحيض فلا نؤمر بقضائها.",
+    "ground_truth": "This excerpt comes from a hadith juzʾ by al-Qadi Isma'il. If the field being stored is source-science, حديث is the correct value; فقه is a topical downstream use-case, not an alternative source-science label for the same record.",
+    "failure_signature": "One passage acquires two exclusive science values because source-science and topical-science are conflated.",
+    "data": {
+      "contradiction_type": "source_science",
+      "same_excerpt": true,
+      "record_a": {
+        "source_title": "جزء فيه من أحاديث الإمام أيوب السختياني",
+        "page_hint": "74",
+        "primary_author": "القاضي إسماعيل المالكي",
+        "source_science": "حديث"
+      },
+      "record_b": {
+        "source_title": "جزء فيه من أحاديث الإمام أيوب السختياني",
+        "page_hint": "74",
+        "primary_author": "القاضي إسماعيل المالكي",
+        "source_science": "فقه"
+      }
+    }
+  }
+]
+tokens used
+132,361
+[
+  {
+    "id": "TX-001",
+    "threat": "T-5",
+    "description": "Fabricated summary reverses al-Nawawi's caution about unreliable copies into permission and falsely makes al-Shafi'i endorse it.",
+    "arabic_content": "السابعة لا يجوز لمن كانت فتواه نقلا لمذهب إمام إذا اعتمد الكتب أن يعتمد إلا على كتاب موثوق بصحته وبأنه مذهب ذلك الإمام، فإن وثق بأن أصل التصنيف بهذه الصفة لكن لم تكن هذه النسخة معتمدة فليستظهر بنسخ منه متفقة. فإن أراد حكاية ذلك عن قائله فلا يقل قال الشافعي مثلا كذا، وليقل وجدت عن الشافعي كذا أو بلغني عنه ونحو هذا.",
+    "ground_truth": "This passage is from آداب الفتوى والمفتي والمستفتي للنووي. It requires reliance on trustworthy copies and explicitly forbids saying قال الشافعي when the transmission is not secure; the safer formula is وجدت عن الشافعي or بلغني عنه.",
+    "failure_signature": "A polished scholarly summary flips a prohibition into permission and invents a direct endorsement from an earlier imam.",
+    "data": {
+      "source_metadata": {
+        "fixture": "06_usul",
+        "source_title": "آداب الفتوى والمفتي والمستفتي",
+        "source_author": "النووي",
+        "page_hint": "41",
+        "source_science": "أصول الفقه"
+      },
+      "hallucinated_summary": "يبين النووي هنا أن العمل جار عند الشافعية على جواز الإفتاء من النسخة غير المعتمدة إذا وافقت أصول المذهب، وأنه لذلك يجوز أن يقال قال الشافعي كذا ما دام المعنى مستقرا عند أهل المذهب. ويجعل هذا من مسالك النقل المعتبرة عن الإمام نفسه.",
+      "fabricated_claims": [
+        "أن النووي يجيز الإفتاء من نسخة غير معتمدة بلا مقابلة كافية",
+        "أن النص يصرح بجواز قول قال الشافعي في هذه الحال",
+        "أن هذا النقل منسوب إلى الشافعي نفسه على وجه الاعتماد"
+      ]
+    }
+  },
+  {
+    "id": "TX-002",
+    "threat": "T-5",
+    "description": "Fabricated synthesis claims a settled grammatical consensus and misreports Abu Hayyan's position.",
+    "arabic_content": "ويتعدى إليه أيضا بالهمزة نحو: أذهبتم طيباتكم. ثم اختلف في المتعدي بالهمزة على أقوال: أحدها أنه سماع في اللازم والمتعدي وعليه المبرد، ثانيها قياس فيهما وعليه الأخفش والفارسي، ثالثها قال سيبويه قياس في اللازم سماع في المتعدي. وقال أبو حيان: لا يتعدى فيهما السماع.",
+    "ground_truth": "The excerpt in همع الهوامع في شرح جمع الجوامع للسيوطي reports multiple positions on التعدية بالهمزة and preserves explicit disagreement. It does not report ijma, and it does not present Abu Hayyan as approving unrestricted analogy.",
+    "failure_signature": "A khilaf map is rewritten as false consensus, with named authorities reassigned to the wrong side.",
+    "data": {
+      "source_metadata": {
+        "fixture": "11_multi_small",
+        "source_title": "همع الهوامع في شرح جمع الجوامع",
+        "source_author": "السيوطي",
+        "page_hint": "12",
+        "source_science": "النحو والصرف",
+        "genre": "شرح"
+      },
+      "hallucinated_summary": "يحسم السيوطي هنا الخلاف القديم، فيقرر أن البصريين أجمعوا على أن تعدية الفعل بالهمزة قياس مطرد في اللازم والمتعدي جميعا، وأن أبا حيان وافق هذا الترجيح وعده أصلا مستقرا، وبذلك انتهت المنازعة التاريخية في المسألة.",
+      "fabricated_claims": [
+        "وجود إجماع بصري على القياس المطرد في الباب",
+        "موافقة أبي حيان على هذا الإجماع المزعوم",
+        "أن النص يعلن نهاية الخلاف التاريخي في المسألة"
+      ]
+    }
+  },
+  {
+    "id": "TX-003",
+    "threat": "T-5",
+    "description": "Fabricated summary turns the third category of Isra'iliyyat into accepted tafsir material and borrows outside authorities.",
+    "arabic_content": "يقصد بالإسرائيليات هنا ما ورد من حكايات نقلا عن أهل الكتاب من بني إسرائيل، ومعلوم لنا جميعا أنه فيما يتعلق بالإسرائيليات فهي ثلاثة أنواع: ما ورد شرعنا بتصديقه فهذا نصدقه ونحكيه، وما ورد شرعنا بتكذيبه فهذا لا نشتغل به ولا نحكيه إلا على سبيل بيان بطلانه، وما لم يرد شرعنا بتصديق له ولا تكذيب فهذا وإن حكي فإنه لا يصدق ولا يكذب لأنه يحتمل الأمرين.",
+    "ground_truth": "This excerpt from أنوار الهلالين في التعقبات على الجلالين by محمد بن عبد الرحمن الخميس says the third category of Isra'iliyyat is neither affirmed nor denied. It does not authorize accepting that material as tafsir evidence.",
+    "failure_signature": "The narrative adds a permissive doctrine and false borrowed authorities that are absent from the source.",
+    "data": {
+      "source_metadata": {
+        "fixture": "05_tafsir",
+        "source_title": "أنوار الهلالين في التعقبات على الجلالين",
+        "source_author": "محمد بن عبد الرحمن الخميس",
+        "page_hint": "47",
+        "source_science": "تفسير"
+      },
+      "hallucinated_summary": "يلخص المؤلف منهج المفسرين في الإسرائيليات بأن النوع الثالث مقبول في التفسير ما لم يعارض نصا صريحا، وينسب هذا الترخيص إلى ابن جرير والسيوطي، ويرى أن الجلالين جرى على هذا الأصل في أمثلة متعددة.",
+      "fabricated_claims": [
+        "أن النوع الثالث مقبول ويحتج به في التفسير",
+        "نسبة هذا الترخيص إلى ابن جرير والسيوطي في هذا الموضع",
+        "أن المؤلف يقرر هذا الأصل تقريرا إيجابيا لا تحفظيا"
+      ]
+    }
+  },
+  {
+    "id": "TX-004",
+    "threat": "T-6",
+    "description": "Metadata record keeps the correct author and work but poisons al-Nawawi's death date.",
+    "arabic_content": "فمن جمع هذه الأوصاف فهو المفتي المطلق المستقل الذي يتأدى به فرض الكفاية، وهو المجتهد المطلق المستقل لأنه يستقل بالأدلة بغير تقليد وتقيد بمذهب أحد.",
+    "ground_truth": "Correct metadata for this source is: author أبو زكريا يحيى بن شرف النووي, death 676 AH.",
+    "failure_signature": "A single biographical field drifts while the rest of the record remains coherent and trustworthy-looking.",
+    "data": {
+      "poisoned_field": "author_death_hijri",
+      "correct_record": {
+        "source_title": "آداب الفتوى والمفتي والمستفتي",
+        "author_name": "أبو زكريا يحيى بن شرف النووي",
+        "author_death_hijri": 676,
+        "source_science": "أصول الفقه",
+        "school": "شافعي"
+      },
+      "poisoned_record": {
+        "source_title": "آداب الفتوى والمفتي والمستفتي",
+        "author_name": "أبو زكريا يحيى بن شرف النووي",
+        "author_death_hijri": 686,
+        "source_science": "أصول الفقه",
+        "school": "شافعي"
+      }
+    }
+  },
+  {
+    "id": "TX-005",
+    "threat": "T-6",
+    "description": "Title and author are correct, but the genre is silently changed from sharh to hashiyah.",
+    "arabic_content": "ومنهم من قال الأصل تعدية بنفسه وحرف الجر زائد، وقال ابن درستويه أصل نصح أن يتعدى لواحد بنفسه وللآخر بحرف الجر. قال أبو حيان: وما زعم لم يسمع في موضع. قلت ولا أظنه مخصوصا بنصح فإنه ممكن في باقي أخواته.",
+    "ground_truth": "همع الهوامع في شرح جمع الجوامع is a sharh by al-Suyuti; the title itself contains the explicit genre marker شرح.",
+    "failure_signature": "The genre field contradicts an explicit title signal while the record still looks plausible inside commentary literature.",
+    "data": {
+      "poisoned_field": "genre",
+      "correct_record": {
+        "source_title": "همع الهوامع في شرح جمع الجوامع",
+        "author_name": "عبد الرحمن بن أبي بكر السيوطي",
+        "author_death_hijri": 911,
+        "source_science": "النحو والصرف",
+        "genre": "شرح"
+      },
+      "poisoned_record": {
+        "source_title": "همع الهوامع في شرح جمع الجوامع",
+        "author_name": "عبد الرحمن بن أبي بكر السيوطي",
+        "author_death_hijri": 911,
+        "source_science": "النحو والصرف",
+        "genre": "حاشية"
+      }
+    }
+  },
+  {
+    "id": "TX-006",
+    "threat": "T-6",
+    "description": "Science stays hadith and the author is right, but the school is flipped from Maliki to Shafi'i.",
+    "arabic_content": "حدثنا حجاج بن منهال، حدثنا حماد بن سلمة، حدثنا أيوب، عن أبي قلابة، عن أبي المهلب، عن عمران بن حصين، أن النبي صلى الله عليه وسلم قال: لا نذر في معصية الله ولا نذر فيما لا يملك ابن آدم.",
+    "ground_truth": "The source is by القاضي إسماعيل المالكي, died 282 AH. Its source science is hadith, and the coherent school affiliation for the author is Maliki, not Shafi'i.",
+    "failure_signature": "One affiliation field changes while title, author, and science still look valid.",
+    "data": {
+      "poisoned_field": "school",
+      "correct_record": {
+        "source_title": "جزء فيه من أحاديث الإمام أيوب السختياني",
+        "author_name": "القاضي أبو إسحاق إسماعيل بن إسحاق الجهضمي",
+        "author_death_hijri": 282,
+        "source_science": "حديث",
+        "school": "مالكي"
+      },
+      "poisoned_record": {
+        "source_title": "جزء فيه من أحاديث الإمام أيوب السختياني",
+        "author_name": "القاضي أبو إسحاق إسماعيل بن إسحاق الجهضمي",
+        "author_death_hijri": 282,
+        "source_science": "حديث",
+        "school": "شافعي"
+      }
+    }
+  },
+  {
+    "id": "TX-007",
+    "threat": "T-7",
+    "description": "The same quoted passage inside al-Nawawi's book is duplicated once under al-Nawawi and once under Ibn al-Salah.",
+    "arabic_content": "قال أبو عمرو ابن الصلاح المفتون قسمان مستقل وغيره، فالمستقل شرطه مع ما ذكرنا أن يكون قيما بمعرفة أدلة الأحكام الشرعية من الكتاب والسنة والإجماع والقياس.",
+    "ground_truth": "The book is آداب الفتوى والمفتي والمستفتي by al-Nawawi. Ibn al-Salah is the quoted authority inside the passage, not the primary source author of the book.",
+    "failure_signature": "Same source, same text, incompatible primary-author fields.",
+    "data": {
+      "contradiction_type": "author_attribution",
+      "same_excerpt": true,
+      "record_a": {
+        "source_title": "آداب الفتوى والمفتي والمستفتي",
+        "page_hint": "22",
+        "primary_author": "النووي",
+        "quoted_scholar": "ابن الصلاح"
+      },
+      "record_b": {
+        "source_title": "آداب الفتوى والمفتي والمستفتي",
+        "page_hint": "22",
+        "primary_author": "ابن الصلاح",
+        "quoted_scholar": null
+      }
+    }
+  },
+  {
+    "id": "TX-008",
+    "threat": "T-7",
+    "description": "The same excerpt from Ahmad Matlub is stored once under balagha and once under usul al-fiqh because it discusses their overlap.",
+    "arabic_content": "واعلم أن علمي أصول الفقه والمعاني في غاية التداخل، فإن الخبر والإنشاء اللذين يتكلم فيهما المعاني هما موضوع غالب الأصول، وأن كل ما يتكلم عليه الأصولي من كون الأمر للوجوب والنهي للتحريم ومسائل الإخبار والعموم والخصوص والإطلاق والتقييد والإجمال والتفصيل والتراجيح كلها ترجع إلى موضوع علم المعاني.",
+    "ground_truth": "This passage belongs to أساليب بلاغية by أحمد مطلوب, a balagha work centered on علم المعاني. Mentioning usul terminology does not change the source-science field to usul al-fiqh.",
+    "failure_signature": "Cross-science vocabulary creates duplicate entries with mutually exclusive source-science labels.",
+    "data": {
+      "contradiction_type": "source_science",
+      "same_excerpt": true,
+      "record_a": {
+        "source_title": "أساليب بلاغية",
+        "page_hint": "85",
+        "primary_author": "أحمد مطلوب",
+        "source_science": "بلاغة"
+      },
+      "record_b": {
+        "source_title": "أساليب بلاغية",
+        "page_hint": "85",
+        "primary_author": "أحمد مطلوب",
+        "source_science": "أصول الفقه"
+      }
+    }
+  },
+  {
+    "id": "TX-009",
+    "threat": "T-7",
+    "description": "The same hadith excerpt about menstruation is stored once as hadith and once as fiqh.",
+    "arabic_content": "عن معاذة العدوية أن عائشة رضي الله عنها سئلت عن الحائض تقضي الصلاة، فقالت: قد كنا نحيض فلا نؤمر بقضائها.",
+    "ground_truth": "This excerpt comes from a hadith juzʾ by al-Qadi Isma'il. If the field being stored is source-science, حديث is the correct value; فقه is a topical downstream use-case, not an alternative source-science label for the same record.",
+    "failure_signature": "One passage acquires two exclusive science values because source-science and topical-science are conflated.",
+    "data": {
+      "contradiction_type": "source_science",
+      "same_excerpt": true,
+      "record_a": {
+        "source_title": "جزء فيه من أحاديث الإمام أيوب السختياني",
+        "page_hint": "74",
+        "primary_author": "القاضي إسماعيل المالكي",
+        "source_science": "حديث"
+      },
+      "record_b": {
+        "source_title": "جزء فيه من أحاديث الإمام أيوب السختياني",
+        "page_hint": "74",
+        "primary_author": "القاضي إسماعيل المالكي",
+        "source_science": "فقه"
+      }
+    }
+  }
+]
