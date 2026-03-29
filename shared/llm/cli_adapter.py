@@ -351,7 +351,7 @@ class _CompletionsNamespace:
         """Dispatch an LLM call to a CLI backend (SPEC §2.3, §3, §4)."""
         adapter = self._adapter
         backend = _resolve_backend(model, adapter._default_backend)
-        timeout_seconds: int = kwargs.get("timeout", 600)
+        timeout_seconds: int = kwargs.get("timeout", 180)
 
         # Ensure CLI tool is available (cached per backend)
         if backend not in adapter._tool_checked:
@@ -623,7 +623,7 @@ class _CompletionsNamespace:
             "-p", user_prompt,
             "--bare",
             "--no-session-persistence",
-            "--max-turns", "2",
+            "--max-turns", "1",
             "--output-format", "text",
             "--model", "opus",
             "--system-prompt", system_prompt,
