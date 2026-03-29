@@ -6,6 +6,7 @@ All 30 tests mock subprocess.run — no real CLI calls.
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -19,6 +20,9 @@ from shared.llm.cli_adapter import (
     CLIInstructorAdapter,
     CLIResponse,
     _CLIUsage,
+    _SETUP_TOKEN_PATH,
+    _extract_claude_result,
+    _get_oauth_token,
     extract_json,
     patch_additional_properties,
 )
@@ -877,3 +881,128 @@ def test_no_system_message_clean_prompt(
     assert system_prompt.startswith("OUTPUT FORMAT:"), (
         f"System prompt should start with 'OUTPUT FORMAT:', got: {system_prompt[:30]!r}"
     )
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Tests 35-39: _extract_claude_result (Bug 2 — envelope extraction)
+# ═══════════════════════════════════════════════════════════════════
+
+
+def test_extract_claude_result_array_format() -> None:
+    """Array envelope: extracts 'result' from the result-type element."""
+    model_text = '{"answer": "test", "confidence": 0.9}'
+    array_envelope = json.dumps([
+        {"type": "system", "subtype": "init", "message": "starting"},
+        {
+            "type": "result",
+            "subtype": "success",
+            "is_error": False,
+            "result": model_text,
+        },
+    ])
+    extracted = _extract_claude_result(array_envelope)
+    assert extracted == model_text
+
+
+def test_extract_claude_result_array_error() -> None:
+    """Array envelope with is_error=True raises CLIBackendError."""
+    array_envelope = json.dumps([
+        {"type": "system", "subtype": "init"},
+        {
+            "type": "result",
+            "subtype": "error",
+            "is_error": True,
+            "result": "Token expired",
+        },
+    ])
+    with pytest.raises(CLIBackendError, match="Token expired"):
+        _extract_claude_result(array_envelope)
+
+
+def test_extract_claude_result_array_no_result() -> None:
+    """Array with no result-type element returns raw stdout."""
+    raw = json.dumps([
+        {"type": "system", "subtype": "init"},
+        {"type": "progress", "message": "working"},
+    ])
+    assert _extract_claude_result(raw) == raw
+
+
+def test_extract_claude_result_raw_text() -> None:
+    """Non-JSON input returned unchanged."""
+    raw = "This is plain text, not JSON"
+    assert _extract_claude_result(raw) == raw
+
+
+def test_extract_claude_result_dict_format() -> None:
+    """Single dict envelope: extracts 'result' field (same as existing behavior)."""
+    model_text = '{"answer": "hello", "confidence": 0.7}'
+    envelope = json.dumps({
+        "type": "result",
+        "subtype": "success",
+        "is_error": False,
+        "result": model_text,
+        "usage": {"input_tokens": 100, "output_tokens": 50},
+    })
+    extracted = _extract_claude_result(envelope)
+    assert extracted == model_text
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Tests 40-42: Token priority (Bug 1 — OAuth token expiry)
+# ═══════════════════════════════════════════════════════════════════
+
+
+def test_token_priority_env_var(tmp_path: Path) -> None:
+    """KR_ANTHROPIC_TOKEN env var takes precedence over all other sources."""
+    # Create setup-token and credentials so we know env var wins
+    claude_dir = tmp_path / ".claude"
+    claude_dir.mkdir(parents=True)
+    (claude_dir / "kr_setup_token.txt").write_text("setup-token-val")
+    creds = {"claudeAiOauth": {"accessToken": "creds-token-val"}}
+    (claude_dir / ".credentials.json").write_text(json.dumps(creds))
+
+    with (
+        patch.dict(os.environ, {"KR_ANTHROPIC_TOKEN": "env-token-val"}),
+        patch("shared.llm.cli_adapter.Path.home", return_value=tmp_path),
+        patch("shared.llm.cli_adapter._SETUP_TOKEN_PATH", claude_dir / "kr_setup_token.txt"),
+    ):
+        token = _get_oauth_token()
+    assert token == "env-token-val"
+
+
+def test_token_priority_setup_token(tmp_path: Path) -> None:
+    """Setup-token used when env var is absent."""
+    claude_dir = tmp_path / ".claude"
+    claude_dir.mkdir(parents=True)
+    (claude_dir / "kr_setup_token.txt").write_text("setup-token-val")
+    creds = {"claudeAiOauth": {"accessToken": "creds-token-val"}}
+    (claude_dir / ".credentials.json").write_text(json.dumps(creds))
+
+    env = {k: v for k, v in os.environ.items() if k != "KR_ANTHROPIC_TOKEN"}
+    with (
+        patch.dict(os.environ, env, clear=True),
+        patch("shared.llm.cli_adapter.Path.home", return_value=tmp_path),
+        patch("shared.llm.cli_adapter._SETUP_TOKEN_PATH", claude_dir / "kr_setup_token.txt"),
+    ):
+        token = _get_oauth_token()
+    assert token == "setup-token-val"
+
+
+def test_token_priority_credentials_fallback(tmp_path: Path) -> None:
+    """Falls back to credentials.json when no env var or setup-token."""
+    claude_dir = tmp_path / ".claude"
+    claude_dir.mkdir(parents=True)
+    creds = {"claudeAiOauth": {"accessToken": "creds-token-val"}}
+    (claude_dir / ".credentials.json").write_text(json.dumps(creds))
+
+    # Point setup-token to a non-existent file
+    fake_token_path = tmp_path / "nonexistent" / "kr_setup_token.txt"
+    env = {k: v for k, v in os.environ.items() if k != "KR_ANTHROPIC_TOKEN"}
+    with (
+        patch.dict(os.environ, env, clear=True),
+        patch("shared.llm.cli_adapter.Path.home", return_value=tmp_path),
+        patch("shared.llm.cli_adapter._SETUP_TOKEN_PATH", fake_token_path),
+    ):
+        token = _get_oauth_token()
+    assert token == "creds-token-val"

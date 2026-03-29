@@ -93,13 +93,44 @@ class CLIResponse:
 # ═══════════════════════════════════════════════════════════════════
 
 
+_SETUP_TOKEN_PATH = Path.home() / ".claude" / "kr_setup_token.txt"
+
+
+def _get_setup_token() -> str | None:
+    """Read long-lived setup-token if available."""
+    if _SETUP_TOKEN_PATH.exists():
+        token = _SETUP_TOKEN_PATH.read_text(encoding="utf-8").strip()
+        if token:
+            return token
+    return None
+
+
 def _get_oauth_token() -> str:
-    """Read the OAuth access token from Claude Code credentials (SPEC §6.3)."""
+    """Read auth token for Claude CLI (SPEC §6.3).
+
+    Priority:
+    1. KR_ANTHROPIC_TOKEN env var (explicit override)
+    2. Long-lived setup-token from ~/.claude/kr_setup_token.txt
+    3. OAuth access token from ~/.claude/.credentials.json (original)
+    """
+    # Priority 1: explicit env var override
+    env_token = os.environ.get("KR_ANTHROPIC_TOKEN")
+    if env_token:
+        logger.debug("Using KR_ANTHROPIC_TOKEN from environment")
+        return env_token
+
+    # Priority 2: long-lived setup-token
+    setup_token = _get_setup_token()
+    if setup_token:
+        logger.debug("Using long-lived setup-token")
+        return setup_token
+
+    # Priority 3: OAuth credentials file (original behavior)
     cred_path = Path.home() / ".claude" / ".credentials.json"
     if not cred_path.exists():
         raise CLIBackendError(
             f"Claude credentials not found at {cred_path}. "
-            "Run 'claude' once to authenticate.",
+            "Run 'claude' once to authenticate, or set KR_ANTHROPIC_TOKEN.",
             backend="claude",
         )
     data = json.loads(cred_path.read_text(encoding="utf-8"))
@@ -189,6 +220,55 @@ def extract_json(raw_output: str) -> dict | list:
         stripped[:200],
         0,
     )
+
+
+def _extract_claude_result(raw_stdout: str) -> str:
+    """Extract model text from Claude CLI JSON output.
+
+    Handles three output formats:
+    1. Single dict envelope: {"type": "result", "result": "...model text..."}
+    2. Array of messages: [..., {"type": "result", "result": "...model text..."}]
+    3. Raw text (not an envelope): returned as-is
+
+    Raises CLIBackendError if the envelope reports is_error=True.
+    """
+    try:
+        parsed = json.loads(raw_stdout)
+    except json.JSONDecodeError:
+        # Not valid JSON — return as-is for extract_json() to handle
+        return raw_stdout
+
+    # Case 1: Array format — find the result element
+    if isinstance(parsed, list):
+        for item in parsed:
+            if isinstance(item, dict) and item.get("type") == "result":
+                if item.get("is_error"):
+                    raise CLIBackendError(
+                        f"Claude CLI returned error: {item.get('result', 'unknown')}",
+                        backend="claude",
+                    )
+                result_text = item.get("result")
+                if result_text is not None:
+                    logger.debug("Extracted model text from Claude CLI array envelope")
+                    return str(result_text)
+        # No result element found — return raw for downstream handling
+        logger.warning("Claude CLI array output had no 'result' element")
+        return raw_stdout
+
+    # Case 2: Single dict format
+    if isinstance(parsed, dict):
+        if parsed.get("type") == "result" or "result" in parsed:
+            if parsed.get("is_error"):
+                raise CLIBackendError(
+                    f"Claude CLI returned error: {parsed.get('result', 'unknown')}",
+                    backend="claude",
+                )
+            if "result" in parsed:
+                logger.debug("Extracted model text from Claude CLI dict envelope")
+                return str(parsed["result"])
+
+    # Case 3: Not an envelope — return as-is
+    return raw_stdout
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -539,24 +619,7 @@ class _CompletionsNamespace:
 
         raw_stdout = result.stdout
         logger.debug("Claude raw stdout: %s", raw_stdout[:200])
-
-        # Extract model text from CLI JSON envelope (SPEC §3.2)
-        # The claude CLI with --output-format json wraps the model's
-        # response in: {"type":"result","result":"...model text...","usage":{...}}
-        try:
-            envelope = json.loads(raw_stdout)
-            if isinstance(envelope, dict) and "result" in envelope:
-                if envelope.get("is_error"):
-                    raise CLIBackendError(
-                        f"Claude CLI returned error: {envelope.get('result', 'unknown')}",
-                        backend="claude",
-                    )
-                logger.debug("Extracted model text from Claude CLI envelope")
-                return str(envelope["result"])
-        except json.JSONDecodeError:
-            pass  # Not an envelope — return raw stdout
-
-        return raw_stdout
+        return _extract_claude_result(raw_stdout)
 
     def _invoke_codex(
         self,
