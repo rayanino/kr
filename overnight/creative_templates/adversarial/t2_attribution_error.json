@@ -1,0 +1,23 @@
+{
+  "template_id": "adversarial/t2_attribution_error",
+  "name": "T-2 Attribution Error Samples for {target}",
+  "description": "Generate synthetic multi-layer Arabic texts for the T-2 threat: attribution errors where a scholar quotes another to refute them, but passage splitting makes the quoting scholar appear to hold the refuted position.",
+  "category": "creative",
+  "subcategory": "adversarial",
+  "execution_mode": "codex",
+  "preferred_provider": "openai",
+  "safety_level": "readonly",
+  "model": "gpt-5.4",
+  "timeout_minutes": 20,
+  "max_turns": 30,
+  "max_budget_usd": 0,
+  "cooldown_days": 14,
+  "applicable_when": "always",
+  "variables": {
+    "target": {
+      "source": "active_engine",
+      "fallback": "excerpting"
+    }
+  },
+  "prompt_template": "You are an expert in classical Islamic scholarly discourse and its argumentative structure. Generate 5 synthetic multi-layer Arabic texts that demonstrate the T-2 threat: Attribution Error, where a scholar (Scholar A) quotes another scholar (Scholar B) for the express purpose of REFUTING Scholar B's position, but the quote and refutation are separated by editorial content in a way that creates a dangerous passage-splitting hazard.\n\nThe danger: if the {target} engine splits this passage at the wrong boundary, Scholar A's excerpt will contain ONLY Scholar B's quoted position, making it appear that Scholar A HOLDS that position — when in fact Scholar A explicitly rejects it.\n\nThis is adversarial test data. Make the examples as realistic and trap-setting as possible.\n\nThe five required patterns (one sample each):\n\n1. **Hanafi refuting Shafi'i**: Use وقال الشافعي... [Scholar B's view in full detail] ...وهذا مردود عندنا لأن... [Scholar A's refutation]\n\n2. **Maliki refuting Hanbali**: Use وذهب أحمد إلى... [detailed Hanbali position] ...والصحيح عندنا خلاف ذلك...\n\n3. **Scholar refuting predecessor then partially agreeing**: Scholar quotes a position to refute part of it but accept another part — making full attribution impossible without the complete passage.\n\n4. **Tafsir scholar quoting and refuting an exegetical opinion**: Use وقيل في تفسير هذه الآية... [quoted exegesis] ...وهذا القول ضعيف لأن...\n\n5. **Hadith scholar quoting a transmitter assessment to reject it**: Use وقال [name] في هذا الحديث... [transmitter's evaluation] ...وهذا التضعيف غير مقبول لأن...\n\nFor each sample, the text must be structured as:\n- PARAGRAPH 1: Scholar A's introduction formula + Scholar B's quoted position (1-3 sentences in authentic classical Arabic)\n- PARAGRAPH 2: Editorial/transitional content that separates them (could be a structural note, basmala, or chapter break indicator)\n- PARAGRAPH 3: Scholar A's explicit refutation with reasoning (1-3 sentences)\n\nOutput a JSON array of 5 objects with these exact fields:\n- id: \"t2-N\" (where N is 1-5)\n- threat: \"T-2 Attribution Error\"\n- pattern: brief name of the pattern (e.g., \"hanafi-refutes-shafii\")\n- scholar_a: Scholar A's name or school (the one doing the refuting)\n- scholar_b: Scholar B's name or school (the one being quoted and refuted)\n- full_text: the complete passage as one string (all three paragraphs with \\n\\n between them)\n- quote_paragraph: the text of paragraph 1 only\n- separation_content: the text of paragraph 2 only\n- refutation_paragraph: the text of paragraph 3 only\n- separation_type: \"structural_break\" | \"editorial_note\" | \"manuscript_marker\" | \"chapter_marker\"\n- correct_behavior: what the {target} engine MUST do (e.g., \"keep all three paragraphs in same excerpt; tag quote as Scholar B's position, refutation as Scholar A's position\")\n- failure_behavior: what would happen with a wrong split (e.g., \"paragraph 1 alone makes Scholar A appear to hold Scholar B's position\")\n- ground_truth: {\"quote_owner\": \"scholar_b\", \"refutation_owner\": \"scholar_a\", \"must_keep_together\": true}\n\nOutput ONLY a valid JSON array of 5 objects. No prose before or after. No markdown code fences."
+}

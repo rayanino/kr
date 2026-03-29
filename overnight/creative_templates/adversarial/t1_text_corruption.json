@@ -1,0 +1,23 @@
+{
+  "template_id": "adversarial/t1_text_corruption",
+  "name": "T-1 Silent Text Corruption Samples for {target}",
+  "description": "Generate synthetic adversarial Arabic text samples for the T-1 threat: single diacritic changes that reverse legal or theological meaning. Used to test Arabic text integrity safeguards.",
+  "category": "creative",
+  "subcategory": "adversarial",
+  "execution_mode": "codex",
+  "preferred_provider": "openai",
+  "safety_level": "readonly",
+  "model": "gpt-5.4",
+  "timeout_minutes": 20,
+  "max_turns": 30,
+  "max_budget_usd": 0,
+  "cooldown_days": 14,
+  "applicable_when": "always",
+  "variables": {
+    "target": {
+      "source": "active_engine",
+      "fallback": "excerpting"
+    }
+  },
+  "prompt_template": "You are an expert in classical Arabic morphology and Islamic jurisprudence. Generate 5 synthetic Arabic scholarly text samples that demonstrate the T-1 threat: Silent Text Corruption, where a SINGLE diacritic change (or its removal) reverses or fundamentally alters legal or theological meaning.\n\nThis is adversarial test data for the KR pipeline. The goal is to create the most realistic and dangerous examples possible — passages that look like genuine scholarly text but where a single diacritic error produces a doctrinally opposite statement.\n\nRequirements for each sample:\n1. The passage must be 2-4 sentences of realistic classical Arabic scholarly prose (fiqh, hadith commentary, or aqeedah)\n2. The corrupted and original forms must differ by EXACTLY ONE diacritic mark (one fatha/damma/kasra/sukun/shadda/tanwin added, removed, or changed)\n3. The meaning change must be doctrinally significant — not just grammatically different\n4. The text must be plausible as OCR corruption or manuscript copying error\n\nHigh-value word pairs for diacritic corruption (use these as a starting point, find more):\n- عَلِمَ (he knew) vs عُلِمَ (it was known / passive) — changes active to passive, affects attribution\n- حَرَّمَ (he prohibited) vs حَرُمَ (it became forbidden) — changes agent\n- يَجُوزُ (it is permitted) vs يَجُوزُ with shadda on the waw — subtle but different legal force\n- كَفَرَ (he disbelieved) vs كَفَّرَ (he declared another to be an unbeliever — takfir)\n- فَسَقَ (he committed a grave sin) vs فَسَّقَ (he accused another of grave sin)\n- صَحَّ (it is authentic/valid) vs صَحَّحَ (he authenticated it — active agency change)\n- نَسَخَ (it abrogated) vs نُسِخَ (it was abrogated) — completely reverses abrogation direction\n\nFor each sample, output a JSON object with these exact fields:\n- id: \"t1-N\" (where N is 1-5)\n- threat: \"T-1 Silent Text Corruption\"\n- genre: the Islamic text genre (fiqh/hadith/aqeedah/tafsir)\n- original_text: the full passage in correct Arabic with full diacritics\n- corrupted_text: the passage with exactly one diacritic changed or removed\n- changed_word_position: which sentence and word position contains the change (e.g., \"sentence 2, word 4\")\n- changed_word_original: the correctly voweled word\n- changed_word_corrupted: the corruptly voweled word\n- original_meaning: English explanation of what the original says\n- corrupted_meaning: English explanation of what the corrupted version says\n- corruption_type: \"diacritic_change\" | \"diacritic_removal\" | \"diacritic_addition\"\n- doctrinal_impact: brief explanation of why this matters (e.g., \"reverses abrogation direction — text appears to say opposite ruling is still valid\")\n- ground_truth: {\"correct_form\": \"original_text\", \"error_type\": \"single_diacritic\"}\n\nOutput ONLY a valid JSON array of 5 objects. No prose before or after. No markdown code fences."
+}

@@ -1,0 +1,23 @@
+{
+  "template_id": "spec_challenge/cross_provider_review",
+  "name": "Cross-Provider SPEC Review for {target}",
+  "description": "Independent Gemini-powered review of the active engine's SPEC.md from an outside perspective. Identifies impossible rules, contradictions, wrong Arabic text handling assumptions, and contract mismatches.",
+  "category": "creative",
+  "subcategory": "spec_challenge",
+  "execution_mode": "gemini",
+  "preferred_provider": "google",
+  "safety_level": "readonly",
+  "model": "gemini",
+  "timeout_minutes": 15,
+  "max_turns": 20,
+  "max_budget_usd": 0,
+  "cooldown_days": 21,
+  "applicable_when": "always",
+  "variables": {
+    "target": {
+      "source": "active_engine",
+      "fallback": "taxonomy"
+    }
+  },
+  "prompt_template": "You are an expert software architect and Arabic NLP specialist conducting an independent review of a pipeline engine specification. You are NOT affiliated with the project and have no prior context — you are reviewing this cold, as a skeptic.\n\nRead the following file: engines/{target}/SPEC.md\n\nAlso read for context:\n- engines/{target}/contracts.py (the data contracts this engine must consume and produce)\n- CLAUDE.md (project principles — especially the Arabic text handling rules)\n\nYour job is to find every flaw, contradiction, and dangerous assumption in the SPEC. Be brutal. Be specific. Quote the exact text you are challenging.\n\nInvestigate these specific failure categories:\n\n1. **Impossible-to-implement rules**: Find any SPEC rule that cannot be implemented deterministically given only the inputs described in §2 (Input Contract). If a rule requires information not present in the input, it is impossible. Quote the rule and explain what information is missing.\n\n2. **Internal contradictions**: Find pairs of rules that contradict each other. Even subtle contradictions matter — e.g., §4.A.1 says to always do X and §4.B.3 says to never do X in a subcase. Quote both rules.\n\n3. **Wrong Arabic text handling assumptions**: The SPEC may assume Modern Standard Arabic tokenization patterns, but the corpus contains classical Arabic with archaic constructions, unusual hamza placement, irregular plural forms, non-standard voweling, and manuscript-era orthography. Identify any rule that implicitly assumes properties of Modern Arabic that don't hold for classical scholarly text.\n\n4. **Missing Islamic scholarly text edge cases**: The corpus includes 7 genres (sharh, hashiyah, matn, risalah, tafsir, hadith collections, aqeedah treatises) and spans 800 years of Islamic scholarship (9th–17th century CE). Which genre or historical period does this SPEC fail to address? What edge cases are absent that would appear in real corpus data?\n\n5. **Contract mismatches**: Compare engines/{target}/contracts.py with the upstream engine's output contract and the downstream engine's input contract. Are there fields the downstream engine expects that {target} never populates? Are there upstream fields that {target} should propagate (D-023 metadata pass-through) but the SPEC doesn't mention?\n\n6. **Threshold and constant problems**: Identify any numeric thresholds (confidence scores, character counts, token limits) that appear in the SPEC. For each: is the value justified? Is there calibration data cited? A number without justification is a guess that will silently fail on edge cases.\n\n7. **Error handling gaps**: Where does the SPEC describe what to do on VALID input? Where does it fail to describe what to do on INVALID or UNEXPECTED input? Every code path not specified becomes an implementation guess.\n\nWrite your complete findings to overnight/results/{task_id}/report.md. Organize by category (1-7 above). For each finding: quote the problematic SPEC text, explain the problem, and suggest the minimal fix. Be specific — vague criticism is useless. Mark each finding as: BLOCKER (prevents correct implementation), WARNING (likely to cause errors on edge cases), or ADVISORY (suboptimal but workable)."
+}

@@ -1,0 +1,23 @@
+{
+  "template_id": "innovation/cost_efficiency",
+  "name": "Cost Efficiency Analysis for {target}",
+  "description": "Analyze LLM call sites in the active engine for cost reduction opportunities: parallelization, smart skipping, batching, caching, model downsizing, and rule-based extraction alternatives.",
+  "category": "creative",
+  "subcategory": "innovation",
+  "execution_mode": "cli",
+  "preferred_provider": "anthropic",
+  "safety_level": "readonly",
+  "model": "opus",
+  "timeout_minutes": 30,
+  "max_turns": 40,
+  "max_budget_usd": 5.0,
+  "cooldown_days": 21,
+  "applicable_when": "always",
+  "variables": {
+    "target": {
+      "source": "active_engine",
+      "fallback": "excerpting"
+    }
+  },
+  "prompt_template": "You are a performance engineer analyzing the cost and throughput characteristics of the KR pipeline's {target} engine. The project processes 7,475 Arabic scholarly books and each LLM call costs real money.\n\nFirst, read all LLM call sites:\n- All Python files under engines/{target}/src/ — look for any API calls, model invocations, or calls to shared LLM utilities\n- shared/llm/cli_adapter.py — the CLI LLM backend that routes calls to claude/codex/gemini\n- engines/{target}/SPEC.md — the behavioral specification to understand what accuracy is required\n\nFor each LLM call site identified, analyze:\n\n**A. Parallelization opportunities**\nWhich calls are currently sequential but could run in parallel? What is the dependency structure between calls in a single document? Estimate speedup factor if parallelized. Note any ordering constraints that prevent parallelization.\n\n**B. Smart skipping**\nWhich calls could be skipped entirely based on document metadata available before the call? For example: if a document is already classified as genre X from upstream, can downstream genre-verification calls be skipped? What percentage of the 7,475-book corpus would benefit?\n\n**C. Batching**\nAre any calls made one-at-a-time that could be batched (multiple documents in one API call)? What is the maximum safe batch size given the Arabic text token budgets described in llm-call-optimization.md?\n\n**D. Caching and manifest reuse**\nAre all calls properly checking PHASE_X_MANIFEST.json before executing? Are there any calls that always rerun even when the document hasn't changed? Identify any manifest check gaps.\n\n**E. Model rightsizing**\nWhich calls currently use a large model (opus) but could use a smaller model (haiku, sonnet) without accuracy loss? For each candidate: what is the specific task, what accuracy risk exists, what is the estimated cost reduction per corpus sweep?\n\n**F. Rule-based extraction**\nWhich LLM calls extract structured data (dates, names, book titles) that could be extracted with a high-precision regex or dictionary lookup instead? For each candidate: provide the equivalent rule-based implementation as pseudocode, estimate false-positive and false-negative rates.\n\n**G. Prompt optimization**\nAre any prompts sending excessive context (full document when only a header is needed)? Are there prompts that ask multiple questions in one call that could be split for better accuracy, or combined from multiple calls to reduce API overhead?\n\nFor each finding, provide:\n- **Location**: file path and function name\n- **Current behavior**: what the call does now\n- **Optimization**: specific change to make\n- **Speedup estimate**: e.g., 2x faster, 30% cost reduction\n- **Effort**: S (under 1 day) / M (1-3 days) / L (over 3 days)\n- **Accuracy risk**: None / Low / Medium / High (with explanation)\n- **Recommendation**: Implement / Investigate further / Do not implement\n\nAfter the analysis, produce two output files:\n\n1. Write a full report to overnight/results/{task_id}/report.md organized by optimization category (A through G) with a summary table of total estimated cost savings.\n\n2. Write actionable items to overnight/results/{task_id}/actionable.json as a JSON array. Each item: {\"id\": \"perf-N\", \"location\": \"file:function\", \"optimization_type\": \"parallelization|skipping|batching|caching|rightsizing|rule_based|prompt\", \"action\": \"...\", \"speedup_estimate\": \"...\", \"accuracy_risk\": \"none|low|medium|high\", \"effort\": \"S|M|L\", \"engine\": \"{target}\"}. Include only items with recommendation = Implement."
+}

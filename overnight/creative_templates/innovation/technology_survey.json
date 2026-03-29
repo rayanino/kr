@@ -1,0 +1,23 @@
+{
+  "template_id": "innovation/technology_survey",
+  "name": "Technology Survey for {target}",
+  "description": "Survey Arabic NLP tools and Islamic text processing libraries relevant to the active engine. Identifies integration opportunities, pre-trained models, and competing open-source projects.",
+  "category": "creative",
+  "subcategory": "innovation",
+  "execution_mode": "cli",
+  "preferred_provider": "anthropic",
+  "safety_level": "readonly",
+  "model": "opus",
+  "timeout_minutes": 35,
+  "max_turns": 50,
+  "max_budget_usd": 5.0,
+  "cooldown_days": 14,
+  "applicable_when": "always",
+  "variables": {
+    "target": {
+      "source": "active_engine",
+      "fallback": "excerpting"
+    }
+  },
+  "prompt_template": "You are a technology researcher surveying Arabic NLP tools and Islamic text processing libraries that could improve the KR pipeline.\n\nFirst, read the project context:\n- CLAUDE.md (project overview and principles)\n- engines/{target}/SPEC.md (what this engine does and its requirements)\n\nThen conduct a comprehensive survey of the following categories of tools:\n\n1. **Arabic NLP Frameworks**: CAMeL Tools, Farasa, AraBERT, Stanza Arabic, ArabiNLP. For each: what it does, its Arabic scholarly text support, license, Python integration path.\n\n2. **New 2024-2026 Libraries**: Search for recently released Arabic NLP tools, Islamic text processing libraries, and Arabic OCR improvements. Focus on tools released after 2023 that may not be in the project's current tech stack.\n\n3. **Pre-trained Islamic Text Models**: Arabic BERT variants fine-tuned on Quranic text, hadith corpora, or classical Arabic. Check HuggingFace Hub for models trained on OpenITI or similar classical Arabic corpora.\n\n4. **Arabic Segmentation and Morphological Tools**: Tools for root extraction, diacritic restoration, morphological disambiguation in classical Arabic (which differs significantly from Modern Standard Arabic).\n\n5. **Competing/Complementary Projects**: OpenITI (corpus and annotation tools), Usul.ai (Islamic text search), Quranic Arabic Corpus (annotation schema), Shamela digital library tools, Noor Digital library tools. For each: what they've solved that KR could learn from, what their API or data formats look like.\n\n6. **Arabic Embeddings and Semantic Search**: Arabic sentence transformers, classical Arabic embeddings, tools for cross-lingual Islamic text retrieval.\n\nFor EACH tool or library identified, provide a structured assessment:\n- **Name**: Tool name\n- **What it does**: One sentence\n- **Relevance to {target} engine**: Direct relevance or indirect\n- **Integration path**: How it would fit into the existing engine architecture\n- **Effort estimate**: S (under 1 day) / M (1-3 days) / L (over 3 days)\n- **Value score**: 1 (marginal) to 5 (high impact)\n- **Risk**: Any concerns about accuracy on classical Arabic, licensing, or maintenance\n\nAfter the survey, produce two output files:\n\n1. Write a comprehensive markdown report to overnight/results/{task_id}/report.md with all findings organized by category, including a prioritized recommendations table.\n\n2. Write actionable items to overnight/results/{task_id}/actionable.json as a JSON array. Each item: {\"id\": \"tech-N\", \"tool\": \"...\", \"action\": \"...\", \"effort\": \"S|M|L\", \"value\": 1-5, \"engine\": \"{target}\"}. Include only items with value >= 3."
+}

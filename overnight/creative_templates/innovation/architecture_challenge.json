@@ -1,0 +1,23 @@
+{
+  "template_id": "innovation/architecture_challenge",
+  "name": "Architecture Challenge for {target}",
+  "description": "Devil's advocate architectural review of the active engine. Identifies over-engineering, weak assumptions, dead contract fields, and opportunities to simplify or replace LLM calls with deterministic logic.",
+  "category": "creative",
+  "subcategory": "innovation",
+  "execution_mode": "cli",
+  "preferred_provider": "anthropic",
+  "safety_level": "readonly",
+  "model": "opus",
+  "timeout_minutes": 35,
+  "max_turns": 50,
+  "max_budget_usd": 5.0,
+  "cooldown_days": 21,
+  "applicable_when": "always",
+  "variables": {
+    "target": {
+      "source": "active_engine",
+      "fallback": "excerpting"
+    }
+  },
+  "prompt_template": "You are a senior software architect performing a devil's advocate review of the KR pipeline's {target} engine. Your job is to challenge every design decision and find where the architecture is wrong, over-engineered, or missing something critical.\n\nFirst, read:\n- CLAUDE.md (project principles — especially the pipeline-first mandate)\n- engines/{target}/contracts.py (input/output data contracts)\n- engines/{target}/SPEC.md (behavioral specification)\n- The upstream engine's contracts.py (what feeds into {target})\n- The downstream engine's contracts.py (what {target} feeds into)\n\nThen answer these specific questions with evidence. Be specific — quote field names, file paths, and line numbers where relevant:\n\n1. **Over-engineering audit**: What parts of this engine are more complex than the problem requires? Where is the design solving problems that don't actually exist in the real corpus? Quote specific SPEC rules or contract fields that appear unnecessary.\n\n2. **Weakest assumption**: What is the single most dangerous assumption this engine makes about its input data? Under what real-world conditions would this assumption fail silently (producing wrong output without raising an error)?\n\n3. **LLM vs deterministic**: Which LLM call in this engine could be replaced with a deterministic rule or regex without meaningful accuracy loss? For each candidate, estimate: current LLM cost per call, equivalent deterministic implementation complexity, accuracy tradeoff.\n\n4. **10x simpler alternative**: If you had to redesign this engine with 10x fewer lines of code and still handle 90% of the real corpus correctly, what would you cut? What would the minimal viable architecture look like?\n\n5. **Missing functionality**: What edge cases in the real KR corpus (274 Arabic scholarly books, genres: sharh/hashiyah/matn/risalah/tafsir/hadith) does this engine NOT handle but should? Be specific about which genre or text pattern falls through.\n\n6. **Dead contract fields**: Which fields in engines/{target}/contracts.py are defined but never meaningfully populated by the implementation? Which downstream engines actually consume each output field? Any fields that travel through the pipeline but are never used?\n\n7. **Consensus overkill**: Which decisions currently requiring 2-model consensus (D-041) could be safely made by a single fast model? Which decisions currently using a single model should have been consensus decisions?\n\nAfter the review, produce two output files:\n\n1. Write a detailed report to overnight/results/{task_id}/report.md with findings organized by question number, with specific quotes and file references.\n\n2. Write actionable items to overnight/results/{task_id}/actionable.json as a JSON array. Each item: {\"id\": \"arch-N\", \"finding\": \"...\", \"action\": \"...\", \"severity\": \"critical|high|medium|low\", \"effort\": \"S|M|L\", \"engine\": \"{target}\"}. Include only items with severity high or critical."
+}
