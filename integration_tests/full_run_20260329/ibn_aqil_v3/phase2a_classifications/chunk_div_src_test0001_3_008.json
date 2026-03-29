@@ -1,0 +1,330 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 0,
+    "text_snippet": "‌‌التعجب",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 1,
+    "start_word": 1,
+    "end_word": 23,
+    "text_snippet": "بأفعل انطق بعد ما تعجبا … أو جيء ب أفعل قبل مج",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 24,
+    "end_word": 31,
+    "text_snippet": "للتعجب صيغتان:\nإحداهما: ما أفعله\nوالثانية: أفعل ب",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 32,
+    "end_word": 60,
+    "text_snippet": "وإليهما أشار المصنف بالبيت الأول أي أنطق بأفعل بعد",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 4,
+    "start_word": 61,
+    "end_word": 94,
+    "text_snippet": "فما مبتدأ وهي نكرة تامة عند سيبويه وأحسن فعل ماض",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 5,
+    "start_word": 95,
+    "end_word": 107,
+    "text_snippet": "وأما أفعل ففعل أمر ومعناه التعجب لا الأمر وفاعله ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 108,
+    "end_word": 158,
+    "text_snippet": "واستدل على فعلية أفعل بلزوم نون الوقاية له إذا اتصل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 7,
+    "start_word": 159,
+    "end_word": 180,
+    "text_snippet": "وأشار بقوله وتلو أفعل إلى أن تالى أفعل ينصب لكونه",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 8,
+    "start_word": 181,
+    "end_word": 201,
+    "text_snippet": "وما قدمناه من أن ما نكرة تامة هو الصحيح والجملة الت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 9,
+    "start_word": 202,
+    "end_word": 218,
+    "text_snippet": "وذهب الأخفش إلى أنها موصولة والجملة التي بعدها صلته",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 219,
+    "end_word": 233,
+    "text_snippet": "وذهب بعضهم إلى أنها استفهامية والجملة التي بعدها خبر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 234,
+    "end_word": 251,
+    "text_snippet": "وذهب بعضهم إلى أنها نكرة موصوفة والجملة التي بعدها",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 252,
+    "end_word": 263,
+    "text_snippet": "وحذف ما منه تعجبت استبح … إن كان عند الحذف معناه ي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 264,
+    "end_word": 279,
+    "text_snippet": "يجوز حذف المتعجب منه وهو المنصوب بعد أفعل والمجرور",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 280,
+    "end_word": 310,
+    "text_snippet": "فمثال الأول قوله:\n269 - أرى أم عمرو دمعها قد تحدر",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 15,
+    "start_word": 311,
+    "end_word": 328,
+    "text_snippet": "ومثال الثاني قوله تعالى: {أَسْمِعْ بِهِمْ وَأَبْصِ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 329,
+    "end_word": 360,
+    "text_snippet": "وقول الشاعر:\n270 - فذلك إن يلق المنية يلقها …",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 17,
+    "start_word": 361,
+    "end_word": 370,
+    "text_snippet": "وفي كلا الفعلين قدما لزما … منع تصرف بحكم حتما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 18,
+    "start_word": 371,
+    "end_word": 391,
+    "text_snippet": "لا يتصرف فعلا التعجب بل يلزم كل منهما طريقة واحدة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 19,
+    "start_word": 392,
+    "end_word": 398,
+    "text_snippet": "قال المصنف وهذا مما لا خلاف فيه:",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 20,
+    "start_word": 399,
+    "end_word": 420,
+    "text_snippet": "وصغهما من ذي ثلاث صرفا … قابل فضل تم غير ذي انتفا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 21,
+    "start_word": 421,
+    "end_word": 430,
+    "text_snippet": "يشترط في الفعل الذي يصاغ منه فعلا التعجب شروط سبعة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 431,
+    "end_word": 443,
+    "text_snippet": "أحدهما: أن يكون ثلاثيا فلا يبنيان مما زاد عليه نحو",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 23,
+    "start_word": 444,
+    "end_word": 457,
+    "text_snippet": "الثاني: أن يكون متصرفا فلا يبنيان من فعل غير متصرف",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 24,
+    "start_word": 458,
+    "end_word": 476,
+    "text_snippet": "الثالث: أن يكون معناه قابلا للمفاضلة فلا يبنيان من",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 25,
+    "start_word": 477,
+    "end_word": 496,
+    "text_snippet": "الرابع: أن يكون تاما واحترز بذلك من الأفعال الناقصة",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 26,
+    "start_word": 497,
+    "end_word": 521,
+    "text_snippet": "الخامس: أن لا يكون منفيا واحترز بذلك من المنفي لزوم",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 27,
+    "start_word": 522,
+    "end_word": 568,
+    "text_snippet": "السادس: أن لا يكون الوصف منه على أفعل واحترز بذلك م",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 28,
+    "start_word": 569,
+    "end_word": 594,
+    "text_snippet": "السابع: أن لا يكون مبنيا للمفعول نحو ضرب زيد فلا تق",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 29,
+    "start_word": 595,
+    "end_word": 615,
+    "text_snippet": "وأشدد أو أشد أو شبههما … يخلف ما بعض الشروط عدما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 30,
+    "start_word": 616,
+    "end_word": 661,
+    "text_snippet": "يعني أنه يتوصل إلى التعجب من الأفعال التي لم تستكمل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 31,
+    "start_word": 662,
+    "end_word": 673,
+    "text_snippet": "وبالندور أحكم لغير ما ذكر … ولا تقس على الذي منه أث",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 32,
+    "start_word": 674,
+    "end_word": 744,
+    "text_snippet": "يعني أنه إذا ورد بناء فعل التعجب من شيء من الأفعال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 33,
+    "start_word": 745,
+    "end_word": 765,
+    "text_snippet": "وفعل هذا الباب لن يقدما … معموله ووصله بما ألزما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 34,
+    "start_word": 766,
+    "end_word": 786,
+    "text_snippet": "لا يجوز تقديم معمول فعل التعجب علي، فلا تقول: \" زيد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 35,
+    "start_word": 787,
+    "end_word": 832,
+    "text_snippet": "ويجب وصله بعامله فلا يفصل بينهما بأجنبى فلا تقول في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 36,
+    "start_word": 833,
+    "end_word": 862,
+    "text_snippet": "فإن كان الظرف أو المجرور معمولا لفعل التعجب ففي جوا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 37,
+    "start_word": 863,
+    "end_word": 890,
+    "text_snippet": "ومما ورد فيه الفصل في النثر قول عمرو بن معد يكرب:",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 38,
+    "start_word": 891,
+    "end_word": 910,
+    "text_snippet": "وقول علي كرم الله وجهه وقد مر بعمار فمسح التراب عن",
+    "scholarly_function": "narration",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 39,
+    "start_word": 911,
+    "end_word": 933,
+    "text_snippet": "ومما ورد منه من النظم قول بعض الصحابة رضي الله عنهم",
+    "scholarly_function": "narration",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 40,
+    "start_word": 934,
+    "end_word": 950,
+    "text_snippet": "وقوله:\n272 - خليلي ما أحرى بذي اللب أن يرى … صبور",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  }
+]

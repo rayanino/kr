@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0115",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n‌‌بَابُ الحَيْض\nالحيض: دم، جعله الله تعالى -من رحمته وحكمته- في رحم المرأة، غذاءً لجنينها فإذا وضعت، تحوّل إلى لبن، لغذاء طفلها.\nفإذا كانت غير حامل ولا مرضع، برز الزائد منه في أوقات معلومة. لهذا يندر أن تحيض الحامل، أو المرضع.\nويتعلق بخروجه أحكام في العبادات وغيرها.\nعَن عَائِشَةَ رضي الله عنها: أنَّ فَاطِمَةَ بِنْتَ أبي حُبَيْش سَألتِ النَّبيَّ صلى الله عليه وسلم، فقالت: إِني أُسْتَحَاضُ فلا أطْهُرُ، أفَأدَعُ الصَّلاةَ؟\nقالَ: لا، إنَّ ذَلِك عِرْق، وَلَكن دَعِي الصَّلاةَ قَدْرَ الأيام، الَّتي كُنْتِ تَحِيضِينَ فِيهَا، ثُمَّ اغتَسِلي وَصَلي.\nوفي رواية \" وَلَيْسَتْ بِالْحيْضَةِ، فإذا أقْبَلَت الْحيْضَةُ فاتركي الصَلاةَ، فإذا ذَهب قَدْرُهَا فاغسلي عَنْكِ الدَّمَ وَصَلِّي\" ⌜1⌝\nغريب الحديث:\n1- \"ذلكِ \": بكسر الكاف، خطاباً للمرأة السائلة.\n2- \" عِرْق \": أي عرق انفجر، كما جاء في إحدى الروايات. ويقال لهذا\nالعرق: العاذل. وهو في أدنى الرحم دون قعره، ودم الحيض يخرج من قعر الرحم.\n3- \" إذا أقبلت الحيضة \": قال الخطابي: بكسر الحاء، وغلط من فتحها، لأن المراد الحالة.\nوجوز القاضي \"عياض\" وغيره، الفتح، وهو أقوى، لأن المراد الحيض.\n4- ذكر الصنعانى أن \" فدعي الصلاة \" أولى من \" فاتركي الصلاة \" لأنه مما اتفقا عليه.\nالمعنى الإجمالي:\nذكرت \" فاطمة \" بنت أبي حُبَيْش (2) للنبي صلى الله عليه وسلم أن دم الاستحاضة يصيبها، فلا ينقطع عنها، وسألته هل تترك الصلاة لذلك؟\nفقال النبي صلى الله عليه وسلم: لا تتركي الصلاة، لأن الدم الذي تُترك لأجله الصلاة، هو دم الحيض.\n</text>"
+    }
+  ]
+}

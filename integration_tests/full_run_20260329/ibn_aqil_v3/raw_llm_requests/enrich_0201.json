@@ -1,0 +1,16 @@
+{
+  "call_id": "enrich_0201",
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n‌‌التحذير والإغراء\nإياك والشر ونحوه نصب … محذر بما استتاره وجب\nودون عطف ذا لإيا انسب وما … سواه ستر فعله لن يلزما\nإلا مع العطف أو التكرار … كـ \"الضيغم الضيغم ياذا السارى\" التحذير: تنبيه المخاطب على أمر يجب الاحتراز منه\nفإن كان بإياك وأخواته وهو إياك وإياكما وإياكم وإياكن وجب إضمار الناصب سواء وجد عطف أم لا فمثاله مع العطف إياك والشر فإياك منصوب بفعل مضمر وجوبا والتقدير إياك أحذر ومثاله بدون العطف إياك أن تفعل كذا أي إياك من أن تفعل كذا.\nوإن كان بغير إياك وأخواته وهو المراد بقوله: وما سواه فلا يجب إضمار الناصب إلا مع العطف كقولك ماز رأسك والسيف أي يا مازن ق رأسك واحذر السيف أو التكرار نحو الضيغم الضيغم أي احذر الضيغم فإن لم يكن عطف ولا تكرار جاز إضمار الناصب وإظهاره نحو الأسد أي احذر الأسد فإن شئت أظهرت وإن شئت أضمرت.\nوشذ إياي وإياه أشذ … وعن سبيل القصد من قاس انتبذ\nحق التحذير أن يكون للمخاطب وشذ مجيئه للمتكلم في قوله إياي وأن يحذف أحدكم الأرنب وأشذ منه مجيئه للغائب في قوله إذا بلغ\nالرجل الستين فإياه وإيا الشواب ولا يقاس على شيء من ذلك.\nوكمحذر بلا إيا اجعلا … مغرى به في كل ما قد فصلا\nالإغراء هو أمر المخاطب بلزوم ما يحمد به وهو كالتحذير في أنه إن وجد عطف أو تكرار وجب إضمار ناصبه وإلا فلا ولا تستعمل فيه إيا فمثال ما يجب معه إضمار الناصب قولك أخاك أخاك وقولك أخاك والإحسان إليه أي الزم أخاك ومثل ما لا يلزم معه الإضمار قولك أخاك أي الزم أخاك.\n</text>"
+    }
+  ]
+}

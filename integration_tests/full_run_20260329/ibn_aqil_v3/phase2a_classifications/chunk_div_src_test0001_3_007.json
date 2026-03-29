@@ -1,0 +1,258 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "‌‌الصفة المشبهة باسم الفاعل",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 13,
+    "text_snippet": "صفة استحسن جر فاعل … معنى بها المشبهة اسم الفاعل",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 14,
+    "end_word": 33,
+    "text_snippet": "قد سبق أن المراد بالصفة ما دل على معنى وذات وهذا ي",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 3,
+    "start_word": 34,
+    "end_word": 68,
+    "text_snippet": "وذكر المصنف أن علامة الصفة المشبهة استحسان جر فاعله",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 4,
+    "start_word": 69,
+    "end_word": 95,
+    "text_snippet": "وهذا لا يجوز في غيرها من الصفات فلا تقول زيد ضارب ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 5,
+    "start_word": 96,
+    "end_word": 114,
+    "text_snippet": "وقد تقدم أن اسم المفعول يجوز إضافته إلى مرفوعة فتقو",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 115,
+    "end_word": 123,
+    "text_snippet": "وصوغها من لازم لحاضر … كطاهر القلب جميل الظاهر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 7,
+    "start_word": 124,
+    "end_word": 170,
+    "text_snippet": "يعني أن الصفة المشبهة لا تصاغ من فعل متعد فلا تقول ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 8,
+    "start_word": 171,
+    "end_word": 222,
+    "text_snippet": "ونبه بقوله كطاهر القلب جميل الظاهر على أن الصفة المش",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 223,
+    "end_word": 233,
+    "text_snippet": "وعمل اسم فاعل المعدى … لها على الحد الذي قد حدا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 10,
+    "start_word": 234,
+    "end_word": 266,
+    "text_snippet": "أي يثبت لهذه الصفة عمل اسم الفاعل المتعدى وهو الرفع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 267,
+    "end_word": 297,
+    "text_snippet": "وأشار بقوله على الحد الذي قد حدا إلى أن الصفة المشبه",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 12,
+    "start_word": 298,
+    "end_word": 307,
+    "text_snippet": "وسبق ما تعمل فيه مجتنب … وكونه ذا سببية وجب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 13,
+    "start_word": 308,
+    "end_word": 339,
+    "text_snippet": "لما كانت الصفة المشبهة فرعا في العمل عن اسم الفاعل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 340,
+    "end_word": 369,
+    "text_snippet": "ولم تعمل إلا في سببى نحو زيد حسن وجهه ولا تعمل في ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 15,
+    "start_word": 370,
+    "end_word": 406,
+    "text_snippet": "فارفع بها وأنصب وجر مع أل … ودون أل مصحوب أل وما ات",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 407,
+    "end_word": 430,
+    "text_snippet": "الصفة المشبهة إما أن تكون بالألف واللام نحو الحسن أو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 17,
+    "start_word": 431,
+    "end_word": 440,
+    "text_snippet": "الأول: أن يكون المعمول بأل نحو الحسن الوجه وحسن الوج",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 18,
+    "start_word": 441,
+    "end_word": 454,
+    "text_snippet": "الثاني: أن يكون مضافا لما فيه أل نحو الحسن وجه الأب",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 19,
+    "start_word": 455,
+    "end_word": 469,
+    "text_snippet": "الثالث: أن يكون مضافا إلى ضمير الموصوف نحو مررت بالر",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 20,
+    "start_word": 470,
+    "end_word": 488,
+    "text_snippet": "الرابع: أن يكون مضافا إلى مضاف إلى ضمير الموصوف نحو",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 21,
+    "start_word": 489,
+    "end_word": 503,
+    "text_snippet": "الخامس: أن يكون مجردا من أل دون الإضافة نحو الحسن وج",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 22,
+    "start_word": 504,
+    "end_word": 516,
+    "text_snippet": "السادس: أن يكون المعمول مجردا من أل والإضافة نحو الحس",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 23,
+    "start_word": 517,
+    "end_word": 540,
+    "text_snippet": "فهذه اثنتا عشرة مسألة والمعمول في كل واحدة من هذه ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 24,
+    "start_word": 541,
+    "end_word": 639,
+    "text_snippet": "وإلى هذا أشار بقوله فارفع بها أي بالصفة المشبهة وانص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 25,
+    "start_word": 640,
+    "end_word": 665,
+    "text_snippet": "وأشار بقوله ولا تجرر بها مع أل إلى آخره إلى أن هذه ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 26,
+    "start_word": 666,
+    "end_word": 675,
+    "text_snippet": "الأولى: جر المعمول المضاف إلى ضمير الموصوف نحو الحسن",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 27,
+    "start_word": 676,
+    "end_word": 689,
+    "text_snippet": "الثانية: جر المعمول المضاف إلى ما أضيف إلى ضمير المو",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 28,
+    "start_word": 690,
+    "end_word": 703,
+    "text_snippet": "الثالثة: جر المعمول المضاف إلى المجرد من أل دون الإضا",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 29,
+    "start_word": 704,
+    "end_word": 713,
+    "text_snippet": "الرابعة: جر المعمول المجرد من أل والإضافة نحو الحسن و",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 30,
+    "start_word": 714,
+    "end_word": 740,
+    "text_snippet": "فمعنى كلامه ولا تجرر بها أي بالصفة المشبهة إذا كانت ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 31,
+    "start_word": 741,
+    "end_word": 770,
+    "text_snippet": "وما لم يخل من ذلك يجوز جره كما يجوز رفعه ونصبه كالح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  }
+]

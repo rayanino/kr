@@ -1,0 +1,32 @@
+{
+  "call_id": "verify_0001",
+  "latency_seconds": 5.52,
+  "model": "openai/gpt-5.4-20260305",
+  "usage": {
+    "completion_tokens": 199,
+    "prompt_tokens": 1262,
+    "total_tokens": 1461,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.00614,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.00614,
+      "upstream_inference_prompt_cost": 0.003155,
+      "upstream_inference_completions_cost": 0.002985
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"items\":[{\"item_index\":0,\"agrees\":false,\"alternative\":\"SELF_CONTAINMENT: unit should be assessed as SELF-CONTAINED, or at least not partial on that basis.\",\"confidence\":0.92,\"reasoning\":\"النص قائم المعنى بنفسه في الجملة: يشرح قاعدة الأعمال بالنيات، ويبين مثال الهجرة، ويقسّم معنى النية إلى حالتين، ويختم بأهمية الحديث. الإشارة بـ«هذا حديث» لا تضر كثيرًا هنا لأن مضمون الحديث قد لُخّص داخل الوحدة نفسها بوضوح: «أن مدار الأعمال على النيات...». كما أن حديث «إنما الأعمال بالنيات» من الأحاديث المشهورة جدًا، فيقع تحت C-SC-3 من جهة الشهرة. لا يظهر افتقار حقيقي إلى سياق سابق لفهم الحكم أو التعليم الوارد، لذا توصيفها بأنها PARTIAL غير دقيق.\"}]}"
+}

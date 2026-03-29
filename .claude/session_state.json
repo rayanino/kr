@@ -1,20 +1,16 @@
 {
-  "timestamp": "2026-03-28T23:19:51.044043+00:00",
+  "timestamp": "2026-03-29T05:06:14.790825+00:00",
   "branch": "master",
   "active_engine": "excerpting",
   "active_spec_section": null,
-  "last_committed_file": "scripts/overnight_orchestrator.py",
+  "last_committed_file": "FINDINGS_TRACKER.md",
   "active_plan": null,
   "modified_files": [
-    ".claude/session_state.json",
-    ".claude/settings.json",
-    "overnight/.heartbeat",
-    "overnight/weekend_state.json",
-    "overnight/write_orchestrator_output.log"
+    ".claude/session_state.json"
   ],
-  "uncommitted_summary": ".claude/session_state.json              |  22 ++-\n .claude/settings.json                   |   2 +-\n overnight/.heartbeat                    |  14 +-\n overnight/weekend_state.json            | 237 +++++++++++++++++++++++++-------\n overnight/write_orchestrator_output.log |  30 ++++\n 5 files changed, 234 insertions(+), 71 deletions(-)",
-  "next_md_head": "# NEXT — Harden Overnight Sprint System for Unmonitored Operation\n\n## Context\n\nThe overnight sprint system (`scripts/weekend_parallel.py` + `scripts/overnight_orchestrator.py`) ran on 2026-03-28 and completed 24/27 readonly tasks but **zero** write tasks. The write orchestrator circuit-breaker triggered after 3 consecutive test-generation timeouts, killing 48 queued tasks. Full diagnosis: `overnight/DIAGNOSIS.md`.\n\n**Goal:** Make this system trustworthy enough to run 8-20 hours completely unmonitored — sleep, leave the house, come back to useful work done.\n\n## Architecture Files (read these first)\n\n| File | Lines | Purpose |\n|------|-------|---------|\n| `scripts/weekend_parallel.py` | 519 | Parallel coordinator — 3 readonly workers + write orchestrator subprocess |\n| `scripts/overnight_orchestrator.py` | 1689 | Sequential write task executor with quality gates, circuit breaker, dependency DAG |\n| `scripts/overnight_task_generator.py` | 878 | 9 scanners that discover hardening tasks from codebase state |",
-  "recent_commits": "8e57f555 fix(overnight): harden sprint system â€” smart breaker, resume, health monitoring\n96cbe175 governance: cross-provider review team â€” non-negotiable rule with S28 proof\n9d44ae6c docs: restore overnight hardening directive to NEXT.md\nf1dd9e7e fix(contracts): add unit_index uniqueness validators to EnrichmentResult + ExtractionResult\n8d7cad75 BLOCKING: NEXT.md â€” unit_index uniqueness validator required before overnight run",
+  "uncommitted_summary": ".claude/session_state.json | 16 ++++++----------\n 1 file changed, 6 insertions(+), 10 deletions(-)",
+  "next_md_head": "# NEXT — Fix Two CLI Adapter Bugs (OAuth + Envelope)\n\n## Research Sprint Findings (2026-03-28)\n\n**See `FINDINGS_TRACKER.md`** — 30+ actionable items from the 19-task research sprint across Claude/Codex/Gemini. Includes 4 unfixed bugs, 4 ready-to-implement optimizations, 6 taxonomy SPEC fixes (blocks next engine), and 5 external integrations.\n\n## Current Position\n\n- **Test baseline:** 35 adapter tests + 1991 total project tests, 0 failures (as of commit 3cefa8c8)\n- **Smoke test:** PASSED (5/5 packages, 69 excerpts, $0.00, 28min)\n- **Overnight run:** FAILED (280 chunks) — two distinct bugs\n\n## Read First\n\n| File | What to look for |",
+  "recent_commits": "ee8f8849 fix(shared,excerpting): operationalize research sprint â€” 2 bugs fixed, 166 tests integrated, tracker created\n07ed999b chore(overnight): exhaustive research sprint â€” 19 tasks across Claude/Codex/Gemini\n129ceeea fix(cli-adapter): robust envelope extraction + setup-token auth\n9667da12 handoff: fix CLI adapter bugs â€” setup-token auth + robust envelope extraction\naaf34f32 handoff: overnight run failed â€” 2 CLI adapter bugs to fix before retry",
   "pending_decisions": [
     "",
     "The other 35 books are modern scholarly works, histories, and reference texts where",

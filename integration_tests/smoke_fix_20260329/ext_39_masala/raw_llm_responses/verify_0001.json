@@ -1,0 +1,32 @@
+{
+  "call_id": "verify_0001",
+  "latency_seconds": 6.28,
+  "model": "openai/gpt-5.4-20260305",
+  "usage": {
+    "completion_tokens": 307,
+    "prompt_tokens": 1613,
+    "total_tokens": 1920,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.0086375,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.0086375,
+      "upstream_inference_prompt_cost": 0.0040325,
+      "upstream_inference_completions_cost": 0.004605
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"items\": [\n    {\n      \"item_index\": 0,\n      \"agrees\": true,\n      \"alternative\": null,\n      \"confidence\": 0.93,\n      \"reasoning\": \"أوافق. الوحدة ليست مكتفية تمامًا؛ لأن قولَه: «بمثل هذه الوصية» واسم الإشارة «هذه» يحيلان على وصية سبق ذكرها خارج المقتطف، وهذا يخلّ بشرط C-SC-2. لكن أصل الحكم العام، وهو استحباب/وجوب المبادرة إلى كتابة الوصية، مفهوم من الحديث المذكور بنصه، لذا فهي ليست منقطعة المعنى كليًا بل هي PARTIAL لا NON-SELF-CONTAINED.\"\n    },\n    {\n      \"item_index\": 1,\n      \"agrees\": true,\n      \"alternative\": null,\n      \"confidence\": 0.95,\n      \"reasoning\": \"أوافق. عبارة «ويشهد على ذلك» فيها إحالة خارجية على شيء متقدم، غالبًا الوصية المذكورة قبلها، فالوحدة لا تستقل استقلالًا تامًا من جهة مرجع الضمير/الإشارة، وهذا يوافق C-SC-2. ومع ذلك فالحكم المقصود في الجملة واضح إلى حد كبير من تتمة العبارة ومن إيراد الآية كاملة في الشهادة على الوصية، لذلك توصيفها بأنها PARTIAL صحيح.\"\n    }\n  ]\n}"
+}

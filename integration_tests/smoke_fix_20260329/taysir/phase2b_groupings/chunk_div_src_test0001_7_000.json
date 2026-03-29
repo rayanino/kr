@@ -1,0 +1,142 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "تيسير العلام شرح عمدة الأحكام\nللبسام",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الكتاب واسم المؤلف: تيسير العلام شرح عمدة الأحكام للبسام.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1
+    ],
+    "start_word": 6,
+    "end_word": 9,
+    "text_snippet": "‌‌كتاب الطهارة\n‌‌النية وأحكامها",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان كتاب الطهارة وباب النية وأحكامها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "start_word": 10,
+    "end_word": 190,
+    "text_snippet": "عَنْ أمِيرِ المُؤْمِنِينَ أبي حَفْصِ \" عُمَرَ بْنِ الخَطَاب \" رضي الله عنه قَال: سَمِعت رسُولَ الله",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition",
+      "definition",
+      "example"
+    ],
+    "description_arabic": "حديث «إنما الأعمال بالنيات» بسنده عن عمر بن الخطاب رضي الله عنه، مع شرح غريب ألفاظه وبيان معنى النية لغةً وشرعاً وتوضيح التركيب النحوي للحديث.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 191,
+    "end_word": 390,
+    "text_snippet": "المعنى الإجمالي:\nهذا حديث عظيم وقاعدة جليلة من قواعد الإسلام هي القياس الصحيح لوزن الأعمال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "example",
+      "editorial_note"
+    ],
+    "description_arabic": "المعنى الإجمالي لحديث النيات: بيان أن مدار الأعمال على النيات قبولاً ورداً، وتوضيح ذلك بمثال الهجرة، وبيان حالتي النية في الشرع (الإخلاص وتمييز العبادات)، والتنبيه على عظم الحديث.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى «هذا حديث» و«القاعدة السابقة» مما يتطلب معرفة نص حديث إنما الأعمال بالنيات المذكور في الوحدة السابقة، لكن الحديث معروف بذاته."
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      18,
+      19
+    ],
+    "start_word": 391,
+    "end_word": 455,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- إن مدار الأعمال على النيات، صحة، وفَساداً، وكمالا، ونقصا، وطاعة",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "example"
+    ],
+    "description_arabic": "الفائدة الأولى من حديث النيات: بيان أن مدار الأعمال على النيات صحةً وفساداً وكمالاً ونقصاً، مع أمثلة على اختلاف الثواب باختلاف القصد في الجهاد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 456,
+    "end_word": 482,
+    "text_snippet": "2- أن النية شرط أساسي في العمل، ولكن بلا غُلُوّ في استحضارها يفسد على المتعبد عب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception"
+    ],
+    "description_arabic": "بيان أن النية شرط أساسي في العمل مع التحذير من الغلو في استحضارها، وأن مجرد قصد العمل يكفي نيةً.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21
+    ],
+    "start_word": 483,
+    "end_word": 490,
+    "text_snippet": "3- أن النية مَحلُّها القلب، واللفظ بها بدعة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن محل النية القلب وأن التلفظ بها بدعة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      22
+    ],
+    "start_word": 491,
+    "end_word": 506,
+    "text_snippet": "4- وجوب الحذر من الرياء والسمعة والعمل لأجل الدنيا، مادام أن شيئاً من ذلك يفسد ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب الحذر من الرياء والسمعة والعمل لأجل الدنيا لأن ذلك يفسد العبادة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

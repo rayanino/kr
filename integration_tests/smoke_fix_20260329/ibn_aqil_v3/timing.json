@@ -1,0 +1,14 @@
+{
+  "load_package": 0.009,
+  "phase1": 0.31,
+  "phase2a": 215.089,
+  "phase2a_per_chunk": {
+    "div_src_test0001_3_000": 215.089
+  },
+  "phase2b": 93.813,
+  "phase2b_per_chunk": {
+    "div_src_test0001_3_000": 93.813
+  },
+  "phase3": 64.454,
+  "write_output": 0.004
+}
