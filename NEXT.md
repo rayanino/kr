@@ -1,144 +1,297 @@
-# NEXT — Fix Two CLI Adapter Bugs Before Overnight Run
+# NEXT — Fix Two CLI Adapter Bugs (OAuth + Envelope)
 
-## Situation
+## Current Position
 
-The 280-chunk overnight integration run **failed**. The smoke test (1 chunk per
-package) succeeded at 23:18 on March 28. The overnight run launched at 02:02 on
-March 29. Within the first hour, ALL calls started failing. No packages completed.
+- **Test baseline:** 35 adapter tests + 1991 total project tests, 0 failures (as of commit 3cefa8c8)
+- **Smoke test:** PASSED (5/5 packages, 69 excerpts, $0.00, 28min)
+- **Overnight run:** FAILED (280 chunks) — two distinct bugs
 
-Two distinct bugs were observed:
+## Read First
 
-### Bug 1: OAuth Token Expires Mid-Run (BLOCKING)
-
-**Symptom:** After ~3 hours of successful calls, every `claude -p` subprocess
-starts returning exit code 1 within 1-2 seconds. Logs show:
-```
-[WARNING] Attempt 1/3: subprocess error (exit 1)
-[INFO] Auth error detected — refreshing token
-[WARNING] Attempt 2/3: subprocess error (exit 1)
-[WARNING] Attempt 3/3: subprocess error (exit 1)
-[ERROR] Phase 2a FAILED for chunk ... after 3 attempts. Error code: EX-C-001
-```
-
-**Root cause:** `_get_oauth_token()` (cli_adapter.py line 96) reads the OAuth
-access token from `~/.claude/.credentials.json`. This token expires after a few
-hours. The "refresh" at line 440-442 just re-reads the SAME stale file — it
-doesn't actually request a new token. So "refreshing" produces the same expired
-token, and all 3 retry attempts fail identically.
-
-**Why the smoke test didn't catch it:** The smoke test ran immediately after a
-fresh `claude` interactive session, which writes a new token. It completed in
-28 minutes — well before token expiry.
-
-**Why CC being open didn't help:** CC keeps its own in-memory token alive. It
-doesn't write refreshed tokens back to `~/.claude/.credentials.json`. So the
-file on disk goes stale while CC is fine.
-
-**Fix options to investigate:**
-1. Call `claude` interactively before each package to force a token refresh
-2. Detect the specific auth error and run a token refresh command
-3. Use `claude auth refresh` or similar CLI command if it exists (research needed)
-4. Write a wrapper that periodically refreshes the credentials file
-5. Use the Anthropic API key directly instead of OAuth (the adapter already has
-   a fallback path via `--backend api` with OpenRouter, but we want $0 via Max)
-
-### Bug 2: Envelope Extraction Failing (BLOCKING)
-
-**Symptom:** Even when auth works, some calls produce this validation error:
-```
-[WARNING] Attempt 1/3: validation error: 2 validation errors for ClassificationResult
-segments
-  Field required [type=missing, input_value={'type': 'result', 'subty...
-  a602eb73', 'errors': []}, input_type=dict]
-```
-
-**Root cause:** The Claude CLI JSON envelope (the wrapper around the model's
-actual response) is being passed directly to Pydantic validation instead of
-being unwrapped first. The `input_value` shown IS the envelope — it has
-`type`, `subtype`, `errors` fields, not `segments`.
-
-**Where this fails in code:** `_invoke_claude()` at line 543-557 tries to
-extract the model text from the envelope:
-```python
-envelope = json.loads(raw_stdout)
-if isinstance(envelope, dict) and "result" in envelope:
-    return str(envelope["result"])
-```
-If this extraction fails (JSONDecodeError, or no "result" key), line 559
-returns `raw_stdout` unchanged. Then `extract_json()` parses the raw stdout
-as JSON — getting the envelope dict — and passes it to `model_validate()`,
-which fails because the envelope isn't a ClassificationResult.
-
-**Possible causes:**
-- The Claude CLI output format may have changed (new `subtype` field suggests
-  an update)
-- `--output-format json` and `--bare` flag interaction may have changed
-- The envelope might have a different structure than expected
-- Multi-line output or BOM might prevent `json.loads` from parsing
-
-**Investigation needed:** Run a real `claude -p "say hello" --bare --output-format json`
-and inspect the EXACT raw output byte-by-byte. Compare to the expected format
-documented in CLI_ADAPTER_SPEC.md section 3.2.
-
-## Files to Read
-
-| File | Why |
-|------|-----|
-| `shared/llm/cli_adapter.py` | The adapter with both bugs (699 lines) |
-| `shared/llm/CLI_ADAPTER_SPEC.md` | Governing SPEC — section 3.2 for Claude backend, section 6.3 for OAuth |
-| `integration_tests/smoke_20260329_v2/SUMMARY.json` | Successful smoke test (proves pipeline works when auth is fresh) |
-| `reference/archive/sessions/cross_provider_audit/architect_audit_findings.md` | Full audit context |
-
-## Constraints
-
-- The fix must ensure the overnight run (15-20 hours, 280 chunks) completes
-  without manual intervention. The owner will be sleeping.
-- Do NOT switch to --backend api (OpenRouter costs money). The owner has
-  Claude Max — all CLI calls must be $0.
-- The pipeline itself works — 69 real excerpts were produced in the smoke test.
-  Only the token management and envelope parsing need fixing.
-- After fixing, run a smoke test (--max-chunks 1) on all 5 packages to verify.
-- Use the cross-provider review team if the fix involves architectural changes.
-  For a targeted bug fix with clear root cause, CC alone is sufficient.
+| File | What to look for |
+|------|------------------|
+| `shared/llm/cli_adapter.py` | Lines 96-113 (`_get_oauth_token`), lines 502-559 (`_invoke_claude`), lines 430-453 (auth error retry) |
+| `shared/llm/CLI_ADAPTER_SPEC.md` | §3.2 (Claude backend), §6.3 (OAuth) |
+| `shared/llm/tests/test_cli_adapter.py` | `test_claude_envelope_extraction`, `test_claude_envelope_error_raises` |
 
 ## What to Do
 
-1. **Clone repo, read this NEXT.md and the audit findings.**
+### Phase 0: Investigate (before writing any code)
 
-2. **Investigate Bug 2 first** (envelope parsing). Have CC run a real
-   `claude -p "Respond with only: {\"test\": true}" --bare --output-format json`
-   and capture the EXACT raw output. Compare to what `_invoke_claude()` expects.
-   Fix the extraction logic.
+**0a. Capture Claude CLI raw output format:**
 
-3. **Investigate Bug 1** (token expiry). Research whether `claude` CLI has a
-   token refresh command. Have CC check what `claude auth` or `claude login`
-   subcommands exist. Design a solution that automatically refreshes the token
-   before it expires during a long run.
+Run these exact commands and save the FULL raw output:
 
-4. **Have CC implement fixes.** Write a targeted NEXT.md for CC with exact
-   changes needed. The changes should be ONLY in `cli_adapter.py` and possibly
-   `run_integration_test.py` / `run_full_integration.py`.
+```bash
+# Test 1: with --bare (current approach)
+claude -p "Respond with only: {\"test\": true}" --bare --no-session-persistence --output-format json --model opus 2>/dev/null
 
-5. **Run smoke test** (--max-chunks 1) on all 5 packages after the fix.
+# Test 2: without --bare
+claude -p "Respond with only: {\"test\": true}" --no-session-persistence --output-format json --model opus 2>/dev/null
 
-6. **Wait 4+ hours, then run another single CLI call** to verify token
-   longevity. If it fails, the token fix isn't working.
+# Test 3: hex dump to see any hidden chars
+claude -p "Respond with only: {\"test\": true}" --bare --no-session-persistence --output-format json --model opus 2>/dev/null | xxd | head -30
+```
 
-7. **Then re-launch the overnight run.**
+Record: Is the output a JSON array `[...]` or a JSON object `{...}`? What fields exist?
+
+**0b. Check credentials file:**
+```bash
+python3 -c "
+import json
+from pathlib import Path
+data = json.loads(Path.home().joinpath('.claude/.credentials.json').read_text())
+oauth = data.get('claudeAiOauth', {})
+print('accessToken prefix:', (oauth.get('accessToken','') or '')[:25])
+print('has refreshToken:', bool(oauth.get('refreshToken')))
+print('expiresAt:', oauth.get('expiresAt'))
+"
+```
+
+**0c. Generate a long-lived setup-token:**
+```bash
+claude setup-token
+```
+This opens a browser for authentication. Complete the flow. It outputs a long-lived token
+(format: `sk-ant-oat01-...`). Save this token — it is valid for ~1 year and tied to the
+Max subscription ($0 cost).
+
+If `claude setup-token` is not available or fails, note this and fall back to the
+`KR_ANTHROPIC_TOKEN` env var approach (see fallback in Phase 2).
+
+**0d. Verify the setup-token works with --bare:**
+```bash
+ANTHROPIC_API_KEY="<setup-token-from-0c>" claude -p "Say hello" --bare --no-session-persistence --output-format json --model opus
+```
+
+If this succeeds with `--bare`, the setup-token is our solution for Bug 1.
+
+### Phase 1: Fix Bug 2 — Envelope Extraction
+
+**Root cause:** The Claude CLI with `--output-format json` can return output in multiple
+formats depending on `--bare` and CLI version:
+- **Single dict:** `{"type": "result", "subtype": "success", "result": "...model text...", ...}`
+- **Array:** `[{"type": "system", ...}, ..., {"type": "result", "result": "...model text...", ...}]`
+- **Raw text:** Just the model's text output (not wrapped in an envelope)
+
+The current code at lines 546-557 only handles the single-dict case. If the output is an
+array, extraction fails and the entire envelope dict gets passed to Pydantic validation,
+which fails with "Field required" errors because the envelope has `type`, `subtype`,
+`errors` fields instead of `segments`.
+
+**Fix:** Add a new standalone function `_extract_claude_result()` and call it from
+`_invoke_claude()`. Replace the inline extraction block (lines 543-559).
+
+```python
+def _extract_claude_result(raw_stdout: str) -> str:
+    """Extract model text from Claude CLI JSON output.
+
+    Handles three output formats:
+    1. Single dict envelope: {"type": "result", "result": "...model text..."}
+    2. Array of messages: [..., {"type": "result", "result": "...model text..."}]
+    3. Raw text (not an envelope): returned as-is
+
+    Raises CLIBackendError if the envelope reports is_error=True.
+    """
+    try:
+        parsed = json.loads(raw_stdout)
+    except json.JSONDecodeError:
+        # Not valid JSON — return as-is for extract_json() to handle
+        return raw_stdout
+
+    # Case 1: Array format — find the result element
+    if isinstance(parsed, list):
+        for item in parsed:
+            if isinstance(item, dict) and item.get("type") == "result":
+                if item.get("is_error"):
+                    raise CLIBackendError(
+                        f"Claude CLI returned error: {item.get('result', 'unknown')}",
+                        backend="claude",
+                    )
+                result_text = item.get("result")
+                if result_text is not None:
+                    logger.debug("Extracted model text from Claude CLI array envelope")
+                    return str(result_text)
+        # No result element found — return raw for downstream handling
+        logger.warning("Claude CLI array output had no 'result' element")
+        return raw_stdout
+
+    # Case 2: Single dict format
+    if isinstance(parsed, dict):
+        if parsed.get("type") == "result" or "result" in parsed:
+            if parsed.get("is_error"):
+                raise CLIBackendError(
+                    f"Claude CLI returned error: {parsed.get('result', 'unknown')}",
+                    backend="claude",
+                )
+            if "result" in parsed:
+                logger.debug("Extracted model text from Claude CLI dict envelope")
+                return str(parsed["result"])
+
+    # Case 3: Not an envelope — return as-is
+    return raw_stdout
+```
+
+Then in `_invoke_claude()`, replace lines 543-559 with:
+```python
+raw_stdout = result.stdout
+logger.debug("Claude raw stdout: %s", raw_stdout[:200])
+return _extract_claude_result(raw_stdout)
+```
+
+### Phase 2: Fix Bug 1 — OAuth Token Expiry
+
+**Root cause:** `--bare` mode skips OAuth auto-refresh. The token in
+`~/.claude/.credentials.json` expires after a few hours. The adapter's "refresh" at
+line 440-442 just re-reads the same expired file. During the 15-hour overnight run,
+the token expires and every call fails.
+
+**Fix (depends on Phase 0 results):**
+
+**If `claude setup-token` succeeded (preferred):**
+
+1. Add a constant and reader function:
+```python
+_SETUP_TOKEN_PATH = Path.home() / ".claude" / "kr_setup_token.txt"
+
+
+def _get_setup_token() -> str | None:
+    """Read long-lived setup-token if available."""
+    if _SETUP_TOKEN_PATH.exists():
+        token = _SETUP_TOKEN_PATH.read_text(encoding="utf-8").strip()
+        if token:
+            return token
+    return None
+```
+
+2. Update `_get_oauth_token()` to try setup-token first:
+```python
+def _get_oauth_token() -> str:
+    """Read auth token for Claude CLI (SPEC §6.3).
+
+    Priority:
+    1. KR_ANTHROPIC_TOKEN env var (explicit override)
+    2. Long-lived setup-token from ~/.claude/kr_setup_token.txt
+    3. OAuth access token from ~/.claude/.credentials.json (original)
+    """
+    # Priority 1: explicit env var override
+    env_token = os.environ.get("KR_ANTHROPIC_TOKEN")
+    if env_token:
+        logger.debug("Using KR_ANTHROPIC_TOKEN from environment")
+        return env_token
+
+    # Priority 2: long-lived setup-token
+    setup_token = _get_setup_token()
+    if setup_token:
+        logger.debug("Using long-lived setup-token")
+        return setup_token
+
+    # Priority 3: OAuth credentials file (original behavior)
+    cred_path = Path.home() / ".claude" / ".credentials.json"
+    if not cred_path.exists():
+        raise CLIBackendError(
+            f"Claude credentials not found at {cred_path}. "
+            "Run 'claude' once to authenticate, or set KR_ANTHROPIC_TOKEN.",
+            backend="claude",
+        )
+    data = json.loads(cred_path.read_text(encoding="utf-8"))
+    try:
+        return data["claudeAiOauth"]["accessToken"]
+    except KeyError:
+        raise CLIBackendError(
+            "OAuth token not found in credentials file. "
+            "Expected data['claudeAiOauth']['accessToken'].",
+            backend="claude",
+        )
+```
+
+3. Save the setup-token:
+```bash
+echo "<the-token-from-phase-0c>" > ~/.claude/kr_setup_token.txt
+chmod 600 ~/.claude/kr_setup_token.txt
+```
+
+**If `claude setup-token` is NOT available (fallback):**
+
+Just implement the `KR_ANTHROPIC_TOKEN` env var override (Priority 1 above).
+The owner will set this env var manually before launching the overnight run.
+
+### Phase 3: Add Tests
+
+Add these tests to `shared/llm/tests/test_cli_adapter.py`:
+
+**For Bug 2 (envelope):**
+
+1. `test_extract_claude_result_array_format` — input is a JSON array containing
+   `[{"type":"system",...},{"type":"result","result":"{\"answer\":\"test\"}","is_error":false}]`
+   → returns the `result` field text.
+
+2. `test_extract_claude_result_array_error` — input is a JSON array where the result
+   element has `"is_error": true` → raises `CLIBackendError`.
+
+3. `test_extract_claude_result_array_no_result` — input is a JSON array with no
+   element having `"type": "result"` → returns raw stdout unchanged.
+
+4. `test_extract_claude_result_raw_text` — input is plain text (not JSON) → returns
+   unchanged.
+
+5. `test_extract_claude_result_dict_format` — input is a single dict envelope →
+   works the same as existing `test_claude_envelope_extraction` (keep existing test).
+
+**For Bug 1 (token priority):**
+
+6. `test_token_priority_env_var` — when `KR_ANTHROPIC_TOKEN` env var is set, it takes
+   precedence over setup-token and credentials.json.
+
+7. `test_token_priority_setup_token` — when setup-token file exists but env var is not
+   set, setup-token is used.
+
+8. `test_token_priority_credentials_fallback` — when neither env var nor setup-token
+   exists, falls back to credentials.json.
+
+**Also:** Update the existing `test_claude_envelope_extraction` to call
+`_extract_claude_result` directly (in addition to the end-to-end test via adapter).
+
+### Phase 4: Run Tests and Smoke Test
+
+```bash
+# Unit tests
+cd /home/claude/kr
+python -m pytest shared/llm/tests/test_cli_adapter.py -v --tb=short
+# Should be ~43 tests, 0 failures
+
+# Full project tests
+python -m pytest --tb=short -q
+# Should be ~1991+ tests, 0 failures
+
+# Integration smoke test (all 5 packages, 1 chunk each)
+python scripts/run_full_integration.py --output-dir integration_tests/smoke_fix_$(date +%Y%m%d) --max-chunks 1
+# All 5 packages must succeed
+```
+
+## Design Decisions
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Keep `--bare` | YES | Owner has hooks/MCP configured. Without --bare they load and may interfere. |
+| Token source | Setup-token (1yr) → env var → credentials.json | Setup-token is long-lived ($0 Max), never expires during runs. Env var is explicit override. Credentials.json is last resort. |
+| Setup-token path | `~/.claude/kr_setup_token.txt` | Separate from credentials.json to avoid conflicts with CC's OAuth management. |
+| Envelope extraction | Standalone function | Testable in isolation, handles array + dict + raw text robustly. |
+| `_extract_claude_result` location | Module-level function in cli_adapter.py | Same pattern as `extract_json()` — helper function before the class definitions. |
 
 ## Do NOT Do
 
+- Do NOT remove `--bare` — the owner has hooks and MCP servers configured globally.
 - Do NOT change the excerpting engine, contracts, or phase logic.
-- Do NOT switch to API backend. The owner's Max plan makes CLI calls free.
-- Do NOT skip the 4-hour token longevity test. The smoke test didn't catch
-  Bug 1 because it completed too quickly.
-- Do NOT rush. The pipeline works. Only the CLI infrastructure needs fixing.
+- Do NOT switch to `--backend api` or OpenRouter.
+- Do NOT modify the Codex or Gemini backend code.
+- Do NOT change any files outside `shared/llm/cli_adapter.py` and `shared/llm/tests/test_cli_adapter.py`.
+- Do NOT implement anything beyond what is specified here. After completing the fixes and tests, commit, push, and STOP.
 
-## Critical Numbers
+## Verification Criteria
 
-- 280 total chunks across 5 packages
-- ~840 LLM calls (3 per chunk: classify + group + enrich)
-- Estimated 15-20 hours runtime
-- Per-call timeout: 600s
-- Per-package timeout: 43200s (12h)
-- 1991 tests passing, 0 failures (as of commit 3cefa8c8)
+1. `python -m pytest shared/llm/tests/test_cli_adapter.py -v` — all tests pass (~43)
+2. `python -m pytest --tb=short -q` — full project tests pass (~1991+)
+3. Integration smoke test — all 5 packages succeed, $0.00 cost
+4. Setup-token works with `--bare` mode (verified in Phase 0d)
+5. Commit message: `fix(cli-adapter): robust envelope extraction + setup-token auth`
