@@ -63,6 +63,13 @@
 - [x] CC: F-1 confirmed, F-4 confirmed, **F-6 MISSED**
 - [x] ChatGPT Pro: F-1 confirmed, F-4 confirmed, F-5 correct, **F-6 independently found** + upstream enum reference
 - [x] Codex: 119 tests confirmed
+
+## Standing Order 7: Unconstrained adversarial pass
+- [x] CRLF line endings in JSONL → safe (line.strip handles it)
+- [x] BOM in JSONL → **F-7: first excerpt silently dropped**
+- [x] Duplicate excerpt_ids → **F-8: silent file overwrite, no warning**
+- [x] Very long primary_text (1.15M chars) → handled correctly
+- [x] Null required fields → correctly rejected
 - [x] Convergence: F-6 architect+ChatGPT convergent; CC blind spot confirms real finding (S28 pattern)
 
 ## Findings
@@ -73,6 +80,8 @@
 | F-3 | tests/ | `test_real_data.py` missing; `real_excerpts` fixture orphaned | Create test file using fixture | [ ] |
 | F-4 | `diagnostics.py` | Editorial rate counts only `editorial_note`, not all editorial-classified | Reuse `classify_excerpt_type` as single definition | [ ] |
 | F-6 | `placer.py` | Unrecognized `primary_function` → TEACHING (0.80) instead of EDITORIAL (0.85) | Add `_TEACHING_FUNCTIONS` set; default unknown to EDITORIAL | [ ] |
+| F-7 | `engine.py` | BOM JSONL file silently drops first excerpt | Change `encoding="utf-8"` to `"utf-8-sig"` in `_read_excerpts` | [ ] |
+| F-8 | `engine.py` | Duplicate `excerpt_id` silently overwrites output file | Log warning before overwrite | [ ] |
 
 ## Fixes committed
 - [ ] ALL findings above have `Fixed? [x]`
@@ -81,7 +90,7 @@
 
 ## Verdict
 
-**Verdict: BLOCKED — 4 findings (1 critical, 3 medium)**
+**Verdict: BLOCKED — 6 findings (1 critical, 3 medium, 2 low)**
 
 ## Build metrics (cumulative)
 ```

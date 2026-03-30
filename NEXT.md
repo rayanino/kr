@@ -76,9 +76,44 @@ Tests to include:
 - [ ] All tests pass: `PYTHONPATH=. python -m pytest engines/taxonomy/tests/ -q --tb=short`
 - [ ] Test count: ≥ 125 (was 119, expect ~6-8 new tests)
 
+## Fix 5: F-7 — BOM-safe JSONL reading
+
+**File:** `engines/taxonomy/src/engine.py`
+
+**Problem:** `_read_excerpts` opens JSONL with `encoding="utf-8"`. If a file has a UTF-8 BOM (byte order mark, e.g. from Windows Notepad), the first line fails to parse and the first excerpt is silently dropped.
+
+**Fix:** In `_read_excerpts`, change `encoding="utf-8"` to `encoding="utf-8-sig"`. This transparently strips BOM if present and is a no-op if absent.
+
+**Test:** Add a test that writes a BOM JSONL file and verifies all excerpts are read.
+
+## Fix 6: F-8 — Warn on duplicate excerpt_id file overwrite
+
+**File:** `engines/taxonomy/src/engine.py`
+
+**Problem:** If two excerpts with the same `excerpt_id` are processed, the second write silently overwrites the first. No warning, no error — data loss.
+
+**Fix:** In `_process_excerpt`, before calling the writer, check if the output file path already exists. If it does, log a warning: `"TAX_DUPLICATE_OUTPUT: overwriting existing file for excerpt {excerpt_id} at {path}"`. Do NOT prevent the write (the latest result should win) — just make it visible.
+
+This requires the writer functions to return the planned path before writing, or the check can go in `_process_excerpt` by constructing the path and checking `path.exists()` before the write call.
+
+**Test:** Add a test that processes two excerpts with the same ID and verifies a warning is logged.
+
+## Verification (Definition of Done)
+
+- [ ] `classify_excerpt_type({"primary_function": "unclassified"})` returns `ExcerptType.EDITORIAL`
+- [ ] `classify_excerpt_type({"primary_function": "rule_statement"})` returns `ExcerptType.TEACHING`
+- [ ] `_EXPECTED_FIELDS` has exactly 8 entries
+- [ ] Excerpt with `school=None` (key present) does NOT trigger expected-field warning
+- [ ] `compute_editorial_placement_rate` counts null primary_function as editorial
+- [ ] `test_real_data.py` exists and all tests pass
+- [ ] BOM JSONL file: all excerpts read successfully (no silent drop)
+- [ ] Duplicate excerpt_id: warning logged (not silent)
+- [ ] All tests pass: `PYTHONPATH=. python -m pytest engines/taxonomy/tests/ -q --tb=short`
+- [ ] Test count: ≥ 127 (was 119, adding ~8-10 new tests)
+
 ## Do NOT Do
 
-- Do NOT modify `tree_loader.py`, `writer.py`, or `validator.py`
+- Do NOT modify `tree_loader.py` or `validator.py`
 - Do NOT modify `contracts_core.py`
-- Do NOT implement anything beyond the 4 fixes specified above
+- Do NOT implement anything beyond the 6 fixes specified above
 - After completing the fixes, commit and push. Do NOT proceed to Session 2.

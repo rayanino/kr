@@ -7,16 +7,18 @@
 
 ### Blocker 1: Code fixes (F-1, F-3, F-4, F-6)
 
-Session 1 code review found 4 issues. Fix directive is at `NEXT.md`.
+Session 1 code review found 6 issues. Fix directive is at `NEXT.md`.
 - **F-6 (CRITICAL):** `classify_excerpt_type` in `placer.py` treats unrecognized `primary_function` as TEACHING (threshold 0.80) instead of EDITORIAL (threshold 0.85). SPEC §4.A.3 says "not recognized → editorial." Upstream excerpting enum has `UNCLASSIFIED = "unclassified"` which triggers this.
 - **F-1:** `_EXPECTED_FIELDS` in `engine.py` has 4/8 SPEC §2.1 fields.
 - **F-4:** `compute_editorial_placement_rate` in `diagnostics.py` only counts `editorial_note`, not all editorial-classified excerpts.
 - **F-3:** `test_real_data.py` missing; `real_excerpts` fixture orphaned.
+- **F-7:** BOM-encoded JSONL files silently drop first excerpt (`encoding="utf-8"` → should be `"utf-8-sig"`).
+- **F-8:** Duplicate `excerpt_id` silently overwrites output files with no warning.
 
 **Status:** Fix directive ready at `NEXT.md`. Relay to CC.
 **Review:** `reference/archive/sessions/reviews/review_taxonomy_session1.md`
 **Providers who reviewed:** Architect, CC, ChatGPT Pro (deep research), Codex CLI.
-**Test baseline:** 119 tests passing. After fixes: expect ≥125.
+**Test baseline:** 119 tests passing. After fixes: expect ≥127.
 
 ### Blocker 2: Gate G3 — Tree validation (NEVER EXECUTED)
 
