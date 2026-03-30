@@ -1,0 +1,4519 @@
+{
+  "total_scanned": 8417,
+  "nahw_count": 302,
+  "tier_counts": {
+    "A": 212,
+    "B": 88,
+    "C": 2
+  },
+  "books": [
+    {
+      "name": "أبنية الأسماء والأفعال والمصادر",
+      "title": "أبنية الأسماء والأفعال والمصادر",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أبنية الأسماء والأفعال والمصادر.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أبنية الأسماء والأفعال والمصادر.htm"
+    },
+    {
+      "name": "أخبار أبي القاسم الزجاجي",
+      "title": "أخبار أبي القاسم الزجاجي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أخبار أبي القاسم الزجاجي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أخبار أبي القاسم الزجاجي.htm"
+    },
+    {
+      "name": "أدوات الإعراب",
+      "title": "أدوات الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أدوات الإعراب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أدوات الإعراب.htm"
+    },
+    {
+      "name": "أصول النحو ١ - جامعة المدينة",
+      "title": "أصول النحو ١ - جامعة المدينة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أصول النحو ١ - جامعة المدينة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أصول النحو ١ - جامعة المدينة.htm"
+    },
+    {
+      "name": "أصول النحو ٢ - جامعة المدينة",
+      "title": "أصول النحو ٢ - جامعة المدينة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أصول النحو ٢ - جامعة المدينة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أصول النحو ٢ - جامعة المدينة.htm"
+    },
+    {
+      "name": "ألفية ابن مالك - ت القاسم",
+      "title": "ألفية ابن مالك - ت القاسم",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ألفية ابن مالك - ت القاسم.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ألفية ابن مالك - ت القاسم.htm"
+    },
+    {
+      "name": "ألفية ابن مالك - ط التعاون",
+      "title": "ألفية ابن مالك - ط التعاون",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ألفية ابن مالك - ط التعاون.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ألفية ابن مالك - ط التعاون.htm"
+    },
+    {
+      "name": "أمالي ابن الحاجب",
+      "title": "أمالي ابن الحاجب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "أمالي ابن الحاجب\\001.htm",
+        "أمالي ابن الحاجب\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أمالي ابن الحاجب\\001.htm"
+    },
+    {
+      "name": "أوضح المسالك إلى ألفية ابن مالك - ت هبود",
+      "title": "أوضح المسالك إلى ألفية ابن مالك - ت هبود",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "أوضح المسالك إلى ألفية ابن مالك - ت هبود\\001.htm",
+        "أوضح المسالك إلى ألفية ابن مالك - ت هبود\\002.htm",
+        "أوضح المسالك إلى ألفية ابن مالك - ت هبود\\003.htm",
+        "أوضح المسالك إلى ألفية ابن مالك - ت هبود\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أوضح المسالك إلى ألفية ابن مالك - ت هبود\\001.htm"
+    },
+    {
+      "name": "إتحاف الحثيث بإعراب ما يشكل من ألفاظ الحديث",
+      "title": "إتحاف الحثيث بإعراب ما يشكل من ألفاظ الحديث",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إتحاف الحثيث بإعراب ما يشكل من ألفاظ الحديث.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إتحاف الحثيث بإعراب ما يشكل من ألفاظ الحديث.htm"
+    },
+    {
+      "name": "إرشاد السالك إلى حل ألفية ابن مالك",
+      "title": "إرشاد السالك إلى حل ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "إرشاد السالك إلى حل ألفية ابن مالك\\001.htm",
+        "إرشاد السالك إلى حل ألفية ابن مالك\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إرشاد السالك إلى حل ألفية ابن مالك\\001.htm"
+    },
+    {
+      "name": "إشكال صرفي وجوابه - ضمن «آثار المعلمي»",
+      "title": "إشكال صرفي وجوابه - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إشكال صرفي وجوابه - ضمن «آثار المعلمي».htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إشكال صرفي وجوابه - ضمن «آثار المعلمي».htm"
+    },
+    {
+      "name": "إعراب لا إله إلا الله",
+      "title": "إعراب لا إله إلا الله",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إعراب لا إله إلا الله.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب لا إله إلا الله.htm"
+    },
+    {
+      "name": "إعراب لامية الشنفرى",
+      "title": "إعراب لامية الشنفرى",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إعراب لامية الشنفرى.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب لامية الشنفرى.htm"
+    },
+    {
+      "name": "إعراب ما يشكل من ألفاظ الحديث",
+      "title": "إعراب ما يشكل من ألفاظ الحديث",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إعراب ما يشكل من ألفاظ الحديث.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب ما يشكل من ألفاظ الحديث.htm"
+    },
+    {
+      "name": "إيجاز التعريف في علم التصريف",
+      "title": "إيجاز التعريف في علم التصريف",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إيجاز التعريف في علم التصريف.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إيجاز التعريف في علم التصريف.htm"
+    },
+    {
+      "name": "إيناس الناس بتفاحة أبي جعفر النحاس",
+      "title": "إيناس الناس بتفاحة أبي جعفر النحاس",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إيناس الناس بتفاحة أبي جعفر النحاس.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إيناس الناس بتفاحة أبي جعفر النحاس.htm"
+    },
+    {
+      "name": "اتحاف الفاضل بالفعل المبني لغير الفاعل",
+      "title": "اتحاف الفاضل بالفعل المبني لغير الفاعل",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "اتحاف الفاضل بالفعل المبني لغير الفاعل.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\اتحاف الفاضل بالفعل المبني لغير الفاعل.htm"
+    },
+    {
+      "name": "ارتشاف الضرب من لسان العرب",
+      "title": "ارتشاف الضرب من لسان العرب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "ارتشاف الضرب من لسان العرب\\001.htm",
+        "ارتشاف الضرب من لسان العرب\\002.htm",
+        "ارتشاف الضرب من لسان العرب\\003.htm",
+        "ارتشاف الضرب من لسان العرب\\004.htm",
+        "ارتشاف الضرب من لسان العرب\\005.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ارتشاف الضرب من لسان العرب\\001.htm"
+    },
+    {
+      "name": "اعتراض الشرط على الشرط",
+      "title": "اعتراض الشرط على الشرط",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "اعتراض الشرط على الشرط.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\اعتراض الشرط على الشرط.htm"
+    },
+    {
+      "name": "اقتطاف الأزاهر والتقاط الجواهر",
+      "title": "اقتطاف الأزاهر والتقاط الجواهر",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "اقتطاف الأزاهر والتقاط الجواهر.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\اقتطاف الأزاهر والتقاط الجواهر.htm"
+    },
+    {
+      "name": "الآجرومية",
+      "title": "الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الآجرومية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الآجرومية.htm"
+    },
+    {
+      "name": "الأصول في النحو",
+      "title": "الأصول في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "الأصول في النحو\\001.htm",
+        "الأصول في النحو\\002.htm",
+        "الأصول في النحو\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الأصول في النحو\\001.htm"
+    },
+    {
+      "name": "الأفعال - سعيد المعافري",
+      "title": "الأفعال - سعيد المعافري",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "الأفعال - سعيد المعافري\\001.htm",
+        "الأفعال - سعيد المعافري\\002.htm",
+        "الأفعال - سعيد المعافري\\003.htm",
+        "الأفعال - سعيد المعافري\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الأفعال - سعيد المعافري\\001.htm"
+    },
+    {
+      "name": "الأفعال الناسخة",
+      "title": "الأفعال الناسخة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الأفعال الناسخة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الأفعال الناسخة.htm"
+    },
+    {
+      "name": "الألغاز النحوية = الطراز في الألغاز",
+      "title": "الألغاز النحوية = الطراز في الألغاز",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الألغاز النحوية = الطراز في الألغاز.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الألغاز النحوية = الطراز في الألغاز.htm"
+    },
+    {
+      "name": "الألفاظ المهموزة",
+      "title": "الألفاظ المهموزة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الألفاظ المهموزة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الألفاظ المهموزة.htm"
+    },
+    {
+      "name": "الأنشوطة في النحو",
+      "title": "الأنشوطة في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الأنشوطة في النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الأنشوطة في النحو.htm"
+    },
+    {
+      "name": "الإعراب المفصل لكتاب الله المرتل",
+      "title": "الإعراب المفصل لكتاب الله المرتل",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 12,
+      "files": [
+        "الإعراب المفصل لكتاب الله المرتل\\001.htm",
+        "الإعراب المفصل لكتاب الله المرتل\\002.htm",
+        "الإعراب المفصل لكتاب الله المرتل\\003.htm",
+        "الإعراب المفصل لكتاب الله المرتل\\004.htm",
+        "الإعراب المفصل لكتاب الله المرتل\\005.htm",
+        "الإعراب المفصل لكتاب الله المرتل\\006.htm",
+        "الإعراب المفصل لكتاب الله المرتل\\007.htm",
+        "الإعراب المفصل لكتاب الله المرتل\\008.htm",
+        "الإعراب المفصل لكتاب الله المرتل\\009.htm",
+        "الإعراب المفصل لكتاب الله المرتل\\010.htm",
+        "الإعراب المفصل لكتاب الله المرتل\\011.htm",
+        "الإعراب المفصل لكتاب الله المرتل\\012.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الإعراب المفصل لكتاب الله المرتل\\001.htm"
+    },
+    {
+      "name": "الإنصاف في مسائل الخلاف بين النحويين البصريين والكوفيين",
+      "title": "الإنصاف في مسائل الخلاف بين النحويين البصريين والكوفيين",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "الإنصاف في مسائل الخلاف بين النحويين البصريين والكوفيين\\001.htm",
+        "الإنصاف في مسائل الخلاف بين النحويين البصريين والكوفيين\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الإنصاف في مسائل الخلاف بين النحويين البصريين والكوفيين\\001.htm"
+    },
+    {
+      "name": "الإيضاح العضدي",
+      "title": "الإيضاح العضدي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الإيضاح العضدي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الإيضاح العضدي.htm"
+    },
+    {
+      "name": "الإيضاح في علل النحو",
+      "title": "الإيضاح في علل النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الإيضاح في علل النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الإيضاح في علل النحو.htm"
+    },
+    {
+      "name": "الاقتراح في أصول النحو ط البيروتي",
+      "title": "الاقتراح في أصول النحو ط البيروتي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الاقتراح في أصول النحو ط البيروتي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الاقتراح في أصول النحو ط البيروتي.htm"
+    },
+    {
+      "name": "الاقتراح في أصول النحو ط القلم",
+      "title": "الاقتراح في أصول النحو ط القلم",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الاقتراح في أصول النحو ط القلم.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الاقتراح في أصول النحو ط القلم.htm"
+    },
+    {
+      "name": "الانتخاب لكشف الأبيات المشكلة الإعراب",
+      "title": "الانتخاب لكشف الأبيات المشكلة الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الانتخاب لكشف الأبيات المشكلة الإعراب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الانتخاب لكشف الأبيات المشكلة الإعراب.htm"
+    },
+    {
+      "name": "الانتصار لسيبويه على المبرد",
+      "title": "الانتصار لسيبويه على المبرد",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الانتصار لسيبويه على المبرد.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الانتصار لسيبويه على المبرد.htm"
+    },
+    {
+      "name": "البديع في علم العربية",
+      "title": "البديع في علم العربية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "البديع في علم العربية\\001.htm",
+        "البديع في علم العربية\\002.htm",
+        "البديع في علم العربية\\الفهارس.htm",
+        "البديع في علم العربية\\مقدمة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\البديع في علم العربية\\001.htm"
+    },
+    {
+      "name": "البرعومة في النحو",
+      "title": "البرعومة في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البرعومة في النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\البرعومة في النحو.htm"
+    },
+    {
+      "name": "البلغة في الفرق بين المذكر والمؤنث",
+      "title": "البلغة في الفرق بين المذكر والمؤنث",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البلغة في الفرق بين المذكر والمؤنث.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\البلغة في الفرق بين المذكر والمؤنث.htm"
+    },
+    {
+      "name": "البهجة الوفية بحجة الخلاصة الألفية",
+      "title": "البهجة الوفية بحجة الخلاصة الألفية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "البهجة الوفية بحجة الخلاصة الألفية\\001.htm",
+        "البهجة الوفية بحجة الخلاصة الألفية\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\البهجة الوفية بحجة الخلاصة الألفية\\001.htm"
+    },
+    {
+      "name": "التبيان في قواعد النحو وتقويم اللسان",
+      "title": "التبيان في قواعد النحو وتقويم اللسان",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "التبيان في قواعد النحو وتقويم اللسان.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التبيان في قواعد النحو وتقويم اللسان.htm"
+    },
+    {
+      "name": "التبيين عن مذاهب النحويين البصريين والكوفيين",
+      "title": "التبيين عن مذاهب النحويين البصريين والكوفيين",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "التبيين عن مذاهب النحويين البصريين والكوفيين.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التبيين عن مذاهب النحويين البصريين والكوفيين.htm"
+    },
+    {
+      "name": "التحفة الوسيمة شرح على الدرة اليتيمة",
+      "title": "التحفة الوسيمة شرح على الدرة اليتيمة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "التحفة الوسيمة شرح على الدرة اليتيمة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التحفة الوسيمة شرح على الدرة اليتيمة.htm"
+    },
+    {
+      "name": "التخمير شرح المفصل في صنعة الإعراب",
+      "title": "التخمير شرح المفصل في صنعة الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "التخمير شرح المفصل في صنعة الإعراب\\001.htm",
+        "التخمير شرح المفصل في صنعة الإعراب\\002.htm",
+        "التخمير شرح المفصل في صنعة الإعراب\\003.htm",
+        "التخمير شرح المفصل في صنعة الإعراب\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التخمير شرح المفصل في صنعة الإعراب\\001.htm"
+    },
+    {
+      "name": "التذييل والتكميل في شرح كتاب التسهيل",
+      "title": "التذييل والتكميل في شرح كتاب التسهيل",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 11,
+      "files": [
+        "التذييل والتكميل في شرح كتاب التسهيل\\001.htm",
+        "التذييل والتكميل في شرح كتاب التسهيل\\002.htm",
+        "التذييل والتكميل في شرح كتاب التسهيل\\003.htm",
+        "التذييل والتكميل في شرح كتاب التسهيل\\004.htm",
+        "التذييل والتكميل في شرح كتاب التسهيل\\005.htm",
+        "التذييل والتكميل في شرح كتاب التسهيل\\006.htm",
+        "التذييل والتكميل في شرح كتاب التسهيل\\007.htm",
+        "التذييل والتكميل في شرح كتاب التسهيل\\008.htm",
+        "التذييل والتكميل في شرح كتاب التسهيل\\009.htm",
+        "التذييل والتكميل في شرح كتاب التسهيل\\010.htm",
+        "التذييل والتكميل في شرح كتاب التسهيل\\011.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التذييل والتكميل في شرح كتاب التسهيل\\001.htm"
+    },
+    {
+      "name": "التطبيق النحوي",
+      "title": "التطبيق النحوي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "التطبيق النحوي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التطبيق النحوي.htm"
+    },
+    {
+      "name": "التعجب من فعل المفعول بين المانعين والمجيزين",
+      "title": "التعجب من فعل المفعول بين المانعين والمجيزين",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "التعجب من فعل المفعول بين المانعين والمجيزين.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التعجب من فعل المفعول بين المانعين والمجيزين.htm"
+    },
+    {
+      "name": "التعليقة على كتاب سيبويه",
+      "title": "التعليقة على كتاب سيبويه",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "التعليقة على كتاب سيبويه\\001.htm",
+        "التعليقة على كتاب سيبويه\\002.htm",
+        "التعليقة على كتاب سيبويه\\003.htm",
+        "التعليقة على كتاب سيبويه\\004.htm",
+        "التعليقة على كتاب سيبويه\\005.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التعليقة على كتاب سيبويه\\001.htm"
+    },
+    {
+      "name": "التكملة للفارسي",
+      "title": "التكملة للفارسي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "التكملة للفارسي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التكملة للفارسي.htm"
+    },
+    {
+      "name": "الجمل في النحو",
+      "title": "الجمل في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الجمل في النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الجمل في النحو.htm"
+    },
+    {
+      "name": "الجنى الداني في حروف المعاني",
+      "title": "الجنى الداني في حروف المعاني",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الجنى الداني في حروف المعاني.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الجنى الداني في حروف المعاني.htm"
+    },
+    {
+      "name": "الحدود في علم النحو",
+      "title": "الحدود في علم النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الحدود في علم النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الحدود في علم النحو.htm"
+    },
+    {
+      "name": "الحلل في شرح أبيات الجمل",
+      "title": "الحلل في شرح أبيات الجمل",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الحلل في شرح أبيات الجمل.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الحلل في شرح أبيات الجمل.htm"
+    },
+    {
+      "name": "الخصائص",
+      "title": "الخصائص",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "الخصائص\\001.htm",
+        "الخصائص\\002.htm",
+        "الخصائص\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الخصائص\\001.htm"
+    },
+    {
+      "name": "الدرة البهية نظم الآجرومية",
+      "title": "الدرة البهية نظم الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الدرة البهية نظم الآجرومية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الدرة البهية نظم الآجرومية.htm"
+    },
+    {
+      "name": "الرابط وأثره في التراكيب في العربية",
+      "title": "الرابط وأثره في التراكيب في العربية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الرابط وأثره في التراكيب في العربية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الرابط وأثره في التراكيب في العربية.htm"
+    },
+    {
+      "name": "الرد على النحاة",
+      "title": "الرد على النحاة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الرد على النحاة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الرد على النحاة.htm"
+    },
+    {
+      "name": "السماع والقياس",
+      "title": "السماع والقياس",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "السماع والقياس.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\السماع والقياس.htm"
+    },
+    {
+      "name": "الشافية في علم التصريف - معها الوافية نظم الشافية",
+      "title": "الشافية في علم التصريف - معها الوافية نظم الشافية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "الشافية في علم التصريف - معها الوافية نظم الشافية\\001.htm",
+        "الشافية في علم التصريف - معها الوافية نظم الشافية\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الشافية في علم التصريف - معها الوافية نظم الشافية\\001.htm"
+    },
+    {
+      "name": "الشافية في علمي التصريف والخط",
+      "title": "الشافية في علمي التصريف والخط",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الشافية في علمي التصريف والخط.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الشافية في علمي التصريف والخط.htm"
+    },
+    {
+      "name": "الشرح المختصر على نظم الآجرومية",
+      "title": "الشرح المختصر على نظم الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 12,
+      "files": [
+        "الشرح المختصر على نظم الآجرومية\\001.htm",
+        "الشرح المختصر على نظم الآجرومية\\002.htm",
+        "الشرح المختصر على نظم الآجرومية\\003.htm",
+        "الشرح المختصر على نظم الآجرومية\\004.htm",
+        "الشرح المختصر على نظم الآجرومية\\005.htm",
+        "الشرح المختصر على نظم الآجرومية\\006.htm",
+        "الشرح المختصر على نظم الآجرومية\\007.htm",
+        "الشرح المختصر على نظم الآجرومية\\008.htm",
+        "الشرح المختصر على نظم الآجرومية\\009.htm",
+        "الشرح المختصر على نظم الآجرومية\\010.htm",
+        "الشرح المختصر على نظم الآجرومية\\011.htm",
+        "الشرح المختصر على نظم الآجرومية\\012.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الشرح المختصر على نظم الآجرومية\\001.htm"
+    },
+    {
+      "name": "الشرح المختصر على نظم المقصود",
+      "title": "الشرح المختصر على نظم المقصود",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 10,
+      "files": [
+        "الشرح المختصر على نظم المقصود\\001.htm",
+        "الشرح المختصر على نظم المقصود\\002.htm",
+        "الشرح المختصر على نظم المقصود\\003.htm",
+        "الشرح المختصر على نظم المقصود\\004.htm",
+        "الشرح المختصر على نظم المقصود\\005.htm",
+        "الشرح المختصر على نظم المقصود\\006.htm",
+        "الشرح المختصر على نظم المقصود\\007.htm",
+        "الشرح المختصر على نظم المقصود\\008.htm",
+        "الشرح المختصر على نظم المقصود\\009.htm",
+        "الشرح المختصر على نظم المقصود\\010.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الشرح المختصر على نظم المقصود\\001.htm"
+    },
+    {
+      "name": "الضرورة الشعرية ومفهومها لدى النحويين دراسة على ألفية بن مالك",
+      "title": "الضرورة الشعرية ومفهومها لدى النحويين دراسة على ألفية بن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الضرورة الشعرية ومفهومها لدى النحويين دراسة على ألفية بن مالك.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الضرورة الشعرية ومفهومها لدى النحويين دراسة على ألفية بن مالك.htm"
+    },
+    {
+      "name": "العدة في إعراب العمدة",
+      "title": "العدة في إعراب العمدة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "العدة في إعراب العمدة\\001.htm",
+        "العدة في إعراب العمدة\\002.htm",
+        "العدة في إعراب العمدة\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\العدة في إعراب العمدة\\001.htm"
+    },
+    {
+      "name": "العدد في اللغة",
+      "title": "العدد في اللغة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "العدد في اللغة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\العدد في اللغة.htm"
+    },
+    {
+      "name": "العمدة في إعراب البردة قصيدة البوصيري",
+      "title": "العمدة في إعراب البردة قصيدة البوصيري",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "العمدة في إعراب البردة قصيدة البوصيري.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\العمدة في إعراب البردة قصيدة البوصيري.htm"
+    },
+    {
+      "name": "الفصول المفيدة في الواو المزيدة",
+      "title": "الفصول المفيدة في الواو المزيدة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الفصول المفيدة في الواو المزيدة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الفصول المفيدة في الواو المزيدة.htm"
+    },
+    {
+      "name": "الفعلان - المطبوع خطأ باسم «نقعة الصديان»",
+      "title": "الفعلان - المطبوع خطأ باسم «نقعة الصديان»",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الفعلان - المطبوع خطأ باسم «نقعة الصديان».htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الفعلان - المطبوع خطأ باسم «نقعة الصديان».htm"
+    },
+    {
+      "name": "الفوائد العجيبة في إعراب الكلمات الغربية - ط إسطنبول",
+      "title": "الفوائد العجيبة في إعراب الكلمات الغربية - ط إسطنبول",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الفوائد العجيبة في إعراب الكلمات الغربية - ط إسطنبول.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الفوائد العجيبة في إعراب الكلمات الغربية - ط إسطنبول.htm"
+    },
+    {
+      "name": "الفوائد العجيبة في إعراب الكلمات الغريبة - ت حاتم الضامن",
+      "title": "الفوائد العجيبة في إعراب الكلمات الغريبة - ت حاتم الضامن",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الفوائد العجيبة في إعراب الكلمات الغريبة - ت حاتم الضامن.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الفوائد العجيبة في إعراب الكلمات الغريبة - ت حاتم الضامن.htm"
+    },
+    {
+      "name": "القطارة النحوية على المقدمة الآجرومية",
+      "title": "القطارة النحوية على المقدمة الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "القطارة النحوية على المقدمة الآجرومية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\القطارة النحوية على المقدمة الآجرومية.htm"
+    },
+    {
+      "name": "القواعد التطبيقية في اللغة العربية",
+      "title": "القواعد التطبيقية في اللغة العربية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "القواعد التطبيقية في اللغة العربية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\القواعد التطبيقية في اللغة العربية.htm"
+    },
+    {
+      "name": "الكافية في علم النحو",
+      "title": "الكافية في علم النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الكافية في علم النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الكافية في علم النحو.htm"
+    },
+    {
+      "name": "الكتاب لسيبويه",
+      "title": "الكتاب لسيبويه",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "الكتاب لسيبويه\\001.htm",
+        "الكتاب لسيبويه\\002.htm",
+        "الكتاب لسيبويه\\003.htm",
+        "الكتاب لسيبويه\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الكتاب لسيبويه\\001.htm"
+    },
+    {
+      "name": "الكشف عن صاحب البسيط في النحو",
+      "title": "الكشف عن صاحب البسيط في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الكشف عن صاحب البسيط في النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الكشف عن صاحب البسيط في النحو.htm"
+    },
+    {
+      "name": "الكلام على تصريف «ذو» - ضمن «آثار المعلمي»",
+      "title": "الكلام على تصريف «ذو» - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الكلام على تصريف «ذو» - ضمن «آثار المعلمي».htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الكلام على تصريف «ذو» - ضمن «آثار المعلمي».htm"
+    },
+    {
+      "name": "الكناش في فني النحو والصرف",
+      "title": "الكناش في فني النحو والصرف",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "الكناش في فني النحو والصرف\\001.htm",
+        "الكناش في فني النحو والصرف\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الكناش في فني النحو والصرف\\001.htm"
+    },
+    {
+      "name": "الكوكب المنير في شرح الألفية بالتشطير",
+      "title": "الكوكب المنير في شرح الألفية بالتشطير",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الكوكب المنير في شرح الألفية بالتشطير.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الكوكب المنير في شرح الألفية بالتشطير.htm"
+    },
+    {
+      "name": "اللؤلؤ المنظوم في نظم منثور ابن آجروم",
+      "title": "اللؤلؤ المنظوم في نظم منثور ابن آجروم",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "اللؤلؤ المنظوم في نظم منثور ابن آجروم.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\اللؤلؤ المنظوم في نظم منثور ابن آجروم.htm"
+    },
+    {
+      "name": "اللامات",
+      "title": "اللامات",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "اللامات.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\اللامات.htm"
+    },
+    {
+      "name": "اللباب في علل البناء والإعراب",
+      "title": "اللباب في علل البناء والإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "اللباب في علل البناء والإعراب\\001.htm",
+        "اللباب في علل البناء والإعراب\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\اللباب في علل البناء والإعراب\\001.htm"
+    },
+    {
+      "name": "اللطيفة البكرية والنتيجة الفكرية في المهمات النحوية - ضمن «آثار المعلمي»",
+      "title": "اللطيفة البكرية والنتيجة الفكرية في المهمات النحوية - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "اللطيفة البكرية والنتيجة الفكرية في المهمات النحوية - ضمن «آثار المعلمي».htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\اللطيفة البكرية والنتيجة الفكرية في المهمات النحوية - ضمن «آثار المعلمي».htm"
+    },
+    {
+      "name": "اللمحة في شرح الملحة",
+      "title": "اللمحة في شرح الملحة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "اللمحة في شرح الملحة\\001.htm",
+        "اللمحة في شرح الملحة\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\اللمحة في شرح الملحة\\001.htm"
+    },
+    {
+      "name": "اللمع في العربية لابن جني",
+      "title": "اللمع في العربية لابن جني",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "اللمع في العربية لابن جني.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\اللمع في العربية لابن جني.htm"
+    },
+    {
+      "name": "المدارس النحوية",
+      "title": "المدارس النحوية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المدارس النحوية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المدارس النحوية.htm"
+    },
+    {
+      "name": "المرتجل في شرح الجمل لابن الخشاب",
+      "title": "المرتجل في شرح الجمل لابن الخشاب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المرتجل في شرح الجمل لابن الخشاب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المرتجل في شرح الجمل لابن الخشاب.htm"
+    },
+    {
+      "name": "المسائل البصريات",
+      "title": "المسائل البصريات",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "المسائل البصريات\\001.htm",
+        "المسائل البصريات\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المسائل البصريات\\001.htm"
+    },
+    {
+      "name": "المسائل الحلبيات",
+      "title": "المسائل الحلبيات",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المسائل الحلبيات.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المسائل الحلبيات.htm"
+    },
+    {
+      "name": "المسائل السفرية",
+      "title": "المسائل السفرية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المسائل السفرية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المسائل السفرية.htm"
+    },
+    {
+      "name": "المسائل العسكريات في النحو العربي",
+      "title": "المسائل العسكريات في النحو العربي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المسائل العسكريات في النحو العربي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المسائل العسكريات في النحو العربي.htm"
+    },
+    {
+      "name": "المسائل النحوية في كتاب التوضيح لشرح الجامع الصحيح",
+      "title": "المسائل النحوية في كتاب التوضيح لشرح الجامع الصحيح",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المسائل النحوية في كتاب التوضيح لشرح الجامع الصحيح.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المسائل النحوية في كتاب التوضيح لشرح الجامع الصحيح.htm"
+    },
+    {
+      "name": "المساعد على تسهيل الفوائد",
+      "title": "المساعد على تسهيل الفوائد",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "المساعد على تسهيل الفوائد\\001.htm",
+        "المساعد على تسهيل الفوائد\\002.htm",
+        "المساعد على تسهيل الفوائد\\003.htm",
+        "المساعد على تسهيل الفوائد\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المساعد على تسهيل الفوائد\\001.htm"
+    },
+    {
+      "name": "المصباح لما أعتم من شواهد الإيضاح",
+      "title": "المصباح لما أعتم من شواهد الإيضاح",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "المصباح لما أعتم من شواهد الإيضاح\\001.htm",
+        "المصباح لما أعتم من شواهد الإيضاح\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المصباح لما أعتم من شواهد الإيضاح\\001.htm"
+    },
+    {
+      "name": "المغني في تصريف الأفعال",
+      "title": "المغني في تصريف الأفعال",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المغني في تصريف الأفعال.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المغني في تصريف الأفعال.htm"
+    },
+    {
+      "name": "المفتاح في الصرف",
+      "title": "المفتاح في الصرف",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المفتاح في الصرف.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المفتاح في الصرف.htm"
+    },
+    {
+      "name": "المفصل في صنعة الإعراب",
+      "title": "المفصل في صنعة الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المفصل في صنعة الإعراب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المفصل في صنعة الإعراب.htm"
+    },
+    {
+      "name": "المقتضب",
+      "title": "المقتضب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "المقتضب\\001.htm",
+        "المقتضب\\002.htm",
+        "المقتضب\\003.htm",
+        "المقتضب\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المقتضب\\001.htm"
+    },
+    {
+      "name": "المقدمة الجزولية في النحو",
+      "title": "المقدمة الجزولية في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المقدمة الجزولية في النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المقدمة الجزولية في النحو.htm"
+    },
+    {
+      "name": "الممتع الكبير في التصريف",
+      "title": "الممتع الكبير في التصريف",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الممتع الكبير في التصريف.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الممتع الكبير في التصريف.htm"
+    },
+    {
+      "name": "المنصف لابن جني، شرح كتاب التصريف لأبي عثمان المازني",
+      "title": "المنصف لابن جني، شرح كتاب التصريف لأبي عثمان المازني",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المنصف لابن جني، شرح كتاب التصريف لأبي عثمان المازني.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المنصف لابن جني، شرح كتاب التصريف لأبي عثمان المازني.htm"
+    },
+    {
+      "name": "المنصوب على التقريب",
+      "title": "المنصوب على التقريب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المنصوب على التقريب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المنصوب على التقريب.htm"
+    },
+    {
+      "name": "المنصوب على نزع الخافض في القرآن",
+      "title": "المنصوب على نزع الخافض في القرآن",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المنصوب على نزع الخافض في القرآن.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المنصوب على نزع الخافض في القرآن.htm"
+    },
+    {
+      "name": "المنهاج المختصر في علمي النحو والصرف",
+      "title": "المنهاج المختصر في علمي النحو والصرف",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المنهاج المختصر في علمي النحو والصرف.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المنهاج المختصر في علمي النحو والصرف.htm"
+    },
+    {
+      "name": "المنهل المأهول بالبناء للمجهول لأبي الخير محمد بن ظهيرة تحقيق ودراسة",
+      "title": "المنهل المأهول بالبناء للمجهول لأبي الخير محمد بن ظهيرة تحقيق ودراسة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المنهل المأهول بالبناء للمجهول لأبي الخير محمد بن ظهيرة تحقيق ودراسة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المنهل المأهول بالبناء للمجهول لأبي الخير محمد بن ظهيرة تحقيق ودراسة.htm"
+    },
+    {
+      "name": "الموجز في قواعد اللغة العربية",
+      "title": "الموجز في قواعد اللغة العربية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الموجز في قواعد اللغة العربية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الموجز في قواعد اللغة العربية.htm"
+    },
+    {
+      "name": "النحو المصفى",
+      "title": "النحو المصفى - الكتاب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "النحو المصفى\\الكتاب.htm",
+        "النحو المصفى\\مقدمة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\النحو المصفى\\الكتاب.htm"
+    },
+    {
+      "name": "النحو الواضح في قواعد اللغة العربية",
+      "title": "النحو الواضح في قواعد اللغة العربية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "النحو الواضح في قواعد اللغة العربية\\001.htm",
+        "النحو الواضح في قواعد اللغة العربية\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\النحو الواضح في قواعد اللغة العربية\\001.htm"
+    },
+    {
+      "name": "النحو الوافي",
+      "title": "النحو الوافي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "النحو الوافي\\001.htm",
+        "النحو الوافي\\002.htm",
+        "النحو الوافي\\003.htm",
+        "النحو الوافي\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\النحو الوافي\\001.htm"
+    },
+    {
+      "name": "الورقة النحوية",
+      "title": "الورقة النحوية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الورقة النحوية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الورقة النحوية.htm"
+    },
+    {
+      "name": "الوفية باختصار الألفية",
+      "title": "الوفية باختصار الألفية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الوفية باختصار الألفية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الوفية باختصار الألفية.htm"
+    },
+    {
+      "name": "بحث في صيغة أفعل بين النحويين واللغويين واستعمالاتها في العربية",
+      "title": "بحث في صيغة أفعل بين النحويين واللغويين واستعمالاتها في العربية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "بحث في صيغة أفعل بين النحويين واللغويين واستعمالاتها في العربية\\049.htm",
+        "بحث في صيغة أفعل بين النحويين واللغويين واستعمالاتها في العربية\\053.htm",
+        "بحث في صيغة أفعل بين النحويين واللغويين واستعمالاتها في العربية\\057.htm",
+        "بحث في صيغة أفعل بين النحويين واللغويين واستعمالاتها في العربية\\50  -  51.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\بحث في صيغة أفعل بين النحويين واللغويين واستعمالاتها في العربية\\049.htm"
+    },
+    {
+      "name": "تثقيف اللسان وتلقيح الجنان",
+      "title": "تثقيف اللسان وتلقيح الجنان",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "تثقيف اللسان وتلقيح الجنان.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تثقيف اللسان وتلقيح الجنان.htm"
+    },
+    {
+      "name": "تخليص الشواهد وتلخيص الفوائد",
+      "title": "تخليص الشواهد وتلخيص الفوائد",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "تخليص الشواهد وتلخيص الفوائد.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تخليص الشواهد وتلخيص الفوائد.htm"
+    },
+    {
+      "name": "تداخل الأصول اللغوية وأثره في بناء المعجم",
+      "title": "تداخل الأصول اللغوية وأثره في بناء المعجم",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "تداخل الأصول اللغوية وأثره في بناء المعجم\\001.htm",
+        "تداخل الأصول اللغوية وأثره في بناء المعجم\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تداخل الأصول اللغوية وأثره في بناء المعجم\\001.htm"
+    },
+    {
+      "name": "تسهيل الفوائد وتكميل المقاصد",
+      "title": "تسهيل الفوائد وتكميل المقاصد",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "تسهيل الفوائد وتكميل المقاصد.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تسهيل الفوائد وتكميل المقاصد.htm"
+    },
+    {
+      "name": "تعجيل الندى بشرح قطر الندى",
+      "title": "تعجيل الندى بشرح قطر الندى",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "تعجيل الندى بشرح قطر الندى.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تعجيل الندى بشرح قطر الندى.htm"
+    },
+    {
+      "name": "تمهيد القواعد بشرح تسهيل الفوائد",
+      "title": "تمهيد القواعد بشرح تسهيل الفوائد",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 11,
+      "files": [
+        "تمهيد القواعد بشرح تسهيل الفوائد\\001.htm",
+        "تمهيد القواعد بشرح تسهيل الفوائد\\002.htm",
+        "تمهيد القواعد بشرح تسهيل الفوائد\\003.htm",
+        "تمهيد القواعد بشرح تسهيل الفوائد\\004.htm",
+        "تمهيد القواعد بشرح تسهيل الفوائد\\005.htm",
+        "تمهيد القواعد بشرح تسهيل الفوائد\\006.htm",
+        "تمهيد القواعد بشرح تسهيل الفوائد\\007.htm",
+        "تمهيد القواعد بشرح تسهيل الفوائد\\008.htm",
+        "تمهيد القواعد بشرح تسهيل الفوائد\\009.htm",
+        "تمهيد القواعد بشرح تسهيل الفوائد\\010.htm",
+        "تمهيد القواعد بشرح تسهيل الفوائد\\011.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تمهيد القواعد بشرح تسهيل الفوائد\\001.htm"
+    },
+    {
+      "name": "توجيه اللمع",
+      "title": "توجيه اللمع",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "توجيه اللمع.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\توجيه اللمع.htm"
+    },
+    {
+      "name": "توضيح المقاصد والمسالك بشرح ألفية ابن مالك",
+      "title": "توضيح المقاصد والمسالك بشرح ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "توضيح المقاصد والمسالك بشرح ألفية ابن مالك\\001.htm",
+        "توضيح المقاصد والمسالك بشرح ألفية ابن مالك\\002.htm",
+        "توضيح المقاصد والمسالك بشرح ألفية ابن مالك\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\توضيح المقاصد والمسالك بشرح ألفية ابن مالك\\001.htm"
+    },
+    {
+      "name": "جامع الدروس العربية",
+      "title": "جامع الدروس العربية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "جامع الدروس العربية\\001.htm",
+        "جامع الدروس العربية\\002.htm",
+        "جامع الدروس العربية\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\جامع الدروس العربية\\001.htm"
+    },
+    {
+      "name": "حاشية الآجرومية",
+      "title": "حاشية الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "حاشية الآجرومية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\حاشية الآجرومية.htm"
+    },
+    {
+      "name": "حاشية الصبان على شرح الأشمونى لألفية ابن مالك",
+      "title": "حاشية الصبان على شرح الأشمونى لألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "حاشية الصبان على شرح الأشمونى لألفية ابن مالك\\001.htm",
+        "حاشية الصبان على شرح الأشمونى لألفية ابن مالك\\002.htm",
+        "حاشية الصبان على شرح الأشمونى لألفية ابن مالك\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\حاشية الصبان على شرح الأشمونى لألفية ابن مالك\\001.htm"
+    },
+    {
+      "name": "حاشيتان لابن هشام على ألفية ابن مالك",
+      "title": "حاشيتان لابن هشام على ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "حاشيتان لابن هشام على ألفية ابن مالك\\001.htm",
+        "حاشيتان لابن هشام على ألفية ابن مالك\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\حاشيتان لابن هشام على ألفية ابن مالك\\001.htm"
+    },
+    {
+      "name": "حركة حروف المضارعة",
+      "title": "حركة حروف المضارعة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "حركة حروف المضارعة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\حركة حروف المضارعة.htm"
+    },
+    {
+      "name": "حروف المعاني والصفات",
+      "title": "حروف المعاني والصفات",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "حروف المعاني والصفات.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\حروف المعاني والصفات.htm"
+    },
+    {
+      "name": "حقائق في النحو مستقربة - ضمن «آثار المعلمي»",
+      "title": "حقائق في النحو مستقربة - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "حقائق في النحو مستقربة - ضمن «آثار المعلمي».htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\حقائق في النحو مستقربة - ضمن «آثار المعلمي».htm"
+    },
+    {
+      "name": "خطاب الماردي ومنهجه في النحو",
+      "title": "خطاب الماردي ومنهجه في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "خطاب الماردي ومنهجه في النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\خطاب الماردي ومنهجه في النحو.htm"
+    },
+    {
+      "name": "دراسات في النحو",
+      "title": "دراسات في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "دراسات في النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\دراسات في النحو.htm"
+    },
+    {
+      "name": "دليل الطالبين لكلام النحويين",
+      "title": "دليل الطالبين لكلام النحويين",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "دليل الطالبين لكلام النحويين.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\دليل الطالبين لكلام النحويين.htm"
+    },
+    {
+      "name": "رسالة أي المشددة",
+      "title": "رسالة أي المشددة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "رسالة أي المشددة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\رسالة أي المشددة.htm"
+    },
+    {
+      "name": "رسالة الحدود",
+      "title": "رسالة الحدود",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "رسالة الحدود.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\رسالة الحدود.htm"
+    },
+    {
+      "name": "رسالة المباحث المرضية",
+      "title": "رسالة المباحث المرضية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "رسالة المباحث المرضية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\رسالة المباحث المرضية.htm"
+    },
+    {
+      "name": "رسالة الملائكة - ت الجندي",
+      "title": "رسالة الملائكة - ت الجندي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "رسالة الملائكة - ت الجندي\\001.htm",
+        "رسالة الملائكة - ت الجندي\\مقدمة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\رسالة الملائكة - ت الجندي\\001.htm"
+    },
+    {
+      "name": "رسالة الملائكة - ت الميمني - ط العلمية",
+      "title": "رسالة الملائكة - ت الميمني - ط العلمية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "رسالة الملائكة - ت الميمني - ط العلمية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\رسالة الملائكة - ت الميمني - ط العلمية.htm"
+    },
+    {
+      "name": "رسالة في اسم الفاعل",
+      "title": "رسالة في اسم الفاعل",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "رسالة في اسم الفاعل.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\رسالة في اسم الفاعل.htm"
+    },
+    {
+      "name": "سبب وضع علم العربية",
+      "title": "سبب وضع علم العربية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "سبب وضع علم العربية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\سبب وضع علم العربية.htm"
+    },
+    {
+      "name": "سفر السعادة وسفير الإفادة",
+      "title": "سفر السعادة وسفير الإفادة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "سفر السعادة وسفير الإفادة\\001.htm",
+        "سفر السعادة وسفير الإفادة\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\سفر السعادة وسفير الإفادة\\001.htm"
+    },
+    {
+      "name": "شذا العرف في فن الصرف",
+      "title": "شذا العرف في فن الصرف",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شذا العرف في فن الصرف.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شذا العرف في فن الصرف.htm"
+    },
+    {
+      "name": "شرح أبيات سيبويه",
+      "title": "شرح أبيات سيبويه",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "شرح أبيات سيبويه\\001.htm",
+        "شرح أبيات سيبويه\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح أبيات سيبويه\\001.htm"
+    },
+    {
+      "name": "شرح أبيات مغني اللبيب",
+      "title": "شرح أبيات مغني اللبيب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 8,
+      "files": [
+        "شرح أبيات مغني اللبيب\\001.htm",
+        "شرح أبيات مغني اللبيب\\002.htm",
+        "شرح أبيات مغني اللبيب\\003.htm",
+        "شرح أبيات مغني اللبيب\\004.htm",
+        "شرح أبيات مغني اللبيب\\005.htm",
+        "شرح أبيات مغني اللبيب\\006.htm",
+        "شرح أبيات مغني اللبيب\\007.htm",
+        "شرح أبيات مغني اللبيب\\008.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح أبيات مغني اللبيب\\001.htm"
+    },
+    {
+      "name": "شرح ألفية ابن مالك المسمى تحرير الخصاصة في تيسير الخلاصة",
+      "title": "شرح ألفية ابن مالك المسمى تحرير الخصاصة في تيسير الخلاصة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "شرح ألفية ابن مالك المسمى تحرير الخصاصة في تيسير الخلاصة\\001.htm",
+        "شرح ألفية ابن مالك المسمى تحرير الخصاصة في تيسير الخلاصة\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح ألفية ابن مالك المسمى تحرير الخصاصة في تيسير الخلاصة\\001.htm"
+    },
+    {
+      "name": "شرح ألفية ابن مالك للحازمي",
+      "title": "شرح ألفية ابن مالك للحازمي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 138,
+      "files": [
+        "شرح ألفية ابن مالك للحازمي\\001.htm",
+        "شرح ألفية ابن مالك للحازمي\\002.htm",
+        "شرح ألفية ابن مالك للحازمي\\003.htm",
+        "شرح ألفية ابن مالك للحازمي\\004.htm",
+        "شرح ألفية ابن مالك للحازمي\\005.htm",
+        "شرح ألفية ابن مالك للحازمي\\006.htm",
+        "شرح ألفية ابن مالك للحازمي\\007.htm",
+        "شرح ألفية ابن مالك للحازمي\\008.htm",
+        "شرح ألفية ابن مالك للحازمي\\009.htm",
+        "شرح ألفية ابن مالك للحازمي\\010.htm",
+        "شرح ألفية ابن مالك للحازمي\\011.htm",
+        "شرح ألفية ابن مالك للحازمي\\012.htm",
+        "شرح ألفية ابن مالك للحازمي\\013.htm",
+        "شرح ألفية ابن مالك للحازمي\\014.htm",
+        "شرح ألفية ابن مالك للحازمي\\015.htm",
+        "شرح ألفية ابن مالك للحازمي\\016.htm",
+        "شرح ألفية ابن مالك للحازمي\\017.htm",
+        "شرح ألفية ابن مالك للحازمي\\018.htm",
+        "شرح ألفية ابن مالك للحازمي\\019.htm",
+        "شرح ألفية ابن مالك للحازمي\\020.htm",
+        "شرح ألفية ابن مالك للحازمي\\021.htm",
+        "شرح ألفية ابن مالك للحازمي\\022.htm",
+        "شرح ألفية ابن مالك للحازمي\\023.htm",
+        "شرح ألفية ابن مالك للحازمي\\024.htm",
+        "شرح ألفية ابن مالك للحازمي\\025.htm",
+        "شرح ألفية ابن مالك للحازمي\\026.htm",
+        "شرح ألفية ابن مالك للحازمي\\027.htm",
+        "شرح ألفية ابن مالك للحازمي\\028.htm",
+        "شرح ألفية ابن مالك للحازمي\\029.htm",
+        "شرح ألفية ابن مالك للحازمي\\030.htm",
+        "شرح ألفية ابن مالك للحازمي\\031.htm",
+        "شرح ألفية ابن مالك للحازمي\\032.htm",
+        "شرح ألفية ابن مالك للحازمي\\033.htm",
+        "شرح ألفية ابن مالك للحازمي\\034.htm",
+        "شرح ألفية ابن مالك للحازمي\\035.htm",
+        "شرح ألفية ابن مالك للحازمي\\036.htm",
+        "شرح ألفية ابن مالك للحازمي\\037.htm",
+        "شرح ألفية ابن مالك للحازمي\\038.htm",
+        "شرح ألفية ابن مالك للحازمي\\039.htm",
+        "شرح ألفية ابن مالك للحازمي\\040.htm",
+        "شرح ألفية ابن مالك للحازمي\\041.htm",
+        "شرح ألفية ابن مالك للحازمي\\042.htm",
+        "شرح ألفية ابن مالك للحازمي\\043.htm",
+        "شرح ألفية ابن مالك للحازمي\\044.htm",
+        "شرح ألفية ابن مالك للحازمي\\045.htm",
+        "شرح ألفية ابن مالك للحازمي\\046.htm",
+        "شرح ألفية ابن مالك للحازمي\\047.htm",
+        "شرح ألفية ابن مالك للحازمي\\048.htm",
+        "شرح ألفية ابن مالك للحازمي\\049.htm",
+        "شرح ألفية ابن مالك للحازمي\\050.htm",
+        "شرح ألفية ابن مالك للحازمي\\051.htm",
+        "شرح ألفية ابن مالك للحازمي\\052.htm",
+        "شرح ألفية ابن مالك للحازمي\\053.htm",
+        "شرح ألفية ابن مالك للحازمي\\054.htm",
+        "شرح ألفية ابن مالك للحازمي\\055.htm",
+        "شرح ألفية ابن مالك للحازمي\\056.htm",
+        "شرح ألفية ابن مالك للحازمي\\057.htm",
+        "شرح ألفية ابن مالك للحازمي\\058.htm",
+        "شرح ألفية ابن مالك للحازمي\\059.htm",
+        "شرح ألفية ابن مالك للحازمي\\060.htm",
+        "شرح ألفية ابن مالك للحازمي\\061.htm",
+        "شرح ألفية ابن مالك للحازمي\\062.htm",
+        "شرح ألفية ابن مالك للحازمي\\063.htm",
+        "شرح ألفية ابن مالك للحازمي\\064.htm",
+        "شرح ألفية ابن مالك للحازمي\\065.htm",
+        "شرح ألفية ابن مالك للحازمي\\066.htm",
+        "شرح ألفية ابن مالك للحازمي\\067.htm",
+        "شرح ألفية ابن مالك للحازمي\\068.htm",
+        "شرح ألفية ابن مالك للحازمي\\069.htm",
+        "شرح ألفية ابن مالك للحازمي\\070.htm",
+        "شرح ألفية ابن مالك للحازمي\\071.htm",
+        "شرح ألفية ابن مالك للحازمي\\072.htm",
+        "شرح ألفية ابن مالك للحازمي\\073.htm",
+        "شرح ألفية ابن مالك للحازمي\\074.htm",
+        "شرح ألفية ابن مالك للحازمي\\075.htm",
+        "شرح ألفية ابن مالك للحازمي\\076.htm",
+        "شرح ألفية ابن مالك للحازمي\\077.htm",
+        "شرح ألفية ابن مالك للحازمي\\078.htm",
+        "شرح ألفية ابن مالك للحازمي\\079.htm",
+        "شرح ألفية ابن مالك للحازمي\\080.htm",
+        "شرح ألفية ابن مالك للحازمي\\081.htm",
+        "شرح ألفية ابن مالك للحازمي\\082.htm",
+        "شرح ألفية ابن مالك للحازمي\\083.htm",
+        "شرح ألفية ابن مالك للحازمي\\084.htm",
+        "شرح ألفية ابن مالك للحازمي\\085.htm",
+        "شرح ألفية ابن مالك للحازمي\\086.htm",
+        "شرح ألفية ابن مالك للحازمي\\087.htm",
+        "شرح ألفية ابن مالك للحازمي\\088.htm",
+        "شرح ألفية ابن مالك للحازمي\\089.htm",
+        "شرح ألفية ابن مالك للحازمي\\090.htm",
+        "شرح ألفية ابن مالك للحازمي\\091.htm",
+        "شرح ألفية ابن مالك للحازمي\\092.htm",
+        "شرح ألفية ابن مالك للحازمي\\093.htm",
+        "شرح ألفية ابن مالك للحازمي\\094.htm",
+        "شرح ألفية ابن مالك للحازمي\\095.htm",
+        "شرح ألفية ابن مالك للحازمي\\096.htm",
+        "شرح ألفية ابن مالك للحازمي\\097.htm",
+        "شرح ألفية ابن مالك للحازمي\\098.htm",
+        "شرح ألفية ابن مالك للحازمي\\099.htm",
+        "شرح ألفية ابن مالك للحازمي\\100.htm",
+        "شرح ألفية ابن مالك للحازمي\\101.htm",
+        "شرح ألفية ابن مالك للحازمي\\102.htm",
+        "شرح ألفية ابن مالك للحازمي\\103.htm",
+        "شرح ألفية ابن مالك للحازمي\\104.htm",
+        "شرح ألفية ابن مالك للحازمي\\105.htm",
+        "شرح ألفية ابن مالك للحازمي\\106.htm",
+        "شرح ألفية ابن مالك للحازمي\\107.htm",
+        "شرح ألفية ابن مالك للحازمي\\108.htm",
+        "شرح ألفية ابن مالك للحازمي\\109.htm",
+        "شرح ألفية ابن مالك للحازمي\\110.htm",
+        "شرح ألفية ابن مالك للحازمي\\111.htm",
+        "شرح ألفية ابن مالك للحازمي\\112.htm",
+        "شرح ألفية ابن مالك للحازمي\\113.htm",
+        "شرح ألفية ابن مالك للحازمي\\114.htm",
+        "شرح ألفية ابن مالك للحازمي\\115.htm",
+        "شرح ألفية ابن مالك للحازمي\\116.htm",
+        "شرح ألفية ابن مالك للحازمي\\117.htm",
+        "شرح ألفية ابن مالك للحازمي\\118.htm",
+        "شرح ألفية ابن مالك للحازمي\\119.htm",
+        "شرح ألفية ابن مالك للحازمي\\120.htm",
+        "شرح ألفية ابن مالك للحازمي\\121.htm",
+        "شرح ألفية ابن مالك للحازمي\\122.htm",
+        "شرح ألفية ابن مالك للحازمي\\123.htm",
+        "شرح ألفية ابن مالك للحازمي\\124.htm",
+        "شرح ألفية ابن مالك للحازمي\\125.htm",
+        "شرح ألفية ابن مالك للحازمي\\126.htm",
+        "شرح ألفية ابن مالك للحازمي\\127.htm",
+        "شرح ألفية ابن مالك للحازمي\\128.htm",
+        "شرح ألفية ابن مالك للحازمي\\129.htm",
+        "شرح ألفية ابن مالك للحازمي\\130.htm",
+        "شرح ألفية ابن مالك للحازمي\\131.htm",
+        "شرح ألفية ابن مالك للحازمي\\132.htm",
+        "شرح ألفية ابن مالك للحازمي\\133.htm",
+        "شرح ألفية ابن مالك للحازمي\\134.htm",
+        "شرح ألفية ابن مالك للحازمي\\135.htm",
+        "شرح ألفية ابن مالك للحازمي\\136.htm",
+        "شرح ألفية ابن مالك للحازمي\\137.htm",
+        "شرح ألفية ابن مالك للحازمي\\138.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح ألفية ابن مالك للحازمي\\001.htm"
+    },
+    {
+      "name": "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية",
+      "title": "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 9,
+      "files": [
+        "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية\\001.htm",
+        "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية\\002.htm",
+        "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية\\003.htm",
+        "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية\\004.htm",
+        "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية\\005.htm",
+        "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية\\006.htm",
+        "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية\\007.htm",
+        "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية\\008.htm",
+        "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية\\009.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح ألفية ابن مالك للشاطبي = المقاصد الشافية\\001.htm"
+    },
+    {
+      "name": "شرح ألفية ابن مالك للعثيمين",
+      "title": "شرح ألفية ابن مالك للعثيمين",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 70,
+      "files": [
+        "شرح ألفية ابن مالك للعثيمين\\001.htm",
+        "شرح ألفية ابن مالك للعثيمين\\002.htm",
+        "شرح ألفية ابن مالك للعثيمين\\003.htm",
+        "شرح ألفية ابن مالك للعثيمين\\004.htm",
+        "شرح ألفية ابن مالك للعثيمين\\005.htm",
+        "شرح ألفية ابن مالك للعثيمين\\006.htm",
+        "شرح ألفية ابن مالك للعثيمين\\007.htm",
+        "شرح ألفية ابن مالك للعثيمين\\008.htm",
+        "شرح ألفية ابن مالك للعثيمين\\009.htm",
+        "شرح ألفية ابن مالك للعثيمين\\010.htm",
+        "شرح ألفية ابن مالك للعثيمين\\011.htm",
+        "شرح ألفية ابن مالك للعثيمين\\012.htm",
+        "شرح ألفية ابن مالك للعثيمين\\013.htm",
+        "شرح ألفية ابن مالك للعثيمين\\014.htm",
+        "شرح ألفية ابن مالك للعثيمين\\015.htm",
+        "شرح ألفية ابن مالك للعثيمين\\016.htm",
+        "شرح ألفية ابن مالك للعثيمين\\017.htm",
+        "شرح ألفية ابن مالك للعثيمين\\018.htm",
+        "شرح ألفية ابن مالك للعثيمين\\019.htm",
+        "شرح ألفية ابن مالك للعثيمين\\020.htm",
+        "شرح ألفية ابن مالك للعثيمين\\021.htm",
+        "شرح ألفية ابن مالك للعثيمين\\022.htm",
+        "شرح ألفية ابن مالك للعثيمين\\023.htm",
+        "شرح ألفية ابن مالك للعثيمين\\024.htm",
+        "شرح ألفية ابن مالك للعثيمين\\025.htm",
+        "شرح ألفية ابن مالك للعثيمين\\026.htm",
+        "شرح ألفية ابن مالك للعثيمين\\027.htm",
+        "شرح ألفية ابن مالك للعثيمين\\028.htm",
+        "شرح ألفية ابن مالك للعثيمين\\029.htm",
+        "شرح ألفية ابن مالك للعثيمين\\030.htm",
+        "شرح ألفية ابن مالك للعثيمين\\031.htm",
+        "شرح ألفية ابن مالك للعثيمين\\032.htm",
+        "شرح ألفية ابن مالك للعثيمين\\033.htm",
+        "شرح ألفية ابن مالك للعثيمين\\034.htm",
+        "شرح ألفية ابن مالك للعثيمين\\035.htm",
+        "شرح ألفية ابن مالك للعثيمين\\036.htm",
+        "شرح ألفية ابن مالك للعثيمين\\037.htm",
+        "شرح ألفية ابن مالك للعثيمين\\038.htm",
+        "شرح ألفية ابن مالك للعثيمين\\039.htm",
+        "شرح ألفية ابن مالك للعثيمين\\040.htm",
+        "شرح ألفية ابن مالك للعثيمين\\041.htm",
+        "شرح ألفية ابن مالك للعثيمين\\042.htm",
+        "شرح ألفية ابن مالك للعثيمين\\043.htm",
+        "شرح ألفية ابن مالك للعثيمين\\044.htm",
+        "شرح ألفية ابن مالك للعثيمين\\045.htm",
+        "شرح ألفية ابن مالك للعثيمين\\046.htm",
+        "شرح ألفية ابن مالك للعثيمين\\047.htm",
+        "شرح ألفية ابن مالك للعثيمين\\048.htm",
+        "شرح ألفية ابن مالك للعثيمين\\049.htm",
+        "شرح ألفية ابن مالك للعثيمين\\050.htm",
+        "شرح ألفية ابن مالك للعثيمين\\051.htm",
+        "شرح ألفية ابن مالك للعثيمين\\052.htm",
+        "شرح ألفية ابن مالك للعثيمين\\053.htm",
+        "شرح ألفية ابن مالك للعثيمين\\054.htm",
+        "شرح ألفية ابن مالك للعثيمين\\055.htm",
+        "شرح ألفية ابن مالك للعثيمين\\056.htm",
+        "شرح ألفية ابن مالك للعثيمين\\057.htm",
+        "شرح ألفية ابن مالك للعثيمين\\058.htm",
+        "شرح ألفية ابن مالك للعثيمين\\059.htm",
+        "شرح ألفية ابن مالك للعثيمين\\060.htm",
+        "شرح ألفية ابن مالك للعثيمين\\061.htm",
+        "شرح ألفية ابن مالك للعثيمين\\062.htm",
+        "شرح ألفية ابن مالك للعثيمين\\063.htm",
+        "شرح ألفية ابن مالك للعثيمين\\064.htm",
+        "شرح ألفية ابن مالك للعثيمين\\065.htm",
+        "شرح ألفية ابن مالك للعثيمين\\066.htm",
+        "شرح ألفية ابن مالك للعثيمين\\067.htm",
+        "شرح ألفية ابن مالك للعثيمين\\068.htm",
+        "شرح ألفية ابن مالك للعثيمين\\069.htm",
+        "شرح ألفية ابن مالك للعثيمين\\070.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح ألفية ابن مالك للعثيمين\\001.htm"
+    },
+    {
+      "name": "شرح ابن الناظم على ألفية ابن مالك",
+      "title": "شرح ابن الناظم على ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح ابن الناظم على ألفية ابن مالك.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح ابن الناظم على ألفية ابن مالك.htm"
+    },
+    {
+      "name": "شرح ابن عقيل على ألفية ابن مالك",
+      "title": "شرح ابن عقيل على ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "شرح ابن عقيل على ألفية ابن مالك\\001.htm",
+        "شرح ابن عقيل على ألفية ابن مالك\\002.htm",
+        "شرح ابن عقيل على ألفية ابن مالك\\003.htm",
+        "شرح ابن عقيل على ألفية ابن مالك\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح ابن عقيل على ألفية ابن مالك\\001.htm"
+    },
+    {
+      "name": "شرح الآجرومية - حسن حفظي",
+      "title": "شرح الآجرومية - حسن حفظي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح الآجرومية - حسن حفظي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح الآجرومية - حسن حفظي.htm"
+    },
+    {
+      "name": "شرح الآجرومية - عبد الكريم الخضير",
+      "title": "شرح الآجرومية - عبد الكريم الخضير",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 8,
+      "files": [
+        "شرح الآجرومية - عبد الكريم الخضير\\001.htm",
+        "شرح الآجرومية - عبد الكريم الخضير\\002.htm",
+        "شرح الآجرومية - عبد الكريم الخضير\\003.htm",
+        "شرح الآجرومية - عبد الكريم الخضير\\004.htm",
+        "شرح الآجرومية - عبد الكريم الخضير\\005.htm",
+        "شرح الآجرومية - عبد الكريم الخضير\\006.htm",
+        "شرح الآجرومية - عبد الكريم الخضير\\007.htm",
+        "شرح الآجرومية - عبد الكريم الخضير\\008.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح الآجرومية - عبد الكريم الخضير\\001.htm"
+    },
+    {
+      "name": "شرح الآجرومية - محمد حسن عبد الغفار",
+      "title": "شرح الآجرومية - محمد حسن عبد الغفار",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 16,
+      "files": [
+        "شرح الآجرومية - محمد حسن عبد الغفار\\001.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\002.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\003.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\004.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\005.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\006.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\007.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\008.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\009.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\010.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\011.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\012.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\013.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\014.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\015.htm",
+        "شرح الآجرومية - محمد حسن عبد الغفار\\016.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح الآجرومية - محمد حسن عبد الغفار\\001.htm"
+    },
+    {
+      "name": "شرح الأجرومية للأسمري",
+      "title": "شرح الأجرومية للأسمري",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح الأجرومية للأسمري.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح الأجرومية للأسمري.htm"
+    },
+    {
+      "name": "شرح الأزهرية",
+      "title": "شرح الأزهرية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح الأزهرية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح الأزهرية.htm"
+    },
+    {
+      "name": "شرح الأشمونى لألفية ابن مالك",
+      "title": "شرح الأشمونى لألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "شرح الأشمونى لألفية ابن مالك\\001.htm",
+        "شرح الأشمونى لألفية ابن مالك\\002.htm",
+        "شرح الأشمونى لألفية ابن مالك\\003.htm",
+        "شرح الأشمونى لألفية ابن مالك\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح الأشمونى لألفية ابن مالك\\001.htm"
+    },
+    {
+      "name": "شرح التسهيل = تعليق الفرائد على تسهيل الفوائد - ق ١",
+      "title": "شرح التسهيل = تعليق الفرائد على تسهيل الفوائد - ق ١",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "شرح التسهيل = تعليق الفرائد على تسهيل الفوائد - ق ١\\001.htm",
+        "شرح التسهيل = تعليق الفرائد على تسهيل الفوائد - ق ١\\002.htm",
+        "شرح التسهيل = تعليق الفرائد على تسهيل الفوائد - ق ١\\003.htm",
+        "شرح التسهيل = تعليق الفرائد على تسهيل الفوائد - ق ١\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح التسهيل = تعليق الفرائد على تسهيل الفوائد - ق ١\\001.htm"
+    },
+    {
+      "name": "شرح التسهيل لابن مالك",
+      "title": "شرح التسهيل لابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "شرح التسهيل لابن مالك\\001.htm",
+        "شرح التسهيل لابن مالك\\002.htm",
+        "شرح التسهيل لابن مالك\\003.htm",
+        "شرح التسهيل لابن مالك\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح التسهيل لابن مالك\\001.htm"
+    },
+    {
+      "name": "شرح التصريح على التوضيح أو التصريح بمضمون التوضيح في النحو",
+      "title": "شرح التصريح على التوضيح أو التصريح بمضمون التوضيح في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "شرح التصريح على التوضيح أو التصريح بمضمون التوضيح في النحو\\001.htm",
+        "شرح التصريح على التوضيح أو التصريح بمضمون التوضيح في النحو\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح التصريح على التوضيح أو التصريح بمضمون التوضيح في النحو\\001.htm"
+    },
+    {
+      "name": "شرح التصريف للثمانيني",
+      "title": "شرح التصريف للثمانيني",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح التصريف للثمانيني.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح التصريف للثمانيني.htm"
+    },
+    {
+      "name": "شرح التعريف بضروري التصريف",
+      "title": "شرح التعريف بضروري التصريف",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح التعريف بضروري التصريف.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح التعريف بضروري التصريف.htm"
+    },
+    {
+      "name": "شرح الفارضي على ألفية ابن مالك",
+      "title": "شرح الفارضي على ألفية ابن مالك",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "شرح الفارضي على ألفية ابن مالك\\001.htm",
+        "شرح الفارضي على ألفية ابن مالك\\002.htm",
+        "شرح الفارضي على ألفية ابن مالك\\003.htm",
+        "شرح الفارضي على ألفية ابن مالك\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح الفارضي على ألفية ابن مالك\\001.htm"
+    },
+    {
+      "name": "شرح الكافية الشافية",
+      "title": "شرح الكافية الشافية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "شرح الكافية الشافية\\001.htm",
+        "شرح الكافية الشافية\\002.htm",
+        "شرح الكافية الشافية\\003.htm",
+        "شرح الكافية الشافية\\004.htm",
+        "شرح الكافية الشافية\\005.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح الكافية الشافية\\001.htm"
+    },
+    {
+      "name": "شرح المفصل لابن يعيش",
+      "title": "شرح المفصل لابن يعيش",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "شرح المفصل لابن يعيش\\001.htm",
+        "شرح المفصل لابن يعيش\\002.htm",
+        "شرح المفصل لابن يعيش\\003.htm",
+        "شرح المفصل لابن يعيش\\004.htm",
+        "شرح المفصل لابن يعيش\\005.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح المفصل لابن يعيش\\001.htm"
+    },
+    {
+      "name": "شرح المقدمة المحسبة",
+      "title": "شرح المقدمة المحسبة",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "شرح المقدمة المحسبة\\001.htm",
+        "شرح المقدمة المحسبة\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح المقدمة المحسبة\\001.htm"
+    },
+    {
+      "name": "شرح المكودي على الألفية في علمي الصرف والنحو",
+      "title": "شرح المكودي على الألفية في علمي الصرف والنحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح المكودي على الألفية في علمي الصرف والنحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح المكودي على الألفية في علمي الصرف والنحو.htm"
+    },
+    {
+      "name": "شرح شافية ابن الحاجب - الرضي الأستراباذي",
+      "title": "شرح شافية ابن الحاجب - الرضي الأستراباذي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "شرح شافية ابن الحاجب - الرضي الأستراباذي\\001.htm",
+        "شرح شافية ابن الحاجب - الرضي الأستراباذي\\002.htm",
+        "شرح شافية ابن الحاجب - الرضي الأستراباذي\\003.htm",
+        "شرح شافية ابن الحاجب - الرضي الأستراباذي\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح شافية ابن الحاجب - الرضي الأستراباذي\\001.htm"
+    },
+    {
+      "name": "شرح شافية ابن الحاجب - ركن الدين الاستراباذي",
+      "title": "شرح شافية ابن الحاجب - ركن الدين الاستراباذي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "شرح شافية ابن الحاجب - ركن الدين الاستراباذي\\001.htm",
+        "شرح شافية ابن الحاجب - ركن الدين الاستراباذي\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح شافية ابن الحاجب - ركن الدين الاستراباذي\\001.htm"
+    },
+    {
+      "name": "شرح شذور الذهب لابن هشام",
+      "title": "شرح شذور الذهب لابن هشام",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح شذور الذهب لابن هشام.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح شذور الذهب لابن هشام.htm"
+    },
+    {
+      "name": "شرح شذور الذهب للجوجري",
+      "title": "شرح شذور الذهب للجوجري",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "شرح شذور الذهب للجوجري\\001.htm",
+        "شرح شذور الذهب للجوجري\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح شذور الذهب للجوجري\\001.htm"
+    },
+    {
+      "name": "شرح قطر الندى وبل الصدى",
+      "title": "شرح قطر الندى وبل الصدى",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح قطر الندى وبل الصدى.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح قطر الندى وبل الصدى.htm"
+    },
+    {
+      "name": "شرح قواعد الإعراب",
+      "title": "شرح قواعد الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "شرح قواعد الإعراب\\001.htm",
+        "شرح قواعد الإعراب\\مقدمة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح قواعد الإعراب\\001.htm"
+    },
+    {
+      "name": "شرح كتاب الحدود في النحو",
+      "title": "شرح كتاب الحدود في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح كتاب الحدود في النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح كتاب الحدود في النحو.htm"
+    },
+    {
+      "name": "شرح كتاب سيبويه للرماني - جزء منه",
+      "title": "شرح كتاب سيبويه للرماني - جزء منه",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح كتاب سيبويه للرماني - جزء منه.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح كتاب سيبويه للرماني - جزء منه.htm"
+    },
+    {
+      "name": "شرح كتاب سيبويه للسيرافي",
+      "title": "شرح كتاب سيبويه للسيرافي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "شرح كتاب سيبويه للسيرافي\\001.htm",
+        "شرح كتاب سيبويه للسيرافي\\002.htm",
+        "شرح كتاب سيبويه للسيرافي\\003.htm",
+        "شرح كتاب سيبويه للسيرافي\\004.htm",
+        "شرح كتاب سيبويه للسيرافي\\005.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح كتاب سيبويه للسيرافي\\001.htm"
+    },
+    {
+      "name": "شرحا أبي العلاء والخطيب التبريزي على ديوان أبي تمام دراسة نحوية صرفية",
+      "title": "شرحا أبي العلاء والخطيب التبريزي على ديوان أبي تمام دراسة نحوية صرفية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرحا أبي العلاء والخطيب التبريزي على ديوان أبي تمام دراسة نحوية صرفية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرحا أبي العلاء والخطيب التبريزي على ديوان أبي تمام دراسة نحوية صرفية.htm"
+    },
+    {
+      "name": "شرحان على مراح الأرواح في علم الصرف",
+      "title": "شرحان على مراح الأرواح في علم الصرف",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرحان على مراح الأرواح في علم الصرف.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرحان على مراح الأرواح في علم الصرف.htm"
+    },
+    {
+      "name": "صيغة فعلان واستعمالاتها في اللغة العربية",
+      "title": "صيغة فعلان واستعمالاتها في اللغة العربية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "صيغة فعلان واستعمالاتها في اللغة العربية\\039.htm",
+        "صيغة فعلان واستعمالاتها في اللغة العربية\\040.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\صيغة فعلان واستعمالاتها في اللغة العربية\\039.htm"
+    },
+    {
+      "name": "ضياء السالك إلى أوضح المسالك",
+      "title": "ضياء السالك إلى أوضح المسالك",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "ضياء السالك إلى أوضح المسالك\\001.htm",
+        "ضياء السالك إلى أوضح المسالك\\002.htm",
+        "ضياء السالك إلى أوضح المسالك\\003.htm",
+        "ضياء السالك إلى أوضح المسالك\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ضياء السالك إلى أوضح المسالك\\001.htm"
+    },
+    {
+      "name": "ظاهرة التقارض في النحو العربي",
+      "title": "ظاهرة التقارض في النحو العربي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "ظاهرة التقارض في النحو العربي\\058.htm",
+        "ظاهرة التقارض في النحو العربي\\059.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ظاهرة التقارض في النحو العربي\\058.htm"
+    },
+    {
+      "name": "ظاهرة التقاص في النحو العربي",
+      "title": "ظاهرة التقاص في النحو العربي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ظاهرة التقاص في النحو العربي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ظاهرة التقاص في النحو العربي.htm"
+    },
+    {
+      "name": "عقود الهمز",
+      "title": "عقود الهمز",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "عقود الهمز.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\عقود الهمز.htm"
+    },
+    {
+      "name": "علل التثنية",
+      "title": "علل التثنية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "علل التثنية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\علل التثنية.htm"
+    },
+    {
+      "name": "علل النحو",
+      "title": "علل النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "علل النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\علل النحو.htm"
+    },
+    {
+      "name": "عمدة الكتاب لأبي جعفر النحاس",
+      "title": "عمدة الكتاب لأبي جعفر النحاس",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "عمدة الكتاب لأبي جعفر النحاس.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\عمدة الكتاب لأبي جعفر النحاس.htm"
+    },
+    {
+      "name": "فتح الأقفال وحل الإشكال بشرح لامية الأفعال المشهور بالشرح الكبير",
+      "title": "فتح الأقفال وحل الإشكال بشرح لامية الأفعال المشهور بالشرح الكبير",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "فتح الأقفال وحل الإشكال بشرح لامية الأفعال المشهور بالشرح الكبير.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\فتح الأقفال وحل الإشكال بشرح لامية الأفعال المشهور بالشرح الكبير.htm"
+    },
+    {
+      "name": "فتح الكبير المتعال إعراب المعلقات العشر الطوال",
+      "title": "فتح الكبير المتعال إعراب المعلقات العشر الطوال",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "فتح الكبير المتعال إعراب المعلقات العشر الطوال\\001.htm",
+        "فتح الكبير المتعال إعراب المعلقات العشر الطوال\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\فتح الكبير المتعال إعراب المعلقات العشر الطوال\\001.htm"
+    },
+    {
+      "name": "فتح الكريم اللطيف في شرح باكورة التعريف بالمهم من التصريف",
+      "title": "فتح الكريم اللطيف في شرح باكورة التعريف بالمهم من التصريف",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "فتح الكريم اللطيف في شرح باكورة التعريف بالمهم من التصريف.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\فتح الكريم اللطيف في شرح باكورة التعريف بالمهم من التصريف.htm"
+    },
+    {
+      "name": "فتح المتعال على القصيدة المسماة بلامية الأفعال",
+      "title": "فتح المتعال على القصيدة المسماة بلامية الأفعال",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "فتح المتعال على القصيدة المسماة بلامية الأفعال.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\فتح المتعال على القصيدة المسماة بلامية الأفعال.htm"
+    },
+    {
+      "name": "فتح رب البرية في شرح نظم الآجرومية",
+      "title": "فتح رب البرية في شرح نظم الآجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "فتح رب البرية في شرح نظم الآجرومية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\فتح رب البرية في شرح نظم الآجرومية.htm"
+    },
+    {
+      "name": "فوائت كتاب سيبويه",
+      "title": "فوائت كتاب سيبويه",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "فوائت كتاب سيبويه.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\فوائت كتاب سيبويه.htm"
+    },
+    {
+      "name": "قرينة السياق ودورها في التقعيد النحوي والتوجيه الإعرابي في كتاب سيبويه",
+      "title": "قرينة السياق ودورها في التقعيد النحوي والتوجيه الإعرابي في كتاب سيبويه",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "قرينة السياق ودورها في التقعيد النحوي والتوجيه الإعرابي في كتاب سيبويه.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\قرينة السياق ودورها في التقعيد النحوي والتوجيه الإعرابي في كتاب سيبويه.htm"
+    },
+    {
+      "name": "لامية الأفعال - ت القاسم",
+      "title": "لامية الأفعال - ت القاسم",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "لامية الأفعال - ت القاسم.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\لامية الأفعال - ت القاسم.htm"
+    },
+    {
+      "name": "ليس في كلام العرب",
+      "title": "ليس في كلام العرب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ليس في كلام العرب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ليس في كلام العرب.htm"
+    },
+    {
+      "name": "متممة الأجرومية",
+      "title": "متممة الأجرومية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "متممة الأجرومية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\متممة الأجرومية.htm"
+    },
+    {
+      "name": "متن شذور الذهب",
+      "title": "متن شذور الذهب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "متن شذور الذهب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\متن شذور الذهب.htm"
+    },
+    {
+      "name": "متن قطر الندى وبل الصدى",
+      "title": "متن قطر الندى وبل الصدى",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "متن قطر الندى وبل الصدى.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\متن قطر الندى وبل الصدى.htm"
+    },
+    {
+      "name": "مجيء (أبو) في موضع نصب أو جر على الحكاية",
+      "title": "مجيء (أبو) في موضع نصب أو جر على الحكاية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "مجيء (أبو) في موضع نصب أو جر على الحكاية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\مجيء (أبو) في موضع نصب أو جر على الحكاية.htm"
+    },
+    {
+      "name": "مختصر شرح ابن جماعة على القواعد الصغرى - ضمن «آثار المعلمي»",
+      "title": "مختصر شرح ابن جماعة على القواعد الصغرى - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "مختصر شرح ابن جماعة على القواعد الصغرى - ضمن «آثار المعلمي».htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\مختصر شرح ابن جماعة على القواعد الصغرى - ضمن «آثار المعلمي».htm"
+    },
+    {
+      "name": "مختصر مغني اللبيب عن كتاب الأعاريب",
+      "title": "مختصر مغني اللبيب عن كتاب الأعاريب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "مختصر مغني اللبيب عن كتاب الأعاريب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\مختصر مغني اللبيب عن كتاب الأعاريب.htm"
+    },
+    {
+      "name": "مسائل (إذن)",
+      "title": "مسائل (إذن)",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "مسائل (إذن).htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\مسائل (إذن).htm"
+    },
+    {
+      "name": "مسائل خلافية في النحو",
+      "title": "مسائل خلافية في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "مسائل خلافية في النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\مسائل خلافية في النحو.htm"
+    },
+    {
+      "name": "معاني الحروف",
+      "title": "معاني الحروف",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "معاني الحروف.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\معاني الحروف.htm"
+    },
+    {
+      "name": "معاني النحو",
+      "title": "معاني النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "معاني النحو\\001.htm",
+        "معاني النحو\\002.htm",
+        "معاني النحو\\003.htm",
+        "معاني النحو\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\معاني النحو\\001.htm"
+    },
+    {
+      "name": "معجم القواعد العربية",
+      "title": "معجم القواعد العربية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "معجم القواعد العربية\\001.htm",
+        "معجم القواعد العربية\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\معجم القواعد العربية\\001.htm"
+    },
+    {
+      "name": "مغني اللبيب عن كتب الأعاريب",
+      "title": "مغني اللبيب عن كتب الأعاريب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "مغني اللبيب عن كتب الأعاريب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\مغني اللبيب عن كتب الأعاريب.htm"
+    },
+    {
+      "name": "ملحة الإعراب",
+      "title": "ملحة الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ملحة الإعراب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ملحة الإعراب.htm"
+    },
+    {
+      "name": "من تاريخ النحو العربي",
+      "title": "من تاريخ النحو العربي",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "من تاريخ النحو العربي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\من تاريخ النحو العربي.htm"
+    },
+    {
+      "name": "من ذخائر ابن مالك في اللغة مسألة من كلام الإمام ابن مالك في الاشتقاق",
+      "title": "من ذخائر ابن مالك في اللغة مسألة من كلام الإمام ابن مالك في الاشتقاق",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "من ذخائر ابن مالك في اللغة مسألة من كلام الإمام ابن مالك في الاشتقاق.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\من ذخائر ابن مالك في اللغة مسألة من كلام الإمام ابن مالك في الاشتقاق.htm"
+    },
+    {
+      "name": "منازل الحروف",
+      "title": "منازل الحروف",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "منازل الحروف.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\منازل الحروف.htm"
+    },
+    {
+      "name": "موصل الطلاب إلى قواعد الإعراب",
+      "title": "موصل الطلاب إلى قواعد الإعراب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "موصل الطلاب إلى قواعد الإعراب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\موصل الطلاب إلى قواعد الإعراب.htm"
+    },
+    {
+      "name": "نتائج الفكر في النحو",
+      "title": "نتائج الفكر في النحو",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "نتائج الفكر في النحو.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\نتائج الفكر في النحو.htm"
+    },
+    {
+      "name": "نحو مير = مبادئ قواعد اللغة العربية",
+      "title": "نحو مير = مبادئ قواعد اللغة العربية",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "نحو مير = مبادئ قواعد اللغة العربية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\نحو مير = مبادئ قواعد اللغة العربية.htm"
+    },
+    {
+      "name": "نظم قواعد الإعراب الصغرى - ضمن «آثار المعلمي»",
+      "title": "نظم قواعد الإعراب الصغرى - ضمن «آثار المعلمي»",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "نظم قواعد الإعراب الصغرى - ضمن «آثار المعلمي».htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\نظم قواعد الإعراب الصغرى - ضمن «آثار المعلمي».htm"
+    },
+    {
+      "name": "نكت الإعراب = قواعد الإعراب ونزهة الطلاب",
+      "title": "نكت الإعراب = قواعد الإعراب ونزهة الطلاب",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "نكت الإعراب = قواعد الإعراب ونزهة الطلاب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\نكت الإعراب = قواعد الإعراب ونزهة الطلاب.htm"
+    },
+    {
+      "name": "همع الهوامع في شرح جمع الجوامع",
+      "title": "همع الهوامع في شرح جمع الجوامع",
+      "category": "النحو والصرف",
+      "match_tier": "A",
+      "match_reason": "category='النحو والصرف'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "همع الهوامع في شرح جمع الجوامع\\001.htm",
+        "همع الهوامع في شرح جمع الجوامع\\002.htm",
+        "همع الهوامع في شرح جمع الجوامع\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\همع الهوامع في شرح جمع الجوامع\\001.htm"
+    },
+    {
+      "name": "أخبار النحويين - أبو طاهر بن أبي هاشم - ت مجدي السيد",
+      "title": "أخبار النحويين - أبو طاهر بن أبي هاشم - ت مجدي السيد",
+      "category": "كتب السنة",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أخبار النحويين - أبو طاهر بن أبي هاشم - ت مجدي السيد.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أخبار النحويين - أبو طاهر بن أبي هاشم - ت مجدي السيد.htm"
+    },
+    {
+      "name": "أخبار النحويين البصريين - السيرافي",
+      "title": "أخبار النحويين البصريين - السيرافي",
+      "category": "التراجم والطبقات",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أخبار النحويين البصريين - السيرافي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أخبار النحويين البصريين - السيرافي.htm"
+    },
+    {
+      "name": "أخبار في النحو = أخبار النحويين - أبو طاهر بن أبي هاشم - ت الدالي",
+      "title": "أخبار في النحو = أخبار النحويين - أبو طاهر بن أبي هاشم - ت الدالي",
+      "category": "كتب السنة",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أخبار في النحو = أخبار النحويين - أبو طاهر بن أبي هاشم - ت الدالي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أخبار في النحو = أخبار النحويين - أبو طاهر بن أبي هاشم - ت الدالي.htm"
+    },
+    {
+      "name": "أربعون حديثا عن أربعين شيخا في أربعين لابن المقرب",
+      "title": "أربعون حديثا عن أربعين شيخا في أربعين لابن المقرب",
+      "category": "كتب السنة",
+      "match_tier": "B",
+      "match_reason": "title contains 'المقرب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أربعون حديثا عن أربعين شيخا في أربعين لابن المقرب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أربعون حديثا عن أربعين شيخا في أربعين لابن المقرب.htm"
+    },
+    {
+      "name": "أسئلة وأجوبة في إعراب القرآن",
+      "title": "أسئلة وأجوبة في إعراب القرآن",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أسئلة وأجوبة في إعراب القرآن.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أسئلة وأجوبة في إعراب القرآن.htm"
+    },
+    {
+      "name": "ألفية أم المؤمنين عائشة - الروضة الأنيقة في نصرة العفيفة الصديقة",
+      "title": "ألفية أم المؤمنين عائشة - الروضة الأنيقة في نصرة العفيفة الصديقة",
+      "category": "التراجم والطبقات",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ألفية أم المؤمنين عائشة - الروضة الأنيقة في نصرة العفيفة الصديقة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ألفية أم المؤمنين عائشة - الروضة الأنيقة في نصرة العفيفة الصديقة.htm"
+    },
+    {
+      "name": "ألفية ابن مالك منهجها وشروحها",
+      "title": "ألفية ابن مالك منهجها وشروحها - ٦٥ - ٦٦",
+      "category": "فهارس الكتب والأدلة",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "ألفية ابن مالك منهجها وشروحها\\65 - 66.htm",
+        "ألفية ابن مالك منهجها وشروحها\\73 - 74.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ألفية ابن مالك منهجها وشروحها\\65 - 66.htm"
+    },
+    {
+      "name": "ألفية السيرة النبوية - نظم الدرر السنية الزكية",
+      "title": "ألفية السيرة النبوية - نظم الدرر السنية الزكية",
+      "category": "السيرة النبوية",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ألفية السيرة النبوية - نظم الدرر السنية الزكية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ألفية السيرة النبوية - نظم الدرر السنية الزكية.htm"
+    },
+    {
+      "name": "ألفية السيوطي نظم الدرر في علم الأثر - ت الفحل",
+      "title": "ألفية السيوطي نظم الدرر في علم الأثر - ت الفحل",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ألفية السيوطي نظم الدرر في علم الأثر - ت الفحل.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ألفية السيوطي نظم الدرر في علم الأثر - ت الفحل.htm"
+    },
+    {
+      "name": "ألفية السيوطي نظم الدرر في علم الأثر - ت القاسم",
+      "title": "ألفية السيوطي نظم الدرر في علم الأثر - ت القاسم",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ألفية السيوطي نظم الدرر في علم الأثر - ت القاسم.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ألفية السيوطي نظم الدرر في علم الأثر - ت القاسم.htm"
+    },
+    {
+      "name": "ألفية العراقي التبصرة والتذكرة - ت الفحل",
+      "title": "ألفية العراقي التبصرة والتذكرة - ت الفحل",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ألفية العراقي التبصرة والتذكرة - ت الفحل.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ألفية العراقي التبصرة والتذكرة - ت الفحل.htm"
+    },
+    {
+      "name": "ألفية العراقي التبصرة والتذكرة - ت القاسم",
+      "title": "ألفية العراقي التبصرة والتذكرة - ت القاسم",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ألفية العراقي التبصرة والتذكرة - ت القاسم.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ألفية العراقي التبصرة والتذكرة - ت القاسم.htm"
+    },
+    {
+      "name": "إعراب القرآن - إسماعيل الأصبهاني",
+      "title": "إعراب القرآن - إسماعيل الأصبهاني",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إعراب القرآن - إسماعيل الأصبهاني.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب القرآن - إسماعيل الأصبهاني.htm"
+    },
+    {
+      "name": "إعراب القرآن العظيم المنسوب لزكريا الانصارى",
+      "title": "إعراب القرآن العظيم المنسوب لزكريا الانصارى",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إعراب القرآن العظيم المنسوب لزكريا الانصارى.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب القرآن العظيم المنسوب لزكريا الانصارى.htm"
+    },
+    {
+      "name": "إعراب القرآن الكريم - ط دار الصحابة",
+      "title": "إعراب القرآن الكريم - ط دار الصحابة",
+      "category": "التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "إعراب القرآن الكريم - ط دار الصحابة\\001.htm",
+        "إعراب القرآن الكريم - ط دار الصحابة\\002.htm",
+        "إعراب القرآن الكريم - ط دار الصحابة\\003.htm",
+        "إعراب القرآن الكريم - ط دار الصحابة\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب القرآن الكريم - ط دار الصحابة\\001.htm"
+    },
+    {
+      "name": "إعراب القرآن للباقولي - منسوب خطأ للزجاج",
+      "title": "إعراب القرآن للباقولي - منسوب خطأ للزجاج",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "إعراب القرآن للباقولي - منسوب خطأ للزجاج\\001.htm",
+        "إعراب القرآن للباقولي - منسوب خطأ للزجاج\\002.htm",
+        "إعراب القرآن للباقولي - منسوب خطأ للزجاج\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب القرآن للباقولي - منسوب خطأ للزجاج\\001.htm"
+    },
+    {
+      "name": "إعراب القرآن للدعاس",
+      "title": "إعراب القرآن للدعاس",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "إعراب القرآن للدعاس\\001.htm",
+        "إعراب القرآن للدعاس\\002.htm",
+        "إعراب القرآن للدعاس\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب القرآن للدعاس\\001.htm"
+    },
+    {
+      "name": "إعراب القرآن للنحاس",
+      "title": "إعراب القرآن للنحاس",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "إعراب القرآن للنحاس\\001.htm",
+        "إعراب القرآن للنحاس\\002.htm",
+        "إعراب القرآن للنحاس\\003.htm",
+        "إعراب القرآن للنحاس\\004.htm",
+        "إعراب القرآن للنحاس\\005.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب القرآن للنحاس\\001.htm"
+    },
+    {
+      "name": "إعراب القرآن وبيانه",
+      "title": "إعراب القرآن وبيانه",
+      "category": "التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 10,
+      "files": [
+        "إعراب القرآن وبيانه\\001.htm",
+        "إعراب القرآن وبيانه\\002.htm",
+        "إعراب القرآن وبيانه\\003.htm",
+        "إعراب القرآن وبيانه\\004.htm",
+        "إعراب القرآن وبيانه\\005.htm",
+        "إعراب القرآن وبيانه\\006.htm",
+        "إعراب القرآن وبيانه\\007.htm",
+        "إعراب القرآن وبيانه\\008.htm",
+        "إعراب القرآن وبيانه\\009.htm",
+        "إعراب القرآن وبيانه\\010.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب القرآن وبيانه\\001.htm"
+    },
+    {
+      "name": "إعراب القراءات السبع وعللها ت العثيمين",
+      "title": "إعراب القراءات السبع وعللها ت العثيمين",
+      "category": "التجويد والقراءات",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "إعراب القراءات السبع وعللها ت العثيمين\\001.htm",
+        "إعراب القراءات السبع وعللها ت العثيمين\\002.htm",
+        "إعراب القراءات السبع وعللها ت العثيمين\\تقديم.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب القراءات السبع وعللها ت العثيمين\\001.htm"
+    },
+    {
+      "name": "إعراب القراءات السبع وعللها ط العلمية",
+      "title": "إعراب القراءات السبع وعللها ط العلمية",
+      "category": "التجويد والقراءات",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إعراب القراءات السبع وعللها ط العلمية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب القراءات السبع وعللها ط العلمية.htm"
+    },
+    {
+      "name": "إعراب ثلاثين سورة",
+      "title": "إعراب ثلاثين سورة",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إعراب ثلاثين سورة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب ثلاثين سورة.htm"
+    },
+    {
+      "name": "إعراب قوله تعالى {وأن ليس للإنسان إلا ما سعى} - ضمن «آثار المعلمي»",
+      "title": "إعراب قوله تعالى: {وأن ليس للإنسان إلا ما سعى} - ضمن «آثار المعلمي»",
+      "category": "التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إعراب قوله تعالى {وأن ليس للإنسان إلا ما سعى} - ضمن «آثار المعلمي».htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب قوله تعالى {وأن ليس للإنسان إلا ما سعى} - ضمن «آثار المعلمي».htm"
+    },
+    {
+      "name": "إعراب قوله {أن كان ذا مال وبنين} - ضمن «آثار المعلمي»",
+      "title": "إعراب قوله: {أن كان ذا مال وبنين} - ضمن «آثار المعلمي»",
+      "category": "التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إعراب قوله {أن كان ذا مال وبنين} - ضمن «آثار المعلمي».htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب قوله {أن كان ذا مال وبنين} - ضمن «آثار المعلمي».htm"
+    },
+    {
+      "name": "إعراب {الحاقة ما الحاقة} ونحوه - ضمن «آثار المعلمي»",
+      "title": "إعراب: {الحاقة ما الحاقة} ونحوه - ضمن «آثار المعلمي»",
+      "category": "التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'نحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "إعراب {الحاقة ما الحاقة} ونحوه - ضمن «آثار المعلمي».htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\إعراب {الحاقة ما الحاقة} ونحوه - ضمن «آثار المعلمي».htm"
+    },
+    {
+      "name": "الإسلام والتسعير ونحوه أو حول أجور العقار - ضمن «آثار المعلمي»",
+      "title": "الإسلام والتسعير ونحوه أو حول أجور العقار - ضمن «آثار المعلمي»",
+      "category": "مسائل فقهية",
+      "match_tier": "B",
+      "match_reason": "title contains 'نحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الإسلام والتسعير ونحوه أو حول أجور العقار - ضمن «آثار المعلمي».htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الإسلام والتسعير ونحوه أو حول أجور العقار - ضمن «آثار المعلمي».htm"
+    },
+    {
+      "name": "الإعراب المحيط من تفسير البحر المحيط",
+      "title": "الإعراب المحيط من تفسير البحر المحيط",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'الإعراب'",
+      "is_multivolume": true,
+      "volume_count": 8,
+      "files": [
+        "الإعراب المحيط من تفسير البحر المحيط\\001.htm",
+        "الإعراب المحيط من تفسير البحر المحيط\\002.htm",
+        "الإعراب المحيط من تفسير البحر المحيط\\003.htm",
+        "الإعراب المحيط من تفسير البحر المحيط\\004.htm",
+        "الإعراب المحيط من تفسير البحر المحيط\\005.htm",
+        "الإعراب المحيط من تفسير البحر المحيط\\006.htm",
+        "الإعراب المحيط من تفسير البحر المحيط\\007.htm",
+        "الإعراب المحيط من تفسير البحر المحيط\\008.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الإعراب المحيط من تفسير البحر المحيط\\001.htm"
+    },
+    {
+      "name": "الإعراب عن الحيرة والالتباس الموجودين في مذاهب أهل الرأي والقياس",
+      "title": "الإعراب عن الحيرة والالتباس الموجودين في مذاهب أهل الرأي والقياس",
+      "category": "أصول الفقه",
+      "match_tier": "B",
+      "match_reason": "title contains 'الإعراب'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "الإعراب عن الحيرة والالتباس الموجودين في مذاهب أهل الرأي والقياس\\001.htm",
+        "الإعراب عن الحيرة والالتباس الموجودين في مذاهب أهل الرأي والقياس\\002.htm",
+        "الإعراب عن الحيرة والالتباس الموجودين في مذاهب أهل الرأي والقياس\\003.htm",
+        "الإعراب عن الحيرة والالتباس الموجودين في مذاهب أهل الرأي والقياس\\تقديم.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الإعراب عن الحيرة والالتباس الموجودين في مذاهب أهل الرأي والقياس\\001.htm"
+    },
+    {
+      "name": "الاقتضاب في غريب الموطأ وإعرابه على الأبواب",
+      "title": "الاقتضاب في غريب الموطأ وإعرابه على الأبواب",
+      "category": "شروح الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "الاقتضاب في غريب الموطأ وإعرابه على الأبواب\\001.htm",
+        "الاقتضاب في غريب الموطأ وإعرابه على الأبواب\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الاقتضاب في غريب الموطأ وإعرابه على الأبواب\\001.htm"
+    },
+    {
+      "name": "البحر الذي زخر في شرح ألفية الأثر - قسم ١ - ت الأندونوسي",
+      "title": "البحر الذي زخر في شرح ألفية الأثر - قسم ١ - ت الأندونوسي",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "البحر الذي زخر في شرح ألفية الأثر - قسم ١ - ت الأندونوسي\\001.htm",
+        "البحر الذي زخر في شرح ألفية الأثر - قسم ١ - ت الأندونوسي\\002.htm",
+        "البحر الذي زخر في شرح ألفية الأثر - قسم ١ - ت الأندونوسي\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\البحر الذي زخر في شرح ألفية الأثر - قسم ١ - ت الأندونوسي\\001.htm"
+    },
+    {
+      "name": "البردة شرحا وإعرابا وبلاغة لطلاب المعاهد والجامعات",
+      "title": "البردة شرحا وإعرابا وبلاغة لطلاب المعاهد والجامعات",
+      "category": "السيرة النبوية",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البردة شرحا وإعرابا وبلاغة لطلاب المعاهد والجامعات.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\البردة شرحا وإعرابا وبلاغة لطلاب المعاهد والجامعات.htm"
+    },
+    {
+      "name": "البستان في إعراب مشكلات القرآن",
+      "title": "البستان في إعراب مشكلات القرآن",
+      "category": "التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "البستان في إعراب مشكلات القرآن\\001.htm",
+        "البستان في إعراب مشكلات القرآن\\002.htm",
+        "البستان في إعراب مشكلات القرآن\\003.htm",
+        "البستان في إعراب مشكلات القرآن\\004.htm",
+        "البستان في إعراب مشكلات القرآن\\005.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\البستان في إعراب مشكلات القرآن\\001.htm"
+    },
+    {
+      "name": "البلغة في تراجم أئمة النحو واللغة",
+      "title": "البلغة في تراجم أئمة النحو واللغة",
+      "category": "التراجم والطبقات",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البلغة في تراجم أئمة النحو واللغة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\البلغة في تراجم أئمة النحو واللغة.htm"
+    },
+    {
+      "name": "البيان والإعراب عما بأرض مصر من الأعراب",
+      "title": "البيان والإعراب عما بأرض مصر من الأعراب",
+      "category": "التاريخ",
+      "match_tier": "B",
+      "match_reason": "title contains 'الإعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "البيان والإعراب عما بأرض مصر من الأعراب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\البيان والإعراب عما بأرض مصر من الأعراب.htm"
+    },
+    {
+      "name": "التبيان في إعراب القرآن",
+      "title": "التبيان في إعراب القرآن",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "التبيان في إعراب القرآن\\001.htm",
+        "التبيان في إعراب القرآن\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التبيان في إعراب القرآن\\001.htm"
+    },
+    {
+      "name": "التسهيل في فقه الإمام أحمد - وزارة الأوقاف الكويتية",
+      "title": "التسهيل في فقه الإمام أحمد - وزارة الأوقاف الكويتية",
+      "category": "الفقه الحنبلي",
+      "match_tier": "B",
+      "match_reason": "title contains 'التسهيل'",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "التسهيل في فقه الإمام أحمد - وزارة الأوقاف الكويتية\\001.htm",
+        "التسهيل في فقه الإمام أحمد - وزارة الأوقاف الكويتية\\002.htm",
+        "التسهيل في فقه الإمام أحمد - وزارة الأوقاف الكويتية\\003.htm",
+        "التسهيل في فقه الإمام أحمد - وزارة الأوقاف الكويتية\\004.htm",
+        "التسهيل في فقه الإمام أحمد - وزارة الأوقاف الكويتية\\المقدمة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التسهيل في فقه الإمام أحمد - وزارة الأوقاف الكويتية\\001.htm"
+    },
+    {
+      "name": "التضمين النحوي في القرآن الكريم",
+      "title": "التضمين النحوي في القرآن الكريم",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "التضمين النحوي في القرآن الكريم\\001.htm",
+        "التضمين النحوي في القرآن الكريم\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التضمين النحوي في القرآن الكريم\\001.htm"
+    },
+    {
+      "name": "التعليق على الموطأ في تفسير لغاته وغوامض إعرابه ومعانيه",
+      "title": "التعليق على الموطأ في تفسير لغاته وغوامض إعرابه ومعانيه",
+      "category": "شروح الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "التعليق على الموطأ في تفسير لغاته وغوامض إعرابه ومعانيه\\001.htm",
+        "التعليق على الموطأ في تفسير لغاته وغوامض إعرابه ومعانيه\\002.htm",
+        "التعليق على الموطأ في تفسير لغاته وغوامض إعرابه ومعانيه\\مقدمة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التعليق على الموطأ في تفسير لغاته وغوامض إعرابه ومعانيه\\001.htm"
+    },
+    {
+      "name": "التعليقات على المسائل العقدية في كتاب التسهيل لعلوم التنزيل لابن جزي",
+      "title": "التعليقات على المسائل العقدية في كتاب التسهيل لعلوم التنزيل لابن جزي",
+      "category": "العقيدة",
+      "match_tier": "B",
+      "match_reason": "title contains 'التسهيل'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "التعليقات على المسائل العقدية في كتاب التسهيل لعلوم التنزيل لابن جزي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\التعليقات على المسائل العقدية في كتاب التسهيل لعلوم التنزيل لابن جزي.htm"
+    },
+    {
+      "name": "الجدول في إعراب القرآن",
+      "title": "الجدول في إعراب القرآن",
+      "category": "التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 15,
+      "files": [
+        "الجدول في إعراب القرآن\\001.htm",
+        "الجدول في إعراب القرآن\\002.htm",
+        "الجدول في إعراب القرآن\\003.htm",
+        "الجدول في إعراب القرآن\\004.htm",
+        "الجدول في إعراب القرآن\\005.htm",
+        "الجدول في إعراب القرآن\\006.htm",
+        "الجدول في إعراب القرآن\\007.htm",
+        "الجدول في إعراب القرآن\\008.htm",
+        "الجدول في إعراب القرآن\\009.htm",
+        "الجدول في إعراب القرآن\\010.htm",
+        "الجدول في إعراب القرآن\\011.htm",
+        "الجدول في إعراب القرآن\\012.htm",
+        "الجدول في إعراب القرآن\\013.htm",
+        "الجدول في إعراب القرآن\\014.htm",
+        "الجدول في إعراب القرآن\\015.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الجدول في إعراب القرآن\\001.htm"
+    },
+    {
+      "name": "الحق المبين في معرفة الملائكة المقربين",
+      "title": "الحق المبين في معرفة الملائكة المقربين",
+      "category": "العقيدة",
+      "match_tier": "B",
+      "match_reason": "title contains 'المقرب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الحق المبين في معرفة الملائكة المقربين.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الحق المبين في معرفة الملائكة المقربين.htm"
+    },
+    {
+      "name": "الخصائص الكبرى",
+      "title": "الخصائص الكبرى",
+      "category": "السيرة النبوية",
+      "match_tier": "B",
+      "match_reason": "title contains 'الخصائص'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "الخصائص الكبرى\\001.htm",
+        "الخصائص الكبرى\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الخصائص الكبرى\\001.htm"
+    },
+    {
+      "name": "الزهد وصفة الزاهدين لابن الأعرابي",
+      "title": "الزهد وصفة الزاهدين لابن الأعرابي",
+      "category": "كتب السنة",
+      "match_tier": "B",
+      "match_reason": "title contains 'الإعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الزهد وصفة الزاهدين لابن الأعرابي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الزهد وصفة الزاهدين لابن الأعرابي.htm"
+    },
+    {
+      "name": "الفوائد السنية في شرح الألفية",
+      "title": "الفوائد السنية في شرح الألفية",
+      "category": "أصول الفقه",
+      "match_tier": "B",
+      "match_reason": "title contains 'الألفية'",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "الفوائد السنية في شرح الألفية\\001.htm",
+        "الفوائد السنية في شرح الألفية\\002.htm",
+        "الفوائد السنية في شرح الألفية\\003.htm",
+        "الفوائد السنية في شرح الألفية\\004.htm",
+        "الفوائد السنية في شرح الألفية\\005.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الفوائد السنية في شرح الألفية\\001.htm"
+    },
+    {
+      "name": "القبل والمعانقة والمصافحة لابن الأعرابي",
+      "title": "القبل والمعانقة والمصافحة لابن الأعرابي",
+      "category": "كتب السنة",
+      "match_tier": "B",
+      "match_reason": "title contains 'الإعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "القبل والمعانقة والمصافحة لابن الأعرابي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\القبل والمعانقة والمصافحة لابن الأعرابي.htm"
+    },
+    {
+      "name": "الكتاب الفريد في إعراب القرآن المجيد",
+      "title": "الكتاب الفريد في إعراب القرآن المجيد",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 6,
+      "files": [
+        "الكتاب الفريد في إعراب القرآن المجيد\\001.htm",
+        "الكتاب الفريد في إعراب القرآن المجيد\\002.htm",
+        "الكتاب الفريد في إعراب القرآن المجيد\\003.htm",
+        "الكتاب الفريد في إعراب القرآن المجيد\\004.htm",
+        "الكتاب الفريد في إعراب القرآن المجيد\\005.htm",
+        "الكتاب الفريد في إعراب القرآن المجيد\\006.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الكتاب الفريد في إعراب القرآن المجيد\\001.htm"
+    },
+    {
+      "name": "الكوكب الدري فيما يتخرج على الأصول النحوية من الفروع الفقهية",
+      "title": "الكوكب الدري فيما يتخرج على الأصول النحوية من الفروع الفقهية",
+      "category": "علوم الفقه والقواعد الفقهية",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "الكوكب الدري فيما يتخرج على الأصول النحوية من الفروع الفقهية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الكوكب الدري فيما يتخرج على الأصول النحوية من الفروع الفقهية.htm"
+    },
+    {
+      "name": "اللباب في قواعد اللغة وآلات الأدب النحو والصرف والبلاغة والعروض واللغة والمثل",
+      "title": "اللباب في قواعد اللغة وآلات الأدب النحو والصرف والبلاغة والعروض واللغة والمثل",
+      "category": "كتب اللغة",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "اللباب في قواعد اللغة وآلات الأدب النحو والصرف والبلاغة والعروض واللغة والمثل.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\اللباب في قواعد اللغة وآلات الأدب النحو والصرف والبلاغة والعروض واللغة والمثل.htm"
+    },
+    {
+      "name": "المئوية في إعراب القرآن الكريم",
+      "title": "المئوية في إعراب القرآن الكريم",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المئوية في إعراب القرآن الكريم.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المئوية في إعراب القرآن الكريم.htm"
+    },
+    {
+      "name": "المجتبى من مشكل إعراب القرآن",
+      "title": "المجتبى من مشكل إعراب القرآن",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "المجتبى من مشكل إعراب القرآن\\001.htm",
+        "المجتبى من مشكل إعراب القرآن\\002.htm",
+        "المجتبى من مشكل إعراب القرآن\\003.htm",
+        "المجتبى من مشكل إعراب القرآن\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المجتبى من مشكل إعراب القرآن\\001.htm"
+    },
+    {
+      "name": "المجيد في إعراب القرآن المجيد",
+      "title": "المجيد في إعراب القرآن المجيد",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "المجيد في إعراب القرآن المجيد.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المجيد في إعراب القرآن المجيد.htm"
+    },
+    {
+      "name": "المحلى بالآثار",
+      "title": "المحلى بالآثار",
+      "category": "الفقه العام",
+      "match_tier": "B",
+      "match_reason": "title contains 'المحلى بالآثار'",
+      "is_multivolume": true,
+      "volume_count": 12,
+      "files": [
+        "المحلى بالآثار\\001.htm",
+        "المحلى بالآثار\\002.htm",
+        "المحلى بالآثار\\003.htm",
+        "المحلى بالآثار\\004.htm",
+        "المحلى بالآثار\\005.htm",
+        "المحلى بالآثار\\006.htm",
+        "المحلى بالآثار\\007.htm",
+        "المحلى بالآثار\\008.htm",
+        "المحلى بالآثار\\009.htm",
+        "المحلى بالآثار\\010.htm",
+        "المحلى بالآثار\\011.htm",
+        "المحلى بالآثار\\012.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المحلى بالآثار\\001.htm"
+    },
+    {
+      "name": "المقاصد النحوية في شرح شواهد شروح الألفية",
+      "title": "المقاصد النحوية في شرح شواهد شروح الألفية",
+      "category": "الأدب",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "المقاصد النحوية في شرح شواهد شروح الألفية\\001.htm",
+        "المقاصد النحوية في شرح شواهد شروح الألفية\\002.htm",
+        "المقاصد النحوية في شرح شواهد شروح الألفية\\003.htm",
+        "المقاصد النحوية في شرح شواهد شروح الألفية\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\المقاصد النحوية في شرح شواهد شروح الألفية\\001.htm"
+    },
+    {
+      "name": "الموسوعة الميسرة في تراجم أئمة التفسير والإقراء والنحو واللغة",
+      "title": "الموسوعة الميسرة في تراجم أئمة التفسير والإقراء والنحو واللغة",
+      "category": "التراجم والطبقات",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "الموسوعة الميسرة في تراجم أئمة التفسير والإقراء والنحو واللغة\\001.htm",
+        "الموسوعة الميسرة في تراجم أئمة التفسير والإقراء والنحو واللغة\\002.htm",
+        "الموسوعة الميسرة في تراجم أئمة التفسير والإقراء والنحو واللغة\\003.htm",
+        "الموسوعة الميسرة في تراجم أئمة التفسير والإقراء والنحو واللغة\\مقدمة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\الموسوعة الميسرة في تراجم أئمة التفسير والإقراء والنحو واللغة\\001.htm"
+    },
+    {
+      "name": "النكت الوفية بما في شرح الألفية",
+      "title": "النكت الوفية بما في شرح الألفية",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'الألفية'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "النكت الوفية بما في شرح الألفية\\001.htm",
+        "النكت الوفية بما في شرح الألفية\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\النكت الوفية بما في شرح الألفية\\001.htm"
+    },
+    {
+      "name": "تاريخ العلماء النحويين للتنوخي",
+      "title": "تاريخ العلماء النحويين للتنوخي",
+      "category": "التراجم والطبقات",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "تاريخ العلماء النحويين للتنوخي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تاريخ العلماء النحويين للتنوخي.htm"
+    },
+    {
+      "name": "تفسير ابن جزي = التسهيل لعلوم التنزيل",
+      "title": "تفسير ابن جزي = التسهيل لعلوم التنزيل",
+      "category": "التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'التسهيل'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "تفسير ابن جزي = التسهيل لعلوم التنزيل\\001.htm",
+        "تفسير ابن جزي = التسهيل لعلوم التنزيل\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تفسير ابن جزي = التسهيل لعلوم التنزيل\\001.htm"
+    },
+    {
+      "name": "تفسير القرآن الكريم وإعرابه وبيانه - الدرة",
+      "title": "تفسير القرآن الكريم وإعرابه وبيانه - الدرة",
+      "category": "التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 10,
+      "files": [
+        "تفسير القرآن الكريم وإعرابه وبيانه - الدرة\\001.htm",
+        "تفسير القرآن الكريم وإعرابه وبيانه - الدرة\\002.htm",
+        "تفسير القرآن الكريم وإعرابه وبيانه - الدرة\\003.htm",
+        "تفسير القرآن الكريم وإعرابه وبيانه - الدرة\\004.htm",
+        "تفسير القرآن الكريم وإعرابه وبيانه - الدرة\\005.htm",
+        "تفسير القرآن الكريم وإعرابه وبيانه - الدرة\\006.htm",
+        "تفسير القرآن الكريم وإعرابه وبيانه - الدرة\\007.htm",
+        "تفسير القرآن الكريم وإعرابه وبيانه - الدرة\\008.htm",
+        "تفسير القرآن الكريم وإعرابه وبيانه - الدرة\\009.htm",
+        "تفسير القرآن الكريم وإعرابه وبيانه - الدرة\\010.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تفسير القرآن الكريم وإعرابه وبيانه - الدرة\\001.htm"
+    },
+    {
+      "name": "تفسير الكتاب العزيز وإعرابه",
+      "title": "تفسير الكتاب العزيز وإعرابه",
+      "category": "التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "تفسير الكتاب العزيز وإعرابه.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تفسير الكتاب العزيز وإعرابه.htm"
+    },
+    {
+      "name": "تلحين النحويين للقراء",
+      "title": "تلحين النحويين للقراء",
+      "category": "التجويد والقراءات",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "تلحين النحويين للقراء.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تلحين النحويين للقراء.htm"
+    },
+    {
+      "name": "تلخيص العبارة في نحو أهل الإشارة",
+      "title": "تلخيص العبارة في نحو أهل الإشارة",
+      "category": "الرقائق والآداب والأذكار",
+      "match_tier": "B",
+      "match_reason": "title contains 'نحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "تلخيص العبارة في نحو أهل الإشارة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\تلخيص العبارة في نحو أهل الإشارة.htm"
+    },
+    {
+      "name": "رد البهتان عن إعراب آيات من القرآن الكريم",
+      "title": "رد البهتان عن إعراب آيات من القرآن الكريم",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "رد البهتان عن إعراب آيات من القرآن الكريم.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\رد البهتان عن إعراب آيات من القرآن الكريم.htm"
+    },
+    {
+      "name": "زينة العرائس من الطرف والنفائس في تخريج الفروع الفقهية على القواعد النحوية",
+      "title": "زينة العرائس من الطرف والنفائس في تخريج الفروع الفقهية على القواعد النحوية",
+      "category": "علوم الفقه والقواعد الفقهية",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "زينة العرائس من الطرف والنفائس في تخريج الفروع الفقهية على القواعد النحوية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\زينة العرائس من الطرف والنفائس في تخريج الفروع الفقهية على القواعد النحوية.htm"
+    },
+    {
+      "name": "سر صناعة الإعراب",
+      "title": "سر صناعة الإعراب",
+      "category": "كتب اللغة",
+      "match_tier": "B",
+      "match_reason": "title contains 'الإعراب'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "سر صناعة الإعراب\\001.htm",
+        "سر صناعة الإعراب\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\سر صناعة الإعراب\\001.htm"
+    },
+    {
+      "name": "شرح ألفية العراقي - ابن العيني",
+      "title": "شرح ألفية العراقي - ابن العيني",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح ألفية العراقي - ابن العيني.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح ألفية العراقي - ابن العيني.htm"
+    },
+    {
+      "name": "شرح ألفية العراقي - عبد الكريم الخضير",
+      "title": "شرح ألفية العراقي - عبد الكريم الخضير",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": true,
+      "volume_count": 57,
+      "files": [
+        "شرح ألفية العراقي - عبد الكريم الخضير\\001.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\002.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\003.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\004.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\005.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\006.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\007.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\008.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\009.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\010.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\011.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\012.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\013.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\014.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\015.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\016.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\017.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\018.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\019.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\020.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\021.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\022.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\023.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\024.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\025.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\026.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\027.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\028.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\029.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\030.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\031.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\032.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\033.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\034.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\035.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\036.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\037.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\038.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\039.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\040.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\041.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\042.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\043.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\044.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\045.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\046.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\047.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\048.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\049.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\050.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\051.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\052.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\053.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\054.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\055.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\056.htm",
+        "شرح ألفية العراقي - عبد الكريم الخضير\\057.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح ألفية العراقي - عبد الكريم الخضير\\001.htm"
+    },
+    {
+      "name": "شرح الأثيوبي على ألفية السيوطي في الحديث = إسعاف ذوي الوطر بشرح نظم الدرر في علم الأثر",
+      "title": "شرح الأثيوبي على ألفية السيوطي في الحديث = إسعاف ذوي الوطر بشرح نظم الدرر في علم الأثر",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "شرح الأثيوبي على ألفية السيوطي في الحديث = إسعاف ذوي الوطر بشرح نظم الدرر في علم الأثر\\001.htm",
+        "شرح الأثيوبي على ألفية السيوطي في الحديث = إسعاف ذوي الوطر بشرح نظم الدرر في علم الأثر\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح الأثيوبي على ألفية السيوطي في الحديث = إسعاف ذوي الوطر بشرح نظم الدرر في علم الأثر\\001.htm"
+    },
+    {
+      "name": "شرح التبصرة والتذكرة ألفية العراقي",
+      "title": "شرح التبصرة والتذكرة ألفية العراقي",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "شرح التبصرة والتذكرة ألفية العراقي\\001.htm",
+        "شرح التبصرة والتذكرة ألفية العراقي\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح التبصرة والتذكرة ألفية العراقي\\001.htm"
+    },
+    {
+      "name": "شرح الشواهد الشعرية في أمات الكتب النحوية",
+      "title": "شرح الشواهد الشعرية في أمات الكتب النحوية",
+      "category": "الأدب",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "شرح الشواهد الشعرية في أمات الكتب النحوية\\001.htm",
+        "شرح الشواهد الشعرية في أمات الكتب النحوية\\002.htm",
+        "شرح الشواهد الشعرية في أمات الكتب النحوية\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح الشواهد الشعرية في أمات الكتب النحوية\\001.htm"
+    },
+    {
+      "name": "شرح مقدمة التسهيل لعلوم التنزيل لابن جزي",
+      "title": "شرح مقدمة التسهيل لعلوم التنزيل لابن جزي",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'التسهيل'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "شرح مقدمة التسهيل لعلوم التنزيل لابن جزي.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\شرح مقدمة التسهيل لعلوم التنزيل لابن جزي.htm"
+    },
+    {
+      "name": "طبقات النحويين واللغويين",
+      "title": "طبقات النحويين واللغويين",
+      "category": "التراجم والطبقات",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "طبقات النحويين واللغويين.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\طبقات النحويين واللغويين.htm"
+    },
+    {
+      "name": "غرر الخصائص الواضحة",
+      "title": "غرر الخصائص الواضحة",
+      "category": "الأدب",
+      "match_tier": "B",
+      "match_reason": "title contains 'الخصائص'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "غرر الخصائص الواضحة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\غرر الخصائص الواضحة.htm"
+    },
+    {
+      "name": "فتح الباقي بشرح ألفية العراقي",
+      "title": "فتح الباقي بشرح ألفية العراقي",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "فتح الباقي بشرح ألفية العراقي\\001.htm",
+        "فتح الباقي بشرح ألفية العراقي\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\فتح الباقي بشرح ألفية العراقي\\001.htm"
+    },
+    {
+      "name": "فتح المغيث بشرح ألفية الحديث",
+      "title": "فتح المغيث بشرح ألفية الحديث",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'ألفية'",
+      "is_multivolume": true,
+      "volume_count": 4,
+      "files": [
+        "فتح المغيث بشرح ألفية الحديث\\001.htm",
+        "فتح المغيث بشرح ألفية الحديث\\002.htm",
+        "فتح المغيث بشرح ألفية الحديث\\003.htm",
+        "فتح المغيث بشرح ألفية الحديث\\004.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\فتح المغيث بشرح ألفية الحديث\\001.htm"
+    },
+    {
+      "name": "فتح رب البرية في تيسير قراءة الألفية",
+      "title": "فتح رب البرية في تيسير قراءة الألفية",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'الألفية'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "فتح رب البرية في تيسير قراءة الألفية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\فتح رب البرية في تيسير قراءة الألفية.htm"
+    },
+    {
+      "name": "كتاب الشعر أو شرح الأبيات المشكلة الإعراب",
+      "title": "كتاب الشعر أو شرح الأبيات المشكلة الإعراب",
+      "category": "الأدب",
+      "match_tier": "B",
+      "match_reason": "title contains 'الإعراب'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "كتاب الشعر أو شرح الأبيات المشكلة الإعراب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\كتاب الشعر أو شرح الأبيات المشكلة الإعراب.htm"
+    },
+    {
+      "name": "ماذا بعد نحو نصرة حقيقية لفلسطين",
+      "title": "ماذا بعد نحو نصرة حقيقية لفلسطين",
+      "category": "كتب عامة",
+      "match_tier": "B",
+      "match_reason": "title contains 'نحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "ماذا بعد نحو نصرة حقيقية لفلسطين.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\ماذا بعد نحو نصرة حقيقية لفلسطين.htm"
+    },
+    {
+      "name": "مشكل إعراب القرآن لمكي",
+      "title": "مشكل إعراب القرآن لمكي",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "مشكل إعراب القرآن لمكي\\001.htm",
+        "مشكل إعراب القرآن لمكي\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\مشكل إعراب القرآن لمكي\\001.htm"
+    },
+    {
+      "name": "معاني القرآن وإعرابه للزجاج",
+      "title": "معاني القرآن وإعرابه للزجاج",
+      "category": "التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'إعراب'",
+      "is_multivolume": true,
+      "volume_count": 5,
+      "files": [
+        "معاني القرآن وإعرابه للزجاج\\001.htm",
+        "معاني القرآن وإعرابه للزجاج\\002.htm",
+        "معاني القرآن وإعرابه للزجاج\\003.htm",
+        "معاني القرآن وإعرابه للزجاج\\004.htm",
+        "معاني القرآن وإعرابه للزجاج\\005.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\معاني القرآن وإعرابه للزجاج\\001.htm"
+    },
+    {
+      "name": "معجم المسائل النحوية والصرفية الواردة في القرآن الكريم",
+      "title": "معجم المسائل النحوية والصرفية الواردة في القرآن الكريم",
+      "category": "علوم القرآن وأصول التفسير",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "معجم المسائل النحوية والصرفية الواردة في القرآن الكريم.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\معجم المسائل النحوية والصرفية الواردة في القرآن الكريم.htm"
+    },
+    {
+      "name": "معجم شيوخ ابن الأعرابي - ط ابن الجوزي",
+      "title": "معجم شيوخ ابن الأعرابي - ط ابن الجوزي",
+      "category": "كتب السنة",
+      "match_tier": "B",
+      "match_reason": "title contains 'الإعراب'",
+      "is_multivolume": true,
+      "volume_count": 3,
+      "files": [
+        "معجم شيوخ ابن الأعرابي - ط ابن الجوزي\\001.htm",
+        "معجم شيوخ ابن الأعرابي - ط ابن الجوزي\\002.htm",
+        "معجم شيوخ ابن الأعرابي - ط ابن الجوزي\\003.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\معجم شيوخ ابن الأعرابي - ط ابن الجوزي\\001.htm"
+    },
+    {
+      "name": "معجم شيوخ ابن الأعرابي - ط العلمية",
+      "title": "معجم شيوخ ابن الأعرابي - ط العلمية",
+      "category": "كتب السنة",
+      "match_tier": "B",
+      "match_reason": "title contains 'الإعراب'",
+      "is_multivolume": true,
+      "volume_count": 2,
+      "files": [
+        "معجم شيوخ ابن الأعرابي - ط العلمية\\001.htm",
+        "معجم شيوخ ابن الأعرابي - ط العلمية\\002.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\معجم شيوخ ابن الأعرابي - ط العلمية\\001.htm"
+    },
+    {
+      "name": "مفتاح السعيدية في شرح الألفية الحديثية",
+      "title": "مفتاح السعيدية في شرح الألفية الحديثية",
+      "category": "علوم الحديث",
+      "match_tier": "B",
+      "match_reason": "title contains 'الألفية'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "مفتاح السعيدية في شرح الألفية الحديثية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\مفتاح السعيدية في شرح الألفية الحديثية.htm"
+    },
+    {
+      "name": "منظومة الآداب = الألفية في الآداب الشرعية",
+      "title": "منظومة الآداب = الألفية في الآداب الشرعية",
+      "category": "الرقائق والآداب والأذكار",
+      "match_tier": "B",
+      "match_reason": "title contains 'الألفية'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "منظومة الآداب = الألفية في الآداب الشرعية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\منظومة الآداب = الألفية في الآداب الشرعية.htm"
+    },
+    {
+      "name": "نحو القلوب",
+      "title": "نحو القلوب",
+      "category": "الرقائق والآداب والأذكار",
+      "match_tier": "B",
+      "match_reason": "title contains 'نحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "نحو القلوب.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\نحو القلوب.htm"
+    },
+    {
+      "name": "نحو ثقافة إسلامية أصيلة",
+      "title": "نحو ثقافة إسلامية أصيلة",
+      "category": "كتب عامة",
+      "match_tier": "B",
+      "match_reason": "title contains 'نحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "نحو ثقافة إسلامية أصيلة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\نحو ثقافة إسلامية أصيلة.htm"
+    },
+    {
+      "name": "نحو معجم تاريخي للمصطلحات القرآنية المعرفة",
+      "title": "نحو معجم تاريخي للمصطلحات القرآنية المعرفة",
+      "category": "التجويد والقراءات",
+      "match_tier": "B",
+      "match_reason": "title contains 'نحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "نحو معجم تاريخي للمصطلحات القرآنية المعرفة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\نحو معجم تاريخي للمصطلحات القرآنية المعرفة.htm"
+    },
+    {
+      "name": "نشأة النحو وتاريخ أشهر النحاة",
+      "title": "نشأة النحو وتاريخ أشهر النحاة",
+      "category": "فهارس الكتب والأدلة",
+      "match_tier": "B",
+      "match_reason": "title contains 'النحو'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "نشأة النحو وتاريخ أشهر النحاة.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\نشأة النحو وتاريخ أشهر النحاة.htm"
+    },
+    {
+      "name": "أسرار العربية",
+      "title": "أسرار العربية",
+      "category": "كتب اللغة",
+      "match_tier": "C",
+      "match_reason": "matches known book 'أسرار العربية'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "أسرار العربية.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\أسرار العربية.htm"
+    },
+    {
+      "name": "خصائص النظم في «خصائص العربية» لابن جني",
+      "title": "خصائص النظم في «خصائص العربية» لابن جني",
+      "category": "الأدب",
+      "match_tier": "C",
+      "match_reason": "matches known book 'اللمع في العربية لابن جني'",
+      "is_multivolume": false,
+      "volume_count": 1,
+      "files": [
+        "خصائص النظم في «خصائص العربية» لابن جني.htm"
+      ],
+      "first_file": "C:\\Users\\Rayane\\Desktop\\kr\\shamela-export-samples\\خصائص النظم في «خصائص العربية» لابن جني.htm"
+    }
+  ]
+}

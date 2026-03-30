@@ -1,0 +1,681 @@
+taxonomy:
+  id: nahw_corpus
+  title: علم النحو (corpus-derived)
+  source: Corpus analysis of 302 nahw books from Shamela
+  total_books_analyzed: 302
+  date: 2026-03-30
+  min_book_threshold: 5
+  nodes:
+    - id: al_kalam
+      title: الكلام وأقسامه
+      book_count: 0
+      example_books:
+      children:
+        - id: alnkrh_walmarfh
+          title: النكرة والمعرفة
+          book_count: 34
+          example_books:
+            - أوضح المسالك إلى ألفية ابن مالك - ت هبود
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: alfal
+          title: الفعل
+          book_count: 21
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - الأصول في النحو
+          leaf: true
+        - id: almarb_walmbny
+          title: المعرب والمبني
+          book_count: 17
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - أوضح المسالك إلى ألفية ابن مالك - ت هبود
+            - إرشاد السالك إلى حل ألفية ابن مالك
+          leaf: true
+        - id: alasm
+          title: الاسم
+          book_count: 0
+          leaf: true
+        - id: alhrf
+          title: الحرف
+          book_count: 0
+          leaf: true
+        - id: alamat_alasm
+          title: علامات الاسم
+          book_count: 0
+          leaf: true
+        - id: alamat_alfal
+          title: علامات الفعل
+          book_count: 0
+          leaf: true
+    - id: al_marfuat
+      title: المرفوعات
+      book_count: 0
+      example_books:
+      children:
+        - id: alfaal
+          title: الفاعل
+          book_count: 43
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: almbtda_walkhbr
+          title: المبتدا والخبر
+          book_count: 27
+          example_books:
+            - أوضح المسالك إلى ألفية ابن مالك - ت هبود
+            - ارتشاف الضرب من لسان العرب
+            - الآجرومية
+          leaf: true
+        - id: nab_alfaal
+          title: نائب الفاعل
+          book_count: 17
+          example_books:
+            - الأنشوطة في النحو
+            - البرعومة في النحو
+            - التطبيق النحوي
+          leaf: true
+        - id: asm_kan_wakhwatha
+          title: اسم كان واخواتها
+          book_count: 0
+          leaf: true
+        - id: khbr_an_wakhwatha
+          title: خبر ان واخواتها
+          book_count: 0
+          leaf: true
+    - id: al_mansubat
+      title: المنصوبات
+      book_count: 6
+      example_books:
+        - ارتشاف الضرب من لسان العرب
+        - الكناش في فني النحو والصرف
+        - دليل الطالبين لكلام النحويين
+        - شرح الآجرومية - حسن حفظي
+        - شرح شذور الذهب للجوجري
+      children:
+        - id: alhal
+          title: الحال
+          book_count: 55
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - إيناس الناس بتفاحة أبي جعفر النحاس
+          leaf: true
+        - id: almfawl_mah
+          title: المفعول معه
+          book_count: 48
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - أوضح المسالك إلى ألفية ابن مالك - ت هبود
+            - إرشاد السالك إلى حل ألفية ابن مالك
+          leaf: true
+        - id: altmyyz
+          title: التمييز
+          book_count: 46
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: almfawl_almtlq
+          title: المفعول المطلق
+          book_count: 36
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: almfawl_lh
+          title: المفعول له
+          book_count: 36
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: alastthna
+          title: الاستثناء
+          book_count: 36
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - الآجرومية
+          leaf: true
+        - id: almfawl_bh
+          title: المفعول به
+          book_count: 24
+          example_books:
+            - ارتشاف الضرب من لسان العرب
+            - الآجرومية
+            - الإيضاح العضدي
+          leaf: true
+        - id: almfawl_fyh
+          title: المفعول فيه
+          book_count: 15
+          example_books:
+            - ارتشاف الضرب من لسان العرب
+            - الإيضاح العضدي
+            - القواعد التطبيقية في اللغة العربية
+          leaf: true
+        - id: almnady
+          title: المنادى
+          book_count: 15
+          example_books:
+            - الآجرومية
+            - القواعد التطبيقية في اللغة العربية
+            - الكافية في علم النحو
+          leaf: true
+    - id: al_majrurat
+      title: المجرورات
+      book_count: 8
+      example_books:
+        - الكافية في علم النحو
+        - الكناش في فني النحو والصرف
+        - اللطيفة البكرية والنتيجة الفكرية في المهمات النحوية - ضمن «آثار المعلمي»
+        - حقائق في النحو مستقربة - ضمن «آثار المعلمي»
+        - دليل الطالبين لكلام النحويين
+      children:
+        - id: hrwf_aljr
+          title: حروف الجر
+          book_count: 32
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - أوضح المسالك إلى ألفية ابن مالك - ت هبود
+            - إرشاد السالك إلى حل ألفية ابن مالك
+          leaf: true
+        - id: aladafh
+          title: الاضافة
+          book_count: 30
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: altaba_llmjrwr
+          title: التابع للمجرور
+          book_count: 0
+          leaf: true
+    - id: nawasikh
+      title: نواسخ المبتدأ والخبر
+      book_count: 0
+      example_books:
+      children:
+        - id: kan_wakhwatha
+          title: كان واخواتها
+          book_count: 32
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: an_wakhwatha
+          title: ان واخواتها
+          book_count: 29
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - الإيضاح العضدي
+          leaf: true
+        - id: afaal_almqarbh
+          title: افعال المقاربة
+          book_count: 29
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: zn_wakhwatha
+          title: ظن واخواتها
+          book_count: 22
+          example_books:
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - الأفعال الناسخة
+            - الأنشوطة في النحو
+          leaf: true
+        - id: la_alnafyh_lljns
+          title: لا النافية للجنس
+          book_count: 6
+          example_books:
+            - القواعد التطبيقية في اللغة العربية
+            - اللباب في قواعد اللغة وآلات الأدب النحو والصرف والبلاغة والعروض واللغة والمثل
+            - النحو المصفى - الكتاب
+          leaf: true
+    - id: al_tawabi
+      title: التوابع
+      book_count: 11
+      example_books:
+        - الكناش في فني النحو والصرف
+        - اللباب في قواعد اللغة وآلات الأدب النحو والصرف والبلاغة والعروض واللغة والمثل
+        - اللطيفة البكرية والنتيجة الفكرية في المهمات النحوية - ضمن «آثار المعلمي»
+        - اللمحة في شرح الملحة
+        - شرح الكافية الشافية
+      children:
+        - id: albdl
+          title: البدل
+          book_count: 50
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - أوضح المسالك إلى ألفية ابن مالك - ت هبود
+            - إرشاد السالك إلى حل ألفية ابن مالك
+          leaf: true
+        - id: altwkyd
+          title: التوكيد
+          book_count: 45
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - أوضح المسالك إلى ألفية ابن مالك - ت هبود
+            - إرشاد السالك إلى حل ألفية ابن مالك
+          leaf: true
+        - id: alnat
+          title: النعت
+          book_count: 37
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - أوضح المسالك إلى ألفية ابن مالك - ت هبود
+            - إرشاد السالك إلى حل ألفية ابن مالك
+          leaf: true
+        - id: alatf
+          title: العطف
+          book_count: 28
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - الآجرومية
+          leaf: true
+    - id: al_maarif
+      title: المعارف
+      book_count: 0
+      example_books:
+      children:
+        - id: alalm
+          title: العلم
+          book_count: 24
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: asm_alasharh
+          title: اسم الاشارة
+          book_count: 21
+          example_books:
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+            - التذييل والتكميل في شرح كتاب التسهيل
+          leaf: true
+        - id: aldmyr
+          title: الضمير
+          book_count: 7
+          example_books:
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - النحو المصفى - الكتاب
+            - النحو الواضح في قواعد اللغة العربية
+          leaf: true
+        - id: alasm_almwswl
+          title: الاسم الموصول
+          book_count: 5
+          example_books:
+            - الموجز في قواعد اللغة العربية
+            - النحو الواضح في قواعد اللغة العربية
+            - شرح ألفية ابن مالك للعثيمين
+          leaf: true
+        - id: almarfh_bal
+          title: المعرفة بال
+          book_count: 0
+          leaf: true
+        - id: almdaf_aly_marfh
+          title: المضاف الى معرفة
+          book_count: 0
+          leaf: true
+    - id: al_afaal
+      title: الأفعال
+      book_count: 9
+      example_books:
+        - الآجرومية
+        - الكافية في علم النحو
+        - اللمع في العربية لابن جني
+        - المقدمة الجزولية في النحو
+        - توجيه اللمع
+      children:
+        - id: alfal_almdara
+          title: الفعل المضارع
+          book_count: 17
+          example_books:
+            - الأنشوطة في النحو
+            - البرعومة في النحو
+            - القواعد التطبيقية في اللغة العربية
+          leaf: true
+        - id: alfal_almady
+          title: الفعل الماضي
+          book_count: 8
+          example_books:
+            - القواعد التطبيقية في اللغة العربية
+            - الكافية في علم النحو
+            - الكناش في فني النحو والصرف
+          leaf: true
+        - id: fal_alamr
+          title: فعل الامر
+          book_count: 8
+          example_books:
+            - الكافية في علم النحو
+            - اللطيفة البكرية والنتيجة الفكرية في المهمات النحوية - ضمن «آثار المعلمي»
+            - النحو الواضح في قواعد اللغة العربية
+          leaf: true
+        - id: alafaal_alkhmsh
+          title: الافعال الخمسة
+          book_count: 8
+          example_books:
+            - التحفة الوسيمة شرح على الدرة اليتيمة
+            - اللمع في العربية لابن جني
+            - النحو المصفى - الكتاب
+          leaf: true
+        - id: aarab_alfal_almdara
+          title: اعراب الفعل المضارع
+          book_count: 0
+          leaf: true
+        - id: aljzm
+          title: الجزم
+          book_count: 0
+          leaf: true
+        - id: alnsb
+          title: النصب
+          book_count: 0
+          leaf: true
+    - id: al_nida
+      title: النداء وتوابعه
+      book_count: 0
+      example_books:
+      children:
+        - id: alnda
+          title: النداء
+          book_count: 35
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - أوضح المسالك إلى ألفية ابن مالك - ت هبود
+            - إرشاد السالك إلى حل ألفية ابن مالك
+          leaf: true
+        - id: alndbh
+          title: الندبة
+          book_count: 33
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: altrkhym
+          title: الترخيم
+          book_count: 33
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - الأصول في النحو
+          leaf: true
+        - id: alastghathh
+          title: الاستغاثة
+          book_count: 21
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - الكوكب المنير في شرح الألفية بالتشطير
+          leaf: true
+    - id: al_taajjub
+      title: التعجب والمدح والذم
+      book_count: 0
+      example_books:
+      children:
+        - id: altajb
+          title: التعجب
+          book_count: 33
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - إيناس الناس بتفاحة أبي جعفر النحاس
+          leaf: true
+        - id: nam_wbs
+          title: نعم وبئس
+          book_count: 14
+          example_books:
+            - أوضح المسالك إلى ألفية ابن مالك - ت هبود
+            - ارتشاف الضرب من لسان العرب
+            - الأصول في النحو
+          leaf: true
+        - id: hbdha_wla_hbdha
+          title: حبذا ولا حبذا
+          book_count: 0
+          leaf: true
+    - id: al_adad
+      title: العدد
+      book_count: 35
+      example_books:
+        - ألفية ابن مالك - ط التعاون
+        - إرشاد السالك إلى حل ألفية ابن مالك
+        - إيناس الناس بتفاحة أبي جعفر النحاس
+        - ارتشاف الضرب من لسان العرب
+        - الأصول في النحو
+      children:
+        - id: aladd
+          title: العدد
+          book_count: 35
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - إيناس الناس بتفاحة أبي جعفر النحاس
+          leaf: true
+        - id: knayat_aladd
+          title: كنايات العدد
+          book_count: 0
+          leaf: true
+        - id: km_alastfhamyh_walkhbryh
+          title: كم الاستفهامية والخبرية
+          book_count: 0
+          leaf: true
+    - id: al_mushtaqqat
+      title: المشتقات
+      book_count: 0
+      example_books:
+      children:
+        - id: asm_alfaal
+          title: اسم الفاعل
+          book_count: 36
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: almsdr
+          title: المصدر
+          book_count: 22
+          example_books:
+            - ارتشاف الضرب من لسان العرب
+            - الآجرومية
+            - الشافية في علم التصريف - معها الوافية نظم الشافية
+          leaf: true
+        - id: alsfh_almshbhh
+          title: الصفة المشبهة
+          book_count: 16
+          example_books:
+            - الرابط وأثره في التراكيب في العربية
+            - الشافية في علم التصريف - معها الوافية نظم الشافية
+            - الشافية في علمي التصريف والخط
+          leaf: true
+        - id: asm_almfawl
+          title: اسم المفعول
+          book_count: 14
+          example_books:
+            - ارتشاف الضرب من لسان العرب
+            - القواعد التطبيقية في اللغة العربية
+            - الكافية في علم النحو
+          leaf: true
+        - id: asm_alalh
+          title: اسم الآلة
+          book_count: 9
+          example_books:
+            - السماع والقياس
+            - الشافية في علم التصريف - معها الوافية نظم الشافية
+            - الشافية في علمي التصريف والخط
+          leaf: true
+        - id: asm_altfdyl
+          title: اسم التفضيل
+          book_count: 8
+          example_books:
+            - الكافية في علم النحو
+            - الكناش في فني النحو والصرف
+            - اللطيفة البكرية والنتيجة الفكرية في المهمات النحوية - ضمن «آثار المعلمي»
+          leaf: true
+        - id: asm_alzman_walmkan
+          title: اسم الزمان والمكان
+          book_count: 0
+          leaf: true
+    - id: al_mawsulat
+      title: الموصولات
+      book_count: 0
+      example_books:
+      children:
+        - id: alasm_almwswl
+          title: الاسم الموصول
+          book_count: 5
+          example_books:
+            - الموجز في قواعد اللغة العربية
+            - النحو الواضح في قواعد اللغة العربية
+            - شرح ألفية ابن مالك للعثيمين
+          leaf: true
+        - id: slh_almwswl
+          title: صلة الموصول
+          book_count: 0
+          leaf: true
+        - id: alaad
+          title: العائد
+          book_count: 0
+          leaf: true
+    - id: al_hikaya
+      title: الحكاية والإخبار
+      book_count: 0
+      example_books:
+      children:
+        - id: alhkayh
+          title: الحكاية
+          book_count: 22
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: alakhbar
+          title: الاخبار
+          book_count: 0
+          leaf: true
+    - id: tasrif
+      title: الصرف والتصريف
+      book_count: 0
+      example_books:
+      children:
+        - id: altsghyr
+          title: التصغير
+          book_count: 33
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: alwqf
+          title: الوقف
+          book_count: 31
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: alamalh
+          title: الامالة
+          book_count: 29
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: alnsb
+          title: النسب
+          book_count: 28
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: jma_altksyr
+          title: جمع التكسير
+          book_count: 27
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: alabdal
+          title: الابدال
+          book_count: 23
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - الشافية في علم التصريف - معها الوافية نظم الشافية
+          leaf: true
+        - id: alaalal
+          title: الاعلال
+          book_count: 7
+          example_books:
+            - الشافية في علم التصريف - معها الوافية نظم الشافية
+            - الشافية في علمي التصريف والخط
+            - الكناش في فني النحو والصرف
+          leaf: true
+        - id: alasma_almbnyh
+          title: الاسماء المبنية
+          book_count: 0
+          leaf: true
+    - id: asalibiyyat
+      title: الأساليب النحوية
+      book_count: 0
+      example_books:
+      children:
+        - id: asma_alafaal_walaswat
+          title: اسماء الافعال والاصوات
+          book_count: 28
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - الكافية في علم النحو
+          leaf: true
+        - id: alakhtsas
+          title: الاختصاص
+          book_count: 23
+          example_books:
+            - ألفية ابن مالك - ط التعاون
+            - إرشاد السالك إلى حل ألفية ابن مالك
+            - ارتشاف الضرب من لسان العرب
+          leaf: true
+        - id: alqsm
+          title: القسم
+          book_count: 15
+          example_books:
+            - ارتشاف الضرب من لسان العرب
+            - الإيضاح العضدي
+            - البديع في علم العربية
+          leaf: true
+        - id: althdhyr
+          title: التحذير
+          book_count: 7
+          example_books:
+            - الكافية في علم النحو
+            - الكناش في فني النحو والصرف
+            - المفصل في صنعة الإعراب
+          leaf: true
+        - id: alaghra_walthdhyr
+          title: الاغراء والتحذير
+          book_count: 0
+          leaf: true
+        - id: alshrt
+          title: الشرط
+          book_count: 0
+          leaf: true

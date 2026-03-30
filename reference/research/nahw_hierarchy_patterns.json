@@ -1,0 +1,5221 @@
+{
+  "total_books_analyzed": 271,
+  "depth_stats": {
+    "min": 0,
+    "max": 5,
+    "median": 3
+  },
+  "hierarchy_patterns": [
+    {
+      "pattern": "غير مصنف",
+      "book_count": 47,
+      "example_books": [
+        "إعراب لامية الشنفرى",
+        "اعتراض الشرط على الشرط",
+        "الاقتراح في أصول النحو ط القلم",
+        "الانتخاب لكشف الأبيات المشكلة الإعراب",
+        "البرعومة في النحو",
+        "البلغة في الفرق بين المذكر والمؤنث",
+        "التبيين عن مذاهب النحويين البصريين والكوفيين",
+        "التعجب من فعل المفعول بين المانعين والمجيزين",
+        "الحلل في شرح أبيات الجمل",
+        "الشافية في علمي التصريف والخط"
+      ]
+    },
+    {
+      "pattern": "مقدمة > غير مصنف",
+      "book_count": 10,
+      "example_books": [
+        "الألغاز النحوية = الطراز في الألغاز",
+        "الحدود في علم النحو",
+        "الكافية في علم النحو",
+        "حركة حروف المضارعة",
+        "شرح شذور الذهب لابن هشام",
+        "شرح قطر الندى وبل الصدى",
+        "أسئلة وأجوبة في إعراب القرآن",
+        "إعراب القرآن الكريم - ط دار الصحابة",
+        "تفسير الكتاب العزيز وإعرابه",
+        "معجم المسائل النحوية والصرفية الواردة في القرآن الكريم"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > باب > غير مصنف > باب > غير مصنف",
+      "book_count": 9,
+      "example_books": [
+        "إتحاف الحثيث بإعراب ما يشكل من ألفاظ الحديث",
+        "الكتاب لسيبويه",
+        "المقتضب",
+        "المقدمة الجزولية في النحو",
+        "شرح أبيات مغني اللبيب",
+        "شرح الآجرومية - حسن حفظي",
+        "شرح قواعد الإعراب",
+        "شرح كتاب سيبويه للسيرافي",
+        "علل النحو"
+      ]
+    },
+    {
+      "pattern": "باب > غير مصنف > باب > غير مصنف > باب",
+      "book_count": 8,
+      "example_books": [
+        "أبنية الأسماء والأفعال والمصادر",
+        "التعليقة على كتاب سيبويه",
+        "اللامات",
+        "شرح التسهيل لابن مالك",
+        "شرح كتاب سيبويه للرماني - جزء منه",
+        "فتح رب البرية في شرح نظم الآجرومية",
+        "البيان والإعراب عما بأرض مصر من الأعراب",
+        "كتاب الشعر أو شرح الأبيات المشكلة الإعراب"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > فصل > غير مصنف > فصل > غير مصنف",
+      "book_count": 6,
+      "example_books": [
+        "أمالي ابن الحاجب",
+        "الأفعال الناسخة",
+        "الكناش في فني النحو والصرف",
+        "المرتجل في شرح الجمل لابن الخشاب",
+        "شرح المفصل لابن يعيش",
+        "البحر الذي زخر في شرح ألفية الأثر - قسم ١ - ت الأندونوسي"
+      ]
+    },
+    {
+      "pattern": "باب",
+      "book_count": 6,
+      "example_books": [
+        "الإيضاح العضدي",
+        "التحفة الوسيمة شرح على الدرة اليتيمة",
+        "المسائل العسكريات في النحو العربي",
+        "تثقيف اللسان وتلقيح الجنان",
+        "تسهيل الفوائد وتكميل المقاصد",
+        "رسالة الحدود"
+      ]
+    },
+    {
+      "pattern": "مقدمة > غير مصنف > فصل > غير مصنف > فصل",
+      "book_count": 5,
+      "example_books": [
+        "ألفية ابن مالك - ط التعاون",
+        "المدارس النحوية",
+        "المفصل في صنعة الإعراب",
+        "تمهيد القواعد بشرح تسهيل الفوائد",
+        "شرح المكودي على الألفية في علمي الصرف والنحو"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > باب",
+      "book_count": 5,
+      "example_books": [
+        "حاشية الآجرومية",
+        "دليل الطالبين لكلام النحويين",
+        "متن قطر الندى وبل الصدى",
+        "مختصر شرح ابن جماعة على القواعد الصغرى - ضمن «آثار المعلمي»",
+        "منازل الحروف"
+      ]
+    },
+    {
+      "pattern": "مسألة",
+      "book_count": 4,
+      "example_books": [
+        "الانتصار لسيبويه على المبرد",
+        "المسائل البصريات",
+        "رسالة المباحث المرضية",
+        "مسائل خلافية في النحو"
+      ]
+    },
+    {
+      "pattern": "مدخل > غير مصنف",
+      "book_count": 4,
+      "example_books": [
+        "الكشف عن صاحب البسيط في النحو",
+        "صيغة فعلان واستعمالاتها في اللغة العربية",
+        "ظاهرة التقارض في النحو العربي",
+        "ظاهرة التقاص في النحو العربي"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > ذكر > غير مصنف",
+      "book_count": 3,
+      "example_books": [
+        "أصول النحو ٢ - جامعة المدينة",
+        "العدد في اللغة",
+        "أخبار النحويين البصريين - السيرافي"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > باب > غير مصنف > إعراب > غير مصنف",
+      "book_count": 3,
+      "example_books": [
+        "إعراب ما يشكل من ألفاظ الحديث",
+        "اللمع في العربية لابن جني",
+        "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > فصل > غير مصنف",
+      "book_count": 3,
+      "example_books": [
+        "الأنشوطة في النحو",
+        "القطارة النحوية على المقدمة الآجرومية",
+        "المفتاح في الصرف"
+      ]
+    },
+    {
+      "pattern": "مقدمة > غير مصنف > باب > غير مصنف > باب",
+      "book_count": 3,
+      "example_books": [
+        "سر صناعة الإعراب",
+        "شرح الشواهد الشعرية في أمات الكتب النحوية",
+        "شرح مقدمة التسهيل لعلوم التنزيل لابن جزي"
+      ]
+    },
+    {
+      "pattern": "باب > غير مصنف > باب",
+      "book_count": 2,
+      "example_books": [
+        "أوضح المسالك إلى ألفية ابن مالك - ت هبود",
+        "معجم شيوخ ابن الأعرابي - ط ابن الجوزي"
+      ]
+    },
+    {
+      "pattern": "مقدمة > غير مصنف > فصل > مبحث > فصل",
+      "book_count": 2,
+      "example_books": [
+        "إيجاز التعريف في علم التصريف",
+        "اللمحة في شرح الملحة"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > باب > غير مصنف > باب",
+      "book_count": 2,
+      "example_books": [
+        "إيناس الناس بتفاحة أبي جعفر النحاس",
+        "شرح الأجرومية للأسمري"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > فصل",
+      "book_count": 2,
+      "example_books": [
+        "الألفاظ المهموزة",
+        "سبب وضع علم العربية"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > إعراب > غير مصنف > إعراب > غير مصنف",
+      "book_count": 2,
+      "example_books": [
+        "الإعراب المفصل لكتاب الله المرتل",
+        "المنهاج المختصر في علمي النحو والصرف"
+      ]
+    },
+    {
+      "pattern": "باب > مسألة",
+      "book_count": 2,
+      "example_books": [
+        "الإيضاح في علل النحو",
+        "نظم قواعد الإعراب الصغرى - ضمن «آثار المعلمي»"
+      ]
+    },
+    {
+      "pattern": "باب > غير مصنف",
+      "book_count": 2,
+      "example_books": [
+        "الخصائص",
+        "فوائت كتاب سيبويه"
+      ]
+    },
+    {
+      "pattern": "فصل > غير مصنف > فصل > غير مصنف > فصل",
+      "book_count": 2,
+      "example_books": [
+        "الفصول المفيدة في الواو المزيدة",
+        "شرح المقدمة المحسبة"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > فصل > غير مصنف > إعراب > غير مصنف",
+      "book_count": 2,
+      "example_books": [
+        "الكوكب المنير في شرح الألفية بالتشطير",
+        "شرح ابن الناظم على ألفية ابن مالك"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > مقدمة > غير مصنف",
+      "book_count": 2,
+      "example_books": [
+        "بحث في صيغة أفعل بين النحويين واللغويين واستعمالاتها في العربية",
+        "البردة شرحا وإعرابا وبلاغة لطلاب المعاهد والجامعات"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > فصل > مبحث > غير مصنف > مبحث",
+      "book_count": 2,
+      "example_books": [
+        "شرح شافية ابن الحاجب - ركن الدين الاستراباذي",
+        "نحو ثقافة إسلامية أصيلة"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > مبحث > غير مصنف > مبحث > غير مصنف",
+      "book_count": 2,
+      "example_books": [
+        "شرحا أبي العلاء والخطيب التبريزي على ديوان أبي تمام دراسة نحوية صرفية",
+        "رد البهتان عن إعراب آيات من القرآن الكريم"
+      ]
+    },
+    {
+      "pattern": "مقدمة > غير مصنف > تنبيه > غير مصنف > كتاب",
+      "book_count": 2,
+      "example_books": [
+        "ألفية العراقي التبصرة والتذكرة - ت الفحل",
+        "النكت الوفية بما في شرح الألفية"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > مسألة > غير مصنف",
+      "book_count": 2,
+      "example_books": [
+        "إعراب القرآن - إسماعيل الأصبهاني",
+        "خصائص النظم في «خصائص العربية» لابن جني"
+      ]
+    },
+    {
+      "pattern": "شرح > مسألة",
+      "book_count": 1,
+      "example_books": [
+        "أخبار أبي القاسم الزجاجي"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > مقدمة > غير مصنف > فائدة > غير مصنف",
+      "book_count": 1,
+      "example_books": [
+        "أدوات الإعراب"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > تقسيم > غير مصنف > تقسيم > غير مصنف",
+      "book_count": 1,
+      "example_books": [
+        "أصول النحو ١ - جامعة المدينة"
+      ]
+    },
+    {
+      "pattern": "مبحث > فصل > مبحث > فصل > مبحث",
+      "book_count": 1,
+      "example_books": [
+        "إرشاد السالك إلى حل ألفية ابن مالك"
+      ]
+    },
+    {
+      "pattern": "مقدمة > إعراب > غير مصنف",
+      "book_count": 1,
+      "example_books": [
+        "إعراب لا إله إلا الله"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > خاتمة > غير مصنف",
+      "book_count": 1,
+      "example_books": [
+        "اتحاف الفاضل بالفعل المبني لغير الفاعل"
+      ]
+    },
+    {
+      "pattern": "فصل > باب > فصل > باب > فصل",
+      "book_count": 1,
+      "example_books": [
+        "ارتشاف الضرب من لسان العرب"
+      ]
+    },
+    {
+      "pattern": "باب > فصل > باب > فصل > باب",
+      "book_count": 1,
+      "example_books": [
+        "اقتطاف الأزاهر والتقاط الجواهر"
+      ]
+    },
+    {
+      "pattern": "مدخل > باب",
+      "book_count": 1,
+      "example_books": [
+        "الآجرومية"
+      ]
+    },
+    {
+      "pattern": "مقدمة > غير مصنف > مدخل > شرح > باب",
+      "book_count": 1,
+      "example_books": [
+        "الأصول في النحو"
+      ]
+    },
+    {
+      "pattern": "مقدمة > غير مصنف > مقدمة > غير مصنف > باب",
+      "book_count": 1,
+      "example_books": [
+        "الأفعال - سعيد المعافري"
+      ]
+    },
+    {
+      "pattern": "مقدمة > مسألة > غير مصنف",
+      "book_count": 1,
+      "example_books": [
+        "الإنصاف في مسائل الخلاف بين النحويين البصريين والكوفيين"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > مسألة > كتاب > فصل > غير مصنف",
+      "book_count": 1,
+      "example_books": [
+        "الاقتراح في أصول النحو ط البيروتي"
+      ]
+    },
+    {
+      "pattern": "مقدمة > غير مصنف > باب > فصل > غير مصنف",
+      "book_count": 1,
+      "example_books": [
+        "البديع في علم العربية"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > مقدمة > غير مصنف > كتاب > غير مصنف",
+      "book_count": 1,
+      "example_books": [
+        "البهجة الوفية بحجة الخلاصة الألفية"
+      ]
+    },
+    {
+      "pattern": "مقدمة > باب",
+      "book_count": 1,
+      "example_books": [
+        "التذييل والتكميل في شرح كتاب التسهيل"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > مقدمة > باب > غير مصنف > باب",
+      "book_count": 1,
+      "example_books": [
+        "التطبيق النحوي"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > تفسير > غير مصنف > تفسير > غير مصنف",
+      "book_count": 1,
+      "example_books": [
+        "الجمل في النحو"
+      ]
+    },
+    {
+      "pattern": "مقدمة > فصل > باب > غير مصنف > تنبيه",
+      "book_count": 1,
+      "example_books": [
+        "الجنى الداني في حروف المعاني"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > باب > فصل > باب > غير مصنف",
+      "book_count": 1,
+      "example_books": [
+        "الدرة البهية نظم الآجرومية"
+      ]
+    },
+    {
+      "pattern": "مدخل > غير مصنف > مدخل > غير مصنف",
+      "book_count": 1,
+      "example_books": [
+        "الرابط وأثره في التراكيب في العربية"
+      ]
+    },
+    {
+      "pattern": "غير مصنف > إعراب",
+      "book_count": 1,
+      "example_books": [
+        "السماع والقياس"
+      ]
+    }
+  ],
+  "parent_child_frequency": {
+    "إعراب": {
+      "غير مصنف": 48,
+      "تنبيه": 27,
+      "فائدة": 7,
+      "مطلب": 5
+    },
+    "باب": {
+      "غير مصنف": 1560,
+      "فصل": 906,
+      "مسألة": 402,
+      "مبحث": 150,
+      "مدخل": 94,
+      "شرح": 89,
+      "ذكر": 71,
+      "إعراب": 41,
+      "تقسيم": 22,
+      "تنبيه": 18,
+      "فائدة": 5,
+      "تفسير": 3,
+      "خاتمة": 3,
+      "فرع": 1,
+      "تتمة": 1
+    },
+    "تقسيم": {
+      "غير مصنف": 44,
+      "تنبيه": 10,
+      "قاعدة": 2,
+      "تتمة": 1
+    },
+    "ذكر": {
+      "مسألة": 26,
+      "غير مصنف": 9,
+      "فائدة": 2
+    },
+    "شرح": {
+      "مسألة": 23,
+      "غير مصنف": 11
+    },
+    "غير مصنف": {
+      "غير مصنف": 12790,
+      "فصل": 1191,
+      "ذكر": 542,
+      "مسألة": 245,
+      "إعراب": 178,
+      "مبحث": 140,
+      "باب": 106,
+      "فائدة": 97,
+      "تنبيه": 96,
+      "تفسير": 92,
+      "فرع": 58,
+      "شرح": 45,
+      "مدخل": 41,
+      "خاتمة": 33,
+      "تقسيم": 15,
+      "مطلب": 9,
+      "مقدمة": 5,
+      "تتمة": 3
+    },
+    "فرع": {
+      "خاتمة": 2
+    },
+    "فصل": {
+      "مسألة": 390,
+      "غير مصنف": 199,
+      "فرع": 95,
+      "تنبيه": 29,
+      "خاتمة": 3,
+      "فائدة": 3,
+      "مطلب": 1
+    },
+    "كتاب": {
+      "مسألة": 1758,
+      "غير مصنف": 449,
+      "باب": 89,
+      "شرح": 27,
+      "فصل": 12,
+      "ذكر": 3,
+      "فائدة": 2,
+      "مقدمة": 1,
+      "مدخل": 1
+    },
+    "مبحث": {
+      "غير مصنف": 146,
+      "مسألة": 77,
+      "مطلب": 46,
+      "تنبيه": 15,
+      "خاتمة": 1,
+      "تتمة": 1,
+      "فائدة": 1
+    },
+    "مجلد": {
+      "باب": 577,
+      "غير مصنف": 108,
+      "مسألة": 66,
+      "مدخل": 18,
+      "مقدمة": 15,
+      "فصل": 10,
+      "مبحث": 4,
+      "تقسيم": 3,
+      "إعراب": 3,
+      "كتاب": 1
+    },
+    "مدخل": {
+      "مسألة": 95,
+      "غير مصنف": 8
+    },
+    "مسألة": {
+      "خاتمة": 3,
+      "غير مصنف": 2,
+      "فائدة": 1
+    },
+    "مطلب": {
+      "غير مصنف": 3,
+      "فائدة": 2
+    },
+    "مقدمة": {
+      "غير مصنف": 377,
+      "إعراب": 116,
+      "مسألة": 56,
+      "مبحث": 45,
+      "فصل": 21,
+      "مدخل": 3,
+      "شرح": 3,
+      "ذكر": 2
+    }
+  },
+  "topic_depth_distribution": {
+    "الاعراب": {
+      "typical_depth": 5,
+      "depth_distribution": {
+        "2": 279,
+        "3": 400,
+        "5": 841
+      },
+      "total_occurrences": 1520
+    },
+    "فصل": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 1083
+      },
+      "total_occurrences": 1083
+    },
+    "اللغة": {
+      "typical_depth": 5,
+      "depth_distribution": {
+        "2": 83,
+        "3": 228,
+        "5": 539
+      },
+      "total_occurrences": 850
+    },
+    "البلاغة": {
+      "typical_depth": 5,
+      "depth_distribution": {
+        "2": 62,
+        "3": 171,
+        "5": 484
+      },
+      "total_occurrences": 717
+    },
+    "الفوائد": {
+      "typical_depth": 5,
+      "depth_distribution": {
+        "2": 48,
+        "3": 127,
+        "5": 305
+      },
+      "total_occurrences": 480
+    },
+    "مسالة": {
+      "typical_depth": 4,
+      "depth_distribution": {
+        "4": 328
+      },
+      "total_occurrences": 328
+    },
+    "مدخل": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 161
+      },
+      "total_occurrences": 161
+    },
+    "عناصر الدرس": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 159
+      },
+      "total_occurrences": 159
+    },
+    "تنبيه": {
+      "typical_depth": 5,
+      "depth_distribution": {
+        "5": 147
+      },
+      "total_occurrences": 147
+    },
+    "اية 3": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 144,
+        "3": 1
+      },
+      "total_occurrences": 145
+    },
+    "اية 4": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 140,
+        "3": 1
+      },
+      "total_occurrences": 141
+    },
+    "اية 6": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 131,
+        "3": 2
+      },
+      "total_occurrences": 133
+    },
+    "اية 5": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 132,
+        "3": 1
+      },
+      "total_occurrences": 133
+    },
+    "اية 2": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 127,
+        "3": 2
+      },
+      "total_occurrences": 129
+    },
+    "اية 7": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 125,
+        "3": 2
+      },
+      "total_occurrences": 127
+    },
+    "اية 11": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 118,
+        "3": 2,
+        "5": 1
+      },
+      "total_occurrences": 121
+    },
+    "اية 8": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 120,
+        "5": 1
+      },
+      "total_occurrences": 121
+    },
+    "اية 10": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 116,
+        "3": 1
+      },
+      "total_occurrences": 117
+    },
+    "اية 12": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 110,
+        "3": 4
+      },
+      "total_occurrences": 114
+    },
+    "اية 9": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 109
+      },
+      "total_occurrences": 109
+    },
+    "اية 13": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 95,
+        "3": 2
+      },
+      "total_occurrences": 97
+    },
+    "اية 14": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 91,
+        "3": 2,
+        "5": 2
+      },
+      "total_occurrences": 95
+    },
+    "ما جاء فيها من الاعراب": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 94
+      },
+      "total_occurrences": 94
+    },
+    "اية 15": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 92,
+        "3": 1
+      },
+      "total_occurrences": 93
+    },
+    "اية 18": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 93
+      },
+      "total_occurrences": 93
+    },
+    "اية 17": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 91,
+        "3": 1
+      },
+      "total_occurrences": 92
+    },
+    "ما جاء في فضل قراءتها": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 90
+      },
+      "total_occurrences": 90
+    },
+    "(1)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 88
+      },
+      "total_occurrences": 88
+    },
+    "اية 19": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 84,
+        "3": 3
+      },
+      "total_occurrences": 87
+    },
+    "اية 16": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 87
+      },
+      "total_occurrences": 87
+    },
+    "المعني": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 85
+      },
+      "total_occurrences": 85
+    },
+    "فائدة": {
+      "typical_depth": 5,
+      "depth_distribution": {
+        "5": 84
+      },
+      "total_occurrences": 84
+    },
+    "اية 20": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 83,
+        "3": 1
+      },
+      "total_occurrences": 84
+    },
+    "اية 22": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 84
+      },
+      "total_occurrences": 84
+    },
+    "الصورة البيانية": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 83
+      },
+      "total_occurrences": 83
+    },
+    "(4)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 83
+      },
+      "total_occurrences": 83
+    },
+    "(3)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 82
+      },
+      "total_occurrences": 82
+    },
+    "اية 25": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 80,
+        "3": 1
+      },
+      "total_occurrences": 81
+    },
+    "(5)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 78
+      },
+      "total_occurrences": 78
+    },
+    "(2)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 77
+      },
+      "total_occurrences": 77
+    },
+    "(6)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 77
+      },
+      "total_occurrences": 77
+    },
+    "اية 21": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 76
+      },
+      "total_occurrences": 76
+    },
+    "اية 26": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 74
+      },
+      "total_occurrences": 74
+    },
+    "(8)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 74
+      },
+      "total_occurrences": 74
+    },
+    "اية 24": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 72,
+        "3": 1
+      },
+      "total_occurrences": 73
+    },
+    "اية 23": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 73
+      },
+      "total_occurrences": 73
+    },
+    "اية 30": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 69,
+        "3": 2
+      },
+      "total_occurrences": 71
+    },
+    "(10)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 71
+      },
+      "total_occurrences": 71
+    },
+    "اية 28": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 69,
+        "3": 1
+      },
+      "total_occurrences": 70
+    },
+    "(11)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 70
+      },
+      "total_occurrences": 70
+    },
+    "اية 29": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 67,
+        "3": 1
+      },
+      "total_occurrences": 68
+    },
+    "(7)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 68
+      },
+      "total_occurrences": 68
+    },
+    "اية 27": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 67
+      },
+      "total_occurrences": 67
+    },
+    "اية 31": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 63,
+        "3": 1
+      },
+      "total_occurrences": 64
+    },
+    "(15)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 62
+      },
+      "total_occurrences": 62
+    },
+    "(19)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 62
+      },
+      "total_occurrences": 62
+    },
+    "الحديث الثاني": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "1": 9,
+        "2": 47,
+        "5": 4
+      },
+      "total_occurrences": 60
+    },
+    "(16)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 60
+      },
+      "total_occurrences": 60
+    },
+    "(18)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 60
+      },
+      "total_occurrences": 60
+    },
+    "(12)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 60
+      },
+      "total_occurrences": 60
+    },
+    "اية 44": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 58,
+        "5": 1
+      },
+      "total_occurrences": 59
+    },
+    "اية 32": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 58,
+        "3": 1
+      },
+      "total_occurrences": 59
+    },
+    "اية 35": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 58,
+        "3": 1
+      },
+      "total_occurrences": 59
+    },
+    "(9)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 59
+      },
+      "total_occurrences": 59
+    },
+    "(14)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 59
+      },
+      "total_occurrences": 59
+    },
+    "اية 40": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 58
+      },
+      "total_occurrences": 58
+    },
+    "(13)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 58
+      },
+      "total_occurrences": 58
+    },
+    "(17)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 58
+      },
+      "total_occurrences": 58
+    },
+    "اية 34": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 56,
+        "3": 1
+      },
+      "total_occurrences": 57
+    },
+    "اية 41": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 57
+      },
+      "total_occurrences": 57
+    },
+    "اية 33": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 57
+      },
+      "total_occurrences": 57
+    },
+    "اية 36": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 57
+      },
+      "total_occurrences": 57
+    },
+    "اية 37": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 54,
+        "3": 2
+      },
+      "total_occurrences": 56
+    },
+    "اية 43": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 54,
+        "3": 1
+      },
+      "total_occurrences": 55
+    },
+    "اية 38": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 53,
+        "3": 1
+      },
+      "total_occurrences": 54
+    },
+    "اية 47": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 51,
+        "3": 1
+      },
+      "total_occurrences": 52
+    },
+    "اية 42": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 51,
+        "3": 1
+      },
+      "total_occurrences": 52
+    },
+    "(20)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 52
+      },
+      "total_occurrences": 52
+    },
+    "اية 46": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 51
+      },
+      "total_occurrences": 51
+    },
+    "(22)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 51
+      },
+      "total_occurrences": 51
+    },
+    "(27)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 51
+      },
+      "total_occurrences": 51
+    },
+    "اية 39": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 49,
+        "3": 1
+      },
+      "total_occurrences": 50
+    },
+    "اية 45": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 48,
+        "3": 1
+      },
+      "total_occurrences": 49
+    },
+    "اية 52": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 49
+      },
+      "total_occurrences": 49
+    },
+    "اية 51": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 48
+      },
+      "total_occurrences": 48
+    },
+    "(28)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 48
+      },
+      "total_occurrences": 48
+    },
+    "(29)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 48
+      },
+      "total_occurrences": 48
+    },
+    "الحال": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 16,
+        "2": 23,
+        "1": 3,
+        "0": 3,
+        "4": 1,
+        "5": 1
+      },
+      "total_occurrences": 47
+    },
+    "الحديث الثالث": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "1": 6,
+        "2": 39,
+        "5": 2
+      },
+      "total_occurrences": 47
+    },
+    "اية 48": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 46,
+        "3": 1
+      },
+      "total_occurrences": 47
+    },
+    "(23)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 47
+      },
+      "total_occurrences": 47
+    },
+    "(25)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 47
+      },
+      "total_occurrences": 47
+    },
+    "البدل": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 14,
+        "2": 24,
+        "1": 2,
+        "0": 3,
+        "4": 2,
+        "5": 1
+      },
+      "total_occurrences": 46
+    },
+    "اية 49": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 45,
+        "3": 1
+      },
+      "total_occurrences": 46
+    },
+    "اية 60": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 43,
+        "3": 3
+      },
+      "total_occurrences": 46
+    },
+    "(24)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 46
+      },
+      "total_occurrences": 46
+    },
+    "(26)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 46
+      },
+      "total_occurrences": 46
+    },
+    "(31)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 46
+      },
+      "total_occurrences": 46
+    },
+    "اية 59": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 42,
+        "3": 3
+      },
+      "total_occurrences": 45
+    },
+    "شواهد": {
+      "typical_depth": 5,
+      "depth_distribution": {
+        "2": 7,
+        "5": 24,
+        "3": 14
+      },
+      "total_occurrences": 45
+    },
+    "مقدمة": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 44
+      },
+      "total_occurrences": 44
+    },
+    "اية 50": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 43,
+        "3": 1
+      },
+      "total_occurrences": 44
+    },
+    "(37)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 44
+      },
+      "total_occurrences": 44
+    },
+    "اية 58": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 42,
+        "3": 1
+      },
+      "total_occurrences": 43
+    },
+    "اية 53": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 42,
+        "5": 1
+      },
+      "total_occurrences": 43
+    },
+    "اية 57": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 42,
+        "3": 1
+      },
+      "total_occurrences": 43
+    },
+    "(21)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 43
+      },
+      "total_occurrences": 43
+    },
+    "(35)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 42
+      },
+      "total_occurrences": 42
+    },
+    "الفاعل": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 13,
+        "2": 22,
+        "1": 2,
+        "5": 2,
+        "0": 1,
+        "4": 1
+      },
+      "total_occurrences": 41
+    },
+    "التمييز": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 13,
+        "2": 21,
+        "1": 2,
+        "0": 3,
+        "4": 1,
+        "5": 1
+      },
+      "total_occurrences": 41
+    },
+    "التوكيد": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 11,
+        "2": 21,
+        "1": 2,
+        "0": 3,
+        "4": 3,
+        "5": 1
+      },
+      "total_occurrences": 41
+    },
+    "اية 61": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 40
+      },
+      "total_occurrences": 40
+    },
+    "(30)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 40
+      },
+      "total_occurrences": 40
+    },
+    "المفعول معه": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 13,
+        "2": 18,
+        "1": 3,
+        "0": 2,
+        "4": 1,
+        "5": 2
+      },
+      "total_occurrences": 39
+    },
+    "(38)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 39
+      },
+      "total_occurrences": 39
+    },
+    "اية 55": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 38
+      },
+      "total_occurrences": 38
+    },
+    "اية 54": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 37,
+        "3": 1
+      },
+      "total_occurrences": 38
+    },
+    "اية 56": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 38
+      },
+      "total_occurrences": 38
+    },
+    "(34)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 38
+      },
+      "total_occurrences": 38
+    },
+    "(40)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 38
+      },
+      "total_occurrences": 38
+    },
+    "(33)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 38
+      },
+      "total_occurrences": 38
+    },
+    "النعت": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 11,
+        "2": 18,
+        "1": 3,
+        "0": 3,
+        "4": 2
+      },
+      "total_occurrences": 37
+    },
+    "الحديث الرابع": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "1": 6,
+        "2": 28,
+        "5": 3
+      },
+      "total_occurrences": 37
+    },
+    "(32)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 37
+      },
+      "total_occurrences": 37
+    },
+    "تمرين": {
+      "typical_depth": 5,
+      "depth_distribution": {
+        "2": 1,
+        "5": 35
+      },
+      "total_occurrences": 36
+    },
+    "اية 62": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 36
+      },
+      "total_occurrences": 36
+    },
+    "(45)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 36
+      },
+      "total_occurrences": 36
+    },
+    "(43)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 35
+      },
+      "total_occurrences": 35
+    },
+    "اية 75": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 33,
+        "3": 1
+      },
+      "total_occurrences": 34
+    },
+    "اية 73": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 33,
+        "5": 1
+      },
+      "total_occurrences": 34
+    },
+    "اية 67": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 33,
+        "3": 1
+      },
+      "total_occurrences": 34
+    },
+    "(36)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 34
+      },
+      "total_occurrences": 34
+    },
+    "(41)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 34
+      },
+      "total_occurrences": 34
+    },
+    "(44)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 34
+      },
+      "total_occurrences": 34
+    },
+    "(39)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 34
+      },
+      "total_occurrences": 34
+    },
+    "النداء": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 8,
+        "2": 19,
+        "1": 1,
+        "0": 3,
+        "4": 1,
+        "5": 1
+      },
+      "total_occurrences": 33
+    },
+    "اية 65": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 30,
+        "3": 3
+      },
+      "total_occurrences": 33
+    },
+    "اية 74": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 33
+      },
+      "total_occurrences": 33
+    },
+    "اية 82": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 32,
+        "3": 1
+      },
+      "total_occurrences": 33
+    },
+    "اية 69": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 31,
+        "3": 1,
+        "5": 1
+      },
+      "total_occurrences": 33
+    },
+    "امثلة": {
+      "typical_depth": 5,
+      "depth_distribution": {
+        "2": 8,
+        "5": 19,
+        "3": 6
+      },
+      "total_occurrences": 33
+    },
+    "(50)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 33
+      },
+      "total_occurrences": 33
+    },
+    "(52)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 33
+      },
+      "total_occurrences": 33
+    },
+    "المفعول المطلق": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 14,
+        "2": 11,
+        "1": 2,
+        "0": 2,
+        "4": 1,
+        "5": 2
+      },
+      "total_occurrences": 32
+    },
+    "المقدمة": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 29,
+        "3": 2,
+        "0": 1
+      },
+      "total_occurrences": 32
+    },
+    "اية 72": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 31,
+        "3": 1
+      },
+      "total_occurrences": 32
+    },
+    "(49)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 32
+      },
+      "total_occurrences": 32
+    },
+    "الاستثناء": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 11,
+        "2": 15,
+        "1": 1,
+        "0": 2,
+        "4": 1,
+        "5": 1
+      },
+      "total_occurrences": 31
+    },
+    "النكرة والمعرفة": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 19,
+        "5": 3,
+        "3": 6,
+        "4": 2,
+        "1": 1
+      },
+      "total_occurrences": 31
+    },
+    "اية 64": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 29,
+        "3": 2
+      },
+      "total_occurrences": 31
+    },
+    "اية 78": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 29,
+        "3": 2
+      },
+      "total_occurrences": 31
+    },
+    "اية 68": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 29,
+        "3": 2
+      },
+      "total_occurrences": 31
+    },
+    "اية 71": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 30,
+        "3": 1
+      },
+      "total_occurrences": 31
+    },
+    "(42)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 31
+      },
+      "total_occurrences": 31
+    },
+    "(46)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 31
+      },
+      "total_occurrences": 31
+    },
+    "(53)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 31
+      },
+      "total_occurrences": 31
+    },
+    "(60)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 31
+      },
+      "total_occurrences": 31
+    },
+    "المفعول له": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 14,
+        "2": 11,
+        "1": 1,
+        "0": 2,
+        "4": 1,
+        "5": 1
+      },
+      "total_occurrences": 30
+    },
+    "الندبة": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 12,
+        "2": 13,
+        "0": 3,
+        "4": 1,
+        "5": 1
+      },
+      "total_occurrences": 30
+    },
+    "العدد": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 15,
+        "2": 13,
+        "5": 2
+      },
+      "total_occurrences": 30
+    },
+    "(47)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 30
+      },
+      "total_occurrences": 30
+    },
+    "(51)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 30
+      },
+      "total_occurrences": 30
+    },
+    "(55)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 30
+      },
+      "total_occurrences": 30
+    },
+    "كان واخواتها": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 16,
+        "5": 2,
+        "3": 8,
+        "1": 2,
+        "4": 1
+      },
+      "total_occurrences": 29
+    },
+    "التعجب": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 8,
+        "2": 14,
+        "1": 1,
+        "0": 3,
+        "4": 1,
+        "5": 2
+      },
+      "total_occurrences": 29
+    },
+    "الترخيم": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 13,
+        "2": 11,
+        "0": 2,
+        "4": 1,
+        "5": 1,
+        "1": 1
+      },
+      "total_occurrences": 29
+    },
+    "اية 63": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 29
+      },
+      "total_occurrences": 29
+    },
+    "اية 66": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 28,
+        "3": 1
+      },
+      "total_occurrences": 29
+    },
+    "اية 70": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 29
+      },
+      "total_occurrences": 29
+    },
+    "(48)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 29
+      },
+      "total_occurrences": 29
+    },
+    "التصغير": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 11,
+        "2": 13,
+        "0": 1,
+        "5": 2,
+        "4": 1
+      },
+      "total_occurrences": 28
+    },
+    "الوقف": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 15,
+        "2": 8,
+        "0": 2,
+        "5": 1,
+        "1": 1,
+        "4": 1
+      },
+      "total_occurrences": 28
+    },
+    "خاتمة": {
+      "typical_depth": 5,
+      "depth_distribution": {
+        "5": 28
+      },
+      "total_occurrences": 28
+    },
+    "اية 76": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 28
+      },
+      "total_occurrences": 28
+    },
+    "(54)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 28
+      },
+      "total_occurrences": 28
+    },
+    "افعال المقاربة": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 15,
+        "2": 9,
+        "1": 1,
+        "4": 1,
+        "5": 1
+      },
+      "total_occurrences": 27
+    },
+    "حروف الجر": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 11,
+        "2": 10,
+        "1": 1,
+        "0": 3,
+        "4": 1,
+        "5": 1
+      },
+      "total_occurrences": 27
+    },
+    "العطف": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 8,
+        "2": 13,
+        "0": 3,
+        "4": 2,
+        "5": 1
+      },
+      "total_occurrences": 27
+    },
+    "الامالة": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 14,
+        "2": 9,
+        "0": 2,
+        "5": 1,
+        "4": 1
+      },
+      "total_occurrences": 27
+    },
+    "الادغام": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 16,
+        "2": 9,
+        "5": 1,
+        "1": 1
+      },
+      "total_occurrences": 27
+    },
+    "اية 77": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 26,
+        "3": 1
+      },
+      "total_occurrences": 27
+    },
+    "اية 81": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 26,
+        "3": 1
+      },
+      "total_occurrences": 27
+    },
+    "الحديث الخامس": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "1": 5,
+        "2": 19,
+        "5": 2
+      },
+      "total_occurrences": 26
+    },
+    "اية 83": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 26
+      },
+      "total_occurrences": 26
+    },
+    "(57)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 26
+      },
+      "total_occurrences": 26
+    },
+    "(59)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 26
+      },
+      "total_occurrences": 26
+    },
+    "النسب": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 13,
+        "2": 8,
+        "0": 1,
+        "5": 3
+      },
+      "total_occurrences": 25
+    },
+    "اية 84": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 23,
+        "3": 2
+      },
+      "total_occurrences": 25
+    },
+    "اية 101": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 24,
+        "3": 1
+      },
+      "total_occurrences": 25
+    },
+    "(61)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 25
+      },
+      "total_occurrences": 25
+    },
+    "(56)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 25
+      },
+      "total_occurrences": 25
+    },
+    "العلم": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 14,
+        "5": 3,
+        "3": 5,
+        "1": 1,
+        "4": 1
+      },
+      "total_occurrences": 24
+    },
+    "ان واخواتها": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 12,
+        "2": 9,
+        "1": 1,
+        "4": 1,
+        "5": 1
+      },
+      "total_occurrences": 24
+    },
+    "الاضافة": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "3": 7,
+        "2": 11,
+        "1": 1,
+        "0": 3,
+        "4": 1,
+        "5": 1
+      },
+      "total_occurrences": 24
+    },
+    "المقصور والممدود": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 13,
+        "2": 9,
+        "0": 1,
+        "5": 1
+      },
+      "total_occurrences": 24
+    },
+    "جمع التكسير": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 17,
+        "2": 4,
+        "0": 1,
+        "5": 1,
+        "4": 1
+      },
+      "total_occurrences": 24
+    },
+    "الصحيح المتفق": {
+      "typical_depth": 3,
+      "depth_distribution": {
+        "3": 24
+      },
+      "total_occurrences": 24
+    },
+    "اية 87": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 24
+      },
+      "total_occurrences": 24
+    },
+    "اية 90": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 23,
+        "3": 1
+      },
+      "total_occurrences": 24
+    },
+    "(63)": {
+      "typical_depth": 2,
+      "depth_distribution": {
+        "2": 24
+      },
+      "total_occurrences": 24
+    }
+  },
+  "per_book_summaries": [
+    {
+      "title": "أبنية الأسماء والأفعال والمصادر",
+      "total_headings": 19,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 11,
+        "غير مصنف": 8
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "أخبار أبي القاسم الزجاجي",
+      "total_headings": 9,
+      "max_depth": 4,
+      "heading_types": {
+        "شرح": 1,
+        "مسألة": 7
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "أدوات الإعراب",
+      "total_headings": 288,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 281,
+        "مقدمة": 1,
+        "فائدة": 6
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "أصول النحو ١ - جامعة المدينة",
+      "total_headings": 104,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 100,
+        "تقسيم": 4
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "أصول النحو ٢ - جامعة المدينة",
+      "total_headings": 94,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 93,
+        "ذكر": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "ألفية ابن مالك - ط التعاون",
+      "total_headings": 83,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 2,
+        "غير مصنف": 71,
+        "فصل": 9,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "أمالي ابن الحاجب",
+      "total_headings": 761,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 758,
+        "فصل": 3
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "أوضح المسالك إلى ألفية ابن مالك - ت هبود",
+      "total_headings": 69,
+      "max_depth": 2,
+      "heading_types": {
+        "مجلد": 4,
+        "باب": 62,
+        "غير مصنف": 1
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "إتحاف الحثيث بإعراب ما يشكل من ألفاظ الحديث",
+      "total_headings": 120,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 106,
+        "باب": 9,
+        "ذكر": 5
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "إرشاد السالك إلى حل ألفية ابن مالك",
+      "total_headings": 108,
+      "max_depth": 5,
+      "heading_types": {
+        "مبحث": 26,
+        "فصل": 9,
+        "خاتمة": 1,
+        "غير مصنف": 70,
+        "إعراب": 1,
+        "تنبيه": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "إعراب لا إله إلا الله",
+      "total_headings": 5,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "إعراب": 1,
+        "غير مصنف": 3
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "إعراب لامية الشنفرى",
+      "total_headings": 2,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 2
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "إعراب ما يشكل من ألفاظ الحديث",
+      "total_headings": 547,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 510,
+        "باب": 20,
+        "إعراب": 17
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "إيجاز التعريف في علم التصريف",
+      "total_headings": 65,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 2,
+        "فصل": 54,
+        "مبحث": 8
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "إيناس الناس بتفاحة أبي جعفر النحاس",
+      "total_headings": 32,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 2,
+        "باب": 30
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "اتحاف الفاضل بالفعل المبني لغير الفاعل",
+      "total_headings": 32,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 31,
+        "خاتمة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "ارتشاف الضرب من لسان العرب",
+      "total_headings": 191,
+      "max_depth": 3,
+      "heading_types": {
+        "مجلد": 5,
+        "فصل": 91,
+        "باب": 95
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "اعتراض الشرط على الشرط",
+      "total_headings": 10,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 9
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "اقتطاف الأزاهر والتقاط الجواهر",
+      "total_headings": 153,
+      "max_depth": 3,
+      "heading_types": {
+        "باب": 26,
+        "فصل": 127
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الآجرومية",
+      "total_headings": 25,
+      "max_depth": 3,
+      "heading_types": {
+        "مدخل": 1,
+        "باب": 24
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الأصول في النحو",
+      "total_headings": 411,
+      "max_depth": 4,
+      "heading_types": {
+        "مجلد": 3,
+        "مقدمة": 1,
+        "غير مصنف": 120,
+        "مدخل": 42,
+        "شرح": 27,
+        "باب": 134,
+        "ذكر": 43,
+        "تفسير": 3,
+        "مسألة": 31,
+        "فصل": 4
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "الأفعال - سعيد المعافري",
+      "total_headings": 656,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 2,
+        "غير مصنف": 641,
+        "باب": 12
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الأفعال الناسخة",
+      "total_headings": 203,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 199,
+        "فصل": 4
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الألغاز النحوية = الطراز في الألغاز",
+      "total_headings": 20,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 19
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الألفاظ المهموزة",
+      "total_headings": 24,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 22,
+        "فصل": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الأنشوطة في النحو",
+      "total_headings": 31,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 30,
+        "فصل": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الإعراب المفصل لكتاب الله المرتل",
+      "total_headings": 118,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 17,
+        "إعراب": 101
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الإنصاف في مسائل الخلاف بين النحويين البصريين والكوفيين",
+      "total_headings": 119,
+      "max_depth": 4,
+      "heading_types": {
+        "مجلد": 2,
+        "مقدمة": 1,
+        "مسألة": 113,
+        "غير مصنف": 2
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "الإيضاح العضدي",
+      "total_headings": 76,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 76
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الإيضاح في علل النحو",
+      "total_headings": 25,
+      "max_depth": 4,
+      "heading_types": {
+        "باب": 23,
+        "مسألة": 2
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "الاقتراح في أصول النحو ط البيروتي",
+      "total_headings": 101,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 30,
+        "مسألة": 37,
+        "كتاب": 7,
+        "فصل": 8,
+        "فرع": 13,
+        "خاتمة": 3,
+        "تنبيه": 1,
+        "ذكر": 2
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "الاقتراح في أصول النحو ط القلم",
+      "total_headings": 7,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 7
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الانتخاب لكشف الأبيات المشكلة الإعراب",
+      "total_headings": 28,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 28
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الانتصار لسيبويه على المبرد",
+      "total_headings": 48,
+      "max_depth": 4,
+      "heading_types": {
+        "مسألة": 48
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "البديع في علم العربية",
+      "total_headings": 810,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 497,
+        "باب": 40,
+        "فصل": 133,
+        "فرع": 132,
+        "خاتمة": 4,
+        "تقسيم": 2
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "البرعومة في النحو",
+      "total_headings": 27,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 27
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "البلغة في الفرق بين المذكر والمؤنث",
+      "total_headings": 2,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 1
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "البهجة الوفية بحجة الخلاصة الألفية",
+      "total_headings": 145,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 68,
+        "مقدمة": 1,
+        "كتاب": 1,
+        "إعراب": 1,
+        "فصل": 30,
+        "باب": 40,
+        "تتمة": 2,
+        "فائدة": 1,
+        "فرع": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "التبيين عن مذاهب النحويين البصريين والكوفيين",
+      "total_headings": 85,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 85
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "التحفة الوسيمة شرح على الدرة اليتيمة",
+      "total_headings": 17,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 17
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "التذييل والتكميل في شرح كتاب التسهيل",
+      "total_headings": 40,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "باب": 39
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "التطبيق النحوي",
+      "total_headings": 42,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 31,
+        "مقدمة": 1,
+        "باب": 2,
+        "فصل": 5,
+        "مدخل": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "التعجب من فعل المفعول بين المانعين والمجيزين",
+      "total_headings": 2,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 2
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "التعليقة على كتاب سيبويه",
+      "total_headings": 328,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 270,
+        "غير مصنف": 58
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الجمل في النحو",
+      "total_headings": 230,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 219,
+        "تفسير": 8,
+        "فصل": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الجنى الداني في حروف المعاني",
+      "total_headings": 141,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 1,
+        "فصل": 5,
+        "باب": 5,
+        "غير مصنف": 93,
+        "تنبيه": 25,
+        "مسألة": 6,
+        "فائدة": 5,
+        "فرع": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "الحدود في علم النحو",
+      "total_headings": 12,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 10
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الحلل في شرح أبيات الجمل",
+      "total_headings": 4,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 3
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الخصائص",
+      "total_headings": 122,
+      "max_depth": 2,
+      "heading_types": {
+        "مجلد": 3,
+        "باب": 115,
+        "غير مصنف": 1
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الدرة البهية نظم الآجرومية",
+      "total_headings": 33,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 4,
+        "باب": 28,
+        "فصل": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الرابط وأثره في التراكيب في العربية",
+      "total_headings": 31,
+      "max_depth": 3,
+      "heading_types": {
+        "مدخل": 2,
+        "غير مصنف": 29
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "السماع والقياس",
+      "total_headings": 168,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 167,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الشافية في علم التصريف - معها الوافية نظم الشافية",
+      "total_headings": 72,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 59,
+        "تقسيم": 1,
+        "باب": 11
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الشافية في علمي التصريف والخط",
+      "total_headings": 43,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 43
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الشرح المختصر على نظم الآجرومية",
+      "total_headings": 12,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 12
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الشرح المختصر على نظم المقصود",
+      "total_headings": 11,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 11
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الضرورة الشعرية ومفهومها لدى النحويين دراسة على ألفية بن مالك",
+      "total_headings": 46,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 42,
+        "مدخل": 1,
+        "فصل": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "العدة في إعراب العمدة",
+      "total_headings": 431,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 335,
+        "كتاب": 17,
+        "فائدة": 12,
+        "باب": 63,
+        "مسألة": 1,
+        "تنبيه": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "العدد في اللغة",
+      "total_headings": 4,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 3,
+        "ذكر": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "العمدة في إعراب البردة قصيدة البوصيري",
+      "total_headings": 28,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 19,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الفصول المفيدة في الواو المزيدة",
+      "total_headings": 57,
+      "max_depth": 5,
+      "heading_types": {
+        "فصل": 33,
+        "غير مصنف": 20,
+        "فائدة": 1,
+        "تقسيم": 1,
+        "خاتمة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "الفوائد العجيبة في إعراب الكلمات الغريبة - ت حاتم الضامن",
+      "total_headings": 25,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 24
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "القطارة النحوية على المقدمة الآجرومية",
+      "total_headings": 28,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 27,
+        "فصل": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "القواعد التطبيقية في اللغة العربية",
+      "total_headings": 417,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 411,
+        "كتاب": 5
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الكافية في علم النحو",
+      "total_headings": 101,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 100
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الكتاب لسيبويه",
+      "total_headings": 532,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 46,
+        "باب": 482
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الكشف عن صاحب البسيط في النحو",
+      "total_headings": 10,
+      "max_depth": 3,
+      "heading_types": {
+        "مدخل": 1,
+        "غير مصنف": 9
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الكناش في فني النحو والصرف",
+      "total_headings": 533,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 78,
+        "فصل": 27,
+        "ذكر": 426,
+        "تقسيم": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الكوكب المنير في شرح الألفية بالتشطير",
+      "total_headings": 97,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 89,
+        "فصل": 7,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "اللامات",
+      "total_headings": 39,
+      "max_depth": 4,
+      "heading_types": {
+        "باب": 35,
+        "غير مصنف": 2,
+        "مسألة": 1
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "اللباب في علل البناء والإعراب",
+      "total_headings": 729,
+      "max_depth": 4,
+      "heading_types": {
+        "فصل": 577,
+        "مسألة": 139,
+        "غير مصنف": 11,
+        "ذكر": 1
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "اللطيفة البكرية والنتيجة الفكرية في المهمات النحوية - ضمن «آثار المعلمي»",
+      "total_headings": 41,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 38,
+        "فائدة": 1,
+        "مسألة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "اللمحة في شرح الملحة",
+      "total_headings": 81,
+      "max_depth": 3,
+      "heading_types": {
+        "مجلد": 2,
+        "مقدمة": 1,
+        "غير مصنف": 6,
+        "فصل": 6,
+        "مبحث": 10,
+        "كتاب": 1,
+        "باب": 55
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "اللمع في العربية لابن جني",
+      "total_headings": 247,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 186,
+        "باب": 56,
+        "إعراب": 3,
+        "ذكر": 1,
+        "فصل": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "المدارس النحوية",
+      "total_headings": 49,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 33,
+        "فصل": 12,
+        "كتاب": 1,
+        "خاتمة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "المرتجل في شرح الجمل لابن الخشاب",
+      "total_headings": 43,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 33,
+        "فصل": 9,
+        "باب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "المسائل البصريات",
+      "total_headings": 179,
+      "max_depth": 4,
+      "heading_types": {
+        "مسألة": 179
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "المسائل الحلبيات",
+      "total_headings": 77,
+      "max_depth": 4,
+      "heading_types": {
+        "مسألة": 5,
+        "غير مصنف": 60,
+        "باب": 10,
+        "فصل": 2
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "المسائل السفرية",
+      "total_headings": 1,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 1
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "المسائل العسكريات في النحو العربي",
+      "total_headings": 4,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 4
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "المسائل النحوية في كتاب التوضيح لشرح الجامع الصحيح",
+      "total_headings": 120,
+      "max_depth": 4,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 19,
+        "فصل": 7,
+        "مبحث": 21,
+        "مسألة": 71
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "المساعد على تسهيل الفوائد",
+      "total_headings": 80,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 80
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "المغني في تصريف الأفعال",
+      "total_headings": 10,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 7,
+        "مقدمة": 2,
+        "مدخل": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "المفتاح في الصرف",
+      "total_headings": 27,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 21,
+        "فصل": 6
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "المفصل في صنعة الإعراب",
+      "total_headings": 561,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 517,
+        "فصل": 36,
+        "إعراب": 6,
+        "باب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "المقتضب",
+      "total_headings": 328,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 300,
+        "باب": 27
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "المقدمة الجزولية في النحو",
+      "total_headings": 84,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 4,
+        "باب": 80
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الممتع الكبير في التصريف",
+      "total_headings": 105,
+      "max_depth": 4,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 39,
+        "ذكر": 10,
+        "تقسيم": 1,
+        "باب": 32,
+        "مدخل": 4,
+        "مسألة": 10
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "المنصف لابن جني، شرح كتاب التصريف لأبي عثمان المازني",
+      "total_headings": 15,
+      "max_depth": 2,
+      "heading_types": {
+        "مجلد": 1,
+        "مقدمة": 1,
+        "غير مصنف": 2,
+        "باب": 7
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "المنصوب على التقريب",
+      "total_headings": 23,
+      "max_depth": 4,
+      "heading_types": {
+        "مقدمة": 1,
+        "فصل": 2,
+        "مبحث": 17,
+        "مطلب": 2,
+        "غير مصنف": 1
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "المنصوب على نزع الخافض في القرآن",
+      "total_headings": 19,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "مدخل": 1,
+        "غير مصنف": 17
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "المنهاج المختصر في علمي النحو والصرف",
+      "total_headings": 222,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 176,
+        "إعراب": 12,
+        "تفسير": 3,
+        "فائدة": 4,
+        "تنبيه": 18,
+        "مسألة": 1,
+        "تقسيم": 5,
+        "قاعدة": 2,
+        "فصل": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "المنهل المأهول بالبناء للمجهول لأبي الخير محمد بن ظهيرة تحقيق ودراسة",
+      "total_headings": 43,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 2,
+        "غير مصنف": 6,
+        "فصل": 2,
+        "مبحث": 6,
+        "باب": 27
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الموجز في قواعد اللغة العربية",
+      "total_headings": 86,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 82,
+        "إعراب": 1,
+        "كتاب": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "النحو المصفى - الكتاب",
+      "total_headings": 86,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 76,
+        "مدخل": 8,
+        "إعراب": 1,
+        "مقدمة": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "النحو الواضح في قواعد اللغة العربية",
+      "total_headings": 212,
+      "max_depth": 3,
+      "heading_types": {
+        "مجلد": 7,
+        "غير مصنف": 179,
+        "مقدمة": 4,
+        "تقسيم": 7,
+        "فصل": 1,
+        "إعراب": 4,
+        "مدخل": 6
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "النحو الوافي",
+      "total_headings": 186,
+      "max_depth": 4,
+      "heading_types": {
+        "مجلد": 4,
+        "مقدمة": 1,
+        "غير مصنف": 12,
+        "مسألة": 147,
+        "مدخل": 19
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "الوفية باختصار الألفية",
+      "total_headings": 89,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 85,
+        "كتاب": 1,
+        "فصل": 1,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "بحث في صيغة أفعل بين النحويين واللغويين واستعمالاتها في العربية",
+      "total_headings": 18,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 17,
+        "مقدمة": 1
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "تثقيف اللسان وتلقيح الجنان",
+      "total_headings": 50,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 50
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "تخليص الشواهد وتلخيص الفوائد",
+      "total_headings": 156,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 20,
+        "مسألة": 136
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "تداخل الأصول اللغوية وأثره في بناء المعجم",
+      "total_headings": 61,
+      "max_depth": 3,
+      "heading_types": {
+        "مجلد": 2,
+        "مقدمة": 1,
+        "غير مصنف": 4,
+        "مبحث": 37,
+        "باب": 5,
+        "فصل": 11,
+        "مدخل": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "تسهيل الفوائد وتكميل المقاصد",
+      "total_headings": 77,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 77
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "تعجيل الندى بشرح قطر الندى",
+      "total_headings": 40,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 20,
+        "إعراب": 1,
+        "باب": 16,
+        "فصل": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "تمهيد القواعد بشرح تسهيل الفوائد",
+      "total_headings": 902,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 2,
+        "غير مصنف": 775,
+        "فصل": 15,
+        "خاتمة": 1,
+        "باب": 80,
+        "تقسيم": 8,
+        "إعراب": 6,
+        "مسألة": 11,
+        "ذكر": 2,
+        "شرح": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "توجيه اللمع",
+      "total_headings": 72,
+      "max_depth": 3,
+      "heading_types": {
+        "فصل": 3,
+        "باب": 67,
+        "غير مصنف": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "توضيح المقاصد والمسالك بشرح ألفية ابن مالك",
+      "total_headings": 107,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 2,
+        "غير مصنف": 71,
+        "باب": 3,
+        "فصل": 21,
+        "مجلد": 7,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "جامع الدروس العربية",
+      "total_headings": 116,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 116
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "حاشية الآجرومية",
+      "total_headings": 4,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 1,
+        "باب": 3
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "حاشية الصبان على شرح الأشمونى لألفية ابن مالك",
+      "total_headings": 63,
+      "max_depth": 3,
+      "heading_types": {
+        "مجلد": 3,
+        "غير مصنف": 51,
+        "مقدمة": 1,
+        "مدخل": 2,
+        "فصل": 2,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "حاشيتان لابن هشام على ألفية ابن مالك",
+      "total_headings": 104,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 83,
+        "مبحث": 2,
+        "مطلب": 6,
+        "مسألة": 6,
+        "إعراب": 1,
+        "فصل": 6
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "حركة حروف المضارعة",
+      "total_headings": 12,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 11
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "حروف المعاني والصفات",
+      "total_headings": 2,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 1
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "حقائق في النحو مستقربة - ضمن «آثار المعلمي»",
+      "total_headings": 2,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 2
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "خطاب الماردي ومنهجه في النحو",
+      "total_headings": 3,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 3
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "دراسات في النحو",
+      "total_headings": 21,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 20,
+        "مسألة": 1
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "دليل الطالبين لكلام النحويين",
+      "total_headings": 30,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 1,
+        "باب": 29
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "رسالة أي المشددة",
+      "total_headings": 4,
+      "max_depth": 3,
+      "heading_types": {
+        "فصل": 3
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "رسالة الحدود",
+      "total_headings": 3,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 2
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "رسالة المباحث المرضية",
+      "total_headings": 3,
+      "max_depth": 4,
+      "heading_types": {
+        "مسألة": 3
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "رسالة الملائكة - ت الجندي",
+      "total_headings": 18,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 18
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "رسالة الملائكة - ت الميمني - ط العلمية",
+      "total_headings": 14,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 13
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "رسالة في اسم الفاعل",
+      "total_headings": 3,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 2
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "سبب وضع علم العربية",
+      "total_headings": 2,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 1,
+        "فصل": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "سفر السعادة وسفير الإفادة",
+      "total_headings": 44,
+      "max_depth": 4,
+      "heading_types": {
+        "باب": 28,
+        "ذكر": 4,
+        "غير مصنف": 2,
+        "مسألة": 10
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "شذا العرف في فن الصرف",
+      "total_headings": 65,
+      "max_depth": 5,
+      "heading_types": {
+        "مجلد": 1,
+        "مقدمة": 2,
+        "غير مصنف": 33,
+        "تقسيم": 13,
+        "باب": 3,
+        "فصل": 7,
+        "تتمة": 1,
+        "خاتمة": 2,
+        "مسألة": 1,
+        "مدخل": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "شرح أبيات سيبويه",
+      "total_headings": 627,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 610,
+        "فصل": 9,
+        "باب": 1,
+        "إعراب": 5,
+        "ذكر": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح أبيات مغني اللبيب",
+      "total_headings": 968,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 960,
+        "باب": 8
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح ألفية ابن مالك المسمى تحرير الخصاصة في تيسير الخلاصة",
+      "total_headings": 106,
+      "max_depth": 3,
+      "heading_types": {
+        "فصل": 9,
+        "غير مصنف": 94,
+        "مقدمة": 1,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح ألفية ابن مالك للحازمي",
+      "total_headings": 140,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 140
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح ألفية ابن مالك للشاطبي = المقاصد الشافية",
+      "total_headings": 75,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 70,
+        "باب": 1,
+        "إعراب": 1,
+        "فصل": 3
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح ألفية ابن مالك للعثيمين",
+      "total_headings": 760,
+      "max_depth": 5,
+      "heading_types": {
+        "شرح": 72,
+        "مقدمة": 1,
+        "غير مصنف": 669,
+        "تقسيم": 1,
+        "إعراب": 12,
+        "باب": 1,
+        "فصل": 2,
+        "فائدة": 2
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "شرح ابن الناظم على ألفية ابن مالك",
+      "total_headings": 73,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 69,
+        "فصل": 3,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح ابن عقيل على ألفية ابن مالك",
+      "total_headings": 77,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 71,
+        "فصل": 3,
+        "إعراب": 1,
+        "خاتمة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "شرح الآجرومية - حسن حفظي",
+      "total_headings": 42,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 22,
+        "باب": 19
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح الآجرومية - عبد الكريم الخضير",
+      "total_headings": 8,
+      "max_depth": 3,
+      "heading_types": {
+        "شرح": 8
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح الآجرومية - محمد حسن عبد الغفار",
+      "total_headings": 120,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 108,
+        "ذكر": 1,
+        "إعراب": 10,
+        "باب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح الأجرومية للأسمري",
+      "total_headings": 23,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 3,
+        "باب": 20
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح الأشمونى لألفية ابن مالك",
+      "total_headings": 75,
+      "max_depth": 3,
+      "heading_types": {
+        "مجلد": 4,
+        "غير مصنف": 61,
+        "مدخل": 2,
+        "فصل": 3,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح التسهيل = تعليق الفرائد على تسهيل الفوائد - ق ١",
+      "total_headings": 48,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 2,
+        "باب": 20,
+        "غير مصنف": 26
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح التسهيل لابن مالك",
+      "total_headings": 66,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 58,
+        "غير مصنف": 8
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح التصريح على التوضيح أو التصريح بمضمون التوضيح في النحو",
+      "total_headings": 150,
+      "max_depth": 3,
+      "heading_types": {
+        "مجلد": 2,
+        "مقدمة": 1,
+        "غير مصنف": 3,
+        "شرح": 1,
+        "مدخل": 45,
+        "باب": 74,
+        "فصل": 22
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح التصريف للثمانيني",
+      "total_headings": 60,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 57,
+        "ذكر": 2,
+        "تنبيه": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "شرح التعريف بضروري التصريف",
+      "total_headings": 10,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 10
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح الفارضي على ألفية ابن مالك",
+      "total_headings": 266,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 153,
+        "تنبيه": 90,
+        "إعراب": 2,
+        "فائدة": 12,
+        "فصل": 8,
+        "مطلب": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "شرح الكافية الشافية",
+      "total_headings": 128,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 5,
+        "باب": 59,
+        "إعراب": 4,
+        "فصل": 56
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح المفصل لابن يعيش",
+      "total_headings": 954,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 218,
+        "فصل": 729,
+        "شرح": 2,
+        "ذكر": 5
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح المقدمة المحسبة",
+      "total_headings": 47,
+      "max_depth": 3,
+      "heading_types": {
+        "فصل": 18,
+        "غير مصنف": 29
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح المكودي على الألفية في علمي الصرف والنحو",
+      "total_headings": 82,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 2,
+        "غير مصنف": 70,
+        "فصل": 9,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح شافية ابن الحاجب - الرضي الأستراباذي",
+      "total_headings": 20,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 20
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح شافية ابن الحاجب - ركن الدين الاستراباذي",
+      "total_headings": 173,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 145,
+        "فصل": 2,
+        "مبحث": 4,
+        "كتاب": 3,
+        "شرح": 1,
+        "مقدمة": 1,
+        "باب": 3,
+        "مسألة": 1
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "شرح شذور الذهب لابن هشام",
+      "total_headings": 6,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 4
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح شذور الذهب للجوجري",
+      "total_headings": 45,
+      "max_depth": 4,
+      "heading_types": {
+        "مجلد": 2,
+        "مقدمة": 1,
+        "باب": 18,
+        "فصل": 2,
+        "مبحث": 4,
+        "مطلب": 16,
+        "غير مصنف": 2
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "شرح قطر الندى وبل الصدى",
+      "total_headings": 89,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 88
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح قواعد الإعراب",
+      "total_headings": 56,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 53,
+        "باب": 3
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح كتاب الحدود في النحو",
+      "total_headings": 176,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "شرح": 2,
+        "غير مصنف": 173
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح كتاب سيبويه للرماني - جزء منه",
+      "total_headings": 110,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 100,
+        "غير مصنف": 10
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح كتاب سيبويه للسيرافي",
+      "total_headings": 541,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 25,
+        "باب": 515,
+        "كتاب": 1
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرحا أبي العلاء والخطيب التبريزي على ديوان أبي تمام دراسة نحوية صرفية",
+      "total_headings": 91,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 64,
+        "مبحث": 19,
+        "باب": 2,
+        "فصل": 6
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرحان على مراح الأرواح في علم الصرف",
+      "total_headings": 17,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 1,
+        "باب": 7,
+        "فصل": 8
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "صيغة فعلان واستعمالاتها في اللغة العربية",
+      "total_headings": 14,
+      "max_depth": 3,
+      "heading_types": {
+        "مدخل": 1,
+        "غير مصنف": 13
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "ظاهرة التقارض في النحو العربي",
+      "total_headings": 22,
+      "max_depth": 3,
+      "heading_types": {
+        "مدخل": 1,
+        "غير مصنف": 21
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "ظاهرة التقاص في النحو العربي",
+      "total_headings": 6,
+      "max_depth": 3,
+      "heading_types": {
+        "مدخل": 1,
+        "غير مصنف": 5
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "عقود الهمز",
+      "total_headings": 1,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 1
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "علل التثنية",
+      "total_headings": 19,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 18
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "علل النحو",
+      "total_headings": 62,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 5,
+        "باب": 54,
+        "فصل": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "عمدة الكتاب لأبي جعفر النحاس",
+      "total_headings": 159,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 17,
+        "باب": 112,
+        "ذكر": 26,
+        "مجلد": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "فتح الأقفال وحل الإشكال بشرح لامية الأفعال المشهور بالشرح الكبير",
+      "total_headings": 132,
+      "max_depth": 5,
+      "heading_types": {
+        "باب": 5,
+        "مبحث": 20,
+        "غير مصنف": 66,
+        "تنبيه": 31,
+        "تتمة": 2,
+        "فصل": 7,
+        "فائدة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "فتح الكبير المتعال إعراب المعلقات العشر الطوال",
+      "total_headings": 893,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 878,
+        "تنبيه": 2,
+        "فائدة": 2,
+        "خاتمة": 2
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "فتح الكريم اللطيف في شرح باكورة التعريف بالمهم من التصريف",
+      "total_headings": 33,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 9,
+        "مقدمة": 1,
+        "باب": 8,
+        "فصل": 14,
+        "تنبيه": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "فتح رب البرية في شرح نظم الآجرومية",
+      "total_headings": 36,
+      "max_depth": 5,
+      "heading_types": {
+        "باب": 30,
+        "غير مصنف": 5,
+        "خاتمة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "فوائت كتاب سيبويه",
+      "total_headings": 4,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 1,
+        "غير مصنف": 3
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "قرينة السياق ودورها في التقعيد النحوي والتوجيه الإعرابي في كتاب سيبويه",
+      "total_headings": 84,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 65,
+        "كتاب": 1,
+        "فصل": 5,
+        "مقدمة": 1,
+        "مبحث": 12
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "ليس في كلام العرب",
+      "total_headings": 187,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 187
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "متممة الأجرومية",
+      "total_headings": 47,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 4,
+        "باب": 28,
+        "تنبيه": 2,
+        "فصل": 13
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "متن شذور الذهب",
+      "total_headings": 15,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 14,
+        "باب": 1
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "متن قطر الندى وبل الصدى",
+      "total_headings": 16,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 1,
+        "باب": 15
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "مجيء (أبو) في موضع نصب أو جر على الحكاية",
+      "total_headings": 6,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 6
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "مختصر شرح ابن جماعة على القواعد الصغرى - ضمن «آثار المعلمي»",
+      "total_headings": 3,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 1,
+        "باب": 2
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "مختصر مغني اللبيب عن كتاب الأعاريب",
+      "total_headings": 49,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "باب": 8,
+        "غير مصنف": 36,
+        "مدخل": 4
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "مسائل خلافية في النحو",
+      "total_headings": 15,
+      "max_depth": 4,
+      "heading_types": {
+        "مسألة": 15
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "معاني الحروف",
+      "total_headings": 18,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 17
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "معاني النحو",
+      "total_headings": 564,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 564
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "معجم القواعد العربية",
+      "total_headings": 54,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 27,
+        "باب": 23,
+        "فصل": 1,
+        "كتاب": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "مغني اللبيب عن كتب الأعاريب",
+      "total_headings": 11,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 7,
+        "فصل": 4
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "ملحة الإعراب",
+      "total_headings": 60,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "باب": 49,
+        "فصل": 9,
+        "غير مصنف": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "من تاريخ النحو العربي",
+      "total_headings": 32,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 25,
+        "مدخل": 2,
+        "مسألة": 1,
+        "خاتمة": 1,
+        "كتاب": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "من ذخائر ابن مالك في اللغة مسألة من كلام الإمام ابن مالك في الاشتقاق",
+      "total_headings": 12,
+      "max_depth": 4,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 3,
+        "مطلب": 7,
+        "مسألة": 1
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "منازل الحروف",
+      "total_headings": 29,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 25,
+        "باب": 2
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "موصل الطلاب إلى قواعد الإعراب",
+      "total_headings": 20,
+      "max_depth": 4,
+      "heading_types": {
+        "شرح": 1,
+        "مسألة": 8,
+        "غير مصنف": 11
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "نتائج الفكر في النحو",
+      "total_headings": 127,
+      "max_depth": 4,
+      "heading_types": {
+        "مقدمة": 1,
+        "مسألة": 69,
+        "فصل": 45,
+        "باب": 5,
+        "غير مصنف": 6
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "نحو مير = مبادئ قواعد اللغة العربية",
+      "total_headings": 159,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 130,
+        "مقدمة": 1,
+        "فصل": 24,
+        "باب": 3,
+        "خاتمة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "نظم قواعد الإعراب الصغرى - ضمن «آثار المعلمي»",
+      "total_headings": 2,
+      "max_depth": 4,
+      "heading_types": {
+        "باب": 1,
+        "مسألة": 1
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "نكت الإعراب = قواعد الإعراب ونزهة الطلاب",
+      "total_headings": 17,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 7,
+        "باب": 3,
+        "مسألة": 6,
+        "فصل": 1
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "همع الهوامع في شرح جمع الجوامع",
+      "total_headings": 520,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 2,
+        "غير مصنف": 475,
+        "تقسيم": 1,
+        "باب": 7,
+        "مبحث": 1,
+        "خاتمة": 7,
+        "كتاب": 12,
+        "ذكر": 1,
+        "فصل": 3,
+        "مسألة": 9,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "أخبار النحويين البصريين - السيرافي",
+      "total_headings": 11,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 8,
+        "ذكر": 3
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "أربعون حديثا عن أربعين شيخا في أربعين لابن المقرب",
+      "total_headings": 27,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 26
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "أسئلة وأجوبة في إعراب القرآن",
+      "total_headings": 3,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 2
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "ألفية أم المؤمنين عائشة - الروضة الأنيقة في نصرة العفيفة الصديقة",
+      "total_headings": 23,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 22,
+        "فائدة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "ألفية ابن مالك منهجها وشروحها - ٦٥ - ٦٦",
+      "total_headings": 3,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 3
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "ألفية السيرة النبوية - نظم الدرر السنية الزكية",
+      "total_headings": 82,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 32,
+        "مقدمة": 1,
+        "ذكر": 49
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "ألفية السيوطي نظم الدرر في علم الأثر - ت الفحل",
+      "total_headings": 73,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 67,
+        "مسألة": 3,
+        "خاتمة": 2,
+        "كتاب": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "ألفية العراقي التبصرة والتذكرة - ت الفحل",
+      "total_headings": 99,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 2,
+        "غير مصنف": 94,
+        "تنبيه": 1,
+        "كتاب": 2
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "إعراب القرآن - إسماعيل الأصبهاني",
+      "total_headings": 417,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 416,
+        "مسألة": 1
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "إعراب القرآن العظيم المنسوب لزكريا الانصارى",
+      "total_headings": 501,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 501
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "إعراب القرآن الكريم - ط دار الصحابة",
+      "total_headings": 135,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 134
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "إعراب القرآن للباقولي - منسوب خطأ للزجاج",
+      "total_headings": 208,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 104,
+        "مقدمة": 1,
+        "باب": 90,
+        "مسألة": 11
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "إعراب القرآن للدعاس",
+      "total_headings": 3623,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 3623
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "إعراب القرآن للنحاس",
+      "total_headings": 4507,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 4507
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "إعراب القرآن وبيانه",
+      "total_headings": 5401,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 5391,
+        "مقدمة": 1,
+        "إعراب": 1,
+        "فصل": 2,
+        "تنبيه": 4,
+        "خاتمة": 1,
+        "فائدة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "إعراب القراءات السبع وعللها ت العثيمين",
+      "total_headings": 271,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 267,
+        "خاتمة": 1,
+        "إعراب": 1,
+        "كتاب": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "إعراب القراءات السبع وعللها ط العلمية",
+      "total_headings": 115,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 112,
+        "مقدمة": 1,
+        "ذكر": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "إعراب ثلاثين سورة",
+      "total_headings": 34,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 29,
+        "ذكر": 3,
+        "إعراب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الإسلام والتسعير ونحوه أو حول أجور العقار - ضمن «آثار المعلمي»",
+      "total_headings": 2,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 2
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الإعراب المحيط من تفسير البحر المحيط",
+      "total_headings": 112,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 112
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الإعراب عن الحيرة والالتباس الموجودين في مذاهب أهل الرأي والقياس",
+      "total_headings": 57,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 23,
+        "فصل": 10,
+        "مبحث": 20,
+        "تنبيه": 3
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "الاقتضاب في غريب الموطأ وإعرابه على الأبواب",
+      "total_headings": 562,
+      "max_depth": 1,
+      "heading_types": {
+        "كتاب": 51,
+        "غير مصنف": 511
+      },
+      "hierarchy_levels": 2
+    },
+    {
+      "title": "البحر الذي زخر في شرح ألفية الأثر - قسم ١ - ت الأندونوسي",
+      "total_headings": 152,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 142,
+        "فصل": 3,
+        "فائدة": 4,
+        "تنبيه": 1,
+        "مسألة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "البردة شرحا وإعرابا وبلاغة لطلاب المعاهد والجامعات",
+      "total_headings": 491,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 489,
+        "مقدمة": 2
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "البستان في إعراب مشكلات القرآن",
+      "total_headings": 689,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 172,
+        "مقدمة": 1,
+        "فصل": 307,
+        "مبحث": 14,
+        "مطلب": 6,
+        "خاتمة": 1,
+        "باب": 187
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "البلغة في تراجم أئمة النحو واللغة",
+      "total_headings": 39,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 34,
+        "مدخل": 2,
+        "كتاب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "البيان والإعراب عما بأرض مصر من الأعراب",
+      "total_headings": 22,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 4,
+        "غير مصنف": 18
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "التبيان في إعراب القرآن",
+      "total_headings": 2997,
+      "max_depth": 3,
+      "heading_types": {
+        "إعراب": 1,
+        "غير مصنف": 2993,
+        "فصل": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "التضمين النحوي في القرآن الكريم",
+      "total_headings": 190,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 161,
+        "فصل": 4,
+        "مبحث": 10,
+        "مطلب": 14,
+        "خاتمة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "التعليق على الموطأ في تفسير لغاته وغوامض إعرابه ومعانيه",
+      "total_headings": 425,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 392,
+        "كتاب": 31,
+        "ذكر": 1,
+        "فصل": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الحق المبين في معرفة الملائكة المقربين",
+      "total_headings": 112,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 110,
+        "ذكر": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "الخصائص الكبرى",
+      "total_headings": 85,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 52,
+        "فائدة": 10,
+        "ذكر": 19,
+        "فصل": 2
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "الزهد وصفة الزاهدين لابن الأعرابي",
+      "total_headings": 46,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 46
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الفوائد السنية في شرح الألفية",
+      "total_headings": 59,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 1,
+        "مبحث": 15,
+        "غير مصنف": 35,
+        "باب": 5,
+        "فصل": 2,
+        "خاتمة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "القبل والمعانقة والمصافحة لابن الأعرابي",
+      "total_headings": 9,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 6,
+        "غير مصنف": 3
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "الكتاب الفريد في إعراب القرآن المجيد",
+      "total_headings": 139,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 15,
+        "مقدمة": 1,
+        "إعراب": 115,
+        "فصل": 5,
+        "مبحث": 1,
+        "مطلب": 2
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "الكوكب الدري فيما يتخرج على الأصول النحوية من الفروع الفقهية",
+      "total_headings": 170,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 1,
+        "مسألة": 143,
+        "فصل": 26
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "اللباب في قواعد اللغة وآلات الأدب النحو والصرف والبلاغة والعروض واللغة والمثل",
+      "total_headings": 287,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 197,
+        "باب": 17,
+        "إعراب": 31,
+        "فائدة": 23,
+        "فصل": 1,
+        "تنبيه": 8,
+        "مطلب": 3,
+        "تتمة": 1,
+        "مبحث": 6
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "المجتبى من مشكل إعراب القرآن",
+      "total_headings": 6010,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 6010
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "المجيد في إعراب القرآن المجيد",
+      "total_headings": 10,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 7,
+        "كتاب": 1,
+        "إعراب": 2
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "المحلى بالآثار",
+      "total_headings": 2347,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 116,
+        "كتاب": 63,
+        "مسألة": 2161,
+        "فصل": 4,
+        "باب": 2
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "الموسوعة الميسرة في تراجم أئمة التفسير والإقراء والنحو واللغة",
+      "total_headings": 3895,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 3894
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "النكت الوفية بما في شرح الألفية",
+      "total_headings": 60,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 57,
+        "تنبيه": 1,
+        "كتاب": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "تاريخ العلماء النحويين للتنوخي",
+      "total_headings": 86,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 86
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "تفسير ابن جزي = التسهيل لعلوم التنزيل",
+      "total_headings": 162,
+      "max_depth": 5,
+      "heading_types": {
+        "مجلد": 2,
+        "مقدمة": 2,
+        "شرح": 1,
+        "غير مصنف": 150,
+        "تنبيه": 1,
+        "مدخل": 1,
+        "فائدة": 3
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "تفسير القرآن الكريم وإعرابه وبيانه - الدرة",
+      "total_headings": 166,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 122,
+        "فائدة": 30,
+        "خاتمة": 10,
+        "تنبيه": 4
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "تفسير الكتاب العزيز وإعرابه",
+      "total_headings": 19,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 18
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "تلحين النحويين للقراء",
+      "total_headings": 20,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 20
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "تلخيص العبارة في نحو أهل الإشارة",
+      "total_headings": 18,
+      "max_depth": 3,
+      "heading_types": {
+        "باب": 17,
+        "فصل": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "رد البهتان عن إعراب آيات من القرآن الكريم",
+      "total_headings": 23,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 20,
+        "مبحث": 3
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "زينة العرائس من الطرف والنفائس في تخريج الفروع الفقهية على القواعد النحوية",
+      "total_headings": 77,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 76
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "سر صناعة الإعراب",
+      "total_headings": 85,
+      "max_depth": 3,
+      "heading_types": {
+        "مجلد": 2,
+        "غير مصنف": 44,
+        "مقدمة": 1,
+        "باب": 31,
+        "مدخل": 5
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح ألفية العراقي - ابن العيني",
+      "total_headings": 124,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 116,
+        "مبحث": 5,
+        "تنبيه": 1,
+        "كتاب": 2
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "شرح ألفية العراقي - عبد الكريم الخضير",
+      "total_headings": 110,
+      "max_depth": 3,
+      "heading_types": {
+        "شرح": 57,
+        "غير مصنف": 52,
+        "كتاب": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "شرح الأثيوبي على ألفية السيوطي في الحديث = إسعاف ذوي الوطر بشرح نظم الدرر في علم الأثر",
+      "total_headings": 74,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 71,
+        "خاتمة": 1,
+        "كتاب": 1,
+        "مسألة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "شرح التبصرة والتذكرة ألفية العراقي",
+      "total_headings": 228,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 199,
+        "باب": 2,
+        "فصل": 7,
+        "مبحث": 17,
+        "تنبيه": 1,
+        "كتاب": 2
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "شرح الشواهد الشعرية في أمات الكتب النحوية",
+      "total_headings": 3656,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 3652,
+        "باب": 3
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "شرح مقدمة التسهيل لعلوم التنزيل لابن جزي",
+      "total_headings": 34,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 20,
+        "باب": 12
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "طبقات النحويين واللغويين",
+      "total_headings": 286,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 286
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "غرر الخصائص الواضحة",
+      "total_headings": 169,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 86,
+        "باب": 32,
+        "شرح": 1,
+        "فصل": 47,
+        "ذكر": 2,
+        "خاتمة": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "فتح الباقي بشرح ألفية العراقي",
+      "total_headings": 125,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 89,
+        "باب": 3,
+        "فصل": 7,
+        "مبحث": 21,
+        "مطلب": 2,
+        "تنبيه": 1,
+        "كتاب": 2
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "فتح المغيث بشرح ألفية الحديث",
+      "total_headings": 250,
+      "max_depth": 5,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 230,
+        "فرع": 7,
+        "ذكر": 6,
+        "فائدة": 1,
+        "تنبيه": 1,
+        "كتاب": 2,
+        "تفسير": 1,
+        "تقسيم": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "كتاب الشعر أو شرح الأبيات المشكلة الإعراب",
+      "total_headings": 41,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 39,
+        "غير مصنف": 2
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "ماذا بعد نحو نصرة حقيقية لفلسطين",
+      "total_headings": 25,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 25
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "مشكل إعراب القرآن لمكي",
+      "total_headings": 114,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 4,
+        "تفسير": 80,
+        "شرح": 30
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "معاني القرآن وإعرابه للزجاج",
+      "total_headings": 4262,
+      "max_depth": 2,
+      "heading_types": {
+        "غير مصنف": 4262
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "معجم المسائل النحوية والصرفية الواردة في القرآن الكريم",
+      "total_headings": 10,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 8
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "معجم شيوخ ابن الأعرابي - ط ابن الجوزي",
+      "total_headings": 10,
+      "max_depth": 2,
+      "heading_types": {
+        "باب": 9,
+        "غير مصنف": 1
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "مفتاح السعيدية في شرح الألفية الحديثية",
+      "total_headings": 96,
+      "max_depth": 5,
+      "heading_types": {
+        "غير مصنف": 87,
+        "مقدمة": 1,
+        "مبحث": 5,
+        "تنبيه": 1,
+        "كتاب": 1,
+        "فصل": 1
+      },
+      "hierarchy_levels": 6
+    },
+    {
+      "title": "منظومة الآداب = الألفية في الآداب الشرعية",
+      "total_headings": 43,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 2,
+        "غير مصنف": 41
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "نحو القلوب",
+      "total_headings": 10,
+      "max_depth": 3,
+      "heading_types": {
+        "باب": 4,
+        "فصل": 5,
+        "غير مصنف": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "نحو ثقافة إسلامية أصيلة",
+      "total_headings": 194,
+      "max_depth": 3,
+      "heading_types": {
+        "غير مصنف": 83,
+        "فصل": 42,
+        "مبحث": 61,
+        "باب": 7,
+        "مقدمة": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "نحو معجم تاريخي للمصطلحات القرآنية المعرفة",
+      "total_headings": 17,
+      "max_depth": 3,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 15,
+        "مدخل": 1
+      },
+      "hierarchy_levels": 4
+    },
+    {
+      "title": "نشأة النحو وتاريخ أشهر النحاة",
+      "total_headings": 66,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 48,
+        "مقدمة": 2,
+        "مدخل": 7,
+        "مطلب": 2,
+        "فصل": 6
+      },
+      "hierarchy_levels": 5
+    },
+    {
+      "title": "أسرار العربية",
+      "total_headings": 66,
+      "max_depth": 2,
+      "heading_types": {
+        "مقدمة": 1,
+        "غير مصنف": 1,
+        "باب": 64
+      },
+      "hierarchy_levels": 3
+    },
+    {
+      "title": "خصائص النظم في «خصائص العربية» لابن جني",
+      "total_headings": 125,
+      "max_depth": 4,
+      "heading_types": {
+        "غير مصنف": 124,
+        "مسألة": 1
+      },
+      "hierarchy_levels": 5
+    }
+  ]
+}
