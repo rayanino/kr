@@ -258,3 +258,24 @@ class TestPlaceExcerptMock:
         place_excerpt(exc, aqidah_tree, adapter)
         assert len(adapter.stage1_calls) == 0
         assert len(adapter.stage2_calls) == 1
+
+    def test_reasoning_matches_selected_leaf_when_unsorted(
+        self, aqidah_tree: LoadedTree
+    ) -> None:
+        """Rankings returned in non-score order: reasoning must match selected leaf."""
+        leaf_a = aqidah_tree.all_leaves[0]
+        leaf_b = aqidah_tree.all_leaves[1]
+        # Rankings in non-descending order: b(0.70) first, a(0.90) second
+        ranking = PlacementRanking(
+            rankings=[
+                LeafScore(leaf_path=leaf_b.path, score=0.70, reasoning="Wrong leaf reasoning"),
+                LeafScore(leaf_path=leaf_a.path, score=0.90, reasoning="Correct leaf reasoning"),
+            ],
+            primary_topic_used="test",
+        )
+        adapter = MockPlacementAdapter(stage2_result=ranking)
+        exc = make_excerpt(primary_function="rule_statement")
+
+        result = place_excerpt(exc, aqidah_tree, adapter)
+        assert result.confirmed_leaf == leaf_a.path  # Highest score wins
+        assert result.placement_reasoning == "Correct leaf reasoning"  # Matches selected leaf

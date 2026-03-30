@@ -120,7 +120,7 @@ class BranchSelection(BaseModel):
     selected_branches: list[str] = Field(
         description="1-3 branch IDs, ranked by likelihood",
         min_length=0,
-        max_length=5,
+        max_length=3,
     )
     no_match: bool = Field(
         default=False,

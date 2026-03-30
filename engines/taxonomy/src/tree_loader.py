@@ -60,8 +60,8 @@ def load_tree(
                 if sci["science_id"] == science_id:
                     display_name_ar = sci.get("display_name_ar", science_id)
                     break
-        except Exception:
-            pass  # Override path takes priority; registry is optional context
+        except Exception as e:
+            logger.debug("Registry lookup for display_name_ar failed (override mode): %s", e)
     else:
         registry_data = _load_registry(registry_path)
         science_entry = _find_science(registry_data, science_id)

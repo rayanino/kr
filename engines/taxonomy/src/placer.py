@@ -274,6 +274,12 @@ def place_excerpt(
             tie_detected=tie_detected,
         )
 
+    # Match reasoning to the selected leaf (rankings may be unsorted)
+    reasoning = next(
+        (r.reasoning for r in ranking.rankings if r.leaf_path == leaf_path),
+        ranking.rankings[0].reasoning if ranking.rankings else None,
+    )
+
     return PlacementAdditions(
         lifecycle_stage=lifecycle,
         placement_route=route,
@@ -281,7 +287,7 @@ def place_excerpt(
         placement_confidence=confidence,
         placed_utc=now_utc,
         taxonomy_version_at_placement=tree.tree_version,
-        placement_reasoning=ranking.rankings[0].reasoning if ranking.rankings else None,
+        placement_reasoning=reasoning,
         primary_topic_used=ranking.primary_topic_used,
         review_metadata={"review_outcome": "auto_approved"},
         tie_detected=tie_detected,
