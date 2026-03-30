@@ -271,7 +271,7 @@ def enrich_chunk(
         model=config.ENRICH_MODEL,
         temperature=config.LLM_TEMPERATURE,
         max_tokens=_compute_enrich_max_tokens(chunk.word_count),
-        max_retries=2,
+        max_retries=0,
         response_model=EnrichmentResult,
         messages=[
             {"role": "system", "content": ENRICH_SYSTEM_PROMPT},
@@ -487,9 +487,9 @@ def run_phase3_enrichment(
                 break
 
             except ValidationError as e:
-                # Defense-in-depth: with max_retries=2, Instructor handles
-                # schema validation internally. This catches edge cases
-                # where a ValidationError escapes Instructor's retry.
+                # Defense-in-depth: with max_retries=0, the outer retry loop
+                # handles retries with error feedback. This catches
+                # ValidationErrors that propagate from the client.
                 logger.warning(
                     "Phase 3 enrichment attempt %d/%d validation error for chunk %s: %s",
                     attempt + 1, max_attempts, chunk_id, e,
