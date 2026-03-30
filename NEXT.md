@@ -1,121 +1,13 @@
-# NEXT — Taxonomy Session 1 Review Fixes (F-1, F-3, F-4, F-6, F-7, F-8)
+# NEXT — No CC Task Pending
 
-## Context
+The taxonomy engine has two completed work items and one pending:
 
-Session 1 review (checklist: `reference/archive/sessions/reviews/review_taxonomy_session1.md`) found 6 issues. This directive fixes all 6.
-Session 2 NEXT.md preserved at: `reference/archive/NEXT_taxonomy_session2_deferred.md`
+1. **Code fixes (F-1 through F-8):** ✅ Implemented (commit `635cae0b`), reviewed and ACCEPTED by architect. 145 tests passing.
 
-**Read first:**
-1. `engines/taxonomy/SPEC.md` §2.1 (expected fields), §4.A.3 (type classification)
-2. `engines/taxonomy/src/placer.py` lines 76-102 (`classify_excerpt_type`)
-3. `engines/taxonomy/src/engine.py` lines 46-54 (`_EXPECTED_FIELDS`)
-4. `engines/taxonomy/src/diagnostics.py` lines 136-152 (`compute_editorial_placement_rate`)
-5. `engines/excerpting/contracts.py` — search for `class ScholarlyFunction` to see all valid enum values
+2. **Corpus-based tree research:** ✅ Complete (commit `3447a24c`). Results in `reference/research/`.
 
-## Fix 1: F-6 (CRITICAL) — classify_excerpt_type must default unknown to EDITORIAL
+3. **Tree validation synthesis:** ⏳ Pending. This is architect work (not CC). Waiting for knowledge-based researcher outputs (ChatGPT Pro, Fresh Claude), then ChatGPT synthesis, then architect review in a new chat.
 
-**File:** `engines/taxonomy/src/placer.py`
+**Read `engines/taxonomy/STATE.md` for full context.**
 
-**Problem:** Unrecognized `primary_function` values (like `"unclassified"` from excerpting's `ScholarlyFunction.UNCLASSIFIED`) are classified as TEACHING (threshold 0.80). SPEC §4.A.3 says "not recognized" → EDITORIAL (threshold 0.85).
-
-**Fix:** Add an explicit `_TEACHING_FUNCTIONS` frozenset with all known teaching values from the excerpting engine's `ScholarlyFunction` enum. Change `classify_excerpt_type` so anything not in any known set defaults to EDITORIAL with a warning log.
-
-The known teaching functions are: `definition`, `rule_statement`, `evidence_quran`, `evidence_hadith`, `evidence_ijma`, `evidence_qiyas`, `evidence_rational`, `opinion_statement`, `refutation`, `example`, `condition_exception`, `narration`.
-
-Add a `logger.warning` when the unknown-default path is hit so we can detect new function values.
-
-**New tests** in `test_routing.py::TestClassifyExcerptType`:
-- `"unclassified"` → EDITORIAL
-- `"some_future_unknown_type"` → EDITORIAL
-- Every value in `_TEACHING_FUNCTIONS` → TEACHING (parametrized or loop)
-
-## Fix 2: F-1 — _EXPECTED_FIELDS must include all 8 SPEC fields
-
-**File:** `engines/taxonomy/src/engine.py`
-
-**Problem:** `_EXPECTED_FIELDS` has 4 of 8 SPEC §2.1 expected fields. Missing: `terminology_variants`, `primary_author_layer`, `quoted_scholars`, `school`.
-
-**Fix:** Add the 4 missing fields. Also change the warning check from `excerpt.get(field) is None` to `field not in excerpt` — this prevents false warnings on nullable fields like `school: null` which are present but legitimately null.
-
-**New tests** in `test_engine.py::TestInputValidation`:
-- Missing expected field still proceeds (not rejected)
-- `school=None` with key present does NOT trigger warning
-
-## Fix 3: F-4 — compute_editorial_placement_rate must use classify_excerpt_type
-
-**File:** `engines/taxonomy/src/diagnostics.py`
-
-**Problem:** Only counts `primary_function == "editorial_note"`. Misses null/missing/unknown values that are routed as editorial by `classify_excerpt_type`.
-
-**Fix:** Import `classify_excerpt_type` from `placer.py` and `ExcerptType` from contracts. Use `classify_excerpt_type(r) == ExcerptType.EDITORIAL` instead of string comparison.
-
-**New/updated test** in `test_diagnostics.py::TestEditorialPlacementRate`:
-- Null `primary_function` counted as editorial in rate calculation
-
-## Fix 4: F-3 — Create test_real_data.py
-
-**File:** `engines/taxonomy/tests/test_real_data.py` (CREATE)
-
-Use the existing `real_excerpts` fixture from `conftest.py` (currently orphaned — defined but never used).
-
-Tests to include:
-- All excerpts have the 4 required fields
-- `excerpt_topic` is a non-empty list in all excerpts
-- No crash when running `classify_excerpt_type` on real data shapes
-- `primary_text` contains Arabic characters (sanity check)
-- Use `pytest.skip` if excerpts file not available
-
-## Fix 5: F-7 — BOM-safe JSONL reading
-
-**File:** `engines/taxonomy/src/engine.py`
-
-**Problem:** `_read_excerpts` opens JSONL with `encoding="utf-8"`. If a file has a UTF-8 BOM (byte order mark, e.g. from Windows Notepad), the first line fails to parse and the first excerpt is silently dropped.
-
-**Fix:** In `_read_excerpts`, change `encoding="utf-8"` to `encoding="utf-8-sig"`. This transparently strips BOM if present and is a no-op if absent.
-
-**Test:** Add a test that writes a BOM JSONL file and verifies all excerpts are read.
-
-## Fix 6: F-8 — Warn on duplicate excerpt_id file overwrite
-
-**File:** `engines/taxonomy/src/engine.py`
-
-**Problem:** If two excerpts with the same `excerpt_id` are processed in the same batch, the second write silently overwrites the first. No warning, no error — data loss.
-
-**Fix:** In the `run()` function, maintain a `seen_ids: set[str]` that tracks every `excerpt_id` processed. Before calling `_process_excerpt`, check if the ID was already seen. If so, log a warning: `"TAX_DUPLICATE_EXCERPT_ID: excerpt {excerpt_id} appears multiple times in batch — later result will overwrite"`. Still process the excerpt (last-write-wins is correct behavior), but make it visible.
-
-```python
-seen_ids: set[str] = set()
-for excerpt in excerpts:
-    eid = excerpt.get("excerpt_id", "")
-    if eid in seen_ids:
-        logger.warning(
-            "TAX_DUPLICATE_EXCERPT_ID: excerpt %s appears multiple times in batch",
-            eid,
-        )
-    seen_ids.add(eid)
-    result = _process_excerpt(...)
-```
-
-Do NOT modify `writer.py` for this fix. The check belongs in the orchestrator (`run()`), not the writer.
-
-**Test:** Add a test in `test_engine.py` that processes two excerpts with the same `excerpt_id` in one batch and verifies the batch still completes (both processed) and `total_excerpts` counts both.
-
-## Verification (Definition of Done)
-
-- [ ] `classify_excerpt_type({"primary_function": "unclassified"})` returns `ExcerptType.EDITORIAL`
-- [ ] `classify_excerpt_type({"primary_function": "rule_statement"})` returns `ExcerptType.TEACHING`
-- [ ] `_EXPECTED_FIELDS` has exactly 8 entries
-- [ ] Excerpt with `school=None` (key present) does NOT trigger expected-field warning
-- [ ] `compute_editorial_placement_rate` counts null primary_function as editorial
-- [ ] `test_real_data.py` exists and all tests pass
-- [ ] BOM JSONL file: all excerpts read successfully (no silent drop)
-- [ ] Duplicate excerpt_id: warning logged (not silent)
-- [ ] All tests pass: `PYTHONPATH=. python -m pytest engines/taxonomy/tests/ -q --tb=short`
-- [ ] Test count: ≥ 127 (was 119, adding ~8-10 new tests)
-
-## Do NOT Do
-
-- Do NOT modify `tree_loader.py`, `writer.py`, or `validator.py` — no findings in these
-- Do NOT modify `contracts_core.py`
-- Do NOT implement anything beyond the 6 fixes specified above (F-1, F-3, F-4, F-6, F-7, F-8)
-- After completing the fixes, commit and push. Do NOT proceed to Session 2.
+No CC task is queued. The next CC task will be prepared after the validated nahw tree (v2.0) is committed — likely an updated Session 2 directive for LLM placement.

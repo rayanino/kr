@@ -1,93 +1,102 @@
 # Taxonomy Engine — Current State (2026-03-30)
 
 > **Read this file at the start of every taxonomy-related session.**
-> It captures the full state of the taxonomy engine work as of commit `eeb5cb38`.
+> It captures the full state of the taxonomy engine work as of commit `3447a24c`.
 
-## Two blockers before Session 2 (LLM placement)
+## Session 2 blocker status
 
-### Blocker 1: Code fixes (F-1, F-3, F-4, F-6)
+### Blocker 1: Code fixes — ✅ CLEARED
 
-Session 1 code review found 6 issues. Fix directive is at `NEXT.md`.
-- **F-6 (CRITICAL):** `classify_excerpt_type` in `placer.py` treats unrecognized `primary_function` as TEACHING (threshold 0.80) instead of EDITORIAL (threshold 0.85). SPEC §4.A.3 says "not recognized → editorial." Upstream excerpting enum has `UNCLASSIFIED = "unclassified"` which triggers this.
-- **F-1:** `_EXPECTED_FIELDS` in `engine.py` has 4/8 SPEC §2.1 fields.
-- **F-4:** `compute_editorial_placement_rate` in `diagnostics.py` only counts `editorial_note`, not all editorial-classified excerpts.
-- **F-3:** `test_real_data.py` missing; `real_excerpts` fixture orphaned.
-- **F-7:** BOM-encoded JSONL files silently drop first excerpt (`encoding="utf-8"` → should be `"utf-8-sig"`).
-- **F-8:** Duplicate `excerpt_id` silently overwrites output files with no warning.
+All 6 fixes (F-1, F-3, F-4, F-6, F-7, F-8) implemented by CC in commit `635cae0b`.
+Reviewed and ACCEPTED by architect. 145 tests passing (baseline was 119).
 
-**Status:** Fix directive ready at `NEXT.md`. Relay to CC.
-**Review:** `reference/archive/sessions/reviews/review_taxonomy_session1.md`
-**Providers who reviewed:** Architect, CC, ChatGPT Pro (deep research), Codex CLI.
-**Test baseline:** 119 tests passing. After fixes: expect ≥127.
+- **F-6:** `classify_excerpt_type` now defaults unknown `primary_function` to EDITORIAL. Explicit `_TEACHING_FUNCTIONS` frozenset matches ScholarlyFunction enum.
+- **F-1:** `_EXPECTED_FIELDS` has 8 entries matching SPEC §2.1. Field-check distinguishes absent (warn) vs null (no warn).
+- **F-4:** `compute_editorial_placement_rate` uses `classify_excerpt_type` — null/missing correctly counted as editorial.
+- **F-3:** `test_real_data.py` created with 4 tests using `real_excerpts` fixture.
+- **F-7:** `_read_excerpts` uses `encoding="utf-8-sig"` — BOM handled transparently.
+- **F-8:** Duplicate `excerpt_id` logs `TAX_DUPLICATE_EXCERPT_ID` warning. Last-write-wins per directive.
 
-### Blocker 2: Gate G3 — Tree validation (NEVER EXECUTED)
+### Blocker 2: Gate G3 — Tree validation — ⏳ SYNTHESIS PENDING
 
-`reference/ENGINE_FACTORY_PLAN.md` line 836:
-> "The 5 existing tree.yaml files in library/sciences/ were created without owner validation. The nahw tree must be generated via multi-source AI research and owner-validated before taxonomy Step 3."
+The 4-researcher investigation is complete. Synthesis remains.
 
-Gate G3 (line 912): "Before Taxonomy Step 3 | Oracle generates nahw tree via multi-source research | Owner confirms"
+**What's done:**
+- Aspects 1-8 research complete (Aspects 1-4 in previous session, 5-8 in this session)
+- 4 independent researchers commissioned (2 knowledge-based, 2 corpus-based)
+- Corpus-based results IN REPO: `reference/research/` (CC + Codex)
+- Knowledge-based results PENDING: ChatGPT Pro and Fresh Claude Opus (owner relaying)
 
-**Session 2 IS Step 3.** Gate G3 was planned during the atomization engine build (which was deferred). It was never executed.
+**What's next:**
+1. Save ChatGPT and Fresh Claude outputs to `reference/research/`
+2. Fire ChatGPT Pro synthesis prompt (comparing all 4 trees)
+3. Save synthesis to `reference/research/`
+4. NEW CHAT: architect reviews synthesis, review team validates
+5. Commit validated tree as `library/sciences/nahw/tree.yaml` (v2.0)
 
-**Status:** Deep research in progress — see § Tree Research below.
+## 4-researcher methodology (Aspects 5-8)
 
-## Tree research — completed analysis (Aspects 1-4)
+### Research design (Aspect 5)
 
-A thorough investigation was conducted in the review session. Key findings:
+Two evidence streams, each with two independent researchers:
 
-### Aspect 1: Provenance of existing trees
-- All 5 trees originated in the ABD codebase (pre-KR migration, commit `7edc53b2`)
-- No documentation of creation methodology exists
-- Registry notes them as "Base superset taxonomy (granular, placement-safe)" — engineered for coverage, not scholarly accuracy
-- Nahw and sarf both have exactly 226 leaves (suspicious — different sciences)
-- Nahw tree has never been refined (v1_0 only), unlike aqidah (v0_1→v0_2 from الواسطية processing)
+| | Knowledge-based | Corpus-based |
+|---|---|---|
+| **Provider A** | Fresh Claude Opus (Research mode) | CC (local filesystem) |
+| **Provider B** | ChatGPT Pro (Deep Research) | Codex CLI (local filesystem) |
 
-### Aspect 2: Sources of authority
-Ground truth sources, ranked by relevance:
-1. **Canonical organizational texts per science** — these define the standard branch-level structure:
-   - Nahw: ألفية ابن مالك (~80 أبواب, standard for 750 years)
-   - Balagha: تلخيص المفتاح of القزويني (معاني/بيان/بديع three-part division) — unverified, needs confirmation
-   - Aqidah: Multiple traditions (الواسطية for Hanbali, الطحاوية for Hanafi)
-   - Sarf: شذا العرف في فن الصرف, also Alfiyyah sarf sections
-   - Imlaa: Various treatises, less standardized
-2. **The books' own heading structures (div_path)** — provide chapter-level (branch) organization but NOT leaf-level granularity. Shamela headings are typically 1-2 levels deep. Useful as a starting point for branches, but leaf-level subdivision requires deeper analysis of content within each chapter.
-3. OpenITI/KITAB, Shamela classification — useful at book level, not sub-topic level
+Knowledge-based researchers build trees from canonical texts (Alfiyyah, shuruh, modern references). Corpus-based researchers build trees from actual book headings and content in `shamela_export_samples/`. None see the current `tree.yaml`.
 
-### Aspect 3: Corpus analysis
-- Only 67 excerpts processed (5 books), of which only 25 are nahw (one chapter: حروف الجر)
-- 0.4% coverage of the 226-leaf nahw tree
-- Books use flat chapter headings (`div_path: "حروف الجر"`); tree sub-classifies into 4 leaves
-- The current tree uses encyclopedic organization (group by grammatical case) not the Alfiyyah's pedagogical sequence
-- Gold baseline (12 excerpts) was assigned by architect, marked PENDING owner validation
+Cross-stream convergence (knowledge + corpus agree) is the gold signal.
 
-### Aspect 4: Evaluation criteria (proposed)
-Hard requirements: scholarly terminology correctness, no fabricated divisions, leaf scope distinctness, no orphan branches, corpus viability.
-Quality metrics: placement accuracy, excerpt distribution, canonical alignment, depth uniformity, LLM disambiguability.
-Key design decision: tree should be **encyclopedic in structure** with **pedagogical navigation as metadata** (`study_order` field).
+### Corpus research results (in repo)
 
-### Remaining aspects (not yet analyzed)
-5. Research methodology (how to structure the actual tree investigation)
-6. Prompt design (what to tell each researcher)
-7. Synthesis process (how to combine findings)
-8. Sequencing (when this happens relative to the engine build)
+**CC (commit 3447a24c):**
+- 302 nahw books identified in `shamela_export_samples/`
+- 70,001 headings extracted
+- 462 unique topics in 5+ books, 175 in 10+ books
+- Corpus-derived tree: 82 leaves (but 399 topics in 5+ books NOT captured)
+- Files: `reference/research/nahw_books_identified.json`, `nahw_headings_by_book.json`, `nahw_topic_frequency.json`, `nahw_corpus_tree.yaml`, `nahw_corpus_gaps.md`
+- Scripts: `scripts/nahw_research/step1-6`
+- CC respected FORBIDDEN rules (verified: no references to existing tree.yaml)
 
-### Downstream impacts of tree changes (must be handled AFTER tree validation)
-- **Gold baseline invalidated:** The 12-excerpt gold baseline (`engines/taxonomy/tests/fixtures/gold_baseline_nahw.yaml`) was assigned against the current unvalidated tree. If tree leaf paths change, the baseline must be re-done.
-- **Session 2 NEXT.md outdated:** The deferred Session 2 directive (`reference/archive/NEXT_taxonomy_session2_deferred.md`) references current tree structure. Must be updated after tree validation.
-- **Review probes stale:** `reference/archive/review_probes/taxonomy_session1_probes.py` references modules that don't exist (`input_validator`, `router`). Should be updated or deprecated.
+**Codex (commit 3447a24c):**
+- Deep analysis of 3 largest books: شرح المفصل لابن يعيش (970 headings, 10MB), النحو الوافي (193 headings, 9MB), ضياء السالك (187 headings, 5.5MB)
+- Sub-topic analysis within major chapters with evidence quotes
+- 587 potential leaves at maximum granularity
+- Average 4.52 sub-topics per chapter
+- File: `reference/research/nahw_content_analysis.md`
+
+### Synthesis process (Aspect 7)
+
+Three-phase synthesis led by ChatGPT Pro + architect review:
+1. **Branch alignment:** Map Level-1 branches across all 4 trees
+2. **Leaf comparison:** Cross-stream scoring matrix (knowledge x corpus)
+3. **Review team validation:** ChatGPT synthesizes, Fresh Claude cold-reads, architect reviews
+
+### Sequencing (Aspect 8)
+
+- Nahw first (most data, strongest canonical framework)
+- Other sciences follow: sarf → balagha → aqidah → imlaa
+- Tree v2.0 is source-validated; v2.1+ refined empirically after excerpt placement
+
+## Downstream impacts (handle AFTER tree validation)
+
+- **Gold baseline invalidated:** 12-excerpt gold baseline assigned against unvalidated tree. Must be redone after v2.0.
+- **Session 2 NEXT.md outdated:** `reference/archive/NEXT_taxonomy_session2_deferred.md` references old tree. Must update after v2.0.
+- **Review probes stale:** `reference/archive/review_probes/taxonomy_session1_probes.py` references nonexistent modules.
 
 ## Key files
 
 | File | Purpose |
 |------|---------|
-| `NEXT.md` | Fix directive for CC (F-1/F-3/F-4/F-6) |
-| `reference/archive/NEXT_taxonomy_session2_deferred.md` | Preserved Session 2 NEXT.md (blocked by G3 + fixes) |
-| `reference/archive/sessions/reviews/review_taxonomy_session1.md` | Filled review checklist |
-| `reference/ENGINE_FACTORY_PLAN.md` lines 836-912 | Gate G3 definition |
 | `engines/taxonomy/SPEC.md` | Authoritative specification |
-| `engines/taxonomy/src/placer.py` | Contains F-6 bug (classify_excerpt_type) |
-| `engines/taxonomy/src/engine.py` | Contains F-1 bug (_EXPECTED_FIELDS) |
-| `engines/taxonomy/src/diagnostics.py` | Contains F-4 bug (editorial rate) |
+| `reference/ENGINE_FACTORY_PLAN.md` lines 836-912 | Gate G3 definition |
+| `reference/archive/NEXT_taxonomy_session2_deferred.md` | Preserved Session 2 NEXT.md (blocked by G3) |
+| `reference/archive/sessions/reviews/review_taxonomy_session1.md` | Session 1 review checklist |
 | `library/sciences/taxonomy_registry.yaml` | Tree version registry |
-| `library/sciences/nahw/tree.yaml` | Nahw tree (226 leaves, unvalidated) |
-| `reference/archive/review_probes/taxonomy_session1_probes.py` | Pre-written probes (stale module refs) |
+| `library/sciences/nahw/tree.yaml` | Current nahw tree (226 leaves, UNVALIDATED — to be replaced by v2.0) |
+| `reference/research/nahw_corpus_tree.yaml` | CC's corpus-derived tree (82 leaves) |
+| `reference/research/nahw_content_analysis.md` | Codex's deep content analysis |
+| `reference/research/nahw_topic_frequency.json` | CC's topic frequency data (302 books) |
+| `reference/research/nahw_corpus_gaps.md` | CC's gap analysis |
