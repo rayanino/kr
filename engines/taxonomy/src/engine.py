@@ -118,6 +118,7 @@ def run(
     excerpts = _read_excerpts(input_path)
 
     results: list[dict] = []
+    rejected_count = 0
 
     for excerpt in excerpts:
         result = _process_excerpt(
@@ -130,9 +131,13 @@ def run(
         )
         if result is not None:
             results.append(result)
+        else:
+            rejected_count += 1
 
     # Compute and write batch report
     report = compute_batch_report(results, config, tree, now_utc)
+    # total_excerpts should reflect all inputs, including rejected
+    report.total_excerpts = len(results) + rejected_count
     _write_batch_report(report, config.science_id, base_path)
 
     logger.info(
@@ -278,7 +283,8 @@ def _process_excerpt(
                 additions.confirmed_leaf,
             )
             return _reroute_to_unplaced(
-                excerpt, tree, now_utc, "Leaf not found in tree"
+                excerpt, tree, now_utc, "Leaf not found in tree",
+                config.science_id, base_path,
             )
         path = write_placed_excerpt(
             excerpt, additions, config.science_id, base_path
@@ -290,7 +296,8 @@ def _process_excerpt(
             )
             path.unlink(missing_ok=True)
             return _reroute_to_unplaced(
-                excerpt, tree, now_utc, "Post-write byte mismatch"
+                excerpt, tree, now_utc, "Post-write byte mismatch",
+                config.science_id, base_path,
             )
 
     elif route in (
@@ -305,7 +312,8 @@ def _process_excerpt(
                 additions.confirmed_leaf,
             )
             return _reroute_to_unplaced(
-                excerpt, tree, now_utc, "Leaf not found in tree"
+                excerpt, tree, now_utc, "Leaf not found in tree",
+                config.science_id, base_path,
             )
         path = write_staged_excerpt(
             excerpt, additions, config.science_id, base_path
@@ -317,7 +325,8 @@ def _process_excerpt(
             )
             path.unlink(missing_ok=True)
             return _reroute_to_unplaced(
-                excerpt, tree, now_utc, "Post-write byte mismatch"
+                excerpt, tree, now_utc, "Post-write byte mismatch",
+                config.science_id, base_path,
             )
 
     elif route == PlacementRoute.UNPLACED:
@@ -338,8 +347,14 @@ def _reroute_to_unplaced(
     tree: LoadedTree,
     now_utc: str,
     reason: str,
+    science_id: str,
+    base_path: Path,
 ) -> dict:
-    """Create an unplaced result for an excerpt that failed validation."""
+    """Create an unplaced result and write it to disk.
+
+    Called when a placed/staged excerpt fails validation (leaf not found,
+    byte mismatch). The excerpt must still appear on disk as unplaced.
+    """
     additions = PlacementAdditions(
         lifecycle_stage=LifecycleStage.UNPLACED,
         placement_route=PlacementRoute.UNPLACED,
@@ -347,6 +362,7 @@ def _reroute_to_unplaced(
         placed_utc=now_utc,
         taxonomy_version_at_placement=tree.tree_version,
     )
+    write_unplaced_excerpt(excerpt, additions, science_id, base_path)
     return {**excerpt, **additions.model_dump(mode="json")}
 
 

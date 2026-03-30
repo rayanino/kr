@@ -196,8 +196,10 @@ class TestInputValidation:
             base_path=tmp_path,
         )
 
-        # Good excerpt processed (unplaced due to stub), bad excerpt skipped
-        assert report.total_excerpts == 1
+        # Good excerpt processed (unplaced due to stub), bad excerpt rejected
+        # total_excerpts includes rejected (H-2 fix: true input count)
+        assert report.total_excerpts == 2
+        assert report.unplaced_count == 1
 
     def test_empty_excerpt_topic_skips(self, tmp_path: Path) -> None:
         exc = make_excerpt(excerpt_topic=[])
@@ -216,7 +218,7 @@ class TestInputValidation:
             base_path=tmp_path,
         )
 
-        assert report.total_excerpts == 0  # Rejected
+        assert report.total_excerpts == 1  # Rejected but still counted as input
 
     def test_empty_jsonl_produces_empty_report(self, tmp_path: Path) -> None:
         jsonl = tmp_path / "empty.jsonl"

@@ -54,7 +54,8 @@ def write_placed_excerpt(
 
     Precondition: additions.confirmed_leaf is non-None (caller validates).
     """
-    assert additions.confirmed_leaf is not None, "confirmed_leaf required for placed excerpt"
+    if additions.confirmed_leaf is None:
+        raise ValueError("confirmed_leaf required for placed/staged excerpt")
     excerpt_id = excerpt["excerpt_id"]
     output_path = (
         base_path / science_id / "content" / additions.confirmed_leaf / "excerpts" / f"{excerpt_id}.json"
