@@ -179,6 +179,16 @@ def run_batch(
             }
             continue
 
+        # Resume support: skip packages that already completed
+        done_marker = pkg_output / "processing_log.jsonl"
+        if done_marker.exists():
+            prev = read_package_results(pkg_output)
+            print(f"  SKIPPING — already completed "
+                  f"({prev['excerpt_count']} excerpts, "
+                  f"{prev['error_count']} errors)")
+            results[name] = prev
+            continue
+
         cmd = [
             sys.executable,
             str(RUNNER_SCRIPT),

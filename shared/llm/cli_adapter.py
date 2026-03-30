@@ -15,7 +15,6 @@ import os
 import re
 import shutil
 import subprocess
-import tempfile
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -164,7 +163,7 @@ def patch_additional_properties(schema: dict[str, Any]) -> dict[str, Any]:
     if isinstance(schema, dict):
         if schema.get("type") == "object" or "properties" in schema:
             schema["additionalProperties"] = False
-        for key, value in schema.items():
+        for _, value in schema.items():
             if isinstance(value, dict):
                 patch_additional_properties(value)
             elif isinstance(value, list):
@@ -392,7 +391,6 @@ class _CompletionsNamespace:
         # OAuth token (for claude backend, loaded lazily)
         oauth_token: str | None = None
 
-        last_error: Exception | None = None
         last_raw: str = ""
 
         for attempt in range(max_retries + 1):
@@ -447,7 +445,6 @@ class _CompletionsNamespace:
                 return result
 
             except json.JSONDecodeError as e:
-                last_error = e
                 last_raw = raw_output
                 logger.warning(
                     "Attempt %d/%d: JSON parse error: %s",
@@ -474,7 +471,6 @@ class _CompletionsNamespace:
                     ) from e
 
             except ValidationError as e:
-                last_error = e
                 last_raw = raw_output
                 logger.warning(
                     "Attempt %d/%d: validation error: %s",
@@ -503,7 +499,6 @@ class _CompletionsNamespace:
                     raise
 
             except subprocess.TimeoutExpired as e:
-                last_error = e
                 logger.warning(
                     "Attempt %d/%d: subprocess timeout",
                     attempt + 1,
@@ -520,7 +515,6 @@ class _CompletionsNamespace:
                     ) from e
 
             except subprocess.CalledProcessError as e:
-                last_error = e
                 logger.warning(
                     "Attempt %d/%d: subprocess error (exit %d)",
                     attempt + 1,
@@ -545,7 +539,6 @@ class _CompletionsNamespace:
                     ) from e
 
             except CLIBackendError as e:
-                last_error = e
                 logger.warning(
                     "Attempt %d/%d: CLI backend error: %s",
                     attempt + 1,
@@ -630,7 +623,6 @@ class _CompletionsNamespace:
         ]
 
         logger.info("Claude CLI: model=%s", model)
-        logger.debug("Command: claude -p - --bare ... --model opus")
 
         env = {**os.environ, "ANTHROPIC_API_KEY": oauth_token}
         result = subprocess.run(
@@ -661,61 +653,38 @@ class _CompletionsNamespace:
         response_model: type[BaseModel],
         timeout_seconds: int,
     ) -> str:
-        """Invoke codex CLI (SPEC §3.3)."""
-        patched_schema = patch_additional_properties(
-            response_model.model_json_schema()
-        )
+        """Invoke codex CLI (SPEC §3.3).
 
+        Schema is embedded in the prompt (same as Claude/Gemini) rather than
+        using --output-schema, which triggers a fatal MCP transport error
+        on Windows when Codex has third-party MCP servers configured.
+        """
         combined_prompt = (
             f"SYSTEM INSTRUCTIONS:\n{system_prompt}\n\n"
             f"USER INPUT:\n{user_prompt}"
         )
 
-        schema_file = None
-        output_file = None
-        try:
-            schema_file = tempfile.NamedTemporaryFile(
-                mode="w", suffix=".json", delete=False
-            )
-            json.dump(patched_schema, schema_file, indent=2)
-            schema_file.close()
+        codex_bin = shutil.which("codex") or "codex"
+        cmd = [
+            codex_bin,
+            "exec", "-",
+            "-s", "read-only",
+        ]
 
-            output_file = tempfile.NamedTemporaryFile(
-                mode="w", suffix=".json", delete=False
-            )
-            output_file.close()
+        logger.info("Codex CLI: prompt via stdin")
 
-            cmd = [
-                "codex",
-                "exec", combined_prompt,
-                "--output-schema", schema_file.name,
-                "-s", "read-only",
-                "-o", output_file.name,
-            ]
+        result = subprocess.run(
+            cmd,
+            input=combined_prompt,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=timeout_seconds,
+            check=True,
+        )
 
-            logger.info("Codex CLI: schema=%s", schema_file.name)
-
-            subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                encoding="utf-8",
-                timeout=timeout_seconds,
-                check=True,
-            )
-
-            return Path(output_file.name).read_text(encoding="utf-8")
-        finally:
-            if schema_file is not None:
-                try:
-                    os.unlink(schema_file.name)
-                except OSError:
-                    pass
-            if output_file is not None:
-                try:
-                    os.unlink(output_file.name)
-                except OSError:
-                    pass
+        logger.debug("Codex raw stdout: %s", result.stdout[:200])
+        return result.stdout
 
     def _invoke_gemini(
         self,
@@ -730,9 +699,10 @@ class _CompletionsNamespace:
             f"USER INPUT:\n{user_prompt}"
         )
 
+        gemini_bin = shutil.which("gemini") or "gemini"
         cmd = [
-            "gemini",
-            "-p", combined_prompt,
+            gemini_bin,
+            "-p", "",
             "-y",
             "--output-format", "text",
         ]
@@ -741,6 +711,7 @@ class _CompletionsNamespace:
 
         result = subprocess.run(
             cmd,
+            input=combined_prompt,
             capture_output=True,
             text=True,
             encoding="utf-8",

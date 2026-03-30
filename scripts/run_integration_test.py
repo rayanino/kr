@@ -174,7 +174,11 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
         entry: dict[str, Any] = {
             "call_id": call_id,
             "error_type": type(error).__name__,
-            "error": str(error)[:500],
+            "error": str(error)[:2000],
+            "stderr": str(getattr(error, "stderr", None) or ""),
+            "exit_code": getattr(
+                error, "returncode", getattr(error, "exit_code", None)
+            ),
         }
         path = resp_dir / f"{call_id}_error.json"
         path.write_text(
@@ -526,6 +530,18 @@ def run_pipeline(
         config = config.model_copy(
             update={"ESCALATION_MODEL": "google/gemini-2.5-pro"}
         )
+
+    # ── Environment variable model overrides (for comparison tests) ──
+    model_override = os.environ.get("KR_PRIMARY_MODEL")
+    if model_override:
+        config = config.model_copy(
+            update={
+                "CLASSIFY_MODEL": model_override,
+                "GROUP_MODEL": model_override,
+                "ENRICH_MODEL": model_override,
+            }
+        )
+        logger.info("Model override via KR_PRIMARY_MODEL: %s", model_override)
 
     # ── Create clients ────────────────────────────────────────────
     trace_contexts: dict[str, dict[str, Any]] = {}

@@ -345,6 +345,7 @@ def classify_chunk(
         temperature=config.LLM_TEMPERATURE,
         max_tokens=_compute_classify_max_tokens(chunk.word_count),
         max_retries=0,
+        timeout=config.TIMEOUT_SECONDS,
         response_model=ClassificationResult,
         messages=[
             {"role": "system", "content": system_prompt},

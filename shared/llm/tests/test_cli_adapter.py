@@ -10,7 +10,7 @@ import os
 import subprocess
 from pathlib import Path
 from typing import Any
-from unittest.mock import MagicMock, call, patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 from pydantic import BaseModel, Field, model_validator
@@ -19,8 +19,6 @@ from shared.llm.cli_adapter import (
     CLIBackendError,
     CLIInstructorAdapter,
     CLIResponse,
-    _CLIUsage,
-    _SETUP_TOKEN_PATH,
     _extract_claude_result,
     _get_oauth_token,
     extract_json,
@@ -79,7 +77,9 @@ def mock_oauth() -> Any:
 
 @pytest.fixture()
 def mock_which() -> Any:
-    with patch("shared.llm.cli_adapter.shutil.which", return_value="/usr/bin/claude") as m:
+    def _which(tool: str) -> str:
+        return {"claude": "/usr/bin/claude", "codex": "/usr/bin/codex", "gemini": "/usr/bin/gemini"}.get(tool, f"/usr/bin/{tool}")
+    with patch("shared.llm.cli_adapter.shutil.which", side_effect=_which) as m:
         yield m
 
 
@@ -137,16 +137,14 @@ def test_provider_routing_openai(
     mock_which: Any,
 ) -> None:
     """Model openai/gpt-5.4 routes to codex backend."""
-    mock_run.return_value = _make_completed_process(stdout="")
-    # Codex reads from output file — mock Path.read_text
-    with patch.object(Path, "read_text", return_value=valid_json):
-        adapter.chat.completions.create(
-            model="openai/gpt-5.4",
-            response_model=SimpleResponse,
-            messages=MESSAGES,
-        )
+    mock_run.return_value = _make_completed_process(stdout=valid_json)
+    adapter.chat.completions.create(
+        model="openai/gpt-5.4",
+        response_model=SimpleResponse,
+        messages=MESSAGES,
+    )
     cmd = mock_run.call_args[0][0]
-    assert cmd[0] == "codex"
+    assert cmd[0] == "/usr/bin/codex"
 
 
 @patch("shared.llm.cli_adapter.subprocess.run")
@@ -162,7 +160,7 @@ def test_provider_routing_google(
         messages=MESSAGES,
     )
     cmd = mock_run.call_args[0][0]
-    assert cmd[0] == "gemini"
+    assert cmd[0] == "/usr/bin/gemini"
 
 
 @patch("shared.llm.cli_adapter.subprocess.run")
@@ -255,18 +253,16 @@ def test_schema_in_prompt_gemini(
     mock_run: MagicMock, adapter: CLIInstructorAdapter, valid_json: str,
     mock_which: Any,
 ) -> None:
-    """Verify JSON schema appears in gemini prompt."""
+    """Verify JSON schema appears in gemini stdin input."""
     mock_run.return_value = _make_completed_process(stdout=valid_json)
     adapter.chat.completions.create(
         model="google/gemini-2.5-pro",
         response_model=SimpleResponse,
         messages=MESSAGES,
     )
-    cmd = mock_run.call_args[0][0]
-    # Gemini combined prompt is at index 2 (after "gemini" "-p")
-    prompt = cmd[2]
-    assert "JSON SCHEMA:" in prompt
-    assert '"confidence"' in prompt
+    stdin_input = mock_run.call_args.kwargs.get("input", "")
+    assert "JSON SCHEMA:" in stdin_input
+    assert '"confidence"' in stdin_input
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -275,27 +271,24 @@ def test_schema_in_prompt_gemini(
 
 
 @patch("shared.llm.cli_adapter.subprocess.run")
-def test_codex_schema_file_created(
+def test_codex_schema_in_stdin(
     mock_run: MagicMock, adapter: CLIInstructorAdapter, valid_json: str,
     mock_which: Any,
 ) -> None:
-    """Verify schema temp file is created and --output-schema is in command."""
-    mock_run.return_value = _make_completed_process(stdout="")
+    """Verify schema is embedded in stdin prompt (not --output-schema flag)."""
+    mock_run.return_value = _make_completed_process(stdout=valid_json)
 
-    # Mock Path.read_text to return valid JSON for the codex output file
-    with patch.object(Path, "read_text", return_value=valid_json):
-        adapter.chat.completions.create(
-            model="openai/gpt-5.4",
-            response_model=SimpleResponse,
-            messages=MESSAGES,
-        )
+    adapter.chat.completions.create(
+        model="openai/gpt-5.4",
+        response_model=SimpleResponse,
+        messages=MESSAGES,
+    )
 
+    stdin_input = mock_run.call_args.kwargs.get("input", "")
+    assert "JSON SCHEMA:" in stdin_input
+    assert '"confidence"' in stdin_input
     cmd = mock_run.call_args[0][0]
-    assert "--output-schema" in cmd
-    # Verify the schema file path is a .json temp file
-    schema_idx = cmd.index("--output-schema")
-    schema_path = cmd[schema_idx + 1]
-    assert schema_path.endswith(".json")
+    assert "--output-schema" not in cmd
 
 
 def test_codex_schema_patching_recursive() -> None:
