@@ -39,7 +39,7 @@ Read `engines/taxonomy/CLAUDE.md` for build constraints (Arabic text handling, D
 Functions:
 - `detect_yaml_format(data: dict) -> str` — returns `"v0"` or `"v1"`. Rule: if top-level key is `"taxonomy"` with a `"nodes"` array, it's v1; else v0.
 - `_normalize_v0(data: dict) -> tuple[str, list[TreeNode]]` — parses aqidah-style nested dict. The top-level key (e.g., `aqidah`) is an envelope — NOT included in paths. `_label` → title, `_leaf: true` → leaf. Keys starting with `_` (except `_label`, `_leaf`) are metadata. Keys starting with `__` (e.g., `__overview`) ARE child nodes.
-- `_normalize_v1(data: dict) -> tuple[str, list[TreeNode]]` — parses nahw/sarf/balagha/imlaa style.
+- `_normalize_v1(data: dict) -> tuple[str, list[TreeNode]]` — parses nahw/sarf/balagha/imlaa style. Key mapping: YAML `leaf: true` → TreeNode `is_leaf=True`. **Non-leaf nodes omit the `leaf` field entirely** — use `node.get("leaf", False)`. YAML `id` → TreeNode `id`. YAML `title` → TreeNode `title`.
 - `load_tree(science_id: str, registry_path: Path, override_path: Path | None = None) -> LoadedTree` — reads registry, finds active tree, loads YAML, normalizes, collects leaves, builds `leaf_by_path`, asserts leaf path uniqueness.
 - `build_branch_view(tree: LoadedTree) -> str` — formatted branch-level text for Stage 1 LLM prompt (used in Session 2).
 - `build_leaf_view(leaves: list[TreeNode]) -> str` — formatted leaf list for Stage 2 LLM prompt (used in Session 2).
@@ -85,7 +85,8 @@ Functions:
   - `STAGED_LOW_CONFIDENCE` or `STAGED_FRONT_MATTER` → `{base_path}/staged/{leaf_path}/excerpts/{excerpt_id}.json`
   - `UNPLACED` → `{base_path}/unplaced/{excerpt_id}.json`
   - `PENDING_NO_TREE` → `{base_path}/pending_no_tree/{science_id}/{excerpt_id}.json`
-- Creates parent directories as needed. All files: `encoding="utf-8"`, `ensure_ascii=False`, `indent=2`.
+- `leaf_path` contains `/` separators (e.g., `almajrurat/huruf_aljar/ma3ani_huruf_aljar`) — these become nested directories. Use `Path(base_path) / "content" / leaf_path / "excerpts" / f"{excerpt_id}.json"` for correct cross-platform path construction.
+- Creates parent directories as needed (`parents=True, exist_ok=True`). All files: `encoding="utf-8"`, `ensure_ascii=False`, `indent=2`.
 - Returns the path of the written file.
 
 **Collision policy:** additions overwrite any pre-existing keys in the excerpt dict (SPEC §3.6).
@@ -127,7 +128,7 @@ Functions:
   7. Validates via validator
   8. Computes batch report via diagnostics
 
-The `place_excerpt()` stub in Session 1 accepts a mock placement result for testing.
+The `place_excerpt()` stub in Session 1 accepts a mock placement result for testing. Interface: `place_excerpt(excerpt: dict, tree: LoadedTree, placer=None) -> dict` where the return dict has `{"leaf_path": str, "score": float, "second_score": float|None, "reasoning": str, "primary_topic_used": str}`. In Session 1, `placer` is a callable mock that returns this dict. In Session 2, `placer` calls the real LLM via CLI adapter.
 
 ### Tests: `engines/taxonomy/tests/`
 
@@ -142,6 +143,8 @@ Create these test files:
 - v0 `__overview` nodes parsed as leaves (not skipped)
 - v0 root key excluded from paths (path starts at children of root)
 - Leaf path uniqueness enforced across all 5 trees
+- Spot-check known paths exist: `leaf_by_path["almajrurat/huruf_aljar/ma3ani_huruf_aljar"]` in nahw, `leaf_by_path["al_iman_billah/asma_wa_sifat/sifat_dhatiyyah/__overview"]` in aqidah
+- Registry relpath resolution: `taxonomy_registry.yaml` stores relpaths relative to `library/sciences/` (e.g., `nahw/tree.yaml` → `library/sciences/nahw/tree.yaml`)
 - Invalid YAML raises TAX_TREE_LOAD_ERROR
 - `leaf_by_path` lookup works for spot-checked leaves
 - `build_branch_view` and `build_leaf_view` produce non-empty strings
@@ -224,6 +227,7 @@ Create these test files:
 - Do NOT modify any files in `library/sciences/` or `shared/llm/`
 - Do NOT implement anything beyond what is specified here
 - Do NOT rename or restructure the existing `contracts_core.py` (use it as-is)
+- Do NOT import from `engines/taxonomy/contracts.py` — that is the old overscoped file (491 lines). Use ONLY `contracts_core.py` for all models and types.
 - After completing, commit, push, and STOP. Do NOT proceed to Session 2.
 
 ## Verification (Definition of Done)
