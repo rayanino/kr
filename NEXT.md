@@ -1,127 +1,84 @@
-# NEXT — Taxonomy Engine: Session 2 — LLM Placement Integration
+# NEXT — Taxonomy Session 1 Review Fixes (F-1, F-3, F-4, F-6)
 
 ## Context
 
-Session 1 (commit `25368b28`) built the complete deterministic infrastructure:
-- 6 source modules: tree_loader, placer, validator, writer, diagnostics, engine
-- 119 tests, 0 failures, pyright clean
-- All 5 science trees load correctly (922 leaves total)
-- Two independent code reviews caught and fixed 3 bugs (silent data loss,
-  reasoning mismatch, input undercounting)
+Session 1 review (checklist: `reference/archive/sessions/reviews/review_taxonomy_session1.md`) found 4 issues. This directive fixes all 4.
+Session 2 NEXT.md preserved at: `reference/archive/NEXT_taxonomy_session2_deferred.md`
 
-The deterministic layer is proven. This session adds the LLM brain.
+**Read first:**
+1. `engines/taxonomy/SPEC.md` §2.1 (expected fields), §4.A.3 (type classification)
+2. `engines/taxonomy/src/placer.py` lines 76-102 (`classify_excerpt_type`)
+3. `engines/taxonomy/src/engine.py` lines 46-54 (`_EXPECTED_FIELDS`)
+4. `engines/taxonomy/src/diagnostics.py` lines 136-152 (`compute_editorial_placement_rate`)
+5. `engines/excerpting/contracts.py` — search for `class ScholarlyFunction` to see all valid enum values
 
-## What Session 2 Must Do
+## Fix 1: F-6 (CRITICAL) — classify_excerpt_type must default unknown to EDITORIAL
 
-### Step 1: Implement `LLMPlacementAdapter`
+**File:** `engines/taxonomy/src/placer.py`
 
-Create `engines/taxonomy/src/llm_adapter.py` implementing the `PlacementAdapter` Protocol
-from `engines/taxonomy/src/placer.py`.
+**Problem:** Unrecognized `primary_function` values (like `"unclassified"` from excerpting's `ScholarlyFunction.UNCLASSIFIED`) are classified as TEACHING (threshold 0.80). SPEC §4.A.3 says "not recognized" → EDITORIAL (threshold 0.85).
 
-**Two methods to implement:**
+**Fix:** Add an explicit `_TEACHING_FUNCTIONS` frozenset with all known teaching values from the excerpting engine's `ScholarlyFunction` enum. Change `classify_excerpt_type` so anything not in any known set defaults to EDITORIAL with a warning log.
 
-```python
-class LLMPlacementAdapter:
-    def __init__(self, adapter: CLIInstructorAdapter) -> None: ...
-    def run_stage1(self, excerpt: dict, tree: LoadedTree) -> BranchSelection: ...
-    def run_stage2(self, excerpt: dict, candidates: list[TreeNode]) -> PlacementRanking: ...
-```
+The known teaching functions are: `definition`, `rule_statement`, `evidence_quran`, `evidence_hadith`, `evidence_ijma`, `evidence_qiyas`, `evidence_rational`, `opinion_statement`, `refutation`, `example`, `condition_exception`, `narration`.
 
-**LLM call pattern** (from `shared/llm/cli_adapter.py`):
-```python
-from shared.llm.cli_adapter import CLIInstructorAdapter
+Add a `logger.warning` when the unknown-default path is hit so we can detect new function values.
 
-adapter = CLIInstructorAdapter()
-result = adapter.chat.completions.create(
-    model="anthropic/claude-opus-4",
-    response_model=BranchSelection,  # or PlacementRanking
-    messages=[{"role": "user", "content": prompt}],
-)
-```
+**New tests** in `test_routing.py::TestClassifyExcerptType`:
+- `"unclassified"` → EDITORIAL
+- `"some_future_unknown_type"` → EDITORIAL
+- Every value in `_TEACHING_FUNCTIONS` → TEACHING (parametrized or loop)
 
-**Configuration** (SPEC §7.1):
-- Model: `anthropic/claude-opus-4`
-- Timeout: 600s
-- Retries: 2 (3 total attempts)
+## Fix 2: F-1 — _EXPECTED_FIELDS must include all 8 SPEC fields
 
-### Step 2: Build Stage 1 Prompt (Branch Selection)
+**File:** `engines/taxonomy/src/engine.py`
 
-For trees > 200 leaves (nahw, sarf, balagha). Shows:
-- Excerpt topic and description (Arabic)
-- Tree branch structure (from `build_branch_view()` in tree_loader.py)
+**Problem:** `_EXPECTED_FIELDS` has 4 of 8 SPEC §2.1 expected fields. Missing: `terminology_variants`, `primary_author_layer`, `quoted_scholars`, `school`.
 
-Instructs LLM: "Select the 1-3 most likely branches. Set no_match=True if none fit."
+**Fix:** Add the 4 missing fields. Also change the warning check from `excerpt.get(field) is None` to `field not in excerpt` — this prevents false warnings on nullable fields like `school: null` which are present but legitimately null.
 
-**Key Arabic prompt rules** (from `.claude/rules/llm-call-optimization.md`):
-- Include Arabic text directly, never transliteration
-- Include domain terms in Arabic alongside English
-- Temperature = 0 (classification task)
-- Few-shot examples from real fixtures preferred
+**New tests** in `test_engine.py::TestInputValidation`:
+- Missing expected field still proceeds (not rejected)
+- `school=None` with key present does NOT trigger warning
 
-### Step 3: Build Stage 2 Prompt (Leaf Ranking)
+## Fix 3: F-4 — compute_editorial_placement_rate must use classify_excerpt_type
 
-For all candidate leaves. Shows:
-- `excerpt_topic` (all topics joined by ` / `)
-- `description_arabic`
-- `primary_text` (full if < 3000 chars; first 3000 if longer)
-- `primary_function`, `content_types`, `div_path`
-- For each candidate: `leaf_path`, `leaf_title`, `parent_title`
+**File:** `engines/taxonomy/src/diagnostics.py`
 
-Instructs LLM:
-1. Score each candidate 0.0–1.0 on fit
-2. Prefer specific leaves over broad ones
-3. Score LOW for introductions/editorial that don't teach specific topic
-4. Identify primary topic for placement
+**Problem:** Only counts `primary_function == "editorial_note"`. Misses null/missing/unknown values that are routed as editorial by `classify_excerpt_type`.
 
-### Step 4: Gold Baseline Test
+**Fix:** Import `classify_excerpt_type` from `placer.py` and `ExcerptType` from contracts. Use `classify_excerpt_type(r) == ExcerptType.EDITORIAL` instead of string comparison.
 
-Test file: `engines/taxonomy/tests/test_llm_inference.py` (separate from deterministic tests)
+**New/updated test** in `test_diagnostics.py::TestEditorialPlacementRate`:
+- Null `primary_function` counted as editorial in rate calculation
 
-Use the 12 gold baseline excerpts from `engines/taxonomy/tests/fixtures/gold_baseline_nahw.yaml`:
-- Load real excerpts from `integration_tests/smoke_fix_20260329/ibn_aqil_v3/excerpts.jsonl`
-- Run LLM placement against the nahw tree
-- Compare results to gold assignments
-- Targets: ≥80% exact-leaf match, ≥95% correct-branch match
+## Fix 4: F-3 — Create test_real_data.py
 
-Mark with `@pytest.mark.skipif` for offline runs (needs LLM API).
+**File:** `engines/taxonomy/tests/test_real_data.py` (CREATE)
 
-### Step 5: Pilot Run (5 excerpts)
+Use the existing `real_excerpts` fixture from `conftest.py` (currently orphaned — defined but never used).
 
-Run the full engine pipeline on 5 real excerpts from ibn_aqil_v3:
-```bash
-PYTHONPATH=. python -c "
-from engines.taxonomy.src.engine import run
-from engines.taxonomy.contracts_core import RunConfig
-# ... create config, run, inspect report
-"
-```
+Tests to include:
+- All excerpts have the 4 required fields
+- `excerpt_topic` is a non-empty list in all excerpts
+- No crash when running `classify_excerpt_type` on real data shapes
+- `primary_text` contains Arabic characters (sanity check)
+- Use `pytest.skip` if excerpts file not available
 
-Verify: placements make sense, reasoning is coherent, confidence distribution reasonable.
+## Verification (Definition of Done)
 
-## Key Files
-
-| File | Purpose | Action |
-|------|---------|--------|
-| `engines/taxonomy/src/placer.py` | PlacementAdapter Protocol | READ (don't modify) |
-| `engines/taxonomy/src/llm_adapter.py` | LLM adapter implementation | CREATE |
-| `engines/taxonomy/src/tree_loader.py` | `build_branch_view`, `build_leaf_view` | READ (use for prompts) |
-| `engines/taxonomy/contracts_core.py` | BranchSelection, PlacementRanking | READ |
-| `engines/taxonomy/SPEC.md` §4.A.2 | Prompt requirements | READ (authoritative) |
-| `engines/taxonomy/tests/fixtures/gold_baseline_nahw.yaml` | 12 gold placements | READ |
-| `shared/llm/cli_adapter.py` | CLIInstructorAdapter | READ (don't modify) |
-| `integration_tests/smoke_fix_20260329/ibn_aqil_v3/excerpts.jsonl` | Real excerpts | READ |
-| `.claude/rules/llm-call-optimization.md` | Arabic prompt rules | READ |
+- [ ] `classify_excerpt_type({"primary_function": "unclassified"})` returns `ExcerptType.EDITORIAL`
+- [ ] `classify_excerpt_type({"primary_function": "rule_statement"})` returns `ExcerptType.TEACHING`
+- [ ] `_EXPECTED_FIELDS` has exactly 8 entries
+- [ ] Excerpt with `school=None` (key present) does NOT trigger expected-field warning
+- [ ] `compute_editorial_placement_rate` counts null primary_function as editorial
+- [ ] `test_real_data.py` exists and all tests pass
+- [ ] All tests pass: `PYTHONPATH=. python -m pytest engines/taxonomy/tests/ -q --tb=short`
+- [ ] Test count: ≥ 125 (was 119, expect ~6-8 new tests)
 
 ## Do NOT Do
 
-- Do NOT modify the deterministic modules (tree_loader, validator, writer, diagnostics)
-- Do NOT modify contracts_core.py (the models are finalized)
-- Do NOT add multi-model consensus (v1 uses single-model placement, D-041 is Stage 2)
-- Do NOT implement tree evolution, coverage, or cross-science features
-- Do NOT skip the gold baseline test — it validates the entire placement chain
-- Do NOT use temperature > 0 for classification (see llm-call-optimization rules)
-
-## Budget
-
-LLM calls for testing: estimate ~12 gold baseline calls + 5 pilot calls = ~17 calls.
-At ~$0.10/call with Opus, budget ~$2 for this session.
+- Do NOT modify `tree_loader.py`, `writer.py`, or `validator.py`
+- Do NOT modify `contracts_core.py`
+- Do NOT implement anything beyond the 4 fixes specified above
+- After completing the fixes, commit and push. Do NOT proceed to Session 2.
