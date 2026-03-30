@@ -49,16 +49,23 @@ No tree evolution. No coverage analytics. No cross-science links.
 - Always-staged (structural_transition, cross_reference): NEVER live — ≥0.50 → staged, <0.50 → unplaced
 - Missing/null/unknown primary_function → treated as editorial (safe default)
 
+## Session Status
+- **Session 1 DONE** (commit `25368b28`): Deterministic infrastructure — 119 tests, pyright clean
+- **Session 2**: LLM adapter + prompt construction + gold baseline test
+
 ## Key Files
 | File | Purpose |
 |------|---------|
 | `engines/taxonomy/SPEC.md` | Core v1 specification (authoritative) |
 | `engines/taxonomy/contracts_core.py` | Pydantic models and dataclasses |
 | `engines/taxonomy/docs/architecture.md` | Module structure |
+| `engines/taxonomy/src/placer.py` | PlacementAdapter Protocol (Session 2 implements this) |
+| `engines/taxonomy/src/tree_loader.py` | build_branch_view, build_leaf_view (use in prompts) |
 | `shared/llm/cli_adapter.py` | LLM interface (do not modify) |
 | `library/sciences/*/tree.yaml` | Science trees (do not modify) |
 | `library/sciences/taxonomy_registry.yaml` | Active tree versions |
 | `integration_tests/smoke_fix_20260329/*/excerpts.jsonl` | Real excerpt data for testing |
+| `engines/taxonomy/tests/fixtures/gold_baseline_nahw.yaml` | 12 gold placements for accuracy test |
 
 ## Testing
 - Deterministic tests: routing, validation, provenance, tree loading, input validation

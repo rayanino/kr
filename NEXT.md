@@ -1,86 +1,127 @@
-# NEXT — Taxonomy Engine: Core SPEC Rewrite + Build Prep
+# NEXT — Taxonomy Engine: Session 2 — LLM Placement Integration
 
 ## Context
 
-The excerpting engine is running. CC is completing model comparison (codex vs claude)
-and will execute the 5-book integration run. That work is independent — results will be
-evaluated in a future session (estimated 2-3 days from now).
+Session 1 (commit `25368b28`) built the complete deterministic infrastructure:
+- 6 source modules: tree_loader, placer, validator, writer, diagnostics, engine
+- 119 tests, 0 failures, pyright clean
+- All 5 science trees load correctly (922 leaves total)
+- Two independent code reviews caught and fixed 3 bugs (silent data loss,
+  reasoning mismatch, input undercounting)
 
-**This session starts the taxonomy engine** — the last piece before v1 E2E pipeline.
+The deterministic layer is proven. This session adds the LLM brain.
 
-## What the Taxonomy Engine Does (v1)
+## What Session 2 Must Do
 
-Takes excerpts from the excerpting engine and places each one at the correct leaf
-in the existing science trees. Five sciences exist with 922 total leaves:
-- nahw (226 leaves), sarf (226), balagha (335), aqidah (30), imlaa (105)
+### Step 1: Implement `LLMPlacementAdapter`
 
-After taxonomy, excerpts are browsable by science and topic. That's the v1 milestone.
+Create `engines/taxonomy/src/llm_adapter.py` implementing the `PlacementAdapter` Protocol
+from `engines/taxonomy/src/placer.py`.
 
-## What's Already Done
+**Two methods to implement:**
 
-1. **Full SPEC exists:** `engines/taxonomy/SPEC.md` (945 lines, very ambitious)
-2. **Core extraction (Part 1) done:** `engines/taxonomy/CORE_EXTRACTION.md`
-   - 24 core / 42 deferred capabilities classified
-   - Critical contract gap identified (5 fields taxonomy expects but excerpting doesn't produce)
-   - Three uncertain classification calls documented
-3. **Science trees exist:** `library/sciences/{science_id}/tree.yaml`
-4. **Contracts exist:** `engines/taxonomy/contracts.py` (491 lines, needs trimming to match core)
-5. **Reference taxonomy:** `engines/taxonomy/reference/ABD_TAXONOMY_SPEC.md`
+```python
+class LLMPlacementAdapter:
+    def __init__(self, adapter: CLIInstructorAdapter) -> None: ...
+    def run_stage1(self, excerpt: dict, tree: LoadedTree) -> BranchSelection: ...
+    def run_stage2(self, excerpt: dict, candidates: list[TreeNode]) -> PlacementRanking: ...
+```
 
-## What This Session Must Do
+**LLM call pattern** (from `shared/llm/cli_adapter.py`):
+```python
+from shared.llm.cli_adapter import CLIInstructorAdapter
 
-### Phase 1: Review + Approve Core Extraction
-- Read `engines/taxonomy/CORE_EXTRACTION.md`
-- Resolve the 3 uncertain items and the contract gap decision
-- ChatGPT Pro MUST review the classification (deep research prompt below)
+adapter = CLIInstructorAdapter()
+result = adapter.chat.completions.create(
+    model="anthropic/claude-opus-4",
+    response_model=BranchSelection,  # or PlacementRanking
+    messages=[{"role": "user", "content": prompt}],
+)
+```
 
-### Phase 2: Core SPEC Rewrite
-- Rewrite `engines/taxonomy/SPEC.md` to core-only v1
-- Replace deferred sections with `[DEFERRED TO STAGE 2]` stubs
-- Fix the input contract to match actual excerpting output
-- ChatGPT Pro reviews the rewritten SPEC
+**Configuration** (SPEC §7.1):
+- Model: `anthropic/claude-opus-4`
+- Timeout: 600s
+- Retries: 2 (3 total attempts)
 
-### Phase 3: Build Prep
-- Use `kr-build-prep` skill
-- Trim contracts.py to core-only models
-- Produce CLAUDE.md, stubs, test plan for CC
-- ChatGPT Pro reviews build prep before CC handoff
+### Step 2: Build Stage 1 Prompt (Branch Selection)
 
-## Governance: ChatGPT Pro at Every Decision Point
+For trees > 200 leaves (nahw, sarf, balagha). Shows:
+- Excerpt topic and description (Arabic)
+- Tree branch structure (from `build_branch_view()` in tree_loader.py)
 
-ChatGPT Pro (deep research mode) MUST be consulted at every major decision.
-The architect prepares targeted prompts. The owner fires them. ChatGPT catches
-what the architect missed. This is the same governance model from the excerpting
-engine (Session 28 proof: ChatGPT + fresh Claude caught bugs the architect missed).
+Instructs LLM: "Select the 1-3 most likely branches. Set no_match=True if none fit."
 
-Minimum ChatGPT checkpoints this session:
-1. Core extraction review (is the core/deferred split right?)
-2. Contract gap resolution (how to handle missing fields?)
-3. Core SPEC review (before declaring implementation-ready)
-4. Build prep review (before CC handoff)
+**Key Arabic prompt rules** (from `.claude/rules/llm-call-optimization.md`):
+- Include Arabic text directly, never transliteration
+- Include domain terms in Arabic alongside English
+- Temperature = 0 (classification task)
+- Few-shot examples from real fixtures preferred
+
+### Step 3: Build Stage 2 Prompt (Leaf Ranking)
+
+For all candidate leaves. Shows:
+- `excerpt_topic` (all topics joined by ` / `)
+- `description_arabic`
+- `primary_text` (full if < 3000 chars; first 3000 if longer)
+- `primary_function`, `content_types`, `div_path`
+- For each candidate: `leaf_path`, `leaf_title`, `parent_title`
+
+Instructs LLM:
+1. Score each candidate 0.0–1.0 on fit
+2. Prefer specific leaves over broad ones
+3. Score LOW for introductions/editorial that don't teach specific topic
+4. Identify primary topic for placement
+
+### Step 4: Gold Baseline Test
+
+Test file: `engines/taxonomy/tests/test_llm_inference.py` (separate from deterministic tests)
+
+Use the 12 gold baseline excerpts from `engines/taxonomy/tests/fixtures/gold_baseline_nahw.yaml`:
+- Load real excerpts from `integration_tests/smoke_fix_20260329/ibn_aqil_v3/excerpts.jsonl`
+- Run LLM placement against the nahw tree
+- Compare results to gold assignments
+- Targets: ≥80% exact-leaf match, ≥95% correct-branch match
+
+Mark with `@pytest.mark.skipif` for offline runs (needs LLM API).
+
+### Step 5: Pilot Run (5 excerpts)
+
+Run the full engine pipeline on 5 real excerpts from ibn_aqil_v3:
+```bash
+PYTHONPATH=. python -c "
+from engines.taxonomy.src.engine import run
+from engines.taxonomy.contracts_core import RunConfig
+# ... create config, run, inspect report
+"
+```
+
+Verify: placements make sense, reasoning is coherent, confidence distribution reasonable.
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `engines/taxonomy/SPEC.md` | Full SPEC (to be rewritten as core-only) |
-| `engines/taxonomy/CORE_EXTRACTION.md` | Classification table (Part 1 done) |
-| `engines/taxonomy/contracts.py` | Pydantic models (needs core trimming) |
-| `engines/taxonomy/reference/ABD_TAXONOMY_SPEC.md` | Domain reference |
-| `library/sciences/*/tree.yaml` | Existing science trees (922 leaves) |
-| `integration_tests/smoke_fix_20260329/*/excerpts.jsonl` | Real excerpts (actual format) |
-| `reference/GOVERNANCE.md` | Review team rules |
-
-## Parked Work (Do Not Touch)
-
-- **Excerpting engine evaluation:** CC is running model comparison + 5-book run.
-  Results will be evaluated in a separate session ~2-3 days from now.
-- **Synthesis engine:** Explicitly out of scope. Not thinking about it.
-- **Factory infrastructure:** D-H001-H011 all finalized, deployed after engines complete.
+| File | Purpose | Action |
+|------|---------|--------|
+| `engines/taxonomy/src/placer.py` | PlacementAdapter Protocol | READ (don't modify) |
+| `engines/taxonomy/src/llm_adapter.py` | LLM adapter implementation | CREATE |
+| `engines/taxonomy/src/tree_loader.py` | `build_branch_view`, `build_leaf_view` | READ (use for prompts) |
+| `engines/taxonomy/contracts_core.py` | BranchSelection, PlacementRanking | READ |
+| `engines/taxonomy/SPEC.md` §4.A.2 | Prompt requirements | READ (authoritative) |
+| `engines/taxonomy/tests/fixtures/gold_baseline_nahw.yaml` | 12 gold placements | READ |
+| `shared/llm/cli_adapter.py` | CLIInstructorAdapter | READ (don't modify) |
+| `integration_tests/smoke_fix_20260329/ibn_aqil_v3/excerpts.jsonl` | Real excerpts | READ |
+| `.claude/rules/llm-call-optimization.md` | Arabic prompt rules | READ |
 
 ## Do NOT Do
 
-- Do NOT evaluate excerpting output (that's a future session)
-- Do NOT touch the synthesis engine
-- Do NOT build without ChatGPT Pro review at every checkpoint
-- Do NOT let momentum override quality — the taxonomy SPEC must be right before CC builds
+- Do NOT modify the deterministic modules (tree_loader, validator, writer, diagnostics)
+- Do NOT modify contracts_core.py (the models are finalized)
+- Do NOT add multi-model consensus (v1 uses single-model placement, D-041 is Stage 2)
+- Do NOT implement tree evolution, coverage, or cross-science features
+- Do NOT skip the gold baseline test — it validates the entire placement chain
+- Do NOT use temperature > 0 for classification (see llm-call-optimization rules)
+
+## Budget
+
+LLM calls for testing: estimate ~12 gold baseline calls + 5 pilot calls = ~17 calls.
+At ~$0.10/call with Opus, budget ~$2 for this session.
