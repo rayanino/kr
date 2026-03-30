@@ -88,6 +88,7 @@ def append_findings() -> int:
         if not isinstance(items, list):
             continue
         source = repo_rel(actionable)
+        source_signature = f"{source}:{actionable.stat().st_mtime_ns}"
         for item in items:
             if not isinstance(item, dict):
                 continue
@@ -106,8 +107,10 @@ def append_findings() -> int:
                     existing["summary"] = summary
                     existing["category"] = category
                     existing["source"] = source
-                    existing["last_seen"] = today
-                    existing["occurrences"] = _coerce_occurrences(existing.get("occurrences", 1)) + 1
+                    if existing.get("source_signature") != source_signature:
+                        existing["last_seen"] = today
+                        existing["occurrences"] = _coerce_occurrences(existing.get("occurrences", 1)) + 1
+                    existing["source_signature"] = source_signature
                 else:
                     registry[item_id] = {
                         "id": item_id,
@@ -117,6 +120,7 @@ def append_findings() -> int:
                         "first_seen": today,
                         "last_seen": today,
                         "occurrences": 1,
+                        "source_signature": source_signature,
                     }
                 registry_changed = True
                 seen_this_run.add(item_id)

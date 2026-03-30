@@ -10,16 +10,21 @@ It is intentionally lower authority than the existing Claude overnight system:
 
 Runtime artifacts live here, not under `overnight/`:
 - `manifest.json`
+- `backlog.json`
 - `state.json`
 - `progress.md`
 - `MORNING_REPORT.md`
 - `results/`
-- `queue/`
+- `queue/` (secondary; only for post-gate write tasks that could not auto-apply)
 - `worktrees/`
-- `FINDINGS_TRACKER.md`
+- `FINDINGS_TRACKER.md` (legacy mirror, no longer the primary state)
 
-When the main repo is dirty or drifts during a run, guarded-write tasks stay isolated and are queued as patches instead of being auto-applied.
-When a live Claude session is detected, `overnight_codex` also forces queue-only mode to avoid trampling active Claude work.
+Operating model:
+- Read-only tasks run in disposable detached worktrees and stage their task output outside the main checkout before artifacts are copied back into `overnight_codex/results/`.
+- Guarded-write tasks may only come from `approved` backlog items; discovery tasks no longer create same-run write tasks.
+- In `shadow_setup`, the runtime is backlog-only for project code: it may discover and synchronize implementation-ready backlog items, but it does not generate new engine-code patches.
+- When the main repo is dirty or drifts during a write run, guarded-write tasks stay isolated and are queued as patches instead of being auto-applied.
+- When a live Claude session is detected, `overnight_codex` also forces queue-only mode to avoid trampling active Claude work.
 
 ## WSL Bootstrap
 

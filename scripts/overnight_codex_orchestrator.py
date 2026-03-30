@@ -11,6 +11,7 @@ import shutil
 import signal
 import subprocess
 import sys
+import tempfile
 import time
 from dataclasses import asdict
 from datetime import date, datetime, timezone
@@ -19,6 +20,11 @@ from pathlib import Path
 from typing import Any
 
 try:
+    from scripts.overnight_codex_backlog import (
+        summarize_backlog,
+        sync_backlog_from_artifacts,
+        update_backlog_status,
+    )
     from scripts.overnight_codex_common import (
         ACTIVE_AUTHORITY_FILE,
         COMPLEXITY_ORDER,
@@ -31,6 +37,7 @@ try:
         LOCK_FILE,
         MORNING_REPORT,
         OVERNIGHT_CODEX_DIR,
+        PIPELINE_ORDER,
         PROJECT_DIR,
         PROGRESS_FILE,
         QUEUE_DIR,
@@ -50,6 +57,7 @@ try:
         has_forbidden_edits,
         load_active_authority,
         load_manifest,
+        rewrite_python_command,
         repo_rel,
         safe_slug,
         utc_now,
@@ -60,6 +68,11 @@ try:
         write_progress_file,
     )
 except ImportError:
+    from overnight_codex_backlog import (
+        summarize_backlog,
+        sync_backlog_from_artifacts,
+        update_backlog_status,
+    )
     from overnight_codex_common import (
         ACTIVE_AUTHORITY_FILE,
         COMPLEXITY_ORDER,
@@ -72,6 +85,7 @@ except ImportError:
         LOCK_FILE,
         MORNING_REPORT,
         OVERNIGHT_CODEX_DIR,
+        PIPELINE_ORDER,
         PROJECT_DIR,
         PROGRESS_FILE,
         QUEUE_DIR,
@@ -91,6 +105,7 @@ except ImportError:
         has_forbidden_edits,
         load_active_authority,
         load_manifest,
+        rewrite_python_command,
         repo_rel,
         safe_slug,
         utc_now,
@@ -154,6 +169,11 @@ def _shadow_setup_allows_task(task: CodexTaskDef) -> tuple[bool, str]:
     return True, ""
 
 
+def _requires_shadow_setup_restrictions(state: OvernightCodexState) -> bool:
+    """Apply shadow restrictions unless autonomous Codex mode is active."""
+    return state.runtime_mode != "autonomous_codex"
+
+
 def _task_checkout_token(task_id: str) -> str:
     """Return a short, stable token for worktree and branch naming."""
     slug = safe_slug(task_id)
@@ -194,7 +214,28 @@ ENVIRONMENT_PATTERNS = (
     ("filesystem access restrictions", "Sandbox filesystem restrictions blocked runtime provisioning."),
     ("sandbox/network", "Sandbox constraints blocked requested runtime checks."),
 )
+
+
+def _failure_breaker_tripped(state: OvernightCodexState) -> bool:
+    """Return whether repeated unhealthy results should stop the run."""
+    if state.consecutive_breaker_failures >= MAX_CONSECUTIVE_FAILURES:
+        return True
+    if state.consecutive_timeouts >= MAX_CONSECUTIVE_TIMEOUTS:
+        return True
+    return (
+        state.consecutive_failures >= MAX_CONSECUTIVE_FAILURES
+        and (state.consecutive_breaker_failures > 0 or state.consecutive_timeouts > 0)
+    )
 LANE_ORDER = {"analysis_lane": 0, "synthesis_lane": 1, "write_lane": 2}
+LEGACY_RESULT_PREFIX = "overnight/results/"
+READONLY_GUARD_ROOTS = (
+    PROJECT_DIR / "engines",
+    PROJECT_DIR / "shared",
+    PROJECT_DIR / "scripts",
+    PROJECT_DIR / "docs",
+    PROJECT_DIR / "tests",
+    PROJECT_DIR / "overnight",
+)
 
 
 def _append_event(event_type: str, payload: dict[str, Any]) -> None:
@@ -239,6 +280,63 @@ def _collect_partial_artifacts(result_dir: Path, min_bytes: int = 1024) -> list[
         if path.exists() and path.stat().st_size >= min_bytes:
             artifacts.append(repo_rel(path))
     return artifacts
+
+
+def _snapshot_tree(root: Path) -> dict[str, tuple[int, int]]:
+    """Capture file size and mtime for one protected tree."""
+    if not root.exists():
+        return {}
+    snapshot: dict[str, tuple[int, int]] = {}
+    for path in root.rglob("*"):
+        if not path.is_file():
+            continue
+        stat = path.stat()
+        snapshot[repo_rel(path)] = (stat.st_size, stat.st_mtime_ns)
+    return snapshot
+
+
+def _diff_tree_snapshot(
+    before: dict[str, tuple[int, int]],
+    after: dict[str, tuple[int, int]],
+) -> list[str]:
+    """Return protected-tree files that were added, removed, or modified."""
+    changed: list[str] = []
+    for path, state in after.items():
+        if before.get(path) != state:
+            changed.append(path)
+    for path in before:
+        if path not in after:
+            changed.append(path)
+    return sorted(set(changed))
+
+
+def _snapshot_readonly_guard() -> dict[str, Any]:
+    """Capture main-repo state before a readonly task runs."""
+    return {
+        "git_status": set(git_status_porcelain()),
+        "protected_roots": {
+            repo_rel(root): _snapshot_tree(root)
+            for root in READONLY_GUARD_ROOTS
+        },
+    }
+
+
+def _readonly_guard_failures(before: dict[str, Any]) -> list[str]:
+    """Detect main-repo mutations performed by a readonly task."""
+    failures: list[str] = []
+    current_status = set(git_status_porcelain())
+    added_status = sorted(current_status - set(before.get("git_status", set())))
+    if added_status:
+        failures.append(f"Readonly task mutated tracked repo state: {added_status}")
+    protected_roots = before.get("protected_roots", {})
+    if isinstance(protected_roots, dict):
+        for root_label, snapshot in protected_roots.items():
+            root_path = PROJECT_DIR / root_label
+            after_snapshot = _snapshot_tree(root_path)
+            changed = _diff_tree_snapshot(snapshot, after_snapshot)
+            if changed:
+                failures.append(f"Readonly task wrote protected root `{root_label}`: {changed}")
+    return failures
 
 
 def _environment_notes_from_texts(texts: list[str]) -> list[str]:
@@ -331,12 +429,14 @@ def _build_run_snapshot(state: OvernightCodexState, manifest: list[CodexTaskDef]
     """Build a machine-readable snapshot of the current run."""
     tasks: dict[str, Any] = {}
     status_counts: dict[str, int] = {}
+    backlog_summary = summarize_backlog(run_id=state.run_id)
     for task in manifest:
         result = state.results.get(task.task_id, {})
         status = str(result.get("status", "pending"))
         status_counts[status] = status_counts.get(status, 0) + 1
         tasks[task.task_id] = {
             "name": task.name,
+            "backlog_item_id": task.backlog_item_id or None,
             "category": task.category,
             "lane": task.lane,
             "priority": task.priority,
@@ -357,6 +457,7 @@ def _build_run_snapshot(state: OvernightCodexState, manifest: list[CodexTaskDef]
         "runtime_mode": state.runtime_mode,
         "apply_mode": state.apply_mode,
         "launch_head": state.launch_head,
+        "backlog": backlog_summary,
         "summary": {
             "completed": state.tasks_completed,
             "failed": state.tasks_failed,
@@ -385,6 +486,7 @@ def _write_task_packet(
     """Write a compact research packet for the task outcome."""
     packet = {
         "task_id": task.task_id,
+        "backlog_item_id": task.backlog_item_id or None,
         "name": task.name,
         "category": task.category,
         "lane": task.lane,
@@ -415,6 +517,32 @@ def _finalize_task_result(
     return result
 
 
+def _sync_backlog_after_task(
+    task: CodexTaskDef,
+    state: OvernightCodexState,
+    result: TaskResult,
+) -> None:
+    """Update approved backlog item state after task completion."""
+    if not task.backlog_item_id:
+        return
+    if result.status == "success":
+        backlog_status = "implemented"
+    elif result.status == "queued":
+        backlog_status = "scheduled"
+    elif result.status in {"failed", "timeout", "usage_limited"}:
+        backlog_status = "blocked"
+    else:
+        return
+    note = result.error or result.summary
+    update_backlog_status(
+        task.backlog_item_id,
+        status=backlog_status,
+        run_id=state.run_id,
+        note=note[:400] if note else "",
+        patch_path=result.patch_path or "",
+    )
+
+
 def _should_trip_breaker(result: TaskResult) -> bool:
     """Return whether a result should count toward the hard failure breaker."""
     return result.failure_class in BREAKER_FAILURE_CLASSES
@@ -424,7 +552,17 @@ def _find_codex() -> str | None:
     """Find the Codex CLI."""
     found = shutil.which("codex")
     if found:
-        return found
+        normalized = found.replace("\\", "/")
+        if sys.platform == "win32" or not normalized.startswith("/mnt/"):
+            return found
+    if sys.platform != "win32":
+        for candidate in [
+            Path.home() / ".local" / "bin" / "codex",
+            Path("/usr/local/bin/codex"),
+            Path("/usr/bin/codex"),
+        ]:
+            if candidate.exists():
+                return str(candidate)
     if sys.platform == "win32":
         for candidate in [
             Path(os.environ.get("APPDATA", "")) / "npm" / "codex.cmd",
@@ -444,8 +582,9 @@ def _run_subprocess_safe(
     env: dict[str, str] | None = None,
 ) -> subprocess.CompletedProcess[str]:
     """Run a subprocess without risking Windows pipe deadlocks."""
+    resolved_cmd = rewrite_python_command(cmd)
     proc = subprocess.Popen(
-        cmd,
+        resolved_cmd,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
@@ -459,8 +598,8 @@ def _run_subprocess_safe(
     except subprocess.TimeoutExpired:
         proc.kill()
         stdout, stderr = proc.communicate(timeout=10)
-        raise subprocess.TimeoutExpired(cmd, timeout, output=stdout, stderr=stderr)
-    return subprocess.CompletedProcess(cmd, proc.returncode, stdout, stderr)
+        raise subprocess.TimeoutExpired(resolved_cmd, timeout, output=stdout, stderr=stderr)
+    return subprocess.CompletedProcess(resolved_cmd, proc.returncode, stdout, stderr)
 
 
 def log_decision(message: str, details: Any | None = None) -> None:
@@ -596,23 +735,45 @@ def detect_active_claude_session() -> tuple[bool, list[str]]:
     notes: list[str] = []
     active = False
 
-    session_state = PROJECT_DIR / ".claude" / "session_state.json"
-    if session_state.exists():
+    def _is_wsl_runtime() -> bool:
+        if sys.platform != "linux":
+            return False
+        try:
+            return "microsoft" in Path("/proc/sys/kernel/osrelease").read_text(encoding="utf-8").lower()
+        except OSError:
+            return False
+
+    def _check_recent_session_state(session_state: Path, note: str) -> None:
+        nonlocal active
+        if not session_state.exists():
+            return
         try:
             modified = datetime.fromtimestamp(session_state.stat().st_mtime, tz=timezone.utc)
             age_s = (utc_now() - modified).total_seconds()
             if age_s < 30 * 60:
                 active = True
-                notes.append(
-                    ".claude/session_state.json was updated recently; assuming Claude session is active."
-                )
+                notes.append(note)
         except OSError:
-            pass
+            return
+
+    windows_home = os.environ.get("KR_WINDOWS_HOME", "").strip()
+    is_wsl = _is_wsl_runtime()
+
+    if sys.platform == "win32":
+        _check_recent_session_state(
+            PROJECT_DIR / ".claude" / "session_state.json",
+            ".claude/session_state.json was updated recently; assuming Claude session is active.",
+        )
+    elif is_wsl and windows_home:
+        _check_recent_session_state(
+            Path(windows_home) / ".claude" / "session_state.json",
+            "Windows Claude session_state.json was updated recently; assuming Claude session is active.",
+        )
 
     try:
-        if sys.platform == "win32":
+        if sys.platform == "win32" or is_wsl:
             proc_result = _run_subprocess_safe(
-                ["tasklist", "/FI", "IMAGENAME eq claude.exe"],
+                ["tasklist.exe", "/FI", "IMAGENAME eq claude.exe"],
                 timeout=10,
             )
             lines = [line for line in proc_result.stdout.splitlines() if "claude.exe" in line.lower()]
@@ -784,6 +945,26 @@ def _parse_structured_output(path: Path) -> dict[str, Any]:
     return payload
 
 
+def _payload_contains_legacy_results(payload: dict[str, Any]) -> bool:
+    """Return True when the task points at the legacy overnight results root."""
+    serialized = json.dumps(payload, ensure_ascii=False)
+    return LEGACY_RESULT_PREFIX in serialized.replace("\\", "/")
+
+
+def _validate_task_payload(
+    task: CodexTaskDef,
+    payload: dict[str, Any],
+) -> dict[str, Any]:
+    """Reject structurally valid payloads that violate runtime policy."""
+    if _payload_contains_legacy_results(payload):
+        raise ValueError(
+            "Payload referenced `overnight/results/`; overnight_codex tasks must not use the legacy overnight root."
+        )
+    if task.write_policy == "readonly" and payload.get("files_changed"):
+        raise ValueError("Readonly tasks must return an empty `files_changed` list.")
+    return payload
+
+
 def _extract_markdown_section(text: str, title: str) -> str:
     """Extract a markdown section by title."""
     patterns = [
@@ -848,7 +1029,7 @@ def _payload_from_markdown(task: CodexTaskDef, markdown_path: Path) -> dict[str,
         for index, item in enumerate(_parse_bullets(actions_section))
     ]
     return {
-        "task_status": "success",
+        "task_status": "truncated",
         "summary": summary,
         "commands_run": commands_run,
         "evidence": evidence,
@@ -862,6 +1043,7 @@ def _payload_from_markdown(task: CodexTaskDef, markdown_path: Path) -> dict[str,
 def _write_result_artifacts(task: CodexTaskDef, result_dir: Path, payload: dict[str, Any]) -> None:
     """Persist the structured response into stable artifacts."""
     write_json(result_dir / "final_response.json", payload)
+    write_json(result_dir / task.expected_artifact, payload)
     action_items = validate_action_items(payload.get("action_items", []))
     if task.category == "creative" and action_items:
         write_json(result_dir / "actionable.json", action_items)
@@ -895,6 +1077,20 @@ def _write_result_artifacts(task: CodexTaskDef, result_dir: Path, payload: dict[
     atomic_write(result_dir / "summary.md", "\n".join(lines).rstrip() + "\n")
 
 
+def _preserve_staged_artifacts(source_dir: Path, result_dir: Path) -> list[str]:
+    """Copy partial task IO artifacts into the stable result directory."""
+    preserved: list[str] = []
+    for name in PARTIAL_ARTIFACT_NAMES:
+        source = source_dir / name
+        if not source.exists() or not source.is_file():
+            continue
+        target = result_dir / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+        preserved.append(repo_rel(target))
+    return preserved
+
+
 def _run_external_regression_task(task: CodexTaskDef, result_dir: Path) -> TaskResult:
     """Run the deterministic regression snapshot outside Codex."""
     start_time = utc_now_iso()
@@ -916,7 +1112,7 @@ def _run_external_regression_task(task: CodexTaskDef, result_dir: Path) -> TaskR
         "engines/excerpting/tests/",
     ]
     for test_dir in test_dirs:
-        command = ["python", "-m", "pytest", test_dir, "-v", "--tb=short"]
+        command = rewrite_python_command(["python", "-m", "pytest", test_dir, "-v", "--tb=short"])
         payload["commands_run"].append(" ".join(command))
         result = _run_subprocess_safe(command, timeout=1800)
         payload["tests_run"].append(f"{test_dir}: returncode={result.returncode}")
@@ -1089,6 +1285,55 @@ def prepare_worktree(task: CodexTaskDef, launch_head: str) -> tuple[Path, str]:
     return worktree_path, branch_name
 
 
+def prepare_readonly_workspace(task: CodexTaskDef, launch_head: str) -> Path:
+    """Create a disposable detached worktree for a readonly task."""
+    checkout_token = f"ro-{_task_checkout_token(task.task_id)}"
+    worktree_path = WORKTREES_DIR / checkout_token
+    if worktree_path.exists():
+        subprocess.run(
+            ["git", "worktree", "remove", "--force", str(worktree_path)],
+            cwd=str(PROJECT_DIR),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if worktree_path.exists():
+            shutil.rmtree(worktree_path, ignore_errors=True)
+    result = _run_subprocess_safe(
+        ["git", "worktree", "add", "--detach", str(worktree_path), launch_head],
+        timeout=120,
+    )
+    if result.returncode != 0:
+        subprocess.run(
+            ["git", "worktree", "remove", "--force", str(worktree_path)],
+            cwd=str(PROJECT_DIR),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if worktree_path.exists():
+            shutil.rmtree(worktree_path, ignore_errors=True)
+        raise RuntimeError(
+            f"Failed to create readonly workspace for {task.task_id}: {_tail_process_output(result)}"
+        )
+    return worktree_path
+
+
+def cleanup_readonly_workspace(worktree_path: Path | None) -> None:
+    """Remove the disposable readonly worktree after task completion."""
+    if worktree_path is None:
+        return
+    subprocess.run(
+        ["git", "worktree", "remove", "--force", str(worktree_path)],
+        cwd=str(PROJECT_DIR),
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if worktree_path.exists():
+        shutil.rmtree(worktree_path, ignore_errors=True)
+
+
 def queue_patch(
     task: CodexTaskDef,
     worktree_path: Path,
@@ -1130,7 +1375,7 @@ def _affected_engines(changed_files: list[str]) -> set[str]:
         if len(parts) >= 3 and parts[0] == "engines":
             engines.add(parts[1])
         if parts and parts[0] == "shared":
-            return {"source", "normalization", "excerpting"}
+            return set(PIPELINE_ORDER)
     return engines
 
 
@@ -1170,7 +1415,7 @@ def run_quality_gate(
             sys.executable,
             str(quality_gate_script),
             "--mode",
-            "all",
+            task.gate_mode,
         ]
         if changed_files:
             gate_cmd.append("--paths")
@@ -1257,40 +1502,79 @@ def execute_task(
 
     start = time.time()
     start_time = utc_now_iso()
-    schema_path = result_dir / "output_schema.json"
-    output_path = result_dir / task.expected_artifact
-    write_json(schema_path, FINAL_RESPONSE_SCHEMA)
-
     prompt = build_prompt(task)
     workdir = PROJECT_DIR
     branch_name: str | None = None
     worktree_path: Path | None = None
+    readonly_guard: dict[str, Any] | None = None
     uses_worktree = task.write_policy == "guarded_write"
     sandbox_mode = task.sandbox_mode
+    io_tempdir = tempfile.TemporaryDirectory(prefix=f"overnight_codex_{safe_slug(task.task_id)}_")
+    io_dir = Path(io_tempdir.name)
+    schema_path = io_dir / "output_schema.json"
+    output_path = io_dir / task.expected_artifact
+    write_json(schema_path, FINAL_RESPONSE_SCHEMA)
+    finalized_once = False
+
+    def finalize_result(result: TaskResult, payload: dict[str, Any] | None = None) -> TaskResult:
+        nonlocal finalized_once
+        finalized = _finalize_task_result(task=task, result_dir=result_dir, result=result, payload=payload)
+        _sync_backlog_after_task(task, state, finalized)
+        if not finalized_once:
+            io_tempdir.cleanup()
+            if not uses_worktree:
+                cleanup_readonly_workspace(worktree_path)
+            finalized_once = True
+        return finalized
 
     if uses_worktree:
         try:
             worktree_path, branch_name = prepare_worktree(task, state.launch_head)
             workdir = worktree_path
         except Exception as exc:
-            result = TaskResult(
-                task_id=task.task_id,
-                status="failed",
-                start_time=start_time,
-                end_time=utc_now_iso(),
-                duration_s=round(time.time() - start, 1),
-                error=str(exc),
-                artifact_path=repo_rel(output_path),
-                branch_name=branch_name,
-                failure_class="infra_failure",
-                recommended_next_actions=_recommend_next_actions(
-                    task=task,
+            return finalize_result(
+                TaskResult(
+                    task_id=task.task_id,
                     status="failed",
+                    start_time=start_time,
+                    end_time=utc_now_iso(),
+                    duration_s=round(time.time() - start, 1),
+                    error=str(exc),
+                    artifact_path=repo_rel(result_dir / task.expected_artifact),
+                    branch_name=branch_name,
                     failure_class="infra_failure",
-                    environment_notes=[],
-                ),
+                    recommended_next_actions=_recommend_next_actions(
+                        task=task,
+                        status="failed",
+                        failure_class="infra_failure",
+                        environment_notes=[],
+                    ),
+                )
             )
-            return _finalize_task_result(task=task, result_dir=result_dir, result=result)
+    else:
+        try:
+            worktree_path = prepare_readonly_workspace(task, state.launch_head)
+            workdir = worktree_path
+            readonly_guard = _snapshot_readonly_guard()
+        except Exception as exc:
+            return finalize_result(
+                TaskResult(
+                    task_id=task.task_id,
+                    status="failed",
+                    start_time=start_time,
+                    end_time=utc_now_iso(),
+                    duration_s=round(time.time() - start, 1),
+                    error=str(exc),
+                    artifact_path=repo_rel(result_dir / task.expected_artifact),
+                    failure_class="infra_failure",
+                    recommended_next_actions=_recommend_next_actions(
+                        task=task,
+                        status="failed",
+                        failure_class="infra_failure",
+                        environment_notes=[],
+                    ),
+                )
+            )
 
     payload: dict[str, Any] | None = None
     exec_result: subprocess.CompletedProcess[str] | None = None
@@ -1311,54 +1595,78 @@ def execute_task(
                 timeout_minutes=task.timeout_minutes,
             )
         except subprocess.TimeoutExpired:
-            partial_artifacts = _collect_partial_artifacts(result_dir)
+            partial_artifacts = _preserve_staged_artifacts(io_dir, result_dir)
             status = "partial_success" if partial_artifacts else "timeout"
-            result = TaskResult(
-                task_id=task.task_id,
-                status=status,
-                start_time=start_time,
-                end_time=utc_now_iso(),
-                duration_s=round(time.time() - start, 1),
-                summary=(
-                    "Timed out after preserving partial task output."
-                    if partial_artifacts
-                    else ""
-                ),
-                error=(
-                    f"Task exceeded {task.timeout_minutes} minute timeout"
-                    + (" (partial output preserved)" if partial_artifacts else "")
-                ),
-                artifact_path=repo_rel(output_path),
-                branch_name=branch_name,
-                failure_class="timeout",
-                partial_artifacts=partial_artifacts,
-                recommended_next_actions=_recommend_next_actions(
-                    task=task,
+            return finalize_result(
+                TaskResult(
+                    task_id=task.task_id,
                     status=status,
+                    start_time=start_time,
+                    end_time=utc_now_iso(),
+                    duration_s=round(time.time() - start, 1),
+                    summary=(
+                        "Timed out after preserving partial task output."
+                        if partial_artifacts
+                        else ""
+                    ),
+                    error=(
+                        f"Task exceeded {task.timeout_minutes} minute timeout"
+                        + (" (partial output preserved)" if partial_artifacts else "")
+                    ),
+                    artifact_path=repo_rel(result_dir / task.expected_artifact),
+                    branch_name=branch_name,
                     failure_class="timeout",
-                    environment_notes=[],
-                ),
+                    partial_artifacts=partial_artifacts,
+                    recommended_next_actions=_recommend_next_actions(
+                        task=task,
+                        status=status,
+                        failure_class="timeout",
+                        environment_notes=[],
+                    ),
+                )
             )
-            return _finalize_task_result(task=task, result_dir=result_dir, result=result)
         except Exception as exc:
-            result = TaskResult(
-                task_id=task.task_id,
-                status="failed",
-                start_time=start_time,
-                end_time=utc_now_iso(),
-                duration_s=round(time.time() - start, 1),
-                error=str(exc),
-                artifact_path=repo_rel(output_path),
-                branch_name=branch_name,
-                failure_class="infra_failure",
-                recommended_next_actions=_recommend_next_actions(
-                    task=task,
+            return finalize_result(
+                TaskResult(
+                    task_id=task.task_id,
                     status="failed",
+                    start_time=start_time,
+                    end_time=utc_now_iso(),
+                    duration_s=round(time.time() - start, 1),
+                    error=str(exc),
+                    artifact_path=repo_rel(result_dir / task.expected_artifact),
+                    branch_name=branch_name,
                     failure_class="infra_failure",
-                    environment_notes=[],
-                ),
+                    recommended_next_actions=_recommend_next_actions(
+                        task=task,
+                        status="failed",
+                        failure_class="infra_failure",
+                        environment_notes=[],
+                    ),
+                )
             )
-            return _finalize_task_result(task=task, result_dir=result_dir, result=result)
+
+        if readonly_guard is not None:
+            readonly_failures = _readonly_guard_failures(readonly_guard)
+            if readonly_failures:
+                return finalize_result(
+                    TaskResult(
+                        task_id=task.task_id,
+                        status="failed",
+                        start_time=start_time,
+                        end_time=utc_now_iso(),
+                        duration_s=round(time.time() - start, 1),
+                        error="; ".join(readonly_failures)[:1800],
+                        artifact_path=repo_rel(result_dir / task.expected_artifact),
+                        failure_class="policy_blocked",
+                        recommended_next_actions=_recommend_next_actions(
+                            task=task,
+                            status="failed",
+                            failure_class="policy_blocked",
+                            environment_notes=[],
+                        ),
+                    )
+                )
 
         if exec_result.returncode != 0:
             error_text = _tail_process_output(exec_result)
@@ -1372,28 +1680,29 @@ def execute_task(
             else:
                 status = "failed"
                 failure_class = "task_failed"
-            result = TaskResult(
-                task_id=task.task_id,
-                status=status,
-                start_time=start_time,
-                end_time=utc_now_iso(),
-                duration_s=round(time.time() - start, 1),
-                error=error_text,
-                artifact_path=repo_rel(output_path),
-                branch_name=branch_name,
-                failure_class=failure_class,
-                environment_notes=environment_notes,
-                recommended_next_actions=_recommend_next_actions(
-                    task=task,
+            return finalize_result(
+                TaskResult(
+                    task_id=task.task_id,
                     status=status,
+                    start_time=start_time,
+                    end_time=utc_now_iso(),
+                    duration_s=round(time.time() - start, 1),
+                    error=error_text,
+                    artifact_path=repo_rel(result_dir / task.expected_artifact),
+                    branch_name=branch_name,
                     failure_class=failure_class,
                     environment_notes=environment_notes,
-                ),
+                    recommended_next_actions=_recommend_next_actions(
+                        task=task,
+                        status=status,
+                        failure_class=failure_class,
+                        environment_notes=environment_notes,
+                    ),
+                )
             )
-            return _finalize_task_result(task=task, result_dir=result_dir, result=result)
 
         try:
-            payload = _parse_structured_output(output_path)
+            payload = _validate_task_payload(task, _parse_structured_output(output_path))
             break
         except Exception as exc:
             last_validation_error = str(exc)
@@ -1404,7 +1713,7 @@ def execute_task(
                 "empty `evidence` are invalid."
             )
             if attempt == 3:
-                fallback_path = result_dir / "fallback.md"
+                fallback_path = io_dir / "fallback.md"
                 fallback_prompt = (
                     build_prompt(task)
                     + "\n\nStructured JSON retries failed. Do the work and return markdown with sections: "
@@ -1420,35 +1729,36 @@ def execute_task(
                         timeout_minutes=task.timeout_minutes,
                     )
                 except subprocess.TimeoutExpired:
-                    partial_artifacts = _collect_partial_artifacts(result_dir)
+                    partial_artifacts = _preserve_staged_artifacts(io_dir, result_dir)
                     status = "partial_success" if partial_artifacts else "timeout"
-                    result = TaskResult(
-                        task_id=task.task_id,
-                        status=status,
-                        start_time=start_time,
-                        end_time=utc_now_iso(),
-                        duration_s=round(time.time() - start, 1),
-                        summary=(
-                            "Timed out after preserving partial task output."
-                            if partial_artifacts
-                            else ""
-                        ),
-                        error=(
-                            f"Task exceeded {task.timeout_minutes} minute timeout"
-                            + (" (partial output preserved)" if partial_artifacts else "")
-                        ),
-                        artifact_path=repo_rel(output_path),
-                        branch_name=branch_name,
-                        failure_class="timeout",
-                        partial_artifacts=partial_artifacts,
-                        recommended_next_actions=_recommend_next_actions(
-                            task=task,
+                    return finalize_result(
+                        TaskResult(
+                            task_id=task.task_id,
                             status=status,
+                            start_time=start_time,
+                            end_time=utc_now_iso(),
+                            duration_s=round(time.time() - start, 1),
+                            summary=(
+                                "Timed out after preserving partial task output."
+                                if partial_artifacts
+                                else ""
+                            ),
+                            error=(
+                                f"Task exceeded {task.timeout_minutes} minute timeout"
+                                + (" (partial output preserved)" if partial_artifacts else "")
+                            ),
+                            artifact_path=repo_rel(result_dir / task.expected_artifact),
+                            branch_name=branch_name,
                             failure_class="timeout",
-                            environment_notes=[],
-                        ),
+                            partial_artifacts=partial_artifacts,
+                            recommended_next_actions=_recommend_next_actions(
+                                task=task,
+                                status=status,
+                                failure_class="timeout",
+                                environment_notes=[],
+                            ),
+                        )
                     )
-                    return _finalize_task_result(task=task, result_dir=result_dir, result=result)
                 if fallback_result.returncode != 0:
                     environment_notes = _environment_notes_from_texts([_tail_process_output(fallback_result)])
                     if _is_usage_limit_error(fallback_result.stderr):
@@ -1460,26 +1770,50 @@ def execute_task(
                     else:
                         status = "failed"
                         failure_class = "validation_failed"
-                    result = TaskResult(
-                        task_id=task.task_id,
-                        status=status,
-                        start_time=start_time,
-                        end_time=utc_now_iso(),
-                        duration_s=round(time.time() - start, 1),
-                        error=f"Invalid structured output: {last_validation_error}",
-                        artifact_path=repo_rel(output_path),
-                        branch_name=branch_name,
-                        failure_class=failure_class,
-                        environment_notes=environment_notes,
-                        recommended_next_actions=_recommend_next_actions(
-                            task=task,
+                    return finalize_result(
+                        TaskResult(
+                            task_id=task.task_id,
                             status=status,
+                            start_time=start_time,
+                            end_time=utc_now_iso(),
+                            duration_s=round(time.time() - start, 1),
+                            error=f"Invalid structured output: {last_validation_error}",
+                            artifact_path=repo_rel(result_dir / task.expected_artifact),
+                            branch_name=branch_name,
                             failure_class=failure_class,
                             environment_notes=environment_notes,
-                        ),
+                            recommended_next_actions=_recommend_next_actions(
+                                task=task,
+                                status=status,
+                                failure_class=failure_class,
+                                environment_notes=environment_notes,
+                            ),
+                        )
                     )
-                    return _finalize_task_result(task=task, result_dir=result_dir, result=result)
-                payload = _payload_from_markdown(task, fallback_path)
+                try:
+                    payload = _validate_task_payload(task, _payload_from_markdown(task, fallback_path))
+                except ValueError as exc:
+                    environment_notes = _environment_notes_from_texts([str(exc)])
+                    return finalize_result(
+                        TaskResult(
+                            task_id=task.task_id,
+                            status="failed",
+                            start_time=start_time,
+                            end_time=utc_now_iso(),
+                            duration_s=round(time.time() - start, 1),
+                            error=f"Invalid markdown fallback output: {exc}",
+                            artifact_path=repo_rel(result_dir / task.expected_artifact),
+                            branch_name=branch_name,
+                            failure_class="validation_failed",
+                            environment_notes=environment_notes,
+                            recommended_next_actions=_recommend_next_actions(
+                                task=task,
+                                status="failed",
+                                failure_class="validation_failed",
+                                environment_notes=environment_notes,
+                            ),
+                        )
+                    )
                 break
 
     assert payload is not None
@@ -1501,42 +1835,46 @@ def execute_task(
         )
 
     if not uses_worktree:
-        result = TaskResult(
-            task_id=task.task_id,
-            status="success",
-            start_time=start_time,
-            end_time=utc_now_iso(),
-            duration_s=round(time.time() - start, 1),
-            summary=summary,
-            artifact_path=repo_rel(output_path),
-            tests_run=list(payload.get("tests_run", [])),
-            commands_run=list(payload.get("commands_run", [])),
-            environment_notes=environment_notes,
-            recommended_next_actions=recommended_next_actions,
-            confidence="medium" if task.category == "creative" else None,
-            novelty_score=novelty_score,
+        return finalize_result(
+            TaskResult(
+                task_id=task.task_id,
+                status="success",
+                start_time=start_time,
+                end_time=utc_now_iso(),
+                duration_s=round(time.time() - start, 1),
+                summary=summary,
+                artifact_path=repo_rel(result_dir / task.expected_artifact),
+                tests_run=list(payload.get("tests_run", [])),
+                commands_run=list(payload.get("commands_run", [])),
+                environment_notes=environment_notes,
+                recommended_next_actions=recommended_next_actions,
+                confidence="medium" if task.category == "creative" else None,
+                novelty_score=novelty_score,
+            ),
+            payload=payload,
         )
-        return _finalize_task_result(task=task, result_dir=result_dir, result=result, payload=payload)
 
     assert worktree_path is not None
     assert branch_name is not None
     changed_files = worktree_changed_files(worktree_path)
     if not changed_files:
-        result = TaskResult(
-            task_id=task.task_id,
-            status="success",
-            start_time=start_time,
-            end_time=utc_now_iso(),
-            duration_s=round(time.time() - start, 1),
-            summary=summary,
-            artifact_path=repo_rel(output_path),
-            branch_name=branch_name,
-            tests_run=list(payload.get("tests_run", [])),
-            commands_run=list(payload.get("commands_run", [])),
-            environment_notes=environment_notes,
-            recommended_next_actions=recommended_next_actions,
+        return finalize_result(
+            TaskResult(
+                task_id=task.task_id,
+                status="success",
+                start_time=start_time,
+                end_time=utc_now_iso(),
+                duration_s=round(time.time() - start, 1),
+                summary=summary,
+                artifact_path=repo_rel(result_dir / task.expected_artifact),
+                branch_name=branch_name,
+                tests_run=list(payload.get("tests_run", [])),
+                commands_run=list(payload.get("commands_run", [])),
+                environment_notes=environment_notes,
+                recommended_next_actions=recommended_next_actions,
+            ),
+            payload=payload,
         )
-        return _finalize_task_result(task=task, result_dir=result_dir, result=result, payload=payload)
 
     gate_passed, gate_failures, review_path = run_quality_gate(
         codex_bin, task, worktree_path, changed_files, result_dir
@@ -1544,32 +1882,63 @@ def execute_task(
     if not gate_passed:
         log_decision(f"Quality gate failed for {task.task_id}", gate_failures)
         failure_class = _classify_quality_gate_failures(gate_failures)
-        result = TaskResult(
-            task_id=task.task_id,
-            status="failed",
-            start_time=start_time,
-            end_time=utc_now_iso(),
-            duration_s=round(time.time() - start, 1),
-            summary=summary,
-            error="; ".join(gate_failures)[:1800],
-            artifact_path=repo_rel(output_path),
-            branch_name=branch_name,
-            review_path=repo_rel(review_path),
-            files_changed=changed_files,
-            tests_run=list(payload.get("tests_run", [])),
-            commands_run=list(payload.get("commands_run", [])),
-            failure_class=failure_class,
-            environment_notes=environment_notes,
-            recommended_next_actions=_recommend_next_actions(
-                task=task,
+        return finalize_result(
+            TaskResult(
+                task_id=task.task_id,
                 status="failed",
+                start_time=start_time,
+                end_time=utc_now_iso(),
+                duration_s=round(time.time() - start, 1),
+                summary=summary,
+                error="; ".join(gate_failures)[:1800],
+                artifact_path=repo_rel(result_dir / task.expected_artifact),
+                branch_name=branch_name,
+                review_path=repo_rel(review_path),
+                files_changed=changed_files,
+                tests_run=list(payload.get("tests_run", [])),
+                commands_run=list(payload.get("commands_run", [])),
                 failure_class=failure_class,
                 environment_notes=environment_notes,
+                recommended_next_actions=_recommend_next_actions(
+                    task=task,
+                    status="failed",
+                    failure_class=failure_class,
+                    environment_notes=environment_notes,
+                ),
             ),
+            payload=payload,
         )
-        return _finalize_task_result(task=task, result_dir=result_dir, result=result, payload=payload)
 
     commit_hash = _commit_worktree(task, worktree_path)
+    if not commit_hash:
+        return finalize_result(
+            TaskResult(
+                task_id=task.task_id,
+                status="failed",
+                start_time=start_time,
+                end_time=utc_now_iso(),
+                duration_s=round(time.time() - start, 1),
+                summary=summary,
+                error=(
+                    "No durable staged diff remained after git add; "
+                    "the write path produced only non-persisting changes."
+                ),
+                artifact_path=repo_rel(result_dir / task.expected_artifact),
+                branch_name=branch_name,
+                files_changed=changed_files,
+                tests_run=list(payload.get("tests_run", [])),
+                commands_run=list(payload.get("commands_run", [])),
+                failure_class="validation_failed",
+                environment_notes=environment_notes,
+                recommended_next_actions=_recommend_next_actions(
+                    task=task,
+                    status="failed",
+                    failure_class="validation_failed",
+                    environment_notes=environment_notes,
+                ),
+            ),
+            payload=payload,
+        )
     auto_apply = False
     patch_path: Path | None = None
     queue_reason = ""
@@ -1598,34 +1967,37 @@ def execute_task(
         queued_only = True
 
     status = "queued" if queued_only else "success"
-    result = TaskResult(
-        task_id=task.task_id,
-        status=status,
-        start_time=start_time,
-        end_time=utc_now_iso(),
-        duration_s=round(time.time() - start, 1),
-        summary=summary,
-        artifact_path=repo_rel(output_path),
-        branch_name=branch_name,
-        patch_path=repo_rel(patch_path) if patch_path else None,
-        commit_hash=commit_hash or None,
-        review_path=repo_rel(review_path),
-        auto_applied=auto_apply,
-        files_changed=changed_files,
-        tests_run=list(payload.get("tests_run", [])),
-        commands_run=list(payload.get("commands_run", [])),
-        queued_only=queued_only,
-        queue_reason=queue_reason or None,
-        environment_notes=environment_notes,
-        recommended_next_actions=_recommend_next_actions(
-            task=task,
+    return finalize_result(
+        TaskResult(
+            task_id=task.task_id,
             status=status,
-            failure_class=None,
-            environment_notes=environment_notes,
+            start_time=start_time,
+            end_time=utc_now_iso(),
+            duration_s=round(time.time() - start, 1),
+            summary=summary,
+            artifact_path=repo_rel(result_dir / task.expected_artifact),
+            branch_name=branch_name,
             patch_path=repo_rel(patch_path) if patch_path else None,
+            commit_hash=commit_hash or None,
+            review_path=repo_rel(review_path),
+            auto_applied=auto_apply,
+            files_changed=changed_files,
+            tests_run=list(payload.get("tests_run", [])),
+            commands_run=list(payload.get("commands_run", [])),
+            queued_only=queued_only,
+            queue_reason=queue_reason or None,
+            environment_notes=environment_notes,
+            recommended_next_actions=_recommend_next_actions(
+                task=task,
+                status=status,
+                failure_class=None,
+                environment_notes=environment_notes,
+                patch_path=repo_rel(patch_path) if patch_path else None,
+            ),
         ),
+        payload=payload,
     )
-    return _finalize_task_result(task=task, result_dir=result_dir, result=result, payload=payload)
+    
 
 
 def _load_findings_registry_summary() -> tuple[int, list[dict[str, Any]]]:
@@ -1711,6 +2083,7 @@ def generate_morning_report(
 ) -> None:
     """Generate an action-first morning report."""
     snapshot = _build_run_snapshot(state, manifest)
+    backlog_summary = snapshot.get("backlog", {})
     current_signals = _current_signal_records(state, manifest)
     new_signals, recurring_signals = _split_new_vs_recurring(current_signals, previous_snapshot)
     findings_count, recent_finding_items = _load_findings_registry_summary()
@@ -1790,6 +2163,12 @@ def generate_morning_report(
         f"- Delta vs previous run: completed {state.tasks_completed - prev_completed:+d}, "
         f"failed {state.tasks_failed - prev_failed:+d}, queued {state.tasks_queued - prev_queued:+d}"
     )
+    if isinstance(backlog_summary, dict):
+        lines.append(
+            f"- Backlog movement: +{backlog_summary.get('created_this_run', 0)} proposed, "
+            f"+{backlog_summary.get('approved_this_run', 0)} approved, "
+            f"+{backlog_summary.get('implemented_this_run', 0)} implemented"
+        )
     if state.notes:
         lines.append("")
         lines.append("## Launch Notes")
@@ -1838,6 +2217,18 @@ def generate_morning_report(
             result = state.results.get(task.task_id, {})
             lines.append(f"- `{task.task_id}` [{task.category}/{task.lane}]: {result.get('summary', task.name)}")
 
+    if isinstance(backlog_summary, dict):
+        counts = backlog_summary.get("counts", {})
+        lines.append("")
+        lines.append("## Backlog State")
+        lines.append(f"- Total items: {backlog_summary.get('total', 0)}")
+        lines.append(f"- Proposed: {counts.get('proposed', 0)}")
+        lines.append(f"- Approved: {counts.get('approved', 0)}")
+        lines.append(f"- Scheduled: {counts.get('scheduled', 0)}")
+        lines.append(f"- Implemented: {counts.get('implemented', 0)}")
+        lines.append(f"- Blocked: {counts.get('blocked', 0)}")
+        lines.append(f"- Superseded: {counts.get('superseded', 0)}")
+
     if next_actions:
         lines.append("")
         lines.append("## Recommended Next 3 Actions")
@@ -1884,6 +2275,15 @@ def maybe_append_findings() -> None:
         log_decision("Failed to append Codex findings", {"error": str(exc)})
 
 
+def sync_backlog(run_id: str) -> None:
+    """Refresh the canonical backlog from results and legacy queues."""
+    try:
+        summary = sync_backlog_from_artifacts(run_id)
+        log_decision("Synchronized overnight_codex backlog", summary)
+    except Exception as exc:
+        log_decision("Failed to synchronize overnight_codex backlog", {"error": str(exc)})
+
+
 def run_overnight(
     *,
     hours: float,
@@ -1900,6 +2300,8 @@ def run_overnight(
     print(f"Project: {PROJECT_DIR}")
     print(f"Duration target: {hours} hours")
     print()
+
+    sync_backlog(utc_now().strftime("%Y-%m-%d"))
 
     if manifest_path and manifest_path.exists():
         manifest = load_manifest(manifest_path)
@@ -1954,6 +2356,9 @@ def run_overnight(
             state = previous
             state.status = "running"
             state.deadline = deadline.isoformat()
+            state.apply_mode = apply_mode
+            state.baseline_clean = baseline_clean
+            state.baseline_tests_passed = baseline_tests_passed
             state.active_authority = authority.get("active_authority", state.active_authority)
             state.runtime_mode = authority.get("runtime_mode", state.runtime_mode)
             state.notes.extend(note for note in notes if note not in state.notes)
@@ -2017,6 +2422,11 @@ def run_overnight(
             log_decision("Shutdown requested", {"signal": signum})
 
         signal.signal(signal.SIGINT, handle_signal)
+        if hasattr(signal, "SIGTERM"):
+            try:
+                signal.signal(signal.SIGTERM, handle_signal)
+            except (AttributeError, OSError, ValueError):
+                pass
         if sys.platform == "win32":
             try:
                 signal.signal(signal.SIGBREAK, handle_signal)  # type: ignore[attr-defined]
@@ -2032,12 +2442,15 @@ def run_overnight(
             if remaining <= 0:
                 log_decision("Time limit reached")
                 break
-            if state.consecutive_breaker_failures >= MAX_CONSECUTIVE_FAILURES:
-                log_decision("Circuit breaker tripped on infrastructure failures")
-                state.status = "stopped"
-                break
-            if state.consecutive_timeouts >= MAX_CONSECUTIVE_TIMEOUTS:
-                log_decision("Circuit breaker tripped on timeouts")
+            if _failure_breaker_tripped(state):
+                log_decision(
+                    "Circuit breaker tripped on repeated unhealthy runtime failures",
+                    {
+                        "consecutive_failures": state.consecutive_failures,
+                        "consecutive_breaker_failures": state.consecutive_breaker_failures,
+                        "consecutive_timeouts": state.consecutive_timeouts,
+                    },
+                )
                 state.status = "stopped"
                 break
 
@@ -2046,7 +2459,7 @@ def run_overnight(
                 log_decision("All tasks resolved or blocked")
                 break
 
-            if state.active_authority != "codex":
+            if _requires_shadow_setup_restrictions(state):
                 allowed, reason = _shadow_setup_allows_task(task)
                 if not allowed:
                     state.results[task.task_id] = {"status": "skipped", "error": reason}
@@ -2066,6 +2479,7 @@ def run_overnight(
                 _append_event(
                     "task_skipped",
                     {
+                        "run_id": state.run_id,
                         "task_id": task.task_id,
                         "status": "skipped",
                         "reason": "insufficient_time",
@@ -2083,6 +2497,7 @@ def run_overnight(
             _append_event(
                 "task_started",
                 {
+                    "run_id": state.run_id,
                     "task_id": task.task_id,
                     "lane": task.lane,
                     "category": task.category,
@@ -2145,6 +2560,7 @@ def run_overnight(
             _append_event(
                 "task_finished",
                 {
+                    "run_id": state.run_id,
                     "task_id": task.task_id,
                     "status": result.status,
                     "failure_class": result.failure_class,
@@ -2162,6 +2578,7 @@ def run_overnight(
             state.status = "completed"
         save_state(state)
         write_progress_file(state, manifest)
+        sync_backlog(state.run_id)
         maybe_append_findings()
         previous_snapshot = _load_previous_snapshot(state.started_at)
         generate_morning_report(state, manifest, previous_snapshot)

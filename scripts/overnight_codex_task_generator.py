@@ -14,23 +14,31 @@ from pathlib import Path
 from typing import Any
 
 try:
+    from scripts.overnight_codex_backlog import approved_backlog_items
     from scripts.overnight_codex_common import (
         PIPELINE_ORDER,
         PROJECT_DIR,
         OVERNIGHT_CODEX_DIR,
         CodexTaskDef,
+        load_active_authority,
         manifest_to_json,
+        rewrite_python_command,
         repo_rel,
+        safe_slug,
         write_json,
     )
 except ImportError:
+    from overnight_codex_backlog import approved_backlog_items
     from overnight_codex_common import (
         PIPELINE_ORDER,
         PROJECT_DIR,
         OVERNIGHT_CODEX_DIR,
         CodexTaskDef,
+        load_active_authority,
         manifest_to_json,
+        rewrite_python_command,
         repo_rel,
+        safe_slug,
         write_json,
     )
 
@@ -43,8 +51,9 @@ LANE_ORDER = {"analysis_lane": 0, "synthesis_lane": 1, "write_lane": 2}
 def _run(cmd: list[str], timeout: int = 60) -> subprocess.CompletedProcess[str]:
     """Run a subprocess from the repo root."""
     env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+    resolved_cmd = rewrite_python_command(cmd)
     return subprocess.run(
-        cmd,
+        resolved_cmd,
         capture_output=True,
         text=True,
         encoding="utf-8",
@@ -94,20 +103,33 @@ def _git_recent_committed_engine_files(hours: int = 72) -> dict[str, list[str]]:
     return by_engine
 
 
+def _scan_frontier_file(path: Path) -> str | None:
+    """Extract the most likely active engine from a frontier file."""
+    if not path.exists():
+        return None
+    text = path.read_text(encoding="utf-8", errors="replace")[:12000]
+    if path.name == "ACTIVE.md" and re.search(r"Status:\s*completed", text, re.IGNORECASE):
+        return None
+    for engine in reversed(PIPELINE_ORDER):
+        if re.search(rf"\b{engine}\b", text, re.IGNORECASE):
+            return engine
+    return None
+
+
 def detect_focus_engine() -> str:
-    """Detect the current engine focus conservatively."""
+    """Detect the current frontier engine before falling back to repo churn."""
+    for candidate in (
+        PROJECT_DIR / ".kr" / "ACTIVE.md",
+        PROJECT_DIR / ".kr" / "HANDOFF.md",
+        PROJECT_DIR / "NEXT.md",
+    ):
+        frontier_engine = _scan_frontier_file(candidate)
+        if frontier_engine:
+            return frontier_engine
     recent = _git_recent_committed_engine_files()
     if recent:
         ranked = sorted(recent.items(), key=lambda item: (-len(item[1]), item[0]))
         return ranked[0][0]
-    next_md = PROJECT_DIR / "NEXT.md"
-    if next_md.exists():
-        text = next_md.read_text(encoding="utf-8", errors="replace")[:5000]
-        for engine in reversed(PIPELINE_ORDER):
-            if re.search(rf"\b{engine}\b", text, re.IGNORECASE):
-                return engine
-    if (PROJECT_DIR / "engines" / "excerpting").exists():
-        return "excerpting"
     for engine in reversed(PIPELINE_ORDER):
         if (PROJECT_DIR / "engines" / engine).exists():
             return engine
@@ -122,7 +144,8 @@ def generate_core_tasks() -> list[CodexTaskDef]:
             name="Regression test snapshot for completed engines",
             category="validation",
             prompt=(
-                "Run the full test suite for each completed engine separately:\n"
+                "Run the full test suite for each completed engine separately using the checkout's "
+                "preferred Python interpreter (prefer .venv when present):\n"
                 "1. python -m pytest engines/source/tests/ -v --tb=short\n"
                 "2. python -m pytest engines/normalization/tests/ -v --tb=short\n"
                 "3. python -m pytest engines/excerpting/tests/ -v --tb=short\n\n"
@@ -141,223 +164,135 @@ def generate_core_tasks() -> list[CodexTaskDef]:
     ]
 
 
-def scan_recent_changes() -> list[CodexTaskDef]:
-    """Review recently committed engine changes and optionally harden them."""
+def scan_recent_changes(focus_engine: str) -> list[CodexTaskDef]:
+    """Review recently committed changes inside the active frontier engine only."""
     tasks: list[CodexTaskDef] = []
+    if focus_engine not in PIPELINE_ORDER:
+        return tasks
     recent = _git_recent_committed_engine_files()
-    for engine, files in sorted(recent.items()):
-        file_list = "\n".join(f"- {path}" for path in files)
-        review_id = f"review-recent-{engine}"
-        tasks.append(
-            CodexTaskDef(
-                task_id=review_id,
-                name=f"Review recent committed {engine} changes",
-                category="review",
-                prompt=(
-                    f"Review these recently committed {engine} source files:\n{file_list}\n\n"
-                    "Focus on structural correctness only:\n"
-                    "1. SPEC drift against the governing engine SPEC\n"
-                    "2. Missing or weak regression tests\n"
-                    "3. Error handling gaps\n"
-                    "4. Data-flow / contract preservation risks\n"
-                    "5. Unicode / serialization hazards that do not require Arabic domain judgment\n\n"
-                    "Do not propose architecture rewrites. Stay inside the named engine files and "
-                    "their tests only."
-                ),
-                runner_mode="exec",
-                sandbox_mode="read-only",
-                write_policy="readonly",
-                timeout_minutes=20,
-                priority=1,
-                estimated_complexity="medium",
-                expected_artifact="review.json",
-            )
+    files = recent.get(focus_engine, [])
+    if not files:
+        return tasks
+    file_list = "\n".join(f"- {path}" for path in files)
+    tasks.append(
+        CodexTaskDef(
+            task_id=f"review-recent-{focus_engine}",
+            name=f"Review recent committed {focus_engine} changes",
+            category="review",
+            prompt=(
+                f"Review these recently committed {focus_engine} source files:\n{file_list}\n\n"
+                "Focus on structural correctness only:\n"
+                "1. SPEC drift against the governing engine SPEC\n"
+                "2. Missing or weak regression tests\n"
+                "3. Error handling gaps\n"
+                "4. Data-flow / contract preservation risks\n"
+                "5. Unicode / serialization hazards that do not require Arabic domain judgment\n\n"
+                "Do not propose architecture rewrites. Stay inside the named engine files and "
+                "their tests only."
+            ),
+            runner_mode="exec",
+            sandbox_mode="read-only",
+            write_policy="readonly",
+            timeout_minutes=20,
+            priority=1,
+            estimated_complexity="medium",
+            expected_artifact="review.json",
+            frontier_tag=focus_engine,
         )
-        tasks.append(
-            CodexTaskDef(
-                task_id=f"harden-recent-{engine}",
-                name=f"Harden recent committed {engine} changes",
-                category="test",
-                prompt=(
-                    f"Use the findings from {review_id} to make only bounded hardening changes for "
-                    f"the same {engine} files:\n{file_list}\n\n"
-                    "Allowed work:\n"
-                    "- add or adjust regression tests\n"
-                    "- fix confirmed local bugs revealed by those tests\n"
-                    "- tighten local validation or error handling when directly justified by the review\n\n"
-                    "Not allowed:\n"
-                    "- feature work\n"
-                    "- new orchestrators or runtime systems\n"
-                    "- changes outside engines/{engine}/src/ and engines/{engine}/tests/\n"
-                    "- edits to .kr/, docs/, specs, .claude, integration_tests, or overnight systems"
-                ),
-                runner_mode="exec",
-                sandbox_mode="workspace-write",
-                write_policy="guarded_write",
-                timeout_minutes=30,
-                depends_on=[review_id],
-                priority=2,
-                estimated_complexity="high",
-                expected_artifact="findings.json",
-                allowed_write_prefixes=[
-                    f"engines/{engine}/src/",
-                    f"engines/{engine}/tests/",
-                ],
-            )
-        )
+    )
     return tasks
 
 
-def scan_knowledge_integrity() -> list[CodexTaskDef]:
-    """Generate structural integrity probes Codex can own safely."""
+def scan_test_health(focus_engine: str) -> list[CodexTaskDef]:
+    """Generate coverage-matrix tasks for the active frontier engine."""
     tasks: list[CodexTaskDef] = []
-    writer = PROJECT_DIR / "engines" / "excerpting" / "src" / "writer.py"
-    deterministic = PROJECT_DIR / "engines" / "excerpting" / "src" / "phase3_deterministic.py"
-    if writer.exists():
-        tasks.append(
-            CodexTaskDef(
-                task_id="ki-text-integrity-excerpting",
-                name="Probe excerpting writer for byte-preservation regressions",
-                category="test",
-                prompt=(
-                    "Inspect engines/excerpting/src/writer.py and the corresponding tests. "
-                    "Focus on byte-preservation and Unicode safety, not Arabic semantic judgment.\n\n"
-                    "Write targeted regression tests for any structural risk where serialized output "
-                    "could alter bytes, escape significant characters, or drop line breaks. "
-                    "Stay inside engines/excerpting/src/ and engines/excerpting/tests/. "
-                    "Fix only a confirmed local bug needed to make the test pass."
-                ),
-                runner_mode="exec",
-                sandbox_mode="workspace-write",
-                write_policy="guarded_write",
-                timeout_minutes=30,
-                priority=1,
-                estimated_complexity="high",
-                expected_artifact="findings.json",
-                allowed_write_prefixes=[
-                    "engines/excerpting/src/",
-                    "engines/excerpting/tests/",
-                ],
-            )
+    if focus_engine not in PIPELINE_ORDER:
+        return tasks
+    engine_tests = PROJECT_DIR / "engines" / focus_engine / "tests"
+    if not engine_tests.exists():
+        return tasks
+    result = _run(
+        ["python", "-m", "pytest", str(engine_tests), "--co", "-q", "--no-header"],
+        timeout=45,
+    )
+    if result.returncode != 0:
+        return tasks
+    test_count = sum(1 for line in result.stdout.splitlines() if "::" in line)
+    if not test_count:
+        return tasks
+    tasks.append(
+        CodexTaskDef(
+            task_id=f"test-coverage-{focus_engine}",
+            name=f"Map {focus_engine} SPEC section 4 to existing tests",
+            category="test",
+            prompt=(
+                f"Read engines/{focus_engine}/SPEC.md section 4 and extract the behavioral rules. "
+                f"Then inspect engines/{focus_engine}/tests/ and map which tests cover which rules. "
+                f"Current discovered test count: {test_count}. "
+                "Produce a concrete gap matrix with exact file references. Do not modify code."
+            ),
+            runner_mode="exec",
+            sandbox_mode="read-only",
+            write_policy="readonly",
+            timeout_minutes=20,
+            priority=4,
+            estimated_complexity="medium",
+            expected_artifact="coverage.json",
+            frontier_tag=focus_engine,
         )
-    if deterministic.exists():
-        tasks.append(
-            CodexTaskDef(
-                task_id="ki-layer-merge-excerpting",
-                name="Probe excerpting layer merge logic for structural attribution bugs",
-                category="test",
-                prompt=(
-                    "Inspect engines/excerpting/src/phase3_deterministic.py for structural bugs in "
-                    "layer merging, coverage calculation, and deterministic attribution plumbing.\n\n"
-                    "Stay within Codex-safe ground:\n"
-                    "- None-author merges\n"
-                    "- split-boundary bookkeeping\n"
-                    "- duplicate pair handling\n"
-                    "- invariant preservation and warning emission\n\n"
-                    "Write regression tests first. Stay inside engines/excerpting/src/ and "
-                    "engines/excerpting/tests/. Fix only directly confirmed local defects."
-                ),
-                runner_mode="exec",
-                sandbox_mode="workspace-write",
-                write_policy="guarded_write",
-                timeout_minutes=35,
-                priority=1,
-                estimated_complexity="high",
-                expected_artifact="findings.json",
-                allowed_write_prefixes=[
-                    "engines/excerpting/src/",
-                    "engines/excerpting/tests/",
-                ],
-            )
-        )
+    )
     return tasks
 
 
-def scan_test_health() -> list[CodexTaskDef]:
-    """Generate coverage-matrix tasks for engines with tests."""
-    tasks: list[CodexTaskDef] = []
-    for engine_tests in sorted(PROJECT_DIR.glob("engines/*/tests")):
-        engine = engine_tests.parent.name
-        if engine not in PIPELINE_ORDER:
-            continue
-        result = _run(
-            ["python", "-m", "pytest", str(engine_tests), "--co", "-q", "--no-header"],
-            timeout=45,
-        )
-        if result.returncode != 0:
-            continue
-        test_count = sum(1 for line in result.stdout.splitlines() if "::" in line)
-        if not test_count:
-            continue
-        tasks.append(
-            CodexTaskDef(
-                task_id=f"test-coverage-{engine}",
-                name=f"Map {engine} SPEC section 4 to existing tests",
-                category="test",
-                prompt=(
-                    f"Read engines/{engine}/SPEC.md section 4 and extract the behavioral rules. "
-                    f"Then inspect engines/{engine}/tests/ and map which tests cover which rules. "
-                    f"Current discovered test count: {test_count}. "
-                    "Produce a concrete gap matrix with exact file references. Do not modify code."
-                ),
-                runner_mode="exec",
-                sandbox_mode="read-only",
-                write_policy="readonly",
-                timeout_minutes=20,
-                priority=4,
-                estimated_complexity="medium",
-                expected_artifact="coverage.json",
-            )
-        )
-    return tasks
-
-
-def scan_spec_quality() -> list[CodexTaskDef]:
-    """Generate local SPEC audit tasks from the existing checker."""
+def scan_spec_quality(focus_engine: str) -> list[CodexTaskDef]:
+    """Generate local SPEC audit tasks from the active frontier engine."""
     checker = PROJECT_DIR / "scripts" / "check_spec_quality.py"
-    if not checker.exists():
+    if not checker.exists() or focus_engine not in PIPELINE_ORDER:
         return []
 
     tasks: list[CodexTaskDef] = []
-    for spec_path in sorted(PROJECT_DIR.glob("engines/*/SPEC.md")):
-        engine = spec_path.parent.name
-        if engine not in PIPELINE_ORDER:
-            continue
-        result = _run(["python", str(checker), str(spec_path), "--severity", "high"], timeout=60)
-        high_hits = sum(1 for line in result.stdout.lower().splitlines() if "high" in line)
-        if high_hits <= 0:
-            continue
-        tasks.append(
-            CodexTaskDef(
-                task_id=f"spec-audit-{engine}",
-                name=f"Audit local SPEC quality for {engine}",
-                category="spec",
-                prompt=(
-                    f"Audit engines/{engine}/SPEC.md locally. "
-                    f"The automated checker reported {high_hits} HIGH-severity findings.\n\n"
-                    "Find only concrete local defects:\n"
-                    "- contradictions with contracts or code\n"
-                    "- ambiguous rules with no executable edge-case behavior\n"
-                    "- broken cross-references\n"
-                    "- missing failure-mode definitions\n\n"
-                    "Do not redesign the engine. Produce local, implementation-safe findings only."
-                ),
-                runner_mode="exec",
-                sandbox_mode="read-only",
-                write_policy="readonly",
-                timeout_minutes=20,
-                priority=5,
-                estimated_complexity="medium",
-                expected_artifact="audit.json",
-            )
+    spec_path = PROJECT_DIR / "engines" / focus_engine / "SPEC.md"
+    if not spec_path.exists():
+        return tasks
+    result = _run(["python", str(checker), str(spec_path), "--severity", "high"], timeout=60)
+    high_hits = sum(1 for line in result.stdout.lower().splitlines() if "high" in line)
+    if high_hits <= 0:
+        return tasks
+    tasks.append(
+        CodexTaskDef(
+            task_id=f"spec-audit-{focus_engine}",
+            name=f"Audit local SPEC quality for {focus_engine}",
+            category="spec",
+            prompt=(
+                f"Audit engines/{focus_engine}/SPEC.md locally. "
+                f"The automated checker reported {high_hits} HIGH-severity findings.\n\n"
+                "Find only concrete local defects:\n"
+                "- contradictions with contracts or code\n"
+                "- ambiguous rules with no executable edge-case behavior\n"
+                "- broken cross-references\n"
+                "- missing failure-mode definitions\n\n"
+                "Do not redesign the engine. Produce local, implementation-safe findings only."
+            ),
+            runner_mode="exec",
+            sandbox_mode="read-only",
+            write_policy="readonly",
+            timeout_minutes=20,
+            priority=5,
+            estimated_complexity="medium",
+            expected_artifact="audit.json",
+            frontier_tag=focus_engine,
         )
+    )
     return tasks
 
 
-def scan_code_quality() -> list[CodexTaskDef]:
-    """Produce a structural code-quality scan when local issues are present."""
+def scan_code_quality(focus_engine: str) -> list[CodexTaskDef]:
+    """Produce a structural code-quality scan inside the active frontier engine."""
+    if focus_engine not in PIPELINE_ORDER:
+        return []
+    scan_root = f"engines/{focus_engine}"
     issues: list[str] = []
-    digit_result = _run(["rg", "-n", r"\\d", "engines/source", "engines/normalization", "engines/excerpting"], timeout=20)
+    digit_result = _run(["rg", "-n", r"\\d", scan_root], timeout=20)
     digit_matches = [
         line for line in digit_result.stdout.splitlines()
         if line.strip() and "tests/" not in line.replace("\\", "/")
@@ -365,7 +300,7 @@ def scan_code_quality() -> list[CodexTaskDef]:
     if digit_matches:
         issues.append(f"\\d regex uses: {len(digit_matches)}")
 
-    bare_except = _run(["rg", "-n", "except:", "engines/source", "engines/normalization", "engines/excerpting"], timeout=20)
+    bare_except = _run(["rg", "-n", "except:", scan_root], timeout=20)
     bare_matches = [line for line in bare_except.stdout.splitlines() if line.strip()]
     if bare_matches:
         issues.append(f"bare except handlers: {len(bare_matches)}")
@@ -378,7 +313,7 @@ def scan_code_quality() -> list[CodexTaskDef]:
             name=f"Structural code quality scan ({', '.join(issues)})",
             category="code_quality",
             prompt=(
-                "Inspect engines/*/src/ for structural code-quality hazards:\n"
+                f"Inspect `engines/{focus_engine}/src/` for structural code-quality hazards:\n"
                 "1. regex digit traps\n"
                 "2. broad exception handling\n"
                 "3. silent error swallowing\n"
@@ -392,6 +327,7 @@ def scan_code_quality() -> list[CodexTaskDef]:
             priority=6,
             estimated_complexity="medium",
             expected_artifact="scan.json",
+            frontier_tag=focus_engine,
         )
     ]
 
@@ -426,8 +362,79 @@ def scan_contract_boundaries() -> list[CodexTaskDef]:
             priority=3,
             estimated_complexity="low",
             expected_artifact="boundaries.json",
+            frontier_tag="cross_engine",
         )
     ]
+
+
+def build_backlog_write_tasks(focus_engine: str) -> list[CodexTaskDef]:
+    """Build guarded-write tasks only from approved backlog items."""
+    authority = load_active_authority()
+    if authority.get("active_authority") != "codex":
+        return []
+    if authority.get("runtime_mode") != "autonomous_codex":
+        return []
+    tasks: list[CodexTaskDef] = []
+    for record in approved_backlog_items(focus_engine):
+        item_id = str(record.get("item_id", "")).strip()
+        summary = str(record.get("summary", "")).strip()
+        allowed_write_prefixes = [
+            str(prefix)
+            for prefix in record.get("allowed_write_prefixes", [])
+            if isinstance(prefix, str) and prefix.strip()
+        ]
+        if not item_id or not summary or not allowed_write_prefixes:
+            continue
+        source_task_ids = [
+            str(task_id)
+            for task_id in record.get("source_task_ids", [])
+            if isinstance(task_id, str) and task_id.strip()
+        ]
+        evidence_paths = [
+            str(path)
+            for path in record.get("evidence_paths", [])
+            if isinstance(path, str) and path.strip()
+        ][:6]
+        tasks.append(
+            CodexTaskDef(
+                task_id=f"backlog-{safe_slug(item_id)}",
+                name=f"Implement approved backlog item {item_id}",
+                category="test",
+                prompt=(
+                    f"Implement this approved backlog item: `{item_id}`.\n\n"
+                    f"Goal:\n- {summary}\n\n"
+                    f"Allowed write prefixes:\n- " + "\n- ".join(allowed_write_prefixes) + "\n\n"
+                    + (
+                        "Source tasks:\n- " + "\n- ".join(source_task_ids) + "\n\n"
+                        if source_task_ids
+                        else ""
+                    )
+                    + (
+                        "Evidence paths to read first:\n- " + "\n- ".join(evidence_paths) + "\n\n"
+                        if evidence_paths
+                        else ""
+                    )
+                    + "Rules:\n"
+                    "- Make only the bounded code/test changes needed for this approved item.\n"
+                    "- Add or adjust regression tests when the fix is structurally testable.\n"
+                    "- Stay inside the allowed write prefixes only.\n"
+                    "- Run only the smallest safe validation needed before handing back to the host quality gate.\n"
+                    "- Do not redesign architecture or expand scope beyond the approved item."
+                ),
+                runner_mode="exec",
+                sandbox_mode="workspace-write",
+                write_policy="guarded_write",
+                timeout_minutes=35,
+                priority=1,
+                estimated_complexity="high",
+                expected_artifact="findings.json",
+                allowed_write_prefixes=allowed_write_prefixes,
+                frontier_tag=str(record.get("frontier_tag", focus_engine)),
+                backlog_item_id=item_id,
+                gate_mode=str(record.get("gate_mode", "all")),
+            )
+        )
+    return tasks
 
 
 def scan_documentation() -> list[CodexTaskDef]:
@@ -604,6 +611,7 @@ def scan_creative() -> list[CodexTaskDef]:
                 expected_artifact="creative.json",
                 capability_flags=list(template.get("capability_flags", [])),
                 authority_level="low",
+                frontier_tag=focus_engine,
             )
         )
     return tasks
@@ -651,14 +659,15 @@ def enrich_task_metadata(tasks: list[CodexTaskDef]) -> list[CodexTaskDef]:
 def build_manifest() -> list[CodexTaskDef]:
     """Build the full Codex manifest."""
     all_tasks: list[CodexTaskDef] = []
+    focus_engine = detect_focus_engine()
     all_tasks.extend(generate_core_tasks())
+    all_tasks.extend(build_backlog_write_tasks(focus_engine))
 
     scanners = [
-        ("Knowledge Integrity", scan_knowledge_integrity),
-        ("Recent Changes", scan_recent_changes),
-        ("Test Health", scan_test_health),
-        ("SPEC Quality", scan_spec_quality),
-        ("Code Quality", scan_code_quality),
+        ("Recent Changes", lambda: scan_recent_changes(focus_engine)),
+        ("Test Health", lambda: scan_test_health(focus_engine)),
+        ("SPEC Quality", lambda: scan_spec_quality(focus_engine)),
+        ("Code Quality", lambda: scan_code_quality(focus_engine)),
         ("Contract Boundaries", scan_contract_boundaries),
         ("Documentation", scan_documentation),
         ("Creative", scan_creative),

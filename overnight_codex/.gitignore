@@ -6,9 +6,15 @@ decisions.log
 manifest.json
 manifest_write.json
 manifest_readonly.json
+backlog.json
+events.jsonl
+findings_registry.json
+creative_run_log.json
 results/**
 !results/.gitkeep
 queue/**
 !queue/.gitkeep
+run_snapshots/**
+!run_snapshots/.gitkeep
 worktrees/**
 !worktrees/.gitkeep

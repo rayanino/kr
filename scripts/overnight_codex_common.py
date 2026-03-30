@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import json
+import os
 import re
+import sys
 import subprocess
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
@@ -17,6 +19,7 @@ ACTIVE_AUTHORITY_FILE = PROJECT_DIR / "ACTIVE_AUTHORITY.md"
 RESULTS_DIR = OVERNIGHT_CODEX_DIR / "results"
 QUEUE_DIR = OVERNIGHT_CODEX_DIR / "queue"
 WORKTREES_DIR = OVERNIGHT_CODEX_DIR / "worktrees"
+BACKLOG_FILE = OVERNIGHT_CODEX_DIR / "backlog.json"
 STATE_FILE = OVERNIGHT_CODEX_DIR / "state.json"
 PROGRESS_FILE = OVERNIGHT_CODEX_DIR / "progress.md"
 DECISIONS_LOG = OVERNIGHT_CODEX_DIR / "decisions.log"
@@ -47,6 +50,7 @@ ALLOWED_COMPLEXITIES = {"low", "medium", "high"}
 ALLOWED_PRIORITIES = {"HIGH", "MEDIUM", "LOW"}
 ALLOWED_EFFORTS = {"S", "M", "L"}
 ALLOWED_LANES = {"analysis_lane", "synthesis_lane", "write_lane"}
+ALLOWED_GATE_MODES = {"all", "python", "contracts", "arabic", "spec", "integration"}
 FORBIDDEN_CAPABILITY_FLAGS = {
     "requires_web",
     "requires_arabic_judgment",
@@ -176,6 +180,9 @@ class CodexTaskDef:
     lane: str = "analysis_lane"
     learning_value: int = 5
     novelty_hint: str = ""
+    frontier_tag: str = ""
+    backlog_item_id: str = ""
+    gate_mode: str = "all"
 
     def validate(self) -> None:
         if self.category not in ALLOWED_CATEGORIES:
@@ -195,6 +202,8 @@ class CodexTaskDef:
             )
         if self.lane not in ALLOWED_LANES:
             raise ValueError(f"Unsupported lane for {self.task_id}: {self.lane}")
+        if self.gate_mode not in ALLOWED_GATE_MODES:
+            raise ValueError(f"Unsupported gate_mode for {self.task_id}: {self.gate_mode}")
         if self.timeout_minutes <= 0:
             raise ValueError(f"timeout_minutes must be > 0 for {self.task_id}")
         if self.learning_value <= 0:
@@ -329,6 +338,43 @@ def ensure_runtime_dirs() -> None:
         path.mkdir(parents=True, exist_ok=True)
 
 
+def project_python() -> str:
+    """Return the best Python interpreter for this checkout."""
+    candidates: list[Path] = []
+    override = os.environ.get("KR_RUNTIME_PYTHON", "").strip()
+    if override:
+        candidates.append(Path(override))
+
+    venv_root = os.environ.get("VIRTUAL_ENV", "").strip()
+    if venv_root:
+        venv_root_path = Path(venv_root)
+        candidates.append(venv_root_path / "bin" / "python")
+        candidates.append(venv_root_path / "Scripts" / "python.exe")
+
+    candidates.append(PROJECT_DIR / ".venv" / "bin" / "python")
+    candidates.append(PROJECT_DIR / ".venv" / "Scripts" / "python.exe")
+
+    if sys.executable:
+        candidates.append(Path(sys.executable))
+
+    seen: set[str] = set()
+    for candidate in candidates:
+        key = str(candidate)
+        if key in seen:
+            continue
+        seen.add(key)
+        if candidate.exists():
+            return key
+    return "python"
+
+
+def rewrite_python_command(cmd: list[str]) -> list[str]:
+    """Replace bare `python` with the checkout's preferred interpreter."""
+    if not cmd or cmd[0] != "python":
+        return cmd
+    return [project_python(), *cmd[1:]]
+
+
 def load_active_authority() -> dict[str, str]:
     """Load the root authority file as simple key/value pairs."""
     defaults = {
@@ -349,7 +395,7 @@ def load_active_authority() -> dict[str, str]:
         key, value = line.split(":", 1)
         key = key.strip()
         value = value.strip()
-        if key and value:
+        if key in defaults and value:
             parsed[key] = value
     return parsed
 
@@ -441,6 +487,8 @@ def has_forbidden_edits(changed_files: list[str]) -> list[str]:
     violations: list[str] = []
     for file_path in changed_files:
         normalized = file_path.replace("\\", "/")
+        if normalized.startswith("docs/codex/"):
+            continue
         if normalized in FORBIDDEN_EDIT_EXACT:
             violations.append(normalized)
             continue
