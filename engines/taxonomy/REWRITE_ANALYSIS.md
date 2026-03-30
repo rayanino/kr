@@ -111,7 +111,7 @@ From the real data, the taxonomy engine has these fields to work with:
 
 **Risk:** The LLM might hallucinate a match for an editorial excerpt, placing it at a topically wrong leaf with moderate confidence. Mitigation: `primary_function` is included in the placement context, giving the LLM information to make good judgments.
 
-### D-TAX-003: Unplaceable Excerpt Storage
+### D-TAX-003: Unplaceable Excerpt Storage ⚠️ REVISED in §6.2 — now four-category routing
 
 **Decision:** Unplaceable excerpts are written to `library/sciences/{science_id}/unplaced/{excerpt_id}.json` with full original data plus:
 - `lifecycle_stage`: "unplaced"
@@ -124,7 +124,9 @@ From the real data, the taxonomy engine has these fields to work with:
 - Must be relocatable when trees evolve or correct science is assigned
 - File-per-excerpt matches the placed excerpt storage pattern
 
-### D-TAX-004: Tree Format Standardization (PREREQUISITE)
+**Post-ChatGPT revision:** Now four categories — see §6.2 D-TAX-003 (REVISED).
+
+### D-TAX-004: Tree Format Standardization ⚠️ REVISED in §6.2 — now load-time normalization, not file conversion
 
 **Decision:** All 5 trees must use the standard `taxonomy→nodes` format (id/title/children/leaf) before the taxonomy engine runs. The aqidah tree must be converted.
 
@@ -138,7 +140,7 @@ From the real data, the taxonomy engine has these fields to work with:
 
 **TRAP:** The aqidah v0 format uses `_label` and `_leaf` as metadata keys (prefixed with single `_`). But it also has `__overview` nodes (double underscore) that are REAL leaf nodes, not metadata. A naive converter that skips all `_`-prefixed keys will lose 2 leaves (28 instead of 30). The converter must only skip the specific metadata keys `_label` and `_leaf`, not all underscore-prefixed keys. Verified: grep finds 30 `_leaf: true`, correct count is 30.
 
-### D-TAX-005: Hierarchical Search Threshold
+### D-TAX-005: Hierarchical Search Threshold ⚠️ REVISED in §6.2 — reverted to 200
 
 **Decision:** Trees with >100 leaves use hierarchical search (branch-first, then leaf). Trees with ≤100 leaves show all leaves to the LLM directly.
 
@@ -183,7 +185,7 @@ From the real data, the taxonomy engine has these fields to work with:
 - Model choice (Opus vs Sonnet) can be tuned later based on placement accuracy
 - For v1, use Opus (per project axiom: always use the best model)
 
-### D-TAX-009: Placement Confidence Thresholds
+### D-TAX-009: Placement Confidence Thresholds ⚠️ REVISED in §6.2 — now three-tier with staging gate
 
 **Decision:** Keep the SPEC's three-tier system:
 - ≥0.8: auto-place (logged for future review)
@@ -334,8 +336,184 @@ For balagha (335 leaves), even with hierarchical search, the 3 selected branches
 
 Before CC starts building:
 
-1. **Convert aqidah tree** to standard format (taxonomy→nodes with id/title/children/leaf)
-2. **Verify tree integrity** — every tree file parses, leaf counts match registry
-3. **Create gold baseline** — manually place 10-15 excerpts from ibn_aqil_v3 to validate placement accuracy
-4. **Verify CLI adapter works** for structured output extraction
-5. **Create test fixtures** — mock excerpts with known correct placements
+1. **Verify tree integrity** — every tree file parses, leaf counts match registry
+2. **Create gold baseline** — manually place 10-15 excerpts from ibn_aqil_v3 to validate placement accuracy
+3. **Verify CLI adapter works** for structured output extraction
+4. **Create test fixtures** — mock excerpts with known correct placements
+
+---
+
+## 6. ChatGPT Pro Adversarial Review — Synthesis (2026-03-30)
+
+ChatGPT Pro (deep research mode) reviewed CORE_EXTRACTION.md and REWRITE_ANALYSIS.md
+with access to the full repo. Report: `taxonomy-chatgpt-deep-report.md`.
+
+### 6.1 Verdicts on Each Finding
+
+| # | Finding | Verdict | Impact on Design |
+|---|---------|---------|-----------------|
+| 1 | Per-excerpt science sanity check | MODIFY → batch preflight | New D-TAX-013 |
+| 2 | Distinguish PENDING_NO_TREE from UNPLACEABLE | ACCEPT | Updated D-TAX-003 |
+| 3 | Type-based threshold for editorial excerpts | ACCEPT | New D-TAX-014 |
+| 4 | Tree normalization at load time (not file conversion) | ACCEPT | Revised D-TAX-004 |
+| 5 | Keep 200 hierarchical threshold | ACCEPT | Revised D-TAX-005 |
+| 6 | Recall backstop for hierarchical search | ACCEPT | New D-TAX-015 |
+| 7 | Stage 0.5-0.79 placements (don't write to live tree) | ACCEPT | Revised D-TAX-009 |
+| 8 | Tie detection (top1-top2 < δ) → staging | ACCEPT | Added to D-TAX-009 |
+| 9 | Increase primary_text to 800 chars + add div_path | ACCEPT | Updated §3 prompts |
+| 10 | Per-excerpt science classifier | REJECT | Batch preflight is sufficient for v1 |
+| 11 | Leaf ambiguity scoring | REJECT for v1 | Evaluation data will show where needed |
+| 12 | Cheap consensus for staged cases | REJECT for v1 | Evaluation phase serves this function |
+
+**Convergence: 9/12 accepted.** High confidence in the overall design.
+
+### 6.2 New and Revised Design Decisions
+
+#### D-TAX-003 (REVISED): Three-Category Excerpt Routing
+
+Original: unplaceable excerpts go to `unplaced/` directory.
+Revised: four distinct output categories:
+
+| Category | Condition | Storage Path |
+|----------|-----------|-------------|
+| **Placed (high confidence)** | Score ≥0.8 | `library/sciences/{sid}/content/{leaf}/excerpts/{eid}.json` |
+| **Staged (low confidence)** | Score 0.5-0.79, or tie (top1-top2 < 0.15) | `library/sciences/{sid}/staged/{leaf}/excerpts/{eid}.json` |
+| **Unplaced** | Score <0.5 (tree exists, no good leaf) | `library/sciences/{sid}/unplaced/{eid}.json` |
+| **Pending (no tree)** | Science recognized but no tree | `library/pending/{sid}/{eid}.json` |
+
+ChatGPT correctly identified that lumping "no tree" into "unplaceable" collapses
+two states: "tree gap" vs "awaiting tree creation." The four-category model
+preserves clean re-processing when trees are built.
+
+#### D-TAX-004 (REVISED): Tree Normalization at Load Time
+
+Original: convert aqidah YAML file to standard format on disk.
+Revised: implement a tree loader that normalizes both YAML schemas into a single
+internal `TreeNode` structure at load time. Don't alter source-of-truth files.
+
+ChatGPT argued (correctly) that file conversion risks ID drift, ordering drift,
+or subtle structural changes with no regression suite to catch them. The ABD code
+at `reference/archive/abd_code/taxonomy/evolve_taxonomy.py` already includes
+`_detect_yaml_format()` and dual-format parsing, proving this is solved.
+
+The tree loader returns a uniform `List[TreeNode]` regardless of the YAML format.
+All downstream code works with TreeNode objects, never raw YAML.
+
+#### D-TAX-005 (REVISED): Hierarchical Search Threshold
+
+Original: lowered to 100.
+Revised: restored to 200 (matching the SPEC default).
+
+My 100 threshold had an internal inconsistency (claimed imlaa should be "shown
+directly" but 105 > 100 would trigger hierarchical). ChatGPT identified the
+deeper issue: hierarchical search introduces **recall loss** — if Stage 1 misses
+the correct branch, Stage 2 can never recover. This is the "silent, high-confidence
+wrong placement" pattern that is the engine's primary threat.
+
+Trees affected:
+- ≤200 leaves (aqidah: 30, imlaa: 105): full leaf list → direct placement
+- >200 leaves (nahw: 226, sarf: 226, balagha: 335): hierarchical search
+
+#### D-TAX-009 (REVISED): Confidence Thresholds with Staging
+
+Original: auto-place everything ≥0.5.
+Revised: three-tier with staging gate:
+
+| Score Range | Action | Additional Conditions |
+|-------------|--------|-----------------------|
+| ≥0.8 | Auto-place to content/ | — |
+| 0.5-0.79 | Stage to staged/ | Also stage if tie (top1-top2 < 0.15) |
+| <0.5 | Route to unplaced/ | — |
+
+ChatGPT's core argument: LLM self-scoring is uncalibrated. A score of 0.55 has
+no stable meaning. Writing it to the live content directory makes it "official"
+even when wrong. The staging directory preserves the excerpt for evaluation
+without polluting the content tree.
+
+#### D-TAX-013 (NEW): Batch-Level Science Preflight
+
+Before processing a batch, sample 5 representative excerpts (positions: 1st,
+25th percentile, 50th, 75th, last). For each, ask the LLM:
+
+"Which of these sciences does this excerpt belong to: nahw, sarf, balagha,
+aqidah, imlaa, or none of these?"
+
+If ≥3 of 5 disagree with the declared science_id, halt with `TAX_SCIENCE_MISMATCH`
+and report the detected science. Cost: 5 LLM calls per batch (negligible).
+
+ChatGPT demonstrated this is necessary with concrete data: balagha's tree has
+"الأمر" leaves (rhetoric of command) that would plausibly accept fiqh excerpts
+about "الأمر يقتضي الوجوب" (command implies legal obligation). The >50%
+unplaceable diagnostic does NOT catch this — wrong-science excerpts can score
+above 0.5 due to cross-domain vocabulary overlap.
+
+#### D-TAX-014 (NEW): Type-Sensitive Placement Thresholds
+
+For excerpts with `primary_function ∈ {editorial_note, structural_transition}`:
+- Require ≥0.85 to auto-place (content/)
+- 0.5-0.84 → staged/ (same staging mechanism as low-confidence)
+- <0.5 → unplaced/
+
+ChatGPT showed that editorial content (ibn_aqil_v1 introductions about tahqiq
+methodology, author biographies) contains rich scholarly language that plausibly
+scores 0.55-0.70 against muqaddimat-type leaves. The placement prompt incentivizes
+"find something" rather than "refuse." A higher threshold for editorial types
+biases toward false negatives (safer in a knowledge library).
+
+#### D-TAX-015 (NEW): Recall Backstop for Hierarchical Search
+
+After Stage 1 selects 3 branches, add "wildcard candidates" via keyword matching:
+scan ALL leaf titles for words that appear in the excerpt's `excerpt_topic` list.
+Any leaf with ≥2 matching keywords (min 3 chars each) is added as a wildcard
+candidate for Stage 2, even if its branch was not selected by Stage 1.
+
+This is pure string matching — zero extra LLM calls. It prevents the catastrophic
+"Stage 1 missed the branch → guaranteed wrong placement" failure mode.
+
+### 6.3 Updated Placement Algorithm
+
+**Input to Stage 2 now includes:**
+- `excerpt_topic` (list of strings)
+- `description_arabic` (full Arabic description)
+- `primary_text` (first **800** chars, up from 500)
+- `primary_function` and `content_types`
+- `div_path` (structural heading path from source book) — **NEW**
+
+div_path provides the book's own organizational signal, which is a free and
+often-strong indicator of the correct branch.
+
+### 6.4 Expected Placement Accuracy (Calibrated by ChatGPT Estimate)
+
+ChatGPT estimates 70-80% exact-leaf accuracy for v1 (LLM-only, no embeddings,
+no synonyms) on the "right science" portion. This is realistic and acceptable
+for v1 because:
+
+1. The evaluation phase measures actual accuracy
+2. The staging mechanism captures uncertain placements
+3. Most errors will be "neighbor leaf" (right branch, adjacent leaf), not random
+4. The gold baseline test provides calibration data
+
+Systematic patterns to watch for in evaluation:
+- Overproduction of __overview and muqaddimat leaves (broad-leaf bias)
+- Editorial excerpts in topical leaves at 0.5-0.85 confidence
+- Methodology excerpts (usul-al-nahw) concentrating into generic leaves
+- Low unplaceable rate when science assignment is wrong (the D-TAX-013 preflight
+  should catch this, but verify)
+
+### 6.5 Remaining Risk After All Changes
+
+The residual risk after these 15 design decisions is:
+
+**Within-batch cross-science excerpts.** If a nahw book has 3 sarf excerpts out
+of 200, the batch preflight (5 samples) may not catch them. Those 3 excerpts
+could get plausibly wrong placements in the nahw tree. This is accepted for v1 —
+the evaluation phase catches these via manual review of staged placements.
+
+**Uncalibrated confidence in the 0.8+ range.** Even "high confidence" placements
+may be wrong. The staging gate only protects the <0.8 range. For v1, the owner's
+manual review of a sample of content/ placements is the quality gate.
+
+**Leaf title ambiguity in particle-heavy sciences.** Nahw leaf titles like
+"حروف الجر الزائدة وشبه الزائدة" may confuse the LLM when the excerpt discusses
+one specific particle. This is a granularity issue in the tree, not a design flaw.
+The evaluation phase will measure where this matters.
