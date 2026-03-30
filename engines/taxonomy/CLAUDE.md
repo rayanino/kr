@@ -45,8 +45,9 @@ No tree evolution. No coverage analytics. No cross-science links.
 
 ### Routing Rules (SPEC §4.A.3)
 - Teaching content: ≥0.80 → live, 0.50-0.79 → staged, <0.50 → unplaced
-- Editorial/structural: ≥0.85 → live, 0.50-0.84 → staged, <0.50 → unplaced
-- Editorial = primary_function in {editorial_note, structural_transition, cross_reference}
+- Editorial (editorial_note): ≥0.85 → live, 0.50-0.84 → staged, <0.50 → unplaced
+- Always-staged (structural_transition, cross_reference): NEVER live — ≥0.50 → staged, <0.50 → unplaced
+- Missing/null/unknown primary_function → treated as editorial (safe default)
 
 ## Key Files
 | File | Purpose |
