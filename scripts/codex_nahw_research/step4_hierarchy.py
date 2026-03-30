@@ -3,7 +3,7 @@
 Analyzes how books nest topics under other topics using positional
 analysis and heading-type depth levels.
 
-Output: reference/research/nahw_hierarchy_patterns.json
+Output: reference/research/codex_nahw_hierarchy_patterns.json
 """
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-from scripts.nahw_research._common import (
+from scripts.codex_nahw_research._common import (
     HEADING_DEPTH,
     HeadingType,
     OUTPUT_DIR,
@@ -90,7 +90,7 @@ def main() -> None:
     start = time.time()
 
     # Load Step 2 output
-    headings_path = OUTPUT_DIR / "nahw_headings_by_book.json"
+    headings_path = OUTPUT_DIR / "codex_nahw_headings_by_book.json"
     with open(headings_path, encoding="utf-8") as f:
         data = json.load(f)
 
@@ -165,7 +165,7 @@ def main() -> None:
         total = sum(depths.values())
         if total < 2:
             continue
-        most_common_depth = max(depths, key=depths.get)
+        most_common_depth = max(depths.items(), key=lambda item: item[1])[0]
         topic_typical_depth[topic] = {
             "typical_depth": most_common_depth,
             "depth_distribution": dict(depths),
@@ -201,7 +201,7 @@ def main() -> None:
             logger.info("  %s → %s", parent_type, child_str)
 
     # Write output
-    out_path = OUTPUT_DIR / "nahw_hierarchy_patterns.json"
+    out_path = OUTPUT_DIR / "codex_nahw_hierarchy_patterns.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump({
             "total_books_analyzed": len(per_book),

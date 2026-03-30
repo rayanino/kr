@@ -5,7 +5,7 @@ For each nahw book, parse all HTML files to extract:
 - Heading type classification
 - Position within the book
 
-Output: reference/research/nahw_headings_by_book.json
+Output: reference/research/codex_nahw_headings_by_book.json
 """
 from __future__ import annotations
 
@@ -16,10 +16,9 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-from scripts.nahw_research._common import (
+from scripts.codex_nahw_research._common import (
     OUTPUT_DIR,
     extract_headings_from_file,
-    extract_title_fast,
 )
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -31,7 +30,7 @@ def main() -> None:
     start = time.time()
 
     # Load Step 1 output
-    books_path = OUTPUT_DIR / "nahw_books_identified.json"
+    books_path = OUTPUT_DIR / "codex_nahw_books_identified.json"
     with open(books_path, encoding="utf-8") as f:
         data = json.load(f)
 
@@ -106,7 +105,7 @@ def main() -> None:
         logger.info("  %4d headings: %s", r["total_headings"], r["title"][:60])
 
     # Write output
-    out_path = OUTPUT_DIR / "nahw_headings_by_book.json"
+    out_path = OUTPUT_DIR / "codex_nahw_headings_by_book.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump({
             "total_books": len(results),

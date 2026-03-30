@@ -5,7 +5,7 @@ Three-tier classification:
   B — Title keyword match (nahw-specific terms)
   C — Known book fragment match (famous nahw works)
 
-Output: reference/research/nahw_books_identified.json
+Output: reference/research/codex_nahw_books_identified.json
 """
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from pathlib import Path
 
 # Add project root to path for imports
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-from scripts.nahw_research._common import (
+from scripts.codex_nahw_research._common import (
     OUTPUT_DIR,
     discover_all_books,
     extract_category_fast,
@@ -242,7 +242,7 @@ def main() -> None:
 
     # Write output
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = OUTPUT_DIR / "nahw_books_identified.json"
+    out_path = OUTPUT_DIR / "codex_nahw_books_identified.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump({
             "total_scanned": len(all_books),

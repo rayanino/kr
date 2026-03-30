@@ -4,7 +4,7 @@ Synthesizes Steps 3 (topic frequency) and 4 (hierarchy patterns)
 into a YAML tree that reflects how the books ACTUALLY organize
 their content.
 
-Output: reference/research/nahw_corpus_tree.yaml
+Output: reference/research/codex_nahw_corpus_tree.yaml
 """
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-from scripts.nahw_research._common import OUTPUT_DIR, normalize_arabic
+from scripts.codex_nahw_research._common import OUTPUT_DIR, normalize_arabic
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -49,9 +49,6 @@ def build_tree(topics_data: dict, hierarchy_data: dict) -> dict:
     3. Use hierarchy patterns to determine parent-child relationships
     """
     topics = topics_data["topics"]
-    parent_child = hierarchy_data["parent_child_frequency"]
-    topic_depths = hierarchy_data.get("topic_depth_distribution", {})
-
     # Build a lookup: normalized topic → cluster info
     topic_lookup: dict[str, dict] = {}
     for cluster in topics:
@@ -263,9 +260,9 @@ def main() -> None:
     start = time.time()
 
     # Load Step 3 and Step 4 outputs
-    with open(OUTPUT_DIR / "nahw_topic_frequency.json", encoding="utf-8") as f:
+    with open(OUTPUT_DIR / "codex_nahw_topic_frequency.json", encoding="utf-8") as f:
         topics_data = json.load(f)
-    with open(OUTPUT_DIR / "nahw_hierarchy_patterns.json", encoding="utf-8") as f:
+    with open(OUTPUT_DIR / "codex_nahw_hierarchy_patterns.json", encoding="utf-8") as f:
         hierarchy_data = json.load(f)
 
     tree = build_tree(topics_data, hierarchy_data)
@@ -298,7 +295,7 @@ def main() -> None:
                      branch["title"], n_children, branch["book_count"])
 
     # Write YAML output
-    out_path = OUTPUT_DIR / "nahw_corpus_tree.yaml"
+    out_path = OUTPUT_DIR / "codex_nahw_corpus_tree.yaml"
     _write_yaml(tree, out_path)
     logger.info("Output written to %s", out_path)
 

@@ -3,7 +3,7 @@
 Normalizes headings, strips structural prefixes, clusters similar topics,
 and ranks by how many books contain each topic.
 
-Output: reference/research/nahw_topic_frequency.json
+Output: reference/research/codex_nahw_topic_frequency.json
 """
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-from scripts.nahw_research._common import (
+from scripts.codex_nahw_research._common import (
     OUTPUT_DIR,
     normalize_arabic,
     strip_heading_prefix,
@@ -162,7 +162,6 @@ def cluster_topics(
         candidates.discard(topic)
 
         for other in candidates:
-            other_words = topic_words_cache[other]
             # Use full word sets (including stop words) for Jaccard
             all_a = set(topic.split())
             all_b = set(other.split())
@@ -217,7 +216,7 @@ def main() -> None:
     start = time.time()
 
     # Load Step 2 output
-    headings_path = OUTPUT_DIR / "nahw_headings_by_book.json"
+    headings_path = OUTPUT_DIR / "codex_nahw_headings_by_book.json"
     with open(headings_path, encoding="utf-8") as f:
         data = json.load(f)
 
@@ -286,7 +285,7 @@ def main() -> None:
         }
 
     # Write output
-    out_path = OUTPUT_DIR / "nahw_topic_frequency.json"
+    out_path = OUTPUT_DIR / "codex_nahw_topic_frequency.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump({
             "total_books": data["total_books"],

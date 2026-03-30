@@ -1,4 +1,4 @@
-"""Shared utilities for nahw corpus research scripts.
+"""Shared utilities for Codex nahw corpus research scripts.
 
 Pure stdlib — no BeautifulSoup, no Pydantic, no engine imports.
 Replicates key patterns from normalization engine for standalone use.
@@ -27,10 +27,11 @@ OUTPUT_DIR = PROJECT_ROOT / "reference" / "research"
 # Regex patterns (replicated from normalization engine)
 # ──────────────────────────────────────────────────────────────────
 
-TITLE_TAG_RE = re.compile(r"<title>(.*?)</title>", re.IGNORECASE)
+TITLE_TAG_RE = re.compile(r"<title>(.*?)</title>", re.IGNORECASE | re.DOTALL)
 VOLUME_SUFFIX_RE = re.compile(r"\s*-\s*جـ\s*[٠-٩0-9]+\s*$")
 CATEGORY_RE = re.compile(
-    r"<span\s+class='title'>القسم:</span>\s*(.+?)(?:<hr|<p|$)"
+    r"<span\s+class='title'>القسم:</span>\s*(.+?)(?:<hr|<p|$)",
+    re.DOTALL,
 )
 # Double quotes = content headings (single quotes = metadata labels)
 CONTENT_TITLE_RE = re.compile(r'<span\s+class="title">(.*?)</span>', re.DOTALL)
