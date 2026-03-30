@@ -44,13 +44,13 @@ A thorough investigation was conducted in the review session. Key findings:
 
 ### Aspect 2: Sources of authority
 Ground truth sources, ranked by relevance:
-1. **The books themselves** — internal chapter structures (أبواب) are expert-authored taxonomies. Already extracted as `div_path` by normalization engine.
-2. **Canonical organizational texts per science:**
+1. **Canonical organizational texts per science** — these define the standard branch-level structure:
    - Nahw: ألفية ابن مالك (~80 أبواب, standard for 750 years)
-   - Balagha: تلخيص المفتاح of القزويني (معاني/بيان/بديع three-part division)
+   - Balagha: تلخيص المفتاح of القزويني (معاني/بيان/بديع three-part division) — unverified, needs confirmation
    - Aqidah: Multiple traditions (الواسطية for Hanbali, الطحاوية for Hanafi)
    - Sarf: شذا العرف في فن الصرف, also Alfiyyah sarf sections
    - Imlaa: Various treatises, less standardized
+2. **The books' own heading structures (div_path)** — provide chapter-level (branch) organization but NOT leaf-level granularity. Shamela headings are typically 1-2 levels deep. Useful as a starting point for branches, but leaf-level subdivision requires deeper analysis of content within each chapter.
 3. OpenITI/KITAB, Shamela classification — useful at book level, not sub-topic level
 
 ### Aspect 3: Corpus analysis
@@ -70,6 +70,11 @@ Key design decision: tree should be **encyclopedic in structure** with **pedagog
 6. Prompt design (what to tell each researcher)
 7. Synthesis process (how to combine findings)
 8. Sequencing (when this happens relative to the engine build)
+
+### Downstream impacts of tree changes (must be handled AFTER tree validation)
+- **Gold baseline invalidated:** The 12-excerpt gold baseline (`engines/taxonomy/tests/fixtures/gold_baseline_nahw.yaml`) was assigned against the current unvalidated tree. If tree leaf paths change, the baseline must be re-done.
+- **Session 2 NEXT.md outdated:** The deferred Session 2 directive (`reference/archive/NEXT_taxonomy_session2_deferred.md`) references current tree structure. Must be updated after tree validation.
+- **Review probes stale:** `reference/archive/review_probes/taxonomy_session1_probes.py` references modules that don't exist (`input_validator`, `router`). Should be updated or deprecated.
 
 ## Key files
 

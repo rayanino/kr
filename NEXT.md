@@ -1,8 +1,8 @@
-# NEXT — Taxonomy Session 1 Review Fixes (F-1, F-3, F-4, F-6)
+# NEXT — Taxonomy Session 1 Review Fixes (F-1, F-3, F-4, F-6, F-7, F-8)
 
 ## Context
 
-Session 1 review (checklist: `reference/archive/sessions/reviews/review_taxonomy_session1.md`) found 4 issues. This directive fixes all 4.
+Session 1 review (checklist: `reference/archive/sessions/reviews/review_taxonomy_session1.md`) found 6 issues. This directive fixes all 6.
 Session 2 NEXT.md preserved at: `reference/archive/NEXT_taxonomy_session2_deferred.md`
 
 **Read first:**
@@ -65,17 +65,6 @@ Tests to include:
 - `primary_text` contains Arabic characters (sanity check)
 - Use `pytest.skip` if excerpts file not available
 
-## Verification (Definition of Done)
-
-- [ ] `classify_excerpt_type({"primary_function": "unclassified"})` returns `ExcerptType.EDITORIAL`
-- [ ] `classify_excerpt_type({"primary_function": "rule_statement"})` returns `ExcerptType.TEACHING`
-- [ ] `_EXPECTED_FIELDS` has exactly 8 entries
-- [ ] Excerpt with `school=None` (key present) does NOT trigger expected-field warning
-- [ ] `compute_editorial_placement_rate` counts null primary_function as editorial
-- [ ] `test_real_data.py` exists and all tests pass
-- [ ] All tests pass: `PYTHONPATH=. python -m pytest engines/taxonomy/tests/ -q --tb=short`
-- [ ] Test count: ≥ 125 (was 119, expect ~6-8 new tests)
-
 ## Fix 5: F-7 — BOM-safe JSONL reading
 
 **File:** `engines/taxonomy/src/engine.py`
@@ -90,13 +79,26 @@ Tests to include:
 
 **File:** `engines/taxonomy/src/engine.py`
 
-**Problem:** If two excerpts with the same `excerpt_id` are processed, the second write silently overwrites the first. No warning, no error — data loss.
+**Problem:** If two excerpts with the same `excerpt_id` are processed in the same batch, the second write silently overwrites the first. No warning, no error — data loss.
 
-**Fix:** In `_process_excerpt`, before calling the writer, check if the output file path already exists. If it does, log a warning: `"TAX_DUPLICATE_OUTPUT: overwriting existing file for excerpt {excerpt_id} at {path}"`. Do NOT prevent the write (the latest result should win) — just make it visible.
+**Fix:** In the `run()` function, maintain a `seen_ids: set[str]` that tracks every `excerpt_id` processed. Before calling `_process_excerpt`, check if the ID was already seen. If so, log a warning: `"TAX_DUPLICATE_EXCERPT_ID: excerpt {excerpt_id} appears multiple times in batch — later result will overwrite"`. Still process the excerpt (last-write-wins is correct behavior), but make it visible.
 
-This requires the writer functions to return the planned path before writing, or the check can go in `_process_excerpt` by constructing the path and checking `path.exists()` before the write call.
+```python
+seen_ids: set[str] = set()
+for excerpt in excerpts:
+    eid = excerpt.get("excerpt_id", "")
+    if eid in seen_ids:
+        logger.warning(
+            "TAX_DUPLICATE_EXCERPT_ID: excerpt %s appears multiple times in batch",
+            eid,
+        )
+    seen_ids.add(eid)
+    result = _process_excerpt(...)
+```
 
-**Test:** Add a test that processes two excerpts with the same ID and verifies a warning is logged.
+Do NOT modify `writer.py` for this fix. The check belongs in the orchestrator (`run()`), not the writer.
+
+**Test:** Add a test in `test_engine.py` that processes two excerpts with the same `excerpt_id` in one batch and verifies the batch still completes (both processed) and `total_excerpts` counts both.
 
 ## Verification (Definition of Done)
 
@@ -113,7 +115,7 @@ This requires the writer functions to return the planned path before writing, or
 
 ## Do NOT Do
 
-- Do NOT modify `tree_loader.py` or `validator.py`
+- Do NOT modify `tree_loader.py`, `writer.py`, or `validator.py` — no findings in these
 - Do NOT modify `contracts_core.py`
-- Do NOT implement anything beyond the 6 fixes specified above
+- Do NOT implement anything beyond the 6 fixes specified above (F-1, F-3, F-4, F-6, F-7, F-8)
 - After completing the fixes, commit and push. Do NOT proceed to Session 2.

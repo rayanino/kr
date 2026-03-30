@@ -19,13 +19,13 @@ After cloning the repo, read these files in this order:
 The previous session did two things:
 
 ### 1. Code review (COMPLETE — verdict: BLOCKED)
-Session 1 taxonomy build was reviewed by 4 providers (architect, CC, ChatGPT Pro, Codex). Found 4 bugs. Fix directive is at `NEXT.md`. **This is ready for CC — the owner will relay NEXT.md to CC in parallel.** You do NOT need to work on this.
+Session 1 taxonomy build was reviewed by 4 providers (architect, CC, ChatGPT Pro, Codex). Found 6 bugs (4 from protocol review + 2 from Standing Order 7 adversarial pass). Fix directive is at `NEXT.md`. **This is ready for CC — the owner will relay NEXT.md to CC in parallel.** You do NOT need to work on this.
 
 ### 2. Tree validation research (Aspects 1-4 COMPLETE, Aspects 5-8 PENDING)
 The previous session discovered that Gate G3 (tree validation) was never executed — the trees are unvalidated AI-generated structures. A deep investigation established:
 
 - **Aspect 1 (Provenance):** Trees originated in ABD codebase, no documentation, registry says "placement-safe" not "scholarly." ENGINE_FACTORY_PLAN.md explicitly says "created without owner validation."
-- **Aspect 2 (Sources of authority):** Ground truth is the books' own heading structures (div_path) + canonical organizational texts per science (Alfiyyah for nahw, تلخيص المفتاح for balagha). AI generation should be secondary.
+- **Aspect 2 (Sources of authority):** Ground truth is canonical organizational texts per science (Alfiyyah for nahw, تلخيص المفتاح for balagha — the latter unverified). Books' heading structures (div_path) provide chapter-level (branch) organization but NOT leaf-level granularity — headings are typically 1-2 levels deep. Leaf-level subdivision requires deeper content analysis.
 - **Aspect 3 (Corpus analysis):** Only 67 excerpts processed (25 nahw, from one chapter). Books use flat headings; tree sub-classifies into fine-grained leaves. Current tree uses encyclopedic organization, not the Alfiyyah's pedagogical sequence.
 - **Aspect 4 (Evaluation criteria):** Proposed encyclopedic structure + pedagogical metadata. Hard requirements: scholarly terminology, no fabricated divisions, leaf distinctness, corpus viability. Quality metrics: placement accuracy, distribution, canonical alignment.
 
@@ -33,7 +33,7 @@ The previous session discovered that Gate G3 (tree validation) was never execute
 
 Complete the tree validation research — Aspects 5-8:
 
-**Aspect 5: Research methodology.** How should the tree investigation be structured? The owner's proposed methodology: independent research by separate Claude and ChatGPT sessions per science (unbiased, no anchoring on current trees), then compare and synthesize. But this methodology needs fleshing out — what exactly does each researcher do? What data do they analyze? How do they avoid producing plausible-sounding trees that don't reflect actual scholarly tradition? The key insight from the previous session: the books' own heading structures (div_path) are the primary ground truth, not abstract AI knowledge.
+**Aspect 5: Research methodology.** How should the tree investigation be structured? The owner's proposed methodology: independent research by separate Claude and ChatGPT sessions per science (unbiased, no anchoring on current trees), then compare and synthesize. But this methodology needs fleshing out — what exactly does each researcher do? What data do they analyze? How do they avoid producing plausible-sounding trees that don't reflect actual scholarly tradition? Key insight from the previous session: canonical organizational texts (like the Alfiyyah for nahw) define branch-level structure, but leaf-level granularity requires deeper research into how topics subdivide within each chapter. Books' heading structures (div_path) are useful at the chapter level but typically only 1-2 levels deep.
 
 **Aspect 6: Prompt design.** What exact prompts do we give to each independent researcher? These prompts must prevent anchoring on any specific organizational framework, require reference to specific authoritative sources, and produce output in a format that enables comparison.
 
