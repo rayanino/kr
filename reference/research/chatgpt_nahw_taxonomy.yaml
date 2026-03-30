@@ -1,0 +1,652 @@
+taxonomy:
+  id: nahw_research
+  title: علم النحو
+  nodes:
+  - id: mabadi_al_tahlil_al_nahwi
+    title: مبادئ التحليل النحوي
+    children:
+    - id: alkalam_wa_alkalima
+      title: الكلام والكلمة
+      children:
+      - id: taarif_alkalam
+        title: تعريف الكلام
+        leaf: true
+      - id: taarif_alkalim_wa_alkalima
+        title: تعريف الكلم والكلمة
+        leaf: true
+      - id: alqawl_wa_nisbatuhu_ila_alkalam
+        title: القول وعلاقته بالكلام والكلم
+        leaf: true
+      - id: aqsam_alkalima
+        title: أقسام الكلمة
+        leaf: true
+      - id: alamat_alism
+        title: علامات الاسم
+        leaf: true
+      - id: alamat_alfil
+        title: علامات الفعل
+        leaf: true
+      - id: taarif_alharf
+        title: تعريف الحرف
+        leaf: true
+    - id: alirab_wa_albina
+      title: الإعراب والبناء
+      children:
+      - id: taarif_alirab
+        title: تعريف الإعراب
+        leaf: true
+      - id: aqsam_alirab_alarbaa
+        title: أقسام الإعراب الأربعة
+        leaf: true
+      - id: alirab_allafzi_wa_altaqdiri
+        title: الإعراب اللفظي والتقديري
+        leaf: true
+      - id: alirab_almahalli
+        title: الإعراب المحلي
+        leaf: true
+      - id: taarif_albina
+        title: تعريف البناء
+        leaf: true
+      - id: almuarab_wa_almabni_min_alasma
+        title: المعرب والمبني من الأسماء
+        leaf: true
+      - id: bina_alafal
+        title: بناء الأفعال
+        leaf: true
+      - id: bina_alhuruf
+        title: بناء الحروف
+        leaf: true
+      - id: alalamat_alasliyya
+        title: العلامات الأصلية
+        leaf: true
+      - id: alalamat_alfariyya
+        title: العلامات الفرعية
+        leaf: true
+    - id: hamalat_alalamat_alirabiyya
+      title: حَمَلة العلامات الإعرابية
+      children:
+      - id: alirab_bialharakat
+        title: الإعراب بالحركات
+        leaf: true
+      - id: alirab_bialhuruf
+        title: الإعراب بالحروف
+        leaf: true
+      - id: alasma_alsitta
+        title: الأسماء الستة
+        leaf: true
+      - id: almuthanna
+        title: المثنى
+        leaf: true
+      - id: jam_almudhakkar_alsalim_wa_ma_humila_alayh
+        title: جمع المذكر السالم وما حُمِل عليه
+        leaf: true
+      - id: jam_almuannath_alsalim
+        title: جمع المؤنث السالم
+        leaf: true
+      - id: alafal_alkhamsa
+        title: الأفعال الخمسة
+        leaf: true
+      - id: aljazm_bialsukun_wa_alhadhf
+        title: الجزم بالسكون والحذف
+        leaf: true
+  - id: al_asma_wa_altaarif
+    title: الأسماء والتعريف
+    children:
+    - id: alnakira_wa_almaarifa
+      title: النكرة والمعرفة
+      children:
+      - id: alnakira
+        title: النكرة
+        leaf: true
+      - id: almaarifa
+        title: المعرفة
+        leaf: true
+      - id: aqsam_almaarif
+        title: أقسام المعارف
+        leaf: true
+    - id: aldamair_wa_alalam_wa_almuarrifat
+      title: الضمائر والأعلام والمعرِّفات
+      children:
+      - id: aldamir_almunfasil
+        title: الضمير المنفصل
+        leaf: true
+      - id: aldamir_almuttasil
+        title: الضمير المتصل
+        leaf: true
+      - id: aldamir_almustatir
+        title: الضمير المستتر
+        leaf: true
+      - id: alalam
+        title: العلم
+        leaf: true
+      - id: alism_wa_alkunya_wa_allaqab
+        title: الاسم والكنية واللقب
+        leaf: true
+      - id: ism_alishara
+        title: اسم الإشارة
+        leaf: true
+      - id: alism_almawsul
+        title: الاسم الموصول
+        leaf: true
+      - id: al_altaarif_wa_maaniha
+        title: أل التعريف ومعانيها
+        leaf: true
+      - id: altaarif_bialidafa
+        title: التعريف بالإضافة
+        leaf: true
+    - id: silat_almawsul_wa_khawaas_altaarif
+      title: صلة الموصول وخواصّ التعريف
+      children:
+      - id: silat_almawsul_aljumla_alismiyya
+        title: صلة الموصول الجملة الاسمية
+        leaf: true
+      - id: silat_almawsul_aljumla_alfiliyya
+        title: صلة الموصول الجملة الفعلية
+        leaf: true
+      - id: silat_almawsul_shibh_aljumla
+        title: صلة الموصول شبه الجملة
+        leaf: true
+      - id: sila_al
+        title: صلة أل
+        leaf: true
+      - id: alaid_fi_silat_almawsul
+        title: العائد في صلة الموصول
+        leaf: true
+      - id: hadhf_alaid
+        title: حذف العائد
+        leaf: true
+      - id: almudaf_ila_ya_almutakallim
+        title: المضاف إلى ياء المتكلم
+        leaf: true
+    - id: ma_la_yansarif
+      title: ما لا ينصرف
+      children:
+      - id: haqiqat_ma_la_yansarif
+        title: حقيقة ما لا ينصرف
+        leaf: true
+      - id: altaarif_almiyyah
+        title: التعريف (العلمية)
+        leaf: true
+      - id: wazn_alfil
+        title: وزن الفعل
+        leaf: true
+      - id: altarkib
+        title: التركيب
+        leaf: true
+      - id: alujma
+        title: العجمة
+        leaf: true
+      - id: aladl
+        title: العدل
+        leaf: true
+      - id: alwasf
+        title: الوصف
+        leaf: true
+      - id: sighat_muntaha_aljumu
+        title: صيغة منتهى الجموع
+        leaf: true
+      - id: ziyadat_alif_wa_nun
+        title: زيادة الألف والنون
+        leaf: true
+      - id: altaanith
+        title: التأنيث
+        leaf: true
+  - id: al_isnad_wa_abwab_aljumla
+    title: الإسناد وأبواب الجملة
+    children:
+    - id: almubtada_wa_alkhabar
+      title: المبتدأ والخبر
+      children:
+      - id: ahkam_almubtada
+        title: أحكام المبتدأ
+        leaf: true
+      - id: ahkam_alkhabar
+        title: أحكام الخبر
+        leaf: true
+      - id: alkhabar_almufrad
+        title: الخبر المفرد
+        leaf: true
+      - id: alkhabar_aljumla
+        title: الخبر الجملة
+        leaf: true
+      - id: alkhabar_shibh_aljumla
+        title: الخبر شبه الجملة
+        leaf: true
+      - id: taaddud_alkhabar
+        title: تعدد الخبر
+        leaf: true
+      - id: taqdim_alkhabar_wa_takhiruh
+        title: تقديم الخبر وتأخيره
+        leaf: true
+      - id: hadhf_almubtada_aw_alkhabar
+        title: حذف المبتدأ أو الخبر
+        leaf: true
+    - id: alnawasikh
+      title: النواسخ
+      children:
+      - id: kana_wa_akhawatuha
+        title: كان وأخواتها
+        leaf: true
+      - id: ahwal_khabar_kana_wa_akhawatiha
+        title: أحوال خبر كان وأخواتها
+        leaf: true
+      - id: ma_alnafiyya_alamila
+        title: ما النافية العاملة
+        leaf: true
+      - id: la_alnafiyya_alamila
+        title: لا النافية العاملة
+        leaf: true
+      - id: lat_alnafiyya
+        title: لات النافية
+        leaf: true
+      - id: in_almushabbaha_bilaysa
+        title: إن المشبَّهة بليس
+        leaf: true
+      - id: inna_wa_akhawatuha
+        title: إن وأخواتها
+        leaf: true
+      - id: la_alnafiyya_liljins
+        title: لا النافية للجنس
+        leaf: true
+      - id: afal_almuqaraba
+        title: أفعال المقاربة
+        leaf: true
+      - id: afal_alshuru
+        title: أفعال الشروع
+        leaf: true
+      - id: afal_alraja
+        title: أفعال الرجاء
+        leaf: true
+    - id: afal_alqulub_wa_altahwil
+      title: أفعال القلوب والتحويل
+      children:
+      - id: zanna_wa_akhawatuha
+        title: ظن وأخواتها
+        leaf: true
+      - id: aalama_wa_ara
+        title: أعلم وأرى
+        leaf: true
+    - id: asalib_alikhbar_wa_altahwil
+      title: أساليب الإخبار والتحويل
+      children:
+      - id: alikhbar_bialladhi
+        title: الإخبار بالذي
+        leaf: true
+      - id: alikhbar_bialif_wa_allam
+        title: الإخبار بالألف واللام
+        leaf: true
+  - id: al_fil_wa_alamil_alfili
+    title: الفعل والعامل الفعلي
+    children:
+    - id: irab_alfil
+      title: إعراب الفعل
+      children:
+      - id: alfil_almadi
+        title: الفعل الماضي
+        leaf: true
+      - id: fil_alamr
+        title: فعل الأمر
+        leaf: true
+      - id: alfil_almudari
+        title: الفعل المضارع
+        leaf: true
+      - id: raf_almudari
+        title: رفع المضارع
+        leaf: true
+      - id: nawasib_almudari
+        title: نواصب المضارع
+        leaf: true
+      - id: jawazim_almudari
+        title: جوازم المضارع
+        leaf: true
+      - id: ma_yajzim_filan_wahidan
+        title: ما يجزم فعلاً واحدًا
+        leaf: true
+      - id: ma_yajzim_filayn
+        title: ما يجزم فعلين
+        leaf: true
+      - id: nunaa_altawkid
+        title: نونَا التوكيد
+        leaf: true
+    - id: alisnad_alfili
+      title: الإسناد الفعلي
+      children:
+      - id: alfail
+        title: الفاعل
+        leaf: true
+      - id: naib_alfail
+        title: نائب الفاعل
+        leaf: true
+    - id: taaqub_alawamil
+      title: تعاقب العوامل
+      children:
+      - id: alishtighal
+        title: الاشتغال
+        leaf: true
+      - id: altanazu
+        title: التنازع
+        leaf: true
+    - id: adawat_alshart_wa_alrabt
+      title: أدوات الشرط والربط
+      children:
+      - id: law
+        title: لو
+        leaf: true
+      - id: amma
+        title: أمّا
+        leaf: true
+      - id: lawla
+        title: لولا
+        leaf: true
+      - id: lawma
+        title: لوما
+        leaf: true
+  - id: al_fudlat_wa_almutaalliqat
+    title: الفضلات والمتعلقات
+    children:
+    - id: almafail
+      title: المفاعيل
+      children:
+      - id: almaful_bih
+        title: المفعول به
+        leaf: true
+      - id: almaful_almutlaq
+        title: المفعول المطلق
+        leaf: true
+      - id: almaful_lah
+        title: المفعول له
+        leaf: true
+      - id: zarf_alzaman
+        title: ظرف الزمان
+        leaf: true
+      - id: zarf_almakan
+        title: ظرف المكان
+        leaf: true
+      - id: almaful_maah
+        title: المفعول معه
+        leaf: true
+    - id: alistithna
+      title: الاستثناء
+      children:
+      - id: almustathna_biilla
+        title: المستثنى بإلا
+        leaf: true
+      - id: alistithna_almufarragh
+        title: الاستثناء المفرَّغ
+        leaf: true
+      - id: tikrar_illa
+        title: تكرار إلا
+        leaf: true
+      - id: almustathna_bighayr_wa_siwa
+        title: المستثنى بغير وسوى
+        leaf: true
+      - id: almustathna_bikhala_wa_ada_wa_hasha
+        title: المستثنى بخلا وعدا وحاشا
+        leaf: true
+      - id: almustathna_bima_khala_wa_ma_ada
+        title: المستثنى بما خلا وما عدا
+        leaf: true
+      - id: almustathna_bilaysa_wa_la_yakun
+        title: المستثنى بليس ولا يكون
+        leaf: true
+    - id: alhal
+      title: الحال
+      children:
+      - id: taarif_alhal
+        title: تعريف الحال
+        leaf: true
+      - id: alhal_almushtaqqa_almuntaqila
+        title: الحال المشتقة المنتقلة
+        leaf: true
+      - id: alhal_aljamida
+        title: الحال الجامدة
+        leaf: true
+      - id: nakirat_alhal
+        title: نكارة الحال
+        leaf: true
+    - id: altamyiz
+      title: التمييز
+      children:
+      - id: taarif_altamyiz
+        title: تعريف التمييز
+        leaf: true
+      - id: tamyiz_almufrad
+        title: تمييز المفرد
+        leaf: true
+      - id: tamyiz_alnisba
+        title: تمييز النسبة
+        leaf: true
+    - id: alkhafd_wa_alidafa
+      title: الخفض والإضافة
+      children:
+      - id: huruf_aljarr
+        title: حروف الجر
+        leaf: true
+      - id: almajrur_bialidafa
+        title: المجرور بالإضافة
+        leaf: true
+      - id: alidafa_almahdah
+        title: الإضافة المحضة
+        leaf: true
+      - id: alidafa_ghayr_almahdah
+        title: الإضافة غير المحضة
+        leaf: true
+    - id: maani_huruf_aljarr_wa_masa_iliha
+      title: معاني حروف الجر ومسائلها
+      children:
+      - id: maani_min
+        title: معاني من
+        leaf: true
+      - id: maani_allam
+        title: معاني اللام
+        leaf: true
+      - id: maani_alba
+        title: معاني الباء
+        leaf: true
+      - id: maani_ala
+        title: معاني على
+        leaf: true
+      - id: maani_an
+        title: معاني عن
+        leaf: true
+      - id: maani_alkaf
+        title: معاني الكاف
+        leaf: true
+      - id: rubba
+        title: رُبَّ
+        leaf: true
+      - id: mudh_wa_mundhu
+        title: مذ ومنذ
+        leaf: true
+      - id: kay_aljarra
+        title: كي الجارة
+        leaf: true
+      - id: laalla_aljarra
+        title: لعل الجارة
+        leaf: true
+      - id: mata_aljarra
+        title: متى الجارة
+        leaf: true
+      - id: lawla_aljarra_ind_sibawayh
+        title: لولا الجارة عند سيبويه
+        leaf: true
+      - id: ziyadat_ma_baad_min_wa_an_wa_alba
+        title: زيادة ما بعد من وعن والباء
+        leaf: true
+      - id: ziyadat_ma_baad_rubba_wa_alkaf
+        title: زيادة ما بعد رب والكاف
+        leaf: true
+      - id: hadhf_rubba
+        title: حذف رب
+        leaf: true
+      - id: aljarr_bighayr_rubba
+        title: الجر بغير رب
+        leaf: true
+  - id: al_asma_alamila_wa_almushtaqat_alamila
+    title: الأسماء العاملة والمشتقات العاملة
+    children:
+    - id: ma_yamal_amal_alfil
+      title: ما يعمل عمل الفعل
+      children:
+      - id: almasdar_alamil
+        title: المصدر العامل
+        leaf: true
+      - id: ism_alfail_alamil
+        title: اسم الفاعل العامل
+        leaf: true
+      - id: amthilat_almubalaghah_alamila
+        title: أمثلة المبالغة العاملة
+        leaf: true
+      - id: ism_almafool_alamil
+        title: اسم المفعول العامل
+        leaf: true
+      - id: alsifa_almushabbaha_alamila
+        title: الصفة المشبهة العاملة
+        leaf: true
+      - id: ism_altafdil
+        title: اسم التفضيل
+        leaf: true
+  - id: al_tawabi_wa_albayan
+    title: التوابع والبيان
+    children:
+    - id: alnaat
+      title: النعت
+      children:
+      - id: alnaat_alhaqiqi
+        title: النعت الحقيقي
+        leaf: true
+      - id: alnaat_alsababi
+        title: النعت السببي
+        leaf: true
+      - id: qat_alnaat
+        title: قطع النعت
+        leaf: true
+    - id: altawkid
+      title: التوكيد
+      children:
+      - id: altawkid_allafzi
+        title: التوكيد اللفظي
+        leaf: true
+      - id: altawkid_almanawi
+        title: التوكيد المعنوي
+        leaf: true
+    - id: alataf
+      title: العطف
+      children:
+      - id: ataf_albayan
+        title: عطف البيان
+        leaf: true
+      - id: ataf_alnasaq
+        title: عطف النسق
+        leaf: true
+    - id: albadal
+      title: البدل
+      children:
+      - id: badal_alkull_min_alkull
+        title: بدل الكل من الكل
+        leaf: true
+      - id: badal_albaad_min_alkull
+        title: بدل البعض من الكل
+        leaf: true
+      - id: badal_alishtimal
+        title: بدل الاشتمال
+        leaf: true
+      - id: badal_almubayin_wa_badl_alghalat
+        title: البدل المباين وبدل الغلط
+        leaf: true
+  - id: al_asalib_alkhassa_wa_alinsha_wa_altaqdir
+    title: الأساليب الخاصة والإنشاء والتقدير
+    children:
+    - id: alnida_wa_ma_yattasil_bih
+      title: النداء وما يتصل به
+      children:
+      - id: alnida
+        title: النداء
+        leaf: true
+      - id: almunada_almufrad_alalam_wa_alnakira_almaqsuda
+        title: المنادى المفرد العلم والنكرة المقصودة
+        leaf: true
+      - id: almunada_almudaf_wa_shibh_almudaf
+        title: المنادى المضاف وشبيه بالمضاف
+        leaf: true
+      - id: tabi_almunada_tabi_dhi_aldamm
+        title: تابع المنادى (تابع ذي الضم)
+        leaf: true
+      - id: almunada_almudaf_ila_ya_almutakallim
+        title: المنادى المضاف إلى ياء المتكلم
+        leaf: true
+      - id: alasma_allati_lazimat_alnida
+        title: الأسماء التي لزمت النداء
+        leaf: true
+      - id: alistighatha
+        title: الاستغاثة
+        leaf: true
+      - id: alnudba
+        title: الندبة
+        leaf: true
+      - id: altarikhim
+        title: الترخيم
+        leaf: true
+      - id: alikhtisas
+        title: الاختصاص
+        leaf: true
+      - id: altahdhir_wa_alighra
+        title: التحذير والإغراء
+        leaf: true
+    - id: asma_alafal_wa_alaswat
+      title: أسماء الأفعال والأصوات
+      children:
+      - id: asma_alafal
+        title: أسماء الأفعال
+        leaf: true
+      - id: asma_alaswat
+        title: أسماء الأصوات
+        leaf: true
+    - id: alasalib_altaqwimiyya
+      title: الأساليب التقويمية
+      children:
+      - id: niama_wa_bisa_wa_ma_jara_majrahuma
+        title: نعم وبئس وما جرى مجراهما
+        leaf: true
+      - id: altaajjub
+        title: التعجب
+        leaf: true
+      - id: sighat_ma_afala
+        title: صيغة ما أفعل
+        leaf: true
+      - id: sighat_afil_bih
+        title: صيغة أفعل به
+        leaf: true
+    - id: aladad_wa_alkanayat_wa_alhikaya
+      title: العدد والكنايات والحكاية
+      children:
+      - id: aladad_almufrad
+        title: العدد المفرد
+        leaf: true
+      - id: aladad_almurakkab
+        title: العدد المركب
+        leaf: true
+      - id: aladad_almautuf
+        title: العدد المعطوف
+        leaf: true
+      - id: siyaghat_fail_min_aladad
+        title: صياغة فاعل من العدد (الترتيب)
+        leaf: true
+      - id: tamyiz_aladad
+        title: تمييز العدد
+        leaf: true
+      - id: kam_alistifhamiyya
+        title: كم الاستفهامية
+        leaf: true
+      - id: kam_alkhabariyya
+        title: كم الخبرية
+        leaf: true
+      - id: kaayin
+        title: كأين
+        leaf: true
+      - id: kadha
+        title: كذا
+        leaf: true
+      - id: alhikaya
+        title: الحكاية
+        leaf: true
