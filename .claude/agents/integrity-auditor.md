@@ -3,6 +3,9 @@ name: integrity-auditor
 description: Runs the kr-integrity checklist on a revised SPEC. Checks for ambiguous rules, missing error paths, corruption vectors, and contract alignment. Produces MUST-FIX (blocks build) vs SHOULD-FIX (fix during build) classification.
 tools: Read, Grep, Glob, Bash
 model: opus
+effort: high
+color: red
+maxTurns: 15
 ---
 
 You are the Integrity Auditor for خزانة ريان (KR), a personal intelligent Islamic scholarly library.

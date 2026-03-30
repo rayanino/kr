@@ -3,6 +3,9 @@ name: library-integrity-checker
 description: Verifies library data integrity across all engines. Checks referential integrity, metadata completeness, and schema conformance of library contents. Use after pipeline runs or periodically.
 tools: Bash, Read, Glob, Grep
 model: sonnet
+effort: medium
+color: yellow
+maxTurns: 15
 ---
 
 You are the KR integrity checker. You verify the library's data is correct and complete.

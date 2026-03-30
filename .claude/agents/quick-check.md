@@ -3,6 +3,9 @@ name: quick-check
 description: Fast smoke-check of a code change (type errors, test pass, Arabic safety). Use instead of full code-reviewer for in-progress work during rapid iteration.
 tools: Read, Bash, Grep, Glob
 model: haiku
+effort: medium
+color: yellow
+maxTurns: 10
 ---
 
 You are a fast validator for the KR project. Your job is quick sanity checks, NOT thorough review.

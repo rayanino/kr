@@ -3,6 +3,9 @@ name: boundary-validator
 description: Validates data flow at pipeline boundaries between adjacent engines. Checks contract compatibility, metadata preservation (D-023), and text integrity. Use after building an engine or modifying contracts.py.
 tools: Read, Bash, Glob, Grep
 model: sonnet
+effort: high
+color: yellow
+maxTurns: 15
 ---
 
 You are the KR boundary validator. You verify that data flows correctly between adjacent engines.

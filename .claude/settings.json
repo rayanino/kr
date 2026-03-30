@@ -54,7 +54,19 @@
       "Bash(sudo rm:*)",
       "Read(.env)"
     ],
-    "defaultMode": "bypassPermissions"
+    "ask": [
+      "Bash(rm -rf *)",
+      "Bash(rmdir *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean -fd *)",
+      "Bash(chmod 777 *)",
+      "Bash(chown *)",
+      "Bash(kill *)",
+      "Bash(killall *)",
+      "Bash(pkill *)"
+    ],
+    "defaultMode": "acceptEdits"
   },
   "hooks": {
     "PreToolUse": [
@@ -231,7 +243,8 @@
           {
             "type": "command",
             "command": "cd \"$CLAUDE_PROJECT_DIR\" && python3 scripts/session_stop.py 2>/dev/null || true",
-            "timeout": 10
+            "timeout": 10,
+            "statusMessage": "Saving session state..."
           }
         ]
       },
@@ -252,7 +265,8 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/prompt-context.sh\"",
-            "timeout": 5
+            "timeout": 5,
+            "statusMessage": "Enriching prompt context..."
           }
         ]
       }
@@ -263,7 +277,8 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-compact-checkpoint.sh\"",
-            "timeout": 10
+            "timeout": 10,
+            "statusMessage": "Saving pre-compaction checkpoint..."
           }
         ]
       }
@@ -274,7 +289,8 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/post-compact-recovery.sh\"",
-            "timeout": 5
+            "timeout": 5,
+            "statusMessage": "Recovering post-compaction state..."
           }
         ]
       }
@@ -297,6 +313,8 @@
         "hooks": [
           {
             "type": "command",
+            "once": true,
+            "statusMessage": "Recovering context after compaction...",
             "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo '=== POST-COMPACTION RECOVERY ===' && echo '' && echo '--- NEXT.md (current task) ---' && head -15 NEXT.md 2>/dev/null && echo '' && echo '--- Active engine state ---' && for d in engines/*/CLAUDE.md; do if head -30 \"$d\" 2>/dev/null | grep -q 'IN PROGRESS'; then echo \"ACTIVE: $d\" && head -25 \"$d\" 2>/dev/null | grep -E '(Session|COMPLETE|IN PROGRESS|NEXT)'; fi; done && echo '' && echo '--- INVARIANTS (non-negotiable) ---' && echo '(1) Library IS the users knowledge — errors propagate into his mind' && echo '(2) Accuracy > Protection > Intelligence (D-006)' && echo '(3) Metadata never deleted, only enriched (D-023)' && echo '(4) Errors fail loud — never silent default (D-033)' && echo '(5) Multi-model consensus for ALL content decisions (D-041)' && echo '(6) Arabic: NEVER .lower()/.upper()/.strip() on Arabic strings' && echo '(7) Primary text bytes NEVER modified after extraction (D-004)' && echo '(8) Never implement spec errors — fix the spec first' && echo '' && echo '--- EASILY FORGOTTEN AFTER COMPACTION ---' && echo '(9) Result preservation: every API call persists output + update COST_LOG.json' && echo '(10) Temperature=0 for ALL consensus LLM calls' && echo '(11) Shared concept changes: grep ALL consumers before modifying enums/statuses' && echo '(12) Tests: every function needs real Arabic fixture test (no transliteration)' && echo '(13) After modifying engines/*/src/ or contracts.py: dispatch code-reviewer agent' && echo '' && echo '--- session state ---' && python3 -c \"import json; s=json.load(open('.claude/session_state.json')); c=s.get('cost_summary'); print(f'Budget: EUR {c[\"total_eur\"]}/{c[\"budget_eur\"]}') if c else None; t=s.get('circuit_breaker_triggers',[]); print(f'CB triggers: {len(t)} recent') if t else None; p=s.get('print_warnings',[]); print(f'Print warnings: {len(p)}') if p else None\" 2>/dev/null && echo '' && echo 'Read the active engines CLAUDE.md + principles.md in memory/ for full context.'"
           }
         ]
@@ -306,6 +324,8 @@
         "hooks": [
           {
             "type": "command",
+            "once": true,
+            "statusMessage": "Loading session context...",
             "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo '--- git status ---' && git branch --show-current && git status --short | head -10 && echo '--- recent commits ---' && git log --oneline -5 && echo '' && echo '--- NEXT.md (first 15 lines) ---' && head -15 NEXT.md 2>/dev/null && echo '' && echo '--- budget status ---' && python3 -c \"import json,os; d=json.load(open('tests/results/source_engine/COST_LOG.json')); t=sum(v.get('cost_eur',0) for v in d.values() if isinstance(v,dict)); b=float(os.environ.get('KR_BUDGET_LIMIT','100')); print(f'Budget: EUR {t:.2f}/{b:.2f} ({t/b*100:.0f}%% used, EUR {b-t:.2f} remaining)')\" 2>/dev/null || echo 'Cost log not available'",
             "timeout": 10
           }
@@ -315,5 +335,31 @@
   },
   "enabledPlugins": {
     "oberskills@rtd": true
+  },
+  "respectGitignore": true,
+  "effortLevel": "high",
+  "attribution": {
+    "commit": "Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "python3 ${CLAUDE_PROJECT_DIR}/scripts/kr_statusline.py",
+    "padding": 0
+  },
+  "spinnerTipsOverride": {
+    "tips": [
+      "Arabic: NEVER .lower()/.upper() on Arabic strings",
+      "D-023: Metadata never deleted, only enriched",
+      "Use /smart-compact at ~60% context",
+      "Every API call persists its full output",
+      "Errors fail loud — never silent default (D-033)",
+      "Temperature=0 for ALL consensus LLM calls",
+      "Shared concept changes: grep ALL consumers first"
+    ],
+    "excludeDefault": false
+  },
+  "env": {
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "60",
+    "CLAUDE_CODE_SUBPROCESS_ENV_SCRUB": "1"
   }
 }

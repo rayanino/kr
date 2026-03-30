@@ -332,3 +332,15 @@ Layer 3: تعليقات / تقريرات — notes on any layer
 6. **Modern vs classical boundary:** Roughly 1300 هـ / 1900 CE. Scholars before this are classical (likely `authority_level: primary`). Authors after are modern (likely `modern_compilation` unless clearly a primary work).
 
 7. **Shamela categories are UNRELIABLE for genre/science_scope.** Shamela categorizes by author's primary field, not by the specific work's content. Example: الزجاجي is filed under النحو والصرف because he's a grammarian, but أخبار أبي القاسم الزجاجي is actually أدب.
+
+## Gotchas
+
+1. **حاشية (hashiyah) is overloaded** — Can mean: (a) marginal note, (b) super-commentary genre. Context disambiguates: if it's a standalone work title, it's the genre. If it's a note indicator in text, it's editorial apparatus.
+
+2. **كتبه identifies the COPYIST, not the author** — The name after كتبه/نسخه in a colophon is the scribe (ناسخ). The name after ألفه/صنفه is the author (مؤلف). Confusing these corrupts author attribution.
+
+3. **Multiple scholars share names** — ابن تيمية refers to at least 3 different scholars across centuries. Always disambiguate using death date (الحفيد = d.728H, الجد = d.652H).
+
+4. **المحقق has two meanings** — Can mean (a) a critical editor (tahqiq editor of a modern edition) or (b) a scholarly title meaning "verifier/critical scholar." The edition's title page disambiguates.
+
+5. **شرح vs. حاشية vs. تقرير** — These three commentary types are hierarchical: شرح comments on the base text (متن), حاشية comments on the شرح, and تقرير comments on the حاشية. Layer detection must respect this hierarchy.

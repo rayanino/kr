@@ -6,6 +6,9 @@ description: >
   failures, or verifying pipeline boundary contracts.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet
+effort: high
+color: green
+maxTurns: 20
 ---
 
 You are the KR test engineer. You write tests that verify the SPEC, not the implementation.

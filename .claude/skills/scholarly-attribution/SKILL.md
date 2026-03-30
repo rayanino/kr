@@ -180,3 +180,15 @@ Per KR decision: **name-only matches are capped at confidence 0.65.** This preve
 **Pattern:** No author identified in text or metadata.
 **Detection:** Introduction uses passive voice ("جُمع هذا الكتاب"), no colophon attribution.
 **Fix:** Mark as `attribution_status: "unattributed"`, confidence 0.0. Do NOT assign an author by inference — flag for human research.
+
+## Gotchas
+
+1. **Honorifics are NOT part of the base name** — Strip الشيخ, الإمام, العلامة, الحافظ, شيخ الإسلام before matching. But PRESERVE them in displayed names — they carry scholarly status information.
+
+2. **كنية (kunya) is not the given name** — أبو حنيفة is a kunya (father of Hanifa), not a first name. The ism (given name) is النعمان. Search engines and databases may index under either form.
+
+3. **نسبة (nisba) indicates origin, not always identity** — الدمشقي means "from Damascus" and applies to hundreds of scholars. It's useful for disambiguation only in combination with other name components.
+
+4. **Shared names across centuries** — At least: 3 scholars named ابن تيمية, 4 named ابن قدامة, 5+ named ابن حجر. Always require death date or specific qualifier for unique identification.
+
+5. **رحمه الله confirms the scholar is deceased** — Presence of this formula after a name is useful for death date estimation: if the text is dated, the scholar died before the text was written.

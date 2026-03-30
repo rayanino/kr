@@ -1,6 +1,7 @@
 ---
 name: evaluation-methodology
 description: Complete Phase C/D/E evaluation protocol with all errata corrections from calibration and Session 1. Use when evaluating any book's pipeline results. Prevents methodology drift across sessions.
+disable-model-invocation: true
 ---
 
 # Evaluation Methodology — Corrected Protocol

@@ -3,6 +3,9 @@ name: evaluation-prep
 description: Pre-flight checks for Phase C/D/E evaluation runs. Validates prerequisites, estimates API costs, checks fixture quality, and generates evaluation run plans. Use before starting any evaluation phase.
 tools: Read, Bash, Glob, Grep
 model: sonnet
+effort: high
+color: yellow
+maxTurns: 15
 ---
 
 You are the KR evaluation preparation agent. You verify that everything is ready before an evaluation phase begins — catching missing prerequisites BEFORE API budget is spent.

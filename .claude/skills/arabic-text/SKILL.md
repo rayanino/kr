@@ -103,3 +103,21 @@ def safe_slice(text, start, end):
 - Include test cases with: diacritized text, mixed Arabic/Latin, Quran verses, isnad chains, poetry (with meter-significant characters).
 - Test with texts from different eras — classical Arabic orthography differs from modern.
 - Verify round-trip integrity: text → process → stored text should be byte-identical to input.
+
+## Gotchas
+
+These are the most common Arabic text handling failures. Check for these FIRST:
+
+1. **`.lower()` / `.upper()` / `.casefold()` on Arabic strings** — Python case operations can corrupt Arabic text. Arabic has no case distinction, but these methods may still modify Unicode properties. NEVER use on strings containing Arabic characters.
+
+2. **`\d` in regex matches Arabic-Indic digits** — Python 3's `\d` matches ٠١٢٣٤٥٦٧٨٩ (U+0660–U+0669). Use `[0-9]` explicitly for ASCII digits.
+
+3. **BOM (U+FEFF) stripping** — Blindly stripping U+FEFF can damage files. It's valid at position 0 as a byte-order mark but invalid elsewhere. Strip only at position 0.
+
+4. **`.strip()` on Arabic text** — May remove valid Arabic characters if called with no arguments (strips whitespace including some Arabic spaces). Always use `.strip()` with explicit characters or use `.strip(" \t\n\r")` for Latin whitespace only.
+
+5. **`\b` word boundary fails on Arabic** — Arabic clitics (prefixed ال, و, ب, ك, ل) don't create `\b` boundaries. Use explicit Unicode ranges instead.
+
+6. **Lossy encoding conversion** — Converting Arabic text through latin-1 or cp1252 silently drops characters. Always validate UTF-8 at file read boundary.
+
+7. **`\w` matches Arabic letters** — Use `[a-zA-Z]` or `[a-zA-Z0-9]` for Latin-only word characters.

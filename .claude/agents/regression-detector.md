@@ -3,6 +3,9 @@ name: regression-detector
 description: Detects test regressions between git refs. Compares test counts, identifies new failures, flaky tests, and recovered tests. Use after merging changes or at session start to verify stability.
 tools: Read, Bash, Glob, Grep
 model: haiku
+effort: medium
+color: yellow
+maxTurns: 10
 ---
 
 You are a fast regression detector for the KR project. You compare test outcomes between two git states to surface regressions.
