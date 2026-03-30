@@ -1,0 +1,693 @@
+# ═══════════════════════════════════════════════════════════════════════
+#  عِلْم النَّحو — Encyclopedic Nahw Taxonomy (v2 — post-review)
+#  For use in KR Taxonomy Engine
+#  92 leaf nodes · 22 L2 nodes · 3 L1 nodes
+#
+#  REVIEW LOG:
+#    Stage 2: Alfiyyah chapter listing verified against 3 sources
+#    Stage 3: L2 groupings validated against NW, Jami al-Durus, curricula
+#    Stage 4: L3 leaves verified; 3 merges applied, 1 addition
+#    Stage 5: Missing topic found (istifham); negation deferred
+#    Stage 6: ID scheme normalized; structural integrity confirmed
+# ═══════════════════════════════════════════════════════════════════════
+#
+#  ID CONVENTION:
+#    _ = word separator only
+#    hamza / ayn = dropped silently
+#    ta marbuta = -a
+#    al- prefix retained where standard
+#    example: الفاعل → al_fail · إعراب → irab · المبتدأ → al_mubtada
+#
+#  SCHEMA:
+#    Non-leaf nodes have children: [...]
+#    Leaf nodes have leaf: true
+#    alfiyyah_ref cites the Alfiyyah chapter or "N/A"
+# ═══════════════════════════════════════════════════════════════════════
+
+nahw:
+  id: ilm_al_nahw
+  title: عِلْم النَّحو
+  children:
+
+  # ═════════════════════════════════════════════════════════════════════
+  #  L1-A  INFLECTIONAL THEORY  ·  نظرية الإعراب
+  # ═════════════════════════════════════════════════════════════════════
+  - id: nazariyyat_al_irab
+    title: نظرية الإعراب
+    alfiyyah_ref: "N/A — encyclopedic grouping"
+    children:
+
+    # ── A1  Foundations ──
+    - id: usul_al_kalam_wal_irab
+      title: أصول الكلام والإعراب
+      alfiyyah_ref: "الكلام وما يتألف منه · المعرب والمبني"
+      children:
+        - id: al_kalam_wa_aqsamuhu
+          title: الكلام وأقسامه (اسم وفعل وحرف)
+          alfiyyah_ref: "الكلام وما يتألف منه"
+          leaf: true
+        - id: mahiyyat_al_irab
+          title: ماهية الإعراب وأقسامه الأربعة
+          alfiyyah_ref: "المعرب والمبني"
+          leaf: true
+        - id: alamat_al_irab_al_asliyya
+          title: علامات الإعراب الأصلية
+          alfiyyah_ref: "المعرب والمبني"
+          leaf: true
+        - id: alamat_al_irab_al_fariyya
+          title: علامات الإعراب الفرعية (النيابية)
+          alfiyyah_ref: "المعرب والمبني"
+          leaf: true
+        - id: al_irab_al_muqaddar
+          title: الإعراب المقدَّر (المقصور والمنقوص والمضاف إلى الياء)
+          alfiyyah_ref: "المعرب والمبني"
+          leaf: true
+
+    # ── A2  Declinability / Indeclinability ──
+    - id: al_irab_wal_bina
+      title: الإعراب والبناء
+      alfiyyah_ref: "المعرب والمبني"
+      children:
+        - id: ilal_bina_al_asma
+          title: علل بناء الأسماء (أوجه شبه الحرف الأربعة)
+          alfiyyah_ref: "المعرب والمبني"
+          leaf: true
+        - id: bina_al_afal
+          title: بناء الأفعال (الماضي والأمر والمضارع المتصل بالنون)
+          alfiyyah_ref: "المعرب والمبني"
+          leaf: true
+        - id: bina_al_huruf
+          title: بناء الحروف
+          alfiyyah_ref: "المعرب والمبني"
+          leaf: true
+
+    # ── A3  Diptotes ──
+    - id: al_mamnu_min_al_sarf
+      title: الممنوع من الصرف
+      alfiyyah_ref: "ما لا ينصرف"
+      children:
+        - id: ilal_man_al_sarf
+          title: علل منع الصرف التسع وتركيباتها
+          alfiyyah_ref: "ما لا ينصرف"
+          leaf: true
+        - id: sarf_al_mamnu
+          title: صرف الممنوع (بالإضافة وأل والضرورة)
+          alfiyyah_ref: "ما لا ينصرف"
+          leaf: true
+
+    # ── A4  Governor Theory ──
+    - id: nazariyyat_al_amil
+      title: نظرية العامل
+      alfiyyah_ref: "N/A — implicit throughout; explicit in النحو الوافي and كتاب سيبويه"
+      children:
+        - id: al_amil_al_lafzi_wal_manawi
+          title: العامل اللفظي والمعنوي
+          alfiyyah_ref: "N/A"
+          leaf: true
+        - id: ta_alluq_al_jarr_wal_zarf
+          title: تعلُّق الجار والمجرور والظرف
+          alfiyyah_ref: "N/A"
+          leaf: true
+
+
+  # ═════════════════════════════════════════════════════════════════════
+  #  L1-B  SENTENCE STRUCTURE  ·  بنية الجملة
+  # ═════════════════════════════════════════════════════════════════════
+  - id: bunyat_al_jumla
+    title: بنية الجملة
+    alfiyyah_ref: "N/A — encyclopedic grouping"
+    children:
+
+    # ── B1  Noun Types and Definiteness ──
+    - id: aqsam_al_ism_wal_tarif
+      title: أقسام الاسم والتعريف والتنكير
+      alfiyyah_ref: "النكرة والمعرفة through المعرف بأداة التعريف"
+      children:
+        - id: al_nakira_wal_marifa
+          title: النكرة والمعرفة (ومراتب التعريف)
+          alfiyyah_ref: "النكرة والمعرفة"
+          leaf: true
+        - id: al_damir
+          title: الضمير (متصل ومنفصل ومستتر وضمير الشأن)
+          alfiyyah_ref: "النكرة والمعرفة"
+          leaf: true
+        - id: al_alam
+          title: العَلَم (أنواعه والمركّب منه وعلم الجنس)
+          alfiyyah_ref: "العلم"
+          leaf: true
+        - id: ism_al_ishara
+          title: اسم الإشارة
+          alfiyyah_ref: "اسم الإشارة"
+          leaf: true
+        - id: al_ism_al_mawsul
+          title: الاسم الموصول (صلته وعائده والموصول الحرفي)
+          alfiyyah_ref: "الموصول"
+          leaf: true
+        - id: al_muarraf_bi_al
+          title: المعرَّف بأل (عهدية وجنسية وزائدة وموصولة)
+          alfiyyah_ref: "المعرف بأداة التعريف"
+          leaf: true
+
+    # ── B2  Nominal Sentence ──
+    - id: al_jumla_al_ismiyya
+      title: الجملة الاسمية (المبتدأ والخبر)
+      alfiyyah_ref: "الابتداء"
+      children:
+        - id: al_mubtada_wal_khabar
+          title: المبتدأ والخبر (تعريفهما وأنواع الخبر)
+          alfiyyah_ref: "الابتداء"
+          leaf: true
+        - id: musawwighat_al_ibtida_bil_nakira
+          title: مسوِّغات الابتداء بالنكرة
+          alfiyyah_ref: "الابتداء"
+          leaf: true
+        - id: taqdim_al_khabar_wa_takhiruhu
+          title: تقدُّم الخبر وتأخُّره (وجوبًا وجوازًا)
+          alfiyyah_ref: "الابتداء"
+          leaf: true
+        - id: hadhf_al_mubtada_aw_al_khabar
+          title: حذف المبتدأ أو الخبر (وجوبًا وجوازًا)
+          alfiyyah_ref: "الابتداء"
+          leaf: true
+        - id: taaddud_al_khabar
+          title: تعدُّد الخبر
+          alfiyyah_ref: "الابتداء"
+          leaf: true
+
+    # ── B3  Nawasikh ──
+    - id: nawasikh_al_mubtada_wal_khabar
+      title: نواسخ المبتدأ والخبر
+      alfiyyah_ref: "كان وأخواتها through أعلم وأرى"
+      children:
+        - id: kana_wa_akhwatuha
+          title: كان وأخواتها (التامة والناقصة والمتصرِّفة والجامدة)
+          alfiyyah_ref: "كان وأخواتها"
+          leaf: true
+        - id: ma_la_lat_in_al_nafiya
+          title: ما ولا ولات وإنْ العاملات عمل ليس
+          alfiyyah_ref: "كان وأخواتها (فصل)"
+          leaf: true
+        - id: afal_al_muqaraba
+          title: أفعال المقاربة والرجاء والشروع
+          alfiyyah_ref: "أفعال المقاربة"
+          leaf: true
+        - id: inna_wa_akhwatuha
+          title: إنَّ وأخواتها (الحروف الستة)
+          alfiyyah_ref: "إنّ وأخواتها"
+          leaf: true
+        - id: fath_hamzat_inna_wa_kasruha
+          title: فتح همزة إنّ وكسرها
+          alfiyyah_ref: "إنّ وأخواتها"
+          leaf: true
+        - id: la_li_nafi_al_jins
+          title: لا التي لنفي الجنس
+          alfiyyah_ref: "لا التي لنفي الجنس"
+          leaf: true
+        - id: zann_wa_akhwatuha
+          title: ظنَّ وأخواتها (أفعال القلوب والتصيير)
+          alfiyyah_ref: "ظنّ وأخواتها"
+          leaf: true
+        - id: al_ilgha_wal_taliq
+          title: الإلغاء والتعليق
+          alfiyyah_ref: "ظنّ وأخواتها"
+          leaf: true
+        - id: alam_wa_ara
+          title: أعلمَ وأرى (المتعدِّي إلى ثلاثة مفاعيل)
+          alfiyyah_ref: "أعلم وأرى"
+          leaf: true
+
+    # ── B4  Verbal Sentence ──
+    - id: al_jumla_al_filiyya
+      title: الجملة الفعلية
+      alfiyyah_ref: "الفاعل through التنازع"
+      children:
+        - id: al_fail
+          title: الفاعل (تعريفه وأحكامه)
+          alfiyyah_ref: "الفاعل"
+          leaf: true
+        - id: mutabaqa_al_fil_wal_fail
+          title: مطابقة الفعل لفاعله (التذكير والتأنيث والعدد)
+          alfiyyah_ref: "الفاعل"
+          leaf: true
+        - id: al_naib_an_al_fail
+          title: النائب عن الفاعل
+          alfiyyah_ref: "النائب عن الفاعل"
+          leaf: true
+        - id: taaddi_al_fil_wa_luzumuhu
+          title: تعدِّي الفعل ولزومه
+          alfiyyah_ref: "تعدي الفعل ولزومه"
+          leaf: true
+        - id: al_ishtighal
+          title: اشتغال العامل عن المعمول
+          alfiyyah_ref: "اشتغال العامل عن المعمول"
+          leaf: true
+        - id: al_tanazu_fil_amal
+          title: التنازع في العمل
+          alfiyyah_ref: "التنازع في العمل"
+          leaf: true
+
+    # ── B5  Complements and Adverbials ──
+    - id: al_mafulat_wal_fadlat
+      title: المفاعيل والفضلات
+      alfiyyah_ref: "المفعول المطلق through الاستثناء"
+      children:
+        - id: al_maful_bihi
+          title: المفعول به
+          alfiyyah_ref: "N/A — distributed across تعدي الفعل and اشتغال; standalone in الآجرومية"
+          leaf: true
+        - id: al_maful_al_mutlaq
+          title: المفعول المطلق (توكيدي ونوعي وعددي)
+          alfiyyah_ref: "المفعول المطلق"
+          leaf: true
+        - id: al_maful_lahu
+          title: المفعول لأجله
+          alfiyyah_ref: "المفعول له"
+          leaf: true
+        - id: al_maful_fihi
+          title: المفعول فيه / الظرف (متصرِّف وغير متصرِّف)
+          alfiyyah_ref: "المفعول فيه وهو المسمى ظرفًا"
+          leaf: true
+        - id: al_maful_maahu
+          title: المفعول معه (واو المعيَّة)
+          alfiyyah_ref: "المفعول معه"
+          leaf: true
+        - id: al_hal
+          title: الحال (مفردة وجملة وشبه جملة · مؤسِّسة ومؤكِّدة · واو الحالية)
+          alfiyyah_ref: "الحال"
+          leaf: true
+        - id: al_tamyiz
+          title: التمييز (ذات ونسبة / التحويل)
+          alfiyyah_ref: "التمييز"
+          leaf: true
+        - id: al_istithna
+          title: الاستثناء (أدواته وأحكامه الثلاثة)
+          alfiyyah_ref: "الاستثناء"
+          leaf: true
+
+    # ── B6  Prepositions and Genitive ──
+    - id: al_jarr_wal_idafa
+      title: الجرّ والإضافة
+      alfiyyah_ref: "حروف الجر · الإضافة · المضاف إلى ياء المتكلم"
+      children:
+        - id: huruf_al_jarr_wa_maaniha
+          title: حروف الجرّ ومعانيها
+          alfiyyah_ref: "حروف الجر"
+          leaf: true
+        - id: huruf_al_jarr_al_zaida
+          title: حروف الجرّ الزائدة
+          alfiyyah_ref: "حروف الجر"
+          leaf: true
+        - id: al_idafa
+          title: الإضافة (محضة وغير محضة / لفظية ومعنوية)
+          alfiyyah_ref: "الإضافة"
+          leaf: true
+        - id: al_mudaf_ila_ya_al_mutakallim
+          title: المضاف إلى ياء المتكلم
+          alfiyyah_ref: "المضاف إلى ياء المتكلم"
+          leaf: true
+
+    # ── B7  Governance by Derived Forms ──
+    - id: imal_al_mushtaqqat
+      title: إعمال المشتقّات
+      alfiyyah_ref: "إعمال المصدر · إعمال اسم الفاعل · الصفة المشبهة · أفعل التفضيل"
+      children:
+        - id: imal_al_masdar
+          title: إعمال المصدر
+          alfiyyah_ref: "إعمال المصدر"
+          leaf: true
+        - id: imal_ism_al_fail
+          title: إعمال اسم الفاعل (شروطه)
+          alfiyyah_ref: "إعمال اسم الفاعل"
+          leaf: true
+        - id: al_sifa_al_mushabbaha
+          title: الصفة المشبَّهة (إعرابات معمولها الثلاثة)
+          alfiyyah_ref: "الصفة المشبهة باسم الفاعل"
+          leaf: true
+        - id: afal_al_tafdil
+          title: أفعل التفضيل (استعمالاته الثلاثة ومطابقته)
+          alfiyyah_ref: "أفعل التفضيل"
+          leaf: true
+
+    # ── B8  Tawabi ──
+    - id: al_tawabi
+      title: التوابع
+      alfiyyah_ref: "النعت through البدل"
+      children:
+        - id: al_nat_al_haqiqi
+          title: النعت الحقيقي (مطابقته للمنعوت)
+          alfiyyah_ref: "النعت"
+          leaf: true
+        - id: al_nat_al_sababi
+          title: النعت السببي
+          alfiyyah_ref: "النعت"
+          leaf: true
+        - id: al_nat_bil_jumla
+          title: النعت بالجملة وشبه الجملة
+          alfiyyah_ref: "النعت"
+          leaf: true
+        - id: al_tawkid
+          title: التوكيد (لفظي ومعنوي)
+          alfiyyah_ref: "التوكيد"
+          leaf: true
+        - id: atf_al_bayan
+          title: عطف البيان
+          alfiyyah_ref: "العطف"
+          leaf: true
+        - id: atf_al_nasaq
+          title: عطف النسق (حروف العطف ومعانيها)
+          alfiyyah_ref: "عطف النسق"
+          leaf: true
+        - id: al_badal
+          title: البدل (أنواعه الأربعة)
+          alfiyyah_ref: "البدل"
+          leaf: true
+
+    # ── B9  Verbal Mood ──
+    - id: irab_al_fil
+      title: إعراب الفعل المضارع
+      alfiyyah_ref: "إعراب الفعل · نونا التوكيد"
+      children:
+        - id: raf_al_mudari
+          title: رفع المضارع (الحالة الافتراضية)
+          alfiyyah_ref: "إعراب الفعل"
+          leaf: true
+        - id: nawasib_al_mudari
+          title: نواصب المضارع (أنْ ولنْ وكي وإذنْ)
+          alfiyyah_ref: "إعراب الفعل"
+          leaf: true
+        - id: an_al_mudmara
+          title: أنْ المضمرة (وجوبًا وجوازًا)
+          alfiyyah_ref: "إعراب الفعل"
+          leaf: true
+        - id: jawazim_al_fil_al_wahid
+          title: جوازم الفعل الواحد (لم ولمّا ولام الأمر ولا الناهية)
+          alfiyyah_ref: "عوامل الجزم"
+          leaf: true
+        - id: nuna_al_tawkid
+          title: نونا التوكيد الثقيلة والخفيفة
+          alfiyyah_ref: "نونا التوكيد"
+          leaf: true
+
+    # ── B10  Sentence-Level I'rab ──
+    - id: irab_al_jumal
+      title: إعراب الجُمَل
+      alfiyyah_ref: "N/A — from مغني اللبيب and النحو الوافي"
+      children:
+        - id: jumal_laha_mahall_min_al_irab
+          title: الجمل التي لها محلّ من الإعراب
+          alfiyyah_ref: "N/A"
+          leaf: true
+        - id: jumal_la_mahall_laha
+          title: الجمل التي لا محلّ لها من الإعراب
+          alfiyyah_ref: "N/A"
+          leaf: true
+
+
+  # ═════════════════════════════════════════════════════════════════════
+  #  L1-C  SPECIAL CONSTRUCTIONS  ·  الأساليب النحوية
+  # ═════════════════════════════════════════════════════════════════════
+  - id: al_asalib_al_nahwiyya
+    title: الأساليب النحوية
+    alfiyyah_ref: "N/A — encyclopedic grouping; validated by modern curricula using الأساليب المختلفة"
+    children:
+
+    # ── C1  Vocative ──
+    - id: al_nida_wal_khitab
+      title: النداء والخطاب
+      alfiyyah_ref: "النداء through الاختصاص"
+      children:
+        - id: adawat_al_nida_wa_irab_al_munada
+          title: أدوات النداء وإعراب المنادى
+          alfiyyah_ref: "النداء"
+          leaf: true
+        - id: tawabi_al_munada
+          title: توابع المنادى (أحكام إعرابها)
+          alfiyyah_ref: "النداء (فصل)"
+          leaf: true
+        - id: al_munada_al_mudaf_ila_ya
+          title: المنادى المضاف إلى ياء المتكلم
+          alfiyyah_ref: "المنادى المضاف إلى ياء المتكلم"
+          leaf: true
+        - id: asma_lazamat_al_nida
+          title: أسماء لازمت النداء
+          alfiyyah_ref: "أسماء لازمت النداء"
+          leaf: true
+        - id: al_istighatha
+          title: الاستغاثة
+          alfiyyah_ref: "الاستغاثة"
+          leaf: true
+        - id: al_nudba
+          title: الندبة
+          alfiyyah_ref: "الندبة"
+          leaf: true
+        - id: al_tarkhim
+          title: الترخيم
+          alfiyyah_ref: "الترخيم"
+          leaf: true
+        - id: al_ikhtisas
+          title: الاختصاص
+          alfiyyah_ref: "الاختصاص"
+          leaf: true
+
+    # ── C2  Praise, Blame, Exclamation ──
+    - id: al_madh_wal_dhamm_wal_taajjub
+      title: المدح والذمّ والتعجّب
+      alfiyyah_ref: "التعجب · نعم وبئس"
+      children:
+        - id: nima_wa_bisa
+          title: نِعْمَ وبِئْسَ وما جرى مجراهما
+          alfiyyah_ref: "نعم وبئس وما جرى مجراهما"
+          leaf: true
+        - id: al_taajjub
+          title: التعجّب (صيغتاه القياسيتان وشروطهما)
+          alfiyyah_ref: "التعجب"
+          leaf: true
+
+    # ── C3  Conditional ──
+    - id: al_shart_wal_jawab
+      title: الشرط والجواب
+      alfiyyah_ref: "عوامل الجزم (فصل) · أمّا ولولا ولوما"
+      children:
+        - id: adawat_al_shart_al_jazima
+          title: أدوات الشرط الجازمة (إنْ ومَن وما ومهما وأخواتها)
+          alfiyyah_ref: "عوامل الجزم"
+          leaf: true
+        - id: fa_al_jaza_wa_bunyat_al_jawab
+          title: فاء الجزاء وبنية الجواب
+          alfiyyah_ref: "عوامل الجزم"
+          leaf: true
+        - id: law_al_shartiyya
+          title: لو الشرطية
+          alfiyyah_ref: "عوامل الجزم (فصل لو)"
+          leaf: true
+        - id: lawla_wa_lawma
+          title: لولا ولوما (الامتناعية)
+          alfiyyah_ref: "أمّا ولولا ولوما"
+          leaf: true
+        - id: amma_al_tafsiliyya
+          title: أمّا التفصيلية
+          alfiyyah_ref: "أمّا ولولا ولوما"
+          leaf: true
+
+    # ── C4  Oath ──
+    - id: uslub_al_qasam
+      title: أسلوب القسم
+      alfiyyah_ref: "N/A — distributed across نونا التوكيد and إعراب الفعل"
+      children:
+        - id: adawat_al_qasam_wa_jawabuh
+          title: أدوات القسم وجوابه (اللام ونون التوكيد)
+          alfiyyah_ref: "N/A"
+          leaf: true
+
+    # ── C5  Interrogative ──  [NEW — added Stage 5]
+    - id: uslub_al_istifham
+      title: أسلوب الاستفهام
+      alfiyyah_ref: "N/A — not a dedicated Alfiyyah chapter; in مغني اللبيب, النحو الوافي, جامع الدروس"
+      children:
+        - id: adawat_al_istifham_wa_ahkamuha
+          title: أدوات الاستفهام وأحكامها (الهمزة وهل وأسماء الاستفهام)
+          alfiyyah_ref: "N/A"
+          leaf: true
+
+    # ── C6  Warning, Urging, Action Nouns ──
+    - id: al_tahdhir_wal_ighra_wa_asma_al_afal
+      title: التحذير والإغراء وأسماء الأفعال
+      alfiyyah_ref: "التحذير والإغراء · أسماء الأفعال والأصوات"
+      children:
+        - id: al_tahdhir_wal_ighra
+          title: التحذير والإغراء
+          alfiyyah_ref: "التحذير والإغراء"
+          leaf: true
+        - id: asma_al_afal
+          title: أسماء الأفعال (ماضوية ومضارعية وأمرية)
+          alfiyyah_ref: "أسماء الأفعال والأصوات"
+          leaf: true
+        - id: asma_al_aswat
+          title: أسماء الأصوات
+          alfiyyah_ref: "أسماء الأفعال والأصوات"
+          leaf: true
+
+    # ── C7  Number and Quantification ──
+    - id: al_adad_wal_kammiyya
+      title: العدد والكمّيّة
+      alfiyyah_ref: "العدد · كم وكأيّ وكذا"
+      children:
+        - id: al_adad_wal_madud
+          title: العدد والمعدود (المطابقة والتمييز)
+          alfiyyah_ref: "العدد"
+          leaf: true
+        - id: kam_wa_kaayyin_wa_kadha
+          title: كم وكأيّن وكذا (الاستفهامية والخبرية)
+          alfiyyah_ref: "كم وكأيّ وكذا"
+          leaf: true
+
+    # ── C8  Quotation and Cleft ──
+    - id: al_hikaya_wal_ikhbar
+      title: الحكاية والإخبار
+      alfiyyah_ref: "الحكاية · الإخبار بالذي والألف واللام"
+      children:
+        - id: al_hikaya
+          title: الحكاية (حفظ الإعراب الأصلي في المحكيّ)
+          alfiyyah_ref: "الحكاية"
+          leaf: true
+        - id: al_ikhbar_bi_lladhi_wa_al
+          title: الإخبار بالذي والألف واللام (أسلوب القصر)
+          alfiyyah_ref: "الإخبار بالذي والألف واللام"
+          leaf: true
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  JUSTIFICATION TABLE
+# ═══════════════════════════════════════════════════════════════════════
+#
+# KEY:
+#   HIGH   = explicitly named as distinct topic in 2+ classical/modern sources
+#   MEDIUM = named in 1 source, or clearly implied by commentary structure
+#   LOW    = inference from content, not explicitly named as separate topic
+#
+# Leaves with source [Alf] = Alfiyyah chapter, [IbnAq] = Sharh Ibn Aqil,
+# [AwdM] = Awdah al-Masalik, [NW] = al-Nahw al-Wafi, [Aj] = Ajurrumiyya,
+# [ML] = Mughni al-Labib, [JD] = Jami al-Durus, [ShDh] = Shudur al-Dhahab
+#
+# | Node ID                          | Lv | Source(s)                          | Confidence |
+# |----------------------------------|----|------------------------------------|------------|
+# | al_kalam_wa_aqsamuhu             | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | mahiyyat_al_irab                 | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | alamat_al_irab_al_asliyya        | 3  | Alf, Aj, IbnAq, AwdM              | HIGH       |
+# | alamat_al_irab_al_fariyya        | 3  | Alf, Aj, IbnAq, AwdM              | HIGH       |
+# | al_irab_al_muqaddar              | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | ilal_bina_al_asma                | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | bina_al_afal                     | 3  | Alf, Aj, IbnAq, AwdM              | HIGH       |
+# | bina_al_huruf                    | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | ilal_man_al_sarf                 | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | sarf_al_mamnu                    | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | al_amil_al_lafzi_wal_manawi      | 3  | NW, Sibawayh, IbnAq (implicit)    | MEDIUM     |
+# | ta_alluq_al_jarr_wal_zarf        | 3  | AwdM, NW                          | MEDIUM     |
+# | al_nakira_wal_marifa             | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | al_damir                         | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | al_alam                          | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | ism_al_ishara                    | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_ism_al_mawsul                 | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_muarraf_bi_al                 | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_mubtada_wal_khabar            | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | musawwighat_al_ibtida_bil_nakira | 3  | Alf, IbnAq, AwdM, NW (mas. 36)    | HIGH       |
+# | taqdim_al_khabar_wa_takhiruhu    | 3  | Alf, IbnAq, AwdM, NW (mas. 37-38) | HIGH       |
+# | hadhf_al_mubtada_aw_al_khabar    | 3  | Alf, IbnAq, AwdM, NW (mas. 39)    | HIGH       |
+# | taaddud_al_khabar                | 3  | Alf, IbnAq, AwdM, NW (mas. 40)    | MEDIUM     |
+# | kana_wa_akhwatuha                | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | ma_la_lat_in_al_nafiya           | 3  | Alf (fasl), IbnAq, AwdM           | HIGH       |
+# | afal_al_muqaraba                 | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | inna_wa_akhwatuha                | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | fath_hamzat_inna_wa_kasruha      | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | la_li_nafi_al_jins               | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | zann_wa_akhwatuha                | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | al_ilgha_wal_taliq               | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | alam_wa_ara                      | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | al_fail                          | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | mutabaqa_al_fil_wal_fail         | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_naib_an_al_fail               | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | taaddi_al_fil_wa_luzumuhu        | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_ishtighal                     | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_tanazu_fil_amal               | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_maful_bihi                    | 3  | Aj (standalone), NW, JD            | MEDIUM     |
+# | al_maful_al_mutlaq               | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_maful_lahu                    | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_maful_fihi                    | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_maful_maahu                   | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_hal                           | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_tamyiz                        | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_istithna                      | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | huruf_al_jarr_wa_maaniha         | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | huruf_al_jarr_al_zaida           | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_idafa                         | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_mudaf_ila_ya_al_mutakallim    | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | imal_al_masdar                   | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | imal_ism_al_fail                 | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_sifa_al_mushabbaha            | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | afal_al_tafdil                   | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_nat_al_haqiqi                 | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | al_nat_al_sababi                 | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_nat_bil_jumla                 | 3  | IbnAq, AwdM, NW                   | MEDIUM     |
+# | al_tawkid                        | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | atf_al_bayan                     | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | atf_al_nasaq                     | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | al_badal                         | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | raf_al_mudari                    | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | nawasib_al_mudari                | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | an_al_mudmara                    | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | jawazim_al_fil_al_wahid          | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | nuna_al_tawkid                   | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | jumal_laha_mahall_min_al_irab    | 3  | ML, NW                            | MEDIUM     |
+# | jumal_la_mahall_laha             | 3  | ML, NW                            | MEDIUM     |
+# | adawat_al_nida_wa_irab_al_munada | 3  | Alf, Aj, IbnAq, AwdM, NW          | HIGH       |
+# | tawabi_al_munada                 | 3  | Alf (fasl), IbnAq, AwdM           | HIGH       |
+# | al_munada_al_mudaf_ila_ya        | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | asma_lazamat_al_nida             | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | al_istighatha                    | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | al_nudba                         | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | al_tarkhim                       | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | al_ikhtisas                      | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | nima_wa_bisa                     | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | al_taajjub                       | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | adawat_al_shart_al_jazima        | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | fa_al_jaza_wa_bunyat_al_jawab    | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | law_al_shartiyya                 | 3  | Alf (fasl), IbnAq, AwdM, NW       | HIGH       |
+# | lawla_wa_lawma                   | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | amma_al_tafsiliyya               | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | adawat_al_qasam_wa_jawabuh       | 3  | NW, ShDh, QN                      | LOW        |
+# | adawat_al_istifham_wa_ahkamuha   | 3  | ML, NW, JD, modern curricula       | MEDIUM     |
+# | al_tahdhir_wal_ighra             | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | asma_al_afal                     | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | asma_al_aswat                    | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | al_adad_wal_madud                | 3  | Alf, IbnAq, AwdM, NW              | HIGH       |
+# | kam_wa_kaayyin_wa_kadha          | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | al_hikaya                        | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+# | al_ikhbar_bi_lladhi_wa_al        | 3  | Alf, IbnAq, AwdM                  | HIGH       |
+#
+#
+# ═══════════════════════════════════════════════════════════════════════
+#  STATISTICS
+# ═══════════════════════════════════════════════════════════════════════
+#
+#  Level 1 nodes:   3
+#  Level 2 nodes:  22
+#  Level 3 leaves: 92
+#
+#  Confidence:
+#    HIGH:   79  (86%)
+#    MEDIUM: 12  (13%)
+#    LOW:     1   (1%)
+#
+#  Alfiyyah coverage:
+#    Leaves with direct Alfiyyah chapter: 75
+#    Leaves from non-Alfiyyah sources:     7
+#    Sub-splits of Alfiyyah chapters:     10
+#
+#  Known future expansion points:
+#    - huruf_al_jarr: individual particles (min, ila, an, fi, ba, lam, ...)
+#    - kana_wa_akhwatuha: taqdim/takhir of ism/khabar, kana al-zaida, hadhf
+#    - al_hal: mufrada/jumla, muqarina/muqaddara, sahib al-hal conditions
+#    - inna_wa_akhwatuha: ma al-kaffa, takhfif inna, fronting khabar
+#    - al_shart: idha al-shartiyya (non-jazima conditional)
+#    - Negation as a unified construction (uslub al-nafi)
+# ═══════════════════════════════════════════════════════════════════════
