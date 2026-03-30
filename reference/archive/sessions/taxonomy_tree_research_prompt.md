@@ -9,7 +9,7 @@ This is a KR (خزانة ريان) session focused on taxonomy tree validation r
 ## Immediate orientation
 
 After cloning the repo, read these files in this order:
-1. `engines/taxonomy/STATE.md` — **READ THIS FIRST.** Full state of the taxonomy engine, including what was already researched and what remains.
+1. `engines/taxonomy/STATE.md` — **READ THIS FIRST.** Full state of the taxonomy engine, including what was already researched and what remains. **NOTE: `NEXT.md` contains a CC fix directive — that is NOT your task. STATE.md has your task orientation.**
 2. `reference/ENGINE_FACTORY_PLAN.md` lines 836-912 — Gate G3 definition (tree validation requirement)
 3. `library/sciences/taxonomy_registry.yaml` — current tree registry
 4. `library/sciences/nahw/tree.yaml` lines 1-50 — sample of current nahw tree structure
