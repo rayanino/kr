@@ -7,6 +7,7 @@ behavior, and end-to-end batch processing.
 from __future__ import annotations
 
 import json
+import logging
 from pathlib import Path
 
 import pytest
@@ -15,7 +16,7 @@ from engines.taxonomy.contracts_core import (
     PlacementRoute,
     RunConfig,
 )
-from engines.taxonomy.src.engine import TaxonomyEngineError, run
+from engines.taxonomy.src.engine import TaxonomyEngineError, _EXPECTED_FIELDS, run
 from engines.taxonomy.tests.conftest import (
     MockPlacementAdapter,
     make_excerpt,
@@ -239,6 +240,61 @@ class TestInputValidation:
         assert report.total_excerpts == 0
         assert report.placed_count == 0
 
+    def test_expected_fields_has_eight_entries(self) -> None:
+        """F-1: _EXPECTED_FIELDS must have exactly 8 SPEC §2.1 fields."""
+        assert len(_EXPECTED_FIELDS) == 8
+
+    def test_missing_expected_field_still_proceeds(self, tmp_path: Path) -> None:
+        """F-1: Missing expected field warns but does not reject."""
+        exc = make_excerpt()
+        del exc["description_arabic"]  # Expected but not required
+        jsonl = tmp_path / "input.jsonl"
+        _write_excerpts_jsonl(jsonl, [exc])
+
+        config = RunConfig(
+            science_id="aqidah",
+            input_path=str(jsonl),
+            batch_id="test_expected_field",
+        )
+        report = run(
+            config,
+            adapter=None,
+            registry_path=_REGISTRY_PATH,
+            base_path=tmp_path,
+        )
+        # Not rejected — still processed (unplaced due to stub)
+        assert report.unplaced_count == 1
+        assert report.total_excerpts == 1
+
+    def test_school_null_with_key_present_no_warning(
+        self, tmp_path: Path, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """F-1: school=None with key present does NOT trigger expected-field warning."""
+        exc = make_excerpt(school=None)
+        assert "school" in exc  # Key is present
+        jsonl = tmp_path / "input.jsonl"
+        _write_excerpts_jsonl(jsonl, [exc])
+
+        config = RunConfig(
+            science_id="aqidah",
+            input_path=str(jsonl),
+            batch_id="test_null_school",
+        )
+        with caplog.at_level(logging.WARNING):
+            run(
+                config,
+                adapter=None,
+                registry_path=_REGISTRY_PATH,
+                base_path=tmp_path,
+            )
+
+        school_warnings = [
+            r for r in caplog.records
+            if "missing school" in r.message.lower()
+            or ("MISSING_EXPECTED_FIELD" in r.message and "school" in r.message)
+        ]
+        assert len(school_warnings) == 0
+
 
 # ── Batch Report ──────────────────────────────────────────────────
 
@@ -268,3 +324,94 @@ class TestBatchReport:
         assert data["batch_id"] == "report_test"
         assert data["science_id"] == "aqidah"
         assert data["total_excerpts"] == 1
+
+
+# ── BOM-safe JSONL Reading (F-7) ────────────────────────────────
+
+
+class TestBomSafeReading:
+    def test_bom_jsonl_reads_all_excerpts(self, tmp_path: Path) -> None:
+        """F-7: UTF-8 BOM must not cause first excerpt to be silently dropped."""
+        exc1 = make_excerpt(excerpt_id="bom_test_001")
+        exc2 = make_excerpt(excerpt_id="bom_test_002")
+
+        jsonl = tmp_path / "bom_input.jsonl"
+        bom = b"\xef\xbb\xbf"  # UTF-8 BOM
+        lines = (
+            json.dumps(exc1, ensure_ascii=False) + "\n"
+            + json.dumps(exc2, ensure_ascii=False) + "\n"
+        )
+        jsonl.write_bytes(bom + lines.encode("utf-8"))
+
+        config = RunConfig(
+            science_id="aqidah",
+            input_path=str(jsonl),
+            batch_id="test_bom",
+        )
+        report = run(
+            config,
+            adapter=None,
+            registry_path=_REGISTRY_PATH,
+            base_path=tmp_path,
+        )
+
+        assert report.total_excerpts == 2
+
+
+# ── Duplicate Excerpt ID Warning (F-8) ──────────────────────────
+
+
+class TestDuplicateExcerptId:
+    def test_duplicate_id_still_processes_both(self, tmp_path: Path) -> None:
+        """F-8: Duplicate excerpt_id warns but processes both (last-write-wins)."""
+        exc1 = make_excerpt(excerpt_id="dup_001")
+        exc2 = make_excerpt(excerpt_id="dup_001")  # Same ID
+
+        jsonl = tmp_path / "input.jsonl"
+        _write_excerpts_jsonl(jsonl, [exc1, exc2])
+
+        config = RunConfig(
+            science_id="aqidah",
+            input_path=str(jsonl),
+            batch_id="test_dup",
+        )
+        report = run(
+            config,
+            adapter=None,
+            registry_path=_REGISTRY_PATH,
+            base_path=tmp_path,
+        )
+
+        # Both excerpts processed (not rejected)
+        assert report.total_excerpts == 2
+        assert report.unplaced_count == 2  # Both unplaced (stub adapter)
+
+    def test_duplicate_id_logs_warning(
+        self, tmp_path: Path, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """F-8: Duplicate excerpt_id must log TAX_DUPLICATE_EXCERPT_ID."""
+        exc1 = make_excerpt(excerpt_id="dup_002")
+        exc2 = make_excerpt(excerpt_id="dup_002")
+
+        jsonl = tmp_path / "input.jsonl"
+        _write_excerpts_jsonl(jsonl, [exc1, exc2])
+
+        config = RunConfig(
+            science_id="aqidah",
+            input_path=str(jsonl),
+            batch_id="test_dup_warn",
+        )
+        with caplog.at_level(logging.WARNING):
+            run(
+                config,
+                adapter=None,
+                registry_path=_REGISTRY_PATH,
+                base_path=tmp_path,
+            )
+
+        dup_warnings = [
+            r for r in caplog.records
+            if "TAX_DUPLICATE_EXCERPT_ID" in r.message
+        ]
+        assert len(dup_warnings) == 1
+        assert "dup_002" in dup_warnings[0].message

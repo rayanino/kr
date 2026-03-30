@@ -11,10 +11,12 @@ from statistics import median
 
 from engines.taxonomy.contracts_core import (
     BatchReport,
+    ExcerptType,
     LoadedTree,
     RunConfig,
     TaxonomyWarning,
 )
+from engines.taxonomy.src.placer import classify_excerpt_type
 
 logger = logging.getLogger(__name__)
 
@@ -136,13 +138,17 @@ def compute_median_confidence(confidences: list[float]) -> float | None:
 def compute_editorial_placement_rate(results: list[dict]) -> float | None:
     """Compute fraction of editorial excerpts that reached live tree.
 
+    Uses classify_excerpt_type to determine editorial status, matching
+    the routing logic. This correctly counts null/missing/unknown
+    primary_function values as editorial.
+
     Returns None if there are no editorial excerpts in the batch.
     """
     editorial_total = 0
     editorial_live = 0
 
     for r in results:
-        if r.get("primary_function") == "editorial_note":
+        if classify_excerpt_type(r) == ExcerptType.EDITORIAL:
             editorial_total += 1
             if r.get("placement_route") == "live":
                 editorial_live += 1

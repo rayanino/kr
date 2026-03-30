@@ -142,6 +142,29 @@ class TestEditorialPlacementRate:
         ]
         assert compute_editorial_placement_rate(results) == 1.0
 
+    def test_null_primary_function_counted_as_editorial(self) -> None:
+        """F-4: Null primary_function is editorial per classify_excerpt_type."""
+        results = [
+            _make_result(primary_function="editorial_note", route="live"),
+            _make_result(primary_function=None, route="staged_front_matter"),  # null → editorial
+            _make_result(primary_function="rule_statement", route="live"),
+        ]
+        rate = compute_editorial_placement_rate(results)
+        # 2 editorial total (editorial_note + null), 1 live → 1/2 = 0.5
+        assert rate == pytest.approx(0.5)
+
+    def test_missing_primary_function_counted_as_editorial(self) -> None:
+        """F-4: Missing primary_function key is editorial per classify_excerpt_type."""
+        result_no_key = _make_result(primary_function="rule_statement", route="live")
+        del result_no_key["primary_function"]
+        results = [
+            _make_result(primary_function="editorial_note", route="live"),
+            result_no_key,  # missing key → editorial
+        ]
+        rate = compute_editorial_placement_rate(results)
+        # 2 editorial total, 1 live (editorial_note) + 1 live (result_no_key) = 2 live
+        assert rate == pytest.approx(1.0)
+
 
 # ── Warning Conditions ────────────────────────────────────────────
 

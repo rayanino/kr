@@ -78,6 +78,22 @@ _ALWAYS_STAGED_FUNCTIONS = frozenset({"structural_transition", "cross_reference"
 # SPEC §4.A.3: Editorial type
 _EDITORIAL_FUNCTIONS = frozenset({"editorial_note"})
 
+# SPEC §4.A.3: Known teaching functions (from excerpting ScholarlyFunction enum)
+_TEACHING_FUNCTIONS = frozenset({
+    "definition",
+    "rule_statement",
+    "evidence_quran",
+    "evidence_hadith",
+    "evidence_ijma",
+    "evidence_qiyas",
+    "evidence_rational",
+    "opinion_statement",
+    "refutation",
+    "example",
+    "condition_exception",
+    "narration",
+})
+
 
 def classify_excerpt_type(excerpt: dict) -> ExcerptType:
     """Classify an excerpt's type for routing purposes (SPEC §4.A.3).
@@ -85,7 +101,7 @@ def classify_excerpt_type(excerpt: dict) -> ExcerptType:
     Returns:
         ALWAYS_STAGED for structural_transition, cross_reference.
         EDITORIAL for editorial_note.
-        TEACHING for all other known primary_function values.
+        TEACHING for known teaching primary_function values.
         EDITORIAL for missing/null/unknown (safe default — stricter threshold).
     """
     primary_function = excerpt.get("primary_function")
@@ -99,7 +115,15 @@ def classify_excerpt_type(excerpt: dict) -> ExcerptType:
     if primary_function in _EDITORIAL_FUNCTIONS:
         return ExcerptType.EDITORIAL
 
-    return ExcerptType.TEACHING
+    if primary_function in _TEACHING_FUNCTIONS:
+        return ExcerptType.TEACHING
+
+    # Unknown value — default to EDITORIAL (stricter threshold is safer)
+    logger.warning(
+        "TAX_UNKNOWN_FUNCTION: primary_function '%s' not recognized — defaulting to EDITORIAL",
+        primary_function,
+    )
+    return ExcerptType.EDITORIAL
 
 
 # ── Placement Routing ─────────────────────────────────────────────

@@ -51,6 +51,10 @@ _EXPECTED_FIELDS = (
     "primary_function",
     "content_types",
     "div_path",
+    "terminology_variants",
+    "primary_author_layer",
+    "quoted_scholars",
+    "school",
 )
 
 # Default registry location
@@ -119,8 +123,18 @@ def run(
 
     results: list[dict] = []
     rejected_count = 0
+    seen_ids: set[str] = set()
 
     for excerpt in excerpts:
+        eid = excerpt.get("excerpt_id", "")
+        if eid in seen_ids:
+            logger.warning(
+                "TAX_DUPLICATE_EXCERPT_ID: excerpt %s appears multiple times in batch"
+                " — later result will overwrite",
+                eid,
+            )
+        seen_ids.add(eid)
+
         result = _process_excerpt(
             excerpt=excerpt,
             tree=tree,
@@ -173,7 +187,7 @@ def _validate_config(config: RunConfig) -> None:
 def _read_excerpts(input_path: Path) -> list[dict]:
     """Read excerpts from a JSONL file."""
     excerpts: list[dict] = []
-    with input_path.open(encoding="utf-8") as f:
+    with input_path.open(encoding="utf-8-sig") as f:
         for line_num, line in enumerate(f, start=1):
             line = line.strip()
             if not line:
@@ -222,9 +236,9 @@ def _process_excerpt(
         )
         return None
 
-    # Warn on missing expected fields
+    # Warn on missing expected fields (key absent, not key-present-but-null)
     for field in _EXPECTED_FIELDS:
-        if excerpt.get(field) is None:
+        if field not in excerpt:
             logger.warning(
                 "TAX_MISSING_EXPECTED_FIELD: excerpt %s missing %s",
                 excerpt_id,

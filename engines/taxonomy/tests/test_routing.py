@@ -21,6 +21,7 @@ from engines.taxonomy.src.placer import (
     LIVE_THRESHOLD_TEACHING,
     STAGING_THRESHOLD,
     TIE_THRESHOLD,
+    _TEACHING_FUNCTIONS,
     _should_skip_stage1,
     classify_excerpt_type,
     place_excerpt,
@@ -73,6 +74,22 @@ class TestClassifyExcerptType:
     def test_empty_string_defaults_editorial(self) -> None:
         exc = make_excerpt(primary_function="")
         assert classify_excerpt_type(exc) == ExcerptType.EDITORIAL
+
+    def test_unclassified_defaults_editorial(self) -> None:
+        """F-6: 'unclassified' from ScholarlyFunction.UNCLASSIFIED → EDITORIAL."""
+        exc = make_excerpt(primary_function="unclassified")
+        assert classify_excerpt_type(exc) == ExcerptType.EDITORIAL
+
+    def test_future_unknown_type_defaults_editorial(self) -> None:
+        """F-6: Any unrecognized value → EDITORIAL (safe default)."""
+        exc = make_excerpt(primary_function="some_future_unknown_type")
+        assert classify_excerpt_type(exc) == ExcerptType.EDITORIAL
+
+    @pytest.mark.parametrize("func", sorted(_TEACHING_FUNCTIONS))
+    def test_all_teaching_functions_classified_as_teaching(self, func: str) -> None:
+        """F-6: Every value in _TEACHING_FUNCTIONS → TEACHING."""
+        exc = make_excerpt(primary_function=func)
+        assert classify_excerpt_type(exc) == ExcerptType.TEACHING
 
 
 # ── Routing Matrix ────────────────────────────────────────────────
