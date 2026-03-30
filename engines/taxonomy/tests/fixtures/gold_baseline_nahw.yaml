@@ -1,0 +1,123 @@
+# Taxonomy Gold Baseline — ibn_aqil_v3 (nahw)
+
+# 12 excerpts from integration_tests/smoke_fix_20260329/ibn_aqil_v3/excerpts.jsonl
+# with manually assigned correct leaves in the nahw tree.
+#
+# Assigned by: Architect (Claude Chat), 2026-03-30
+# PENDING: Owner review of assignments (domain knowledge check)
+#
+# Used by: §9.3 gold baseline test — run real LLM placement and compare to these.
+# Target: ≥80% exact-leaf match, ≥95% correct-branch match.
+
+gold_placements:
+  # --- Overview and general preposition rules ---
+
+  - excerpt_index: 0
+    excerpt_topic: "حروف الجر / تعداد حروف الجر"
+    primary_function: rule_statement
+    correct_leaf: "almajrurat/huruf_aljar/huruf_aljar__overview"
+    correct_branch: "almajrurat"
+    reasoning: "Enumerates the 20 prepositions and their general properties — definitional/overview content"
+    difficulty: easy
+
+  - excerpt_index: 6
+    excerpt_topic: "اختصاص حروف الجر بالظاهر / مذ ومنذ وأسماء الزمان"
+    primary_function: rule_statement
+    correct_leaf: "almajrurat/huruf_aljar/huruf_aljar__overview"
+    correct_branch: "almajrurat"
+    reasoning: "General rule about which prepositions work with nouns vs pronouns — overview-level"
+    difficulty: easy
+
+  - excerpt_index: 20
+    excerpt_topic: "مذ ومنذ اسمين وحرفين / إعراب مذ ومنذ"
+    primary_function: rule_statement
+    correct_leaf: "almajrurat/huruf_aljar/huruf_aljar__overview"
+    correct_branch: "almajrurat"
+    reasoning: "General grammatical analysis of مذ/منذ (noun vs particle status) — overview"
+    difficulty: medium
+    notes: "Could also argue for ma3ani — but the content is about grammatical classification, not semantic meaning"
+
+  # --- Individual preposition meanings ---
+
+  - excerpt_index: 1
+    excerpt_topic: "كي حرف جر / ما الاستفهامية"
+    primary_function: rule_statement
+    correct_leaf: "almajrurat/huruf_aljar/ma3ani_huruf_aljar"
+    correct_branch: "almajrurat"
+    reasoning: "Specific preposition كي — its usage contexts and meaning"
+    difficulty: easy
+
+  - excerpt_index: 5
+    excerpt_topic: "لولا حرف جر / جر المضمر بلولا"
+    primary_function: opinion_statement
+    correct_leaf: "almajrurat/huruf_aljar/ma3ani_huruf_aljar"
+    correct_branch: "almajrurat"
+    reasoning: "Scholarly debate about whether لولا functions as a preposition — meaning/usage of a specific particle"
+    difficulty: medium
+
+  - excerpt_index: 10
+    excerpt_topic: "معاني مِن / ابتداء الغاية / التبعيض وبيان الجنس"
+    primary_function: rule_statement
+    correct_leaf: "almajrurat/huruf_aljar/ma3ani_huruf_aljar"
+    correct_branch: "almajrurat"
+    reasoning: "Semantic meanings of the preposition مِن — squarely in the 'meanings by preposition' leaf"
+    difficulty: easy
+
+  - excerpt_index: 14
+    excerpt_topic: "معاني اللام / لام الملك / لام التعدية والتعليل"
+    primary_function: rule_statement
+    correct_leaf: "almajrurat/huruf_aljar/ma3ani_huruf_aljar"
+    correct_branch: "almajrurat"
+    reasoning: "Semantic meanings of اللام — meanings of a specific preposition"
+    difficulty: easy
+
+  # --- Extra/redundant prepositions ---
+
+  - excerpt_index: 11
+    excerpt_topic: "مِن الزائدة / شروط زيادة مِن"
+    primary_function: rule_statement
+    correct_leaf: "almajrurat/huruf_aljar/zawaid_huruf_aljar"
+    correct_branch: "almajrurat"
+    reasoning: "Explicitly about 'extra' (زائدة) usage of مِن — matches zawaid leaf perfectly"
+    difficulty: easy
+
+  - excerpt_index: 21
+    excerpt_topic: "زيادة ما بعد حروف الجر / ما الزائدة غير الكافة"
+    primary_function: rule_statement
+    correct_leaf: "almajrurat/huruf_aljar/zawaid_huruf_aljar"
+    correct_branch: "almajrurat"
+    reasoning: "Extra ما after prepositions — extra/redundant particle topic"
+    difficulty: easy
+
+  # --- Cross-branch placement (oath, not prepositions) ---
+
+  - excerpt_index: 8
+    excerpt_topic: "واو القسم / تاء القسم / اختصاص التاء بلفظ الجلالة"
+    primary_function: rule_statement
+    correct_leaf: "asaleeb_wamushaqaqat/alqasam"
+    correct_branch: "asaleeb_wamushaqaqat"
+    reasoning: "Primarily about the oath mechanism (القسم), not about preposition meanings. The واو and تاء are oath particles, not generic prepositions."
+    difficulty: hard
+    notes: "This is the hardest placement — it COULD go to huruf_aljar because واو/تاء are technically prepositions, but the excerpt's focus is on القسم. The nahw tree has a dedicated oath leaf."
+
+  # --- Editorial content (tests type-based threshold) ---
+
+  - excerpt_index: 4
+    excerpt_topic: "إحالة على بقية حروف الجر"
+    primary_function: cross_reference
+    correct_leaf: "almajrurat/huruf_aljar/huruf_aljar__overview"
+    correct_branch: "almajrurat"
+    reasoning: "Cross-reference to other preposition discussions — closest match is overview"
+    difficulty: medium
+    notes: "This is a cross_reference type → faces 0.85 threshold. May end up staged rather than live, which is acceptable."
+
+  # --- Deletion rules (tests boundary between overview and specific) ---
+
+  - excerpt_index: 24
+    excerpt_topic: "حذف حرف الجر وإبقاء عمله / مميز كم الاستفهامية"
+    primary_function: rule_statement
+    correct_leaf: "almajrurat/huruf_aljar/huruf_aljar__overview"
+    correct_branch: "almajrurat"
+    reasoning: "General rule about preposition deletion retaining grammatical effect — overview-level, not about a specific preposition's meaning"
+    difficulty: medium
+    notes: "Could also argue for ta3alluq_jar_wamajrur if the content focuses on grammatical attachment"
