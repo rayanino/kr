@@ -1,6 +1,6 @@
 # Taxonomy Engine — محرك التصنيف — Core v1 Specification
 
-**Status:** Implementation-ready (pending ChatGPT checkpoint #3 review)
+**Status:** Implementation-ready (ChatGPT checkpoints #1 and #3 incorporated)
 **Scope:** Core placement only — 24 capabilities. 42 deferred to Stage 2.
 **Governing documents:** `CORE_EXTRACTION.md` (classification), `REWRITE_ANALYSIS.md` (design decisions), `SPEC_FULL_ORIGINAL.md` (full SPEC archive)
 
@@ -167,7 +167,7 @@ Contains the complete original excerpt object extended with:
 |-------|------|-------------|
 | `lifecycle_stage` | `str` | `"unplaced"` |
 | `unplaced_reason` | `str` | E.g., "No candidate scored ≥0.5" or "Stage 1: no matching branch" |
-| `best_candidates` | `list[dict]` | Top 3 candidates with leaf_id, score, reasoning |
+| `best_candidates` | `list[dict]` | Top 3 candidates with leaf_path, score, reasoning. Empty list `[]` if Stage 1 returned no_match. |
 | `placement_route` | `str` | `"unplaced"` |
 
 ### 3.4 Pending-No-Tree Excerpts
@@ -208,6 +208,13 @@ These excerpts are re-processable once a tree is created. They are NOT lumped wi
 
 The taxonomy engine **adds** fields to excerpts; it **never strips** upstream fields. The placed/staged/unplaced excerpt JSON contains every field from the original input JSONL line, plus the taxonomy-added fields. Implementation: `{**original_excerpt, **placement_additions}`.
 
+**Collision policy:** If the original excerpt already contains a key that taxonomy adds (e.g., `lifecycle_stage`), the taxonomy value **overwrites** the upstream value. This is correct because upstream excerpts should not have taxonomy-specific fields; their presence indicates a pipeline error or re-processing scenario where the latest taxonomy result is authoritative.
+
+**Serialization invariants:** All output JSON files must be written with:
+- `ensure_ascii=False` — Arabic text must appear as readable Arabic, not `\uXXXX` escapes
+- `indent=2` — human-readable for review and debugging
+- `encoding="utf-8"` — mandatory, no fallback to system default
+
 ---
 
 ## 4. Processing Specification
@@ -231,12 +238,15 @@ class TreeNode:
 ```
 
 **v0 normalization rules:**
+- The top-level YAML key (e.g., `aqidah`) is an **envelope**, not a tree node. It is NOT included in leaf paths. Paths begin at its children. Example: the leaf at `aqidah → al_iman_billah → asma_wa_sifat → manhaj...` gets path `al_iman_billah/asma_wa_sifat/manhaj_ahl_al_sunna_fi_al_sifat`.
 - Each dict key becomes the node `id`
 - `_label` value becomes the node `title`
 - `_leaf: true` marks the node as a leaf
 - Keys starting with `_` (except `_label`, `_leaf`) are metadata, not child nodes
 - Keys starting with `__` (e.g., `__overview`) ARE child nodes — the double underscore is a naming convention, not a skip signal
 - All other non-underscore keys are child nodes
+
+**Leaf path uniqueness invariant:** After loading, every leaf must have a unique `path`. The TreeLoader asserts this at load time — duplicate paths indicate a tree authoring error and raise `TAX_TREE_LOAD_ERROR`.
 
 **TreeLoader outputs:**
 - `tree_version: str` — from YAML header (v1: `taxonomy.id`) or registry
@@ -281,11 +291,11 @@ All candidates from Stage 1 (or all leaves for small trees) are scored in a sing
 **Stage 2 input context includes:**
 - `excerpt_topic` (all topics, joined by ` / `)
 - `description_arabic`
-- `primary_text` — full text if ≤ 3000 characters; first 1500 characters if longer
+- `primary_text` — full text if shorter than `primary_text_char_limit` (default 3000 chars); first `primary_text_char_limit` characters if longer
 - `primary_function`
 - `content_types`
 - `div_path` (structural heading path from the source book)
-- For each candidate leaf: `leaf_id`, `leaf_title`, `parent_title`, `full_path`
+- For each candidate leaf: `leaf_path` (full path from root), `leaf_title`, `parent_title`
 
 **The prompt instructs the LLM to:**
 1. Score each candidate leaf 0.0–1.0 on how well the excerpt fits
@@ -296,7 +306,7 @@ All candidates from Stage 1 (or all leaves for small trees) are scored in a sing
 **Stage 2 response model:**
 ```python
 class LeafScore(BaseModel):
-    leaf_id: str
+    leaf_path: str  # Full path from root (e.g., "almajrurat/huruf_aljar/ma3ani_huruf_aljar")
     score: float  # 0.0-1.0
     reasoning: str
 
@@ -313,7 +323,11 @@ The highest-scoring candidate is selected.
 
 After Stage 2 produces a scored candidate list, the excerpt is routed based on the top score and the excerpt type.
 
-**Type detection:** An excerpt is "editorial/structural" if `primary_function` is one of: `editorial_note`, `structural_transition`, `cross_reference`. All other values (including absent/null) are "teaching content."
+**Type detection:** An excerpt's routing category is determined by `primary_function`:
+- **Always-staged types:** `structural_transition` and `cross_reference` — these are navigation/structural text, not knowledge content. They always go to staged regardless of score.
+- **Editorial type:** `editorial_note` — eligible for live at ≥ 0.85, staged below.
+- **Teaching type:** All other known values (e.g., `rule_statement`, `opinion_statement`, `definition`, `evidence_hadith`, `condition_exception`).
+- **Missing/null/unknown:** If `primary_function` is absent, null, or not recognized, the excerpt is treated as **editorial** (stricter threshold). This is a safe default — it prevents unclassified excerpts from entering the live tree at the lower teaching threshold.
 
 **Routing matrix:**
 
@@ -322,13 +336,13 @@ After Stage 2 produces a scored candidate list, the excerpt is routed based on t
 | Teaching | ≥ 0.80 | **Live** | `content/{leaf}/excerpts/` |
 | Teaching | 0.50–0.79 | **Staged** (low confidence) | `staged/{leaf}/excerpts/` |
 | Teaching | < 0.50 | **Unplaced** | `unplaced/` |
-| Editorial/structural | ≥ 0.85 | **Live** | `content/{leaf}/excerpts/` |
-| Editorial/structural | 0.50–0.84 | **Staged** (front matter) | `staged/{leaf}/excerpts/` |
-| Editorial/structural | < 0.50 | **Unplaced** | `unplaced/` |
+| Editorial (editorial_note) | ≥ 0.85 | **Live** | `content/{leaf}/excerpts/` |
+| Editorial (editorial_note) | 0.50–0.84 | **Staged** (front matter) | `staged/{leaf}/excerpts/` |
+| Editorial (editorial_note) | < 0.50 | **Unplaced** | `unplaced/` |
+| Always-staged (structural_transition, cross_reference) | Any | **Staged** (front matter) | `staged/{leaf}/excerpts/` |
+| Always-staged | < 0.50 | **Unplaced** | `unplaced/` |
 
-**Tie detection:** If the top two candidates score within 0.10 of each other and both score ≥ 0.50, the placement still proceeds (using the top candidate), but `tie_detected: true` is recorded.
-
-[EXTENSION HOOK] — The full SPEC escalates ties to human gate. Core records ties for future human review.
+**Tie handling:** If the top two candidates score within 0.10 of each other and both score ≥ 0.50, the excerpt is **forced to staged** regardless of the score or type. Ties are a canonical uncertainty signal. `tie_detected: true` is recorded in the metadata.
 
 ### §4.A.4 — Placement Validation
 
@@ -398,7 +412,7 @@ Note: T-3 and T-6 are **mitigated, not eliminated** in v1. The owner review gate
 |---|---|---|---|
 | `TAX_MISSING_REQUIRED_FIELD` | Fatal (per excerpt) | Excerpt missing a required field from §2.1 | Excerpt rejected, logged with field name and excerpt_id |
 | `TAX_MISSING_EXPECTED_FIELD` | Warning | Excerpt missing an expected field | Proceeds with degraded quality, warning logged |
-| `TAX_INVALID_SCIENCE` | Fatal (batch) | science_id not in registry or no active tree | Entire batch routed to pending_no_tree |
+| `TAX_INVALID_SCIENCE` | Fatal to placement | science_id not in registry or no active tree | Batch produces pending_no_tree artifacts + batch report. No placement/staging attempted. |
 | `TAX_TREE_LOAD_ERROR` | Fatal (batch) | Tree YAML fails to parse or has 0 leaves | Batch aborted, error logged |
 | `TAX_UNPLACEABLE` | Info | No candidate scored ≥ 0.50 | Excerpt routed to unplaced/ with candidates |
 | `TAX_LLM_FAILURE` | Warning | LLM call fails after 3 attempts (exhausted retries) | Excerpt queued for retry; if still failing, routed to unplaced |
@@ -531,7 +545,19 @@ The gold baseline is built during the implementation phase.
 
 **Editorial routing:** Feed `primary_function: editorial_note` excerpts; verify they face the 0.85 threshold, not 0.80.
 
+**Always-staged routing:** Feed `primary_function: cross_reference` excerpt with mock score 0.95; verify it goes to `staged/` NOT `content/`, regardless of score. Same for `structural_transition`.
+
 **Systematic bias (§10.5.1 from original SPEC):** Run 20+ diverse excerpts and verify no single leaf receives more than the batch's fair-share proportion without justification.
+
+**Leaf path uniqueness invariant:** Load all 5 tree YAML files and assert every leaf has a unique `path` within its tree. This catches tree authoring errors that would cause output path collisions.
+
+**Stage 1 no-match pathway:** Force Stage 1 to return `no_match: true`; verify the unplaced output has `best_candidates: []` and a valid schema.
+
+**Intersection topic (كي):** The real excerpt about "كي حرف جر" should go to `almajrurat/huruf_aljar/ma3ani_huruf_aljar` (كي as preposition), NOT to `alaf3al/nawasiib_almudari3/kay` (كي as nasb particle). Both leaves exist in the nahw tree. Test with real LLM and verify correct branch selection.
+
+**Pending-no-tree isolation:** Run a batch with a nonexistent science_id; verify no files are written under `content/` or `staged/`, only under `pending_no_tree/{science_id}/`.
+
+**Tie forces staging:** Feed an excerpt where mock LLM returns two candidates within 0.10 of each other, both scoring ≥0.80; verify the excerpt goes to `staged/` not `content/` because of the tie.
 
 ---
 

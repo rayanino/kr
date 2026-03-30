@@ -40,9 +40,15 @@ class LifecycleStage(str, Enum):
 
 
 class ExcerptType(str, Enum):
-    """Classification for type-based routing (SPEC §4.A.3)."""
+    """Classification for type-based routing (SPEC §4.A.3).
+
+    TEACHING: rule_statement, opinion_statement, definition, etc.
+    EDITORIAL: editorial_note — eligible for live at ≥0.85.
+    ALWAYS_STAGED: structural_transition, cross_reference — never live.
+    """
     TEACHING = "teaching"
     EDITORIAL = "editorial"
+    ALWAYS_STAGED = "always_staged"
 
 
 class TaxonomyWarning(str, Enum):
@@ -124,7 +130,9 @@ class BranchSelection(BaseModel):
 
 class LeafScore(BaseModel):
     """A single candidate leaf with its score and reasoning."""
-    leaf_id: str
+    leaf_path: str = Field(
+        description="Full path from root (e.g., 'almajrurat/huruf_aljar/ma3ani_huruf_aljar')",
+    )
     score: float = Field(ge=0.0, le=1.0)
     reasoning: str
 

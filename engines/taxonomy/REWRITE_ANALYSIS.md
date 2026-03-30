@@ -1,5 +1,14 @@
 # Taxonomy Engine — Pre-Rewrite Analysis
 
+> **⚠️ SUPERSEDED:** The authoritative specification is now `engines/taxonomy/SPEC.md`.
+> This document preserves the empirical analysis and original reasoning. Some decisions
+> below were revised after two ChatGPT adversarial reviews. Where this document
+> contradicts the SPEC, **the SPEC wins**. Key changes:
+> - D-TAX-004: changed from "convert aqidah file" to "runtime normalization" (SPEC §4.A.1)
+> - D-TAX-005: threshold reverted from 100 to 200 (SPEC §4.A.2)
+> - D-TAX-009: staging gate added — 0.5-0.79 goes to staged/, not live (SPEC §4.A.3)
+> - D-TAX-002: type split — cross_reference/structural_transition always staged (SPEC §4.A.3)
+
 **Date:** 2026-03-30
 **Purpose:** Empirical findings and design decisions that feed the core SPEC rewrite.
 **Evidence basis:** 67 real excerpts from 5 books, 5 science trees (922 leaves), existing SPEC + contracts.

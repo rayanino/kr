@@ -121,3 +121,16 @@ gold_placements:
     reasoning: "General rule about preposition deletion retaining grammatical effect — overview-level, not about a specific preposition's meaning"
     difficulty: medium
     notes: "Could also argue for ta3alluq_jar_wamajrur if the content focuses on grammatical attachment"
+
+  # --- Adversarial: intersection topic (added from ChatGPT checkpoint #3) ---
+
+  - excerpt_index: 1
+    excerpt_topic: "كي حرف جر / ما الاستفهامية"
+    primary_function: rule_statement
+    correct_leaf: "almajrurat/huruf_aljar/ma3ani_huruf_aljar"
+    correct_branch: "almajrurat"
+    reasoning: "The excerpt discusses كي specifically as a PREPOSITION (حرف جر), not as a nasb particle. The nahw tree has both almajrurat/huruf_aljar/ma3ani_huruf_aljar AND alaf3al/nawasiib_almudari3/kay. The correct leaf is the preposition meaning, because the excerpt's topic and description explicitly frame كي as a preposition."
+    difficulty: hard
+    adversarial: true
+    wrong_leaf: "alaf3al/nawasiib_almudari3/kay"
+    notes: "ChatGPT checkpoint #3 identified this as a key adversarial test — excerpt legitimately relates to two different branches."
