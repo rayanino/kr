@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-FAILURE_DIR="/tmp/kr_circuit_breaker"
+FAILURE_DIR="${CLAUDE_PROJECT_DIR:-.}/.claude/.circuit_breaker_state"
 MAX_FAILURES=3
 
 mkdir -p "$FAILURE_DIR"

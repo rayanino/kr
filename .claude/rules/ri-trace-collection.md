@@ -1,3 +1,6 @@
+---
+globs: ["scripts/run_*.py", "engines/*/src/**/*.py"]
+---
 - Every pipeline run that makes LLM calls MUST capture traces via recursive-improve when the `--traces` flag is available.
 - Default traces directory: `eval/traces/{engine}/{date}/`.
 - After any pipeline run producing traces, note in the session summary: "Traces written to {path}. Run `recursive-improve eval {path}` for analysis."

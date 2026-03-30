@@ -30,6 +30,9 @@ Every tested function must have cases for:
 - **Diacritics-only**: text that is entirely tashkeel with no base letters
 - **Invalid types**: wrong type passed (str where int expected) → verify error raised
 - **Unicode edge cases**: combining characters, presentation forms, surrogates
+- **Invisible Unicode**: U+200B (zero-width space), U+FEFF (BOM), U+200E/F (bidi marks) at text boundaries
+- **Presentation forms**: Arabic presentation form sequences (U+FB50-U+FEFF) requiring normalization
+- **Diacritic stacks**: single base character with 3+ combining marks (stress test for processing)
 - **Concurrent/ordering**: if function processes a list, test with different orderings
 
 ## Coverage Targets

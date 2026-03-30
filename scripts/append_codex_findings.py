@@ -6,12 +6,23 @@ import argparse
 import json
 import re
 from datetime import date
-from pathlib import Path
 
 try:
-    from scripts.overnight_codex_common import FINDINGS_TRACKER, RESULTS_DIR, repo_rel
+    from scripts.overnight_codex_common import (
+        FINDINGS_REGISTRY_FILE,
+        FINDINGS_TRACKER,
+        RESULTS_DIR,
+        repo_rel,
+        write_json,
+    )
 except ImportError:
-    from overnight_codex_common import FINDINGS_TRACKER, RESULTS_DIR, repo_rel
+    from overnight_codex_common import (
+        FINDINGS_REGISTRY_FILE,
+        FINDINGS_TRACKER,
+        RESULTS_DIR,
+        repo_rel,
+        write_json,
+    )
 
 
 TRACKER_ID_RE = re.compile(r"- \[.\] ([^ ]+) ")
@@ -37,10 +48,38 @@ def _existing_ids() -> set[str]:
     return ids
 
 
+def _load_registry() -> dict[str, dict[str, object]]:
+    """Load the structured findings registry."""
+    if not FINDINGS_REGISTRY_FILE.exists():
+        return {}
+    try:
+        payload = json.loads(FINDINGS_REGISTRY_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    items = payload.get("items", {})
+    return items if isinstance(items, dict) else {}
+
+
+def _coerce_occurrences(value: object) -> int:
+    """Return a safe occurrence count from a JSON-loaded value."""
+    if isinstance(value, int):
+        return value
+    if isinstance(value, str):
+        try:
+            return int(value)
+        except ValueError:
+            return 1
+    return 1
+
+
 def append_findings() -> int:
     """Append new creative findings and return how many were added."""
     existing_ids = _existing_ids()
+    registry = _load_registry()
+    today = date.today().isoformat()
     additions: list[str] = []
+    registry_changed = False
+    seen_this_run: set[str] = set()
     for actionable in sorted(RESULTS_DIR.glob("creative-*/actionable.json")):
         try:
             items = json.loads(actionable.read_text(encoding="utf-8"))
@@ -53,13 +92,35 @@ def append_findings() -> int:
             if not isinstance(item, dict):
                 continue
             item_id = str(item.get("id", "")).strip()
-            if not item_id or item_id in existing_ids:
+            if not item_id:
                 continue
             summary = _escape_markdown(str(item.get("summary", "")))
             category = _escape_markdown(str(item.get("category", "")))
             effort = _escape_markdown(str(item.get("effort", "")))
             priority = _escape_markdown(str(item.get("priority", "")))
             if not all((summary, category, effort, priority)):
+                continue
+            if item_id not in seen_this_run:
+                existing = registry.get(item_id)
+                if isinstance(existing, dict):
+                    existing["summary"] = summary
+                    existing["category"] = category
+                    existing["source"] = source
+                    existing["last_seen"] = today
+                    existing["occurrences"] = _coerce_occurrences(existing.get("occurrences", 1)) + 1
+                else:
+                    registry[item_id] = {
+                        "id": item_id,
+                        "summary": summary,
+                        "category": category,
+                        "source": source,
+                        "first_seen": today,
+                        "last_seen": today,
+                        "occurrences": 1,
+                    }
+                registry_changed = True
+                seen_this_run.add(item_id)
+            if item_id in existing_ids:
                 continue
             additions.append(
                 f"- [ ] {item_id} [{category}] {summary} ({effort}, {priority}) "
@@ -68,6 +129,8 @@ def append_findings() -> int:
             existing_ids.add(item_id)
 
     if not additions:
+        if registry_changed:
+            write_json(FINDINGS_REGISTRY_FILE, {"items": registry})
         return 0
 
     if FINDINGS_TRACKER.exists():
@@ -77,6 +140,8 @@ def append_findings() -> int:
     content += f"\n## {date.today().isoformat()}\n"
     content += "\n".join(additions) + "\n"
     FINDINGS_TRACKER.write_text(content, encoding="utf-8")
+    if registry_changed:
+        write_json(FINDINGS_REGISTRY_FILE, {"items": registry})
     return len(additions)
 
 

@@ -37,6 +37,7 @@ except ImportError:
 
 CREATIVE_TEMPLATES_DIR = OVERNIGHT_CODEX_DIR / "creative_templates"
 SAFE_TEMPLATE_ID = re.compile(r"^[a-z0-9_]+/[a-z0-9_]+$")
+LANE_ORDER = {"analysis_lane": 0, "synthesis_lane": 1, "write_lane": 2}
 
 
 def _run(cmd: list[str], timeout: int = 60) -> subprocess.CompletedProcess[str]:
@@ -622,6 +623,31 @@ def apply_creative_mix_ceiling(tasks: list[CodexTaskDef]) -> list[CodexTaskDef]:
     return [task for task in tasks if task.category != "creative" or task.task_id in keep]
 
 
+def enrich_task_metadata(tasks: list[CodexTaskDef]) -> list[CodexTaskDef]:
+    """Assign scheduler metadata that reflects research value."""
+    for task in tasks:
+        if task.category == "creative":
+            task.lane = "synthesis_lane"
+            task.learning_value = max(task.learning_value, 9)
+            task.novelty_hint = task.novelty_hint or "cross-run creative analysis"
+        elif task.write_policy == "guarded_write":
+            task.lane = "write_lane"
+            task.learning_value = max(task.learning_value, 6)
+            task.novelty_hint = task.novelty_hint or "bounded write follow-up"
+        else:
+            task.lane = "analysis_lane"
+            if task.category in {"review", "validation"}:
+                task.learning_value = max(task.learning_value, 9)
+            elif task.category in {"test", "spec"}:
+                task.learning_value = max(task.learning_value, 8)
+            else:
+                task.learning_value = max(task.learning_value, 6)
+            task.novelty_hint = task.novelty_hint or f"{task.category} evidence sweep"
+        if task.bookend:
+            task.learning_value = min(task.learning_value, 4)
+    return tasks
+
+
 def build_manifest() -> list[CodexTaskDef]:
     """Build the full Codex manifest."""
     all_tasks: list[CodexTaskDef] = []
@@ -648,10 +674,17 @@ def build_manifest() -> list[CodexTaskDef]:
         except Exception as exc:
             print(f"  {name}: FAILED ({exc})")
 
-    filtered = apply_creative_mix_ceiling(all_tasks)
+    filtered = enrich_task_metadata(apply_creative_mix_ceiling(all_tasks))
     for task in filtered:
         task.validate()
-    filtered.sort(key=lambda task: (task.priority, task.task_id))
+    filtered.sort(
+        key=lambda task: (
+            task.priority,
+            LANE_ORDER.get(task.lane, 9),
+            -task.learning_value,
+            task.task_id,
+        )
+    )
     return filtered
 
 

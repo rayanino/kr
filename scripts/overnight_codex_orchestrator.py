@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -12,16 +13,20 @@ import subprocess
 import sys
 import time
 from dataclasses import asdict
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from datetime import timedelta
 from pathlib import Path
 from typing import Any
 
 try:
     from scripts.overnight_codex_common import (
+        ACTIVE_AUTHORITY_FILE,
         COMPLEXITY_ORDER,
+        CREATIVE_RUN_LOG,
         DECISIONS_LOG,
+        EVENTS_FILE,
         FINAL_RESPONSE_SCHEMA,
+        FINDINGS_REGISTRY_FILE,
         HEARTBEAT_FILE,
         LOCK_FILE,
         MORNING_REPORT,
@@ -30,16 +35,20 @@ try:
         PROGRESS_FILE,
         QUEUE_DIR,
         RESULTS_DIR,
+        RUN_SNAPSHOTS_DIR,
+        SHADOW_SETUP_WRITE_TARGETS,
         STATE_FILE,
         WORKTREES_DIR,
         CodexTaskDef,
         OvernightCodexState,
         TaskResult,
+        append_jsonl,
         atomic_write,
         ensure_runtime_dirs,
         git_head,
         git_status_porcelain,
         has_forbidden_edits,
+        load_active_authority,
         load_manifest,
         repo_rel,
         safe_slug,
@@ -52,9 +61,13 @@ try:
     )
 except ImportError:
     from overnight_codex_common import (
+        ACTIVE_AUTHORITY_FILE,
         COMPLEXITY_ORDER,
+        CREATIVE_RUN_LOG,
         DECISIONS_LOG,
+        EVENTS_FILE,
         FINAL_RESPONSE_SCHEMA,
+        FINDINGS_REGISTRY_FILE,
         HEARTBEAT_FILE,
         LOCK_FILE,
         MORNING_REPORT,
@@ -63,16 +76,20 @@ except ImportError:
         PROGRESS_FILE,
         QUEUE_DIR,
         RESULTS_DIR,
+        RUN_SNAPSHOTS_DIR,
+        SHADOW_SETUP_WRITE_TARGETS,
         STATE_FILE,
         WORKTREES_DIR,
         CodexTaskDef,
         OvernightCodexState,
         TaskResult,
+        append_jsonl,
         atomic_write,
         ensure_runtime_dirs,
         git_head,
         git_status_porcelain,
         has_forbidden_edits,
+        load_active_authority,
         load_manifest,
         repo_rel,
         safe_slug,
@@ -121,6 +138,286 @@ Absolute rules:
 - Do not attempt to launch long integration runs; the orchestrator will perform post-change validation outside your sandbox.
 - Final response must be valid JSON matching the provided schema.
 """
+
+
+def _shadow_setup_allows_task(task: CodexTaskDef) -> tuple[bool, str]:
+    """Restrict pre-cutover writes to Codex setup files only."""
+    if task.write_policy == "readonly":
+        return True, ""
+    unexpected = [
+        prefix
+        for prefix in task.allowed_write_prefixes
+        if not any(prefix == target or prefix.startswith(target) for target in SHADOW_SETUP_WRITE_TARGETS)
+    ]
+    if unexpected:
+        return False, f"shadow setup blocks write prefixes: {unexpected}"
+    return True, ""
+
+
+def _task_checkout_token(task_id: str) -> str:
+    """Return a short, stable token for worktree and branch naming."""
+    slug = safe_slug(task_id)
+    prefix = slug[:12].strip("-.")
+    digest = hashlib.sha1(task_id.encode("utf-8")).hexdigest()[:10]
+    return f"{prefix}-{digest}" if prefix else digest
+
+
+def _tail_process_output(result: subprocess.CompletedProcess[str], limit: int = 1200) -> str:
+    """Return the most useful tail of a subprocess failure."""
+    text = (result.stderr or "").strip() or (result.stdout or "").strip()
+    if not text:
+        return f"exit code {result.returncode}"
+    return text[-limit:]
+
+
+BREAKER_FAILURE_CLASSES = {"infra_failure"}
+SIGNAL_STATUSES = {"queued", "partial_success", "failed", "timeout", "usage_limited"}
+PARTIAL_ARTIFACT_NAMES = (
+    "final_response.json",
+    "review.json",
+    "findings.json",
+    "creative.json",
+    "boundaries.json",
+    "coverage.json",
+    "audit.json",
+    "report.json",
+    "summary.md",
+    "fallback.md",
+)
+ENVIRONMENT_PATTERNS = (
+    ("no usable python runtime", "No usable Python runtime was available in the task sandbox."),
+    ("no accessible python runtime", "No accessible Python runtime was available in the task sandbox."),
+    ("no `python` executable", "Python was unavailable in the task sandbox."),
+    ("python --version (not available)", "Python was unavailable in the task sandbox."),
+    ("uv could not provision", "uv could not provision a runtime inside the task sandbox."),
+    ("network downloads are blocked", "Sandbox network downloads were blocked for runtime provisioning."),
+    ("filesystem access restrictions", "Sandbox filesystem restrictions blocked runtime provisioning."),
+    ("sandbox/network", "Sandbox constraints blocked requested runtime checks."),
+)
+LANE_ORDER = {"analysis_lane": 0, "synthesis_lane": 1, "write_lane": 2}
+
+
+def _append_event(event_type: str, payload: dict[str, Any]) -> None:
+    """Append one structured runtime event."""
+    append_jsonl(
+        EVENTS_FILE,
+        {
+            "timestamp": utc_now_iso(),
+            "event_type": event_type,
+            **payload,
+        },
+    )
+
+
+def _creative_run_log_key(task_id: str) -> str:
+    """Convert a creative task id back into the generator cooldown key."""
+    body = task_id.removeprefix("creative-")
+    template_slug, sep, focus_engine = body.rpartition("-")
+    if not sep or not template_slug or not focus_engine:
+        return body
+    template_id = template_slug.replace("-", "/", 1)
+    return f"{template_id}:{focus_engine}"
+
+
+def _update_creative_run_log(task_id: str) -> None:
+    """Record a successful creative run for cooldown tracking."""
+    log_data: dict[str, Any] = {"runs": {}}
+    if CREATIVE_RUN_LOG.exists():
+        try:
+            log_data = json.loads(CREATIVE_RUN_LOG.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            pass
+    log_data.setdefault("runs", {})[_creative_run_log_key(task_id)] = date.today().isoformat()
+    write_json(CREATIVE_RUN_LOG, log_data)
+
+
+def _collect_partial_artifacts(result_dir: Path, min_bytes: int = 1024) -> list[str]:
+    """List meaningful artifacts preserved by a partial task."""
+    artifacts: list[str] = []
+    for name in PARTIAL_ARTIFACT_NAMES:
+        path = result_dir / name
+        if path.exists() and path.stat().st_size >= min_bytes:
+            artifacts.append(repo_rel(path))
+    return artifacts
+
+
+def _environment_notes_from_texts(texts: list[str]) -> list[str]:
+    """Extract structured environment notes from free-form task output."""
+    notes: list[str] = []
+    lowered_texts = [text.lower() for text in texts if text]
+    for pattern, note in ENVIRONMENT_PATTERNS:
+        if any(pattern in text for text in lowered_texts) and note not in notes:
+            notes.append(note)
+    return notes
+
+
+def _extract_environment_notes(payload: dict[str, Any]) -> list[str]:
+    """Pull environment blockers out of a structured task payload."""
+    texts: list[str] = [str(payload.get("summary", ""))]
+    texts.extend(str(item) for item in payload.get("tests_run", []))
+    texts.extend(str(item) for item in payload.get("commands_run", []))
+    for evidence in payload.get("evidence", []):
+        if isinstance(evidence, dict):
+            texts.append(str(evidence.get("detail", "")))
+    return _environment_notes_from_texts(texts)
+
+
+def _classify_quality_gate_failures(failures: list[str]) -> str:
+    """Classify quality-gate failures into a stable failure class."""
+    joined = " ".join(failures).lower()
+    if any(
+        token in joined
+        for token in (
+            "forbidden files changed",
+            "touched files outside allowlist",
+            "deleted files are not allowed",
+        )
+    ):
+        return "policy_blocked"
+    if "pytest failed" in joined or "pre_review_checks failed" in joined:
+        return "validation_failed"
+    return "task_failed"
+
+
+def _recommend_next_actions(
+    *,
+    task: CodexTaskDef,
+    status: str,
+    failure_class: str | None,
+    environment_notes: list[str],
+    patch_path: str | None = None,
+) -> list[str]:
+    """Return compact next actions for reports and packets."""
+    actions: list[str] = []
+    if patch_path:
+        actions.append(f"Review and apply queued patch `{patch_path}` if the change is still wanted.")
+    if failure_class == "infra_failure":
+        actions.append("Fix the runtime/orchestrator issue before re-running similar tasks.")
+    elif failure_class == "policy_blocked":
+        actions.append("Tighten task scope or allowlists before retrying this task.")
+    elif failure_class == "validation_failed":
+        actions.append("Inspect the failing validation/test surface before allowing this task to retry.")
+    elif failure_class == "usage_limited":
+        actions.append("Wait for provider quota reset or lower the nightly load before resuming.")
+    elif status == "partial_success":
+        actions.append("Review preserved partial artifacts and convert them into a follow-up task if valuable.")
+    if environment_notes:
+        actions.append("Treat sandbox/runtime blockers as environment issues, not product-code failures.")
+    if not actions and task.write_policy == "guarded_write":
+        actions.append("Review the bounded write result and decide whether to retry or leave it queued.")
+    return actions[:3]
+
+
+def _snapshot_filename(started_at: str) -> str:
+    """Return a stable filename for a run snapshot."""
+    safe = started_at.replace(":", "-").replace("+", "_")
+    return f"{safe}.json"
+
+
+def _load_previous_snapshot(current_started_at: str) -> dict[str, Any] | None:
+    """Load the most recent snapshot before the current run."""
+    candidates = sorted(RUN_SNAPSHOTS_DIR.glob("*.json"), key=lambda path: path.stat().st_mtime)
+    for path in reversed(candidates):
+        try:
+            snapshot = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if snapshot.get("started_at") != current_started_at:
+            return snapshot
+    return None
+
+
+def _build_run_snapshot(state: OvernightCodexState, manifest: list[CodexTaskDef]) -> dict[str, Any]:
+    """Build a machine-readable snapshot of the current run."""
+    tasks: dict[str, Any] = {}
+    status_counts: dict[str, int] = {}
+    for task in manifest:
+        result = state.results.get(task.task_id, {})
+        status = str(result.get("status", "pending"))
+        status_counts[status] = status_counts.get(status, 0) + 1
+        tasks[task.task_id] = {
+            "name": task.name,
+            "category": task.category,
+            "lane": task.lane,
+            "priority": task.priority,
+            "status": status,
+            "failure_class": result.get("failure_class"),
+            "queued_only": result.get("queued_only", False),
+            "patch_path": result.get("patch_path"),
+            "partial_artifacts": list(result.get("partial_artifacts", [])),
+            "environment_notes": list(result.get("environment_notes", [])),
+            "recommended_next_actions": list(result.get("recommended_next_actions", [])),
+        }
+    return {
+        "run_id": state.run_id,
+        "started_at": state.started_at,
+        "deadline": state.deadline,
+        "status": state.status,
+        "active_authority": state.active_authority,
+        "runtime_mode": state.runtime_mode,
+        "apply_mode": state.apply_mode,
+        "launch_head": state.launch_head,
+        "summary": {
+            "completed": state.tasks_completed,
+            "failed": state.tasks_failed,
+            "queued": state.tasks_queued,
+            "skipped": state.tasks_skipped,
+            "status_counts": status_counts,
+            "failure_class_counts": dict(state.failure_class_counts),
+        },
+        "tasks": tasks,
+    }
+
+
+def _write_run_snapshot(state: OvernightCodexState, manifest: list[CodexTaskDef]) -> Path:
+    """Persist the current run snapshot."""
+    snapshot_path = RUN_SNAPSHOTS_DIR / _snapshot_filename(state.started_at)
+    write_json(snapshot_path, _build_run_snapshot(state, manifest))
+    return snapshot_path
+
+
+def _write_task_packet(
+    result_dir: Path,
+    task: CodexTaskDef,
+    result: TaskResult,
+    payload: dict[str, Any] | None = None,
+) -> None:
+    """Write a compact research packet for the task outcome."""
+    packet = {
+        "task_id": task.task_id,
+        "name": task.name,
+        "category": task.category,
+        "lane": task.lane,
+        "learning_value": task.learning_value,
+        "status": result.status,
+        "failure_class": result.failure_class,
+        "summary": result.summary,
+        "artifact_path": result.artifact_path,
+        "partial_artifacts": list(result.partial_artifacts),
+        "environment_notes": list(result.environment_notes),
+        "recommended_next_actions": list(result.recommended_next_actions),
+        "payload": payload or {},
+    }
+    write_json(result_dir / "packet.json", packet)
+
+
+def _finalize_task_result(
+    *,
+    task: CodexTaskDef,
+    result_dir: Path,
+    result: TaskResult,
+    payload: dict[str, Any] | None = None,
+) -> TaskResult:
+    """Persist final packet state and update creative cooldown memory."""
+    _write_task_packet(result_dir, task, result, payload)
+    if task.category == "creative" and result.status in {"success", "partial_success"}:
+        _update_creative_run_log(task.task_id)
+    return result
+
+
+def _should_trip_breaker(result: TaskResult) -> bool:
+    """Return whether a result should count toward the hard failure breaker."""
+    return result.failure_class in BREAKER_FAILURE_CLASSES
 
 
 def _find_codex() -> str | None:
@@ -216,6 +513,9 @@ def _write_heartbeat(state: OvernightCodexState, task_id: str, status: str, tota
         "skipped": state.tasks_skipped,
         "remaining": total - len(state.results),
         "apply_mode": state.apply_mode,
+        "consecutive_breaker_failures": state.consecutive_breaker_failures,
+        "consecutive_timeouts": state.consecutive_timeouts,
+        "failure_class_counts": dict(state.failure_class_counts),
     }
     write_json(HEARTBEAT_FILE, payload)
 
@@ -276,7 +576,7 @@ def run_codex_smoke(codex_bin: str) -> bool:
         str(schema_path),
         "-o",
         str(output_path),
-        "Read CLAUDE.md and return {'ok': 'yes'} only.",
+        'Read CLAUDE.md and return a JSON object with {"ok":"yes"} only.',
     ]
     result = _run_subprocess_safe(cmd, timeout=120)
     if result.returncode != 0:
@@ -287,7 +587,8 @@ def run_codex_smoke(codex_bin: str) -> bool:
     except (OSError, json.JSONDecodeError):
         log_decision("Codex smoke returned invalid JSON")
         return False
-    return payload.get("ok") == "yes"
+    value = str(payload.get("ok", "")).strip().lower()
+    return value == "yes" or "yes" in value
 
 
 def detect_active_claude_session() -> tuple[bool, list[str]]:
@@ -329,9 +630,10 @@ def detect_active_claude_session() -> tuple[bool, list[str]]:
     return active, notes
 
 
-def determine_apply_mode() -> tuple[str, bool, bool, list[str]]:
+def determine_apply_mode() -> tuple[str, bool, bool, list[str], dict[str, str]]:
     """Determine whether the main worktree can be auto-applied into safely."""
     notes: list[str] = []
+    authority = load_active_authority()
     baseline_clean = not git_status_porcelain()
     if not baseline_clean:
         notes.append("Main repo was dirty at launch; auto-apply disabled.")
@@ -343,10 +645,18 @@ def determine_apply_mode() -> tuple[str, bool, bool, list[str]]:
     apply_mode = "conditional_auto_apply" if baseline_clean and baseline_tests_passed else "queue_only"
     if claude_active:
         apply_mode = "queue_only"
-    return apply_mode, baseline_clean, baseline_tests_passed, notes
+    active_authority = authority.get("active_authority", "claude")
+    runtime_mode = authority.get("runtime_mode", "shadow_setup")
+    if active_authority != "codex":
+        apply_mode = "queue_only"
+        notes.append(f"Active authority is {active_authority}; forcing queue-only mode.")
+    elif runtime_mode != "autonomous_codex":
+        apply_mode = "queue_only"
+        notes.append(f"Runtime mode is {runtime_mode}; forcing queue-only mode.")
+    return apply_mode, baseline_clean, baseline_tests_passed, notes, authority
 
 
-def preflight(skip_tests: bool = False) -> tuple[str, bool, bool, list[str], str]:
+def preflight(skip_tests: bool = False) -> tuple[str, bool, bool, list[str], str, dict[str, str]]:
     """Run preflight checks and return launch policy."""
     codex_bin = _find_codex()
     if not codex_bin:
@@ -356,12 +666,13 @@ def preflight(skip_tests: bool = False) -> tuple[str, bool, bool, list[str], str
         raise RuntimeError("Codex CLI did not respond to --version.")
     if not run_codex_smoke(codex_bin):
         raise RuntimeError("Codex unattended smoke test failed.")
+    authority = load_active_authority()
     if skip_tests:
         apply_mode = "queue_only"
         notes = ["Baseline tests skipped explicitly; auto-apply disabled."]
-        return apply_mode, False, False, notes, codex_bin
-    apply_mode, baseline_clean, baseline_tests_passed, notes = determine_apply_mode()
-    return apply_mode, baseline_clean, baseline_tests_passed, notes, codex_bin
+        return apply_mode, False, False, notes, codex_bin, authority
+    apply_mode, baseline_clean, baseline_tests_passed, notes, authority = determine_apply_mode()
+    return apply_mode, baseline_clean, baseline_tests_passed, notes, codex_bin, authority
 
 
 def save_state(state: OvernightCodexState) -> None:
@@ -423,6 +734,8 @@ def pick_next_ready(manifest: list[CodexTaskDef], state: OvernightCodexState) ->
     candidates.sort(
         key=lambda task: (
             task.priority,
+            LANE_ORDER.get(task.lane, 9),
+            -task.learning_value,
             COMPLEXITY_ORDER.get(task.estimated_complexity, 1),
             task.task_id,
         )
@@ -627,7 +940,7 @@ def _run_external_regression_task(task: CodexTaskDef, result_dir: Path) -> TaskR
         payload["task_status"] = "failed"
         payload["summary"] = "Deterministic regression snapshot found failing engine tests."
     _write_result_artifacts(task, result_dir, payload)
-    return TaskResult(
+    result = TaskResult(
         task_id=task.task_id,
         status="success" if not failures else "failed",
         start_time=start_time,
@@ -638,7 +951,15 @@ def _run_external_regression_task(task: CodexTaskDef, result_dir: Path) -> TaskR
         tests_run=list(payload["tests_run"]),
         commands_run=list(payload["commands_run"]),
         error="; ".join(failures) if failures else None,
+        failure_class="validation_failed" if failures else None,
+        recommended_next_actions=_recommend_next_actions(
+            task=task,
+            status="success" if not failures else "failed",
+            failure_class="validation_failed" if failures else None,
+            environment_notes=[],
+        ),
     )
+    return _finalize_task_result(task=task, result_dir=result_dir, result=result, payload=payload)
 
 
 def _codex_exec(
@@ -718,8 +1039,9 @@ def _codex_exec_freeform(
 
 def prepare_worktree(task: CodexTaskDef, launch_head: str) -> tuple[Path, str]:
     """Create a clean per-task worktree."""
-    branch_name = f"overnight-codex-{safe_slug(task.task_id)}-{int(time.time())}"
-    worktree_path = WORKTREES_DIR / safe_slug(task.task_id)
+    checkout_token = _task_checkout_token(task.task_id)
+    branch_name = f"overnight-codex-{checkout_token}-{int(time.time())}"
+    worktree_path = WORKTREES_DIR / checkout_token
     if worktree_path.exists():
         subprocess.run(
             ["git", "worktree", "remove", "--force", str(worktree_path)],
@@ -735,7 +1057,25 @@ def prepare_worktree(task: CodexTaskDef, launch_head: str) -> tuple[Path, str]:
         timeout=120,
     )
     if result.returncode != 0:
-        raise RuntimeError(f"Failed to create worktree for {task.task_id}: {result.stderr[:400]}")
+        subprocess.run(
+            ["git", "worktree", "remove", "--force", str(worktree_path)],
+            cwd=str(PROJECT_DIR),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if worktree_path.exists():
+            shutil.rmtree(worktree_path, ignore_errors=True)
+        subprocess.run(
+            ["git", "branch", "-D", branch_name],
+            cwd=str(PROJECT_DIR),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        raise RuntimeError(
+            f"Failed to create worktree for {task.task_id}: {_tail_process_output(result)}"
+        )
     _run_subprocess_safe(
         ["git", "config", "user.name", "KR Overnight Codex"],
         cwd=worktree_path,
@@ -823,39 +1163,27 @@ def run_quality_gate(
     if deleted_files:
         failures.append(f"Deleted files are not allowed: {deleted_files}")
 
-    engines = _affected_engines(changed_files)
-    for engine in sorted(engines):
-        test_dir = worktree_path / "engines" / engine / "tests"
-        if not test_dir.exists():
-            continue
-        test_result = _run_subprocess_safe(
-            ["python", "-m", "pytest", f"engines/{engine}/tests/", "-x", "-q", "--tb=short"],
+    quality_gate_script = worktree_path / "scripts" / "quality_gate.py"
+    if quality_gate_script.exists():
+        engines = _affected_engines(changed_files)
+        gate_cmd = [
+            sys.executable,
+            str(quality_gate_script),
+            "--mode",
+            "all",
+        ]
+        if changed_files:
+            gate_cmd.append("--paths")
+            gate_cmd.extend(changed_files)
+        for engine in sorted(engines):
+            gate_cmd.extend(["--engine", engine])
+        gate_result = _run_subprocess_safe(
+            gate_cmd,
             cwd=worktree_path,
-            timeout=900,
+            timeout=2400,
         )
-        if test_result.returncode != 0:
-            failures.append(f"pytest failed for {engine}: {test_result.stdout[-800:]}")
-            break
-
-    py_changed = [path for path in changed_files if path.endswith(".py")]
-    if py_changed:
-        check_script = worktree_path / "scripts" / "pre_review_checks.py"
-        if check_script.exists():
-            check_result = _run_subprocess_safe(
-                ["python", str(check_script), *py_changed],
-                cwd=worktree_path,
-                timeout=180,
-            )
-            if check_result.returncode != 0 and "ERROR" in check_result.stdout:
-                failures.append(f"pre_review_checks failed: {check_result.stdout[-800:]}")
-
-        pyright = _run_subprocess_safe(
-            ["python", "-m", "pyright", *py_changed],
-            cwd=worktree_path,
-            timeout=180,
-        )
-        if pyright.returncode != 0:
-            log_decision("Pyright warnings in guarded worktree", pyright.stdout[-800:])
+        if gate_result.returncode != 0:
+            failures.append(f"quality gate failed: {_tail_process_output(gate_result)}")
 
     if ENABLE_STRICT_CODEX_REVIEW:
         review_result = _codex_review(codex_bin, worktree_path, review_path)
@@ -937,21 +1265,32 @@ def execute_task(
     workdir = PROJECT_DIR
     branch_name: str | None = None
     worktree_path: Path | None = None
+    uses_worktree = task.write_policy == "guarded_write"
+    sandbox_mode = task.sandbox_mode
 
-    try:
-        worktree_path, branch_name = prepare_worktree(task, state.launch_head)
-        workdir = worktree_path
-    except Exception as exc:
-        return TaskResult(
-            task_id=task.task_id,
-            status="failed",
-            start_time=start_time,
-            end_time=utc_now_iso(),
-            duration_s=round(time.time() - start, 1),
-            error=str(exc),
-            artifact_path=repo_rel(output_path),
-            branch_name=branch_name,
-        )
+    if uses_worktree:
+        try:
+            worktree_path, branch_name = prepare_worktree(task, state.launch_head)
+            workdir = worktree_path
+        except Exception as exc:
+            result = TaskResult(
+                task_id=task.task_id,
+                status="failed",
+                start_time=start_time,
+                end_time=utc_now_iso(),
+                duration_s=round(time.time() - start, 1),
+                error=str(exc),
+                artifact_path=repo_rel(output_path),
+                branch_name=branch_name,
+                failure_class="infra_failure",
+                recommended_next_actions=_recommend_next_actions(
+                    task=task,
+                    status="failed",
+                    failure_class="infra_failure",
+                    environment_notes=[],
+                ),
+            )
+            return _finalize_task_result(task=task, result_dir=result_dir, result=result)
 
     payload: dict[str, Any] | None = None
     exec_result: subprocess.CompletedProcess[str] | None = None
@@ -966,24 +1305,43 @@ def execute_task(
                 codex_bin,
                 prompt=attempt_prompt,
                 workdir=workdir,
-                sandbox_mode="workspace-write",
+                sandbox_mode=sandbox_mode,
                 output_path=output_path,
                 schema_path=schema_path,
                 timeout_minutes=task.timeout_minutes,
             )
         except subprocess.TimeoutExpired:
-            return TaskResult(
+            partial_artifacts = _collect_partial_artifacts(result_dir)
+            status = "partial_success" if partial_artifacts else "timeout"
+            result = TaskResult(
                 task_id=task.task_id,
-                status="timeout",
+                status=status,
                 start_time=start_time,
                 end_time=utc_now_iso(),
                 duration_s=round(time.time() - start, 1),
-                error=f"Task exceeded {task.timeout_minutes} minute timeout",
+                summary=(
+                    "Timed out after preserving partial task output."
+                    if partial_artifacts
+                    else ""
+                ),
+                error=(
+                    f"Task exceeded {task.timeout_minutes} minute timeout"
+                    + (" (partial output preserved)" if partial_artifacts else "")
+                ),
                 artifact_path=repo_rel(output_path),
                 branch_name=branch_name,
+                failure_class="timeout",
+                partial_artifacts=partial_artifacts,
+                recommended_next_actions=_recommend_next_actions(
+                    task=task,
+                    status=status,
+                    failure_class="timeout",
+                    environment_notes=[],
+                ),
             )
+            return _finalize_task_result(task=task, result_dir=result_dir, result=result)
         except Exception as exc:
-            return TaskResult(
+            result = TaskResult(
                 task_id=task.task_id,
                 status="failed",
                 start_time=start_time,
@@ -992,20 +1350,47 @@ def execute_task(
                 error=str(exc),
                 artifact_path=repo_rel(output_path),
                 branch_name=branch_name,
+                failure_class="infra_failure",
+                recommended_next_actions=_recommend_next_actions(
+                    task=task,
+                    status="failed",
+                    failure_class="infra_failure",
+                    environment_notes=[],
+                ),
             )
+            return _finalize_task_result(task=task, result_dir=result_dir, result=result)
 
         if exec_result.returncode != 0:
-            status = "usage_limited" if _is_usage_limit_error(exec_result.stderr) else "failed"
-            return TaskResult(
+            error_text = _tail_process_output(exec_result)
+            environment_notes = _environment_notes_from_texts([error_text])
+            if _is_usage_limit_error(exec_result.stderr):
+                status = "usage_limited"
+                failure_class = "usage_limited"
+            elif environment_notes:
+                status = "failed"
+                failure_class = "environment_blocked"
+            else:
+                status = "failed"
+                failure_class = "task_failed"
+            result = TaskResult(
                 task_id=task.task_id,
                 status=status,
                 start_time=start_time,
                 end_time=utc_now_iso(),
                 duration_s=round(time.time() - start, 1),
-                error=exec_result.stderr[-1000:],
+                error=error_text,
                 artifact_path=repo_rel(output_path),
                 branch_name=branch_name,
+                failure_class=failure_class,
+                environment_notes=environment_notes,
+                recommended_next_actions=_recommend_next_actions(
+                    task=task,
+                    status=status,
+                    failure_class=failure_class,
+                    environment_notes=environment_notes,
+                ),
             )
+            return _finalize_task_result(task=task, result_dir=result_dir, result=result)
 
         try:
             payload = _parse_structured_output(output_path)
@@ -1025,17 +1410,57 @@ def execute_task(
                     + "\n\nStructured JSON retries failed. Do the work and return markdown with sections: "
                     "Summary, Evidence, Findings, Action Items, Commands."
                 )
-                fallback_result = _codex_exec_freeform(
-                    codex_bin,
-                    prompt=fallback_prompt,
-                    workdir=workdir,
-                    sandbox_mode="workspace-write",
-                    output_path=fallback_path,
-                    timeout_minutes=task.timeout_minutes,
-                )
+                try:
+                    fallback_result = _codex_exec_freeform(
+                        codex_bin,
+                        prompt=fallback_prompt,
+                        workdir=workdir,
+                        sandbox_mode=sandbox_mode,
+                        output_path=fallback_path,
+                        timeout_minutes=task.timeout_minutes,
+                    )
+                except subprocess.TimeoutExpired:
+                    partial_artifacts = _collect_partial_artifacts(result_dir)
+                    status = "partial_success" if partial_artifacts else "timeout"
+                    result = TaskResult(
+                        task_id=task.task_id,
+                        status=status,
+                        start_time=start_time,
+                        end_time=utc_now_iso(),
+                        duration_s=round(time.time() - start, 1),
+                        summary=(
+                            "Timed out after preserving partial task output."
+                            if partial_artifacts
+                            else ""
+                        ),
+                        error=(
+                            f"Task exceeded {task.timeout_minutes} minute timeout"
+                            + (" (partial output preserved)" if partial_artifacts else "")
+                        ),
+                        artifact_path=repo_rel(output_path),
+                        branch_name=branch_name,
+                        failure_class="timeout",
+                        partial_artifacts=partial_artifacts,
+                        recommended_next_actions=_recommend_next_actions(
+                            task=task,
+                            status=status,
+                            failure_class="timeout",
+                            environment_notes=[],
+                        ),
+                    )
+                    return _finalize_task_result(task=task, result_dir=result_dir, result=result)
                 if fallback_result.returncode != 0:
-                    status = "usage_limited" if _is_usage_limit_error(fallback_result.stderr) else "failed"
-                    return TaskResult(
+                    environment_notes = _environment_notes_from_texts([_tail_process_output(fallback_result)])
+                    if _is_usage_limit_error(fallback_result.stderr):
+                        status = "usage_limited"
+                        failure_class = "usage_limited"
+                    elif environment_notes:
+                        status = "failed"
+                        failure_class = "environment_blocked"
+                    else:
+                        status = "failed"
+                        failure_class = "validation_failed"
+                    result = TaskResult(
                         task_id=task.task_id,
                         status=status,
                         start_time=start_time,
@@ -1044,7 +1469,16 @@ def execute_task(
                         error=f"Invalid structured output: {last_validation_error}",
                         artifact_path=repo_rel(output_path),
                         branch_name=branch_name,
+                        failure_class=failure_class,
+                        environment_notes=environment_notes,
+                        recommended_next_actions=_recommend_next_actions(
+                            task=task,
+                            status=status,
+                            failure_class=failure_class,
+                            environment_notes=environment_notes,
+                        ),
                     )
+                    return _finalize_task_result(task=task, result_dir=result_dir, result=result)
                 payload = _payload_from_markdown(task, fallback_path)
                 break
 
@@ -1052,45 +1486,43 @@ def execute_task(
 
     _write_result_artifacts(task, result_dir, payload)
     summary = str(payload.get("summary", ""))[:2000]
+    environment_notes = _extract_environment_notes(payload)
+    recommended_next_actions = _recommend_next_actions(
+        task=task,
+        status="success",
+        failure_class=None,
+        environment_notes=environment_notes,
+    )
+    novelty_score = None
+    if task.category == "creative":
+        novelty_score = round(
+            min(1.0, (len(payload.get("findings", [])) + len(payload.get("action_items", []))) / 6.0),
+            2,
+        )
+
+    if not uses_worktree:
+        result = TaskResult(
+            task_id=task.task_id,
+            status="success",
+            start_time=start_time,
+            end_time=utc_now_iso(),
+            duration_s=round(time.time() - start, 1),
+            summary=summary,
+            artifact_path=repo_rel(output_path),
+            tests_run=list(payload.get("tests_run", [])),
+            commands_run=list(payload.get("commands_run", [])),
+            environment_notes=environment_notes,
+            recommended_next_actions=recommended_next_actions,
+            confidence="medium" if task.category == "creative" else None,
+            novelty_score=novelty_score,
+        )
+        return _finalize_task_result(task=task, result_dir=result_dir, result=result, payload=payload)
+
     assert worktree_path is not None
     assert branch_name is not None
     changed_files = worktree_changed_files(worktree_path)
-
-    if task.write_policy == "readonly":
-        if changed_files:
-            log_decision(
-                f"Readonly task attempted repo edits: {task.task_id}",
-                {"files": changed_files},
-            )
-            return TaskResult(
-                task_id=task.task_id,
-                status="failed",
-                start_time=start_time,
-                end_time=utc_now_iso(),
-                duration_s=round(time.time() - start, 1),
-                summary=summary,
-                error=f"Readonly task modified files: {changed_files}",
-                artifact_path=repo_rel(output_path),
-                branch_name=branch_name,
-                files_changed=changed_files,
-                tests_run=list(payload.get("tests_run", [])),
-                commands_run=list(payload.get("commands_run", [])),
-            )
-        return TaskResult(
-            task_id=task.task_id,
-            status="success",
-            start_time=start_time,
-            end_time=utc_now_iso(),
-            duration_s=round(time.time() - start, 1),
-            summary=summary,
-            artifact_path=repo_rel(output_path),
-            branch_name=branch_name,
-            files_changed=[],
-            tests_run=list(payload.get("tests_run", [])),
-            commands_run=list(payload.get("commands_run", [])),
-        )
     if not changed_files:
-        return TaskResult(
+        result = TaskResult(
             task_id=task.task_id,
             status="success",
             start_time=start_time,
@@ -1101,14 +1533,18 @@ def execute_task(
             branch_name=branch_name,
             tests_run=list(payload.get("tests_run", [])),
             commands_run=list(payload.get("commands_run", [])),
+            environment_notes=environment_notes,
+            recommended_next_actions=recommended_next_actions,
         )
+        return _finalize_task_result(task=task, result_dir=result_dir, result=result, payload=payload)
 
     gate_passed, gate_failures, review_path = run_quality_gate(
         codex_bin, task, worktree_path, changed_files, result_dir
     )
     if not gate_passed:
         log_decision(f"Quality gate failed for {task.task_id}", gate_failures)
-        return TaskResult(
+        failure_class = _classify_quality_gate_failures(gate_failures)
+        result = TaskResult(
             task_id=task.task_id,
             status="failed",
             start_time=start_time,
@@ -1122,7 +1558,16 @@ def execute_task(
             files_changed=changed_files,
             tests_run=list(payload.get("tests_run", [])),
             commands_run=list(payload.get("commands_run", [])),
+            failure_class=failure_class,
+            environment_notes=environment_notes,
+            recommended_next_actions=_recommend_next_actions(
+                task=task,
+                status="failed",
+                failure_class=failure_class,
+                environment_notes=environment_notes,
+            ),
         )
+        return _finalize_task_result(task=task, result_dir=result_dir, result=result, payload=payload)
 
     commit_hash = _commit_worktree(task, worktree_path)
     auto_apply = False
@@ -1153,7 +1598,7 @@ def execute_task(
         queued_only = True
 
     status = "queued" if queued_only else "success"
-    return TaskResult(
+    result = TaskResult(
         task_id=task.task_id,
         status=status,
         start_time=start_time,
@@ -1171,12 +1616,169 @@ def execute_task(
         commands_run=list(payload.get("commands_run", [])),
         queued_only=queued_only,
         queue_reason=queue_reason or None,
+        environment_notes=environment_notes,
+        recommended_next_actions=_recommend_next_actions(
+            task=task,
+            status=status,
+            failure_class=None,
+            environment_notes=environment_notes,
+            patch_path=repo_rel(patch_path) if patch_path else None,
+        ),
     )
+    return _finalize_task_result(task=task, result_dir=result_dir, result=result, payload=payload)
 
 
-def generate_morning_report(state: OvernightCodexState, manifest: list[CodexTaskDef]) -> None:
-    """Generate a compact morning report."""
+def _load_findings_registry_summary() -> tuple[int, list[dict[str, Any]]]:
+    """Load a compact summary of the findings registry."""
+    if not FINDINGS_REGISTRY_FILE.exists():
+        return 0, []
+    try:
+        data = json.loads(FINDINGS_REGISTRY_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return 0, []
+    items = data.get("items", {})
+    if not isinstance(items, dict):
+        return 0, []
+    records = [record for record in items.values() if isinstance(record, dict)]
+    records.sort(key=lambda record: (record.get("last_seen", ""), record.get("id", "")), reverse=True)
+    return len(records), records[:5]
+
+
+def _current_signal_records(
+    state: OvernightCodexState,
+    manifest: list[CodexTaskDef],
+) -> list[dict[str, Any]]:
+    """Build issue-like records for morning reporting."""
+    by_id = {task.task_id: task for task in manifest}
+    signals: list[dict[str, Any]] = []
+    for task_id, result in state.results.items():
+        task = by_id.get(task_id)
+        if not task:
+            continue
+        status = str(result.get("status", "pending"))
+        if status not in SIGNAL_STATUSES and status != "skipped":
+            continue
+        signals.append(
+            {
+                "task_id": task_id,
+                "name": task.name,
+                "category": task.category,
+                "lane": task.lane,
+                "priority": task.priority,
+                "learning_value": task.learning_value,
+                "status": status,
+                "failure_class": result.get("failure_class"),
+                "error": result.get("error"),
+                "summary": result.get("summary", ""),
+                "patch_path": result.get("patch_path"),
+                "queue_reason": result.get("queue_reason"),
+                "environment_notes": list(result.get("environment_notes", [])),
+                "recommended_next_actions": list(result.get("recommended_next_actions", [])),
+            }
+        )
+    return signals
+
+
+def _split_new_vs_recurring(
+    signals: list[dict[str, Any]],
+    previous_snapshot: dict[str, Any] | None,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Partition current signals by whether they existed in the prior snapshot."""
+    if not previous_snapshot:
+        return signals, []
+    previous_tasks = previous_snapshot.get("tasks", {})
+    if not isinstance(previous_tasks, dict):
+        return signals, []
+    new_signals: list[dict[str, Any]] = []
+    recurring: list[dict[str, Any]] = []
+    for signal in signals:
+        previous = previous_tasks.get(signal["task_id"])
+        if (
+            isinstance(previous, dict)
+            and previous.get("status") == signal["status"]
+            and previous.get("failure_class") == signal["failure_class"]
+        ):
+            recurring.append(signal)
+        else:
+            new_signals.append(signal)
+    return new_signals, recurring
+
+
+def generate_morning_report(
+    state: OvernightCodexState,
+    manifest: list[CodexTaskDef],
+    previous_snapshot: dict[str, Any] | None = None,
+) -> None:
+    """Generate an action-first morning report."""
+    snapshot = _build_run_snapshot(state, manifest)
+    current_signals = _current_signal_records(state, manifest)
+    new_signals, recurring_signals = _split_new_vs_recurring(current_signals, previous_snapshot)
+    findings_count, recent_finding_items = _load_findings_registry_summary()
+
+    def signal_rank(signal: dict[str, Any]) -> tuple[int, int, int]:
+        status_rank = {
+            "usage_limited": 0,
+            "failed": 1,
+            "timeout": 2,
+            "partial_success": 3,
+            "queued": 4,
+            "skipped": 5,
+        }
+        failure_rank = {
+            "infra_failure": 0,
+            "policy_blocked": 1,
+            "validation_failed": 2,
+            "environment_blocked": 3,
+            "usage_limited": 4,
+            "task_failed": 5,
+            None: 6,
+        }
+        return (
+            status_rank.get(signal["status"], 9),
+            failure_rank.get(signal.get("failure_class"), 9),
+            signal["priority"],
+        )
+
+    top_signals = sorted(current_signals, key=signal_rank)[:5]
+    blocked_work = [
+        signal
+        for signal in current_signals
+        if signal["status"] == "skipped"
+        or signal.get("failure_class") in {"infra_failure", "policy_blocked", "environment_blocked", "validation_failed"}
+    ]
+    patch_queue = [signal for signal in current_signals if signal["status"] == "queued"]
+    movement = [
+        task
+        for task in manifest
+        if task.category in {"review", "validation", "test", "spec"}
+        and state.results.get(task.task_id, {}).get("status") in {"success", "partial_success"}
+    ]
+    environment_issues: list[str] = []
+    for signal in current_signals:
+        if signal.get("failure_class") == "infra_failure":
+            environment_issues.append(
+                f"`{signal['task_id']}` hit an infrastructure failure: {signal.get('error', 'unknown')}"
+            )
+        for note in signal.get("environment_notes", []):
+            message = f"`{signal['task_id']}`: {note}"
+            if message not in environment_issues:
+                environment_issues.append(message)
+
+    next_actions: list[str] = []
+    for signal in top_signals + patch_queue + blocked_work:
+        for action in signal.get("recommended_next_actions", []):
+            if action not in next_actions:
+                next_actions.append(action)
+    next_actions = next_actions[:3]
+
+    previous_summary = previous_snapshot.get("summary", {}) if previous_snapshot else {}
+    prev_completed = int(previous_summary.get("completed", 0)) if isinstance(previous_summary, dict) else 0
+    prev_failed = int(previous_summary.get("failed", 0)) if isinstance(previous_summary, dict) else 0
+    prev_queued = int(previous_summary.get("queued", 0)) if isinstance(previous_summary, dict) else 0
+
     lines = [f"# Overnight Codex Report — {state.run_id}", ""]
+    lines.append(f"- Active authority: `{state.active_authority}`")
+    lines.append(f"- Runtime mode: `{state.runtime_mode}`")
     lines.append(f"- Status: **{state.status.upper()}**")
     lines.append(f"- Apply mode: `{state.apply_mode}`")
     lines.append(f"- Launch head: `{state.launch_head[:8]}`")
@@ -1184,40 +1786,86 @@ def generate_morning_report(state: OvernightCodexState, manifest: list[CodexTask
         f"- Tasks: {state.tasks_completed} completed, {state.tasks_failed} failed, "
         f"{state.tasks_queued} queued, {state.tasks_skipped} skipped"
     )
+    lines.append(
+        f"- Delta vs previous run: completed {state.tasks_completed - prev_completed:+d}, "
+        f"failed {state.tasks_failed - prev_failed:+d}, queued {state.tasks_queued - prev_queued:+d}"
+    )
     if state.notes:
         lines.append("")
         lines.append("## Launch Notes")
         lines.extend(f"- {note}" for note in state.notes)
 
-    completed: list[str] = []
-    queued: list[str] = []
-    issues: list[str] = []
-    for task in manifest:
-        result = state.results.get(task.task_id, {})
-        status = result.get("status", "pending")
-        if status == "success":
-            suffix = " (auto-applied)" if result.get("auto_applied") else ""
-            completed.append(f"- `{task.task_id}`: {task.name}{suffix}")
-        elif status == "queued":
-            queued.append(
-                f"- `{task.task_id}`: {task.name} -> `{result.get('patch_path', 'n/a')}` "
-                f"({result.get('queue_reason', 'queued')})"
+    if top_signals:
+        lines.append("")
+        lines.append("## Tonight's Top Signals")
+        for signal in top_signals:
+            detail = signal.get("error") or signal.get("summary") or "No detail recorded."
+            lines.append(
+                f"- `{signal['task_id']}` [{signal['status']}/{signal.get('failure_class') or 'none'}]: {detail}"
             )
-        elif status in {"failed", "timeout", "partial_success", "usage_limited"}:
-            issues.append(f"- `{task.task_id}` ({status}): {result.get('error', 'unknown')}")
 
-    if completed:
+    lines.append("")
+    lines.append("## New vs Recurring")
+    lines.append(f"- New signals this run: {len(new_signals)}")
+    lines.append(f"- Recurring signals from the previous snapshot: {len(recurring_signals)}")
+    if new_signals[:3]:
+        lines.extend(f"- New: `{signal['task_id']}` ({signal['status']})" for signal in new_signals[:3])
+    if recurring_signals[:3]:
+        lines.extend(f"- Recurring: `{signal['task_id']}` ({signal['status']})" for signal in recurring_signals[:3])
+
+    if blocked_work:
         lines.append("")
-        lines.append("## Completed")
-        lines.extend(completed)
-    if queued:
+        lines.append("## Blocked Work")
+        for signal in blocked_work[:5]:
+            detail = signal.get("error") or signal.get("summary") or "No detail recorded."
+            lines.append(
+                f"- `{signal['task_id']}` [{signal.get('failure_class') or signal['status']}]: {detail}"
+            )
+
+    if patch_queue:
         lines.append("")
-        lines.append("## Queued Patches")
-        lines.extend(queued)
-    if issues:
+        lines.append("## Patch Queue")
+        for signal in patch_queue:
+            lines.append(
+                f"- `{signal['task_id']}` -> `{signal.get('patch_path', 'n/a')}` "
+                f"({signal.get('queue_reason', 'queued')})"
+            )
+
+    if movement:
         lines.append("")
-        lines.append("## Issues")
-        lines.extend(issues)
+        lines.append("## Coverage And Validation Movement")
+        for task in movement[:8]:
+            result = state.results.get(task.task_id, {})
+            lines.append(f"- `{task.task_id}` [{task.category}/{task.lane}]: {result.get('summary', task.name)}")
+
+    if next_actions:
+        lines.append("")
+        lines.append("## Recommended Next 3 Actions")
+        lines.extend(f"- {action}" for action in next_actions)
+
+    if environment_issues:
+        lines.append("")
+        lines.append("## Environment And Infra Issues")
+        lines.extend(f"- {issue}" for issue in environment_issues[:6])
+
+    lines.append("")
+    lines.append("## Findings Registry")
+    lines.append(f"- Known tracked findings: {findings_count}")
+    if recent_finding_items:
+        for item in recent_finding_items[:3]:
+            lines.append(
+                f"- `{item.get('id', 'unknown')}`: {item.get('summary', 'No summary')} "
+                f"(seen {item.get('occurrences', 1)} times)"
+            )
+
+    lines.append("")
+    lines.append("## Snapshot")
+    lines.append(
+        f"- Snapshot file: `overnight_codex/run_snapshots/{_snapshot_filename(state.started_at)}`"
+    )
+    lines.append(
+        f"- Failure classes this run: {snapshot['summary']['failure_class_counts'] or 'none'}"
+    )
 
     atomic_write(MORNING_REPORT, "\n".join(lines).rstrip() + "\n")
 
@@ -1295,9 +1943,10 @@ def run_overnight(
             apply_mode = "queue_only"
             baseline_clean = False
             baseline_tests_passed = False
+            authority = load_active_authority()
             notes = ["Preflight skipped explicitly; auto-apply disabled."]
         else:
-            apply_mode, baseline_clean, baseline_tests_passed, notes, codex_bin = preflight()
+            apply_mode, baseline_clean, baseline_tests_passed, notes, codex_bin, authority = preflight()
 
         deadline = utc_now() + timedelta(hours=hours)
         previous = load_state() if resume else None
@@ -1305,8 +1954,18 @@ def run_overnight(
             state = previous
             state.status = "running"
             state.deadline = deadline.isoformat()
+            state.active_authority = authority.get("active_authority", state.active_authority)
+            state.runtime_mode = authority.get("runtime_mode", state.runtime_mode)
             state.notes.extend(note for note in notes if note not in state.notes)
             log_decision("Resuming previous overnight_codex state")
+            _append_event(
+                "run_resumed",
+                {
+                    "run_id": state.run_id,
+                    "started_at": state.started_at,
+                    "resolved_tasks": len(state.results),
+                },
+            )
         else:
             for path in (STATE_FILE, PROGRESS_FILE, DECISIONS_LOG, HEARTBEAT_FILE):
                 if path.exists():
@@ -1319,12 +1978,28 @@ def run_overnight(
                 apply_mode=apply_mode,
                 baseline_clean=baseline_clean,
                 baseline_tests_passed=baseline_tests_passed,
+                active_authority=authority.get("active_authority", "claude"),
+                runtime_mode=authority.get("runtime_mode", "shadow_setup"),
                 notes=notes,
             )
             log_decision(
                 "overnight_codex session started",
                 {
                     "tasks": len(manifest),
+                    "apply_mode": apply_mode,
+                    "active_authority": state.active_authority,
+                    "runtime_mode": state.runtime_mode,
+                    "authority_file": repo_rel(ACTIVE_AUTHORITY_FILE),
+                    "baseline_clean": baseline_clean,
+                    "baseline_tests_passed": baseline_tests_passed,
+                },
+            )
+            _append_event(
+                "run_started",
+                {
+                    "run_id": state.run_id,
+                    "started_at": state.started_at,
+                    "manifest_task_count": len(manifest),
                     "apply_mode": apply_mode,
                     "baseline_clean": baseline_clean,
                     "baseline_tests_passed": baseline_tests_passed,
@@ -1357,8 +2032,8 @@ def run_overnight(
             if remaining <= 0:
                 log_decision("Time limit reached")
                 break
-            if state.consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
-                log_decision("Circuit breaker tripped on failures")
+            if state.consecutive_breaker_failures >= MAX_CONSECUTIVE_FAILURES:
+                log_decision("Circuit breaker tripped on infrastructure failures")
                 state.status = "stopped"
                 break
             if state.consecutive_timeouts >= MAX_CONSECUTIVE_TIMEOUTS:
@@ -1371,6 +2046,15 @@ def run_overnight(
                 log_decision("All tasks resolved or blocked")
                 break
 
+            if state.active_authority != "codex":
+                allowed, reason = _shadow_setup_allows_task(task)
+                if not allowed:
+                    state.results[task.task_id] = {"status": "skipped", "error": reason}
+                    state.tasks_skipped += 1
+                    save_state(state)
+                    write_progress_file(state, manifest)
+                    continue
+
             original_timeout = task.timeout_minutes
             scale = timeout_overrides.get(task.category, 1.0)
             if task.estimated_complexity == "high":
@@ -1379,6 +2063,15 @@ def run_overnight(
             if remaining < task.timeout_minutes * 60:
                 state.results[task.task_id] = {"status": "skipped", "error": "insufficient time"}
                 state.tasks_skipped += 1
+                _append_event(
+                    "task_skipped",
+                    {
+                        "task_id": task.task_id,
+                        "status": "skipped",
+                        "reason": "insufficient_time",
+                        "remaining_seconds": round(remaining, 1),
+                    },
+                )
                 save_state(state)
                 write_progress_file(state, manifest)
                 continue
@@ -1387,35 +2080,80 @@ def run_overnight(
                 f">>> [{task.priority}] {task.task_id}: {task.name} "
                 f"({task.write_policy}, {task.timeout_minutes}m)"
             )
+            _append_event(
+                "task_started",
+                {
+                    "task_id": task.task_id,
+                    "lane": task.lane,
+                    "category": task.category,
+                    "write_policy": task.write_policy,
+                    "timeout_minutes": task.timeout_minutes,
+                    "learning_value": task.learning_value,
+                },
+            )
             result = execute_task(task, state=state, codex_bin=codex_bin)
             task.timeout_minutes = original_timeout
 
             state.results[task.task_id] = asdict(result)
+            if result.failure_class:
+                state.failure_class_counts[result.failure_class] = (
+                    state.failure_class_counts.get(result.failure_class, 0) + 1
+                )
             if result.status == "success":
                 state.tasks_completed += 1
                 state.consecutive_failures = 0
                 state.consecutive_timeouts = 0
+                state.consecutive_breaker_failures = 0
             elif result.status == "queued":
                 state.tasks_queued += 1
                 state.consecutive_failures = 0
                 state.consecutive_timeouts = 0
+                state.consecutive_breaker_failures = 0
+            elif result.status == "partial_success":
+                state.tasks_completed += 1
+                state.consecutive_failures = 0
+                state.consecutive_timeouts = 0
+                state.consecutive_breaker_failures = 0
             elif result.status == "usage_limited":
                 state.tasks_failed += 1
                 state.consecutive_failures += 1
+                state.consecutive_breaker_failures += 1
                 state.status = "stopped"
                 log_decision("Codex usage limit reached; stopping run", {"task_id": task.task_id})
             elif result.status == "timeout":
                 state.tasks_failed += 1
                 state.consecutive_failures += 1
                 state.consecutive_timeouts += 1
-                timeout_overrides[task.category] = timeout_overrides.get(task.category, 1.0) + 0.5
+                state.consecutive_breaker_failures = 0
             else:
                 state.tasks_failed += 1
                 state.consecutive_failures += 1
+                if _should_trip_breaker(result):
+                    state.consecutive_breaker_failures += 1
+                else:
+                    state.consecutive_breaker_failures = 0
+                state.consecutive_timeouts = 0
+
+            if result.failure_class == "timeout" and result.status in {"timeout", "partial_success"}:
+                timeout_overrides[task.category] = timeout_overrides.get(task.category, 1.0) + 0.5
+            elif result.status == "success":
+                timeout_overrides.pop(task.category, None)
 
             save_state(state)
             write_progress_file(state, manifest)
             _write_heartbeat(state, task.task_id, result.status, len(manifest))
+            _append_event(
+                "task_finished",
+                {
+                    "task_id": task.task_id,
+                    "status": result.status,
+                    "failure_class": result.failure_class,
+                    "duration_s": result.duration_s,
+                    "queued_only": result.queued_only,
+                    "partial_artifacts": list(result.partial_artifacts),
+                    "environment_notes": list(result.environment_notes),
+                },
+            )
             print(f"    {result.status.upper()}: {result.summary[:140]}")
             if result.status == "usage_limited":
                 break
@@ -1424,8 +2162,22 @@ def run_overnight(
             state.status = "completed"
         save_state(state)
         write_progress_file(state, manifest)
-        generate_morning_report(state, manifest)
         maybe_append_findings()
+        previous_snapshot = _load_previous_snapshot(state.started_at)
+        generate_morning_report(state, manifest, previous_snapshot)
+        snapshot_path = _write_run_snapshot(state, manifest)
+        _append_event(
+            "run_finished",
+            {
+                "run_id": state.run_id,
+                "status": state.status,
+                "snapshot_path": repo_rel(snapshot_path),
+                "completed": state.tasks_completed,
+                "failed": state.tasks_failed,
+                "queued": state.tasks_queued,
+                "skipped": state.tasks_skipped,
+            },
+        )
         print()
         print(f"Run status: {state.status}")
         print(f"Morning report: {repo_rel(MORNING_REPORT)}")

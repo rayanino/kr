@@ -1,3 +1,6 @@
+---
+globs: ["engines/*/src/**/*.py", "shared/*/src/**/*.py", "engines/*/contracts.py"]
+---
 When modifying a shared concept (enum, verdict, status, classification, error code) that appears across multiple files:
 
 1. **Grep first**: Search for the concept name across ALL agent definitions (`.claude/agents/`), reference docs (`reference/`), SPEC files (`engines/*/SPEC.md`), and source code (`engines/*/src/`, `shared/*/src/`).

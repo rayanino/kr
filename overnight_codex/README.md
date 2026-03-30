@@ -20,3 +20,13 @@ Runtime artifacts live here, not under `overnight/`:
 
 When the main repo is dirty or drifts during a run, guarded-write tasks stay isolated and are queued as patches instead of being auto-applied.
 When a live Claude session is detected, `overnight_codex` also forces queue-only mode to avoid trampling active Claude work.
+
+## WSL Bootstrap
+
+Use the dedicated WSL runtime clone, not the interactive Windows checkout.
+
+1. Reboot after enabling the Windows WSL feature.
+2. Run `ubuntu2404.exe` once to finish distro registration.
+3. Run `powershell -ExecutionPolicy Bypass -File scripts/overnight_codex_wsl_resume.ps1 -RunShadowRehearsal`.
+
+That wrapper calls `scripts/overnight_codex_wsl_bootstrap.sh` inside WSL, syncs the current checkout into `~/kr-codex`, mirrors the local Codex/Gemini/Claude auth state where available, verifies the required CLI stack, and launches the first safe queue-only shadow rehearsal when requested.

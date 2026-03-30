@@ -13,6 +13,7 @@ from typing import Any
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 OVERNIGHT_CODEX_DIR = PROJECT_DIR / "overnight_codex"
+ACTIVE_AUTHORITY_FILE = PROJECT_DIR / "ACTIVE_AUTHORITY.md"
 RESULTS_DIR = OVERNIGHT_CODEX_DIR / "results"
 QUEUE_DIR = OVERNIGHT_CODEX_DIR / "queue"
 WORKTREES_DIR = OVERNIGHT_CODEX_DIR / "worktrees"
@@ -22,9 +23,12 @@ DECISIONS_LOG = OVERNIGHT_CODEX_DIR / "decisions.log"
 MORNING_REPORT = OVERNIGHT_CODEX_DIR / "MORNING_REPORT.md"
 HEARTBEAT_FILE = OVERNIGHT_CODEX_DIR / ".heartbeat"
 LOCK_FILE = OVERNIGHT_CODEX_DIR / ".overnight_codex.lock"
+EVENTS_FILE = OVERNIGHT_CODEX_DIR / "events.jsonl"
 FINDINGS_TRACKER = OVERNIGHT_CODEX_DIR / "FINDINGS_TRACKER.md"
+FINDINGS_REGISTRY_FILE = OVERNIGHT_CODEX_DIR / "findings_registry.json"
 CUMULATIVE_FINDINGS = OVERNIGHT_CODEX_DIR / "CUMULATIVE_FINDINGS.md"
 CREATIVE_RUN_LOG = OVERNIGHT_CODEX_DIR / "creative_run_log.json"
+RUN_SNAPSHOTS_DIR = OVERNIGHT_CODEX_DIR / "run_snapshots"
 
 ALLOWED_CATEGORIES = {
     "review",
@@ -42,6 +46,7 @@ ALLOWED_OUTPUT_MODES = {"json"}
 ALLOWED_COMPLEXITIES = {"low", "medium", "high"}
 ALLOWED_PRIORITIES = {"HIGH", "MEDIUM", "LOW"}
 ALLOWED_EFFORTS = {"S", "M", "L"}
+ALLOWED_LANES = {"analysis_lane", "synthesis_lane", "write_lane"}
 FORBIDDEN_CAPABILITY_FLAGS = {
     "requires_web",
     "requires_arabic_judgment",
@@ -67,6 +72,15 @@ FORBIDDEN_EDIT_EXACT = {
 }
 PIPELINE_ORDER = ["source", "normalization", "excerpting", "taxonomy", "synthesis"]
 COMPLEXITY_ORDER = {"low": 0, "medium": 1, "high": 2}
+SHADOW_SETUP_WRITE_TARGETS = (
+    "AGENTS.md",
+    "ACTIVE_AUTHORITY.md",
+    "Makefile",
+    "docs/codex/",
+    "scripts/quality_gate.py",
+    "scripts/overnight_codex_",
+    "scripts/start_overnight_codex.sh",
+)
 
 
 ACTION_ITEM_SCHEMA: dict[str, Any] = {
@@ -159,6 +173,9 @@ class CodexTaskDef:
     capability_flags: list[str] = field(default_factory=list)
     authority_level: str = "low"
     allowed_write_prefixes: list[str] = field(default_factory=list)
+    lane: str = "analysis_lane"
+    learning_value: int = 5
+    novelty_hint: str = ""
 
     def validate(self) -> None:
         if self.category not in ALLOWED_CATEGORIES:
@@ -176,8 +193,12 @@ class CodexTaskDef:
                 f"Unsupported estimated_complexity for {self.task_id}: "
                 f"{self.estimated_complexity}"
             )
+        if self.lane not in ALLOWED_LANES:
+            raise ValueError(f"Unsupported lane for {self.task_id}: {self.lane}")
         if self.timeout_minutes <= 0:
             raise ValueError(f"timeout_minutes must be > 0 for {self.task_id}")
+        if self.learning_value <= 0:
+            raise ValueError(f"learning_value must be > 0 for {self.task_id}")
         forbidden = set(self.capability_flags) & FORBIDDEN_CAPABILITY_FLAGS
         if forbidden:
             joined = ", ".join(sorted(forbidden))
@@ -218,6 +239,12 @@ class TaskResult:
     commands_run: list[str] = field(default_factory=list)
     queued_only: bool = False
     queue_reason: str | None = None
+    failure_class: str | None = None
+    partial_artifacts: list[str] = field(default_factory=list)
+    confidence: str | None = None
+    novelty_score: float | None = None
+    recommended_next_actions: list[str] = field(default_factory=list)
+    environment_notes: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -231,6 +258,8 @@ class OvernightCodexState:
     apply_mode: str
     baseline_clean: bool
     baseline_tests_passed: bool
+    active_authority: str = "claude"
+    runtime_mode: str = "shadow_setup"
     status: str = "running"
     tasks_completed: int = 0
     tasks_failed: int = 0
@@ -238,6 +267,8 @@ class OvernightCodexState:
     tasks_queued: int = 0
     consecutive_failures: int = 0
     consecutive_timeouts: int = 0
+    consecutive_breaker_failures: int = 0
+    failure_class_counts: dict[str, int] = field(default_factory=dict)
     results: dict[str, dict[str, Any]] = field(default_factory=dict)
     notes: list[str] = field(default_factory=list)
 
@@ -293,8 +324,34 @@ def ensure_runtime_dirs() -> None:
         RESULTS_DIR,
         QUEUE_DIR,
         WORKTREES_DIR,
+        RUN_SNAPSHOTS_DIR,
     ):
         path.mkdir(parents=True, exist_ok=True)
+
+
+def load_active_authority() -> dict[str, str]:
+    """Load the root authority file as simple key/value pairs."""
+    defaults = {
+        "active_authority": "claude",
+        "runtime_mode": "shadow_setup",
+        "owner_interaction": "resource_only",
+        "frontier_file": ".kr/ACTIVE.md",
+        "rollback_authority": "claude",
+    }
+    if not ACTIVE_AUTHORITY_FILE.exists():
+        return defaults
+
+    parsed = dict(defaults)
+    for raw_line in ACTIVE_AUTHORITY_FILE.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or line.startswith("- ") or ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        key = key.strip()
+        value = value.strip()
+        if key and value:
+            parsed[key] = value
+    return parsed
 
 
 def repo_rel(path: str | Path) -> str:
@@ -395,6 +452,10 @@ def has_forbidden_edits(changed_files: list[str]) -> list[str]:
 def write_progress_file(state: OvernightCodexState, manifest: list[CodexTaskDef]) -> None:
     """Write a compact progress file."""
     lines = [f"# Overnight Codex Progress — {state.run_id}", ""]
+    lines.append(f"- Active authority: `{state.active_authority}`")
+    lines.append(f"- Runtime mode: `{state.runtime_mode}`")
+    lines.append(f"- Apply mode: `{state.apply_mode}`")
+    lines.append("")
     completed: list[str] = []
     queued: list[str] = []
     remaining: list[str] = []
@@ -456,3 +517,10 @@ def validate_action_items(items: list[dict[str, Any]]) -> list[dict[str, str]]:
             }
         )
     return validated
+
+
+def append_jsonl(path: Path, payload: dict[str, Any]) -> None:
+    """Append one JSON object as a JSONL line."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(payload, ensure_ascii=False, default=str) + "\n")

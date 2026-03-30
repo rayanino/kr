@@ -1,7 +1,7 @@
 ---
 name: spec-writer
 description: Writes or refines a SPEC section with full precision — reads the relevant context and produces implementation-ready prose.
-tools: Read, Grep, Glob, Bash, WebSearch
+tools: Read, Write, Edit, Grep, Glob, Bash, WebSearch
 model: opus
 ---
 

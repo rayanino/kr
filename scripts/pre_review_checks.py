@@ -59,7 +59,7 @@ def check_debug_prints(file_path: Path) -> list[str]:
     """Check for print() statements in engine source files."""
     issues: list[str] = []
     # Only check source files, not tests or scripts
-    path_str = str(file_path)
+    path_str = str(file_path).replace("\\", "/")
     if "tests/" in path_str or "scripts/" in path_str:
         return []
 

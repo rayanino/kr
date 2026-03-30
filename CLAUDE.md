@@ -15,7 +15,7 @@ This means every agent, in every session, optimizes for:
 - **Correctness** — does the pipeline produce right answers?
 - **Robustness** — does it handle every edge case without crashing or silently defaulting?
 - **Test coverage** — have we proven it works on diverse, adversarial, real-world inputs?
-- *Error handling** — does every failure mode produce a clear, structured, actionable error?
+- **Error handling** — does every failure mode produce a clear, structured, actionable error?
 - **Feedback Implementation** — have we documented and learned from errors and the behaviour of the pipeline to improve it for the better
 
 And never optimizes for:

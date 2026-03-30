@@ -94,7 +94,7 @@
           {
             "type": "command",
             "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-commit-check.sh\"",
-            "timeout": 30
+            "timeout": 60
           }
         ]
       },
@@ -176,7 +176,7 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pyright-check.sh\"",
-            "timeout": 30,
+            "timeout": 45,
             "statusMessage": "Type-checking with pyright..."
           }
         ]
@@ -187,7 +187,7 @@
           {
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/auto-test.sh\"",
-            "timeout": 120,
+            "timeout": 180,
             "statusMessage": "Running tests..."
           }
         ]
@@ -232,6 +232,61 @@
             "type": "command",
             "command": "cd \"$CLAUDE_PROJECT_DIR\" && python3 scripts/session_stop.py 2>/dev/null || true",
             "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/stop-quality-gate.sh\"",
+            "timeout": 120,
+            "statusMessage": "Running quality gate..."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/prompt-context.sh\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-compact-checkpoint.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/post-compact-recovery.sh\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "FileChanged": [
+      {
+        "matcher": "settings.json",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'WARNING: .claude/settings.json was modified externally. Safety hooks may have changed. Run /hooks to verify configuration integrity.'",
+            "timeout": 5
           }
         ]
       }
