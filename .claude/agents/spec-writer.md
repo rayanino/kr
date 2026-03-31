@@ -1,6 +1,6 @@
 ---
 name: spec-writer
-description: Writes or refines a SPEC section with full precision — reads the relevant context and produces implementation-ready prose.
+description: Writes or refines a SPEC section with full precision, producing implementation-ready prose with concrete Arabic examples. Use when creating a new SPEC section, rewriting a section flagged by auditors, or refining rules that lack testable examples.
 tools: Read, Write, Edit, Grep, Glob, Bash, WebSearch
 model: opus
 effort: high

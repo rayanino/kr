@@ -1,6 +1,6 @@
 ---
 name: spec-auditor-a
-description: Cold reads a SPEC against silent failure patterns 1-4 (hollow examples, circular definitions, hand-waving technology, phantom metadata). Produces a numbered defect inventory with CORRECTNESS vs STYLE severity. Self-reviews 2 rounds per Blueprint Step 1a.
+description: Cold reads a SPEC against silent failure patterns 1-4 (hollow examples, circular definitions, hand-waving technology, phantom metadata). Use when auditing a new or revised engine SPEC. Dispatch alongside spec-auditor-b for independent dual-audit coverage.
 tools: Read, Grep, Glob, Bash
 model: opus
 effort: max
