@@ -13,6 +13,7 @@ import pytest
 
 from engines.excerpting.src.parallel_orchestrator import (
     ChunkPipelineContext,
+    CircuitBreaker,
     ConcurrencyController,
     _process_chunk,
     run_parallel_pipeline,
@@ -511,3 +512,170 @@ class TestRunParallelPipeline:
         assert call_args[1] is None  # enrich_client
         assert call_args[2] is None  # verify_client
         assert call_args[3] is None  # escalation_client
+
+
+# ===================================================================
+# CircuitBreaker tests
+# ===================================================================
+
+
+class TestCircuitBreaker:
+    """Tests for the CircuitBreaker state machine."""
+
+    def test_circuit_breaker_starts_closed(self) -> None:
+        """Initial state is CLOSED."""
+        cb = CircuitBreaker()
+        assert cb.state == "CLOSED"
+
+    def test_circuit_breaker_opens_after_threshold(self) -> None:
+        """5 consecutive failures transition from CLOSED to OPEN."""
+        cb = CircuitBreaker(failure_threshold=5)
+        for _ in range(4):
+            cb.record_failure()
+            assert cb.state == "CLOSED"
+        cb.record_failure()
+        assert cb.state == "OPEN"
+
+    def test_circuit_breaker_closes_on_success(self) -> None:
+        """record_success resets to CLOSED and clears failure count."""
+        cb = CircuitBreaker(failure_threshold=3)
+        cb.record_failure()
+        cb.record_failure()
+        assert cb.state == "CLOSED"  # Not yet at threshold
+        cb.record_success()
+        assert cb.state == "CLOSED"
+        # Failure count was reset: need 3 more to open
+        cb.record_failure()
+        cb.record_failure()
+        assert cb.state == "CLOSED"
+        cb.record_failure()
+        assert cb.state == "OPEN"
+
+    @patch("engines.excerpting.src.parallel_orchestrator.time.sleep")
+    @patch("engines.excerpting.src.parallel_orchestrator.time.monotonic")
+    def test_circuit_breaker_half_open_success(
+        self, mock_monotonic: MagicMock, mock_sleep: MagicMock
+    ) -> None:
+        """HALF_OPEN + success -> CLOSED with reset cooldown."""
+        cb = CircuitBreaker(
+            failure_threshold=2, base_cooldown=10.0
+        )
+        # Open the breaker
+        mock_monotonic.return_value = 100.0
+        cb.record_failure()
+        cb.record_failure()
+        assert cb.state == "OPEN"
+
+        # Simulate cooldown elapsed: check() transitions to HALF_OPEN
+        mock_monotonic.return_value = 200.0  # 100s later, > 10s cooldown
+        cb.check()
+        assert cb.state == "HALF_OPEN"
+
+        # Success closes it
+        cb.record_success()
+        assert cb.state == "CLOSED"
+
+    @patch("engines.excerpting.src.parallel_orchestrator.time.sleep")
+    @patch("engines.excerpting.src.parallel_orchestrator.time.monotonic")
+    def test_circuit_breaker_half_open_failure(
+        self, mock_monotonic: MagicMock, mock_sleep: MagicMock
+    ) -> None:
+        """HALF_OPEN + failure -> OPEN with doubled cooldown."""
+        cb = CircuitBreaker(
+            failure_threshold=2, base_cooldown=10.0
+        )
+        # Open the breaker
+        mock_monotonic.return_value = 100.0
+        cb.record_failure()
+        cb.record_failure()
+        assert cb.state == "OPEN"
+
+        # Transition to HALF_OPEN
+        mock_monotonic.return_value = 200.0
+        cb.check()
+        assert cb.state == "HALF_OPEN"
+
+        # Failure during probe doubles cooldown
+        mock_monotonic.return_value = 201.0
+        cb.record_failure()
+        assert cb.state == "OPEN"
+        # Cooldown should have doubled from 10 -> 20
+        assert cb._cooldown == 20.0
+
+    @patch("engines.excerpting.src.parallel_orchestrator.time.sleep")
+    @patch("engines.excerpting.src.parallel_orchestrator.time.monotonic")
+    def test_circuit_breaker_cooldown_doubling(
+        self, mock_monotonic: MagicMock, mock_sleep: MagicMock
+    ) -> None:
+        """Cooldown doubles on each HALF_OPEN failure, capped at max."""
+        cb = CircuitBreaker(
+            failure_threshold=1,
+            base_cooldown=60.0,
+            max_cooldown=1800.0,
+        )
+
+        t = 0.0
+        mock_monotonic.return_value = t
+
+        # Open
+        cb.record_failure()
+        assert cb.state == "OPEN"
+        assert cb._cooldown == 60.0
+
+        # Cycle through HALF_OPEN failures, verifying doubling
+        expected_cooldowns = [120.0, 240.0, 480.0, 960.0, 1800.0, 1800.0]
+        for expected_cd in expected_cooldowns:
+            t += cb._cooldown + 1.0
+            mock_monotonic.return_value = t
+            cb.check()
+            assert cb.state == "HALF_OPEN"
+            mock_monotonic.return_value = t + 0.1
+            cb.record_failure()
+            assert cb.state == "OPEN"
+            assert cb._cooldown == expected_cd
+
+    @patch("engines.excerpting.src.parallel_orchestrator.time.sleep")
+    @patch("engines.excerpting.src.parallel_orchestrator.time.monotonic")
+    def test_circuit_breaker_check_closed_returns_immediately(
+        self, mock_monotonic: MagicMock, mock_sleep: MagicMock
+    ) -> None:
+        """check() in CLOSED state returns without sleeping."""
+        cb = CircuitBreaker()
+        cb.check()
+        mock_sleep.assert_not_called()
+
+    def test_circuit_breaker_state_property(self) -> None:
+        """state property is readable and reflects internal state."""
+        cb = CircuitBreaker(failure_threshold=2)
+        assert cb.state == "CLOSED"
+
+        cb.record_failure()
+        assert cb.state == "CLOSED"
+
+        cb.record_failure()
+        assert cb.state == "OPEN"
+
+        cb.record_success()
+        assert cb.state == "CLOSED"
+
+    @patch("engines.excerpting.src.parallel_orchestrator.time.sleep")
+    @patch("engines.excerpting.src.parallel_orchestrator.time.monotonic")
+    def test_circuit_breaker_check_blocks_when_open(
+        self, mock_monotonic: MagicMock, mock_sleep: MagicMock
+    ) -> None:
+        """check() in OPEN state sleeps for remaining cooldown time."""
+        cb = CircuitBreaker(
+            failure_threshold=1, base_cooldown=60.0
+        )
+        mock_monotonic.return_value = 100.0
+        cb.record_failure()
+        assert cb.state == "OPEN"
+
+        # 20s have passed out of 60s cooldown
+        mock_monotonic.return_value = 120.0
+        cb.check()
+        # Should have slept for ~40s (60 - 20)
+        mock_sleep.assert_called_once()
+        sleep_arg = mock_sleep.call_args[0][0]
+        assert 39.0 <= sleep_arg <= 41.0
+        assert cb.state == "HALF_OPEN"

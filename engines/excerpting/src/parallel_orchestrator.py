@@ -23,6 +23,101 @@ from typing import Any, Callable, Optional
 logger = logging.getLogger(__name__)
 
 
+class CircuitBreaker:
+    """Prevents retry storms when CLI backends are down.
+
+    State machine: CLOSED -> OPEN -> HALF_OPEN -> CLOSED (or back to OPEN).
+    Thread-safe: all state changes are locked.
+    """
+
+    def __init__(
+        self,
+        failure_threshold: int = 5,
+        base_cooldown: float = 60.0,
+        max_cooldown: float = 1800.0,
+    ) -> None:
+        self._lock = threading.Lock()
+        self._failure_threshold = failure_threshold
+        self._base_cooldown = base_cooldown
+        self._max_cooldown = max_cooldown
+        self._consecutive_failures = 0
+        self._state = "CLOSED"
+        self._cooldown = base_cooldown
+        self._open_since: float = 0.0
+
+    @property
+    def state(self) -> str:
+        """Current circuit state: CLOSED, OPEN, or HALF_OPEN."""
+        with self._lock:
+            return self._state
+
+    def record_success(self) -> None:
+        """Record a successful call. Resets circuit to CLOSED."""
+        with self._lock:
+            self._consecutive_failures = 0
+            self._state = "CLOSED"
+            self._cooldown = self._base_cooldown
+
+    def record_failure(self) -> None:
+        """Record a failed call. Opens circuit after threshold failures."""
+        with self._lock:
+            self._consecutive_failures += 1
+            if self._state == "HALF_OPEN":
+                self._state = "OPEN"
+                self._open_since = time.monotonic()
+                self._cooldown = min(
+                    self._cooldown * 2, self._max_cooldown
+                )
+                logger.warning(
+                    "Circuit breaker HALF_OPEN -> OPEN, cooldown %.0fs",
+                    self._cooldown,
+                )
+            elif self._consecutive_failures >= self._failure_threshold:
+                self._state = "OPEN"
+                self._open_since = time.monotonic()
+                logger.warning(
+                    "Circuit breaker OPEN — %d failures, cooldown %.0fs",
+                    self._consecutive_failures,
+                    self._cooldown,
+                )
+
+    def check(self) -> None:
+        """Check circuit state before making a call.
+
+        CLOSED: returns immediately.
+        OPEN: blocks until cooldown expires, then transitions to HALF_OPEN.
+        HALF_OPEN: returns immediately (one thread probes).
+
+        Does NOT raise — just blocks. The calling code should still make
+        the LLM call; the circuit breaker observes the result via
+        record_success/record_failure.
+        """
+        wait_time = 0.0
+        with self._lock:
+            if self._state == "CLOSED":
+                return
+            if self._state == "HALF_OPEN":
+                return  # Let one thread probe
+            # OPEN state
+            elapsed = time.monotonic() - self._open_since
+            if elapsed >= self._cooldown:
+                self._state = "HALF_OPEN"
+                logger.info("Circuit breaker -> HALF_OPEN (probing)")
+                return
+            wait_time = self._cooldown - elapsed
+
+        # Wait OUTSIDE the lock
+        logger.info(
+            "Circuit breaker OPEN, waiting %.0fs before probe...",
+            wait_time,
+        )
+        time.sleep(wait_time)
+        with self._lock:
+            if self._state == "OPEN":  # Still open after wait
+                self._state = "HALF_OPEN"
+                logger.info("Circuit breaker -> HALF_OPEN (probing)")
+
+
 class ConcurrencyController:
     """Global semaphore limiting total simultaneous CLI/API calls."""
 
@@ -79,6 +174,7 @@ def _process_chunk(
     classified_data: Optional[dict[str, list[Any]]],
     grouped_data: Optional[dict[str, list[Any]]],
     source_metadata: Optional[dict[str, str]],
+    breaker: Optional[CircuitBreaker] = None,
 ) -> ChunkPipelineContext:
     """Run the full pipeline for one chunk. Called in its own thread.
 
@@ -129,6 +225,8 @@ def _process_chunk(
             error_feedback: Optional[str] = None
             for attempt in range(max_attempts):
                 try:
+                    if breaker is not None:
+                        breaker.check()
                     controller.acquire()
                     try:
                         cr = classify_chunk(
@@ -138,6 +236,8 @@ def _process_chunk(
                             error_feedback,
                             timeout_override=current_timeout,
                         )
+                        if breaker is not None:
+                            breaker.record_success()
                     finally:
                         controller.release()
 
@@ -150,6 +250,8 @@ def _process_chunk(
                         progress.mark_done(chunk_id, "phase2a")
                     break
                 except ValidationError:
+                    if breaker is not None:
+                        breaker.record_failure()
                     error_feedback = None
                     logger.warning(
                         "[%s] Phase 2a attempt %d/%d: validation error",
@@ -158,6 +260,8 @@ def _process_chunk(
                         max_attempts,
                     )
                 except ValueError as exc:
+                    if breaker is not None:
+                        breaker.record_failure()
                     error_feedback = f"\n\nPrevious output error: {exc}"
                     logger.warning(
                         "[%s] Phase 2a attempt %d/%d: %s",
@@ -167,6 +271,8 @@ def _process_chunk(
                         exc,
                     )
                 except Exception as exc:
+                    if breaker is not None:
+                        breaker.record_failure()
                     error_feedback = None
                     current_timeout = min(
                         int(current_timeout * 1.5),
@@ -204,6 +310,8 @@ def _process_chunk(
             error_feedback = None
             for attempt in range(max_attempts):
                 try:
+                    if breaker is not None:
+                        breaker.check()
                     controller.acquire()
                     try:
                         er = group_chunk(
@@ -214,6 +322,8 @@ def _process_chunk(
                             error_feedback,
                             timeout_override=current_timeout,
                         )
+                        if breaker is not None:
+                            breaker.record_success()
                     finally:
                         controller.release()
 
@@ -225,6 +335,8 @@ def _process_chunk(
                         progress.mark_done(chunk_id, "phase2b")
                     break
                 except ValidationError:
+                    if breaker is not None:
+                        breaker.record_failure()
                     error_feedback = None
                     logger.warning(
                         "[%s] Phase 2b attempt %d/%d: validation error",
@@ -233,6 +345,8 @@ def _process_chunk(
                         max_attempts,
                     )
                 except ValueError as exc:
+                    if breaker is not None:
+                        breaker.record_failure()
                     error_feedback = f"\n\nPrevious output error: {exc}"
                     logger.warning(
                         "[%s] Phase 2b attempt %d/%d: %s",
@@ -242,6 +356,8 @@ def _process_chunk(
                         exc,
                     )
                 except Exception as exc:
+                    if breaker is not None:
+                        breaker.record_failure()
                     error_feedback = None
                     current_timeout = min(
                         int(current_timeout * 1.5),
@@ -282,6 +398,8 @@ def _process_chunk(
                 current_timeout = config.ENRICH_TIMEOUT
                 for attempt in range(max_attempts):
                     try:
+                        if breaker is not None:
+                            breaker.check()
                         controller.acquire()
                         try:
                             enrichment = enrich_chunk(
@@ -291,6 +409,8 @@ def _process_chunk(
                                 config,
                                 source_metadata,
                             )
+                            if breaker is not None:
+                                breaker.record_success()
                         finally:
                             controller.release()
 
@@ -301,6 +421,8 @@ def _process_chunk(
                             progress.mark_done(chunk_id, "phase3_enrich")
                         break
                     except Exception as exc:
+                        if breaker is not None:
+                            breaker.record_failure()
                         current_timeout = min(
                             int(current_timeout * 1.5),
                             config.ENRICH_TIMEOUT * 2,
@@ -360,6 +482,8 @@ def _process_chunk(
                     verification_done = False
                     for attempt in range(max_attempts):
                         try:
+                            if breaker is not None:
+                                breaker.check()
                             controller.acquire()
                             try:
                                 vr_result = verify_chunk(
@@ -370,6 +494,8 @@ def _process_chunk(
                                     source_metadata,
                                     timeout_override=current_timeout,
                                 )
+                                if breaker is not None:
+                                    breaker.record_success()
                             finally:
                                 controller.release()
 
@@ -462,6 +588,8 @@ def _process_chunk(
                             verification_done = True
                             break
                         except Exception as exc_err:
+                            if breaker is not None:
+                                breaker.record_failure()
                             current_timeout = min(
                                 int(current_timeout * 1.5),
                                 config.VERIFY_TIMEOUT * 2,
@@ -532,6 +660,7 @@ def run_parallel_pipeline(
     """
     concurrency = max(1, config.CONCURRENCY)
     controller = ConcurrencyController(concurrency)
+    breaker = CircuitBreaker() if concurrency > 1 else None
 
     contexts = [
         ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
@@ -574,6 +703,7 @@ def run_parallel_pipeline(
                 classified_data,
                 grouped_data,
                 source_metadata,
+                breaker,
             )
             futures[future] = ctx
 
