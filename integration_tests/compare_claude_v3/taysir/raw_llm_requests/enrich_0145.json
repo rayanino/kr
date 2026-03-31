@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0145",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nوأمره بالأكل وأخبره أنها المانع له من أكلها أنه صلى الله عليه وسلم له اتصال مع ربه، ومناجاة لا يصل إليها أحد، فيجب أن يكون على أحسن حال، لدى القرب من ربه، جل وعلا.\nالأحكام من الحديثين:\n1- النهي عن إتيان المساجد لمن أكل ثوماً، أو بصلاً، أو كراثاً.\n2- يلحق بهذه الأشياء، كل ذي رائحة كريهة تتأذى منها الملائكة أو المصلون. كرائحة التبغ الذي يتعاطاه المدخنون، فعلى من ابتلى به ألا يتعاطاه عند ذهابه إلى المسجد وأن ينظف أسنانه وفمه حتى يقطع رائحته أو يخففها.\n3- كراهة أكل هذه الأشياء لمن عليه حضور الصلاة في المسجد، لئلا تفوته الجماعة في المسجد، ما لم يأكلها حيلة على إسقاط الحضور، فيحرم.\n4- حكمة النهي عن إتيان المساجد، ألا يتأذى بها الملائكة والمصلون.\n5- النهي عن الإيذاء بكل وسيلة. هذه وسيلة منصوص عليها، فالإلحاق بها صحيح مقيس.\n6- أن الامتناع عن أكل الثوم ونحوه، ليس لتحريمه، بدليل أمر النبي صلى الله عليه وسلم بأكلها، فامتناعه عن أكلها لا يدل على التحريم.\nفائدة:\nقد استدل بعض العلماء على إباحة أكل هذه الأشياء، بأن صلاة الجماعة فرض كفاية.\nووجه الدلالة، أنها لو كانت فرض عين، لوجب اجتناب هذه الأشياء المانعة من حضور الجماعة في المساجد.\nوالحق أنه لا وجه لاستدلالهم، لأن فعل المباحات، التي يترتب عليها سقوط واجب لا بأس بها، ما لم يتخذ حيلة لإسقاط ذلك الواجب، كالسفر المباح في رمضان، فإنه يبيح الفطر في نهار رمضان، ولا حرج في ذلك مادام أنه لم يسافر ليتوصل به إلى الإفطار.\n</text>"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 4,
+    "text_snippet": "9-‌‌ ثناء الناس على الميت.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 5,
+    "end_word": 30,
+    "text_snippet": "26 - والثناء بالخير على الميت من جمع من المسلمين ا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 2,
+    "start_word": 31,
+    "end_word": 182,
+    "text_snippet": "الأول: عن أنس رضي الله عنه قال:\nمر على النبي صلى ا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 183,
+    "end_word": 250,
+    "text_snippet": "الثاني: عن أبي الأسود الديلي قال:\nأتيت المدينة وقد",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 251,
+    "end_word": 285,
+    "text_snippet": "الثالث: ما من مسلم يموت فيشهد له أربعة من أهل أبيا",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 286,
+    "end_word": 314,
+    "text_snippet": "واعلم أن مجموع هذه الأحاديث الثلاثة يدل على أن هذه",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 6,
+    "start_word": 315,
+    "end_word": 328,
+    "text_snippet": "وبهذا جزم الحافظ ابن حجر في الفتح فليراجع كلامه من",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 7,
+    "start_word": 329,
+    "end_word": 350,
+    "text_snippet": "ثم إن تقييد الشهادة بأربع في الحديث الثالث الظاهر ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 8,
+    "start_word": 351,
+    "end_word": 449,
+    "text_snippet": "هذا وأما قول بعض الناس عقب صلاة الجنازة: ما تشهدون",
+    "scholarly_function": "refutation",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 450,
+    "end_word": 452,
+    "text_snippet": "الوفاة عند الكسوف؟",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 10,
+    "start_word": 453,
+    "end_word": 468,
+    "text_snippet": "27 - وإذا اتفق وفاة أحد مع انكساف الشمس أو القمر ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 11,
+    "start_word": 469,
+    "end_word": 503,
+    "text_snippet": "واعتقاد أنه يدل على عظمة المتوفى إنما هو من خرافات",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 12,
+    "start_word": 504,
+    "end_word": 504,
+    "text_snippet": "صحيح",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 505,
+    "end_word": 555,
+    "text_snippet": "أما بعد أيها الناس إن أهل الجاهلية كانوا يقولون: إ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  }
+]

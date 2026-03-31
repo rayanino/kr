@@ -1,0 +1,242 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 15,
+    "text_snippet": "فالمطرد لا يتخلف.\nوالغالب أكثر الأشياء ولكنه يتخلف.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 16,
+    "end_word": 41,
+    "text_snippet": "فالعشرون بالنسبة بالنسبة إلى ثلاثة وعشرين غالب وا",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 42,
+    "end_word": 42,
+    "text_snippet": "انتهى.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 3,
+    "start_word": 43,
+    "end_word": 44,
+    "text_snippet": "الفرع الثاني",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 45,
+    "end_word": 80,
+    "text_snippet": "قال الشيخ عز الدين بن عبد السلام من كبار أصحابنا ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 81,
+    "end_word": 95,
+    "text_snippet": "فعلم أن العربي الذي يحتج بقوله لا بشترط فيه العد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 96,
+    "end_word": 118,
+    "text_snippet": "وكثيرا ما يقع في (كتاب سيبويه) وغيره: \" حدثني م",
+    "scholarly_function": "example",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 7,
+    "start_word": 119,
+    "end_word": 124,
+    "text_snippet": "وعدم التوقف في القبول ويحتمل المنع.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 8,
+    "start_word": 125,
+    "end_word": 144,
+    "text_snippet": "وقد ذكر المرزباني عن أبي زيد النحوي قال: \" كل ما",
+    "scholarly_function": "narration",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 9,
+    "start_word": 145,
+    "end_word": 176,
+    "text_snippet": "وقد وضع المولدون اشعارا ودسوها على الأئمة فاحتجوا",
+    "scholarly_function": "example",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 10,
+    "start_word": 177,
+    "end_word": 189,
+    "text_snippet": "ومن الأسباب الحاملة على ذلك: نصرة رأي ذهب إليه ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 11,
+    "start_word": 190,
+    "end_word": 237,
+    "text_snippet": "وقال ابن النحاس في (التعليقة):\n\" حكي الحريري في",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 12,
+    "start_word": 238,
+    "end_word": 238,
+    "text_snippet": "الثالث",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 239,
+    "end_word": 254,
+    "text_snippet": "المسموع الفرد: هل يقبل ويحتج به؟ له أحوال لخصته",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 255,
+    "end_word": 301,
+    "text_snippet": "أحدها: أن يكون فردا بمعنى أنه لا نظير له في الأ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 15,
+    "start_word": 302,
+    "end_word": 368,
+    "text_snippet": "الحال الثاني: أن يكون فردا بمعنى أن المتكلم به ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 16,
+    "start_word": 369,
+    "end_word": 395,
+    "text_snippet": "فإن قيل: فمن أين ذلك وليس مسوغا أن يرتجل لنفسه ",
+    "scholarly_function": "refutation",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 396,
+    "end_word": 485,
+    "text_snippet": "فقد أخبرنا أبو بكر جعفر بن محمد بن الحجاج عن أبي",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 18,
+    "start_word": 486,
+    "end_word": 511,
+    "text_snippet": "ثم روى بسنده عن أبي عمرو بن العلاء قال: \" ما انته",
+    "scholarly_function": "narration",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 512,
+    "end_word": 559,
+    "text_snippet": "وعن حماد الراوية قال: \" أمر النعمان فنسخت له أشع",
+    "scholarly_function": "narration",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 560,
+    "end_word": 599,
+    "text_snippet": "قال ابن جني:\n\"فإذا كان كذلك لم يقطع على الفصيح ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 21,
+    "start_word": 600,
+    "end_word": 623,
+    "text_snippet": "وكذا إذا كان الرجل الذي سمعت منه تلك اللغة الخا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 22,
+    "start_word": 624,
+    "end_word": 639,
+    "text_snippet": "وإن احتمل أن يكون مصيبا في ذلك لغة قديمة فالصوا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 23,
+    "start_word": 640,
+    "end_word": 709,
+    "text_snippet": "الحال الثالث: أن ينفرد به المتكلم ولا يسمع من غي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 24,
+    "start_word": 710,
+    "end_word": 723,
+    "text_snippet": "فقد حكي عن رؤبة وأبيه أنهم كانا يرتجلان ألفاظا ",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 25,
+    "start_word": 724,
+    "end_word": 775,
+    "text_snippet": "أما لو جاء عن متهم أو من لم ترق به فصاحته ولا سب",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 26,
+    "start_word": 776,
+    "end_word": 806,
+    "text_snippet": "فإن كثر قائلوه إلا أنه مع هذا ضعيف الوجه في القي",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 27,
+    "start_word": 807,
+    "end_word": 843,
+    "text_snippet": "ويحتمل بأن يكون سمعه من غيره ممن ليس فصيحا وكثر",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 28,
+    "start_word": 844,
+    "end_word": 864,
+    "text_snippet": "فالأقوى أن يقبل ممن شهرت فصاحته ما يورده ويحمل أ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 29,
+    "start_word": 865,
+    "end_word": 892,
+    "text_snippet": "كما أن على القاضي قبول شهادة من ظهرت عدالته وإن",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.84
+  }
+]

@@ -1,0 +1,177 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "start_word": 0,
+    "end_word": 47,
+    "text_snippet": "‌‌تلقين المحتضر.\n13 - فإذا حضره الموت فعلى من عنده أمور:\nأ - أن يلقنوه الشهادة ل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception",
+      "evidence_hadith"
+    ],
+    "description_arabic": "تلقين المحتضر الشهادة عند حضور الموت وفضل ختم الكلام بالتوحيد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 48,
+    "end_word": 75,
+    "text_snippet": "ب ج - أن يدعوا له ولا يقولوا في حضوره إلا خيرا لقوله صلى الله عليه وسلم:\n\"إذا حض",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "الدعاء للمحتضر والنهي عن قول غير الخير عند حضوره.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 76,
+    "end_word": 142,
+    "text_snippet": "14 - وليس التلقين ذكر الشهادة بحضرة الميت وتسميعها إياه بل هو أمره بأن يقولها خل",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "حقيقة التلقين الشرعي أنه أمر المحتضر بالشهادة لا مجرد ذكرها عنده.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      8,
+      9,
+      10
+    ],
+    "start_word": 143,
+    "end_word": 217,
+    "text_snippet": "15 - وأما قراءة سورة يس عنده وتوجيهه نحو القبلة فلم يصح حديث بل كره سعيد بن المس",
+    "primary_function": "refutation",
+    "secondary_functions": [
+      "opinion_statement",
+      "narration"
+    ],
+    "description_arabic": "عدم ثبوت قراءة يس وتوجيه المحتضر للقبلة وذكر إنكار سعيد بن المسيب.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      11,
+      12
+    ],
+    "start_word": 218,
+    "end_word": 293,
+    "text_snippet": "16 - ولا بأس في أن يحضر المسلم وفاة الكافر ليعرض الإسلام عليه رجاء أن يسلم لحديث",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "جواز حضور المسلم وفاة الكافر لعرض الإسلام عليه رجاء إسلامه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      13,
+      14,
+      15,
+      16
+    ],
+    "start_word": 294,
+    "end_word": 387,
+    "text_snippet": "3- ما على الحاضرين بعد موته.\n17 - فإذا قضى وأسلم الروح فعليهم عدة أشياء:\nأب - أن",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "condition_exception",
+      "evidence_hadith"
+    ],
+    "description_arabic": "إغماض عيني الميت والدعاء له بعد قبض الروح على السنة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 388,
+    "end_word": 479,
+    "text_snippet": "ج - أن يغطوه بثوب يستر جميع بدنه لحديث عائشة رضي الله عنها: أن رسول الله صلى الل",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "condition_exception"
+    ],
+    "description_arabic": "ستر الميت بثوب كامل واستثناء المحرم من تغطية الرأس والوجه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "start_word": 480,
+    "end_word": 581,
+    "text_snippet": "هـ - أن يعجلوا بتجهيزه وإخراجه إذا بان موته لحديث أبي هريرة رضي الله عنه مرفوعا:",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "cross_reference",
+      "narration",
+      "opinion_statement"
+    ],
+    "description_arabic": "تعجيل تجهيز الميت ودفنه في بلد موته ومنع نقله إلى بلد آخر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      27,
+      28,
+      29
+    ],
+    "start_word": 582,
+    "end_word": 622,
+    "text_snippet": "ز - أن يبادر بعضهم لقضاء دينه من ماله ولو أتى عليه كله فإن لم يكن له مال فعلى ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "condition_exception",
+      "cross_reference"
+    ],
+    "description_arabic": "المبادرة إلى قضاء دين الميت من ماله ثم من جهة الدولة أو المتطوع.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحال المؤلف على أحاديث في الأصل ولم يورد نصوصها هنا، فالحكم وشروطه واضحان لكن أدلته التفصيلية خارج هذه الوحدة."
+  }
+]

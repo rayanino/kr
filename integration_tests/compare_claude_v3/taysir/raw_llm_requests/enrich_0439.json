@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0439",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n‌‌بَابُ تحريم إحداد المَرْأة أكثر من ثلاثة إلا على زوج\nالإحداد: في اللغة: المنع، فاشتق من هذه المادة إحداد المرأة، لأن الزوجة المتوفى عنها ممنوعة من الزينة، والطيب، والزواج، شرعا.\nوقد أجمع العلماء عليه، بعد استنادهم على النصوص الصحيحة الصريحة في مشروعيته.\nوله فوائد كثيرة، أكبرها أداء المرأة حق زوجها الذي هو أعظم الناس حقا عليها، وذلك بإظهار التأثُّر لفراقه.\nوتحيط نفسها أيضا بحمى من ترك الزينة عن أعين الخُطَّاب، صيانة لحرمة الزوج مدة التربص.\nعَنْ زَينبَ بِنْتِ أم سَلمَةَ قَالَت: تُوُفي حَمِيمٌ لأم حَبيبة، فدَعَتْ بِصُفرَةٍ فمسحَتْ بِذِراعَيْهَا فَقَالَتْ: إنَّما أصْنَعُ هذَا لأنِّي سمِعْتُ رسُول الله صلى الله عليه وسلم يقول: \"لا يَحِلُّ لامْرَأةٍ تُؤمِن بالله واليَوم الآخِر أن تُحِدَّ عَلَى مَيِّتٍ فَوْق ثَلاثٍ إلا عَلَى زوْج أربَعَةَ أشْهُر وَعَشْرا\"\nالحميم: القرابة.\nالغريب:\nحميم: القريب. وجاء في بعض روايات الصحيحين أن المتوفى أبوها، أبو سفيان.\nبصفرة: بضم الصاد وسكون الفاء، طيب فيه زعفران أو ورْس.\nأن تحد: بضم التاء وكسر الحاء، رباعي ماضيه (أحَد) .\nويجوز فتح التاء وضم الحاء، يقال: أحدت المرأة، وحدَّث فهي مُحِدٌّ وحَادٌّ، ولا يقال حادة بالهاء.\nالمعنى الإجمالي:\nتوفى والد أم حبيبة،: كانت قد سمعت النهْيَ عن الإحداد فوق ثلاث إلا على زوج.\nفأرادت تحقيق الامتثال، فدعت بطيب مخلوط بصفرة، فمسحت ذراعيها، وبيَّنت سبب تطيبها، وهو أنها سمعت النبي صلى الله عليه وسلم يقول: \"لا يحل لامرأة تؤمن بالله واليوم الآخر، أن تحد على ميت فوق ثلاث، إلا على زوج أربعة أشهر وعشراً\".\nما يؤخذ من الحديث:\n1- تحريم الإحداد على ميت أكثر من ثلاثة أيام، إلا المرأة على زوجها.\n2- إباحة الثلاث على غير الزوج، تخفيفا للمصيبة، وترويحاً للنفس بإبدائها شيئاً من التأثر على الحبيب المفارق.\n</text>"
+    }
+  ]
+}

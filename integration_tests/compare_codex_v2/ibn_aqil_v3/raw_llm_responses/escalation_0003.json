@@ -1,0 +1,12 @@
+{
+  "call_id": "escalation_0003",
+  "latency_seconds": 23.17,
+  "model": "google/gemini-2.5-pro",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"author_id\": \"ابن عقيل\",\n  \"reasoning\": \"The text consists of a verse from Alfiyyat Ibn Malik followed by its commentary (Sharh). In the context of 'Sharh Ibn Aqil', the primary authorial voice of the segment is the commentator, Ibn Aqil. The presence of Matn (Ibn Malik) and poetic citations (Shawahid) is standard for this genre and does not render the attribution 'unknown'; rather, they are the objects of Ibn Aqil's analysis.\"\n}\n"
+}

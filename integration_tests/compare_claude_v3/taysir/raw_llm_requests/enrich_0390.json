@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0390",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nوالربع، وعلى ما تراضى عليه الشريكان جائزة، إذا كانت الحصص معلومة، والشروط الفاسدة معدومة. وهى عمل المسلمين في بلدان الإسلام وأقطار الأرض، شرقها وغربها، لا أعلم أني رأيت أو سمعت أهل بلد أو صقع من نواحي الأرض التي يسكنها المسلمون يبطلون العمل بها.\nثم قال الخطابي رحمه الله عن حديث رافع في الإجارة بالماذيانات وأقبال الجداول قال: فقد أعلمك رافع في هذا الحديث: أن المنهي عنه هو المجهول منه دون المعلوم، وأنه كان من عادتهم أن يشترطوا شروطاً فاسدة وأن يستثنوا من الزرع ما على السواقى والجداول، فيكون خاصاً لرب المال.\nوالمزارعة شركة، وحصة الشريك لا يجوز أن تكون مجهولة وقد يسلم ما على السواقى ويهلك سائر الزرع، فيبقى المزارع لا شيء له، وهذا غرر وخطر.\nوإذا اشترط رب المال على المضارب دراهم لنفسه زيادة على حصة الربح المعلومة، فسدت المضاربة، وهذا وذاك مواء.\nوأصل المضاربة في السنة المزارعة والمساقاة، فكيف يجوز أن يصح الفرع، ويبطل الأصل؟! ا. هـ. كلام الخطابي قدس الله روحه. وهو توجيه جليل، بلفظ قليل. وقال شيخ الإسلام والمقصود أن النبي صلى الله عليه وسلم نهى عن المشاركة التي هي كراء الأرض بالمعنى العام إذا اشترط لرب الأرض منها زرع مكان بعينه. والأمر في ذلك كما قال الليث بن سعد؛ فقد بين أن الذي نهى عنه النبي صلى الله عليه وسلم شيء إذا نظر فيه ذو بصيرة بالحلال والحرام علم أنه حرام.\nوبهذا تبين أن المزارعة والمساقاة، عقدان صحيحان جائزان، وأن القول بجوازهما هو مذهب جمهور الأمة، سلفا وخلفا، وأنه عمل المسلمين، قديماً وحديثاً.\nفائدة:\nقال شيخ الإسلام:\nالجمهور يقولون: الشركة نوعان: شركة أملاك، وشركة عقود. وشركة العقود أصلا لا تفتقر إلى شركة الأملاك، كما أن شركة الأملاك لا تفتقر إلى شركة العقود، وإن كانا قد يجتمعان.\nوالمضاربة شركة عقود بالإجماع، والمساقاة والمزارعة. وإن كان من الفقهاء من يزعم أنهما من باب الإجارة، وأنهما على خلاف القياس- فالصواب أنهما أصل مستقل، وهو من باب المشاركة، لا من باب الإجارة وهي على وفق قياس المشاركات.\n</text>"
+    }
+  ]
+}

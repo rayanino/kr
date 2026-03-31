@@ -1,0 +1,12 @@
+{
+  "call_id": "escalation_0004",
+  "latency_seconds": 20.47,
+  "model": "google/gemini-2.5-pro",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"author_id\": \"ابن عقيل\",\n  \"reasoning\": \"النص مقتبس من كتاب «شرح ابن عقيل على ألفية ابن مالك»، وهو يتبع هيكلية الشرح النمطي: إيراد بيت الناظم (ابن مالك) ثم تعقيبه بالشرح النثري والتحليل النحوي وسياق الشواهد الشعرية، مما يجعل الوحدة في مجملها منسوبة للشارح ابن عقيل.\"\n}\n"
+}

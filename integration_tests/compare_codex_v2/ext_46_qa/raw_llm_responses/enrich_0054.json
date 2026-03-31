@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0054",
+  "latency_seconds": 218.34,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1,2,3],\"start_word\":0,\"end_word\":39,\"text_snippet\":\"تنبيه\\nكان قوم من النحاة المتقدمين يعيبون على عاصم وحمزة وابن عامر قراءات بعيدة ف\",\"primary_function\":\"refutation\",\"secondary_functions\":[\"structural_transition\",\"opinion_statement\",\"evidence_rational\"],\"description_arabic\":\"بيان خطأ الطعن في قراءات الأئمة وأن تواترها دليل على جوازها في العربية\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":1,\"segment_indices\":[4,5,6,7],\"start_word\":40,\"end_word\":108,\"text_snippet\":\"وقد رد المتأخرون منهم ابن مالك، على من عاب عليهم ذلك بأبلغ رد، واختار جواز ما ور\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[\"evidence_quran\"],\"description_arabic\":\"عرض احتجاج ابن مالك بالقراءات على جواز العطف والفصل وسكون لام الأمر\",\"self_containment\":\"PARTIAL\",\"self_containment_notes\":\"تحتاج ضمائر منهم وعليهم وذلك وقراءاتهم إلى استحضار السياق السابق، وهو طعن بعض النحاة في قراءات عاصم وحمزة وابن عامر.\"},{\"unit_index\":2,\"segment_indices\":[8,9,10,11,12,13],\"start_word\":109,\"end_word\":276,\"text_snippet\":\"فإن قلت فقد روي عن عثمان أنه قال: لما عرض عليه المصاحف: إن فيه لحنا ستقيمه العر\",\"primary_function\":\"refutation\",\"secondary_functions\":[\"narration\",\"evidence_rational\",\"cross_reference\"],\"description_arabic\":\"ذكر إيراد آثار عثمان وعائشة في دعوى اللحن ثم الجواب باستحالته على الصحابة\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":3,\"segment_indices\":[14,15,16,17,18,19],\"start_word\":277,\"end_word\":406,\"text_snippet\":\"وأحسن ما يقال في أثر عثمان _ رضي الله عنه _ بعد تضعيفه بالاضطراب الواقع في إسناد\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[\"narration\",\"evidence_rational\",\"cross_reference\"],\"description_arabic\":\"بيان أحسن توجيه لأثر عثمان بحمل الرواية على التحريف أو على غير لسان قريش\",\"self_containment\":\"PARTIAL\",\"self_containment_notes\":\"جواب أثر عثمان مكتمل في الجملة، لكن خاتمة الوحدة تحيل إلى جواب أثر عائشة خارجها، فلا يكتمل هذا الشق إلا بالرجوع إلى السياق الآخر.\"}],\"total_units\":4,\"notes\":null}\n"
+}

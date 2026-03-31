@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0002",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "openai/gpt-5.4",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nالمسألة الثانية\n\nللنحو حدود شتى، وأليقها بهذا الكتاب قول ابن جني (في الخصائص):\n\" هو انتحاء سمت كلام العرب في تصرفه من إعراب وغيره كالتثنية، والجمع، والتحقير، والتكسير، والإضافة، والنسب، والتركيب، وغير ذلك ليلحق من ليس من أهل اللغة العربية بأهلها في الفصاحة، فينطق بها، وإن لم يكن منهم، وإن شد بعضهم عنها رد به إليها.\nوهو في الأصل مصدر شائع، أي نحوت نحوا، كقولك، قصدت قصدا ثم خص به انتحاء هذا هذا القبيل من العلم، كما أن الفقه، في الأصل مصدر فقهت الشيء، أي عرفته، ثم خص به علم الشريعة من التحليل والتحريم، وكما أن بيت الله خص به الكعبة، وإن كانت البيوت كلها لله، وله نظائر في قصر ما كان شائعا في جنسه على أحد أنواعه. وقد استعملته العرب ظرفا، وأصله المصدر. انتهى.\nوقال صاحب (المستوفي):\" النحو صناعة علمية ينظر لها أصحابها في ألفاظ العرب من جهة ما يتألف بحسب استعمالهم لتعرف النسبة بين صيغة النظم وصورة المعنى، فيتوصل بإحداهما إلى الأخرى \".\nوقال الخضراوي:\n\" النحو علم بأقيسة تغيير ذوات الكلم وأواخرها بالنسبة إلى لغة لسان العرب \".\nوقال ابن عصفور:\n\" النحو علم مستخرج بالمقاييس المستنبطة من استقراء كلام العرب الموصلة إلى معرفة أحكام أجزائه التي ائتلف منها \".\nوانتقده ابن الحاج بأنه ذكر ما يستخرج به النحو وتبيين ما يستخرج به الشيء ليس تبيينا لحقيقة النحو، وبأن فيه المقاييس شيء غير النحو، وعلم مقاييس كلام العرب هو النحو.\nوقال صاحب (البديع):\n\" النحو صناعة علمية يعرف بها أحوال كلام العرب من جهة ما يصح ويفسد في التأليف ليعرف الصحيح من الفاسد \".\nوبهذا يعلم أن المراد بالعلم المصدر به حدود العلوم: الصناعة، ويندفع الإيراد الأخير على كلام ابن عصفور.\nوقال ابن السراج في (الأصول):\n\" النحو علم استخرجه المتقدمون من استقراء كلام العرب \".\n</text>"
+    }
+  ]
+}

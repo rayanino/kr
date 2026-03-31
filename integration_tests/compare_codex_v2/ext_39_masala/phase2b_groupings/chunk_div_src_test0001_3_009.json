@@ -1,0 +1,233 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "12- حمل الجناة واتباعها.",
+    "primary_function": "structural_transition",
+    "secondary_functions": [],
+    "description_arabic": "عنوان فصل في حمل الجنازة واتباعها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2,
+      3
+    ],
+    "start_word": 4,
+    "end_word": 59,
+    "text_snippet": "44 - ويجب‌‌ حمل الجنازة واتباعها وذلك من حق الميت المسلم على المسلمين وفي ذلك",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان وجوب حمل الجنازة واتباعها وأنهما من حقوق المسلم على المسلمين.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 60,
+    "end_word": 225,
+    "text_snippet": "45 - واتباعها على مرتبتين:\nالأولى: اتباعها من عند أهلها حتى الصلاة عليها.\nوالأخ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان مرتبتي اتباع الجنازة من بيت أهلها إلى الصلاة أو إلى الفراغ من الدفن.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6
+    ],
+    "start_word": 226,
+    "end_word": 289,
+    "text_snippet": "46 - ولا شك في أن المرتبة الأخرى أفضل من الأولى لقوله صلى الله عليه وسلم:\n\"من شه",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن اتباع الجنازة إلى الدفن أفضل من الاقتصار على الصلاة لعظم الأجر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      7
+    ],
+    "start_word": 290,
+    "end_word": 338,
+    "text_snippet": "47 - وهذا الفضل في اتباع الجنائز إنما هو للرجال دون النساء لنهي النبي صلى الله",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "بيان أن فضل اتباع الجنائز مختص بالرجال وأن نهي النساء عنه نهي تنزيه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      8
+    ],
+    "start_word": 339,
+    "end_word": 372,
+    "text_snippet": "48 - ولا يجوز أن تتبع الجنائز بما يخالف الشريعة وقد جاء النص فيها على أمرين:",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "بيان النهي عن اتباع الجنازة بما يخالف الشرع كالصياح والبخور.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "start_word": 373,
+    "end_word": 574,
+    "text_snippet": "49 - ويلحق بذلك رفع الصوت بالذكر أمام الجنازة لأنه بدعة ولقول قيس بن عباد:",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "narration",
+      "evidence_rational",
+      "example",
+      "opinion_statement",
+      "cross_reference",
+      "evidence_ijma"
+    ],
+    "description_arabic": "بيان بدعية رفع الذكر والقراءة والآلات مع الجنازة ووجوب السكوت.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تتضمن الوحدة إحالة إلى سنن البيهقي وكتاب آداب القراءة دون نقل نصهما، فتكمل الحجة إجمالاً لا تفصيلاً."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      18,
+      19,
+      20
+    ],
+    "start_word": 575,
+    "end_word": 647,
+    "text_snippet": "50 - ويجب الإسراع في السير بها سيرا دون الرمل لقوله صلى الله عليه وسلم:\n\"أسر",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان وجوب الإسراع بالجنازة سيرا معتدلا وتحريم التباطؤ المخالف للسنة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      21,
+      22,
+      23,
+      24
+    ],
+    "start_word": 648,
+    "end_word": 770,
+    "text_snippet": "51 - ويجوز المشي أمامها وخلفها وعن يمينها ويسارها على أن يكون قريبا منها إلا",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "rule_statement",
+      "opinion_statement"
+    ],
+    "description_arabic": "بيان جواز المشي أمام الجنازة وخلفها وعن جانبيها مع كون الأفضل خلفها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      25,
+      26,
+      27
+    ],
+    "start_word": 771,
+    "end_word": 932,
+    "text_snippet": "54 - ويجوز الركوب بشرط أن يسير وراءها لقوله صلى الله عليه وسلم في الحديث المتقدم",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "بيان حكم الركوب مع الجنازة وبعد الانصراف عنها وأن المشي أفضل.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "start_word": 933,
+    "end_word": 1231,
+    "text_snippet": "56 - وأما حمل الجنازة على عربة أو سيارة مخصصة للجنائز وتشييع المشيعين لها وهم في",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_rational",
+      "cross_reference",
+      "evidence_ijma",
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان عدم مشروعية نقل الجنازة على السيارات وذكر علل المنع ومفاسده.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تتضمن الوحدة إحالة خارجية إلى أحاديث كثيرة في كتاب آخر دون نقل نصوصها، مع بقاء علل المنع الأساسية مفهومة داخل الوحدة."
+  },
+  {
+    "unit_index": 11,
+    "segment_indices": [
+      36,
+      37
+    ],
+    "start_word": 1232,
+    "end_word": 1307,
+    "text_snippet": "57 - والقيام لها منسوخ. وهو على نوعين:\nأ - قيام الجالس إذا مرت به.\nب - وقيام الم",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان نسخ القيام للجنازة بنوعيه عند مرورها وعند الوصول إلى القبر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 12,
+    "segment_indices": [
+      38
+    ],
+    "start_word": 1308,
+    "end_word": 1324,
+    "text_snippet": "ويستحب لمن حملها أن يتوضأ لقوله صلى الله عليه وسلم:\n\"من غسل ميتا فليغتسل ومن حمل",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [],
+    "description_arabic": "بيان استحباب الوضوء لمن حمل الجنازة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

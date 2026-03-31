@@ -1,0 +1,111 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1
+    ],
+    "start_word": 0,
+    "end_word": 33,
+    "text_snippet": "6-‌‌ ما يحرم على أقارب الميت.\n22 - لقد حرم رسول الله صلى الله عليه وسلم أمورا كان",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "تمهيد في بيان أن على أقارب الميت أمورا محرمة يجب اجتنابها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "وحدة افتتاحية تمهد للقائمة وتقرر وجود محرمات، لكنها لا تفصل الأفعال المحرمة داخلها."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      2,
+      3
+    ],
+    "start_word": 34,
+    "end_word": 60,
+    "text_snippet": "أ - النياحة1 وفيها أحاديث كثيرة تراها في الأصل منها قوله صلى الله عليه وسلم: \"اث",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "بيان تحريم النياحة على الميت والاستدلال بحديث عدها من خصال الكفر.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 61,
+    "end_word": 83,
+    "text_snippet": "ب - ج - ضرب الخدود وشق الجيوب لقوله صلى الله عليه وسلم:\n\"ليس منا من لطم الخدود و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "تحريم لطم الخدود وشق الجيوب واعتبارهما من أعمال الجاهلية.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7
+    ],
+    "start_word": 84,
+    "end_word": 143,
+    "text_snippet": "د - حلق الشعر لحديث أبي بردة بن أبي موسى قال:\nصحيح وجع أبو موسى وجعا فغشي عليه و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "تحريم حلق الشعر عند المصيبة والاستدلال ببراءة النبي من الحالقة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "start_word": 144,
+    "end_word": 255,
+    "text_snippet": "هـ - نشر الشعر لحديث امرأة من المبايعات قالت:\nكان فيما أخذ علينا رسول الله صلى ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_qiyas",
+      "evidence_ijma",
+      "cross_reference"
+    ],
+    "description_arabic": "تحريم نشر الشعر للحزن، وإلحاق إعفاء اللحية المؤقت به، مع التنبيه لحرمة حلقها.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أصل المنع والقياس مذكوران داخل الوحدة، لكن تفصيل أدلة حرمة حلق اللحية أُحيل فيه إلى مرجع خارجي."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      14,
+      15
+    ],
+    "start_word": 256,
+    "end_word": 300,
+    "text_snippet": "ز - الإعلان عن موته على رؤوس المنائر ونحوها لأنه من النعي وقد ثبت عن حذيفة بن ال",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "تحريم الإعلان عن موت الميت من المنائر ونحوها لأنه من النعي المنهي عنه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

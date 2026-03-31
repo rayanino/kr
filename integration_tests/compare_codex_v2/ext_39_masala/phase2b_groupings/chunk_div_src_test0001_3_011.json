@@ -1,0 +1,204 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 68,
+    "text_snippet": "صفة صلاة الجنازة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "cross_reference"
+    ],
+    "description_arabic": "عدد التكبيرات الجائز في صلاة الجنازة، وأفضلية التنويع، وترجيح الأربع عند الالتزام.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "تفصيل الأحاديث التي تثبت الأربع والخمس إلى التسع غير مسوق هنا، وختم المسألة بالإحالة إلى الأصل يزيد الحاجة إلى سياق خارجي."
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3
+    ],
+    "start_word": 69,
+    "end_word": 87,
+    "text_snippet": "76 - ويشرع له أن يرفع يديه في التكبيرة الأولى وفيه",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "حكم رفع اليدين في التكبيرة الأولى وتقوية هذا العمل بالأحاديث واتفاق العلماء.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "نصا الحديثين اللذين استند إليهما الحكم غير مذكورين، وإنما ذكرت تقويتهما واتفاق العلماء على العمل."
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      4,
+      5
+    ],
+    "start_word": 88,
+    "end_word": 123,
+    "text_snippet": "77 - ثم يضع يده اليمنى على ظهر كفه اليسرى والرسغ ",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "refutation"
+    ],
+    "description_arabic": "صفة وضع اليدين على الصدر بعد التكبيرة الأولى، ورد القول بالوضع تحت السرة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أحاديث وضع اليدين على الصدر لم تسق بلفظها، بل أحيل بعضها إلى الأصل، فتبقى جهة الاستدلال مختصرة."
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "start_word": 124,
+    "end_word": 200,
+    "text_snippet": "78 - ثم يقرأ عقب التكبيرة الأولى فاتحة الكتاب وسور",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "القراءة بعد التكبيرة الأولى: الفاتحة وسورة، وتكون القراءة مخافتة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      10,
+      11,
+      12
+    ],
+    "start_word": 201,
+    "end_word": 319,
+    "text_snippet": "80 - ثم يكبر التكبيرة الثانية ويصلي على النبي صلى",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "opinion_statement"
+    ],
+    "description_arabic": "ما يفعل في التكبيرة الثانية: الصلاة على النبي، دون صيغة خاصة ثابتة للجنازة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "start_word": 320,
+    "end_word": 506,
+    "text_snippet": "81 - ثم يأتي ببقية التكبيرات ويخلص الدعاء فيها لل",
+    "primary_function": "example",
+    "secondary_functions": [
+      "rule_statement",
+      "evidence_hadith",
+      "structural_transition"
+    ],
+    "description_arabic": "أدعية الجنازة المأثورة في بقية التكبيرات، مع الإخلاص للميت وجواز الزيادة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "أصل توزيع الدعاء على بقية التكبيرات يعتمد جزئيا على حديث أبي أمامة المحال عليه لا المسوق بتمامه داخل هذه الوحدة."
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      21,
+      22
+    ],
+    "start_word": 507,
+    "end_word": 558,
+    "text_snippet": "83 - والدعاء بين التكبيرة الأخيرة والتسليم مشروع",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "مشروعية الدعاء بين التكبيرة الأخيرة والتسليم قبل الفراغ من الصلاة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      23,
+      24,
+      25
+    ],
+    "start_word": 559,
+    "end_word": 638,
+    "text_snippet": "84 - ثم يسلم تسليمتين مثل تسليمه في الصلاة المكتو",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "أن السنة في الجنازة التسليم تسليمتين على هيئة السلام في الصلاة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الاستدلال على أن المراد بالمماثلة تسليمتان يكتمل أكثر بمعرفة رواية ابن مسعود في صحيح مسلم التي أشير إليها بالمعنى دون سوق لفظها."
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      26,
+      27
+    ],
+    "start_word": 639,
+    "end_word": 668,
+    "text_snippet": "85 - ويجوز الاقتصار على التلسيمة الأولى فقط",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "جواز الاكتفاء بتسليمة واحدة في صلاة الجنازة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      28,
+      29
+    ],
+    "start_word": 669,
+    "end_word": 705,
+    "text_snippet": "86 - والسنة أن يسلم في الجنازة سرا الإمام ومن وراء",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith"
+    ],
+    "description_arabic": "إسرار الإمام والمأمومين بالتسليم في صلاة الجنازة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      30,
+      31,
+      32
+    ],
+    "start_word": 706,
+    "end_word": 780,
+    "text_snippet": "87 - ولا تجوز الصلاة على الجنازة في الأوقات الثلا",
+    "primary_function": "condition_exception",
+    "secondary_functions": [
+      "evidence_hadith",
+      "evidence_rational"
+    ],
+    "description_arabic": "النهي عن صلاة الجنازة في أوقات الكراهة الثلاثة إلا عند الضرورة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

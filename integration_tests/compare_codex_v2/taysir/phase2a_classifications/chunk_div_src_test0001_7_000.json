@@ -1,0 +1,218 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 9,
+    "text_snippet": "تيسير العلام شرح عمدة الأحكام\nللبسام",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 1,
+    "start_word": 10,
+    "end_word": 63,
+    "text_snippet": "عَنْ أمِيرِ المُؤْمِنِينَ أبي حَفْصِ \" عُمَرَ بْنِ الخَطَاب \"",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 64,
+    "end_word": 65,
+    "text_snippet": "غريب الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 66,
+    "end_word": 98,
+    "text_snippet": "1- \" إنما الأعمال بالنيات \" كلمة [إنما] ،",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 4,
+    "start_word": 99,
+    "end_word": 104,
+    "text_snippet": "2- \" النية \" لغة: القصد.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 105,
+    "end_word": 109,
+    "text_snippet": "ووقع بالإفراد في أكثر الروايات.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 110,
+    "end_word": 129,
+    "text_snippet": "قال البيضاوي النية عبارة عن انبعاث القلب نحو ما يراه",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 7,
+    "start_word": 130,
+    "end_word": 138,
+    "text_snippet": "وشرعا: العزم على فعل العبادة تقربا إلى الله تعالى.",
+    "scholarly_function": "definition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 8,
+    "start_word": 139,
+    "end_word": 151,
+    "text_snippet": "3- \" فمن كانت هجرته … الخ \" مثال يقرر ويوضح القاعدة",
+    "scholarly_function": "example",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 9,
+    "start_word": 152,
+    "end_word": 159,
+    "text_snippet": "4- \" فمن كانت هجرته \" جملة شرطية.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 10,
+    "start_word": 160,
+    "end_word": 190,
+    "text_snippet": "5- \"فهجرته إلى الله ورسوله \" جواب الشرط،",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 11,
+    "start_word": 191,
+    "end_word": 192,
+    "text_snippet": "المعنى الإجمالي:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 193,
+    "end_word": 214,
+    "text_snippet": "هذا حديث عظيم وقاعدة جليلة من قواعد الإسلام هي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 13,
+    "start_word": 215,
+    "end_word": 250,
+    "text_snippet": "فإن النبي صلى الله عليه وسلم يخبر أن مدار الأعمال على النياتْ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 14,
+    "start_word": 251,
+    "end_word": 306,
+    "text_snippet": "ثم ضرب رسول الله صلى الله عليه وسلم مثلَا يوضح هذه القاعدة",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 15,
+    "start_word": 307,
+    "end_word": 311,
+    "text_snippet": "والنية تمييز العبادة عن العادة،",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 16,
+    "start_word": 312,
+    "end_word": 326,
+    "text_snippet": "فالغسل - مثلا - يقصد عن الجنابة، فيكون عبادة،",
+    "scholarly_function": "example",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 327,
+    "end_word": 330,
+    "text_snippet": "وللنية في الشرع حالتان:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 331,
+    "end_word": 346,
+    "text_snippet": "أحدها: الإخلاص في العمل لله وحده، هو المعنى الأسمى،",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 347,
+    "end_word": 356,
+    "text_snippet": "الثاني: تمييز العبادات بعضها عن بعض، وهذا يتحدث عنه",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 20,
+    "start_word": 357,
+    "end_word": 370,
+    "text_snippet": "وهذا من الأحاديث الجوامع التي يجب الاعتناء بها وتفهمها،",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 21,
+    "start_word": 371,
+    "end_word": 390,
+    "text_snippet": "وقد افتتح به الإمام البخاري- رحمه الله تعالى- صحيحه",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 22,
+    "start_word": 391,
+    "end_word": 394,
+    "text_snippet": "ما يؤخذ من الحديث:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 395,
+    "end_word": 455,
+    "text_snippet": "1- إن مدار الأعمال على النيات، صحة، وفَساداً، وكمالا،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 24,
+    "start_word": 456,
+    "end_word": 482,
+    "text_snippet": "2- أن النية شرط أساسي في العمل، ولكن بلا غُلُوّ في",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 25,
+    "start_word": 483,
+    "end_word": 490,
+    "text_snippet": "3- أن النية مَحلُّها القلب، واللفظ بها بدعة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 491,
+    "end_word": 506,
+    "text_snippet": "4- وجوب الحذر من الرياء والسمعة والعمل لأجل الدنيا،",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  }
+]

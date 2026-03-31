@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0007",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n4-‌‌ ما يجوز للحاضرين وغيرهم.\n18 - ويجوز لهم كشف وجه الميت وتقبيله بين عينيه لتقبيل أبي بكر النبي صلى الله عليه وسلم بعد موته والبكاء عليه ثلاثة أيام لحديث صحيح عائشة رضي الله عنها قالت:\nأقبل أبو بكر رضي الله عنه على فرسه من مسكنه ب السنح حتى نزل فدخل على المسجد وعمر يكلم الناس فلم يكلم الناس حتى دخل على عائشة رضي الله عنها فتيمم النبي صلى الله عليه وسلم وهو مسجى ببردة حبرة فكشف عن وجهه ثم أكب عليه فقبله بين عينيه ثم بكى فقال: بأبي أنت وأمي يا نبي الله لا يجمع الله عليك موتتين أما الموتة التي عليك فقد متها وفي رواية: لقد مت الموتة التي لا تموت بعدها.\nوحديث عبد الله بن جعفر رضي الله عنه:\nأن النبي صلى الله عليه وسلم أمهل آل جعفر ثلاثا أن يأتيهم ثم أتاهم فقال:\n\"لا تبكوا على أخي بعد اليوم\". . الحديث.\nوسيأتي لفظه في التعزية إن شاء الله تعالى\nصحيح وحديث أنس رضي الله عنه قال:\nدخلنا مع رسول الله صلى الله عليه وسلم على أبي سيف - وكان ظئرا1لإبراهيم عليه السلام فأخذ رسول الله صلى الله عليه وسلم صلى الله عليه وسلم إبراهيم فقبله وشمه.\nثم دخلنا عليه بعد ذلك وإبراهيم يجود بنفسه فجعت عينا رسول الله صلى الله عليه وسلم تذرفان فقال له عبد الرحمن بن عوف: وأنت يا رسول الله؟ فقال: \"يا ابن عوف؟ إنها رحمة\".\nثم أتبعها بأخرى فقال:\n\"إن العين لتدمع والقلب يحزن ولا نقول إلا ما نرضي ربنا وإنا بفراقك يا إبراهيم لمحزونون\".\n</text>"
+    }
+  ]
+}

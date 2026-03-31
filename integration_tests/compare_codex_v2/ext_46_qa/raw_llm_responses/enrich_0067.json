@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0067",
+  "latency_seconds": 308.89,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"teaching_units\": [\n    {\n      \"unit_index\": 0,\n      \"segment_indices\": [0, 1, 2],\n      \"start_word\": 0,\n      \"end_word\": 54,\n      \"text_snippet\": \"الفصل الثاني\\nفي المقيس\\nوهل يوصف بأنه من كلام العرب أو لا؟\\n\\nقال المازني:\\n\\\"ما قيس \",\n      \"primary_function\": \"rule_statement\",\n      \"secondary_functions\": [\"structural_transition\", \"evidence_rational\"],\n      \"description_arabic\": \"إثبات أن ما قيس على كلام العرب فهو منه، وشرح ذلك بقياس ما لم يُسمع على ما سُمِع.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 1,\n      \"segment_indices\": [3, 4, 5, 6, 7, 8],\n      \"start_word\": 55,\n      \"end_word\": 233,\n      \"text_snippet\": \"قال أبو علي:\\nوكذلك يجوز أن تبني بإلحاق اللام ما شئت كقولك: خرجج ودخلل وضربب من خ\",\n      \"primary_function\": \"rule_statement\",\n      \"secondary_functions\": [\"example\", \"refutation\", \"condition_exception\", \"evidence_rational\"],\n      \"description_arabic\": \"جواز إحداث أبنية على أوزان العرب، مع جواب اعتراض الخليل بأن المنع خاص بما ثقل من اللام الحلقية.\",\n      \"self_containment\": \"PARTIAL\",\n      \"self_containment_notes\": \"يفتتح بلفظ «وكذلك» المحيل على القاعدة السابقة في الوحدة الأولى، وهي أن ما قيس على كلام العرب فهو من كلامهم.\"\n    },\n    {\n      \"unit_index\": 2,\n      \"segment_indices\": [9, 10],\n      \"start_word\": 234,\n      \"end_word\": 286,\n      \"text_snippet\": \"وقال في موضع آخر من الخصائص:\\n\\\"من قوة القياس عندهم اعتقاد النحويين أن ما قيس على \",\n      \"primary_function\": \"rule_statement\",\n      \"secondary_functions\": [\"editorial_note\"],\n      \"description_arabic\": \"تقرير أن القياس الصحيح يكون على الأكثر استعمالًا والأقوى، وأن البناء على الأضعف ليس من كلام العرب.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    }\n  ],\n  \"total_units\": 3,\n  \"notes\": null\n}\n"
+}

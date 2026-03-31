@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0035",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nالكتاب الأول\n\nفي‌‌ السماع وأعني به ما ثبت في كلام من يوثق بفصاحته، فشمل كلام الله تعالى، وكلام نبيه صلى الله عليه وسلم، وكلام العرب، قبل بعثته، وفي زمنه، وبعده، إلى أن فسدت الألسنة بكثرة المولدين، نظما ونثرا، عن مسلم أو كافر.\nفهذه ثلاثة أنواع، لابد في كل منها من الثبوت.\nأما القرآن فكل ما ورد أنه قريء به جاز الاحتجاج به في العربية، سواء كان متواترا، أو آحادا، أم شاذا.\nوقد أطبق الناس على الاحتجاج بالقراءات الشاذة في العربية إذا لم تخالف قياسا معلوما، بل ولو خالفته يحتج بها في مثل ذلك الحرف بعينه، وإن لم يجز القياس عليه، كما يحتج بالمجمع على وروده ومخالفته القياس في ذلك الوارد بعينه، ولا يقاس عليه، نحو: استحوذ، ويأبى.\nوما ذكرته من الاحتجاج بالقراءة الشاذة لا أعلم فيه خلافا بين النحاة، وإن اختلف في الاحتجاج بها في الفقه.\nومن ثم احتج على جواز إدخال لام الأمر على المضارع المبدوء بتاء الخطاب بقراءة (فبذلك فلتفرحوا) ، كما احتج على إدخالها على المبدوء بالنون بالقراءة المتواترة (ولنحمل خطاياكم).\nواحتج على صحة قول من قال: إن (الله) أصله (لاه) بما قرئ شاذا {وهو الذي في السماء لاه وفي الأرض لاه}\n</text>"
+    }
+  ]
+}

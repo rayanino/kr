@@ -1,0 +1,546 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "13-‌‌ الصلاة على الجنازة.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 26,
+    "text_snippet": "58 - والصلاة على الميت المسلم فرض كفاية لأمره ص",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 2,
+    "start_word": 27,
+    "end_word": 68,
+    "text_snippet": "صحيح أن رجلا من أصحاب النبي صلى الله عليه وسلم",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 69,
+    "end_word": 78,
+    "text_snippet": "59 - ويستثنى من ذلك شخصان فلا تجب الصلاة عليهما",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 79,
+    "end_word": 83,
+    "text_snippet": "الأول: الطفل الذي لم يبلغ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 5,
+    "start_word": 84,
+    "end_word": 123,
+    "text_snippet": "لأن النبي صلى الله عليه وسلم لم يصل على ابنه إب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 6,
+    "start_word": 124,
+    "end_word": 139,
+    "text_snippet": "الثاني: الشهيد لأن النبي صلى الله عليه وسلم لم ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 7,
+    "start_word": 140,
+    "end_word": 153,
+    "text_snippet": "ولكن ذلك لا ينفي مشروعية الصلاة عليهما بدون وجو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 8,
+    "start_word": 154,
+    "end_word": 161,
+    "text_snippet": "60 - وتشرع الصلاة على من يأتي ذكرهم:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 9,
+    "start_word": 162,
+    "end_word": 174,
+    "text_snippet": "الأول: الطفل: ولو كان سقطا وهو الذي يسقط من بطن",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 10,
+    "start_word": 175,
+    "end_word": 194,
+    "text_snippet": "لقوله صلى الله عليه وسلم في الحديث المتقدم المس",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 11,
+    "start_word": 195,
+    "end_word": 219,
+    "text_snippet": "والظاهر أن السقط إنما يصلى عليه إذا كان قد نفخت",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 220,
+    "end_word": 225,
+    "text_snippet": "لأنه ليس بميت كما لا يخفى.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 13,
+    "start_word": 226,
+    "end_word": 265,
+    "text_snippet": "وأصل ذلك حديث عبد اله بن مسعود رضي الله عنه مرف",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 14,
+    "start_word": 266,
+    "end_word": 273,
+    "text_snippet": "الثاني: الشهيد وفيه أحاديث كثيرة أكتفي بذكر بعض",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 15,
+    "start_word": 274,
+    "end_word": 308,
+    "text_snippet": "1 - حسن عن عبد الله بن الزبير:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 16,
+    "start_word": 309,
+    "end_word": 409,
+    "text_snippet": "2 - عن عقبة بن عامر الجهني:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 17,
+    "start_word": 410,
+    "end_word": 417,
+    "text_snippet": "الثالث: من قتل في حد من حدود الله",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 18,
+    "start_word": 418,
+    "end_word": 511,
+    "text_snippet": "لحديث عامر بن حصين:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 512,
+    "end_word": 558,
+    "text_snippet": "الرابع: الفاجر المنبعث في المعاصي والمحارم مثل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 20,
+    "start_word": 559,
+    "end_word": 593,
+    "text_snippet": "عن أبي قتادة قال: كان رسول الله صلى الله عليه و",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 21,
+    "start_word": 594,
+    "end_word": 622,
+    "text_snippet": "الخامس: المدين الذي لم يترك من المال ما يقضي به",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 22,
+    "start_word": 623,
+    "end_word": 725,
+    "text_snippet": "1 - عن سلمة بن الأكوع قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 23,
+    "start_word": 726,
+    "end_word": 797,
+    "text_snippet": "2 - عن أبي هريرة:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 24,
+    "start_word": 798,
+    "end_word": 834,
+    "text_snippet": "السادس: من دفن قبل أن يصلى عليه أو صلى عليه بعض",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 25,
+    "start_word": 835,
+    "end_word": 887,
+    "text_snippet": "عن عبد الله بن عباس رضي الله عنهما قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 26,
+    "start_word": 888,
+    "end_word": 915,
+    "text_snippet": "السابع: من مات في بلد ليس فيها من يصلي عليه صلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 916,
+    "end_word": 943,
+    "text_snippet": "وقد رواها جماعة من أصحابه صلى الله عليه وسلم يز",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 28,
+    "start_word": 944,
+    "end_word": 1052,
+    "text_snippet": "إن رسول الله صلى الله عليه وسلم نعى للناس وهو ب",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1053,
+    "end_word": 1126,
+    "text_snippet": "قال ابن القيم رحمه الله في زاد المعاد 1 / 205 / ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1127,
+    "end_word": 1200,
+    "text_snippet": "فقابل هذا بما عليه كثير من المسلمين اليوم من ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1201,
+    "end_word": 1232,
+    "text_snippet": "61 - وتحرم الصلاة والاستغفار والترحم على الكفار",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1233,
+    "end_word": 1309,
+    "text_snippet": "ولحديث علي رضي الله عنه قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1310,
+    "end_word": 1330,
+    "text_snippet": "قال النووي رحمه الله تعالى في المجموع 5 / 144، ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1331,
+    "end_word": 1453,
+    "text_snippet": "قلت: ومن ذلك تعلم خطأ بعض المسلمين اليوم في الت",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1454,
+    "end_word": 1466,
+    "text_snippet": "62 - وتجب الجماعة في صلاة الجنازة كما تجب في ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1467,
+    "end_word": 1474,
+    "text_snippet": "الأول: مداومة النبي صلى الله عليه وسلم عليها:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1475,
+    "end_word": 1484,
+    "text_snippet": "الآخر: قوله صلى الله عليه وسلم:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1485,
+    "end_word": 1567,
+    "text_snippet": "ولا يعكر على ما ذكرنا صلاة الصحابة على النبي صل",
+    "scholarly_function": "refutation",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1568,
+    "end_word": 1578,
+    "text_snippet": "فإن صلوا عليها فرادى سقط الفرض وأثموا بترك الجم",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1579,
+    "end_word": 1604,
+    "text_snippet": "قال النووي في المجموع 5 / 314:",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1605,
+    "end_word": 1614,
+    "text_snippet": "63 - وأقل ما ورد في انعقاد الجماعة فيها ثلاثة ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1615,
+    "end_word": 1668,
+    "text_snippet": "ففي حديث عبد الله بن أبي طلحة:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1669,
+    "end_word": 1677,
+    "text_snippet": "64 - وكلما كثر الجمع كان أفضل للميت وأنفع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1678,
+    "end_word": 1703,
+    "text_snippet": "لقوله صلى الله عليه وسلم:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1704,
+    "end_word": 1721,
+    "text_snippet": "وقد يغفر للميت ولو كان العدد أقل من مائة إذا كا",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1722,
+    "end_word": 1744,
+    "text_snippet": "لقوله صلى الله عليه وسلم: ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1745,
+    "end_word": 1764,
+    "text_snippet": "65 - ويستحب أن يصفوا وراء الإمام ثلاثة صفوف فصا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.75
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1765,
+    "end_word": 1793,
+    "text_snippet": "66 - وإذا لم يوجد مع الإمام غير رجل واحد فإنه ل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1794,
+    "end_word": 1803,
+    "text_snippet": "67 - والوالي أو نائبه أحق بالإمامة فيها من الولي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1804,
+    "end_word": 1840,
+    "text_snippet": "لحديث أبي حازم قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1841,
+    "end_word": 1865,
+    "text_snippet": "68 - فإن لم يحضر الوالي أو نائبه فالأحق بالإمام",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1866,
+    "end_word": 1906,
+    "text_snippet": "\"يؤم القوم أقرؤهم لكتاب الله فإن كانوا في القراء",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1907,
+    "end_word": 1914,
+    "text_snippet": "ويؤمهم الأقرأ ولو كان غلاما لم يبلغ الحلم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1915,
+    "end_word": 1975,
+    "text_snippet": "لحديث عمرو بن سلمة:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1976,
+    "end_word": 2005,
+    "text_snippet": "69 - وإذا اجتمعت جنائز عديدة من الرجال والنساء ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 56,
+    "start_word": 2006,
+    "end_word": 2084,
+    "text_snippet": "كما قال نافع عن ابن عمر:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 57,
+    "start_word": 2085,
+    "end_word": 2115,
+    "text_snippet": "70 - ويجوز أن يصلي على كل واحدة من الجنائز صلاة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 58,
+    "start_word": 2116,
+    "end_word": 2123,
+    "text_snippet": "71 - وتجوز الصلاة على الجنازة في المسجد",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 59,
+    "start_word": 2124,
+    "end_word": 2221,
+    "text_snippet": "لحديث عائشة رضي الله عنها قالت:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2222,
+    "end_word": 2275,
+    "text_snippet": "72 - لكن الأفضل الصلاة عليها خارج المسجد في مكا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2276,
+    "end_word": 2299,
+    "text_snippet": "ومنها حديث: أن اليهود جاؤوا إلى النبي صلى الله ",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 62,
+    "start_word": 2300,
+    "end_word": 2337,
+    "text_snippet": "قال الحافظ في الفتح:",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 63,
+    "start_word": 2338,
+    "end_word": 2345,
+    "text_snippet": "73 - ولا تجوز الصلاة عليها بين القبور",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 64,
+    "start_word": 2346,
+    "end_word": 2390,
+    "text_snippet": "لحديث أنس بن مالك رضي الله عنه:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 65,
+    "start_word": 2391,
+    "end_word": 2412,
+    "text_snippet": "وقد ذكرت ما ورد ي ذلك في أول كتابي تحذير الساجد",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 66,
+    "start_word": 2413,
+    "end_word": 2421,
+    "text_snippet": "74 - ويقف الإمام وراء رأس الرجل ووسط المرأة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 67,
+    "start_word": 2422,
+    "end_word": 2517,
+    "text_snippet": "وفيه حديثان أجمعهما حديث أبي غالب الخياط قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  }
+]

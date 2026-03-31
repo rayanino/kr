@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0328",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n‌‌باب وجوب المبيت بمنى ⌜1⌝\nالحديث الأول\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما قال: اسْتأذَنَ العَبَّاسُ بْنُ عَبْدِ الْمُطَّلِب رَسُولَ الله\nصلى الله عليه وسلم أنْ يَبِيْتَ بِمكَةَ لَيَالِي \"مِنَىً\" مِنْ أَجْلِ سِقَايَتهِ، فًأذِنَ لَهُ.\nالغريب:\nسقايته: المراد بها سقاية الحجيج؛ فخدمة الحجاج، والبيت مقسمة بين قريش.\nفكان لعبد مناف، السقاية.\nفكانوا قبل حفر زمزم يأتون بالماء بالقرب ونحوها، فلما حفرها عبد المطلب،\nأخذ يسقي الحاج منها، فوصلت بالوراثة إلى ابنه العباس، فأقَّره النبي صلى الله عليه وسلم عليها.\nالمعنى الإجمالي:\nالمبيت بـ\"منى\" ليالي التشريق، أحد واجبات الحج التي فعلها النبي صلى الله عليه وسلم.\nفإن الإقامة بـ\"منى\" تلك الليالي والأيام، من المرابطة على طاعة الله تعالى، في تلك الفجاج المباركة.\nولما كانت سقاية الحجيج من القُرَبِ المفضلة، لأنها خدمة لحجاج ببيته وأضيافه؟ رخص لعمه العباس ـ لكونه قائماً عليها – بترك المبيت بـ\"منى\" ليقوم بِسَقْي الحجاج، مما دلَّ على أن غيره، ممن لا يعمل مثل عمله، ليس له هذه الرخصة.\nما يؤخذ من الحديث:\n1- وجوب المبيت بـ\"منى\" ليالي أيام التشريق.\n2- المراد بالمبيت، الإقامة بـ\"منى\" أكثر الليل.\n3- الرخصة في ترك المبيت لسقاة الحاج، وألحقوا بهم الرعاة.\nوبعضهم ألحق أيضاً أصحاب الحاجات الضرورية، كمن له مال يخاف ضياعه، أو مريض ليس عنده من يمرضه.\n4- ما كان عليه أهل مكة في جاهليتهم من إكرام الحجاج والقيام بخدمتهم\nوتسهيل\n</text>"
+    }
+  ]
+}

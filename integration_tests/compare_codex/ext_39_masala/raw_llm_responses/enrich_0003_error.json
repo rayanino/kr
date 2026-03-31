@@ -1,0 +1,5 @@
+{
+  "call_id": "enrich_0003",
+  "error_type": "CalledProcessError",
+  "error": "Command '['C:\\\\Users\\\\Rayane\\\\AppData\\\\Roaming\\\\npm\\\\codex.CMD', 'exec', '-', '--output-schema', 'C:\\\\Users\\\\Rayane\\\\AppData\\\\Local\\\\Temp\\\\tmpl41f9ky4.json', '-s', 'read-only', '-o', 'C:\\\\Users\\\\Rayane\\\\AppData\\\\Local\\\\Temp\\\\tmpqj2dgtrd.json']' returned non-zero exit status 1."
+}

@@ -1,0 +1,9 @@
+{
+  "call_id": "enrich_0391",
+  "error_type": "CLIBackendError",
+  "error": "Subprocess failed (exit 1) after 1 attempts: ",
+  "raw_output": "You've hit your limit · resets 3am (Europe/Brussels)\n",
+  "stdout": "You've hit your limit · resets 3am (Europe/Brussels)\n",
+  "stderr": "",
+  "exit_code": 1
+}

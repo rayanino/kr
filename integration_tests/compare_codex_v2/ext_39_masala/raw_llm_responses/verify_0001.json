@@ -1,0 +1,12 @@
+{
+  "call_id": "verify_0001",
+  "latency_seconds": 171.41,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"items\":[{\"item_index\":0,\"agrees\":true,\"alternative\":null,\"confidence\":0.98,\"reasoning\":\"أوافق. الوحدة PARTIAL بوضوح؛ ليس فقط لكثرة الإحالات إلى \\\"المقدمة\\\" و\\\"ذلك الأخ العزيز\\\" وكتاب الأصل، بل أيضا لأنها منتهية ببتر ظاهر عند \\\"وسيلة م\\\"، وهذا يخل بشرط اكتمال المعنى داخل الوحدة (C-SC-4) وببعض الإحالات التي لا تُفهم كاملة من داخل النص (C-SC-2).\"},{\"item_index\":1,\"agrees\":false,\"alternative\":\"Unit should be assessed as sufficiently self-contained / complete, not PARTIAL.\",\"confidence\":0.87,\"reasoning\":\"لا أوافق. هذه الوحدة تبدو مكتفية ذاتيا من حيث الوظيفة والمعنى: هي تنبيه تحريري يشرح ما حُذف وما أُضيف في هذا التلخيص، ثم يختم بالدعاء والتوقيع والتاريخ. الإشارة إلى \\\"الأصل\\\" مفهومة من داخل النص نفسه عبر \\\"في هذا التلخيص\\\" و\\\"لم تكن في الأصل\\\"، ولا تمنع فهم الرسالة الأساسية. لذلك لا أرى أن C-SC-2 أو C-SC-4 مختلان هنا اختلالا يوجب الحكم بـ PARTIAL.\"}]}\n"
+}

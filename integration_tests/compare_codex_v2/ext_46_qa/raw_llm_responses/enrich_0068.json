@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0068",
+  "latency_seconds": 160.29,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1,2],\"start_word\":0,\"end_word\":14,\"text_snippet\":\"الفصل الثالث\\nفي الحكم\\n\\nفيه مسألتان:\\nالأولى\\nإنما يقاس على حكم ثبت استعماله عن الع\",\"primary_function\":\"rule_statement\",\"secondary_functions\":[\"structural_transition\"],\"description_arabic\":\"بيان أن القياس إنما يبنى على حكم ثبت استعماله في كلام العرب.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":1,\"segment_indices\":[3,4,5],\"start_word\":15,\"end_word\":90,\"text_snippet\":\"وهل يجوز أن يقاس على ما ثبت بالقياس والاستنباط؟\\nظاهر كلامهم: نعم\\nوقد ترجم عليه ف\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[\"cross_reference\",\"example\"],\"description_arabic\":\"بحث جواز القياس على حكم ثبت بالقياس والاستنباط مع التمثيل له من الخصائص.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":2,\"segment_indices\":[6,7,8,9,10,11],\"start_word\":91,\"end_word\":211,\"text_snippet\":\"الثانية\\nقال ابن الأنباري:\\n\\\" اختلف في القياس على الأصل المختلف في حكمه.\\nفأجازه قو\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[\"structural_transition\",\"refutation\",\"example\"],\"description_arabic\":\"عرض الخلاف في القياس على الأصل المختلف فيه وذكر حجة المجوزين والمانعين والجواب.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null}],\"total_units\":3,\"notes\":null}\n"
+}

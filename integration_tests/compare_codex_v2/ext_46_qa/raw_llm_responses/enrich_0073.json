@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0073",
+  "latency_seconds": 188.85,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1,2,3],\"start_word\":0,\"end_word\":116,\"text_snippet\":\"مسألة في الدور\\n\\nقال في الخصائص:\\n\\\" وذلك أن تؤدي الصنعة إلى حكم ما مثله أن يقتضي ا\",\"primary_function\":\"definition\",\"secondary_functions\":[\"structural_transition\",\"example\",\"rule_statement\"],\"description_arabic\":\"بيان معنى الدور الصرفي وحكمه إذا أدّى التغيير إلى الرجوع إلى ما فُرَّ منه.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null}],\"total_units\":1,\"notes\":null}\n"
+}

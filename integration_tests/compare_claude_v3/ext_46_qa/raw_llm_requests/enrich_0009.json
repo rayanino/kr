@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0009",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nالمسألة الرابعة\nفي مناسبة الألفاظ للمعاني\n\nقال في (الخصائص):\nهذا موضع شريف، نبه عليه الخليل، وسيبويه، وتلقته الجماعة بالقبول.\nقال الخليل: كأنهم توهموا في صوت الجندب استطالة، فقالوا: صر، وفي صوت البازي تقطيعا، فقالوا: صرصر.\nوقال سيبويه في المصادر التي جاءت على الفعلان: إنها تأتي للضطراب والحركة، نحو: الغليان، والغثيان، فقابلوا بتوالي حركات المثال توالي حركات الأفعال.\nقال ابن جني: وقد وجدت أشياء كثيرة من هذا النمط.\nمن ذلك المصادر الرباعية المضعفة، تأتي للتكرير، نحو: الزعزعة، والقلقلة، والصلصلة، والقعقعة، والقرقرة.\nوالفعلي تأتي للسرعة، نحو: الجمزي، والولقي.\nومن ذلك باب استفعل، جعلوه للطلب، لما فيه من تقدم حروف زائدة على الأصول، كما يتقدم الطلب الفعل، وجعلوا الأفعال الواقعة من غير طلب إنما تفجأ حروفها الأصول أو ما ضارع الأصول، نحو: خرج، وأكرم.\nوكذلك جعلوا تكرير العين دالا على تكرير الفعل، نحو، فرح، وكسر، فجعلوا قوة اللفظ لقوة المعنى وخصوا بذلك العين، لأنها أقوى من الفاء واللام، إذ هي واسطة لهما، ومكنوفة بهما فصارا كأنهما سياج لها ومبذولان للعوارض دونها، ولذلك تجد الإعلال بالحذف فيهما دونها.\n\nومن ذلك قولهم: الخضم لأكل الرطب، والقضم لأكل اليابس، فاختاروا الخاء لرخاوتها للرطب، والقاف لصلابتها لليابس.\nوالنضح للماء ونحوه، والنضخ أقوى منه، فجعلوا الحاء لرقتها للماء الخفيف، والخاء لغلظتها لما هو أقوى.\nومن ذلك قولهم: القد طولا، والقط عرضا، لأن الطاء أحصر للصوت، وأسرع قطعا له من الدال المستطيلة، فجعلوها لقطع العرض لقربه وسرعته، والدال المستطيلة لما طال من الأثر، وهو قطعه طولا.\nوهذا الباب واسع جدا، لايمكن استقصاؤه.\n</text>"
+    }
+  ]
+}

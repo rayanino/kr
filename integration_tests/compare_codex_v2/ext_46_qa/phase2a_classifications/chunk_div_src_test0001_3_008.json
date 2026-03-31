@@ -1,0 +1,90 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 11,
+    "text_snippet": "الفصل الثاني\nفي المقيس\nوهل يوصف بأنه من كلام العرب",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 12,
+    "end_word": 23,
+    "text_snippet": "قال المازني:\n\"ما قيس على كلام العرب فهو من كلام ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 24,
+    "end_word": 54,
+    "text_snippet": "قال: \" ألا ترى أنك لم تسمع أنت ولا غيرك اسم كل فاع",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 3,
+    "start_word": 55,
+    "end_word": 78,
+    "text_snippet": "قال أبو علي:\nوكذلك يجوز أن تبني بإلحاق اللام ما شئ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 4,
+    "start_word": 79,
+    "end_word": 113,
+    "text_snippet": "قال ابن جني:\n\" وكذلك تقول في مثال (صمحمح) من الضرب",
+    "scholarly_function": "example",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 5,
+    "start_word": 114,
+    "end_word": 141,
+    "text_snippet": "قال: فإن قيل: فقد منع الخليل لما أنشد:\nترافع العز ",
+    "scholarly_function": "refutation",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 6,
+    "start_word": 142,
+    "end_word": 169,
+    "text_snippet": "فالجواب: أنه إنما أنكر ذلك لأنه فيما لامه حرف حلقي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 7,
+    "start_word": 170,
+    "end_word": 203,
+    "text_snippet": "قال:\n\" فثبت إذن أن كل ما قيس على كلامهم فهو من كلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 8,
+    "start_word": 204,
+    "end_word": 233,
+    "text_snippet": "قال: \" وذكر أبو بكر أن منفعة الاشتقاق لصاحبه أن يس",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 9,
+    "start_word": 234,
+    "end_word": 285,
+    "text_snippet": "وقال في موضع آخر من الخصائص:\n\"من قوة القياس عندهم ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 10,
+    "start_word": 286,
+    "end_word": 286,
+    "text_snippet": "انتهى.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  }
+]

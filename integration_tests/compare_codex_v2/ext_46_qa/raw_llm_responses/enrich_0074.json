@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0074",
+  "latency_seconds": 103.09,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1,2],\"start_word\":0,\"end_word\":81,\"text_snippet\":\"مسألة\\nفي اجتماع ضدين\\n\\nقال في الخصائص:\\n\\\" اعلم أن التضاد في هذه اللغة جار مجرى الت\",\"primary_function\":\"rule_statement\",\"secondary_functions\":[\"structural_transition\",\"example\"],\"description_arabic\":\"يشرح قاعدة اجتماع الضدين في العربية وأن الحكم للعارض المتأخر مع أمثلة نحوية.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null}],\"total_units\":1,\"notes\":null}\n"
+}

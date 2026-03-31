@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0019",
+  "latency_seconds": 363.49,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1,2,3,4,5,6],\"start_word\":0,\"end_word\":242,\"text_snippet\":\"4-‌‌ ما يجوز للحاضرين وغيرهم.\\n18 - ويجوز لهم كشف وجه الميت وتقبيله بين عينيه لتق\",\"primary_function\":\"rule_statement\",\"secondary_functions\":[\"structural_transition\",\"evidence_hadith\",\"cross_reference\",\"editorial_note\"],\"description_arabic\":\"بيان جواز كشف وجه الميت وتقبيله والبكاء عليه ثلاثة أيام مع الاستدلال بالأحاديث.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null}],\"total_units\":1,\"notes\":null}\n"
+}

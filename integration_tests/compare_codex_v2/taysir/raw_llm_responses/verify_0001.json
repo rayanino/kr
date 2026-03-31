@@ -1,0 +1,12 @@
+{
+  "call_id": "verify_0001",
+  "latency_seconds": 98.29,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"items\":[{\"item_index\":0,\"agrees\":true,\"alternative\":null,\"confidence\":0.91,\"reasoning\":\"أوافق؛ الوحدة لا تعيد نص الحديث المشار إليه بقول «هذا حديث»، فهي ليست مكتفية تمامًا من جهة الإحالة، لكنها تشرح القاعدة نفسها وتذكر مثال الهجرة بما يكفي لفهم المضمون الأساسي داخل النص، لذا توصيفها PARTIAL صحيح.\"},{\"item_index\":1,\"agrees\":true,\"alternative\":null,\"confidence\":0.98,\"reasoning\":\"أوافق؛ الإشارة بـ«هذا» و«به» تعود إلى حديث غير مذكور داخل الوحدة، والنص هنا مجرد تقويم لذلك الحديث وبيان سبب افتتاح البخاري به، فلا ينهض مستقلاً بنفسه، ولذلك DEPENDENT وصف صحيح.\"},{\"item_index\":2,\"agrees\":true,\"alternative\":null,\"confidence\":0.81,\"reasoning\":\"أوافق؛ أصل العبارة «النية محلها القلب» عام، لكن ضمَّ إليها «واللفظ بها بدعة» ينسجم بوضوح مع التقرير الحنبلي المشهور في هذه المسألة، لذا نسبة هذا المضمون إلى المدرسة الحنبلية مناسبة.\"}]}\n"
+}

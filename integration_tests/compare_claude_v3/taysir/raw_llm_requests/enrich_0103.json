@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0103",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n‌‌بَابُ وجُوب الطّمَأنينة في الركوع والسجود\nعَنْ أبي هُرَيرةَ رضي الله عنه أنَّ رَسُولَ- الله صلى الله عليه وسلم دَخَلَ الْمَسْجِدَ فَدَخَلَ رَجُلٌ فَصَلَّى، ثمَّ جَاءَ فَسَلَّمَ عَلى النَّبيِّ صلى الله عليه وسلم فَقَالَ: \" ارْجع فَصَلِّ فَإِنَّكَ لَمْ تُصَلِّ \".\nفَرَجَعَ فَصَلى كَمَا صَلَّى، ثُم جَاءَ فَسَلمَ عَلى النَبي صلى الله عليه وسلم فَقَالَ: \" ارْجعْ فَصَلِّ، فَإنَّكَ لَمْ تُصَل\" ثلاثاً.\nفقال: وَالَّذِي بَعَثَكَ بالْحَقِّ مَا أُحْسِنُ غَيره فَعَلِّمْني.\nفقال: \"إِذا قُمْتَ إلَى الصَّلاةِ، فَكَبِّرْ، ثم اقْرأ مَا تَيَسَّر مَعَكَ مِنَ الْقرْآنِ ثم اركعْ حَتَّى تَطْمَئِنَّ رَاكِعاً، ثمَّ ارفَعْ حَتَى تَعْتدِلَ قَائِماً، مَّ اسْجُدْ حَتَّى تَطْمَئِنَّ سَاجداً، ثم ارْفعْ حَتَى تَطْمَئِنَّ جَالِساً. وَافْعَلْ ذلِكَ في صَلاتِكَ كُلِّهَاَ.\nالمعنى الإجمالي:\nهذا حديث جليل يسميه العلماء \"حديث المسيء في صلاته\" وهو عمدتهم فيما يجب في الصلاة وما لا يجب، حيث جاء من النبي صلى الله عليه وسلم موضع الاستقصاء في التعليم والتبييِن لأعمال الصلاة، التي يجب الإتيان بها ويعتبر ما ترك في هذا الحديث من فعلها غير واجب كما سنوضحه فيما بعد، إن شاء الله تعالى.\nومجمل هذا الحديث: أن النبي صلى الله عليه وسلم دخل المسجد، فدخل رجل من الصحابة، اسمه (خَلاّد بن رافع) ، فصلى صلاة غير تامة الأفعال والأقوال.\nفلما فرغ من صلاته، جاء إلى النبي صلى الله عليه وسلم، فسلم عليه فرد عليه السلام ⌜1⌝ ثم قال له: ارجع فَصَلِّ، فإنك لم تصل.\nفرجع وعمل في صلاته الثانية كما عمل في صلاته الأولى، ثم جاء إلى النبي صلى الله عليه وسلم، فقال له: ارجع فَصَلِّ فإنك لم تصل ثلاث مرات.\nفأقسم الرجل بقوله: والذي بعثك بالحق، ما أحسن غير ما فعلت فعَلِّمني\nفعندما اشتاق إلى العلم، وتاقت نفسه إليه، وتهيأ لقبوله بعد طول الترديد قال له النبي صلى الله عليه وسلم ما معناه.\nإذا قمت إلى الصلاة فكبر تكبيرة الإحرام، ثم اقرأ ما تيسر من القرآن، بعد قراءة سورة الفاتحة (2) ثم اركع حتى تطمئن راكعاً، ثم ارفع من الركوع حتى تعتدل قائما،\n</text>"
+    }
+  ]
+}

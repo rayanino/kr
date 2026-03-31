@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0438",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n4- أن عدة المتوفى عنها -غير حامل- أربعة أشهر وعشر للحرة وشهران وخمسة أيام للأمة.\n5- يباح لها التزويج، ولو لم تطهر من نفاسها، لما روت (فأفتاني بأني قد حللت حين وضعت حملي.. الخ) رواه ابن شهاب الزهري.\n6- قال شيخ الإسلام: والقرآن ليس فيه إيجاب العدة بثلاثة قروء إلا على المطلقات، لا على من فارقها زوجها بغير طلاق، ولا على من وطئت بشبهة، ولا على المزني بها.\nتوفيق بين آيتين:\nعموم قوله تعالى: {وَأوَلاتُ الأحْمَال أجلهن أنْ يَضَعْنَ حَمْلَهُنَّ} يفيد أن كل معتدة بطلاق أو موت، تنتهي عدتها، بوضع حملها.\nوعموم ِقوله تعالى: {والَذِينَ يُتَوَفَوْنَ منكم ويذرون أزواجا يَتَربصْنَ بأنفُسِهِن أربعَةَ أشْهر وَعَشْر} يفيد أن عدة كل متوفًّى عنها، أربعة أشهر وعشر، سواء كانت حاملا، أو حائلا.\nولهذا التعارض، ذهب بعض العلماء- وهم قلة- إلى أن عدة المتوفى عنها أبعد الأجلين، بالأشهر أو الحمل.\nفإن كان حملها أكثر من أربعة أشهر وعشر، اعتدت به.\nوإن وضعت قبلهن، اعتدت بالأشهر، خروجا من التعارض.\nولكن جمهور العلماء، ومنهم الأئِمة الأربعة، ذوو المذاهب الخالدة- ذهبوا إلى تخصيص آية {والَّذِينَ يُتَوَفْوْنَ منكم} الآية. بحديث سُبَيْعة، الذي معنا، فتكون الآية هذه، خاصة في غير ذوات الأحمال، وأبقوا الآية الأولى على عمومها بأن وضع الحمل غاية كل عدة في حياة أو وفاة.\nوبهذا التخصيص، تجتمع الأدلة، ويزول الإشكال.\nويقصد هذا التخصيص، أن أكبر حكم العدة، هو العلم ببراءة الرحم، وهو ظاهر بوضع الحمل.\nفائدة:\nسئل شيخ الإسلام ابن تيمية رحمه الله عن رجل ترك زوجته ست سنين ولم يترك لها نفقة، ثم بعد ذلك تزوجت رجلا ودخل بها، ثم حضر الزوج.\nفأجاب: إن النكاح الأول فسد لتعذر النفقة من جهة الزوج، وانقضت عدتها، ثم تزوجت الثاني فنكاحه صحيح، وإن كانت تزوجت الثاني قبل فسخ نكاح الأول فنكاحه باطل.\n</text>"
+    }
+  ]
+}

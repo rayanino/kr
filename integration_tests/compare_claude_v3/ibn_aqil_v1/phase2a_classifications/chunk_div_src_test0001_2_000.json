@@ -1,0 +1,234 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "‌‌مقدمة الطبعة الثانية",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 6,
+    "text_snippet": "بسم الله الرحمن الرحيم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 2,
+    "start_word": 7,
+    "end_word": 48,
+    "text_snippet": "الحمد لله المنعوت بجميل الصفات، وصلى الله على سيدنا",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 3,
+    "start_word": 49,
+    "end_word": 164,
+    "text_snippet": "وبعد، فقد كان مما جرى به القضاء أني كتبت منذ أربع",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 4,
+    "start_word": 165,
+    "end_word": 312,
+    "text_snippet": "ثم جرت الأيام بغير ما كنت أرتقب، فإذا الكتاب يروق",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 5,
+    "start_word": 313,
+    "end_word": 332,
+    "text_snippet": "والله سبحانه وتعالى! المسئول أن يوفقني إلى مرضاته،",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 6,
+    "start_word": 333,
+    "end_word": 341,
+    "text_snippet": "كتبه المعتز بالله تعالى\nمحمد محيي الدين عبد الحميد",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 7,
+    "start_word": 342,
+    "end_word": 344,
+    "text_snippet": "مقدمة الطبعة الأولى",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 8,
+    "start_word": 345,
+    "end_word": 348,
+    "text_snippet": "بسم الله الرحمن الرحيم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 9,
+    "start_word": 349,
+    "end_word": 427,
+    "text_snippet": "الحمد لله على نعمائه، وصلاته وسلامه على خاتم أنبيائ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 10,
+    "start_word": 428,
+    "end_word": 498,
+    "text_snippet": "ثم أما بعد، فلعلك لا تجد مؤلفا - ممن صنفوا في قواعد",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 499,
+    "end_word": 530,
+    "text_snippet": "فلابن مالك مؤلفات في العربية كثيرة متعددة المشارب، م",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 12,
+    "start_word": 531,
+    "end_word": 567,
+    "text_snippet": "ومن هذه المؤلفات كتابه \" الخلاصة \" الذي اشتهر بين ا",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 13,
+    "start_word": 568,
+    "end_word": 639,
+    "text_snippet": "وقد كثر إقبال العلماء على هذا الكتاب من بين كتبه بنو",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 14,
+    "start_word": 640,
+    "end_word": 718,
+    "text_snippet": "وشروح هذا الكتاب أكثر من أن تتسع هذه الكلمة الموجزة",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 15,
+    "start_word": 719,
+    "end_word": 767,
+    "text_snippet": "وقد شرح ابن هشام الخلاصة مرتين: إحداهما في كتابه \" أ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 16,
+    "start_word": 768,
+    "end_word": 796,
+    "text_snippet": "وممن شرح الخلاصة العلامة محمد بدر الدين بن محمد بن ع",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 17,
+    "start_word": 797,
+    "end_word": 945,
+    "text_snippet": "ومنهم العلامة الحسن بدر الدين بن قاسم بن عبد الله بن",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 18,
+    "start_word": 946,
+    "end_word": 1010,
+    "text_snippet": "ومنهم قاضي القضاة عبد الله بهاء الدين بن عبد الله بن",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 19,
+    "start_word": 1011,
+    "end_word": 1063,
+    "text_snippet": "وقد شرح الكتاب - غير هؤلاء - الكثير من العلماء، ولست",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 20,
+    "start_word": 1064,
+    "end_word": 1098,
+    "text_snippet": "وهذه الشروح مختلفة، ففيها المختصر، وفيها المطول، فيه",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 21,
+    "start_word": 1099,
+    "end_word": 1157,
+    "text_snippet": "ومن هؤلاء الذين سلكوا طريقا بين الطريقين بهاء الدين",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 22,
+    "start_word": 1158,
+    "end_word": 1182,
+    "text_snippet": "ولصاحب هذا الشرح من الشهرة في الفن والبراعة فيه، ومن",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 23,
+    "start_word": 1183,
+    "end_word": 1256,
+    "text_snippet": "وقد أردت أن أقوم لهذا الكتاب بعمل أتقرب به إلى الله",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 24,
+    "start_word": 1257,
+    "end_word": 1313,
+    "text_snippet": "فاكتفيت بما لا بد منه، من إعراب أبيات الألفية، وشرح",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 25,
+    "start_word": 1314,
+    "end_word": 1409,
+    "text_snippet": "وأريد أن أنبهك إلى أنني وفقت في تصحيح هذه المطبوعة",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 26,
+    "start_word": 1410,
+    "end_word": 1419,
+    "text_snippet": "وقد وضعنا زيادات بعض النسخ بين علامتين هكذا [] .",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 1420,
+    "end_word": 1442,
+    "text_snippet": "والله سبحانه! المسئول أن ينفع بهذا العمل على قدر الع",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1443,
+    "end_word": 1447,
+    "text_snippet": "محمد محيي الدين عبد الحميد",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "call_id": "escalation_0001",
+  "latency_seconds": 14.5,
+  "model": "google/gemini-2.5-pro",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"author_id\": \"ابن عقيل\",\n  \"reasoning\": \"النص يحتوي على عبارة «وسيأتي الكلام على بقية العشرين عند كلام المصنف عليها»، وهي عبارة تدبيرية صريحة من الشارح (ابن عقيل) يحيل فيها إلى كلام المتن (ابن مالك)، مما يؤكد أن النص من تأليفه في طبقة الشرح.\"\n}\n"
+}

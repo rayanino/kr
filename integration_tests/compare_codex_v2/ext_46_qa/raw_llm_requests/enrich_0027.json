@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0027",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "openai/gpt-5.4",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nالفصل الثاني\nفي المقيس\nوهل يوصف بأنه من كلام العرب أو لا؟\n\nقال المازني:\n\"ما قيس على كلام العرب فهو من كلام العرب \"\nقال: \" ألا ترى أنك لم تسمع أنت ولا غيرك اسم كل فاعل ولا مفعول وإنما سمعت البعض فقست عليه غيره فإذا سمعت (قام زيد) أجزت: طرف بشر وكرم خالد \".\nقال أبو علي:\nوكذلك يجوز أن تبني بإلحاق اللام ما شئت كقولك: خرجج ودخلل وضربب من خرج ودخل وضرب على مثال شملل وصعرر \".\nقال ابن جني:\n\" وكذلك تقول في مثال (صمحمح) من الضرب: ضربرب ومن القتل قتلتل ومن الشرب شربرب ومن الخروج خرجرج وهو من العربية بلا شك وإن لم تنطق العرب بواحد من هذه الحروف \".\nقال: فإن قيل: فقد منع الخليل لما أنشد:\nترافع العز بنا فارفنععا\nقياسا على قول العجاج:\nتقاعس العز بنا فاقعنسسا\nفدل على امتناع القياس في مثل هذه الأبنية.\nفالجواب: أنه إنما أنكر ذلك لأنه فيما لامه حرف حلقي والعرب لم تبن هذا المثال مما لامه حرف حلق خصوصا وحرف الحلق فيه متكرر وذلك مستنكر عندهم مستثقل.\nقال:\n\" فثبت إذن أن كل ما قيس على كلامهم فهو من كلامهم ولهذا قال من قال في العجاج ورؤبة: أنهما قاسا اللغة وتصرفا فيها وأقدما على ما لم يأت به من قبلهما \".\nقال: \" وذكر أبو بكر أن منفعة الاشتقاق لصاحبه أن يسمع الرجل اللفظة فيشك فيها فإذا رأى الاشتقاق قابلا لها أنس بها وزال استحاشه منها وهذا تثبيت اللغة بالقياس \"\nوقال في موضع آخر من الخصائص:\n\"من قوة القياس عندهم اعتقاد النحويين أن ما قيس على كلام العرب فهو من كلامهم نحو قولك في بناء مثل (جعفر) من ضرب ضربب وهذا من كلامهم ولو بنيت منه ضورب أو ضيرب لم يكن من كلام العرب لأنه قياس على الأقل استعمالا والأضعف قياسا \". انتهى.\n</text>"
+    }
+  ]
+}

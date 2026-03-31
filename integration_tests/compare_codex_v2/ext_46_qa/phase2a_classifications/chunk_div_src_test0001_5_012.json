@@ -1,0 +1,26 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "مسألة\nفي اجتماع ضدين",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 55,
+    "text_snippet": "قال في الخصائص:\n\" اعلم أن التضاد في هذه اللغة جار ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 2,
+    "start_word": 56,
+    "end_word": 81,
+    "text_snippet": "وهذا جار مجرى الضدين المترادفين على المحل الواحد ك",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  }
+]

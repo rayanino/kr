@@ -1,0 +1,12 @@
+{
+  "call_id": "verify_0007",
+  "latency_seconds": 108.3,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"items\":[{\"item_index\":0,\"agrees\":false,\"alternative\":\"Unit should be assessed as SELF_CONTAINED rather than PARTIAL.\",\"confidence\":0.86,\"reasoning\":\"المقطع مستقل في الجملة: يذكر الممارسة المردودة نفسها، ثم يقرر الحكم عليها بأنها بدعة، ويذكر علل الرد، ثم يسوق النص الحديثي المؤيد: «إن لله ملائكة تنطق...». فالمعنى الحجاجي كامل ويمكن فهمه دون الرجوع إلى سياق سابق. الإحالة في قوله «فليس هو المراد بالحديث» لا تُسقط self-containment هنا، لأن المقصود العملي واضح من نفس الوحدة: نفي أن تكون الشهادة الملقنة بعد الجنازة هي الشهادة النافعة المرادة شرعًا.\"}]}\n"
+}

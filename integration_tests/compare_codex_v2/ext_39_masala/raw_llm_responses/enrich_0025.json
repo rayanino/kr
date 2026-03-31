@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0025",
+  "latency_seconds": 137.04,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[],\"total_units\":0,\"notes\":\"Blocked by repo authority policy: ACTIVE_AUTHORITY.md sets active_authority to 'claude' effective 2026-03-30 with runtime_mode 'shadow_setup', and AGENTS.md states Codex may stay only in setup or shadow lanes while Claude remains the active authority. This request requires substantive Arabic scholarly grouping and self-containment judgment, so I cannot produce authoritative teaching units in this lane.\"}\n"
+}

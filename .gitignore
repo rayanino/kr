@@ -4,6 +4,7 @@
 .claude/settings.local.json
 .claude/changes.log
 .claude/scheduled_tasks.lock
+.claude/hooks/config/hooks-config.local.json
 global-settings.json
 
 # ─── Overnight system (regenerated each run) ─────────────────────────

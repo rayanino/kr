@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0430",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nالحديث الثاني\nعَنِ ابنِ عباس رضي الله عنهما قَال: قال رسول الله صلى الله عليه وسلم: \"لو أن أحَدَكُم إذَا أرَادَ أن يأتي أهْلَهُ قَال: بسْمِ الله، اللَّهمَّ جنبنا الشيطان وجَنبِ الشيطَانَ ما رزقتنا فَإنهُ إن يقدر بَينهُمَا وَلَدْ في ذلك لم يضره الشيطان أبَدَاً\".\nالمعنى الإجمالي:\nيبين النبي صلى الله عليه وسلم في هذا الحديث الشريف شيئا من آداب الجماع، وهو أنه ينبغي للرجل إذا أراد جماع زوجته أو أمته أن يقول: \"بسم الله\" فإن كل أمر لا يبدأ فيه بـ \"بسم الله\" فهو أبتر.\nوأن يقول الدعاء النافع \"اللَّهُم جَنبْنَا الشيطان وَجَنب الشيطان مَا رَزَقْتَنَا\" فإن قدر الله تعالى لهما ولدا من ذلك الجماع، فسَيكون -ببركة اسم الله تعالى وهذا الدعاء المبارك- في عصمة، فلا يضره الشيطان.\nوبمثل هذه الآداب الشريفة تكون عادات الإنسان عبادات، حينما تقترن بالآداب الشرعية، والنية الصالحة في إتيان هذه الأعمال.\nتنبيه:\nذكر القاضي عياض: أنه لم يحمل هذا الحديث على العموم في جميع الضرر والوسوسة والإغواء. ذكر (ابن دقيق العيد) أنه يحتمل حمله على عموم الضرر، حتى الديني، ويحتمل أن يؤخذ خاصا بالنسبة للضرر البَدَني، وقال: هذا أقرب، وإن كان التخصيص على خلاف الأصل، لأننا لو حملناه على العموم، اقتضى ذلك أن يكون. معصوما من المعاصي كلها، وقد لا يتفق ذلك، ولابد من وقوع ما أخبر به صلى الله عليه وسلم.\nوأحسن ما يقال في هذا المقام وأمثاله: أن الشارع جعل لكل شيء أسبابا ومواقع.\nفإن وُجِدَت الأسباب، وانتفت الموانع، وُجدَ المسبب الذي رتب عليه.\nوإن لم توجد الأسباب، أو وجِدَتْ، ولكن حصلت معها الموانع، لم يقع.\nفهنا قد يُسَمي المجامع، ويستعيذ، ولكن توجد موانع تقتضي إبطال السبب أو ضعفه، فلا تحقق المطلوب.\nوبهذا يندفع الإشكال الذي تحير فيه (تقي الدين بن دقيق العيد) في هذه المسألة.\n</text>"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0024",
+  "latency_seconds": 343.8,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"segments\":[{\"segment_index\":0,\"start_word\":0,\"end_word\":1,\"text_snippet\":\"الكتاب الثالث\",\"scholarly_function\":\"structural_transition\",\"confidence\":0.99},{\"segment_index\":1,\"start_word\":2,\"end_word\":19,\"text_snippet\":\"في‌‌ القياس قال ابن الأنباري في (جدله)\\nهو حمل غير\",\"scholarly_function\":\"definition\",\"confidence\":0.98},{\"segment_index\":2,\"start_word\":20,\"end_word\":30,\"text_snippet\":\"وهو معظم أدلة النحو، والمعول في غالب مسائله عليه\",\"scholarly_function\":\"opinion_statement\",\"confidence\":0.78},{\"segment_index\":3,\"start_word\":31,\"end_word\":46,\"text_snippet\":\"إنما النحو قياس يتبع ولهذا قيل في حده: إنه علم ب\",\"scholarly_function\":\"definition\",\"confidence\":0.88},{\"segment_index\":4,\"start_word\":47,\"end_word\":116,\"text_snippet\":\"وقال صاحب (المستوفي) كل علم فبعضه مأخوذ بالسماع\",\"scholarly_function\":\"opinion_statement\",\"confidence\":0.94},{\"segment_index\":5,\"start_word\":117,\"end_word\":132,\"text_snippet\":\"كقولهم: الحرف الذي تختلس حركته هو في حكم المتحر\",\"scholarly_function\":\"example\",\"confidence\":0.97},{\"segment_index\":6,\"start_word\":133,\"end_word\":147,\"text_snippet\":\"وكقولهم: الحركات أنواع: صاعد عال، ومنحدر سافل و\",\"scholarly_function\":\"example\",\"confidence\":0.97},{\"segment_index\":7,\"start_word\":148,\"end_word\":191,\"text_snippet\":\"وقال ابن الأنباري في (أصوله)\\nاعلم أن إنكار القيا\",\"scholarly_function\":\"opinion_statement\",\"confidence\":0.91},{\"segment_index\":8,\"start_word\":192,\"end_word\":233,\"text_snippet\":\"وذلك أنا أجمعنا على أنه إذا قال العربي: كتب زيد\",\"scholarly_function\":\"evidence_ijma\",\"confidence\":0.7},{\"segment_index\":9,\"start_word\":234,\"end_word\":313,\"text_snippet\":\"وكذلك القول في سائر العوامل الداخلة على الأسماء\",\"scholarly_function\":\"evidence_rational\",\"confidence\":0.93},{\"segment_index\":10,\"start_word\":314,\"end_word\":339,\"text_snippet\":\"ألا ترى أن (القارورة) سميت بذلك لاستقرار الشيء \",\"scholarly_function\":\"example\",\"confidence\":0.95}],\"total_segments\":11}\n"
+}

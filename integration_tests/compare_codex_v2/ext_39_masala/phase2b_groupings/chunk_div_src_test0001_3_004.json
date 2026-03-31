@@ -1,0 +1,42 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0,
+      1,
+      2
+    ],
+    "start_word": 0,
+    "end_word": 51,
+    "text_snippet": "7-‌‌ النعي الجائز\n23 - ويجوز إعلان الوفاة إذا لم يقترن به ما يشبه نعي الجاهلية و",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition",
+      "evidence_hadith"
+    ],
+    "description_arabic": "يبين جواز إعلان الوفاة، وتحريمه إن شابه نعي الجاهلية، ووجوبه عند الحاجة إلى القيام بحقوق الميت.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "start_word": 52,
+    "end_word": 114,
+    "text_snippet": "24 - ويستحب للمخبر أن يطلب من الناس أن يستغفروا للميت لقوله صلى الله عليه وسلم ف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "evidence_hadith",
+      "cross_reference",
+      "refutation"
+    ],
+    "description_arabic": "يبين استحباب طلب الاستغفار للميت عند الإخبار بوفاته، وإنكار قول الفاتحة على روحه واعتباره بدعة.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "الوحدة مفهومة في أصل الحكم والإنكار، لكن تمام تعليل قوله: القراءة لا تصل إلى الموتى على القول الصحيح مؤجل إلى الموضع المشار إليه، ولا تُذكر هنا الأقوال المقابلة ولا تفصيل ترجيحها."
+  }
+]

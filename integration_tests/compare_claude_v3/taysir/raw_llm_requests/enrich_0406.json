@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0406",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nوأنه من الجور والظلم، لما فيه من المفاسد، إذ يسبب قطيعة المفضل عليهم لأبيهم وابتعادهم عنه، ويسبب عداوتهم وبغضهم لإخوانهم المفضلين.\nلما كانت هذه بعض مفاسده قال النبي صلى الله عليه وسلم له: \" اتقوا الله واعدلوا بين أولادكم ولا تشهدني على جور وظلم \" ووبخه ونفَّره عن هذا الفعل بقوله: أشهد على هذا غيري.\nفما كان من بشير رضى اللَه عنه إلا أن رجع بتلك الصدقة كعادتهم في الوقوف عند حدود الله تعالى.\nاختلاف العلماء\nأجمع العلماء على مشروعية التسوية بين الأولاد في الهبة، حتى كان السلف يسوون بينهم في القبل ⌜1⌝ لما في ذلك من العدل وإشعارهم جميعاْ بالمودة، وتصفية قلوبهم وإبعاد البغض والحقد والحسد عنهم.\nولكن اختلف العلماء في وجوب المساواة بينهم في الهبة.\nفذهب الإمام أحمد، والبخاري، وإسحاق، والثوري، وجماعة إلى وجوبها وتحريم التفضيل بينهم، أو تخصيص بعضهم دون بعض، أخذاً بظاهر الحديث.\nوذهب الجمهور إلى أنها مستحبة فقط، وأطالوا الاعتذار عن هذا الحديث بما لا مقنع فيه.\nوالحق الذي لاشك فيه، وجوب المساواة، لظاهر الحديث، ولما فيه من المصالح، وما في ضده من المضار.\nكما أن ظاهر الحديث، التسوية بين الذكر والأنثى، لقوله لبشير \" سَوِّ بينهم \" وهو قول الجمهور ومنهم الأئمة الثلاثة، ورواية عن االإمام أحمد، اختارها من أصحابه \" ابن عقيل \" والحارثي.\nوأما المشهور من مذهب الإمام أحمد، فهو أن يقسم بينهم على قدر إرثهم للذكر مثل حظ الأنثيين وهو اختيار شيح الإسلام \" ابن تيمية \".\nفائدة:\nذكر وجوِب العدل بين الأولاد في الهبة، وتحريم التخصيص أو التفضيل، ما لم يكن ثَمَ سبب موجب لذلك.\nفإن كان هناك ما يدعو إلى التفضيل أو التخصيص، فلا بأس، كأن يكون أحدهم مريضاً، أو أعمى، أو زمنا (2) ، أو كان ذا أسرة كبيرة أو طالب علم، ونحو ذلك من الأسباب، فلا بأس، بتفضيله لشيء من هذه المقاصد.\nوقد أشار إلى ذلك الإمام أحمد بقوله- في تخصيص بعضهم بالوقف-: لا بأس إذا كان لحاجة، وكرهه إذا كان على سبيل الأثرة.\nوقال شيخ الإسلام \" ابن تيمية \": والحديث والآثار تدل على وجوب العدل … ثم هنا نوعان.\n</text>"
+    }
+  ]
+}

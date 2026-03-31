@@ -1,0 +1,72 @@
+{
+  "timestamp": "2026-03-31T05:05:27.796324+00:00",
+  "output_dir": "integration_tests\\compare_claude_v3",
+  "complete": true,
+  "packages": {
+    "ibn_aqil_v1": {
+      "excerpt_count": 0,
+      "error_count": 3,
+      "errors": [
+        "phase2a_chunk_failures:12",
+        "phase2b_chunk_failures:2",
+        "llm_call_errors:41"
+      ],
+      "time_seconds": 7583.06,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ibn_aqil_v3": {
+      "excerpt_count": 0,
+      "error_count": 3,
+      "errors": [
+        "phase2a_chunk_failures:26",
+        "phase2b_chunk_failures:2",
+        "llm_call_errors:86"
+      ],
+      "time_seconds": 7913.04,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ext_39_masala": {
+      "excerpt_count": 0,
+      "error_count": 2,
+      "errors": [
+        "phase2a_chunk_failures:16",
+        "llm_call_errors:48"
+      ],
+      "time_seconds": 1303.6,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ext_46_qa": {
+      "excerpt_count": 0,
+      "error_count": 2,
+      "errors": [
+        "phase2a_chunk_failures:38",
+        "llm_call_errors:114"
+      ],
+      "time_seconds": 2239.13,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "taysir": {
+      "excerpt_count": 0,
+      "error_count": 1,
+      "errors": [
+        "batch_timeout: exceeded 28800s in batch runner"
+      ],
+      "time_seconds": 28807.69,
+      "cost_estimate": 0.0,
+      "status": "error"
+    }
+  },
+  "totals": {
+    "packages_run": 5,
+    "packages_succeeded": 4,
+    "packages_failed": 1,
+    "total_excerpts": 0,
+    "total_errors": 11,
+    "total_time_seconds": 28866.34,
+    "total_cost_estimate": 0.0
+  }
+}

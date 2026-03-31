@@ -1,0 +1,98 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "الفصل الثالث\nفي الحكم",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 6,
+    "text_snippet": "فيه مسألتان:\nالأولى",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 2,
+    "start_word": 7,
+    "end_word": 14,
+    "text_snippet": "إنما يقاس على حكم ثبت استعماله عن العرب.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 3,
+    "start_word": 15,
+    "end_word": 26,
+    "text_snippet": "وهل يجوز أن يقاس على ما ثبت بالقياس والاستنباط؟\nظا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 4,
+    "start_word": 27,
+    "end_word": 35,
+    "text_snippet": "وقد ترجم عليه في الخصائص: باب الاعتلال لهم بأفعاله",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 36,
+    "end_word": 90,
+    "text_snippet": "قال:\n\" من ذلك أن تقول: إذا كان اسم الفاعل _ على قو",
+    "scholarly_function": "example",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 6,
+    "start_word": 91,
+    "end_word": 91,
+    "text_snippet": "الثانية",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 92,
+    "end_word": 103,
+    "text_snippet": "قال ابن الأنباري:\n\" اختلف في القياس على الأصل المخ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 8,
+    "start_word": 104,
+    "end_word": 116,
+    "text_snippet": "فأجازه قوم لأن المختلف فيه إذا قام الدليل عليه صار",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 9,
+    "start_word": 117,
+    "end_word": 126,
+    "text_snippet": "ومنعه آخرون لأن المختلف فيه فرع لغيره فكيف يكون أص",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 10,
+    "start_word": 127,
+    "end_word": 166,
+    "text_snippet": "وأجيب بأنه يجوز أن يكون فرعا لشيء آخر فإن اسم الفا",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 167,
+    "end_word": 211,
+    "text_snippet": "ومن أمثلة القياس على المختلف فيه أن تستدل على أن (",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  }
+]

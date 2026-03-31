@@ -1,0 +1,5 @@
+{
+  "call_id": "enrich_0001",
+  "error_type": "TimeoutExpired",
+  "error": "Command '['C:\\\\Users\\\\Rayane\\\\AppData\\\\Roaming\\\\npm\\\\codex.CMD', 'exec', '-', '--output-schema', 'C:\\\\Users\\\\Rayane\\\\AppData\\\\Local\\\\Temp\\\\tmpienj84gm.json', '-s', 'read-only', '-o', 'C:\\\\Users\\\\Rayane\\\\AppData\\\\Local\\\\Temp\\\\tmpfvm2idr1.json']' timed out after 600 seconds"
+}

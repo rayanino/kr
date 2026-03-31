@@ -1,0 +1,1 @@
+{"source_id": "src_test0001", "timestamp": "2026-03-30T12:20:25.741440+00:00", "excerpt_count": 0, "gate_count": 0, "error_count": 2, "errors": ["phase2a_chunk_failures:1", "llm_call_errors:3"], "timings": {"load_package": 0.005, "phase1": 0.022, "phase2a": 10.612, "phase2a_per_chunk": {}, "phase2b": 0.0, "phase2b_per_chunk": {}, "phase3": 0.001}}

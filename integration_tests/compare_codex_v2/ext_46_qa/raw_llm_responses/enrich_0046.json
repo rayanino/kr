@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0046",
+  "latency_seconds": 267.31,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"teaching_units\": [\n    {\n      \"unit_index\": 0,\n      \"segment_indices\": [0, 1, 2, 3, 4, 5, 6, 7],\n      \"start_word\": 0,\n      \"end_word\": 72,\n      \"text_snippet\": \"المسألة السادسة\\n\\nالحكم النحوي ينقسم إلى: واجب، وممنوع، وحسن، وقبيح، وخلاف الأولى\",\n      \"primary_function\": \"definition\",\n      \"secondary_functions\": [\"structural_transition\", \"example\"],\n      \"description_arabic\": \"تقسيم الحكم النحوي إلى ستة أقسام مع أمثلة توضح معنى كل قسم.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 1,\n      \"segment_indices\": [8, 9, 10, 11, 12, 13, 14, 15],\n      \"start_word\": 73,\n      \"end_word\": 248,\n      \"text_snippet\": \"وقد اجتمعت الاقسام الستة في عمل الصفة المشبهة فإنها إما أن تكون بـ (أل) ، أو لا\",\n      \"primary_function\": \"condition_exception\",\n      \"secondary_functions\": [\"example\", \"rule_statement\"],\n      \"description_arabic\": \"بيان أحكام عمل الصفة المشبهة في الصور المختلفة ومواضع المنع والقبح والحسن والوجوب والجواز.\",\n      \"self_containment\": \"PARTIAL\",\n      \"self_containment_notes\": \"الوحدة مفهومة في الجملة، لكن افتتاحها بعبارة «اجتمعت الأقسام الستة» يحيل إلى التقسيم السابق للحكم النحوي، فذكر تلك الأقسام قبلها يزيد استقلالها.\"\n    }\n  ],\n  \"total_units\": 2,\n  \"notes\": null\n}\n"
+}

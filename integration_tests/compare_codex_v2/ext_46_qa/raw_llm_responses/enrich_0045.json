@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0045",
+  "latency_seconds": 245.86,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1,2,3,4,5],\"start_word\":0,\"end_word\":112,\"text_snippet\":\"المسألة الخامسة\\n\\nالدلالات النحوية ثلاث: لفظية، وصناعية، ومعنوية.\\nقال في (الخصائص\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[\"structural_transition\",\"definition\",\"evidence_rational\",\"example\"],\"description_arabic\":\"يبين أقسام الدلالات النحوية وترتيبها في القوة، ويعلل قوة الصناعية على المعنوية مع التمثيل بالفعل.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":1,\"segment_indices\":[6],\"start_word\":113,\"end_word\":129,\"text_snippet\":\"قال الخضراوي في (الإفصاح):\\n\\\"ودلالة الصيغة هي المسماة دلالة التضمن، والدلالة المع\",\"primary_function\":\"definition\",\"secondary_functions\":[],\"description_arabic\":\"يشرح تسمية دلالة الصيغة بدلالة التضمن، والدلالة المعنوية بدلالة اللزوم.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":2,\"segment_indices\":[7,8,9],\"start_word\":130,\"end_word\":210,\"text_snippet\":\"وقال أبو حيان في (تذكره):\\n\\\"في دلالة الفعل ثلاثة مذاهب:\\nأحدها: إنما يدل على الحدث\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[],\"description_arabic\":\"يعرض ثلاثة مذاهب في دلالة الفعل على الحدث والزمان، ويفرق بين الدلالة بالذات وباللزوم.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null}],\"total_units\":3,\"notes\":null}\n"
+}

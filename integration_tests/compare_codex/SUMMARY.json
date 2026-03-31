@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-03-30T13:07:53.521829+00:00",
+  "output_dir": "integration_tests\\compare_codex",
+  "packages": {
+    "ibn_aqil_v1": {
+      "excerpt_count": 0,
+      "error_count": 2,
+      "errors": [
+        "phase2b_chunk_failures:1",
+        "llm_call_errors:3"
+      ],
+      "time_seconds": 336.19,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ibn_aqil_v3": {
+      "excerpt_count": 0,
+      "error_count": 2,
+      "errors": [
+        "phase2a_chunk_failures:1",
+        "llm_call_errors:3"
+      ],
+      "time_seconds": 3157.7,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "taysir": {
+      "excerpt_count": 0,
+      "error_count": 2,
+      "errors": [
+        "phase2b_chunk_failures:1",
+        "llm_call_errors:3"
+      ],
+      "time_seconds": 420.43,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ext_39_masala": {
+      "excerpt_count": 0,
+      "error_count": 2,
+      "errors": [
+        "phase2b_chunk_failures:1",
+        "llm_call_errors:3"
+      ],
+      "time_seconds": 302.14,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ext_46_qa": {
+      "excerpt_count": 0,
+      "error_count": 2,
+      "errors": [
+        "phase2b_chunk_failures:1",
+        "llm_call_errors:3"
+      ],
+      "time_seconds": 580.26,
+      "cost_estimate": 0.0,
+      "status": "success"
+    }
+  },
+  "totals": {
+    "packages_run": 5,
+    "packages_succeeded": 5,
+    "packages_failed": 0,
+    "total_excerpts": 0,
+    "total_errors": 10,
+    "total_time_seconds": 4796.72,
+    "total_cost_estimate": 0.0
+  }
+}

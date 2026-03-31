@@ -1,0 +1,12 @@
+{
+  "call_id": "verify_0005",
+  "latency_seconds": 105.45,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"items\":[{\"item_index\":0,\"agrees\":true,\"alternative\":null,\"confidence\":0.93,\"reasoning\":\"أوافق. الوحدة مفهومة في أصل الحكمين: استحباب طلب الاستغفار للميت، والإنكار على قول الفاتحة على روح فلان، لكن self-containment ليس تامًا لأن تمام التعليل مؤجل بإحالة صريحة إلى موضع لاحق، خاصة في دعوى أن القراءة لا تصل إلى الموتى على القول الصحيح. فهذا يحقق معنى PARTIAL بحسب C-SC-4، مع أن الألفاظ الأساسية والدليل الأولي مفهومان.\"}]}\n"
+}

@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0024",
+  "latency_seconds": 124.8,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1,2,3,4,5,6,7],\"start_word\":0,\"end_word\":350,\"text_snippet\":\"9-‌‌ ثناء الناس على الميت.\\n26 - والثناء بالخير على الميت من جمع من المسلمين الصا\",\"primary_function\":\"rule_statement\",\"secondary_functions\":[\"structural_transition\",\"evidence_hadith\",\"evidence_rational\",\"cross_reference\",\"opinion_statement\"],\"description_arabic\":\"بيان أن ثناء المسلمين الصادقين على الميت علامة خير له، وأن شهادة الاثنين كافية بعد جمع الأحاديث.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":1,\"segment_indices\":[8],\"start_word\":351,\"end_word\":449,\"text_snippet\":\"هذا وأما قول بعض الناس عقب صلاة الجنازة: ما تشهدون فيه؟ اشهدوا له بالخير فيجيبون\",\"primary_function\":\"refutation\",\"secondary_functions\":[],\"description_arabic\":\"بيان بطلان تلقين الناس الشهادة للميت بعد الجنازة وأن الشهادة النافعة ما وافق الحقيقة.\",\"self_containment\":\"PARTIAL\",\"self_containment_notes\":\"يشير هذا المقطع إلى الحديث السابق في ثناء الناس على الميت بلفظ عام، ويحتاج القارئ لمعرفة أصل ذلك الحديث لفهم قوله: فليس هو المراد بالحديث.\"},{\"unit_index\":2,\"segment_indices\":[9,10,11,12,13],\"start_word\":450,\"end_word\":555,\"text_snippet\":\"الوفاة عند الكسوف؟\\n27 - وإذا اتفق وفاة أحد مع انكساف الشمس أو القمر فلا يدل ذلك \",\"primary_function\":\"rule_statement\",\"secondary_functions\":[\"structural_transition\",\"refutation\",\"editorial_note\",\"evidence_hadith\"],\"description_arabic\":\"بيان أن اقتران الوفاة بكسوف الشمس أو القمر لا يدل على منزلة الميت، وأن ذلك من خرافات الجاهلية.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null}],\"total_units\":3,\"notes\":null}\n"
+}

@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0358",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nوأما دليل مشهور مذهب الحنابلة، فالاقتصار في الاستدلال بحديث [ولا شرطان في بيع] .\nوالصحيح الذي تطمئن إليه النفس، ويرتاح له الضمير، الرواية التي اختارها شيخا الإسلام، ورجحها شيخنا \"السعدي\" لقوة أدلتها النقلية والقياسية، وعدم ما يعارضها. والله الموفق للصواب.\nفائدة:\nالشروط في البيع قسمان. أحدهما: ما هو منفعة في المبيع يستثنيها البائع، أو نفع من البائع في المبيع، يشترطه المشترى. وهذه هي مواطن الخلاف بين العَلماء، يتقدم الكلام فيها. والقسم الثاني: ما هو من مقتضى العقد، كالتقابض، وحلول الثمن. أو من مصلحة العقد، كاشتراط تأجيل الثمن، أو الرهن، أو الضمين. أو صفة في المبيع مقصودة، ككون العبد كاتباً أو صانعاً، أو الأمة بكراً، أو خياطة ونحو ذلك. فهذه الشروط لا خلاف في جوازها، كثرت أو قَلتْ.\nالحديث الثالث\nعن أبي هُرَيرةَ رضي الله عنه قالَ: نَهَى رَسُولُ الله صلى الله عليه وسلم أن يبيع حَاضِر لِبَادٍ، وَلا تَنَاَجَشُوا، وَلا يَبع الرجُلُ عَلَى بيع أخيه. وَلا يَخْطُبْ عَلَى خِطْبَةِ أخِيهِ، وَلا تَسْأل المَرأة طَلاقَ أخْتِهَا لِتُكفِىءَ مَا في إنَاِئهَا ⌜1⌝ \"\nما يستفاد من الحديث:\nالكلام على بيع الحاضر للبادي، والنجش، وبيع الرجل على بيع أخيه، تقدم مفصلا في الحديثين رقم [252 و 253] ، بما أغنى عن إعادتها ههنا. وفيه من الفوائد الزوائد ما يأتي:\n1- تحريم خطبة النكاح على خطبة أخيه، حتى يعلم أن الخاطب رُد عن طلبه، ولم يُجَبْ، لما تسبب الخِطْبة على خِطبةْ الغير من العداوة والبغضاء، والتعرض لقطع الرزق.\n2- تحريم سؤال المرأة زوجها أن يطلق ضرتها، أو توغير صدره عليها، أو الفتنة بينهما، ليحصل بينهما الشر، فيفارقها، فهذا حرام، لما يحتوى عليه من المفاسد الكبيرة، من توريث العداوات، وجلب الإحن، وقطع رزق المطلقة، الذي كنى عنه بِكَفْءِ ما في إنائها من الخير، الذي سببه النكاح، وما يوجبه من نفقة وكسوة وغيرها من الحقوق الزوجية. فهذه أحكام جليلة وآداب سامية، لتنظيم حال المجتمع، وإبعاده عما يسبب الشر والعداوة والبغضاء، ليحل محل ذلك المحبة والمودة والوئام والسلام.\n</text>"
+    }
+  ]
+}

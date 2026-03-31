@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0013",
+  "latency_seconds": 406.89,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"segments\":[{\"segment_index\":0,\"start_word\":0,\"end_word\":1,\"text_snippet\":\"الكتاب الأول\",\"scholarly_function\":\"structural_transition\",\"confidence\":0.99},{\"segment_index\":1,\"start_word\":2,\"end_word\":41,\"text_snippet\":\"في‌‌ السماع وأعني به ما ثبت في كلام من يوثق بفصاحته،\",\"scholarly_function\":\"definition\",\"confidence\":0.98},{\"segment_index\":2,\"start_word\":42,\"end_word\":50,\"text_snippet\":\"فهذه ثلاثة أنواع، لابد في كل منها من الثبوت.\",\"scholarly_function\":\"rule_statement\",\"confidence\":0.74},{\"segment_index\":3,\"start_word\":51,\"end_word\":70,\"text_snippet\":\"أما القرآن فكل ما ورد أنه قريء به جاز الاحتجاج به في\",\"scholarly_function\":\"rule_statement\",\"confidence\":0.97},{\"segment_index\":4,\"start_word\":71,\"end_word\":116,\"text_snippet\":\"وقد أطبق الناس على الاحتجاج بالقراءات الشاذة في العربية\",\"scholarly_function\":\"evidence_ijma\",\"confidence\":0.91},{\"segment_index\":5,\"start_word\":117,\"end_word\":135,\"text_snippet\":\"وما ذكرته من الاحتجاج بالقراءة الشاذة لا أعلم فيه خلافا\",\"scholarly_function\":\"evidence_ijma\",\"confidence\":0.72},{\"segment_index\":6,\"start_word\":136,\"end_word\":163,\"text_snippet\":\"ومن ثم احتج على جواز إدخال لام الأمر على المضارع المبدوء\",\"scholarly_function\":\"evidence_quran\",\"confidence\":0.96},{\"segment_index\":7,\"start_word\":164,\"end_word\":184,\"text_snippet\":\"واحتج على صحة قول من قال: إن (الله) أصله (لاه) بما\",\"scholarly_function\":\"evidence_quran\",\"confidence\":0.95}],\"total_segments\":8}\n"
+}

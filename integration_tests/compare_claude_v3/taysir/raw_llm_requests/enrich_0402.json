@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0402",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n4- يحرم العود في الصدقة، وهو مذهب جمهور العلماء.\n5- التنفير من ذلك بهذا المثل الذي هو الغاية في البشاعة والدناءة.\n6- استثنى جمهور العلماء من تحريم العودة في الهبة ما يهبه الوالد لولده، فإن له الرجوع في ذلك، عملا بما رواه أحمد وأصحاب السنن، عن ابن عمر، وابن عَباس، عن النبي صلى الله عليه وسلم أنه قال: \" لا يحل لرجل مسلم أن يعطى العطية ثم يرجع فيها إلا الوالد فيما يعطى ولده \" صححه الترمذي والحاكم.\n\n‌‌بَابُ العَدل بَيْن الأولاد في العطِية ⌜1⌝\nالحديث الأول\nعَن النَعْمَانِ بْنِ بَشِير قال: تَصَدق عَليَّ أبي بِبعْضِ مَالِهِ فَقَالَتْ أمي عَمرَةُ بِنْتُ رَوَاحَةَ: لا أرضى حَتًى يَشْهَدَ رَسُولُ الله صلى الله عليه وسلم.\nفَانطَلَقَ أبى إلى رَسُولِ الله صلى الله عليه وسلم لِيُشْهِدَهُ عَلَى صدَقَتي.\nفَقَالَ لَهُ رَسُولُ الله صلى الله عليه وسلم: أفَعَلْتَ هذا بوَلَدِك كُلهِمْ \"؟ قال: لا. قَالَ: \" اتقوا الله وَاعْدِلُوا بَينَ أولادكم \".\nفَرَجَع أبي، فَرَدَّ تِلْكَ الصًدَقَةَ.\nوفي لفظ قال: \" فَلا تُشْهِدْني إذاً، فإني لا أشْهَدُ عَلَى جَورٍ\".\nوفي لفظ: \" فَأشْهِد عَلَى هذَا غَيْرِي \".\nالمعنى الإجمالي:\nذكر النعمان بن بشير الأنصاري: أن أباه خصه بصدقة من بعض ماله فأرادت أمه أن توثقها بشهادة النبي صلى الله عليه وسلم إذ طلبت من أبيه أن يشهد النبي صلى الله عليه وسلم عليها.\nفلما أتى به أبوه إلى النبي صلى الله عليه وسلم ليتحمل الشهادة، قال له النبي صلى الله عليه وسلم: أتصدقت مثل هذه الصدقة على ولدك كلهم؟ قال: لا.\nوبما أن تخصيص بعض الأولاد دون بعض، أو تفضيل بعضهم على بعض عمل مناف للتقوى\n</text>"
+    }
+  ]
+}

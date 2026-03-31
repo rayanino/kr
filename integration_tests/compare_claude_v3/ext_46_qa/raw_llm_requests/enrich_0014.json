@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0014",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nالمسألة السادسة\n\nالحكم النحوي ينقسم إلى: واجب، وممنوع، وحسن، وقبيح، وخلاف الأولى، وجائز على السواء.\nفالواجب: كرفع الفاعل، وتأخره عن الفعل، ونصب المفعول، وجر المضاف إليه، وتنكير الحال والتمييز، وغير ذلك.\nوالممنوع كأضداد ذلك.\nوالحسن: كرفع المضارع الواقع جزاء بعد شرط ماض.\nوالقبيح: كرفعه بعد شرط مضارع.\nوخلاف الأولى: كتقديم الفاعل في نحو: ضرب غلامه زيدا.\nوالجائز على السواء: كحذف المبتدأ، أو الخبر، أو إثباته حيث لا مانع من الحذف، ولا مقتضى له.\nوقد اجتمعت الاقسام الستة في عمل الصفة المشبهة فإنها إما أن تكون بـ (أل) ، أو لا، ومعمولها إما مجرد، أو مقرون بـ (أل) أو إلى ضمير، أو إلى مضاف ضمير، أو إلى مجرد. فهذه اثنا عشر قسما.\nوعملها: إما رفع أو نصب، أو جر، فتلك ستة وثلاثون.\nوالجر ممنوع في أربع صور: أن تكون بـ (أل) والمعمول خال منها، ومن إضافة لما هي فيه: بأن يكون مجرد، أو مضاف إلى ضمير.\nوخلاف الأولى في صورتين: أن تكون الصفة مجردة والمعمول مضاف إلى ضمير، أو إلى مضاف إلى ضمير.\nوالرفع قبيح في أربع صور: أن يكون المعمول مجردا، أو مضافا إلى مجرد، سواء كانت الصفة بـ (أل) أم دونها.\nوالحسن فيها النصب أو الجر، والنصب خلاف الأولى في أربع صور: أن تكون الصفة مجردة والمعمول بـ (أل) ، أو مضاف إلى ما فيه (أل) ، أو إلى ضمير أو إلى مضاف إلىضمير.\nوواجب في صورتين: أن تكون الصفة بـ (أل) ، والمعمول مجرد أو مضاف إلى مجرد.\nوتجوز الأوجه الثلاثة على السواء في صورتين: أن تكون الصفة بـ (أل) والمعمول مقرون، أو مضاف إلى معرف بها.\n</text>"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 2,
+    "text_snippet": "مسألة في الدور",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 3,
+    "end_word": 34,
+    "text_snippet": "قال في الخصائص:\n\" وذلك أن تؤدي الصنعة إلى حكم ما م",
+    "scholarly_function": "definition",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 2,
+    "start_word": 35,
+    "end_word": 102,
+    "text_snippet": "وذلك كأن تبني من (قويت) مثل (رسالة) فإنك تقول:\nقِو",
+    "scholarly_function": "example",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 3,
+    "start_word": 103,
+    "end_word": 116,
+    "text_snippet": "فإذا أدت الصنعة إلى نحو هذا وجبت الإقامة على أول ر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  }
+]

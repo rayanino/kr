@@ -1,0 +1,15 @@
+---
+globs: ["ui/**/*.ts", "ui/**/*.tsx", "frontend/**/*"]
+---
+- TypeScript strict mode for all UI code. No `any` types.
+- Components: functional components with hooks. No class components.
+- Arabic text display: always set `dir="rtl"` and `lang="ar"` on Arabic content containers.
+- Font stack for Arabic: Amiri (scholarly), Noto Naskh Arabic (fallback), system serif.
+- Never truncate Arabic text with CSS `text-overflow: ellipsis` without testing that truncation doesn't split a word mid-letter or drop diacritics.
+- Search inputs: normalize Arabic search queries (strip tatweel ـ, normalize hamza variants) but NEVER normalize display text.
+- Keyboard navigation: support both LTR and RTL keyboard shortcuts.
+- Color contrast: WCAG AA minimum (4.5:1) — critical for displaying diacritics which are small and low-contrast by nature.
+- Scholar names: always display in Arabic script as primary, transliteration secondary.
+- Component testing: React Testing Library or equivalent. Test by behavior (`getByRole`, `getByText`) not implementation.
+- State management: prefer server state (React Query/SWR) for API data, local state for UI-only concerns.
+- API integration: all API calls go through a typed client layer. Never fetch directly from components.

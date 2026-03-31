@@ -1,0 +1,634 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "الفصل الرابع\nفي العلة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 6,
+    "text_snippet": "فيه مسائل:\nالأولى",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 7,
+    "end_word": 117,
+    "text_snippet": "قال صاحب المستوفي:\n\"إذا استقريت أصول هذه الصناعة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 118,
+    "end_word": 181,
+    "text_snippet": "وقال ابن جني في الخصائص:\n\" اعلم أن علل النحويين",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 4,
+    "start_word": 182,
+    "end_word": 194,
+    "text_snippet": "قال سيبويه:\n\" وليس شيء مما يضطرون إلا وهم يحاو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 195,
+    "end_word": 201,
+    "text_snippet": "نعم قد لا يظهر فيه وجه الحكمة.",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 6,
+    "start_word": 202,
+    "end_word": 218,
+    "text_snippet": "قال بعضهم إذا عجز عن تعليل الحكم قال هذا تعبدي",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 7,
+    "start_word": 219,
+    "end_word": 269,
+    "text_snippet": "وهذا موضع آخر من الخصائص:\nلاشك أن العرب قد أراد",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 8,
+    "start_word": 270,
+    "end_word": 325,
+    "text_snippet": "فإن قلت فلعله شيئ طبعوا عليه من غير اعتقاد لعلة",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 9,
+    "start_word": 326,
+    "end_word": 370,
+    "text_snippet": "فإن قلت: كيف تدعي الاجتماع وهذا اختلافهم موجود",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 371,
+    "end_word": 448,
+    "text_snippet": "وأيضا فإن أهل كل واحدة من اللغتين عدد كثير وخل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 449,
+    "end_word": 452,
+    "text_snippet": "الثانية\nفي أقسام العلل",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 12,
+    "start_word": 453,
+    "end_word": 558,
+    "text_snippet": "قال أبو عبد الله الحسين بن موسى الدينوري الجليس",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 13,
+    "start_word": 559,
+    "end_word": 566,
+    "text_snippet": "وشرح ذلك التاج ابن مكتوم في تذكرته فقال:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 14,
+    "start_word": 567,
+    "end_word": 677,
+    "text_snippet": "قوله: علة سماع: مثل قولهم: امرأة ثدياء، ولا يقال",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 15,
+    "start_word": 678,
+    "end_word": 696,
+    "text_snippet": "وعلة حمل على المعنى مثل (فمن جاءه موعظة) ذكر فع",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 697,
+    "end_word": 702,
+    "text_snippet": "وعلة مشاكلة مثل قوله (سلاسلا وأغلالا)",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 17,
+    "start_word": 703,
+    "end_word": 769,
+    "text_snippet": "وعلة معادلة مثل جرهم ما لا ينصرف بالفتح حملا عل",
+    "scholarly_function": "example",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 18,
+    "start_word": 770,
+    "end_word": 775,
+    "text_snippet": "وعلة تغليب مثل (وكانت من القانتين)",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 19,
+    "start_word": 776,
+    "end_word": 833,
+    "text_snippet": "وعلة اختصار مثل باب الترخيم و (لم يك) وعلة تخفي",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 20,
+    "start_word": 834,
+    "end_word": 857,
+    "text_snippet": "وعلة تضاد مثل قولهم في الأفعال التي يجوز إلغاؤه",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 21,
+    "start_word": 858,
+    "end_word": 875,
+    "text_snippet": "قال ابن مكتوم\nوأما علة التحليل فقد اعتاص علي شر",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 22,
+    "start_word": 876,
+    "end_word": 919,
+    "text_snippet": "وقال الشيخ شمس الدين بن الصائغ:\n\" قد رأيتها مذك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 23,
+    "start_word": 920,
+    "end_word": 989,
+    "text_snippet": "وأما الصنف الثاني\nفلم يتعرض له الجليس ولا بينه",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 24,
+    "start_word": 990,
+    "end_word": 1060,
+    "text_snippet": "وقال ابن جني في الخصائص:\n\"هذا الذي سماه علة الع",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 25,
+    "start_word": 1061,
+    "end_word": 1061,
+    "text_snippet": "الثالثة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 1062,
+    "end_word": 1168,
+    "text_snippet": "قال في الخصائص:\nأكثر العلل عندنا مبناها على الإ",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 1169,
+    "end_word": 1185,
+    "text_snippet": "فظهر بهذا الفرق بين العلة والسبب وأن ما كان موج",
+    "scholarly_function": "definition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1186,
+    "end_word": 1289,
+    "text_snippet": "وقال في موضع آخر:\n\" اعلم أن محصول مذهب أصحابنا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1290,
+    "end_word": 1343,
+    "text_snippet": "فالأول: ما لابد للطبع منه كقلب الألف واو للضمة ",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1344,
+    "end_word": 1357,
+    "text_snippet": "قلت: ومن الأول تقدير الحركات في المقصور\nومن الث",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1358,
+    "end_word": 1377,
+    "text_snippet": "وقال في موضع آخر:\n\" اعلم أن أصحابنا انتزعوا الع",
+    "scholarly_function": "narration",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1378,
+    "end_word": 1378,
+    "text_snippet": "الرابعة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1379,
+    "end_word": 1393,
+    "text_snippet": "قال ابن الأنباري:\nاختلفوا في إثبات الحكم في محل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1394,
+    "end_word": 1458,
+    "text_snippet": "فقال الأكثرون: بالعلة لابالنص لأنه لو كان ثابتا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1459,
+    "end_word": 1482,
+    "text_snippet": "وقال بعضهم يثبت في محل النص بالنص وفيما عداه با",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1483,
+    "end_word": 1500,
+    "text_snippet": "واستدل لذلك بأن النص مقطوع به والعلة مظنونة وإح",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1501,
+    "end_word": 1522,
+    "text_snippet": "ولا يجوز أن يكون الحكم ثابتا بالنص والعلة معا ل",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1523,
+    "end_word": 1573,
+    "text_snippet": "وأجيب عن هذا الاستدلال بأن الحكم إ نما يثبت بط",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1574,
+    "end_word": 1577,
+    "text_snippet": "انتهى كلام ابن الأنباري.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1578,
+    "end_word": 1578,
+    "text_snippet": "الخامسة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1579,
+    "end_word": 1626,
+    "text_snippet": "العلة قد تكون بسيطة وهي التي يقع التعليل بها من",
+    "scholarly_function": "definition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1627,
+    "end_word": 1644,
+    "text_snippet": "وقد يزاد في العلة صفة لضرب من الاحتياط بحيث لو ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1645,
+    "end_word": 1724,
+    "text_snippet": "وقال ابن النحاس في التعليقة:\n\" نعلل ابن عصفور ح",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1725,
+    "end_word": 1765,
+    "text_snippet": "ومن العلل المركبة قول الزمخشري في المفصل في الذ",
+    "scholarly_function": "example",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1766,
+    "end_word": 1796,
+    "text_snippet": "وقال ابن النحاس:\n\" إنما التزموا الفصل بين (أن) ",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1797,
+    "end_word": 1797,
+    "text_snippet": "السادسة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1798,
+    "end_word": 1854,
+    "text_snippet": "من شرط العلة أن تكون هي الموجبة للحكم في المقيس",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1855,
+    "end_word": 1865,
+    "text_snippet": "فإن أردت الأول رفعت زيدا، أو الثاني نصبته أو ال",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1866,
+    "end_word": 1916,
+    "text_snippet": "فلابد أن تكون هذه العلة هي الموجبة لإعراب المض",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1917,
+    "end_word": 1917,
+    "text_snippet": "السابعة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1918,
+    "end_word": 1994,
+    "text_snippet": "قال ابن الأنباري:\n\" اختلفوا في التعليل بالعلة ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1995,
+    "end_word": 2021,
+    "text_snippet": "واستدل على صحتها بأنها ساوت\nالعلة المتعدية في ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 53,
+    "start_word": 2022,
+    "end_word": 2053,
+    "text_snippet": "وقال قوم:\nإنها علة باطلة لأن العلة إنما تراد لل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 54,
+    "start_word": 2054,
+    "end_word": 2105,
+    "text_snippet": "وأجيب:\nبأنا لا نسلم أنها إنما تراد للتعدية، فإن",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 55,
+    "start_word": 2106,
+    "end_word": 2109,
+    "text_snippet": "انتهى كلام ابن الأنباري",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 56,
+    "start_word": 2110,
+    "end_word": 2162,
+    "text_snippet": "وقال ابن مالك في شرح التسهيل:\n\" عللوا سكون آخر ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 57,
+    "start_word": 2163,
+    "end_word": 2165,
+    "text_snippet": "فمنع العلة القاصرة.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 58,
+    "start_word": 2166,
+    "end_word": 2166,
+    "text_snippet": "الثامنة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 59,
+    "start_word": 2167,
+    "end_word": 2216,
+    "text_snippet": "قال في الخصائص:\n\" يجوز التعليل بعلتين ومن أمثلة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2217,
+    "end_word": 2258,
+    "text_snippet": "ومن ذلك قولهم:\nسي في (لا سيما) أصله سوي قلبت ال",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2259,
+    "end_word": 2303,
+    "text_snippet": "وقال في موضع آخر:\nقد يكثر الشيء فيسأل عن علته ك",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 62,
+    "start_word": 2304,
+    "end_word": 2336,
+    "text_snippet": "وقال ابن الأنباري:\n\" اختلفوا في تحليل الحكم بعل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 63,
+    "start_word": 2337,
+    "end_word": 2414,
+    "text_snippet": "وذهب قوم إلى الجواز وذلك مثل أن يدل على كون الف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 64,
+    "start_word": 2415,
+    "end_word": 2446,
+    "text_snippet": "فهذه ثمان علل واستدل على على جواز ذلك بأن هذه ا",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 65,
+    "start_word": 2447,
+    "end_word": 2490,
+    "text_snippet": "وأجيب: بأنه إن كان المعنى أنها ليست موجبة كالعل",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 66,
+    "start_word": 2491,
+    "end_word": 2491,
+    "text_snippet": "التاسعة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 67,
+    "start_word": 2492,
+    "end_word": 2585,
+    "text_snippet": "يجوز تعليل حمين بعلة واحدة قال في الخصائص\n\" سوا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 68,
+    "start_word": 2586,
+    "end_word": 2669,
+    "text_snippet": "وقال في موضع آخر\n\" باب في أن سبب الحكم قد يكون ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 69,
+    "start_word": 2670,
+    "end_word": 2670,
+    "text_snippet": "العاشرة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 70,
+    "start_word": 2671,
+    "end_word": 2731,
+    "text_snippet": "قال في الخصائص:\n\" هو نوع ظريف ذهب المبرد في وجو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 71,
+    "start_word": 2732,
+    "end_word": 2758,
+    "text_snippet": "إلا أن مسألة سيبويه أقوى من مسألة المبرد لأن ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 72,
+    "start_word": 2759,
+    "end_word": 2763,
+    "text_snippet": "الحادية عشرة\nفي تعارض العلل",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 73,
+    "start_word": 2764,
+    "end_word": 2799,
+    "text_snippet": "قال في الخصائص:\n\" هو ضربان:\nأحدهما: حكم واحد يت",
+    "scholarly_function": "definition",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 74,
+    "start_word": 2800,
+    "end_word": 2818,
+    "text_snippet": "فألأولون لما رأواها داخلة على المبتدأ والخبر دخ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 75,
+    "start_word": 2819,
+    "end_word": 2870,
+    "text_snippet": "والآخرون لما رأواها حرفا داخلا بمعناه على الجمل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 76,
+    "start_word": 2871,
+    "end_word": 2890,
+    "text_snippet": "وكذلك هلم ألحقها أهل الحجاز باسم الفعل فلم يلحق",
+    "scholarly_function": "example",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 77,
+    "start_word": 2891,
+    "end_word": 2892,
+    "text_snippet": "الثانية عشر",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 78,
+    "start_word": 2893,
+    "end_word": 2908,
+    "text_snippet": "يجوز التعليل بالأمور العدمية كتعليل بعضهم بناء ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  }
+]

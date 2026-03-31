@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0064",
+  "latency_seconds": 163.92,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1,2,3],\"start_word\":0,\"end_word\":46,\"text_snippet\":\"الكتاب الثالث\\n\\nفي‌‌ القياس قال ابن الأنباري في (جدله)\\nهو حمل غير المنقول على الم\",\"primary_function\":\"definition\",\"secondary_functions\":[\"structural_transition\",\"opinion_statement\"],\"description_arabic\":\"تعريف القياس في النحو وبيان أنه أصل غالب مسائل النحو ومبنى حدّه.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":1,\"segment_indices\":[4,5,6],\"start_word\":47,\"end_word\":147,\"text_snippet\":\"وقال صاحب (المستوفي) كل علم فبعضه مأخوذ بالسماع والنصوص، وبعضه بالاستنباط والقيا\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[\"example\"],\"description_arabic\":\"بيان أن النحو يجمع السماع والاستنباط والأخذ من علوم أخرى مع مثالين من العروض والموسيقى.\",\"self_containment\":\"PARTIAL\",\"self_containment_notes\":\"فهم المثالين على وجههما يحتاج معرفة سابقة بمصطلحات العروض والموسيقى وبمراد اختلاس الحركة.\"},{\"unit_index\":2,\"segment_indices\":[7,8,9,10],\"start_word\":148,\"end_word\":339,\"text_snippet\":\"وقال ابن الأنباري في (أصوله)\\nاعلم أن إنكار القياس في النحو لا يتحقق؛ لأن النحو ك\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[\"evidence_ijma\",\"evidence_rational\",\"example\"],\"description_arabic\":\"إثبات حجية القياس في النحو بالإجماع والمعقول وبيان الفرق بين القياس النحوي وأسماء اللغة.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null}],\"total_units\":3,\"notes\":null}\n"
+}

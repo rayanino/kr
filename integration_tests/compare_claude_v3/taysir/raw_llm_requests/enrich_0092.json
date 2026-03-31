@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0092",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n4- جواز التعليم بالفعل، ليكون أبقى في ذهن المتعلم.\n5- جواز فعل العبادة لأجل التعليم، وأنه ليس من التشريك في العمل فإن الأصل الباعث على هذه الصلاة هو إرادة التعليم، وهو قربة كما أن الصلاة قربة.\nالحديث الحادي عشر\nعَنْ عَبْدِ الله بنِ مَالِكٍ \"ابن بُحَينةَ\" رضيَ الله عَنْة أنَ النَّبيَّ صلى الله عليه وسلم كانَ إِذَا صَلى فرج بَيْنَ يَدَيهِ حَتَّى يَبْدُوَ ⌜1⌝ بَيَاضُ إبْطَيْهِ.\nالمعنى الإجمالي:\nكانت صلاة النبي صلى الله عليه وسلم، صلاة رغبة ونشاط، وكان يعطى كل عضو حقه- من العبادة.\nولهذا كان إذا سجد فرج بين يديه، ومن شدة التفريج بينهما، يظهر بياض إبطيه.\nكل ذلك عنوان النشاط في الصلاة، والرغبة في العبادة، وتباعداً عن هيئة الكسلان، الذي يضم بعض أعضائه إلى بعض، فيزيل عن بعضها عناء العبادة.\nما يؤخذ من الحديث:\n1- فيه دليل على استحباب هذه الهيئة في السجود، وهى مباعدة عضديه عن جنبيه، وقد تخصص ذلك في السجود بما أخرجه مسلم في حديث البراء يرفعه وهو \" إذا سجدت فضع كفيك، وارفع مرفقيك وهو في حديث الباب مطلق، ولكنه في هذا الحديث مقيد، فيحمل المطلق على المقيد، ويختص التفريج بحال السجود.\n2- في ذلك حِكَم كثيرة، وفوائد جسيمة.\nمنها: - إظهار النشاط والرغبة في الصلاة.\nومنها: - أنه إذا اعتمد على كل أعضاء السجود، أخذ كل عضو حقه من العبادة.\nفائدة:\nخص بعض الفقهاء، ومنهم الحنابلة، هذا الحكم بالرجل دون المرأة، لأنه يطلب منها التجمع، والتصون، ولما روى أبو داود في مراسيله عن يزيد ابن حبيب \" أن النبي صلى الله عليه وسلم مر على امرأتين تصليان، فقال: إذا سجدتما، فَضُما بعض اللحم إلى بعض، فإن المرأة ليست في ذلك كالرجل.\n</text>"
+    }
+  ]
+}

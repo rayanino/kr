@@ -1,0 +1,14 @@
+{
+  "call_id": "escalation_0001",
+  "semantic_phase": "escalation",
+  "chunk_id": null,
+  "model": "google/gemini-2.5-pro",
+  "temperature": 0.0,
+  "max_tokens": 1024,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Two models disagree on the author attribution of this Arabic text.\n\nText: \"وأما متى فالجر بها لغة هذيل ومن كلامهم أخرجها متى كمه يريدون من كمه ومنه قوله:\n198 - شربن بماء البحر ثم ترفعت … متى لجج خضر لهن نئيج وسيأتي الكلام على بقية العشرين عند كلام المصنف عليها\"\n\nSource: ابن عقيل - شرح ابن عقيل على ألفية ابن مالك\n\nModel 1 says: unknown (layer: sharh)\nModel 2 says: ابن عقيل (طبقة الشرح) (reasoning: لا أوافق؛ النص بصوت الشارح لا بصوت مجهول: فيه تقرير نحوي وشرح شاهد، ثم عبارة \"وسيأتي الكلام...\" وهي علامة تدبير شارح للنص. البيت الشعري شاهدٌ مضمَّن ولا يغيّر نسبة الوحدة إلى ابن عقيل.)\n\nWhich attribution is correct? Respond with just the author ID."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0098",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nوتطمئن في اعتدالك ⌜1⌝ ثم اسجد حتى تطمئن ساجداً، ثم ارفع من السجود واجلس حتى تطمئن جالساً.\nوافعل هذه الأفعال والأقوال في صلاتك كلها، ماعدا تكبيرة الإحرام، فإنها في الركعة الأولى دون غيرها من الركعات.\nفي الحديث ثلاثة مباحث:\nالمبحث الأول: في خلاف العلماء.\nفقد ذهبت الحنفية إلى صحة الصلاة بقراءة أي شيء من القرآن، حتى من قادر على الفاتحة مستدلين بقوله تعالى: {فَاقرأوا مَا تَيَسَّر مِنْهُ} وبإحدى روايات هذا الحديث \" ثم اقرأ ما تيسر معك من القرآن\".\nوذهب الجمهور إلى عدم صحة الصلاة بدون الفاتحة لمن يحسن قراءتها. مستدلين بقوله عليه الصلاة والسلام: \" لا صلَاةَ لِمَنْ لَم يَقرأْ بِفاِتحَة الكِتَاب\" متفق عليه. فالتقدير: لا صلاة توجد، وعدم وجودها شرعا هو عدم صحتها وهذا هو الأصل في مثل هذا النفي.\nوأدلة عدم صحة الصلاة بدونها كثيرة.\nوأجابوا عن الآية بأنها جاءت لبيان القرآن في قيام الليل، يعني: اقرأوا ما تيسر من القرآن بعد قراءة الفاتحة بلا مشقة عليكم.\nوأجابوا عن الحديث، بأن هذه الرواية مجملة تفسرها الروايات الأخرى عند أبي داود وابن حبان \"ثم اقرَأ بِأم القُرآن وبِمَا شَاءَ الله\". وقد سكت عنه أبو داود. وما سكت عنه فإنه لا قدح فيه.\nولابن حبان في حديثه \"واقرأ بأم القرآن ثم اقرأ بما شئت\". قال ابن الهمام: \" الأولى الحكم بأنه صلى الله عليه وسلم قال للمسيء في صلاته ذلك كله.\nثم إن بعض العلماء يرى وجوب الفاتحة في الركعة الأولى دون غيرها\nوالجمهور يرى وجوبها في كل ركعة، ويدل له قوله: \"ثم افْعَلْ ذلِكَ في صَلَاتِكَ كُلهَا\". قال الحافظ ابن حجر: وحديث أبي قتادة في البخاري من أنه صلى الله عليه وسلم كان يقرأ الفاتحة في كل ركعة مع قوله \"صلوا كما رأيتموني أصلي\" دليل الوجوب.\nثم اختلفوا في وجوب الطمأنينة في الاعتدال من الركوع والسجود.\nفذهب الحنفية إلى علم وجوبها.\nوذهب الجمهور إلى وجوبها، وحجتهم هذا الحديث الصحيح الصريح، وحديث البراء بن عازب أنه \"رَمَقَ صَلاةَ النَّبيَّ صلى الله عليه وسلم فَوَجَدَ قيامَهُ،\n</text>"
+    }
+  ]
+}

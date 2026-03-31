@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-03-31T03:53:13.822704+00:00",
+  "output_dir": "integration_tests\\compare_codex_v2",
+  "complete": true,
+  "packages": {
+    "ibn_aqil_v1": {
+      "excerpt_count": 5,
+      "error_count": 1,
+      "errors": [
+        "EX-V-002"
+      ],
+      "time_seconds": 2278.58,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ibn_aqil_v3": {
+      "excerpt_count": 24,
+      "error_count": 1,
+      "errors": [
+        "llm_call_errors:2"
+      ],
+      "time_seconds": 6314.12,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "taysir": {
+      "excerpt_count": 10,
+      "error_count": 0,
+      "errors": [],
+      "time_seconds": 1313.2,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ext_39_masala": {
+      "excerpt_count": 174,
+      "error_count": 5,
+      "errors": [
+        "EX-V-002",
+        "EX-V-002",
+        "EX-V-002",
+        "EX-V-002",
+        "EX-V-002"
+      ],
+      "time_seconds": 25824.45,
+      "cost_estimate": 0.0,
+      "status": "success"
+    },
+    "ext_46_qa": {
+      "excerpt_count": 0,
+      "error_count": 1,
+      "errors": [
+        "batch_timeout: exceeded 28800s in batch runner"
+      ],
+      "time_seconds": 28807.72,
+      "cost_estimate": 0.0,
+      "status": "error"
+    }
+  },
+  "totals": {
+    "packages_run": 5,
+    "packages_succeeded": 4,
+    "packages_failed": 1,
+    "total_excerpts": 213,
+    "total_errors": 8,
+    "total_time_seconds": 28807.79,
+    "total_cost_estimate": 0.0
+  }
+}

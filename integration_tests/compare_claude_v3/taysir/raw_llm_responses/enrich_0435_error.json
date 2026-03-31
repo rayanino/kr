@@ -1,0 +1,9 @@
+{
+  "call_id": "enrich_0435",
+  "error_type": "CLIBackendError",
+  "error": "Subprocess timeout after 1 attempts",
+  "raw_output": "",
+  "stdout": "",
+  "stderr": "",
+  "exit_code": null
+}

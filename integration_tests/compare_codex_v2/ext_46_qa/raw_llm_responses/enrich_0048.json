@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0048",
+  "latency_seconds": 293.83,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1,2,3,4,5,6,7],\"start_word\":0,\"end_word\":74,\"text_snippet\":\"المسألة الثامنة\\n\\nقد يتعلق الحكم بشيئين فأكثر، فتارة يجوز الجمع بينهما، وتارة يمت\",\"primary_function\":\"rule_statement\",\"secondary_functions\":[\"structural_transition\",\"example\"],\"description_arabic\":\"يبين أن الحكم قد يتعلق بأمور متعددة، وأن بعضها يجوز اجتماعه وبعضها يمتنع مع أمثلة نحوية.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":1,\"segment_indices\":[8,9,10],\"start_word\":75,\"end_word\":140,\"text_snippet\":\"ومن القواعد المشتهرة قولهم: البدل والمبدل منه، والعوض والمعوض عنه، لايجتمعان.\\nوم\",\"primary_function\":\"definition\",\"secondary_functions\":[\"rule_statement\",\"structural_transition\"],\"description_arabic\":\"يشرح قاعدة عدم اجتماع البدل والعوض مع بيان الفرق الاصطلاحي بينهما عند أبي حيان.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":2,\"segment_indices\":[11,12],\"start_word\":141,\"end_word\":281,\"text_snippet\":\"وقال ابن جني في (الخصائص):\\n\\\" الفرق بين العوض والبدل أن البدل أشبه بالمبدل منه م\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[\"editorial_note\"],\"description_arabic\":\"يفصل ابن جني الفروق بين البدل والعوض بأمثلة صرفية وينتهي إلى أن البدل أعم.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null}],\"total_units\":3,\"notes\":null}\n"
+}

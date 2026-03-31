@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0217",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n2- علة النهي أن النساء لا يطقن مثل هذه المشاهد المحزنة والمواقف المؤثرة، فربما ظهر منهن من التسخط والجزع ما ينافي الصبر الواجب.\n3- الأصل في النهي التحريم إلا أن أم عطية فهمت من قرينة الحال أن نهيهن عن اتباع الجنائز ليس جازما مؤكدا.\n4- لكن قال ابن دقيق العيد: قد وردت أحاديث أدل على التشديد في اتباع الجنائز أكثر مما يدل عليه هذا الحديث.\n\n‌‌بَابٌ في مَوقِف الإمام من الميت\nعَنْ سمرة بنِ جُنْدَب رضي الله عنه قال: صَليتُ وَرَاءَ رَسول الله صلى الله عليه وسلم عَلَى امرَأةٍ مَاتَتْ في نِفَاسِهَا، فَقَامَ وَسطهَا.\nالغريب:\nوسطها: بإسكان السينِ في الرواية.\nوالفرق ببن ما سكنت سينه، وما حركت، ما قاله \" الجوهري \" وهو أن ما صلحت فيه \" بين \" يسكن ومالا تصلح فيه، يفتح.\nيقال: جلست وسط القوم. بالسكون، وجلست وسَط الدار، بالفتح.\nنفاسها: بكسر النون، أي ماتت في مدته أو بسببه.\nالمعنى الإجمالي:\nصَلَّى \" سمرة بن جندب\" وراء النبي صلى الله عليه وسلم يخش حين صلى على امرأة ماتت في نفاسها، فقام صلى الله عليه وسلم إزاء وسطها وذلك ليسترها عن أعين المصلين أثناء وضعها أمامهم، قبل أن يتخذ لهن المحفة فوق السرير. والله أعلم.\nما يؤخذ من الحديث:\n1- الصلاة على الجنازة ومشروعيتها.\n2- أن موقف الإمام من المرأة يكون وسطها، سواء ماتت من نفاس أو غيره.\nفالعبرة من الحديث وصفها بأنها امرأة، لا بكونها نفساء. فإنه وصف غير معتبر بالاتفاق.\n</text>"
+    }
+  ]
+}

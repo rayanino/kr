@@ -1,0 +1,74 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "مسألة\nالقياس جلي وخفي",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 26,
+    "text_snippet": "فمن الأول: قياس حذف النون من المثنى في صلة الألف و",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 2,
+    "start_word": 27,
+    "end_word": 35,
+    "text_snippet": "قال أبو حيان: وقياس المثنى على الجمع قياس جلي.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 3,
+    "start_word": 36,
+    "end_word": 36,
+    "text_snippet": "خاتمة",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 4,
+    "start_word": 37,
+    "end_word": 44,
+    "text_snippet": "قد يجتمع السماع والإجماع والقياس دليلا على مسألة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 5,
+    "start_word": 45,
+    "end_word": 63,
+    "text_snippet": "قال في شرح التسهيل:\nيجوز دخول الباء في خبر (ما) ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 6,
+    "start_word": 64,
+    "end_word": 72,
+    "text_snippet": "أما السماع فلوجود ذلك في أشعار بني تميم ونثرهم.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.56
+  },
+  {
+    "segment_index": 7,
+    "start_word": 73,
+    "end_word": 90,
+    "text_snippet": "وأما القياس فلأن الباء دخلت الخبر لكونه منفيا لا ل",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 8,
+    "start_word": 91,
+    "end_word": 97,
+    "text_snippet": "وأما الإجماع فنقله أبو جعفر الصفار \".",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.99
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0065",
+  "latency_seconds": 188.39,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1,2,3],\"start_word\":0,\"end_word\":86,\"text_snippet\":\"فصل\\n\\nللقياس أربعة أركان: أصل وهو المقيس عليه وفرع وهو المقيس وحكم وعلة جامعة قال\",\"primary_function\":\"definition\",\"secondary_functions\":[\"structural_transition\",\"example\",\"editorial_note\"],\"description_arabic\":\"بيان أركان القياس الأربعة مع تطبيق نحوي يوضح الأصل والفرع والحكم والعلة الجامعة.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":1,\"segment_indices\":[4],\"start_word\":87,\"end_word\":92,\"text_snippet\":\"وقد عقدت لهذه الأركان أربعة فصول:\",\"primary_function\":\"structural_transition\",\"secondary_functions\":[],\"description_arabic\":\"تمهيد لافتتاح فصول تفصيلية لشرح أركان القياس.\",\"self_containment\":\"DEPENDENT\",\"self_containment_notes\":\"يحيل اسم الإشارة على الأركان المذكورة قبلَه، ويُمَهِّد لفصول لاحقة غير موجودة في المقتطف، فلا يكتمل وحده.\"}],\"total_units\":2,\"notes\":null}\n"
+}

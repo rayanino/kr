@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0036",
+  "latency_seconds": 330.95,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"enrichments\":[{\"unit_index\":0,\"excerpt_topic\":[\"كشف وجه الميت\",\"تقبيل الميت بين عينيه\",\"البكاء على الميت ثلاثة أيام\"],\"school\":null,\"school_confidence\":null,\"resolved_scholars\":[{\"mention_text\":\"أبو بكر رضي الله عنه\",\"resolved_name\":\"أبو بكر الصديق عبد الله بن أبي قحافة\",\"role\":\"quoted_opinion\",\"confidence\":0.99},{\"mention_text\":\"عمر\",\"resolved_name\":\"عمر بن الخطاب\",\"role\":\"quoted_opinion\",\"confidence\":0.96},{\"mention_text\":\"عائشة رضي الله عنها\",\"resolved_name\":\"عائشة بنت أبي بكر الصديق\",\"role\":\"quoted_opinion\",\"confidence\":0.99},{\"mention_text\":\"النبي صلى الله عليه وسلم\",\"resolved_name\":\"محمد بن عبد الله صلى الله عليه وسلم\",\"role\":\"quoted_opinion\",\"confidence\":1.0},{\"mention_text\":\"عبد الله بن جعفر رضي الله عنه\",\"resolved_name\":\"عبد الله بن جعفر بن أبي طالب\",\"role\":\"quoted_opinion\",\"confidence\":0.99},{\"mention_text\":\"أنس رضي الله عنه\",\"resolved_name\":\"أنس بن مالك\",\"role\":\"quoted_opinion\",\"confidence\":0.99},{\"mention_text\":\"رسول الله صلى الله عليه وسلم\",\"resolved_name\":\"محمد بن عبد الله صلى الله عليه وسلم\",\"role\":\"quoted_opinion\",\"confidence\":1.0},{\"mention_text\":\"عبد الرحمن بن عوف\",\"resolved_name\":\"عبد الرحمن بن عوف\",\"role\":\"quoted_opinion\",\"confidence\":0.98}],\"takhrij_data\":[{\"hadith_text_snippet\":\"أقبل أبو بكر رضي الله عنه على\",\"collections\":[],\"hadith_numbers\":[],\"grade\":\"صحيح\",\"grade_source\":\"المؤلف\"},{\"hadith_text_snippet\":\"أن النبي صلى الله عليه وسلم أمهل\",\"collections\":[],\"hadith_numbers\":[],\"grade\":\"صحيح\",\"grade_source\":\"المؤلف\"},{\"hadith_text_snippet\":\"دخلنا مع رسول الله صلى الله عليه\",\"collections\":[],\"hadith_numbers\":[],\"grade\":null,\"grade_source\":null}],\"terminology_variants\":[],\"cross_references\":[{\"reference_text\":\"وسيأتي لفظه في التعزية إن شاء الله تعالى\",\"target_description\":\"لفظ حديث عبد الله بن جعفر في باب التعزية\",\"resolved\":true}],\"context_hint\":null}],\"total_units\":1}\n"
+}

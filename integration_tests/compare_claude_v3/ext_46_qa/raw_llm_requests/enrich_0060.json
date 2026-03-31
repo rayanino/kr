@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0060",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nخاتمة\n\nقال الشيخ بهاء الدين بن النحاس في التعليقة:\n\" النقل عن النفي فيه شيء لأن حاصله أنني لم أسمع هذا وهذا لا يدل على أنه لم يكن \"\n\nتنبيه\nالنقل عند ابن الأنباري\n\nبعد أن حررت هذا الكتاب بفروعه وجدت ابن الأنباري قال في أصوله:\n\" أدلة النحو ثلاثة: نقل وقياس واصطحاب حال\nفالنقل هو الكلام العربي الفصيح المنقول النقل الصحيح الخارج عن حد القلة إلى حد الكثرة.\nوعلى هذا يخرج ما جاء من كلام غير العرب من المولدين وغيرهم وما جاء شاذا في كلامهم نحو الجزم بـ (لن) والنصب بـ (لم) والجر بـ (لعل) ونصب الجزأين بها وبـ (ليت)\nوهو ينقسم إلى تواتر وآحاد فأما التواتر فلغة القرآن وما تواتر من السنة وكلام العرب.\nوهذا القسم قطعي من أدلة النحو يفيد العلم.\nوأما الآحاد فما تفرد بنقله بعض أهل اللغة ولم يوجد فيه شرط التواتر وهو دليل مأخوذ به والأكثرون على أنه يفيد الظن.\nوشرط التواتر أن يبلغ عدد ناقليه عددا لا يجوز على مثلهم الاتفاق على الكذب.\nوشرط الآحاد أن يكون ناقله عدلا رجلا كان أو امرأة حرا كان أو عبدا كما يشترط في نقل الحديث لأن باللغة نعرفة تفسيره وتأويله فاشترط في نقلها ما اشترط في نقله فإن كان ناقل اللغة فاسقا لم يقبل نقله.\nويقبل نقل العدل الواحد وأهل الأهواء إلا أن يكونوا ممن يتدين بالكذب.\nوأما المرسل: وهو الذي انقطع سنده نحو أن يروي ابن دريد عن أبي زيد.\nوالمجهول: وهو الذي لم يعرف ناقله نحو أن يقول أبو بكر بن الأنباري حدثني رجل عن ابن الأعرابي.\nفلا يقبلان لأن العدالة شرط في النقل وانقطاع السند والجهل بالناقل يوجبان النقل بالعدالة فإن لم يذكر اسمه أو ذكر ولم يعرف، لم تعرف عدالته فلا يقبل نقله.\nوقيل يقبلان لأن الإرسال صدر ممن لو أسند لقبل ولم يهتم في إسناده فكذلك في إرساله فإن التهمة لو تطرقت إلى إرساله لتطرقت إلى إسناده وإذا لم يهتم في إسناده فكذلك في إرساله.\nوكذلك النقل عن المجهول صدرا ممن لا يهتم في نقله لأن التهمه لو تطرقت إلى نقله عن المجهول لتطرقت إلى نقله عن المعروف وهذا ليس بصحيح.\nواختلف العلماء في جواز الإجازة والصحيح جوازها هذا حاصل ما ذكره ابن الأنباري في ثمانية فصول من كتابه.\n</text>"
+    }
+  ]
+}

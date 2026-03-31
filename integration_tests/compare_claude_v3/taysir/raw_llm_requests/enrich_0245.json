@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0245",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n‌‌باب فضل الحلق وجواز التقصير\nالحديث الأول\nعَنْ عَبْدِ الله بْنِ عُمَرَ رضي الله عنهما أَنَّ رَسُولَ الله صلى الله عليه وسلم قَال:\n\"اللَّهُمَّ ارْحَمِ الْمُحَلِّقِينَ. قالوا: وَالْمُقَصِّرِينَ يَا رَسُول الله؟ قال: \"الَّلهُمَّ ارْحَم\nالْمحَلِّقِينَ. قالوا: وَالْمُقَصِّرِينَ يَا رَسُولَ الله؟ قَالَ: الَّلهُمَّ ارْحَمِ المُحلِّقِينَ، قَالُوا وَالْمُقَصِّرِينَ\nيَا رَسُولَ الله قال: \"وَالمُقَصِّرِينَ\".\nالمعنى الإجمالي:\nالحلق والتقصير من مناسك الحج والعمرة الجليلة.\nوالحلق أفضل من التقصير لأنه أبلغ في التعبد، والتذلل لله تعالى، باستئصال شعر الرأس في طاعة الله تعالى.\nولذا فإن النبي صلى الله عليه وسلم دعا للمحلقين بالرحمة ثلاثاً ⌜1⌝ .\nوالحاضرون يذكرونه بالمقصرين فيعرض عنهم، وفي الثالثة أو الرابعة أدخل المقصرين معهم في الدعاء، مما يدل على أن الحلق في حق الرجال هو الأفضل.\nهذا ما لم يكن في عمرة التمتع، ويضيق الوقت بحيث لا ينبت الشعر لحلق الحج، فليقصر، فهو في حقه أفضل.\nما يؤخذ من الحديث:\n1- مشروعية الحلق أو التقصير. والصحيح أنَّ أحدهما واجب للحج والعمرة.\n2- فضل الحلق على التقصير في حق الرجال، وهو مجمع عليه.\nوهذا ما لم يكن في عمرة متمتعاً بها إلى الحج، ويضيق الوقت، بحيث لا ينبت قبل حلق الحج، فحينئذ يكون التقصير أولى.\n3- المراد بالحلق استئصال شعر الرأس بأي شي، والتقصير الأخذ من أطرافه، بقدر أنملة.\n4- المشروع، هو الاكتفاء بالحلق أو التقصير، لا الإتيان بهما جميعاً.\n5- استدل بتفضيل الحلق على التقصير، بأنهما نسكان من مناسك الحج، وليسا لاستباحة المحظور فقط. وإلا لما فضل أحدهما على الآخر.\nوهذا هو الأصحّ من قولي العلماء، وهو ما ذهب إِليه الجمهور، وهو مذهب الأئمة الأربعة\n</text>"
+    }
+  ]
+}

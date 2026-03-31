@@ -1,0 +1,522 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 1,
+    "text_snippet": "15-‌‌ التعزية.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 2,
+    "end_word": 8,
+    "text_snippet": "109- وتشرع تعزية أهل الميت1 وفيه حديثان:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 9,
+    "end_word": 163,
+    "text_snippet": "الأول: عن قرة المزني رضي الله عنه قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 164,
+    "end_word": 200,
+    "text_snippet": "الثاني: عن أنس بن مالك رضي الله عنه عن النبي صلى الله عليه وسلم قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 4,
+    "start_word": 201,
+    "end_word": 244,
+    "text_snippet": "110 - ويعزيهم بما يظن أنه يسليهم ويكف من حزنهم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 5,
+    "start_word": 245,
+    "end_word": 297,
+    "text_snippet": "الأول: عن أسامة بن زيد قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 6,
+    "start_word": 298,
+    "end_word": 321,
+    "text_snippet": "قلت: وهذه الصغية من التعزية وإن وردت فيمن شارف الموت",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 7,
+    "start_word": 322,
+    "end_word": 327,
+    "text_snippet": "وهذا الحديث أحسن ما يعزى به",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 8,
+    "start_word": 328,
+    "end_word": 410,
+    "text_snippet": "الثاني: قوله صلى الله عليه وسلم للمرأة الأنصارية يعزيها بولدها:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 411,
+    "end_word": 454,
+    "text_snippet": "الثالث:\nقوله صلى الله عليه وسلم حينما دخل على أم سلمة رضي الله عنها",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 10,
+    "start_word": 455,
+    "end_word": 460,
+    "text_snippet": "وقد مضى بتمامه في المسألة 17.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 11,
+    "start_word": 461,
+    "end_word": 488,
+    "text_snippet": "الرابع: قوله صلى الله عليه وسلم في تعزيته عبد الله بن جعفر في أبيه:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 12,
+    "start_word": 489,
+    "end_word": 493,
+    "text_snippet": "يأتي بتمامه في المسألة التالية.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 13,
+    "start_word": 494,
+    "end_word": 531,
+    "text_snippet": "111 - ولا تحد التعزية بثلاثة أيام لا يتجاوزها",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 532,
+    "end_word": 723,
+    "text_snippet": "بعث رسول الله صلى الله عليه وسلم جيشا استعمل عليهم زيد بن حارثة",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 15,
+    "start_word": 724,
+    "end_word": 732,
+    "text_snippet": "112 - وينبغي اجتناب أمرين وإن تتابع الناس عليهما:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 16,
+    "start_word": 733,
+    "end_word": 744,
+    "text_snippet": "أ - الاجتماع للتعزية في مكان خاص كالدار أو المقبرة أو المسجد.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 17,
+    "start_word": 745,
+    "end_word": 753,
+    "text_snippet": "ب - اتخاذ أهل الميت الطعام لضيافة الواردين للعزاء.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 18,
+    "start_word": 754,
+    "end_word": 779,
+    "text_snippet": "وذلك لحديث جرير بن عبد الله البجلي رضي الله عنه قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 19,
+    "start_word": 780,
+    "end_word": 829,
+    "text_snippet": "قال النووي في المجموع 5 / 306:",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 830,
+    "end_word": 863,
+    "text_snippet": "ونص الإمام الشافعي الذي أشار إليه النووي في كتاب الأم 1 / 248:",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 864,
+    "end_word": 871,
+    "text_snippet": "كأنه يشير إلى حديث جرير هذا قال النووي:",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 22,
+    "start_word": 872,
+    "end_word": 880,
+    "text_snippet": "واستدل له المصنف وغيره بدليل آخر وهو أنه محدث.",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 23,
+    "start_word": 881,
+    "end_word": 912,
+    "text_snippet": "وكذا نص ابن الهمام في شرح الهداية 1 / 473 على كراهة اتخاذ الضيافة",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 24,
+    "start_word": 913,
+    "end_word": 934,
+    "text_snippet": "113 - وإنما السنة أن يصنع أقرباء الميت وجيرانه لأهل الميت طعاما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 25,
+    "start_word": 935,
+    "end_word": 958,
+    "text_snippet": "لما جاء نعي جعفر حين قتل قال النبي صلى الله عليه وسلم:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 26,
+    "start_word": 959,
+    "end_word": 1003,
+    "text_snippet": "قال الإمام الشافعي في الأم 1 / 247:",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 1004,
+    "end_word": 1016,
+    "text_snippet": "114 - ويستحب مسح رأس اليتيم وإكرامه لحديث عبد الله بن جعفر قال:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1017,
+    "end_word": 1096,
+    "text_snippet": "لو رأيتني وقثم وعبيد الله بن عباس ونحن صبيان نلعب إذ مر النبي",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1097,
+    "end_word": 1100,
+    "text_snippet": "ما ينتفع به الميت.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1101,
+    "end_word": 1108,
+    "text_snippet": "115 - وينتفع الميت من عمل غيره بأمور:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1109,
+    "end_word": 1144,
+    "text_snippet": "أولا: دعاء المسلم له إذا توفرت فيه شروط القبول لقول الله تبارك وتعالى:",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1145,
+    "end_word": 1166,
+    "text_snippet": "وأما الأحاديث فهي كثيرة جدا وقد سبق بعضها ويأتي بعضها في زيارة القبور",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1167,
+    "end_word": 1194,
+    "text_snippet": "ومنها قوله صلى الله عليه وسلم:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1195,
+    "end_word": 1210,
+    "text_snippet": "بل إن صلاة الجنازة جلها شاهد لذلك لأن غالبها دعاء للميت",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1211,
+    "end_word": 1219,
+    "text_snippet": "ثانيا: قضاء ولي الميت صوم النذر عنه وفيه أحاديث:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1220,
+    "end_word": 1240,
+    "text_snippet": "الأول: عن عائشة رضي الله عنه أن رسول الله صلى الله عليه وسلم قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1241,
+    "end_word": 1251,
+    "text_snippet": "وهو محمول على صيام النذر دون صيام رمضان وبيانه في الأصل.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1252,
+    "end_word": 1315,
+    "text_snippet": "الثاني: عن ابن عباس رضي الله عنه:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1316,
+    "end_word": 1328,
+    "text_snippet": "ثالثا: قضاء الدين عنه من أي شخص وليا كان أو غيره كما تقدم.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1329,
+    "end_word": 1351,
+    "text_snippet": "رابعا: ما يفعله الولد الصالح من الأعمال الصالحة فإن لوالديه",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1352,
+    "end_word": 1361,
+    "text_snippet": "والله عز وجل يقول:؟ وأن ليس للإنسان إلا ما سعى؟",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1362,
+    "end_word": 1379,
+    "text_snippet": "وقال رسول الله صلى الله عليه وسلم:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1380,
+    "end_word": 1400,
+    "text_snippet": "ويؤيد ما دلت عليه الآية والحديث أحاديث خاصة وردت في انتفاع الوالد",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1401,
+    "end_word": 1431,
+    "text_snippet": "الأول: عن عائشة رضي الله عنها:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1432,
+    "end_word": 1529,
+    "text_snippet": "الثاني: عن عبد الله بن عمر:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1530,
+    "end_word": 1546,
+    "text_snippet": "خامسا: ما خلفه من بعده من آثار صالحة وصدقات جارية لقوله",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1547,
+    "end_word": 1573,
+    "text_snippet": "وقوله صلى الله عليه وسلم:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1574,
+    "end_word": 1925,
+    "text_snippet": "وعن جرير بن عبد الله رضي الله عنه قال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1926,
+    "end_word": 1927,
+    "text_snippet": "زيارة القبور:",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1928,
+    "end_word": 1973,
+    "text_snippet": "116 - وتشرع زيارة القبور للاتعاظ بها وتذكرة الآخرة شريطة",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1974,
+    "end_word": 1982,
+    "text_snippet": "117 - والنساء كالرجال في استحباب زيارة القبور لوجوه:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1983,
+    "end_word": 2066,
+    "text_snippet": "الأول: عموم قوله صلى الله عليه وسلم:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 53,
+    "start_word": 2067,
+    "end_word": 2098,
+    "text_snippet": "ويؤيده أن الخطاب في بقية الأفعال المذكورة في روايته:",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 54,
+    "start_word": 2099,
+    "end_word": 2153,
+    "text_snippet": "أقول: فالخطاب في جميع هذه الأفعال موجه إلى الجنسين قطعا",
+    "scholarly_function": "refutation",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 55,
+    "start_word": 2154,
+    "end_word": 2171,
+    "text_snippet": "الثاني: مشاركتهن الرجال في العلة التي من أجلها شرعت زيارة القبور:",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 56,
+    "start_word": 2172,
+    "end_word": 2257,
+    "text_snippet": "الثالث: أن النبي صلى الله عليه وسلم قد رخص لهن في زيارة القبور",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 57,
+    "start_word": 2258,
+    "end_word": 2510,
+    "text_snippet": "2 - عن محمد بن قيس بن مخرمة بن المطلب أنه قال يوما:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 58,
+    "start_word": 2511,
+    "end_word": 2561,
+    "text_snippet": "118 - لكن لا يجوز لهن الإكثار من زيارة القبور والتردد عليها",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 59,
+    "start_word": 2562,
+    "end_word": 2574,
+    "text_snippet": "\"لعن رسول الله صلى الله عليه وسلم وفي لفظ: لعن الله زوارات القبور\".",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2575,
+    "end_word": 2625,
+    "text_snippet": "قال القرطبي:",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2626,
+    "end_word": 2647,
+    "text_snippet": "قال الشوكاني في نيل الأوطار 4 / 95:",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 62,
+    "start_word": 2648,
+    "end_word": 2663,
+    "text_snippet": "119 - ويجوز زيارة قبر من مات على غير الإسلام للعبرة فقط",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 63,
+    "start_word": 2664,
+    "end_word": 2697,
+    "text_snippet": "زار النبي صلى الله عليه وسلم قبر أمه فبكى وأبكى من حوله فقال:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 64,
+    "start_word": 2698,
+    "end_word": 2728,
+    "text_snippet": "والمقصود من زيارة القبور شيئان:\n1- انتفاع الزائر بذكر الموت",
+    "scholarly_function": "definition",
+    "confidence": 0.88
+  }
+]

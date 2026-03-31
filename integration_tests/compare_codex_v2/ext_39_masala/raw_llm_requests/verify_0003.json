@@ -1,0 +1,18 @@
+{
+  "call_id": "verify_0003",
+  "semantic_phase": "verification",
+  "chunk_id": null,
+  "model": "openai/gpt-5.4",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية), independently verifying metadata decisions made by another model.\n\nFor each verification item, you receive the original Arabic text, the decision made, and supporting context. Your task is to independently assess whether each decision is correct.\n\nVERIFICATION METHODOLOGY:\n- Read the Arabic text carefully before looking at the decision\n- Form your own judgment, then compare with the stated decision\n- For SCHOOL_ATTRIBUTION: check whether the position presented matches the attributed school. The source author's school is NOT necessarily the school of every position discussed — authors often present other schools' views for comparison or refutation.\n- For AUTHOR_ATTRIBUTION: check whether the text content matches the attributed author/layer. Look for voice markers (قال, ذكر, المصنف), commentary indicators (أي, يعني, الشرح), and layer boundaries.\n- For SELF_CONTAINMENT: evaluate against these criteria:\n  * C-SC-1: Every technical term is defined or is standard terminology\n  * C-SC-2: Every pronoun/demonstrative resolves within the unit\n  * C-SC-3: Every evidence citation includes its text or is universally known\n  * C-SC-4: The argument/ruling/teaching is complete, not a fragment\n  * C-SC-5: If responding to another scholar, enough of that position is included\n\nExpress your assessment as agree or disagree with brief reasoning. If you disagree, provide your alternative. Include your confidence (0.0 to 1.0)."
+    },
+    {
+      "role": "user",
+      "content": "Source context:\n- Author: None\n- Work: None\n- Science: None\n- School: None\n\nITEM 0: SELF_CONTAINMENT\nText: \"20 - ولا ينافي الصبر أن تمتنع المرأة من الزينة كلها حدادا على وفاة ولدها أو غيره إذا لم تزد على ثلاثة أيام إلا على زوجها فتحد أربعة أشهر وعشرا لحديث زينب بنت أبي سلمة قالت: دخلت على أم حبيبة زوج النبي صلى الله عليه وسلم فقالت: سمعت رسول الله صلى الله عليه وسلم يقول: \"لا يحل لامرأة تؤمن بالله واليوم الآخر أن تحد على ميت فوق ثلاث إلا على زوج أربعة أشهر وعشرا\".\nثم دخلت على زينب بنت جحش حين توفي أخوها فدعت بطيب فمست ثم قالت: ما لي بالطيب من حاجة غير أني سمعت رسول الله صلى الله عليه وسلم يقول:. . . . فذكرت الحديث.\n21 - ولكنها إذا لم تحد على غير زوجها إرضاء للزوج وقضاء لوطره منها فهو أفضل لها ويرجى لهما من وراء ذلك خير كثير كما وقع لأم سليم وزوجها أبي طلحة الأنصاري رضي الله عنهما وقصتهما في ذلك طويلة ولولا ذلك لسقتها هنا فلتراجع في الأصل.\"\nScholarly function: rule_statement\nDecision: Unit assessed as PARTIAL. Notes: الحكم وأدلته مكتملة، لكن مثال أم سليم وأبي طلحة أُحيل إلى الأصل ولم تُذكر قصته كاملة داخل الوحدة.. Is this assessment correct?\nYour assessment: agree or disagree, with brief reasoning in Arabic or English.\nIf you disagree, provide your alternative.\nProvide your confidence (0.0 to 1.0) in your own assessment.\n"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0381",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n3- ورد مثل هذه القضية في زمن عمر فقد روى مالك بسند صحيح أن الضحاك بن خليفة، سأله محمد بن مسلمة أن يسوق خليجا له فيجريه في أرض محمد بن مسلمة، فامتنع.\nفكلمه عمر في ذلك فأبى. فقال: والله ليمرن به ولو على بطنك.\nولم يعلم لعمر مخالف في هذه القضية من الصحابة، فكان اتفاقاً منهم على ذلك.\n4- أن الشارع عظم حقوق الجار وأكد حرمته، فله على جاره حقوق فإذا لم يبذل له ما ليس عليه فيه مضرة، فأين رَعْىُ الحقوق والحرمة؟\nأما العمومات التي يستدلون بها على عدم الوجوب، فلا يبعد أن تكون مخصصة بهذا الحديث، للمصالح\n\n‌‌بَابُ الغصْبِ\nمصدر \" غصبه يغصبه \" أخذه ظلماً.\nوالغصب شرعاً: هو الاستيلاء على مال غيره بغير حق.\nوهو من الظلم المحرم في الكتاب، والسنة، والإجماع.\nويجب على الغاصب رد ما غصبه، لأنه من رد المظالم إلى أهلها.\nالحديث الأول\nعَنْ عَائِشَةَ رَضى الله عَنْهَا: أنَ رَسُولَ الله صلى الله عليه وسلم قَالَ: \" من ظَلَمَ قِيدَ شِبْر مِنَ الأرْض طُوقَهُ مِنْ سَبْعِ أرْضِينَ \".\nالغريب:\nقيد شبر: بكسر القاف وسكون الياء، أي قدر. وذكر \" الشبر\"، إشارة إلى استواء القليل والكثير.\nطوقه: بضم الطاء وتشديد الواو المكسورة، مبنى للمجهول، بمعنى أن يجعل طوقاً في عنقه.\nأرضين: بفتح الراء ويجوز إسكانها.\nالظلم: لغة وضع الشيء في غير محله. وشرعا التصرف في حق الغير بدون إذنه.\nالمعنى الإجمالي:\nمال الإنسان على الإنسان حرام، فلا يحل لأحد أخذ شيء من حق أحد، إلا بطيبة نفسه، وأشد ما يكون ذلك، ظلم الأرض، لطول مدة استمرار الاستيلاء عليها- ظلماً.\n</text>"
+    }
+  ]
+}

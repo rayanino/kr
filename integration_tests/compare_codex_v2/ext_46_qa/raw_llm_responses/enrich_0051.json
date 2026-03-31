@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0051",
+  "latency_seconds": 129.82,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1],\"start_word\":0,\"end_word\":23,\"text_snippet\":\"المسألة الثالثة\\n\\n(حد اللغة، وهل هي بوضع الله أو البشر)\\n\\nقال في (الخصاص):\\n\\\" حد ال\",\"primary_function\":\"definition\",\"secondary_functions\":[\"structural_transition\"],\"description_arabic\":\"تعريف اللغة بأنها أصوات يعبّر بها كل قوم عن أغراضهم.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":1,\"segment_indices\":[2,3,4,5,6,7,8,9,10],\"start_word\":24,\"end_word\":150,\"text_snippet\":\"واختلف هل هي بوضع الله أو البشر؟ على مذاهب:\\nأحدها: وهو مذهب الأشعري أنها بوضع ال\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[\"structural_transition\",\"evidence_quran\",\"narration\",\"editorial_note\",\"evidence_rational\"],\"description_arabic\":\"شرح مذهب الأشعري في توقيف اللغة من الله، وطرق تلقيها، وأدلته القرآنية والعقلية.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":2,\"segment_indices\":[11,12],\"start_word\":151,\"end_word\":172,\"text_snippet\":\"والمذهب الثاني: أنها اصطلاحية، وضعها البشر، ثم قيل: وضعها آدم.\\nوتأول ابن جني الآ\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[],\"description_arabic\":\"عرض القول بأن اللغة اصطلاح بشري، مع تأويل الآية بما يوافق هذا الرأي.\",\"self_containment\":\"PARTIAL\",\"self_containment_notes\":\"إشارة ابن جني إلى «الآية» لا تنحل داخل هذه الوحدة؛ تحتاج إلى استحضار قوله تعالى: «وعلم آدم الأسماء كلها» لفهم التأويل.\"}],\"total_units\":3,\"notes\":null}\n"
+}

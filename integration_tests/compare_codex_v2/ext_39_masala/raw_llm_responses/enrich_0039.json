@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0039",
+  "latency_seconds": 228.51,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"enrichments\":[{\"unit_index\":0,\"excerpt_topic\":[\"النعي الجائز\",\"إعلان الوفاة\",\"ما يشبه نعي الجاهلية\"],\"school\":null,\"school_confidence\":null,\"resolved_scholars\":[{\"mention_text\":\"أبي هريرة\",\"resolved_name\":\"أبو هريرة عبد الرحمن بن صخر الدوسي\",\"role\":\"quoted_opinion\",\"confidence\":0.98},{\"mention_text\":\"رسول الله صلى الله عليه وسلم\",\"resolved_name\":\"محمد بن عبد الله\",\"role\":\"quoted_opinion\",\"confidence\":1.0}],\"takhrij_data\":[{\"hadith_text_snippet\":\"أن رسول الله صلى الله عليه وسلم نعى النجاشي\",\"collections\":[],\"hadith_numbers\":[],\"grade\":null,\"grade_source\":null}],\"terminology_variants\":[{\"term\":\"النعي\",\"variants\":[\"إعلان الوفاة\",\"الإعلام بالموت\"]}],\"cross_references\":[],\"context_hint\":null},{\"unit_index\":1,\"excerpt_topic\":[\"الاستغفار للميت\",\"طلب الدعاء للميت\",\"بدعية الفاتحة على روح الميت\"],\"school\":null,\"school_confidence\":null,\"resolved_scholars\":[{\"mention_text\":\"قوله صلى الله عليه وسلم\",\"resolved_name\":\"محمد بن عبد الله\",\"role\":\"quoted_opinion\",\"confidence\":0.99}],\"takhrij_data\":[{\"hadith_text_snippet\":\"استغفروا لأخيكم\",\"collections\":[],\"hadith_numbers\":[],\"grade\":null,\"grade_source\":null}],\"terminology_variants\":[],\"cross_references\":[{\"reference_text\":\"وسيأتي في المسالة 60 / السابع.\",\"target_description\":\"المسألة 60 من القسم السابع في هذا العمل\",\"target_div_id\":null,\"resolved\":true},{\"reference_text\":\"كما سيأتي إن شاء الله تعالى.\",\"target_description\":\"موضع لاحق في بحث وصول القراءة إلى الموتى\",\"target_div_id\":null,\"resolved\":false}],\"context_hint\":\"المؤلف يحيل إلى موضع لاحق يذكر فيه خلاف العلماء في وصول ثواب القراءة إلى الميت ويرجح هناك عدم الوصول.\"}],\"total_units\":2}\n"
+}

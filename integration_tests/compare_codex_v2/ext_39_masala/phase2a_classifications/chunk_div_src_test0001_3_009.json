@@ -1,0 +1,314 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "12- حمل الجناة واتباعها.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 22,
+    "text_snippet": "44 - ويجب‌‌ حمل الجنازة واتباعها وذلك من حق الميت المسلم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 23,
+    "end_word": 50,
+    "text_snippet": "الأول: صحيح قوله صلى الله عليه وسلم:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 3,
+    "start_word": 51,
+    "end_word": 59,
+    "text_snippet": "الثاني: قوله أيضا:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 4,
+    "start_word": 60,
+    "end_word": 81,
+    "text_snippet": "45 - واتباعها على مرتبتين:",
+    "scholarly_function": "definition",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 5,
+    "start_word": 82,
+    "end_word": 225,
+    "text_snippet": "وكل منهما فعل رسول الله صلى الله عليه وسلم فروى أبو سعيد",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 6,
+    "start_word": 226,
+    "end_word": 289,
+    "text_snippet": "46 - ولا شك في أن المرتبة الأخرى أفضل من الأولى لقوله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 7,
+    "start_word": 290,
+    "end_word": 338,
+    "text_snippet": "47 - وهذا الفضل في اتباع الجنائز إنما هو للرجال دون النساء",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 8,
+    "start_word": 339,
+    "end_word": 372,
+    "text_snippet": "48 - ولا يجوز أن تتبع الجنائز بما يخالف الشريعة",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 9,
+    "start_word": 373,
+    "end_word": 387,
+    "text_snippet": "49 - ويلحق بذلك رفع الصوت بالذكر أمام الجنازة لأنه بدعة",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 10,
+    "start_word": 388,
+    "end_word": 399,
+    "text_snippet": "كان أصحاب النبي صلى الله عليه وسلم يكرهون رفع الصوت",
+    "scholarly_function": "narration",
+    "confidence": 0.62
+  },
+  {
+    "segment_index": 11,
+    "start_word": 400,
+    "end_word": 414,
+    "text_snippet": "ولأن فيه تشبها بالنصارى فإنهم يرفعون أصواتهم",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 12,
+    "start_word": 415,
+    "end_word": 435,
+    "text_snippet": "وأقبح من ذلك تشييعها بالعزف على الآلات الموسيقية",
+    "scholarly_function": "example",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 13,
+    "start_word": 436,
+    "end_word": 470,
+    "text_snippet": "قال النووي رحمه الله تعالى في الأذكار ص 203:",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 14,
+    "start_word": 471,
+    "end_word": 495,
+    "text_snippet": "والحكمة فيه ظاهرة وهي أنه أسكن لخاطره",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 15,
+    "start_word": 496,
+    "end_word": 521,
+    "text_snippet": "فقد قال أبو علي الفضيل.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 16,
+    "start_word": 522,
+    "end_word": 536,
+    "text_snippet": "وقد روينا في سنن البيهقي ما يقتضي ما قلته",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 17,
+    "start_word": 537,
+    "end_word": 574,
+    "text_snippet": "وأما ما يفعله الجهلة من القراءة على الجنازة بدمشق",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 18,
+    "start_word": 575,
+    "end_word": 605,
+    "text_snippet": "50 - ويجب الإسراع في السير بها سيرا دون الرمل لقوله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 19,
+    "start_word": 606,
+    "end_word": 626,
+    "text_snippet": "قلت: ظاهر الأمر الوجوب وبه قال ابن حزم 5 / 154 - 155",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 20,
+    "start_word": 627,
+    "end_word": 647,
+    "text_snippet": "وقال ابن القيم في زاد المعاد:",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 21,
+    "start_word": 648,
+    "end_word": 693,
+    "text_snippet": "51 - ويجوز المشي أمامها وخلفها وعن يمينها ويسارها",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 22,
+    "start_word": 694,
+    "end_word": 732,
+    "text_snippet": "52 - وكل من المشي أمامها وخلفها ثبت عن رسول الله",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 23,
+    "start_word": 733,
+    "end_word": 750,
+    "text_snippet": "53 - ولكن الأفضل المشي خلفها لأنه مقتضى قوله صلى الله عليه وسلم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 24,
+    "start_word": 751,
+    "end_word": 770,
+    "text_snippet": "ويؤيده قول علي رضي الله عنه: المشي خفها أفضل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 25,
+    "start_word": 771,
+    "end_word": 792,
+    "text_snippet": "54 - ويجوز الركوب بشرط أن يسير وراءها لقوله صلى الله عليه وسلم",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 26,
+    "start_word": 793,
+    "end_word": 848,
+    "text_snippet": "لكن الأفضل المشي لأنه المعهود عنه صلى الله عليه وسلم",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 27,
+    "start_word": 849,
+    "end_word": 932,
+    "text_snippet": "55 - وأما الركوب بعد الانصراف عنها فجائز بدون كراهة",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 28,
+    "start_word": 933,
+    "end_word": 956,
+    "text_snippet": "56 - وأما حمل الجنازة على عربة أو سيارة مخصصة للجنائز",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 29,
+    "start_word": 957,
+    "end_word": 970,
+    "text_snippet": "الأول: أنها من عادات الكفار وقد تقرر في الشريعة",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 30,
+    "start_word": 971,
+    "end_word": 1013,
+    "text_snippet": "وفي ذلك أحاديث كثيرة جدا كنت استوعبتها وخرجتها",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1014,
+    "end_word": 1034,
+    "text_snippet": "الثاني: أنها بدعة في عبادة مع معارضتها للسنة العملية",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.71
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1035,
+    "end_word": 1069,
+    "text_snippet": "الثالث: أنها تفوت الغاية من حملها وتشييعها وهي تذكر الآخرة",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1070,
+    "end_word": 1139,
+    "text_snippet": "أقول: إن تشييعها على تلك الصورة مما يفوت على الناس",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1140,
+    "end_word": 1170,
+    "text_snippet": "الرابع: أنها سبب قوي لتقليل المشيعين لها",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1171,
+    "end_word": 1231,
+    "text_snippet": "الخامس: أن هذه الصورة لا تتفق من قريب ولا من بعيد",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1232,
+    "end_word": 1259,
+    "text_snippet": "57 - والقيام لها منسوخ. وهو على نوعين:",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1260,
+    "end_word": 1307,
+    "text_snippet": "والدليل على ذلك حديث علي رضي الله عنه:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1308,
+    "end_word": 1324,
+    "text_snippet": "ويستحب لمن حملها أن يتوضأ لقوله صلى الله عليه وسلم:",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  }
+]

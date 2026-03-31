@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0019",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\nالمسألة الثامنة\n\nقد يتعلق الحكم بشيئين فأكثر، فتارة يجوز الجمع بينهما، وتارة يمتنع.\nفالأول: كمسوغات الابتداء بالنكرة، فإن كلا منها مسموع على انفراده، ولايمتنع اجتماع اثنين منها فأكثر.\nو (أل) والتصغير من خواص الأسماء، ويجوز اجتماعهما، و (قد) والتاء من خواص الأفعال، ويجوز اجتماعهما.\nوالثاني كاللام من خواص الأسماء، وكذا الإضافة ولا يجوز الجمع بينهما.\nوكذا التنوين مع الإضافة خاصتان ولا يجتمعان.\nوالسين و (سوف) من أداة الاستقبال، ولا يجتمعان.\nوالتاء والسين خاصتان ولا يجتمعان.\nومن القواعد المشتهرة قولهم: البدل والمبدل منه، والعوض والمعوض عنه، لايجتمعان.\nومن المهم الفرق بين البدل والعوض.\nقال أبو حيان في تذكرته:\n\" البدل لغة: العوض، ويفترقان في الاصطلاح\nفالبدل أحد التوابع، يجتمع مع المبدل منه، وبدل الحرف من غيره لا يجتمعان أصلا، ولا يكون إلا في موضع المبدل منه.\nوالعوض لا يكون في موضعه، وربما اجتمعا ضرورة.\nوربما استعملوا العوض مرادفا للبدل في الاصطلاح \".\n\nوقال ابن جني في (الخصائص):\n\" الفرق بين العوض والبدل أن البدل أشبه بالمبدل منه من العوض بالمعوض منه، وإنما يقع البدل في موضع المبدل منه، والعوض لا يلزم فيه ذلك، ألا تراك تقول في الألف من (قام) إنها بدل من الواو التي هي عين الفعل، ولا تقول إنها عوض منها؟\nوكذلك تقول في لام (غازي) و (داعي): إنها بدل من الواو ولا تقول إنها عوض منها.\nوكذلك الحرف المبدل من الهمزة.\nوتقول في التاء في (عدة) و (زنة): إنها عوض من فاء الفعل، ولا تقول إنها بدل منها.\nوكذلك ميم (اللهم) عوض من (يا) في أوله.\nوتاء (زنادقة) عوض من ياء (زناديق) ولا يقال: بدل وياء (أينق) عوض من عين (أنوق) فيمن جعلها (أيفل) ، ومن جعلها عينا مقدمة مغيرة إلى الياء جعلها بدلا من الواو.\nفالبدل أعم تصرفا من العوض، فكل عوض بدل، وليس كل بدل عوضا \".\nانتهى.\n</text>"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "call_id": "enrich_0076",
+  "latency_seconds": 114.21,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"teaching_units\":[{\"unit_index\":0,\"segment_indices\":[0,1,2],\"start_word\":0,\"end_word\":35,\"text_snippet\":\"مسألة\\nالقياس جلي وخفي\\n\\nفمن الأول: قياس حذف النون من المثنى في صلة الألف واللام ع\",\"primary_function\":\"example\",\"secondary_functions\":[\"structural_transition\",\"opinion_statement\"],\"description_arabic\":\"يبين مثال القياس الجلي بقياس حذف نون المثنى على الجمع، مع تقرير أبي حيان لجَلائه.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":1,\"segment_indices\":[3,4],\"start_word\":36,\"end_word\":44,\"text_snippet\":\"خاتمة\\n\\nقد يجتمع السماع والإجماع والقياس دليلا على مسألة\",\"primary_function\":\"rule_statement\",\"secondary_functions\":[\"structural_transition\"],\"description_arabic\":\"يقرر أن السماع والإجماع والقياس قد تجتمع كلها دليلا في مسألة واحدة.\",\"self_containment\":\"FULL\",\"self_containment_notes\":null},{\"unit_index\":2,\"segment_indices\":[5,6,7,8],\"start_word\":45,\"end_word\":97,\"text_snippet\":\"قال في شرح التسهيل:\\nيجوز دخول الباء في خبر (ما) التميمية خلافا للفارسي والزمخشري\",\"primary_function\":\"opinion_statement\",\"secondary_functions\":[\"evidence_rational\",\"evidence_qiyas\",\"evidence_ijma\"],\"description_arabic\":\"يقرر جواز دخول الباء في خبر ما التميمية ويذكر أدلته من السماع والقياس والإجماع.\",\"self_containment\":\"PARTIAL\",\"self_containment_notes\":\"الوحدة مفهومة في نفسها، لكن شواهد السماع لم تُنقل بنصها، ونقل الإجماع أُحيل إلى أبي جعفر الصفار دون توثيق أوسع، فيبقى الاستدلال غير مكتمل تمامًا استقلالًا.\"}],\"total_units\":3,\"notes\":null}\n"
+}

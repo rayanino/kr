@@ -1,0 +1,12 @@
+{
+  "call_id": "escalation_0002",
+  "latency_seconds": 150.84,
+  "model": "google/gemini-2.5-pro",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"author_id\": \"ابن عقيل\",\n  \"reasoning\": \"النص مقتبس من كتاب «شرح ابن عقيل على ألفية ابن مالك». يبدأ النص بذكر أبيات الألفية (المتن) كـ Lemma، ثم يتبعها الشرح النثري («تستعمل على...»، «أي...») وهو من كلام ابن عقيل صراحةً، لذا فإن النسبة له صحيحة في طبقة الشرح.\"\n}\n"
+}

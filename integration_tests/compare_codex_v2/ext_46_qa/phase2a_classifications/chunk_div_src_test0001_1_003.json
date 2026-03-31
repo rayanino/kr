@@ -1,0 +1,90 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "الكتاب الرابع\n\nفي‌‌ الاستصحاب",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 23,
+    "text_snippet": "قال ابن الأنباري:\n\" هو إبقاء حال اللفظ على ما يستح",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 2,
+    "start_word": 24,
+    "end_word": 51,
+    "text_snippet": "قال: \" وهو من الأدلة المعتبرة كاستصحاب حال الأصل ف",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 3,
+    "start_word": 52,
+    "end_word": 91,
+    "text_snippet": "وقال في الإنصاف:\n\" احتج البصريون على عدم تركيب كم ",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 4,
+    "start_word": 92,
+    "end_word": 150,
+    "text_snippet": "وقال في موضع آخر منه:\n\" احتج البصريون على أنه لا ي",
+    "scholarly_function": "evidence_ijma",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 5,
+    "start_word": 151,
+    "end_word": 182,
+    "text_snippet": "وقال ابن مالك:\n\" من قال: أن كان وأخواتها لا تدل عل",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 6,
+    "start_word": 183,
+    "end_word": 222,
+    "text_snippet": "قلت: والمسائل التي استدل فيها النحاة بالأصل كثيرة ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 7,
+    "start_word": 223,
+    "end_word": 257,
+    "text_snippet": "وقال الأندلسي في شرح المفصل:\nاستدل الكوفيون على أن",
+    "scholarly_function": "evidence_qiyas",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 8,
+    "start_word": 258,
+    "end_word": 313,
+    "text_snippet": "وقال ابن الأنباري في أصوله:\n\" استصحاب الحال من أضع",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.73
+  },
+  {
+    "segment_index": 9,
+    "start_word": 314,
+    "end_word": 364,
+    "text_snippet": "وقال في جدله:\n\" الاعتراض على الاستدلال باستصحاب ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 10,
+    "start_word": 365,
+    "end_word": 379,
+    "text_snippet": "والجواب: أن يبين أن ما توهمه دليلا لم يوجد فبقي ال",
+    "scholarly_function": "refutation",
+    "confidence": 0.95
+  }
+]

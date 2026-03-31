@@ -1,0 +1,12 @@
+{
+  "call_id": "verify_0003",
+  "latency_seconds": 155.7,
+  "model": "openai/gpt-5.4",
+  "usage": {
+    "prompt_tokens": null,
+    "completion_tokens": null,
+    "total_tokens": null
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\"items\":[{\"item_index\":0,\"agrees\":true,\"alternative\":null,\"confidence\":0.93,\"reasoning\":\"أوافق. أصل الحكم في الإحداد على غير الزوج وأهم دليله مذكوران داخل الوحدة، لكن النص لا يبقى self-contained بالكامل لأن الفقرة 21 تستند إلى مثال أم سليم وأبي طلحة ثم تصرح بحذف القصة: \\\"وقصتهما في ذلك طويلة... فلتراجع في الأصل\\\". هذا يجعل بعض التعليل/الاستشهاد الخارجي غير مضمَّن داخل الوحدة، فينطبق عليها PARTIAL لا COMPLETE.\"}]}\n"
+}

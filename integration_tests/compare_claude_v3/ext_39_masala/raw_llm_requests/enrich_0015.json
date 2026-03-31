@@ -1,0 +1,18 @@
+{
+  "call_id": "enrich_0015",
+  "semantic_phase": "classification",
+  "chunk_id": null,
+  "model": "anthropic/claude-opus-4.6",
+  "temperature": 0.0,
+  "max_tokens": 8192,
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an expert in classical Islamic scholarly text analysis (تحليل النصوص العلمية الإسلامية).\n\nClassify each sentence or closely bonded group of sentences in this Arabic text\nby scholarly function. The scholarly function types are:\n\n  definition, rule_statement, evidence_quran, evidence_hadith, evidence_ijma,\n  evidence_qiyas, evidence_rational, opinion_statement, refutation, example,\n  condition_exception, cross_reference, narration, editorial_note,\n  structural_transition, unclassified\n\nSegment boundary rules:\n- An isnad chain + its matn = one segment (narration or evidence_hadith)\n- A position marker (\"قال X\") + the stated position = one segment\n- Each Quran citation with its introduction = one segment\n- A condition + its result (\"إذا ... فـ\") = one segment\n- Each distinct sentence or bonded group gets exactly one classification\n- Consecutive sentences serving the same function may form one segment\n  if they are tightly bonded (e.g., a two-sentence definition)\n\nFor each segment, provide:\n- segment_index: 0-based position in the sequence\n- start_word: approximate start word offset in the text\n- end_word: approximate end word offset in the text (inclusive)\n- text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY\n  from the input — preserve all diacritics, punctuation, and whitespace precisely.\n  This field is used for alignment; exact copying is critical.\n- scholarly_function: one of the 16 types listed above\n- confidence: your classification confidence from 0.0 to 1.0\n\nThe text format is: prose"
+    },
+    {
+      "role": "user",
+      "content": "<text>\n6-‌‌ ما يحرم على أقارب الميت.\n22 - لقد حرم رسول الله صلى الله عليه وسلم أمورا كان ولا يزال بعض الناس يرتكبونها إذا مات لهم ميت فيجب معرفتها لاجتنابها فلا بد من بيانها:\nأ - النياحة1 وفيها أحاديث كثيرة تراها في الأصل منها قوله صلى الله عليه وسلم: \"اثنتان في الناس هما بهم كفر: الطعن في النسب والنياحة على الميت\"\nب - ج - ضرب الخدود وشق الجيوب لقوله صلى الله عليه وسلم:\n\"ليس منا من لطم الخدود وشق الجيوب ودعى بدعوى الجاهلية\".\nد - حلق الشعر لحديث أبي بردة بن أبي موسى قال:\nصحيح وجع أبو موسى وجعا فغشي عليه ورأسه في حجر امرأة من أهله فصاحت امرأة من أهله فلم يستطع أن يرد عليها شيئا فلما أفاق قال: أنا بريء ممن بريء منه رسول الله صلى الله عليه وسلم فإن رسول الله صلى الله عليه وسلم بريء من الصالقة2 والحالقة والشاقة.\nهـ - نشر الشعر لحديث امرأة من المبايعات قالت:\nكان فيما أخذ علينا رسول الله صلى الله عليه وسلم في المعروف الذي أخذ علينا أن لا نعصيه فيه وأن لا نخمش وجها ولا ندعو ويلا ولا نشق جيبا وأن لا ننشر شعرا.\nو إعفاء بعض الرجال لحاهم أياما قليلة حزنا على ميتهم فإذا مضت عادوا إلى حلقها فهذا الإعفاء في معنى نشر الشعر كما هو ظاهر يضاف إلى ذلك أنه بدعة وقد قال صلى الله عليه وسلم: \"كل بدعة ضلالة وكل ضلالة في النار\".\nعلما بأن التزين بحلقها كما يفعل الأكثرون معصية ظاهرة باتفاق الأئمة الأربعة وغيرهم لمخالفتها لأنواع من الأدلة الشرعية كما تراها مبينة في آداب الزفاف ص 118 – 123.\nز - الإعلان عن موته على رؤوس المنائر ونحوها لأنه من النعي وقد ثبت عن حذيفة بن اليمان أنه: كان إذا مات له الميت قال: لا تؤذنوا به أحدا إني أخاف أن يكون نعيا إني سمعت رسول الله صلى الله عليه وسلم ينهى عن النعي.\n</text>"
+    }
+  ]
+}

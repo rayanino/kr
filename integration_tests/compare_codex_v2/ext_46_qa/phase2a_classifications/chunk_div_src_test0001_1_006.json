@@ -1,0 +1,586 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 8,
+    "text_snippet": "الكتاب السادس\nفي التعارض والتراجح [التراجيح]",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 1,
+    "start_word": 9,
+    "end_word": 23,
+    "text_snippet": "قال ابن الأنباري:\nإذا تعارض نقلان أخذ بأرجحهما",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 2,
+    "start_word": 24,
+    "end_word": 37,
+    "text_snippet": "فأما الترجيح بالإسناد فبأن يكون رواة أحدهما أكثر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 3,
+    "start_word": 38,
+    "end_word": 90,
+    "text_snippet": "وذلك كأن يستدل الكوفي على النصب بـ (كما) بقول",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 4,
+    "start_word": 91,
+    "end_word": 104,
+    "text_snippet": "وأما الترجيح في المتن فبأن يكون أحد النقلين على",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 5,
+    "start_word": 105,
+    "end_word": 153,
+    "text_snippet": "وذلك كأن يستدل الكوفي على إعمال (أن) مع الحذف ",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 6,
+    "start_word": 154,
+    "end_word": 154,
+    "text_snippet": "(الثانية)",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 155,
+    "end_word": 219,
+    "text_snippet": "قال في الخصائص:\n\" اللغات على اختلافها حجة، ألا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 8,
+    "start_word": 220,
+    "end_word": 236,
+    "text_snippet": "ألا ترى إلى قوله صلى الله عليه وسلم: \" نزل الق",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 9,
+    "start_word": 237,
+    "end_word": 245,
+    "text_snippet": "هذا إن كانت اللغتان في القياس سواء أو متقاربتين",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 10,
+    "start_word": 246,
+    "end_word": 284,
+    "text_snippet": "فإن قلت إحداهما جدا وكثرت الأخرى جدا أخذت بأوس",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 11,
+    "start_word": 285,
+    "end_word": 333,
+    "text_snippet": "فالواجب في مثل ذلك استعمال ما هو أقوى وأشيع ومع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 12,
+    "start_word": 334,
+    "end_word": 347,
+    "text_snippet": "وفي شرح التسهيل لأبي حيان:\n\" كل ما كان لغة لقب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 13,
+    "start_word": 348,
+    "end_word": 348,
+    "text_snippet": "(الثالثة)",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 14,
+    "start_word": 349,
+    "end_word": 363,
+    "text_snippet": "إذا تعارض ارتكاب شاذ ولغة ضعيفة فارتكاب اللغة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 15,
+    "start_word": 364,
+    "end_word": 364,
+    "text_snippet": "(الرابعة)",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 16,
+    "start_word": 365,
+    "end_word": 387,
+    "text_snippet": "قال ابن الأنباري:\n\" إذا تعارض قياسان أخذ بأرجح",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 17,
+    "start_word": 388,
+    "end_word": 447,
+    "text_snippet": "وأما الموافقة للقياس فكأن يقول الكوفي: إن (أن)",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 18,
+    "start_word": 448,
+    "end_word": 448,
+    "text_snippet": "(الخامسة)",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 19,
+    "start_word": 449,
+    "end_word": 504,
+    "text_snippet": "قال في الخصائص:\n\" إذا تعارض القياس والسماع نط",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 20,
+    "start_word": 505,
+    "end_word": 505,
+    "text_snippet": "(السادسة)",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 21,
+    "start_word": 506,
+    "end_word": 553,
+    "text_snippet": "قال في الخصائص:\n\" إذا تعارض قوة القياس وكثرة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 22,
+    "start_word": 554,
+    "end_word": 554,
+    "text_snippet": "(السابعة)",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 23,
+    "start_word": 555,
+    "end_word": 580,
+    "text_snippet": "قال في الخصائص:\n\" باب في الشيء يرد فيوجب له ال",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 24,
+    "start_word": 581,
+    "end_word": 641,
+    "text_snippet": "قال: وذلك نحو: نون (عنبر) فالمذهب أن نحكم في نو",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 25,
+    "start_word": 642,
+    "end_word": 663,
+    "text_snippet": "وقال في موضع آخر:\n\" باب في الحمل على الظاهر، و",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 26,
+    "start_word": 664,
+    "end_word": 711,
+    "text_snippet": "إذا شاهدت ظاهرا يكون مثله أصلا أمضيت الحكم على",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 27,
+    "start_word": 712,
+    "end_word": 718,
+    "text_snippet": "(الثامنة)\n\" في تعارض الأصل والغالب \"",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 28,
+    "start_word": 719,
+    "end_word": 732,
+    "text_snippet": "إذا تعارض أصل وغالب في مسألة جرى قولان والأصح ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 29,
+    "start_word": 733,
+    "end_word": 759,
+    "text_snippet": "ومن أمثلته في النحو ما ذكره صاحب الإفصاح: إذا ",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 30,
+    "start_word": 760,
+    "end_word": 774,
+    "text_snippet": "مذهب سيبويه صرفه حتى يثبت أنه معدول لأن\nالأصل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 31,
+    "start_word": 775,
+    "end_word": 781,
+    "text_snippet": "ومذهب غيره المنع لأنه الأكثر في كلامهم.",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 32,
+    "start_word": 782,
+    "end_word": 796,
+    "text_snippet": "ومنها ما ذكره أبو حيان في (شرح التسهيل): أن رحم",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 33,
+    "start_word": 797,
+    "end_word": 813,
+    "text_snippet": "مذهبان والصحيح صرفه لأنا قد جهلنا النقل فيه عن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 34,
+    "start_word": 814,
+    "end_word": 835,
+    "text_snippet": "ووجه مقابله أن ما يوجد من فعلان الصفة غير مصرو",
+    "scholarly_function": "evidence_rational",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 35,
+    "start_word": 836,
+    "end_word": 839,
+    "text_snippet": "(التاسعة)\n\"في تعارض أصلين\"",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 36,
+    "start_word": 840,
+    "end_word": 850,
+    "text_snippet": "قال في الخصائص:\nوالحكم في ذلك مراجعة الأصل الأق",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 37,
+    "start_word": 851,
+    "end_word": 923,
+    "text_snippet": "من ذلك قولهم في ضمة الذال من قولك: ما رأيته مذ ",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 38,
+    "start_word": 924,
+    "end_word": 1011,
+    "text_snippet": "ومن ذلك قولهم بعت وقلت فهذه معاملة على الأصل ا",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1012,
+    "end_word": 1012,
+    "text_snippet": "(العاشرة)",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1013,
+    "end_word": 1026,
+    "text_snippet": "إن تعارض استصحاب الحال مع دليل آخر من سماع أو ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1027,
+    "end_word": 1031,
+    "text_snippet": "ذكره ابن الأنباري في كتابه.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1032,
+    "end_word": 1036,
+    "text_snippet": "(الحادية عشر)\n\"في تعارض قبيحين\"",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1037,
+    "end_word": 1052,
+    "text_snippet": "قال في الخصائص:\n\" إذا حضر عندك ضرورتان لابد من",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1053,
+    "end_word": 1111,
+    "text_snippet": "وذلك كواو (ورتل) أنت فيها بين ضرورتين: إما أن ",
+    "scholarly_function": "example",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1112,
+    "end_word": 1147,
+    "text_snippet": "وكذلك إذا قلت: (فيها قائما رجل) لما كنت بين أن",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1148,
+    "end_word": 1149,
+    "text_snippet": "(الثانية عشر)",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1150,
+    "end_word": 1157,
+    "text_snippet": "إذا تعارض مجمع عليه ومختلف فيه فالأول أولى.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1158,
+    "end_word": 1180,
+    "text_snippet": "مثال ذلك: إذا اضطر في الشعر إلى قصر ممدود أو مد",
+    "scholarly_function": "example",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 49,
+    "start_word": 1181,
+    "end_word": 1182,
+    "text_snippet": "(الثالثة عشر)",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 50,
+    "start_word": 1183,
+    "end_word": 1188,
+    "text_snippet": "إذا تعارض المانع والمقتضي قدم المانع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 51,
+    "start_word": 1189,
+    "end_word": 1252,
+    "text_snippet": "من ذلك ما وجد فيه سبب الإمالة ومانعها لا تجوز إ",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 52,
+    "start_word": 1253,
+    "end_word": 1258,
+    "text_snippet": "(الرابعة عشر)\n\"في القولين لعالم واحد\"",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 53,
+    "start_word": 1259,
+    "end_word": 1278,
+    "text_snippet": "قال في الخصائص:\n\"إذا ورد عن عالم في مسألة قولا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 54,
+    "start_word": 1279,
+    "end_word": 1377,
+    "text_snippet": "كقول سيبويه في غير موضع في التاء من (بنت وأخت)",
+    "scholarly_function": "example",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 55,
+    "start_word": 1378,
+    "end_word": 1443,
+    "text_snippet": "وإن لم يعلل واحدا منهما نظر إلى الأليق بمذهبه ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 56,
+    "start_word": 1444,
+    "end_word": 1473,
+    "text_snippet": "وإن لم يمكن التأويل فإن نص فإن نص في أحدهما عل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 57,
+    "start_word": 1474,
+    "end_word": 1499,
+    "text_snippet": "فإن لم يعلم التاريخ وجب سبر المذهبين والفحص عن",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 58,
+    "start_word": 1500,
+    "end_word": 1527,
+    "text_snippet": "وإن تساويا في القوة وجب أن يعتقد أنهما رأيان له",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 59,
+    "start_word": 1528,
+    "end_word": 1556,
+    "text_snippet": "وكان أبو الحسن الأخفش يقع له ذلك كثيرا حتى إن ",
+    "scholarly_function": "narration",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 60,
+    "start_word": 1557,
+    "end_word": 1581,
+    "text_snippet": "وكان أبو علي يقول في (هيهات): أنا أفتي مرة بكو",
+    "scholarly_function": "narration",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 61,
+    "start_word": 1582,
+    "end_word": 1610,
+    "text_snippet": "قال أبو علي: وقلت لأبي عبد الله البصري يوما: أن",
+    "scholarly_function": "narration",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 62,
+    "start_word": 1611,
+    "end_word": 1614,
+    "text_snippet": "انتهى كلام (الخصائص) ملخصا.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 63,
+    "start_word": 1615,
+    "end_word": 1623,
+    "text_snippet": "(الخامسة عشر)\n\"فيما رجحت به لغة قريش على غيرها",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 64,
+    "start_word": 1624,
+    "end_word": 1657,
+    "text_snippet": "قال الفراء: كانت العرب تحضر الموسم في كل عام و",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 65,
+    "start_word": 1658,
+    "end_word": 1860,
+    "text_snippet": "من ذلك الكشكشة وهي في ربيعة ومضر يجعلون بعد كا",
+    "scholarly_function": "example",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 66,
+    "start_word": 1861,
+    "end_word": 1869,
+    "text_snippet": "(السادسة عشرة)\n\"في الترجيح بين مذهب البصريين و",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 67,
+    "start_word": 1870,
+    "end_word": 1888,
+    "text_snippet": "اتفقوا على أن البصريين أصح قياسا لأنهم لا يلتفت",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 68,
+    "start_word": 1889,
+    "end_word": 1899,
+    "text_snippet": "قال ابن جني:\n\" الكوفيون علامون بأشعار العرب مط",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 69,
+    "start_word": 1900,
+    "end_word": 1923,
+    "text_snippet": "وقال أبو حيان في مسألة العطف على الضمير المجرور",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 70,
+    "start_word": 1924,
+    "end_word": 1934,
+    "text_snippet": "وقال: \" ولسنا متعبدين باتباع مذهب البصريين بل ن",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 71,
+    "start_word": 1935,
+    "end_word": 1957,
+    "text_snippet": "وقال الأندلسي في (شرح المفصل):\n\" الكوفيون لو س",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 72,
+    "start_word": 1958,
+    "end_word": 1983,
+    "text_snippet": "قال:\n\" ومما افتخر به البصريون على الكوفيون أن ",
+    "scholarly_function": "narration",
+    "confidence": 0.85
+  }
+]
