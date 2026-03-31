@@ -704,6 +704,27 @@ class VerificationResult(BaseModel):
         return self
 
 
+class BatchEscalationItem(BaseModel):
+    """Single item in a batch escalation response."""
+
+    item_index: int
+    author_id: str = Field(description="The correct author attribution")
+    reasoning: str = Field(description="Brief explanation for this determination")
+
+
+class BatchEscalationResult(BaseModel):
+    """Batch escalation response containing multiple items."""
+
+    items: list[BatchEscalationItem]
+
+    @model_validator(mode="after")
+    def _unique_indices(self) -> "BatchEscalationResult":
+        indices = [item.item_index for item in self.items]
+        if len(indices) != len(set(indices)):
+            raise ValueError("Duplicate item_index in batch escalation result")
+        return self
+
+
 # ═══════════════════════════════════════════════════════════════════
 # Error Codes
 # ═══════════════════════════════════════════════════════════════════

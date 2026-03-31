@@ -12,12 +12,13 @@ from __future__ import annotations
 import logging
 import time
 from collections import defaultdict
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 import instructor
 
 from engines.excerpting.contracts import (
     AssembledChunk,
+    BatchEscalationResult,
     ConsensusDecision,
     ConsensusRecord,
     ExcerptRecord,
@@ -27,6 +28,10 @@ from engines.excerpting.contracts import (
     VerificationItem,
     VerificationResult,
 )
+
+if TYPE_CHECKING:
+    from engines.excerpting.src.cache import CacheManager
+    from engines.excerpting.src.progress import ProgressTracker
 
 logger = logging.getLogger(__name__)
 
@@ -242,8 +247,14 @@ def resolve_consensus(
     escalation_client: Optional[instructor.Instructor],
     config: ExcerptingConfig,
     source_metadata: Optional[dict[str, str]] = None,
+    batch_escalation_result: Optional[dict[int, str]] = None,
 ) -> tuple[ExcerptRecord, Optional[ConsensusRecord], list[str]]:
     """Resolve disagreements between enrichment and verification (§7.3.3).
+
+    Args:
+        batch_escalation_result: If provided, maps item_index to author_id
+            from a prior batch escalation call. Passed through to
+            _resolve_attribution so it skips per-item _call_escalation.
 
     Returns:
         (updated_excerpt, consensus_record, gate_codes)
@@ -263,7 +274,8 @@ def resolve_consensus(
             )
         elif vtype == "AUTHOR_ATTRIBUTION":
             decision, new_updates, new_flags, new_gates = _resolve_attribution(
-                excerpt, vi, escalation_client, config, source_metadata
+                excerpt, vi, escalation_client, config, source_metadata,
+                batch_escalation_result=batch_escalation_result,
             )
         elif vtype == "SELF_CONTAINMENT":
             decision, new_updates, new_flags, new_gates = _resolve_self_containment(
@@ -355,8 +367,15 @@ def _resolve_attribution(
     escalation_client: Optional[instructor.Instructor],
     config: ExcerptingConfig,
     source_metadata: dict[str, str],
+    batch_escalation_result: Optional[dict[int, str]] = None,
 ) -> tuple[ConsensusDecision, dict[str, object], list[str], list[str]]:
-    """§7.3.3 Author attribution disagreement (LA-3 cases)."""
+    """§7.3.3 Author attribution disagreement (LA-3 cases).
+
+    Args:
+        batch_escalation_result: If provided, maps item_index to author_id
+            from a prior batch escalation call. Used instead of per-item
+            _call_escalation when available.
+    """
     updates: dict[str, object] = {}
     flags: list[str] = []
     gates: list[str] = []
@@ -376,7 +395,10 @@ def _resolve_attribution(
         flags.append("attribution_consensus_escalated")
         escalation_value: Optional[str] = None
 
-        if escalation_client is not None:
+        # Prefer batch result if available; fall back to per-item call
+        if batch_escalation_result is not None and vi.item_index in batch_escalation_result:
+            escalation_value = batch_escalation_result[vi.item_index]
+        elif escalation_client is not None:
             escalation_value = _call_escalation(
                 excerpt, vi, escalation_client, config, source_metadata
             )
@@ -485,6 +507,73 @@ def _call_escalation(
         return None
 
 
+def _call_batch_escalation(
+    disagreements: list[dict[str, object]],
+    escalation_client: instructor.Instructor,
+    config: ExcerptingConfig,
+    source_metadata: Optional[dict[str, str]] = None,
+) -> Optional[BatchEscalationResult]:
+    """Batch-escalate multiple author attribution disagreements in one call.
+
+    Args:
+        disagreements: List of dicts, each with:
+            - item_index: int
+            - excerpt_id: str
+            - primary_text: str (first 500 chars)
+            - enrichment_author: str
+            - verifier_author: str
+            - verifier_reasoning: str
+        escalation_client: The third-model client.
+        config: Config with ESCALATION_MODEL and ESCALATION_TIMEOUT.
+        source_metadata: Source metadata for context.
+
+    Returns:
+        BatchEscalationResult or None on failure.
+    """
+    if not disagreements:
+        return None
+
+    # Build context header
+    meta = source_metadata or {}
+    author = meta.get("author_name", "Unknown")
+    title = meta.get("work_title", "Unknown")
+
+    # Build per-item sections
+    items_text: list[str] = []
+    for d in disagreements:
+        items_text.append(
+            f"ITEM {d['item_index']}:\n"
+            f"  Text: \"{str(d['primary_text'])[:500]}\"\n"
+            f"  Model 1 (enrichment) says: {d['enrichment_author']}\n"
+            f"  Model 2 (verification) says: {d['verifier_author']} "
+            f"(reasoning: {d['verifier_reasoning']})\n"
+        )
+
+    prompt = (
+        f"Two models disagree on author attributions for multiple excerpts "
+        f"from the same source.\n\n"
+        f"Source: {author} - {title}\n\n"
+        f"For each item below, determine which attribution is correct.\n\n"
+        + "\n".join(items_text) + "\n"
+        f"Respond with your determination for each item."
+    )
+
+    try:
+        result = escalation_client.chat.completions.create(
+            model=config.ESCALATION_MODEL,
+            temperature=config.LLM_TEMPERATURE,
+            max_tokens=2048,
+            max_retries=0,
+            timeout=config.ESCALATION_TIMEOUT,
+            response_model=BatchEscalationResult,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return result
+    except Exception as e:
+        logger.warning("Batch escalation failed: %s", e)
+        return None
+
+
 def _find_majority_flexible(votes: list[str]) -> Optional[str]:
     """Find majority among 2 or 3 real votes. Returns None if no majority."""
     from collections import Counter
@@ -550,7 +639,7 @@ def _parse_self_containment(text: Optional[str]) -> Optional[SelfContainmentLeve
     """Parse a self-containment level from verifier text."""
     if text is None:
         return None
-    text_upper = text.strip().upper()
+    text_upper = text.strip(" \t\n\r").upper()  # safe: English enum values only (FULL/PARTIAL/DEPENDENT)
     for level in SelfContainmentLevel:
         if text_upper == level.value:
             return level
@@ -708,6 +797,8 @@ def run_consensus(
     escalation_client: Optional[instructor.Instructor],
     config: ExcerptingConfig,
     source_metadata: Optional[dict[str, str]] = None,
+    progress: Optional["ProgressTracker"] = None,
+    cache: Optional["CacheManager"] = None,
 ) -> tuple[list[ExcerptRecord], list[dict[str, object]]]:
     """Execute consensus verification for all excerpts (§7.3).
 
@@ -752,13 +843,47 @@ def run_consensus(
             all_results.extend(chunk_excerpts)
             continue
 
+        # Resume check: skip chunks already verified in a prior run
+        if progress is not None and progress.is_done(chunk_id, "phase3_consensus"):
+            logger.info(
+                "Chunk %s phase3_consensus: skipping (already done)", chunk_id
+            )
+            continue
+
         # Check if any units need consensus
         any_needs_consensus = any(
             _needs_consensus(exc) for exc in chunk_excerpts
         )
         if not any_needs_consensus:
             all_results.extend(chunk_excerpts)
+            if progress is not None:
+                progress.mark_done(chunk_id, "phase3_consensus")
             continue
+
+        # Cache check for verification (first-attempt prompt only)
+        cache_key = ""
+        if cache is not None:
+            from engines.excerpting.src.cache import compute_cache_key
+
+            # Build the same items that verify_chunk would build
+            excerpts_with_items_for_cache: list[tuple[ExcerptRecord, list[dict[str, str]]]] = []
+            for exc in chunk_excerpts:
+                items = _needs_consensus(exc)
+                if items:
+                    excerpts_with_items_for_cache.append((exc, items))
+
+            if excerpts_with_items_for_cache:
+                verify_user_message = _build_verification_user_message(
+                    excerpts_with_items_for_cache, source_metadata,
+                )
+                cache_key = compute_cache_key(
+                    "verify",
+                    VERIFY_SYSTEM_PROMPT,
+                    verify_user_message,
+                    config.VERIFY_MODEL,
+                    config.LLM_TEMPERATURE,
+                    config.VERIFY_MAX_TOKENS,
+                )
 
         # Try verification call
         verification_result = None
@@ -787,6 +912,9 @@ def run_consensus(
                     attempt + 1,
                     len(vr[0].items),
                 )
+                # Save to cache (only first attempt)
+                if cache is not None and attempt == 0 and cache_key:
+                    cache.save("verify", cache_key, chunk_id, config.VERIFY_MODEL, vr[0])
                 loop_handled = True
                 break
 
@@ -805,6 +933,12 @@ def run_consensus(
 
         if not loop_handled:
             # All retry attempts failed — keep enrichment-only with flag
+            if progress is not None:
+                progress.mark_failed(
+                    chunk_id,
+                    "phase3_consensus",
+                    "verification_all_retries_failed",
+                )
             for exc in chunk_excerpts:
                 flags = list(exc.review_flags)
                 if "verification_skipped" not in flags:
@@ -887,5 +1021,9 @@ def run_consensus(
                     )
 
             all_results.append(updated)
+
+        # All excerpts in this chunk resolved successfully
+        if progress is not None:
+            progress.mark_done(chunk_id, "phase3_consensus")
 
     return all_results, all_gates
