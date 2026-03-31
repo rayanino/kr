@@ -269,7 +269,7 @@ Save adapted versions to `reference/research/`. The architect's synthesis (Steps
 
 ### Step 11: Finalize after merge
 
-After the 3-phase merge (§8) completes and the architect runs all quality gates (§9) on the final tree, proceed to post-validation (§11 of this protocol).
+After the 3-phase merge (§8) completes and the architect runs all quality gates (§9) on the final tree, proceed to the Post-Validation Steps section of this protocol (archive old tree, install new tree, update registry, run regression tests).
 
 ---
 
