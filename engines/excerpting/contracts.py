@@ -128,8 +128,8 @@ class ScholarAttribution(BaseModel):
 
     mention_text: str
     resolved_name: Optional[str] = None
-    role: Literal["quoted_opinion", "classification_frame", "refuted_position"] = Field(
-        description="One of: quoted_opinion, classification_frame, refuted_position"
+    role: Literal["quoted_opinion", "classification_frame", "refuted_position", "narrator"] = Field(
+        description="One of: quoted_opinion, classification_frame, refuted_position, narrator"
     )
     confidence: float = Field(ge=0.0, le=1.0)
     source: str = Field(
@@ -596,8 +596,8 @@ class ResolvedScholar(BaseModel):
 
     mention_text: str
     resolved_name: Optional[str] = None
-    role: Literal["quoted_opinion", "classification_frame", "refuted_position"] = Field(
-        description="One of: quoted_opinion, classification_frame, refuted_position"
+    role: Literal["quoted_opinion", "classification_frame", "refuted_position", "narrator"] = Field(
+        description="One of: quoted_opinion, classification_frame, refuted_position, narrator"
     )
     confidence: float = Field(ge=0.0, le=1.0)
 

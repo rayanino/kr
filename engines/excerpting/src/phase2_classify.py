@@ -67,6 +67,14 @@ Example 1 — Derived rulings are rule_statement, NOT evidence_hadith:
 not the hadith narrative itself. The header "ما يؤخذ من الحديث:" signals \
 derived fiqh rulings.
 
+HADITH COMMENTARY CLASSIFICATION:
+- Sections starting with "المعنى الإجمالي" (general meaning) in hadith sharh \
+texts are substantive author commentary. Prefer content labels: \
+rule_statement if deriving rulings, narration if retelling events, \
+opinion_statement if comparing scholarly positions. \
+Reserve editorial_note for genuine editor/muhaqqiq apparatus (footnotes, \
+variant readings, printing notes), not the author's own commentary.
+
 Example 2 — Term definitions are definition, NOT evidence_hadith:
   Input: "غريب الحديث:\\n1- \\"وَضوء\\": بفتح الواو. الماء الذي يتوضأ به."
   → scholarly_function: "definition"

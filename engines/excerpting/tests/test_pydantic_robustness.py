@@ -120,19 +120,19 @@ class TestResolvedScholarLiteralValidation:
     """FIX-6: role is Literal, not free-form str."""
 
     def test_invalid_role_raises(self) -> None:
-        """ResolvedScholar with role='narrator' → raises ValidationError."""
+        """ResolvedScholar with invalid role → raises ValidationError."""
         data = {
             "mention_text": "ابن حجر",
             "resolved_name": "ابن حجر العسقلاني",
-            "role": "narrator",
+            "role": "invalid_role",
             "confidence": 0.9,
         }
         with pytest.raises(ValidationError, match="role"):
             ResolvedScholar.model_validate(data)
 
     def test_valid_roles_accepted(self) -> None:
-        """All three valid role values are accepted."""
-        for role in ("quoted_opinion", "classification_frame", "refuted_position"):
+        """All four valid role values are accepted (SG-1: narrator added)."""
+        for role in ("quoted_opinion", "classification_frame", "refuted_position", "narrator"):
             result = ResolvedScholar.model_validate({
                 "mention_text": "ابن تيمية",
                 "role": role,

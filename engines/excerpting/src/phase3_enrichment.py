@@ -97,6 +97,8 @@ For EACH teaching unit listed in the input, provide these fields:
      * "classification_frame" — the unit quotes this scholar's text as the
        frame being commented on (matn author in a sharh excerpt)
      * "refuted_position" — the unit quotes this scholar to refute their view
+     * "narrator" — the person appears in a hadith transmission chain \
+(preceded by عن، حدثنا، أخبرنا) as a transmitter, not an opinion-holder
    - confidence: 0.0 to 1.0
 
    EPITHET RESOLUTION: Common epithets are context-dependent:
@@ -122,6 +124,12 @@ For EACH teaching unit listed in the input, provide these fields:
    - Collective references ("أصحابنا", "مشايخنا", "الجمهور"): record
      as-is in mention_text; set resolved_name to the collective phrase;
      set role to "quoted_opinion"
+
+   NARRATOR ROLE: When a person appears in a hadith transmission chain \
+   (preceded by عن، حدثنا، أخبرنا، سمعت، أنبأنا), classify their role as \
+   "narrator", NOT "quoted_opinion". Companion narrators (صحابة) who transmit \
+   hadith from the Prophet are narrators, not opinion-holders. Only use \
+   "quoted_opinion" when the person's own scholarly VIEW is being cited.
 
    CONSERVATISM RULE: If you cannot confidently resolve an epithet from
    the science, school, and textual context, set resolved_name to null

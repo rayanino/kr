@@ -63,18 +63,21 @@ within broader discussions — NOT for derived benefits sections)
 
 DERIVED BENEFITS RULE:
 - Sections opening with "ما يؤخذ من الحديث:" or "فوائد:" are derived \
-benefits — each numbered item is a separate teaching unit.
-- Split per numbered item (1-, 2-, 3-...) even though all items derive \
-from the same hadith. Each item teaches a distinct ruling or benefit.
-- Do NOT merge multiple numbered benefits into one mega-unit.
+benefits from the preceding hadith.
+- Default: split per numbered item. Each item is a separate teaching unit.
+- Exception: consecutive items that are fragments of one immediate ruling \
+cluster AND are individually under 20 words may be grouped into one excerpt.
+- If uncertain whether items are same-topic or different-topic, SPLIT.
+- The hadith text + gharib + المعنى الإجمالي form the inseparable core \
+of a hadith commentary unit. Fawa'id/ما يؤخذ points may be separate.
 
 NUMBERED ITEM BOUNDARIES:
-- Numbered items (1-, 2-, 3-... or فائدة/مسألة + number) are strong \
-unit boundary markers. Each numbered item is a separate teaching unit \
-unless it explicitly continues the same argument as the previous item \
-(e.g., a multi-paragraph proof for a single point).
-- Two numbered items covering different topics MUST NOT be merged. \
-Example: items about void bequests and burial are separate units.
+- Numbered items (1-, 2-, 3-... or فائدة/مسألة + number) are unit \
+boundary signals. Default: each numbered item is a separate unit.
+- Two numbered items covering different topics MUST NOT be merged \
+(e.g., items about void bequests and burial are separate units).
+- Exception: consecutive sub-20-word items in the same ruling cluster \
+may be grouped. If uncertain, split.
 
 DECONTEXTUALIZATION PREVENTION (critical):
 - A reported position ("قال أبو حنيفة...") and its refutation
