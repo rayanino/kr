@@ -1,0 +1,896 @@
+taxonomy:
+  id: nahw_v2_0
+  title: علم النحو
+  methodology: "4-researcher synthesis (2 knowledge-based + 2 corpus-based, 302 books, 70001 headings)"
+  validated: true
+  date: 2026-03-31
+  researchers:
+    - "ChatGPT Pro (Deep Research): 178 leaves, 8 branches"
+    - "Fresh Claude Opus (Research): 92 leaves, 3 branches"
+    - "CC heading extraction: 82 leaves from 302 books"
+    - "Codex content analysis: 587 max leaves from 3 deep-analyzed books"
+  leaf_count: 146
+  nodes:
+
+  # ═══════════════════════════════════════════════════════════════
+  # Branch 1: مقدمات النحو وأصوله (Foundations)
+  # ═══════════════════════════════════════════════════════════════
+  - id: muqaddimat
+    title: مقدمات النحو وأصوله
+    children:
+
+    - id: kalam_wa_aqsam
+      title: الكلام وأقسام الكلمة
+      children:
+      - id: tarif_kalam
+        title: تعريف الكلام والكلم والكلمة والقول
+        leaf: true
+        confidence: HIGH
+      - id: aqsam_kalima
+        title: أقسام الكلمة الثلاثة (الاسم والفعل والحرف)
+        leaf: true
+        confidence: HIGH
+      - id: alamat_ism
+        title: علامات الاسم
+        leaf: true
+        confidence: HIGH
+      - id: alamat_fil
+        title: علامات الفعل وأقسامه (الماضي والمضارع والأمر)
+        leaf: true
+        confidence: HIGH
+      - id: harf_wa_aqsamuh
+        title: الحرف وأقسامه
+        leaf: true
+        confidence: HIGH
+
+    - id: irab_wa_bina
+      title: الإعراب والبناء
+      children:
+      - id: tarif_irab
+        title: تعريف الإعراب وأقسامه الأربعة (رفع ونصب وجر وجزم)
+        leaf: true
+        confidence: HIGH
+      - id: irab_lafzi_taqdiri_mahalli
+        title: الإعراب اللفظي والتقديري والمحلي
+        leaf: true
+        confidence: HIGH
+      - id: bina_wa_asbabuh
+        title: البناء وأسبابه
+        leaf: true
+        confidence: HIGH
+      - id: murab_wa_mabni_asma
+        title: المعرب والمبني من الأسماء
+        leaf: true
+        confidence: HIGH
+      - id: bina_afal_huruf
+        title: بناء الأفعال والحروف
+        leaf: true
+        confidence: HIGH
+      - id: nazariyyat_amil
+        title: العامل اللفظي والمعنوي (نظرية العامل)
+        leaf: true
+        confidence: MEDIUM
+
+    - id: alamat_irabiyya
+      title: العلامات الإعرابية ونوابها
+      children:
+      - id: alamat_asliyya_fariyya
+        title: العلامات الأصلية والفرعية
+        leaf: true
+        confidence: HIGH
+      - id: asma_sitta
+        title: الأسماء الستة وإعرابها
+        leaf: true
+        confidence: HIGH
+      - id: muthanna
+        title: المثنى وإعرابه
+        leaf: true
+        confidence: HIGH
+      - id: jam_mudhakkar_salim
+        title: جمع المذكر السالم وإعرابه
+        leaf: true
+        confidence: HIGH
+      - id: jam_muannath_salim
+        title: جمع المؤنث السالم وإعرابه
+        leaf: true
+        confidence: HIGH
+      - id: afal_khamsa
+        title: الأفعال الخمسة وإعرابها
+        leaf: true
+        confidence: HIGH
+
+  # ═══════════════════════════════════════════════════════════════
+  # Branch 2: الأسماء والمعارف (Nouns and Definiteness)
+  # ═══════════════════════════════════════════════════════════════
+  - id: asma_maarif
+    title: الأسماء والمعارف
+    children:
+
+    - id: nakira_wa_marifa
+      title: النكرة والمعرفة
+      children:
+      - id: nakira
+        title: النكرة وأحكامها
+        leaf: true
+        confidence: HIGH
+      - id: marifa_maratib
+        title: المعرفة ومراتب التعريف الست
+        leaf: true
+        confidence: HIGH
+      - id: aqsam_maarif
+        title: أقسام المعارف (مدخل)
+        leaf: true
+        confidence: HIGH
+
+    - id: damir
+      title: الضمير
+      children:
+      - id: damir_muttasil
+        title: الضمير المتصل
+        leaf: true
+        confidence: HIGH
+      - id: damir_munfasil
+        title: الضمير المنفصل
+        leaf: true
+        confidence: HIGH
+      - id: damir_mustatir
+        title: الضمير المستتر وضمير الشأن والفصل
+        leaf: true
+        confidence: HIGH
+
+    - id: alam
+      title: العلم
+      children:
+      - id: alam_anwauh
+        title: العلم وأنواعه (الشخصي والجنسي والمركب)
+        leaf: true
+        confidence: HIGH
+      - id: ism_kunya_laqab
+        title: الاسم والكنية واللقب
+        leaf: true
+        confidence: HIGH
+
+    - id: ism_ishara
+      title: اسم الإشارة
+      children:
+      - id: asma_ishara_ahkam
+        title: أسماء الإشارة وأحكامها
+        leaf: true
+        confidence: HIGH
+
+    - id: ism_mawsul
+      title: الاسم الموصول
+      children:
+      - id: mawsul_ismi_harfi
+        title: الموصول الاسمي والحرفي
+        leaf: true
+        confidence: HIGH
+      - id: silat_mawsul
+        title: صلة الموصول وأنواعها
+        leaf: true
+        confidence: HIGH
+      - id: aid_wa_hadhfuh
+        title: العائد وأحكام حذفه
+        leaf: true
+        confidence: HIGH
+
+    - id: muarraf_bi_al
+      title: المعرّف بأل
+      children:
+      - id: al_tarif_anwaaha
+        title: أل التعريف وأنواعها (العهدية والجنسية والزائدة والموصولة)
+        leaf: true
+        confidence: HIGH
+
+    - id: ma_la_yansarif
+      title: ما لا ينصرف
+      children:
+      - id: haqiqat_man_sarf
+        title: حقيقة منع الصرف وعلله التسع
+        leaf: true
+        confidence: HIGH
+      - id: tarkibat_ilal
+        title: تركيبات العلل (علة واحدة مع العلمية أو الوصفية)
+        leaf: true
+        confidence: HIGH
+      - id: sarf_mamnu
+        title: صرف الممنوع (بالإضافة وأل والضرورة)
+        leaf: true
+        confidence: HIGH
+
+  # ═══════════════════════════════════════════════════════════════
+  # Branch 3: الجملة الاسمية والنواسخ (Nominal Sentence)
+  # ═══════════════════════════════════════════════════════════════
+  - id: jumla_ismiyya
+    title: الجملة الاسمية والنواسخ
+    children:
+
+    - id: mubtada_khabar
+      title: المبتدأ والخبر
+      children:
+      - id: mubtada_ahkam
+        title: المبتدأ وأحكامه
+        leaf: true
+        confidence: HIGH
+      - id: musawwighat_nakira
+        title: مسوّغات الابتداء بالنكرة
+        leaf: true
+        confidence: HIGH
+      - id: khabar_anwau
+        title: الخبر وأنواعه (المفرد والجملة وشبه الجملة)
+        leaf: true
+        confidence: HIGH
+      - id: taqdim_khabar
+        title: تقديم الخبر وتأخيره (وجوبًا وجوازًا)
+        leaf: true
+        confidence: HIGH
+      - id: hadhf_mubtada_khabar
+        title: حذف المبتدأ أو الخبر (وجوبًا وجوازًا)
+        leaf: true
+        confidence: HIGH
+      - id: taaddud_khabar
+        title: تعدد الخبر
+        leaf: true
+        confidence: HIGH
+
+    - id: kana_akhawat
+      title: كان وأخواتها
+      children:
+      - id: kana_tamma_naqisa
+        title: كان وأخواتها (التامة والناقصة)
+        leaf: true
+        confidence: HIGH
+      - id: mutasarrif_jamid
+        title: المتصرف والجامد من أخوات كان
+        leaf: true
+        confidence: HIGH
+      - id: khabar_kana
+        title: أحكام خبر كان (تقديمه وتأخيره وحذفه)
+        leaf: true
+        confidence: HIGH
+      - id: ziyadat_kana
+        title: زيادة كان وحذفها
+        leaf: true
+        confidence: HIGH
+
+    - id: huruf_mushabbaha_laysa
+      title: الحروف المشبهة بليس
+      children:
+      - id: ma_la_lat_in_nafiya
+        title: ما ولا ولات وإن العاملات عمل ليس وشروطها
+        leaf: true
+        confidence: MEDIUM
+
+    - id: afal_muqaraba
+      title: أفعال المقاربة والرجاء والشروع
+      children:
+      - id: afal_muqaraba_kad
+        title: أفعال المقاربة (كاد وأوشك)
+        leaf: true
+        confidence: HIGH
+      - id: afal_shuru_raja
+        title: أفعال الشروع (جعل وطفق وأنشأ) والرجاء (عسى وحرى واخلولق)
+        leaf: true
+        confidence: HIGH
+
+    - id: inna_akhawat
+      title: إن وأخواتها
+      children:
+      - id: inna_sitta
+        title: إن وأخواتها الستة وعملها
+        leaf: true
+        confidence: HIGH
+      - id: fath_kasr_hamza
+        title: فتح همزة إن وكسرها
+        leaf: true
+        confidence: HIGH
+      - id: takhfif_inna
+        title: تخفيف إن وأن واللام الفارقة
+        leaf: true
+        confidence: HIGH
+
+    - id: la_nafiya_jins
+      title: لا النافية للجنس
+      children:
+      - id: la_nafiya_ahkam
+        title: لا النافية للجنس وأحكام اسمها وخبرها
+        leaf: true
+        confidence: HIGH
+
+    - id: zanna_akhawat
+      title: ظن وأخواتها
+      children:
+      - id: zanna_afal_qulub
+        title: ظن وأخواتها (أفعال القلوب)
+        leaf: true
+        confidence: HIGH
+      - id: ilgha_taliq
+        title: الإلغاء والتعليق
+        leaf: true
+        confidence: HIGH
+      - id: alama_ara
+        title: أعلم وأرى (المتعدي إلى ثلاثة مفاعيل)
+        leaf: true
+        confidence: HIGH
+
+    - id: irab_jumal
+      title: إعراب الجمل
+      children:
+      - id: jumal_mahall
+        title: الجمل التي لها محل من الإعراب والتي لا محل لها
+        leaf: true
+        confidence: MEDIUM
+
+  # ═══════════════════════════════════════════════════════════════
+  # Branch 4: الجملة الفعلية (Verbal Sentence)
+  # ═══════════════════════════════════════════════════════════════
+  - id: jumla_filiyya
+    title: الجملة الفعلية
+    children:
+
+    - id: fail
+      title: الفاعل
+      children:
+      - id: fail_tarif_ahkam
+        title: الفاعل وتعريفه وأحكامه
+        leaf: true
+        confidence: HIGH
+      - id: mutabaqa_fil_fail
+        title: مطابقة الفعل لفاعله (التذكير والتأنيث والعدد)
+        leaf: true
+        confidence: HIGH
+      - id: taqdim_fail
+        title: تقديم الفاعل وتأخيره
+        leaf: true
+        confidence: HIGH
+
+    - id: naib_fail
+      title: النائب عن الفاعل
+      children:
+      - id: naib_fail_ma_yanub
+        title: النائب عن الفاعل وما ينوب عنه
+        leaf: true
+        confidence: HIGH
+      - id: bina_fil_majhul
+        title: بناء الفعل للمجهول (تغيير الصيغة)
+        leaf: true
+        confidence: HIGH
+
+    - id: taaddi_luzum
+      title: تعدي الفعل ولزومه
+      children:
+      - id: mutaaddi_lazim
+        title: المتعدي واللازم وتعدية اللازم
+        leaf: true
+        confidence: HIGH
+
+    - id: ishtghal
+      title: الاشتغال
+      children:
+      - id: ishtghal_amil
+        title: اشتغال العامل عن المعمول
+        leaf: true
+        confidence: HIGH
+
+    - id: tanazu
+      title: التنازع في العمل
+      children:
+      - id: tanazu_imal
+        title: التنازع في العمل (إعمال الأول أو الثاني)
+        leaf: true
+        confidence: HIGH
+
+    - id: irab_fil_mudari
+      title: إعراب الفعل المضارع
+      children:
+      - id: aqsam_fil
+        title: أقسام الفعل الثلاثة (بناء الماضي والأمر وإعراب المضارع)
+        leaf: true
+        confidence: HIGH
+      - id: raf_mudari
+        title: رفع المضارع
+        leaf: true
+        confidence: HIGH
+      - id: nawasib_mudari
+        title: نواصب المضارع (أن ولن وكي وإذن)
+        leaf: true
+        confidence: HIGH
+      - id: an_mudmara
+        title: أن المضمرة وجوبًا وجوازًا
+        leaf: true
+        confidence: HIGH
+      - id: jawazim_fil_wahid
+        title: جوازم الفعل الواحد (لم ولمّا ولام الأمر ولا الناهية)
+        leaf: true
+        confidence: HIGH
+      - id: jawazim_filayn
+        title: جوازم الفعلين (أدوات الشرط الجازمة — مدخل)
+        leaf: true
+        confidence: HIGH
+      - id: nuna_tawkid
+        title: نونا التوكيد الثقيلة والخفيفة
+        leaf: true
+        confidence: HIGH
+      - id: afal_khamsa_irab
+        title: الأفعال الخمسة وإعرابها الخاص
+        leaf: true
+        confidence: HIGH
+
+  # ═══════════════════════════════════════════════════════════════
+  # Branch 5: الفضلات والمتعلقات (Complements and Adjuncts)
+  # ═══════════════════════════════════════════════════════════════
+  - id: fadlat
+    title: الفضلات والمتعلقات
+    children:
+
+    - id: maful_bih
+      title: المفعول به
+      children:
+      - id: maful_bih_ahkam
+        title: المفعول به وأحكامه
+        leaf: true
+        confidence: HIGH
+      - id: taqdim_maful
+        title: تقديم المفعول به على الفاعل (وجوبًا وجوازًا)
+        leaf: true
+        confidence: HIGH
+
+    - id: maful_mutlaq
+      title: المفعول المطلق
+      children:
+      - id: maful_mutlaq_anwa
+        title: المفعول المطلق وأنواعه (التوكيدي والنوعي والعددي)
+        leaf: true
+        confidence: HIGH
+      - id: naib_maful_mutlaq
+        title: نائب المفعول المطلق
+        leaf: true
+        confidence: HIGH
+
+    - id: maful_lahu
+      title: المفعول لأجله
+      children:
+      - id: maful_lahu_shurut
+        title: المفعول لأجله وشروطه وأحكامه
+        leaf: true
+        confidence: HIGH
+
+    - id: maful_fih
+      title: المفعول فيه (الظرف)
+      children:
+      - id: zarf_zaman_makan
+        title: ظرف الزمان وظرف المكان
+        leaf: true
+        confidence: HIGH
+      - id: mutasarrif_ghayr
+        title: المتصرف وغير المتصرف من الظروف
+        leaf: true
+        confidence: HIGH
+
+    - id: maful_maah
+      title: المفعول معه
+      children:
+      - id: maful_maah_waw
+        title: المفعول معه وواو المعية
+        leaf: true
+        confidence: HIGH
+
+    - id: hal
+      title: الحال
+      children:
+      - id: hal_mufrida
+        title: الحال المفردة وشروطها
+        leaf: true
+        confidence: HIGH
+      - id: hal_jumla
+        title: الحال الجملة وشبه الجملة
+        leaf: true
+        confidence: HIGH
+      - id: hal_muassisa_muakkida
+        title: الحال المؤسسة والمؤكدة
+        leaf: true
+        confidence: HIGH
+      - id: sahib_hal
+        title: صاحب الحال وشروطه
+        leaf: true
+        confidence: HIGH
+      - id: waw_haliyya
+        title: واو الحالية
+        leaf: true
+        confidence: HIGH
+
+    - id: tamyiz
+      title: التمييز
+      children:
+      - id: tamyiz_dhat
+        title: تمييز الذات (المفرد)
+        leaf: true
+        confidence: HIGH
+      - id: tamyiz_nisba
+        title: تمييز النسبة (التحويل)
+        leaf: true
+        confidence: HIGH
+      - id: tamyiz_ahkam
+        title: أحكام التمييز وتقديمه
+        leaf: true
+        confidence: HIGH
+
+    - id: istithna
+      title: الاستثناء
+      children:
+      - id: mustathna_illa
+        title: المستثنى بإلا وأحكامه الثلاثة (الوجوب والجواز والبدل)
+        leaf: true
+        confidence: HIGH
+      - id: istithna_mufarragh
+        title: الاستثناء المفرّغ
+        leaf: true
+        confidence: HIGH
+      - id: mustathna_ghayr
+        title: المستثنى بغير وسوى وخلا وعدا وحاشا
+        leaf: true
+        confidence: HIGH
+
+    - id: jarr_idafa
+      title: حروف الجر والإضافة
+      children:
+      - id: huruf_jarr_asliyya
+        title: حروف الجر الأصلية ومعانيها الكبرى (من وإلى وعن وعلى وفي والباء واللام والكاف)
+        leaf: true
+        confidence: HIGH
+      - id: huruf_jarr_zaida
+        title: حروف الجر الزائدة (من والباء واللام والكاف)
+        leaf: true
+        confidence: HIGH
+      - id: huruf_jarr_qalila
+        title: حروف الجر القليلة الاستعمال (مذ ومنذ ورُبّ وحتى وكي ولعل)
+        leaf: true
+        confidence: HIGH
+      - id: idafa_mahda
+        title: الإضافة المحضة وغير المحضة (اللفظية والمعنوية)
+        leaf: true
+        confidence: HIGH
+      - id: mudaf_mudaf_ilayh
+        title: أحكام المضاف والمضاف إليه
+        leaf: true
+        confidence: HIGH
+      - id: mudaf_ya_mutakallim
+        title: المضاف إلى ياء المتكلم
+        leaf: true
+        confidence: HIGH
+
+  # ═══════════════════════════════════════════════════════════════
+  # Branch 6: المشتقات وإعمالها (Derivatives and Governance)
+  # ═══════════════════════════════════════════════════════════════
+  - id: mushtaqqat
+    title: المشتقات وإعمالها
+    children:
+
+    - id: imal_masdar
+      title: إعمال المصدر
+      children:
+      - id: masdar_sarih
+        title: المصدر الصريح وإعماله
+        leaf: true
+        confidence: HIGH
+      - id: masdar_muawwal
+        title: المصدر المؤول
+        leaf: true
+        confidence: HIGH
+
+    - id: imal_ism_fail
+      title: إعمال اسم الفاعل
+      children:
+      - id: ism_fail_shurut
+        title: اسم الفاعل وصياغته وشروط إعماله
+        leaf: true
+        confidence: HIGH
+      - id: siyagh_mubalagha
+        title: صيغ المبالغة وإعمالها
+        leaf: true
+        confidence: HIGH
+
+    - id: ism_maful
+      title: اسم المفعول
+      children:
+      - id: ism_maful_imaluh
+        title: اسم المفعول وإعماله
+        leaf: true
+        confidence: HIGH
+
+    - id: sifa_mushabbaha
+      title: الصفة المشبهة
+      children:
+      - id: sifa_mushabbaha_irabar
+        title: الصفة المشبهة وإعرابات معمولها الثلاثة
+        leaf: true
+        confidence: HIGH
+
+    - id: afal_tafdil
+      title: أفعل التفضيل
+      children:
+      - id: afal_tafdil_istialamat
+        title: أفعل التفضيل وصياغته واستعمالاته الثلاثة
+        leaf: true
+        confidence: HIGH
+      - id: mutabaqa_tafdil
+        title: مطابقة أفعل التفضيل
+        leaf: true
+        confidence: HIGH
+
+    - id: ism_zaman_makan_ala
+      title: اسم الزمان والمكان واسم الآلة
+      children:
+      - id: ism_zaman_makan_ala_ahkam
+        title: اسم الزمان والمكان واسم الآلة (صياغتها وأحكامها)
+        leaf: true
+        confidence: MEDIUM
+
+  # ═══════════════════════════════════════════════════════════════
+  # Branch 7: التوابع (Dependents)
+  # ═══════════════════════════════════════════════════════════════
+  - id: tawabi
+    title: التوابع
+    children:
+
+    - id: nat
+      title: النعت
+      children:
+      - id: nat_haqiqi
+        title: النعت الحقيقي (مطابقته للمنعوت في أربعة من عشرة)
+        leaf: true
+        confidence: HIGH
+      - id: nat_sababi
+        title: النعت السببي
+        leaf: true
+        confidence: HIGH
+      - id: nat_jumla
+        title: النعت بالجملة وشبه الجملة
+        leaf: true
+        confidence: HIGH
+      - id: qat_nat
+        title: قطع النعت
+        leaf: true
+        confidence: HIGH
+
+    - id: tawkid
+      title: التوكيد
+      children:
+      - id: tawkid_lafzi
+        title: التوكيد اللفظي
+        leaf: true
+        confidence: HIGH
+      - id: tawkid_manawi
+        title: التوكيد المعنوي وألفاظه
+        leaf: true
+        confidence: HIGH
+
+    - id: atf
+      title: العطف
+      children:
+      - id: atf_bayan
+        title: عطف البيان
+        leaf: true
+        confidence: HIGH
+      - id: atf_nasaq
+        title: عطف النسق
+        leaf: true
+        confidence: HIGH
+      - id: huruf_atf
+        title: حروف العطف ومعانيها
+        leaf: true
+        confidence: HIGH
+
+    - id: badal
+      title: البدل
+      children:
+      - id: badal_kull_bad
+        title: بدل الكل من الكل وبدل البعض
+        leaf: true
+        confidence: HIGH
+      - id: badal_ishtimal_mubayan
+        title: بدل الاشتمال والبدل المباين
+        leaf: true
+        confidence: HIGH
+
+  # ═══════════════════════════════════════════════════════════════
+  # Branch 8: النداء وتوابعه (Vocative and Related)
+  # ═══════════════════════════════════════════════════════════════
+  - id: nida
+    title: النداء وتوابعه
+    children:
+
+    - id: nida_ahkam
+      title: النداء
+      children:
+      - id: adawat_nida
+        title: أدوات النداء وأقسام المنادى
+        leaf: true
+        confidence: HIGH
+      - id: irab_munada
+        title: إعراب المنادى (المفرد العلم والنكرة المقصودة والمضاف وشبيه المضاف)
+        leaf: true
+        confidence: HIGH
+      - id: tabi_munada
+        title: أحكام تابع المنادى
+        leaf: true
+        confidence: HIGH
+      - id: munada_ya_mutakallim
+        title: المنادى المضاف إلى ياء المتكلم
+        leaf: true
+        confidence: HIGH
+
+    - id: asma_lazimat_nida
+      title: أسماء لازمت النداء
+      children:
+      - id: asma_lazimat_nida_ahkam
+        title: أسماء لازمت النداء (فُل ويا هَناه ونحوهما)
+        leaf: true
+        confidence: HIGH
+
+    - id: istighatha
+      title: الاستغاثة
+      children:
+      - id: istighatha_ahkam
+        title: الاستغاثة وأحكامها
+        leaf: true
+        confidence: HIGH
+
+    - id: nudba
+      title: الندبة
+      children:
+      - id: nudba_shurut
+        title: الندبة وشروطها وحروفها
+        leaf: true
+        confidence: HIGH
+
+    - id: tarkhim
+      title: الترخيم
+      children:
+      - id: tarkhim_shurut
+        title: الترخيم وشروطه ولغتاه
+        leaf: true
+        confidence: HIGH
+
+    - id: ikhtisas
+      title: الاختصاص
+      children:
+      - id: ikhtisas_ahkam
+        title: الاختصاص (المنصوب على الاختصاص وأحكامه)
+        leaf: true
+        confidence: HIGH
+
+  # ═══════════════════════════════════════════════════════════════
+  # Branch 9: الأساليب النحوية الخاصة (Special Constructions)
+  # ═══════════════════════════════════════════════════════════════
+  - id: asalib
+    title: الأساليب النحوية الخاصة
+    children:
+
+    - id: taajjub
+      title: التعجب
+      children:
+      - id: taajjub_sighatan
+        title: صيغتا التعجب القياسيتان (ما أفعلَه وأفعِل به)
+        leaf: true
+        confidence: HIGH
+      - id: taajjub_shurut
+        title: شروط فعل التعجب والتعجب السماعي
+        leaf: true
+        confidence: HIGH
+
+    - id: madh_dhamm
+      title: نعم وبئس والمدح والذم
+      children:
+      - id: nima_bisa
+        title: نعم وبئس وفاعلهما وأحكامهما
+        leaf: true
+        confidence: HIGH
+      - id: habdha
+        title: حبذا ولا حبذا وساء
+        leaf: true
+        confidence: HIGH
+
+    - id: shart
+      title: الشرط والجواب
+      children:
+      - id: adawat_shart_jazima
+        title: أدوات الشرط الجازمة (إن ومن وما ومهما وأخواتها) وإعراب فعلي الشرط والجواب
+        leaf: true
+        confidence: HIGH
+      - id: fa_jaza
+        title: فاء الجزاء وبنية جواب الشرط
+        leaf: true
+        confidence: HIGH
+      - id: law_shartiyya
+        title: لو الشرطية (الامتناعية)
+        leaf: true
+        confidence: HIGH
+      - id: lawla_lawma
+        title: لولا ولوما
+        leaf: true
+        confidence: HIGH
+      - id: amma_tafsiliyya
+        title: أمّا التفصيلية
+        leaf: true
+        confidence: HIGH
+
+    - id: qasam
+      title: أسلوب القسم
+      children:
+      - id: adawat_qasam
+        title: أدوات القسم (الواو والباء والتاء) وجوابه
+        leaf: true
+        confidence: HIGH
+
+    - id: istifham
+      title: أسلوب الاستفهام
+      children:
+      - id: adawat_istifham
+        title: أدوات الاستفهام الحرفية والاسمية وأحكامها
+        leaf: true
+        confidence: MEDIUM
+
+    - id: asma_afal
+      title: أسماء الأفعال والأصوات
+      children:
+      - id: asma_afal_anwa
+        title: أسماء الأفعال (ماضوية ومضارعية وأمرية)
+        leaf: true
+        confidence: HIGH
+      - id: asma_aswat
+        title: أسماء الأصوات
+        leaf: true
+        confidence: HIGH
+
+    - id: tahdhir_ighra
+      title: التحذير والإغراء
+      children:
+      - id: tahdhir
+        title: التحذير وأحكامه
+        leaf: true
+        confidence: HIGH
+      - id: ighra
+        title: الإغراء وأحكامه
+        leaf: true
+        confidence: HIGH
+
+    - id: adad
+      title: العدد والمعدود
+      children:
+      - id: adad_mutabaqa
+        title: العدد المفرد والمركب والمعطوف وأحكام المطابقة
+        leaf: true
+        confidence: HIGH
+      - id: tamyiz_adad
+        title: تمييز العدد (المفرد والجمع)
+        leaf: true
+        confidence: HIGH
+      - id: adad_tartibi
+        title: العدد الترتيبي (على وزن فاعل)
+        leaf: true
+        confidence: HIGH
+
+    - id: kinayat_adad
+      title: كنايات العدد
+      children:
+      - id: kam_istifham_khabar
+        title: كم الاستفهامية والخبرية
+        leaf: true
+        confidence: HIGH
+      - id: kaayyin_kadha
+        title: كأين وكذا
+        leaf: true
+        confidence: MEDIUM
+
+    - id: hikaya_ikhbar
+      title: الحكاية والإخبار
+      children:
+      - id: hikaya
+        title: الحكاية وأحكامها
+        leaf: true
+        confidence: HIGH
+      - id: ikhbar_alladhi
+        title: الإخبار بالذي والألف واللام
+        leaf: true
+        confidence: HIGH
