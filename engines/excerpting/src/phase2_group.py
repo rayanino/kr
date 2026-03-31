@@ -154,6 +154,7 @@ def group_chunk(
     client: instructor.Instructor,
     config: ExcerptingConfig,
     error_feedback: Optional[str] = None,
+    timeout_override: Optional[int] = None,
 ) -> ExtractionResult:
     """Send chunk + classified segments to LLM for grouping (§5.3).
 
@@ -162,6 +163,7 @@ def group_chunk(
 
     Args:
         error_feedback: Optional text appended to user message on retry (DD-S2-5).
+        timeout_override: If provided, overrides config.GROUP_TIMEOUT (for retry escalation).
     """
     system_prompt = GROUP_SYSTEM_PROMPT.format(
         structural_format=chunk.structural_format.value,
@@ -175,12 +177,14 @@ def group_chunk(
     if error_feedback:
         user_message += error_feedback
 
+    timeout = timeout_override if timeout_override is not None else config.GROUP_TIMEOUT
+
     return client.chat.completions.create(
         model=config.GROUP_MODEL,
         temperature=config.LLM_TEMPERATURE,
         max_tokens=config.GROUP_MAX_TOKENS,
         max_retries=0,
-        timeout=config.GROUP_TIMEOUT,
+        timeout=timeout,
         response_model=ExtractionResult,
         messages=[
             {"role": "system", "content": system_prompt},
@@ -297,13 +301,14 @@ def run_phase2b(
         error_feedback: Optional[str] = None
         last_error_code: Optional[str] = None
         success = False
+        current_timeout = config.GROUP_TIMEOUT
 
         for attempt in range(max_attempts):
             phase = "group"
             try:
                 # Step 4: Group (LLM call)
                 start_time = time.monotonic()
-                er = group_chunk(chunk, segments, client, config, error_feedback)
+                er = group_chunk(chunk, segments, client, config, error_feedback, timeout_override=current_timeout)
                 latency = time.monotonic() - start_time
 
                 logger.info(
@@ -378,6 +383,10 @@ def run_phase2b(
                     wait_seconds,
                 )
                 time.sleep(wait_seconds)
+                current_timeout = min(
+                    int(current_timeout * 1.5),
+                    config.GROUP_TIMEOUT * 2,
+                )
 
         if not success:
             logger.error(

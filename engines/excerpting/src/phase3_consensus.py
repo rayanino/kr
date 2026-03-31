@@ -184,12 +184,16 @@ def verify_chunk(
     client: instructor.Instructor,
     config: ExcerptingConfig,
     source_metadata: Optional[dict[str, str]] = None,
+    timeout_override: Optional[int] = None,
 ) -> Optional[tuple[VerificationResult, list[tuple[ExcerptRecord, list[dict[str, str]]]]]]:
     """Call verification model for attribution + school checks (§7.3.2).
 
     Uses VERIFY_MODEL (different provider family from ENRICH_MODEL).
     Returns None if no units in this chunk need verification.
     Otherwise returns (VerificationResult, items_map) for resolve_consensus.
+
+    Args:
+        timeout_override: If provided, overrides config.VERIFY_TIMEOUT (for retry escalation).
     """
     if source_metadata is None:
         source_metadata = {}
@@ -208,12 +212,14 @@ def verify_chunk(
         excerpts_with_items, source_metadata
     )
 
+    timeout = timeout_override if timeout_override is not None else config.VERIFY_TIMEOUT
+
     result = client.chat.completions.create(
         model=config.VERIFY_MODEL,
         temperature=config.LLM_TEMPERATURE,
         max_tokens=config.VERIFY_MAX_TOKENS,
         max_retries=0,
-        timeout=config.VERIFY_TIMEOUT,
+        timeout=timeout,
         response_model=VerificationResult,
         messages=[
             {"role": "system", "content": VERIFY_SYSTEM_PROMPT},
@@ -757,11 +763,13 @@ def run_consensus(
         # Try verification call
         verification_result = None
         loop_handled = False
+        current_timeout = config.VERIFY_TIMEOUT
         for attempt in range(max_attempts):
             try:
                 start_time = time.monotonic()
                 vr = verify_chunk(
-                    chunk, chunk_excerpts, verify_client, config, source_metadata
+                    chunk, chunk_excerpts, verify_client, config, source_metadata,
+                    timeout_override=current_timeout,
                 )
                 latency = time.monotonic() - start_time
 
@@ -789,6 +797,10 @@ def run_consensus(
                     max_attempts,
                     chunk_id,
                     str(e),
+                )
+                current_timeout = min(
+                    int(current_timeout * 1.5),
+                    config.VERIFY_TIMEOUT * 2,
                 )
 
         if not loop_handled:

@@ -1,6 +1,6 @@
 ---
 name: deep-researcher
-description: For each CORRECTNESS defect in a SPEC audit, runs 8+ web searches to investigate the defect. Specifically checks whether named technologies work for Arabic. Finds competing approaches with tradeoffs. Cites specific URLs, version numbers, and benchmarks.
+description: Runs 8+ web searches per CORRECTNESS defect to investigate technology claims, verify Arabic support, and find alternatives. Use after a SPEC audit produces CORRECTNESS defects that need deep investigation before revision.
 tools: Bash, WebSearch, WebFetch, Read, Grep, Glob
 model: opus
 effort: max

@@ -323,6 +323,7 @@ def classify_chunk(
     client: instructor.Instructor,
     config: ExcerptingConfig,
     error_feedback: Optional[str] = None,
+    timeout_override: Optional[int] = None,
 ) -> ClassificationResult:
     """Send chunk's assembled_text to LLM for segment classification (§5.2).
 
@@ -332,6 +333,7 @@ def classify_chunk(
     Args:
         error_feedback: Optional text appended to user message on retry (DD-S2-5).
             System prompt stays constant across retries.
+        timeout_override: If provided, overrides config.CLASSIFY_TIMEOUT (for retry escalation).
     """
     system_prompt = CLASSIFY_SYSTEM_PROMPT.format(
         structural_format=chunk.structural_format.value,
@@ -340,12 +342,14 @@ def classify_chunk(
     if error_feedback:
         user_message += error_feedback
 
+    timeout = timeout_override if timeout_override is not None else config.CLASSIFY_TIMEOUT
+
     return client.chat.completions.create(
         model=config.CLASSIFY_MODEL,
         temperature=config.LLM_TEMPERATURE,
         max_tokens=_compute_classify_max_tokens(chunk.word_count),
         max_retries=0,
-        timeout=config.CLASSIFY_TIMEOUT,
+        timeout=timeout,
         response_model=ClassificationResult,
         messages=[
             {"role": "system", "content": system_prompt},
@@ -375,13 +379,14 @@ def run_phase2a(
         error_feedback: Optional[str] = None
         last_error_code: Optional[str] = None
         success = False
+        current_timeout = config.CLASSIFY_TIMEOUT
 
         for attempt in range(max_attempts):
             phase = "classify"
             try:
                 # Step 1: Classify (LLM call)
                 start_time = time.monotonic()
-                cr = classify_chunk(chunk, client, config, error_feedback)
+                cr = classify_chunk(chunk, client, config, error_feedback, timeout_override=current_timeout)
                 latency = time.monotonic() - start_time
 
                 logger.info(
@@ -466,6 +471,10 @@ def run_phase2a(
                     wait_seconds,
                 )
                 time.sleep(wait_seconds)
+                current_timeout = min(
+                    int(current_timeout * 1.5),
+                    config.CLASSIFY_TIMEOUT * 2,
+                )
 
         if not success:
             logger.error(

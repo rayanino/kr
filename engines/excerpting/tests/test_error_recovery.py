@@ -91,6 +91,7 @@ class TestSingleChunkFailure:
         def mock_classify(
             chunk: Any, client: Any, config: Any,
             error_feedback: Optional[str] = None,
+            **kwargs: Any,
         ) -> ClassificationResult:
             cid = chunk.chunk_id
             call_tracker.setdefault(cid, 0)
@@ -140,6 +141,7 @@ class TestExponentialBackoff:
         def mock_classify(
             chunk: Any, client: Any, config: Any,
             error_feedback: Optional[str] = None,
+            **kwargs: Any,
         ) -> ClassificationResult:
             attempt_counter["n"] += 1
             if attempt_counter["n"] == 1:
@@ -188,6 +190,7 @@ class TestCoverageRetry:
         def mock_classify(
             chunk: Any, client: Any, config: Any,
             error_feedback: Optional[str] = None,
+            **kwargs: Any,
         ) -> ClassificationResult:
             attempt_counter["n"] += 1
             feedback_received.append(error_feedback)

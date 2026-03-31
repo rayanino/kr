@@ -251,6 +251,7 @@ def enrich_chunk(
     client: instructor.Instructor,
     config: ExcerptingConfig,
     source_metadata: Optional[dict[str, str]] = None,
+    timeout_override: Optional[int] = None,
 ) -> EnrichmentResult:
     """Send chunk + its teaching units to LLM for enrichment (§7.2).
 
@@ -259,6 +260,9 @@ def enrich_chunk(
 
     Uses system prompt from §7.2.2 and user message from §7.2.3.
     Returns EnrichmentResult with per-unit enrichments.
+
+    Args:
+        timeout_override: If provided, overrides config.ENRICH_TIMEOUT (for retry escalation).
     """
     if source_metadata is None:
         source_metadata = {}
@@ -267,12 +271,14 @@ def enrich_chunk(
         chunk, excerpts, source_metadata
     )
 
+    timeout = timeout_override if timeout_override is not None else config.ENRICH_TIMEOUT
+
     return client.chat.completions.create(
         model=config.ENRICH_MODEL,
         temperature=config.LLM_TEMPERATURE,
         max_tokens=_compute_enrich_max_tokens(chunk.word_count),
         max_retries=0,
-        timeout=config.ENRICH_TIMEOUT,
+        timeout=timeout,
         response_model=EnrichmentResult,
         messages=[
             {"role": "system", "content": ENRICH_SYSTEM_PROMPT},
@@ -465,11 +471,13 @@ def run_phase3_enrichment(
             continue
 
         success = False
+        current_timeout = config.ENRICH_TIMEOUT
         for attempt in range(max_attempts):
             try:
                 start_time = time.monotonic()
                 enrichment = enrich_chunk(
-                    chunk, chunk_excerpts, client, config, source_metadata
+                    chunk, chunk_excerpts, client, config, source_metadata,
+                    timeout_override=current_timeout,
                 )
                 latency = time.monotonic() - start_time
 
@@ -504,6 +512,10 @@ def run_phase3_enrichment(
                     attempt + 1, max_attempts, chunk_id, str(e), wait_seconds,
                 )
                 time.sleep(wait_seconds)
+                current_timeout = min(
+                    int(current_timeout * 1.5),
+                    config.ENRICH_TIMEOUT * 2,
+                )
 
         if not success:
             logger.error(
