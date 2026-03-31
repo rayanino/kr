@@ -13,11 +13,14 @@ Integrates with ProgressTracker (Layer 2) and CacheManager (Layer 3).
 """
 from __future__ import annotations
 
+import datetime
+import json
 import logging
 import threading
 import time
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Callable, Optional
 
 logger = logging.getLogger(__name__)
@@ -146,6 +149,126 @@ class ConcurrencyController:
             return self._active
 
 
+class StatusWriter:
+    """Writes pipeline status to a JSON file for external monitoring.
+
+    Updated periodically by a background thread.
+    Thread-safe: all state updates are locked.
+    """
+
+    def __init__(
+        self, status_path: Path, update_interval: float = 30.0
+    ) -> None:
+        self._path = status_path
+        self._interval = update_interval
+        self._lock = threading.Lock()
+        self._stop = threading.Event()
+        self._data: dict[str, Any] = {
+            "total_chunks": 0,
+            "completed": 0,
+            "failed": 0,
+            "pending": 0,
+            "in_progress": {},
+            "elapsed_seconds": 0,
+            "cache_hits": 0,
+            "cache_misses": 0,
+        }
+        self._start_time = time.monotonic()
+        self._thread: Optional[threading.Thread] = None
+
+    def start(self, total_chunks: int) -> None:
+        """Start the background writer thread."""
+        with self._lock:
+            self._data["total_chunks"] = total_chunks
+            self._data["pending"] = total_chunks
+        self._thread = threading.Thread(target=self._run, daemon=True)
+        self._thread.start()
+
+    def stop(self) -> None:
+        """Stop the background writer and write final status."""
+        self._stop.set()
+        if self._thread:
+            self._thread.join(timeout=5)
+        self._write()
+
+    def record_phase_start(self, chunk_id: str, phase: str) -> None:
+        """Record that a chunk has started a pipeline phase."""
+        with self._lock:
+            phases = self._data.setdefault("in_progress", {})
+            phases[phase] = phases.get(phase, 0) + 1
+
+    def record_phase_end(self, chunk_id: str, phase: str) -> None:
+        """Record that a chunk has finished a pipeline phase."""
+        with self._lock:
+            phases = self._data.get("in_progress", {})
+            if phase in phases:
+                phases[phase] = max(0, phases[phase] - 1)
+
+    def record_chunk_complete(self) -> None:
+        """Record a successfully completed chunk."""
+        with self._lock:
+            self._data["completed"] = self._data.get("completed", 0) + 1
+            self._data["pending"] = max(
+                0, self._data.get("pending", 0) - 1
+            )
+
+    def record_chunk_failed(self) -> None:
+        """Record a failed chunk."""
+        with self._lock:
+            self._data["failed"] = self._data.get("failed", 0) + 1
+            self._data["pending"] = max(
+                0, self._data.get("pending", 0) - 1
+            )
+
+    def record_cache_hit(self) -> None:
+        """Record a cache hit."""
+        with self._lock:
+            self._data["cache_hits"] = (
+                self._data.get("cache_hits", 0) + 1
+            )
+
+    def record_cache_miss(self) -> None:
+        """Record a cache miss."""
+        with self._lock:
+            self._data["cache_misses"] = (
+                self._data.get("cache_misses", 0) + 1
+            )
+
+    def _run(self) -> None:
+        """Background thread: write status every N seconds."""
+        while not self._stop.wait(timeout=self._interval):
+            self._write()
+
+    def _write(self) -> None:
+        """Write current status to file."""
+        with self._lock:
+            elapsed = time.monotonic() - self._start_time
+            self._data["elapsed_seconds"] = round(elapsed, 1)
+            self._data["updated"] = datetime.datetime.now(
+                datetime.timezone.utc
+            ).isoformat()
+            completed = self._data.get("completed", 0)
+            if completed > 0:
+                avg = elapsed / completed
+                self._data["avg_seconds_per_chunk"] = round(avg, 1)
+                remaining = self._data.get("pending", 0)
+                self._data["estimated_remaining_seconds"] = round(
+                    avg * remaining, 1
+                )
+            snapshot = dict(self._data)
+
+        try:
+            # Write to temp then rename for atomic update
+            tmp = self._path.with_suffix(".json.tmp")
+            tmp.write_text(
+                json.dumps(snapshot, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            tmp.replace(self._path)
+        except OSError as exc:
+            logger.debug("Status write failed: %s", exc)
+
+
 @dataclass
 class ChunkPipelineContext:
     """Tracks one chunk's progress through all phases."""
@@ -175,6 +298,7 @@ def _process_chunk(
     grouped_data: Optional[dict[str, list[Any]]],
     source_metadata: Optional[dict[str, str]],
     breaker: Optional[CircuitBreaker] = None,
+    status_writer: Optional[StatusWriter] = None,
 ) -> ChunkPipelineContext:
     """Run the full pipeline for one chunk. Called in its own thread.
 
@@ -227,6 +351,10 @@ def _process_chunk(
                 try:
                     if breaker is not None:
                         breaker.check()
+                    if status_writer is not None:
+                        status_writer.record_phase_start(
+                            chunk_id, "phase2a"
+                        )
                     controller.acquire()
                     try:
                         cr = classify_chunk(
@@ -240,6 +368,10 @@ def _process_chunk(
                             breaker.record_success()
                     finally:
                         controller.release()
+                        if status_writer is not None:
+                            status_writer.record_phase_end(
+                                chunk_id, "phase2a"
+                            )
 
                     canonical = normalize_offsets(
                         cr.segments, chunk.assembled_text, chunk.total_tokens
@@ -312,6 +444,10 @@ def _process_chunk(
                 try:
                     if breaker is not None:
                         breaker.check()
+                    if status_writer is not None:
+                        status_writer.record_phase_start(
+                            chunk_id, "phase2b"
+                        )
                     controller.acquire()
                     try:
                         er = group_chunk(
@@ -326,6 +462,10 @@ def _process_chunk(
                             breaker.record_success()
                     finally:
                         controller.release()
+                        if status_writer is not None:
+                            status_writer.record_phase_end(
+                                chunk_id, "phase2b"
+                            )
 
                     verified_units = verify_units(
                         er.teaching_units, ctx.segments, chunk.total_tokens
@@ -400,6 +540,10 @@ def _process_chunk(
                     try:
                         if breaker is not None:
                             breaker.check()
+                        if status_writer is not None:
+                            status_writer.record_phase_start(
+                                chunk_id, "phase3_enrich"
+                            )
                         controller.acquire()
                         try:
                             enrichment = enrich_chunk(
@@ -413,6 +557,10 @@ def _process_chunk(
                                 breaker.record_success()
                         finally:
                             controller.release()
+                            if status_writer is not None:
+                                status_writer.record_phase_end(
+                                    chunk_id, "phase3_enrich"
+                                )
 
                         ctx.enriched_excerpts = apply_enrichment(
                             ctx.excerpts, enrichment
@@ -484,6 +632,10 @@ def _process_chunk(
                         try:
                             if breaker is not None:
                                 breaker.check()
+                            if status_writer is not None:
+                                status_writer.record_phase_start(
+                                    chunk_id, "phase3_consensus"
+                                )
                             controller.acquire()
                             try:
                                 vr_result = verify_chunk(
@@ -498,6 +650,10 @@ def _process_chunk(
                                     breaker.record_success()
                             finally:
                                 controller.release()
+                                if status_writer is not None:
+                                    status_writer.record_phase_end(
+                                        chunk_id, "phase3_consensus"
+                                    )
 
                             if vr_result is None:
                                 ctx.final_excerpts = ctx.enriched_excerpts
@@ -637,6 +793,7 @@ def run_parallel_pipeline(
     source_metadata: Optional[dict[str, str]] = None,
     classified_data: Optional[dict[str, list[Any]]] = None,
     grouped_data: Optional[dict[str, list[Any]]] = None,
+    output_dir: Optional[Path] = None,
 ) -> tuple[list[Any], list[Any]]:
     """Process all chunks through the full pipeline concurrently.
 
@@ -654,6 +811,7 @@ def run_parallel_pipeline(
         source_metadata: Source metadata dict.
         classified_data: Pre-loaded classified data from resume.
         grouped_data: Pre-loaded grouped data from resume.
+        output_dir: Optional directory for status.json monitoring file.
 
     Returns:
         (all_excerpts, all_gate_entries)
@@ -662,10 +820,17 @@ def run_parallel_pipeline(
     controller = ConcurrencyController(concurrency)
     breaker = CircuitBreaker() if concurrency > 1 else None
 
+    status_writer: Optional[StatusWriter] = None
+    if output_dir is not None:
+        status_writer = StatusWriter(output_dir / "status.json")
+
     contexts = [
         ChunkPipelineContext(chunk=chunk, chunk_id=chunk.chunk_id)
         for chunk in chunks
     ]
+
+    if status_writer is not None:
+        status_writer.start(len(contexts))
 
     all_excerpts: list[Any] = []
     all_gates: list[Any] = []
@@ -704,6 +869,7 @@ def run_parallel_pipeline(
                 grouped_data,
                 source_metadata,
                 breaker,
+                status_writer,
             )
             futures[future] = ctx
 
@@ -719,8 +885,12 @@ def run_parallel_pipeline(
                         all_excerpts.extend(result_ctx.final_excerpts)
                         all_gates.extend(result_ctx.gate_entries)
                         completed += 1
+                        if status_writer is not None:
+                            status_writer.record_chunk_complete()
                     else:
                         failed += 1
+                        if status_writer is not None:
+                            status_writer.record_chunk_failed()
                         logger.warning(
                             "Chunk %s failed: %s",
                             result_ctx.chunk_id,
@@ -728,6 +898,8 @@ def run_parallel_pipeline(
                         )
                 except Exception as exc:
                     failed += 1
+                    if status_writer is not None:
+                        status_writer.record_chunk_failed()
                     logger.error(
                         "Chunk %s thread error: %s", ctx.chunk_id, exc
                     )
@@ -736,7 +908,12 @@ def run_parallel_pipeline(
                 "Pipeline interrupted, waiting for in-flight calls..."
             )
             executor.shutdown(wait=True, cancel_futures=True)
+            if status_writer is not None:
+                status_writer.stop()
             raise
+
+    if status_writer is not None:
+        status_writer.stop()
 
     logger.info(
         "Parallel pipeline complete: %d/%d chunks succeeded, %d failed",

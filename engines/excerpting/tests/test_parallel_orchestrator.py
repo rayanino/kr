@@ -4,8 +4,10 @@ Tests verify orchestration logic using mock clients — no actual CLI/LLM calls.
 """
 from __future__ import annotations
 
+import json
 import threading
 import time
+from pathlib import Path
 from typing import Any
 from unittest.mock import MagicMock, patch
 
@@ -15,6 +17,7 @@ from engines.excerpting.src.parallel_orchestrator import (
     ChunkPipelineContext,
     CircuitBreaker,
     ConcurrencyController,
+    StatusWriter,
     _process_chunk,
     run_parallel_pipeline,
 )
@@ -679,3 +682,72 @@ class TestCircuitBreaker:
         sleep_arg = mock_sleep.call_args[0][0]
         assert 39.0 <= sleep_arg <= 41.0
         assert cb.state == "HALF_OPEN"
+
+
+# ===================================================================
+# StatusWriter tests
+# ===================================================================
+
+
+class TestStatusWriter:
+    """Tests for the StatusWriter monitoring file."""
+
+    def test_status_writer_creates_file(self, tmp_path: Path) -> None:
+        """StatusWriter writes status.json to the given path."""
+        status_path = tmp_path / "status.json"
+        writer = StatusWriter(status_path, update_interval=0.1)
+        writer.start(total_chunks=10)
+        # Give the background thread one cycle to write
+        time.sleep(0.3)
+        writer.stop()
+
+        assert status_path.exists()
+        data = json.loads(status_path.read_text(encoding="utf-8"))
+        assert data["total_chunks"] == 10
+        assert data["pending"] == 10
+        assert data["completed"] == 0
+        assert data["failed"] == 0
+        assert "updated" in data
+        assert "elapsed_seconds" in data
+
+    def test_status_writer_records_counts(self, tmp_path: Path) -> None:
+        """record_chunk_complete increments completed, decrements pending."""
+        status_path = tmp_path / "status.json"
+        writer = StatusWriter(status_path, update_interval=60.0)
+        writer.start(total_chunks=5)
+
+        writer.record_chunk_complete()
+        writer.record_chunk_complete()
+        writer.record_chunk_failed()
+        writer.record_cache_hit()
+        writer.record_cache_hit()
+        writer.record_cache_miss()
+        writer.record_phase_start("chunk_0", "phase2a")
+        writer.record_phase_end("chunk_0", "phase2a")
+
+        writer.stop()
+
+        data = json.loads(status_path.read_text(encoding="utf-8"))
+        assert data["completed"] == 2
+        assert data["failed"] == 1
+        assert data["pending"] == 2  # 5 - 2 completed - 1 failed
+        assert data["cache_hits"] == 2
+        assert data["cache_misses"] == 1
+        assert data["in_progress"]["phase2a"] == 0
+
+    def test_status_writer_stop_writes_final(self, tmp_path: Path) -> None:
+        """stop() writes final status even without background thread cycle."""
+        status_path = tmp_path / "status.json"
+        # Very long interval so background thread never fires
+        writer = StatusWriter(status_path, update_interval=9999.0)
+        writer.start(total_chunks=3)
+
+        writer.record_chunk_complete()
+        writer.stop()
+
+        assert status_path.exists()
+        data = json.loads(status_path.read_text(encoding="utf-8"))
+        assert data["total_chunks"] == 3
+        assert data["completed"] == 1
+        assert data["pending"] == 2
+        assert "avg_seconds_per_chunk" in data
