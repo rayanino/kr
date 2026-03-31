@@ -1,6 +1,6 @@
 ---
 name: spec-auditor-b
-description: Cold reads a SPEC against silent failure patterns 5-7 (untestable rules, missing error paths, scope creep) and all 7 KNOWLEDGE_INTEGRITY.md corruption threats (T1-T7). Produces a numbered defect inventory with CORRECTNESS vs STYLE severity. Self-reviews 2 rounds per Blueprint Step 1a.
+description: Cold reads a SPEC against silent failure patterns 5-7 (untestable rules, missing error paths, scope creep) and all 7 corruption threats (T1-T7). Use when auditing a new or revised engine SPEC. Dispatch alongside spec-auditor-a for independent dual-audit coverage.
 tools: Read, Grep, Glob, Bash
 model: opus
 effort: max

@@ -1,6 +1,6 @@
 ---
 name: integrity-auditor
-description: Runs the kr-integrity checklist on a revised SPEC. Checks for ambiguous rules, missing error paths, corruption vectors, and contract alignment. Produces MUST-FIX (blocks build) vs SHOULD-FIX (fix during build) classification.
+description: Runs the kr-integrity checklist on a revised SPEC for ambiguous rules, missing error paths, corruption vectors (T1-T7), and contract alignment. Use as the final gate after a SPEC has been audited and revised, before approving it for build.
 tools: Read, Grep, Glob, Bash
 model: opus
 effort: high

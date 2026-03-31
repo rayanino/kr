@@ -1,6 +1,6 @@
 ---
 name: audit-comparator
-description: Reads BOTH auditor inventories (A and B), classifies each finding as BOTH_FOUND / A_ONLY / B_ONLY, investigates one-sided findings for real vs false positive, and produces a merged deduplicated defect list.
+description: Merges Auditor A and B defect inventories, classifies findings as BOTH_FOUND / A_ONLY / B_ONLY, and produces a deduplicated defect list. Use after both spec-auditor-a and spec-auditor-b complete independent audits on the same SPEC.
 tools: Read, Grep, Glob, Bash
 model: opus
 effort: high

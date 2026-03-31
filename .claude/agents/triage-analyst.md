@@ -1,6 +1,6 @@
 ---
 name: triage-analyst
-description: Runs automated checks on ALL pipeline output items before expensive N-version verification. Assigns risk tiers (LOW/MEDIUM/HIGH) based on schema compliance, field completeness, value ranges, and internal consistency. Costs €0 — no web search, no LLM calls.
+description: Runs zero-cost automated checks on pipeline output to assign risk tiers (LOW/MEDIUM/HIGH) before expensive N-version verification. Use as the first evaluation stage before dispatching verifier-a and verifier-b, to prioritize items by error risk.
 tools: Read, Bash, Glob, Grep
 model: sonnet
 effort: medium

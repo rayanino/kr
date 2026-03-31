@@ -1,6 +1,6 @@
 ---
 name: model-researcher
-description: Compares frontier LLMs (Opus 4.6, GPT-5.4, Gemini 3.1 Pro) on classical Arabic scholarly text capability for KR consensus role assignment. Runs 8-10+ web searches per research question, produces structured comparison with exact model strings and rationale.
+description: Compares frontier LLMs on classical Arabic scholarly text capability for KR consensus role assignment. Use when selecting or updating model assignments for multi-model consensus roles, or when a new frontier model is released.
 tools: Read, Grep, Glob, WebSearch, WebFetch, Bash
 model: opus
 effort: max

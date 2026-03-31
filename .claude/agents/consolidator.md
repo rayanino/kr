@@ -1,6 +1,6 @@
 ---
 name: consolidator
-description: Compares Verifier A and B verdicts, resolves disagreements through investigation, produces final verdicts with a mandatory 5-round self-review. Captures CANDIDATE_PATTERNs from disagreements for Playbook growth.
+description: Compares Verifier A and B verdicts, resolves disagreements through investigation, and produces final verdicts with mandatory 5-round self-review. Use after both verifier-a and verifier-b complete verification on the same batch during EVALUATE phase.
 tools: Read, Bash, WebSearch, WebFetch, Glob, Grep
 model: opus
 effort: max
