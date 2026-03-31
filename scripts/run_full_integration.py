@@ -523,6 +523,7 @@ def _run_single_package(
     results: dict[str, dict[str, Any]],
     lock: threading.Lock,
     label: str,
+    concurrency: int = 1,
 ) -> None:
     """Run a single package — designed to be called from a thread or sequentially."""
     name = pkg["name"]
@@ -580,6 +581,8 @@ def _run_single_package(
                 ]
                 if max_chunks is not None:
                     cmd.extend(["--max-chunks", str(max_chunks)])
+                if concurrency > 1:
+                    cmd.extend(["--concurrency", str(concurrency)])
 
                 env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
                 returncode = _run_package_subprocess(
@@ -656,6 +659,7 @@ def run_batch(
     max_chunks: int | None = None,
     per_package_timeout: int = 28800,
     parallel: int = 1,
+    concurrency: int = 1,
 ) -> dict[str, Any]:
     """Run all packages and return aggregated results.
 
@@ -664,6 +668,8 @@ def run_batch(
             Values >1 run packages in parallel threads, each spawning
             its own subprocess. Packages are independent — no shared
             state except the results dict (protected by a lock).
+        concurrency: Max concurrent LLM calls per package subprocess.
+            Forwarded to run_integration_test.py --concurrency.
     """
     output_dir.mkdir(parents=True, exist_ok=True)
     results: dict[str, dict[str, Any]] = {}
@@ -696,6 +702,7 @@ def run_batch(
                 _run_single_package(
                     pkg, output_dir, backend, max_chunks,
                     per_package_timeout, batch_start, results, lock, label,
+                    concurrency=concurrency,
                 )
         else:
             # Parallel — launch up to N packages concurrently
@@ -709,6 +716,7 @@ def run_batch(
                         _run_single_package,
                         pkg, output_dir, backend, max_chunks,
                         per_package_timeout, batch_start, results, lock, label,
+                        concurrency,
                     )
                     futures[fut] = pkg["name"]
 
@@ -828,6 +836,15 @@ def main() -> int:
             "directory — no shared state. Recommended: 3 for CLI backend."
         ),
     )
+    parser.add_argument(
+        "--concurrency",
+        type=int,
+        default=1,
+        help=(
+            "Max concurrent LLM calls per package (default: 1 = sequential). "
+            "Forwarded to run_integration_test.py --concurrency."
+        ),
+    )
     args = parser.parse_args()
 
     if args.output_dir is None:
@@ -854,6 +871,7 @@ def main() -> int:
     print(f"Max chunks:       {args.max_chunks or 'all'}")
     print(f"Pkg timeout:      {args.per_package_timeout}s")
     print(f"Parallel:         {args.parallel}")
+    print(f"Concurrency:      {args.concurrency}")
 
     summary = run_batch(
         args.output_dir,
@@ -861,6 +879,7 @@ def main() -> int:
         max_chunks=args.max_chunks,
         per_package_timeout=args.per_package_timeout,
         parallel=args.parallel,
+        concurrency=args.concurrency,
     )
     print_summary(summary)
 

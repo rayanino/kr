@@ -460,6 +460,76 @@ def _serialize_groupings(grouped: dict[str, list[Any]], output_dir: Path) -> Non
     )
 
 
+def _load_done_artifacts(
+    chunks: list[Any],
+    progress: Any,
+    output_dir: Path,
+    phase: str,
+) -> dict[str, list[Any]]:
+    """Load cached artifacts for chunks marked done by the progress tracker.
+
+    Validates that each artifact file exists, is non-empty, parses as JSON,
+    and has the expected structure (list of dicts). If any check fails the
+    chunk is NOT included in the result -- the phase runner will re-process it.
+    """
+    if progress is None:
+        return {}
+
+    phase_dirs = {
+        "phase2a": "phase2a_classifications",
+        "phase2b": "phase2b_groupings",
+    }
+    artifact_dir_name = phase_dirs.get(phase)
+    if artifact_dir_name is None:
+        return {}
+
+    from engines.excerpting.contracts import ClassifiedSegment, TeachingUnit
+
+    model_cls = ClassifiedSegment if phase == "phase2a" else TeachingUnit
+
+    loaded: dict[str, list[Any]] = {}
+    for chunk in chunks:
+        if not progress.is_done(chunk.chunk_id, phase):
+            continue
+        artifact_path = output_dir / artifact_dir_name / f"chunk_{chunk.chunk_id}.json"
+        if not artifact_path.exists():
+            logger.warning(
+                "Chunk %s %s artifact missing at %s, will re-process",
+                chunk.chunk_id,
+                phase,
+                artifact_path,
+            )
+            continue
+        try:
+            raw = artifact_path.read_text(encoding="utf-8")
+            if not raw.strip():
+                logger.warning(
+                    "Chunk %s %s artifact is empty, will re-process",
+                    chunk.chunk_id,
+                    phase,
+                )
+                continue
+            data = json.loads(raw)
+            if not isinstance(data, list) or not data:
+                logger.warning(
+                    "Chunk %s %s artifact is not a non-empty list, will re-process",
+                    chunk.chunk_id,
+                    phase,
+                )
+                continue
+            items = [model_cls(**d) for d in data]
+            loaded[chunk.chunk_id] = items
+        except (json.JSONDecodeError, TypeError, Exception) as exc:
+            logger.warning(
+                "Chunk %s %s artifact corrupt (%s), will re-process",
+                chunk.chunk_id,
+                phase,
+                exc,
+            )
+            continue
+    return loaded
+
+
 def _append_error_once(errors: list[str], error: str) -> None:
     """Append a runner error marker only once."""
     if error not in errors:
@@ -559,19 +629,25 @@ def run_pipeline(
     max_chunks: Optional[int] = None,
     backend: str = "api",
     traces_dir: Optional[Path] = None,
+    concurrency: int = 1,
 ) -> int:
     """Execute the full excerpting pipeline and save all artifacts.
 
     When *traces_dir* is provided, captures all LLM call traces via
     recursive-improve for later analysis and improvement.
 
+    When *concurrency* > 1 and backend is "cli", uses the parallel
+    pipeline orchestrator for chunk-level parallelism.
+
     Returns 0 on success, 1 on failure.
     """
     from engines.excerpting.contracts import ExcerptingConfig
+    from engines.excerpting.src.cache import CacheManager
     from engines.excerpting.src.phase1_assembly import run_phase1
     from engines.excerpting.src.phase2_classify import run_phase2a
     from engines.excerpting.src.phase2_group import run_phase2b
     from engines.excerpting.src.phase3_orchestrator import run_phase3
+    from engines.excerpting.src.progress import ProgressTracker
     from engines.excerpting.src.writer import (
         GateQueueVerificationError,
         verify_gate_queue,
@@ -581,12 +657,28 @@ def run_pipeline(
     )
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    config = ExcerptingConfig()
+    config = (
+        ExcerptingConfig(CONCURRENCY=concurrency)
+        if concurrency > 1
+        else ExcerptingConfig()
+    )
     timings: dict[str, Any] = {}
     all_errors: list[str] = []
     source_id: Optional[str] = None
     excerpt_count = 0
     gate_count = 0
+
+    # WAL-based progress tracker for chunk-level resume
+    progress = ProgressTracker(output_dir / "progress.jsonl")
+    # Input-based LLM result cache
+    llm_cache = CacheManager(output_dir / "cache")
+    progress_summary = progress.summary()
+    if progress_summary["total"] > 0:
+        logger.info(
+            "Resuming: %d done, %d failed entries from previous run",
+            progress_summary["done"],
+            progress_summary["failed"],
+        )
 
     def _finalize_traces() -> None:
         _finalize_trace_session(
@@ -854,18 +946,234 @@ def run_pipeline(
         _finalize_traces()
         return 0
 
+    # ── Parallel pipeline (concurrency > 1) ──────────────────────
+    if config.CONCURRENCY > 1 and not mock:
+        from engines.excerpting.src.parallel_orchestrator import (
+            run_parallel_pipeline,
+        )
+
+        logger.info(
+            "=== Parallel pipeline (concurrency=%d) ===",
+            config.CONCURRENCY,
+        )
+
+        # Pre-load resume artifacts
+        pre_classified = _load_done_artifacts(
+            chunks, progress, output_dir, "phase2a",
+        )
+        pre_grouped = _load_done_artifacts(
+            chunks, progress, output_dir, "phase2b",
+        )
+
+        if backend == "cli":
+            def _enrich_factory() -> Any:
+                return create_cli_client()
+
+            def _verify_factory() -> Any:
+                return create_cli_client()
+
+            def _escalation_factory() -> Any:
+                return create_cli_client()
+        else:
+            def _enrich_factory() -> Any:
+                return create_client(timeout=config.ENRICH_TIMEOUT)
+
+            def _verify_factory() -> Any:
+                return create_client(timeout=config.VERIFY_TIMEOUT)
+
+            def _escalation_factory() -> Any:
+                return create_client(timeout=config.ESCALATION_TIMEOUT)
+
+        t0 = time.monotonic()
+        try:
+            parallel_excerpts, parallel_gates = run_parallel_pipeline(
+                chunks=chunks,
+                config=config,
+                enrich_client_factory=_enrich_factory,
+                verify_client_factory=_verify_factory,
+                escalation_client_factory=_escalation_factory,
+                progress=progress,
+                cache=llm_cache,
+                source_metadata=source_metadata,
+                classified_data=pre_classified,
+                grouped_data=pre_grouped,
+            )
+        except KeyboardInterrupt:
+            _append_error_once(
+                all_errors,
+                "interrupted: KeyboardInterrupt during parallel pipeline",
+            )
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=all_errors,
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
+            )
+            _finalize_traces()
+            raise
+        except Exception as exc:
+            logger.error("Parallel pipeline failed: %s", exc)
+            _append_error_once(all_errors, f"parallel_pipeline_fatal: {exc}")
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=all_errors,
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
+            )
+            _finalize_traces()
+            return 1
+        timings["parallel_pipeline"] = round(time.monotonic() - t0, 3)
+
+        # Build a minimal Phase3Result-compatible object for the writer
+        from types import SimpleNamespace
+
+        phase3_result = SimpleNamespace(
+            excerpts=parallel_excerpts,
+            gate_entries=parallel_gates,
+            errors=[],
+            validation_drops=[],
+        )
+        excerpt_count = len(phase3_result.excerpts)
+        gate_count = len(phase3_result.gate_entries)
+        logger.info(
+            "Parallel pipeline produced %d excerpts, %d gate entries",
+            excerpt_count,
+            gate_count,
+        )
+
+        # Jump to output writing (shared with sequential path below)
+        # We replicate the write_output block inline to avoid goto-like structure
+        logger.info("=== Writing output files ===")
+        t0 = time.monotonic()
+        try:
+            from engines.excerpting.src.writer import (
+                GateQueueVerificationError,
+                verify_gate_queue,
+                write_excerpts,
+                write_gate_queue,
+                write_processing_log,
+            )
+
+            if phase3_result.excerpts:
+                write_excerpts(phase3_result.excerpts, output_dir)
+            if phase3_result.gate_entries:
+                write_gate_queue(phase3_result.gate_entries, output_dir)
+                gate_path = output_dir / "gate_queue.jsonl"
+                gate_errors = verify_gate_queue(
+                    phase3_result.gate_entries, gate_path
+                )
+                all_errors.extend(gate_errors)
+
+            timings["write_output"] = round(time.monotonic() - t0, 3)
+            llm_error_count = _count_llm_call_errors(output_dir)
+            if llm_error_count > 0:
+                _append_error_once(
+                    all_errors, f"llm_call_errors:{llm_error_count}"
+                )
+
+            write_processing_log(
+                source_id=source_id,
+                errors=all_errors,
+                timings=timings,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
+                output_dir=output_dir,
+            )
+            _save_timing_and_metadata(
+                output_dir,
+                timings,
+                all_errors,
+                config,
+                source_metadata,
+            )
+        except KeyboardInterrupt:
+            timings["write_output"] = round(time.monotonic() - t0, 3)
+            _append_error_once(
+                all_errors,
+                "interrupted: KeyboardInterrupt during output writing",
+            )
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=all_errors,
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
+            )
+            _finalize_traces()
+            raise
+        except (OSError, GateQueueVerificationError) as exc:
+            logger.error("Output writing failed: %s", exc)
+            timings["write_output"] = round(time.monotonic() - t0, 3)
+            _append_error_once(all_errors, f"write_output_fatal: {exc}")
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=all_errors,
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
+            )
+            _finalize_traces()
+            return 1
+
+        total_time = sum(
+            v for v in timings.values() if isinstance(v, (int, float))
+        )
+        final_progress = progress.summary()
+        print(f"\n=== Integration Test Complete (parallel) ===")
+        print(f"  Output:      {output_dir}")
+        print(f"  Chunks:      {len(chunks)}")
+        print(f"  Concurrency: {config.CONCURRENCY}")
+        print(f"  Excerpts:    {excerpt_count}")
+        print(f"  Gates:       {gate_count}")
+        print(f"  Errors:      {len(all_errors)}")
+        print(
+            f"  Progress:    {final_progress['done']} done, "
+            f"{final_progress['failed']} failed"
+        )
+        print(f"  Total time:  {total_time:.2f}s")
+        print()
+
+        _finalize_traces()
+        return 0
+
     # ── Phase 2a: Classification ──────────────────────────────────
     logger.info("=== Phase 2a: Classification ===")
     # Set semantic_phase on trace contexts before LLM calls
     for ctx in trace_contexts.values():
         ctx["semantic_phase"] = "classification"
     chunk_timings_2a: dict[str, float] = {}
+
+    # Pre-load phase2a artifacts for chunks already done (resume support)
+    pre_classified: dict[str, list[Any]] = {}
+    if not mock:
+        pre_classified = _load_done_artifacts(
+            chunks, progress, output_dir, "phase2a",
+        )
+        if pre_classified:
+            logger.info(
+                "Resumed %d phase2a chunks from artifacts", len(pre_classified)
+            )
+
     t0 = time.monotonic()
     if mock:
         classified = _mock_phase2a(chunks)
     else:
         try:
-            classified = run_phase2a(chunks, enrich_client, config)
+            classified = run_phase2a(chunks, enrich_client, config, progress=progress, cache=llm_cache)
         except KeyboardInterrupt:
             _append_error_once(
                 all_errors,
@@ -899,13 +1207,16 @@ def run_pipeline(
             _finalize_traces()
             return 1
     timings["phase2a"] = round(time.monotonic() - t0, 3)
+    # Merge pre-loaded artifacts with newly processed results
+    classified = {**pre_classified, **classified}
     for chunk_id in classified:
         chunk_timings_2a[chunk_id] = timings["phase2a"] / max(len(classified), 1)
     timings["phase2a_per_chunk"] = chunk_timings_2a
     logger.info(
-        "Phase 2a classified %d chunks (%d total segments)",
+        "Phase 2a classified %d chunks (%d total segments, %d resumed)",
         len(classified),
         sum(len(v) for v in classified.values()),
+        len(pre_classified),
     )
     _serialize_classifications(classified, output_dir)
 
@@ -935,12 +1246,24 @@ def run_pipeline(
         if name == "enrich":
             ctx["semantic_phase"] = "grouping"
     chunk_timings_2b: dict[str, float] = {}
+
+    # Pre-load phase2b artifacts for chunks already done (resume support)
+    pre_grouped: dict[str, list[Any]] = {}
+    if not mock:
+        pre_grouped = _load_done_artifacts(
+            chunks, progress, output_dir, "phase2b",
+        )
+        if pre_grouped:
+            logger.info(
+                "Resumed %d phase2b chunks from artifacts", len(pre_grouped)
+            )
+
     t0 = time.monotonic()
     if mock:
         grouped = _mock_phase2b(chunks, classified)
     else:
         try:
-            grouped = run_phase2b(chunks, classified, enrich_client, config)
+            grouped = run_phase2b(chunks, classified, enrich_client, config, progress=progress, cache=llm_cache)
         except KeyboardInterrupt:
             _append_error_once(
                 all_errors,
@@ -974,13 +1297,16 @@ def run_pipeline(
             _finalize_traces()
             return 1
     timings["phase2b"] = round(time.monotonic() - t0, 3)
+    # Merge pre-loaded artifacts with newly processed results
+    grouped = {**pre_grouped, **grouped}
     for chunk_id in grouped:
         chunk_timings_2b[chunk_id] = timings["phase2b"] / max(len(grouped), 1)
     timings["phase2b_per_chunk"] = chunk_timings_2b
     logger.info(
-        "Phase 2b grouped %d chunks (%d total teaching units)",
+        "Phase 2b grouped %d chunks (%d total teaching units, %d resumed)",
         len(grouped),
         sum(len(v) for v in grouped.values()),
+        len(pre_grouped),
     )
     _serialize_groupings(grouped, output_dir)
 
@@ -1024,6 +1350,8 @@ def run_pipeline(
                 verify_client=verify_client,
                 escalation_client=escalation_client,
                 source_metadata=source_metadata,
+                progress=progress,
+                cache=llm_cache,
             )
         except KeyboardInterrupt:
             _append_error_once(
@@ -1151,12 +1479,14 @@ def run_pipeline(
 
     # ── Summary ───────────────────────────────────────────────────
     total_time = sum(v for v in timings.values() if isinstance(v, (int, float)))
+    final_progress = progress.summary()
     print(f"\n=== Integration Test Complete ===")
     print(f"  Output:     {output_dir}")
     print(f"  Chunks:     {len(chunks)}")
     print(f"  Excerpts:   {excerpt_count}")
     print(f"  Gates:      {gate_count}")
     print(f"  Errors:     {len(all_errors)}")
+    print(f"  Progress:   {final_progress['done']} done, {final_progress['failed']} failed")
     print(f"  Total time: {total_time:.2f}s")
     print()
 
@@ -1356,6 +1686,12 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
         default=None,
         help="Directory for recursive-improve traces (enables LLM call tracing)",
     )
+    parser.add_argument(
+        "--concurrency",
+        type=int,
+        default=1,
+        help="Max concurrent LLM calls (default: 1 = sequential)",
+    )
     args = parser.parse_args(argv)
 
     # Default output dir with timestamp
@@ -1391,6 +1727,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     print(f"Max chunks:      {args.max_chunks or 'all'}")
     print(f"Backend:         {args.backend}")
     print(f"Traces:          {args.traces or 'disabled'}")
+    print(f"Concurrency:     {args.concurrency}")
     print(
         f"Source metadata: "
         f"{json.dumps(args.source_metadata, ensure_ascii=False) if args.source_metadata else 'None'}"
@@ -1413,6 +1750,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         max_chunks=args.max_chunks,
         backend=args.backend,
         traces_dir=args.traces,
+        concurrency=args.concurrency,
     )
 
 

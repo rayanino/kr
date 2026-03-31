@@ -797,6 +797,9 @@ class ExcerptingConfig(BaseModel):
     GATE_ON_ATTRIBUTION_DISAGREEMENT: bool = True
     GATE_ON_SCHOOL_CONFLICT: bool = True
 
+    # Parallelism
+    CONCURRENCY: int = 1  # Max simultaneous LLM calls (1 = sequential)
+
     # Telemetry
     LOG_LEVEL: str = "INFO"
     TELEMETRY_ENABLED: bool = True
