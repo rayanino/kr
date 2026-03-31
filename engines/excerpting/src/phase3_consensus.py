@@ -73,9 +73,48 @@ commentary indicators (أي, يعني, الشرح), and layer boundaries.
   * C-SC-5: If responding to another scholar, enough of that position is \
 included
 
-Express your assessment as agree or disagree with brief reasoning. \
-If you disagree, provide your alternative. Include your confidence \
-(0.0 to 1.0)."""
+For each item, respond with:
+- item_index: the index of the verification item
+- agrees: true or false
+- alternative_value: if you disagree, provide ONLY the corrected value \
+as a bare string. For author attribution: the author name (e.g., \
+"ابن عقيل"). For school attribution: the school name or "cross_school". \
+For self-containment: "FULL", "PARTIAL", or "DEPENDENT". \
+Do NOT include explanatory text — put all explanation in reasoning.
+- confidence: your confidence from 0.0 to 1.0
+- reasoning: brief reasoning for your assessment
+
+WORKED EXAMPLES:
+
+Example 1 — Author attribution (disagree, bare value):
+  Source: شرح ابن عقيل على ألفية ابن مالك (science: نحو)
+  Decision: author_attribution = "unknown"
+  Text: "ولا تجر رب إلا نكرة نحو رب رجل عالم لقيت وهذا معنى قوله \
+وبرب منكرا أي واخصص برب النكرة"
+  Correct response:
+    agrees: false
+    alternative_value: "ابن عقيل"
+    confidence: 0.92
+    reasoning: "Text contains sharh markers: 'وهذا معنى قوله' (referring \
+to ابن مالك's matn verse), 'أي واخصص برب النكرة' (explanatory gloss). \
+This is ابن عقيل's commentary layer."
+  NOTE: alternative_value is "ابن عقيل" — NOT "This should be \
+attributed to ابن عقيل (layer sharh). The text contains..."
+
+Example 2 — School attribution (disagree, bare value):
+  Source: تيسير العلام شرح عمدة الأحكام (science: فقه, author school: حنبلي)
+  Decision: school_attribution = "حنبلي"
+  Text: "ما يؤخذ من الحديث:\\n1- النهي عن البول في الماء الذي لا يجرى \
+وتحريمه"
+  Correct response:
+    agrees: false
+    alternative_value: "cross_school"
+    confidence: 0.75
+    reasoning: "The passage presents general fiqh rulings derived from \
+the hadith without attributing them to a specific school. The numbered \
+items are universally applicable."
+  NOTE: alternative_value is "cross_school" — NOT "cross_school أو عام \
+(لا ينسب لمذهب بعينه)"."""
 
 
 def _needs_consensus(excerpt: ExcerptRecord) -> list[dict[str, str]]:
@@ -168,7 +207,10 @@ def _build_verification_user_message(
                 "Your assessment: agree or disagree, with brief reasoning "
                 "in Arabic or English."
             )
-            parts.append("If you disagree, provide your alternative.")
+            parts.append(
+                "If you disagree, put ONLY the corrected value in "
+                "alternative_value (bare string, no explanation)."
+            )
             parts.append(
                 "Provide your confidence (0.0 to 1.0) in your own assessment."
             )
@@ -336,13 +378,13 @@ def _resolve_school(
             ExcerptingErrorCodes.EX_M_003,
             excerpt.excerpt_id,
             excerpt.school,
-            vi.alternative,
+            vi.alternative_value,
         )
 
         decision = ConsensusDecision(
             decision_type="school_attribution",
             enrichment_value=excerpt.school or "",
-            verifier_value=vi.alternative or "",
+            verifier_value=vi.alternative_value or "",
             verifier_agrees=False,
             final_value=excerpt.school or "",
             resolution_method="enrichment_kept_flagged",
@@ -353,8 +395,8 @@ def _resolve_school(
         if (
             source_school
             and source_school != excerpt.school
-            and vi.alternative
-            and vi.alternative != source_school
+            and vi.alternative_value
+            and vi.alternative_value != source_school
         ):
             gates.append(ExcerptingErrorCodes.EX_G_003)
 
@@ -404,7 +446,8 @@ def _resolve_attribution(
             )
 
         enrichment_val = excerpt.primary_author_layer.author_id
-        verifier_val = vi.alternative  # None if no alternative provided
+        # H-1: use alternative_value directly (structured by schema)
+        verifier_val = vi.alternative_value
 
         if escalation_value is not None:
             # Filter out None votes for majority calculation
@@ -475,7 +518,7 @@ def _call_escalation(
         f"{source_metadata.get('work_title', 'unknown')}\n\n"
         f"Model 1 says: {excerpt.primary_author_layer.author_id} "
         f"(layer: {excerpt.primary_author_layer.layer_id})\n"
-        f"Model 2 says: {vi.alternative or 'unknown'} "
+        f"Model 2 says: {vi.alternative_value or 'unknown'} "
         f"(reasoning: {vi.reasoning})\n\n"
         f"Which attribution is correct? Respond with just the author ID."
     )
@@ -574,6 +617,7 @@ def _call_batch_escalation(
         return None
 
 
+
 def _find_majority_flexible(votes: list[str]) -> Optional[str]:
     """Find majority among 2 or 3 real votes. Returns None if no majority."""
     from collections import Counter
@@ -606,7 +650,7 @@ def _resolve_self_containment(
         )
     else:
         # Parse verifier's alternative
-        verifier_level = _parse_self_containment(vi.alternative)
+        verifier_level = _parse_self_containment(vi.alternative_value)
         if verifier_level is None:
             verifier_level = enrichment_level
 

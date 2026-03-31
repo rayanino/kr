@@ -53,12 +53,28 @@ GROUPING RULES:
 - A position (opinion_statement) + its evidence + any counter-evidence
   + conclusion = one unit
 - A definition + its examples = one unit
-- A hadith + its chain + commentary = one unit
+- A hadith + its chain + commentary = one unit (for hadith citations \
+within broader discussions — NOT for derived benefits sections)
 - A question and its answer belong in the same unit
 - A rule_statement + its condition_exception(s) = one unit
 - Never group unrelated content (e.g., two different مسائل) into one unit
 - structural_transition segments may be grouped with the content they introduce,
   or stand alone if they serve as section markers
+
+DERIVED BENEFITS RULE:
+- Sections opening with "ما يؤخذ من الحديث:" or "فوائد:" are derived \
+benefits — each numbered item is a separate teaching unit.
+- Split per numbered item (1-, 2-, 3-...) even though all items derive \
+from the same hadith. Each item teaches a distinct ruling or benefit.
+- Do NOT merge multiple numbered benefits into one mega-unit.
+
+NUMBERED ITEM BOUNDARIES:
+- Numbered items (1-, 2-, 3-... or فائدة/مسألة + number) are strong \
+unit boundary markers. Each numbered item is a separate teaching unit \
+unless it explicitly continues the same argument as the previous item \
+(e.g., a multi-paragraph proof for a single point).
+- Two numbered items covering different topics MUST NOT be merged. \
+Example: items about void bequests and burial are separate units.
 
 DECONTEXTUALIZATION PREVENTION (critical):
 - A reported position ("قال أبو حنيفة...") and its refutation
@@ -114,6 +130,9 @@ For each teaching unit, provide:
 - end_word: the end_word of the last constituent segment
 - text_snippet: the FIRST 80 CHARACTERS of this unit's text, copied EXACTLY
   from the input — preserve all diacritics, punctuation, and whitespace.
+  COPY FIDELITY: text_snippet MUST be an exact character-for-character \
+copy from the input text. Preserve all newlines (\\n) exactly as they \
+appear. Do NOT reflow whitespace or collapse \\n to space.
 - primary_function: the dominant scholarly function (must be a function present
   in the constituent segments)
 - secondary_functions: other functions present in the unit (may be empty)

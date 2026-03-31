@@ -678,7 +678,14 @@ class VerificationItem(BaseModel):
 
     item_index: int
     agrees: bool
-    alternative: Optional[str] = None
+    alternative_value: Optional[str] = Field(
+        None,
+        description="If disagrees: the bare corrected value only. "
+        "For AUTHOR_ATTRIBUTION: author name (e.g., 'ابن عقيل'). "
+        "For SCHOOL_ATTRIBUTION: school name or 'cross_school'. "
+        "For SELF_CONTAINMENT: one of FULL, PARTIAL, DEPENDENT. "
+        "No prose, no explanation — put reasoning in 'reasoning' field.",
+    )
     confidence: float = Field(
         ge=0.0,
         le=1.0,

@@ -17,13 +17,11 @@ Categories:
 from __future__ import annotations
 
 import json
-import logging
-import os
 import sys
 import tempfile
 from pathlib import Path
 from typing import Any
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import pytest
 from pydantic import ValidationError
@@ -38,14 +36,11 @@ from engines.excerpting.contracts import (
     AssemblyMetadata,
     AuthorAttribution,
     ClassifiedSegment,
-    ConsensusDecision,
-    ConsensusRecord,
     EnrichmentResult,
     EvidenceRef,
     ExcerptingConfig,
     ExcerptingErrorCodes,
     ExcerptRecord,
-    ExtractionResult,
     PageRange,
     ScholarlyFunction,
     SelfContainmentLevel,
@@ -53,10 +48,8 @@ from engines.excerpting.contracts import (
     TeachingUnit,
     UnitEnrichment,
     VerificationItem,
-    VerificationResult,
     validate_ac_invariants,
     validate_cs_invariants,
-    validate_tu_invariants,
 )
 from engines.excerpting.src.phase3_consensus import (
     _needs_consensus,
@@ -68,7 +61,6 @@ from engines.excerpting.src.writer import (
     GateQueueVerificationError,
     verify_gate_queue,
     write_excerpts,
-    write_gate_queue,
 )
 from engines.normalization.contracts import (
     ContentFlags,
@@ -363,8 +355,6 @@ class TestImpossibleStates:
         The escalation client in _call_escalation returns an EscalationResponse
         with an author_id string. We mock it to return a third different author.
         """
-        from pydantic import BaseModel as PydanticBaseModel, Field as PydanticField
-
         exc = _make_excerpt(
             primary_author_layer=AuthorAttribution(
                 layer_id="layer_matn",
@@ -381,14 +371,14 @@ class TestImpossibleStates:
         school_vi = VerificationItem(
             item_index=0,
             agrees=False,
-            alternative="شافعي",
+            alternative_value="شافعي",
             confidence=0.7,
             reasoning="School disagrees",
         )
         attr_vi = VerificationItem(
             item_index=1,
             agrees=False,
-            alternative="author_2",
+            alternative_value="author_2",
             confidence=0.6,
             reasoning="Attribution disagrees",
         )
@@ -720,7 +710,7 @@ class TestErrorRecovery:
         So a simple corrupt file will be fixed on retry. We test the case
         where the gate file simply does not exist at all (filesystem failure).
         """
-        gate_entries = [
+        gate_entries: list[dict[str, object]] = [
             {"excerpt_id": "exc_1", "gate_code": "EX-G-001", "data": "test"},
         ]
 
@@ -781,7 +771,7 @@ class TestBoundaryStates:
             )
             excerpts.append(exc)
 
-        validated, errors = validate_batch(excerpts)
+        validated, _errors = validate_batch(excerpts)
         assert len(validated) == 1000, "All 1000 unique excerpts should pass V-P3-1"
 
     # ── 18. All chunks classified as the same scholarly function ─────
@@ -826,7 +816,7 @@ class TestBoundaryStates:
             text_snippet=_DEFAULT_TEXT[:80],
         )
 
-        validated, errors = validate_batch([exc1, exc2])
+        validated, _errors = validate_batch([exc1, exc2])
         assert len(validated) == 2, "Identical content with different IDs is valid"
 
     # ── 20. Chain of back-references ─────────────────────────────────
@@ -869,7 +859,7 @@ class TestBoundaryStates:
             excerpts.append(exc)
 
         # Validate the chain
-        validated, errors = validate_batch(excerpts)
+        validated, _errors = validate_batch(excerpts)
         assert len(validated) == 5, "All 5 chain excerpts should pass validation"
 
         # Check the back-reference structure

@@ -7,26 +7,20 @@ disagreement resolution, context hint repair, gate entries, no-consensus path.
 
 from __future__ import annotations
 
-from typing import Any
-from unittest.mock import MagicMock
-
 import pytest
 
 from engines.excerpting.contracts import (
     AuthorAttribution,
     ConsensusDecision,
     ConsensusRecord,
-    ExcerptRecord,
     ExcerptingConfig,
     ExcerptingErrorCodes,
-    ScholarlyFunction,
     SelfContainmentLevel,
     VerificationItem,
     VerificationResult,
 )
 from engines.excerpting.src.phase3_consensus import (
     _build_gate_entry,
-    _find_majority_flexible,
     _needs_consensus,
     _parse_self_containment,
     _repair_context_hint,
@@ -60,7 +54,7 @@ _SOURCE_META = {
 def _make_vi(
     item_index: int = 0,
     agrees: bool = True,
-    alternative: str | None = None,
+    alternative_value: str | None = None,
     confidence: float = 0.9,
     reasoning: str = "Correct assessment",
 ) -> VerificationItem:
@@ -68,7 +62,7 @@ def _make_vi(
     return VerificationItem(
         item_index=item_index,
         agrees=agrees,
-        alternative=alternative,
+        alternative_value=alternative_value,
         confidence=confidence,
         reasoning=reasoning,
     )
@@ -185,7 +179,7 @@ class TestSchoolDisagreement:
     def test_school_agreement(self) -> None:
         exc = _make_excerpt_record(school="حنبلي", school_confidence=0.9)
         vi = _make_vi(agrees=True)
-        decision, updates, flags, gates = _resolve_school(exc, vi, _SOURCE_META)
+        decision, _updates, flags, gates = _resolve_school(exc, vi, _SOURCE_META)
 
         assert decision.verifier_agrees is True
         assert decision.resolution_method == "consensus_agree"
@@ -194,8 +188,8 @@ class TestSchoolDisagreement:
 
     def test_school_disagreement_lowers_confidence(self) -> None:
         exc = _make_excerpt_record(school="حنبلي", school_confidence=0.85)
-        vi = _make_vi(agrees=False, alternative="شافعي", confidence=0.7)
-        decision, updates, flags, gates = _resolve_school(exc, vi, _SOURCE_META)
+        vi = _make_vi(agrees=False, alternative_value="شافعي", confidence=0.7)
+        decision, updates, flags, _gates = _resolve_school(exc, vi, _SOURCE_META)
 
         assert decision.verifier_agrees is False
         assert updates["school_confidence"] == 0.7  # min(0.85, 0.7)
@@ -205,7 +199,7 @@ class TestSchoolDisagreement:
         self, caplog: pytest.LogCaptureFixture
     ) -> None:
         exc = _make_excerpt_record(school="حنبلي", school_confidence=0.85)
-        vi = _make_vi(agrees=False, alternative="شافعي", confidence=0.6)
+        vi = _make_vi(agrees=False, alternative_value="شافعي", confidence=0.6)
 
         with caplog.at_level("WARNING"):
             _resolve_school(exc, vi, _SOURCE_META)
@@ -215,7 +209,7 @@ class TestSchoolDisagreement:
     def test_school_disagreement_keeps_enrichment_school(self) -> None:
         """§7.3.3: excerpt produced with enrichment model's school value."""
         exc = _make_excerpt_record(school="حنبلي", school_confidence=0.85)
-        vi = _make_vi(agrees=False, alternative="شافعي", confidence=0.6)
+        vi = _make_vi(agrees=False, alternative_value="شافعي", confidence=0.6)
         decision, _, _, _ = _resolve_school(exc, vi, _SOURCE_META)
 
         assert decision.final_value == "حنبلي"
@@ -253,10 +247,10 @@ class TestAttributionEscalation:
                 coverage_pct=0.6, rule_applied="LA-3",
             ),
         )
-        vi = _make_vi(agrees=False, alternative="sch_b", confidence=0.7)
+        vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.7)
 
         # Mock escalation that agrees with enrichment
-        from pydantic import BaseModel, Field
+        from pydantic import BaseModel
 
         class EscResp(BaseModel):
             author_id: str
@@ -282,7 +276,7 @@ class TestAttributionEscalation:
                 coverage_pct=0.6, rule_applied="LA-3",
             ),
         )
-        vi = _make_vi(agrees=False, alternative="sch_b", confidence=0.7)
+        vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.7)
 
         from pydantic import BaseModel
 
@@ -329,8 +323,8 @@ class TestSelfContainmentConservatism:
             self_containment_notes="يحتاج سياقاً",
             context_hint="باب الطهارة",
         )
-        vi = _make_vi(agrees=False, alternative="DEPENDENT")
-        decision, updates, _, gates = _resolve_self_containment(exc, vi)
+        vi = _make_vi(agrees=False, alternative_value="DEPENDENT")
+        _decision, updates, _, gates = _resolve_self_containment(exc, vi)
 
         assert updates["self_containment"] == SelfContainmentLevel.DEPENDENT
         assert ExcerptingErrorCodes.EX_G_002 in gates
@@ -342,7 +336,7 @@ class TestSelfContainmentConservatism:
             self_containment_notes="يحتاج سياقاً",
             context_hint="باب الطهارة",
         )
-        vi = _make_vi(agrees=False, alternative="FULL")
+        vi = _make_vi(agrees=False, alternative_value="FULL")
         decision, updates, _, _ = _resolve_self_containment(exc, vi)
 
         # FULL has higher level than PARTIAL — conservative keeps PARTIAL
@@ -384,7 +378,7 @@ class TestContextHintRepair:
                 "review_flags": ["llm_enrichment_failed"],
             }
         )
-        result = _repair_context_hint(exc_with_notes, updates)
+        _result = _repair_context_hint(exc_with_notes, updates)
         # FULL→PARTIAL: should generate hint
         # Here exc_with_notes is already PARTIAL, so the repair checks
         # if the *original* was FULL. Since we passed FULL excerpt, we test directly
@@ -548,20 +542,20 @@ class TestFullConsensusFlow:
         )
         vr = VerificationResult(items=[
             VerificationItem(
-                item_index=0, agrees=True, confidence=0.95,
-                reasoning="Correct school",
+                item_index=0, agrees=True, alternative_value=None,
+                confidence=0.95, reasoning="Correct school",
             ),
         ])
         verify_client = _make_mock_instructor_client(return_value=vr)
         config = ExcerptingConfig()
 
-        result, gates = run_consensus(
+        result, _gates = run_consensus(
             [exc], [chunk], verify_client, None, config, _SOURCE_META
         )
 
         assert len(result) == 1
         assert result[0].consensus_metadata is not None
-        assert not gates
+        assert not _gates
 
     def test_verification_failure_adds_flag(self) -> None:
         chunk = _make_assembled_chunk()
@@ -575,7 +569,7 @@ class TestFullConsensusFlow:
         )
         config = ExcerptingConfig()
 
-        result, gates = run_consensus(
+        result, _gates = run_consensus(
             [exc], [chunk], verify_client, None, config
         )
 
@@ -599,7 +593,7 @@ class TestAttributionMajorityApplied:
                 coverage_pct=0.6, rule_applied="LA-3",
             ),
         )
-        vi = _make_vi(agrees=False, alternative="sch_b", confidence=0.8)
+        vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.8)
 
         from pydantic import BaseModel
 
@@ -611,7 +605,7 @@ class TestAttributionMajorityApplied:
             return_value=EscResp(author_id="sch_b", reasoning="verifier correct")
         )
 
-        result, _cr, gates = resolve_consensus(
+        result, _cr, _gates = resolve_consensus(
             exc, [vi], ["AUTHOR_ATTRIBUTION"],
             esc_client, ExcerptingConfig(), _SOURCE_META,
         )
@@ -628,7 +622,7 @@ class TestAttributionMajorityApplied:
                 coverage_pct=0.6, rule_applied="LA-3",
             ),
         )
-        vi = _make_vi(agrees=False, alternative="sch_b", confidence=0.7)
+        vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.7)
 
         from pydantic import BaseModel
 
@@ -640,7 +634,7 @@ class TestAttributionMajorityApplied:
             return_value=EscResp(author_id="sch_a", reasoning="enrichment correct")
         )
 
-        result, _cr, gates = resolve_consensus(
+        result, _cr, _gates = resolve_consensus(
             exc, [vi], ["AUTHOR_ATTRIBUTION"],
             esc_client, ExcerptingConfig(), _SOURCE_META,
         )
@@ -656,7 +650,7 @@ class TestAttributionMajorityApplied:
                 coverage_pct=0.6, rule_applied="LA-3",
             ),
         )
-        vi = _make_vi(agrees=False, alternative="sch_b", confidence=0.7)
+        vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.7)
 
         from pydantic import BaseModel
 
@@ -668,7 +662,7 @@ class TestAttributionMajorityApplied:
             return_value=EscResp(author_id="sch_c", reasoning="third")
         )
 
-        result, _cr, gates = resolve_consensus(
+        result, _cr, _gates = resolve_consensus(
             exc, [vi], ["AUTHOR_ATTRIBUTION"],
             esc_client, ExcerptingConfig(), _SOURCE_META,
         )
@@ -684,7 +678,7 @@ class TestAttributionMajorityApplied:
                 coverage_pct=0.6, rule_applied="LA-3",
             ),
         )
-        vi = _make_vi(agrees=False, alternative="sch_b", confidence=0.8)
+        vi = _make_vi(agrees=False, alternative_value="sch_b", confidence=0.8)
 
         from pydantic import BaseModel
 
@@ -696,7 +690,7 @@ class TestAttributionMajorityApplied:
             return_value=EscResp(author_id="sch_b", reasoning="correct")
         )
 
-        result, _cr, gates = resolve_consensus(
+        result, _cr, _gates = resolve_consensus(
             exc, [vi], ["AUTHOR_ATTRIBUTION"],
             esc_client, ExcerptingConfig(), _SOURCE_META,
         )
@@ -715,20 +709,20 @@ class TestEXG003VerifierCheck:
     def test_ex_g_003_not_triggered_when_verifier_agrees_with_source(self) -> None:
         """source=حنبلي, enrichment=شافعي, verifier=حنبلي → NOT in gates."""
         exc = _make_excerpt_record(school="شافعي", school_confidence=0.7)
-        vi = _make_vi(agrees=False, alternative="حنبلي", confidence=0.8)
+        vi = _make_vi(agrees=False, alternative_value="حنبلي", confidence=0.8)
         meta = {"source_school": "حنبلي"}
 
-        decision, updates, flags, gates = _resolve_school(exc, vi, meta)
+        _decision, _updates, _flags, gates = _resolve_school(exc, vi, meta)
 
         assert ExcerptingErrorCodes.EX_G_003 not in gates
 
     def test_ex_g_003_triggered_when_source_conflicts_with_both(self) -> None:
         """source=حنبلي, enrichment=شافعي, verifier=مالكي → IS in gates."""
         exc = _make_excerpt_record(school="شافعي", school_confidence=0.7)
-        vi = _make_vi(agrees=False, alternative="مالكي", confidence=0.6)
+        vi = _make_vi(agrees=False, alternative_value="مالكي", confidence=0.6)
         meta = {"source_school": "حنبلي"}
 
-        decision, updates, flags, gates = _resolve_school(exc, vi, meta)
+        _decision, _updates, _flags, gates = _resolve_school(exc, vi, meta)
 
         assert ExcerptingErrorCodes.EX_G_003 in gates
 
@@ -796,14 +790,14 @@ class TestSplitChunkConsensusMatching:
         )
         vr = VerificationResult(items=[
             VerificationItem(
-                item_index=0, agrees=True, confidence=0.95,
-                reasoning="Correct",
+                item_index=0, agrees=True, alternative_value=None,
+                confidence=0.95, reasoning="Correct",
             ),
         ])
         verify_client = _make_mock_instructor_client(return_value=vr)
         config = ExcerptingConfig()
 
-        result, gates = run_consensus(
+        result, _ = run_consensus(
             [exc], [chunk], verify_client, None, config, _SOURCE_META
         )
 
@@ -832,18 +826,18 @@ class TestVerificationItemMapping:
         # Return items in reverse order (item_index 1 first, then 0)
         vr = VerificationResult(items=[
             VerificationItem(
-                item_index=1, agrees=True, confidence=0.9,
-                reasoning="Self-containment correct",
+                item_index=1, agrees=True, alternative_value=None,
+                confidence=0.9, reasoning="Self-containment correct",
             ),
             VerificationItem(
-                item_index=0, agrees=True, confidence=0.95,
-                reasoning="School correct",
+                item_index=0, agrees=True, alternative_value=None,
+                confidence=0.95, reasoning="School correct",
             ),
         ])
         verify_client = _make_mock_instructor_client(return_value=vr)
         config = ExcerptingConfig()
 
-        result, gates = run_consensus(
+        result, _ = run_consensus(
             [exc], [chunk], verify_client, None, config, _SOURCE_META
         )
 
@@ -865,15 +859,15 @@ class TestVerificationItemMapping:
         # Return only 1 item when 2 are expected
         vr = VerificationResult(items=[
             VerificationItem(
-                item_index=0, agrees=True, confidence=0.95,
-                reasoning="School correct",
+                item_index=0, agrees=True, alternative_value=None,
+                confidence=0.95, reasoning="School correct",
             ),
         ])
         verify_client = _make_mock_instructor_client(return_value=vr)
         config = ExcerptingConfig()
 
         with caplog.at_level("WARNING"):
-            result, gates = run_consensus(
+            _, _ = run_consensus(
                 [exc], [chunk], verify_client, None, config, _SOURCE_META
             )
 
@@ -988,7 +982,7 @@ class TestConsensusMetadataOrdering:
         assert "context_hint" in result
         assert result["context_hint"] is not None
         # With consensus_metadata present, it should use the verifier reasoning
-        assert "تم تعديل التقييم" in result["context_hint"]
+        assert "تم تعديل التقييم" in str(result["context_hint"])
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -997,9 +991,9 @@ class TestConsensusMetadataOrdering:
 
 
 class TestPhantomVoterRemoved:
-    """Fix 9: None alternative ≠ 'unknown' vote."""
+    """Fix 9: None alternative_value ≠ 'unknown' vote."""
 
-    def test_verifier_no_alternative_does_not_block_majority(self) -> None:
+    def test_verifier_no_alternative_value_does_not_block_majority(self) -> None:
         """enrichment=sch_a, verifier alt=None, escalation=sch_a → majority=sch_a."""
         exc = _make_excerpt_record(
             primary_author_layer=AuthorAttribution(
@@ -1007,8 +1001,8 @@ class TestPhantomVoterRemoved:
                 coverage_pct=0.6, rule_applied="LA-3",
             ),
         )
-        # Verifier disagrees but provides no alternative
-        vi = _make_vi(agrees=False, alternative=None, confidence=0.5)
+        # Verifier disagrees but provides no alternative_value
+        vi = _make_vi(agrees=False, alternative_value=None, confidence=0.5)
 
         from pydantic import BaseModel
 
@@ -1031,7 +1025,7 @@ class TestPhantomVoterRemoved:
         assert result.attribution_confidence == 0.67
         assert ExcerptingErrorCodes.EX_G_001 not in gates
 
-    def test_verifier_no_alternative_with_different_escalation(self) -> None:
+    def test_verifier_no_alternative_value_with_different_escalation(self) -> None:
         """enrichment=sch_a, verifier alt=None, escalation=sch_b → no majority."""
         exc = _make_excerpt_record(
             primary_author_layer=AuthorAttribution(
@@ -1039,7 +1033,7 @@ class TestPhantomVoterRemoved:
                 coverage_pct=0.6, rule_applied="LA-3",
             ),
         )
-        vi = _make_vi(agrees=False, alternative=None, confidence=0.5)
+        vi = _make_vi(agrees=False, alternative_value=None, confidence=0.5)
 
         from pydantic import BaseModel
 
@@ -1072,8 +1066,8 @@ class TestVerificationResultValidator:
     def test_unique_indices_accepted(self) -> None:
         """Non-duplicate indices → valid."""
         result = VerificationResult(items=[
-            VerificationItem(item_index=0, agrees=True, confidence=0.9, reasoning="ok"),
-            VerificationItem(item_index=1, agrees=True, confidence=0.9, reasoning="ok"),
+            VerificationItem(item_index=0, agrees=True, alternative_value=None, confidence=0.9, reasoning="ok"),
+            VerificationItem(item_index=1, agrees=True, alternative_value=None, confidence=0.9, reasoning="ok"),
         ])
         assert len(result.items) == 2
 
@@ -1081,6 +1075,62 @@ class TestVerificationResultValidator:
         """Duplicate item_index → ValidationError."""
         with pytest.raises(Exception, match="Duplicate item_index"):
             VerificationResult(items=[
-                VerificationItem(item_index=0, agrees=True, confidence=0.9, reasoning="ok"),
-                VerificationItem(item_index=0, agrees=False, confidence=0.8, reasoning="no"),
+                VerificationItem(item_index=0, agrees=True, alternative_value=None, confidence=0.9, reasoning="ok"),
+                VerificationItem(item_index=0, agrees=False, alternative_value=None, confidence=0.8, reasoning="no"),
             ])
+
+
+# ═══════════════════════════════════════════════════════════════════
+# 12. H-1: Verifier Schema Split — alternative_value is bare value
+# ═══════════════════════════════════════════════════════════════════
+
+
+class TestVerifierSchemaAlternativeValue:
+    """H-1: alternative_value holds bare structured value, not prose."""
+
+    def test_bare_author_value_in_consensus_vote(self) -> None:
+        """End-to-end: bare alternative_value + escalation = 2/3 majority."""
+        exc = _make_excerpt_record(
+            primary_author_layer=AuthorAttribution(
+                layer_id="sharh", author_id="unknown",
+                coverage_pct=0.78, rule_applied="LA-3",
+            ),
+        )
+        vi = _make_vi(
+            agrees=False,
+            alternative_value="ابن عقيل",
+            confidence=0.85,
+        )
+
+        from pydantic import BaseModel
+
+        class EscResp(BaseModel):
+            author_id: str
+            reasoning: str
+
+        esc_client = _make_mock_instructor_client(
+            return_value=EscResp(author_id="ابن عقيل", reasoning="sharh layer")
+        )
+
+        meta = {"author_name": "ابن عقيل"}
+        result, _cr, gates = resolve_consensus(
+            exc, [vi], ["AUTHOR_ATTRIBUTION"],
+            esc_client, ExcerptingConfig(), meta,
+        )
+
+        # votes = ["unknown", "ابن عقيل", "ابن عقيل"] → 2/3 majority
+        assert result.primary_author_layer.author_id == "ابن عقيل"
+        assert result.attribution_confidence == 0.67
+        assert ExcerptingErrorCodes.EX_G_001 not in gates
+
+    def test_alternative_value_schema_validation(self) -> None:
+        """H-1: alternative_value holds bare value, reasoning holds explanation."""
+        vi = VerificationItem(
+            item_index=0,
+            agrees=False,
+            alternative_value="ابن عقيل",
+            confidence=0.92,
+            reasoning="The enrichment assigned 'unknown' but text shows sharh markers.",
+        )
+        assert vi.alternative_value == "ابن عقيل"
+        assert len(vi.alternative_value) < 30  # bare value, not prose

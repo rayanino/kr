@@ -58,6 +58,30 @@ Segment boundary rules:
 - Consecutive sentences serving the same function may form one segment
   if they are tightly bonded (e.g., a two-sentence definition)
 
+WORKED EXAMPLES (from real scholarly texts):
+
+Example 1 — Derived rulings are rule_statement, NOT evidence_hadith:
+  Input: "ما يؤخذ من الحديث:\\n1- التغليظ في نجاسة الكلب، لشدة قذارته."
+  → scholarly_function: "rule_statement"
+  These are derived rulings (أحكام مستنبطة) extracted from the hadith, \
+not the hadith narrative itself. The header "ما يؤخذ من الحديث:" signals \
+derived fiqh rulings.
+
+Example 2 — Term definitions are definition, NOT evidence_hadith:
+  Input: "غريب الحديث:\\n1- \\"وَضوء\\": بفتح الواو. الماء الذي يتوضأ به."
+  → scholarly_function: "definition"
+  The "غريب الحديث:" section defines vocabulary terms. It is a definition \
+even though it appears in a hadith commentary.
+
+Example 3 — Authorial remarks are editorial_note, NOT structural_transition:
+  Input: "اختلاف العلماء:\\nهناك خلافات للعلماء في أشياء.\\nمنها: هل يجب \
+التسبيع والتتريب؟\\nولما كان القول الحق، هو ما يستفاد من هذا الحديث \
+الصحيح الواضح، ضربنا عن الإطالة بذكرها صفَحاً"
+  → scholarly_function: "editorial_note"
+  "اختلاف العلماء:" is NOT a section header here — the author is making \
+an editorial remark about deliberately omitting a discussion. The phrase \
+"ضربنا عن الإطالة بذكرها صفَحاً" is authorial commentary.
+
 For each segment, provide:
 - segment_index: 0-based position in the sequence
 - start_word: approximate start word offset in the text
@@ -65,6 +89,11 @@ For each segment, provide:
 - text_snippet: the FIRST 50 CHARACTERS of this segment's text, copied EXACTLY
   from the input — preserve all diacritics, punctuation, and whitespace precisely.
   This field is used for alignment; exact copying is critical.
+  COPY FIDELITY: text_snippet MUST be an exact character-for-character \
+copy from the input text. Preserve all newlines (\\n) exactly as they \
+appear in the source. Do NOT reflow whitespace or collapse \\n to space. \
+If the source text has a newline at position N, the snippet must have \
+that same newline.
 - scholarly_function: one of the 16 types listed above
 - confidence: your classification confidence from 0.0 to 1.0
 

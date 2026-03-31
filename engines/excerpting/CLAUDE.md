@@ -56,9 +56,9 @@ Model roles verified empirically on 2026-03-28 against actual KR Arabic scholarl
 
 | Role | Model | Provider | Purpose |
 |------|-------|----------|---------|
-| Primary (classify + enrich) | `anthropic/claude-opus-4.6` | Anthropic | Phase 2 classification, Phase 2 grouping, Phase 3 enrichment |
-| Verify | `openai/gpt-5.4` | OpenAI | Phase 3 consensus verification (3-4x faster, conf=0.99) |
-| Escalation | `mistralai/mistral-large-2411` | Mistral | Phase 3 disagreement adjudication (conf=0.99) |
+| Primary (classify + enrich) | `openai/gpt-5.4` | OpenAI | Phase 2 classification, Phase 2 grouping, Phase 3 enrichment |
+| Verify | `anthropic/claude-opus-4.6` | Anthropic | Phase 3 consensus verification |
+| Escalation | `mistralai/mistral-large-2411` | Mistral | Phase 3 disagreement adjudication |
 
 Three-provider diversity (Anthropic → OpenAI → Mistral) ensures no single-provider outage blocks the pipeline. Gemini 3.1 Pro was rejected (fails structured output). Command A was rejected (no tool-use on OpenRouter).
 

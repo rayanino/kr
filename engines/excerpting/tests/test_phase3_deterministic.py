@@ -7,24 +7,17 @@ design decisions DD-S3-1 through DD-S3-9.
 from __future__ import annotations
 
 import logging
-from typing import Any
-
 import pytest
 
 from engines.excerpting.contracts import (
     AssembledChunk,
     AssemblyMetadata,
     AuthorAttribution,
-    ClassifiedSegment,
-    EvidenceRef,
-    ExcerptRecord,
     ExcerptingErrorCodes,
     JoinPoint,
-    ScholarAttribution,
     ScholarlyFunction,
     SelfContainmentLevel,
     SplitInfo,
-    TeachingUnit,
 )
 from engines.excerpting.src.phase3_deterministic import (
     build_deterministic_excerpts,
@@ -189,23 +182,22 @@ class TestLayerAttribution:
         assert result.layer_id == "sharh"
 
     def test_la2_two_layers_outermost_wins(self) -> None:
-        """LA-2: Two layers, neither >= 80% -> outermost (highest level) wins."""
-        # 50/50 split between MATN and SHARH
-        text = "قال ابن مالك الكلام لفظ مفيد يريد أن اللفظ المفيد"
-        mid = len(text) // 2
+        """LA-2: Two layers, dominant >= 60% -> outermost (highest level) wins."""
+        # SHARH=65%, MATN=35% — dominant above 60% threshold (H-7)
+        text = "أ" * 100  # 100 chars for precise coverage
         layers = [
             TextLayerSegment(
                 layer_type=LayerType.MATN,
                 author_canonical_id="sch_matn",
                 start=0,
-                end=mid,
+                end=35,
                 confidence=1.0,
             ),
             TextLayerSegment(
                 layer_type=LayerType.SHARH,
                 author_canonical_id="sch_sharh",
-                start=mid,
-                end=len(text),
+                start=35,
+                end=100,
                 confidence=1.0,
             ),
         ]
@@ -221,28 +213,26 @@ class TestLayerAttribution:
         # SHARH > MATN in _LAYER_LEVEL
         assert result.layer_id == "sharh"
 
-    def test_la2_even_with_dominant_below_60pct(self) -> None:
-        """LA-2 catches ALL 2-layer cases (even dominant < 60%).
+    def test_la2_dominant_at_60pct_boundary(self) -> None:
+        """LA-2 fires when dominant layer has exactly 60% coverage (H-7 threshold).
 
-        LA-3's 'dominant <60%' condition never fires for 2-layer cases
-        because LA-2 is checked first.
+        §6.2: dominant >=60% -> LA-2 (outermost wins).
         """
-        # MATN=40%, SHARH=60% — neither >= 80%, exactly 2 layers
-        text = "أ ب ج د ه و ز ح ط ي"  # 10 tokens
-        mid = len(text) * 4 // 10  # ~40% for MATN
+        # Build text where SHARH covers exactly 60% of chars
+        text = "أ" * 100  # 100 chars
         layers = [
             TextLayerSegment(
                 layer_type=LayerType.MATN,
                 author_canonical_id="sch_m",
                 start=0,
-                end=mid,
+                end=40,
                 confidence=1.0,
             ),
             TextLayerSegment(
                 layer_type=LayerType.SHARH,
                 author_canonical_id="sch_s",
-                start=mid,
-                end=len(text),
+                start=40,
+                end=100,
                 confidence=1.0,
             ),
         ]
@@ -254,8 +244,93 @@ class TestLayerAttribution:
         )
         tokens = text.split()
         result = compute_layer_attribution(text, layers, 0, len(tokens) - 1, meta)
-        # LA-2, not LA-3 — LA-2 catches all 2-layer cases
+        # 60% exactly -> LA-2 (meets the >=0.6 threshold)
         assert result.rule_applied == "LA-2"
+
+    def test_la3_triggered_for_two_layers_below_60_pct(
+        self, caplog: pytest.LogCaptureFixture
+    ) -> None:
+        """H-7: 2 layers with dominant at 59% -> LA-3 (attribution ambiguous).
+
+        §6.2: if the dominant layer has <60% coverage, flag with EX-M-001
+        for multi-model consensus verification. Previously this was silently
+        defaulted to LA-2 (outermost layer wins), bypassing the gate.
+        """
+        # 100 chars: SHARH=59%, MATN=41% — dominant below 60% threshold
+        text = "أ" * 100
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh",
+                start=0,
+                end=59,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_matn",
+                start=59,
+                end=100,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        with caplog.at_level(logging.WARNING):
+            result = compute_layer_attribution(
+                text, layers, 0, len(tokens) - 1, meta
+            )
+        # H-7: 59% < 60% -> LA-3, not LA-2
+        assert result.rule_applied == "LA-3"
+        assert result.layer_id == "sharh"
+        assert result.author_id == "sch_sharh"
+        assert result.coverage_pct < 0.6
+        # EX-M-001 warning must be emitted
+        assert ExcerptingErrorCodes.EX_M_001 in caplog.text
+
+    def test_la2_still_works_above_60_pct(self) -> None:
+        """H-7: 2 layers with dominant at 70% -> LA-2 (outermost wins).
+
+        §6.2: dominant >=60% qualifies for LA-2 (deterministic outermost
+        layer wins without consensus review).
+        """
+        # 100 chars: SHARH=70%, MATN=30% — dominant above 60% threshold
+        text = "أ" * 100
+        layers = [
+            TextLayerSegment(
+                layer_type=LayerType.SHARH,
+                author_canonical_id="sch_sharh",
+                start=0,
+                end=70,
+                confidence=1.0,
+            ),
+            TextLayerSegment(
+                layer_type=LayerType.MATN,
+                author_canonical_id="sch_matn",
+                start=70,
+                end=100,
+                confidence=1.0,
+            ),
+        ]
+        meta = AssemblyMetadata(
+            constituent_unit_indices=[0],
+            join_points=[],
+            layer_split_points=[],
+            footnote_renumber_map=None,
+        )
+        tokens = text.split()
+        result = compute_layer_attribution(text, layers, 0, len(tokens) - 1, meta)
+        # 70% >= 60% -> LA-2 (outermost layer wins)
+        assert result.rule_applied == "LA-2"
+        # SHARH > MATN in _LAYER_LEVEL -> SHARH is outermost
+        assert result.layer_id == "sharh"
+        assert result.author_id == "sch_sharh"
+        assert result.coverage_pct >= 0.6
 
     def test_la3_three_layers_ambiguous(self, caplog: pytest.LogCaptureFixture) -> None:
         """LA-3: Three layers, none >= 80% -> EX-M-001 warning."""
@@ -944,9 +1019,9 @@ class TestEdgeCaseLayerAttribution:
         )
         tokens = text.split()
         result = compute_layer_attribution(text, layers, 0, len(tokens) - 1, meta)
-        # With gap, segments should NOT merge -> 2 coverage entries -> LA-2
-        # (both are SHARH, but LA-2 uses outermost which is max by _LAYER_LEVEL)
-        assert result.rule_applied == "LA-2"
+        # With gap, segments should NOT merge -> 2 coverage entries
+        # ~50/50 dominant coverage -> LA-3 (H-7: dominant <60%)
+        assert result.rule_applied == "LA-3"
 
     def test_three_layer_hashiyah_sharh_matn(
         self, caplog: pytest.LogCaptureFixture
@@ -1004,22 +1079,22 @@ class TestEdgeCaseLayerAttribution:
         assert ExcerptingErrorCodes.EX_M_001 in caplog.text
 
     def test_la2_hashiyah_vs_sharh(self) -> None:
-        """LA-2 with HASHIYAH + SHARH: HASHIYAH wins (higher _LAYER_LEVEL)."""
-        text = "وقوله في الحاشية يراد به الإيضاح ومعنى الشرح بيان المشكل"
-        mid = len(text) // 2
+        """LA-2 with HASHIYAH + SHARH: dominant >=60%, HASHIYAH wins (higher _LAYER_LEVEL)."""
+        # HASHIYAH=65%, SHARH=35% — dominant above 60% threshold (H-7)
+        text = "أ" * 100
         layers = [
             TextLayerSegment(
                 layer_type=LayerType.HASHIYAH,
                 author_canonical_id="sch_h",
                 start=0,
-                end=mid,
+                end=65,
                 confidence=1.0,
             ),
             TextLayerSegment(
                 layer_type=LayerType.SHARH,
                 author_canonical_id="sch_s",
-                start=mid,
-                end=len(text),
+                start=65,
+                end=100,
                 confidence=1.0,
             ),
         ]
@@ -1600,7 +1675,8 @@ class TestAdversarialLayerAttribution:
         """SHARH->MATN at split boundary — different types, must NOT merge.
 
         Even though segments are adjacent at the split point,
-        different layer_type prevents merging. Result: 2 layers -> LA-2.
+        different layer_type prevents merging. Result: 2 layers.
+        With ~50/50 coverage (dominant <60%), H-7 routes to LA-3.
         """
         text = "يريد الشارح في بيانه كلامنا لفظ مفيد كاستقم"
         text_len = len(text)
@@ -1631,15 +1707,15 @@ class TestAdversarialLayerAttribution:
         result = compute_layer_attribution(
             text, layers, 0, len(tokens) - 1, meta
         )
-        # Two distinct layer types -> LA-2
-        assert result.rule_applied == "LA-2"
-        assert result.layer_id == "sharh"
+        # Two distinct layer types, ~50/50 coverage -> LA-3 (H-7: dominant <60%)
+        assert result.rule_applied == "LA-3"
 
     def test_same_type_different_author_at_split_point_no_merge(self) -> None:
         """Two SHARH segments by different authors at split point -> no merge.
 
         Split-point merging requires same (type, author). Different authors
         are genuinely different commentators — must NOT merge.
+        With ~50/50 coverage (dominant <60%), H-7 routes to LA-3.
         """
         text = "يريد الشارح في بيانه ومعنى كلامه عند التحقيق"
         text_len = len(text)
@@ -1670,8 +1746,8 @@ class TestAdversarialLayerAttribution:
         result = compute_layer_attribution(
             text, layers, 0, len(tokens) - 1, meta
         )
-        # Two distinct authors -> NOT merged -> LA-2
-        assert result.rule_applied == "LA-2"
+        # Two distinct authors -> NOT merged; ~50/50 -> LA-3 (H-7: dominant <60%)
+        assert result.rule_applied == "LA-3"
 
     def test_quoted_scholars_split_point_merging_effect(self) -> None:
         """L-3: Split-point merging changes quoted scholar output.
@@ -2174,20 +2250,23 @@ class TestUncertainAndTahqiqLayers:
     """Layer type priority in LA-2: _LAYER_LEVEL ordering."""
 
     def test_uncertain_loses_to_matn_in_la2(self) -> None:
-        """UNCERTAIN (level 0) vs MATN (level 1) -> MATN wins in LA-2."""
+        """UNCERTAIN (level 0) vs MATN (level 1) -> MATN wins in LA-2.
+
+        Dominant must be >=60% for LA-2 (H-7). Use 70/30 split.
+        """
         text = "أبجدهوزحطي"  # 10 chars, 1 token
         layers = [
             TextLayerSegment(
                 layer_type=LayerType.UNCERTAIN,
                 author_canonical_id="sch_u",
                 start=0,
-                end=5,
+                end=3,
                 confidence=1.0,
             ),
             TextLayerSegment(
                 layer_type=LayerType.MATN,
                 author_canonical_id="sch_m",
-                start=5,
+                start=3,
                 end=10,
                 confidence=1.0,
             ),
@@ -2203,20 +2282,23 @@ class TestUncertainAndTahqiqLayers:
         assert result.layer_id == "matn"
 
     def test_tahqiq_note_beats_hashiyah_in_la2(self) -> None:
-        """TAHQIQ_NOTE (level 4) vs HASHIYAH (level 3) -> TAHQIQ_NOTE wins."""
-        text = "أبجدهوزحطي"
+        """TAHQIQ_NOTE (level 4) vs HASHIYAH (level 3) -> TAHQIQ_NOTE wins.
+
+        Dominant must be >=60% for LA-2 (H-7). Use 70/30 split.
+        """
+        text = "أبجدهوزحطي"  # 10 chars
         layers = [
             TextLayerSegment(
                 layer_type=LayerType.HASHIYAH,
                 author_canonical_id="sch_h",
                 start=0,
-                end=5,
+                end=3,
                 confidence=1.0,
             ),
             TextLayerSegment(
                 layer_type=LayerType.TAHQIQ_NOTE,
                 author_canonical_id="sch_t",
-                start=5,
+                start=3,
                 end=10,
                 confidence=1.0,
             ),
@@ -2260,20 +2342,20 @@ class TestAuthorNoneAllLAPaths:
     """M-7 extended: author_canonical_id=None -> 'unknown' in LA-2 and LA-3."""
 
     def test_author_none_la2(self) -> None:
-        """Both layers have author=None -> 'unknown' in LA-2 result."""
-        text = "أبجدهوزحطي"
+        """Both layers have author=None, dominant >=60% -> 'unknown' in LA-2 result."""
+        text = "أبجدهوزحطي"  # 10 chars
         layers = [
             TextLayerSegment(
                 layer_type=LayerType.MATN,
                 author_canonical_id=None,
                 start=0,
-                end=5,
+                end=3,
                 confidence=1.0,
             ),
             TextLayerSegment(
                 layer_type=LayerType.SHARH,
                 author_canonical_id=None,
-                start=5,
+                start=3,
                 end=10,
                 confidence=1.0,
             ),
@@ -2814,7 +2896,7 @@ class TestOrchestratorIntegration:
         # ── F-DET-3: layer attribution ──
         # Unit 0 starts from word 0 (in MATN region)
         assert result[0].primary_author_layer is not None
-        assert result[0].primary_author_layer.rule_applied in ("LA-1", "LA-2", "LA-4")
+        assert result[0].primary_author_layer.rule_applied in ("LA-1", "LA-2", "LA-3", "LA-4")
 
         # ── F-DET-4: content_types ──
         assert result[0].content_types == [ScholarlyFunction.DEFINITION]
@@ -3004,14 +3086,12 @@ class TestNoneAuthorLayerAttribution:
             text, layers, 0, len(tokens) - 1, meta
         )
 
-        # Two different-type layers must NOT merge -> LA-2
-        assert result.rule_applied == "LA-2", (
-            f"Expected LA-2 for 2 different-type layers with None authors "
-            f"at split point, got {result.rule_applied}. Different layer types "
-            f"were incorrectly merged because None == None."
+        # Two different-type layers must NOT merge; ~50/50 -> LA-3 (H-7: dominant <60%)
+        assert result.rule_applied == "LA-3", (
+            f"Expected LA-3 for 2 different-type layers with None authors "
+            f"at split point (~50/50 coverage), got {result.rule_applied}. "
+            f"H-7: dominant <60% routes to LA-3 for consensus review."
         )
-        # SHARH > MATN in _LAYER_LEVEL -> SHARH wins
-        assert result.layer_id == "sharh"
         assert result.author_id == "unknown"
 
     def test_single_layer_none_author_fires_la4(self) -> None:
@@ -3345,14 +3425,13 @@ class TestT1AttributionCorruptionProbe:
         assert result[0].resolved_name == "sch_nawawi"
         assert result[0].role == "quoted_opinion"
 
-    # ── LA-2 same-level tie (T-1.3) ────────────────────────────
+    # ── LA-3 same-level tie with <60% dominant (T-1.3) ─────────
 
-    def test_la2_same_level_different_known_authors(self) -> None:
+    def test_la3_same_level_different_known_authors_below_60(self) -> None:
         """T-1.3: Two SHARH layers with different known authors, neither ≥80%.
 
-        LA-2 picks the 'outermost' but both have _LAYER_LEVEL=2 (SHARH).
-        The winner depends on coverage order (max returns first of equals).
-        This test documents the current behavior.
+        Both have _LAYER_LEVEL=2 (SHARH), 55%/45% split.
+        H-7: dominant <60% -> LA-3 (attribution ambiguous, needs consensus).
         """
         # al-Rafi'i's commentary (55%)
         rafi = "قال الرافعي اعلم أن الفقه في اللغة الفهم"
@@ -3381,16 +3460,10 @@ class TestT1AttributionCorruptionProbe:
             text, layers, 0, len(text.split()) - 1, self._META_NO_SPLITS
         )
 
-        # LA-2 applies (2 layers, neither ≥80%)
-        assert result.rule_applied == "LA-2"
-        # Higher coverage wins (al-Rafi'i has 55%)
+        # H-7: 55% < 60% -> LA-3 (attribution ambiguous)
+        assert result.rule_applied == "LA-3"
+        # Higher coverage (al-Rafi'i 55%) becomes the default in LA-3
         assert result.author_id == "sch_rafi"
-        # The other scholar should appear in quoted_scholars
-        quoted = compute_quoted_scholars(
-            layers, 0, len(text), result, self._META_NO_SPLITS
-        )
-        assert len(quoted) == 1
-        assert quoted[0].resolved_name == "sch_nawawi"
 
     # ── Merge collapse with None authors (T-1.4) ──────────────
 
@@ -3465,10 +3538,6 @@ class TestT1AttributionCorruptionProbe:
         Verifies that character-based integer arithmetic produces exact
         floating-point values at the 80% and 100% thresholds.
         """
-        # Build text with exact total_chars
-        # Use repeated Arabic chars with spaces to control char count
-        text = "ا" * total_chars
-
         layers = [
             TextLayerSegment(
                 layer_type=LayerType.SHARH,

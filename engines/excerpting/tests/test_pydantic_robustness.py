@@ -167,7 +167,7 @@ class TestVerificationResultValidator:
                 {
                     "item_index": 0,
                     "agrees": False,
-                    "alternative": "شافعي",
+                    "alternative_value": "شافعي",
                     "confidence": 0.8,
                     "reasoning": "Different school",
                 },

@@ -932,7 +932,14 @@ GROUPING RULES:
 - A position (opinion_statement) + its evidence + any counter-evidence
   + conclusion = one unit
 - A definition + its examples = one unit
-- A hadith + its chain + commentary = one unit
+- A hadith + its chain + commentary = one unit (for hadith citations
+  within broader discussions — NOT for derived benefits sections).
+- **Derived Benefits Rule:** Sections opening with "ما يؤخذ من الحديث:"
+  or "فوائد:" split per numbered item. Each numbered benefit is a
+  separate teaching unit.
+- **Numbered Item Boundaries:** Numbered items (1-, 2-, 3-... or
+  فائدة/مسألة + numbering) are strong unit boundary markers. Each is a
+  separate unit unless explicitly continuing the same argument.
 - A question and its answer belong in the same unit
 - A rule_statement + its condition_exception(s) = one unit
 - Never group unrelated content (e.g., two different مسائل) into one unit
@@ -1797,7 +1804,7 @@ ITEM {n}: {verification_type}
 Text: "{unit primary_text, truncated to 500 chars}"
 Decision: {the claim being verified}
 Your assessment: agree or disagree, with brief reasoning in Arabic or English.
-If you disagree, provide your alternative.
+If you disagree, put ONLY the corrected value in alternative_value (bare string, no explanation).
 Provide your confidence (0.0 to 1.0) in your own assessment.
 
 {end for}
@@ -1820,7 +1827,7 @@ The verification types are:
 |-------|------|-------------|
 | `item_index` | `int` | Matches the item number from the prompt. |
 | `agrees` | `bool` | Whether the verifier agrees with the decision. |
-| `alternative` | `str \| null` | The verifier's alternative if it disagrees. |
+| `alternative_value` | `str \| null` | Bare corrected value if disagrees (author name, school, or self-containment level). No prose. |
 | `confidence` | `float` | The verifier's confidence in its own assessment (0.0–1.0). Used for school_confidence computation in §7.3.3. |
 | `reasoning` | `str` | Brief explanation. |
 

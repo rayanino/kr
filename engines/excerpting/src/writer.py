@@ -12,6 +12,8 @@ from __future__ import annotations
 
 import json
 import logging
+import re
+from collections.abc import Sequence
 from pathlib import Path
 
 from engines.excerpting.contracts import (
@@ -20,6 +22,9 @@ from engines.excerpting.contracts import (
 )
 
 logger = logging.getLogger(__name__)
+
+# BUG-003: Consecutive ZWNJ (2+) from normalization artifacts — no linguistic purpose
+_DOUBLE_ZWNJ_RE = re.compile(r"\u200c{2,}")
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -68,8 +73,19 @@ def write_excerpts(
         key=lambda e: (e.div_id, e.chunk_index, e.unit_index),
     )
     for exc in sorted_excerpts:
+        data = exc.model_dump(mode="json")
+        # BUG-003: Strip consecutive ZWNJs (normalization artifact) from output
+        pt = data.get("primary_text", "")
+        if "\u200c\u200c" in pt:
+            cleaned = _DOUBLE_ZWNJ_RE.sub("", pt)
+            logger.info(
+                "BUG-003: stripped %d double-ZWNJ chars from %s",
+                len(pt) - len(cleaned),
+                exc.excerpt_id,
+            )
+            data["primary_text"] = cleaned
         merged[exc.excerpt_id] = json.dumps(
-            exc.model_dump(mode="json"),
+            data,
             ensure_ascii=False,
         )
 
@@ -107,7 +123,7 @@ def write_excerpts(
 
 
 def write_gate_queue(
-    gate_entries: list[dict[str, object]],
+    gate_entries: Sequence[dict[str, object]],
     output_dir: Path,
 ) -> Path:
     """Write human gate entries to gate_queue.jsonl (§2.2.1).
@@ -181,7 +197,7 @@ class GateQueueVerificationError(Exception):
 
 
 def verify_gate_queue(
-    gate_entries: list[dict[str, object]],
+    gate_entries: Sequence[dict[str, object]],
     gate_path: Path,
 ) -> list[str]:
     """V-P3-7: Read back gate_queue.jsonl and verify each expected entry exists.

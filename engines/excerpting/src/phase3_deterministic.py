@@ -231,8 +231,9 @@ def compute_layer_attribution(
             rule_applied="LA-1",
         )
 
-    # LA-2: Exactly 2 layers, neither >=80% -> outermost (highest level) wins
-    if len(coverages) == 2:
+    # LA-2: Exactly 2 layers, neither >=80%, dominant >=60% -> outermost wins
+    # §6.2: if dominant <60%, route to LA-3 (EX-M-001) for consensus review
+    if len(coverages) == 2 and top_coverage >= 0.6:
         outermost = max(
             coverages, key=lambda x: _LAYER_LEVEL.get(x[0].layer_type, 0)
         )

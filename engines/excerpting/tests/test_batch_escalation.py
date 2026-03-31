@@ -300,7 +300,7 @@ class TestResolveAttributionBatch:
         vi = VerificationItem(
             item_index=5,
             agrees=False,
-            alternative="sch_verifier",
+            alternative_value="sch_verifier",
             confidence=0.8,
             reasoning="Different author",
         )
@@ -325,7 +325,7 @@ class TestResolveAttributionBatch:
         vi = VerificationItem(
             item_index=99,  # Not in batch result
             agrees=False,
-            alternative="sch_verifier",
+            alternative_value="sch_verifier",
             confidence=0.8,
             reasoning="Different author",
         )
@@ -355,7 +355,7 @@ class TestResolveAttributionBatch:
         vi = VerificationItem(
             item_index=0,
             agrees=False,
-            alternative="sch_verifier",
+            alternative_value="sch_verifier",
             confidence=0.8,
             reasoning="Different author",
         )

@@ -471,10 +471,10 @@ class TestLayerAttributionBoundary:
         assert abs(result.coverage_pct - 0.801) < 0.001
 
     def test_la_two_layers_each_50_percent(self) -> None:
-        """50%/50% split across two layers → LA-2, not LA-1.
+        """50%/50% split across two layers → LA-3 (H-7: dominant <60%).
 
-        Neither layer dominates (both at exactly 50% < 80%).
-        LA-2 picks the outermost layer (SHARH > MATN).
+        Neither layer dominates (both at exactly 50% < 60%).
+        H-7: 2-layer cases with dominant <60% route to LA-3 for consensus.
         """
         text = self._UNIT_TEXT
         layers = [
@@ -494,12 +494,10 @@ class TestLayerAttributionBoundary:
             ),
         ]
         result = compute_layer_attribution(text, layers, 0, 0, self._two_layer_meta())
-        # 50% < 80% → not LA-1; 2 layers → LA-2
-        assert result.rule_applied == "LA-2", (
-            f"Expected LA-2 at 50/50 split, got {result.rule_applied}"
+        # 50% < 60% → H-7 routes to LA-3 (attribution ambiguous)
+        assert result.rule_applied == "LA-3", (
+            f"Expected LA-3 at 50/50 split (H-7: dominant <60%), got {result.rule_applied}"
         )
-        # SHARH is outermost (commentary level > matn level)
-        assert result.layer_id == "sharh"
 
     def test_la_three_layers_each_33_percent(self) -> None:
         """Three layers at ~33% each → LA-3 (ambiguous attribution).

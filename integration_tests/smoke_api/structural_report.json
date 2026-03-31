@@ -1,0 +1,704 @@
+{
+  "generated_at": "2026-03-31T16:16:31.251078+00:00",
+  "root": "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\smoke_api",
+  "overall": {
+    "package_count": 5,
+    "excerpt_count": 133,
+    "phase2_unit_count": 137,
+    "validation_drop_count": 4,
+    "gate_entry_count": 13,
+    "consensus_record_count": 42,
+    "package_names": [
+      "ext_39_masala",
+      "ext_46_qa",
+      "ibn_aqil_v1",
+      "ibn_aqil_v3",
+      "taysir"
+    ],
+    "phase2_units_minus_drops": 133
+  },
+  "packages": {
+    "ext_39_masala": {
+      "excerpt_count": 22,
+      "phase2_unit_count": 22,
+      "validation_drop_count": 0,
+      "gate_entry_count": 0
+    },
+    "ext_46_qa": {
+      "excerpt_count": 20,
+      "phase2_unit_count": 21,
+      "validation_drop_count": 1,
+      "gate_entry_count": 0
+    },
+    "ibn_aqil_v1": {
+      "excerpt_count": 19,
+      "phase2_unit_count": 19,
+      "validation_drop_count": 0,
+      "gate_entry_count": 0
+    },
+    "ibn_aqil_v3": {
+      "excerpt_count": 44,
+      "phase2_unit_count": 44,
+      "validation_drop_count": 0,
+      "gate_entry_count": 12
+    },
+    "taysir": {
+      "excerpt_count": 28,
+      "phase2_unit_count": 31,
+      "validation_drop_count": 3,
+      "gate_entry_count": 1
+    }
+  },
+  "checks": {
+    "required_fields": {
+      "title": "Required Fields",
+      "description": "Top-level required ExcerptRecord fields are present and each record validates against the Pydantic contract.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "required_field_count": 16,
+        "required_fields": [
+          "chunk_index",
+          "description_arabic",
+          "div_id",
+          "div_path",
+          "end_word",
+          "excerpt_id",
+          "excerpt_topic",
+          "primary_author_layer",
+          "primary_function",
+          "primary_text",
+          "school",
+          "self_containment",
+          "source_id",
+          "start_word",
+          "text_snippet",
+          "unit_index"
+        ],
+        "records_evaluated": 133
+      },
+      "sample_findings": []
+    },
+    "word_offset_consistency": {
+      "title": "Word Offset Consistency",
+      "description": "start_word/end_word resolve to the exact primary_text substring and agree with the Phase 2 grouping boundaries.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_evaluated": 133
+      },
+      "sample_findings": []
+    },
+    "text_snippet_prefix_match": {
+      "title": "text_snippet Prefix Match",
+      "description": "Whitespace-normalized first 80 characters of primary_text match text_snippet per SPEC V-P3-2.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_evaluated": 133
+      },
+      "sample_findings": []
+    },
+    "segment_indices_validity": {
+      "title": "segment_indices Validity",
+      "description": "segment_indices are non-empty, contiguous, ascending, and match Phase 2 unit/segment provenance.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_evaluated": 133
+      },
+      "sample_findings": []
+    },
+    "excerpt_id_format": {
+      "title": "excerpt_id Format",
+      "description": "excerpt_id exactly matches exc_{source_id}_{div_id}_{chunk_index}_{unit_index}.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_evaluated": 133
+      },
+      "sample_findings": []
+    },
+    "empty_field_detection": {
+      "title": "Empty Field Detection",
+      "description": "Required structural strings are non-blank and required collections are not empty when the SPEC expects content.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_evaluated": 133
+      },
+      "sample_findings": []
+    },
+    "consensus_structure": {
+      "title": "Consensus Structure",
+      "description": "consensus_metadata is structurally valid and internally coherent when present.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_with_consensus_metadata": 42,
+        "decision_type_counts": {
+          "author_attribution": 12,
+          "school_attribution": 11,
+          "self_containment": 24
+        }
+      },
+      "sample_findings": []
+    },
+    "zwnj_scan": {
+      "title": "ZWNJ Scan",
+      "description": "Invisible U+200C characters are inventoried across excerpt fields for follow-up review.",
+      "status": "warn",
+      "finding_count": 8,
+      "metrics": {
+        "excerpt_count_with_zwnj": 8,
+        "total_zwnj_occurrences": 36,
+        "field_occurrence_counts": {
+          "primary_text": 18,
+          "text_snippet": 16,
+          "cross_references.1.reference_text": 2
+        }
+      },
+      "sample_findings": [
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_0",
+          "details": {
+            "zwnj_occurrences": 4,
+            "fields": [
+              "primary_text",
+              "cross_references.1.reference_text"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_0",
+          "details": {
+            "zwnj_occurrences": 4,
+            "fields": [
+              "primary_text",
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_pre_0_6",
+          "details": {
+            "zwnj_occurrences": 4,
+            "fields": [
+              "primary_text",
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ibn_aqil_v1",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_0_0",
+          "details": {
+            "zwnj_occurrences": 4,
+            "fields": [
+              "primary_text",
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ibn_aqil_v1",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_001_0_1",
+          "details": {
+            "zwnj_occurrences": 4,
+            "fields": [
+              "primary_text",
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ibn_aqil_v3",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_0",
+          "details": {
+            "zwnj_occurrences": 4,
+            "fields": [
+              "primary_text",
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ibn_aqil_v3",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_001_0_0",
+          "details": {
+            "zwnj_occurrences": 4,
+            "fields": [
+              "primary_text",
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "taysir",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_7_000_0_1",
+          "details": {
+            "zwnj_occurrences": 8,
+            "fields": [
+              "primary_text",
+              "text_snippet"
+            ]
+          }
+        }
+      ]
+    },
+    "duplicate_detection": {
+      "title": "Duplicate Detection",
+      "description": "Duplicate excerpt IDs, duplicate coordinate keys, and duplicate normalized primary_text bodies are detected across the corpus.",
+      "status": "fail",
+      "finding_count": 10,
+      "metrics": {
+        "duplicate_excerpt_id_count": 10,
+        "duplicate_excerpt_instances": 20,
+        "duplicate_coordinate_key_count": 10,
+        "duplicate_primary_text_count": 0
+      },
+      "sample_findings": [
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_0",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_1",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_2",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_3",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_4",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_5",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_6",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_7",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_8",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_9",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        }
+      ]
+    },
+    "gate_cross_reference": {
+      "title": "Gate Cross-Reference",
+      "description": "gate_flags and gate_queue.jsonl entries agree in both directions within each package.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_with_gate_flags": 13,
+        "gate_queue_entry_count": 13
+      },
+      "sample_findings": []
+    },
+    "short_long_outliers": {
+      "title": "Short/Long Outliers",
+      "description": "Word-count outliers are reported using a hybrid short-threshold plus Tukey upper-fence audit.",
+      "status": "warn",
+      "finding_count": 9,
+      "metrics": {
+        "min_word_count": 4,
+        "median_word_count": 86,
+        "max_word_count": 555,
+        "q1_word_count": 51.0,
+        "q3_word_count": 163.0,
+        "iqr_word_count": 112.0,
+        "upper_fence": 331.0,
+        "short_threshold_words": 10,
+        "short_outlier_count": 3,
+        "long_outlier_count": 6
+      },
+      "sample_findings": [
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_0",
+          "details": {
+            "word_count": 555,
+            "upper_fence": 331.0
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Short word-count outlier.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_pre_0_6",
+          "details": {
+            "word_count": 6,
+            "threshold": 10
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ibn_aqil_v1",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_0_5",
+          "details": {
+            "word_count": 424,
+            "upper_fence": 331.0
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Short word-count outlier.",
+          "package": "ibn_aqil_v1",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_001_0_0",
+          "details": {
+            "word_count": 4,
+            "threshold": 10
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ibn_aqil_v1",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_001_0_4",
+          "details": {
+            "word_count": 357,
+            "upper_fence": 331.0
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "taysir",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_6_000_0_12",
+          "details": {
+            "word_count": 408,
+            "upper_fence": 331.0
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "taysir",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_6_000_0_16",
+          "details": {
+            "word_count": 520,
+            "upper_fence": 331.0
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "taysir",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_6_000_0_19",
+          "details": {
+            "word_count": 497,
+            "upper_fence": 331.0
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Short word-count outlier.",
+          "package": "taysir",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_7_000_0_0",
+          "details": {
+            "word_count": 6,
+            "threshold": 10
+          }
+        }
+      ]
+    },
+    "author_id_audit": {
+      "title": "author_id Audit",
+      "description": "primary_author_layer.author_id values are inventoried, including sentinel values such as unknown.",
+      "status": "warn",
+      "finding_count": 133,
+      "metrics": {
+        "unique_author_id_count": 1,
+        "author_id_counts": {
+          "unknown": 133
+        },
+        "unknown_author_id_count": 133
+      },
+      "sample_findings": [
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_0"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_1"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_2"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_3"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_4"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_5"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_6"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_7"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_8"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_9"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_10"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_11"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_0"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_1"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_2"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_3"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_4"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_5"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_6"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_7"
+        }
+      ]
+    },
+    "consensus_coverage": {
+      "title": "Consensus Coverage",
+      "description": "Records with consensus-only signals always carry consensus_metadata, and decision types are summarized.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_with_consensus_metadata": 42,
+        "records_with_consensus_signals": 16,
+        "decision_type_counts": {
+          "author_attribution": 12,
+          "school_attribution": 11,
+          "self_containment": 24
+        }
+      },
+      "sample_findings": []
+    },
+    "physical_pages": {
+      "title": "Physical Pages",
+      "description": "physical_pages matches the page span implied by Phase 1 join points and token-derived character ranges.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_evaluated": 133
+      },
+      "sample_findings": []
+    },
+    "function_taxonomy_validation": {
+      "title": "Function Taxonomy Validation",
+      "description": "All function fields are valid ScholarlyFunction values and agree with Phase 2 provenance.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_evaluated": 133,
+        "valid_function_count": 16,
+        "valid_functions": [
+          "condition_exception",
+          "cross_reference",
+          "definition",
+          "editorial_note",
+          "evidence_hadith",
+          "evidence_ijma",
+          "evidence_qiyas",
+          "evidence_quran",
+          "evidence_rational",
+          "example",
+          "narration",
+          "opinion_statement",
+          "refutation",
+          "rule_statement",
+          "structural_transition",
+          "unclassified"
+        ]
+      },
+      "sample_findings": []
+    }
+  }
+}

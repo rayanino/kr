@@ -155,6 +155,46 @@ For EACH teaching unit listed in the input, provide these fields:
    Only include genuine terminology equivalences. Empty list is acceptable
    for units with no notable term variants.
 
+WORKED EXAMPLES (from real scholarly texts):
+
+Example 1 — Cross-school fiqh survey (school = "cross_school"):
+  Input text: "اختلاف العلماء:\\nذهب الأئمة، أبو حنيفة، ومالك، والشافعي، \
+وسفيان، وغيرهم، إلى أن الاستنشاق مستحب في الوضوء لا واجب.\\n\
+والمشهور عند الإمام \\"أحمد\\" الوجوب"
+  Source metadata: author school = حنبلي
+  Expected enrichment:
+  {{"excerpt_topic": ["حكم الاستنشاق في الوضوء"], \
+"school": "cross_school", "school_confidence": 0.95, \
+"resolved_scholars": [\
+{{"mention_text": "أبو حنيفة", "resolved_name": "أبو حنيفة النعمان بن ثابت", \
+"role": "quoted_opinion", "confidence": 0.99}}, \
+{{"mention_text": "مالك", "resolved_name": "مالك بن أنس", \
+"role": "quoted_opinion", "confidence": 0.98}}, \
+{{"mention_text": "الشافعي", "resolved_name": "محمد بن إدريس الشافعي", \
+"role": "quoted_opinion", "confidence": 0.98}}, \
+{{"mention_text": "الإمام \\"أحمد\\"", "resolved_name": "أحمد بن حنبل", \
+"role": "quoted_opinion", "confidence": 0.98}}], \
+"terminology_variants": []}}
+  Why school = "cross_school": The passage presents positions from \
+أبو حنيفة, مالك, الشافعي, and أحمد in comparison. Even though the \
+author (البسام) is Hanbali, this unit surveys positions across schools. \
+Attribute the POSITION, not the AUTHOR.
+
+Example 2 — Grammar text (school = null):
+  Input text: "حروف الجر\\nهاك حروف الجر وهي من إلى … حتى خلا حاشا \
+عدا في عن على\\nهذه الحروف العشرون كلها مختصة بالأسماء وهي تعمل فيها الجر"
+  Source metadata: science = نحو, author school = null
+  Expected enrichment:
+  {{"excerpt_topic": ["حروف الجر", "اختصاصها بالأسماء"], \
+"school": null, "school_confidence": null, \
+"resolved_scholars": [], \
+"terminology_variants": [\
+{{"term": "حروف الجر", "variants": ["حروف الخفض", "حروف الإضافة"]}}]}}
+  Why school = null: Grammar (nahw) texts do not have madhhab \
+attribution. The terminology_variants field captures the alternative \
+names for حروف الجر used in different grammatical traditions.
+
+
 6. CROSS-REFERENCES (cross_references): If the unit contains references to
    other parts of the same work ("كما تقدم", "المذكور آنفاً", "ما سيأتي في باب"),
    provide:
