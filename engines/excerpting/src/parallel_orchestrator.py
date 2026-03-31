@@ -922,4 +922,18 @@ def run_parallel_pipeline(
         failed,
     )
 
+    # Re-sort to deterministic order (Codex review F5: as_completed returns
+    # completion order, not chunk order). Sort by (div_id, chunk_index, unit_index)
+    # to match the sequential pipeline's output ordering.
+    try:
+        all_excerpts.sort(
+            key=lambda e: (
+                str(getattr(e, "div_id", "")),
+                int(getattr(e, "chunk_index", 0) or 0),
+                int(getattr(e, "unit_index", 0) or 0),
+            )
+        )
+    except (TypeError, ValueError):
+        pass  # Non-sortable items (e.g. mocks in tests) — keep insertion order
+
     return all_excerpts, all_gates

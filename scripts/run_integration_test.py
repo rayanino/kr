@@ -766,13 +766,22 @@ def run_pipeline(
                 "ENRICH_MODEL": model_override,
             }
         )
-        if model_override == config.VERIFY_MODEL:
-            logger.warning(
-                "Primary and verify models are both %s — same-model consensus. "
-                "For cross-model consensus, authenticate Claude CLI and set "
-                "VERIFY_MODEL separately.", model_override,
-            )
         logger.info("Model override via KR_PRIMARY_MODEL: %s", model_override)
+
+    verify_override = os.environ.get("KR_VERIFY_MODEL")
+    if verify_override:
+        config = config.model_copy(update={"VERIFY_MODEL": verify_override})
+        logger.info("Verify model override via KR_VERIFY_MODEL: %s", verify_override)
+
+    # D-041: hard-fail on same-provider consensus
+    primary_provider = config.CLASSIFY_MODEL.split("/")[0]
+    verify_provider = config.VERIFY_MODEL.split("/")[0]
+    if primary_provider == verify_provider:
+        raise ValueError(
+            f"D-041 violation: primary ({config.CLASSIFY_MODEL}) and verify "
+            f"({config.VERIFY_MODEL}) use same provider '{primary_provider}'. "
+            f"Set KR_VERIFY_MODEL to a different provider."
+        )
 
     # ── Create clients ────────────────────────────────────────────
     trace_contexts: dict[str, dict[str, Any]] = {}

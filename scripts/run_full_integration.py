@@ -500,8 +500,15 @@ def _determine_needed_backends() -> list[str]:
         elif model.startswith("google/"):
             needed.add("gemini")
 
-    # Verify model — default is openai/gpt-5.4
-    needed.add("codex")
+    # Verify model — respect KR_VERIFY_MODEL override
+    verify_model = os.environ.get("KR_VERIFY_MODEL", "openai/gpt-5.4")
+    if verify_model.startswith("anthropic/"):
+        needed.add("claude")
+    elif verify_model.startswith("openai/"):
+        needed.add("codex")
+    elif verify_model.startswith("google/"):
+        needed.add("gemini")
+
     # Escalation model — default is google/gemini-2.5-pro
     needed.add("gemini")
 

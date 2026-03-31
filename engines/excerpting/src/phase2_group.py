@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 import instructor
 from pydantic import ValidationError
@@ -26,6 +26,10 @@ from engines.excerpting.contracts import (
     TeachingUnit,
     validate_tu_invariants,
 )
+
+if TYPE_CHECKING:
+    from engines.excerpting.src.cache import CacheManager
+    from engines.excerpting.src.progress import ProgressTracker
 
 logger = logging.getLogger(__name__)
 
@@ -279,12 +283,18 @@ def run_phase2b(
     classified: dict[str, list[ClassifiedSegment]],
     client: instructor.Instructor,
     config: ExcerptingConfig,
+    progress: Optional["ProgressTracker"] = None,
+    cache: Optional["CacheManager"] = None,
 ) -> dict[str, list[TeachingUnit]]:
     """Execute Phase 2b for all chunks: group → verify (§5.1 steps 4–5).
 
     Only processes chunks that succeeded Phase 2a (present in *classified* dict).
     Retries per §5.5.2 (max ``1 + config.RETRY_COUNT`` attempts per chunk).
     Classification results are **reused** across retries — only grouping is retried.
+
+    Args:
+        progress: Optional WAL-based tracker. When provided, completed chunks
+            are skipped on resume and newly completed chunks are recorded.
 
     Returns:
         ``dict[chunk_id → list[TeachingUnit]]``.
@@ -297,6 +307,54 @@ def run_phase2b(
         segments = classified.get(chunk.chunk_id)
         if segments is None:
             continue  # Phase 2a failed for this chunk
+
+        # Resume check: skip chunks already completed in a prior run
+        if progress is not None and progress.is_done(chunk.chunk_id, "phase2b"):
+            logger.info(
+                "Chunk %s phase2b: skipping (already done)", chunk.chunk_id
+            )
+            continue
+
+        # Cache check (first-attempt prompt only, no error_feedback)
+        cache_key = ""
+        if cache is not None:
+            from engines.excerpting.src.cache import compute_cache_key
+
+            system_prompt = GROUP_SYSTEM_PROMPT.format(
+                structural_format=chunk.structural_format.value,
+            )
+            segment_summary = _build_segment_summary(segments)
+            first_user_message = (
+                f"<text>\n{chunk.assembled_text}\n</text>\n\n"
+                f"<classified_segments>\n{segment_summary}\n</classified_segments>"
+            )
+            cache_key = compute_cache_key(
+                "group",
+                system_prompt,
+                first_user_message,
+                config.GROUP_MODEL,
+                config.LLM_TEMPERATURE,
+                config.GROUP_MAX_TOKENS,
+            )
+            cached = cache.load("group", cache_key, ExtractionResult)
+            if cached is not None:
+                logger.info(
+                    "Chunk %s phase2b: cache hit, skipping LLM call",
+                    chunk.chunk_id,
+                )
+                try:
+                    repaired = verify_units(
+                        cached.teaching_units, segments, chunk.total_tokens
+                    )
+                    result[chunk.chunk_id] = repaired
+                    if progress is not None:
+                        progress.mark_done(chunk.chunk_id, "phase2b")
+                    continue  # Skip to next chunk
+                except (ValueError, ValidationError):
+                    logger.warning(
+                        "Cached result for %s failed validation, re-processing",
+                        chunk.chunk_id,
+                    )
 
         error_feedback: Optional[str] = None
         last_error_code: Optional[str] = None
@@ -339,6 +397,11 @@ def run_phase2b(
 
                 result[chunk.chunk_id] = repaired
                 success = True
+                # Save to cache (only first attempt with no error_feedback)
+                if cache is not None and attempt == 0:
+                    cache.save("group", cache_key, chunk.chunk_id, config.GROUP_MODEL, er)
+                if progress is not None:
+                    progress.mark_done(chunk.chunk_id, "phase2b")
                 break
 
             except ValidationError as e:
@@ -389,6 +452,12 @@ def run_phase2b(
                 )
 
         if not success:
+            if progress is not None:
+                progress.mark_failed(
+                    chunk.chunk_id,
+                    "phase2b",
+                    last_error_code or "unknown",
+                )
             logger.error(
                 "Phase 2b FAILED for chunk %s after %d attempts. "
                 "Error code: %s. Chunk excluded from Phase 3.",

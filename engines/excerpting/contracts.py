@@ -708,7 +708,10 @@ class BatchEscalationItem(BaseModel):
     """Single item in a batch escalation response."""
 
     item_index: int
-    author_id: str = Field(description="The correct author attribution")
+    author_id: Optional[str] = Field(
+        None,
+        description="The correct author attribution, or null if insufficient evidence",
+    )
     reasoning: str = Field(description="Brief explanation for this determination")
 
 

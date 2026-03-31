@@ -10,7 +10,7 @@ from __future__ import annotations
 import logging
 import time
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 import instructor
 
@@ -26,6 +26,10 @@ from engines.excerpting.src.phase3_deterministic import build_deterministic_exce
 from engines.excerpting.src.phase3_enrichment import run_phase3_enrichment
 from engines.excerpting.src.phase3_consensus import run_consensus
 from engines.excerpting.src.phase3_validation import validate_batch
+
+if TYPE_CHECKING:
+    from engines.excerpting.src.cache import CacheManager
+    from engines.excerpting.src.progress import ProgressTracker
 
 logger = logging.getLogger(__name__)
 
@@ -58,6 +62,8 @@ def run_phase3(
     verify_client: Optional[instructor.Instructor] = None,
     escalation_client: Optional[instructor.Instructor] = None,
     source_metadata: Optional[dict[str, str]] = None,
+    progress: Optional["ProgressTracker"] = None,
+    cache: Optional["CacheManager"] = None,
 ) -> Phase3Result:
     """Execute Phase 3: deterministic → enrichment → consensus → validation.
 
@@ -117,6 +123,8 @@ def run_phase3(
                 client=enrich_client,
                 config=config,
                 source_metadata=source_metadata,
+                progress=progress,
+                cache=cache,
             )
         except Exception as exc:
             if isinstance(exc, (TypeError, AttributeError, NameError, KeyError, IndexError, ZeroDivisionError, StopIteration)):
@@ -147,6 +155,8 @@ def run_phase3(
                 escalation_client=escalation_client,
                 config=config,
                 source_metadata=source_metadata,
+                progress=progress,
+                cache=cache,
             )
             result.gate_entries.extend(gate_entries)
         except Exception as exc:

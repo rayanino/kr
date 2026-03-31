@@ -33,6 +33,9 @@ def write_excerpts(
 ) -> Path:
     """Write ExcerptRecords to excerpts.jsonl (§2.2.1).
 
+    On resume, merges with existing file: new excerpts overwrite old
+    entries with the same excerpt_id. Atomic via temp file + rename.
+
     One JSON line per record. Records ordered by div_id, chunk_index,
     unit_index (preserves reading order).
     Encoding: UTF-8, no BOM, \\n line separator.
@@ -43,24 +46,57 @@ def write_excerpts(
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / "excerpts.jsonl"
 
-    # Sort by reading order: div_id (string), chunk_index (int), unit_index (int)
+    # Load existing excerpts for resume merge (keyed by excerpt_id)
+    merged: dict[str, str] = {}
+    if output_path.exists():
+        with open(output_path, encoding="utf-8") as f:
+            for line in f:
+                stripped = line.rstrip("\n")
+                if not stripped:
+                    continue
+                try:
+                    eid = json.loads(stripped)["excerpt_id"]
+                    merged[eid] = stripped
+                except (json.JSONDecodeError, KeyError):
+                    pass
+
+    existing_count = len(merged)
+
+    # New excerpts overwrite existing entries with same ID
     sorted_excerpts = sorted(
         excerpts,
         key=lambda e: (e.div_id, e.chunk_index, e.unit_index),
     )
+    for exc in sorted_excerpts:
+        merged[exc.excerpt_id] = json.dumps(
+            exc.model_dump(mode="json"),
+            ensure_ascii=False,
+        )
 
-    with open(output_path, "w", encoding="utf-8") as f:
-        for exc in sorted_excerpts:
-            line = json.dumps(
-                exc.model_dump(mode="json"),
-                ensure_ascii=False,
-            )
+    # Sort merged excerpts by reading order before writing
+    def _sort_key(json_line: str) -> tuple[str, int, int]:
+        try:
+            obj = json.loads(json_line)
+            return (obj.get("div_id", ""), obj.get("chunk_index", 0), obj.get("unit_index", 0))
+        except (json.JSONDecodeError, KeyError):
+            return ("", 0, 0)
+
+    sorted_lines = sorted(merged.values(), key=_sort_key)
+
+    # Atomic write: temp file + rename
+    temp_path = output_path.with_suffix(".jsonl.tmp")
+    with open(temp_path, "w", encoding="utf-8") as f:
+        for line in sorted_lines:
             f.write(line + "\n")
+    temp_path.replace(output_path)
 
+    new_count = len(merged) - existing_count
     logger.info(
-        "Wrote %d excerpts to %s",
-        len(sorted_excerpts),
+        "Wrote %d excerpts to %s (%d new, %d preserved)",
+        len(merged),
         output_path,
+        max(0, new_count),
+        existing_count,
     )
     return output_path
 
@@ -76,27 +112,57 @@ def write_gate_queue(
 ) -> Path:
     """Write human gate entries to gate_queue.jsonl (§2.2.1).
 
+    On resume, merges with existing file: deduplicates by
+    (excerpt_id, gate_code). Atomic via temp file + rename.
+
     One JSON line per gate entry. Present only if at least one gate
     was triggered.
 
     Returns the path to the written file.
     """
-    if not gate_entries:
-        logger.info("No gate entries — skipping gate_queue.jsonl creation.")
-        return output_dir / "gate_queue.jsonl"
-
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / "gate_queue.jsonl"
 
-    with open(output_path, "w", encoding="utf-8") as f:
-        for entry in gate_entries:
-            line = json.dumps(entry, ensure_ascii=False)
-            f.write(line + "\n")
+    # Load existing gates for resume merge (keyed by excerpt_id + gate_code)
+    merged: dict[str, str] = {}
+    if output_path.exists():
+        with open(output_path, encoding="utf-8") as f:
+            for line in f:
+                stripped = line.rstrip("\n")
+                if not stripped:
+                    continue
+                try:
+                    obj = json.loads(stripped)
+                    key = f"{obj.get('excerpt_id', '')}:{obj.get('gate_code', '')}"
+                    merged[key] = stripped
+                except (json.JSONDecodeError, KeyError):
+                    pass
 
+    if not gate_entries and not merged:
+        logger.info("No gate entries — skipping gate_queue.jsonl creation.")
+        return output_path
+
+    existing_count = len(merged)
+
+    # New entries overwrite existing with same key
+    for entry in gate_entries:
+        key = f"{entry.get('excerpt_id', '')}:{entry.get('gate_code', '')}"
+        merged[key] = json.dumps(entry, ensure_ascii=False)
+
+    # Atomic write
+    temp_path = output_path.with_suffix(".jsonl.tmp")
+    with open(temp_path, "w", encoding="utf-8") as f:
+        for line in merged.values():
+            f.write(line + "\n")
+    temp_path.replace(output_path)
+
+    new_count = len(merged) - existing_count
     logger.info(
-        "Wrote %d gate entries to %s",
-        len(gate_entries),
+        "Wrote %d gate entries to %s (%d new, %d preserved)",
+        len(merged),
         output_path,
+        max(0, new_count),
+        existing_count,
     )
     return output_path
 

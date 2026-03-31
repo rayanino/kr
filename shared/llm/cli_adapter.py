@@ -54,6 +54,46 @@ class CLIBackendError(Exception):
         self.stderr = stderr
 
 
+class RateLimitError(CLIBackendError):
+    """Raised when a CLI backend hits a rate or usage limit."""
+
+    _PATTERNS = [
+        "hit your limit",
+        "rate limit",
+        "usage limit",
+        "try again after",
+        "too many requests",
+        "429",
+    ]
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        reset_hint: str | None = None,
+        **kwargs: Any,
+    ) -> None:
+        super().__init__(message, **kwargs)
+        self.reset_hint = reset_hint
+
+    @classmethod
+    def check(cls, stderr: str, stdout: str) -> bool:
+        """Return True if combined output looks like a rate-limit error."""
+        combined = (stderr + " " + stdout).lower()
+        return any(p in combined for p in cls._PATTERNS)
+
+    @classmethod
+    def extract_reset_hint(cls, text: str) -> str | None:
+        """Try to extract a reset time from error text."""
+        import re
+        m = re.search(
+            r"resets?\s+([0-9]+(?:am|pm))",
+            text,
+            re.IGNORECASE,
+        )
+        return m.group(1).strip(" \t\n\r") if m else None
+
+
 # ═══════════════════════════════════════════════════════════════════
 # Response dataclasses (SPEC §7.1)
 # ═══════════════════════════════════════════════════════════════════
@@ -540,6 +580,43 @@ class _CompletionsNamespace:
                     raise
 
             except subprocess.TimeoutExpired as e:
+                # Attempt recovery: subprocess may have written complete
+                # output before the timeout killed it.
+                partial_raw = getattr(e, "stdout", None) or getattr(e, "output", None) or ""
+                if isinstance(partial_raw, bytes):
+                    partial_raw = partial_raw.decode("utf-8", errors="replace")
+                partial_str = str(partial_raw)
+                if partial_str.strip():
+                    try:
+                        recovered_json = extract_json(partial_str)
+                        recovered = response_model.model_validate(recovered_json)
+                        latency = time.monotonic() - t0
+                        logger.info(
+                            "Timeout recovery: valid response in "
+                            "partial output (%.1fs, attempt %d/%d)",
+                            latency,
+                            attempt + 1,
+                            max_retries + 1,
+                        )
+                        cli_response = CLIResponse(
+                            model=model,
+                            usage=_CLIUsage(),
+                            choices=[
+                                _CLIChoice(
+                                    finish_reason="timeout_recovered",
+                                    message=_CLIMessage(content=partial_str),
+                                )
+                            ],
+                            backend=f"cli:{backend}",
+                            latency_seconds=round(latency, 3),
+                        )
+                        adapter._fire_hooks(
+                            "completion:response", cli_response
+                        )
+                        return recovered
+                    except (json.JSONDecodeError, ValidationError, Exception):
+                        pass  # Fall through to normal timeout handling
+
                 logger.warning(
                     "Attempt %d/%d: subprocess timeout",
                     attempt + 1,
@@ -548,22 +625,42 @@ class _CompletionsNamespace:
                 if attempt < max_retries:
                     time.sleep(2**attempt)
                 else:
-                    raw_output = str(
-                        getattr(e, "stdout", None)
-                        or getattr(e, "output", None)
-                        or ""
-                    )
                     wrapped = CLIBackendError(
                         f"Subprocess timeout after {max_retries + 1} "
                         "attempts",
                         backend=backend,
-                        raw_output=raw_output,
+                        raw_output=partial_str,
                         stderr=str(getattr(e, "stderr", None) or ""),
                     )
                     adapter._fire_hooks("completion:error", wrapped)
                     raise wrapped from e
 
             except subprocess.CalledProcessError as e:
+                # Check for rate limiting before retrying
+                e_stdout = str(e.stdout or "")
+                e_stderr = str(e.stderr or "")
+                if RateLimitError.check(e_stderr, e_stdout):
+                    reset_hint = RateLimitError.extract_reset_hint(
+                        e_stderr + " " + e_stdout
+                    )
+                    logger.error(
+                        "Rate limit detected (attempt %d/%d, reset=%s)",
+                        attempt + 1,
+                        max_retries + 1,
+                        reset_hint or "unknown",
+                    )
+                    wrapped_rl = RateLimitError(
+                        f"Rate limit hit on {backend} "
+                        f"(resets {reset_hint or 'unknown'})",
+                        reset_hint=reset_hint,
+                        backend=backend,
+                        exit_code=e.returncode,
+                        raw_output=e_stdout,
+                        stderr=e_stderr,
+                    )
+                    adapter._fire_hooks("completion:error", wrapped_rl)
+                    raise wrapped_rl from e
+
                 logger.warning(
                     "Attempt %d/%d: subprocess error (exit %d)",
                     attempt + 1,

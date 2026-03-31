@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 import instructor
 from pydantic import ValidationError
@@ -24,6 +24,10 @@ from engines.excerpting.contracts import (
     ExcerptingErrorCodes,
     validate_cs_invariants,
 )
+
+if TYPE_CHECKING:
+    from engines.excerpting.src.cache import CacheManager
+    from engines.excerpting.src.progress import ProgressTracker
 
 logger = logging.getLogger(__name__)
 
@@ -362,11 +366,17 @@ def run_phase2a(
     chunks: list[AssembledChunk],
     client: instructor.Instructor,
     config: ExcerptingConfig,
+    progress: Optional["ProgressTracker"] = None,
+    cache: Optional["CacheManager"] = None,
 ) -> dict[str, list[ClassifiedSegment]]:
     """Execute Phase 2a for all chunks: classify → normalize → verify (§5.1 steps 1–3).
 
     Retries per §5.5.2 (max ``1 + config.RETRY_COUNT`` attempts per chunk).
     Flags failed chunks with EX-C-001 / EX-C-003 / EX-C-004.
+
+    Args:
+        progress: Optional WAL-based tracker. When provided, completed chunks
+            are skipped on resume and newly completed chunks are recorded.
 
     Returns:
         ``dict[chunk_id → list[ClassifiedSegment]]``.
@@ -376,6 +386,51 @@ def run_phase2a(
     max_attempts = 1 + config.RETRY_COUNT
 
     for chunk in chunks:
+        # Resume check: skip chunks already completed in a prior run
+        if progress is not None and progress.is_done(chunk.chunk_id, "phase2a"):
+            logger.info(
+                "Chunk %s phase2a: skipping (already done)", chunk.chunk_id
+            )
+            continue
+
+        # Cache check (first-attempt prompt only, no error_feedback)
+        cache_key = ""
+        if cache is not None:
+            from engines.excerpting.src.cache import compute_cache_key
+
+            system_prompt = CLASSIFY_SYSTEM_PROMPT.format(
+                structural_format=chunk.structural_format.value,
+            )
+            first_user_message = f"<text>\n{chunk.assembled_text}\n</text>"
+            cache_key = compute_cache_key(
+                "classify",
+                system_prompt,
+                first_user_message,
+                config.CLASSIFY_MODEL,
+                config.LLM_TEMPERATURE,
+                _compute_classify_max_tokens(chunk.word_count),
+            )
+            cached = cache.load("classify", cache_key, ClassificationResult)
+            if cached is not None:
+                logger.info(
+                    "Chunk %s phase2a: cache hit, skipping LLM call",
+                    chunk.chunk_id,
+                )
+                try:
+                    canonical = normalize_offsets(
+                        cached.segments, chunk.assembled_text, chunk.total_tokens
+                    )
+                    verify_segments(canonical, chunk.total_tokens)
+                    result[chunk.chunk_id] = canonical
+                    if progress is not None:
+                        progress.mark_done(chunk.chunk_id, "phase2a")
+                    continue  # Skip to next chunk
+                except (ValueError, ValidationError):
+                    logger.warning(
+                        "Cached result for %s failed validation, re-processing",
+                        chunk.chunk_id,
+                    )
+
         error_feedback: Optional[str] = None
         last_error_code: Optional[str] = None
         success = False
@@ -421,6 +476,11 @@ def run_phase2a(
 
                 result[chunk.chunk_id] = canonical
                 success = True
+                # Save to cache (only first attempt with no error_feedback)
+                if cache is not None and attempt == 0:
+                    cache.save("classify", cache_key, chunk.chunk_id, config.CLASSIFY_MODEL, cr)
+                if progress is not None:
+                    progress.mark_done(chunk.chunk_id, "phase2a")
                 break
 
             except ValidationError as e:
@@ -477,6 +537,12 @@ def run_phase2a(
                 )
 
         if not success:
+            if progress is not None:
+                progress.mark_failed(
+                    chunk.chunk_id,
+                    "phase2a",
+                    last_error_code or "unknown",
+                )
             logger.error(
                 "Phase 2a FAILED for chunk %s after %d attempts. "
                 "Error code: %s. Chunk excluded from Phase 2b.",

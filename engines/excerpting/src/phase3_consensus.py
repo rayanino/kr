@@ -843,12 +843,12 @@ def run_consensus(
             all_results.extend(chunk_excerpts)
             continue
 
-        # Resume check: skip chunks already verified in a prior run
-        if progress is not None and progress.is_done(chunk_id, "phase3_consensus"):
-            logger.info(
-                "Chunk %s phase3_consensus: skipping (already done)", chunk_id
-            )
-            continue
+        # Resume: if chunk is done, fall through to cache-based reconstruction.
+        # Do NOT skip here — skipping loses the chunk from all_results/all_gates.
+        is_consensus_resume = (
+            progress is not None
+            and progress.is_done(chunk_id, "phase3_consensus")
+        )
 
         # Check if any units need consensus
         any_needs_consensus = any(
@@ -885,11 +885,42 @@ def run_consensus(
                     config.VERIFY_MAX_TOKENS,
                 )
 
-        # Try verification call
-        verification_result = None
-        loop_handled = False
+        # Cache-based skip (for resume or first-run cache reuse)
+        cached_vr: VerificationResult | None = None
+        if cache is not None and cache_key:
+            cached_vr = cache.load("verify", cache_key, VerificationResult)
+
+        if cached_vr is not None:
+            logger.info(
+                "Chunk %s phase3_consensus: cache hit%s",
+                chunk_id,
+                " (resume)" if is_consensus_resume else "",
+            )
+            verification_result = (cached_vr, excerpts_with_items_for_cache)
+            loop_handled = True
+        elif is_consensus_resume:
+            # Done but cache miss — pass through without consensus
+            logger.warning(
+                "Chunk %s phase3_consensus: done but cache miss — "
+                "passing through without consensus",
+                chunk_id,
+            )
+            for exc in chunk_excerpts:
+                flags = list(exc.review_flags)
+                if "consensus_skipped_resume" not in flags:
+                    flags.append("consensus_skipped_resume")
+                all_results.append(
+                    exc.model_copy(update={"review_flags": flags})
+                )
+            continue
+
+        # Try verification call (skipped if cache hit above)
+        verification_result = verification_result if cached_vr is not None else None
+        loop_handled = cached_vr is not None
         current_timeout = config.VERIFY_TIMEOUT
         for attempt in range(max_attempts):
+            if loop_handled:
+                break
             try:
                 start_time = time.monotonic()
                 vr = verify_chunk(
@@ -912,8 +943,8 @@ def run_consensus(
                     attempt + 1,
                     len(vr[0].items),
                 )
-                # Save to cache (only first attempt)
-                if cache is not None and attempt == 0 and cache_key:
+                # Save to cache (all attempts — needed for resume reconstruction)
+                if cache is not None and cache_key:
                     cache.save("verify", cache_key, chunk_id, config.VERIFY_MODEL, vr[0])
                 loop_handled = True
                 break

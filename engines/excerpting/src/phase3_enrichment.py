@@ -31,6 +31,8 @@ from engines.excerpting.contracts import (
 
 if TYPE_CHECKING:
     from engines.excerpting.contracts import ResolvedScholar
+    from engines.excerpting.src.cache import CacheManager
+    from engines.excerpting.src.progress import ProgressTracker
 
 logger = logging.getLogger(__name__)
 
@@ -422,6 +424,8 @@ def run_phase3_enrichment(
     client: instructor.Instructor,
     config: ExcerptingConfig,
     source_metadata: Optional[dict[str, str]] = None,
+    progress: Optional["ProgressTracker"] = None,
+    cache: Optional["CacheManager"] = None,
 ) -> list[ExcerptRecord]:
     """Execute LLM enrichment for all chunks (§7.2).
 
@@ -470,6 +474,52 @@ def run_phase3_enrichment(
             all_results.extend(chunk_excerpts)
             continue
 
+        # Resume: if chunk is done, fall through to cache check below.
+        # The cache will reconstruct the enrichment result without an LLM call.
+        # Do NOT skip here — skipping loses the chunk from all_results.
+        is_resume = progress is not None and progress.is_done(
+            chunk_id, "phase3_enrich"
+        )
+
+        # Cache check (first-attempt prompt only)
+        cache_key = ""
+        if cache is not None:
+            from engines.excerpting.src.cache import compute_cache_key
+
+            enrich_user_message = _build_enrichment_user_message(
+                chunk, chunk_excerpts, source_metadata,
+            )
+            cache_key = compute_cache_key(
+                "enrich",
+                ENRICH_SYSTEM_PROMPT,
+                enrich_user_message,
+                config.ENRICH_MODEL,
+                config.LLM_TEMPERATURE,
+                _compute_enrich_max_tokens(chunk.word_count),
+            )
+            cached = cache.load("enrich", cache_key, EnrichmentResult)
+            if cached is not None:
+                logger.info(
+                    "Chunk %s phase3_enrich: cache hit, skipping LLM call",
+                    chunk_id,
+                )
+                enriched = apply_enrichment(chunk_excerpts, cached)
+                all_results.extend(enriched)
+                if progress is not None:
+                    progress.mark_done(chunk_id, "phase3_enrich")
+                continue
+
+        # Resume with cache miss: chunk was done but cache is gone.
+        # Pass through deterministic-only excerpts rather than re-calling LLM.
+        if is_resume:
+            logger.warning(
+                "Chunk %s phase3_enrich: done but cache miss — "
+                "using deterministic-only excerpts",
+                chunk_id,
+            )
+            all_results.extend(chunk_excerpts)
+            continue
+
         success = False
         current_timeout = config.ENRICH_TIMEOUT
         for attempt in range(max_attempts):
@@ -493,6 +543,11 @@ def run_phase3_enrichment(
                 enriched = apply_enrichment(chunk_excerpts, enrichment)
                 all_results.extend(enriched)
                 success = True
+                # Save to cache (all attempts — needed for resume reconstruction)
+                if cache is not None and cache_key:
+                    cache.save("enrich", cache_key, chunk_id, config.ENRICH_MODEL, enrichment)
+                if progress is not None:
+                    progress.mark_done(chunk_id, "phase3_enrich")
                 break
 
             except ValidationError as e:
@@ -518,6 +573,12 @@ def run_phase3_enrichment(
                 )
 
         if not success:
+            if progress is not None:
+                progress.mark_failed(
+                    chunk_id,
+                    "phase3_enrich",
+                    ExcerptingErrorCodes.EX_M_002,
+                )
             logger.error(
                 "%s: LLM enrichment failed after %d attempts for chunk %s. "
                 "Keeping deterministic-only fields.",
