@@ -7,9 +7,8 @@ Integration tests with real LLM are in test_phase2_integration.py (gated).
 from __future__ import annotations
 
 import logging
-import time
-from typing import Any
-from unittest.mock import MagicMock, call, patch
+from typing import Any, cast
+from unittest.mock import patch
 
 import pytest
 from pydantic import ValidationError
@@ -23,11 +22,8 @@ from engines.excerpting.contracts import (
 )
 from engines.excerpting.src.phase2_classify import (
     CLASSIFY_SYSTEM_PROMPT,
-    _SNIPPET_NOT_FOUND_FEEDBACK,
     classify_chunk,
-    normalize_offsets,
     run_phase2a,
-    verify_segments,
 )
 from engines.excerpting.tests.conftest import (
     _make_assembled_chunk,
@@ -257,14 +253,14 @@ class TestRunPhase2a:
             side_effect=[
                 ValidationError.from_exception_data(
                     title="ClassificationResult",
-                    line_errors=[
+                    line_errors=cast(Any, [
                         {
                             "type": "missing",
                             "loc": ("segments",),
                             "msg": "Field required",
                             "input": {},
                         }
-                    ],
+                    ]),
                 ),
                 good_cr,
             ]
@@ -369,3 +365,41 @@ class TestRunPhase2a:
         config = ExcerptingConfig()
         result = run_phase2a([], client, config)
         assert result == {}
+
+    def test_trace_context_chunk_id_set_per_chunk(self) -> None:
+        """L-001 regression: trace_context['chunk_id'] set before each LLM call."""
+        cr = _make_classification_result(_TEST_TEXT, n_segments=1)
+        captured_chunk_ids: list[str | None] = []
+        trace_context: dict[str, Any] = {
+            "semantic_phase": "classification",
+            "chunk_id": None,
+        }
+
+        def capture_side_effect(**kwargs: Any) -> Any:
+            captured_chunk_ids.append(trace_context.get("chunk_id"))
+            return cr
+
+        client = _make_mock_instructor_client()
+        client.chat.completions.create.side_effect = capture_side_effect
+        config = ExcerptingConfig()
+        c1 = _make_test_chunk(chunk_id="chunk_alpha", div_id="chunk_alpha")
+        c2 = _make_test_chunk(chunk_id="chunk_beta", div_id="chunk_beta")
+
+        result = run_phase2a([c1, c2], client, config, trace_context=trace_context)
+
+        assert "chunk_alpha" in result
+        assert "chunk_beta" in result
+        # Each LLM call should have seen its chunk's ID
+        assert captured_chunk_ids == ["chunk_alpha", "chunk_beta"]
+        # After completion, chunk_id should be reset
+        assert trace_context["chunk_id"] is None
+
+    def test_trace_context_none_is_safe(self) -> None:
+        """Passing trace_context=None (default) does not break run_phase2a."""
+        cr = _make_classification_result(_TEST_TEXT, n_segments=1)
+        client = _make_mock_instructor_client(return_value=cr)
+        config = ExcerptingConfig()
+        chunk = _make_test_chunk()
+
+        result = run_phase2a([chunk], client, config, trace_context=None)
+        assert chunk.chunk_id in result

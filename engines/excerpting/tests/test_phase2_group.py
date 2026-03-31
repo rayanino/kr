@@ -10,8 +10,6 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from pydantic import ValidationError
-
 from engines.excerpting.contracts import (
     ClassifiedSegment,
     ExcerptingConfig,
@@ -32,7 +30,6 @@ from engines.excerpting.tests.conftest import (
     _make_assembled_chunk,
     _make_classified_segment,
     _make_mock_instructor_client,
-    _make_teaching_unit,
 )
 
 
@@ -414,7 +411,7 @@ class TestRunPhase2b:
         chunk = _make_test_chunk()
 
         with patch("engines.excerpting.src.phase2_group.time.sleep"):
-            result = run_phase2b(
+            run_phase2b(
                 [chunk], {chunk.chunk_id: segments}, client, config
             )
 
@@ -442,3 +439,51 @@ class TestRunPhase2b:
 
         assert "Phase 2b group" in caplog.text
         assert "attempt=1" in caplog.text
+
+    def test_trace_context_chunk_id_set_per_chunk(self) -> None:
+        """L-001 regression: trace_context['chunk_id'] set before each LLM call."""
+        segments = _make_two_segments()
+        er = _make_valid_extraction_result(segments)
+        captured_chunk_ids: list[str | None] = []
+        trace_context: dict[str, Any] = {
+            "semantic_phase": "grouping",
+            "chunk_id": None,
+        }
+
+        def capture_side_effect(**kwargs: Any) -> Any:
+            captured_chunk_ids.append(trace_context.get("chunk_id"))
+            return er
+
+        client = _make_mock_instructor_client()
+        client.chat.completions.create.side_effect = capture_side_effect
+        config = ExcerptingConfig()
+        c1 = _make_test_chunk(chunk_id="chunk_alpha", div_id="chunk_alpha")
+        c2 = _make_test_chunk(chunk_id="chunk_beta", div_id="chunk_beta")
+        classified = {
+            "chunk_alpha": segments,
+            "chunk_beta": segments,
+        }
+
+        result = run_phase2b(
+            [c1, c2], classified, client, config, trace_context=trace_context
+        )
+
+        assert "chunk_alpha" in result
+        assert "chunk_beta" in result
+        # Each LLM call should have seen its chunk's ID
+        assert captured_chunk_ids == ["chunk_alpha", "chunk_beta"]
+        # After completion, chunk_id should be reset
+        assert trace_context["chunk_id"] is None
+
+    def test_trace_context_none_is_safe(self) -> None:
+        """Passing trace_context=None (default) does not break run_phase2b."""
+        segments = _make_two_segments()
+        er = _make_valid_extraction_result(segments)
+        client = _make_mock_instructor_client(return_value=er)
+        config = ExcerptingConfig()
+        chunk = _make_test_chunk()
+
+        result = run_phase2b(
+            [chunk], {chunk.chunk_id: segments}, client, config, trace_context=None
+        )
+        assert chunk.chunk_id in result

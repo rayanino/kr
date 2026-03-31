@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import logging
 import time
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import instructor
 from pydantic import ValidationError
@@ -285,6 +285,7 @@ def run_phase2b(
     config: ExcerptingConfig,
     progress: Optional["ProgressTracker"] = None,
     cache: Optional["CacheManager"] = None,
+    trace_context: Optional[dict[str, Any]] = None,
 ) -> dict[str, list[TeachingUnit]]:
     """Execute Phase 2b for all chunks: group → verify (§5.1 steps 4–5).
 
@@ -304,6 +305,11 @@ def run_phase2b(
     max_attempts = 1 + config.RETRY_COUNT
 
     for chunk in chunks:
+        # L-001: Set chunk_id on trace context so Instructor hooks can
+        # attribute this LLM call to the correct chunk.
+        if trace_context is not None:
+            trace_context["chunk_id"] = chunk.chunk_id
+
         segments = classified.get(chunk.chunk_id)
         if segments is None:
             continue  # Phase 2a failed for this chunk
@@ -465,5 +471,9 @@ def run_phase2b(
                 max_attempts,
                 last_error_code,
             )
+
+    # L-001: Reset chunk_id after all chunks processed.
+    if trace_context is not None:
+        trace_context["chunk_id"] = None
 
     return result

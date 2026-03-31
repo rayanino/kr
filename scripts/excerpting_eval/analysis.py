@@ -788,15 +788,9 @@ OBSERVABILITY_LIMITATIONS = [
         "should have fired."
     ),
     (
-        "Raw traces lack semantic phase and chunk_id: the analyzer infers "
-        "semantic phase from request content via pattern matching. If "
-        "prompt templates change, inference patterns must be updated."
-    ),
-    (
-        "Retry vs multi-chunk ambiguity: repeated identical requests are "
-        "classified as retries by content comparison, but if two different "
-        "chunks had identical text, retries would be indistinguishable "
-        "from separate chunk attempts."
+        "Pre-L-001 runs lack chunk_id in raw traces: the analyzer reads "
+        "chunk_id from request JSON when present (post-L-001); for older "
+        "run directories chunk_id is None (semantic phase inference unaffected)."
     ),
 ]
 

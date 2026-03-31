@@ -360,6 +360,9 @@ def load_llm_traces(run_dir: Path) -> list[LLMTraceEntry]:
             inferred = infer_semantic_phase(request)
         matches = _label_matches(client_label, inferred)
 
+        # L-001: Read chunk_id when present (post-L-001 runs).
+        explicit_chunk_id = request.get("chunk_id")
+
         # Load response
         resp_file = resp_dir / f"{stem}.json" if resp_dir.is_dir() else None
         response: dict | None = None
@@ -406,6 +409,7 @@ def load_llm_traces(run_dir: Path) -> list[LLMTraceEntry]:
             cost=cost,
             has_error=error_data is not None,
             error_type=error_data.get("error_type") if error_data else None,
+            chunk_id=explicit_chunk_id if isinstance(explicit_chunk_id, str) else None,
         ))
 
     return traces

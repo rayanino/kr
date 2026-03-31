@@ -130,6 +130,7 @@ class LLMTraceEntry:
     cost: float | None = None
     has_error: bool = False
     error_type: str | None = None
+    chunk_id: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -145,6 +146,7 @@ class LLMTraceEntry:
             "cost": self.cost,
             "has_error": self.has_error,
             "error_type": self.error_type,
+            "chunk_id": self.chunk_id,
         }
 
 

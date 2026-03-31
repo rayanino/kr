@@ -1182,7 +1182,7 @@ def run_pipeline(
         classified = _mock_phase2a(chunks)
     else:
         try:
-            classified = run_phase2a(chunks, enrich_client, config, progress=progress, cache=llm_cache)
+            classified = run_phase2a(chunks, enrich_client, config, progress=progress, cache=llm_cache, trace_context=trace_contexts.get("enrich"))
         except KeyboardInterrupt:
             _append_error_once(
                 all_errors,
@@ -1272,7 +1272,7 @@ def run_pipeline(
         grouped = _mock_phase2b(chunks, classified)
     else:
         try:
-            grouped = run_phase2b(chunks, classified, enrich_client, config, progress=progress, cache=llm_cache)
+            grouped = run_phase2b(chunks, classified, enrich_client, config, progress=progress, cache=llm_cache, trace_context=trace_contexts.get("enrich"))
         except KeyboardInterrupt:
             _append_error_once(
                 all_errors,
