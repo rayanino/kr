@@ -30,7 +30,14 @@ The NEXT session that handles the merge must follow this sequence:
 
 1. **Check if ChatGPT's synthesis is available.** If yes, proceed. If not, wait — the dual-provider merge requires both trees.
 
-2. **Fire the comparison prompt.** Paste `reference/research/chatgpt_comparison_prompt.md` to ChatGPT Pro (in the same conversation as the synthesis, if context is still available). Include the full content of `reference/research/nahw_v2_0_draft.yaml` where indicated. ChatGPT produces a merged recommended tree through 8 steps.
+2. **Fire the comparison prompt.** In the SAME ChatGPT conversation (so it retains synthesis context), paste the text of `reference/research/chatgpt_comparison_prompt.md`. ChatGPT's regular chat mode cannot access the repo, so **upload these 5 files** alongside the prompt:
+   - `reference/research/nahw_v2_0_draft.yaml` (the architect's draft tree)
+   - `reference/research/nahw_v2_leaf_inventory.md` (per-leaf reasoning)
+   - `reference/research/codex_nahw_topic_frequency.json` (302-book corpus frequency)
+   - `reference/research/codex_nahw_corpus_gaps.md` (399 uncaptured topics)
+   - `reference/research/codex_nahw_content_analysis.md` (sub-topic analysis)
+   
+   Say "continue" after each of ChatGPT's 8 steps. ChatGPT produces a merged recommended tree.
 
 3. **Fire the review prompt.** Open a NEW Fresh Claude Opus chat. Paste `reference/research/fresh_claude_review_prompt.md` with the merged tree from step 2. Fresh Claude conducts 8 adversarial checks and delivers READY/NOT READY.
 

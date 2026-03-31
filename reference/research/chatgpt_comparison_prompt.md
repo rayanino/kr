@@ -12,7 +12,7 @@ You completed an independent synthesis of 4 researcher outputs into a nahw taxon
 
 ## The second tree (produced by Claude Opus, independent synthesis)
 
-[PASTE THE FULL CONTENT OF reference/research/nahw_v2_0_draft.yaml HERE]
+The second tree has been uploaded as `nahw_v2_0_draft.yaml`. Read it from the uploaded file. It has 146 leaves across 9 Level-1 branches.
 
 ---
 
@@ -27,26 +27,31 @@ This tree was produced by a Claude Opus architect session that followed an 11-st
 - Step 10: Sarf boundary verification
 - Step 11: Self-review (YAML validation, ID uniqueness, leaf count, sarf scan, scholarly reality)
 
-**Result:** 146 leaves, 9 Level-1 branches. All leaves have confidence ratings (HIGH/MEDIUM/LOW). The leaf inventory with per-leaf reasoning is at `reference/research/nahw_v2_leaf_inventory.md` — read it to understand WHY each leaf was included.
+**Result:** 146 leaves, 9 Level-1 branches. All leaves have confidence ratings (HIGH/MEDIUM/LOW). The leaf inventory with per-leaf reasoning is uploaded as `nahw_v2_leaf_inventory.md` — read it to understand WHY each leaf was included.
 
 ---
 
-## Do you still have the research files in context?
+## Depth asymmetry — read this before starting
 
-If you completed your synthesis in THIS conversation, you should still have access to the research files. If you do NOT have them, you MUST clone the repo and read them before proceeding:
+Your synthesis took 24 steps of deep analysis over many hours. The second tree (Claude's) took 11 steps in a single session. When your research provides stronger evidence for a decision, **your decision should prevail.** The comparison's purpose is to catch anything your deep analysis might have missed from a different perspective — not to dilute your work with a shallower analysis. Resolve disagreements based on EVIDENCE STRENGTH, not by splitting the difference.
 
-```
-git clone https://{token}@github.com/rayanino/kr.git
-```
+---
 
-**Files you need access to (verify you can reference them):**
-- `reference/research/codex_nahw_topic_frequency.json` — corpus frequency (302 books). THIS IS GROUND TRUTH for which topics are real.
-- `reference/research/codex_nahw_corpus_gaps.md` — 399 topics in 5+ books not captured by corpus tree
-- `reference/research/codex_nahw_content_analysis.md` — sub-topic analysis of 3 largest books
-- `reference/research/chatgpt_nahw_taxonomy.yaml` — Researcher 1 input (178 leaves)
-- `reference/research/claudechat_nahw_taxonomy.yaml` — Researcher 2 input (93 leaves)
-- `reference/research/codex_nahw_corpus_tree.yaml` — Researcher 3 input (82 leaves)
-- `reference/research/nahw_v2_leaf_inventory.md` — Claude's per-leaf reasoning
+## Evidence files
+
+The following files have been uploaded alongside this prompt. You should also still have context from the research files you read during your synthesis. If your context for any file has gone stale, check the uploaded versions.
+
+**Uploaded files (verify you can access each):**
+1. `nahw_v2_0_draft.yaml` — Claude's draft tree (the second tree to compare against yours)
+2. `nahw_v2_leaf_inventory.md` — Claude's per-leaf reasoning and confidence ratings
+3. `codex_nahw_topic_frequency.json` — corpus frequency (302 books). THIS IS GROUND TRUTH for which topics are real.
+4. `codex_nahw_corpus_gaps.md` — 399 topics in 5+ books not captured by corpus tree
+5. `codex_nahw_content_analysis.md` — sub-topic analysis of 3 largest books
+
+**From your synthesis context (you should still have these):**
+- `chatgpt_nahw_taxonomy.yaml` — Researcher 1 input (your own 178-leaf tree)
+- `claudechat_nahw_taxonomy.yaml` — Researcher 2 input (93 leaves)
+- `codex_nahw_corpus_tree.yaml` — Researcher 3 input (82 leaves)
 
 **If you cannot access any of these files, STOP and tell me.** Do not proceed from memory alone.
 

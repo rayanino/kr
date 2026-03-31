@@ -20,7 +20,7 @@ Without the review team, wrong school attributions would have shipped silently i
 |----------|------|--------|----------|
 | **Claude Chat** (Architect) | Lead decision-maker, quality gate | Full project context + memory | Architecture, synthesis, final judgment |
 | **CC** (Claude Code) | Builder, empirical validator | Direct repo access, code execution | Implementation, tests, running scripts |
-| **ChatGPT 5.4** | Deep researcher | GitHub repo access, deep research mode | Risk analysis, comprehensive reports, SPEC review |
+| **ChatGPT 5.4** | Deep researcher | Deep Research mode: GitHub repo access. Regular chat: needs files uploaded manually by owner. | Risk analysis, comprehensive reports, SPEC review |
 | **Fresh Claude Chat** (Opus) | Independent cold-read auditor | Repo via clone, zero context/bias | Finding what biased sessions miss, adversarial review |
 | **Codex CLI** | Independent model verification | Repo access | Code review from a different model |
 | **Gemini CLI** (optional) | Adversarial challenger | Needs files uploaded manually | General design review, NOT codebase-specific analysis |

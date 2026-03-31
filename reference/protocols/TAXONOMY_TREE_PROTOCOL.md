@@ -371,16 +371,27 @@ Session 28 proved that a single reviewer — even a thorough one — misses bloc
 
 The architect follows Steps 1–9 from §5, producing a draft tree at `reference/research/{science}_v2_0_draft.yaml`. This is committed to the repo with all supporting artifacts (leaf inventory, synthesis notes).
 
-Simultaneously or sequentially, ChatGPT Pro runs its own independent synthesis of the same 4 researcher inputs using a parallel prompt (base: `reference/research/chatgpt_synthesis_prompt.md`, adapted for the science).
+Simultaneously or sequentially, ChatGPT Pro runs its own independent synthesis of the same 4 researcher inputs using Deep Research mode (base prompt: `reference/research/chatgpt_synthesis_prompt.md`, adapted for the science). Deep Research mode can access the GitHub repo directly. The owner fires the prompt and says "continue" after each step.
 
 **Phase 2: Comparison (ChatGPT Pro)**
 
-ChatGPT Pro receives BOTH trees (its own synthesis + the architect's draft) and a comparison prompt (base: `reference/research/chatgpt_comparison_prompt.md`, adapted for the science). ChatGPT:
+After ChatGPT completes its synthesis, the owner fires the comparison prompt in the SAME conversation (so ChatGPT retains context from its synthesis). The comparison prompt (base: `reference/research/chatgpt_comparison_prompt.md`, adapted for the science) includes the architect's draft tree.
+
+**ChatGPT access note:** The comparison runs in regular chat mode (continuing from the synthesis), NOT in a new Deep Research session. ChatGPT cannot re-access the repo at this point. The owner must **upload** the following files alongside the comparison prompt:
+1. The architect's draft tree YAML
+2. The architect's leaf inventory
+3. `codex_nahw_topic_frequency.json` (or equivalent corpus frequency file)
+4. `codex_nahw_corpus_gaps.md` (or equivalent)
+5. `codex_nahw_content_analysis.md` (or equivalent)
+
+ChatGPT should still have context from the researcher files it read during Deep Research, but the uploaded files ensure evidence is available even if context has degraded.
+
+ChatGPT:
 - Compares both trees systematically
 - Resolves every disagreement with evidence (corpus data, researcher counts, canonical sources)
 - Produces a single recommended merged tree
 
-**Why ChatGPT for comparison:** ChatGPT Pro's deep research mode excels at systematic, evidence-heavy comparison tasks. It can hold both trees in context and produce exhaustive side-by-side analysis.
+**Why ChatGPT for comparison:** ChatGPT's multi-hour deep synthesis gives it the deepest understanding of the research inputs. The comparison leverages that depth — ChatGPT can evaluate the architect's tree against evidence it spent hours analyzing. The architect's tree provides a different organizational perspective that may reveal blind spots in ChatGPT's analysis.
 
 **Phase 3: Adversarial review (Fresh Claude Opus)**
 
@@ -415,6 +426,8 @@ When adapting the base prompts for a new science:
 3. Add science-specific canonical textbook names
 4. Adjust leaf count targets if the science is smaller/larger than nahw
 5. Include any lessons from prior science validations in a "known issues" section
+6. Update the file upload list in the comparison prompt to reference the correct corpus files for this science
+7. Remove the `git clone` section from the comparison prompt (ChatGPT regular chat mode cannot access the repo — the owner uploads files directly)
 
 ---
 
