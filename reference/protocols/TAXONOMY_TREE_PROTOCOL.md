@@ -237,11 +237,9 @@ Apply the boundary rules from §6. Search all proposed titles for boundary-scien
 
 ### Step 7: ChatGPT synthesis comparison (if applicable)
 
-If ChatGPT Pro was given a parallel synthesis prompt, compare its output against the architect's independent analysis (Steps 1–6):
-- Points of agreement → high confidence (but verify against corpus — convergence trap)
-- Points of disagreement → resolve with evidence, not preference
-- Things ChatGPT caught that the architect missed → incorporate
-- Things the architect caught that ChatGPT missed → retain
+If ChatGPT Pro has already completed its parallel synthesis (and its output is available), do an initial comparison against your independent analysis from Steps 1–6. Note points of agreement and disagreement. This is a PRELIMINARY comparison — the formal dual-provider comparison happens in §8 Phase 2, where ChatGPT receives both trees and produces an evidence-based merge.
+
+If ChatGPT's synthesis is not yet available, skip this step. The merge process (§8) handles both cases.
 
 ### Step 8: Produce the YAML tree
 
@@ -263,11 +261,15 @@ Verify with tool calls — not memory:
 
 ### Step 10: Prepare merge process prompts
 
-Write the prompts for the 3-phase merge (§8). Save to `reference/research/`.
+Adapt the existing merge process prompts for this science (see §8.4 for adaptation rules):
+- Base comparison prompt: `reference/research/chatgpt_comparison_prompt.md`
+- Base review prompt: `reference/research/fresh_claude_review_prompt.md`
+
+Save adapted versions to `reference/research/`. The architect's synthesis (Steps 1–9) is now Phase 1 of §8. The owner fires the adapted prompts to begin Phases 2 and 3.
 
 ### Step 11: Finalize after merge
 
-After the 3-phase merge completes, apply all findings and produce the final tree.
+After the 3-phase merge (§8) completes and the architect runs all quality gates (§9) on the final tree, proceed to post-validation (§11 of this protocol).
 
 ---
 
@@ -346,6 +348,15 @@ The corpus gap check verifies the tree against empirical reality: what topics AC
 | 5–14 | MAY be in tree if supported by knowledge researchers |
 | < 5 | Do NOT add solely based on frequency (too rare to justify a leaf) |
 
+### 7.4 Corpus data reliability
+
+The corpus data is the best available empirical evidence for which topics exist in the owner's collection, but it is not infallible. Known error sources:
+- **Heading extraction errors:** Regex-based heading extraction can misidentify text as headings or miss real headings. Frequency counts may be inflated or deflated.
+- **Book misidentification:** A book tagged as one science might actually cover multiple sciences. Sarf chapters in a "nahw" book inflate nahw topic frequencies.
+- **Duplicate counting:** If the same book appears under multiple titles, its headings are counted multiple times.
+
+**Mitigation:** The scholarly gates (§9 S-1 through S-6) verify the tree against real-world evidence independently of corpus data. If a topic has high corpus frequency but fails the scholarly reality check (S-1), investigate the corpus data — the frequency may be an artifact. Do not treat corpus frequency as infallible; treat it as the strongest available signal, cross-checked by scholarly verification.
+
 ---
 
 ## 8. Multi-Provider Merge Process
@@ -389,7 +400,12 @@ A fresh Claude Opus instance — in a NEW chat with zero prior context — recei
 - If Phase 2 produces a clean merge with minor adjustments → proceed to Phase 3
 - If Phase 2 reveals fundamental disagreements → architect resolves with evidence, updates the merged tree, then proceeds to Phase 3
 - If Phase 3 delivers NOT READY → fix all blocking findings, then re-run Phase 3 with a NEW fresh Claude instance (the original reviewer has lost its "fresh eyes" advantage)
-- If Phase 3 delivers READY → proceed to §11 (post-validation)
+- If Phase 3 delivers READY with no adjustments needed → architect runs ALL quality gates from §9 on the final tree with their own tool calls. Only after all gates PASS → proceed to §11
+- If Phase 3 delivers READY with minor concerns → architect decides whether to act on each concern. If the tree is modified:
+  - Changes affecting ≤3 leaves (renames, minor adjustments): run §9 quality gates on modified tree. If all PASS → proceed to §11
+  - Changes affecting >3 leaves or any structural change (branch reorganization, topic relocation): re-run Phase 3 with a NEW fresh Claude instance on the modified tree
+
+**Why the architect must run §9 gates independently:** Fresh Claude's 8 checks overlap with §9 but are not identical. The architect's quality gates include engine loader testing (M-8) in the architect's own environment, confidence justification verification (S-6), and tool-verified versions of all mechanical gates. Relying solely on Fresh Claude's review is single-point-of-failure — the architect must independently verify.
 
 ### 8.4 Prompt adaptation for new sciences
 
@@ -513,7 +529,7 @@ Deeper nesting (L4+) is allowed but discouraged. Most LLM-based classification w
 
 ## 11. Post-Validation Steps
 
-After the tree passes all quality gates (§9) and the merge process (§8):
+**Prerequisites:** Phase 3 delivered READY, the architect has run ALL quality gates from §9 on the final tree with independent tool calls, and all gates PASS. Do NOT proceed to these steps with any quality gate failing.
 
 ### 11.1 Archive the old tree
 
@@ -525,7 +541,7 @@ cp library/sciences/{science}/tree.yaml \
 
 ### 11.2 Install the new tree
 
-Copy the validated tree to the active location:
+Before copying, verify that `reference/research/{science}_v2_0_draft.yaml` contains the FINAL merged tree (incorporating all Phase 2 and Phase 3 adjustments). If the final tree is in a different file, update the draft file first. Then install:
 ```bash
 cp reference/research/{science}_v2_0_draft.yaml \
    library/sciences/{science}/tree.yaml
