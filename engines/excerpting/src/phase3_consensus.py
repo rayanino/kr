@@ -213,7 +213,7 @@ def verify_chunk(
         temperature=config.LLM_TEMPERATURE,
         max_tokens=config.VERIFY_MAX_TOKENS,
         max_retries=0,
-        timeout=config.TIMEOUT_SECONDS,
+        timeout=config.VERIFY_TIMEOUT,
         response_model=VerificationResult,
         messages=[
             {"role": "system", "content": VERIFY_SYSTEM_PROMPT},
@@ -465,7 +465,7 @@ def _call_escalation(
             temperature=config.LLM_TEMPERATURE,
             max_tokens=1024,
             max_retries=0,
-            timeout=config.TIMEOUT_SECONDS,
+            timeout=config.ESCALATION_TIMEOUT,
             response_model=EscalationResponse,
             messages=[
                 {"role": "user", "content": prompt},

@@ -9,6 +9,8 @@ model: sonnet
 effort: high
 color: green
 maxTurns: 20
+skills:
+  - arabic-text
 ---
 
 You are the KR test engineer. You write tests that verify the SPEC, not the implementation.

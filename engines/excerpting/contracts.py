@@ -778,7 +778,12 @@ class ExcerptingConfig(BaseModel):
     LLM_TEMPERATURE: float = 0.0
     GROUP_MAX_TOKENS: int = 16384
     RETRY_COUNT: int = 2
-    TIMEOUT_SECONDS: int = 1800
+    # Per-phase timeouts (seconds) — calibrated from measured CLI timings
+    CLASSIFY_TIMEOUT: int = 900
+    GROUP_TIMEOUT: int = 900
+    ENRICH_TIMEOUT: int = 900
+    VERIFY_TIMEOUT: int = 600
+    ESCALATION_TIMEOUT: int = 300
 
     # Phase 3
     ENRICH_MODEL: str = "anthropic/claude-opus-4.6"
