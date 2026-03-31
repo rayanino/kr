@@ -1,0 +1,32 @@
+{
+  "call_id": "escalation_0007",
+  "latency_seconds": 1.73,
+  "model": "mistralai/mistral-large-2411",
+  "usage": {
+    "completion_tokens": 84,
+    "prompt_tokens": 909,
+    "total_tokens": 993,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 160,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.002034,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.002034,
+      "upstream_inference_prompt_cost": 0.00153,
+      "upstream_inference_completions_cost": 0.000504
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"author_id\": \"ابن عقيل\",\n  \"reasoning\": \"Model 2 provides a detailed explanation that aligns with the structure and content of the text, including the typical commentary markers and style characteristic of Ibn Aqil's work. Model 1's attribution to 'unknown' does not provide sufficient reasoning.\"\n}"
+}

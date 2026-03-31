@@ -1,0 +1,674 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 3,
+    "text_snippet": "بسم الله الرحمن الرحيم",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 1,
+    "start_word": 4,
+    "end_word": 15,
+    "text_snippet": "قال العبد الفقير إلى الله تعالى، عبد الرحمن بن",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 2,
+    "start_word": 16,
+    "end_word": 72,
+    "text_snippet": "الحمد لله الذي أرشد لابتكار هذا النمط وتفضل با",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 3,
+    "start_word": 73,
+    "end_word": 144,
+    "text_snippet": "هذا كتاب غريب الوضع، عجيب الصنع، لطيف المعنى، ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 4,
+    "start_word": 145,
+    "end_word": 152,
+    "text_snippet": "وقد سميته بـ (الاقتراح في علم أصول النحو)",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 5,
+    "start_word": 153,
+    "end_word": 157,
+    "text_snippet": "ورتبته على مقدمات وسبعة كتب.",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 6,
+    "start_word": 158,
+    "end_word": 220,
+    "text_snippet": "واعلم أني قد استمديت في هذا الكتاب كثيرا من كت",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 7,
+    "start_word": 221,
+    "end_word": 238,
+    "text_snippet": "ورتبته على نحو ترتيب أصول الفقه في الأبواب وال",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 8,
+    "start_word": 239,
+    "end_word": 268,
+    "text_snippet": "ثم بعد تمامه رأيت الكمال ابن الأنباري قال في ك",
+    "scholarly_function": "narration",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 9,
+    "start_word": 269,
+    "end_word": 322,
+    "text_snippet": "ثم قال: \" وألحقنا بالعلوم الثمانية علمين وضعنا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 10,
+    "start_word": 323,
+    "end_word": 324,
+    "text_snippet": "هذه عبارته.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 11,
+    "start_word": 325,
+    "end_word": 353,
+    "text_snippet": "فتطلبت هذين الكتابين، حتى وقفت عليهما فإذا هما",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 12,
+    "start_word": 354,
+    "end_word": 369,
+    "text_snippet": "فأما الذي في أصول النحو، فإنه في كراستين صغيرت",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 13,
+    "start_word": 370,
+    "end_word": 375,
+    "text_snippet": "الأول: في معنى أصول النحو وفائدته.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 14,
+    "start_word": 376,
+    "end_word": 380,
+    "text_snippet": "الثاني: في أقسام أدلة النحو.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 15,
+    "start_word": 381,
+    "end_word": 383,
+    "text_snippet": "الثالث: في النقل.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 16,
+    "start_word": 384,
+    "end_word": 387,
+    "text_snippet": "الرابع: في انقسام النقل.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 17,
+    "start_word": 388,
+    "end_word": 392,
+    "text_snippet": "الخامس: في شرط نقل المتواتر.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 18,
+    "start_word": 393,
+    "end_word": 397,
+    "text_snippet": "السادس: في شرط نقل الآحاد.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 19,
+    "start_word": 398,
+    "end_word": 403,
+    "text_snippet": "السابع: في قبول نقل أهل الأهواء.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 20,
+    "start_word": 404,
+    "end_word": 408,
+    "text_snippet": "الثامن: في قبول المرسل والمجهول.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 21,
+    "start_word": 409,
+    "end_word": 412,
+    "text_snippet": "التاسع: في جواز الإجازة.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 22,
+    "start_word": 413,
+    "end_word": 415,
+    "text_snippet": "العاشر: في القياس.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 23,
+    "start_word": 416,
+    "end_word": 420,
+    "text_snippet": "الحادي عشر: في تركيب القياس.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 24,
+    "start_word": 421,
+    "end_word": 428,
+    "text_snippet": "الثاني عشر: في الرد على من أنكر القياس.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 25,
+    "start_word": 429,
+    "end_word": 436,
+    "text_snippet": "الثالث عشر: في حل شبه تورد على القياس.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 26,
+    "start_word": 437,
+    "end_word": 441,
+    "text_snippet": "الرابع عشر: في أقسام القياس.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 27,
+    "start_word": 442,
+    "end_word": 446,
+    "text_snippet": "الخامس عشر: في قياس الطرد.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 28,
+    "start_word": 447,
+    "end_word": 454,
+    "text_snippet": "السادس عشر: في كون الطرد شرطا في العله.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 29,
+    "start_word": 455,
+    "end_word": 462,
+    "text_snippet": "السابع عشر: في كون العكس شرطا في العله.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 30,
+    "start_word": 463,
+    "end_word": 470,
+    "text_snippet": "الثامن عشر: في جواز تعليل الحكم بعلتين فصاعدا.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 31,
+    "start_word": 471,
+    "end_word": 483,
+    "text_snippet": "التاسع عشر: في إثبات الحكم في محل النقل، بماذا",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 32,
+    "start_word": 484,
+    "end_word": 487,
+    "text_snippet": "العشرون: في العلة القاصرة.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 33,
+    "start_word": 488,
+    "end_word": 495,
+    "text_snippet": "الحادي والعشرون: في إبراز الإخالة والمبارزة عن",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 34,
+    "start_word": 496,
+    "end_word": 507,
+    "text_snippet": "الثاني والعشرون: في الأصل الذي يرد إليه الفرع،",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 35,
+    "start_word": 508,
+    "end_word": 516,
+    "text_snippet": "الثالث والعشرون: في إلحاق الوصف بالعلة مع عدم ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 36,
+    "start_word": 517,
+    "end_word": 528,
+    "text_snippet": "الرابع والعشرون: في ذكر ما يلحق بالقياس، ويتفر",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 37,
+    "start_word": 529,
+    "end_word": 532,
+    "text_snippet": "الخامس والعشرون: في الاستحسان.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 38,
+    "start_word": 533,
+    "end_word": 536,
+    "text_snippet": "السادس والعشرون: في المعارضة.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 39,
+    "start_word": 537,
+    "end_word": 542,
+    "text_snippet": "السابع والعشرون: في معارضة النقل بالنقل.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 40,
+    "start_word": 543,
+    "end_word": 548,
+    "text_snippet": "الثامن والعشرون: في معارضة القياس بالقياس.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 41,
+    "start_word": 549,
+    "end_word": 553,
+    "text_snippet": "التاسع والعشرون: في استصحاب الحال.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 42,
+    "start_word": 554,
+    "end_word": 561,
+    "text_snippet": "الثلاثون: في الاستدلال بعدم الدليل بالشيء على ",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 43,
+    "start_word": 562,
+    "end_word": 580,
+    "text_snippet": "وأما الذي في جدل النحو، فإنه في كراسة لطيفة، س",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 44,
+    "start_word": 581,
+    "end_word": 583,
+    "text_snippet": "الأول: في السؤال.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 45,
+    "start_word": 584,
+    "end_word": 587,
+    "text_snippet": "الثاني: في وصف السائل.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 46,
+    "start_word": 588,
+    "end_word": 592,
+    "text_snippet": "الثالث: في وصف المسئول به.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 47,
+    "start_word": 593,
+    "end_word": 597,
+    "text_snippet": "الرابع: في وصف المسئول منه.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 48,
+    "start_word": 598,
+    "end_word": 602,
+    "text_snippet": "الخامس: في وصف المسئول عنه.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 49,
+    "start_word": 603,
+    "end_word": 605,
+    "text_snippet": "السادس: في الجواب.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 50,
+    "start_word": 606,
+    "end_word": 608,
+    "text_snippet": "السابع: في الاستدلال.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 51,
+    "start_word": 609,
+    "end_word": 613,
+    "text_snippet": "الثامن: في الاعتراض علىلاستدلال بالنقل.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 52,
+    "start_word": 614,
+    "end_word": 619,
+    "text_snippet": "التاسع: في الاعتراض على الاستدلال بالنقل.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 53,
+    "start_word": 620,
+    "end_word": 626,
+    "text_snippet": "العاشر: في الاعتراض على الاستدلال باستصحاب الح",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.72
+  },
+  {
+    "segment_index": 54,
+    "start_word": 627,
+    "end_word": 631,
+    "text_snippet": "الحادي عشر: في ترتيب الأسئلة.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 55,
+    "start_word": 632,
+    "end_word": 636,
+    "text_snippet": "الثاني عشر: في ترجيح الأدلة.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.74
+  },
+  {
+    "segment_index": 56,
+    "start_word": 637,
+    "end_word": 637,
+    "text_snippet": "انتهى.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 57,
+    "start_word": 638,
+    "end_word": 686,
+    "text_snippet": "وقد أخذت من الكتاب الأول اللباب وأدخلته معزوا ",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 58,
+    "start_word": 687,
+    "end_word": 701,
+    "text_snippet": "وإلى الله الضراعة في حسن الختام والقبول، فلا ين",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 59,
+    "start_word": 702,
+    "end_word": 704,
+    "text_snippet": "الكلام في‌‌ المقدمات",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 60,
+    "start_word": 705,
+    "end_word": 707,
+    "text_snippet": "فيها مسائل الأولى",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 61,
+    "start_word": 708,
+    "end_word": 725,
+    "text_snippet": "أصول النحو: علم يبحث فيه عن أدلة النحو الإجمال",
+    "scholarly_function": "definition",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 62,
+    "start_word": 726,
+    "end_word": 759,
+    "text_snippet": "فقولي (علم) ، أي صناعة فلا يرد ما أورد على الت",
+    "scholarly_function": "refutation",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 63,
+    "start_word": 760,
+    "end_word": 769,
+    "text_snippet": "وقولي (عن أدلة النحو) يخرج كل صناعة سواه، وسوى",
+    "scholarly_function": "definition",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 64,
+    "start_word": 770,
+    "end_word": 773,
+    "text_snippet": "وأدلة النحو الغالبة أربعة.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 65,
+    "start_word": 774,
+    "end_word": 786,
+    "text_snippet": "قال ابن جني في الخصائص: \" أدلة النحو ثلاثة: ال",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 66,
+    "start_word": 787,
+    "end_word": 799,
+    "text_snippet": "وقال ابن الأنباري في أصوله:\" أدلة النحو ثلاثة:",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 67,
+    "start_word": 800,
+    "end_word": 815,
+    "text_snippet": "فزاد الاستصحاب ولم يذكر الإجماع، فكأنه لم ير ا",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 68,
+    "start_word": 816,
+    "end_word": 825,
+    "text_snippet": "وقد تحصل مما ذكراه أربعة، وقد عقدت لها أربعة ك",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.76
+  },
+  {
+    "segment_index": 69,
+    "start_word": 826,
+    "end_word": 852,
+    "text_snippet": "وكل من الإجماع والقياس لا بد له من مستند من ال",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 70,
+    "start_word": 853,
+    "end_word": 859,
+    "text_snippet": "وقولي (الإجمالية) احتراز في البحث عن التفصيلي",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 71,
+    "start_word": 860,
+    "end_word": 886,
+    "text_snippet": "كالبحث عن دليل خاص بجواز العطف على الضمير المج",
+    "scholarly_function": "example",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 72,
+    "start_word": 887,
+    "end_word": 893,
+    "text_snippet": "فهذه وظيفة علم النحو نفسه، لا أصوله.",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 73,
+    "start_word": 894,
+    "end_word": 934,
+    "text_snippet": "وقولي (من حيث هي أدلته) بيان لجهة البحث عنها، ",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 74,
+    "start_word": 935,
+    "end_word": 954,
+    "text_snippet": "أي إن كلا مما ذكر يجوز الاحتجاج به دون غيره، و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 75,
+    "start_word": 955,
+    "end_word": 963,
+    "text_snippet": "وقولي (وكيفية الاستدلال بها) ، أي عند تعارضها ",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 76,
+    "start_word": 964,
+    "end_word": 985,
+    "text_snippet": "كتقديم السماع على القياس واللغة الحجازية على ا",
+    "scholarly_function": "example",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 77,
+    "start_word": 986,
+    "end_word": 992,
+    "text_snippet": "وهذا هو المعقود له من الكتاب السادس.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 78,
+    "start_word": 993,
+    "end_word": 1012,
+    "text_snippet": "وقولي (وحال المستدل) ، أي المستنبط للمسائل من ",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 79,
+    "start_word": 1013,
+    "end_word": 1018,
+    "text_snippet": "وهذا هو الموضوع له الكتاب السابع.",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 80,
+    "start_word": 1019,
+    "end_word": 1025,
+    "text_snippet": "وبعد أن حررت هذا الحد بفكري وشرحته،",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 81,
+    "start_word": 1026,
+    "end_word": 1050,
+    "text_snippet": "وجدت ابن الأنباري قال: \" أصول النحو أدلة النحو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 82,
+    "start_word": 1051,
+    "end_word": 1086,
+    "text_snippet": "وفائدته التعويل في إثبات الحكم على الحجة والتع",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 83,
+    "start_word": 1087,
+    "end_word": 1094,
+    "text_snippet": "هذا جميع ما ذكره في الفصل الأول بحروفه.",
+    "scholarly_function": "editorial_note",
+    "confidence": 0.97
+  }
+]

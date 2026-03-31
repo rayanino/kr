@@ -1,0 +1,32 @@
+{
+  "call_id": "enrich_0003",
+  "latency_seconds": 21.16,
+  "model": "openai/gpt-5.4-20260305",
+  "usage": {
+    "completion_tokens": 1552,
+    "prompt_tokens": 5907,
+    "total_tokens": 7459,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.0380475,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.0380475,
+      "upstream_inference_prompt_cost": 0.0147675,
+      "upstream_inference_completions_cost": 0.02328
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"teaching_units\": [\n    {\n      \"unit_index\": 0,\n      \"segment_indices\": [0, 1, 2, 3],\n      \"start_word\": 0,\n      \"end_word\": 48,\n      \"text_snippet\": \"‌‌مقدمة الطبعة الثانية\\nبسم الله الرحمن الرحيم\\nالحمد لله المنعوت بجميل الصفات، \",\n      \"primary_function\": \"editorial_note\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"افتتاح مقدمة الطبعة الثانية بالبسملة والحمدلة والصلاة على النبي.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 1,\n      \"segment_indices\": [4, 5, 6, 7],\n      \"start_word\": 49,\n      \"end_word\": 341,\n      \"text_snippet\": \"وبعد، فقد كان مما جرى به القضاء أني كتبت منذ أربع سنوات كتاب تعليقات على كتا\",\n      \"primary_function\": \"editorial_note\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"سبب تأليف التعليقات، قبول الناس لها، وسبب إخراج الطبعة الثانية مع الدعاء والخاتمة.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 2,\n      \"segment_indices\": [8, 9, 10, 11],\n      \"start_word\": 342,\n      \"end_word\": 427,\n      \"text_snippet\": \"مقدمة الطبعة الأولى\\nبسم الله الرحمن الرحيم\\nالحمد لله على نعمائه، وصلاته وسلام\",\n      \"primary_function\": \"editorial_note\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"افتتاح مقدمة الطبعة الأولى بالبسملة والحمد والثناء والصلاة على النبي وآله.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 3,\n      \"segment_indices\": [12, 13],\n      \"start_word\": 428,\n      \"end_word\": 530,\n      \"text_snippet\": \"ثم أما بعد، فلعلك لا تجد مؤلفا - ممن صنفوا في قواعد العربية - قد نال من الحظو\",\n      \"primary_function\": \"opinion_statement\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"بيان منزلة ابن مالك بين مصنفي العربية وكثرة مؤلفاته وعناية العلماء بها.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 4,\n      \"segment_indices\": [14, 15],\n      \"start_word\": 531,\n      \"end_word\": 639,\n      \"text_snippet\": \"ومن هذه المؤلفات كتابه \\\" الخلاصة \\\" الذي اشتهر بين الناس باسم \\\" الألفية \\\" ⌜1⌝ \",\n      \"primary_function\": \"definition\",\n      \"secondary_functions\": [\"opinion_statement\"],\n      \"description_arabic\": \"تعريف كتاب الخلاصة المشهور بالألفية وبيان موضوعه وسبب شدة الإقبال عليه.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 5,\n      \"segment_indices\": [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27],\n      \"start_word\": 640,\n      \"end_word\": 1063,\n      \"text_snippet\": \"وشروح هذا الكتاب أكثر من أن تتسع هذه الكلمة الموجزة لتعدادها، وبيان مزاياها، \",\n      \"primary_function\": \"narration\",\n      \"secondary_functions\": [\"opinion_statement\"],\n      \"description_arabic\": \"عرض كثرة شروح الألفية وذكر أشهر الشراح مع التنبيه إلى مكانة شرح ابن عقيل.\",\n      \"self_containment\": \"PARTIAL\",\n      \"self_containment_notes\": \"فيه إحالات عابرة مثل قوله عن ابن هشام وشرحَيِه، وبعض الأسماء التاريخية تحتاج معرفة خارجية، لكن الفكرة العامة مفهومة.\"\n    },\n    {\n      \"unit_index\": 6,\n      \"segment_indices\": [28, 29, 30],\n      \"start_word\": 1064,\n      \"end_word\": 1182,\n      \"text_snippet\": \"وهذه الشروح مختلفة، ففيها المختصر، وفيها المطول، فيها المتعقب صاحبه للناظم يت\",\n      \"primary_function\": \"definition\",\n      \"secondary_functions\": [\"opinion_statement\"],\n      \"description_arabic\": \"تقسيم شروح الألفية وبيان أن شرح ابن عقيل متوسط بين الإيجاز والإطناب والتحيز.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 7,\n      \"segment_indices\": [31, 32],\n      \"start_word\": 1183,\n      \"end_word\": 1313,\n      \"text_snippet\": \"وقد أردت أن أقوم لهذا الكتاب بعمل أتقرب به إلى الله تعالى، فرأيت - في أول الأ\",\n      \"primary_function\": \"editorial_note\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"بيان منهج المحقق في التعليق وما اختاره من الإعراب والشرح والإيجاز والتذييل.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 8,\n      \"segment_indices\": [33, 34],\n      \"start_word\": 1314,\n      \"end_word\": 1419,\n      \"text_snippet\": \"وأريد أن أنبهك إلى أنني وفقت في تصحيح هذه المطبوعة تصحيحا دقيقا، فإن نسخ الكت\",\n      \"primary_function\": \"editorial_note\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"التنبيه إلى منهج تصحيح النسخ واعتماد المقابلة بينها وبيان رمز الزيادات.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 9,\n      \"segment_indices\": [35, 36],\n      \"start_word\": 1420,\n      \"end_word\": 1447,\n      \"text_snippet\": \"والله سبحانه! المسئول أن ينفع بهذا العمل على قدر العناء فيه، وأن يجعله في سبي\",\n      \"primary_function\": \"editorial_note\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"خاتمة مقدمة الطبعة الأولى بالدعاء وتوقيع المؤلف.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    }\n  ],\n  \"total_units\": 10,\n  \"notes\": \"النص مقدمات تحريرية في الغالب، لا مسائل علمية استدلالية؛ لذا جاءت أكثر الوحدات بصيغة تحريرية/تعريفية أو تقويمية.\"\n}"
+}

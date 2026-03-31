@@ -1,0 +1,32 @@
+{
+  "call_id": "enrich_0005",
+  "latency_seconds": 28.54,
+  "model": "openai/gpt-5.4-20260305",
+  "usage": {
+    "completion_tokens": 1545,
+    "prompt_tokens": 3799,
+    "total_tokens": 5344,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 3584,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.0246085,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.0246085,
+      "upstream_inference_prompt_cost": 0.0014335,
+      "upstream_inference_completions_cost": 0.023175
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"teaching_units\": [\n    {\n      \"unit_index\": 0,\n      \"segment_indices\": [0, 1, 2],\n      \"start_word\": 0,\n      \"end_word\": 47,\n      \"text_snippet\": \"‌‌تلقين المحتضر.\\n13 - فإذا حضره الموت فعلى من عنده أمور:\\nأ - أن يلقنوه الشهادة ل\",\n      \"primary_function\": \"evidence_hadith\",\n      \"secondary_functions\": [\"structural_transition\"],\n      \"description_arabic\": \"استحباب تلقين المحتضر الشهادة عند حضور الموت مع دليله من الحديث.\",\n      \"self_containment\": \"FULL\"\n    },\n    {\n      \"unit_index\": 1,\n      \"segment_indices\": [3],\n      \"start_word\": 48,\n      \"end_word\": 75,\n      \"text_snippet\": \"ب ج - أن يدعوا له ولا يقولوا في حضوره إلا خيرا لقوله صلى الله عليه وسلم:\\n\\\"إذ\",\n      \"primary_function\": \"evidence_hadith\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"الدعاء للمحتضر ووجوب الاقتصار على الخير بحضرته لأن الملائكة تؤمن على القول.\",\n      \"self_containment\": \"FULL\"\n    },\n    {\n      \"unit_index\": 2,\n      \"segment_indices\": [4, 5],\n      \"start_word\": 76,\n      \"end_word\": 142,\n      \"text_snippet\": \"14 - وليس التلقين ذكر الشهادة بحضرة الميت وتسميعها إياه بل هو أمره بأن يقولها \",\n      \"primary_function\": \"definition\",\n      \"secondary_functions\": [\"evidence_hadith\"],\n      \"description_arabic\": \"بيان معنى التلقين المشروع وأنه أمر المحتضر بالنطق بالشهادة لا مجرد ذكرها عنده.\",\n      \"self_containment\": \"FULL\"\n    },\n    {\n      \"unit_index\": 3,\n      \"segment_indices\": [6, 7],\n      \"start_word\": 143,\n      \"end_word\": 217,\n      \"text_snippet\": \"15 - وأما قراءة سورة يس عنده وتوجيهه نحو القبلة فلم يصح حديث بل كره سعيد بن ال\",\n      \"primary_function\": \"rule_statement\",\n      \"secondary_functions\": [\"narration\"],\n      \"description_arabic\": \"عدم ثبوت قراءة يس وتوجيه المحتضر إلى القبلة، وذكر أثر سعيد بن المسيب في كراهته.\",\n      \"self_containment\": \"FULL\"\n    },\n    {\n      \"unit_index\": 4,\n      \"segment_indices\": [8],\n      \"start_word\": 218,\n      \"end_word\": 293,\n      \"text_snippet\": \"16 - ولا بأس في أن يحضر المسلم وفاة الكافر ليعرض الإسلام عليه رجاء أن يسلم لحد\",\n      \"primary_function\": \"evidence_hadith\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"جواز حضور المسلم موت الكافر لعرض الإسلام عليه رجاء إسلامه قبل الوفاة.\",\n      \"self_containment\": \"FULL\"\n    },\n    {\n      \"unit_index\": 5,\n      \"segment_indices\": [9, 10, 11],\n      \"start_word\": 294,\n      \"end_word\": 387,\n      \"text_snippet\": \"3- ما على الحاضرين بعد موته.\\n17 - فإذا قضى وأسلم الروح فعليهم عدة أشياء:\\nأب - \",\n      \"primary_function\": \"evidence_hadith\",\n      \"secondary_functions\": [\"structural_transition\"],\n      \"description_arabic\": \"ما يفعل بعد الموت من تغميض عيني الميت والدعاء له مع الدعاء النبوي المأثور.\",\n      \"self_containment\": \"FULL\"\n    },\n    {\n      \"unit_index\": 6,\n      \"segment_indices\": [12, 13],\n      \"start_word\": 388,\n      \"end_word\": 479,\n      \"text_snippet\": \"ج - أن يغطوه بثوب يستر جميع بدنه لحديث عائشة رضي الله عنها: أن رسول الله صلى ال\",\n      \"primary_function\": \"condition_exception\",\n      \"secondary_functions\": [\"evidence_hadith\"],\n      \"description_arabic\": \"ستر بدن الميت بثوب بعد وفاته، واستثناء المحرم فلا يغطى رأسه ووجهه.\",\n      \"self_containment\": \"FULL\"\n    },\n    {\n      \"unit_index\": 7,\n      \"segment_indices\": [14],\n      \"start_word\": 480,\n      \"end_word\": 504,\n      \"text_snippet\": \"هـ - أن يعجلوا بتجهيزه وإخراجه إذا بان موته لحديث أبي هريرة رضي الله عنه مرفوع\",\n      \"primary_function\": \"evidence_hadith\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"المبادرة بتجهيز الميت وإخراجه بعد تحقق موته استنادا إلى أمر الإسراع بالجنازة.\",\n      \"self_containment\": \"PARTIAL\",\n      \"self_containment_notes\": \"أحال النص إلى تمام حديث أبي هريرة في مسألة لاحقة، فالدليل مذكور على وجه غير كامل وإن كان أصل المعنى مفهوما.\"\n    },\n    {\n      \"unit_index\": 8,\n      \"segment_indices\": [15, 16, 17],\n      \"start_word\": 505,\n      \"end_word\": 581,\n      \"text_snippet\": \"و أن يدفنوه في البلد الذي مات فيه ولا ينقلوه إلى غيره لأنه ينافي الإسراع المأم\",\n      \"primary_function\": \"opinion_statement\",\n      \"secondary_functions\": [\"evidence_rational\", \"narration\"],\n      \"description_arabic\": \"دفن الميت في البلد الذي مات فيه وتحريم نقله إلى بلد آخر، مع تعليل ذلك وآثار مؤيدة.\",\n      \"self_containment\": \"PARTIAL\",\n      \"self_containment_notes\": \"التعليل مبني على حديث أبي هريرة المتقدم ولم يرد هنا بتمامه، لكن الحكم والوجه العام والأثر الناقل له واضحان داخل الوحدة.\"\n    },\n    {\n      \"unit_index\": 9,\n      \"segment_indices\": [18],\n      \"start_word\": 582,\n      \"end_word\": 622,\n      \"text_snippet\": \"ز - أن يبادر بعضهم لقضاء دينه من ماله ولو أتى عليه كله فإن لم يكن له مال فعلى ا\",\n      \"primary_function\": \"rule_statement\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"المبادرة إلى قضاء دين الميت من ماله، ثم من بيت المال، ثم من متبرع عند الحاجة.\",\n      \"self_containment\": \"PARTIAL\",\n      \"self_containment_notes\": \"أشار إلى أحاديث في الأصل تؤيد الحكم ولم يذكرها هنا، فالحكم مفهوم لكن أدلته التفصيلية خارج هذه الوحدة.\"\n    }\n  ],\n  \"total_units\": 10,\n  \"notes\": \"تم تصحيح وظيفة الوحدة الخاصة بمسألة نقل الميت لتكون primary_function = opinion_statement لأنها الوظيفة الموجودة ضمن المقاطع المكوِّنة لها.\"\n}"
+}

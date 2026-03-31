@@ -1,0 +1,32 @@
+{
+  "call_id": "verify_0001",
+  "latency_seconds": 10.33,
+  "model": "anthropic/claude-4.6-opus-20260205",
+  "usage": {
+    "completion_tokens": 517,
+    "prompt_tokens": 1402,
+    "total_tokens": 1919,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.019935,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.019935,
+      "upstream_inference_prompt_cost": 0.00701,
+      "upstream_inference_completions_cost": 0.012925
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "```json\n{\n  \"items\": [\n    {\n      \"item_index\": 0,\n      \"agrees\": true,\n      \"alternative\": null,\n      \"confidence\": 0.95,\n      \"reasoning\": \"النص مجرد عنوان تنظيمي ('الكلام في المقدمات، فيها مسائل، الأولى') ولا يتضمن أي محتوى علمي مكتمل. لا يعلّم مسألة ولا يقدم حكمًا أو تعريفًا، بل هو مدخل هيكلي يحتاج إلى ما بعده ليكتمل معناه. فتقييمه بأنه PARTIAL صحيح وفق معيار C-SC-4 (الحجة/الحكم/التعليم غير مكتمل).\"\n    },\n    {\n      \"item_index\": 1,\n      \"agrees\": true,\n      \"alternative\": null,\n      \"confidence\": 0.88,\n      \"reasoning\": \"النص يشرح قيد 'من حيث هي أدلته' في تعريف أصول النحو، ويبيّن أدلة النحو (القرآن، السنة، كلام العرب، الإجماع، القياس). لكنه يحيل صراحةً إلى شرط لاحق بقوله 'بشرطتها الآتي'، وهذا إحالة أمامية غير محلولة داخل الوحدة (مخالفة لمعيار C-SC-2 من حيث عدم اكتمال المرجع، وC-SC-4 من حيث عدم اكتمال التفصيل). فتقييمه بأنه PARTIAL معقول ومقبول.\"\n    }\n  ]\n}\n```"
+}

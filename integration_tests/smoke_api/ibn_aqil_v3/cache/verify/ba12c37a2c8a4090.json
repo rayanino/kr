@@ -1,0 +1,45 @@
+{
+  "cache_key": "ba12c37a2c8a4090",
+  "chunk_id": "div_src_test0001_3_000",
+  "model": "anthropic/claude-opus-4.6",
+  "timestamp": "2026-03-31T09:32:06.573926+00:00",
+  "result": {
+    "items": [
+      {
+        "item_index": 0,
+        "agrees": true,
+        "alternative": null,
+        "confidence": 0.9,
+        "reasoning": "The text explicitly says 'فسيأتي الكلام على مجرورها عند ذكر المصنف له' — it defers the main rule about حتى's object to a later section. The unit only discusses the exceptional/شاذ case of حتى governing a pronoun and the Hudhayl dialect variant. The general rule is incomplete here, making PARTIAL the correct assessment."
+      },
+      {
+        "item_index": 1,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The text contains clear sharh markers: 'وهذا معنى قوله' (referring to ابن مالك's verse), explanatory phrases like 'أي واخصص برب النكرة', and the overall structure of explaining the matn with examples and grammatical commentary. The author is ابن عقيل as the شارح.",
+        "confidence": 0.85,
+        "reasoning": "The text is clearly ابن عقيل's commentary (sharh layer). The phrases 'وهذا معنى قوله' and 'أي واخصص برب النكرة' are typical sharh markers where the commentator explains the matn author's words. The attribution to 'unknown' is misleading — while the layer is correctly identified as sharh, the author of the sharh is known: it is ابن عقيل. The 78% coverage and LA-3 rule suggest the system couldn't confidently assign authorship, but the content clearly belongs to ابن عقيل's commentary layer."
+      },
+      {
+        "item_index": 2,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The first two lines are ابن مالك's matn (نظم), and the rest is ابن عقيل's sharh explaining the meanings of على and عن with Quranic and poetic evidence.",
+        "confidence": 0.85,
+        "reasoning": "The unit begins with ابن مالك's verses (the ألفية), then transitions to ابن عقيل's explanatory commentary with phrases like 'تستعمل على للاستعلاء كثيرا نحو...' and 'أي في حين غفلة'. This is standard sharh format. The author is ابن عقيل, not 'unknown'. The 68% coverage likely reflects the mixed matn+sharh content, but the sharh portion is clearly ابن عقيل's."
+      },
+      {
+        "item_index": 3,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The explanatory content ('أي غدت من فوقه', 'أي من جانب يميني') and the grammatical discussion are characteristic of ابن عقيل's commentary style.",
+        "confidence": 0.82,
+        "reasoning": "The text discusses على and عن being used as nouns (اسمين) when من enters upon them, with poetic evidence and glosses (أي غدت من فوقه, أي من جانب يميني). This is ابن عقيل's sharh explaining grammatical points from the ألفية. The 39% coverage is low, possibly because the unit is shorter and more concise, but the content and style are consistent with ابن عقيل's commentary. Attributing to 'unknown' is incorrect."
+      },
+      {
+        "item_index": 4,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The unit begins with ابن مالك's verse, then ابن عقيل provides the rule explanation ('لا يجوز حذف حرف الجر وإبقاء عمله إلا في رب...') with examples for each case (after الواو, الفاء, بل), and notes the شاذ case at the end.",
+        "confidence": 0.85,
+        "reasoning": "The structure is classic sharh: matn verse followed by detailed explanation with examples and poetic شواهد. The explanatory voice ('فمثاله بعد الواو قوله...', 'والشائع من ذلك...', 'وقد شذ الجر برب محذوفة...') is ابن عقيل's commentary. The 35% coverage is low but the content is unmistakably ابن عقيل's sharh layer. 'Unknown' attribution is incorrect."
+      }
+    ]
+  }
+}

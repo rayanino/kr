@@ -1,0 +1,794 @@
+[
+  {
+    "segment_index": 0,
+    "start_word": 0,
+    "end_word": 73,
+    "text_snippet": "‌‌الإضافة\nنونا تلي الإعراب أو تنوينا … مما تضيف أ",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 1,
+    "start_word": 74,
+    "end_word": 98,
+    "text_snippet": "واختلف في الجار للمضاف إليه فقيل هو مجرور بحرف ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 2,
+    "start_word": 99,
+    "end_word": 148,
+    "text_snippet": "ثم الإضافة تكون بمعنى اللام عند جميع النحويين و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 3,
+    "start_word": 149,
+    "end_word": 171,
+    "text_snippet": "فيتعين تقدير من إن كان المضاف إليه جنسا للمضاف ",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 4,
+    "start_word": 172,
+    "end_word": 192,
+    "text_snippet": "ويتعين تقدير في إن كان المضاف إليه ظرفا واقعا ف",
+    "scholarly_function": "example",
+    "confidence": 0.87
+  },
+  {
+    "segment_index": 5,
+    "start_word": 193,
+    "end_word": 202,
+    "text_snippet": "ومنه قوله تعالى: {لِلَّذِينَ يُؤْلُونَ مِنْ نِسَ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 6,
+    "start_word": 203,
+    "end_word": 208,
+    "text_snippet": "وقوله تعالى: {بَلْ مَكْرُ اللَّيْلِ وَالنَّهَارِ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 7,
+    "start_word": 209,
+    "end_word": 230,
+    "text_snippet": "فإن لم يتعين تقدير من أو في فالإضافة بمعنى اللام",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 8,
+    "start_word": 231,
+    "end_word": 274,
+    "text_snippet": "وأشار بقوله واخصص أولا إلى آخره إلى إن الإضافة ",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 9,
+    "start_word": 275,
+    "end_word": 300,
+    "text_snippet": "والمحضة ليست كذلك وتفيد الاسم الأول تخصيصا إن ك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 10,
+    "start_word": 301,
+    "end_word": 397,
+    "text_snippet": "وإن يشابه المضاف يفعل … وصفا فعن تنكيره لا يعذ",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 11,
+    "start_word": 398,
+    "end_word": 423,
+    "text_snippet": "فإن كان المضاف غير وصف أو وصفا غير عامل فالإضاف",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 12,
+    "start_word": 424,
+    "end_word": 459,
+    "text_snippet": "وأشار بقوله فعن تنكيره لا يعذل إلى أن هذا القسم",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 13,
+    "start_word": 460,
+    "end_word": 475,
+    "text_snippet": "تعالى: {هَدْياً بَالِغَ الْكَعْبَةِ} وإنما يفيد ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 14,
+    "start_word": 476,
+    "end_word": 520,
+    "text_snippet": "وأما القسم الأول فيفيد تخصيصا أو تعريفا كما تقد",
+    "scholarly_function": "definition",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 15,
+    "start_word": 521,
+    "end_word": 564,
+    "text_snippet": "ووصل أل بذا الضاف مغتفر … إن وصلت بالثان كالجع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 16,
+    "start_word": 565,
+    "end_word": 636,
+    "text_snippet": "وأما ما كانت إضافته غير محضة وهو المراد بقوله ب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 17,
+    "start_word": 637,
+    "end_word": 667,
+    "text_snippet": "فإن لم تدخل الألف واللام على المضاف إليه ولا عل",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 18,
+    "start_word": 668,
+    "end_word": 703,
+    "text_snippet": "هذا إذا كان المضاف غير مثنى ولا مجموع جمع سلامة",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 19,
+    "start_word": 704,
+    "end_word": 776,
+    "text_snippet": "فإن كان المضاف مثنى أو مجموعا جمع سلامة لمذكر ك",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 20,
+    "start_word": 777,
+    "end_word": 873,
+    "text_snippet": "ولا يضاف اسم لما به أتحد … معنى وأول موهما إذا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 21,
+    "start_word": 874,
+    "end_word": 934,
+    "text_snippet": "وأما ما ظاهره إضافة الموصوف إلى صفته فمؤول على ",
+    "scholarly_function": "refutation",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 22,
+    "start_word": 935,
+    "end_word": 986,
+    "text_snippet": "وربما أكسب ثان أولا … تأنيثا أن كان لحذف موهلا",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 23,
+    "start_word": 987,
+    "end_word": 1015,
+    "text_snippet": "ومنه قوله:\n223 - مشين كما اهتزت رماح تسفهت … أ",
+    "scholarly_function": "example",
+    "confidence": 0.85
+  },
+  {
+    "segment_index": 24,
+    "start_word": 1016,
+    "end_word": 1028,
+    "text_snippet": "وربما كان المضاف مؤنثا فاكتسب التذكير من المذكر",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 25,
+    "start_word": 1029,
+    "end_word": 1045,
+    "text_snippet": "كقوله تعالى: {إِنَّ رَحْمَتَ اللهِ قَرِيبٌ مِنَ ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 26,
+    "start_word": 1046,
+    "end_word": 1071,
+    "text_snippet": "فإن لم يصلح المضاف للحذف والاستغناء بالمضاف إلي",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 27,
+    "start_word": 1072,
+    "end_word": 1151,
+    "text_snippet": "وبعض الأسماء يضاف أبدا … وبعض ذا قد بأت لفظا م",
+    "scholarly_function": "definition",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 28,
+    "start_word": 1152,
+    "end_word": 1213,
+    "text_snippet": "وبعض ما يضاف حتما امتنع … إيلاؤه اسما ظاهرا حي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 29,
+    "start_word": 1214,
+    "end_word": 1228,
+    "text_snippet": "224 - إنك لو دعوتني ودوني … زوراء ذات مترع بي",
+    "scholarly_function": "example",
+    "confidence": 0.77
+  },
+  {
+    "segment_index": 30,
+    "start_word": 1229,
+    "end_word": 1246,
+    "text_snippet": "وشذ إضافة لبى إلى الظاهر أنشد سيبويه:\n225 - دع",
+    "scholarly_function": "example",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 31,
+    "start_word": 1247,
+    "end_word": 1284,
+    "text_snippet": "كذا ذكر المصنف ويفهم من كلام سيبويه أن ذلك غير ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 32,
+    "start_word": 1285,
+    "end_word": 1295,
+    "text_snippet": "كقوله تعالى: {ثُمَّ ارْجِعِ الْبَصَرَ كَرَّتَيْن",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 33,
+    "start_word": 1296,
+    "end_word": 1343,
+    "text_snippet": "لقوله تعالى: {يَنْقَلِبْ إِلَيْكَ الْبَصَرُ خَاس",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 34,
+    "start_word": 1344,
+    "end_word": 1368,
+    "text_snippet": "ومذهب يونس أنه ليس بمثنى وأن أصله لبى وأنه مقصو",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 35,
+    "start_word": 1369,
+    "end_word": 1424,
+    "text_snippet": "ورد عليه سيبويه بأنه لو كان الأمر كما ذكر لم تن",
+    "scholarly_function": "refutation",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 36,
+    "start_word": 1425,
+    "end_word": 1469,
+    "text_snippet": "وألزموا إضافة إلى الجمل … حيث وإذ وإن ينون يحت",
+    "scholarly_function": "definition",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 37,
+    "start_word": 1470,
+    "end_word": 1481,
+    "text_snippet": "وإلى الجملة الفعلية نحو اجلس حيث جلس زيد أو حيث",
+    "scholarly_function": "example",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 38,
+    "start_word": 1482,
+    "end_word": 1498,
+    "text_snippet": "وشذ إضافتها إلى مفرد كقوله:\n226 - أما ترى حيث س",
+    "scholarly_function": "example",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 39,
+    "start_word": 1499,
+    "end_word": 1527,
+    "text_snippet": "وأما إذ فتضاف أيضا إلى الجملة الاسمية نحو جئتك ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 40,
+    "start_word": 1528,
+    "end_word": 1557,
+    "text_snippet": "كقوله تعالى: {وَأَنْتُمْ حِينَئِذٍ تَنْظُرُونَ} ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 41,
+    "start_word": 1558,
+    "end_word": 1586,
+    "text_snippet": "وأما إذا فلا تضاف إلا إلى جملة فعلية نحو آتيك إ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 42,
+    "start_word": 1587,
+    "end_word": 1672,
+    "text_snippet": "وأشار بقوله وما كإذ معنى كإذ إلى أن ما كان مثل ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 43,
+    "start_word": 1673,
+    "end_word": 1724,
+    "text_snippet": "فإن كان الظرف غير ماض أو محدودا لم يجر مجرى إذ ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 44,
+    "start_word": 1725,
+    "end_word": 1830,
+    "text_snippet": "وابن أو أعرب ما كإذ قد أجريا … واختر بنا متلو ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 45,
+    "start_word": 1831,
+    "end_word": 1869,
+    "text_snippet": "227 - على حين عاتبت المشيب على الصبا بفتح نون ",
+    "scholarly_function": "example",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 46,
+    "start_word": 1870,
+    "end_word": 1888,
+    "text_snippet": "وقد قرئ في السبعة: {هَذَا يَوْمُ يَنْفَعُ الصَّا",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 47,
+    "start_word": 1889,
+    "end_word": 1940,
+    "text_snippet": "ومذهب البصريين أنه لا يجوز فيما أضيف إلى جملة ف",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 48,
+    "start_word": 1941,
+    "end_word": 2006,
+    "text_snippet": "وألزموا إذا إضافة إلى … جمل الأفعال كهن إذا اع",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 49,
+    "start_word": 2007,
+    "end_word": 2055,
+    "text_snippet": "وزعم السيرافي أنه لا خلاف بين سيبويه والأخفش في",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 50,
+    "start_word": 2056,
+    "end_word": 2096,
+    "text_snippet": "لمفهم اثنين معرف بلا … تفرق أضيف كلتا وكلا من ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 51,
+    "start_word": 2097,
+    "end_word": 2107,
+    "text_snippet": "228 - إن للخير وللشر مدى … وكلا ذلك وجه وقبل\n",
+    "scholarly_function": "example",
+    "confidence": 0.78
+  },
+  {
+    "segment_index": 52,
+    "start_word": 2108,
+    "end_word": 2135,
+    "text_snippet": "وهذا هو المراد بقوله لمفهم اثنين معرف واحترز بق",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.86
+  },
+  {
+    "segment_index": 53,
+    "start_word": 2136,
+    "end_word": 2151,
+    "text_snippet": "وقد جاء شاذا كقوله: 229 - كلا أخي وخليلي واجدي",
+    "scholarly_function": "example",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 54,
+    "start_word": 2152,
+    "end_word": 2196,
+    "text_snippet": "ولا تضف لمفرد معرف … أيا وإن كررتها فأضف\nأو ت",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 55,
+    "start_word": 2197,
+    "end_word": 2209,
+    "text_snippet": "230 - ألا تسألون الناس أيي وأيكم … غداة التقين",
+    "scholarly_function": "example",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 56,
+    "start_word": 2210,
+    "end_word": 2242,
+    "text_snippet": "أو قصدت الأجزاء كقولك: أي زيد أحسن أي أي أجزاء ",
+    "scholarly_function": "example",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 57,
+    "start_word": 2243,
+    "end_word": 2270,
+    "text_snippet": "فأما الموصولة فذكر المصنف أنها لا تضاف إلا إلى ",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 58,
+    "start_word": 2271,
+    "end_word": 2298,
+    "text_snippet": "وأما الصفة فالمراد بها ما كان صفة لنكرة أو حالا",
+    "scholarly_function": "definition",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 59,
+    "start_word": 2299,
+    "end_word": 2310,
+    "text_snippet": "231 - فأومأت إيماء خفيا لحبتر … فلله عينا حبتر",
+    "scholarly_function": "example",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 60,
+    "start_word": 2311,
+    "end_word": 2342,
+    "text_snippet": "وأما الشرطية والاستفهامية فيضافان إلى المعرفة و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 61,
+    "start_word": 2343,
+    "end_word": 2423,
+    "text_snippet": "واعلم أن أيا إن كانت صفة أو حالا فهي ملازمة للإ",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 62,
+    "start_word": 2424,
+    "end_word": 2492,
+    "text_snippet": "وألزموا إضافة لدن فجر … ونصب غدوة بها عنهم ندر",
+    "scholarly_function": "definition",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 63,
+    "start_word": 2493,
+    "end_word": 2498,
+    "text_snippet": "كقوله تعالى: {وَعَلَّمْنَاهُ مِنْ لَدُنَّا عِلْم",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 64,
+    "start_word": 2499,
+    "end_word": 2505,
+    "text_snippet": "وقوله تعالى: {لِيُنْذِرَ بَأْساً شَدِيداً مِنْ ل",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 65,
+    "start_word": 2506,
+    "end_word": 2525,
+    "text_snippet": "وقيس تعربها ومنه قراءة أبي بكر عن عاصم لينذر بأ",
+    "scholarly_function": "narration",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 66,
+    "start_word": 2526,
+    "end_word": 2540,
+    "text_snippet": "ويحتمل أن يكون منه قوله:\nتنتهض الرعدة في ظهيري ",
+    "scholarly_function": "example",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 67,
+    "start_word": 2541,
+    "end_word": 2638,
+    "text_snippet": "ويجز ما ولى لدن بالإضافة إلا غدوة فإنهم نصبوها ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 68,
+    "start_word": 2639,
+    "end_word": 2666,
+    "text_snippet": "وأما مع قاسم لمكان الاصطحاب أو وقته نحو جلس زيد",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 69,
+    "start_word": 2667,
+    "end_word": 2677,
+    "text_snippet": "ومنه قوله:\nفريشي منكم وهواي معكم … وإن كانت زي",
+    "scholarly_function": "example",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 70,
+    "start_word": 2678,
+    "end_word": 2749,
+    "text_snippet": "وزعم سيبويه أن تسكينها ضرورة وليس كذلك بل هو لغ",
+    "scholarly_function": "refutation",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 71,
+    "start_word": 2750,
+    "end_word": 2783,
+    "text_snippet": "واضمم بناء \"غيرا\" أن عدمت ما … له أضيف ناويا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 72,
+    "start_word": 2784,
+    "end_word": 2847,
+    "text_snippet": "هذه الأسماء المذكورة وهي غير وقبل وبعد وحسب وأو",
+    "scholarly_function": "definition",
+    "confidence": 0.9
+  },
+  {
+    "segment_index": 73,
+    "start_word": 2848,
+    "end_word": 2869,
+    "text_snippet": "وتبقى في هذه الحالة كالمضاف لفظا فلا تنون إلا إ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.92
+  },
+  {
+    "segment_index": 74,
+    "start_word": 2870,
+    "end_word": 2883,
+    "text_snippet": "ومنه قراءة من قرأ {لِلَّهِ الأَمْرُ مِنْ قَبْلُ ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 75,
+    "start_word": 2884,
+    "end_word": 2896,
+    "text_snippet": "وكقوله: 236 - فساغ لي الشراب وكنت قبلا … أكاد ",
+    "scholarly_function": "example",
+    "confidence": 0.79
+  },
+  {
+    "segment_index": 76,
+    "start_word": 2897,
+    "end_word": 2938,
+    "text_snippet": "هذه الأحوال الثلاثة التي تعرب فيها: أما الحالة ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.91
+  },
+  {
+    "segment_index": 77,
+    "start_word": 2939,
+    "end_word": 3006,
+    "text_snippet": "وحكى أبو علي الفارسي أبدأ بذا من أول بضم اللام ",
+    "scholarly_function": "narration",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 78,
+    "start_word": 3007,
+    "end_word": 3076,
+    "text_snippet": "وأشار بقوله وأعربوا نصبا إلى الحالة الثالثة وهي",
+    "scholarly_function": "cross_reference",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 79,
+    "start_word": 3077,
+    "end_word": 3100,
+    "text_snippet": "وما يلي المضاف يأتي خلفا … عنه في الإعراب إذا ",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 80,
+    "start_word": 3101,
+    "end_word": 3110,
+    "text_snippet": "كقوله تعالى: {وَأُشْرِبُوا فِي قُلُوبِهِمُ الْعِ",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 81,
+    "start_word": 3111,
+    "end_word": 3129,
+    "text_snippet": "وكقوله تعالى: {وَجَاءَ رَبُّكَ} أي أمر ربك فحذف",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.99
+  },
+  {
+    "segment_index": 82,
+    "start_word": 3130,
+    "end_word": 3175,
+    "text_snippet": "وربما جروا الذي أبقوا كما … قد كان قبل حذف ما ",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.93
+  },
+  {
+    "segment_index": 83,
+    "start_word": 3176,
+    "end_word": 3214,
+    "text_snippet": "كقول الشاعر:\n238 - أكل أمرئ تحسبين امرأ … ونار",
+    "scholarly_function": "example",
+    "confidence": 0.81
+  },
+  {
+    "segment_index": 84,
+    "start_word": 3215,
+    "end_word": 3229,
+    "text_snippet": "وقد يحذف المضاف ويبقى المضاف إليه على جره والمح",
+    "scholarly_function": "condition_exception",
+    "confidence": 0.84
+  },
+  {
+    "segment_index": 85,
+    "start_word": 3230,
+    "end_word": 3247,
+    "text_snippet": "كقوله تعالى: {تُرِيدُونَ عَرَضَ الدُّنْيَا وَالل",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.98
+  },
+  {
+    "segment_index": 86,
+    "start_word": 3248,
+    "end_word": 3271,
+    "text_snippet": "ومنهم من يقدره والله يريد عرض الآخرة فيكون المح",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.89
+  },
+  {
+    "segment_index": 87,
+    "start_word": 3272,
+    "end_word": 3347,
+    "text_snippet": "ويحذف الثاني فيبقى الأول … كحاله إذا به يتصل\nب",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 88,
+    "start_word": 3348,
+    "end_word": 3370,
+    "text_snippet": "ومثله قوله:\n239 - سقى الأرضين الغيث سهل وحزنها",
+    "scholarly_function": "example",
+    "confidence": 0.8
+  },
+  {
+    "segment_index": 89,
+    "start_word": 3371,
+    "end_word": 3452,
+    "text_snippet": "هذا تقرير كلام المصنف وقد يفعل ذلك وإن لم يعطف ",
+    "scholarly_function": "example",
+    "confidence": 0.82
+  },
+  {
+    "segment_index": 90,
+    "start_word": 3453,
+    "end_word": 3532,
+    "text_snippet": "ومذهب سيبويه أن الأصل قطع الله يد من قالها ورجل",
+    "scholarly_function": "opinion_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 91,
+    "start_word": 3533,
+    "end_word": 3554,
+    "text_snippet": "فصل مضاف شبه فعل مانصب … مفعولا أو ظرفا أجز ول",
+    "scholarly_function": "structural_transition",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 92,
+    "start_word": 3555,
+    "end_word": 3583,
+    "text_snippet": "أجاز المصنف أن يفصل في الاختيار بين المضاف الذي",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.94
+  },
+  {
+    "segment_index": 93,
+    "start_word": 3584,
+    "end_word": 3608,
+    "text_snippet": "فمثال ما فصل فيه بينهما بمفعول المضاف قوله تعال",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.97
+  },
+  {
+    "segment_index": 94,
+    "start_word": 3609,
+    "end_word": 3637,
+    "text_snippet": "ومثال ما فصل فيه بين المضاف والمضاف إليه بظرف ن",
+    "scholarly_function": "example",
+    "confidence": 0.88
+  },
+  {
+    "segment_index": 95,
+    "start_word": 3638,
+    "end_word": 3664,
+    "text_snippet": "ومثال ما فصل فيه بين المضاف والمضاف إليه بمفعول",
+    "scholarly_function": "evidence_quran",
+    "confidence": 0.96
+  },
+  {
+    "segment_index": 96,
+    "start_word": 3665,
+    "end_word": 3685,
+    "text_snippet": "ومثال الفصل بشبه الظرف قوله في حديث أبي الدرداء",
+    "scholarly_function": "evidence_hadith",
+    "confidence": 0.95
+  },
+  {
+    "segment_index": 97,
+    "start_word": 3686,
+    "end_word": 3697,
+    "text_snippet": "وجاء الفصل أيضا في الاختيار بالقسم حكى الكسائي",
+    "scholarly_function": "narration",
+    "confidence": 0.83
+  },
+  {
+    "segment_index": 98,
+    "start_word": 3698,
+    "end_word": 3837,
+    "text_snippet": "ولهذا قال المصنف ولم يعب فصل يمين وأشار بقوله و",
+    "scholarly_function": "rule_statement",
+    "confidence": 0.9
+  }
+]

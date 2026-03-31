@@ -1,0 +1,32 @@
+{
+  "call_id": "escalation_0008",
+  "latency_seconds": 3.39,
+  "model": "mistralai/mistral-large-2411",
+  "usage": {
+    "completion_tokens": 114,
+    "prompt_tokens": 967,
+    "total_tokens": 1081,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.002618,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.002618,
+      "upstream_inference_prompt_cost": 0.001934,
+      "upstream_inference_completions_cost": 0.000684
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"author_id\": \"ابن عقيل\",\n  \"reasoning\": \"Model 2 provides a detailed explanation supporting the attribution to ابن عقيل. The text includes commentary characteristics and specific references that align with ابن عقيل's style and content, particularly the use of 'فذكر المصنف' and 'وذكر غيره', which are indicative of a commentary layer.\"\n}"
+}

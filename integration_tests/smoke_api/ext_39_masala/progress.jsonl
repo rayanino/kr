@@ -1,0 +1,8 @@
+{"chunk_id": "div_src_test0001_2_000_pre", "phase": "phase2a", "status": "done", "timestamp": "2026-03-31T09:42:45.445698+00:00"}
+{"chunk_id": "div_src_test0001_3_000", "phase": "phase2a", "status": "done", "timestamp": "2026-03-31T09:43:00.925379+00:00"}
+{"chunk_id": "div_src_test0001_2_000_pre", "phase": "phase2b", "status": "done", "timestamp": "2026-03-31T09:43:27.386055+00:00"}
+{"chunk_id": "div_src_test0001_3_000", "phase": "phase2b", "status": "done", "timestamp": "2026-03-31T09:44:17.978733+00:00"}
+{"chunk_id": "div_src_test0001_2_000_pre", "phase": "phase3_enrich", "status": "done", "timestamp": "2026-03-31T09:44:49.120470+00:00"}
+{"chunk_id": "div_src_test0001_3_000", "phase": "phase3_enrich", "status": "done", "timestamp": "2026-03-31T09:45:26.885776+00:00"}
+{"chunk_id": "div_src_test0001_2_000_pre", "phase": "phase3_consensus", "status": "done", "timestamp": "2026-03-31T09:45:45.639262+00:00"}
+{"chunk_id": "div_src_test0001_3_000", "phase": "phase3_consensus", "status": "done", "timestamp": "2026-03-31T09:46:16.710805+00:00"}

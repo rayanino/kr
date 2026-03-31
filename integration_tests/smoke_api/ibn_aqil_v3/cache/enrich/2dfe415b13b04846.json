@@ -1,0 +1,721 @@
+{
+  "cache_key": "2dfe415b13b04846",
+  "chunk_id": "div_src_test0001_3_001",
+  "model": "openai/gpt-5.4",
+  "timestamp": "2026-03-31T09:31:06.759975+00:00",
+  "result": {
+    "enrichments": [
+      {
+        "unit_index": 0,
+        "excerpt_topic": [
+          "أحكام الإضافة",
+          "جر المضاف إليه",
+          "معاني الإضافة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "classification_frame",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 1,
+        "excerpt_topic": [
+          "الإضافة المحضة",
+          "الإضافة غير المحضة",
+          "التخصيص والتعريف"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "الإضافة غير المحضة",
+            "variants": [
+              "الإضافة اللفظية"
+            ]
+          },
+          {
+            "term": "الإضافة المحضة",
+            "variants": [
+              "الإضافة المعنوية"
+            ]
+          }
+        ],
+        "cross_references": [
+          {
+            "reference_text": "كما سنذكره بعد",
+            "target_description": "إضافة الوصف المشابه للفعل المضارع إلى معموله وبيان الإضافة غير المحضة",
+            "target_div_id": null,
+            "resolved": true
+          },
+          {
+            "reference_text": "على ما سنبين",
+            "target_description": "بيان أن الإضافة غير المحضة لا تفيد تخصيصا ولا تعريفا",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 2,
+        "excerpt_topic": [
+          "إضافة الوصف إلى معموله",
+          "الإضافة اللفظية",
+          "شبه المضارع"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "classification_frame",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "غير المحضة",
+            "variants": [
+              "اللفظية"
+            ]
+          },
+          {
+            "term": "المحضة",
+            "variants": [
+              "المعنوية"
+            ]
+          },
+          {
+            "term": "صفة مشبهة",
+            "variants": [
+              "الصفة المشبهة باسم الفاعل"
+            ]
+          }
+        ],
+        "cross_references": [
+          {
+            "reference_text": "كما تقدم",
+            "target_description": "القسم الأول من الإضافة الذي يفيد التخصيص أو التعريف",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 3,
+        "excerpt_topic": [
+          "دخول أل على المضاف",
+          "الإضافة غير المحضة",
+          "إضافة الوصف"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "الذي تقدم الكلام فيه قبل هذا البيت",
+            "target_description": "المضاف الذي إضافته غير محضة من الوصف المشابه للفعل",
+            "target_div_id": null,
+            "resolved": true
+          },
+          {
+            "reference_text": "لما تقدم",
+            "target_description": "تعاقب الإضافة وأل في المضاف",
+            "target_div_id": null,
+            "resolved": true
+          },
+          {
+            "reference_text": "وهو المراد بقوله",
+            "target_description": "البيت التالي في حكم كفاية أل في المثنى وجمع المذكر السالم",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 4,
+        "excerpt_topic": [
+          "إضافة الشيء إلى نفسه",
+          "إضافة المترادفين",
+          "إضافة الموصوف إلى صفته"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 5,
+        "excerpt_topic": [
+          "اكتساب التأنيث بالإضافة",
+          "اكتساب التذكير",
+          "شروط الاكتساب"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "بالشرط الذي تقدم",
+            "target_description": "صلاحية حذف المضاف وإقامة المضاف إليه مقامه",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 6,
+        "excerpt_topic": [
+          "الملازم للإضافة",
+          "الإضافة لفظا ومعنى",
+          "الإضافة معنى دون لفظ"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "وسيأتي",
+            "target_description": "تفصيل قسمي الأسماء الملازمة للإضافة وأمثلتها",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 7,
+        "excerpt_topic": [
+          "ما يضاف إلى الضمير فقط",
+          "لبيك وسعديك",
+          "خلاف سيبويه ويونس"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "سيبويه",
+            "resolved_name": "عمرو بن عثمان بن قنبر سيبويه",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "classification_frame",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "يونس",
+            "resolved_name": "يونس بن حبيب",
+            "role": "quoted_opinion",
+            "confidence": 0.96
+          },
+          {
+            "mention_text": "سيبويه",
+            "resolved_name": "عمرو بن عثمان بن قنبر سيبويه",
+            "role": "refuted_position",
+            "confidence": 0.99
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "كما تقدم",
+            "target_description": "تفسير لبيك بمعنى إقامة بعد إقامة وأخواتها",
+            "target_div_id": null,
+            "resolved": true
+          },
+          {
+            "reference_text": "على ما تقدم في تفسيرها",
+            "target_description": "معاني أخوات لبيك كدواليك وسعديك",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 8,
+        "excerpt_topic": [
+          "إضافة الظروف إلى الجمل",
+          "حيث وإذ وإذا",
+          "ما كإذ معنى"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "classification_frame",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 9,
+        "excerpt_topic": [
+          "بناء الظرف المضاف إلى الجملة",
+          "إعراب ما كإذ",
+          "مذهب الكوفيين والبصريين"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "الكوفيين",
+            "resolved_name": "الكوفيون",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          },
+          {
+            "mention_text": "الفارسي",
+            "resolved_name": "أبو علي الفارسي",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "classification_frame",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "البصريين",
+            "resolved_name": "البصريون",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 10,
+        "excerpt_topic": [
+          "إذا الظرفية",
+          "إضافة إذا إلى الجملة الفعلية",
+          "خلاف سيبويه والأخفش"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "الأخفش",
+            "resolved_name": "الأخفش الأوسط سعيد بن مسعدة",
+            "role": "quoted_opinion",
+            "confidence": 0.82
+          },
+          {
+            "mention_text": "سيبويه",
+            "resolved_name": "عمرو بن عثمان بن قنبر سيبويه",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "الأخفش",
+            "resolved_name": "الأخفش الأوسط سعيد بن مسعدة",
+            "role": "quoted_opinion",
+            "confidence": 0.82
+          },
+          {
+            "mention_text": "السيرافي",
+            "resolved_name": "أبو سعيد السيرافي",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          },
+          {
+            "mention_text": "سيبويه",
+            "resolved_name": "عمرو بن عثمان بن قنبر سيبويه",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "الأخفش",
+            "resolved_name": "الأخفش الأوسط سعيد بن مسعدة",
+            "role": "quoted_opinion",
+            "confidence": 0.82
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "إلى ما تقدم ذكره",
+            "target_description": "حكم إذا وأنها تلزم الإضافة إلى الجملة الفعلية",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": "المقصود بـإذا هنا الظرفية، وحكمها عند الجمهور أنها لا تضاف إلا إلى جملة فعلية، مع بيان موضع الخلاف في إعراب الاسم بعدها."
+      },
+      {
+        "unit_index": 11,
+        "excerpt_topic": [
+          "إضافة كلا وكلتا",
+          "المثنى المعرف",
+          "منع التفرق"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 12,
+        "excerpt_topic": [
+          "أحكام أي",
+          "أي الموصولة والصفة",
+          "أي الشرطية والاستفهامية"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "classification_frame",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "غيره",
+            "resolved_name": "غيره",
+            "role": "quoted_opinion",
+            "confidence": 0.4
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "كما تقدم ذكره",
+            "target_description": "استثناء إضافة أي الاستفهامية إلى المفرد المعرفة إذا تكررت أو قصدت الأجزاء",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 13,
+        "excerpt_topic": [
+          "أحكام لدن",
+          "نصب غدوة بعد لدن",
+          "معنى لدن"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "أبي بكر عن عاصم",
+            "resolved_name": "أبو بكر بن عياش عن عاصم بن أبي النجود",
+            "role": "quoted_opinion",
+            "confidence": 0.72
+          },
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "classification_frame",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "الأخفش",
+            "resolved_name": "الأخفش الأوسط سعيد بن مسعدة",
+            "role": "quoted_opinion",
+            "confidence": 0.8
+          },
+          {
+            "mention_text": "الكوفيون",
+            "resolved_name": "الكوفيون",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 14,
+        "excerpt_topic": [
+          "أحكام مع",
+          "بناء مع وإعرابها",
+          "لغة ربيعة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "سيبويه",
+            "resolved_name": "عمرو بن عثمان بن قنبر سيبويه",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "ربيعه",
+            "resolved_name": "ربيعة",
+            "role": "quoted_opinion",
+            "confidence": 0.75
+          },
+          {
+            "mention_text": "بعضهم",
+            "resolved_name": "بعضهم",
+            "role": "quoted_opinion",
+            "confidence": 0.3
+          },
+          {
+            "mention_text": "النحاس",
+            "resolved_name": "أبو جعفر النحاس",
+            "role": "quoted_opinion",
+            "confidence": 0.96
+          },
+          {
+            "mention_text": "سيبويه",
+            "resolved_name": "عمرو بن عثمان بن قنبر سيبويه",
+            "role": "refuted_position",
+            "confidence": 0.99
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 15,
+        "excerpt_topic": [
+          "بناء غير وقبل وبعد",
+          "نية المضاف إليه",
+          "أحوال الظروف المبهمة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أبو علي الفارسي",
+            "resolved_name": "أبو علي الفارسي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "classification_frame",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "كما تقدم",
+            "target_description": "حكم كل مضاف في الإعراب وسقوط التنوين عند الإضافة",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 16,
+        "excerpt_topic": [
+          "حذف المضاف",
+          "إقامة المضاف إليه مقامه",
+          "إعراب الخلف"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 17,
+        "excerpt_topic": [
+          "إبقاء جر المضاف إليه",
+          "شرط العطف على المماثل",
+          "حذف المضاف مع بقاء الجار"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "ابن أبي الربيع",
+            "resolved_name": "ابن أبي الربيع",
+            "role": "quoted_opinion",
+            "confidence": 0.72
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 18,
+        "excerpt_topic": [
+          "حذف المضاف إليه",
+          "إبقاء المضاف على حاله",
+          "خلاف المبرد وسيبويه والفراء"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "classification_frame",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "المبرد",
+            "resolved_name": "محمد بن يزيد المبرد",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "سيبويه",
+            "resolved_name": "عمرو بن عثمان بن قنبر سيبويه",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "بعض شراح الكتاب",
+            "resolved_name": "بعض شراح الكتاب",
+            "role": "quoted_opinion",
+            "confidence": 0.35
+          },
+          {
+            "mention_text": "الفراء",
+            "resolved_name": "يحيى بن زياد الفراء",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 19,
+        "excerpt_topic": [
+          "الفصل بين المضاف والمضاف إليه",
+          "شبه الفعل",
+          "الفصل بالمعمول واليمين"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "classification_frame",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "ابن عامر",
+            "resolved_name": "عبد الله بن عامر اليحصبي",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          },
+          {
+            "mention_text": "بعض السلف",
+            "resolved_name": "بعض السلف",
+            "role": "quoted_opinion",
+            "confidence": 0.35
+          },
+          {
+            "mention_text": "أبي الدرداء",
+            "resolved_name": "أبو الدرداء عويمر بن زيد الأنصاري",
+            "role": "quoted_opinion",
+            "confidence": 0.9
+          },
+          {
+            "mention_text": "الكسائي",
+            "resolved_name": "علي بن حمزة الكسائي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "هل أنتم تاركو لي صاحبي",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      }
+    ],
+    "total_units": 20
+  }
+}

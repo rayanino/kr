@@ -1,0 +1,32 @@
+{
+  "call_id": "escalation_0006",
+  "latency_seconds": 2.49,
+  "model": "mistralai/mistral-large-2411",
+  "usage": {
+    "completion_tokens": 113,
+    "prompt_tokens": 984,
+    "total_tokens": 1097,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 160,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.002358,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.002358,
+      "upstream_inference_prompt_cost": 0.00168,
+      "upstream_inference_completions_cost": 0.000678
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"author_id\": \"ابن عقيل\",\n  \"reasoning\": \"Model 2 provides a detailed and convincing explanation for why the text should be attributed to ابن عقيل. The presence of Ibn Malik's verses followed by commentary, the use of the phrase 'كذا ذكر المصنف' to refer to Ibn Malik, and the discussion of multiple scholarly views all support this attribution.\"\n}"
+}

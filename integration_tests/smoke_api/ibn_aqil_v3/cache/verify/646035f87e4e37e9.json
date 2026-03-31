@@ -1,0 +1,73 @@
+{
+  "cache_key": "646035f87e4e37e9",
+  "chunk_id": "div_src_test0001_3_001",
+  "model": "anthropic/claude-opus-4.6",
+  "timestamp": "2026-03-31T09:34:12.971231+00:00",
+  "result": {
+    "items": [
+      {
+        "item_index": 0,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The text is clearly a commentary (sharh) by Ibn Aqil on Ibn Malik's verse. It begins with the matn verse, then provides detailed grammatical explanation with examples, which is characteristic of Ibn Aqil's commentary style.",
+        "confidence": 0.85,
+        "reasoning": "The text starts with Ibn Malik's verse (matn) then proceeds to explain it in detail with examples and grammatical analysis. This is clearly Ibn Aqil's sharh layer. The attribution to 'unknown' seems incorrect - while the rule LA-3 may apply due to coverage thresholds, the content is unmistakably Ibn Aqil's commentary explaining Ibn Malik's alfiyya. The sharh layer identification is correct, but the author should be identified as Ibn Aqil, the known author of this work."
+      },
+      {
+        "item_index": 1,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The text contains Ibn Malik's verses followed by Ibn Aqil's detailed commentary. The phrase 'كذا ذكر المصنف' explicitly refers to Ibn Malik as 'المصنف', which is a standard marker used by commentators (شراح) to refer to the original author. This confirms this is Ibn Aqil's sharh layer.",
+        "confidence": 0.9,
+        "reasoning": "The phrase 'كذا ذكر المصنف' is a clear voice marker indicating a commentator speaking about the original author (Ibn Malik). The text also discusses مذهب سيبويه and مذهب يونس, presenting multiple scholarly views - a hallmark of Ibn Aqil's commentary method. The 73% coverage further supports sharh attribution, and the author is clearly Ibn Aqil."
+      },
+      {
+        "item_index": 2,
+        "agrees": true,
+        "alternative": null,
+        "confidence": 0.8,
+        "reasoning": "The assessment of PARTIAL is reasonable. The text begins with 'أشار في هذا البيت إلى ما تقدم ذكره' which explicitly references prior discussion ('ما تقدم ذكره'), violating C-SC-2/C-SC-4 to some degree. However, the core rule about إذا being added to verbal sentences is stated clearly, and the scholarly disagreements (سيبويه vs الأخفش vs السيرافي) are explained within the unit. The back-reference to prior material makes it partially self-contained rather than fully self-contained."
+      },
+      {
+        "item_index": 3,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The text begins with Ibn Malik's verse (matn) then provides Ibn Aqil's grammatical explanation with examples and conditions for the usage of كلا and كلتا.",
+        "confidence": 0.85,
+        "reasoning": "The structure is clear: matn verse by Ibn Malik followed by detailed commentary. The phrase 'وهذا هو المراد بقوله' is a typical sharh marker where the commentator explains what the original author meant. The commentary style, examples, and explanations are characteristic of Ibn Aqil's work. Attribution to 'unknown' is incorrect."
+      },
+      {
+        "item_index": 4,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The text contains three verses of Ibn Malik's matn followed by extensive commentary. The phrase 'فذكر المصنف أنها لا تضاف إلا إلى معرفة' and 'وذكر غيره' are clear sharh voice markers referring to Ibn Malik as المصنف.",
+        "confidence": 0.9,
+        "reasoning": "The voice markers 'فذكر المصنف' and 'وذكر غيره' clearly identify this as a commentary layer where the commentator (Ibn Aqil) discusses and sometimes supplements the original author's (Ibn Malik's) positions. The 42% coverage likely reflects the substantial matn content (three verses), but the commentary portion is clearly Ibn Aqil's."
+      },
+      {
+        "item_index": 5,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The text begins with Ibn Malik's verses then provides detailed commentary on لدن and مع. The phrase 'قال المصنف' is an explicit sharh marker. References to سيبويه, الأخفش, الكوفيون are typical of Ibn Aqil's comparative approach.",
+        "confidence": 0.9,
+        "reasoning": "The phrase 'قال المصنف ويحتمل أن يكون منه' is an unmistakable sharh voice marker where Ibn Aqil quotes Ibn Malik. The detailed grammatical analysis, citation of multiple scholarly opinions, and explanatory style all confirm this is Ibn Aqil's sharh layer, not matn and not unknown."
+      },
+      {
+        "item_index": 6,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The text discusses مع in detail with grammatical analysis, citing سيبويه and other scholars. The phrase 'وزعم سيبويه أن تسكينها ضرورة وليس كذلك' shows the commentator's independent judgment, characteristic of Ibn Aqil's sharh.",
+        "confidence": 0.88,
+        "reasoning": "The attribution to matn layer is clearly wrong. This is not Ibn Malik's verse text - it is detailed prose commentary discussing the word مع with references to سيبويه, النحاس, and dialectal variations (لغة ربيعة). The evaluative statement 'وليس كذلك' and 'وهو فاسد' show the commentator's own scholarly voice. This is unmistakably Ibn Aqil's sharh, not matn."
+      },
+      {
+        "item_index": 7,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The text begins with Ibn Malik's verses then provides detailed commentary discussing مذهب المبرد and مذهب سيبويه and الفراء. The phrase 'هذا تقرير كلام المصنف' is an explicit sharh marker.",
+        "confidence": 0.92,
+        "reasoning": "The phrase 'هذا تقرير كلام المصنف' is a definitive sharh voice marker where Ibn Aqil explicitly states he is explaining the المصنف's (Ibn Malik's) words. The discussion of competing scholarly views (المبرد vs سيبويه vs الفراء) and the phrase 'وهذا الذي ذكره المصنف' further confirm this is Ibn Aqil's commentary layer."
+      },
+      {
+        "item_index": 8,
+        "agrees": false,
+        "alternative": "This should be attributed to ابن عقيل (layer sharh). The text begins with Ibn Malik's verses then provides detailed commentary with Quranic examples, hadith citations, and poetry. The phrase 'وهذا معنى قوله فصل مضاف إلى آخره' and 'ولهذا قال المصنف' are explicit sharh markers.",
+        "confidence": 0.9,
+        "reasoning": "The phrases 'وهذا معنى قوله' and 'ولهذا قال المصنف' are clear sharh voice markers. The text systematically explains Ibn Malik's verses with examples for each category (مفعول, ظرف, أجنبي, نعت, نداء), which is characteristic of Ibn Aqil's methodical commentary style. Attribution to 'unknown' is incorrect."
+      }
+    ]
+  }
+}

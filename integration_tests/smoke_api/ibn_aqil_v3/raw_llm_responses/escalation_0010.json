@@ -1,0 +1,32 @@
+{
+  "call_id": "escalation_0010",
+  "latency_seconds": 2.77,
+  "model": "mistralai/mistral-large-2411",
+  "usage": {
+    "completion_tokens": 132,
+    "prompt_tokens": 991,
+    "total_tokens": 1123,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 160,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.002486,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.002486,
+      "upstream_inference_prompt_cost": 0.001694,
+      "upstream_inference_completions_cost": 0.000792
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"author_id\": \"ابن عقيل\",\n  \"reasoning\": \"The text provides a detailed grammatical analysis and discusses different scholarly opinions, which is characteristic of a commentary (sharh) rather than the original verse text (matn). The mention of scholars like سيبويه and the evaluative statements 'وليس كذلك' and 'وهو فاسد' indicate the commentator's independent judgment, which aligns with Ibn Aqil's style in his sharh.\"\n}"
+}

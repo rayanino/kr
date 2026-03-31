@@ -1,0 +1,32 @@
+{
+  "call_id": "verify_0002",
+  "latency_seconds": 9.02,
+  "model": "anthropic/claude-4.6-opus-20260205",
+  "usage": {
+    "completion_tokens": 409,
+    "prompt_tokens": 1537,
+    "total_tokens": 1946,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.01791,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.01791,
+      "upstream_inference_prompt_cost": 0.007685,
+      "upstream_inference_completions_cost": 0.010225
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "```json\n{\n  \"items\": [\n    {\n      \"item_index\": 0,\n      \"agrees\": true,\n      \"alternative\": null,\n      \"confidence\": 0.95,\n      \"reasoning\": \"أوافق على تقييم الوحدة بأنها PARTIAL. النص يبدأ بعلامة '=' مما يدل على أنه مقطوع من سياق سابق، ويبدأ بعبارة 'المضارع في جوابه' وهي تتمة لكلام سابق. كذلك الترقيم 'والخامس' و'والسادس' و'والسابع' يدل بوضوح على أن هناك أربع نقاط سابقة على الأقل خارج هذه الوحدة. كما أن قوله 'ولا يجوز نصب المضارع في جواب اسم الفعل' هو تتمة لمقارنة بين أسماء الأفعال والأفعال بدأت قبل هذا المقطع. وقوله 'وهو ما ذكره الشارح في هذا الموضع' إحالة إلى سياق خارجي. فالوحدة مفهومة في مضمونها العام لكنها ليست مكتفية ذاتياً بسبب اعتمادها على سياق سابق.\"\n    }\n  ]\n}\n```"
+}

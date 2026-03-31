@@ -1,0 +1,436 @@
+{
+  "cache_key": "ea0e555ecbad5d3e",
+  "chunk_id": "div_src_test0001_3_000",
+  "model": "openai/gpt-5.4",
+  "timestamp": "2026-03-31T09:45:26.884739+00:00",
+  "result": {
+    "enrichments": [
+      {
+        "unit_index": 0,
+        "excerpt_topic": [
+          "تلقين المحتضر",
+          "الشهادة عند الموت"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "لقنوا موتاكم لا إله إلا الله",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "من كان آخر كلامه لا إله إلا ",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "المحتضر",
+            "variants": [
+              "المشرف على الموت",
+              "من حضره الموت"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 1,
+        "excerpt_topic": [
+          "الدعاء للمحتضر",
+          "النهي عن قول السوء عنده"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "إذا حضرتم المريض أو الميت فإ",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 2,
+        "excerpt_topic": [
+          "حقيقة التلقين",
+          "كيفية تلقين المحتضر"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أنس",
+            "resolved_name": "أنس بن مالك",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "أن رسول الله صلى الله عليه و",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 3,
+        "excerpt_topic": [
+          "قراءة يس عند المحتضر",
+          "توجيه المحتضر إلى القبلة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "سعيد بن المسيب",
+            "resolved_name": "سعيد بن المسيب",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "زرعة بن عبد الرحمن",
+            "resolved_name": null,
+            "role": "quoted_opinion",
+            "confidence": 0.22
+          },
+          {
+            "mention_text": "أبو سلمة بن عبد الحمن",
+            "resolved_name": "أبو سلمة بن عبد الرحمن بن عوف",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          },
+          {
+            "mention_text": "أبي سلمة",
+            "resolved_name": "أبو سلمة بن عبد الرحمن بن عوف",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 4,
+        "excerpt_topic": [
+          "عرض الإسلام على الكافر عند الموت",
+          "عيادة الكافر"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أنس",
+            "resolved_name": "أنس بن مالك",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "أبا القاسم",
+            "resolved_name": "محمد بن عبد الله رسول الله صلى الله عليه وسلم",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "كان غلام يهودي يخدم النبي صل",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "الحمد لله الذي أنقذه من النار",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "صلوا على صاحبكم",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 5,
+        "excerpt_topic": [
+          "إغماض عين الميت",
+          "الدعاء له بعد الوفاة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أم سلمة",
+            "resolved_name": "أم سلمة هند بنت أبي أمية",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "أبي سلمة",
+            "resolved_name": "أبو سلمة بن عبد الأسد",
+            "role": "quoted_opinion",
+            "confidence": 0.88
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "دخل رسول الله صلى الله عليه ",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "إن الروح إذا قبض تبعه البصر",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "لا تدعوا على أنفسكم إلا بخير",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "اللهم اغفر لأبي سلمة وارفع د",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 6,
+        "excerpt_topic": [
+          "تغطية الميت",
+          "استثناء المحرم",
+          "تكفين المحرم"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "عائشة",
+            "resolved_name": "عائشة بنت أبي بكر",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "ابن عباس",
+            "resolved_name": "عبد الله بن عباس",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "أن رسول الله صلى الله عليه و",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "بينما رجل واقف بعرفة إذ وقع ",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "اغسلوه بماء وسدر وكفنوه في ث",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "في ثوبيه اللذين أحرم فيهما",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "لا تطيبوه ولا تخمروا رأسه ول",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "المحرم",
+            "variants": [
+              "المحرم بحج",
+              "المحرم بعمرة"
+            ]
+          },
+          {
+            "term": "تخمروا",
+            "variants": [
+              "تغطوا",
+              "تستروا"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 7,
+        "excerpt_topic": [
+          "تعجيل تجهيز الميت",
+          "الإسراع بالجنازة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أبي هريرة",
+            "resolved_name": "أبو هريرة",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "أسرعوا بالجنازة",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "تجهيزه",
+            "variants": [
+              "إعداد الميت",
+              "القيام بأمر جنازته"
+            ]
+          }
+        ],
+        "cross_references": [
+          {
+            "reference_text": "وسيأتي بتمامه في المسألة 50",
+            "target_description": "تمام حديث أبي هريرة: أسرعوا بالجنازة في المسألة الخمسين من الكتاب",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": "المقصود الاستدلال بحديث أبي هريرة في الأمر بالإسراع بالجنازة، وقد أحال المؤلف إلى تمام لفظه في مسألة لاحقة."
+      },
+      {
+        "unit_index": 8,
+        "excerpt_topic": [
+          "دفن الميت في بلد موته",
+          "حكم نقل الميت",
+          "وصية النقل"
+        ],
+        "school": "شافعي",
+        "school_confidence": 0.72,
+        "resolved_scholars": [
+          {
+            "mention_text": "أبي هريرة",
+            "resolved_name": "أبو هريرة",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "عائشة",
+            "resolved_name": "عائشة بنت أبي بكر",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "النووي",
+            "resolved_name": "يحيى بن شرف النووي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "النقل",
+            "variants": [
+              "نقل الميت",
+              "تحويل الجنازة"
+            ]
+          }
+        ],
+        "cross_references": [
+          {
+            "reference_text": "حديث أبي هريرة المتقدم",
+            "target_description": "الحديث السابق في الأمر بالإسراع بالجنازة",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": "الحكم مبني على أن نقل الميت إلى بلد آخر يعارض الأمر بالإسراع بالجنازة، مع تأييده بأثر عائشة ونقل النووي."
+      },
+      {
+        "unit_index": 9,
+        "excerpt_topic": [
+          "قضاء دين الميت",
+          "الدين من التركة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "وفي ذلك أحاديث تراها في الأصل",
+            "target_description": "أحاديث مذكورة في الأصل الموسع تؤيد المبادرة إلى قضاء دين الميت",
+            "target_div_id": null,
+            "resolved": false
+          }
+        ],
+        "context_hint": "المراد أن سداد دين الميت يقدَّم من تركته، وتوجد أحاديث تفصيلية في الأصل الكبير لم يوردها هنا."
+      }
+    ],
+    "total_units": 10
+  }
+}

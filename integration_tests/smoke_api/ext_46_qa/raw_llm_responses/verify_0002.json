@@ -1,0 +1,32 @@
+{
+  "call_id": "verify_0002",
+  "latency_seconds": 18.25,
+  "model": "anthropic/claude-4.6-opus-20260205",
+  "usage": {
+    "completion_tokens": 931,
+    "prompt_tokens": 1552,
+    "total_tokens": 2483,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.031035,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.031035,
+      "upstream_inference_prompt_cost": 0.00776,
+      "upstream_inference_completions_cost": 0.023275
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "```json\n{\n  \"items\": [\n    {\n      \"item_index\": 0,\n      \"agrees\": true,\n      \"alternative\": null,\n      \"confidence\": 0.99,\n      \"reasoning\": \"النص مجرد عنوان «المسألة الثانية» دون أي محتوى علمي، فلا يحقق معيار اكتمال الحجة أو الحكم (C-SC-4)، ولا يمكن فهمه بمعزل عما يليه. التقييم بأنه PARTIAL صحيح تماماً.\"\n    },\n    {\n      \"item_index\": 1,\n      \"agrees\": false,\n      \"alternative\": \"FULL — الوحدة تتضمن تعريفاً كاملاً منسوباً إلى قائله (الخضراوي)، ومصطلحات مثل «أقيسة» و«ذوات الكلم» و«أواخرها» هي مصطلحات معيارية في أصول النحو لا تحتاج إلى شرح إضافي داخل الوحدة. الضمائر تعود على ما هو مذكور في النص. التعريف مكتمل بذاته كنقل لقول عالم في حد النحو.\",\n      \"confidence\": 0.72,\n      \"reasoning\": \"التقييم الأصلي اعتبر الوحدة PARTIAL بسبب حاجة بعض المصطلحات إلى معرفة اصطلاحية، لكن معيار C-SC-1 يشترط أن يكون المصطلح معرّفاً أو أن يكون مصطلحاً معيارياً (standard terminology). ومصطلحات مثل «أقيسة» و«تغيير ذوات الكلم وأواخرها» هي مصطلحات معيارية في علم أصول النحو. كما أن النسبة واضحة (الخضراوي)، والتعريف مكتمل كوحدة نقل. لكن أقرّ بأن هناك مجالاً للنقاش حول مدى وضوح عبارة «أقيسة تغيير ذوات الكلم».\"\n    },\n    {\n      \"item_index\": 2,\n      \"agrees\": true,\n      \"alternative\": null,\n      \"confidence\": 0.95,\n      \"reasoning\": \"الجزء الأول من الوحدة (تعريف صاحب البديع) مكتفٍ بذاته، لكن الجملة الأخيرة «ويندفع الإيراد الأخير على كلام ابن عصفور» تحيل صراحةً إلى اعتراض مذكور في سياق سابق خارج الوحدة، مما يخل بمعيار C-SC-2 (حل الإشارات) وC-SC-4 (اكتمال الحجة)، فالقارئ لا يعرف ما هو «الإيراد الأخير» ولا ما هو «كلام ابن عصفور» المشار إليه. التقييم بأنه PARTIAL صحيح.\"\n    }\n  ]\n}\n```"
+}

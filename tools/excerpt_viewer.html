@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KR Excerpt Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F1117;
+  --surface: #1A1D27;
+  --surface2: #222530;
+  --surface3: #2A2D3A;
+  --text: #E8E6E3;
+  --text2: #9B97A0;
+  --accent: #6C9CFC;
+  --accent2: #4A7AE0;
+  --green: #6BCB77;
+  --amber: #F0B54A;
+  --red: #E85D5D;
+  --border: #2E3140;
+  --border2: #3A3E50;
+  --glow: rgba(108,156,252,0.08);
+  --font-ar: "Amiri", "Noto Naskh Arabic", serif;
+  --font-ui: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-height:1.5;height:100vh;overflow:hidden}
+
+/* ── Package Picker ─────────── */
+#pkg-picker{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;gap:1.5rem}
+#pkg-picker h1{font-size:1.4rem;font-weight:300;letter-spacing:0.05em;color:var(--text)}
+#pkg-picker h1 span{color:var(--accent);font-weight:500}
+#pkg-picker .sub{color:var(--text2);font-size:0.85rem}
+#pkg-list{display:flex;flex-wrap:wrap;gap:0.6rem;justify-content:center;max-width:700px;margin-top:0.5rem}
+.pkg-card{padding:0.8rem 1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .15s;min-width:140px}
+.pkg-card:hover{border-color:var(--accent);background:var(--surface2);transform:translateY(-1px)}
+.pkg-card .n{font-weight:500;font-size:0.9rem}.pkg-card .m{font-size:0.75rem;color:var(--text2);margin-top:0.2rem}
+.pkg-card .m b{color:var(--accent)}
+.pkg-card.empty{opacity:0.3;cursor:default;pointer-events:none}
+#load-error{color:var(--red);font-size:0.8rem;padding:0.5rem;display:none}
+
+/* ── Three-Column Layout ────── */
+#viewer{display:none;height:100vh;grid-template-columns:260px 1fr 320px;grid-template-rows:44px 1fr;overflow:hidden}
+#viewer.active{display:grid}
+
+/* ── Top Bar ────────────────── */
+#topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 1rem;background:var(--surface);border-bottom:1px solid var(--border);z-index:10}
+.nav{display:flex;align-items:center;gap:0.4rem}
+.nbtn{background:none;border:1px solid var(--border);border-radius:4px;padding:0.2rem 0.5rem;color:var(--text2);cursor:pointer;font-family:var(--font-ui);font-size:0.8rem;transition:all .1s}
+.nbtn:hover{border-color:var(--accent);color:var(--text)}
+.nbtn:disabled{opacity:0.2;cursor:default}
+#pos{font-size:0.8rem;color:var(--text2);margin:0 0.5rem;font-family:var(--font-mono)}
+#pkg-label{font-size:0.8rem;color:var(--accent);font-weight:500;cursor:pointer}
+#pkg-label:hover{text-decoration:underline}
+.tbar-r{display:flex;gap:0.3rem;align-items:center}
+.tbtn{background:none;border:none;color:var(--text2);cursor:pointer;font-size:0.75rem;padding:0.3rem 0.5rem;border-radius:4px;font-family:var(--font-ui)}
+.tbtn:hover{background:var(--surface2);color:var(--text)}
+
+/* ── Left Panel: Excerpt List ── */
+#left{grid-column:1;overflow-y:auto;background:var(--surface);border-right:1px solid var(--border);padding:0.5rem}
+#left::-webkit-scrollbar{width:4px}#left::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.exc-item{padding:0.5rem 0.6rem;border-radius:6px;cursor:pointer;margin-bottom:2px;transition:background .1s}
+.exc-item:hover{background:var(--surface2)}
+.exc-item.active{background:var(--glow);border-left:2px solid var(--accent)}
+.exc-item .idx{font-size:0.65rem;color:var(--text2);font-family:var(--font-mono)}
+.exc-item .fn{font-size:0.7rem;padding:0.1rem 0.35rem;border-radius:3px;background:var(--surface3);color:var(--accent);display:inline-block;margin-left:0.3rem}
+.exc-item .snip{font-size:0.8rem;font-family:var(--font-ar);direction:rtl;color:var(--text);margin-top:0.2rem;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:230px}
+.exc-item .badges{display:flex;gap:0.25rem;margin-top:0.2rem}
+.dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.dot-full{background:var(--green)}.dot-partial{background:var(--amber)}.dot-dep{background:var(--red)}
+.dot-gate{background:var(--red);box-shadow:0 0 4px var(--red)}
+.exc-item .reviewed{font-size:0.6rem;color:var(--green);margin-left:auto}
+
+/* ── Center: Library Excerpt ── */
+#center{overflow-y:auto;padding:2rem 2.5rem}
+#center::-webkit-scrollbar{width:5px}#center::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* The "document" mock */
+.doc{background:var(--surface);border:1px solid var(--border);border-radius:10px;max-width:680px;margin:0 auto;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
+.doc-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.doc-title{font-family:var(--font-ar);font-size:1.1rem;direction:rtl;color:var(--accent);line-height:1.5;flex:1}
+.doc-meta{font-size:0.7rem;color:var(--text2);text-align:right;white-space:nowrap}
+.doc-body{padding:1.5rem 1.75rem}
+.doc-text{font-family:var(--font-ar);font-size:1.4rem;line-height:2;direction:rtl;text-align:right;color:var(--text);white-space:pre-wrap;word-wrap:break-word}
+.doc-gloss{font-family:var(--font-ar);font-size:0.95rem;direction:rtl;text-align:right;color:var(--text2);margin-top:0.75rem;padding-top:0.75rem;border-top:1px dashed var(--border);line-height:1.7}
+.doc-footer{padding:0.75rem 1.5rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center}
+.chip{display:inline-flex;align-items:center;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.72rem;font-weight:500;gap:0.25rem}
+.chip-fn{background:rgba(108,156,252,0.12);color:var(--accent)}
+.chip-full{background:rgba(107,203,119,0.12);color:var(--green)}
+.chip-partial{background:rgba(240,181,74,0.12);color:var(--amber)}
+.chip-dependent{background:rgba(232,93,93,0.12);color:var(--red)}
+.chip-school{background:rgba(108,156,252,0.08);color:var(--text2);border:1px solid var(--border)}
+
+/* Warning band for PARTIAL/DEPENDENT */
+.warn-band{margin:0.75rem 0;padding:0.6rem 0.8rem;border-radius:6px;font-family:var(--font-ar);font-size:0.9rem;direction:rtl;text-align:right;line-height:1.7}
+.warn-band.partial{background:rgba(240,181,74,0.08);border-left:3px solid var(--amber)}
+.warn-band.dependent{background:rgba(232,93,93,0.08);border-left:3px solid var(--red)}
+.warn-band .wlabel{font-family:var(--font-ui);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text2);direction:ltr;display:block;margin-bottom:0.2rem}
+.warn-band .ctx{font-size:0.8rem;color:var(--text2);margin-top:0.3rem;padding-top:0.3rem;border-top:1px dashed var(--border)}
+
+/* Sections below the doc */
+.section{margin-top:1rem;max-width:680px;margin-left:auto;margin-right:auto}
+.sec-title{font-size:0.65rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text2);margin-bottom:0.4rem;display:flex;align-items:center;gap:0.4rem;cursor:pointer}
+.sec-title .arrow{font-size:0.55rem;transition:transform .15s}.sec-title .arrow.open{transform:rotate(90deg)}
+.sec-body{display:none;padding:0.3rem 0 0.6rem;font-size:0.82rem;color:var(--text)}.sec-body.open{display:block}
+.stbl{width:100%;border-collapse:collapse;font-size:0.8rem}
+.stbl th{text-align:left;font-size:0.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text2);padding:0.25rem 0.4rem;border-bottom:1px solid var(--border);font-weight:400}
+.stbl td{padding:0.25rem 0.4rem;border-bottom:1px solid var(--border);vertical-align:top}
+.stbl .ar{font-family:var(--font-ar);direction:rtl}
+.muted{color:var(--text2);font-style:italic;font-size:0.8rem}
+
+/* ── Right Panel: Diagnostics + Feedback ── */
+#right{overflow-y:auto;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column}
+#right::-webkit-scrollbar{width:4px}#right::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.rpanel{padding:0.75rem 1rem}
+.rpanel-title{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text2);margin-bottom:0.5rem;display:flex;align-items:center;justify-content:space-between}
+.rrow{display:flex;gap:0.4rem;margin-bottom:0.2rem;font-size:0.78rem;flex-wrap:wrap}
+.rlabel{color:var(--text2);min-width:75px;flex-shrink:0;font-size:0.72rem}
+.rval{color:var(--text);word-break:break-all;font-size:0.78rem}
+.divider{height:1px;background:var(--border);margin:0}
+
+/* Consensus mini-table */
+.ctbl{width:100%;border-collapse:collapse;font-size:0.7rem;margin-top:0.3rem}
+.ctbl th{text-align:left;font-size:0.6rem;color:var(--text2);padding:0.15rem 0.3rem;border-bottom:1px solid var(--border);font-weight:400}
+.ctbl td{padding:0.15rem 0.3rem;border-bottom:1px solid var(--border)}
+
+/* Flags */
+.flag{display:inline-block;padding:0.1rem 0.4rem;border-radius:3px;font-size:0.7rem;font-weight:500;margin:0.1rem}
+.flag-gate{background:rgba(232,93,93,0.15);color:var(--red)}
+.flag-review{background:rgba(240,181,74,0.15);color:var(--amber)}
+
+/* ── Feedback Zone ──────────── */
+.fb-zone{margin-top:auto;border-top:1px solid var(--border);padding:0.75rem 1rem;background:var(--surface2)}
+.verdict-row{display:flex;gap:0.3rem;margin-bottom:0.4rem}
+.vbtn{flex:1;padding:0.35rem;border:1px solid var(--border);border-radius:5px;background:transparent;color:var(--text2);cursor:pointer;font-size:0.78rem;font-family:var(--font-ui);transition:all .1s;text-align:center}
+.vbtn:hover{border-color:var(--text2)}
+.vbtn.sel-accept{border-color:var(--green);color:var(--green);background:rgba(107,203,119,0.08)}
+.vbtn.sel-needs_work{border-color:var(--amber);color:var(--amber);background:rgba(240,181,74,0.08)}
+.vbtn.sel-reject{border-color:var(--red);color:var(--red);background:rgba(232,93,93,0.08)}
+#comment{width:100%;min-height:50px;max-height:120px;padding:0.4rem 0.6rem;border:1px solid var(--border);border-radius:5px;background:var(--bg);color:var(--text);font-family:var(--font-ui);font-size:0.82rem;resize:vertical;line-height:1.4}
+#comment:focus{outline:none;border-color:var(--accent)}
+.fb-actions{display:flex;justify-content:space-between;align-items:center;margin-top:0.4rem}
+#save-btn{padding:0.35rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:5px;cursor:pointer;font-size:0.8rem;font-family:var(--font-ui);transition:opacity .1s}
+#save-btn:hover{opacity:0.85}
+#progress{font-size:0.7rem;color:var(--text2)}
+
+/* Shortcuts overlay */
+#shortcuts{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center}
+#shortcuts.open{display:flex}
+#shortcuts .modal{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.5rem;max-width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+#shortcuts h3{font-size:0.9rem;font-weight:400;margin-bottom:0.5rem}
+.krow{display:flex;justify-content:space-between;padding:0.15rem 0;font-size:0.78rem;color:var(--text2)}
+.krow kbd{background:var(--surface3);border:1px solid var(--border);border-radius:3px;padding:0.05rem 0.35rem;font-family:var(--font-mono);font-size:0.7rem;color:var(--text)}
+</style>
+</head>
+<body>
+
+<div id="pkg-picker">
+  <h1><span>KR</span> Excerpt Review</h1>
+  <div class="sub">Select a package to begin</div>
+  <div id="pkg-list"></div>
+  <div id="load-error"></div>
+</div>
+
+<div id="viewer">
+  <div id="topbar">
+    <div class="nav">
+      <button class="nbtn" id="prev-btn" title="Previous (←)">&#9664;</button>
+      <span id="pos">0/0</span>
+      <button class="nbtn" id="next-btn" title="Next (→)">&#9654;</button>
+    </div>
+    <span id="pkg-label" title="Back to packages"></span>
+    <div class="tbar-r">
+      <span id="live-dot" style="width:7px;height:7px;border-radius:50%;background:var(--green);display:none" title="Live — polling for new excerpts"></span>
+      <button class="tbtn" id="shortcuts-btn">?</button>
+    </div>
+  </div>
+  <div id="left"></div>
+  <div id="center"></div>
+  <div id="right"></div>
+</div>
+
+<div id="shortcuts">
+  <div class="modal">
+    <h3>Shortcuts</h3>
+    <div class="krow"><span>Navigate</span><span><kbd>&larr;</kbd> <kbd>&rarr;</kbd></span></div>
+    <div class="krow"><span>First / Last</span><span><kbd>Home</kbd> <kbd>End</kbd></span></div>
+    <div class="krow"><span>Go to #</span><span><kbd>g</kbd></span></div>
+    <div class="krow"><span>Save & Next</span><span><kbd>Ctrl+Enter</kbd></span></div>
+    <div class="krow"><span>Packages</span><span><kbd>Esc</kbd></span></div>
+    <div class="krow"><span>Shortcuts</span><span><kbd>?</kbd></span></div>
+    <div style="margin-top:0.6rem;text-align:center"><button class="nbtn" onclick="$('shortcuts').classList.remove('open')">Close</button></div>
+  </div>
+</div>
+
+<script>
+let excerpts=[], currentIndex=0, currentPackage="", feedback={}, pollTimer=null;
+const $=id=>document.getElementById(id);
+const esc=s=>{if(s==null)return"—";const d=document.createElement("div");d.textContent=String(s);return d.innerHTML};
+const v=val=>(val===null||val===undefined||val===""?"—":val);
+
+// ── Package Loading ──
+async function loadPackages(){
+  try{
+    const r=await fetch("/api/packages");const pkgs=await r.json();
+    if(!pkgs.length){$("pkg-list").innerHTML='<div style="color:var(--text2)">Waiting for excerpts...</div>';setTimeout(loadPackages,5000);return}
+    $("pkg-list").innerHTML=pkgs.map(p=>`<div class="pkg-card${p.excerpt_count?'':' empty'}" onclick="${p.excerpt_count?`selectPkg('${p.name}')`:''}"><div class="n">${p.name}</div><div class="m"><b>${p.excerpt_count}</b> excerpts${p.feedback_count?` · ${p.feedback_count} reviewed`:''}</div></div>`).join("");
+    setTimeout(loadPackages,10000);
+  }catch{setTimeout(loadPackages,3000)}
+}
+
+async function selectPkg(pkg){
+  currentPackage=pkg;
+  try{
+    const[er,fr]=await Promise.all([fetch(`/api/excerpts/${pkg}`),fetch(`/api/feedback/${pkg}`)]);
+    excerpts=await er.json();feedback=await fr.json();
+    if(!excerpts.length){alert("No excerpts yet.");return}
+    currentIndex=0;
+    $("pkg-picker").style.display="none";$("viewer").classList.add("active");$("pkg-label").textContent=pkg;
+    renderList();render();startPolling();
+  }catch(e){alert("Load failed: "+e.message)}
+}
+
+function backToPackages(){
+  if(pollTimer)clearInterval(pollTimer);
+  $("viewer").classList.remove("active");$("pkg-picker").style.display="flex";
+  excerpts=[];currentIndex=0;loadPackages();
+}
+
+function startPolling(){
+  $("live-dot").style.display="inline-block";
+  if(pollTimer)clearInterval(pollTimer);
+  pollTimer=setInterval(async()=>{
+    try{const r=await fetch(`/api/excerpts/${currentPackage}`);const f=await r.json();
+      if(f.length>excerpts.length){excerpts=f;renderList();$("pos").textContent=`${currentIndex+1}/${excerpts.length}`}
+    }catch{}
+  },10000);
+}
+
+// ── List Panel ──
+function renderList(){
+  $("left").innerHTML=excerpts.map((ex,i)=>{
+    const fb=feedback[ex.excerpt_id];
+    const sc=ex.self_containment||"FULL";
+    const dotCls=sc==="FULL"?"dot-full":sc==="PARTIAL"?"dot-partial":"dot-dep";
+    const hasGate=(ex.gate_flags||[]).length>0;
+    return `<div class="exc-item${i===currentIndex?' active':''}" data-i="${i}" onclick="go(${i})">
+      <div><span class="idx">#${i+1}</span><span class="fn">${ex.primary_function||"?"}</span></div>
+      <div class="snip">${esc(ex.text_snippet||ex.primary_text?.substring(0,60)||"")}</div>
+      <div class="badges"><span class="dot ${dotCls}"></span>${hasGate?'<span class="dot dot-gate"></span>':''}${fb?'<span class="reviewed">✓</span>':''}</div>
+    </div>`;
+  }).join("");
+}
+
+function go(i){currentIndex=i;render();renderList()}
+
+// ── Center: Library Excerpt ──
+function render(){
+  const ex=excerpts[currentIndex];if(!ex)return;
+  $("pos").textContent=`${currentIndex+1}/${excerpts.length}`;
+  $("prev-btn").disabled=currentIndex===0;$("next-btn").disabled=currentIndex===excerpts.length-1;
+
+  // Title from div_path + description
+  const divPath=(ex.div_path||[]).join(" \u203A ");
+  const pp=ex.physical_pages;
+  const pageStr=pp?`Vol ${pp.volume||"?"}, pp ${pp.start_page}${pp.end_page!==pp.start_page?"–"+pp.end_page:""}`:""
+
+  // Self-containment
+  const sc=ex.self_containment||"FULL";
+  const scCls=sc==="FULL"?"full":sc==="PARTIAL"?"partial":"dependent";
+  let warnHtml="";
+  if(sc!=="FULL"){
+    const cls=sc==="PARTIAL"?"partial":"dependent";
+    warnHtml=`<div class="warn-band ${cls}"><span class="wlabel">${sc}</span>${esc(ex.self_containment_notes||"")}${ex.context_hint?`<div class="ctx">${esc(ex.context_hint)}</div>`:""}</div>`;
+  }
+
+  // Scholars
+  let scholarsHtml="";
+  if(ex.quoted_scholars?.length){
+    const rows=ex.quoted_scholars.map(s=>`<tr><td class="ar" dir="rtl">${esc(s.mention_text)}</td><td class="ar" dir="rtl">${v(s.resolved_name)}</td><td>${v(s.role)}</td></tr>`).join("");
+    scholarsHtml=`<table class="stbl"><thead><tr><th>Mention</th><th>Resolved</th><th>Role</th></tr></thead><tbody>${rows}</tbody></table>`;
+  }
+
+  // Topics
+  const topics=(ex.excerpt_topic||[]).map(t=>`<span class="chip chip-fn">${esc(t)}</span>`).join("")||'<span class="muted">—</span>';
+
+  // Evidence
+  const refs=ex.evidence_refs||[],tak=ex.takhrij_data||[],xrefs=ex.cross_references||[];
+  let evidHtml="";
+  if(refs.length+tak.length+xrefs.length===0)evidHtml='<span class="muted">No evidence</span>';
+  else{
+    if(tak.length)evidHtml+=tak.map(t=>`<div style="margin-bottom:0.3rem;font-family:var(--font-ar);direction:rtl">${esc(t.hadith_text_snippet||"—")}</div>`).join("");
+    if(refs.length)evidHtml+=refs.map(r=>`<div style="font-size:0.78rem">${v(r.type)}: <span class="ar" dir="rtl">${esc(r.text_snippet||r.marker_text||"—")}</span></div>`).join("");
+    if(xrefs.length)evidHtml+=xrefs.map(x=>`<div style="font-size:0.78rem">→ ${esc(x.target_description||x.reference_text||"—")} ${x.resolved?"✓":"✗"}</div>`).join("");
+  }
+
+  // Author layer
+  const la=ex.primary_author_layer||{};
+
+  $("center").innerHTML=`
+    <div class="doc">
+      <div class="doc-header">
+        <div class="doc-title" dir="rtl" lang="ar">${esc(divPath)}</div>
+        <div class="doc-meta">${pageStr}<br>${la.layer_id||"—"} · ${la.author_id||"—"}</div>
+      </div>
+      <div class="doc-body">
+        <div class="doc-text" dir="rtl" lang="ar">${esc(ex.primary_text)}</div>
+        ${ex.description_arabic?`<div class="doc-gloss" dir="rtl" lang="ar">${esc(ex.description_arabic)}</div>`:""}
+        ${warnHtml}
+      </div>
+      <div class="doc-footer">
+        <span class="chip chip-fn">${v(ex.primary_function)}</span>
+        <span class="chip chip-${scCls}">${sc}</span>
+        ${(ex.secondary_functions||[]).map(f=>`<span class="chip" style="background:var(--surface3);color:var(--text2)">${f}</span>`).join("")}
+        ${ex.school?`<span class="chip chip-school" dir="rtl">${esc(ex.school)}</span>`:""}
+      </div>
+    </div>
+    ${scholarsHtml?`<div class="section"><div class="sec-title" onclick="toggleSec(this)"><span class="arrow open">▸</span> Scholars Cited</div><div class="sec-body open">${scholarsHtml}</div></div>`:""}
+    <div class="section"><div class="sec-title" onclick="toggleSec(this)"><span class="arrow open">▸</span> Topics</div><div class="sec-body open"><div style="display:flex;flex-wrap:wrap;gap:0.3rem">${topics}</div></div></div>
+    ${refs.length+tak.length+xrefs.length>0?`<div class="section"><div class="sec-title" onclick="toggleSec(this)"><span class="arrow open">▸</span> Evidence</div><div class="sec-body open">${evidHtml}</div></div>`:""}
+  `;
+
+  renderRight(ex);
+  // Scroll list item into view
+  const active=$("left").querySelector(".active");if(active)active.scrollIntoView({block:"nearest"});
+}
+
+function toggleSec(el){el.querySelector(".arrow").classList.toggle("open");el.nextElementSibling.classList.toggle("open")}
+
+// ── Right Panel ──
+function renderRight(ex){
+  const cm=ex.consensus_metadata;
+  let consHtml='<span class="muted">—</span>';
+  if(cm?.decisions?.length){
+    const rows=cm.decisions.map(d=>`<tr><td>${v(d.decision_type)}</td><td>${v(d.enrichment_value)}</td><td>${v(d.verifier_value)}</td><td>${d.verifier_agrees?"✓":"✗"}</td><td>${v(d.final_value)}</td></tr>`).join("");
+    consHtml=`<table class="ctbl"><thead><tr><th>Type</th><th>Enrich</th><th>Verify</th><th>Agr</th><th>Final</th></tr></thead><tbody>${rows}</tbody></table>`;
+  }
+  const gates=(ex.gate_flags||[]).map(g=>`<span class="flag flag-gate">${esc(g)}</span>`).join("")||'<span class="muted">None</span>';
+  const reviews=(ex.review_flags||[]).map(r=>`<span class="flag flag-review">${esc(r)}</span>`).join("")||'<span class="muted">None</span>';
+  const scholConf=(ex.quoted_scholars||[]).map(s=>`${esc(s.mention_text)} <b>${s.confidence!=null?s.confidence.toFixed(2):"—"}</b>`).join(", ")||"—";
+
+  const diagHtml=`
+    <div class="rpanel">
+      <div class="rpanel-title">Pipeline Diagnostics</div>
+      <div class="rrow"><span class="rlabel">ID</span><span class="rval" style="font-family:var(--font-mono);font-size:0.68rem">${esc(ex.excerpt_id)}</span></div>
+      <div class="rrow"><span class="rlabel">chunk/unit</span><span class="rval">${v(ex.chunk_index)}/${v(ex.unit_index)}</span></div>
+      <div class="rrow"><span class="rlabel">words</span><span class="rval">${v(ex.start_word)}–${v(ex.end_word)}</span></div>
+      <div class="rrow"><span class="rlabel">segments</span><span class="rval">[${(ex.segment_indices||[]).join(",")}]</span></div>
+      <div class="rrow"><span class="rlabel">attr conf</span><span class="rval">${ex.attribution_confidence!=null?ex.attribution_confidence.toFixed(2):"—"}</span></div>
+      <div class="rrow"><span class="rlabel">school conf</span><span class="rval">${ex.school_confidence!=null?ex.school_confidence.toFixed(2):"—"}</span></div>
+      <div class="rrow"><span class="rlabel">scholars</span><span class="rval" style="font-size:0.72rem">${scholConf}</span></div>
+    </div>
+    <div class="divider"></div>
+    <div class="rpanel">
+      <div class="rpanel-title">Consensus</div>
+      ${consHtml}
+    </div>
+    <div class="divider"></div>
+    <div class="rpanel">
+      <div class="rpanel-title">Flags</div>
+      <div class="rrow"><span class="rlabel">Gates</span><span class="rval">${gates}</span></div>
+      <div class="rrow"><span class="rlabel">Review</span><span class="rval">${reviews}</span></div>
+    </div>
+  `;
+
+  // Feedback
+  const fb=feedback[ex.excerpt_id]||{};
+  const verdicts=["accept","needs_work","reject"];
+  const labels={accept:"✓ Accept",needs_work:"⚠ Needs Work",reject:"✗ Reject"};
+  const btns=verdicts.map(vv=>{
+    const sel=fb.verdict===vv?` sel-${vv}`:"";
+    return `<button class="vbtn${sel}" data-v="${vv}">${labels[vv]}</button>`;
+  }).join("");
+  const reviewed=Object.keys(feedback).length;
+
+  $("right").innerHTML=`
+    ${diagHtml}
+    <div class="fb-zone">
+      <div class="rpanel-title">Your Review</div>
+      <div class="verdict-row">${btns}</div>
+      <textarea id="comment" placeholder="Comments...">${esc(fb.comment||"")}</textarea>
+      <div class="fb-actions">
+        <button id="save-btn">Save & Next →</button>
+        <span id="progress">${reviewed}/${excerpts.length} reviewed</span>
+      </div>
+    </div>
+  `;
+
+  // Wire
+  document.querySelectorAll(".vbtn").forEach(b=>b.addEventListener("click",()=>{
+    document.querySelectorAll(".vbtn").forEach(bb=>bb.className="vbtn");
+    b.classList.add(`sel-${b.dataset.v}`);
+  }));
+  $("save-btn").addEventListener("click",saveAndNext);
+}
+
+// ── Feedback ──
+async function saveAndNext(){
+  const ex=excerpts[currentIndex];
+  const vbtn=document.querySelector(".vbtn[class*='sel-']");
+  const verdict=vbtn?vbtn.dataset.v:null;
+  const comment=$("comment")?$("comment").value.trim():"";
+  if(!verdict&&!comment){if(currentIndex<excerpts.length-1){currentIndex++;render();renderList()}return}
+
+  const cm=ex.consensus_metadata;
+  let csum="—";
+  if(cm?.decisions)csum=cm.decisions.map(d=>`${d.decision_type}: ${d.verifier_agrees?"agree":"disagree"}`).join(", ");
+
+  const entry={
+    excerpt_id:ex.excerpt_id,
+    content_hash:ex._content_hash||"",
+    timestamp:new Date().toISOString(),
+    verdict:verdict||"skip",
+    comment,
+    excerpt_context:{
+      primary_function:ex.primary_function,self_containment:ex.self_containment,
+      school:ex.school,school_confidence:ex.school_confidence,
+      primary_author_layer:ex.primary_author_layer,div_path:ex.div_path,
+      text_snippet:ex.text_snippet,gate_flags:ex.gate_flags,
+      review_flags:ex.review_flags,consensus_summary:csum
+    },
+    review_meta:{source_file:currentPackage,excerpt_position:`${currentIndex+1}/${excerpts.length}`,reviewer:"owner"}
+  };
+  feedback[ex.excerpt_id]=entry;
+  try{await fetch(`/api/feedback/${currentPackage}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(entry)})}catch(e){console.error("Save failed:",e)}
+  if(currentIndex<excerpts.length-1){currentIndex++;render();renderList()}else{render();renderList()}
+}
+
+// ── Navigation ──
+$("prev-btn").addEventListener("click",()=>{if(currentIndex>0){currentIndex--;render();renderList()}});
+$("next-btn").addEventListener("click",()=>{if(currentIndex<excerpts.length-1){currentIndex++;render();renderList()}});
+$("pkg-label").addEventListener("click",backToPackages);
+$("shortcuts-btn").addEventListener("click",()=>$("shortcuts").classList.toggle("open"));
+
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT"){if(e.key==="Enter"&&e.ctrlKey){e.preventDefault();saveAndNext()}return}
+  if(e.key==="ArrowLeft"){if(currentIndex>0){currentIndex--;render();renderList()}}
+  else if(e.key==="ArrowRight"){if(currentIndex<excerpts.length-1){currentIndex++;render();renderList()}}
+  else if(e.key==="Home"){currentIndex=0;render();renderList()}
+  else if(e.key==="End"){currentIndex=excerpts.length-1;render();renderList()}
+  else if(e.key==="g"){const n=prompt(`Go to (1–${excerpts.length}):`);if(n){const i=parseInt(n)-1;if(i>=0&&i<excerpts.length){currentIndex=i;render();renderList()}}}
+  else if(e.key==="?"&&!e.shiftKey)$("shortcuts").classList.toggle("open");
+  else if(e.key==="Escape"){$("shortcuts").classList.remove("open");backToPackages()}
+});
+
+loadPackages();
+</script>
+</body>
+</html>

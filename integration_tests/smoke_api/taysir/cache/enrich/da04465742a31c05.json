@@ -1,0 +1,253 @@
+{
+  "cache_key": "da04465742a31c05",
+  "chunk_id": "div_src_test0001_7_000",
+  "model": "openai/gpt-5.4",
+  "timestamp": "2026-03-31T09:38:58.461531+00:00",
+  "result": {
+    "enrichments": [
+      {
+        "unit_index": 0,
+        "excerpt_topic": [
+          "عنوان الكتاب",
+          "نسبة الشرح",
+          "عمدة الأحكام"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 1,
+        "excerpt_topic": [
+          "النية",
+          "حديث إنما الأعمال بالنيات",
+          "الهجرة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أمير المؤمنين أبي حفص عمر بن الخطاب",
+            "resolved_name": "عمر بن الخطاب",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "رسولَ الله صلى الله عليه وسلم",
+            "resolved_name": "محمد بن عبد الله رسول الله صلى الله عليه وسلم",
+            "role": "quoted_opinion",
+            "confidence": 1.0
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "إنما الأعمال بالنيات، وإنما ل",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "الهجرة",
+            "variants": [
+              "الانتقال من دار الكفر إلى دار الإسلام"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 2,
+        "excerpt_topic": [
+          "إنما",
+          "الحصر",
+          "شرح غريب الحديث"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 3,
+        "excerpt_topic": [
+          "تعريف النية",
+          "النية لغة وشرعًا",
+          "محل النية"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "البيضاوي",
+            "resolved_name": "عبد الله بن عمر البيضاوي",
+            "role": "quoted_opinion",
+            "confidence": 0.88
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 4,
+        "excerpt_topic": [
+          "مثال الهجرة",
+          "الشرط والجواب",
+          "تقرير القاعدة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "القاعدة السابقة",
+            "target_description": "قاعدة إنما الأعمال بالنيات المذكورة في شرح الحديث قبله",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": "المقصود بيان أن مثال الهجرة في الحديث يشرح قاعدة ارتباط صحة العمل وثوابه بالنية والقصد."
+      },
+      {
+        "unit_index": 5,
+        "excerpt_topic": [
+          "المعنى الإجمالي",
+          "أثر النية في القبول",
+          "تمييز العبادة عن العادة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "النبي صلى الله عليه وسلم",
+            "resolved_name": "محمد بن عبد الله رسول الله صلى الله عليه وسلم",
+            "role": "quoted_opinion",
+            "confidence": 1.0
+          },
+          {
+            "mention_text": "رسول الله صلى الله عليه وسلم",
+            "resolved_name": "محمد بن عبد الله رسول الله صلى الله عليه وسلم",
+            "role": "quoted_opinion",
+            "confidence": 1.0
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "الإخلاص",
+            "variants": [
+              "إفراد القصد لله",
+              "تصحيح القصد"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 6,
+        "excerpt_topic": [
+          "جوامع الكلم",
+          "افتتاح صحيح البخاري",
+          "عناية العلماء بالحديث"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "الإمام البخاري",
+            "resolved_name": "محمد بن إسماعيل البخاري",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "وهذا",
+            "target_description": "الحديث السابق: إنما الأعمال بالنيات",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": "المشار إليه هو حديث إنما الأعمال بالنيات، وبيان مكانته من الأحاديث الجامعة وسبب تصدير البخاري له."
+      },
+      {
+        "unit_index": 7,
+        "excerpt_topic": [
+          "مدار الأعمال على النيات",
+          "الرياء",
+          "أثر القصد في الثواب"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 8,
+        "excerpt_topic": [
+          "اشتراط النية",
+          "استحضار النية",
+          "التكلف في النية"
+        ],
+        "school": "حنبلي",
+        "school_confidence": 0.65,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 9,
+        "excerpt_topic": [
+          "محل النية",
+          "اللفظ بالنية",
+          "بدعية التلفظ"
+        ],
+        "school": "حنبلي",
+        "school_confidence": 0.8,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 10,
+        "excerpt_topic": [
+          "الرياء",
+          "السمعة",
+          "إفساد العبادة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      }
+    ],
+    "total_units": 11
+  }
+}

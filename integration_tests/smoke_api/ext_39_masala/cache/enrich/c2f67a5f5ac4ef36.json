@@ -1,0 +1,369 @@
+{
+  "cache_key": "c2f67a5f5ac4ef36",
+  "chunk_id": "div_src_test0001_2_000_pre",
+  "model": "openai/gpt-5.4",
+  "timestamp": "2026-03-31T09:44:49.119683+00:00",
+  "result": {
+    "enrichments": [
+      {
+        "unit_index": 0,
+        "excerpt_topic": [
+          "مقدمة الكتاب",
+          "سبب الاختصار",
+          "حقوق المؤلف"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "محمد ناصر الدين الألباني",
+            "resolved_name": "محمد ناصر الدين الألباني",
+            "role": "classification_frame",
+            "confidence": 0.99
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "يا عبادي إني حرمت الظلم على ",
+            "collections": [
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "اتقوا الظلم فإن الظلم ظلمات ",
+            "collections": [
+              "صحيح البخاري",
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "الرجوع إلى كتابي أحكام الجنائز وبدعتها",
+            "target_description": "الكتاب الأصل الذي لخصه المؤلف",
+            "target_div_id": null,
+            "resolved": false
+          },
+          {
+            "reference_text": "كما كنت ذكرت ذلك في ال‌‌مقدمة",
+            "target_description": "مقدمة الكتاب الأصل وسبب تأليفه",
+            "target_div_id": null,
+            "resolved": false
+          },
+          {
+            "reference_text": "اكتفاء بالأصل",
+            "target_description": "الكتاب الأصل الذي حذفت منه التخاريج في هذا المختصر",
+            "target_div_id": null,
+            "resolved": false
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 1,
+        "excerpt_topic": [
+          "رضا المريض بالقضاء",
+          "الصبر على المرض",
+          "حسن الظن بالله"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 2,
+        "excerpt_topic": [
+          "الخوف والرجاء",
+          "حال المحتضر",
+          "حسن الظن بالله"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أنس",
+            "resolved_name": "أنس بن مالك",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          },
+          {
+            "mention_text": "الترمذي",
+            "resolved_name": "محمد بن عيسى الترمذي",
+            "role": "quoted_opinion",
+            "confidence": 0.96
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 3,
+        "excerpt_topic": [
+          "تمني الموت",
+          "الدعاء عند شدة المرض"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 4,
+        "excerpt_topic": [
+          "أداء الحقوق",
+          "الوصية بالحقوق"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": "إذا عجز المريض عن أداء ما عليه من حقوق وديون لزمه أن يثبتها في وصيته حفظا لحقوق أصحابها."
+      },
+      {
+        "unit_index": 5,
+        "excerpt_topic": [
+          "المبادرة إلى الوصية",
+          "كتابة الوصية"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "ابن عمر",
+            "resolved_name": "عبد الله بن عمر بن الخطاب",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "ما حق امرئ مسلم يبيت ليلتين",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 6,
+        "excerpt_topic": [
+          "الوصية لغير الوارث",
+          "وصية الأقربين"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 7,
+        "excerpt_topic": [
+          "مقدار الوصية",
+          "الثلث",
+          "تقليل الوصية"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "سعد بن أبي وقاص",
+            "resolved_name": "سعد بن أبي وقاص",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "ابن عباس",
+            "resolved_name": "عبد الله بن عباس",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "كنت مع رسول الله صلى الله علي",
+            "collections": [
+              "صحيح البخاري",
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "الثلث والثلث كثير",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 8,
+        "excerpt_topic": [
+          "الشهادة على الوصية",
+          "عدالة الشهود",
+          "شهادة غير المسلمين"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 9,
+        "excerpt_topic": [
+          "الوصية للوارث",
+          "نسخ الوصية للوالدين",
+          "لا وصية لوارث"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "إن الله قد أعطى كل ذي حق حقه",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "منسوخة بآية الميراث",
+            "target_description": "آيات المواريث من سورة النساء",
+            "target_div_id": null,
+            "resolved": false
+          }
+        ],
+        "context_hint": "المقصود أن آيات الفرائض حددت أنصباء الورثة، فصار من يرث لا تصح له وصية زائدة على حقه الشرعي."
+      },
+      {
+        "unit_index": 10,
+        "excerpt_topic": [
+          "الإضرار في الوصية",
+          "تفضيل بعض الورثة",
+          "لا ضرر ولا ضرار"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "لا ضرر ولا ضرار من ضار ضاره",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 11,
+        "excerpt_topic": [
+          "بطلان الوصية الجائرة",
+          "الدفن على السنة",
+          "بدع الجنائز"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أصحاب رسول الله صلى الله عليه وسلم",
+            "resolved_name": "أصحاب رسول الله صلى الله عليه وسلم",
+            "role": "quoted_opinion",
+            "confidence": 0.9
+          },
+          {
+            "mention_text": "حذيفة",
+            "resolved_name": "حذيفة بن اليمان",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "النووي",
+            "resolved_name": "يحيى بن شرف النووي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "من أحدث في أمرنا هذا ما ليس",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "إذا أنا مت فلا تؤذنوا بي أحدا",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "النعي",
+            "variants": [
+              "الإعلام بالموت"
+            ]
+          }
+        ],
+        "cross_references": [
+          {
+            "reference_text": "بما ذكرنا",
+            "target_description": "الآثار الكثيرة المذكورة في الكتاب الأصل حول الوصية بالدفن على السنة واجتناب البدع",
+            "target_div_id": null,
+            "resolved": false
+          },
+          {
+            "reference_text": "تراجع في الأصل",
+            "target_description": "الكتاب الأصل الذي أحال إليه المؤلف لاستقصاء الآثار",
+            "target_div_id": null,
+            "resolved": false
+          }
+        ],
+        "context_hint": "بعد تقرير بطلان الوصية المخالفة للشرع، نبه المؤلف إلى وصية مشروعة مهمة وهي أن يكون تجهيز الميت ودفنه على السنة."
+      }
+    ],
+    "total_units": 12
+  }
+}

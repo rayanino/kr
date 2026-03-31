@@ -1,0 +1,18 @@
+{
+  "call_id": "escalation_0002",
+  "semantic_phase": "escalation",
+  "chunk_id": null,
+  "model": "mistralai/mistral-large-2411",
+  "temperature": 0.0,
+  "max_tokens": 1024,
+  "messages": [
+    {
+      "role": "system",
+      "content": "\n        As a genius expert, your task is to understand the content and provide\n        the parsed objects in json that match the following json_schema:\n\n\n        {\n  \"properties\": {\n    \"author_id\": {\n      \"description\": \"The correct author attribution\",\n      \"title\": \"Author Id\",\n      \"type\": \"string\"\n    },\n    \"reasoning\": {\n      \"description\": \"Brief explanation\",\n      \"title\": \"Reasoning\",\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"author_id\",\n    \"reasoning\"\n  ],\n  \"title\": \"EscalationResponse\",\n  \"type\": \"object\"\n}\n\n        Make sure to return an instance of the JSON, not the schema itself\n"
+    },
+    {
+      "role": "user",
+      "content": "Two models disagree on the author attribution of this Arabic text.\n\nText: \"علي للاستعلاء ومعنى في وعن … بعن تجاوزا عني من قد فطن وقد تجيء موضع بعد وعلى … كما على موضع من قد جعلا\nتستعمل على للاستعلاء كثيرا نحو زيد على السطح وبمعنى في نحو قوله تعالى: {وَدَخَلَ الْمَدِينَةَ عَلَى حِينِ غَفْلَةٍ مِنْ أَهْلِهَا} أي في حين غفلة وتستعمل عن للمجاوزة كثيرا نحو رميت السهم عن القوس وبمعنى بعد نحو قوله تعالى: {لَتَرْكَبُنَّ طَبَقاً عَنْ طَبَقٍ} أي بعد طبق وبمعنى على نحو قوله:\n208 - لاه ابن عمك لا أفضلت في حسب … عني ولا أنت دياني فتخزوني أي لا أفضلت في حسب علي كما استعملت على بمعنى\"\n\nSource: ابن عقيل - شرح ابن عقيل على ألفية ابن مالك\n\nModel 1 says: unknown (layer: sharh)\nModel 2 says: This should be attributed to ابن عقيل (layer sharh). The first two lines are ابن مالك's matn (نظم), and the rest is ابن عقيل's sharh explaining the meanings of على and عن with Quranic and poetic evidence. (reasoning: The unit begins with ابن مالك's verses (the ألفية), then transitions to ابن عقيل's explanatory commentary with phrases like 'تستعمل على للاستعلاء كثيرا نحو...' and 'أي في حين غفلة'. This is standard sharh format. The author is ابن عقيل, not 'unknown'. The 68% coverage likely reflects the mixed matn+sharh content, but the sharh portion is clearly ابن عقيل's.)\n\nWhich attribution is correct? Respond with just the author ID."
+    }
+  ]
+}

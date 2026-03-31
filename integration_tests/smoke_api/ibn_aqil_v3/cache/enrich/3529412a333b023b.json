@@ -1,0 +1,668 @@
+{
+  "cache_key": "3529412a333b023b",
+  "chunk_id": "div_src_test0001_3_000",
+  "model": "openai/gpt-5.4",
+  "timestamp": "2026-03-31T09:30:02.491581+00:00",
+  "result": {
+    "enrichments": [
+      {
+        "unit_index": 0,
+        "excerpt_topic": [
+          "حروف الجر",
+          "عدد حروف الجر",
+          "اختصاصها بالأسماء"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "حروف الجر",
+            "variants": [
+              "حروف الخفض",
+              "حروف الإضافة"
+            ]
+          }
+        ],
+        "cross_references": [
+          {
+            "reference_text": "وتقدم الكلام على خلا وحاشا وعدا في الاستثناء",
+            "target_description": "باب الاستثناء عند الكلام على خلا وحاشا وعدا",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 1,
+        "excerpt_topic": [
+          "جر كي",
+          "ما الاستفهامية",
+          "كي المصدرية"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 2,
+        "excerpt_topic": [
+          "جر لعل",
+          "لغة عقيل",
+          "لعل الزائدة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 3,
+        "excerpt_topic": [
+          "جر متى",
+          "لغة هذيل"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 4,
+        "excerpt_topic": [
+          "لولا الجارة",
+          "الخلاف في لولا",
+          "ضمير لولا"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك الطائي",
+            "role": "classification_frame",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "سيبويه",
+            "resolved_name": "عمرو بن عثمان بن قنبر سيبويه",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "الأخفش",
+            "resolved_name": "سعيد بن مسعدة الأخفش الأوسط",
+            "role": "quoted_opinion",
+            "confidence": 0.78
+          },
+          {
+            "mention_text": "المبرد",
+            "resolved_name": "محمد بن يزيد المبرد",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "وسيأتي الكلام على بقية العشرين عند كلام المصنف عليها",
+            "target_description": "المواضع الآتية من الباب عند شرح المصنف لمعاني بقية حروف الجر",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 5,
+        "excerpt_topic": [
+          "ما يختص بالظاهر",
+          "مذ ومنذ",
+          "جر أسماء الزمان"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك الطائي",
+            "role": "classification_frame",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "وسيذكر المصنف هذا في آخر الباب",
+            "target_description": "آخر باب حروف الجر عند بيان معنى مذ ومنذ في الزمان الحاضر والماضي",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 6,
+        "excerpt_topic": [
+          "مجرور حتى",
+          "جر الضمير بحتى",
+          "الشاذ غير المقيس"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "المصنف",
+            "resolved_name": "محمد بن عبد الله بن مالك الطائي",
+            "role": "classification_frame",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "بعضهم",
+            "resolved_name": "بعضهم",
+            "role": "quoted_opinion",
+            "confidence": 0.4
+          },
+          {
+            "mention_text": "ابن مسعود",
+            "resolved_name": "عبد الله بن مسعود",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "فسيأتي الكلام على مجرورها عند ذكر المصنف له",
+            "target_description": "الموضع الآتي في الباب الذي يبين شروط الاسم المجرور بحتى",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": "الأصل أن حتى لا تجر إلا ما كان آخرا أو متصلا بالآخر، وما ورد من جر الضمير بها فشاذ لا يقاس عليه."
+      },
+      {
+        "unit_index": 7,
+        "excerpt_topic": [
+          "واو القسم",
+          "تاء القسم",
+          "اختصاص التاء بلفظ الله"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "الخفاف",
+            "resolved_name": null,
+            "role": "quoted_opinion",
+            "confidence": 0.21
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 8,
+        "excerpt_topic": [
+          "رب والنكرة",
+          "جر الضمير برب",
+          "جر الضمير بالكاف"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 9,
+        "excerpt_topic": [
+          "معاني من",
+          "من الزائدة",
+          "شروط زيادة من"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "جمهور البصريين",
+            "resolved_name": "جمهور البصريين",
+            "role": "quoted_opinion",
+            "confidence": 0.94
+          },
+          {
+            "mention_text": "الأخفش",
+            "resolved_name": "سعيد بن مسعدة الأخفش الأوسط",
+            "role": "quoted_opinion",
+            "confidence": 0.78
+          },
+          {
+            "mention_text": "الكوفيون",
+            "resolved_name": "الكوفيون",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "ابتداء الغاية",
+            "variants": [
+              "ابتداء الغاية المكانية",
+              "ابتداء الغاية الزمانية"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 10,
+        "excerpt_topic": [
+          "انتهاء الغاية",
+          "حتى وإلى واللام",
+          "مجرور حتى"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 11,
+        "excerpt_topic": [
+          "من بمعنى بدل",
+          "الباء بمعنى بدل"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "ما يسرني بها حمر النعم",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "بدل",
+            "variants": [
+              "عوض"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 12,
+        "excerpt_topic": [
+          "معاني اللام",
+          "معاني الباء وفي",
+          "السببية والظرفية"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "قوله صلى الله عليه وسلم",
+            "resolved_name": "محمد رسول الله صلى الله عليه وسلم",
+            "role": "quoted_opinion",
+            "confidence": 1.0
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "دخلت امرأة النار في هرة حبست",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "الملك",
+            "variants": [
+              "الاختصاص"
+            ]
+          },
+          {
+            "term": "التعليل",
+            "variants": [
+              "السببية"
+            ]
+          }
+        ],
+        "cross_references": [
+          {
+            "reference_text": "تقدم أن اللام تكون للانتهاء",
+            "target_description": "الشرح السابق لمعنى اللام في انتهاء الغاية",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 13,
+        "excerpt_topic": [
+          "معاني الباء",
+          "الاستعانة",
+          "التعدية والتعويض"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "التعويض",
+            "variants": [
+              "العوض",
+              "البدل"
+            ]
+          },
+          {
+            "term": "الإلصاق",
+            "variants": [
+              "الملاصقة"
+            ]
+          },
+          {
+            "term": "المصاحبة",
+            "variants": [
+              "المعية"
+            ]
+          }
+        ],
+        "cross_references": [
+          {
+            "reference_text": "تقدم أن الباء تكون للظرفية وللسببية",
+            "target_description": "الموضع السابق الذي ذكر فيه اشتراك الباء وفي في الظرفية والسببية",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 14,
+        "excerpt_topic": [
+          "معاني على",
+          "معاني عن",
+          "التعاقب بين الحروف"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "المجاوزة",
+            "variants": [
+              "التعدي",
+              "المباعدة"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 15,
+        "excerpt_topic": [
+          "معاني الكاف",
+          "كاف التعليل",
+          "الكاف الزائدة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "الفراء",
+            "resolved_name": "يحيى بن زياد الفراء",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "التشبيه",
+            "variants": [
+              "المماثلة"
+            ]
+          },
+          {
+            "term": "التعليل",
+            "variants": [
+              "السببية"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 16,
+        "excerpt_topic": [
+          "اسمية الكاف",
+          "دخول من على على وعن"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 17,
+        "excerpt_topic": [
+          "على وعن الاسميتان",
+          "على بمعنى فوق",
+          "عن بمعنى جانب"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "فوق",
+            "variants": [
+              "أعلى"
+            ]
+          },
+          {
+            "term": "جانب",
+            "variants": [
+              "ناحية"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 18,
+        "excerpt_topic": [
+          "مذ ومنذ اسمان",
+          "مذ ومنذ حرفان",
+          "رفع ما بعد مذ"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "بعضهم",
+            "resolved_name": "بعضهم",
+            "role": "quoted_opinion",
+            "confidence": 0.4
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "الظرفية",
+            "variants": [
+              "المفعول فيه"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 19,
+        "excerpt_topic": [
+          "زيادة ما",
+          "من وعن والباء",
+          "ما غير الكافة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "تزاد",
+            "variants": [
+              "صلة"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 20,
+        "excerpt_topic": [
+          "ما الكافة",
+          "ربما",
+          "كما الجارة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "تكفهما عن العمل",
+            "variants": [
+              "ما الكافة"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 21,
+        "excerpt_topic": [
+          "حذف رب",
+          "إبقاء عمل الجار",
+          "رب بعد الواو والفاء وبل"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 22,
+        "excerpt_topic": [
+          "حذف غير رب",
+          "الجر بالحرف المحذوف",
+          "المطرد وغير المطرد"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "رؤبة",
+            "resolved_name": "رؤبة بن العجاج",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 23,
+        "excerpt_topic": [
+          "مميز كم الاستفهامية",
+          "من المحذوفة",
+          "الخلاف في إعراب درهم"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "سيبويه",
+            "resolved_name": "عمرو بن عثمان بن قنبر سيبويه",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "الخليل",
+            "resolved_name": "الخليل بن أحمد الفراهيدي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "الزجاج",
+            "resolved_name": "إبراهيم بن السري الزجاج",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "مميز كم الاستفهامية",
+            "variants": [
+              "تمييز كم الاستفهامية"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      }
+    ],
+    "total_units": 24
+  }
+}

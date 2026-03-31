@@ -1,0 +1,32 @@
+{
+  "call_id": "verify_0001",
+  "latency_seconds": 12.07,
+  "model": "anthropic/claude-4.6-opus-20260205",
+  "usage": {
+    "completion_tokens": 471,
+    "prompt_tokens": 2092,
+    "total_tokens": 2563,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.022235,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.022235,
+      "upstream_inference_prompt_cost": 0.01046,
+      "upstream_inference_completions_cost": 0.011775
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "```json\n{\n  \"items\": [\n    {\n      \"item_index\": 0,\n      \"agrees\": false,\n      \"alternative\": \"This unit should be assessed as NOT self-contained. The text begins with 'وشروح هذا الكتاب' — the demonstrative 'هذا الكتاب' refers to a book (the Alfiyya) not identified within the unit itself. Additionally, the phrase 'هذه الكلمة الموجزة' refers to a broader introduction/preface whose context is external. The text is clearly a fragment of a longer muqaddima (introduction), listing commentators on a work whose identity must be inferred from outside the unit. It also ends abruptly mid-sentence with 'أحد علماء القرن' — the century number is cut off, violating C-SC-4 (completeness). While the general topic (listing commentaries on the Alfiyya) can be guessed, the unit fails C-SC-2 (unresolved demonstratives) and C-SC-4 (incomplete text).\",\n      \"confidence\": 0.82,\n      \"reasoning\": \"The decision says PARTIAL, meaning partially self-contained. However, I think the unit fails more significantly than 'partial' suggests. The opening 'وشروح هذا الكتاب' has an unresolved demonstrative — 'هذا الكتاب' is not identified within the unit. The text is clearly a section from a muqaddima/introduction to a sharh, and it ends mid-sentence ('أحد علماء القرن' with the century number cut off). These are clear violations of C-SC-2 and C-SC-4. While the general idea is understandable (listing famous commentaries on the Alfiyya), the assessment of PARTIAL seems too generous — it should lean more toward NOT self-contained given the unresolved reference at the very start and the truncated ending.\"\n    }\n  ]\n}\n```"
+}

@@ -1,0 +1,1523 @@
+{
+  "cache_key": "7122d2a2374019da",
+  "chunk_id": "div_src_test0001_6_000",
+  "model": "openai/gpt-5.4",
+  "timestamp": "2026-03-31T09:37:34.716698+00:00",
+  "result": {
+    "segments": [
+      {
+        "segment_index": 0,
+        "start_word": 0,
+        "end_word": 15,
+        "text_snippet": "5- وجوب الاعتناء بأعمال القلوب ومراقبتها.\n6- أن ",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.9
+      },
+      {
+        "segment_index": 1,
+        "start_word": 16,
+        "end_word": 19,
+        "text_snippet": "فائدة: ذكر ابن رجب أن العمل لغير الله على أقسام",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.91
+      },
+      {
+        "segment_index": 2,
+        "start_word": 20,
+        "end_word": 88,
+        "text_snippet": "فتارة يكون رياء محضا لا يقصد به سوى مراءاة ",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.82
+      },
+      {
+        "segment_index": 3,
+        "start_word": 89,
+        "end_word": 90,
+        "text_snippet": "الحديث الأول\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 4,
+        "start_word": 91,
+        "end_word": 109,
+        "text_snippet": "عَنْ أبي هريرة رضي الله عنه قَالَ: قَالَ رَسولُ ا",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 5,
+        "start_word": 110,
+        "end_word": 112,
+        "text_snippet": "غريب الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 6,
+        "start_word": 113,
+        "end_word": 123,
+        "text_snippet": "1- \" لا يقبل الله \" بصيغة النفي، وهو أبلغ من الن",
+        "scholarly_function": "definition",
+        "confidence": 0.82
+      },
+      {
+        "segment_index": 7,
+        "start_word": 124,
+        "end_word": 139,
+        "text_snippet": "2- \" أحدث \" أي حصل منه الحَدَث، وهو الخارج من أ",
+        "scholarly_function": "definition",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 8,
+        "start_word": 140,
+        "end_word": 153,
+        "text_snippet": "3- \" الحدث \" وصف حكمي مقدر قيامه بالأعضاء، يمنع",
+        "scholarly_function": "definition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 9,
+        "start_word": 154,
+        "end_word": 157,
+        "text_snippet": "المعنى الإجمالي:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 10,
+        "start_word": 158,
+        "end_word": 202,
+        "text_snippet": "الشارع الحكيم أرشد من أراد الصلاة، أن لا يدخل ف",
+        "scholarly_function": "evidence_rational",
+        "confidence": 0.72
+      },
+      {
+        "segment_index": 11,
+        "start_word": 203,
+        "end_word": 207,
+        "text_snippet": "ما يؤخذ من الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 12,
+        "start_word": 208,
+        "end_word": 218,
+        "text_snippet": "1- أن صلاة المحدث لا تقبل حتى يتطهر من الحدثين ",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 13,
+        "start_word": 219,
+        "end_word": 227,
+        "text_snippet": "2- أن الحدث ناقض للوضوء ومبطل للصلاة، إن كان في",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 14,
+        "start_word": 228,
+        "end_word": 236,
+        "text_snippet": "3- المراد بعدم القبول هنا: عدم صحة الصلاة وعدم ",
+        "scholarly_function": "definition",
+        "confidence": 0.9
+      },
+      {
+        "segment_index": 15,
+        "start_word": 237,
+        "end_word": 246,
+        "text_snippet": "4- الحديث يدل على أن الطهارة شرط لصحة الصلاة.\n",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 16,
+        "start_word": 247,
+        "end_word": 248,
+        "text_snippet": "الحديث الثاني\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 17,
+        "start_word": 249,
+        "end_word": 269,
+        "text_snippet": "عَنْ عَبْد الله بْن عَمْرو بْنِ الْعَاص، وَأبي هُ",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 18,
+        "start_word": 270,
+        "end_word": 272,
+        "text_snippet": "غريب الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 19,
+        "start_word": 273,
+        "end_word": 291,
+        "text_snippet": "\" الويل \" العذاب والهلاك. والويل: مصدر لا فعل ل",
+        "scholarly_function": "definition",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 20,
+        "start_word": 292,
+        "end_word": 301,
+        "text_snippet": "\" الأعقاب \" جمع \" عقب \" وهو مؤخر القدم، والمراد",
+        "scholarly_function": "definition",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 21,
+        "start_word": 302,
+        "end_word": 316,
+        "text_snippet": "و (ألـ) في \" الأعقاب \" للعهد، أي الأعقاب التي ل",
+        "scholarly_function": "definition",
+        "confidence": 0.78
+      },
+      {
+        "segment_index": 22,
+        "start_word": 317,
+        "end_word": 320,
+        "text_snippet": "المعنى الإجمالي:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 23,
+        "start_word": 321,
+        "end_word": 350,
+        "text_snippet": "يحذر النبي صلى الله عليه وسلم من التهاون بأمر ا",
+        "scholarly_function": "evidence_rational",
+        "confidence": 0.75
+      },
+      {
+        "segment_index": 24,
+        "start_word": 351,
+        "end_word": 355,
+        "text_snippet": "ما يؤخذ من الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 25,
+        "start_word": 356,
+        "end_word": 373,
+        "text_snippet": "1- وجوب الاعتناء بأعضاء الوضوء، وعدم الإخلال بش",
+        "scholarly_function": "evidence_qiyas",
+        "confidence": 0.77
+      },
+      {
+        "segment_index": 26,
+        "start_word": 374,
+        "end_word": 380,
+        "text_snippet": "2- الوعيد الشديد للمخل في وضوئه.\n",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.83
+      },
+      {
+        "segment_index": 27,
+        "start_word": 381,
+        "end_word": 432,
+        "text_snippet": "3- أن الواجب في الرجلين الغسل في الوضوء، وهو ما",
+        "scholarly_function": "evidence_ijma",
+        "confidence": 0.71
+      },
+      {
+        "segment_index": 28,
+        "start_word": 433,
+        "end_word": 434,
+        "text_snippet": "الحديث الثالث\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 29,
+        "start_word": 435,
+        "end_word": 487,
+        "text_snippet": "عَنْ أبى هريرة رَضىَ اللَه عَنْهُ: أن رَسُولَ الل",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 30,
+        "start_word": 488,
+        "end_word": 493,
+        "text_snippet": "وفي لفظ لمسلم: \"فَلْيَسْتَنْشقْ بِمِنْخَرَيْهِ م",
+        "scholarly_function": "cross_reference",
+        "confidence": 0.86
+      },
+      {
+        "segment_index": 31,
+        "start_word": 494,
+        "end_word": 499,
+        "text_snippet": "وفي لفظ: \"مَنْ تَوَضَّأ فَلْيَسْتَنْشِقْ \".\n",
+        "scholarly_function": "cross_reference",
+        "confidence": 0.84
+      },
+      {
+        "segment_index": 32,
+        "start_word": 500,
+        "end_word": 505,
+        "text_snippet": "الأحكام المتعلقة باستعمال الماء الدائم\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 33,
+        "start_word": 506,
+        "end_word": 529,
+        "text_snippet": "عَنْ أبى هريرة رضي الله عنه أنَّ رَسُولَ الله صل",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 34,
+        "start_word": 530,
+        "end_word": 540,
+        "text_snippet": "ولمسلم \" لا يَغْتَسِلْ أحَدُكُمْ في الْمَاءِ الد",
+        "scholarly_function": "cross_reference",
+        "confidence": 0.87
+      },
+      {
+        "segment_index": 35,
+        "start_word": 541,
+        "end_word": 543,
+        "text_snippet": "غريب الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 36,
+        "start_word": 544,
+        "end_word": 558,
+        "text_snippet": "1- \"لا يبولن\": (لا) ناهية، والفعل مجزوم المحل به",
+        "scholarly_function": "definition",
+        "confidence": 0.93
+      },
+      {
+        "segment_index": 37,
+        "start_word": 559,
+        "end_word": 571,
+        "text_snippet": "2- \"الذي لا يجرى\": تفسير للدائم، وهو المستقر في",
+        "scholarly_function": "definition",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 38,
+        "start_word": 572,
+        "end_word": 589,
+        "text_snippet": "3- \"ثم يغتسل فيه\": برفع الفعل على المشهور، والج",
+        "scholarly_function": "definition",
+        "confidence": 0.91
+      },
+      {
+        "segment_index": 39,
+        "start_word": 590,
+        "end_word": 597,
+        "text_snippet": "4- \"لا يغتسل\": مجزوم لفظا بـ (لا) الناهية.\n",
+        "scholarly_function": "definition",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 40,
+        "start_word": 598,
+        "end_word": 606,
+        "text_snippet": "5- \"وهو جنب\": الجملة في موضع نصب على الحال.\n",
+        "scholarly_function": "definition",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 41,
+        "start_word": 607,
+        "end_word": 610,
+        "text_snippet": "المعنى الإجمالي:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 42,
+        "start_word": 611,
+        "end_word": 693,
+        "text_snippet": "نهى النبي صلى الله عليه وسلم عن البول في الماء ",
+        "scholarly_function": "evidence_rational",
+        "confidence": 0.87
+      },
+      {
+        "segment_index": 43,
+        "start_word": 694,
+        "end_word": 713,
+        "text_snippet": "فإن كان الماء جاريا، فلا بأس من الاغتسال فيه وا",
+        "scholarly_function": "condition_exception",
+        "confidence": 0.94
+      },
+      {
+        "segment_index": 44,
+        "start_word": 714,
+        "end_word": 716,
+        "text_snippet": "اختلاف العلماء:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 45,
+        "start_word": 717,
+        "end_word": 722,
+        "text_snippet": "اختلف العلماء، هل النهى للتحريم أو الكراهية؟.\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.74
+      },
+      {
+        "segment_index": 46,
+        "start_word": 723,
+        "end_word": 728,
+        "text_snippet": "فذهب المالكية: إلى أنه مكروه.\n",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 47,
+        "start_word": 729,
+        "end_word": 736,
+        "text_snippet": "وذهب الحنابلة والظاهرية: إلى أنه للتحريم.\n",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 48,
+        "start_word": 737,
+        "end_word": 747,
+        "text_snippet": "وذهب بعض العلماء: إلى أنه محرم في القليل، مكر",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 49,
+        "start_word": 748,
+        "end_word": 760,
+        "text_snippet": "وظاهر النهى، التحريم في القليل والكثير، لكن يخص",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.83
+      },
+      {
+        "segment_index": 50,
+        "start_word": 761,
+        "end_word": 772,
+        "text_snippet": "واختلفوا في الماء الذي يبل فيه: هل هو باق على ط",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.78
+      },
+      {
+        "segment_index": 51,
+        "start_word": 773,
+        "end_word": 785,
+        "text_snippet": "فإن كان متغيراً بالنجاسة، فإن الإجماع منعقد على",
+        "scholarly_function": "evidence_ijma",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 52,
+        "start_word": 786,
+        "end_word": 795,
+        "text_snippet": "وإن كان غير متغير بالنجاسة وهو كثير ⌜3⌝ فالإجما",
+        "scholarly_function": "evidence_ijma",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 53,
+        "start_word": 796,
+        "end_word": 818,
+        "text_snippet": "وإن كان قليلا غير متغير بالنجاسة. فذهب أبو هرير",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 54,
+        "start_word": 819,
+        "end_word": 848,
+        "text_snippet": "وذهب ابن عمر، ومجاهد والحنفية والشافعية والحناب",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 55,
+        "start_word": 849,
+        "end_word": 852,
+        "text_snippet": "واستدل الأولون بأدلة كثيرة.\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.76
+      },
+      {
+        "segment_index": 56,
+        "start_word": 853,
+        "end_word": 872,
+        "text_snippet": "منها: ما رواه أبو داود، والترمذي وحسنه \" الماء ط",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 57,
+        "start_word": 873,
+        "end_word": 887,
+        "text_snippet": "وأجابوا عن حديث الباب بأن النهى لتكريهه على الس",
+        "scholarly_function": "refutation",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 58,
+        "start_word": 888,
+        "end_word": 900,
+        "text_snippet": "والحق ما ذهب إليه الأولون، فإن مدار التنجس على ",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.94
+      },
+      {
+        "segment_index": 59,
+        "start_word": 901,
+        "end_word": 909,
+        "text_snippet": "هذا هو اختيار شيخ الإسلام \" ابن تيمية \" رحمه ال",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.87
+      },
+      {
+        "segment_index": 60,
+        "start_word": 910,
+        "end_word": 930,
+        "text_snippet": "ومن هذا نعلم أن الراجح أيضاً طهورية الماء المغت",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.9
+      },
+      {
+        "segment_index": 61,
+        "start_word": 931,
+        "end_word": 935,
+        "text_snippet": "ما يؤخذ من الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 62,
+        "start_word": 936,
+        "end_word": 965,
+        "text_snippet": "1- النًهْىُ عن البول في الماء الذي لا يجرى وتحري",
+        "scholarly_function": "condition_exception",
+        "confidence": 0.85
+      },
+      {
+        "segment_index": 63,
+        "start_word": 966,
+        "end_word": 982,
+        "text_snippet": "2- النهى عن الاغتسال في الماء الدائم بالانغماس ",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 64,
+        "start_word": 983,
+        "end_word": 990,
+        "text_snippet": "3- جواز ذلك في الماء الجاري، والأحسن اجتنابه.\n",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 65,
+        "start_word": 991,
+        "end_word": 999,
+        "text_snippet": "4- النهى عن كل شيء من شأنه الأذى والاعتداء.\n",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.9
+      },
+      {
+        "segment_index": 66,
+        "start_word": 1000,
+        "end_word": 1043,
+        "text_snippet": "5- جاء في بعض روايات الحديث \" ثم يغتسل منه \" وج",
+        "scholarly_function": "cross_reference",
+        "confidence": 0.84
+      },
+      {
+        "segment_index": 67,
+        "start_word": 1044,
+        "end_word": 1051,
+        "text_snippet": "حكم الإناء الذي شرب منه الكلب وولغ فيه\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 68,
+        "start_word": 1052,
+        "end_word": 1074,
+        "text_snippet": "عَنْ أبي هريرة رضىَ الله عَنْهُ أنَّ رَسُولَ الله",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 69,
+        "start_word": 1075,
+        "end_word": 1081,
+        "text_snippet": "ولمسلم \" أولاهُنَ بِالتَرابِ\".\n",
+        "scholarly_function": "cross_reference",
+        "confidence": 0.88
+      },
+      {
+        "segment_index": 70,
+        "start_word": 1082,
+        "end_word": 1104,
+        "text_snippet": "وله في حديث عبد الله بنِ مُغَفَل أن رسول الله صل",
+        "scholarly_function": "cross_reference",
+        "confidence": 0.87
+      },
+      {
+        "segment_index": 71,
+        "start_word": 1105,
+        "end_word": 1107,
+        "text_snippet": "غريب الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 72,
+        "start_word": 1108,
+        "end_word": 1131,
+        "text_snippet": "1- \"إذا ولغ\" ومضارعه يلَغ بالفتح فيهما- شرب بطرف",
+        "scholarly_function": "definition",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 73,
+        "start_word": 1132,
+        "end_word": 1139,
+        "text_snippet": "2- \"عفروه\" التعفير، التمريغ في العفر، وهو التراب",
+        "scholarly_function": "definition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 74,
+        "start_word": 1140,
+        "end_word": 1151,
+        "text_snippet": "3- \"أولاهن\" تأنيث الأول، والهاء ضمير المرات.\nوج",
+        "scholarly_function": "definition",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 75,
+        "start_word": 1152,
+        "end_word": 1155,
+        "text_snippet": "المعنى الإجمالي:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 76,
+        "start_word": 1156,
+        "end_word": 1189,
+        "text_snippet": "لما كان الكلب من الحيوانات المستكرهة التي تحمل ",
+        "scholarly_function": "evidence_rational",
+        "confidence": 0.85
+      },
+      {
+        "segment_index": 77,
+        "start_word": 1190,
+        "end_word": 1192,
+        "text_snippet": "اختلاف العلماء:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 78,
+        "start_word": 1193,
+        "end_word": 1210,
+        "text_snippet": "هناك خلافات للعلماء في أشياء.\nمنها: هل يجب التس",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.72
+      },
+      {
+        "segment_index": 79,
+        "start_word": 1211,
+        "end_word": 1229,
+        "text_snippet": "ولما كان القول الحق، هو ما يستفاد من هذا الحديث",
+        "scholarly_function": "editorial_note",
+        "confidence": 0.82
+      },
+      {
+        "segment_index": 80,
+        "start_word": 1230,
+        "end_word": 1234,
+        "text_snippet": "ما يؤخذ من الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 81,
+        "start_word": 1235,
+        "end_word": 1244,
+        "text_snippet": "1- التغليظ في نجاسة الكلب، لشدة قذارته. ولذا فإن",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.82
+      },
+      {
+        "segment_index": 82,
+        "start_word": 1245,
+        "end_word": 1255,
+        "text_snippet": "2- إن ولوغ الكلب في إناء، ومثله الأكل، ينجس الإ",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 83,
+        "start_word": 1256,
+        "end_word": 1262,
+        "text_snippet": "3- وجوب غسل ما ولغ فيه سبع مرات.\n",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 84,
+        "start_word": 1263,
+        "end_word": 1299,
+        "text_snippet": "4- وجوب استعمال التراب مرة، والأَولى أن يكون مع",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 85,
+        "start_word": 1300,
+        "end_word": 1387,
+        "text_snippet": "5- إن ما قام مقام التراب من المنقيات يعطى حكمه ",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.8
+      },
+      {
+        "segment_index": 86,
+        "start_word": 1388,
+        "end_word": 1457,
+        "text_snippet": "6- عظمة هذه الشريعة المطهرة، وأنها تزيل من حكيم",
+        "scholarly_function": "evidence_rational",
+        "confidence": 0.78
+      },
+      {
+        "segment_index": 87,
+        "start_word": 1458,
+        "end_word": 1462,
+        "text_snippet": "فسبحان العليم الخبير، وهنيئا للموقنين. وويلا لل",
+        "scholarly_function": "editorial_note",
+        "confidence": 0.72
+      },
+      {
+        "segment_index": 88,
+        "start_word": 1463,
+        "end_word": 1488,
+        "text_snippet": "7- ظاهر الحديث أنه عام في جميع الكلاب، أما الكل",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.81
+      },
+      {
+        "segment_index": 89,
+        "start_word": 1489,
+        "end_word": 1497,
+        "text_snippet": "كيفية الوضوء وفضيلته كما رواه عثمان بن عفان رضي",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 90,
+        "start_word": 1498,
+        "end_word": 1599,
+        "text_snippet": "عن حُمْرانَ مَوْلَى عُثْمَانَ بْنِ عَفَانَ، أنه رَ",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 91,
+        "start_word": 1600,
+        "end_word": 1602,
+        "text_snippet": "غريب الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 92,
+        "start_word": 1603,
+        "end_word": 1629,
+        "text_snippet": "1- \"وَضوء\": بفتح الواو. الماء الذي يتوضأ به. قال",
+        "scholarly_function": "definition",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 93,
+        "start_word": 1630,
+        "end_word": 1638,
+        "text_snippet": "2- \"فأفرغ\": قلب من ماء الإناء كل يديه.\n",
+        "scholarly_function": "definition",
+        "confidence": 0.96
+      },
+      {
+        "segment_index": 94,
+        "start_word": 1639,
+        "end_word": 1656,
+        "text_snippet": "3- \"لا يحدِّث فيهما نفسه\": حديث النفس، هو الوسا",
+        "scholarly_function": "definition",
+        "confidence": 0.96
+      },
+      {
+        "segment_index": 95,
+        "start_word": 1657,
+        "end_word": 1664,
+        "text_snippet": "4- \"إلى المرفقين\": (إلى) بمعنى (مع) يعنى مع المر",
+        "scholarly_function": "definition",
+        "confidence": 0.94
+      },
+      {
+        "segment_index": 96,
+        "start_word": 1665,
+        "end_word": 1684,
+        "text_snippet": "5- \"ثم\": لم يقصد بها هنا التراخي كما هو الأصل ف",
+        "scholarly_function": "definition",
+        "confidence": 0.91
+      },
+      {
+        "segment_index": 97,
+        "start_word": 1685,
+        "end_word": 1703,
+        "text_snippet": "6- \"نحو وضوئي\": جاء في بعض ألفاظ هذا الحديث \"مث",
+        "scholarly_function": "definition",
+        "confidence": 0.9
+      },
+      {
+        "segment_index": 98,
+        "start_word": 1704,
+        "end_word": 1707,
+        "text_snippet": "المعنى الإجمالي:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 99,
+        "start_word": 1708,
+        "end_word": 1800,
+        "text_snippet": "اشتمل هذا الحديث العظيم على الصفة الكاملة لوضوء",
+        "scholarly_function": "narration",
+        "confidence": 0.73
+      },
+      {
+        "segment_index": 100,
+        "start_word": 1801,
+        "end_word": 1803,
+        "text_snippet": "اختلاف العلماء:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 101,
+        "start_word": 1804,
+        "end_word": 1818,
+        "text_snippet": "ذهب الأئمة، أبو حنيفة، ومالك، والشافعي، وسفيان،",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 102,
+        "start_word": 1819,
+        "end_word": 1831,
+        "text_snippet": "والمشهور عند الإمام \"أحمد\" الوجوب، فلا يصح الوض",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 103,
+        "start_word": 1832,
+        "end_word": 1842,
+        "text_snippet": "استدل الأولونْ على قولهم بحديث: \" عشر من سنن ال",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.88
+      },
+      {
+        "segment_index": 104,
+        "start_word": 1843,
+        "end_word": 1861,
+        "text_snippet": "واستدل الموجبون بقوله تعالى: {فاغْسِلُوا وجُوهَ",
+        "scholarly_function": "evidence_quran",
+        "confidence": 0.84
+      },
+      {
+        "segment_index": 105,
+        "start_word": 1862,
+        "end_word": 1876,
+        "text_snippet": "وأجابوا عن دليل غير الموجبين بأن المراد بالسنة ",
+        "scholarly_function": "refutation",
+        "confidence": 0.94
+      },
+      {
+        "segment_index": 106,
+        "start_word": 1877,
+        "end_word": 1885,
+        "text_snippet": "ولهذا ورد في كثير من الأحاديث ومنها [عشر من الف",
+        "scholarly_function": "cross_reference",
+        "confidence": 0.74
+      },
+      {
+        "segment_index": 107,
+        "start_word": 1886,
+        "end_word": 1897,
+        "text_snippet": "ولاشك في صحة المذهب الأخير لقوة أدلته، وعدم ما ",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 108,
+        "start_word": 1898,
+        "end_word": 1918,
+        "text_snippet": "وقد اتفق العلماء على وجوب مسح الرأس، واتفقوا أي",
+        "scholarly_function": "evidence_ijma",
+        "confidence": 0.82
+      },
+      {
+        "segment_index": 109,
+        "start_word": 1919,
+        "end_word": 1934,
+        "text_snippet": "فذهب الثوري، والأوزاعي، وأبو حنيفة، والشافعي، إ",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 110,
+        "start_word": 1935,
+        "end_word": 1943,
+        "text_snippet": "وذهب مالك، وأحمد: إلى وجوب استيعابه كله.\n",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 111,
+        "start_word": 1944,
+        "end_word": 1962,
+        "text_snippet": "استدل الأولون بقوله تعالى: {وَامْسَحُوا بِرُؤوس",
+        "scholarly_function": "evidence_quran",
+        "confidence": 0.84
+      },
+      {
+        "segment_index": 112,
+        "start_word": 1963,
+        "end_word": 1990,
+        "text_snippet": "واستدل الموجبون لمسحه كله بأحاديث كثيرة، كلها ت",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.93
+      },
+      {
+        "segment_index": 113,
+        "start_word": 1991,
+        "end_word": 2029,
+        "text_snippet": "وأجابوا عن أدلة المجيزين لمسح بعضه، بأن \"الباء\"",
+        "scholarly_function": "refutation",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 114,
+        "start_word": 2030,
+        "end_word": 2039,
+        "text_snippet": "قال ابن القيم: \"لم يصح في حديث واحد أنه اقتصر ",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.82
+      },
+      {
+        "segment_index": 115,
+        "start_word": 2040,
+        "end_word": 2044,
+        "text_snippet": "ما يؤخذ من الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 116,
+        "start_word": 2045,
+        "end_word": 2055,
+        "text_snippet": "1- مشروعية غسل اليدين ثلاثاً قبل إدخالهما في ما",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 117,
+        "start_word": 2056,
+        "end_word": 2063,
+        "text_snippet": "2- التيامن في تناول ماء الوضوء لغسل الأعضاء.\n",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.96
+      },
+      {
+        "segment_index": 118,
+        "start_word": 2064,
+        "end_word": 2080,
+        "text_snippet": "3- مشروعية التمضمض، والاستنشاق، والاستنثار على ",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 119,
+        "start_word": 2081,
+        "end_word": 2111,
+        "text_snippet": "4- غسل الوجه ثلاثا، وحده: من منابت شعر الرأس إل",
+        "scholarly_function": "definition",
+        "confidence": 0.86
+      },
+      {
+        "segment_index": 120,
+        "start_word": 2112,
+        "end_word": 2119,
+        "text_snippet": "5- غسل اليدين مع المرفقين ثلاثاً.\n",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 121,
+        "start_word": 2120,
+        "end_word": 2128,
+        "text_snippet": "6- مسح جميع الرأسْ مرة واحدة. يقبل بيديه عليه، ",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 122,
+        "start_word": 2129,
+        "end_word": 2136,
+        "text_snippet": "7- غسل الرجلين مع الكعبين ثلاثا.\n",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 123,
+        "start_word": 2137,
+        "end_word": 2147,
+        "text_snippet": "8- وجوب الترتيب في ذلك، لإدخال الشارع الممسوح، ",
+        "scholarly_function": "evidence_rational",
+        "confidence": 0.82
+      },
+      {
+        "segment_index": 124,
+        "start_word": 2148,
+        "end_word": 2157,
+        "text_snippet": "9- إن هذه الصفة هي صفة وضوء النبي صلى الله عليه ",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.8
+      },
+      {
+        "segment_index": 125,
+        "start_word": 2158,
+        "end_word": 2163,
+        "text_snippet": "10- مشروعية الصلاة بعد الوضوء.\n",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 126,
+        "start_word": 2164,
+        "end_word": 2186,
+        "text_snippet": "11- إن سبب تمام الصلاة وكمالها، حضور القلب بين ",
+        "scholarly_function": "evidence_rational",
+        "confidence": 0.8
+      },
+      {
+        "segment_index": 127,
+        "start_word": 2187,
+        "end_word": 2194,
+        "text_snippet": "12- فضيلة الوضوء الكاملة، إنه سبب لغفران الذنوب",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.82
+      },
+      {
+        "segment_index": 128,
+        "start_word": 2195,
+        "end_word": 2233,
+        "text_snippet": "13- الثواب الموعود به يترتب على مجموع الأمرين، ",
+        "scholarly_function": "condition_exception",
+        "confidence": 0.85
+      },
+      {
+        "segment_index": 129,
+        "start_word": 2234,
+        "end_word": 2245,
+        "text_snippet": "قال تعالى: {إن تجتنبوا كبائر ما تنهون عنه نكفر ",
+        "scholarly_function": "evidence_quran",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 130,
+        "start_word": 2246,
+        "end_word": 2255,
+        "text_snippet": "كيفية أخرى للوضوء مروي عن عمر بن يحيى المازني\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 131,
+        "start_word": 2256,
+        "end_word": 2348,
+        "text_snippet": "عن عَمْرِو بن يَحْيىَ اْلمازِني عَنْ أبِيهِ قَال:",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 132,
+        "start_word": 2349,
+        "end_word": 2364,
+        "text_snippet": "وفي رواية \" بَدَأ بِمُقَدَّم رَأسِهِ حَتًى ذَهبَ ",
+        "scholarly_function": "cross_reference",
+        "confidence": 0.88
+      },
+      {
+        "segment_index": 133,
+        "start_word": 2365,
+        "end_word": 2377,
+        "text_snippet": "وفي رواية \"أتَانَا رَسُولُ الله صلى الله عليه وس",
+        "scholarly_function": "cross_reference",
+        "confidence": 0.86
+      },
+      {
+        "segment_index": 134,
+        "start_word": 2378,
+        "end_word": 2384,
+        "text_snippet": "متفق عليه. \" التور \" شِبْهُ الطَّست.\n",
+        "scholarly_function": "editorial_note",
+        "confidence": 0.72
+      },
+      {
+        "segment_index": 135,
+        "start_word": 2385,
+        "end_word": 2387,
+        "text_snippet": "غريب الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 136,
+        "start_word": 2388,
+        "end_word": 2402,
+        "text_snippet": "1- \"بتور من ماء\": بالمثناة الطست، وهو الإناء ال",
+        "scholarly_function": "definition",
+        "confidence": 0.96
+      },
+      {
+        "segment_index": 137,
+        "start_word": 2403,
+        "end_word": 2417,
+        "text_snippet": "2- \"فأكفأ على يديه\": أمال وصب على يديه وفى بعض ا",
+        "scholarly_function": "definition",
+        "confidence": 0.93
+      },
+      {
+        "segment_index": 138,
+        "start_word": 2418,
+        "end_word": 2425,
+        "text_snippet": "3- \"من صُفر\": بضم الصاد وسكون الفاء، نوع من الن",
+        "scholarly_function": "definition",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 139,
+        "start_word": 2426,
+        "end_word": 2446,
+        "text_snippet": "4- \"إلى المرفقين مرتين\": قال الصنعاني: كذا في ن",
+        "scholarly_function": "editorial_note",
+        "confidence": 0.74
+      },
+      {
+        "segment_index": 140,
+        "start_word": 2447,
+        "end_word": 2450,
+        "text_snippet": "المعنى الإجمالي:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 141,
+        "start_word": 2451,
+        "end_word": 2570,
+        "text_snippet": "هذا الحديث يعرف معناه مما تقدم في شرح حديث عثما",
+        "scholarly_function": "cross_reference",
+        "confidence": 0.83
+      },
+      {
+        "segment_index": 142,
+        "start_word": 2571,
+        "end_word": 2579,
+        "text_snippet": "استحباب التيمن في الأمور الشريفة المستطابة\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 143,
+        "start_word": 2580,
+        "end_word": 2598,
+        "text_snippet": "عَنْ عَائِشَةَ رضي الله عنها قَالَتْ: \" كَاَن رَ",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 144,
+        "start_word": 2599,
+        "end_word": 2601,
+        "text_snippet": "غريب الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 145,
+        "start_word": 2602,
+        "end_word": 2617,
+        "text_snippet": "1- \"يعجبه التيمن\": يفضل تقديم الأيمن على الأيسر",
+        "scholarly_function": "definition",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 146,
+        "start_word": 2618,
+        "end_word": 2622,
+        "text_snippet": "2- \"في تنعله\": لبس نعله.\n",
+        "scholarly_function": "definition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 147,
+        "start_word": 2623,
+        "end_word": 2629,
+        "text_snippet": "3- \"وترجله\": تسريح شعر رأسه ولحيته بالمشط.\n",
+        "scholarly_function": "definition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 148,
+        "start_word": 2630,
+        "end_word": 2640,
+        "text_snippet": "4- \"وطهوره\": بضم الطاء، التطهر. ويشمل الوضوء وا",
+        "scholarly_function": "definition",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 149,
+        "start_word": 2641,
+        "end_word": 2660,
+        "text_snippet": "5- \"وفى شأنه كله\": من الأشياء المستطابة كهذه ال",
+        "scholarly_function": "definition",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 150,
+        "start_word": 2661,
+        "end_word": 2664,
+        "text_snippet": "المعنى الإجمالي:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 151,
+        "start_word": 2665,
+        "end_word": 2730,
+        "text_snippet": "من فضل أمهات المؤمنين رضي الله عهن، لاسيما الحا",
+        "scholarly_function": "narration",
+        "confidence": 0.78
+      },
+      {
+        "segment_index": 152,
+        "start_word": 2731,
+        "end_word": 2765,
+        "text_snippet": "فهنا \"عائشة\" تخبرنا عن عادة النبي صلى الله عليه",
+        "scholarly_function": "narration",
+        "confidence": 0.82
+      },
+      {
+        "segment_index": 153,
+        "start_word": 2766,
+        "end_word": 2785,
+        "text_snippet": "كل هذا من باب التفاؤل الحسن وتشريف اليمين على ا",
+        "scholarly_function": "evidence_rational",
+        "confidence": 0.77
+      },
+      {
+        "segment_index": 154,
+        "start_word": 2786,
+        "end_word": 2796,
+        "text_snippet": "وأما الأشياء المستقذرة فالأحسن أن تقدم فيها الي",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.94
+      },
+      {
+        "segment_index": 155,
+        "start_word": 2797,
+        "end_word": 2818,
+        "text_snippet": "ولهذا نهى النبي صلى الله عليه وسلم عن الاستنجاء",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.81
+      },
+      {
+        "segment_index": 156,
+        "start_word": 2819,
+        "end_word": 2823,
+        "text_snippet": "ما يؤخذ من الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 157,
+        "start_word": 2824,
+        "end_word": 2847,
+        "text_snippet": "1- إن تقديم اليمين للأشياء الطيبة هو الأفضل شرع",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.92
+      },
+      {
+        "segment_index": 158,
+        "start_word": 2848,
+        "end_word": 2857,
+        "text_snippet": "2- إن جعل اليسار للأشياء المستقذرة، هو الأليق ش",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 159,
+        "start_word": 2858,
+        "end_word": 2868,
+        "text_snippet": "3- إن الشرع الشريف جاء لإصلاح الناس وتهذيبهم وو",
+        "scholarly_function": "evidence_rational",
+        "confidence": 0.74
+      },
+      {
+        "segment_index": 160,
+        "start_word": 2869,
+        "end_word": 2890,
+        "text_snippet": "4- أن الأفضل في تقديم الوضوء ميامن الأعضاء على ",
+        "scholarly_function": "rule_statement",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 161,
+        "start_word": 2891,
+        "end_word": 2898,
+        "text_snippet": "فضل إسباغ الوضوء وما يترتب على ذلك\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 162,
+        "start_word": 2899,
+        "end_word": 2908,
+        "text_snippet": "من امتياز هذه الأمة يوم القيامة على سائر الأمم\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 163,
+        "start_word": 2909,
+        "end_word": 2950,
+        "text_snippet": "عَنْ نُعَيْمِ الْمُجْمِرِ عَنْ أبيِ هريرة رضي الل",
+        "scholarly_function": "evidence_hadith",
+        "confidence": 0.99
+      },
+      {
+        "segment_index": 164,
+        "start_word": 2951,
+        "end_word": 2992,
+        "text_snippet": "وفي لفظ آخر: رَأيْتُ أبَا هُريرةَ يتوضأ، فَغَسَل",
+        "scholarly_function": "narration",
+        "confidence": 0.88
+      },
+      {
+        "segment_index": 165,
+        "start_word": 2993,
+        "end_word": 3003,
+        "text_snippet": "وفي لفظ لمسلم: سَمِعْتُ خليلي صلى الله عليه وسل",
+        "scholarly_function": "cross_reference",
+        "confidence": 0.87
+      },
+      {
+        "segment_index": 166,
+        "start_word": 3004,
+        "end_word": 3006,
+        "text_snippet": "غريب الحديث:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 167,
+        "start_word": 3007,
+        "end_word": 3016,
+        "text_snippet": "1- \"يدعون\": مبنى للمجهول، ينادَوْن نداء تشريف و",
+        "scholarly_function": "definition",
+        "confidence": 0.96
+      },
+      {
+        "segment_index": 168,
+        "start_word": 3017,
+        "end_word": 3027,
+        "text_snippet": "2- \"غرّاً\": بضم الغين وتشديد الراء، جمع \" أغر \"",
+        "scholarly_function": "definition",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 169,
+        "start_word": 3028,
+        "end_word": 3040,
+        "text_snippet": "3- \"محجلين \": من \" التحجيل \" وهو بياض يكون في ق",
+        "scholarly_function": "definition",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 170,
+        "start_word": 3041,
+        "end_word": 3048,
+        "text_snippet": "4- \"الوضوء\": بضم الواو هو الفعل.\n",
+        "scholarly_function": "definition",
+        "confidence": 0.97
+      },
+      {
+        "segment_index": 171,
+        "start_word": 3049,
+        "end_word": 3054,
+        "text_snippet": "5- \"من آثار الوضوء\": علهّ للغرة، والتحجيل.\n",
+        "scholarly_function": "definition",
+        "confidence": 0.92
+      },
+      {
+        "segment_index": 172,
+        "start_word": 3055,
+        "end_word": 3058,
+        "text_snippet": "المعنى الإجمالي:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 173,
+        "start_word": 3059,
+        "end_word": 3114,
+        "text_snippet": "يبشر النبي صلى الله عليه وسلم أمته بأن الله سبح",
+        "scholarly_function": "narration",
+        "confidence": 0.79
+      },
+      {
+        "segment_index": 174,
+        "start_word": 3115,
+        "end_word": 3145,
+        "text_snippet": "ثم يقول أبو هريرة: \"من قدر على إطالة هذه الغرّة",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.8
+      },
+      {
+        "segment_index": 175,
+        "start_word": 3146,
+        "end_word": 3149,
+        "text_snippet": "الخلاف في إطالة الغرة:\n",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 176,
+        "start_word": 3150,
+        "end_word": 3166,
+        "text_snippet": "اختلف العلماء في مجاوزة حد الفرض الوجه واليدين ",
+        "scholarly_function": "structural_transition",
+        "confidence": 0.78
+      },
+      {
+        "segment_index": 177,
+        "start_word": 3167,
+        "end_word": 3182,
+        "text_snippet": "فذهب الجمهور إلى استحباب ذلك، عملا بهذا الحديث،",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 178,
+        "start_word": 3183,
+        "end_word": 3199,
+        "text_snippet": "وذهب مالك ورواية عن أحمد، إلى عدم استحباب مجاوز",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.98
+      },
+      {
+        "segment_index": 179,
+        "start_word": 3200,
+        "end_word": 3212,
+        "text_snippet": "1- مجاوزة محل الفرض، على أنها عبادة، دعوى تحتاج",
+        "scholarly_function": "evidence_rational",
+        "confidence": 0.93
+      },
+      {
+        "segment_index": 180,
+        "start_word": 3213,
+        "end_word": 3235,
+        "text_snippet": "والحديث الذي معنا لا يدل عليها، وإنما يدل على ن",
+        "scholarly_function": "refutation",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 181,
+        "start_word": 3236,
+        "end_word": 3251,
+        "text_snippet": "وعمل أبي هريرة فَهْمْ له وحده من الحديث، ولا يص",
+        "scholarly_function": "refutation",
+        "confidence": 0.92
+      },
+      {
+        "segment_index": 182,
+        "start_word": 3252,
+        "end_word": 3266,
+        "text_snippet": "أما قوله: \" فمن استطاع … الخ \" فرجحوا أنها مدرج",
+        "scholarly_function": "editorial_note",
+        "confidence": 0.79
+      },
+      {
+        "segment_index": 183,
+        "start_word": 3267,
+        "end_word": 3277,
+        "text_snippet": "2- لو سلمنا بهذا لاقتضى أن نتجاوز الوجه إلى شعر",
+        "scholarly_function": "refutation",
+        "confidence": 0.95
+      },
+      {
+        "segment_index": 184,
+        "start_word": 3278,
+        "end_word": 3296,
+        "text_snippet": "3- لم ينقل عن أحد من الصحابة أنه فهم هذا الفهم ",
+        "scholarly_function": "refutation",
+        "confidence": 0.93
+      },
+      {
+        "segment_index": 185,
+        "start_word": 3297,
+        "end_word": 3323,
+        "text_snippet": "4- إن كل الواصفين لوضوء النبي صلى الله عليه وسل",
+        "scholarly_function": "refutation",
+        "confidence": 0.94
+      },
+      {
+        "segment_index": 186,
+        "start_word": 3324,
+        "end_word": 3342,
+        "text_snippet": "وقال في الفتح: لم أر هذه الجملة في رواية أحد مم",
+        "scholarly_function": "editorial_note",
+        "confidence": 0.74
+      },
+      {
+        "segment_index": 187,
+        "start_word": 3343,
+        "end_word": 3357,
+        "text_snippet": "5- الآية الكريمة تحدد محل الفرض بالمرفقين والكع",
+        "scholarly_function": "evidence_quran",
+        "confidence": 0.82
+      },
+      {
+        "segment_index": 188,
+        "start_word": 3358,
+        "end_word": 3484,
+        "text_snippet": "وإليك نص كلام \"ابن القيم\" في كتابه حادي الأرواح",
+        "scholarly_function": "opinion_statement",
+        "confidence": 0.78
+      }
+    ],
+    "total_segments": 189
+  }
+}

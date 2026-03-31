@@ -1,0 +1,177 @@
+[
+  {
+    "unit_index": 0,
+    "segment_indices": [
+      0
+    ],
+    "start_word": 0,
+    "end_word": 5,
+    "text_snippet": "تيسير العلام شرح عمدة الأحكام\nللبسام",
+    "primary_function": "editorial_note",
+    "secondary_functions": [],
+    "description_arabic": "عنوان الكتاب واسم مؤلفه أو شارحه.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 1,
+    "segment_indices": [
+      1,
+      2
+    ],
+    "start_word": 6,
+    "end_word": 63,
+    "text_snippet": "\n\n‌‌كتاب الطهارة\n‌‌النية وأحكامها\nعَنْ أمِيرِ المُؤْمِنِينَ أبي حَفْصِ \" عُمَرَ ",
+    "primary_function": "evidence_hadith",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "باب النية في الطهارة مع إيراد حديث إنما الأعمال بالنيات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 2,
+    "segment_indices": [
+      3,
+      4
+    ],
+    "start_word": 64,
+    "end_word": 98,
+    "text_snippet": "غريب الحديث:\n1- \" إنما الأعمال بالنيات \" كلمة [إنما] ، تفيد الحصر، فهو هنا ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "شرح دلالة إنما على الحصر في قوله إنما الأعمال بالنيات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 3,
+    "segment_indices": [
+      5
+    ],
+    "start_word": 99,
+    "end_word": 138,
+    "text_snippet": "2- \" النية \" لغة: القصد. ووقع بالإفراد في أكثر الروايات. قال البيضاوي النية",
+    "primary_function": "definition",
+    "secondary_functions": [],
+    "description_arabic": "تعريف النية لغة وشرعاً مع نقل تفسير البيضاوي لها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 4,
+    "segment_indices": [
+      6,
+      7,
+      8
+    ],
+    "start_word": 139,
+    "end_word": 190,
+    "text_snippet": "3- \" فمن كانت هجرته … الخ \" مثال يقرر ويوضح القاعدة السابقة.\n4- \" فمن كانت ",
+    "primary_function": "definition",
+    "secondary_functions": [
+      "example"
+    ],
+    "description_arabic": "بيان مثال الهجرة وأنه جملة شرطية مع توضيح جواب الشرط.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "يشير إلى القاعدة السابقة وحديث الهجرة، وفهم المثال أكمل بالرجوع إلى نص الحديث المذكور قبل هذا الموضع."
+  },
+  {
+    "unit_index": 5,
+    "segment_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "start_word": 191,
+    "end_word": 356,
+    "text_snippet": "المعنى الإجمالي:\nهذا حديث عظيم وقاعدة جليلة من قواعد الإسلام هي القياس الصح",
+    "primary_function": "evidence_rational",
+    "secondary_functions": [
+      "structural_transition",
+      "definition"
+    ],
+    "description_arabic": "المعنى العام للحديث وأثر النية في قبول العمل وتمييز العبادات.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 6,
+    "segment_indices": [
+      15
+    ],
+    "start_word": 357,
+    "end_word": 390,
+    "text_snippet": "وهذا من الأحاديث الجوامع التي يجب الاعتناء بها وتفهمها، فالكتابة القليلة لا ",
+    "primary_function": "opinion_statement",
+    "secondary_functions": [],
+    "description_arabic": "بيان مكانة هذا الحديث وأنه من جوامع الكلم وسبب افتتاح البخاري به.",
+    "self_containment": "PARTIAL",
+    "self_containment_notes": "اسم الإشارة يعود على الحديث السابق، فهو مفهوم غالباً لكن تمام الاستقلال يتقوى بوجود نص الحديث أو ذكره صراحة."
+  },
+  {
+    "unit_index": 7,
+    "segment_indices": [
+      16,
+      17
+    ],
+    "start_word": 391,
+    "end_word": 455,
+    "text_snippet": "ما يؤخذ من الحديث:\n1- إن مدار الأعمال على النيات، صحة، وفَساداً، وكمالا، ون",
+    "primary_function": "rule_statement",
+    "secondary_functions": [
+      "structural_transition"
+    ],
+    "description_arabic": "الأعمال تختلف صحة وثواباً وإثماً بحسب النيات والمقاصد.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 8,
+    "segment_indices": [
+      18
+    ],
+    "start_word": 456,
+    "end_word": 482,
+    "text_snippet": "2- أن النية شرط أساسي في العمل، ولكن بلا غُلُوّ في استحضارها يفسد على المتعب",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "النية شرط للعمل مع النهي عن التكلف والغلُو في استحضارها.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 9,
+    "segment_indices": [
+      19
+    ],
+    "start_word": 483,
+    "end_word": 490,
+    "text_snippet": "3- أن النية مَحلُّها القلب، واللفظ بها بدعة.",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "محل النية القلب وأن التلفظ بها غير مشروع.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  },
+  {
+    "unit_index": 10,
+    "segment_indices": [
+      20
+    ],
+    "start_word": 491,
+    "end_word": 506,
+    "text_snippet": "4- وجوب الحذر من الرياء والسمعة والعمل لأجل الدنيا، مادام أن شيئاً من ذلك يف",
+    "primary_function": "rule_statement",
+    "secondary_functions": [],
+    "description_arabic": "وجوب الحذر من الرياء والسمعة لأنهما يفسدان العبادة.",
+    "self_containment": "FULL",
+    "self_containment_notes": null
+  }
+]

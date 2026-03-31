@@ -1,0 +1,1276 @@
+{
+  "cache_key": "e63a96d6cd3502dc",
+  "chunk_id": "div_src_test0001_6_000",
+  "model": "openai/gpt-5.4",
+  "timestamp": "2026-03-31T09:40:45.205915+00:00",
+  "result": {
+    "enrichments": [
+      {
+        "unit_index": 0,
+        "excerpt_topic": [
+          "أعمال القلوب",
+          "الهجرة",
+          "الإخلاص"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": "هذه الفوائد من تتمة شرح حديث «إنما الأعمال بالنيات»، وفيه أثر النية في قبول العمل والهجرة."
+      },
+      {
+        "unit_index": 1,
+        "excerpt_topic": [
+          "الرياء",
+          "إحباط العمل",
+          "نية العمل"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "ابن رجب",
+            "resolved_name": "عبد الرحمن بن أحمد بن رجب الحنبلي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "العلماء من السلف",
+            "resolved_name": "العلماء من السلف",
+            "role": "quoted_opinion",
+            "confidence": 0.7
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 2,
+        "excerpt_topic": [
+          "شرط الطهارة للصلاة",
+          "الحدث",
+          "نواقض الوضوء"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أبي هريرة",
+            "resolved_name": "أبو هريرة الدوسي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "لا يَقْبَلُ الله صَلاةَ أحَدكُ",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "الحدث",
+            "variants": [
+              "النجاسة الحكمية"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 3,
+        "excerpt_topic": [
+          "غسل الرجلين",
+          "إسباغ الوضوء",
+          "ويل للأعقاب"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "عَبْد الله بْن عَمْرو بْنِ الْعَاص",
+            "resolved_name": "عبد الله بن عمرو بن العاص",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "أبي هُرَيرةَ",
+            "resolved_name": "أبو هريرة الدوسي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "عَائِشَةَ",
+            "resolved_name": "عائشة بنت أبي بكر",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "الشيعة",
+            "resolved_name": "الشيعة",
+            "role": "refuted_position",
+            "confidence": 0.93
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "وَيْلٌ لِلأَعْقابِ مِنَ النَّا",
+            "collections": [
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 4,
+        "excerpt_topic": [
+          "الاستنشاق والاستنثار",
+          "الاستجمار",
+          "غسل اليدين بعد النوم"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أبى هريرة",
+            "resolved_name": "أبو هريرة الدوسي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "مسلم",
+            "resolved_name": "مسلم بن الحجاج",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "إذَا تَوَضَّأ أحَدُكُمْ فَلْيَجْ",
+            "collections": [
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "فَلْيَسْتَنْشقْ بِمِنْخَرَيْهِ ",
+            "collections": [
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "مَنْ تَوَضَّأ فَلْيَسْتَنْشِقْ",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "الاستجمار",
+            "variants": [
+              "الاستنجاء بالأحجار"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": "هذا نص حديث في سنن الوضوء: إدخال الماء في الأنف والاستنثار، والإيتار في الاستجمار، وغسل اليدين بعد نوم الليل."
+      },
+      {
+        "unit_index": 5,
+        "excerpt_topic": [
+          "الماء الدائم",
+          "النهي عن البول في الماء",
+          "اغتسال الجنب"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أبى هريرة",
+            "resolved_name": "أبو هريرة الدوسي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "مسلم",
+            "resolved_name": "مسلم بن الحجاج",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "لا يَبولَنَّ أحَدُكُمْ في الْمَ",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "لا يَغْتَسِلْ أحَدُكُمْ في الْم",
+            "collections": [
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 6,
+        "excerpt_topic": [
+          "حكم النهي",
+          "البول في الماء الدائم",
+          "التحريم والكراهة"
+        ],
+        "school": "cross_school",
+        "school_confidence": 0.99,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 7,
+        "excerpt_topic": [
+          "طهورية الماء",
+          "الماء القليل والكثير",
+          "ملاقاة النجاسة"
+        ],
+        "school": "cross_school",
+        "school_confidence": 0.99,
+        "resolved_scholars": [
+          {
+            "mention_text": "أبو هريرة",
+            "resolved_name": "أبو هريرة الدوسي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "ابن عباس",
+            "resolved_name": "عبد الله بن عباس",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "الحسن البصري",
+            "resolved_name": "الحسن بن أبي الحسن البصري",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "ابن المسيب",
+            "resolved_name": "سعيد بن المسيب",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "الثوري",
+            "resolved_name": "سفيان الثوري",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "داود",
+            "resolved_name": "داود بن علي الأصبهاني",
+            "role": "quoted_opinion",
+            "confidence": 0.8
+          },
+          {
+            "mention_text": "مالك",
+            "resolved_name": "مالك بن أنس",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "البخاري",
+            "resolved_name": "محمد بن إسماعيل البخاري",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "ابن عمر",
+            "resolved_name": "عبد الله بن عمر بن الخطاب",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "مجاهد",
+            "resolved_name": "مجاهد بن جبر",
+            "role": "quoted_opinion",
+            "confidence": 0.96
+          },
+          {
+            "mention_text": "الحنفية",
+            "resolved_name": "الحنفية",
+            "role": "quoted_opinion",
+            "confidence": 0.92
+          },
+          {
+            "mention_text": "الشافعية",
+            "resolved_name": "الشافعية",
+            "role": "quoted_opinion",
+            "confidence": 0.92
+          },
+          {
+            "mention_text": "الحنابلة",
+            "resolved_name": "الحنابلة",
+            "role": "quoted_opinion",
+            "confidence": 0.92
+          },
+          {
+            "mention_text": "أبو داود",
+            "resolved_name": "أبو داود السجستاني",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "الترمذي",
+            "resolved_name": "محمد بن عيسى الترمذي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "شيخ الإسلام",
+            "resolved_name": "أحمد بن عبد الحليم ابن تيمية",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "ابن تيمية",
+            "resolved_name": "أحمد بن عبد الحليم ابن تيمية",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "الشافعي",
+            "resolved_name": "محمد بن إدريس الشافعي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "الماء طهور لا ينجسه شيء",
+            "collections": [
+              "سنن أبي داود",
+              "سنن الترمذي"
+            ],
+            "hadith_numbers": [],
+            "grade": "حسن",
+            "grade_source": "الترمذي"
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "طهوريته",
+            "variants": [
+              "الطهارة",
+              "بقاءه مطهِّراً"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 8,
+        "excerpt_topic": [
+          "أحكام الماء الدائم",
+          "الانغماس في الماء",
+          "اختلاف الرواية فيه ومنه"
+        ],
+        "school": "حنبلي",
+        "school_confidence": 0.71,
+        "resolved_scholars": [
+          {
+            "mention_text": "مسلم",
+            "resolved_name": "مسلم بن الحجاج",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "الحافظ ابن حجر",
+            "resolved_name": "أحمد بن علي بن حجر العسقلاني",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": "هذه الفوائد مستنبطة من حديث النهي عن البول والاغتسال في الماء الراكد، مع التفريق بين الانغماس والتناول من الماء."
+      },
+      {
+        "unit_index": 9,
+        "excerpt_topic": [
+          "ولوغ الكلب",
+          "غسل الإناء سبعاً",
+          "التتريب"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "أبي هريرة",
+            "resolved_name": "أبو هريرة الدوسي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "مسلم",
+            "resolved_name": "مسلم بن الحجاج",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "عبد الله بنِ مُغَفَل",
+            "resolved_name": "عبد الله بن مغفل المزني",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "إذَا شَرِبَ الكَلْبُ في إِنَاءِ ",
+            "collections": [
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "إذَا وَلَغَ الْكَلْبُ في الإنَ",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "ولغ",
+            "variants": [
+              "شرب بطرف لسانه"
+            ]
+          },
+          {
+            "term": "عفروه",
+            "variants": [
+              "تربوه",
+              "التتريب"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 10,
+        "excerpt_topic": [
+          "خلاف التسبيع",
+          "خلاف التتريب"
+        ],
+        "school": "cross_school",
+        "school_confidence": 0.62,
+        "resolved_scholars": [],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": "المقصود الإشارة إلى خلاف الفقهاء في وجوب السبع والتتريب في ولوغ الكلب، دون تفصيل الأقوال وأدلتها هنا."
+      },
+      {
+        "unit_index": 11,
+        "excerpt_topic": [
+          "نجاسة الكلب",
+          "التسبيع والتتريب",
+          "بدل التراب"
+        ],
+        "school": "حنبلي",
+        "school_confidence": 0.73,
+        "resolved_scholars": [
+          {
+            "mention_text": "أحمد",
+            "resolved_name": "أحمد بن حنبل",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          },
+          {
+            "mention_text": "الشافعي",
+            "resolved_name": "محمد بن إدريس الشافعي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "ابن دقيق العيد",
+            "resolved_name": "محمد بن علي بن وهب ابن دقيق العيد",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "النووي",
+            "resolved_name": "يحيى بن شرف النووي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "فريق من العلماء",
+            "resolved_name": "فريق من العلماء",
+            "role": "quoted_opinion",
+            "confidence": 0.65
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [
+          {
+            "term": "التراب",
+            "variants": [
+              "التتريب",
+              "التعفير"
+            ]
+          }
+        ],
+        "cross_references": [
+          {
+            "reference_text": "وتفسيره يأتي قريبا إن شاء الله",
+            "target_description": "تفسير تنجيس الكلب لما يلاقيه إذا لم تظهر آثار النجاسة",
+            "target_div_id": null,
+            "resolved": false
+          }
+        ],
+        "context_hint": "هذه الأحكام مستنبطة من حديث ولوغ الكلب في الإناء، وفيها حكم النجاسة وعدد الغسلات وموضع التراب والخلاف في البديل."
+      },
+      {
+        "unit_index": 12,
+        "excerpt_topic": [
+          "صفة الوضوء",
+          "وضوء عثمان",
+          "فضل ركعتين بعد الوضوء"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "حُمْرانَ",
+            "resolved_name": "حمران مولى عثمان بن عفان",
+            "role": "quoted_opinion",
+            "confidence": 0.96
+          },
+          {
+            "mention_text": "عُثْمَانَ بْنِ عَفَانَ",
+            "resolved_name": "عثمان بن عفان",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "النووي",
+            "resolved_name": "يحيى بن شرف النووي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "ابن هشام",
+            "resolved_name": "عبد الله بن يوسف بن هشام الأنصاري",
+            "role": "quoted_opinion",
+            "confidence": 0.92
+          },
+          {
+            "mention_text": "الرضي",
+            "resolved_name": "محمد بن الحسن الرضي الإستراباذي",
+            "role": "quoted_opinion",
+            "confidence": 0.83
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "من تَوَضًأ نَحْوَ وُضُوئي هذَا ",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "وضوء",
+            "variants": [
+              "طهارة"
+            ]
+          },
+          {
+            "term": "طهور",
+            "variants": [
+              "وضوء"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 13,
+        "excerpt_topic": [
+          "حكم الاستنشاق",
+          "الاستنشاق في الوضوء",
+          "واجب أم سنة"
+        ],
+        "school": "cross_school",
+        "school_confidence": 0.99,
+        "resolved_scholars": [
+          {
+            "mention_text": "أبو حنيفة",
+            "resolved_name": "أبو حنيفة النعمان بن ثابت",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "مالك",
+            "resolved_name": "مالك بن أنس",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "الشافعي",
+            "resolved_name": "محمد بن إدريس الشافعي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "سفيان",
+            "resolved_name": null,
+            "role": "quoted_opinion",
+            "confidence": 0.25
+          },
+          {
+            "mention_text": "الإمام \"أحمد\"",
+            "resolved_name": "أحمد بن حنبل",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "أبى ليلى",
+            "resolved_name": "محمد بن عبد الرحمن بن أبي ليلى",
+            "role": "quoted_opinion",
+            "confidence": 0.86
+          },
+          {
+            "mention_text": "إسحاق",
+            "resolved_name": "إسحاق بن راهويه",
+            "role": "quoted_opinion",
+            "confidence": 0.9
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "عشر من سنن المرسلين",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "عشر من الفطرة",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 14,
+        "excerpt_topic": [
+          "مسح الرأس",
+          "استيعاب الرأس",
+          "الباء في برؤوسكم"
+        ],
+        "school": "cross_school",
+        "school_confidence": 0.99,
+        "resolved_scholars": [
+          {
+            "mention_text": "الثوري",
+            "resolved_name": "سفيان الثوري",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "الأوزاعي",
+            "resolved_name": "عبد الرحمن بن عمرو الأوزاعي",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "أبو حنيفة",
+            "resolved_name": "أبو حنيفة النعمان بن ثابت",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "الشافعي",
+            "resolved_name": "محمد بن إدريس الشافعي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "مالك",
+            "resolved_name": "مالك بن أنس",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "أحمد",
+            "resolved_name": "أحمد بن حنبل",
+            "role": "quoted_opinion",
+            "confidence": 0.96
+          },
+          {
+            "mention_text": "مسلم",
+            "resolved_name": "مسلم بن الحجاج",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "نفطويه",
+            "resolved_name": "إبراهيم بن محمد نفطويه",
+            "role": "quoted_opinion",
+            "confidence": 0.87
+          },
+          {
+            "mention_text": "ابن دريد",
+            "resolved_name": "محمد بن الحسن بن دريد",
+            "role": "quoted_opinion",
+            "confidence": 0.92
+          },
+          {
+            "mention_text": "ابن برهان",
+            "resolved_name": null,
+            "role": "quoted_opinion",
+            "confidence": 0.28
+          },
+          {
+            "mention_text": "ابن القيم",
+            "resolved_name": "محمد بن أبي بكر ابن قيم الجوزية",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "الجماعة",
+            "resolved_name": "الجماعة",
+            "role": "quoted_opinion",
+            "confidence": 0.5
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "أنه صلى الله عليه وسلم تَوَضَأ ",
+            "collections": [
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "مَسِحَ رأسه بيدَيْهِ فَاْقْبَلَ ",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "مسح بعضه",
+            "variants": [
+              "الاقتصار على بعض الرأس"
+            ]
+          },
+          {
+            "term": "استيعابه كله",
+            "variants": [
+              "مسح جميع الرأس"
+            ]
+          }
+        ],
+        "cross_references": [
+          {
+            "reference_text": "منها حديث الباب",
+            "target_description": "حديث عثمان في صفة وضوء النبي صلى الله عليه وسلم",
+            "target_div_id": null,
+            "resolved": true
+          },
+          {
+            "reference_text": "كما تقدم",
+            "target_description": "تقدم تقرير وجوب مسح جميع الرأس في مناقشة أدلة المسألة",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 15,
+        "excerpt_topic": [
+          "فوائد وضوء عثمان",
+          "الترتيب في الوضوء",
+          "فضيلة الصلاة بعد الوضوء"
+        ],
+        "school": "حنبلي",
+        "school_confidence": 0.74,
+        "resolved_scholars": [
+          {
+            "mention_text": "العلماء",
+            "resolved_name": "العلماء",
+            "role": "quoted_opinion",
+            "confidence": 0.6
+          }
+        ],
+        "takhrij_data": [],
+        "terminology_variants": [],
+        "cross_references": [
+          {
+            "reference_text": "وتقدم أنه هو الصحيح",
+            "target_description": "ترجيح وجوب المضمضة والاستنشاق",
+            "target_div_id": null,
+            "resolved": true
+          },
+          {
+            "reference_text": "هذه الصفة",
+            "target_description": "صفة وضوء النبي صلى الله عليه وسلم المذكورة في حديث عثمان",
+            "target_div_id": null,
+            "resolved": true
+          },
+          {
+            "reference_text": "على النحو المذكور",
+            "target_description": "الوضوء الموصوف في حديث عثمان",
+            "target_div_id": null,
+            "resolved": true
+          },
+          {
+            "reference_text": "على الصفة المذكورة",
+            "target_description": "ركعتا الوضوء مع عدم حديث النفس فيهما",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": "هذه الفوائد مستخرجة من حديث عثمان في صفة وضوء النبي صلى الله عليه وسلم وما رتب عليه من فضل ركعتين بعده."
+      },
+      {
+        "unit_index": 16,
+        "excerpt_topic": [
+          "صفة أخرى للوضوء",
+          "حديث عبد الله بن زيد",
+          "مسح الرأس مرة واحدة"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "عَمْرِو بن يَحْيىَ اْلمازِني",
+            "resolved_name": "عمرو بن يحيى المازني",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "أبِيهِ",
+            "resolved_name": "يحيى بن عمارة المازني",
+            "role": "quoted_opinion",
+            "confidence": 0.73
+          },
+          {
+            "mention_text": "عمرْو بن أبي اْلحَسَنِ",
+            "resolved_name": "عمرو بن أبي الحسن",
+            "role": "quoted_opinion",
+            "confidence": 0.78
+          },
+          {
+            "mention_text": "عَبْدَ الله بْنَ زيد",
+            "resolved_name": "عبد الله بن زيد بن عاصم",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "الزمخشرى",
+            "resolved_name": "محمود بن عمر الزمخشري",
+            "role": "quoted_opinion",
+            "confidence": 0.96
+          },
+          {
+            "mention_text": "ابن حجر",
+            "resolved_name": "أحمد بن علي بن حجر العسقلاني",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "الصنعاني",
+            "resolved_name": "محمد بن إسماعيل الأمير الصنعاني",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "الزركشي",
+            "resolved_name": "محمد بن عبد الله الزركشي",
+            "role": "quoted_opinion",
+            "confidence": 0.91
+          },
+          {
+            "mention_text": "النووي",
+            "resolved_name": "يحيى بن شرف النووي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "أبو داود",
+            "resolved_name": "أبو داود السجستاني",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "ابن المنذر",
+            "resolved_name": "محمد بن إبراهيم ابن المنذر",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "ابن دقيق العيد",
+            "resolved_name": "محمد بن علي بن وهب ابن دقيق العيد",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "بَدَأ بِمُقَدَّم رَأسِهِ حَتًى ذ",
+            "collections": [
+              "صحيح البخاري",
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "أتَانَا رَسُولُ الله صلى الله ع",
+            "collections": [
+              "صحيح البخاري",
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "التور",
+            "variants": [
+              "الطست"
+            ]
+          }
+        ],
+        "cross_references": [
+          {
+            "reference_text": "هذا الحديث يعرف معناه مما تقدم في شرح حديث عثمان",
+            "target_description": "حديث عثمان في صفة الوضوء",
+            "target_div_id": null,
+            "resolved": true
+          },
+          {
+            "reference_text": "على الحديث السابق",
+            "target_description": "حديث عثمان السابق في صفة الوضوء",
+            "target_div_id": null,
+            "resolved": true
+          },
+          {
+            "reference_text": "كما تقدم",
+            "target_description": "تقدم تقرير وجوب استيعاب الرأس بالمسح",
+            "target_div_id": null,
+            "resolved": true
+          }
+        ],
+        "context_hint": null
+      },
+      {
+        "unit_index": 17,
+        "excerpt_topic": [
+          "التيامن",
+          "آداب الطهارة",
+          "تقديم اليمين"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "عَائِشَةَ",
+            "resolved_name": "عائشة بنت أبي بكر",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "الصنعانى",
+            "resolved_name": "محمد بن إسماعيل الأمير الصنعاني",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "الشيخ تقي الدين",
+            "resolved_name": "أحمد بن عبد الحليم ابن تيمية",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "النووي",
+            "resolved_name": "يحيى بن شرف النووي",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "المغنى",
+            "resolved_name": "موفق الدين عبد الله بن أحمد ابن قدامة",
+            "role": "quoted_opinion",
+            "confidence": 0.72
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "كَاَن رَسُولُ الله صلى الله علي",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "التيمن",
+            "variants": [
+              "البداءة باليمين",
+              "تقديم اليمين"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      },
+      {
+        "unit_index": 18,
+        "excerpt_topic": [
+          "إسباغ الوضوء",
+          "الغرة والتحجيل",
+          "آثار الوضوء"
+        ],
+        "school": null,
+        "school_confidence": null,
+        "resolved_scholars": [
+          {
+            "mention_text": "نُعَيْمِ الْمُجْمِرِ",
+            "resolved_name": "نعيم المجمر",
+            "role": "quoted_opinion",
+            "confidence": 0.93
+          },
+          {
+            "mention_text": "أبيِ هريرة",
+            "resolved_name": "أبو هريرة الدوسي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "مسلم",
+            "resolved_name": "مسلم بن الحجاج",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "إنَّ أمتي يُدْعَون يومَ القيَام",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "إن أمتي يُدْعَوْنَ يَوْم القِيَا",
+            "collections": [],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "تبلغ الحِلْيَةُ من الْمُؤْمِنِ ح",
+            "collections": [
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "غرا محجلين",
+            "variants": [
+              "الغرة والتحجيل",
+              "نور الوضوء"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": "هذه الأحاديث تبين فضيلة الوضوء وأن أمته صلى الله عليه وسلم تعرف يوم القيامة بنور الغرة والتحجيل من آثاره."
+      },
+      {
+        "unit_index": 19,
+        "excerpt_topic": [
+          "إطالة الغرة",
+          "مجاوزة محل الفرض",
+          "إدراج الحديث"
+        ],
+        "school": "cross_school",
+        "school_confidence": 0.99,
+        "resolved_scholars": [
+          {
+            "mention_text": "مالك",
+            "resolved_name": "مالك بن أنس",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          },
+          {
+            "mention_text": "أحمد",
+            "resolved_name": "أحمد بن حنبل",
+            "role": "quoted_opinion",
+            "confidence": 0.95
+          },
+          {
+            "mention_text": "شيخ الإسلام",
+            "resolved_name": "أحمد بن عبد الحليم ابن تيمية",
+            "role": "quoted_opinion",
+            "confidence": 0.97
+          },
+          {
+            "mention_text": "ابن تيمية",
+            "resolved_name": "أحمد بن عبد الحليم ابن تيمية",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "ابن القيم",
+            "resolved_name": "محمد بن أبي بكر ابن قيم الجوزية",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "شيخنا عبد الرحمن بن ناصر السعدي",
+            "resolved_name": "عبد الرحمن بن ناصر السعدي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "أبي هريرة",
+            "resolved_name": "أبو هريرة الدوسي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "الفتح",
+            "resolved_name": "أحمد بن علي بن حجر العسقلاني",
+            "role": "quoted_opinion",
+            "confidence": 0.74
+          },
+          {
+            "mention_text": "ابن القيم",
+            "resolved_name": "محمد بن أبي بكر ابن قيم الجوزية",
+            "role": "classification_frame",
+            "confidence": 0.95
+          },
+          {
+            "mention_text": "أبو حازم",
+            "resolved_name": "أبو حازم سلمة بن دينار",
+            "role": "quoted_opinion",
+            "confidence": 0.8
+          },
+          {
+            "mention_text": "أبي هريرة",
+            "resolved_name": "أبو هريرة الدوسي",
+            "role": "quoted_opinion",
+            "confidence": 0.99
+          },
+          {
+            "mention_text": "نعيم",
+            "resolved_name": "نعيم المجمر",
+            "role": "quoted_opinion",
+            "confidence": 0.9
+          },
+          {
+            "mention_text": "شيخنا",
+            "resolved_name": "أحمد بن عبد الحليم ابن تيمية",
+            "role": "quoted_opinion",
+            "confidence": 0.98
+          }
+        ],
+        "takhrij_data": [
+          {
+            "hadith_text_snippet": "من استطاع منكم أن يطيل غرته فلي",
+            "collections": [
+              "مسند الإمام أحمد"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          },
+          {
+            "hadith_text_snippet": "تبلغ الحلية من المؤمن حيث يبلغ ",
+            "collections": [
+              "صحيح البخاري",
+              "صحيح مسلم"
+            ],
+            "hadith_numbers": [],
+            "grade": null,
+            "grade_source": null
+          }
+        ],
+        "terminology_variants": [
+          {
+            "term": "إطالة الغرة",
+            "variants": [
+              "مجاوزة محل الفرض",
+              "تطويل التحجيل"
+            ]
+          }
+        ],
+        "cross_references": [],
+        "context_hint": null
+      }
+    ],
+    "total_units": 20
+  }
+}

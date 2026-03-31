@@ -1,0 +1,32 @@
+{
+  "call_id": "enrich_0006",
+  "latency_seconds": 15.79,
+  "model": "openai/gpt-5.4-20260305",
+  "usage": {
+    "completion_tokens": 1122,
+    "prompt_tokens": 3004,
+    "total_tokens": 4126,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 1920,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.02002,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.02002,
+      "upstream_inference_prompt_cost": 0.00319,
+      "upstream_inference_completions_cost": 0.01683
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"teaching_units\": [\n    {\n      \"unit_index\": 0,\n      \"segment_indices\": [0],\n      \"start_word\": 0,\n      \"end_word\": 1,\n      \"text_snippet\": \"المسألة الثانية\",\n      \"primary_function\": \"structural_transition\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"عنوان انتقال إلى المسألة الثانية في تعريف النحو.\",\n      \"self_containment\": \"PARTIAL\",\n      \"self_containment_notes\": \"هو مجرد عنوان قسم، ولا يشتمل وحده على مضمون علمي تام إلا بضم ما بعده.\"\n    },\n    {\n      \"unit_index\": 1,\n      \"segment_indices\": [1, 2, 3, 4, 5, 6],\n      \"start_word\": 2,\n      \"end_word\": 124,\n      \"text_snippet\": \"للنحو حدود شتى، وأليقها بهذا الكتاب قول ابن جني (في الخصائص):\\n\\\" هو انتحاء \",\n      \"primary_function\": \"definition\",\n      \"secondary_functions\": [\n        \"structural_transition\",\n        \"example\",\n        \"editorial_note\"\n      ],\n      \"description_arabic\": \"تعريف ابن جني للنحو وبيان أصله اللغوي وتخصيصه بأمثلة توضيحية.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 2,\n      \"segment_indices\": [7],\n      \"start_word\": 125,\n      \"end_word\": 154,\n      \"text_snippet\": \"وقال صاحب (المستوفي):\\\" النحو صناعة علمية ينظر لها أصحابها في ألفاظ العرب م\",\n      \"primary_function\": \"definition\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"تعريف صاحب المستوفي للنحو من جهة التأليف وعلاقة اللفظ بالمعنى.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 3,\n      \"segment_indices\": [8],\n      \"start_word\": 155,\n      \"end_word\": 170,\n      \"text_snippet\": \"وقال الخضراوي:\\n\\\" النحو علم بأقيسة تغيير ذوات الكلم وأواخرها بالنسبة إلى لغ\",\n      \"primary_function\": \"definition\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"تعريف الخضراوي للنحو باعتبار أقيسة التغيير في الكلم وأواخرها.\",\n      \"self_containment\": \"PARTIAL\",\n      \"self_containment_notes\": \"يفهم إجمالا، لكن عبارة «بالنسبة إلى لغة لسان العرب» ومراد «أقيسة تغيير ذوات الكلم» تحتاج قدرا من المعرفة الاصطلاحية.\"\n    },\n    {\n      \"unit_index\": 4,\n      \"segment_indices\": [9, 10],\n      \"start_word\": 171,\n      \"end_word\": 222,\n      \"text_snippet\": \"وقال ابن عصفور:\\n\\\" النحو علم مستخرج بالمقاييس المستنبطة من استقراء كلام العرب\",\n      \"primary_function\": \"definition\",\n      \"secondary_functions\": [\n        \"refutation\"\n      ],\n      \"description_arabic\": \"تعريف ابن عصفور للنحو مع اعتراض ابن الحاج عليه ووجه النقد.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    },\n    {\n      \"unit_index\": 5,\n      \"segment_indices\": [11, 12],\n      \"start_word\": 223,\n      \"end_word\": 263,\n      \"text_snippet\": \"وقال صاحب (البديع):\\n\\\" النحو صناعة علمية يعرف بها أحوال كلام العرب من جهة ما\",\n      \"primary_function\": \"definition\",\n      \"secondary_functions\": [\n        \"refutation\"\n      ],\n      \"description_arabic\": \"تعريف صاحب البديع للنحو واستنتاج المؤلف ما يدفع الاعتراض عن ابن عصفور.\",\n      \"self_containment\": \"PARTIAL\",\n      \"self_containment_notes\": \"الترجيح في قوله «ويندفع الإيراد الأخير على كلام ابن عصفور» يعتمد على معرفة الاعتراض المذكور سابقا في الوحدة السابقة.\"\n    },\n    {\n      \"unit_index\": 6,\n      \"segment_indices\": [13],\n      \"start_word\": 264,\n      \"end_word\": 278,\n      \"text_snippet\": \"وقال ابن السراج في (الأصول):\\n\\\" النحو علم استخرجه المتقدمون من استقراء كلام \",\n      \"primary_function\": \"definition\",\n      \"secondary_functions\": [],\n      \"description_arabic\": \"تعريف ابن السراج للنحو بأنه علم مستخرج من استقراء كلام العرب.\",\n      \"self_containment\": \"FULL\",\n      \"self_containment_notes\": null\n    }\n  ],\n  \"total_units\": 7,\n  \"notes\": \"تم الفصل بين التعريفات المستقلة، وجُمِع تعريف ابن عصفور مع نقده، كما جُمِع استدراك المؤلف مع تعريف صاحب البديع لارتباطه به، مع التنبيه إلى اعتماده الجزئي على السياق السابق.\"\n}"
+}

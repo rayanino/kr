@@ -1,0 +1,32 @@
+{
+  "call_id": "escalation_0009",
+  "latency_seconds": 2.5,
+  "model": "mistralai/mistral-large-2411",
+  "usage": {
+    "completion_tokens": 109,
+    "prompt_tokens": 955,
+    "total_tokens": 1064,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": 0,
+      "reasoning_tokens": 0,
+      "rejected_prediction_tokens": null,
+      "image_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost": 0.002564,
+    "is_byok": false,
+    "cost_details": {
+      "upstream_inference_cost": 0.002564,
+      "upstream_inference_prompt_cost": 0.00191,
+      "upstream_inference_completions_cost": 0.000654
+    }
+  },
+  "finish_reason": "stop",
+  "raw_content": "{\n  \"author_id\": \"ابن عقيل\",\n  \"reasoning\": \"Model 2 provides a detailed and coherent explanation for why the text should be attributed to ابن عقيل. The presence of the phrase 'قال المصنف' and the detailed grammatical analysis and comparative approach align with Ibn Aqil's style. Additionally, the references to other scholars and the explanatory style support this attribution.\"\n}"
+}
