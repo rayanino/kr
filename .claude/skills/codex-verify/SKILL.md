@@ -1,6 +1,6 @@
 ---
 name: codex-verify
-description: Independent code review via Codex MCP for D-041 multi-model verification
+description: Independent code review via Codex MCP for D-041 multi-model verification. Use after writing or modifying engine source code, contracts.py, or test files to get a cross-model structural review.
 ---
 
 # Codex Cross-Verification Skill

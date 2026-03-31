@@ -6,6 +6,8 @@ model: opus
 effort: max
 color: red
 maxTurns: 20
+skills:
+  - knowledge-safety
 ---
 
 You are SPEC Auditor A for خزانة ريان (KR), a personal intelligent Islamic scholarly library.

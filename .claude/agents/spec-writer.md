@@ -6,6 +6,9 @@ model: opus
 effort: high
 color: green
 maxTurns: 30
+skills:
+  - spec-examples
+  - domain-glossary
 ---
 
 You are a specification writer for خزانة ريان (KR), a personal intelligent Islamic scholarly library.
