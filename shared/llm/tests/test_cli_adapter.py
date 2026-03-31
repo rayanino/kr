@@ -128,7 +128,7 @@ def test_provider_routing_anthropic(
         messages=MESSAGES,
     )
     cmd = mock_run.call_args[0][0]
-    assert cmd[0] == "claude"
+    assert cmd[0] == "/usr/bin/claude"
 
 
 @patch("shared.llm.cli_adapter.subprocess.run")
@@ -176,7 +176,7 @@ def test_provider_routing_unknown_fallback(
         messages=MESSAGES,
     )
     cmd = mock_run.call_args[0][0]
-    assert cmd[0] == "claude"
+    assert cmd[0] == "/usr/bin/claude"
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -189,7 +189,7 @@ def test_claude_command_flags(
     mock_run: MagicMock, adapter: CLIInstructorAdapter, valid_json: str,
     mock_oauth: Any, mock_which: Any,
 ) -> None:
-    """Verify --bare, --no-session-persistence, --max-turns 10, etc."""
+    """Verify --no-session-persistence, --max-turns, cwd, no --bare."""
     mock_run.return_value = _make_completed_process(stdout=valid_json)
     adapter.chat.completions.create(
         model="anthropic/claude-opus-4.6",
@@ -197,17 +197,22 @@ def test_claude_command_flags(
         messages=MESSAGES,
     )
     cmd = mock_run.call_args[0][0]
-    assert "--bare" in cmd
+    # --bare removed: it rejects OAuth tokens (sk-ant-oat01-).
+    # Instead, cwd is set to temp dir to prevent CLAUDE.md contamination.
+    assert "--bare" not in cmd
     assert "--no-session-persistence" in cmd
     assert "--max-turns" in cmd
     mt_idx = cmd.index("--max-turns")
-    assert cmd[mt_idx + 1] == "10"
+    assert cmd[mt_idx + 1] == "1"
     assert "--output-format" in cmd
     of_idx = cmd.index("--output-format")
     assert cmd[of_idx + 1] == "text"
     assert "--model" in cmd
     m_idx = cmd.index("--model")
     assert cmd[m_idx + 1] == "opus"
+    # Verify cwd is set to prevent CLAUDE.md discovery
+    call_kwargs = mock_run.call_args[1]
+    assert call_kwargs.get("cwd") is not None
 
 
 @patch("shared.llm.cli_adapter.subprocess.run")
@@ -547,7 +552,8 @@ def test_hook_completion_error_fired(
         )
 
     assert len(captured) == 1
-    assert isinstance(captured[0], json.JSONDecodeError)
+    assert isinstance(captured[0], CLIBackendError)
+    assert captured[0].raw_output == "not json"
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -561,8 +567,12 @@ def test_oauth_token_read(tmp_path: Path) -> None:
     cred_file = tmp_path / ".credentials.json"
     cred_file.write_text(json.dumps(creds))
 
-    with patch(
-        "shared.llm.cli_adapter.Path.home", return_value=tmp_path / "fake"
+    with (
+        patch("shared.llm.cli_adapter.Path.home", return_value=tmp_path / "fake"),
+        patch(
+            "shared.llm.cli_adapter._SETUP_TOKEN_PATH",
+            tmp_path / "missing" / "kr_setup_token.txt",
+        ),
     ):
         # Need to place the file where _get_oauth_token looks
         claude_dir = tmp_path / "fake" / ".claude"
@@ -577,9 +587,15 @@ def test_oauth_token_read(tmp_path: Path) -> None:
 
 def test_oauth_token_missing_raises(tmp_path: Path) -> None:
     """No credentials file raises CLIBackendError."""
-    with patch(
-        "shared.llm.cli_adapter.Path.home",
-        return_value=tmp_path / "nonexistent",
+    with (
+        patch(
+            "shared.llm.cli_adapter.Path.home",
+            return_value=tmp_path / "nonexistent",
+        ),
+        patch(
+            "shared.llm.cli_adapter._SETUP_TOKEN_PATH",
+            tmp_path / "missing" / "kr_setup_token.txt",
+        ),
     ):
         from shared.llm.cli_adapter import _get_oauth_token
 
@@ -589,11 +605,11 @@ def test_oauth_token_missing_raises(tmp_path: Path) -> None:
 
 @patch("shared.llm.cli_adapter.time.sleep")
 @patch("shared.llm.cli_adapter.subprocess.run")
-def test_oauth_token_refresh_on_auth_error(
+def test_claude_retry_on_auth_error(
     mock_run: MagicMock, mock_sleep: MagicMock,
     adapter: CLIInstructorAdapter, valid_json: str, mock_which: Any,
 ) -> None:
-    """First call fails auth, token refreshed, second call succeeds."""
+    """First call fails auth, retry succeeds (CLI handles its own auth)."""
     mock_run.side_effect = [
         subprocess.CalledProcessError(
             returncode=1, cmd="claude", stderr="401 Unauthorized"
@@ -601,20 +617,16 @@ def test_oauth_token_refresh_on_auth_error(
         _make_completed_process(stdout=valid_json),
     ]
 
-    with patch(
-        "shared.llm.cli_adapter._get_oauth_token",
-        return_value="refreshed-token",
-    ) as mock_get:
-        result = adapter.chat.completions.create(
-            model="anthropic/claude-opus-4.6",
-            response_model=SimpleResponse,
-            messages=MESSAGES,
-            max_retries=1,
-        )
+    result = adapter.chat.completions.create(
+        model="anthropic/claude-opus-4.6",
+        response_model=SimpleResponse,
+        messages=MESSAGES,
+        max_retries=1,
+    )
 
     assert result.answer == "test"
-    # Token should have been fetched multiple times (initial + refresh)
-    assert mock_get.call_count >= 2
+    # Two subprocess calls: failed first attempt + successful retry
+    assert mock_run.call_count == 2
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -636,6 +648,97 @@ def test_json_extraction_finds_object() -> None:
     result = extract_json(raw)
     assert isinstance(result, dict)
     assert result["confidence"] == 0.5
+
+
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_empty_stdout_raises_cli_backend_error(
+    mock_run: MagicMock,
+    adapter: CLIInstructorAdapter,
+    mock_oauth: Any,
+    mock_which: Any,
+) -> None:
+    """Empty stdout is treated as a structured backend failure."""
+    mock_run.return_value = _make_completed_process(stdout="")
+
+    with pytest.raises(CLIBackendError, match="empty stdout") as exc_info:
+        adapter.chat.completions.create(
+            model="anthropic/claude-opus-4.6",
+            response_model=SimpleResponse,
+            messages=MESSAGES,
+        )
+
+    assert exc_info.value.raw_output == ""
+
+
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_json_parse_failure_preserves_raw_output(
+    mock_run: MagicMock,
+    adapter: CLIInstructorAdapter,
+    mock_oauth: Any,
+    mock_which: Any,
+) -> None:
+    """Terminal JSON parse failures keep raw stdout for artifact logging."""
+    raw = "not-json but still diagnostic"
+    mock_run.return_value = _make_completed_process(stdout=raw)
+
+    with pytest.raises(CLIBackendError) as exc_info:
+        adapter.chat.completions.create(
+            model="anthropic/claude-opus-4.6",
+            response_model=SimpleResponse,
+            messages=MESSAGES,
+        )
+
+    assert exc_info.value.raw_output == raw
+
+
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_validation_failure_preserves_raw_output(
+    mock_run: MagicMock,
+    adapter: CLIInstructorAdapter,
+    mock_oauth: Any,
+    mock_which: Any,
+) -> None:
+    """Terminal validation failures keep raw stdout on the ValidationError."""
+    from pydantic import ValidationError
+
+    invalid = json.dumps({"answer": "test", "confidence": 9.9})
+    mock_run.return_value = _make_completed_process(stdout=invalid)
+
+    with pytest.raises(ValidationError) as exc_info:
+        adapter.chat.completions.create(
+            model="anthropic/claude-opus-4.6",
+            response_model=SimpleResponse,
+            messages=MESSAGES,
+        )
+
+    assert getattr(exc_info.value, "raw_output", None) == invalid
+
+
+@patch("shared.llm.cli_adapter.subprocess.run")
+def test_unicode_decode_error_wrapped_for_hooks(
+    mock_run: MagicMock,
+    adapter: CLIInstructorAdapter,
+    mock_oauth: Any,
+    mock_which: Any,
+) -> None:
+    """UnicodeDecodeError is wrapped as CLIBackendError instead of bypassing hooks."""
+    mock_run.side_effect = UnicodeDecodeError("utf-8", b"\xff", 0, 1, "invalid start")
+    captured: list[Exception] = []
+
+    def on_error(error: Exception) -> None:
+        captured.append(error)
+
+    adapter.on("completion:error", on_error)
+
+    with pytest.raises(CLIBackendError, match="decode failed"):
+        adapter.chat.completions.create(
+            model="anthropic/claude-opus-4.6",
+            response_model=SimpleResponse,
+            messages=MESSAGES,
+        )
+
+    assert len(captured) == 1
+    assert isinstance(captured[0], CLIBackendError)
 
 
 # ═══════════════════════════════════════════════════════════════════

@@ -1,21 +1,27 @@
 """Batch integration test runner for all 5 excerpting engine test packages.
 
-Runs scripts/run_integration_test.py on each package sequentially (no
---max-chunks), aggregates results, and produces SUMMARY.json.
+Runs scripts/run_integration_test.py on each package, aggregates results,
+and produces SUMMARY.json.  Supports parallel execution (``--parallel N``)
+for significant speedup — each package is fully independent.
 
 Usage:
-    python scripts/run_full_integration.py
+    python scripts/run_full_integration.py --backend cli
+    python scripts/run_full_integration.py --backend cli --parallel 3
     python scripts/run_full_integration.py --output-dir path/to/output/
 """
 
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import datetime
 import json
 import os
+import shutil
 import subprocess
 import sys
+import tempfile
+import threading
 import time
 from pathlib import Path
 from typing import Any
@@ -77,6 +83,13 @@ PACKAGES: list[dict[str, Any]] = [
 
 PACKAGES_DIR = Path("experiments/format_diversity_test/packages")
 RUNNER_SCRIPT = Path("scripts/run_integration_test.py")
+SUMMARY_FILENAME = "SUMMARY.json"
+RESUME_RERUN_MARKERS = (
+    "phase3_fatal",
+    "write_output_fatal",
+    "interrupted",
+    "batch_timeout",
+)
 
 
 # ---------------------------------------------------------------------------
@@ -92,8 +105,47 @@ def format_duration(seconds: float) -> str:
     return f"{s}s"
 
 
+def _read_json_file(path: Path) -> dict[str, Any] | None:
+    """Best-effort JSON reader for package artifacts."""
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def _read_processing_log(path: Path) -> dict[str, Any] | None:
+    """Read processing_log.jsonl, which is stored as a single JSON object."""
+    if not path.exists():
+        return None
+    try:
+        text = path.read_text(encoding="utf-8").strip()
+    except OSError:
+        return None
+    if not text:
+        return None
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError:
+        data = None
+        for line in reversed(text.splitlines()):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                candidate = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(candidate, dict):
+                data = candidate
+                break
+    return data if isinstance(data, dict) else None
+
+
 def read_package_results(pkg_output_dir: Path) -> dict[str, Any]:
-    """Read result files from a completed package run."""
+    """Read result files from a completed or partially completed package run."""
     result: dict[str, Any] = {
         "excerpt_count": 0,
         "error_count": 0,
@@ -102,27 +154,44 @@ def read_package_results(pkg_output_dir: Path) -> dict[str, Any]:
         "cost_estimate": 0.0,
     }
 
-    # Read timing
-    timing_path = pkg_output_dir / "timing.json"
-    if timing_path.exists():
-        timing = json.loads(timing_path.read_text(encoding="utf-8"))
+    timing = _read_json_file(pkg_output_dir / "timing.json")
+    if timing is not None:
         total = sum(v for v in timing.values() if isinstance(v, (int, float)))
         result["time_seconds"] = round(total, 2)
 
-    # Count excerpts
     excerpts_path = pkg_output_dir / "excerpts.jsonl"
     if excerpts_path.exists():
-        with open(excerpts_path, encoding="utf-8") as fh:
-            result["excerpt_count"] = sum(1 for line in fh if line.strip())
+        try:
+            with open(excerpts_path, encoding="utf-8") as fh:
+                result["excerpt_count"] = sum(1 for line in fh if line.strip())
+        except OSError:
+            pass
 
-    # Read errors from run_metadata
-    meta_path = pkg_output_dir / "run_metadata.json"
-    if meta_path.exists():
-        meta = json.loads(meta_path.read_text(encoding="utf-8"))
-        result["error_count"] = meta.get("error_count", 0)
-        result["errors"] = meta.get("errors", [])
+    meta = _read_json_file(pkg_output_dir / "run_metadata.json")
+    if meta is not None:
+        result["error_count"] = int(meta.get("error_count", 0) or 0)
+        errors = meta.get("errors")
+        if isinstance(errors, list):
+            result["errors"] = [str(error) for error in errors]
 
-    # Aggregate cost from raw LLM responses
+    processing_log = _read_processing_log(pkg_output_dir / "processing_log.jsonl")
+    if processing_log is not None:
+        if result["excerpt_count"] == 0:
+            result["excerpt_count"] = int(processing_log.get("excerpt_count", 0) or 0)
+        if result["time_seconds"] == 0.0:
+            timings = processing_log.get("timings")
+            if isinstance(timings, dict):
+                total = sum(v for v in timings.values() if isinstance(v, (int, float)))
+                result["time_seconds"] = round(total, 2)
+        if not result["errors"]:
+            errors = processing_log.get("errors")
+            if isinstance(errors, list):
+                result["errors"] = [str(error) for error in errors]
+                result["error_count"] = max(
+                    result["error_count"],
+                    int(processing_log.get("error_count", len(result["errors"])) or 0),
+                )
+
     resp_dir = pkg_output_dir / "raw_llm_responses"
     if resp_dir.exists():
         for resp_file in resp_dir.glob("*.json"):
@@ -141,35 +210,337 @@ def read_package_results(pkg_output_dir: Path) -> dict[str, Any]:
     return result
 
 
+def _build_summary(
+    output_dir: Path,
+    results: dict[str, dict[str, Any]],
+    batch_start: float,
+    *,
+    complete: bool,
+    packages_run: int | None = None,
+) -> dict[str, Any]:
+    """Build the aggregate summary payload."""
+    total_time = time.monotonic() - batch_start
+    succeeded = sum(1 for r in results.values() if r.get("status") == "success")
+    failed = sum(1 for r in results.values() if r.get("status") == "error")
+    return {
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "output_dir": str(output_dir),
+        "complete": complete,
+        "packages": results,
+        "totals": {
+            "packages_run": packages_run if packages_run is not None else len(results),
+            "packages_succeeded": succeeded,
+            "packages_failed": failed,
+            "total_excerpts": sum(r.get("excerpt_count", 0) for r in results.values()),
+            "total_errors": sum(r.get("error_count", 0) for r in results.values()),
+            "total_time_seconds": round(total_time, 2),
+            "total_cost_estimate": round(
+                sum(r.get("cost_estimate", 0.0) for r in results.values()),
+                6,
+            ),
+        },
+    }
+
+
+def _write_incremental_summary(
+    output_dir: Path,
+    results: dict[str, dict[str, Any]],
+    batch_start: float,
+    *,
+    complete: bool = False,
+    packages_run: int | None = None,
+) -> None:
+    """Write SUMMARY.json atomically without crashing the batch on I/O errors."""
+    summary = _build_summary(
+        output_dir,
+        results,
+        batch_start,
+        complete=complete,
+        packages_run=packages_run,
+    )
+    summary_path = output_dir / SUMMARY_FILENAME
+    temp_path = summary_path.with_suffix(".json.tmp")
+    try:
+        temp_path.write_text(
+            json.dumps(summary, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        temp_path.replace(summary_path)
+    except OSError as exc:
+        print(f"WARNING: Failed to write {summary_path}: {exc}")
+
+
+def _should_rerun_package(errors: list[str]) -> bool:
+    """Return True when prior artifacts indicate an incomplete package run."""
+    return any(
+        marker in error
+        for error in errors
+        for marker in RESUME_RERUN_MARKERS
+    )
+
+
+def _safe_reset_package_output(output_dir: Path, pkg_output: Path) -> None:
+    """Delete a package output directory only if it resolves inside the batch root."""
+    expected_names = {pkg["name"] for pkg in PACKAGES}
+    if pkg_output.name not in expected_names:
+        raise ValueError(f"Refusing to delete unexpected package dir: {pkg_output}")
+    resolved_root = output_dir.resolve(strict=False)
+    resolved_pkg = pkg_output.resolve(strict=False)
+    if resolved_pkg == resolved_root or resolved_pkg.parent != resolved_root:
+        raise ValueError(
+            f"Refusing to delete path outside batch output root: {pkg_output}",
+        )
+    if not pkg_output.exists():
+        return
+    if not pkg_output.is_dir():
+        raise ValueError(f"Refusing to delete non-directory package path: {pkg_output}")
+
+    for attempt in range(3):
+        try:
+            shutil.rmtree(pkg_output)
+            return
+        except PermissionError:
+            if attempt == 2:
+                raise
+            time.sleep(0.5 * (attempt + 1))
+
+
+def _build_package_result(
+    pkg_output: Path,
+    *,
+    status: str,
+    elapsed_pkg: float,
+    fallback_error: str | None = None,
+) -> dict[str, Any]:
+    """Merge best-effort on-disk artifacts with a synthetic package status."""
+    pkg_result = read_package_results(pkg_output)
+    pkg_result["status"] = status
+    pkg_result["time_seconds"] = round(elapsed_pkg, 2)
+    if fallback_error and fallback_error not in pkg_result["errors"]:
+        pkg_result["errors"].append(fallback_error)
+    if status == "error":
+        pkg_result["error_count"] = max(
+            pkg_result["error_count"],
+            len(pkg_result["errors"]),
+            1,
+        )
+    return pkg_result
+
+
+def _persist_resume_marker(
+    pkg_output: Path,
+    *,
+    fallback_error: str,
+    elapsed_pkg: float,
+) -> None:
+    """Persist batch-level failure markers so resume logic can re-run the package."""
+    if not pkg_output.exists():
+        return
+    meta_path = pkg_output / "run_metadata.json"
+    meta = _read_json_file(meta_path) or {}
+    existing_errors = meta.get("errors")
+    merged_errors = (
+        [str(error) for error in existing_errors]
+        if isinstance(existing_errors, list)
+        else []
+    )
+    if fallback_error not in merged_errors:
+        merged_errors.append(fallback_error)
+    payload = {
+        **meta,
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "error_count": max(int(meta.get("error_count", 0) or 0), len(merged_errors)),
+        "errors": merged_errors,
+        "batch_elapsed_seconds": round(elapsed_pkg, 2),
+    }
+    try:
+        meta_path.write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+    except OSError as exc:
+        print(f"WARNING: Failed to persist resume marker in {meta_path}: {exc}")
+
+
+def _terminate_process_tree(proc: subprocess.Popen[Any]) -> None:
+    """Terminate a runner subprocess and its descendants."""
+    if proc.poll() is not None:
+        return
+    try:
+        if os.name == "nt":
+            subprocess.run(
+                ["taskkill", "/PID", str(proc.pid), "/T", "/F"],
+                capture_output=True,
+                text=True,
+                timeout=30,
+                check=False,
+            )
+        else:
+            proc.kill()
+    finally:
+        try:
+            proc.wait(timeout=30)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait()
+
+
+def _run_package_subprocess(
+    cmd: list[str],
+    *,
+    env: dict[str, str],
+    timeout: int,
+) -> int:
+    """Run a package subprocess with timeout-aware tree cleanup."""
+    popen_kwargs: dict[str, Any] = {"env": env}
+    if os.name == "nt":
+        popen_kwargs["creationflags"] = getattr(
+            subprocess,
+            "CREATE_NEW_PROCESS_GROUP",
+            0,
+        )
+    else:
+        popen_kwargs["start_new_session"] = True
+
+    proc = subprocess.Popen(cmd, **popen_kwargs)
+    try:
+        return proc.wait(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        _terminate_process_tree(proc)
+        raise
+
+
+# ---------------------------------------------------------------------------
+# Preflight
+# ---------------------------------------------------------------------------
+
+_PROMPT_PREFLIGHT: dict[str, tuple[list[str], str]] = {
+    "codex": (
+        ["codex", "exec", "Say 1"],
+        "Run: codex  (ensure npm install -g @openai/codex)",
+    ),
+    "gemini": (
+        ["gemini", "-p", "Say 1", "-y", "--output-format", "text"],
+        "Run: gemini  (ensure npm install -g @google/gemini-cli)",
+    ),
+}
+
+
+def _preflight_cli(backends: list[str]) -> bool:
+    """Test each CLI backend before the real run.
+
+    Claude: binary-exists check only (startup is slow without --bare
+    because it loads plugins/MCP; auth uses the same subscription as
+    Claude Code — if CC works, Claude CLI works).
+
+    Codex/Gemini: send a trivial prompt and verify a response.
+    """
+    all_ok = True
+    for name in backends:
+        resolved = shutil.which(name)
+        if resolved is None:
+            print(f"  PREFLIGHT FAIL: {name} — not found on PATH")
+            all_ok = False
+            continue
+
+        # Claude: just verify binary exists — it uses subscription auth
+        if name == "claude":
+            print(f"  PREFLIGHT OK:   {name} ({resolved})")
+            continue
+
+        entry = _PROMPT_PREFLIGHT.get(name)
+        if entry is None:
+            print(f"  PREFLIGHT OK:   {name} ({resolved})")
+            continue
+
+        cmd_template, fix_hint = entry
+        cmd = [resolved] + cmd_template[1:]
+
+        try:
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                timeout=60,
+            )
+            if result.returncode != 0:
+                stderr = (result.stderr or "").strip()[:200]
+                stdout = (result.stdout or "").strip()[:200]
+                msg = stderr or stdout or "(no output)"
+                print(f"  PREFLIGHT FAIL: {name} — exit {result.returncode}: {msg}")
+                print(f"    Fix: {fix_hint}")
+                all_ok = False
+            else:
+                print(f"  PREFLIGHT OK:   {name}")
+        except FileNotFoundError:
+            print(f"  PREFLIGHT FAIL: {name} — CLI not found on PATH")
+            print(f"    Fix: {fix_hint}")
+            all_ok = False
+        except subprocess.TimeoutExpired:
+            print(f"  PREFLIGHT FAIL: {name} — timed out after 60s")
+            all_ok = False
+
+    return all_ok
+
+
+def _determine_needed_backends() -> list[str]:
+    """Determine which CLI backends the current config will use."""
+    model_override = os.environ.get("KR_PRIMARY_MODEL", "")
+
+    # Default: Claude for classify/group/enrich, Codex for verify, Gemini for escalation
+    needed = set()
+    primary_models = [model_override] if model_override else ["anthropic/claude-opus-4-6"]
+
+    for model in primary_models:
+        if model.startswith("anthropic/"):
+            needed.add("claude")
+        elif model.startswith("openai/"):
+            needed.add("codex")
+        elif model.startswith("google/"):
+            needed.add("gemini")
+
+    # Verify model — default is openai/gpt-5.4
+    needed.add("codex")
+    # Escalation model — default is google/gemini-2.5-pro
+    needed.add("gemini")
+
+    return sorted(needed)
+
+
 # ---------------------------------------------------------------------------
 # Batch execution
 # ---------------------------------------------------------------------------
 
 
-def run_batch(
+def _run_single_package(
+    pkg: dict[str, Any],
     output_dir: Path,
-    backend: str = "api",
-    max_chunks: int | None = None,
-    per_package_timeout: int = 28800,
-) -> dict[str, Any]:
-    """Run all packages sequentially and return aggregated results."""
-    output_dir.mkdir(parents=True, exist_ok=True)
-    results: dict[str, dict[str, Any]] = {}
-    batch_start = time.monotonic()
+    backend: str,
+    max_chunks: int | None,
+    per_package_timeout: int,
+    batch_start: float,
+    results: dict[str, dict[str, Any]],
+    lock: threading.Lock,
+    label: str,
+) -> None:
+    """Run a single package — designed to be called from a thread or sequentially."""
+    name = pkg["name"]
+    pkg_path = PACKAGES_DIR / name
+    pkg_output = output_dir / name
 
-    for i, pkg in enumerate(PACKAGES, start=1):
-        name = pkg["name"]
-        pkg_path = PACKAGES_DIR / name
-        pkg_output = output_dir / name
+    elapsed = time.monotonic() - batch_start
+    print(f"\n{'=' * 60}")
+    print(f"[{label}] {name} (elapsed: {format_duration(elapsed)})")
+    print(f"{'=' * 60}\n")
 
-        elapsed = time.monotonic() - batch_start
-        print(f"\n{'=' * 60}")
-        print(f"[{i}/{len(PACKAGES)}] {name} (elapsed: {format_duration(elapsed)})")
-        print(f"{'=' * 60}\n")
+    pkg_result: dict[str, Any] | None = None
+    t0 = time.monotonic()
 
+    try:
         if not pkg_path.exists():
-            print(f"  ERROR: Package directory not found: {pkg_path}")
-            results[name] = {
+            print(f"  [{name}] ERROR: Package directory not found: {pkg_path}")
+            pkg_result = {
                 "status": "error",
                 "excerpt_count": 0,
                 "error_count": 1,
@@ -177,96 +548,197 @@ def run_batch(
                 "time_seconds": 0.0,
                 "cost_estimate": 0.0,
             }
-            continue
+        else:
+            done_marker = pkg_output / "processing_log.jsonl"
+            if done_marker.exists():
+                prev = read_package_results(pkg_output)
+                if _should_rerun_package(prev.get("errors", [])):
+                    print(f"  [{name}] RE-RUNNING — previous run ended fatally")
+                    _safe_reset_package_output(output_dir, pkg_output)
+                    pkg_output.mkdir(parents=True, exist_ok=True)
+                else:
+                    print(
+                        f"  [{name}] SKIPPING — already completed "
+                        f"({prev['excerpt_count']} excerpts, "
+                        f"{prev['error_count']} errors)"
+                    )
+                    pkg_result = prev
+                    pkg_result["status"] = "success"
 
-        # Resume support: skip packages that already completed
-        done_marker = pkg_output / "processing_log.jsonl"
-        if done_marker.exists():
-            prev = read_package_results(pkg_output)
-            print(f"  SKIPPING — already completed "
-                  f"({prev['excerpt_count']} excerpts, "
-                  f"{prev['error_count']} errors)")
-            results[name] = prev
-            continue
+            if pkg_result is None:
+                cmd = [
+                    sys.executable,
+                    str(RUNNER_SCRIPT),
+                    "--package-path",
+                    str(pkg_path),
+                    "--output-dir",
+                    str(pkg_output),
+                    "--source-metadata",
+                    json.dumps(pkg["metadata"], ensure_ascii=False),
+                    "--backend",
+                    backend,
+                ]
+                if max_chunks is not None:
+                    cmd.extend(["--max-chunks", str(max_chunks)])
 
-        cmd = [
-            sys.executable,
-            str(RUNNER_SCRIPT),
-            "--package-path", str(pkg_path),
-            "--output-dir", str(pkg_output),
-            "--source-metadata", json.dumps(pkg["metadata"], ensure_ascii=False),
-            "--backend", backend,
-        ]
-        if max_chunks is not None:
-            cmd.extend(["--max-chunks", str(max_chunks)])
+                env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+                returncode = _run_package_subprocess(
+                    cmd,
+                    env=env,
+                    timeout=per_package_timeout,
+                )
+                elapsed_pkg = time.monotonic() - t0
 
-        t0 = time.monotonic()
-        try:
-            env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
-            proc = subprocess.run(cmd, timeout=per_package_timeout, env=env)
-            elapsed_pkg = time.monotonic() - t0
+                if returncode != 0:
+                    print(
+                        f"\n  [{name}] FAILED (exit code {returncode}, "
+                        f"{format_duration(elapsed_pkg)})"
+                    )
+                    pkg_result = _build_package_result(
+                        pkg_output,
+                        status="error",
+                        elapsed_pkg=elapsed_pkg,
+                        fallback_error=f"Exit code {returncode}",
+                    )
+                else:
+                    print(
+                        f"\n  [{name}] COMPLETED "
+                        f"({format_duration(elapsed_pkg)})"
+                    )
+                    pkg_result = _build_package_result(
+                        pkg_output,
+                        status="success",
+                        elapsed_pkg=elapsed_pkg,
+                    )
 
-            if proc.returncode != 0:
-                print(f"\n  FAILED (exit code {proc.returncode}, "
-                      f"{format_duration(elapsed_pkg)})")
-                pkg_result = read_package_results(pkg_output)
-                pkg_result["status"] = "error"
-                if not pkg_result["errors"]:
-                    pkg_result["errors"] = [f"Exit code {proc.returncode}"]
-                    pkg_result["error_count"] = max(pkg_result["error_count"], 1)
-            else:
-                print(f"\n  COMPLETED ({format_duration(elapsed_pkg)})")
-                pkg_result = read_package_results(pkg_output)
-                pkg_result["status"] = "success"
+    except subprocess.TimeoutExpired:
+        elapsed_pkg = time.monotonic() - t0
+        print(f"\n  [{name}] TIMEOUT after {format_duration(elapsed_pkg)}")
+        marker = (
+            f"batch_timeout: exceeded {per_package_timeout}s in batch runner"
+        )
+        _persist_resume_marker(
+            pkg_output,
+            fallback_error=marker,
+            elapsed_pkg=elapsed_pkg,
+        )
+        pkg_result = _build_package_result(
+            pkg_output,
+            status="error",
+            elapsed_pkg=elapsed_pkg,
+            fallback_error=marker,
+        )
+    except Exception as exc:
+        elapsed_pkg = time.monotonic() - t0
+        print(f"\n  [{name}] CRASH: {exc}")
+        marker = f"batch_runner_crash: {exc}"
+        _persist_resume_marker(
+            pkg_output,
+            fallback_error=marker,
+            elapsed_pkg=elapsed_pkg,
+        )
+        pkg_result = _build_package_result(
+            pkg_output,
+            status="error",
+            elapsed_pkg=elapsed_pkg,
+            fallback_error=marker,
+        )
 
-            pkg_result["time_seconds"] = round(elapsed_pkg, 2)
+    if pkg_result is not None:
+        with lock:
+            results[name] = pkg_result
+            _write_incremental_summary(output_dir, results, batch_start)
 
-        except subprocess.TimeoutExpired:
-            elapsed_pkg = time.monotonic() - t0
-            print(f"\n  TIMEOUT after {format_duration(elapsed_pkg)}")
-            pkg_result = {
-                "status": "error",
-                "excerpt_count": 0,
-                "error_count": 1,
-                "errors": [f"Timeout after {per_package_timeout}s"],
-                "time_seconds": round(elapsed_pkg, 2),
-                "cost_estimate": 0.0,
-            }
-        except Exception as exc:
-            elapsed_pkg = time.monotonic() - t0
-            print(f"\n  CRASH: {exc}")
-            pkg_result = {
-                "status": "error",
-                "excerpt_count": 0,
-                "error_count": 1,
-                "errors": [f"Subprocess crash: {exc}"],
-                "time_seconds": round(elapsed_pkg, 2),
-                "cost_estimate": 0.0,
-            }
 
-        results[name] = pkg_result
+def run_batch(
+    output_dir: Path,
+    backend: str = "api",
+    max_chunks: int | None = None,
+    per_package_timeout: int = 28800,
+    parallel: int = 1,
+) -> dict[str, Any]:
+    """Run all packages and return aggregated results.
 
-    total_time = time.monotonic() - batch_start
+    Args:
+        parallel: Max concurrent packages. 1 = sequential (default).
+            Values >1 run packages in parallel threads, each spawning
+            its own subprocess. Packages are independent — no shared
+            state except the results dict (protected by a lock).
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    results: dict[str, dict[str, Any]] = {}
+    lock = threading.Lock()
+    batch_start = time.monotonic()
 
-    succeeded = sum(1 for r in results.values() if r["status"] == "success")
-    failed = sum(1 for r in results.values() if r["status"] == "error")
+    parallel = max(1, parallel)
 
-    return {
-        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        "output_dir": str(output_dir),
-        "packages": results,
-        "totals": {
-            "packages_run": len(PACKAGES),
-            "packages_succeeded": succeeded,
-            "packages_failed": failed,
-            "total_excerpts": sum(r["excerpt_count"] for r in results.values()),
-            "total_errors": sum(r["error_count"] for r in results.values()),
-            "total_time_seconds": round(total_time, 2),
-            "total_cost_estimate": round(
-                sum(r["cost_estimate"] for r in results.values()), 6
-            ),
-        },
-    }
+    # Preflight: verify CLI backends before committing to a multi-hour run
+    if backend == "cli":
+        needed = _determine_needed_backends()
+        print(f"Preflight check ({', '.join(needed)})...")
+        if not _preflight_cli(needed):
+            print("\nABORTING — fix the failing backends before running.")
+            print("This check took <30s. Without it, you'd wait hours to find out.\n")
+            return _build_summary(
+                output_dir, results, batch_start,
+                complete=False, packages_run=0,
+            )
+        print()
+
+    if parallel > 1:
+        print(f"Parallel mode: up to {parallel} packages concurrently\n")
+
+    try:
+        if parallel == 1:
+            # Sequential — same behavior as before, cleaner output
+            for i, pkg in enumerate(PACKAGES, start=1):
+                label = f"{i}/{len(PACKAGES)}"
+                _run_single_package(
+                    pkg, output_dir, backend, max_chunks,
+                    per_package_timeout, batch_start, results, lock, label,
+                )
+        else:
+            # Parallel — launch up to N packages concurrently
+            with concurrent.futures.ThreadPoolExecutor(
+                max_workers=parallel
+            ) as pool:
+                futures: dict[concurrent.futures.Future[None], str] = {}
+                for i, pkg in enumerate(PACKAGES, start=1):
+                    label = f"{i}/{len(PACKAGES)}"
+                    fut = pool.submit(
+                        _run_single_package,
+                        pkg, output_dir, backend, max_chunks,
+                        per_package_timeout, batch_start, results, lock, label,
+                    )
+                    futures[fut] = pkg["name"]
+
+                # Wait for all to complete; propagate first exception
+                for fut in concurrent.futures.as_completed(futures):
+                    exc = fut.exception()
+                    if exc is not None and not isinstance(exc, KeyboardInterrupt):
+                        print(
+                            f"  [{futures[fut]}] thread exception: {exc}"
+                        )
+
+    except KeyboardInterrupt:
+        _write_incremental_summary(output_dir, results, batch_start, complete=False)
+        raise
+
+    final = _build_summary(
+        output_dir,
+        results,
+        batch_start,
+        complete=True,
+        packages_run=len(PACKAGES),
+    )
+    _write_incremental_summary(
+        output_dir,
+        results,
+        batch_start,
+        complete=True,
+        packages_run=len(PACKAGES),
+    )
+    return final
 
 
 # ---------------------------------------------------------------------------
@@ -280,10 +752,14 @@ def print_summary(summary: dict[str, Any]) -> None:
     print("FULL INTEGRATION TEST SUMMARY")
     print(f"{'=' * 60}\n")
 
-    header = (f"  {'Package':<20} {'Status':<10} {'Excerpts':>10} "
-              f"{'Errors':>8} {'Time':>10} {'Cost':>10}")
-    divider = (f"  {'-' * 18:<20} {'-' * 8:<10} {'-' * 8:>10} "
-               f"{'-' * 6:>8} {'-' * 8:>10} {'-' * 8:>10}")
+    header = (
+        f"  {'Package':<20} {'Status':<10} {'Excerpts':>10} "
+        f"{'Errors':>8} {'Time':>10} {'Cost':>10}"
+    )
+    divider = (
+        f"  {'-' * 18:<20} {'-' * 8:<10} {'-' * 8:>10} "
+        f"{'-' * 6:>8} {'-' * 8:>10} {'-' * 8:>10}"
+    )
     print(header)
     print(divider)
 
@@ -342,6 +818,16 @@ def main() -> int:
         default=28800,
         help="Per-package subprocess timeout in seconds (default: 28800 = 8h).",
     )
+    parser.add_argument(
+        "--parallel",
+        type=int,
+        default=1,
+        help=(
+            "Max concurrent packages (default: 1 = sequential). "
+            "Each package runs in its own subprocess with its own output "
+            "directory — no shared state. Recommended: 3 for CLI backend."
+        ),
+    )
     args = parser.parse_args()
 
     if args.output_dir is None:
@@ -367,20 +853,18 @@ def main() -> int:
     print(f"API key:          {api_key_display}")
     print(f"Max chunks:       {args.max_chunks or 'all'}")
     print(f"Pkg timeout:      {args.per_package_timeout}s")
+    print(f"Parallel:         {args.parallel}")
 
     summary = run_batch(
         args.output_dir,
         backend=args.backend,
         max_chunks=args.max_chunks,
         per_package_timeout=args.per_package_timeout,
+        parallel=args.parallel,
     )
     print_summary(summary)
 
-    summary_path = args.output_dir / "SUMMARY.json"
-    summary_path.write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
+    summary_path = args.output_dir / SUMMARY_FILENAME
     print(f"Summary saved to: {summary_path}")
 
     return 0 if summary["totals"]["packages_failed"] == 0 else 1

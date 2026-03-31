@@ -13,6 +13,10 @@ Usage:
 import re
 import sys
 import argparse
+
+# Ensure Unicode output works on Windows (cp1252 can't encode → and ⚠)
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 from pathlib import Path
 
 # Pipeline order
@@ -76,14 +80,15 @@ def analyze_boundary(upstream: str, downstream: str, verbose: bool = False) -> d
     upstream_text = upstream_path.read_text(encoding='utf-8')
     downstream_text = downstream_path.read_text(encoding='utf-8')
 
-    # Extract output fields from upstream §3
-    upstream_output = extract_field_names(upstream_text, r'3\.\s*Output\s*Contract')
+    # Extract output fields from upstream (handles both "## 3. Output Contract"
+    # and "## §2.2 — Output Contract" heading formats across engines)
+    upstream_output = extract_field_names(upstream_text, r'.*?Output\s*Contract')
 
-    # Extract input fields from downstream §2
-    downstream_input = extract_field_names(downstream_text, r'2\.\s*Input\s*Contract')
+    # Extract input fields from downstream
+    downstream_input = extract_field_names(downstream_text, r'.*?Input\s*Contract')
 
-    # Extract output fields from downstream §3 (for pass-through check)
-    downstream_output = extract_field_names(downstream_text, r'3\.\s*Output\s*Contract')
+    # Extract output fields from downstream (for pass-through check)
+    downstream_output = extract_field_names(downstream_text, r'.*?Output\s*Contract')
 
     # Fields downstream expects but upstream doesn't produce
     missing_from_upstream = downstream_input - upstream_output

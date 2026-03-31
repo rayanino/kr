@@ -122,7 +122,7 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
             "messages": [
                 {
                     "role": m.get("role", ""),
-                    "content": m.get("content", "")[:2000],
+                    "content": m.get("content", ""),
                 }
                 for m in kwargs.get("messages", [])
             ],
@@ -150,7 +150,7 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
             finish_reason = response.choices[0].finish_reason
             if hasattr(response.choices[0], "message"):
                 raw_content = (
-                    response.choices[0].message.content[:50000]
+                    response.choices[0].message.content
                     if response.choices[0].message.content
                     else None
                 )
@@ -175,6 +175,12 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
             "call_id": call_id,
             "error_type": type(error).__name__,
             "error": str(error)[:2000],
+            "raw_output": str(getattr(error, "raw_output", None) or ""),
+            "stdout": str(
+                getattr(error, "stdout", None)
+                or getattr(error, "output", None)
+                or ""
+            ),
             "stderr": str(getattr(error, "stderr", None) or ""),
             "exit_code": getattr(
                 error, "returncode", getattr(error, "exit_code", None)
@@ -454,6 +460,92 @@ def _serialize_groupings(grouped: dict[str, list[Any]], output_dir: Path) -> Non
     )
 
 
+def _append_error_once(errors: list[str], error: str) -> None:
+    """Append a runner error marker only once."""
+    if error not in errors:
+        errors.append(error)
+
+
+def _count_llm_call_errors(output_dir: Path) -> int:
+    """Count call-level LLM error artifacts already written to disk."""
+    resp_dir = output_dir / "raw_llm_responses"
+    if not resp_dir.is_dir():
+        return 0
+    return len(list(resp_dir.glob("*_error.json")))
+
+
+def _persist_failure_artifacts(
+    *,
+    output_dir: Path,
+    source_id: Optional[str],
+    timings: dict[str, Any],
+    errors: list[str],
+    config: Any,
+    source_metadata: Optional[dict[str, str]],
+    excerpt_count: int,
+    gate_count: int,
+) -> None:
+    """Persist best-effort runner artifacts without raising on I/O failures."""
+    llm_error_count = _count_llm_call_errors(output_dir)
+    if llm_error_count > 0:
+        _append_error_once(errors, f"llm_call_errors:{llm_error_count}")
+
+    if source_id:
+        try:
+            from engines.excerpting.src.writer import write_processing_log
+
+            write_processing_log(
+                source_id=source_id,
+                errors=errors,
+                timings=timings,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
+                output_dir=output_dir,
+            )
+        except OSError as exc:
+            logger.error("Failed to write processing_log.jsonl: %s", exc)
+
+    try:
+        _save_timing_and_metadata(
+            output_dir,
+            timings,
+            errors,
+            config,
+            source_metadata,
+        )
+    except OSError as exc:
+        logger.error("Failed to write timing/run metadata: %s", exc)
+
+
+def _finalize_trace_session(
+    ri_session: Any,
+    *,
+    traces_dir: Optional[Path],
+    excerpt_count: int,
+    gate_count: int,
+    error_count: int,
+) -> None:
+    """Close recursive-improve tracing even on early return or interrupt."""
+    if ri_session is None:
+        return
+    try:
+        ri_session.finish(
+            output=(
+                f"excerpts={excerpt_count} "
+                f"gates={gate_count} "
+                f"errors={error_count}"
+            ),
+            success=error_count == 0,
+        )
+    except Exception as exc:  # pragma: no cover - defensive shutdown path
+        logger.warning("Failed to finalize trace session cleanly: %s", exc)
+    finally:
+        try:
+            ri_session.__exit__(None, None, None)
+        finally:
+            logger.info("Traces written to: %s", traces_dir)
+
+
 # ---------------------------------------------------------------------------
 # Main pipeline execution
 # ---------------------------------------------------------------------------
@@ -481,6 +573,8 @@ def run_pipeline(
     from engines.excerpting.src.phase2_group import run_phase2b
     from engines.excerpting.src.phase3_orchestrator import run_phase3
     from engines.excerpting.src.writer import (
+        GateQueueVerificationError,
+        verify_gate_queue,
         write_excerpts,
         write_gate_queue,
         write_processing_log,
@@ -490,6 +584,18 @@ def run_pipeline(
     config = ExcerptingConfig()
     timings: dict[str, Any] = {}
     all_errors: list[str] = []
+    source_id: Optional[str] = None
+    excerpt_count = 0
+    gate_count = 0
+
+    def _finalize_traces() -> None:
+        _finalize_trace_session(
+            ri_session,
+            traces_dir=traces_dir,
+            excerpt_count=excerpt_count,
+            gate_count=gate_count,
+            error_count=len(all_errors),
+        )
 
     # ── Optional trace capture via recursive-improve ──────────────
     ri_session = None
@@ -515,13 +621,40 @@ def run_pipeline(
     t0 = time.monotonic()
     try:
         package = load_package(package_path)
+    except KeyboardInterrupt:
+        _append_error_once(all_errors, "interrupted: KeyboardInterrupt")
+        _persist_failure_artifacts(
+            output_dir=output_dir,
+            source_id=source_id,
+            timings=timings,
+            errors=all_errors,
+            config=config,
+            source_metadata=source_metadata,
+            excerpt_count=excerpt_count,
+            gate_count=gate_count,
+        )
+        _finalize_traces()
+        raise
     except Exception as exc:
         logger.error("Failed to load package: %s", exc)
+        _append_error_once(all_errors, f"load_package_fatal: {exc}")
+        _persist_failure_artifacts(
+            output_dir=output_dir,
+            source_id=source_id,
+            timings=timings,
+            errors=all_errors,
+            config=config,
+            source_metadata=source_metadata,
+            excerpt_count=excerpt_count,
+            gate_count=gate_count,
+        )
+        _finalize_traces()
         return 1
     timings["load_package"] = round(time.monotonic() - t0, 3)
+    source_id = package.manifest.source_id
     logger.info(
         "Loaded package: source_id=%s, units=%d",
-        package.manifest.source_id,
+        source_id,
         len(package.content_units),
     )
 
@@ -541,6 +674,12 @@ def run_pipeline(
                 "ENRICH_MODEL": model_override,
             }
         )
+        if model_override == config.VERIFY_MODEL:
+            logger.warning(
+                "Primary and verify models are both %s — same-model consensus. "
+                "For cross-model consensus, authenticate Claude CLI and set "
+                "VERIFY_MODEL separately.", model_override,
+            )
         logger.info("Model override via KR_PRIMARY_MODEL: %s", model_override)
 
     # ── Create clients ────────────────────────────────────────────
@@ -596,13 +735,27 @@ def run_pipeline(
     t0 = time.monotonic()
     try:
         chunks, _validation_results = run_phase1(package, config)
+    except KeyboardInterrupt:
+        _append_error_once(all_errors, "interrupted: KeyboardInterrupt during phase1")
+        _persist_failure_artifacts(
+            output_dir=output_dir,
+            source_id=source_id,
+            timings=timings,
+            errors=all_errors,
+            config=config,
+            source_metadata=source_metadata,
+            excerpt_count=excerpt_count,
+            gate_count=gate_count,
+        )
+        _finalize_traces()
+        raise
     except Exception as exc:
         if mock:
             logger.warning(
                 "Phase 1 validation failed in mock mode — generating "
                 "synthetic chunks for infrastructure testing: %s", exc,
             )
-            all_errors.append(f"phase1_validation: {exc}")
+            _append_error_once(all_errors, f"phase1_validation: {exc}")
             # Generate synthetic chunks so mock mode exercises Phases 2-3
             from engines.excerpting.contracts import (
                 AssembledChunk,
@@ -659,10 +812,18 @@ def run_pipeline(
             logger.info("Generated %d synthetic chunks for mock mode", len(chunks))
         else:
             logger.error("Phase 1 failed: %s", exc)
-            all_errors.append(f"phase1_fatal: {exc}")
-            _save_timing_and_metadata(
-                output_dir, timings, all_errors, config, source_metadata
+            _append_error_once(all_errors, f"phase1_fatal: {exc}")
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=all_errors,
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
             )
+            _finalize_traces()
             return 1
     timings["phase1"] = round(time.monotonic() - t0, 3)
     logger.info("Phase 1 produced %d chunks", len(chunks))
@@ -680,18 +841,17 @@ def run_pipeline(
 
     if not chunks:
         logger.warning("Phase 1 produced 0 chunks — nothing to process")
-        # Still write processing log and metadata so output dir is populated
-        write_processing_log(
-            source_id=package.manifest.source_id,
-            errors=all_errors,
+        _persist_failure_artifacts(
+            output_dir=output_dir,
+            source_id=source_id,
             timings=timings,
+            errors=all_errors,
+            config=config,
+            source_metadata=source_metadata,
             excerpt_count=0,
             gate_count=0,
-            output_dir=output_dir,
         )
-        _save_timing_and_metadata(
-            output_dir, timings, all_errors, config, source_metadata
-        )
+        _finalize_traces()
         return 0
 
     # ── Phase 2a: Classification ──────────────────────────────────
@@ -706,12 +866,37 @@ def run_pipeline(
     else:
         try:
             classified = run_phase2a(chunks, enrich_client, config)
+        except KeyboardInterrupt:
+            _append_error_once(
+                all_errors,
+                "interrupted: KeyboardInterrupt during phase2a",
+            )
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=all_errors,
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
+            )
+            _finalize_traces()
+            raise
         except Exception as exc:
             logger.error("Phase 2a failed: %s", exc)
-            all_errors.append(f"phase2a_fatal: {exc}")
-            _save_timing_and_metadata(
-                output_dir, timings, all_errors, config, source_metadata
+            _append_error_once(all_errors, f"phase2a_fatal: {exc}")
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=all_errors,
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
             )
+            _finalize_traces()
             return 1
     timings["phase2a"] = round(time.monotonic() - t0, 3)
     for chunk_id in classified:
@@ -756,12 +941,37 @@ def run_pipeline(
     else:
         try:
             grouped = run_phase2b(chunks, classified, enrich_client, config)
+        except KeyboardInterrupt:
+            _append_error_once(
+                all_errors,
+                "interrupted: KeyboardInterrupt during phase2b",
+            )
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=all_errors,
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
+            )
+            _finalize_traces()
+            raise
         except Exception as exc:
             logger.error("Phase 2b failed: %s", exc)
-            all_errors.append(f"phase2b_fatal: {exc}")
-            _save_timing_and_metadata(
-                output_dir, timings, all_errors, config, source_metadata
+            _append_error_once(all_errors, f"phase2b_fatal: {exc}")
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=all_errors,
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
             )
+            _finalize_traces()
             return 1
     timings["phase2b"] = round(time.monotonic() - t0, 3)
     for chunk_id in grouped:
@@ -815,89 +1025,142 @@ def run_pipeline(
                 escalation_client=escalation_client,
                 source_metadata=source_metadata,
             )
+        except KeyboardInterrupt:
+            _append_error_once(
+                all_errors,
+                "interrupted: KeyboardInterrupt during phase3",
+            )
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=all_errors,
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=excerpt_count,
+                gate_count=gate_count,
+            )
+            _finalize_traces()
+            raise
         except Exception as exc:
             logger.error("Phase 3 failed: %s", exc)
-            all_errors.append(f"phase3_fatal: {exc}")
-            _save_timing_and_metadata(
-                output_dir, timings, all_errors, config, source_metadata
+            _append_error_once(all_errors, f"phase3_fatal: {exc}")
+            _persist_failure_artifacts(
+                output_dir=output_dir,
+                source_id=source_id,
+                timings=timings,
+                errors=all_errors,
+                config=config,
+                source_metadata=source_metadata,
+                excerpt_count=0,
+                gate_count=0,
             )
+            _finalize_traces()
             return 1
     timings["phase3"] = round(time.monotonic() - t0, 3)
     all_errors.extend(phase3_result.errors)
+    excerpt_count = len(phase3_result.excerpts)
+    gate_count = len(phase3_result.gate_entries)
     logger.info(
         "Phase 3 produced %d excerpts, %d gate entries",
-        len(phase3_result.excerpts),
-        len(phase3_result.gate_entries),
+        excerpt_count,
+        gate_count,
     )
 
     # ── Write output files ────────────────────────────────────────
     logger.info("=== Writing output files ===")
     t0 = time.monotonic()
-    if phase3_result.excerpts:
-        write_excerpts(phase3_result.excerpts, output_dir)
-    if phase3_result.gate_entries:
-        write_gate_queue(phase3_result.gate_entries, output_dir)
-        # A3: V-P3-7 paranoid gate queue verification
-        from engines.excerpting.src.writer import verify_gate_queue
-        gate_path = output_dir / "gate_queue.jsonl"
-        gate_errors = verify_gate_queue(
-            phase3_result.gate_entries, gate_path
-        )
-        all_errors.extend(gate_errors)
+    try:
+        if phase3_result.excerpts:
+            write_excerpts(phase3_result.excerpts, output_dir)
+        if phase3_result.gate_entries:
+            write_gate_queue(phase3_result.gate_entries, output_dir)
+            gate_path = output_dir / "gate_queue.jsonl"
+            gate_errors = verify_gate_queue(
+                phase3_result.gate_entries, gate_path
+            )
+            all_errors.extend(gate_errors)
 
-    # A2: Write validation drops
-    if hasattr(phase3_result, "validation_drops") and phase3_result.validation_drops:
-        _write_jsonl(
-            output_dir / "validation_drops.jsonl",
-            phase3_result.validation_drops,
-        )
-        logger.info(
-            "Wrote %d validation drop(s) to validation_drops.jsonl",
-            len(phase3_result.validation_drops),
-        )
+        if (
+            hasattr(phase3_result, "validation_drops")
+            and phase3_result.validation_drops
+        ):
+            _write_jsonl(
+                output_dir / "validation_drops.jsonl",
+                phase3_result.validation_drops,
+            )
+            logger.info(
+                "Wrote %d validation drop(s) to validation_drops.jsonl",
+                len(phase3_result.validation_drops),
+            )
 
-    # A5: Count call-level LLM errors and propagate
-    resp_dir = output_dir / "raw_llm_responses"
-    if resp_dir.is_dir():
-        llm_error_count = len(list(resp_dir.glob("*_error.json")))
+        timings["write_output"] = round(time.monotonic() - t0, 3)
+        llm_error_count = _count_llm_call_errors(output_dir)
         if llm_error_count > 0:
-            all_errors.append(f"llm_call_errors:{llm_error_count}")
+            _append_error_once(all_errors, f"llm_call_errors:{llm_error_count}")
 
-    write_processing_log(
-        source_id=package.manifest.source_id,
-        errors=all_errors,
-        timings=timings,
-        excerpt_count=len(phase3_result.excerpts),
-        gate_count=len(phase3_result.gate_entries),
-        output_dir=output_dir,
-    )
-    timings["write_output"] = round(time.monotonic() - t0, 3)
-
-    # ── Save timing + run metadata ────────────────────────────────
-    _save_timing_and_metadata(output_dir, timings, all_errors, config, source_metadata)
+        write_processing_log(
+            source_id=source_id,
+            errors=all_errors,
+            timings=timings,
+            excerpt_count=excerpt_count,
+            gate_count=gate_count,
+            output_dir=output_dir,
+        )
+        _save_timing_and_metadata(
+            output_dir,
+            timings,
+            all_errors,
+            config,
+            source_metadata,
+        )
+    except KeyboardInterrupt:
+        timings["write_output"] = round(time.monotonic() - t0, 3)
+        _append_error_once(
+            all_errors,
+            "interrupted: KeyboardInterrupt during output writing",
+        )
+        _persist_failure_artifacts(
+            output_dir=output_dir,
+            source_id=source_id,
+            timings=timings,
+            errors=all_errors,
+            config=config,
+            source_metadata=source_metadata,
+            excerpt_count=excerpt_count,
+            gate_count=gate_count,
+        )
+        _finalize_traces()
+        raise
+    except (OSError, GateQueueVerificationError) as exc:
+        logger.error("Output writing failed: %s", exc)
+        timings["write_output"] = round(time.monotonic() - t0, 3)
+        _append_error_once(all_errors, f"write_output_fatal: {exc}")
+        _persist_failure_artifacts(
+            output_dir=output_dir,
+            source_id=source_id,
+            timings=timings,
+            errors=all_errors,
+            config=config,
+            source_metadata=source_metadata,
+            excerpt_count=excerpt_count,
+            gate_count=gate_count,
+        )
+        _finalize_traces()
+        return 1
 
     # ── Summary ───────────────────────────────────────────────────
     total_time = sum(v for v in timings.values() if isinstance(v, (int, float)))
     print(f"\n=== Integration Test Complete ===")
     print(f"  Output:     {output_dir}")
     print(f"  Chunks:     {len(chunks)}")
-    print(f"  Excerpts:   {len(phase3_result.excerpts)}")
-    print(f"  Gates:      {len(phase3_result.gate_entries)}")
+    print(f"  Excerpts:   {excerpt_count}")
+    print(f"  Gates:      {gate_count}")
     print(f"  Errors:     {len(all_errors)}")
     print(f"  Total time: {total_time:.2f}s")
     print()
 
-    # ── Finalize trace session ────────────────────────────────────
-    if ri_session is not None:
-        ri_session.finish(
-            output=f"excerpts={len(phase3_result.excerpts)} "
-            f"gates={len(phase3_result.gate_entries)} "
-            f"errors={len(all_errors)}",
-            success=len(all_errors) == 0,
-        )
-        ri_session.__exit__(None, None, None)
-        logger.info("Traces written to: %s", traces_dir)
-
+    _finalize_traces()
     return 0
 
 

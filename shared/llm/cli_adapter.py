@@ -15,6 +15,7 @@ import os
 import re
 import shutil
 import subprocess
+import tempfile
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -42,10 +43,15 @@ class CLIBackendError(Exception):
         message: str,
         backend: str = "",
         exit_code: int | None = None,
+        raw_output: str | None = None,
+        stderr: str | None = None,
     ) -> None:
         super().__init__(message)
         self.backend = backend
         self.exit_code = exit_code
+        self.raw_output = raw_output
+        self.stdout = raw_output
+        self.stderr = stderr
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -325,6 +331,14 @@ def _is_auth_error(exc: subprocess.CalledProcessError) -> bool:
     return any(pattern in combined for pattern in _AUTH_ERROR_PATTERNS)
 
 
+def _attach_raw_output(error: Exception, raw_output: str) -> Exception:
+    """Attach raw CLI output to an exception for downstream artifact logging."""
+    setattr(error, "raw_output", raw_output)
+    if not getattr(error, "stdout", None):
+        setattr(error, "stdout", raw_output)
+    return error
+
+
 # ═══════════════════════════════════════════════════════════════════
 # Namespace classes (SPEC §2.2)
 # ═══════════════════════════════════════════════════════════════════
@@ -419,6 +433,12 @@ class _CompletionsNamespace:
                     timeout_seconds=timeout_seconds,
                     oauth_token=oauth_token,
                 )
+                if not raw_output.strip():
+                    raise CLIBackendError(
+                        "CLI returned empty stdout",
+                        backend=backend,
+                        raw_output=raw_output,
+                    )
 
                 # ── Extract and parse JSON ─────────────────────
                 json_data = extract_json(raw_output)
@@ -444,6 +464,24 @@ class _CompletionsNamespace:
 
                 return result
 
+            except UnicodeDecodeError as e:
+                logger.warning(
+                    "Attempt %d/%d: subprocess decode error: %s",
+                    attempt + 1,
+                    max_retries + 1,
+                    e,
+                )
+                wrapped = CLIBackendError(
+                    f"Subprocess UTF-8 decode failed after {attempt + 1} attempt(s): {e}",
+                    backend=backend,
+                    raw_output=raw_output,
+                )
+                if attempt < max_retries:
+                    time.sleep(2**attempt)
+                else:
+                    adapter._fire_hooks("completion:error", wrapped)
+                    raise wrapped from e
+
             except json.JSONDecodeError as e:
                 last_raw = raw_output
                 logger.warning(
@@ -463,12 +501,14 @@ class _CompletionsNamespace:
                         "explanation, no code fences."
                     )
                 else:
-                    adapter._fire_hooks("completion:error", e)
-                    raise CLIBackendError(
+                    wrapped = CLIBackendError(
                         f"JSON parse failed after {max_retries + 1} "
                         f"attempts: {e}",
                         backend=backend,
-                    ) from e
+                        raw_output=raw_output,
+                    )
+                    adapter._fire_hooks("completion:error", wrapped)
+                    raise wrapped from e
 
             except ValidationError as e:
                 last_raw = raw_output
@@ -495,6 +535,7 @@ class _CompletionsNamespace:
                         "JSON matching the schema."
                     )
                 else:
+                    _attach_raw_output(e, last_raw)
                     adapter._fire_hooks("completion:error", e)
                     raise
 
@@ -507,12 +548,20 @@ class _CompletionsNamespace:
                 if attempt < max_retries:
                     time.sleep(2**attempt)
                 else:
-                    adapter._fire_hooks("completion:error", e)
-                    raise CLIBackendError(
+                    raw_output = str(
+                        getattr(e, "stdout", None)
+                        or getattr(e, "output", None)
+                        or ""
+                    )
+                    wrapped = CLIBackendError(
                         f"Subprocess timeout after {max_retries + 1} "
                         "attempts",
                         backend=backend,
-                    ) from e
+                        raw_output=raw_output,
+                        stderr=str(getattr(e, "stderr", None) or ""),
+                    )
+                    adapter._fire_hooks("completion:error", wrapped)
+                    raise wrapped from e
 
             except subprocess.CalledProcessError as e:
                 logger.warning(
@@ -530,13 +579,16 @@ class _CompletionsNamespace:
                             pass
                     time.sleep(2**attempt)
                 else:
-                    adapter._fire_hooks("completion:error", e)
-                    raise CLIBackendError(
+                    wrapped = CLIBackendError(
                         f"Subprocess failed (exit {e.returncode}) after "
                         f"{max_retries + 1} attempts: {e.stderr}",
                         backend=backend,
                         exit_code=e.returncode,
-                    ) from e
+                        raw_output=e.stdout,
+                        stderr=e.stderr,
+                    )
+                    adapter._fire_hooks("completion:error", wrapped)
+                    raise wrapped from e
 
             except CLIBackendError as e:
                 logger.warning(
@@ -607,16 +659,21 @@ class _CompletionsNamespace:
         timeout_seconds: int,
         oauth_token: str | None,
     ) -> str:
-        """Invoke claude CLI (SPEC §3.2)."""
-        if oauth_token is None:
-            oauth_token = _get_oauth_token()
+        """Invoke claude CLI (SPEC §3.2).
 
+        Auth strategy: --bare mode only accepts ANTHROPIC_API_KEY (real API
+        keys, sk-ant-api03-...).  OAuth tokens from ``setup-token``
+        (sk-ant-oat01-...) are rejected.  So we run WITHOUT --bare and
+        instead use ``cwd=<temp>`` to prevent CLAUDE.md auto-discovery
+        from contaminating the LLM prompt.  The CLI then uses its normal
+        OAuth/keychain auth, which works with the user's subscription.
+        """
+        claude_bin = shutil.which("claude") or "claude"
         cmd = [
-            "claude",
+            claude_bin,
             "-p", "-",
-            "--bare",
             "--no-session-persistence",
-            "--max-turns", "10",
+            "--max-turns", "1",
             "--output-format", "text",
             "--model", "opus",
             "--system-prompt", system_prompt,
@@ -624,7 +681,11 @@ class _CompletionsNamespace:
 
         logger.info("Claude CLI: model=%s", model)
 
-        env = {**os.environ, "ANTHROPIC_API_KEY": oauth_token}
+        # Run from a temp directory so CLAUDE.md auto-discovery finds
+        # nothing — prevents project instructions from contaminating
+        # the excerpting prompts.
+        clean_cwd = Path(tempfile.gettempdir())
+
         result = subprocess.run(
             cmd,
             input=user_prompt,
@@ -632,8 +693,8 @@ class _CompletionsNamespace:
             text=True,
             encoding="utf-8",
             timeout=timeout_seconds,
-            env=env,
             check=True,
+            cwd=clean_cwd,
         )
 
         raw_stdout = result.stdout
