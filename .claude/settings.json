@@ -87,6 +87,16 @@
             "type": "command",
             "command": "input=$(cat); CMD=$(echo \"$input\" | jq -r '.tool_input.command // empty' 2>/dev/null); if echo \"$CMD\" | grep -qE '^rm\\s+-rf\\s+(/|~|\\.)' || echo \"$CMD\" | grep -qE 'git\\s+push\\s+--force.*(main|master)' || echo \"$CMD\" | grep -qE 'git\\s+(commit|push)\\s+.*--no-verify'; then echo '{\"decision\":\"block\",\"reason\":\"Blocked: destructive rm -rf, force-push to main, or --no-verify bypass. Use a safer alternative.\"}'; fi",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/circuit-breaker.sh\"",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/cost-guard.sh\"",
+            "timeout": 10
           }
         ]
       },
@@ -107,26 +117,6 @@
             "type": "command",
             "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-commit-check.sh\"",
             "timeout": 60
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/circuit-breaker.sh\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/cost-guard.sh\"",
-            "timeout": 10
           }
         ]
       },

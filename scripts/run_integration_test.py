@@ -714,9 +714,9 @@ def run_pipeline(
                 ri_attach(client, ri_session)
     else:
         logger.info("Creating OpenRouter Instructor clients")
-        enrich_client = create_client(timeout=config.TIMEOUT_SECONDS)
-        verify_client = create_client(timeout=config.TIMEOUT_SECONDS)
-        escalation_client = create_client(timeout=config.TIMEOUT_SECONDS)
+        enrich_client = create_client(timeout=config.ENRICH_TIMEOUT)
+        verify_client = create_client(timeout=config.VERIFY_TIMEOUT)
+        escalation_client = create_client(timeout=config.ESCALATION_TIMEOUT)
 
         # Register logging hooks on each client
         for client, name in [
