@@ -804,8 +804,8 @@ class ExcerptingConfig(BaseModel):
     OVERSIZED_DIVISION_WORDS: int = 5000
 
     # Phase 2
-    CLASSIFY_MODEL: str = "anthropic/claude-opus-4.6"
-    GROUP_MODEL: str = "anthropic/claude-opus-4.6"
+    CLASSIFY_MODEL: str = "openai/gpt-5.4"
+    GROUP_MODEL: str = "openai/gpt-5.4"
     LLM_TEMPERATURE: float = 0.0
     GROUP_MAX_TOKENS: int = 16384
     RETRY_COUNT: int = 2
@@ -817,9 +817,9 @@ class ExcerptingConfig(BaseModel):
     ESCALATION_TIMEOUT: int = 300
 
     # Phase 3
-    ENRICH_MODEL: str = "anthropic/claude-opus-4.6"
+    ENRICH_MODEL: str = "openai/gpt-5.4"
     ENRICH_MAX_TOKENS: int = 16384
-    VERIFY_MODEL: str = "openai/gpt-5.4"
+    VERIFY_MODEL: str = "anthropic/claude-opus-4.6"
     VERIFY_MAX_TOKENS: int = 8192
     ESCALATION_MODEL: str = "mistralai/mistral-large-2411"
 
