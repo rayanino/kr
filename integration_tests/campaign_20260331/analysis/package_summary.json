@@ -1,0 +1,72 @@
+[
+  {
+    "package": "ext_39_masala",
+    "genre": null,
+    "author": null,
+    "work_title": null,
+    "excerpt_count": 197,
+    "error_count": 3,
+    "validation_drops": 3,
+    "phase2a_failures": 0,
+    "phase2b_failures": 0,
+    "time_seconds": 2211.54,
+    "cost_estimate": 6.647115,
+    "status": "success"
+  },
+  {
+    "package": "ext_46_qa",
+    "genre": "أصول النحو",
+    "author": null,
+    "work_title": null,
+    "excerpt_count": 300,
+    "error_count": 2,
+    "validation_drops": 1,
+    "phase2a_failures": 1,
+    "phase2b_failures": 0,
+    "time_seconds": 3908.87,
+    "cost_estimate": 10.602042,
+    "status": "success"
+  },
+  {
+    "package": "ibn_aqil_v1",
+    "genre": "نحو",
+    "author": "ابن عقيل",
+    "work_title": "شرح ابن عقيل على ألفية ابن مالك",
+    "excerpt_count": 241,
+    "error_count": 5,
+    "validation_drops": 4,
+    "phase2a_failures": 0,
+    "phase2b_failures": 0,
+    "time_seconds": 5123.98,
+    "cost_estimate": 11.039868,
+    "status": "success"
+  },
+  {
+    "package": "ibn_aqil_v3",
+    "genre": "نحو",
+    "author": "ابن عقيل",
+    "work_title": "شرح ابن عقيل على ألفية ابن مالك",
+    "excerpt_count": 282,
+    "error_count": 15,
+    "validation_drops": 15,
+    "phase2a_failures": 0,
+    "phase2b_failures": 0,
+    "time_seconds": 3808.01,
+    "cost_estimate": 10.465378,
+    "status": "success"
+  },
+  {
+    "package": "taysir",
+    "genre": "فقه",
+    "author": "عبد الله البسام",
+    "work_title": "تيسير العلام شرح عمدة الأحكام",
+    "excerpt_count": 1283,
+    "error_count": 164,
+    "validation_drops": 161,
+    "phase2a_failures": 62,
+    "phase2b_failures": 7,
+    "time_seconds": 21965.39,
+    "cost_estimate": 58.118588,
+    "status": "success"
+  }
+]

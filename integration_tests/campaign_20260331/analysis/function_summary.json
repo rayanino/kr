@@ -1,0 +1,522 @@
+[
+  {
+    "package": "ext_39_masala",
+    "primary_function": "condition_exception",
+    "count": 7,
+    "median_words": 77,
+    "min_words": 31,
+    "max_words": 117,
+    "full_rate": 0.429,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_39_masala",
+    "primary_function": "editorial_note",
+    "count": 3,
+    "median_words": 94,
+    "min_words": 32,
+    "max_words": 416,
+    "full_rate": 0.667,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_39_masala",
+    "primary_function": "evidence_hadith",
+    "count": 25,
+    "median_words": 41,
+    "min_words": 15,
+    "max_words": 982,
+    "full_rate": 0.92,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_39_masala",
+    "primary_function": "evidence_quran",
+    "count": 1,
+    "median_words": 92,
+    "min_words": 92,
+    "max_words": 92,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_39_masala",
+    "primary_function": "evidence_rational",
+    "count": 1,
+    "median_words": 245,
+    "min_words": 245,
+    "max_words": 245,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_39_masala",
+    "primary_function": "opinion_statement",
+    "count": 1,
+    "median_words": 65,
+    "min_words": 65,
+    "max_words": 65,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_39_masala",
+    "primary_function": "refutation",
+    "count": 1,
+    "median_words": 99,
+    "min_words": 99,
+    "max_words": 99,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_39_masala",
+    "primary_function": "rule_statement",
+    "count": 154,
+    "median_words": 70,
+    "min_words": 9,
+    "max_words": 532,
+    "full_rate": 0.844,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_39_masala",
+    "primary_function": "structural_transition",
+    "count": 4,
+    "median_words": 6,
+    "min_words": 2,
+    "max_words": 43,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "cross_reference",
+    "count": 3,
+    "median_words": 76,
+    "min_words": 10,
+    "max_words": 208,
+    "full_rate": 0.667,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "definition",
+    "count": 57,
+    "median_words": 66,
+    "min_words": 11,
+    "max_words": 276,
+    "full_rate": 0.86,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "editorial_note",
+    "count": 8,
+    "median_words": 68,
+    "min_words": 18,
+    "max_words": 88,
+    "full_rate": 0.625,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "evidence_hadith",
+    "count": 1,
+    "median_words": 54,
+    "min_words": 54,
+    "max_words": 54,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "evidence_ijma",
+    "count": 1,
+    "median_words": 62,
+    "min_words": 62,
+    "max_words": 62,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "evidence_rational",
+    "count": 3,
+    "median_words": 192,
+    "min_words": 63,
+    "max_words": 230,
+    "full_rate": 0.667,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "example",
+    "count": 37,
+    "median_words": 24,
+    "min_words": 6,
+    "max_words": 393,
+    "full_rate": 0.838,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "narration",
+    "count": 10,
+    "median_words": 96,
+    "min_words": 18,
+    "max_words": 284,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "opinion_statement",
+    "count": 71,
+    "median_words": 79,
+    "min_words": 12,
+    "max_words": 456,
+    "full_rate": 0.817,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "refutation",
+    "count": 12,
+    "median_words": 99,
+    "min_words": 20,
+    "max_words": 341,
+    "full_rate": 0.583,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "rule_statement",
+    "count": 88,
+    "median_words": 64,
+    "min_words": 8,
+    "max_words": 319,
+    "full_rate": 0.784,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ext_46_qa",
+    "primary_function": "structural_transition",
+    "count": 9,
+    "median_words": 8,
+    "min_words": 6,
+    "max_words": 24,
+    "full_rate": 0.889,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v1",
+    "primary_function": "condition_exception",
+    "count": 11,
+    "median_words": 38,
+    "min_words": 22,
+    "max_words": 274,
+    "full_rate": 0.273,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v1",
+    "primary_function": "definition",
+    "count": 37,
+    "median_words": 85,
+    "min_words": 20,
+    "max_words": 344,
+    "full_rate": 0.946,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v1",
+    "primary_function": "editorial_note",
+    "count": 8,
+    "median_words": 162,
+    "min_words": 86,
+    "max_words": 346,
+    "full_rate": 0.875,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v1",
+    "primary_function": "example",
+    "count": 1,
+    "median_words": 64,
+    "min_words": 64,
+    "max_words": 64,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v1",
+    "primary_function": "narration",
+    "count": 1,
+    "median_words": 65,
+    "min_words": 65,
+    "max_words": 65,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v1",
+    "primary_function": "opinion_statement",
+    "count": 29,
+    "median_words": 81,
+    "min_words": 25,
+    "max_words": 459,
+    "full_rate": 0.931,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v1",
+    "primary_function": "refutation",
+    "count": 2,
+    "median_words": 55,
+    "min_words": 32,
+    "max_words": 78,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v1",
+    "primary_function": "rule_statement",
+    "count": 147,
+    "median_words": 114,
+    "min_words": 11,
+    "max_words": 1079,
+    "full_rate": 0.98,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v1",
+    "primary_function": "structural_transition",
+    "count": 5,
+    "median_words": 71,
+    "min_words": 53,
+    "max_words": 74,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v3",
+    "primary_function": "condition_exception",
+    "count": 5,
+    "median_words": 62,
+    "min_words": 30,
+    "max_words": 124,
+    "full_rate": 0.2,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v3",
+    "primary_function": "cross_reference",
+    "count": 1,
+    "median_words": 9,
+    "min_words": 9,
+    "max_words": 9,
+    "full_rate": 0.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v3",
+    "primary_function": "definition",
+    "count": 24,
+    "median_words": 63,
+    "min_words": 31,
+    "max_words": 241,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v3",
+    "primary_function": "editorial_note",
+    "count": 3,
+    "median_words": 34,
+    "min_words": 21,
+    "max_words": 36,
+    "full_rate": 0.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v3",
+    "primary_function": "opinion_statement",
+    "count": 19,
+    "median_words": 71,
+    "min_words": 26,
+    "max_words": 178,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v3",
+    "primary_function": "rule_statement",
+    "count": 226,
+    "median_words": 74,
+    "min_words": 14,
+    "max_words": 318,
+    "full_rate": 0.965,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "ibn_aqil_v3",
+    "primary_function": "structural_transition",
+    "count": 4,
+    "median_words": 27,
+    "min_words": 7,
+    "max_words": 36,
+    "full_rate": 1.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "condition_exception",
+    "count": 12,
+    "median_words": 27,
+    "min_words": 14,
+    "max_words": 149,
+    "full_rate": 0.917,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "cross_reference",
+    "count": 3,
+    "median_words": 22,
+    "min_words": 13,
+    "max_words": 54,
+    "full_rate": 0.667,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "definition",
+    "count": 105,
+    "median_words": 47,
+    "min_words": 12,
+    "max_words": 229,
+    "full_rate": 0.629,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "editorial_note",
+    "count": 49,
+    "median_words": 75,
+    "min_words": 6,
+    "max_words": 197,
+    "full_rate": 0.347,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "evidence_hadith",
+    "count": 160,
+    "median_words": 80,
+    "min_words": 18,
+    "max_words": 436,
+    "full_rate": 0.9,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "evidence_ijma",
+    "count": 20,
+    "median_words": 27,
+    "min_words": 10,
+    "max_words": 113,
+    "full_rate": 0.8,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "evidence_qiyas",
+    "count": 1,
+    "median_words": 60,
+    "min_words": 60,
+    "max_words": 60,
+    "full_rate": 0.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "evidence_quran",
+    "count": 7,
+    "median_words": 60,
+    "min_words": 42,
+    "max_words": 97,
+    "full_rate": 0.714,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "evidence_rational",
+    "count": 71,
+    "median_words": 71,
+    "min_words": 8,
+    "max_words": 278,
+    "full_rate": 0.535,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "example",
+    "count": 1,
+    "median_words": 69,
+    "min_words": 69,
+    "max_words": 69,
+    "full_rate": 0.0,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "narration",
+    "count": 49,
+    "median_words": 92,
+    "min_words": 28,
+    "max_words": 203,
+    "full_rate": 0.612,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "opinion_statement",
+    "count": 228,
+    "median_words": 72,
+    "min_words": 6,
+    "max_words": 480,
+    "full_rate": 0.706,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "refutation",
+    "count": 13,
+    "median_words": 91,
+    "min_words": 8,
+    "max_words": 641,
+    "full_rate": 0.615,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "rule_statement",
+    "count": 556,
+    "median_words": 36,
+    "min_words": 5,
+    "max_words": 487,
+    "full_rate": 0.682,
+    "topic_fill_rate": 1.0
+  },
+  {
+    "package": "taysir",
+    "primary_function": "structural_transition",
+    "count": 8,
+    "median_words": 7,
+    "min_words": 4,
+    "max_words": 37,
+    "full_rate": 0.625,
+    "topic_fill_rate": 1.0
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "total_flags": 382,
+  "by_type": {
+    "diacritic_density_mismatch": 234,
+    "double_zwnj": 80,
+    "missing_honorific": 65,
+    "unmatched_curly_brackets": 2,
+    "isnad_truncation": 1
+  },
+  "by_severity": {
+    "low": 314,
+    "high": 65,
+    "medium": 3
+  },
+  "by_package": {
+    "taysir": 227,
+    "ibn_aqil_v3": 74,
+    "ibn_aqil_v1": 58,
+    "ext_39_masala": 18,
+    "ext_46_qa": 5
+  },
+  "high_severity_count": 65,
+  "medium_severity_count": 3,
+  "low_severity_count": 314
+}

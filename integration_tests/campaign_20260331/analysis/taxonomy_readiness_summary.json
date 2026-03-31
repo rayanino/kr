@@ -1,0 +1,22 @@
+{
+  "total_flags": 54,
+  "by_type": {
+    "editorial_note_long": 24,
+    "narrator_as_opinion": 14,
+    "structural_transition_long": 11,
+    "orphaned_evidence": 5
+  },
+  "by_severity": {
+    "high": 30,
+    "medium": 24
+  },
+  "by_package": {
+    "taysir": 28,
+    "ibn_aqil_v1": 12,
+    "ext_39_masala": 6,
+    "ext_46_qa": 5,
+    "ibn_aqil_v3": 3
+  },
+  "high_severity_count": 30,
+  "medium_severity_count": 24
+}

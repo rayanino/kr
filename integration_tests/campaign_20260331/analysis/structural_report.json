@@ -1,0 +1,2063 @@
+{
+  "generated_at": "2026-03-31T19:58:34.877631+00:00",
+  "root": "C:\\Users\\Rayane\\Desktop\\kr\\integration_tests\\campaign_20260331",
+  "overall": {
+    "package_count": 5,
+    "excerpt_count": 2303,
+    "phase2_unit_count": 2487,
+    "validation_drop_count": 184,
+    "gate_entry_count": 65,
+    "consensus_record_count": 788,
+    "package_names": [
+      "ext_39_masala",
+      "ext_46_qa",
+      "ibn_aqil_v1",
+      "ibn_aqil_v3",
+      "taysir"
+    ],
+    "phase2_units_minus_drops": 2303
+  },
+  "packages": {
+    "ext_39_masala": {
+      "excerpt_count": 197,
+      "phase2_unit_count": 200,
+      "validation_drop_count": 3,
+      "gate_entry_count": 0
+    },
+    "ext_46_qa": {
+      "excerpt_count": 300,
+      "phase2_unit_count": 301,
+      "validation_drop_count": 1,
+      "gate_entry_count": 2
+    },
+    "ibn_aqil_v1": {
+      "excerpt_count": 241,
+      "phase2_unit_count": 245,
+      "validation_drop_count": 4,
+      "gate_entry_count": 21
+    },
+    "ibn_aqil_v3": {
+      "excerpt_count": 282,
+      "phase2_unit_count": 297,
+      "validation_drop_count": 15,
+      "gate_entry_count": 22
+    },
+    "taysir": {
+      "excerpt_count": 1283,
+      "phase2_unit_count": 1444,
+      "validation_drop_count": 161,
+      "gate_entry_count": 20
+    }
+  },
+  "checks": {
+    "required_fields": {
+      "title": "Required Fields",
+      "description": "Top-level required ExcerptRecord fields are present and each record validates against the Pydantic contract.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "required_field_count": 16,
+        "required_fields": [
+          "chunk_index",
+          "description_arabic",
+          "div_id",
+          "div_path",
+          "end_word",
+          "excerpt_id",
+          "excerpt_topic",
+          "primary_author_layer",
+          "primary_function",
+          "primary_text",
+          "school",
+          "self_containment",
+          "source_id",
+          "start_word",
+          "text_snippet",
+          "unit_index"
+        ],
+        "records_evaluated": 2303
+      },
+      "sample_findings": []
+    },
+    "word_offset_consistency": {
+      "title": "Word Offset Consistency",
+      "description": "start_word/end_word resolve to the exact primary_text substring and agree with the Phase 2 grouping boundaries.",
+      "status": "fail",
+      "finding_count": 124,
+      "metrics": {
+        "records_evaluated": 2303
+      },
+      "sample_findings": [
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_1",
+          "details": {
+            "expected_preview": "أما بعد فقد اقتضت مصلحة تيسير المراجعة لأحكام الجنائز أن ألخصها وأقرب أحكامها لمن شاء الرجوع إليها وأخذ فكرة عامة سريعة ",
+            "actual_preview": "أما بعد فقد اقتضت مصلحة تيسير المراجعة لأحكام الجنائز أن ألخصها وأقرب أحكامها لمن شاء الرجوع إليها وأخذ فكرة عامة سريعة "
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_0",
+          "details": {
+            "expected_preview": "‌‌تلقين المحتضر.\n13 - فإذا حضره الموت فعلى من عنده أمور:\nأ - أن يلقنوه الشهادة لقوله صلى الله عليه وسلم:\n\"لقنوا موتاكم ل",
+            "actual_preview": "تلقين المحتضر.\n13 - فإذا حضره الموت فعلى من عنده أمور:\nأ - أن يلقنوه الشهادة لقوله صلى الله عليه وسلم:\n\"لقنوا موتاكم لا "
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_001_0_0",
+          "details": {
+            "expected_preview": "4-‌‌ ما يجوز للحاضرين وغيرهم.",
+            "actual_preview": "4- ما يجوز للحاضرين وغيرهم."
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_002_0_0",
+          "details": {
+            "expected_preview": "5-‌‌ ما يجب على أقارب الميت.\n19 - ويجب على أقارب الميت حين يبلغهم خبر وفاته أمران:",
+            "actual_preview": "5- ما يجب على أقارب الميت.\n19 - ويجب على أقارب الميت حين يبلغهم خبر وفاته أمران:"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_003_0_0",
+          "details": {
+            "expected_preview": "6-‌‌ ما يحرم على أقارب الميت.\n22 - لقد حرم رسول الله صلى الله عليه وسلم أمورا كان ولا يزال بعض الناس يرتكبونها إذا مات ل",
+            "actual_preview": "6- ما يحرم على أقارب الميت.\n22 - لقد حرم رسول الله صلى الله عليه وسلم أمورا كان ولا يزال بعض الناس يرتكبونها إذا مات لهم"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_004_0_0",
+          "details": {
+            "expected_preview": "7-‌‌ النعي الجائز\n23 - ويجوز إعلان الوفاة إذا لم يقترن به ما يشبه نعي الجاهلية وقد يجب ذلك إذا لم يكن عنده من يقوم بحقه ",
+            "actual_preview": "7- النعي الجائز\n23 - ويجوز إعلان الوفاة إذا لم يقترن به ما يشبه نعي الجاهلية وقد يجب ذلك إذا لم يكن عنده من يقوم بحقه من"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_005_0_0",
+          "details": {
+            "expected_preview": "8-‌‌ علامات حسن الخاتمة.\n25 - ثم إن الشارع الحكيم قد جعل علامات بينات يستدل بها على حسن الخاتمة كتبها الله تعالى لنا بفض",
+            "actual_preview": "8- علامات حسن الخاتمة.\n25 - ثم إن الشارع الحكيم قد جعل علامات بينات يستدل بها على حسن الخاتمة كتبها الله تعالى لنا بفضله"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_006_0_0",
+          "details": {
+            "expected_preview": "9-‌‌ ثناء الناس على الميت.\n26 - والثناء بالخير على الميت من جمع من المسلمين الصادقين أقلهم اثنان من جيرانه العارفين به م",
+            "actual_preview": "9- ثناء الناس على الميت.\n26 - والثناء بالخير على الميت من جمع من المسلمين الصادقين أقلهم اثنان من جيرانه العارفين به من "
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_007_0_0",
+          "details": {
+            "expected_preview": "10-‌‌ غسل الميت\n28 - فإذا مات الميت وجب على طائفة من الناس أن يبادروا إلى غسله أما المبادرة فقد سبق دليلها في الفصل الثا",
+            "actual_preview": "10- غسل الميت\n28 - فإذا مات الميت وجب على طائفة من الناس أن يبادروا إلى غسله أما المبادرة فقد سبق دليلها في الفصل الثالث"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_008_0_0",
+          "details": {
+            "expected_preview": "11-‌‌ تكفين الميت.\n33 - وبعد الفراغ من غسل الميت يجب تكفينه لأمر النبي صلى الله عليه وسلم بذلك في حديث المحرم الذي وقصته",
+            "actual_preview": "11- تكفين الميت.\n33 - وبعد الفراغ من غسل الميت يجب تكفينه لأمر النبي صلى الله عليه وسلم بذلك في حديث المحرم الذي وقصته ا"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_009_0_0",
+          "details": {
+            "expected_preview": "12- حمل الجناة واتباعها.\n44 - ويجب‌‌ حمل الجنازة واتباعها وذلك من حق الميت المسلم على المسلمين وفي ذلك أحاديث أذكر اثنين",
+            "actual_preview": "12- حمل الجناة واتباعها.\n44 - ويجب حمل الجنازة واتباعها وذلك من حق الميت المسلم على المسلمين وفي ذلك أحاديث أذكر اثنين م"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_010_0_0",
+          "details": {
+            "expected_preview": "13-‌‌ الصلاة على الجنازة.\n58 - والصلاة على الميت المسلم فرض كفاية لأمره صلى الله عليه وسلم بها في أحاديث أذكر منها حديث ",
+            "actual_preview": "13- الصلاة على الجنازة.\n58 - والصلاة على الميت المسلم فرض كفاية لأمره صلى الله عليه وسلم بها في أحاديث أذكر منها حديث زي"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Word offsets do not resolve to the stored primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_012_0_0",
+          "details": {
+            "expected_preview": "14 -‌‌ الدفن وتوابعه.",
+            "actual_preview": "14 - الدفن وتوابعه."
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_0",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_1",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_2",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_3",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_4",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_5",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_6",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        }
+      ]
+    },
+    "text_snippet_prefix_match": {
+      "title": "text_snippet Prefix Match",
+      "description": "Whitespace-normalized first 80 characters of primary_text match text_snippet per SPEC V-P3-2.",
+      "status": "fail",
+      "finding_count": 1135,
+      "metrics": {
+        "records_evaluated": 2303
+      },
+      "sample_findings": [
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_0",
+          "details": {
+            "expected": "بسم الله الرحمن الرحيم إن الحمد لله نحمده ونستعينه ونستغفره ونعوذ بالله من شرور",
+            "actual": "بسم الله الرحمن الرحيم إن الحمد لله نحمده ونستعينه ونستغفره ونعوذ بالله من شرور أنفسنا"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_1",
+          "details": {
+            "expected": "أما بعد فقد اقتضت مصلحة تيسير المراجعة لأحكام الجنائز أن ألخصها وأقرب أحكامها لم",
+            "actual": "أما بعد فقد اقتضت مصلحة تيسير المراجعة لأحكام الجنائز أن ألخصها وأقرب أحكامها لمن شاء"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_2",
+          "details": {
+            "expected": "واعلم أيها القارئ الكريم أنني في هذا التلخيص قد حذفت تخريج الأحاديث اكتفاء بالأص",
+            "actual": "واعلم أيها القارئ الكريم أنني في هذا التلخيص قد حذفت تخريج الأحاديث اكتفاء بالأصل ولا"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_3",
+          "details": {
+            "expected": "1- ما يجب على المريض 1 - على المريض أن يرضى بقضاء الله ويصبر على قدره ويحسن الظن",
+            "actual": "1- ما يجب على المريض 1 - على المريض أن يرضى بقضاء الله ويصبر على قدره ويحسن الظن بر"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_4",
+          "details": {
+            "expected": "2 - وينبغي عليه أن يكون بين الخوف والرجاء يخاف عقاب الله على ذنوبه ويرجو رحمة رب",
+            "actual": "2 - وينبغي عليه أن يكون بين الخوف والرجاء يخاف عقاب الله على ذنوبه ويرجو رحمة ربه لح"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_6",
+          "details": {
+            "expected": "4 - وإذا كان عليه حقوق فليؤدها إلى أصحابها إن تيسر له ذلك وإلا أوصى لأمره صلى ال",
+            "actual": "4 - وإذا كان عليه حقوق فليؤدها إلى أصحابها إن تيسر له ذلك وإلا أوصى لأمره صلى الله"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_8",
+          "details": {
+            "expected": "6 - ويجب أن يوصي للأقربين الذين لا يرثون منه لقوله تبارك وتعالى: {كُتِبَ عَلَيْك",
+            "actual": "6 - ويجب أن يوصي للأقربين الذين لا يرثون منه لقوله تبارك وتعالى: {كُتِبَ عَلَيْكُمْ"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_9",
+          "details": {
+            "expected": "7 - صحيح وله أن يوصي بالثلث من ماله ولا يجوز الزيادة عليه بل الأفضل أن ينقص منه",
+            "actual": "7 - صحيح وله أن يوصي بالثلث من ماله ولا يجوز الزيادة عليه بل الأفضل أن ينقص منه لحدي"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_10",
+          "details": {
+            "expected": "8 - ويشهد على ذلك رجلين عدلين مسلمين فإن لم يوجدا فرجلين من غير المسلمين على أن",
+            "actual": "8 - ويشهد على ذلك رجلين عدلين مسلمين فإن لم يوجدا فرجلين من غير المسلمين على أن يستو"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_11",
+          "details": {
+            "expected": "9 - وأما الوصية للوالدين والأقربين الذين يرثون من الموصي فلا تجوز لأنها منسوخة ب",
+            "actual": "9 - وأما الوصية للوالدين والأقربين الذين يرثون من الموصي فلا تجوز لأنها منسوخة بآية ا"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_12",
+          "details": {
+            "expected": "10 - ويحرم الإضرار في الوصية كأن يوصي بحرمان بعض الورثة من حقهم من الإرث أو يفضل",
+            "actual": "10 - ويحرم الإضرار في الوصية كأن يوصي بحرمان بعض الورثة من حقهم من الإرث أو يفضل بعض"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_13",
+          "details": {
+            "expected": "11 - والوصية الجائرة باطلة مردودة لقوله صلى الله عليه وسلم: \"من أحدث في أمرنا هذ",
+            "actual": "11 - والوصية الجائرة باطلة مردودة لقوله صلى الله عليه وسلم: \"من أحدث في أمرنا هذا ما"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_14",
+          "details": {
+            "expected": "12 - ولما كان الغالب على كثير من الناس في هذا الزمان الابتداع في دينهم ولا سيما",
+            "actual": "12 - ولما كان الغالب على كثير من الناس في هذا الزمان الابتداع في دينهم ولا سيما فيما"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_0",
+          "details": {
+            "expected": "تلقين المحتضر. 13 - فإذا حضره الموت فعلى من عنده أمور: أ - أن يلقنوه الشهادة لقو",
+            "actual": "‌‌تلقين المحتضر. 13 - فإذا حضره الموت فعلى من عنده أمور: أ - أن يلقنوه الشهادة"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_001_0_0",
+          "details": {
+            "expected": "4- ما يجوز للحاضرين وغيرهم.",
+            "actual": "4-‌‌ ما يجوز للحاضرين وغيرهم."
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_002_0_0",
+          "details": {
+            "expected": "5- ما يجب على أقارب الميت. 19 - ويجب على أقارب الميت حين يبلغهم خبر وفاته أمران:",
+            "actual": "5-‌‌ ما يجب على أقارب الميت. 19 - ويجب على أقارب الميت حين يبلغهم خبر وفاته أمر"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_002_0_2",
+          "details": {
+            "expected": "الثاني: الاسترجاع وهو أن يقولك إنا لله وإنا راجعون للآية المتقدمة ويزيد عليه قول",
+            "actual": "الثاني: الاسترجاع وهو أن يقولك إنا لله وإنا راجعون للآية المتقدمة ويزيد عليه قوله:"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_002_0_3",
+          "details": {
+            "expected": "20 - ولا ينافي الصبر أن تمتنع المرأة من الزينة كلها حدادا على وفاة ولدها أو غيره",
+            "actual": "20 - ولا ينافي الصبر أن تمتنع المرأة من الزينة كلها حدادا على وفاة ولدها أو غيره إذا لم"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_002_0_4",
+          "details": {
+            "expected": "21 - ولكنها إذا لم تحد على غير زوجها إرضاء للزوج وقضاء لوطره منها فهو أفضل لها و",
+            "actual": "21 - ولكنها إذا لم تحد على غير زوجها إرضاء للزوج وقضاء لوطره منها فهو أفضل لها ويرجى"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "text_snippet is not a normalized prefix of the first 80 characters of primary_text.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_003_0_0",
+          "details": {
+            "expected": "6- ما يحرم على أقارب الميت. 22 - لقد حرم رسول الله صلى الله عليه وسلم أمورا كان",
+            "actual": "6-‌‌ ما يحرم على أقارب الميت. 22 - لقد حرم رسول الله صلى الله عليه وسلم أمورا كان"
+          }
+        }
+      ]
+    },
+    "segment_indices_validity": {
+      "title": "segment_indices Validity",
+      "description": "segment_indices are non-empty, contiguous, ascending, and match Phase 2 unit/segment provenance.",
+      "status": "fail",
+      "finding_count": 208,
+      "metrics": {
+        "records_evaluated": 2303
+      },
+      "sample_findings": [
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 grouping file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_0",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 classification file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_0",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 grouping file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_1",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 classification file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_1",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 grouping file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_2",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 classification file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_2",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 grouping file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_3",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 classification file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_3",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 grouping file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_4",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 classification file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_4",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 grouping file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_5",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 classification file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_5",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 grouping file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_6",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 classification file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_6",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 grouping file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_7",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 classification file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_7",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 grouping file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_8",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 classification file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_8",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 grouping file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_9",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 2 classification file found for div_id.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_9",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        }
+      ]
+    },
+    "excerpt_id_format": {
+      "title": "excerpt_id Format",
+      "description": "excerpt_id exactly matches exc_{source_id}_{div_id}_{chunk_index}_{unit_index}.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_evaluated": 2303
+      },
+      "sample_findings": []
+    },
+    "empty_field_detection": {
+      "title": "Empty Field Detection",
+      "description": "Required structural strings are non-blank and required collections are not empty when the SPEC expects content.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_evaluated": 2303
+      },
+      "sample_findings": []
+    },
+    "consensus_structure": {
+      "title": "Consensus Structure",
+      "description": "consensus_metadata is structurally valid and internally coherent when present.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_with_consensus_metadata": 788,
+        "decision_type_counts": {
+          "author_attribution": 45,
+          "school_attribution": 299,
+          "self_containment": 521
+        }
+      },
+      "sample_findings": []
+    },
+    "zwnj_scan": {
+      "title": "ZWNJ Scan",
+      "description": "Invisible U+200C characters are inventoried across excerpt fields for follow-up review.",
+      "status": "warn",
+      "finding_count": 100,
+      "metrics": {
+        "excerpt_count_with_zwnj": 100,
+        "total_zwnj_occurrences": 368,
+        "field_occurrence_counts": {
+          "text_snippet": 202,
+          "primary_text": 162,
+          "evidence_refs.0.text_snippet": 2,
+          "evidence_refs.1.text_snippet": 2
+        }
+      },
+      "sample_findings": [
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_001_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_002_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_003_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_004_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_005_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_006_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_007_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_008_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_009_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_010_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_012_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_000_pre_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_001_pre_0_0",
+          "details": {
+            "zwnj_occurrences": 6,
+            "fields": [
+              "text_snippet",
+              "evidence_refs.0.text_snippet",
+              "evidence_refs.1.text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_002_pre_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_003_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_005_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_008_pre_0_0",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "U+200C detected in excerpt payload.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_pre_0_7",
+          "details": {
+            "zwnj_occurrences": 2,
+            "fields": [
+              "text_snippet"
+            ]
+          }
+        }
+      ]
+    },
+    "duplicate_detection": {
+      "title": "Duplicate Detection",
+      "description": "Duplicate excerpt IDs, duplicate coordinate keys, and duplicate normalized primary_text bodies are detected across the corpus.",
+      "status": "fail",
+      "finding_count": 192,
+      "metrics": {
+        "duplicate_excerpt_id_count": 186,
+        "duplicate_excerpt_instances": 413,
+        "duplicate_coordinate_key_count": 186,
+        "duplicate_primary_text_count": 6
+      },
+      "sample_findings": [
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_002_pre_0_0",
+          "details": {
+            "packages": [
+              "ext_46_qa",
+              "taysir"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_002_pre_0_1",
+          "details": {
+            "packages": [
+              "ext_46_qa",
+              "taysir"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_0_0",
+          "details": {
+            "packages": [
+              "ibn_aqil_v1",
+              "taysir"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_0_1",
+          "details": {
+            "packages": [
+              "ibn_aqil_v1",
+              "taysir"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_0_3",
+          "details": {
+            "packages": [
+              "ibn_aqil_v1",
+              "taysir"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_0_4",
+          "details": {
+            "packages": [
+              "ibn_aqil_v1",
+              "taysir"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_0_5",
+          "details": {
+            "packages": [
+              "ibn_aqil_v1",
+              "taysir"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_0_6",
+          "details": {
+            "packages": [
+              "ibn_aqil_v1",
+              "taysir"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_0",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_1",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_2",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_3",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_4",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_5",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_6",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_7",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_8",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_9",
+          "details": {
+            "packages": [
+              "ext_39_masala",
+              "ibn_aqil_v3"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_pre_0_0",
+          "details": {
+            "packages": [
+              "ext_46_qa",
+              "ibn_aqil_v1"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "Duplicate excerpt_id detected across the smoke corpus.",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_pre_0_1",
+          "details": {
+            "packages": [
+              "ext_46_qa",
+              "ibn_aqil_v1"
+            ]
+          }
+        }
+      ]
+    },
+    "gate_cross_reference": {
+      "title": "Gate Cross-Reference",
+      "description": "gate_flags and gate_queue.jsonl entries agree in both directions within each package.",
+      "status": "fail",
+      "finding_count": 3,
+      "metrics": {
+        "records_with_gate_flags": 62,
+        "gate_queue_entry_count": 65
+      },
+      "sample_findings": [
+        {
+          "severity": "error",
+          "message": "gate_queue.jsonl contains an entry with no matching gate_flags in excerpts.jsonl.",
+          "package": "ibn_aqil_v3",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_010_0_10"
+        },
+        {
+          "severity": "error",
+          "message": "gate_queue.jsonl contains an entry with no matching gate_flags in excerpts.jsonl.",
+          "package": "ibn_aqil_v3",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_4_004_0_0"
+        },
+        {
+          "severity": "error",
+          "message": "gate_queue.jsonl contains an entry with no matching gate_flags in excerpts.jsonl.",
+          "package": "taysir",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_6_044_0_2"
+        }
+      ]
+    },
+    "short_long_outliers": {
+      "title": "Short/Long Outliers",
+      "description": "Word-count outliers are reported using a hybrid short-threshold plus Tukey upper-fence audit.",
+      "status": "warn",
+      "finding_count": 172,
+      "metrics": {
+        "min_word_count": 4,
+        "median_word_count": 64,
+        "max_word_count": 1165,
+        "q1_word_count": 34.0,
+        "q3_word_count": 107.0,
+        "iqr_word_count": 73.0,
+        "upper_fence": 216.5,
+        "short_threshold_words": 10,
+        "short_outlier_count": 48,
+        "long_outlier_count": 124
+      },
+      "sample_findings": [
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_1",
+          "details": {
+            "word_count": 417,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Short word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_001_0_0",
+          "details": {
+            "word_count": 5,
+            "threshold": 10
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_006_0_0",
+          "details": {
+            "word_count": 286,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_007_0_11",
+          "details": {
+            "word_count": 229,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_009_0_12",
+          "details": {
+            "word_count": 299,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_010_0_8",
+          "details": {
+            "word_count": 313,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_010_0_9",
+          "details": {
+            "word_count": 253,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Short word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_012_0_0",
+          "details": {
+            "word_count": 4,
+            "threshold": 10
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_012_0_22",
+          "details": {
+            "word_count": 986,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_1",
+          "details": {
+            "word_count": 293,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_2",
+          "details": {
+            "word_count": 230,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_12",
+          "details": {
+            "word_count": 537,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_1_1",
+          "details": {
+            "word_count": 248,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_1_9",
+          "details": {
+            "word_count": 323,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_1_12",
+          "details": {
+            "word_count": 337,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_1_16",
+          "details": {
+            "word_count": 426,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_1_18",
+          "details": {
+            "word_count": 229,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Short word-count outlier.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_006_0_0",
+          "details": {
+            "word_count": 8,
+            "threshold": 10
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Long word-count outlier.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_006_0_20",
+          "details": {
+            "word_count": 246,
+            "upper_fence": 216.5
+          }
+        },
+        {
+          "severity": "warning",
+          "message": "Short word-count outlier.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_008_pre_0_0",
+          "details": {
+            "word_count": 10,
+            "threshold": 10
+          }
+        }
+      ]
+    },
+    "author_id_audit": {
+      "title": "author_id Audit",
+      "description": "primary_author_layer.author_id values are inventoried, including sentinel values such as unknown.",
+      "status": "warn",
+      "finding_count": 2302,
+      "metrics": {
+        "unique_author_id_count": 2,
+        "author_id_counts": {
+          "unknown": 2302,
+          "ينبغي إسناد الوحدة إلى ابن عقيل نفسه في طبقة الشرح، لا إلى unknown.": 1
+        },
+        "unknown_author_id_count": 2302
+      },
+      "sample_findings": [
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_0"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_1"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_2"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_3"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_4"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_5"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_6"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_7"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_8"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_9"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_10"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_11"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_12"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_13"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_14"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_0"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_1"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_2"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_3"
+        },
+        {
+          "severity": "warning",
+          "message": "primary_author_layer.author_id uses the sentinel value unknown.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_4"
+        }
+      ]
+    },
+    "consensus_coverage": {
+      "title": "Consensus Coverage",
+      "description": "Records with consensus-only signals always carry consensus_metadata, and decision types are summarized.",
+      "status": "pass",
+      "finding_count": 0,
+      "metrics": {
+        "records_with_consensus_metadata": 788,
+        "records_with_consensus_signals": 83,
+        "decision_type_counts": {
+          "author_attribution": 45,
+          "school_attribution": 299,
+          "self_containment": 521
+        }
+      },
+      "sample_findings": []
+    },
+    "physical_pages": {
+      "title": "Physical Pages",
+      "description": "physical_pages matches the page span implied by Phase 1 join points and token-derived character ranges.",
+      "status": "fail",
+      "finding_count": 104,
+      "metrics": {
+        "records_evaluated": 2303
+      },
+      "sample_findings": [
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_0",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_1",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_2",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_3",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_4",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_5",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_6",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_7",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_8",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_9",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_11",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_12",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_13",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_0_14",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_1_0",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_1_1",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_1_2",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_1_3",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_1_4",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        },
+        {
+          "severity": "error",
+          "message": "No matching Phase 1 chunk found for physical page validation.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_013_1_5",
+          "details": {
+            "div_id": "div_src_test0001_3_013"
+          }
+        }
+      ]
+    },
+    "function_taxonomy_validation": {
+      "title": "Function Taxonomy Validation",
+      "description": "All function fields are valid ScholarlyFunction values and agree with Phase 2 provenance.",
+      "status": "fail",
+      "finding_count": 283,
+      "metrics": {
+        "records_evaluated": 2303,
+        "valid_function_count": 16,
+        "valid_functions": [
+          "condition_exception",
+          "cross_reference",
+          "definition",
+          "editorial_note",
+          "evidence_hadith",
+          "evidence_ijma",
+          "evidence_qiyas",
+          "evidence_quran",
+          "evidence_rational",
+          "example",
+          "narration",
+          "opinion_statement",
+          "refutation",
+          "rule_statement",
+          "structural_transition",
+          "unclassified"
+        ]
+      },
+      "sample_findings": [
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_2_000_pre_0_10",
+          "details": {
+            "missing_secondary": [
+              "condition_exception"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_7",
+          "details": {
+            "missing_secondary": [
+              "cross_reference"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_8",
+          "details": {
+            "missing_secondary": [
+              "evidence_rational"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_000_0_9",
+          "details": {
+            "missing_secondary": [
+              "cross_reference"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_002_0_3",
+          "details": {
+            "missing_secondary": [
+              "condition_exception"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_003_0_1",
+          "details": {
+            "missing_secondary": [
+              "rule_statement"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_003_0_2",
+          "details": {
+            "missing_secondary": [
+              "rule_statement"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_003_0_3",
+          "details": {
+            "missing_secondary": [
+              "rule_statement",
+              "narration"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_003_0_4",
+          "details": {
+            "missing_secondary": [
+              "rule_statement"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_003_0_6",
+          "details": {
+            "missing_secondary": [
+              "rule_statement"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_006_0_2",
+          "details": {
+            "missing_secondary": [
+              "evidence_hadith"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_008_0_12",
+          "details": {
+            "missing_secondary": [
+              "evidence_rational"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_010_0_3",
+          "details": {
+            "missing_secondary": [
+              "rule_statement"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_010_0_4",
+          "details": {
+            "missing_secondary": [
+              "rule_statement"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_010_0_5",
+          "details": {
+            "missing_secondary": [
+              "condition_exception"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_010_0_14",
+          "details": {
+            "missing_secondary": [
+              "cross_reference"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_011_0_2",
+          "details": {
+            "missing_secondary": [
+              "evidence_hadith",
+              "evidence_ijma"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_39_masala",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_3_011_0_12",
+          "details": {
+            "missing_secondary": [
+              "condition_exception"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_001_pre_0_2",
+          "details": {
+            "missing_secondary": [
+              "example"
+            ]
+          }
+        },
+        {
+          "severity": "error",
+          "message": "secondary_functions is not a subset of content_types.",
+          "package": "ext_46_qa",
+          "excerpt_id": "exc_src_test0001_div_src_test0001_1_002_pre_0_2",
+          "details": {
+            "missing_secondary": [
+              "opinion_statement"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
