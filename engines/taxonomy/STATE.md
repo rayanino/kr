@@ -72,12 +72,12 @@ Additional data: `codex_nahw_topic_frequency.json`, `codex_nahw_corpus_gaps.md` 
 
 | File | Purpose |
 |------|---------|
-| `reference/protocols/TAXONOMY_TREE_PROTOCOL.md` | **GOVERNANCE** — mandatory process for all tree validation |
-| `reference/research/chatgpt_comparison_prompt.md` | Hardened prompt for Phase 2 (ChatGPT comparison) |
-| `reference/research/fresh_claude_review_prompt.md` | Hardened prompt for Phase 3 (Fresh Claude review) |
-| `reference/research/nahw_v2_0_draft.yaml` | Architect's draft tree (Phase 1 output) |
+| `reference/protocols/TAXONOMY_TREE_PROTOCOL.md` | **GOVERNING** — mandatory process for all tree validation. Start here for the merge. |
+| `reference/research/chatgpt_comparison_prompt.md` | Hardened prompt for Phase 2 (ChatGPT comparison). Upload 5 files with it. |
+| `reference/research/fresh_claude_review_prompt.md` | Hardened prompt for Phase 3 (Fresh Claude review). Fresh Claude clones repo itself. |
+| `reference/research/nahw_v2_0_draft.yaml` | Architect's draft tree (Phase 1 output, 146 leaves) |
 | `reference/research/nahw_v2_leaf_inventory.md` | Per-leaf reasoning for the draft |
-| `reference/handoffs/nahw_tree_synthesis_session.md` | Original synthesis methodology (historical — protocol supersedes) |
+| `reference/handoffs/nahw_tree_synthesis_session.md` | HISTORICAL — guided Steps 1–9. Superseded by protocol for remaining steps. |
 | `engines/taxonomy/SPEC.md` | Authoritative specification |
 | `reference/GOVERNANCE.md` | Review team rules |
 | `library/sciences/nahw/tree.yaml` | Current UNVALIDATED tree (to be replaced) |

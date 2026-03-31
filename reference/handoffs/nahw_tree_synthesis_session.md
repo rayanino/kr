@@ -1,5 +1,9 @@
 # Nahw Tree Validation — Synthesis Session Handoff
 
+> **STATUS (2026-03-31):** Steps 1–9 are **COMPLETE** — the architect's draft tree is at `reference/research/nahw_v2_0_draft.yaml` (146 leaves, 9 branches). Steps 10–11 (merge process and finalization) are **SUPERSEDED** by `reference/protocols/TAXONOMY_TREE_PROTOCOL.md` §8 and §11, which are more current and handle ChatGPT's file upload requirement. The remaining sequence is in `engines/taxonomy/STATE.md`.
+>
+> This handoff is now **HISTORICAL** — it documents the methodology used for the nahw pilot synthesis. For future sciences, follow the Taxonomy Tree Protocol instead.
+
 This is a KR (خزانة ريان) session focused on producing the final validated nahw taxonomy tree (v2.0). You are the architect. This is a MAJOR DECISION — the tree structure determines where every excerpt in the owner's 2,500-book Islamic scholarly library gets placed. A wrong tree means wrong mental models.
 
 ## Session start
