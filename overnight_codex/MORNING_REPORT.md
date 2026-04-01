@@ -13,6 +13,7 @@
 - The owner-facing review system is materially safer and clearer than it was at session start.
 - Future timed-out package runs now have a much better chance of preserving partial artifacts and diagnostic breadcrumbs.
 - The generated `smoke_api_v2` campaign analysis currently recommends **`block`** and marks all five books as `STRUCTURAL_FAIL`.
+- A ranked next-action memo now exists at `docs/codex/smoke_api_v2_priority_findings_2026_04_02.md`.
 
 ## What Improved Tonight
 
@@ -79,3 +80,4 @@
 1. Continue runtime/report hardening while the owner sleeps.
 2. Keep tightening timeout diagnosis around the missing verification response path.
 3. Avoid taysir-dependent tasks until a valid output file exists.
+4. Use the ranked priority memo to focus the next serious hardening lane on unit loss first, Phase 2a failures second, and the `taysir` scale-collapse third.
