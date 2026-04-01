@@ -514,7 +514,10 @@ def _terminate_process_tree(proc: subprocess.Popen[Any]) -> None:
                 return
             except subprocess.TimeoutExpired:
                 pass
-            os.killpg(proc.pid, signal.SIGKILL)
+            try:
+                os.killpg(proc.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                return
     finally:
         try:
             proc.wait(timeout=30)
@@ -1036,7 +1039,7 @@ def main() -> int:
     summary_path = args.output_dir / SUMMARY_FILENAME
     print(f"Summary saved to: {summary_path}")
 
-    return 0 if summary["totals"]["packages_failed"] == 0 else 1
+    return 0 if summary.get("complete") and summary["totals"]["packages_failed"] == 0 else 1
 
 
 if __name__ == "__main__":

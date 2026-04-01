@@ -1428,7 +1428,7 @@ document.addEventListener("keydown",e=>{
   else if(e.key==="w")selectVerdict("needs_work");
   else if(e.key==="r")selectVerdict("reject");
   else if(e.key==="n"){const c=$("comment");if(c)c.focus()}
-  else if(e.key==="?"&&!e.shiftKey)$("shortcuts").classList.toggle("open");
+  else if(e.key==="?")$("shortcuts").classList.toggle("open");
   else if(e.key==="Escape"){$("shortcuts").classList.remove("open");backToPackages()}
 });
 
