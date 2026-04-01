@@ -85,7 +85,7 @@ Translation note issue: references "whether DR-2 (evidence-type splitting, curre
 
 Tests **DR-3** (khilaf preservation), **DP-1** (Position + Refutation), and **DP-5** (Counter-argument + Original). Question 6c about seeing WHO holds each position tests metadata granularity for `school` and `quoted_scholars` fields. Reasonably designed.
 
-However: missing the aqidah genre concern (identified by Gemini's adversarial review, line 74) — in theology texts, the linguistic vs. technical meaning of terms like إيمان and كفر is often the core of the sectarian debate itself. Splitting scholarly positions about such terms into separate excerpts can neutralize the theological argument.
+However: missing the aqidah genre concern (identified by Gemini's adversarial review, line 50) — in theology texts, the linguistic vs. technical meaning of terms like إيمان and كفر is often the core of the sectarian debate itself. Splitting scholarly positions about such terms into separate excerpts can neutralize the theological argument.
 
 **Section 7 — Genre Differences (3 questions: 7a, 7b, 7c)**
 
@@ -132,6 +132,8 @@ The following SPEC domain rules are not tested by any questionnaire section. Eac
 ### 1.4 Scholarly Use Cases Not Tested
 
 Beyond individual SPEC rules, entire scholarly text types and conventions are absent:
+
+**Comparative madhab study (الفقه المقارن).** The original evaluation task explicitly asked about this use case. Comparative jurisprudence texts systematically compare how different schools approach the same issue — this is a distinct text type from khilaf passages within a single-school text. In a comparative text, the author presents each school's full methodology, evidence, and conclusion side by side, often with a final tarjih (preference). The excerpting needs differ from intra-text khilaf because the comparison IS the teaching unit — splitting out individual school positions would destroy the comparative structure. The questionnaire does not test this pattern.
 
 **Usul al-fiqh methodology.** Usul texts argue about how to derive rulings, not about specific rulings. An usul excerpt might be a multi-step logical argument about whether the general (عام) can be restricted by the specific (خاص), citing Quranic examples as methodology illustrations rather than as evidence for a ruling. The excerpting needs are fundamentally different from fiqh — an usul teaching unit is often an extended logical chain where cutting at any point destroys the argument. The questionnaire assumes a fiqh-centric model (ruling + evidence + khilaf) throughout. Notably, the `ext_46_qa` campaign package contains usul al-nahw definitions (السماع, الإجماع, القياس as grammatical methodology) — proof that usul-type content exists in the campaign but the questionnaire doesn't test it.
 
@@ -291,7 +293,7 @@ Gemini analyzed the فأما orphaning problem: "فأما الكتاب فنحو 
 
 Gemini's verdict: "Computationally and semantically, yes, the metadata compensates... Linguistically and pedagogically, NO. Classical Arabic texts are highly cohesive. Presenting a student with a fractured sentence starting with فأما as a 'self-contained teaching unit' violates the natural flow and integrity of the language."
 
-Gemini also noted: the ~10 word threshold for evidence substantiveness is "far too low for rational arguments, which require premises and conclusions to remain syntactically intact." And: "evidence types like Qiyas cannot be cleanly separated because the analogy itself constitutes the argument for the ruling."
+Gemini also noted (line 20): the ~10 word threshold for evidence substantiveness is "far too low for rational arguments, which require premises and conclusions to remain syntactically intact." And: "evidence types like Qiyas cannot be cleanly separated because the analogy itself constitutes the argument for the ruling." Critically, Gemini introduced the concept of **wajh al-dalalah** (وجه الدلالة — how the evidence proves the ruling): "a 10-word fragment containing a verse citation is useful for *indexing*, but as a standalone reading unit, it often lacks the wajh al-dalalah, which might be located in the preceding or subsequent sentences." This is the scholarly term for why evidence splitting fails: the evidence text alone doesn't explain how it applies to the ruling. The reasoning that connects evidence to ruling is a separate intellectual act that often appears in the surrounding prose, not inside the evidence citation itself.
 
 **The questionnaire's Section 5 Translation note references DR-2 "reconsidering" — directly contradicting the 3/5 reviewer rejection.** DR-2 does not exist in the SPEC. It is a proposed rule from `scholarly_reality_check_intra_excerpt.md` that was deferred after cross-provider review.
 
@@ -299,13 +301,13 @@ Gemini also noted: the ~10 word threshold for evidence substantiveness is "far t
 
 Section 6 is the best-designed section for its target domain rule. Three questions directly calibrate DR-3: all positions together (6a), individual positions separately (6b), attribution importance (6c).
 
-**Gemini's finding on the ~800-word threshold** (lines 56–66): "The ~800-word threshold is entirely arbitrary and lacks scholarly basis." The viability of splitting depends on discursive structure (are positions cross-referencing each other?), not length. A 1,000-word passage with intertwined dialectic cannot be split; a 300-word passage with structurally independent positions can. The questionnaire could test this by showing two structurally different khilaf passages.
+**Gemini's finding on the ~800-word threshold** (lines 33–38): "The ~800-word threshold is entirely arbitrary and lacks scholarly basis." The viability of splitting depends on discursive structure (are positions cross-referencing each other?), not length. A 1,000-word passage with intertwined dialectic cannot be split; a 300-word passage with structurally independent positions can. The questionnaire could test this by showing two structurally different khilaf passages.
 
 ### 3.4 Cross-Genre Evidence Handling
 
 The questionnaire treats evidence as "supporting material for a ruling" throughout. This is the fiqh model. Evidence works completely differently in other genres:
 
-**Nahw:** The شاهد (evidence verse, typically poetry or Quran) is the PRIMARY TEXT being analyzed. The rule is derived FROM it, not supported BY it. Verified in ibn_aqil excerpt `exc_..._0_18`: the Alfiyya verse "والأمر إن لم يك للنون محل / فيه هو اسم نحو صه وحيهل" is the teaching frame, and the commentary explains what the verse means. Splitting verse from commentary removes the teaching's foundation. Gemini confirmed (line 70): "Splitting linguistic rules from their evidence (الشواهد) is disastrous. The entire pedagogical value of the excerpt lies in the application of the rule to the specific poetic verse or Quranic segment."
+**Nahw:** The شاهد (evidence verse, typically poetry or Quran) is the PRIMARY TEXT being analyzed. The rule is derived FROM it, not supported BY it. Verified in ibn_aqil excerpt `exc_..._0_18`: the Alfiyya verse "والأمر إن لم يك للنون محل / فيه هو اسم نحو صه وحيهل" is the teaching frame, and the commentary explains what the verse means. Splitting verse from commentary removes the teaching's foundation. Gemini confirmed (line 48): "Splitting linguistic rules from their evidence (الشواهد) is disastrous. The entire pedagogical value of the excerpt lies in the application of the rule to the specific poetic verse or Quranic segment."
 
 Web research confirmed the scholarly role of شواهد: "الشاهد عند النحويين هو الدليل الذي يعتمد عليه في الأخذ بقاعدة ما, ورفض أخري" (the shahid for grammarians is the evidence relied upon to establish or reject a rule). Another source: Sibawayh himself "only used شواهد for rare or disputed phenomena, not for self-evident rules like subject case-marking — the شاهد exists specifically to establish what would otherwise be contested." This is FOUNDATIONAL EVIDENCE, not an "example sentence."
 
@@ -315,7 +317,7 @@ Web research confirmed the scholarly role of شواهد: "الشاهد عند ا
 
 ### 3.5 The Missing Alternative: Multi-Leaf Tagging
 
-The most significant omission from Sections 4–5 is that the owner is never presented with the **multi-leaf tagging alternative** that Gemini recommended (lines 78–87 of the adversarial review): keep the excerpt physically intact, but tag it to multiple taxonomy leaves simultaneously. The owner would see the full passage under "تعريف الطلاق لغة" AND under "تعريف الطلاق شرعا" — same text, two navigation paths.
+The most significant omission from Sections 4–5 is that the owner is never presented with the **multi-leaf tagging alternative** that Gemini recommended (lines 54–61 of the adversarial review): keep the excerpt physically intact, but tag it to multiple taxonomy leaves simultaneously. The owner would see the full passage under "تعريف الطلاق لغة" AND under "تعريف الطلاق شرعا" — same text, two navigation paths.
 
 The owner's first feedback comment reveals his real desire is per-leaf access to content, not necessarily physical splitting: "I open the leaf in the taxonomy tree." Multi-leaf tagging achieves this without grammatical orphaning, semantic hollowing, or self-containment violations. But the questionnaire frames every choice as "together vs. separate" — a false binary.
 
@@ -384,7 +386,8 @@ Based on analysis of the two feedback comments:
 ### 5.1 Missing Use Cases — Complete List
 
 **Scholarly text types not tested:**
-1. Usul al-fiqh logical argumentation (where excerpts are argument chains, not ruling→evidence pairs)
+1. Comparative madhab study (الفقه المقارن — systematic cross-school comparison as a text type, distinct from khilaf within a single-school text)
+2. Usul al-fiqh logical argumentation (where excerpts are argument chains, not ruling→evidence pairs)
 2. Tafsir verse-exegesis structure (Quran→analysis→asbab al-nuzul→ruling)
 3. Aqidah theological propositions (where linguistic vs. technical meaning IS the debate)
 4. Hadith collection format (isnad-centric, as opposed to hadith commentary)
@@ -433,6 +436,8 @@ For Sections 4 and 5, show the owner THREE versions of each excerpt:
 - (c) The multi-leaf tagging version (same intact text, shown appearing under two different taxonomy leaves)
 
 Let the owner react to all three rather than choosing between an abstract "together vs. separate."
+
+**Feasibility note:** Multi-leaf tagging is currently deferred — NEXT.md states "Multi-leaf taxonomy tagging: requires VISION §1.2 amendment. Deferred." The recommendation is valid as a questionnaire design choice (presenting the concept to gauge the owner's reaction), but implementing multi-leaf tagging would require taxonomy engine changes not yet in scope. The questionnaire should present it as a possibility, not a commitment, and the owner's answer should be recorded as input for the VISION §1.2 decision.
 
 **Recommendation 5: Fix the three inaccurate Translation notes.**
 
