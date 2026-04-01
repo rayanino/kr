@@ -113,11 +113,14 @@ def make_hook_logger(output_dir: Path, client_name: str) -> tuple[
 
     def _write_last_activity(entry: dict[str, Any]) -> None:
         temp = last_activity_path.with_suffix(".json.tmp")
-        temp.write_text(
-            json.dumps(entry, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-        temp.replace(last_activity_path)
+        try:
+            temp.write_text(
+                json.dumps(entry, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            temp.replace(last_activity_path)
+        except OSError as exc:
+            logger.warning("Failed to persist last_llm_activity.json: %s", exc)
 
     def on_request(**kwargs: Any) -> None:
         call_counter["n"] += 1
@@ -1021,23 +1024,64 @@ def run_pipeline(
         )
 
         if backend == "cli":
+            factory_counts = {"enrich": 0, "verify": 0, "escalation": 0}
+
+            def _logged_client(base_name: str, client: Any) -> Any:
+                factory_counts[base_name] += 1
+                client_name = f"{base_name}_p{factory_counts[base_name]:03d}"
+                req_hook, resp_hook, err_hook, _ctx = make_hook_logger(
+                    output_dir,
+                    client_name,
+                )
+                client.on("completion:kwargs", req_hook)
+                client.on("completion:response", resp_hook)
+                client.on("completion:error", err_hook)
+                if ri_session is not None:
+                    from shared.llm.ri_trace_bridge import attach as ri_attach
+
+                    ri_attach(client, ri_session)
+                return client
+
             def _enrich_factory() -> Any:
-                return create_cli_client()
+                return _logged_client("enrich", create_cli_client())
 
             def _verify_factory() -> Any:
-                return create_cli_client()
+                return _logged_client("verify", create_cli_client())
 
             def _escalation_factory() -> Any:
-                return create_cli_client()
+                return _logged_client("escalation", create_cli_client())
         else:
+            factory_counts = {"enrich": 0, "verify": 0, "escalation": 0}
+
+            def _logged_client(base_name: str, client: Any) -> Any:
+                factory_counts[base_name] += 1
+                client_name = f"{base_name}_p{factory_counts[base_name]:03d}"
+                req_hook, resp_hook, err_hook, _ctx = make_hook_logger(
+                    output_dir,
+                    client_name,
+                )
+                client.on("completion:kwargs", req_hook)
+                client.on("completion:response", resp_hook)
+                client.on("completion:error", err_hook)
+                return client
+
             def _enrich_factory() -> Any:
-                return create_client(timeout=config.ENRICH_TIMEOUT)
+                return _logged_client(
+                    "enrich",
+                    create_client(timeout=config.ENRICH_TIMEOUT),
+                )
 
             def _verify_factory() -> Any:
-                return create_client(timeout=config.VERIFY_TIMEOUT)
+                return _logged_client(
+                    "verify",
+                    create_client(timeout=config.VERIFY_TIMEOUT),
+                )
 
             def _escalation_factory() -> Any:
-                return create_client(timeout=config.ESCALATION_TIMEOUT)
+                return _logged_client(
+                    "escalation",
+                    create_client(timeout=config.ESCALATION_TIMEOUT),
+                )
 
         t0 = time.monotonic()
         try:

@@ -464,6 +464,7 @@ class ReviewHandler(SimpleHTTPRequestHandler):
             if matched_after is None:
                 continue
 
+            legacy_pair_id = f"pair_{len(pairs)+1:03d}"
             pair_id = _comparison_pair_id(
                 div_key,
                 before_ex.get("excerpt_id"),
@@ -471,6 +472,7 @@ class ReviewHandler(SimpleHTTPRequestHandler):
             )
             pairs.append({
                 "pair_id": pair_id,
+                "legacy_pair_id": legacy_pair_id,
                 "division": div_key or "(root)",
                 "before": {
                     "excerpt_id": before_ex.get("excerpt_id"),
