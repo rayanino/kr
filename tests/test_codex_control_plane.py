@@ -22,6 +22,21 @@ def load_module(relative_path: str, module_name: str):
 
 
 setup_check = load_module("scripts/check_codex_kr_setup.py", "setup_check")
+try:  # Allow loading the auth preflight script under the system interpreter used by some local test runs.
+    import pydantic  # noqa: F401
+except ModuleNotFoundError:
+    pydantic_stub = types.ModuleType("pydantic")
+
+    class _BaseModel:
+        pass
+
+    class _ValidationError(Exception):
+        pass
+
+    pydantic_stub.BaseModel = _BaseModel
+    pydantic_stub.ValidationError = _ValidationError
+    sys.modules["pydantic"] = pydantic_stub
+auth_check = load_module("scripts/check_runtime_cli_auth.py", "auth_check")
 hook_utils = load_module(".codex/hooks/hook_utils.py", "hook_utils")
 dispatch = load_module(".codex/hooks/dispatch.py", "dispatch")
 
@@ -145,6 +160,31 @@ def test_runtime_docs_reference_namespaced_profiles() -> None:
         assert "kr_shadow" in text
         assert "kr_peer_review" in text
         assert "kr_research" in text
+
+
+def test_check_runtime_cli_auth_forwards_timeout_kwarg(monkeypatch: MonkeyPatch) -> None:
+    captured: dict[str, object] = {}
+
+    class FakeCompletions:
+        def create(self, **kwargs):
+            captured.update(kwargs)
+            return types.SimpleNamespace(ok="yes")
+
+    class FakeChat:
+        completions = FakeCompletions()
+
+    class FakeAdapter:
+        def __init__(self, default_backend: str) -> None:
+            captured["backend"] = default_backend
+            self.chat = FakeChat()
+
+    monkeypatch.setattr(auth_check, "CLIInstructorAdapter", FakeAdapter)
+
+    result = auth_check.check_backend("codex", timeout_seconds=17)
+
+    assert result["status"] == "ok"
+    assert captured["backend"] == "codex"
+    assert captured["timeout"] == 17
 
 
 def test_start_overnight_codex_prefers_repo_venv() -> None:

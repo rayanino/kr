@@ -54,7 +54,7 @@ def _messages_for(backend: str) -> list[dict[str, str]]:
     ]
 
 
-def check_backend(name: str) -> dict[str, Any]:
+def check_backend(name: str, timeout_seconds: int) -> dict[str, Any]:
     model = BACKEND_MODELS[name]
     adapter = CLIInstructorAdapter(default_backend=name)
     start = time.monotonic()
@@ -63,6 +63,7 @@ def check_backend(name: str) -> dict[str, Any]:
             model=model,
             response_model=HealthCheckResponse,
             messages=_messages_for(name),
+            timeout=timeout_seconds,
             max_retries=0,
         )
         duration = round(time.monotonic() - start, 1)
@@ -99,9 +100,15 @@ def main() -> int:
         action="store_true",
         help="Emit machine-readable JSON",
     )
+    parser.add_argument(
+        "--timeout-seconds",
+        type=int,
+        default=30,
+        help="Per-backend timeout in seconds",
+    )
     args = parser.parse_args()
 
-    results = [check_backend(name) for name in args.backends]
+    results = [check_backend(name, args.timeout_seconds) for name in args.backends]
     failed = [item for item in results if item["status"] != "ok"]
 
     if args.json:
