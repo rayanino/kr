@@ -288,6 +288,14 @@ class ReviewHandler(SimpleHTTPRequestHandler):
         for d in sorted(self.output_dir.iterdir()):
             if not d.is_dir():
                 continue
+            marker_files = (
+                d / "excerpts.jsonl",
+                d / "progress.jsonl",
+                d / "run_metadata.json",
+                d / "processing_log.jsonl",
+            )
+            if d.name not in summary_packages and not any(path.exists() for path in marker_files):
+                continue
             excerpts_file = d / "excerpts.jsonl"
             count = 0
             if excerpts_file.exists():
