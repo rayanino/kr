@@ -12,6 +12,7 @@
 - The failure point is deep in `phase3_consensus`, around the missing verifier response `verify_0124`.
 - The owner-facing review system is materially safer and clearer than it was at session start.
 - Future timed-out package runs now have a much better chance of preserving partial artifacts and diagnostic breadcrumbs.
+- The generated `smoke_api_v2` campaign analysis currently recommends **`block`** and marks all five books as `STRUCTURAL_FAIL`.
 
 ## What Improved Tonight
 
@@ -29,6 +30,10 @@
   - only marks review/questionnaire/comparison saves successful after real HTTP success
   - ignores helper directories during package discovery
   - preserves legacy comparison ids and keeps unmatched sides visible
+- Analysis layer now:
+  - generates per-book `analysis/` folders for the synced `smoke_api_v2` run
+  - generates `integration_tests/smoke_api_v2/analysis/campaign_summary.{json,md}`
+  - carries batch timeout timing/error/cost into the `taysir` book and campaign summaries
 - Runtime tooling now:
   - emits `last_llm_activity.json`
   - emits timeout reports automatically
@@ -67,6 +72,7 @@
 - `7e9efed9` `fix(runtime): harden model-id validation and backend inference`
 - `d0e70aac` `fix(review): harden package discovery and report notes`
 - `6d8be970` `fix(review): only mark saves successful after HTTP success`
+- `78f32964` `docs(analysis): generate smoke_api_v2 campaign and book analyses`
 
 ## Next Best Lanes
 
