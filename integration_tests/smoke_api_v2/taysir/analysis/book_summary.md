@@ -15,7 +15,7 @@
 ## Operational
 
 - Total time: 28801.0s
-- Total cost: EUR 42.8193
+- Total cost: EUR 0.0000
 - LLM calls: 0
 
 ## Anomalies
@@ -35,11 +35,11 @@
 - **chunk_coverage_ratio:** 0.9728
 - **truncation_count:** 0
 - **zero_output_with_activity:** False
-- **error_count:** 0
+- **error_count:** 1
 
 ## Metrics: Operational
 
-- **total_time_seconds:** 0
+- **total_time_seconds:** 28800.96
 - **phase1_time_seconds:** 0
 - **phase2a_time_seconds:** 0
 - **phase2b_time_seconds:** 0

@@ -9,7 +9,7 @@
   "anomaly_count": 4,
   "review_candidate_count": 3107,
   "total_time_seconds": 28800.96,
-  "total_cost": 42.819313,
+  "total_cost": 0,
   "metrics": {
     "unit_yield_ratio": {
       "name": "unit_yield_ratio",
@@ -61,13 +61,13 @@
     },
     "error_count": {
       "name": "error_count",
-      "value": 0,
+      "value": 1,
       "tier": "decision_grade_structural",
       "provenance": "artifact_accounting"
     },
     "total_time_seconds": {
       "name": "total_time_seconds",
-      "value": 0,
+      "value": 28800.96,
       "tier": "operational",
       "provenance": "derived_operational"
     },
