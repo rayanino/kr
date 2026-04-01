@@ -578,8 +578,10 @@ async function loadPackages(){
       const clickable=p.excerpt_count>0||state==='error';
       const statusLabel=state==='error'?'failed':state==='success'?'ready':'unknown';
       const errorText=(p.errors&&p.errors.length)?esc(p.errors[0]):"";
+      const timeLabel=(typeof p.time_seconds==='number'&&p.time_seconds>0)?`${(p.time_seconds/3600).toFixed(1)}h`:'—';
+      const costLabel=(typeof p.cost_estimate==='number')?`$${p.cost_estimate.toFixed(2)}`:'—';
       const extra = state==='error'
-        ? `<div class="e">${errorText||'Package run failed before excerpts were written.'}</div>`
+        ? `<div class="m"><b>${p.excerpt_count}</b> excerpts · ${p.error_count||0} blocker${(p.error_count||0)===1?'':'s'} · ${timeLabel} · ${costLabel}</div><div class="e">${errorText||'Package run failed before excerpts were written.'}</div>`
         : `<div class="m"><b>${p.excerpt_count}</b> excerpts${p.feedback_count?` \xb7 ${p.feedback_count} reviewed (${pct}%)`:''}</div>`;
       const className = state==='error' ? ' failed' : (!clickable ? ' empty' : '');
       return `<div class="pkg-card${className}" onclick="${clickable?`selectPkg('${p.name}')`:''}"><div class="n">${p.name}</div><div class="s ${state==='error'?'error':state==='success'?'success':'unknown'}">${statusLabel}</div>${extra}</div>`;
@@ -1231,7 +1233,19 @@ async function initComparison(){
     cmpPairs=await pr.json();
     cmpResponses=await rr.json();
     if(!cmpPairs.length){
-      $("cmp-loading").innerHTML='<div class="mode-error">No comparison pairs found. This usually means the weekend taysir v2 run did not finish or there are no matched campaign/v2 pairs yet.</div>';
+      try{
+        const sr=await fetch("/api/package-state/taysir");
+        const state=await sr.json();
+        const summary=state.summary||{};
+        const err=(summary.errors&&summary.errors.length)?esc(summary.errors[0]):"No matched campaign/v2 pairs yet.";
+        if((summary.status||'').toLowerCase()==='error'){
+          $("cmp-loading").innerHTML=`<div class="mode-error">Comparison unavailable because the weekend taysir v2 run failed: ${err}</div>`;
+        }else{
+          $("cmp-loading").innerHTML='<div class="mode-error">No comparison pairs found. This usually means the weekend taysir v2 run did not finish or there are no matched campaign/v2 pairs yet.</div>';
+        }
+      }catch(e){
+        $("cmp-loading").innerHTML='<div class="mode-error">No comparison pairs found. This usually means the weekend taysir v2 run did not finish or there are no matched campaign/v2 pairs yet.</div>';
+      }
       return;
     }
     $("cmp-loading").style.display="none";
