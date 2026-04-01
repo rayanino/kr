@@ -48,7 +48,7 @@ def run_pipeline(
     ri_session = None
     if traces_dir:
         try:
-            import recursive_improve as ri
+            import recursive_improve as ri  # type: ignore[import-not-found]
 
             ri.patch()  # captures SDK-based LLM calls (consensus, instructor)
             ri_session = ri.session(
