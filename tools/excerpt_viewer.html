@@ -44,12 +44,19 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 #pkg-picker h1{font-size:1.3rem;font-weight:300;letter-spacing:0.08em;color:var(--text)}
 #pkg-picker h1 span{color:var(--gold);font-weight:600}
 #pkg-picker .sub{color:var(--text2);font-size:0.82rem;letter-spacing:0.02em}
-#pkg-list{display:flex;flex-wrap:wrap;gap:0.7rem;justify-content:center;max-width:720px;margin-top:0.5rem}
-.pkg-card{padding:0.9rem 1.3rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .2s;min-width:150px}
+#pkg-list{display:flex;flex-wrap:wrap;gap:0.7rem;justify-content:center;max-width:900px;margin-top:0.5rem}
+.pkg-card{padding:0.9rem 1.3rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .2s;min-width:180px;max-width:240px}
 .pkg-card:hover{border-color:var(--gold);background:var(--surface2);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.3)}
 .pkg-card .n{font-weight:500;font-size:0.9rem}.pkg-card .m{font-size:0.75rem;color:var(--text2);margin-top:0.25rem}
 .pkg-card .m b{color:var(--gold)}
+.pkg-card .s{display:inline-flex;align-items:center;gap:0.35rem;margin-top:0.45rem;padding:0.16rem 0.48rem;border-radius:999px;font-size:0.62rem;font-family:var(--font-mono);letter-spacing:0.04em;text-transform:uppercase}
+.pkg-card .e{margin-top:0.35rem;font-size:0.7rem;color:var(--text2);line-height:1.45}
 .pkg-card.empty{opacity:0.25;cursor:default;pointer-events:none}
+.pkg-card.failed{opacity:1;border-color:rgba(191,107,107,0.45);background:linear-gradient(180deg, rgba(191,107,107,0.08) 0%, var(--surface) 100%);cursor:default}
+.pkg-card.failed:hover{border-color:rgba(191,107,107,0.45);background:linear-gradient(180deg, rgba(191,107,107,0.08) 0%, var(--surface) 100%);transform:none;box-shadow:none}
+.pkg-card .s.success{background:var(--green-soft);color:var(--green)}
+.pkg-card .s.error{background:var(--red-soft);color:var(--red)}
+.pkg-card .s.unknown{background:var(--surface3);color:var(--text2)}
 #load-error{color:var(--red);font-size:0.8rem;padding:0.5rem;display:none}
 
 /* ── Mode Tab Bar ───────────── */
@@ -498,6 +505,7 @@ body{font-family:var(--font-ui);background:var(--bg);color:var(--text);line-heig
 <script>
 // ─── Global utilities ─────────────────────────────────────────────────────
 let excerpts=[], currentIndex=0, currentPackage="", feedback={}, pollTimer=null;
+let packageMeta={};
 let selectedIssues=new Set();
 let currentFilter="all";
 let currentMode="home"; // "home" | "review" | "questionnaire" | "comparison"
@@ -563,9 +571,18 @@ async function loadPackages(){
   try{
     const r=await fetch("/api/packages");const pkgs=await r.json();
     if(!pkgs.length){$("pkg-list").innerHTML='<div style="color:var(--text2)">Waiting for excerpts...</div>';setTimeout(loadPackages,5000);return}
+    packageMeta=Object.fromEntries(pkgs.map(p=>[p.name,p]));
     $("pkg-list").innerHTML=pkgs.map(p=>{
       const pct=p.excerpt_count&&p.feedback_count?Math.round(p.feedback_count/p.excerpt_count*100):0;
-      return `<div class="pkg-card${p.excerpt_count?'':' empty'}" onclick="${p.excerpt_count?`selectPkg('${p.name}')`:''}"><div class="n">${p.name}</div><div class="m"><b>${p.excerpt_count}</b> excerpts${p.feedback_count?` \xb7 ${p.feedback_count} reviewed (${pct}%)`:''}</div></div>`;
+      const state=(p.status||'unknown').toLowerCase();
+      const clickable=p.excerpt_count>0||state==='error';
+      const statusLabel=state==='error'?'failed':state==='success'?'ready':'unknown';
+      const errorText=(p.errors&&p.errors.length)?esc(p.errors[0]):"";
+      const extra = state==='error'
+        ? `<div class="e">${errorText||'Package run failed before excerpts were written.'}</div>`
+        : `<div class="m"><b>${p.excerpt_count}</b> excerpts${p.feedback_count?` \xb7 ${p.feedback_count} reviewed (${pct}%)`:''}</div>`;
+      const className = state==='error' ? ' failed' : (!clickable ? ' empty' : '');
+      return `<div class="pkg-card${className}" onclick="${clickable?`selectPkg('${p.name}')`:''}"><div class="n">${p.name}</div><div class="s ${state==='error'?'error':state==='success'?'success':'unknown'}">${statusLabel}</div>${extra}</div>`;
     }).join("");
     setTimeout(loadPackages,10000);
   }catch{setTimeout(loadPackages,3000)}
@@ -574,9 +591,18 @@ async function loadPackages(){
 async function selectPkg(pkg){
   currentPackage=pkg;
   try{
-    const[er,fr]=await Promise.all([fetch(`/api/excerpts/${pkg}`),fetch(`/api/feedback/${pkg}`)]);
+    const[er,fr,sr]=await Promise.all([fetch(`/api/excerpts/${pkg}`),fetch(`/api/feedback/${pkg}`),fetch(`/api/package-state/${pkg}`)]);
     excerpts=await er.json();feedback=await fr.json();
-    if(!excerpts.length){alert("No excerpts yet.");return}
+    const state=await sr.json();
+    if(!excerpts.length){
+      const meta=packageMeta[pkg]||{};
+      if((meta.status||'').toLowerCase()==='error'){
+        renderFailedPackage(state);
+      }else{
+        alert("No excerpts yet.");
+      }
+      return;
+    }
     currentIndex=0;currentFilter="all";
     $("pkg-picker").style.display="none";
     currentMode="review";
@@ -593,6 +619,57 @@ function backToPackages(){
   $("pkg-picker").style.display="flex";
   currentMode="home";
   excerpts=[];currentIndex=0;loadPackages();
+}
+
+function renderFailedPackage(state){
+  if(pollTimer)clearInterval(pollTimer);
+  $("pkg-picker").style.display="none";
+  currentMode="review";
+  $("viewer").classList.add("active");
+  $("pkg-label").textContent=state.name||currentPackage;
+  $("pos").textContent="failed";
+  $("prev-btn").disabled=true;
+  $("next-btn").disabled=true;
+  $("left").innerHTML=`<div style="padding:1rem;color:var(--red);text-align:center;font-size:0.8rem">Package failed before excerpts were written.</div>`;
+
+  const summary=state.summary||{};
+  const runMeta=state.run_metadata||{};
+  const errors=(summary.errors&&summary.errors.length?summary.errors:runMeta.errors)||[];
+  const firstError=errors.length?errors[0]:"Unknown failure";
+  const timeSeconds=summary.time_seconds||runMeta.batch_elapsed_seconds||0;
+  const cost=summary.cost_estimate;
+  const report=state.stall_report?esc(state.stall_report):"No stall report available.";
+  const timeLabel=timeSeconds?`${(timeSeconds/3600).toFixed(1)}h`:"—";
+  const costLabel=(typeof cost==="number")?`$${cost.toFixed(2)}`:"—";
+
+  $("center").innerHTML=`
+    <div class="doc" style="border-color:rgba(191,107,107,0.35)">
+      <div class="doc-header">
+        <div class="doc-title">Package Failure</div>
+        <div class="doc-meta">${esc(state.name||currentPackage)}</div>
+      </div>
+      <div class="doc-body" style="padding:1.35rem 1.6rem">
+        <div class="warn-band dependent" style="margin-top:0">
+          <span class="wlabel">FAILED</span>
+          ${esc(firstError)}
+          <div class="ctx">No excerpts were written for this package. Review/comparison work is blocked until the run is repaired or replaced.</div>
+        </div>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem">
+          <span class="chip chip-dependent">status: ${esc(summary.status||"error")}</span>
+          <span class="chip chip-dependent">errors: ${esc(String(summary.error_count ?? runMeta.error_count ?? 0))}</span>
+          <span class="chip chip-dependent">time: ${esc(timeLabel)}</span>
+          <span class="chip chip-dependent">cost: ${esc(costLabel)}</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  $("right").innerHTML=`
+    <div class="review-zone">
+      <div class="review-header">Blocker Summary</div>
+      <div style="font-size:0.82rem;color:var(--text2);line-height:1.6;white-space:pre-wrap">${report}</div>
+    </div>
+  `;
 }
 
 function startPolling(){

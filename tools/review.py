@@ -19,13 +19,17 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import os
 import sys
 import webbrowser
-from functools import partial
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
+from typing import Any
 from urllib.parse import unquote
+
+logging.basicConfig(level=logging.INFO, format="%(message)s")
+logger = logging.getLogger("review_server")
 
 
 # ---------------------------------------------------------------------------
@@ -96,6 +100,24 @@ def _read_jsonl_keyed(path: Path, key_field: str) -> dict:
     return result
 
 
+def _read_json_file(path: Path) -> dict[str, Any] | None:
+    """Best-effort JSON object reader."""
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def _read_batch_summary(output_dir: Path) -> dict[str, Any]:
+    """Read SUMMARY.json from the selected batch output dir, if present."""
+    summary_path = output_dir / "SUMMARY.json"
+    data = _read_json_file(summary_path)
+    return data if isinstance(data, dict) else {}
+
+
 # ---------------------------------------------------------------------------
 # Request handler
 # ---------------------------------------------------------------------------
@@ -143,6 +165,12 @@ class ReviewHandler(SimpleHTTPRequestHandler):
                 self.send_error(403, "Invalid package path")
                 return
             self._api_get_feedback(pkg)
+        elif path.startswith("/api/package-state/"):
+            pkg = path.split("/api/package-state/")[1].strip("/")
+            if self._safe_pkg_path(pkg) is None:
+                self.send_error(403, "Invalid package path")
+                return
+            self._api_get_package_state(pkg)
         # ── Questionnaire endpoints ──────────────────────────────────────────
         elif path == "/api/questionnaire":
             self._api_get_questionnaire()
@@ -203,6 +231,8 @@ class ReviewHandler(SimpleHTTPRequestHandler):
 
     def _api_packages(self) -> None:
         """List packages with excerpt counts."""
+        summary = _read_batch_summary(self.output_dir)
+        summary_packages = summary.get("packages", {}) if isinstance(summary, dict) else {}
         packages = []
         for d in sorted(self.output_dir.iterdir()):
             if not d.is_dir():
@@ -217,11 +247,18 @@ class ReviewHandler(SimpleHTTPRequestHandler):
             if fb_file.exists():
                 with open(fb_file, encoding="utf-8") as f:
                     fb_count = sum(1 for line in f if line.strip())
+            summary_entry = summary_packages.get(d.name, {}) if isinstance(summary_packages, dict) else {}
+            errors = summary_entry.get("errors")
             packages.append({
                 "name": d.name,
                 "excerpt_count": count,
                 "feedback_count": fb_count,
                 "has_excerpts": excerpts_file.exists(),
+                "status": summary_entry.get("status"),
+                "error_count": int(summary_entry.get("error_count", 0) or 0),
+                "errors": [str(error) for error in errors] if isinstance(errors, list) else [],
+                "time_seconds": summary_entry.get("time_seconds"),
+                "cost_estimate": summary_entry.get("cost_estimate"),
             })
         self._json_response(packages)
 
@@ -249,6 +286,27 @@ class ReviewHandler(SimpleHTTPRequestHandler):
         fb_file = self.output_dir / pkg / "owner_feedback.jsonl"
         feedback = _read_jsonl_keyed(fb_file, "excerpt_id")
         self._json_response(feedback)
+
+    def _api_get_package_state(self, pkg: str) -> None:
+        """Return package status, metadata, and any timeout/stall report."""
+        summary = _read_batch_summary(self.output_dir)
+        summary_packages = summary.get("packages", {}) if isinstance(summary, dict) else {}
+        summary_entry = summary_packages.get(pkg, {}) if isinstance(summary_packages, dict) else {}
+        pkg_dir = self.output_dir / pkg
+        state = {
+            "name": pkg,
+            "has_excerpts": (pkg_dir / "excerpts.jsonl").exists(),
+            "summary": summary_entry,
+            "run_metadata": _read_json_file(pkg_dir / "run_metadata.json") or {},
+            "stall_report": None,
+        }
+        report_path = pkg_dir / "STALL_REPORT.md"
+        if report_path.exists():
+            try:
+                state["stall_report"] = report_path.read_text(encoding="utf-8")
+            except OSError:
+                state["stall_report"] = None
+        self._json_response(state)
 
     def _api_post_feedback(self, pkg: str) -> None:
         """Append feedback entry to owner_feedback.jsonl."""
@@ -428,18 +486,18 @@ class ReviewHandler(SimpleHTTPRequestHandler):
 
 def main() -> None:
     if len(sys.argv) < 2:
-        print("Usage: python tools/review.py <output-dir>")
-        print("Example: python tools/review.py integration_tests/smoke_api/")
+        logger.error("Usage: python tools/review.py <output-dir>")
+        logger.error("Example: python tools/review.py integration_tests/smoke_api/")
         sys.exit(1)
 
     output_dir = Path(sys.argv[1]).resolve()
     if not output_dir.exists():
-        print(f"Error: {output_dir} does not exist")
+        logger.error("Error: %s does not exist", output_dir)
         sys.exit(1)
 
     viewer_html = Path(__file__).parent / "excerpt_viewer.html"
     if not viewer_html.exists():
-        print(f"Error: {viewer_html} not found")
+        logger.error("Error: %s not found", viewer_html)
         sys.exit(1)
 
     # Questionnaire dir is always integration_tests/questionnaire/ relative to repo root
@@ -447,8 +505,8 @@ def main() -> None:
     repo_root = Path(__file__).parent.parent
     questionnaire_dir = repo_root / "integration_tests" / "questionnaire"
     if not questionnaire_dir.exists():
-        print(f"Warning: questionnaire dir not found at {questionnaire_dir}")
-        print("Questionnaire and Comparison modes will not function.")
+        logger.warning("Warning: questionnaire dir not found at %s", questionnaire_dir)
+        logger.warning("Questionnaire and Comparison modes will not function.")
 
     ReviewHandler.output_dir = output_dir
     ReviewHandler.viewer_html = viewer_html
@@ -458,21 +516,21 @@ def main() -> None:
     server = HTTPServer(("127.0.0.1", port), ReviewHandler)
 
     url = f"http://127.0.0.1:{port}/"
-    print(f"KR Excerpt Reviewer")
-    print(f"  Output dir:       {output_dir}")
-    print(f"  Questionnaire:    {questionnaire_dir}")
-    print(f"  Viewer:           {url}")
-    print(f"  Feedback:         {{package}}/owner_feedback.jsonl")
-    print(f"  Q responses:      integration_tests/questionnaire/questionnaire_responses.jsonl")
-    print(f"  C responses:      integration_tests/questionnaire/comparison_responses.jsonl")
-    print(f"  Press Ctrl+C to stop\n")
+    logger.info("KR Excerpt Reviewer")
+    logger.info("  Output dir:       %s", output_dir)
+    logger.info("  Questionnaire:    %s", questionnaire_dir)
+    logger.info("  Viewer:           %s", url)
+    logger.info("  Feedback:         {package}/owner_feedback.jsonl")
+    logger.info("  Q responses:      integration_tests/questionnaire/questionnaire_responses.jsonl")
+    logger.info("  C responses:      integration_tests/questionnaire/comparison_responses.jsonl")
+    logger.info("  Press Ctrl+C to stop\n")
 
     webbrowser.open(url)
 
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print("\nStopped.")
+        logger.info("\nStopped.")
         server.server_close()
 
 

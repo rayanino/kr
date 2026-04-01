@@ -20,7 +20,6 @@ import os
 import shutil
 import subprocess
 import sys
-import tempfile
 import threading
 import time
 from pathlib import Path
@@ -362,6 +361,126 @@ def _persist_resume_marker(
         print(f"WARNING: Failed to persist resume marker in {meta_path}: {exc}")
 
 
+def _write_timeout_report(
+    pkg_output: Path,
+    *,
+    timeout_seconds: int,
+    elapsed_pkg: float,
+) -> None:
+    """Write a durable timeout report from whatever artifacts exist on disk."""
+    report_path = pkg_output / "STALL_REPORT.md"
+    progress_path = pkg_output / "progress.jsonl"
+    excerpts_path = pkg_output / "excerpts.jsonl"
+    timing_path = pkg_output / "timing.json"
+    processing_log_path = pkg_output / "processing_log.jsonl"
+    last_activity_path = pkg_output / "last_llm_activity.json"
+    meta = _read_json_file(pkg_output / "run_metadata.json") or {}
+    last_activity = _read_json_file(last_activity_path)
+
+    phase_counts: dict[tuple[str, str], int] = {}
+    last_entry: dict[str, Any] | None = None
+    total_entries = 0
+    if progress_path.exists():
+        try:
+            for raw in progress_path.read_text(encoding="utf-8").splitlines():
+                raw = raw.strip()
+                if not raw:
+                    continue
+                entry = json.loads(raw)
+                if not isinstance(entry, dict):
+                    continue
+                total_entries += 1
+                phase = str(entry.get("phase", "unknown"))
+                status = str(entry.get("status", "unknown"))
+                phase_counts[(phase, status)] = phase_counts.get((phase, status), 0) + 1
+                last_entry = entry
+        except (OSError, json.JSONDecodeError):
+            pass
+
+    def _latest_file_info(subdir: str) -> str:
+        root = pkg_output / subdir
+        if not root.is_dir():
+            return "none"
+        files = [p for p in root.glob("*.json") if p.is_file()]
+        if not files:
+            return "none"
+        latest = max(files, key=lambda p: p.stat().st_mtime)
+        ts = datetime.datetime.fromtimestamp(
+            latest.stat().st_mtime,
+            datetime.timezone.utc,
+        ).isoformat().replace("+00:00", "Z")
+        return f"{latest.name} @ {ts}"
+
+    lines = [
+        "# Timeout Report",
+        "",
+        f"- Timeout marker: `batch_timeout: exceeded {timeout_seconds}s in batch runner`",
+        f"- Elapsed seconds: `{round(elapsed_pkg, 2)}`",
+        f"- `excerpts.jsonl` present: `{excerpts_path.exists()}`",
+        f"- `processing_log.jsonl` present: `{processing_log_path.exists()}`",
+        f"- `timing.json` present: `{timing_path.exists()}`",
+        "",
+        "## run_metadata.json",
+        "",
+        "```json",
+        json.dumps(meta, ensure_ascii=False, indent=2),
+        "```",
+        "",
+        "## Progress Snapshot",
+        "",
+        f"- Total progress entries: `{total_entries}`",
+    ]
+
+    if last_entry is not None:
+        lines.extend([
+            "- Last progress entry:",
+            "",
+            "```json",
+            json.dumps(last_entry, ensure_ascii=False),
+            "```",
+        ])
+
+    if phase_counts:
+        lines.extend([
+            "",
+            "- Phase/status counts:",
+        ])
+        for (phase, status), count in sorted(phase_counts.items()):
+            lines.append(f"  - `{phase}` / `{status}`: `{count}`")
+
+    lines.extend([
+        "",
+        "## Raw Trace Tail",
+        "",
+        f"- `last_llm_activity.json` present: `{last_activity_path.exists()}`",
+        f"- Latest request file: `{_latest_file_info('raw_llm_requests')}`",
+        f"- Latest response file: `{_latest_file_info('raw_llm_responses')}`",
+    ])
+
+    if isinstance(last_activity, dict) and last_activity:
+        lines.extend([
+            "",
+            "## Last LLM Activity",
+            "",
+            "```json",
+            json.dumps(last_activity, ensure_ascii=False, indent=2),
+            "```",
+        ])
+
+    lines.extend([
+        "",
+        "## Note",
+        "",
+        "- This report is written by the batch runner after killing a timed-out package subprocess.",
+        "- Missing `processing_log.jsonl`, `timing.json`, or `excerpts.jsonl` usually means the child process never reached the output-writing block.",
+    ])
+
+    try:
+        report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    except OSError as exc:
+        print(f"WARNING: Failed to write timeout report {report_path}: {exc}")
+
+
 def _terminate_process_tree(proc: subprocess.Popen[Any]) -> None:
     """Terminate a runner subprocess and its descendants."""
     if proc.poll() is not None:
@@ -630,6 +749,11 @@ def _run_single_package(
         _persist_resume_marker(
             pkg_output,
             fallback_error=marker,
+            elapsed_pkg=elapsed_pkg,
+        )
+        _write_timeout_report(
+            pkg_output,
+            timeout_seconds=per_package_timeout,
             elapsed_pkg=elapsed_pkg,
         )
         pkg_result = _build_package_result(
