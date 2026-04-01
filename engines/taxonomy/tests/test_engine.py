@@ -13,7 +13,6 @@ from pathlib import Path
 import pytest
 
 from engines.taxonomy.contracts_core import (
-    PlacementRoute,
     RunConfig,
 )
 from engines.taxonomy.src.engine import TaxonomyEngineError, _EXPECTED_FIELDS, run
@@ -21,7 +20,6 @@ from engines.taxonomy.tests.conftest import (
     MockPlacementAdapter,
     make_excerpt,
     make_ranking,
-    make_run_config,
 )
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -202,15 +200,16 @@ class TestInputValidation:
         assert report.total_excerpts == 2
         assert report.unplaced_count == 1
 
-    def test_empty_excerpt_topic_skips(self, tmp_path: Path) -> None:
-        exc = make_excerpt(excerpt_topic=[])
+    def test_empty_excerpt_topic_without_flag_skips(self, tmp_path: Path) -> None:
+        """Empty topics without llm_enrichment_failed flag → rejected."""
+        exc = make_excerpt(excerpt_topic=[], review_flags=[])
         jsonl = tmp_path / "input.jsonl"
         _write_excerpts_jsonl(jsonl, [exc])
 
         config = RunConfig(
             science_id="aqidah",
             input_path=str(jsonl),
-            batch_id="test_empty_topic",
+            batch_id="test_empty_topic_no_flag",
         )
         report = run(
             config,
@@ -220,6 +219,64 @@ class TestInputValidation:
         )
 
         assert report.total_excerpts == 1  # Rejected but still counted as input
+
+    def test_empty_excerpt_topic_with_enrichment_failed_accepted(
+        self, tmp_path: Path,
+    ) -> None:
+        """Empty topics + llm_enrichment_failed flag → accepted (degraded placement)."""
+        exc = make_excerpt(
+            excerpt_topic=[],
+            review_flags=["llm_enrichment_failed"],
+        )
+        jsonl = tmp_path / "input.jsonl"
+        _write_excerpts_jsonl(jsonl, [exc])
+
+        config = RunConfig(
+            science_id="aqidah",
+            input_path=str(jsonl),
+            batch_id="test_empty_topic_with_flag",
+        )
+        report = run(
+            config,
+            adapter=None,
+            registry_path=_REGISTRY_PATH,
+            base_path=tmp_path,
+        )
+
+        assert report.total_excerpts == 1
+        # NOT rejected — reaches a placement route (unplaced with stub adapter)
+        placed_or_routed = (
+            report.placed_count
+            + report.staged_count
+            + report.unplaced_count
+            + report.pending_no_tree_count
+        )
+        assert placed_or_routed == 1, "Excerpt should reach a placement route, not be rejected"
+
+    def test_empty_excerpt_topic_with_unrelated_flag_skips(
+        self, tmp_path: Path,
+    ) -> None:
+        """Empty topics + unrelated flag → rejected (only llm_enrichment_failed allows it)."""
+        exc = make_excerpt(
+            excerpt_topic=[],
+            review_flags=["some_other_flag"],
+        )
+        jsonl = tmp_path / "input.jsonl"
+        _write_excerpts_jsonl(jsonl, [exc])
+
+        config = RunConfig(
+            science_id="aqidah",
+            input_path=str(jsonl),
+            batch_id="test_empty_topic_wrong_flag",
+        )
+        report = run(
+            config,
+            adapter=None,
+            registry_path=_REGISTRY_PATH,
+            base_path=tmp_path,
+        )
+
+        assert report.total_excerpts == 1  # Rejected but still counted
 
     def test_empty_jsonl_produces_empty_report(self, tmp_path: Path) -> None:
         jsonl = tmp_path / "empty.jsonl"

@@ -43,7 +43,8 @@ from engines.taxonomy.src.writer import (
 logger = logging.getLogger(__name__)
 
 # SPEC §2.1 — Required fields (rejection on absence)
-_REQUIRED_FIELDS = ("excerpt_id", "source_id", "primary_text", "excerpt_topic")
+# NOTE: excerpt_topic validated separately with review_flags context — see _process_excerpt
+_REQUIRED_FIELDS = ("excerpt_id", "source_id", "primary_text")
 
 # SPEC §2.1 — Expected fields (warning on absence)
 _EXPECTED_FIELDS = (
@@ -227,14 +228,23 @@ def _process_excerpt(
         )
         return None
 
-    # Check excerpt_topic is a non-empty list
+    # Check excerpt_topic is a non-empty list (unless llm_enrichment_failed)
     topics = excerpt.get("excerpt_topic")
     if not isinstance(topics, list) or len(topics) == 0:
-        logger.error(
-            "TAX_MISSING_REQUIRED_FIELD: excerpt %s has empty/invalid excerpt_topic — skipped",
-            excerpt_id,
-        )
-        return None
+        review_flags = excerpt.get("review_flags", [])
+        if "llm_enrichment_failed" in review_flags:
+            logger.warning(
+                "TAX_EMPTY_TOPIC_FALLBACK: excerpt %s has empty excerpt_topic"
+                " but llm_enrichment_failed flag present — proceeding",
+                excerpt_id,
+            )
+        else:
+            logger.error(
+                "TAX_MISSING_REQUIRED_FIELD: excerpt %s has empty/invalid"
+                " excerpt_topic — skipped",
+                excerpt_id,
+            )
+            return None
 
     # Warn on missing expected fields (key absent, not key-present-but-null)
     for field in _EXPECTED_FIELDS:

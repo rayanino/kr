@@ -323,25 +323,24 @@ class TestWriteProcessingLog:
 
 
 # ═══════════════════════════════════════════════════════════════════
-# BUG-003: Double ZWNJ stripping in output
+# ZWNJ preservation: primary_text is never modified (F-DET-2 §7.1)
 # ═══════════════════════════════════════════════════════════════════
 
 
-class TestDoubleZwnjStripping:
-    """BUG-003: Consecutive ZWNJs stripped from primary_text at output."""
+class TestZwnjPreservation:
+    """Primary text passes through writer byte-identical (contract: never modified)."""
 
-    def test_double_zwnj_stripped(self, tmp_path: Path) -> None:
-        """Double ZWNJ at start of text is stripped."""
-        exc = _make_excerpt_record(
-            primary_text="\u200c\u200cحروف الجر\nهاك حروف الجر",
-        )
+    def test_double_zwnj_preserved(self, tmp_path: Path) -> None:
+        """Double ZWNJ (heading marker, 9.5% of Shamela corpus) is preserved."""
+        original = "\u200c\u200cحروف الجر\nهاك حروف الجر"
+        exc = _make_excerpt_record(primary_text=original)
         path = write_excerpts([exc], tmp_path)
         data = json.loads(path.read_text(encoding="utf-8").strip())
-        assert "\u200c\u200c" not in data["primary_text"]
-        assert data["primary_text"].startswith("حروف الجر")
+        assert data["primary_text"] == original
+        assert data["primary_text"].startswith("\u200c\u200c")
 
     def test_single_zwnj_preserved(self, tmp_path: Path) -> None:
-        """Single ZWNJ is NOT stripped (may be valid in ligature context)."""
+        """Single ZWNJ is preserved (valid in ligature context)."""
         exc = _make_excerpt_record(
             primary_text="كلمة\u200cأخرى",
         )
@@ -349,19 +348,29 @@ class TestDoubleZwnjStripping:
         data = json.loads(path.read_text(encoding="utf-8").strip())
         assert "\u200c" in data["primary_text"]
 
-    def test_triple_zwnj_stripped(self, tmp_path: Path) -> None:
-        """Triple ZWNJ is also stripped (2+ consecutive)."""
-        exc = _make_excerpt_record(
-            primary_text="text\u200c\u200c\u200cmore",
-        )
+    def test_triple_zwnj_preserved(self, tmp_path: Path) -> None:
+        """Triple ZWNJ is preserved (source data, not an artifact)."""
+        original = "text\u200c\u200c\u200cmore"
+        exc = _make_excerpt_record(primary_text=original)
         path = write_excerpts([exc], tmp_path)
         data = json.loads(path.read_text(encoding="utf-8").strip())
-        assert "\u200c\u200c" not in data["primary_text"]
-        assert data["primary_text"] == "textmore"
+        assert data["primary_text"] == original
 
     def test_no_zwnj_unchanged(self, tmp_path: Path) -> None:
         """Text without ZWNJ passes through unchanged."""
         original = "باب الإضافة وأحكامها"
+        exc = _make_excerpt_record(primary_text=original)
+        path = write_excerpts([exc], tmp_path)
+        data = json.loads(path.read_text(encoding="utf-8").strip())
+        assert data["primary_text"] == original
+
+    def test_primary_text_byte_identical_through_writer(self, tmp_path: Path) -> None:
+        """Regression gate: primary_text survives writer byte-identical."""
+        original = (
+            "\u200c\u200cباب حروف الجرِّ\n"
+            "كلمة\u200cأخرى مع\u200c\u200c\u200cثلاثة\n"
+            "نصٌّ عربيٌّ مُشَكَّلٌ بالكامل"
+        )
         exc = _make_excerpt_record(primary_text=original)
         path = write_excerpts([exc], tmp_path)
         data = json.loads(path.read_text(encoding="utf-8").strip())

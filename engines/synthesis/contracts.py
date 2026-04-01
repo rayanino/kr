@@ -145,7 +145,65 @@ class GapType(str, Enum):
 
 
 # ──────────────────────────────────────────────────────────────────
-# Input Contract Models (SPEC §2)
+# Input Contract: Placed Excerpts from Taxonomy (SPEC §2.1)
+# ──────────────────────────────────────────────────────────────────
+
+
+class TaxonomyPlacedExcerpt(BaseModel):
+    """A placed excerpt as actually produced by taxonomy runtime.
+
+    Matches the shape written by taxonomy/src/writer.py:
+    ``{**original_excerpt, **PlacementAdditions.model_dump()}``.
+
+    Per-excerpt JSON file at:
+      library/sciences/{science_id}/content/{leaf_path}/excerpts/{excerpt_id}.json
+
+    All upstream excerpt fields are preserved verbatim (D-023).
+    Taxonomy PlacementAdditions fields are merged on top.
+    """
+    # Required from upstream (excerpting engine)
+    excerpt_id: str
+    source_id: str
+    primary_text: str = Field(
+        description="Non-empty. Never modified after extraction (F-DET-2)."
+    )
+
+    # Required from taxonomy placement
+    lifecycle_stage: str = Field(description="Must be 'placed' for synthesis input")
+    confirmed_leaf: str = Field(description="Leaf path in tree")
+    placement_route: str
+
+    # Pre-human-gate: defaults to "verified" when absent (SPEC §2.1)
+    verified_flagged_status: str = Field(
+        default="verified",
+        description="Defaults to 'verified' pre-human-gate. "
+        "Determines factual vs critical analysis layer.",
+    )
+
+    # Optional taxonomy additions
+    placement_confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+    placed_utc: Optional[str] = None
+    taxonomy_version_at_placement: Optional[str] = None
+    placement_reasoning: Optional[str] = None
+    primary_topic_used: Optional[str] = None
+    review_metadata: Optional[dict] = None
+    tie_detected: bool = False
+
+    # Expected from upstream (degraded synthesis on absence)
+    primary_function: Optional[str] = None
+    school: Optional[str] = None
+    school_confidence: Optional[float] = None
+    content_types: Optional[list[str]] = None
+    evidence_refs: Optional[list] = None
+    excerpt_topic: list[str] = Field(default_factory=list)
+    description_arabic: Optional[str] = None
+    primary_author_layer: Optional[dict] = None
+    quoted_scholars: Optional[list] = None
+    review_flags: list[str] = Field(default_factory=list)
+
+
+# ──────────────────────────────────────────────────────────────────
+# Input Contract: Lifecycle Signals (SPEC §2.3)
 # ──────────────────────────────────────────────────────────────────
 
 

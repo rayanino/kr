@@ -11,7 +11,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from pathlib import Path
 from typing import Optional
 
 from pydantic import BaseModel, Field
@@ -153,8 +152,15 @@ class PlacementRanking(BaseModel):
 class PlacementAdditions(BaseModel):
     """Fields the taxonomy engine ADDS to an excerpt at placement (SPEC §3.1).
 
-    All upstream fields are preserved verbatim (D-023). These are
-    the taxonomy-specific additions merged onto the original excerpt.
+    AUTHORITATIVE runtime contract. All upstream fields are preserved
+    verbatim (D-023). These are the taxonomy-specific additions merged
+    onto the original excerpt.
+
+    See also:
+    - contracts.py:PlacedExcerptAdditions (DEPRECATED full-SPEC version
+      with deferred fields like verified_flagged_status)
+    - synthesis/contracts.py:TaxonomyPlacedExcerpt (synthesis input model
+      matching this output shape)
     """
     lifecycle_stage: LifecycleStage
     placement_route: PlacementRoute

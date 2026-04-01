@@ -7,11 +7,12 @@ Codex does not get a separate truth system.
 Read in this order:
 
 1. `ACTIVE_AUTHORITY.md`
-2. `CLAUDE.md`
-3. `.kr/ACTIVE.md`
-4. `.kr/HANDOFF.md`
-5. `NEXT.md` when the work touches the active construction frontier
-6. the relevant engine `CLAUDE.md`
+2. `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md` during the April 9, 2026 to July 1, 2026 period
+3. `CLAUDE.md`
+4. `.kr/ACTIVE.md`
+5. `.kr/HANDOFF.md`
+6. `NEXT.md` when the work touches the active construction frontier
+7. the relevant engine `CLAUDE.md`
 
 ## Authority Lanes
 
@@ -38,7 +39,7 @@ Read in this order:
 - `MODE=integration`
   Run boundary checks plus an explicit bounded smoke command when one is safe and configured.
 - `MODE=all`
-  Infer the required checks from the changed paths.
+  Run the union of all required checks implied by the changed paths. When uncertain, run the more restrictive set rather than inferring a smaller one.
 
 ## Blocked Work Policy
 
@@ -52,4 +53,5 @@ The unattended runtime must never stop and wait for the owner.
 
 - Preferred host: WSL runtime clone.
 - Default pre-cutover mode: shadow, queue-only, no engine-code writes.
-- Default post-cutover mode: bounded auto-apply inside approved write prefixes after the quality gate passes.
+- Default post-cutover starting mode: `autonomous_codex + queue_only`.
+- During the April 9, 2026 to July 1, 2026 doctrine period, the canonical doctrine file controls cadence, degraded modes, budget, stop rules, and cutover gates.

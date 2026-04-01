@@ -154,10 +154,16 @@ class PlacementReviewMetadata(BaseModel):
 
 
 class PlacedExcerptAdditions(BaseModel):
-    """Fields the taxonomy engine ADDS to a draft excerpt at placement (SPEC §3.1).
+    """DEPRECATED: Not used by runtime code.
 
-    All upstream metadata is preserved by reference — the taxonomy engine
-    never strips upstream fields. These are the placement-specific additions.
+    The runtime uses contracts_core.py:PlacementAdditions, which contains
+    only CORE v1 fields. This model represents the full SPEC (including
+    deferred fields like verified_flagged_status that require human gate
+    implementation). When the human gate step is built, verified_flagged_status
+    will be added to contracts_core.py:PlacementAdditions.
+
+    See: engines/taxonomy/contracts_core.py:PlacementAdditions (authoritative)
+    See: engines/synthesis/contracts.py:TaxonomyPlacedExcerpt (synthesis input)
     """
     confirmed_leaf: str = Field(description="Actual leaf path. May differ from proposed_leaf.")
     placement_confidence: float = Field(ge=0.0, le=1.0)
@@ -250,7 +256,11 @@ class LeafCoverage(BaseModel):
     school_coverage: dict[str, int] = Field(default_factory=dict)
     evidence_type_coverage: dict[str, int] = Field(default_factory=dict)
     author_diversity: int = 0
-    temporal_span: TemporalSpan = Field(default_factory=TemporalSpan)
+    temporal_span: TemporalSpan = Field(
+        default_factory=lambda: TemporalSpan(
+            earliest_author_death=None, latest_author_death=None,
+        ),
+    )
     content_type_distribution: dict[str, int] = Field(default_factory=dict)
     gaps: list[CoverageGap] = Field(default_factory=list)
     significance_score: Optional[float] = Field(None, ge=0.0, le=1.0)

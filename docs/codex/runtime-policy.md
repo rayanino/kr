@@ -13,6 +13,22 @@
 - Canonical bootstrap entrypoint after that: `powershell -ExecutionPolicy Bypass -File scripts/overnight_codex_wsl_resume.ps1 -RunShadowRehearsal`
 - The PowerShell wrapper invokes `scripts/overnight_codex_wsl_bootstrap.sh` inside WSL, syncs the current Windows checkout into `~/kr-codex`, mirrors local Codex/Gemini/Claude auth where available, verifies required tools, and optionally runs the first queue-only shadow rehearsal.
 
+## Runtime Profiles
+
+The repo-local Codex config defines these profiles:
+
+- `kr_interactive`
+- `kr_shadow`
+- `kr_peer_review`
+- `kr_research`
+
+Recommended usage:
+
+- interactive local setup: `codex -p kr_interactive`
+- queue-only shadow work: `codex -p kr_shadow`
+- read-only review packets: `codex -p kr_peer_review`
+- docs or web verification: `codex -p kr_research`
+
 ## Runtime Modes
 
 ### `shadow_setup`
@@ -27,12 +43,9 @@
 
 - Codex is the active authority.
 - Guarded-write tasks must come from pre-approved backlog items. Same-run discovery must not generate same-run implementation.
-- The runtime may auto-apply bounded changes only when:
-  - the runtime clone is clean at launch
-  - baseline tests pass
-  - the changed files stay inside the task allowlist
-  - the shared quality gate passes
-- If any condition fails, queue the patch or skip the task and continue.
+- The runtime starts in `queue_only` even after cutover.
+- Promotion beyond `queue_only` is governed by `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md`.
+- During the doctrine period, engine-source auto-apply remains out of scope.
 
 ## Owner Interaction
 
@@ -46,16 +59,39 @@ The unattended runtime must never edit:
 - `.claude/`
 - `CLAUDE.md`
 - `NEXT.md`
+- `ACTIVE_AUTHORITY.md`
+- `.kr/ACTIVE.md`
+- `.kr/HANDOFF.md`
+- `.kr/DECISIONS.md`
+- `.kr/*.md`
+- `.kr/codex_write_prefixes.txt`
+- the repo-local Codex control-plane directory when restored (`.codex/`)
+- `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md`
+- `docs/codex/operating-model.md`
+- `docs/codex/runtime-policy.md`
+- `docs/codex/coworker-policy.md`
+- `docs/codex/shadow-24x7-runbook.md`
+- `docs/codex/backend-proof-status.md`
 - `docs/superpowers/`
-- architect-facing planning files
+- `reference/GOVERNANCE.md`
+- `scripts/overnight_codex_orchestrator.py`
+- `scripts/overnight_codex_wsl_bootstrap.sh`
+- `scripts/overnight_codex_wsl_resume.ps1`
+- `scripts/run_overnight_codex_shadow_loop.ps1`
+- `scripts/check_codex_kr_setup.py`
+- `scripts/check_runtime_cli_auth.py`
+- `scripts/quality_gate.py`
+
+Protected-area enforcement must be synchronous. It must block the write before a commit or apply completes rather than relying on a later audit cycle.
 
 ## Startup Checklist
 
 1. Confirm `ACTIVE_AUTHORITY.md`.
 2. Confirm runtime mode.
-3. Verify Codex CLI, Python, pytest, and git are available.
-4. Run preflight.
-5. Start `overnight_codex`.
+3. Run the setup audit from the canonical host.
+4. Verify Codex CLI, Python, pytest, and git are available.
+5. Run preflight.
+6. Start `overnight_codex`.
 
 ## Shutdown Artifacts
 
@@ -66,3 +102,21 @@ Every unattended run must leave:
 - `overnight_codex/progress.md`
 - `overnight_codex/MORNING_REPORT.md`
 - queued patches or explicit blockers for anything unresolved
+
+## Daily Report Contract
+
+During the April 9, 2026 to July 1, 2026 doctrine period:
+
+- the single source of truth is `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md`
+- the owner gets one frozen daily `MORNING_REPORT.md`
+- default on silence is `defer_and_continue`, which means the item stays blocked and the runtime proceeds only to unrelated work
+
+## Degraded Modes
+
+- authority mode and health state are separate dimensions
+- `full`: Codex, Claude Code, and Gemini healthy
+- `reduced`: Codex plus exactly one peer coworker healthy; no gate promotion and no auto-apply
+- `solo`: Codex only; read-only audits, report generation, state repair, and backlog shaping only
+- `halted`: Codex unavailable, setup/parity failure, protected-area violation, or repeated rollback/circuit-breaker trigger
+
+Exact degraded-mode behavior is defined by `docs/codex/autonomous-doctrine-2026-04-09-to-2026-07-01.md`.

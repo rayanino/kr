@@ -51,3 +51,12 @@ That launches the safest valid rehearsal for the current authority state:
 - `runtime_mode: shadow_setup`
 - queue-only behavior
 - one bounded read-only task: `val-contracts`
+
+## KR Profiles
+
+Recommended Codex profiles once the WSL clone is healthy:
+
+- `codex -p kr_interactive`
+- `codex -p kr_shadow`
+- `codex -p kr_peer_review`
+- `codex -p kr_research`
