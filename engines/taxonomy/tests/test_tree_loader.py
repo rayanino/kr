@@ -58,7 +58,7 @@ class TestDetectYamlFormat:
 
 class TestNormalizeV1:
     def test_nahw_leaf_count(self, nahw_tree: LoadedTree) -> None:
-        assert nahw_tree.leaf_count == 226
+        assert nahw_tree.leaf_count == 183
 
     def test_sarf_leaf_count(self, all_trees: dict[str, LoadedTree]) -> None:
         assert all_trees["sarf"].leaf_count == 226
@@ -70,14 +70,14 @@ class TestNormalizeV1:
         assert all_trees["imlaa"].leaf_count == 105
 
     def test_nahw_version(self, nahw_tree: LoadedTree) -> None:
-        assert nahw_tree.tree_version == "nahw_v1_0"
+        assert nahw_tree.tree_version == "nahw_v2_0"
 
     def test_nahw_display_name(self, nahw_tree: LoadedTree) -> None:
         assert nahw_tree.display_name_ar == "علم النحو"
 
     def test_nahw_known_leaf_path(self, nahw_tree: LoadedTree) -> None:
         """Verify a known leaf exists at the expected path."""
-        assert "muqaddimat/ta3rif_alnahw/ta3rif_alnahw_lugha" in nahw_tree.leaf_by_path
+        assert "mabadi_al_nahw_wa_ahkam_al_irab/al_kalam_wa_al_kalima_wa_aqsamuha/aqsam_al_kalima" in nahw_tree.leaf_by_path
 
     def test_leaf_path_uses_slash_separator(self, nahw_tree: LoadedTree) -> None:
         for leaf in nahw_tree.all_leaves:
@@ -91,8 +91,8 @@ class TestNormalizeV1:
         assert len(paths) == len(set(paths))
 
     def test_leaf_has_parent_title(self, nahw_tree: LoadedTree) -> None:
-        leaf = nahw_tree.leaf_by_path["muqaddimat/ta3rif_alnahw/ta3rif_alnahw_lugha"]
-        assert leaf.parent_title == "تعريف النحو وموضوعه وغايته"
+        leaf = nahw_tree.leaf_by_path["mabadi_al_nahw_wa_ahkam_al_irab/al_kalam_wa_al_kalima_wa_aqsamuha/aqsam_al_kalima"]
+        assert leaf.parent_title == "الكلام والكلمة وأقسامها"
 
 
 # ── v0 Normalization ──────────────────────────────────────────────
@@ -215,7 +215,7 @@ class TestLoadTree:
 class TestBranchLeafViews:
     def test_branch_view_contains_arabic(self, nahw_tree: LoadedTree) -> None:
         view = build_branch_view(nahw_tree.root_nodes)
-        assert "مقدمات" in view
+        assert "مبادئ" in view
         assert "Branch:" in view
 
     def test_branch_view_has_root_nodes(self, nahw_tree: LoadedTree) -> None:

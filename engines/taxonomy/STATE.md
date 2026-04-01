@@ -1,7 +1,7 @@
-# Taxonomy Engine — Current State (2026-03-31)
+# Taxonomy Engine — Current State (2026-04-01)
 
 > **Read this file at the start of every taxonomy-related session.**
-> It captures the full state of the taxonomy engine work as of commit `97747d00`.
+> It captures the full state of the taxonomy engine work.
 
 ## Session 2 blocker status
 
@@ -10,75 +10,81 @@
 All 6 fixes (F-1, F-3, F-4, F-6, F-7, F-8) implemented by CC in commit `635cae0b`.
 Reviewed and ACCEPTED by architect. 145 tests passing (baseline was 119).
 
-### Blocker 2: Gate G3 — Tree validation — ⏳ MERGE IN PROGRESS
+### Blocker 2: Gate G3 — Tree validation — ✅ CLEARED (2026-04-01)
 
-**Phase 1 (architect synthesis) COMPLETE.** Draft tree at `reference/research/nahw_v2_0_draft.yaml` — 146 leaves, 9 branches, functional grouping. Produced via 11-step methodology with cross-stream confidence scoring. All supporting artifacts committed:
-- `reference/research/nahw_v2_leaf_inventory.md` — per-leaf reasoning and confidence ratings
-- `reference/research/nahw_v2_0_draft.yaml` — the draft YAML tree
+**Nahw v2.0 validated and installed.** 183 leaves, 9 L1 branches, 56 L2 topics.
 
-**ChatGPT Pro independent synthesis:** Was given a 24-step parallel synthesis prompt (`reference/research/chatgpt_synthesis_prompt.md`). May or may not be complete. Owner will paste output when ready.
+**Process completed:**
+1. Phase 1 (architect synthesis): 146-leaf draft from 4-researcher inputs
+2. Phase 2 (ChatGPT comparison): 173-leaf merged tree + 182-leaf independent synthesis
+3. Phase 3 (Fresh Claude adversarial review): NOT READY verdict with 3 blocking findings
+4. Finding resolution: 3 fixes applied (F-1 renames, F-3 metadata, F-5 new leaf)
+5. Quality gates: ALL 14 gates PASS (M-1 through M-8, S-1 through S-6)
+6. Post-validation: old tree archived, new tree installed, registry updated, tests pass (146)
 
-**Prompts hardened (commit `9f6a7432`):** Both merge-process prompts were rewritten in a fresh session after adversarial analysis found 10 significant gaps in each:
-- `reference/research/chatgpt_comparison_prompt.md` — for ChatGPT to compare both trees
-- `reference/research/fresh_claude_review_prompt.md` — for Fresh Claude adversarial review
+**Decision log:**
+- Base tree: ChatGPT's 182-leaf synthesis (NOT the 173-leaf comparison), because Fresh Claude reviewed it with 40+ tool calls
+- F-1: 3 _nizaman leaves renamed using comparison tree's scholarly terms (web-verified)
+- F-3: language/policy/id_policy metadata added from v1.0 (engine doesn't consume them yet; forward-compatible)
+- F-5: law/lawla/lawma/amma leaf added (9/302 books in corpus; non-jazm conditionals were missing)
+- F-2 (non-blocking): 2 single-child nodes documented as intentional structural choice
 
-**Taxonomy Tree Protocol written (commit `97747d00`):** Permanent governance doc at `reference/protocols/TAXONOMY_TREE_PROTOCOL.md`. Covers the entire 4-researcher → 3-phase merge → quality gates process. Will be reused for the remaining 4 sciences.
+**Key files:**
+- Active tree: `library/sciences/nahw/tree.yaml` (v2.0, 183 leaves)
+- Archived tree: `library/sciences/nahw/tree_history/nahw_v1_0.yaml` (v1.0, 226 leaves)
+- Final tree source: `reference/research/nahw_v2_0_final.yaml`
+- Fresh Claude review: `reference/research/fresh_claude_nahw_review.md`
+- ChatGPT synthesis: `reference/research/chatgpt_nahw_v2_synthesis.yaml`
+- ChatGPT comparison: `reference/research/chatgpt_nahw_comparison.yaml`
 
-### Remaining steps to clear G3 (exact sequence)
+## Session 2 — UNBLOCKED
 
-The NEXT session that handles the merge must follow this sequence:
+Both blockers cleared. Session 2 (LLM placement engine build) can proceed.
+The deferred NEXT.md is at `reference/archive/NEXT_taxonomy_session2_deferred.md` — needs updating with v2.0 tree references before use.
 
-1. **Check if ChatGPT's synthesis is available.** If yes, proceed. If not, wait — the dual-provider merge requires both trees.
+## Outstanding items
 
-2. **Fire the comparison prompt.** In the SAME ChatGPT conversation (so it retains synthesis context), paste the text of `reference/research/chatgpt_comparison_prompt.md`. ChatGPT's regular chat mode cannot access the repo, so **upload these 5 files** alongside the prompt:
-   - `reference/research/nahw_v2_0_draft.yaml` (the architect's draft tree)
-   - `reference/research/nahw_v2_leaf_inventory.md` (per-leaf reasoning)
-   - `reference/research/codex_nahw_topic_frequency.json` (302-book corpus frequency)
-   - `reference/research/codex_nahw_corpus_gaps.md` (399 uncaptured topics)
-   - `reference/research/codex_nahw_content_analysis.md` (sub-topic analysis)
-   
-   Say "continue" after each of ChatGPT's 8 steps. ChatGPT produces a merged recommended tree.
+### Gold baseline — INVALID, needs regeneration
 
-3. **Fire the review prompt.** Open a NEW Fresh Claude Opus chat. Paste `reference/research/fresh_claude_review_prompt.md` with the merged tree from step 2. Fresh Claude conducts 8 adversarial checks and delivers READY/NOT READY.
+`engines/taxonomy/tests/fixtures/gold_baseline_nahw.yaml` references v1.0 leaf paths that don't exist in v2.0. CC must regenerate by running the placement engine on known excerpts against the new tree. Include in the Session 2 NEXT.md.
 
-4. **If READY:** The architect (in a fresh session) incorporates any minor findings, runs all quality gates from `reference/protocols/TAXONOMY_TREE_PROTOCOL.md` §9, then executes post-validation steps from §11 (archive old tree, install new tree, update registry, flag gold baseline for regeneration, run regression tests).
+### Other 4 science trees — unvalidated
 
-5. **If NOT READY:** Fix all blocking findings. Re-run Phase 3 with a NEW Fresh Claude instance (the original has lost its "fresh eyes" advantage). Repeat until READY.
+sarf (226 leaves), balagha (335 leaves), aqidah (30 leaves), imlaa (105 leaves) all need the same validation process. Follow `reference/protocols/TAXONOMY_TREE_PROTOCOL.md`. Prioritize sarf (closest to nahw, likely the most structural work needed).
 
-6. **Commit:** `taxonomy: validated nahw tree v2.0 (4-researcher synthesis, 302 books)`
+### Stale review artifacts
 
-7. **Update this file:** Mark G3 as CLEARED. Update downstream impacts section.
+- `reference/archive/review_probes/taxonomy_session1_probes.py` references nonexistent modules
+- `reference/archive/NEXT_taxonomy_session2_deferred.md` needs v2.0 tree refs
 
-### Researcher outputs (all in `reference/research/`)
+## Researcher outputs (all in `reference/research/`)
 
 | Researcher | Type | File | Leaves |
 |---|---|---|---|
 | ChatGPT Pro | Knowledge-based | `chatgpt_nahw_taxonomy.yaml` | 178 |
+| ChatGPT Pro | Independent synthesis | `chatgpt_nahw_v2_synthesis.yaml` | 182 |
+| ChatGPT Pro | Comparison merge | `chatgpt_nahw_comparison.yaml` | 173 |
 | Fresh Claude Opus | Knowledge-based | `claudechat_nahw_taxonomy.yaml` | 93 |
+| Fresh Claude Opus | Adversarial review | `fresh_claude_nahw_review.md` | — |
 | CC (heading analysis) | Corpus-based (302 books) | `codex_nahw_corpus_tree.yaml` | 82 |
 | Codex (content analysis) | Corpus-based (3 books deep) | `codex_nahw_content_analysis.md` | 587 max |
-| **Architect synthesis** | **Merged draft** | **`nahw_v2_0_draft.yaml`** | **146** |
+| **Architect synthesis** | **Draft** | **`nahw_v2_0_draft.yaml`** | **146** |
+| **Final (validated)** | **Installed** | **`nahw_v2_0_final.yaml`** | **183** |
 
-Additional data: `codex_nahw_topic_frequency.json`, `codex_nahw_corpus_gaps.md` (399 uncaptured topics), `chatgpt_nahw_justification_table.md`, `claude_nahw_topic_frequency.json`, heading/hierarchy/books JSONs.
+## Test state
 
-## Downstream impacts (handle AFTER G3 clears)
-
-- **Gold baseline invalidated:** Must be regenerated against new tree. Create CC task.
-- **Session 2 NEXT.md outdated:** `reference/archive/NEXT_taxonomy_session2_deferred.md` needs new tree refs.
-- **Review probes stale:** `reference/archive/review_probes/taxonomy_session1_probes.py` references nonexistent modules.
-- **Other 4 science trees unvalidated:** sarf (226 leaves), balagha (335 leaves), aqidah (30 leaves), imlaa (105 leaves) all need the same validation process. Follow `reference/protocols/TAXONOMY_TREE_PROTOCOL.md`.
+146 tests passing. Tests updated to reference v2.0 tree structure:
+- `test_tree_loader.py`: version, leaf count, known paths updated
+- `test_validator.py`: valid/branch paths updated
+- `test_routing.py`: nahw now skips Stage 1 (183 <= 200); balagha used for large-tree test
+- `conftest.py`: docstring updated
 
 ## Key files
 
 | File | Purpose |
 |------|---------|
-| `reference/protocols/TAXONOMY_TREE_PROTOCOL.md` | **GOVERNING** — mandatory process for all tree validation. Start here for the merge. |
-| `reference/research/chatgpt_comparison_prompt.md` | Hardened prompt for Phase 2 (ChatGPT comparison). Upload 5 files with it. |
-| `reference/research/fresh_claude_review_prompt.md` | Hardened prompt for Phase 3 (Fresh Claude review). Fresh Claude clones repo itself. |
-| `reference/research/nahw_v2_0_draft.yaml` | Architect's draft tree (Phase 1 output, 146 leaves) |
-| `reference/research/nahw_v2_leaf_inventory.md` | Per-leaf reasoning for the draft |
-| `reference/handoffs/nahw_tree_synthesis_session.md` | HISTORICAL — guided Steps 1–9. Superseded by protocol for remaining steps. |
+| `reference/protocols/TAXONOMY_TREE_PROTOCOL.md` | **GOVERNING** — mandatory process for all tree validation |
+| `library/sciences/nahw/tree.yaml` | Active validated nahw tree (v2.0, 183 leaves) |
+| `library/sciences/taxonomy_registry.yaml` | Tree version registry |
 | `engines/taxonomy/SPEC.md` | Authoritative specification |
 | `reference/GOVERNANCE.md` | Review team rules |
-| `library/sciences/nahw/tree.yaml` | Current UNVALIDATED tree (to be replaced) |
-| `library/sciences/taxonomy_registry.yaml` | Tree version registry |

@@ -36,7 +36,7 @@ _ARABIC_WITH_MIXED_SCRIPT = (
 
 class TestValidatePlacement:
     def test_valid_leaf_returns_true(self, nahw_tree: LoadedTree) -> None:
-        valid_path = "muqaddimat/ta3rif_alnahw/ta3rif_alnahw_lugha"
+        valid_path = "mabadi_al_nahw_wa_ahkam_al_irab/al_kalam_wa_al_kalima_wa_aqsamuha/aqsam_al_kalima"
         assert validate_placement(valid_path, nahw_tree) is True
 
     def test_nonexistent_path_returns_false(self, nahw_tree: LoadedTree) -> None:
@@ -44,7 +44,7 @@ class TestValidatePlacement:
 
     def test_branch_path_returns_false(self, nahw_tree: LoadedTree) -> None:
         """Branch nodes are not valid placement targets."""
-        assert validate_placement("muqaddimat", nahw_tree) is False
+        assert validate_placement("mabadi_al_nahw_wa_ahkam_al_irab", nahw_tree) is False
 
     def test_empty_string_returns_false(self, nahw_tree: LoadedTree) -> None:
         assert validate_placement("", nahw_tree) is False

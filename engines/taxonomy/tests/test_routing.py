@@ -226,8 +226,11 @@ class TestShouldSkipStage1:
     def test_small_tree_skips(self, aqidah_tree: LoadedTree) -> None:
         assert _should_skip_stage1(aqidah_tree) is True  # 30 ≤ 200
 
-    def test_large_tree_uses_stage1(self, nahw_tree: LoadedTree) -> None:
-        assert _should_skip_stage1(nahw_tree) is False  # 226 > 200
+    def test_large_tree_uses_stage1(self, all_trees: dict[str, LoadedTree]) -> None:
+        assert _should_skip_stage1(all_trees["balagha"]) is False  # 335 > 200
+
+    def test_nahw_v2_skips_stage1(self, nahw_tree: LoadedTree) -> None:
+        assert _should_skip_stage1(nahw_tree) is True  # 183 ≤ 200
 
     def test_imlaa_skips(self, all_trees: dict[str, LoadedTree]) -> None:
         assert _should_skip_stage1(all_trees["imlaa"]) is True  # 105 ≤ 200

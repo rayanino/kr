@@ -187,7 +187,7 @@ class MockPlacementAdapter:
 
 @pytest.fixture
 def nahw_tree() -> LoadedTree:
-    """Load the real nahw science tree (v1 format, 226 leaves)."""
+    """Load the real nahw science tree (v1 format, 183 leaves, v2.0)."""
     return load_tree("nahw", _REGISTRY_PATH)
 
 

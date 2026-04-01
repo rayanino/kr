@@ -28,9 +28,18 @@ sciences:
   display_name_ar: النحو
   versions:
   - taxonomy_version: nahw_v1_0
+    relpath: nahw/tree_history/nahw_v1_0.yaml
+    status: historical
+    notes: Original unvalidated nahw tree (226 leaves, 12 branches, placement-safe but not scholarly-validated).
+  - taxonomy_version: nahw_v2_0
     relpath: nahw/tree.yaml
     status: active
-    notes: Base superset taxonomy for nahw (granular, placement-safe).
+    notes: >
+      Validated nahw tree (183 leaves, 9 branches).
+      4-researcher synthesis (2 knowledge + 2 corpus, 302 books, 70001 headings),
+      dual-provider merge (architect + ChatGPT), adversarial review (Fresh Claude Opus).
+      All 14 quality gates passed (TAXONOMY_TREE_PROTOCOL §9).
+      Date: 2026-04-01.
 - science_id: sarf
   display_name_ar: الصرف
   versions:
