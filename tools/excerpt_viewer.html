@@ -940,8 +940,11 @@ async function saveAndNext(){
     },
     review_meta:{source_file:currentPackage,excerpt_position:`${currentIndex+1}/${excerpts.length}`,reviewer:"owner"}
   };
-  feedback[ex.excerpt_id]=entry;
-  try{await fetch(`/api/feedback/${currentPackage}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(entry)})}catch(e){console.error("Save failed:",e)}
+  try{
+    const resp=await fetch(`/api/feedback/${currentPackage}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(entry)});
+    if(!resp.ok)throw new Error(`HTTP ${resp.status}`);
+    feedback[ex.excerpt_id]=entry;
+  }catch(e){console.error("Save failed:",e);return}
   if(currentIndex<excerpts.length-1){currentIndex++;render();renderList()}else{render();renderList()}
 }
 
@@ -1248,15 +1251,15 @@ async function qSave(){
     is_edge_case:item.is_edge_case,
   };
 
-  qResponses[item.id]=entry;
-  delete qDrafts[item.id];
-
   try{
-    await fetch("/api/questionnaire/response",{
+    const resp=await fetch("/api/questionnaire/response",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(entry)
     });
+    if(!resp.ok)throw new Error(`HTTP ${resp.status}`);
+    qResponses[item.id]=entry;
+    delete qDrafts[item.id];
     const btn=$("q-save-btn");
     const status=$("q-status");
     if(btn){btn.className="q-save-btn saved";btn.textContent="Saved \u2713"}
@@ -1427,14 +1430,14 @@ async function cmpSave(){
     after_excerpt_id:pair.after?.excerpt_id||null,
   };
 
-  cmpResponses[pair.pair_id]=entry;
-
   try{
-    await fetch("/api/comparison/response",{
+    const resp=await fetch("/api/comparison/response",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(entry)
     });
+    if(!resp.ok)throw new Error(`HTTP ${resp.status}`);
+    cmpResponses[pair.pair_id]=entry;
     const btn=$("cmp-save-btn");
     if(btn){btn.className="cmp-save-btn saved";btn.textContent="Saved \u2713"}
     // Auto-advance
